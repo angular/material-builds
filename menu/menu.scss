@@ -1,0 +1,44 @@
+// TODO(kara): update vars for desktop when MD team responds
+// TODO(kara): animation for menu opening
+
+@import '../core/style/button-common';
+@import '../core/style/layout-common';
+@import '../core/style/menu-common';
+@import '../core/a11y/a11y';
+
+$md-menu-vertical-padding: 8px !default;
+
+.md-menu-panel {
+  @include md-menu-base();
+  @include md-menu-positions();
+
+  // max height must be 100% of the viewport height + one row height
+  max-height: calc(100vh + 48px);
+
+  @include md-high-contrast {
+    outline: solid 1px;
+  }
+}
+
+.md-menu-content {
+  padding-top: $md-menu-vertical-padding;
+  padding-bottom: $md-menu-vertical-padding;
+}
+
+[md-menu-item] {
+  @include md-button-reset();
+  @include md-menu-item-base();
+  position: relative;
+}
+
+button[md-menu-item] {
+  width: 100%;
+}
+
+.md-menu-ripple {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}

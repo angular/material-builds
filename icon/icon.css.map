@@ -1,0 +1,1 @@
+{"version":3,"sources":["icon.css"],"names":[],"mappings":"AAAA;EACE,6BAA6B;EAC7B,sBAAsB;EACtB,mBAAmB;EACnB,aAAa;EACb,YAAY,EAAE","file":"icon.css","sourcesContent":["md-icon {\n  background-repeat: no-repeat;\n  display: inline-block;\n  fill: currentColor;\n  height: 24px;\n  width: 24px; }\n"]}

@@ -1,0 +1,91 @@
+@import '../core/style/list-common';
+
+
+// height of tile header or footer if it has one line
+$md-grid-list-one-line-height: 48px;
+// height of tile header or footer if it has two lines
+$md-grid-list-two-line-height: 68px;
+// side padding for text in tile headers and footers
+$md-grid-list-text-padding: 16px;
+
+// font styles for text in tile headers and footers
+$md-grid-list-font-size: 16px;
+$md-grid-list-secondary-font: 12px;
+
+md-grid-list {
+  display: block;
+  position: relative;
+}
+
+md-grid-tile {
+  display: block;
+  position: absolute;
+  overflow: hidden;
+
+  figure {
+    display: flex;
+    position: absolute;
+
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    padding: 0;
+    margin: 0;
+  }
+
+  // Headers & footers
+  md-grid-tile-header,
+  md-grid-tile-footer {
+    @include md-line-base($md-grid-list-secondary-font);
+    @include md-normalize-text();
+
+    display: flex;
+    align-items: center;
+    height: $md-grid-list-one-line-height;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.38);
+    overflow: hidden;
+    padding: 0 $md-grid-list-text-padding;
+    font-size: $md-grid-list-font-size;
+
+    // Positioning
+    position: absolute;
+    left: 0;
+    right: 0;
+
+    &.md-2-line {
+      height: $md-grid-list-two-line-height;
+    }
+  }
+
+  .md-grid-list-text {
+    @include md-line-wrapper-base();
+  }
+
+  md-grid-tile-header {
+    top: 0;
+  }
+
+  md-grid-tile-footer {
+    bottom: 0;
+  }
+
+  [md-grid-avatar] {
+    padding-right: $md-grid-list-text-padding;
+
+    [dir='rtl'] & {
+      padding-right: 0;
+      padding-left: $md-grid-list-text-padding;
+    }
+
+    &:empty {
+      display:none;
+    }
+  }
+}

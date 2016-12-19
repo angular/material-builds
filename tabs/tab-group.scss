@@ -1,0 +1,59 @@
+@import '../core/style/variables';
+@import '../core/style/layout-common';
+@import 'tabs-common';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  font-family: $md-font-family;
+}
+
+// Wraps each tab label
+.md-tab-label {
+  @include tab-label;
+  position: relative;
+}
+
+@media ($md-xsmall) {
+  .md-tab-label {
+    min-width: 72px;
+  }
+}
+
+:host[md-stretch-tabs] .md-tab-label {
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+// The bottom section of the view; contains the tab bodies
+.md-tab-body-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  transition: height $md-tab-animation-duration $ease-in-out-curve-function;
+}
+
+// Wraps each tab body
+md-tab-body {
+  @include md-fill;
+  display: block;
+  overflow: hidden;
+
+  &.md-tab-body-active {
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 1;
+    flex-grow: 1;
+  }
+
+  :host.md-tab-group-dynamic-height &.md-tab-body-active {
+    overflow-y: hidden;
+  }
+}
+
+// Styling for any tab that is marked disabled
+.md-tab-disabled {
+  cursor: default;
+  pointer-events: none;
+}

@@ -1,0 +1,1 @@
+{"__symbolic":"module","version":1,"metadata":{"ViewportRuler":{"__symbolic":"class","decorators":[{"__symbolic":"call","expression":{"__symbolic":"reference","module":"@angular/core","name":"Injectable"}}],"members":{"getViewportRect":[{"__symbolic":"method"}],"getViewportScrollPosition":[{"__symbolic":"method"}]}}}}

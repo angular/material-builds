@@ -1,0 +1,29 @@
+@import '../core/theming/palette';
+@import '../core/theming/theming';
+
+
+@mixin md-menu-theme($theme) {
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  .md-menu-content {
+    background: md-color($background, 'card');
+  }
+
+  [md-menu-item] {
+    background: transparent;
+    color: md-color($foreground, 'text');
+
+    &[disabled] {
+      color: md-color($foreground, 'disabled');
+    }
+
+    md-icon {
+      color: md-color($foreground, 'icon');
+    }
+
+    &:hover:not([disabled]), &:focus:not([disabled]) {
+      background: md-color($background, 'hover');
+    }
+  }
+}
