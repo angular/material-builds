@@ -4,9 +4,7 @@ export { Portal, PortalHost, BasePortalHost, ComponentPortal, TemplatePortal } f
 export { PortalHostDirective, TemplatePortalDirective, PortalModule } from './portal/portal-directives';
 export { DomPortalHost } from './portal/dom-portal-host';
 export * from './projection/projection';
-export * from './platform/platform';
-export * from './platform/features';
-export { PlatformModule } from './platform/index';
+export * from './platform/index';
 export { Overlay, OVERLAY_PROVIDERS } from './overlay/overlay';
 export { OverlayContainer } from './overlay/overlay-container';
 export { OverlayRef } from './overlay/overlay-ref';

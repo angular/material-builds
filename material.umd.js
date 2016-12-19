@@ -2563,6 +2563,42 @@ var MdLiveAnnouncer = (function () {
     return MdLiveAnnouncer;
 }());
 
+var supportedInputTypes;
+/** @returns {Set<string>} the input types supported by this browser. */
+function getSupportedInputTypes() {
+    if (!supportedInputTypes) {
+        var featureTestInput_1 = document.createElement('input');
+        supportedInputTypes = new Set([
+            'button',
+            'checkbox',
+            'color',
+            'date',
+            'datetime-local',
+            'email',
+            'file',
+            'hidden',
+            'image',
+            'month',
+            'number',
+            'password',
+            'radio',
+            'range',
+            'reset',
+            'search',
+            'submit',
+            'tel',
+            'text',
+            'time',
+            'url',
+            'week',
+        ].filter(function (value) {
+            featureTestInput_1.setAttribute('type', value);
+            return featureTestInput_1.type === value;
+        }));
+    }
+    return supportedInputTypes;
+}
+
 var __decorate$15 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2726,42 +2762,6 @@ var ProjectionModule = (function () {
     ], ProjectionModule);
     return ProjectionModule;
 }());
-
-var supportedInputTypes;
-/** @returns {Set<string>} the input types supported by this browser. */
-function getSupportedInputTypes() {
-    if (!supportedInputTypes) {
-        var featureTestInput_1 = document.createElement('input');
-        supportedInputTypes = new Set([
-            'button',
-            'checkbox',
-            'color',
-            'date',
-            'datetime-local',
-            'email',
-            'file',
-            'hidden',
-            'image',
-            'month',
-            'number',
-            'password',
-            'radio',
-            'range',
-            'reset',
-            'search',
-            'submit',
-            'tel',
-            'text',
-            'time',
-            'url',
-            'week',
-        ].filter(function (value) {
-            featureTestInput_1.setAttribute('type', value);
-            return featureTestInput_1.type === value;
-        }));
-    }
-    return supportedInputTypes;
-}
 
 var __extends$5 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -13236,7 +13236,6 @@ exports.PortalHostDirective = PortalHostDirective;
 exports.TemplatePortalDirective = TemplatePortalDirective;
 exports.PortalModule = PortalModule;
 exports.DomPortalHost = DomPortalHost;
-exports.PlatformModule = PlatformModule;
 exports.Overlay = Overlay;
 exports.OVERLAY_PROVIDERS = OVERLAY_PROVIDERS;
 exports.OverlayContainer = OverlayContainer;
@@ -13267,6 +13266,7 @@ exports.NoConflictStyleCompatibilityMode = NoConflictStyleCompatibilityMode;
 exports.DomProjectionHost = DomProjectionHost;
 exports.DomProjection = DomProjection;
 exports.ProjectionModule = ProjectionModule;
+exports.PlatformModule = PlatformModule;
 exports.MdPlatform = MdPlatform;
 exports.getSupportedInputTypes = getSupportedInputTypes;
 exports.ConnectedPositionStrategy = ConnectedPositionStrategy;
