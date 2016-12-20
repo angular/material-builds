@@ -2792,16 +2792,21 @@ var __metadata$17 = (this && this.__metadata) || function (k, v) {
 var GestureConfig = (function (_super) {
     __extends$5(GestureConfig, _super);
     function GestureConfig() {
-        _super.apply(this, arguments);
+        _super.call(this);
+        this._hammer = typeof window !== 'undefined' ? window.Hammer : null;
         /* List of new event names to add to the gesture support list */
-        this.events = [
+        this.events = this._hammer ? [
             'longpress',
             'slide',
             'slidestart',
             'slideend',
             'slideright',
             'slideleft'
-        ];
+        ] : [];
+        if (!this._hammer && _angular_core.isDevMode()) {
+            console.warn('Could not find HammerJS. Certain Angular Material ' +
+                'components may not work correctly.');
+        }
     }
     /*
      * Builds Hammer instance manually to add custom recognizers that match the Material Design spec.
@@ -2816,11 +2821,11 @@ var GestureConfig = (function (_super) {
      * TODO: Confirm threshold numbers with Material Design UX Team
      * */
     GestureConfig.prototype.buildHammer = function (element) {
-        var mc = new Hammer(element);
+        var mc = new this._hammer(element);
         // Default Hammer Recognizers.
-        var pan = new Hammer.Pan();
-        var swipe = new Hammer.Swipe();
-        var press = new Hammer.Press();
+        var pan = new this._hammer.Pan();
+        var swipe = new this._hammer.Swipe();
+        var press = new this._hammer.Press();
         // Notice that a HammerJS recognizer can only depend on one other recognizer once.
         // Otherwise the previous `recognizeWith` will be dropped.
         var slide = this._createRecognizer(pan, { event: 'slide', threshold: 0 }, swipe);
@@ -2848,6 +2853,12 @@ var GestureConfig = (function (_super) {
     ], GestureConfig);
     return GestureConfig;
 }(_angular_platformBrowser.HammerGestureConfig));
+
+/**
+ * Stripped-down HammerJS annotations to be used within Material, which are necessary,
+ * because HammerJS is an optional dependency. For the full annotations see:
+ * https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/hammerjs
+ */
 
 /**
  * Screenreaders will often fire fake mousedown events when a focusable element

@@ -15,6 +15,7 @@ export { ConnectedOverlayDirective, OverlayOrigin, OverlayModule } from './overl
 export * from './overlay/position/connected-position-strategy';
 export * from './overlay/position/connected-position';
 export { GestureConfig } from './gestures/gesture-config';
+export * from './gestures/gesture-annotations';
 export { MdRipple, MdRippleModule } from './ripple/ripple';
 export { AriaLivePoliteness, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN } from './a11y/live-announcer';
 /** @deprecated */

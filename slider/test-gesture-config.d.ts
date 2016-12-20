@@ -1,4 +1,4 @@
-import { GestureConfig } from '../core';
+import { GestureConfig, HammerManager } from '../core';
 /**
  * An extension of GestureConfig that exposes the underlying HammerManager instances.
  * Tests can use these instances to emit fake gesture events.

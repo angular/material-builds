@@ -1,5 +1,6 @@
 import { ElementRef, Renderer, AfterContentInit, ModuleWithProviders } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
+import { HammerInput } from '../core';
 import { Observable } from 'rxjs/Observable';
 export declare const MD_SLIDE_TOGGLE_VALUE_ACCESSOR: any;
 export declare class MdSlideToggleChange {

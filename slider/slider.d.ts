@@ -1,5 +1,6 @@
 import { ModuleWithProviders, ElementRef, EventEmitter } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
+import { HammerInput } from '../core';
 import { Dir } from '../core/rtl/dir';
 /**
  * Provider Expression that allows md-slider to register as a ControlValueAccessor.
