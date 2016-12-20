@@ -15,9 +15,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Injectable } from '@angular/core';
 import { HammerGestureConfig } from '@angular/platform-browser';
 /* Adjusts configuration of our gesture library, Hammer. */
-export var MdGestureConfig = (function (_super) {
-    __extends(MdGestureConfig, _super);
-    function MdGestureConfig() {
+export var GestureConfig = (function (_super) {
+    __extends(GestureConfig, _super);
+    function GestureConfig() {
         _super.apply(this, arguments);
         /* List of new event names to add to the gesture support list */
         this.events = [
@@ -41,7 +41,7 @@ export var MdGestureConfig = (function (_super) {
      *
      * TODO: Confirm threshold numbers with Material Design UX Team
      * */
-    MdGestureConfig.prototype.buildHammer = function (element) {
+    GestureConfig.prototype.buildHammer = function (element) {
         var mc = new Hammer(element);
         // Default Hammer Recognizers.
         var pan = new Hammer.Pan();
@@ -58,7 +58,7 @@ export var MdGestureConfig = (function (_super) {
         return mc;
     };
     /** Creates a new recognizer, without affecting the default recognizers of HammerJS */
-    MdGestureConfig.prototype._createRecognizer = function (base, options) {
+    GestureConfig.prototype._createRecognizer = function (base, options) {
         var inheritances = [];
         for (var _i = 2; _i < arguments.length; _i++) {
             inheritances[_i - 2] = arguments[_i];
@@ -68,11 +68,11 @@ export var MdGestureConfig = (function (_super) {
         inheritances.forEach(function (item) { return recognizer.recognizeWith(item); });
         return recognizer;
     };
-    MdGestureConfig = __decorate([
+    GestureConfig = __decorate([
         Injectable(), 
         __metadata('design:paramtypes', [])
-    ], MdGestureConfig);
-    return MdGestureConfig;
+    ], GestureConfig);
+    return GestureConfig;
 }(HammerGestureConfig));
 
-//# sourceMappingURL=MdGestureConfig.js.map
+//# sourceMappingURL=gesture-config.js.map

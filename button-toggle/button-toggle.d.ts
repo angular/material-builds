@@ -1,7 +1,7 @@
 import { ModuleWithProviders, ElementRef, Renderer, OnInit, QueryList, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { MdUniqueSelectionDispatcher } from '../core';
+import { UniqueSelectionDispatcher } from '../core';
 export declare type ToggleType = 'checkbox' | 'radio';
 /**
  * Provider Expression that allows md-button-toggle-group to register as a ControlValueAccessor.
@@ -67,7 +67,7 @@ export declare class MdButtonToggleGroupMultiple {
     vertical: boolean;
 }
 export declare class MdButtonToggle implements OnInit {
-    buttonToggleDispatcher: MdUniqueSelectionDispatcher;
+    buttonToggleDispatcher: UniqueSelectionDispatcher;
     private _renderer;
     /** Whether or not this button toggle is checked. */
     private _checked;
@@ -91,7 +91,7 @@ export declare class MdButtonToggle implements OnInit {
     private _change;
     readonly change: Observable<MdButtonToggleChange>;
     _inputElement: ElementRef;
-    constructor(toggleGroup: MdButtonToggleGroup, toggleGroupMultiple: MdButtonToggleGroupMultiple, buttonToggleDispatcher: MdUniqueSelectionDispatcher, _renderer: Renderer);
+    constructor(toggleGroup: MdButtonToggleGroup, toggleGroupMultiple: MdButtonToggleGroupMultiple, buttonToggleDispatcher: UniqueSelectionDispatcher, _renderer: Renderer);
     ngOnInit(): void;
     readonly inputId: string;
     checked: boolean;

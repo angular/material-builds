@@ -8,7 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { NgModule, Injectable } from '@angular/core';
-import { ComponentPortal, Overlay, OverlayModule, OverlayState, PortalModule, OVERLAY_PROVIDERS, MdLiveAnnouncer, DefaultStyleCompatibilityModeModule } from '../core';
+import { ComponentPortal, Overlay, OverlayModule, OverlayState, PortalModule, OVERLAY_PROVIDERS, LiveAnnouncer, DefaultStyleCompatibilityModeModule } from '../core';
 import { CommonModule } from '@angular/common';
 import { MdSnackBarConfig } from './snack-bar-config';
 import { MdSnackBarRef } from './snack-bar-ref';
@@ -107,7 +107,7 @@ export var MdSnackBar = (function () {
     };
     MdSnackBar = __decorate([
         Injectable(), 
-        __metadata('design:paramtypes', [Overlay, MdLiveAnnouncer])
+        __metadata('design:paramtypes', [Overlay, LiveAnnouncer])
     ], MdSnackBar);
     return MdSnackBar;
 }());
@@ -125,7 +125,7 @@ export var MdSnackBarModule = (function () {
     MdSnackBarModule.forRoot = function () {
         return {
             ngModule: MdSnackBarModule,
-            providers: [MdSnackBar, OVERLAY_PROVIDERS, MdLiveAnnouncer]
+            providers: [MdSnackBar, OVERLAY_PROVIDERS, LiveAnnouncer]
         };
     };
     MdSnackBarModule = __decorate([

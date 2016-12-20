@@ -57,8 +57,8 @@ export var Overlay = (function () {
      */
     Overlay.prototype._createPaneElement = function () {
         var pane = document.createElement('div');
-        pane.id = "md-overlay-" + nextUniqueId++;
-        pane.classList.add('md-overlay-pane');
+        pane.id = "cdk-overlay-" + nextUniqueId++;
+        pane.classList.add('cdk-overlay-pane');
         this._overlayContainer.getContainerElement().appendChild(pane);
         return pane;
     };

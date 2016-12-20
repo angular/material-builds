@@ -159,7 +159,7 @@ export var MdMenuTrigger = (function () {
         overlayState.positionStrategy = this._getPosition()
             .withDirection(this.dir);
         overlayState.hasBackdrop = true;
-        overlayState.backdropClass = 'md-overlay-transparent-backdrop';
+        overlayState.backdropClass = 'cdk-overlay-transparent-backdrop';
         overlayState.direction = this.dir;
         return overlayState;
     };

@@ -1,9 +1,9 @@
-import { MdGestureConfig } from '../core';
+import { GestureConfig } from '../core';
 /**
- * An extension of MdGestureConfig that exposes the underlying HammerManager instances.
+ * An extension of GestureConfig that exposes the underlying HammerManager instances.
  * Tests can use these instances to emit fake gesture events.
  */
-export declare class TestGestureConfig extends MdGestureConfig {
+export declare class TestGestureConfig extends GestureConfig {
     /**
      * A map of Hammer instances to element.
      * Used to emit events over instances for an element.

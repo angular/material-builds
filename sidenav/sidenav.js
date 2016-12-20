@@ -333,7 +333,7 @@ export var MdSidenav = (function () {
     MdSidenav = __decorate([
         Component({selector: 'md-sidenav, mat-sidenav',
             // TODO(mmalerba): move template to separate file.
-            template: "<focus-trap class=\"md-sidenav-focus-trap\" [disabled]=\"isFocusTrapDisabled\"><ng-content></ng-content></focus-trap>",
+            template: "<cdk-focus-trap class=\"md-sidenav-focus-trap\" [disabled]=\"isFocusTrapDisabled\"><ng-content></ng-content></cdk-focus-trap>",
             host: {
                 '(transitionend)': '_onTransitionEnd($event)',
                 '(keydown)': 'handleKeydown($event)',

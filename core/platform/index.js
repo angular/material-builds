@@ -8,7 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { NgModule } from '@angular/core';
-import { MdPlatform } from './platform';
+import { Platform } from './platform';
 export * from './platform';
 export * from './features';
 export var PlatformModule = (function () {
@@ -17,7 +17,7 @@ export var PlatformModule = (function () {
     PlatformModule.forRoot = function () {
         return {
             ngModule: PlatformModule,
-            providers: [MdPlatform],
+            providers: [Platform],
         };
     };
     PlatformModule = __decorate([

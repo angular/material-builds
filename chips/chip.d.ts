@@ -1,12 +1,12 @@
 import { ElementRef, EventEmitter, OnDestroy, OnInit, Renderer } from '@angular/core';
-import { MdFocusable } from '../core/a11y/list-key-manager';
+import { Focusable } from '../core/a11y/list-key-manager';
 export interface MdChipEvent {
     chip: MdChip;
 }
 /**
  * A material design styled Chip component. Used inside the ChipList component.
  */
-export declare class MdChip implements MdFocusable, OnInit, OnDestroy {
+export declare class MdChip implements Focusable, OnInit, OnDestroy {
     protected _renderer: Renderer;
     protected _elementRef: ElementRef;
     protected _disabled: boolean;

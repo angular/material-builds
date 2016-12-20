@@ -18,8 +18,8 @@ var hasV8BreakIterator = typeof (window) !== 'undefined' ?
  * checking browser-specific global properties.
  * @docs-private
  */
-export var MdPlatform = (function () {
-    function MdPlatform() {
+export var Platform = (function () {
+    function Platform() {
         /** Layout Engines */
         this.EDGE = /(edge)/i.test(navigator.userAgent);
         this.TRIDENT = /(msie|trident)/i.test(navigator.userAgent);
@@ -38,11 +38,11 @@ export var MdPlatform = (function () {
         // Trident on mobile adds the android platform to the userAgent to trick detections.
         this.ANDROID = /android/i.test(navigator.userAgent) && !this.TRIDENT;
     }
-    MdPlatform = __decorate([
+    Platform = __decorate([
         Injectable(), 
         __metadata('design:paramtypes', [])
-    ], MdPlatform);
-    return MdPlatform;
+    ], Platform);
+    return Platform;
 }());
 
 //# sourceMappingURL=platform.js.map

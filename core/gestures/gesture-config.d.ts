@@ -1,5 +1,5 @@
 import { HammerGestureConfig } from '@angular/platform-browser';
-export declare class MdGestureConfig extends HammerGestureConfig {
+export declare class GestureConfig extends HammerGestureConfig {
     events: string[];
     buildHammer(element: HTMLElement): HammerManager;
     /** Creates a new recognizer, without affecting the default recognizers of HammerJS */

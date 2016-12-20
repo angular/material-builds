@@ -1,6 +1,6 @@
 import { AfterContentInit, ElementRef, Renderer, EventEmitter, OnInit, QueryList, ModuleWithProviders } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { MdUniqueSelectionDispatcher } from '../core';
+import { UniqueSelectionDispatcher } from '../core';
 /**
  * Provider Expression that allows md-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
@@ -84,7 +84,7 @@ export declare class MdRadioGroup implements AfterContentInit, ControlValueAcces
 export declare class MdRadioButton implements OnInit {
     private _elementRef;
     private _renderer;
-    radioDispatcher: MdUniqueSelectionDispatcher;
+    radioDispatcher: UniqueSelectionDispatcher;
     _isFocused: boolean;
     /** Whether this radio is checked. */
     private _checked;
@@ -114,7 +114,7 @@ export declare class MdRadioButton implements OnInit {
     change: EventEmitter<MdRadioChange>;
     /** The native `<input type=radio>` element */
     _inputElement: ElementRef;
-    constructor(radioGroup: MdRadioGroup, _elementRef: ElementRef, _renderer: Renderer, radioDispatcher: MdUniqueSelectionDispatcher);
+    constructor(radioGroup: MdRadioGroup, _elementRef: ElementRef, _renderer: Renderer, radioDispatcher: UniqueSelectionDispatcher);
     /** ID of the native input element inside `<md-radio-button>` */
     readonly inputId: string;
     /** Whether this radio button is checked. */

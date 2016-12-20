@@ -8,7 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { NgModule } from '@angular/core';
-import { OverlayModule, PortalModule, OVERLAY_PROVIDERS, A11yModule, InteractivityChecker, MdPlatform, DefaultStyleCompatibilityModeModule } from '../core';
+import { OverlayModule, PortalModule, OVERLAY_PROVIDERS, A11yModule, InteractivityChecker, Platform, DefaultStyleCompatibilityModeModule } from '../core';
 import { MdDialog } from './dialog';
 import { MdDialogContainer } from './dialog-container';
 import { MdDialogClose, MdDialogContent, MdDialogTitle, MdDialogActions } from './dialog-content-directives';
@@ -18,7 +18,7 @@ export var MdDialogModule = (function () {
     MdDialogModule.forRoot = function () {
         return {
             ngModule: MdDialogModule,
-            providers: [MdDialog, OVERLAY_PROVIDERS, InteractivityChecker, MdPlatform],
+            providers: [MdDialog, OVERLAY_PROVIDERS, InteractivityChecker, Platform],
         };
     };
     MdDialogModule = __decorate([

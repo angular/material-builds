@@ -39,8 +39,8 @@ export var OverlayOrigin = (function () {
     });
     OverlayOrigin = __decorate([
         Directive({
-            selector: '[overlay-origin]',
-            exportAs: 'overlayOrigin',
+            selector: '[cdk-overlay-origin], [overlay-origin]',
+            exportAs: 'cdkOverlayOrigin',
         }), 
         __metadata('design:paramtypes', [ElementRef])
     ], OverlayOrigin);
@@ -286,8 +286,8 @@ export var ConnectedOverlayDirective = (function () {
     ], ConnectedOverlayDirective.prototype, "detach", void 0);
     ConnectedOverlayDirective = __decorate([
         Directive({
-            selector: '[connected-overlay]',
-            exportAs: 'connectedOverlay'
+            selector: '[cdk-connected-overlay], [connected-overlay]',
+            exportAs: 'cdkConnectedOverlay'
         }),
         __param(3, Optional()), 
         __metadata('design:paramtypes', [Overlay, TemplateRef, ViewContainerRef, Dir])
