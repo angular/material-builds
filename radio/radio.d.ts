@@ -48,8 +48,13 @@ export declare class MdRadioGroup implements AfterContentInit, ControlValueAcces
     _radios: QueryList<MdRadioButton>;
     /** Name of the radio button group. All radio buttons inside this group will use this name. */
     name: string;
-    /** Alignment of the radio-buttons relative to their labels. Can be 'before' or 'after'. */
-    align: 'before' | 'after';
+    /**
+     * Alignment of the radio-buttons relative to their labels. Can be 'before' or 'after'.
+     * @deprecated
+     */
+    align: 'start' | 'end';
+    /** Whether the labels should appear after or before the radio-buttons. Defaults to 'after' */
+    labelPosition: 'before' | 'after';
     disabled: boolean;
     value: any;
     _checkSelectedRadioButton(): void;
@@ -121,9 +126,14 @@ export declare class MdRadioButton implements OnInit {
     checked: boolean;
     /** The value of this radio button. */
     value: any;
-    private _align;
-    /** Alignment of the radio-button relative to their labels. Can be 'before' or 'after'. */
-    align: 'before' | 'after';
+    /**
+     * Whether or not the radio-button should appear before or after the label.
+     * @deprecated
+     */
+    align: 'start' | 'end';
+    private _labelPosition;
+    /** Whether the label should appear after or before the radio button. Defaults to 'after' */
+    labelPosition: 'before' | 'after';
     /** Whether the radio button is disabled. */
     disabled: boolean;
     ngOnInit(): void;

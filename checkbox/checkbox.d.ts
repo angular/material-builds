@@ -57,8 +57,13 @@ export declare class MdCheckbox implements ControlValueAccessor {
     private _required;
     /** Whether the checkbox is required. */
     required: boolean;
-    /** Whether or not the checkbox should come before or after the label. */
+    /**
+     * Whether or not the checkbox should appear before or after the label.
+     * @deprecated
+     */
     align: 'start' | 'end';
+    /** Whether the label should appear after or before the checkbox. Defaults to 'after' */
+    labelPosition: 'before' | 'after';
     private _disabled;
     /** Whether the checkbox is disabled. */
     disabled: boolean;
