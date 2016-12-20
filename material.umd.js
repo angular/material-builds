@@ -8165,28 +8165,30 @@ var __metadata$38 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
- * A material design styled Chip component. Used inside the ChipList component.
+ * A material design styled Chip component. Used inside the MdChipList component.
  */
 var MdChip = (function () {
     function MdChip(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
-        /* Whether or not the chip is disabled. */
+        /** Whether or not the chip is disabled. Disabled chips cannot be focused. */
         this._disabled = null;
-        /**
-         * Emitted when the chip is focused.
-         */
+        /** Whether or not the chip is selected. */
+        this._selected = false;
+        /** The palette color of selected chips. */
+        this._color = 'primary';
+        /** Emitted when the chip is focused. */
         this.onFocus = new _angular_core.EventEmitter();
-        /**
-         * Emitted when the chip is destroyed.
-         */
+        /** Emitted when the chip is selected. */
+        this.select = new _angular_core.EventEmitter();
+        /** Emitted when the chip is deselected. */
+        this.deselect = new _angular_core.EventEmitter();
+        /** Emitted when the chip is destroyed. */
         this.destroy = new _angular_core.EventEmitter();
     }
     MdChip.prototype.ngOnInit = function () {
-        var el = this._elementRef.nativeElement;
-        if (el.nodeName.toLowerCase() == 'md-chip' || el.hasAttribute('md-chip')) {
-            el.classList.add('md-chip');
-        }
+        this._addDefaultCSSClass();
+        this._updateColor(this._color);
     };
     MdChip.prototype.ngOnDestroy = function () {
         this.destroy.emit({ chip: this });
@@ -8211,6 +8213,39 @@ var MdChip = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdChip.prototype, "selected", {
+        /** Whether or not this chip is selected. */
+        get: function () {
+            return this._selected;
+        },
+        set: function (value) {
+            this._selected = coerceBooleanProperty(value);
+            if (this._selected) {
+                this.select.emit({ chip: this });
+            }
+            else {
+                this.deselect.emit({ chip: this });
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /** Toggles the current selected state of this chip. */
+    MdChip.prototype.toggleSelected = function () {
+        this.selected = !this.selected;
+        return this.selected;
+    };
+    Object.defineProperty(MdChip.prototype, "color", {
+        /** The color of the chip. Can be `primary`, `accent`, or `warn`. */
+        get: function () {
+            return this._color;
+        },
+        set: function (value) {
+            this._updateColor(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
     /** Allows for programmatic focusing of the chip. */
     MdChip.prototype.focus = function () {
         this._renderer.invokeElementMethod(this._elementRef.nativeElement, 'focus');
@@ -8227,6 +8262,33 @@ var MdChip = (function () {
             this.focus();
         }
     };
+    /** Initializes the appropriate CSS classes based on the chip type (basic or standard). */
+    MdChip.prototype._addDefaultCSSClass = function () {
+        var el = this._elementRef.nativeElement;
+        if (el.nodeName.toLowerCase() == 'md-chip' || el.hasAttribute('md-chip')) {
+            el.classList.add('md-chip');
+        }
+    };
+    /** Updates the private _color variable and the native element. */
+    MdChip.prototype._updateColor = function (newColor) {
+        this._setElementColor(this._color, false);
+        this._setElementColor(newColor, true);
+        this._color = newColor;
+    };
+    /** Sets the md-color on the native element. */
+    MdChip.prototype._setElementColor = function (color, isAdd) {
+        if (color != null && color != '') {
+            this._renderer.setElementClass(this._elementRef.nativeElement, "md-" + color, isAdd);
+        }
+    };
+    __decorate$38([
+        _angular_core.Output(), 
+        __metadata$38('design:type', Object)
+    ], MdChip.prototype, "select", void 0);
+    __decorate$38([
+        _angular_core.Output(), 
+        __metadata$38('design:type', Object)
+    ], MdChip.prototype, "deselect", void 0);
     __decorate$38([
         _angular_core.Output(), 
         __metadata$38('design:type', Object)
@@ -8235,6 +8297,14 @@ var MdChip = (function () {
         _angular_core.Input(), 
         __metadata$38('design:type', Boolean)
     ], MdChip.prototype, "disabled", null);
+    __decorate$38([
+        _angular_core.Input(), 
+        __metadata$38('design:type', Boolean)
+    ], MdChip.prototype, "selected", null);
+    __decorate$38([
+        _angular_core.Input(), 
+        __metadata$38('design:type', String)
+    ], MdChip.prototype, "color", null);
     MdChip = __decorate$38([
         _angular_core.Component({
             selector: 'md-basic-chip, [md-basic-chip], md-chip, [md-chip]',
@@ -8242,6 +8312,7 @@ var MdChip = (function () {
             host: {
                 'tabindex': '-1',
                 'role': 'option',
+                '[class.md-chip-selected]': 'selected',
                 '[attr.disabled]': 'disabled',
                 '[attr.aria-disabled]': '_isAriaDisabled',
                 '(click)': '_handleClick($event)'
@@ -8276,20 +8347,70 @@ var MdChipList = (function () {
         this._elementRef = _elementRef;
         /** Track which chips we're listening to for focus/destruction. */
         this._subscribed = new WeakMap();
+        /** Whether or not the chip is selectable. */
+        this._selectable = true;
     }
     MdChipList.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._keyManager = new ListKeyManager(this.chips).withFocusWrap();
         // Go ahead and subscribe all of the initial chips
-        this.subscribeChips(this.chips);
+        this._subscribeChips(this.chips);
         // When the list changes, re-subscribe
         this.chips.changes.subscribe(function (chips) {
-            _this.subscribeChips(chips);
+            _this._subscribeChips(chips);
         });
     };
+    Object.defineProperty(MdChipList.prototype, "selectable", {
+        /**
+         * Whether or not this chip is selectable. When a chip is not selectable,
+         * it's selected state is always ignored.
+         */
+        get: function () {
+            return this._selectable;
+        },
+        set: function (value) {
+            this._selectable = coerceBooleanProperty(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Programmatically focus the chip list. This in turn focuses the first non-disabled chip in this
+     * chip list.
+     *
+     * TODO: ARIA says this should focus the first `selected` chip.
+     */
+    MdChipList.prototype.focus = function (event) {
+        this._keyManager.focusFirstItem();
+    };
     /** Pass relevant key presses to our key manager. */
-    MdChipList.prototype.keydown = function (event) {
-        this._keyManager.onKeydown(event);
+    MdChipList.prototype._keydown = function (event) {
+        switch (event.keyCode) {
+            case SPACE:
+                // If we are selectable, toggle the focused chip
+                if (this.selectable) {
+                    this._toggleSelectOnFocusedChip();
+                }
+                // Always prevent space from scrolling the page since the list has focus
+                event.preventDefault();
+                break;
+            default:
+                this._keyManager.onKeydown(event);
+        }
+    };
+    /** Toggles the selected state of the currently focused chip. */
+    MdChipList.prototype._toggleSelectOnFocusedChip = function () {
+        // Allow disabling of chip selection
+        if (!this.selectable) {
+            return;
+        }
+        var focusedIndex = this._keyManager.focusedItemIndex;
+        if (this._isValidIndex(focusedIndex)) {
+            var focusedChip = this.chips.toArray()[focusedIndex];
+            if (focusedChip) {
+                focusedChip.toggleSelected();
+            }
+        }
     };
     /**
      * Iterate through the list of chips and add them to our list of
@@ -8297,9 +8418,9 @@ var MdChipList = (function () {
      *
      * @param chips The list of chips to be subscribed.
      */
-    MdChipList.prototype.subscribeChips = function (chips) {
+    MdChipList.prototype._subscribeChips = function (chips) {
         var _this = this;
-        chips.forEach(function (chip) { return _this.addChip(chip); });
+        chips.forEach(function (chip) { return _this._addChip(chip); });
     };
     /**
      * Add a specific chip to our subscribed list. If the chip has
@@ -8309,7 +8430,7 @@ var MdChipList = (function () {
      * @param chip The chip to be subscribed (or checked for existing
      * subscription).
      */
-    MdChipList.prototype.addChip = function (chip) {
+    MdChipList.prototype._addChip = function (chip) {
         var _this = this;
         // If we've already been subscribed to a parent, do nothing
         if (this._subscribed.has(chip)) {
@@ -8318,14 +8439,14 @@ var MdChipList = (function () {
         // Watch for focus events outside of the keyboard navigation
         chip.onFocus.subscribe(function () {
             var chipIndex = _this.chips.toArray().indexOf(chip);
-            if (_this.isValidIndex(chipIndex)) {
+            if (_this._isValidIndex(chipIndex)) {
                 _this._keyManager.updateFocusedItemIndex(chipIndex);
             }
         });
         // On destroy, remove the item from our list, and check focus
         chip.destroy.subscribe(function () {
             var chipIndex = _this.chips.toArray().indexOf(chip);
-            if (_this.isValidIndex(chipIndex)) {
+            if (_this._isValidIndex(chipIndex)) {
                 // Check whether the chip is the last item
                 if (chipIndex < _this.chips.length - 1) {
                     _this._keyManager.setFocus(chipIndex);
@@ -8345,9 +8466,13 @@ var MdChipList = (function () {
      * @param index The index to be checked.
      * @returns {boolean} True if the index is valid for our list of chips.
      */
-    MdChipList.prototype.isValidIndex = function (index) {
+    MdChipList.prototype._isValidIndex = function (index) {
         return index >= 0 && index < this.chips.length;
     };
+    __decorate$37([
+        _angular_core.Input(), 
+        __metadata$37('design:type', Boolean)
+    ], MdChipList.prototype, "selectable", null);
     MdChipList = __decorate$37([
         _angular_core.Component({selector: 'md-chip-list',
             template: "<div class=\"md-chip-list-wrapper\"><ng-content></ng-content></div>",
@@ -8357,8 +8482,8 @@ var MdChipList = (function () {
                 'role': 'listbox',
                 'class': 'md-chip-list',
                 // Events
-                '(focus)': '_keyManager.focusFirstItem()',
-                '(keydown)': 'keydown($event)'
+                '(focus)': 'focus($event)',
+                '(keydown)': '_keydown($event)'
             },
             queries: {
                 chips: new _angular_core.ContentChildren(MdChip)

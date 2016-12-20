@@ -10,28 +10,30 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component, ElementRef, EventEmitter, Input, Output, Renderer } from '@angular/core';
 import { coerceBooleanProperty } from '../core/coercion/boolean-property';
 /**
- * A material design styled Chip component. Used inside the ChipList component.
+ * A material design styled Chip component. Used inside the MdChipList component.
  */
 export var MdChip = (function () {
     function MdChip(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
-        /* Whether or not the chip is disabled. */
+        /** Whether or not the chip is disabled. Disabled chips cannot be focused. */
         this._disabled = null;
-        /**
-         * Emitted when the chip is focused.
-         */
+        /** Whether or not the chip is selected. */
+        this._selected = false;
+        /** The palette color of selected chips. */
+        this._color = 'primary';
+        /** Emitted when the chip is focused. */
         this.onFocus = new EventEmitter();
-        /**
-         * Emitted when the chip is destroyed.
-         */
+        /** Emitted when the chip is selected. */
+        this.select = new EventEmitter();
+        /** Emitted when the chip is deselected. */
+        this.deselect = new EventEmitter();
+        /** Emitted when the chip is destroyed. */
         this.destroy = new EventEmitter();
     }
     MdChip.prototype.ngOnInit = function () {
-        var el = this._elementRef.nativeElement;
-        if (el.nodeName.toLowerCase() == 'md-chip' || el.hasAttribute('md-chip')) {
-            el.classList.add('md-chip');
-        }
+        this._addDefaultCSSClass();
+        this._updateColor(this._color);
     };
     MdChip.prototype.ngOnDestroy = function () {
         this.destroy.emit({ chip: this });
@@ -56,6 +58,39 @@ export var MdChip = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdChip.prototype, "selected", {
+        /** Whether or not this chip is selected. */
+        get: function () {
+            return this._selected;
+        },
+        set: function (value) {
+            this._selected = coerceBooleanProperty(value);
+            if (this._selected) {
+                this.select.emit({ chip: this });
+            }
+            else {
+                this.deselect.emit({ chip: this });
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /** Toggles the current selected state of this chip. */
+    MdChip.prototype.toggleSelected = function () {
+        this.selected = !this.selected;
+        return this.selected;
+    };
+    Object.defineProperty(MdChip.prototype, "color", {
+        /** The color of the chip. Can be `primary`, `accent`, or `warn`. */
+        get: function () {
+            return this._color;
+        },
+        set: function (value) {
+            this._updateColor(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
     /** Allows for programmatic focusing of the chip. */
     MdChip.prototype.focus = function () {
         this._renderer.invokeElementMethod(this._elementRef.nativeElement, 'focus');
@@ -72,6 +107,33 @@ export var MdChip = (function () {
             this.focus();
         }
     };
+    /** Initializes the appropriate CSS classes based on the chip type (basic or standard). */
+    MdChip.prototype._addDefaultCSSClass = function () {
+        var el = this._elementRef.nativeElement;
+        if (el.nodeName.toLowerCase() == 'md-chip' || el.hasAttribute('md-chip')) {
+            el.classList.add('md-chip');
+        }
+    };
+    /** Updates the private _color variable and the native element. */
+    MdChip.prototype._updateColor = function (newColor) {
+        this._setElementColor(this._color, false);
+        this._setElementColor(newColor, true);
+        this._color = newColor;
+    };
+    /** Sets the md-color on the native element. */
+    MdChip.prototype._setElementColor = function (color, isAdd) {
+        if (color != null && color != '') {
+            this._renderer.setElementClass(this._elementRef.nativeElement, "md-" + color, isAdd);
+        }
+    };
+    __decorate([
+        Output(), 
+        __metadata('design:type', Object)
+    ], MdChip.prototype, "select", void 0);
+    __decorate([
+        Output(), 
+        __metadata('design:type', Object)
+    ], MdChip.prototype, "deselect", void 0);
     __decorate([
         Output(), 
         __metadata('design:type', Object)
@@ -80,6 +142,14 @@ export var MdChip = (function () {
         Input(), 
         __metadata('design:type', Boolean)
     ], MdChip.prototype, "disabled", null);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Boolean)
+    ], MdChip.prototype, "selected", null);
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], MdChip.prototype, "color", null);
     MdChip = __decorate([
         Component({
             selector: 'md-basic-chip, [md-basic-chip], md-chip, [md-chip]',
@@ -87,6 +157,7 @@ export var MdChip = (function () {
             host: {
                 'tabindex': '-1',
                 'role': 'option',
+                '[class.md-chip-selected]': 'selected',
                 '[attr.disabled]': 'disabled',
                 '[attr.aria-disabled]': '_isAriaDisabled',
                 '(click)': '_handleClick($event)'
