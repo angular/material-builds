@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { NgModule } from '@angular/core';
 import { MdLineModule } from './line/line';
 import { RtlModule } from './rtl/dir';
+import { ObserveContentModule } from './observe-content/observe-content';
 import { MdRippleModule } from './ripple/ripple';
 import { PortalModule } from './portal/portal-directives';
 import { OverlayModule } from './overlay/overlay-directives';
@@ -17,6 +18,8 @@ import { A11yModule, A11Y_PROVIDERS } from './a11y/index';
 import { OVERLAY_PROVIDERS } from './overlay/overlay';
 // RTL
 export { Dir, RtlModule } from './rtl/dir';
+// Mutation Observer
+export { ObserveContentModule, ObserveContent } from './observe-content/observe-content';
 // Portals
 export { Portal, BasePortalHost, ComponentPortal, TemplatePortal } from './portal/portal';
 export { PortalHostDirective, TemplatePortalDirective, PortalModule } from './portal/portal-directives';
@@ -84,6 +87,7 @@ export var MdCoreModule = (function () {
                 MdLineModule,
                 RtlModule,
                 MdRippleModule,
+                ObserveContentModule,
                 PortalModule,
                 OverlayModule,
                 A11yModule,
@@ -92,6 +96,7 @@ export var MdCoreModule = (function () {
                 MdLineModule,
                 RtlModule,
                 MdRippleModule,
+                ObserveContentModule,
                 PortalModule,
                 OverlayModule,
                 A11yModule,

@@ -57,6 +57,10 @@ export declare class MdTabHeader {
      */
     ngAfterViewChecked(): void;
     _handleKeydown(event: KeyboardEvent): void;
+    /**
+     * Updating the view whether pagination should be enabled or not
+     */
+    _updatePagination(): void;
     /** Tracks which element has focus; used for keyboard navigation */
     /** When the focus index is set, we must manually send focus to the correct label */
     focusIndex: number;

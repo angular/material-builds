@@ -64,9 +64,7 @@ export var MdTabHeader = (function () {
     MdTabHeader.prototype.ngAfterContentChecked = function () {
         // If the number of tab labels have changed, check if scrolling should be enabled
         if (this._tabLabelCount != this._labelWrappers.length) {
-            this._checkPaginationEnabled();
-            this._checkScrollingControls();
-            this._updateTabScrollPosition();
+            this._updatePagination();
             this._tabLabelCount = this._labelWrappers.length;
         }
         // If the selected index has changed, scroll to the label and check if the scrolling controls
@@ -107,6 +105,14 @@ export var MdTabHeader = (function () {
                 this.selectFocusedIndex.emit(this.focusIndex);
                 break;
         }
+    };
+    /**
+     * Updating the view whether pagination should be enabled or not
+     */
+    MdTabHeader.prototype._updatePagination = function () {
+        this._checkPaginationEnabled();
+        this._checkScrollingControls();
+        this._updateTabScrollPosition();
     };
     Object.defineProperty(MdTabHeader.prototype, "focusIndex", {
         /** Tracks which element has focus; used for keyboard navigation */
@@ -330,7 +336,7 @@ export var MdTabHeader = (function () {
     ], MdTabHeader.prototype, "indexFocused", void 0);
     MdTabHeader = __decorate([
         Component({selector: 'md-tab-header',
-            template: "<div class=\"md-tab-header-pagination md-tab-header-pagination-before md-elevation-z4\" aria-hidden=\"true\" md-ripple [mdRippleDisabled]=\"_disableScrollBefore\" [class.md-tab-header-pagination-disabled]=\"_disableScrollBefore\" (click)=\"_scrollHeader('before')\"><div class=\"md-tab-header-pagination-chevron\"></div></div><div class=\"md-tab-label-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\"><div class=\"md-tab-list\" #tabList role=\"tablist\"><ng-content></ng-content><md-ink-bar></md-ink-bar></div></div><div class=\"md-tab-header-pagination md-tab-header-pagination-after md-elevation-z4\" aria-hidden=\"true\" md-ripple [mdRippleDisabled]=\"_disableScrollAfter\" [class.md-tab-header-pagination-disabled]=\"_disableScrollAfter\" (click)=\"_scrollHeader('after')\"><div class=\"md-tab-header-pagination-chevron\"></div></div>",
+            template: "<div class=\"md-tab-header-pagination md-tab-header-pagination-before md-elevation-z4\" aria-hidden=\"true\" md-ripple [mdRippleDisabled]=\"_disableScrollBefore\" [class.md-tab-header-pagination-disabled]=\"_disableScrollBefore\" (click)=\"_scrollHeader('before')\"><div class=\"md-tab-header-pagination-chevron\"></div></div><div class=\"md-tab-label-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\"><div class=\"md-tab-list\" #tabList role=\"tablist\" (cdkObserveContent)=\"_updatePagination()\"><ng-content></ng-content><md-ink-bar></md-ink-bar></div></div><div class=\"md-tab-header-pagination md-tab-header-pagination-after md-elevation-z4\" aria-hidden=\"true\" md-ripple [mdRippleDisabled]=\"_disableScrollAfter\" [class.md-tab-header-pagination-disabled]=\"_disableScrollAfter\" (click)=\"_scrollHeader('after')\"><div class=\"md-tab-header-pagination-chevron\"></div></div>",
             styles: [".md-tab-header{overflow:hidden;position:relative;display:flex;flex-direction:row;flex-shrink:0}.md-tab-label{line-height:48px;height:48px;padding:0 12px;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;cursor:pointer;box-sizing:border-box;color:currentColor;opacity:.6;min-width:160px;text-align:center;position:relative}.md-tab-label:focus{outline:0;opacity:1}@media (max-width:600px){.md-tab-label{min-width:72px}}md-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.md-tab-header-pagination{position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2}.md-tab-header-pagination-controls-enabled .md-tab-header-pagination,.md-tab-list{display:flex}.md-tab-header-pagination-before,.md-tab-header-rtl .md-tab-header-pagination-after{padding-left:4px}.md-tab-header-pagination-before .md-tab-header-pagination-chevron,.md-tab-header-rtl .md-tab-header-pagination-after .md-tab-header-pagination-chevron{transform:rotate(-135deg)}.md-tab-header-pagination-after,.md-tab-header-rtl .md-tab-header-pagination-before{padding-right:4px}.md-tab-header-pagination-after .md-tab-header-pagination-chevron,.md-tab-header-rtl .md-tab-header-pagination-before .md-tab-header-pagination-chevron{transform:rotate(45deg)}.md-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:'';height:8px;width:8px}.md-tab-header-pagination-disabled{box-shadow:none;cursor:default}.md-tab-header-pagination-disabled .md-tab-header-pagination-chevron{border-color:#ccc}.md-tab-label-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}.md-tab-list{flex-grow:1;position:relative;transition:transform .5s cubic-bezier(.35,0,.25,1)}"],
             encapsulation: ViewEncapsulation.None,
             host: {

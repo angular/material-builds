@@ -1,5 +1,6 @@
 import { ModuleWithProviders } from '@angular/core';
 export { Dir, LayoutDirection, RtlModule } from './rtl/dir';
+export { ObserveContentModule, ObserveContent } from './observe-content/observe-content';
 export { Portal, PortalHost, BasePortalHost, ComponentPortal, TemplatePortal } from './portal/portal';
 export { PortalHostDirective, TemplatePortalDirective, PortalModule } from './portal/portal-directives';
 export { DomPortalHost } from './portal/dom-portal-host';
