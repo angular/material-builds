@@ -5765,7 +5765,6 @@ var MdSlideToggleChange = (function () {
 var nextId$1 = 0;
 var MdSlideToggle = (function () {
     function MdSlideToggle(_elementRef, _renderer) {
-        var _this = this;
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this.onChange = function (_) { };
@@ -5779,25 +5778,37 @@ var MdSlideToggle = (function () {
         this._required = false;
         // Needs to be public to support AOT compilation (as host binding).
         this._hasFocus = false;
+        /** Name value will be applied to the input element if present */
         this.name = null;
+        /** A unique id for the slide-toggle input. If none is supplied, it will be auto-generated. */
         this.id = this._uniqueId;
+        /** Used to specify the tabIndex value for the underlying input element. */
         this.tabIndex = 0;
+        /** Used to set the aria-label attribute on the underlying input element. */
         this.ariaLabel = null;
+        /** Used to set the aria-labelledby attribute on the underlying input element. */
         this.ariaLabelledby = null;
         this._change = new _angular_core.EventEmitter();
+        /** An event will be dispatched each time the slide-toggle changes its value. */
         this.change = this._change.asObservable();
-        // Returns the unique id for the visual hidden input.
-        this.getInputId = function () { return ((_this.id || _this._uniqueId) + "-input"); };
     }
     Object.defineProperty(MdSlideToggle.prototype, "disabled", {
+        /** Whether the slide-toggle is disabled. */
         get: function () { return this._disabled; },
         set: function (value) { this._disabled = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdSlideToggle.prototype, "required", {
+        /** Whether the slide-toggle is required. */
         get: function () { return this._required; },
         set: function (value) { this._required = coerceBooleanProperty(value); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdSlideToggle.prototype, "inputId", {
+        /** Returns the unique id for the visual hidden input. */
+        get: function () { return (this.id || this._uniqueId) + "-input"; },
         enumerable: true,
         configurable: true
     });
@@ -5870,11 +5881,13 @@ var MdSlideToggle = (function () {
     MdSlideToggle.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };
+    /** Focuses the slide-toggle. */
     MdSlideToggle.prototype.focus = function () {
         this._renderer.invokeElementMethod(this._inputElement.nativeElement, 'focus');
         this._onInputFocus();
     };
     Object.defineProperty(MdSlideToggle.prototype, "checked", {
+        /** Whether the slide-toggle is checked. */
         get: function () {
             return !!this._checked;
         },
@@ -5888,6 +5901,7 @@ var MdSlideToggle = (function () {
         configurable: true
     });
     Object.defineProperty(MdSlideToggle.prototype, "color", {
+        /** The color of the slide-toggle. Can be primary, accent, or warn. */
         get: function () {
             return this._color;
         },
@@ -5897,6 +5911,7 @@ var MdSlideToggle = (function () {
         enumerable: true,
         configurable: true
     });
+    /** Toggles the checked state of the slide-toggle. */
     MdSlideToggle.prototype.toggle = function () {
         this.checked = !this.checked;
     };
@@ -5992,7 +6007,7 @@ var MdSlideToggle = (function () {
                 '[class.md-slide-toggle-focused]': '_hasFocus',
                 '(mousedown)': '_setMousedown()'
             },
-            template: "<label class=\"md-slide-toggle-label\"><div class=\"md-slide-toggle-container\"><div class=\"md-slide-toggle-bar\"></div><div class=\"md-slide-toggle-thumb-container\" (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"><div class=\"md-slide-toggle-thumb\"><div class=\"md-ink-ripple\"></div></div></div><input #input class=\"md-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"getInputId()\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (blur)=\"_onInputBlur()\" (focus)=\"_onInputFocus()\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"></div><span class=\"md-slide-toggle-content\"><ng-content></ng-content></span></label>",
+            template: "<label class=\"md-slide-toggle-label\"><div class=\"md-slide-toggle-container\"><div class=\"md-slide-toggle-bar\"></div><div class=\"md-slide-toggle-thumb-container\" (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"><div class=\"md-slide-toggle-thumb\"><div class=\"md-ink-ripple\"></div></div></div><input #input class=\"md-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (blur)=\"_onInputBlur()\" (focus)=\"_onInputFocus()\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"></div><span class=\"md-slide-toggle-content\"><ng-content></ng-content></span></label>",
             styles: ["md-slide-toggle{display:flex;height:24px;margin:16px 0;line-height:24px;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0}md-slide-toggle.md-checked .md-slide-toggle-thumb-container{transform:translate3d(100%,0,0)}md-slide-toggle .md-ink-ripple{border-radius:50%;opacity:0;height:48px;left:50%;overflow:hidden;pointer-events:none;position:absolute;top:50%;transform:translate(-50%,-50%);transition:opacity ease 280ms,background-color ease 280ms;width:48px}md-slide-toggle.md-slide-toggle-focused .md-ink-ripple{opacity:1}md-slide-toggle.md-slide-toggle-disabled .md-ink-ripple{background-color:#000}md-slide-toggle.md-disabled .md-slide-toggle-container,md-slide-toggle.md-disabled .md-slide-toggle-label{cursor:default}.md-slide-toggle-content{font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500}.md-slide-toggle-label{display:flex;flex:1;cursor:pointer}.md-slide-toggle-container{cursor:-webkit-grab;cursor:grab;width:36px;height:24px;position:relative;margin-right:8px}[dir=rtl] .md-slide-toggle-container{margin-left:8px;margin-right:0}.md-slide-toggle-thumb-container{position:absolute;top:2px;left:0;z-index:1;width:16px;transform:translate3d(0,0,0);transition:all 80ms linear;transition-property:transform}.md-slide-toggle-thumb-container.md-dragging{transition-duration:0s}.md-slide-toggle-thumb{position:absolute;margin:0;left:0;top:0;height:20px;width:20px;border-radius:50%;box-shadow:0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.md-slide-toggle-thumb{background:#fff;border:1px solid #000}.md-slide-toggle-bar{background:#fff}}.md-slide-toggle-bar{position:absolute;left:1px;top:5px;width:34px;height:14px;border-radius:8px}.md-slide-toggle-input{bottom:0;left:10px}.md-slide-toggle-bar,.md-slide-toggle-thumb{transition:all 80ms linear;transition-property:background-color;transition-delay:50ms}"],
             providers: [MD_SLIDE_TOGGLE_VALUE_ACCESSOR],
             encapsulation: _angular_core.ViewEncapsulation.None,

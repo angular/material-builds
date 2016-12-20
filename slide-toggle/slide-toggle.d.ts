@@ -20,16 +20,25 @@ export declare class MdSlideToggle implements AfterContentInit, ControlValueAcce
     private _disabled;
     private _required;
     _hasFocus: boolean;
+    /** Name value will be applied to the input element if present */
     name: string;
+    /** A unique id for the slide-toggle input. If none is supplied, it will be auto-generated. */
     id: string;
+    /** Used to specify the tabIndex value for the underlying input element. */
     tabIndex: number;
+    /** Used to set the aria-label attribute on the underlying input element. */
     ariaLabel: string;
+    /** Used to set the aria-labelledby attribute on the underlying input element. */
     ariaLabelledby: string;
+    /** Whether the slide-toggle is disabled. */
     disabled: boolean;
+    /** Whether the slide-toggle is required. */
     required: boolean;
     private _change;
+    /** An event will be dispatched each time the slide-toggle changes its value. */
     change: Observable<MdSlideToggleChange>;
-    getInputId: () => string;
+    /** Returns the unique id for the visual hidden input. */
+    readonly inputId: string;
     _inputElement: ElementRef;
     constructor(_elementRef: ElementRef, _renderer: Renderer);
     ngAfterContentInit(): void;
@@ -51,9 +60,13 @@ export declare class MdSlideToggle implements AfterContentInit, ControlValueAcce
     registerOnTouched(fn: any): void;
     /** Implemented as a part of ControlValueAccessor. */
     setDisabledState(isDisabled: boolean): void;
+    /** Focuses the slide-toggle. */
     focus(): void;
+    /** Whether the slide-toggle is checked. */
     checked: boolean;
+    /** The color of the slide-toggle. Can be primary, accent, or warn. */
     color: string;
+    /** Toggles the checked state of the slide-toggle. */
     toggle(): void;
     private _updateColor(newColor);
     private _setElementColor(color, isAdd);
