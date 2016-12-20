@@ -1,7 +1,5 @@
-import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 // TODO(josephperrott): Implement onAction observable.
-Observable.of([]);
 /**
  * Reference to a snack bar dispatched from the snack bar service.
  */

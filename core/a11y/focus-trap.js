@@ -114,7 +114,7 @@ export var FocusTrap = (function () {
     ], FocusTrap.prototype, "disabled", null);
     FocusTrap = __decorate([
         Component({selector: 'cdk-focus-trap, focus-trap',
-            template: "<div *ngIf=\"!disabled\" tabindex=\"0\" (focus)=\"focusLastTabbableElement()\"></div><div #trappedContent class=\"cdk-focus-trap-content\"><ng-content></ng-content></div><div *ngIf=\"!disabled\" tabindex=\"0\" (focus)=\"focusFirstTabbableElement()\"></div>",
+            template: "<div *ngif=\"!disabled\" tabindex=\"0\" (focus)=\"focusLastTabbableElement()\"></div><div #trappedcontent class=\"cdk-focus-trap-content\"><ng-content></ng-content></div><div *ngif=\"!disabled\" tabindex=\"0\" (focus)=\"focusFirstTabbableElement()\"></div>",
             encapsulation: ViewEncapsulation.None,
         }), 
         __metadata('design:paramtypes', [InteractivityChecker, NgZone])
