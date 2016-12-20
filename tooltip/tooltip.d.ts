@@ -1,7 +1,8 @@
-import { ModuleWithProviders, ElementRef, ViewContainerRef, AnimationTransitionEvent, NgZone } from '@angular/core';
+import { ModuleWithProviders, ElementRef, ViewContainerRef, AnimationTransitionEvent, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Overlay, OverlayRef, OverlayConnectionPosition, OriginConnectionPosition } from '../core';
 import { Observable } from 'rxjs/Observable';
 import { Dir } from '../core/rtl/dir';
+import { ScrollDispatcher } from '../core/overlay/scroll/scroll-dispatcher';
 import 'rxjs/add/operator/first';
 export declare type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'before' | 'after';
 /** Time in ms to delay before changing the tooltip visibility to hidden */
@@ -12,8 +13,9 @@ export declare const TOUCHEND_HIDE_DELAY: number;
  *
  * https://material.google.com/components/tooltips.html
  */
-export declare class MdTooltip {
+export declare class MdTooltip implements OnInit, OnDestroy {
     private _overlay;
+    private _scrollDispatcher;
     private _elementRef;
     private _viewContainerRef;
     private _ngZone;
@@ -34,7 +36,8 @@ export declare class MdTooltip {
     message: string;
     /** @deprecated */
     _deprecatedMessage: string;
-    constructor(_overlay: Overlay, _elementRef: ElementRef, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _dir: Dir);
+    constructor(_overlay: Overlay, _scrollDispatcher: ScrollDispatcher, _elementRef: ElementRef, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _dir: Dir);
+    ngOnInit(): void;
     /** Dispose the tooltip when destroyed */
     ngOnDestroy(): void;
     /** Shows the tooltip after the delay in ms, defaults to tooltip-delay-show or 0ms if no input */

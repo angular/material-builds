@@ -35,6 +35,7 @@ export { OverlayState } from './overlay/overlay-state';
 export { ConnectedOverlayDirective, OverlayOrigin, OverlayModule } from './overlay/overlay-directives';
 export * from './overlay/position/connected-position-strategy';
 export * from './overlay/position/connected-position';
+export { ScrollDispatcher } from './overlay/scroll/scroll-dispatcher';
 // Gestures
 export { GestureConfig } from './gestures/gesture-config';
 export * from './gestures/gesture-annotations';
@@ -79,8 +80,22 @@ export var MdCoreModule = (function () {
     };
     MdCoreModule = __decorate([
         NgModule({
-            imports: [MdLineModule, RtlModule, MdRippleModule, PortalModule, OverlayModule, A11yModule],
-            exports: [MdLineModule, RtlModule, MdRippleModule, PortalModule, OverlayModule, A11yModule],
+            imports: [
+                MdLineModule,
+                RtlModule,
+                MdRippleModule,
+                PortalModule,
+                OverlayModule,
+                A11yModule,
+            ],
+            exports: [
+                MdLineModule,
+                RtlModule,
+                MdRippleModule,
+                PortalModule,
+                OverlayModule,
+                A11yModule,
+            ],
         }), 
         __metadata('design:paramtypes', [])
     ], MdCoreModule);

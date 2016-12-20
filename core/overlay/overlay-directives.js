@@ -17,6 +17,7 @@ import { OverlayState } from './overlay-state';
 import { ConnectionPositionPair } from './position/connected-position';
 import { PortalModule } from '../portal/portal-directives';
 import { Dir } from '../rtl/dir';
+import { Scrollable } from './scroll/scrollable';
 /** Default set of positions for the overlay. Follows the behavior of a dropdown. */
 var defaultPositionList = [
     new ConnectionPositionPair({ originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' }),
@@ -306,8 +307,8 @@ export var OverlayModule = (function () {
     OverlayModule = __decorate([
         NgModule({
             imports: [PortalModule],
-            exports: [ConnectedOverlayDirective, OverlayOrigin],
-            declarations: [ConnectedOverlayDirective, OverlayOrigin],
+            exports: [ConnectedOverlayDirective, OverlayOrigin, Scrollable],
+            declarations: [ConnectedOverlayDirective, OverlayOrigin, Scrollable],
         }), 
         __metadata('design:paramtypes', [])
     ], OverlayModule);

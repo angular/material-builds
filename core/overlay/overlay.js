@@ -14,6 +14,7 @@ import { OverlayRef } from './overlay-ref';
 import { OverlayPositionBuilder } from './position/overlay-position-builder';
 import { ViewportRuler } from './position/viewport-ruler';
 import { OverlayContainer } from './overlay-container';
+import { ScrollDispatcher } from './scroll/scroll-dispatcher';
 /** Next overlay unique ID. */
 var nextUniqueId = 0;
 /** The default state for newly created overlays. */
@@ -91,6 +92,7 @@ export var OVERLAY_PROVIDERS = [
     OverlayPositionBuilder,
     Overlay,
     OverlayContainer,
+    ScrollDispatcher,
 ];
 
 //# sourceMappingURL=overlay.js.map

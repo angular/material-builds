@@ -14,6 +14,7 @@ export { OverlayState } from './overlay/overlay-state';
 export { ConnectedOverlayDirective, OverlayOrigin, OverlayModule } from './overlay/overlay-directives';
 export * from './overlay/position/connected-position-strategy';
 export * from './overlay/position/connected-position';
+export { ScrollDispatcher } from './overlay/scroll/scroll-dispatcher';
 export { GestureConfig } from './gestures/gesture-config';
 export * from './gestures/gesture-annotations';
 export { MdRipple, MdRippleModule } from './ripple/ripple';
