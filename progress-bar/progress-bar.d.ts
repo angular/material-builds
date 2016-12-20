@@ -5,6 +5,7 @@ import { ModuleWithProviders } from '@angular/core';
 export declare class MdProgressBar {
     /** Value of the progressbar. Defaults to zero. Mirrored to aria-valuenow. */
     private _value;
+    color: 'primary' | 'accent' | 'warn';
     value: number;
     /** Buffer value of the progress bar. Defaults to zero. */
     private _bufferValue;

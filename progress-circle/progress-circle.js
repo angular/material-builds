@@ -38,6 +38,7 @@ export var MdProgressCircle = (function () {
         /** The id of the last requested animation. */
         this._lastAnimationId = 0;
         this._mode = 'determinate';
+        this.color = 'primary';
     }
     Object.defineProperty(MdProgressCircle.prototype, "_ariaValueMin", {
         /**
@@ -200,12 +201,19 @@ export var MdProgressCircle = (function () {
         Input(), 
         __metadata('design:type', Object)
     ], MdProgressCircle.prototype, "mode", null);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], MdProgressCircle.prototype, "color", void 0);
     MdProgressCircle = __decorate([
         Component({selector: 'md-progress-circle, mat-progress-circle',
             host: {
                 'role': 'progressbar',
                 '[attr.aria-valuemin]': '_ariaValueMin',
                 '[attr.aria-valuemax]': '_ariaValueMax',
+                '[class.md-primary]': 'color == "primary"',
+                '[class.md-accent]': 'color == "accent"',
+                '[class.md-warn]': 'color == "warn"',
             },
             template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"><path></path></svg>",
             styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:md-progress-circle-sporadic-rotate,md-progress-circle-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes md-progress-circle-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes md-progress-circle-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],

@@ -41,6 +41,7 @@ export declare class MdProgressCircle implements OnDestroy {
      */
     mode: ProgressCircleMode;
     private _mode;
+    color: 'primary' | 'accent' | 'warn';
     constructor(_changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _elementRef: ElementRef);
     /**
      * Animates the circle from one percentage value to another.
