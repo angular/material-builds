@@ -562,7 +562,7 @@ var MdRipple = (function () {
         enumerable: true,
         configurable: true
     });
-    
+    ;
     Object.defineProperty(MdRipple.prototype, "_centeredDeprecated", {
         /** @deprecated */
         get: function () { return this.centered; },
@@ -570,7 +570,7 @@ var MdRipple = (function () {
         enumerable: true,
         configurable: true
     });
-    
+    ;
     Object.defineProperty(MdRipple.prototype, "_disabledDeprecated", {
         /** @deprecated */
         get: function () { return this.disabled; },
@@ -578,7 +578,7 @@ var MdRipple = (function () {
         enumerable: true,
         configurable: true
     });
-    
+    ;
     Object.defineProperty(MdRipple.prototype, "_maxRadiusDeprecated", {
         /** @deprecated */
         get: function () { return this.maxRadius; },
@@ -586,7 +586,7 @@ var MdRipple = (function () {
         enumerable: true,
         configurable: true
     });
-    
+    ;
     Object.defineProperty(MdRipple.prototype, "_speedFactorDeprecated", {
         /** @deprecated */
         get: function () { return this.speedFactor; },
@@ -594,7 +594,7 @@ var MdRipple = (function () {
         enumerable: true,
         configurable: true
     });
-    
+    ;
     Object.defineProperty(MdRipple.prototype, "_colorDeprecated", {
         /** @deprecated */
         get: function () { return this.color; },
@@ -602,7 +602,7 @@ var MdRipple = (function () {
         enumerable: true,
         configurable: true
     });
-    
+    ;
     Object.defineProperty(MdRipple.prototype, "_backgroundColorDeprecated", {
         /** @deprecated */
         get: function () { return this.backgroundColor; },
@@ -610,7 +610,7 @@ var MdRipple = (function () {
         enumerable: true,
         configurable: true
     });
-    
+    ;
     Object.defineProperty(MdRipple.prototype, "_focusedDeprecated", {
         /** @deprecated */
         get: function () { return this.focused; },
@@ -618,7 +618,7 @@ var MdRipple = (function () {
         enumerable: true,
         configurable: true
     });
-    
+    ;
     Object.defineProperty(MdRipple.prototype, "_unboundedDeprecated", {
         /** @deprecated */
         get: function () { return this.unbounded; },
@@ -626,7 +626,7 @@ var MdRipple = (function () {
         enumerable: true,
         configurable: true
     });
-    
+    ;
     MdRipple.prototype.ngOnInit = function () {
         // If no trigger element was explicity set, use the host element
         if (!this.trigger) {
@@ -1724,6 +1724,7 @@ var ConnectedPositionStrategy = (function () {
     };
     return ConnectedPositionStrategy;
 }());
+;
 
 /**
  * A strategy for positioning overlays. Using this strategy, an overlay is given an
@@ -2041,9 +2042,9 @@ var Overlay = (function () {
      * @param state State to apply to the overlay.
      * @returns Reference to the created overlay.
      */
-    Overlay.prototype.create = function (state$$1) {
-        if (state$$1 === void 0) { state$$1 = defaultState; }
-        return this._createOverlayRef(this._createPaneElement(), state$$1);
+    Overlay.prototype.create = function (state) {
+        if (state === void 0) { state = defaultState; }
+        return this._createOverlayRef(this._createPaneElement(), state);
     };
     /**
      * Returns a position builder that can be used, via fluent API,
@@ -2076,8 +2077,8 @@ var Overlay = (function () {
      * @param pane DOM element for the overlay
      * @param state
      */
-    Overlay.prototype._createOverlayRef = function (pane, state$$1) {
-        return new OverlayRef(this._createPortalHost(pane), pane, state$$1, this._ngZone);
+    Overlay.prototype._createOverlayRef = function (pane, state) {
+        return new OverlayRef(this._createPortalHost(pane), pane, state, this._ngZone);
     };
     Overlay = __decorate$9([
         _angular_core.Injectable(), 
@@ -4100,7 +4101,6 @@ var MD_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
  * Represents the different states that require custom transitions between them.
  * @docs-private
  */
-
 (function (TransitionCheckState) {
     /** The initial state of the component before any user interaction. */
     TransitionCheckState[TransitionCheckState["Init"] = 0] = "Init";
@@ -8208,9 +8208,9 @@ var MdGridList = (function () {
         this._setListStyle(this._tileStyler.getComputedHeight());
     };
     /** Sets style on the main grid-list element, given the style name and value. */
-    MdGridList.prototype._setListStyle = function (style$$1) {
-        if (style$$1) {
-            this._renderer.setElementStyle(this._element.nativeElement, style$$1[0], style$$1[1]);
+    MdGridList.prototype._setListStyle = function (style) {
+        if (style) {
+            this._renderer.setElementStyle(this._element.nativeElement, style[0], style[1]);
         }
     };
     __decorate$35([
@@ -9620,7 +9620,7 @@ var MdProgressSpinner = (function () {
         var start = startIndeterminate;
         var end = endIndeterminate;
         var duration = DURATION_INDETERMINATE;
-        var animate$$1 = function () {
+        var animate = function () {
             _this._animateCircle(start, end, materialEase, duration, rotationStartPoint);
             // Prevent rotation from reaching Number.MAX_SAFE_INTEGER.
             rotationStartPoint = (rotationStartPoint + end) % 100;
@@ -9630,8 +9630,8 @@ var MdProgressSpinner = (function () {
         };
         if (!this.interdeterminateInterval) {
             this._ngZone.runOutsideAngular(function () {
-                _this.interdeterminateInterval = setInterval(animate$$1, duration + 50, 0, false);
-                animate$$1();
+                _this.interdeterminateInterval = setInterval(animate, duration + 50, 0, false);
+                animate();
             });
         }
     };
@@ -9794,8 +9794,6 @@ var MdProgressSpinnerModule = (function () {
     ], MdProgressSpinnerModule);
     return MdProgressSpinnerModule;
 }());
-
-/** @deprecated */
 
 var __decorate$43 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -10157,7 +10155,7 @@ var MdInputDirective = (function () {
         enumerable: true,
         configurable: true
     });
-    
+    ;
     Object.defineProperty(MdInputDirective.prototype, "placeholder", {
         /** Placeholder attribute of the element. */
         get: function () { return this._placeholder; },
@@ -10625,7 +10623,7 @@ var MdInput = (function () {
         enumerable: true,
         configurable: true
     });
-    
+    ;
     Object.defineProperty(MdInput.prototype, "_align", {
         // This is to remove the `align` property of the `md-input` itself. Otherwise HTML5
         // might place it as RTL when we don't want to. We still want to use `align` as an
@@ -11319,11 +11317,11 @@ var MdSnackBar = (function () {
      * Creates a new overlay and places it in the correct location.
      */
     MdSnackBar.prototype._createOverlay = function () {
-        var state$$1 = new OverlayState();
-        state$$1.positionStrategy = this._overlay.position().global()
+        var state = new OverlayState();
+        state.positionStrategy = this._overlay.position().global()
             .centerHorizontally()
             .bottom('0');
-        return this._overlay.create(state$$1);
+        return this._overlay.create(state);
     };
     MdSnackBar = __decorate$47([
         _angular_core.Injectable(), 
@@ -12408,7 +12406,6 @@ var MdToolbar = (function () {
         this.renderer = renderer;
     }
     Object.defineProperty(MdToolbar.prototype, "color", {
-        /** The color of the toolbar. Can be primary, accent, or warn. */
         get: function () {
             return this._color;
         },
@@ -13277,7 +13274,7 @@ var MdMenuTrigger = (function () {
             this.menu.focusFirstItem();
         }
     };
-    
+    ;
     /**
      * This method resets the menu when it's closed, most importantly restoring
      * focus to the menu trigger if the menu was opened via the keyboard.
@@ -13475,6 +13472,7 @@ var DialogInjector = (function () {
     return DialogInjector;
 }());
 
+;
 /**
  * Configuration for opening a modal dialog with the MdDialog service.
  */
@@ -13704,11 +13702,11 @@ var MdDialog = (function () {
      * @returns The overlay configuration.
      */
     MdDialog.prototype._getOverlayState = function (dialogConfig) {
-        var state$$1 = new OverlayState();
+        var state = new OverlayState();
         var strategy = this._overlay.position().global();
         var position = dialogConfig.position;
-        state$$1.hasBackdrop = true;
-        state$$1.positionStrategy = strategy;
+        state.hasBackdrop = true;
+        state.positionStrategy = strategy;
         if (position && (position.left || position.right)) {
             position.left ? strategy.left(position.left) : strategy.right(position.right);
         }
@@ -13722,7 +13720,7 @@ var MdDialog = (function () {
             strategy.centerVertically();
         }
         strategy.width(dialogConfig.width).height(dialogConfig.height);
-        return state$$1;
+        return state;
     };
     /**
      * Removes a dialog from the array of open dialogs.
@@ -14242,3 +14240,5 @@ exports.MdTooltipModule = MdTooltipModule;
 Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
+
+//# sourceMappingURL=./material.umd.js.map
