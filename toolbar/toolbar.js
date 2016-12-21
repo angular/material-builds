@@ -26,6 +26,7 @@ export var MdToolbar = (function () {
         this.renderer = renderer;
     }
     Object.defineProperty(MdToolbar.prototype, "color", {
+        /** The color of the toolbar. Can be primary, accent, or warn. */
         get: function () {
             return this._color;
         },
