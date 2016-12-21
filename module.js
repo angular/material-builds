@@ -22,7 +22,7 @@ import { MdGridListModule } from './grid-list/index';
 import { MdCardModule } from './card/index';
 import { MdChipsModule } from './chips/index';
 import { MdIconModule } from './icon/index';
-import { MdProgressCircleModule } from './progress-circle/index';
+import { MdProgressSpinnerModule } from './progress-spinner/index';
 import { MdProgressBarModule } from './progress-bar/index';
 import { MdInputModule } from './input/index';
 import { MdSnackBarModule } from './snack-bar/snack-bar';
@@ -47,7 +47,7 @@ var MATERIAL_MODULES = [
     MdListModule,
     MdMenuModule,
     MdProgressBarModule,
-    MdProgressCircleModule,
+    MdProgressSpinnerModule,
     MdRadioModule,
     MdRippleModule,
     MdSelectModule,
@@ -82,7 +82,7 @@ export var MaterialRootModule = (function () {
                 MdInputModule.forRoot(),
                 MdListModule.forRoot(),
                 MdProgressBarModule.forRoot(),
-                MdProgressCircleModule.forRoot(),
+                MdProgressSpinnerModule.forRoot(),
                 MdRippleModule.forRoot(),
                 MdSelectModule.forRoot(),
                 MdSidenavModule.forRoot(),

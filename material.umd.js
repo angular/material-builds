@@ -9241,10 +9241,10 @@ var endIndeterminate = 80;
 /* Maximum angle for the arc. The angle can't be exactly 360, because the arc becomes hidden. */
 var MAX_ANGLE = 359.99 / 100;
 /**
- * <md-progress-circle> component.
+ * <md-progress-spinner> component.
  */
-var MdProgressCircle = (function () {
-    function MdProgressCircle(_changeDetectorRef, _ngZone, _elementRef) {
+var MdProgressSpinner = (function () {
+    function MdProgressSpinner(_changeDetectorRef, _ngZone, _elementRef) {
         this._changeDetectorRef = _changeDetectorRef;
         this._ngZone = _ngZone;
         this._elementRef = _elementRef;
@@ -9253,7 +9253,7 @@ var MdProgressCircle = (function () {
         this._mode = 'determinate';
         this.color = 'primary';
     }
-    Object.defineProperty(MdProgressCircle.prototype, "_ariaValueMin", {
+    Object.defineProperty(MdProgressSpinner.prototype, "_ariaValueMin", {
         /**
          * Values for aria max and min are only defined as numbers when in a determinate mode.  We do this
          * because voiceover does not report the progress indicator as indeterminate if the aria min
@@ -9265,14 +9265,14 @@ var MdProgressCircle = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdProgressCircle.prototype, "_ariaValueMax", {
+    Object.defineProperty(MdProgressSpinner.prototype, "_ariaValueMax", {
         get: function () {
             return this.mode == 'determinate' ? 100 : null;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdProgressCircle.prototype, "interdeterminateInterval", {
+    Object.defineProperty(MdProgressSpinner.prototype, "interdeterminateInterval", {
         /** @docs-private */
         get: function () {
             return this._interdeterminateInterval;
@@ -9286,10 +9286,10 @@ var MdProgressCircle = (function () {
         configurable: true
     });
     /** Clean up any animations that were running. */
-    MdProgressCircle.prototype.ngOnDestroy = function () {
+    MdProgressSpinner.prototype.ngOnDestroy = function () {
         this._cleanupIndeterminateAnimation();
     };
-    Object.defineProperty(MdProgressCircle.prototype, "value", {
+    Object.defineProperty(MdProgressSpinner.prototype, "value", {
         get: function () {
             if (this.mode == 'determinate') {
                 return this._value;
@@ -9305,7 +9305,7 @@ var MdProgressCircle = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdProgressCircle.prototype, "mode", {
+    Object.defineProperty(MdProgressSpinner.prototype, "mode", {
         /**
          * Mode of the progress circle
          *
@@ -9337,7 +9337,7 @@ var MdProgressCircle = (function () {
      * @param rotation The starting angle of the circle fill, with 0° represented at the top center
      *    of the circle.
      */
-    MdProgressCircle.prototype._animateCircle = function (animateFrom, animateTo, ease, duration, rotation) {
+    MdProgressSpinner.prototype._animateCircle = function (animateFrom, animateTo, ease, duration, rotation) {
         var _this = this;
         var id = ++this._lastAnimationId;
         var startTime = Date.now();
@@ -9364,7 +9364,7 @@ var MdProgressCircle = (function () {
     /**
      * Starts the indeterminate animation interval, if it is not already running.
      */
-    MdProgressCircle.prototype._startIndeterminateAnimation = function () {
+    MdProgressSpinner.prototype._startIndeterminateAnimation = function () {
         var _this = this;
         var rotationStartPoint = 0;
         var start = startIndeterminate;
@@ -9388,14 +9388,14 @@ var MdProgressCircle = (function () {
     /**
      * Removes interval, ending the animation.
      */
-    MdProgressCircle.prototype._cleanupIndeterminateAnimation = function () {
+    MdProgressSpinner.prototype._cleanupIndeterminateAnimation = function () {
         this.interdeterminateInterval = null;
     };
     /**
      * Renders the arc onto the SVG element. Proxies `getArc` while setting the proper
      * DOM attribute on the `<path>`.
      */
-    MdProgressCircle.prototype._renderArc = function (currentValue, rotation) {
+    MdProgressSpinner.prototype._renderArc = function (currentValue, rotation) {
         // Caches the path reference so it doesn't have to be looked up every time.
         var path = this._path = this._path || this._elementRef.nativeElement.querySelector('path');
         // Ensure that the path was found. This may not be the case if the
@@ -9408,18 +9408,18 @@ var MdProgressCircle = (function () {
         _angular_core.Input(),
         _angular_core.HostBinding('attr.aria-valuenow'), 
         __metadata$42('design:type', Object)
-    ], MdProgressCircle.prototype, "value", null);
+    ], MdProgressSpinner.prototype, "value", null);
     __decorate$42([
         _angular_core.HostBinding('attr.mode'),
         _angular_core.Input(), 
         __metadata$42('design:type', Object)
-    ], MdProgressCircle.prototype, "mode", null);
+    ], MdProgressSpinner.prototype, "mode", null);
     __decorate$42([
         _angular_core.Input(), 
         __metadata$42('design:type', Object)
-    ], MdProgressCircle.prototype, "color", void 0);
-    MdProgressCircle = __decorate$42([
-        _angular_core.Component({selector: 'md-progress-circle, mat-progress-circle',
+    ], MdProgressSpinner.prototype, "color", void 0);
+    MdProgressSpinner = __decorate$42([
+        _angular_core.Component({selector: 'md-progress-spinner, mat-progress-spinner, md-progress-circle, mat-progress-circle',
             host: {
                 'role': 'progressbar',
                 '[attr.aria-valuemin]': '_ariaValueMin',
@@ -9429,18 +9429,18 @@ var MdProgressCircle = (function () {
                 '[class.md-warn]': 'color == "warn"',
             },
             template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"><path></path></svg>",
-            styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:md-progress-circle-sporadic-rotate,md-progress-circle-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes md-progress-circle-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes md-progress-circle-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
+            styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:md-progress-spinner-sporadic-rotate,md-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes md-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes md-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
         }), 
         __metadata$42('design:paramtypes', [_angular_core.ChangeDetectorRef, _angular_core.NgZone, _angular_core.ElementRef])
-    ], MdProgressCircle);
-    return MdProgressCircle;
+    ], MdProgressSpinner);
+    return MdProgressSpinner;
 }());
 /**
  * <md-spinner> component.
  *
  * This is a component definition to be used as a convenience reference to create an
- * indeterminate <md-progress-circle> instance.
+ * indeterminate <md-progress-spinner> instance.
  */
 var MdSpinner = (function (_super) {
     __extends$12(MdSpinner, _super);
@@ -9449,7 +9449,7 @@ var MdSpinner = (function (_super) {
         this.mode = 'indeterminate';
     }
     MdSpinner.prototype.ngOnDestroy = function () {
-        // The `ngOnDestroy` from `MdProgressCircle` should be called explicitly, because
+        // The `ngOnDestroy` from `MdProgressSpinner` should be called explicitly, because
         // in certain cases Angular won't call it (e.g. when using AoT and in unit tests).
         _super.prototype.ngOnDestroy.call(this);
     };
@@ -9460,12 +9460,12 @@ var MdSpinner = (function (_super) {
                 'mode': 'indeterminate',
             },
             template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"><path></path></svg>",
-            styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:md-progress-circle-sporadic-rotate,md-progress-circle-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes md-progress-circle-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes md-progress-circle-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
+            styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:md-progress-spinner-sporadic-rotate,md-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes md-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes md-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
         }), 
         __metadata$42('design:paramtypes', [_angular_core.ChangeDetectorRef, _angular_core.ElementRef, _angular_core.NgZone])
     ], MdSpinner);
     return MdSpinner;
-}(MdProgressCircle));
+}(MdProgressSpinner));
 /**
  * Module functions.
  */
@@ -9525,24 +9525,24 @@ function getSvgArc(currentValue, rotation) {
     }
     return "M" + start + "A" + pathRadius + "," + pathRadius + " 0 " + largeArcFlag + "," + arcSweep + " " + end;
 }
-var MdProgressCircleModule = (function () {
-    function MdProgressCircleModule() {
+var MdProgressSpinnerModule = (function () {
+    function MdProgressSpinnerModule() {
     }
-    MdProgressCircleModule.forRoot = function () {
+    MdProgressSpinnerModule.forRoot = function () {
         return {
-            ngModule: MdProgressCircleModule,
+            ngModule: MdProgressSpinnerModule,
             providers: []
         };
     };
-    MdProgressCircleModule = __decorate$42([
+    MdProgressSpinnerModule = __decorate$42([
         _angular_core.NgModule({
             imports: [DefaultStyleCompatibilityModeModule],
-            exports: [MdProgressCircle, MdSpinner, DefaultStyleCompatibilityModeModule],
-            declarations: [MdProgressCircle, MdSpinner],
+            exports: [MdProgressSpinner, MdSpinner, DefaultStyleCompatibilityModeModule],
+            declarations: [MdProgressSpinner, MdSpinner],
         }), 
         __metadata$42('design:paramtypes', [])
-    ], MdProgressCircleModule);
-    return MdProgressCircleModule;
+    ], MdProgressSpinnerModule);
+    return MdProgressSpinnerModule;
 }());
 
 var __decorate$43 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -13593,7 +13593,7 @@ var MATERIAL_MODULES = [
     MdListModule,
     MdMenuModule,
     MdProgressBarModule,
-    MdProgressCircleModule,
+    MdProgressSpinnerModule,
     MdRadioModule,
     MdRippleModule,
     MdSelectModule,
@@ -13628,7 +13628,7 @@ var MaterialRootModule = (function () {
                 MdInputModule.forRoot(),
                 MdListModule.forRoot(),
                 MdProgressBarModule.forRoot(),
-                MdProgressCircleModule.forRoot(),
+                MdProgressSpinnerModule.forRoot(),
                 MdRippleModule.forRoot(),
                 MdSelectModule.forRoot(),
                 MdSidenavModule.forRoot(),
@@ -13817,9 +13817,11 @@ exports.MdMenuItem = MdMenuItem;
 exports.MdMenuModule = MdMenuModule;
 exports.MdProgressBar = MdProgressBar;
 exports.MdProgressBarModule = MdProgressBarModule;
-exports.MdProgressCircle = MdProgressCircle;
+exports.MdProgressCircle = MdProgressSpinner;
+exports.MdProgressCircleModule = MdProgressSpinnerModule;
+exports.MdProgressSpinner = MdProgressSpinner;
 exports.MdSpinner = MdSpinner;
-exports.MdProgressCircleModule = MdProgressCircleModule;
+exports.MdProgressSpinnerModule = MdProgressSpinnerModule;
 exports.MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR;
 exports.MdRadioChange = MdRadioChange;
 exports.MdRadioGroup = MdRadioGroup;

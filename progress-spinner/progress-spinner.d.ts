@@ -1,9 +1,9 @@
 import { ModuleWithProviders, ChangeDetectorRef, OnDestroy, ElementRef, NgZone } from '@angular/core';
-export declare type ProgressCircleMode = 'determinate' | 'indeterminate';
+export declare type ProgressSpinnerMode = 'determinate' | 'indeterminate';
 /**
- * <md-progress-circle> component.
+ * <md-progress-spinner> component.
  */
-export declare class MdProgressCircle implements OnDestroy {
+export declare class MdProgressSpinner implements OnDestroy {
     private _changeDetectorRef;
     private _ngZone;
     private _elementRef;
@@ -39,7 +39,7 @@ export declare class MdProgressCircle implements OnDestroy {
      * Input must be one of the values from ProgressMode, defaults to 'determinate'.
      * mode is bound to the host as the attribute host.
      */
-    mode: ProgressCircleMode;
+    mode: ProgressSpinnerMode;
     private _mode;
     color: 'primary' | 'accent' | 'warn';
     constructor(_changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _elementRef: ElementRef);
@@ -72,12 +72,12 @@ export declare class MdProgressCircle implements OnDestroy {
  * <md-spinner> component.
  *
  * This is a component definition to be used as a convenience reference to create an
- * indeterminate <md-progress-circle> instance.
+ * indeterminate <md-progress-spinner> instance.
  */
-export declare class MdSpinner extends MdProgressCircle implements OnDestroy {
+export declare class MdSpinner extends MdProgressSpinner implements OnDestroy {
     constructor(changeDetectorRef: ChangeDetectorRef, elementRef: ElementRef, ngZone: NgZone);
     ngOnDestroy(): void;
 }
-export declare class MdProgressCircleModule {
+export declare class MdProgressSpinnerModule {
     static forRoot(): ModuleWithProviders;
 }

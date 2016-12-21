@@ -1,0 +1,1 @@
+{"__symbolic":"module","version":1,"metadata":{},"exports":[{"from":"./progress-spinner","export":[{"name":"MdProgressSpinner","as":"MdProgressCircle"}]},{"from":"./progress-spinner","export":[{"name":"MdProgressSpinnerModule","as":"MdProgressCircleModule"}]}]}
