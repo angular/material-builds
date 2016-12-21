@@ -161,7 +161,7 @@ export var MdChipList = (function () {
                 'role': 'listbox',
                 'class': 'md-chip-list',
                 // Events
-                '(focus)': 'focus($event)',
+                '(focus)': 'focus()',
                 '(keydown)': '_keydown($event)'
             },
             queries: {
