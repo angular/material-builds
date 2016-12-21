@@ -25,6 +25,9 @@ export var MdSlideToggleChange = (function () {
 }());
 // Increasing integer for generating unique ids for slide-toggle components.
 var nextId = 0;
+/**
+ * Two-state control, which can be also called `switch`.
+ */
 export var MdSlideToggle = (function () {
     function MdSlideToggle(_elementRef, _renderer) {
         this._elementRef = _elementRef;
@@ -150,9 +153,7 @@ export var MdSlideToggle = (function () {
     };
     Object.defineProperty(MdSlideToggle.prototype, "checked", {
         /** Whether the slide-toggle is checked. */
-        get: function () {
-            return !!this._checked;
-        },
+        get: function () { return !!this._checked; },
         set: function (value) {
             if (this.checked !== !!value) {
                 this._checked = value;
@@ -164,9 +165,7 @@ export var MdSlideToggle = (function () {
     });
     Object.defineProperty(MdSlideToggle.prototype, "color", {
         /** The color of the slide-toggle. Can be primary, accent, or warn. */
-        get: function () {
-            return this._color;
-        },
+        get: function () { return this._color; },
         set: function (value) {
             this._updateColor(value);
         },

@@ -41,6 +41,9 @@ export var MdTabNavBar = (function () {
     ], MdTabNavBar);
     return MdTabNavBar;
 }());
+/**
+ * Link inside of a `md-tab-nav-bar`.
+ */
 export var MdTabLink = (function () {
     function MdTabLink(_mdTabNavBar, _element) {
         this._mdTabNavBar = _mdTabNavBar;
@@ -48,9 +51,8 @@ export var MdTabLink = (function () {
         this._isActive = false;
     }
     Object.defineProperty(MdTabLink.prototype, "active", {
-        get: function () {
-            return this._isActive;
-        },
+        /** Whether the link is active. */
+        get: function () { return this._isActive; },
         set: function (value) {
             this._isActive = value;
             if (value) {
@@ -83,8 +85,9 @@ export var MdTabLinkRipple = (function (_super) {
         this._element = _element;
         this._ngZone = _ngZone;
     }
-    // In certain cases the parent destroy handler
-    // may not get called. See Angular issue #11606.
+    /**
+     * In certain cases the parent destroy handler may not get called. See Angular issue #11606.
+     */
     MdTabLinkRipple.prototype.ngOnDestroy = function () {
         _super.prototype.ngOnDestroy.call(this);
     };

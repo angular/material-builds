@@ -57,18 +57,37 @@ export declare class MdIconRegistry {
      */
     private _defaultFontSetClass;
     constructor(_http: Http, _sanitizer: DomSanitizer);
-    /** Registers an icon by URL in the default namespace. */
+    /**
+     * Registers an icon by URL in the default namespace.
+     * @param iconName Name under which the icon should be registered.
+     * @param url
+     */
     addSvgIcon(iconName: string, url: SafeResourceUrl): this;
-    /** Registers an icon by URL in the specified namespace. */
+    /**
+     * Registers an icon by URL in the specified namespace.
+     * @param namespace Namespace in which the icon should be registered.
+     * @param iconName Name under which the icon should be registered.
+     * @param url
+     */
     addSvgIconInNamespace(namespace: string, iconName: string, url: SafeResourceUrl): this;
-    /** Registers an icon set by URL in the default namespace. */
+    /**
+     * Registers an icon set by URL in the default namespace.
+     * @param url
+     */
     addSvgIconSet(url: SafeResourceUrl): this;
-    /** Registers an icon set by URL in the specified namespace. */
+    /**
+     * Registers an icon set by URL in the specified namespace.
+     * @param namespace Namespace in which to register the icon set.
+     * @param url
+     */
     addSvgIconSetInNamespace(namespace: string, url: SafeResourceUrl): this;
     /**
      * Defines an alias for a CSS class name to be used for icon fonts. Creating an mdIcon
      * component with the alias as the fontSet input will cause the class name to be applied
      * to the <md-icon> element.
+     *
+     * @param alias Alias for the font.
+     * @param className Class name override to be used instead of the alias.
      */
     registerFontClassAlias(alias: string, className?: string): this;
     /**
@@ -79,6 +98,8 @@ export declare class MdIconRegistry {
     /**
      * Sets the CSS class name to be used for icon fonts when an <md-icon> component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
+     *
+     * @param className
      */
     setDefaultFontSetClass(className: string): this;
     /**
@@ -91,12 +112,17 @@ export declare class MdIconRegistry {
      * The response from the URL may be cached so this will not always cause an HTTP request, but
      * the produced element will always be a new copy of the originally fetched icon. (That is,
      * it will not contain any modifications made to elements previously returned).
+     *
+     * @param safeUrl URL from which to fetch the SVG icon.
      */
     getSvgIconFromUrl(safeUrl: SafeResourceUrl): Observable<SVGElement>;
     /**
      * Returns an Observable that produces the icon (as an <svg> DOM element) with the given name
      * and namespace. The icon must have been previously registered with addIcon or addIconSet;
      * if not, the Observable will throw an MdIconNameNotFoundError.
+     *
+     * @param name Name of the icon to be retrieved.
+     * @param namespace Namespace in which to look for the icon.
      */
     getNamedSvgIcon(name: string, namespace?: string): Observable<SVGElement>;
     /**

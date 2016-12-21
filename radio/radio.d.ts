@@ -55,9 +55,12 @@ export declare class MdRadioGroup implements AfterContentInit, ControlValueAcces
     align: 'start' | 'end';
     /** Whether the labels should appear after or before the radio-buttons. Defaults to 'after' */
     labelPosition: 'before' | 'after';
+    /** Whether the radio button is disabled. */
     disabled: boolean;
+    /** Value of the radio button. */
     value: any;
     _checkSelectedRadioButton(): void;
+    /** Whether the radio button is selected. */
     selected: MdRadioButton;
     /**
      * Initialize properties once content children are available.
@@ -74,13 +77,27 @@ export declare class MdRadioGroup implements AfterContentInit, ControlValueAcces
     private _updateSelectedRadioFromValue();
     /** Dispatch change event with current selection and group value. */
     _emitChangeEvent(): void;
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Sets the model value. Implemented as part of ControlValueAccessor.
+     * @param value
+     */
     writeValue(value: any): void;
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback to be triggered when the model value changes.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Callback to be registered.
+     */
     registerOnChange(fn: (value: any) => void): void;
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback to be triggered when the control is touched.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Callback to be registered.
+     */
     registerOnTouched(fn: any): void;
-    /** Implemented as a part of ControlValueAccessor. */
+    /**
+     * Sets the disabled state of the control. Implemented as a part of ControlValueAccessor.
+     * @param isDisabled Whether the control should be disabled.
+     */
     setDisabledState(isDisabled: boolean): void;
 }
 /**

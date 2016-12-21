@@ -42,8 +42,8 @@ export declare class MdTabHeader {
     private _tabLabelCount;
     /** Whether the scroll distance has changed and should be applied after the view is checked. */
     private _scrollDistanceChanged;
-    /** The index of the active tab. */
     private _selectedIndex;
+    /** The index of the active tab. */
     selectedIndex: number;
     /** Event emitted when the option is selected. */
     selectFocusedIndex: EventEmitter<{}>;
@@ -53,7 +53,7 @@ export declare class MdTabHeader {
     ngAfterContentChecked(): void;
     /**
      * Waits one frame for the view to update, then updates the ink bar and scroll.
-     * Note: This must be run outside of the zone or it will create an infinite change detection loop
+     * Note: This must be run outside of the zone or it will create an infinite change detection loop.
      */
     ngAfterViewChecked(): void;
     _handleKeydown(event: KeyboardEvent): void;

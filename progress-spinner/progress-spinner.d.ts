@@ -23,14 +23,11 @@ export declare class MdProgressSpinner implements OnDestroy {
     /** @docs-private */
     /** @docs-private */
     interdeterminateInterval: number;
-    /** Clean up any animations that were running. */
-    ngOnDestroy(): void;
     /**
-     * Value of the progress circle.
-     *
-     * Input:number
-     * _value is bound to the host as the attribute aria-valuenow.
+     * Clean up any animations that were running.
      */
+    ngOnDestroy(): void;
+    /** Value of the progress circle. It is bound to the host as the attribute aria-valuenow. */
     private _value;
     value: number;
     /**

@@ -69,6 +69,7 @@ export var MdButtonToggleGroup = (function () {
         this._isInitialized = true;
     };
     Object.defineProperty(MdButtonToggleGroup.prototype, "name", {
+        /** `name` attribute for the underlying `input` element. */
         get: function () {
             return this._name;
         },
@@ -80,6 +81,7 @@ export var MdButtonToggleGroup = (function () {
         configurable: true
     });
     Object.defineProperty(MdButtonToggleGroup.prototype, "disabled", {
+        /** Whether the toggle group is disabled. */
         get: function () {
             return this._disabled;
         },
@@ -90,6 +92,7 @@ export var MdButtonToggleGroup = (function () {
         configurable: true
     });
     Object.defineProperty(MdButtonToggleGroup.prototype, "vertical", {
+        /** Whether the toggle group is vertical. */
         get: function () {
             return this._vertical;
         },
@@ -100,6 +103,7 @@ export var MdButtonToggleGroup = (function () {
         configurable: true
     });
     Object.defineProperty(MdButtonToggleGroup.prototype, "value", {
+        /** Value of the toggle group. */
         get: function () {
             return this._value;
         },
@@ -118,6 +122,7 @@ export var MdButtonToggleGroup = (function () {
         configurable: true
     });
     Object.defineProperty(MdButtonToggleGroup.prototype, "selected", {
+        /** Whether the toggle group is selected. */
         get: function () {
             return this._selected;
         },
@@ -164,15 +169,26 @@ export var MdButtonToggleGroup = (function () {
         this._controlValueAccessorChangeFn(event.value);
         this._change.emit(event);
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Sets the model value. Implemented as part of ControlValueAccessor.
+     * @param value Value to be set to the model.
+     */
     MdButtonToggleGroup.prototype.writeValue = function (value) {
         this.value = value;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback that will be triggered when the value has changed.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn On change callback function.
+     */
     MdButtonToggleGroup.prototype.registerOnChange = function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback that will be triggered when the control has been touched.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn On touch callback function.
+     */
     MdButtonToggleGroup.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
@@ -227,6 +243,7 @@ export var MdButtonToggleGroupMultiple = (function () {
         this._vertical = false;
     }
     Object.defineProperty(MdButtonToggleGroupMultiple.prototype, "disabled", {
+        /** Whether the toggle group is disabled. */
         get: function () {
             return this._disabled;
         },
@@ -237,6 +254,7 @@ export var MdButtonToggleGroupMultiple = (function () {
         configurable: true
     });
     Object.defineProperty(MdButtonToggleGroupMultiple.prototype, "vertical", {
+        /** Whether the toggle group is vertical. */
         get: function () {
             return this._vertical;
         },
@@ -266,6 +284,7 @@ export var MdButtonToggleGroupMultiple = (function () {
     ], MdButtonToggleGroupMultiple);
     return MdButtonToggleGroupMultiple;
 }());
+/** Single button inside of a toggle group. */
 export var MdButtonToggle = (function () {
     function MdButtonToggle(toggleGroup, toggleGroupMultiple, buttonToggleDispatcher, _renderer) {
         var _this = this;
@@ -316,6 +335,7 @@ export var MdButtonToggle = (function () {
         }
     };
     Object.defineProperty(MdButtonToggle.prototype, "inputId", {
+        /** Unique ID for the underlying `input` element. */
         get: function () {
             return this.id + "-input";
         },
@@ -323,6 +343,7 @@ export var MdButtonToggle = (function () {
         configurable: true
     });
     Object.defineProperty(MdButtonToggle.prototype, "checked", {
+        /** Whether the button is checked. */
         get: function () {
             return this._checked;
         },
@@ -365,6 +386,7 @@ export var MdButtonToggle = (function () {
         this._change.emit(event);
     };
     Object.defineProperty(MdButtonToggle.prototype, "disabled", {
+        /** Whether the button is disabled. */
         get: function () {
             return this._disabled || (this.buttonToggleGroup != null && this.buttonToggleGroup.disabled) ||
                 (this.buttonToggleGroupMultiple != null && this.buttonToggleGroupMultiple.disabled);
@@ -405,6 +427,7 @@ export var MdButtonToggle = (function () {
         // Preventing bubbling for the second event will solve that issue.
         event.stopPropagation();
     };
+    /** Focuses the button. */
     MdButtonToggle.prototype.focus = function () {
         this._renderer.invokeElementMethod(this._inputElement.nativeElement, 'focus');
     };

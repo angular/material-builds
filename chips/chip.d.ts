@@ -4,7 +4,7 @@ export interface MdChipEvent {
     chip: MdChip;
 }
 /**
- * A material design styled Chip component. Used inside the MdChipList component.
+ * Material design styled Chip component. Used inside the MdChipList component.
  */
 export declare class MdChip implements Focusable, OnInit, OnDestroy {
     protected _renderer: Renderer;
@@ -33,7 +33,10 @@ export declare class MdChip implements Focusable, OnInit, OnDestroy {
     readonly _isAriaDisabled: string;
     /** Whether or not this chip is selected. */
     selected: boolean;
-    /** Toggles the current selected state of this chip. */
+    /**
+     * Toggles the current selected state of this chip.
+     * @return Whether the chip is selected.
+     */
     toggleSelected(): boolean;
     /** The color of the chip. Can be `primary`, `accent`, or `warn`. */
     color: string;

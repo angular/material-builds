@@ -4,7 +4,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 import { MdError } from '../core';
-/** Exception thrown when a ComponentPortal is attached to a DomPortalHost without an origin. */
+/**
+ * Exception thrown when a ComponentPortal is attached to a DomPortalHost without an origin.
+ * @docs-private
+ */
 export var MdDialogContentAlreadyAttachedError = (function (_super) {
     __extends(MdDialogContentAlreadyAttachedError, _super);
     function MdDialogContentAlreadyAttachedError() {

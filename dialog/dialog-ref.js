@@ -19,7 +19,9 @@ export var MdDialogRef = (function () {
         this._afterClosed.next(dialogResult);
         this._afterClosed.complete();
     };
-    /** Gets an observable that is notified when the dialog is finished closing. */
+    /**
+     * Gets an observable that is notified when the dialog is finished closing.
+     */
     MdDialogRef.prototype.afterClosed = function () {
         return this._afterClosed.asObservable();
     };

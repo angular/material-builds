@@ -1,4 +1,7 @@
 import { ElementRef, EventEmitter, Renderer } from '@angular/core';
+/**
+ * Single option inside of a `<md-select>` element.
+ */
 export declare class MdOption {
     private _element;
     private _renderer;
@@ -10,6 +13,7 @@ export declare class MdOption {
     readonly id: string;
     /** The form value of the option. */
     value: any;
+    /** Whether the option is disabled. */
     disabled: any;
     /** Event emitted when the option is selected. */
     onSelect: EventEmitter<{}>;
@@ -19,7 +23,6 @@ export declare class MdOption {
     /**
      * The displayed value of the option. It is necessary to show the selected option in the
      * select's trigger.
-     * TODO(kara): Add input property alternative for node envs.
      */
     readonly viewValue: string;
     /** Selects the option. */

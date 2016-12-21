@@ -63,15 +63,13 @@ export var MdIcon = (function () {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this._mdIconRegistry = _mdIconRegistry;
+        /** Screenreader label for the icon. */
         this.hostAriaLabel = '';
     }
     Object.defineProperty(MdIcon.prototype, "color", {
-        get: function () {
-            return this._color;
-        },
-        set: function (value) {
-            this._updateColor(value);
-        },
+        /** Color of the icon. */
+        get: function () { return this._color; },
+        set: function (value) { this._updateColor(value); },
         enumerable: true,
         configurable: true
     });

@@ -21,7 +21,9 @@ export declare class MdGridList implements OnInit, AfterContentChecked {
     /** Query list of tiles that are being rendered. */
     _tiles: QueryList<MdGridTile>;
     constructor(_renderer: Renderer, _element: ElementRef, _dir: Dir);
+    /** Amount of columns in the grid list. */
     cols: any;
+    /** Size of the grid list's gutter in pixels. */
     gutterSize: any;
     /** Set internal representation of row height from the user-provided value. */
     rowHeight: string | number;

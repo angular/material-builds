@@ -17,10 +17,9 @@ import { DefaultStyleCompatibilityModeModule } from '../core/compatibility/defau
  */
 export var MdProgressBar = (function () {
     function MdProgressBar() {
-        /** Value of the progressbar. Defaults to zero. Mirrored to aria-valuenow. */
-        this._value = 0;
+        /** Color of the progress bar. */
         this.color = 'primary';
-        /** Buffer value of the progress bar. Defaults to zero. */
+        this._value = 0;
         this._bufferValue = 0;
         /**
          * Mode of the progress bar.
@@ -32,22 +31,16 @@ export var MdProgressBar = (function () {
         this.mode = 'determinate';
     }
     Object.defineProperty(MdProgressBar.prototype, "value", {
-        get: function () {
-            return this._value;
-        },
-        set: function (v) {
-            this._value = clamp(v || 0);
-        },
+        /** Value of the progressbar. Defaults to zero. Mirrored to aria-valuenow. */
+        get: function () { return this._value; },
+        set: function (v) { this._value = clamp(v || 0); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdProgressBar.prototype, "bufferValue", {
-        get: function () {
-            return this._bufferValue;
-        },
-        set: function (v) {
-            this._bufferValue = clamp(v || 0);
-        },
+        /** Buffer value of the progress bar. Defaults to zero. */
+        get: function () { return this._bufferValue; },
+        set: function (v) { this._bufferValue = clamp(v || 0); },
         enumerable: true,
         configurable: true
     });

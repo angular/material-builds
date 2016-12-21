@@ -48,7 +48,7 @@ export var MdCheckboxChange = (function () {
 }());
 /**
  * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
- * and exposes a similar API. An MdCheckbox can be either checked, unchecked, indeterminate, or
+ * and exposes a similar API. A MdCheckbox can be either checked, unchecked, indeterminate, or
  * disabled. Note that all additional accessibility attributes are taken care of by the component,
  * so there is no need to provide them yourself. However, if you want to omit a label and still
  * have the checkbox be accessible, you may supply an [aria-label] input.
@@ -201,19 +201,33 @@ export var MdCheckbox = (function () {
     MdCheckbox.prototype._isRippleDisabled = function () {
         return this.disableRipple || this.disabled;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Sets the model value. Implemented as part of ControlValueAccessor.
+     * @param value Value to be set to the model.
+     */
     MdCheckbox.prototype.writeValue = function (value) {
         this.checked = !!value;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback to be triggered when the value has changed.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Function to be called on change.
+     */
     MdCheckbox.prototype.registerOnChange = function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback to be triggered when the control has been touched.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Callback to be triggered when the checkbox is touched.
+     */
     MdCheckbox.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
-    /** Implemented as a part of ControlValueAccessor. */
+    /**
+     * Sets the checkbox's disabled state. Implemented as a part of ControlValueAccessor.
+     * @param isDisabled Whether the checkbox should be disabled.
+     */
     MdCheckbox.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };

@@ -4,6 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 import { MdError } from '../core/errors/error';
+/** @docs-private */
 export var MdInputContainerPlaceholderConflictError = (function (_super) {
     __extends(MdInputContainerPlaceholderConflictError, _super);
     function MdInputContainerPlaceholderConflictError() {
@@ -11,6 +12,7 @@ export var MdInputContainerPlaceholderConflictError = (function (_super) {
     }
     return MdInputContainerPlaceholderConflictError;
 }(MdError));
+/** @docs-private */
 export var MdInputContainerUnsupportedTypeError = (function (_super) {
     __extends(MdInputContainerUnsupportedTypeError, _super);
     function MdInputContainerUnsupportedTypeError(type) {
@@ -18,6 +20,7 @@ export var MdInputContainerUnsupportedTypeError = (function (_super) {
     }
     return MdInputContainerUnsupportedTypeError;
 }(MdError));
+/** @docs-private */
 export var MdInputContainerDuplicatedHintError = (function (_super) {
     __extends(MdInputContainerDuplicatedHintError, _super);
     function MdInputContainerDuplicatedHintError(align) {
@@ -25,6 +28,7 @@ export var MdInputContainerDuplicatedHintError = (function (_super) {
     }
     return MdInputContainerDuplicatedHintError;
 }(MdError));
+/** @docs-private */
 export var MdInputContainerMissingMdInputError = (function (_super) {
     __extends(MdInputContainerMissingMdInputError, _super);
     function MdInputContainerMissingMdInputError() {

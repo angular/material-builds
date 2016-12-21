@@ -18,6 +18,7 @@ export var MdTabLabelWrapper = (function () {
         this._disabled = false;
     }
     Object.defineProperty(MdTabLabelWrapper.prototype, "disabled", {
+        /** Whether the element is disabled. */
         get: function () { return this._disabled; },
         set: function (value) { this._disabled = coerceBooleanProperty(value); },
         enumerable: true,

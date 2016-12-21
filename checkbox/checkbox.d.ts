@@ -27,7 +27,7 @@ export declare class MdCheckboxChange {
 }
 /**
  * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
- * and exposes a similar API. An MdCheckbox can be either checked, unchecked, indeterminate, or
+ * and exposes a similar API. A MdCheckbox can be either checked, unchecked, indeterminate, or
  * disabled. Note that all additional accessibility attributes are taken care of by the component,
  * so there is no need to provide them yourself. However, if you want to omit a label and still
  * have the checkbox be accessible, you may supply an [aria-label] input.
@@ -73,7 +73,7 @@ export declare class MdCheckbox implements ControlValueAccessor {
     name: string;
     /** Event emitted when the checkbox's `checked` value changes. */
     change: EventEmitter<MdCheckboxChange>;
-    /** The native `<input type=checkbox> element */
+    /** The native `<input type="checkbox"> element */
     _inputElement: ElementRef;
     /**
      * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
@@ -108,13 +108,27 @@ export declare class MdCheckbox implements ControlValueAccessor {
     _updateColor(newColor: string): void;
     _setElementColor(color: string, isAdd: boolean): void;
     _isRippleDisabled(): boolean;
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Sets the model value. Implemented as part of ControlValueAccessor.
+     * @param value Value to be set to the model.
+     */
     writeValue(value: any): void;
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback to be triggered when the value has changed.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Function to be called on change.
+     */
     registerOnChange(fn: (value: any) => void): void;
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback to be triggered when the control has been touched.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Callback to be triggered when the checkbox is touched.
+     */
     registerOnTouched(fn: any): void;
-    /** Implemented as a part of ControlValueAccessor. */
+    /**
+     * Sets the checkbox's disabled state. Implemented as a part of ControlValueAccessor.
+     * @param isDisabled Whether the checkbox should be disabled.
+     */
     setDisabledState(isDisabled: boolean): void;
     private _transitionCheckState(newState);
     private _emitChangeEvent();

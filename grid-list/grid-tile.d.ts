@@ -6,7 +6,9 @@ export declare class MdGridTile {
     _rowspan: number;
     _colspan: number;
     constructor(_renderer: Renderer, _element: ElementRef);
+    /** Amount of rows that the grid tile takes up. */
     rowspan: number;
+    /** Amount of columns that the grid tile takes up. */
     colspan: number;
     /**
      * Sets the style of the grid-tile element.  Needs to be set manually to avoid

@@ -8,7 +8,9 @@ export declare class MdMenu implements AfterContentInit, MdMenuPanel, OnDestroy 
     private _tabSubscription;
     /** Config object to be passed into the menu's ngClass */
     _classList: any;
+    /** Position of the menu in the X axis. */
     positionX: MenuPositionX;
+    /** Position of the menu in the Y axis. */
     positionY: MenuPositionY;
     templateRef: TemplateRef<any>;
     items: QueryList<MdMenuItem>;
@@ -22,6 +24,7 @@ export declare class MdMenu implements AfterContentInit, MdMenuPanel, OnDestroy 
      * @param classes list of class names
      */
     classList: string;
+    /** Event emitted when the menu is closed. */
     close: EventEmitter<void>;
     /**
      * Focus the first item in the menu. This method is used by the menu trigger

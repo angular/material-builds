@@ -37,6 +37,7 @@ export var MdTab = (function () {
     });
     Object.defineProperty(MdTab.prototype, "disabled", {
         get: function () { return this._disabled; },
+        /** Whether the tab is disabled */
         set: function (value) { this._disabled = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true

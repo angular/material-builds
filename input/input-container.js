@@ -99,12 +99,14 @@ export var MdInputDirective = (function () {
         }
     }
     Object.defineProperty(MdInputDirective.prototype, "disabled", {
+        /** Whether the element is disabled. */
         get: function () { return this._disabled; },
         set: function (value) { this._disabled = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInputDirective.prototype, "id", {
+        /** Unique id of the element. */
         get: function () { return this._id; },
         set: function (value) { this._id = value || this._uid; },
         enumerable: true,
@@ -112,6 +114,7 @@ export var MdInputDirective = (function () {
     });
     ;
     Object.defineProperty(MdInputDirective.prototype, "placeholder", {
+        /** Placeholder attribute of the element. */
         get: function () { return this._placeholder; },
         set: function (value) {
             if (this._placeholder != value) {
@@ -123,12 +126,14 @@ export var MdInputDirective = (function () {
         configurable: true
     });
     Object.defineProperty(MdInputDirective.prototype, "required", {
+        /** Whether the element is required. */
         get: function () { return this._required; },
         set: function (value) { this._required = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInputDirective.prototype, "type", {
+        /** Input type of the element. */
         get: function () { return this._type; },
         set: function (value) {
             this._type = value || 'text';
@@ -150,7 +155,7 @@ export var MdInputDirective = (function () {
     MdInputDirective.prototype.ngAfterContentInit = function () {
         this.value = this._elementRef.nativeElement.value;
     };
-    /** Focus the input element. */
+    /** Focuses the input element. */
     MdInputDirective.prototype.focus = function () { this._renderer.invokeElementMethod(this._elementRef.nativeElement, 'focus'); };
     MdInputDirective.prototype._onFocus = function () { this.focused = true; };
     MdInputDirective.prototype._onBlur = function () { this.focused = false; };
@@ -208,12 +213,15 @@ export var MdInputDirective = (function () {
  */
 export var MdInputContainer = (function () {
     function MdInputContainer() {
+        /** Alignment of the input container's content. */
         this.align = 'start';
+        /** Color of the input divider, based on the theme. */
         this.dividerColor = 'primary';
         this._hintLabel = '';
         this._floatingPlaceholder = true;
     }
     Object.defineProperty(MdInputContainer.prototype, "hintLabel", {
+        /** Text for the input hint. */
         get: function () { return this._hintLabel; },
         set: function (value) {
             this._hintLabel = value;
@@ -223,6 +231,7 @@ export var MdInputContainer = (function () {
         configurable: true
     });
     Object.defineProperty(MdInputContainer.prototype, "floatingPlaceholder", {
+        /** Text or the floating placeholder. */
         get: function () { return this._floatingPlaceholder; },
         set: function (value) { this._floatingPlaceholder = coerceBooleanProperty(value); },
         enumerable: true,

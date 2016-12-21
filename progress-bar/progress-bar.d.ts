@@ -3,12 +3,13 @@ import { ModuleWithProviders } from '@angular/core';
  * <md-progress-bar> component.
  */
 export declare class MdProgressBar {
-    /** Value of the progressbar. Defaults to zero. Mirrored to aria-valuenow. */
-    private _value;
+    /** Color of the progress bar. */
     color: 'primary' | 'accent' | 'warn';
+    private _value;
+    /** Value of the progressbar. Defaults to zero. Mirrored to aria-valuenow. */
     value: number;
-    /** Buffer value of the progress bar. Defaults to zero. */
     private _bufferValue;
+    /** Buffer value of the progress bar. Defaults to zero. */
     bufferValue: number;
     /**
      * Mode of the progress bar.

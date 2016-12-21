@@ -94,21 +94,37 @@ export var MdIconRegistry = (function () {
          */
         this._defaultFontSetClass = 'material-icons';
     }
-    /** Registers an icon by URL in the default namespace. */
+    /**
+     * Registers an icon by URL in the default namespace.
+     * @param iconName Name under which the icon should be registered.
+     * @param url
+     */
     MdIconRegistry.prototype.addSvgIcon = function (iconName, url) {
         return this.addSvgIconInNamespace('', iconName, url);
     };
-    /** Registers an icon by URL in the specified namespace. */
+    /**
+     * Registers an icon by URL in the specified namespace.
+     * @param namespace Namespace in which the icon should be registered.
+     * @param iconName Name under which the icon should be registered.
+     * @param url
+     */
     MdIconRegistry.prototype.addSvgIconInNamespace = function (namespace, iconName, url) {
         var key = iconKey(namespace, iconName);
         this._svgIconConfigs.set(key, new SvgIconConfig(url));
         return this;
     };
-    /** Registers an icon set by URL in the default namespace. */
+    /**
+     * Registers an icon set by URL in the default namespace.
+     * @param url
+     */
     MdIconRegistry.prototype.addSvgIconSet = function (url) {
         return this.addSvgIconSetInNamespace('', url);
     };
-    /** Registers an icon set by URL in the specified namespace. */
+    /**
+     * Registers an icon set by URL in the specified namespace.
+     * @param namespace Namespace in which to register the icon set.
+     * @param url
+     */
     MdIconRegistry.prototype.addSvgIconSetInNamespace = function (namespace, url) {
         var config = new SvgIconConfig(url);
         if (this._iconSetConfigs.has(namespace)) {
@@ -123,6 +139,9 @@ export var MdIconRegistry = (function () {
      * Defines an alias for a CSS class name to be used for icon fonts. Creating an mdIcon
      * component with the alias as the fontSet input will cause the class name to be applied
      * to the <md-icon> element.
+     *
+     * @param alias Alias for the font.
+     * @param className Class name override to be used instead of the alias.
      */
     MdIconRegistry.prototype.registerFontClassAlias = function (alias, className) {
         if (className === void 0) { className = alias; }
@@ -139,6 +158,8 @@ export var MdIconRegistry = (function () {
     /**
      * Sets the CSS class name to be used for icon fonts when an <md-icon> component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
+     *
+     * @param className
      */
     MdIconRegistry.prototype.setDefaultFontSetClass = function (className) {
         this._defaultFontSetClass = className;
@@ -156,6 +177,8 @@ export var MdIconRegistry = (function () {
      * The response from the URL may be cached so this will not always cause an HTTP request, but
      * the produced element will always be a new copy of the originally fetched icon. (That is,
      * it will not contain any modifications made to elements previously returned).
+     *
+     * @param safeUrl URL from which to fetch the SVG icon.
      */
     MdIconRegistry.prototype.getSvgIconFromUrl = function (safeUrl) {
         var _this = this;
@@ -171,6 +194,9 @@ export var MdIconRegistry = (function () {
      * Returns an Observable that produces the icon (as an <svg> DOM element) with the given name
      * and namespace. The icon must have been previously registered with addIcon or addIconSet;
      * if not, the Observable will throw an MdIconNameNotFoundError.
+     *
+     * @param name Name of the icon to be retrieved.
+     * @param namespace Namespace in which to look for the icon.
      */
     MdIconRegistry.prototype.getNamedSvgIcon = function (name, namespace) {
         if (namespace === void 0) { namespace = ''; }

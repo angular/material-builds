@@ -33,6 +33,7 @@ var MD_INPUT_INVALID_INPUT_TYPE = [
     'checkbox',
 ];
 var nextUniqueId = 0;
+/** @docs-private */
 export var MdInputPlaceholderConflictError = (function (_super) {
     __extends(MdInputPlaceholderConflictError, _super);
     function MdInputPlaceholderConflictError() {
@@ -40,6 +41,7 @@ export var MdInputPlaceholderConflictError = (function (_super) {
     }
     return MdInputPlaceholderConflictError;
 }(MdError));
+/** @docs-private */
 export var MdInputUnsupportedTypeError = (function (_super) {
     __extends(MdInputUnsupportedTypeError, _super);
     function MdInputUnsupportedTypeError(type) {
@@ -47,6 +49,7 @@ export var MdInputUnsupportedTypeError = (function (_super) {
     }
     return MdInputUnsupportedTypeError;
 }(MdError));
+/** @docs-private */
 export var MdInputDuplicatedHintError = (function (_super) {
     __extends(MdInputDuplicatedHintError, _super);
     function MdInputDuplicatedHintError(align) {
@@ -67,26 +70,40 @@ export var MdInput = (function () {
         this._onTouchedCallback = noop;
         /** Callback registered via registerOnChange (ControlValueAccessor) */
         this._onChangeCallback = noop;
-        /**
-         * Bindings.
-         */
+        /** Alignment of the input container's content. */
         this.align = 'start';
+        /** Color of the input divider, based on the theme. */
         this.dividerColor = 'primary';
+        /** Text for the input hint. */
         this.hintLabel = '';
+        /** Unique id for the input element. */
         this.id = "md-input-" + nextUniqueId++;
+        /** Mirrors the native `list` attribute. */
         this.list = null;
+        /** Mirrors the native `max` attribute. */
         this.max = null;
+        /** Mirrors the native `maxlength` attribute. */
         this.maxlength = null;
+        /** Mirrors the native `min` attribute. */
         this.min = null;
+        /** Mirrors the native `minlength` attribute. */
         this.minlength = null;
+        /** Mirrors the native `placeholder` attribute. */
         this.placeholder = null;
+        /** Mirrors the native `step` attribute. */
         this.step = null;
+        /** Mirrors the native `tabindex` attribute. */
         this.tabindex = null;
+        /** Mirrors the native `type` attribute. */
         this.type = 'text';
+        /** Mirrors the native `name` attribute. */
         this.name = null;
         // textarea-specific
+        /** Mirrors the native `rows` attribute. */
         this.rows = null;
+        /** Mirrors the native `cols` attribute. */
         this.cols = null;
+        /** Whether to do a soft or hard wrap of the text.. */
         this.wrap = null;
         this._floatingPlaceholder = true;
         this._autofocus = false;
@@ -102,18 +119,21 @@ export var MdInput = (function () {
             'textarea';
     }
     Object.defineProperty(MdInput.prototype, "ariaDisabled", {
+        /** Mirrors the native `aria-disabled` attribute. */
         get: function () { return this._ariaDisabled; },
         set: function (value) { this._ariaDisabled = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "ariaRequired", {
+        /** Mirrors the native `aria-required` attribute. */
         get: function () { return this._ariaRequired; },
         set: function (value) { this._ariaRequired = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "ariaInvalid", {
+        /** Mirrors the native `aria-invalid` attribute. */
         get: function () { return this._ariaInvalid; },
         set: function (value) { this._ariaInvalid = coerceBooleanProperty(value); },
         enumerable: true,
@@ -121,16 +141,19 @@ export var MdInput = (function () {
     });
     Object.defineProperty(MdInput.prototype, "focused", {
         /** Readonly properties. */
+        /** Whether the element is focused. */
         get: function () { return this._focused; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "empty", {
+        /** Whether the element is empty. */
         get: function () { return (this._value == null || this._value === '') && this.type !== 'date'; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "characterCount", {
+        /** Amount of characters inside the element. */
         get: function () {
             return this.empty ? 0 : ('' + this._value).length;
         },
@@ -138,47 +161,55 @@ export var MdInput = (function () {
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "inputId", {
+        /** Unique element id. */
         get: function () { return this.id + "-input"; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "floatingPlaceholder", {
+        /** Text for the floating placeholder. */
         get: function () { return this._floatingPlaceholder; },
         set: function (value) { this._floatingPlaceholder = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "autofocus", {
+        /** Whether to automatically focus the input. */
         get: function () { return this._autofocus; },
         set: function (value) { this._autofocus = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "disabled", {
+        /** Whether the input is disabled. */
         get: function () { return this._disabled; },
         set: function (value) { this._disabled = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "readonly", {
+        /** Whether the input is readonly. */
         get: function () { return this._readonly; },
         set: function (value) { this._readonly = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "required", {
+        /** Whether the input is required. */
         get: function () { return this._required; },
         set: function (value) { this._required = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "spellcheck", {
+        /** Whether spellchecking is enable on the input. */
         get: function () { return this._spellcheck; },
         set: function (value) { this._spellcheck = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "onBlur", {
+        /** Event emitted when the input is blurred. */
         get: function () {
             return this._blurEmitter.asObservable();
         },
@@ -186,6 +217,7 @@ export var MdInput = (function () {
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "onFocus", {
+        /** Event emitted when the input is focused. */
         get: function () {
             return this._focusEmitter.asObservable();
         },
@@ -193,6 +225,7 @@ export var MdInput = (function () {
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "value", {
+        /** Value of the input. */
         get: function () { return this._value; },
         set: function (v) {
             v = this._convertValueForInputType(v);
@@ -233,19 +266,34 @@ export var MdInput = (function () {
     MdInput.prototype._hasPlaceholder = function () {
         return !!this.placeholder || this._placeholderChild != null;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Sets the model value of the input. Implemented as part of ControlValueAccessor.
+     * @param value Value to be set.
+     */
     MdInput.prototype.writeValue = function (value) {
         this._value = value;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback to be triggered when the input value has changed.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Callback to be registered.
+     */
     MdInput.prototype.registerOnChange = function (fn) {
         this._onChangeCallback = fn;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback to be triggered when the input has been touched.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Callback to be registered.
+     */
     MdInput.prototype.registerOnTouched = function (fn) {
         this._onTouchedCallback = fn;
     };
-    /** Implemented as a part of ControlValueAccessor. */
+    /**
+     * Sets whether the input is disabled.
+     * Implemented as a part of ControlValueAccessor.
+     * @param isDisabled Whether the input should be disabled.
+     */
     MdInput.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };

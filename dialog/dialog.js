@@ -29,7 +29,8 @@ export var MdDialog = (function () {
     /**
      * Opens a modal dialog containing the given component.
      * @param component Type of the component to load into the load.
-     * @param config
+     * @param config Extra configuration options.
+     * @returns Reference to the newly-opened dialog.
      */
     MdDialog.prototype.open = function (component, config) {
         var _this = this;
@@ -130,6 +131,7 @@ export var MdDialog = (function () {
     };
     /**
      * Removes a dialog from the array of open dialogs.
+     * @param dialogRef Dialog to be removed.
      */
     MdDialog.prototype._removeOpenDialog = function (dialogRef) {
         var index = this._openDialogs.indexOf(dialogRef);

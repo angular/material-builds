@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component, ElementRef, EventEmitter, Input, Output, Renderer } from '@angular/core';
 import { coerceBooleanProperty } from '../core/coercion/boolean-property';
 /**
- * A material design styled Chip component. Used inside the MdChipList component.
+ * Material design styled Chip component. Used inside the MdChipList component.
  */
 export var MdChip = (function () {
     function MdChip(_renderer, _elementRef) {
@@ -75,7 +75,10 @@ export var MdChip = (function () {
         enumerable: true,
         configurable: true
     });
-    /** Toggles the current selected state of this chip. */
+    /**
+     * Toggles the current selected state of this chip.
+     * @return Whether the chip is selected.
+     */
     MdChip.prototype.toggleSelected = function () {
         this.selected = !this.selected;
         return this.selected;

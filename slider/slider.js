@@ -37,6 +37,10 @@ export var MdSliderChange = (function () {
     }
     return MdSliderChange;
 }());
+/**
+ * Allows users to select from a range of values by moving the slider thumb. It is similar in
+ * behavior to the native `<input type="range">` element.
+ */
 export var MdSlider = (function () {
     function MdSlider(_dir, elementRef) {
         this._dir = _dir;
@@ -44,9 +48,7 @@ export var MdSlider = (function () {
         this._renderer = null;
         /** The dimensions of the slider. */
         this._sliderDimensions = null;
-        /** Whether or not the slider is disabled. */
         this._disabled = false;
-        /** Whether or not to show the thumb label. */
         this._thumbLabel = false;
         this._controlValueAccessorChangeFn = function () { };
         /** The last value for which a change event was emitted. */
@@ -63,35 +65,28 @@ export var MdSlider = (function () {
          * Used to shrink and grow the thumb as according to the Material Design spec.
          */
         this._isActive = false;
-        /** The values at which the thumb will snap. */
         this._step = 1;
-        /**
-         * How often to show ticks. Relative to the step so that a tick always appears on a step.
-         * Ex: Tick interval of 4 with a step of 3 will draw a tick every 4 steps (every 12 values).
-         */
         this._tickInterval = 0;
-        /** The size of a tick interval as a percentage of the size of the track. */
         this._tickIntervalPercent = 0;
-        /** The percentage of the slider that coincides with the value. */
         this._percent = 0;
-        /** Value of the slider. */
         this._value = null;
-        /** The miniumum value that the slider can have. */
         this._min = 0;
-        /** The maximum value that the slider can have. */
         this._max = 100;
         this._invert = false;
         this._vertical = false;
+        /** Event emitted when the slider value has changed. */
         this.change = new EventEmitter();
         this._renderer = new SliderRenderer(elementRef);
     }
     Object.defineProperty(MdSlider.prototype, "disabled", {
+        /** Whether or not the slider is disabled. */
         get: function () { return this._disabled; },
         set: function (value) { this._disabled = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdSlider.prototype, "thumbLabel", {
+        /** Whether or not to show the thumb label. */
         get: function () { return this._thumbLabel; },
         set: function (value) { this._thumbLabel = coerceBooleanProperty(value); },
         enumerable: true,
@@ -105,12 +100,17 @@ export var MdSlider = (function () {
         configurable: true
     });
     Object.defineProperty(MdSlider.prototype, "step", {
+        /** The values at which the thumb will snap. */
         get: function () { return this._step; },
         set: function (v) { this._step = coerceNumberProperty(v, this._step); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdSlider.prototype, "tickInterval", {
+        /**
+         * How often to show ticks. Relative to the step so that a tick always appears on a step.
+         * Ex: Tick interval of 4 with a step of 3 will draw a tick every 4 steps (every 12 values).
+         */
         get: function () { return this._tickInterval; },
         set: function (v) {
             this._tickInterval = (v == 'auto') ? v : coerceNumberProperty(v, this._tickInterval);
@@ -126,16 +126,19 @@ export var MdSlider = (function () {
         configurable: true
     });
     Object.defineProperty(MdSlider.prototype, "tickIntervalPercent", {
+        /** The size of a tick interval as a percentage of the size of the track. */
         get: function () { return this._tickIntervalPercent; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdSlider.prototype, "percent", {
+        /** The percentage of the slider that coincides with the value. */
         get: function () { return this._clamp(this._percent); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdSlider.prototype, "value", {
+        /** Value of the slider. */
         get: function () {
             // If the value needs to be read and it is still uninitialized, initialize it to the min.
             if (this._value === null) {
@@ -151,6 +154,7 @@ export var MdSlider = (function () {
         configurable: true
     });
     Object.defineProperty(MdSlider.prototype, "min", {
+        /** The miniumum value that the slider can have. */
         get: function () {
             return this._min;
         },
@@ -166,6 +170,7 @@ export var MdSlider = (function () {
         configurable: true
     });
     Object.defineProperty(MdSlider.prototype, "max", {
+        /** The maximum value that the slider can have. */
         get: function () {
             return this._max;
         },
@@ -438,19 +443,34 @@ export var MdSlider = (function () {
         if (max === void 0) { max = 1; }
         return Math.max(min, Math.min(value, max));
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Sets the model value. Implemented as part of ControlValueAccessor.
+     * @param value
+     */
     MdSlider.prototype.writeValue = function (value) {
         this.value = value;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback to eb triggered when the value has changed.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Callback to be registered.
+     */
     MdSlider.prototype.registerOnChange = function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback to be triggered when the component is touched.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Callback to be registered.
+     */
     MdSlider.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Sets whether the component should be disabled.
+     * Implemented as part of ControlValueAccessor.
+     * @param isDisabled
+     */
     MdSlider.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };

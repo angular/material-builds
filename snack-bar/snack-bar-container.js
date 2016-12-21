@@ -22,6 +22,7 @@ export var SHOW_ANIMATION = '225ms cubic-bezier(0.4,0.0,1,1)';
 export var HIDE_ANIMATION = '195ms cubic-bezier(0.0,0.0,0.2,1)';
 /**
  * Internal component that wraps user-provided snack bar content.
+ * @docs-private
  */
 export var MdSnackBarContainer = (function (_super) {
     __extends(MdSnackBarContainer, _super);
@@ -80,7 +81,9 @@ export var MdSnackBarContainer = (function (_super) {
     MdSnackBarContainer.prototype._onExit = function () {
         return this.onExit.asObservable();
     };
-    /** Makes sure the exit callbacks have been invoked when the element is destroyed. */
+    /**
+     * Makes sure the exit callbacks have been invoked when the element is destroyed.
+     */
     MdSnackBarContainer.prototype.ngOnDestroy = function () {
         var _this = this;
         // Wait for the zone to settle before removing the element. Helps prevent

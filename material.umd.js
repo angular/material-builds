@@ -144,17 +144,20 @@ var __metadata$3 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
- * Directive to listen to changes of direction of part of the DOM.
+ * Directive to listen for changes of direction of part of the DOM.
  *
  * Applications should use this directive instead of the native attribute so that Material
  * components can listen on changes of direction.
  */
 var Dir = (function () {
     function Dir() {
+        /** Layout direction of the element. */
         this._dir = 'ltr';
+        /** Event emitted when the direction changes. */
         this.dirChange = new _angular_core.EventEmitter();
     }
     Object.defineProperty(Dir.prototype, "dir", {
+        /** @docs-private */
         get: function () {
             return this._dir;
         },
@@ -169,6 +172,7 @@ var Dir = (function () {
         configurable: true
     });
     Object.defineProperty(Dir.prototype, "value", {
+        /** Current layout direction of the element. */
         get: function () { return this.dir; },
         set: function (v) { this.dir = v; },
         enumerable: true,
@@ -224,9 +228,14 @@ var __decorate$4 = (this && this.__decorate) || function (decorators, target, ke
 var __metadata$4 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+/**
+ * Directive that triggers a callback whenever the content of
+ * its associated element has changed.
+ */
 var ObserveContent = (function () {
     function ObserveContent(_elementRef) {
         this._elementRef = _elementRef;
+        /** Event emitted for each change in the element's content. */
         this.event = new _angular_core.EventEmitter();
     }
     ObserveContent.prototype.ngAfterContentInit = function () {
@@ -330,6 +339,8 @@ var RippleRenderer = (function () {
     /**
      * Installs event handlers on the given trigger element, and removes event handlers from the
      * previous trigger if needed.
+     *
+     * @param newTrigger New trigger to which to attach the ripple handlers.
      */
     RippleRenderer.prototype.setTriggerElement = function (newTrigger) {
         var _this = this;
@@ -359,6 +370,14 @@ var RippleRenderer = (function () {
      * Creates a foreground ripple and sets its animation to expand and fade in from the position
      * given by rippleOriginLeft and rippleOriginTop (or from the center of the <md-ripple>
      * bounding rect if centered is true).
+     *
+     * @param rippleOriginLeft Left origin of the ripple.
+     * @param rippleOriginTop Top origin of the ripple.
+     * @param color Ripple color.
+     * @param centered Whether the ripple should be centered.
+     * @param radius Radius of the ripple.
+     * @param speedFactor Speed at which the ripple expands towards the edges.
+     * @param transitionEndCallback Callback to be triggered when the ripple transition is done.
      */
     RippleRenderer.prototype.createForegroundRipple = function (rippleOriginLeft, rippleOriginTop, color, centered, radius, speedFactor, transitionEndCallback) {
         var _this = this;
@@ -405,18 +424,27 @@ var RippleRenderer = (function () {
             setTimeout(function () { return _this.removeRippleFromDom(ripple.rippleElement); }, rippleDuration);
         });
     };
-    /** Fades out a foreground ripple after it has fully expanded and faded in. */
+    /**
+     * Fades out a foreground ripple after it has fully expanded and faded in.
+     * @param ripple Ripple to be faded out.
+     */
     RippleRenderer.prototype.fadeOutForegroundRipple = function (ripple) {
         ripple.classList.remove('md-ripple-fade-in');
         ripple.classList.add('md-ripple-fade-out');
     };
-    /** Removes a foreground ripple from the DOM after it has faded out. */
+    /**
+     * Removes a foreground ripple from the DOM after it has faded out.
+     * @param ripple Ripple to be removed from the DOM.
+     */
     RippleRenderer.prototype.removeRippleFromDom = function (ripple) {
         if (ripple && ripple.parentElement) {
             ripple.parentElement.removeChild(ripple);
         }
     };
-    /** Fades in the ripple background. */
+    /**
+     * Fades in the ripple background.
+     * @param color New background color for the ripple.
+     */
     RippleRenderer.prototype.fadeInRippleBackground = function (color) {
         this._backgroundDiv.classList.add('md-ripple-active');
         // If color is not set, this will default to the background color defined in CSS.
@@ -1090,6 +1118,7 @@ var PortalHostDirective = (function (_super) {
         configurable: true
     });
     Object.defineProperty(PortalHostDirective.prototype, "portal", {
+        /** Portal associated with the Portal host. */
         get: function () {
             return this._portal;
         },
@@ -1104,7 +1133,11 @@ var PortalHostDirective = (function (_super) {
     PortalHostDirective.prototype.ngOnDestroy = function () {
         this.dispose();
     };
-    /** Attach the given ComponentPortal to this PortalHost using the ComponentFactoryResolver. */
+    /**
+     * Attach the given ComponentPortal to this PortalHost using the ComponentFactoryResolver.
+     *
+     * @param portal Portal to be attached to the portal host.
+     */
     PortalHostDirective.prototype.attachComponentPortal = function (portal) {
         portal.setAttachedHost(this);
         // If the portal specifies an origin, use that as the logical location of the component
@@ -1117,7 +1150,10 @@ var PortalHostDirective = (function (_super) {
         this.setDisposeFn(function () { return ref.destroy(); });
         return ref;
     };
-    /** Attach the given TemplatePortal to this PortlHost as an embedded View. */
+    /**
+     * Attach the given TemplatePortal to this PortlHost as an embedded View.
+     * @param portal Portal to be attached.
+     */
     PortalHostDirective.prototype.attachTemplatePortal = function (portal) {
         var _this = this;
         portal.setAttachedHost(this);
@@ -1204,7 +1240,10 @@ var DomPortalHost = (function (_super) {
         this._appRef = _appRef;
         this._defaultInjector = _defaultInjector;
     }
-    /** Attach the given ComponentPortal to DOM element using the ComponentFactoryResolver. */
+    /**
+     * Attach the given ComponentPortal to DOM element using the ComponentFactoryResolver.
+     * @param portal Portal to be attached
+     */
     DomPortalHost.prototype.attachComponentPortal = function (portal) {
         var _this = this;
         var componentFactory = this._componentFactoryResolver.resolveComponentFactory(portal.component);
@@ -1253,6 +1292,10 @@ var DomPortalHost = (function (_super) {
         this._hostDomElement.appendChild(this._getComponentRootNode(componentRef));
         return componentRef;
     };
+    /**
+     * Attaches a template portal to the DOM as an embedded view.
+     * @param portal Portal to be attached.
+     */
     DomPortalHost.prototype.attachTemplatePortal = function (portal) {
         var _this = this;
         var viewContainer = portal.viewContainerRef;
@@ -1267,6 +1310,9 @@ var DomPortalHost = (function (_super) {
         // TODO(jelbourn): Return locals from view.
         return new Map();
     };
+    /**
+     * Clears out a portal from the DOM.
+     */
     DomPortalHost.prototype.dispose = function () {
         _super.prototype.dispose.call(this);
         if (this._hostDomElement.parentNode != null) {
@@ -1301,6 +1347,11 @@ var OverlayRef = (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * Attaches the overlay to a portal instance and adds the backdrop.
+     * @param portal Portal instance to which to attach the overlay.
+     * @returns The portal attachment result.
+     */
     OverlayRef.prototype.attach = function (portal) {
         if (this._state.hasBackdrop) {
             this._attachBackdrop();
@@ -1311,10 +1362,17 @@ var OverlayRef = (function () {
         this.updatePosition();
         return attachResult;
     };
+    /**
+     * Detaches an overlay from a portal.
+     * @returns Resolves when the overlay has been detached.
+     */
     OverlayRef.prototype.detach = function () {
         this._detachBackdrop();
         return this._portalHost.detach();
     };
+    /**
+     * Cleans up the overlay from the DOM.
+     */
     OverlayRef.prototype.dispose = function () {
         if (this._state.positionStrategy) {
             this._state.positionStrategy.dispose();
@@ -1322,13 +1380,21 @@ var OverlayRef = (function () {
         this._detachBackdrop();
         this._portalHost.dispose();
     };
+    /**
+     * Checks whether the overlay has been attached.
+     */
     OverlayRef.prototype.hasAttached = function () {
         return this._portalHost.hasAttached();
     };
+    /**
+     * Returns an observable that emits when the backdrop has been clicked.
+     */
     OverlayRef.prototype.backdropClick = function () {
         return this._backdropClick.asObservable();
     };
-    /** Gets the current state config of the overlay. */
+    /**
+     * Gets the current state config of the overlay.
+     */
     OverlayRef.prototype.getState = function () {
         return this._state;
     };
@@ -1472,6 +1538,7 @@ var ConnectedPositionStrategy = (function () {
         configurable: true
     });
     Object.defineProperty(ConnectedPositionStrategy.prototype, "positions", {
+        /** Ordered list of preferred positions, from most to least desirable. */
         get: function () {
             return this._preferredPositions;
         },
@@ -1486,6 +1553,9 @@ var ConnectedPositionStrategy = (function () {
      * Updates the position of the overlay element, using whichever preferred position relative
      * to the origin fits on-screen.
      * @docs-private
+     *
+     * @param element Element to which to apply the CSS styles.
+     * @returns Resolves when the styles have been applied.
      */
     ConnectedPositionStrategy.prototype.apply = function (element) {
         // We need the bounding rects for the origin and the overlay to determine how to position
@@ -1519,21 +1589,35 @@ var ConnectedPositionStrategy = (function () {
         this._setElementPosition(element, fallbackPoint);
         return Promise.resolve(null);
     };
+    /**
+     * Adds a new preferred fallback position.
+     * @param originPos
+     * @param overlayPos
+     */
     ConnectedPositionStrategy.prototype.withFallbackPosition = function (originPos, overlayPos) {
         this._preferredPositions.push(new ConnectionPositionPair(originPos, overlayPos));
         return this;
     };
-    /** Sets the layout direction so the overlay's position can be adjusted to match. */
+    /**
+     * Sets the layout direction so the overlay's position can be adjusted to match.
+     * @param dir New layout direction.
+     */
     ConnectedPositionStrategy.prototype.withDirection = function (dir) {
         this._dir = dir;
         return this;
     };
-    /** Sets an offset for the overlay's connection point on the x-axis */
+    /**
+     * Sets an offset for the overlay's connection point on the x-axis
+     * @param offset New offset in the X axis.
+     */
     ConnectedPositionStrategy.prototype.withOffsetX = function (offset) {
         this._offsetX = offset;
         return this;
     };
-    /** Sets an offset for the overlay's connection point on the y-axis */
+    /**
+     * Sets an offset for the overlay's connection point on the y-axis
+     * @param  offset New offset in the Y axis.
+     */
     ConnectedPositionStrategy.prototype.withOffsetY = function (offset) {
         this._offsetY = offset;
         return this;
@@ -1660,35 +1744,50 @@ var GlobalPositionStrategy = (function () {
         this._width = '';
         this._height = '';
     }
-    /** Sets the top position of the overlay. Clears any previously set vertical position. */
+    /**
+     * Sets the top position of the overlay. Clears any previously set vertical position.
+     * @param value New top offset.
+     */
     GlobalPositionStrategy.prototype.top = function (value) {
         this._bottomOffset = '';
         this._topOffset = value;
         this._alignItems = 'flex-start';
         return this;
     };
-    /** Sets the left position of the overlay. Clears any previously set horizontal position. */
+    /**
+     * Sets the left position of the overlay. Clears any previously set horizontal position.
+     * @param value New left offset.
+     */
     GlobalPositionStrategy.prototype.left = function (value) {
         this._rightOffset = '';
         this._leftOffset = value;
         this._justifyContent = 'flex-start';
         return this;
     };
-    /** Sets the bottom position of the overlay. Clears any previously set vertical position. */
+    /**
+     * Sets the bottom position of the overlay. Clears any previously set vertical position.
+     * @param value New bottom offset.
+     */
     GlobalPositionStrategy.prototype.bottom = function (value) {
         this._topOffset = '';
         this._bottomOffset = value;
         this._alignItems = 'flex-end';
         return this;
     };
-    /** Sets the right position of the overlay. Clears any previously set horizontal position. */
+    /**
+     * Sets the right position of the overlay. Clears any previously set horizontal position.
+     * @param value New right offset.
+     */
     GlobalPositionStrategy.prototype.right = function (value) {
         this._leftOffset = '';
         this._rightOffset = value;
         this._justifyContent = 'flex-end';
         return this;
     };
-    /** Sets the overlay width and clears any previously set width. */
+    /**
+     * Sets the overlay width and clears any previously set width.
+     * @param value New width for the overlay
+     */
     GlobalPositionStrategy.prototype.width = function (value) {
         this._width = value;
         // When the width is 100%, we should reset the `left` and the offset,
@@ -1698,7 +1797,10 @@ var GlobalPositionStrategy = (function () {
         }
         return this;
     };
-    /** Sets the overlay height and clears any previously set height. */
+    /**
+     * Sets the overlay height and clears any previously set height.
+     * @param value New height for the overlay
+     */
     GlobalPositionStrategy.prototype.height = function (value) {
         this._height = value;
         // When the height is 100%, we should reset the `top` and the offset,
@@ -1711,6 +1813,8 @@ var GlobalPositionStrategy = (function () {
     /**
      * Centers the overlay horizontally with an optional offset.
      * Clears any previously set horizontal position.
+     *
+     * @param offset Overlay offset from the horizontal center.
      */
     GlobalPositionStrategy.prototype.centerHorizontally = function (offset) {
         if (offset === void 0) { offset = ''; }
@@ -1721,6 +1825,8 @@ var GlobalPositionStrategy = (function () {
     /**
      * Centers the overlay vertically with an optional offset.
      * Clears any previously set vertical position.
+     *
+     * @param offset Overlay offset from the vertical center.
      */
     GlobalPositionStrategy.prototype.centerVertically = function (offset) {
         if (offset === void 0) { offset = ''; }
@@ -1731,6 +1837,9 @@ var GlobalPositionStrategy = (function () {
     /**
      * Apply the position to the element.
      * @docs-private
+     *
+     * @param element Element to which to apply the CSS.
+     * @returns Resolved when the styles have been applied.
      */
     GlobalPositionStrategy.prototype.apply = function (element) {
         if (!this._wrapper) {
@@ -1778,11 +1887,18 @@ var OverlayPositionBuilder = (function () {
     function OverlayPositionBuilder(_viewportRuler) {
         this._viewportRuler = _viewportRuler;
     }
-    /** Creates a global position strategy. */
+    /**
+     * Creates a global position strategy.
+     */
     OverlayPositionBuilder.prototype.global = function () {
         return new GlobalPositionStrategy();
     };
-    /** Creates a relative position strategy. */
+    /**
+     * Creates a relative position strategy.
+     * @param elementRef
+     * @param originPos
+     * @param overlayPos
+     */
     OverlayPositionBuilder.prototype.connectedTo = function (elementRef, originPos, overlayPos) {
         return new ConnectedPositionStrategy(elementRef, originPos, overlayPos, this._viewportRuler);
     };
@@ -1804,7 +1920,7 @@ var OverlayContainer = (function () {
      * This method returns the overlay container element.  It will lazily
      * create the element the first time  it is called to facilitate using
      * the container in non-browser environments.
-     * @returns {HTMLElement} the container element
+     * @returns the container element
      */
     OverlayContainer.prototype.getContainerElement = function () {
         if (!this._containerElement) {
@@ -1855,6 +1971,8 @@ var ScrollDispatcher = (function () {
     /**
      * Registers a Scrollable with the service and listens for its scrolled events. When the
      * scrollable is scrolled, the service emits the event in its scrolled observable.
+     *
+     * @param scrollable Scrollable instance to be registered.
      */
     ScrollDispatcher.prototype.register = function (scrollable) {
         var _this = this;
@@ -1863,6 +1981,8 @@ var ScrollDispatcher = (function () {
     };
     /**
      * Deregisters a Scrollable reference and unsubscribes from its scroll event observable.
+     *
+     * @param scrollable Scrollable instance to be deregistered.
      */
     ScrollDispatcher.prototype.deregister = function (scrollable) {
         this.scrollableReferences.get(scrollable).unsubscribe();
@@ -1871,9 +1991,9 @@ var ScrollDispatcher = (function () {
     /**
      * Returns an observable that emits an event whenever any of the registered Scrollable
      * references (or window, document, or body) fire a scrolled event.
-     * TODO: Add an event limiter that includes throttle with the leading and trailing events.
      */
     ScrollDispatcher.prototype.scrolled = function () {
+        // TODO: Add an event limiter that includes throttle with the leading and trailing events.
         return this._scrolled.asObservable();
     };
     /** Sends a notification that a scroll event has been fired. */
@@ -1920,7 +2040,7 @@ var Overlay = (function () {
     /**
      * Creates an overlay.
      * @param state State to apply to the overlay.
-     * @returns A reference to the created overlay.
+     * @returns Reference to the created overlay.
      */
     Overlay.prototype.create = function (state) {
         if (state === void 0) { state = defaultState; }
@@ -1935,7 +2055,7 @@ var Overlay = (function () {
     };
     /**
      * Creates the DOM element for an overlay and appends it to the overlay container.
-     * @returns Promise resolving to the created element.
+     * @returns Newly-created pane element
      */
     Overlay.prototype._createPaneElement = function () {
         var pane = document.createElement('div');
@@ -1956,7 +2076,6 @@ var Overlay = (function () {
      * Creates an OverlayRef for an overlay in the given DOM element.
      * @param pane DOM element for the overlay
      * @param state
-     * @returns {OverlayRef}
      */
     Overlay.prototype._createOverlayRef = function (pane, state) {
         return new OverlayRef(this._createPortalHost(pane), pane, state, this._ngZone);
@@ -2001,7 +2120,9 @@ var Scrollable = (function () {
     Scrollable.prototype.ngOnDestroy = function () {
         this._scroll.deregister(this);
     };
-    /** Returns observable that emits when the scroll event is fired on the host element. */
+    /**
+     * Returns observable that emits when a scroll event is fired on the host element.
+     */
     Scrollable.prototype.elementScrolled = function () {
         return rxjs_Observable.Observable.fromEvent(this._elementRef.nativeElement, 'scroll');
     };
@@ -2036,16 +2157,9 @@ var defaultPositionList = [
  * ConnectedPositionStrategy.
  */
 var OverlayOrigin = (function () {
-    function OverlayOrigin(_elementRef) {
-        this._elementRef = _elementRef;
+    function OverlayOrigin(elementRef) {
+        this.elementRef = elementRef;
     }
-    Object.defineProperty(OverlayOrigin.prototype, "elementRef", {
-        get: function () {
-            return this._elementRef;
-        },
-        enumerable: true,
-        configurable: true
-    });
     OverlayOrigin = __decorate$8([
         _angular_core.Directive({
             selector: '[cdk-overlay-origin], [overlay-origin]',
@@ -2069,8 +2183,11 @@ var ConnectedOverlayDirective = (function () {
         this._offsetY = 0;
         /** Event emitted when the backdrop is clicked. */
         this.backdropClick = new _angular_core.EventEmitter();
+        /** Event emitted when the position has changed. */
         this.positionChange = new _angular_core.EventEmitter();
+        /** Event emitted when the overlay has been attached. */
         this.attach = new _angular_core.EventEmitter();
+        /** Event emitted when the overlay has been detached. */
         this.detach = new _angular_core.EventEmitter();
         this._templatePortal = new TemplatePortal(templateRef, viewContainerRef);
     }
@@ -2126,6 +2243,7 @@ var ConnectedOverlayDirective = (function () {
         configurable: true
     });
     Object.defineProperty(ConnectedOverlayDirective.prototype, "overlayRef", {
+        /** The associated overlay reference. */
         get: function () {
             return this._overlayRef;
         },
@@ -2133,6 +2251,7 @@ var ConnectedOverlayDirective = (function () {
         configurable: true
     });
     Object.defineProperty(ConnectedOverlayDirective.prototype, "dir", {
+        /** The element's layout direction. */
         get: function () {
             return this._dir ? this._dir.value : 'ltr';
         },
@@ -2378,7 +2497,8 @@ var __decorate$15 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$15 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-/* The InteractivityChecker leans heavily on the ally.js accessibility utilities.
+/**
+ * The InteractivityChecker leans heavily on the ally.js accessibility utilities.
  * Methods like `isTabbable` are only covering specific edge-cases for the browsers which are
  * supported.
  */
@@ -2390,7 +2510,12 @@ var InteractivityChecker = (function () {
     function InteractivityChecker(_platform) {
         this._platform = _platform;
     }
-    /** Gets whether an element is disabled. */
+    /**
+     * Gets whether an element is disabled.
+     *
+     * @param element Element to be checked.
+     * @returns Whether the element is disabled.
+     */
     InteractivityChecker.prototype.isDisabled = function (element) {
         // This does not capture some cases, such as a non-form control with a disabled attribute or
         // a form control inside of a disabled form, but should capture the most common cases.
@@ -2401,6 +2526,8 @@ var InteractivityChecker = (function () {
      *
      * This will capture states like `display: none` and `visibility: hidden`, but not things like
      * being clipped by an `overflow: hidden` parent or being outside the viewport.
+     *
+     * @returns Whether the element is visible.
      */
     InteractivityChecker.prototype.isVisible = function (element) {
         return hasGeometry(element) && getComputedStyle(element).visibility === 'visible';
@@ -2408,6 +2535,9 @@ var InteractivityChecker = (function () {
     /**
      * Gets whether an element can be reached via Tab key.
      * Assumes that the element has already been checked with isFocusable.
+     *
+     * @param element Element to be checked.
+     * @returns Whether the element is tabbable.
      */
     InteractivityChecker.prototype.isTabbable = function (element) {
         var frameElement = getWindow(element).frameElement;
@@ -2466,7 +2596,12 @@ var InteractivityChecker = (function () {
         }
         return element.tabIndex >= 0;
     };
-    /** Gets whether an element can be focused by the user. */
+    /**
+     * Gets whether an element can be focused by the user.
+     *
+     * @param element Element to be checked.
+     * @returns Whether the element is focusable.
+     */
     InteractivityChecker.prototype.isFocusable = function (element) {
         // Perform checks in order of left to most expensive.
         // Again, naive approach that does not capture many edge cases and browser quirks.
@@ -2615,7 +2750,9 @@ var FocusTrap = (function () {
             _this.focusLastTabbableElement();
         });
     };
-    /** Focuses the first tabbable element within the focus trap region. */
+    /**
+     * Focuses the first tabbable element within the focus trap region.
+     */
     FocusTrap.prototype.focusFirstTabbableElement = function () {
         var rootElement = this.trappedContent.nativeElement;
         var redirectToElement = rootElement.querySelector('[cdk-focus-start]') ||
@@ -2624,7 +2761,9 @@ var FocusTrap = (function () {
             redirectToElement.focus();
         }
     };
-    /** Focuses the last tabbable element within the focus trap region. */
+    /**
+     * Focuses the last tabbable element within the focus trap region.
+     */
     FocusTrap.prototype.focusLastTabbableElement = function () {
         var rootElement = this.trappedContent.nativeElement;
         var focusTargets = rootElement.querySelectorAll('[cdk-focus-end]');
@@ -2707,8 +2846,9 @@ var LiveAnnouncer = (function () {
         this._liveElement = elementToken || this._createLiveElement();
     }
     /**
+     * Announces a message to screenreaders.
      * @param message Message to be announced to the screenreader
-     * @param politeness The politeness of the announcer element.
+     * @param politeness The politeness of the announcer element
      */
     LiveAnnouncer.prototype.announce = function (message, politeness) {
         var _this = this;
@@ -2747,7 +2887,7 @@ var LiveAnnouncer = (function () {
 }());
 
 var supportedInputTypes;
-/** @returns {Set<string>} the input types supported by this browser. */
+/** @returns The input types supported by this browser. */
 function getSupportedInputTypes() {
     if (!supportedInputTypes) {
         var featureTestInput_1 = document.createElement('input');
@@ -2898,6 +3038,9 @@ var DomProjection = (function () {
      * contain the `<div>other</div>` HTML as well as its own children.
      *
      * Note: without `<ng-content></ng-content>` the projection will project an empty element.
+     *
+     * @param ref ElementRef to be projected.
+     * @param host Projection host into which to project the `ElementRef`.
      */
     DomProjection.prototype.project = function (ref, host) {
         var projectedEl = ref.nativeElement;
@@ -2980,7 +3123,7 @@ var GestureConfig = (function (_super) {
                 'components may not work correctly.');
         }
     }
-    /*
+    /**
      * Builds Hammer instance manually to add custom recognizers that match the Material Design spec.
      *
      * Our gesture names come from the Material Design gestures spec:
@@ -2990,8 +3133,9 @@ var GestureConfig = (function (_super) {
      * http://hammerjs.github.io/recognizer-pan/
      * http://hammerjs.github.io/recognizer-press/
      *
-     * TODO: Confirm threshold numbers with Material Design UX Team
-     * */
+     * @param element Element to which to assign the new HammerJS gestures.
+     * @returns Newly-created HammerJS instance.
+     */
     GestureConfig.prototype.buildHammer = function (element) {
         var mc = new this._hammer(element);
         // Default Hammer Recognizers.
@@ -3000,6 +3144,7 @@ var GestureConfig = (function (_super) {
         var press = new this._hammer.Press();
         // Notice that a HammerJS recognizer can only depend on one other recognizer once.
         // Otherwise the previous `recognizeWith` will be dropped.
+        // TODO: Confirm threshold numbers with Material Design UX Team
         var slide = this._createRecognizer(pan, { event: 'slide', threshold: 0 }, swipe);
         var longpress = this._createRecognizer(press, { event: 'longpress', time: 500 });
         // Overwrite the default `pan` event to use the swipe event.
@@ -3065,7 +3210,11 @@ var UniqueSelectionDispatcher = (function () {
     function UniqueSelectionDispatcher() {
         this._listeners = [];
     }
-    /** Notify other items that selection for the given name has been set. */
+    /**
+     * Notify other items that selection for the given name has been set.
+     * @param id ID of the item.
+     * @param name Name of the item.
+     */
     UniqueSelectionDispatcher.prototype.notify = function (id, name) {
         for (var _i = 0, _a = this._listeners; _i < _a.length; _i++) {
             var listener = _a[_i];
@@ -3299,6 +3448,7 @@ var MdButtonToggleGroup = (function () {
         this._isInitialized = true;
     };
     Object.defineProperty(MdButtonToggleGroup.prototype, "name", {
+        /** `name` attribute for the underlying `input` element. */
         get: function () {
             return this._name;
         },
@@ -3310,6 +3460,7 @@ var MdButtonToggleGroup = (function () {
         configurable: true
     });
     Object.defineProperty(MdButtonToggleGroup.prototype, "disabled", {
+        /** Whether the toggle group is disabled. */
         get: function () {
             return this._disabled;
         },
@@ -3320,6 +3471,7 @@ var MdButtonToggleGroup = (function () {
         configurable: true
     });
     Object.defineProperty(MdButtonToggleGroup.prototype, "vertical", {
+        /** Whether the toggle group is vertical. */
         get: function () {
             return this._vertical;
         },
@@ -3330,6 +3482,7 @@ var MdButtonToggleGroup = (function () {
         configurable: true
     });
     Object.defineProperty(MdButtonToggleGroup.prototype, "value", {
+        /** Value of the toggle group. */
         get: function () {
             return this._value;
         },
@@ -3348,6 +3501,7 @@ var MdButtonToggleGroup = (function () {
         configurable: true
     });
     Object.defineProperty(MdButtonToggleGroup.prototype, "selected", {
+        /** Whether the toggle group is selected. */
         get: function () {
             return this._selected;
         },
@@ -3394,15 +3548,26 @@ var MdButtonToggleGroup = (function () {
         this._controlValueAccessorChangeFn(event.value);
         this._change.emit(event);
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Sets the model value. Implemented as part of ControlValueAccessor.
+     * @param value Value to be set to the model.
+     */
     MdButtonToggleGroup.prototype.writeValue = function (value) {
         this.value = value;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback that will be triggered when the value has changed.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn On change callback function.
+     */
     MdButtonToggleGroup.prototype.registerOnChange = function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback that will be triggered when the control has been touched.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn On touch callback function.
+     */
     MdButtonToggleGroup.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
@@ -3457,6 +3622,7 @@ var MdButtonToggleGroupMultiple = (function () {
         this._vertical = false;
     }
     Object.defineProperty(MdButtonToggleGroupMultiple.prototype, "disabled", {
+        /** Whether the toggle group is disabled. */
         get: function () {
             return this._disabled;
         },
@@ -3467,6 +3633,7 @@ var MdButtonToggleGroupMultiple = (function () {
         configurable: true
     });
     Object.defineProperty(MdButtonToggleGroupMultiple.prototype, "vertical", {
+        /** Whether the toggle group is vertical. */
         get: function () {
             return this._vertical;
         },
@@ -3496,6 +3663,7 @@ var MdButtonToggleGroupMultiple = (function () {
     ], MdButtonToggleGroupMultiple);
     return MdButtonToggleGroupMultiple;
 }());
+/** Single button inside of a toggle group. */
 var MdButtonToggle = (function () {
     function MdButtonToggle(toggleGroup, toggleGroupMultiple, buttonToggleDispatcher, _renderer) {
         var _this = this;
@@ -3546,6 +3714,7 @@ var MdButtonToggle = (function () {
         }
     };
     Object.defineProperty(MdButtonToggle.prototype, "inputId", {
+        /** Unique ID for the underlying `input` element. */
         get: function () {
             return this.id + "-input";
         },
@@ -3553,6 +3722,7 @@ var MdButtonToggle = (function () {
         configurable: true
     });
     Object.defineProperty(MdButtonToggle.prototype, "checked", {
+        /** Whether the button is checked. */
         get: function () {
             return this._checked;
         },
@@ -3595,6 +3765,7 @@ var MdButtonToggle = (function () {
         this._change.emit(event);
     };
     Object.defineProperty(MdButtonToggle.prototype, "disabled", {
+        /** Whether the button is disabled. */
         get: function () {
             return this._disabled || (this.buttonToggleGroup != null && this.buttonToggleGroup.disabled) ||
                 (this.buttonToggleGroupMultiple != null && this.buttonToggleGroupMultiple.disabled);
@@ -3635,6 +3806,7 @@ var MdButtonToggle = (function () {
         // Preventing bubbling for the second event will solve that issue.
         event.stopPropagation();
     };
+    /** Focuses the button. */
     MdButtonToggle.prototype.focus = function () {
         this._renderer.invokeElementMethod(this._inputElement.nativeElement, 'focus');
     };
@@ -3722,6 +3894,9 @@ var __metadata$25 = (this && this.__metadata) || function (k, v) {
 };
 // TODO(jelbourn): Make the `isMouseDown` stuff done with one global listener.
 // TODO(kara): Convert attribute selectors to classes when attr maps become available
+/**
+ * Material design button.
+ */
 var MdButton = (function () {
     function MdButton(_elementRef, _renderer) {
         this._elementRef = _elementRef;
@@ -3827,6 +4002,9 @@ var MdButton = (function () {
     ], MdButton);
     return MdButton;
 }());
+/**
+ * Raised Material design button.
+ */
 var MdAnchor = (function (_super) {
     __extends$6(MdAnchor, _super);
     function MdAnchor(elementRef, renderer) {
@@ -3941,7 +4119,7 @@ var MdCheckboxChange = (function () {
 }());
 /**
  * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
- * and exposes a similar API. An MdCheckbox can be either checked, unchecked, indeterminate, or
+ * and exposes a similar API. A MdCheckbox can be either checked, unchecked, indeterminate, or
  * disabled. Note that all additional accessibility attributes are taken care of by the component,
  * so there is no need to provide them yourself. However, if you want to omit a label and still
  * have the checkbox be accessible, you may supply an [aria-label] input.
@@ -4094,19 +4272,33 @@ var MdCheckbox = (function () {
     MdCheckbox.prototype._isRippleDisabled = function () {
         return this.disableRipple || this.disabled;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Sets the model value. Implemented as part of ControlValueAccessor.
+     * @param value Value to be set to the model.
+     */
     MdCheckbox.prototype.writeValue = function (value) {
         this.checked = !!value;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback to be triggered when the value has changed.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Function to be called on change.
+     */
     MdCheckbox.prototype.registerOnChange = function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback to be triggered when the control has been touched.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Callback to be triggered when the checkbox is touched.
+     */
     MdCheckbox.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
-    /** Implemented as a part of ControlValueAccessor. */
+    /**
+     * Sets the checkbox's disabled state. Implemented as a part of ControlValueAccessor.
+     * @param isDisabled Whether the checkbox should be disabled.
+     */
     MdCheckbox.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };
@@ -4377,9 +4569,7 @@ var MdRadioGroup = (function () {
     }
     Object.defineProperty(MdRadioGroup.prototype, "name", {
         /** Name of the radio button group. All radio buttons inside this group will use this name. */
-        get: function () {
-            return this._name;
-        },
+        get: function () { return this._name; },
         set: function (value) {
             this._name = value;
             this._updateRadioButtonNames();
@@ -4404,9 +4594,8 @@ var MdRadioGroup = (function () {
         configurable: true
     });
     Object.defineProperty(MdRadioGroup.prototype, "disabled", {
-        get: function () {
-            return this._disabled;
-        },
+        /** Whether the radio button is disabled. */
+        get: function () { return this._disabled; },
         set: function (value) {
             // The presence of *any* disabled value makes the component disabled, *except* for false.
             this._disabled = (value != null && value !== false) ? true : null;
@@ -4415,9 +4604,8 @@ var MdRadioGroup = (function () {
         configurable: true
     });
     Object.defineProperty(MdRadioGroup.prototype, "value", {
-        get: function () {
-            return this._value;
-        },
+        /** Value of the radio button. */
+        get: function () { return this._value; },
         set: function (newValue) {
             if (this._value != newValue) {
                 // Set this before proceeding to ensure no circular loop occurs with selection.
@@ -4435,9 +4623,8 @@ var MdRadioGroup = (function () {
         }
     };
     Object.defineProperty(MdRadioGroup.prototype, "selected", {
-        get: function () {
-            return this._selected;
-        },
+        /** Whether the radio button is selected. */
+        get: function () { return this._selected; },
         set: function (selected) {
             this._selected = selected;
             this.value = selected ? selected.value : null;
@@ -4497,19 +4684,33 @@ var MdRadioGroup = (function () {
             this.change.emit(event_1);
         }
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Sets the model value. Implemented as part of ControlValueAccessor.
+     * @param value
+     */
     MdRadioGroup.prototype.writeValue = function (value) {
         this.value = value;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback to be triggered when the model value changes.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Callback to be registered.
+     */
     MdRadioGroup.prototype.registerOnChange = function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback to be triggered when the control is touched.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Callback to be registered.
+     */
     MdRadioGroup.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
-    /** Implemented as a part of ControlValueAccessor. */
+    /**
+     * Sets the disabled state of the control. Implemented as a part of ControlValueAccessor.
+     * @param isDisabled Whether the control should be disabled.
+     */
     MdRadioGroup.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };
@@ -4858,6 +5059,9 @@ var __metadata$30 = (this && this.__metadata) || function (k, v) {
  * the component definition.
  */
 var _uniqueIdCounter$2 = 0;
+/**
+ * Single option inside of a `<md-select>` element.
+ */
 var MdOption = (function () {
     function MdOption(_element, _renderer) {
         this._element = _element;
@@ -4876,12 +5080,9 @@ var MdOption = (function () {
         configurable: true
     });
     Object.defineProperty(MdOption.prototype, "disabled", {
-        get: function () {
-            return this._disabled;
-        },
-        set: function (value) {
-            this._disabled = coerceBooleanProperty(value);
-        },
+        /** Whether the option is disabled. */
+        get: function () { return this._disabled; },
+        set: function (value) { this._disabled = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -4897,9 +5098,9 @@ var MdOption = (function () {
         /**
          * The displayed value of the option. It is necessary to show the selected option in the
          * select's trigger.
-         * TODO(kara): Add input property alternative for node envs.
          */
         get: function () {
+            // TODO(kara): Add input property alternative for node envs.
             return this._getHostElement().textContent.trim();
         },
         enumerable: true,
@@ -4988,6 +5189,8 @@ var ListKeyManager = (function () {
     /**
      * Turns on focus wrapping mode, which ensures that the focus will wrap to
      * the other end of list when there are no more items in the given direction.
+     *
+     * @returns The ListKeyManager that the method was called on.
      */
     ListKeyManager.prototype.withFocusWrap = function () {
         this._wrap = true;
@@ -5002,7 +5205,10 @@ var ListKeyManager = (function () {
         this._focusedItemIndex = index;
         this._items.toArray()[index].focus();
     };
-    /** Sets the focus properly depending on the key event passed in. */
+    /**
+     * Sets the focus depending on the key event passed in.
+     * @param event Keyboard event to be used for determining which element to focus.
+     */
     ListKeyManager.prototype.onKeydown = function (event) {
         switch (event.keyCode) {
             case DOWN_ARROW:
@@ -5050,7 +5256,10 @@ var ListKeyManager = (function () {
         enumerable: true,
         configurable: true
     });
-    /** Allows setting of the focusedItemIndex without focusing the item. */
+    /**
+     * Allows setting of the focusedItemIndex without focusing the item.
+     * @param index The new focusedItemIndex.
+     */
     ListKeyManager.prototype.updateFocusedItemIndex = function (index) {
         this._focusedItemIndex = index;
     };
@@ -5287,16 +5496,17 @@ var MdSelect = (function () {
                 overlayY: 'bottom',
             },
         ];
+        /** Event emitted when the select has been opened. */
         this.onOpen = new _angular_core.EventEmitter();
+        /** Event emitted when the select has been closed. */
         this.onClose = new _angular_core.EventEmitter();
         if (this._control) {
             this._control.valueAccessor = this;
         }
     }
     Object.defineProperty(MdSelect.prototype, "placeholder", {
-        get: function () {
-            return this._placeholder;
-        },
+        /** Placeholder to be shown if no value has been selected. */
+        get: function () { return this._placeholder; },
         set: function (value) {
             var _this = this;
             this._placeholder = value;
@@ -5307,9 +5517,8 @@ var MdSelect = (function () {
         configurable: true
     });
     Object.defineProperty(MdSelect.prototype, "disabled", {
-        get: function () {
-            return this._disabled;
-        },
+        /** Whether the component is disabled. */
+        get: function () { return this._disabled; },
         set: function (value) {
             this._disabled = coerceBooleanProperty(value);
         },
@@ -5317,12 +5526,9 @@ var MdSelect = (function () {
         configurable: true
     });
     Object.defineProperty(MdSelect.prototype, "required", {
-        get: function () {
-            return this._required;
-        },
-        set: function (value) {
-            this._required = coerceBooleanProperty(value);
-        },
+        /** Whether the component is required. */
+        get: function () { return this._required; },
+        set: function (value) { this._required = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -5361,6 +5567,8 @@ var MdSelect = (function () {
     /**
      * Sets the select's value. Part of the ControlValueAccessor interface
      * required to integrate with Angular's core forms API.
+     *
+     * @param value New value to be written to the model.
      */
     MdSelect.prototype.writeValue = function (value) {
         var _this = this;
@@ -5378,6 +5586,8 @@ var MdSelect = (function () {
      * Saves a callback function to be invoked when the select's value
      * changes from user input. Part of the ControlValueAccessor interface
      * required to integrate with Angular's core forms API.
+     *
+     * @param fn Callback to be triggered when the value changes.
      */
     MdSelect.prototype.registerOnChange = function (fn) {
         this._onChange = fn;
@@ -5386,6 +5596,8 @@ var MdSelect = (function () {
      * Saves a callback function to be invoked when the select is blurred
      * by the user. Part of the ControlValueAccessor interface required
      * to integrate with Angular's core forms API.
+     *
+     * @param fn Callback to be triggered when the component has been touched.
      */
     MdSelect.prototype.registerOnTouched = function (fn) {
         this._onTouched = fn;
@@ -5393,6 +5605,8 @@ var MdSelect = (function () {
     /**
      * Disables the select. Part of the ControlValueAccessor interface required
      * to integrate with Angular's core forms API.
+     *
+     * @param isDisabled Sets whether the component is disabled.
      */
     MdSelect.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
@@ -5824,6 +6038,9 @@ var MdSlideToggleChange = (function () {
 }());
 // Increasing integer for generating unique ids for slide-toggle components.
 var nextId$1 = 0;
+/**
+ * Two-state control, which can be also called `switch`.
+ */
 var MdSlideToggle = (function () {
     function MdSlideToggle(_elementRef, _renderer) {
         this._elementRef = _elementRef;
@@ -5949,9 +6166,7 @@ var MdSlideToggle = (function () {
     };
     Object.defineProperty(MdSlideToggle.prototype, "checked", {
         /** Whether the slide-toggle is checked. */
-        get: function () {
-            return !!this._checked;
-        },
+        get: function () { return !!this._checked; },
         set: function (value) {
             if (this.checked !== !!value) {
                 this._checked = value;
@@ -5963,9 +6178,7 @@ var MdSlideToggle = (function () {
     });
     Object.defineProperty(MdSlideToggle.prototype, "color", {
         /** The color of the slide-toggle. Can be primary, accent, or warn. */
-        get: function () {
-            return this._color;
-        },
+        get: function () { return this._color; },
         set: function (value) {
             this._updateColor(value);
         },
@@ -6176,6 +6389,10 @@ var MdSliderChange = (function () {
     }
     return MdSliderChange;
 }());
+/**
+ * Allows users to select from a range of values by moving the slider thumb. It is similar in
+ * behavior to the native `<input type="range">` element.
+ */
 var MdSlider = (function () {
     function MdSlider(_dir, elementRef) {
         this._dir = _dir;
@@ -6183,9 +6400,7 @@ var MdSlider = (function () {
         this._renderer = null;
         /** The dimensions of the slider. */
         this._sliderDimensions = null;
-        /** Whether or not the slider is disabled. */
         this._disabled = false;
-        /** Whether or not to show the thumb label. */
         this._thumbLabel = false;
         this._controlValueAccessorChangeFn = function () { };
         /** The last value for which a change event was emitted. */
@@ -6202,35 +6417,28 @@ var MdSlider = (function () {
          * Used to shrink and grow the thumb as according to the Material Design spec.
          */
         this._isActive = false;
-        /** The values at which the thumb will snap. */
         this._step = 1;
-        /**
-         * How often to show ticks. Relative to the step so that a tick always appears on a step.
-         * Ex: Tick interval of 4 with a step of 3 will draw a tick every 4 steps (every 12 values).
-         */
         this._tickInterval = 0;
-        /** The size of a tick interval as a percentage of the size of the track. */
         this._tickIntervalPercent = 0;
-        /** The percentage of the slider that coincides with the value. */
         this._percent = 0;
-        /** Value of the slider. */
         this._value = null;
-        /** The miniumum value that the slider can have. */
         this._min = 0;
-        /** The maximum value that the slider can have. */
         this._max = 100;
         this._invert = false;
         this._vertical = false;
+        /** Event emitted when the slider value has changed. */
         this.change = new _angular_core.EventEmitter();
         this._renderer = new SliderRenderer(elementRef);
     }
     Object.defineProperty(MdSlider.prototype, "disabled", {
+        /** Whether or not the slider is disabled. */
         get: function () { return this._disabled; },
         set: function (value) { this._disabled = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdSlider.prototype, "thumbLabel", {
+        /** Whether or not to show the thumb label. */
         get: function () { return this._thumbLabel; },
         set: function (value) { this._thumbLabel = coerceBooleanProperty(value); },
         enumerable: true,
@@ -6244,12 +6452,17 @@ var MdSlider = (function () {
         configurable: true
     });
     Object.defineProperty(MdSlider.prototype, "step", {
+        /** The values at which the thumb will snap. */
         get: function () { return this._step; },
         set: function (v) { this._step = coerceNumberProperty(v, this._step); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdSlider.prototype, "tickInterval", {
+        /**
+         * How often to show ticks. Relative to the step so that a tick always appears on a step.
+         * Ex: Tick interval of 4 with a step of 3 will draw a tick every 4 steps (every 12 values).
+         */
         get: function () { return this._tickInterval; },
         set: function (v) {
             this._tickInterval = (v == 'auto') ? v : coerceNumberProperty(v, this._tickInterval);
@@ -6265,16 +6478,19 @@ var MdSlider = (function () {
         configurable: true
     });
     Object.defineProperty(MdSlider.prototype, "tickIntervalPercent", {
+        /** The size of a tick interval as a percentage of the size of the track. */
         get: function () { return this._tickIntervalPercent; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdSlider.prototype, "percent", {
+        /** The percentage of the slider that coincides with the value. */
         get: function () { return this._clamp(this._percent); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdSlider.prototype, "value", {
+        /** Value of the slider. */
         get: function () {
             // If the value needs to be read and it is still uninitialized, initialize it to the min.
             if (this._value === null) {
@@ -6290,6 +6506,7 @@ var MdSlider = (function () {
         configurable: true
     });
     Object.defineProperty(MdSlider.prototype, "min", {
+        /** The miniumum value that the slider can have. */
         get: function () {
             return this._min;
         },
@@ -6305,6 +6522,7 @@ var MdSlider = (function () {
         configurable: true
     });
     Object.defineProperty(MdSlider.prototype, "max", {
+        /** The maximum value that the slider can have. */
         get: function () {
             return this._max;
         },
@@ -6577,19 +6795,34 @@ var MdSlider = (function () {
         if (max === void 0) { max = 1; }
         return Math.max(min, Math.min(value, max));
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Sets the model value. Implemented as part of ControlValueAccessor.
+     * @param value
+     */
     MdSlider.prototype.writeValue = function (value) {
         this.value = value;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback to eb triggered when the value has changed.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Callback to be registered.
+     */
     MdSlider.prototype.registerOnChange = function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback to be triggered when the component is touched.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Callback to be registered.
+     */
     MdSlider.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Sets whether the component should be disabled.
+     * Implemented as part of ControlValueAccessor.
+     * @param isDisabled
+     */
     MdSlider.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };
@@ -6817,9 +7050,7 @@ var MdSidenav = (function () {
     }
     Object.defineProperty(MdSidenav.prototype, "valid", {
         /** Whether this md-sidenav is part of a valid md-sidenav-container configuration. */
-        get: function () {
-            return this._valid;
-        },
+        get: function () { return this._valid; },
         set: function (value) {
             value = coerceBooleanProperty(value);
             // When the drawers are not in a valid configuration we close them all until they are in a valid
@@ -6833,9 +7064,8 @@ var MdSidenav = (function () {
         configurable: true
     });
     Object.defineProperty(MdSidenav.prototype, "align", {
-        get: function () {
-            return this._align;
-        },
+        /** Direction which the sidenav is aligned in. */
+        get: function () { return this._align; },
         set: function (value) {
             // Make sure we have a valid value.
             value = (value == 'end') ? 'end' : 'start';
@@ -6890,7 +7120,8 @@ var MdSidenav = (function () {
     /**
      * Toggle this sidenav. This is equivalent to calling open() when it's already opened, or
      * close() when it's closed.
-     * @param isOpen
+     * @param isOpen Whether the sidenav should be open.
+     * @returns Resolves with the result of whether the sidenav was opened or closed.
      */
     MdSidenav.prototype.toggle = function (isOpen) {
         var _this = this;
@@ -6922,6 +7153,7 @@ var MdSidenav = (function () {
     };
     /**
      * Handles the keyboard events.
+     * @docs-private
      */
     MdSidenav.prototype.handleKeydown = function (event) {
         if (event.keyCode === ESCAPE) {
@@ -7099,11 +7331,13 @@ var MdSidenavContainer = (function () {
         }
     }
     Object.defineProperty(MdSidenavContainer.prototype, "start", {
+        /** The sidenav child with the `start` alignment. */
         get: function () { return this._start; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdSidenavContainer.prototype, "end", {
+        /** The sidenav child with the `end` alignment. */
         get: function () { return this._end; },
         enumerable: true,
         configurable: true
@@ -7443,22 +7677,16 @@ var MdGridTile = (function () {
         this._colspan = 1;
     }
     Object.defineProperty(MdGridTile.prototype, "rowspan", {
-        get: function () {
-            return this._rowspan;
-        },
-        set: function (value) {
-            this._rowspan = coerceToNumber(value);
-        },
+        /** Amount of rows that the grid tile takes up. */
+        get: function () { return this._rowspan; },
+        set: function (value) { this._rowspan = coerceToNumber(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdGridTile.prototype, "colspan", {
-        get: function () {
-            return this._colspan;
-        },
-        set: function (value) {
-            this._colspan = coerceToNumber(value);
-        },
+        /** Amount of columns that the grid tile takes up. */
+        get: function () { return this._colspan; },
+        set: function (value) { this._colspan = coerceToNumber(value); },
         enumerable: true,
         configurable: true
     });
@@ -7693,9 +7921,14 @@ var TileStyler = (function () {
     /**
      * Adds grid-list layout info once it is available. Cannot be processed in the constructor
      * because these properties haven't been calculated by that point.
+     *
+     * @param gutterSize Size of the grid's gutter.
+     * @param tracker Instance of the TileCoordinator.
+     * @param cols Amount of columns in the grid.
+     * @param direction Layout direction of the grid.
      */
-    TileStyler.prototype.init = function (_gutterSize, tracker, cols, direction) {
-        this._gutterSize = normalizeUnits(_gutterSize);
+    TileStyler.prototype.init = function (gutterSize, tracker, cols, direction) {
+        this._gutterSize = normalizeUnits(gutterSize);
         this._rows = tracker.rowCount;
         this._rowspan = tracker.rowspan;
         this._cols = cols;
@@ -7736,7 +7969,12 @@ var TileStyler = (function () {
     TileStyler.prototype.getTileSize = function (baseSize, span) {
         return "(" + baseSize + " * " + span + ") + (" + (span - 1) + " * " + this._gutterSize + ")";
     };
-    /** Gets the style properties to be applied to a tile for the given row and column index. */
+    /**
+     * Sets the style properties to be applied to a tile for the given row and column index.
+     * @param tile Tile to which to apply the styling.
+     * @param rowIndex Index of the tile's row.
+     * @param colIndex Index of the tile's column.
+     */
     TileStyler.prototype.setStyle = function (tile, rowIndex, colIndex) {
         // Percent of the available horizontal space that one column takes up.
         var percentWidthPerTile = 100 / this._cols;
@@ -7756,22 +7994,29 @@ var TileStyler = (function () {
         tile._setStyle(side, this.getTilePosition(baseTileWidth, colIndex));
         tile._setStyle('width', calc(this.getTileSize(baseTileWidth, tile.colspan)));
     };
-    /** Calculates the total size taken up by gutters across one axis of a list. */
+    /**
+     * Calculates the total size taken up by gutters across one axis of a list.
+     */
     TileStyler.prototype.getGutterSpan = function () {
         return this._gutterSize + " * (" + this._rowspan + " - 1)";
     };
-    /** Calculates the total size taken up by tiles across one axis of a list. */
+    /**
+     * Calculates the total size taken up by tiles across one axis of a list.
+     * @param tileHeight Height of the tile.
+     */
     TileStyler.prototype.getTileSpan = function (tileHeight) {
         return this._rowspan + " * " + this.getTileSize(tileHeight, 1);
     };
     /**
      * Sets the vertical placement of the tile in the list.
      * This method will be implemented by each type of TileStyler.
+     * @docs-private
      */
     TileStyler.prototype.setRowStyles = function (tile, rowIndex, percentWidth, gutterWidth) { };
     /**
      * Calculates the computed height and returns the correct style property to set.
      * This method will be implemented by each type of TileStyler.
+     * @docs-private
      */
     TileStyler.prototype.getComputedHeight = function () { return null; };
     return TileStyler;
@@ -7892,12 +8137,14 @@ var MdGridList = (function () {
         this._gutter = '1px';
     }
     Object.defineProperty(MdGridList.prototype, "cols", {
+        /** Amount of columns in the grid list. */
         get: function () { return this._cols; },
         set: function (value) { this._cols = coerceToNumber(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdGridList.prototype, "gutterSize", {
+        /** Size of the grid list's gutter in pixels. */
         get: function () { return this._gutter; },
         set: function (value) { this._gutter = coerceToString(value); },
         enumerable: true,
@@ -8102,24 +8349,17 @@ var MdCardFooter = (function () {
     ], MdCardFooter);
     return MdCardFooter;
 }());
-/*
-
-<md-card> is a basic content container component that adds the styles of a material design card.
-
-While you can use this component alone,
-it also provides a number of preset styles for common card sections, including:
- - md-card-title
- - md-card-subtitle
- - md-card-content
- - md-card-actions
- - md-card-footer
-
- You can see some examples of cards here:
- http://embed.plnkr.co/s5O4YcyvbLhIApSrIhtj/
-
- TODO(kara): update link to demo site when it exists
-
-*/
+/**
+ * A basic content container component that adds the styles of a Material design card.
+ *
+ * While this component can be used alone, it also provides a number
+ * of preset styles for common card sections, including:
+ * - md-card-title
+ * - md-card-subtitle
+ * - md-card-content
+ * - md-card-actions
+ * - md-card-footer
+ */
 var MdCard = (function () {
     function MdCard() {
     }
@@ -8134,19 +8374,10 @@ var MdCard = (function () {
     ], MdCard);
     return MdCard;
 }());
-/*  The following components don't have any behavior.
- They simply use content projection to wrap user content
- for flex layout purposes in <md-card> (and thus allow a cleaner, boilerplate-free API).
-
-
-<md-card-header> is a component intended to be used within the <md-card> component.
-It adds styles for a preset header section (i.e. a title, subtitle, and avatar layout).
-
-You can see an example of a card with a header here:
-http://embed.plnkr.co/tvJl19z3gZTQd6WmwkIa/
-
-TODO(kara): update link to demo site when it exists
-*/
+/**
+ * Component intended to be used within the `<md-card>` component. It adds styles for a
+ * preset header section (i.e. a title, subtitle, and avatar layout).
+ */
 var MdCardHeader = (function () {
     function MdCardHeader() {
     }
@@ -8160,16 +8391,10 @@ var MdCardHeader = (function () {
     ], MdCardHeader);
     return MdCardHeader;
 }());
-/*
-
-<md-card-title-group> is a component intended to be used within the <md-card> component.
-It adds styles for a preset layout that groups an image with a title section.
-
-You can see an example of a card with a title-group section here:
-http://embed.plnkr.co/EDfgCF9eKcXjini1WODm/
-
-TODO(kara): update link to demo site when it exists
-*/
+/**
+ * Component intended to be used within the <md-card> component. It adds styles for a preset
+ * layout that groups an image with a title section.
+ */
 var MdCardTitleGroup = (function () {
     function MdCardTitleGroup() {
     }
@@ -8226,7 +8451,7 @@ var __metadata$39 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
- * A material design styled Chip component. Used inside the MdChipList component.
+ * Material design styled Chip component. Used inside the MdChipList component.
  */
 var MdChip = (function () {
     function MdChip(_renderer, _elementRef) {
@@ -8291,7 +8516,10 @@ var MdChip = (function () {
         enumerable: true,
         configurable: true
     });
-    /** Toggles the current selected state of this chip. */
+    /**
+     * Toggles the current selected state of this chip.
+     * @return Whether the chip is selected.
+     */
     MdChip.prototype.toggleSelected = function () {
         this.selected = !this.selected;
         return this.selected;
@@ -8436,15 +8664,14 @@ var MdChipList = (function () {
         configurable: true
     });
     /**
-     * Programmatically focus the chip list. This in turn focuses the first non-disabled chip in this
-     * chip list.
-     *
-     * TODO: ARIA says this should focus the first `selected` chip.
+     * Programmatically focus the chip list. This in turn focuses the first
+     * non-disabled chip in this chip list.
      */
-    MdChipList.prototype.focus = function (event) {
+    MdChipList.prototype.focus = function () {
+        // TODO: ARIA says this should focus the first `selected` chip.
         this._keyManager.focusFirstItem();
     };
-    /** Pass relevant key presses to our key manager. */
+    /** Passes relevant key presses to our key manager. */
     MdChipList.prototype._keydown = function (event) {
         switch (event.keyCode) {
             case SPACE:
@@ -8525,7 +8752,7 @@ var MdChipList = (function () {
      * Utility to ensure all indexes are valid.
      *
      * @param index The index to be checked.
-     * @returns {boolean} True if the index is valid for our list of chips.
+     * @returns True if the index is valid for our list of chips.
      */
     MdChipList.prototype._isValidIndex = function (index) {
         return index >= 0 && index < this.chips.length;
@@ -8660,21 +8887,37 @@ var MdIconRegistry = (function () {
          */
         this._defaultFontSetClass = 'material-icons';
     }
-    /** Registers an icon by URL in the default namespace. */
+    /**
+     * Registers an icon by URL in the default namespace.
+     * @param iconName Name under which the icon should be registered.
+     * @param url
+     */
     MdIconRegistry.prototype.addSvgIcon = function (iconName, url) {
         return this.addSvgIconInNamespace('', iconName, url);
     };
-    /** Registers an icon by URL in the specified namespace. */
+    /**
+     * Registers an icon by URL in the specified namespace.
+     * @param namespace Namespace in which the icon should be registered.
+     * @param iconName Name under which the icon should be registered.
+     * @param url
+     */
     MdIconRegistry.prototype.addSvgIconInNamespace = function (namespace, iconName, url) {
         var key = iconKey(namespace, iconName);
         this._svgIconConfigs.set(key, new SvgIconConfig(url));
         return this;
     };
-    /** Registers an icon set by URL in the default namespace. */
+    /**
+     * Registers an icon set by URL in the default namespace.
+     * @param url
+     */
     MdIconRegistry.prototype.addSvgIconSet = function (url) {
         return this.addSvgIconSetInNamespace('', url);
     };
-    /** Registers an icon set by URL in the specified namespace. */
+    /**
+     * Registers an icon set by URL in the specified namespace.
+     * @param namespace Namespace in which to register the icon set.
+     * @param url
+     */
     MdIconRegistry.prototype.addSvgIconSetInNamespace = function (namespace, url) {
         var config = new SvgIconConfig(url);
         if (this._iconSetConfigs.has(namespace)) {
@@ -8689,6 +8932,9 @@ var MdIconRegistry = (function () {
      * Defines an alias for a CSS class name to be used for icon fonts. Creating an mdIcon
      * component with the alias as the fontSet input will cause the class name to be applied
      * to the <md-icon> element.
+     *
+     * @param alias Alias for the font.
+     * @param className Class name override to be used instead of the alias.
      */
     MdIconRegistry.prototype.registerFontClassAlias = function (alias, className) {
         if (className === void 0) { className = alias; }
@@ -8705,6 +8951,8 @@ var MdIconRegistry = (function () {
     /**
      * Sets the CSS class name to be used for icon fonts when an <md-icon> component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
+     *
+     * @param className
      */
     MdIconRegistry.prototype.setDefaultFontSetClass = function (className) {
         this._defaultFontSetClass = className;
@@ -8722,6 +8970,8 @@ var MdIconRegistry = (function () {
      * The response from the URL may be cached so this will not always cause an HTTP request, but
      * the produced element will always be a new copy of the originally fetched icon. (That is,
      * it will not contain any modifications made to elements previously returned).
+     *
+     * @param safeUrl URL from which to fetch the SVG icon.
      */
     MdIconRegistry.prototype.getSvgIconFromUrl = function (safeUrl) {
         var _this = this;
@@ -8737,6 +8987,9 @@ var MdIconRegistry = (function () {
      * Returns an Observable that produces the icon (as an <svg> DOM element) with the given name
      * and namespace. The icon must have been previously registered with addIcon or addIconSet;
      * if not, the Observable will throw an MdIconNameNotFoundError.
+     *
+     * @param name Name of the icon to be retrieved.
+     * @param namespace Namespace in which to look for the icon.
      */
     MdIconRegistry.prototype.getNamedSvgIcon = function (name, namespace) {
         if (namespace === void 0) { namespace = ''; }
@@ -9010,15 +9263,13 @@ var MdIcon = (function () {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this._mdIconRegistry = _mdIconRegistry;
+        /** Screenreader label for the icon. */
         this.hostAriaLabel = '';
     }
     Object.defineProperty(MdIcon.prototype, "color", {
-        get: function () {
-            return this._color;
-        },
-        set: function (value) {
-            this._updateColor(value);
-        },
+        /** Color of the icon. */
+        get: function () { return this._color; },
+        set: function (value) { this._updateColor(value); },
         enumerable: true,
         configurable: true
     });
@@ -9282,7 +9533,9 @@ var MdProgressSpinner = (function () {
         enumerable: true,
         configurable: true
     });
-    /** Clean up any animations that were running. */
+    /**
+     * Clean up any animations that were running.
+     */
     MdProgressSpinner.prototype.ngOnDestroy = function () {
         this._cleanupIndeterminateAnimation();
     };
@@ -9558,10 +9811,9 @@ var __metadata$43 = (this && this.__metadata) || function (k, v) {
  */
 var MdProgressBar = (function () {
     function MdProgressBar() {
-        /** Value of the progressbar. Defaults to zero. Mirrored to aria-valuenow. */
-        this._value = 0;
+        /** Color of the progress bar. */
         this.color = 'primary';
-        /** Buffer value of the progress bar. Defaults to zero. */
+        this._value = 0;
         this._bufferValue = 0;
         /**
          * Mode of the progress bar.
@@ -9573,22 +9825,16 @@ var MdProgressBar = (function () {
         this.mode = 'determinate';
     }
     Object.defineProperty(MdProgressBar.prototype, "value", {
-        get: function () {
-            return this._value;
-        },
-        set: function (v) {
-            this._value = clamp$1(v || 0);
-        },
+        /** Value of the progressbar. Defaults to zero. Mirrored to aria-valuenow. */
+        get: function () { return this._value; },
+        set: function (v) { this._value = clamp$1(v || 0); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdProgressBar.prototype, "bufferValue", {
-        get: function () {
-            return this._bufferValue;
-        },
-        set: function (v) {
-            this._bufferValue = clamp$1(v || 0);
-        },
+        /** Buffer value of the progress bar. Defaults to zero. */
+        get: function () { return this._bufferValue; },
+        set: function (v) { this._bufferValue = clamp$1(v || 0); },
         enumerable: true,
         configurable: true
     });
@@ -9766,6 +10012,7 @@ var __extends$14 = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+/** @docs-private */
 var MdInputContainerPlaceholderConflictError = (function (_super) {
     __extends$14(MdInputContainerPlaceholderConflictError, _super);
     function MdInputContainerPlaceholderConflictError() {
@@ -9773,6 +10020,7 @@ var MdInputContainerPlaceholderConflictError = (function (_super) {
     }
     return MdInputContainerPlaceholderConflictError;
 }(MdError));
+/** @docs-private */
 var MdInputContainerUnsupportedTypeError = (function (_super) {
     __extends$14(MdInputContainerUnsupportedTypeError, _super);
     function MdInputContainerUnsupportedTypeError(type) {
@@ -9780,6 +10028,7 @@ var MdInputContainerUnsupportedTypeError = (function (_super) {
     }
     return MdInputContainerUnsupportedTypeError;
 }(MdError));
+/** @docs-private */
 var MdInputContainerDuplicatedHintError = (function (_super) {
     __extends$14(MdInputContainerDuplicatedHintError, _super);
     function MdInputContainerDuplicatedHintError(align) {
@@ -9787,6 +10036,7 @@ var MdInputContainerDuplicatedHintError = (function (_super) {
     }
     return MdInputContainerDuplicatedHintError;
 }(MdError));
+/** @docs-private */
 var MdInputContainerMissingMdInputError = (function (_super) {
     __extends$14(MdInputContainerMissingMdInputError, _super);
     function MdInputContainerMissingMdInputError() {
@@ -9892,12 +10142,14 @@ var MdInputDirective = (function () {
         }
     }
     Object.defineProperty(MdInputDirective.prototype, "disabled", {
+        /** Whether the element is disabled. */
         get: function () { return this._disabled; },
         set: function (value) { this._disabled = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInputDirective.prototype, "id", {
+        /** Unique id of the element. */
         get: function () { return this._id; },
         set: function (value) { this._id = value || this._uid; },
         enumerable: true,
@@ -9905,6 +10157,7 @@ var MdInputDirective = (function () {
     });
     ;
     Object.defineProperty(MdInputDirective.prototype, "placeholder", {
+        /** Placeholder attribute of the element. */
         get: function () { return this._placeholder; },
         set: function (value) {
             if (this._placeholder != value) {
@@ -9916,12 +10169,14 @@ var MdInputDirective = (function () {
         configurable: true
     });
     Object.defineProperty(MdInputDirective.prototype, "required", {
+        /** Whether the element is required. */
         get: function () { return this._required; },
         set: function (value) { this._required = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInputDirective.prototype, "type", {
+        /** Input type of the element. */
         get: function () { return this._type; },
         set: function (value) {
             this._type = value || 'text';
@@ -9943,7 +10198,7 @@ var MdInputDirective = (function () {
     MdInputDirective.prototype.ngAfterContentInit = function () {
         this.value = this._elementRef.nativeElement.value;
     };
-    /** Focus the input element. */
+    /** Focuses the input element. */
     MdInputDirective.prototype.focus = function () { this._renderer.invokeElementMethod(this._elementRef.nativeElement, 'focus'); };
     MdInputDirective.prototype._onFocus = function () { this.focused = true; };
     MdInputDirective.prototype._onBlur = function () { this.focused = false; };
@@ -10001,12 +10256,15 @@ var MdInputDirective = (function () {
  */
 var MdInputContainer = (function () {
     function MdInputContainer() {
+        /** Alignment of the input container's content. */
         this.align = 'start';
+        /** Color of the input divider, based on the theme. */
         this.dividerColor = 'primary';
         this._hintLabel = '';
         this._floatingPlaceholder = true;
     }
     Object.defineProperty(MdInputContainer.prototype, "hintLabel", {
+        /** Text for the input hint. */
         get: function () { return this._hintLabel; },
         set: function (value) {
             this._hintLabel = value;
@@ -10016,6 +10274,7 @@ var MdInputContainer = (function () {
         configurable: true
     });
     Object.defineProperty(MdInputContainer.prototype, "floatingPlaceholder", {
+        /** Text or the floating placeholder. */
         get: function () { return this._floatingPlaceholder; },
         set: function (value) { this._floatingPlaceholder = coerceBooleanProperty(value); },
         enumerable: true,
@@ -10160,6 +10419,7 @@ var MD_INPUT_INVALID_INPUT_TYPE = [
     'checkbox',
 ];
 var nextUniqueId$1 = 0;
+/** @docs-private */
 var MdInputPlaceholderConflictError = (function (_super) {
     __extends$13(MdInputPlaceholderConflictError, _super);
     function MdInputPlaceholderConflictError() {
@@ -10167,6 +10427,7 @@ var MdInputPlaceholderConflictError = (function (_super) {
     }
     return MdInputPlaceholderConflictError;
 }(MdError));
+/** @docs-private */
 var MdInputUnsupportedTypeError = (function (_super) {
     __extends$13(MdInputUnsupportedTypeError, _super);
     function MdInputUnsupportedTypeError(type) {
@@ -10174,6 +10435,7 @@ var MdInputUnsupportedTypeError = (function (_super) {
     }
     return MdInputUnsupportedTypeError;
 }(MdError));
+/** @docs-private */
 var MdInputDuplicatedHintError = (function (_super) {
     __extends$13(MdInputDuplicatedHintError, _super);
     function MdInputDuplicatedHintError(align) {
@@ -10194,26 +10456,40 @@ var MdInput = (function () {
         this._onTouchedCallback = noop;
         /** Callback registered via registerOnChange (ControlValueAccessor) */
         this._onChangeCallback = noop;
-        /**
-         * Bindings.
-         */
+        /** Alignment of the input container's content. */
         this.align = 'start';
+        /** Color of the input divider, based on the theme. */
         this.dividerColor = 'primary';
+        /** Text for the input hint. */
         this.hintLabel = '';
+        /** Unique id for the input element. */
         this.id = "md-input-" + nextUniqueId$1++;
+        /** Mirrors the native `list` attribute. */
         this.list = null;
+        /** Mirrors the native `max` attribute. */
         this.max = null;
+        /** Mirrors the native `maxlength` attribute. */
         this.maxlength = null;
+        /** Mirrors the native `min` attribute. */
         this.min = null;
+        /** Mirrors the native `minlength` attribute. */
         this.minlength = null;
+        /** Mirrors the native `placeholder` attribute. */
         this.placeholder = null;
+        /** Mirrors the native `step` attribute. */
         this.step = null;
+        /** Mirrors the native `tabindex` attribute. */
         this.tabindex = null;
+        /** Mirrors the native `type` attribute. */
         this.type = 'text';
+        /** Mirrors the native `name` attribute. */
         this.name = null;
         // textarea-specific
+        /** Mirrors the native `rows` attribute. */
         this.rows = null;
+        /** Mirrors the native `cols` attribute. */
         this.cols = null;
+        /** Whether to do a soft or hard wrap of the text.. */
         this.wrap = null;
         this._floatingPlaceholder = true;
         this._autofocus = false;
@@ -10229,18 +10505,21 @@ var MdInput = (function () {
             'textarea';
     }
     Object.defineProperty(MdInput.prototype, "ariaDisabled", {
+        /** Mirrors the native `aria-disabled` attribute. */
         get: function () { return this._ariaDisabled; },
         set: function (value) { this._ariaDisabled = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "ariaRequired", {
+        /** Mirrors the native `aria-required` attribute. */
         get: function () { return this._ariaRequired; },
         set: function (value) { this._ariaRequired = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "ariaInvalid", {
+        /** Mirrors the native `aria-invalid` attribute. */
         get: function () { return this._ariaInvalid; },
         set: function (value) { this._ariaInvalid = coerceBooleanProperty(value); },
         enumerable: true,
@@ -10248,16 +10527,19 @@ var MdInput = (function () {
     });
     Object.defineProperty(MdInput.prototype, "focused", {
         /** Readonly properties. */
+        /** Whether the element is focused. */
         get: function () { return this._focused; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "empty", {
+        /** Whether the element is empty. */
         get: function () { return (this._value == null || this._value === '') && this.type !== 'date'; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "characterCount", {
+        /** Amount of characters inside the element. */
         get: function () {
             return this.empty ? 0 : ('' + this._value).length;
         },
@@ -10265,47 +10547,55 @@ var MdInput = (function () {
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "inputId", {
+        /** Unique element id. */
         get: function () { return this.id + "-input"; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "floatingPlaceholder", {
+        /** Text for the floating placeholder. */
         get: function () { return this._floatingPlaceholder; },
         set: function (value) { this._floatingPlaceholder = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "autofocus", {
+        /** Whether to automatically focus the input. */
         get: function () { return this._autofocus; },
         set: function (value) { this._autofocus = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "disabled", {
+        /** Whether the input is disabled. */
         get: function () { return this._disabled; },
         set: function (value) { this._disabled = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "readonly", {
+        /** Whether the input is readonly. */
         get: function () { return this._readonly; },
         set: function (value) { this._readonly = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "required", {
+        /** Whether the input is required. */
         get: function () { return this._required; },
         set: function (value) { this._required = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "spellcheck", {
+        /** Whether spellchecking is enable on the input. */
         get: function () { return this._spellcheck; },
         set: function (value) { this._spellcheck = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "onBlur", {
+        /** Event emitted when the input is blurred. */
         get: function () {
             return this._blurEmitter.asObservable();
         },
@@ -10313,6 +10603,7 @@ var MdInput = (function () {
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "onFocus", {
+        /** Event emitted when the input is focused. */
         get: function () {
             return this._focusEmitter.asObservable();
         },
@@ -10320,6 +10611,7 @@ var MdInput = (function () {
         configurable: true
     });
     Object.defineProperty(MdInput.prototype, "value", {
+        /** Value of the input. */
         get: function () { return this._value; },
         set: function (v) {
             v = this._convertValueForInputType(v);
@@ -10360,19 +10652,34 @@ var MdInput = (function () {
     MdInput.prototype._hasPlaceholder = function () {
         return !!this.placeholder || this._placeholderChild != null;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Sets the model value of the input. Implemented as part of ControlValueAccessor.
+     * @param value Value to be set.
+     */
     MdInput.prototype.writeValue = function (value) {
         this._value = value;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback to be triggered when the input value has changed.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Callback to be registered.
+     */
     MdInput.prototype.registerOnChange = function (fn) {
         this._onChangeCallback = fn;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback to be triggered when the input has been touched.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Callback to be registered.
+     */
     MdInput.prototype.registerOnTouched = function (fn) {
         this._onTouchedCallback = fn;
     };
-    /** Implemented as a part of ControlValueAccessor. */
+    /**
+     * Sets whether the input is disabled.
+     * Implemented as a part of ControlValueAccessor.
+     * @param isDisabled Whether the input should be disabled.
+     */
     MdInput.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };
@@ -10720,6 +11027,10 @@ var __extends$16 = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+/**
+ * Error that is thrown when attempting to attach a snack bar that is already attached.
+ * @docs-private
+ */
 var MdSnackBarContentAlreadyAttached = (function (_super) {
     __extends$16(MdSnackBarContentAlreadyAttached, _super);
     function MdSnackBarContentAlreadyAttached() {
@@ -10748,6 +11059,7 @@ var SHOW_ANIMATION = '225ms cubic-bezier(0.4,0.0,1,1)';
 var HIDE_ANIMATION = '195ms cubic-bezier(0.0,0.0,0.2,1)';
 /**
  * Internal component that wraps user-provided snack bar content.
+ * @docs-private
  */
 var MdSnackBarContainer = (function (_super) {
     __extends$15(MdSnackBarContainer, _super);
@@ -10806,7 +11118,9 @@ var MdSnackBarContainer = (function (_super) {
     MdSnackBarContainer.prototype._onExit = function () {
         return this.onExit.asObservable();
     };
-    /** Makes sure the exit callbacks have been invoked when the element is destroyed. */
+    /**
+     * Makes sure the exit callbacks have been invoked when the element is destroyed.
+     */
     MdSnackBarContainer.prototype.ngOnDestroy = function () {
         var _this = this;
         // Wait for the zone to settle before removing the element. Helps prevent
@@ -10928,6 +11242,9 @@ var MdSnackBar = (function () {
     /**
      * Creates and dispatches a snack bar with a custom component for the content, removing any
      * currently opened snack bars.
+     *
+     * @param component Component to be instantiated.
+     * @param config Extra configuration for the snack bar.
      */
     MdSnackBar.prototype.openFromComponent = function (component, config) {
         var _this = this;
@@ -10968,7 +11285,6 @@ var MdSnackBar = (function () {
      * @param message The message to show in the snackbar.
      * @param action The label for the snackbar action.
      * @param config Additional configuration options for the snackbar.
-     * @returns {MdSnackBarRef<SimpleSnackBar>}
      */
     MdSnackBar.prototype.open = function (message, action, config) {
         if (action === void 0) { action = ''; }
@@ -11089,6 +11405,7 @@ var MdTabLabelWrapper = (function () {
         this._disabled = false;
     }
     Object.defineProperty(MdTabLabelWrapper.prototype, "disabled", {
+        /** Whether the element is disabled. */
         get: function () { return this._disabled; },
         set: function (value) { this._disabled = coerceBooleanProperty(value); },
         enumerable: true,
@@ -11156,7 +11473,6 @@ var MdInkBar = (function () {
     /**
      * Generates the pixel distance from the left based on the provided element in string format.
      * @param element
-     * @returns {string}
      */
     MdInkBar.prototype._getLeftPosition = function (element) {
         return element ? element.offsetLeft + 'px' : '0';
@@ -11164,7 +11480,6 @@ var MdInkBar = (function () {
     /**
      * Generates the pixel width from the provided element in string format.
      * @param element
-     * @returns {string}
      */
     MdInkBar.prototype._getElementWidth = function (element) {
         return element ? element.offsetWidth + 'px' : '0';
@@ -11217,6 +11532,9 @@ var MdTabNavBar = (function () {
     ], MdTabNavBar);
     return MdTabNavBar;
 }());
+/**
+ * Link inside of a `md-tab-nav-bar`.
+ */
 var MdTabLink = (function () {
     function MdTabLink(_mdTabNavBar, _element) {
         this._mdTabNavBar = _mdTabNavBar;
@@ -11224,9 +11542,8 @@ var MdTabLink = (function () {
         this._isActive = false;
     }
     Object.defineProperty(MdTabLink.prototype, "active", {
-        get: function () {
-            return this._isActive;
-        },
+        /** Whether the link is active. */
+        get: function () { return this._isActive; },
         set: function (value) {
             this._isActive = value;
             if (value) {
@@ -11259,8 +11576,9 @@ var MdTabLinkRipple = (function (_super) {
         this._element = _element;
         this._ngZone = _ngZone;
     }
-    // In certain cases the parent destroy handler
-    // may not get called. See Angular issue #11606.
+    /**
+     * In certain cases the parent destroy handler may not get called. See Angular issue #11606.
+     */
     MdTabLinkRipple.prototype.ngOnDestroy = function () {
         _super.prototype.ngOnDestroy.call(this);
     };
@@ -11308,6 +11626,7 @@ var MdTab = (function () {
     });
     Object.defineProperty(MdTab.prototype, "disabled", {
         get: function () { return this._disabled; },
+        /** Whether the tab is disabled */
         set: function (value) { this._disabled = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
@@ -11353,6 +11672,9 @@ var __metadata$56 = (this && this.__metadata) || function (k, v) {
 var __param$10 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+/**
+ * Wrapper for the contents of a tab.
+ */
 var MdTabBody = (function () {
     function MdTabBody(_elementRef, _dir) {
         this._elementRef = _elementRef;
@@ -11378,6 +11700,7 @@ var MdTabBody = (function () {
         configurable: true
     });
     Object.defineProperty(MdTabBody.prototype, "origin", {
+        /** The origin position from which this tab should appear when it is centered into view. */
         set: function (origin) {
             if (origin == null) {
                 return;
@@ -11530,7 +11853,6 @@ var MdTabHeader = (function () {
         this._disableScrollAfter = true;
         /** Whether the tab list can be scrolled more towards the beginning of the tab label list. */
         this._disableScrollBefore = true;
-        /** The index of the active tab. */
         this._selectedIndex = 0;
         /** Event emitted when the option is selected. */
         this.selectFocusedIndex = new _angular_core.EventEmitter();
@@ -11539,6 +11861,7 @@ var MdTabHeader = (function () {
     }
     Object.defineProperty(MdTabHeader.prototype, "selectedIndex", {
         get: function () { return this._selectedIndex; },
+        /** The index of the active tab. */
         set: function (value) {
             this._selectedIndexChanged = this._selectedIndex != value;
             this._selectedIndex = value;
@@ -11569,7 +11892,7 @@ var MdTabHeader = (function () {
     };
     /**
      * Waits one frame for the view to update, then updates the ink bar and scroll.
-     * Note: This must be run outside of the zone or it will create an infinite change detection loop
+     * Note: This must be run outside of the zone or it will create an infinite change detection loop.
      */
     MdTabHeader.prototype.ngAfterViewChecked = function () {
         var _this = this;
@@ -11870,7 +12193,6 @@ var MdTabGroup = (function () {
         this._tabBodyWrapperHeight = null;
         /** Whether the tab group should grow to the size of the active tab */
         this._dynamicHeight = false;
-        /** The index of the active tab. */
         this._selectedIndex = null;
         this._onFocusChange = new _angular_core.EventEmitter();
         this._onSelectChange = new _angular_core.EventEmitter(true);
@@ -11890,12 +12212,9 @@ var MdTabGroup = (function () {
         configurable: true
     });
     Object.defineProperty(MdTabGroup.prototype, "selectedIndex", {
-        get: function () {
-            return this._selectedIndex;
-        },
-        set: function (value) {
-            this._indexToSelect = value;
-        },
+        get: function () { return this._selectedIndex; },
+        /** The index of the active tab. */
+        set: function (value) { this._indexToSelect = value; },
         enumerable: true,
         configurable: true
     });
@@ -11908,6 +12227,7 @@ var MdTabGroup = (function () {
         configurable: true
     });
     Object.defineProperty(MdTabGroup.prototype, "focusChange", {
+        /** Event emitted when focus has changed within a tab group. */
         get: function () {
             return this._onFocusChange.asObservable();
         },
@@ -11915,6 +12235,7 @@ var MdTabGroup = (function () {
         configurable: true
     });
     Object.defineProperty(MdTabGroup.prototype, "selectChange", {
+        /** Event emitted when the tab selection has changed. */
         get: function () {
             return this._onSelectChange.asObservable();
         },
@@ -11950,7 +12271,7 @@ var MdTabGroup = (function () {
     };
     /**
      * Waits one frame for the view to update, then updates the ink bar
-     * Note: This must be run outside of the zone or it will create an infinite change detection loop
+     * Note: This must be run outside of the zone or it will create an infinite change detection loop.
      */
     MdTabGroup.prototype.ngAfterViewChecked = function () {
         this._isInitialized = true;
@@ -12144,7 +12465,10 @@ var __extends$19 = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/** Exception thrown when a tooltip has an invalid position. */
+/**
+ * Exception thrown when a tooltip has an invalid position.
+ * @docs-private
+ */
 var MdTooltipInvalidPositionError = (function (_super) {
     __extends$19(MdTooltipInvalidPositionError, _super);
     function MdTooltipInvalidPositionError(position) {
@@ -12181,7 +12505,6 @@ var MdTooltip = (function () {
         this._viewContainerRef = _viewContainerRef;
         this._ngZone = _ngZone;
         this._dir = _dir;
-        /** Allows the user to define the position of the tooltip relative to the parent element */
         this._position = 'below';
         /** The default delay in ms before showing the tooltip after show is called */
         this.showDelay = 0;
@@ -12189,9 +12512,8 @@ var MdTooltip = (function () {
         this.hideDelay = 0;
     }
     Object.defineProperty(MdTooltip.prototype, "position", {
-        get: function () {
-            return this._position;
-        },
+        /** Allows the user to define the position of the tooltip relative to the parent element */
+        get: function () { return this._position; },
         set: function (value) {
             if (value !== this._position) {
                 this._position = value;
@@ -12213,9 +12535,8 @@ var MdTooltip = (function () {
         configurable: true
     });
     Object.defineProperty(MdTooltip.prototype, "message", {
-        get: function () {
-            return this._message;
-        },
+        /** The message to be displayed in the tooltip */
+        get: function () { return this._message; },
         set: function (value) {
             this._message = value;
             if (this._tooltipInstance) {
@@ -12242,7 +12563,9 @@ var MdTooltip = (function () {
             }
         });
     };
-    /** Dispose the tooltip when destroyed */
+    /**
+     * Dispose the tooltip when destroyed.
+     */
     MdTooltip.prototype.ngOnDestroy = function () {
         if (this._tooltipInstance) {
             this._disposeTooltip();
@@ -12395,6 +12718,10 @@ var MdTooltip = (function () {
     ], MdTooltip);
     return MdTooltip;
 }());
+/**
+ * Internal component that wraps the tooltip's content.
+ * @docs-private
+ */
 var TooltipComponent = (function () {
     function TooltipComponent(_dir) {
         this._dir = _dir;
@@ -12407,7 +12734,11 @@ var TooltipComponent = (function () {
         /** Subject for notifying that the tooltip has been hidden from the view */
         this._onHide = new rxjs_Subject.Subject();
     }
-    /** Shows the tooltip with an animation originating from the provided origin */
+    /**
+     * Shows the tooltip with an animation originating from the provided origin
+     * @param position Position of the tooltip.
+     * @param delay Amount of milliseconds to the delay showing the tooltip.
+     */
     TooltipComponent.prototype.show = function (position, delay) {
         var _this = this;
         // Cancel the delayed hide if it is scheduled
@@ -12425,7 +12756,10 @@ var TooltipComponent = (function () {
             setTimeout(function () { _this._closeOnInteraction = true; }, 0);
         }, delay);
     };
-    /** Begins the animation to hide the tooltip after the provided delay in ms */
+    /**
+     * Begins the animation to hide the tooltip after the provided delay in ms.
+     * @param delay Amount of milliseconds to delay showing the tooltip.
+     */
     TooltipComponent.prototype.hide = function (delay) {
         var _this = this;
         // Cancel the delayed show if it is scheduled
@@ -12437,11 +12771,15 @@ var TooltipComponent = (function () {
             _this._closeOnInteraction = false;
         }, delay);
     };
-    /** Returns an observable that notifies when the tooltip has been hidden from view */
+    /**
+     * Returns an observable that notifies when the tooltip has been hidden from view
+     */
     TooltipComponent.prototype.afterHidden = function () {
         return this._onHide.asObservable();
     };
-    /** Whether the tooltip is being displayed */
+    /**
+     * Whether the tooltip is being displayed
+     */
     TooltipComponent.prototype.isVisible = function () {
         return this._visibility === 'visible';
     };
@@ -12596,9 +12934,8 @@ var MdMenuItem = (function () {
     };
     Object.defineProperty(MdMenuItem.prototype, "disabled", {
         // this is necessary to support anchors
-        get: function () {
-            return this._disabled;
-        },
+        /** Whether the menu item is disabled. */
+        get: function () { return this._disabled; },
         set: function (value) {
             this._disabled = (value === false || value === undefined) ? null : true;
         },
@@ -12606,16 +12943,13 @@ var MdMenuItem = (function () {
         configurable: true
     });
     Object.defineProperty(MdMenuItem.prototype, "isAriaDisabled", {
-        get: function () {
-            return String(!!this.disabled);
-        },
+        /** Sets the aria-disabled property on the menu item. */
+        get: function () { return String(!!this.disabled); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdMenuItem.prototype, "_tabindex", {
-        get: function () {
-            return this.disabled ? '-1' : '0';
-        },
+        get: function () { return this.disabled ? '-1' : '0'; },
         enumerable: true,
         configurable: true
     });
@@ -12663,9 +12997,8 @@ var MdMenuItem = (function () {
  *
  * When the menu panel is removed from the DOM, it simply fades out after a brief
  * delay to display the ripple.
- *
- * TODO(kara): switch to :enter and :leave once Mobile Safari is sorted out.
  */
+// TODO(kara): switch to :enter and :leave once Mobile Safari is sorted out.
 var transformMenu = _angular_core.trigger('transformMenu', [
     _angular_core.state('showing', _angular_core.style({
         opacity: 1,
@@ -12711,8 +13044,11 @@ var MdMenu = (function () {
     function MdMenu(posX, posY) {
         /** Config object to be passed into the menu's ngClass */
         this._classList = {};
+        /** Position of the menu in the X axis. */
         this.positionX = 'after';
+        /** Position of the menu in the Y axis. */
         this.positionY = 'below';
+        /** Event emitted when the menu is closed. */
         this.close = new _angular_core.EventEmitter();
         if (posX) {
             this._setPositionX(posX);
@@ -12848,7 +13184,9 @@ var MdMenuTrigger = (function () {
         // tracking input type is necessary so it's possible to only auto-focus
         // the first item of the list when the menu is opened via the keyboard
         this._openedByMouse = false;
+        /** Event emitted when the associated menu is opened. */
         this.onMenuOpen = new _angular_core.EventEmitter();
+        /** Event emitted when the associated menu is closed. */
         this.onMenuClose = new _angular_core.EventEmitter();
     }
     Object.defineProperty(MdMenuTrigger.prototype, "_deprecatedMenuTriggerFor", {
@@ -12865,13 +13203,16 @@ var MdMenuTrigger = (function () {
     };
     MdMenuTrigger.prototype.ngOnDestroy = function () { this.destroyMenu(); };
     Object.defineProperty(MdMenuTrigger.prototype, "menuOpen", {
+        /** Whether the menu is open. */
         get: function () { return this._menuOpen; },
         enumerable: true,
         configurable: true
     });
+    /** Toggles the menu between the open and closed states. */
     MdMenuTrigger.prototype.toggleMenu = function () {
         return this._menuOpen ? this.closeMenu() : this.openMenu();
     };
+    /** Opens the menu. */
     MdMenuTrigger.prototype.openMenu = function () {
         if (!this._menuOpen) {
             this._createOverlay();
@@ -12880,6 +13221,7 @@ var MdMenuTrigger = (function () {
             this._initMenu();
         }
     };
+    /** Closes the menu. */
     MdMenuTrigger.prototype.closeMenu = function () {
         if (this._overlayRef) {
             this._overlayRef.detach();
@@ -12887,6 +13229,7 @@ var MdMenuTrigger = (function () {
             this._resetMenu();
         }
     };
+    /** Removes the menu from the DOM. */
     MdMenuTrigger.prototype.destroyMenu = function () {
         if (this._overlayRef) {
             this._overlayRef.dispose();
@@ -12894,6 +13237,7 @@ var MdMenuTrigger = (function () {
             this._cleanUpSubscriptions();
         }
     };
+    /** Focuses the menu trigger. */
     MdMenuTrigger.prototype.focus = function () {
         this._renderer.invokeElementMethod(this._element.nativeElement, 'focus');
     };
@@ -13104,7 +13448,9 @@ var MdDialogRef = (function () {
         this._afterClosed.next(dialogResult);
         this._afterClosed.complete();
     };
-    /** Gets an observable that is notified when the dialog is finished closing. */
+    /**
+     * Gets an observable that is notified when the dialog is finished closing.
+     */
     MdDialogRef.prototype.afterClosed = function () {
         return this._afterClosed.asObservable();
     };
@@ -13149,7 +13495,10 @@ var __extends$22 = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/** Exception thrown when a ComponentPortal is attached to a DomPortalHost without an origin. */
+/**
+ * Exception thrown when a ComponentPortal is attached to a DomPortalHost without an origin.
+ * @docs-private
+ */
 var MdDialogContentAlreadyAttachedError = (function (_super) {
     __extends$22(MdDialogContentAlreadyAttachedError, _super);
     function MdDialogContentAlreadyAttachedError() {
@@ -13184,7 +13533,10 @@ var MdDialogContainer = (function (_super) {
         /** Element that was focused before the dialog was opened. Save this to restore upon close. */
         this._elementFocusedBeforeDialogWasOpened = null;
     }
-    /** Attach a portal as content to this dialog container. */
+    /**
+     * Attach a portal as content to this dialog container.
+     * @param portal Portal to be attached as the dialog content.
+     */
     MdDialogContainer.prototype.attachComponentPortal = function (portal) {
         var _this = this;
         if (this._portalHost.hasAttached()) {
@@ -13200,10 +13552,14 @@ var MdDialogContainer = (function (_super) {
         });
         return attachResult;
     };
+    /** @docs-private */
     MdDialogContainer.prototype.attachTemplatePortal = function (portal) {
         throw Error('Not yet implemented');
     };
-    /** Handles the user pressing the Escape key. */
+    /**
+     * Handles the user pressing the Escape key.
+     * @docs-private
+     */
     MdDialogContainer.prototype.handleEscapeKey = function () {
         if (!this.dialogConfig.disableClose) {
             this.dialogRef.close();
@@ -13266,7 +13622,8 @@ var MdDialog = (function () {
     /**
      * Opens a modal dialog containing the given component.
      * @param component Type of the component to load into the load.
-     * @param config
+     * @param config Extra configuration options.
+     * @returns Reference to the newly-opened dialog.
      */
     MdDialog.prototype.open = function (component, config) {
         var _this = this;
@@ -13367,6 +13724,7 @@ var MdDialog = (function () {
     };
     /**
      * Removes a dialog from the array of open dialogs.
+     * @param dialogRef Dialog to be removed.
      */
     MdDialog.prototype._removeOpenDialog = function (dialogRef) {
         var index = this._openDialogs.indexOf(dialogRef);

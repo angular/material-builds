@@ -29,7 +29,10 @@ export var MdDialogContainer = (function (_super) {
         /** Element that was focused before the dialog was opened. Save this to restore upon close. */
         this._elementFocusedBeforeDialogWasOpened = null;
     }
-    /** Attach a portal as content to this dialog container. */
+    /**
+     * Attach a portal as content to this dialog container.
+     * @param portal Portal to be attached as the dialog content.
+     */
     MdDialogContainer.prototype.attachComponentPortal = function (portal) {
         var _this = this;
         if (this._portalHost.hasAttached()) {
@@ -45,10 +48,14 @@ export var MdDialogContainer = (function (_super) {
         });
         return attachResult;
     };
+    /** @docs-private */
     MdDialogContainer.prototype.attachTemplatePortal = function (portal) {
         throw Error('Not yet implemented');
     };
-    /** Handles the user pressing the Escape key. */
+    /**
+     * Handles the user pressing the Escape key.
+     * @docs-private
+     */
     MdDialogContainer.prototype.handleEscapeKey = function () {
         if (!this.dialogConfig.disableClose) {
             this.dialogRef.close();

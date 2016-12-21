@@ -18,22 +18,16 @@ export var MdGridTile = (function () {
         this._colspan = 1;
     }
     Object.defineProperty(MdGridTile.prototype, "rowspan", {
-        get: function () {
-            return this._rowspan;
-        },
-        set: function (value) {
-            this._rowspan = coerceToNumber(value);
-        },
+        /** Amount of rows that the grid tile takes up. */
+        get: function () { return this._rowspan; },
+        set: function (value) { this._rowspan = coerceToNumber(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdGridTile.prototype, "colspan", {
-        get: function () {
-            return this._colspan;
-        },
-        set: function (value) {
-            this._colspan = coerceToNumber(value);
-        },
+        /** Amount of columns that the grid tile takes up. */
+        get: function () { return this._colspan; },
+        set: function (value) { this._colspan = coerceToNumber(value); },
         enumerable: true,
         configurable: true
     });

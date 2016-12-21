@@ -6,6 +6,7 @@ export declare class MdTabLabelWrapper {
     constructor(elementRef: ElementRef, _renderer: Renderer);
     /** Whether the tab label is disabled.  */
     private _disabled;
+    /** Whether the element is disabled. */
     disabled: any;
     /** Sets focus on the wrapper element */
     focus(): void;

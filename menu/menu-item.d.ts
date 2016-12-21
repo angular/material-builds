@@ -10,7 +10,9 @@ export declare class MdMenuItem implements Focusable {
     _disabled: boolean;
     constructor(_renderer: Renderer, _elementRef: ElementRef);
     focus(): void;
+    /** Whether the menu item is disabled. */
     disabled: boolean;
+    /** Sets the aria-disabled property on the menu item. */
     readonly isAriaDisabled: string;
     readonly _tabindex: string;
     _getHostElement(): HTMLElement;

@@ -24,7 +24,7 @@ export declare class Overlay {
     /**
      * Creates an overlay.
      * @param state State to apply to the overlay.
-     * @returns A reference to the created overlay.
+     * @returns Reference to the created overlay.
      */
     create(state?: OverlayState): OverlayRef;
     /**
@@ -34,7 +34,7 @@ export declare class Overlay {
     position(): OverlayPositionBuilder;
     /**
      * Creates the DOM element for an overlay and appends it to the overlay container.
-     * @returns Promise resolving to the created element.
+     * @returns Newly-created pane element
      */
     private _createPaneElement();
     /**
@@ -47,7 +47,6 @@ export declare class Overlay {
      * Creates an OverlayRef for an overlay in the given DOM element.
      * @param pane DOM element for the overlay
      * @param state
-     * @returns {OverlayRef}
      */
     private _createOverlayRef(pane, state);
 }

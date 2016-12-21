@@ -99,9 +99,7 @@ export var MdSidenav = (function () {
     }
     Object.defineProperty(MdSidenav.prototype, "valid", {
         /** Whether this md-sidenav is part of a valid md-sidenav-container configuration. */
-        get: function () {
-            return this._valid;
-        },
+        get: function () { return this._valid; },
         set: function (value) {
             value = coerceBooleanProperty(value);
             // When the drawers are not in a valid configuration we close them all until they are in a valid
@@ -115,9 +113,8 @@ export var MdSidenav = (function () {
         configurable: true
     });
     Object.defineProperty(MdSidenav.prototype, "align", {
-        get: function () {
-            return this._align;
-        },
+        /** Direction which the sidenav is aligned in. */
+        get: function () { return this._align; },
         set: function (value) {
             // Make sure we have a valid value.
             value = (value == 'end') ? 'end' : 'start';
@@ -172,7 +169,8 @@ export var MdSidenav = (function () {
     /**
      * Toggle this sidenav. This is equivalent to calling open() when it's already opened, or
      * close() when it's closed.
-     * @param isOpen
+     * @param isOpen Whether the sidenav should be open.
+     * @returns Resolves with the result of whether the sidenav was opened or closed.
      */
     MdSidenav.prototype.toggle = function (isOpen) {
         var _this = this;
@@ -204,6 +202,7 @@ export var MdSidenav = (function () {
     };
     /**
      * Handles the keyboard events.
+     * @docs-private
      */
     MdSidenav.prototype.handleKeydown = function (event) {
         if (event.keyCode === ESCAPE) {
@@ -381,11 +380,13 @@ export var MdSidenavContainer = (function () {
         }
     }
     Object.defineProperty(MdSidenavContainer.prototype, "start", {
+        /** The sidenav child with the `start` alignment. */
         get: function () { return this._start; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdSidenavContainer.prototype, "end", {
+        /** The sidenav child with the `end` alignment. */
         get: function () { return this._end; },
         enumerable: true,
         configurable: true

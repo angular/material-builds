@@ -28,7 +28,9 @@ export var MdMenuTrigger = (function () {
         // tracking input type is necessary so it's possible to only auto-focus
         // the first item of the list when the menu is opened via the keyboard
         this._openedByMouse = false;
+        /** Event emitted when the associated menu is opened. */
         this.onMenuOpen = new EventEmitter();
+        /** Event emitted when the associated menu is closed. */
         this.onMenuClose = new EventEmitter();
     }
     Object.defineProperty(MdMenuTrigger.prototype, "_deprecatedMenuTriggerFor", {
@@ -45,13 +47,16 @@ export var MdMenuTrigger = (function () {
     };
     MdMenuTrigger.prototype.ngOnDestroy = function () { this.destroyMenu(); };
     Object.defineProperty(MdMenuTrigger.prototype, "menuOpen", {
+        /** Whether the menu is open. */
         get: function () { return this._menuOpen; },
         enumerable: true,
         configurable: true
     });
+    /** Toggles the menu between the open and closed states. */
     MdMenuTrigger.prototype.toggleMenu = function () {
         return this._menuOpen ? this.closeMenu() : this.openMenu();
     };
+    /** Opens the menu. */
     MdMenuTrigger.prototype.openMenu = function () {
         if (!this._menuOpen) {
             this._createOverlay();
@@ -60,6 +65,7 @@ export var MdMenuTrigger = (function () {
             this._initMenu();
         }
     };
+    /** Closes the menu. */
     MdMenuTrigger.prototype.closeMenu = function () {
         if (this._overlayRef) {
             this._overlayRef.detach();
@@ -67,6 +73,7 @@ export var MdMenuTrigger = (function () {
             this._resetMenu();
         }
     };
+    /** Removes the menu from the DOM. */
     MdMenuTrigger.prototype.destroyMenu = function () {
         if (this._overlayRef) {
             this._overlayRef.dispose();
@@ -74,6 +81,7 @@ export var MdMenuTrigger = (function () {
             this._cleanUpSubscriptions();
         }
     };
+    /** Focuses the menu trigger. */
     MdMenuTrigger.prototype.focus = function () {
         this._renderer.invokeElementMethod(this._element.nativeElement, 'focus');
     };

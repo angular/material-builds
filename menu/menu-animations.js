@@ -10,9 +10,8 @@ import { trigger, state, style, animate, transition } from '@angular/core';
  *
  * When the menu panel is removed from the DOM, it simply fades out after a brief
  * delay to display the ripple.
- *
- * TODO(kara): switch to :enter and :leave once Mobile Safari is sorted out.
  */
+// TODO(kara): switch to :enter and :leave once Mobile Safari is sorted out.
 export var transformMenu = trigger('transformMenu', [
     state('showing', style({
         opacity: 1,

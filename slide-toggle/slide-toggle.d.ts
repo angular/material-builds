@@ -7,6 +7,9 @@ export declare class MdSlideToggleChange {
     source: MdSlideToggle;
     checked: boolean;
 }
+/**
+ * Two-state control, which can be also called `switch`.
+ */
 export declare class MdSlideToggle implements AfterContentInit, ControlValueAccessor {
     private _elementRef;
     private _renderer;

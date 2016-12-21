@@ -18,6 +18,9 @@ import { MdRippleModule, coerceBooleanProperty, DefaultStyleCompatibilityModeMod
 import { ViewportRuler } from '../core/overlay/position/viewport-ruler';
 // TODO(jelbourn): Make the `isMouseDown` stuff done with one global listener.
 // TODO(kara): Convert attribute selectors to classes when attr maps become available
+/**
+ * Material design button.
+ */
 export var MdButton = (function () {
     function MdButton(_elementRef, _renderer) {
         this._elementRef = _elementRef;
@@ -123,6 +126,9 @@ export var MdButton = (function () {
     ], MdButton);
     return MdButton;
 }());
+/**
+ * Raised Material design button.
+ */
 export var MdAnchor = (function (_super) {
     __extends(MdAnchor, _super);
     function MdAnchor(elementRef, renderer) {

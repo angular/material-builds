@@ -106,13 +106,21 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
         overlayX: string;
         overlayY: string;
     }[];
+    /** Trigger that opens the select. */
     trigger: ElementRef;
+    /** Overlay pane containing the options. */
     overlayDir: ConnectedOverlayDirective;
+    /** All of the defined select options. */
     options: QueryList<MdOption>;
+    /** Placeholder to be shown if no value has been selected. */
     placeholder: string;
+    /** Whether the component is disabled. */
     disabled: any;
+    /** Whether the component is required. */
     required: any;
+    /** Event emitted when the select has been opened. */
     onOpen: EventEmitter<{}>;
+    /** Event emitted when the select has been closed. */
     onClose: EventEmitter<{}>;
     constructor(_element: ElementRef, _renderer: Renderer, _viewportRuler: ViewportRuler, _dir: Dir, _control: NgControl);
     ngAfterContentInit(): void;
@@ -126,23 +134,31 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
     /**
      * Sets the select's value. Part of the ControlValueAccessor interface
      * required to integrate with Angular's core forms API.
+     *
+     * @param value New value to be written to the model.
      */
     writeValue(value: any): void;
     /**
      * Saves a callback function to be invoked when the select's value
      * changes from user input. Part of the ControlValueAccessor interface
      * required to integrate with Angular's core forms API.
+     *
+     * @param fn Callback to be triggered when the value changes.
      */
     registerOnChange(fn: (value: any) => void): void;
     /**
      * Saves a callback function to be invoked when the select is blurred
      * by the user. Part of the ControlValueAccessor interface required
      * to integrate with Angular's core forms API.
+     *
+     * @param fn Callback to be triggered when the component has been touched.
      */
     registerOnTouched(fn: () => {}): void;
     /**
      * Disables the select. Part of the ControlValueAccessor interface required
      * to integrate with Angular's core forms API.
+     *
+     * @param isDisabled Sets whether the component is disabled.
      */
     setDisabledState(isDisabled: boolean): void;
     /** Whether or not the overlay panel is open. */

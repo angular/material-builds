@@ -29,13 +29,11 @@ export declare class MdChipList implements AfterContentInit {
      */
     selectable: boolean;
     /**
-     * Programmatically focus the chip list. This in turn focuses the first non-disabled chip in this
-     * chip list.
-     *
-     * TODO: ARIA says this should focus the first `selected` chip.
+     * Programmatically focus the chip list. This in turn focuses the first
+     * non-disabled chip in this chip list.
      */
-    focus(event: Event): void;
-    /** Pass relevant key presses to our key manager. */
+    focus(): void;
+    /** Passes relevant key presses to our key manager. */
     _keydown(event: KeyboardEvent): void;
     /** Toggles the selected state of the currently focused chip. */
     protected _toggleSelectOnFocusedChip(): void;
@@ -59,7 +57,7 @@ export declare class MdChipList implements AfterContentInit {
      * Utility to ensure all indexes are valid.
      *
      * @param index The index to be checked.
-     * @returns {boolean} True if the index is valid for our list of chips.
+     * @returns True if the index is valid for our list of chips.
      */
     private _isValidIndex(index);
 }

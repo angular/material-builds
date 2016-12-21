@@ -4,6 +4,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 import { MdError } from '../core';
+/**
+ * Error that is thrown when attempting to attach a snack bar that is already attached.
+ * @docs-private
+ */
 export var MdSnackBarContentAlreadyAttached = (function (_super) {
     __extends(MdSnackBarContentAlreadyAttached, _super);
     function MdSnackBarContentAlreadyAttached() {

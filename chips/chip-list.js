@@ -55,15 +55,14 @@ export var MdChipList = (function () {
         configurable: true
     });
     /**
-     * Programmatically focus the chip list. This in turn focuses the first non-disabled chip in this
-     * chip list.
-     *
-     * TODO: ARIA says this should focus the first `selected` chip.
+     * Programmatically focus the chip list. This in turn focuses the first
+     * non-disabled chip in this chip list.
      */
-    MdChipList.prototype.focus = function (event) {
+    MdChipList.prototype.focus = function () {
+        // TODO: ARIA says this should focus the first `selected` chip.
         this._keyManager.focusFirstItem();
     };
-    /** Pass relevant key presses to our key manager. */
+    /** Passes relevant key presses to our key manager. */
     MdChipList.prototype._keydown = function (event) {
         switch (event.keyCode) {
             case SPACE:
@@ -144,7 +143,7 @@ export var MdChipList = (function () {
      * Utility to ensure all indexes are valid.
      *
      * @param index The index to be checked.
-     * @returns {boolean} True if the index is valid for our list of chips.
+     * @returns True if the index is valid for our list of chips.
      */
     MdChipList.prototype._isValidIndex = function (index) {
         return index >= 0 && index < this.chips.length;

@@ -1,5 +1,8 @@
 import { MdError } from '../core';
-/** Exception thrown when a tooltip has an invalid position. */
+/**
+ * Exception thrown when a tooltip has an invalid position.
+ * @docs-private
+ */
 export declare class MdTooltipInvalidPositionError extends MdError {
     constructor(position: string);
 }

@@ -73,9 +73,7 @@ export var MdRadioGroup = (function () {
     }
     Object.defineProperty(MdRadioGroup.prototype, "name", {
         /** Name of the radio button group. All radio buttons inside this group will use this name. */
-        get: function () {
-            return this._name;
-        },
+        get: function () { return this._name; },
         set: function (value) {
             this._name = value;
             this._updateRadioButtonNames();
@@ -100,9 +98,8 @@ export var MdRadioGroup = (function () {
         configurable: true
     });
     Object.defineProperty(MdRadioGroup.prototype, "disabled", {
-        get: function () {
-            return this._disabled;
-        },
+        /** Whether the radio button is disabled. */
+        get: function () { return this._disabled; },
         set: function (value) {
             // The presence of *any* disabled value makes the component disabled, *except* for false.
             this._disabled = (value != null && value !== false) ? true : null;
@@ -111,9 +108,8 @@ export var MdRadioGroup = (function () {
         configurable: true
     });
     Object.defineProperty(MdRadioGroup.prototype, "value", {
-        get: function () {
-            return this._value;
-        },
+        /** Value of the radio button. */
+        get: function () { return this._value; },
         set: function (newValue) {
             if (this._value != newValue) {
                 // Set this before proceeding to ensure no circular loop occurs with selection.
@@ -131,9 +127,8 @@ export var MdRadioGroup = (function () {
         }
     };
     Object.defineProperty(MdRadioGroup.prototype, "selected", {
-        get: function () {
-            return this._selected;
-        },
+        /** Whether the radio button is selected. */
+        get: function () { return this._selected; },
         set: function (selected) {
             this._selected = selected;
             this.value = selected ? selected.value : null;
@@ -193,19 +188,33 @@ export var MdRadioGroup = (function () {
             this.change.emit(event_1);
         }
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Sets the model value. Implemented as part of ControlValueAccessor.
+     * @param value
+     */
     MdRadioGroup.prototype.writeValue = function (value) {
         this.value = value;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback to be triggered when the model value changes.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Callback to be registered.
+     */
     MdRadioGroup.prototype.registerOnChange = function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback to be triggered when the control is touched.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Callback to be registered.
+     */
     MdRadioGroup.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
-    /** Implemented as a part of ControlValueAccessor. */
+    /**
+     * Sets the disabled state of the control. Implemented as a part of ControlValueAccessor.
+     * @param isDisabled Whether the control should be disabled.
+     */
     MdRadioGroup.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };

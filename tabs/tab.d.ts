@@ -23,6 +23,7 @@ export declare class MdTab implements OnInit {
      */
     origin: number;
     private _disabled;
+    /** Whether the tab is disabled */
     disabled: boolean;
     constructor(_viewContainerRef: ViewContainerRef);
     ngOnInit(): void;

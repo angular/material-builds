@@ -12,17 +12,21 @@ export declare class MdSliderChange {
     source: MdSlider;
     value: number;
 }
+/**
+ * Allows users to select from a range of values by moving the slider thumb. It is similar in
+ * behavior to the native `<input type="range">` element.
+ */
 export declare class MdSlider implements ControlValueAccessor {
     private _dir;
     /** A renderer to handle updating the slider's thumb and fill track. */
     private _renderer;
     /** The dimensions of the slider. */
     private _sliderDimensions;
-    /** Whether or not the slider is disabled. */
     private _disabled;
+    /** Whether or not the slider is disabled. */
     disabled: boolean;
-    /** Whether or not to show the thumb label. */
     private _thumbLabel;
+    /** Whether or not to show the thumb label. */
     thumbLabel: boolean;
     /** @deprecated */
     _thumbLabelDeprecated: boolean;
@@ -41,31 +45,31 @@ export declare class MdSlider implements ControlValueAccessor {
      * Used to shrink and grow the thumb as according to the Material Design spec.
      */
     _isActive: boolean;
-    /** The values at which the thumb will snap. */
     private _step;
+    /** The values at which the thumb will snap. */
     step: number;
+    private _tickInterval;
     /**
      * How often to show ticks. Relative to the step so that a tick always appears on a step.
      * Ex: Tick interval of 4 with a step of 3 will draw a tick every 4 steps (every 12 values).
      */
-    private _tickInterval;
     tickInterval: number | "auto";
     /** @deprecated */
     _tickIntervalDeprecated: number | "auto";
-    /** The size of a tick interval as a percentage of the size of the track. */
     private _tickIntervalPercent;
+    /** The size of a tick interval as a percentage of the size of the track. */
     readonly tickIntervalPercent: number;
-    /** The percentage of the slider that coincides with the value. */
     private _percent;
+    /** The percentage of the slider that coincides with the value. */
     readonly percent: number;
-    /** Value of the slider. */
     private _value;
+    /** Value of the slider. */
     value: number;
-    /** The miniumum value that the slider can have. */
     private _min;
+    /** The miniumum value that the slider can have. */
     min: number;
-    /** The maximum value that the slider can have. */
     private _max;
+    /** The maximum value that the slider can have. */
     max: number;
     /** Whether the slider is inverted. */
     invert: any;
@@ -100,6 +104,7 @@ export declare class MdSlider implements ControlValueAccessor {
     };
     /** The language direction for this slider element. */
     readonly direction: string;
+    /** Event emitted when the slider value has changed. */
     change: EventEmitter<MdSliderChange>;
     constructor(_dir: Dir, elementRef: ElementRef);
     _onMouseenter(): void;
@@ -123,13 +128,28 @@ export declare class MdSlider implements ControlValueAccessor {
     private _calculateValue(percentage);
     /** Return a number between two numbers. */
     private _clamp(value, min?, max?);
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Sets the model value. Implemented as part of ControlValueAccessor.
+     * @param value
+     */
     writeValue(value: any): void;
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback to eb triggered when the value has changed.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Callback to be registered.
+     */
     registerOnChange(fn: (value: any) => void): void;
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback to be triggered when the component is touched.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Callback to be registered.
+     */
     registerOnTouched(fn: any): void;
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Sets whether the component should be disabled.
+     * Implemented as part of ControlValueAccessor.
+     * @param isDisabled
+     */
     setDisabledState(isDisabled: boolean): void;
 }
 /**

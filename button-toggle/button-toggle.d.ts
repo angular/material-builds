@@ -2,6 +2,7 @@ import { ModuleWithProviders, ElementRef, Renderer, OnInit, QueryList, AfterView
 import { ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { UniqueSelectionDispatcher } from '../core';
+/** Acceptable types for a button toggle. */
 export declare type ToggleType = 'checkbox' | 'radio';
 /**
  * Provider Expression that allows md-button-toggle-group to register as a ControlValueAccessor.
@@ -41,20 +42,36 @@ export declare class MdButtonToggleGroup implements AfterViewInit, ControlValueA
     /** Child button toggle buttons. */
     _buttonToggles: QueryList<MdButtonToggle>;
     ngAfterViewInit(): void;
+    /** `name` attribute for the underlying `input` element. */
     name: string;
+    /** Whether the toggle group is disabled. */
     disabled: boolean;
+    /** Whether the toggle group is vertical. */
     vertical: boolean;
+    /** Value of the toggle group. */
     value: any;
+    /** Whether the toggle group is selected. */
     selected: MdButtonToggle;
     private _updateButtonToggleNames();
     private _updateSelectedButtonToggleFromValue();
     /** Dispatch change event with current selection and group value. */
     private _emitChangeEvent();
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Sets the model value. Implemented as part of ControlValueAccessor.
+     * @param value Value to be set to the model.
+     */
     writeValue(value: any): void;
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback that will be triggered when the value has changed.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn On change callback function.
+     */
     registerOnChange(fn: (value: any) => void): void;
-    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Registers a callback that will be triggered when the control has been touched.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn On touch callback function.
+     */
     registerOnTouched(fn: any): void;
 }
 /** Multiple selection button-toggle group. `ngModel` is not supported in this mode. */
@@ -63,9 +80,12 @@ export declare class MdButtonToggleGroupMultiple {
     private _disabled;
     /** Whether the button toggle group should be vertical. */
     private _vertical;
+    /** Whether the toggle group is disabled. */
     disabled: boolean;
+    /** Whether the toggle group is vertical. */
     vertical: boolean;
 }
+/** Single button inside of a toggle group. */
 export declare class MdButtonToggle implements OnInit {
     buttonToggleDispatcher: UniqueSelectionDispatcher;
     private _renderer;
@@ -93,18 +113,22 @@ export declare class MdButtonToggle implements OnInit {
     _inputElement: ElementRef;
     constructor(toggleGroup: MdButtonToggleGroup, toggleGroupMultiple: MdButtonToggleGroupMultiple, buttonToggleDispatcher: UniqueSelectionDispatcher, _renderer: Renderer);
     ngOnInit(): void;
+    /** Unique ID for the underlying `input` element. */
     readonly inputId: string;
+    /** Whether the button is checked. */
     checked: boolean;
     /** MdButtonToggleGroup reads this to assign its own value. */
     value: any;
     /** Dispatch change event with current value. */
     private _emitChangeEvent();
+    /** Whether the button is disabled. */
     disabled: boolean;
     /** Toggle the state of the current button toggle. */
     private _toggle();
     /** Checks the button toggle due to an interaction with the underlying native input. */
     _onInputChange(event: Event): void;
     _onInputClick(event: Event): void;
+    /** Focuses the button. */
     focus(): void;
 }
 export declare class MdButtonToggleModule {

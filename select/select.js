@@ -110,16 +110,17 @@ export var MdSelect = (function () {
                 overlayY: 'bottom',
             },
         ];
+        /** Event emitted when the select has been opened. */
         this.onOpen = new EventEmitter();
+        /** Event emitted when the select has been closed. */
         this.onClose = new EventEmitter();
         if (this._control) {
             this._control.valueAccessor = this;
         }
     }
     Object.defineProperty(MdSelect.prototype, "placeholder", {
-        get: function () {
-            return this._placeholder;
-        },
+        /** Placeholder to be shown if no value has been selected. */
+        get: function () { return this._placeholder; },
         set: function (value) {
             var _this = this;
             this._placeholder = value;
@@ -130,9 +131,8 @@ export var MdSelect = (function () {
         configurable: true
     });
     Object.defineProperty(MdSelect.prototype, "disabled", {
-        get: function () {
-            return this._disabled;
-        },
+        /** Whether the component is disabled. */
+        get: function () { return this._disabled; },
         set: function (value) {
             this._disabled = coerceBooleanProperty(value);
         },
@@ -140,12 +140,9 @@ export var MdSelect = (function () {
         configurable: true
     });
     Object.defineProperty(MdSelect.prototype, "required", {
-        get: function () {
-            return this._required;
-        },
-        set: function (value) {
-            this._required = coerceBooleanProperty(value);
-        },
+        /** Whether the component is required. */
+        get: function () { return this._required; },
+        set: function (value) { this._required = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -184,6 +181,8 @@ export var MdSelect = (function () {
     /**
      * Sets the select's value. Part of the ControlValueAccessor interface
      * required to integrate with Angular's core forms API.
+     *
+     * @param value New value to be written to the model.
      */
     MdSelect.prototype.writeValue = function (value) {
         var _this = this;
@@ -201,6 +200,8 @@ export var MdSelect = (function () {
      * Saves a callback function to be invoked when the select's value
      * changes from user input. Part of the ControlValueAccessor interface
      * required to integrate with Angular's core forms API.
+     *
+     * @param fn Callback to be triggered when the value changes.
      */
     MdSelect.prototype.registerOnChange = function (fn) {
         this._onChange = fn;
@@ -209,6 +210,8 @@ export var MdSelect = (function () {
      * Saves a callback function to be invoked when the select is blurred
      * by the user. Part of the ControlValueAccessor interface required
      * to integrate with Angular's core forms API.
+     *
+     * @param fn Callback to be triggered when the component has been touched.
      */
     MdSelect.prototype.registerOnTouched = function (fn) {
         this._onTouched = fn;
@@ -216,6 +219,8 @@ export var MdSelect = (function () {
     /**
      * Disables the select. Part of the ControlValueAccessor interface required
      * to integrate with Angular's core forms API.
+     *
+     * @param isDisabled Sets whether the component is disabled.
      */
     MdSelect.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;

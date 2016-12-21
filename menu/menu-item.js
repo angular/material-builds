@@ -22,9 +22,8 @@ export var MdMenuItem = (function () {
     };
     Object.defineProperty(MdMenuItem.prototype, "disabled", {
         // this is necessary to support anchors
-        get: function () {
-            return this._disabled;
-        },
+        /** Whether the menu item is disabled. */
+        get: function () { return this._disabled; },
         set: function (value) {
             this._disabled = (value === false || value === undefined) ? null : true;
         },
@@ -32,16 +31,13 @@ export var MdMenuItem = (function () {
         configurable: true
     });
     Object.defineProperty(MdMenuItem.prototype, "isAriaDisabled", {
-        get: function () {
-            return String(!!this.disabled);
-        },
+        /** Sets the aria-disabled property on the menu item. */
+        get: function () { return String(!!this.disabled); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdMenuItem.prototype, "_tabindex", {
-        get: function () {
-            return this.disabled ? '-1' : '0';
-        },
+        get: function () { return this.disabled ? '-1' : '0'; },
         enumerable: true,
         configurable: true
     });

@@ -15,6 +15,8 @@ export declare class MdDialogRef<T> {
      * @param dialogResult Optional result to return to the dialog opener.
      */
     close(dialogResult?: any): void;
-    /** Gets an observable that is notified when the dialog is finished closing. */
+    /**
+     * Gets an observable that is notified when the dialog is finished closing.
+     */
     afterClosed(): Observable<any>;
 }

@@ -30,6 +30,7 @@ export declare class ConnectedPositionStrategy implements PositionStrategy {
     /** Emits an event when the connection point changes. */
     readonly onPositionChange: Observable<ConnectedOverlayPositionChange>;
     constructor(_connectedTo: ElementRef, _originPos: OriginConnectionPosition, _overlayPos: OverlayConnectionPosition, _viewportRuler: ViewportRuler);
+    /** Ordered list of preferred positions, from most to least desirable. */
     readonly positions: ConnectionPositionPair[];
     /**
      * To be used to for any cleanup after the element gets destroyed.
@@ -39,14 +40,31 @@ export declare class ConnectedPositionStrategy implements PositionStrategy {
      * Updates the position of the overlay element, using whichever preferred position relative
      * to the origin fits on-screen.
      * @docs-private
+     *
+     * @param element Element to which to apply the CSS styles.
+     * @returns Resolves when the styles have been applied.
      */
     apply(element: HTMLElement): Promise<void>;
+    /**
+     * Adds a new preferred fallback position.
+     * @param originPos
+     * @param overlayPos
+     */
     withFallbackPosition(originPos: OriginConnectionPosition, overlayPos: OverlayConnectionPosition): this;
-    /** Sets the layout direction so the overlay's position can be adjusted to match. */
+    /**
+     * Sets the layout direction so the overlay's position can be adjusted to match.
+     * @param dir New layout direction.
+     */
     withDirection(dir: 'ltr' | 'rtl'): this;
-    /** Sets an offset for the overlay's connection point on the x-axis */
+    /**
+     * Sets an offset for the overlay's connection point on the x-axis
+     * @param offset New offset in the X axis.
+     */
     withOffsetX(offset: number): this;
-    /** Sets an offset for the overlay's connection point on the y-axis */
+    /**
+     * Sets an offset for the overlay's connection point on the y-axis
+     * @param  offset New offset in the Y axis.
+     */
     withOffsetY(offset: number): this;
     /**
      * Gets the horizontal (x) "start" dimension based on whether the overlay is in an RTL context.

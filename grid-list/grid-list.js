@@ -30,12 +30,14 @@ export var MdGridList = (function () {
         this._gutter = '1px';
     }
     Object.defineProperty(MdGridList.prototype, "cols", {
+        /** Amount of columns in the grid list. */
         get: function () { return this._cols; },
         set: function (value) { this._cols = coerceToNumber(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdGridList.prototype, "gutterSize", {
+        /** Size of the grid list's gutter in pixels. */
         get: function () { return this._gutter; },
         set: function (value) { this._gutter = coerceToString(value); },
         enumerable: true,

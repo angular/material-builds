@@ -14,8 +14,13 @@ export declare class TileStyler {
     /**
      * Adds grid-list layout info once it is available. Cannot be processed in the constructor
      * because these properties haven't been calculated by that point.
+     *
+     * @param gutterSize Size of the grid's gutter.
+     * @param tracker Instance of the TileCoordinator.
+     * @param cols Amount of columns in the grid.
+     * @param direction Layout direction of the grid.
      */
-    init(_gutterSize: string, tracker: TileCoordinator, cols: number, direction: string): void;
+    init(gutterSize: string, tracker: TileCoordinator, cols: number, direction: string): void;
     /**
      * Computes the amount of space a single 1x1 tile would take up (width or height).
      * Used as a basis for other calculations.
@@ -38,22 +43,34 @@ export declare class TileStyler {
      * @return Size of the tile as a CSS calc() expression.
      */
     getTileSize(baseSize: string, span: number): string;
-    /** Gets the style properties to be applied to a tile for the given row and column index. */
+    /**
+     * Sets the style properties to be applied to a tile for the given row and column index.
+     * @param tile Tile to which to apply the styling.
+     * @param rowIndex Index of the tile's row.
+     * @param colIndex Index of the tile's column.
+     */
     setStyle(tile: MdGridTile, rowIndex: number, colIndex: number): void;
     /** Sets the horizontal placement of the tile in the list. */
     setColStyles(tile: MdGridTile, colIndex: number, percentWidth: number, gutterWidth: number): void;
-    /** Calculates the total size taken up by gutters across one axis of a list. */
+    /**
+     * Calculates the total size taken up by gutters across one axis of a list.
+     */
     getGutterSpan(): string;
-    /** Calculates the total size taken up by tiles across one axis of a list. */
+    /**
+     * Calculates the total size taken up by tiles across one axis of a list.
+     * @param tileHeight Height of the tile.
+     */
     getTileSpan(tileHeight: string): string;
     /**
      * Sets the vertical placement of the tile in the list.
      * This method will be implemented by each type of TileStyler.
+     * @docs-private
      */
     setRowStyles(tile: MdGridTile, rowIndex: number, percentWidth: number, gutterWidth: number): void;
     /**
      * Calculates the computed height and returns the correct style property to set.
      * This method will be implemented by each type of TileStyler.
+     * @docs-private
      */
     getComputedHeight(): [string, string];
 }

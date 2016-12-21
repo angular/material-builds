@@ -44,7 +44,6 @@ export var MdTabHeader = (function () {
         this._disableScrollAfter = true;
         /** Whether the tab list can be scrolled more towards the beginning of the tab label list. */
         this._disableScrollBefore = true;
-        /** The index of the active tab. */
         this._selectedIndex = 0;
         /** Event emitted when the option is selected. */
         this.selectFocusedIndex = new EventEmitter();
@@ -53,6 +52,7 @@ export var MdTabHeader = (function () {
     }
     Object.defineProperty(MdTabHeader.prototype, "selectedIndex", {
         get: function () { return this._selectedIndex; },
+        /** The index of the active tab. */
         set: function (value) {
             this._selectedIndexChanged = this._selectedIndex != value;
             this._selectedIndex = value;
@@ -83,7 +83,7 @@ export var MdTabHeader = (function () {
     };
     /**
      * Waits one frame for the view to update, then updates the ink bar and scroll.
-     * Note: This must be run outside of the zone or it will create an infinite change detection loop
+     * Note: This must be run outside of the zone or it will create an infinite change detection loop.
      */
     MdTabHeader.prototype.ngAfterViewChecked = function () {
         var _this = this;

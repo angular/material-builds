@@ -27,6 +27,7 @@ export declare class MdSidenav implements AfterContentInit {
     /** Whether this md-sidenav is part of a valid md-sidenav-container configuration. */
     valid: boolean;
     private _valid;
+    /** Direction which the sidenav is aligned in. */
     align: "start" | "end";
     /** Mode of the sidenav; whether 'over' or 'side'. */
     mode: 'over' | 'push' | 'side';
@@ -72,11 +73,13 @@ export declare class MdSidenav implements AfterContentInit {
     /**
      * Toggle this sidenav. This is equivalent to calling open() when it's already opened, or
      * close() when it's closed.
-     * @param isOpen
+     * @param isOpen Whether the sidenav should be open.
+     * @returns Resolves with the result of whether the sidenav was opened or closed.
      */
     toggle(isOpen?: boolean): Promise<MdSidenavToggleResult>;
     /**
      * Handles the keyboard events.
+     * @docs-private
      */
     handleKeydown(event: KeyboardEvent): void;
     /**
@@ -107,7 +110,9 @@ export declare class MdSidenavContainer implements AfterContentInit {
     private _element;
     private _renderer;
     _sidenavs: QueryList<MdSidenav>;
+    /** The sidenav child with the `start` alignment. */
     readonly start: MdSidenav;
+    /** The sidenav child with the `end` alignment. */
     readonly end: MdSidenav;
     /** Event emitted when the sidenav backdrop is clicked. */
     onBackdropClicked: EventEmitter<void>;

@@ -20,8 +20,11 @@ export var MdMenu = (function () {
     function MdMenu(posX, posY) {
         /** Config object to be passed into the menu's ngClass */
         this._classList = {};
+        /** Position of the menu in the X axis. */
         this.positionX = 'after';
+        /** Position of the menu in the Y axis. */
         this.positionY = 'below';
+        /** Event emitted when the menu is closed. */
         this.close = new EventEmitter();
         if (posX) {
             this._setPositionX(posX);

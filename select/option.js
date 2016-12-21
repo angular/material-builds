@@ -15,6 +15,9 @@ import { coerceBooleanProperty } from '../core/coercion/boolean-property';
  * the component definition.
  */
 var _uniqueIdCounter = 0;
+/**
+ * Single option inside of a `<md-select>` element.
+ */
 export var MdOption = (function () {
     function MdOption(_element, _renderer) {
         this._element = _element;
@@ -33,12 +36,9 @@ export var MdOption = (function () {
         configurable: true
     });
     Object.defineProperty(MdOption.prototype, "disabled", {
-        get: function () {
-            return this._disabled;
-        },
-        set: function (value) {
-            this._disabled = coerceBooleanProperty(value);
-        },
+        /** Whether the option is disabled. */
+        get: function () { return this._disabled; },
+        set: function (value) { this._disabled = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -54,9 +54,9 @@ export var MdOption = (function () {
         /**
          * The displayed value of the option. It is necessary to show the selected option in the
          * select's trigger.
-         * TODO(kara): Add input property alternative for node envs.
          */
         get: function () {
+            // TODO(kara): Add input property alternative for node envs.
             return this._getHostElement().textContent.trim();
         },
         enumerable: true,

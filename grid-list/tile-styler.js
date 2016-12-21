@@ -17,9 +17,14 @@ export var TileStyler = (function () {
     /**
      * Adds grid-list layout info once it is available. Cannot be processed in the constructor
      * because these properties haven't been calculated by that point.
+     *
+     * @param gutterSize Size of the grid's gutter.
+     * @param tracker Instance of the TileCoordinator.
+     * @param cols Amount of columns in the grid.
+     * @param direction Layout direction of the grid.
      */
-    TileStyler.prototype.init = function (_gutterSize, tracker, cols, direction) {
-        this._gutterSize = normalizeUnits(_gutterSize);
+    TileStyler.prototype.init = function (gutterSize, tracker, cols, direction) {
+        this._gutterSize = normalizeUnits(gutterSize);
         this._rows = tracker.rowCount;
         this._rowspan = tracker.rowspan;
         this._cols = cols;
@@ -60,7 +65,12 @@ export var TileStyler = (function () {
     TileStyler.prototype.getTileSize = function (baseSize, span) {
         return "(" + baseSize + " * " + span + ") + (" + (span - 1) + " * " + this._gutterSize + ")";
     };
-    /** Gets the style properties to be applied to a tile for the given row and column index. */
+    /**
+     * Sets the style properties to be applied to a tile for the given row and column index.
+     * @param tile Tile to which to apply the styling.
+     * @param rowIndex Index of the tile's row.
+     * @param colIndex Index of the tile's column.
+     */
     TileStyler.prototype.setStyle = function (tile, rowIndex, colIndex) {
         // Percent of the available horizontal space that one column takes up.
         var percentWidthPerTile = 100 / this._cols;
@@ -80,22 +90,29 @@ export var TileStyler = (function () {
         tile._setStyle(side, this.getTilePosition(baseTileWidth, colIndex));
         tile._setStyle('width', calc(this.getTileSize(baseTileWidth, tile.colspan)));
     };
-    /** Calculates the total size taken up by gutters across one axis of a list. */
+    /**
+     * Calculates the total size taken up by gutters across one axis of a list.
+     */
     TileStyler.prototype.getGutterSpan = function () {
         return this._gutterSize + " * (" + this._rowspan + " - 1)";
     };
-    /** Calculates the total size taken up by tiles across one axis of a list. */
+    /**
+     * Calculates the total size taken up by tiles across one axis of a list.
+     * @param tileHeight Height of the tile.
+     */
     TileStyler.prototype.getTileSpan = function (tileHeight) {
         return this._rowspan + " * " + this.getTileSize(tileHeight, 1);
     };
     /**
      * Sets the vertical placement of the tile in the list.
      * This method will be implemented by each type of TileStyler.
+     * @docs-private
      */
     TileStyler.prototype.setRowStyles = function (tile, rowIndex, percentWidth, gutterWidth) { };
     /**
      * Calculates the computed height and returns the correct style property to set.
      * This method will be implemented by each type of TileStyler.
+     * @docs-private
      */
     TileStyler.prototype.getComputedHeight = function () { return null; };
     return TileStyler;

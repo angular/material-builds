@@ -72,7 +72,9 @@ export var MdProgressSpinner = (function () {
         enumerable: true,
         configurable: true
     });
-    /** Clean up any animations that were running. */
+    /**
+     * Clean up any animations that were running.
+     */
     MdProgressSpinner.prototype.ngOnDestroy = function () {
         this._cleanupIndeterminateAnimation();
     };

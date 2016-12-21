@@ -34,7 +34,6 @@ export var MdTooltip = (function () {
         this._viewContainerRef = _viewContainerRef;
         this._ngZone = _ngZone;
         this._dir = _dir;
-        /** Allows the user to define the position of the tooltip relative to the parent element */
         this._position = 'below';
         /** The default delay in ms before showing the tooltip after show is called */
         this.showDelay = 0;
@@ -42,9 +41,8 @@ export var MdTooltip = (function () {
         this.hideDelay = 0;
     }
     Object.defineProperty(MdTooltip.prototype, "position", {
-        get: function () {
-            return this._position;
-        },
+        /** Allows the user to define the position of the tooltip relative to the parent element */
+        get: function () { return this._position; },
         set: function (value) {
             if (value !== this._position) {
                 this._position = value;
@@ -66,9 +64,8 @@ export var MdTooltip = (function () {
         configurable: true
     });
     Object.defineProperty(MdTooltip.prototype, "message", {
-        get: function () {
-            return this._message;
-        },
+        /** The message to be displayed in the tooltip */
+        get: function () { return this._message; },
         set: function (value) {
             this._message = value;
             if (this._tooltipInstance) {
@@ -95,7 +92,9 @@ export var MdTooltip = (function () {
             }
         });
     };
-    /** Dispose the tooltip when destroyed */
+    /**
+     * Dispose the tooltip when destroyed.
+     */
     MdTooltip.prototype.ngOnDestroy = function () {
         if (this._tooltipInstance) {
             this._disposeTooltip();
@@ -248,6 +247,10 @@ export var MdTooltip = (function () {
     ], MdTooltip);
     return MdTooltip;
 }());
+/**
+ * Internal component that wraps the tooltip's content.
+ * @docs-private
+ */
 export var TooltipComponent = (function () {
     function TooltipComponent(_dir) {
         this._dir = _dir;
@@ -260,7 +263,11 @@ export var TooltipComponent = (function () {
         /** Subject for notifying that the tooltip has been hidden from the view */
         this._onHide = new Subject();
     }
-    /** Shows the tooltip with an animation originating from the provided origin */
+    /**
+     * Shows the tooltip with an animation originating from the provided origin
+     * @param position Position of the tooltip.
+     * @param delay Amount of milliseconds to the delay showing the tooltip.
+     */
     TooltipComponent.prototype.show = function (position, delay) {
         var _this = this;
         // Cancel the delayed hide if it is scheduled
@@ -278,7 +285,10 @@ export var TooltipComponent = (function () {
             setTimeout(function () { _this._closeOnInteraction = true; }, 0);
         }, delay);
     };
-    /** Begins the animation to hide the tooltip after the provided delay in ms */
+    /**
+     * Begins the animation to hide the tooltip after the provided delay in ms.
+     * @param delay Amount of milliseconds to delay showing the tooltip.
+     */
     TooltipComponent.prototype.hide = function (delay) {
         var _this = this;
         // Cancel the delayed show if it is scheduled
@@ -290,11 +300,15 @@ export var TooltipComponent = (function () {
             _this._closeOnInteraction = false;
         }, delay);
     };
-    /** Returns an observable that notifies when the tooltip has been hidden from view */
+    /**
+     * Returns an observable that notifies when the tooltip has been hidden from view
+     */
     TooltipComponent.prototype.afterHidden = function () {
         return this._onHide.asObservable();
     };
-    /** Whether the tooltip is being displayed */
+    /**
+     * Whether the tooltip is being displayed
+     */
     TooltipComponent.prototype.isVisible = function () {
         return this._visibility === 'visible';
     };

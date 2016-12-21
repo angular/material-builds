@@ -7,6 +7,7 @@ export declare const SHOW_ANIMATION: string;
 export declare const HIDE_ANIMATION: string;
 /**
  * Internal component that wraps user-provided snack bar content.
+ * @docs-private
  */
 export declare class MdSnackBarContainer extends BasePortalHost implements OnDestroy {
     private _ngZone;
@@ -35,6 +36,8 @@ export declare class MdSnackBarContainer extends BasePortalHost implements OnDes
     exit(): Observable<void>;
     /** Returns an observable that completes after the closing animation is done. */
     _onExit(): Observable<void>;
-    /** Makes sure the exit callbacks have been invoked when the element is destroyed. */
+    /**
+     * Makes sure the exit callbacks have been invoked when the element is destroyed.
+     */
     ngOnDestroy(): void;
 }

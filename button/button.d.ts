@@ -1,4 +1,7 @@
 import { ElementRef, Renderer, ModuleWithProviders } from '@angular/core';
+/**
+ * Material design button.
+ */
 export declare class MdButton {
     private _elementRef;
     private _renderer;
@@ -28,6 +31,9 @@ export declare class MdButton {
     _isRoundButton(): any;
     _isRippleDisabled(): boolean;
 }
+/**
+ * Raised Material design button.
+ */
 export declare class MdAnchor extends MdButton {
     constructor(elementRef: ElementRef, renderer: Renderer);
     /** @docs-private */

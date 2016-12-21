@@ -15,16 +15,22 @@ export declare class MdInputDirective implements AfterContentInit {
     private _elementRef;
     private _renderer;
     _ngControl: NgControl;
+    /** Whether the element is disabled. */
     disabled: any;
     private _disabled;
+    /** Unique id of the element. */
     id: string;
     private _id;
+    /** Placeholder attribute of the element. */
     placeholder: string;
     private _placeholder;
+    /** Whether the element is required. */
     required: any;
     private _required;
+    /** Input type of the element. */
     type: string;
     private _type;
+    /** The element's value. */
     value: any;
     /**
      * Emits an event when the placeholder changes so that the `md-input-container` can re-validate.
@@ -37,7 +43,7 @@ export declare class MdInputDirective implements AfterContentInit {
     private _neverEmptyInputTypes;
     constructor(_elementRef: ElementRef, _renderer: Renderer, _ngControl: NgControl);
     ngAfterContentInit(): void;
-    /** Focus the input element. */
+    /** Focuses the input element. */
     focus(): void;
     _onFocus(): void;
     _onBlur(): void;
@@ -51,10 +57,14 @@ export declare class MdInputDirective implements AfterContentInit {
  * improve on its behaviour, along with styling it according to the Material Design.
  */
 export declare class MdInputContainer implements AfterContentInit {
+    /** Alignment of the input container's content. */
     align: 'start' | 'end';
+    /** Color of the input divider, based on the theme. */
     dividerColor: 'primary' | 'accent' | 'warn';
+    /** Text for the input hint. */
     hintLabel: string;
     private _hintLabel;
+    /** Text or the floating placeholder. */
     floatingPlaceholder: boolean;
     private _floatingPlaceholder;
     _mdInputChild: MdInputDirective;

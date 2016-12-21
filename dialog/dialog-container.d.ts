@@ -21,10 +21,17 @@ export declare class MdDialogContainer extends BasePortalHost implements OnDestr
     /** Reference to the open dialog. */
     dialogRef: MdDialogRef<any>;
     constructor(_ngZone: NgZone);
-    /** Attach a portal as content to this dialog container. */
+    /**
+     * Attach a portal as content to this dialog container.
+     * @param portal Portal to be attached as the dialog content.
+     */
     attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T>;
+    /** @docs-private */
     attachTemplatePortal(portal: TemplatePortal): Map<string, any>;
-    /** Handles the user pressing the Escape key. */
+    /**
+     * Handles the user pressing the Escape key.
+     * @docs-private
+     */
     handleEscapeKey(): void;
     ngOnDestroy(): void;
 }

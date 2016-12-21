@@ -17,13 +17,11 @@ export declare class MdInkBar {
     /**
      * Generates the pixel distance from the left based on the provided element in string format.
      * @param element
-     * @returns {string}
      */
     private _getLeftPosition(element);
     /**
      * Generates the pixel width from the provided element in string format.
      * @param element
-     * @returns {string}
      */
     private _getElementWidth(element);
 }

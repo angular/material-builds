@@ -46,7 +46,6 @@ export var MdTabGroup = (function () {
         this._tabBodyWrapperHeight = null;
         /** Whether the tab group should grow to the size of the active tab */
         this._dynamicHeight = false;
-        /** The index of the active tab. */
         this._selectedIndex = null;
         this._onFocusChange = new EventEmitter();
         this._onSelectChange = new EventEmitter(true);
@@ -66,12 +65,9 @@ export var MdTabGroup = (function () {
         configurable: true
     });
     Object.defineProperty(MdTabGroup.prototype, "selectedIndex", {
-        get: function () {
-            return this._selectedIndex;
-        },
-        set: function (value) {
-            this._indexToSelect = value;
-        },
+        get: function () { return this._selectedIndex; },
+        /** The index of the active tab. */
+        set: function (value) { this._indexToSelect = value; },
         enumerable: true,
         configurable: true
     });
@@ -84,6 +80,7 @@ export var MdTabGroup = (function () {
         configurable: true
     });
     Object.defineProperty(MdTabGroup.prototype, "focusChange", {
+        /** Event emitted when focus has changed within a tab group. */
         get: function () {
             return this._onFocusChange.asObservable();
         },
@@ -91,6 +88,7 @@ export var MdTabGroup = (function () {
         configurable: true
     });
     Object.defineProperty(MdTabGroup.prototype, "selectChange", {
+        /** Event emitted when the tab selection has changed. */
         get: function () {
             return this._onSelectChange.asObservable();
         },
@@ -126,7 +124,7 @@ export var MdTabGroup = (function () {
     };
     /**
      * Waits one frame for the view to update, then updates the ink bar
-     * Note: This must be run outside of the zone or it will create an infinite change detection loop
+     * Note: This must be run outside of the zone or it will create an infinite change detection loop.
      */
     MdTabGroup.prototype.ngAfterViewChecked = function () {
         this._isInitialized = true;

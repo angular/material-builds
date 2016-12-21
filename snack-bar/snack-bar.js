@@ -26,6 +26,9 @@ export var MdSnackBar = (function () {
     /**
      * Creates and dispatches a snack bar with a custom component for the content, removing any
      * currently opened snack bars.
+     *
+     * @param component Component to be instantiated.
+     * @param config Extra configuration for the snack bar.
      */
     MdSnackBar.prototype.openFromComponent = function (component, config) {
         var _this = this;
@@ -66,7 +69,6 @@ export var MdSnackBar = (function () {
      * @param message The message to show in the snackbar.
      * @param action The label for the snackbar action.
      * @param config Additional configuration options for the snackbar.
-     * @returns {MdSnackBarRef<SimpleSnackBar>}
      */
     MdSnackBar.prototype.open = function (message, action, config) {
         if (action === void 0) { action = ''; }

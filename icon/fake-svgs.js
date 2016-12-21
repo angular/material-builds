@@ -1,6 +1,7 @@
 import { Response, ResponseOptions } from '@angular/http';
 /**
  * Fake URLs and associated SVG documents used by tests.
+ * @docs-private
  */
 var FAKE_SVGS = (function () {
     var svgs = new Map();
@@ -13,6 +14,7 @@ var FAKE_SVGS = (function () {
 })();
 /**
  * Returns an HTTP response for a fake SVG URL.
+ * @docs-private
  */
 export function getFakeSvgHttpResponse(url) {
     if (FAKE_SVGS.has(url)) {
