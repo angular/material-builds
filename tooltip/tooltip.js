@@ -16,8 +16,7 @@ import { MdTooltipInvalidPositionError } from './tooltip-errors';
 import { Subject } from 'rxjs/Subject';
 import { Dir } from '../core/rtl/dir';
 import { ScrollDispatcher } from '../core/overlay/scroll/scroll-dispatcher';
-import { OverlayPositionBuilder } from '../core/overlay/position/overlay-position-builder';
-import { ViewportRuler } from '../core/overlay/position/viewport-ruler';
+import { OVERLAY_PROVIDERS } from '../core/overlay/overlay';
 import 'rxjs/add/operator/first';
 /** Time in ms to delay before changing the tooltip visibility to hidden */
 export var TOUCHEND_HIDE_DELAY = 1500;
@@ -369,9 +368,7 @@ export var MdTooltipModule = (function () {
         return {
             ngModule: MdTooltipModule,
             providers: [
-                Overlay,
-                OverlayPositionBuilder,
-                ViewportRuler,
+                OVERLAY_PROVIDERS,
                 ScrollDispatcher
             ]
         };

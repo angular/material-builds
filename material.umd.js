@@ -12518,9 +12518,7 @@ var MdTooltipModule = (function () {
         return {
             ngModule: MdTooltipModule,
             providers: [
-                Overlay,
-                OverlayPositionBuilder,
-                ViewportRuler,
+                OVERLAY_PROVIDERS,
                 ScrollDispatcher
             ]
         };
