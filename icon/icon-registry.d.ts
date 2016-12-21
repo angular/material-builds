@@ -1,8 +1,10 @@
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { Http } from '@angular/http';
 import { MdError } from '../core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/do';
@@ -33,6 +35,7 @@ export declare class MdIconSvgTagNotFoundError extends MdError {
  */
 export declare class MdIconRegistry {
     private _http;
+    private _sanitizer;
     /**
      * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
      */
@@ -54,15 +57,15 @@ export declare class MdIconRegistry {
      * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
      */
     private _defaultFontSetClass;
-    constructor(_http: Http);
+    constructor(_http: Http, _sanitizer: DomSanitizer);
     /** Registers an icon by URL in the default namespace. */
-    addSvgIcon(iconName: string, url: string): this;
+    addSvgIcon(iconName: string, url: SafeResourceUrl): this;
     /** Registers an icon by URL in the specified namespace. */
-    addSvgIconInNamespace(namespace: string, iconName: string, url: string): this;
+    addSvgIconInNamespace(namespace: string, iconName: string, url: SafeResourceUrl): this;
     /** Registers an icon set by URL in the default namespace. */
-    addSvgIconSet(url: string): this;
+    addSvgIconSet(url: SafeResourceUrl): this;
     /** Registers an icon set by URL in the specified namespace. */
-    addSvgIconSetInNamespace(namespace: string, url: string): this;
+    addSvgIconSetInNamespace(namespace: string, url: SafeResourceUrl): this;
     /**
      * Defines an alias for a CSS class name to be used for icon fonts. Creating an mdIcon
      * component with the alias as the fontSet input will cause the class name to be applied
@@ -90,7 +93,7 @@ export declare class MdIconRegistry {
      * the produced element will always be a new copy of the originally fetched icon. (That is,
      * it will not contain any modifications made to elements previously returned).
      */
-    getSvgIconFromUrl(url: string): Observable<SVGElement>;
+    getSvgIconFromUrl(safeUrl: SafeResourceUrl): Observable<SVGElement>;
     /**
      * Returns an Observable that produces the icon (as an <svg> DOM element) with the given name
      * and namespace. The icon must have been previously registered with addIcon or addIconSet;
@@ -148,5 +151,5 @@ export declare class MdIconRegistry {
      * Returns an Observable which produces the string contents of the given URL. Results may be
      * cached, so future calls with the same URL may not cause another HTTP request.
      */
-    private _fetchUrl(url);
+    private _fetchUrl(safeUrl);
 }

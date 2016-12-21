@@ -122,9 +122,6 @@ export var MdIcon = (function () {
                 var _a = this._splitIconName(this.svgIcon), namespace = _a[0], iconName = _a[1];
                 this._mdIconRegistry.getNamedSvgIcon(iconName, namespace).first().subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err); });
             }
-            else if (this.svgSrc) {
-                this._mdIconRegistry.getSvgIconFromUrl(this.svgSrc).first().subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err); });
-            }
         }
         if (this._usingFontIcon()) {
             this._updateFontIconClasses();
@@ -171,7 +168,7 @@ export var MdIcon = (function () {
         return null;
     };
     MdIcon.prototype._usingFontIcon = function () {
-        return !(this.svgIcon || this.svgSrc);
+        return !this.svgIcon;
     };
     MdIcon.prototype._setSvgElement = function (svg) {
         var layoutElement = this._elementRef.nativeElement;
@@ -208,10 +205,6 @@ export var MdIcon = (function () {
             this._previousFontIconClass = this.fontIcon;
         }
     };
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], MdIcon.prototype, "svgSrc", void 0);
     __decorate([
         Input(), 
         __metadata('design:type', String)

@@ -44,7 +44,6 @@ export declare class MdIcon implements OnChanges, OnInit, AfterViewChecked {
     private _renderer;
     private _mdIconRegistry;
     private _color;
-    svgSrc: string;
     svgIcon: string;
     fontSet: string;
     fontIcon: string;

@@ -12,12 +12,14 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Injectable } from '@angular/core';
+import { Injectable, SecurityContext } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Http } from '@angular/http';
 import { MdError } from '../core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/do';
@@ -68,8 +70,9 @@ var iconKey = function (namespace, name) { return namespace + ':' + name; };
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
 export var MdIconRegistry = (function () {
-    function MdIconRegistry(_http) {
+    function MdIconRegistry(_http, _sanitizer) {
         this._http = _http;
+        this._sanitizer = _sanitizer;
         /**
          * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
          */
@@ -155,8 +158,9 @@ export var MdIconRegistry = (function () {
      * the produced element will always be a new copy of the originally fetched icon. (That is,
      * it will not contain any modifications made to elements previously returned).
      */
-    MdIconRegistry.prototype.getSvgIconFromUrl = function (url) {
+    MdIconRegistry.prototype.getSvgIconFromUrl = function (safeUrl) {
         var _this = this;
+        var url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, safeUrl);
         if (this._cachedIconsByUrl.has(url)) {
             return Observable.of(cloneSvg(this._cachedIconsByUrl.get(url)));
         }
@@ -224,9 +228,10 @@ export var MdIconRegistry = (function () {
             .map(function (iconSetConfig) {
             return _this._loadSvgIconSetFromConfig(iconSetConfig)
                 .catch(function (err, caught) {
+                var url = _this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, iconSetConfig.url);
                 // Swallow errors fetching individual URLs so the combined Observable won't
                 // necessarily fail.
-                console.log("Loading icon set URL: " + iconSetConfig.url + " failed: " + err);
+                console.log("Loading icon set URL: " + url + " failed: " + err);
                 return Observable.of(null);
             })
                 .do(function (svg) {
@@ -349,8 +354,9 @@ export var MdIconRegistry = (function () {
      * Returns an Observable which produces the string contents of the given URL. Results may be
      * cached, so future calls with the same URL may not cause another HTTP request.
      */
-    MdIconRegistry.prototype._fetchUrl = function (url) {
+    MdIconRegistry.prototype._fetchUrl = function (safeUrl) {
         var _this = this;
+        var url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, safeUrl);
         // Store in-progress fetches to avoid sending a duplicate request for a URL when there is
         // already a request in progress for that URL. It's necessary to call share() on the
         // Observable returned by http.get() so that multiple subscribers don't cause multiple XHRs.
@@ -370,7 +376,7 @@ export var MdIconRegistry = (function () {
     };
     MdIconRegistry = __decorate([
         Injectable(), 
-        __metadata('design:paramtypes', [Http])
+        __metadata('design:paramtypes', [Http, DomSanitizer])
     ], MdIconRegistry);
     return MdIconRegistry;
 }());

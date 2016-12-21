@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs/Subject'), require('rxjs/Observable'), require('rxjs/add/observable/fromEvent'), require('@angular/common'), require('@angular/platform-browser'), require('@angular/forms'), require('@angular/http'), require('rxjs/add/observable/forkJoin'), require('rxjs/add/observable/of'), require('rxjs/add/operator/map'), require('rxjs/add/operator/filter'), require('rxjs/add/operator/do'), require('rxjs/add/operator/share'), require('rxjs/add/operator/finally'), require('rxjs/add/operator/catch'), require('rxjs/add/operator/first')) :
-    typeof define === 'function' && define.amd ? define(['exports', '@angular/core', 'rxjs/Subject', 'rxjs/Observable', 'rxjs/add/observable/fromEvent', '@angular/common', '@angular/platform-browser', '@angular/forms', '@angular/http', 'rxjs/add/observable/forkJoin', 'rxjs/add/observable/of', 'rxjs/add/operator/map', 'rxjs/add/operator/filter', 'rxjs/add/operator/do', 'rxjs/add/operator/share', 'rxjs/add/operator/finally', 'rxjs/add/operator/catch', 'rxjs/add/operator/first'], factory) :
-    (factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.Rx,global.Rx,global.Rx.Observable,global.ng.common,global.ng.platformBrowser,global.ng.forms,global.ng.http,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype));
-}(this, (function (exports,_angular_core,rxjs_Subject,rxjs_Observable,rxjs_add_observable_fromEvent,_angular_common,_angular_platformBrowser,_angular_forms,_angular_http,rxjs_add_observable_forkJoin,rxjs_add_observable_of,rxjs_add_operator_map,rxjs_add_operator_filter,rxjs_add_operator_do,rxjs_add_operator_share,rxjs_add_operator_finally,rxjs_add_operator_catch,rxjs_add_operator_first) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs/Subject'), require('rxjs/Observable'), require('rxjs/add/observable/fromEvent'), require('@angular/common'), require('@angular/platform-browser'), require('@angular/forms'), require('@angular/http'), require('rxjs/add/observable/forkJoin'), require('rxjs/add/observable/of'), require('rxjs/add/observable/throw'), require('rxjs/add/operator/map'), require('rxjs/add/operator/filter'), require('rxjs/add/operator/do'), require('rxjs/add/operator/share'), require('rxjs/add/operator/finally'), require('rxjs/add/operator/catch'), require('rxjs/add/operator/first')) :
+    typeof define === 'function' && define.amd ? define(['exports', '@angular/core', 'rxjs/Subject', 'rxjs/Observable', 'rxjs/add/observable/fromEvent', '@angular/common', '@angular/platform-browser', '@angular/forms', '@angular/http', 'rxjs/add/observable/forkJoin', 'rxjs/add/observable/of', 'rxjs/add/observable/throw', 'rxjs/add/operator/map', 'rxjs/add/operator/filter', 'rxjs/add/operator/do', 'rxjs/add/operator/share', 'rxjs/add/operator/finally', 'rxjs/add/operator/catch', 'rxjs/add/operator/first'], factory) :
+    (factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.Rx,global.Rx,global.Rx.Observable,global.ng.common,global.ng.platformBrowser,global.ng.forms,global.ng.http,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype));
+}(this, (function (exports,_angular_core,rxjs_Subject,rxjs_Observable,rxjs_add_observable_fromEvent,_angular_common,_angular_platformBrowser,_angular_forms,_angular_http,rxjs_add_observable_forkJoin,rxjs_add_observable_of,rxjs_add_observable_throw,rxjs_add_operator_map,rxjs_add_operator_filter,rxjs_add_operator_do,rxjs_add_operator_share,rxjs_add_operator_finally,rxjs_add_operator_catch,rxjs_add_operator_first) { 'use strict';
 
 var __decorate$2 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -8635,8 +8635,9 @@ var iconKey = function (namespace, name) { return namespace + ':' + name; };
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
 var MdIconRegistry = (function () {
-    function MdIconRegistry(_http) {
+    function MdIconRegistry(_http, _sanitizer) {
         this._http = _http;
+        this._sanitizer = _sanitizer;
         /**
          * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
          */
@@ -8722,8 +8723,9 @@ var MdIconRegistry = (function () {
      * the produced element will always be a new copy of the originally fetched icon. (That is,
      * it will not contain any modifications made to elements previously returned).
      */
-    MdIconRegistry.prototype.getSvgIconFromUrl = function (url) {
+    MdIconRegistry.prototype.getSvgIconFromUrl = function (safeUrl) {
         var _this = this;
+        var url = this._sanitizer.sanitize(_angular_core.SecurityContext.RESOURCE_URL, safeUrl);
         if (this._cachedIconsByUrl.has(url)) {
             return rxjs_Observable.Observable.of(cloneSvg(this._cachedIconsByUrl.get(url)));
         }
@@ -8791,9 +8793,10 @@ var MdIconRegistry = (function () {
             .map(function (iconSetConfig) {
             return _this._loadSvgIconSetFromConfig(iconSetConfig)
                 .catch(function (err, caught) {
+                var url = _this._sanitizer.sanitize(_angular_core.SecurityContext.RESOURCE_URL, iconSetConfig.url);
                 // Swallow errors fetching individual URLs so the combined Observable won't
                 // necessarily fail.
-                console.log("Loading icon set URL: " + iconSetConfig.url + " failed: " + err);
+                console.log("Loading icon set URL: " + url + " failed: " + err);
                 return rxjs_Observable.Observable.of(null);
             })
                 .do(function (svg) {
@@ -8916,8 +8919,9 @@ var MdIconRegistry = (function () {
      * Returns an Observable which produces the string contents of the given URL. Results may be
      * cached, so future calls with the same URL may not cause another HTTP request.
      */
-    MdIconRegistry.prototype._fetchUrl = function (url) {
+    MdIconRegistry.prototype._fetchUrl = function (safeUrl) {
         var _this = this;
+        var url = this._sanitizer.sanitize(_angular_core.SecurityContext.RESOURCE_URL, safeUrl);
         // Store in-progress fetches to avoid sending a duplicate request for a URL when there is
         // already a request in progress for that URL. It's necessary to call share() on the
         // Observable returned by http.get() so that multiple subscribers don't cause multiple XHRs.
@@ -8937,7 +8941,7 @@ var MdIconRegistry = (function () {
     };
     MdIconRegistry = __decorate$41([
         _angular_core.Injectable(), 
-        __metadata$41('design:paramtypes', [_angular_http.Http])
+        __metadata$41('design:paramtypes', [_angular_http.Http, _angular_platformBrowser.DomSanitizer])
     ], MdIconRegistry);
     return MdIconRegistry;
 }());
@@ -9065,9 +9069,6 @@ var MdIcon = (function () {
                 var _a = this._splitIconName(this.svgIcon), namespace = _a[0], iconName = _a[1];
                 this._mdIconRegistry.getNamedSvgIcon(iconName, namespace).first().subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err); });
             }
-            else if (this.svgSrc) {
-                this._mdIconRegistry.getSvgIconFromUrl(this.svgSrc).first().subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err); });
-            }
         }
         if (this._usingFontIcon()) {
             this._updateFontIconClasses();
@@ -9114,7 +9115,7 @@ var MdIcon = (function () {
         return null;
     };
     MdIcon.prototype._usingFontIcon = function () {
-        return !(this.svgIcon || this.svgSrc);
+        return !this.svgIcon;
     };
     MdIcon.prototype._setSvgElement = function (svg) {
         var layoutElement = this._elementRef.nativeElement;
@@ -9151,10 +9152,6 @@ var MdIcon = (function () {
             this._previousFontIconClass = this.fontIcon;
         }
     };
-    __decorate$40([
-        _angular_core.Input(), 
-        __metadata$40('design:type', String)
-    ], MdIcon.prototype, "svgSrc", void 0);
     __decorate$40([
         _angular_core.Input(), 
         __metadata$40('design:type', String)
