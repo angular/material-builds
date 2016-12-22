@@ -60,6 +60,8 @@ export var MdInputDuplicatedHintError = (function (_super) {
 /**
  * Component that represents a text input. It encapsulates the <input> HTMLElement and
  * improve on its behaviour, along with styling it according to the Material Design.
+ * @deprecated
+ * @docs-private
  */
 export var MdInput = (function () {
     function MdInput(elementRef, _renderer) {
