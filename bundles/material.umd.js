@@ -1,5 +1,5 @@
 /**
-  * @license Angular Material v2.0.0-alpha.11-2
+  * @license Angular Material v2.0.0-beta.0
   * Copyright (c) 2016 Google, Inc. https://material.angular.io/
   * License: MIT
   */
