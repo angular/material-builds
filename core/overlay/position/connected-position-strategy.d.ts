@@ -2,7 +2,20 @@ import { PositionStrategy } from './position-strategy';
 import { ElementRef } from '@angular/core';
 import { ViewportRuler } from './viewport-ruler';
 import { ConnectionPositionPair, OriginConnectionPosition, OverlayConnectionPosition, ConnectedOverlayPositionChange } from './connected-position';
+import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
+import { Scrollable } from '../scroll/scrollable';
+/**
+ * Container to hold the bounding positions of a particular element with respect to the viewport,
+ * where top and bottom are the y-axis coordinates of the bounding rectangle and left and right are
+ * the x-axis coordinates.
+ */
+export declare type ElementBoundingPositions = {
+    top: number;
+    right: number;
+    bottom: number;
+    left: number;
+};
 /**
  * A strategy for positioning overlays. Using this strategy, an overlay is given an
  * implicit position relative some origin element. The relative position is defined in terms of
@@ -20,13 +33,15 @@ export declare class ConnectedPositionStrategy implements PositionStrategy {
     private _offsetX;
     /** The offset in pixels for the overlay connection point on the y-axis */
     private _offsetY;
+    /** The Scrollable containers used to check scrollable view properties on position change. */
+    private scrollables;
     /** Whether the we're dealing with an RTL context */
     readonly _isRtl: boolean;
     /** Ordered list of preferred positions, from most to least desirable. */
     _preferredPositions: ConnectionPositionPair[];
     /** The origin element against which the overlay will be positioned. */
     private _origin;
-    private _onPositionChange;
+    _onPositionChange: Subject<ConnectedOverlayPositionChange>;
     /** Emits an event when the connection point changes. */
     readonly onPositionChange: Observable<ConnectedOverlayPositionChange>;
     constructor(_connectedTo: ElementRef, _originPos: OriginConnectionPosition, _overlayPos: OverlayConnectionPosition, _viewportRuler: ViewportRuler);
@@ -45,6 +60,12 @@ export declare class ConnectedPositionStrategy implements PositionStrategy {
      * @returns Resolves when the styles have been applied.
      */
     apply(element: HTMLElement): Promise<void>;
+    /**
+     * Sets the list of Scrollable containers that host the origin element so that
+     * on reposition we can evaluate if it or the overlay has been clipped or outside view. Every
+     * Scrollable must be an ancestor element of the strategy's origin element.
+     */
+    withScrollableContainers(scrollables: Scrollable[]): void;
     /**
      * Adds a new preferred fallback position.
      * @param originPos
@@ -89,11 +110,22 @@ export declare class ConnectedPositionStrategy implements PositionStrategy {
      */
     private _getOverlayPoint(originPoint, overlayRect, viewportRect, pos);
     /**
+     * Gets the view properties of the trigger and overlay, including whether they are clipped
+     * or completely outside the view of any of the strategy's scrollables.
+     */
+    private getScrollableViewProperties(overlay);
+    /** Whether the element is completely out of the view of any of the containers. */
+    private isElementOutsideView(elementBounds, containersBounds);
+    /** Whether the element is clipped by any of the containers. */
+    private isElementClipped(elementBounds, containersBounds);
+    /**
      * Physically positions the overlay element to the given coordinate.
      * @param element
      * @param overlayPoint
      */
     private _setElementPosition(element, overlayPoint);
+    /** Returns the bounding positions of the provided element with respect to the viewport. */
+    private _getElementBounds(element);
     /**
      * Subtracts the amount that an element is overflowing on an axis from it's length.
      */

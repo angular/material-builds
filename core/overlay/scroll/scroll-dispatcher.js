@@ -24,7 +24,7 @@ export var ScrollDispatcher = (function () {
          * Map of all the scrollable references that are registered with the service and their
          * scroll event subscriptions.
          */
-        this.scrollableReferences = new WeakMap();
+        this.scrollableReferences = new Map();
         // By default, notify a scroll event when the document is scrolled or the window is resized.
         Observable.fromEvent(window.document, 'scroll').subscribe(function () { return _this._notify(); });
         Observable.fromEvent(window, 'resize').subscribe(function () { return _this._notify(); });
@@ -56,6 +56,29 @@ export var ScrollDispatcher = (function () {
     ScrollDispatcher.prototype.scrolled = function () {
         // TODO: Add an event limiter that includes throttle with the leading and trailing events.
         return this._scrolled.asObservable();
+    };
+    /** Returns all registered Scrollables that contain the provided element. */
+    ScrollDispatcher.prototype.getScrollContainers = function (elementRef) {
+        var _this = this;
+        var scrollingContainers = [];
+        this.scrollableReferences.forEach(function (subscription, scrollable) {
+            if (_this.scrollableContainsElement(scrollable, elementRef)) {
+                scrollingContainers.push(scrollable);
+            }
+        });
+        return scrollingContainers;
+    };
+    /** Returns true if the element is contained within the provided Scrollable. */
+    ScrollDispatcher.prototype.scrollableContainsElement = function (scrollable, elementRef) {
+        var element = elementRef.nativeElement;
+        var scrollableElement = scrollable.getElementRef().nativeElement;
+        // Traverse through the element parents until we reach null, checking if any of the elements
+        // are the scrollable's element.
+        do {
+            if (element == scrollableElement) {
+                return true;
+            }
+        } while (element = element.parentElement);
     };
     /** Sends a notification that a scroll event has been fired. */
     ScrollDispatcher.prototype._notify = function () {

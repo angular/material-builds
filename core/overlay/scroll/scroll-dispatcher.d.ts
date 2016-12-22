@@ -1,3 +1,4 @@
+import { ElementRef } from '@angular/core';
 import { Scrollable } from './scrollable';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
@@ -14,7 +15,7 @@ export declare class ScrollDispatcher {
      * Map of all the scrollable references that are registered with the service and their
      * scroll event subscriptions.
      */
-    scrollableReferences: WeakMap<Scrollable, Subscription>;
+    scrollableReferences: Map<Scrollable, Subscription>;
     constructor();
     /**
      * Registers a Scrollable with the service and listens for its scrolled events. When the
@@ -34,6 +35,10 @@ export declare class ScrollDispatcher {
      * references (or window, document, or body) fire a scrolled event.
      */
     scrolled(): Observable<void>;
+    /** Returns all registered Scrollables that contain the provided element. */
+    getScrollContainers(elementRef: ElementRef): Scrollable[];
+    /** Returns true if the element is contained within the provided Scrollable. */
+    scrollableContainsElement(scrollable: Scrollable, elementRef: ElementRef): boolean;
     /** Sends a notification that a scroll event has been fired. */
     _notify(): void;
 }

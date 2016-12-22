@@ -33,6 +33,9 @@ export var Scrollable = (function () {
     Scrollable.prototype.elementScrolled = function () {
         return Observable.fromEvent(this._elementRef.nativeElement, 'scroll');
     };
+    Scrollable.prototype.getElementRef = function () {
+        return this._elementRef;
+    };
     Scrollable = __decorate([
         Directive({
             selector: '[cdk-scrollable]'

@@ -15,7 +15,6 @@ import { Overlay, OverlayState, OverlayModule, ComponentPortal, DefaultStyleComp
 import { MdTooltipInvalidPositionError } from './tooltip-errors';
 import { Subject } from 'rxjs/Subject';
 import { Dir } from '../core/rtl/dir';
-import { ScrollDispatcher } from '../core/overlay/scroll/scroll-dispatcher';
 import { OVERLAY_PROVIDERS } from '../core/overlay/overlay';
 import 'rxjs/add/operator/first';
 /** Time in ms to delay before changing the tooltip visibility to hidden */
@@ -27,9 +26,8 @@ export var TOUCHEND_HIDE_DELAY = 1500;
  * https://material.google.com/components/tooltips.html
  */
 export var MdTooltip = (function () {
-    function MdTooltip(_overlay, _scrollDispatcher, _elementRef, _viewContainerRef, _ngZone, _dir) {
+    function MdTooltip(_overlay, _elementRef, _viewContainerRef, _ngZone, _dir) {
         this._overlay = _overlay;
-        this._scrollDispatcher = _scrollDispatcher;
         this._elementRef = _elementRef;
         this._viewContainerRef = _viewContainerRef;
         this._ngZone = _ngZone;
@@ -82,16 +80,6 @@ export var MdTooltip = (function () {
         enumerable: true,
         configurable: true
     });
-    MdTooltip.prototype.ngOnInit = function () {
-        var _this = this;
-        // When a scroll on the page occurs, update the position in case this tooltip needs
-        // to be repositioned.
-        this._scrollDispatcher.scrolled().subscribe(function () {
-            if (_this._overlayRef) {
-                _this._overlayRef.updatePosition();
-            }
-        });
-    };
     /**
      * Dispose the tooltip when destroyed.
      */
@@ -242,8 +230,8 @@ export var MdTooltip = (function () {
             },
             exportAs: 'mdTooltip',
         }),
-        __param(5, Optional()), 
-        __metadata('design:paramtypes', [Overlay, ScrollDispatcher, ElementRef, ViewContainerRef, NgZone, Dir])
+        __param(4, Optional()), 
+        __metadata('design:paramtypes', [Overlay, ElementRef, ViewContainerRef, NgZone, Dir])
     ], MdTooltip);
     return MdTooltip;
 }());
@@ -381,10 +369,7 @@ export var MdTooltipModule = (function () {
     MdTooltipModule.forRoot = function () {
         return {
             ngModule: MdTooltipModule,
-            providers: [
-                OVERLAY_PROVIDERS,
-                ScrollDispatcher
-            ]
+            providers: [OVERLAY_PROVIDERS]
         };
     };
     MdTooltipModule = __decorate([
