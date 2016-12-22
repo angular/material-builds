@@ -8686,8 +8686,11 @@ var MdChip = (function () {
     /** Initializes the appropriate CSS classes based on the chip type (basic or standard). */
     MdChip.prototype._addDefaultCSSClass = function () {
         var el = this._elementRef.nativeElement;
-        if (el.nodeName.toLowerCase() == 'md-chip' || el.hasAttribute('md-chip')) {
-            el.classList.add('md-chip');
+        // Always add the `md-chip` class
+        el.classList.add('md-chip');
+        // If we are a basic chip, also add the `md-basic-chip` class for :not() targeting
+        if (el.nodeName.toLowerCase() == 'md-basic-chip' || el.hasAttribute('md-basic-chip')) {
+            el.classList.add('md-basic-chip');
         }
     };
     /** Updates the private _color variable and the native element. */
@@ -8805,17 +8808,29 @@ var MdChipList = (function () {
     };
     /** Passes relevant key presses to our key manager. */
     MdChipList.prototype._keydown = function (event) {
-        switch (event.keyCode) {
-            case SPACE:
-                // If we are selectable, toggle the focused chip
-                if (this.selectable) {
-                    this._toggleSelectOnFocusedChip();
-                }
-                // Always prevent space from scrolling the page since the list has focus
-                event.preventDefault();
-                break;
-            default:
-                this._keyManager.onKeydown(event);
+        var target = event.target;
+        // If they are on a chip, check for space/left/right, otherwise pass to our key manager
+        if (target && target.classList.contains('md-chip')) {
+            switch (event.keyCode) {
+                case SPACE:
+                    // If we are selectable, toggle the focused chip
+                    if (this.selectable) {
+                        this._toggleSelectOnFocusedChip();
+                    }
+                    // Always prevent space from scrolling the page since the list has focus
+                    event.preventDefault();
+                    break;
+                case LEFT_ARROW:
+                    this._keyManager.focusPreviousItem();
+                    event.preventDefault();
+                    break;
+                case RIGHT_ARROW:
+                    this._keyManager.focusNextItem();
+                    event.preventDefault();
+                    break;
+                default:
+                    this._keyManager.onKeydown(event);
+            }
         }
     };
     /** Toggles the selected state of the currently focused chip. */
@@ -8908,7 +8923,7 @@ var MdChipList = (function () {
             queries: {
                 chips: new _angular_core.ContentChildren(MdChip)
             },
-            styles: [".md-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:flex-start}.md-chip-list-wrapper .md-chip{margin:0 3px}.md-chip-list-wrapper .md-chip:first-child{margin-left:0;margin-right:3px}.md-chip-list-wrapper .md-chip:last-child,[dir=rtl] .md-chip-list-wrapper .md-chip:first-child{margin-left:3px;margin-right:0}[dir=rtl] .md-chip-list-wrapper .md-chip:last-child{margin-left:0;margin-right:3px}.md-chip{display:inline-block;padding:8px 12px;border-radius:24px;font-size:13px;line-height:16px}.md-chip-list-stacked .md-chip-list-wrapper{display:block}.md-chip-list-stacked .md-chip-list-wrapper .md-chip{display:block;margin:0 0 8px}[dir=rtl] .md-chip-list-stacked .md-chip-list-wrapper .md-chip{margin:0 0 8px}.md-chip-list-stacked .md-chip-list-wrapper .md-chip:last-child,[dir=rtl] .md-chip-list-stacked .md-chip-list-wrapper .md-chip:last-child{margin-bottom:0}"],
+            styles: [".md-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:flex-start}.md-chip-list-wrapper .md-chip:not(.md-basic-chip){margin:0 3px}.md-chip-list-wrapper .md-chip:not(.md-basic-chip):first-child{margin-left:0;margin-right:3px}.md-chip-list-wrapper .md-chip:not(.md-basic-chip):last-child,[dir=rtl] .md-chip-list-wrapper .md-chip:not(.md-basic-chip):first-child{margin-left:3px;margin-right:0}[dir=rtl] .md-chip-list-wrapper .md-chip:not(.md-basic-chip):last-child{margin-left:0;margin-right:3px}.md-chip:not(.md-basic-chip){display:inline-block;padding:8px 12px;border-radius:24px;font-size:13px;line-height:16px}.md-chip-list-stacked .md-chip-list-wrapper{display:block}.md-chip-list-stacked .md-chip-list-wrapper .md-chip:not(.md-basic-chip){display:block;margin:0 0 8px}[dir=rtl] .md-chip-list-stacked .md-chip-list-wrapper .md-chip:not(.md-basic-chip){margin:0 0 8px}.md-chip-list-stacked .md-chip-list-wrapper .md-chip:not(.md-basic-chip):last-child,[dir=rtl] .md-chip-list-stacked .md-chip-list-wrapper .md-chip:not(.md-basic-chip):last-child{margin-bottom:0}"],
             encapsulation: _angular_core.ViewEncapsulation.None,
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
         }), 
