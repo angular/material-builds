@@ -6,10 +6,14 @@ import { MdSnackBarContainer } from './snack-bar-container';
  */
 export declare class MdSnackBarRef<T> {
     private _overlayRef;
+    private _instance;
     /** The instance of the component making up the content of the snack bar. */
     readonly instance: T;
-    /** The instance of the component making up the content of the snack bar. */
-    readonly containerInstance: MdSnackBarContainer;
+    /**
+     * The instance of the component making up the content of the snack bar.
+     * @docs-private
+     */
+    containerInstance: MdSnackBarContainer;
     /** Subject for notifying the user that the snack bar has closed. */
     private _afterClosed;
     /** Subject for notifying the user that the snack bar has opened and appeared. */
