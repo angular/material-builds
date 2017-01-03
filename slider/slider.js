@@ -154,7 +154,7 @@ export var MdSlider = (function () {
         configurable: true
     });
     Object.defineProperty(MdSlider.prototype, "min", {
-        /** The miniumum value that the slider can have. */
+        /** The minimum value that the slider can have. */
         get: function () {
             return this._min;
         },

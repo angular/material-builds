@@ -66,7 +66,7 @@ export declare class MdSlider implements ControlValueAccessor {
     /** Value of the slider. */
     value: number;
     private _min;
-    /** The miniumum value that the slider can have. */
+    /** The minimum value that the slider can have. */
     min: number;
     private _max;
     /** The maximum value that the slider can have. */
