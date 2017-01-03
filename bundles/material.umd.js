@@ -11252,10 +11252,7 @@ var MdSnackBarContainer = (function (_super) {
     MdSnackBarContainer.prototype.onAnimationEnd = function (event) {
         var _this = this;
         if (event.toState === 'void' || event.toState === 'complete') {
-            this._ngZone.run(function () {
-                _this.onExit.next();
-                _this.onExit.complete();
-            });
+            this._completeExit();
         }
         if (event.toState === 'visible') {
             this._ngZone.run(function () {
@@ -11286,9 +11283,14 @@ var MdSnackBarContainer = (function (_super) {
      * Makes sure the exit callbacks have been invoked when the element is destroyed.
      */
     MdSnackBarContainer.prototype.ngOnDestroy = function () {
+        this._completeExit();
+    };
+    /**
+     * Waits for the zone to settle before removing the element. Helps prevent
+     * errors where we end up removing an element which is in the middle of an animation.
+     */
+    MdSnackBarContainer.prototype._completeExit = function () {
         var _this = this;
-        // Wait for the zone to settle before removing the element. Helps prevent
-        // errors where we end up removing an element which is in the middle of an animation.
         this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
             _this.onExit.next();
             _this.onExit.complete();

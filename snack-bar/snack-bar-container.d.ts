@@ -40,4 +40,9 @@ export declare class MdSnackBarContainer extends BasePortalHost implements OnDes
      * Makes sure the exit callbacks have been invoked when the element is destroyed.
      */
     ngOnDestroy(): void;
+    /**
+     * Waits for the zone to settle before removing the element. Helps prevent
+     * errors where we end up removing an element which is in the middle of an animation.
+     */
+    private _completeExit();
 }
