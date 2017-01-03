@@ -1,4 +1,4 @@
-import { NgZone, QueryList, ElementRef, EventEmitter } from '@angular/core';
+import { NgZone, QueryList, ElementRef, EventEmitter, AfterContentChecked, AfterContentInit } from '@angular/core';
 import { Dir, LayoutDirection } from '../core';
 import { MdTabLabelWrapper } from './tab-label-wrapper';
 import { MdInkBar } from './ink-bar';
@@ -15,7 +15,7 @@ export declare type ScrollDirection = 'after' | 'before';
  * width of the header container, then arrows will be displayed to allow the user to scroll
  * left and right across the header.
  */
-export declare class MdTabHeader {
+export declare class MdTabHeader implements AfterContentChecked, AfterContentInit {
     private _zone;
     private _elementRef;
     private _dir;
@@ -51,12 +51,15 @@ export declare class MdTabHeader {
     indexFocused: EventEmitter<{}>;
     constructor(_zone: NgZone, _elementRef: ElementRef, _dir: Dir);
     ngAfterContentChecked(): void;
-    /**
-     * Waits one frame for the view to update, then updates the ink bar and scroll.
-     * Note: This must be run outside of the zone or it will create an infinite change detection loop.
-     */
-    ngAfterViewChecked(): void;
     _handleKeydown(event: KeyboardEvent): void;
+    /**
+     * Aligns the ink bar to the selected tab on load.
+     */
+    ngAfterContentInit(): void;
+    /**
+     * Callback for when the MutationObserver detects that the content has changed.
+     */
+    _onContentChanges(): void;
     /**
      * Updating the view whether pagination should be enabled or not
      */
