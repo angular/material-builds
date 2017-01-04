@@ -15,31 +15,33 @@ export declare class MdInputDirective implements AfterContentInit {
     private _elementRef;
     private _renderer;
     _ngControl: NgControl;
-    /** Whether the element is disabled. */
-    disabled: any;
-    private _disabled;
-    /** Unique id of the element. */
-    id: string;
-    private _id;
-    /** Placeholder attribute of the element. */
-    placeholder: string;
-    private _placeholder;
-    /** Whether the element is required. */
-    required: any;
-    private _required;
-    /** Input type of the element. */
-    type: string;
+    /** Variables used as cache for getters and setters. */
     private _type;
+    private _placeholder;
+    private _disabled;
+    private _required;
+    private _id;
+    private _cachedUid;
     /** The element's value. */
     value: any;
+    /** Whether the element is focused or not. */
+    focused: boolean;
+    /** Whether the element is disabled. */
+    disabled: any;
+    /** Unique id of the element. */
+    id: string;
+    /** Placeholder attribute of the element. */
+    placeholder: string;
+    /** Whether the element is required. */
+    required: any;
+    /** Input type of the element. */
+    type: string;
     /**
      * Emits an event when the placeholder changes so that the `md-input-container` can re-validate.
      */
     _placeholderChange: EventEmitter<string>;
     readonly empty: boolean;
-    focused: boolean;
     private readonly _uid;
-    private _cachedUid;
     private _neverEmptyInputTypes;
     constructor(_elementRef: ElementRef, _renderer: Renderer, _ngControl: NgControl);
     ngAfterContentInit(): void;
@@ -51,6 +53,8 @@ export declare class MdInputDirective implements AfterContentInit {
     /** Make sure the input is a supported type. */
     private _validateType();
     private _isNeverEmpty();
+    /** Determines if the component host is a textarea. If not recognizable it returns false. */
+    private _isTextarea();
 }
 /**
  * Component that represents a text input. It encapsulates the <input> HTMLElement and

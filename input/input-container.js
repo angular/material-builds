@@ -73,15 +73,17 @@ export var MdInputDirective = (function () {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this._ngControl = _ngControl;
-        this._disabled = false;
-        this._placeholder = '';
-        this._required = false;
+        /** Variables used as cache for getters and setters. */
         this._type = 'text';
+        this._placeholder = '';
+        this._disabled = false;
+        this._required = false;
+        /** Whether the element is focused or not. */
+        this.focused = false;
         /**
          * Emits an event when the placeholder changes so that the `md-input-container` can re-validate.
          */
         this._placeholderChange = new EventEmitter();
-        this.focused = false;
         this._neverEmptyInputTypes = [
             'date',
             'datetime',
@@ -117,7 +119,7 @@ export var MdInputDirective = (function () {
         /** Placeholder attribute of the element. */
         get: function () { return this._placeholder; },
         set: function (value) {
-            if (this._placeholder != value) {
+            if (this._placeholder !== value) {
                 this._placeholder = value;
                 this._placeholderChange.emit(this._placeholder);
             }
@@ -138,6 +140,12 @@ export var MdInputDirective = (function () {
         set: function (value) {
             this._type = value || 'text';
             this._validateType();
+            // When using Angular inputs, developers are no longer able to set the properties on the native
+            // input element. To ensure that bindings for `type` work, we need to sync the setter
+            // with the native property. Textarea elements don't support the type property or attribute.
+            if (!this._isTextarea() && getSupportedInputTypes().has(this._type)) {
+                this._renderer.setElementProperty(this._elementRef.nativeElement, 'type', this._type);
+            }
         },
         enumerable: true,
         configurable: true
@@ -162,11 +170,16 @@ export var MdInputDirective = (function () {
     MdInputDirective.prototype._onInput = function () { this.value = this._elementRef.nativeElement.value; };
     /** Make sure the input is a supported type. */
     MdInputDirective.prototype._validateType = function () {
-        if (MD_INPUT_INVALID_TYPES.indexOf(this._type) != -1) {
+        if (MD_INPUT_INVALID_TYPES.indexOf(this._type) !== -1) {
             throw new MdInputContainerUnsupportedTypeError(this._type);
         }
     };
-    MdInputDirective.prototype._isNeverEmpty = function () { return this._neverEmptyInputTypes.indexOf(this._type) != -1; };
+    MdInputDirective.prototype._isNeverEmpty = function () { return this._neverEmptyInputTypes.indexOf(this._type) !== -1; };
+    /** Determines if the component host is a textarea. If not recognizable it returns false. */
+    MdInputDirective.prototype._isTextarea = function () {
+        var nativeElement = this._elementRef.nativeElement;
+        return nativeElement ? nativeElement.nodeName.toLowerCase() === 'textarea' : false;
+    };
     __decorate([
         Input(), 
         __metadata('design:type', Object)
@@ -197,7 +210,12 @@ export var MdInputDirective = (function () {
             selector: "\n    input[mdInput], textarea[mdInput], input[matInput], textarea[matInput],\n    input[md-input], textarea[md-input], input[mat-input], textarea[mat-input]\n  ",
             host: {
                 'class': 'md-input-element',
+                // Native input properties that are overwritten by Angular inputs need to be synced with
+                // the native input element. Otherwise property bindings for those don't work.
                 '[id]': 'id',
+                '[placeholder]': 'placeholder',
+                '[disabled]': 'disabled',
+                '[required]': 'required',
                 '(blur)': '_onBlur()',
                 '(focus)': '_onFocus()',
                 '(input)': '_onInput()',
