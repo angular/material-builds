@@ -10167,7 +10167,8 @@ var MdTextareaAutosize = (function () {
     ], MdTextareaAutosize.prototype, "maxRows", void 0);
     MdTextareaAutosize = __decorate$45([
         _angular_core.Directive({
-            selector: 'textarea[md-autosize], textarea[mat-autosize]',
+            selector: 'textarea[md-autosize], textarea[mat-autosize], textarea[mdTextareaAutosize]',
+            exportAs: 'mdTextareaAutosize',
             host: {
                 '(input)': 'resizeToFitContent()',
                 '[style.min-height]': '_minHeight',
