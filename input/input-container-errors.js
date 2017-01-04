@@ -32,7 +32,7 @@ export var MdInputContainerDuplicatedHintError = (function (_super) {
 export var MdInputContainerMissingMdInputError = (function (_super) {
     __extends(MdInputContainerMissingMdInputError, _super);
     function MdInputContainerMissingMdInputError() {
-        _super.call(this, 'md-input-container must contain an md-input directive. Did you forget to add md-input ' +
+        _super.call(this, 'md-input-container must contain an mdInput directive. Did you forget to add mdInput ' +
             'to the native input or textarea element?');
     }
     return MdInputContainerMissingMdInputError;

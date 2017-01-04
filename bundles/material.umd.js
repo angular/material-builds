@@ -10212,7 +10212,7 @@ var MdInputContainerDuplicatedHintError = (function (_super) {
 var MdInputContainerMissingMdInputError = (function (_super) {
     __extends$14(MdInputContainerMissingMdInputError, _super);
     function MdInputContainerMissingMdInputError() {
-        _super.call(this, 'md-input-container must contain an md-input directive. Did you forget to add md-input ' +
+        _super.call(this, 'md-input-container must contain an mdInput directive. Did you forget to add mdInput ' +
             'to the native input or textarea element?');
     }
     return MdInputContainerMissingMdInputError;
@@ -10408,7 +10408,8 @@ var MdInputDirective = (function () {
     ], MdInputDirective.prototype, "_placeholderChange", void 0);
     MdInputDirective = __decorate$47([
         _angular_core.Directive({
-            selector: 'input[md-input], textarea[md-input], input[mat-input], textarea[mat-input]',
+            // TODO: remove the md-input selector after next version
+            selector: "\n    input[mdInput], textarea[mdInput], input[matInput], textarea[matInput],\n    input[md-input], textarea[md-input], input[mat-input], textarea[mat-input]\n  ",
             host: {
                 'class': 'md-input-element',
                 '[id]': 'id',

@@ -193,7 +193,8 @@ export var MdInputDirective = (function () {
     ], MdInputDirective.prototype, "_placeholderChange", void 0);
     MdInputDirective = __decorate([
         Directive({
-            selector: 'input[md-input], textarea[md-input], input[mat-input], textarea[mat-input]',
+            // TODO: remove the md-input selector after next version
+            selector: "\n    input[mdInput], textarea[mdInput], input[matInput], textarea[matInput],\n    input[md-input], textarea[md-input], input[mat-input], textarea[mat-input]\n  ",
             host: {
                 'class': 'md-input-element',
                 '[id]': 'id',
