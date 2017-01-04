@@ -11,7 +11,7 @@ export declare class MdHint {
     align: 'start' | 'end';
 }
 /** The input directive, used to mark the input that `MdInputContainer` is wrapping. */
-export declare class MdInputDirective implements AfterContentInit {
+export declare class MdInputDirective {
     private _elementRef;
     private _renderer;
     _ngControl: NgControl;
@@ -22,8 +22,6 @@ export declare class MdInputDirective implements AfterContentInit {
     private _required;
     private _id;
     private _cachedUid;
-    /** The element's value. */
-    value: any;
     /** Whether the element is focused or not. */
     focused: boolean;
     /** Whether the element is disabled. */
@@ -36,6 +34,8 @@ export declare class MdInputDirective implements AfterContentInit {
     required: any;
     /** Input type of the element. */
     type: string;
+    /** The input element's value. */
+    value: string;
     /**
      * Emits an event when the placeholder changes so that the `md-input-container` can re-validate.
      */
@@ -44,7 +44,6 @@ export declare class MdInputDirective implements AfterContentInit {
     private readonly _uid;
     private _neverEmptyInputTypes;
     constructor(_elementRef: ElementRef, _renderer: Renderer, _ngControl: NgControl);
-    ngAfterContentInit(): void;
     /** Focuses the input element. */
     focus(): void;
     _onFocus(): void;

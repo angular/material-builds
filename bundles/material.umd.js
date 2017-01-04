@@ -10285,7 +10285,6 @@ var MdHint = (function () {
 /** The input directive, used to mark the input that `MdInputContainer` is wrapping. */
 var MdInputDirective = (function () {
     function MdInputDirective(_elementRef, _renderer, _ngControl) {
-        var _this = this;
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this._ngControl = _ngControl;
@@ -10310,11 +10309,6 @@ var MdInputDirective = (function () {
         ].filter(function (t) { return getSupportedInputTypes().has(t); });
         // Force setter to be called in case id was not specified.
         this.id = this.id;
-        if (this._ngControl && this._ngControl.valueChanges) {
-            this._ngControl.valueChanges.subscribe(function (value) {
-                _this.value = value;
-            });
-        }
     }
     Object.defineProperty(MdInputDirective.prototype, "disabled", {
         /** Whether the element is disabled. */
@@ -10366,6 +10360,13 @@ var MdInputDirective = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdInputDirective.prototype, "value", {
+        /** The input element's value. */
+        get: function () { return this._elementRef.nativeElement.value; },
+        set: function (value) { this._elementRef.nativeElement.value = value; },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MdInputDirective.prototype, "empty", {
         get: function () { return (this.value == null || this.value === '') && !this._isNeverEmpty(); },
         enumerable: true,
@@ -10376,14 +10377,19 @@ var MdInputDirective = (function () {
         enumerable: true,
         configurable: true
     });
-    MdInputDirective.prototype.ngAfterContentInit = function () {
-        this.value = this._elementRef.nativeElement.value;
-    };
     /** Focuses the input element. */
     MdInputDirective.prototype.focus = function () { this._renderer.invokeElementMethod(this._elementRef.nativeElement, 'focus'); };
     MdInputDirective.prototype._onFocus = function () { this.focused = true; };
     MdInputDirective.prototype._onBlur = function () { this.focused = false; };
-    MdInputDirective.prototype._onInput = function () { this.value = this._elementRef.nativeElement.value; };
+    MdInputDirective.prototype._onInput = function () {
+        // This is a noop function and is used to let Angular know whenever the value changes.
+        // Angular will run a new change detection each time the `input` event has been dispatched.
+        // It's necessary that Angular recognizes the value change, because when floatingLabel
+        // is set to false and Angular forms aren't used, the placeholder won't recognize the
+        // value changes and will not disappear.
+        // Listening to the input event wouldn't be necessary when the input is using the
+        // FormsModule or ReactiveFormsModule, because Angular forms also listens to input events.
+    };
     /** Make sure the input is a supported type. */
     MdInputDirective.prototype._validateType = function () {
         if (MD_INPUT_INVALID_TYPES.indexOf(this._type) !== -1) {
@@ -10434,7 +10440,7 @@ var MdInputDirective = (function () {
                 '[required]': 'required',
                 '(blur)': '_onBlur()',
                 '(focus)': '_onFocus()',
-                '(input)': '_onInput()',
+                '(input)': '_onInput()'
             }
         }),
         __param$10(2, _angular_core.Optional()), 
