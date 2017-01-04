@@ -3308,12 +3308,6 @@ var GestureConfig = (function (_super) {
 }(_angular_platformBrowser.HammerGestureConfig));
 
 /**
- * Stripped-down HammerJS annotations to be used within Material, which are necessary,
- * because HammerJS is an optional dependency. For the full annotations see:
- * https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/hammerjs
- */
-
-/**
  * Screenreaders will often fire fake mousedown events when a focusable element
  * is activated using the keyboard. We can typically distinguish between these faked
  * mousedown events and real mousedown events using the "buttons" property. While
