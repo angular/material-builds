@@ -12,7 +12,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { NgModule, Component, HostBinding, ChangeDetectorRef, ChangeDetectionStrategy, Input, ElementRef, NgZone } from '@angular/core';
+import { NgModule, Component, HostBinding, ChangeDetectionStrategy, Input, ElementRef, NgZone, Renderer } from '@angular/core';
 import { DefaultStyleCompatibilityModeModule } from '../core';
 // TODO(josephperrott): Benchpress tests.
 /** A single degree in radians. */
@@ -31,14 +31,14 @@ var MAX_ANGLE = 359.99 / 100;
  * <md-progress-spinner> component.
  */
 export var MdProgressSpinner = (function () {
-    function MdProgressSpinner(_changeDetectorRef, _ngZone, _elementRef) {
-        this._changeDetectorRef = _changeDetectorRef;
+    function MdProgressSpinner(_ngZone, _elementRef, _renderer) {
         this._ngZone = _ngZone;
         this._elementRef = _elementRef;
+        this._renderer = _renderer;
         /** The id of the last requested animation. */
         this._lastAnimationId = 0;
         this._mode = 'determinate';
-        this.color = 'primary';
+        this._color = 'primary';
     }
     Object.defineProperty(MdProgressSpinner.prototype, "_ariaValueMin", {
         /**
@@ -78,7 +78,17 @@ export var MdProgressSpinner = (function () {
     MdProgressSpinner.prototype.ngOnDestroy = function () {
         this._cleanupIndeterminateAnimation();
     };
+    Object.defineProperty(MdProgressSpinner.prototype, "color", {
+        /** The color of the progress-spinner. Can be primary, accent, or warn. */
+        get: function () { return this._color; },
+        set: function (value) {
+            this._updateColor(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MdProgressSpinner.prototype, "value", {
+        /** Value of the progress circle. It is bound to the host as the attribute aria-valuenow. */
         get: function () {
             if (this.mode == 'determinate') {
                 return this._value;
@@ -193,6 +203,25 @@ export var MdProgressSpinner = (function () {
             path.setAttribute('d', getSvgArc(currentValue, rotation));
         }
     };
+    /**
+     * Updates the color of the progress-spinner by adding the new palette class to the element
+     * and removing the old one.
+     */
+    MdProgressSpinner.prototype._updateColor = function (newColor) {
+        this._setElementColor(this._color, false);
+        this._setElementColor(newColor, true);
+        this._color = newColor;
+    };
+    /** Sets the given palette class on the component element. */
+    MdProgressSpinner.prototype._setElementColor = function (color, isAdd) {
+        if (color != null && color != '') {
+            this._renderer.setElementClass(this._elementRef.nativeElement, "md-" + color, isAdd);
+        }
+    };
+    __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], MdProgressSpinner.prototype, "color", null);
     __decorate([
         Input(),
         HostBinding('attr.aria-valuenow'), 
@@ -203,25 +232,18 @@ export var MdProgressSpinner = (function () {
         Input(), 
         __metadata('design:type', Object)
     ], MdProgressSpinner.prototype, "mode", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdProgressSpinner.prototype, "color", void 0);
     MdProgressSpinner = __decorate([
         Component({selector: 'md-progress-spinner, mat-progress-spinner, md-progress-circle, mat-progress-circle',
             host: {
                 'role': 'progressbar',
                 '[attr.aria-valuemin]': '_ariaValueMin',
-                '[attr.aria-valuemax]': '_ariaValueMax',
-                '[class.md-primary]': 'color == "primary"',
-                '[class.md-accent]': 'color == "accent"',
-                '[class.md-warn]': 'color == "warn"',
+                '[attr.aria-valuemax]': '_ariaValueMax'
             },
             template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"><path></path></svg>",
             styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:md-progress-spinner-sporadic-rotate,md-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes md-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes md-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
             changeDetection: ChangeDetectionStrategy.OnPush,
         }), 
-        __metadata('design:paramtypes', [ChangeDetectorRef, NgZone, ElementRef])
+        __metadata('design:paramtypes', [NgZone, ElementRef, Renderer])
     ], MdProgressSpinner);
     return MdProgressSpinner;
 }());
@@ -233,8 +255,8 @@ export var MdProgressSpinner = (function () {
  */
 export var MdSpinner = (function (_super) {
     __extends(MdSpinner, _super);
-    function MdSpinner(changeDetectorRef, elementRef, ngZone) {
-        _super.call(this, changeDetectorRef, ngZone, elementRef);
+    function MdSpinner(elementRef, ngZone, renderer) {
+        _super.call(this, ngZone, elementRef, renderer);
         this.mode = 'indeterminate';
     }
     MdSpinner.prototype.ngOnDestroy = function () {
@@ -248,10 +270,12 @@ export var MdSpinner = (function (_super) {
                 'role': 'progressbar',
                 'mode': 'indeterminate',
             },
+            // Due to the class extending we need to explicitly say that the input exists.
+            inputs: ['color'],
             template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"><path></path></svg>",
             styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:md-progress-spinner-sporadic-rotate,md-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes md-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes md-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
         }), 
-        __metadata('design:paramtypes', [ChangeDetectorRef, ElementRef, NgZone])
+        __metadata('design:paramtypes', [ElementRef, NgZone, Renderer])
     ], MdSpinner);
     return MdSpinner;
 }(MdProgressSpinner));
