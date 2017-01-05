@@ -13035,7 +13035,7 @@ var TooltipComponent = (function () {
     TooltipComponent = __decorate$60([
         _angular_core.Component({selector: 'md-tooltip-component, mat-tooltip-component',
             template: "<div class=\"md-tooltip\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.done)=\"_afterVisibilityAnimation($event)\">{{message}}</div>",
-            styles: [":host{pointer-events:none}.md-tooltip{color:#fff;padding:0 8px;border-radius:2px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-size:10px;margin:14px;height:22px;line-height:22px}@media screen and (-ms-high-contrast:active){.md-tooltip{outline:solid 1px}}"],
+            styles: [":host{pointer-events:none}.md-tooltip{color:#fff;padding:6px 8px;border-radius:2px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-size:10px;margin:14px}@media screen and (-ms-high-contrast:active){.md-tooltip{outline:solid 1px}}"],
             animations: [
                 _angular_core.trigger('state', [
                     _angular_core.state('void', _angular_core.style({ transform: 'scale(0)' })),
