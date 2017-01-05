@@ -270,24 +270,17 @@ export var MdInputContainer = (function () {
         this._validateHints();
         this._validatePlaceholders();
         // Re-validate when things change.
-        this._hintChildren.changes.subscribe(function () {
-            _this._validateHints();
-        });
-        this._mdInputChild._placeholderChange.subscribe(function () {
-            _this._validatePlaceholders();
-        });
+        this._hintChildren.changes.subscribe(function () { return _this._validateHints(); });
+        this._mdInputChild._placeholderChange.subscribe(function () { return _this._validatePlaceholders(); });
     };
-    MdInputContainer.prototype._isUntouched = function () { return this._hasNgControl() && this._mdInputChild._ngControl.untouched; };
-    MdInputContainer.prototype._isTouched = function () { return this._hasNgControl() && this._mdInputChild._ngControl.touched; };
-    MdInputContainer.prototype._isPristine = function () { return this._hasNgControl() && this._mdInputChild._ngControl.pristine; };
-    MdInputContainer.prototype._isDirty = function () { return this._hasNgControl() && this._mdInputChild._ngControl.dirty; };
-    MdInputContainer.prototype._isValid = function () { return this._hasNgControl() && this._mdInputChild._ngControl.valid; };
-    MdInputContainer.prototype._isInvalid = function () { return this._hasNgControl() && this._mdInputChild._ngControl.invalid; };
-    MdInputContainer.prototype._isPending = function () { return this._hasNgControl() && this._mdInputChild._ngControl.pending; };
+    /** Determines whether a class from the NgControl should be forwarded to the host element. */
+    MdInputContainer.prototype._shouldForward = function (prop) {
+        var control = this._mdInputChild ? this._mdInputChild._ngControl : null;
+        return control && control[prop];
+    };
     /** Whether the input has a placeholder. */
     MdInputContainer.prototype._hasPlaceholder = function () { return !!(this._mdInputChild.placeholder || this._placeholderChild); };
     MdInputContainer.prototype._focusInput = function () { this._mdInputChild.focus(); };
-    MdInputContainer.prototype._hasNgControl = function () { return !!(this._mdInputChild && this._mdInputChild._ngControl); };
     /**
      * Ensure that there is only one placeholder (either `input` attribute or child element with the
      * `md-placeholder` attribute.
@@ -358,13 +351,13 @@ export var MdInputContainer = (function () {
             host: {
                 // Remove align attribute to prevent it from interfering with layout.
                 '[attr.align]': 'null',
-                '[class.ng-untouched]': '_isUntouched()',
-                '[class.ng-touched]': '_isTouched()',
-                '[class.ng-pristine]': '_isPristine()',
-                '[class.ng-dirty]': '_isDirty()',
-                '[class.ng-valid]': '_isValid()',
-                '[class.ng-invalid]': '_isInvalid()',
-                '[class.ng-pending]': '_isPending()',
+                '[class.ng-untouched]': '_shouldForward("untouched")',
+                '[class.ng-touched]': '_shouldForward("touched")',
+                '[class.ng-pristine]': '_shouldForward("pristine")',
+                '[class.ng-dirty]': '_shouldForward("dirty")',
+                '[class.ng-valid]': '_shouldForward("valid")',
+                '[class.ng-invalid]': '_shouldForward("invalid")',
+                '[class.ng-pending]': '_shouldForward("pending")',
                 '(click)': '_focusInput()',
             },
             encapsulation: ViewEncapsulation.None,
