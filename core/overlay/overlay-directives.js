@@ -18,6 +18,7 @@ import { ConnectionPositionPair } from './position/connected-position';
 import { PortalModule } from '../portal/portal-directives';
 import { Dir } from '../rtl/dir';
 import { Scrollable } from './scroll/scrollable';
+import { coerceBooleanProperty } from '../coercion/boolean-property';
 /** Default set of positions for the overlay. Follows the behavior of a dropdown. */
 var defaultPositionList = [
     new ConnectionPositionPair({ originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' }),
@@ -95,9 +96,8 @@ export var ConnectedOverlayDirective = (function () {
         get: function () {
             return this._hasBackdrop;
         },
-        // TODO: move the boolean coercion logic to a shared function in core
         set: function (value) {
-            this._hasBackdrop = value != null && "" + value !== 'false';
+            this._hasBackdrop = coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true

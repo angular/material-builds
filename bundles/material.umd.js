@@ -2271,6 +2271,11 @@ var Scrollable = (function () {
     return Scrollable;
 }());
 
+/** Coerces a data-bound value (typically a string) to a boolean. */
+function coerceBooleanProperty(value) {
+    return value != null && "" + value !== 'false';
+}
+
 var __decorate$8 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2360,9 +2365,8 @@ var ConnectedOverlayDirective = (function () {
         get: function () {
             return this._hasBackdrop;
         },
-        // TODO: move the boolean coercion logic to a shared function in core
         set: function (value) {
-            this._hasBackdrop = value != null && "" + value !== 'false';
+            this._hasBackdrop = coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -2829,11 +2833,6 @@ function isPotentiallyFocusable(element) {
 /** Gets the parent window of a DOM node with regards of being inside of an iframe. */
 function getWindow(node) {
     return node.ownerDocument.defaultView || window;
-}
-
-/** Coerces a data-bound value (typically a string) to a boolean. */
-function coerceBooleanProperty(value) {
-    return value != null && "" + value !== 'false';
 }
 
 var __decorate$15 = (this && this.__decorate) || function (decorators, target, key, desc) {
