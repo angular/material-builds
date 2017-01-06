@@ -31,8 +31,9 @@ export declare class MdSlider implements ControlValueAccessor {
     /** @deprecated */
     _thumbLabelDeprecated: boolean;
     private _controlValueAccessorChangeFn;
-    /** The last value for which a change event was emitted. */
-    private _lastEmittedValue;
+    /** The last values for which a change or input event was emitted. */
+    private _lastChangeValue;
+    private _lastInputValue;
     /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
     onTouched: () => any;
     /**
@@ -106,6 +107,8 @@ export declare class MdSlider implements ControlValueAccessor {
     readonly direction: string;
     /** Event emitted when the slider value has changed. */
     change: EventEmitter<MdSliderChange>;
+    /** Event emitted when the slider thumb moves. */
+    input: EventEmitter<MdSliderChange>;
     constructor(_dir: Dir, elementRef: ElementRef);
     _onMouseenter(): void;
     _onClick(event: MouseEvent): void;
@@ -120,8 +123,12 @@ export declare class MdSlider implements ControlValueAccessor {
     private _updateValueFromPosition(pos);
     /** Emits a change event if the current value is different from the last emitted value. */
     private _emitValueIfChanged();
+    /** Emits an input event when the current value is different from the last emitted value. */
+    private _emitInputEvent();
     /** Updates the amount of space between ticks as a percentage of the width of the slider. */
     private _updateTickIntervalPercent();
+    /** Creates a slider change object from the specified value. */
+    private _createChangeEvent(value?);
     /** Calculates the percentage of the slider that a value is. */
     private _calculatePercentage(value);
     /** Calculates the value a percentage of the slider corresponds to. */

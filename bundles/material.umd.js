@@ -6534,8 +6534,9 @@ var MdSlider = (function () {
         this._disabled = false;
         this._thumbLabel = false;
         this._controlValueAccessorChangeFn = function () { };
-        /** The last value for which a change event was emitted. */
-        this._lastEmittedValue = null;
+        /** The last values for which a change or input event was emitted. */
+        this._lastChangeValue = null;
+        this._lastInputValue = null;
         /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
         this.onTouched = function () { };
         /**
@@ -6559,6 +6560,8 @@ var MdSlider = (function () {
         this._vertical = false;
         /** Event emitted when the slider value has changed. */
         this.change = new _angular_core.EventEmitter();
+        /** Event emitted when the slider thumb moves. */
+        this.input = new _angular_core.EventEmitter();
         this._renderer = new SliderRenderer(elementRef);
     }
     Object.defineProperty(MdSlider.prototype, "disabled", {
@@ -6787,6 +6790,8 @@ var MdSlider = (function () {
         this._isSliding = false;
         this._renderer.addFocus();
         this._updateValueFromPosition({ x: event.clientX, y: event.clientY });
+        /* Emits a change and input event if the value changed. */
+        this._emitInputEvent();
         this._emitValueIfChanged();
     };
     MdSlider.prototype._onSlide = function (event) {
@@ -6796,6 +6801,8 @@ var MdSlider = (function () {
         // Prevent the slide from selecting anything else.
         event.preventDefault();
         this._updateValueFromPosition({ x: event.center.x, y: event.center.y });
+        // Native range elements always emit `input` events when the value changed while sliding.
+        this._emitInputEvent();
     };
     MdSlider.prototype._onSlideStart = function (event) {
         if (this.disabled) {
@@ -6887,13 +6894,19 @@ var MdSlider = (function () {
     };
     /** Emits a change event if the current value is different from the last emitted value. */
     MdSlider.prototype._emitValueIfChanged = function () {
-        if (this.value != this._lastEmittedValue) {
-            var event_1 = new MdSliderChange();
-            event_1.source = this;
-            event_1.value = this.value;
-            this._lastEmittedValue = this.value;
+        if (this.value != this._lastChangeValue) {
+            var event_1 = this._createChangeEvent();
+            this._lastChangeValue = this.value;
             this._controlValueAccessorChangeFn(this.value);
             this.change.emit(event_1);
+        }
+    };
+    /** Emits an input event when the current value is different from the last emitted value. */
+    MdSlider.prototype._emitInputEvent = function () {
+        if (this.value != this._lastInputValue) {
+            var event_2 = this._createChangeEvent();
+            this._lastInputValue = this.value;
+            this.input.emit(event_2);
         }
     };
     /** Updates the amount of space between ticks as a percentage of the width of the slider. */
@@ -6911,6 +6924,14 @@ var MdSlider = (function () {
         else {
             this._tickIntervalPercent = this.tickInterval * this.step / (this.max - this.min);
         }
+    };
+    /** Creates a slider change object from the specified value. */
+    MdSlider.prototype._createChangeEvent = function (value) {
+        if (value === void 0) { value = this.value; }
+        var event = new MdSliderChange();
+        event.source = this;
+        event.value = value;
+        return event;
     };
     /** Calculates the percentage of the slider that a value is. */
     MdSlider.prototype._calculatePercentage = function (value) {
@@ -7005,6 +7026,10 @@ var MdSlider = (function () {
         _angular_core.Output(), 
         __metadata$33('design:type', Object)
     ], MdSlider.prototype, "change", void 0);
+    __decorate$33([
+        _angular_core.Output(), 
+        __metadata$33('design:type', Object)
+    ], MdSlider.prototype, "input", void 0);
     MdSlider = __decorate$33([
         _angular_core.Component({selector: 'md-slider, mat-slider',
             providers: [MD_SLIDER_VALUE_ACCESSOR],
@@ -12462,9 +12487,11 @@ var MdTabGroup = (function () {
      */
     MdTabGroup.prototype.ngAfterContentChecked = function () {
         var _this = this;
-        // Clamp the next selected index to the bounds of 0 and the tabs length.
+        // Clamp the next selected index to the bounds of 0 and the tabs length. Note the `|| 0`, which
+        // ensures that values like NaN can't get through and which would otherwise throw the
+        // component into an infinite loop (since Math.max(NaN, 0) === NaN).
         this._indexToSelect =
-            Math.min(this._tabs.length - 1, Math.max(this._indexToSelect, 0));
+            Math.min(this._tabs.length - 1, Math.max(this._indexToSelect || 0, 0));
         // If there is a change in selected index, emit a change event. Should not trigger if
         // the selected index has not yet been initialized.
         if (this._selectedIndex != this._indexToSelect && this._selectedIndex != null) {
