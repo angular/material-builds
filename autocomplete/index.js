@@ -8,23 +8,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { NgModule } from '@angular/core';
-import { DefaultStyleCompatibilityModeModule } from '../core';
+import { MdOptionModule, OverlayModule, OVERLAY_PROVIDERS, DefaultStyleCompatibilityModeModule } from '../core';
 import { MdAutocomplete } from './autocomplete';
+import { MdAutocompleteTrigger } from './autocomplete-trigger';
 export * from './autocomplete';
+export * from './autocomplete-trigger';
 export var MdAutocompleteModule = (function () {
     function MdAutocompleteModule() {
     }
     MdAutocompleteModule.forRoot = function () {
         return {
             ngModule: MdAutocompleteModule,
-            providers: []
+            providers: [OVERLAY_PROVIDERS]
         };
     };
     MdAutocompleteModule = __decorate([
         NgModule({
-            imports: [DefaultStyleCompatibilityModeModule],
-            exports: [MdAutocomplete, DefaultStyleCompatibilityModeModule],
-            declarations: [MdAutocomplete],
+            imports: [MdOptionModule, OverlayModule, DefaultStyleCompatibilityModeModule],
+            exports: [
+                MdAutocomplete, MdOptionModule, MdAutocompleteTrigger, DefaultStyleCompatibilityModeModule
+            ],
+            declarations: [MdAutocomplete, MdAutocompleteTrigger],
         }), 
         __metadata('design:paramtypes', [])
     ], MdAutocompleteModule);

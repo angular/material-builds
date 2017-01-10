@@ -1,4 +1,4 @@
-import { ElementRef, EventEmitter, Renderer } from '@angular/core';
+import { ElementRef, EventEmitter, ModuleWithProviders, Renderer } from '@angular/core';
 /**
  * Single option inside of a `<md-select>` element.
  */
@@ -41,4 +41,7 @@ export declare class MdOption {
     /** Returns the correct tabindex for the option depending on disabled state. */
     _getTabIndex(): string;
     _getHostElement(): HTMLElement;
+}
+export declare class MdOptionModule {
+    static forRoot(): ModuleWithProviders;
 }

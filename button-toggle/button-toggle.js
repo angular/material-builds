@@ -192,6 +192,13 @@ export var MdButtonToggleGroup = (function () {
     MdButtonToggleGroup.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
+    /**
+     * Toggles the disabled state of the component. Implemented as part of ControlValueAccessor.
+     * @param isDisabled Whether the component should be disabled.
+     */
+    MdButtonToggleGroup.prototype.setDisabledState = function (isDisabled) {
+        this.disabled = isDisabled;
+    };
     __decorate([
         Output(), 
         __metadata('design:type', Observable)

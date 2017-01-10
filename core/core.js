@@ -11,6 +11,7 @@ import { NgModule } from '@angular/core';
 import { MdLineModule } from './line/line';
 import { RtlModule } from './rtl/dir';
 import { ObserveContentModule } from './observe-content/observe-content';
+import { MdOptionModule } from './option/option';
 import { MdRippleModule } from './ripple/ripple';
 import { PortalModule } from './portal/portal-directives';
 import { OverlayModule } from './overlay/overlay-directives';
@@ -20,6 +21,7 @@ import { OVERLAY_PROVIDERS } from './overlay/overlay';
 export { Dir, RtlModule } from './rtl/dir';
 // Mutation Observer
 export { ObserveContentModule, ObserveContent } from './observe-content/observe-content';
+export { MdOptionModule, MdOption } from './option/option';
 // Portals
 export { Portal, BasePortalHost, ComponentPortal, TemplatePortal } from './portal/portal';
 export { PortalHostDirective, TemplatePortalDirective, PortalModule } from './portal/portal-directives';
@@ -92,6 +94,7 @@ export var MdCoreModule = (function () {
                 PortalModule,
                 OverlayModule,
                 A11yModule,
+                MdOptionModule
             ],
             exports: [
                 MdLineModule,
@@ -101,6 +104,7 @@ export var MdCoreModule = (function () {
                 PortalModule,
                 OverlayModule,
                 A11yModule,
+                MdOptionModule
             ],
         }), 
         __metadata('design:paramtypes', [])

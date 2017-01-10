@@ -73,6 +73,11 @@ export declare class MdButtonToggleGroup implements AfterViewInit, ControlValueA
      * @param fn On touch callback function.
      */
     registerOnTouched(fn: any): void;
+    /**
+     * Toggles the disabled state of the component. Implemented as part of ControlValueAccessor.
+     * @param isDisabled Whether the component should be disabled.
+     */
+    setDisabledState(isDisabled: boolean): void;
 }
 /** Multiple selection button-toggle group. `ngModel` is not supported in this mode. */
 export declare class MdButtonToggleGroupMultiple {

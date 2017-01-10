@@ -4,10 +4,10 @@
   * License: MIT
   */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs/Subject'), require('rxjs/Observable'), require('rxjs/add/observable/fromEvent'), require('@angular/common'), require('@angular/platform-browser'), require('@angular/forms'), require('@angular/http'), require('rxjs/add/observable/forkJoin'), require('rxjs/add/observable/of'), require('rxjs/add/operator/map'), require('rxjs/add/operator/filter'), require('rxjs/add/operator/do'), require('rxjs/add/operator/share'), require('rxjs/add/operator/finally'), require('rxjs/add/operator/catch'), require('rxjs/add/operator/first')) :
-    typeof define === 'function' && define.amd ? define(['exports', '@angular/core', 'rxjs/Subject', 'rxjs/Observable', 'rxjs/add/observable/fromEvent', '@angular/common', '@angular/platform-browser', '@angular/forms', '@angular/http', 'rxjs/add/observable/forkJoin', 'rxjs/add/observable/of', 'rxjs/add/operator/map', 'rxjs/add/operator/filter', 'rxjs/add/operator/do', 'rxjs/add/operator/share', 'rxjs/add/operator/finally', 'rxjs/add/operator/catch', 'rxjs/add/operator/first'], factory) :
-    (factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.Rx,global.Rx,global.Rx.Observable,global.ng.common,global.ng.platformBrowser,global.ng.forms,global.ng.http,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype));
-}(this, (function (exports,_angular_core,rxjs_Subject,rxjs_Observable,rxjs_add_observable_fromEvent,_angular_common,_angular_platformBrowser,_angular_forms,_angular_http,rxjs_add_observable_forkJoin,rxjs_add_observable_of,rxjs_add_operator_map,rxjs_add_operator_filter,rxjs_add_operator_do,rxjs_add_operator_share,rxjs_add_operator_finally,rxjs_add_operator_catch,rxjs_add_operator_first) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('rxjs/Subject'), require('rxjs/Observable'), require('rxjs/add/observable/fromEvent'), require('@angular/platform-browser'), require('@angular/forms'), require('@angular/http'), require('rxjs/add/observable/forkJoin'), require('rxjs/add/observable/of'), require('rxjs/add/operator/map'), require('rxjs/add/operator/filter'), require('rxjs/add/operator/do'), require('rxjs/add/operator/share'), require('rxjs/add/operator/finally'), require('rxjs/add/operator/catch'), require('rxjs/add/operator/first'), require('rxjs/add/observable/merge')) :
+    typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', 'rxjs/Subject', 'rxjs/Observable', 'rxjs/add/observable/fromEvent', '@angular/platform-browser', '@angular/forms', '@angular/http', 'rxjs/add/observable/forkJoin', 'rxjs/add/observable/of', 'rxjs/add/operator/map', 'rxjs/add/operator/filter', 'rxjs/add/operator/do', 'rxjs/add/operator/share', 'rxjs/add/operator/finally', 'rxjs/add/operator/catch', 'rxjs/add/operator/first', 'rxjs/add/observable/merge'], factory) :
+    (factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.common,global.Rx,global.Rx,global.Rx.Observable,global.ng.platformBrowser,global.ng.forms,global.ng.http,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_common,rxjs_Subject,rxjs_Observable,rxjs_add_observable_fromEvent,_angular_platformBrowser,_angular_forms,_angular_http,rxjs_add_observable_forkJoin,rxjs_add_observable_of,rxjs_add_operator_map,rxjs_add_operator_filter,rxjs_add_operator_do,rxjs_add_operator_share,rxjs_add_operator_finally,rxjs_add_operator_catch,rxjs_add_operator_first,rxjs_add_observable_merge) { 'use strict';
 
 var __decorate$2 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -288,6 +288,30 @@ var ObserveContentModule = (function () {
     return ObserveContentModule;
 }());
 
+// Due to a bug in the ChromeDriver, Angular 2 keyboard events are not triggered by `sendKeys`
+// during E2E tests when using dot notation such as `(keydown.rightArrow)`. To get around this,
+// we are temporarily using a single (keydown) handler.
+// See: https://github.com/angular/angular/issues/9419
+var UP_ARROW = 38;
+var DOWN_ARROW = 40;
+var RIGHT_ARROW = 39;
+var LEFT_ARROW = 37;
+var PAGE_UP = 33;
+var PAGE_DOWN = 34;
+var HOME = 36;
+var END = 35;
+var ENTER = 13;
+var SPACE = 32;
+var TAB = 9;
+var ESCAPE = 27;
+var BACKSPACE = 8;
+var DELETE = 46;
+
+/** Coerces a data-bound value (typically a string) to a boolean. */
+function coerceBooleanProperty(value) {
+    return value != null && "" + value !== 'false';
+}
+
 /** @docs-private */
 var ForegroundRippleState;
 (function (ForegroundRippleState) {
@@ -464,13 +488,13 @@ var RippleRenderer = (function () {
     return RippleRenderer;
 }());
 
-var __decorate$6 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$7 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$6 = (this && this.__metadata) || function (k, v) {
+var __metadata$7 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -522,20 +546,20 @@ var ViewportRuler = (function () {
         var left = -documentRect.left || document.body.scrollLeft || window.scrollX || 0;
         return { top: top, left: left };
     };
-    ViewportRuler = __decorate$6([
+    ViewportRuler = __decorate$7([
         _angular_core.Injectable(), 
-        __metadata$6('design:paramtypes', [])
+        __metadata$7('design:paramtypes', [])
     ], ViewportRuler);
     return ViewportRuler;
 }());
 
-var __decorate$5 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$6 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$5 = (this && this.__metadata) || function (k, v) {
+var __metadata$6 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var MdRipple = (function () {
@@ -717,85 +741,85 @@ var MdRipple = (function () {
         // We can always fade out the background here; It's a no-op if it was already inactive.
         this._rippleRenderer.fadeOutRippleBackground();
     };
-    __decorate$5([
+    __decorate$6([
         _angular_core.Input('mdRippleTrigger'), 
-        __metadata$5('design:type', Object)
+        __metadata$6('design:type', Object)
     ], MdRipple.prototype, "trigger", void 0);
-    __decorate$5([
+    __decorate$6([
         _angular_core.Input('md-ripple-trigger'), 
-        __metadata$5('design:type', Object)
+        __metadata$6('design:type', Object)
     ], MdRipple.prototype, "_triggerDeprecated", null);
-    __decorate$5([
+    __decorate$6([
         _angular_core.Input('mdRippleCentered'), 
-        __metadata$5('design:type', Boolean)
+        __metadata$6('design:type', Boolean)
     ], MdRipple.prototype, "centered", void 0);
-    __decorate$5([
+    __decorate$6([
         _angular_core.Input('md-ripple-centered'), 
-        __metadata$5('design:type', Object)
+        __metadata$6('design:type', Object)
     ], MdRipple.prototype, "_centeredDeprecated", null);
-    __decorate$5([
+    __decorate$6([
         _angular_core.Input('mdRippleDisabled'), 
-        __metadata$5('design:type', Boolean)
+        __metadata$6('design:type', Boolean)
     ], MdRipple.prototype, "disabled", void 0);
-    __decorate$5([
+    __decorate$6([
         _angular_core.Input('md-ripple-disabled'), 
-        __metadata$5('design:type', Object)
+        __metadata$6('design:type', Object)
     ], MdRipple.prototype, "_disabledDeprecated", null);
-    __decorate$5([
+    __decorate$6([
         _angular_core.Input('mdRippleMaxRadius'), 
-        __metadata$5('design:type', Number)
+        __metadata$6('design:type', Number)
     ], MdRipple.prototype, "maxRadius", void 0);
-    __decorate$5([
+    __decorate$6([
         _angular_core.Input('md-ripple-max-radius'), 
-        __metadata$5('design:type', Object)
+        __metadata$6('design:type', Object)
     ], MdRipple.prototype, "_maxRadiusDeprecated", null);
-    __decorate$5([
+    __decorate$6([
         _angular_core.Input('mdRippleSpeedFactor'), 
-        __metadata$5('design:type', Number)
+        __metadata$6('design:type', Number)
     ], MdRipple.prototype, "speedFactor", void 0);
-    __decorate$5([
+    __decorate$6([
         _angular_core.Input('md-ripple-speed-factor'), 
-        __metadata$5('design:type', Object)
+        __metadata$6('design:type', Object)
     ], MdRipple.prototype, "_speedFactorDeprecated", null);
-    __decorate$5([
+    __decorate$6([
         _angular_core.Input('mdRippleColor'), 
-        __metadata$5('design:type', String)
+        __metadata$6('design:type', String)
     ], MdRipple.prototype, "color", void 0);
-    __decorate$5([
+    __decorate$6([
         _angular_core.Input('md-ripple-color'), 
-        __metadata$5('design:type', Object)
+        __metadata$6('design:type', Object)
     ], MdRipple.prototype, "_colorDeprecated", null);
-    __decorate$5([
+    __decorate$6([
         _angular_core.Input('mdRippleBackgroundColor'), 
-        __metadata$5('design:type', String)
+        __metadata$6('design:type', String)
     ], MdRipple.prototype, "backgroundColor", void 0);
-    __decorate$5([
+    __decorate$6([
         _angular_core.Input('md-ripple-background-color'), 
-        __metadata$5('design:type', Object)
+        __metadata$6('design:type', Object)
     ], MdRipple.prototype, "_backgroundColorDeprecated", null);
-    __decorate$5([
+    __decorate$6([
         _angular_core.HostBinding('class.md-ripple-focused'),
         _angular_core.Input('mdRippleFocused'), 
-        __metadata$5('design:type', Boolean)
+        __metadata$6('design:type', Boolean)
     ], MdRipple.prototype, "focused", void 0);
-    __decorate$5([
+    __decorate$6([
         _angular_core.Input('md-ripple-focused'), 
-        __metadata$5('design:type', Boolean)
+        __metadata$6('design:type', Boolean)
     ], MdRipple.prototype, "_focusedDeprecated", null);
-    __decorate$5([
+    __decorate$6([
         _angular_core.HostBinding('class.md-ripple-unbounded'),
         _angular_core.Input('mdRippleUnbounded'), 
-        __metadata$5('design:type', Boolean)
+        __metadata$6('design:type', Boolean)
     ], MdRipple.prototype, "unbounded", void 0);
-    __decorate$5([
+    __decorate$6([
         _angular_core.Input('md-ripple-unbounded'), 
-        __metadata$5('design:type', Boolean)
+        __metadata$6('design:type', Boolean)
     ], MdRipple.prototype, "_unboundedDeprecated", null);
-    MdRipple = __decorate$5([
+    MdRipple = __decorate$6([
         _angular_core.Directive({
             selector: '[md-ripple], [mat-ripple]',
         }), 
-        __metadata$5('design:paramtypes', [_angular_core.ElementRef, _angular_core.NgZone, ViewportRuler])
+        __metadata$6('design:paramtypes', [_angular_core.ElementRef, _angular_core.NgZone, ViewportRuler])
     ], MdRipple);
     return MdRipple;
 }());
@@ -808,15 +832,164 @@ var MdRippleModule = (function () {
             providers: [ViewportRuler]
         };
     };
-    MdRippleModule = __decorate$5([
+    MdRippleModule = __decorate$6([
         _angular_core.NgModule({
             imports: [DefaultStyleCompatibilityModeModule],
             exports: [MdRipple, DefaultStyleCompatibilityModeModule],
             declarations: [MdRipple],
         }), 
-        __metadata$5('design:paramtypes', [])
+        __metadata$6('design:paramtypes', [])
     ], MdRippleModule);
     return MdRippleModule;
+}());
+
+var __decorate$5 = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$5 = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+/**
+ * Option IDs need to be unique across components, so this counter exists outside of
+ * the component definition.
+ */
+var _uniqueIdCounter = 0;
+/**
+ * Single option inside of a `<md-select>` element.
+ */
+var MdOption = (function () {
+    function MdOption(_element, _renderer) {
+        this._element = _element;
+        this._renderer = _renderer;
+        this._selected = false;
+        /** Whether the option is disabled.  */
+        this._disabled = false;
+        this._id = "md-option-" + _uniqueIdCounter++;
+        /** Event emitted when the option is selected. */
+        this.onSelect = new _angular_core.EventEmitter();
+    }
+    Object.defineProperty(MdOption.prototype, "id", {
+        /** The unique ID of the option. */
+        get: function () { return this._id; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdOption.prototype, "disabled", {
+        /** Whether the option is disabled. */
+        get: function () { return this._disabled; },
+        set: function (value) { this._disabled = coerceBooleanProperty(value); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdOption.prototype, "selected", {
+        /** Whether or not the option is currently selected. */
+        get: function () {
+            return this._selected;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdOption.prototype, "viewValue", {
+        /**
+         * The displayed value of the option. It is necessary to show the selected option in the
+         * select's trigger.
+         */
+        get: function () {
+            // TODO(kara): Add input property alternative for node envs.
+            return this._getHostElement().textContent.trim();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /** Selects the option. */
+    MdOption.prototype.select = function () {
+        this._selected = true;
+        this.onSelect.emit();
+    };
+    /** Deselects the option. */
+    MdOption.prototype.deselect = function () {
+        this._selected = false;
+    };
+    /** Sets focus onto this option. */
+    MdOption.prototype.focus = function () {
+        this._renderer.invokeElementMethod(this._getHostElement(), 'focus');
+    };
+    /** Ensures the option is selected when activated from the keyboard. */
+    MdOption.prototype._handleKeydown = function (event) {
+        if (event.keyCode === ENTER || event.keyCode === SPACE) {
+            this._selectViaInteraction();
+        }
+    };
+    /**
+     * Selects the option while indicating the selection came from the user. Used to
+     * determine if the select's view -> model callback should be invoked.
+     */
+    MdOption.prototype._selectViaInteraction = function () {
+        if (!this.disabled) {
+            this._selected = true;
+            this.onSelect.emit(true);
+        }
+    };
+    /** Returns the correct tabindex for the option depending on disabled state. */
+    MdOption.prototype._getTabIndex = function () {
+        return this.disabled ? '-1' : '0';
+    };
+    MdOption.prototype._getHostElement = function () {
+        return this._element.nativeElement;
+    };
+    __decorate$5([
+        _angular_core.Input(), 
+        __metadata$5('design:type', Object)
+    ], MdOption.prototype, "value", void 0);
+    __decorate$5([
+        _angular_core.Input(), 
+        __metadata$5('design:type', Object)
+    ], MdOption.prototype, "disabled", null);
+    __decorate$5([
+        _angular_core.Output(), 
+        __metadata$5('design:type', Object)
+    ], MdOption.prototype, "onSelect", void 0);
+    MdOption = __decorate$5([
+        _angular_core.Component({selector: 'md-option, mat-option',
+            host: {
+                'role': 'option',
+                '[attr.tabindex]': '_getTabIndex()',
+                '[class.md-selected]': 'selected',
+                '[id]': 'id',
+                '[attr.aria-selected]': 'selected.toString()',
+                '[attr.aria-disabled]': 'disabled.toString()',
+                '[class.md-option-disabled]': 'disabled',
+                '(click)': '_selectViaInteraction()',
+                '(keydown)': '_handleKeydown($event)'
+            },
+            template: "<ng-content></ng-content><div class=\"md-option-ripple\" *ngIf=\"!disabled\" md-ripple mdRippleBackgroundColor=\"rgba(0,0,0,0)\" [mdRippleTrigger]=\"_getHostElement()\"></div>",
+            encapsulation: _angular_core.ViewEncapsulation.None
+        }), 
+        __metadata$5('design:paramtypes', [_angular_core.ElementRef, _angular_core.Renderer])
+    ], MdOption);
+    return MdOption;
+}());
+var MdOptionModule = (function () {
+    function MdOptionModule() {
+    }
+    MdOptionModule.forRoot = function () {
+        return {
+            ngModule: MdOptionModule,
+            providers: []
+        };
+    };
+    MdOptionModule = __decorate$5([
+        _angular_core.NgModule({
+            imports: [MdRippleModule, _angular_common.CommonModule],
+            exports: [MdOption],
+            declarations: [MdOption]
+        }), 
+        __metadata$5('design:paramtypes', [])
+    ], MdOptionModule);
+    return MdOptionModule;
 }());
 
 // TODO(kara): Revisit why error messages are not being properly set.
@@ -1069,13 +1242,13 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var __decorate$7 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$8 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$7 = (this && this.__metadata) || function (k, v) {
+var __metadata$8 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -1092,12 +1265,12 @@ var TemplatePortalDirective = (function (_super) {
     function TemplatePortalDirective(templateRef, viewContainerRef) {
         _super.call(this, templateRef, viewContainerRef);
     }
-    TemplatePortalDirective = __decorate$7([
+    TemplatePortalDirective = __decorate$8([
         _angular_core.Directive({
             selector: '[cdk-portal], [portal]',
             exportAs: 'cdkPortal',
         }), 
-        __metadata$7('design:paramtypes', [_angular_core.TemplateRef, _angular_core.ViewContainerRef])
+        __metadata$8('design:paramtypes', [_angular_core.TemplateRef, _angular_core.ViewContainerRef])
     ], TemplatePortalDirective);
     return TemplatePortalDirective;
 }(TemplatePortal));
@@ -1177,16 +1350,16 @@ var PortalHostDirective = (function (_super) {
             this._portal = p;
         }
     };
-    __decorate$7([
+    __decorate$8([
         _angular_core.Input('portalHost'), 
-        __metadata$7('design:type', Object)
+        __metadata$8('design:type', Object)
     ], PortalHostDirective.prototype, "_deprecatedPortal", null);
-    PortalHostDirective = __decorate$7([
+    PortalHostDirective = __decorate$8([
         _angular_core.Directive({
             selector: '[cdkPortalHost], [portalHost]',
             inputs: ['portal: cdkPortalHost']
         }), 
-        __metadata$7('design:paramtypes', [_angular_core.ComponentFactoryResolver, _angular_core.ViewContainerRef])
+        __metadata$8('design:paramtypes', [_angular_core.ComponentFactoryResolver, _angular_core.ViewContainerRef])
     ], PortalHostDirective);
     return PortalHostDirective;
 }(BasePortalHost));
@@ -1199,12 +1372,12 @@ var PortalModule = (function () {
             providers: []
         };
     };
-    PortalModule = __decorate$7([
+    PortalModule = __decorate$8([
         _angular_core.NgModule({
             exports: [TemplatePortalDirective, PortalHostDirective],
             declarations: [TemplatePortalDirective, PortalHostDirective],
         }), 
-        __metadata$7('design:paramtypes', [])
+        __metadata$8('design:paramtypes', [])
     ], PortalModule);
     return PortalModule;
 }());
@@ -1484,13 +1657,13 @@ function formatCssUnit(value) {
     return typeof value === 'string' ? value : value + "px";
 }
 
-var __decorate$11 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$12 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$11 = (this && this.__metadata) || function (k, v) {
+var __metadata$12 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$2 = (this && this.__param) || function (paramIndex, decorator) {
@@ -1540,9 +1713,9 @@ var ConnectedOverlayPositionChange = (function () {
         this.connectionPair = connectionPair;
         this.scrollableViewProperties = scrollableViewProperties;
     }
-    ConnectedOverlayPositionChange = __decorate$11([
+    ConnectedOverlayPositionChange = __decorate$12([
         __param$2(1, _angular_core.Optional()), 
-        __metadata$11('design:paramtypes', [ConnectionPositionPair, ScrollableViewProperties])
+        __metadata$12('design:paramtypes', [ConnectionPositionPair, ScrollableViewProperties])
     ], ConnectedOverlayPositionChange);
     return ConnectedOverlayPositionChange;
 }());
@@ -1983,13 +2156,13 @@ var GlobalPositionStrategy = (function () {
     return GlobalPositionStrategy;
 }());
 
-var __decorate$10 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$11 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$10 = (this && this.__metadata) || function (k, v) {
+var __metadata$11 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /** Builder for overlay position strategy. */
@@ -2012,9 +2185,9 @@ var OverlayPositionBuilder = (function () {
     OverlayPositionBuilder.prototype.connectedTo = function (elementRef, originPos, overlayPos) {
         return new ConnectedPositionStrategy(elementRef, originPos, overlayPos, this._viewportRuler);
     };
-    OverlayPositionBuilder = __decorate$10([
+    OverlayPositionBuilder = __decorate$11([
         _angular_core.Injectable(), 
-        __metadata$10('design:paramtypes', [ViewportRuler])
+        __metadata$11('design:paramtypes', [ViewportRuler])
     ], OverlayPositionBuilder);
     return OverlayPositionBuilder;
 }());
@@ -2051,13 +2224,13 @@ var OverlayContainer = (function () {
     return OverlayContainer;
 }());
 
-var __decorate$12 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$13 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$12 = (this && this.__metadata) || function (k, v) {
+var __metadata$13 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -2133,20 +2306,20 @@ var ScrollDispatcher = (function () {
     ScrollDispatcher.prototype._notify = function () {
         this._scrolled.next();
     };
-    ScrollDispatcher = __decorate$12([
+    ScrollDispatcher = __decorate$13([
         _angular_core.Injectable(), 
-        __metadata$12('design:paramtypes', [])
+        __metadata$13('design:paramtypes', [])
     ], ScrollDispatcher);
     return ScrollDispatcher;
 }());
 
-var __decorate$9 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$10 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$9 = (this && this.__metadata) || function (k, v) {
+var __metadata$10 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /** Next overlay unique ID. */
@@ -2213,9 +2386,9 @@ var Overlay = (function () {
     Overlay.prototype._createOverlayRef = function (pane, state$$1) {
         return new OverlayRef(this._createPortalHost(pane), pane, state$$1, this._ngZone);
     };
-    Overlay = __decorate$9([
+    Overlay = __decorate$10([
         _angular_core.Injectable(), 
-        __metadata$9('design:paramtypes', [OverlayContainer, _angular_core.ComponentFactoryResolver, OverlayPositionBuilder, _angular_core.ApplicationRef, _angular_core.Injector, _angular_core.NgZone])
+        __metadata$10('design:paramtypes', [OverlayContainer, _angular_core.ComponentFactoryResolver, OverlayPositionBuilder, _angular_core.ApplicationRef, _angular_core.Injector, _angular_core.NgZone])
     ], Overlay);
     return Overlay;
 }());
@@ -2228,13 +2401,13 @@ var OVERLAY_PROVIDERS = [
     ScrollDispatcher,
 ];
 
-var __decorate$13 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$14 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$13 = (this && this.__metadata) || function (k, v) {
+var __metadata$14 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -2262,27 +2435,22 @@ var Scrollable = (function () {
     Scrollable.prototype.getElementRef = function () {
         return this._elementRef;
     };
-    Scrollable = __decorate$13([
+    Scrollable = __decorate$14([
         _angular_core.Directive({
             selector: '[cdk-scrollable]'
         }), 
-        __metadata$13('design:paramtypes', [_angular_core.ElementRef, ScrollDispatcher])
+        __metadata$14('design:paramtypes', [_angular_core.ElementRef, ScrollDispatcher])
     ], Scrollable);
     return Scrollable;
 }());
 
-/** Coerces a data-bound value (typically a string) to a boolean. */
-function coerceBooleanProperty(value) {
-    return value != null && "" + value !== 'false';
-}
-
-var __decorate$8 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$9 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$8 = (this && this.__metadata) || function (k, v) {
+var __metadata$9 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$1 = (this && this.__param) || function (paramIndex, decorator) {
@@ -2301,12 +2469,12 @@ var OverlayOrigin = (function () {
     function OverlayOrigin(elementRef) {
         this.elementRef = elementRef;
     }
-    OverlayOrigin = __decorate$8([
+    OverlayOrigin = __decorate$9([
         _angular_core.Directive({
             selector: '[cdk-overlay-origin], [overlay-origin]',
             exportAs: 'cdkOverlayOrigin',
         }), 
-        __metadata$8('design:paramtypes', [_angular_core.ElementRef])
+        __metadata$9('design:paramtypes', [_angular_core.ElementRef])
     ], OverlayOrigin);
     return OverlayOrigin;
 }());
@@ -2492,73 +2660,73 @@ var ConnectedOverlayDirective = (function () {
             this._positionSubscription.unsubscribe();
         }
     };
-    __decorate$8([
+    __decorate$9([
         _angular_core.Input(), 
-        __metadata$8('design:type', OverlayOrigin)
+        __metadata$9('design:type', OverlayOrigin)
     ], ConnectedOverlayDirective.prototype, "origin", void 0);
-    __decorate$8([
+    __decorate$9([
         _angular_core.Input(), 
-        __metadata$8('design:type', Array)
+        __metadata$9('design:type', Array)
     ], ConnectedOverlayDirective.prototype, "positions", void 0);
-    __decorate$8([
+    __decorate$9([
         _angular_core.Input(), 
-        __metadata$8('design:type', Number)
+        __metadata$9('design:type', Number)
     ], ConnectedOverlayDirective.prototype, "offsetX", null);
-    __decorate$8([
+    __decorate$9([
         _angular_core.Input(), 
-        __metadata$8('design:type', Object)
+        __metadata$9('design:type', Object)
     ], ConnectedOverlayDirective.prototype, "offsetY", null);
-    __decorate$8([
+    __decorate$9([
         _angular_core.Input(), 
-        __metadata$8('design:type', Object)
+        __metadata$9('design:type', Object)
     ], ConnectedOverlayDirective.prototype, "width", void 0);
-    __decorate$8([
+    __decorate$9([
         _angular_core.Input(), 
-        __metadata$8('design:type', Object)
+        __metadata$9('design:type', Object)
     ], ConnectedOverlayDirective.prototype, "height", void 0);
-    __decorate$8([
+    __decorate$9([
         _angular_core.Input(), 
-        __metadata$8('design:type', Object)
+        __metadata$9('design:type', Object)
     ], ConnectedOverlayDirective.prototype, "minWidth", void 0);
-    __decorate$8([
+    __decorate$9([
         _angular_core.Input(), 
-        __metadata$8('design:type', Object)
+        __metadata$9('design:type', Object)
     ], ConnectedOverlayDirective.prototype, "minHeight", void 0);
-    __decorate$8([
+    __decorate$9([
         _angular_core.Input(), 
-        __metadata$8('design:type', String)
+        __metadata$9('design:type', String)
     ], ConnectedOverlayDirective.prototype, "backdropClass", void 0);
-    __decorate$8([
+    __decorate$9([
         _angular_core.Input(), 
-        __metadata$8('design:type', Object)
+        __metadata$9('design:type', Object)
     ], ConnectedOverlayDirective.prototype, "hasBackdrop", null);
-    __decorate$8([
+    __decorate$9([
         _angular_core.Input(), 
-        __metadata$8('design:type', Object)
+        __metadata$9('design:type', Object)
     ], ConnectedOverlayDirective.prototype, "open", null);
-    __decorate$8([
+    __decorate$9([
         _angular_core.Output(), 
-        __metadata$8('design:type', Object)
+        __metadata$9('design:type', Object)
     ], ConnectedOverlayDirective.prototype, "backdropClick", void 0);
-    __decorate$8([
+    __decorate$9([
         _angular_core.Output(), 
-        __metadata$8('design:type', Object)
+        __metadata$9('design:type', Object)
     ], ConnectedOverlayDirective.prototype, "positionChange", void 0);
-    __decorate$8([
+    __decorate$9([
         _angular_core.Output(), 
-        __metadata$8('design:type', Object)
+        __metadata$9('design:type', Object)
     ], ConnectedOverlayDirective.prototype, "attach", void 0);
-    __decorate$8([
+    __decorate$9([
         _angular_core.Output(), 
-        __metadata$8('design:type', Object)
+        __metadata$9('design:type', Object)
     ], ConnectedOverlayDirective.prototype, "detach", void 0);
-    ConnectedOverlayDirective = __decorate$8([
+    ConnectedOverlayDirective = __decorate$9([
         _angular_core.Directive({
             selector: '[cdk-connected-overlay], [connected-overlay]',
             exportAs: 'cdkConnectedOverlay'
         }),
         __param$1(3, _angular_core.Optional()), 
-        __metadata$8('design:paramtypes', [Overlay, _angular_core.TemplateRef, _angular_core.ViewContainerRef, Dir])
+        __metadata$9('design:paramtypes', [Overlay, _angular_core.TemplateRef, _angular_core.ViewContainerRef, Dir])
     ], ConnectedOverlayDirective);
     return ConnectedOverlayDirective;
 }());
@@ -2571,24 +2739,24 @@ var OverlayModule = (function () {
             providers: OVERLAY_PROVIDERS,
         };
     };
-    OverlayModule = __decorate$8([
+    OverlayModule = __decorate$9([
         _angular_core.NgModule({
             imports: [PortalModule],
             exports: [ConnectedOverlayDirective, OverlayOrigin, Scrollable],
             declarations: [ConnectedOverlayDirective, OverlayOrigin, Scrollable],
         }), 
-        __metadata$8('design:paramtypes', [])
+        __metadata$9('design:paramtypes', [])
     ], OverlayModule);
     return OverlayModule;
 }());
 
-var __decorate$17 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$18 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$17 = (this && this.__metadata) || function (k, v) {
+var __metadata$18 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // Whether the current platform supports the V8 Break Iterator. The V8 check
@@ -2621,20 +2789,20 @@ var Platform = (function () {
         // Trident on mobile adds the android platform to the userAgent to trick detections.
         this.ANDROID = /android/i.test(navigator.userAgent) && !this.TRIDENT;
     }
-    Platform = __decorate$17([
+    Platform = __decorate$18([
         _angular_core.Injectable(), 
-        __metadata$17('design:paramtypes', [])
+        __metadata$18('design:paramtypes', [])
     ], Platform);
     return Platform;
 }());
 
-var __decorate$16 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$17 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$16 = (this && this.__metadata) || function (k, v) {
+var __metadata$17 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -2747,9 +2915,9 @@ var InteractivityChecker = (function () {
         // Again, naive approach that does not capture many edge cases and browser quirks.
         return isPotentiallyFocusable(element) && !this.isDisabled(element) && this.isVisible(element);
     };
-    InteractivityChecker = __decorate$16([
+    InteractivityChecker = __decorate$17([
         _angular_core.Injectable(), 
-        __metadata$16('design:paramtypes', [Platform])
+        __metadata$17('design:paramtypes', [Platform])
     ], InteractivityChecker);
     return InteractivityChecker;
 }());
@@ -2835,13 +3003,13 @@ function getWindow(node) {
     return node.ownerDocument.defaultView || window;
 }
 
-var __decorate$15 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$16 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$15 = (this && this.__metadata) || function (k, v) {
+var __metadata$16 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -2942,31 +3110,31 @@ var FocusTrap = (function () {
         }
         return null;
     };
-    __decorate$15([
+    __decorate$16([
         _angular_core.ViewChild('trappedContent'), 
-        __metadata$15('design:type', _angular_core.ElementRef)
+        __metadata$16('design:type', _angular_core.ElementRef)
     ], FocusTrap.prototype, "trappedContent", void 0);
-    __decorate$15([
+    __decorate$16([
         _angular_core.Input(), 
-        __metadata$15('design:type', Boolean)
+        __metadata$16('design:type', Boolean)
     ], FocusTrap.prototype, "disabled", null);
-    FocusTrap = __decorate$15([
+    FocusTrap = __decorate$16([
         _angular_core.Component({selector: 'cdk-focus-trap, focus-trap',
             template: "<div *ngIf=\"!disabled\" tabindex=\"0\" (focus)=\"focusLastTabbableElement()\"></div><div #trappedContent class=\"cdk-focus-trap-content\"><ng-content></ng-content></div><div *ngIf=\"!disabled\" tabindex=\"0\" (focus)=\"focusFirstTabbableElement()\"></div>",
             encapsulation: _angular_core.ViewEncapsulation.None,
         }), 
-        __metadata$15('design:paramtypes', [InteractivityChecker, _angular_core.NgZone])
+        __metadata$16('design:paramtypes', [InteractivityChecker, _angular_core.NgZone])
     ], FocusTrap);
     return FocusTrap;
 }());
 
-var __decorate$18 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$19 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$18 = (this && this.__metadata) || function (k, v) {
+var __metadata$19 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$3 = (this && this.__param) || function (paramIndex, decorator) {
@@ -3012,11 +3180,11 @@ var LiveAnnouncer = (function () {
         document.body.appendChild(liveEl);
         return liveEl;
     };
-    LiveAnnouncer = __decorate$18([
+    LiveAnnouncer = __decorate$19([
         _angular_core.Injectable(),
         __param$3(0, _angular_core.Optional()),
         __param$3(0, _angular_core.Inject(LIVE_ANNOUNCER_ELEMENT_TOKEN)), 
-        __metadata$18('design:paramtypes', [Object])
+        __metadata$19('design:paramtypes', [Object])
     ], LiveAnnouncer);
     return LiveAnnouncer;
 }());
@@ -3057,13 +3225,13 @@ function getSupportedInputTypes() {
     return supportedInputTypes;
 }
 
-var __decorate$19 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$20 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$19 = (this && this.__metadata) || function (k, v) {
+var __metadata$20 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var PlatformModule = (function () {
@@ -3075,20 +3243,20 @@ var PlatformModule = (function () {
             providers: [Platform],
         };
     };
-    PlatformModule = __decorate$19([
+    PlatformModule = __decorate$20([
         _angular_core.NgModule({}), 
-        __metadata$19('design:paramtypes', [])
+        __metadata$20('design:paramtypes', [])
     ], PlatformModule);
     return PlatformModule;
 }());
 
-var __decorate$14 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$15 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$14 = (this && this.__metadata) || function (k, v) {
+var __metadata$15 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var A11Y_PROVIDERS = [LiveAnnouncer, InteractivityChecker];
@@ -3104,24 +3272,24 @@ var A11yModule = (function () {
             ],
         };
     };
-    A11yModule = __decorate$14([
+    A11yModule = __decorate$15([
         _angular_core.NgModule({
             imports: [_angular_common.CommonModule, PlatformModule],
             declarations: [FocusTrap],
             exports: [FocusTrap],
         }), 
-        __metadata$14('design:paramtypes', [])
+        __metadata$15('design:paramtypes', [])
     ], A11yModule);
     return A11yModule;
 }());
 
-var __decorate$20 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$21 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$20 = (this && this.__metadata) || function (k, v) {
+var __metadata$21 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // "Polyfill" for `Node.replaceWith()`.
@@ -3134,11 +3302,11 @@ var DomProjectionHost = (function () {
     function DomProjectionHost(ref) {
         this.ref = ref;
     }
-    DomProjectionHost = __decorate$20([
+    DomProjectionHost = __decorate$21([
         _angular_core.Directive({
             selector: 'cdk-dom-projection-host'
         }), 
-        __metadata$20('design:paramtypes', [_angular_core.ElementRef])
+        __metadata$21('design:paramtypes', [_angular_core.ElementRef])
     ], DomProjectionHost);
     return DomProjectionHost;
 }());
@@ -3198,9 +3366,9 @@ var DomProjection = (function () {
         _replaceWith(hostEl, projectedEl);
         // At this point the host is replaced by the component. Nothing else to be done.
     };
-    DomProjection = __decorate$20([
+    DomProjection = __decorate$21([
         _angular_core.Injectable(), 
-        __metadata$20('design:paramtypes', [])
+        __metadata$21('design:paramtypes', [])
     ], DomProjection);
     return DomProjection;
 }());
@@ -3214,12 +3382,12 @@ var ProjectionModule = (function () {
             providers: [DomProjection]
         };
     };
-    ProjectionModule = __decorate$20([
+    ProjectionModule = __decorate$21([
         _angular_core.NgModule({
             exports: [DomProjectionHost],
             declarations: [DomProjectionHost],
         }), 
-        __metadata$20('design:paramtypes', [])
+        __metadata$21('design:paramtypes', [])
     ], ProjectionModule);
     return ProjectionModule;
 }());
@@ -3229,13 +3397,13 @@ var __extends$5 = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var __decorate$21 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$22 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$21 = (this && this.__metadata) || function (k, v) {
+var __metadata$22 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /* Adjusts configuration of our gesture library, Hammer. */
@@ -3299,9 +3467,9 @@ var GestureConfig = (function (_super) {
         inheritances.forEach(function (item) { return recognizer.recognizeWith(item); });
         return recognizer;
     };
-    GestureConfig = __decorate$21([
+    GestureConfig = __decorate$22([
         _angular_core.Injectable(), 
-        __metadata$21('design:paramtypes', [])
+        __metadata$22('design:paramtypes', [])
     ], GestureConfig);
     return GestureConfig;
 }(_angular_platformBrowser.HammerGestureConfig));
@@ -3317,13 +3485,13 @@ function isFakeMousedownFromScreenReader(event) {
     return event.buttons === 0;
 }
 
-var __decorate$22 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$23 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$22 = (this && this.__metadata) || function (k, v) {
+var __metadata$23 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -3354,9 +3522,9 @@ var UniqueSelectionDispatcher = (function () {
     UniqueSelectionDispatcher.prototype.listen = function (listener) {
         this._listeners.push(listener);
     };
-    UniqueSelectionDispatcher = __decorate$22([
+    UniqueSelectionDispatcher = __decorate$23([
         _angular_core.Injectable(), 
-        __metadata$22('design:paramtypes', [])
+        __metadata$23('design:paramtypes', [])
     ], UniqueSelectionDispatcher);
     return UniqueSelectionDispatcher;
 }());
@@ -3373,25 +3541,6 @@ function applyCssTransform(element, transformValue) {
     element.style.transform = value;
     element.style.webkitTransform = value;
 }
-
-// Due to a bug in the ChromeDriver, Angular 2 keyboard events are not triggered by `sendKeys`
-// during E2E tests when using dot notation such as `(keydown.rightArrow)`. To get around this,
-// we are temporarily using a single (keydown) handler.
-// See: https://github.com/angular/angular/issues/9419
-var UP_ARROW = 38;
-var DOWN_ARROW = 40;
-var RIGHT_ARROW = 39;
-var LEFT_ARROW = 37;
-var PAGE_UP = 33;
-var PAGE_DOWN = 34;
-var HOME = 36;
-var END = 35;
-var ENTER = 13;
-var SPACE = 32;
-var TAB = 9;
-var ESCAPE = 27;
-var BACKSPACE = 8;
-var DELETE = 46;
 
 /** @docs-private */
 var AnimationCurves = (function () {
@@ -3422,13 +3571,13 @@ function coerceNumberProperty(value, fallbackValue) {
     return isNaN(parseFloat(value)) || isNaN(Number(value)) ? fallbackValue : Number(value);
 }
 
-var __decorate$23 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$24 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$23 = (this && this.__metadata) || function (k, v) {
+var __metadata$24 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /** Selector that matches all elements that may have style collisions with material1. */
@@ -3438,9 +3587,9 @@ var MdPrefixEnforcer = (function () {
     function MdPrefixEnforcer() {
         throw Error('The "md-" prefix cannot be used in ng-material v1 compatibility mode.');
     }
-    MdPrefixEnforcer = __decorate$23([
+    MdPrefixEnforcer = __decorate$24([
         _angular_core.Directive({ selector: MD_ELEMENTS_SELECTOR }), 
-        __metadata$23('design:paramtypes', [])
+        __metadata$24('design:paramtypes', [])
     ], MdPrefixEnforcer);
     return MdPrefixEnforcer;
 }());
@@ -3453,7 +3602,7 @@ var NoConflictStyleCompatibilityMode = (function () {
             providers: [],
         };
     };
-    NoConflictStyleCompatibilityMode = __decorate$23([
+    NoConflictStyleCompatibilityMode = __decorate$24([
         _angular_core.NgModule({
             declarations: [MdPrefixEnforcer],
             exports: [MdPrefixEnforcer],
@@ -3461,7 +3610,7 @@ var NoConflictStyleCompatibilityMode = (function () {
                     provide: MATERIAL_COMPATIBILITY_MODE, useValue: true,
                 }],
         }), 
-        __metadata$23('design:paramtypes', [])
+        __metadata$24('design:paramtypes', [])
     ], NoConflictStyleCompatibilityMode);
     return NoConflictStyleCompatibilityMode;
 }());
@@ -3494,6 +3643,7 @@ var MdCoreModule = (function () {
                 PortalModule,
                 OverlayModule,
                 A11yModule,
+                MdOptionModule
             ],
             exports: [
                 MdLineModule,
@@ -3503,6 +3653,7 @@ var MdCoreModule = (function () {
                 PortalModule,
                 OverlayModule,
                 A11yModule,
+                MdOptionModule
             ],
         }), 
         __metadata('design:paramtypes', [])
@@ -3510,13 +3661,13 @@ var MdCoreModule = (function () {
     return MdCoreModule;
 }());
 
-var __decorate$25 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$26 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$25 = (this && this.__metadata) || function (k, v) {
+var __metadata$26 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$4 = (this && this.__param) || function (paramIndex, decorator) {
@@ -3532,7 +3683,7 @@ var MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
     useExisting: _angular_core.forwardRef(function () { return MdButtonToggleGroup; }),
     multi: true
 };
-var _uniqueIdCounter = 0;
+var _uniqueIdCounter$1 = 0;
 /** Change event object emitted by MdButtonToggle. */
 var MdButtonToggleChange = (function () {
     function MdButtonToggleChange() {
@@ -3545,7 +3696,7 @@ var MdButtonToggleGroup = (function () {
         /** The value for the button toggle group. Should match currently selected button toggle. */
         this._value = null;
         /** The HTML name attribute applied to toggles in this group. */
-        this._name = "md-radio-group-" + _uniqueIdCounter++;
+        this._name = "md-radio-group-" + _uniqueIdCounter$1++;
         /** Disables all toggles in the group. */
         this._disabled = null;
         /** Whether the button toggle group should be vertical. */
@@ -3700,35 +3851,42 @@ var MdButtonToggleGroup = (function () {
     MdButtonToggleGroup.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
-    __decorate$25([
+    /**
+     * Toggles the disabled state of the component. Implemented as part of ControlValueAccessor.
+     * @param isDisabled Whether the component should be disabled.
+     */
+    MdButtonToggleGroup.prototype.setDisabledState = function (isDisabled) {
+        this.disabled = isDisabled;
+    };
+    __decorate$26([
         _angular_core.Output(), 
-        __metadata$25('design:type', rxjs_Observable.Observable)
+        __metadata$26('design:type', rxjs_Observable.Observable)
     ], MdButtonToggleGroup.prototype, "change", null);
-    __decorate$25([
+    __decorate$26([
         _angular_core.ContentChildren(_angular_core.forwardRef(function () { return MdButtonToggle; })), 
-        __metadata$25('design:type', _angular_core.QueryList)
+        __metadata$26('design:type', _angular_core.QueryList)
     ], MdButtonToggleGroup.prototype, "_buttonToggles", void 0);
-    __decorate$25([
+    __decorate$26([
         _angular_core.Input(), 
-        __metadata$25('design:type', String)
+        __metadata$26('design:type', String)
     ], MdButtonToggleGroup.prototype, "name", null);
-    __decorate$25([
+    __decorate$26([
         _angular_core.Input(), 
-        __metadata$25('design:type', Boolean)
+        __metadata$26('design:type', Boolean)
     ], MdButtonToggleGroup.prototype, "disabled", null);
-    __decorate$25([
+    __decorate$26([
         _angular_core.Input(), 
-        __metadata$25('design:type', Boolean)
+        __metadata$26('design:type', Boolean)
     ], MdButtonToggleGroup.prototype, "vertical", null);
-    __decorate$25([
+    __decorate$26([
         _angular_core.Input(), 
-        __metadata$25('design:type', Object)
+        __metadata$26('design:type', Object)
     ], MdButtonToggleGroup.prototype, "value", null);
-    __decorate$25([
+    __decorate$26([
         _angular_core.Input(), 
-        __metadata$25('design:type', Object)
+        __metadata$26('design:type', Object)
     ], MdButtonToggleGroup.prototype, "selected", null);
-    MdButtonToggleGroup = __decorate$25([
+    MdButtonToggleGroup = __decorate$26([
         _angular_core.Directive({
             selector: 'md-button-toggle-group:not([multiple])',
             providers: [MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR],
@@ -3738,7 +3896,7 @@ var MdButtonToggleGroup = (function () {
             },
             exportAs: 'mdButtonToggleGroup',
         }), 
-        __metadata$25('design:paramtypes', [])
+        __metadata$26('design:paramtypes', [])
     ], MdButtonToggleGroup);
     return MdButtonToggleGroup;
 }());
@@ -3772,15 +3930,15 @@ var MdButtonToggleGroupMultiple = (function () {
         enumerable: true,
         configurable: true
     });
-    __decorate$25([
+    __decorate$26([
         _angular_core.Input(), 
-        __metadata$25('design:type', Boolean)
+        __metadata$26('design:type', Boolean)
     ], MdButtonToggleGroupMultiple.prototype, "disabled", null);
-    __decorate$25([
+    __decorate$26([
         _angular_core.Input(), 
-        __metadata$25('design:type', Boolean)
+        __metadata$26('design:type', Boolean)
     ], MdButtonToggleGroupMultiple.prototype, "vertical", null);
-    MdButtonToggleGroupMultiple = __decorate$25([
+    MdButtonToggleGroupMultiple = __decorate$26([
         _angular_core.Directive({
             selector: 'md-button-toggle-group[multiple]',
             exportAs: 'mdButtonToggleGroup',
@@ -3788,7 +3946,7 @@ var MdButtonToggleGroupMultiple = (function () {
                 '[class.md-button-toggle-vertical]': 'vertical'
             }
         }), 
-        __metadata$25('design:paramtypes', [])
+        __metadata$26('design:paramtypes', [])
     ], MdButtonToggleGroupMultiple);
     return MdButtonToggleGroupMultiple;
 }());
@@ -3836,7 +3994,7 @@ var MdButtonToggle = (function () {
     });
     MdButtonToggle.prototype.ngOnInit = function () {
         if (this.id == null) {
-            this.id = "md-button-toggle-" + _uniqueIdCounter++;
+            this.id = "md-button-toggle-" + _uniqueIdCounter$1++;
         }
         if (this.buttonToggleGroup && this._value == this.buttonToggleGroup.value) {
             this._checked = true;
@@ -3939,38 +4097,38 @@ var MdButtonToggle = (function () {
     MdButtonToggle.prototype.focus = function () {
         this._renderer.invokeElementMethod(this._inputElement.nativeElement, 'focus');
     };
-    __decorate$25([
+    __decorate$26([
         _angular_core.HostBinding(),
         _angular_core.Input(), 
-        __metadata$25('design:type', String)
+        __metadata$26('design:type', String)
     ], MdButtonToggle.prototype, "id", void 0);
-    __decorate$25([
+    __decorate$26([
         _angular_core.Input(), 
-        __metadata$25('design:type', String)
+        __metadata$26('design:type', String)
     ], MdButtonToggle.prototype, "name", void 0);
-    __decorate$25([
+    __decorate$26([
         _angular_core.Output(), 
-        __metadata$25('design:type', rxjs_Observable.Observable)
+        __metadata$26('design:type', rxjs_Observable.Observable)
     ], MdButtonToggle.prototype, "change", null);
-    __decorate$25([
+    __decorate$26([
         _angular_core.ViewChild('input'), 
-        __metadata$25('design:type', _angular_core.ElementRef)
+        __metadata$26('design:type', _angular_core.ElementRef)
     ], MdButtonToggle.prototype, "_inputElement", void 0);
-    __decorate$25([
+    __decorate$26([
         _angular_core.HostBinding('class.md-button-toggle-checked'),
         _angular_core.Input(), 
-        __metadata$25('design:type', Boolean)
+        __metadata$26('design:type', Boolean)
     ], MdButtonToggle.prototype, "checked", null);
-    __decorate$25([
+    __decorate$26([
         _angular_core.Input(), 
-        __metadata$25('design:type', Object)
+        __metadata$26('design:type', Object)
     ], MdButtonToggle.prototype, "value", null);
-    __decorate$25([
+    __decorate$26([
         _angular_core.HostBinding('class.md-button-toggle-disabled'),
         _angular_core.Input(), 
-        __metadata$25('design:type', Boolean)
+        __metadata$26('design:type', Boolean)
     ], MdButtonToggle.prototype, "disabled", null);
-    MdButtonToggle = __decorate$25([
+    MdButtonToggle = __decorate$26([
         _angular_core.Component({selector: 'md-button-toggle',
             template: "<label [attr.for]=\"inputId\" class=\"md-button-toggle-label\"><input #input class=\"md-button-toggle-input cdk-visually-hidden\" [type]=\"_type\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"md-button-toggle-label-content\"><ng-content></ng-content></div></label>",
             styles: ["md-button-toggle-group{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap}.md-button-toggle-vertical{flex-direction:column}.md-button-toggle-vertical .md-button-toggle-label-content{display:block}.md-button-toggle-disabled .md-button-toggle-label-content{cursor:default}md-button-toggle{white-space:nowrap}.md-button-toggle-label-content{display:inline-block;line-height:36px;padding:0 16px;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.md-button-toggle-label-content>*{vertical-align:middle}"],
@@ -3978,7 +4136,7 @@ var MdButtonToggle = (function () {
         }),
         __param$4(0, _angular_core.Optional()),
         __param$4(1, _angular_core.Optional()), 
-        __metadata$25('design:paramtypes', [MdButtonToggleGroup, MdButtonToggleGroupMultiple, UniqueSelectionDispatcher, _angular_core.Renderer])
+        __metadata$26('design:paramtypes', [MdButtonToggleGroup, MdButtonToggleGroupMultiple, UniqueSelectionDispatcher, _angular_core.Renderer])
     ], MdButtonToggle);
     return MdButtonToggle;
 }());
@@ -3991,7 +4149,7 @@ var MdButtonToggleModule = (function () {
             providers: [UniqueSelectionDispatcher]
         };
     };
-    MdButtonToggleModule = __decorate$25([
+    MdButtonToggleModule = __decorate$26([
         _angular_core.NgModule({
             imports: [_angular_forms.FormsModule, DefaultStyleCompatibilityModeModule],
             exports: [
@@ -4002,7 +4160,7 @@ var MdButtonToggleModule = (function () {
             ],
             declarations: [MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle],
         }), 
-        __metadata$25('design:paramtypes', [])
+        __metadata$26('design:paramtypes', [])
     ], MdButtonToggleModule);
     return MdButtonToggleModule;
 }());
@@ -4012,13 +4170,13 @@ var __extends$6 = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var __decorate$26 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$27 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$26 = (this && this.__metadata) || function (k, v) {
+var __metadata$27 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // TODO(jelbourn): Make the `isMouseDown` stuff done with one global listener.
@@ -4100,19 +4258,19 @@ var MdButton = (function () {
     MdButton.prototype._isRippleDisabled = function () {
         return this.disableRipple || this.disabled;
     };
-    __decorate$26([
+    __decorate$27([
         _angular_core.Input(), 
-        __metadata$26('design:type', Object)
+        __metadata$27('design:type', Object)
     ], MdButton.prototype, "disableRipple", null);
-    __decorate$26([
+    __decorate$27([
         _angular_core.Input(), 
-        __metadata$26('design:type', Object)
+        __metadata$27('design:type', Object)
     ], MdButton.prototype, "disabled", null);
-    __decorate$26([
+    __decorate$27([
         _angular_core.Input(), 
-        __metadata$26('design:type', String)
+        __metadata$27('design:type', String)
     ], MdButton.prototype, "color", null);
-    MdButton = __decorate$26([
+    MdButton = __decorate$27([
         _angular_core.Component({selector: 'button[md-button], button[md-raised-button], button[md-icon-button], ' +
                 'button[md-fab], button[md-mini-fab]',
             host: {
@@ -4127,7 +4285,7 @@ var MdButton = (function () {
             encapsulation: _angular_core.ViewEncapsulation.None,
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
         }), 
-        __metadata$26('design:paramtypes', [_angular_core.ElementRef, _angular_core.Renderer])
+        __metadata$27('design:paramtypes', [_angular_core.ElementRef, _angular_core.Renderer])
     ], MdButton);
     return MdButton;
 }());
@@ -4161,11 +4319,11 @@ var MdAnchor = (function (_super) {
             event.stopImmediatePropagation();
         }
     };
-    __decorate$26([
+    __decorate$27([
         _angular_core.HostBinding('tabIndex'), 
-        __metadata$26('design:type', Number)
+        __metadata$27('design:type', Number)
     ], MdAnchor.prototype, "tabIndex", null);
-    MdAnchor = __decorate$26([
+    MdAnchor = __decorate$27([
         _angular_core.Component({selector: 'a[md-button], a[md-raised-button], a[md-icon-button], a[md-fab], a[md-mini-fab]',
             inputs: ['color', 'disabled', 'disableRipple'],
             host: {
@@ -4181,7 +4339,7 @@ var MdAnchor = (function (_super) {
             styles: [".md-button-focus[md-button] .md-button-focus-overlay,.md-button-focus[md-fab] .md-button-focus-overlay,.md-button-focus[md-icon-button] .md-button-focus-overlay,.md-button-focus[md-mini-fab] .md-button-focus-overlay,.md-button-focus[md-raised-button] .md-button-focus-overlay,[md-button]:hover .md-button-focus-overlay,[md-icon-button]:hover .md-button-focus-overlay{opacity:1}[md-icon-button],[md-mini-fab]{width:40px;height:40px}[md-button],[md-fab],[md-icon-button],[md-mini-fab],[md-raised-button]{box-sizing:border-box;position:relative;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0;border:none;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;color:currentColor;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled][md-button],[disabled][md-fab],[disabled][md-icon-button],[disabled][md-mini-fab],[disabled][md-raised-button]{cursor:default}[md-fab],[md-mini-fab],[md-raised-button]{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}[md-fab],[md-mini-fab]{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);flex-shrink:0;padding:0;min-width:0;border-radius:50%}[md-fab]:active,[md-mini-fab]:active,[md-raised-button]:active{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled][md-fab],[disabled][md-mini-fab],[disabled][md-raised-button]{box-shadow:none}[md-button][disabled]:hover .md-button-focus-overlay,[md-button][disabled]:hover.md-accent,[md-button][disabled]:hover.md-primary,[md-button][disabled]:hover.md-warn,[md-icon-button][disabled]:hover .md-button-focus-overlay,[md-icon-button][disabled]:hover.md-accent,[md-icon-button][disabled]:hover.md-primary,[md-icon-button][disabled]:hover.md-warn{background-color:transparent}[md-fab]{width:56px;height:56px}[md-fab]:active,[md-mini-fab]:active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}[md-fab] i,[md-fab] md-icon{padding:16px 0;line-height:24px}[md-mini-fab] i,[md-mini-fab] md-icon{padding:8px 0;line-height:24px}[md-icon-button]{padding:0;min-width:0;flex-shrink:0;line-height:40px;border-radius:50%}[md-icon-button] i,[md-icon-button] md-icon{line-height:24px}[md-button] .md-button-wrapper>*,[md-icon-button] .md-button-wrapper>*,[md-raised-button] .md-button-wrapper>*{vertical-align:middle}.md-button-focus-overlay,.md-button-ripple{position:absolute;top:0;left:0;bottom:0;right:0}.md-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;pointer-events:none;opacity:0}.md-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.md-button-focus-overlay{background-color:rgba(255,255,255,.5)}[md-button],[md-fab],[md-icon-button],[md-mini-fab],[md-raised-button]{outline:solid 1px}}"],
             encapsulation: _angular_core.ViewEncapsulation.None
         }), 
-        __metadata$26('design:paramtypes', [_angular_core.ElementRef, _angular_core.Renderer])
+        __metadata$27('design:paramtypes', [_angular_core.ElementRef, _angular_core.Renderer])
     ], MdAnchor);
     return MdAnchor;
 }(MdButton));
@@ -4194,24 +4352,24 @@ var MdButtonModule = (function () {
             providers: [ViewportRuler]
         };
     };
-    MdButtonModule = __decorate$26([
+    MdButtonModule = __decorate$27([
         _angular_core.NgModule({
             imports: [_angular_common.CommonModule, MdRippleModule, DefaultStyleCompatibilityModeModule],
             exports: [MdButton, MdAnchor, DefaultStyleCompatibilityModeModule],
             declarations: [MdButton, MdAnchor],
         }), 
-        __metadata$26('design:paramtypes', [])
+        __metadata$27('design:paramtypes', [])
     ], MdButtonModule);
     return MdButtonModule;
 }());
 
-var __decorate$27 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$28 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$27 = (this && this.__metadata) || function (k, v) {
+var __metadata$28 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /** Monotonically increasing integer used to auto-generate unique ids for checkbox components. */
@@ -4531,67 +4689,67 @@ var MdCheckbox = (function () {
     MdCheckbox.prototype._getHostElement = function () {
         return this._elementRef.nativeElement;
     };
-    __decorate$27([
+    __decorate$28([
         _angular_core.Input('aria-label'), 
-        __metadata$27('design:type', String)
+        __metadata$28('design:type', String)
     ], MdCheckbox.prototype, "ariaLabel", void 0);
-    __decorate$27([
+    __decorate$28([
         _angular_core.Input('aria-labelledby'), 
-        __metadata$27('design:type', String)
+        __metadata$28('design:type', String)
     ], MdCheckbox.prototype, "ariaLabelledby", void 0);
-    __decorate$27([
+    __decorate$28([
         _angular_core.Input(), 
-        __metadata$27('design:type', String)
+        __metadata$28('design:type', String)
     ], MdCheckbox.prototype, "id", void 0);
-    __decorate$27([
+    __decorate$28([
         _angular_core.Input(), 
-        __metadata$27('design:type', Boolean)
+        __metadata$28('design:type', Boolean)
     ], MdCheckbox.prototype, "disableRipple", null);
-    __decorate$27([
+    __decorate$28([
         _angular_core.Input(), 
-        __metadata$27('design:type', Boolean)
+        __metadata$28('design:type', Boolean)
     ], MdCheckbox.prototype, "required", null);
-    __decorate$27([
+    __decorate$28([
         _angular_core.Input(), 
-        __metadata$27('design:type', Object)
+        __metadata$28('design:type', Object)
     ], MdCheckbox.prototype, "align", null);
-    __decorate$27([
+    __decorate$28([
         _angular_core.Input(), 
-        __metadata$27('design:type', Object)
+        __metadata$28('design:type', Object)
     ], MdCheckbox.prototype, "labelPosition", void 0);
-    __decorate$27([
+    __decorate$28([
         _angular_core.Input(), 
-        __metadata$27('design:type', Boolean)
+        __metadata$28('design:type', Boolean)
     ], MdCheckbox.prototype, "disabled", null);
-    __decorate$27([
+    __decorate$28([
         _angular_core.Input(), 
-        __metadata$27('design:type', Number)
+        __metadata$28('design:type', Number)
     ], MdCheckbox.prototype, "tabindex", void 0);
-    __decorate$27([
+    __decorate$28([
         _angular_core.Input(), 
-        __metadata$27('design:type', String)
+        __metadata$28('design:type', String)
     ], MdCheckbox.prototype, "name", void 0);
-    __decorate$27([
+    __decorate$28([
         _angular_core.Output(), 
-        __metadata$27('design:type', _angular_core.EventEmitter)
+        __metadata$28('design:type', _angular_core.EventEmitter)
     ], MdCheckbox.prototype, "change", void 0);
-    __decorate$27([
+    __decorate$28([
         _angular_core.ViewChild('input'), 
-        __metadata$27('design:type', _angular_core.ElementRef)
+        __metadata$28('design:type', _angular_core.ElementRef)
     ], MdCheckbox.prototype, "_inputElement", void 0);
-    __decorate$27([
+    __decorate$28([
         _angular_core.Input(), 
-        __metadata$27('design:type', Object)
+        __metadata$28('design:type', Object)
     ], MdCheckbox.prototype, "checked", null);
-    __decorate$27([
+    __decorate$28([
         _angular_core.Input(), 
-        __metadata$27('design:type', Object)
+        __metadata$28('design:type', Object)
     ], MdCheckbox.prototype, "indeterminate", null);
-    __decorate$27([
+    __decorate$28([
         _angular_core.Input(), 
-        __metadata$27('design:type', String)
+        __metadata$28('design:type', String)
     ], MdCheckbox.prototype, "color", null);
-    MdCheckbox = __decorate$27([
+    MdCheckbox = __decorate$28([
         _angular_core.Component({selector: 'md-checkbox, mat-checkbox',
             template: "<label class=\"md-checkbox-layout\"><div class=\"md-checkbox-inner-container\"><input #input class=\"md-checkbox-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [tabIndex]=\"tabindex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (focus)=\"_onInputFocus()\" (blur)=\"_onInputBlur()\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"><div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"md-checkbox-ripple\" [mdRippleTrigger]=\"_getHostElement()\" [mdRippleCentered]=\"true\" [mdRippleSpeedFactor]=\"0.3\" mdRippleBackgroundColor=\"rgba(0, 0, 0, 0)\"></div><div class=\"md-checkbox-frame\"></div><div class=\"md-checkbox-background\"><svg version=\"1.1\" class=\"md-checkbox-checkmark\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"><path class=\"md-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/></svg><div class=\"md-checkbox-mixedmark\"></div></div></div><span class=\"md-checkbox-label\"><ng-content></ng-content></span></label>",
             styles: [".md-checkbox-frame,.md-checkbox-unchecked .md-checkbox-background{background-color:transparent}@keyframes md-checkbox-fade-in-background{0%{opacity:0}50%{opacity:1}}@keyframes md-checkbox-fade-out-background{0%,50%{opacity:1}100%{opacity:0}}@keyframes md-checkbox-unchecked-checked-checkmark-path{0%,50%{stroke-dashoffset:22.91026}50%{animation-timing-function:cubic-bezier(0,0,.2,.1)}100%{stroke-dashoffset:0}}@keyframes md-checkbox-unchecked-indeterminate-mixedmark{0%,68.2%{transform:scaleX(0)}68.2%{animation-timing-function:cubic-bezier(0,0,0,1)}100%{transform:scaleX(1)}}@keyframes md-checkbox-checked-unchecked-checkmark-path{from{animation-timing-function:cubic-bezier(.4,0,1,1);stroke-dashoffset:0}to{stroke-dashoffset:-22.91026}}@keyframes md-checkbox-checked-indeterminate-checkmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(45deg)}}@keyframes md-checkbox-indeterminate-checked-checkmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:0;transform:rotate(45deg)}to{opacity:1;transform:rotate(360deg)}}@keyframes md-checkbox-checked-indeterminate-mixedmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:0;transform:rotate(-45deg)}to{opacity:1;transform:rotate(0)}}@keyframes md-checkbox-indeterminate-checked-mixedmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(315deg)}}@keyframes md-checkbox-indeterminate-unchecked-mixedmark{0%{animation-timing-function:linear;opacity:1;transform:scaleX(1)}100%,32.8%{opacity:0;transform:scaleX(0)}}.md-checkbox-background,.md-checkbox-checkmark,.md-checkbox-frame{bottom:0;left:0;position:absolute;right:0;top:0}.md-checkbox-checkmark,.md-checkbox-mixedmark{width:calc(100% - 4px)}.md-checkbox-background,.md-checkbox-frame{border-radius:2px;box-sizing:border-box;pointer-events:none}md-checkbox{cursor:pointer;transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.md-checkbox-layout{cursor:inherit;align-items:baseline;vertical-align:middle;display:inline-flex}.md-checkbox-inner-container{display:inline-block;height:20px;line-height:0;margin:auto 8px auto auto;order:0;position:relative;vertical-align:middle;white-space:nowrap;width:20px;flex-shrink:0}[dir=rtl] .md-checkbox-inner-container{margin-left:8px;margin-right:auto}.md-checkbox-layout .md-checkbox-label{line-height:24px}.md-checkbox-frame{border:2px solid;transition:border-color 90ms cubic-bezier(0,0,.2,.1);will-change:border-color}.md-checkbox-background{align-items:center;display:inline-flex;justify-content:center;transition:background-color 90ms cubic-bezier(0,0,.2,.1),opacity 90ms cubic-bezier(0,0,.2,.1);will-change:background-color,opacity}.md-checkbox-checkmark{width:100%}.md-checkbox-checkmark-path{stroke-dashoffset:22.91026;stroke-dasharray:22.91026;stroke-width:2.67px}.md-checkbox-checked .md-checkbox-checkmark-path,.md-checkbox-indeterminate .md-checkbox-checkmark-path{stroke-dashoffset:0}.md-checkbox-mixedmark{height:2px;opacity:0;transform:scaleX(0) rotate(0)}.md-checkbox-label-before .md-checkbox-inner-container{order:1;margin-left:8px;margin-right:auto}[dir=rtl] .md-checkbox-label-before .md-checkbox-inner-container{margin-left:auto;margin-right:8px}.md-checkbox-checked .md-checkbox-checkmark{opacity:1}.md-checkbox-checked .md-checkbox-mixedmark{transform:scaleX(1) rotate(-45deg)}.md-checkbox-indeterminate .md-checkbox-checkmark{opacity:0;transform:rotate(45deg)}.md-checkbox-indeterminate .md-checkbox-mixedmark{opacity:1;transform:scaleX(1) rotate(0)}.md-checkbox-disabled{cursor:default}.md-checkbox-anim-unchecked-checked .md-checkbox-background{animation:180ms linear 0s md-checkbox-fade-in-background}.md-checkbox-anim-unchecked-checked .md-checkbox-checkmark-path{animation:180ms linear 0s md-checkbox-unchecked-checked-checkmark-path}.md-checkbox-anim-unchecked-indeterminate .md-checkbox-background{animation:180ms linear 0s md-checkbox-fade-in-background}.md-checkbox-anim-unchecked-indeterminate .md-checkbox-mixedmark{animation:90ms linear 0s md-checkbox-unchecked-indeterminate-mixedmark}.md-checkbox-anim-checked-unchecked .md-checkbox-background{animation:180ms linear 0s md-checkbox-fade-out-background}.md-checkbox-anim-checked-unchecked .md-checkbox-checkmark-path{animation:90ms linear 0s md-checkbox-checked-unchecked-checkmark-path}.md-checkbox-anim-checked-indeterminate .md-checkbox-checkmark{animation:90ms linear 0s md-checkbox-checked-indeterminate-checkmark}.md-checkbox-anim-checked-indeterminate .md-checkbox-mixedmark{animation:90ms linear 0s md-checkbox-checked-indeterminate-mixedmark}.md-checkbox-anim-indeterminate-checked .md-checkbox-checkmark{animation:.5s linear 0s md-checkbox-indeterminate-checked-checkmark}.md-checkbox-anim-indeterminate-checked .md-checkbox-mixedmark{animation:.5s linear 0s md-checkbox-indeterminate-checked-mixedmark}.md-checkbox-anim-indeterminate-unchecked .md-checkbox-background{animation:180ms linear 0s md-checkbox-fade-out-background}.md-checkbox-anim-indeterminate-unchecked .md-checkbox-mixedmark{animation:.3s linear 0s md-checkbox-indeterminate-unchecked-mixedmark}.md-checkbox-input{bottom:0;left:50%}.md-checkbox-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none}"],
@@ -4606,7 +4764,7 @@ var MdCheckbox = (function () {
             encapsulation: _angular_core.ViewEncapsulation.None,
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
         }), 
-        __metadata$27('design:paramtypes', [_angular_core.Renderer, _angular_core.ElementRef, _angular_core.ChangeDetectorRef])
+        __metadata$28('design:paramtypes', [_angular_core.Renderer, _angular_core.ElementRef, _angular_core.ChangeDetectorRef])
     ], MdCheckbox);
     return MdCheckbox;
 }());
@@ -4619,24 +4777,24 @@ var MdCheckboxModule = (function () {
             providers: [ViewportRuler]
         };
     };
-    MdCheckboxModule = __decorate$27([
+    MdCheckboxModule = __decorate$28([
         _angular_core.NgModule({
             imports: [_angular_common.CommonModule, MdRippleModule, DefaultStyleCompatibilityModeModule],
             exports: [MdCheckbox, DefaultStyleCompatibilityModeModule],
             declarations: [MdCheckbox],
         }), 
-        __metadata$27('design:paramtypes', [])
+        __metadata$28('design:paramtypes', [])
     ], MdCheckboxModule);
     return MdCheckboxModule;
 }());
 
-var __decorate$28 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$29 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$28 = (this && this.__metadata) || function (k, v) {
+var __metadata$29 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$5 = (this && this.__param) || function (paramIndex, decorator) {
@@ -4652,7 +4810,7 @@ var MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
     useExisting: _angular_core.forwardRef(function () { return MdRadioGroup; }),
     multi: true
 };
-var _uniqueIdCounter$1 = 0;
+var _uniqueIdCounter$2 = 0;
 /** Change event object emitted by MdRadio and MdRadioGroup. */
 var MdRadioChange = (function () {
     function MdRadioChange() {
@@ -4672,7 +4830,7 @@ var MdRadioGroup = (function () {
          */
         this._value = null;
         /** The HTML name attribute applied to radio buttons in this group. */
-        this._name = "md-radio-group-" + _uniqueIdCounter$1++;
+        this._name = "md-radio-group-" + _uniqueIdCounter$2++;
         /** Disables all individual radio buttons assigned to this group. */
         this._disabled = false;
         /** The currently selected radio button. Should match value. */
@@ -4844,39 +5002,39 @@ var MdRadioGroup = (function () {
     MdRadioGroup.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };
-    __decorate$28([
+    __decorate$29([
         _angular_core.Output(), 
-        __metadata$28('design:type', _angular_core.EventEmitter)
+        __metadata$29('design:type', _angular_core.EventEmitter)
     ], MdRadioGroup.prototype, "change", void 0);
-    __decorate$28([
+    __decorate$29([
         _angular_core.ContentChildren(_angular_core.forwardRef(function () { return MdRadioButton; })), 
-        __metadata$28('design:type', _angular_core.QueryList)
+        __metadata$29('design:type', _angular_core.QueryList)
     ], MdRadioGroup.prototype, "_radios", void 0);
-    __decorate$28([
+    __decorate$29([
         _angular_core.Input(), 
-        __metadata$28('design:type', String)
+        __metadata$29('design:type', String)
     ], MdRadioGroup.prototype, "name", null);
-    __decorate$28([
+    __decorate$29([
         _angular_core.Input(), 
-        __metadata$28('design:type', Object)
+        __metadata$29('design:type', Object)
     ], MdRadioGroup.prototype, "align", null);
-    __decorate$28([
+    __decorate$29([
         _angular_core.Input(), 
-        __metadata$28('design:type', Object)
+        __metadata$29('design:type', Object)
     ], MdRadioGroup.prototype, "labelPosition", void 0);
-    __decorate$28([
+    __decorate$29([
         _angular_core.Input(), 
-        __metadata$28('design:type', Boolean)
+        __metadata$29('design:type', Boolean)
     ], MdRadioGroup.prototype, "disabled", null);
-    __decorate$28([
+    __decorate$29([
         _angular_core.Input(), 
-        __metadata$28('design:type', Object)
+        __metadata$29('design:type', Object)
     ], MdRadioGroup.prototype, "value", null);
-    __decorate$28([
+    __decorate$29([
         _angular_core.Input(), 
-        __metadata$28('design:type', Object)
+        __metadata$29('design:type', Object)
     ], MdRadioGroup.prototype, "selected", null);
-    MdRadioGroup = __decorate$28([
+    MdRadioGroup = __decorate$29([
         _angular_core.Directive({
             selector: 'md-radio-group, mat-radio-group',
             providers: [MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
@@ -4884,7 +5042,7 @@ var MdRadioGroup = (function () {
                 'role': 'radiogroup',
             },
         }), 
-        __metadata$28('design:paramtypes', [])
+        __metadata$29('design:paramtypes', [])
     ], MdRadioGroup);
     return MdRadioGroup;
 }());
@@ -4902,7 +5060,7 @@ var MdRadioButton = (function () {
         /** Whether this radio is checked. */
         this._checked = false;
         /** The unique ID for the radio button. */
-        this.id = "md-radio-" + _uniqueIdCounter$1++;
+        this.id = "md-radio-" + _uniqueIdCounter$2++;
         /** Value assigned to this radio.*/
         this._value = null;
         /**
@@ -5089,69 +5247,69 @@ var MdRadioButton = (function () {
     MdRadioButton.prototype._getHostElement = function () {
         return this._elementRef.nativeElement;
     };
-    __decorate$28([
+    __decorate$29([
         _angular_core.HostBinding('class.md-radio-focused'), 
-        __metadata$28('design:type', Boolean)
+        __metadata$29('design:type', Boolean)
     ], MdRadioButton.prototype, "_isFocused", void 0);
-    __decorate$28([
+    __decorate$29([
         _angular_core.HostBinding('id'),
         _angular_core.Input(), 
-        __metadata$28('design:type', String)
+        __metadata$29('design:type', String)
     ], MdRadioButton.prototype, "id", void 0);
-    __decorate$28([
+    __decorate$29([
         _angular_core.Input(), 
-        __metadata$28('design:type', String)
+        __metadata$29('design:type', String)
     ], MdRadioButton.prototype, "name", void 0);
-    __decorate$28([
+    __decorate$29([
         _angular_core.Input('aria-label'), 
-        __metadata$28('design:type', String)
+        __metadata$29('design:type', String)
     ], MdRadioButton.prototype, "ariaLabel", void 0);
-    __decorate$28([
+    __decorate$29([
         _angular_core.Input('aria-labelledby'), 
-        __metadata$28('design:type', String)
+        __metadata$29('design:type', String)
     ], MdRadioButton.prototype, "ariaLabelledby", void 0);
-    __decorate$28([
+    __decorate$29([
         _angular_core.Input(), 
-        __metadata$28('design:type', Boolean)
+        __metadata$29('design:type', Boolean)
     ], MdRadioButton.prototype, "disableRipple", null);
-    __decorate$28([
+    __decorate$29([
         _angular_core.Output(), 
-        __metadata$28('design:type', _angular_core.EventEmitter)
+        __metadata$29('design:type', _angular_core.EventEmitter)
     ], MdRadioButton.prototype, "change", void 0);
-    __decorate$28([
+    __decorate$29([
         _angular_core.ViewChild('input'), 
-        __metadata$28('design:type', _angular_core.ElementRef)
+        __metadata$29('design:type', _angular_core.ElementRef)
     ], MdRadioButton.prototype, "_inputElement", void 0);
-    __decorate$28([
+    __decorate$29([
         _angular_core.HostBinding('class.md-radio-checked'),
         _angular_core.Input(), 
-        __metadata$28('design:type', Boolean)
+        __metadata$29('design:type', Boolean)
     ], MdRadioButton.prototype, "checked", null);
-    __decorate$28([
+    __decorate$29([
         _angular_core.Input(), 
-        __metadata$28('design:type', Object)
+        __metadata$29('design:type', Object)
     ], MdRadioButton.prototype, "value", null);
-    __decorate$28([
+    __decorate$29([
         _angular_core.Input(), 
-        __metadata$28('design:type', Object)
+        __metadata$29('design:type', Object)
     ], MdRadioButton.prototype, "align", null);
-    __decorate$28([
+    __decorate$29([
         _angular_core.Input(), 
-        __metadata$28('design:type', Object)
+        __metadata$29('design:type', Object)
     ], MdRadioButton.prototype, "labelPosition", null);
-    __decorate$28([
+    __decorate$29([
         _angular_core.HostBinding('class.md-radio-disabled'),
         _angular_core.Input(), 
-        __metadata$28('design:type', Boolean)
+        __metadata$29('design:type', Boolean)
     ], MdRadioButton.prototype, "disabled", null);
-    MdRadioButton = __decorate$28([
+    MdRadioButton = __decorate$29([
         _angular_core.Component({selector: 'md-radio-button, mat-radio-button',
             template: "<label [attr.for]=\"inputId\" class=\"md-radio-label\"><div class=\"md-radio-container\"><div class=\"md-radio-outer-circle\"></div><div class=\"md-radio-inner-circle\"></div><div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"md-radio-ripple\" [mdRippleTrigger]=\"_getHostElement()\" [mdRippleCentered]=\"true\" [mdRippleSpeedFactor]=\"0.3\" mdRippleBackgroundColor=\"rgba(0, 0, 0, 0)\"></div></div><input #input class=\"md-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (focus)=\"_onInputFocus()\" (blur)=\"_onInputBlur()\" (click)=\"_onInputClick($event)\"><div class=\"md-radio-label-content\" [class.md-radio-label-before]=\"labelPosition == 'before'\"><ng-content></ng-content></div></label>",
             styles: ["md-radio-button{display:inline-block}.md-radio-label{cursor:pointer;display:inline-flex;align-items:baseline;white-space:nowrap}.md-radio-container{box-sizing:border-box;display:inline-block;height:20px;position:relative;width:20px;top:2px}.md-radio-inner-circle,.md-radio-outer-circle{box-sizing:border-box;height:20px;left:0;top:0;width:20px;position:absolute}.md-radio-outer-circle{border:2px solid;border-radius:50%;transition:border-color ease 280ms}.md-radio-inner-circle{border-radius:50%;transition:transform ease 280ms,background-color ease 280ms;transform:scale(0)}.md-radio-checked .md-radio-inner-circle{transform:scale(.5)}.md-radio-label-content{display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .md-radio-label-content{padding-right:8px;padding-left:0}.md-radio-label-content.md-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .md-radio-label-content.md-radio-label-before{padding-right:0;padding-left:8px}.md-radio-disabled,.md-radio-disabled .md-radio-label{cursor:default}.md-radio-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none}"],
             encapsulation: _angular_core.ViewEncapsulation.None
         }),
         __param$5(0, _angular_core.Optional()), 
-        __metadata$28('design:paramtypes', [MdRadioGroup, _angular_core.ElementRef, _angular_core.Renderer, UniqueSelectionDispatcher])
+        __metadata$29('design:paramtypes', [MdRadioGroup, _angular_core.ElementRef, _angular_core.Renderer, UniqueSelectionDispatcher])
     ], MdRadioButton);
     return MdRadioButton;
 }());
@@ -5164,146 +5322,15 @@ var MdRadioModule = (function () {
             providers: [UniqueSelectionDispatcher, ViewportRuler],
         };
     };
-    MdRadioModule = __decorate$28([
+    MdRadioModule = __decorate$29([
         _angular_core.NgModule({
             imports: [_angular_common.CommonModule, MdRippleModule, DefaultStyleCompatibilityModeModule],
             exports: [MdRadioGroup, MdRadioButton, DefaultStyleCompatibilityModeModule],
             declarations: [MdRadioGroup, MdRadioButton],
         }), 
-        __metadata$28('design:paramtypes', [])
+        __metadata$29('design:paramtypes', [])
     ], MdRadioModule);
     return MdRadioModule;
-}());
-
-var __decorate$31 = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$31 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-/**
- * Option IDs need to be unique across components, so this counter exists outside of
- * the component definition.
- */
-var _uniqueIdCounter$2 = 0;
-/**
- * Single option inside of a `<md-select>` element.
- */
-var MdOption = (function () {
-    function MdOption(_element, _renderer) {
-        this._element = _element;
-        this._renderer = _renderer;
-        this._selected = false;
-        /** Whether the option is disabled.  */
-        this._disabled = false;
-        this._id = "md-select-option-" + _uniqueIdCounter$2++;
-        /** Event emitted when the option is selected. */
-        this.onSelect = new _angular_core.EventEmitter();
-    }
-    Object.defineProperty(MdOption.prototype, "id", {
-        /** The unique ID of the option. */
-        get: function () { return this._id; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdOption.prototype, "disabled", {
-        /** Whether the option is disabled. */
-        get: function () { return this._disabled; },
-        set: function (value) { this._disabled = coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdOption.prototype, "selected", {
-        /** Whether or not the option is currently selected. */
-        get: function () {
-            return this._selected;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdOption.prototype, "viewValue", {
-        /**
-         * The displayed value of the option. It is necessary to show the selected option in the
-         * select's trigger.
-         */
-        get: function () {
-            // TODO(kara): Add input property alternative for node envs.
-            return this._getHostElement().textContent.trim();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /** Selects the option. */
-    MdOption.prototype.select = function () {
-        this._selected = true;
-        this.onSelect.emit();
-    };
-    /** Deselects the option. */
-    MdOption.prototype.deselect = function () {
-        this._selected = false;
-    };
-    /** Sets focus onto this option. */
-    MdOption.prototype.focus = function () {
-        this._renderer.invokeElementMethod(this._getHostElement(), 'focus');
-    };
-    /** Ensures the option is selected when activated from the keyboard. */
-    MdOption.prototype._handleKeydown = function (event) {
-        if (event.keyCode === ENTER || event.keyCode === SPACE) {
-            this._selectViaInteraction();
-        }
-    };
-    /**
-     * Selects the option while indicating the selection came from the user. Used to
-     * determine if the select's view -> model callback should be invoked.
-     */
-    MdOption.prototype._selectViaInteraction = function () {
-        if (!this.disabled) {
-            this._selected = true;
-            this.onSelect.emit(true);
-        }
-    };
-    /** Returns the correct tabindex for the option depending on disabled state. */
-    MdOption.prototype._getTabIndex = function () {
-        return this.disabled ? '-1' : '0';
-    };
-    MdOption.prototype._getHostElement = function () {
-        return this._element.nativeElement;
-    };
-    __decorate$31([
-        _angular_core.Input(), 
-        __metadata$31('design:type', Object)
-    ], MdOption.prototype, "value", void 0);
-    __decorate$31([
-        _angular_core.Input(), 
-        __metadata$31('design:type', Object)
-    ], MdOption.prototype, "disabled", null);
-    __decorate$31([
-        _angular_core.Output(), 
-        __metadata$31('design:type', Object)
-    ], MdOption.prototype, "onSelect", void 0);
-    MdOption = __decorate$31([
-        _angular_core.Component({selector: 'md-option, mat-option',
-            host: {
-                'role': 'option',
-                '[attr.tabindex]': '_getTabIndex()',
-                '[class.md-selected]': 'selected',
-                '[id]': 'id',
-                '[attr.aria-selected]': 'selected.toString()',
-                '[attr.aria-disabled]': 'disabled.toString()',
-                '[class.md-option-disabled]': 'disabled',
-                '(click)': '_selectViaInteraction()',
-                '(keydown)': '_handleKeydown($event)'
-            },
-            template: "<ng-content></ng-content><div class=\"md-option-ripple\" *ngIf=\"!disabled\" md-ripple mdRippleBackgroundColor=\"rgba(0,0,0,0)\" [mdRippleTrigger]=\"_getHostElement()\"></div>",
-            styles: [".md-select-value,md-option{white-space:nowrap;text-overflow:ellipsis}md-select{display:inline-block;outline:0}.md-select-trigger{display:flex;justify-content:space-between;align-items:center;height:30px;min-width:112px;cursor:pointer;position:relative;box-sizing:border-box}[aria-disabled=true] .md-select-trigger{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;border-bottom:transparent;background-position:0 bottom;cursor:default;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.md-select-placeholder{position:relative;padding:0 2px;transform-origin:left top}.md-select-placeholder.md-floating-placeholder{top:-22px;left:-2px;transform:scale(.75)}[dir=rtl] .md-select-placeholder{transform-origin:right top}[dir=rtl] .md-select-placeholder.md-floating-placeholder{left:2px}[aria-required=true] .md-select-placeholder::after{content:'*'}.md-select-value{position:absolute;overflow-x:hidden;left:0;top:6px}[dir=rtl] .md-select-value{left:auto;right:0}.md-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.md-select-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px}@media screen and (-ms-high-contrast:active){.md-select-panel{outline:solid 1px}.md-option-ripple{opacity:.5}}md-option{overflow-x:hidden;display:flex;flex-direction:row;align-items:center;height:48px;padding:0 16px;font-size:16px;font-family:Roboto,\"Helvetica Neue\",sans-serif;text-align:start;text-decoration:none;position:relative;cursor:pointer;outline:0}md-option[disabled]{cursor:default}md-option md-icon{margin-right:16px}[dir=rtl] md-option md-icon{margin-left:16px}md-option[aria-disabled=true]{cursor:default;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.md-option-ripple{position:absolute;top:0;left:0;bottom:0;right:0}"],
-            encapsulation: _angular_core.ViewEncapsulation.None
-        }), 
-        __metadata$31('design:paramtypes', [_angular_core.ElementRef, _angular_core.Renderer])
-    ], MdOption);
-    return MdOption;
 }());
 
 /**
@@ -5524,13 +5551,13 @@ var fadeInContent = _angular_core.trigger('fadeInContent', [
     ])
 ]);
 
-var __decorate$30 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$31 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$30 = (this && this.__metadata) || function (k, v) {
+var __metadata$31 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$6 = (this && this.__param) || function (paramIndex, decorator) {
@@ -6050,42 +6077,42 @@ var MdSelect = (function () {
         var originY = Math.abs(this._offsetY) - SELECT_OPTION_HEIGHT_ADJUSTMENT + SELECT_OPTION_HEIGHT / 2;
         return "50% " + originY + "px 0px";
     };
-    __decorate$30([
+    __decorate$31([
         _angular_core.ViewChild('trigger'), 
-        __metadata$30('design:type', _angular_core.ElementRef)
+        __metadata$31('design:type', _angular_core.ElementRef)
     ], MdSelect.prototype, "trigger", void 0);
-    __decorate$30([
+    __decorate$31([
         _angular_core.ViewChild(ConnectedOverlayDirective), 
-        __metadata$30('design:type', ConnectedOverlayDirective)
+        __metadata$31('design:type', ConnectedOverlayDirective)
     ], MdSelect.prototype, "overlayDir", void 0);
-    __decorate$30([
+    __decorate$31([
         _angular_core.ContentChildren(MdOption), 
-        __metadata$30('design:type', _angular_core.QueryList)
+        __metadata$31('design:type', _angular_core.QueryList)
     ], MdSelect.prototype, "options", void 0);
-    __decorate$30([
+    __decorate$31([
         _angular_core.Input(), 
-        __metadata$30('design:type', Object)
+        __metadata$31('design:type', Object)
     ], MdSelect.prototype, "placeholder", null);
-    __decorate$30([
+    __decorate$31([
         _angular_core.Input(), 
-        __metadata$30('design:type', Object)
+        __metadata$31('design:type', Object)
     ], MdSelect.prototype, "disabled", null);
-    __decorate$30([
+    __decorate$31([
         _angular_core.Input(), 
-        __metadata$30('design:type', Object)
+        __metadata$31('design:type', Object)
     ], MdSelect.prototype, "required", null);
-    __decorate$30([
+    __decorate$31([
         _angular_core.Output(), 
-        __metadata$30('design:type', Object)
+        __metadata$31('design:type', Object)
     ], MdSelect.prototype, "onOpen", void 0);
-    __decorate$30([
+    __decorate$31([
         _angular_core.Output(), 
-        __metadata$30('design:type', Object)
+        __metadata$31('design:type', Object)
     ], MdSelect.prototype, "onClose", void 0);
-    MdSelect = __decorate$30([
+    MdSelect = __decorate$31([
         _angular_core.Component({selector: 'md-select, mat-select',
             template: "<div class=\"md-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><span class=\"md-select-placeholder\" [class.md-floating-placeholder]=\"this.selected\" [@transformPlaceholder]=\"_placeholderState\" [style.width.px]=\"_selectedValueWidth\">{{ placeholder }} </span><span class=\"md-select-value\" *ngIf=\"selected\">{{ selected?.viewValue }} </span><span class=\"md-select-arrow\"></span></div><template cdk-connected-overlay [origin]=\"origin\" [open]=\"panelOpen\" hasBackdrop (backdropClick)=\"close()\" backdropClass=\"cdk-overlay-transparent-backdrop\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" [offsetX]=\"_offsetX\" (attach)=\"_setScrollTop()\"><div class=\"md-select-panel\" [@transformPanel]=\"'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_keyManager.onKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\"><div class=\"md-select-content\" [@fadeInContent]=\"'showing'\"><ng-content></ng-content></div></div></template>",
-            styles: [".md-select-value,md-option{white-space:nowrap;text-overflow:ellipsis}md-select{display:inline-block;outline:0}.md-select-trigger{display:flex;justify-content:space-between;align-items:center;height:30px;min-width:112px;cursor:pointer;position:relative;box-sizing:border-box}[aria-disabled=true] .md-select-trigger{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;border-bottom:transparent;background-position:0 bottom;cursor:default;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.md-select-placeholder{position:relative;padding:0 2px;transform-origin:left top}.md-select-placeholder.md-floating-placeholder{top:-22px;left:-2px;transform:scale(.75)}[dir=rtl] .md-select-placeholder{transform-origin:right top}[dir=rtl] .md-select-placeholder.md-floating-placeholder{left:2px}[aria-required=true] .md-select-placeholder::after{content:'*'}.md-select-value{position:absolute;overflow-x:hidden;left:0;top:6px}[dir=rtl] .md-select-value{left:auto;right:0}.md-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.md-select-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px}@media screen and (-ms-high-contrast:active){.md-select-panel{outline:solid 1px}.md-option-ripple{opacity:.5}}md-option{overflow-x:hidden;display:flex;flex-direction:row;align-items:center;height:48px;padding:0 16px;font-size:16px;font-family:Roboto,\"Helvetica Neue\",sans-serif;text-align:start;text-decoration:none;position:relative;cursor:pointer;outline:0}md-option[disabled]{cursor:default}md-option md-icon{margin-right:16px}[dir=rtl] md-option md-icon{margin-left:16px}md-option[aria-disabled=true]{cursor:default;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.md-option-ripple{position:absolute;top:0;left:0;bottom:0;right:0}"],
+            styles: ["md-select{display:inline-block;outline:0}.md-select-trigger{display:flex;justify-content:space-between;align-items:center;height:30px;min-width:112px;cursor:pointer;position:relative;box-sizing:border-box}[aria-disabled=true] .md-select-trigger{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;border-bottom:transparent;background-position:0 bottom;cursor:default;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.md-select-placeholder{position:relative;padding:0 2px;transform-origin:left top}.md-select-placeholder.md-floating-placeholder{top:-22px;left:-2px;transform:scale(.75)}[dir=rtl] .md-select-placeholder{transform-origin:right top}[dir=rtl] .md-select-placeholder.md-floating-placeholder{left:2px}[aria-required=true] .md-select-placeholder::after{content:'*'}.md-select-value{position:absolute;white-space:nowrap;overflow-x:hidden;text-overflow:ellipsis;left:0;top:6px}[dir=rtl] .md-select-value{left:auto;right:0}.md-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.md-select-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px}@media screen and (-ms-high-contrast:active){.md-select-panel{outline:solid 1px}}"],
             encapsulation: _angular_core.ViewEncapsulation.None,
             host: {
                 'role': 'listbox',
@@ -6108,7 +6135,7 @@ var MdSelect = (function () {
         }),
         __param$6(3, _angular_core.Optional()),
         __param$6(4, _angular_core.Optional()), 
-        __metadata$30('design:paramtypes', [_angular_core.ElementRef, _angular_core.Renderer, ViewportRuler, Dir, _angular_forms.NgControl])
+        __metadata$31('design:paramtypes', [_angular_core.ElementRef, _angular_core.Renderer, ViewportRuler, Dir, _angular_forms.NgControl])
     ], MdSelect);
     return MdSelect;
 }());
@@ -6117,13 +6144,13 @@ function clampValue(min, n, max) {
     return Math.min(Math.max(min, n), max);
 }
 
-var __decorate$29 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$30 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$29 = (this && this.__metadata) || function (k, v) {
+var __metadata$30 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var MdSelectModule = (function () {
@@ -6135,13 +6162,13 @@ var MdSelectModule = (function () {
             providers: [OVERLAY_PROVIDERS]
         };
     };
-    MdSelectModule = __decorate$29([
+    MdSelectModule = __decorate$30([
         _angular_core.NgModule({
-            imports: [_angular_common.CommonModule, OverlayModule, MdRippleModule, DefaultStyleCompatibilityModeModule],
-            exports: [MdSelect, MdOption, DefaultStyleCompatibilityModeModule],
-            declarations: [MdSelect, MdOption],
+            imports: [_angular_common.CommonModule, OverlayModule, MdOptionModule, DefaultStyleCompatibilityModeModule],
+            exports: [MdSelect, MdOptionModule, DefaultStyleCompatibilityModeModule],
+            declarations: [MdSelect],
         }), 
-        __metadata$29('design:paramtypes', [])
+        __metadata$30('design:paramtypes', [])
     ], MdSelectModule);
     return MdSelectModule;
 }());
@@ -14109,15 +14136,136 @@ var __metadata$70 = (this && this.__metadata) || function (k, v) {
 var MdAutocomplete = (function () {
     function MdAutocomplete() {
     }
+    __decorate$70([
+        _angular_core.ViewChild(_angular_core.TemplateRef), 
+        __metadata$70('design:type', _angular_core.TemplateRef)
+    ], MdAutocomplete.prototype, "template", void 0);
+    __decorate$70([
+        _angular_core.ContentChildren(MdOption), 
+        __metadata$70('design:type', _angular_core.QueryList)
+    ], MdAutocomplete.prototype, "options", void 0);
     MdAutocomplete = __decorate$70([
         _angular_core.Component({selector: 'md-autocomplete, mat-autocomplete',
-            template: "I'm an autocomplete!",
-            styles: [""],
+            template: "<template><div class=\"md-autocomplete-panel\"><ng-content></ng-content></div></template>",
+            styles: [".md-autocomplete-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch}"],
             encapsulation: _angular_core.ViewEncapsulation.None,
+            exportAs: 'mdAutocomplete'
         }), 
         __metadata$70('design:paramtypes', [])
     ], MdAutocomplete);
     return MdAutocomplete;
+}());
+
+var __decorate$71 = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$71 = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+/** The panel needs a slight y-offset to ensure the input underline displays. */
+var MD_AUTOCOMPLETE_PANEL_OFFSET = 6;
+var MdAutocompleteTrigger = (function () {
+    function MdAutocompleteTrigger(_element, _overlay, _viewContainerRef) {
+        this._element = _element;
+        this._overlay = _overlay;
+        this._viewContainerRef = _viewContainerRef;
+        this._panelOpen = false;
+    }
+    MdAutocompleteTrigger.prototype.ngOnDestroy = function () { this._destroyPanel(); };
+    Object.defineProperty(MdAutocompleteTrigger.prototype, "panelOpen", {
+        /* Whether or not the autocomplete panel is open. */
+        get: function () {
+            return this._panelOpen;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /** Opens the autocomplete suggestion panel. */
+    MdAutocompleteTrigger.prototype.openPanel = function () {
+        var _this = this;
+        if (!this._overlayRef) {
+            this._createOverlay();
+        }
+        if (!this._overlayRef.hasAttached()) {
+            this._overlayRef.attach(this._portal);
+            this._closingActionsSubscription =
+                this.panelClosingActions.subscribe(function () { return _this.closePanel(); });
+        }
+        this._panelOpen = true;
+    };
+    /** Closes the autocomplete suggestion panel. */
+    MdAutocompleteTrigger.prototype.closePanel = function () {
+        if (this._overlayRef && this._overlayRef.hasAttached()) {
+            this._overlayRef.detach();
+        }
+        this._closingActionsSubscription.unsubscribe();
+        this._panelOpen = false;
+    };
+    Object.defineProperty(MdAutocompleteTrigger.prototype, "panelClosingActions", {
+        /**
+         * A stream of actions that should close the autocomplete panel, including
+         * when an option is selected and when the backdrop is clicked.
+         */
+        get: function () {
+            // TODO(kara): add tab event observable with keyboard event PR
+            return rxjs_Observable.Observable.merge.apply(rxjs_Observable.Observable, this.optionSelections.concat([this._overlayRef.backdropClick()]));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdAutocompleteTrigger.prototype, "optionSelections", {
+        /** Stream of autocomplete option selections. */
+        get: function () {
+            return this.autocomplete.options.map(function (option) { return option.onSelect; });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /** Destroys the autocomplete suggestion panel. */
+    MdAutocompleteTrigger.prototype._destroyPanel = function () {
+        if (this._overlayRef) {
+            this.closePanel();
+            this._overlayRef.dispose();
+            this._overlayRef = null;
+        }
+    };
+    MdAutocompleteTrigger.prototype._createOverlay = function () {
+        this._portal = new TemplatePortal(this.autocomplete.template, this._viewContainerRef);
+        this._overlayRef = this._overlay.create(this._getOverlayConfig());
+    };
+    MdAutocompleteTrigger.prototype._getOverlayConfig = function () {
+        var overlayState = new OverlayState();
+        overlayState.positionStrategy = this._getOverlayPosition();
+        overlayState.width = this._getHostWidth();
+        overlayState.hasBackdrop = true;
+        overlayState.backdropClass = 'md-overlay-transparent-backdrop';
+        return overlayState;
+    };
+    MdAutocompleteTrigger.prototype._getOverlayPosition = function () {
+        return this._overlay.position().connectedTo(this._element, { originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' })
+            .withOffsetY(MD_AUTOCOMPLETE_PANEL_OFFSET);
+    };
+    /** Returns the width of the input element, so the panel width can match it. */
+    MdAutocompleteTrigger.prototype._getHostWidth = function () {
+        return this._element.nativeElement.getBoundingClientRect().width;
+    };
+    __decorate$71([
+        _angular_core.Input('mdAutocomplete'), 
+        __metadata$71('design:type', MdAutocomplete)
+    ], MdAutocompleteTrigger.prototype, "autocomplete", void 0);
+    MdAutocompleteTrigger = __decorate$71([
+        _angular_core.Directive({
+            selector: 'input[mdAutocomplete], input[matAutocomplete]',
+            host: {
+                '(focus)': 'openPanel()'
+            }
+        }), 
+        __metadata$71('design:paramtypes', [_angular_core.ElementRef, Overlay, _angular_core.ViewContainerRef])
+    ], MdAutocompleteTrigger);
+    return MdAutocompleteTrigger;
 }());
 
 var __decorate$69 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -14135,27 +14283,29 @@ var MdAutocompleteModule = (function () {
     MdAutocompleteModule.forRoot = function () {
         return {
             ngModule: MdAutocompleteModule,
-            providers: []
+            providers: [OVERLAY_PROVIDERS]
         };
     };
     MdAutocompleteModule = __decorate$69([
         _angular_core.NgModule({
-            imports: [DefaultStyleCompatibilityModeModule],
-            exports: [MdAutocomplete, DefaultStyleCompatibilityModeModule],
-            declarations: [MdAutocomplete],
+            imports: [MdOptionModule, OverlayModule, DefaultStyleCompatibilityModeModule],
+            exports: [
+                MdAutocomplete, MdOptionModule, MdAutocompleteTrigger, DefaultStyleCompatibilityModeModule
+            ],
+            declarations: [MdAutocomplete, MdAutocompleteTrigger],
         }), 
         __metadata$69('design:paramtypes', [])
     ], MdAutocompleteModule);
     return MdAutocompleteModule;
 }());
 
-var __decorate$24 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$25 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$24 = (this && this.__metadata) || function (k, v) {
+var __metadata$25 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var MATERIAL_MODULES = [
@@ -14195,7 +14345,7 @@ var MATERIAL_MODULES = [
 var MaterialRootModule = (function () {
     function MaterialRootModule() {
     }
-    MaterialRootModule = __decorate$24([
+    MaterialRootModule = __decorate$25([
         _angular_core.NgModule({
             imports: [
                 MdAutocompleteModule.forRoot(),
@@ -14234,7 +14384,7 @@ var MaterialRootModule = (function () {
             ],
             exports: MATERIAL_MODULES,
         }), 
-        __metadata$24('design:paramtypes', [])
+        __metadata$25('design:paramtypes', [])
     ], MaterialRootModule);
     return MaterialRootModule;
 }());
@@ -14244,12 +14394,12 @@ var MaterialModule = (function () {
     MaterialModule.forRoot = function () {
         return { ngModule: MaterialRootModule };
     };
-    MaterialModule = __decorate$24([
+    MaterialModule = __decorate$25([
         _angular_core.NgModule({
             imports: MATERIAL_MODULES,
             exports: MATERIAL_MODULES,
         }), 
-        __metadata$24('design:paramtypes', [])
+        __metadata$25('design:paramtypes', [])
     ], MaterialModule);
     return MaterialModule;
 }());
@@ -14259,6 +14409,8 @@ exports.Dir = Dir;
 exports.RtlModule = RtlModule;
 exports.ObserveContentModule = ObserveContentModule;
 exports.ObserveContent = ObserveContent;
+exports.MdOptionModule = MdOptionModule;
+exports.MdOption = MdOption;
 exports.Portal = Portal;
 exports.BasePortalHost = BasePortalHost;
 exports.ComponentPortal = ComponentPortal;
@@ -14408,7 +14560,6 @@ exports.MdRadioGroup = MdRadioGroup;
 exports.MdRadioButton = MdRadioButton;
 exports.MdRadioModule = MdRadioModule;
 exports.MdSelectModule = MdSelectModule;
-exports.MdOption = MdOption;
 exports.fadeInContent = fadeInContent;
 exports.transformPanel = transformPanel;
 exports.transformPlaceholder = transformPlaceholder;

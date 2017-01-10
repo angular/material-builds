@@ -1,5 +1,5 @@
 import { AfterContentInit, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer } from '@angular/core';
-import { MdOption } from './option';
+import { MdOption } from '../core/option/option';
 import { ListKeyManager } from '../core/a11y/list-key-manager';
 import { Dir } from '../core/rtl/dir';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
