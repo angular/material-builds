@@ -10363,8 +10363,12 @@ var MdInputDirective = (function () {
     }
     Object.defineProperty(MdInputDirective.prototype, "disabled", {
         /** Whether the element is disabled. */
-        get: function () { return this._disabled; },
-        set: function (value) { this._disabled = coerceBooleanProperty(value); },
+        get: function () {
+            return this._ngControl ? this._ngControl.disabled : this._disabled;
+        },
+        set: function (value) {
+            this._disabled = coerceBooleanProperty(value);
+        },
         enumerable: true,
         configurable: true
     });
