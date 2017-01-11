@@ -3,7 +3,7 @@
  * It should be provided in the root component to ensure it is properly shared.
  */
 export declare class OverlayContainer {
-    private _containerElement;
+    protected _containerElement: HTMLElement;
     /**
      * This method returns the overlay container element.  It will lazily
      * create the element the first time  it is called to facilitate using
@@ -15,5 +15,5 @@ export declare class OverlayContainer {
      * Create the overlay container element, which is simply a div
      * with the 'cdk-overlay-container' class on the document body.
      */
-    private _createContainer();
+    protected _createContainer(): void;
 }
