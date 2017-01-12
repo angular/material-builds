@@ -13,9 +13,9 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 import { Component, ContentChildren, Directive, ElementRef, Renderer, EventEmitter, HostBinding, Input, Optional, Output, QueryList, ViewEncapsulation, forwardRef, NgModule, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MdRippleModule, UniqueSelectionDispatcher, DefaultStyleCompatibilityModeModule } from '../core';
+import { MdRippleModule, UniqueSelectionDispatcher, DefaultStyleCompatibilityModeModule, UNIQUE_SELECTION_DISPATCHER_PROVIDER } from '../core';
 import { coerceBooleanProperty } from '../core/coercion/boolean-property';
-import { ViewportRuler } from '../core/overlay/position/viewport-ruler';
+import { VIEWPORT_RULER_PROVIDER } from '../core/overlay/position/viewport-ruler';
 /**
  * Provider Expression that allows md-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
@@ -532,16 +532,18 @@ export var MdRadioButton = (function () {
 export var MdRadioModule = (function () {
     function MdRadioModule() {
     }
+    /** @deprecated */
     MdRadioModule.forRoot = function () {
         return {
             ngModule: MdRadioModule,
-            providers: [UniqueSelectionDispatcher, ViewportRuler],
+            providers: [],
         };
     };
     MdRadioModule = __decorate([
         NgModule({
             imports: [CommonModule, MdRippleModule, DefaultStyleCompatibilityModeModule],
             exports: [MdRadioGroup, MdRadioButton, DefaultStyleCompatibilityModeModule],
+            providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, VIEWPORT_RULER_PROVIDER],
             declarations: [MdRadioGroup, MdRadioButton],
         }), 
         __metadata('design:paramtypes', [])

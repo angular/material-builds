@@ -49,6 +49,7 @@ var MatPrefixEnforcer = (function () {
 var DefaultStyleCompatibilityModeModule = (function () {
     function DefaultStyleCompatibilityModeModule() {
     }
+    /** @deprecated */
     DefaultStyleCompatibilityModeModule.forRoot = function () {
         return {
             ngModule: DefaultStyleCompatibilityModeModule,
@@ -208,6 +209,7 @@ var Dir = (function () {
 var RtlModule = (function () {
     function RtlModule() {
     }
+    /** @deprecated */
     RtlModule.forRoot = function () {
         return {
             ngModule: RtlModule,
@@ -272,6 +274,7 @@ var ObserveContent = (function () {
 var ObserveContentModule = (function () {
     function ObserveContentModule() {
     }
+    /** @deprecated */
     ObserveContentModule.forRoot = function () {
         return {
             ngModule: ObserveContentModule,
@@ -552,6 +555,16 @@ var ViewportRuler = (function () {
     ], ViewportRuler);
     return ViewportRuler;
 }());
+function VIEWPORT_RULER_PROVIDER_FACTORY(parentDispatcher) {
+    return parentDispatcher || new ViewportRuler();
+}
+
+var VIEWPORT_RULER_PROVIDER = {
+    // If there is already a ViewportRuler available, use that. Otherwise, provide a new one.
+    provide: ViewportRuler,
+    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), ViewportRuler]],
+    useFactory: VIEWPORT_RULER_PROVIDER_FACTORY
+};
 
 var __decorate$6 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -826,10 +839,11 @@ var MdRipple = (function () {
 var MdRippleModule = (function () {
     function MdRippleModule() {
     }
+    /** @deprecated */
     MdRippleModule.forRoot = function () {
         return {
             ngModule: MdRippleModule,
-            providers: [ViewportRuler]
+            providers: []
         };
     };
     MdRippleModule = __decorate$6([
@@ -837,6 +851,7 @@ var MdRippleModule = (function () {
             imports: [DefaultStyleCompatibilityModeModule],
             exports: [MdRipple, DefaultStyleCompatibilityModeModule],
             declarations: [MdRipple],
+            providers: [VIEWPORT_RULER_PROVIDER],
         }), 
         __metadata$6('design:paramtypes', [])
     ], MdRippleModule);
@@ -1366,6 +1381,7 @@ var PortalHostDirective = (function (_super) {
 var PortalModule = (function () {
     function PortalModule() {
     }
+    /** @deprecated */
     PortalModule.forRoot = function () {
         return {
             ngModule: PortalModule,
@@ -2236,6 +2252,16 @@ var OverlayContainer = (function () {
     ], OverlayContainer);
     return OverlayContainer;
 }());
+function OVERLAY_CONTAINER_PROVIDER_FACTORY(parentContainer) {
+    return parentContainer || new OverlayContainer();
+}
+
+var OVERLAY_CONTAINER_PROVIDER = {
+    // If there is already an OverlayContainer available, use that. Otherwise, provide a new one.
+    provide: OverlayContainer,
+    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), OverlayContainer]],
+    useFactory: OVERLAY_CONTAINER_PROVIDER_FACTORY
+};
 
 var __decorate$14 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2325,6 +2351,16 @@ var ScrollDispatcher = (function () {
     ], ScrollDispatcher);
     return ScrollDispatcher;
 }());
+function SCROLL_DISPATCHER_PROVIDER_FACTORY(parentDispatcher) {
+    return parentDispatcher || new ScrollDispatcher();
+}
+
+var SCROLL_DISPATCHER_PROVIDER = {
+    // If there is already a ScrollDispatcher available, use that. Otherwise, provide a new one.
+    provide: ScrollDispatcher,
+    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), ScrollDispatcher]],
+    useFactory: SCROLL_DISPATCHER_PROVIDER_FACTORY
+};
 
 var __decorate$10 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2407,11 +2443,11 @@ var Overlay = (function () {
 }());
 /** Providers for Overlay and its related injectables. */
 var OVERLAY_PROVIDERS = [
-    ViewportRuler,
-    OverlayPositionBuilder,
     Overlay,
-    OverlayContainer,
-    ScrollDispatcher,
+    OverlayPositionBuilder,
+    VIEWPORT_RULER_PROVIDER,
+    SCROLL_DISPATCHER_PROVIDER,
+    OVERLAY_CONTAINER_PROVIDER,
 ];
 
 var __decorate$15 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2746,10 +2782,11 @@ var ConnectedOverlayDirective = (function () {
 var OverlayModule = (function () {
     function OverlayModule() {
     }
+    /** @deprecated */
     OverlayModule.forRoot = function () {
         return {
             ngModule: OverlayModule,
-            providers: OVERLAY_PROVIDERS,
+            providers: [],
         };
     };
     OverlayModule = __decorate$9([
@@ -2757,6 +2794,7 @@ var OverlayModule = (function () {
             imports: [PortalModule],
             exports: [ConnectedOverlayDirective, OverlayOrigin, Scrollable],
             declarations: [ConnectedOverlayDirective, OverlayOrigin, Scrollable],
+            providers: [OVERLAY_PROVIDERS],
         }), 
         __metadata$9('design:paramtypes', [])
     ], OverlayModule);
@@ -3201,6 +3239,19 @@ var LiveAnnouncer = (function () {
     ], LiveAnnouncer);
     return LiveAnnouncer;
 }());
+function LIVE_ANNOUNCER_PROVIDER_FACTORY(parentDispatcher, liveElement) {
+    return parentDispatcher || new LiveAnnouncer(liveElement);
+}
+
+var LIVE_ANNOUNCER_PROVIDER = {
+    // If there is already a LiveAnnouncer available, use that. Otherwise, provide a new one.
+    provide: LiveAnnouncer,
+    deps: [
+        [new _angular_core.Optional(), new _angular_core.SkipSelf(), LiveAnnouncer],
+        [new _angular_core.Optional(), new _angular_core.Inject(LIVE_ANNOUNCER_ELEMENT_TOKEN)]
+    ],
+    useFactory: LIVE_ANNOUNCER_PROVIDER_FACTORY
+};
 
 var supportedInputTypes;
 /** @returns The input types supported by this browser. */
@@ -3250,14 +3301,17 @@ var __metadata$21 = (this && this.__metadata) || function (k, v) {
 var PlatformModule = (function () {
     function PlatformModule() {
     }
+    /** @deprecated */
     PlatformModule.forRoot = function () {
         return {
             ngModule: PlatformModule,
-            providers: [Platform],
+            providers: [],
         };
     };
     PlatformModule = __decorate$21([
-        _angular_core.NgModule({}), 
+        _angular_core.NgModule({
+            providers: [Platform]
+        }), 
         __metadata$21('design:paramtypes', [])
     ], PlatformModule);
     return PlatformModule;
@@ -3272,17 +3326,14 @@ var __decorate$16 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$16 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var A11Y_PROVIDERS = [LiveAnnouncer, InteractivityChecker];
 var A11yModule = (function () {
     function A11yModule() {
     }
+    /** @deprecated */
     A11yModule.forRoot = function () {
         return {
             ngModule: A11yModule,
-            providers: [
-                PlatformModule.forRoot().providers,
-                A11Y_PROVIDERS,
-            ],
+            providers: [],
         };
     };
     A11yModule = __decorate$16([
@@ -3290,6 +3341,7 @@ var A11yModule = (function () {
             imports: [_angular_common.CommonModule, PlatformModule],
             declarations: [FocusTrap],
             exports: [FocusTrap],
+            providers: [InteractivityChecker, LIVE_ANNOUNCER_PROVIDER]
         }), 
         __metadata$16('design:paramtypes', [])
     ], A11yModule);
@@ -3389,16 +3441,17 @@ var DomProjection = (function () {
 var ProjectionModule = (function () {
     function ProjectionModule() {
     }
+    /** @deprecated */
     ProjectionModule.forRoot = function () {
         return {
             ngModule: ProjectionModule,
-            providers: [DomProjection]
         };
     };
     ProjectionModule = __decorate$22([
         _angular_core.NgModule({
             exports: [DomProjectionHost],
             declarations: [DomProjectionHost],
+            providers: [DomProjection],
         }), 
         __metadata$22('design:paramtypes', [])
     ], ProjectionModule);
@@ -3615,6 +3668,15 @@ var UniqueSelectionDispatcher = (function () {
     ], UniqueSelectionDispatcher);
     return UniqueSelectionDispatcher;
 }());
+function UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY(parentDispatcher) {
+    return parentDispatcher || new UniqueSelectionDispatcher();
+}
+var UNIQUE_SELECTION_DISPATCHER_PROVIDER = {
+    // If there is already a dispatcher available, use that. Otherwise, provide a new one.
+    provide: UniqueSelectionDispatcher,
+    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), UniqueSelectionDispatcher]],
+    useFactory: UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY
+};
 
 /**
  * Applies a CSS transform to an element, including browser-prefixed properties.
@@ -3683,6 +3745,7 @@ var MdPrefixEnforcer = (function () {
 var NoConflictStyleCompatibilityMode = (function () {
     function NoConflictStyleCompatibilityMode() {
     }
+    /** @deprecated */
     NoConflictStyleCompatibilityMode.forRoot = function () {
         return {
             ngModule: NoConflictStyleCompatibilityMode,
@@ -3714,10 +3777,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var MdCoreModule = (function () {
     function MdCoreModule() {
     }
+    /** @deprecated */
     MdCoreModule.forRoot = function () {
         return {
             ngModule: MdCoreModule,
-            providers: [A11Y_PROVIDERS, OVERLAY_PROVIDERS],
+            providers: [],
         };
     };
     MdCoreModule = __decorate([
@@ -4230,10 +4294,11 @@ var MdButtonToggle = (function () {
 var MdButtonToggleModule = (function () {
     function MdButtonToggleModule() {
     }
+    /** @deprecated */
     MdButtonToggleModule.forRoot = function () {
         return {
             ngModule: MdButtonToggleModule,
-            providers: [UniqueSelectionDispatcher]
+            providers: []
         };
     };
     MdButtonToggleModule = __decorate$28([
@@ -4246,6 +4311,7 @@ var MdButtonToggleModule = (function () {
                 DefaultStyleCompatibilityModeModule,
             ],
             declarations: [MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle],
+            providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER]
         }), 
         __metadata$28('design:paramtypes', [])
     ], MdButtonToggleModule);
@@ -4433,10 +4499,11 @@ var MdAnchor = (function (_super) {
 var MdButtonModule = (function () {
     function MdButtonModule() {
     }
+    /** @deprecated */
     MdButtonModule.forRoot = function () {
         return {
             ngModule: MdButtonModule,
-            providers: [ViewportRuler]
+            providers: []
         };
     };
     MdButtonModule = __decorate$29([
@@ -4858,10 +4925,11 @@ var MdCheckbox = (function () {
 var MdCheckboxModule = (function () {
     function MdCheckboxModule() {
     }
+    /** @deprecated */
     MdCheckboxModule.forRoot = function () {
         return {
             ngModule: MdCheckboxModule,
-            providers: [ViewportRuler]
+            providers: []
         };
     };
     MdCheckboxModule = __decorate$30([
@@ -5403,16 +5471,18 @@ var MdRadioButton = (function () {
 var MdRadioModule = (function () {
     function MdRadioModule() {
     }
+    /** @deprecated */
     MdRadioModule.forRoot = function () {
         return {
             ngModule: MdRadioModule,
-            providers: [UniqueSelectionDispatcher, ViewportRuler],
+            providers: [],
         };
     };
     MdRadioModule = __decorate$31([
         _angular_core.NgModule({
             imports: [_angular_common.CommonModule, MdRippleModule, DefaultStyleCompatibilityModeModule],
             exports: [MdRadioGroup, MdRadioButton, DefaultStyleCompatibilityModeModule],
+            providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, VIEWPORT_RULER_PROVIDER],
             declarations: [MdRadioGroup, MdRadioButton],
         }), 
         __metadata$31('design:paramtypes', [])
@@ -6243,10 +6313,11 @@ var __metadata$32 = (this && this.__metadata) || function (k, v) {
 var MdSelectModule = (function () {
     function MdSelectModule() {
     }
+    /** @deprecated */
     MdSelectModule.forRoot = function () {
         return {
             ngModule: MdSelectModule,
-            providers: [OVERLAY_PROVIDERS]
+            providers: []
         };
     };
     MdSelectModule = __decorate$32([
@@ -6584,10 +6655,11 @@ var SlideToggleRenderer = (function () {
 var MdSlideToggleModule = (function () {
     function MdSlideToggleModule() {
     }
+    /** @deprecated */
     MdSlideToggleModule.forRoot = function () {
         return {
             ngModule: MdSlideToggleModule,
-            providers: [{ provide: _angular_platformBrowser.HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
+            providers: []
         };
     };
     MdSlideToggleModule = __decorate$34([
@@ -6595,6 +6667,7 @@ var MdSlideToggleModule = (function () {
             imports: [_angular_forms.FormsModule, DefaultStyleCompatibilityModeModule],
             exports: [MdSlideToggle, DefaultStyleCompatibilityModeModule],
             declarations: [MdSlideToggle],
+            providers: [{ provide: _angular_platformBrowser.HAMMER_GESTURE_CONFIG, useClass: GestureConfig }],
         }), 
         __metadata$34('design:paramtypes', [])
     ], MdSlideToggleModule);
@@ -7207,10 +7280,11 @@ var SliderRenderer = (function () {
 var MdSliderModule = (function () {
     function MdSliderModule() {
     }
+    /** @deprecated */
     MdSliderModule.forRoot = function () {
         return {
             ngModule: MdSliderModule,
-            providers: [{ provide: _angular_platformBrowser.HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
+            providers: []
         };
     };
     MdSliderModule = __decorate$35([
@@ -7218,9 +7292,7 @@ var MdSliderModule = (function () {
             imports: [_angular_common.CommonModule, _angular_forms.FormsModule, DefaultStyleCompatibilityModeModule],
             exports: [MdSlider, DefaultStyleCompatibilityModeModule],
             declarations: [MdSlider],
-            providers: [
-                { provide: _angular_platformBrowser.HAMMER_GESTURE_CONFIG, useClass: GestureConfig },
-            ],
+            providers: [{ provide: _angular_platformBrowser.HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
         }), 
         __metadata$35('design:paramtypes', [])
     ], MdSliderModule);
@@ -7781,10 +7853,11 @@ var MdSidenavContainer = (function () {
 var MdSidenavModule = (function () {
     function MdSidenavModule() {
     }
+    /** @deprecated */
     MdSidenavModule.forRoot = function () {
         return {
             ngModule: MdSidenavModule,
-            providers: [InteractivityChecker]
+            providers: []
         };
     };
     MdSidenavModule = __decorate$36([
@@ -7890,6 +7963,7 @@ var MdListItem = (function () {
 var MdListModule = (function () {
     function MdListModule() {
     }
+    /** @deprecated */
     MdListModule.forRoot = function () {
         return {
             ngModule: MdListModule,
@@ -8516,6 +8590,7 @@ var MdGridList = (function () {
 var MdGridListModule = (function () {
     function MdGridListModule() {
     }
+    /** @deprecated */
     MdGridListModule.forRoot = function () {
         return {
             ngModule: MdGridListModule,
@@ -8680,6 +8755,7 @@ var MdCardTitleGroup = (function () {
 var MdCardModule = (function () {
     function MdCardModule() {
     }
+    /** @deprecated */
     MdCardModule.forRoot = function () {
         return {
             ngModule: MdCardModule,
@@ -9071,6 +9147,7 @@ var MdChipList = (function () {
 var MdChipsModule = (function () {
     function MdChipsModule() {
     }
+    /** @deprecated */
     MdChipsModule.forRoot = function () {
         return {
             ngModule: MdChipsModule,
@@ -9725,13 +9802,24 @@ var MdIcon = (function () {
     ], MdIcon);
     return MdIcon;
 }());
+function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, http, sanitizer) {
+    return parentRegistry || new MdIconRegistry(http, sanitizer);
+}
+
+var ICON_REGISTRY_PROVIDER = {
+    // If there is already an MdIconRegistry available, use that. Otherwise, provide a new one.
+    provide: MdIconRegistry,
+    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), MdIconRegistry], _angular_http.Http, _angular_platformBrowser.DomSanitizer],
+    useFactory: ICON_REGISTRY_PROVIDER_FACTORY,
+};
 var MdIconModule = (function () {
     function MdIconModule() {
     }
+    /** @deprecated */
     MdIconModule.forRoot = function () {
         return {
             ngModule: MdIconModule,
-            providers: [MdIconRegistry],
+            providers: [],
         };
     };
     MdIconModule = __decorate$43([
@@ -9739,6 +9827,7 @@ var MdIconModule = (function () {
             imports: [_angular_http.HttpModule, DefaultStyleCompatibilityModeModule],
             exports: [MdIcon, DefaultStyleCompatibilityModeModule],
             declarations: [MdIcon],
+            providers: [ICON_REGISTRY_PROVIDER],
         }), 
         __metadata$43('design:paramtypes', [])
     ], MdIconModule);
@@ -10086,6 +10175,7 @@ function getSvgArc(currentValue, rotation) {
 var MdProgressSpinnerModule = (function () {
     function MdProgressSpinnerModule() {
     }
+    /** @deprecated */
     MdProgressSpinnerModule.forRoot = function () {
         return {
             ngModule: MdProgressSpinnerModule,
@@ -10208,6 +10298,7 @@ function clamp$1(v, min, max) {
 var MdProgressBarModule = (function () {
     function MdProgressBarModule() {
     }
+    /** @deprecated */
     MdProgressBarModule.forRoot = function () {
         return {
             ngModule: MdProgressBarModule,
@@ -11245,10 +11336,11 @@ var MdInput = (function () {
 var MdInputModule = (function () {
     function MdInputModule() {
     }
+    /** @deprecated */
     MdInputModule.forRoot = function () {
         return {
             ngModule: MdInputModule,
-            providers: PlatformModule.forRoot().providers,
+            providers: [],
         };
     };
     MdInputModule = __decorate$48([
@@ -11576,14 +11668,35 @@ var __decorate$50 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$50 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param$11 = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 /**
  * Service to dispatch Material Design snack bar messages.
  */
 var MdSnackBar = (function () {
-    function MdSnackBar(_overlay, _live) {
+    function MdSnackBar(_overlay, _live, _parentSnackBar) {
         this._overlay = _overlay;
         this._live = _live;
+        this._parentSnackBar = _parentSnackBar;
     }
+    Object.defineProperty(MdSnackBar.prototype, "_openedSnackBarRef", {
+        /** Reference to the currently opened snackbar at *any* level. */
+        get: function () {
+            return this._parentSnackBar ?
+                this._parentSnackBar._openedSnackBarRef : this._snackBarRefAtThisLevel;
+        },
+        set: function (value) {
+            if (this._parentSnackBar) {
+                this._parentSnackBar._openedSnackBarRef = value;
+            }
+            else {
+                this._snackBarRefAtThisLevel = value;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * Creates and dispatches a snack bar with a custom component for the content, removing any
      * currently opened snack bars.
@@ -11600,17 +11713,17 @@ var MdSnackBar = (function () {
         // When the snackbar is dismissed, clear the reference to it.
         snackBarRef.afterDismissed().subscribe(function () {
             // Clear the snackbar ref if it hasn't already been replaced by a newer snackbar.
-            if (_this._snackBarRef == snackBarRef) {
-                _this._snackBarRef = null;
+            if (_this._openedSnackBarRef == snackBarRef) {
+                _this._openedSnackBarRef = null;
             }
         });
         // If a snack bar is already in view, dismiss it and enter the new snack bar after exit
         // animation is complete.
-        if (this._snackBarRef) {
-            this._snackBarRef.afterDismissed().subscribe(function () {
+        if (this._openedSnackBarRef) {
+            this._openedSnackBarRef.afterDismissed().subscribe(function () {
                 snackBarRef.containerInstance.enter();
             });
-            this._snackBarRef.dismiss();
+            this._openedSnackBarRef.dismiss();
         }
         else {
             snackBarRef.containerInstance.enter();
@@ -11622,8 +11735,8 @@ var MdSnackBar = (function () {
             });
         }
         this._live.announce(config.announcementMessage, config.politeness);
-        this._snackBarRef = snackBarRef;
-        return this._snackBarRef;
+        this._openedSnackBarRef = snackBarRef;
+        return this._openedSnackBarRef;
     };
     /**
      * Opens a snackbar with a message and an optional action.
@@ -11669,8 +11782,10 @@ var MdSnackBar = (function () {
         return this._overlay.create(state$$1);
     };
     MdSnackBar = __decorate$50([
-        _angular_core.Injectable(), 
-        __metadata$50('design:paramtypes', [Overlay, LiveAnnouncer])
+        _angular_core.Injectable(),
+        __param$11(2, _angular_core.Optional()),
+        __param$11(2, _angular_core.SkipSelf()), 
+        __metadata$50('design:paramtypes', [Overlay, LiveAnnouncer, MdSnackBar])
     ], MdSnackBar);
     return MdSnackBar;
 }());
@@ -11685,10 +11800,11 @@ function _applyConfigDefaults(config) {
 var MdSnackBarModule = (function () {
     function MdSnackBarModule() {
     }
+    /** @deprecated */
     MdSnackBarModule.forRoot = function () {
         return {
             ngModule: MdSnackBarModule,
-            providers: [MdSnackBar, OVERLAY_PROVIDERS, LiveAnnouncer]
+            providers: []
         };
     };
     MdSnackBarModule = __decorate$50([
@@ -11697,6 +11813,7 @@ var MdSnackBarModule = (function () {
             exports: [MdSnackBarContainer, DefaultStyleCompatibilityModeModule],
             declarations: [MdSnackBarContainer, SimpleSnackBar],
             entryComponents: [MdSnackBarContainer, SimpleSnackBar],
+            providers: [MdSnackBar, LIVE_ANNOUNCER_PROVIDER]
         }), 
         __metadata$50('design:paramtypes', [])
     ], MdSnackBarModule);
@@ -12014,7 +12131,7 @@ var __decorate$59 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$59 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$11 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$12 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 /**
@@ -12152,7 +12269,7 @@ var MdTabBody = (function () {
                 ])
             ]
         }),
-        __param$11(1, _angular_core.Optional()), 
+        __param$12(1, _angular_core.Optional()), 
         __metadata$59('design:paramtypes', [_angular_core.ElementRef, Dir])
     ], MdTabBody);
     return MdTabBody;
@@ -12167,7 +12284,7 @@ var __decorate$60 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$60 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$12 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$13 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 /**
@@ -12508,7 +12625,7 @@ var MdTabHeader = (function () {
                 '[class.md-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
             }
         }),
-        __param$12(2, _angular_core.Optional()), 
+        __param$13(2, _angular_core.Optional()), 
         __metadata$60('design:paramtypes', [_angular_core.NgZone, _angular_core.ElementRef, Dir])
     ], MdTabHeader);
     return MdTabHeader;
@@ -12717,10 +12834,11 @@ var MdTabGroup = (function () {
 var MdTabsModule = (function () {
     function MdTabsModule() {
     }
+    /** @deprecated */
     MdTabsModule.forRoot = function () {
         return {
             ngModule: MdTabsModule,
-            providers: [ViewportRuler]
+            providers: []
         };
     };
     MdTabsModule = __decorate$53([
@@ -12730,6 +12848,7 @@ var MdTabsModule = (function () {
             exports: [MdTabGroup, MdTabLabel, MdTab, MdTabNavBar, MdTabLink, MdTabLinkRipple],
             declarations: [MdTabGroup, MdTabLabel, MdTab, MdInkBar, MdTabLabelWrapper,
                 MdTabNavBar, MdTabLink, MdTabBody, MdTabLinkRipple, MdTabHeader],
+            providers: [VIEWPORT_RULER_PROVIDER],
         }), 
         __metadata$53('design:paramtypes', [])
     ], MdTabsModule);
@@ -12800,6 +12919,7 @@ var MdToolbar = (function () {
 var MdToolbarModule = (function () {
     function MdToolbarModule() {
     }
+    /** @deprecated */
     MdToolbarModule.forRoot = function () {
         return {
             ngModule: MdToolbarModule,
@@ -12843,7 +12963,7 @@ var __decorate$62 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$62 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$13 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$14 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 /** Time in ms to delay before changing the tooltip visibility to hidden */
@@ -13059,7 +13179,7 @@ var MdTooltip = (function () {
             },
             exportAs: 'mdTooltip',
         }),
-        __param$13(4, _angular_core.Optional()), 
+        __param$14(4, _angular_core.Optional()), 
         __metadata$62('design:paramtypes', [Overlay, _angular_core.ElementRef, _angular_core.ViewContainerRef, _angular_core.NgZone, Dir])
     ], MdTooltip);
     return MdTooltip;
@@ -13187,7 +13307,7 @@ var TooltipComponent = (function () {
                 '(body:click)': 'this._handleBodyInteraction()'
             }
         }),
-        __param$13(0, _angular_core.Optional()), 
+        __param$14(0, _angular_core.Optional()), 
         __metadata$62('design:paramtypes', [Dir])
     ], TooltipComponent);
     return TooltipComponent;
@@ -13195,10 +13315,11 @@ var TooltipComponent = (function () {
 var MdTooltipModule = (function () {
     function MdTooltipModule() {
     }
+    /** @deprecated */
     MdTooltipModule.forRoot = function () {
         return {
             ngModule: MdTooltipModule,
-            providers: [OVERLAY_PROVIDERS]
+            providers: []
         };
     };
     MdTooltipModule = __decorate$62([
@@ -13380,7 +13501,7 @@ var __decorate$64 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$64 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$14 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$15 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 var MdMenu = (function () {
@@ -13493,8 +13614,8 @@ var MdMenu = (function () {
             ],
             exportAs: 'mdMenu'
         }),
-        __param$14(0, _angular_core.Attribute('x-position')),
-        __param$14(1, _angular_core.Attribute('y-position')), 
+        __param$15(0, _angular_core.Attribute('x-position')),
+        __param$15(1, _angular_core.Attribute('y-position')), 
         __metadata$64('design:paramtypes', [String, String])
     ], MdMenu);
     return MdMenu;
@@ -13509,7 +13630,7 @@ var __decorate$66 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$66 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$15 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$16 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 /**
@@ -13736,7 +13857,7 @@ var MdMenuTrigger = (function () {
             },
             exportAs: 'mdMenuTrigger'
         }),
-        __param$15(4, _angular_core.Optional()), 
+        __param$16(4, _angular_core.Optional()), 
         __metadata$66('design:paramtypes', [Overlay, _angular_core.ElementRef, _angular_core.ViewContainerRef, _angular_core.Renderer, Dir])
     ], MdMenuTrigger);
     return MdMenuTrigger;
@@ -13754,10 +13875,11 @@ var __metadata$63 = (this && this.__metadata) || function (k, v) {
 var MdMenuModule = (function () {
     function MdMenuModule() {
     }
+    /** @deprecated */
     MdMenuModule.forRoot = function () {
         return {
             ngModule: MdMenuModule,
-            providers: OVERLAY_PROVIDERS,
+            providers: [],
         };
     };
     MdMenuModule = __decorate$63([
@@ -13949,18 +14071,29 @@ var __decorate$68 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$68 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param$17 = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 // TODO(jelbourn): add support for opening with a TemplateRef
 // TODO(jelbourn): animations
 /**
  * Service to open Material Design modal dialogs.
  */
 var MdDialog = (function () {
-    function MdDialog(_overlay, _injector) {
+    function MdDialog(_overlay, _injector, _parentDialog) {
         this._overlay = _overlay;
         this._injector = _injector;
-        /** Keeps track of the currently-open dialogs. */
-        this._openDialogs = [];
+        this._parentDialog = _parentDialog;
+        this._openDialogsAtThisLevel = [];
     }
+    Object.defineProperty(MdDialog.prototype, "_openDialogs", {
+        /** Keeps track of the currently-open dialogs. */
+        get: function () {
+            return this._parentDialog ? this._parentDialog._openDialogs : this._openDialogsAtThisLevel;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * Opens a modal dialog containing the given component.
      * @param component Type of the component to load into the load.
@@ -14075,8 +14208,10 @@ var MdDialog = (function () {
         }
     };
     MdDialog = __decorate$68([
-        _angular_core.Injectable(), 
-        __metadata$68('design:paramtypes', [Overlay, _angular_core.Injector])
+        _angular_core.Injectable(),
+        __param$17(2, _angular_core.Optional()),
+        __param$17(2, _angular_core.SkipSelf()), 
+        __metadata$68('design:paramtypes', [Overlay, _angular_core.Injector, MdDialog])
     ], MdDialog);
     return MdDialog;
 }());
@@ -14179,10 +14314,11 @@ var __metadata$67 = (this && this.__metadata) || function (k, v) {
 var MdDialogModule = (function () {
     function MdDialogModule() {
     }
+    /** @deprecated */
     MdDialogModule.forRoot = function () {
         return {
             ngModule: MdDialogModule,
-            providers: [MdDialog, OVERLAY_PROVIDERS, InteractivityChecker, Platform],
+            providers: [],
         };
     };
     MdDialogModule = __decorate$67([
@@ -14207,6 +14343,9 @@ var MdDialogModule = (function () {
                 MdDialogTitle,
                 MdDialogActions,
                 MdDialogContent
+            ],
+            providers: [
+                MdDialog,
             ],
             entryComponents: [MdDialogContainer],
         }), 
@@ -14371,6 +14510,7 @@ var __metadata$71 = (this && this.__metadata) || function (k, v) {
 var MdAutocompleteModule = (function () {
     function MdAutocompleteModule() {
     }
+    /** @deprecated */
     MdAutocompleteModule.forRoot = function () {
         return {
             ngModule: MdAutocompleteModule,
@@ -14482,6 +14622,7 @@ var MaterialRootModule = (function () {
 var MaterialModule = (function () {
     function MaterialModule() {
     }
+    /** @deprecated */
     MaterialModule.forRoot = function () {
         return { ngModule: MaterialRootModule };
     };
@@ -14526,12 +14667,14 @@ exports.MdRipple = MdRipple;
 exports.MdRippleModule = MdRippleModule;
 exports.LiveAnnouncer = LiveAnnouncer;
 exports.LIVE_ANNOUNCER_ELEMENT_TOKEN = LIVE_ANNOUNCER_ELEMENT_TOKEN;
+exports.LIVE_ANNOUNCER_PROVIDER = LIVE_ANNOUNCER_PROVIDER;
 exports.MdLiveAnnouncer = LiveAnnouncer;
 exports.FocusTrap = FocusTrap;
 exports.InteractivityChecker = InteractivityChecker;
 exports.isFakeMousedownFromScreenReader = isFakeMousedownFromScreenReader;
 exports.A11yModule = A11yModule;
 exports.UniqueSelectionDispatcher = UniqueSelectionDispatcher;
+exports.UNIQUE_SELECTION_DISPATCHER_PROVIDER = UNIQUE_SELECTION_DISPATCHER_PROVIDER;
 exports.MdUniqueSelectionDispatcher = UniqueSelectionDispatcher;
 exports.MdLineModule = MdLineModule;
 exports.MdLine = MdLine;
@@ -14611,6 +14754,8 @@ exports.MdGridList = MdGridList;
 exports.MdGridListModule = MdGridListModule;
 exports.MdIconInvalidNameError = MdIconInvalidNameError;
 exports.MdIcon = MdIcon;
+exports.ICON_REGISTRY_PROVIDER_FACTORY = ICON_REGISTRY_PROVIDER_FACTORY;
+exports.ICON_REGISTRY_PROVIDER = ICON_REGISTRY_PROVIDER;
 exports.MdIconModule = MdIconModule;
 exports.MdIconRegistry = MdIconRegistry;
 exports.MdTextareaAutosize = MdTextareaAutosize;

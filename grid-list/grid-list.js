@@ -140,6 +140,7 @@ export var MdGridList = (function () {
 export var MdGridListModule = (function () {
     function MdGridListModule() {
     }
+    /** @deprecated */
     MdGridListModule.forRoot = function () {
         return {
             ngModule: MdGridListModule,

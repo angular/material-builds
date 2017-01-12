@@ -15,8 +15,7 @@ import { MdOptionModule } from './option/option';
 import { MdRippleModule } from './ripple/ripple';
 import { PortalModule } from './portal/portal-directives';
 import { OverlayModule } from './overlay/overlay-directives';
-import { A11yModule, A11Y_PROVIDERS } from './a11y/index';
-import { OVERLAY_PROVIDERS } from './overlay/overlay';
+import { A11yModule } from './a11y/index';
 // RTL
 export { Dir, RtlModule } from './rtl/dir';
 // Mutation Observer
@@ -49,14 +48,14 @@ export { GestureConfig } from './gestures/gesture-config';
 // Ripple
 export { MdRipple, MdRippleModule } from './ripple/ripple';
 // a11y
-export { LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN } from './a11y/live-announcer';
+export { LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER } from './a11y/live-announcer';
 /** @deprecated */
 export { LiveAnnouncer as MdLiveAnnouncer } from './a11y/live-announcer';
 export { FocusTrap } from './a11y/focus-trap';
 export { InteractivityChecker } from './a11y/interactivity-checker';
 export { isFakeMousedownFromScreenReader } from './a11y/fake-mousedown';
 export { A11yModule } from './a11y/index';
-export { UniqueSelectionDispatcher } from './coordination/unique-selection-dispatcher';
+export { UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER } from './coordination/unique-selection-dispatcher';
 /** @deprecated */
 export { UniqueSelectionDispatcher as MdUniqueSelectionDispatcher } from './coordination/unique-selection-dispatcher';
 export { MdLineModule, MdLine, MdLineSetter } from './line/line';
@@ -79,10 +78,11 @@ export { NoConflictStyleCompatibilityMode } from './compatibility/no-conflict-mo
 export var MdCoreModule = (function () {
     function MdCoreModule() {
     }
+    /** @deprecated */
     MdCoreModule.forRoot = function () {
         return {
             ngModule: MdCoreModule,
-            providers: [A11Y_PROVIDERS, OVERLAY_PROVIDERS],
+            providers: [],
         };
     };
     MdCoreModule = __decorate([

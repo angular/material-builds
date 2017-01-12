@@ -526,10 +526,11 @@ export var MdInput = (function () {
 export var MdInputModule = (function () {
     function MdInputModule() {
     }
+    /** @deprecated */
     MdInputModule.forRoot = function () {
         return {
             ngModule: MdInputModule,
-            providers: PlatformModule.forRoot().providers,
+            providers: [],
         };
     };
     MdInputModule = __decorate([

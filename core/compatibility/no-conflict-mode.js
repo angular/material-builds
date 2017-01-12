@@ -25,6 +25,7 @@ export var MdPrefixEnforcer = (function () {
 export var NoConflictStyleCompatibilityMode = (function () {
     function NoConflictStyleCompatibilityMode() {
     }
+    /** @deprecated */
     NoConflictStyleCompatibilityMode.forRoot = function () {
         return {
             ngModule: NoConflictStyleCompatibilityMode,

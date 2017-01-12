@@ -175,5 +175,6 @@ export declare class MdRadioButton implements OnInit {
     _getHostElement(): any;
 }
 export declare class MdRadioModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }

@@ -39,6 +39,7 @@ export var MatPrefixEnforcer = (function () {
 export var DefaultStyleCompatibilityModeModule = (function () {
     function DefaultStyleCompatibilityModeModule() {
     }
+    /** @deprecated */
     DefaultStyleCompatibilityModeModule.forRoot = function () {
         return {
             ngModule: DefaultStyleCompatibilityModeModule,

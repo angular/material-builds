@@ -116,6 +116,7 @@ export var MaterialRootModule = (function () {
 export var MaterialModule = (function () {
     function MaterialModule() {
     }
+    /** @deprecated */
     MaterialModule.forRoot = function () {
         return { ngModule: MaterialRootModule };
     };

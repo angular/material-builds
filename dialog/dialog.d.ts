@@ -8,9 +8,11 @@ import { MdDialogRef } from './dialog-ref';
 export declare class MdDialog {
     private _overlay;
     private _injector;
+    private _parentDialog;
+    private _openDialogsAtThisLevel;
     /** Keeps track of the currently-open dialogs. */
-    private _openDialogs;
-    constructor(_overlay: Overlay, _injector: Injector);
+    readonly _openDialogs: MdDialogRef<any>[];
+    constructor(_overlay: Overlay, _injector: Injector, _parentDialog: MdDialog);
     /**
      * Opens a modal dialog containing the given component.
      * @param component Type of the component to load into the load.

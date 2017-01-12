@@ -1,3 +1,4 @@
+import { Optional } from '@angular/core';
 /**
  * The OverlayContainer is the container in which all overlays will load.
  * It should be provided in the root component to ensure it is properly shared.
@@ -17,3 +18,9 @@ export declare class OverlayContainer {
      */
     protected _createContainer(): void;
 }
+export declare function OVERLAY_CONTAINER_PROVIDER_FACTORY(parentContainer: OverlayContainer): OverlayContainer;
+export declare const OVERLAY_CONTAINER_PROVIDER: {
+    provide: typeof OverlayContainer;
+    deps: Optional[][];
+    useFactory: (parentContainer: OverlayContainer) => OverlayContainer;
+};

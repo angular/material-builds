@@ -611,10 +611,11 @@ export var SliderRenderer = (function () {
 export var MdSliderModule = (function () {
     function MdSliderModule() {
     }
+    /** @deprecated */
     MdSliderModule.forRoot = function () {
         return {
             ngModule: MdSliderModule,
-            providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
+            providers: []
         };
     };
     MdSliderModule = __decorate([
@@ -622,9 +623,7 @@ export var MdSliderModule = (function () {
             imports: [CommonModule, FormsModule, DefaultStyleCompatibilityModeModule],
             exports: [MdSlider, DefaultStyleCompatibilityModeModule],
             declarations: [MdSlider],
-            providers: [
-                { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig },
-            ],
+            providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
         }), 
         __metadata('design:paramtypes', [])
     ], MdSliderModule);

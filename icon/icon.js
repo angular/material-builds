@@ -12,8 +12,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { NgModule, ChangeDetectionStrategy, Component, ElementRef, Input, Renderer, ViewEncapsulation } from '@angular/core';
-import { HttpModule } from '@angular/http';
+import { NgModule, ChangeDetectionStrategy, Component, ElementRef, Input, Renderer, ViewEncapsulation, Optional, SkipSelf } from '@angular/core';
+import { HttpModule, Http } from '@angular/http';
+import { DomSanitizer } from '@angular/platform-browser';
 import { MdError, DefaultStyleCompatibilityModeModule } from '../core';
 import { MdIconRegistry } from './icon-registry';
 export { MdIconRegistry } from './icon-registry';
@@ -241,13 +242,24 @@ export var MdIcon = (function () {
     ], MdIcon);
     return MdIcon;
 }());
+export function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, http, sanitizer) {
+    return parentRegistry || new MdIconRegistry(http, sanitizer);
+}
+;
+export var ICON_REGISTRY_PROVIDER = {
+    // If there is already an MdIconRegistry available, use that. Otherwise, provide a new one.
+    provide: MdIconRegistry,
+    deps: [[new Optional(), new SkipSelf(), MdIconRegistry], Http, DomSanitizer],
+    useFactory: ICON_REGISTRY_PROVIDER_FACTORY,
+};
 export var MdIconModule = (function () {
     function MdIconModule() {
     }
+    /** @deprecated */
     MdIconModule.forRoot = function () {
         return {
             ngModule: MdIconModule,
-            providers: [MdIconRegistry],
+            providers: [],
         };
     };
     MdIconModule = __decorate([
@@ -255,6 +267,7 @@ export var MdIconModule = (function () {
             imports: [HttpModule, DefaultStyleCompatibilityModeModule],
             exports: [MdIcon, DefaultStyleCompatibilityModeModule],
             declarations: [MdIcon],
+            providers: [ICON_REGISTRY_PROVIDER],
         }), 
         __metadata('design:paramtypes', [])
     ], MdIconModule);

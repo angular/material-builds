@@ -11,16 +11,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MdSelect } from './select';
 import { MdOptionModule } from '../core/option/option';
-import { DefaultStyleCompatibilityModeModule, OVERLAY_PROVIDERS, OverlayModule } from '../core';
+import { DefaultStyleCompatibilityModeModule, OverlayModule } from '../core';
 export * from './select';
 export { fadeInContent, transformPanel, transformPlaceholder } from './select-animations';
 export var MdSelectModule = (function () {
     function MdSelectModule() {
     }
+    /** @deprecated */
     MdSelectModule.forRoot = function () {
         return {
             ngModule: MdSelectModule,
-            providers: [OVERLAY_PROVIDERS]
+            providers: []
         };
     };
     MdSelectModule = __decorate([

@@ -6,5 +6,6 @@ export declare class MdPrefixEnforcer {
     constructor();
 }
 export declare class NoConflictStyleCompatibilityMode {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }

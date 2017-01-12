@@ -12,5 +12,6 @@ export declare class MdToolbar {
     private _setElementColor(color, isAdd);
 }
 export declare class MdToolbarModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }

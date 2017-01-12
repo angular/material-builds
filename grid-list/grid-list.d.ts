@@ -45,5 +45,6 @@ export declare class MdGridList implements OnInit, AfterContentChecked {
     _setListStyle(style: [string, string]): void;
 }
 export declare class MdGridListModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }

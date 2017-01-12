@@ -341,6 +341,7 @@ function getSvgArc(currentValue, rotation) {
 export var MdProgressSpinnerModule = (function () {
     function MdProgressSpinnerModule() {
     }
+    /** @deprecated */
     MdProgressSpinnerModule.forRoot = function () {
         return {
             ngModule: MdProgressSpinnerModule,

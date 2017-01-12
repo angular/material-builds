@@ -151,5 +151,6 @@ export declare class MdCheckbox implements ControlValueAccessor {
     _getHostElement(): any;
 }
 export declare class MdCheckboxModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }

@@ -16,6 +16,7 @@ export * from './autocomplete-trigger';
 export var MdAutocompleteModule = (function () {
     function MdAutocompleteModule() {
     }
+    /** @deprecated */
     MdAutocompleteModule.forRoot = function () {
         return {
             ngModule: MdAutocompleteModule,

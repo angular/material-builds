@@ -129,6 +129,7 @@ export var PortalHostDirective = (function (_super) {
 export var PortalModule = (function () {
     function PortalModule() {
     }
+    /** @deprecated */
     PortalModule.forRoot = function () {
         return {
             ngModule: PortalModule,

@@ -9,9 +9,16 @@ import { SimpleSnackBar } from './simple-snack-bar';
 export declare class MdSnackBar {
     private _overlay;
     private _live;
-    /** A reference to the current snack bar in the view. */
-    private _snackBarRef;
-    constructor(_overlay: Overlay, _live: LiveAnnouncer);
+    private _parentSnackBar;
+    /**
+     * Reference to the current snack bar in the view *at this level* (in the Angular injector tree).
+     * If there is a parent snack-bar service, all operations should delegate to that parent
+     * via `_openedSnackBarRef`.
+     */
+    private _snackBarRefAtThisLevel;
+    /** Reference to the currently opened snackbar at *any* level. */
+    _openedSnackBarRef: MdSnackBarRef<any>;
+    constructor(_overlay: Overlay, _live: LiveAnnouncer, _parentSnackBar: MdSnackBar);
     /**
      * Creates and dispatches a snack bar with a custom component for the content, removing any
      * currently opened snack bars.
@@ -41,5 +48,6 @@ export declare class MdSnackBar {
     private _createOverlay();
 }
 export declare class MdSnackBarModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }

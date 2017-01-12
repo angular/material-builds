@@ -179,5 +179,6 @@ export declare class SliderRenderer {
     addFocus(): void;
 }
 export declare class MdSliderModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }

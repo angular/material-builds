@@ -19,5 +19,6 @@ export declare class MdListItem implements AfterContentInit {
     _handleBlur(): void;
 }
 export declare class MdListModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }

@@ -137,5 +137,6 @@ export declare class MdButtonToggle implements OnInit {
     focus(): void;
 }
 export declare class MdButtonToggleModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }

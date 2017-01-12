@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OverlayModule, OVERLAY_PROVIDERS, DefaultStyleCompatibilityModeModule } from '../core';
+import { OverlayModule, DefaultStyleCompatibilityModeModule } from '../core';
 import { MdMenu } from './menu-directive';
 import { MdMenuItem } from './menu-item';
 import { MdMenuTrigger } from './menu-trigger';
@@ -20,10 +20,11 @@ export { MdMenuTrigger } from './menu-trigger';
 export var MdMenuModule = (function () {
     function MdMenuModule() {
     }
+    /** @deprecated */
     MdMenuModule.forRoot = function () {
         return {
             ngModule: MdMenuModule,
-            providers: OVERLAY_PROVIDERS,
+            providers: [],
         };
     };
     MdMenuModule = __decorate([

@@ -15,7 +15,6 @@ import { Overlay, OverlayState, OverlayModule, ComponentPortal, DefaultStyleComp
 import { MdTooltipInvalidPositionError } from './tooltip-errors';
 import { Subject } from 'rxjs/Subject';
 import { Dir } from '../core/rtl/dir';
-import { OVERLAY_PROVIDERS } from '../core/overlay/overlay';
 import 'rxjs/add/operator/first';
 /** Time in ms to delay before changing the tooltip visibility to hidden */
 export var TOUCHEND_HIDE_DELAY = 1500;
@@ -366,10 +365,11 @@ export var TooltipComponent = (function () {
 export var MdTooltipModule = (function () {
     function MdTooltipModule() {
     }
+    /** @deprecated */
     MdTooltipModule.forRoot = function () {
         return {
             ngModule: MdTooltipModule,
-            providers: [OVERLAY_PROVIDERS]
+            providers: []
         };
     };
     MdTooltipModule = __decorate([

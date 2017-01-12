@@ -47,6 +47,7 @@ export var ObserveContent = (function () {
 export var ObserveContentModule = (function () {
     function ObserveContentModule() {
     }
+    /** @deprecated */
     ObserveContentModule.forRoot = function () {
         return {
             ngModule: ObserveContentModule,

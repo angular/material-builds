@@ -42,5 +42,6 @@ export declare class MdAnchor extends MdButton {
     _haltDisabledEvents(event: Event): void;
 }
 export declare class MdButtonModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }

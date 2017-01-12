@@ -12,7 +12,6 @@ import { CommonModule } from '@angular/common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { coerceBooleanProperty } from '../core/coercion/boolean-property';
 import { MdRippleModule, DefaultStyleCompatibilityModeModule } from '../core';
-import { ViewportRuler } from '../core/overlay/position/viewport-ruler';
 /** Monotonically increasing integer used to auto-generate unique ids for checkbox components. */
 var nextId = 0;
 /**
@@ -412,10 +411,11 @@ export var MdCheckbox = (function () {
 export var MdCheckboxModule = (function () {
     function MdCheckboxModule() {
     }
+    /** @deprecated */
     MdCheckboxModule.forRoot = function () {
         return {
             ngModule: MdCheckboxModule,
-            providers: [ViewportRuler]
+            providers: []
         };
     };
     MdCheckboxModule = __decorate([

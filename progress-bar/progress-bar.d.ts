@@ -32,5 +32,6 @@ export declare class MdProgressBar {
     };
 }
 export declare class MdProgressBarModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }

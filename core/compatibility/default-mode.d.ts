@@ -15,5 +15,6 @@ export declare class MatPrefixEnforcer {
  * optimizers when not in compatibility mode.
  */
 export declare class DefaultStyleCompatibilityModeModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }

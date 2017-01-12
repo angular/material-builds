@@ -15,7 +15,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component, ViewEncapsulation, Input, HostBinding, ChangeDetectionStrategy, ElementRef, Renderer, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MdRippleModule, coerceBooleanProperty, DefaultStyleCompatibilityModeModule } from '../core';
-import { ViewportRuler } from '../core/overlay/position/viewport-ruler';
 // TODO(jelbourn): Make the `isMouseDown` stuff done with one global listener.
 // TODO(kara): Convert attribute selectors to classes when attr maps become available
 /**
@@ -183,10 +182,11 @@ export var MdAnchor = (function (_super) {
 export var MdButtonModule = (function () {
     function MdButtonModule() {
     }
+    /** @deprecated */
     MdButtonModule.forRoot = function () {
         return {
             ngModule: MdButtonModule,
-            providers: [ViewportRuler]
+            providers: []
         };
     };
     MdButtonModule = __decorate([

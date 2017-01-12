@@ -7,8 +7,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { NgModule, Injectable } from '@angular/core';
-import { ComponentPortal, Overlay, OverlayModule, OverlayState, PortalModule, OVERLAY_PROVIDERS, LiveAnnouncer, DefaultStyleCompatibilityModeModule } from '../core';
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+import { NgModule, Injectable, Optional, SkipSelf } from '@angular/core';
+import { ComponentPortal, Overlay, OverlayModule, OverlayState, PortalModule, LiveAnnouncer, DefaultStyleCompatibilityModeModule, LIVE_ANNOUNCER_PROVIDER } from '../core';
 import { CommonModule } from '@angular/common';
 import { MdSnackBarConfig } from './snack-bar-config';
 import { MdSnackBarRef } from './snack-bar-ref';
@@ -19,10 +22,28 @@ import { extendObject } from '../core/util/object-extend';
  * Service to dispatch Material Design snack bar messages.
  */
 export var MdSnackBar = (function () {
-    function MdSnackBar(_overlay, _live) {
+    function MdSnackBar(_overlay, _live, _parentSnackBar) {
         this._overlay = _overlay;
         this._live = _live;
+        this._parentSnackBar = _parentSnackBar;
     }
+    Object.defineProperty(MdSnackBar.prototype, "_openedSnackBarRef", {
+        /** Reference to the currently opened snackbar at *any* level. */
+        get: function () {
+            return this._parentSnackBar ?
+                this._parentSnackBar._openedSnackBarRef : this._snackBarRefAtThisLevel;
+        },
+        set: function (value) {
+            if (this._parentSnackBar) {
+                this._parentSnackBar._openedSnackBarRef = value;
+            }
+            else {
+                this._snackBarRefAtThisLevel = value;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * Creates and dispatches a snack bar with a custom component for the content, removing any
      * currently opened snack bars.
@@ -39,17 +60,17 @@ export var MdSnackBar = (function () {
         // When the snackbar is dismissed, clear the reference to it.
         snackBarRef.afterDismissed().subscribe(function () {
             // Clear the snackbar ref if it hasn't already been replaced by a newer snackbar.
-            if (_this._snackBarRef == snackBarRef) {
-                _this._snackBarRef = null;
+            if (_this._openedSnackBarRef == snackBarRef) {
+                _this._openedSnackBarRef = null;
             }
         });
         // If a snack bar is already in view, dismiss it and enter the new snack bar after exit
         // animation is complete.
-        if (this._snackBarRef) {
-            this._snackBarRef.afterDismissed().subscribe(function () {
+        if (this._openedSnackBarRef) {
+            this._openedSnackBarRef.afterDismissed().subscribe(function () {
                 snackBarRef.containerInstance.enter();
             });
-            this._snackBarRef.dismiss();
+            this._openedSnackBarRef.dismiss();
         }
         else {
             snackBarRef.containerInstance.enter();
@@ -61,8 +82,8 @@ export var MdSnackBar = (function () {
             });
         }
         this._live.announce(config.announcementMessage, config.politeness);
-        this._snackBarRef = snackBarRef;
-        return this._snackBarRef;
+        this._openedSnackBarRef = snackBarRef;
+        return this._openedSnackBarRef;
     };
     /**
      * Opens a snackbar with a message and an optional action.
@@ -108,8 +129,10 @@ export var MdSnackBar = (function () {
         return this._overlay.create(state);
     };
     MdSnackBar = __decorate([
-        Injectable(), 
-        __metadata('design:paramtypes', [Overlay, LiveAnnouncer])
+        Injectable(),
+        __param(2, Optional()),
+        __param(2, SkipSelf()), 
+        __metadata('design:paramtypes', [Overlay, LiveAnnouncer, MdSnackBar])
     ], MdSnackBar);
     return MdSnackBar;
 }());
@@ -124,10 +147,11 @@ function _applyConfigDefaults(config) {
 export var MdSnackBarModule = (function () {
     function MdSnackBarModule() {
     }
+    /** @deprecated */
     MdSnackBarModule.forRoot = function () {
         return {
             ngModule: MdSnackBarModule,
-            providers: [MdSnackBar, OVERLAY_PROVIDERS, LiveAnnouncer]
+            providers: []
         };
     };
     MdSnackBarModule = __decorate([
@@ -136,6 +160,7 @@ export var MdSnackBarModule = (function () {
             exports: [MdSnackBarContainer, DefaultStyleCompatibilityModeModule],
             declarations: [MdSnackBarContainer, SimpleSnackBar],
             entryComponents: [MdSnackBarContainer, SimpleSnackBar],
+            providers: [MdSnackBar, LIVE_ANNOUNCER_PROVIDER]
         }), 
         __metadata('design:paramtypes', [])
     ], MdSnackBarModule);

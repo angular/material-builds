@@ -67,5 +67,6 @@ export declare class MdTabGroup {
     _removeTabBodyWrapperHeight(): void;
 }
 export declare class MdTabsModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }

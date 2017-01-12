@@ -22,7 +22,6 @@ import { A11yModule } from '../core/a11y/index';
 import { FocusTrap } from '../core/a11y/focus-trap';
 import { ESCAPE } from '../core/keyboard/keycodes';
 import { OverlayModule } from '../core/overlay/overlay-directives';
-import { InteractivityChecker } from '../core/a11y/interactivity-checker';
 /** Exception thrown when two MdSidenav are matching the same side. */
 export var MdDuplicatedSidenavError = (function (_super) {
     __extends(MdDuplicatedSidenavError, _super);
@@ -560,10 +559,11 @@ export var MdSidenavContainer = (function () {
 export var MdSidenavModule = (function () {
     function MdSidenavModule() {
     }
+    /** @deprecated */
     MdSidenavModule.forRoot = function () {
         return {
             ngModule: MdSidenavModule,
-            providers: [InteractivityChecker]
+            providers: []
         };
     };
     MdSidenavModule = __decorate([

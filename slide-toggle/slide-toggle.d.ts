@@ -80,5 +80,6 @@ export declare class MdSlideToggle implements AfterContentInit, ControlValueAcce
     _onDragEnd(): void;
 }
 export declare class MdSlideToggleModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }

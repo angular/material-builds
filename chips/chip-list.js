@@ -190,6 +190,7 @@ export var MdChipList = (function () {
 export var MdChipsModule = (function () {
     function MdChipsModule() {
     }
+    /** @deprecated */
     MdChipsModule.forRoot = function () {
         return {
             ngModule: MdChipsModule,

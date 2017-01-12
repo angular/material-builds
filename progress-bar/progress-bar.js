@@ -104,6 +104,7 @@ function clamp(v, min, max) {
 export var MdProgressBarModule = (function () {
     function MdProgressBarModule() {
     }
+    /** @deprecated */
     MdProgressBarModule.forRoot = function () {
         return {
             ngModule: MdProgressBarModule,

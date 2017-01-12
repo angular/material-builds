@@ -1,4 +1,4 @@
-import { ElementRef } from '@angular/core';
+import { ElementRef, Optional } from '@angular/core';
 import { Scrollable } from './scrollable';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
@@ -42,3 +42,9 @@ export declare class ScrollDispatcher {
     /** Sends a notification that a scroll event has been fired. */
     _notify(): void;
 }
+export declare function SCROLL_DISPATCHER_PROVIDER_FACTORY(parentDispatcher: ScrollDispatcher): ScrollDispatcher;
+export declare const SCROLL_DISPATCHER_PROVIDER: {
+    provide: typeof ScrollDispatcher;
+    deps: Optional[][];
+    useFactory: (parentDispatcher: ScrollDispatcher) => ScrollDispatcher;
+};

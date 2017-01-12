@@ -50,5 +50,6 @@ export declare class MdCardHeader {
 export declare class MdCardTitleGroup {
 }
 export declare class MdCardModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }

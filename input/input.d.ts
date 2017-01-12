@@ -180,5 +180,6 @@ export declare class MdInput implements ControlValueAccessor, AfterContentInit, 
     private _validateConstraints();
 }
 export declare class MdInputModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }

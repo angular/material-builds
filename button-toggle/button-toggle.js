@@ -13,7 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 import { NgModule, Component, ContentChildren, Directive, ElementRef, Renderer, EventEmitter, HostBinding, Input, Optional, Output, QueryList, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { UniqueSelectionDispatcher, coerceBooleanProperty, DefaultStyleCompatibilityModeModule } from '../core';
+import { UniqueSelectionDispatcher, coerceBooleanProperty, DefaultStyleCompatibilityModeModule, UNIQUE_SELECTION_DISPATCHER_PROVIDER } from '../core';
 /**
  * Provider Expression that allows md-button-toggle-group to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -484,10 +484,11 @@ export var MdButtonToggle = (function () {
 export var MdButtonToggleModule = (function () {
     function MdButtonToggleModule() {
     }
+    /** @deprecated */
     MdButtonToggleModule.forRoot = function () {
         return {
             ngModule: MdButtonToggleModule,
-            providers: [UniqueSelectionDispatcher]
+            providers: []
         };
     };
     MdButtonToggleModule = __decorate([
@@ -500,6 +501,7 @@ export var MdButtonToggleModule = (function () {
                 DefaultStyleCompatibilityModeModule,
             ],
             declarations: [MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle],
+            providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER]
         }), 
         __metadata('design:paramtypes', [])
     ], MdButtonToggleModule);

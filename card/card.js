@@ -141,6 +141,7 @@ export var MdCardTitleGroup = (function () {
 export var MdCardModule = (function () {
     function MdCardModule() {
     }
+    /** @deprecated */
     MdCardModule.forRoot = function () {
         return {
             ngModule: MdCardModule,

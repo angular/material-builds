@@ -327,10 +327,11 @@ var SlideToggleRenderer = (function () {
 export var MdSlideToggleModule = (function () {
     function MdSlideToggleModule() {
     }
+    /** @deprecated */
     MdSlideToggleModule.forRoot = function () {
         return {
             ngModule: MdSlideToggleModule,
-            providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
+            providers: []
         };
     };
     MdSlideToggleModule = __decorate([
@@ -338,6 +339,7 @@ export var MdSlideToggleModule = (function () {
             imports: [FormsModule, DefaultStyleCompatibilityModeModule],
             exports: [MdSlideToggle, DefaultStyleCompatibilityModeModule],
             declarations: [MdSlideToggle],
+            providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }],
         }), 
         __metadata('design:paramtypes', [])
     ], MdSlideToggleModule);

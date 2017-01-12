@@ -112,5 +112,6 @@ export declare class TooltipComponent {
     _handleBodyInteraction(): void;
 }
 export declare class MdTooltipModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }

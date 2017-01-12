@@ -85,5 +85,6 @@ export declare class MdSpinner extends MdProgressSpinner implements OnDestroy {
     ngOnDestroy(): void;
 }
 export declare class MdProgressSpinnerModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }

@@ -62,5 +62,6 @@ export declare class MdChipList implements AfterContentInit {
     private _isValidIndex(index);
 }
 export declare class MdChipsModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }

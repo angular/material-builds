@@ -21,14 +21,14 @@ export { ScrollDispatcher } from './overlay/scroll/scroll-dispatcher';
 export { GestureConfig } from './gestures/gesture-config';
 export { HammerInput, HammerManager } from './gestures/gesture-annotations';
 export { MdRipple, MdRippleModule } from './ripple/ripple';
-export { AriaLivePoliteness, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN } from './a11y/live-announcer';
+export { AriaLivePoliteness, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER } from './a11y/live-announcer';
 /** @deprecated */
 export { LiveAnnouncer as MdLiveAnnouncer } from './a11y/live-announcer';
 export { FocusTrap } from './a11y/focus-trap';
 export { InteractivityChecker } from './a11y/interactivity-checker';
 export { isFakeMousedownFromScreenReader } from './a11y/fake-mousedown';
 export { A11yModule } from './a11y/index';
-export { UniqueSelectionDispatcher, UniqueSelectionDispatcherListener } from './coordination/unique-selection-dispatcher';
+export { UniqueSelectionDispatcher, UniqueSelectionDispatcherListener, UNIQUE_SELECTION_DISPATCHER_PROVIDER } from './coordination/unique-selection-dispatcher';
 /** @deprecated */
 export { UniqueSelectionDispatcher as MdUniqueSelectionDispatcher } from './coordination/unique-selection-dispatcher';
 export { MdLineModule, MdLine, MdLineSetter } from './line/line';
@@ -43,5 +43,6 @@ export { coerceNumberProperty } from './coercion/number-property';
 export { DefaultStyleCompatibilityModeModule } from './compatibility/default-mode';
 export { NoConflictStyleCompatibilityMode } from './compatibility/no-conflict-mode';
 export declare class MdCoreModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }

@@ -1,5 +1,6 @@
 import { ModuleWithProviders } from '@angular/core';
 export declare class MdDialogModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }
 export * from './dialog';

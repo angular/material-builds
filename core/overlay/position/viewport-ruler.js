@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Injectable } from '@angular/core';
+import { Injectable, Optional, SkipSelf } from '@angular/core';
 /**
  * Simple utility for getting the bounds of the browser viewport.
  * @docs-private
@@ -63,5 +63,15 @@ export var ViewportRuler = (function () {
     ], ViewportRuler);
     return ViewportRuler;
 }());
+export function VIEWPORT_RULER_PROVIDER_FACTORY(parentDispatcher) {
+    return parentDispatcher || new ViewportRuler();
+}
+;
+export var VIEWPORT_RULER_PROVIDER = {
+    // If there is already a ViewportRuler available, use that. Otherwise, provide a new one.
+    provide: ViewportRuler,
+    deps: [[new Optional(), new SkipSelf(), ViewportRuler]],
+    useFactory: VIEWPORT_RULER_PROVIDER_FACTORY
+};
 
 //# sourceMappingURL=viewport-ruler.js.map

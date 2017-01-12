@@ -92,6 +92,7 @@ export var MdListItem = (function () {
 export var MdListModule = (function () {
     function MdListModule() {
     }
+    /** @deprecated */
     MdListModule.forRoot = function () {
         return {
             ngModule: MdListModule,

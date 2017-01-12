@@ -88,5 +88,6 @@ export declare class MdRipple implements OnInit, OnDestroy, OnChanges {
     private _mouseLeave(event);
 }
 export declare class MdRippleModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }

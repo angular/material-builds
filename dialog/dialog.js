@@ -7,7 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Injector, Injectable } from '@angular/core';
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+import { Injector, Injectable, Optional, SkipSelf } from '@angular/core';
 import { Overlay, OverlayState, ComponentPortal } from '../core';
 import { extendObject } from '../core/util/object-extend';
 import { DialogInjector } from './dialog-injector';
@@ -20,12 +23,20 @@ import { MdDialogContainer } from './dialog-container';
  * Service to open Material Design modal dialogs.
  */
 export var MdDialog = (function () {
-    function MdDialog(_overlay, _injector) {
+    function MdDialog(_overlay, _injector, _parentDialog) {
         this._overlay = _overlay;
         this._injector = _injector;
-        /** Keeps track of the currently-open dialogs. */
-        this._openDialogs = [];
+        this._parentDialog = _parentDialog;
+        this._openDialogsAtThisLevel = [];
     }
+    Object.defineProperty(MdDialog.prototype, "_openDialogs", {
+        /** Keeps track of the currently-open dialogs. */
+        get: function () {
+            return this._parentDialog ? this._parentDialog._openDialogs : this._openDialogsAtThisLevel;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * Opens a modal dialog containing the given component.
      * @param component Type of the component to load into the load.
@@ -140,8 +151,10 @@ export var MdDialog = (function () {
         }
     };
     MdDialog = __decorate([
-        Injectable(), 
-        __metadata('design:paramtypes', [Overlay, Injector])
+        Injectable(),
+        __param(2, Optional()),
+        __param(2, SkipSelf()), 
+        __metadata('design:paramtypes', [Overlay, Injector, MdDialog])
     ], MdDialog);
     return MdDialog;
 }());

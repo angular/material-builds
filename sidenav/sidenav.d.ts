@@ -178,5 +178,6 @@ export declare class MdSidenavContainer implements AfterContentInit {
     };
 }
 export declare class MdSidenavModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }

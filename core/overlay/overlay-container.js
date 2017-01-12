@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Injectable } from '@angular/core';
+import { Injectable, Optional, SkipSelf } from '@angular/core';
 /**
  * The OverlayContainer is the container in which all overlays will load.
  * It should be provided in the root component to ensure it is properly shared.
@@ -43,5 +43,15 @@ export var OverlayContainer = (function () {
     ], OverlayContainer);
     return OverlayContainer;
 }());
+export function OVERLAY_CONTAINER_PROVIDER_FACTORY(parentContainer) {
+    return parentContainer || new OverlayContainer();
+}
+;
+export var OVERLAY_CONTAINER_PROVIDER = {
+    // If there is already an OverlayContainer available, use that. Otherwise, provide a new one.
+    provide: OverlayContainer,
+    deps: [[new Optional(), new SkipSelf(), OverlayContainer]],
+    useFactory: OVERLAY_CONTAINER_PROVIDER_FACTORY
+};
 
 //# sourceMappingURL=overlay-container.js.map

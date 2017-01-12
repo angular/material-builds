@@ -64,6 +64,7 @@ export var MdToolbar = (function () {
 export var MdToolbarModule = (function () {
     function MdToolbarModule() {
     }
+    /** @deprecated */
     MdToolbarModule.forRoot = function () {
         return {
             ngModule: MdToolbarModule,

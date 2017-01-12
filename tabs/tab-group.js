@@ -20,7 +20,7 @@ import { MdRippleModule } from '../core/ripple/ripple';
 import { ObserveContentModule } from '../core/observe-content/observe-content';
 import { MdTab } from './tab';
 import { MdTabBody } from './tab-body';
-import { ViewportRuler } from '../core/overlay/position/viewport-ruler';
+import { VIEWPORT_RULER_PROVIDER } from '../core/overlay/position/viewport-ruler';
 import { MdTabHeader } from './tab-header';
 /** Used to generate unique ID's for each tab component */
 var nextId = 0;
@@ -216,10 +216,11 @@ export var MdTabGroup = (function () {
 export var MdTabsModule = (function () {
     function MdTabsModule() {
     }
+    /** @deprecated */
     MdTabsModule.forRoot = function () {
         return {
             ngModule: MdTabsModule,
-            providers: [ViewportRuler]
+            providers: []
         };
     };
     MdTabsModule = __decorate([
@@ -229,6 +230,7 @@ export var MdTabsModule = (function () {
             exports: [MdTabGroup, MdTabLabel, MdTab, MdTabNavBar, MdTabLink, MdTabLinkRipple],
             declarations: [MdTabGroup, MdTabLabel, MdTab, MdInkBar, MdTabLabelWrapper,
                 MdTabNavBar, MdTabLink, MdTabBody, MdTabLinkRipple, MdTabHeader],
+            providers: [VIEWPORT_RULER_PROVIDER],
         }), 
         __metadata('design:paramtypes', [])
     ], MdTabsModule);

@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Injectable } from '@angular/core';
+import { Injectable, Optional, SkipSelf } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
@@ -90,5 +90,15 @@ export var ScrollDispatcher = (function () {
     ], ScrollDispatcher);
     return ScrollDispatcher;
 }());
+export function SCROLL_DISPATCHER_PROVIDER_FACTORY(parentDispatcher) {
+    return parentDispatcher || new ScrollDispatcher();
+}
+;
+export var SCROLL_DISPATCHER_PROVIDER = {
+    // If there is already a ScrollDispatcher available, use that. Otherwise, provide a new one.
+    provide: ScrollDispatcher,
+    deps: [[new Optional(), new SkipSelf(), ScrollDispatcher]],
+    useFactory: SCROLL_DISPATCHER_PROVIDER_FACTORY
+};
 
 //# sourceMappingURL=scroll-dispatcher.js.map

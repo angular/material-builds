@@ -296,10 +296,11 @@ export var ConnectedOverlayDirective = (function () {
 export var OverlayModule = (function () {
     function OverlayModule() {
     }
+    /** @deprecated */
     OverlayModule.forRoot = function () {
         return {
             ngModule: OverlayModule,
-            providers: OVERLAY_PROVIDERS,
+            providers: [],
         };
     };
     OverlayModule = __decorate([
@@ -307,6 +308,7 @@ export var OverlayModule = (function () {
             imports: [PortalModule],
             exports: [ConnectedOverlayDirective, OverlayOrigin, Scrollable],
             declarations: [ConnectedOverlayDirective, OverlayOrigin, Scrollable],
+            providers: [OVERLAY_PROVIDERS],
         }), 
         __metadata('design:paramtypes', [])
     ], OverlayModule);

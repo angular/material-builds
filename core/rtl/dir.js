@@ -68,6 +68,7 @@ export var Dir = (function () {
 export var RtlModule = (function () {
     function RtlModule() {
     }
+    /** @deprecated */
     RtlModule.forRoot = function () {
         return {
             ngModule: RtlModule,

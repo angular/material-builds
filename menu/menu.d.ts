@@ -5,5 +5,6 @@ export { MdMenuTrigger } from './menu-trigger';
 export { MdMenuPanel } from './menu-panel';
 export { MenuPositionX, MenuPositionY } from './menu-positions';
 export declare class MdMenuModule {
+    /** @deprecated */
     static forRoot(): ModuleWithProviders;
 }
