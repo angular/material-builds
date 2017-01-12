@@ -5778,6 +5778,8 @@ var MdSelect = (function () {
         this._optionIds = '';
         /** The value of the select panel's transform-origin property. */
         this._transformOrigin = 'top';
+        /** Whether the panel's animation is done. */
+        this._panelDoneAnimating = false;
         /**
          * The x-offset of the overlay panel in relation to the trigger's top start corner.
          * This must be adjusted to align the selected option text over the trigger text when
@@ -5968,6 +5970,7 @@ var MdSelect = (function () {
         else {
             this.onClose.emit();
         }
+        this._panelDoneAnimating = this.panelOpen;
     };
     /**
      * Calls the touched callback only if the panel is closed. Otherwise, the trigger will
@@ -6268,7 +6271,7 @@ var MdSelect = (function () {
     ], MdSelect.prototype, "onClose", void 0);
     MdSelect = __decorate$33([
         _angular_core.Component({selector: 'md-select, mat-select',
-            template: "<div class=\"md-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><span class=\"md-select-placeholder\" [class.md-floating-placeholder]=\"this.selected\" [@transformPlaceholder]=\"_placeholderState\" [style.width.px]=\"_selectedValueWidth\">{{ placeholder }} </span><span class=\"md-select-value\" *ngIf=\"selected\">{{ selected?.viewValue }} </span><span class=\"md-select-arrow\"></span></div><template cdk-connected-overlay [origin]=\"origin\" [open]=\"panelOpen\" hasBackdrop (backdropClick)=\"close()\" backdropClass=\"cdk-overlay-transparent-backdrop\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" [offsetX]=\"_offsetX\" (attach)=\"_setScrollTop()\"><div class=\"md-select-panel\" [@transformPanel]=\"'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_keyManager.onKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\"><div class=\"md-select-content\" [@fadeInContent]=\"'showing'\"><ng-content></ng-content></div></div></template>",
+            template: "<div class=\"md-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><span class=\"md-select-placeholder\" [class.md-floating-placeholder]=\"this.selected\" [@transformPlaceholder]=\"_placeholderState\" [style.width.px]=\"_selectedValueWidth\">{{ placeholder }} </span><span class=\"md-select-value\" *ngIf=\"selected\">{{ selected?.viewValue }} </span><span class=\"md-select-arrow\"></span></div><template cdk-connected-overlay [origin]=\"origin\" [open]=\"panelOpen\" hasBackdrop (backdropClick)=\"close()\" backdropClass=\"cdk-overlay-transparent-backdrop\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" [offsetX]=\"_offsetX\" (attach)=\"_setScrollTop()\"><div class=\"md-select-panel\" [@transformPanel]=\"'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_keyManager.onKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.md-select-panel-done-animating]=\"_panelDoneAnimating\"><div class=\"md-select-content\" [@fadeInContent]=\"'showing'\"><ng-content></ng-content></div></div></template>",
             styles: ["md-select{display:inline-block;outline:0}.md-select-trigger{display:flex;justify-content:space-between;align-items:center;height:30px;min-width:112px;cursor:pointer;position:relative;box-sizing:border-box}[aria-disabled=true] .md-select-trigger{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;border-bottom:transparent;background-position:0 bottom;cursor:default;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.md-select-placeholder{position:relative;padding:0 2px;transform-origin:left top}.md-select-placeholder.md-floating-placeholder{top:-22px;left:-2px;transform:scale(.75)}[dir=rtl] .md-select-placeholder{transform-origin:right top}[dir=rtl] .md-select-placeholder.md-floating-placeholder{left:2px}[aria-required=true] .md-select-placeholder::after{content:'*'}.md-select-value{position:absolute;white-space:nowrap;overflow-x:hidden;text-overflow:ellipsis;left:0;top:6px}[dir=rtl] .md-select-value{left:auto;right:0}.md-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.md-select-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px}@media screen and (-ms-high-contrast:active){.md-select-panel{outline:solid 1px}}"],
             encapsulation: _angular_core.ViewEncapsulation.None,
             host: {
@@ -9441,7 +9444,7 @@ var MdIconRegistry = (function () {
         for (var i = iconSetConfigs.length - 1; i >= 0; i--) {
             var config = iconSetConfigs[i];
             if (config.svgElement) {
-                var foundIcon = this._extractSvgIconFromSet(config.svgElement, iconName, config);
+                var foundIcon = this._extractSvgIconFromSet(config.svgElement, iconName);
                 if (foundIcon) {
                     return foundIcon;
                 }
@@ -9456,7 +9459,7 @@ var MdIconRegistry = (function () {
     MdIconRegistry.prototype._loadSvgIconFromConfig = function (config) {
         var _this = this;
         return this._fetchUrl(config.url)
-            .map(function (svgText) { return _this._createSvgElementForSingleIcon(svgText, config); });
+            .map(function (svgText) { return _this._createSvgElementForSingleIcon(svgText); });
     };
     /**
      * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
@@ -9471,9 +9474,9 @@ var MdIconRegistry = (function () {
     /**
      * Creates a DOM element from the given SVG string, and adds default attributes.
      */
-    MdIconRegistry.prototype._createSvgElementForSingleIcon = function (responseText, config) {
+    MdIconRegistry.prototype._createSvgElementForSingleIcon = function (responseText) {
         var svg = this._svgElementFromString(responseText);
-        this._setSvgAttributes(svg, config);
+        this._setSvgAttributes(svg);
         return svg;
     };
     /**
@@ -9481,7 +9484,7 @@ var MdIconRegistry = (function () {
      * tag matches the specified name. If found, copies the nested element to a new SVG element and
      * returns it. Returns null if no matching element is found.
      */
-    MdIconRegistry.prototype._extractSvgIconFromSet = function (iconSet, iconName, config) {
+    MdIconRegistry.prototype._extractSvgIconFromSet = function (iconSet, iconName) {
         var iconNode = iconSet.querySelector('#' + iconName);
         if (!iconNode) {
             return null;
@@ -9489,7 +9492,7 @@ var MdIconRegistry = (function () {
         // If the icon node is itself an <svg> node, clone and return it directly. If not, set it as
         // the content of a new <svg> node.
         if (iconNode.tagName.toLowerCase() == 'svg') {
-            return this._setSvgAttributes(iconNode.cloneNode(true), config);
+            return this._setSvgAttributes(iconNode.cloneNode(true));
         }
         // createElement('SVG') doesn't work as expected; the DOM ends up with
         // the correct nodes, but the SVG content doesn't render. Instead we
@@ -9499,7 +9502,7 @@ var MdIconRegistry = (function () {
         var svg = this._svgElementFromString('<svg></svg>');
         // Clone the node so we don't remove it from the parent icon set element.
         svg.appendChild(iconNode.cloneNode(true));
-        return this._setSvgAttributes(svg, config);
+        return this._setSvgAttributes(svg);
     };
     /**
      * Creates a DOM element from the given SVG string.
@@ -9518,7 +9521,7 @@ var MdIconRegistry = (function () {
     /**
      * Sets the default attributes for an SVG element to be used as an icon.
      */
-    MdIconRegistry.prototype._setSvgAttributes = function (svg, config) {
+    MdIconRegistry.prototype._setSvgAttributes = function (svg) {
         if (!svg.getAttribute('xmlns')) {
             svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
         }

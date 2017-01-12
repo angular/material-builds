@@ -157,13 +157,13 @@ export declare class MdIconRegistry {
     /**
      * Creates a DOM element from the given SVG string, and adds default attributes.
      */
-    private _createSvgElementForSingleIcon(responseText, config);
+    private _createSvgElementForSingleIcon(responseText);
     /**
      * Searches the cached element of the given SvgIconConfig for a nested icon element whose "id"
      * tag matches the specified name. If found, copies the nested element to a new SVG element and
      * returns it. Returns null if no matching element is found.
      */
-    private _extractSvgIconFromSet(iconSet, iconName, config);
+    private _extractSvgIconFromSet(iconSet, iconName);
     /**
      * Creates a DOM element from the given SVG string.
      */
@@ -171,7 +171,7 @@ export declare class MdIconRegistry {
     /**
      * Sets the default attributes for an SVG element to be used as an icon.
      */
-    private _setSvgAttributes(svg, config);
+    private _setSvgAttributes(svg);
     /**
      * Returns an Observable which produces the string contents of the given URL. Results may be
      * cached, so future calls with the same URL may not cause another HTTP request.

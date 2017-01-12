@@ -82,6 +82,8 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
     _optionIds: string;
     /** The value of the select panel's transform-origin property. */
     _transformOrigin: string;
+    /** Whether the panel's animation is done. */
+    _panelDoneAnimating: boolean;
     /**
      * The x-offset of the overlay panel in relation to the trigger's top start corner.
      * This must be adjusted to align the selected option text over the trigger text when

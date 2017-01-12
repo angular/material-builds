@@ -287,7 +287,7 @@ export var MdIconRegistry = (function () {
         for (var i = iconSetConfigs.length - 1; i >= 0; i--) {
             var config = iconSetConfigs[i];
             if (config.svgElement) {
-                var foundIcon = this._extractSvgIconFromSet(config.svgElement, iconName, config);
+                var foundIcon = this._extractSvgIconFromSet(config.svgElement, iconName);
                 if (foundIcon) {
                     return foundIcon;
                 }
@@ -302,7 +302,7 @@ export var MdIconRegistry = (function () {
     MdIconRegistry.prototype._loadSvgIconFromConfig = function (config) {
         var _this = this;
         return this._fetchUrl(config.url)
-            .map(function (svgText) { return _this._createSvgElementForSingleIcon(svgText, config); });
+            .map(function (svgText) { return _this._createSvgElementForSingleIcon(svgText); });
     };
     /**
      * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
@@ -317,9 +317,9 @@ export var MdIconRegistry = (function () {
     /**
      * Creates a DOM element from the given SVG string, and adds default attributes.
      */
-    MdIconRegistry.prototype._createSvgElementForSingleIcon = function (responseText, config) {
+    MdIconRegistry.prototype._createSvgElementForSingleIcon = function (responseText) {
         var svg = this._svgElementFromString(responseText);
-        this._setSvgAttributes(svg, config);
+        this._setSvgAttributes(svg);
         return svg;
     };
     /**
@@ -327,7 +327,7 @@ export var MdIconRegistry = (function () {
      * tag matches the specified name. If found, copies the nested element to a new SVG element and
      * returns it. Returns null if no matching element is found.
      */
-    MdIconRegistry.prototype._extractSvgIconFromSet = function (iconSet, iconName, config) {
+    MdIconRegistry.prototype._extractSvgIconFromSet = function (iconSet, iconName) {
         var iconNode = iconSet.querySelector('#' + iconName);
         if (!iconNode) {
             return null;
@@ -335,7 +335,7 @@ export var MdIconRegistry = (function () {
         // If the icon node is itself an <svg> node, clone and return it directly. If not, set it as
         // the content of a new <svg> node.
         if (iconNode.tagName.toLowerCase() == 'svg') {
-            return this._setSvgAttributes(iconNode.cloneNode(true), config);
+            return this._setSvgAttributes(iconNode.cloneNode(true));
         }
         // createElement('SVG') doesn't work as expected; the DOM ends up with
         // the correct nodes, but the SVG content doesn't render. Instead we
@@ -345,7 +345,7 @@ export var MdIconRegistry = (function () {
         var svg = this._svgElementFromString('<svg></svg>');
         // Clone the node so we don't remove it from the parent icon set element.
         svg.appendChild(iconNode.cloneNode(true));
-        return this._setSvgAttributes(svg, config);
+        return this._setSvgAttributes(svg);
     };
     /**
      * Creates a DOM element from the given SVG string.
@@ -364,7 +364,7 @@ export var MdIconRegistry = (function () {
     /**
      * Sets the default attributes for an SVG element to be used as an icon.
      */
-    MdIconRegistry.prototype._setSvgAttributes = function (svg, config) {
+    MdIconRegistry.prototype._setSvgAttributes = function (svg) {
         if (!svg.getAttribute('xmlns')) {
             svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
         }
