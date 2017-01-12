@@ -6,8 +6,10 @@ export declare class MdTextareaAutosize implements OnInit {
     private _elementRef;
     /** Minimum number of rows for this textarea. */
     minRows: number;
+    mdAutosizeMinRows: number;
     /** Maximum number of rows for this textarea. */
     maxRows: number;
+    mdAutosizeMaxRows: number;
     /** Cached height of a textarea with a single row. */
     private _cachedLineHeight;
     constructor(_elementRef: ElementRef);

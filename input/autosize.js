@@ -15,6 +15,26 @@ export var MdTextareaAutosize = (function () {
     function MdTextareaAutosize(_elementRef) {
         this._elementRef = _elementRef;
     }
+    Object.defineProperty(MdTextareaAutosize.prototype, "mdAutosizeMinRows", {
+        get: function () {
+            return this.minRows;
+        },
+        set: function (value) {
+            this.minRows = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdTextareaAutosize.prototype, "mdAutosizeMaxRows", {
+        get: function () {
+            return this.maxRows;
+        },
+        set: function (value) {
+            this.maxRows = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MdTextareaAutosize.prototype, "_minHeight", {
         /** The minimum height of the textarea as determined by minRows. */
         get: function () {
@@ -76,7 +96,15 @@ export var MdTextareaAutosize = (function () {
     __decorate([
         Input(), 
         __metadata('design:type', Number)
+    ], MdTextareaAutosize.prototype, "mdAutosizeMinRows", null);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Number)
     ], MdTextareaAutosize.prototype, "maxRows", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Number)
+    ], MdTextareaAutosize.prototype, "mdAutosizeMaxRows", null);
     MdTextareaAutosize = __decorate([
         Directive({
             selector: 'textarea[md-autosize], textarea[mat-autosize], textarea[mdTextareaAutosize]',
