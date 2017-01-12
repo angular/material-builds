@@ -5751,6 +5751,14 @@ var SELECT_PANEL_PADDING_Y = 16;
  * this value or more away from the viewport boundary.
  */
 var SELECT_PANEL_VIEWPORT_PADDING = 8;
+/** Change event object that is emitted when the select value has changed. */
+var MdSelectChange = (function () {
+    function MdSelectChange(source, value) {
+        this.source = source;
+        this.value = value;
+    }
+    return MdSelectChange;
+}());
 var MdSelect = (function () {
     function MdSelect(_element, _renderer, _viewportRuler, _dir, _control) {
         this._element = _element;
@@ -5816,6 +5824,8 @@ var MdSelect = (function () {
         this.onOpen = new _angular_core.EventEmitter();
         /** Event emitted when the select has been closed. */
         this.onClose = new _angular_core.EventEmitter();
+        /** Event emitted when the selected value has been changed by the user. */
+        this.change = new _angular_core.EventEmitter();
         if (this._control) {
             this._control.valueAccessor = this;
         }
@@ -6036,8 +6046,8 @@ var MdSelect = (function () {
         var _this = this;
         this.options.forEach(function (option) {
             var sub = option.onSelect.subscribe(function (isUserInput) {
-                if (isUserInput) {
-                    _this._onChange(option.value);
+                if (isUserInput && _this._selected !== option) {
+                    _this._emitChangeEvent(option);
                 }
                 _this._onSelect(option);
             });
@@ -6048,6 +6058,11 @@ var MdSelect = (function () {
     MdSelect.prototype._dropSubscriptions = function () {
         this._subscriptions.forEach(function (sub) { return sub.unsubscribe(); });
         this._subscriptions = [];
+    };
+    /** Emits an event when the user selects an option. */
+    MdSelect.prototype._emitChangeEvent = function (option) {
+        this._onChange(option.value);
+        this.change.emit(new MdSelectChange(this, option.value));
     };
     /** Records option IDs to pass to the aria-owns property. */
     MdSelect.prototype._setOptionIds = function () {
@@ -6263,12 +6278,16 @@ var MdSelect = (function () {
     ], MdSelect.prototype, "required", null);
     __decorate$33([
         _angular_core.Output(), 
-        __metadata$33('design:type', Object)
+        __metadata$33('design:type', _angular_core.EventEmitter)
     ], MdSelect.prototype, "onOpen", void 0);
     __decorate$33([
         _angular_core.Output(), 
-        __metadata$33('design:type', Object)
+        __metadata$33('design:type', _angular_core.EventEmitter)
     ], MdSelect.prototype, "onClose", void 0);
+    __decorate$33([
+        _angular_core.Output(), 
+        __metadata$33('design:type', _angular_core.EventEmitter)
+    ], MdSelect.prototype, "change", void 0);
     MdSelect = __decorate$33([
         _angular_core.Component({selector: 'md-select, mat-select',
             template: "<div class=\"md-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><span class=\"md-select-placeholder\" [class.md-floating-placeholder]=\"this.selected\" [@transformPlaceholder]=\"_placeholderState\" [style.width.px]=\"_selectedValueWidth\">{{ placeholder }} </span><span class=\"md-select-value\" *ngIf=\"selected\">{{ selected?.viewValue }} </span><span class=\"md-select-arrow\"></span></div><template cdk-connected-overlay [origin]=\"origin\" [open]=\"panelOpen\" hasBackdrop (backdropClick)=\"close()\" backdropClass=\"cdk-overlay-transparent-backdrop\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" [offsetX]=\"_offsetX\" (attach)=\"_setScrollTop()\"><div class=\"md-select-panel\" [@transformPanel]=\"'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_keyManager.onKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.md-select-panel-done-animating]=\"_panelDoneAnimating\"><div class=\"md-select-content\" [@fadeInContent]=\"'showing'\"><ng-content></ng-content></div></div></template>",
@@ -10632,7 +10651,14 @@ var MdInputDirective = (function () {
         configurable: true
     });
     Object.defineProperty(MdInputDirective.prototype, "empty", {
-        get: function () { return (this.value == null || this.value === '') && !this._isNeverEmpty(); },
+        get: function () {
+            return !this._isNeverEmpty() &&
+                (this.value == null || this.value === '') &&
+                // Check if the input contains bad input. If so, we know that it only appears empty because
+                // the value failed to parse. From the user's perspective it is not empty.
+                // TODO(mmalerba): Add e2e test for bad input case.
+                !this._isBadInput();
+        },
         enumerable: true,
         configurable: true
     });
@@ -10661,6 +10687,9 @@ var MdInputDirective = (function () {
         }
     };
     MdInputDirective.prototype._isNeverEmpty = function () { return this._neverEmptyInputTypes.indexOf(this._type) !== -1; };
+    MdInputDirective.prototype._isBadInput = function () {
+        return this._elementRef.nativeElement.validity.badInput;
+    };
     /** Determines if the component host is a textarea. If not recognizable it returns false. */
     MdInputDirective.prototype._isTextarea = function () {
         var nativeElement = this._elementRef.nativeElement;
@@ -10827,7 +10856,7 @@ var MdInputContainer = (function () {
         _angular_core.Component({selector: 'md-input-container, mat-input-container',
             template: "<div class=\"md-input-wrapper\"><div class=\"md-input-table\"><div class=\"md-input-prefix\"><ng-content select=\"[md-prefix]\"></ng-content></div><div class=\"md-input-infix\" [class.md-end]=\"align == 'end'\"><ng-content selector=\"input, textarea\"></ng-content><label class=\"md-input-placeholder\" [attr.for]=\"_mdInputChild.id\" [class.md-empty]=\"_mdInputChild.empty\" [class.md-focused]=\"_mdInputChild.focused\" [class.md-float]=\"floatingPlaceholder\" [class.md-accent]=\"dividerColor == 'accent'\" [class.md-warn]=\"dividerColor == 'warn'\" *ngIf=\"_hasPlaceholder()\"><ng-content select=\"md-placeholder\"></ng-content>{{_mdInputChild.placeholder}} <span class=\"md-placeholder-required\" *ngIf=\"_mdInputChild.required\">*</span></label></div><div class=\"md-input-suffix\"><ng-content select=\"[md-suffix]\"></ng-content></div></div><div class=\"md-input-underline\" [class.md-disabled]=\"_mdInputChild.disabled\"><span class=\"md-input-ripple\" [class.md-focused]=\"_mdInputChild.focused\" [class.md-accent]=\"dividerColor == 'accent'\" [class.md-warn]=\"dividerColor == 'warn'\"></span></div><div *ngIf=\"hintLabel != ''\" class=\"md-hint\">{{hintLabel}}</div><ng-content select=\"md-hint\"></ng-content></div>",
             styles: ["md-input,md-textarea{display:inline-block;position:relative;font-family:Roboto,\"Helvetica Neue\",sans-serif;line-height:normal;text-align:left}.md-input-element.md-end,[dir=rtl] md-input,[dir=rtl] md-textarea{text-align:right}.md-input-wrapper{margin:1em 0;padding-bottom:6px}.md-input-table{display:inline-table;flex-flow:column;vertical-align:bottom;width:100%}.md-input-table>*{display:table-cell}.md-input-infix{position:relative}.md-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;width:100%}[dir=rtl] .md-input-element.md-end{text-align:left}.md-input-element:-moz-ui-invalid{box-shadow:none}.md-input-element:-webkit-autofill+.md-input-placeholder.md-float{display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}.md-input-placeholder{position:absolute;left:0;top:0;font-size:100%;pointer-events:none;z-index:1;width:100%;display:none;white-space:nowrap;text-overflow:ellipsis;overflow-x:hidden;transform:translateY(0);transform-origin:bottom left;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1)}.md-input-placeholder.md-empty{display:block;cursor:text}.md-input-placeholder.md-float.md-focused,.md-input-placeholder.md-float:not(.md-empty){display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}[dir=rtl] .md-input-placeholder{transform-origin:bottom right;left:auto;right:0}.md-input-underline{position:absolute;height:1px;width:100%;margin-top:4px;border-top-width:1px;border-top-style:solid}.md-input-underline.md-disabled{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;border-top:0;background-position:0}.md-input-underline .md-input-ripple{position:absolute;height:2px;z-index:1;top:-1px;width:100%;transform-origin:top;opacity:0;transform:scaleY(0);transition:transform .4s cubic-bezier(.25,.8,.25,1),opacity .4s cubic-bezier(.25,.8,.25,1)}.md-input-underline .md-input-ripple.md-focused{opacity:1;transform:scaleY(1)}.md-hint{display:block;position:absolute;font-size:75%;bottom:0}.md-hint.md-right{right:0}[dir=rtl] .md-hint{right:0;left:auto}[dir=rtl] .md-hint.md-right{right:auto;left:0}",
-"md-input-container{display:inline-block;position:relative;font-family:Roboto,\"Helvetica Neue\",sans-serif;line-height:normal;text-align:left}.md-end .md-input-element,[dir=rtl] md-input-container{text-align:right}.md-input-element::placeholder{color:transparent}.md-input-element::-moz-placeholder{color:transparent}.md-input-element::-webkit-input-placeholder{color:transparent}.md-input-element:-ms-input-placeholder{color:transparent}[dir=rtl] .md-end .md-input-element{text-align:left}"],
+"md-input-container{display:inline-block;position:relative;font-family:Roboto,\"Helvetica Neue\",sans-serif;line-height:normal;text-align:left}.md-end .md-input-element,[dir=rtl] md-input-container{text-align:right}.md-input-element::placeholder{color:transparent}.md-input-element::-moz-placeholder{color:transparent}.md-input-element::-webkit-input-placeholder{color:transparent}.md-input-element:-ms-input-placeholder{color:transparent}[dir=rtl] .md-end .md-input-element{text-align:left}.md-input-prefix,.md-input-suffix{width:.1px;white-space:nowrap}"],
             host: {
                 // Remove align attribute to prevent it from interfering with layout.
                 '[attr.align]': 'null',
@@ -14839,6 +14868,7 @@ exports.SELECT_OPTION_HEIGHT_ADJUSTMENT = SELECT_OPTION_HEIGHT_ADJUSTMENT;
 exports.SELECT_PANEL_PADDING_X = SELECT_PANEL_PADDING_X;
 exports.SELECT_PANEL_PADDING_Y = SELECT_PANEL_PADDING_Y;
 exports.SELECT_PANEL_VIEWPORT_PADDING = SELECT_PANEL_VIEWPORT_PADDING;
+exports.MdSelectChange = MdSelectChange;
 exports.MdSelect = MdSelect;
 exports.MdDuplicatedSidenavError = MdDuplicatedSidenavError;
 exports.MdSidenavToggleResult = MdSidenavToggleResult;

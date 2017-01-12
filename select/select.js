@@ -51,6 +51,14 @@ export var SELECT_PANEL_PADDING_Y = 16;
  * this value or more away from the viewport boundary.
  */
 export var SELECT_PANEL_VIEWPORT_PADDING = 8;
+/** Change event object that is emitted when the select value has changed. */
+export var MdSelectChange = (function () {
+    function MdSelectChange(source, value) {
+        this.source = source;
+        this.value = value;
+    }
+    return MdSelectChange;
+}());
 export var MdSelect = (function () {
     function MdSelect(_element, _renderer, _viewportRuler, _dir, _control) {
         this._element = _element;
@@ -116,6 +124,8 @@ export var MdSelect = (function () {
         this.onOpen = new EventEmitter();
         /** Event emitted when the select has been closed. */
         this.onClose = new EventEmitter();
+        /** Event emitted when the selected value has been changed by the user. */
+        this.change = new EventEmitter();
         if (this._control) {
             this._control.valueAccessor = this;
         }
@@ -336,8 +346,8 @@ export var MdSelect = (function () {
         var _this = this;
         this.options.forEach(function (option) {
             var sub = option.onSelect.subscribe(function (isUserInput) {
-                if (isUserInput) {
-                    _this._onChange(option.value);
+                if (isUserInput && _this._selected !== option) {
+                    _this._emitChangeEvent(option);
                 }
                 _this._onSelect(option);
             });
@@ -348,6 +358,11 @@ export var MdSelect = (function () {
     MdSelect.prototype._dropSubscriptions = function () {
         this._subscriptions.forEach(function (sub) { return sub.unsubscribe(); });
         this._subscriptions = [];
+    };
+    /** Emits an event when the user selects an option. */
+    MdSelect.prototype._emitChangeEvent = function (option) {
+        this._onChange(option.value);
+        this.change.emit(new MdSelectChange(this, option.value));
     };
     /** Records option IDs to pass to the aria-owns property. */
     MdSelect.prototype._setOptionIds = function () {
@@ -563,12 +578,16 @@ export var MdSelect = (function () {
     ], MdSelect.prototype, "required", null);
     __decorate([
         Output(), 
-        __metadata('design:type', Object)
+        __metadata('design:type', EventEmitter)
     ], MdSelect.prototype, "onOpen", void 0);
     __decorate([
         Output(), 
-        __metadata('design:type', Object)
+        __metadata('design:type', EventEmitter)
     ], MdSelect.prototype, "onClose", void 0);
+    __decorate([
+        Output(), 
+        __metadata('design:type', EventEmitter)
+    ], MdSelect.prototype, "change", void 0);
     MdSelect = __decorate([
         Component({selector: 'md-select, mat-select',
             template: "<div class=\"md-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><span class=\"md-select-placeholder\" [class.md-floating-placeholder]=\"this.selected\" [@transformPlaceholder]=\"_placeholderState\" [style.width.px]=\"_selectedValueWidth\">{{ placeholder }} </span><span class=\"md-select-value\" *ngIf=\"selected\">{{ selected?.viewValue }} </span><span class=\"md-select-arrow\"></span></div><template cdk-connected-overlay [origin]=\"origin\" [open]=\"panelOpen\" hasBackdrop (backdropClick)=\"close()\" backdropClass=\"cdk-overlay-transparent-backdrop\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" [offsetX]=\"_offsetX\" (attach)=\"_setScrollTop()\"><div class=\"md-select-panel\" [@transformPanel]=\"'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_keyManager.onKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.md-select-panel-done-animating]=\"_panelDoneAnimating\"><div class=\"md-select-content\" [@fadeInContent]=\"'showing'\"><ng-content></ng-content></div></div></template>",

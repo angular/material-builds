@@ -52,6 +52,7 @@ export declare class MdInputDirective {
     /** Make sure the input is a supported type. */
     private _validateType();
     private _isNeverEmpty();
+    private _isBadInput();
     /** Determines if the component host is a textarea. If not recognizable it returns false. */
     private _isTextarea();
 }

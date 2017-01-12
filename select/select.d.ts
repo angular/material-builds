@@ -36,6 +36,12 @@ export declare const SELECT_PANEL_PADDING_Y: number;
  * this value or more away from the viewport boundary.
  */
 export declare const SELECT_PANEL_VIEWPORT_PADDING: number;
+/** Change event object that is emitted when the select value has changed. */
+export declare class MdSelectChange {
+    source: MdSelect;
+    value: any;
+    constructor(source: MdSelect, value: any);
+}
 export declare class MdSelect implements AfterContentInit, ControlValueAccessor, OnDestroy {
     private _element;
     private _renderer;
@@ -121,9 +127,11 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
     /** Whether the component is required. */
     required: any;
     /** Event emitted when the select has been opened. */
-    onOpen: EventEmitter<{}>;
+    onOpen: EventEmitter<void>;
     /** Event emitted when the select has been closed. */
-    onClose: EventEmitter<{}>;
+    onClose: EventEmitter<void>;
+    /** Event emitted when the selected value has been changed by the user. */
+    change: EventEmitter<MdSelectChange>;
     constructor(_element: ElementRef, _renderer: Renderer, _viewportRuler: ViewportRuler, _dir: Dir, _control: NgControl);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
@@ -208,6 +216,8 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
     private _listenToOptions();
     /** Unsubscribes from all option subscriptions. */
     private _dropSubscriptions();
+    /** Emits an event when the user selects an option. */
+    private _emitChangeEvent(option);
     /** Records option IDs to pass to the aria-owns property. */
     private _setOptionIds();
     /** When a new option is selected, deselects the others and closes the panel. */
