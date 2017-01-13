@@ -162,7 +162,14 @@ export var MdSelect = (function () {
         var _this = this;
         this._initKeyManager();
         this._resetOptions();
-        this._changeSubscription = this.options.changes.subscribe(function () { return _this._resetOptions(); });
+        this._changeSubscription = this.options.changes.subscribe(function () {
+            _this._resetOptions();
+            if (_this._control) {
+                // Defer setting the value in order to avoid the "Expression
+                // has changed after it was checked" errors from Angular.
+                Promise.resolve(null).then(function () { return _this._setSelectionByValue(_this._control.value); });
+            }
+        });
     };
     MdSelect.prototype.ngOnDestroy = function () {
         this._dropSubscriptions();
