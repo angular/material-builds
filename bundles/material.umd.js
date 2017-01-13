@@ -7409,6 +7409,7 @@ var MdSidenav = (function () {
         this._valid = true;
         /** Mode of the sidenav; whether 'over' or 'side'. */
         this.mode = 'over';
+        this._disableClose = false;
         /** Whether the sidenav is opened. */
         this._opened = false;
         /** Event emitted when the sidenav is being opened. Use this to synchronize animations. */
@@ -7471,6 +7472,13 @@ var MdSidenav = (function () {
                 this.onAlignChanged.emit();
             }
         },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdSidenav.prototype, "disableClose", {
+        /** Whether the sidenav can be closed with the escape key or not. */
+        get: function () { return this._disableClose; },
+        set: function (value) { this._disableClose = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -7553,7 +7561,7 @@ var MdSidenav = (function () {
      * @docs-private
      */
     MdSidenav.prototype.handleKeydown = function (event) {
-        if (event.keyCode === ESCAPE) {
+        if (event.keyCode === ESCAPE && !this.disableClose) {
             this.close();
             event.stopPropagation();
         }
@@ -7657,6 +7665,10 @@ var MdSidenav = (function () {
         __metadata$36('design:type', Object)
     ], MdSidenav.prototype, "mode", void 0);
     __decorate$36([
+        _angular_core.Input(), 
+        __metadata$36('design:type', Boolean)
+    ], MdSidenav.prototype, "disableClose", null);
+    __decorate$36([
         _angular_core.Output('open-start'), 
         __metadata$36('design:type', Object)
     ], MdSidenav.prototype, "onOpenStart", void 0);
@@ -7720,7 +7732,7 @@ var MdSidenavContainer = (function () {
         this._element = _element;
         this._renderer = _renderer;
         /** Event emitted when the sidenav backdrop is clicked. */
-        this.onBackdropClicked = new _angular_core.EventEmitter();
+        this.backdropClick = new _angular_core.EventEmitter();
         // If a `Dir` directive exists up the tree, listen direction changes and update the left/right
         // properties to point to the proper start/end.
         if (_dir != null) {
@@ -7822,16 +7834,14 @@ var MdSidenavContainer = (function () {
         this._setDrawersValid(true);
     };
     MdSidenavContainer.prototype._onBackdropClicked = function () {
-        this.onBackdropClicked.emit();
+        this.backdropClick.emit();
         this._closeModalSidenav();
     };
     MdSidenavContainer.prototype._closeModalSidenav = function () {
-        if (this._start != null && this._start.mode != 'side') {
-            this._start.close();
-        }
-        if (this._end != null && this._end.mode != 'side') {
-            this._end.close();
-        }
+        // Close all open sidenav's where closing is not disabled and the mode is not `side`.
+        [this._start, this._end]
+            .filter(function (sidenav) { return sidenav && !sidenav.disableClose && sidenav.mode !== 'side'; })
+            .forEach(function (sidenav) { return sidenav.close(); });
     };
     MdSidenavContainer.prototype._isShowingBackdrop = function () {
         return (this._isSidenavOpen(this._start) && this._start.mode != 'side')
@@ -7885,9 +7895,9 @@ var MdSidenavContainer = (function () {
         __metadata$36('design:type', _angular_core.QueryList)
     ], MdSidenavContainer.prototype, "_sidenavs", void 0);
     __decorate$36([
-        _angular_core.Output('backdrop-clicked'), 
+        _angular_core.Output(), 
         __metadata$36('design:type', Object)
-    ], MdSidenavContainer.prototype, "onBackdropClicked", void 0);
+    ], MdSidenavContainer.prototype, "backdropClick", void 0);
     MdSidenavContainer = __decorate$36([
         _angular_core.Component({selector: 'md-sidenav-container, mat-sidenav-container',
             // Do not use ChangeDetectionStrategy.OnPush. It does not work for this component because

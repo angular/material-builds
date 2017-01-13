@@ -31,6 +31,9 @@ export declare class MdSidenav implements AfterContentInit {
     align: "start" | "end";
     /** Mode of the sidenav; whether 'over' or 'side'. */
     mode: 'over' | 'push' | 'side';
+    /** Whether the sidenav can be closed with the escape key or not. */
+    disableClose: boolean;
+    private _disableClose;
     /** Whether the sidenav is opened. */
     _opened: boolean;
     /** Event emitted when the sidenav is being opened. Use this to synchronize animations. */
@@ -115,7 +118,7 @@ export declare class MdSidenavContainer implements AfterContentInit {
     /** The sidenav child with the `end` alignment. */
     readonly end: MdSidenav;
     /** Event emitted when the sidenav backdrop is clicked. */
-    onBackdropClicked: EventEmitter<void>;
+    backdropClick: EventEmitter<void>;
     /** The sidenav at the start/end alignment, independent of direction. */
     private _start;
     private _end;
