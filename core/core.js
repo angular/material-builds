@@ -49,6 +49,8 @@ export { GestureConfig } from './gestures/gesture-config';
 export { MdRipple, MdRippleModule } from './ripple/ripple';
 // a11y
 export { LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER } from './a11y/live-announcer';
+// Selection
+export * from './selection/selection';
 /** @deprecated */
 export { LiveAnnouncer as MdLiveAnnouncer } from './a11y/live-announcer';
 export { FocusTrap } from './a11y/focus-trap';
