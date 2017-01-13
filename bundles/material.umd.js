@@ -7855,7 +7855,7 @@ var MdSidenavContainer = (function () {
         __metadata$36('design:type', Object)
     ], MdSidenavContainer.prototype, "onBackdropClicked", void 0);
     MdSidenavContainer = __decorate$36([
-        _angular_core.Component({selector: 'md-sidenav-container, mat-sidenav-container, md-sidenav-layout, mat-sidenav-layout',
+        _angular_core.Component({selector: 'md-sidenav-container, mat-sidenav-container',
             // Do not use ChangeDetectionStrategy.OnPush. It does not work for this component because
             // technically it is a sibling of MdSidenav (on the content tree) and isn't updated when MdSidenav
             // changes its state.
