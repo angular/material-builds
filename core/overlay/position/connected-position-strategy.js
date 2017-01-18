@@ -205,10 +205,10 @@ export var ConnectedPositionStrategy = (function () {
         var x = originPoint.x + overlayStartX + this._offsetX;
         var y = originPoint.y + overlayStartY + this._offsetY;
         // How much the overlay would overflow at this position, on each side.
-        var leftOverflow = viewportRect.left - x;
-        var rightOverflow = (x + overlayRect.width) - viewportRect.right;
-        var topOverflow = viewportRect.top - y;
-        var bottomOverflow = (y + overlayRect.height) - viewportRect.bottom;
+        var leftOverflow = 0 - x;
+        var rightOverflow = (x + overlayRect.width) - viewportRect.width;
+        var topOverflow = 0 - y;
+        var bottomOverflow = (y + overlayRect.height) - viewportRect.height;
         // Visible parts of the element on each axis.
         var visibleWidth = this._subtractOverflows(overlayRect.width, leftOverflow, rightOverflow);
         var visibleHeight = this._subtractOverflows(overlayRect.height, topOverflow, bottomOverflow);
