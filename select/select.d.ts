@@ -183,10 +183,15 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
     /** Ensures the panel opens if activated by the keyboard. */
     _handleKeydown(event: KeyboardEvent): void;
     /**
-     * When the panel is finished animating, emits an event and focuses
-     * an option if the panel is open.
+     * When the panel element is finished transforming in (though not fading in), it
+     * emits an event and focuses an option if the panel is open.
      */
     _onPanelDone(): void;
+    /**
+     * When the panel content is done fading in, the _panelDoneAnimating property is
+     * set so the proper class can be added to the panel.
+     */
+    _onFadeInDone(): void;
     /**
      * Calls the touched callback only if the panel is closed. Otherwise, the trigger will
      * "blur" to the panel when it opens, causing a false positive.
