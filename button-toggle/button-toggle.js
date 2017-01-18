@@ -37,7 +37,7 @@ export var MdButtonToggleGroup = (function () {
         /** The value for the button toggle group. Should match currently selected button toggle. */
         this._value = null;
         /** The HTML name attribute applied to toggles in this group. */
-        this._name = "md-radio-group-" + _uniqueIdCounter++;
+        this._name = "md-button-toggle-group-" + _uniqueIdCounter++;
         /** Disables all toggles in the group. */
         this._disabled = null;
         /** Whether the button toggle group should be vertical. */

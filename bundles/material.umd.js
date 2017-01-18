@@ -3967,7 +3967,7 @@ var MdButtonToggleGroup = (function () {
         /** The value for the button toggle group. Should match currently selected button toggle. */
         this._value = null;
         /** The HTML name attribute applied to toggles in this group. */
-        this._name = "md-radio-group-" + _uniqueIdCounter$1++;
+        this._name = "md-button-toggle-group-" + _uniqueIdCounter$1++;
         /** Disables all toggles in the group. */
         this._disabled = null;
         /** Whether the button toggle group should be vertical. */
@@ -12375,13 +12375,16 @@ var __param$12 = (this && this.__param) || function (paramIndex, decorator) {
  * Wrapper for the contents of a tab.
  */
 var MdTabBody = (function () {
-    function MdTabBody(_elementRef, _dir) {
-        this._elementRef = _elementRef;
+    function MdTabBody(_dir, _elementRef, _changeDetectorRef) {
         this._dir = _dir;
+        this._elementRef = _elementRef;
+        this._changeDetectorRef = _changeDetectorRef;
         /** Event emitted when the tab begins to animate towards the center as the active tab. */
         this.onCentering = new _angular_core.EventEmitter();
         /** Event emitted when the tab completes its animation towards the center. */
         this.onCentered = new _angular_core.EventEmitter(true);
+        /** Whether the element is allowed to be animated. */
+        this._canBeAnimated = false;
     }
     Object.defineProperty(MdTabBody.prototype, "position", {
         set: function (position) {
@@ -12431,6 +12434,26 @@ var MdTabBody = (function () {
     MdTabBody.prototype.ngAfterViewChecked = function () {
         if (this._isCenterPosition(this._position) && !this._portalHost.hasAttached()) {
             this._portalHost.attach(this._content);
+        }
+    };
+    /**
+     * After the content has been checked, determines whether the element should be allowed to
+     * animate. This has to be limited, because under a specific set of circumstances (see #2151),
+     * the animations can be triggered too early, which either crashes Chrome by putting it into an
+     * infinite loop (with Angular < 2.3.0) or throws an error because the element doesn't have a
+     * computed style (with Angular > 2.3.0). This can alternatively be determined by checking the
+     * transform: canBeAnimated = getComputedStyle(element) !== '', however document.contains should
+     * be faster since it doesn't cause a reflow.
+     *
+     * TODO: This can safely be removed after we stop supporting Angular < 2.4.2. The fix landed via
+     * https://github.com/angular/angular/commit/21030e9a1cf30e8101399d8535ed72d847a23ba6
+     */
+    MdTabBody.prototype.ngAfterContentChecked = function () {
+        if (!this._canBeAnimated) {
+            this._canBeAnimated = document.body.contains(this._elementRef.nativeElement);
+            if (this._canBeAnimated) {
+                this._changeDetectorRef.markForCheck();
+            }
         }
     };
     MdTabBody.prototype._onTranslateTabStarted = function (e) {
@@ -12486,7 +12509,7 @@ var MdTabBody = (function () {
     ], MdTabBody.prototype, "origin", null);
     MdTabBody = __decorate$59([
         _angular_core.Component({selector: 'md-tab-body',
-            template: "<div class=\"md-tab-body-content\" #content [@translateTab]=\"_position\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><template cdkPortalHost></template></div>",
+            template: "<div class=\"md-tab-body-content\" #content [@translateTab]=\"_canBeAnimated ? _position : null\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><template cdkPortalHost></template></div>",
             animations: [
                 _angular_core.trigger('translateTab', [
                     _angular_core.state('left', _angular_core.style({ transform: 'translate3d(-100%, 0, 0)' })),
@@ -12506,8 +12529,8 @@ var MdTabBody = (function () {
                 ])
             ]
         }),
-        __param$12(1, _angular_core.Optional()), 
-        __metadata$59('design:paramtypes', [_angular_core.ElementRef, Dir])
+        __param$12(0, _angular_core.Optional()), 
+        __metadata$59('design:paramtypes', [Dir, _angular_core.ElementRef, _angular_core.ChangeDetectorRef])
     ], MdTabBody);
     return MdTabBody;
 }());
