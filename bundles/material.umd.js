@@ -8729,7 +8729,7 @@ var MdGridList = (function () {
         if (this._rowHeight === MD_FIT_MODE) {
             this._tileStyler = new FitTileStyler();
         }
-        else if (this._rowHeight && this._rowHeight.match(/:/g)) {
+        else if (this._rowHeight && this._rowHeight.indexOf(':') > -1) {
             this._tileStyler = new RatioTileStyler(this._rowHeight);
         }
         else {
@@ -8738,15 +8738,14 @@ var MdGridList = (function () {
     };
     /** Computes and applies the size and position for all children grid tiles. */
     MdGridList.prototype._layoutTiles = function () {
-        var tiles = this._tiles.toArray();
-        var tracker = new TileCoordinator(this.cols, tiles);
+        var _this = this;
+        var tracker = new TileCoordinator(this.cols, this._tiles);
         var direction = this._dir ? this._dir.value : 'ltr';
         this._tileStyler.init(this.gutterSize, tracker, this.cols, direction);
-        for (var i = 0; i < tiles.length; i++) {
-            var pos = tracker.positions[i];
-            var tile = tiles[i];
-            this._tileStyler.setStyle(tile, pos.row, pos.col);
-        }
+        this._tiles.forEach(function (tile, index) {
+            var pos = tracker.positions[index];
+            _this._tileStyler.setStyle(tile, pos.row, pos.col);
+        });
         this._setListStyle(this._tileStyler.getComputedHeight());
     };
     /** Sets style on the main grid-list element, given the style name and value. */
