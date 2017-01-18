@@ -47,6 +47,8 @@ export var MdTabGroup = (function () {
         /** Whether the tab group should grow to the size of the active tab */
         this._dynamicHeight = false;
         this._selectedIndex = null;
+        /** Position of the tab header. */
+        this.headerPosition = 'above';
         this._onFocusChange = new EventEmitter();
         this._onSelectChange = new EventEmitter(true);
         this._groupId = nextId++;
@@ -192,6 +194,10 @@ export var MdTabGroup = (function () {
         __metadata('design:paramtypes', [Number])
     ], MdTabGroup.prototype, "selectedIndex", null);
     __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], MdTabGroup.prototype, "headerPosition", void 0);
+    __decorate([
         Output(), 
         __metadata('design:type', Observable)
     ], MdTabGroup.prototype, "selectedIndexChange", null);
@@ -206,8 +212,11 @@ export var MdTabGroup = (function () {
     MdTabGroup = __decorate([
         Component({selector: 'md-tab-group',
             template: "<md-tab-header [selectedIndex]=\"selectedIndex\" #tabHeader (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"md-tab-label\" role=\"tab\" md-tab-label-wrapper md-ripple *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [tabIndex]=\"selectedIndex == i ? 0 : -1\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [class.md-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" (click)=\"tabHeader.focusIndex = selectedIndex = i\"><template [ngIf]=\"tab.templateLabel\"><template [cdkPortalHost]=\"tab.templateLabel\"></template></template><template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</template></div></md-tab-header><div class=\"md-tab-body-wrapper\" #tabBodyWrapper><md-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.md-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (onCentered)=\"_removeTabBodyWrapperHeight()\" (onCentering)=\"_setTabBodyWrapperHeight($event)\"></md-tab-body></div>",
-            styles: [":host{display:flex;flex-direction:column;font-family:Roboto,\"Helvetica Neue\",sans-serif}.md-tab-label{line-height:48px;height:48px;padding:0 12px;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;cursor:pointer;box-sizing:border-box;color:currentColor;opacity:.6;min-width:160px;text-align:center;position:relative}.md-tab-label:focus{outline:0;opacity:1}@media (max-width:600px){.md-tab-label{min-width:72px}}:host[md-stretch-tabs] .md-tab-label{flex-basis:0;flex-grow:1}.md-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height .5s cubic-bezier(.35,0,.25,1)}md-tab-body{position:absolute;top:0;left:0;right:0;bottom:0;display:block;overflow:hidden}md-tab-body.md-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}:host.md-tab-group-dynamic-height md-tab-body.md-tab-body-active{overflow-y:hidden}.md-tab-disabled{cursor:default;pointer-events:none}"],
-            host: { '[class.md-tab-group-dynamic-height]': 'dynamicHeight' }
+            styles: [":host{display:flex;flex-direction:column;font-family:Roboto,\"Helvetica Neue\",sans-serif}:host.md-tab-group-inverted-header{flex-direction:column-reverse}.md-tab-label{line-height:48px;height:48px;padding:0 12px;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;cursor:pointer;box-sizing:border-box;color:currentColor;opacity:.6;min-width:160px;text-align:center;position:relative}.md-tab-label:focus{outline:0;opacity:1}@media (max-width:600px){.md-tab-label{min-width:72px}}:host[md-stretch-tabs] .md-tab-label{flex-basis:0;flex-grow:1}.md-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height .5s cubic-bezier(.35,0,.25,1)}md-tab-body{position:absolute;top:0;left:0;right:0;bottom:0;display:block;overflow:hidden}md-tab-body.md-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}:host.md-tab-group-dynamic-height md-tab-body.md-tab-body-active{overflow-y:hidden}.md-tab-disabled{cursor:default;pointer-events:none}"],
+            host: {
+                '[class.md-tab-group-dynamic-height]': 'dynamicHeight',
+                '[class.md-tab-group-inverted-header]': 'headerPosition === "below"',
+            }
         }), 
         __metadata('design:paramtypes', [Renderer])
     ], MdTabGroup);

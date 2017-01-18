@@ -7,6 +7,8 @@ export declare class MdTabChangeEvent {
     index: number;
     tab: MdTab;
 }
+/** Possible positions for the tab header. */
+export declare type MdTabHeaderPosition = 'above' | 'below';
 /**
  * Material design tab-group component.  Supports basic tab pairs (label + content) and includes
  * animated ink-bar, keyboard navigation, and screen reader.
@@ -30,6 +32,8 @@ export declare class MdTabGroup {
     private _selectedIndex;
     /** The index of the active tab. */
     selectedIndex: number;
+    /** Position of the tab header. */
+    headerPosition: MdTabHeaderPosition;
     /** Output to enable support for two-way binding on `selectedIndex`. */
     readonly selectedIndexChange: Observable<number>;
     private _onFocusChange;
