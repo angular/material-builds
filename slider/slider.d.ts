@@ -88,11 +88,13 @@ export declare class MdSlider implements ControlValueAccessor {
      * from the right or bottom edge of the slider as opposed to the top or left.
      */
     readonly invertMouseCoords: any;
+    /** Whether the slider is at its minimum value. */
+    readonly _isMinValue: boolean;
     /**
      * The amount of space to leave between the slider thumb and the track fill & track background
      * elements.
      */
-    private readonly _thumbGap;
+    readonly _thumbGap: number;
     /** CSS styles for the track background element. */
     readonly trackBackgroundStyles: {
         [key: string]: string;
