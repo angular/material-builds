@@ -3,19 +3,21 @@ import { Overlay } from '../core';
 import { MdAutocomplete } from './autocomplete';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/merge';
+import { Dir } from '../core/rtl/dir';
 /** The panel needs a slight y-offset to ensure the input underline displays. */
 export declare const MD_AUTOCOMPLETE_PANEL_OFFSET: number;
 export declare class MdAutocompleteTrigger implements OnDestroy {
     private _element;
     private _overlay;
     private _viewContainerRef;
+    private _dir;
     private _overlayRef;
     private _portal;
     private _panelOpen;
     /** The subscription to events that close the autocomplete panel. */
     private _closingActionsSubscription;
     autocomplete: MdAutocomplete;
-    constructor(_element: ElementRef, _overlay: Overlay, _viewContainerRef: ViewContainerRef);
+    constructor(_element: ElementRef, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _dir: Dir);
     ngOnDestroy(): void;
     readonly panelOpen: boolean;
     /** Opens the autocomplete suggestion panel. */

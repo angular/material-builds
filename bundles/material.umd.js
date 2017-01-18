@@ -14696,13 +14696,17 @@ var __decorate$73 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$73 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param$18 = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 /** The panel needs a slight y-offset to ensure the input underline displays. */
 var MD_AUTOCOMPLETE_PANEL_OFFSET = 6;
 var MdAutocompleteTrigger = (function () {
-    function MdAutocompleteTrigger(_element, _overlay, _viewContainerRef) {
+    function MdAutocompleteTrigger(_element, _overlay, _viewContainerRef, _dir) {
         this._element = _element;
         this._overlay = _overlay;
         this._viewContainerRef = _viewContainerRef;
+        this._dir = _dir;
         this._panelOpen = false;
     }
     MdAutocompleteTrigger.prototype.ngOnDestroy = function () { this._destroyPanel(); };
@@ -14773,6 +14777,7 @@ var MdAutocompleteTrigger = (function () {
         overlayState.width = this._getHostWidth();
         overlayState.hasBackdrop = true;
         overlayState.backdropClass = 'md-overlay-transparent-backdrop';
+        overlayState.direction = this._dir ? this._dir.value : 'ltr';
         return overlayState;
     };
     MdAutocompleteTrigger.prototype._getOverlayPosition = function () {
@@ -14793,8 +14798,9 @@ var MdAutocompleteTrigger = (function () {
             host: {
                 '(focus)': 'openPanel()'
             }
-        }), 
-        __metadata$73('design:paramtypes', [_angular_core.ElementRef, Overlay, _angular_core.ViewContainerRef])
+        }),
+        __param$18(3, _angular_core.Optional()), 
+        __metadata$73('design:paramtypes', [_angular_core.ElementRef, Overlay, _angular_core.ViewContainerRef, Dir])
     ], MdAutocompleteTrigger);
     return MdAutocompleteTrigger;
 }());

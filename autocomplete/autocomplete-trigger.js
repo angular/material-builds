@@ -7,18 +7,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Directive, ElementRef, Input, ViewContainerRef } from '@angular/core';
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+import { Directive, ElementRef, Input, ViewContainerRef, Optional } from '@angular/core';
 import { Overlay, OverlayState, TemplatePortal } from '../core';
 import { MdAutocomplete } from './autocomplete';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/merge';
+import { Dir } from '../core/rtl/dir';
 /** The panel needs a slight y-offset to ensure the input underline displays. */
 export var MD_AUTOCOMPLETE_PANEL_OFFSET = 6;
 export var MdAutocompleteTrigger = (function () {
-    function MdAutocompleteTrigger(_element, _overlay, _viewContainerRef) {
+    function MdAutocompleteTrigger(_element, _overlay, _viewContainerRef, _dir) {
         this._element = _element;
         this._overlay = _overlay;
         this._viewContainerRef = _viewContainerRef;
+        this._dir = _dir;
         this._panelOpen = false;
     }
     MdAutocompleteTrigger.prototype.ngOnDestroy = function () { this._destroyPanel(); };
@@ -89,6 +94,7 @@ export var MdAutocompleteTrigger = (function () {
         overlayState.width = this._getHostWidth();
         overlayState.hasBackdrop = true;
         overlayState.backdropClass = 'md-overlay-transparent-backdrop';
+        overlayState.direction = this._dir ? this._dir.value : 'ltr';
         return overlayState;
     };
     MdAutocompleteTrigger.prototype._getOverlayPosition = function () {
@@ -109,8 +115,9 @@ export var MdAutocompleteTrigger = (function () {
             host: {
                 '(focus)': 'openPanel()'
             }
-        }), 
-        __metadata('design:paramtypes', [ElementRef, Overlay, ViewContainerRef])
+        }),
+        __param(3, Optional()), 
+        __metadata('design:paramtypes', [ElementRef, Overlay, ViewContainerRef, Dir])
     ], MdAutocompleteTrigger);
     return MdAutocompleteTrigger;
 }());
