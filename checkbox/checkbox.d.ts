@@ -73,6 +73,8 @@ export declare class MdCheckbox implements ControlValueAccessor {
     name: string;
     /** Event emitted when the checkbox's `checked` value changes. */
     change: EventEmitter<MdCheckboxChange>;
+    /** Event emitted when the checkbox's `indeterminate` value changes. */
+    indeterminateChange: EventEmitter<boolean>;
     /** The native `<input type="checkbox"> element */
     _inputElement: ElementRef;
     /**

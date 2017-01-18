@@ -78,6 +78,8 @@ export var MdCheckbox = (function () {
         this.name = null;
         /** Event emitted when the checkbox's `checked` value changes. */
         this.change = new EventEmitter();
+        /** Event emitted when the checkbox's `indeterminate` value changes. */
+        this.indeterminateChange = new EventEmitter();
         /**
          * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
          * @docs-private
@@ -146,7 +148,10 @@ export var MdCheckbox = (function () {
         },
         set: function (checked) {
             if (checked != this.checked) {
-                this._indeterminate = false;
+                if (this._indeterminate) {
+                    this._indeterminate = false;
+                    this.indeterminateChange.emit(this._indeterminate);
+                }
                 this._checked = checked;
                 this._transitionCheckState(this._checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
                 this._changeDetectorRef.markForCheck();
@@ -169,12 +174,16 @@ export var MdCheckbox = (function () {
             return this._indeterminate;
         },
         set: function (indeterminate) {
+            var changed = indeterminate != this._indeterminate;
             this._indeterminate = indeterminate;
             if (this._indeterminate) {
                 this._transitionCheckState(TransitionCheckState.Indeterminate);
             }
             else {
                 this._transitionCheckState(this.checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
+            }
+            if (changed) {
+                this.indeterminateChange.emit(this._indeterminate);
             }
         },
         enumerable: true,
@@ -373,6 +382,10 @@ export var MdCheckbox = (function () {
         Output(), 
         __metadata('design:type', EventEmitter)
     ], MdCheckbox.prototype, "change", void 0);
+    __decorate([
+        Output(), 
+        __metadata('design:type', EventEmitter)
+    ], MdCheckbox.prototype, "indeterminateChange", void 0);
     __decorate([
         ViewChild('input'), 
         __metadata('design:type', ElementRef)

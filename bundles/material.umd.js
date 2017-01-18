@@ -4712,6 +4712,8 @@ var MdCheckbox = (function () {
         this.name = null;
         /** Event emitted when the checkbox's `checked` value changes. */
         this.change = new _angular_core.EventEmitter();
+        /** Event emitted when the checkbox's `indeterminate` value changes. */
+        this.indeterminateChange = new _angular_core.EventEmitter();
         /**
          * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
          * @docs-private
@@ -4780,7 +4782,10 @@ var MdCheckbox = (function () {
         },
         set: function (checked) {
             if (checked != this.checked) {
-                this._indeterminate = false;
+                if (this._indeterminate) {
+                    this._indeterminate = false;
+                    this.indeterminateChange.emit(this._indeterminate);
+                }
                 this._checked = checked;
                 this._transitionCheckState(this._checked ? exports.TransitionCheckState.Checked : exports.TransitionCheckState.Unchecked);
                 this._changeDetectorRef.markForCheck();
@@ -4803,12 +4808,16 @@ var MdCheckbox = (function () {
             return this._indeterminate;
         },
         set: function (indeterminate) {
+            var changed = indeterminate != this._indeterminate;
             this._indeterminate = indeterminate;
             if (this._indeterminate) {
                 this._transitionCheckState(exports.TransitionCheckState.Indeterminate);
             }
             else {
                 this._transitionCheckState(this.checked ? exports.TransitionCheckState.Checked : exports.TransitionCheckState.Unchecked);
+            }
+            if (changed) {
+                this.indeterminateChange.emit(this._indeterminate);
             }
         },
         enumerable: true,
@@ -5007,6 +5016,10 @@ var MdCheckbox = (function () {
         _angular_core.Output(), 
         __metadata$30('design:type', _angular_core.EventEmitter)
     ], MdCheckbox.prototype, "change", void 0);
+    __decorate$30([
+        _angular_core.Output(), 
+        __metadata$30('design:type', _angular_core.EventEmitter)
+    ], MdCheckbox.prototype, "indeterminateChange", void 0);
     __decorate$30([
         _angular_core.ViewChild('input'), 
         __metadata$30('design:type', _angular_core.ElementRef)
