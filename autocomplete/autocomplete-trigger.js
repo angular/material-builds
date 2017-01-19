@@ -11,18 +11,22 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 import { Directive, ElementRef, Input, ViewContainerRef, Optional } from '@angular/core';
+import { NgControl } from '@angular/forms';
 import { Overlay, OverlayState, TemplatePortal } from '../core';
 import { MdAutocomplete } from './autocomplete';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/merge';
 import { Dir } from '../core/rtl/dir';
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/switchMap';
 /** The panel needs a slight y-offset to ensure the input underline displays. */
 export var MD_AUTOCOMPLETE_PANEL_OFFSET = 6;
 export var MdAutocompleteTrigger = (function () {
-    function MdAutocompleteTrigger(_element, _overlay, _viewContainerRef, _dir) {
+    function MdAutocompleteTrigger(_element, _overlay, _viewContainerRef, _controlDir, _dir) {
         this._element = _element;
         this._overlay = _overlay;
         this._viewContainerRef = _viewContainerRef;
+        this._controlDir = _controlDir;
         this._dir = _dir;
         this._panelOpen = false;
     }
@@ -37,14 +41,12 @@ export var MdAutocompleteTrigger = (function () {
     });
     /** Opens the autocomplete suggestion panel. */
     MdAutocompleteTrigger.prototype.openPanel = function () {
-        var _this = this;
         if (!this._overlayRef) {
             this._createOverlay();
         }
         if (!this._overlayRef.hasAttached()) {
             this._overlayRef.attach(this._portal);
-            this._closingActionsSubscription =
-                this.panelClosingActions.subscribe(function () { return _this.closePanel(); });
+            this._subscribeToClosingActions();
         }
         this._panelOpen = true;
     };
@@ -53,7 +55,6 @@ export var MdAutocompleteTrigger = (function () {
         if (this._overlayRef && this._overlayRef.hasAttached()) {
             this._overlayRef.detach();
         }
-        this._closingActionsSubscription.unsubscribe();
         this._panelOpen = false;
     };
     Object.defineProperty(MdAutocompleteTrigger.prototype, "panelClosingActions", {
@@ -76,6 +77,19 @@ export var MdAutocompleteTrigger = (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * This method listens to a stream of panel closing actions and resets the
+     * stream every time the option list changes.
+     */
+    MdAutocompleteTrigger.prototype._subscribeToClosingActions = function () {
+        var _this = this;
+        // Every time the option list changes...
+        this.autocomplete.options.changes
+            .startWith(null)
+            .switchMap(function () { return _this.panelClosingActions; })
+            .first()
+            .subscribe(function (event) { return _this._setValueAndClose(event); });
+    };
     /** Destroys the autocomplete suggestion panel. */
     MdAutocompleteTrigger.prototype._destroyPanel = function () {
         if (this._overlayRef) {
@@ -83,6 +97,20 @@ export var MdAutocompleteTrigger = (function () {
             this._overlayRef.dispose();
             this._overlayRef = null;
         }
+    };
+    /**
+    * This method closes the panel, and if a value is specified, also sets the associated
+    * control to that value. It will also mark the control as dirty if this interaction
+    * stemmed from the user.
+    */
+    MdAutocompleteTrigger.prototype._setValueAndClose = function (event) {
+        if (event) {
+            this._controlDir.control.setValue(event.source.value);
+            if (event.isUserInput) {
+                this._controlDir.control.markAsDirty();
+            }
+        }
+        this.closePanel();
     };
     MdAutocompleteTrigger.prototype._createOverlay = function () {
         this._portal = new TemplatePortal(this.autocomplete.template, this._viewContainerRef);
@@ -116,8 +144,9 @@ export var MdAutocompleteTrigger = (function () {
                 '(focus)': 'openPanel()'
             }
         }),
-        __param(3, Optional()), 
-        __metadata('design:paramtypes', [ElementRef, Overlay, ViewContainerRef, Dir])
+        __param(3, Optional()),
+        __param(4, Optional()), 
+        __metadata('design:paramtypes', [ElementRef, Overlay, ViewContainerRef, NgControl, Dir])
     ], MdAutocompleteTrigger);
     return MdAutocompleteTrigger;
 }());

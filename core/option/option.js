@@ -17,6 +17,15 @@ import { MdRippleModule } from '../ripple/ripple';
  * the component definition.
  */
 var _uniqueIdCounter = 0;
+/** Event object emitted by MdOption when selected. */
+export var MdOptionSelectEvent = (function () {
+    function MdOptionSelectEvent(source, isUserInput) {
+        if (isUserInput === void 0) { isUserInput = false; }
+        this.source = source;
+        this.isUserInput = isUserInput;
+    }
+    return MdOptionSelectEvent;
+}());
 /**
  * Single option inside of a `<md-select>` element.
  */
@@ -67,7 +76,7 @@ export var MdOption = (function () {
     /** Selects the option. */
     MdOption.prototype.select = function () {
         this._selected = true;
-        this.onSelect.emit();
+        this.onSelect.emit(new MdOptionSelectEvent(this, false));
     };
     /** Deselects the option. */
     MdOption.prototype.deselect = function () {
@@ -90,7 +99,7 @@ export var MdOption = (function () {
     MdOption.prototype._selectViaInteraction = function () {
         if (!this.disabled) {
             this._selected = true;
-            this.onSelect.emit(true);
+            this.onSelect.emit(new MdOptionSelectEvent(this, true));
         }
     };
     /** Returns the correct tabindex for the option depending on disabled state. */

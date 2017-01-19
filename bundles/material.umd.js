@@ -4,10 +4,10 @@
   * License: MIT
   */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('rxjs/Subject'), require('rxjs/Observable'), require('rxjs/add/observable/fromEvent'), require('@angular/platform-browser'), require('@angular/forms'), require('@angular/http'), require('rxjs/add/observable/forkJoin'), require('rxjs/add/observable/of'), require('rxjs/add/operator/map'), require('rxjs/add/operator/filter'), require('rxjs/add/operator/do'), require('rxjs/add/operator/share'), require('rxjs/add/operator/finally'), require('rxjs/add/operator/catch'), require('rxjs/add/operator/first'), require('rxjs/add/observable/merge')) :
-    typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', 'rxjs/Subject', 'rxjs/Observable', 'rxjs/add/observable/fromEvent', '@angular/platform-browser', '@angular/forms', '@angular/http', 'rxjs/add/observable/forkJoin', 'rxjs/add/observable/of', 'rxjs/add/operator/map', 'rxjs/add/operator/filter', 'rxjs/add/operator/do', 'rxjs/add/operator/share', 'rxjs/add/operator/finally', 'rxjs/add/operator/catch', 'rxjs/add/operator/first', 'rxjs/add/observable/merge'], factory) :
-    (factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.common,global.Rx,global.Rx,global.Rx.Observable,global.ng.platformBrowser,global.ng.forms,global.ng.http,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_common,rxjs_Subject,rxjs_Observable,rxjs_add_observable_fromEvent,_angular_platformBrowser,_angular_forms,_angular_http,rxjs_add_observable_forkJoin,rxjs_add_observable_of,rxjs_add_operator_map,rxjs_add_operator_filter,rxjs_add_operator_do,rxjs_add_operator_share,rxjs_add_operator_finally,rxjs_add_operator_catch,rxjs_add_operator_first,rxjs_add_observable_merge) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('rxjs/Subject'), require('rxjs/Observable'), require('rxjs/add/observable/fromEvent'), require('@angular/platform-browser'), require('@angular/forms'), require('@angular/http'), require('rxjs/add/observable/forkJoin'), require('rxjs/add/observable/of'), require('rxjs/add/operator/map'), require('rxjs/add/operator/filter'), require('rxjs/add/operator/do'), require('rxjs/add/operator/share'), require('rxjs/add/operator/finally'), require('rxjs/add/operator/catch'), require('rxjs/add/operator/first'), require('rxjs/add/observable/merge'), require('rxjs/add/operator/startWith'), require('rxjs/add/operator/switchMap')) :
+    typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', 'rxjs/Subject', 'rxjs/Observable', 'rxjs/add/observable/fromEvent', '@angular/platform-browser', '@angular/forms', '@angular/http', 'rxjs/add/observable/forkJoin', 'rxjs/add/observable/of', 'rxjs/add/operator/map', 'rxjs/add/operator/filter', 'rxjs/add/operator/do', 'rxjs/add/operator/share', 'rxjs/add/operator/finally', 'rxjs/add/operator/catch', 'rxjs/add/operator/first', 'rxjs/add/observable/merge', 'rxjs/add/operator/startWith', 'rxjs/add/operator/switchMap'], factory) :
+    (factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.common,global.Rx,global.Rx,global.Rx.Observable,global.ng.platformBrowser,global.ng.forms,global.ng.http,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype));
+}(this, (function (exports,_angular_core,_angular_common,rxjs_Subject,rxjs_Observable,rxjs_add_observable_fromEvent,_angular_platformBrowser,_angular_forms,_angular_http,rxjs_add_observable_forkJoin,rxjs_add_observable_of,rxjs_add_operator_map,rxjs_add_operator_filter,rxjs_add_operator_do,rxjs_add_operator_share,rxjs_add_operator_finally,rxjs_add_operator_catch,rxjs_add_operator_first,rxjs_add_observable_merge,rxjs_add_operator_startWith,rxjs_add_operator_switchMap) { 'use strict';
 
 var __decorate$2 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -872,6 +872,15 @@ var __metadata$5 = (this && this.__metadata) || function (k, v) {
  * the component definition.
  */
 var _uniqueIdCounter = 0;
+/** Event object emitted by MdOption when selected. */
+var MdOptionSelectEvent = (function () {
+    function MdOptionSelectEvent(source, isUserInput) {
+        if (isUserInput === void 0) { isUserInput = false; }
+        this.source = source;
+        this.isUserInput = isUserInput;
+    }
+    return MdOptionSelectEvent;
+}());
 /**
  * Single option inside of a `<md-select>` element.
  */
@@ -922,7 +931,7 @@ var MdOption = (function () {
     /** Selects the option. */
     MdOption.prototype.select = function () {
         this._selected = true;
-        this.onSelect.emit();
+        this.onSelect.emit(new MdOptionSelectEvent(this, false));
     };
     /** Deselects the option. */
     MdOption.prototype.deselect = function () {
@@ -945,7 +954,7 @@ var MdOption = (function () {
     MdOption.prototype._selectViaInteraction = function () {
         if (!this.disabled) {
             this._selected = true;
-            this.onSelect.emit(true);
+            this.onSelect.emit(new MdOptionSelectEvent(this, true));
         }
     };
     /** Returns the correct tabindex for the option depending on disabled state. */
@@ -6220,8 +6229,8 @@ var MdSelect = (function () {
     MdSelect.prototype._listenToOptions = function () {
         var _this = this;
         this.options.forEach(function (option) {
-            var sub = option.onSelect.subscribe(function (isUserInput) {
-                if (isUserInput && _this._selected !== option) {
+            var sub = option.onSelect.subscribe(function (event) {
+                if (event.isUserInput && _this._selected !== option) {
                     _this._emitChangeEvent(option);
                 }
                 _this._onSelect(option);
@@ -14734,10 +14743,11 @@ var __param$18 = (this && this.__param) || function (paramIndex, decorator) {
 /** The panel needs a slight y-offset to ensure the input underline displays. */
 var MD_AUTOCOMPLETE_PANEL_OFFSET = 6;
 var MdAutocompleteTrigger = (function () {
-    function MdAutocompleteTrigger(_element, _overlay, _viewContainerRef, _dir) {
+    function MdAutocompleteTrigger(_element, _overlay, _viewContainerRef, _controlDir, _dir) {
         this._element = _element;
         this._overlay = _overlay;
         this._viewContainerRef = _viewContainerRef;
+        this._controlDir = _controlDir;
         this._dir = _dir;
         this._panelOpen = false;
     }
@@ -14752,14 +14762,12 @@ var MdAutocompleteTrigger = (function () {
     });
     /** Opens the autocomplete suggestion panel. */
     MdAutocompleteTrigger.prototype.openPanel = function () {
-        var _this = this;
         if (!this._overlayRef) {
             this._createOverlay();
         }
         if (!this._overlayRef.hasAttached()) {
             this._overlayRef.attach(this._portal);
-            this._closingActionsSubscription =
-                this.panelClosingActions.subscribe(function () { return _this.closePanel(); });
+            this._subscribeToClosingActions();
         }
         this._panelOpen = true;
     };
@@ -14768,7 +14776,6 @@ var MdAutocompleteTrigger = (function () {
         if (this._overlayRef && this._overlayRef.hasAttached()) {
             this._overlayRef.detach();
         }
-        this._closingActionsSubscription.unsubscribe();
         this._panelOpen = false;
     };
     Object.defineProperty(MdAutocompleteTrigger.prototype, "panelClosingActions", {
@@ -14791,6 +14798,19 @@ var MdAutocompleteTrigger = (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * This method listens to a stream of panel closing actions and resets the
+     * stream every time the option list changes.
+     */
+    MdAutocompleteTrigger.prototype._subscribeToClosingActions = function () {
+        var _this = this;
+        // Every time the option list changes...
+        this.autocomplete.options.changes
+            .startWith(null)
+            .switchMap(function () { return _this.panelClosingActions; })
+            .first()
+            .subscribe(function (event) { return _this._setValueAndClose(event); });
+    };
     /** Destroys the autocomplete suggestion panel. */
     MdAutocompleteTrigger.prototype._destroyPanel = function () {
         if (this._overlayRef) {
@@ -14798,6 +14818,20 @@ var MdAutocompleteTrigger = (function () {
             this._overlayRef.dispose();
             this._overlayRef = null;
         }
+    };
+    /**
+    * This method closes the panel, and if a value is specified, also sets the associated
+    * control to that value. It will also mark the control as dirty if this interaction
+    * stemmed from the user.
+    */
+    MdAutocompleteTrigger.prototype._setValueAndClose = function (event) {
+        if (event) {
+            this._controlDir.control.setValue(event.source.value);
+            if (event.isUserInput) {
+                this._controlDir.control.markAsDirty();
+            }
+        }
+        this.closePanel();
     };
     MdAutocompleteTrigger.prototype._createOverlay = function () {
         this._portal = new TemplatePortal(this.autocomplete.template, this._viewContainerRef);
@@ -14831,8 +14865,9 @@ var MdAutocompleteTrigger = (function () {
                 '(focus)': 'openPanel()'
             }
         }),
-        __param$18(3, _angular_core.Optional()), 
-        __metadata$73('design:paramtypes', [_angular_core.ElementRef, Overlay, _angular_core.ViewContainerRef, Dir])
+        __param$18(3, _angular_core.Optional()),
+        __param$18(4, _angular_core.Optional()), 
+        __metadata$73('design:paramtypes', [_angular_core.ElementRef, Overlay, _angular_core.ViewContainerRef, _angular_forms.NgControl, Dir])
     ], MdAutocompleteTrigger);
     return MdAutocompleteTrigger;
 }());

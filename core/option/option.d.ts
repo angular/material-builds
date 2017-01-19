@@ -1,4 +1,10 @@
 import { ElementRef, EventEmitter, ModuleWithProviders, Renderer } from '@angular/core';
+/** Event object emitted by MdOption when selected. */
+export declare class MdOptionSelectEvent {
+    source: MdOption;
+    isUserInput: boolean;
+    constructor(source: MdOption, isUserInput?: boolean);
+}
 /**
  * Single option inside of a `<md-select>` element.
  */
@@ -16,7 +22,7 @@ export declare class MdOption {
     /** Whether the option is disabled. */
     disabled: any;
     /** Event emitted when the option is selected. */
-    onSelect: EventEmitter<{}>;
+    onSelect: EventEmitter<MdOptionSelectEvent>;
     constructor(_element: ElementRef, _renderer: Renderer);
     /** Whether or not the option is currently selected. */
     readonly selected: boolean;

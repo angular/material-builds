@@ -358,8 +358,8 @@ export var MdSelect = (function () {
     MdSelect.prototype._listenToOptions = function () {
         var _this = this;
         this.options.forEach(function (option) {
-            var sub = option.onSelect.subscribe(function (isUserInput) {
-                if (isUserInput && _this._selected !== option) {
+            var sub = option.onSelect.subscribe(function (event) {
+                if (event.isUserInput && _this._selected !== option) {
                     _this._emitChangeEvent(option);
                 }
                 _this._onSelect(option);
