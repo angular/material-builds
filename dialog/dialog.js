@@ -48,7 +48,7 @@ export var MdDialog = (function () {
         config = _applyConfigDefaults(config);
         var overlayRef = this._createOverlay(config);
         var dialogContainer = this._attachDialogContainer(overlayRef, config);
-        var dialogRef = this._attachDialogContent(component, dialogContainer, overlayRef);
+        var dialogRef = this._attachDialogContent(component, dialogContainer, overlayRef, config);
         this._openDialogs.push(dialogRef);
         dialogRef.afterClosed().subscribe(function () { return _this._removeOpenDialog(dialogRef); });
         return dialogRef;
@@ -93,9 +93,10 @@ export var MdDialog = (function () {
      * @param component The type of component being loaded into the dialog.
      * @param dialogContainer Reference to the wrapping MdDialogContainer.
      * @param overlayRef Reference to the overlay in which the dialog resides.
+     * @param config The dialog configuration.
      * @returns A promise resolving to the MdDialogRef that should be returned to the user.
      */
-    MdDialog.prototype._attachDialogContent = function (component, dialogContainer, overlayRef) {
+    MdDialog.prototype._attachDialogContent = function (component, dialogContainer, overlayRef, config) {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
         var dialogRef = new MdDialogRef(overlayRef);
@@ -108,7 +109,8 @@ export var MdDialog = (function () {
         // We create an injector specifically for the component we're instantiating so that it can
         // inject the MdDialogRef. This allows a component loaded inside of a dialog to close itself
         // and, optionally, to return a value.
-        var dialogInjector = new DialogInjector(dialogRef, this._injector);
+        var userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        var dialogInjector = new DialogInjector(dialogRef, userInjector || this._injector);
         var contentPortal = new ComponentPortal(component, null, dialogInjector);
         var contentRef = dialogContainer.attachComponentPortal(contentPortal);
         dialogRef.componentInstance = contentRef.instance;

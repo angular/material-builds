@@ -42,9 +42,10 @@ export declare class MdDialog {
      * @param component The type of component being loaded into the dialog.
      * @param dialogContainer Reference to the wrapping MdDialogContainer.
      * @param overlayRef Reference to the overlay in which the dialog resides.
+     * @param config The dialog configuration.
      * @returns A promise resolving to the MdDialogRef that should be returned to the user.
      */
-    private _attachDialogContent<T>(component, dialogContainer, overlayRef);
+    private _attachDialogContent<T>(component, dialogContainer, overlayRef, config?);
     /**
      * Creates an overlay state from a dialog config.
      * @param dialogConfig The dialog configuration.
