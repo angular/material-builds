@@ -6753,11 +6753,11 @@ var MdSlideToggle = (function () {
         __metadata$34('design:type', Number)
     ], MdSlideToggle.prototype, "tabIndex", void 0);
     __decorate$34([
-        _angular_core.Input(), 
+        _angular_core.Input('aria-label'), 
         __metadata$34('design:type', String)
     ], MdSlideToggle.prototype, "ariaLabel", void 0);
     __decorate$34([
-        _angular_core.Input(), 
+        _angular_core.Input('aria-labelledby'), 
         __metadata$34('design:type', String)
     ], MdSlideToggle.prototype, "ariaLabelledby", void 0);
     __decorate$34([

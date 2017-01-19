@@ -228,11 +228,11 @@ export var MdSlideToggle = (function () {
         __metadata('design:type', Number)
     ], MdSlideToggle.prototype, "tabIndex", void 0);
     __decorate([
-        Input(), 
+        Input('aria-label'), 
         __metadata('design:type', String)
     ], MdSlideToggle.prototype, "ariaLabel", void 0);
     __decorate([
-        Input(), 
+        Input('aria-labelledby'), 
         __metadata('design:type', String)
     ], MdSlideToggle.prototype, "ariaLabelledby", void 0);
     __decorate([
