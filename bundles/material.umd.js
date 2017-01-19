@@ -6488,6 +6488,7 @@ var MdSelect = (function () {
             exportAs: 'mdSelect',
         }),
         __param$6(3, _angular_core.Optional()),
+        __param$6(4, _angular_core.Self()),
         __param$6(4, _angular_core.Optional()), 
         __metadata$33('design:paramtypes', [_angular_core.ElementRef, _angular_core.Renderer, ViewportRuler, Dir, _angular_forms.NgControl])
     ], MdSelect);

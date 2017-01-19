@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Component, ContentChildren, ElementRef, EventEmitter, Input, Optional, Output, QueryList, Renderer, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, ContentChildren, ElementRef, EventEmitter, Input, Optional, Output, QueryList, Renderer, Self, ViewEncapsulation, ViewChild } from '@angular/core';
 import { MdOption } from '../core/option/option';
 import { ENTER, SPACE } from '../core/keyboard/keycodes';
 import { FocusKeyManager } from '../core/a11y/focus-key-manager';
@@ -626,6 +626,7 @@ export var MdSelect = (function () {
             exportAs: 'mdSelect',
         }),
         __param(3, Optional()),
+        __param(4, Self()),
         __param(4, Optional()), 
         __metadata('design:paramtypes', [ElementRef, Renderer, ViewportRuler, Dir, NgControl])
     ], MdSelect);
