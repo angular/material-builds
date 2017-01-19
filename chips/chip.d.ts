@@ -1,5 +1,5 @@
 import { ElementRef, EventEmitter, OnDestroy, OnInit, Renderer } from '@angular/core';
-import { Focusable } from '../core/a11y/list-key-manager';
+import { Focusable } from '../core/a11y/focus-key-manager';
 export interface MdChipEvent {
     chip: MdChip;
 }

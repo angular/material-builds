@@ -13,7 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 import { Component, ContentChildren, ElementRef, EventEmitter, Input, Optional, Output, QueryList, Renderer, ViewEncapsulation, ViewChild } from '@angular/core';
 import { MdOption } from '../core/option/option';
 import { ENTER, SPACE } from '../core/keyboard/keycodes';
-import { ListKeyManager } from '../core/a11y/list-key-manager';
+import { FocusKeyManager } from '../core/a11y/focus-key-manager';
 import { Dir } from '../core/rtl/dir';
 import { transformPlaceholder, transformPanel, fadeInContent } from './select-animations';
 import { NgControl } from '@angular/forms';
@@ -343,7 +343,7 @@ export var MdSelect = (function () {
     /** Sets up a key manager to listen to keyboard events on the overlay panel. */
     MdSelect.prototype._initKeyManager = function () {
         var _this = this;
-        this._keyManager = new ListKeyManager(this.options);
+        this._keyManager = new FocusKeyManager(this.options);
         this._tabSubscription = this._keyManager.tabOut.subscribe(function () {
             _this.close();
         });
@@ -413,10 +413,10 @@ export var MdSelect = (function () {
      */
     MdSelect.prototype._focusCorrectOption = function () {
         if (this.selected) {
-            this._keyManager.setFocus(this._getOptionIndex(this.selected));
+            this._keyManager.setActiveItem(this._getOptionIndex(this.selected));
         }
         else {
-            this._keyManager.focusFirstItem();
+            this._keyManager.setFirstItemActive();
         }
     };
     /** Focuses the host element when the panel closes. */

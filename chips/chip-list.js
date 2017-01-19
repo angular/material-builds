@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { MdChip } from './chip';
-import { ListKeyManager } from '../core/a11y/list-key-manager';
+import { FocusKeyManager } from '../core/a11y/focus-key-manager';
 import { coerceBooleanProperty } from '../core/coercion/boolean-property';
 import { SPACE, LEFT_ARROW, RIGHT_ARROW } from '../core/keyboard/keycodes';
 /**
@@ -32,7 +32,7 @@ export var MdChipList = (function () {
     }
     MdChipList.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this._keyManager = new ListKeyManager(this.chips).withFocusWrap();
+        this._keyManager = new FocusKeyManager(this.chips).withWrap();
         // Go ahead and subscribe all of the initial chips
         this._subscribeChips(this.chips);
         // When the list changes, re-subscribe
@@ -60,7 +60,7 @@ export var MdChipList = (function () {
      */
     MdChipList.prototype.focus = function () {
         // TODO: ARIA says this should focus the first `selected` chip.
-        this._keyManager.focusFirstItem();
+        this._keyManager.setFirstItemActive();
     };
     /** Passes relevant key presses to our key manager. */
     MdChipList.prototype._keydown = function (event) {
@@ -77,11 +77,11 @@ export var MdChipList = (function () {
                     event.preventDefault();
                     break;
                 case LEFT_ARROW:
-                    this._keyManager.focusPreviousItem();
+                    this._keyManager.setPreviousItemActive();
                     event.preventDefault();
                     break;
                 case RIGHT_ARROW:
-                    this._keyManager.focusNextItem();
+                    this._keyManager.setNextItemActive();
                     event.preventDefault();
                     break;
                 default:
@@ -95,7 +95,7 @@ export var MdChipList = (function () {
         if (!this.selectable) {
             return;
         }
-        var focusedIndex = this._keyManager.focusedItemIndex;
+        var focusedIndex = this._keyManager.activeItemIndex;
         if (this._isValidIndex(focusedIndex)) {
             var focusedChip = this.chips.toArray()[focusedIndex];
             if (focusedChip) {
@@ -131,7 +131,7 @@ export var MdChipList = (function () {
         chip.onFocus.subscribe(function () {
             var chipIndex = _this.chips.toArray().indexOf(chip);
             if (_this._isValidIndex(chipIndex)) {
-                _this._keyManager.updateFocusedItemIndex(chipIndex);
+                _this._keyManager.updateActiveItemIndex(chipIndex);
             }
         });
         // On destroy, remove the item from our list, and check focus
@@ -140,10 +140,10 @@ export var MdChipList = (function () {
             if (_this._isValidIndex(chipIndex)) {
                 // Check whether the chip is the last item
                 if (chipIndex < _this.chips.length - 1) {
-                    _this._keyManager.setFocus(chipIndex);
+                    _this._keyManager.setActiveItem(chipIndex);
                 }
                 else if (chipIndex - 1 >= 0) {
-                    _this._keyManager.setFocus(chipIndex - 1);
+                    _this._keyManager.setActiveItem(chipIndex - 1);
                 }
             }
             _this._subscribed.delete(chip);

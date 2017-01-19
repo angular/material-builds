@@ -4506,7 +4506,7 @@ var MdButton = (function () {
     };
     MdButton.prototype._setElementColor = function (color, isAdd) {
         if (color != null && color != '') {
-            this._renderer.setElementClass(this._elementRef.nativeElement, "md-" + color, isAdd);
+            this._renderer.setElementClass(this._getHostElement(), "md-" + color, isAdd);
         }
     };
     MdButton.prototype._setKeyboardFocus = function () {
@@ -4517,13 +4517,13 @@ var MdButton = (function () {
     };
     /** Focuses the button. */
     MdButton.prototype.focus = function () {
-        this._renderer.invokeElementMethod(this._elementRef.nativeElement, 'focus');
+        this._renderer.invokeElementMethod(this._getHostElement(), 'focus');
     };
     MdButton.prototype._getHostElement = function () {
         return this._elementRef.nativeElement;
     };
     MdButton.prototype._isRoundButton = function () {
-        var el = this._elementRef.nativeElement;
+        var el = this._getHostElement();
         return el.hasAttribute('md-icon-button') ||
             el.hasAttribute('md-fab') ||
             el.hasAttribute('md-mini-fab');
@@ -5625,7 +5625,7 @@ var MdRadioModule = (function () {
 
 /**
  * This class manages keyboard events for selectable lists. If you pass it a query list
- * of focusable items, it will focus the correct item when arrow events occur.
+ * of items, it will set the active item correctly when arrow events occur.
  */
 var ListKeyManager = (function () {
     function ListKeyManager(_items) {
@@ -5634,41 +5634,41 @@ var ListKeyManager = (function () {
         this._wrap = false;
     }
     /**
-     * Turns on focus wrapping mode, which ensures that the focus will wrap to
+     * Turns on wrapping mode, which ensures that the active item will wrap to
      * the other end of list when there are no more items in the given direction.
      *
      * @returns The ListKeyManager that the method was called on.
      */
-    ListKeyManager.prototype.withFocusWrap = function () {
+    ListKeyManager.prototype.withWrap = function () {
         this._wrap = true;
         return this;
     };
     /**
-     * Sets the focus of the list to the item at the index specified.
+     * Sets the active item to the item at the index specified.
      *
-     * @param index The index of the item to be focused.
+     * @param index The index of the item to be set as active.
      */
-    ListKeyManager.prototype.setFocus = function (index) {
-        this._focusedItemIndex = index;
-        this._items.toArray()[index].focus();
+    ListKeyManager.prototype.setActiveItem = function (index) {
+        this._activeItemIndex = index;
+        this._activeItem = this._items.toArray()[index];
     };
     /**
-     * Sets the focus depending on the key event passed in.
-     * @param event Keyboard event to be used for determining which element to focus.
+     * Sets the active item depending on the key event passed in.
+     * @param event Keyboard event to be used for determining which element should be active.
      */
     ListKeyManager.prototype.onKeydown = function (event) {
         switch (event.keyCode) {
             case DOWN_ARROW:
-                this.focusNextItem();
+                this.setNextItemActive();
                 break;
             case UP_ARROW:
-                this.focusPreviousItem();
+                this.setPreviousItemActive();
                 break;
             case HOME:
-                this.focusFirstItem();
+                this.setFirstItemActive();
                 break;
             case END:
-                this.focusLastItem();
+                this.setLastItemActive();
                 break;
             case TAB:
                 // Note that we shouldn't prevent the default action on tab.
@@ -5679,36 +5679,44 @@ var ListKeyManager = (function () {
         }
         event.preventDefault();
     };
-    /** Focuses the first enabled item in the list. */
-    ListKeyManager.prototype.focusFirstItem = function () {
-        this._setFocusByIndex(0, 1);
-    };
-    /** Focuses the last enabled item in the list. */
-    ListKeyManager.prototype.focusLastItem = function () {
-        this._setFocusByIndex(this._items.length - 1, -1);
-    };
-    /** Focuses the next enabled item in the list. */
-    ListKeyManager.prototype.focusNextItem = function () {
-        this._setFocusByDelta(1);
-    };
-    /** Focuses a previous enabled item in the list. */
-    ListKeyManager.prototype.focusPreviousItem = function () {
-        this._setFocusByDelta(-1);
-    };
-    Object.defineProperty(ListKeyManager.prototype, "focusedItemIndex", {
-        /** Returns the index of the currently focused item. */
+    Object.defineProperty(ListKeyManager.prototype, "activeItemIndex", {
+        /** Returns the index of the currently active item. */
         get: function () {
-            return this._focusedItemIndex;
+            return this._activeItemIndex;
         },
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(ListKeyManager.prototype, "activeItem", {
+        /** Returns the currently active item. */
+        get: function () {
+            return this._activeItem;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /** Sets the active item to the first enabled item in the list. */
+    ListKeyManager.prototype.setFirstItemActive = function () {
+        this._setActiveItemByIndex(0, 1);
+    };
+    /** Sets the active item to the last enabled item in the list. */
+    ListKeyManager.prototype.setLastItemActive = function () {
+        this._setActiveItemByIndex(this._items.length - 1, -1);
+    };
+    /** Sets the active item to the next enabled item in the list. */
+    ListKeyManager.prototype.setNextItemActive = function () {
+        this._setActiveItemByDelta(1);
+    };
+    /** Sets the active item to a previous enabled item in the list. */
+    ListKeyManager.prototype.setPreviousItemActive = function () {
+        this._setActiveItemByDelta(-1);
+    };
     /**
-     * Allows setting of the focusedItemIndex without focusing the item.
-     * @param index The new focusedItemIndex.
+     * Allows setting of the activeItemIndex without any other effects.
+     * @param index The new activeItemIndex.
      */
-    ListKeyManager.prototype.updateFocusedItemIndex = function (index) {
-        this._focusedItemIndex = index;
+    ListKeyManager.prototype.updateActiveItemIndex = function (index) {
+        this._activeItemIndex = index;
     };
     Object.defineProperty(ListKeyManager.prototype, "tabOut", {
         /**
@@ -5722,46 +5730,46 @@ var ListKeyManager = (function () {
         configurable: true
     });
     /**
-     * This method sets focus to the correct item, given a list of items and the delta
-     * between the currently focused item and the new item to be focused. It will calculate
-     * the proper focus differently depending on whether wrap mode is turned on.
+     * This method sets the active item, given a list of items and the delta between the
+     * currently active item and the new active item. It will calculate differently
+     * depending on whether wrap mode is turned on.
      */
-    ListKeyManager.prototype._setFocusByDelta = function (delta, items) {
+    ListKeyManager.prototype._setActiveItemByDelta = function (delta, items) {
         if (items === void 0) { items = this._items.toArray(); }
-        this._wrap ? this._setWrapModeFocus(delta, items)
-            : this._setDefaultModeFocus(delta, items);
+        this._wrap ? this._setActiveInWrapMode(delta, items)
+            : this._setActiveInDefaultMode(delta, items);
     };
     /**
-     * Sets the focus properly given "wrap" mode. In other words, it will continue to move
+     * Sets the active item properly given "wrap" mode. In other words, it will continue to move
      * down the list until it finds an item that is not disabled, and it will wrap if it
      * encounters either end of the list.
      */
-    ListKeyManager.prototype._setWrapModeFocus = function (delta, items) {
-        // when focus would leave menu, wrap to beginning or end
-        this._focusedItemIndex =
-            (this._focusedItemIndex + delta + items.length) % items.length;
-        // skip all disabled menu items recursively until an active one is reached
-        if (items[this._focusedItemIndex].disabled) {
-            this._setWrapModeFocus(delta, items);
+    ListKeyManager.prototype._setActiveInWrapMode = function (delta, items) {
+        // when active item would leave menu, wrap to beginning or end
+        this._activeItemIndex =
+            (this._activeItemIndex + delta + items.length) % items.length;
+        // skip all disabled menu items recursively until an enabled one is reached
+        if (items[this._activeItemIndex].disabled) {
+            this._setActiveInWrapMode(delta, items);
         }
         else {
-            items[this._focusedItemIndex].focus();
+            this.setActiveItem(this._activeItemIndex);
         }
     };
     /**
-     * Sets the focus properly given the default mode. In other words, it will
+     * Sets the active item properly given the default mode. In other words, it will
      * continue to move down the list until it finds an item that is not disabled. If
      * it encounters either end of the list, it will stop and not wrap.
      */
-    ListKeyManager.prototype._setDefaultModeFocus = function (delta, items) {
-        this._setFocusByIndex(this._focusedItemIndex + delta, delta, items);
+    ListKeyManager.prototype._setActiveInDefaultMode = function (delta, items) {
+        this._setActiveItemByIndex(this._activeItemIndex + delta, delta, items);
     };
     /**
-     * Sets the focus to the first enabled item starting at the index specified. If the
+     * Sets the active item to the first enabled item starting at the index specified. If the
      * item is disabled, it will move in the fallbackDelta direction until it either
      * finds an enabled item or encounters the end of the list.
      */
-    ListKeyManager.prototype._setFocusByIndex = function (index, fallbackDelta, items) {
+    ListKeyManager.prototype._setActiveItemByIndex = function (index, fallbackDelta, items) {
         if (items === void 0) { items = this._items.toArray(); }
         if (!items[index]) {
             return;
@@ -5772,10 +5780,31 @@ var ListKeyManager = (function () {
                 return;
             }
         }
-        this.setFocus(index);
+        this.setActiveItem(index);
     };
     return ListKeyManager;
 }());
+
+var __extends$8 = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var FocusKeyManager = (function (_super) {
+    __extends$8(FocusKeyManager, _super);
+    function FocusKeyManager(items) {
+        _super.call(this, items);
+    }
+    /**
+     * This method sets the active item to the item at the specified index.
+     * It also adds focuses the newly active item.
+     */
+    FocusKeyManager.prototype.setActiveItem = function (index) {
+        _super.prototype.setActiveItem.call(this, index);
+        this.activeItem.focus();
+    };
+    return FocusKeyManager;
+}(ListKeyManager));
 
 /**
  * The following are all the animations for the md-select component, with each
@@ -6176,7 +6205,7 @@ var MdSelect = (function () {
     /** Sets up a key manager to listen to keyboard events on the overlay panel. */
     MdSelect.prototype._initKeyManager = function () {
         var _this = this;
-        this._keyManager = new ListKeyManager(this.options);
+        this._keyManager = new FocusKeyManager(this.options);
         this._tabSubscription = this._keyManager.tabOut.subscribe(function () {
             _this.close();
         });
@@ -6246,10 +6275,10 @@ var MdSelect = (function () {
      */
     MdSelect.prototype._focusCorrectOption = function () {
         if (this.selected) {
-            this._keyManager.setFocus(this._getOptionIndex(this.selected));
+            this._keyManager.setActiveItem(this._getOptionIndex(this.selected));
         }
         else {
-            this._keyManager.focusFirstItem();
+            this._keyManager.setFirstItemActive();
         }
     };
     /** Focuses the host element when the panel closes. */
@@ -7520,7 +7549,7 @@ var MdSliderModule = (function () {
     return MdSliderModule;
 }());
 
-var __extends$8 = (this && this.__extends) || function (d, b) {
+var __extends$9 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -7539,7 +7568,7 @@ var __param$8 = (this && this.__param) || function (paramIndex, decorator) {
 };
 /** Exception thrown when two MdSidenav are matching the same side. */
 var MdDuplicatedSidenavError = (function (_super) {
-    __extends$8(MdDuplicatedSidenavError, _super);
+    __extends$9(MdDuplicatedSidenavError, _super);
     function MdDuplicatedSidenavError(align) {
         _super.call(this, "A sidenav was already declared for 'align=\"" + align + "\"'");
     }
@@ -8311,7 +8340,7 @@ var MdGridTileText = (function () {
     return MdGridTileText;
 }());
 
-var __extends$9 = (this && this.__extends) || function (d, b) {
+var __extends$10 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -8321,7 +8350,7 @@ var __extends$9 = (this && this.__extends) || function (d, b) {
  * @docs-private
  */
 var MdGridListColsError = (function (_super) {
-    __extends$9(MdGridListColsError, _super);
+    __extends$10(MdGridListColsError, _super);
     function MdGridListColsError() {
         _super.call(this, "md-grid-list: must pass in number of columns. Example: <md-grid-list cols=\"3\">");
     }
@@ -8332,7 +8361,7 @@ var MdGridListColsError = (function (_super) {
  * @docs-private
  */
 var MdGridTileTooWideError = (function (_super) {
-    __extends$9(MdGridTileTooWideError, _super);
+    __extends$10(MdGridTileTooWideError, _super);
     function MdGridTileTooWideError(cols, listLength) {
         _super.call(this, "md-grid-list: tile with colspan " + cols + " is wider than grid with cols=\"" + listLength + "\".");
     }
@@ -8343,7 +8372,7 @@ var MdGridTileTooWideError = (function (_super) {
  * @docs-private
  */
 var MdGridListBadRatioError = (function (_super) {
-    __extends$9(MdGridListBadRatioError, _super);
+    __extends$10(MdGridListBadRatioError, _super);
     function MdGridListBadRatioError(value) {
         _super.call(this, "md-grid-list: invalid ratio given for row-height: \"" + value + "\"");
     }
@@ -8477,7 +8506,7 @@ var TilePosition = (function () {
     return TilePosition;
 }());
 
-var __extends$10 = (this && this.__extends) || function (d, b) {
+var __extends$11 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -8601,7 +8630,7 @@ var TileStyler = (function () {
  * @docs-private
  */
 var FixedTileStyler = (function (_super) {
-    __extends$10(FixedTileStyler, _super);
+    __extends$11(FixedTileStyler, _super);
     function FixedTileStyler(fixedRowHeight) {
         _super.call(this);
         this.fixedRowHeight = fixedRowHeight;
@@ -8627,7 +8656,7 @@ var FixedTileStyler = (function (_super) {
  * @docs-private
  */
 var RatioTileStyler = (function (_super) {
-    __extends$10(RatioTileStyler, _super);
+    __extends$11(RatioTileStyler, _super);
     function RatioTileStyler(value) {
         _super.call(this);
         this._parseRatio(value);
@@ -8663,7 +8692,7 @@ var RatioTileStyler = (function (_super) {
  * @docs-private
  */
 var FitTileStyler = (function (_super) {
-    __extends$10(FitTileStyler, _super);
+    __extends$11(FitTileStyler, _super);
     function FitTileStyler() {
         _super.apply(this, arguments);
     }
@@ -9219,7 +9248,7 @@ var MdChipList = (function () {
     }
     MdChipList.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this._keyManager = new ListKeyManager(this.chips).withFocusWrap();
+        this._keyManager = new FocusKeyManager(this.chips).withWrap();
         // Go ahead and subscribe all of the initial chips
         this._subscribeChips(this.chips);
         // When the list changes, re-subscribe
@@ -9247,7 +9276,7 @@ var MdChipList = (function () {
      */
     MdChipList.prototype.focus = function () {
         // TODO: ARIA says this should focus the first `selected` chip.
-        this._keyManager.focusFirstItem();
+        this._keyManager.setFirstItemActive();
     };
     /** Passes relevant key presses to our key manager. */
     MdChipList.prototype._keydown = function (event) {
@@ -9264,11 +9293,11 @@ var MdChipList = (function () {
                     event.preventDefault();
                     break;
                 case LEFT_ARROW:
-                    this._keyManager.focusPreviousItem();
+                    this._keyManager.setPreviousItemActive();
                     event.preventDefault();
                     break;
                 case RIGHT_ARROW:
-                    this._keyManager.focusNextItem();
+                    this._keyManager.setNextItemActive();
                     event.preventDefault();
                     break;
                 default:
@@ -9282,7 +9311,7 @@ var MdChipList = (function () {
         if (!this.selectable) {
             return;
         }
-        var focusedIndex = this._keyManager.focusedItemIndex;
+        var focusedIndex = this._keyManager.activeItemIndex;
         if (this._isValidIndex(focusedIndex)) {
             var focusedChip = this.chips.toArray()[focusedIndex];
             if (focusedChip) {
@@ -9318,7 +9347,7 @@ var MdChipList = (function () {
         chip.onFocus.subscribe(function () {
             var chipIndex = _this.chips.toArray().indexOf(chip);
             if (_this._isValidIndex(chipIndex)) {
-                _this._keyManager.updateFocusedItemIndex(chipIndex);
+                _this._keyManager.updateActiveItemIndex(chipIndex);
             }
         });
         // On destroy, remove the item from our list, and check focus
@@ -9327,10 +9356,10 @@ var MdChipList = (function () {
             if (_this._isValidIndex(chipIndex)) {
                 // Check whether the chip is the last item
                 if (chipIndex < _this.chips.length - 1) {
-                    _this._keyManager.setFocus(chipIndex);
+                    _this._keyManager.setActiveItem(chipIndex);
                 }
                 else if (chipIndex - 1 >= 0) {
-                    _this._keyManager.setFocus(chipIndex - 1);
+                    _this._keyManager.setActiveItem(chipIndex - 1);
                 }
             }
             _this._subscribed.delete(chip);
@@ -9395,7 +9424,7 @@ var MdChipsModule = (function () {
     return MdChipsModule;
 }());
 
-var __extends$12 = (this && this.__extends) || function (d, b) {
+var __extends$13 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -9414,7 +9443,7 @@ var __metadata$44 = (this && this.__metadata) || function (k, v) {
  * @docs-private
  */
 var MdIconNameNotFoundError = (function (_super) {
-    __extends$12(MdIconNameNotFoundError, _super);
+    __extends$13(MdIconNameNotFoundError, _super);
     function MdIconNameNotFoundError(iconName) {
         _super.call(this, "Unable to find icon with the name \"" + iconName + "\"");
     }
@@ -9426,7 +9455,7 @@ var MdIconNameNotFoundError = (function (_super) {
  * @docs-private
  */
 var MdIconSvgTagNotFoundError = (function (_super) {
-    __extends$12(MdIconSvgTagNotFoundError, _super);
+    __extends$13(MdIconSvgTagNotFoundError, _super);
     function MdIconSvgTagNotFoundError() {
         _super.call(this, '<svg> tag not found');
     }
@@ -9794,7 +9823,7 @@ function cloneSvg(svg) {
     return svg.cloneNode(true);
 }
 
-var __extends$11 = (this && this.__extends) || function (d, b) {
+var __extends$12 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -9810,7 +9839,7 @@ var __metadata$43 = (this && this.__metadata) || function (k, v) {
 };
 /** Exception thrown when an invalid icon name is passed to an md-icon component. */
 var MdIconInvalidNameError = (function (_super) {
-    __extends$11(MdIconInvalidNameError, _super);
+    __extends$12(MdIconInvalidNameError, _super);
     function MdIconInvalidNameError(iconName) {
         _super.call(this, "Invalid icon name: \"" + iconName + "\"");
     }
@@ -10064,7 +10093,7 @@ var MdIconModule = (function () {
     return MdIconModule;
 }());
 
-var __extends$13 = (this && this.__extends) || function (d, b) {
+var __extends$14 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -10318,7 +10347,7 @@ var MdProgressSpinner = (function () {
  * indeterminate <md-progress-spinner> instance.
  */
 var MdSpinner = (function (_super) {
-    __extends$13(MdSpinner, _super);
+    __extends$14(MdSpinner, _super);
     function MdSpinner(elementRef, ngZone, renderer) {
         _super.call(this, ngZone, elementRef, renderer);
         this.mode = 'indeterminate';
@@ -10667,14 +10696,14 @@ var MdTextareaAutosize = (function () {
     return MdTextareaAutosize;
 }());
 
-var __extends$15 = (this && this.__extends) || function (d, b) {
+var __extends$16 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /** @docs-private */
 var MdInputContainerPlaceholderConflictError = (function (_super) {
-    __extends$15(MdInputContainerPlaceholderConflictError, _super);
+    __extends$16(MdInputContainerPlaceholderConflictError, _super);
     function MdInputContainerPlaceholderConflictError() {
         _super.call(this, 'Placeholder attribute and child element were both specified.');
     }
@@ -10682,7 +10711,7 @@ var MdInputContainerPlaceholderConflictError = (function (_super) {
 }(MdError));
 /** @docs-private */
 var MdInputContainerUnsupportedTypeError = (function (_super) {
-    __extends$15(MdInputContainerUnsupportedTypeError, _super);
+    __extends$16(MdInputContainerUnsupportedTypeError, _super);
     function MdInputContainerUnsupportedTypeError(type) {
         _super.call(this, "Input type \"" + type + "\" isn't supported by md-input-container.");
     }
@@ -10690,7 +10719,7 @@ var MdInputContainerUnsupportedTypeError = (function (_super) {
 }(MdError));
 /** @docs-private */
 var MdInputContainerDuplicatedHintError = (function (_super) {
-    __extends$15(MdInputContainerDuplicatedHintError, _super);
+    __extends$16(MdInputContainerDuplicatedHintError, _super);
     function MdInputContainerDuplicatedHintError(align) {
         _super.call(this, "A hint was already declared for 'align=\"" + align + "\"'.");
     }
@@ -10698,7 +10727,7 @@ var MdInputContainerDuplicatedHintError = (function (_super) {
 }(MdError));
 /** @docs-private */
 var MdInputContainerMissingMdInputError = (function (_super) {
-    __extends$15(MdInputContainerMissingMdInputError, _super);
+    __extends$16(MdInputContainerMissingMdInputError, _super);
     function MdInputContainerMissingMdInputError() {
         _super.call(this, 'md-input-container must contain an mdInput directive. Did you forget to add mdInput ' +
             'to the native input or textarea element?');
@@ -11084,7 +11113,7 @@ var MdInputContainer = (function () {
     return MdInputContainer;
 }());
 
-var __extends$14 = (this && this.__extends) || function (d, b) {
+var __extends$15 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -11113,7 +11142,7 @@ var MD_INPUT_INVALID_INPUT_TYPE = [
 var nextUniqueId$1 = 0;
 /** @docs-private */
 var MdInputPlaceholderConflictError = (function (_super) {
-    __extends$14(MdInputPlaceholderConflictError, _super);
+    __extends$15(MdInputPlaceholderConflictError, _super);
     function MdInputPlaceholderConflictError() {
         _super.call(this, 'Placeholder attribute and child element were both specified.');
     }
@@ -11121,7 +11150,7 @@ var MdInputPlaceholderConflictError = (function (_super) {
 }(MdError));
 /** @docs-private */
 var MdInputUnsupportedTypeError = (function (_super) {
-    __extends$14(MdInputUnsupportedTypeError, _super);
+    __extends$15(MdInputUnsupportedTypeError, _super);
     function MdInputUnsupportedTypeError(type) {
         _super.call(this, "Input type \"" + type + "\" isn't supported by md-input.");
     }
@@ -11129,7 +11158,7 @@ var MdInputUnsupportedTypeError = (function (_super) {
 }(MdError));
 /** @docs-private */
 var MdInputDuplicatedHintError = (function (_super) {
-    __extends$14(MdInputDuplicatedHintError, _super);
+    __extends$15(MdInputDuplicatedHintError, _super);
     function MdInputDuplicatedHintError(align) {
         _super.call(this, "A hint was already declared for 'align=\"" + align + "\"'.");
     }
@@ -11725,7 +11754,7 @@ var MdSnackBarRef = (function () {
     return MdSnackBarRef;
 }());
 
-var __extends$17 = (this && this.__extends) || function (d, b) {
+var __extends$18 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -11735,14 +11764,14 @@ var __extends$17 = (this && this.__extends) || function (d, b) {
  * @docs-private
  */
 var MdSnackBarContentAlreadyAttached = (function (_super) {
-    __extends$17(MdSnackBarContentAlreadyAttached, _super);
+    __extends$18(MdSnackBarContentAlreadyAttached, _super);
     function MdSnackBarContentAlreadyAttached() {
         _super.call(this, 'Attempting to attach snack bar content after content is already attached');
     }
     return MdSnackBarContentAlreadyAttached;
 }(MdError));
 
-var __extends$16 = (this && this.__extends) || function (d, b) {
+var __extends$17 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -11765,7 +11794,7 @@ var HIDE_ANIMATION = '195ms cubic-bezier(0.0,0.0,0.2,1)';
  * @docs-private
  */
 var MdSnackBarContainer = (function (_super) {
-    __extends$16(MdSnackBarContainer, _super);
+    __extends$17(MdSnackBarContainer, _super);
     function MdSnackBarContainer(_ngZone) {
         _super.call(this);
         this._ngZone = _ngZone;
@@ -12088,7 +12117,7 @@ var MdSnackBarModule = (function () {
     return MdSnackBarModule;
 }());
 
-var __extends$18 = (this && this.__extends) || function (d, b) {
+var __extends$19 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -12104,7 +12133,7 @@ var __metadata$54 = (this && this.__metadata) || function (k, v) {
 };
 /** Used to flag tab labels for use with the portal directive */
 var MdTabLabel = (function (_super) {
-    __extends$18(MdTabLabel, _super);
+    __extends$19(MdTabLabel, _super);
     function MdTabLabel(templateRef, viewContainerRef) {
         _super.call(this, templateRef, viewContainerRef);
     }
@@ -12223,7 +12252,7 @@ var MdInkBar = (function () {
     return MdInkBar;
 }());
 
-var __extends$19 = (this && this.__extends) || function (d, b) {
+var __extends$20 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -12300,7 +12329,7 @@ var MdTabLink = (function () {
  * adds the ripple behavior to nav bar labels.
  */
 var MdTabLinkRipple = (function (_super) {
-    __extends$19(MdTabLinkRipple, _super);
+    __extends$20(MdTabLinkRipple, _super);
     function MdTabLinkRipple(_element, _ngZone, _ruler) {
         _super.call(this, _element, _ngZone, _ruler);
         this._element = _element;
@@ -13237,7 +13266,7 @@ var MdToolbarModule = (function () {
     return MdToolbarModule;
 }());
 
-var __extends$20 = (this && this.__extends) || function (d, b) {
+var __extends$21 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -13247,7 +13276,7 @@ var __extends$20 = (this && this.__extends) || function (d, b) {
  * @docs-private
  */
 var MdTooltipInvalidPositionError = (function (_super) {
-    __extends$20(MdTooltipInvalidPositionError, _super);
+    __extends$21(MdTooltipInvalidPositionError, _super);
     function MdTooltipInvalidPositionError(position) {
         _super.call(this, "Tooltip position \"" + position + "\" is invalid.");
     }
@@ -13634,7 +13663,7 @@ var MdTooltipModule = (function () {
     return MdTooltipModule;
 }());
 
-var __extends$21 = (this && this.__extends) || function (d, b) {
+var __extends$22 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -13644,7 +13673,7 @@ var __extends$21 = (this && this.__extends) || function (d, b) {
  * @docs-private
  */
 var MdMenuMissingError = (function (_super) {
-    __extends$21(MdMenuMissingError, _super);
+    __extends$22(MdMenuMissingError, _super);
     function MdMenuMissingError() {
         _super.call(this, "md-menu-trigger: must pass in an md-menu instance.\n\n    Example:\n      <md-menu #menu=\"mdMenu\"></md-menu>\n      <button [mdMenuTriggerFor]=\"menu\"></button>\n    ");
     }
@@ -13656,7 +13685,7 @@ var MdMenuMissingError = (function (_super) {
  * @docs-private
  */
 var MdMenuInvalidPositionX = (function (_super) {
-    __extends$21(MdMenuInvalidPositionX, _super);
+    __extends$22(MdMenuInvalidPositionX, _super);
     function MdMenuInvalidPositionX() {
         _super.call(this, "x-position value must be either 'before' or after'.\n      Example: <md-menu x-position=\"before\" #menu=\"mdMenu\"></md-menu>\n    ");
     }
@@ -13668,7 +13697,7 @@ var MdMenuInvalidPositionX = (function (_super) {
  * @docs-private
  */
 var MdMenuInvalidPositionY = (function (_super) {
-    __extends$21(MdMenuInvalidPositionY, _super);
+    __extends$22(MdMenuInvalidPositionY, _super);
     function MdMenuInvalidPositionY() {
         _super.call(this, "y-position value must be either 'above' or below'.\n      Example: <md-menu y-position=\"above\" #menu=\"mdMenu\"></md-menu>\n    ");
     }
@@ -13824,7 +13853,7 @@ var MdMenu = (function () {
     }
     MdMenu.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this._keyManager = new ListKeyManager(this.items).withFocusWrap();
+        this._keyManager = new FocusKeyManager(this.items).withWrap();
         this._tabSubscription = this._keyManager.tabOut.subscribe(function () {
             _this._emitCloseEvent();
         });
@@ -13854,7 +13883,7 @@ var MdMenu = (function () {
      * to focus the first item when the menu is opened by the ENTER key.
      */
     MdMenu.prototype.focusFirstItem = function () {
-        this._keyManager.focusFirstItem();
+        this._keyManager.setFirstItemActive();
     };
     /**
      * This emits a close event to which the trigger is subscribed. When emitted, the
@@ -14254,7 +14283,7 @@ var MdDialogConfig = (function () {
     return MdDialogConfig;
 }());
 
-var __extends$23 = (this && this.__extends) || function (d, b) {
+var __extends$24 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -14264,14 +14293,14 @@ var __extends$23 = (this && this.__extends) || function (d, b) {
  * @docs-private
  */
 var MdDialogContentAlreadyAttachedError = (function (_super) {
-    __extends$23(MdDialogContentAlreadyAttachedError, _super);
+    __extends$24(MdDialogContentAlreadyAttachedError, _super);
     function MdDialogContentAlreadyAttachedError() {
         _super.call(this, 'Attempting to attach dialog content after content is already attached');
     }
     return MdDialogContentAlreadyAttachedError;
 }(MdError));
 
-var __extends$22 = (this && this.__extends) || function (d, b) {
+var __extends$23 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -14290,7 +14319,7 @@ var __metadata$69 = (this && this.__metadata) || function (k, v) {
  * @docs-private
  */
 var MdDialogContainer = (function (_super) {
-    __extends$22(MdDialogContainer, _super);
+    __extends$23(MdDialogContainer, _super);
     function MdDialogContainer(_ngZone) {
         _super.call(this);
         this._ngZone = _ngZone;

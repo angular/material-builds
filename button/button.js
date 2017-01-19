@@ -69,7 +69,7 @@ export var MdButton = (function () {
     };
     MdButton.prototype._setElementColor = function (color, isAdd) {
         if (color != null && color != '') {
-            this._renderer.setElementClass(this._elementRef.nativeElement, "md-" + color, isAdd);
+            this._renderer.setElementClass(this._getHostElement(), "md-" + color, isAdd);
         }
     };
     MdButton.prototype._setKeyboardFocus = function () {
@@ -80,13 +80,13 @@ export var MdButton = (function () {
     };
     /** Focuses the button. */
     MdButton.prototype.focus = function () {
-        this._renderer.invokeElementMethod(this._elementRef.nativeElement, 'focus');
+        this._renderer.invokeElementMethod(this._getHostElement(), 'focus');
     };
     MdButton.prototype._getHostElement = function () {
         return this._elementRef.nativeElement;
     };
     MdButton.prototype._isRoundButton = function () {
-        var el = this._elementRef.nativeElement;
+        var el = this._getHostElement();
         return el.hasAttribute('md-icon-button') ||
             el.hasAttribute('md-fab') ||
             el.hasAttribute('md-mini-fab');

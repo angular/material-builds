@@ -1,6 +1,6 @@
 import { AfterContentInit, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer } from '@angular/core';
 import { MdOption } from '../core/option/option';
-import { ListKeyManager } from '../core/a11y/list-key-manager';
+import { FocusKeyManager } from '../core/a11y/focus-key-manager';
 import { Dir } from '../core/rtl/dir';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { ConnectedOverlayDirective } from '../core/overlay/overlay-directives';
@@ -79,7 +79,7 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
      */
     _selectedValueWidth: number;
     /** Manages keyboard events for options in the panel. */
-    _keyManager: ListKeyManager;
+    _keyManager: FocusKeyManager;
     /** View -> model callback called when value changes */
     _onChange: (value: any) => void;
     /** View -> model callback called when select has been touched */

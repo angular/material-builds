@@ -1,6 +1,6 @@
 import { AfterContentInit, ElementRef, ModuleWithProviders, QueryList } from '@angular/core';
 import { MdChip } from './chip';
-import { ListKeyManager } from '../core/a11y/list-key-manager';
+import { FocusKeyManager } from '../core/a11y/focus-key-manager';
 /**
  * A material design chips component (named ChipList for it's similarity to the List component).
  *
@@ -17,8 +17,8 @@ export declare class MdChipList implements AfterContentInit {
     private _subscribed;
     /** Whether or not the chip is selectable. */
     protected _selectable: boolean;
-    /** The ListKeyManager which handles focus. */
-    _keyManager: ListKeyManager;
+    /** The FocusKeyManager which handles focus. */
+    _keyManager: FocusKeyManager;
     /** The chip components contained within this chip list. */
     chips: QueryList<MdChip>;
     constructor(_elementRef: ElementRef);

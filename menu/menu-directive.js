@@ -14,7 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 import { Attribute, Component, ContentChildren, EventEmitter, Input, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MdMenuInvalidPositionX, MdMenuInvalidPositionY } from './menu-errors';
 import { MdMenuItem } from './menu-item';
-import { ListKeyManager } from '../core/a11y/list-key-manager';
+import { FocusKeyManager } from '../core/a11y/focus-key-manager';
 import { transformMenu, fadeInItems } from './menu-animations';
 export var MdMenu = (function () {
     function MdMenu(posX, posY) {
@@ -36,7 +36,7 @@ export var MdMenu = (function () {
     }
     MdMenu.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this._keyManager = new ListKeyManager(this.items).withFocusWrap();
+        this._keyManager = new FocusKeyManager(this.items).withWrap();
         this._tabSubscription = this._keyManager.tabOut.subscribe(function () {
             _this._emitCloseEvent();
         });
@@ -66,7 +66,7 @@ export var MdMenu = (function () {
      * to focus the first item when the menu is opened by the ENTER key.
      */
     MdMenu.prototype.focusFirstItem = function () {
-        this._keyManager.focusFirstItem();
+        this._keyManager.setFirstItemActive();
     };
     /**
      * This emits a close event to which the trigger is subscribed. When emitted, the
