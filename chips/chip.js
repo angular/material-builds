@@ -158,7 +158,7 @@ export var MdChip = (function () {
     ], MdChip.prototype, "color", null);
     MdChip = __decorate([
         Component({
-            selector: 'md-basic-chip, [md-basic-chip], md-chip, [md-chip]',
+            selector: "md-basic-chip, [md-basic-chip], md-chip, [md-chip],\n             mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
             template: "<ng-content></ng-content>",
             host: {
                 'tabindex': '-1',

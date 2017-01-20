@@ -8,7 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { NgModule, Component, ChangeDetectionStrategy, Input, ViewEncapsulation, Directive, ElementRef, Renderer } from '@angular/core';
-import { DefaultStyleCompatibilityModeModule } from '../core';
+import { CompatibilityModule } from '../core';
 export var MdToolbarRow = (function () {
     function MdToolbarRow() {
     }
@@ -73,8 +73,8 @@ export var MdToolbarModule = (function () {
     };
     MdToolbarModule = __decorate([
         NgModule({
-            imports: [DefaultStyleCompatibilityModeModule],
-            exports: [MdToolbar, MdToolbarRow, DefaultStyleCompatibilityModeModule],
+            imports: [CompatibilityModule],
+            exports: [MdToolbar, MdToolbarRow, CompatibilityModule],
             declarations: [MdToolbar, MdToolbarRow],
         }), 
         __metadata('design:paramtypes', [])

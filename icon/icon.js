@@ -15,7 +15,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { NgModule, ChangeDetectionStrategy, Component, ElementRef, Input, Renderer, ViewEncapsulation, Optional, SkipSelf } from '@angular/core';
 import { HttpModule, Http } from '@angular/http';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MdError, DefaultStyleCompatibilityModeModule } from '../core';
+import { MdError, CompatibilityModule } from '../core';
 import { MdIconRegistry } from './icon-registry';
 export { MdIconRegistry } from './icon-registry';
 /** Exception thrown when an invalid icon name is passed to an md-icon component. */
@@ -264,8 +264,8 @@ export var MdIconModule = (function () {
     };
     MdIconModule = __decorate([
         NgModule({
-            imports: [HttpModule, DefaultStyleCompatibilityModeModule],
-            exports: [MdIcon, DefaultStyleCompatibilityModeModule],
+            imports: [HttpModule, CompatibilityModule],
+            exports: [MdIcon, CompatibilityModule],
             declarations: [MdIcon],
             providers: [ICON_REGISTRY_PROVIDER],
         }), 

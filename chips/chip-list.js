@@ -165,7 +165,7 @@ export var MdChipList = (function () {
         __metadata('design:type', Boolean)
     ], MdChipList.prototype, "selectable", null);
     MdChipList = __decorate([
-        Component({selector: 'md-chip-list',
+        Component({selector: 'md-chip-list, mat-chip-list',
             template: "<div class=\"md-chip-list-wrapper\"><ng-content></ng-content></div>",
             host: {
                 // Properties

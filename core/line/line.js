@@ -8,7 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { NgModule, Directive } from '@angular/core';
-import { DefaultStyleCompatibilityModeModule } from '../compatibility/default-mode';
+import { CompatibilityModule } from '../compatibility/compatibility';
 /**
  * Shared directive to count lines inside a text area, such as a list item.
  * Line elements can be extracted with a @ContentChildren(MdLine) query, then
@@ -62,8 +62,8 @@ export var MdLineModule = (function () {
     }
     MdLineModule = __decorate([
         NgModule({
-            imports: [DefaultStyleCompatibilityModeModule],
-            exports: [MdLine, DefaultStyleCompatibilityModeModule],
+            imports: [CompatibilityModule],
+            exports: [MdLine, CompatibilityModule],
             declarations: [MdLine],
         }), 
         __metadata('design:paramtypes', [])

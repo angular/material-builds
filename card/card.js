@@ -8,7 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { NgModule, Component, ViewEncapsulation, ChangeDetectionStrategy, Directive } from '@angular/core';
-import { DefaultStyleCompatibilityModeModule } from '../core';
+import { CompatibilityModule } from '../core';
 /**
  * Content of a card, needed as it's used as a selector in the API.
  */
@@ -150,7 +150,7 @@ export var MdCardModule = (function () {
     };
     MdCardModule = __decorate([
         NgModule({
-            imports: [DefaultStyleCompatibilityModeModule],
+            imports: [CompatibilityModule],
             exports: [
                 MdCard,
                 MdCardHeader,
@@ -160,7 +160,7 @@ export var MdCardModule = (function () {
                 MdCardSubtitle,
                 MdCardActions,
                 MdCardFooter,
-                DefaultStyleCompatibilityModeModule,
+                CompatibilityModule,
             ],
             declarations: [
                 MdCard, MdCardHeader, MdCardTitleGroup, MdCardContent, MdCardTitle, MdCardSubtitle,

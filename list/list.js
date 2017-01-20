@@ -8,7 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component, ViewEncapsulation, ContentChildren, ContentChild, QueryList, Directive, ElementRef, Renderer, NgModule } from '@angular/core';
-import { MdLine, MdLineSetter, MdLineModule, DefaultStyleCompatibilityModeModule } from '../core';
+import { MdLine, MdLineSetter, MdLineModule, CompatibilityModule } from '../core';
 export var MdListDivider = (function () {
     function MdListDivider() {
     }
@@ -101,14 +101,14 @@ export var MdListModule = (function () {
     };
     MdListModule = __decorate([
         NgModule({
-            imports: [MdLineModule, DefaultStyleCompatibilityModeModule],
+            imports: [MdLineModule, CompatibilityModule],
             exports: [
                 MdList,
                 MdListItem,
                 MdListDivider,
                 MdListAvatar,
                 MdLineModule,
-                DefaultStyleCompatibilityModeModule,
+                CompatibilityModule,
             ],
             declarations: [MdList, MdListItem, MdListDivider, MdListAvatar],
         }), 

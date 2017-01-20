@@ -8,7 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { NgModule } from '@angular/core';
-import { MdRippleModule, RtlModule, ObserveContentModule, PortalModule, OverlayModule, A11yModule, ProjectionModule, DefaultStyleCompatibilityModeModule } from './core/index';
+import { MdRippleModule, RtlModule, ObserveContentModule, PortalModule, OverlayModule, A11yModule, ProjectionModule, CompatibilityModule } from './core/index';
 import { MdButtonToggleModule } from './button-toggle/index';
 import { MdButtonModule } from './button/index';
 import { MdCheckboxModule } from './checkbox/index';
@@ -64,7 +64,7 @@ var MATERIAL_MODULES = [
     A11yModule,
     PlatformModule,
     ProjectionModule,
-    DefaultStyleCompatibilityModeModule,
+    CompatibilityModule,
     ObserveContentModule
 ];
 export var MaterialRootModule = (function () {
@@ -105,7 +105,7 @@ export var MaterialRootModule = (function () {
                 MdTooltipModule.forRoot(),
                 PlatformModule.forRoot(),
                 OverlayModule.forRoot(),
-                DefaultStyleCompatibilityModeModule.forRoot(),
+                CompatibilityModule.forRoot(),
             ],
             exports: MATERIAL_MODULES,
         }), 

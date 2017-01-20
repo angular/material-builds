@@ -107,7 +107,8 @@ export var MdTextareaAutosize = (function () {
     ], MdTextareaAutosize.prototype, "mdAutosizeMaxRows", null);
     MdTextareaAutosize = __decorate([
         Directive({
-            selector: 'textarea[md-autosize], textarea[mat-autosize], textarea[mdTextareaAutosize]',
+            selector: 'textarea[md-autosize], textarea[mdTextareaAutosize],' +
+                'textarea[mat-autosize], textarea[matTextareaAutosize]',
             exportAs: 'mdTextareaAutosize',
             host: {
                 '(input)': 'resizeToFitContent()',

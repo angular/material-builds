@@ -37,12 +37,11 @@ export { applyCssTransform } from './style/apply-transform';
 export { MdError } from './errors/error';
 export { ComponentType } from './overlay/generic-component-type';
 export * from './keyboard/keycodes';
-export * from './compatibility/default-mode';
+export * from './compatibility/compatibility';
 export * from './animation/animation';
 export { coerceBooleanProperty } from './coercion/boolean-property';
 export { coerceNumberProperty } from './coercion/number-property';
-export { DefaultStyleCompatibilityModeModule } from './compatibility/default-mode';
-export { NoConflictStyleCompatibilityMode } from './compatibility/no-conflict-mode';
+export { CompatibilityModule, NoConflictStyleCompatibilityMode } from './compatibility/compatibility';
 export declare class MdCoreModule {
     /** @deprecated */
     static forRoot(): ModuleWithProviders;

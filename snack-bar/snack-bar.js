@@ -11,7 +11,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 import { NgModule, Injectable, Optional, SkipSelf } from '@angular/core';
-import { ComponentPortal, Overlay, OverlayModule, OverlayState, PortalModule, LiveAnnouncer, DefaultStyleCompatibilityModeModule, LIVE_ANNOUNCER_PROVIDER } from '../core';
+import { ComponentPortal, Overlay, OverlayModule, OverlayState, PortalModule, LiveAnnouncer, CompatibilityModule, LIVE_ANNOUNCER_PROVIDER } from '../core';
 import { CommonModule } from '@angular/common';
 import { MdSnackBarConfig } from './snack-bar-config';
 import { MdSnackBarRef } from './snack-bar-ref';
@@ -156,8 +156,8 @@ export var MdSnackBarModule = (function () {
     };
     MdSnackBarModule = __decorate([
         NgModule({
-            imports: [OverlayModule, PortalModule, CommonModule, DefaultStyleCompatibilityModeModule],
-            exports: [MdSnackBarContainer, DefaultStyleCompatibilityModeModule],
+            imports: [OverlayModule, PortalModule, CommonModule, CompatibilityModule],
+            exports: [MdSnackBarContainer, CompatibilityModule],
             declarations: [MdSnackBarContainer, SimpleSnackBar],
             entryComponents: [MdSnackBarContainer, SimpleSnackBar],
             providers: [MdSnackBar, LIVE_ANNOUNCER_PROVIDER]

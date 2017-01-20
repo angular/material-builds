@@ -34,6 +34,10 @@ export declare class MdTooltip implements OnDestroy {
     message: string;
     /** @deprecated */
     _deprecatedMessage: string;
+    _matMessage: string;
+    _matPosition: TooltipPosition;
+    _matHideDelay: number;
+    _matShowDelay: number;
     constructor(_overlay: Overlay, _elementRef: ElementRef, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _dir: Dir);
     /**
      * Dispose the tooltip when destroyed.

@@ -13,7 +13,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { NgModule, Component, HostBinding, ChangeDetectionStrategy, Input, ElementRef, NgZone, Renderer } from '@angular/core';
-import { DefaultStyleCompatibilityModeModule } from '../core';
+import { CompatibilityModule } from '../core';
 // TODO(josephperrott): Benchpress tests.
 /** A single degree in radians. */
 var DEGREE_IN_RADIANS = Math.PI / 180;
@@ -350,8 +350,8 @@ export var MdProgressSpinnerModule = (function () {
     };
     MdProgressSpinnerModule = __decorate([
         NgModule({
-            imports: [DefaultStyleCompatibilityModeModule],
-            exports: [MdProgressSpinner, MdSpinner, DefaultStyleCompatibilityModeModule],
+            imports: [CompatibilityModule],
+            exports: [MdProgressSpinner, MdSpinner, CompatibilityModule],
             declarations: [MdProgressSpinner, MdSpinner],
         }), 
         __metadata('design:paramtypes', [])

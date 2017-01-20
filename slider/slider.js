@@ -13,7 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 import { NgModule, Component, ElementRef, Input, Output, ViewEncapsulation, forwardRef, EventEmitter, Optional } from '@angular/core';
 import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { GestureConfig, coerceBooleanProperty, coerceNumberProperty, DefaultStyleCompatibilityModeModule } from '../core';
+import { GestureConfig, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule } from '../core';
 import { Dir } from '../core/rtl/dir';
 import { CommonModule } from '@angular/common';
 import { PAGE_UP, PAGE_DOWN, END, HOME, LEFT_ARROW, UP_ARROW, RIGHT_ARROW, DOWN_ARROW } from '../core/keyboard/keycodes';
@@ -673,8 +673,8 @@ export var MdSliderModule = (function () {
     };
     MdSliderModule = __decorate([
         NgModule({
-            imports: [CommonModule, FormsModule, DefaultStyleCompatibilityModeModule],
-            exports: [MdSlider, DefaultStyleCompatibilityModeModule],
+            imports: [CommonModule, FormsModule, CompatibilityModule],
+            exports: [MdSlider, CompatibilityModule],
             declarations: [MdSlider],
             providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
         }), 

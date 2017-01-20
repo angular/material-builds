@@ -11,7 +11,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 import { NgModule, Component, Directive, Input, ElementRef, ViewContainerRef, style, trigger, state, transition, animate, NgZone, Optional } from '@angular/core';
-import { Overlay, OverlayState, OverlayModule, ComponentPortal, DefaultStyleCompatibilityModeModule } from '../core';
+import { Overlay, OverlayState, OverlayModule, ComponentPortal, CompatibilityModule } from '../core';
 import { MdTooltipInvalidPositionError } from './tooltip-errors';
 import { Subject } from 'rxjs/Subject';
 import { Dir } from '../core/rtl/dir';
@@ -76,6 +76,34 @@ export var MdTooltip = (function () {
         /** @deprecated */
         get: function () { return this.message; },
         set: function (v) { this.message = v; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdTooltip.prototype, "_matMessage", {
+        // Properties with `mat-` prefix for noconflict mode.
+        get: function () { return this.message; },
+        set: function (v) { this.message = v; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdTooltip.prototype, "_matPosition", {
+        // Properties with `mat-` prefix for noconflict mode.
+        get: function () { return this.position; },
+        set: function (v) { this.position = v; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdTooltip.prototype, "_matHideDelay", {
+        // Properties with `mat-` prefix for noconflict mode.
+        get: function () { return this.hideDelay; },
+        set: function (v) { this.hideDelay = v; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdTooltip.prototype, "_matShowDelay", {
+        // Properties with `mat-` prefix for noconflict mode.
+        get: function () { return this.showDelay; },
+        set: function (v) { this.showDelay = v; },
         enumerable: true,
         configurable: true
     });
@@ -218,9 +246,25 @@ export var MdTooltip = (function () {
         Input('md-tooltip'), 
         __metadata('design:type', String)
     ], MdTooltip.prototype, "_deprecatedMessage", null);
+    __decorate([
+        Input('matTooltip'), 
+        __metadata('design:type', Object)
+    ], MdTooltip.prototype, "_matMessage", null);
+    __decorate([
+        Input('matTooltipPosition'), 
+        __metadata('design:type', Object)
+    ], MdTooltip.prototype, "_matPosition", null);
+    __decorate([
+        Input('matTooltipHideDelay'), 
+        __metadata('design:type', Object)
+    ], MdTooltip.prototype, "_matHideDelay", null);
+    __decorate([
+        Input('matTooltipShowDelay'), 
+        __metadata('design:type', Object)
+    ], MdTooltip.prototype, "_matShowDelay", null);
     MdTooltip = __decorate([
         Directive({
-            selector: '[md-tooltip], [mat-tooltip], [mdTooltip]',
+            selector: '[md-tooltip], [mdTooltip], [mat-tooltip], [matTooltip]',
             host: {
                 '(longpress)': 'show()',
                 '(touchend)': 'hide(' + TOUCHEND_HIDE_DELAY + ')',
@@ -374,8 +418,8 @@ export var MdTooltipModule = (function () {
     };
     MdTooltipModule = __decorate([
         NgModule({
-            imports: [OverlayModule, DefaultStyleCompatibilityModeModule],
-            exports: [MdTooltip, TooltipComponent, DefaultStyleCompatibilityModeModule],
+            imports: [OverlayModule, CompatibilityModule],
+            exports: [MdTooltip, TooltipComponent, CompatibilityModule],
             declarations: [MdTooltip, TooltipComponent],
             entryComponents: [TooltipComponent],
         }), 

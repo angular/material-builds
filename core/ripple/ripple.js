@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { NgModule, Directive, ElementRef, HostBinding, Input, NgZone } from '@angular/core';
 import { RippleRenderer, ForegroundRippleState } from './ripple-renderer';
-import { DefaultStyleCompatibilityModeModule } from '../compatibility/default-mode';
+import { CompatibilityModule } from '../compatibility/compatibility';
 import { ViewportRuler, VIEWPORT_RULER_PROVIDER } from '../overlay/position/viewport-ruler';
 export var MdRipple = (function () {
     function MdRipple(_elementRef, _ngZone, _ruler) {
@@ -284,8 +284,8 @@ export var MdRippleModule = (function () {
     };
     MdRippleModule = __decorate([
         NgModule({
-            imports: [DefaultStyleCompatibilityModeModule],
-            exports: [MdRipple, DefaultStyleCompatibilityModeModule],
+            imports: [CompatibilityModule],
+            exports: [MdRipple, CompatibilityModule],
             declarations: [MdRipple],
             providers: [VIEWPORT_RULER_PROVIDER],
         }), 

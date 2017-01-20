@@ -11,7 +11,7 @@ import { ChangeDetectorRef, ChangeDetectionStrategy, Component, ElementRef, Even
 import { CommonModule } from '@angular/common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { coerceBooleanProperty } from '../core/coercion/boolean-property';
-import { MdRippleModule, DefaultStyleCompatibilityModeModule } from '../core';
+import { MdRippleModule, CompatibilityModule } from '../core';
 /** Monotonically increasing integer used to auto-generate unique ids for checkbox components. */
 var nextId = 0;
 /**
@@ -433,8 +433,8 @@ export var MdCheckboxModule = (function () {
     };
     MdCheckboxModule = __decorate([
         NgModule({
-            imports: [CommonModule, MdRippleModule, DefaultStyleCompatibilityModeModule],
-            exports: [MdCheckbox, DefaultStyleCompatibilityModeModule],
+            imports: [CommonModule, MdRippleModule, CompatibilityModule],
+            exports: [MdCheckbox, CompatibilityModule],
             declarations: [MdCheckbox],
         }), 
         __metadata('design:paramtypes', [])

@@ -14,7 +14,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component, ViewEncapsulation, Input, HostBinding, ChangeDetectionStrategy, ElementRef, Renderer, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MdRippleModule, coerceBooleanProperty, DefaultStyleCompatibilityModeModule } from '../core';
+import { MdRippleModule, coerceBooleanProperty, CompatibilityModule } from '../core';
 // TODO(jelbourn): Make the `isMouseDown` stuff done with one global listener.
 // TODO(kara): Convert attribute selectors to classes when attr maps become available
 /**
@@ -107,8 +107,10 @@ export var MdButton = (function () {
         __metadata('design:type', String)
     ], MdButton.prototype, "color", null);
     MdButton = __decorate([
-        Component({selector: 'button[md-button], button[md-raised-button], button[md-icon-button], ' +
-                'button[md-fab], button[md-mini-fab]',
+        Component({selector: 'button[md-button], button[md-raised-button], button[md-icon-button],' +
+                'button[md-fab], button[md-mini-fab],' +
+                'button[mat-button], button[mat-raised-button], button[mat-icon-button],' +
+                'button[mat-fab], button[mat-mini-fab]',
             host: {
                 '[disabled]': 'disabled',
                 '[class.md-button-focus]': '_isKeyboardFocused',
@@ -160,7 +162,7 @@ export var MdAnchor = (function (_super) {
         __metadata('design:type', Number)
     ], MdAnchor.prototype, "tabIndex", null);
     MdAnchor = __decorate([
-        Component({selector: 'a[md-button], a[md-raised-button], a[md-icon-button], a[md-fab], a[md-mini-fab]',
+        Component({selector: "a[md-button], a[md-raised-button], a[md-icon-button], a[md-fab], a[md-mini-fab],\n             a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab], a[mat-mini-fab]",
             inputs: ['color', 'disabled', 'disableRipple'],
             host: {
                 '[attr.disabled]': 'disabled',
@@ -191,8 +193,8 @@ export var MdButtonModule = (function () {
     };
     MdButtonModule = __decorate([
         NgModule({
-            imports: [CommonModule, MdRippleModule, DefaultStyleCompatibilityModeModule],
-            exports: [MdButton, MdAnchor, DefaultStyleCompatibilityModeModule],
+            imports: [CommonModule, MdRippleModule, CompatibilityModule],
+            exports: [MdButton, MdAnchor, CompatibilityModule],
             declarations: [MdButton, MdAnchor],
         }), 
         __metadata('design:paramtypes', [])

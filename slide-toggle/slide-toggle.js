@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component, ElementRef, Renderer, forwardRef, ChangeDetectionStrategy, Input, Output, EventEmitter, NgModule, ViewChild, ViewEncapsulation } from '@angular/core';
 import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { applyCssTransform, coerceBooleanProperty, GestureConfig, DefaultStyleCompatibilityModeModule } from '../core';
+import { applyCssTransform, coerceBooleanProperty, GestureConfig, CompatibilityModule } from '../core';
 import { Observable } from 'rxjs/Observable';
 export var MD_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
@@ -336,8 +336,8 @@ export var MdSlideToggleModule = (function () {
     };
     MdSlideToggleModule = __decorate([
         NgModule({
-            imports: [FormsModule, DefaultStyleCompatibilityModeModule],
-            exports: [MdSlideToggle, DefaultStyleCompatibilityModeModule],
+            imports: [FormsModule, CompatibilityModule],
+            exports: [MdSlideToggle, CompatibilityModule],
             declarations: [MdSlideToggle],
             providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }],
         }), 

@@ -15,7 +15,7 @@ import { MdGridTile, MdGridTileText } from './grid-tile';
 import { TileCoordinator } from './tile-coordinator';
 import { FitTileStyler, RatioTileStyler, FixedTileStyler } from './tile-styler';
 import { MdGridListColsError } from './grid-list-errors';
-import { Dir, MdLineModule, DefaultStyleCompatibilityModeModule } from '../core';
+import { Dir, MdLineModule, CompatibilityModule } from '../core';
 import { coerceToString, coerceToNumber } from './grid-list-measure';
 // TODO(kara): Conditional (responsive) column count / row size.
 // TODO(kara): Re-layout on window resize / media change (debounced).
@@ -148,13 +148,13 @@ export var MdGridListModule = (function () {
     };
     MdGridListModule = __decorate([
         NgModule({
-            imports: [MdLineModule, DefaultStyleCompatibilityModeModule],
+            imports: [MdLineModule, CompatibilityModule],
             exports: [
                 MdGridList,
                 MdGridTile,
                 MdGridTileText,
                 MdLineModule,
-                DefaultStyleCompatibilityModeModule,
+                CompatibilityModule,
             ],
             declarations: [MdGridList, MdGridTile, MdGridTileText],
         }), 

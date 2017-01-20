@@ -13,7 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 import { Component, ContentChildren, Directive, ElementRef, Renderer, EventEmitter, HostBinding, Input, Optional, Output, QueryList, ViewEncapsulation, forwardRef, NgModule, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MdRippleModule, UniqueSelectionDispatcher, DefaultStyleCompatibilityModeModule, UNIQUE_SELECTION_DISPATCHER_PROVIDER } from '../core';
+import { MdRippleModule, UniqueSelectionDispatcher, CompatibilityModule, UNIQUE_SELECTION_DISPATCHER_PROVIDER } from '../core';
 import { coerceBooleanProperty } from '../core/coercion/boolean-property';
 import { VIEWPORT_RULER_PROVIDER } from '../core/overlay/position/viewport-ruler';
 /**
@@ -541,8 +541,8 @@ export var MdRadioModule = (function () {
     };
     MdRadioModule = __decorate([
         NgModule({
-            imports: [CommonModule, MdRippleModule, DefaultStyleCompatibilityModeModule],
-            exports: [MdRadioGroup, MdRadioButton, DefaultStyleCompatibilityModeModule],
+            imports: [CommonModule, MdRippleModule, CompatibilityModule],
+            exports: [MdRadioGroup, MdRadioButton, CompatibilityModule],
             providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, VIEWPORT_RULER_PROVIDER],
             declarations: [MdRadioGroup, MdRadioButton],
         }), 

@@ -68,15 +68,14 @@ export { MdError } from './errors/error';
 // Misc
 // Keybindings
 export * from './keyboard/keycodes';
-export * from './compatibility/default-mode';
+export * from './compatibility/compatibility';
 // Animation
 export * from './animation/animation';
 // Coercion
 export { coerceBooleanProperty } from './coercion/boolean-property';
 export { coerceNumberProperty } from './coercion/number-property';
 // Compatibility
-export { DefaultStyleCompatibilityModeModule } from './compatibility/default-mode';
-export { NoConflictStyleCompatibilityMode } from './compatibility/no-conflict-mode';
+export { CompatibilityModule, NoConflictStyleCompatibilityMode } from './compatibility/compatibility';
 export var MdCoreModule = (function () {
     function MdCoreModule() {
     }

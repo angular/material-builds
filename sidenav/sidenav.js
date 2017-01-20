@@ -17,7 +17,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 import { NgModule, Component, ContentChildren, ElementRef, Input, Optional, Output, QueryList, ChangeDetectionStrategy, EventEmitter, Renderer, ViewEncapsulation, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Dir, MdError, coerceBooleanProperty, DefaultStyleCompatibilityModeModule } from '../core';
+import { Dir, MdError, coerceBooleanProperty, CompatibilityModule } from '../core';
 import { A11yModule } from '../core/a11y/index';
 import { FocusTrap } from '../core/a11y/focus-trap';
 import { ESCAPE } from '../core/keyboard/keycodes';
@@ -578,8 +578,8 @@ export var MdSidenavModule = (function () {
     };
     MdSidenavModule = __decorate([
         NgModule({
-            imports: [CommonModule, DefaultStyleCompatibilityModeModule, A11yModule, OverlayModule],
-            exports: [MdSidenavContainer, MdSidenav, DefaultStyleCompatibilityModeModule],
+            imports: [CommonModule, CompatibilityModule, A11yModule, OverlayModule],
+            exports: [MdSidenavContainer, MdSidenav, CompatibilityModule],
             declarations: [MdSidenavContainer, MdSidenav],
         }), 
         __metadata('design:paramtypes', [])
