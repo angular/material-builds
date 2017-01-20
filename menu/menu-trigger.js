@@ -181,6 +181,9 @@ export var MdMenuTrigger = (function () {
         this._positionSubscription = position.onPositionChange.subscribe(function (change) {
             var posX = change.connectionPair.originX === 'start' ? 'after' : 'before';
             var posY = change.connectionPair.originY === 'top' ? 'below' : 'above';
+            if (!_this.menu.overlapTrigger) {
+                posY = posY === 'below' ? 'above' : 'below';
+            }
             _this.menu.setPositionClasses(posX, posY);
         });
     };
@@ -191,12 +194,18 @@ export var MdMenuTrigger = (function () {
      */
     MdMenuTrigger.prototype._getPosition = function () {
         var _a = this.menu.positionX === 'before' ? ['end', 'start'] : ['start', 'end'], posX = _a[0], fallbackX = _a[1];
-        var _b = this.menu.positionY === 'above' ? ['bottom', 'top'] : ['top', 'bottom'], posY = _b[0], fallbackY = _b[1];
+        var _b = this.menu.positionY === 'above' ? ['bottom', 'top'] : ['top', 'bottom'], overlayY = _b[0], fallbackOverlayY = _b[1];
+        var originY = overlayY;
+        var fallbackOriginY = fallbackOverlayY;
+        if (!this.menu.overlapTrigger) {
+            originY = overlayY === 'top' ? 'bottom' : 'top';
+            fallbackOriginY = fallbackOverlayY === 'top' ? 'bottom' : 'top';
+        }
         return this._overlay.position()
-            .connectedTo(this._element, { originX: posX, originY: posY }, { overlayX: posX, overlayY: posY })
-            .withFallbackPosition({ originX: fallbackX, originY: posY }, { overlayX: fallbackX, overlayY: posY })
-            .withFallbackPosition({ originX: posX, originY: fallbackY }, { overlayX: posX, overlayY: fallbackY })
-            .withFallbackPosition({ originX: fallbackX, originY: fallbackY }, { overlayX: fallbackX, overlayY: fallbackY });
+            .connectedTo(this._element, { originX: posX, originY: originY }, { overlayX: posX, overlayY: overlayY })
+            .withFallbackPosition({ originX: fallbackX, originY: originY }, { overlayX: fallbackX, overlayY: overlayY })
+            .withFallbackPosition({ originX: posX, originY: fallbackOriginY }, { overlayX: posX, overlayY: fallbackOverlayY })
+            .withFallbackPosition({ originX: fallbackX, originY: fallbackOriginY }, { overlayX: fallbackX, overlayY: fallbackOverlayY });
     };
     MdMenuTrigger.prototype._cleanUpSubscriptions = function () {
         if (this._backdropSubscription) {

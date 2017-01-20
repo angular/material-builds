@@ -24,6 +24,7 @@ export var MdMenu = (function () {
         this.positionX = 'after';
         /** Position of the menu in the Y axis. */
         this.positionY = 'below';
+        this.overlapTrigger = true;
         /** Event emitted when the menu is closed. */
         this.close = new EventEmitter();
         if (posX) {
@@ -105,6 +106,10 @@ export var MdMenu = (function () {
         ContentChildren(MdMenuItem), 
         __metadata('design:type', QueryList)
     ], MdMenu.prototype, "items", void 0);
+    __decorate([
+        Input(), 
+        __metadata('design:type', Object)
+    ], MdMenu.prototype, "overlapTrigger", void 0);
     __decorate([
         Input('class'), 
         __metadata('design:type', String), 
