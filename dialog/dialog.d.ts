@@ -1,4 +1,6 @@
 import { Injector } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import { Overlay, ComponentType } from '../core';
 import { MdDialogConfig } from './dialog-config';
 import { MdDialogRef } from './dialog-ref';
@@ -10,8 +12,18 @@ export declare class MdDialog {
     private _injector;
     private _parentDialog;
     private _openDialogsAtThisLevel;
+    private _afterAllClosedAtThisLevel;
+    private _afterOpenAtThisLevel;
     /** Keeps track of the currently-open dialogs. */
     readonly _openDialogs: MdDialogRef<any>[];
+    /** Subject for notifying the user that all open dialogs have finished closing. */
+    readonly _afterOpen: Subject<MdDialogRef<any>>;
+    /** Subject for notifying the user that a dialog has opened. */
+    readonly _afterAllClosed: Subject<void>;
+    /** Gets an observable that is notified when a dialog has been opened. */
+    afterOpen: Observable<MdDialogRef<any>>;
+    /** Gets an observable that is notified when all open dialog have finished closing. */
+    afterAllClosed: Observable<void>;
     constructor(_overlay: Overlay, _injector: Injector, _parentDialog: MdDialog);
     /**
      * Opens a modal dialog containing the given component.

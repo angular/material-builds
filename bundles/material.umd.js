@@ -13956,11 +13956,34 @@ var MdDialog = (function () {
         this._injector = _injector;
         this._parentDialog = _parentDialog;
         this._openDialogsAtThisLevel = [];
+        this._afterAllClosedAtThisLevel = new rxjs_Subject.Subject();
+        this._afterOpenAtThisLevel = new rxjs_Subject.Subject();
+        /** Gets an observable that is notified when a dialog has been opened. */
+        this.afterOpen = this._afterOpen.asObservable();
+        /** Gets an observable that is notified when all open dialog have finished closing. */
+        this.afterAllClosed = this._afterAllClosed.asObservable();
     }
     Object.defineProperty(MdDialog.prototype, "_openDialogs", {
         /** Keeps track of the currently-open dialogs. */
         get: function () {
             return this._parentDialog ? this._parentDialog._openDialogs : this._openDialogsAtThisLevel;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdDialog.prototype, "_afterOpen", {
+        /** Subject for notifying the user that all open dialogs have finished closing. */
+        get: function () {
+            return this._parentDialog ? this._parentDialog._afterOpen : this._afterOpenAtThisLevel;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdDialog.prototype, "_afterAllClosed", {
+        /** Subject for notifying the user that a dialog has opened. */
+        get: function () {
+            return this._parentDialog ?
+                this._parentDialog._afterAllClosed : this._afterAllClosedAtThisLevel;
         },
         enumerable: true,
         configurable: true
@@ -13979,6 +14002,7 @@ var MdDialog = (function () {
         var dialogRef = this._attachDialogContent(component, dialogContainer, overlayRef, config);
         this._openDialogs.push(dialogRef);
         dialogRef.afterClosed().subscribe(function () { return _this._removeOpenDialog(dialogRef); });
+        this._afterOpen.next(dialogRef);
         return dialogRef;
     };
     /**
@@ -14078,6 +14102,10 @@ var MdDialog = (function () {
         var index = this._openDialogs.indexOf(dialogRef);
         if (index > -1) {
             this._openDialogs.splice(index, 1);
+            // no open dialogs are left, call next on afterAllClosed Subject
+            if (!this._openDialogs.length) {
+                this._afterAllClosed.next();
+            }
         }
     };
     MdDialog = __decorate$67([
