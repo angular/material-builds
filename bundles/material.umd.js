@@ -23,9 +23,9 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.OpaqueToken('md-compatibility-mode');
 /** Selector that matches all elements that may have style collisions with material1. */
-var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-dialog-actions],\n  [mat-dialog-close],\n  [mat-dialog-content],\n  [mat-dialog-title],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [mat-tab-label],\n  [mat-tab-link],\n  [mat-tab-nav-bar],\n  mat-autocomplete,\n  mat-button-toggle-group,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-hint,\n  mat-icon,\n  mat-ink-bar,\n  mat-input,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-progress-circle,\n  mat-radio-button,\n  mat-radio-group,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-tab,\n  mat-tab-group,\n  mat-toolbar,\n  matTooltip";
+var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-dialog-actions],\n  [mat-dialog-close],\n  [mat-dialog-content],\n  [mat-dialog-title],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [mat-tab-label],\n  [mat-tab-link],\n  [mat-tab-nav-bar],\n  mat-autocomplete,\n  mat-button-toggle-group,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-hint,\n  mat-icon,\n  mat-ink-bar,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-progress-circle,\n  mat-radio-button,\n  mat-radio-group,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-tab,\n  mat-tab-group,\n  mat-toolbar,\n  matTooltip";
 /** Selector that matches all elements that may have style collisions with material1. */
-var MD_ELEMENTS_SELECTOR = "  \n  [md-button],\n  [md-dialog-actions],\n  [md-dialog-close],\n  [md-dialog-content],\n  [md-dialog-title],\n  [md-fab],\n  [md-icon-button],\n  [md-mini-fab],\n  [md-raised-button],\n  [md-tab-label],\n  [md-tab-link],\n  [md-tab-nav-bar],\n  md-autocomplete,\n  md-button-toggle-group,\n  md-card,\n  md-card-actions,\n  md-card-content,\n  md-card-footer,\n  md-card-header,\n  md-card-subtitle,\n  md-card-title,\n  md-card-title-group,\n  md-checkbox,\n  md-chip,\n  md-dialog-actions,\n  md-dialog-container,\n  md-dialog-content,\n  md-divider,\n  md-grid-list,\n  md-grid-tile,\n  md-grid-tile-footer,\n  md-grid-tile-header,\n  md-hint,\n  md-icon,\n  md-ink-bar,\n  md-input,\n  md-list,\n  md-list-item,\n  md-menu,\n  md-nav-list,\n  md-option,\n  md-placeholder,\n  md-progress-bar,\n  md-progress-circle,\n  md-radio-button,\n  md-radio-group,\n  md-select,\n  md-sidenav,\n  md-sidenav-container,\n  md-slider,\n  md-spinner,\n  md-tab,\n  md-tab-group,\n  md-toolbar,\n  mdTooltip";
+var MD_ELEMENTS_SELECTOR = "  \n  [md-button],\n  [md-dialog-actions],\n  [md-dialog-close],\n  [md-dialog-content],\n  [md-dialog-title],\n  [md-fab],\n  [md-icon-button],\n  [md-mini-fab],\n  [md-raised-button],\n  [md-tab-label],\n  [md-tab-link],\n  [md-tab-nav-bar],\n  md-autocomplete,\n  md-button-toggle-group,\n  md-card,\n  md-card-actions,\n  md-card-content,\n  md-card-footer,\n  md-card-header,\n  md-card-subtitle,\n  md-card-title,\n  md-card-title-group,\n  md-checkbox,\n  md-chip,\n  md-dialog-actions,\n  md-dialog-container,\n  md-dialog-content,\n  md-divider,\n  md-grid-list,\n  md-grid-tile,\n  md-grid-tile-footer,\n  md-grid-tile-header,\n  md-hint,\n  md-icon,\n  md-ink-bar,\n  md-list,\n  md-list-item,\n  md-menu,\n  md-nav-list,\n  md-option,\n  md-placeholder,\n  md-progress-bar,\n  md-progress-circle,\n  md-radio-button,\n  md-radio-group,\n  md-select,\n  md-sidenav,\n  md-sidenav-container,\n  md-slider,\n  md-spinner,\n  md-tab,\n  md-tab-group,\n  md-toolbar,\n  mdTooltip";
 /** Directive that enforces that the `mat-` prefix cannot be used. */
 var MatPrefixRejector = (function () {
     function MatPrefixRejector(isCompatibilityMode) {
@@ -10570,136 +10570,14 @@ var MdProgressBarModule = (function () {
     return MdProgressBarModule;
 }());
 
-var __decorate$46 = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$46 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-/**
- * Directive to automatically resize a textarea to fit its content.
- */
-var MdTextareaAutosize = (function () {
-    function MdTextareaAutosize(_elementRef) {
-        this._elementRef = _elementRef;
-    }
-    Object.defineProperty(MdTextareaAutosize.prototype, "mdAutosizeMinRows", {
-        get: function () {
-            return this.minRows;
-        },
-        set: function (value) {
-            this.minRows = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdTextareaAutosize.prototype, "mdAutosizeMaxRows", {
-        get: function () {
-            return this.maxRows;
-        },
-        set: function (value) {
-            this.maxRows = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdTextareaAutosize.prototype, "_minHeight", {
-        /** The minimum height of the textarea as determined by minRows. */
-        get: function () {
-            return this.minRows ? this.minRows * this._cachedLineHeight + "px" : null;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdTextareaAutosize.prototype, "_maxHeight", {
-        /** The maximum height of the textarea as determined by maxRows. */
-        get: function () {
-            return this.maxRows ? this.maxRows * this._cachedLineHeight + "px" : null;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MdTextareaAutosize.prototype.ngOnInit = function () {
-        this._cacheTextareaLineHeight();
-        this.resizeToFitContent();
-    };
-    /**
-     * Cache the height of a single-row textarea.
-     *
-     * We need to know how large a single "row" of a textarea is in order to apply minRows and
-     * maxRows. For the initial version, we will assume that the height of a single line in the
-     * textarea does not ever change.
-     */
-    MdTextareaAutosize.prototype._cacheTextareaLineHeight = function () {
-        var textarea = this._elementRef.nativeElement;
-        // Use a clone element because we have to override some styles.
-        var textareaClone = textarea.cloneNode(false);
-        textareaClone.rows = 1;
-        // Use `position: absolute` so that this doesn't cause a browser layout and use
-        // `visibility: hidden` so that nothing is rendered. Clear any other styles that
-        // would affect the height.
-        textareaClone.style.position = 'absolute';
-        textareaClone.style.visibility = 'hidden';
-        textareaClone.style.border = 'none';
-        textareaClone.style.padding = '';
-        textareaClone.style.height = '';
-        textareaClone.style.minHeight = '';
-        textareaClone.style.maxHeight = '';
-        textarea.parentNode.appendChild(textareaClone);
-        this._cachedLineHeight = textareaClone.offsetHeight;
-        textarea.parentNode.removeChild(textareaClone);
-    };
-    /** Resize the textarea to fit its content. */
-    MdTextareaAutosize.prototype.resizeToFitContent = function () {
-        var textarea = this._elementRef.nativeElement;
-        // Reset the textarea height to auto in order to shrink back to its default size.
-        textarea.style.height = 'auto';
-        // Use the scrollHeight to know how large the textarea *would* be if fit its entire value.
-        textarea.style.height = textarea.scrollHeight + "px";
-    };
-    __decorate$46([
-        _angular_core.Input(), 
-        __metadata$46('design:type', Number)
-    ], MdTextareaAutosize.prototype, "minRows", void 0);
-    __decorate$46([
-        _angular_core.Input(), 
-        __metadata$46('design:type', Number)
-    ], MdTextareaAutosize.prototype, "mdAutosizeMinRows", null);
-    __decorate$46([
-        _angular_core.Input(), 
-        __metadata$46('design:type', Number)
-    ], MdTextareaAutosize.prototype, "maxRows", void 0);
-    __decorate$46([
-        _angular_core.Input(), 
-        __metadata$46('design:type', Number)
-    ], MdTextareaAutosize.prototype, "mdAutosizeMaxRows", null);
-    MdTextareaAutosize = __decorate$46([
-        _angular_core.Directive({
-            selector: 'textarea[md-autosize], textarea[mdTextareaAutosize],' +
-                'textarea[mat-autosize], textarea[matTextareaAutosize]',
-            exportAs: 'mdTextareaAutosize',
-            host: {
-                '(input)': 'resizeToFitContent()',
-                '[style.min-height]': '_minHeight',
-                '[style.max-height]': '_maxHeight',
-            },
-        }), 
-        __metadata$46('design:paramtypes', [_angular_core.ElementRef])
-    ], MdTextareaAutosize);
-    return MdTextareaAutosize;
-}());
-
-var __extends$16 = (this && this.__extends) || function (d, b) {
+var __extends$15 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /** @docs-private */
 var MdInputContainerPlaceholderConflictError = (function (_super) {
-    __extends$16(MdInputContainerPlaceholderConflictError, _super);
+    __extends$15(MdInputContainerPlaceholderConflictError, _super);
     function MdInputContainerPlaceholderConflictError() {
         _super.call(this, 'Placeholder attribute and child element were both specified.');
     }
@@ -10707,7 +10585,7 @@ var MdInputContainerPlaceholderConflictError = (function (_super) {
 }(MdError));
 /** @docs-private */
 var MdInputContainerUnsupportedTypeError = (function (_super) {
-    __extends$16(MdInputContainerUnsupportedTypeError, _super);
+    __extends$15(MdInputContainerUnsupportedTypeError, _super);
     function MdInputContainerUnsupportedTypeError(type) {
         _super.call(this, "Input type \"" + type + "\" isn't supported by md-input-container.");
     }
@@ -10715,7 +10593,7 @@ var MdInputContainerUnsupportedTypeError = (function (_super) {
 }(MdError));
 /** @docs-private */
 var MdInputContainerDuplicatedHintError = (function (_super) {
-    __extends$16(MdInputContainerDuplicatedHintError, _super);
+    __extends$15(MdInputContainerDuplicatedHintError, _super);
     function MdInputContainerDuplicatedHintError(align) {
         _super.call(this, "A hint was already declared for 'align=\"" + align + "\"'.");
     }
@@ -10723,7 +10601,7 @@ var MdInputContainerDuplicatedHintError = (function (_super) {
 }(MdError));
 /** @docs-private */
 var MdInputContainerMissingMdInputError = (function (_super) {
-    __extends$16(MdInputContainerMissingMdInputError, _super);
+    __extends$15(MdInputContainerMissingMdInputError, _super);
     function MdInputContainerMissingMdInputError() {
         _super.call(this, 'md-input-container must contain an mdInput directive. Did you forget to add mdInput ' +
             'to the native input or textarea element?');
@@ -10731,13 +10609,13 @@ var MdInputContainerMissingMdInputError = (function (_super) {
     return MdInputContainerMissingMdInputError;
 }(MdError));
 
-var __decorate$48 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$47 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$48 = (this && this.__metadata) || function (k, v) {
+var __metadata$47 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$10 = (this && this.__param) || function (paramIndex, decorator) {
@@ -10756,7 +10634,7 @@ var MD_INPUT_INVALID_TYPES = [
     'reset',
     'submit'
 ];
-var nextUniqueId$2 = 0;
+var nextUniqueId$1 = 0;
 /**
  * The placeholder directive. The content can declare this to implement more
  * complex placeholders.
@@ -10764,11 +10642,11 @@ var nextUniqueId$2 = 0;
 var MdPlaceholder = (function () {
     function MdPlaceholder() {
     }
-    MdPlaceholder = __decorate$48([
+    MdPlaceholder = __decorate$47([
         _angular_core.Directive({
             selector: 'md-placeholder, mat-placeholder'
         }), 
-        __metadata$48('design:paramtypes', [])
+        __metadata$47('design:paramtypes', [])
     ], MdPlaceholder);
     return MdPlaceholder;
 }());
@@ -10778,11 +10656,11 @@ var MdHint = (function () {
         // Whether to align the hint label at the start or end of the line.
         this.align = 'start';
     }
-    __decorate$48([
+    __decorate$47([
         _angular_core.Input(), 
-        __metadata$48('design:type', Object)
+        __metadata$47('design:type', Object)
     ], MdHint.prototype, "align", void 0);
-    MdHint = __decorate$48([
+    MdHint = __decorate$47([
         _angular_core.Directive({
             selector: 'md-hint, mat-hint',
             host: {
@@ -10790,7 +10668,7 @@ var MdHint = (function () {
                 '[class.md-right]': 'align == "end"',
             }
         }), 
-        __metadata$48('design:paramtypes', [])
+        __metadata$47('design:paramtypes', [])
     ], MdHint);
     return MdHint;
 }());
@@ -10896,7 +10774,7 @@ var MdInputDirective = (function () {
         configurable: true
     });
     Object.defineProperty(MdInputDirective.prototype, "_uid", {
-        get: function () { return this._cachedUid = this._cachedUid || "md-input-" + nextUniqueId$2++; },
+        get: function () { return this._cachedUid = this._cachedUid || "md-input-" + nextUniqueId$1++; },
         enumerable: true,
         configurable: true
     });
@@ -10928,34 +10806,33 @@ var MdInputDirective = (function () {
         var nativeElement = this._elementRef.nativeElement;
         return nativeElement ? nativeElement.nodeName.toLowerCase() === 'textarea' : false;
     };
-    __decorate$48([
+    __decorate$47([
         _angular_core.Input(), 
-        __metadata$48('design:type', Object)
+        __metadata$47('design:type', Object)
     ], MdInputDirective.prototype, "disabled", null);
-    __decorate$48([
+    __decorate$47([
         _angular_core.Input(), 
-        __metadata$48('design:type', Object)
+        __metadata$47('design:type', Object)
     ], MdInputDirective.prototype, "id", null);
-    __decorate$48([
+    __decorate$47([
         _angular_core.Input(), 
-        __metadata$48('design:type', Object)
+        __metadata$47('design:type', Object)
     ], MdInputDirective.prototype, "placeholder", null);
-    __decorate$48([
+    __decorate$47([
         _angular_core.Input(), 
-        __metadata$48('design:type', Object)
+        __metadata$47('design:type', Object)
     ], MdInputDirective.prototype, "required", null);
-    __decorate$48([
+    __decorate$47([
         _angular_core.Input(), 
-        __metadata$48('design:type', Object)
+        __metadata$47('design:type', Object)
     ], MdInputDirective.prototype, "type", null);
-    __decorate$48([
+    __decorate$47([
         _angular_core.Output(), 
-        __metadata$48('design:type', Object)
+        __metadata$47('design:type', Object)
     ], MdInputDirective.prototype, "_placeholderChange", void 0);
-    MdInputDirective = __decorate$48([
+    MdInputDirective = __decorate$47([
         _angular_core.Directive({
-            // TODO: remove the md-input selector after next version
-            selector: "\n    input[mdInput], textarea[mdInput], input[matInput], textarea[matInput],\n    input[md-input], textarea[md-input], input[mat-input], textarea[mat-input]\n  ",
+            selector: "input[mdInput], textarea[mdInput], input[matInput], textarea[matInput]",
             host: {
                 'class': 'md-input-element',
                 // Native input properties that are overwritten by Angular inputs need to be synced with
@@ -10970,7 +10847,7 @@ var MdInputDirective = (function () {
             }
         }),
         __param$10(2, _angular_core.Optional()), 
-        __metadata$48('design:paramtypes', [_angular_core.ElementRef, _angular_core.Renderer, _angular_forms.NgControl])
+        __metadata$47('design:paramtypes', [_angular_core.ElementRef, _angular_core.Renderer, _angular_forms.NgControl])
     ], MdInputDirective);
     return MdInputDirective;
 }());
@@ -11057,39 +10934,38 @@ var MdInputContainer = (function () {
             });
         }
     };
-    __decorate$48([
+    __decorate$47([
         _angular_core.Input(), 
-        __metadata$48('design:type', Object)
+        __metadata$47('design:type', Object)
     ], MdInputContainer.prototype, "align", void 0);
-    __decorate$48([
+    __decorate$47([
         _angular_core.Input(), 
-        __metadata$48('design:type', Object)
+        __metadata$47('design:type', Object)
     ], MdInputContainer.prototype, "dividerColor", void 0);
-    __decorate$48([
+    __decorate$47([
         _angular_core.Input(), 
-        __metadata$48('design:type', Object)
+        __metadata$47('design:type', Object)
     ], MdInputContainer.prototype, "hintLabel", null);
-    __decorate$48([
+    __decorate$47([
         _angular_core.Input(), 
-        __metadata$48('design:type', Boolean)
+        __metadata$47('design:type', Boolean)
     ], MdInputContainer.prototype, "floatingPlaceholder", null);
-    __decorate$48([
+    __decorate$47([
         _angular_core.ContentChild(MdInputDirective), 
-        __metadata$48('design:type', MdInputDirective)
+        __metadata$47('design:type', MdInputDirective)
     ], MdInputContainer.prototype, "_mdInputChild", void 0);
-    __decorate$48([
+    __decorate$47([
         _angular_core.ContentChild(MdPlaceholder), 
-        __metadata$48('design:type', MdPlaceholder)
+        __metadata$47('design:type', MdPlaceholder)
     ], MdInputContainer.prototype, "_placeholderChild", void 0);
-    __decorate$48([
+    __decorate$47([
         _angular_core.ContentChildren(MdHint), 
-        __metadata$48('design:type', _angular_core.QueryList)
+        __metadata$47('design:type', _angular_core.QueryList)
     ], MdInputContainer.prototype, "_hintChildren", void 0);
-    MdInputContainer = __decorate$48([
+    MdInputContainer = __decorate$47([
         _angular_core.Component({selector: 'md-input-container, mat-input-container',
             template: "<div class=\"md-input-wrapper\"><div class=\"md-input-table\"><div class=\"md-input-prefix\"><ng-content select=\"[mdPrefix], [md-prefix]\"></ng-content></div><div class=\"md-input-infix\" [class.md-end]=\"align == 'end'\"><ng-content selector=\"input, textarea\"></ng-content><label class=\"md-input-placeholder\" [attr.for]=\"_mdInputChild.id\" [class.md-empty]=\"_mdInputChild.empty\" [class.md-focused]=\"_mdInputChild.focused\" [class.md-float]=\"floatingPlaceholder\" [class.md-accent]=\"dividerColor == 'accent'\" [class.md-warn]=\"dividerColor == 'warn'\" *ngIf=\"_hasPlaceholder()\"><ng-content select=\"md-placeholder\"></ng-content>{{_mdInputChild.placeholder}} <span class=\"md-placeholder-required\" *ngIf=\"_mdInputChild.required\">*</span></label></div><div class=\"md-input-suffix\"><ng-content select=\"[mdSuffix], [md-suffix]\"></ng-content></div></div><div class=\"md-input-underline\" [class.md-disabled]=\"_mdInputChild.disabled\"><span class=\"md-input-ripple\" [class.md-focused]=\"_mdInputChild.focused\" [class.md-accent]=\"dividerColor == 'accent'\" [class.md-warn]=\"dividerColor == 'warn'\"></span></div><div *ngIf=\"hintLabel != ''\" class=\"md-hint\">{{hintLabel}}</div><ng-content select=\"md-hint\"></ng-content></div>",
-            styles: ["md-input,md-textarea{display:inline-block;position:relative;font-family:Roboto,\"Helvetica Neue\",sans-serif;line-height:normal;text-align:left}.md-input-element.md-end,[dir=rtl] md-input,[dir=rtl] md-textarea{text-align:right}.md-input-wrapper{margin:1em 0;padding-bottom:6px}.md-input-table{display:inline-table;flex-flow:column;vertical-align:bottom;width:100%}.md-input-table>*{display:table-cell}.md-input-infix{position:relative}.md-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;width:100%}[dir=rtl] .md-input-element.md-end{text-align:left}.md-input-element:-moz-ui-invalid{box-shadow:none}.md-input-element:-webkit-autofill+.md-input-placeholder.md-float{display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}.md-input-placeholder{position:absolute;left:0;top:0;font-size:100%;pointer-events:none;z-index:1;width:100%;display:none;white-space:nowrap;text-overflow:ellipsis;overflow-x:hidden;transform:translateY(0);transform-origin:bottom left;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1)}.md-input-placeholder.md-empty{display:block;cursor:text}.md-input-placeholder.md-float.md-focused,.md-input-placeholder.md-float:not(.md-empty){display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}[dir=rtl] .md-input-placeholder{transform-origin:bottom right;left:auto;right:0}.md-input-underline{position:absolute;height:1px;width:100%;margin-top:4px;border-top-width:1px;border-top-style:solid}.md-input-underline.md-disabled{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;border-top:0;background-position:0}.md-input-underline .md-input-ripple{position:absolute;height:2px;z-index:1;top:-1px;width:100%;transform-origin:top;opacity:0;transform:scaleY(0);transition:transform .4s cubic-bezier(.25,.8,.25,1),opacity .4s cubic-bezier(.25,.8,.25,1)}.md-input-underline .md-input-ripple.md-focused{opacity:1;transform:scaleY(1)}.md-hint{display:block;position:absolute;font-size:75%;bottom:0}.md-hint.md-right{right:0}[dir=rtl] .md-hint{right:0;left:auto}[dir=rtl] .md-hint.md-right{right:auto;left:0}",
-"md-input-container{display:inline-block;position:relative;font-family:Roboto,\"Helvetica Neue\",sans-serif;line-height:normal;text-align:left}.md-end .md-input-element,[dir=rtl] md-input-container{text-align:right}.md-input-element::placeholder{color:transparent}.md-input-element::-moz-placeholder{color:transparent}.md-input-element::-webkit-input-placeholder{color:transparent}.md-input-element:-ms-input-placeholder{color:transparent}[dir=rtl] .md-end .md-input-element{text-align:left}.md-input-prefix,.md-input-suffix{width:.1px;white-space:nowrap}"],
+            styles: ["md-input-container{display:inline-block;position:relative;font-family:Roboto,\"Helvetica Neue\",sans-serif;line-height:normal;text-align:left}.md-end .md-input-element,[dir=rtl] md-input-container{text-align:right}.md-input-wrapper{margin:1em 0;padding-bottom:6px}.md-input-table{display:inline-table;flex-flow:column;vertical-align:bottom;width:100%}.md-input-table>*{display:table-cell}.md-input-infix{position:relative}.md-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;width:100%}[dir=rtl] .md-end .md-input-element{text-align:left}.md-input-element:-moz-ui-invalid{box-shadow:none}.md-input-element:-webkit-autofill+.md-input-placeholder.md-float{display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}.md-input-element::placeholder{color:transparent}.md-input-element::-moz-placeholder{color:transparent}.md-input-element::-webkit-input-placeholder{color:transparent}.md-input-element:-ms-input-placeholder{color:transparent}.md-input-placeholder{position:absolute;left:0;top:0;font-size:100%;pointer-events:none;z-index:1;width:100%;display:none;white-space:nowrap;text-overflow:ellipsis;overflow-x:hidden;transform:translateY(0);transform-origin:bottom left;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1)}.md-input-placeholder.md-empty{display:block;cursor:text}.md-input-placeholder.md-float.md-focused,.md-input-placeholder.md-float:not(.md-empty){display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}[dir=rtl] .md-input-placeholder{transform-origin:bottom right;left:auto;right:0}.md-input-underline{position:absolute;height:1px;width:100%;margin-top:4px;border-top-width:1px;border-top-style:solid}.md-input-underline.md-disabled{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;border-top:0;background-position:0}.md-input-underline .md-input-ripple{position:absolute;height:2px;z-index:1;top:-1px;width:100%;transform-origin:top;opacity:0;transform:scaleY(0);transition:transform .4s cubic-bezier(.25,.8,.25,1),opacity .4s cubic-bezier(.25,.8,.25,1)}.md-input-underline .md-input-ripple.md-focused{opacity:1;transform:scaleY(1)}.md-hint{display:block;position:absolute;font-size:75%;bottom:0}.md-hint.md-right{right:0}[dir=rtl] .md-hint{right:0;left:auto}[dir=rtl] .md-hint.md-right{right:auto;left:0}.md-input-prefix,.md-input-suffix{width:.1px;white-space:nowrap}"],
             host: {
                 // Remove align attribute to prevent it from interfering with layout.
                 '[attr.align]': 'null',
@@ -11104,528 +10980,142 @@ var MdInputContainer = (function () {
             },
             encapsulation: _angular_core.ViewEncapsulation.None,
         }), 
-        __metadata$48('design:paramtypes', [])
+        __metadata$47('design:paramtypes', [])
     ], MdInputContainer);
     return MdInputContainer;
 }());
 
-var __extends$15 = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var __decorate$47 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$48 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$47 = (this && this.__metadata) || function (k, v) {
+var __metadata$48 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var noop = function () { };
-var MD_INPUT_CONTROL_VALUE_ACCESSOR = {
-    provide: _angular_forms.NG_VALUE_ACCESSOR,
-    useExisting: _angular_core.forwardRef(function () { return MdInput; }),
-    multi: true
-};
-// Invalid input type. Using one of these will throw an MdInputUnsupportedTypeError.
-var MD_INPUT_INVALID_INPUT_TYPE = [
-    'file',
-    'radio',
-    'checkbox',
-];
-var nextUniqueId$1 = 0;
-/** @docs-private */
-var MdInputPlaceholderConflictError = (function (_super) {
-    __extends$15(MdInputPlaceholderConflictError, _super);
-    function MdInputPlaceholderConflictError() {
-        _super.call(this, 'Placeholder attribute and child element were both specified.');
-    }
-    return MdInputPlaceholderConflictError;
-}(MdError));
-/** @docs-private */
-var MdInputUnsupportedTypeError = (function (_super) {
-    __extends$15(MdInputUnsupportedTypeError, _super);
-    function MdInputUnsupportedTypeError(type) {
-        _super.call(this, "Input type \"" + type + "\" isn't supported by md-input.");
-    }
-    return MdInputUnsupportedTypeError;
-}(MdError));
-/** @docs-private */
-var MdInputDuplicatedHintError = (function (_super) {
-    __extends$15(MdInputDuplicatedHintError, _super);
-    function MdInputDuplicatedHintError(align) {
-        _super.call(this, "A hint was already declared for 'align=\"" + align + "\"'.");
-    }
-    return MdInputDuplicatedHintError;
-}(MdError));
 /**
- * Component that represents a text input. It encapsulates the <input> HTMLElement and
- * improve on its behaviour, along with styling it according to the Material Design.
- * @deprecated
- * @docs-private
+ * Directive to automatically resize a textarea to fit its content.
  */
-var MdInput = (function () {
-    function MdInput(elementRef, _renderer) {
-        this._renderer = _renderer;
-        this._focused = false;
-        this._value = '';
-        /** Callback registered via registerOnTouched (ControlValueAccessor) */
-        this._onTouchedCallback = noop;
-        /** Callback registered via registerOnChange (ControlValueAccessor) */
-        this._onChangeCallback = noop;
-        /** Alignment of the input container's content. */
-        this.align = 'start';
-        /** Color of the input divider, based on the theme. */
-        this.dividerColor = 'primary';
-        /** Text for the input hint. */
-        this.hintLabel = '';
-        /** Unique id for the input element. */
-        this.id = "md-input-" + nextUniqueId$1++;
-        /** Mirrors the native `list` attribute. */
-        this.list = null;
-        /** Mirrors the native `max` attribute. */
-        this.max = null;
-        /** Mirrors the native `maxlength` attribute. */
-        this.maxlength = null;
-        /** Mirrors the native `min` attribute. */
-        this.min = null;
-        /** Mirrors the native `minlength` attribute. */
-        this.minlength = null;
-        /** Mirrors the native `placeholder` attribute. */
-        this.placeholder = null;
-        /** Mirrors the native `step` attribute. */
-        this.step = null;
-        /** Mirrors the native `tabindex` attribute. */
-        this.tabindex = null;
-        /** Mirrors the native `type` attribute. */
-        this.type = 'text';
-        /** Mirrors the native `name` attribute. */
-        this.name = null;
-        // textarea-specific
-        /** Mirrors the native `rows` attribute. */
-        this.rows = null;
-        /** Mirrors the native `cols` attribute. */
-        this.cols = null;
-        /** Whether to do a soft or hard wrap of the text.. */
-        this.wrap = null;
-        this._floatingPlaceholder = true;
-        this._autofocus = false;
-        this._disabled = false;
-        this._readonly = false;
-        this._required = false;
-        this._spellcheck = false;
-        this._blurEmitter = new _angular_core.EventEmitter();
-        this._focusEmitter = new _angular_core.EventEmitter();
-        // Set the element type depending on normalized selector used(md-input / md-textarea)
-        this._elementType = elementRef.nativeElement.nodeName.toLowerCase() === 'md-input' ?
-            'input' :
-            'textarea';
+var MdTextareaAutosize = (function () {
+    function MdTextareaAutosize(_elementRef) {
+        this._elementRef = _elementRef;
     }
-    Object.defineProperty(MdInput.prototype, "ariaDisabled", {
-        /** Mirrors the native `aria-disabled` attribute. */
-        get: function () { return this._ariaDisabled; },
-        set: function (value) { this._ariaDisabled = coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdInput.prototype, "ariaRequired", {
-        /** Mirrors the native `aria-required` attribute. */
-        get: function () { return this._ariaRequired; },
-        set: function (value) { this._ariaRequired = coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdInput.prototype, "ariaInvalid", {
-        /** Mirrors the native `aria-invalid` attribute. */
-        get: function () { return this._ariaInvalid; },
-        set: function (value) { this._ariaInvalid = coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdInput.prototype, "focused", {
-        /** Readonly properties. */
-        /** Whether the element is focused. */
-        get: function () { return this._focused; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdInput.prototype, "empty", {
-        /** Whether the element is empty. */
-        get: function () { return (this._value == null || this._value === '') && this.type !== 'date'; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdInput.prototype, "characterCount", {
-        /** Amount of characters inside the element. */
+    Object.defineProperty(MdTextareaAutosize.prototype, "mdAutosizeMinRows", {
         get: function () {
-            return this.empty ? 0 : ('' + this._value).length;
+            return this.minRows;
+        },
+        set: function (value) {
+            this.minRows = value;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdInput.prototype, "inputId", {
-        /** Unique element id. */
-        get: function () { return this.id + "-input"; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdInput.prototype, "floatingPlaceholder", {
-        /** Text for the floating placeholder. */
-        get: function () { return this._floatingPlaceholder; },
-        set: function (value) { this._floatingPlaceholder = coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdInput.prototype, "autofocus", {
-        /** Whether to automatically focus the input. */
-        get: function () { return this._autofocus; },
-        set: function (value) { this._autofocus = coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdInput.prototype, "disabled", {
-        /** Whether the input is disabled. */
-        get: function () { return this._disabled; },
-        set: function (value) { this._disabled = coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdInput.prototype, "readonly", {
-        /** Whether the input is readonly. */
-        get: function () { return this._readonly; },
-        set: function (value) { this._readonly = coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdInput.prototype, "required", {
-        /** Whether the input is required. */
-        get: function () { return this._required; },
-        set: function (value) { this._required = coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdInput.prototype, "spellcheck", {
-        /** Whether spellchecking is enable on the input. */
-        get: function () { return this._spellcheck; },
-        set: function (value) { this._spellcheck = coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdInput.prototype, "onBlur", {
-        /** Event emitted when the input is blurred. */
+    Object.defineProperty(MdTextareaAutosize.prototype, "mdAutosizeMaxRows", {
         get: function () {
-            return this._blurEmitter.asObservable();
+            return this.maxRows;
+        },
+        set: function (value) {
+            this.maxRows = value;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdInput.prototype, "onFocus", {
-        /** Event emitted when the input is focused. */
+    Object.defineProperty(MdTextareaAutosize.prototype, "_minHeight", {
+        /** The minimum height of the textarea as determined by minRows. */
         get: function () {
-            return this._focusEmitter.asObservable();
+            return this.minRows ? this.minRows * this._cachedLineHeight + "px" : null;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdInput.prototype, "value", {
-        /** Value of the input. */
-        get: function () { return this._value; },
-        set: function (v) {
-            v = this._convertValueForInputType(v);
-            if (v !== this._value) {
-                this._value = v;
-                this._onChangeCallback(v);
-            }
+    Object.defineProperty(MdTextareaAutosize.prototype, "_maxHeight", {
+        /** The maximum height of the textarea as determined by maxRows. */
+        get: function () {
+            return this.maxRows ? this.maxRows * this._cachedLineHeight + "px" : null;
         },
         enumerable: true,
         configurable: true
     });
-    
-    Object.defineProperty(MdInput.prototype, "_align", {
-        // This is to remove the `align` property of the `md-input` itself. Otherwise HTML5
-        // might place it as RTL when we don't want to. We still want to use `align` as an
-        // Input though, so we use HostBinding.
-        get: function () { return null; },
-        enumerable: true,
-        configurable: true
-    });
-    /** Set focus on input */
-    MdInput.prototype.focus = function () {
-        this._renderer.invokeElementMethod(this._inputElement.nativeElement, 'focus');
-    };
-    MdInput.prototype._handleFocus = function (event) {
-        this._focused = true;
-        this._focusEmitter.emit(event);
-    };
-    MdInput.prototype._handleBlur = function (event) {
-        this._focused = false;
-        this._onTouchedCallback();
-        this._blurEmitter.emit(event);
-    };
-    MdInput.prototype._handleChange = function (event) {
-        this.value = event.target.value;
-        this._onTouchedCallback();
-    };
-    MdInput.prototype._hasPlaceholder = function () {
-        return !!this.placeholder || this._placeholderChild != null;
+    MdTextareaAutosize.prototype.ngOnInit = function () {
+        this._cacheTextareaLineHeight();
+        this.resizeToFitContent();
     };
     /**
-     * Sets the model value of the input. Implemented as part of ControlValueAccessor.
-     * @param value Value to be set.
+     * Cache the height of a single-row textarea.
+     *
+     * We need to know how large a single "row" of a textarea is in order to apply minRows and
+     * maxRows. For the initial version, we will assume that the height of a single line in the
+     * textarea does not ever change.
      */
-    MdInput.prototype.writeValue = function (value) {
-        this._value = value;
+    MdTextareaAutosize.prototype._cacheTextareaLineHeight = function () {
+        var textarea = this._elementRef.nativeElement;
+        // Use a clone element because we have to override some styles.
+        var textareaClone = textarea.cloneNode(false);
+        textareaClone.rows = 1;
+        // Use `position: absolute` so that this doesn't cause a browser layout and use
+        // `visibility: hidden` so that nothing is rendered. Clear any other styles that
+        // would affect the height.
+        textareaClone.style.position = 'absolute';
+        textareaClone.style.visibility = 'hidden';
+        textareaClone.style.border = 'none';
+        textareaClone.style.padding = '';
+        textareaClone.style.height = '';
+        textareaClone.style.minHeight = '';
+        textareaClone.style.maxHeight = '';
+        textarea.parentNode.appendChild(textareaClone);
+        this._cachedLineHeight = textareaClone.offsetHeight;
+        textarea.parentNode.removeChild(textareaClone);
     };
-    /**
-     * Registers a callback to be triggered when the input value has changed.
-     * Implemented as part of ControlValueAccessor.
-     * @param fn Callback to be registered.
-     */
-    MdInput.prototype.registerOnChange = function (fn) {
-        this._onChangeCallback = fn;
+    /** Resize the textarea to fit its content. */
+    MdTextareaAutosize.prototype.resizeToFitContent = function () {
+        var textarea = this._elementRef.nativeElement;
+        // Reset the textarea height to auto in order to shrink back to its default size.
+        textarea.style.height = 'auto';
+        // Use the scrollHeight to know how large the textarea *would* be if fit its entire value.
+        textarea.style.height = textarea.scrollHeight + "px";
     };
-    /**
-     * Registers a callback to be triggered when the input has been touched.
-     * Implemented as part of ControlValueAccessor.
-     * @param fn Callback to be registered.
-     */
-    MdInput.prototype.registerOnTouched = function (fn) {
-        this._onTouchedCallback = fn;
-    };
-    /**
-     * Sets whether the input is disabled.
-     * Implemented as a part of ControlValueAccessor.
-     * @param isDisabled Whether the input should be disabled.
-     */
-    MdInput.prototype.setDisabledState = function (isDisabled) {
-        this.disabled = isDisabled;
-    };
-    MdInput.prototype.ngAfterContentInit = function () {
-        var _this = this;
-        this._validateConstraints();
-        // Trigger validation when the hint children change.
-        this._hintChildren.changes.subscribe(function () {
-            _this._validateConstraints();
-        });
-    };
-    MdInput.prototype.ngOnChanges = function (changes) {
-        this._validateConstraints();
-    };
-    /**
-     * Convert the value passed in to a value that is expected from the type of the md-input.
-     * This is normally performed by the *_VALUE_ACCESSOR in forms, but since the type is bound
-     * on our internal input it won't work locally.
-     * @private
-     */
-    MdInput.prototype._convertValueForInputType = function (v) {
-        switch (this.type) {
-            case 'number': return parseFloat(v);
-            default: return v;
-        }
-    };
-    /**
-     * Ensure that all constraints defined by the API are validated, or throw errors otherwise.
-     * Constraints for now:
-     *   - placeholder attribute and <md-placeholder> are mutually exclusive.
-     *   - type attribute is not one of the forbidden types (see constant at the top).
-     *   - Maximum one of each `<md-hint>` alignment specified, with the attribute being
-     *     considered as align="start".
-     * @private
-     */
-    MdInput.prototype._validateConstraints = function () {
-        var _this = this;
-        if (this.placeholder != '' && this.placeholder != null && this._placeholderChild != null) {
-            throw new MdInputPlaceholderConflictError();
-        }
-        if (MD_INPUT_INVALID_INPUT_TYPE.indexOf(this.type) != -1) {
-            throw new MdInputUnsupportedTypeError(this.type);
-        }
-        if (this._hintChildren) {
-            // Validate the hint labels.
-            var startHint_1 = null;
-            var endHint_1 = null;
-            this._hintChildren.forEach(function (hint) {
-                if (hint.align == 'start') {
-                    if (startHint_1 || _this.hintLabel) {
-                        throw new MdInputDuplicatedHintError('start');
-                    }
-                    startHint_1 = hint;
-                }
-                else if (hint.align == 'end') {
-                    if (endHint_1) {
-                        throw new MdInputDuplicatedHintError('end');
-                    }
-                    endHint_1 = hint;
-                }
-            });
-        }
-    };
-    __decorate$47([
-        _angular_core.Input('aria-label'), 
-        __metadata$47('design:type', String)
-    ], MdInput.prototype, "ariaLabel", void 0);
-    __decorate$47([
-        _angular_core.Input('aria-labelledby'), 
-        __metadata$47('design:type', String)
-    ], MdInput.prototype, "ariaLabelledBy", void 0);
-    __decorate$47([
-        _angular_core.Input('aria-disabled'), 
-        __metadata$47('design:type', Boolean)
-    ], MdInput.prototype, "ariaDisabled", null);
-    __decorate$47([
-        _angular_core.Input('aria-required'), 
-        __metadata$47('design:type', Boolean)
-    ], MdInput.prototype, "ariaRequired", null);
-    __decorate$47([
-        _angular_core.Input('aria-invalid'), 
-        __metadata$47('design:type', Boolean)
-    ], MdInput.prototype, "ariaInvalid", null);
-    __decorate$47([
-        _angular_core.ContentChild(MdPlaceholder), 
-        __metadata$47('design:type', MdPlaceholder)
-    ], MdInput.prototype, "_placeholderChild", void 0);
-    __decorate$47([
-        _angular_core.ContentChildren(MdHint), 
-        __metadata$47('design:type', _angular_core.QueryList)
-    ], MdInput.prototype, "_hintChildren", void 0);
-    __decorate$47([
+    __decorate$48([
         _angular_core.Input(), 
-        __metadata$47('design:type', Object)
-    ], MdInput.prototype, "align", void 0);
-    __decorate$47([
+        __metadata$48('design:type', Number)
+    ], MdTextareaAutosize.prototype, "minRows", void 0);
+    __decorate$48([
         _angular_core.Input(), 
-        __metadata$47('design:type', Object)
-    ], MdInput.prototype, "dividerColor", void 0);
-    __decorate$47([
+        __metadata$48('design:type', Number)
+    ], MdTextareaAutosize.prototype, "mdAutosizeMinRows", null);
+    __decorate$48([
         _angular_core.Input(), 
-        __metadata$47('design:type', String)
-    ], MdInput.prototype, "hintLabel", void 0);
-    __decorate$47([
+        __metadata$48('design:type', Number)
+    ], MdTextareaAutosize.prototype, "maxRows", void 0);
+    __decorate$48([
         _angular_core.Input(), 
-        __metadata$47('design:type', String)
-    ], MdInput.prototype, "autocomplete", void 0);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', String)
-    ], MdInput.prototype, "autocorrect", void 0);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', String)
-    ], MdInput.prototype, "autocapitalize", void 0);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', String)
-    ], MdInput.prototype, "id", void 0);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', String)
-    ], MdInput.prototype, "list", void 0);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', Object)
-    ], MdInput.prototype, "max", void 0);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', Number)
-    ], MdInput.prototype, "maxlength", void 0);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', Object)
-    ], MdInput.prototype, "min", void 0);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', Number)
-    ], MdInput.prototype, "minlength", void 0);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', String)
-    ], MdInput.prototype, "placeholder", void 0);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', Number)
-    ], MdInput.prototype, "step", void 0);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', Number)
-    ], MdInput.prototype, "tabindex", void 0);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', String)
-    ], MdInput.prototype, "type", void 0);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', String)
-    ], MdInput.prototype, "name", void 0);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', Number)
-    ], MdInput.prototype, "rows", void 0);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', Number)
-    ], MdInput.prototype, "cols", void 0);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', Object)
-    ], MdInput.prototype, "wrap", void 0);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', Boolean)
-    ], MdInput.prototype, "floatingPlaceholder", null);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', Boolean)
-    ], MdInput.prototype, "autofocus", null);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', Boolean)
-    ], MdInput.prototype, "disabled", null);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', Boolean)
-    ], MdInput.prototype, "readonly", null);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', Boolean)
-    ], MdInput.prototype, "required", null);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', Boolean)
-    ], MdInput.prototype, "spellcheck", null);
-    __decorate$47([
-        _angular_core.Output('blur'), 
-        __metadata$47('design:type', rxjs_Observable.Observable)
-    ], MdInput.prototype, "onBlur", null);
-    __decorate$47([
-        _angular_core.Output('focus'), 
-        __metadata$47('design:type', rxjs_Observable.Observable)
-    ], MdInput.prototype, "onFocus", null);
-    __decorate$47([
-        _angular_core.Input(), 
-        __metadata$47('design:type', Object)
-    ], MdInput.prototype, "value", null);
-    __decorate$47([
-        _angular_core.HostBinding('attr.align'), 
-        __metadata$47('design:type', Object)
-    ], MdInput.prototype, "_align", null);
-    __decorate$47([
-        _angular_core.ViewChild('input'), 
-        __metadata$47('design:type', _angular_core.ElementRef)
-    ], MdInput.prototype, "_inputElement", void 0);
-    MdInput = __decorate$47([
-        _angular_core.Component({selector: 'md-input, md-textarea',
-            template: "<div class=\"md-input-wrapper\"><div class=\"md-input-table\"><div class=\"md-input-prefix\"><ng-content select=\"[mdPrefix], [md-prefix]\"></ng-content></div><div class=\"md-input-infix\"><input #input *ngIf=\"_elementType === 'input'\" class=\"md-input-element\" [class.md-end]=\"align == 'end'\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledBy\" [attr.aria-disabled]=\"ariaDisabled\" [attr.aria-required]=\"ariaRequired\" [attr.aria-invalid]=\"ariaInvalid\" [attr.autocomplete]=\"autocomplete\" [attr.autocorrect]=\"autocorrect\" [attr.autocapitalize]=\"autocapitalize\" [autofocus]=\"autofocus\" [disabled]=\"disabled\" [id]=\"inputId\" [attr.list]=\"list\" [attr.max]=\"max\" [attr.maxlength]=\"maxlength\" [attr.min]=\"min\" [attr.minlength]=\"minlength\" [readonly]=\"readonly\" [required]=\"required\" [spellcheck]=\"spellcheck\" [attr.step]=\"step\" [attr.tabindex]=\"tabindex\" [type]=\"type\" [attr.name]=\"name\" (focus)=\"_handleFocus($event)\" (blur)=\"_handleBlur($event)\" [(ngModel)]=\"value\" (change)=\"_handleChange($event)\"><textarea #input *ngIf=\"_elementType === 'textarea'\" class=\"md-input-element md-input-element-textarea\" [class.md-end]=\"align == 'end'\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledBy\" [attr.aria-disabled]=\"ariaDisabled\" [attr.aria-required]=\"ariaRequired\" [attr.aria-invalid]=\"ariaInvalid\" [attr.autocomplete]=\"autocomplete\" [attr.autocapitalize]=\"autocapitalize\" [attr.cols]=\"cols\" [attr.rows]=\"rows\" [attr.wrap]=\"wrap\" [autofocus]=\"autofocus\" [disabled]=\"disabled\" [id]=\"inputId\" [attr.maxlength]=\"maxlength\" [attr.minlength]=\"minlength\" [readonly]=\"readonly\" [required]=\"required\" [spellcheck]=\"spellcheck\" [attr.tabindex]=\"tabindex\" [attr.name]=\"name\" (focus)=\"_handleFocus($event)\" (blur)=\"_handleBlur($event)\" [(ngModel)]=\"value\" (change)=\"_handleChange($event)\"></textarea><label class=\"md-input-placeholder\" [attr.for]=\"inputId\" [class.md-empty]=\"empty\" [class.md-focused]=\"focused\" [class.md-float]=\"floatingPlaceholder\" [class.md-accent]=\"dividerColor == 'accent'\" [class.md-warn]=\"dividerColor == 'warn'\" *ngIf=\"_hasPlaceholder()\"><ng-content select=\"md-placeholder\"></ng-content>{{placeholder}} <span class=\"md-placeholder-required\" *ngIf=\"required\">*</span></label></div><div class=\"md-input-suffix\"><ng-content select=\"[mdSuffix], [md-suffix]\"></ng-content></div></div><div class=\"md-input-underline\" [class.md-disabled]=\"disabled\"><span class=\"md-input-ripple\" [class.md-focused]=\"focused\" [class.md-accent]=\"dividerColor == 'accent'\" [class.md-warn]=\"dividerColor == 'warn'\"></span></div><div *ngIf=\"hintLabel != ''\" class=\"md-hint\">{{hintLabel}}</div><ng-content select=\"md-hint\"></ng-content></div>",
-            styles: ["md-input,md-textarea{display:inline-block;position:relative;font-family:Roboto,\"Helvetica Neue\",sans-serif;line-height:normal;text-align:left}.md-input-element.md-end,[dir=rtl] md-input,[dir=rtl] md-textarea{text-align:right}.md-input-wrapper{margin:1em 0;padding-bottom:6px}.md-input-table{display:inline-table;flex-flow:column;vertical-align:bottom;width:100%}.md-input-table>*{display:table-cell}.md-input-infix{position:relative}.md-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;width:100%}[dir=rtl] .md-input-element.md-end{text-align:left}.md-input-element:-moz-ui-invalid{box-shadow:none}.md-input-element:-webkit-autofill+.md-input-placeholder.md-float{display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}.md-input-placeholder{position:absolute;left:0;top:0;font-size:100%;pointer-events:none;z-index:1;width:100%;display:none;white-space:nowrap;text-overflow:ellipsis;overflow-x:hidden;transform:translateY(0);transform-origin:bottom left;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1)}.md-input-placeholder.md-empty{display:block;cursor:text}.md-input-placeholder.md-float.md-focused,.md-input-placeholder.md-float:not(.md-empty){display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}[dir=rtl] .md-input-placeholder{transform-origin:bottom right;left:auto;right:0}.md-input-underline{position:absolute;height:1px;width:100%;margin-top:4px;border-top-width:1px;border-top-style:solid}.md-input-underline.md-disabled{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;border-top:0;background-position:0}.md-input-underline .md-input-ripple{position:absolute;height:2px;z-index:1;top:-1px;width:100%;transform-origin:top;opacity:0;transform:scaleY(0);transition:transform .4s cubic-bezier(.25,.8,.25,1),opacity .4s cubic-bezier(.25,.8,.25,1)}.md-input-underline .md-input-ripple.md-focused{opacity:1;transform:scaleY(1)}.md-hint{display:block;position:absolute;font-size:75%;bottom:0}.md-hint.md-right{right:0}[dir=rtl] .md-hint{right:0;left:auto}[dir=rtl] .md-hint.md-right{right:auto;left:0}"],
-            providers: [MD_INPUT_CONTROL_VALUE_ACCESSOR],
-            host: { '(click)': 'focus()' },
-            encapsulation: _angular_core.ViewEncapsulation.None,
+        __metadata$48('design:type', Number)
+    ], MdTextareaAutosize.prototype, "mdAutosizeMaxRows", null);
+    MdTextareaAutosize = __decorate$48([
+        _angular_core.Directive({
+            selector: 'textarea[md-autosize], textarea[mdTextareaAutosize],' +
+                'textarea[mat-autosize], textarea[matTextareaAutosize]',
+            exportAs: 'mdTextareaAutosize',
+            host: {
+                '(input)': 'resizeToFitContent()',
+                '[style.min-height]': '_minHeight',
+                '[style.max-height]': '_maxHeight',
+            },
         }), 
-        __metadata$47('design:paramtypes', [_angular_core.ElementRef, _angular_core.Renderer])
-    ], MdInput);
-    return MdInput;
+        __metadata$48('design:paramtypes', [_angular_core.ElementRef])
+    ], MdTextareaAutosize);
+    return MdTextareaAutosize;
 }());
+
+var __decorate$46 = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$46 = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 var MdInputModule = (function () {
     function MdInputModule() {
     }
@@ -11636,10 +11126,9 @@ var MdInputModule = (function () {
             providers: [],
         };
     };
-    MdInputModule = __decorate$47([
+    MdInputModule = __decorate$46([
         _angular_core.NgModule({
             declarations: [
-                MdInput,
                 MdPlaceholder,
                 MdInputContainer,
                 MdHint,
@@ -11652,7 +11141,6 @@ var MdInputModule = (function () {
                 PlatformModule,
             ],
             exports: [
-                MdInput,
                 MdPlaceholder,
                 MdInputContainer,
                 MdHint,
@@ -11660,7 +11148,7 @@ var MdInputModule = (function () {
                 MdInputDirective
             ],
         }), 
-        __metadata$47('design:paramtypes', [])
+        __metadata$46('design:paramtypes', [])
     ], MdInputModule);
     return MdInputModule;
 }());
@@ -11750,7 +11238,7 @@ var MdSnackBarRef = (function () {
     return MdSnackBarRef;
 }());
 
-var __extends$18 = (this && this.__extends) || function (d, b) {
+var __extends$17 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -11760,14 +11248,14 @@ var __extends$18 = (this && this.__extends) || function (d, b) {
  * @docs-private
  */
 var MdSnackBarContentAlreadyAttached = (function (_super) {
-    __extends$18(MdSnackBarContentAlreadyAttached, _super);
+    __extends$17(MdSnackBarContentAlreadyAttached, _super);
     function MdSnackBarContentAlreadyAttached() {
         _super.call(this, 'Attempting to attach snack bar content after content is already attached');
     }
     return MdSnackBarContentAlreadyAttached;
 }(MdError));
 
-var __extends$17 = (this && this.__extends) || function (d, b) {
+var __extends$16 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -11790,7 +11278,7 @@ var HIDE_ANIMATION = '195ms cubic-bezier(0.0,0.0,0.2,1)';
  * @docs-private
  */
 var MdSnackBarContainer = (function (_super) {
-    __extends$17(MdSnackBarContainer, _super);
+    __extends$16(MdSnackBarContainer, _super);
     function MdSnackBarContainer(_ngZone) {
         _super.call(this);
         this._ngZone = _ngZone;
@@ -12113,7 +11601,7 @@ var MdSnackBarModule = (function () {
     return MdSnackBarModule;
 }());
 
-var __extends$19 = (this && this.__extends) || function (d, b) {
+var __extends$18 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -12129,7 +11617,7 @@ var __metadata$53 = (this && this.__metadata) || function (k, v) {
 };
 /** Used to flag tab labels for use with the portal directive */
 var MdTabLabel = (function (_super) {
-    __extends$19(MdTabLabel, _super);
+    __extends$18(MdTabLabel, _super);
     function MdTabLabel(templateRef, viewContainerRef) {
         _super.call(this, templateRef, viewContainerRef);
     }
@@ -12248,7 +11736,7 @@ var MdInkBar = (function () {
     return MdInkBar;
 }());
 
-var __extends$20 = (this && this.__extends) || function (d, b) {
+var __extends$19 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -12325,7 +11813,7 @@ var MdTabLink = (function () {
  * adds the ripple behavior to nav bar labels.
  */
 var MdTabLinkRipple = (function (_super) {
-    __extends$20(MdTabLinkRipple, _super);
+    __extends$19(MdTabLinkRipple, _super);
     function MdTabLinkRipple(_element, _ngZone, _ruler) {
         _super.call(this, _element, _ngZone, _ruler);
         this._element = _element;
@@ -13262,7 +12750,7 @@ var MdToolbarModule = (function () {
     return MdToolbarModule;
 }());
 
-var __extends$21 = (this && this.__extends) || function (d, b) {
+var __extends$20 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -13272,7 +12760,7 @@ var __extends$21 = (this && this.__extends) || function (d, b) {
  * @docs-private
  */
 var MdTooltipInvalidPositionError = (function (_super) {
-    __extends$21(MdTooltipInvalidPositionError, _super);
+    __extends$20(MdTooltipInvalidPositionError, _super);
     function MdTooltipInvalidPositionError(position) {
         _super.call(this, "Tooltip position \"" + position + "\" is invalid.");
     }
@@ -13703,7 +13191,7 @@ var MdTooltipModule = (function () {
     return MdTooltipModule;
 }());
 
-var __extends$22 = (this && this.__extends) || function (d, b) {
+var __extends$21 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -13713,7 +13201,7 @@ var __extends$22 = (this && this.__extends) || function (d, b) {
  * @docs-private
  */
 var MdMenuMissingError = (function (_super) {
-    __extends$22(MdMenuMissingError, _super);
+    __extends$21(MdMenuMissingError, _super);
     function MdMenuMissingError() {
         _super.call(this, "md-menu-trigger: must pass in an md-menu instance.\n\n    Example:\n      <md-menu #menu=\"mdMenu\"></md-menu>\n      <button [mdMenuTriggerFor]=\"menu\"></button>\n    ");
     }
@@ -13725,7 +13213,7 @@ var MdMenuMissingError = (function (_super) {
  * @docs-private
  */
 var MdMenuInvalidPositionX = (function (_super) {
-    __extends$22(MdMenuInvalidPositionX, _super);
+    __extends$21(MdMenuInvalidPositionX, _super);
     function MdMenuInvalidPositionX() {
         _super.call(this, "x-position value must be either 'before' or after'.\n      Example: <md-menu x-position=\"before\" #menu=\"mdMenu\"></md-menu>\n    ");
     }
@@ -13737,7 +13225,7 @@ var MdMenuInvalidPositionX = (function (_super) {
  * @docs-private
  */
 var MdMenuInvalidPositionY = (function (_super) {
-    __extends$22(MdMenuInvalidPositionY, _super);
+    __extends$21(MdMenuInvalidPositionY, _super);
     function MdMenuInvalidPositionY() {
         _super.call(this, "y-position value must be either 'above' or below'.\n      Example: <md-menu y-position=\"above\" #menu=\"mdMenu\"></md-menu>\n    ");
     }
@@ -14337,7 +13825,7 @@ var MdDialogConfig = (function () {
     return MdDialogConfig;
 }());
 
-var __extends$24 = (this && this.__extends) || function (d, b) {
+var __extends$23 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -14347,14 +13835,14 @@ var __extends$24 = (this && this.__extends) || function (d, b) {
  * @docs-private
  */
 var MdDialogContentAlreadyAttachedError = (function (_super) {
-    __extends$24(MdDialogContentAlreadyAttachedError, _super);
+    __extends$23(MdDialogContentAlreadyAttachedError, _super);
     function MdDialogContentAlreadyAttachedError() {
         _super.call(this, 'Attempting to attach dialog content after content is already attached');
     }
     return MdDialogContentAlreadyAttachedError;
 }(MdError));
 
-var __extends$23 = (this && this.__extends) || function (d, b) {
+var __extends$22 = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -14373,7 +13861,7 @@ var __metadata$68 = (this && this.__metadata) || function (k, v) {
  * @docs-private
  */
 var MdDialogContainer = (function (_super) {
-    __extends$23(MdDialogContainer, _super);
+    __extends$22(MdDialogContainer, _super);
     function MdDialogContainer(_ngZone) {
         _super.call(this);
         this._ngZone = _ngZone;
@@ -15178,13 +14666,8 @@ exports.ICON_REGISTRY_PROVIDER_FACTORY = ICON_REGISTRY_PROVIDER_FACTORY;
 exports.ICON_REGISTRY_PROVIDER = ICON_REGISTRY_PROVIDER;
 exports.MdIconModule = MdIconModule;
 exports.MdIconRegistry = MdIconRegistry;
-exports.MdTextareaAutosize = MdTextareaAutosize;
-exports.MD_INPUT_CONTROL_VALUE_ACCESSOR = MD_INPUT_CONTROL_VALUE_ACCESSOR;
-exports.MdInputPlaceholderConflictError = MdInputPlaceholderConflictError;
-exports.MdInputUnsupportedTypeError = MdInputUnsupportedTypeError;
-exports.MdInputDuplicatedHintError = MdInputDuplicatedHintError;
-exports.MdInput = MdInput;
 exports.MdInputModule = MdInputModule;
+exports.MdTextareaAutosize = MdTextareaAutosize;
 exports.MdPlaceholder = MdPlaceholder;
 exports.MdHint = MdHint;
 exports.MdInputDirective = MdInputDirective;
