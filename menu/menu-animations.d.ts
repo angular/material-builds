@@ -1,7 +1,7 @@
 import { AnimationEntryMetadata } from '@angular/core';
 /**
  * Below are all the animations for the md-menu component.
- * Animation duration and timing values are based on Material 1.
+ * Animation duration and timing values are based on AngularJS Material.
  */
 /**
  * This animation controls the menu panel's entry and exit from the page.
