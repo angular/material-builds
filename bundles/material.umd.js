@@ -7046,7 +7046,12 @@ var MdSlider = (function () {
     Object.defineProperty(MdSlider.prototype, "step", {
         /** The values at which the thumb will snap. */
         get: function () { return this._step; },
-        set: function (v) { this._step = coerceNumberProperty(v, this._step); },
+        set: function (v) {
+            this._step = coerceNumberProperty(v, this._step);
+            if (this._step % 1 !== 0) {
+                this._roundLabelTo = this._step.toString().split('.').pop().length;
+            }
+        },
         enumerable: true,
         configurable: true
     });
@@ -7136,6 +7141,20 @@ var MdSlider = (function () {
         /** Whether the slider is vertical. */
         get: function () { return this._vertical; },
         set: function (value) { this._vertical = coerceBooleanProperty(value); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdSlider.prototype, "displayValue", {
+        /** The value to be used for display purposes. */
+        get: function () {
+            // Note that this could be improved further by rounding something like 0.999 to 1 or
+            // 0.899 to 0.9, however it is very performance sensitive, because it gets called on
+            // every change detection cycle.
+            if (this._roundLabelTo && this.value % 1 !== 0) {
+                return this.value.toFixed(this._roundLabelTo);
+            }
+            return this.value;
+        },
         enumerable: true,
         configurable: true
     });
@@ -7561,7 +7580,7 @@ var MdSlider = (function () {
                 '[class.md-slider-min-value]': '_isMinValue',
                 '[class.md-slider-hide-last-tick]': '_isMinValue && _thumbGap && invertAxis || disabled',
             },
-            template: "<div class=\"md-slider-wrapper\"><div class=\"md-slider-track-wrapper\"><div class=\"md-slider-track-background\" [ngStyle]=\"trackBackgroundStyles\"></div><div class=\"md-slider-track-fill\" [ngStyle]=\"trackFillStyles\"></div></div><div class=\"md-slider-ticks-container\" [ngStyle]=\"ticksContainerStyles\"><div class=\"md-slider-ticks\" [ngStyle]=\"ticksStyles\"></div></div><div class=\"md-slider-thumb-container\" [ngStyle]=\"thumbContainerStyles\"><div class=\"md-slider-thumb\"></div><div class=\"md-slider-thumb-label\"><span class=\"md-slider-thumb-label-text\">{{value}}</span></div></div></div>",
+            template: "<div class=\"md-slider-wrapper\"><div class=\"md-slider-track-wrapper\"><div class=\"md-slider-track-background\" [ngStyle]=\"trackBackgroundStyles\"></div><div class=\"md-slider-track-fill\" [ngStyle]=\"trackFillStyles\"></div></div><div class=\"md-slider-ticks-container\" [ngStyle]=\"ticksContainerStyles\"><div class=\"md-slider-ticks\" [ngStyle]=\"ticksStyles\"></div></div><div class=\"md-slider-thumb-container\" [ngStyle]=\"thumbContainerStyles\"><div class=\"md-slider-thumb\"></div><div class=\"md-slider-thumb-label\"><span class=\"md-slider-thumb-label-text\">{{displayValue}}</span></div></div></div>",
             styles: [".md-slider-track-background,.md-slider-track-fill{transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.md-slider-thumb,.md-slider-ticks,md-slider{box-sizing:border-box}md-slider{display:inline-block;position:relative;padding:8px;outline:0;vertical-align:middle}.md-slider-wrapper{position:absolute}.md-slider-track-wrapper{position:absolute;top:0;left:0;overflow:hidden}.md-slider-track-fill{position:absolute;transform-origin:0 0}.md-slider-track-background{position:absolute;transform-origin:100% 100%}.md-slider-ticks-container{position:absolute;left:0;top:0;overflow:hidden}.md-slider-ticks{opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.md-slider-disabled .md-slider-ticks{opacity:0}.md-slider-thumb-container{position:absolute;z-index:1;transition:transform .4s cubic-bezier(.25,.8,.25,1)}.md-slider-thumb{position:absolute;right:-10px;bottom:-10px;width:20px;height:20px;border:3px solid transparent;border-radius:50%;transform:scale(.7);transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),border-color .4s cubic-bezier(.25,.8,.25,1)}.md-slider-thumb-label{display:none;align-items:center;justify-content:center;position:absolute;width:28px;height:28px;border-radius:50%;transition:transform .4s cubic-bezier(.25,.8,.25,1),border-radius .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.md-slider-thumb-label-text{z-index:1;font-size:12px;font-weight:700;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.md-slider-sliding .md-slider-thumb-container,.md-slider-sliding .md-slider-track-background,.md-slider-sliding .md-slider-track-fill{transition-duration:0s}.md-slider-has-ticks .md-slider-wrapper::after{content:'';position:absolute;border:0 solid rgba(0,0,0,.6);opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.md-slider-active .md-slider-thumb-label-text,.md-slider-has-ticks.md-slider-active .md-slider-ticks,.md-slider-has-ticks.md-slider-active:not(.md-slider-hide-last-tick) .md-slider-wrapper::after,.md-slider-has-ticks:hover .md-slider-ticks,.md-slider-has-ticks:hover:not(.md-slider-hide-last-tick) .md-slider-wrapper::after{opacity:1}.md-slider-thumb-label-showing .md-slider-thumb-label{display:flex}.md-slider-axis-inverted .md-slider-track-fill{transform-origin:100% 100%}.md-slider-axis-inverted .md-slider-track-background{transform-origin:0 0}.md-slider-active .md-slider-thumb{border-width:2px;transform:scale(1)}.md-slider-active.md-slider-thumb-label-showing .md-slider-thumb{transform:scale(0)}.md-slider-active .md-slider-thumb-label{border-radius:50% 50% 0}.md-slider-disabled .md-slider-thumb{border-width:4px;transform:scale(.5)}.md-slider-disabled .md-slider-thumb-label{display:none}.md-slider-horizontal{height:48px;min-width:128px}.md-slider-horizontal .md-slider-wrapper{height:2px;top:23px;left:8px;right:8px}.md-slider-horizontal .md-slider-wrapper::after{height:2px;border-left-width:2px;right:0;top:0}.md-slider-horizontal .md-slider-track-wrapper{height:2px;width:100%}.md-slider-horizontal .md-slider-track-fill{height:2px;width:100%;transform:scaleX(0)}.md-slider-horizontal .md-slider-track-background{height:2px;width:100%;transform:scaleX(1)}.md-slider-horizontal .md-slider-ticks-container{height:2px;width:100%}.md-slider-horizontal .md-slider-ticks{background:repeating-linear-gradient(to right,rgba(0,0,0,.6),rgba(0,0,0,.6) 2px,transparent 0,transparent);background:-moz-repeating-linear-gradient(.0001deg,rgba(0,0,0,.6),rgba(0,0,0,.6) 2px,transparent 0,transparent);background-clip:content-box;height:2px;width:100%}.md-slider-horizontal .md-slider-thumb-container{width:100%;height:0;top:50%}.md-slider-horizontal .md-slider-thumb-label{right:-14px;top:-40px;transform:translateY(26px) scale(.01) rotate(45deg)}.md-slider-horizontal .md-slider-thumb-label-text{transform:rotate(-45deg)}.md-slider-horizontal.md-slider-active .md-slider-thumb-label{transform:rotate(45deg)}.md-slider-vertical{width:48px;min-height:128px}.md-slider-vertical .md-slider-wrapper{width:2px;top:8px;bottom:8px;left:23px}.md-slider-vertical .md-slider-wrapper::after{width:2px;border-top-width:2px;bottom:0;left:0}.md-slider-vertical .md-slider-track-wrapper{height:100%;width:2px}.md-slider-vertical .md-slider-track-fill{height:100%;width:2px;transform:scaleY(0)}.md-slider-vertical .md-slider-track-background{height:100%;width:2px;transform:scaleY(1)}.md-slider-vertical .md-slider-ticks-container{width:2px;height:100%}.md-slider-vertical .md-slider-ticks{background:repeating-linear-gradient(to bottom,rgba(0,0,0,.6),rgba(0,0,0,.6) 2px,transparent 0,transparent);background-clip:content-box;width:2px;height:100%}.md-slider-vertical .md-slider-thumb-container{height:100%;width:0;left:50%}.md-slider-vertical .md-slider-thumb-label{bottom:-14px;left:-40px;transform:translateX(26px) scale(.01) rotate(-45deg)}.md-slider-vertical .md-slider-thumb-label-text{transform:rotate(45deg)}.md-slider-vertical.md-slider-active .md-slider-thumb-label{transform:rotate(-45deg)}[dir=rtl] .md-slider-wrapper::after{left:0;right:auto}[dir=rtl] .md-slider-horizontal .md-slider-track-fill{transform-origin:100% 100%}[dir=rtl] .md-slider-horizontal .md-slider-track-background,[dir=rtl] .md-slider-horizontal.md-slider-axis-inverted .md-slider-track-fill{transform-origin:0 0}[dir=rtl] .md-slider-horizontal.md-slider-axis-inverted .md-slider-track-background{transform-origin:100% 100%}"],
             encapsulation: _angular_core.ViewEncapsulation.None,
         }),

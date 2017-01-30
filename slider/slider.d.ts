@@ -46,6 +46,8 @@ export declare class MdSlider implements ControlValueAccessor {
      * Used to shrink and grow the thumb as according to the Material Design spec.
      */
     _isActive: boolean;
+    /** Decimal places to round to, based on the step amount. */
+    private _roundLabelTo;
     private _step;
     /** The values at which the thumb will snap. */
     step: number;
@@ -78,6 +80,8 @@ export declare class MdSlider implements ControlValueAccessor {
     /** Whether the slider is vertical. */
     vertical: any;
     private _vertical;
+    /** The value to be used for display purposes. */
+    readonly displayValue: string | number;
     /**
      * Whether the axis of the slider is inverted.
      * (i.e. whether moving the thumb in the positive x or y direction decreases the slider's value).
