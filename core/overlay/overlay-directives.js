@@ -314,5 +314,4 @@ export var OverlayModule = (function () {
     ], OverlayModule);
     return OverlayModule;
 }());
-
 //# sourceMappingURL=overlay-directives.js.map

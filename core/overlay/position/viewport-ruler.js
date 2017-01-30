@@ -73,5 +73,4 @@ export var VIEWPORT_RULER_PROVIDER = {
     deps: [[new Optional(), new SkipSelf(), ViewportRuler]],
     useFactory: VIEWPORT_RULER_PROVIDER_FACTORY
 };
-
 //# sourceMappingURL=viewport-ruler.js.map

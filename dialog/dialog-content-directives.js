@@ -78,5 +78,4 @@ export var MdDialogActions = (function () {
     ], MdDialogActions);
     return MdDialogActions;
 }());
-
 //# sourceMappingURL=dialog-content-directives.js.map

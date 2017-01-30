@@ -251,5 +251,4 @@ export var MdMenuTrigger = (function () {
     ], MdMenuTrigger);
     return MdMenuTrigger;
 }());
-
 //# sourceMappingURL=menu-trigger.js.map

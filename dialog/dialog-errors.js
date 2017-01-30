@@ -15,5 +15,4 @@ export var MdDialogContentAlreadyAttachedError = (function (_super) {
     }
     return MdDialogContentAlreadyAttachedError;
 }(MdError));
-
 //# sourceMappingURL=dialog-errors.js.map

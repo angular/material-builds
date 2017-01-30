@@ -86,5 +86,4 @@ export var NoConflictStyleCompatibilityMode = (function () {
     ], NoConflictStyleCompatibilityMode);
     return NoConflictStyleCompatibilityMode;
 }());
-
 //# sourceMappingURL=compatibility.js.map

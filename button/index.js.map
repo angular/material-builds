@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../../src/lib/button/index.ts"],"names":[],"mappings":"AAAA,cAAc,UAAU,CAAC","file":"index.js","sourcesContent":["export * from './button';\n"]}
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../src/lib/button/index.ts"],"names":[],"mappings":"AAAA,cAAc,UAAU,CAAC","sourcesContent":["export * from './button';\n"]}

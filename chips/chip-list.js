@@ -207,5 +207,4 @@ export var MdChipsModule = (function () {
     ], MdChipsModule);
     return MdChipsModule;
 }());
-
 //# sourceMappingURL=chip-list.js.map

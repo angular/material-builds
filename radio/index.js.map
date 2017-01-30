@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../../src/lib/radio/index.ts"],"names":[],"mappings":"AAAA,cAAc,SAAS,CAAC","file":"index.js","sourcesContent":["export * from './radio';\n"]}
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../src/lib/radio/index.ts"],"names":[],"mappings":"AAAA,cAAc,SAAS,CAAC","sourcesContent":["export * from './radio';\n"]}

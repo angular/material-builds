@@ -49,5 +49,4 @@ export var MdTabLabelWrapper = (function () {
     ], MdTabLabelWrapper);
     return MdTabLabelWrapper;
 }());
-
 //# sourceMappingURL=tab-label-wrapper.js.map

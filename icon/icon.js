@@ -273,5 +273,4 @@ export var MdIconModule = (function () {
     ], MdIconModule);
     return MdIconModule;
 }());
-
 //# sourceMappingURL=icon.js.map

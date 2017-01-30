@@ -14,5 +14,4 @@ export var MdSnackBarConfig = (function () {
     }
     return MdSnackBarConfig;
 }());
-
 //# sourceMappingURL=snack-bar-config.js.map

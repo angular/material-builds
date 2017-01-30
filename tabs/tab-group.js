@@ -245,5 +245,4 @@ export var MdTabsModule = (function () {
     ], MdTabsModule);
     return MdTabsModule;
 }());
-
 //# sourceMappingURL=tab-group.js.map

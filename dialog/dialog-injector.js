@@ -13,5 +13,4 @@ export var DialogInjector = (function () {
     };
     return DialogInjector;
 }());
-
 //# sourceMappingURL=dialog-injector.js.map

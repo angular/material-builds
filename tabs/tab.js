@@ -70,5 +70,4 @@ export var MdTab = (function () {
     ], MdTab);
     return MdTab;
 }());
-
 //# sourceMappingURL=tab.js.map

@@ -16,5 +16,4 @@ export var TAB = 9;
 export var ESCAPE = 27;
 export var BACKSPACE = 8;
 export var DELETE = 46;
-
 //# sourceMappingURL=keycodes.js.map

@@ -93,5 +93,4 @@ export var MdDialogContainer = (function (_super) {
     ], MdDialogContainer);
     return MdDialogContainer;
 }(BasePortalHost));
-
 //# sourceMappingURL=dialog-container.js.map

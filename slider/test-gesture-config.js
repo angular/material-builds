@@ -56,5 +56,4 @@ export var TestGestureConfig = (function (_super) {
     ], TestGestureConfig);
     return TestGestureConfig;
 }(GestureConfig));
-
 //# sourceMappingURL=test-gesture-config.js.map

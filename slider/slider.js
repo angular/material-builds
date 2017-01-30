@@ -682,5 +682,4 @@ export var MdSliderModule = (function () {
     ], MdSliderModule);
     return MdSliderModule;
 }());
-
 //# sourceMappingURL=slider.js.map

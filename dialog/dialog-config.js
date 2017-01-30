@@ -15,5 +15,4 @@ export var MdDialogConfig = (function () {
     }
     return MdDialogConfig;
 }());
-
 //# sourceMappingURL=dialog-config.js.map

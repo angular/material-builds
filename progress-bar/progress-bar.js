@@ -121,5 +121,4 @@ export var MdProgressBarModule = (function () {
     ], MdProgressBarModule);
     return MdProgressBarModule;
 }());
-
 //# sourceMappingURL=progress-bar.js.map

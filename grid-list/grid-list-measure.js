@@ -12,5 +12,4 @@ export function coerceToString(value) {
 export function coerceToNumber(value) {
     return typeof value === 'string' ? parseInt(value, 10) : value;
 }
-
 //# sourceMappingURL=grid-list-measure.js.map

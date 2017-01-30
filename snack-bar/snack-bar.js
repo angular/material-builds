@@ -166,5 +166,4 @@ export var MdSnackBarModule = (function () {
     ], MdSnackBarModule);
     return MdSnackBarModule;
 }());
-
 //# sourceMappingURL=snack-bar.js.map

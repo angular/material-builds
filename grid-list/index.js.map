@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../../src/lib/grid-list/index.ts"],"names":[],"mappings":"AAAA,cAAc,aAAa,CAAC","file":"index.js","sourcesContent":["export * from './grid-list';\n"]}
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../src/lib/grid-list/index.ts"],"names":[],"mappings":"AAAA,cAAc,aAAa,CAAC","sourcesContent":["export * from './grid-list';\n"]}

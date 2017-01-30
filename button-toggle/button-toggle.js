@@ -507,5 +507,4 @@ export var MdButtonToggleModule = (function () {
     ], MdButtonToggleModule);
     return MdButtonToggleModule;
 }());
-
 //# sourceMappingURL=button-toggle.js.map

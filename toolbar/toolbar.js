@@ -81,5 +81,4 @@ export var MdToolbarModule = (function () {
     ], MdToolbarModule);
     return MdToolbarModule;
 }());
-
 //# sourceMappingURL=toolbar.js.map

@@ -27,5 +27,4 @@ export function getFakeSvgHttpResponse(url) {
         return new Response(new ResponseOptions({ status: 404 }));
     }
 }
-
 //# sourceMappingURL=fake-svgs.js.map

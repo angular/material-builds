@@ -73,5 +73,4 @@ export var MdMenuItem = (function () {
     ], MdMenuItem);
     return MdMenuItem;
 }());
-
 //# sourceMappingURL=menu-item.js.map

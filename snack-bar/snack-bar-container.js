@@ -122,5 +122,4 @@ export var MdSnackBarContainer = (function (_super) {
     ], MdSnackBarContainer);
     return MdSnackBarContainer;
 }(BasePortalHost));
-
 //# sourceMappingURL=snack-bar-container.js.map

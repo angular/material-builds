@@ -25,5 +25,4 @@ export var ActiveDescendantKeyManager = (function (_super) {
     };
     return ActiveDescendantKeyManager;
 }(ListKeyManager));
-
 //# sourceMappingURL=activedescendant-key-manager.js.map

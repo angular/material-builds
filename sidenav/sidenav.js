@@ -586,5 +586,4 @@ export var MdSidenavModule = (function () {
     ], MdSidenavModule);
     return MdSidenavModule;
 }());
-
 //# sourceMappingURL=sidenav.js.map

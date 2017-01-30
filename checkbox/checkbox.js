@@ -441,5 +441,4 @@ export var MdCheckboxModule = (function () {
     ], MdCheckboxModule);
     return MdCheckboxModule;
 }());
-
 //# sourceMappingURL=checkbox.js.map

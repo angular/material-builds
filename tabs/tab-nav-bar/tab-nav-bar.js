@@ -99,5 +99,4 @@ export var MdTabLinkRipple = (function (_super) {
     ], MdTabLinkRipple);
     return MdTabLinkRipple;
 }(MdRipple));
-
 //# sourceMappingURL=tab-nav-bar.js.map

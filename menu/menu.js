@@ -37,5 +37,4 @@ export var MdMenuModule = (function () {
     ], MdMenuModule);
     return MdMenuModule;
 }());
-
 //# sourceMappingURL=menu.js.map

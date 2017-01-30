@@ -151,5 +151,4 @@ export var OverlayRef = (function () {
 function formatCssUnit(value) {
     return typeof value === 'string' ? value : value + "px";
 }
-
 //# sourceMappingURL=overlay-ref.js.map

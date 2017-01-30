@@ -34,5 +34,4 @@ export var A11yModule = (function () {
     ], A11yModule);
     return A11yModule;
 }());
-
 //# sourceMappingURL=index.js.map

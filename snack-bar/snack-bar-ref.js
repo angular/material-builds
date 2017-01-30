@@ -66,5 +66,4 @@ export var MdSnackBarRef = (function () {
     };
     return MdSnackBarRef;
 }());
-
 //# sourceMappingURL=snack-bar-ref.js.map

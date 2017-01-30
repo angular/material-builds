@@ -359,5 +359,4 @@ export var MdTabHeader = (function () {
     ], MdTabHeader);
     return MdTabHeader;
 }());
-
 //# sourceMappingURL=tab-header.js.map

@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../../src/lib/button-toggle/index.ts"],"names":[],"mappings":"AAAA,cAAc,iBAAiB,CAAC","file":"index.js","sourcesContent":["export * from './button-toggle';\n"]}
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../src/lib/button-toggle/index.ts"],"names":[],"mappings":"AAAA,cAAc,iBAAiB,CAAC","sourcesContent":["export * from './button-toggle';\n"]}

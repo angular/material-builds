@@ -120,5 +120,4 @@ export var MdTextareaAutosize = (function () {
     ], MdTextareaAutosize);
     return MdTextareaAutosize;
 }());
-
 //# sourceMappingURL=autosize.js.map

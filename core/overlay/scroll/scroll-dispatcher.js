@@ -100,5 +100,4 @@ export var SCROLL_DISPATCHER_PROVIDER = {
     deps: [[new Optional(), new SkipSelf(), ScrollDispatcher]],
     useFactory: SCROLL_DISPATCHER_PROVIDER_FACTORY
 };
-
 //# sourceMappingURL=scroll-dispatcher.js.map

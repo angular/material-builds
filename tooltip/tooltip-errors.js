@@ -15,5 +15,4 @@ export var MdTooltipInvalidPositionError = (function (_super) {
     }
     return MdTooltipInvalidPositionError;
 }(MdError));
-
 //# sourceMappingURL=tooltip-errors.js.map

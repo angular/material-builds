@@ -288,5 +288,4 @@ export var ConnectedPositionStrategy = (function () {
     };
     return ConnectedPositionStrategy;
 }());
-
 //# sourceMappingURL=connected-position-strategy.js.map

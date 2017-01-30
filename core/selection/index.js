@@ -22,5 +22,4 @@ export var MdSelectionModule = (function () {
     ], MdSelectionModule);
     return MdSelectionModule;
 }());
-
 //# sourceMappingURL=index.js.map

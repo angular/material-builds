@@ -15,5 +15,4 @@ export var MdSnackBarContentAlreadyAttached = (function (_super) {
     }
     return MdSnackBarContentAlreadyAttached;
 }(MdError));
-
 //# sourceMappingURL=snack-bar-errors.js.map

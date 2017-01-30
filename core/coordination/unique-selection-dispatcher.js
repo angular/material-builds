@@ -51,5 +51,4 @@ export var UNIQUE_SELECTION_DISPATCHER_PROVIDER = {
     deps: [[new Optional(), new SkipSelf(), UniqueSelectionDispatcher]],
     useFactory: UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY
 };
-
 //# sourceMappingURL=unique-selection-dispatcher.js.map

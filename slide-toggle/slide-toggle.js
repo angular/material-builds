@@ -345,5 +345,4 @@ export var MdSlideToggleModule = (function () {
     ], MdSlideToggleModule);
     return MdSlideToggleModule;
 }());
-
 //# sourceMappingURL=slide-toggle.js.map

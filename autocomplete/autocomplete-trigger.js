@@ -150,5 +150,4 @@ export var MdAutocompleteTrigger = (function () {
     ], MdAutocompleteTrigger);
     return MdAutocompleteTrigger;
 }());
-
 //# sourceMappingURL=autocomplete-trigger.js.map

@@ -118,5 +118,4 @@ export var SelectionChange = (function () {
     }
     return SelectionChange;
 }());
-
 //# sourceMappingURL=selection.js.map

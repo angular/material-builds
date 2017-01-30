@@ -207,5 +207,4 @@ function calc(exp) { return "calc(" + exp + ")"; }
 function normalizeUnits(value) {
     return (value.match(/px|em|rem/)) ? value : value + 'px';
 }
-
 //# sourceMappingURL=tile-styler.js.map

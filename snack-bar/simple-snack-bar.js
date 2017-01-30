@@ -34,5 +34,4 @@ export var SimpleSnackBar = (function () {
     ], SimpleSnackBar);
     return SimpleSnackBar;
 }());
-
 //# sourceMappingURL=simple-snack-bar.js.map

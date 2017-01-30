@@ -129,5 +129,4 @@ export var MaterialModule = (function () {
     ], MaterialModule);
     return MaterialModule;
 }());
-
 //# sourceMappingURL=module.js.map

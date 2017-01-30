@@ -173,5 +173,4 @@ export var MdChip = (function () {
     ], MdChip);
     return MdChip;
 }());
-
 //# sourceMappingURL=chip.js.map

@@ -160,5 +160,4 @@ export var MdOptionModule = (function () {
     ], MdOptionModule);
     return MdOptionModule;
 }());
-
 //# sourceMappingURL=option.js.map

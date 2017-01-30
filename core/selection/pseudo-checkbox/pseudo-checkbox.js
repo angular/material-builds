@@ -71,5 +71,4 @@ export var MdPseudoCheckbox = (function () {
     ], MdPseudoCheckbox);
     return MdPseudoCheckbox;
 }());
-
 //# sourceMappingURL=pseudo-checkbox.js.map

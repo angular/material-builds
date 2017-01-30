@@ -33,5 +33,4 @@ export function getSupportedInputTypes() {
     }
     return supportedInputTypes;
 }
-
 //# sourceMappingURL=features.js.map

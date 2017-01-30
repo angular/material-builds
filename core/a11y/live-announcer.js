@@ -72,5 +72,4 @@ export var LIVE_ANNOUNCER_PROVIDER = {
     ],
     useFactory: LIVE_ANNOUNCER_PROVIDER_FACTORY
 };
-
 //# sourceMappingURL=live-announcer.js.map

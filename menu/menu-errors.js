@@ -39,5 +39,4 @@ export var MdMenuInvalidPositionY = (function (_super) {
     }
     return MdMenuInvalidPositionY;
 }(MdError));
-
 //# sourceMappingURL=menu-errors.js.map

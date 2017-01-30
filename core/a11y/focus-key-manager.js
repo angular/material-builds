@@ -19,5 +19,4 @@ export var FocusKeyManager = (function (_super) {
     };
     return FocusKeyManager;
 }(ListKeyManager));
-
 //# sourceMappingURL=focus-key-manager.js.map

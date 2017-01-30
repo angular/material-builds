@@ -29,5 +29,4 @@ export var PlatformModule = (function () {
     ], PlatformModule);
     return PlatformModule;
 }());
-
 //# sourceMappingURL=index.js.map

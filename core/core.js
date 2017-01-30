@@ -118,5 +118,4 @@ export var MdCoreModule = (function () {
     ], MdCoreModule);
     return MdCoreModule;
 }());
-
 //# sourceMappingURL=core.js.map

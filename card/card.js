@@ -171,5 +171,4 @@ export var MdCardModule = (function () {
     ], MdCardModule);
     return MdCardModule;
 }());
-
 //# sourceMappingURL=card.js.map

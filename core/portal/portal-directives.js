@@ -145,5 +145,4 @@ export var PortalModule = (function () {
     ], PortalModule);
     return PortalModule;
 }());
-
 //# sourceMappingURL=portal-directives.js.map

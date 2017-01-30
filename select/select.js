@@ -636,5 +636,4 @@ export var MdSelect = (function () {
 function clampValue(min, n, max) {
     return Math.min(Math.max(min, n), max);
 }
-
 //# sourceMappingURL=select.js.map

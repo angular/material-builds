@@ -197,5 +197,4 @@ export var MdDialog = (function () {
 function _applyConfigDefaults(dialogConfig) {
     return extendObject(new MdDialogConfig(), dialogConfig);
 }
-
 //# sourceMappingURL=dialog.js.map

@@ -37,5 +37,4 @@ export var MdGridListBadRatioError = (function (_super) {
     }
     return MdGridListBadRatioError;
 }(MdError));
-
 //# sourceMappingURL=grid-list-errors.js.map

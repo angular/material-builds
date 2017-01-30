@@ -125,5 +125,4 @@ export var TilePosition = (function () {
     }
     return TilePosition;
 }());
-
 //# sourceMappingURL=tile-coordinator.js.map

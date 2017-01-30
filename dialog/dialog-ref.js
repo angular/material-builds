@@ -27,5 +27,4 @@ export var MdDialogRef = (function () {
     };
     return MdDialogRef;
 }());
-
 //# sourceMappingURL=dialog-ref.js.map

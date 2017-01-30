@@ -176,5 +176,4 @@ export var MdTabBody = (function () {
     ], MdTabBody);
     return MdTabBody;
 }());
-
 //# sourceMappingURL=tab-body.js.map

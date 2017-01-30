@@ -28,5 +28,4 @@ export var MdTabLabel = (function (_super) {
     ], MdTabLabel);
     return MdTabLabel;
 }(TemplatePortalDirective));
-
 //# sourceMappingURL=tab-label.js.map

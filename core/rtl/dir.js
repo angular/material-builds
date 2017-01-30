@@ -84,5 +84,4 @@ export var RtlModule = (function () {
     ], RtlModule);
     return RtlModule;
 }());
-
 //# sourceMappingURL=dir.js.map

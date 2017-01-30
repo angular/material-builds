@@ -70,5 +70,4 @@ export var MdLineModule = (function () {
     ], MdLineModule);
     return MdLineModule;
 }());
-
 //# sourceMappingURL=line.js.map

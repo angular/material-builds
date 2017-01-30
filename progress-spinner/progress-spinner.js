@@ -358,5 +358,4 @@ export var MdProgressSpinnerModule = (function () {
     ], MdProgressSpinnerModule);
     return MdProgressSpinnerModule;
 }());
-
 //# sourceMappingURL=progress-spinner.js.map

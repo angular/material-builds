@@ -63,5 +63,4 @@ export var ObserveContentModule = (function () {
     ], ObserveContentModule);
     return ObserveContentModule;
 }());
-
 //# sourceMappingURL=observe-content.js.map

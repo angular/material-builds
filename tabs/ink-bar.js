@@ -54,5 +54,4 @@ export var MdInkBar = (function () {
     ], MdInkBar);
     return MdInkBar;
 }());
-
 //# sourceMappingURL=ink-bar.js.map

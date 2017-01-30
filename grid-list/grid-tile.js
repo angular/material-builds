@@ -77,5 +77,4 @@ export var MdGridTileText = (function () {
     ], MdGridTileText);
     return MdGridTileText;
 }());
-
 //# sourceMappingURL=grid-tile.js.map

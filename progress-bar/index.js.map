@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../../src/lib/progress-bar/index.ts"],"names":[],"mappings":"AAAA,cAAc,gBAAgB,CAAC","file":"index.js","sourcesContent":["export * from './progress-bar';\n"]}
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../src/lib/progress-bar/index.ts"],"names":[],"mappings":"AAAA,cAAc,gBAAgB,CAAC","sourcesContent":["export * from './progress-bar';\n"]}

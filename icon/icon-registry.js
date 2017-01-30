@@ -409,5 +409,4 @@ export var MdIconRegistry = (function () {
 function cloneSvg(svg) {
     return svg.cloneNode(true);
 }
-
 //# sourceMappingURL=icon-registry.js.map

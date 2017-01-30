@@ -173,5 +173,4 @@ export var RippleRenderer = (function () {
     };
     return RippleRenderer;
 }());
-
 //# sourceMappingURL=ripple-renderer.js.map

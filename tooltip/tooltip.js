@@ -427,5 +427,4 @@ export var MdTooltipModule = (function () {
     ], MdTooltipModule);
     return MdTooltipModule;
 }());
-
 //# sourceMappingURL=tooltip.js.map

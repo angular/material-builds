@@ -293,5 +293,4 @@ export var MdRippleModule = (function () {
     ], MdRippleModule);
     return MdRippleModule;
 }());
-
 //# sourceMappingURL=ripple.js.map

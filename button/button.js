@@ -201,5 +201,4 @@ export var MdButtonModule = (function () {
     ], MdButtonModule);
     return MdButtonModule;
 }());
-
 //# sourceMappingURL=button.js.map

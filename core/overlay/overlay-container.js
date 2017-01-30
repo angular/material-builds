@@ -53,5 +53,4 @@ export var OVERLAY_CONTAINER_PROVIDER = {
     deps: [[new Optional(), new SkipSelf(), OverlayContainer]],
     useFactory: OVERLAY_CONTAINER_PROVIDER_FACTORY
 };
-
 //# sourceMappingURL=overlay-container.js.map

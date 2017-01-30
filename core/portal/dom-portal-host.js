@@ -81,5 +81,4 @@ export var DomPortalHost = (function (_super) {
     };
     return DomPortalHost;
 }(BasePortalHost));
-
 //# sourceMappingURL=dom-portal-host.js.map
