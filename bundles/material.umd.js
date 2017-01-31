@@ -519,6 +519,105 @@ var RippleRenderer = (function () {
     return RippleRenderer;
 }());
 
+var __decorate$8 = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata$8 = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+/**
+ * Service contained all registered Scrollable references and emits an event when any one of the
+ * Scrollable references emit a scrolled event.
+ */
+var ScrollDispatcher = (function () {
+    function ScrollDispatcher() {
+        var _this = this;
+        /** Subject for notifying that a registered scrollable reference element has been scrolled. */
+        this._scrolled = new rxjs_Subject.Subject();
+        /**
+         * Map of all the scrollable references that are registered with the service and their
+         * scroll event subscriptions.
+         */
+        this.scrollableReferences = new Map();
+        // By default, notify a scroll event when the document is scrolled or the window is resized.
+        rxjs_Observable.Observable.fromEvent(window.document, 'scroll').subscribe(function () { return _this._notify(); });
+        rxjs_Observable.Observable.fromEvent(window, 'resize').subscribe(function () { return _this._notify(); });
+    }
+    /**
+     * Registers a Scrollable with the service and listens for its scrolled events. When the
+     * scrollable is scrolled, the service emits the event in its scrolled observable.
+     *
+     * @param scrollable Scrollable instance to be registered.
+     */
+    ScrollDispatcher.prototype.register = function (scrollable) {
+        var _this = this;
+        var scrollSubscription = scrollable.elementScrolled().subscribe(function () { return _this._notify(); });
+        this.scrollableReferences.set(scrollable, scrollSubscription);
+    };
+    /**
+     * Deregisters a Scrollable reference and unsubscribes from its scroll event observable.
+     *
+     * @param scrollable Scrollable instance to be deregistered.
+     */
+    ScrollDispatcher.prototype.deregister = function (scrollable) {
+        this.scrollableReferences.get(scrollable).unsubscribe();
+        this.scrollableReferences.delete(scrollable);
+    };
+    /**
+     * Returns an observable that emits an event whenever any of the registered Scrollable
+     * references (or window, document, or body) fire a scrolled event.
+     */
+    ScrollDispatcher.prototype.scrolled = function () {
+        // TODO: Add an event limiter that includes throttle with the leading and trailing events.
+        return this._scrolled.asObservable();
+    };
+    /** Returns all registered Scrollables that contain the provided element. */
+    ScrollDispatcher.prototype.getScrollContainers = function (elementRef) {
+        var _this = this;
+        var scrollingContainers = [];
+        this.scrollableReferences.forEach(function (subscription, scrollable) {
+            if (_this.scrollableContainsElement(scrollable, elementRef)) {
+                scrollingContainers.push(scrollable);
+            }
+        });
+        return scrollingContainers;
+    };
+    /** Returns true if the element is contained within the provided Scrollable. */
+    ScrollDispatcher.prototype.scrollableContainsElement = function (scrollable, elementRef) {
+        var element = elementRef.nativeElement;
+        var scrollableElement = scrollable.getElementRef().nativeElement;
+        // Traverse through the element parents until we reach null, checking if any of the elements
+        // are the scrollable's element.
+        do {
+            if (element == scrollableElement) {
+                return true;
+            }
+        } while (element = element.parentElement);
+    };
+    /** Sends a notification that a scroll event has been fired. */
+    ScrollDispatcher.prototype._notify = function () {
+        this._scrolled.next();
+    };
+    ScrollDispatcher = __decorate$8([
+        _angular_core.Injectable(), 
+        __metadata$8('design:paramtypes', [])
+    ], ScrollDispatcher);
+    return ScrollDispatcher;
+}());
+function SCROLL_DISPATCHER_PROVIDER_FACTORY(parentDispatcher) {
+    return parentDispatcher || new ScrollDispatcher();
+}
+
+var SCROLL_DISPATCHER_PROVIDER = {
+    // If there is already a ScrollDispatcher available, use that. Otherwise, provide a new one.
+    provide: ScrollDispatcher,
+    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), ScrollDispatcher]],
+    useFactory: SCROLL_DISPATCHER_PROVIDER_FACTORY
+};
+
 var __decorate$7 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -533,12 +632,16 @@ var __metadata$7 = (this && this.__metadata) || function (k, v) {
  * @docs-private
  */
 var ViewportRuler = (function () {
-    function ViewportRuler() {
+    function ViewportRuler(scrollDispatcher) {
+        var _this = this;
+        // Initially cache the document rectangle.
+        this._cacheViewportGeometry();
+        // Subscribe to scroll and resize events and update the document rectangle on changes.
+        scrollDispatcher.scrolled().subscribe(function () { return _this._cacheViewportGeometry(); });
     }
-    // TODO(jelbourn): cache the document's bounding rect and only update it when the window
-    // is resized (debounced).
     /** Gets a ClientRect for the viewport's bounds. */
-    ViewportRuler.prototype.getViewportRect = function () {
+    ViewportRuler.prototype.getViewportRect = function (documentRect) {
+        if (documentRect === void 0) { documentRect = this._documentRect; }
         // Use the document element's bounding rect rather than the window scroll properties
         // (e.g. pageYOffset, scrollY) due to in issue in Chrome and IE where window scroll
         // properties and client coordinates (boundingClientRect, clientX/Y, etc.) are in different
@@ -548,7 +651,6 @@ var ViewportRuler = (function () {
         // We use the documentElement instead of the body because, by default (without a css reset)
         // browsers typically give the document body an 8px margin, which is not included in
         // getBoundingClientRect().
-        var documentRect = document.documentElement.getBoundingClientRect();
         var scrollPosition = this.getViewportScrollPosition(documentRect);
         var height = window.innerHeight;
         var width = window.innerWidth;
@@ -566,7 +668,7 @@ var ViewportRuler = (function () {
      * @param documentRect
      */
     ViewportRuler.prototype.getViewportScrollPosition = function (documentRect) {
-        if (documentRect === void 0) { documentRect = document.documentElement.getBoundingClientRect(); }
+        if (documentRect === void 0) { documentRect = this._documentRect; }
         // The top-left-corner of the viewport is determined by the scroll position of the document
         // body, normally just (scrollLeft, scrollTop). However, Chrome and Firefox disagree about
         // whether `document.body` or `document.documentElement` is the scrolled element, so reading
@@ -577,20 +679,23 @@ var ViewportRuler = (function () {
         var left = -documentRect.left || document.body.scrollLeft || window.scrollX || 0;
         return { top: top, left: left };
     };
+    /** Caches the latest client rectangle of the document element. */
+    ViewportRuler.prototype._cacheViewportGeometry = function () {
+        this._documentRect = document.documentElement.getBoundingClientRect();
+    };
     ViewportRuler = __decorate$7([
         _angular_core.Injectable(), 
-        __metadata$7('design:paramtypes', [])
+        __metadata$7('design:paramtypes', [ScrollDispatcher])
     ], ViewportRuler);
     return ViewportRuler;
 }());
-function VIEWPORT_RULER_PROVIDER_FACTORY(parentDispatcher) {
-    return parentDispatcher || new ViewportRuler();
+function VIEWPORT_RULER_PROVIDER_FACTORY(parentRuler, scrollDispatcher) {
+    return parentRuler || new ViewportRuler(scrollDispatcher);
 }
-
 var VIEWPORT_RULER_PROVIDER = {
     // If there is already a ViewportRuler available, use that. Otherwise, provide a new one.
     provide: ViewportRuler,
-    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), ViewportRuler]],
+    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), ViewportRuler], ScrollDispatcher],
     useFactory: VIEWPORT_RULER_PROVIDER_FACTORY
 };
 
@@ -879,7 +984,7 @@ var MdRippleModule = (function () {
             imports: [CompatibilityModule],
             exports: [MdRipple, CompatibilityModule],
             declarations: [MdRipple],
-            providers: [VIEWPORT_RULER_PROVIDER],
+            providers: [VIEWPORT_RULER_PROVIDER, SCROLL_DISPATCHER_PROVIDER],
         }), 
         __metadata$6('design:paramtypes', [])
     ], MdRippleModule);
@@ -1294,13 +1399,13 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var __decorate$8 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$9 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$8 = (this && this.__metadata) || function (k, v) {
+var __metadata$9 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -1317,12 +1422,12 @@ var TemplatePortalDirective = (function (_super) {
     function TemplatePortalDirective(templateRef, viewContainerRef) {
         _super.call(this, templateRef, viewContainerRef);
     }
-    TemplatePortalDirective = __decorate$8([
+    TemplatePortalDirective = __decorate$9([
         _angular_core.Directive({
             selector: '[cdk-portal], [portal]',
             exportAs: 'cdkPortal',
         }), 
-        __metadata$8('design:paramtypes', [_angular_core.TemplateRef, _angular_core.ViewContainerRef])
+        __metadata$9('design:paramtypes', [_angular_core.TemplateRef, _angular_core.ViewContainerRef])
     ], TemplatePortalDirective);
     return TemplatePortalDirective;
 }(TemplatePortal));
@@ -1402,16 +1507,16 @@ var PortalHostDirective = (function (_super) {
             this._portal = p;
         }
     };
-    __decorate$8([
+    __decorate$9([
         _angular_core.Input('portalHost'), 
-        __metadata$8('design:type', Object)
+        __metadata$9('design:type', Object)
     ], PortalHostDirective.prototype, "_deprecatedPortal", null);
-    PortalHostDirective = __decorate$8([
+    PortalHostDirective = __decorate$9([
         _angular_core.Directive({
             selector: '[cdkPortalHost], [portalHost]',
             inputs: ['portal: cdkPortalHost']
         }), 
-        __metadata$8('design:paramtypes', [_angular_core.ComponentFactoryResolver, _angular_core.ViewContainerRef])
+        __metadata$9('design:paramtypes', [_angular_core.ComponentFactoryResolver, _angular_core.ViewContainerRef])
     ], PortalHostDirective);
     return PortalHostDirective;
 }(BasePortalHost));
@@ -1425,12 +1530,12 @@ var PortalModule = (function () {
             providers: []
         };
     };
-    PortalModule = __decorate$8([
+    PortalModule = __decorate$9([
         _angular_core.NgModule({
             exports: [TemplatePortalDirective, PortalHostDirective],
             declarations: [TemplatePortalDirective, PortalHostDirective],
         }), 
-        __metadata$8('design:paramtypes', [])
+        __metadata$9('design:paramtypes', [])
     ], PortalModule);
     return PortalModule;
 }());
@@ -1687,13 +1792,13 @@ function formatCssUnit(value) {
     return typeof value === 'string' ? value : value + "px";
 }
 
-var __decorate$12 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$13 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$12 = (this && this.__metadata) || function (k, v) {
+var __metadata$13 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$2 = (this && this.__param) || function (paramIndex, decorator) {
@@ -1743,9 +1848,9 @@ var ConnectedOverlayPositionChange = (function () {
         this.connectionPair = connectionPair;
         this.scrollableViewProperties = scrollableViewProperties;
     }
-    ConnectedOverlayPositionChange = __decorate$12([
+    ConnectedOverlayPositionChange = __decorate$13([
         __param$2(1, _angular_core.Optional()), 
-        __metadata$12('design:paramtypes', [ConnectionPositionPair, ScrollableViewProperties])
+        __metadata$13('design:paramtypes', [ConnectionPositionPair, ScrollableViewProperties])
     ], ConnectedOverlayPositionChange);
     return ConnectedOverlayPositionChange;
 }());
@@ -2186,13 +2291,13 @@ var GlobalPositionStrategy = (function () {
     return GlobalPositionStrategy;
 }());
 
-var __decorate$11 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$12 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$11 = (this && this.__metadata) || function (k, v) {
+var __metadata$12 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /** Builder for overlay position strategy. */
@@ -2215,20 +2320,20 @@ var OverlayPositionBuilder = (function () {
     OverlayPositionBuilder.prototype.connectedTo = function (elementRef, originPos, overlayPos) {
         return new ConnectedPositionStrategy(elementRef, originPos, overlayPos, this._viewportRuler);
     };
-    OverlayPositionBuilder = __decorate$11([
+    OverlayPositionBuilder = __decorate$12([
         _angular_core.Injectable(), 
-        __metadata$11('design:paramtypes', [ViewportRuler])
+        __metadata$12('design:paramtypes', [ViewportRuler])
     ], OverlayPositionBuilder);
     return OverlayPositionBuilder;
 }());
 
-var __decorate$13 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$14 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$13 = (this && this.__metadata) || function (k, v) {
+var __metadata$14 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -2260,9 +2365,9 @@ var OverlayContainer = (function () {
         document.body.appendChild(container);
         this._containerElement = container;
     };
-    OverlayContainer = __decorate$13([
+    OverlayContainer = __decorate$14([
         _angular_core.Injectable(), 
-        __metadata$13('design:paramtypes', [])
+        __metadata$14('design:paramtypes', [])
     ], OverlayContainer);
     return OverlayContainer;
 }());
@@ -2277,112 +2382,13 @@ var OVERLAY_CONTAINER_PROVIDER = {
     useFactory: OVERLAY_CONTAINER_PROVIDER_FACTORY
 };
 
-var __decorate$14 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$11 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$14 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-/**
- * Service contained all registered Scrollable references and emits an event when any one of the
- * Scrollable references emit a scrolled event.
- */
-var ScrollDispatcher = (function () {
-    function ScrollDispatcher() {
-        var _this = this;
-        /** Subject for notifying that a registered scrollable reference element has been scrolled. */
-        this._scrolled = new rxjs_Subject.Subject();
-        /**
-         * Map of all the scrollable references that are registered with the service and their
-         * scroll event subscriptions.
-         */
-        this.scrollableReferences = new Map();
-        // By default, notify a scroll event when the document is scrolled or the window is resized.
-        rxjs_Observable.Observable.fromEvent(window.document, 'scroll').subscribe(function () { return _this._notify(); });
-        rxjs_Observable.Observable.fromEvent(window, 'resize').subscribe(function () { return _this._notify(); });
-    }
-    /**
-     * Registers a Scrollable with the service and listens for its scrolled events. When the
-     * scrollable is scrolled, the service emits the event in its scrolled observable.
-     *
-     * @param scrollable Scrollable instance to be registered.
-     */
-    ScrollDispatcher.prototype.register = function (scrollable) {
-        var _this = this;
-        var scrollSubscription = scrollable.elementScrolled().subscribe(function () { return _this._notify(); });
-        this.scrollableReferences.set(scrollable, scrollSubscription);
-    };
-    /**
-     * Deregisters a Scrollable reference and unsubscribes from its scroll event observable.
-     *
-     * @param scrollable Scrollable instance to be deregistered.
-     */
-    ScrollDispatcher.prototype.deregister = function (scrollable) {
-        this.scrollableReferences.get(scrollable).unsubscribe();
-        this.scrollableReferences.delete(scrollable);
-    };
-    /**
-     * Returns an observable that emits an event whenever any of the registered Scrollable
-     * references (or window, document, or body) fire a scrolled event.
-     */
-    ScrollDispatcher.prototype.scrolled = function () {
-        // TODO: Add an event limiter that includes throttle with the leading and trailing events.
-        return this._scrolled.asObservable();
-    };
-    /** Returns all registered Scrollables that contain the provided element. */
-    ScrollDispatcher.prototype.getScrollContainers = function (elementRef) {
-        var _this = this;
-        var scrollingContainers = [];
-        this.scrollableReferences.forEach(function (subscription, scrollable) {
-            if (_this.scrollableContainsElement(scrollable, elementRef)) {
-                scrollingContainers.push(scrollable);
-            }
-        });
-        return scrollingContainers;
-    };
-    /** Returns true if the element is contained within the provided Scrollable. */
-    ScrollDispatcher.prototype.scrollableContainsElement = function (scrollable, elementRef) {
-        var element = elementRef.nativeElement;
-        var scrollableElement = scrollable.getElementRef().nativeElement;
-        // Traverse through the element parents until we reach null, checking if any of the elements
-        // are the scrollable's element.
-        do {
-            if (element == scrollableElement) {
-                return true;
-            }
-        } while (element = element.parentElement);
-    };
-    /** Sends a notification that a scroll event has been fired. */
-    ScrollDispatcher.prototype._notify = function () {
-        this._scrolled.next();
-    };
-    ScrollDispatcher = __decorate$14([
-        _angular_core.Injectable(), 
-        __metadata$14('design:paramtypes', [])
-    ], ScrollDispatcher);
-    return ScrollDispatcher;
-}());
-function SCROLL_DISPATCHER_PROVIDER_FACTORY(parentDispatcher) {
-    return parentDispatcher || new ScrollDispatcher();
-}
-
-var SCROLL_DISPATCHER_PROVIDER = {
-    // If there is already a ScrollDispatcher available, use that. Otherwise, provide a new one.
-    provide: ScrollDispatcher,
-    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), ScrollDispatcher]],
-    useFactory: SCROLL_DISPATCHER_PROVIDER_FACTORY
-};
-
-var __decorate$10 = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$10 = (this && this.__metadata) || function (k, v) {
+var __metadata$11 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /** Next overlay unique ID. */
@@ -2449,9 +2455,9 @@ var Overlay = (function () {
     Overlay.prototype._createOverlayRef = function (pane, state$$1) {
         return new OverlayRef(this._createPortalHost(pane), pane, state$$1, this._ngZone);
     };
-    Overlay = __decorate$10([
+    Overlay = __decorate$11([
         _angular_core.Injectable(), 
-        __metadata$10('design:paramtypes', [OverlayContainer, _angular_core.ComponentFactoryResolver, OverlayPositionBuilder, _angular_core.ApplicationRef, _angular_core.Injector, _angular_core.NgZone])
+        __metadata$11('design:paramtypes', [OverlayContainer, _angular_core.ComponentFactoryResolver, OverlayPositionBuilder, _angular_core.ApplicationRef, _angular_core.Injector, _angular_core.NgZone])
     ], Overlay);
     return Overlay;
 }());
@@ -2507,13 +2513,13 @@ var Scrollable = (function () {
     return Scrollable;
 }());
 
-var __decorate$9 = (this && this.__decorate) || function (decorators, target, key, desc) {
+var __decorate$10 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$9 = (this && this.__metadata) || function (k, v) {
+var __metadata$10 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$1 = (this && this.__param) || function (paramIndex, decorator) {
@@ -2532,12 +2538,12 @@ var OverlayOrigin = (function () {
     function OverlayOrigin(elementRef) {
         this.elementRef = elementRef;
     }
-    OverlayOrigin = __decorate$9([
+    OverlayOrigin = __decorate$10([
         _angular_core.Directive({
             selector: '[cdk-overlay-origin], [overlay-origin]',
             exportAs: 'cdkOverlayOrigin',
         }), 
-        __metadata$9('design:paramtypes', [_angular_core.ElementRef])
+        __metadata$10('design:paramtypes', [_angular_core.ElementRef])
     ], OverlayOrigin);
     return OverlayOrigin;
 }());
@@ -2723,73 +2729,73 @@ var ConnectedOverlayDirective = (function () {
             this._positionSubscription.unsubscribe();
         }
     };
-    __decorate$9([
+    __decorate$10([
         _angular_core.Input(), 
-        __metadata$9('design:type', OverlayOrigin)
+        __metadata$10('design:type', OverlayOrigin)
     ], ConnectedOverlayDirective.prototype, "origin", void 0);
-    __decorate$9([
+    __decorate$10([
         _angular_core.Input(), 
-        __metadata$9('design:type', Array)
+        __metadata$10('design:type', Array)
     ], ConnectedOverlayDirective.prototype, "positions", void 0);
-    __decorate$9([
+    __decorate$10([
         _angular_core.Input(), 
-        __metadata$9('design:type', Number)
+        __metadata$10('design:type', Number)
     ], ConnectedOverlayDirective.prototype, "offsetX", null);
-    __decorate$9([
+    __decorate$10([
         _angular_core.Input(), 
-        __metadata$9('design:type', Object)
+        __metadata$10('design:type', Object)
     ], ConnectedOverlayDirective.prototype, "offsetY", null);
-    __decorate$9([
+    __decorate$10([
         _angular_core.Input(), 
-        __metadata$9('design:type', Object)
+        __metadata$10('design:type', Object)
     ], ConnectedOverlayDirective.prototype, "width", void 0);
-    __decorate$9([
+    __decorate$10([
         _angular_core.Input(), 
-        __metadata$9('design:type', Object)
+        __metadata$10('design:type', Object)
     ], ConnectedOverlayDirective.prototype, "height", void 0);
-    __decorate$9([
+    __decorate$10([
         _angular_core.Input(), 
-        __metadata$9('design:type', Object)
+        __metadata$10('design:type', Object)
     ], ConnectedOverlayDirective.prototype, "minWidth", void 0);
-    __decorate$9([
+    __decorate$10([
         _angular_core.Input(), 
-        __metadata$9('design:type', Object)
+        __metadata$10('design:type', Object)
     ], ConnectedOverlayDirective.prototype, "minHeight", void 0);
-    __decorate$9([
+    __decorate$10([
         _angular_core.Input(), 
-        __metadata$9('design:type', String)
+        __metadata$10('design:type', String)
     ], ConnectedOverlayDirective.prototype, "backdropClass", void 0);
-    __decorate$9([
+    __decorate$10([
         _angular_core.Input(), 
-        __metadata$9('design:type', Object)
+        __metadata$10('design:type', Object)
     ], ConnectedOverlayDirective.prototype, "hasBackdrop", null);
-    __decorate$9([
+    __decorate$10([
         _angular_core.Input(), 
-        __metadata$9('design:type', Object)
+        __metadata$10('design:type', Object)
     ], ConnectedOverlayDirective.prototype, "open", null);
-    __decorate$9([
+    __decorate$10([
         _angular_core.Output(), 
-        __metadata$9('design:type', Object)
+        __metadata$10('design:type', Object)
     ], ConnectedOverlayDirective.prototype, "backdropClick", void 0);
-    __decorate$9([
+    __decorate$10([
         _angular_core.Output(), 
-        __metadata$9('design:type', Object)
+        __metadata$10('design:type', Object)
     ], ConnectedOverlayDirective.prototype, "positionChange", void 0);
-    __decorate$9([
+    __decorate$10([
         _angular_core.Output(), 
-        __metadata$9('design:type', Object)
+        __metadata$10('design:type', Object)
     ], ConnectedOverlayDirective.prototype, "attach", void 0);
-    __decorate$9([
+    __decorate$10([
         _angular_core.Output(), 
-        __metadata$9('design:type', Object)
+        __metadata$10('design:type', Object)
     ], ConnectedOverlayDirective.prototype, "detach", void 0);
-    ConnectedOverlayDirective = __decorate$9([
+    ConnectedOverlayDirective = __decorate$10([
         _angular_core.Directive({
             selector: '[cdk-connected-overlay], [connected-overlay]',
             exportAs: 'cdkConnectedOverlay'
         }),
         __param$1(3, _angular_core.Optional()), 
-        __metadata$9('design:paramtypes', [Overlay, _angular_core.TemplateRef, _angular_core.ViewContainerRef, Dir])
+        __metadata$10('design:paramtypes', [Overlay, _angular_core.TemplateRef, _angular_core.ViewContainerRef, Dir])
     ], ConnectedOverlayDirective);
     return ConnectedOverlayDirective;
 }());
@@ -2803,14 +2809,14 @@ var OverlayModule = (function () {
             providers: [],
         };
     };
-    OverlayModule = __decorate$9([
+    OverlayModule = __decorate$10([
         _angular_core.NgModule({
             imports: [PortalModule],
             exports: [ConnectedOverlayDirective, OverlayOrigin, Scrollable],
             declarations: [ConnectedOverlayDirective, OverlayOrigin, Scrollable],
             providers: [OVERLAY_PROVIDERS],
         }), 
-        __metadata$9('design:paramtypes', [])
+        __metadata$10('design:paramtypes', [])
     ], OverlayModule);
     return OverlayModule;
 }());
@@ -9057,7 +9063,7 @@ var MdCard = (function () {
     MdCard = __decorate$41([
         _angular_core.Component({selector: 'md-card, mat-card',
             template: "<ng-content></ng-content>",
-            styles: ["md-card{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);will-change:box-shadow;display:block;position:relative;padding:24px;border-radius:2px;font-family:Roboto,\"Helvetica Neue\",sans-serif}@media screen and (-ms-high-contrast:active){md-card{outline:solid 1px}}.md-card-flat{box-shadow:none}md-card-actions,md-card-content,md-card-subtitle,md-card-title{display:block;margin-bottom:16px}md-card-title{font-size:24px;font-weight:400}md-card-content,md-card-header md-card-title,md-card-subtitle{font-size:14px}md-card-actions{margin-left:-16px;margin-right:-16px;padding:8px 0}md-card-actions[align=end]{display:flex;justify-content:flex-end}[md-card-image]{width:calc(100% + 48px);margin:0 -24px 16px}[md-card-xl-image]{width:240px;height:240px;margin:-8px}md-card-footer{position:absolute;width:100%;min-height:5px;bottom:0;left:0}md-card-actions [md-button],md-card-actions [md-raised-button]{margin:0 4px}md-card-header{display:flex;flex-direction:row;height:40px;margin:-8px 0 16px}.md-card-header-text{height:40px;margin:0 8px}[md-card-avatar]{height:40px;width:40px;border-radius:50%}[md-card-lg-image],[md-card-md-image],[md-card-sm-image]{margin:-8px 0}md-card-title-group{display:flex;justify-content:space-between;margin:0 -8px}[md-card-sm-image]{width:80px;height:80px}[md-card-md-image]{width:112px;height:112px}[md-card-lg-image]{width:152px;height:152px}@media (max-width:600px){md-card{padding:24px 16px}[md-card-image]{width:calc(100% + 32px);margin:16px -16px}md-card-title-group{margin:0}[md-card-xl-image]{margin-left:0;margin-right:0}md-card-header{margin:-8px 0 0}}md-card-content>:first-child,md-card>:first-child{margin-top:0}md-card-content>:last-child,md-card>:last-child{margin-bottom:0}[md-card-image]:first-child{margin-top:-24px}md-card>md-card-actions:last-child{margin-bottom:-16px;padding-bottom:0}md-card-actions [md-button]:first-child,md-card-actions [md-raised-button]:first-child{margin-left:0;margin-right:0}md-card-subtitle:not(:first-child),md-card-title:not(:first-child){margin-top:-4px}md-card-header md-card-subtitle:not(:first-child),md-card>[md-card-xl-image]:first-child{margin-top:-8px}md-card>[md-card-xl-image]:last-child{margin-bottom:-8px}"],
+            styles: ["md-card{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);will-change:box-shadow;display:block;position:relative;padding:24px;border-radius:2px;font-family:Roboto,\"Helvetica Neue\",sans-serif}@media screen and (-ms-high-contrast:active){md-card{outline:solid 1px}}.md-card-flat{box-shadow:none}md-card-actions,md-card-content,md-card-subtitle,md-card-title{display:block;margin-bottom:16px}md-card-title{font-size:24px;font-weight:400}md-card-content,md-card-header md-card-title,md-card-subtitle{font-size:14px}md-card-actions{margin-left:-16px;margin-right:-16px;padding:8px 0}md-card-actions[align=end]{display:flex;justify-content:flex-end}[md-card-image]{width:calc(100% + 48px);margin:0 -24px 16px}[md-card-xl-image]{width:240px;height:240px;margin:-8px}md-card-footer{position:absolute;width:100%;min-height:5px;bottom:0;left:0}md-card-actions [md-button],md-card-actions [md-raised-button]{margin:0 4px}md-card-header{display:flex;flex-direction:row;height:40px;margin:-8px 0 16px}.md-card-header-text{height:40px;margin:0 8px}[md-card-avatar]{height:40px;width:40px;border-radius:50%}[md-card-lg-image],[md-card-md-image],[md-card-sm-image]{margin:-8px 0}md-card-title-group{display:flex;justify-content:space-between;margin:0 -8px}[md-card-sm-image]{width:80px;height:80px}[md-card-md-image]{width:112px;height:112px}[md-card-lg-image]{width:152px;height:152px}@media (max-width:600px){md-card{padding:24px 16px}md-card-actions{margin-left:-8px;margin-right:-8px}[md-card-image]{width:calc(100% + 32px);margin:16px -16px}md-card-title-group{margin:0}[md-card-xl-image]{margin-left:0;margin-right:0}md-card-header{margin:-8px 0 0}}md-card-content>:first-child,md-card>:first-child{margin-top:0}md-card-content>:last-child,md-card>:last-child{margin-bottom:0}[md-card-image]:first-child{margin-top:-24px}md-card>md-card-actions:last-child{margin-bottom:-16px;padding-bottom:0}md-card-actions [md-button]:first-child,md-card-actions [md-raised-button]:first-child{margin-left:0;margin-right:0}md-card-subtitle:not(:first-child),md-card-title:not(:first-child){margin-top:-4px}md-card-header md-card-subtitle:not(:first-child),md-card>[md-card-xl-image]:first-child{margin-top:-8px}md-card>[md-card-xl-image]:last-child{margin-bottom:-8px}"],
             encapsulation: _angular_core.ViewEncapsulation.None,
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
         }), 
@@ -12754,7 +12760,7 @@ var MdTabsModule = (function () {
             exports: [MdTabGroup, MdTabLabel, MdTab, MdTabNavBar, MdTabLink, MdTabLinkRipple],
             declarations: [MdTabGroup, MdTabLabel, MdTab, MdInkBar, MdTabLabelWrapper,
                 MdTabNavBar, MdTabLink, MdTabBody, MdTabLinkRipple, MdTabHeader],
-            providers: [VIEWPORT_RULER_PROVIDER],
+            providers: [VIEWPORT_RULER_PROVIDER, SCROLL_DISPATCHER_PROVIDER],
         }), 
         __metadata$54('design:paramtypes', [])
     ], MdTabsModule);
@@ -12814,7 +12820,7 @@ var MdToolbar = (function () {
     MdToolbar = __decorate$62([
         _angular_core.Component({selector: 'md-toolbar, mat-toolbar',
             template: "<div class=\"md-toolbar-layout\"><md-toolbar-row><ng-content></ng-content></md-toolbar-row><ng-content select=\"md-toolbar-row, mat-toolbar-row\"></ng-content></div>",
-            styles: ["md-toolbar,md-toolbar md-toolbar-row{display:flex;box-sizing:border-box;width:100%}md-toolbar{font-size:20px;font-weight:400;font-family:Roboto,\"Helvetica Neue\",sans-serif;padding:0 16px;flex-direction:column;min-height:64px}md-toolbar md-toolbar-row{flex-direction:row;align-items:center}md-toolbar-row{height:64px}@media (max-width:600px) and (orientation:portrait){md-toolbar{min-height:56px}md-toolbar-row{height:56px}}@media (max-width:960px) and (orientation:landscape){md-toolbar{min-height:48px}md-toolbar-row{height:48px}}"],
+            styles: ["md-toolbar,md-toolbar md-toolbar-row{display:flex;box-sizing:border-box;width:100%}md-toolbar{font-size:20px;font-weight:500;font-family:Roboto,\"Helvetica Neue\",sans-serif;padding:0 16px;flex-direction:column;min-height:64px}md-toolbar md-toolbar-row{flex-direction:row;align-items:center}md-toolbar-row{height:64px}@media (max-width:600px) and (orientation:portrait){md-toolbar{min-height:56px}md-toolbar-row{height:56px}}@media (max-width:960px) and (orientation:landscape){md-toolbar{min-height:48px}md-toolbar-row{height:48px}}"],
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
             encapsulation: _angular_core.ViewEncapsulation.None
         }), 

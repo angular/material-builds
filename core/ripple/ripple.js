@@ -11,6 +11,7 @@ import { NgModule, Directive, ElementRef, HostBinding, Input, NgZone } from '@an
 import { RippleRenderer, ForegroundRippleState } from './ripple-renderer';
 import { CompatibilityModule } from '../compatibility/compatibility';
 import { ViewportRuler, VIEWPORT_RULER_PROVIDER } from '../overlay/position/viewport-ruler';
+import { SCROLL_DISPATCHER_PROVIDER } from '../overlay/scroll/scroll-dispatcher';
 export var MdRipple = (function () {
     function MdRipple(_elementRef, _ngZone, _ruler) {
         var _this = this;
@@ -287,7 +288,7 @@ export var MdRippleModule = (function () {
             imports: [CompatibilityModule],
             exports: [MdRipple, CompatibilityModule],
             declarations: [MdRipple],
-            providers: [VIEWPORT_RULER_PROVIDER],
+            providers: [VIEWPORT_RULER_PROVIDER, SCROLL_DISPATCHER_PROVIDER],
         }), 
         __metadata('design:paramtypes', [])
     ], MdRippleModule);
