@@ -141,7 +141,8 @@ export var MdIcon = (function () {
     };
     MdIcon.prototype._updateAriaLabel = function () {
         var ariaLabel = this._getAriaLabel();
-        if (ariaLabel) {
+        if (ariaLabel && ariaLabel !== this._previousAriaLabel) {
+            this._previousAriaLabel = ariaLabel;
             this._renderer.setElementAttribute(this._elementRef.nativeElement, 'aria-label', ariaLabel);
         }
     };

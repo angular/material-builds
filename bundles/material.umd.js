@@ -10054,7 +10054,8 @@ var MdIcon = (function () {
     };
     MdIcon.prototype._updateAriaLabel = function () {
         var ariaLabel = this._getAriaLabel();
-        if (ariaLabel) {
+        if (ariaLabel && ariaLabel !== this._previousAriaLabel) {
+            this._previousAriaLabel = ariaLabel;
             this._renderer.setElementAttribute(this._elementRef.nativeElement, 'aria-label', ariaLabel);
         }
     };
@@ -13145,8 +13146,9 @@ var MdTooltip = (function () {
  * @docs-private
  */
 var TooltipComponent = (function () {
-    function TooltipComponent(_dir) {
+    function TooltipComponent(_dir, _changeDetectorRef) {
         this._dir = _dir;
+        this._changeDetectorRef = _changeDetectorRef;
         /** Property watched by the animation framework to show or hide the tooltip */
         this._visibility = 'initial';
         /** Whether interactions on the page should close the tooltip */
@@ -13175,6 +13177,9 @@ var TooltipComponent = (function () {
             // If this was set to true immediately, then a body click that triggers show() would
             // trigger interaction and close the tooltip right after it was displayed.
             _this._closeOnInteraction = false;
+            // Mark for check so if any parent component has set the 
+            // ChangeDetectionStrategy to OnPush it will be checked anyways
+            _this._changeDetectorRef.markForCheck();
             setTimeout(function () { _this._closeOnInteraction = true; }, 0);
         }, delay);
     };
@@ -13191,6 +13196,9 @@ var TooltipComponent = (function () {
         this._hideTimeoutId = setTimeout(function () {
             _this._visibility = 'hidden';
             _this._closeOnInteraction = false;
+            // Mark for check so if any parent component has set the 
+            // ChangeDetectionStrategy to OnPush it will be checked anyways
+            _this._changeDetectorRef.markForCheck();
         }, delay);
     };
     /**
@@ -13264,7 +13272,7 @@ var TooltipComponent = (function () {
             }
         }),
         __param$14(0, _angular_core.Optional()), 
-        __metadata$63('design:paramtypes', [Dir])
+        __metadata$63('design:paramtypes', [Dir, _angular_core.ChangeDetectorRef])
     ], TooltipComponent);
     return TooltipComponent;
 }());

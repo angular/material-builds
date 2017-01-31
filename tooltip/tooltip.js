@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { NgModule, Component, Directive, Input, ElementRef, ViewContainerRef, style, trigger, state, transition, animate, NgZone, Optional } from '@angular/core';
+import { NgModule, Component, Directive, Input, ElementRef, ViewContainerRef, style, trigger, state, transition, animate, NgZone, Optional, ChangeDetectorRef } from '@angular/core';
 import { Overlay, OverlayState, OverlayModule, ComponentPortal, CompatibilityModule } from '../core';
 import { MdTooltipInvalidPositionError } from './tooltip-errors';
 import { Subject } from 'rxjs/Subject';
@@ -283,8 +283,9 @@ export var MdTooltip = (function () {
  * @docs-private
  */
 export var TooltipComponent = (function () {
-    function TooltipComponent(_dir) {
+    function TooltipComponent(_dir, _changeDetectorRef) {
         this._dir = _dir;
+        this._changeDetectorRef = _changeDetectorRef;
         /** Property watched by the animation framework to show or hide the tooltip */
         this._visibility = 'initial';
         /** Whether interactions on the page should close the tooltip */
@@ -313,6 +314,9 @@ export var TooltipComponent = (function () {
             // If this was set to true immediately, then a body click that triggers show() would
             // trigger interaction and close the tooltip right after it was displayed.
             _this._closeOnInteraction = false;
+            // Mark for check so if any parent component has set the 
+            // ChangeDetectionStrategy to OnPush it will be checked anyways
+            _this._changeDetectorRef.markForCheck();
             setTimeout(function () { _this._closeOnInteraction = true; }, 0);
         }, delay);
     };
@@ -329,6 +333,9 @@ export var TooltipComponent = (function () {
         this._hideTimeoutId = setTimeout(function () {
             _this._visibility = 'hidden';
             _this._closeOnInteraction = false;
+            // Mark for check so if any parent component has set the 
+            // ChangeDetectionStrategy to OnPush it will be checked anyways
+            _this._changeDetectorRef.markForCheck();
         }, delay);
     };
     /**
@@ -402,7 +409,7 @@ export var TooltipComponent = (function () {
             }
         }),
         __param(0, Optional()), 
-        __metadata('design:paramtypes', [Dir])
+        __metadata('design:paramtypes', [Dir, ChangeDetectorRef])
     ], TooltipComponent);
     return TooltipComponent;
 }());

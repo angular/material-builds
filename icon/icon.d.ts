@@ -60,6 +60,7 @@ export declare class MdIcon implements OnChanges, OnInit, AfterViewChecked {
     color: string;
     private _previousFontSetClass;
     private _previousFontIconClass;
+    private _previousAriaLabel;
     constructor(_elementRef: ElementRef, _renderer: Renderer, _mdIconRegistry: MdIconRegistry);
     _updateColor(newColor: string): void;
     _setElementColor(color: string, isAdd: boolean): void;

@@ -1,4 +1,4 @@
-import { ModuleWithProviders, ElementRef, ViewContainerRef, AnimationTransitionEvent, NgZone, OnDestroy } from '@angular/core';
+import { ModuleWithProviders, ElementRef, ViewContainerRef, AnimationTransitionEvent, NgZone, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Overlay, OverlayRef, OverlayConnectionPosition, OriginConnectionPosition } from '../core';
 import { Observable } from 'rxjs/Observable';
 import { Dir } from '../core/rtl/dir';
@@ -71,6 +71,7 @@ export declare type TooltipVisibility = 'initial' | 'visible' | 'hidden';
  */
 export declare class TooltipComponent {
     private _dir;
+    private _changeDetectorRef;
     /** Message to display in the tooltip */
     message: string;
     /** The timeout ID of any current timer set to show the tooltip */
@@ -85,7 +86,7 @@ export declare class TooltipComponent {
     _transformOrigin: string;
     /** Subject for notifying that the tooltip has been hidden from the view */
     private _onHide;
-    constructor(_dir: Dir);
+    constructor(_dir: Dir, _changeDetectorRef: ChangeDetectorRef);
     /**
      * Shows the tooltip with an animation originating from the provided origin
      * @param position Position of the tooltip.
