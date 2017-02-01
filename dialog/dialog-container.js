@@ -12,7 +12,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, ViewChild, ViewEncapsulation, NgZone } from '@angular/core';
+import { Component, ViewChild, ViewEncapsulation, NgZone, Renderer } from '@angular/core';
 import { BasePortalHost, PortalHostDirective } from '../core';
 import { MdDialogContentAlreadyAttachedError } from './dialog-errors';
 import { FocusTrap } from '../core/a11y/focus-trap';
@@ -23,9 +23,10 @@ import 'rxjs/add/operator/first';
  */
 export var MdDialogContainer = (function (_super) {
     __extends(MdDialogContainer, _super);
-    function MdDialogContainer(_ngZone) {
+    function MdDialogContainer(_ngZone, _renderer) {
         _super.call(this);
         this._ngZone = _ngZone;
+        this._renderer = _renderer;
         /** Element that was focused before the dialog was opened. Save this to restore upon close. */
         this._elementFocusedBeforeDialogWasOpened = null;
     }
@@ -65,10 +66,13 @@ export var MdDialogContainer = (function (_super) {
         var _this = this;
         // When the dialog is destroyed, return focus to the element that originally had it before
         // the dialog was opened. Wait for the DOM to finish settling before changing the focus so
-        // that it doesn't end up back on the <body>.
-        this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
-            _this._elementFocusedBeforeDialogWasOpened.focus();
-        });
+        // that it doesn't end up back on the <body>. Also note that we need the extra check, because
+        // IE can set the `activeElement` to null in some cases.
+        if (this._elementFocusedBeforeDialogWasOpened) {
+            this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
+                _this._renderer.invokeElementMethod(_this._elementFocusedBeforeDialogWasOpened, 'focus');
+            });
+        }
     };
     __decorate([
         ViewChild(PortalHostDirective), 
@@ -89,7 +93,7 @@ export var MdDialogContainer = (function (_super) {
             },
             encapsulation: ViewEncapsulation.None,
         }), 
-        __metadata('design:paramtypes', [NgZone])
+        __metadata('design:paramtypes', [NgZone, Renderer])
     ], MdDialogContainer);
     return MdDialogContainer;
 }(BasePortalHost));

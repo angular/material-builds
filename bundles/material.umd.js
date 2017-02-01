@@ -13969,9 +13969,10 @@ var __metadata$70 = (this && this.__metadata) || function (k, v) {
  */
 var MdDialogContainer = (function (_super) {
     __extends$22(MdDialogContainer, _super);
-    function MdDialogContainer(_ngZone) {
+    function MdDialogContainer(_ngZone, _renderer) {
         _super.call(this);
         this._ngZone = _ngZone;
+        this._renderer = _renderer;
         /** Element that was focused before the dialog was opened. Save this to restore upon close. */
         this._elementFocusedBeforeDialogWasOpened = null;
     }
@@ -14011,10 +14012,13 @@ var MdDialogContainer = (function (_super) {
         var _this = this;
         // When the dialog is destroyed, return focus to the element that originally had it before
         // the dialog was opened. Wait for the DOM to finish settling before changing the focus so
-        // that it doesn't end up back on the <body>.
-        this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
-            _this._elementFocusedBeforeDialogWasOpened.focus();
-        });
+        // that it doesn't end up back on the <body>. Also note that we need the extra check, because
+        // IE can set the `activeElement` to null in some cases.
+        if (this._elementFocusedBeforeDialogWasOpened) {
+            this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
+                _this._renderer.invokeElementMethod(_this._elementFocusedBeforeDialogWasOpened, 'focus');
+            });
+        }
     };
     __decorate$70([
         _angular_core.ViewChild(PortalHostDirective), 
@@ -14035,7 +14039,7 @@ var MdDialogContainer = (function (_super) {
             },
             encapsulation: _angular_core.ViewEncapsulation.None,
         }), 
-        __metadata$70('design:paramtypes', [_angular_core.NgZone])
+        __metadata$70('design:paramtypes', [_angular_core.NgZone, _angular_core.Renderer])
     ], MdDialogContainer);
     return MdDialogContainer;
 }(BasePortalHost));
