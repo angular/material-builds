@@ -10755,17 +10755,24 @@ var MdHint = (function () {
     function MdHint() {
         // Whether to align the hint label at the start or end of the line.
         this.align = 'start';
+        // Unique ID for the hint. Used for the aria-describedby on the input.
+        this.id = "md-input-hint-" + nextUniqueId$1++;
     }
     __decorate$49([
         _angular_core.Input(), 
         __metadata$49('design:type', Object)
     ], MdHint.prototype, "align", void 0);
+    __decorate$49([
+        _angular_core.Input(), 
+        __metadata$49('design:type', String)
+    ], MdHint.prototype, "id", void 0);
     MdHint = __decorate$49([
         _angular_core.Directive({
             selector: 'md-hint, mat-hint',
             host: {
                 'class': 'md-hint',
                 '[class.md-right]': 'align == "end"',
+                '[attr.id]': 'id',
             }
         }), 
         __metadata$49('design:paramtypes', [])
@@ -10941,9 +10948,10 @@ var MdInputDirective = (function () {
                 '[placeholder]': 'placeholder',
                 '[disabled]': 'disabled',
                 '[required]': 'required',
+                '[attr.aria-describedby]': 'ariaDescribedby',
                 '(blur)': '_onBlur()',
                 '(focus)': '_onFocus()',
-                '(input)': '_onInput()'
+                '(input)': '_onInput()',
             }
         }),
         __param$10(2, _angular_core.Optional()), 
@@ -10962,6 +10970,8 @@ var MdInputContainer = (function () {
         /** Color of the input divider, based on the theme. */
         this.dividerColor = 'primary';
         this._hintLabel = '';
+        // Unique id for the hint label.
+        this._hintLabelId = "md-input-hint-" + nextUniqueId$1++;
         this._floatingPlaceholder = true;
     }
     Object.defineProperty(MdInputContainer.prototype, "hintLabel", {
@@ -10969,7 +10979,7 @@ var MdInputContainer = (function () {
         get: function () { return this._hintLabel; },
         set: function (value) {
             this._hintLabel = value;
-            this._validateHints();
+            this._processHints();
         },
         enumerable: true,
         configurable: true
@@ -10986,10 +10996,10 @@ var MdInputContainer = (function () {
         if (!this._mdInputChild) {
             throw new MdInputContainerMissingMdInputError();
         }
-        this._validateHints();
+        this._processHints();
         this._validatePlaceholders();
         // Re-validate when things change.
-        this._hintChildren.changes.subscribe(function () { return _this._validateHints(); });
+        this._hintChildren.changes.subscribe(function () { return _this._processHints(); });
         this._mdInputChild._placeholderChange.subscribe(function () { return _this._validatePlaceholders(); });
     };
     /** Determines whether a class from the NgControl should be forwarded to the host element. */
@@ -10999,6 +11009,7 @@ var MdInputContainer = (function () {
     };
     /** Whether the input has a placeholder. */
     MdInputContainer.prototype._hasPlaceholder = function () { return !!(this._mdInputChild.placeholder || this._placeholderChild); };
+    /** Focuses the underlying input. */
     MdInputContainer.prototype._focusInput = function () { this._mdInputChild.focus(); };
     /**
      * Ensure that there is only one placeholder (either `input` attribute or child element with the
@@ -11008,6 +11019,13 @@ var MdInputContainer = (function () {
         if (this._mdInputChild.placeholder && this._placeholderChild) {
             throw new MdInputContainerPlaceholderConflictError();
         }
+    };
+    /**
+     * Does any extra processing that is required when handling the hints.
+     */
+    MdInputContainer.prototype._processHints = function () {
+        this._validateHints();
+        this._syncAriaDescribedby();
     };
     /**
      * Ensure that there is a maximum of one of each `<md-hint>` alignment specified, with the
@@ -11033,6 +11051,27 @@ var MdInputContainer = (function () {
                 }
             });
         }
+    };
+    /**
+     * Sets the child input's `aria-describedby` to a space-separated list of the ids
+     * of the currently-specified hints, as well as a generated id for the hint label.
+     */
+    MdInputContainer.prototype._syncAriaDescribedby = function () {
+        var ids = [];
+        var startHint = this._hintChildren ?
+            this._hintChildren.find(function (hint) { return hint.align === 'start'; }) : null;
+        var endHint = this._hintChildren ?
+            this._hintChildren.find(function (hint) { return hint.align === 'end'; }) : null;
+        if (startHint) {
+            ids.push(startHint.id);
+        }
+        else if (this._hintLabel) {
+            ids.push(this._hintLabelId);
+        }
+        if (endHint) {
+            ids.push(endHint.id);
+        }
+        this._mdInputChild.ariaDescribedby = ids.join(' ');
     };
     __decorate$49([
         _angular_core.Input(), 
@@ -11064,7 +11103,7 @@ var MdInputContainer = (function () {
     ], MdInputContainer.prototype, "_hintChildren", void 0);
     MdInputContainer = __decorate$49([
         _angular_core.Component({selector: 'md-input-container, mat-input-container',
-            template: "<div class=\"md-input-wrapper\"><div class=\"md-input-table\"><div class=\"md-input-prefix\"><ng-content select=\"[mdPrefix], [md-prefix]\"></ng-content></div><div class=\"md-input-infix\" [class.md-end]=\"align == 'end'\"><ng-content selector=\"input, textarea\"></ng-content><label class=\"md-input-placeholder\" [attr.for]=\"_mdInputChild.id\" [class.md-empty]=\"_mdInputChild.empty\" [class.md-focused]=\"_mdInputChild.focused\" [class.md-float]=\"floatingPlaceholder\" [class.md-accent]=\"dividerColor == 'accent'\" [class.md-warn]=\"dividerColor == 'warn'\" *ngIf=\"_hasPlaceholder()\"><ng-content select=\"md-placeholder\"></ng-content>{{_mdInputChild.placeholder}} <span class=\"md-placeholder-required\" *ngIf=\"_mdInputChild.required\">*</span></label></div><div class=\"md-input-suffix\"><ng-content select=\"[mdSuffix], [md-suffix]\"></ng-content></div></div><div class=\"md-input-underline\" [class.md-disabled]=\"_mdInputChild.disabled\"><span class=\"md-input-ripple\" [class.md-focused]=\"_mdInputChild.focused\" [class.md-accent]=\"dividerColor == 'accent'\" [class.md-warn]=\"dividerColor == 'warn'\"></span></div><div *ngIf=\"hintLabel != ''\" class=\"md-hint\">{{hintLabel}}</div><ng-content select=\"md-hint\"></ng-content></div>",
+            template: "<div class=\"md-input-wrapper\"><div class=\"md-input-table\"><div class=\"md-input-prefix\"><ng-content select=\"[mdPrefix], [md-prefix]\"></ng-content></div><div class=\"md-input-infix\" [class.md-end]=\"align == 'end'\"><ng-content selector=\"input, textarea\"></ng-content><label class=\"md-input-placeholder\" [attr.for]=\"_mdInputChild.id\" [class.md-empty]=\"_mdInputChild.empty\" [class.md-focused]=\"_mdInputChild.focused\" [class.md-float]=\"floatingPlaceholder\" [class.md-accent]=\"dividerColor == 'accent'\" [class.md-warn]=\"dividerColor == 'warn'\" *ngIf=\"_hasPlaceholder()\"><ng-content select=\"md-placeholder\"></ng-content>{{_mdInputChild.placeholder}} <span class=\"md-placeholder-required\" *ngIf=\"_mdInputChild.required\">*</span></label></div><div class=\"md-input-suffix\"><ng-content select=\"[mdSuffix], [md-suffix]\"></ng-content></div></div><div class=\"md-input-underline\" [class.md-disabled]=\"_mdInputChild.disabled\"><span class=\"md-input-ripple\" [class.md-focused]=\"_mdInputChild.focused\" [class.md-accent]=\"dividerColor == 'accent'\" [class.md-warn]=\"dividerColor == 'warn'\"></span></div><div *ngIf=\"hintLabel != ''\" [attr.id]=\"_hintLabelId\" class=\"md-hint\">{{hintLabel}}</div><ng-content select=\"md-hint\"></ng-content></div>",
             styles: ["md-input-container{display:inline-block;position:relative;font-family:Roboto,\"Helvetica Neue\",sans-serif;line-height:normal;text-align:left}.md-end .md-input-element,[dir=rtl] md-input-container{text-align:right}.md-input-wrapper{margin:1em 0;padding-bottom:6px}.md-input-table{display:inline-table;flex-flow:column;vertical-align:bottom;width:100%}.md-input-table>*{display:table-cell}.md-input-infix{position:relative}.md-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;width:100%}[dir=rtl] .md-end .md-input-element{text-align:left}.md-input-element:-moz-ui-invalid{box-shadow:none}.md-input-element:-webkit-autofill+.md-input-placeholder.md-float{display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}.md-input-element::placeholder{color:transparent}.md-input-element::-moz-placeholder{color:transparent}.md-input-element::-webkit-input-placeholder{color:transparent}.md-input-element:-ms-input-placeholder{color:transparent}.md-input-placeholder{position:absolute;left:0;top:0;font-size:100%;pointer-events:none;z-index:1;width:100%;display:none;white-space:nowrap;text-overflow:ellipsis;overflow-x:hidden;transform:translateY(0);transform-origin:bottom left;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1)}.md-input-placeholder.md-empty{display:block;cursor:text}.md-input-placeholder.md-float.md-focused,.md-input-placeholder.md-float:not(.md-empty){display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}[dir=rtl] .md-input-placeholder{transform-origin:bottom right;left:auto;right:0}.md-input-underline{position:absolute;height:1px;width:100%;margin-top:4px;border-top-width:1px;border-top-style:solid}.md-input-underline.md-disabled{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;border-top:0;background-position:0}.md-input-underline .md-input-ripple{position:absolute;height:2px;z-index:1;top:-1px;width:100%;transform-origin:top;opacity:0;transform:scaleY(0);transition:transform .4s cubic-bezier(.25,.8,.25,1),opacity .4s cubic-bezier(.25,.8,.25,1)}.md-input-underline .md-input-ripple.md-focused{opacity:1;transform:scaleY(1)}.md-hint{display:block;position:absolute;font-size:75%;bottom:0}.md-hint.md-right{right:0}[dir=rtl] .md-hint{right:0;left:auto}[dir=rtl] .md-hint.md-right{right:auto;left:0}.md-input-prefix,.md-input-suffix{width:.1px;white-space:nowrap}"],
             host: {
                 // Remove align attribute to prevent it from interfering with layout.

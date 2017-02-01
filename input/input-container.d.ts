@@ -9,6 +9,7 @@ export declare class MdPlaceholder {
 /** The hint directive, used to tag content as hint labels (going under the input). */
 export declare class MdHint {
     align: 'start' | 'end';
+    id: string;
 }
 /** The input directive, used to mark the input that `MdInputContainer` is wrapping. */
 export declare class MdInputDirective {
@@ -24,6 +25,8 @@ export declare class MdInputDirective {
     private _cachedUid;
     /** Whether the element is focused or not. */
     focused: boolean;
+    /** Sets the aria-describedby attribute on the input for improved a11y. */
+    ariaDescribedby: string;
     /** Whether the element is disabled. */
     disabled: any;
     /** Unique id of the element. */
@@ -68,6 +71,7 @@ export declare class MdInputContainer implements AfterContentInit {
     /** Text for the input hint. */
     hintLabel: string;
     private _hintLabel;
+    _hintLabelId: string;
     /** Text or the floating placeholder. */
     floatingPlaceholder: boolean;
     private _floatingPlaceholder;
@@ -79,6 +83,7 @@ export declare class MdInputContainer implements AfterContentInit {
     _shouldForward(prop: string): boolean;
     /** Whether the input has a placeholder. */
     _hasPlaceholder(): boolean;
+    /** Focuses the underlying input. */
     _focusInput(): void;
     /**
      * Ensure that there is only one placeholder (either `input` attribute or child element with the
@@ -86,8 +91,17 @@ export declare class MdInputContainer implements AfterContentInit {
      */
     private _validatePlaceholders();
     /**
+     * Does any extra processing that is required when handling the hints.
+     */
+    private _processHints();
+    /**
      * Ensure that there is a maximum of one of each `<md-hint>` alignment specified, with the
      * attribute being considered as `align="start"`.
      */
     private _validateHints();
+    /**
+     * Sets the child input's `aria-describedby` to a space-separated list of the ids
+     * of the currently-specified hints, as well as a generated id for the hint label.
+     */
+    private _syncAriaDescribedby();
 }
