@@ -29,6 +29,8 @@ export declare class MdSlideToggle implements AfterContentInit, ControlValueAcce
     id: string;
     /** Used to specify the tabIndex value for the underlying input element. */
     tabIndex: number;
+    /** Whether the label should appear after or before the slide-toggle. Defaults to 'after' */
+    labelPosition: 'before' | 'after';
     /** Used to set the aria-label attribute on the underlying input element. */
     ariaLabel: string;
     /** Used to set the aria-labelledby attribute on the underlying input element. */
