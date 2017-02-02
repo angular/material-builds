@@ -56,10 +56,13 @@ export var DomPortalHost = (function (_super) {
         var _this = this;
         var viewContainer = portal.viewContainerRef;
         var viewRef = viewContainer.createEmbeddedView(portal.templateRef);
+        // The method `createEmbeddedView` will add the view as a child of the viewContainer.
+        // But for the DomPortalHost the view can be added everywhere in the DOM (e.g Overlay Container)
+        // To move the view to the specified host element. We just re-append the existing root nodes.
         viewRef.rootNodes.forEach(function (rootNode) { return _this._hostDomElement.appendChild(rootNode); });
         this.setDisposeFn((function () {
             var index = viewContainer.indexOf(viewRef);
-            if (index != -1) {
+            if (index !== -1) {
                 viewContainer.remove(index);
             }
         }));
