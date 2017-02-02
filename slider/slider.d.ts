@@ -132,6 +132,7 @@ export declare class MdSlider implements ControlValueAccessor {
     _onSlideEnd(): void;
     _onBlur(): void;
     _onKeydown(event: KeyboardEvent): void;
+    _onKeyup(): void;
     /** Increments the slider by the given number of steps (negative number decrements). */
     private _increment(numSteps);
     /** Calculate the new value from the new physical location. The value will always be snapped. */

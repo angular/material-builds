@@ -7415,11 +7415,17 @@ var MdSlider = (function () {
                 // it.
                 return;
         }
+        this._isSliding = true;
         event.preventDefault();
+    };
+    MdSlider.prototype._onKeyup = function () {
+        this._isSliding = false;
     };
     /** Increments the slider by the given number of steps (negative number decrements). */
     MdSlider.prototype._increment = function (numSteps) {
         this.value = this._clamp(this.value + this.step * numSteps, this.min, this.max);
+        this._emitInputEvent();
+        this._emitValueIfChanged();
     };
     /** Calculate the new value from the new physical location. The value will always be snapped. */
     MdSlider.prototype._updateValueFromPosition = function (pos) {
@@ -7586,6 +7592,7 @@ var MdSlider = (function () {
                 '(blur)': '_onBlur()',
                 '(click)': '_onClick($event)',
                 '(keydown)': '_onKeydown($event)',
+                '(keyup)': '_onKeyup()',
                 '(mouseenter)': '_onMouseenter()',
                 '(slide)': '_onSlide($event)',
                 '(slideend)': '_onSlideEnd()',
