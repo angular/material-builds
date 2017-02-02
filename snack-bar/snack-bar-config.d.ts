@@ -12,4 +12,6 @@ export declare class MdSnackBarConfig {
     viewContainerRef?: ViewContainerRef;
     /** The length of time in milliseconds to wait before automatically dismissing the snack bar. */
     duration?: number;
+    /** Extra CSS classes to be added to the snack bar container. */
+    extraClasses?: string[];
 }

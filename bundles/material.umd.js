@@ -11425,9 +11425,11 @@ var HIDE_ANIMATION = '195ms cubic-bezier(0.0,0.0,0.2,1)';
  */
 var MdSnackBarContainer = (function (_super) {
     __extends$16(MdSnackBarContainer, _super);
-    function MdSnackBarContainer(_ngZone) {
+    function MdSnackBarContainer(_ngZone, _renderer, _elementRef) {
         _super.call(this);
         this._ngZone = _ngZone;
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
         /** Subject for notifying that the snack bar has exited from view. */
         this.onExit = new rxjs_Subject.Subject();
         /** Subject for notifying that the snack bar has finished entering the view. */
@@ -11439,6 +11441,14 @@ var MdSnackBarContainer = (function (_super) {
     MdSnackBarContainer.prototype.attachComponentPortal = function (portal) {
         if (this._portalHost.hasAttached()) {
             throw new MdSnackBarContentAlreadyAttached();
+        }
+        if (this.snackBarConfig.extraClasses) {
+            // Not the most efficient way of adding classes, but the renderer doesn't allow us
+            // to pass in an array or a space-separated list.
+            for (var _i = 0, _a = this.snackBarConfig.extraClasses; _i < _a.length; _i++) {
+                var cssClass = _a[_i];
+                this._renderer.setElementClass(this._elementRef.nativeElement, cssClass, true);
+            }
         }
         return this._portalHost.attachComponentPortal(portal);
     };
@@ -11517,7 +11527,7 @@ var MdSnackBarContainer = (function (_super) {
                 ])
             ],
         }), 
-        __metadata$52('design:paramtypes', [_angular_core.NgZone])
+        __metadata$52('design:paramtypes', [_angular_core.NgZone, _angular_core.Renderer, _angular_core.ElementRef])
     ], MdSnackBarContainer);
     return MdSnackBarContainer;
 }(BasePortalHost));

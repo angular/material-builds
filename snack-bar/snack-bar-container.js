@@ -12,7 +12,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, ViewChild, trigger, state, style, transition, animate, NgZone } from '@angular/core';
+import { Component, ViewChild, trigger, state, style, transition, animate, NgZone, Renderer, ElementRef } from '@angular/core';
 import { BasePortalHost, PortalHostDirective } from '../core';
 import { MdSnackBarContentAlreadyAttached } from './snack-bar-errors';
 import { Subject } from 'rxjs/Subject';
@@ -26,9 +26,11 @@ export var HIDE_ANIMATION = '195ms cubic-bezier(0.0,0.0,0.2,1)';
  */
 export var MdSnackBarContainer = (function (_super) {
     __extends(MdSnackBarContainer, _super);
-    function MdSnackBarContainer(_ngZone) {
+    function MdSnackBarContainer(_ngZone, _renderer, _elementRef) {
         _super.call(this);
         this._ngZone = _ngZone;
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
         /** Subject for notifying that the snack bar has exited from view. */
         this.onExit = new Subject();
         /** Subject for notifying that the snack bar has finished entering the view. */
@@ -40,6 +42,14 @@ export var MdSnackBarContainer = (function (_super) {
     MdSnackBarContainer.prototype.attachComponentPortal = function (portal) {
         if (this._portalHost.hasAttached()) {
             throw new MdSnackBarContentAlreadyAttached();
+        }
+        if (this.snackBarConfig.extraClasses) {
+            // Not the most efficient way of adding classes, but the renderer doesn't allow us
+            // to pass in an array or a space-separated list.
+            for (var _i = 0, _a = this.snackBarConfig.extraClasses; _i < _a.length; _i++) {
+                var cssClass = _a[_i];
+                this._renderer.setElementClass(this._elementRef.nativeElement, cssClass, true);
+            }
         }
         return this._portalHost.attachComponentPortal(portal);
     };
@@ -118,7 +128,7 @@ export var MdSnackBarContainer = (function (_super) {
                 ])
             ],
         }), 
-        __metadata('design:paramtypes', [NgZone])
+        __metadata('design:paramtypes', [NgZone, Renderer, ElementRef])
     ], MdSnackBarContainer);
     return MdSnackBarContainer;
 }(BasePortalHost));
