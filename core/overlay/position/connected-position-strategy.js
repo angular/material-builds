@@ -63,6 +63,8 @@ export var ConnectedPositionStrategy = (function () {
      * @returns Resolves when the styles have been applied.
      */
     ConnectedPositionStrategy.prototype.apply = function (element) {
+        // Cache the overlay pane element in case re-calculating position is necessary
+        this._pane = element;
         // We need the bounding rects for the origin and the overlay to determine how to position
         // the overlay relative to the origin.
         var originRect = this._origin.getBoundingClientRect();
@@ -82,6 +84,8 @@ export var ConnectedPositionStrategy = (function () {
             // If the overlay in the calculated position fits on-screen, put it there and we're done.
             if (overlayPoint.fitsInViewport) {
                 this._setElementPosition(element, overlayPoint);
+                // Save the last connected position in case the position needs to be re-calculated.
+                this._lastConnectedPosition = pos;
                 // Notify that the position has been changed along with its change properties.
                 var scrollableViewProperties = this.getScrollableViewProperties(element);
                 var positionChange = new ConnectedOverlayPositionChange(pos, scrollableViewProperties);
@@ -96,6 +100,19 @@ export var ConnectedPositionStrategy = (function () {
         // with the largest visible area.
         this._setElementPosition(element, fallbackPoint);
         return Promise.resolve(null);
+    };
+    /**
+     * This re-aligns the overlay element with the trigger in its last calculated position,
+     * even if a position higher in the "preferred positions" list would now fit. This
+     * allows one to re-align the panel without changing the orientation of the panel.
+     */
+    ConnectedPositionStrategy.prototype.recalculateLastPosition = function () {
+        var originRect = this._origin.getBoundingClientRect();
+        var overlayRect = this._pane.getBoundingClientRect();
+        var viewportRect = this._viewportRuler.getViewportRect();
+        var originPoint = this._getOriginConnectionPoint(originRect, this._lastConnectedPosition);
+        var overlayPoint = this._getOverlayPoint(originPoint, overlayRect, viewportRect, this._lastConnectedPosition);
+        this._setElementPosition(this._pane, overlayPoint);
     };
     /**
      * Sets the list of Scrollable containers that host the origin element so that

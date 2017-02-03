@@ -23,9 +23,9 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.OpaqueToken('md-compatibility-mode');
 /** Selector that matches all elements that may have style collisions with AngularJS Material. */
-var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-dialog-actions],\n  [mat-dialog-close],\n  [mat-dialog-content],\n  [mat-dialog-title],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [mat-tab-label],\n  [mat-tab-link],\n  [mat-tab-nav-bar],\n  mat-autocomplete,\n  mat-button-toggle-group,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-hint,\n  mat-icon,\n  mat-ink-bar,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-progress-circle,\n  mat-radio-button,\n  mat-radio-group,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-tab,\n  mat-tab-group,\n  mat-toolbar,\n  matTooltip";
+var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-dialog-actions],\n  [mat-dialog-close],\n  [mat-dialog-content],\n  [mat-dialog-title],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [mat-tab-label],\n  [mat-tab-link],\n  [mat-tab-nav-bar],\n  mat-autocomplete,\n  mat-button-toggle-group,\n  mat-button-toggle,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-hint,\n  mat-icon,\n  mat-ink-bar,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-progress-circle,\n  mat-radio-button,\n  mat-radio-group,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-tab,\n  mat-tab-group,\n  mat-toolbar,\n  matTooltip";
 /** Selector that matches all elements that may have style collisions with AngularJS Material. */
-var MD_ELEMENTS_SELECTOR = "  \n  [md-button],\n  [md-dialog-actions],\n  [md-dialog-close],\n  [md-dialog-content],\n  [md-dialog-title],\n  [md-fab],\n  [md-icon-button],\n  [md-mini-fab],\n  [md-raised-button],\n  [md-tab-label],\n  [md-tab-link],\n  [md-tab-nav-bar],\n  md-autocomplete,\n  md-button-toggle-group,\n  md-card,\n  md-card-actions,\n  md-card-content,\n  md-card-footer,\n  md-card-header,\n  md-card-subtitle,\n  md-card-title,\n  md-card-title-group,\n  md-checkbox,\n  md-chip,\n  md-dialog-actions,\n  md-dialog-container,\n  md-dialog-content,\n  md-divider,\n  md-grid-list,\n  md-grid-tile,\n  md-grid-tile-footer,\n  md-grid-tile-header,\n  md-hint,\n  md-icon,\n  md-ink-bar,\n  md-list,\n  md-list-item,\n  md-menu,\n  md-nav-list,\n  md-option,\n  md-placeholder,\n  md-progress-bar,\n  md-progress-circle,\n  md-radio-button,\n  md-radio-group,\n  md-select,\n  md-sidenav,\n  md-sidenav-container,\n  md-slider,\n  md-spinner,\n  md-tab,\n  md-tab-group,\n  md-toolbar,\n  mdTooltip";
+var MD_ELEMENTS_SELECTOR = "  \n  [md-button],\n  [md-dialog-actions],\n  [md-dialog-close],\n  [md-dialog-content],\n  [md-dialog-title],\n  [md-fab],\n  [md-icon-button],\n  [md-mini-fab],\n  [md-raised-button],\n  [md-tab-label],\n  [md-tab-link],\n  [md-tab-nav-bar],\n  md-autocomplete,\n  md-button-toggle-group,\n  md-button-toggle,\n  md-card,\n  md-card-actions,\n  md-card-content,\n  md-card-footer,\n  md-card-header,\n  md-card-subtitle,\n  md-card-title,\n  md-card-title-group,\n  md-checkbox,\n  md-chip,\n  md-dialog-actions,\n  md-dialog-container,\n  md-dialog-content,\n  md-divider,\n  md-grid-list,\n  md-grid-tile,\n  md-grid-tile-footer,\n  md-grid-tile-header,\n  md-hint,\n  md-icon,\n  md-ink-bar,\n  md-list,\n  md-list-item,\n  md-menu,\n  md-nav-list,\n  md-option,\n  md-placeholder,\n  md-progress-bar,\n  md-progress-circle,\n  md-radio-button,\n  md-radio-group,\n  md-select,\n  md-sidenav,\n  md-sidenav-container,\n  md-slider,\n  md-spinner,\n  md-tab,\n  md-tab-group,\n  md-toolbar,\n  mdTooltip";
 /** Directive that enforces that the `mat-` prefix cannot be used. */
 var MatPrefixRejector = (function () {
     function MatPrefixRejector(isCompatibilityMode) {
@@ -1022,6 +1022,7 @@ var MdOption = (function () {
         this._element = _element;
         this._renderer = _renderer;
         this._selected = false;
+        this._active = false;
         /** Whether the option is disabled.  */
         this._disabled = false;
         this._id = "md-option-" + _uniqueIdCounter++;
@@ -1045,6 +1046,19 @@ var MdOption = (function () {
         /** Whether or not the option is currently selected. */
         get: function () {
             return this._selected;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdOption.prototype, "active", {
+        /**
+         * Whether or not the option is currently active and ready to be selected.
+         * An active option displays styles as if it is focused, but the
+         * focus is actually retained somewhere else. This comes in handy
+         * for components like autocomplete where focus must remain on the input.
+         */
+        get: function () {
+            return this._active;
         },
         enumerable: true,
         configurable: true
@@ -1073,6 +1087,24 @@ var MdOption = (function () {
     /** Sets focus onto this option. */
     MdOption.prototype.focus = function () {
         this._renderer.invokeElementMethod(this._getHostElement(), 'focus');
+    };
+    /**
+     * This method sets display styles on the option to make it appear
+     * active. This is used by the ActiveDescendantKeyManager so key
+     * events will display the proper options as active on arrow key events.
+     */
+    MdOption.prototype.setActiveStyles = function () {
+        var _this = this;
+        Promise.resolve(null).then(function () { return _this._active = true; });
+    };
+    /**
+     * This method removes display styles on the option that made it appear
+     * active. This is used by the ActiveDescendantKeyManager so key
+     * events will display the proper options as active on arrow key events.
+     */
+    MdOption.prototype.setInactiveStyles = function () {
+        var _this = this;
+        Promise.resolve(null).then(function () { return _this._active = false; });
     };
     /** Ensures the option is selected when activated from the keyboard. */
     MdOption.prototype._handleKeydown = function (event) {
@@ -1115,6 +1147,7 @@ var MdOption = (function () {
                 'role': 'option',
                 '[attr.tabindex]': '_getTabIndex()',
                 '[class.md-selected]': 'selected',
+                '[class.md-active]': 'active',
                 '[id]': 'id',
                 '[attr.aria-selected]': 'selected.toString()',
                 '[attr.aria-disabled]': 'disabled.toString()',
@@ -1932,6 +1965,8 @@ var ConnectedPositionStrategy = (function () {
      * @returns Resolves when the styles have been applied.
      */
     ConnectedPositionStrategy.prototype.apply = function (element) {
+        // Cache the overlay pane element in case re-calculating position is necessary
+        this._pane = element;
         // We need the bounding rects for the origin and the overlay to determine how to position
         // the overlay relative to the origin.
         var originRect = this._origin.getBoundingClientRect();
@@ -1951,6 +1986,8 @@ var ConnectedPositionStrategy = (function () {
             // If the overlay in the calculated position fits on-screen, put it there and we're done.
             if (overlayPoint.fitsInViewport) {
                 this._setElementPosition(element, overlayPoint);
+                // Save the last connected position in case the position needs to be re-calculated.
+                this._lastConnectedPosition = pos;
                 // Notify that the position has been changed along with its change properties.
                 var scrollableViewProperties = this.getScrollableViewProperties(element);
                 var positionChange = new ConnectedOverlayPositionChange(pos, scrollableViewProperties);
@@ -1965,6 +2002,19 @@ var ConnectedPositionStrategy = (function () {
         // with the largest visible area.
         this._setElementPosition(element, fallbackPoint);
         return Promise.resolve(null);
+    };
+    /**
+     * This re-aligns the overlay element with the trigger in its last calculated position,
+     * even if a position higher in the "preferred positions" list would now fit. This
+     * allows one to re-align the panel without changing the orientation of the panel.
+     */
+    ConnectedPositionStrategy.prototype.recalculateLastPosition = function () {
+        var originRect = this._origin.getBoundingClientRect();
+        var overlayRect = this._pane.getBoundingClientRect();
+        var viewportRect = this._viewportRuler.getViewportRect();
+        var originPoint = this._getOriginConnectionPoint(originRect, this._lastConnectedPosition);
+        var overlayPoint = this._getOverlayPoint(originPoint, overlayRect, viewportRect, this._lastConnectedPosition);
+        this._setElementPosition(this._pane, overlayPoint);
     };
     /**
      * Sets the list of Scrollable containers that host the origin element so that
@@ -4486,7 +4536,7 @@ var MdButtonToggle = (function () {
         __metadata$29('design:type', Boolean)
     ], MdButtonToggle.prototype, "disabled", null);
     MdButtonToggle = __decorate$29([
-        _angular_core.Component({selector: 'md-button-toggle',
+        _angular_core.Component({selector: 'md-button-toggle, mat-button-toggle',
             template: "<label [attr.for]=\"inputId\" class=\"md-button-toggle-label\"><input #input class=\"md-button-toggle-input cdk-visually-hidden\" [type]=\"_type\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"md-button-toggle-label-content\"><ng-content></ng-content></div></label>",
             styles: ["md-button-toggle-group{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap}.md-button-toggle-vertical{flex-direction:column}.md-button-toggle-vertical .md-button-toggle-label-content{display:block}.md-button-toggle-disabled .md-button-toggle-label-content{cursor:default}md-button-toggle{white-space:nowrap;font-family:Roboto,\"Helvetica Neue\",sans-serif}.md-button-toggle-label-content{display:inline-block;line-height:36px;padding:0 16px;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.md-button-toggle-label-content>*{vertical-align:middle}"],
             encapsulation: _angular_core.ViewEncapsulation.None,
@@ -5793,11 +5843,12 @@ var ListKeyManager = (function () {
     };
     /** Sets the active item to the next enabled item in the list. */
     ListKeyManager.prototype.setNextItemActive = function () {
-        this._setActiveItemByDelta(1);
+        this._activeItemIndex === null ? this.setFirstItemActive() : this._setActiveItemByDelta(1);
     };
     /** Sets the active item to a previous enabled item in the list. */
     ListKeyManager.prototype.setPreviousItemActive = function () {
-        this._setActiveItemByDelta(-1);
+        this._activeItemIndex === null && this._wrap ? this.setLastItemActive()
+            : this._setActiveItemByDelta(-1);
     };
     /**
      * Allows setting of the activeItemIndex without any other effects.
@@ -11000,8 +11051,21 @@ var MdInputContainer = (function () {
         this._hintLabel = '';
         // Unique id for the hint label.
         this._hintLabelId = "md-input-hint-" + nextUniqueId$1++;
-        this._floatingPlaceholder = true;
+        this._floatPlaceholder = 'auto';
     }
+    Object.defineProperty(MdInputContainer.prototype, "_shouldAlwaysFloat", {
+        /** Whether the floating label should always float or not. */
+        get: function () { return this._floatPlaceholder === 'always'; },
+        enumerable: true,
+        configurable: true
+    });
+    
+    Object.defineProperty(MdInputContainer.prototype, "_canPlaceholderFloat", {
+        /** Whether the placeholder can float or not. */
+        get: function () { return this._floatPlaceholder !== 'never'; },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MdInputContainer.prototype, "hintLabel", {
         /** Text for the input hint. */
         get: function () { return this._hintLabel; },
@@ -11012,10 +11076,12 @@ var MdInputContainer = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdInputContainer.prototype, "floatingPlaceholder", {
-        /** Text or the floating placeholder. */
-        get: function () { return this._floatingPlaceholder; },
-        set: function (value) { this._floatingPlaceholder = coerceBooleanProperty(value); },
+    Object.defineProperty(MdInputContainer.prototype, "floatPlaceholder", {
+        /** Whether the placeholder should always float, never float or float as the user types. */
+        get: function () { return this._floatPlaceholder; },
+        set: function (value) {
+            this._floatPlaceholder = value || 'auto';
+        },
         enumerable: true,
         configurable: true
     });
@@ -11115,8 +11181,8 @@ var MdInputContainer = (function () {
     ], MdInputContainer.prototype, "hintLabel", null);
     __decorate$49([
         _angular_core.Input(), 
-        __metadata$49('design:type', Boolean)
-    ], MdInputContainer.prototype, "floatingPlaceholder", null);
+        __metadata$49('design:type', Object)
+    ], MdInputContainer.prototype, "floatPlaceholder", null);
     __decorate$49([
         _angular_core.ContentChild(MdInputDirective), 
         __metadata$49('design:type', MdInputDirective)
@@ -11131,7 +11197,7 @@ var MdInputContainer = (function () {
     ], MdInputContainer.prototype, "_hintChildren", void 0);
     MdInputContainer = __decorate$49([
         _angular_core.Component({selector: 'md-input-container, mat-input-container',
-            template: "<div class=\"md-input-wrapper\"><div class=\"md-input-table\"><div class=\"md-input-prefix\"><ng-content select=\"[mdPrefix], [md-prefix]\"></ng-content></div><div class=\"md-input-infix\" [class.md-end]=\"align == 'end'\"><ng-content selector=\"input, textarea\"></ng-content><label class=\"md-input-placeholder\" [attr.for]=\"_mdInputChild.id\" [class.md-empty]=\"_mdInputChild.empty\" [class.md-focused]=\"_mdInputChild.focused\" [class.md-float]=\"floatingPlaceholder\" [class.md-accent]=\"dividerColor == 'accent'\" [class.md-warn]=\"dividerColor == 'warn'\" *ngIf=\"_hasPlaceholder()\"><ng-content select=\"md-placeholder\"></ng-content>{{_mdInputChild.placeholder}} <span class=\"md-placeholder-required\" *ngIf=\"_mdInputChild.required\">*</span></label></div><div class=\"md-input-suffix\"><ng-content select=\"[mdSuffix], [md-suffix]\"></ng-content></div></div><div class=\"md-input-underline\" [class.md-disabled]=\"_mdInputChild.disabled\"><span class=\"md-input-ripple\" [class.md-focused]=\"_mdInputChild.focused\" [class.md-accent]=\"dividerColor == 'accent'\" [class.md-warn]=\"dividerColor == 'warn'\"></span></div><div *ngIf=\"hintLabel != ''\" [attr.id]=\"_hintLabelId\" class=\"md-hint\">{{hintLabel}}</div><ng-content select=\"md-hint\"></ng-content></div>",
+            template: "<div class=\"md-input-wrapper\"><div class=\"md-input-table\"><div class=\"md-input-prefix\"><ng-content select=\"[mdPrefix], [md-prefix]\"></ng-content></div><div class=\"md-input-infix\" [class.md-end]=\"align == 'end'\"><ng-content selector=\"input, textarea\"></ng-content><label class=\"md-input-placeholder\" [attr.for]=\"_mdInputChild.id\" [class.md-empty]=\"_mdInputChild.empty && !_shouldAlwaysFloat\" [class.md-focused]=\"_mdInputChild.focused\" [class.md-float]=\"_canPlaceholderFloat\" [class.md-accent]=\"dividerColor == 'accent'\" [class.md-warn]=\"dividerColor == 'warn'\" *ngIf=\"_hasPlaceholder()\"><ng-content select=\"md-placeholder\"></ng-content>{{_mdInputChild.placeholder}} <span class=\"md-placeholder-required\" *ngIf=\"_mdInputChild.required\">*</span></label></div><div class=\"md-input-suffix\"><ng-content select=\"[mdSuffix], [md-suffix]\"></ng-content></div></div><div class=\"md-input-underline\" [class.md-disabled]=\"_mdInputChild.disabled\"><span class=\"md-input-ripple\" [class.md-focused]=\"_mdInputChild.focused\" [class.md-accent]=\"dividerColor == 'accent'\" [class.md-warn]=\"dividerColor == 'warn'\"></span></div><div *ngIf=\"hintLabel != ''\" [attr.id]=\"_hintLabelId\" class=\"md-hint\">{{hintLabel}}</div><ng-content select=\"md-hint\"></ng-content></div>",
             styles: ["md-input-container{display:inline-block;position:relative;font-family:Roboto,\"Helvetica Neue\",sans-serif;line-height:normal;text-align:left}.md-end .md-input-element,[dir=rtl] md-input-container{text-align:right}.md-input-wrapper{margin:1em 0;padding-bottom:6px}.md-input-table{display:inline-table;flex-flow:column;vertical-align:bottom;width:100%}.md-input-table>*{display:table-cell}.md-input-infix{position:relative}.md-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;width:100%}[dir=rtl] .md-end .md-input-element{text-align:left}.md-input-element:-moz-ui-invalid{box-shadow:none}.md-input-element:-webkit-autofill+.md-input-placeholder.md-float{display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}.md-input-element::placeholder{color:transparent}.md-input-element::-moz-placeholder{color:transparent}.md-input-element::-webkit-input-placeholder{color:transparent}.md-input-element:-ms-input-placeholder{color:transparent}.md-input-placeholder{position:absolute;left:0;top:0;font-size:100%;pointer-events:none;z-index:1;width:100%;display:none;white-space:nowrap;text-overflow:ellipsis;overflow-x:hidden;transform:translateY(0);transform-origin:bottom left;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1)}.md-input-placeholder.md-empty{display:block;cursor:text}.md-input-placeholder.md-float.md-focused,.md-input-placeholder.md-float:not(.md-empty){display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}[dir=rtl] .md-input-placeholder{transform-origin:bottom right;left:auto;right:0}.md-input-underline{position:absolute;height:1px;width:100%;margin-top:4px;border-top-width:1px;border-top-style:solid}.md-input-underline.md-disabled{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;border-top:0;background-position:0}.md-input-underline .md-input-ripple{position:absolute;height:2px;z-index:1;top:-1px;width:100%;transform-origin:top;opacity:0;transform:scaleY(0);transition:transform .4s cubic-bezier(.25,.8,.25,1),opacity .4s cubic-bezier(.25,.8,.25,1)}.md-input-underline .md-input-ripple.md-focused{opacity:1;transform:scaleY(1)}.md-hint{display:block;position:absolute;font-size:75%;bottom:0}.md-hint.md-right{right:0}[dir=rtl] .md-hint{right:0;left:auto}[dir=rtl] .md-hint.md-right{right:auto;left:0}.md-input-prefix,.md-input-suffix{width:.1px;white-space:nowrap}"],
             host: {
                 // Remove align attribute to prevent it from interfering with layout.
@@ -14453,21 +14519,54 @@ var __decorate$73 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$73 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+/**
+ * Autocomplete IDs need to be unique across components, so this counter exists outside of
+ * the component definition.
+ */
+var _uniqueAutocompleteIdCounter = 0;
 var MdAutocomplete = (function () {
     function MdAutocomplete() {
+        /** Whether the autocomplete panel displays above or below its trigger. */
+        this.positionY = 'below';
+        /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
+        this.id = "md-autocomplete-" + _uniqueAutocompleteIdCounter++;
     }
+    /**
+     * Sets the panel scrollTop. This allows us to manually scroll to display
+     * options below the fold, as they are not actually being focused when active.
+     */
+    MdAutocomplete.prototype._setScrollTop = function (scrollTop) {
+        if (this.panel) {
+            this.panel.nativeElement.scrollTop = scrollTop;
+        }
+    };
+    /** Sets a class on the panel based on its position (used to set y-offset). */
+    MdAutocomplete.prototype._getPositionClass = function () {
+        return {
+            'md-autocomplete-panel-below': this.positionY === 'below',
+            'md-autocomplete-panel-above': this.positionY === 'above'
+        };
+    };
     __decorate$73([
         _angular_core.ViewChild(_angular_core.TemplateRef), 
         __metadata$73('design:type', _angular_core.TemplateRef)
     ], MdAutocomplete.prototype, "template", void 0);
     __decorate$73([
+        _angular_core.ViewChild('panel'), 
+        __metadata$73('design:type', _angular_core.ElementRef)
+    ], MdAutocomplete.prototype, "panel", void 0);
+    __decorate$73([
         _angular_core.ContentChildren(MdOption), 
         __metadata$73('design:type', _angular_core.QueryList)
     ], MdAutocomplete.prototype, "options", void 0);
+    __decorate$73([
+        _angular_core.Input(), 
+        __metadata$73('design:type', Function)
+    ], MdAutocomplete.prototype, "displayWith", void 0);
     MdAutocomplete = __decorate$73([
         _angular_core.Component({selector: 'md-autocomplete, mat-autocomplete',
-            template: "<template><div class=\"md-autocomplete-panel\"><ng-content></ng-content></div></template>",
-            styles: [".md-autocomplete-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch}"],
+            template: "<template><div class=\"md-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_getPositionClass()\" #panel><ng-content></ng-content></div></template>",
+            styles: [".md-autocomplete-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:256px;position:relative}.md-autocomplete-panel.md-autocomplete-panel-below{top:6px}.md-autocomplete-panel.md-autocomplete-panel-above{top:-24px}"],
             encapsulation: _angular_core.ViewEncapsulation.None,
             exportAs: 'mdAutocomplete'
         }), 
@@ -14475,6 +14574,33 @@ var MdAutocomplete = (function () {
     ], MdAutocomplete);
     return MdAutocomplete;
 }());
+
+var __extends$24 = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var ActiveDescendantKeyManager = (function (_super) {
+    __extends$24(ActiveDescendantKeyManager, _super);
+    function ActiveDescendantKeyManager(items) {
+        _super.call(this, items);
+    }
+    /**
+     * This method sets the active item to the item at the specified index.
+     * It also adds active styles to the newly active item and removes active
+     * styles from the previously active item.
+     */
+    ActiveDescendantKeyManager.prototype.setActiveItem = function (index) {
+        if (this.activeItem) {
+            this.activeItem.setInactiveStyles();
+        }
+        _super.prototype.setActiveItem.call(this, index);
+        if (this.activeItem) {
+            this.activeItem.setActiveStyles();
+        }
+    };
+    return ActiveDescendantKeyManager;
+}(ListKeyManager));
 
 var __decorate$74 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -14488,18 +14614,47 @@ var __metadata$74 = (this && this.__metadata) || function (k, v) {
 var __param$18 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-/** The panel needs a slight y-offset to ensure the input underline displays. */
-var MD_AUTOCOMPLETE_PANEL_OFFSET = 6;
+/**
+ * The following style constants are necessary to save here in order
+ * to properly calculate the scrollTop of the panel. Because we are not
+ * actually focusing the active item, scroll must be handled manually.
+ */
+/** The height of each autocomplete option. */
+var AUTOCOMPLETE_OPTION_HEIGHT = 48;
+/** The total height of the autocomplete panel. */
+var AUTOCOMPLETE_PANEL_HEIGHT = 256;
+/**
+ * Provider that allows the autocomplete to register as a ControlValueAccessor.
+ * @docs-private
+ */
+var MD_AUTOCOMPLETE_VALUE_ACCESSOR = {
+    provide: _angular_forms.NG_VALUE_ACCESSOR,
+    useExisting: _angular_core.forwardRef(function () { return MdAutocompleteTrigger; }),
+    multi: true
+};
 var MdAutocompleteTrigger = (function () {
-    function MdAutocompleteTrigger(_element, _overlay, _viewContainerRef, _controlDir, _dir) {
+    function MdAutocompleteTrigger(_element, _overlay, _viewContainerRef, _dir, _zone, _inputContainer) {
         this._element = _element;
         this._overlay = _overlay;
         this._viewContainerRef = _viewContainerRef;
-        this._controlDir = _controlDir;
         this._dir = _dir;
+        this._zone = _zone;
+        this._inputContainer = _inputContainer;
         this._panelOpen = false;
+        /** Stream of blur events that should close the panel. */
+        this._blurStream = new rxjs_Subject.Subject();
+        /** View -> model callback called when autocomplete has been touched */
+        this._onTouched = function () { };
     }
-    MdAutocompleteTrigger.prototype.ngOnDestroy = function () { this._destroyPanel(); };
+    MdAutocompleteTrigger.prototype.ngAfterContentInit = function () {
+        this._keyManager = new ActiveDescendantKeyManager(this.autocomplete.options).withWrap();
+    };
+    MdAutocompleteTrigger.prototype.ngOnDestroy = function () {
+        if (this._panelPositionSubscription) {
+            this._panelPositionSubscription.unsubscribe();
+        }
+        this._destroyPanel();
+    };
     Object.defineProperty(MdAutocompleteTrigger.prototype, "panelOpen", {
         /* Whether or not the autocomplete panel is open. */
         get: function () {
@@ -14518,6 +14673,7 @@ var MdAutocompleteTrigger = (function () {
             this._subscribeToClosingActions();
         }
         this._panelOpen = true;
+        this._floatPlaceholder('always');
     };
     /** Closes the autocomplete suggestion panel. */
     MdAutocompleteTrigger.prototype.closePanel = function () {
@@ -14525,15 +14681,15 @@ var MdAutocompleteTrigger = (function () {
             this._overlayRef.detach();
         }
         this._panelOpen = false;
+        this._floatPlaceholder('auto');
     };
     Object.defineProperty(MdAutocompleteTrigger.prototype, "panelClosingActions", {
         /**
          * A stream of actions that should close the autocomplete panel, including
-         * when an option is selected and when the backdrop is clicked.
+         * when an option is selected, on blur, and when TAB is pressed.
          */
         get: function () {
-            // TODO(kara): add tab event observable with keyboard event PR
-            return rxjs_Observable.Observable.merge.apply(rxjs_Observable.Observable, this.optionSelections.concat([this._overlayRef.backdropClick()]));
+            return rxjs_Observable.Observable.merge.apply(rxjs_Observable.Observable, this.optionSelections.concat([this._blurStream.asObservable(), this._keyManager.tabOut]));
         },
         enumerable: true,
         configurable: true
@@ -14546,18 +14702,114 @@ var MdAutocompleteTrigger = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdAutocompleteTrigger.prototype, "activeOption", {
+        /** The currently active option, coerced to MdOption type. */
+        get: function () {
+            return this._keyManager.activeItem;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Sets the autocomplete's value. Part of the ControlValueAccessor interface
+     * required to integrate with Angular's core forms API.
+     *
+     * @param value New value to be written to the model.
+     */
+    MdAutocompleteTrigger.prototype.writeValue = function (value) {
+        var _this = this;
+        Promise.resolve(null).then(function () { return _this._setTriggerValue(value); });
+    };
+    /**
+     * Saves a callback function to be invoked when the autocomplete's value
+     * changes from user input. Part of the ControlValueAccessor interface
+     * required to integrate with Angular's core forms API.
+     *
+     * @param fn Callback to be triggered when the value changes.
+     */
+    MdAutocompleteTrigger.prototype.registerOnChange = function (fn) {
+        this._onChange = fn;
+    };
+    /**
+     * Saves a callback function to be invoked when the autocomplete is blurred
+     * by the user. Part of the ControlValueAccessor interface required
+     * to integrate with Angular's core forms API.
+     *
+     * @param fn Callback to be triggered when the component has been touched.
+     */
+    MdAutocompleteTrigger.prototype.registerOnTouched = function (fn) {
+        this._onTouched = fn;
+    };
+    MdAutocompleteTrigger.prototype._handleKeydown = function (event) {
+        if (this.activeOption && event.keyCode === ENTER) {
+            this.activeOption._selectViaInteraction();
+        }
+        else {
+            this._keyManager.onKeydown(event);
+            if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
+                this.openPanel();
+                this._scrollToOption();
+            }
+        }
+    };
+    MdAutocompleteTrigger.prototype._handleInput = function (value) {
+        this._onChange(value);
+        this.openPanel();
+    };
+    MdAutocompleteTrigger.prototype._handleBlur = function (newlyFocusedTag) {
+        this._onTouched();
+        // Only emit blur event if the new focus is *not* on an option.
+        if (newlyFocusedTag !== 'MD-OPTION') {
+            this._blurStream.next(null);
+        }
+    };
+    /**
+     * In "auto" mode, the placeholder will animate down as soon as focus is lost.
+     * This causes the value to jump when selecting an option with the mouse.
+     * This method manually floats the placeholder until the panel can be closed.
+     */
+    MdAutocompleteTrigger.prototype._floatPlaceholder = function (state$$1) {
+        if (this._inputContainer) {
+            this._inputContainer.floatPlaceholder = state$$1;
+        }
+    };
+    /**
+     * Given that we are not actually focusing active options, we must manually adjust scroll
+     * to reveal options below the fold. First, we find the offset of the option from the top
+     * of the panel. The new scrollTop will be that offset - the panel height + the option
+     * height, so the active option will be just visible at the bottom of the panel.
+     */
+    MdAutocompleteTrigger.prototype._scrollToOption = function () {
+        var optionOffset = this._keyManager.activeItemIndex * AUTOCOMPLETE_OPTION_HEIGHT;
+        var newScrollTop = Math.max(0, optionOffset - AUTOCOMPLETE_PANEL_HEIGHT + AUTOCOMPLETE_OPTION_HEIGHT);
+        this.autocomplete._setScrollTop(newScrollTop);
+    };
     /**
      * This method listens to a stream of panel closing actions and resets the
      * stream every time the option list changes.
      */
     MdAutocompleteTrigger.prototype._subscribeToClosingActions = function () {
         var _this = this;
-        // Every time the option list changes...
-        this.autocomplete.options.changes
-            .startWith(null)
-            .switchMap(function () { return _this.panelClosingActions; })
+        var initialOptions = this._getStableOptions();
+        // When the zone is stable initially, and when the option list changes...
+        rxjs_Observable.Observable.merge(initialOptions, this.autocomplete.options.changes)
+            .switchMap(function (options) {
+            _this._resetPanel();
+            // If the options list is empty, emit close event immediately.
+            // Otherwise, listen for panel closing actions...
+            return options.length ? _this.panelClosingActions : rxjs_Observable.Observable.of(null);
+        })
             .first()
             .subscribe(function (event) { return _this._setValueAndClose(event); });
+    };
+    /**
+     * Retrieves the option list once the zone stabilizes. It's important to wait until
+     * stable so that change detection can run first and update the query list
+     * with the options available under the current filter.
+     */
+    MdAutocompleteTrigger.prototype._getStableOptions = function () {
+        var _this = this;
+        return this._zone.onStable.first().map(function () { return _this.autocomplete.options; });
     };
     /** Destroys the autocomplete suggestion panel. */
     MdAutocompleteTrigger.prototype._destroyPanel = function () {
@@ -14567,6 +14819,10 @@ var MdAutocompleteTrigger = (function () {
             this._overlayRef = null;
         }
     };
+    MdAutocompleteTrigger.prototype._setTriggerValue = function (value) {
+        this._element.nativeElement.value =
+            this.autocomplete.displayWith ? this.autocomplete.displayWith(value) : value;
+    };
     /**
     * This method closes the panel, and if a value is specified, also sets the associated
     * control to that value. It will also mark the control as dirty if this interaction
@@ -14574,10 +14830,8 @@ var MdAutocompleteTrigger = (function () {
     */
     MdAutocompleteTrigger.prototype._setValueAndClose = function (event) {
         if (event) {
-            this._controlDir.control.setValue(event.source.value);
-            if (event.isUserInput) {
-                this._controlDir.control.markAsDirty();
-            }
+            this._setTriggerValue(event.source.value);
+            this._onChange(event.source.value);
         }
         this.closePanel();
     };
@@ -14589,18 +14843,40 @@ var MdAutocompleteTrigger = (function () {
         var overlayState = new OverlayState();
         overlayState.positionStrategy = this._getOverlayPosition();
         overlayState.width = this._getHostWidth();
-        overlayState.hasBackdrop = true;
-        overlayState.backdropClass = 'md-overlay-transparent-backdrop';
         overlayState.direction = this._dir ? this._dir.value : 'ltr';
         return overlayState;
     };
     MdAutocompleteTrigger.prototype._getOverlayPosition = function () {
-        return this._overlay.position().connectedTo(this._element, { originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' })
-            .withOffsetY(MD_AUTOCOMPLETE_PANEL_OFFSET);
+        this._positionStrategy = this._overlay.position().connectedTo(this._element, { originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' })
+            .withFallbackPosition({ originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' });
+        this._subscribeToPositionChanges(this._positionStrategy);
+        return this._positionStrategy;
+    };
+    /**
+     * This method subscribes to position changes in the autocomplete panel, so the panel's
+     * y-offset can be adjusted to match the new position.
+     */
+    MdAutocompleteTrigger.prototype._subscribeToPositionChanges = function (strategy) {
+        var _this = this;
+        this._panelPositionSubscription = strategy.onPositionChange.subscribe(function (change) {
+            _this.autocomplete.positionY = change.connectionPair.originY === 'top' ? 'above' : 'below';
+        });
     };
     /** Returns the width of the input element, so the panel width can match it. */
     MdAutocompleteTrigger.prototype._getHostWidth = function () {
         return this._element.nativeElement.getBoundingClientRect().width;
+    };
+    /** Reset active item to null so arrow events will activate the correct options.*/
+    MdAutocompleteTrigger.prototype._resetActiveItem = function () {
+        this._keyManager.setActiveItem(null);
+    };
+    /**
+     * Resets the active item and re-calculates alignment of the panel in case its size
+     * has changed due to fewer or greater number of options.
+     */
+    MdAutocompleteTrigger.prototype._resetPanel = function () {
+        this._resetActiveItem();
+        this._positionStrategy.recalculateLastPosition();
     };
     __decorate$74([
         _angular_core.Input('mdAutocomplete'), 
@@ -14610,12 +14886,24 @@ var MdAutocompleteTrigger = (function () {
         _angular_core.Directive({
             selector: 'input[mdAutocomplete], input[matAutocomplete]',
             host: {
-                '(focus)': 'openPanel()'
-            }
+                'role': 'combobox',
+                'autocomplete': 'off',
+                'aria-autocomplete': 'list',
+                'aria-multiline': 'false',
+                '[attr.aria-activedescendant]': 'activeOption?.id',
+                '[attr.aria-expanded]': 'panelOpen.toString()',
+                '[attr.aria-owns]': 'autocomplete?.id',
+                '(focus)': 'openPanel()',
+                '(blur)': '_handleBlur($event.relatedTarget?.tagName)',
+                '(input)': '_handleInput($event.target.value)',
+                '(keydown)': '_handleKeydown($event)',
+            },
+            providers: [MD_AUTOCOMPLETE_VALUE_ACCESSOR]
         }),
         __param$18(3, _angular_core.Optional()),
-        __param$18(4, _angular_core.Optional()), 
-        __metadata$74('design:paramtypes', [_angular_core.ElementRef, Overlay, _angular_core.ViewContainerRef, _angular_forms.NgControl, Dir])
+        __param$18(5, _angular_core.Optional()),
+        __param$18(5, _angular_core.Host()), 
+        __metadata$74('design:paramtypes', [_angular_core.ElementRef, Overlay, _angular_core.ViewContainerRef, Dir, _angular_core.NgZone, MdInputContainer])
     ], MdAutocompleteTrigger);
     return MdAutocompleteTrigger;
 }());
@@ -14641,7 +14929,7 @@ var MdAutocompleteModule = (function () {
     };
     MdAutocompleteModule = __decorate$72([
         _angular_core.NgModule({
-            imports: [MdOptionModule, OverlayModule, CompatibilityModule],
+            imports: [MdOptionModule, OverlayModule, CompatibilityModule, _angular_common.CommonModule],
             exports: [MdAutocomplete, MdOptionModule, MdAutocompleteTrigger, CompatibilityModule],
             declarations: [MdAutocomplete, MdAutocompleteTrigger],
         }), 

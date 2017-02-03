@@ -1,5 +1,7 @@
 import { AfterContentInit, ElementRef, QueryList, EventEmitter, Renderer } from '@angular/core';
 import { NgControl } from '@angular/forms';
+/** Type for the available floatPlaceholder values. */
+export declare type FloatPlaceholderType = 'always' | 'never' | 'auto';
 /**
  * The placeholder directive. The content can declare this to implement more
  * complex placeholders.
@@ -68,13 +70,17 @@ export declare class MdInputContainer implements AfterContentInit {
     align: 'start' | 'end';
     /** Color of the input divider, based on the theme. */
     dividerColor: 'primary' | 'accent' | 'warn';
+    /** Whether the floating label should always float or not. */
+    readonly _shouldAlwaysFloat: boolean;
+    /** Whether the placeholder can float or not. */
+    readonly _canPlaceholderFloat: boolean;
     /** Text for the input hint. */
     hintLabel: string;
     private _hintLabel;
     _hintLabelId: string;
-    /** Text or the floating placeholder. */
-    floatingPlaceholder: boolean;
-    private _floatingPlaceholder;
+    /** Whether the placeholder should always float, never float or float as the user types. */
+    floatPlaceholder: FloatPlaceholderType;
+    private _floatPlaceholder;
     _mdInputChild: MdInputDirective;
     _placeholderChild: MdPlaceholder;
     _hintChildren: QueryList<MdHint>;

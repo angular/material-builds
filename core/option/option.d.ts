@@ -12,6 +12,7 @@ export declare class MdOption {
     private _element;
     private _renderer;
     private _selected;
+    private _active;
     /** Whether the option is disabled.  */
     private _disabled;
     private _id;
@@ -27,6 +28,13 @@ export declare class MdOption {
     /** Whether or not the option is currently selected. */
     readonly selected: boolean;
     /**
+     * Whether or not the option is currently active and ready to be selected.
+     * An active option displays styles as if it is focused, but the
+     * focus is actually retained somewhere else. This comes in handy
+     * for components like autocomplete where focus must remain on the input.
+     */
+    readonly active: boolean;
+    /**
      * The displayed value of the option. It is necessary to show the selected option in the
      * select's trigger.
      */
@@ -37,6 +45,18 @@ export declare class MdOption {
     deselect(): void;
     /** Sets focus onto this option. */
     focus(): void;
+    /**
+     * This method sets display styles on the option to make it appear
+     * active. This is used by the ActiveDescendantKeyManager so key
+     * events will display the proper options as active on arrow key events.
+     */
+    setActiveStyles(): void;
+    /**
+     * This method removes display styles on the option that made it appear
+     * active. This is used by the ActiveDescendantKeyManager so key
+     * events will display the proper options as active on arrow key events.
+     */
+    setInactiveStyles(): void;
     /** Ensures the option is selected when activated from the keyboard. */
     _handleKeydown(event: KeyboardEvent): void;
     /**

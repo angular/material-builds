@@ -82,11 +82,12 @@ export var ListKeyManager = (function () {
     };
     /** Sets the active item to the next enabled item in the list. */
     ListKeyManager.prototype.setNextItemActive = function () {
-        this._setActiveItemByDelta(1);
+        this._activeItemIndex === null ? this.setFirstItemActive() : this._setActiveItemByDelta(1);
     };
     /** Sets the active item to a previous enabled item in the list. */
     ListKeyManager.prototype.setPreviousItemActive = function () {
-        this._setActiveItemByDelta(-1);
+        this._activeItemIndex === null && this._wrap ? this.setLastItemActive()
+            : this._setActiveItemByDelta(-1);
     };
     /**
      * Allows setting of the activeItemIndex without any other effects.

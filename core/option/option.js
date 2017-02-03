@@ -34,6 +34,7 @@ export var MdOption = (function () {
         this._element = _element;
         this._renderer = _renderer;
         this._selected = false;
+        this._active = false;
         /** Whether the option is disabled.  */
         this._disabled = false;
         this._id = "md-option-" + _uniqueIdCounter++;
@@ -57,6 +58,19 @@ export var MdOption = (function () {
         /** Whether or not the option is currently selected. */
         get: function () {
             return this._selected;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdOption.prototype, "active", {
+        /**
+         * Whether or not the option is currently active and ready to be selected.
+         * An active option displays styles as if it is focused, but the
+         * focus is actually retained somewhere else. This comes in handy
+         * for components like autocomplete where focus must remain on the input.
+         */
+        get: function () {
+            return this._active;
         },
         enumerable: true,
         configurable: true
@@ -85,6 +99,24 @@ export var MdOption = (function () {
     /** Sets focus onto this option. */
     MdOption.prototype.focus = function () {
         this._renderer.invokeElementMethod(this._getHostElement(), 'focus');
+    };
+    /**
+     * This method sets display styles on the option to make it appear
+     * active. This is used by the ActiveDescendantKeyManager so key
+     * events will display the proper options as active on arrow key events.
+     */
+    MdOption.prototype.setActiveStyles = function () {
+        var _this = this;
+        Promise.resolve(null).then(function () { return _this._active = true; });
+    };
+    /**
+     * This method removes display styles on the option that made it appear
+     * active. This is used by the ActiveDescendantKeyManager so key
+     * events will display the proper options as active on arrow key events.
+     */
+    MdOption.prototype.setInactiveStyles = function () {
+        var _this = this;
+        Promise.resolve(null).then(function () { return _this._active = false; });
     };
     /** Ensures the option is selected when activated from the keyboard. */
     MdOption.prototype._handleKeydown = function (event) {
@@ -127,6 +159,7 @@ export var MdOption = (function () {
                 'role': 'option',
                 '[attr.tabindex]': '_getTabIndex()',
                 '[class.md-selected]': 'selected',
+                '[class.md-active]': 'active',
                 '[id]': 'id',
                 '[attr.aria-selected]': 'selected.toString()',
                 '[attr.aria-disabled]': 'disabled.toString()',
