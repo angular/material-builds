@@ -33,7 +33,7 @@ export { UniqueSelectionDispatcher, UniqueSelectionDispatcherListener, UNIQUE_SE
 /** @deprecated */
 export { UniqueSelectionDispatcher as MdUniqueSelectionDispatcher } from './coordination/unique-selection-dispatcher';
 export { MdLineModule, MdLine, MdLineSetter } from './line/line';
-export { applyCssTransform } from './style/apply-transform';
+export * from './style/index';
 export { MdError } from './errors/error';
 export { ComponentType } from './overlay/generic-component-type';
 export * from './keyboard/keycodes';

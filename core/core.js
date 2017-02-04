@@ -63,7 +63,7 @@ export { UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER } from 
 export { UniqueSelectionDispatcher as MdUniqueSelectionDispatcher } from './coordination/unique-selection-dispatcher';
 export { MdLineModule, MdLine, MdLineSetter } from './line/line';
 // Style
-export { applyCssTransform } from './style/apply-transform';
+export * from './style/index';
 // Error
 export { MdError } from './errors/error';
 // Misc
