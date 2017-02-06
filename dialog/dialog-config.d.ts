@@ -23,4 +23,6 @@ export declare class MdDialogConfig {
     height?: string;
     /** Position overrides. */
     position?: DialogPosition;
+    /** Data being injected into the child component. */
+    data?: any;
 }

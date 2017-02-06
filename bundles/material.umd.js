@@ -14155,15 +14155,20 @@ var MdDialogRef = (function () {
     return MdDialogRef;
 }());
 
+var MD_DIALOG_DATA = new _angular_core.OpaqueToken('MdDialogData');
 /** Custom injector type specifically for instantiating components with a dialog. */
 var DialogInjector = (function () {
-    function DialogInjector(_dialogRef, _parentInjector) {
-        this._dialogRef = _dialogRef;
+    function DialogInjector(_parentInjector, _dialogRef, _data) {
         this._parentInjector = _parentInjector;
+        this._dialogRef = _dialogRef;
+        this._data = _data;
     }
     DialogInjector.prototype.get = function (token, notFoundValue) {
         if (token === MdDialogRef) {
             return this._dialogRef;
+        }
+        if (token === MD_DIALOG_DATA && this._data) {
+            return this._data;
         }
         return this._parentInjector.get(token, notFoundValue);
     };
@@ -14418,7 +14423,7 @@ var MdDialog = (function () {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
         var dialogRef = new MdDialogRef(overlayRef);
-        if (!dialogContainer.dialogConfig.disableClose) {
+        if (!config.disableClose) {
             // When the dialog backdrop is clicked, we want to close it.
             overlayRef.backdropClick().first().subscribe(function () { return dialogRef.close(); });
         }
@@ -14428,7 +14433,7 @@ var MdDialog = (function () {
         // inject the MdDialogRef. This allows a component loaded inside of a dialog to close itself
         // and, optionally, to return a value.
         var userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        var dialogInjector = new DialogInjector(dialogRef, userInjector || this._injector);
+        var dialogInjector = new DialogInjector(userInjector || this._injector, dialogRef, config.data);
         var contentPortal = new ComponentPortal(component, null, dialogInjector);
         var contentRef = dialogContainer.attachComponentPortal(contentPortal);
         dialogRef.componentInstance = contentRef.instance;
@@ -15274,6 +15279,7 @@ exports.MdCheckboxChange = MdCheckboxChange;
 exports.MdCheckbox = MdCheckbox;
 exports.MdCheckboxModule = MdCheckboxModule;
 exports.MdDialogModule = MdDialogModule;
+exports.MD_DIALOG_DATA = MD_DIALOG_DATA;
 exports.MdDialog = MdDialog;
 exports.MdDialogContainer = MdDialogContainer;
 exports.MdDialogClose = MdDialogClose;
