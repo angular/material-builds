@@ -27,8 +27,11 @@ export var SimpleSnackBar = (function () {
     });
     SimpleSnackBar = __decorate([
         Component({selector: 'simple-snack-bar',
-            template: "<span class=\"md-simple-snackbar-message\">{{message}}</span> <button md-button class=\"md-simple-snackbar-action\" *ngIf=\"hasAction\" (click)=\"dismiss()\">{{action}}</button>",
-            styles: ["md-simple-snackbar{display:flex;justify-content:space-between}.md-simple-snackbar-message{box-sizing:border-box;border:none;color:#fff;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-size:14px;line-height:20px;outline:0;text-decoration:none;word-break:break-all}.md-simple-snackbar-action{box-sizing:border-box;color:#fff;float:right;font-weight:600;line-height:20px;margin:-5px 0 0 48px;min-width:initial;padding:5px;text-transform:uppercase}"],
+            template: "<span class=\"mat-simple-snackbar-message\">{{message}}</span> <button md-button class=\"mat-simple-snackbar-action mat-button\" *ngIf=\"hasAction\" (click)=\"dismiss()\">{{action}}</button>",
+            styles: [".mat-simple-snackbar{display:flex;justify-content:space-between}.mat-simple-snackbar-message{box-sizing:border-box;border:none;color:#fff;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-size:14px;line-height:20px;outline:0;text-decoration:none;word-break:break-all}.mat-simple-snackbar-action{box-sizing:border-box;color:#fff;float:right;font-weight:600;line-height:20px;margin:-5px 0 0 48px;min-width:initial;padding:5px;text-transform:uppercase}"],
+            host: {
+                '[class.mat-simple-snackbar]': 'true',
+            }
         }), 
         __metadata('design:paramtypes', [])
     ], SimpleSnackBar);

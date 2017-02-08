@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, ViewEncapsulation, Renderer, ElementRef, Input, ContentChildren, QueryList } from '@angular/core';
+import { Component, ViewEncapsulation, Renderer, ElementRef, Input, ContentChildren, QueryList, Directive } from '@angular/core';
 import { MdLine, MdLineSetter } from '../core';
 import { coerceToNumber } from './grid-list-measure';
 export var MdGridTile = (function () {
@@ -48,9 +48,12 @@ export var MdGridTile = (function () {
     ], MdGridTile.prototype, "colspan", null);
     MdGridTile = __decorate([
         Component({selector: 'md-grid-tile, mat-grid-tile',
-            host: { 'role': 'listitem' },
-            template: "<figure><ng-content></ng-content></figure>",
-            styles: ["md-grid-list{display:block;position:relative}md-grid-tile{display:block;position:absolute;overflow:hidden}md-grid-tile figure{display:flex;position:absolute;align-items:center;justify-content:center;height:100%;top:0;right:0;bottom:0;left:0;padding:0;margin:0}md-grid-tile md-grid-tile-footer,md-grid-tile md-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;font-size:16px;position:absolute;left:0;right:0}md-grid-tile md-grid-tile-footer [md-line],md-grid-tile md-grid-tile-header [md-line]{white-space:nowrap;overflow-x:hidden;text-overflow:ellipsis;display:block;box-sizing:border-box}md-grid-tile md-grid-tile-footer [md-line]:nth-child(n+2),md-grid-tile md-grid-tile-header [md-line]:nth-child(n+2){font-size:12px}md-grid-tile .md-grid-list-text>*,md-grid-tile md-grid-tile-footer>*,md-grid-tile md-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}md-grid-tile md-grid-tile-footer.md-2-line,md-grid-tile md-grid-tile-header.md-2-line{height:68px}md-grid-tile .md-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}md-grid-tile .md-grid-list-text:empty,md-grid-tile [md-grid-avatar]:empty{display:none}md-grid-tile md-grid-tile-header{top:0}md-grid-tile md-grid-tile-footer{bottom:0}md-grid-tile [md-grid-avatar]{padding-right:16px}[dir=rtl] md-grid-tile [md-grid-avatar]{padding-right:0;padding-left:16px}"],
+            host: {
+                'role': 'listitem',
+                '[class.mat-grid-tile]': 'true',
+            },
+            template: "<figure class=\"mat-figure\"><ng-content></ng-content></figure>",
+            styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-figure{display:flex;position:absolute;align-items:center;justify-content:center;height:100%;top:0;right:0;bottom:0;left:0;padding:0;margin:0}.mat-grid-tile .mat-grid-tile-footer,.mat-grid-tile .mat-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;font-size:16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-footer .mat-line,.mat-grid-tile .mat-grid-tile-header .mat-line{white-space:nowrap;overflow-x:hidden;text-overflow:ellipsis;display:block;box-sizing:border-box}.mat-grid-tile .mat-grid-tile-footer .mat-line:nth-child(n+2),.mat-grid-tile .mat-grid-tile-header .mat-line:nth-child(n+2){font-size:12px}.mat-grid-tile .mat-grid-list-text>*,.mat-grid-tile .mat-grid-tile-footer>*,.mat-grid-tile .mat-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-tile-footer.mat-2-line,.mat-grid-tile .mat-grid-tile-header.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-avatar:empty,.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}"],
             encapsulation: ViewEncapsulation.None,
         }), 
         __metadata('design:paramtypes', [Renderer, ElementRef])
@@ -71,10 +74,61 @@ export var MdGridTileText = (function () {
     ], MdGridTileText.prototype, "_lines", void 0);
     MdGridTileText = __decorate([
         Component({selector: 'md-grid-tile-header, mat-grid-tile-header, md-grid-tile-footer, mat-grid-tile-footer',
-            template: "<ng-content select=\"[md-grid-avatar], [mat-grid-avatar]\"></ng-content><div class=\"md-grid-list-text\"><ng-content select=\"[md-line], [mat-line]\"></ng-content></div><ng-content></ng-content>"
+            template: "<ng-content select=\"[md-grid-avatar], [mat-grid-avatar]\"></ng-content><div class=\"mat-grid-list-text\"><ng-content select=\"[md-line], [mat-line]\"></ng-content></div><ng-content></ng-content>"
         }), 
         __metadata('design:paramtypes', [Renderer, ElementRef])
     ], MdGridTileText);
     return MdGridTileText;
+}());
+/**
+ * Directive whose purpose is to add the mat- CSS styling to this selector.
+ */
+export var MdGridAvatarCssMatStyler = (function () {
+    function MdGridAvatarCssMatStyler() {
+    }
+    MdGridAvatarCssMatStyler = __decorate([
+        Directive({
+            selector: '[md-grid-avatar], [mat-grid-avatar]',
+            host: {
+                '[class.mat-grid-avatar]': 'true'
+            }
+        }), 
+        __metadata('design:paramtypes', [])
+    ], MdGridAvatarCssMatStyler);
+    return MdGridAvatarCssMatStyler;
+}());
+/**
+ * Directive whose purpose is to add the mat- CSS styling to this selector.
+ */
+export var MdGridTileHeaderCssMatStyler = (function () {
+    function MdGridTileHeaderCssMatStyler() {
+    }
+    MdGridTileHeaderCssMatStyler = __decorate([
+        Directive({
+            selector: 'md-grid-tile-header, mat-grid-tile-header',
+            host: {
+                '[class.mat-grid-tile-header]': 'true'
+            }
+        }), 
+        __metadata('design:paramtypes', [])
+    ], MdGridTileHeaderCssMatStyler);
+    return MdGridTileHeaderCssMatStyler;
+}());
+/**
+ * Directive whose purpose is to add the mat- CSS styling to this selector.
+ */
+export var MdGridTileFooterCssMatStyler = (function () {
+    function MdGridTileFooterCssMatStyler() {
+    }
+    MdGridTileFooterCssMatStyler = __decorate([
+        Directive({
+            selector: 'md-grid-tile-footer, mat-grid-tile-footer',
+            host: {
+                '[class.mat-grid-tile-footer]': 'true'
+            }
+        }), 
+        __metadata('design:paramtypes', [])
+    ], MdGridTileFooterCssMatStyler);
+    return MdGridTileFooterCssMatStyler;
 }());
 //# sourceMappingURL=grid-tile.js.map

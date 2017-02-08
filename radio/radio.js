@@ -256,6 +256,7 @@ export var MdRadioGroup = (function () {
             providers: [MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
             host: {
                 'role': 'radiogroup',
+                '[class.mat-radio-group]': 'true',
             },
         }), 
         __metadata('design:paramtypes', [])
@@ -464,7 +465,7 @@ export var MdRadioButton = (function () {
         return this._inputElement.nativeElement;
     };
     __decorate([
-        HostBinding('class.md-radio-focused'), 
+        HostBinding('class.mat-radio-focused'), 
         __metadata('design:type', Boolean)
     ], MdRadioButton.prototype, "_isFocused", void 0);
     __decorate([
@@ -497,7 +498,7 @@ export var MdRadioButton = (function () {
         __metadata('design:type', ElementRef)
     ], MdRadioButton.prototype, "_inputElement", void 0);
     __decorate([
-        HostBinding('class.md-radio-checked'),
+        HostBinding('class.mat-radio-checked'),
         Input(), 
         __metadata('design:type', Boolean)
     ], MdRadioButton.prototype, "checked", null);
@@ -514,15 +515,18 @@ export var MdRadioButton = (function () {
         __metadata('design:type', Object)
     ], MdRadioButton.prototype, "labelPosition", null);
     __decorate([
-        HostBinding('class.md-radio-disabled'),
+        HostBinding('class.mat-radio-disabled'),
         Input(), 
         __metadata('design:type', Boolean)
     ], MdRadioButton.prototype, "disabled", null);
     MdRadioButton = __decorate([
         Component({selector: 'md-radio-button, mat-radio-button',
-            template: "<label [attr.for]=\"inputId\" class=\"md-radio-label\"><div class=\"md-radio-container\"><div class=\"md-radio-outer-circle\"></div><div class=\"md-radio-inner-circle\"></div><div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"md-radio-ripple\" [mdRippleTrigger]=\"_getInputElement()\" [mdRippleCentered]=\"true\" [mdRippleSpeedFactor]=\"0.3\" mdRippleBackgroundColor=\"rgba(0, 0, 0, 0)\"></div></div><input #input class=\"md-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (focus)=\"_onInputFocus()\" (blur)=\"_onInputBlur()\" (click)=\"_onInputClick($event)\"><div class=\"md-radio-label-content\" [class.md-radio-label-before]=\"labelPosition == 'before'\"><ng-content></ng-content></div></label>",
-            styles: ["md-radio-button{display:inline-block;font-family:Roboto,\"Helvetica Neue\",sans-serif}.md-radio-label{cursor:pointer;display:inline-flex;align-items:baseline;white-space:nowrap}.md-radio-container{box-sizing:border-box;display:inline-block;height:20px;position:relative;width:20px;top:2px}.md-radio-inner-circle,.md-radio-outer-circle{box-sizing:border-box;height:20px;left:0;top:0;width:20px;position:absolute}.md-radio-outer-circle{border:2px solid;border-radius:50%;transition:border-color ease 280ms}.md-radio-inner-circle{border-radius:50%;transition:transform ease 280ms,background-color ease 280ms;transform:scale(0)}.md-radio-checked .md-radio-inner-circle{transform:scale(.5)}.md-radio-label-content{display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .md-radio-label-content{padding-right:8px;padding-left:0}.md-radio-label-content.md-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .md-radio-label-content.md-radio-label-before{padding-right:0;padding-left:8px}.md-radio-disabled,.md-radio-disabled .md-radio-label{cursor:default}.md-radio-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none}"],
-            encapsulation: ViewEncapsulation.None
+            template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\"><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"mat-radio-ripple\" [mdRippleTrigger]=\"_getInputElement()\" [mdRippleCentered]=\"true\" [mdRippleSpeedFactor]=\"0.3\" mdRippleBackgroundColor=\"rgba(0, 0, 0, 0)\"></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (focus)=\"_onInputFocus()\" (blur)=\"_onInputBlur()\" (click)=\"_onInputClick($event)\"><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><ng-content></ng-content></div></label>",
+            styles: [".mat-radio-button{display:inline-block;font-family:Roboto,\"Helvetica Neue\",sans-serif}.mat-radio-label{cursor:pointer;display:inline-flex;align-items:baseline;white-space:nowrap}.mat-radio-container{box-sizing:border-box;display:inline-block;height:20px;position:relative;width:20px;top:2px}.mat-radio-inner-circle,.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;top:0;width:20px;position:absolute}.mat-radio-outer-circle{border:2px solid;border-radius:50%;transition:border-color ease 280ms}.mat-radio-inner-circle{border-radius:50%;transition:transform ease 280ms,background-color ease 280ms;transform:scale(0)}.mat-radio-checked .mat-radio-inner-circle{transform:scale(.5)}.mat-radio-label-content{display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none}"],
+            encapsulation: ViewEncapsulation.None,
+            host: {
+                '[class.mat-radio-button]': 'true',
+            }
         }),
         __param(0, Optional()), 
         __metadata('design:paramtypes', [MdRadioGroup, ElementRef, Renderer, UniqueSelectionDispatcher])

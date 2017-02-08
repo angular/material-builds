@@ -248,7 +248,7 @@ export var MdRipple = (function () {
         __metadata('design:type', Object)
     ], MdRipple.prototype, "_backgroundColorDeprecated", null);
     __decorate([
-        HostBinding('class.md-ripple-focused'),
+        HostBinding('class.mat-ripple-focused'),
         Input('mdRippleFocused'), 
         __metadata('design:type', Boolean)
     ], MdRipple.prototype, "focused", void 0);
@@ -257,7 +257,7 @@ export var MdRipple = (function () {
         __metadata('design:type', Boolean)
     ], MdRipple.prototype, "_focusedDeprecated", null);
     __decorate([
-        HostBinding('class.md-ripple-unbounded'),
+        HostBinding('class.mat-ripple-unbounded'),
         Input('mdRippleUnbounded'), 
         __metadata('design:type', Boolean)
     ], MdRipple.prototype, "unbounded", void 0);
@@ -268,6 +268,9 @@ export var MdRipple = (function () {
     MdRipple = __decorate([
         Directive({
             selector: '[md-ripple], [mat-ripple]',
+            host: {
+                '[class.mat-ripple]': 'true',
+            }
         }), 
         __metadata('design:paramtypes', [ElementRef, NgZone, ViewportRuler])
     ], MdRipple);

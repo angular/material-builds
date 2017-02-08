@@ -34,7 +34,10 @@ export var MdTabNavBar = (function () {
     MdTabNavBar = __decorate([
         Component({selector: '[md-tab-nav-bar], [mat-tab-nav-bar]',
             template: "<ng-content></ng-content><md-ink-bar></md-ink-bar>",
-            styles: ["[md-tab-link],[md-tab-nav-bar]{position:relative;overflow:hidden}[md-tab-nav-bar]{display:flex;flex-direction:row;flex-shrink:0}[md-tab-link]{line-height:48px;height:48px;padding:0 12px;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;cursor:pointer;box-sizing:border-box;color:currentColor;opacity:.6;min-width:160px;text-align:center;text-decoration:none}[md-tab-link]:focus{outline:0;opacity:1}@media (max-width:600px){[md-tab-link]{min-width:72px}}md-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.md-tab-group-inverted-header md-ink-bar{bottom:auto;top:0}"],
+            styles: [".mat-tab-link,.mat-tab-nav-bar{position:relative;overflow:hidden}.mat-tab-nav-bar{display:flex;flex-direction:row;flex-shrink:0}.mat-tab-link{line-height:48px;height:48px;padding:0 12px;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;cursor:pointer;box-sizing:border-box;color:currentColor;opacity:.6;min-width:160px;text-align:center;text-decoration:none}.mat-tab-link:focus{outline:0;opacity:1}@media (max-width:600px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}"],
+            host: {
+                '[class.mat-tab-nav-bar]': 'true',
+            },
             encapsulation: ViewEncapsulation.None,
         }), 
         __metadata('design:paramtypes', [])
@@ -94,6 +97,9 @@ export var MdTabLinkRipple = (function (_super) {
     MdTabLinkRipple = __decorate([
         Directive({
             selector: '[md-tab-link], [mat-tab-link]',
+            host: {
+                '[class.mat-tab-link]': 'true',
+            },
         }), 
         __metadata('design:paramtypes', [ElementRef, NgZone, ViewportRuler])
     ], MdTabLinkRipple);

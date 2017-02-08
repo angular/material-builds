@@ -18,7 +18,12 @@ export var MdLine = (function () {
     function MdLine() {
     }
     MdLine = __decorate([
-        Directive({ selector: '[md-line], [mat-line]' }), 
+        Directive({
+            selector: '[md-line], [mat-line]',
+            host: {
+                '[class.mat-line]': 'true'
+            }
+        }), 
         __metadata('design:paramtypes', [])
     ], MdLine);
     return MdLine;
@@ -41,16 +46,16 @@ export var MdLineSetter = (function () {
     MdLineSetter.prototype._setLineClass = function (count) {
         this._resetClasses();
         if (count === 2 || count === 3) {
-            this._setClass("md-" + count + "-line", true);
+            this._setClass("mat-" + count + "-line", true);
         }
         else if (count > 3) {
-            this._setClass("md-multi-line", true);
+            this._setClass("mat-multi-line", true);
         }
     };
     MdLineSetter.prototype._resetClasses = function () {
-        this._setClass('md-2-line', false);
-        this._setClass('md-3-line', false);
-        this._setClass('md-multi-line', false);
+        this._setClass('mat-2-line', false);
+        this._setClass('mat-3-line', false);
+        this._setClass('mat-multi-line', false);
     };
     MdLineSetter.prototype._setClass = function (className, bool) {
         this._renderer.setElementClass(this._element.nativeElement, className, bool);

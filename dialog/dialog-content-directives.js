@@ -43,7 +43,10 @@ export var MdDialogTitle = (function () {
     }
     MdDialogTitle = __decorate([
         Directive({
-            selector: '[md-dialog-title], [mat-dialog-title]'
+            selector: '[md-dialog-title], [mat-dialog-title]',
+            host: {
+                '[class.mat-dialog-title]': 'true'
+            }
         }), 
         __metadata('design:paramtypes', [])
     ], MdDialogTitle);
@@ -57,7 +60,10 @@ export var MdDialogContent = (function () {
     }
     MdDialogContent = __decorate([
         Directive({
-            selector: '[md-dialog-content], md-dialog-content, [mat-dialog-content], mat-dialog-content'
+            selector: '[md-dialog-content], md-dialog-content, [mat-dialog-content], mat-dialog-content',
+            host: {
+                '[class.mat-dialog-content]': 'true'
+            }
         }), 
         __metadata('design:paramtypes', [])
     ], MdDialogContent);
@@ -72,7 +78,10 @@ export var MdDialogActions = (function () {
     }
     MdDialogActions = __decorate([
         Directive({
-            selector: '[md-dialog-actions], md-dialog-actions, [mat-dialog-actions], mat-dialog-actions'
+            selector: '[md-dialog-actions], md-dialog-actions, [mat-dialog-actions], mat-dialog-actions',
+            host: {
+                '[class.mat-dialog-actions]': 'true'
+            }
         }), 
         __metadata('design:paramtypes', [])
     ], MdDialogActions);

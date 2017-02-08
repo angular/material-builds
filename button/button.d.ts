@@ -1,5 +1,30 @@
 import { ElementRef, Renderer, ModuleWithProviders } from '@angular/core';
 /**
+ * Directive whose purpose is to add the mat- CSS styling to this selector.
+ */
+export declare class MdButtonCssMatStyler {
+}
+/**
+ * Directive whose purpose is to add the mat- CSS styling to this selector.
+ */
+export declare class MdRaisedButtonCssMatStyler {
+}
+/**
+ * Directive whose purpose is to add the mat- CSS styling to this selector.
+ */
+export declare class MdIconButtonCssMatStyler {
+}
+/**
+ * Directive whose purpose is to add the mat- CSS styling to this selector.
+ */
+export declare class MdFabCssMatStyler {
+}
+/**
+ * Directive whose purpose is to add the mat- CSS styling to this selector.
+ */
+export declare class MdMiniFabCssMatStyler {
+}
+/**
  * Material design button.
  */
 export declare class MdButton {

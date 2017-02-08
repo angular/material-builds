@@ -143,7 +143,7 @@ export declare class MdSidenavContainer implements AfterContentInit {
      * changes.
      */
     private _watchSidenavAlign(sidenav);
-    /** Toggles the 'md-sidenav-opened' class on the main 'md-sidenav-container' element. */
+    /** Toggles the 'mat-sidenav-opened' class on the main 'md-sidenav-container' element. */
     private _setContainerClass(sidenav, bool);
     /** Sets the valid state of the drawers. */
     private _setDrawersValid(valid);

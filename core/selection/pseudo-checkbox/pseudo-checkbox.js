@@ -35,8 +35,8 @@ export var MdPseudoCheckbox = (function () {
         set: function (value) {
             if (value) {
                 var nativeElement = this._elementRef.nativeElement;
-                this._renderer.setElementClass(nativeElement, "md-" + this.color, false);
-                this._renderer.setElementClass(nativeElement, "md-" + value, true);
+                this._renderer.setElementClass(nativeElement, "mat-" + this.color, false);
+                this._renderer.setElementClass(nativeElement, "mat-" + value, true);
                 this._color = value;
             }
         },
@@ -59,12 +59,13 @@ export var MdPseudoCheckbox = (function () {
     MdPseudoCheckbox = __decorate([
         Component({encapsulation: ViewEncapsulation.None,
             selector: 'md-pseudo-checkbox',
-            styles: ["md-pseudo-checkbox{width:20px;height:20px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;transition:border-color 90ms cubic-bezier(0,0,.2,.1),background-color 90ms cubic-bezier(0,0,.2,.1)}md-pseudo-checkbox::after{position:absolute;opacity:0;content:'';border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0,0,.2,.1)}.md-pseudo-checkbox-disabled{cursor:default}.md-pseudo-checkbox-indeterminate::after{top:9px;left:2px;width:16px;opacity:1}.md-pseudo-checkbox-checked::after{top:5px;left:3px;width:12px;height:5px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1}"],
+            styles: [".mat-pseudo-checkbox{width:20px;height:20px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;transition:border-color 90ms cubic-bezier(0,0,.2,.1),background-color 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:'';border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:9px;left:2px;width:16px;opacity:1}.mat-pseudo-checkbox-checked::after{top:5px;left:3px;width:12px;height:5px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1}"],
             template: '',
             host: {
-                '[class.md-pseudo-checkbox-indeterminate]': 'state === "indeterminate"',
-                '[class.md-pseudo-checkbox-checked]': 'state === "checked"',
-                '[class.md-pseudo-checkbox-disabled]': 'disabled',
+                '[class.mat-pseudo-checkbox]': 'true',
+                '[class.mat-pseudo-checkbox-indeterminate]': 'state === "indeterminate"',
+                '[class.mat-pseudo-checkbox-checked]': 'state === "checked"',
+                '[class.mat-pseudo-checkbox-disabled]': 'disabled',
             },
         }), 
         __metadata('design:paramtypes', [ElementRef, Renderer])

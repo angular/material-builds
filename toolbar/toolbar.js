@@ -14,7 +14,10 @@ export var MdToolbarRow = (function () {
     }
     MdToolbarRow = __decorate([
         Directive({
-            selector: 'md-toolbar-row, mat-toolbar-row'
+            selector: 'md-toolbar-row, mat-toolbar-row',
+            host: {
+                '[class.mat-toolbar-row]': 'true',
+            },
         }), 
         __metadata('design:paramtypes', [])
     ], MdToolbarRow);
@@ -43,7 +46,7 @@ export var MdToolbar = (function () {
     };
     MdToolbar.prototype._setElementColor = function (color, isAdd) {
         if (color != null && color != '') {
-            this.renderer.setElementClass(this.elementRef.nativeElement, "md-" + color, isAdd);
+            this.renderer.setElementClass(this.elementRef.nativeElement, "mat-" + color, isAdd);
         }
     };
     __decorate([
@@ -52,10 +55,11 @@ export var MdToolbar = (function () {
     ], MdToolbar.prototype, "color", null);
     MdToolbar = __decorate([
         Component({selector: 'md-toolbar, mat-toolbar',
-            template: "<div class=\"md-toolbar-layout\"><md-toolbar-row><ng-content></ng-content></md-toolbar-row><ng-content select=\"md-toolbar-row, mat-toolbar-row\"></ng-content></div>",
-            styles: ["md-toolbar,md-toolbar md-toolbar-row{display:flex;box-sizing:border-box;width:100%}md-toolbar{font-size:20px;font-weight:500;font-family:Roboto,\"Helvetica Neue\",sans-serif;padding:0 16px;flex-direction:column;min-height:64px}md-toolbar md-toolbar-row{flex-direction:row;align-items:center}md-toolbar-row{height:64px}@media (max-width:600px) and (orientation:portrait){md-toolbar{min-height:56px}md-toolbar-row{height:56px}}@media (max-width:960px) and (orientation:landscape){md-toolbar{min-height:48px}md-toolbar-row{height:48px}}"],
+            template: "<div class=\"mat-toolbar-layout\"><md-toolbar-row><ng-content></ng-content></md-toolbar-row><ng-content select=\"md-toolbar-row, mat-toolbar-row\"></ng-content></div>",
+            styles: [".mat-toolbar,.mat-toolbar .mat-toolbar-row{display:flex;box-sizing:border-box;width:100%}.mat-toolbar{font-size:20px;font-weight:500;font-family:Roboto,\"Helvetica Neue\",sans-serif;padding:0 16px;flex-direction:column;min-height:64px}.mat-toolbar .mat-toolbar-row{flex-direction:row;align-items:center}.mat-toolbar-row{height:64px}@media (max-width:600px) and (orientation:portrait){.mat-toolbar{min-height:56px}.mat-toolbar-row{height:56px}}@media (max-width:960px) and (orientation:landscape){.mat-toolbar{min-height:48px}.mat-toolbar-row{height:48px}}"],
             host: {
-                role: 'toolbar'
+                '[class.mat-toolbar]': 'true',
+                'role': 'toolbar'
             },
             changeDetection: ChangeDetectionStrategy.OnPush,
             encapsulation: ViewEncapsulation.None

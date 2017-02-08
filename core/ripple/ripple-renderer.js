@@ -47,7 +47,7 @@ export var RippleRenderer = (function () {
     RippleRenderer.prototype.createBackgroundIfNeeded = function () {
         if (!this._backgroundDiv) {
             this._backgroundDiv = document.createElement('div');
-            this._backgroundDiv.classList.add('md-ripple-background');
+            this._backgroundDiv.classList.add('mat-ripple-background');
             this._rippleElement.appendChild(this._backgroundDiv);
         }
     };
@@ -108,7 +108,7 @@ export var RippleRenderer = (function () {
         var maxRadius = radius > 0 ? radius : distanceToFurthestCorner(startX, startY, parentRect);
         var rippleDiv = document.createElement('div');
         this._rippleElement.appendChild(rippleDiv);
-        rippleDiv.classList.add('md-ripple-foreground');
+        rippleDiv.classList.add('mat-ripple-foreground');
         rippleDiv.style.left = (offsetX - maxRadius) + "px";
         rippleDiv.style.top = (offsetY - maxRadius) + "px";
         rippleDiv.style.width = 2 * maxRadius + "px";
@@ -122,7 +122,7 @@ export var RippleRenderer = (function () {
         // https://timtaubert.de/blog/2012/09/css-transitions-for-dynamically-created-dom-elements/
         // Store the opacity to prevent this line as being seen as a no-op by optimizers.
         this._opacity = window.getComputedStyle(rippleDiv).opacity;
-        rippleDiv.classList.add('md-ripple-fade-in');
+        rippleDiv.classList.add('mat-ripple-fade-in');
         // Clearing the transform property causes the ripple to animate to its full size.
         rippleDiv.style.transform = '';
         var ripple = new ForegroundRipple(rippleDiv);
@@ -144,8 +144,8 @@ export var RippleRenderer = (function () {
      * @param ripple Ripple to be faded out.
      */
     RippleRenderer.prototype.fadeOutForegroundRipple = function (ripple) {
-        ripple.classList.remove('md-ripple-fade-in');
-        ripple.classList.add('md-ripple-fade-out');
+        ripple.classList.remove('mat-ripple-fade-in');
+        ripple.classList.add('mat-ripple-fade-out');
     };
     /**
      * Removes a foreground ripple from the DOM after it has faded out.
@@ -161,14 +161,14 @@ export var RippleRenderer = (function () {
      * @param color New background color for the ripple.
      */
     RippleRenderer.prototype.fadeInRippleBackground = function (color) {
-        this._backgroundDiv.classList.add('md-ripple-active');
+        this._backgroundDiv.classList.add('mat-ripple-active');
         // If color is not set, this will default to the background color defined in CSS.
         this._backgroundDiv.style.backgroundColor = color;
     };
     /** Fades out the ripple background. */
     RippleRenderer.prototype.fadeOutRippleBackground = function () {
         if (this._backgroundDiv) {
-            this._backgroundDiv.classList.remove('md-ripple-active');
+            this._backgroundDiv.classList.remove('mat-ripple-active');
         }
     };
     return RippleRenderer;

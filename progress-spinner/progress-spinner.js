@@ -12,7 +12,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { NgModule, Component, HostBinding, ChangeDetectionStrategy, Input, ElementRef, NgZone, Renderer } from '@angular/core';
+import { NgModule, Component, HostBinding, ChangeDetectionStrategy, Input, ElementRef, NgZone, Renderer, Directive } from '@angular/core';
 import { CompatibilityModule } from '../core';
 // TODO(josephperrott): Benchpress tests.
 /** A single degree in radians. */
@@ -27,6 +27,40 @@ var startIndeterminate = 3;
 var endIndeterminate = 80;
 /* Maximum angle for the arc. The angle can't be exactly 360, because the arc becomes hidden. */
 var MAX_ANGLE = 359.99 / 100;
+/**
+ * Directive whose purpose is to add the mat- CSS styling to this selector.
+ */
+export var MdProgressSpinnerCssMatStyler = (function () {
+    function MdProgressSpinnerCssMatStyler() {
+    }
+    MdProgressSpinnerCssMatStyler = __decorate([
+        Directive({
+            selector: 'md-progress-spinner, mat-progress-spinner',
+            host: {
+                '[class.mat-progress-spinner]': 'true'
+            }
+        }), 
+        __metadata('design:paramtypes', [])
+    ], MdProgressSpinnerCssMatStyler);
+    return MdProgressSpinnerCssMatStyler;
+}());
+/**
+ * Directive whose purpose is to add the mat- CSS styling to this selector.
+ */
+export var MdProgressCircleCssMatStyler = (function () {
+    function MdProgressCircleCssMatStyler() {
+    }
+    MdProgressCircleCssMatStyler = __decorate([
+        Directive({
+            selector: 'md-progress-circle, mat-progress-circle',
+            host: {
+                '[class.mat-progress-circle]': 'true'
+            }
+        }), 
+        __metadata('design:paramtypes', [])
+    ], MdProgressCircleCssMatStyler);
+    return MdProgressCircleCssMatStyler;
+}());
 /**
  * <md-progress-spinner> component.
  */
@@ -215,7 +249,7 @@ export var MdProgressSpinner = (function () {
     /** Sets the given palette class on the component element. */
     MdProgressSpinner.prototype._setElementColor = function (color, isAdd) {
         if (color != null && color != '') {
-            this._renderer.setElementClass(this._elementRef.nativeElement, "md-" + color, isAdd);
+            this._renderer.setElementClass(this._elementRef.nativeElement, "mat-" + color, isAdd);
         }
     };
     __decorate([
@@ -240,7 +274,7 @@ export var MdProgressSpinner = (function () {
                 '[attr.aria-valuemax]': '_ariaValueMax'
             },
             template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"><path></path></svg>",
-            styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:md-progress-spinner-sporadic-rotate,md-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes md-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes md-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
+            styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
             changeDetection: ChangeDetectionStrategy.OnPush,
         }), 
         __metadata('design:paramtypes', [NgZone, ElementRef, Renderer])
@@ -269,11 +303,12 @@ export var MdSpinner = (function (_super) {
             host: {
                 'role': 'progressbar',
                 'mode': 'indeterminate',
+                '[class.mat-spinner]': 'true',
             },
             // Due to the class extending we need to explicitly say that the input exists.
             inputs: ['color'],
             template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"><path></path></svg>",
-            styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:md-progress-spinner-sporadic-rotate,md-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes md-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes md-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
+            styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
         }), 
         __metadata('design:paramtypes', [ElementRef, NgZone, Renderer])
     ], MdSpinner);
@@ -351,8 +386,19 @@ export var MdProgressSpinnerModule = (function () {
     MdProgressSpinnerModule = __decorate([
         NgModule({
             imports: [CompatibilityModule],
-            exports: [MdProgressSpinner, MdSpinner, CompatibilityModule],
-            declarations: [MdProgressSpinner, MdSpinner],
+            exports: [
+                MdProgressSpinner,
+                MdSpinner,
+                CompatibilityModule,
+                MdProgressSpinnerCssMatStyler,
+                MdProgressCircleCssMatStyler
+            ],
+            declarations: [
+                MdProgressSpinner,
+                MdSpinner,
+                MdProgressSpinnerCssMatStyler,
+                MdProgressCircleCssMatStyler
+            ],
         }), 
         __metadata('design:paramtypes', [])
     ], MdProgressSpinnerModule);

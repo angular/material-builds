@@ -42,7 +42,7 @@ export var MdTabLabelWrapper = (function () {
         Directive({
             selector: '[md-tab-label-wrapper], [mat-tab-label-wrapper]',
             host: {
-                '[class.md-tab-disabled]': 'disabled'
+                '[class.mat-tab-disabled]': 'disabled'
             }
         }), 
         __metadata('design:paramtypes', [ElementRef, Renderer])

@@ -48,6 +48,6 @@ export declare class MdChip implements Focusable, OnInit, OnDestroy {
     private _addDefaultCSSClass();
     /** Updates the private _color variable and the native element. */
     private _updateColor(newColor);
-    /** Sets the md-color on the native element. */
+    /** Sets the mat-color on the native element. */
     private _setElementColor(color, isAdd);
 }

@@ -66,7 +66,7 @@ export var MdChipList = (function () {
     MdChipList.prototype._keydown = function (event) {
         var target = event.target;
         // If they are on a chip, check for space/left/right, otherwise pass to our key manager
-        if (target && target.classList.contains('md-chip')) {
+        if (target && target.classList.contains('mat-chip')) {
             switch (event.keyCode) {
                 case SPACE:
                     // If we are selectable, toggle the focused chip
@@ -171,7 +171,7 @@ export var MdChipList = (function () {
                 // Properties
                 'tabindex': '0',
                 'role': 'listbox',
-                'class': 'md-chip-list',
+                '[class.mat-chip-list]': 'true',
                 // Events
                 '(focus)': 'focus()',
                 '(keydown)': '_keydown($event)'
@@ -179,7 +179,7 @@ export var MdChipList = (function () {
             queries: {
                 chips: new ContentChildren(MdChip)
             },
-            styles: [".md-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:flex-start}.md-chip-list-wrapper .md-chip:not(.md-basic-chip){margin:0 3px}.md-chip-list-wrapper .md-chip:not(.md-basic-chip):first-child{margin-left:0;margin-right:3px}.md-chip-list-wrapper .md-chip:not(.md-basic-chip):last-child,[dir=rtl] .md-chip-list-wrapper .md-chip:not(.md-basic-chip):first-child{margin-left:3px;margin-right:0}[dir=rtl] .md-chip-list-wrapper .md-chip:not(.md-basic-chip):last-child{margin-left:0;margin-right:3px}.md-chip:not(.md-basic-chip){display:inline-block;padding:8px 12px;border-radius:24px;font-size:13px;line-height:16px}.md-chip-list-stacked .md-chip-list-wrapper{display:block}.md-chip-list-stacked .md-chip-list-wrapper .md-chip:not(.md-basic-chip){display:block;margin:0 0 8px}[dir=rtl] .md-chip-list-stacked .md-chip-list-wrapper .md-chip:not(.md-basic-chip){margin:0 0 8px}.md-chip-list-stacked .md-chip-list-wrapper .md-chip:not(.md-basic-chip):last-child,[dir=rtl] .md-chip-list-stacked .md-chip-list-wrapper .md-chip:not(.md-basic-chip):last-child{margin-bottom:0}"],
+            styles: [".mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:flex-start}.mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){margin:0 3px}.mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):first-child{margin-left:0;margin-right:3px}.mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child,[dir=rtl] .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):first-child{margin-left:3px;margin-right:0}[dir=rtl] .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-left:0;margin-right:3px}.mat-chip:not(.mat-basic-chip){display:inline-block;padding:8px 12px;border-radius:24px;font-size:13px;line-height:16px}.mat-chip-list-stacked .mat-chip-list-wrapper{display:block}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){display:block;margin:0 0 8px}[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){margin:0 0 8px}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child,[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-bottom:0}"],
             encapsulation: ViewEncapsulation.None,
             changeDetection: ChangeDetectionStrategy.OnPush
         }), 

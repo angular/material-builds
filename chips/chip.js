@@ -113,11 +113,12 @@ export var MdChip = (function () {
     /** Initializes the appropriate CSS classes based on the chip type (basic or standard). */
     MdChip.prototype._addDefaultCSSClass = function () {
         var el = this._elementRef.nativeElement;
-        // Always add the `md-chip` class
-        el.classList.add('md-chip');
-        // If we are a basic chip, also add the `md-basic-chip` class for :not() targeting
-        if (el.nodeName.toLowerCase() == 'md-basic-chip' || el.hasAttribute('md-basic-chip')) {
-            el.classList.add('md-basic-chip');
+        // Always add the `mat-chip` class
+        el.classList.add('mat-chip');
+        // If we are a basic chip, also add the `mat-basic-chip` class for :not() targeting
+        if (el.nodeName.toLowerCase() == 'mat-basic-chip' || el.hasAttribute('mat-basic-chip') ||
+            el.nodeName.toLowerCase() == 'md-basic-chip' || el.hasAttribute('md-basic-chip')) {
+            el.classList.add('mat-basic-chip');
         }
     };
     /** Updates the private _color variable and the native element. */
@@ -126,10 +127,10 @@ export var MdChip = (function () {
         this._setElementColor(newColor, true);
         this._color = newColor;
     };
-    /** Sets the md-color on the native element. */
+    /** Sets the mat-color on the native element. */
     MdChip.prototype._setElementColor = function (color, isAdd) {
         if (color != null && color != '') {
-            this._renderer.setElementClass(this._elementRef.nativeElement, "md-" + color, isAdd);
+            this._renderer.setElementClass(this._elementRef.nativeElement, "mat-" + color, isAdd);
         }
     };
     __decorate([
@@ -161,9 +162,10 @@ export var MdChip = (function () {
             selector: "md-basic-chip, [md-basic-chip], md-chip, [md-chip],\n             mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
             template: "<ng-content></ng-content>",
             host: {
+                '[class.mat-chip]': 'true',
                 'tabindex': '-1',
                 'role': 'option',
-                '[class.md-chip-selected]': 'selected',
+                '[class.mat-chip-selected]': 'selected',
                 '[attr.disabled]': 'disabled',
                 '[attr.aria-disabled]': '_isAriaDisabled',
                 '(click)': '_handleClick($event)'

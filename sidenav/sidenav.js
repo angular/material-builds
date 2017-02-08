@@ -345,21 +345,22 @@ export var MdSidenav = (function () {
     MdSidenav = __decorate([
         Component({selector: 'md-sidenav, mat-sidenav',
             // TODO(mmalerba): move template to separate file.
-            template: "<cdk-focus-trap class=\"md-sidenav-focus-trap\" [disabled]=\"isFocusTrapDisabled\"><ng-content></ng-content></cdk-focus-trap>",
+            template: "<cdk-focus-trap class=\"mat-sidenav-focus-trap\" [disabled]=\"isFocusTrapDisabled\"><ng-content></ng-content></cdk-focus-trap>",
             host: {
+                '[class.mat-sidenav]': 'true',
                 '(transitionend)': '_onTransitionEnd($event)',
                 '(keydown)': 'handleKeydown($event)',
                 // must prevent the browser from aligning text based on value
                 '[attr.align]': 'null',
-                '[class.md-sidenav-closed]': '_isClosed',
-                '[class.md-sidenav-closing]': '_isClosing',
-                '[class.md-sidenav-end]': '_isEnd',
-                '[class.md-sidenav-opened]': '_isOpened',
-                '[class.md-sidenav-opening]': '_isOpening',
-                '[class.md-sidenav-over]': '_modeOver',
-                '[class.md-sidenav-push]': '_modePush',
-                '[class.md-sidenav-side]': '_modeSide',
-                '[class.md-sidenav-invalid]': '!valid',
+                '[class.mat-sidenav-closed]': '_isClosed',
+                '[class.mat-sidenav-closing]': '_isClosing',
+                '[class.mat-sidenav-end]': '_isEnd',
+                '[class.mat-sidenav-opened]': '_isOpened',
+                '[class.mat-sidenav-opening]': '_isOpening',
+                '[class.mat-sidenav-over]': '_modeOver',
+                '[class.mat-sidenav-push]': '_modePush',
+                '[class.mat-sidenav-side]': '_modeSide',
+                '[class.mat-sidenav-invalid]': '!valid',
                 'tabIndex': '-1'
             },
             changeDetection: ChangeDetectionStrategy.OnPush,
@@ -435,9 +436,9 @@ export var MdSidenavContainer = (function () {
         }
         sidenav.onAlignChanged.subscribe(function () { return _this._validateDrawers(); });
     };
-    /** Toggles the 'md-sidenav-opened' class on the main 'md-sidenav-container' element. */
+    /** Toggles the 'mat-sidenav-opened' class on the main 'md-sidenav-container' element. */
     MdSidenavContainer.prototype._setContainerClass = function (sidenav, bool) {
-        this._renderer.setElementClass(this._element.nativeElement, 'md-sidenav-opened', bool);
+        this._renderer.setElementClass(this._element.nativeElement, 'mat-sidenav-opened', bool);
     };
     /** Sets the valid state of the drawers. */
     MdSidenavContainer.prototype._setDrawersValid = function (valid) {
@@ -553,11 +554,11 @@ export var MdSidenavContainer = (function () {
             // Do not use ChangeDetectionStrategy.OnPush. It does not work for this component because
             // technically it is a sibling of MdSidenav (on the content tree) and isn't updated when MdSidenav
             // changes its state.
-            template: "<div class=\"md-sidenav-backdrop\" (click)=\"_onBackdropClicked()\" [class.md-sidenav-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"md-sidenav, mat-sidenav\"></ng-content><div class=\"md-sidenav-content\" [ngStyle]=\"_getStyles()\"><ng-content></ng-content></div>",
-            styles: [".md-sidenav-container,.md-sidenav-content{transform:translate3d(0,0,0);display:block}.md-sidenav-container{position:relative;box-sizing:border-box;-webkit-overflow-scrolling:touch;overflow:hidden}.md-sidenav-backdrop,.md-sidenav-container[fullscreen]{position:absolute;top:0;bottom:0;right:0;left:0}.md-sidenav-container[fullscreen].md-sidenav-opened{overflow:hidden}.md-sidenav-backdrop{display:block;z-index:2;visibility:hidden}.md-sidenav-backdrop.md-sidenav-shown{visibility:visible}[dir=rtl] md-sidenav.md-sidenav-closed,[dir=rtl] md-sidenav.md-sidenav-end.md-sidenav-closed,md-sidenav.md-sidenav-closed,md-sidenav.md-sidenav-end.md-sidenav-closed{visibility:hidden}@media screen and (-ms-high-contrast:active){.md-sidenav-backdrop{opacity:.5}}.md-sidenav-content{position:relative;height:100%;overflow:auto}md-sidenav{display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5%;outline:0;transform:translate3d(-100%,0,0)}md-sidenav.md-sidenav-opened,md-sidenav.md-sidenav-opening{transform:translate3d(0,0,0)}md-sidenav.md-sidenav-side{z-index:1}md-sidenav.md-sidenav-end{right:0;transform:translate3d(100%,0,0)}md-sidenav.md-sidenav-end.md-sidenav-opened,md-sidenav.md-sidenav-end.md-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] md-sidenav{transform:translate3d(100%,0,0)}[dir=rtl] md-sidenav.md-sidenav-opened,[dir=rtl] md-sidenav.md-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] md-sidenav.md-sidenav-end{left:0;right:auto;transform:translate3d(-100%,0,0)}[dir=rtl] md-sidenav.md-sidenav-end.md-sidenav-opened,[dir=rtl] md-sidenav.md-sidenav-end.md-sidenav-opening{transform:translate3d(0,0,0)}md-sidenav.md-sidenav-opened:not(.md-sidenav-side),md-sidenav.md-sidenav-opening:not(.md-sidenav-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.md-sidenav-focus-trap{height:100%}.md-sidenav-focus-trap>.cdk-focus-trap-content{box-sizing:border-box;height:100%;overflow-y:auto;transform:translateZ(0)}.md-sidenav-invalid{display:none}",
-"md-sidenav{transition:transform .4s cubic-bezier(.25,.8,.25,1)}.md-sidenav-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.md-sidenav-backdrop.md-sidenav-shown{transition:background-color .4s cubic-bezier(.25,.8,.25,1)}"],
+            template: "<div class=\"mat-sidenav-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-sidenav-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"md-sidenav, mat-sidenav\"></ng-content><div class=\"mat-sidenav-content\" [ngStyle]=\"_getStyles()\"><ng-content></ng-content></div>",
+            styles: [".mat-sidenav-container{position:relative;transform:translate3d(0,0,0);box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-sidenav-backdrop,.mat-sidenav-container[fullscreen]{position:absolute;top:0;bottom:0;right:0;left:0}.mat-sidenav-container[fullscreen].mat-sidenav-opened{overflow:hidden}.mat-sidenav-backdrop{display:block;z-index:2;visibility:hidden}.mat-sidenav-backdrop.mat-sidenav-shown{visibility:visible}.mat-sidenav.mat-sidenav-closed,.mat-sidenav.mat-sidenav-end.mat-sidenav-closed,[dir=rtl] .mat-sidenav.mat-sidenav-closed,[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-closed{visibility:hidden}@media screen and (-ms-high-contrast:active){.mat-sidenav-backdrop{opacity:.5}}.mat-sidenav-content{position:relative;transform:translate3d(0,0,0);display:block;height:100%;overflow:auto}.mat-sidenav{display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5%;outline:0;transform:translate3d(-100%,0,0)}.mat-sidenav.mat-sidenav-opened,.mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-side{z-index:1}.mat-sidenav.mat-sidenav-end{right:0;transform:translate3d(100%,0,0)}.mat-sidenav.mat-sidenav-end.mat-sidenav-opened,.mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav{transform:translate3d(100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end{left:0;right:auto;transform:translate3d(-100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-opened:not(.mat-sidenav-side),.mat-sidenav.mat-sidenav-opening:not(.mat-sidenav-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-focus-trap{height:100%}.mat-sidenav-focus-trap>.cdk-focus-trap-content{box-sizing:border-box;height:100%;overflow-y:auto;transform:translateZ(0)}.mat-sidenav-invalid{display:none}",
+".mat-sidenav{transition:transform .4s cubic-bezier(.25,.8,.25,1)}.mat-sidenav-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-sidenav-backdrop.mat-sidenav-shown{transition:background-color .4s cubic-bezier(.25,.8,.25,1)}"],
             host: {
-                'class': 'md-sidenav-container',
+                '[class.mat-sidenav-container]': 'true',
             },
             encapsulation: ViewEncapsulation.None,
         }),

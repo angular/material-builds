@@ -11,7 +11,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 import { NgModule, Component, ViewEncapsulation, Input, ContentChildren, QueryList, Renderer, ElementRef, Optional } from '@angular/core';
-import { MdGridTile, MdGridTileText } from './grid-tile';
+import { MdGridTile, MdGridTileText, MdGridTileFooterCssMatStyler, MdGridTileHeaderCssMatStyler, MdGridAvatarCssMatStyler } from './grid-tile';
 import { TileCoordinator } from './tile-coordinator';
 import { FitTileStyler, RatioTileStyler, FixedTileStyler } from './tile-styler';
 import { MdGridListColsError } from './grid-list-errors';
@@ -124,10 +124,11 @@ export var MdGridList = (function () {
     ], MdGridList.prototype, "rowHeight", null);
     MdGridList = __decorate([
         Component({selector: 'md-grid-list, mat-grid-list',
-            template: "<div class=\"md-grid-list\"><ng-content></ng-content></div>",
-            styles: ["md-grid-list{display:block;position:relative}md-grid-tile{display:block;position:absolute;overflow:hidden}md-grid-tile figure{display:flex;position:absolute;align-items:center;justify-content:center;height:100%;top:0;right:0;bottom:0;left:0;padding:0;margin:0}md-grid-tile md-grid-tile-footer,md-grid-tile md-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;font-size:16px;position:absolute;left:0;right:0}md-grid-tile md-grid-tile-footer [md-line],md-grid-tile md-grid-tile-header [md-line]{white-space:nowrap;overflow-x:hidden;text-overflow:ellipsis;display:block;box-sizing:border-box}md-grid-tile md-grid-tile-footer [md-line]:nth-child(n+2),md-grid-tile md-grid-tile-header [md-line]:nth-child(n+2){font-size:12px}md-grid-tile .md-grid-list-text>*,md-grid-tile md-grid-tile-footer>*,md-grid-tile md-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}md-grid-tile md-grid-tile-footer.md-2-line,md-grid-tile md-grid-tile-header.md-2-line{height:68px}md-grid-tile .md-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}md-grid-tile .md-grid-list-text:empty,md-grid-tile [md-grid-avatar]:empty{display:none}md-grid-tile md-grid-tile-header{top:0}md-grid-tile md-grid-tile-footer{bottom:0}md-grid-tile [md-grid-avatar]{padding-right:16px}[dir=rtl] md-grid-tile [md-grid-avatar]{padding-right:0;padding-left:16px}"],
+            template: "<div><ng-content></ng-content></div>",
+            styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-figure{display:flex;position:absolute;align-items:center;justify-content:center;height:100%;top:0;right:0;bottom:0;left:0;padding:0;margin:0}.mat-grid-tile .mat-grid-tile-footer,.mat-grid-tile .mat-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;font-size:16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-footer .mat-line,.mat-grid-tile .mat-grid-tile-header .mat-line{white-space:nowrap;overflow-x:hidden;text-overflow:ellipsis;display:block;box-sizing:border-box}.mat-grid-tile .mat-grid-tile-footer .mat-line:nth-child(n+2),.mat-grid-tile .mat-grid-tile-header .mat-line:nth-child(n+2){font-size:12px}.mat-grid-tile .mat-grid-list-text>*,.mat-grid-tile .mat-grid-tile-footer>*,.mat-grid-tile .mat-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-tile-footer.mat-2-line,.mat-grid-tile .mat-grid-tile-header.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-avatar:empty,.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}"],
             host: {
-                'role': 'list'
+                'role': 'list',
+                '[class.mat-grid-list]': 'true',
             },
             encapsulation: ViewEncapsulation.None,
         }),
@@ -155,8 +156,17 @@ export var MdGridListModule = (function () {
                 MdGridTileText,
                 MdLineModule,
                 CompatibilityModule,
+                MdGridTileHeaderCssMatStyler,
+                MdGridTileFooterCssMatStyler,
+                MdGridAvatarCssMatStyler
             ],
-            declarations: [MdGridList, MdGridTile, MdGridTileText],
+            declarations: [
+                MdGridList,
+                MdGridTile,
+                MdGridTileText,
+                MdGridTileHeaderCssMatStyler,
+                MdGridTileFooterCssMatStyler,
+                MdGridAvatarCssMatStyler],
         }), 
         __metadata('design:paramtypes', [])
     ], MdGridListModule);

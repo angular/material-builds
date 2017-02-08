@@ -18,7 +18,7 @@ export declare class MdAutocomplete {
     _setScrollTop(scrollTop: number): void;
     /** Sets a class on the panel based on its position (used to set y-offset). */
     _getPositionClass(): {
-        'md-autocomplete-panel-below': boolean;
-        'md-autocomplete-panel-above': boolean;
+        'mat-autocomplete-panel-below': boolean;
+        'mat-autocomplete-panel-above': boolean;
     };
 }

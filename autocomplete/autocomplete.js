@@ -33,8 +33,8 @@ export var MdAutocomplete = (function () {
     /** Sets a class on the panel based on its position (used to set y-offset). */
     MdAutocomplete.prototype._getPositionClass = function () {
         return {
-            'md-autocomplete-panel-below': this.positionY === 'below',
-            'md-autocomplete-panel-above': this.positionY === 'above'
+            'mat-autocomplete-panel-below': this.positionY === 'below',
+            'mat-autocomplete-panel-above': this.positionY === 'above'
         };
     };
     __decorate([
@@ -55,10 +55,13 @@ export var MdAutocomplete = (function () {
     ], MdAutocomplete.prototype, "displayWith", void 0);
     MdAutocomplete = __decorate([
         Component({selector: 'md-autocomplete, mat-autocomplete',
-            template: "<template><div class=\"md-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_getPositionClass()\" #panel><ng-content></ng-content></div></template>",
-            styles: [".md-autocomplete-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:256px;position:relative}.md-autocomplete-panel.md-autocomplete-panel-below{top:6px}.md-autocomplete-panel.md-autocomplete-panel-above{top:-24px}"],
+            template: "<template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_getPositionClass()\" #panel><ng-content></ng-content></div></template>",
+            styles: [".mat-autocomplete-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:256px;position:relative}.mat-autocomplete-panel.mat-autocomplete-panel-below{top:6px}.mat-autocomplete-panel.mat-autocomplete-panel-above{top:-24px}"],
             encapsulation: ViewEncapsulation.None,
-            exportAs: 'mdAutocomplete'
+            exportAs: 'mdAutocomplete',
+            host: {
+                '[class.mat-autocomplete]': 'true'
+            }
         }), 
         __metadata('design:paramtypes', [])
     ], MdAutocomplete);
