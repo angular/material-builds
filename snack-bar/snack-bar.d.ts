@@ -1,4 +1,3 @@
-import { ModuleWithProviders } from '@angular/core';
 import { ComponentType, Overlay, LiveAnnouncer } from '../core';
 import { MdSnackBarConfig } from './snack-bar-config';
 import { MdSnackBarRef } from './snack-bar-ref';
@@ -46,8 +45,4 @@ export declare class MdSnackBar {
      * Creates a new overlay and places it in the correct location.
      */
     private _createOverlay();
-}
-export declare class MdSnackBarModule {
-    /** @deprecated */
-    static forRoot(): ModuleWithProviders;
 }
