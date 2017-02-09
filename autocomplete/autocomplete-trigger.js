@@ -53,6 +53,8 @@ export var MdAutocompleteTrigger = (function () {
         this._panelOpen = false;
         /** Stream of blur events that should close the panel. */
         this._blurStream = new Subject();
+        /** View -> model callback called when value changes */
+        this._onChange = function (value) { };
         /** View -> model callback called when autocomplete has been touched */
         this._onTouched = function () { };
     }

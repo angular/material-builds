@@ -42,7 +42,7 @@ export declare class MdAutocompleteTrigger implements AfterContentInit, ControlV
     /** Stream of blur events that should close the panel. */
     private _blurStream;
     /** View -> model callback called when value changes */
-    _onChange: (value: any) => {};
+    _onChange: (value: any) => void;
     /** View -> model callback called when autocomplete has been touched */
     _onTouched: () => void;
     autocomplete: MdAutocomplete;
