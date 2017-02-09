@@ -46,6 +46,8 @@ export declare class MdAutocompleteTrigger implements AfterContentInit, ControlV
     /** View -> model callback called when autocomplete has been touched */
     _onTouched: () => void;
     autocomplete: MdAutocomplete;
+    /** Property with mat- prefix for no-conflict mode. */
+    _matAutocomplete: MdAutocomplete;
     constructor(_element: ElementRef, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _dir: Dir, _zone: NgZone, _inputContainer: MdInputContainer);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

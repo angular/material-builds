@@ -4,10 +4,10 @@
   * License: MIT
   */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('rxjs/Subject'), require('rxjs/Observable'), require('rxjs/add/observable/fromEvent'), require('@angular/platform-browser'), require('@angular/forms'), require('@angular/http'), require('rxjs/add/observable/forkJoin'), require('rxjs/add/observable/of'), require('rxjs/add/operator/map'), require('rxjs/add/operator/filter'), require('rxjs/add/operator/do'), require('rxjs/add/operator/share'), require('rxjs/add/operator/finally'), require('rxjs/add/operator/catch'), require('rxjs/add/operator/first'), require('rxjs/add/observable/merge'), require('rxjs/add/operator/startWith'), require('rxjs/add/operator/switchMap')) :
-    typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', 'rxjs/Subject', 'rxjs/Observable', 'rxjs/add/observable/fromEvent', '@angular/platform-browser', '@angular/forms', '@angular/http', 'rxjs/add/observable/forkJoin', 'rxjs/add/observable/of', 'rxjs/add/operator/map', 'rxjs/add/operator/filter', 'rxjs/add/operator/do', 'rxjs/add/operator/share', 'rxjs/add/operator/finally', 'rxjs/add/operator/catch', 'rxjs/add/operator/first', 'rxjs/add/observable/merge', 'rxjs/add/operator/startWith', 'rxjs/add/operator/switchMap'], factory) :
-    (factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.common,global.Rx,global.Rx,global.Rx.Observable,global.ng.platformBrowser,global.ng.forms,global.ng.http,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype));
-}(this, (function (exports,_angular_core,_angular_common,rxjs_Subject,rxjs_Observable,rxjs_add_observable_fromEvent,_angular_platformBrowser,_angular_forms,_angular_http,rxjs_add_observable_forkJoin,rxjs_add_observable_of,rxjs_add_operator_map,rxjs_add_operator_filter,rxjs_add_operator_do,rxjs_add_operator_share,rxjs_add_operator_finally,rxjs_add_operator_catch,rxjs_add_operator_first,rxjs_add_observable_merge,rxjs_add_operator_startWith,rxjs_add_operator_switchMap) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('rxjs/Subject'), require('rxjs/Observable'), require('rxjs/add/observable/fromEvent'), require('@angular/platform-browser'), require('@angular/forms'), require('rxjs/add/operator/startWith'), require('@angular/http'), require('rxjs/add/observable/forkJoin'), require('rxjs/add/observable/of'), require('rxjs/add/operator/map'), require('rxjs/add/operator/filter'), require('rxjs/add/operator/do'), require('rxjs/add/operator/share'), require('rxjs/add/operator/finally'), require('rxjs/add/operator/catch'), require('rxjs/add/operator/first'), require('rxjs/add/observable/merge'), require('rxjs/add/operator/switchMap')) :
+    typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', 'rxjs/Subject', 'rxjs/Observable', 'rxjs/add/observable/fromEvent', '@angular/platform-browser', '@angular/forms', 'rxjs/add/operator/startWith', '@angular/http', 'rxjs/add/observable/forkJoin', 'rxjs/add/observable/of', 'rxjs/add/operator/map', 'rxjs/add/operator/filter', 'rxjs/add/operator/do', 'rxjs/add/operator/share', 'rxjs/add/operator/finally', 'rxjs/add/operator/catch', 'rxjs/add/operator/first', 'rxjs/add/observable/merge', 'rxjs/add/operator/switchMap'], factory) :
+    (factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.common,global.Rx,global.Rx,global.Rx.Observable,global.ng.platformBrowser,global.ng.forms,global.Rx.Observable.prototype,global.ng.http,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.Rx.Observable.prototype));
+}(this, (function (exports,_angular_core,_angular_common,rxjs_Subject,rxjs_Observable,rxjs_add_observable_fromEvent,_angular_platformBrowser,_angular_forms,rxjs_add_operator_startWith,_angular_http,rxjs_add_observable_forkJoin,rxjs_add_observable_of,rxjs_add_operator_map,rxjs_add_operator_filter,rxjs_add_operator_do,rxjs_add_operator_share,rxjs_add_operator_finally,rxjs_add_operator_catch,rxjs_add_operator_first,rxjs_add_observable_merge,rxjs_add_operator_switchMap) { 'use strict';
 
 var __decorate$2 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -23,9 +23,9 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.OpaqueToken('md-compatibility-mode');
 /** Selector that matches all elements that may have style collisions with AngularJS Material. */
-var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-dialog-actions],\n  [mat-dialog-close],\n  [mat-dialog-content],\n  [mat-dialog-title],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [mat-tab-label],\n  [mat-tab-link],\n  [mat-tab-nav-bar],\n  mat-autocomplete,\n  mat-button-toggle-group,\n  mat-button-toggle,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-hint,\n  mat-icon,\n  mat-ink-bar,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-progress-circle,\n  mat-radio-button,\n  mat-radio-group,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-tab,\n  mat-tab-group,\n  mat-toolbar,\n  matTooltip";
+var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-dialog-actions],\n  [mat-dialog-close],\n  [mat-dialog-content],\n  [mat-dialog-title],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-menu-trigger-for],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [mat-tab-label],\n  [mat-tab-link],\n  [mat-tab-nav-bar],\n  [matTooltip],\n  mat-autocomplete,\n  mat-button-toggle,\n  mat-button-toggle-group,\n  mat-button-toggle,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-hint,\n  mat-icon,\n  mat-ink-bar,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-progress-circle,\n  mat-pseudo-checkbox,\n  mat-radio-button,\n  mat-radio-group,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-tab,\n  mat-tab-body,\n  mat-tab-header,\n  mat-tab-group,\n  mat-toolbar";
 /** Selector that matches all elements that may have style collisions with AngularJS Material. */
-var MD_ELEMENTS_SELECTOR = "  \n  [md-button],\n  [md-dialog-actions],\n  [md-dialog-close],\n  [md-dialog-content],\n  [md-dialog-title],\n  [md-fab],\n  [md-icon-button],\n  [md-mini-fab],\n  [md-raised-button],\n  [md-tab-label],\n  [md-tab-link],\n  [md-tab-nav-bar],\n  md-autocomplete,\n  md-button-toggle-group,\n  md-button-toggle,\n  md-card,\n  md-card-actions,\n  md-card-content,\n  md-card-footer,\n  md-card-header,\n  md-card-subtitle,\n  md-card-title,\n  md-card-title-group,\n  md-checkbox,\n  md-chip,\n  md-dialog-actions,\n  md-dialog-container,\n  md-dialog-content,\n  md-divider,\n  md-grid-list,\n  md-grid-tile,\n  md-grid-tile-footer,\n  md-grid-tile-header,\n  md-hint,\n  md-icon,\n  md-ink-bar,\n  md-list,\n  md-list-item,\n  md-menu,\n  md-nav-list,\n  md-option,\n  md-placeholder,\n  md-progress-bar,\n  md-progress-circle,\n  md-radio-button,\n  md-radio-group,\n  md-select,\n  md-sidenav,\n  md-sidenav-container,\n  md-slider,\n  md-spinner,\n  md-tab,\n  md-tab-group,\n  md-toolbar,\n  mdTooltip";
+var MD_ELEMENTS_SELECTOR = "  \n  [md-button],\n  [md-dialog-actions],\n  [md-dialog-close],\n  [md-dialog-content],\n  [md-dialog-title],\n  [md-fab],\n  [md-icon-button],\n  [md-menu-trigger-for],\n  [md-mini-fab],\n  [md-raised-button],\n  [md-tab-label],\n  [md-tab-link],\n  [md-tab-nav-bar],\n  [mdTooltip],\n  md-autocomplete,\n  md-button-toggle,\n  md-button-toggle-group,\n  md-button-toggle,\n  md-card,\n  md-card-actions,\n  md-card-content,\n  md-card-footer,\n  md-card-header,\n  md-card-subtitle,\n  md-card-title,\n  md-card-title-group,\n  md-checkbox,\n  md-chip,\n  md-dialog-actions,\n  md-dialog-container,\n  md-dialog-content,\n  md-divider,\n  md-grid-list,\n  md-grid-tile,\n  md-grid-tile-footer,\n  md-grid-tile-header,\n  md-hint,\n  md-icon,\n  md-ink-bar,\n  md-list,\n  md-list-item,\n  md-menu,\n  md-nav-list,\n  md-option,\n  md-placeholder,\n  md-progress-bar,\n  md-progress-circle,\n  md-pseudo-checkbox,\n  md-radio-button,\n  md-radio-group,\n  md-select,\n  md-sidenav,\n  md-sidenav-container,\n  md-slider,\n  md-spinner,\n  md-tab,\n  md-tab-body,\n  md-tab-header,\n  md-tab-group,\n  md-toolbar";
 /** Directive that enforces that the `mat-` prefix cannot be used. */
 var MatPrefixRejector = (function () {
     function MatPrefixRejector(isCompatibilityMode) {
@@ -3504,7 +3504,7 @@ var MdPseudoCheckbox = (function () {
     ], MdPseudoCheckbox.prototype, "color", null);
     MdPseudoCheckbox = __decorate$23([
         _angular_core.Component({encapsulation: _angular_core.ViewEncapsulation.None,
-            selector: 'md-pseudo-checkbox',
+            selector: 'md-pseudo-checkbox, mat-pseudo-checkbox',
             styles: [".mat-pseudo-checkbox{width:20px;height:20px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;transition:border-color 90ms cubic-bezier(0,0,.2,.1),background-color 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:'';border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:9px;left:2px;width:16px;opacity:1}.mat-pseudo-checkbox-checked::after{top:5px;left:3px;width:12px;height:5px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1}"],
             template: '',
             host: {
@@ -4006,17 +4006,27 @@ var FocusOriginMonitor = (function () {
         var _this = this;
         /** The focus origin that the next focus event is a result of. */
         this._origin = null;
+        /** Whether the window has just been focused. */
+        this._windowFocused = false;
         // Listen to keydown and mousedown in the capture phase so we can detect them even if the user
         // stops propagation.
         // TODO(mmalerba): Figure out how to handle touchstart
         document.addEventListener('keydown', function () { return _this._setOriginForCurrentEventQueue('keyboard'); }, true);
         document.addEventListener('mousedown', function () { return _this._setOriginForCurrentEventQueue('mouse'); }, true);
+        // Make a note of when the window regains focus, so we can restore the origin info for the
+        // focused element.
+        window.addEventListener('focus', function () {
+            _this._windowFocused = true;
+            setTimeout(function () { return _this._windowFocused = false; }, 0);
+        });
     }
     /** Register an element to receive focus classes. */
     FocusOriginMonitor.prototype.registerElementForFocusClasses = function (element, renderer) {
         var _this = this;
-        renderer.listen(element, 'focus', function () { return _this._onFocus(element, renderer); });
-        renderer.listen(element, 'blur', function () { return _this._onBlur(element, renderer); });
+        var subject = new rxjs_Subject.Subject();
+        renderer.listen(element, 'focus', function () { return _this._onFocus(element, renderer, subject); });
+        renderer.listen(element, 'blur', function () { return _this._onBlur(element, renderer, subject); });
+        return subject.asObservable();
     };
     /** Focuses the element via the specified focus origin. */
     FocusOriginMonitor.prototype.focusVia = function (element, renderer, origin) {
@@ -4030,19 +4040,35 @@ var FocusOriginMonitor = (function () {
         setTimeout(function () { return _this._origin = null; }, 0);
     };
     /** Handles focus events on a registered element. */
-    FocusOriginMonitor.prototype._onFocus = function (element, renderer) {
+    FocusOriginMonitor.prototype._onFocus = function (element, renderer, subject) {
+        // If we couldn't detect a cause for the focus event, it's due to one of two reasons:
+        // 1) The window has just regained focus, in which case we want to restore the focused state of
+        //    the element from before the window blurred.
+        // 2) The element was programmatically focused, in which case we should mark the origin as
+        //    'program'.
+        if (!this._origin) {
+            if (this._windowFocused && this._lastFocusOrigin) {
+                this._origin = this._lastFocusOrigin;
+            }
+            else {
+                this._origin = 'program';
+            }
+        }
         renderer.setElementClass(element, 'cdk-focused', true);
         renderer.setElementClass(element, 'cdk-keyboard-focused', this._origin == 'keyboard');
         renderer.setElementClass(element, 'cdk-mouse-focused', this._origin == 'mouse');
-        renderer.setElementClass(element, 'cdk-program-focused', !this._origin || this._origin == 'program');
+        renderer.setElementClass(element, 'cdk-program-focused', this._origin == 'program');
+        subject.next(this._origin);
+        this._lastFocusOrigin = this._origin;
         this._origin = null;
     };
     /** Handles blur events on a registered element. */
-    FocusOriginMonitor.prototype._onBlur = function (element, renderer) {
+    FocusOriginMonitor.prototype._onBlur = function (element, renderer, subject) {
         renderer.setElementClass(element, 'cdk-focused', false);
         renderer.setElementClass(element, 'cdk-keyboard-focused', false);
         renderer.setElementClass(element, 'cdk-mouse-focused', false);
         renderer.setElementClass(element, 'cdk-program-focused', false);
+        subject.next(null);
     };
     FocusOriginMonitor = __decorate$29([
         _angular_core.Injectable(), 
@@ -4056,7 +4082,8 @@ var FocusOriginMonitor = (function () {
  */
 var CdkFocusClasses = (function () {
     function CdkFocusClasses(elementRef, focusOriginMonitor, renderer) {
-        focusOriginMonitor.registerElementForFocusClasses(elementRef.nativeElement, renderer);
+        this.changes =
+            focusOriginMonitor.registerElementForFocusClasses(elementRef.nativeElement, renderer);
     }
     CdkFocusClasses = __decorate$29([
         _angular_core.Directive({
@@ -5073,8 +5100,8 @@ var MdCheckbox = (function () {
         /** Whether the label should appear after or before the checkbox. Defaults to 'after' */
         this.labelPosition = 'after';
         this._disabled = false;
-        /** @docs-private */
-        this.tabindex = 0;
+        /** Tabindex value that is passed to the underlying input element. */
+        this.tabIndex = 0;
         /** Name value will be applied to the input element if present */
         this.name = null;
         /** Event emitted when the checkbox's `checked` value changes. */
@@ -5374,7 +5401,7 @@ var MdCheckbox = (function () {
     __decorate$33([
         _angular_core.Input(), 
         __metadata$33('design:type', Number)
-    ], MdCheckbox.prototype, "tabindex", void 0);
+    ], MdCheckbox.prototype, "tabIndex", void 0);
     __decorate$33([
         _angular_core.Input(), 
         __metadata$33('design:type', String)
@@ -5405,7 +5432,7 @@ var MdCheckbox = (function () {
     ], MdCheckbox.prototype, "color", null);
     MdCheckbox = __decorate$33([
         _angular_core.Component({selector: 'md-checkbox, mat-checkbox',
-            template: "<label class=\"mat-checkbox-layout\"><div class=\"mat-checkbox-inner-container\"><input #input class=\"mat-checkbox-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [tabIndex]=\"tabindex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (focus)=\"_onInputFocus()\" (blur)=\"_onInputBlur()\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"><div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"mat-checkbox-ripple\" [mdRippleTrigger]=\"_getHostElement()\" [mdRippleCentered]=\"true\" [mdRippleSpeedFactor]=\"0.3\" mdRippleBackgroundColor=\"rgba(0, 0, 0, 0)\"></div><div class=\"mat-checkbox-frame\"></div><div class=\"mat-checkbox-background\"><svg version=\"1.1\" class=\"mat-checkbox-checkmark\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"><path class=\"mat-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/></svg><div class=\"mat-checkbox-mixedmark\"></div></div></div><span class=\"mat-checkbox-label\"><ng-content></ng-content></span></label>",
+            template: "<label class=\"mat-checkbox-layout\"><div class=\"mat-checkbox-inner-container\"><input #input class=\"mat-checkbox-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [tabIndex]=\"tabIndex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (focus)=\"_onInputFocus()\" (blur)=\"_onInputBlur()\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"><div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"mat-checkbox-ripple\" [mdRippleTrigger]=\"_getHostElement()\" [mdRippleCentered]=\"true\" [mdRippleSpeedFactor]=\"0.3\" mdRippleBackgroundColor=\"rgba(0, 0, 0, 0)\"></div><div class=\"mat-checkbox-frame\"></div><div class=\"mat-checkbox-background\"><svg version=\"1.1\" class=\"mat-checkbox-checkmark\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"><path class=\"mat-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/></svg><div class=\"mat-checkbox-mixedmark\"></div></div></div><span class=\"mat-checkbox-label\"><ng-content></ng-content></span></label>",
             styles: [".mat-checkbox-frame,.mat-checkbox-unchecked .mat-checkbox-background{background-color:transparent}@keyframes mat-checkbox-fade-in-background{0%{opacity:0}50%{opacity:1}}@keyframes mat-checkbox-fade-out-background{0%,50%{opacity:1}100%{opacity:0}}@keyframes mat-checkbox-unchecked-checked-checkmark-path{0%,50%{stroke-dashoffset:22.91026}50%{animation-timing-function:cubic-bezier(0,0,.2,.1)}100%{stroke-dashoffset:0}}@keyframes mat-checkbox-unchecked-indeterminate-mixedmark{0%,68.2%{transform:scaleX(0)}68.2%{animation-timing-function:cubic-bezier(0,0,0,1)}100%{transform:scaleX(1)}}@keyframes mat-checkbox-checked-unchecked-checkmark-path{from{animation-timing-function:cubic-bezier(.4,0,1,1);stroke-dashoffset:0}to{stroke-dashoffset:-22.91026}}@keyframes mat-checkbox-checked-indeterminate-checkmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(45deg)}}@keyframes mat-checkbox-indeterminate-checked-checkmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:0;transform:rotate(45deg)}to{opacity:1;transform:rotate(360deg)}}@keyframes mat-checkbox-checked-indeterminate-mixedmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:0;transform:rotate(-45deg)}to{opacity:1;transform:rotate(0)}}@keyframes mat-checkbox-indeterminate-checked-mixedmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(315deg)}}@keyframes mat-checkbox-indeterminate-unchecked-mixedmark{0%{animation-timing-function:linear;opacity:1;transform:scaleX(1)}100%,32.8%{opacity:0;transform:scaleX(0)}}.mat-checkbox-background,.mat-checkbox-checkmark,.mat-checkbox-frame{bottom:0;left:0;position:absolute;right:0;top:0}.mat-checkbox-checkmark,.mat-checkbox-mixedmark{width:calc(100% - 4px)}.mat-checkbox-background,.mat-checkbox-frame{border-radius:2px;box-sizing:border-box;pointer-events:none}.mat-checkbox{cursor:pointer;font-family:Roboto,\"Helvetica Neue\",sans-serif;transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-checkbox-layout{cursor:inherit;align-items:baseline;vertical-align:middle;display:inline-flex}.mat-checkbox-inner-container{display:inline-block;height:20px;line-height:0;margin:auto 8px auto auto;order:0;position:relative;vertical-align:middle;white-space:nowrap;width:20px;flex-shrink:0}[dir=rtl] .mat-checkbox-inner-container{margin-left:8px;margin-right:auto}.mat-checkbox-layout .mat-checkbox-label{line-height:24px}.mat-checkbox-frame{border:2px solid;transition:border-color 90ms cubic-bezier(0,0,.2,.1)}.mat-checkbox-background{align-items:center;display:inline-flex;justify-content:center;transition:background-color 90ms cubic-bezier(0,0,.2,.1),opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-checkbox-checkmark{width:100%}.mat-checkbox-checkmark-path{stroke-dashoffset:22.91026;stroke-dasharray:22.91026;stroke-width:2.67px}.mat-checkbox-checked .mat-checkbox-checkmark-path,.mat-checkbox-indeterminate .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-mixedmark{height:2px;opacity:0;transform:scaleX(0) rotate(0)}.mat-checkbox-label-before .mat-checkbox-inner-container{order:1;margin-left:8px;margin-right:auto}[dir=rtl] .mat-checkbox-label-before .mat-checkbox-inner-container{margin-left:auto;margin-right:8px}.mat-checkbox-checked .mat-checkbox-checkmark{opacity:1}.mat-checkbox-checked .mat-checkbox-mixedmark{transform:scaleX(1) rotate(-45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark{opacity:0;transform:rotate(45deg)}.mat-checkbox-indeterminate .mat-checkbox-mixedmark{opacity:1;transform:scaleX(1) rotate(0)}.mat-checkbox-disabled{cursor:default}.mat-checkbox-anim-unchecked-checked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-checked .mat-checkbox-checkmark-path{animation:180ms linear 0s mat-checkbox-unchecked-checked-checkmark-path}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-unchecked-indeterminate-mixedmark}.mat-checkbox-anim-checked-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-checked-unchecked .mat-checkbox-checkmark-path{animation:90ms linear 0s mat-checkbox-checked-unchecked-checkmark-path}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-checkmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-checkmark}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-mixedmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-checkmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-checkmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-mixedmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-mixedmark}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-mixedmark{animation:.3s linear 0s mat-checkbox-indeterminate-unchecked-mixedmark}.mat-checkbox-input{bottom:0;left:50%}.mat-checkbox-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none}"],
             host: {
                 '[class.mat-checkbox]': 'true',
@@ -6295,10 +6322,11 @@ var MdSelectChange = (function () {
     return MdSelectChange;
 }());
 var MdSelect = (function () {
-    function MdSelect(_element, _renderer, _viewportRuler, _dir, _control) {
+    function MdSelect(_element, _renderer, _viewportRuler, _changeDetectorRef, _dir, _control) {
         this._element = _element;
         this._renderer = _renderer;
         this._viewportRuler = _viewportRuler;
+        this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
         this._control = _control;
         /** Whether or not the overlay panel is open. */
@@ -6396,8 +6424,7 @@ var MdSelect = (function () {
     MdSelect.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._initKeyManager();
-        this._resetOptions();
-        this._changeSubscription = this.options.changes.subscribe(function () {
+        this._changeSubscription = this.options.changes.startWith(null).subscribe(function () {
             _this._resetOptions();
             if (_this._control) {
                 // Defer setting the value in order to avoid the "Expression
@@ -6408,8 +6435,12 @@ var MdSelect = (function () {
     };
     MdSelect.prototype.ngOnDestroy = function () {
         this._dropSubscriptions();
-        this._changeSubscription.unsubscribe();
-        this._tabSubscription.unsubscribe();
+        if (this._changeSubscription) {
+            this._changeSubscription.unsubscribe();
+        }
+        if (this._tabSubscription) {
+            this._tabSubscription.unsubscribe();
+        }
     };
     /** Toggles the overlay panel open or closed. */
     MdSelect.prototype.toggle = function () {
@@ -6417,7 +6448,7 @@ var MdSelect = (function () {
     };
     /** Opens the overlay panel. */
     MdSelect.prototype.open = function () {
-        if (this.disabled) {
+        if (this.disabled || !this.options.length) {
             return;
         }
         this._calculateOverlayPosition();
@@ -6439,16 +6470,10 @@ var MdSelect = (function () {
      * @param value New value to be written to the model.
      */
     MdSelect.prototype.writeValue = function (value) {
-        var _this = this;
-        if (!this.options) {
-            // In reactive forms, writeValue() will be called synchronously before
-            // the select's child options have been created. It's necessary to call
-            // writeValue() again after the options have been created to ensure any
-            // initial view value is set.
-            Promise.resolve(null).then(function () { return _this.writeValue(value); });
-            return;
+        if (this.options) {
+            this._setSelectionByValue(value);
+            this._changeDetectorRef.markForCheck();
         }
-        this._setSelectionByValue(value);
     };
     /**
      * Saves a callback function to be invoked when the select's value
@@ -6861,10 +6886,10 @@ var MdSelect = (function () {
             ],
             exportAs: 'mdSelect',
         }),
-        __param$6(3, _angular_core.Optional()),
-        __param$6(4, _angular_core.Self()),
-        __param$6(4, _angular_core.Optional()), 
-        __metadata$36('design:paramtypes', [_angular_core.ElementRef, _angular_core.Renderer, ViewportRuler, Dir, _angular_forms.NgControl])
+        __param$6(4, _angular_core.Optional()),
+        __param$6(5, _angular_core.Self()),
+        __param$6(5, _angular_core.Optional()), 
+        __metadata$36('design:paramtypes', [_angular_core.ElementRef, _angular_core.Renderer, ViewportRuler, _angular_core.ChangeDetectorRef, Dir, _angular_forms.NgControl])
     ], MdSelect);
     return MdSelect;
 }());
@@ -11787,7 +11812,7 @@ var MdInputContainer = (function () {
     ], MdInputContainer.prototype, "_hintChildren", void 0);
     MdInputContainer = __decorate$51([
         _angular_core.Component({selector: 'md-input-container, mat-input-container',
-            template: "<div class=\"mat-input-wrapper\"><div class=\"mat-input-table\"><div class=\"mat-input-prefix\"><ng-content select=\"[mdPrefix], [md-prefix]\"></ng-content></div><div class=\"mat-input-infix\" [class.mat-end]=\"align == 'end'\"><ng-content selector=\"input, textarea\"></ng-content><label class=\"mat-input-placeholder\" [attr.for]=\"_mdInputChild.id\" [class.mat-empty]=\"_mdInputChild.empty && !_shouldAlwaysFloat\" [class.mat-focused]=\"_mdInputChild.focused\" [class.mat-float]=\"_canPlaceholderFloat\" [class.mat-accent]=\"dividerColor == 'accent'\" [class.mat-warn]=\"dividerColor == 'warn'\" *ngIf=\"_hasPlaceholder()\"><ng-content select=\"md-placeholder\"></ng-content>{{_mdInputChild.placeholder}} <span class=\"mat-placeholder-required\" *ngIf=\"_mdInputChild.required\">*</span></label></div><div class=\"mat-input-suffix\"><ng-content select=\"[mdSuffix], [md-suffix]\"></ng-content></div></div><div class=\"mat-input-underline\" [class.mat-disabled]=\"_mdInputChild.disabled\"><span class=\"mat-input-ripple\" [class.mat-focused]=\"_mdInputChild.focused\" [class.mat-accent]=\"dividerColor == 'accent'\" [class.mat-warn]=\"dividerColor == 'warn'\"></span></div><div *ngIf=\"hintLabel != ''\" [attr.id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"md-hint\"></ng-content></div>",
+            template: "<div class=\"mat-input-wrapper\"><div class=\"mat-input-table\"><div class=\"mat-input-prefix\"><ng-content select=\"[mdPrefix], [matPrefix], [md-prefix]\"></ng-content></div><div class=\"mat-input-infix\" [class.mat-end]=\"align == 'end'\"><ng-content selector=\"input, textarea\"></ng-content><label class=\"mat-input-placeholder\" [attr.for]=\"_mdInputChild.id\" [class.mat-empty]=\"_mdInputChild.empty && !_shouldAlwaysFloat\" [class.mat-focused]=\"_mdInputChild.focused\" [class.mat-float]=\"_canPlaceholderFloat\" [class.mat-accent]=\"dividerColor == 'accent'\" [class.mat-warn]=\"dividerColor == 'warn'\" *ngIf=\"_hasPlaceholder()\"><ng-content select=\"md-placeholder, mat-placeholder\"></ng-content>{{_mdInputChild.placeholder}} <span class=\"mat-placeholder-required\" *ngIf=\"_mdInputChild.required\">*</span></label></div><div class=\"mat-input-suffix\"><ng-content select=\"[mdSuffix], [matSuffix], [md-suffix]\"></ng-content></div></div><div class=\"mat-input-underline\" [class.mat-disabled]=\"_mdInputChild.disabled\"><span class=\"mat-input-ripple\" [class.mat-focused]=\"_mdInputChild.focused\" [class.mat-accent]=\"dividerColor == 'accent'\" [class.mat-warn]=\"dividerColor == 'warn'\"></span></div><div *ngIf=\"hintLabel != ''\" [attr.id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"md-hint, mat-hint\"></ng-content></div>",
             styles: [".mat-input-container{display:inline-block;position:relative;font-family:Roboto,\"Helvetica Neue\",sans-serif;line-height:normal;text-align:left}.mat-end .mat-input-element,[dir=rtl] .mat-input-container{text-align:right}.mat-input-wrapper{margin:1em 0;padding-bottom:6px}.mat-input-table{display:inline-table;flex-flow:column;vertical-align:bottom;width:100%}.mat-input-table>*{display:table-cell}.mat-input-infix{position:relative}.mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;width:100%}[dir=rtl] .mat-end .mat-input-element{text-align:left}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element:-webkit-autofill+.mat-input-placeholder.mat-float{display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}.mat-input-element::placeholder{color:transparent}.mat-input-element::-moz-placeholder{color:transparent}.mat-input-element::-webkit-input-placeholder{color:transparent}.mat-input-element:-ms-input-placeholder{color:transparent}.mat-input-placeholder{position:absolute;left:0;top:0;font-size:100%;pointer-events:none;z-index:1;width:100%;display:none;white-space:nowrap;text-overflow:ellipsis;overflow-x:hidden;transform:translateY(0);transform-origin:bottom left;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1)}.mat-input-placeholder.mat-empty{display:block;cursor:text}.mat-input-placeholder.mat-float.mat-focused,.mat-input-placeholder.mat-float:not(.mat-empty){display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}[dir=rtl] .mat-input-placeholder{transform-origin:bottom right;left:auto;right:0}.mat-input-underline{position:absolute;height:1px;width:100%;margin-top:4px;border-top-width:1px;border-top-style:solid}.mat-input-underline.mat-disabled{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;border-top:0;background-position:0}.mat-input-underline .mat-input-ripple{position:absolute;height:2px;z-index:1;top:-1px;width:100%;transform-origin:top;opacity:0;transform:scaleY(0);transition:transform .4s cubic-bezier(.25,.8,.25,1),opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-input-underline .mat-input-ripple.mat-focused{opacity:1;transform:scaleY(1)}.mat-hint{display:block;position:absolute;font-size:75%;bottom:0}.mat-hint.mat-right{right:0}[dir=rtl] .mat-hint{right:0;left:auto}[dir=rtl] .mat-hint.mat-right{right:auto;left:0}.mat-input-prefix,.mat-input-suffix{width:.1px;white-space:nowrap}"],
             host: {
                 '[class.mat-input-container]': 'true',
@@ -12238,8 +12263,8 @@ var SimpleSnackBar = (function () {
     });
     SimpleSnackBar = __decorate$55([
         _angular_core.Component({selector: 'simple-snack-bar',
-            template: "<span class=\"mat-simple-snackbar-message\">{{message}}</span> <button md-button class=\"mat-simple-snackbar-action mat-button\" *ngIf=\"hasAction\" (click)=\"dismiss()\">{{action}}</button>",
-            styles: [".mat-simple-snackbar{display:flex;justify-content:space-between}.mat-simple-snackbar-message{box-sizing:border-box;border:none;color:#fff;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-size:14px;line-height:20px;outline:0;text-decoration:none;word-break:break-all}.mat-simple-snackbar-action{box-sizing:border-box;color:#fff;float:right;font-weight:600;line-height:20px;margin:-5px 0 0 48px;min-width:initial;padding:5px;text-transform:uppercase}"],
+            template: "<span class=\"mat-simple-snackbar-message\">{{message}}</span> <button class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\" (click)=\"dismiss()\">{{action}}</button>",
+            styles: [":host{display:flex;justify-content:space-between;color:#fff;line-height:20px;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif}.mat-simple-snackbar-message{white-space:nowrap;overflow-x:hidden;text-overflow:ellipsis}.mat-simple-snackbar-action{cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0;border:none;background:0 0;margin:-5px 0 0;padding:5px;text-transform:uppercase;color:inherit;line-height:inherit;flex-shrink:0;font-family:inherit;font-size:inherit;font-weight:600}"],
             host: {
                 '[class.mat-simple-snackbar]': 'true',
             }
@@ -12898,7 +12923,7 @@ var MdTabBody = (function () {
         __metadata$62('design:paramtypes', [Number])
     ], MdTabBody.prototype, "origin", null);
     MdTabBody = __decorate$62([
-        _angular_core.Component({selector: 'md-tab-body',
+        _angular_core.Component({selector: 'md-tab-body, mat-tab-body',
             template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_canBeAnimated ? _position : null\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><template cdkPortalHost></template></div>",
             host: {
                 '[class.mat-tab-body]': 'true',
@@ -13268,7 +13293,7 @@ var MdTabHeader = (function () {
         __metadata$63('design:type', Object)
     ], MdTabHeader.prototype, "indexFocused", void 0);
     MdTabHeader = __decorate$63([
-        _angular_core.Component({selector: 'md-tab-header',
+        _angular_core.Component({selector: 'md-tab-header, mat-tab-header',
             template: "<div class=\"mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4\" aria-hidden=\"true\" md-ripple [mdRippleDisabled]=\"_disableScrollBefore\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollBefore\" (click)=\"_scrollHeader('before')\"><div class=\"mat-tab-header-pagination-chevron\"></div></div><div class=\"mat-tab-label-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\"><div class=\"mat-tab-list\" #tabList role=\"tablist\" (cdkObserveContent)=\"_onContentChanges()\"><ng-content></ng-content><md-ink-bar></md-ink-bar></div></div><div class=\"mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4\" aria-hidden=\"true\" md-ripple [mdRippleDisabled]=\"_disableScrollAfter\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollAfter\" (click)=\"_scrollHeader('after')\"><div class=\"mat-tab-header-pagination-chevron\"></div></div>",
             styles: [".mat-tab-header{overflow:hidden;position:relative;display:flex;flex-direction:row;flex-shrink:0}.mat-tab-label{line-height:48px;height:48px;padding:0 12px;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;cursor:pointer;box-sizing:border-box;color:currentColor;opacity:.6;min-width:160px;text-align:center;position:relative}.mat-tab-label:focus{outline:0;opacity:1}@media (max-width:600px){.mat-tab-label{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}.mat-tab-header-pagination{position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-pagination-after,.mat-tab-header-rtl .mat-tab-header-pagination-before{padding-right:4px}.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:'';height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-header-pagination-disabled .mat-tab-header-pagination-chevron{border-color:#ccc}.mat-tab-label-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}.mat-tab-list{display:flex;flex-grow:1;position:relative;transition:transform .5s cubic-bezier(.35,0,.25,1)}"],
             encapsulation: _angular_core.ViewEncapsulation.None,
@@ -13481,7 +13506,7 @@ var MdTabGroup = (function () {
         __metadata$56('design:type', rxjs_Observable.Observable)
     ], MdTabGroup.prototype, "selectChange", null);
     MdTabGroup = __decorate$56([
-        _angular_core.Component({selector: 'md-tab-group',
+        _angular_core.Component({selector: 'md-tab-group, mat-tab-group',
             template: "<md-tab-header [selectedIndex]=\"selectedIndex\" #tabHeader (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" md-tab-label-wrapper md-ripple *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [tabIndex]=\"selectedIndex == i ? 0 : -1\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" (click)=\"tabHeader.focusIndex = selectedIndex = i\"><template [ngIf]=\"tab.templateLabel\"><template [cdkPortalHost]=\"tab.templateLabel\"></template></template><template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</template></div></md-tab-header><div class=\"mat-tab-body-wrapper\" #tabBodyWrapper><md-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (onCentered)=\"_removeTabBodyWrapperHeight()\" (onCentering)=\"_setTabBodyWrapperHeight($event)\"></md-tab-body></div>",
             styles: [":host{display:flex;flex-direction:column;font-family:Roboto,\"Helvetica Neue\",sans-serif}:host.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{line-height:48px;height:48px;padding:0 12px;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;cursor:pointer;box-sizing:border-box;color:currentColor;opacity:.6;min-width:160px;text-align:center;position:relative}.mat-tab-label:focus{outline:0;opacity:1}@media (max-width:600px){.mat-tab-label{min-width:72px}}:host[mat-stretch-tabs] .mat-tab-label,:host[md-stretch-tabs] .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height .5s cubic-bezier(.35,0,.25,1)}.mat-tab-body{position:absolute;top:0;left:0;right:0;bottom:0;display:block;overflow:hidden}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}:host.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}.mat-tab-disabled{cursor:default;pointer-events:none}"],
             host: {
@@ -13933,7 +13958,7 @@ var TooltipComponent = (function () {
             // If this was set to true immediately, then a body click that triggers show() would
             // trigger interaction and close the tooltip right after it was displayed.
             _this._closeOnInteraction = false;
-            // Mark for check so if any parent component has set the 
+            // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
             _this._changeDetectorRef.markForCheck();
             setTimeout(function () { _this._closeOnInteraction = true; }, 0);
@@ -13952,7 +13977,7 @@ var TooltipComponent = (function () {
         this._hideTimeoutId = setTimeout(function () {
             _this._visibility = 'hidden';
             _this._closeOnInteraction = false;
-            // Mark for check so if any parent component has set the 
+            // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
             _this._changeDetectorRef.markForCheck();
         }, delay);
@@ -14362,6 +14387,7 @@ var __param$16 = (this && this.__param) || function (paramIndex, decorator) {
 /**
  * This directive is intended to be used in conjunction with an md-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
+ * TODO(andrewseguin): Remove the kebab versions in favor of camelCased attribute selectors
  */
 var MdMenuTrigger = (function () {
     function MdMenuTrigger(_overlay, _element, _viewContainerRef, _renderer, _dir) {
@@ -14379,8 +14405,22 @@ var MdMenuTrigger = (function () {
         /** Event emitted when the associated menu is closed. */
         this.onMenuClose = new _angular_core.EventEmitter();
     }
-    Object.defineProperty(MdMenuTrigger.prototype, "_deprecatedMenuTriggerFor", {
+    Object.defineProperty(MdMenuTrigger.prototype, "_deprecatedMdMenuTriggerFor", {
         /** @deprecated */
+        get: function () { return this.menu; },
+        set: function (v) { this.menu = v; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdMenuTrigger.prototype, "_deprecatedMatMenuTriggerFor", {
+        /** @deprecated */
+        get: function () { return this.menu; },
+        set: function (v) { this.menu = v; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdMenuTrigger.prototype, "_matMenuTriggerFor", {
+        // Trigger input for compatibility mode
         get: function () { return this.menu; },
         set: function (v) { this.menu = v; },
         enumerable: true,
@@ -14569,7 +14609,15 @@ var MdMenuTrigger = (function () {
     __decorate$69([
         _angular_core.Input('md-menu-trigger-for'), 
         __metadata$69('design:type', Object)
-    ], MdMenuTrigger.prototype, "_deprecatedMenuTriggerFor", null);
+    ], MdMenuTrigger.prototype, "_deprecatedMdMenuTriggerFor", null);
+    __decorate$69([
+        _angular_core.Input('mat-menu-trigger-for'), 
+        __metadata$69('design:type', Object)
+    ], MdMenuTrigger.prototype, "_deprecatedMatMenuTriggerFor", null);
+    __decorate$69([
+        _angular_core.Input('matMenuTriggerFor'), 
+        __metadata$69('design:type', Object)
+    ], MdMenuTrigger.prototype, "_matMenuTriggerFor", null);
     __decorate$69([
         _angular_core.Input('mdMenuTriggerFor'), 
         __metadata$69('design:type', Object)
@@ -14584,7 +14632,7 @@ var MdMenuTrigger = (function () {
     ], MdMenuTrigger.prototype, "onMenuClose", void 0);
     MdMenuTrigger = __decorate$69([
         _angular_core.Directive({
-            selector: '[md-menu-trigger-for], [mat-menu-trigger-for], [mdMenuTriggerFor]',
+            selector: "[md-menu-trigger-for], [mat-menu-trigger-for], \n             [mdMenuTriggerFor], [matMenuTriggerFor]",
             host: {
                 'aria-haspopup': 'true',
                 '(mousedown)': '_handleMousedown($event)',
@@ -14739,15 +14787,35 @@ var MdDialogContainer = (function (_super) {
         this._elementFocusedBeforeDialogWasOpened = null;
     }
     /**
-     * Attach a portal as content to this dialog container.
+     * Attach a ComponentPortal as content to this dialog container.
      * @param portal Portal to be attached as the dialog content.
      */
     MdDialogContainer.prototype.attachComponentPortal = function (portal) {
-        var _this = this;
         if (this._portalHost.hasAttached()) {
             throw new MdDialogContentAlreadyAttachedError();
         }
         var attachResult = this._portalHost.attachComponentPortal(portal);
+        this._trapFocus();
+        return attachResult;
+    };
+    /**
+     * Attach a TemplatePortal as content to this dialog container.
+     * @param portal Portal to be attached as the dialog content.
+     */
+    MdDialogContainer.prototype.attachTemplatePortal = function (portal) {
+        if (this._portalHost.hasAttached()) {
+            throw new MdDialogContentAlreadyAttachedError();
+        }
+        var attachedResult = this._portalHost.attachTemplatePortal(portal);
+        this._trapFocus();
+        return attachedResult;
+    };
+    /**
+     * Moves the focus inside the focus trap.
+     * @private
+     */
+    MdDialogContainer.prototype._trapFocus = function () {
+        var _this = this;
         // If were to attempt to focus immediately, then the content of the dialog would not yet be
         // ready in instances where change detection has to run first. To deal with this, we simply
         // wait for the microtask queue to be empty.
@@ -14755,11 +14823,6 @@ var MdDialogContainer = (function (_super) {
             _this._elementFocusedBeforeDialogWasOpened = document.activeElement;
             _this._focusTrap.focusFirstTabbableElement();
         });
-        return attachResult;
-    };
-    /** @docs-private */
-    MdDialogContainer.prototype.attachTemplatePortal = function (portal) {
-        throw Error('Not yet implemented');
     };
     /**
      * Handles the user pressing the Escape key.
@@ -14818,7 +14881,6 @@ var __metadata$71 = (this && this.__metadata) || function (k, v) {
 var __param$17 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-// TODO(jelbourn): add support for opening with a TemplateRef
 // TODO(jelbourn): animations
 /**
  * Service to open Material Design modal dialogs.
@@ -14863,16 +14925,17 @@ var MdDialog = (function () {
     });
     /**
      * Opens a modal dialog containing the given component.
-     * @param component Type of the component to load into the load.
+     * @param componentOrTemplateRef Type of the component to load into the dialog,
+     *     or a TemplateRef to instantiate as the dialog content.
      * @param config Extra configuration options.
      * @returns Reference to the newly-opened dialog.
      */
-    MdDialog.prototype.open = function (component, config) {
+    MdDialog.prototype.open = function (componentOrTemplateRef, config) {
         var _this = this;
         config = _applyConfigDefaults$1(config);
         var overlayRef = this._createOverlay(config);
         var dialogContainer = this._attachDialogContainer(overlayRef, config);
-        var dialogRef = this._attachDialogContent(component, dialogContainer, overlayRef, config);
+        var dialogRef = this._attachDialogContent(componentOrTemplateRef, dialogContainer, overlayRef, config);
         this._openDialogs.push(dialogRef);
         dialogRef.afterClosed().subscribe(function () { return _this._removeOpenDialog(dialogRef); });
         this._afterOpen.next(dialogRef);
@@ -14915,13 +14978,14 @@ var MdDialog = (function () {
     };
     /**
      * Attaches the user-provided component to the already-created MdDialogContainer.
-     * @param component The type of component being loaded into the dialog.
+     * @param componentOrTemplateRef The type of component being loaded into the dialog,
+     *     or a TemplateRef to instantiate as the content.
      * @param dialogContainer Reference to the wrapping MdDialogContainer.
      * @param overlayRef Reference to the overlay in which the dialog resides.
      * @param config The dialog configuration.
      * @returns A promise resolving to the MdDialogRef that should be returned to the user.
      */
-    MdDialog.prototype._attachDialogContent = function (component, dialogContainer, overlayRef, config) {
+    MdDialog.prototype._attachDialogContent = function (componentOrTemplateRef, dialogContainer, overlayRef, config) {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
         var dialogRef = new MdDialogRef(overlayRef);
@@ -14936,9 +15000,13 @@ var MdDialog = (function () {
         // and, optionally, to return a value.
         var userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         var dialogInjector = new DialogInjector(userInjector || this._injector, dialogRef, config.data);
-        var contentPortal = new ComponentPortal(component, null, dialogInjector);
-        var contentRef = dialogContainer.attachComponentPortal(contentPortal);
-        dialogRef.componentInstance = contentRef.instance;
+        if (componentOrTemplateRef instanceof _angular_core.TemplateRef) {
+            dialogContainer.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, null));
+        }
+        else {
+            var contentRef = dialogContainer.attachComponentPortal(new ComponentPortal(componentOrTemplateRef, null, dialogInjector));
+            dialogRef.componentInstance = contentRef.instance;
+        }
         return dialogRef;
     };
     /**
@@ -15277,6 +15345,17 @@ var MdAutocompleteTrigger = (function () {
         /** View -> model callback called when autocomplete has been touched */
         this._onTouched = function () { };
     }
+    Object.defineProperty(MdAutocompleteTrigger.prototype, "_matAutocomplete", {
+        /** Property with mat- prefix for no-conflict mode. */
+        get: function () {
+            return this.autocomplete;
+        },
+        set: function (autocomplete) {
+            this.autocomplete = autocomplete;
+        },
+        enumerable: true,
+        configurable: true
+    });
     MdAutocompleteTrigger.prototype.ngAfterContentInit = function () {
         this._keyManager = new ActiveDescendantKeyManager(this.autocomplete.options).withWrap();
     };
@@ -15513,6 +15592,10 @@ var MdAutocompleteTrigger = (function () {
         _angular_core.Input('mdAutocomplete'), 
         __metadata$76('design:type', MdAutocomplete)
     ], MdAutocompleteTrigger.prototype, "autocomplete", void 0);
+    __decorate$76([
+        _angular_core.Input('matAutocomplete'), 
+        __metadata$76('design:type', MdAutocomplete)
+    ], MdAutocompleteTrigger.prototype, "_matAutocomplete", null);
     MdAutocompleteTrigger = __decorate$76([
         _angular_core.Directive({
             selector: 'input[mdAutocomplete], input[matAutocomplete]',
@@ -15767,6 +15850,12 @@ exports.MdSelectionModule = MdSelectionModule;
 exports.MdPseudoCheckbox = MdPseudoCheckbox;
 exports.MaterialRootModule = MaterialRootModule;
 exports.MaterialModule = MaterialModule;
+exports.MdAutocompleteModule = MdAutocompleteModule;
+exports.MdAutocomplete = MdAutocomplete;
+exports.AUTOCOMPLETE_OPTION_HEIGHT = AUTOCOMPLETE_OPTION_HEIGHT;
+exports.AUTOCOMPLETE_PANEL_HEIGHT = AUTOCOMPLETE_PANEL_HEIGHT;
+exports.MD_AUTOCOMPLETE_VALUE_ACCESSOR = MD_AUTOCOMPLETE_VALUE_ACCESSOR;
+exports.MdAutocompleteTrigger = MdAutocompleteTrigger;
 exports.MdButtonCssMatStyler = MdButtonCssMatStyler;
 exports.MdRaisedButtonCssMatStyler = MdRaisedButtonCssMatStyler;
 exports.MdIconButtonCssMatStyler = MdIconButtonCssMatStyler;

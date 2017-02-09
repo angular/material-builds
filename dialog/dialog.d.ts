@@ -1,4 +1,4 @@
-import { Injector } from '@angular/core';
+import { Injector, TemplateRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Overlay, ComponentType } from '../core';
@@ -27,11 +27,12 @@ export declare class MdDialog {
     constructor(_overlay: Overlay, _injector: Injector, _parentDialog: MdDialog);
     /**
      * Opens a modal dialog containing the given component.
-     * @param component Type of the component to load into the load.
+     * @param componentOrTemplateRef Type of the component to load into the dialog,
+     *     or a TemplateRef to instantiate as the dialog content.
      * @param config Extra configuration options.
      * @returns Reference to the newly-opened dialog.
      */
-    open<T>(component: ComponentType<T>, config?: MdDialogConfig): MdDialogRef<T>;
+    open<T>(componentOrTemplateRef: ComponentType<T> | TemplateRef<T>, config?: MdDialogConfig): MdDialogRef<T>;
     /**
      * Closes all of the currently-open dialogs.
      */
@@ -51,13 +52,14 @@ export declare class MdDialog {
     private _attachDialogContainer(overlay, config);
     /**
      * Attaches the user-provided component to the already-created MdDialogContainer.
-     * @param component The type of component being loaded into the dialog.
+     * @param componentOrTemplateRef The type of component being loaded into the dialog,
+     *     or a TemplateRef to instantiate as the content.
      * @param dialogContainer Reference to the wrapping MdDialogContainer.
      * @param overlayRef Reference to the overlay in which the dialog resides.
      * @param config The dialog configuration.
      * @returns A promise resolving to the MdDialogRef that should be returned to the user.
      */
-    private _attachDialogContent<T>(component, dialogContainer, overlayRef, config?);
+    private _attachDialogContent<T>(componentOrTemplateRef, dialogContainer, overlayRef, config?);
     /**
      * Creates an overlay state from a dialog config.
      * @param dialogConfig The dialog configuration.

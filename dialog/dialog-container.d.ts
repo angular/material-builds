@@ -23,12 +23,20 @@ export declare class MdDialogContainer extends BasePortalHost implements OnDestr
     dialogRef: MdDialogRef<any>;
     constructor(_ngZone: NgZone, _renderer: Renderer);
     /**
-     * Attach a portal as content to this dialog container.
+     * Attach a ComponentPortal as content to this dialog container.
      * @param portal Portal to be attached as the dialog content.
      */
     attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T>;
-    /** @docs-private */
+    /**
+     * Attach a TemplatePortal as content to this dialog container.
+     * @param portal Portal to be attached as the dialog content.
+     */
     attachTemplatePortal(portal: TemplatePortal): Map<string, any>;
+    /**
+     * Moves the focus inside the focus trap.
+     * @private
+     */
+    private _trapFocus();
     /**
      * Handles the user pressing the Escape key.
      * @docs-private

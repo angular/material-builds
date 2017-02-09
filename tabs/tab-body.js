@@ -150,7 +150,7 @@ export var MdTabBody = (function () {
         __metadata('design:paramtypes', [Number])
     ], MdTabBody.prototype, "origin", null);
     MdTabBody = __decorate([
-        Component({selector: 'md-tab-body',
+        Component({selector: 'md-tab-body, mat-tab-body',
             template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_canBeAnimated ? _position : null\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><template cdkPortalHost></template></div>",
             host: {
                 '[class.mat-tab-body]': 'true',

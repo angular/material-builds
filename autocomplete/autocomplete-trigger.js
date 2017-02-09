@@ -56,6 +56,17 @@ export var MdAutocompleteTrigger = (function () {
         /** View -> model callback called when autocomplete has been touched */
         this._onTouched = function () { };
     }
+    Object.defineProperty(MdAutocompleteTrigger.prototype, "_matAutocomplete", {
+        /** Property with mat- prefix for no-conflict mode. */
+        get: function () {
+            return this.autocomplete;
+        },
+        set: function (autocomplete) {
+            this.autocomplete = autocomplete;
+        },
+        enumerable: true,
+        configurable: true
+    });
     MdAutocompleteTrigger.prototype.ngAfterContentInit = function () {
         this._keyManager = new ActiveDescendantKeyManager(this.autocomplete.options).withWrap();
     };
@@ -292,6 +303,10 @@ export var MdAutocompleteTrigger = (function () {
         Input('mdAutocomplete'), 
         __metadata('design:type', MdAutocomplete)
     ], MdAutocompleteTrigger.prototype, "autocomplete", void 0);
+    __decorate([
+        Input('matAutocomplete'), 
+        __metadata('design:type', MdAutocomplete)
+    ], MdAutocompleteTrigger.prototype, "_matAutocomplete", null);
     MdAutocompleteTrigger = __decorate([
         Directive({
             selector: 'input[mdAutocomplete], input[matAutocomplete]',

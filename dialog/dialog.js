@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Injector, Injectable, Optional, SkipSelf } from '@angular/core';
+import { Injector, Injectable, Optional, SkipSelf, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Overlay, OverlayState, ComponentPortal } from '../core';
 import { extendObject } from '../core/util/object-extend';
@@ -18,7 +18,7 @@ import { DialogInjector } from './dialog-injector';
 import { MdDialogConfig } from './dialog-config';
 import { MdDialogRef } from './dialog-ref';
 import { MdDialogContainer } from './dialog-container';
-// TODO(jelbourn): add support for opening with a TemplateRef
+import { TemplatePortal } from '../core/portal/portal';
 // TODO(jelbourn): animations
 /**
  * Service to open Material Design modal dialogs.
@@ -63,16 +63,17 @@ export var MdDialog = (function () {
     });
     /**
      * Opens a modal dialog containing the given component.
-     * @param component Type of the component to load into the load.
+     * @param componentOrTemplateRef Type of the component to load into the dialog,
+     *     or a TemplateRef to instantiate as the dialog content.
      * @param config Extra configuration options.
      * @returns Reference to the newly-opened dialog.
      */
-    MdDialog.prototype.open = function (component, config) {
+    MdDialog.prototype.open = function (componentOrTemplateRef, config) {
         var _this = this;
         config = _applyConfigDefaults(config);
         var overlayRef = this._createOverlay(config);
         var dialogContainer = this._attachDialogContainer(overlayRef, config);
-        var dialogRef = this._attachDialogContent(component, dialogContainer, overlayRef, config);
+        var dialogRef = this._attachDialogContent(componentOrTemplateRef, dialogContainer, overlayRef, config);
         this._openDialogs.push(dialogRef);
         dialogRef.afterClosed().subscribe(function () { return _this._removeOpenDialog(dialogRef); });
         this._afterOpen.next(dialogRef);
@@ -115,13 +116,14 @@ export var MdDialog = (function () {
     };
     /**
      * Attaches the user-provided component to the already-created MdDialogContainer.
-     * @param component The type of component being loaded into the dialog.
+     * @param componentOrTemplateRef The type of component being loaded into the dialog,
+     *     or a TemplateRef to instantiate as the content.
      * @param dialogContainer Reference to the wrapping MdDialogContainer.
      * @param overlayRef Reference to the overlay in which the dialog resides.
      * @param config The dialog configuration.
      * @returns A promise resolving to the MdDialogRef that should be returned to the user.
      */
-    MdDialog.prototype._attachDialogContent = function (component, dialogContainer, overlayRef, config) {
+    MdDialog.prototype._attachDialogContent = function (componentOrTemplateRef, dialogContainer, overlayRef, config) {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
         var dialogRef = new MdDialogRef(overlayRef);
@@ -136,9 +138,13 @@ export var MdDialog = (function () {
         // and, optionally, to return a value.
         var userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         var dialogInjector = new DialogInjector(userInjector || this._injector, dialogRef, config.data);
-        var contentPortal = new ComponentPortal(component, null, dialogInjector);
-        var contentRef = dialogContainer.attachComponentPortal(contentPortal);
-        dialogRef.componentInstance = contentRef.instance;
+        if (componentOrTemplateRef instanceof TemplateRef) {
+            dialogContainer.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, null));
+        }
+        else {
+            var contentRef = dialogContainer.attachComponentPortal(new ComponentPortal(componentOrTemplateRef, null, dialogInjector));
+            dialogRef.componentInstance = contentRef.instance;
+        }
         return dialogRef;
     };
     /**

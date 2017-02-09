@@ -1,10 +1,11 @@
-import { AfterContentInit, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer } from '@angular/core';
+import { AfterContentInit, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer, ChangeDetectorRef } from '@angular/core';
 import { MdOption } from '../core/option/option';
 import { FocusKeyManager } from '../core/a11y/focus-key-manager';
 import { Dir } from '../core/rtl/dir';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { ConnectedOverlayDirective } from '../core/overlay/overlay-directives';
 import { ViewportRuler } from '../core/overlay/position/viewport-ruler';
+import 'rxjs/add/operator/startWith';
 /**
  * The following style constants are necessary to save here in order
  * to properly calculate the alignment of the selected option over
@@ -46,6 +47,7 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
     private _element;
     private _renderer;
     private _viewportRuler;
+    private _changeDetectorRef;
     private _dir;
     _control: NgControl;
     /** Whether or not the overlay panel is open. */
@@ -132,7 +134,7 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
     onClose: EventEmitter<void>;
     /** Event emitted when the selected value has been changed by the user. */
     change: EventEmitter<MdSelectChange>;
-    constructor(_element: ElementRef, _renderer: Renderer, _viewportRuler: ViewportRuler, _dir: Dir, _control: NgControl);
+    constructor(_element: ElementRef, _renderer: Renderer, _viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _dir: Dir, _control: NgControl);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Toggles the overlay panel open or closed. */

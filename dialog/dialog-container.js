@@ -31,15 +31,35 @@ export var MdDialogContainer = (function (_super) {
         this._elementFocusedBeforeDialogWasOpened = null;
     }
     /**
-     * Attach a portal as content to this dialog container.
+     * Attach a ComponentPortal as content to this dialog container.
      * @param portal Portal to be attached as the dialog content.
      */
     MdDialogContainer.prototype.attachComponentPortal = function (portal) {
-        var _this = this;
         if (this._portalHost.hasAttached()) {
             throw new MdDialogContentAlreadyAttachedError();
         }
         var attachResult = this._portalHost.attachComponentPortal(portal);
+        this._trapFocus();
+        return attachResult;
+    };
+    /**
+     * Attach a TemplatePortal as content to this dialog container.
+     * @param portal Portal to be attached as the dialog content.
+     */
+    MdDialogContainer.prototype.attachTemplatePortal = function (portal) {
+        if (this._portalHost.hasAttached()) {
+            throw new MdDialogContentAlreadyAttachedError();
+        }
+        var attachedResult = this._portalHost.attachTemplatePortal(portal);
+        this._trapFocus();
+        return attachedResult;
+    };
+    /**
+     * Moves the focus inside the focus trap.
+     * @private
+     */
+    MdDialogContainer.prototype._trapFocus = function () {
+        var _this = this;
         // If were to attempt to focus immediately, then the content of the dialog would not yet be
         // ready in instances where change detection has to run first. To deal with this, we simply
         // wait for the microtask queue to be empty.
@@ -47,11 +67,6 @@ export var MdDialogContainer = (function (_super) {
             _this._elementFocusedBeforeDialogWasOpened = document.activeElement;
             _this._focusTrap.focusFirstTabbableElement();
         });
-        return attachResult;
-    };
-    /** @docs-private */
-    MdDialogContainer.prototype.attachTemplatePortal = function (portal) {
-        throw Error('Not yet implemented');
     };
     /**
      * Handles the user pressing the Escape key.

@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Component, ContentChildren, ElementRef, EventEmitter, Input, Optional, Output, QueryList, Renderer, Self, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, ContentChildren, ElementRef, EventEmitter, Input, Optional, Output, QueryList, Renderer, Self, ViewEncapsulation, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { MdOption } from '../core/option/option';
 import { ENTER, SPACE } from '../core/keyboard/keycodes';
 import { FocusKeyManager } from '../core/a11y/focus-key-manager';
@@ -20,6 +20,7 @@ import { NgControl } from '@angular/forms';
 import { coerceBooleanProperty } from '../core/coercion/boolean-property';
 import { ConnectedOverlayDirective } from '../core/overlay/overlay-directives';
 import { ViewportRuler } from '../core/overlay/position/viewport-ruler';
+import 'rxjs/add/operator/startWith';
 /**
  * The following style constants are necessary to save here in order
  * to properly calculate the alignment of the selected option over
@@ -60,10 +61,11 @@ export var MdSelectChange = (function () {
     return MdSelectChange;
 }());
 export var MdSelect = (function () {
-    function MdSelect(_element, _renderer, _viewportRuler, _dir, _control) {
+    function MdSelect(_element, _renderer, _viewportRuler, _changeDetectorRef, _dir, _control) {
         this._element = _element;
         this._renderer = _renderer;
         this._viewportRuler = _viewportRuler;
+        this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
         this._control = _control;
         /** Whether or not the overlay panel is open. */
@@ -161,8 +163,7 @@ export var MdSelect = (function () {
     MdSelect.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._initKeyManager();
-        this._resetOptions();
-        this._changeSubscription = this.options.changes.subscribe(function () {
+        this._changeSubscription = this.options.changes.startWith(null).subscribe(function () {
             _this._resetOptions();
             if (_this._control) {
                 // Defer setting the value in order to avoid the "Expression
@@ -173,8 +174,12 @@ export var MdSelect = (function () {
     };
     MdSelect.prototype.ngOnDestroy = function () {
         this._dropSubscriptions();
-        this._changeSubscription.unsubscribe();
-        this._tabSubscription.unsubscribe();
+        if (this._changeSubscription) {
+            this._changeSubscription.unsubscribe();
+        }
+        if (this._tabSubscription) {
+            this._tabSubscription.unsubscribe();
+        }
     };
     /** Toggles the overlay panel open or closed. */
     MdSelect.prototype.toggle = function () {
@@ -182,7 +187,7 @@ export var MdSelect = (function () {
     };
     /** Opens the overlay panel. */
     MdSelect.prototype.open = function () {
-        if (this.disabled) {
+        if (this.disabled || !this.options.length) {
             return;
         }
         this._calculateOverlayPosition();
@@ -204,16 +209,10 @@ export var MdSelect = (function () {
      * @param value New value to be written to the model.
      */
     MdSelect.prototype.writeValue = function (value) {
-        var _this = this;
-        if (!this.options) {
-            // In reactive forms, writeValue() will be called synchronously before
-            // the select's child options have been created. It's necessary to call
-            // writeValue() again after the options have been created to ensure any
-            // initial view value is set.
-            Promise.resolve(null).then(function () { return _this.writeValue(value); });
-            return;
+        if (this.options) {
+            this._setSelectionByValue(value);
+            this._changeDetectorRef.markForCheck();
         }
-        this._setSelectionByValue(value);
     };
     /**
      * Saves a callback function to be invoked when the select's value
@@ -626,10 +625,10 @@ export var MdSelect = (function () {
             ],
             exportAs: 'mdSelect',
         }),
-        __param(3, Optional()),
-        __param(4, Self()),
-        __param(4, Optional()), 
-        __metadata('design:paramtypes', [ElementRef, Renderer, ViewportRuler, Dir, NgControl])
+        __param(4, Optional()),
+        __param(5, Self()),
+        __param(5, Optional()), 
+        __metadata('design:paramtypes', [ElementRef, Renderer, ViewportRuler, ChangeDetectorRef, Dir, NgControl])
     ], MdSelect);
     return MdSelect;
 }());

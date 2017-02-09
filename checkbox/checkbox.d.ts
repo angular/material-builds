@@ -67,8 +67,8 @@ export declare class MdCheckbox implements ControlValueAccessor {
     private _disabled;
     /** Whether the checkbox is disabled. */
     disabled: boolean;
-    /** @docs-private */
-    tabindex: number;
+    /** Tabindex value that is passed to the underlying input element. */
+    tabIndex: number;
     /** Name value will be applied to the input element if present */
     name: string;
     /** Event emitted when the checkbox's `checked` value changes. */

@@ -4,6 +4,7 @@ import { Dir, LayoutDirection, Overlay } from '../core';
 /**
  * This directive is intended to be used in conjunction with an md-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
+ * TODO(andrewseguin): Remove the kebab versions in favor of camelCased attribute selectors
  */
 export declare class MdMenuTrigger implements AfterViewInit, OnDestroy {
     private _overlay;
@@ -18,7 +19,10 @@ export declare class MdMenuTrigger implements AfterViewInit, OnDestroy {
     private _positionSubscription;
     private _openedByMouse;
     /** @deprecated */
-    _deprecatedMenuTriggerFor: MdMenuPanel;
+    _deprecatedMdMenuTriggerFor: MdMenuPanel;
+    /** @deprecated */
+    _deprecatedMatMenuTriggerFor: MdMenuPanel;
+    _matMenuTriggerFor: MdMenuPanel;
     /** References the menu instance that the trigger is associated with. */
     menu: MdMenuPanel;
     /** Event emitted when the associated menu is opened. */
