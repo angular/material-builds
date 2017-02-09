@@ -1,25 +1,31 @@
-import { ModuleWithProviders, ElementRef, ViewContainerRef, AnimationTransitionEvent, NgZone, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { ModuleWithProviders, ElementRef, ViewContainerRef, AnimationTransitionEvent, NgZone, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Overlay, OverlayRef, OverlayConnectionPosition, OriginConnectionPosition } from '../core';
 import { Observable } from 'rxjs/Observable';
 import { Dir } from '../core/rtl/dir';
 import 'rxjs/add/operator/first';
+import { ScrollDispatcher } from '../core/overlay/scroll/scroll-dispatcher';
+import { Subscription } from 'rxjs/Subscription';
 export declare type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'before' | 'after';
 /** Time in ms to delay before changing the tooltip visibility to hidden */
 export declare const TOUCHEND_HIDE_DELAY: number;
+/** Time in ms to throttle repositioning after scroll events. */
+export declare const SCROLL_THROTTLE_MS: number;
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
  *
  * https://material.google.com/components/tooltips.html
  */
-export declare class MdTooltip implements OnDestroy {
+export declare class MdTooltip implements OnInit, OnDestroy {
     private _overlay;
+    private _scrollDispatcher;
     private _elementRef;
     private _viewContainerRef;
     private _ngZone;
     private _dir;
     _overlayRef: OverlayRef;
     _tooltipInstance: TooltipComponent;
+    scrollSubscription: Subscription;
     private _position;
     /** Allows the user to define the position of the tooltip relative to the parent element */
     position: TooltipPosition;
@@ -38,7 +44,8 @@ export declare class MdTooltip implements OnDestroy {
     _matPosition: TooltipPosition;
     _matHideDelay: number;
     _matShowDelay: number;
-    constructor(_overlay: Overlay, _elementRef: ElementRef, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _dir: Dir);
+    constructor(_overlay: Overlay, _scrollDispatcher: ScrollDispatcher, _elementRef: ElementRef, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _dir: Dir);
+    ngOnInit(): void;
     /**
      * Dispose the tooltip when destroyed.
      */

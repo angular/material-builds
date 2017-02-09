@@ -4,10 +4,10 @@
   * License: MIT
   */
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('rxjs/Subject'), require('rxjs/Observable'), require('rxjs/add/observable/fromEvent'), require('@angular/platform-browser'), require('@angular/forms'), require('rxjs/add/operator/startWith'), require('@angular/http'), require('rxjs/add/observable/forkJoin'), require('rxjs/add/observable/of'), require('rxjs/add/operator/map'), require('rxjs/add/operator/filter'), require('rxjs/add/operator/do'), require('rxjs/add/operator/share'), require('rxjs/add/operator/finally'), require('rxjs/add/operator/catch'), require('rxjs/add/operator/first'), require('rxjs/add/observable/merge'), require('rxjs/add/operator/switchMap')) :
-    typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', 'rxjs/Subject', 'rxjs/Observable', 'rxjs/add/observable/fromEvent', '@angular/platform-browser', '@angular/forms', 'rxjs/add/operator/startWith', '@angular/http', 'rxjs/add/observable/forkJoin', 'rxjs/add/observable/of', 'rxjs/add/operator/map', 'rxjs/add/operator/filter', 'rxjs/add/operator/do', 'rxjs/add/operator/share', 'rxjs/add/operator/finally', 'rxjs/add/operator/catch', 'rxjs/add/operator/first', 'rxjs/add/observable/merge', 'rxjs/add/operator/switchMap'], factory) :
-    (factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.common,global.Rx,global.Rx,global.Rx.Observable,global.ng.platformBrowser,global.ng.forms,global.Rx.Observable.prototype,global.ng.http,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.Rx.Observable.prototype));
-}(this, (function (exports,_angular_core,_angular_common,rxjs_Subject,rxjs_Observable,rxjs_add_observable_fromEvent,_angular_platformBrowser,_angular_forms,rxjs_add_operator_startWith,_angular_http,rxjs_add_observable_forkJoin,rxjs_add_observable_of,rxjs_add_operator_map,rxjs_add_operator_filter,rxjs_add_operator_do,rxjs_add_operator_share,rxjs_add_operator_finally,rxjs_add_operator_catch,rxjs_add_operator_first,rxjs_add_observable_merge,rxjs_add_operator_switchMap) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('rxjs/Subject'), require('rxjs/Observable'), require('rxjs/add/observable/fromEvent'), require('rxjs/add/operator/auditTime'), require('@angular/platform-browser'), require('@angular/forms'), require('rxjs/add/operator/startWith'), require('@angular/http'), require('rxjs/add/observable/forkJoin'), require('rxjs/add/observable/of'), require('rxjs/add/operator/map'), require('rxjs/add/operator/filter'), require('rxjs/add/operator/do'), require('rxjs/add/operator/share'), require('rxjs/add/operator/finally'), require('rxjs/add/operator/catch'), require('rxjs/add/operator/first'), require('rxjs/add/observable/merge'), require('rxjs/add/operator/switchMap')) :
+    typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', 'rxjs/Subject', 'rxjs/Observable', 'rxjs/add/observable/fromEvent', 'rxjs/add/operator/auditTime', '@angular/platform-browser', '@angular/forms', 'rxjs/add/operator/startWith', '@angular/http', 'rxjs/add/observable/forkJoin', 'rxjs/add/observable/of', 'rxjs/add/operator/map', 'rxjs/add/operator/filter', 'rxjs/add/operator/do', 'rxjs/add/operator/share', 'rxjs/add/operator/finally', 'rxjs/add/operator/catch', 'rxjs/add/operator/first', 'rxjs/add/observable/merge', 'rxjs/add/operator/switchMap'], factory) :
+    (factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.common,global.Rx,global.Rx,global.Rx.Observable,global.Rx.Observable.prototype,global.ng.platformBrowser,global.ng.forms,global.Rx.Observable.prototype,global.ng.http,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.Rx.Observable.prototype));
+}(this, (function (exports,_angular_core,_angular_common,rxjs_Subject,rxjs_Observable,rxjs_add_observable_fromEvent,rxjs_add_operator_auditTime,_angular_platformBrowser,_angular_forms,rxjs_add_operator_startWith,_angular_http,rxjs_add_observable_forkJoin,rxjs_add_observable_of,rxjs_add_operator_map,rxjs_add_operator_filter,rxjs_add_operator_do,rxjs_add_operator_share,rxjs_add_operator_finally,rxjs_add_operator_catch,rxjs_add_operator_first,rxjs_add_observable_merge,rxjs_add_operator_switchMap) { 'use strict';
 
 var __decorate$2 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -533,6 +533,8 @@ var __decorate$8 = (this && this.__decorate) || function (decorators, target, ke
 var __metadata$8 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+/** Time in ms to throttle the scrolling events by default. */
+var DEFAULT_SCROLL_TIME = 20;
 /**
  * Service contained all registered Scrollable references and emits an event when any one of the
  * Scrollable references emit a scrolled event.
@@ -573,11 +575,17 @@ var ScrollDispatcher = (function () {
     };
     /**
      * Returns an observable that emits an event whenever any of the registered Scrollable
-     * references (or window, document, or body) fire a scrolled event.
+     * references (or window, document, or body) fire a scrolled event. Can provide a time in ms
+     * to override the default "throttle" time.
      */
-    ScrollDispatcher.prototype.scrolled = function () {
-        // TODO: Add an event limiter that includes throttle with the leading and trailing events.
-        return this._scrolled.asObservable();
+    ScrollDispatcher.prototype.scrolled = function (auditTimeInMs) {
+        if (auditTimeInMs === void 0) { auditTimeInMs = DEFAULT_SCROLL_TIME; }
+        // In the case of a 0ms delay, return the observable without auditTime since it does add
+        // a perceptible delay in processing overhead.
+        if (auditTimeInMs == 0) {
+            return this._scrolled.asObservable();
+        }
+        return this._scrolled.asObservable().auditTime(auditTimeInMs);
     };
     /** Returns all registered Scrollables that contain the provided element. */
     ScrollDispatcher.prototype.getScrollContainers = function (elementRef) {
@@ -615,7 +623,6 @@ var ScrollDispatcher = (function () {
 function SCROLL_DISPATCHER_PROVIDER_FACTORY(parentDispatcher) {
     return parentDispatcher || new ScrollDispatcher();
 }
-
 var SCROLL_DISPATCHER_PROVIDER = {
     // If there is already a ScrollDispatcher available, use that. Otherwise, provide a new one.
     provide: ScrollDispatcher,
@@ -8533,7 +8540,7 @@ var MdSidenavContainer = (function () {
             // Do not use ChangeDetectionStrategy.OnPush. It does not work for this component because
             // technically it is a sibling of MdSidenav (on the content tree) and isn't updated when MdSidenav
             // changes its state.
-            template: "<div class=\"mat-sidenav-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-sidenav-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"md-sidenav, mat-sidenav\"></ng-content><div class=\"mat-sidenav-content\" [ngStyle]=\"_getStyles()\"><ng-content></ng-content></div>",
+            template: "<div class=\"mat-sidenav-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-sidenav-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"md-sidenav, mat-sidenav\"></ng-content><div class=\"mat-sidenav-content\" [ngStyle]=\"_getStyles()\" cdk-scrollable><ng-content></ng-content></div>",
             styles: [".mat-sidenav-container{position:relative;transform:translate3d(0,0,0);box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-sidenav-backdrop,.mat-sidenav-container[fullscreen]{position:absolute;top:0;bottom:0;right:0;left:0}.mat-sidenav-container[fullscreen].mat-sidenav-opened{overflow:hidden}.mat-sidenav-backdrop{display:block;z-index:2;visibility:hidden}.mat-sidenav-backdrop.mat-sidenav-shown{visibility:visible}.mat-sidenav.mat-sidenav-closed,.mat-sidenav.mat-sidenav-end.mat-sidenav-closed,[dir=rtl] .mat-sidenav.mat-sidenav-closed,[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-closed{visibility:hidden}@media screen and (-ms-high-contrast:active){.mat-sidenav-backdrop{opacity:.5}}.mat-sidenav-content{position:relative;transform:translate3d(0,0,0);display:block;height:100%;overflow:auto}.mat-sidenav{display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5%;outline:0;transform:translate3d(-100%,0,0)}.mat-sidenav.mat-sidenav-opened,.mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-side{z-index:1}.mat-sidenav.mat-sidenav-end{right:0;transform:translate3d(100%,0,0)}.mat-sidenav.mat-sidenav-end.mat-sidenav-opened,.mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav{transform:translate3d(100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end{left:0;right:auto;transform:translate3d(-100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-opened:not(.mat-sidenav-side),.mat-sidenav.mat-sidenav-opening:not(.mat-sidenav-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-focus-trap{height:100%}.mat-sidenav-focus-trap>.cdk-focus-trap-content{box-sizing:border-box;height:100%;overflow-y:auto;transform:translateZ(0)}.mat-sidenav-invalid{display:none}",
 ".mat-sidenav{transition:transform .4s cubic-bezier(.25,.8,.25,1)}.mat-sidenav-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-sidenav-backdrop.mat-sidenav-shown{transition:background-color .4s cubic-bezier(.25,.8,.25,1)}"],
             host: {
@@ -13662,6 +13669,8 @@ var __param$14 = (this && this.__param) || function (paramIndex, decorator) {
 };
 /** Time in ms to delay before changing the tooltip visibility to hidden */
 var TOUCHEND_HIDE_DELAY = 1500;
+/** Time in ms to throttle repositioning after scroll events. */
+var SCROLL_THROTTLE_MS = 20;
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
@@ -13669,8 +13678,9 @@ var TOUCHEND_HIDE_DELAY = 1500;
  * https://material.google.com/components/tooltips.html
  */
 var MdTooltip = (function () {
-    function MdTooltip(_overlay, _elementRef, _viewContainerRef, _ngZone, _dir) {
+    function MdTooltip(_overlay, _scrollDispatcher, _elementRef, _viewContainerRef, _ngZone, _dir) {
         this._overlay = _overlay;
+        this._scrollDispatcher = _scrollDispatcher;
         this._elementRef = _elementRef;
         this._viewContainerRef = _viewContainerRef;
         this._ngZone = _ngZone;
@@ -13751,6 +13761,16 @@ var MdTooltip = (function () {
         enumerable: true,
         configurable: true
     });
+    MdTooltip.prototype.ngOnInit = function () {
+        var _this = this;
+        // When a scroll on the page occurs, update the position in case this tooltip needs
+        // to be repositioned.
+        this.scrollSubscription = this._scrollDispatcher.scrolled(SCROLL_THROTTLE_MS).subscribe(function () {
+            if (_this._overlayRef) {
+                _this._overlayRef.updatePosition();
+            }
+        });
+    };
     /**
      * Dispose the tooltip when destroyed.
      */
@@ -13758,6 +13778,7 @@ var MdTooltip = (function () {
         if (this._tooltipInstance) {
             this._disposeTooltip();
         }
+        this.scrollSubscription.unsubscribe();
     };
     /** Shows the tooltip after the delay in ms, defaults to tooltip-delay-show or 0ms if no input */
     MdTooltip.prototype.show = function (delay) {
@@ -13802,9 +13823,20 @@ var MdTooltip = (function () {
     };
     /** Create the overlay config and position strategy */
     MdTooltip.prototype._createOverlay = function () {
+        var _this = this;
         var origin = this._getOrigin();
         var position = this._getOverlayPosition();
+        // Create connected position strategy that listens for scroll events to reposition.
+        // After position changes occur and the overlay is clipped by a parent scrollable then
+        // close the tooltip.
         var strategy = this._overlay.position().connectedTo(this._elementRef, origin, position);
+        strategy.withScrollableContainers(this._scrollDispatcher.getScrollContainers(this._elementRef));
+        strategy.onPositionChange.subscribe(function (change) {
+            if (change.scrollableViewProperties.isOverlayClipped &&
+                _this._tooltipInstance && _this._tooltipInstance.isVisible()) {
+                _this.hide(0);
+            }
+        });
         var config = new OverlayState();
         config.positionStrategy = strategy;
         this._overlayRef = this._overlay.create(config);
@@ -13917,8 +13949,8 @@ var MdTooltip = (function () {
             },
             exportAs: 'mdTooltip',
         }),
-        __param$14(4, _angular_core.Optional()), 
-        __metadata$65('design:paramtypes', [Overlay, _angular_core.ElementRef, _angular_core.ViewContainerRef, _angular_core.NgZone, Dir])
+        __param$14(5, _angular_core.Optional()), 
+        __metadata$65('design:paramtypes', [Overlay, ScrollDispatcher, _angular_core.ElementRef, _angular_core.ViewContainerRef, _angular_core.NgZone, Dir])
     ], MdTooltip);
     return MdTooltip;
 }());
@@ -16001,6 +16033,7 @@ exports.MdToolbarRow = MdToolbarRow;
 exports.MdToolbar = MdToolbar;
 exports.MdToolbarModule = MdToolbarModule;
 exports.TOUCHEND_HIDE_DELAY = TOUCHEND_HIDE_DELAY;
+exports.SCROLL_THROTTLE_MS = SCROLL_THROTTLE_MS;
 exports.MdTooltip = MdTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.MdTooltipModule = MdTooltipModule;

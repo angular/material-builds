@@ -16,8 +16,11 @@ import { MdTooltipInvalidPositionError } from './tooltip-errors';
 import { Subject } from 'rxjs/Subject';
 import { Dir } from '../core/rtl/dir';
 import 'rxjs/add/operator/first';
+import { ScrollDispatcher } from '../core/overlay/scroll/scroll-dispatcher';
 /** Time in ms to delay before changing the tooltip visibility to hidden */
 export var TOUCHEND_HIDE_DELAY = 1500;
+/** Time in ms to throttle repositioning after scroll events. */
+export var SCROLL_THROTTLE_MS = 20;
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
@@ -25,8 +28,9 @@ export var TOUCHEND_HIDE_DELAY = 1500;
  * https://material.google.com/components/tooltips.html
  */
 export var MdTooltip = (function () {
-    function MdTooltip(_overlay, _elementRef, _viewContainerRef, _ngZone, _dir) {
+    function MdTooltip(_overlay, _scrollDispatcher, _elementRef, _viewContainerRef, _ngZone, _dir) {
         this._overlay = _overlay;
+        this._scrollDispatcher = _scrollDispatcher;
         this._elementRef = _elementRef;
         this._viewContainerRef = _viewContainerRef;
         this._ngZone = _ngZone;
@@ -107,6 +111,16 @@ export var MdTooltip = (function () {
         enumerable: true,
         configurable: true
     });
+    MdTooltip.prototype.ngOnInit = function () {
+        var _this = this;
+        // When a scroll on the page occurs, update the position in case this tooltip needs
+        // to be repositioned.
+        this.scrollSubscription = this._scrollDispatcher.scrolled(SCROLL_THROTTLE_MS).subscribe(function () {
+            if (_this._overlayRef) {
+                _this._overlayRef.updatePosition();
+            }
+        });
+    };
     /**
      * Dispose the tooltip when destroyed.
      */
@@ -114,6 +128,7 @@ export var MdTooltip = (function () {
         if (this._tooltipInstance) {
             this._disposeTooltip();
         }
+        this.scrollSubscription.unsubscribe();
     };
     /** Shows the tooltip after the delay in ms, defaults to tooltip-delay-show or 0ms if no input */
     MdTooltip.prototype.show = function (delay) {
@@ -158,9 +173,20 @@ export var MdTooltip = (function () {
     };
     /** Create the overlay config and position strategy */
     MdTooltip.prototype._createOverlay = function () {
+        var _this = this;
         var origin = this._getOrigin();
         var position = this._getOverlayPosition();
+        // Create connected position strategy that listens for scroll events to reposition.
+        // After position changes occur and the overlay is clipped by a parent scrollable then
+        // close the tooltip.
         var strategy = this._overlay.position().connectedTo(this._elementRef, origin, position);
+        strategy.withScrollableContainers(this._scrollDispatcher.getScrollContainers(this._elementRef));
+        strategy.onPositionChange.subscribe(function (change) {
+            if (change.scrollableViewProperties.isOverlayClipped &&
+                _this._tooltipInstance && _this._tooltipInstance.isVisible()) {
+                _this.hide(0);
+            }
+        });
         var config = new OverlayState();
         config.positionStrategy = strategy;
         this._overlayRef = this._overlay.create(config);
@@ -273,8 +299,8 @@ export var MdTooltip = (function () {
             },
             exportAs: 'mdTooltip',
         }),
-        __param(4, Optional()), 
-        __metadata('design:paramtypes', [Overlay, ElementRef, ViewContainerRef, NgZone, Dir])
+        __param(5, Optional()), 
+        __metadata('design:paramtypes', [Overlay, ScrollDispatcher, ElementRef, ViewContainerRef, NgZone, Dir])
     ], MdTooltip);
     return MdTooltip;
 }());
