@@ -5,7 +5,6 @@ import { MdAutocomplete } from './autocomplete';
 import { Observable } from 'rxjs/Observable';
 import { MdOptionSelectEvent, MdOption } from '../core/option/option';
 import { Dir } from '../core/rtl/dir';
-import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/switchMap';
@@ -109,12 +108,6 @@ export declare class MdAutocompleteTrigger implements AfterContentInit, ControlV
      * stream every time the option list changes.
      */
     private _subscribeToClosingActions();
-    /**
-     * Retrieves the option list once the zone stabilizes. It's important to wait until
-     * stable so that change detection can run first and update the query list
-     * with the options available under the current filter.
-     */
-    private _getStableOptions();
     /** Destroys the autocomplete suggestion panel. */
     private _destroyPanel();
     private _setTriggerValue(value);

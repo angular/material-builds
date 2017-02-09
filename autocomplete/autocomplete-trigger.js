@@ -19,7 +19,6 @@ import { ActiveDescendantKeyManager } from '../core/a11y/activedescendant-key-ma
 import { ENTER, UP_ARROW, DOWN_ARROW } from '../core/keyboard/keycodes';
 import { Dir } from '../core/rtl/dir';
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/switchMap';
@@ -213,26 +212,14 @@ export var MdAutocompleteTrigger = (function () {
      */
     MdAutocompleteTrigger.prototype._subscribeToClosingActions = function () {
         var _this = this;
-        var initialOptions = this._getStableOptions();
         // When the zone is stable initially, and when the option list changes...
-        Observable.merge(initialOptions, this.autocomplete.options.changes)
-            .switchMap(function (options) {
+        Observable.merge(this._zone.onStable.first(), this.autocomplete.options.changes)
+            .switchMap(function () {
             _this._resetPanel();
-            // If the options list is empty, emit close event immediately.
-            // Otherwise, listen for panel closing actions...
-            return options.length ? _this.panelClosingActions : Observable.of(null);
+            return _this.panelClosingActions;
         })
             .first()
             .subscribe(function (event) { return _this._setValueAndClose(event); });
-    };
-    /**
-     * Retrieves the option list once the zone stabilizes. It's important to wait until
-     * stable so that change detection can run first and update the query list
-     * with the options available under the current filter.
-     */
-    MdAutocompleteTrigger.prototype._getStableOptions = function () {
-        var _this = this;
-        return this._zone.onStable.first().map(function () { return _this.autocomplete.options; });
     };
     /** Destroys the autocomplete suggestion panel. */
     MdAutocompleteTrigger.prototype._destroyPanel = function () {
@@ -300,6 +287,7 @@ export var MdAutocompleteTrigger = (function () {
     MdAutocompleteTrigger.prototype._resetPanel = function () {
         this._resetActiveItem();
         this._positionStrategy.recalculateLastPosition();
+        this.autocomplete._setVisibility();
     };
     __decorate([
         Input('mdAutocomplete'), 

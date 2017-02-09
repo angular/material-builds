@@ -4,6 +4,8 @@ export declare type AutocompletePositionY = 'above' | 'below';
 export declare class MdAutocomplete {
     /** Whether the autocomplete panel displays above or below its trigger. */
     positionY: AutocompletePositionY;
+    /** Whether the autocomplete panel should be visible, depending on option length. */
+    showPanel: boolean;
     template: TemplateRef<any>;
     panel: ElementRef;
     options: QueryList<MdOption>;
@@ -16,9 +18,13 @@ export declare class MdAutocomplete {
      * options below the fold, as they are not actually being focused when active.
      */
     _setScrollTop(scrollTop: number): void;
+    /** Panel should hide itself when the option list is empty. */
+    _setVisibility(): void;
     /** Sets a class on the panel based on its position (used to set y-offset). */
-    _getPositionClass(): {
+    _getClassList(): {
         'mat-autocomplete-panel-below': boolean;
         'mat-autocomplete-panel-above': boolean;
+        'mat-autocomplete-visible': boolean;
+        'mat-autocomplete-hidden': boolean;
     };
 }
