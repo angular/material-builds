@@ -249,7 +249,6 @@ export var MdAnchor = (function (_super) {
     ], MdAnchor.prototype, "tabIndex", null);
     MdAnchor = __decorate([
         Component({selector: "a[md-button], a[md-raised-button], a[md-icon-button], a[md-fab], a[md-mini-fab],\n             a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab], a[mat-mini-fab]",
-            inputs: ['color', 'disabled', 'disableRipple'],
             host: {
                 '[attr.disabled]': 'disabled',
                 '[attr.aria-disabled]': '_isAriaDisabled',
