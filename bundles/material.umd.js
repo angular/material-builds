@@ -348,27 +348,10 @@ function coerceBooleanProperty(value) {
     return value != null && "" + value !== 'false';
 }
 
-/** @docs-private */
-var ForegroundRippleState;
-(function (ForegroundRippleState) {
-    ForegroundRippleState[ForegroundRippleState["NEW"] = 0] = "NEW";
-    ForegroundRippleState[ForegroundRippleState["EXPANDING"] = 1] = "EXPANDING";
-    ForegroundRippleState[ForegroundRippleState["FADING_OUT"] = 2] = "FADING_OUT";
-})(ForegroundRippleState || (ForegroundRippleState = {}));
-/**
- * Wrapper for a foreground ripple DOM element and its animation state.
- * @docs-private
- */
-var ForegroundRipple = (function () {
-    function ForegroundRipple(rippleElement) {
-        this.rippleElement = rippleElement;
-        this.state = ForegroundRippleState.NEW;
-    }
-    return ForegroundRipple;
-}());
-var RIPPLE_SPEED_PX_PER_SECOND = 1000;
-var MIN_RIPPLE_FILL_TIME_SECONDS = 0.1;
-var MAX_RIPPLE_FILL_TIME_SECONDS = 0.3;
+/** Fade-in speed in pixels per second. Can be modified with the speedFactor option. */
+var RIPPLE_SPEED_PX_PER_SECOND = 170;
+/** Fade-out speed for the ripples in milliseconds. This can't be modified by the speedFactor. */
+var RIPPLE_FADE_OUT_DURATION = 600;
 /**
  * Returns the distance from the point (x, y) to the furthest corner of a rectangle.
  */
@@ -385,141 +368,122 @@ var distanceToFurthestCorner = function (x, y, rect) {
  * @docs-private
  */
 var RippleRenderer = (function () {
-    function RippleRenderer(_elementRef, _eventHandlers, _ngZone) {
-        this._eventHandlers = _eventHandlers;
+    function RippleRenderer(_elementRef, _ngZone, _ruler) {
         this._ngZone = _ngZone;
-        this._rippleElement = _elementRef.nativeElement;
-        // The background div is created in createBackgroundIfNeeded when the ripple becomes enabled.
-        // This avoids creating unneeded divs when the ripple is always disabled.
-        this._backgroundDiv = null;
+        this._ruler = _ruler;
+        /** Whether the mouse is currently down or not. */
+        this._isMousedown = false;
+        /** Currently active ripples that will be closed on mouseup. */
+        this._activeRipples = [];
+        /** Events to be registered on the trigger element. */
+        this._triggerEvents = new Map();
+        /** Ripple config for all ripples created by events. */
+        this.rippleConfig = {};
+        /** Whether mouse ripples should be created or not. */
+        this.rippleDisabled = false;
+        this._containerElement = _elementRef.nativeElement;
+        // Specify events which need to be registered on the trigger.
+        this._triggerEvents.set('mousedown', this.onMousedown.bind(this));
+        this._triggerEvents.set('mouseup', this.onMouseup.bind(this));
+        this._triggerEvents.set('mouseleave', this.onMouseLeave.bind(this));
+        // By default use the host element as trigger element.
+        this.setTriggerElement(this._containerElement);
     }
-    /** Creates the div for the ripple background, if it doesn't already exist. */
-    RippleRenderer.prototype.createBackgroundIfNeeded = function () {
-        if (!this._backgroundDiv) {
-            this._backgroundDiv = document.createElement('div');
-            this._backgroundDiv.classList.add('mat-ripple-background');
-            this._rippleElement.appendChild(this._backgroundDiv);
-        }
-    };
-    /**
-     * Installs event handlers on the given trigger element, and removes event handlers from the
-     * previous trigger if needed.
-     *
-     * @param newTrigger New trigger to which to attach the ripple handlers.
-     */
-    RippleRenderer.prototype.setTriggerElement = function (newTrigger) {
+    /** Fades in a ripple at the given coordinates. */
+    RippleRenderer.prototype.fadeInRipple = function (pageX, pageY, config) {
         var _this = this;
-        if (this._triggerElement !== newTrigger) {
-            if (this._triggerElement) {
-                this._eventHandlers.forEach(function (eventHandler, eventName) {
-                    _this._triggerElement.removeEventListener(eventName, eventHandler);
-                });
-            }
-            this._triggerElement = newTrigger;
-            if (this._triggerElement) {
-                this._eventHandlers.forEach(function (eventHandler, eventName) {
-                    _this._triggerElement.addEventListener(eventName, eventHandler);
-                });
-            }
+        if (config === void 0) { config = {}; }
+        var containerRect = this._containerElement.getBoundingClientRect();
+        if (config.centered) {
+            pageX = containerRect.left + containerRect.width / 2;
+            pageY = containerRect.top + containerRect.height / 2;
         }
+        else {
+            // Subtract scroll values from the coordinates because calculations below
+            // are always relative to the viewport rectangle.
+            var scrollPosition = this._ruler.getViewportScrollPosition();
+            pageX -= scrollPosition.left;
+            pageY -= scrollPosition.top;
+        }
+        var radius = config.radius || distanceToFurthestCorner(pageX, pageY, containerRect);
+        var duration = 1 / (config.speedFactor || 1) * (radius / RIPPLE_SPEED_PX_PER_SECOND);
+        var offsetX = pageX - containerRect.left;
+        var offsetY = pageY - containerRect.top;
+        var ripple = document.createElement('div');
+        ripple.classList.add('mat-ripple-element');
+        ripple.style.left = (offsetX - radius) + "px";
+        ripple.style.top = (offsetY - radius) + "px";
+        ripple.style.height = radius * 2 + "px";
+        ripple.style.width = radius * 2 + "px";
+        // If the color is not set, the default CSS color will be used.
+        ripple.style.backgroundColor = config.color;
+        ripple.style.transitionDuration = duration + "s";
+        this._containerElement.appendChild(ripple);
+        // By default the browser does not recalculate the styles of dynamically created
+        // ripple elements. This is critical because then the `scale` would not animate properly.
+        this._enforceStyleRecalculation(ripple);
+        ripple.style.transform = 'scale(1)';
+        // Wait for the ripple to be faded in. Once it's faded in, the ripple can be hidden immediately
+        // if the mouse is released.
+        this.runTimeoutOutsideZone(function () {
+            _this._isMousedown ? _this._activeRipples.push(ripple) : _this.fadeOutRipple(ripple);
+        }, duration * 1000);
     };
-    /** Installs event handlers on the host element of the md-ripple directive. */
-    RippleRenderer.prototype.setTriggerElementToHost = function () {
-        this.setTriggerElement(this._rippleElement);
+    /** Fades out a ripple element. */
+    RippleRenderer.prototype.fadeOutRipple = function (ripple) {
+        ripple.style.transitionDuration = RIPPLE_FADE_OUT_DURATION + "ms";
+        ripple.style.opacity = '0';
+        // Once the ripple faded out, the ripple can be safely removed from the DOM.
+        this.runTimeoutOutsideZone(function () {
+            ripple.parentNode.removeChild(ripple);
+        }, RIPPLE_FADE_OUT_DURATION);
     };
-    /** Removes event handlers from the current trigger element if needed. */
-    RippleRenderer.prototype.clearTriggerElement = function () {
-        this.setTriggerElement(null);
-    };
-    /**
-     * Creates a foreground ripple and sets its animation to expand and fade in from the position
-     * given by rippleOriginLeft and rippleOriginTop (or from the center of the <md-ripple>
-     * bounding rect if centered is true).
-     *
-     * @param rippleOriginLeft Left origin of the ripple.
-     * @param rippleOriginTop Top origin of the ripple.
-     * @param color Ripple color.
-     * @param centered Whether the ripple should be centered.
-     * @param radius Radius of the ripple.
-     * @param speedFactor Speed at which the ripple expands towards the edges.
-     * @param transitionEndCallback Callback to be triggered when the ripple transition is done.
-     */
-    RippleRenderer.prototype.createForegroundRipple = function (rippleOriginLeft, rippleOriginTop, color, centered, radius, speedFactor, transitionEndCallback) {
+    /** Sets the trigger element and registers the mouse events. */
+    RippleRenderer.prototype.setTriggerElement = function (element) {
         var _this = this;
-        var parentRect = this._rippleElement.getBoundingClientRect();
-        // Create a foreground ripple div with the size and position of the fully expanded ripple.
-        // When the div is created, it's given a transform style that causes the ripple to be displayed
-        // small and centered on the event location (or the center of the bounding rect if the centered
-        // argument is true). Removing that transform causes the ripple to animate to its natural size.
-        var startX = centered ? (parentRect.left + parentRect.width / 2) : rippleOriginLeft;
-        var startY = centered ? (parentRect.top + parentRect.height / 2) : rippleOriginTop;
-        var offsetX = startX - parentRect.left;
-        var offsetY = startY - parentRect.top;
-        var maxRadius = radius > 0 ? radius : distanceToFurthestCorner(startX, startY, parentRect);
-        var rippleDiv = document.createElement('div');
-        this._rippleElement.appendChild(rippleDiv);
-        rippleDiv.classList.add('mat-ripple-foreground');
-        rippleDiv.style.left = (offsetX - maxRadius) + "px";
-        rippleDiv.style.top = (offsetY - maxRadius) + "px";
-        rippleDiv.style.width = 2 * maxRadius + "px";
-        rippleDiv.style.height = rippleDiv.style.width;
-        // If color input is not set, this will default to the background color defined in CSS.
-        rippleDiv.style.backgroundColor = color;
-        // Start the ripple tiny.
-        rippleDiv.style.transform = "scale(0.001)";
-        var fadeInSeconds = (1 / (speedFactor || 1)) * Math.max(MIN_RIPPLE_FILL_TIME_SECONDS, Math.min(MAX_RIPPLE_FILL_TIME_SECONDS, maxRadius / RIPPLE_SPEED_PX_PER_SECOND));
-        rippleDiv.style.transitionDuration = fadeInSeconds + "s";
-        // https://timtaubert.de/blog/2012/09/css-transitions-for-dynamically-created-dom-elements/
-        // Store the opacity to prevent this line as being seen as a no-op by optimizers.
-        this._opacity = window.getComputedStyle(rippleDiv).opacity;
-        rippleDiv.classList.add('mat-ripple-fade-in');
-        // Clearing the transform property causes the ripple to animate to its full size.
-        rippleDiv.style.transform = '';
-        var ripple = new ForegroundRipple(rippleDiv);
-        ripple.state = ForegroundRippleState.EXPANDING;
-        rippleDiv.addEventListener('transitionend', function (event) { return transitionEndCallback(ripple, event); });
-        // Ensure that ripples are always removed, even when transitionend doesn't fire.
-        // Run this outside the Angular zone because there's nothing that Angular cares about.
-        // If it were to run inside the Angular zone, every test that used ripples would have to be
-        // either async or fakeAsync.
-        this._ngZone.runOutsideAngular(function () {
-            // The ripple lasts a time equal to the sum of fade-in, transform,
-            // and fade-out (3 * fade-in time).
-            var rippleDuration = fadeInSeconds * 3 * 1000;
-            setTimeout(function () { return _this.removeRippleFromDom(ripple.rippleElement); }, rippleDuration);
-        });
+        // Remove all previously register event listeners from the trigger element.
+        if (this._triggerElement) {
+            this._triggerEvents.forEach(function (fn, type) { return _this._triggerElement.removeEventListener(type, fn); });
+        }
+        if (element) {
+            // If the element is not null, register all event listeners on the trigger element.
+            this._triggerEvents.forEach(function (fn, type) { return element.addEventListener(type, fn); });
+        }
+        this._triggerElement = element;
     };
-    /**
-     * Fades out a foreground ripple after it has fully expanded and faded in.
-     * @param ripple Ripple to be faded out.
-     */
-    RippleRenderer.prototype.fadeOutForegroundRipple = function (ripple) {
-        ripple.classList.remove('mat-ripple-fade-in');
-        ripple.classList.add('mat-ripple-fade-out');
+    /** Listener being called on mousedown event. */
+    RippleRenderer.prototype.onMousedown = function (event) {
+        if (this.rippleDisabled) {
+            return;
+        }
+        this._isMousedown = true;
+        this.fadeInRipple(event.pageX, event.pageY, this.rippleConfig);
     };
-    /**
-     * Removes a foreground ripple from the DOM after it has faded out.
-     * @param ripple Ripple to be removed from the DOM.
-     */
-    RippleRenderer.prototype.removeRippleFromDom = function (ripple) {
-        if (ripple && ripple.parentElement) {
-            ripple.parentElement.removeChild(ripple);
+    /** Listener being called on mouseup event. */
+    RippleRenderer.prototype.onMouseup = function () {
+        var _this = this;
+        this._isMousedown = false;
+        this._activeRipples.forEach(function (ripple) { return _this.fadeOutRipple(ripple); });
+        this._activeRipples = [];
+    };
+    /** Listener being called on mouseleave event. */
+    RippleRenderer.prototype.onMouseLeave = function () {
+        if (this._isMousedown) {
+            this.onMouseup();
         }
     };
-    /**
-     * Fades in the ripple background.
-     * @param color New background color for the ripple.
-     */
-    RippleRenderer.prototype.fadeInRippleBackground = function (color) {
-        this._backgroundDiv.classList.add('mat-ripple-active');
-        // If color is not set, this will default to the background color defined in CSS.
-        this._backgroundDiv.style.backgroundColor = color;
+    /** Runs a timeout outside of the Angular zone to avoid triggering the change detection. */
+    RippleRenderer.prototype.runTimeoutOutsideZone = function (fn, delay) {
+        if (delay === void 0) { delay = 0; }
+        this._ngZone.runOutsideAngular(function () { return setTimeout(fn, delay); });
     };
-    /** Fades out the ripple background. */
-    RippleRenderer.prototype.fadeOutRippleBackground = function () {
-        if (this._backgroundDiv) {
-            this._backgroundDiv.classList.remove('mat-ripple-active');
-        }
+    /** Enforces a style recalculation of a DOM element by computing its styles. */
+    // TODO(devversion): Move into global utility function.
+    RippleRenderer.prototype._enforceStyleRecalculation = function (element) {
+        // Enforce a style recalculation by calling `getComputedStyle` and accessing any property.
+        // Calling `getPropertyValue` is important to let optimizers know that this is not a noop.
+        // See: https://gist.github.com/paulirish/5d52fb081b3570c81e3a
+        window.getComputedStyle(element).getPropertyValue('opacity');
     };
     return RippleRenderer;
 }());
@@ -721,263 +685,79 @@ var __metadata$6 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var MdRipple = (function () {
-    function MdRipple(_elementRef, _ngZone, _ruler) {
-        var _this = this;
+    function MdRipple(elementRef, ngZone, ruler) {
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
          * bounding rectangle.
          */
-        this.maxRadius = 0;
+        this.radius = 0;
         /**
          * If set, the normal duration of ripple animations is divided by this value. For example,
          * setting it to 0.5 will cause the animations to take twice as long.
+         * A changed speedFactor will not modify the fade-out duration of the ripples.
          */
         this.speedFactor = 1;
-        // These event handlers are attached to the element that triggers the ripple animations.
-        var eventHandlers = new Map();
-        eventHandlers.set('mousedown', function (event) { return _this._mouseDown(event); });
-        eventHandlers.set('click', function (event) { return _this._click(event); });
-        eventHandlers.set('mouseleave', function (event) { return _this._mouseLeave(event); });
-        this._rippleRenderer = new RippleRenderer(_elementRef, eventHandlers, _ngZone);
-        this._ruler = _ruler;
+        this._rippleRenderer = new RippleRenderer(elementRef, ngZone, ruler);
     }
-    Object.defineProperty(MdRipple.prototype, "_triggerDeprecated", {
-        /** @deprecated */
-        get: function () { return this.trigger; },
-        set: function (value) { this.trigger = value; },
-        enumerable: true,
-        configurable: true
-    });
-    
-    Object.defineProperty(MdRipple.prototype, "_centeredDeprecated", {
-        /** @deprecated */
-        get: function () { return this.centered; },
-        set: function (value) { this.centered = value; },
-        enumerable: true,
-        configurable: true
-    });
-    
-    Object.defineProperty(MdRipple.prototype, "_disabledDeprecated", {
-        /** @deprecated */
-        get: function () { return this.disabled; },
-        set: function (value) { this.disabled = value; },
-        enumerable: true,
-        configurable: true
-    });
-    
-    Object.defineProperty(MdRipple.prototype, "_maxRadiusDeprecated", {
-        /** @deprecated */
-        get: function () { return this.maxRadius; },
-        set: function (value) { this.maxRadius = value; },
-        enumerable: true,
-        configurable: true
-    });
-    
-    Object.defineProperty(MdRipple.prototype, "_speedFactorDeprecated", {
-        /** @deprecated */
-        get: function () { return this.speedFactor; },
-        set: function (value) { this.speedFactor = value; },
-        enumerable: true,
-        configurable: true
-    });
-    
-    Object.defineProperty(MdRipple.prototype, "_colorDeprecated", {
-        /** @deprecated */
-        get: function () { return this.color; },
-        set: function (value) { this.color = value; },
-        enumerable: true,
-        configurable: true
-    });
-    
-    Object.defineProperty(MdRipple.prototype, "_backgroundColorDeprecated", {
-        /** @deprecated */
-        get: function () { return this.backgroundColor; },
-        set: function (value) { this.backgroundColor = value; },
-        enumerable: true,
-        configurable: true
-    });
-    
-    Object.defineProperty(MdRipple.prototype, "_focusedDeprecated", {
-        /** @deprecated */
-        get: function () { return this.focused; },
-        set: function (value) { this.focused = value; },
-        enumerable: true,
-        configurable: true
-    });
-    
-    Object.defineProperty(MdRipple.prototype, "_unboundedDeprecated", {
-        /** @deprecated */
-        get: function () { return this.unbounded; },
-        set: function (value) { this.unbounded = value; },
-        enumerable: true,
-        configurable: true
-    });
-    
-    MdRipple.prototype.ngOnInit = function () {
-        // If no trigger element was explicitly set, use the host element
-        if (!this.trigger) {
-            this._rippleRenderer.setTriggerElementToHost();
-        }
-        if (!this.disabled) {
-            this._rippleRenderer.createBackgroundIfNeeded();
-        }
-    };
-    MdRipple.prototype.ngOnDestroy = function () {
-        // Remove event listeners on the trigger element.
-        this._rippleRenderer.clearTriggerElement();
-    };
     MdRipple.prototype.ngOnChanges = function (changes) {
-        // If the trigger element changed (or is being initially set), add event listeners to it.
-        var changedInputs = Object.keys(changes);
-        if (changedInputs.indexOf('trigger') !== -1) {
+        if (changes['trigger'] && this.trigger) {
             this._rippleRenderer.setTriggerElement(this.trigger);
         }
-        if (!this.disabled) {
-            this._rippleRenderer.createBackgroundIfNeeded();
-        }
+        this._rippleRenderer.rippleDisabled = this.disabled;
+        this._updateRippleConfig();
     };
-    /**
-     * Responds to the start of a ripple animation trigger by fading the background in.
-     */
-    MdRipple.prototype.start = function () {
-        this._rippleRenderer.createBackgroundIfNeeded();
-        this._rippleRenderer.fadeInRippleBackground(this.backgroundColor);
+    MdRipple.prototype.ngOnDestroy = function () {
+        // Set the trigger element to null to cleanup all listeners.
+        this._rippleRenderer.setTriggerElement(null);
     };
-    /**
-     * Responds to the end of a ripple animation trigger by fading the background out, and creating a
-     * foreground ripple that expands from the event location (or from the center of the element if
-     * the "centered" property is set or forceCenter is true).
-     */
-    MdRipple.prototype.end = function (left, top, forceCenter) {
-        var _this = this;
-        if (forceCenter === void 0) { forceCenter = true; }
-        this._rippleRenderer.createForegroundRipple(left, top, this.color, this.centered || forceCenter, this.maxRadius, this.speedFactor, function (ripple, e) { return _this._rippleTransitionEnded(ripple, e); });
-        this._rippleRenderer.fadeOutRippleBackground();
+    /** Launches a manual ripple at the specified position. */
+    MdRipple.prototype.launch = function (pageX, pageY, config) {
+        this._rippleRenderer.fadeInRipple(pageX, pageY, config);
     };
-    MdRipple.prototype._rippleTransitionEnded = function (ripple, event) {
-        if (event.propertyName === 'opacity') {
-            // If the ripple finished expanding, start fading it out. If it finished fading out,
-            // remove it from the DOM.
-            switch (ripple.state) {
-                case ForegroundRippleState.EXPANDING:
-                    this._rippleRenderer.fadeOutForegroundRipple(ripple.rippleElement);
-                    ripple.state = ForegroundRippleState.FADING_OUT;
-                    break;
-                case ForegroundRippleState.FADING_OUT:
-                    this._rippleRenderer.removeRippleFromDom(ripple.rippleElement);
-                    break;
-            }
-        }
-    };
-    /**
-     * Called when the trigger element receives a mousedown event. Starts the ripple animation by
-     * fading in the background.
-     */
-    MdRipple.prototype._mouseDown = function (event) {
-        if (!this.disabled && event.button === 0) {
-            this.start();
-        }
-    };
-    /**
-     * Called when the trigger element receives a click event. Creates a foreground ripple and
-     * runs its animation.
-     */
-    MdRipple.prototype._click = function (event) {
-        if (!this.disabled && event.button === 0) {
-            // If screen and page positions are all 0, this was probably triggered by a keypress.
-            // In that case, use the center of the bounding rect as the ripple origin.
-            // FIXME: This fails on IE11, which still sets pageX/Y and screenX/Y on keyboard clicks.
-            var isKeyEvent = (event.screenX === 0 && event.screenY === 0 && event.pageX === 0 && event.pageY === 0);
-            this.end(event.pageX - this._ruler.getViewportScrollPosition().left, event.pageY - this._ruler.getViewportScrollPosition().top, isKeyEvent);
-        }
-    };
-    /**
-     * Called when the trigger element receives a mouseleave event. Fades out the background.
-     */
-    MdRipple.prototype._mouseLeave = function (event) {
-        // We can always fade out the background here; It's a no-op if it was already inactive.
-        this._rippleRenderer.fadeOutRippleBackground();
+    /** Updates the ripple configuration with the input values. */
+    MdRipple.prototype._updateRippleConfig = function () {
+        this._rippleRenderer.rippleConfig = {
+            centered: this.centered,
+            speedFactor: this.speedFactor,
+            radius: this.radius,
+            color: this.color
+        };
     };
     __decorate$6([
         _angular_core.Input('mdRippleTrigger'), 
         __metadata$6('design:type', Object)
     ], MdRipple.prototype, "trigger", void 0);
     __decorate$6([
-        _angular_core.Input('md-ripple-trigger'), 
-        __metadata$6('design:type', Object)
-    ], MdRipple.prototype, "_triggerDeprecated", null);
-    __decorate$6([
         _angular_core.Input('mdRippleCentered'), 
         __metadata$6('design:type', Boolean)
     ], MdRipple.prototype, "centered", void 0);
-    __decorate$6([
-        _angular_core.Input('md-ripple-centered'), 
-        __metadata$6('design:type', Object)
-    ], MdRipple.prototype, "_centeredDeprecated", null);
     __decorate$6([
         _angular_core.Input('mdRippleDisabled'), 
         __metadata$6('design:type', Boolean)
     ], MdRipple.prototype, "disabled", void 0);
     __decorate$6([
-        _angular_core.Input('md-ripple-disabled'), 
-        __metadata$6('design:type', Object)
-    ], MdRipple.prototype, "_disabledDeprecated", null);
-    __decorate$6([
-        _angular_core.Input('mdRippleMaxRadius'), 
+        _angular_core.Input('mdRippleRadius'), 
         __metadata$6('design:type', Number)
-    ], MdRipple.prototype, "maxRadius", void 0);
-    __decorate$6([
-        _angular_core.Input('md-ripple-max-radius'), 
-        __metadata$6('design:type', Object)
-    ], MdRipple.prototype, "_maxRadiusDeprecated", null);
+    ], MdRipple.prototype, "radius", void 0);
     __decorate$6([
         _angular_core.Input('mdRippleSpeedFactor'), 
         __metadata$6('design:type', Number)
     ], MdRipple.prototype, "speedFactor", void 0);
     __decorate$6([
-        _angular_core.Input('md-ripple-speed-factor'), 
-        __metadata$6('design:type', Object)
-    ], MdRipple.prototype, "_speedFactorDeprecated", null);
-    __decorate$6([
         _angular_core.Input('mdRippleColor'), 
         __metadata$6('design:type', String)
     ], MdRipple.prototype, "color", void 0);
     __decorate$6([
-        _angular_core.Input('md-ripple-color'), 
-        __metadata$6('design:type', Object)
-    ], MdRipple.prototype, "_colorDeprecated", null);
-    __decorate$6([
-        _angular_core.Input('mdRippleBackgroundColor'), 
-        __metadata$6('design:type', String)
-    ], MdRipple.prototype, "backgroundColor", void 0);
-    __decorate$6([
-        _angular_core.Input('md-ripple-background-color'), 
-        __metadata$6('design:type', Object)
-    ], MdRipple.prototype, "_backgroundColorDeprecated", null);
-    __decorate$6([
-        _angular_core.HostBinding('class.mat-ripple-focused'),
-        _angular_core.Input('mdRippleFocused'), 
-        __metadata$6('design:type', Boolean)
-    ], MdRipple.prototype, "focused", void 0);
-    __decorate$6([
-        _angular_core.Input('md-ripple-focused'), 
-        __metadata$6('design:type', Boolean)
-    ], MdRipple.prototype, "_focusedDeprecated", null);
-    __decorate$6([
-        _angular_core.HostBinding('class.mat-ripple-unbounded'),
         _angular_core.Input('mdRippleUnbounded'), 
         __metadata$6('design:type', Boolean)
     ], MdRipple.prototype, "unbounded", void 0);
-    __decorate$6([
-        _angular_core.Input('md-ripple-unbounded'), 
-        __metadata$6('design:type', Boolean)
-    ], MdRipple.prototype, "_unboundedDeprecated", null);
     MdRipple = __decorate$6([
         _angular_core.Directive({
             selector: '[md-ripple], [mat-ripple]',
             host: {
                 '[class.mat-ripple]': 'true',
+                '[class.mat-ripple-unbounded]': 'unbounded'
             }
         }), 
         __metadata$6('design:paramtypes', [_angular_core.ElementRef, _angular_core.NgZone, ViewportRuler])
@@ -1171,7 +951,7 @@ var MdOption = (function () {
                 '(keydown)': '_handleKeydown($event)',
                 '[class.mat-option]': 'true',
             },
-            template: "<ng-content></ng-content><div class=\"mat-option-ripple\" *ngIf=\"!disabled\" md-ripple mdRippleBackgroundColor=\"rgba(0,0,0,0)\" [mdRippleTrigger]=\"_getHostElement()\"></div>",
+            template: "<ng-content></ng-content><div class=\"mat-option-ripple\" *ngIf=\"!disabled\" md-ripple [mdRippleTrigger]=\"_getHostElement()\"></div>",
             encapsulation: _angular_core.ViewEncapsulation.None
         }), 
         __metadata$5('design:paramtypes', [_angular_core.ElementRef, _angular_core.Renderer])
@@ -4938,7 +4718,7 @@ var MdButton = (function () {
                 '(focus)': '_setKeyboardFocus()',
                 '(blur)': '_removeKeyboardFocus()',
             },
-            template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton()\" [mdRippleTrigger]=\"_getHostElement()\" [mdRippleColor]=\"_isRoundButton() ? 'rgba(255, 255, 255, 0.2)' : ''\" mdRippleBackgroundColor=\"rgba(0, 0, 0, 0)\"></div><div class=\"mat-button-focus-overlay\" (touchstart)=\"$event.preventDefault()\"></div>",
+            template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton()\" [mdRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\" (touchstart)=\"$event.preventDefault()\"></div>",
             styles: [".mat-button-focus.mat-button .mat-button-focus-overlay,.mat-button-focus.mat-fab .mat-button-focus-overlay,.mat-button-focus.mat-icon-button .mat-button-focus-overlay,.mat-button-focus.mat-mini-fab .mat-button-focus-overlay,.mat-button-focus.mat-raised-button .mat-button-focus-overlay,.mat-button:hover .mat-button-focus-overlay,.mat-icon-button:hover .mat-button-focus-overlay{opacity:1}.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0;border:none;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.mat-fab,.mat-mini-fab,.mat-raised-button{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:active,.mat-mini-fab:active,.mat-raised-button:active{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button,.mat-icon-button{color:currentColor}.mat-button[disabled]:hover .mat-button-focus-overlay,.mat-button[disabled]:hover.mat-accent,.mat-button[disabled]:hover.mat-primary,.mat-button[disabled]:hover.mat-warn,.mat-icon-button[disabled]:hover .mat-button-focus-overlay,.mat-icon-button[disabled]:hover.mat-accent,.mat-icon-button[disabled]:hover.mat-primary,.mat-icon-button[disabled]:hover.mat-warn{background-color:transparent}.mat-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-icon-button,.mat-mini-fab{min-width:0;width:40px;height:40px;border-radius:50%}.mat-fab:active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-icon,.mat-fab i{padding:16px 0;line-height:24px}.mat-mini-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);padding:0;flex-shrink:0}.mat-mini-fab:active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-icon,.mat-mini-fab i{padding:8px 0;line-height:24px}.mat-icon-button{padding:0;flex-shrink:0;line-height:40px}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{position:absolute;top:0;left:0;bottom:0;right:0}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;pointer-events:none;opacity:0}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
             encapsulation: _angular_core.ViewEncapsulation.None,
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -4993,7 +4773,7 @@ var MdAnchor = (function (_super) {
                 '(blur)': '_removeKeyboardFocus()',
                 '(click)': '_haltDisabledEvents($event)',
             },
-            template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton()\" [mdRippleTrigger]=\"_getHostElement()\" [mdRippleColor]=\"_isRoundButton() ? 'rgba(255, 255, 255, 0.2)' : ''\" mdRippleBackgroundColor=\"rgba(0, 0, 0, 0)\"></div><div class=\"mat-button-focus-overlay\" (touchstart)=\"$event.preventDefault()\"></div>",
+            template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton()\" [mdRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\" (touchstart)=\"$event.preventDefault()\"></div>",
             styles: [".mat-button-focus.mat-button .mat-button-focus-overlay,.mat-button-focus.mat-fab .mat-button-focus-overlay,.mat-button-focus.mat-icon-button .mat-button-focus-overlay,.mat-button-focus.mat-mini-fab .mat-button-focus-overlay,.mat-button-focus.mat-raised-button .mat-button-focus-overlay,.mat-button:hover .mat-button-focus-overlay,.mat-icon-button:hover .mat-button-focus-overlay{opacity:1}.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0;border:none;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.mat-fab,.mat-mini-fab,.mat-raised-button{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:active,.mat-mini-fab:active,.mat-raised-button:active{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button,.mat-icon-button{color:currentColor}.mat-button[disabled]:hover .mat-button-focus-overlay,.mat-button[disabled]:hover.mat-accent,.mat-button[disabled]:hover.mat-primary,.mat-button[disabled]:hover.mat-warn,.mat-icon-button[disabled]:hover .mat-button-focus-overlay,.mat-icon-button[disabled]:hover.mat-accent,.mat-icon-button[disabled]:hover.mat-primary,.mat-icon-button[disabled]:hover.mat-warn{background-color:transparent}.mat-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-icon-button,.mat-mini-fab{min-width:0;width:40px;height:40px;border-radius:50%}.mat-fab:active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-icon,.mat-fab i{padding:16px 0;line-height:24px}.mat-mini-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);padding:0;flex-shrink:0}.mat-mini-fab:active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-icon,.mat-mini-fab i{padding:8px 0;line-height:24px}.mat-icon-button{padding:0;flex-shrink:0;line-height:40px}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{position:absolute;top:0;left:0;bottom:0;right:0}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;pointer-events:none;opacity:0}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
             encapsulation: _angular_core.ViewEncapsulation.None
         }), 
@@ -5439,7 +5219,7 @@ var MdCheckbox = (function () {
     ], MdCheckbox.prototype, "color", null);
     MdCheckbox = __decorate$33([
         _angular_core.Component({selector: 'md-checkbox, mat-checkbox',
-            template: "<label class=\"mat-checkbox-layout\"><div class=\"mat-checkbox-inner-container\"><input #input class=\"mat-checkbox-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [tabIndex]=\"tabIndex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (focus)=\"_onInputFocus()\" (blur)=\"_onInputBlur()\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"><div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"mat-checkbox-ripple\" [mdRippleTrigger]=\"_getHostElement()\" [mdRippleCentered]=\"true\" [mdRippleSpeedFactor]=\"0.3\" mdRippleBackgroundColor=\"rgba(0, 0, 0, 0)\"></div><div class=\"mat-checkbox-frame\"></div><div class=\"mat-checkbox-background\"><svg version=\"1.1\" class=\"mat-checkbox-checkmark\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"><path class=\"mat-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/></svg><div class=\"mat-checkbox-mixedmark\"></div></div></div><span class=\"mat-checkbox-label\"><ng-content></ng-content></span></label>",
+            template: "<label class=\"mat-checkbox-layout\"><div class=\"mat-checkbox-inner-container\"><input #input class=\"mat-checkbox-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [tabIndex]=\"tabIndex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (focus)=\"_onInputFocus()\" (blur)=\"_onInputBlur()\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"><div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"mat-checkbox-ripple\" [mdRippleTrigger]=\"_getHostElement()\" [mdRippleCentered]=\"true\" [mdRippleSpeedFactor]=\"0.3\"></div><div class=\"mat-checkbox-frame\"></div><div class=\"mat-checkbox-background\"><svg version=\"1.1\" class=\"mat-checkbox-checkmark\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"><path class=\"mat-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/></svg><div class=\"mat-checkbox-mixedmark\"></div></div></div><span class=\"mat-checkbox-label\"><ng-content></ng-content></span></label>",
             styles: [".mat-checkbox-frame,.mat-checkbox-unchecked .mat-checkbox-background{background-color:transparent}@keyframes mat-checkbox-fade-in-background{0%{opacity:0}50%{opacity:1}}@keyframes mat-checkbox-fade-out-background{0%,50%{opacity:1}100%{opacity:0}}@keyframes mat-checkbox-unchecked-checked-checkmark-path{0%,50%{stroke-dashoffset:22.91026}50%{animation-timing-function:cubic-bezier(0,0,.2,.1)}100%{stroke-dashoffset:0}}@keyframes mat-checkbox-unchecked-indeterminate-mixedmark{0%,68.2%{transform:scaleX(0)}68.2%{animation-timing-function:cubic-bezier(0,0,0,1)}100%{transform:scaleX(1)}}@keyframes mat-checkbox-checked-unchecked-checkmark-path{from{animation-timing-function:cubic-bezier(.4,0,1,1);stroke-dashoffset:0}to{stroke-dashoffset:-22.91026}}@keyframes mat-checkbox-checked-indeterminate-checkmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(45deg)}}@keyframes mat-checkbox-indeterminate-checked-checkmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:0;transform:rotate(45deg)}to{opacity:1;transform:rotate(360deg)}}@keyframes mat-checkbox-checked-indeterminate-mixedmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:0;transform:rotate(-45deg)}to{opacity:1;transform:rotate(0)}}@keyframes mat-checkbox-indeterminate-checked-mixedmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(315deg)}}@keyframes mat-checkbox-indeterminate-unchecked-mixedmark{0%{animation-timing-function:linear;opacity:1;transform:scaleX(1)}100%,32.8%{opacity:0;transform:scaleX(0)}}.mat-checkbox-background,.mat-checkbox-checkmark,.mat-checkbox-frame{bottom:0;left:0;position:absolute;right:0;top:0}.mat-checkbox-checkmark,.mat-checkbox-mixedmark{width:calc(100% - 4px)}.mat-checkbox-background,.mat-checkbox-frame{border-radius:2px;box-sizing:border-box;pointer-events:none}.mat-checkbox{cursor:pointer;font-family:Roboto,\"Helvetica Neue\",sans-serif;transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-checkbox-layout{cursor:inherit;align-items:baseline;vertical-align:middle;display:inline-flex}.mat-checkbox-inner-container{display:inline-block;height:20px;line-height:0;margin:auto 8px auto auto;order:0;position:relative;vertical-align:middle;white-space:nowrap;width:20px;flex-shrink:0}[dir=rtl] .mat-checkbox-inner-container{margin-left:8px;margin-right:auto}.mat-checkbox-layout .mat-checkbox-label{line-height:24px}.mat-checkbox-frame{border:2px solid;transition:border-color 90ms cubic-bezier(0,0,.2,.1)}.mat-checkbox-background{align-items:center;display:inline-flex;justify-content:center;transition:background-color 90ms cubic-bezier(0,0,.2,.1),opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-checkbox-checkmark{width:100%}.mat-checkbox-checkmark-path{stroke-dashoffset:22.91026;stroke-dasharray:22.91026;stroke-width:2.67px}.mat-checkbox-checked .mat-checkbox-checkmark-path,.mat-checkbox-indeterminate .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-mixedmark{height:2px;opacity:0;transform:scaleX(0) rotate(0)}.mat-checkbox-label-before .mat-checkbox-inner-container{order:1;margin-left:8px;margin-right:auto}[dir=rtl] .mat-checkbox-label-before .mat-checkbox-inner-container{margin-left:auto;margin-right:8px}.mat-checkbox-checked .mat-checkbox-checkmark{opacity:1}.mat-checkbox-checked .mat-checkbox-mixedmark{transform:scaleX(1) rotate(-45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark{opacity:0;transform:rotate(45deg)}.mat-checkbox-indeterminate .mat-checkbox-mixedmark{opacity:1;transform:scaleX(1) rotate(0)}.mat-checkbox-disabled{cursor:default}.mat-checkbox-anim-unchecked-checked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-checked .mat-checkbox-checkmark-path{animation:180ms linear 0s mat-checkbox-unchecked-checked-checkmark-path}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-unchecked-indeterminate-mixedmark}.mat-checkbox-anim-checked-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-checked-unchecked .mat-checkbox-checkmark-path{animation:90ms linear 0s mat-checkbox-checked-unchecked-checkmark-path}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-checkmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-checkmark}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-mixedmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-checkmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-checkmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-mixedmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-mixedmark}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-mixedmark{animation:.3s linear 0s mat-checkbox-indeterminate-unchecked-mixedmark}.mat-checkbox-input{bottom:0;left:50%}.mat-checkbox-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none}"],
             host: {
                 '[class.mat-checkbox]': 'true',
@@ -5935,9 +5715,6 @@ var MdRadioButton = (function () {
             }
         }
     };
-    MdRadioButton.prototype._getInputElement = function () {
-        return this._inputElement.nativeElement;
-    };
     __decorate$34([
         _angular_core.HostBinding('class.mat-radio-focused'), 
         __metadata$34('design:type', Boolean)
@@ -5995,7 +5772,7 @@ var MdRadioButton = (function () {
     ], MdRadioButton.prototype, "disabled", null);
     MdRadioButton = __decorate$34([
         _angular_core.Component({selector: 'md-radio-button, mat-radio-button',
-            template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\"><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"mat-radio-ripple\" [mdRippleTrigger]=\"_getInputElement()\" [mdRippleCentered]=\"true\" [mdRippleSpeedFactor]=\"0.3\" mdRippleBackgroundColor=\"rgba(0, 0, 0, 0)\"></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (focus)=\"_onInputFocus()\" (blur)=\"_onInputBlur()\" (click)=\"_onInputClick($event)\"><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><ng-content></ng-content></div></label>",
+            template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"mat-radio-ripple\" [mdRippleTrigger]=\"label\" [mdRippleCentered]=\"true\" [mdRippleSpeedFactor]=\"0.3\"></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (focus)=\"_onInputFocus()\" (blur)=\"_onInputBlur()\" (click)=\"_onInputClick($event)\"><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><ng-content></ng-content></div></label>",
             styles: [".mat-radio-button{display:inline-block;font-family:Roboto,\"Helvetica Neue\",sans-serif}.mat-radio-label{cursor:pointer;display:inline-flex;align-items:baseline;white-space:nowrap}.mat-radio-container{box-sizing:border-box;display:inline-block;height:20px;position:relative;width:20px;top:2px}.mat-radio-inner-circle,.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;top:0;width:20px;position:absolute}.mat-radio-outer-circle{border:2px solid;border-radius:50%;transition:border-color ease 280ms}.mat-radio-inner-circle{border-radius:50%;transition:transform ease 280ms,background-color ease 280ms;transform:scale(0)}.mat-radio-checked .mat-radio-inner-circle{transform:scale(.5)}.mat-radio-label-content{display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none}"],
             encapsulation: _angular_core.ViewEncapsulation.None,
             host: {
@@ -12699,17 +12476,9 @@ var MdTabLink = (function () {
  */
 var MdTabLinkRipple = (function (_super) {
     __extends$19(MdTabLinkRipple, _super);
-    function MdTabLinkRipple(_element, _ngZone, _ruler) {
-        _super.call(this, _element, _ngZone, _ruler);
-        this._element = _element;
-        this._ngZone = _ngZone;
+    function MdTabLinkRipple(elementRef, ngZone, ruler) {
+        _super.call(this, elementRef, ngZone, ruler);
     }
-    /**
-     * In certain cases the parent destroy handler may not get called. See Angular issue #11606.
-     */
-    MdTabLinkRipple.prototype.ngOnDestroy = function () {
-        _super.prototype.ngOnDestroy.call(this);
-    };
     MdTabLinkRipple = __decorate$60([
         _angular_core.Directive({
             selector: '[md-tab-link], [mat-tab-link]',
@@ -14230,7 +13999,7 @@ var MdMenuItem = (function () {
                 '(click)': '_checkDisabled($event)',
                 '[attr.tabindex]': '_tabindex'
             },
-            template: "<ng-content></ng-content><div class=\"mat-menu-ripple\" *ngIf=\"!disabled\" md-ripple mdRippleBackgroundColor=\"rgba(0,0,0,0)\" [mdRippleTrigger]=\"_getHostElement()\"></div>",
+            template: "<ng-content></ng-content><div class=\"mat-menu-ripple\" *ngIf=\"!disabled\" md-ripple [mdRippleTrigger]=\"_getHostElement()\"></div>",
             exportAs: 'mdMenuItem'
         }), 
         __metadata$69('design:paramtypes', [_angular_core.Renderer, _angular_core.ElementRef])

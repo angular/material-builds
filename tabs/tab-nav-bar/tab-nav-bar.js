@@ -83,17 +83,9 @@ export var MdTabLink = (function () {
  */
 export var MdTabLinkRipple = (function (_super) {
     __extends(MdTabLinkRipple, _super);
-    function MdTabLinkRipple(_element, _ngZone, _ruler) {
-        _super.call(this, _element, _ngZone, _ruler);
-        this._element = _element;
-        this._ngZone = _ngZone;
+    function MdTabLinkRipple(elementRef, ngZone, ruler) {
+        _super.call(this, elementRef, ngZone, ruler);
     }
-    /**
-     * In certain cases the parent destroy handler may not get called. See Angular issue #11606.
-     */
-    MdTabLinkRipple.prototype.ngOnDestroy = function () {
-        _super.prototype.ngOnDestroy.call(this);
-    };
     MdTabLinkRipple = __decorate([
         Directive({
             selector: '[md-tab-link], [mat-tab-link]',

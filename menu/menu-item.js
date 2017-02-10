@@ -67,7 +67,7 @@ export var MdMenuItem = (function () {
                 '(click)': '_checkDisabled($event)',
                 '[attr.tabindex]': '_tabindex'
             },
-            template: "<ng-content></ng-content><div class=\"mat-menu-ripple\" *ngIf=\"!disabled\" md-ripple mdRippleBackgroundColor=\"rgba(0,0,0,0)\" [mdRippleTrigger]=\"_getHostElement()\"></div>",
+            template: "<ng-content></ng-content><div class=\"mat-menu-ripple\" *ngIf=\"!disabled\" md-ripple [mdRippleTrigger]=\"_getHostElement()\"></div>",
             exportAs: 'mdMenuItem'
         }), 
         __metadata('design:paramtypes', [Renderer, ElementRef])

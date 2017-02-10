@@ -168,7 +168,7 @@ export var MdOption = (function () {
                 '(keydown)': '_handleKeydown($event)',
                 '[class.mat-option]': 'true',
             },
-            template: "<ng-content></ng-content><div class=\"mat-option-ripple\" *ngIf=\"!disabled\" md-ripple mdRippleBackgroundColor=\"rgba(0,0,0,0)\" [mdRippleTrigger]=\"_getHostElement()\"></div>",
+            template: "<ng-content></ng-content><div class=\"mat-option-ripple\" *ngIf=\"!disabled\" md-ripple [mdRippleTrigger]=\"_getHostElement()\"></div>",
             encapsulation: ViewEncapsulation.None
         }), 
         __metadata('design:paramtypes', [ElementRef, Renderer])

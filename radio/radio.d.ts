@@ -172,7 +172,6 @@ export declare class MdRadioButton implements OnInit {
      * Clicking on a label element, will trigger a change event on the associated input.
      */
     _onInputChange(event: Event): void;
-    _getInputElement(): any;
 }
 export declare class MdRadioModule {
     /** @deprecated */
