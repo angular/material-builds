@@ -12413,9 +12413,17 @@ var __metadata$60 = (this && this.__metadata) || function (k, v) {
 var MdTabNavBar = (function () {
     function MdTabNavBar() {
     }
-    /** Animates the ink bar to the position of the active link element. */
+    /** Notifies the component that the active link has been changed. */
     MdTabNavBar.prototype.updateActiveLink = function (element) {
-        this._inkBar.alignToElement(element);
+        this._activeLinkChanged = this._activeLinkElement != element;
+        this._activeLinkElement = element;
+    };
+    /** Checks if the active link has been changed and, if so, will update the ink bar. */
+    MdTabNavBar.prototype.ngAfterContentChecked = function () {
+        if (this._activeLinkChanged) {
+            this._inkBar.alignToElement(this._activeLinkElement.nativeElement);
+            this._activeLinkChanged = false;
+        }
     };
     __decorate$60([
         _angular_core.ViewChild(MdInkBar), 
@@ -12423,8 +12431,8 @@ var MdTabNavBar = (function () {
     ], MdTabNavBar.prototype, "_inkBar", void 0);
     MdTabNavBar = __decorate$60([
         _angular_core.Component({selector: '[md-tab-nav-bar], [mat-tab-nav-bar]',
-            template: "<ng-content></ng-content><md-ink-bar></md-ink-bar>",
-            styles: [".mat-tab-link,.mat-tab-nav-bar{position:relative;overflow:hidden}.mat-tab-nav-bar{display:flex;flex-direction:row;flex-shrink:0}.mat-tab-link{line-height:48px;height:48px;padding:0 12px;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;cursor:pointer;box-sizing:border-box;color:currentColor;opacity:.6;min-width:160px;text-align:center;text-decoration:none}.mat-tab-link:focus{outline:0;opacity:1}@media (max-width:600px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}"],
+            template: "<div class=\"mat-tab-links\"><ng-content></ng-content></div><md-ink-bar></md-ink-bar>",
+            styles: [".mat-tab-link,.mat-tab-nav-bar{position:relative;overflow:hidden}.mat-tab-nav-bar{flex-shrink:0}.mat-tab-links{display:flex;position:relative}.mat-tab-link{line-height:48px;height:48px;padding:0 12px;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;cursor:pointer;box-sizing:border-box;color:currentColor;opacity:.6;min-width:160px;text-align:center;text-decoration:none}.mat-tab-link:focus{outline:0;opacity:1}@media (max-width:600px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}"],
             host: {
                 '[class.mat-tab-nav-bar]': 'true',
             },
@@ -12438,9 +12446,9 @@ var MdTabNavBar = (function () {
  * Link inside of a `md-tab-nav-bar`.
  */
 var MdTabLink = (function () {
-    function MdTabLink(_mdTabNavBar, _element) {
+    function MdTabLink(_mdTabNavBar, _elementRef) {
         this._mdTabNavBar = _mdTabNavBar;
-        this._element = _element;
+        this._elementRef = _elementRef;
         this._isActive = false;
     }
     Object.defineProperty(MdTabLink.prototype, "active", {
@@ -12449,7 +12457,7 @@ var MdTabLink = (function () {
         set: function (value) {
             this._isActive = value;
             if (value) {
-                this._mdTabNavBar.updateActiveLink(this._element.nativeElement);
+                this._mdTabNavBar.updateActiveLink(this._elementRef);
             }
         },
         enumerable: true,
@@ -12462,6 +12470,9 @@ var MdTabLink = (function () {
     MdTabLink = __decorate$60([
         _angular_core.Directive({
             selector: '[md-tab-link], [mat-tab-link]',
+            host: {
+                '[class.mat-tab-link]': 'true',
+            }
         }), 
         __metadata$60('design:paramtypes', [MdTabNavBar, _angular_core.ElementRef])
     ], MdTabLink);
@@ -13077,8 +13088,8 @@ var MdTabHeader = (function () {
     ], MdTabHeader.prototype, "indexFocused", void 0);
     MdTabHeader = __decorate$64([
         _angular_core.Component({selector: 'md-tab-header, mat-tab-header',
-            template: "<div class=\"mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4\" aria-hidden=\"true\" md-ripple [mdRippleDisabled]=\"_disableScrollBefore\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollBefore\" (click)=\"_scrollHeader('before')\"><div class=\"mat-tab-header-pagination-chevron\"></div></div><div class=\"mat-tab-label-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\"><div class=\"mat-tab-list\" #tabList role=\"tablist\" (cdkObserveContent)=\"_onContentChanges()\"><ng-content></ng-content><md-ink-bar></md-ink-bar></div></div><div class=\"mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4\" aria-hidden=\"true\" md-ripple [mdRippleDisabled]=\"_disableScrollAfter\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollAfter\" (click)=\"_scrollHeader('after')\"><div class=\"mat-tab-header-pagination-chevron\"></div></div>",
-            styles: [".mat-tab-header{overflow:hidden;position:relative;display:flex;flex-direction:row;flex-shrink:0}.mat-tab-label{line-height:48px;height:48px;padding:0 12px;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;cursor:pointer;box-sizing:border-box;color:currentColor;opacity:.6;min-width:160px;text-align:center;position:relative}.mat-tab-label:focus{outline:0;opacity:1}@media (max-width:600px){.mat-tab-label{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}.mat-tab-header-pagination{position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-pagination-after,.mat-tab-header-rtl .mat-tab-header-pagination-before{padding-right:4px}.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:'';height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-header-pagination-disabled .mat-tab-header-pagination-chevron{border-color:#ccc}.mat-tab-label-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}.mat-tab-list{display:flex;flex-grow:1;position:relative;transition:transform .5s cubic-bezier(.35,0,.25,1)}"],
+            template: "<div class=\"mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4\" aria-hidden=\"true\" md-ripple [mdRippleDisabled]=\"_disableScrollBefore\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollBefore\" (click)=\"_scrollHeader('before')\"><div class=\"mat-tab-header-pagination-chevron\"></div></div><div class=\"mat-tab-label-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\"><div class=\"mat-tab-list\" #tabList role=\"tablist\" (cdkObserveContent)=\"_onContentChanges()\"><div class=\"mat-tab-labels\"><ng-content></ng-content></div><md-ink-bar></md-ink-bar></div></div><div class=\"mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4\" aria-hidden=\"true\" md-ripple [mdRippleDisabled]=\"_disableScrollAfter\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollAfter\" (click)=\"_scrollHeader('after')\"><div class=\"mat-tab-header-pagination-chevron\"></div></div>",
+            styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-label{line-height:48px;height:48px;padding:0 12px;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;cursor:pointer;box-sizing:border-box;color:currentColor;opacity:.6;min-width:160px;text-align:center;position:relative}.mat-tab-label:focus{outline:0;opacity:1}@media (max-width:600px){.mat-tab-label{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}.mat-tab-header-pagination{position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination,.mat-tab-labels{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-pagination-after,.mat-tab-header-rtl .mat-tab-header-pagination-before{padding-right:4px}.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:'';height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-header-pagination-disabled .mat-tab-header-pagination-chevron{border-color:#ccc}.mat-tab-label-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}.mat-tab-list{flex-grow:1;position:relative;transition:transform .5s cubic-bezier(.35,0,.25,1)}"],
             encapsulation: _angular_core.ViewEncapsulation.None,
             host: {
                 'class': 'mat-tab-header',

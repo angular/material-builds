@@ -23,9 +23,17 @@ import { ViewportRuler } from '../../core/overlay/position/viewport-ruler';
 export var MdTabNavBar = (function () {
     function MdTabNavBar() {
     }
-    /** Animates the ink bar to the position of the active link element. */
+    /** Notifies the component that the active link has been changed. */
     MdTabNavBar.prototype.updateActiveLink = function (element) {
-        this._inkBar.alignToElement(element);
+        this._activeLinkChanged = this._activeLinkElement != element;
+        this._activeLinkElement = element;
+    };
+    /** Checks if the active link has been changed and, if so, will update the ink bar. */
+    MdTabNavBar.prototype.ngAfterContentChecked = function () {
+        if (this._activeLinkChanged) {
+            this._inkBar.alignToElement(this._activeLinkElement.nativeElement);
+            this._activeLinkChanged = false;
+        }
     };
     __decorate([
         ViewChild(MdInkBar), 
@@ -33,8 +41,8 @@ export var MdTabNavBar = (function () {
     ], MdTabNavBar.prototype, "_inkBar", void 0);
     MdTabNavBar = __decorate([
         Component({selector: '[md-tab-nav-bar], [mat-tab-nav-bar]',
-            template: "<ng-content></ng-content><md-ink-bar></md-ink-bar>",
-            styles: [".mat-tab-link,.mat-tab-nav-bar{position:relative;overflow:hidden}.mat-tab-nav-bar{display:flex;flex-direction:row;flex-shrink:0}.mat-tab-link{line-height:48px;height:48px;padding:0 12px;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;cursor:pointer;box-sizing:border-box;color:currentColor;opacity:.6;min-width:160px;text-align:center;text-decoration:none}.mat-tab-link:focus{outline:0;opacity:1}@media (max-width:600px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}"],
+            template: "<div class=\"mat-tab-links\"><ng-content></ng-content></div><md-ink-bar></md-ink-bar>",
+            styles: [".mat-tab-link,.mat-tab-nav-bar{position:relative;overflow:hidden}.mat-tab-nav-bar{flex-shrink:0}.mat-tab-links{display:flex;position:relative}.mat-tab-link{line-height:48px;height:48px;padding:0 12px;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;cursor:pointer;box-sizing:border-box;color:currentColor;opacity:.6;min-width:160px;text-align:center;text-decoration:none}.mat-tab-link:focus{outline:0;opacity:1}@media (max-width:600px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}"],
             host: {
                 '[class.mat-tab-nav-bar]': 'true',
             },
@@ -48,9 +56,9 @@ export var MdTabNavBar = (function () {
  * Link inside of a `md-tab-nav-bar`.
  */
 export var MdTabLink = (function () {
-    function MdTabLink(_mdTabNavBar, _element) {
+    function MdTabLink(_mdTabNavBar, _elementRef) {
         this._mdTabNavBar = _mdTabNavBar;
-        this._element = _element;
+        this._elementRef = _elementRef;
         this._isActive = false;
     }
     Object.defineProperty(MdTabLink.prototype, "active", {
@@ -59,7 +67,7 @@ export var MdTabLink = (function () {
         set: function (value) {
             this._isActive = value;
             if (value) {
-                this._mdTabNavBar.updateActiveLink(this._element.nativeElement);
+                this._mdTabNavBar.updateActiveLink(this._elementRef);
             }
         },
         enumerable: true,
@@ -72,6 +80,9 @@ export var MdTabLink = (function () {
     MdTabLink = __decorate([
         Directive({
             selector: '[md-tab-link], [mat-tab-link]',
+            host: {
+                '[class.mat-tab-link]': 'true',
+            }
         }), 
         __metadata('design:paramtypes', [MdTabNavBar, ElementRef])
     ], MdTabLink);
