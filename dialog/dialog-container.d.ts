@@ -37,10 +37,5 @@ export declare class MdDialogContainer extends BasePortalHost implements OnDestr
      * @private
      */
     private _trapFocus();
-    /**
-     * Handles the user pressing the Escape key.
-     * @docs-private
-     */
-    handleEscapeKey(): void;
     ngOnDestroy(): void;
 }

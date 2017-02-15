@@ -14,6 +14,7 @@ export declare class MdDialog {
     private _openDialogsAtThisLevel;
     private _afterAllClosedAtThisLevel;
     private _afterOpenAtThisLevel;
+    private _boundKeydown;
     /** Keeps track of the currently-open dialogs. */
     readonly _openDialogs: MdDialogRef<any>[];
     /** Subject for notifying the user that all open dialogs have finished closing. */
@@ -71,4 +72,9 @@ export declare class MdDialog {
      * @param dialogRef Dialog to be removed.
      */
     private _removeOpenDialog(dialogRef);
+    /**
+     * Handles global key presses while there are open dialogs. Closes the
+     * top dialog when the user presses escape.
+     */
+    private _handleKeydown(event);
 }

@@ -14,6 +14,7 @@ import { Injector, Injectable, Optional, SkipSelf, TemplateRef } from '@angular/
 import { Subject } from 'rxjs/Subject';
 import { Overlay, OverlayState, ComponentPortal } from '../core';
 import { extendObject } from '../core/util/object-extend';
+import { ESCAPE } from '../core/keyboard/keycodes';
 import { DialogInjector } from './dialog-injector';
 import { MdDialogConfig } from './dialog-config';
 import { MdDialogRef } from './dialog-ref';
@@ -31,6 +32,7 @@ export var MdDialog = (function () {
         this._openDialogsAtThisLevel = [];
         this._afterAllClosedAtThisLevel = new Subject();
         this._afterOpenAtThisLevel = new Subject();
+        this._boundKeydown = this._handleKeydown.bind(this);
         /** Gets an observable that is notified when a dialog has been opened. */
         this.afterOpen = this._afterOpen.asObservable();
         /** Gets an observable that is notified when all open dialog have finished closing. */
@@ -74,6 +76,9 @@ export var MdDialog = (function () {
         var overlayRef = this._createOverlay(config);
         var dialogContainer = this._attachDialogContainer(overlayRef, config);
         var dialogRef = this._attachDialogContent(componentOrTemplateRef, dialogContainer, overlayRef, config);
+        if (!this._openDialogs.length && !this._parentDialog) {
+            document.addEventListener('keydown', this._boundKeydown);
+        }
         this._openDialogs.push(dialogRef);
         dialogRef.afterClosed().subscribe(function () { return _this._removeOpenDialog(dialogRef); });
         this._afterOpen.next(dialogRef);
@@ -126,7 +131,7 @@ export var MdDialog = (function () {
     MdDialog.prototype._attachDialogContent = function (componentOrTemplateRef, dialogContainer, overlayRef, config) {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
-        var dialogRef = new MdDialogRef(overlayRef);
+        var dialogRef = new MdDialogRef(overlayRef, config);
         if (!config.disableClose) {
             // When the dialog backdrop is clicked, we want to close it.
             overlayRef.backdropClick().first().subscribe(function () { return dialogRef.close(); });
@@ -184,7 +189,18 @@ export var MdDialog = (function () {
             // no open dialogs are left, call next on afterAllClosed Subject
             if (!this._openDialogs.length) {
                 this._afterAllClosed.next();
+                document.removeEventListener('keydown', this._boundKeydown);
             }
+        }
+    };
+    /**
+     * Handles global key presses while there are open dialogs. Closes the
+     * top dialog when the user presses escape.
+     */
+    MdDialog.prototype._handleKeydown = function (event) {
+        var topDialog = this._openDialogs[this._openDialogs.length - 1];
+        if (event.keyCode === ESCAPE && topDialog && !topDialog.config.disableClose) {
+            topDialog.close();
         }
     };
     MdDialog = __decorate([

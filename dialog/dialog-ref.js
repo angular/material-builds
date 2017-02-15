@@ -5,8 +5,9 @@ import { Subject } from 'rxjs/Subject';
  * Reference to a dialog opened via the MdDialog service.
  */
 export var MdDialogRef = (function () {
-    function MdDialogRef(_overlayRef) {
+    function MdDialogRef(_overlayRef, config) {
         this._overlayRef = _overlayRef;
+        this.config = config;
         /** Subject for notifying the user that the dialog has finished closing. */
         this._afterClosed = new Subject();
     }

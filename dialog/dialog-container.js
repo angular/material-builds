@@ -68,15 +68,6 @@ export var MdDialogContainer = (function (_super) {
             _this._focusTrap.focusFirstTabbableElement();
         });
     };
-    /**
-     * Handles the user pressing the Escape key.
-     * @docs-private
-     */
-    MdDialogContainer.prototype.handleEscapeKey = function () {
-        if (!this.dialogConfig.disableClose) {
-            this.dialogRef.close();
-        }
-    };
     MdDialogContainer.prototype.ngOnDestroy = function () {
         var _this = this;
         // When the dialog is destroyed, return focus to the element that originally had it before
@@ -104,7 +95,6 @@ export var MdDialogContainer = (function (_super) {
             host: {
                 '[class.mat-dialog-container]': 'true',
                 '[attr.role]': 'dialogConfig?.role',
-                '(keydown.escape)': 'handleEscapeKey()',
             },
             encapsulation: ViewEncapsulation.None,
         }), 
