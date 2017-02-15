@@ -1,6 +1,7 @@
-import { ModuleWithProviders, AfterContentInit, ElementRef, QueryList, EventEmitter, Renderer } from '@angular/core';
+import { ModuleWithProviders, AfterContentInit, ElementRef, QueryList, EventEmitter, Renderer, NgZone } from '@angular/core';
 import { Dir, MdError } from '../core';
 import { FocusTrap } from '../core/a11y/focus-trap';
+import 'rxjs/add/operator/first';
 /** Exception thrown when two MdSidenav are matching the same side. */
 export declare class MdDuplicatedSidenavError extends MdError {
     constructor(align: string);
@@ -112,6 +113,7 @@ export declare class MdSidenavContainer implements AfterContentInit {
     private _dir;
     private _element;
     private _renderer;
+    private _ngZone;
     _sidenavs: QueryList<MdSidenav>;
     /** The sidenav child with the `start` alignment. */
     readonly start: MdSidenav;
@@ -130,7 +132,9 @@ export declare class MdSidenavContainer implements AfterContentInit {
      */
     private _left;
     private _right;
-    constructor(_dir: Dir, _element: ElementRef, _renderer: Renderer);
+    /** Whether to enable open/close trantions. */
+    _enableTransitions: boolean;
+    constructor(_dir: Dir, _element: ElementRef, _renderer: Renderer, _ngZone: NgZone);
     ngAfterContentInit(): void;
     /**
      * Subscribes to sidenav events in order to set a class on the main container element when the
