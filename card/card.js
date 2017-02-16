@@ -170,7 +170,7 @@ export var MdCardXlImage = (function () {
     }
     MdCardXlImage = __decorate([
         Directive({
-            selector: '[md-card-xl-image], [mat-card-xl-image]',
+            selector: 'md-card-xl-image, mat-card-xl-image',
             host: {
                 '[class.mat-card-xl-image]': 'true'
             }
@@ -187,7 +187,7 @@ export var MdCardAvatar = (function () {
     }
     MdCardAvatar = __decorate([
         Directive({
-            selector: '[md-card-avatar], [mat-card-avatar]',
+            selector: 'md-card-avatar, mat-card-avatar',
             host: {
                 '[class.mat-card-avatar]': 'true'
             }

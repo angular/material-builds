@@ -9488,7 +9488,7 @@ var MdCardXlImage = (function () {
     }
     MdCardXlImage = __decorate$43([
         _angular_core.Directive({
-            selector: '[md-card-xl-image], [mat-card-xl-image]',
+            selector: 'md-card-xl-image, mat-card-xl-image',
             host: {
                 '[class.mat-card-xl-image]': 'true'
             }
@@ -9505,7 +9505,7 @@ var MdCardAvatar = (function () {
     }
     MdCardAvatar = __decorate$43([
         _angular_core.Directive({
-            selector: '[md-card-avatar], [mat-card-avatar]',
+            selector: 'md-card-avatar, mat-card-avatar',
             host: {
                 '[class.mat-card-avatar]': 'true'
             }
