@@ -520,7 +520,6 @@ var ScrollDispatcher = (function () {
     /**
      * Registers a Scrollable with the service and listens for its scrolled events. When the
      * scrollable is scrolled, the service emits the event in its scrolled observable.
-     *
      * @param scrollable Scrollable instance to be registered.
      */
     ScrollDispatcher.prototype.register = function (scrollable) {
@@ -530,12 +529,13 @@ var ScrollDispatcher = (function () {
     };
     /**
      * Deregisters a Scrollable reference and unsubscribes from its scroll event observable.
-     *
      * @param scrollable Scrollable instance to be deregistered.
      */
     ScrollDispatcher.prototype.deregister = function (scrollable) {
-        this.scrollableReferences.get(scrollable).unsubscribe();
-        this.scrollableReferences.delete(scrollable);
+        if (this.scrollableReferences.has(scrollable)) {
+            this.scrollableReferences.get(scrollable).unsubscribe();
+            this.scrollableReferences.delete(scrollable);
+        }
     };
     /**
      * Returns an observable that emits an event whenever any of the registered Scrollable
