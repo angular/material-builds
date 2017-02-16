@@ -9962,7 +9962,7 @@ var MdChipList = (function () {
     ], MdChipList.prototype, "selectable", null);
     MdChipList = __decorate$44([
         _angular_core.Component({selector: 'md-chip-list, mat-chip-list',
-            template: "<div class=\"md-chip-list-wrapper\"><ng-content></ng-content></div>",
+            template: "<div class=\"mat-chip-list-wrapper\"><ng-content></ng-content></div>",
             host: {
                 // Properties
                 'tabindex': '0',
