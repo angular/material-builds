@@ -6958,7 +6958,7 @@ var MdSlideToggle = (function () {
         // emit its event object to the component's `change` output.
         event.stopPropagation();
         // Once a drag is currently in progress, we do not want to toggle the slide-toggle on a click.
-        if (!this.disabled && !this._slideRenderer.isDragging()) {
+        if (!this.disabled && !this._slideRenderer.dragging) {
             this.toggle();
             // Emit our custom change event if the native input emitted one.
             // It is important to only emit it, if the native input triggered one, because
@@ -7066,21 +7066,19 @@ var MdSlideToggle = (function () {
         }
     };
     MdSlideToggle.prototype._onDrag = function (event) {
-        if (this._slideRenderer.isDragging()) {
+        if (this._slideRenderer.dragging) {
             this._slideRenderer.updateThumbPosition(event.deltaX);
         }
     };
     MdSlideToggle.prototype._onDragEnd = function () {
         var _this = this;
-        if (!this._slideRenderer.isDragging()) {
-            return;
+        if (this._slideRenderer.dragging) {
+            this.checked = this._slideRenderer.dragPercentage > 50;
+            this._emitChangeEvent();
+            // The drag should be stopped outside of the current event handler, because otherwise the
+            // click event will be fired before and will revert the drag change.
+            setTimeout(function () { return _this._slideRenderer.stopThumbDrag(); });
         }
-        // Notice that we have to stop outside of the current event handler,
-        // because otherwise the click event will be fired and will reset the new checked variable.
-        setTimeout(function () {
-            _this.checked = _this._slideRenderer.stopThumbDrag();
-            _this._emitChangeEvent();
-        }, 0);
     };
     __decorate$37([
         _angular_core.Input(), 
@@ -7157,40 +7155,42 @@ var MdSlideToggle = (function () {
 var SlideToggleRenderer = (function () {
     function SlideToggleRenderer(_elementRef) {
         this._elementRef = _elementRef;
+        /** Whether the thumb is currently being dragged. */
+        this.dragging = false;
         this._thumbEl = _elementRef.nativeElement.querySelector('.mat-slide-toggle-thumb-container');
         this._thumbBarEl = _elementRef.nativeElement.querySelector('.mat-slide-toggle-bar');
     }
-    /** Whether the slide-toggle is currently dragging. */
-    SlideToggleRenderer.prototype.isDragging = function () {
-        return !!this._thumbBarWidth;
-    };
     /** Initializes the drag of the slide-toggle. */
     SlideToggleRenderer.prototype.startThumbDrag = function (checked) {
-        if (!this.isDragging()) {
-            this._thumbBarWidth = this._thumbBarEl.clientWidth - this._thumbEl.clientWidth;
-            this._checked = checked;
-            this._thumbEl.classList.add('mat-dragging');
+        if (this.dragging) {
+            return;
         }
+        this._thumbBarWidth = this._thumbBarEl.clientWidth - this._thumbEl.clientWidth;
+        this._thumbEl.classList.add('mat-dragging');
+        this._previousChecked = checked;
+        this.dragging = true;
     };
-    /** Stops the current drag and returns the new checked value. */
+    /** Resets the current drag and returns the new checked value. */
     SlideToggleRenderer.prototype.stopThumbDrag = function () {
-        if (this.isDragging()) {
-            this._thumbBarWidth = null;
-            this._thumbEl.classList.remove('mat-dragging');
-            applyCssTransform(this._thumbEl, '');
-            return this._percentage > 50;
+        if (!this.dragging) {
+            return;
         }
+        this.dragging = false;
+        this._thumbEl.classList.remove('mat-dragging');
+        // Reset the transform because the component will take care of the thumb position after drag.
+        applyCssTransform(this._thumbEl, '');
+        return this.dragPercentage > 50;
     };
     /** Updates the thumb containers position from the specified distance. */
     SlideToggleRenderer.prototype.updateThumbPosition = function (distance) {
-        this._percentage = this._getThumbPercentage(distance);
-        applyCssTransform(this._thumbEl, "translate3d(" + this._percentage + "%, 0, 0)");
+        this.dragPercentage = this._getThumbPercentage(distance);
+        applyCssTransform(this._thumbEl, "translate3d(" + this.dragPercentage + "%, 0, 0)");
     };
     /** Retrieves the percentage of thumb from the moved distance. */
     SlideToggleRenderer.prototype._getThumbPercentage = function (distance) {
         var percentage = (distance / this._thumbBarWidth) * 100;
         // When the toggle was initially checked, then we have to start the drag at the end.
-        if (this._checked) {
+        if (this._previousChecked) {
             percentage += 100;
         }
         return Math.max(0, Math.min(percentage, 100));
@@ -11756,12 +11756,13 @@ var MdInputContainer = (function () {
     ], MdInputContainer.prototype, "_hintChildren", void 0);
     MdInputContainer = __decorate$51([
         _angular_core.Component({selector: 'md-input-container, mat-input-container',
-            template: "<div class=\"mat-input-wrapper\"><div class=\"mat-input-table\"><div class=\"mat-input-prefix\"><ng-content select=\"[mdPrefix], [matPrefix], [md-prefix]\"></ng-content></div><div class=\"mat-input-infix\" [class.mat-end]=\"align == 'end'\"><ng-content selector=\"input, textarea\"></ng-content><span class=\"mat-input-placeholder-wrapper\"><label class=\"mat-input-placeholder\" [attr.for]=\"_mdInputChild.id\" [class.mat-empty]=\"_mdInputChild.empty && !_shouldAlwaysFloat\" [class.mat-focused]=\"_mdInputChild.focused\" [class.mat-float]=\"_canPlaceholderFloat\" [class.mat-accent]=\"dividerColor == 'accent'\" [class.mat-warn]=\"dividerColor == 'warn'\" *ngIf=\"_hasPlaceholder()\"><ng-content select=\"md-placeholder, mat-placeholder\"></ng-content>{{_mdInputChild.placeholder}} <span class=\"mat-placeholder-required\" *ngIf=\"_mdInputChild.required\">*</span></label></span></div><div class=\"mat-input-suffix\"><ng-content select=\"[mdSuffix], [matSuffix], [md-suffix]\"></ng-content></div></div><div class=\"mat-input-underline\" [class.mat-disabled]=\"_mdInputChild.disabled\"><span class=\"mat-input-ripple\" [class.mat-focused]=\"_mdInputChild.focused\" [class.mat-accent]=\"dividerColor == 'accent'\" [class.mat-warn]=\"dividerColor == 'warn'\"></span></div><div *ngIf=\"hintLabel != ''\" [attr.id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"md-hint, mat-hint\"></ng-content></div>",
-            styles: [".mat-input-container{display:inline-block;position:relative;font-family:Roboto,\"Helvetica Neue\",sans-serif;line-height:normal;text-align:left}.mat-end .mat-input-element,[dir=rtl] .mat-input-container{text-align:right}.mat-input-wrapper{margin:1em 0;padding-bottom:6px}.mat-input-table{display:inline-table;flex-flow:column;vertical-align:bottom;width:100%}.mat-input-table>*{display:table-cell}.mat-input-infix{position:relative}.mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;width:100%}.mat-input-placeholder,.mat-input-placeholder-wrapper{padding-top:1em;pointer-events:none;position:absolute}[dir=rtl] .mat-end .mat-input-element{text-align:left}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element:-webkit-autofill+.mat-input-placeholder.mat-float{display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}.mat-input-element::placeholder{color:transparent}.mat-input-element::-moz-placeholder{color:transparent}.mat-input-element::-webkit-input-placeholder{color:transparent}.mat-input-element:-ms-input-placeholder{color:transparent}.mat-input-placeholder{left:0;top:0;font-size:100%;z-index:1;width:100%;display:none;white-space:nowrap;text-overflow:ellipsis;overflow-x:hidden;transform:translateY(0);transform-origin:bottom left;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1)}.mat-input-placeholder.mat-empty{display:block;cursor:text}.mat-input-placeholder.mat-float.mat-focused,.mat-input-placeholder.mat-float:not(.mat-empty){display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}[dir=rtl] .mat-input-placeholder{transform-origin:bottom right;left:auto;right:0}.mat-input-placeholder-wrapper{left:0;top:-1em;width:100%;overflow:hidden}.mat-input-placeholder-wrapper::after{content:'';display:inline-table}.mat-input-underline{position:absolute;height:1px;width:100%;margin-top:4px;border-top-width:1px;border-top-style:solid}.mat-input-underline.mat-disabled{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;border-top:0;background-position:0}.mat-input-underline .mat-input-ripple{position:absolute;height:2px;z-index:1;top:-1px;width:100%;transform-origin:top;opacity:0;transform:scaleY(0);transition:transform .4s cubic-bezier(.25,.8,.25,1),opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-input-underline .mat-input-ripple.mat-focused{opacity:1;transform:scaleY(1)}.mat-hint{display:block;position:absolute;font-size:75%;bottom:0}.mat-hint.mat-right{right:0}[dir=rtl] .mat-hint{right:0;left:auto}[dir=rtl] .mat-hint.mat-right{right:auto;left:0}.mat-input-prefix,.mat-input-suffix{width:.1px;white-space:nowrap}"],
+            template: "<div class=\"mat-input-wrapper\"><div class=\"mat-input-table\"><div class=\"mat-input-prefix\"><ng-content select=\"[mdPrefix], [matPrefix], [md-prefix]\"></ng-content></div><div class=\"mat-input-infix\" [class.mat-end]=\"align == 'end'\"><ng-content selector=\"input, textarea\"></ng-content><span class=\"mat-input-placeholder-wrapper\"><label class=\"mat-input-placeholder\" [attr.for]=\"_mdInputChild.id\" [class.mat-empty]=\"_mdInputChild.empty && !_shouldAlwaysFloat\" [class.mat-float]=\"_canPlaceholderFloat\" [class.mat-accent]=\"dividerColor == 'accent'\" [class.mat-warn]=\"dividerColor == 'warn'\" *ngIf=\"_hasPlaceholder()\"><ng-content select=\"md-placeholder, mat-placeholder\"></ng-content>{{_mdInputChild.placeholder}} <span class=\"mat-placeholder-required\" *ngIf=\"_mdInputChild.required\">*</span></label></span></div><div class=\"mat-input-suffix\"><ng-content select=\"[mdSuffix], [matSuffix], [md-suffix]\"></ng-content></div></div><div class=\"mat-input-underline\" [class.mat-disabled]=\"_mdInputChild.disabled\"><span class=\"mat-input-ripple\" [class.mat-accent]=\"dividerColor == 'accent'\" [class.mat-warn]=\"dividerColor == 'warn'\"></span></div><div *ngIf=\"hintLabel != ''\" [attr.id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"md-hint, mat-hint\"></ng-content></div>",
+            styles: [".mat-input-container{display:inline-block;position:relative;font-family:Roboto,\"Helvetica Neue\",sans-serif;line-height:normal;text-align:left}.mat-end .mat-input-element,[dir=rtl] .mat-input-container{text-align:right}.mat-input-wrapper{margin:1em 0;padding-bottom:6px}.mat-input-table{display:inline-table;flex-flow:column;vertical-align:bottom;width:100%}.mat-input-table>*{display:table-cell}.mat-input-infix{position:relative}.mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;width:100%}.mat-input-placeholder,.mat-input-placeholder-wrapper{padding-top:1em;pointer-events:none;position:absolute}[dir=rtl] .mat-end .mat-input-element{text-align:left}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element:-webkit-autofill+.mat-input-placeholder.mat-float{display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}.mat-input-element::placeholder{color:transparent}.mat-input-element::-moz-placeholder{color:transparent}.mat-input-element::-webkit-input-placeholder{color:transparent}.mat-input-element:-ms-input-placeholder{color:transparent}.mat-input-placeholder{left:0;top:0;font-size:100%;z-index:1;width:100%;display:none;white-space:nowrap;text-overflow:ellipsis;overflow-x:hidden;transform:translateY(0);transform-origin:bottom left;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1)}.mat-input-placeholder.mat-empty{display:block;cursor:text}.mat-focused .mat-input-placeholder.mat-float,.mat-input-placeholder.mat-float:not(.mat-empty){display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}[dir=rtl] .mat-input-placeholder{transform-origin:bottom right;left:auto;right:0}.mat-input-placeholder-wrapper{left:0;top:-1em;width:100%;overflow:hidden}.mat-input-placeholder-wrapper::after{content:'';display:inline-table}.mat-input-underline{position:absolute;height:1px;width:100%;margin-top:4px;border-top-width:1px;border-top-style:solid}.mat-input-underline.mat-disabled{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;border-top:0;background-position:0}.mat-input-underline .mat-input-ripple{position:absolute;height:2px;z-index:1;top:-1px;width:100%;transform-origin:top;opacity:0;transform:scaleY(0);transition:transform .4s cubic-bezier(.25,.8,.25,1),opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-focused .mat-input-underline .mat-input-ripple{opacity:1;transform:scaleY(1)}.mat-hint{display:block;position:absolute;font-size:75%;bottom:0}.mat-hint.mat-right{right:0}[dir=rtl] .mat-hint{right:0;left:auto}[dir=rtl] .mat-hint.mat-right{right:auto;left:0}.mat-input-prefix,.mat-input-suffix{width:.1px;white-space:nowrap}"],
             host: {
-                '[class.mat-input-container]': 'true',
                 // Remove align attribute to prevent it from interfering with layout.
                 '[attr.align]': 'null',
+                '[class.mat-input-container]': 'true',
+                '[class.mat-focused]': '_mdInputChild.focused',
                 '[class.ng-untouched]': '_shouldForward("untouched")',
                 '[class.ng-touched]': '_shouldForward("touched")',
                 '[class.ng-pristine]': '_shouldForward("pristine")',
