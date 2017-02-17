@@ -97,17 +97,18 @@ export var RippleRenderer = (function () {
         }
         if (element) {
             // If the element is not null, register all event listeners on the trigger element.
-            this._triggerEvents.forEach(function (fn, type) { return element.addEventListener(type, fn); });
+            this._ngZone.runOutsideAngular(function () {
+                _this._triggerEvents.forEach(function (fn, type) { return element.addEventListener(type, fn); });
+            });
         }
         this._triggerElement = element;
     };
     /** Listener being called on mousedown event. */
     RippleRenderer.prototype.onMousedown = function (event) {
-        if (this.rippleDisabled) {
-            return;
+        if (!this.rippleDisabled) {
+            this._isMousedown = true;
+            this.fadeInRipple(event.pageX, event.pageY, this.rippleConfig);
         }
-        this._isMousedown = true;
-        this.fadeInRipple(event.pageX, event.pageY, this.rippleConfig);
     };
     /** Listener being called on mouseup event. */
     RippleRenderer.prototype.onMouseup = function () {
