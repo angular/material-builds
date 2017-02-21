@@ -10,11 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { NgModule, Component, Directive, Input, ElementRef, ViewContainerRef, style, trigger, state, transition, animate, NgZone, Optional, ChangeDetectorRef } from '@angular/core';
+import { NgModule, Component, Directive, Input, ElementRef, ViewContainerRef, style, trigger, state, transition, animate, NgZone, Optional, Renderer, ChangeDetectorRef } from '@angular/core';
 import { Overlay, OverlayState, OverlayModule, ComponentPortal, CompatibilityModule } from '../core';
 import { MdTooltipInvalidPositionError } from './tooltip-errors';
 import { Subject } from 'rxjs/Subject';
 import { Dir } from '../core/rtl/dir';
+import { PlatformModule, Platform } from '../core/platform/index';
 import 'rxjs/add/operator/first';
 import { ScrollDispatcher } from '../core/overlay/scroll/scroll-dispatcher';
 /** Time in ms to delay before changing the tooltip visibility to hidden */
@@ -28,18 +29,27 @@ export var SCROLL_THROTTLE_MS = 20;
  * https://material.google.com/components/tooltips.html
  */
 export var MdTooltip = (function () {
-    function MdTooltip(_overlay, _scrollDispatcher, _elementRef, _viewContainerRef, _ngZone, _dir) {
+    function MdTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _renderer, _platform, _dir) {
+        var _this = this;
         this._overlay = _overlay;
-        this._scrollDispatcher = _scrollDispatcher;
         this._elementRef = _elementRef;
+        this._scrollDispatcher = _scrollDispatcher;
         this._viewContainerRef = _viewContainerRef;
         this._ngZone = _ngZone;
+        this._renderer = _renderer;
+        this._platform = _platform;
         this._dir = _dir;
         this._position = 'below';
         /** The default delay in ms before showing the tooltip after show is called */
         this.showDelay = 0;
         /** The default delay in ms before hiding the tooltip after hide is called */
         this.hideDelay = 0;
+        // The mouse events shouldn't be bound on iOS devices, because
+        // they can prevent the first tap from firing it's click event.
+        if (!_platform.IOS) {
+            _renderer.listen(_elementRef.nativeElement, 'mouseenter', function () { return _this.show(); });
+            _renderer.listen(_elementRef.nativeElement, 'mouseleave', function () { return _this.hide(); });
+        }
     }
     Object.defineProperty(MdTooltip.prototype, "position", {
         /** Allows the user to define the position of the tooltip relative to the parent element */
@@ -294,13 +304,11 @@ export var MdTooltip = (function () {
             host: {
                 '(longpress)': 'show()',
                 '(touchend)': 'hide(' + TOUCHEND_HIDE_DELAY + ')',
-                '(mouseenter)': 'show()',
-                '(mouseleave)': 'hide()',
             },
             exportAs: 'mdTooltip',
         }),
-        __param(5, Optional()), 
-        __metadata('design:paramtypes', [Overlay, ScrollDispatcher, ElementRef, ViewContainerRef, NgZone, Dir])
+        __param(7, Optional()), 
+        __metadata('design:paramtypes', [Overlay, ElementRef, ScrollDispatcher, ViewContainerRef, NgZone, Renderer, Platform, Dir])
     ], MdTooltip);
     return MdTooltip;
 }());
@@ -451,7 +459,7 @@ export var MdTooltipModule = (function () {
     };
     MdTooltipModule = __decorate([
         NgModule({
-            imports: [OverlayModule, CompatibilityModule],
+            imports: [OverlayModule, CompatibilityModule, PlatformModule],
             exports: [MdTooltip, TooltipComponent, CompatibilityModule],
             declarations: [MdTooltip, TooltipComponent],
             entryComponents: [TooltipComponent],

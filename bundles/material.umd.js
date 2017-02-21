@@ -13680,18 +13680,27 @@ var SCROLL_THROTTLE_MS = 20;
  * https://material.google.com/components/tooltips.html
  */
 var MdTooltip = (function () {
-    function MdTooltip(_overlay, _scrollDispatcher, _elementRef, _viewContainerRef, _ngZone, _dir) {
+    function MdTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _renderer, _platform, _dir) {
+        var _this = this;
         this._overlay = _overlay;
-        this._scrollDispatcher = _scrollDispatcher;
         this._elementRef = _elementRef;
+        this._scrollDispatcher = _scrollDispatcher;
         this._viewContainerRef = _viewContainerRef;
         this._ngZone = _ngZone;
+        this._renderer = _renderer;
+        this._platform = _platform;
         this._dir = _dir;
         this._position = 'below';
         /** The default delay in ms before showing the tooltip after show is called */
         this.showDelay = 0;
         /** The default delay in ms before hiding the tooltip after hide is called */
         this.hideDelay = 0;
+        // The mouse events shouldn't be bound on iOS devices, because
+        // they can prevent the first tap from firing it's click event.
+        if (!_platform.IOS) {
+            _renderer.listen(_elementRef.nativeElement, 'mouseenter', function () { return _this.show(); });
+            _renderer.listen(_elementRef.nativeElement, 'mouseleave', function () { return _this.hide(); });
+        }
     }
     Object.defineProperty(MdTooltip.prototype, "position", {
         /** Allows the user to define the position of the tooltip relative to the parent element */
@@ -13946,13 +13955,11 @@ var MdTooltip = (function () {
             host: {
                 '(longpress)': 'show()',
                 '(touchend)': 'hide(' + TOUCHEND_HIDE_DELAY + ')',
-                '(mouseenter)': 'show()',
-                '(mouseleave)': 'hide()',
             },
             exportAs: 'mdTooltip',
         }),
-        __param$14(5, _angular_core.Optional()), 
-        __metadata$66('design:paramtypes', [Overlay, ScrollDispatcher, _angular_core.ElementRef, _angular_core.ViewContainerRef, _angular_core.NgZone, Dir])
+        __param$14(7, _angular_core.Optional()), 
+        __metadata$66('design:paramtypes', [Overlay, _angular_core.ElementRef, ScrollDispatcher, _angular_core.ViewContainerRef, _angular_core.NgZone, _angular_core.Renderer, Platform, Dir])
     ], MdTooltip);
     return MdTooltip;
 }());
@@ -14103,7 +14110,7 @@ var MdTooltipModule = (function () {
     };
     MdTooltipModule = __decorate$66([
         _angular_core.NgModule({
-            imports: [OverlayModule, CompatibilityModule],
+            imports: [OverlayModule, CompatibilityModule, PlatformModule],
             exports: [MdTooltip, TooltipComponent, CompatibilityModule],
             declarations: [MdTooltip, TooltipComponent],
             entryComponents: [TooltipComponent],
