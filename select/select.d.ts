@@ -43,6 +43,8 @@ export declare class MdSelectChange {
     value: any;
     constructor(source: MdSelect, value: any);
 }
+/** Allowed values for the floatPlaceholder option. */
+export declare type MdSelectFloatPlaceholderType = 'always' | 'never' | 'auto';
 export declare class MdSelect implements AfterContentInit, ControlValueAccessor, OnDestroy {
     private _element;
     private _renderer;
@@ -69,7 +71,7 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
     /** The placeholder displayed in the trigger of the select. */
     private _placeholder;
     /** The animation state of the placeholder. */
-    _placeholderState: string;
+    private _placeholderState;
     /**
      * The width of the trigger. Must be saved to set the min width of the overlay panel
      * and the width of the selected value.
@@ -128,6 +130,9 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
     disabled: any;
     /** Whether the component is required. */
     required: any;
+    /** Whether to float the placeholder text. */
+    floatPlaceholder: MdSelectFloatPlaceholderType;
+    private _floatPlaceholder;
     /** Event emitted when the select has been opened. */
     onOpen: EventEmitter<void>;
     /** Event emitted when the select has been closed. */
@@ -256,6 +261,14 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
      */
     _calculateOverlayScroll(selectedIndex: number, scrollBuffer: number, maxScroll: number): number;
     /**
+     * Figures out the appropriate animation state for the placeholder.
+     */
+    _getPlaceholderAnimationState(): string;
+    /**
+     * Determines the CSS `visibility` of the placeholder element.
+     */
+    _getPlaceholderVisibility(): 'visible' | 'hidden';
+    /**
      * Calculates the y-offset of the select's overlay panel in relation to the
      * top start corner of the trigger. It has to be adjusted in order for the
      * selected option to be aligned over the trigger when the panel opens.
@@ -274,4 +287,6 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
     private _adjustPanelDown(panelHeightTop, topSpaceAvailable, maxScroll);
     /** Sets the transform origin point based on the selected option. */
     private _getOriginBasedOnOption();
+    /** Figures out the floating placeholder state value. */
+    private _floatPlaceholderState();
 }

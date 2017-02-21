@@ -122,6 +122,7 @@ export var MdSelect = (function () {
                 overlayY: 'bottom',
             },
         ];
+        this._floatPlaceholder = 'auto';
         /** Event emitted when the select has been opened. */
         this.onOpen = new EventEmitter();
         /** Event emitted when the select has been closed. */
@@ -160,6 +161,15 @@ export var MdSelect = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdSelect.prototype, "floatPlaceholder", {
+        /** Whether to float the placeholder text. */
+        get: function () { return this._floatPlaceholder; },
+        set: function (value) {
+            this._floatPlaceholder = value || 'auto';
+        },
+        enumerable: true,
+        configurable: true
+    });
     MdSelect.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._initKeyManager();
@@ -191,7 +201,7 @@ export var MdSelect = (function () {
             return;
         }
         this._calculateOverlayPosition();
-        this._placeholderState = this._isRtl() ? 'floating-rtl' : 'floating-ltr';
+        this._placeholderState = this._floatPlaceholderState();
         this._panelOpen = true;
     };
     /** Closes the overlay panel and focuses the host element. */
@@ -470,6 +480,24 @@ export var MdSelect = (function () {
         return clampValue(0, optimalScrollPosition, maxScroll);
     };
     /**
+     * Figures out the appropriate animation state for the placeholder.
+     */
+    MdSelect.prototype._getPlaceholderAnimationState = function () {
+        if (this.floatPlaceholder === 'never') {
+            return '';
+        }
+        if (this.floatPlaceholder === 'always') {
+            return this._floatPlaceholderState();
+        }
+        return this._placeholderState;
+    };
+    /**
+     * Determines the CSS `visibility` of the placeholder element.
+     */
+    MdSelect.prototype._getPlaceholderVisibility = function () {
+        return (this.floatPlaceholder !== 'never' || !this.selected) ? 'visible' : 'hidden';
+    };
+    /**
      * Calculates the y-offset of the select's overlay panel in relation to the
      * top start corner of the trigger. It has to be adjusted in order for the
      * selected option to be aligned over the trigger when the panel opens.
@@ -564,6 +592,10 @@ export var MdSelect = (function () {
         var originY = Math.abs(this._offsetY) - SELECT_OPTION_HEIGHT_ADJUSTMENT + SELECT_OPTION_HEIGHT / 2;
         return "50% " + originY + "px 0px";
     };
+    /** Figures out the floating placeholder state value. */
+    MdSelect.prototype._floatPlaceholderState = function () {
+        return this._isRtl() ? 'floating-rtl' : 'floating-ltr';
+    };
     __decorate([
         ViewChild('trigger'), 
         __metadata('design:type', ElementRef)
@@ -589,6 +621,10 @@ export var MdSelect = (function () {
         __metadata('design:type', Object)
     ], MdSelect.prototype, "required", null);
     __decorate([
+        Input(), 
+        __metadata('design:type', String)
+    ], MdSelect.prototype, "floatPlaceholder", null);
+    __decorate([
         Output(), 
         __metadata('design:type', EventEmitter)
     ], MdSelect.prototype, "onOpen", void 0);
@@ -602,7 +638,7 @@ export var MdSelect = (function () {
     ], MdSelect.prototype, "change", void 0);
     MdSelect = __decorate([
         Component({selector: 'md-select, mat-select',
-            template: "<div class=\"mat-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><span class=\"mat-select-placeholder\" [class.mat-floating-placeholder]=\"this.selected\" [@transformPlaceholder]=\"_placeholderState\" [style.width.px]=\"_selectedValueWidth\">{{ placeholder }} </span><span class=\"mat-select-value\" *ngIf=\"selected\"><span class=\"mat-select-value-text\">{{ selected?.viewValue }}</span> </span><span class=\"mat-select-arrow\"></span> <span class=\"mat-select-underline\"></span></div><template cdk-connected-overlay [origin]=\"origin\" [open]=\"panelOpen\" hasBackdrop (backdropClick)=\"close()\" backdropClass=\"cdk-overlay-transparent-backdrop\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" [offsetX]=\"_offsetX\" (attach)=\"_setScrollTop()\"><div class=\"mat-select-panel\" [@transformPanel]=\"'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_keyManager.onKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></template>",
+            template: "<div class=\"mat-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><span class=\"mat-select-placeholder\" [class.mat-floating-placeholder]=\"selected\" [@transformPlaceholder]=\"_getPlaceholderAnimationState()\" [style.visibility]=\"_getPlaceholderVisibility()\" [style.width.px]=\"_selectedValueWidth\">{{ placeholder }} </span><span class=\"mat-select-value\" *ngIf=\"selected\"><span class=\"mat-select-value-text\">{{ selected?.viewValue }}</span> </span><span class=\"mat-select-arrow\"></span> <span class=\"mat-select-underline\"></span></div><template cdk-connected-overlay [origin]=\"origin\" [open]=\"panelOpen\" hasBackdrop (backdropClick)=\"close()\" backdropClass=\"cdk-overlay-transparent-backdrop\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" [offsetX]=\"_offsetX\" (attach)=\"_setScrollTop()\"><div class=\"mat-select-panel\" [@transformPanel]=\"'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_keyManager.onKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></template>",
             styles: [".mat-select{display:inline-block;outline:0;font-family:Roboto,\"Helvetica Neue\",sans-serif}.mat-select-trigger{display:flex;align-items:center;height:30px;min-width:112px;cursor:pointer;position:relative;box-sizing:border-box;font-size:16px}[aria-disabled=true] .mat-select-trigger{cursor:default;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.mat-select-underline{position:absolute;bottom:0;left:0;right:0;height:1px}[aria-disabled=true] .mat-select-underline{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;background-color:transparent;background-position:0 bottom}.mat-select-placeholder{position:relative;padding:0 2px;transform-origin:left top;flex-grow:1}.mat-select-placeholder.mat-floating-placeholder{top:-22px;left:-2px;text-align:left;transform:scale(.75)}[dir=rtl] .mat-select-placeholder{transform-origin:right top}[dir=rtl] .mat-select-placeholder.mat-floating-placeholder{left:2px;text-align:right}[aria-required=true] .mat-select-placeholder::after{content:'*'}.mat-select-value{position:absolute;max-width:calc(100% - 18px);flex-grow:1;top:0;left:0;bottom:0;display:flex;align-items:center}[dir=rtl] .mat-select-value{left:auto;right:0}.mat-select-value-text{white-space:nowrap;overflow-x:hidden;text-overflow:ellipsis;line-height:30px}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}}"],
             encapsulation: ViewEncapsulation.None,
             host: {

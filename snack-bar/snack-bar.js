@@ -101,6 +101,14 @@ export var MdSnackBar = (function () {
         return simpleSnackBarRef;
     };
     /**
+     * Dismisses the currently-visible snack bar.
+     */
+    MdSnackBar.prototype.dismiss = function () {
+        if (this._openedSnackBarRef) {
+            this._openedSnackBarRef.dismiss();
+        }
+    };
+    /**
      * Attaches the snack bar container component to the overlay.
      */
     MdSnackBar.prototype._attachSnackBarContainer = function (overlayRef, config) {

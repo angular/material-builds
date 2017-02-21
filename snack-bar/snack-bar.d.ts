@@ -34,6 +34,10 @@ export declare class MdSnackBar {
      */
     open(message: string, action?: string, config?: MdSnackBarConfig): MdSnackBarRef<SimpleSnackBar>;
     /**
+     * Dismisses the currently-visible snack bar.
+     */
+    dismiss(): void;
+    /**
      * Attaches the snack bar container component to the overlay.
      */
     private _attachSnackBarContainer(overlayRef, config);
