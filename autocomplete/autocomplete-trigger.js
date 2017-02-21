@@ -111,7 +111,7 @@ export var MdAutocompleteTrigger = (function () {
          * when an option is selected, on blur, and when TAB is pressed.
          */
         get: function () {
-            return Observable.merge.apply(Observable, this.optionSelections.concat([this._blurStream.asObservable(), this._keyManager.tabOut]));
+            return Observable.merge(this.optionSelections, this._blurStream.asObservable(), this._keyManager.tabOut);
         },
         enumerable: true,
         configurable: true
@@ -119,7 +119,7 @@ export var MdAutocompleteTrigger = (function () {
     Object.defineProperty(MdAutocompleteTrigger.prototype, "optionSelections", {
         /** Stream of autocomplete option selections. */
         get: function () {
-            return this.autocomplete.options.map(function (option) { return option.onSelect; });
+            return Observable.merge.apply(Observable, this.autocomplete.options.map(function (option) { return option.onSelect; }));
         },
         enumerable: true,
         configurable: true

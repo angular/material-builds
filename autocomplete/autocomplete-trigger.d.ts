@@ -61,7 +61,7 @@ export declare class MdAutocompleteTrigger implements AfterContentInit, ControlV
      */
     readonly panelClosingActions: Observable<MdOptionSelectEvent>;
     /** Stream of autocomplete option selections. */
-    readonly optionSelections: Observable<MdOptionSelectEvent>[];
+    readonly optionSelections: Observable<MdOptionSelectEvent>;
     /** The currently active option, coerced to MdOption type. */
     readonly activeOption: MdOption;
     /**
