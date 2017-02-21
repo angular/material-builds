@@ -10,6 +10,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 /**
  * Exception thrown when attempting to load an icon with a name that cannot be found.
  * @docs-private
