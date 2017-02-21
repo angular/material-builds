@@ -35,6 +35,8 @@ export declare class MdButton {
     _isKeyboardFocused: boolean;
     /** Whether a mousedown has occurred on this element in the last 100ms. */
     _isMouseDown: boolean;
+    /** Whether the button is round. */
+    _isRoundButton: boolean;
     /** Whether the ripple effect on click should be disabled. */
     private _disableRipple;
     private _disabled;
@@ -53,7 +55,6 @@ export declare class MdButton {
     /** Focuses the button. */
     focus(): void;
     _getHostElement(): any;
-    _isRoundButton(): any;
     _isRippleDisabled(): boolean;
 }
 /**
