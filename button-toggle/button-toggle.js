@@ -13,7 +13,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 import { NgModule, Component, ContentChildren, Directive, ElementRef, Renderer, EventEmitter, HostBinding, Input, Optional, Output, QueryList, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { UniqueSelectionDispatcher, coerceBooleanProperty, UNIQUE_SELECTION_DISPATCHER_PROVIDER, CompatibilityModule } from '../core';
+import { FocusOriginMonitor, UniqueSelectionDispatcher, coerceBooleanProperty, UNIQUE_SELECTION_DISPATCHER_PROVIDER, CompatibilityModule } from '../core';
 /**
  * Provider Expression that allows md-button-toggle-group to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -295,10 +295,12 @@ export var MdButtonToggleGroupMultiple = (function () {
 }());
 /** Single button inside of a toggle group. */
 export var MdButtonToggle = (function () {
-    function MdButtonToggle(toggleGroup, toggleGroupMultiple, buttonToggleDispatcher, _renderer) {
+    function MdButtonToggle(toggleGroup, toggleGroupMultiple, buttonToggleDispatcher, _renderer, _elementRef, _focusOriginMonitor) {
         var _this = this;
         this.buttonToggleDispatcher = buttonToggleDispatcher;
         this._renderer = _renderer;
+        this._elementRef = _elementRef;
+        this._focusOriginMonitor = _focusOriginMonitor;
         /** Whether or not this button toggle is checked. */
         this._checked = false;
         /** Whether or not this button toggle is disabled. */
@@ -342,6 +344,7 @@ export var MdButtonToggle = (function () {
         if (this.buttonToggleGroup && this._value == this.buttonToggleGroup.value) {
             this._checked = true;
         }
+        this._focusOriginMonitor.monitor(this._elementRef.nativeElement, this._renderer, true);
     };
     Object.defineProperty(MdButtonToggle.prototype, "inputId", {
         /** Unique ID for the underlying `input` element. */
@@ -473,8 +476,8 @@ export var MdButtonToggle = (function () {
     ], MdButtonToggle.prototype, "disabled", null);
     MdButtonToggle = __decorate([
         Component({selector: 'md-button-toggle, mat-button-toggle',
-            template: "<label [attr.for]=\"inputId\" class=\"mat-button-toggle-label\"><input #input class=\"mat-button-toggle-input cdk-visually-hidden\" [type]=\"_type\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-button-toggle-label-content\"><ng-content></ng-content></div></label>",
-            styles: [".mat-button-toggle-group{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle-disabled .mat-button-toggle-label-content{cursor:default}.mat-button-toggle{white-space:nowrap;font-family:Roboto,\"Helvetica Neue\",sans-serif}.mat-button-toggle-label-content{display:inline-block;line-height:36px;padding:0 16px;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.mat-button-toggle-label-content>*{vertical-align:middle}"],
+            template: "<label [attr.for]=\"inputId\" class=\"mat-button-toggle-label\"><input #input class=\"mat-button-toggle-input cdk-visually-hidden\" [type]=\"_type\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-button-toggle-label-content\"><ng-content></ng-content></div></label><div class=\"mat-button-toggle-focus-overlay\" (touchstart)=\"$event.preventDefault()\"></div>",
+            styles: [".mat-button-toggle-group{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle-disabled .mat-button-toggle-label-content{cursor:default}.mat-button-toggle{white-space:nowrap;font-family:Roboto,\"Helvetica Neue\",sans-serif;position:relative}.mat-button-toggle.cdk-focused .mat-button-toggle-focus-overlay{opacity:1}.mat-button-toggle-label-content{display:inline-block;line-height:36px;padding:0 16px;cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;position:absolute;top:0;left:0;right:0;bottom:0}"],
             encapsulation: ViewEncapsulation.None,
             host: {
                 '[class.mat-button-toggle]': 'true'
@@ -482,7 +485,7 @@ export var MdButtonToggle = (function () {
         }),
         __param(0, Optional()),
         __param(1, Optional()), 
-        __metadata('design:paramtypes', [MdButtonToggleGroup, MdButtonToggleGroupMultiple, UniqueSelectionDispatcher, Renderer])
+        __metadata('design:paramtypes', [MdButtonToggleGroup, MdButtonToggleGroupMultiple, UniqueSelectionDispatcher, Renderer, ElementRef, FocusOriginMonitor])
     ], MdButtonToggle);
     return MdButtonToggle;
 }());
@@ -506,7 +509,7 @@ export var MdButtonToggleModule = (function () {
                 CompatibilityModule,
             ],
             declarations: [MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle],
-            providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER]
+            providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, FocusOriginMonitor]
         }), 
         __metadata('design:paramtypes', [])
     ], MdButtonToggleModule);
