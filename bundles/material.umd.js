@@ -1522,7 +1522,7 @@ var OverlayRef = (function () {
      * @returns Resolves when the overlay has been detached.
      */
     OverlayRef.prototype.detach = function () {
-        this._detachBackdrop();
+        this.detachBackdrop();
         // When the overlay is detached, the pane element should disable pointer events.
         // This is necessary because otherwise the pane element will cover the page and disable
         // pointer events therefore. Depends on the position strategy and the applied pane boundaries.
@@ -1536,7 +1536,7 @@ var OverlayRef = (function () {
         if (this._state.positionStrategy) {
             this._state.positionStrategy.dispose();
         }
-        this._detachBackdrop();
+        this.detachBackdrop();
         this._portalHost.dispose();
     };
     /**
@@ -1606,7 +1606,7 @@ var OverlayRef = (function () {
         });
     };
     /** Detaches the backdrop (if any) associated with the overlay. */
-    OverlayRef.prototype._detachBackdrop = function () {
+    OverlayRef.prototype.detachBackdrop = function () {
         var _this = this;
         var backdropToDetach = this._backdropElement;
         if (backdropToDetach) {
@@ -14726,20 +14726,31 @@ var MdMenuModule = (function () {
  * Reference to a dialog opened via the MdDialog service.
  */
 var MdDialogRef = (function () {
-    function MdDialogRef(_overlayRef, config) {
+    function MdDialogRef(_overlayRef, _containerInstance) {
+        var _this = this;
         this._overlayRef = _overlayRef;
-        this.config = config;
+        this._containerInstance = _containerInstance;
         /** Subject for notifying the user that the dialog has finished closing. */
         this._afterClosed = new rxjs_Subject.Subject();
+        _containerInstance._onAnimationStateChange.subscribe(function (state$$1) {
+            if (state$$1 === 'exit-start') {
+                // Transition the backdrop in parallel with the dialog.
+                _this._overlayRef.detachBackdrop();
+            }
+            else if (state$$1 === 'exit') {
+                _this._overlayRef.dispose();
+                _this._afterClosed.next(_this._result);
+                _this._afterClosed.complete();
+            }
+        });
     }
     /**
      * Close the dialog.
      * @param dialogResult Optional result to return to the dialog opener.
      */
     MdDialogRef.prototype.close = function (dialogResult) {
-        this._overlayRef.dispose();
-        this._afterClosed.next(dialogResult);
-        this._afterClosed.complete();
+        this._result = dialogResult;
+        this._containerInstance._exit();
     };
     /**
      * Gets an observable that is notified when the dialog is finished closing.
@@ -14820,16 +14831,20 @@ var __metadata$73 = (this && this.__metadata) || function (k, v) {
 };
 /**
  * Internal component that wraps user-provided dialog content.
+ * Animation is based on https://material.io/guidelines/motion/choreography.html.
  * @docs-private
  */
 var MdDialogContainer = (function (_super) {
     __extends$22(MdDialogContainer, _super);
-    function MdDialogContainer(_ngZone, _renderer) {
+    function MdDialogContainer(_ngZone) {
         _super.call(this);
         this._ngZone = _ngZone;
-        this._renderer = _renderer;
         /** Element that was focused before the dialog was opened. Save this to restore upon close. */
         this._elementFocusedBeforeDialogWasOpened = null;
+        /** State of the dialog animation. */
+        this._state = 'enter';
+        /** Emits the current animation state whenever it changes. */
+        this._onAnimationStateChange = new _angular_core.EventEmitter();
     }
     /**
      * Attach a ComponentPortal as content to this dialog container.
@@ -14869,17 +14884,36 @@ var MdDialogContainer = (function (_super) {
             _this._focusTrap.focusFirstTabbableElement();
         });
     };
+    /**
+     * Kicks off the leave animation.
+     * @docs-private
+     */
+    MdDialogContainer.prototype._exit = function () {
+        this._state = 'exit';
+        this._onAnimationStateChange.emit('exit-start');
+    };
+    /**
+     * Callback, invoked whenever an animation on the host completes.
+     * @docs-private
+     */
+    MdDialogContainer.prototype._onAnimationDone = function (event) {
+        this._onAnimationStateChange.emit(event.toState);
+    };
     MdDialogContainer.prototype.ngOnDestroy = function () {
         var _this = this;
         // When the dialog is destroyed, return focus to the element that originally had it before
         // the dialog was opened. Wait for the DOM to finish settling before changing the focus so
         // that it doesn't end up back on the <body>. Also note that we need the extra check, because
         // IE can set the `activeElement` to null in some cases.
-        if (this._elementFocusedBeforeDialogWasOpened) {
-            this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
-                _this._renderer.invokeElementMethod(_this._elementFocusedBeforeDialogWasOpened, 'focus');
-            });
-        }
+        this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
+            var toFocus = _this._elementFocusedBeforeDialogWasOpened;
+            // We need to check whether the focus method exists at all, because IE seems to throw an
+            // exception, even if the element is the document.body.
+            if (toFocus && 'focus' in toFocus) {
+                toFocus.focus();
+            }
+            _this._onAnimationStateChange.complete();
+        });
     };
     __decorate$73([
         _angular_core.ViewChild(PortalHostDirective), 
@@ -14893,13 +14927,23 @@ var MdDialogContainer = (function (_super) {
         _angular_core.Component({selector: 'md-dialog-container, mat-dialog-container',
             template: "<cdk-focus-trap><template cdkPortalHost></template></cdk-focus-trap>",
             styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;max-width:80vw;width:100%;height:100%}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto}.mat-dialog-title{font-size:20px;font-weight:700;margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex}.mat-dialog-actions:last-child{margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}"],
+            encapsulation: _angular_core.ViewEncapsulation.None,
+            animations: [
+                _angular_core.trigger('slideDialog', [
+                    _angular_core.state('void', _angular_core.style({ transform: 'translateY(25%) scale(0.9)', opacity: 0 })),
+                    _angular_core.state('enter', _angular_core.style({ transform: 'translateY(0%) scale(1)', opacity: 1 })),
+                    _angular_core.state('exit', _angular_core.style({ transform: 'translateY(25%)', opacity: 0 })),
+                    _angular_core.transition('* => *', _angular_core.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
+                ])
+            ],
             host: {
                 '[class.mat-dialog-container]': 'true',
                 '[attr.role]': 'dialogConfig?.role',
+                '[@slideDialog]': '_state',
+                '(@slideDialog.done)': '_onAnimationDone($event)',
             },
-            encapsulation: _angular_core.ViewEncapsulation.None,
         }), 
-        __metadata$73('design:paramtypes', [_angular_core.NgZone, _angular_core.Renderer])
+        __metadata$73('design:paramtypes', [_angular_core.NgZone])
     ], MdDialogContainer);
     return MdDialogContainer;
 }(BasePortalHost));
@@ -14916,7 +14960,6 @@ var __metadata$72 = (this && this.__metadata) || function (k, v) {
 var __param$17 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-// TODO(jelbourn): animations
 /**
  * Service to open Material Design modal dialogs.
  */
@@ -15027,13 +15070,11 @@ var MdDialog = (function () {
     MdDialog.prototype._attachDialogContent = function (componentOrTemplateRef, dialogContainer, overlayRef, config) {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
-        var dialogRef = new MdDialogRef(overlayRef, config);
+        var dialogRef = new MdDialogRef(overlayRef, dialogContainer);
         if (!config.disableClose) {
             // When the dialog backdrop is clicked, we want to close it.
             overlayRef.backdropClick().first().subscribe(function () { return dialogRef.close(); });
         }
-        // Set the dialogRef to the container so that it can use the ref to close the dialog.
-        dialogContainer.dialogRef = dialogRef;
         // We create an injector specifically for the component we're instantiating so that it can
         // inject the MdDialogRef. This allows a component loaded inside of a dialog to close itself
         // and, optionally, to return a value.
@@ -15095,7 +15136,8 @@ var MdDialog = (function () {
      */
     MdDialog.prototype._handleKeydown = function (event) {
         var topDialog = this._openDialogs[this._openDialogs.length - 1];
-        if (event.keyCode === ESCAPE && topDialog && !topDialog.config.disableClose) {
+        if (event.keyCode === ESCAPE && topDialog &&
+            !topDialog._containerInstance.dialogConfig.disableClose) {
             topDialog.close();
         }
     };

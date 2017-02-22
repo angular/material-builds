@@ -20,7 +20,7 @@ import { MdDialogConfig } from './dialog-config';
 import { MdDialogRef } from './dialog-ref';
 import { MdDialogContainer } from './dialog-container';
 import { TemplatePortal } from '../core/portal/portal';
-// TODO(jelbourn): animations
+import 'rxjs/add/operator/first';
 /**
  * Service to open Material Design modal dialogs.
  */
@@ -131,13 +131,11 @@ export var MdDialog = (function () {
     MdDialog.prototype._attachDialogContent = function (componentOrTemplateRef, dialogContainer, overlayRef, config) {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
-        var dialogRef = new MdDialogRef(overlayRef, config);
+        var dialogRef = new MdDialogRef(overlayRef, dialogContainer);
         if (!config.disableClose) {
             // When the dialog backdrop is clicked, we want to close it.
             overlayRef.backdropClick().first().subscribe(function () { return dialogRef.close(); });
         }
-        // Set the dialogRef to the container so that it can use the ref to close the dialog.
-        dialogContainer.dialogRef = dialogRef;
         // We create an injector specifically for the component we're instantiating so that it can
         // inject the MdDialogRef. This allows a component loaded inside of a dialog to close itself
         // and, optionally, to return a value.
@@ -199,7 +197,8 @@ export var MdDialog = (function () {
      */
     MdDialog.prototype._handleKeydown = function (event) {
         var topDialog = this._openDialogs[this._openDialogs.length - 1];
-        if (event.keyCode === ESCAPE && topDialog && !topDialog.config.disableClose) {
+        if (event.keyCode === ESCAPE && topDialog &&
+            !topDialog._containerInstance.dialogConfig.disableClose) {
             topDialog.close();
         }
     };
