@@ -150,7 +150,6 @@ export declare class MdCheckbox implements ControlValueAccessor {
     focus(): void;
     _onInputClick(event: Event): void;
     private _getAnimationClassForCheckStateTransition(oldState, newState);
-    _getHostElement(): any;
 }
 export declare class MdCheckboxModule {
     /** @deprecated */
