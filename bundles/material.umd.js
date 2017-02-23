@@ -15575,9 +15575,14 @@ var MdAutocompleteTrigger = (function () {
             }
         }
     };
-    MdAutocompleteTrigger.prototype._handleInput = function (value) {
-        this._onChange(value);
-        this.openPanel();
+    MdAutocompleteTrigger.prototype._handleInput = function (event) {
+        // We need to ensure that the input is focused, because IE will fire the `input`
+        // event on focus/blur/load if the input has a placeholder. See:
+        // https://connect.microsoft.com/IE/feedback/details/885747/
+        if (document.activeElement === event.target) {
+            this._onChange(event.target.value);
+            this.openPanel();
+        }
     };
     MdAutocompleteTrigger.prototype._handleBlur = function (newlyFocusedTag) {
         this._onTouched();
@@ -15711,7 +15716,7 @@ var MdAutocompleteTrigger = (function () {
                 '[attr.aria-owns]': 'autocomplete?.id',
                 '(focus)': 'openPanel()',
                 '(blur)': '_handleBlur($event.relatedTarget?.tagName)',
-                '(input)': '_handleInput($event.target.value)',
+                '(input)': '_handleInput($event)',
                 '(keydown)': '_handleKeydown($event)',
             },
             providers: [MD_AUTOCOMPLETE_VALUE_ACCESSOR]

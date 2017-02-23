@@ -88,7 +88,7 @@ export declare class MdAutocompleteTrigger implements AfterContentInit, ControlV
      */
     registerOnTouched(fn: () => {}): void;
     _handleKeydown(event: KeyboardEvent): void;
-    _handleInput(value: string): void;
+    _handleInput(event: KeyboardEvent): void;
     _handleBlur(newlyFocusedTag: string): void;
     /**
      * In "auto" mode, the placeholder will animate down as soon as focus is lost.
