@@ -22,6 +22,7 @@ export declare class MdSlideToggle implements AfterContentInit, ControlValueAcce
     private _slideRenderer;
     private _disabled;
     private _required;
+    private _disableRipple;
     _hasFocus: boolean;
     /** Name value will be applied to the input element if present */
     name: string;
@@ -39,6 +40,8 @@ export declare class MdSlideToggle implements AfterContentInit, ControlValueAcce
     disabled: boolean;
     /** Whether the slide-toggle is required. */
     required: boolean;
+    /** Whether the ripple effect for this slide-toggle is disabled. */
+    disableRipple: boolean;
     private _change;
     /** An event will be dispatched each time the slide-toggle changes its value. */
     change: Observable<MdSlideToggleChange>;
