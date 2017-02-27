@@ -12967,6 +12967,7 @@ var MdTabBody = (function () {
     MdTabBody = __decorate$63([
         _angular_core.Component({selector: 'md-tab-body, mat-tab-body',
             template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_canBeAnimated ? _position : null\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><template cdkPortalHost></template></div>",
+            styles: [".mat-tab-body-content{height:100%}"],
             host: {
                 '[class.mat-tab-body]': 'true',
             },

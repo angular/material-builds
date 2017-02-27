@@ -1,0 +1,1 @@
+{"version":3,"sources":["tab-body.css"],"names":[],"mappings":"AAAA;EACE,aAAa,EAAE","file":"tab-body.css","sourcesContent":[".mat-tab-body-content {\n  height: 100%; }\n"]}
