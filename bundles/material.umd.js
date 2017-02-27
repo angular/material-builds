@@ -2211,6 +2211,23 @@ var __metadata$14 = (this && this.__metadata) || function (k, v) {
 var OverlayContainer = (function () {
     function OverlayContainer() {
     }
+    Object.defineProperty(OverlayContainer.prototype, "themeClass", {
+        /**
+         * Base theme to be applied to all overlay-based components.
+         */
+        get: function () { return this._themeClass; },
+        set: function (value) {
+            if (this._containerElement) {
+                this._containerElement.classList.remove(this._themeClass);
+                if (value) {
+                    this._containerElement.classList.add(value);
+                }
+            }
+            this._themeClass = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * This method returns the overlay container element.  It will lazily
      * create the element the first time  it is called to facilitate using
@@ -2230,6 +2247,9 @@ var OverlayContainer = (function () {
     OverlayContainer.prototype._createContainer = function () {
         var container = document.createElement('div');
         container.classList.add('cdk-overlay-container');
+        if (this._themeClass) {
+            container.classList.add(this._themeClass);
+        }
         document.body.appendChild(container);
         this._containerElement = container;
     };
@@ -15453,6 +15473,8 @@ var MdAutocompleteTrigger = (function () {
         this._panelOpen = false;
         /** Stream of blur events that should close the panel. */
         this._blurStream = new rxjs_Subject.Subject();
+        /** Whether or not the placeholder state is being overridden. */
+        this._manuallyFloatingPlaceholder = false;
         /** View -> model callback called when value changes */
         this._onChange = function (value) { };
         /** View -> model callback called when autocomplete has been touched */
@@ -15496,7 +15518,7 @@ var MdAutocompleteTrigger = (function () {
             this._subscribeToClosingActions();
         }
         this._panelOpen = true;
-        this._floatPlaceholder('always');
+        this._floatPlaceholder();
     };
     /** Closes the autocomplete suggestion panel. */
     MdAutocompleteTrigger.prototype.closePanel = function () {
@@ -15504,7 +15526,7 @@ var MdAutocompleteTrigger = (function () {
             this._overlayRef.detach();
         }
         this._panelOpen = false;
-        this._floatPlaceholder('auto');
+        this._resetPlaceholder();
     };
     Object.defineProperty(MdAutocompleteTrigger.prototype, "panelClosingActions", {
         /**
@@ -15596,9 +15618,17 @@ var MdAutocompleteTrigger = (function () {
      * This causes the value to jump when selecting an option with the mouse.
      * This method manually floats the placeholder until the panel can be closed.
      */
-    MdAutocompleteTrigger.prototype._floatPlaceholder = function (state$$1) {
-        if (this._inputContainer) {
-            this._inputContainer.floatPlaceholder = state$$1;
+    MdAutocompleteTrigger.prototype._floatPlaceholder = function () {
+        if (this._inputContainer && this._inputContainer.floatPlaceholder === 'auto') {
+            this._inputContainer.floatPlaceholder = 'always';
+            this._manuallyFloatingPlaceholder = true;
+        }
+    };
+    /** If the placeholder has been manually elevated, return it to its normal state. */
+    MdAutocompleteTrigger.prototype._resetPlaceholder = function () {
+        if (this._manuallyFloatingPlaceholder) {
+            this._inputContainer.floatPlaceholder = 'auto';
+            this._manuallyFloatingPlaceholder = false;
         }
     };
     /**

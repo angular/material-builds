@@ -40,6 +40,8 @@ export declare class MdAutocompleteTrigger implements AfterContentInit, ControlV
     private _positionStrategy;
     /** Stream of blur events that should close the panel. */
     private _blurStream;
+    /** Whether or not the placeholder state is being overridden. */
+    private _manuallyFloatingPlaceholder;
     /** View -> model callback called when value changes */
     _onChange: (value: any) => void;
     /** View -> model callback called when autocomplete has been touched */
@@ -95,7 +97,9 @@ export declare class MdAutocompleteTrigger implements AfterContentInit, ControlV
      * This causes the value to jump when selecting an option with the mouse.
      * This method manually floats the placeholder until the panel can be closed.
      */
-    private _floatPlaceholder(state);
+    private _floatPlaceholder();
+    /** If the placeholder has been manually elevated, return it to its normal state. */
+    private _resetPlaceholder();
     /**
      * Given that we are not actually focusing active options, we must manually adjust scroll
      * to reveal options below the fold. First, we find the offset of the option from the top

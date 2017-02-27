@@ -52,6 +52,8 @@ export var MdAutocompleteTrigger = (function () {
         this._panelOpen = false;
         /** Stream of blur events that should close the panel. */
         this._blurStream = new Subject();
+        /** Whether or not the placeholder state is being overridden. */
+        this._manuallyFloatingPlaceholder = false;
         /** View -> model callback called when value changes */
         this._onChange = function (value) { };
         /** View -> model callback called when autocomplete has been touched */
@@ -95,7 +97,7 @@ export var MdAutocompleteTrigger = (function () {
             this._subscribeToClosingActions();
         }
         this._panelOpen = true;
-        this._floatPlaceholder('always');
+        this._floatPlaceholder();
     };
     /** Closes the autocomplete suggestion panel. */
     MdAutocompleteTrigger.prototype.closePanel = function () {
@@ -103,7 +105,7 @@ export var MdAutocompleteTrigger = (function () {
             this._overlayRef.detach();
         }
         this._panelOpen = false;
-        this._floatPlaceholder('auto');
+        this._resetPlaceholder();
     };
     Object.defineProperty(MdAutocompleteTrigger.prototype, "panelClosingActions", {
         /**
@@ -195,9 +197,17 @@ export var MdAutocompleteTrigger = (function () {
      * This causes the value to jump when selecting an option with the mouse.
      * This method manually floats the placeholder until the panel can be closed.
      */
-    MdAutocompleteTrigger.prototype._floatPlaceholder = function (state) {
-        if (this._inputContainer) {
-            this._inputContainer.floatPlaceholder = state;
+    MdAutocompleteTrigger.prototype._floatPlaceholder = function () {
+        if (this._inputContainer && this._inputContainer.floatPlaceholder === 'auto') {
+            this._inputContainer.floatPlaceholder = 'always';
+            this._manuallyFloatingPlaceholder = true;
+        }
+    };
+    /** If the placeholder has been manually elevated, return it to its normal state. */
+    MdAutocompleteTrigger.prototype._resetPlaceholder = function () {
+        if (this._manuallyFloatingPlaceholder) {
+            this._inputContainer.floatPlaceholder = 'auto';
+            this._manuallyFloatingPlaceholder = false;
         }
     };
     /**
