@@ -2554,7 +2554,6 @@ var ConnectedOverlayDirective = (function () {
         }
         this._position = this._createPositionStrategy();
         overlayConfig.positionStrategy = this._position;
-        overlayConfig.direction = this.dir;
         return overlayConfig;
     };
     /** Returns the position strategy of the overlay to be set on the overlay config */
@@ -2564,7 +2563,6 @@ var ConnectedOverlayDirective = (function () {
         var overlayPoint = { overlayX: pos.overlayX, overlayY: pos.overlayY };
         var strategy = this._overlay.position()
             .connectedTo(this.origin.elementRef, originPoint, overlayPoint)
-            .withDirection(this.dir)
             .withOffsetX(this.offsetX)
             .withOffsetY(this.offsetY);
         this._handlePositionChanges(strategy);
@@ -2584,6 +2582,8 @@ var ConnectedOverlayDirective = (function () {
         if (!this._overlayRef) {
             this._createOverlay();
         }
+        this._position.withDirection(this.dir);
+        this._overlayRef.getState().direction = this.dir;
         if (!this._overlayRef.hasAttached()) {
             this._overlayRef.attach(this._templatePortal);
             this.attach.emit();
