@@ -1,4 +1,4 @@
-import { AfterContentInit, ElementRef, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
+import { ElementRef, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { Overlay } from '../core';
 import { MdAutocomplete } from './autocomplete';
@@ -23,7 +23,7 @@ export declare const AUTOCOMPLETE_PANEL_HEIGHT: number;
  * @docs-private
  */
 export declare const MD_AUTOCOMPLETE_VALUE_ACCESSOR: any;
-export declare class MdAutocompleteTrigger implements AfterContentInit, ControlValueAccessor, OnDestroy {
+export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
     private _element;
     private _overlay;
     private _viewContainerRef;
@@ -35,8 +35,6 @@ export declare class MdAutocompleteTrigger implements AfterContentInit, ControlV
     private _panelOpen;
     /** The subscription to positioning changes in the autocomplete panel. */
     private _panelPositionSubscription;
-    /** Manages active item in option list based on key events. */
-    private _keyManager;
     private _positionStrategy;
     /** Stream of blur events that should close the panel. */
     private _blurStream;
@@ -50,7 +48,6 @@ export declare class MdAutocompleteTrigger implements AfterContentInit, ControlV
     /** Property with mat- prefix for no-conflict mode. */
     _matAutocomplete: MdAutocomplete;
     constructor(_element: ElementRef, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _dir: Dir, _zone: NgZone, _inputContainer: MdInputContainer);
-    ngAfterContentInit(): void;
     ngOnDestroy(): void;
     readonly panelOpen: boolean;
     /** Opens the autocomplete suggestion panel. */

@@ -15329,6 +15329,33 @@ var MdDialogModule = (function () {
     return MdDialogModule;
 }());
 
+var __extends$24 = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var ActiveDescendantKeyManager = (function (_super) {
+    __extends$24(ActiveDescendantKeyManager, _super);
+    function ActiveDescendantKeyManager(items) {
+        _super.call(this, items);
+    }
+    /**
+     * This method sets the active item to the item at the specified index.
+     * It also adds active styles to the newly active item and removes active
+     * styles from the previously active item.
+     */
+    ActiveDescendantKeyManager.prototype.setActiveItem = function (index) {
+        if (this.activeItem) {
+            this.activeItem.setInactiveStyles();
+        }
+        _super.prototype.setActiveItem.call(this, index);
+        if (this.activeItem) {
+            this.activeItem.setActiveStyles();
+        }
+    };
+    return ActiveDescendantKeyManager;
+}(ListKeyManager));
+
 var __decorate$76 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -15352,6 +15379,9 @@ var MdAutocomplete = (function () {
         /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
         this.id = "md-autocomplete-" + _uniqueAutocompleteIdCounter++;
     }
+    MdAutocomplete.prototype.ngAfterContentInit = function () {
+        this._keyManager = new ActiveDescendantKeyManager(this.options).withWrap();
+    };
     /**
      * Sets the panel scrollTop. This allows us to manually scroll to display
      * options below the fold, as they are not actually being focused when active.
@@ -15405,33 +15435,6 @@ var MdAutocomplete = (function () {
     ], MdAutocomplete);
     return MdAutocomplete;
 }());
-
-var __extends$24 = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var ActiveDescendantKeyManager = (function (_super) {
-    __extends$24(ActiveDescendantKeyManager, _super);
-    function ActiveDescendantKeyManager(items) {
-        _super.call(this, items);
-    }
-    /**
-     * This method sets the active item to the item at the specified index.
-     * It also adds active styles to the newly active item and removes active
-     * styles from the previously active item.
-     */
-    ActiveDescendantKeyManager.prototype.setActiveItem = function (index) {
-        if (this.activeItem) {
-            this.activeItem.setInactiveStyles();
-        }
-        _super.prototype.setActiveItem.call(this, index);
-        if (this.activeItem) {
-            this.activeItem.setActiveStyles();
-        }
-    };
-    return ActiveDescendantKeyManager;
-}(ListKeyManager));
 
 var __decorate$77 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -15492,9 +15495,6 @@ var MdAutocompleteTrigger = (function () {
         enumerable: true,
         configurable: true
     });
-    MdAutocompleteTrigger.prototype.ngAfterContentInit = function () {
-        this._keyManager = new ActiveDescendantKeyManager(this.autocomplete.options).withWrap();
-    };
     MdAutocompleteTrigger.prototype.ngOnDestroy = function () {
         if (this._panelPositionSubscription) {
             this._panelPositionSubscription.unsubscribe();
@@ -15535,7 +15535,7 @@ var MdAutocompleteTrigger = (function () {
          * when an option is selected, on blur, and when TAB is pressed.
          */
         get: function () {
-            return rxjs_Observable.Observable.merge(this.optionSelections, this._blurStream.asObservable(), this._keyManager.tabOut);
+            return rxjs_Observable.Observable.merge(this.optionSelections, this._blurStream.asObservable(), this.autocomplete._keyManager.tabOut);
         },
         enumerable: true,
         configurable: true
@@ -15551,7 +15551,9 @@ var MdAutocompleteTrigger = (function () {
     Object.defineProperty(MdAutocompleteTrigger.prototype, "activeOption", {
         /** The currently active option, coerced to MdOption type. */
         get: function () {
-            return this._keyManager.activeItem;
+            if (this.autocomplete._keyManager) {
+                return this.autocomplete._keyManager.activeItem;
+            }
         },
         enumerable: true,
         configurable: true
@@ -15591,7 +15593,7 @@ var MdAutocompleteTrigger = (function () {
             this.activeOption._selectViaInteraction();
         }
         else {
-            this._keyManager.onKeydown(event);
+            this.autocomplete._keyManager.onKeydown(event);
             if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
                 this.openPanel();
                 this._scrollToOption();
@@ -15639,7 +15641,7 @@ var MdAutocompleteTrigger = (function () {
      * height, so the active option will be just visible at the bottom of the panel.
      */
     MdAutocompleteTrigger.prototype._scrollToOption = function () {
-        var optionOffset = this._keyManager.activeItemIndex * AUTOCOMPLETE_OPTION_HEIGHT;
+        var optionOffset = this.autocomplete._keyManager.activeItemIndex * AUTOCOMPLETE_OPTION_HEIGHT;
         var newScrollTop = Math.max(0, optionOffset - AUTOCOMPLETE_PANEL_HEIGHT + AUTOCOMPLETE_OPTION_HEIGHT);
         this.autocomplete._setScrollTop(newScrollTop);
     };
@@ -15715,7 +15717,7 @@ var MdAutocompleteTrigger = (function () {
     };
     /** Reset active item to null so arrow events will activate the correct options.*/
     MdAutocompleteTrigger.prototype._resetActiveItem = function () {
-        this._keyManager.setActiveItem(null);
+        this.autocomplete._keyManager.setActiveItem(null);
     };
     /**
      * Resets the active item and re-calculates alignment of the panel in case its size

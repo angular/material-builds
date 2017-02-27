@@ -15,7 +15,6 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Overlay, OverlayState, TemplatePortal } from '../core';
 import { MdAutocomplete } from './autocomplete';
 import { Observable } from 'rxjs/Observable';
-import { ActiveDescendantKeyManager } from '../core/a11y/activedescendant-key-manager';
 import { ENTER, UP_ARROW, DOWN_ARROW } from '../core/keyboard/keycodes';
 import { Dir } from '../core/rtl/dir';
 import { Subject } from 'rxjs/Subject';
@@ -70,9 +69,6 @@ export var MdAutocompleteTrigger = (function () {
         enumerable: true,
         configurable: true
     });
-    MdAutocompleteTrigger.prototype.ngAfterContentInit = function () {
-        this._keyManager = new ActiveDescendantKeyManager(this.autocomplete.options).withWrap();
-    };
     MdAutocompleteTrigger.prototype.ngOnDestroy = function () {
         if (this._panelPositionSubscription) {
             this._panelPositionSubscription.unsubscribe();
@@ -113,7 +109,7 @@ export var MdAutocompleteTrigger = (function () {
          * when an option is selected, on blur, and when TAB is pressed.
          */
         get: function () {
-            return Observable.merge(this.optionSelections, this._blurStream.asObservable(), this._keyManager.tabOut);
+            return Observable.merge(this.optionSelections, this._blurStream.asObservable(), this.autocomplete._keyManager.tabOut);
         },
         enumerable: true,
         configurable: true
@@ -129,7 +125,9 @@ export var MdAutocompleteTrigger = (function () {
     Object.defineProperty(MdAutocompleteTrigger.prototype, "activeOption", {
         /** The currently active option, coerced to MdOption type. */
         get: function () {
-            return this._keyManager.activeItem;
+            if (this.autocomplete._keyManager) {
+                return this.autocomplete._keyManager.activeItem;
+            }
         },
         enumerable: true,
         configurable: true
@@ -169,7 +167,7 @@ export var MdAutocompleteTrigger = (function () {
             this.activeOption._selectViaInteraction();
         }
         else {
-            this._keyManager.onKeydown(event);
+            this.autocomplete._keyManager.onKeydown(event);
             if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
                 this.openPanel();
                 this._scrollToOption();
@@ -217,7 +215,7 @@ export var MdAutocompleteTrigger = (function () {
      * height, so the active option will be just visible at the bottom of the panel.
      */
     MdAutocompleteTrigger.prototype._scrollToOption = function () {
-        var optionOffset = this._keyManager.activeItemIndex * AUTOCOMPLETE_OPTION_HEIGHT;
+        var optionOffset = this.autocomplete._keyManager.activeItemIndex * AUTOCOMPLETE_OPTION_HEIGHT;
         var newScrollTop = Math.max(0, optionOffset - AUTOCOMPLETE_PANEL_HEIGHT + AUTOCOMPLETE_OPTION_HEIGHT);
         this.autocomplete._setScrollTop(newScrollTop);
     };
@@ -293,7 +291,7 @@ export var MdAutocompleteTrigger = (function () {
     };
     /** Reset active item to null so arrow events will activate the correct options.*/
     MdAutocompleteTrigger.prototype._resetActiveItem = function () {
-        this._keyManager.setActiveItem(null);
+        this.autocomplete._keyManager.setActiveItem(null);
     };
     /**
      * Resets the active item and re-calculates alignment of the panel in case its size

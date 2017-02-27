@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Component, ContentChildren, ElementRef, Input, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MdOption } from '../core';
+import { ActiveDescendantKeyManager } from '../core/a11y/activedescendant-key-manager';
 /**
  * Autocomplete IDs need to be unique across components, so this counter exists outside of
  * the component definition.
@@ -23,6 +24,9 @@ export var MdAutocomplete = (function () {
         /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
         this.id = "md-autocomplete-" + _uniqueAutocompleteIdCounter++;
     }
+    MdAutocomplete.prototype.ngAfterContentInit = function () {
+        this._keyManager = new ActiveDescendantKeyManager(this.options).withWrap();
+    };
     /**
      * Sets the panel scrollTop. This allows us to manually scroll to display
      * options below the fold, as they are not actually being focused when active.
