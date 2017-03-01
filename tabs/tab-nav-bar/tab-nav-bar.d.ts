@@ -1,6 +1,6 @@
 import { ElementRef, NgZone } from '@angular/core';
 import { MdInkBar } from '../ink-bar';
-import { MdRipple } from '../../core/ripple/ripple';
+import { MdRipple } from '../../core/ripple/index';
 import { ViewportRuler } from '../../core/overlay/position/viewport-ruler';
 /**
  * Navigation component matching the styles of the tab group header.

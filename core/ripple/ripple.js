@@ -7,11 +7,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { NgModule, Directive, ElementRef, Input, NgZone } from '@angular/core';
+import { Directive, ElementRef, Input, NgZone } from '@angular/core';
 import { RippleRenderer } from './ripple-renderer';
-import { CompatibilityModule } from '../compatibility/compatibility';
-import { ViewportRuler, VIEWPORT_RULER_PROVIDER } from '../overlay/position/viewport-ruler';
-import { SCROLL_DISPATCHER_PROVIDER } from '../overlay/scroll/scroll-dispatcher';
+import { ViewportRuler } from '../overlay/position/viewport-ruler';
 export var MdRipple = (function () {
     function MdRipple(elementRef, ngZone, ruler) {
         /**
@@ -42,7 +40,11 @@ export var MdRipple = (function () {
     /** Launches a manual ripple at the specified position. */
     MdRipple.prototype.launch = function (pageX, pageY, config) {
         if (config === void 0) { config = this.rippleConfig; }
-        this._rippleRenderer.fadeInRipple(pageX, pageY, config);
+        return this._rippleRenderer.fadeInRipple(pageX, pageY, config);
+    };
+    /** Fades out all currently showing ripple elements. */
+    MdRipple.prototype.fadeOutAll = function () {
+        this._rippleRenderer.fadeOutAll();
     };
     Object.defineProperty(MdRipple.prototype, "rippleConfig", {
         /** Ripple configuration from the directive's input values. */
@@ -97,26 +99,5 @@ export var MdRipple = (function () {
         __metadata('design:paramtypes', [ElementRef, NgZone, ViewportRuler])
     ], MdRipple);
     return MdRipple;
-}());
-export var MdRippleModule = (function () {
-    function MdRippleModule() {
-    }
-    /** @deprecated */
-    MdRippleModule.forRoot = function () {
-        return {
-            ngModule: MdRippleModule,
-            providers: []
-        };
-    };
-    MdRippleModule = __decorate([
-        NgModule({
-            imports: [CompatibilityModule],
-            exports: [MdRipple, CompatibilityModule],
-            declarations: [MdRipple],
-            providers: [VIEWPORT_RULER_PROVIDER, SCROLL_DISPATCHER_PROVIDER],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdRippleModule);
-    return MdRippleModule;
 }());
 //# sourceMappingURL=ripple.js.map

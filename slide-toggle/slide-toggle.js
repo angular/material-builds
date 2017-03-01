@@ -12,7 +12,7 @@ import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { applyCssTransform, coerceBooleanProperty, GestureConfig, CompatibilityModule } from '../core';
 import { Observable } from 'rxjs/Observable';
-import { MdRippleModule } from '../core/ripple/ripple';
+import { MdRippleModule } from '../core/ripple/index';
 export var MD_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return MdSlideToggle; }),

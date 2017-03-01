@@ -11,7 +11,7 @@ import { Component, ElementRef, EventEmitter, Input, Output, NgModule, Renderer,
 import { CommonModule } from '@angular/common';
 import { ENTER, SPACE } from '../keyboard/keycodes';
 import { coerceBooleanProperty } from '../coercion/boolean-property';
-import { MdRippleModule } from '../ripple/ripple';
+import { MdRippleModule } from '../ripple/index';
 /**
  * Option IDs need to be unique across components, so this counter exists outside of
  * the component definition.
