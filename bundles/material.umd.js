@@ -6211,13 +6211,13 @@ var transformPanel = _angular_core.trigger('transformPanel', [
     _angular_core.state('showing', _angular_core.style({
         opacity: 1,
         minWidth: 'calc(100% + 32px)',
-        transform: "translate3d(0,0,0) scaleY(1)"
+        transform: "scaleY(1)"
     })),
     _angular_core.transition('void => *', [
         _angular_core.style({
             opacity: 0,
             minWidth: '100%',
-            transform: "translate3d(0, 0, 0) scaleY(0)"
+            transform: "scaleY(0)"
         }),
         _angular_core.animate("150ms cubic-bezier(0.25, 0.8, 0.25, 1)")
     ]),
