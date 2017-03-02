@@ -143,12 +143,14 @@ export declare class MdCheckbox implements ControlValueAccessor {
     /**
      * Event handler for checkbox input element.
      * Toggles checked state if element is not disabled.
+     * Do not toggle on (change) event since IE doesn't fire change event when
+     *   indeterminate checkbox is clicked.
      * @param event
      */
-    _onInteractionEvent(event: Event): void;
+    _onInputClick(event: Event): void;
     /** Focuses the checkbox. */
     focus(): void;
-    _onInputClick(event: Event): void;
+    _onInteractionEvent(event: Event): void;
     private _getAnimationClassForCheckStateTransition(oldState, newState);
 }
 export declare class MdCheckboxModule {
