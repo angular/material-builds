@@ -1,7 +1,7 @@
-import { ComponentRef, NgZone, OnDestroy, AnimationTransitionEvent, EventEmitter } from '@angular/core';
+import { ComponentRef, NgZone, OnDestroy, Renderer, ElementRef, AnimationTransitionEvent, EventEmitter } from '@angular/core';
 import { BasePortalHost, ComponentPortal, PortalHostDirective, TemplatePortal } from '../core';
 import { MdDialogConfig } from './dialog-config';
-import { FocusTrap } from '../core/a11y/focus-trap';
+import { FocusTrapFactory } from '../core/a11y/focus-trap';
 import 'rxjs/add/operator/first';
 /** Possible states for the dialog container animation. */
 export declare type MdDialogContainerAnimationState = 'void' | 'enter' | 'exit' | 'exit-start';
@@ -12,10 +12,13 @@ export declare type MdDialogContainerAnimationState = 'void' | 'enter' | 'exit' 
  */
 export declare class MdDialogContainer extends BasePortalHost implements OnDestroy {
     private _ngZone;
+    private _renderer;
+    private _elementRef;
+    private _focusTrapFactory;
     /** The portal host inside of this container into which the dialog content will be loaded. */
     _portalHost: PortalHostDirective;
-    /** The directive that traps and manages focus within the dialog. */
-    _focusTrap: FocusTrap;
+    /** The class that traps and manages focus within the dialog. */
+    private _focusTrap;
     /** Element that was focused before the dialog was opened. Save this to restore upon close. */
     private _elementFocusedBeforeDialogWasOpened;
     /** The dialog configuration. */
@@ -24,7 +27,7 @@ export declare class MdDialogContainer extends BasePortalHost implements OnDestr
     _state: MdDialogContainerAnimationState;
     /** Emits the current animation state whenever it changes. */
     _onAnimationStateChange: EventEmitter<MdDialogContainerAnimationState>;
-    constructor(_ngZone: NgZone);
+    constructor(_ngZone: NgZone, _renderer: Renderer, _elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory);
     /**
      * Attach a ComponentPortal as content to this dialog container.
      * @param portal Portal to be attached as the dialog content.

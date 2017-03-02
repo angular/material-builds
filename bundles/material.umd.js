@@ -3019,69 +3019,100 @@ var __metadata$18 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
- * Directive for trapping focus within a region.
+ * Class that allows for trapping focus within a DOM element.
  *
- * NOTE: This directive currently uses a very simple (naive) approach to focus trapping.
+ * NOTE: This class currently uses a very simple (naive) approach to focus trapping.
  * It assumes that the tab order is the same as DOM order, which is not necessarily true.
  * Things like tabIndex > 0, flex `order`, and shadow roots can cause to two to misalign.
  * This will be replaced with a more intelligent solution before the library is considered stable.
  */
 var FocusTrap = (function () {
-    function FocusTrap(_checker, _ngZone) {
+    function FocusTrap(_element, _checker, _ngZone, deferAnchors) {
+        if (deferAnchors === void 0) { deferAnchors = false; }
+        this._element = _element;
         this._checker = _checker;
         this._ngZone = _ngZone;
-        this._disabled = false;
+        this._enabled = true;
+        if (!deferAnchors) {
+            this.attachAnchors();
+        }
     }
-    Object.defineProperty(FocusTrap.prototype, "disabled", {
+    Object.defineProperty(FocusTrap.prototype, "enabled", {
         /** Whether the focus trap is active. */
-        get: function () { return this._disabled; },
-        set: function (val) { this._disabled = coerceBooleanProperty(val); },
+        get: function () { return this._enabled; },
+        set: function (val) {
+            this._enabled = val;
+            if (this._startAnchor && this._endAnchor) {
+                this._startAnchor.tabIndex = this._endAnchor.tabIndex = this._enabled ? 0 : -1;
+            }
+        },
         enumerable: true,
         configurable: true
     });
+    /** Destroys the focus trap by cleaning up the anchors. */
+    FocusTrap.prototype.destroy = function () {
+        if (this._startAnchor && this._startAnchor.parentNode) {
+            this._startAnchor.parentNode.removeChild(this._startAnchor);
+        }
+        if (this._endAnchor && this._endAnchor.parentNode) {
+            this._endAnchor.parentNode.removeChild(this._endAnchor);
+        }
+        this._startAnchor = this._endAnchor = null;
+    };
     /**
-     * Waits for microtask queue to empty, then focuses the first tabbable element within the focus
-     * trap region.
+     * Inserts the anchors into the DOM. This is usually done automatically
+     * in the constructor, but can be deferred for cases like directives with `*ngIf`.
+     */
+    FocusTrap.prototype.attachAnchors = function () {
+        var _this = this;
+        if (!this._startAnchor) {
+            this._startAnchor = this._createAnchor();
+        }
+        if (!this._endAnchor) {
+            this._endAnchor = this._createAnchor();
+        }
+        this._ngZone.runOutsideAngular(function () {
+            _this._element
+                .insertAdjacentElement('beforebegin', _this._startAnchor)
+                .addEventListener('focus', function () { return _this.focusLastTabbableElement(); });
+            _this._element
+                .insertAdjacentElement('afterend', _this._endAnchor)
+                .addEventListener('focus', function () { return _this.focusFirstTabbableElement(); });
+        });
+    };
+    /**
+     * Waits for microtask queue to empty, then focuses
+     * the first tabbable element within the focus trap region.
      */
     FocusTrap.prototype.focusFirstTabbableElementWhenReady = function () {
         var _this = this;
-        this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
-            _this.focusFirstTabbableElement();
-        });
+        this._ngZone.onMicrotaskEmpty.first().subscribe(function () { return _this.focusFirstTabbableElement(); });
     };
     /**
-     * Waits for microtask queue to empty, then focuses the last tabbable element within the focus
-     * trap region.
+     * Waits for microtask queue to empty, then focuses
+     * the last tabbable element within the focus trap region.
      */
     FocusTrap.prototype.focusLastTabbableElementWhenReady = function () {
         var _this = this;
-        this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
-            _this.focusLastTabbableElement();
-        });
+        this._ngZone.onMicrotaskEmpty.first().subscribe(function () { return _this.focusLastTabbableElement(); });
     };
-    /**
-     * Focuses the first tabbable element within the focus trap region.
-     */
+    /** Focuses the first tabbable element within the focus trap region. */
     FocusTrap.prototype.focusFirstTabbableElement = function () {
-        var rootElement = this.trappedContent.nativeElement;
-        var redirectToElement = rootElement.querySelector('[cdk-focus-start]') ||
-            this._getFirstTabbableElement(rootElement);
+        var redirectToElement = this._element.querySelector('[cdk-focus-start]') ||
+            this._getFirstTabbableElement(this._element);
         if (redirectToElement) {
             redirectToElement.focus();
         }
     };
-    /**
-     * Focuses the last tabbable element within the focus trap region.
-     */
+    /** Focuses the last tabbable element within the focus trap region. */
     FocusTrap.prototype.focusLastTabbableElement = function () {
-        var rootElement = this.trappedContent.nativeElement;
-        var focusTargets = rootElement.querySelectorAll('[cdk-focus-end]');
+        var focusTargets = this._element.querySelectorAll('[cdk-focus-end]');
         var redirectToElement = null;
         if (focusTargets.length) {
             redirectToElement = focusTargets[focusTargets.length - 1];
         }
         else {
-            redirectToElement = this._getLastTabbableElement(rootElement);
+            redirectToElement = this._getLastTabbableElement(this._element);
         }
         if (redirectToElement) {
             redirectToElement.focus();
@@ -3116,22 +3147,100 @@ var FocusTrap = (function () {
         }
         return null;
     };
-    __decorate$18([
-        _angular_core.ViewChild('trappedContent'), 
-        __metadata$18('design:type', _angular_core.ElementRef)
-    ], FocusTrap.prototype, "trappedContent", void 0);
+    /** Creates an anchor element. */
+    FocusTrap.prototype._createAnchor = function () {
+        var anchor = document.createElement('div');
+        anchor.tabIndex = this._enabled ? 0 : -1;
+        anchor.classList.add('cdk-visually-hidden');
+        anchor.classList.add('cdk-focus-trap-anchor');
+        return anchor;
+    };
+    return FocusTrap;
+}());
+/** Factory that allows easy instantiation of focus traps. */
+var FocusTrapFactory = (function () {
+    function FocusTrapFactory(_checker, _ngZone) {
+        this._checker = _checker;
+        this._ngZone = _ngZone;
+    }
+    FocusTrapFactory.prototype.create = function (element, deferAnchors) {
+        if (deferAnchors === void 0) { deferAnchors = false; }
+        return new FocusTrap(element, this._checker, this._ngZone, deferAnchors);
+    };
+    FocusTrapFactory = __decorate$18([
+        _angular_core.Injectable(), 
+        __metadata$18('design:paramtypes', [InteractivityChecker, _angular_core.NgZone])
+    ], FocusTrapFactory);
+    return FocusTrapFactory;
+}());
+/**
+ * Directive for trapping focus within a region.
+ * @deprecated
+ */
+var FocusTrapDeprecatedDirective = (function () {
+    function FocusTrapDeprecatedDirective(_elementRef, _focusTrapFactory) {
+        this._elementRef = _elementRef;
+        this._focusTrapFactory = _focusTrapFactory;
+        this.focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement, true);
+    }
+    Object.defineProperty(FocusTrapDeprecatedDirective.prototype, "disabled", {
+        /** Whether the focus trap is active. */
+        get: function () { return !this.focusTrap.enabled; },
+        set: function (val) {
+            this.focusTrap.enabled = !coerceBooleanProperty(val);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    FocusTrapDeprecatedDirective.prototype.ngOnDestroy = function () {
+        this.focusTrap.destroy();
+    };
+    FocusTrapDeprecatedDirective.prototype.ngAfterContentInit = function () {
+        this.focusTrap.attachAnchors();
+    };
     __decorate$18([
         _angular_core.Input(), 
         __metadata$18('design:type', Boolean)
-    ], FocusTrap.prototype, "disabled", null);
-    FocusTrap = __decorate$18([
-        _angular_core.Component({selector: 'cdk-focus-trap, focus-trap',
-            template: "<div *ngIf=\"!disabled\" tabindex=\"0\" (focus)=\"focusLastTabbableElement()\"></div><div #trappedContent class=\"cdk-focus-trap-content\"><ng-content></ng-content></div><div *ngIf=\"!disabled\" tabindex=\"0\" (focus)=\"focusFirstTabbableElement()\"></div>",
-            encapsulation: _angular_core.ViewEncapsulation.None,
+    ], FocusTrapDeprecatedDirective.prototype, "disabled", null);
+    FocusTrapDeprecatedDirective = __decorate$18([
+        _angular_core.Directive({
+            selector: 'cdk-focus-trap',
         }), 
-        __metadata$18('design:paramtypes', [InteractivityChecker, _angular_core.NgZone])
-    ], FocusTrap);
-    return FocusTrap;
+        __metadata$18('design:paramtypes', [_angular_core.ElementRef, FocusTrapFactory])
+    ], FocusTrapDeprecatedDirective);
+    return FocusTrapDeprecatedDirective;
+}());
+/** Directive for trapping focus within a region. */
+var FocusTrapDirective = (function () {
+    function FocusTrapDirective(_elementRef, _focusTrapFactory) {
+        this._elementRef = _elementRef;
+        this._focusTrapFactory = _focusTrapFactory;
+        this.focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement, true);
+    }
+    Object.defineProperty(FocusTrapDirective.prototype, "enabled", {
+        /** Whether the focus trap is active. */
+        get: function () { return this.focusTrap.enabled; },
+        set: function (val) { this.focusTrap.enabled = val; },
+        enumerable: true,
+        configurable: true
+    });
+    FocusTrapDirective.prototype.ngOnDestroy = function () {
+        this.focusTrap.destroy();
+    };
+    FocusTrapDirective.prototype.ngAfterContentInit = function () {
+        this.focusTrap.attachAnchors();
+    };
+    __decorate$18([
+        _angular_core.Input('cdkTrapFocus'), 
+        __metadata$18('design:type', Boolean)
+    ], FocusTrapDirective.prototype, "enabled", null);
+    FocusTrapDirective = __decorate$18([
+        _angular_core.Directive({
+            selector: '[cdkTrapFocus]'
+        }), 
+        __metadata$18('design:paramtypes', [_angular_core.ElementRef, FocusTrapFactory])
+    ], FocusTrapDirective);
+    return FocusTrapDirective;
 }());
 
 var __decorate$21 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -3298,9 +3407,9 @@ var A11yModule = (function () {
     A11yModule = __decorate$17([
         _angular_core.NgModule({
             imports: [_angular_common.CommonModule, PlatformModule],
-            declarations: [FocusTrap],
-            exports: [FocusTrap],
-            providers: [InteractivityChecker, LIVE_ANNOUNCER_PROVIDER]
+            declarations: [FocusTrapDirective, FocusTrapDeprecatedDirective],
+            exports: [FocusTrapDirective, FocusTrapDeprecatedDirective],
+            providers: [InteractivityChecker, FocusTrapFactory, LIVE_ANNOUNCER_PROVIDER]
         }), 
         __metadata$17('design:paramtypes', [])
     ], A11yModule);
@@ -8096,10 +8205,11 @@ var MdSidenav = (function () {
      * @param _elementRef The DOM element reference. Used for transition and width calculation.
      *     If not available we do not hook on transitions.
      */
-    function MdSidenav(_elementRef, _renderer) {
+    function MdSidenav(_elementRef, _renderer, _focusTrapFactory) {
         var _this = this;
         this._elementRef = _elementRef;
         this._renderer = _renderer;
+        this._focusTrapFactory = _focusTrapFactory;
         /** Alignment of the sidenav (direction neutral); whether 'start' or 'end'. */
         this._align = 'start';
         this._valid = true;
@@ -8128,7 +8238,7 @@ var MdSidenav = (function () {
         this._elementFocusedBeforeSidenavWasOpened = null;
         this.onOpen.subscribe(function () {
             _this._elementFocusedBeforeSidenavWasOpened = document.activeElement;
-            if (!_this.isFocusTrapDisabled) {
+            if (_this.isFocusTrapEnabled && _this._focusTrap) {
                 _this._focusTrap.focusFirstTabbableElementWhenReady();
             }
         });
@@ -8178,20 +8288,27 @@ var MdSidenav = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSidenav.prototype, "isFocusTrapDisabled", {
+    Object.defineProperty(MdSidenav.prototype, "isFocusTrapEnabled", {
         get: function () {
             // The focus trap is only enabled when the sidenav is open in any mode other than side.
-            return !this.opened || this.mode == 'side';
+            return this.opened && this.mode !== 'side';
         },
         enumerable: true,
         configurable: true
     });
     MdSidenav.prototype.ngAfterContentInit = function () {
-        // This can happen when the sidenav is set to opened in the template and the transition
-        // isn't ended.
+        this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
+        this._focusTrap.enabled = this.isFocusTrapEnabled;
+        // This can happen when the sidenav is set to opened in
+        // the template and the transition hasn't ended.
         if (this._toggleAnimationPromise) {
             this._resolveToggleAnimationPromise(true);
             this._toggleAnimationPromise = this._resolveToggleAnimationPromise = null;
+        }
+    };
+    MdSidenav.prototype.ngOnDestroy = function () {
+        if (this._focusTrap) {
+            this._focusTrap.destroy();
         }
     };
     Object.defineProperty(MdSidenav.prototype, "opened", {
@@ -8236,6 +8353,9 @@ var MdSidenav = (function () {
                 Promise.resolve(new MdSidenavToggleResult(isOpen ? 'open' : 'close', true));
         }
         this._opened = isOpen;
+        if (this._focusTrap) {
+            this._focusTrap.enabled = this.isFocusTrapEnabled;
+        }
         if (isOpen) {
             this.onOpenStart.emit();
         }
@@ -8349,10 +8469,6 @@ var MdSidenav = (function () {
         configurable: true
     });
     __decorate$40([
-        _angular_core.ViewChild(FocusTrap), 
-        __metadata$40('design:type', FocusTrap)
-    ], MdSidenav.prototype, "_focusTrap", void 0);
-    __decorate$40([
         _angular_core.Input(), 
         __metadata$40('design:type', Object)
     ], MdSidenav.prototype, "align", null);
@@ -8391,7 +8507,7 @@ var MdSidenav = (function () {
     MdSidenav = __decorate$40([
         _angular_core.Component({selector: 'md-sidenav, mat-sidenav',
             // TODO(mmalerba): move template to separate file.
-            template: "<cdk-focus-trap class=\"mat-sidenav-focus-trap\" [disabled]=\"isFocusTrapDisabled\"><ng-content></ng-content></cdk-focus-trap>",
+            template: "<ng-content></ng-content>",
             host: {
                 '[class.mat-sidenav]': 'true',
                 '(transitionend)': '_onTransitionEnd($event)',
@@ -8412,7 +8528,7 @@ var MdSidenav = (function () {
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
             encapsulation: _angular_core.ViewEncapsulation.None,
         }), 
-        __metadata$40('design:paramtypes', [_angular_core.ElementRef, _angular_core.Renderer])
+        __metadata$40('design:paramtypes', [_angular_core.ElementRef, _angular_core.Renderer, FocusTrapFactory])
     ], MdSidenav);
     return MdSidenav;
 }());
@@ -8606,7 +8722,7 @@ var MdSidenavContainer = (function () {
             // technically it is a sibling of MdSidenav (on the content tree) and isn't updated when MdSidenav
             // changes its state.
             template: "<div class=\"mat-sidenav-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-sidenav-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"md-sidenav, mat-sidenav\"></ng-content><div class=\"mat-sidenav-content\" [ngStyle]=\"_getStyles()\" cdk-scrollable><ng-content></ng-content></div>",
-            styles: [".mat-sidenav-container{position:relative;transform:translate3d(0,0,0);box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-sidenav-backdrop,.mat-sidenav-container[fullscreen]{position:absolute;top:0;bottom:0;right:0;left:0}.mat-sidenav-container[fullscreen].mat-sidenav-opened{overflow:hidden}.mat-sidenav-backdrop{display:block;z-index:2;visibility:hidden}.mat-sidenav-backdrop.mat-sidenav-shown{visibility:visible}.mat-sidenav.mat-sidenav-closed,.mat-sidenav.mat-sidenav-end.mat-sidenav-closed,[dir=rtl] .mat-sidenav.mat-sidenav-closed,[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-closed{visibility:hidden}@media screen and (-ms-high-contrast:active){.mat-sidenav-backdrop{opacity:.5}}.mat-sidenav-content{position:relative;transform:translate3d(0,0,0);display:block;height:100%;overflow:auto}.mat-sidenav{display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;transform:translate3d(-100%,0,0)}.mat-sidenav.mat-sidenav-opened,.mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-side{z-index:1}.mat-sidenav.mat-sidenav-end{right:0;transform:translate3d(100%,0,0)}.mat-sidenav.mat-sidenav-end.mat-sidenav-opened,.mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav{transform:translate3d(100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end{left:0;right:auto;transform:translate3d(-100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-opened:not(.mat-sidenav-side),.mat-sidenav.mat-sidenav-opening:not(.mat-sidenav-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-focus-trap{height:100%}.mat-sidenav-focus-trap>.cdk-focus-trap-content{box-sizing:border-box;height:100%;overflow-y:auto;transform:translateZ(0)}.mat-sidenav-invalid{display:none}",
+            styles: [".mat-sidenav,.mat-sidenav-container{display:block;box-sizing:border-box}.mat-sidenav-container{position:relative;transform:translate3d(0,0,0);-webkit-overflow-scrolling:touch;overflow:hidden}.mat-sidenav-backdrop,.mat-sidenav-container[fullscreen]{position:absolute;top:0;bottom:0;right:0;left:0}.mat-sidenav-container[fullscreen].mat-sidenav-opened{overflow:hidden}.mat-sidenav-backdrop{display:block;z-index:2;visibility:hidden}.mat-sidenav-backdrop.mat-sidenav-shown{visibility:visible}.mat-sidenav.mat-sidenav-closed,.mat-sidenav.mat-sidenav-end.mat-sidenav-closed,[dir=rtl] .mat-sidenav.mat-sidenav-closed,[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-closed{visibility:hidden}@media screen and (-ms-high-contrast:active){.mat-sidenav-backdrop{opacity:.5}}.mat-sidenav-content{position:relative;transform:translate3d(0,0,0);display:block;height:100%;overflow:auto}.mat-sidenav{position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;height:100%;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-sidenav.mat-sidenav-opened,.mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-side{z-index:1}.mat-sidenav.mat-sidenav-end{right:0;transform:translate3d(100%,0,0)}.mat-sidenav.mat-sidenav-end.mat-sidenav-opened,.mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav{transform:translate3d(100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end{left:0;right:auto;transform:translate3d(-100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-opened:not(.mat-sidenav-side),.mat-sidenav.mat-sidenav-opening:not(.mat-sidenav-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-invalid{display:none}",
 ".mat-sidenav-transition .mat-sidenav{transition:transform .4s cubic-bezier(.25,.8,.25,1)}.mat-sidenav-transition .mat-sidenav-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-sidenav-transition .mat-sidenav-backdrop.mat-sidenav-shown{transition:background-color .4s cubic-bezier(.25,.8,.25,1)}"],
             host: {
                 '[class.mat-sidenav-container]': 'true',
@@ -14919,9 +15035,12 @@ var __metadata$74 = (this && this.__metadata) || function (k, v) {
  */
 var MdDialogContainer = (function (_super) {
     __extends$22(MdDialogContainer, _super);
-    function MdDialogContainer(_ngZone) {
+    function MdDialogContainer(_ngZone, _renderer, _elementRef, _focusTrapFactory) {
         _super.call(this);
         this._ngZone = _ngZone;
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
+        this._focusTrapFactory = _focusTrapFactory;
         /** Element that was focused before the dialog was opened. Save this to restore upon close. */
         this._elementFocusedBeforeDialogWasOpened = null;
         /** State of the dialog animation. */
@@ -14959,6 +15078,9 @@ var MdDialogContainer = (function (_super) {
      */
     MdDialogContainer.prototype._trapFocus = function () {
         var _this = this;
+        if (!this._focusTrap) {
+            this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
+        }
         // If were to attempt to focus immediately, then the content of the dialog would not yet be
         // ready in instances where change detection has to run first. To deal with this, we simply
         // wait for the microtask queue to be empty.
@@ -14997,18 +15119,15 @@ var MdDialogContainer = (function (_super) {
             }
             _this._onAnimationStateChange.complete();
         });
+        this._focusTrap.destroy();
     };
     __decorate$74([
         _angular_core.ViewChild(PortalHostDirective), 
         __metadata$74('design:type', PortalHostDirective)
     ], MdDialogContainer.prototype, "_portalHost", void 0);
-    __decorate$74([
-        _angular_core.ViewChild(FocusTrap), 
-        __metadata$74('design:type', FocusTrap)
-    ], MdDialogContainer.prototype, "_focusTrap", void 0);
     MdDialogContainer = __decorate$74([
         _angular_core.Component({selector: 'md-dialog-container, mat-dialog-container',
-            template: "<cdk-focus-trap><template cdkPortalHost></template></cdk-focus-trap>",
+            template: "<template cdkPortalHost></template>",
             styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;max-width:80vw;width:100%;height:100%}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto}.mat-dialog-title{font-size:20px;font-weight:700;margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex}.mat-dialog-actions:last-child{margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}"],
             encapsulation: _angular_core.ViewEncapsulation.None,
             animations: [
@@ -15026,7 +15145,7 @@ var MdDialogContainer = (function (_super) {
                 '(@slideDialog.done)': '_onAnimationDone($event)',
             },
         }), 
-        __metadata$74('design:paramtypes', [_angular_core.NgZone])
+        __metadata$74('design:paramtypes', [_angular_core.NgZone, _angular_core.Renderer, _angular_core.ElementRef, FocusTrapFactory])
     ], MdDialogContainer);
     return MdDialogContainer;
 }(BasePortalHost));
@@ -15982,7 +16101,6 @@ exports.LiveAnnouncer = LiveAnnouncer;
 exports.LIVE_ANNOUNCER_ELEMENT_TOKEN = LIVE_ANNOUNCER_ELEMENT_TOKEN;
 exports.LIVE_ANNOUNCER_PROVIDER = LIVE_ANNOUNCER_PROVIDER;
 exports.MdLiveAnnouncer = LiveAnnouncer;
-exports.FocusTrap = FocusTrap;
 exports.InteractivityChecker = InteractivityChecker;
 exports.isFakeMousedownFromScreenReader = isFakeMousedownFromScreenReader;
 exports.A11yModule = A11yModule;
@@ -16012,6 +16130,10 @@ exports.MdRipple = MdRipple;
 exports.RippleRef = RippleRef;
 exports.SelectionModel = SelectionModel;
 exports.SelectionChange = SelectionChange;
+exports.FocusTrap = FocusTrap;
+exports.FocusTrapFactory = FocusTrapFactory;
+exports.FocusTrapDeprecatedDirective = FocusTrapDeprecatedDirective;
+exports.FocusTrapDirective = FocusTrapDirective;
 exports.StyleModule = StyleModule;
 exports.TOUCH_BUFFER_MS = TOUCH_BUFFER_MS;
 exports.FocusOriginMonitor = FocusOriginMonitor;

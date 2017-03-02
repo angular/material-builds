@@ -1,6 +1,6 @@
-import { ModuleWithProviders, AfterContentInit, ElementRef, QueryList, EventEmitter, Renderer, NgZone } from '@angular/core';
+import { ModuleWithProviders, AfterContentInit, ElementRef, QueryList, EventEmitter, Renderer, NgZone, OnDestroy } from '@angular/core';
 import { Dir, MdError } from '../core';
-import { FocusTrap } from '../core/a11y/focus-trap';
+import { FocusTrapFactory } from '../core/a11y/focus-trap';
 import 'rxjs/add/operator/first';
 /** Exception thrown when two MdSidenav are matching the same side. */
 export declare class MdDuplicatedSidenavError extends MdError {
@@ -19,10 +19,11 @@ export declare class MdSidenavToggleResult {
  *
  * Please refer to README.md for examples on how to use it.
  */
-export declare class MdSidenav implements AfterContentInit {
+export declare class MdSidenav implements AfterContentInit, OnDestroy {
     private _elementRef;
     private _renderer;
-    _focusTrap: FocusTrap;
+    private _focusTrapFactory;
+    private _focusTrap;
     /** Alignment of the sidenav (direction neutral); whether 'start' or 'end'. */
     private _align;
     /** Whether this md-sidenav is part of a valid md-sidenav-container configuration. */
@@ -54,13 +55,14 @@ export declare class MdSidenav implements AfterContentInit {
      * `null` if no animation is in progress.
      */
     private _resolveToggleAnimationPromise;
-    readonly isFocusTrapDisabled: boolean;
+    readonly isFocusTrapEnabled: boolean;
     /**
      * @param _elementRef The DOM element reference. Used for transition and width calculation.
      *     If not available we do not hook on transitions.
      */
-    constructor(_elementRef: ElementRef, _renderer: Renderer);
+    constructor(_elementRef: ElementRef, _renderer: Renderer, _focusTrapFactory: FocusTrapFactory);
     ngAfterContentInit(): void;
+    ngOnDestroy(): void;
     /**
      * Whether the sidenav is opened. We overload this because we trigger an event when it
      * starts or end.

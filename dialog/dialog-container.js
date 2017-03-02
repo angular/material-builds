@@ -12,10 +12,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, ViewChild, ViewEncapsulation, NgZone, animate, state, style, transition, trigger, EventEmitter } from '@angular/core';
+import { Component, ViewChild, ViewEncapsulation, NgZone, Renderer, ElementRef, animate, state, style, transition, trigger, EventEmitter } from '@angular/core';
 import { BasePortalHost, PortalHostDirective } from '../core';
 import { MdDialogContentAlreadyAttachedError } from './dialog-errors';
-import { FocusTrap } from '../core/a11y/focus-trap';
+import { FocusTrapFactory } from '../core/a11y/focus-trap';
 import 'rxjs/add/operator/first';
 /**
  * Internal component that wraps user-provided dialog content.
@@ -24,9 +24,12 @@ import 'rxjs/add/operator/first';
  */
 export var MdDialogContainer = (function (_super) {
     __extends(MdDialogContainer, _super);
-    function MdDialogContainer(_ngZone) {
+    function MdDialogContainer(_ngZone, _renderer, _elementRef, _focusTrapFactory) {
         _super.call(this);
         this._ngZone = _ngZone;
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
+        this._focusTrapFactory = _focusTrapFactory;
         /** Element that was focused before the dialog was opened. Save this to restore upon close. */
         this._elementFocusedBeforeDialogWasOpened = null;
         /** State of the dialog animation. */
@@ -64,6 +67,9 @@ export var MdDialogContainer = (function (_super) {
      */
     MdDialogContainer.prototype._trapFocus = function () {
         var _this = this;
+        if (!this._focusTrap) {
+            this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
+        }
         // If were to attempt to focus immediately, then the content of the dialog would not yet be
         // ready in instances where change detection has to run first. To deal with this, we simply
         // wait for the microtask queue to be empty.
@@ -102,18 +108,15 @@ export var MdDialogContainer = (function (_super) {
             }
             _this._onAnimationStateChange.complete();
         });
+        this._focusTrap.destroy();
     };
     __decorate([
         ViewChild(PortalHostDirective), 
         __metadata('design:type', PortalHostDirective)
     ], MdDialogContainer.prototype, "_portalHost", void 0);
-    __decorate([
-        ViewChild(FocusTrap), 
-        __metadata('design:type', FocusTrap)
-    ], MdDialogContainer.prototype, "_focusTrap", void 0);
     MdDialogContainer = __decorate([
         Component({selector: 'md-dialog-container, mat-dialog-container',
-            template: "<cdk-focus-trap><template cdkPortalHost></template></cdk-focus-trap>",
+            template: "<template cdkPortalHost></template>",
             styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;max-width:80vw;width:100%;height:100%}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto}.mat-dialog-title{font-size:20px;font-weight:700;margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex}.mat-dialog-actions:last-child{margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}"],
             encapsulation: ViewEncapsulation.None,
             animations: [
@@ -131,7 +134,7 @@ export var MdDialogContainer = (function (_super) {
                 '(@slideDialog.done)': '_onAnimationDone($event)',
             },
         }), 
-        __metadata('design:paramtypes', [NgZone])
+        __metadata('design:paramtypes', [NgZone, Renderer, ElementRef, FocusTrapFactory])
     ], MdDialogContainer);
     return MdDialogContainer;
 }(BasePortalHost));

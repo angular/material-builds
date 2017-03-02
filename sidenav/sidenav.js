@@ -15,11 +15,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { NgModule, Component, ContentChildren, ElementRef, Input, Optional, Output, QueryList, ChangeDetectionStrategy, EventEmitter, Renderer, ViewEncapsulation, ViewChild, NgZone } from '@angular/core';
+import { NgModule, Component, ContentChildren, ElementRef, Input, Optional, Output, QueryList, ChangeDetectionStrategy, EventEmitter, Renderer, ViewEncapsulation, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Dir, MdError, coerceBooleanProperty, CompatibilityModule } from '../core';
 import { A11yModule } from '../core/a11y/index';
-import { FocusTrap } from '../core/a11y/focus-trap';
+import { FocusTrapFactory } from '../core/a11y/focus-trap';
 import { ESCAPE } from '../core/keyboard/keycodes';
 import { OverlayModule } from '../core/overlay/overlay-directives';
 import 'rxjs/add/operator/first';
@@ -51,10 +51,11 @@ export var MdSidenav = (function () {
      * @param _elementRef The DOM element reference. Used for transition and width calculation.
      *     If not available we do not hook on transitions.
      */
-    function MdSidenav(_elementRef, _renderer) {
+    function MdSidenav(_elementRef, _renderer, _focusTrapFactory) {
         var _this = this;
         this._elementRef = _elementRef;
         this._renderer = _renderer;
+        this._focusTrapFactory = _focusTrapFactory;
         /** Alignment of the sidenav (direction neutral); whether 'start' or 'end'. */
         this._align = 'start';
         this._valid = true;
@@ -83,7 +84,7 @@ export var MdSidenav = (function () {
         this._elementFocusedBeforeSidenavWasOpened = null;
         this.onOpen.subscribe(function () {
             _this._elementFocusedBeforeSidenavWasOpened = document.activeElement;
-            if (!_this.isFocusTrapDisabled) {
+            if (_this.isFocusTrapEnabled && _this._focusTrap) {
                 _this._focusTrap.focusFirstTabbableElementWhenReady();
             }
         });
@@ -133,20 +134,27 @@ export var MdSidenav = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSidenav.prototype, "isFocusTrapDisabled", {
+    Object.defineProperty(MdSidenav.prototype, "isFocusTrapEnabled", {
         get: function () {
             // The focus trap is only enabled when the sidenav is open in any mode other than side.
-            return !this.opened || this.mode == 'side';
+            return this.opened && this.mode !== 'side';
         },
         enumerable: true,
         configurable: true
     });
     MdSidenav.prototype.ngAfterContentInit = function () {
-        // This can happen when the sidenav is set to opened in the template and the transition
-        // isn't ended.
+        this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
+        this._focusTrap.enabled = this.isFocusTrapEnabled;
+        // This can happen when the sidenav is set to opened in
+        // the template and the transition hasn't ended.
         if (this._toggleAnimationPromise) {
             this._resolveToggleAnimationPromise(true);
             this._toggleAnimationPromise = this._resolveToggleAnimationPromise = null;
+        }
+    };
+    MdSidenav.prototype.ngOnDestroy = function () {
+        if (this._focusTrap) {
+            this._focusTrap.destroy();
         }
     };
     Object.defineProperty(MdSidenav.prototype, "opened", {
@@ -191,6 +199,9 @@ export var MdSidenav = (function () {
                 Promise.resolve(new MdSidenavToggleResult(isOpen ? 'open' : 'close', true));
         }
         this._opened = isOpen;
+        if (this._focusTrap) {
+            this._focusTrap.enabled = this.isFocusTrapEnabled;
+        }
         if (isOpen) {
             this.onOpenStart.emit();
         }
@@ -304,10 +315,6 @@ export var MdSidenav = (function () {
         configurable: true
     });
     __decorate([
-        ViewChild(FocusTrap), 
-        __metadata('design:type', FocusTrap)
-    ], MdSidenav.prototype, "_focusTrap", void 0);
-    __decorate([
         Input(), 
         __metadata('design:type', Object)
     ], MdSidenav.prototype, "align", null);
@@ -346,7 +353,7 @@ export var MdSidenav = (function () {
     MdSidenav = __decorate([
         Component({selector: 'md-sidenav, mat-sidenav',
             // TODO(mmalerba): move template to separate file.
-            template: "<cdk-focus-trap class=\"mat-sidenav-focus-trap\" [disabled]=\"isFocusTrapDisabled\"><ng-content></ng-content></cdk-focus-trap>",
+            template: "<ng-content></ng-content>",
             host: {
                 '[class.mat-sidenav]': 'true',
                 '(transitionend)': '_onTransitionEnd($event)',
@@ -367,7 +374,7 @@ export var MdSidenav = (function () {
             changeDetection: ChangeDetectionStrategy.OnPush,
             encapsulation: ViewEncapsulation.None,
         }), 
-        __metadata('design:paramtypes', [ElementRef, Renderer])
+        __metadata('design:paramtypes', [ElementRef, Renderer, FocusTrapFactory])
     ], MdSidenav);
     return MdSidenav;
 }());
@@ -561,7 +568,7 @@ export var MdSidenavContainer = (function () {
             // technically it is a sibling of MdSidenav (on the content tree) and isn't updated when MdSidenav
             // changes its state.
             template: "<div class=\"mat-sidenav-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-sidenav-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"md-sidenav, mat-sidenav\"></ng-content><div class=\"mat-sidenav-content\" [ngStyle]=\"_getStyles()\" cdk-scrollable><ng-content></ng-content></div>",
-            styles: [".mat-sidenav-container{position:relative;transform:translate3d(0,0,0);box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-sidenav-backdrop,.mat-sidenav-container[fullscreen]{position:absolute;top:0;bottom:0;right:0;left:0}.mat-sidenav-container[fullscreen].mat-sidenav-opened{overflow:hidden}.mat-sidenav-backdrop{display:block;z-index:2;visibility:hidden}.mat-sidenav-backdrop.mat-sidenav-shown{visibility:visible}.mat-sidenav.mat-sidenav-closed,.mat-sidenav.mat-sidenav-end.mat-sidenav-closed,[dir=rtl] .mat-sidenav.mat-sidenav-closed,[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-closed{visibility:hidden}@media screen and (-ms-high-contrast:active){.mat-sidenav-backdrop{opacity:.5}}.mat-sidenav-content{position:relative;transform:translate3d(0,0,0);display:block;height:100%;overflow:auto}.mat-sidenav{display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;transform:translate3d(-100%,0,0)}.mat-sidenav.mat-sidenav-opened,.mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-side{z-index:1}.mat-sidenav.mat-sidenav-end{right:0;transform:translate3d(100%,0,0)}.mat-sidenav.mat-sidenav-end.mat-sidenav-opened,.mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav{transform:translate3d(100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end{left:0;right:auto;transform:translate3d(-100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-opened:not(.mat-sidenav-side),.mat-sidenav.mat-sidenav-opening:not(.mat-sidenav-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-focus-trap{height:100%}.mat-sidenav-focus-trap>.cdk-focus-trap-content{box-sizing:border-box;height:100%;overflow-y:auto;transform:translateZ(0)}.mat-sidenav-invalid{display:none}",
+            styles: [".mat-sidenav,.mat-sidenav-container{display:block;box-sizing:border-box}.mat-sidenav-container{position:relative;transform:translate3d(0,0,0);-webkit-overflow-scrolling:touch;overflow:hidden}.mat-sidenav-backdrop,.mat-sidenav-container[fullscreen]{position:absolute;top:0;bottom:0;right:0;left:0}.mat-sidenav-container[fullscreen].mat-sidenav-opened{overflow:hidden}.mat-sidenav-backdrop{display:block;z-index:2;visibility:hidden}.mat-sidenav-backdrop.mat-sidenav-shown{visibility:visible}.mat-sidenav.mat-sidenav-closed,.mat-sidenav.mat-sidenav-end.mat-sidenav-closed,[dir=rtl] .mat-sidenav.mat-sidenav-closed,[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-closed{visibility:hidden}@media screen and (-ms-high-contrast:active){.mat-sidenav-backdrop{opacity:.5}}.mat-sidenav-content{position:relative;transform:translate3d(0,0,0);display:block;height:100%;overflow:auto}.mat-sidenav{position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;height:100%;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-sidenav.mat-sidenav-opened,.mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-side{z-index:1}.mat-sidenav.mat-sidenav-end{right:0;transform:translate3d(100%,0,0)}.mat-sidenav.mat-sidenav-end.mat-sidenav-opened,.mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav{transform:translate3d(100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end{left:0;right:auto;transform:translate3d(-100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-opened:not(.mat-sidenav-side),.mat-sidenav.mat-sidenav-opening:not(.mat-sidenav-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-invalid{display:none}",
 ".mat-sidenav-transition .mat-sidenav{transition:transform .4s cubic-bezier(.25,.8,.25,1)}.mat-sidenav-transition .mat-sidenav-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-sidenav-transition .mat-sidenav-backdrop.mat-sidenav-shown{transition:background-color .4s cubic-bezier(.25,.8,.25,1)}"],
             host: {
                 '[class.mat-sidenav-container]': 'true',
