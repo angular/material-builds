@@ -8212,7 +8212,6 @@ var MdSidenav = (function () {
         this._focusTrapFactory = _focusTrapFactory;
         /** Alignment of the sidenav (direction neutral); whether 'start' or 'end'. */
         this._align = 'start';
-        this._valid = true;
         /** Mode of the sidenav; whether 'over' or 'side'. */
         this.mode = 'over';
         this._disableClose = false;
@@ -8252,21 +8251,6 @@ var MdSidenav = (function () {
             _this._elementFocusedBeforeSidenavWasOpened = null;
         });
     }
-    Object.defineProperty(MdSidenav.prototype, "valid", {
-        /** Whether this md-sidenav is part of a valid md-sidenav-container configuration. */
-        get: function () { return this._valid; },
-        set: function (value) {
-            value = coerceBooleanProperty(value);
-            // When the drawers are not in a valid configuration we close them all until they are in a valid
-            // configuration again.
-            if (!value) {
-                this.close();
-            }
-            this._valid = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(MdSidenav.prototype, "align", {
         /** Direction which the sidenav is aligned in. */
         get: function () { return this._align; },
@@ -8344,9 +8328,6 @@ var MdSidenav = (function () {
     MdSidenav.prototype.toggle = function (isOpen) {
         var _this = this;
         if (isOpen === void 0) { isOpen = !this.opened; }
-        if (!this.valid) {
-            return Promise.resolve(new MdSidenavToggleResult(isOpen ? 'open' : 'close', true));
-        }
         // Shortcut it if we're already opened.
         if (isOpen === this.opened) {
             return this._toggleAnimationPromise ||
@@ -8522,7 +8503,6 @@ var MdSidenav = (function () {
                 '[class.mat-sidenav-over]': '_modeOver',
                 '[class.mat-sidenav-push]': '_modePush',
                 '[class.mat-sidenav-side]': '_modeSide',
-                '[class.mat-sidenav-invalid]': '!valid',
                 'tabIndex': '-1'
             },
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -8601,20 +8581,15 @@ var MdSidenavContainer = (function () {
         if (!sidenav) {
             return;
         }
-        sidenav.onAlignChanged.subscribe(function () { return _this._validateDrawers(); });
+        // NOTE: We need to wait for the microtask queue to be empty before validating,
+        // since both drawers may be swapping sides at the same time.
+        sidenav.onAlignChanged.subscribe(function () {
+            return _this._ngZone.onMicrotaskEmpty.first().subscribe(function () { return _this._validateDrawers(); });
+        });
     };
     /** Toggles the 'mat-sidenav-opened' class on the main 'md-sidenav-container' element. */
     MdSidenavContainer.prototype._setContainerClass = function (sidenav, bool) {
         this._renderer.setElementClass(this._element.nativeElement, 'mat-sidenav-opened', bool);
-    };
-    /** Sets the valid state of the drawers. */
-    MdSidenavContainer.prototype._setDrawersValid = function (valid) {
-        this._sidenavs.forEach(function (sidenav) {
-            sidenav.valid = valid;
-        });
-        if (!valid) {
-            this._start = this._end = this._left = this._right = null;
-        }
     };
     /** Validate the state of the sidenav children components. */
     MdSidenavContainer.prototype._validateDrawers = function () {
@@ -8626,15 +8601,13 @@ var MdSidenavContainer = (function () {
             var sidenav = _a[_i];
             if (sidenav.align == 'end') {
                 if (this._end != null) {
-                    this._setDrawersValid(false);
-                    return;
+                    throw new MdDuplicatedSidenavError('end');
                 }
                 this._end = sidenav;
             }
             else {
                 if (this._start != null) {
-                    this._setDrawersValid(false);
-                    return;
+                    throw new MdDuplicatedSidenavError('start');
                 }
                 this._start = sidenav;
             }
@@ -8649,7 +8622,6 @@ var MdSidenavContainer = (function () {
             this._left = this._end;
             this._right = this._start;
         }
-        this._setDrawersValid(true);
     };
     MdSidenavContainer.prototype._onBackdropClicked = function () {
         this.backdropClick.emit();
@@ -8722,7 +8694,7 @@ var MdSidenavContainer = (function () {
             // technically it is a sibling of MdSidenav (on the content tree) and isn't updated when MdSidenav
             // changes its state.
             template: "<div class=\"mat-sidenav-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-sidenav-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"md-sidenav, mat-sidenav\"></ng-content><div class=\"mat-sidenav-content\" [ngStyle]=\"_getStyles()\" cdk-scrollable><ng-content></ng-content></div>",
-            styles: [".mat-sidenav,.mat-sidenav-container{display:block;box-sizing:border-box}.mat-sidenav-container{position:relative;transform:translate3d(0,0,0);-webkit-overflow-scrolling:touch;overflow:hidden}.mat-sidenav-backdrop,.mat-sidenav-container[fullscreen]{position:absolute;top:0;bottom:0;right:0;left:0}.mat-sidenav-container[fullscreen].mat-sidenav-opened{overflow:hidden}.mat-sidenav-backdrop{display:block;z-index:2;visibility:hidden}.mat-sidenav-backdrop.mat-sidenav-shown{visibility:visible}.mat-sidenav.mat-sidenav-closed,.mat-sidenav.mat-sidenav-end.mat-sidenav-closed,[dir=rtl] .mat-sidenav.mat-sidenav-closed,[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-closed{visibility:hidden}@media screen and (-ms-high-contrast:active){.mat-sidenav-backdrop{opacity:.5}}.mat-sidenav-content{position:relative;transform:translate3d(0,0,0);display:block;height:100%;overflow:auto}.mat-sidenav{position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;height:100%;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-sidenav.mat-sidenav-opened,.mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-side{z-index:1}.mat-sidenav.mat-sidenav-end{right:0;transform:translate3d(100%,0,0)}.mat-sidenav.mat-sidenav-end.mat-sidenav-opened,.mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav{transform:translate3d(100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end{left:0;right:auto;transform:translate3d(-100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-opened:not(.mat-sidenav-side),.mat-sidenav.mat-sidenav-opening:not(.mat-sidenav-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-invalid{display:none}",
+            styles: [".mat-sidenav,.mat-sidenav-container{display:block;box-sizing:border-box}.mat-sidenav-container{position:relative;transform:translate3d(0,0,0);-webkit-overflow-scrolling:touch;overflow:hidden}.mat-sidenav-backdrop,.mat-sidenav-container[fullscreen]{position:absolute;top:0;bottom:0;right:0;left:0}.mat-sidenav-container[fullscreen].mat-sidenav-opened{overflow:hidden}.mat-sidenav-backdrop{display:block;z-index:2;visibility:hidden}.mat-sidenav-backdrop.mat-sidenav-shown{visibility:visible}.mat-sidenav.mat-sidenav-closed,.mat-sidenav.mat-sidenav-end.mat-sidenav-closed,[dir=rtl] .mat-sidenav.mat-sidenav-closed,[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-closed{visibility:hidden}@media screen and (-ms-high-contrast:active){.mat-sidenav-backdrop{opacity:.5}}.mat-sidenav-content{position:relative;transform:translate3d(0,0,0);display:block;height:100%;overflow:auto}.mat-sidenav{position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;height:100%;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-sidenav.mat-sidenav-opened,.mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-side{z-index:1}.mat-sidenav.mat-sidenav-end{right:0;transform:translate3d(100%,0,0)}.mat-sidenav.mat-sidenav-end.mat-sidenav-opened,.mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav{transform:translate3d(100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end{left:0;right:auto;transform:translate3d(-100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-opened:not(.mat-sidenav-side),.mat-sidenav.mat-sidenav-opening:not(.mat-sidenav-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}",
 ".mat-sidenav-transition .mat-sidenav{transition:transform .4s cubic-bezier(.25,.8,.25,1)}.mat-sidenav-transition .mat-sidenav-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-sidenav-transition .mat-sidenav-backdrop.mat-sidenav-shown{transition:background-color .4s cubic-bezier(.25,.8,.25,1)}"],
             host: {
                 '[class.mat-sidenav-container]': 'true',

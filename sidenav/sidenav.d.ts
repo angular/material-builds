@@ -26,9 +26,6 @@ export declare class MdSidenav implements AfterContentInit, OnDestroy {
     private _focusTrap;
     /** Alignment of the sidenav (direction neutral); whether 'start' or 'end'. */
     private _align;
-    /** Whether this md-sidenav is part of a valid md-sidenav-container configuration. */
-    valid: boolean;
-    private _valid;
     /** Direction which the sidenav is aligned in. */
     align: "start" | "end";
     /** Mode of the sidenav; whether 'over' or 'side'. */
@@ -151,8 +148,6 @@ export declare class MdSidenavContainer implements AfterContentInit {
     private _watchSidenavAlign(sidenav);
     /** Toggles the 'mat-sidenav-opened' class on the main 'md-sidenav-container' element. */
     private _setContainerClass(sidenav, bool);
-    /** Sets the valid state of the drawers. */
-    private _setDrawersValid(valid);
     /** Validate the state of the sidenav children components. */
     private _validateDrawers();
     _onBackdropClicked(): void;
