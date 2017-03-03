@@ -3220,7 +3220,7 @@ var FocusTrapDirective = (function () {
     Object.defineProperty(FocusTrapDirective.prototype, "enabled", {
         /** Whether the focus trap is active. */
         get: function () { return this.focusTrap.enabled; },
-        set: function (val) { this.focusTrap.enabled = val; },
+        set: function (value) { this.focusTrap.enabled = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
