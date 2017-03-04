@@ -348,6 +348,14 @@ function coerceBooleanProperty(value) {
     return value != null && "" + value !== 'false';
 }
 
+/** Possible states for a ripple element. */
+
+(function (RippleState) {
+    RippleState[RippleState["FADING_IN"] = 0] = "FADING_IN";
+    RippleState[RippleState["VISIBLE"] = 1] = "VISIBLE";
+    RippleState[RippleState["FADING_OUT"] = 2] = "FADING_OUT";
+    RippleState[RippleState["HIDDEN"] = 3] = "HIDDEN";
+})(exports.RippleState || (exports.RippleState = {}));
 /**
  * Reference to a previously launched ripple element.
  */
@@ -356,6 +364,8 @@ var RippleRef = (function () {
         this._renderer = _renderer;
         this.element = element;
         this.config = config;
+        /** Current state of the ripple reference. */
+        this.state = exports.RippleState.HIDDEN;
     }
     /** Fades out the ripple element. */
     RippleRef.prototype.fadeOut = function () {
@@ -433,26 +443,32 @@ var RippleRenderer = (function () {
         ripple.style.transform = 'scale(1)';
         // Exposed reference to the ripple that will be returned.
         var rippleRef = new RippleRef(this, ripple, config);
+        rippleRef.state = exports.RippleState.FADING_IN;
+        // Add the ripple reference to the list of all active ripples.
+        this._activeRipples.add(rippleRef);
         // Wait for the ripple element to be completely faded in.
         // Once it's faded in, the ripple can be hidden immediately if the mouse is released.
         this.runTimeoutOutsideZone(function () {
-            if (config.persistent || _this._isMousedown) {
-                _this._activeRipples.add(rippleRef);
-            }
-            else {
+            rippleRef.state = exports.RippleState.VISIBLE;
+            if (!config.persistent && !_this._isMousedown) {
                 rippleRef.fadeOut();
             }
         }, duration);
         return rippleRef;
     };
     /** Fades out a ripple reference. */
-    RippleRenderer.prototype.fadeOutRipple = function (ripple) {
-        var rippleEl = ripple.element;
-        this._activeRipples.delete(ripple);
+    RippleRenderer.prototype.fadeOutRipple = function (rippleRef) {
+        // For ripples that are not active anymore, don't re-un the fade-out animation.
+        if (!this._activeRipples.delete(rippleRef)) {
+            return;
+        }
+        var rippleEl = rippleRef.element;
         rippleEl.style.transitionDuration = RIPPLE_FADE_OUT_DURATION + "ms";
         rippleEl.style.opacity = '0';
+        rippleRef.state = exports.RippleState.FADING_OUT;
         // Once the ripple faded out, the ripple can be safely removed from the DOM.
         this.runTimeoutOutsideZone(function () {
+            rippleRef.state = exports.RippleState.HIDDEN;
             rippleEl.parentNode.removeChild(rippleEl);
         }, RIPPLE_FADE_OUT_DURATION);
     };
@@ -485,9 +501,9 @@ var RippleRenderer = (function () {
     /** Listener being called on mouseup event. */
     RippleRenderer.prototype.onMouseup = function () {
         this._isMousedown = false;
-        // On mouseup, fade-out all ripples that are active and not persistent.
+        // Fade-out all ripples that are completely visible and not persistent.
         this._activeRipples.forEach(function (ripple) {
-            if (!ripple.config.persistent) {
+            if (!ripple.config.persistent && ripple.state === exports.RippleState.VISIBLE) {
                 ripple.fadeOut();
             }
         });

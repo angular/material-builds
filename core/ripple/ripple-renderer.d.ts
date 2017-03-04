@@ -40,7 +40,7 @@ export declare class RippleRenderer {
     /** Fades in a ripple at the given coordinates. */
     fadeInRipple(pageX: number, pageY: number, config?: RippleConfig): RippleRef;
     /** Fades out a ripple reference. */
-    fadeOutRipple(ripple: RippleRef): void;
+    fadeOutRipple(rippleRef: RippleRef): void;
     /** Fades out all currently active ripples. */
     fadeOutAll(): void;
     /** Sets the trigger element and registers the mouse events. */
