@@ -10,12 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { NgModule, Component, Directive, Input, ElementRef, ViewContainerRef, style, trigger, state, transition, animate, NgZone, Optional, Renderer, ChangeDetectorRef } from '@angular/core';
-import { Overlay, OverlayState, OverlayModule, ComponentPortal, CompatibilityModule } from '../core';
+import { Component, Directive, Input, ElementRef, ViewContainerRef, style, trigger, state, transition, animate, NgZone, Optional, Renderer, ChangeDetectorRef } from '@angular/core';
+import { Overlay, OverlayState, ComponentPortal } from '../core';
 import { MdTooltipInvalidPositionError } from './tooltip-errors';
 import { Subject } from 'rxjs/Subject';
 import { Dir } from '../core/rtl/dir';
-import { PlatformModule, Platform } from '../core/platform/index';
+import { Platform } from '../core/platform/index';
 import 'rxjs/add/operator/first';
 import { ScrollDispatcher } from '../core/overlay/scroll/scroll-dispatcher';
 /** Time in ms to delay before changing the tooltip visibility to hidden */
@@ -446,26 +446,5 @@ export var TooltipComponent = (function () {
         __metadata('design:paramtypes', [Dir, ChangeDetectorRef])
     ], TooltipComponent);
     return TooltipComponent;
-}());
-export var MdTooltipModule = (function () {
-    function MdTooltipModule() {
-    }
-    /** @deprecated */
-    MdTooltipModule.forRoot = function () {
-        return {
-            ngModule: MdTooltipModule,
-            providers: []
-        };
-    };
-    MdTooltipModule = __decorate([
-        NgModule({
-            imports: [OverlayModule, CompatibilityModule, PlatformModule],
-            exports: [MdTooltip, TooltipComponent, CompatibilityModule],
-            declarations: [MdTooltip, TooltipComponent],
-            entryComponents: [TooltipComponent],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdTooltipModule);
-    return MdTooltipModule;
 }());
 //# sourceMappingURL=tooltip.js.map

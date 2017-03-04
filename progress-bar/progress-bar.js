@@ -7,9 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { NgModule, Component, ChangeDetectionStrategy, HostBinding, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CompatibilityModule } from '../core/compatibility/compatibility';
+import { Component, ChangeDetectionStrategy, HostBinding, Input } from '@angular/core';
 // TODO(josephperrott): Benchpress tests.
 // TODO(josephperrott): Add ARIA attributes for progressbar "for".
 /**
@@ -102,24 +100,4 @@ function clamp(v, min, max) {
     if (max === void 0) { max = 100; }
     return Math.max(min, Math.min(max, v));
 }
-export var MdProgressBarModule = (function () {
-    function MdProgressBarModule() {
-    }
-    /** @deprecated */
-    MdProgressBarModule.forRoot = function () {
-        return {
-            ngModule: MdProgressBarModule,
-            providers: []
-        };
-    };
-    MdProgressBarModule = __decorate([
-        NgModule({
-            imports: [CommonModule, CompatibilityModule],
-            exports: [MdProgressBar, CompatibilityModule],
-            declarations: [MdProgressBar],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdProgressBarModule);
-    return MdProgressBarModule;
-}());
 //# sourceMappingURL=progress-bar.js.map

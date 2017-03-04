@@ -1,7 +1,7 @@
-import { ModuleWithProviders, ElementRef, Renderer, OnInit, QueryList, AfterViewInit } from '@angular/core';
+import { ElementRef, Renderer, OnInit, QueryList, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { FocusOriginMonitor, UniqueSelectionDispatcher } from '../core';
+import { UniqueSelectionDispatcher, FocusOriginMonitor } from '../core';
 /** Acceptable types for a button toggle. */
 export declare type ToggleType = 'checkbox' | 'radio';
 /**
@@ -137,8 +137,4 @@ export declare class MdButtonToggle implements OnInit {
     _onInputClick(event: Event): void;
     /** Focuses the button. */
     focus(): void;
-}
-export declare class MdButtonToggleModule {
-    /** @deprecated */
-    static forRoot(): ModuleWithProviders;
 }

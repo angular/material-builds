@@ -12,8 +12,6 @@ import { MdOptionModule, OverlayModule, OVERLAY_PROVIDERS, CompatibilityModule }
 import { CommonModule } from '@angular/common';
 import { MdAutocomplete } from './autocomplete';
 import { MdAutocompleteTrigger } from './autocomplete-trigger';
-export * from './autocomplete';
-export * from './autocomplete-trigger';
 export var MdAutocompleteModule = (function () {
     function MdAutocompleteModule() {
     }
@@ -34,4 +32,6 @@ export var MdAutocompleteModule = (function () {
     ], MdAutocompleteModule);
     return MdAutocompleteModule;
 }());
+export * from './autocomplete';
+export * from './autocomplete-trigger';
 //# sourceMappingURL=index.js.map

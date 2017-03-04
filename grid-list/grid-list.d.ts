@@ -1,4 +1,4 @@
-import { ModuleWithProviders, AfterContentChecked, OnInit, QueryList, Renderer, ElementRef } from '@angular/core';
+import { AfterContentChecked, OnInit, QueryList, Renderer, ElementRef } from '@angular/core';
 import { MdGridTile } from './grid-tile';
 import { Dir } from '../core';
 export declare class MdGridList implements OnInit, AfterContentChecked {
@@ -43,8 +43,4 @@ export declare class MdGridList implements OnInit, AfterContentChecked {
     private _layoutTiles();
     /** Sets style on the main grid-list element, given the style name and value. */
     _setListStyle(style: [string, string]): void;
-}
-export declare class MdGridListModule {
-    /** @deprecated */
-    static forRoot(): ModuleWithProviders;
 }

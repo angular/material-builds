@@ -1,4 +1,4 @@
-import { ModuleWithProviders, ElementRef, ViewContainerRef, AnimationTransitionEvent, NgZone, OnDestroy, Renderer, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ElementRef, ViewContainerRef, AnimationTransitionEvent, NgZone, OnDestroy, Renderer, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Overlay, OverlayRef, OverlayConnectionPosition, OriginConnectionPosition } from '../core';
 import { Observable } from 'rxjs/Observable';
 import { Dir } from '../core/rtl/dir';
@@ -125,8 +125,4 @@ export declare class TooltipComponent {
      * https://material.google.com/components/tooltips.html#tooltips-interaction
      */
     _handleBodyInteraction(): void;
-}
-export declare class MdTooltipModule {
-    /** @deprecated */
-    static forRoot(): ModuleWithProviders;
 }

@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, ViewEncapsulation } from '@angular/core';
 import { MdChip } from './chip';
 import { FocusKeyManager } from '../core/a11y/focus-key-manager';
 import { coerceBooleanProperty } from '../core/coercion/boolean-property';
@@ -186,25 +186,5 @@ export var MdChipList = (function () {
         __metadata('design:paramtypes', [ElementRef])
     ], MdChipList);
     return MdChipList;
-}());
-export var MdChipsModule = (function () {
-    function MdChipsModule() {
-    }
-    /** @deprecated */
-    MdChipsModule.forRoot = function () {
-        return {
-            ngModule: MdChipsModule,
-            providers: []
-        };
-    };
-    MdChipsModule = __decorate([
-        NgModule({
-            imports: [],
-            exports: [MdChipList, MdChip],
-            declarations: [MdChipList, MdChip]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdChipsModule);
-    return MdChipsModule;
 }());
 //# sourceMappingURL=chip-list.js.map

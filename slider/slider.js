@@ -10,12 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { NgModule, Component, ElementRef, Input, Output, ViewEncapsulation, forwardRef, EventEmitter, Optional } from '@angular/core';
-import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
-import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { GestureConfig, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule } from '../core';
+import { Component, ElementRef, Input, Output, ViewEncapsulation, forwardRef, EventEmitter, Optional } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { coerceBooleanProperty, coerceNumberProperty } from '../core';
 import { Dir } from '../core/rtl/dir';
-import { CommonModule } from '@angular/common';
 import { PAGE_UP, PAGE_DOWN, END, HOME, LEFT_ARROW, UP_ARROW, RIGHT_ARROW, DOWN_ARROW } from '../core/keyboard/keycodes';
 /**
  * Visually, a 30px separation between tick marks looks best. This is very subjective but it is
@@ -687,26 +685,5 @@ export var SliderRenderer = (function () {
         this._sliderElement.focus();
     };
     return SliderRenderer;
-}());
-export var MdSliderModule = (function () {
-    function MdSliderModule() {
-    }
-    /** @deprecated */
-    MdSliderModule.forRoot = function () {
-        return {
-            ngModule: MdSliderModule,
-            providers: []
-        };
-    };
-    MdSliderModule = __decorate([
-        NgModule({
-            imports: [CommonModule, FormsModule, CompatibilityModule],
-            exports: [MdSlider, CompatibilityModule],
-            declarations: [MdSlider],
-            providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdSliderModule);
-    return MdSliderModule;
 }());
 //# sourceMappingURL=slider.js.map

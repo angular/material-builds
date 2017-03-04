@@ -7,8 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { NgModule, Component, ViewEncapsulation, ChangeDetectionStrategy, Directive } from '@angular/core';
-import { CompatibilityModule } from '../core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, Directive } from '@angular/core';
 /**
  * Content of a card, needed as it's used as a selector in the API.
  */
@@ -263,45 +262,5 @@ export var MdCardTitleGroup = (function () {
         __metadata('design:paramtypes', [])
     ], MdCardTitleGroup);
     return MdCardTitleGroup;
-}());
-export var MdCardModule = (function () {
-    function MdCardModule() {
-    }
-    /** @deprecated */
-    MdCardModule.forRoot = function () {
-        return {
-            ngModule: MdCardModule,
-            providers: []
-        };
-    };
-    MdCardModule = __decorate([
-        NgModule({
-            imports: [CompatibilityModule],
-            exports: [
-                MdCard,
-                MdCardHeader,
-                MdCardTitleGroup,
-                MdCardContent,
-                MdCardTitle,
-                MdCardSubtitle,
-                MdCardActions,
-                MdCardFooter,
-                MdCardSmImage,
-                MdCardMdImage,
-                MdCardLgImage,
-                MdCardImage,
-                MdCardXlImage,
-                MdCardAvatar,
-                CompatibilityModule,
-            ],
-            declarations: [
-                MdCard, MdCardHeader, MdCardTitleGroup, MdCardContent, MdCardTitle, MdCardSubtitle,
-                MdCardActions, MdCardFooter, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardImage,
-                MdCardXlImage, MdCardAvatar,
-            ],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdCardModule);
-    return MdCardModule;
 }());
 //# sourceMappingURL=card.js.map

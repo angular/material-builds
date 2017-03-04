@@ -7,11 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { ChangeDetectorRef, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, Renderer, ViewEncapsulation, forwardRef, NgModule, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, Renderer, ViewEncapsulation, forwardRef, ViewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { coerceBooleanProperty } from '../core/coercion/boolean-property';
-import { CompatibilityModule, MdRippleModule, MdRipple, FocusOriginMonitor } from '../core';
+import { MdRipple, FocusOriginMonitor } from '../core';
 /** Monotonically increasing integer used to auto-generate unique ids for checkbox components. */
 var nextId = 0;
 /**
@@ -450,26 +449,5 @@ export var MdCheckbox = (function () {
         __metadata('design:paramtypes', [Renderer, ElementRef, ChangeDetectorRef, FocusOriginMonitor])
     ], MdCheckbox);
     return MdCheckbox;
-}());
-export var MdCheckboxModule = (function () {
-    function MdCheckboxModule() {
-    }
-    /** @deprecated */
-    MdCheckboxModule.forRoot = function () {
-        return {
-            ngModule: MdCheckboxModule,
-            providers: []
-        };
-    };
-    MdCheckboxModule = __decorate([
-        NgModule({
-            imports: [CommonModule, MdRippleModule, CompatibilityModule],
-            exports: [MdCheckbox, CompatibilityModule],
-            declarations: [MdCheckbox],
-            providers: [FocusOriginMonitor]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdCheckboxModule);
-    return MdCheckboxModule;
 }());
 //# sourceMappingURL=checkbox.js.map

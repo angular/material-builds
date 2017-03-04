@@ -1,4 +1,3 @@
-import { ModuleWithProviders } from '@angular/core';
 /**
  * <md-progress-bar> component.
  */
@@ -30,8 +29,4 @@ export declare class MdProgressBar {
     _bufferTransform(): {
         transform: string;
     };
-}
-export declare class MdProgressBarModule {
-    /** @deprecated */
-    static forRoot(): ModuleWithProviders;
 }

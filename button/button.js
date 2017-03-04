@@ -12,9 +12,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, ViewEncapsulation, Input, HostBinding, ChangeDetectionStrategy, ElementRef, Renderer, NgModule, Directive } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MdRippleModule, coerceBooleanProperty, CompatibilityModule } from '../core';
+import { Component, ViewEncapsulation, Input, HostBinding, ChangeDetectionStrategy, ElementRef, Renderer, Directive } from '@angular/core';
+import { coerceBooleanProperty } from '../core';
 // TODO(jelbourn): Make the `isMouseDown` stuff done with one global listener.
 // TODO(kara): Convert attribute selectors to classes when attr maps become available
 /**
@@ -266,40 +265,4 @@ export var MdAnchor = (function (_super) {
     ], MdAnchor);
     return MdAnchor;
 }(MdButton));
-export var MdButtonModule = (function () {
-    function MdButtonModule() {
-    }
-    /** @deprecated */
-    MdButtonModule.forRoot = function () {
-        return {
-            ngModule: MdButtonModule,
-            providers: []
-        };
-    };
-    MdButtonModule = __decorate([
-        NgModule({
-            imports: [CommonModule, MdRippleModule, CompatibilityModule],
-            exports: [
-                MdButton, MdAnchor,
-                CompatibilityModule,
-                MdButtonCssMatStyler,
-                MdRaisedButtonCssMatStyler,
-                MdIconButtonCssMatStyler,
-                MdFabCssMatStyler,
-                MdMiniFabCssMatStyler
-            ],
-            declarations: [
-                MdButton,
-                MdAnchor,
-                MdButtonCssMatStyler,
-                MdRaisedButtonCssMatStyler,
-                MdIconButtonCssMatStyler,
-                MdFabCssMatStyler,
-                MdMiniFabCssMatStyler
-            ],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdButtonModule);
-    return MdButtonModule;
-}());
 //# sourceMappingURL=button.js.map

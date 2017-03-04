@@ -10,12 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { NgModule, Component, ViewEncapsulation, Input, ContentChildren, QueryList, Renderer, ElementRef, Optional } from '@angular/core';
-import { MdGridTile, MdGridTileText, MdGridTileFooterCssMatStyler, MdGridTileHeaderCssMatStyler, MdGridAvatarCssMatStyler } from './grid-tile';
+import { Component, ViewEncapsulation, Input, ContentChildren, QueryList, Renderer, ElementRef, Optional } from '@angular/core';
+import { MdGridTile } from './grid-tile';
 import { TileCoordinator } from './tile-coordinator';
 import { FitTileStyler, RatioTileStyler, FixedTileStyler } from './tile-styler';
 import { MdGridListColsError } from './grid-list-errors';
-import { Dir, MdLineModule, CompatibilityModule } from '../core';
+import { Dir } from '../core';
 import { coerceToString, coerceToNumber } from './grid-list-measure';
 // TODO(kara): Conditional (responsive) column count / row size.
 // TODO(kara): Re-layout on window resize / media change (debounced).
@@ -136,40 +136,5 @@ export var MdGridList = (function () {
         __metadata('design:paramtypes', [Renderer, ElementRef, Dir])
     ], MdGridList);
     return MdGridList;
-}());
-export var MdGridListModule = (function () {
-    function MdGridListModule() {
-    }
-    /** @deprecated */
-    MdGridListModule.forRoot = function () {
-        return {
-            ngModule: MdGridListModule,
-            providers: []
-        };
-    };
-    MdGridListModule = __decorate([
-        NgModule({
-            imports: [MdLineModule, CompatibilityModule],
-            exports: [
-                MdGridList,
-                MdGridTile,
-                MdGridTileText,
-                MdLineModule,
-                CompatibilityModule,
-                MdGridTileHeaderCssMatStyler,
-                MdGridTileFooterCssMatStyler,
-                MdGridAvatarCssMatStyler
-            ],
-            declarations: [
-                MdGridList,
-                MdGridTile,
-                MdGridTileText,
-                MdGridTileHeaderCssMatStyler,
-                MdGridTileFooterCssMatStyler,
-                MdGridAvatarCssMatStyler],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdGridListModule);
-    return MdGridListModule;
 }());
 //# sourceMappingURL=grid-list.js.map

@@ -1,4 +1,4 @@
-import { QueryList, ElementRef, Renderer, AfterContentInit, ModuleWithProviders } from '@angular/core';
+import { QueryList, ElementRef, Renderer, AfterContentInit } from '@angular/core';
 import { MdLine } from '../core';
 export declare class MdListDivider {
 }
@@ -39,8 +39,4 @@ export declare class MdListItem implements AfterContentInit {
     ngAfterContentInit(): void;
     _handleFocus(): void;
     _handleBlur(): void;
-}
-export declare class MdListModule {
-    /** @deprecated */
-    static forRoot(): ModuleWithProviders;
 }

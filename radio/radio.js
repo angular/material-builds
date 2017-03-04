@@ -10,12 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Component, ContentChildren, Directive, ElementRef, Renderer, EventEmitter, Input, Optional, Output, QueryList, ViewEncapsulation, forwardRef, NgModule, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ContentChildren, Directive, ElementRef, Renderer, EventEmitter, Input, Optional, Output, QueryList, ViewEncapsulation, forwardRef, ViewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MdRippleModule, UniqueSelectionDispatcher, CompatibilityModule, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdRipple, FocusOriginMonitor } from '../core';
+import { UniqueSelectionDispatcher, MdRipple, FocusOriginMonitor } from '../core';
 import { coerceBooleanProperty } from '../core/coercion/boolean-property';
-import { VIEWPORT_RULER_PROVIDER } from '../core/overlay/position/viewport-ruler';
 /**
  * Provider Expression that allows md-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
@@ -541,26 +539,5 @@ export var MdRadioButton = (function () {
         __metadata('design:paramtypes', [MdRadioGroup, ElementRef, Renderer, FocusOriginMonitor, UniqueSelectionDispatcher])
     ], MdRadioButton);
     return MdRadioButton;
-}());
-export var MdRadioModule = (function () {
-    function MdRadioModule() {
-    }
-    /** @deprecated */
-    MdRadioModule.forRoot = function () {
-        return {
-            ngModule: MdRadioModule,
-            providers: [],
-        };
-    };
-    MdRadioModule = __decorate([
-        NgModule({
-            imports: [CommonModule, MdRippleModule, CompatibilityModule],
-            exports: [MdRadioGroup, MdRadioButton, CompatibilityModule],
-            providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, VIEWPORT_RULER_PROVIDER, FocusOriginMonitor],
-            declarations: [MdRadioGroup, MdRadioButton],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdRadioModule);
-    return MdRadioModule;
 }());
 //# sourceMappingURL=radio.js.map

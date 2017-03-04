@@ -12,8 +12,6 @@ import { CommonModule } from '@angular/common';
 import { MdSelect } from './select';
 import { MdOptionModule } from '../core/option/option';
 import { CompatibilityModule, OverlayModule } from '../core';
-export * from './select';
-export { fadeInContent, transformPanel, transformPlaceholder } from './select-animations';
 export var MdSelectModule = (function () {
     function MdSelectModule() {
     }
@@ -34,4 +32,6 @@ export var MdSelectModule = (function () {
     ], MdSelectModule);
     return MdSelectModule;
 }());
+export * from './select';
+export { fadeInContent, transformPanel, transformPlaceholder } from './select-animations';
 //# sourceMappingURL=index.js.map

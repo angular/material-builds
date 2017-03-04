@@ -15,13 +15,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { NgModule, Component, ContentChildren, ElementRef, Input, Optional, Output, QueryList, ChangeDetectionStrategy, EventEmitter, Renderer, ViewEncapsulation, NgZone } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Dir, MdError, coerceBooleanProperty, CompatibilityModule } from '../core';
-import { A11yModule } from '../core/a11y/index';
+import { Component, ContentChildren, ElementRef, Input, Optional, Output, QueryList, ChangeDetectionStrategy, EventEmitter, Renderer, ViewEncapsulation, NgZone } from '@angular/core';
+import { Dir, MdError, coerceBooleanProperty } from '../core';
 import { FocusTrapFactory } from '../core/a11y/focus-trap';
 import { ESCAPE } from '../core/keyboard/keycodes';
-import { OverlayModule } from '../core/overlay/overlay-directives';
 import 'rxjs/add/operator/first';
 /** Exception thrown when two MdSidenav are matching the same side. */
 export var MdDuplicatedSidenavError = (function (_super) {
@@ -552,25 +549,5 @@ export var MdSidenavContainer = (function () {
         __metadata('design:paramtypes', [Dir, ElementRef, Renderer, NgZone])
     ], MdSidenavContainer);
     return MdSidenavContainer;
-}());
-export var MdSidenavModule = (function () {
-    function MdSidenavModule() {
-    }
-    /** @deprecated */
-    MdSidenavModule.forRoot = function () {
-        return {
-            ngModule: MdSidenavModule,
-            providers: []
-        };
-    };
-    MdSidenavModule = __decorate([
-        NgModule({
-            imports: [CommonModule, CompatibilityModule, A11yModule, OverlayModule],
-            exports: [MdSidenavContainer, MdSidenav, CompatibilityModule],
-            declarations: [MdSidenavContainer, MdSidenav],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdSidenavModule);
-    return MdSidenavModule;
 }());
 //# sourceMappingURL=sidenav.js.map

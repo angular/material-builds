@@ -10,10 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { NgModule, Component, ContentChildren, Directive, ElementRef, Renderer, EventEmitter, HostBinding, Input, Optional, Output, QueryList, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+import { Component, ContentChildren, Directive, ElementRef, Renderer, EventEmitter, HostBinding, Input, Optional, Output, QueryList, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { FocusOriginMonitor, UniqueSelectionDispatcher, coerceBooleanProperty, UNIQUE_SELECTION_DISPATCHER_PROVIDER, CompatibilityModule } from '../core';
+import { UniqueSelectionDispatcher, coerceBooleanProperty, FocusOriginMonitor } from '../core';
 /**
  * Provider Expression that allows md-button-toggle-group to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -488,31 +488,5 @@ export var MdButtonToggle = (function () {
         __metadata('design:paramtypes', [MdButtonToggleGroup, MdButtonToggleGroupMultiple, UniqueSelectionDispatcher, Renderer, ElementRef, FocusOriginMonitor])
     ], MdButtonToggle);
     return MdButtonToggle;
-}());
-export var MdButtonToggleModule = (function () {
-    function MdButtonToggleModule() {
-    }
-    /** @deprecated */
-    MdButtonToggleModule.forRoot = function () {
-        return {
-            ngModule: MdButtonToggleModule,
-            providers: []
-        };
-    };
-    MdButtonToggleModule = __decorate([
-        NgModule({
-            imports: [FormsModule, CompatibilityModule],
-            exports: [
-                MdButtonToggleGroup,
-                MdButtonToggleGroupMultiple,
-                MdButtonToggle,
-                CompatibilityModule,
-            ],
-            declarations: [MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle],
-            providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, FocusOriginMonitor]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdButtonToggleModule);
-    return MdButtonToggleModule;
 }());
 //# sourceMappingURL=button-toggle.js.map

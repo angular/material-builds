@@ -1,4 +1,4 @@
-import { ElementRef, Renderer, ModuleWithProviders } from '@angular/core';
+import { ElementRef, Renderer } from '@angular/core';
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  */
@@ -66,8 +66,4 @@ export declare class MdAnchor extends MdButton {
     readonly tabIndex: number;
     readonly _isAriaDisabled: string;
     _haltDisabledEvents(event: Event): void;
-}
-export declare class MdButtonModule {
-    /** @deprecated */
-    static forRoot(): ModuleWithProviders;
 }

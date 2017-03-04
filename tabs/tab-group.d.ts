@@ -1,7 +1,7 @@
-import { ModuleWithProviders, QueryList, ElementRef, Renderer } from '@angular/core';
+import { QueryList, ElementRef, Renderer } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 import { MdTab } from './tab';
+import 'rxjs/add/operator/map';
 /** A simple change event emitted on focus or selection changes. */
 export declare class MdTabChangeEvent {
     index: number;
@@ -69,8 +69,4 @@ export declare class MdTabGroup {
     _setTabBodyWrapperHeight(tabHeight: number): void;
     /** Removes the height of the tab body wrapper. */
     _removeTabBodyWrapperHeight(): void;
-}
-export declare class MdTabsModule {
-    /** @deprecated */
-    static forRoot(): ModuleWithProviders;
 }

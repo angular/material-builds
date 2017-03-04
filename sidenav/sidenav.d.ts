@@ -1,4 +1,4 @@
-import { ModuleWithProviders, AfterContentInit, ElementRef, QueryList, EventEmitter, Renderer, NgZone, OnDestroy } from '@angular/core';
+import { AfterContentInit, ElementRef, QueryList, EventEmitter, Renderer, NgZone, OnDestroy } from '@angular/core';
 import { Dir, MdError } from '../core';
 import { FocusTrapFactory } from '../core/a11y/focus-trap';
 import 'rxjs/add/operator/first';
@@ -180,8 +180,4 @@ export declare class MdSidenavContainer implements AfterContentInit {
         marginRight: string;
         transform: string;
     };
-}
-export declare class MdSidenavModule {
-    /** @deprecated */
-    static forRoot(): ModuleWithProviders;
 }

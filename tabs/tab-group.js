@@ -7,22 +7,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { NgModule, ViewChild, Component, Input, Output, EventEmitter, QueryList, ContentChildren, ElementRef, Renderer } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { PortalModule, coerceBooleanProperty } from '../core';
-import { MdTabLabel } from './tab-label';
-import { MdTabLabelWrapper } from './tab-label-wrapper';
-import { MdTabNavBar, MdTabLink, MdTabLinkRipple } from './tab-nav-bar/tab-nav-bar';
-import { MdInkBar } from './ink-bar';
+import { ViewChild, Component, Input, Output, EventEmitter, QueryList, ContentChildren, ElementRef, Renderer } from '@angular/core';
+import { coerceBooleanProperty } from '../core';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import { MdRippleModule } from '../core/ripple/index';
-import { ObserveContentModule } from '../core/observe-content/observe-content';
 import { MdTab } from './tab';
-import { MdTabBody } from './tab-body';
-import { VIEWPORT_RULER_PROVIDER } from '../core/overlay/position/viewport-ruler';
-import { MdTabHeader } from './tab-header';
-import { SCROLL_DISPATCHER_PROVIDER } from '../core/overlay/scroll/scroll-dispatcher';
+import 'rxjs/add/operator/map';
 /** Used to generate unique ID's for each tab component */
 var nextId = 0;
 /** A simple change event emitted on focus or selection changes. */
@@ -223,28 +212,5 @@ export var MdTabGroup = (function () {
         __metadata('design:paramtypes', [Renderer])
     ], MdTabGroup);
     return MdTabGroup;
-}());
-export var MdTabsModule = (function () {
-    function MdTabsModule() {
-    }
-    /** @deprecated */
-    MdTabsModule.forRoot = function () {
-        return {
-            ngModule: MdTabsModule,
-            providers: []
-        };
-    };
-    MdTabsModule = __decorate([
-        NgModule({
-            imports: [CommonModule, PortalModule, MdRippleModule, ObserveContentModule],
-            // Don't export all components because some are only to be used internally.
-            exports: [MdTabGroup, MdTabLabel, MdTab, MdTabNavBar, MdTabLink, MdTabLinkRipple],
-            declarations: [MdTabGroup, MdTabLabel, MdTab, MdInkBar, MdTabLabelWrapper,
-                MdTabNavBar, MdTabLink, MdTabBody, MdTabLinkRipple, MdTabHeader],
-            providers: [VIEWPORT_RULER_PROVIDER, SCROLL_DISPATCHER_PROVIDER],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdTabsModule);
-    return MdTabsModule;
 }());
 //# sourceMappingURL=tab-group.js.map

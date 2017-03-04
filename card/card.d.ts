@@ -1,4 +1,3 @@
-import { ModuleWithProviders } from '@angular/core';
 /**
  * Content of a card, needed as it's used as a selector in the API.
  */
@@ -78,8 +77,4 @@ export declare class MdCardHeader {
  * layout that groups an image with a title section.
  */
 export declare class MdCardTitleGroup {
-}
-export declare class MdCardModule {
-    /** @deprecated */
-    static forRoot(): ModuleWithProviders;
 }

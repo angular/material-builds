@@ -7,8 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { NgModule, Component, ChangeDetectionStrategy, Input, ViewEncapsulation, Directive, ElementRef, Renderer } from '@angular/core';
-import { CompatibilityModule } from '../core';
+import { Component, ChangeDetectionStrategy, Input, ViewEncapsulation, Directive, ElementRef, Renderer } from '@angular/core';
 export var MdToolbarRow = (function () {
     function MdToolbarRow() {
     }
@@ -67,25 +66,5 @@ export var MdToolbar = (function () {
         __metadata('design:paramtypes', [ElementRef, Renderer])
     ], MdToolbar);
     return MdToolbar;
-}());
-export var MdToolbarModule = (function () {
-    function MdToolbarModule() {
-    }
-    /** @deprecated */
-    MdToolbarModule.forRoot = function () {
-        return {
-            ngModule: MdToolbarModule,
-            providers: []
-        };
-    };
-    MdToolbarModule = __decorate([
-        NgModule({
-            imports: [CompatibilityModule],
-            exports: [MdToolbar, MdToolbarRow, CompatibilityModule],
-            declarations: [MdToolbar, MdToolbarRow],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdToolbarModule);
-    return MdToolbarModule;
 }());
 //# sourceMappingURL=toolbar.js.map

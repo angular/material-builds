@@ -1,9 +1,8 @@
-import { ModuleWithProviders, ElementRef, OnChanges, OnInit, Renderer, SimpleChange, AfterViewChecked, Optional } from '@angular/core';
+import { ElementRef, OnChanges, OnInit, Renderer, SimpleChange, AfterViewChecked, Optional } from '@angular/core';
 import { Http } from '@angular/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MdError } from '../core';
 import { MdIconRegistry } from './icon-registry';
-export { MdIconRegistry } from './icon-registry';
 /** Exception thrown when an invalid icon name is passed to an md-icon component. */
 export declare class MdIconInvalidNameError extends MdError {
     constructor(iconName: string);
@@ -95,7 +94,3 @@ export declare const ICON_REGISTRY_PROVIDER: {
     deps: (Optional[] | typeof DomSanitizer | typeof Http)[];
     useFactory: (parentRegistry: MdIconRegistry, http: Http, sanitizer: DomSanitizer) => MdIconRegistry;
 };
-export declare class MdIconModule {
-    /** @deprecated */
-    static forRoot(): ModuleWithProviders;
-}

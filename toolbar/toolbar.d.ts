@@ -1,4 +1,4 @@
-import { ModuleWithProviders, ElementRef, Renderer } from '@angular/core';
+import { ElementRef, Renderer } from '@angular/core';
 export declare class MdToolbarRow {
 }
 export declare class MdToolbar {
@@ -10,8 +10,4 @@ export declare class MdToolbar {
     color: string;
     private _updateColor(newColor);
     private _setElementColor(color, isAdd);
-}
-export declare class MdToolbarModule {
-    /** @deprecated */
-    static forRoot(): ModuleWithProviders;
 }

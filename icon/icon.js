@@ -12,12 +12,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { NgModule, ChangeDetectionStrategy, Component, ElementRef, Input, Renderer, ViewEncapsulation, Optional, SkipSelf } from '@angular/core';
-import { HttpModule, Http } from '@angular/http';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, Renderer, ViewEncapsulation, Optional, SkipSelf } from '@angular/core';
+import { Http } from '@angular/http';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MdError, CompatibilityModule } from '../core';
+import { MdError } from '../core';
 import { MdIconRegistry } from './icon-registry';
-export { MdIconRegistry } from './icon-registry';
 /** Exception thrown when an invalid icon name is passed to an md-icon component. */
 export var MdIconInvalidNameError = (function (_super) {
     __extends(MdIconInvalidNameError, _super);
@@ -254,25 +253,4 @@ export var ICON_REGISTRY_PROVIDER = {
     deps: [[new Optional(), new SkipSelf(), MdIconRegistry], Http, DomSanitizer],
     useFactory: ICON_REGISTRY_PROVIDER_FACTORY,
 };
-export var MdIconModule = (function () {
-    function MdIconModule() {
-    }
-    /** @deprecated */
-    MdIconModule.forRoot = function () {
-        return {
-            ngModule: MdIconModule,
-            providers: [],
-        };
-    };
-    MdIconModule = __decorate([
-        NgModule({
-            imports: [HttpModule, CompatibilityModule],
-            exports: [MdIcon, CompatibilityModule],
-            declarations: [MdIcon],
-            providers: [ICON_REGISTRY_PROVIDER],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdIconModule);
-    return MdIconModule;
-}());
 //# sourceMappingURL=icon.js.map

@@ -1,4 +1,4 @@
-import { ElementRef, Renderer, AfterContentInit, ModuleWithProviders } from '@angular/core';
+import { ElementRef, Renderer, AfterContentInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { HammerInput } from '../core';
 import { Observable } from 'rxjs/Observable';
@@ -83,8 +83,4 @@ export declare class MdSlideToggle implements AfterContentInit, ControlValueAcce
     _onDragStart(): void;
     _onDrag(event: HammerInput): void;
     _onDragEnd(): void;
-}
-export declare class MdSlideToggleModule {
-    /** @deprecated */
-    static forRoot(): ModuleWithProviders;
 }

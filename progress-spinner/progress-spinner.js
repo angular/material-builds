@@ -12,8 +12,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { NgModule, Component, HostBinding, ChangeDetectionStrategy, Input, ElementRef, NgZone, Renderer, Directive } from '@angular/core';
-import { CompatibilityModule } from '../core';
+import { Component, HostBinding, ChangeDetectionStrategy, Input, ElementRef, NgZone, Renderer, Directive } from '@angular/core';
 // TODO(josephperrott): Benchpress tests.
 /** A single degree in radians. */
 var DEGREE_IN_RADIANS = Math.PI / 180;
@@ -371,35 +370,4 @@ function getSvgArc(currentValue, rotation) {
     }
     return "M" + start + "A" + pathRadius + "," + pathRadius + " 0 " + largeArcFlag + "," + arcSweep + " " + end;
 }
-export var MdProgressSpinnerModule = (function () {
-    function MdProgressSpinnerModule() {
-    }
-    /** @deprecated */
-    MdProgressSpinnerModule.forRoot = function () {
-        return {
-            ngModule: MdProgressSpinnerModule,
-            providers: []
-        };
-    };
-    MdProgressSpinnerModule = __decorate([
-        NgModule({
-            imports: [CompatibilityModule],
-            exports: [
-                MdProgressSpinner,
-                MdSpinner,
-                CompatibilityModule,
-                MdProgressSpinnerCssMatStyler,
-                MdProgressCircleCssMatStyler
-            ],
-            declarations: [
-                MdProgressSpinner,
-                MdSpinner,
-                MdProgressSpinnerCssMatStyler,
-                MdProgressCircleCssMatStyler
-            ],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdProgressSpinnerModule);
-    return MdProgressSpinnerModule;
-}());
 //# sourceMappingURL=progress-spinner.js.map

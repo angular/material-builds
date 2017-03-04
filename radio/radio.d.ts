@@ -1,4 +1,4 @@
-import { AfterContentInit, ElementRef, Renderer, EventEmitter, OnInit, QueryList, ModuleWithProviders, OnDestroy, AfterViewInit } from '@angular/core';
+import { AfterContentInit, ElementRef, Renderer, EventEmitter, OnInit, QueryList, OnDestroy, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { UniqueSelectionDispatcher, MdRipple, FocusOriginMonitor } from '../core';
 /**
@@ -174,8 +174,4 @@ export declare class MdRadioButton implements OnInit, AfterViewInit, OnDestroy {
      * Clicking on a label element, will trigger a change event on the associated input.
      */
     _onInputChange(event: Event): void;
-}
-export declare class MdRadioModule {
-    /** @deprecated */
-    static forRoot(): ModuleWithProviders;
 }

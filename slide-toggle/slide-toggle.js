@@ -7,12 +7,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, ElementRef, Renderer, forwardRef, ChangeDetectionStrategy, Input, Output, EventEmitter, NgModule, ViewChild, ViewEncapsulation } from '@angular/core';
-import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { applyCssTransform, coerceBooleanProperty, GestureConfig, CompatibilityModule } from '../core';
+import { Component, ElementRef, Renderer, forwardRef, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild, ViewEncapsulation } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { applyCssTransform, coerceBooleanProperty } from '../core';
 import { Observable } from 'rxjs/Observable';
-import { MdRippleModule } from '../core/ripple/index';
 export var MD_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return MdSlideToggle; }),
@@ -346,26 +344,5 @@ var SlideToggleRenderer = (function () {
         return Math.max(0, Math.min(percentage, 100));
     };
     return SlideToggleRenderer;
-}());
-export var MdSlideToggleModule = (function () {
-    function MdSlideToggleModule() {
-    }
-    /** @deprecated */
-    MdSlideToggleModule.forRoot = function () {
-        return {
-            ngModule: MdSlideToggleModule,
-            providers: []
-        };
-    };
-    MdSlideToggleModule = __decorate([
-        NgModule({
-            imports: [FormsModule, MdRippleModule, CompatibilityModule],
-            exports: [MdSlideToggle, CompatibilityModule],
-            declarations: [MdSlideToggle],
-            providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdSlideToggleModule);
-    return MdSlideToggleModule;
 }());
 //# sourceMappingURL=slide-toggle.js.map

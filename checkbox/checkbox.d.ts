@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, ElementRef, EventEmitter, Renderer, ModuleWithProviders, AfterViewInit, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, EventEmitter, Renderer, AfterViewInit, OnDestroy } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { MdRipple, FocusOriginMonitor } from '../core';
 /**
@@ -162,8 +162,4 @@ export declare class MdCheckbox implements ControlValueAccessor, AfterViewInit, 
     private _getAnimationClassForCheckStateTransition(oldState, newState);
     /** Fades out the focused state ripple. */
     private _removeFocusedRipple();
-}
-export declare class MdCheckboxModule {
-    /** @deprecated */
-    static forRoot(): ModuleWithProviders;
 }

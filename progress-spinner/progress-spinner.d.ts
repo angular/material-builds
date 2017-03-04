@@ -1,4 +1,4 @@
-import { ModuleWithProviders, OnDestroy, ElementRef, NgZone, Renderer } from '@angular/core';
+import { OnDestroy, ElementRef, NgZone, Renderer } from '@angular/core';
 export declare type ProgressSpinnerMode = 'determinate' | 'indeterminate';
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -93,8 +93,4 @@ export declare class MdProgressSpinner implements OnDestroy {
 export declare class MdSpinner extends MdProgressSpinner implements OnDestroy {
     constructor(elementRef: ElementRef, ngZone: NgZone, renderer: Renderer);
     ngOnDestroy(): void;
-}
-export declare class MdProgressSpinnerModule {
-    /** @deprecated */
-    static forRoot(): ModuleWithProviders;
 }

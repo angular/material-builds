@@ -13,9 +13,6 @@ import { MdTextareaAutosize } from './autosize';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PlatformModule } from '../core/platform/index';
-export * from './autosize';
-export * from './input-container';
-export * from './input-container-errors';
 export var MdInputModule = (function () {
     function MdInputModule() {
     }
@@ -52,4 +49,7 @@ export var MdInputModule = (function () {
     ], MdInputModule);
     return MdInputModule;
 }());
+export * from './autosize';
+export * from './input-container';
+export * from './input-container-errors';
 //# sourceMappingURL=index.js.map

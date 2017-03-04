@@ -1,4 +1,4 @@
-import { AfterContentInit, ElementRef, ModuleWithProviders, QueryList } from '@angular/core';
+import { AfterContentInit, ElementRef, QueryList } from '@angular/core';
 import { MdChip } from './chip';
 import { FocusKeyManager } from '../core/a11y/focus-key-manager';
 /**
@@ -60,8 +60,4 @@ export declare class MdChipList implements AfterContentInit {
      * @returns True if the index is valid for our list of chips.
      */
     private _isValidIndex(index);
-}
-export declare class MdChipsModule {
-    /** @deprecated */
-    static forRoot(): ModuleWithProviders;
 }

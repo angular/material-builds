@@ -1,4 +1,4 @@
-import { ModuleWithProviders, ElementRef, EventEmitter } from '@angular/core';
+import { ElementRef, EventEmitter } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { HammerInput } from '../core';
 import { Dir } from '../core/rtl/dir';
@@ -193,8 +193,4 @@ export declare class SliderRenderer {
      * Currently only used to allow a blur event to fire but will be used with keyboard input later.
      */
     addFocus(): void;
-}
-export declare class MdSliderModule {
-    /** @deprecated */
-    static forRoot(): ModuleWithProviders;
 }

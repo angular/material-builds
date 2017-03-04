@@ -7,8 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, ViewEncapsulation, ContentChildren, ContentChild, QueryList, Directive, ElementRef, Renderer, NgModule } from '@angular/core';
-import { MdLine, MdLineSetter, MdLineModule, CompatibilityModule } from '../core';
+import { Component, ViewEncapsulation, ContentChildren, ContentChild, QueryList, Directive, ElementRef, Renderer } from '@angular/core';
+import { MdLine, MdLineSetter } from '../core';
 export var MdListDivider = (function () {
     function MdListDivider() {
     }
@@ -178,47 +178,5 @@ export var MdListItem = (function () {
         __metadata('design:paramtypes', [Renderer, ElementRef])
     ], MdListItem);
     return MdListItem;
-}());
-export var MdListModule = (function () {
-    function MdListModule() {
-    }
-    /** @deprecated */
-    MdListModule.forRoot = function () {
-        return {
-            ngModule: MdListModule,
-            providers: []
-        };
-    };
-    MdListModule = __decorate([
-        NgModule({
-            imports: [MdLineModule, CompatibilityModule],
-            exports: [
-                MdList,
-                MdListItem,
-                MdListDivider,
-                MdListAvatarCssMatStyler,
-                MdLineModule,
-                CompatibilityModule,
-                MdListIconCssMatStyler,
-                MdListCssMatStyler,
-                MdNavListCssMatStyler,
-                MdDividerCssMatStyler,
-                MdListSubheaderCssMatStyler
-            ],
-            declarations: [
-                MdList,
-                MdListItem,
-                MdListDivider,
-                MdListAvatarCssMatStyler,
-                MdListIconCssMatStyler,
-                MdListCssMatStyler,
-                MdNavListCssMatStyler,
-                MdDividerCssMatStyler,
-                MdListSubheaderCssMatStyler
-            ],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdListModule);
-    return MdListModule;
 }());
 //# sourceMappingURL=list.js.map
