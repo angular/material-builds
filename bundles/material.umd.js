@@ -5327,7 +5327,6 @@ var MdCheckbox = (function () {
                     this.indeterminateChange.emit(this._indeterminate);
                 }
                 this._checked = checked;
-                this._transitionCheckState(this._checked ? exports.TransitionCheckState.Checked : exports.TransitionCheckState.Unchecked);
                 this._changeDetectorRef.markForCheck();
             }
         },
@@ -5350,13 +5349,13 @@ var MdCheckbox = (function () {
         set: function (indeterminate) {
             var changed = indeterminate != this._indeterminate;
             this._indeterminate = indeterminate;
-            if (this._indeterminate) {
-                this._transitionCheckState(exports.TransitionCheckState.Indeterminate);
-            }
-            else {
-                this._transitionCheckState(this.checked ? exports.TransitionCheckState.Checked : exports.TransitionCheckState.Unchecked);
-            }
             if (changed) {
+                if (this._indeterminate) {
+                    this._transitionCheckState(exports.TransitionCheckState.Indeterminate);
+                }
+                else {
+                    this._transitionCheckState(this.checked ? exports.TransitionCheckState.Checked : exports.TransitionCheckState.Unchecked);
+                }
                 this.indeterminateChange.emit(this._indeterminate);
             }
         },
@@ -5467,6 +5466,7 @@ var MdCheckbox = (function () {
         event.stopPropagation();
         if (!this.disabled) {
             this.toggle();
+            this._transitionCheckState(this._checked ? exports.TransitionCheckState.Checked : exports.TransitionCheckState.Unchecked);
             // Emit our custom change event if the native input emitted one.
             // It is important to only emit it, if the native input triggered one, because
             // we don't want to trigger a change event, when the `checked` variable changes for example.
@@ -5492,6 +5492,9 @@ var MdCheckbox = (function () {
                 // [checked] bound to it.
                 if (newState === exports.TransitionCheckState.Checked) {
                     animSuffix = 'unchecked-checked';
+                }
+                else if (newState == exports.TransitionCheckState.Indeterminate) {
+                    animSuffix = 'unchecked-indeterminate';
                 }
                 else {
                     return '';
