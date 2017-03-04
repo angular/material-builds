@@ -1,6 +1,5 @@
-import { ChangeDetectorRef, ElementRef, EventEmitter, Renderer, ModuleWithProviders, AfterViewInit, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, EventEmitter, Renderer, ModuleWithProviders } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { MdRipple, FocusOriginMonitor } from '../core';
 /**
  * Provider Expression that allows md-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -34,11 +33,10 @@ export declare class MdCheckboxChange {
  * have the checkbox be accessible, you may supply an [aria-label] input.
  * See: https://www.google.com/design/spec/components/selection-controls.html
  */
-export declare class MdCheckbox implements ControlValueAccessor, AfterViewInit, OnDestroy {
+export declare class MdCheckbox implements ControlValueAccessor {
     private _renderer;
     private _elementRef;
     private _changeDetectorRef;
-    private _focusOriginMonitor;
     /**
      * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
      * take precedence so this may be omitted.
@@ -81,7 +79,6 @@ export declare class MdCheckbox implements ControlValueAccessor, AfterViewInit, 
     value: string;
     /** The native `<input type="checkbox"> element */
     _inputElement: ElementRef;
-    _ripple: MdRipple;
     /**
      * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
      * @docs-private
@@ -93,13 +90,8 @@ export declare class MdCheckbox implements ControlValueAccessor, AfterViewInit, 
     private _indeterminate;
     private _color;
     private _controlValueAccessorChangeFn;
-    /** Reference to the focused state ripple. */
-    private _focusedRipple;
-    /** Reference to the focus origin monitor subscription. */
-    private _focusedSubscription;
-    constructor(_renderer: Renderer, _elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _focusOriginMonitor: FocusOriginMonitor);
-    ngAfterViewInit(): void;
-    ngOnDestroy(): void;
+    _hasFocus: boolean;
+    constructor(_renderer: Renderer, _elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef);
     /**
      * Whether the checkbox is checked. Note that setting `checked` will immediately set
      * `indeterminate` to false.
@@ -144,6 +136,8 @@ export declare class MdCheckbox implements ControlValueAccessor, AfterViewInit, 
     setDisabledState(isDisabled: boolean): void;
     private _transitionCheckState(newState);
     private _emitChangeEvent();
+    /** Informs the component when the input has focus so that we can style accordingly */
+    _onInputFocus(): void;
     /** Informs the component when we lose focus in order to style accordingly */
     _onInputBlur(): void;
     /** Toggles the `checked` state of the checkbox. */
@@ -160,8 +154,6 @@ export declare class MdCheckbox implements ControlValueAccessor, AfterViewInit, 
     focus(): void;
     _onInteractionEvent(event: Event): void;
     private _getAnimationClassForCheckStateTransition(oldState, newState);
-    /** Fades out the focused state ripple. */
-    private _removeFocusedRipple();
 }
 export declare class MdCheckboxModule {
     /** @deprecated */
