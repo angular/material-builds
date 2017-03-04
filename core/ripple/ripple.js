@@ -7,11 +7,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Directive, ElementRef, Input, NgZone } from '@angular/core';
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+import { Directive, ElementRef, Input, Inject, NgZone, OpaqueToken, Optional } from '@angular/core';
 import { RippleRenderer } from './ripple-renderer';
 import { ViewportRuler } from '../overlay/position/viewport-ruler';
+/** OpaqueToken that can be used to globally disable all ripples. Except programmatic ones. */
+export var MD_DISABLE_RIPPLES = new OpaqueToken('md-disable-ripples');
 export var MdRipple = (function () {
-    function MdRipple(elementRef, ngZone, ruler) {
+    function MdRipple(elementRef, ngZone, ruler, _forceDisableRipples) {
+        this._forceDisableRipples = _forceDisableRipples;
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -30,7 +36,7 @@ export var MdRipple = (function () {
         if (changes['trigger'] && this.trigger) {
             this._rippleRenderer.setTriggerElement(this.trigger);
         }
-        this._rippleRenderer.rippleDisabled = this.disabled;
+        this._rippleRenderer.rippleDisabled = this._forceDisableRipples || this.disabled;
         this._rippleRenderer.rippleConfig = this.rippleConfig;
     };
     MdRipple.prototype.ngOnDestroy = function () {
@@ -95,8 +101,10 @@ export var MdRipple = (function () {
                 '[class.mat-ripple]': 'true',
                 '[class.mat-ripple-unbounded]': 'unbounded'
             }
-        }), 
-        __metadata('design:paramtypes', [ElementRef, NgZone, ViewportRuler])
+        }),
+        __param(3, Optional()),
+        __param(3, Inject(MD_DISABLE_RIPPLES)), 
+        __metadata('design:paramtypes', [ElementRef, NgZone, ViewportRuler, Boolean])
     ], MdRipple);
     return MdRipple;
 }());

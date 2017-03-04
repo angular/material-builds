@@ -12,10 +12,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, Input, ViewChild, ElementRef, ViewEncapsulation, Directive, NgZone } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, ViewEncapsulation, Directive } from '@angular/core';
 import { MdInkBar } from '../ink-bar';
 import { MdRipple } from '../../core/ripple/index';
-import { ViewportRuler } from '../../core/overlay/position/viewport-ruler';
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
@@ -94,8 +93,8 @@ export var MdTabLink = (function () {
  */
 export var MdTabLinkRipple = (function (_super) {
     __extends(MdTabLinkRipple, _super);
-    function MdTabLinkRipple(elementRef, ngZone, ruler) {
-        _super.call(this, elementRef, ngZone, ruler);
+    function MdTabLinkRipple() {
+        _super.apply(this, arguments);
     }
     MdTabLinkRipple = __decorate([
         Directive({
@@ -104,7 +103,7 @@ export var MdTabLinkRipple = (function (_super) {
                 '[class.mat-tab-link]': 'true',
             },
         }), 
-        __metadata('design:paramtypes', [ElementRef, NgZone, ViewportRuler])
+        __metadata('design:paramtypes', [])
     ], MdTabLinkRipple);
     return MdTabLinkRipple;
 }(MdRipple));

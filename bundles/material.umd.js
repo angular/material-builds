@@ -734,8 +734,14 @@ var __decorate$7 = (this && this.__decorate) || function (decorators, target, ke
 var __metadata$7 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param$1 = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+/** OpaqueToken that can be used to globally disable all ripples. Except programmatic ones. */
+var MD_DISABLE_RIPPLES = new _angular_core.OpaqueToken('md-disable-ripples');
 var MdRipple = (function () {
-    function MdRipple(elementRef, ngZone, ruler) {
+    function MdRipple(elementRef, ngZone, ruler, _forceDisableRipples) {
+        this._forceDisableRipples = _forceDisableRipples;
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -754,7 +760,7 @@ var MdRipple = (function () {
         if (changes['trigger'] && this.trigger) {
             this._rippleRenderer.setTriggerElement(this.trigger);
         }
-        this._rippleRenderer.rippleDisabled = this.disabled;
+        this._rippleRenderer.rippleDisabled = this._forceDisableRipples || this.disabled;
         this._rippleRenderer.rippleConfig = this.rippleConfig;
     };
     MdRipple.prototype.ngOnDestroy = function () {
@@ -819,8 +825,10 @@ var MdRipple = (function () {
                 '[class.mat-ripple]': 'true',
                 '[class.mat-ripple-unbounded]': 'unbounded'
             }
-        }), 
-        __metadata$7('design:paramtypes', [_angular_core.ElementRef, _angular_core.NgZone, ViewportRuler])
+        }),
+        __param$1(3, _angular_core.Optional()),
+        __param$1(3, _angular_core.Inject(MD_DISABLE_RIPPLES)), 
+        __metadata$7('design:paramtypes', [_angular_core.ElementRef, _angular_core.NgZone, ViewportRuler, Boolean])
     ], MdRipple);
     return MdRipple;
 }());
@@ -1714,7 +1722,7 @@ var __decorate$14 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$14 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$2 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$3 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 /** The points of the origin element and the overlay element to connect. */
@@ -1762,7 +1770,7 @@ var ConnectedOverlayPositionChange = (function () {
         this.scrollableViewProperties = scrollableViewProperties;
     }
     ConnectedOverlayPositionChange = __decorate$14([
-        __param$2(1, _angular_core.Optional()), 
+        __param$3(1, _angular_core.Optional()), 
         __metadata$14('design:paramtypes', [ConnectionPositionPair, ScrollableViewProperties])
     ], ConnectedOverlayPositionChange);
     return ConnectedOverlayPositionChange;
@@ -2473,7 +2481,7 @@ var __decorate$11 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$11 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$1 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$2 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 /** Default set of positions for the overlay. Follows the behavior of a dropdown. */
@@ -2745,7 +2753,7 @@ var ConnectedOverlayDirective = (function () {
             selector: '[cdk-connected-overlay], [connected-overlay]',
             exportAs: 'cdkConnectedOverlay'
         }),
-        __param$1(3, _angular_core.Optional()), 
+        __param$2(3, _angular_core.Optional()), 
         __metadata$11('design:paramtypes', [Overlay, _angular_core.TemplateRef, _angular_core.ViewContainerRef, Dir])
     ], ConnectedOverlayDirective);
     return ConnectedOverlayDirective;
@@ -3268,7 +3276,7 @@ var __decorate$21 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$21 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$3 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$4 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 var LIVE_ANNOUNCER_ELEMENT_TOKEN = new _angular_core.OpaqueToken('liveAnnouncerElement');
@@ -3313,8 +3321,8 @@ var LiveAnnouncer = (function () {
     };
     LiveAnnouncer = __decorate$21([
         _angular_core.Injectable(),
-        __param$3(0, _angular_core.Optional()),
-        __param$3(0, _angular_core.Inject(LIVE_ANNOUNCER_ELEMENT_TOKEN)), 
+        __param$4(0, _angular_core.Optional()),
+        __param$4(0, _angular_core.Inject(LIVE_ANNOUNCER_ELEMENT_TOKEN)), 
         __metadata$21('design:paramtypes', [Object])
     ], LiveAnnouncer);
     return LiveAnnouncer;
@@ -4371,7 +4379,7 @@ var __decorate$32 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$32 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$4 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$5 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 /**
@@ -4843,8 +4851,8 @@ var MdButtonToggle = (function () {
                 '[class.mat-button-toggle]': 'true'
             }
         }),
-        __param$4(0, _angular_core.Optional()),
-        __param$4(1, _angular_core.Optional()), 
+        __param$5(0, _angular_core.Optional()),
+        __param$5(1, _angular_core.Optional()), 
         __metadata$32('design:paramtypes', [MdButtonToggleGroup, MdButtonToggleGroupMultiple, UniqueSelectionDispatcher, _angular_core.Renderer, _angular_core.ElementRef, FocusOriginMonitor])
     ], MdButtonToggle);
     return MdButtonToggle;
@@ -5229,10 +5237,11 @@ var MdCheckboxChange = (function () {
  * See: https://www.google.com/design/spec/components/selection-controls.html
  */
 var MdCheckbox = (function () {
-    function MdCheckbox(_renderer, _elementRef, _changeDetectorRef) {
+    function MdCheckbox(_renderer, _elementRef, _changeDetectorRef, _focusOriginMonitor) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
+        this._focusOriginMonitor = _focusOriginMonitor;
         /**
          * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
          * take precedence so this may be omitted.
@@ -5265,7 +5274,6 @@ var MdCheckbox = (function () {
         this._checked = false;
         this._indeterminate = false;
         this._controlValueAccessorChangeFn = function (value) { };
-        this._hasFocus = false;
         this.color = 'accent';
     }
     Object.defineProperty(MdCheckbox.prototype, "disableRipple", {
@@ -5313,6 +5321,23 @@ var MdCheckbox = (function () {
         enumerable: true,
         configurable: true
     });
+    MdCheckbox.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this._focusedSubscription = this._focusOriginMonitor
+            .monitor(this._inputElement.nativeElement, this._renderer, false)
+            .subscribe(function (focusOrigin) {
+            if (!_this._focusedRipple && focusOrigin === 'keyboard') {
+                _this._focusedRipple = _this._ripple.launch(0, 0, { persistent: true, centered: true });
+            }
+        });
+    };
+    MdCheckbox.prototype.ngOnDestroy = function () {
+        this._focusOriginMonitor.unmonitor(this._inputElement.nativeElement);
+        if (this._focusedSubscription) {
+            this._focusedSubscription.unsubscribe();
+            this._focusedSubscription = null;
+        }
+    };
     Object.defineProperty(MdCheckbox.prototype, "checked", {
         /**
          * Whether the checkbox is checked. Note that setting `checked` will immediately set
@@ -5436,13 +5461,9 @@ var MdCheckbox = (function () {
         this._controlValueAccessorChangeFn(this.checked);
         this.change.emit(event);
     };
-    /** Informs the component when the input has focus so that we can style accordingly */
-    MdCheckbox.prototype._onInputFocus = function () {
-        this._hasFocus = true;
-    };
     /** Informs the component when we lose focus in order to style accordingly */
     MdCheckbox.prototype._onInputBlur = function () {
-        this._hasFocus = false;
+        this._removeFocusedRipple();
         this.onTouched();
     };
     /** Toggles the `checked` state of the checkbox. */
@@ -5465,6 +5486,7 @@ var MdCheckbox = (function () {
         // This will lead to multiple click events.
         // Preventing bubbling for the second event will solve that issue.
         event.stopPropagation();
+        this._removeFocusedRipple();
         if (!this.disabled) {
             this.toggle();
             this._transitionCheckState(this._checked ? exports.TransitionCheckState.Checked : exports.TransitionCheckState.Unchecked);
@@ -5476,8 +5498,7 @@ var MdCheckbox = (function () {
     };
     /** Focuses the checkbox. */
     MdCheckbox.prototype.focus = function () {
-        this._renderer.invokeElementMethod(this._inputElement.nativeElement, 'focus');
-        this._onInputFocus();
+        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, this._renderer, 'keyboard');
     };
     MdCheckbox.prototype._onInteractionEvent = function (event) {
         // We always have to stop propagation on the change event.
@@ -5514,6 +5535,13 @@ var MdCheckbox = (function () {
                     'indeterminate-checked' : 'indeterminate-unchecked';
         }
         return "mat-checkbox-anim-" + animSuffix;
+    };
+    /** Fades out the focused state ripple. */
+    MdCheckbox.prototype._removeFocusedRipple = function () {
+        if (this._focusedRipple) {
+            this._focusedRipple.fadeOut();
+            this._focusedRipple = null;
+        }
     };
     __decorate$34([
         _angular_core.Input('aria-label'), 
@@ -5572,6 +5600,10 @@ var MdCheckbox = (function () {
         __metadata$34('design:type', _angular_core.ElementRef)
     ], MdCheckbox.prototype, "_inputElement", void 0);
     __decorate$34([
+        _angular_core.ViewChild(MdRipple), 
+        __metadata$34('design:type', MdRipple)
+    ], MdCheckbox.prototype, "_ripple", void 0);
+    __decorate$34([
         _angular_core.Input(), 
         __metadata$34('design:type', Object)
     ], MdCheckbox.prototype, "checked", null);
@@ -5585,7 +5617,7 @@ var MdCheckbox = (function () {
     ], MdCheckbox.prototype, "color", null);
     MdCheckbox = __decorate$34([
         _angular_core.Component({selector: 'md-checkbox, mat-checkbox',
-            template: "<label class=\"mat-checkbox-layout\" #label><div class=\"mat-checkbox-inner-container\"><input #input class=\"mat-checkbox-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [value]=\"value\" [disabled]=\"disabled\" [name]=\"name\" [tabIndex]=\"tabIndex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (focus)=\"_onInputFocus()\" (blur)=\"_onInputBlur()\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"><div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"mat-checkbox-ripple\" [mdRippleTrigger]=\"label\" [mdRippleCentered]=\"true\"></div><div class=\"mat-checkbox-frame\"></div><div class=\"mat-checkbox-background\"><svg version=\"1.1\" class=\"mat-checkbox-checkmark\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"><path class=\"mat-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/></svg><div class=\"mat-checkbox-mixedmark\"></div></div></div><span class=\"mat-checkbox-label\"><ng-content></ng-content></span></label>",
+            template: "<label class=\"mat-checkbox-layout\" #label><div class=\"mat-checkbox-inner-container\"><input #input class=\"mat-checkbox-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [value]=\"value\" [disabled]=\"disabled\" [name]=\"name\" [tabIndex]=\"tabIndex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (blur)=\"_onInputBlur()\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"><div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"mat-checkbox-ripple\" [mdRippleTrigger]=\"label\" [mdRippleCentered]=\"true\"></div><div class=\"mat-checkbox-frame\"></div><div class=\"mat-checkbox-background\"><svg version=\"1.1\" class=\"mat-checkbox-checkmark\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"><path class=\"mat-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/></svg><div class=\"mat-checkbox-mixedmark\"></div></div></div><span class=\"mat-checkbox-label\"><ng-content></ng-content></span></label>",
             styles: [".mat-checkbox-frame,.mat-checkbox-unchecked .mat-checkbox-background{background-color:transparent}@keyframes mat-checkbox-fade-in-background{0%{opacity:0}50%{opacity:1}}@keyframes mat-checkbox-fade-out-background{0%,50%{opacity:1}100%{opacity:0}}@keyframes mat-checkbox-unchecked-checked-checkmark-path{0%,50%{stroke-dashoffset:22.91026}50%{animation-timing-function:cubic-bezier(0,0,.2,.1)}100%{stroke-dashoffset:0}}@keyframes mat-checkbox-unchecked-indeterminate-mixedmark{0%,68.2%{transform:scaleX(0)}68.2%{animation-timing-function:cubic-bezier(0,0,0,1)}100%{transform:scaleX(1)}}@keyframes mat-checkbox-checked-unchecked-checkmark-path{from{animation-timing-function:cubic-bezier(.4,0,1,1);stroke-dashoffset:0}to{stroke-dashoffset:-22.91026}}@keyframes mat-checkbox-checked-indeterminate-checkmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(45deg)}}@keyframes mat-checkbox-indeterminate-checked-checkmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:0;transform:rotate(45deg)}to{opacity:1;transform:rotate(360deg)}}@keyframes mat-checkbox-checked-indeterminate-mixedmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:0;transform:rotate(-45deg)}to{opacity:1;transform:rotate(0)}}@keyframes mat-checkbox-indeterminate-checked-mixedmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(315deg)}}@keyframes mat-checkbox-indeterminate-unchecked-mixedmark{0%{animation-timing-function:linear;opacity:1;transform:scaleX(1)}100%,32.8%{opacity:0;transform:scaleX(0)}}.mat-checkbox-background,.mat-checkbox-checkmark,.mat-checkbox-frame{bottom:0;left:0;position:absolute;right:0;top:0}.mat-checkbox-checkmark,.mat-checkbox-mixedmark{width:calc(100% - 4px)}.mat-checkbox-background,.mat-checkbox-frame{border-radius:2px;box-sizing:border-box;pointer-events:none}.mat-checkbox{font-family:Roboto,\"Helvetica Neue\",sans-serif;transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-checkbox-label{cursor:pointer}.mat-checkbox-layout{cursor:inherit;align-items:baseline;vertical-align:middle;display:inline-flex}.mat-checkbox-inner-container{display:inline-block;height:20px;line-height:0;margin:auto 8px auto auto;order:0;position:relative;vertical-align:middle;white-space:nowrap;width:20px;flex-shrink:0}[dir=rtl] .mat-checkbox-inner-container{margin-left:8px;margin-right:auto}.mat-checkbox-layout .mat-checkbox-label{line-height:24px}.mat-checkbox-frame{transition:border-color 90ms cubic-bezier(0,0,.2,.1);border-width:2px;border-style:solid}.mat-checkbox-background{align-items:center;display:inline-flex;justify-content:center;transition:background-color 90ms cubic-bezier(0,0,.2,.1),opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-checkbox-checkmark{width:100%}.mat-checkbox-checkmark-path{stroke-dashoffset:22.91026;stroke-dasharray:22.91026;stroke-width:2.67px}.mat-checkbox-checked .mat-checkbox-checkmark-path,.mat-checkbox-indeterminate .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-mixedmark{height:2px;opacity:0;transform:scaleX(0) rotate(0)}.mat-checkbox-label-before .mat-checkbox-inner-container{order:1;margin-left:8px;margin-right:auto}[dir=rtl] .mat-checkbox-label-before .mat-checkbox-inner-container{margin-left:auto;margin-right:8px}.mat-checkbox-checked .mat-checkbox-checkmark{opacity:1}.mat-checkbox-checked .mat-checkbox-mixedmark{transform:scaleX(1) rotate(-45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark{opacity:0;transform:rotate(45deg)}.mat-checkbox-indeterminate .mat-checkbox-mixedmark{opacity:1;transform:scaleX(1) rotate(0)}.mat-checkbox-disabled{cursor:default}.mat-checkbox-anim-unchecked-checked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-checked .mat-checkbox-checkmark-path{animation:180ms linear 0s mat-checkbox-unchecked-checked-checkmark-path}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-unchecked-indeterminate-mixedmark}.mat-checkbox-anim-checked-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-checked-unchecked .mat-checkbox-checkmark-path{animation:90ms linear 0s mat-checkbox-checked-unchecked-checkmark-path}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-checkmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-checkmark}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-mixedmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-checkmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-checkmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-mixedmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-mixedmark}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-mixedmark{animation:.3s linear 0s mat-checkbox-indeterminate-unchecked-mixedmark}.mat-checkbox-input{bottom:0;left:50%}.mat-checkbox-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none}"],
             host: {
                 '[class.mat-checkbox]': 'true',
@@ -5593,13 +5625,12 @@ var MdCheckbox = (function () {
                 '[class.mat-checkbox-checked]': 'checked',
                 '[class.mat-checkbox-disabled]': 'disabled',
                 '[class.mat-checkbox-label-before]': 'labelPosition == "before"',
-                '[class.mat-checkbox-focused]': '_hasFocus',
             },
             providers: [MD_CHECKBOX_CONTROL_VALUE_ACCESSOR],
             encapsulation: _angular_core.ViewEncapsulation.None,
             changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
         }), 
-        __metadata$34('design:paramtypes', [_angular_core.Renderer, _angular_core.ElementRef, _angular_core.ChangeDetectorRef])
+        __metadata$34('design:paramtypes', [_angular_core.Renderer, _angular_core.ElementRef, _angular_core.ChangeDetectorRef, FocusOriginMonitor])
     ], MdCheckbox);
     return MdCheckbox;
 }());
@@ -5618,6 +5649,7 @@ var MdCheckboxModule = (function () {
             imports: [_angular_common.CommonModule, MdRippleModule, CompatibilityModule],
             exports: [MdCheckbox, CompatibilityModule],
             declarations: [MdCheckbox],
+            providers: [FocusOriginMonitor]
         }), 
         __metadata$34('design:paramtypes', [])
     ], MdCheckboxModule);
@@ -5633,7 +5665,7 @@ var __decorate$35 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$35 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$5 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$6 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 /**
@@ -6157,7 +6189,7 @@ var MdRadioButton = (function () {
                 '[attr.id]': 'id',
             }
         }),
-        __param$5(0, _angular_core.Optional()), 
+        __param$6(0, _angular_core.Optional()), 
         __metadata$35('design:paramtypes', [MdRadioGroup, _angular_core.ElementRef, _angular_core.Renderer, FocusOriginMonitor, UniqueSelectionDispatcher])
     ], MdRadioButton);
     return MdRadioButton;
@@ -6441,7 +6473,7 @@ var __decorate$37 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$37 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$6 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$7 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 /**
@@ -7084,9 +7116,9 @@ var MdSelect = (function () {
             ],
             exportAs: 'mdSelect',
         }),
-        __param$6(4, _angular_core.Optional()),
-        __param$6(5, _angular_core.Self()),
-        __param$6(5, _angular_core.Optional()), 
+        __param$7(4, _angular_core.Optional()),
+        __param$7(5, _angular_core.Self()),
+        __param$7(5, _angular_core.Optional()), 
         __metadata$37('design:paramtypes', [_angular_core.ElementRef, _angular_core.Renderer, ViewportRuler, _angular_core.ChangeDetectorRef, Dir, _angular_forms.NgControl])
     ], MdSelect);
     return MdSelect;
@@ -7500,7 +7532,7 @@ var __decorate$39 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$39 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$7 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$8 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 /**
@@ -8143,7 +8175,7 @@ var MdSlider = (function () {
             styles: [".mat-slider-track-background,.mat-slider-track-fill{transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider{display:inline-block;position:relative;box-sizing:border-box;padding:8px;outline:0;vertical-align:middle}.mat-slider-wrapper{position:absolute}.mat-slider-track-wrapper{position:absolute;top:0;left:0;overflow:hidden}.mat-slider-track-fill{position:absolute;transform-origin:0 0}.mat-slider-track-background{position:absolute;transform-origin:100% 100%}.mat-slider-ticks-container{position:absolute;left:0;top:0;overflow:hidden}.mat-slider-ticks{box-sizing:border-box;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-disabled .mat-slider-ticks{opacity:0}.mat-slider-thumb-container{position:absolute;z-index:1;transition:transform .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb{position:absolute;right:-10px;bottom:-10px;box-sizing:border-box;width:20px;height:20px;border:3px solid transparent;border-radius:50%;transform:scale(.7);transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),border-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-label{display:none;align-items:center;justify-content:center;position:absolute;width:28px;height:28px;border-radius:50%;transition:transform .4s cubic-bezier(.25,.8,.25,1),border-radius .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-label-text{z-index:1;font-size:12px;font-weight:700;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-sliding .mat-slider-thumb-container,.mat-slider-sliding .mat-slider-track-background,.mat-slider-sliding .mat-slider-track-fill{transition-duration:0s}.mat-slider-has-ticks .mat-slider-wrapper::after{content:'';position:absolute;border:0 solid rgba(0,0,0,.6);opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-active .mat-slider-thumb-label-text,.mat-slider-has-ticks.mat-slider-active .mat-slider-ticks,.mat-slider-has-ticks.mat-slider-active:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after,.mat-slider-has-ticks:hover .mat-slider-ticks,.mat-slider-has-ticks:hover:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after{opacity:1}.mat-slider-thumb-label-showing .mat-slider-thumb-label{display:flex}.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:100% 100%}.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:0 0}.mat-slider-active .mat-slider-thumb{border-width:2px;transform:scale(1)}.mat-slider-active.mat-slider-thumb-label-showing .mat-slider-thumb{transform:scale(0)}.mat-slider-active .mat-slider-thumb-label{border-radius:50% 50% 0}.mat-slider-disabled .mat-slider-thumb{border-width:4px;transform:scale(.5)}.mat-slider-disabled .mat-slider-thumb-label{display:none}.mat-slider-horizontal{height:48px;min-width:128px}.mat-slider-horizontal .mat-slider-wrapper{height:2px;top:23px;left:8px;right:8px}.mat-slider-horizontal .mat-slider-wrapper::after{height:2px;border-left-width:2px;right:0;top:0}.mat-slider-horizontal .mat-slider-track-wrapper{height:2px;width:100%}.mat-slider-horizontal .mat-slider-track-fill{height:2px;width:100%;transform:scaleX(0)}.mat-slider-horizontal .mat-slider-track-background{height:2px;width:100%;transform:scaleX(1)}.mat-slider-horizontal .mat-slider-ticks-container{height:2px;width:100%}.mat-slider-horizontal .mat-slider-ticks{background:repeating-linear-gradient(to right,rgba(0,0,0,.6),rgba(0,0,0,.6) 2px,transparent 0,transparent);background:-moz-repeating-linear-gradient(.0001deg,rgba(0,0,0,.6),rgba(0,0,0,.6) 2px,transparent 0,transparent);background-clip:content-box;height:2px;width:100%}.mat-slider-horizontal .mat-slider-thumb-container{width:100%;height:0;top:50%}.mat-slider-horizontal .mat-slider-thumb-label{right:-14px;top:-40px;transform:translateY(26px) scale(.01) rotate(45deg)}.mat-slider-horizontal .mat-slider-thumb-label-text{transform:rotate(-45deg)}.mat-slider-horizontal.mat-slider-active .mat-slider-thumb-label{transform:rotate(45deg)}.mat-slider-vertical{width:48px;min-height:128px}.mat-slider-vertical .mat-slider-wrapper{width:2px;top:8px;bottom:8px;left:23px}.mat-slider-vertical .mat-slider-wrapper::after{width:2px;border-top-width:2px;bottom:0;left:0}.mat-slider-vertical .mat-slider-track-wrapper{height:100%;width:2px}.mat-slider-vertical .mat-slider-track-fill{height:100%;width:2px;transform:scaleY(0)}.mat-slider-vertical .mat-slider-track-background{height:100%;width:2px;transform:scaleY(1)}.mat-slider-vertical .mat-slider-ticks-container{width:2px;height:100%}.mat-slider-vertical .mat-slider-ticks{background:repeating-linear-gradient(to bottom,rgba(0,0,0,.6),rgba(0,0,0,.6) 2px,transparent 0,transparent);background-clip:content-box;width:2px;height:100%}.mat-slider-vertical .mat-slider-thumb-container{height:100%;width:0;left:50%}.mat-slider-vertical .mat-slider-thumb-label{bottom:-14px;left:-40px;transform:translateX(26px) scale(.01) rotate(-45deg)}.mat-slider-vertical .mat-slider-thumb-label-text{transform:rotate(45deg)}.mat-slider-vertical.mat-slider-active .mat-slider-thumb-label{transform:rotate(-45deg)}[dir=rtl] .mat-slider-wrapper::after{left:0;right:auto}[dir=rtl] .mat-slider-horizontal .mat-slider-track-fill{transform-origin:100% 100%}[dir=rtl] .mat-slider-horizontal .mat-slider-track-background,[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:100% 100%}"],
             encapsulation: _angular_core.ViewEncapsulation.None,
         }),
-        __param$7(0, _angular_core.Optional()), 
+        __param$8(0, _angular_core.Optional()), 
         __metadata$39('design:paramtypes', [Dir, _angular_core.ElementRef])
     ], MdSlider);
     return MdSlider;
@@ -8210,7 +8242,7 @@ var __decorate$40 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$40 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$8 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$9 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 /** Exception thrown when two MdSidenav are matching the same side. */
@@ -8738,7 +8770,7 @@ var MdSidenavContainer = (function () {
             },
             encapsulation: _angular_core.ViewEncapsulation.None,
         }),
-        __param$8(0, _angular_core.Optional()), 
+        __param$9(0, _angular_core.Optional()), 
         __metadata$40('design:paramtypes', [Dir, _angular_core.ElementRef, _angular_core.Renderer, _angular_core.NgZone])
     ], MdSidenavContainer);
     return MdSidenavContainer;
@@ -9516,7 +9548,7 @@ var __decorate$42 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$42 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$9 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$10 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 // TODO(kara): Conditional (responsive) column count / row size.
@@ -9634,7 +9666,7 @@ var MdGridList = (function () {
             },
             encapsulation: _angular_core.ViewEncapsulation.None,
         }),
-        __param$9(2, _angular_core.Optional()), 
+        __param$10(2, _angular_core.Optional()), 
         __metadata$42('design:paramtypes', [_angular_core.Renderer, _angular_core.ElementRef, Dir])
     ], MdGridList);
     return MdGridList;
@@ -11607,7 +11639,7 @@ var __decorate$52 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$52 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$10 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$11 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 // Invalid input type. Using one of these will throw an MdInputContainerUnsupportedTypeError.
@@ -11843,7 +11875,7 @@ var MdInputDirective = (function () {
                 '(input)': '_onInput()',
             }
         }),
-        __param$10(2, _angular_core.Optional()), 
+        __param$11(2, _angular_core.Optional()), 
         __metadata$52('design:paramtypes', [_angular_core.ElementRef, _angular_core.Renderer, _angular_forms.NgControl])
     ], MdInputDirective);
     return MdInputDirective;
@@ -12507,7 +12539,7 @@ var __decorate$55 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$55 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$11 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$12 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 /**
@@ -12630,8 +12662,8 @@ var MdSnackBar = (function () {
     };
     MdSnackBar = __decorate$55([
         _angular_core.Injectable(),
-        __param$11(2, _angular_core.Optional()),
-        __param$11(2, _angular_core.SkipSelf()), 
+        __param$12(2, _angular_core.Optional()),
+        __param$12(2, _angular_core.SkipSelf()), 
         __metadata$55('design:paramtypes', [Overlay, LiveAnnouncer, MdSnackBar])
     ], MdSnackBar);
     return MdSnackBar;
@@ -12907,8 +12939,8 @@ var MdTabLink = (function () {
  */
 var MdTabLinkRipple = (function (_super) {
     __extends$19(MdTabLinkRipple, _super);
-    function MdTabLinkRipple(elementRef, ngZone, ruler) {
-        _super.call(this, elementRef, ngZone, ruler);
+    function MdTabLinkRipple() {
+        _super.apply(this, arguments);
     }
     MdTabLinkRipple = __decorate$61([
         _angular_core.Directive({
@@ -12917,7 +12949,7 @@ var MdTabLinkRipple = (function (_super) {
                 '[class.mat-tab-link]': 'true',
             },
         }), 
-        __metadata$61('design:paramtypes', [_angular_core.ElementRef, _angular_core.NgZone, ViewportRuler])
+        __metadata$61('design:paramtypes', [])
     ], MdTabLinkRipple);
     return MdTabLinkRipple;
 }(MdRipple));
@@ -13000,7 +13032,7 @@ var __decorate$64 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$64 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$12 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$13 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 /**
@@ -13165,7 +13197,7 @@ var MdTabBody = (function () {
                 ])
             ]
         }),
-        __param$12(0, _angular_core.Optional()), 
+        __param$13(0, _angular_core.Optional()), 
         __metadata$64('design:paramtypes', [Dir, _angular_core.ElementRef, _angular_core.ChangeDetectorRef])
     ], MdTabBody);
     return MdTabBody;
@@ -13180,7 +13212,7 @@ var __decorate$65 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$65 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$13 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$14 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 /**
@@ -13521,7 +13553,7 @@ var MdTabHeader = (function () {
                 '[class.mat-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
             }
         }),
-        __param$13(2, _angular_core.Optional()), 
+        __param$14(2, _angular_core.Optional()), 
         __metadata$65('design:paramtypes', [_angular_core.NgZone, _angular_core.ElementRef, Dir])
     ], MdTabHeader);
     return MdTabHeader;
@@ -13876,7 +13908,7 @@ var __decorate$67 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$67 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$14 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$15 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 /** Time in ms to delay before changing the tooltip visibility to hidden */
@@ -14168,7 +14200,7 @@ var MdTooltip = (function () {
             },
             exportAs: 'mdTooltip',
         }),
-        __param$14(7, _angular_core.Optional()), 
+        __param$15(7, _angular_core.Optional()), 
         __metadata$67('design:paramtypes', [Overlay, _angular_core.ElementRef, ScrollDispatcher, _angular_core.ViewContainerRef, _angular_core.NgZone, _angular_core.Renderer, Platform, Dir])
     ], MdTooltip);
     return MdTooltip;
@@ -14303,7 +14335,7 @@ var TooltipComponent = (function () {
                 '(body:click)': 'this._handleBodyInteraction()'
             }
         }),
-        __param$14(0, _angular_core.Optional()), 
+        __param$15(0, _angular_core.Optional()), 
         __metadata$67('design:paramtypes', [Dir, _angular_core.ChangeDetectorRef])
     ], TooltipComponent);
     return TooltipComponent;
@@ -14498,7 +14530,7 @@ var __decorate$69 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$69 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$15 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$16 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 var MdMenu = (function () {
@@ -14616,8 +14648,8 @@ var MdMenu = (function () {
             ],
             exportAs: 'mdMenu'
         }),
-        __param$15(0, _angular_core.Attribute('x-position')),
-        __param$15(1, _angular_core.Attribute('y-position')), 
+        __param$16(0, _angular_core.Attribute('x-position')),
+        __param$16(1, _angular_core.Attribute('y-position')), 
         __metadata$69('design:paramtypes', [String, String])
     ], MdMenu);
     return MdMenu;
@@ -14632,7 +14664,7 @@ var __decorate$71 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$71 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$16 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$17 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 /**
@@ -14891,7 +14923,7 @@ var MdMenuTrigger = (function () {
             },
             exportAs: 'mdMenuTrigger'
         }),
-        __param$16(4, _angular_core.Optional()), 
+        __param$17(4, _angular_core.Optional()), 
         __metadata$71('design:paramtypes', [Overlay, _angular_core.ElementRef, _angular_core.ViewContainerRef, _angular_core.Renderer, Dir])
     ], MdMenuTrigger);
     return MdMenuTrigger;
@@ -15167,7 +15199,7 @@ var __decorate$73 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$73 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$17 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$18 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 /**
@@ -15353,8 +15385,8 @@ var MdDialog = (function () {
     };
     MdDialog = __decorate$73([
         _angular_core.Injectable(),
-        __param$17(2, _angular_core.Optional()),
-        __param$17(2, _angular_core.SkipSelf()), 
+        __param$18(2, _angular_core.Optional()),
+        __param$18(2, _angular_core.SkipSelf()), 
         __metadata$73('design:paramtypes', [Overlay, _angular_core.Injector, MdDialog])
     ], MdDialog);
     return MdDialog;
@@ -15624,7 +15656,7 @@ var __decorate$78 = (this && this.__decorate) || function (decorators, target, k
 var __metadata$78 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param$18 = (this && this.__param) || function (paramIndex, decorator) {
+var __param$19 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 /**
@@ -15933,9 +15965,9 @@ var MdAutocompleteTrigger = (function () {
             },
             providers: [MD_AUTOCOMPLETE_VALUE_ACCESSOR]
         }),
-        __param$18(3, _angular_core.Optional()),
-        __param$18(5, _angular_core.Optional()),
-        __param$18(5, _angular_core.Host()), 
+        __param$19(3, _angular_core.Optional()),
+        __param$19(5, _angular_core.Optional()),
+        __param$19(5, _angular_core.Host()), 
         __metadata$78('design:paramtypes', [_angular_core.ElementRef, Overlay, _angular_core.ViewContainerRef, Dir, _angular_core.NgZone, MdInputContainer])
     ], MdAutocompleteTrigger);
     return MdAutocompleteTrigger;
@@ -16135,6 +16167,7 @@ exports.ScrollableViewProperties = ScrollableViewProperties;
 exports.ConnectedOverlayPositionChange = ConnectedOverlayPositionChange;
 exports.MdRippleModule = MdRippleModule;
 exports.MdRipple = MdRipple;
+exports.MD_DISABLE_RIPPLES = MD_DISABLE_RIPPLES;
 exports.RippleRef = RippleRef;
 exports.SelectionModel = SelectionModel;
 exports.SelectionChange = SelectionChange;

@@ -1,8 +1,11 @@
-import { ElementRef, NgZone, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { ElementRef, NgZone, OnChanges, SimpleChanges, OnDestroy, OpaqueToken } from '@angular/core';
 import { RippleConfig } from './ripple-renderer';
 import { ViewportRuler } from '../overlay/position/viewport-ruler';
 import { RippleRef } from './ripple-ref';
+/** OpaqueToken that can be used to globally disable all ripples. Except programmatic ones. */
+export declare const MD_DISABLE_RIPPLES: OpaqueToken;
 export declare class MdRipple implements OnChanges, OnDestroy {
+    private _forceDisableRipples;
     /**
      * The element that triggers the ripple when click events are received. Defaults to the
      * directive's host element.
@@ -36,7 +39,7 @@ export declare class MdRipple implements OnChanges, OnDestroy {
     unbounded: boolean;
     /** Renderer for the ripple DOM manipulations. */
     private _rippleRenderer;
-    constructor(elementRef: ElementRef, ngZone: NgZone, ruler: ViewportRuler);
+    constructor(elementRef: ElementRef, ngZone: NgZone, ruler: ViewportRuler, _forceDisableRipples: boolean);
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     /** Launches a manual ripple at the specified position. */
