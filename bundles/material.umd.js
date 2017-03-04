@@ -5886,12 +5886,13 @@ var MdRadioGroup = (function () {
  * A radio-button. May be inside of
  */
 var MdRadioButton = (function () {
-    function MdRadioButton(radioGroup, _elementRef, _renderer, radioDispatcher) {
+    function MdRadioButton(radioGroup, _elementRef, _renderer, _focusOriginMonitor, radioDispatcher) {
         // Assertions. Ideally these should be stripped out by the compiler.
         // TODO(jelbourn): Assert that there's no name binding AND a parent radio group.
         var _this = this;
         this._elementRef = _elementRef;
         this._renderer = _renderer;
+        this._focusOriginMonitor = _focusOriginMonitor;
         this.radioDispatcher = radioDispatcher;
         /** Whether this radio is checked. */
         this._checked = false;
@@ -6021,6 +6022,23 @@ var MdRadioButton = (function () {
             this.name = this.radioGroup.name;
         }
     };
+    MdRadioButton.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        this._focusOriginMonitorSubscription = this._focusOriginMonitor
+            .monitor(this._inputElement.nativeElement, this._renderer, false)
+            .subscribe(function (focusOrigin) {
+            if (focusOrigin === 'keyboard' && !_this._focusedRippleRef) {
+                _this._focusedRippleRef = _this._ripple.launch(0, 0, { persistent: true, centered: true });
+            }
+        });
+    };
+    MdRadioButton.prototype.ngOnDestroy = function () {
+        this._focusOriginMonitor.unmonitor(this._inputElement.nativeElement);
+        if (this._focusOriginMonitorSubscription) {
+            this._focusOriginMonitorSubscription.unsubscribe();
+            this._focusOriginMonitorSubscription = null;
+        }
+    };
     /** Dispatch change event with current value. */
     MdRadioButton.prototype._emitChangeEvent = function () {
         var event = new MdRadioChange();
@@ -6031,21 +6049,15 @@ var MdRadioButton = (function () {
     MdRadioButton.prototype._isRippleDisabled = function () {
         return this.disableRipple || this.disabled;
     };
-    /**
-     * We use a hidden native input field to handle changes to focus state via keyboard navigation,
-     * with visual rendering done separately. The native element is kept in sync with the overall
-     * state of the component.
-     */
-    MdRadioButton.prototype._onInputFocus = function () {
-        this._isFocused = true;
-    };
     /** Focuses the radio button. */
     MdRadioButton.prototype.focus = function () {
-        this._renderer.invokeElementMethod(this._inputElement.nativeElement, 'focus');
-        this._onInputFocus();
+        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, this._renderer, 'keyboard');
     };
     MdRadioButton.prototype._onInputBlur = function () {
-        this._isFocused = false;
+        if (this._focusedRippleRef) {
+            this._focusedRippleRef.fadeOut();
+            this._focusedRippleRef = null;
+        }
         if (this.radioGroup) {
             this.radioGroup._touch();
         }
@@ -6081,11 +6093,6 @@ var MdRadioButton = (function () {
         }
     };
     __decorate$35([
-        _angular_core.HostBinding('class.mat-radio-focused'), 
-        __metadata$35('design:type', Boolean)
-    ], MdRadioButton.prototype, "_isFocused", void 0);
-    __decorate$35([
-        _angular_core.HostBinding('id'),
         _angular_core.Input(), 
         __metadata$35('design:type', String)
     ], MdRadioButton.prototype, "id", void 0);
@@ -6102,6 +6109,10 @@ var MdRadioButton = (function () {
         __metadata$35('design:type', String)
     ], MdRadioButton.prototype, "ariaLabelledby", void 0);
     __decorate$35([
+        _angular_core.ViewChild(MdRipple), 
+        __metadata$35('design:type', MdRipple)
+    ], MdRadioButton.prototype, "_ripple", void 0);
+    __decorate$35([
         _angular_core.Input(), 
         __metadata$35('design:type', Boolean)
     ], MdRadioButton.prototype, "disableRipple", null);
@@ -6114,7 +6125,6 @@ var MdRadioButton = (function () {
         __metadata$35('design:type', _angular_core.ElementRef)
     ], MdRadioButton.prototype, "_inputElement", void 0);
     __decorate$35([
-        _angular_core.HostBinding('class.mat-radio-checked'),
         _angular_core.Input(), 
         __metadata$35('design:type', Boolean)
     ], MdRadioButton.prototype, "checked", null);
@@ -6131,21 +6141,23 @@ var MdRadioButton = (function () {
         __metadata$35('design:type', Object)
     ], MdRadioButton.prototype, "labelPosition", null);
     __decorate$35([
-        _angular_core.HostBinding('class.mat-radio-disabled'),
         _angular_core.Input(), 
         __metadata$35('design:type', Boolean)
     ], MdRadioButton.prototype, "disabled", null);
     MdRadioButton = __decorate$35([
         _angular_core.Component({selector: 'md-radio-button, mat-radio-button',
-            template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"mat-radio-ripple\" [mdRippleTrigger]=\"label\" [mdRippleCentered]=\"true\"></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (focus)=\"_onInputFocus()\" (blur)=\"_onInputBlur()\" (click)=\"_onInputClick($event)\"><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><ng-content></ng-content></div></label>",
+            template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"mat-radio-ripple\" [mdRippleTrigger]=\"label\" [mdRippleCentered]=\"true\"></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (blur)=\"_onInputBlur()\" (click)=\"_onInputClick($event)\"><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><ng-content></ng-content></div></label>",
             styles: [".mat-radio-button{display:inline-block;font-family:Roboto,\"Helvetica Neue\",sans-serif}.mat-radio-label{cursor:pointer;display:inline-flex;align-items:baseline;white-space:nowrap}.mat-radio-container{box-sizing:border-box;display:inline-block;height:20px;position:relative;width:20px;top:2px}.mat-radio-inner-circle,.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;top:0;width:20px;position:absolute;border-radius:50%}.mat-radio-outer-circle{transition:border-color ease 280ms;border-width:2px;border-style:solid}.mat-radio-inner-circle{transition:transform ease 280ms,background-color ease 280ms;transform:scale(0)}.mat-radio-checked .mat-radio-inner-circle{transform:scale(.5)}.mat-radio-label-content{display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none}"],
             encapsulation: _angular_core.ViewEncapsulation.None,
             host: {
                 '[class.mat-radio-button]': 'true',
+                '[class.mat-radio-checked]': 'checked',
+                '[class.mat-radio-disabled]': 'disabled',
+                '[attr.id]': 'id',
             }
         }),
         __param$5(0, _angular_core.Optional()), 
-        __metadata$35('design:paramtypes', [MdRadioGroup, _angular_core.ElementRef, _angular_core.Renderer, UniqueSelectionDispatcher])
+        __metadata$35('design:paramtypes', [MdRadioGroup, _angular_core.ElementRef, _angular_core.Renderer, FocusOriginMonitor, UniqueSelectionDispatcher])
     ], MdRadioButton);
     return MdRadioButton;
 }());
@@ -6163,7 +6175,7 @@ var MdRadioModule = (function () {
         _angular_core.NgModule({
             imports: [_angular_common.CommonModule, MdRippleModule, CompatibilityModule],
             exports: [MdRadioGroup, MdRadioButton, CompatibilityModule],
-            providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, VIEWPORT_RULER_PROVIDER],
+            providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, VIEWPORT_RULER_PROVIDER, FocusOriginMonitor],
             declarations: [MdRadioGroup, MdRadioButton],
         }), 
         __metadata$35('design:paramtypes', [])
