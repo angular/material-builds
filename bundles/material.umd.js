@@ -3096,12 +3096,10 @@ var FocusTrap = (function () {
             this._endAnchor = this._createAnchor();
         }
         this._ngZone.runOutsideAngular(function () {
-            _this._element
-                .insertAdjacentElement('beforebegin', _this._startAnchor)
-                .addEventListener('focus', function () { return _this.focusLastTabbableElement(); });
-            _this._element
-                .insertAdjacentElement('afterend', _this._endAnchor)
-                .addEventListener('focus', function () { return _this.focusFirstTabbableElement(); });
+            _this._startAnchor.addEventListener('focus', function () { return _this.focusLastTabbableElement(); });
+            _this._endAnchor.addEventListener('focus', function () { return _this.focusFirstTabbableElement(); });
+            _this._element.parentNode.insertBefore(_this._startAnchor, _this._element);
+            _this._element.parentNode.insertBefore(_this._endAnchor, _this._element.nextSibling);
         });
     };
     /**
