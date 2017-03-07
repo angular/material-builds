@@ -14588,34 +14588,35 @@ var MdMenuItem = (function () {
     function MdMenuItem(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
+        /** Whether the menu item is disabled */
+        this._disabled = false;
     }
+    /** Focuses the menu item. */
     MdMenuItem.prototype.focus = function () {
-        this._renderer.invokeElementMethod(this._elementRef.nativeElement, 'focus');
+        this._renderer.invokeElementMethod(this._getHostElement(), 'focus');
     };
     Object.defineProperty(MdMenuItem.prototype, "disabled", {
-        // this is necessary to support anchors
         /** Whether the menu item is disabled. */
         get: function () { return this._disabled; },
         set: function (value) {
-            this._disabled = (value === false || value === undefined) ? null : true;
+            this._disabled = coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdMenuItem.prototype, "isAriaDisabled", {
-        /** Sets the aria-disabled property on the menu item. */
-        get: function () { return String(!!this.disabled); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdMenuItem.prototype, "_tabindex", {
-        get: function () { return this.disabled ? '-1' : '0'; },
-        enumerable: true,
-        configurable: true
-    });
+    /** Used to set the `tabindex`. */
+    MdMenuItem.prototype._getTabIndex = function () {
+        return this._disabled ? '-1' : '0';
+    };
+    /** Used to set the HTML `disabled` attribute. Necessary for links to be disabled properly. */
+    MdMenuItem.prototype._getDisabledAttr = function () {
+        return this._disabled ? true : null;
+    };
+    /** Returns the host DOM element. */
     MdMenuItem.prototype._getHostElement = function () {
         return this._elementRef.nativeElement;
     };
+    /** Prevents the default element actions if it is disabled. */
     MdMenuItem.prototype._checkDisabled = function (event) {
         if (this.disabled) {
             event.preventDefault();
@@ -14623,21 +14624,18 @@ var MdMenuItem = (function () {
         }
     };
     __decorate$87([
-        _angular_core.HostBinding('attr.disabled'),
         _angular_core.Input(), 
-        __metadata$87('design:type', Boolean)
+        __metadata$87('design:type', Object)
     ], MdMenuItem.prototype, "disabled", null);
-    __decorate$87([
-        _angular_core.HostBinding('attr.aria-disabled'), 
-        __metadata$87('design:type', String)
-    ], MdMenuItem.prototype, "isAriaDisabled", null);
     MdMenuItem = __decorate$87([
         _angular_core.Component({selector: '[md-menu-item], [mat-menu-item]',
             host: {
                 'role': 'menuitem',
                 '[class.mat-menu-item]': 'true',
+                '[attr.tabindex]': '_getTabIndex()',
+                '[attr.aria-disabled]': 'disabled.toString()',
+                '[attr.disabled]': '_getDisabledAttr()',
                 '(click)': '_checkDisabled($event)',
-                '[attr.tabindex]': '_tabindex'
             },
             template: "<ng-content></ng-content><div class=\"mat-menu-ripple\" *ngIf=\"!disabled\" md-ripple [mdRippleTrigger]=\"_getHostElement()\"></div>",
             exportAs: 'mdMenuItem'

@@ -7,14 +7,19 @@ import { Focusable } from '../core/a11y/focus-key-manager';
 export declare class MdMenuItem implements Focusable {
     private _renderer;
     private _elementRef;
-    _disabled: boolean;
+    /** Whether the menu item is disabled */
+    private _disabled;
     constructor(_renderer: Renderer, _elementRef: ElementRef);
+    /** Focuses the menu item. */
     focus(): void;
     /** Whether the menu item is disabled. */
-    disabled: boolean;
-    /** Sets the aria-disabled property on the menu item. */
-    readonly isAriaDisabled: string;
-    readonly _tabindex: string;
+    disabled: any;
+    /** Used to set the `tabindex`. */
+    _getTabIndex(): string;
+    /** Used to set the HTML `disabled` attribute. Necessary for links to be disabled properly. */
+    _getDisabledAttr(): boolean;
+    /** Returns the host DOM element. */
     _getHostElement(): HTMLElement;
+    /** Prevents the default element actions if it is disabled. */
     _checkDisabled(event: Event): void;
 }
