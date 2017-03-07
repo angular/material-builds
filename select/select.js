@@ -221,6 +221,7 @@ export var MdSelect = (function () {
     MdSelect.prototype.writeValue = function (value) {
         if (this.options) {
             this._setSelectionByValue(value);
+            this._changeDetectorRef.markForCheck();
         }
     };
     /**
@@ -330,9 +331,15 @@ export var MdSelect = (function () {
      * found with the designated value, the select trigger is cleared.
      */
     MdSelect.prototype._setSelectionByValue = function (value) {
-        var correspondingOption = this.options.find(function (option) { return option.value === value; });
-        correspondingOption ? correspondingOption.select() : this._clearSelection();
-        this._changeDetectorRef.markForCheck();
+        var options = this.options.toArray();
+        for (var i = 0; i < this.options.length; i++) {
+            if (options[i].value === value) {
+                options[i].select();
+                return;
+            }
+        }
+        // Clear selection if no item was selected.
+        this._clearSelection();
     };
     /** Clears the select trigger and deselects every option in the list. */
     MdSelect.prototype._clearSelection = function () {

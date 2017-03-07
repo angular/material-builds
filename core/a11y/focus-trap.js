@@ -113,13 +113,10 @@ export var FocusTrap = (function () {
         if (this._checker.isFocusable(root) && this._checker.isTabbable(root)) {
             return root;
         }
-        // Iterate in DOM order. Note that IE doesn't have `children` for SVG so we fall
-        // back to `childNodes` which includes text nodes, comments etc.
-        var children = root.children || root.childNodes;
-        for (var i = 0; i < children.length; i++) {
-            var tabbableChild = children[i].nodeType === Node.ELEMENT_NODE ?
-                this._getFirstTabbableElement(children[i]) :
-                null;
+        // Iterate in DOM order.
+        var childCount = root.children.length;
+        for (var i = 0; i < childCount; i++) {
+            var tabbableChild = this._getFirstTabbableElement(root.children[i]);
             if (tabbableChild) {
                 return tabbableChild;
             }
@@ -132,11 +129,8 @@ export var FocusTrap = (function () {
             return root;
         }
         // Iterate in reverse DOM order.
-        var children = root.children || root.childNodes;
-        for (var i = children.length - 1; i >= 0; i--) {
-            var tabbableChild = children[i].nodeType === Node.ELEMENT_NODE ?
-                this._getLastTabbableElement(children[i]) :
-                null;
+        for (var i = root.children.length - 1; i >= 0; i--) {
+            var tabbableChild = this._getLastTabbableElement(root.children[i]);
             if (tabbableChild) {
                 return tabbableChild;
             }

@@ -3145,13 +3145,10 @@ var FocusTrap = (function () {
         if (this._checker.isFocusable(root) && this._checker.isTabbable(root)) {
             return root;
         }
-        // Iterate in DOM order. Note that IE doesn't have `children` for SVG so we fall
-        // back to `childNodes` which includes text nodes, comments etc.
-        var children = root.children || root.childNodes;
-        for (var i = 0; i < children.length; i++) {
-            var tabbableChild = children[i].nodeType === Node.ELEMENT_NODE ?
-                this._getFirstTabbableElement(children[i]) :
-                null;
+        // Iterate in DOM order.
+        var childCount = root.children.length;
+        for (var i = 0; i < childCount; i++) {
+            var tabbableChild = this._getFirstTabbableElement(root.children[i]);
             if (tabbableChild) {
                 return tabbableChild;
             }
@@ -3164,11 +3161,8 @@ var FocusTrap = (function () {
             return root;
         }
         // Iterate in reverse DOM order.
-        var children = root.children || root.childNodes;
-        for (var i = children.length - 1; i >= 0; i--) {
-            var tabbableChild = children[i].nodeType === Node.ELEMENT_NODE ?
-                this._getLastTabbableElement(children[i]) :
-                null;
+        for (var i = root.children.length - 1; i >= 0; i--) {
+            var tabbableChild = this._getLastTabbableElement(root.children[i]);
             if (tabbableChild) {
                 return tabbableChild;
             }
@@ -6722,6 +6716,7 @@ var MdSelect = (function () {
     MdSelect.prototype.writeValue = function (value) {
         if (this.options) {
             this._setSelectionByValue(value);
+            this._changeDetectorRef.markForCheck();
         }
     };
     /**
@@ -6831,9 +6826,15 @@ var MdSelect = (function () {
      * found with the designated value, the select trigger is cleared.
      */
     MdSelect.prototype._setSelectionByValue = function (value) {
-        var correspondingOption = this.options.find(function (option) { return option.value === value; });
-        correspondingOption ? correspondingOption.select() : this._clearSelection();
-        this._changeDetectorRef.markForCheck();
+        var options = this.options.toArray();
+        for (var i = 0; i < this.options.length; i++) {
+            if (options[i].value === value) {
+                options[i].select();
+                return;
+            }
+        }
+        // Clear selection if no item was selected.
+        this._clearSelection();
     };
     /** Clears the select trigger and deselects every option in the list. */
     MdSelect.prototype._clearSelection = function () {
