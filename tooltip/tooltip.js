@@ -125,7 +125,7 @@ export var MdTooltip = (function () {
         var _this = this;
         // When a scroll on the page occurs, update the position in case this tooltip needs
         // to be repositioned.
-        this.scrollSubscription = this._scrollDispatcher.scrolled(SCROLL_THROTTLE_MS).subscribe(function () {
+        this.scrollSubscription = this._scrollDispatcher.scrolled(SCROLL_THROTTLE_MS, function () {
             if (_this._overlayRef) {
                 _this._overlayRef.updatePosition();
             }
