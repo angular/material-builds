@@ -17,7 +17,7 @@ import { MdMenuItem } from './menu-item';
 import { FocusKeyManager } from '../core/a11y/focus-key-manager';
 import { transformMenu, fadeInItems } from './menu-animations';
 export var MdMenu = (function () {
-    function MdMenu(posX, posY) {
+    function MdMenu(posX, posY, deprecatedPosX, deprecatedPosY) {
         /** Config object to be passed into the menu's ngClass */
         this._classList = {};
         /** Position of the menu in the X axis. */
@@ -27,6 +27,13 @@ export var MdMenu = (function () {
         this.overlapTrigger = true;
         /** Event emitted when the menu is closed. */
         this.close = new EventEmitter();
+        // TODO(kara): Remove kebab-case attributes after next release
+        if (deprecatedPosX) {
+            this._setPositionX(deprecatedPosX);
+        }
+        if (deprecatedPosY) {
+            this._setPositionY(deprecatedPosY);
+        }
         if (posX) {
             this._setPositionX(posX);
         }
@@ -43,7 +50,9 @@ export var MdMenu = (function () {
         });
     };
     MdMenu.prototype.ngOnDestroy = function () {
-        this._tabSubscription.unsubscribe();
+        if (this._tabSubscription) {
+            this._tabSubscription.unsubscribe();
+        }
     };
     Object.defineProperty(MdMenu.prototype, "classList", {
         /**
@@ -123,7 +132,7 @@ export var MdMenu = (function () {
         Component({selector: 'md-menu, mat-menu',
             host: { 'role': 'menu' },
             template: "<template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_keyManager.onKeydown($event)\" (click)=\"_emitCloseEvent()\" [@transformMenu]=\"'showing'\"><div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></template>",
-            styles: [".mat-menu-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh + 48px)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0;border:none;white-space:nowrap;overflow-x:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;font-size:16px;font-family:Roboto,\"Helvetica Neue\",sans-serif;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px}button.mat-menu-item{width:100%}.mat-menu-ripple{position:absolute;top:0;left:0;bottom:0;right:0}"],
+            styles: [".mat-menu-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh + 48px)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{cursor:pointer;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0;border:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;font-size:16px;font-family:Roboto,\"Helvetica Neue\",sans-serif;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px}button.mat-menu-item{width:100%}.mat-menu-ripple{position:absolute;top:0;left:0;bottom:0;right:0}"],
             encapsulation: ViewEncapsulation.None,
             animations: [
                 transformMenu,
@@ -131,9 +140,11 @@ export var MdMenu = (function () {
             ],
             exportAs: 'mdMenu'
         }),
-        __param(0, Attribute('x-position')),
-        __param(1, Attribute('y-position')), 
-        __metadata('design:paramtypes', [String, String])
+        __param(0, Attribute('xPosition')),
+        __param(1, Attribute('yPosition')),
+        __param(2, Attribute('x-position')),
+        __param(3, Attribute('y-position')), 
+        __metadata('design:paramtypes', [String, String, String, String])
     ], MdMenu);
     return MdMenu;
 }());

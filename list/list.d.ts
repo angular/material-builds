@@ -6,25 +6,37 @@ export declare class MdList {
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
+ * @docs-private
  */
 export declare class MdListCssMatStyler {
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
+ * @docs-private
  */
 export declare class MdNavListCssMatStyler {
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
+ * @docs-private
  */
 export declare class MdDividerCssMatStyler {
 }
+/**
+ * Directive whose purpose is to add the mat- CSS styling to this selector.
+ * @docs-private
+ */
 export declare class MdListAvatarCssMatStyler {
 }
+/**
+ * Directive whose purpose is to add the mat- CSS styling to this selector.
+ * @docs-private
+ */
 export declare class MdListIconCssMatStyler {
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
+ * @docs-private
  */
 export declare class MdListSubheaderCssMatStyler {
 }

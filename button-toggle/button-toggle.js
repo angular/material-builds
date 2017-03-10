@@ -53,18 +53,10 @@ export var MdButtonToggleGroup = (function () {
         this._controlValueAccessorChangeFn = function (value) { };
         /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
         this.onTouched = function () { };
-        /** Event emitted when the group's value changes. */
-        this._change = new EventEmitter();
         /** Child button toggle buttons. */
         this._buttonToggles = null;
+        this._change = new EventEmitter();
     }
-    Object.defineProperty(MdButtonToggleGroup.prototype, "change", {
-        get: function () {
-            return this._change.asObservable();
-        },
-        enumerable: true,
-        configurable: true
-    });
     MdButtonToggleGroup.prototype.ngAfterViewInit = function () {
         this._isInitialized = true;
     };
@@ -136,6 +128,14 @@ export var MdButtonToggleGroup = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdButtonToggleGroup.prototype, "change", {
+        /** Event emitted when the group's value changes. */
+        get: function () {
+            return this._change.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
     MdButtonToggleGroup.prototype._updateButtonToggleNames = function () {
         var _this = this;
         if (this._buttonToggles) {
@@ -200,10 +200,6 @@ export var MdButtonToggleGroup = (function () {
         this.disabled = isDisabled;
     };
     __decorate([
-        Output(), 
-        __metadata('design:type', Observable)
-    ], MdButtonToggleGroup.prototype, "change", null);
-    __decorate([
         ContentChildren(forwardRef(function () { return MdButtonToggle; })), 
         __metadata('design:type', QueryList)
     ], MdButtonToggleGroup.prototype, "_buttonToggles", void 0);
@@ -227,6 +223,10 @@ export var MdButtonToggleGroup = (function () {
         Input(), 
         __metadata('design:type', Object)
     ], MdButtonToggleGroup.prototype, "selected", null);
+    __decorate([
+        Output(), 
+        __metadata('design:type', Observable)
+    ], MdButtonToggleGroup.prototype, "change", null);
     MdButtonToggleGroup = __decorate([
         Directive({
             selector: 'md-button-toggle-group:not([multiple]), mat-button-toggle-group:not([multiple])',
@@ -295,9 +295,9 @@ export var MdButtonToggleGroupMultiple = (function () {
 }());
 /** Single button inside of a toggle group. */
 export var MdButtonToggle = (function () {
-    function MdButtonToggle(toggleGroup, toggleGroupMultiple, buttonToggleDispatcher, _renderer, _elementRef, _focusOriginMonitor) {
+    function MdButtonToggle(toggleGroup, toggleGroupMultiple, _buttonToggleDispatcher, _renderer, _elementRef, _focusOriginMonitor) {
         var _this = this;
-        this.buttonToggleDispatcher = buttonToggleDispatcher;
+        this._buttonToggleDispatcher = _buttonToggleDispatcher;
         this._renderer = _renderer;
         this._elementRef = _elementRef;
         this._focusOriginMonitor = _focusOriginMonitor;
@@ -314,7 +314,7 @@ export var MdButtonToggle = (function () {
         this.buttonToggleGroup = toggleGroup;
         this.buttonToggleGroupMultiple = toggleGroupMultiple;
         if (this.buttonToggleGroup) {
-            buttonToggleDispatcher.listen(function (id, name) {
+            _buttonToggleDispatcher.listen(function (id, name) {
                 if (id != _this.id && name == _this.name) {
                     _this.checked = false;
                 }
@@ -330,22 +330,6 @@ export var MdButtonToggle = (function () {
             this._isSingleSelector = false;
         }
     }
-    Object.defineProperty(MdButtonToggle.prototype, "change", {
-        get: function () {
-            return this._change.asObservable();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    MdButtonToggle.prototype.ngOnInit = function () {
-        if (this.id == null) {
-            this.id = "md-button-toggle-" + _uniqueIdCounter++;
-        }
-        if (this.buttonToggleGroup && this._value == this.buttonToggleGroup.value) {
-            this._checked = true;
-        }
-        this._focusOriginMonitor.monitor(this._elementRef.nativeElement, this._renderer, true);
-    };
     Object.defineProperty(MdButtonToggle.prototype, "inputId", {
         /** Unique ID for the underlying `input` element. */
         get: function () {
@@ -363,7 +347,7 @@ export var MdButtonToggle = (function () {
             if (this._isSingleSelector) {
                 if (newCheckedState) {
                     // Notify all button toggles with the same name (in the same group) to un-check.
-                    this.buttonToggleDispatcher.notify(this.id, this.name);
+                    this._buttonToggleDispatcher.notify(this.id, this.name);
                 }
             }
             this._checked = newCheckedState;
@@ -390,13 +374,6 @@ export var MdButtonToggle = (function () {
         enumerable: true,
         configurable: true
     });
-    /** Dispatch change event with current value. */
-    MdButtonToggle.prototype._emitChangeEvent = function () {
-        var event = new MdButtonToggleChange();
-        event.source = this;
-        event.value = this._value;
-        this._change.emit(event);
-    };
     Object.defineProperty(MdButtonToggle.prototype, "disabled", {
         /** Whether the button is disabled. */
         get: function () {
@@ -409,6 +386,26 @@ export var MdButtonToggle = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdButtonToggle.prototype, "change", {
+        get: function () {
+            return this._change.asObservable();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    MdButtonToggle.prototype.ngOnInit = function () {
+        if (this.id == null) {
+            this.id = "md-button-toggle-" + _uniqueIdCounter++;
+        }
+        if (this.buttonToggleGroup && this._value == this.buttonToggleGroup.value) {
+            this._checked = true;
+        }
+        this._focusOriginMonitor.monitor(this._elementRef.nativeElement, this._renderer, true);
+    };
+    /** Focuses the button. */
+    MdButtonToggle.prototype.focus = function () {
+        this._renderer.invokeElementMethod(this._inputElement.nativeElement, 'focus');
+    };
     /** Toggle the state of the current button toggle. */
     MdButtonToggle.prototype._toggle = function () {
         this.checked = !this.checked;
@@ -439,10 +436,17 @@ export var MdButtonToggle = (function () {
         // Preventing bubbling for the second event will solve that issue.
         event.stopPropagation();
     };
-    /** Focuses the button. */
-    MdButtonToggle.prototype.focus = function () {
-        this._renderer.invokeElementMethod(this._inputElement.nativeElement, 'focus');
+    /** Dispatch change event with current value. */
+    MdButtonToggle.prototype._emitChangeEvent = function () {
+        var event = new MdButtonToggleChange();
+        event.source = this;
+        event.value = this._value;
+        this._change.emit(event);
     };
+    __decorate([
+        ViewChild('input'), 
+        __metadata('design:type', ElementRef)
+    ], MdButtonToggle.prototype, "_inputElement", void 0);
     __decorate([
         HostBinding(),
         Input(), 
@@ -452,14 +456,6 @@ export var MdButtonToggle = (function () {
         Input(), 
         __metadata('design:type', String)
     ], MdButtonToggle.prototype, "name", void 0);
-    __decorate([
-        Output(), 
-        __metadata('design:type', Observable)
-    ], MdButtonToggle.prototype, "change", null);
-    __decorate([
-        ViewChild('input'), 
-        __metadata('design:type', ElementRef)
-    ], MdButtonToggle.prototype, "_inputElement", void 0);
     __decorate([
         HostBinding('class.mat-button-toggle-checked'),
         Input(), 
@@ -474,6 +470,10 @@ export var MdButtonToggle = (function () {
         Input(), 
         __metadata('design:type', Boolean)
     ], MdButtonToggle.prototype, "disabled", null);
+    __decorate([
+        Output(), 
+        __metadata('design:type', Observable)
+    ], MdButtonToggle.prototype, "change", null);
     MdButtonToggle = __decorate([
         Component({selector: 'md-button-toggle, mat-button-toggle',
             template: "<label [attr.for]=\"inputId\" class=\"mat-button-toggle-label\"><input #input class=\"mat-button-toggle-input cdk-visually-hidden\" [type]=\"_type\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-button-toggle-label-content\"><ng-content></ng-content></div></label><div class=\"mat-button-toggle-focus-overlay\" (touchstart)=\"$event.preventDefault()\"></div>",

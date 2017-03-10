@@ -21,6 +21,7 @@ export declare type MdTabBodyPositionState = 'left' | 'center' | 'right' | 'left
 export declare type MdTabBodyOriginState = 'left' | 'right';
 /**
  * Wrapper for the contents of a tab.
+ * @docs-private
  */
 export declare class MdTabBody implements OnInit, AfterViewChecked, AfterContentChecked {
     private _dir;

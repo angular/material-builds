@@ -265,28 +265,28 @@ export var MdRadioGroup = (function () {
  * A radio-button. May be inside of
  */
 export var MdRadioButton = (function () {
-    function MdRadioButton(radioGroup, _elementRef, _renderer, _focusOriginMonitor, radioDispatcher) {
+    function MdRadioButton(radioGroup, _elementRef, _renderer, _focusOriginMonitor, _radioDispatcher) {
         // Assertions. Ideally these should be stripped out by the compiler.
         // TODO(jelbourn): Assert that there's no name binding AND a parent radio group.
         var _this = this;
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this._focusOriginMonitor = _focusOriginMonitor;
-        this.radioDispatcher = radioDispatcher;
-        /** Whether this radio is checked. */
-        this._checked = false;
+        this._radioDispatcher = _radioDispatcher;
         /** The unique ID for the radio button. */
         this.id = "md-radio-" + _uniqueIdCounter++;
-        /** Value assigned to this radio.*/
-        this._value = null;
         /**
          * Event emitted when the checked state of this radio button changes.
          * Change events are only emitted when the value changes due to user interaction with
          * the radio button (the same behavior as `<input type-"radio">`).
          */
         this.change = new EventEmitter();
+        /** Whether this radio is checked. */
+        this._checked = false;
+        /** Value assigned to this radio.*/
+        this._value = null;
         this.radioGroup = radioGroup;
-        radioDispatcher.listen(function (id, name) {
+        _radioDispatcher.listen(function (id, name) {
             if (id != _this.id && name == _this.name) {
                 _this.checked = false;
             }
@@ -296,14 +296,6 @@ export var MdRadioButton = (function () {
         /** Whether the ripple effect for this radio button is disabled. */
         get: function () { return this._disableRipple; },
         set: function (value) { this._disableRipple = coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRadioButton.prototype, "inputId", {
-        /** ID of the native input element inside `<md-radio-button>` */
-        get: function () {
-            return this.id + "-input";
-        },
         enumerable: true,
         configurable: true
     });
@@ -325,7 +317,7 @@ export var MdRadioButton = (function () {
                 }
                 if (newCheckedState) {
                     // Notify all radio buttons with the same name to un-check.
-                    this.radioDispatcher.notify(this.id, this.name);
+                    this._radioDispatcher.notify(this.id, this.name);
                 }
             }
         },
@@ -393,6 +385,18 @@ export var MdRadioButton = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdRadioButton.prototype, "inputId", {
+        /** ID of the native input element inside `<md-radio-button>` */
+        get: function () {
+            return this.id + "-input";
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /** Focuses the radio button. */
+    MdRadioButton.prototype.focus = function () {
+        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, this._renderer, 'keyboard');
+    };
     MdRadioButton.prototype.ngOnInit = function () {
         if (this.radioGroup) {
             // If the radio is inside a radio group, determine if it should be checked
@@ -427,10 +431,6 @@ export var MdRadioButton = (function () {
     };
     MdRadioButton.prototype._isRippleDisabled = function () {
         return this.disableRipple || this.disabled;
-    };
-    /** Focuses the radio button. */
-    MdRadioButton.prototype.focus = function () {
-        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, this._renderer, 'keyboard');
     };
     MdRadioButton.prototype._onInputBlur = function () {
         if (this._focusedRippleRef) {
@@ -488,21 +488,9 @@ export var MdRadioButton = (function () {
         __metadata('design:type', String)
     ], MdRadioButton.prototype, "ariaLabelledby", void 0);
     __decorate([
-        ViewChild(MdRipple), 
-        __metadata('design:type', MdRipple)
-    ], MdRadioButton.prototype, "_ripple", void 0);
-    __decorate([
         Input(), 
         __metadata('design:type', Boolean)
     ], MdRadioButton.prototype, "disableRipple", null);
-    __decorate([
-        Output(), 
-        __metadata('design:type', EventEmitter)
-    ], MdRadioButton.prototype, "change", void 0);
-    __decorate([
-        ViewChild('input'), 
-        __metadata('design:type', ElementRef)
-    ], MdRadioButton.prototype, "_inputElement", void 0);
     __decorate([
         Input(), 
         __metadata('design:type', Boolean)
@@ -523,6 +511,18 @@ export var MdRadioButton = (function () {
         Input(), 
         __metadata('design:type', Boolean)
     ], MdRadioButton.prototype, "disabled", null);
+    __decorate([
+        Output(), 
+        __metadata('design:type', EventEmitter)
+    ], MdRadioButton.prototype, "change", void 0);
+    __decorate([
+        ViewChild(MdRipple), 
+        __metadata('design:type', MdRipple)
+    ], MdRadioButton.prototype, "_ripple", void 0);
+    __decorate([
+        ViewChild('input'), 
+        __metadata('design:type', ElementRef)
+    ], MdRadioButton.prototype, "_inputElement", void 0);
     MdRadioButton = __decorate([
         Component({selector: 'md-radio-button, mat-radio-button',
             template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"mat-radio-ripple\" [mdRippleTrigger]=\"label\" [mdRippleCentered]=\"true\"></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (blur)=\"_onInputBlur()\" (click)=\"_onInputClick($event)\"><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><ng-content></ng-content></div></label>",

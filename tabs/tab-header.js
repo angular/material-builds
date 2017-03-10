@@ -26,6 +26,7 @@ var EXAGGERATED_OVERSCROLL = 60;
  * an ink bar that follows the currently selected tab. When the tabs list's width exceeds the
  * width of the header container, then arrows will be displayed to allow the user to scroll
  * left and right across the header.
+ * @docs-private
  */
 export var MdTabHeader = (function () {
     function MdTabHeader(_zone, _elementRef, _dir) {

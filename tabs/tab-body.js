@@ -15,6 +15,7 @@ import { TemplatePortal, PortalHostDirective, Dir } from '../core';
 import 'rxjs/add/operator/map';
 /**
  * Wrapper for the contents of a tab.
+ * @docs-private
  */
 export var MdTabBody = (function () {
     function MdTabBody(_dir, _elementRef, _changeDetectorRef) {

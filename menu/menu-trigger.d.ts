@@ -4,7 +4,6 @@ import { Dir, LayoutDirection, Overlay } from '../core';
 /**
  * This directive is intended to be used in conjunction with an md-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
- * TODO(andrewseguin): Remove the kebab versions in favor of camelCased attribute selectors
  */
 export declare class MdMenuTrigger implements AfterViewInit, OnDestroy {
     private _overlay;

@@ -3,7 +3,7 @@ import { ControlValueAccessor } from '@angular/forms';
 import { Overlay } from '../core';
 import { MdAutocomplete } from './autocomplete';
 import { Observable } from 'rxjs/Observable';
-import { MdOptionSelectEvent, MdOption } from '../core/option/option';
+import { MdOptionSelectionChange, MdOption } from '../core/option/option';
 import { Dir } from '../core/rtl/dir';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/startWith';
@@ -58,9 +58,9 @@ export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDe
      * A stream of actions that should close the autocomplete panel, including
      * when an option is selected, on blur, and when TAB is pressed.
      */
-    readonly panelClosingActions: Observable<MdOptionSelectEvent>;
+    readonly panelClosingActions: Observable<MdOptionSelectionChange>;
     /** Stream of autocomplete option selections. */
-    readonly optionSelections: Observable<MdOptionSelectEvent>;
+    readonly optionSelections: Observable<MdOptionSelectionChange>;
     /** The currently active option, coerced to MdOption type. */
     readonly activeOption: MdOption;
     /**

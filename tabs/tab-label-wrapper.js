@@ -9,7 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { Directive, ElementRef, Renderer, Input } from '@angular/core';
 import { coerceBooleanProperty } from '../core/coercion/boolean-property';
-/** Used in the `md-tab-group` view to display tab labels */
+/**
+ * Used in the `md-tab-group` view to display tab labels.
+ * @docs-private
+ */
 export var MdTabLabelWrapper = (function () {
     function MdTabLabelWrapper(elementRef, _renderer) {
         this.elementRef = elementRef;

@@ -117,7 +117,7 @@ export var MdAutocompleteTrigger = (function () {
     Object.defineProperty(MdAutocompleteTrigger.prototype, "optionSelections", {
         /** Stream of autocomplete option selections. */
         get: function () {
-            return Observable.merge.apply(Observable, this.autocomplete.options.map(function (option) { return option.onSelect; }));
+            return Observable.merge.apply(Observable, this.autocomplete.options.map(function (option) { return option.onSelectionChange; }));
         },
         enumerable: true,
         configurable: true
@@ -163,6 +163,7 @@ export var MdAutocompleteTrigger = (function () {
         this._onTouched = fn;
     };
     MdAutocompleteTrigger.prototype._handleKeydown = function (event) {
+        var _this = this;
         if (this.activeOption && event.keyCode === ENTER) {
             this.activeOption._selectViaInteraction();
         }
@@ -170,7 +171,7 @@ export var MdAutocompleteTrigger = (function () {
             this.autocomplete._keyManager.onKeydown(event);
             if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
                 this.openPanel();
-                this._scrollToOption();
+                Promise.resolve().then(function () { return _this._scrollToOption(); });
             }
         }
     };
@@ -243,8 +244,8 @@ export var MdAutocompleteTrigger = (function () {
         }
     };
     MdAutocompleteTrigger.prototype._setTriggerValue = function (value) {
-        this._element.nativeElement.value =
-            this.autocomplete.displayWith ? this.autocomplete.displayWith(value) : value;
+        var toDisplay = this.autocomplete.displayWith ? this.autocomplete.displayWith(value) : value;
+        this._element.nativeElement.value = toDisplay || '';
     };
     /**
     * This method closes the panel, and if a value is specified, also sets the associated

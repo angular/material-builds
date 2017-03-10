@@ -36,9 +36,26 @@ export var MdTabsModule = (function () {
         NgModule({
             imports: [CommonModule, PortalModule, MdRippleModule, ObserveContentModule],
             // Don't export all components because some are only to be used internally.
-            exports: [MdTabGroup, MdTabLabel, MdTab, MdTabNavBar, MdTabLink, MdTabLinkRipple],
-            declarations: [MdTabGroup, MdTabLabel, MdTab, MdInkBar, MdTabLabelWrapper,
-                MdTabNavBar, MdTabLink, MdTabBody, MdTabLinkRipple, MdTabHeader],
+            exports: [
+                MdTabGroup,
+                MdTabLabel,
+                MdTab,
+                MdTabNavBar,
+                MdTabLink,
+                MdTabLinkRipple
+            ],
+            declarations: [
+                MdTabGroup,
+                MdTabLabel,
+                MdTab,
+                MdInkBar,
+                MdTabLabelWrapper,
+                MdTabNavBar,
+                MdTabLink,
+                MdTabBody,
+                MdTabLinkRipple,
+                MdTabHeader
+            ],
             providers: [VIEWPORT_RULER_PROVIDER, SCROLL_DISPATCHER_PROVIDER],
         }), 
         __metadata('design:paramtypes', [])

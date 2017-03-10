@@ -14,6 +14,7 @@ export declare type ScrollDirection = 'after' | 'before';
  * an ink bar that follows the currently selected tab. When the tabs list's width exceeds the
  * width of the header container, then arrows will be displayed to allow the user to scroll
  * left and right across the header.
+ * @docs-private
  */
 export declare class MdTabHeader implements AfterContentChecked, AfterContentInit {
     private _zone;

@@ -1,10 +1,13 @@
 import { AfterContentInit, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer, ChangeDetectorRef } from '@angular/core';
-import { MdOption } from '../core/option/option';
+import { MdOption, MdOptionSelectionChange } from '../core/option/option';
 import { FocusKeyManager } from '../core/a11y/focus-key-manager';
 import { Dir } from '../core/rtl/dir';
+import { Observable } from 'rxjs/Observable';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { ConnectedOverlayDirective } from '../core/overlay/overlay-directives';
 import { ViewportRuler } from '../core/overlay/position/viewport-ruler';
+import { SelectionModel } from '../core/selection/selection';
+import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/startWith';
 /**
  * The following style constants are necessary to save here in order
@@ -27,6 +30,16 @@ export declare const SELECT_TRIGGER_HEIGHT: number;
 export declare const SELECT_OPTION_HEIGHT_ADJUSTMENT: number;
 /** The panel's padding on the x-axis */
 export declare const SELECT_PANEL_PADDING_X: number;
+/**
+ * Distance between the panel edge and the option text in
+ * multi-selection mode.
+ *
+ * (SELECT_PADDING * 1.75) + 20 = 48
+ * The padding is multiplied by 1.75 because the checkbox's margin is half the padding, and
+ * the browser adds ~4px, because we're using inline elements.
+ * The checkbox width is 20px.
+ */
+export declare const SELECT_MULTIPLE_PANEL_PADDING_X: number;
 /**
  * The panel's padding on the y-axis. This padding indicates there are more
  * options available if you scroll.
@@ -54,10 +67,8 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
     _control: NgControl;
     /** Whether or not the overlay panel is open. */
     private _panelOpen;
-    /** The currently selected option. */
-    private _selected;
     /** Subscriptions to option events. */
-    private _subscriptions;
+    private _optionSubscription;
     /** Subscription to changes in the option list. */
     private _changeSubscription;
     /** Subscription to tab events while overlay is focused. */
@@ -70,8 +81,14 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
     private _scrollTop;
     /** The placeholder displayed in the trigger of the select. */
     private _placeholder;
+    /** Whether the component is in multiple selection mode. */
+    private _multiple;
+    /** Deals with the selection logic. */
+    _selectionModel: SelectionModel<MdOption>;
     /** The animation state of the placeholder. */
     private _placeholderState;
+    /** Tab index for the element. */
+    private _tabIndex;
     /**
      * The width of the trigger. Must be saved to set the min width of the overlay panel
      * and the width of the selected value.
@@ -130,16 +147,22 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
     disabled: any;
     /** Whether the component is required. */
     required: any;
+    /** Whether the user should be allowed to select multiple options. */
+    multiple: boolean;
     /** Whether to float the placeholder text. */
     floatPlaceholder: MdSelectFloatPlaceholderType;
     private _floatPlaceholder;
+    /** Tab index for the select element. */
+    tabIndex: number;
+    /** Combined stream of all of the child options' change events. */
+    readonly optionSelectionChanges: Observable<MdOptionSelectionChange>;
     /** Event emitted when the select has been opened. */
     onOpen: EventEmitter<void>;
     /** Event emitted when the select has been closed. */
     onClose: EventEmitter<void>;
     /** Event emitted when the selected value has been changed by the user. */
     change: EventEmitter<MdSelectChange>;
-    constructor(_element: ElementRef, _renderer: Renderer, _viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _dir: Dir, _control: NgControl);
+    constructor(_element: ElementRef, _renderer: Renderer, _viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _dir: Dir, _control: NgControl, tabIndex: string);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Toggles the overlay panel open or closed. */
@@ -181,7 +204,10 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
     /** Whether or not the overlay panel is open. */
     readonly panelOpen: boolean;
     /** The currently selected option. */
-    readonly selected: MdOption;
+    readonly selected: MdOption | MdOption[];
+    /** The value displayed in the trigger. */
+    readonly triggerValue: string;
+    /** Whether the element is in RTL mode. */
     _isRtl(): boolean;
     /** The width of the trigger element. This is necessary to match
      * the overlay width to the trigger width.
@@ -204,8 +230,6 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
      * "blur" to the panel when it opens, causing a false positive.
      */
     _onBlur(): void;
-    /** Returns the correct tabindex for the select depending on disabled state. */
-    _getTabIndex(): string;
     /**
      * Sets the scroll position of the scroll container. This must be called after
      * the overlay pane is attached or the scroll container element will not yet be
@@ -217,32 +241,50 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
      * found with the designated value, the select trigger is cleared.
      */
     private _setSelectionByValue(value);
-    /** Clears the select trigger and deselects every option in the list. */
-    private _clearSelection();
+    /**
+     * Finds and selects and option based on its value.
+     * @returns Option that has the corresponding value.
+     */
+    private _selectValue(value);
+    /**
+     * Clears the select trigger and deselects every option in the list.
+     * @param skip Option that should not be deselected.
+     */
+    private _clearSelection(skip?);
     private _getTriggerRect();
     /** Sets up a key manager to listen to keyboard events on the overlay panel. */
     private _initKeyManager();
     /** Drops current option subscriptions and IDs and resets from scratch. */
     private _resetOptions();
-    /** Listens to selection events on each option. */
+    /** Listens to user-generated selection events on each option. */
     private _listenToOptions();
+    /** Invoked when an option is clicked. */
+    private _onSelect(option);
+    /**
+     * Sorts the model values, ensuring that they keep the same
+     * order that they have in the panel.
+     */
+    private _sortValues();
     /** Unsubscribes from all option subscriptions. */
     private _dropSubscriptions();
-    /** Emits an event when the user selects an option. */
-    private _emitChangeEvent(option);
+    /** Emits change event to set the model value. */
+    private _propagateChanges();
     /** Records option IDs to pass to the aria-owns property. */
     private _setOptionIds();
-    /** When a new option is selected, deselects the others and closes the panel. */
-    private _onSelect(option);
-    /** Deselect each option that doesn't match the current selection. */
-    private _updateOptions();
+    /**
+     * Sets the `multiple` property on each option. The promise is necessary
+     * in order to avoid Angular errors when modifying the property after init.
+     * TODO: there should be a better way of doing this.
+     */
+    private _setOptionMultiple();
     /**
      * Must set the width of the selected option's value programmatically
      * because it is absolutely positioned and otherwise will not clip
      * overflow. The selection arrow is 9px wide, add 4px of padding = 13
      */
     private _setValueWidth();
-    /** Focuses the selected item. If no option is selected, it will focus
+    /**
+     * Focuses the selected item. If no option is selected, it will focus
      * the first item instead.
      */
     private _focusCorrectOption();

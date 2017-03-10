@@ -13,11 +13,12 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 import { Directive, ElementRef, Input, Inject, NgZone, OpaqueToken, Optional } from '@angular/core';
 import { RippleRenderer } from './ripple-renderer';
 import { ViewportRuler } from '../overlay/position/viewport-ruler';
-/** OpaqueToken that can be used to globally disable all ripples. Except programmatic ones. */
-export var MD_DISABLE_RIPPLES = new OpaqueToken('md-disable-ripples');
+/** OpaqueToken that can be used to specify the global ripple options. */
+export var MD_RIPPLE_GLOBAL_OPTIONS = new OpaqueToken('md-ripple-global-options');
 export var MdRipple = (function () {
-    function MdRipple(elementRef, ngZone, ruler, _forceDisableRipples) {
-        this._forceDisableRipples = _forceDisableRipples;
+    function MdRipple(elementRef, ngZone, ruler, 
+        // Type needs to be `any` because of https://github.com/angular/angular/issues/12631
+        globalOptions) {
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -31,12 +32,13 @@ export var MdRipple = (function () {
          */
         this.speedFactor = 1;
         this._rippleRenderer = new RippleRenderer(elementRef, ngZone, ruler);
+        this._globalOptions = globalOptions ? globalOptions : {};
     }
     MdRipple.prototype.ngOnChanges = function (changes) {
         if (changes['trigger'] && this.trigger) {
             this._rippleRenderer.setTriggerElement(this.trigger);
         }
-        this._rippleRenderer.rippleDisabled = this._forceDisableRipples || this.disabled;
+        this._rippleRenderer.rippleDisabled = this._globalOptions.disabled || this.disabled;
         this._rippleRenderer.rippleConfig = this.rippleConfig;
     };
     MdRipple.prototype.ngOnDestroy = function () {
@@ -57,7 +59,7 @@ export var MdRipple = (function () {
         get: function () {
             return {
                 centered: this.centered,
-                speedFactor: this.speedFactor,
+                speedFactor: this.speedFactor * (this._globalOptions.baseSpeedFactor || 1),
                 radius: this.radius,
                 color: this.color
             };
@@ -95,7 +97,7 @@ export var MdRipple = (function () {
     ], MdRipple.prototype, "unbounded", void 0);
     MdRipple = __decorate([
         Directive({
-            selector: '[md-ripple], [mat-ripple]',
+            selector: '[md-ripple], [mat-ripple], [mdRipple], [matRipple]',
             exportAs: 'mdRipple',
             host: {
                 '[class.mat-ripple]': 'true',
@@ -103,8 +105,8 @@ export var MdRipple = (function () {
             }
         }),
         __param(3, Optional()),
-        __param(3, Inject(MD_DISABLE_RIPPLES)), 
-        __metadata('design:paramtypes', [ElementRef, NgZone, ViewportRuler, Boolean])
+        __param(3, Inject(MD_RIPPLE_GLOBAL_OPTIONS)), 
+        __metadata('design:paramtypes', [ElementRef, NgZone, ViewportRuler, Object])
     ], MdRipple);
     return MdRipple;
 }());

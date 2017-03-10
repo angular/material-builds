@@ -23,7 +23,9 @@ export declare enum TransitionCheckState {
 }
 /** Change event object emitted by MdCheckbox. */
 export declare class MdCheckboxChange {
+    /** The source MdCheckbox of the event. */
     source: MdCheckbox;
+    /** The new `checked` value of the checkbox. */
     checked: boolean;
 }
 /**

@@ -15,7 +15,7 @@ export declare class MdMenu implements AfterContentInit, MdMenuPanel, OnDestroy 
     templateRef: TemplateRef<any>;
     items: QueryList<MdMenuItem>;
     overlapTrigger: boolean;
-    constructor(posX: MenuPositionX, posY: MenuPositionY);
+    constructor(posX: MenuPositionX, posY: MenuPositionY, deprecatedPosX: MenuPositionX, deprecatedPosY: MenuPositionY);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /**

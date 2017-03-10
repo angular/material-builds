@@ -9,7 +9,9 @@ import { Dir } from '../core/rtl/dir';
 export declare const MD_SLIDER_VALUE_ACCESSOR: any;
 /** A simple change event emitted by the MdSlider component. */
 export declare class MdSliderChange {
+    /** The MdSlider that changed. */
     source: MdSlider;
+    /** Thew new value of the source slider. */
     value: number;
 }
 /**
@@ -18,24 +20,51 @@ export declare class MdSliderChange {
  */
 export declare class MdSlider implements ControlValueAccessor {
     private _dir;
-    /** A renderer to handle updating the slider's thumb and fill track. */
-    private _renderer;
-    /** The dimensions of the slider. */
-    private _sliderDimensions;
-    private _disabled;
     /** Whether or not the slider is disabled. */
     disabled: boolean;
-    private _thumbLabel;
+    private _disabled;
+    /** Whether the slider is inverted. */
+    invert: any;
+    private _invert;
+    /** The maximum value that the slider can have. */
+    max: number;
+    private _max;
+    /** The minimum value that the slider can have. */
+    min: number;
+    private _min;
+    /** The values at which the thumb will snap. */
+    step: number;
+    private _step;
     /** Whether or not to show the thumb label. */
     thumbLabel: boolean;
+    private _thumbLabel;
     /** @deprecated */
     _thumbLabelDeprecated: boolean;
-    private _controlValueAccessorChangeFn;
-    /** The last values for which a change or input event was emitted. */
-    private _lastChangeValue;
-    private _lastInputValue;
+    /**
+     * How often to show ticks. Relative to the step so that a tick always appears on a step.
+     * Ex: Tick interval of 4 with a step of 3 will draw a tick every 4 steps (every 12 values).
+     */
+    tickInterval: number | "auto";
+    private _tickInterval;
+    /** @deprecated */
+    _tickIntervalDeprecated: number | "auto";
+    /** Value of the slider. */
+    value: number;
+    private _value;
+    /** Whether the slider is vertical. */
+    vertical: any;
+    private _vertical;
+    /** Event emitted when the slider value has changed. */
+    change: EventEmitter<MdSliderChange>;
+    /** Event emitted when the slider thumb moves. */
+    input: EventEmitter<MdSliderChange>;
+    /** The value to be used for display purposes. */
+    readonly displayValue: string | number;
     /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
     onTouched: () => any;
+    /** The percentage of the slider that coincides with the value. */
+    readonly percent: number;
+    private _percent;
     /**
      * Whether or not the thumb is sliding.
      * Used to determine if there should be a transition for the thumb and fill track.
@@ -46,52 +75,11 @@ export declare class MdSlider implements ControlValueAccessor {
      * Used to shrink and grow the thumb as according to the Material Design spec.
      */
     _isActive: boolean;
-    /** Decimal places to round to, based on the step amount. */
-    private _roundLabelTo;
-    private _step;
-    /** The values at which the thumb will snap. */
-    step: number;
-    private _tickInterval;
-    /**
-     * How often to show ticks. Relative to the step so that a tick always appears on a step.
-     * Ex: Tick interval of 4 with a step of 3 will draw a tick every 4 steps (every 12 values).
-     */
-    tickInterval: number | "auto";
-    /** @deprecated */
-    _tickIntervalDeprecated: number | "auto";
-    private _tickIntervalPercent;
-    /** The size of a tick interval as a percentage of the size of the track. */
-    readonly tickIntervalPercent: number;
-    private _percent;
-    /** The percentage of the slider that coincides with the value. */
-    readonly percent: number;
-    private _value;
-    /** Value of the slider. */
-    value: number;
-    private _min;
-    /** The minimum value that the slider can have. */
-    min: number;
-    private _max;
-    /** The maximum value that the slider can have. */
-    max: number;
-    /** Whether the slider is inverted. */
-    invert: any;
-    private _invert;
-    /** Whether the slider is vertical. */
-    vertical: any;
-    private _vertical;
-    /** The value to be used for display purposes. */
-    readonly displayValue: string | number;
     /**
      * Whether the axis of the slider is inverted.
      * (i.e. whether moving the thumb in the positive x or y direction decreases the slider's value).
      */
-    readonly invertAxis: any;
-    /**
-     * Whether mouse events should be converted to a slider position by calculating their distance
-     * from the right or bottom edge of the slider as opposed to the top or left.
-     */
-    readonly invertMouseCoords: any;
+    readonly _invertAxis: any;
     /** Whether the slider is at its minimum value. */
     readonly _isMinValue: boolean;
     /**
@@ -100,30 +88,44 @@ export declare class MdSlider implements ControlValueAccessor {
      */
     readonly _thumbGap: number;
     /** CSS styles for the track background element. */
-    readonly trackBackgroundStyles: {
+    readonly _trackBackgroundStyles: {
         [key: string]: string;
     };
     /** CSS styles for the track fill element. */
-    readonly trackFillStyles: {
+    readonly _trackFillStyles: {
         [key: string]: string;
     };
     /** CSS styles for the ticks container element. */
-    readonly ticksContainerStyles: {
+    readonly _ticksContainerStyles: {
         [key: string]: string;
     };
     /** CSS styles for the ticks element. */
-    readonly ticksStyles: {
+    readonly _ticksStyles: {
         [key: string]: string;
     };
-    readonly thumbContainerStyles: {
+    readonly _thumbContainerStyles: {
         [key: string]: string;
     };
+    /** The size of a tick interval as a percentage of the size of the track. */
+    private _tickIntervalPercent;
+    /** A renderer to handle updating the slider's thumb and fill track. */
+    private _renderer;
+    /** The dimensions of the slider. */
+    private _sliderDimensions;
+    private _controlValueAccessorChangeFn;
+    /** The last value for which a change event was emitted. */
+    private _lastChangeValue;
+    /** The last value for which an input event was emitted. */
+    private _lastInputValue;
+    /** Decimal places to round to, based on the step amount. */
+    private _roundLabelTo;
+    /**
+     * Whether mouse events should be converted to a slider position by calculating their distance
+     * from the right or bottom edge of the slider as opposed to the top or left.
+     */
+    private readonly _invertMouseCoords;
     /** The language direction for this slider element. */
-    readonly direction: string;
-    /** Event emitted when the slider value has changed. */
-    change: EventEmitter<MdSliderChange>;
-    /** Event emitted when the slider thumb moves. */
-    input: EventEmitter<MdSliderChange>;
+    private readonly _direction;
     constructor(_dir: Dir, elementRef: ElementRef);
     _onMouseenter(): void;
     _onClick(event: MouseEvent): void;

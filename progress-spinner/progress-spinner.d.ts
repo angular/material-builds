@@ -2,11 +2,13 @@ import { OnDestroy, ElementRef, NgZone, Renderer } from '@angular/core';
 export declare type ProgressSpinnerMode = 'determinate' | 'indeterminate';
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
+ * @docs-private
  */
 export declare class MdProgressSpinnerCssMatStyler {
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
+ * @docs-private
  */
 export declare class MdProgressCircleCssMatStyler {
 }

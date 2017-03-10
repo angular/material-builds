@@ -13,10 +13,10 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 import { Directive, ElementRef, EventEmitter, Input, Optional, Output, Renderer, ViewContainerRef } from '@angular/core';
 import { MdMenuMissingError } from './menu-errors';
 import { isFakeMousedownFromScreenReader, Dir, Overlay, OverlayState, TemplatePortal } from '../core';
+// TODO(andrewseguin): Remove the kebab versions in favor of camelCased attribute selectors
 /**
  * This directive is intended to be used in conjunction with an md-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
- * TODO(andrewseguin): Remove the kebab versions in favor of camelCased attribute selectors
  */
 export var MdMenuTrigger = (function () {
     function MdMenuTrigger(_overlay, _element, _viewContainerRef, _renderer, _dir) {
@@ -117,7 +117,7 @@ export var MdMenuTrigger = (function () {
     MdMenuTrigger.prototype._subscribeToBackdrop = function () {
         var _this = this;
         this._backdropSubscription = this._overlayRef.backdropClick().subscribe(function () {
-            _this.closeMenu();
+            _this.menu._emitCloseEvent();
         });
     };
     /**
@@ -261,7 +261,7 @@ export var MdMenuTrigger = (function () {
     ], MdMenuTrigger.prototype, "onMenuClose", void 0);
     MdMenuTrigger = __decorate([
         Directive({
-            selector: "[md-menu-trigger-for], [mat-menu-trigger-for], \n             [mdMenuTriggerFor], [matMenuTriggerFor]",
+            selector: "[md-menu-trigger-for], [mat-menu-trigger-for],\n             [mdMenuTriggerFor], [matMenuTriggerFor]",
             host: {
                 'aria-haspopup': 'true',
                 '(mousedown)': '_handleMousedown($event)',

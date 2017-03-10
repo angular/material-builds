@@ -9,7 +9,9 @@ import { UniqueSelectionDispatcher, MdRipple, FocusOriginMonitor } from '../core
 export declare const MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR: any;
 /** Change event object emitted by MdRadio and MdRadioGroup. */
 export declare class MdRadioChange {
+    /** The MdRadioButton that emits the change event. */
     source: MdRadioButton;
+    /** The value of the MdRadioButton. */
     value: any;
 }
 /**
@@ -107,9 +109,7 @@ export declare class MdRadioButton implements OnInit, AfterViewInit, OnDestroy {
     private _elementRef;
     private _renderer;
     private _focusOriginMonitor;
-    radioDispatcher: UniqueSelectionDispatcher;
-    /** Whether this radio is checked. */
-    private _checked;
+    private _radioDispatcher;
     /** The unique ID for the radio button. */
     id: string;
     /** Analog to HTML 'name' attribute used to group radios for unique selection. */
@@ -118,33 +118,8 @@ export declare class MdRadioButton implements OnInit, AfterViewInit, OnDestroy {
     ariaLabel: string;
     /** The 'aria-labelledby' attribute takes precedence as the element's text alternative. */
     ariaLabelledby: string;
-    /** Whether this radio is disabled. */
-    private _disabled;
-    /** Value assigned to this radio.*/
-    private _value;
-    /** Whether the ripple effect on click should be disabled. */
-    private _disableRipple;
-    /** The child ripple instance. */
-    _ripple: MdRipple;
-    /** Stream of focus event from the focus origin monitor. */
-    private _focusOriginMonitorSubscription;
-    /** Reference to the current focus ripple. */
-    private _focusedRippleRef;
-    /** The parent radio group. May or may not be present. */
-    radioGroup: MdRadioGroup;
     /** Whether the ripple effect for this radio button is disabled. */
     disableRipple: boolean;
-    /**
-     * Event emitted when the checked state of this radio button changes.
-     * Change events are only emitted when the value changes due to user interaction with
-     * the radio button (the same behavior as `<input type-"radio">`).
-     */
-    change: EventEmitter<MdRadioChange>;
-    /** The native `<input type=radio>` element */
-    _inputElement: ElementRef;
-    constructor(radioGroup: MdRadioGroup, _elementRef: ElementRef, _renderer: Renderer, _focusOriginMonitor: FocusOriginMonitor, radioDispatcher: UniqueSelectionDispatcher);
-    /** ID of the native input element inside `<md-radio-button>` */
-    readonly inputId: string;
     /** Whether this radio button is checked. */
     checked: boolean;
     /** The value of this radio button. */
@@ -159,14 +134,41 @@ export declare class MdRadioButton implements OnInit, AfterViewInit, OnDestroy {
     labelPosition: 'before' | 'after';
     /** Whether the radio button is disabled. */
     disabled: boolean;
+    /**
+     * Event emitted when the checked state of this radio button changes.
+     * Change events are only emitted when the value changes due to user interaction with
+     * the radio button (the same behavior as `<input type-"radio">`).
+     */
+    change: EventEmitter<MdRadioChange>;
+    /** The parent radio group. May or may not be present. */
+    radioGroup: MdRadioGroup;
+    /** ID of the native input element inside `<md-radio-button>` */
+    readonly inputId: string;
+    /** Whether this radio is checked. */
+    private _checked;
+    /** Whether this radio is disabled. */
+    private _disabled;
+    /** Value assigned to this radio.*/
+    private _value;
+    /** Whether the ripple effect on click should be disabled. */
+    private _disableRipple;
+    /** The child ripple instance. */
+    _ripple: MdRipple;
+    /** Stream of focus event from the focus origin monitor. */
+    private _focusOriginMonitorSubscription;
+    /** Reference to the current focus ripple. */
+    private _focusedRippleRef;
+    /** The native `<input type=radio>` element */
+    _inputElement: ElementRef;
+    constructor(radioGroup: MdRadioGroup, _elementRef: ElementRef, _renderer: Renderer, _focusOriginMonitor: FocusOriginMonitor, _radioDispatcher: UniqueSelectionDispatcher);
+    /** Focuses the radio button. */
+    focus(): void;
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Dispatch change event with current value. */
     private _emitChangeEvent();
     _isRippleDisabled(): boolean;
-    /** Focuses the radio button. */
-    focus(): void;
     _onInputBlur(): void;
     _onInputClick(event: Event): void;
     /**

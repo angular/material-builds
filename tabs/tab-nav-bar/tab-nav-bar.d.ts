@@ -1,6 +1,8 @@
-import { ElementRef } from '@angular/core';
+import { ElementRef, NgZone } from '@angular/core';
 import { MdInkBar } from '../ink-bar';
 import { MdRipple } from '../../core/ripple/index';
+import { ViewportRuler } from '../../core/overlay/position/viewport-ruler';
+import { RippleGlobalOptions } from '../../core/ripple/ripple';
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
@@ -30,4 +32,5 @@ export declare class MdTabLink {
  * adds the ripple behavior to nav bar labels.
  */
 export declare class MdTabLinkRipple extends MdRipple {
+    constructor(elementRef: ElementRef, ngZone: NgZone, ruler: ViewportRuler, globalOptions: RippleGlobalOptions);
 }

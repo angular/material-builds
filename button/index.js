@@ -9,8 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MdRippleModule, CompatibilityModule } from '../core';
-import { MdButton, MdAnchor, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFabCssMatStyler, MdMiniFabCssMatStyler } from './button';
+import { CompatibilityModule, MdRippleModule, StyleModule } from '../core';
+import { MdAnchor, MdButton, MdButtonCssMatStyler, MdFabCssMatStyler, MdIconButtonCssMatStyler, MdMiniFabCssMatStyler, MdRaisedButtonCssMatStyler } from './button';
+export * from './button';
 export var MdButtonModule = (function () {
     function MdButtonModule() {
     }
@@ -23,7 +24,12 @@ export var MdButtonModule = (function () {
     };
     MdButtonModule = __decorate([
         NgModule({
-            imports: [CommonModule, MdRippleModule, CompatibilityModule],
+            imports: [
+                CommonModule,
+                MdRippleModule,
+                CompatibilityModule,
+                StyleModule,
+            ],
             exports: [
                 MdButton,
                 MdAnchor,
@@ -32,7 +38,7 @@ export var MdButtonModule = (function () {
                 MdRaisedButtonCssMatStyler,
                 MdIconButtonCssMatStyler,
                 MdFabCssMatStyler,
-                MdMiniFabCssMatStyler
+                MdMiniFabCssMatStyler,
             ],
             declarations: [
                 MdButton,
@@ -41,12 +47,11 @@ export var MdButtonModule = (function () {
                 MdRaisedButtonCssMatStyler,
                 MdIconButtonCssMatStyler,
                 MdFabCssMatStyler,
-                MdMiniFabCssMatStyler
+                MdMiniFabCssMatStyler,
             ],
         }), 
         __metadata('design:paramtypes', [])
     ], MdButtonModule);
     return MdButtonModule;
 }());
-export * from './button';
 //# sourceMappingURL=index.js.map

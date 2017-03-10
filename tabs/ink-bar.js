@@ -8,7 +8,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Directive, Renderer, ElementRef } from '@angular/core';
-/** The ink-bar is used to display and animate the line underneath the current active tab label. */
+/**
+ * The ink-bar is used to display and animate the line underneath the current active tab label.
+ * @docs-private
+ */
 export var MdInkBar = (function () {
     function MdInkBar(_renderer, _elementRef) {
         this._renderer = _renderer;
