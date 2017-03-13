@@ -16169,7 +16169,7 @@ var MdAutocompleteTrigger = (function () {
     Object.defineProperty(MdAutocompleteTrigger.prototype, "panelOpen", {
         /* Whether or not the autocomplete panel is open. */
         get: function () {
-            return this._panelOpen;
+            return this._panelOpen && this.autocomplete.showPanel;
         },
         enumerable: true,
         configurable: true
