@@ -1,7 +1,8 @@
-import { ElementRef, EventEmitter } from '@angular/core';
+import { ElementRef, EventEmitter, OnDestroy, Renderer } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { HammerInput } from '../core';
 import { Dir } from '../core/rtl/dir';
+import { FocusOriginMonitor } from '../core/style/focus-origin-monitor';
 /**
  * Provider Expression that allows md-slider to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)] and [formControl].
@@ -18,7 +19,9 @@ export declare class MdSliderChange {
  * Allows users to select from a range of values by moving the slider thumb. It is similar in
  * behavior to the native `<input type="range">` element.
  */
-export declare class MdSlider implements ControlValueAccessor {
+export declare class MdSlider implements ControlValueAccessor, OnDestroy {
+    private _elementRef;
+    private _focusOriginMonitor;
     private _dir;
     /** Whether or not the slider is disabled. */
     disabled: boolean;
@@ -126,12 +129,14 @@ export declare class MdSlider implements ControlValueAccessor {
     private readonly _invertMouseCoords;
     /** The language direction for this slider element. */
     private readonly _direction;
-    constructor(_dir: Dir, elementRef: ElementRef);
+    constructor(renderer: Renderer, _elementRef: ElementRef, _focusOriginMonitor: FocusOriginMonitor, _dir: Dir);
+    ngOnDestroy(): void;
     _onMouseenter(): void;
     _onClick(event: MouseEvent): void;
     _onSlide(event: HammerInput): void;
     _onSlideStart(event: HammerInput): void;
     _onSlideEnd(): void;
+    _onFocus(): void;
     _onBlur(): void;
     _onKeydown(event: KeyboardEvent): void;
     _onKeyup(): void;

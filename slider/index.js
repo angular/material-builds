@@ -11,8 +11,9 @@ import { NgModule } from '@angular/core';
 import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { GestureConfig, CompatibilityModule } from '../core';
+import { CompatibilityModule, GestureConfig, StyleModule } from '../core';
 import { MdSlider } from './slider';
+import { RtlModule } from '../core/rtl/dir';
 export var MdSliderModule = (function () {
     function MdSliderModule() {
     }
@@ -25,7 +26,7 @@ export var MdSliderModule = (function () {
     };
     MdSliderModule = __decorate([
         NgModule({
-            imports: [CommonModule, FormsModule, CompatibilityModule],
+            imports: [CommonModule, FormsModule, CompatibilityModule, StyleModule, RtlModule],
             exports: [MdSlider, CompatibilityModule],
             declarations: [MdSlider],
             providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
