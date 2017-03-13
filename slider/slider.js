@@ -161,8 +161,16 @@ export var MdSlider = (function () {
          * Ex: Tick interval of 4 with a step of 3 will draw a tick every 4 steps (every 12 values).
          */
         get: function () { return this._tickInterval; },
-        set: function (v) {
-            this._tickInterval = (v == 'auto') ? v : coerceNumberProperty(v, this._tickInterval);
+        set: function (value) {
+            if (value === 'auto') {
+                this._tickInterval = 'auto';
+            }
+            else if (typeof value === 'number' || typeof value === 'string') {
+                this._tickInterval = coerceNumberProperty(value, this._tickInterval);
+            }
+            else {
+                this._tickInterval = 0;
+            }
         },
         enumerable: true,
         configurable: true
