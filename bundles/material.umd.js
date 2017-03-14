@@ -7609,8 +7609,11 @@ var MdSlideToggle = (function () {
     MdSlideToggle.prototype._onDragEnd = function () {
         var _this = this;
         if (this._slideRenderer.dragging) {
+            var _previousChecked = this.checked;
             this.checked = this._slideRenderer.dragPercentage > 50;
-            this._emitChangeEvent();
+            if (_previousChecked !== this.checked) {
+                this._emitChangeEvent();
+            }
             // The drag should be stopped outside of the current event handler, because otherwise the
             // click event will be fired before and will revert the drag change.
             setTimeout(function () { return _this._slideRenderer.stopThumbDrag(); });
