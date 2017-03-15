@@ -8,8 +8,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { NgModule } from '@angular/core';
-import { MdLineModule, CompatibilityModule } from '../core';
-import { MdList, MdListItem, MdListDivider, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListSubheaderCssMatStyler } from './list';
+import { MdLineModule, MdRippleModule, CompatibilityModule } from '../core';
+import { MdList, MdListItem, MdListDivider, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListSubheaderCssMatStyler, MdNavListTokenSetter } from './list';
 export var MdListModule = (function () {
     function MdListModule() {
     }
@@ -22,7 +22,7 @@ export var MdListModule = (function () {
     };
     MdListModule = __decorate([
         NgModule({
-            imports: [MdLineModule, CompatibilityModule],
+            imports: [MdLineModule, MdRippleModule, CompatibilityModule],
             exports: [
                 MdList,
                 MdListItem,
@@ -34,7 +34,8 @@ export var MdListModule = (function () {
                 MdListCssMatStyler,
                 MdNavListCssMatStyler,
                 MdDividerCssMatStyler,
-                MdListSubheaderCssMatStyler
+                MdListSubheaderCssMatStyler,
+                MdNavListTokenSetter,
             ],
             declarations: [
                 MdList,
@@ -45,7 +46,8 @@ export var MdListModule = (function () {
                 MdListCssMatStyler,
                 MdNavListCssMatStyler,
                 MdDividerCssMatStyler,
-                MdListSubheaderCssMatStyler
+                MdListSubheaderCssMatStyler,
+                MdNavListTokenSetter,
             ],
         }), 
         __metadata('design:paramtypes', [])
