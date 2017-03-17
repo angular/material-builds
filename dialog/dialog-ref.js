@@ -20,6 +20,7 @@ export var MdDialogRef = (function () {
                 _this._overlayRef.dispose();
                 _this._afterClosed.next(_this._result);
                 _this._afterClosed.complete();
+                _this.componentInstance = null;
             }
         });
     }

@@ -1381,10 +1381,10 @@ var BasePortalHost = (function () {
     }
     /** Whether this host has an attached portal. */
     BasePortalHost.prototype.hasAttached = function () {
-        return this._attachedPortal != null;
+        return !!this._attachedPortal;
     };
     BasePortalHost.prototype.attach = function (portal) {
-        if (portal == null) {
+        if (!portal) {
             throw new NullPortalError();
         }
         if (this.hasAttached()) {
@@ -1406,21 +1406,25 @@ var BasePortalHost = (function () {
     BasePortalHost.prototype.detach = function () {
         if (this._attachedPortal) {
             this._attachedPortal.setAttachedHost(null);
+            this._attachedPortal = null;
         }
-        this._attachedPortal = null;
-        if (this._disposeFn != null) {
-            this._disposeFn();
-            this._disposeFn = null;
-        }
+        this._invokeDisposeFn();
     };
     BasePortalHost.prototype.dispose = function () {
         if (this.hasAttached()) {
             this.detach();
         }
+        this._invokeDisposeFn();
         this._isDisposed = true;
     };
     BasePortalHost.prototype.setDisposeFn = function (fn) {
         this._disposeFn = fn;
+    };
+    BasePortalHost.prototype._invokeDisposeFn = function () {
+        if (this._disposeFn) {
+            this._disposeFn();
+            this._disposeFn = null;
+        }
     };
     return BasePortalHost;
 }());
@@ -1497,7 +1501,7 @@ var PortalHostDirective = (function (_super) {
         configurable: true
     });
     PortalHostDirective.prototype.ngOnDestroy = function () {
-        this.dispose();
+        _super.prototype.dispose.call(this);
     };
     /**
      * Attach the given ComponentPortal to this PortalHost using the ComponentFactoryResolver.
@@ -1513,7 +1517,7 @@ var PortalHostDirective = (function (_super) {
             this._viewContainerRef;
         var componentFactory = this._componentFactoryResolver.resolveComponentFactory(portal.component);
         var ref = viewContainerRef.createComponent(componentFactory, viewContainerRef.length, portal.injector || viewContainerRef.parentInjector);
-        this.setDisposeFn(function () { return ref.destroy(); });
+        _super.prototype.setDisposeFn.call(this, function () { return ref.destroy(); });
         return ref;
     };
     /**
@@ -1524,17 +1528,17 @@ var PortalHostDirective = (function (_super) {
         var _this = this;
         portal.setAttachedHost(this);
         this._viewContainerRef.createEmbeddedView(portal.templateRef);
-        this.setDisposeFn(function () { return _this._viewContainerRef.clear(); });
+        _super.prototype.setDisposeFn.call(this, function () { return _this._viewContainerRef.clear(); });
         // TODO(jelbourn): return locals from view
         return new Map();
     };
     /** Detaches the currently attached Portal (if there is one) and attaches the given Portal. */
     PortalHostDirective.prototype._replaceAttachedPortal = function (p) {
         if (this.hasAttached()) {
-            this.detach();
+            _super.prototype.detach.call(this);
         }
         if (p) {
-            this.attach(p);
+            _super.prototype.attach.call(this, p);
             this._portal = p;
         }
     };
@@ -15478,6 +15482,7 @@ var MdDialogRef = (function () {
                 _this._overlayRef.dispose();
                 _this._afterClosed.next(_this._result);
                 _this._afterClosed.complete();
+                _this.componentInstance = null;
             }
         });
     }

@@ -72,7 +72,7 @@ export var PortalHostDirective = (function (_super) {
         configurable: true
     });
     PortalHostDirective.prototype.ngOnDestroy = function () {
-        this.dispose();
+        _super.prototype.dispose.call(this);
     };
     /**
      * Attach the given ComponentPortal to this PortalHost using the ComponentFactoryResolver.
@@ -88,7 +88,7 @@ export var PortalHostDirective = (function (_super) {
             this._viewContainerRef;
         var componentFactory = this._componentFactoryResolver.resolveComponentFactory(portal.component);
         var ref = viewContainerRef.createComponent(componentFactory, viewContainerRef.length, portal.injector || viewContainerRef.parentInjector);
-        this.setDisposeFn(function () { return ref.destroy(); });
+        _super.prototype.setDisposeFn.call(this, function () { return ref.destroy(); });
         return ref;
     };
     /**
@@ -99,17 +99,17 @@ export var PortalHostDirective = (function (_super) {
         var _this = this;
         portal.setAttachedHost(this);
         this._viewContainerRef.createEmbeddedView(portal.templateRef);
-        this.setDisposeFn(function () { return _this._viewContainerRef.clear(); });
+        _super.prototype.setDisposeFn.call(this, function () { return _this._viewContainerRef.clear(); });
         // TODO(jelbourn): return locals from view
         return new Map();
     };
     /** Detaches the currently attached Portal (if there is one) and attaches the given Portal. */
     PortalHostDirective.prototype._replaceAttachedPortal = function (p) {
         if (this.hasAttached()) {
-            this.detach();
+            _super.prototype.detach.call(this);
         }
         if (p) {
-            this.attach(p);
+            _super.prototype.attach.call(this, p);
             this._portal = p;
         }
     };

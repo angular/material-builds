@@ -108,10 +108,10 @@ export var BasePortalHost = (function () {
     }
     /** Whether this host has an attached portal. */
     BasePortalHost.prototype.hasAttached = function () {
-        return this._attachedPortal != null;
+        return !!this._attachedPortal;
     };
     BasePortalHost.prototype.attach = function (portal) {
-        if (portal == null) {
+        if (!portal) {
             throw new NullPortalError();
         }
         if (this.hasAttached()) {
@@ -133,21 +133,25 @@ export var BasePortalHost = (function () {
     BasePortalHost.prototype.detach = function () {
         if (this._attachedPortal) {
             this._attachedPortal.setAttachedHost(null);
+            this._attachedPortal = null;
         }
-        this._attachedPortal = null;
-        if (this._disposeFn != null) {
-            this._disposeFn();
-            this._disposeFn = null;
-        }
+        this._invokeDisposeFn();
     };
     BasePortalHost.prototype.dispose = function () {
         if (this.hasAttached()) {
             this.detach();
         }
+        this._invokeDisposeFn();
         this._isDisposed = true;
     };
     BasePortalHost.prototype.setDisposeFn = function (fn) {
         this._disposeFn = fn;
+    };
+    BasePortalHost.prototype._invokeDisposeFn = function () {
+        if (this._disposeFn) {
+            this._disposeFn();
+            this._disposeFn = null;
+        }
     };
     return BasePortalHost;
 }());
