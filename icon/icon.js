@@ -231,7 +231,7 @@ export var MdIcon = (function () {
     MdIcon = __decorate([
         Component({template: '<ng-content></ng-content>',
             selector: 'md-icon, mat-icon',
-            styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px}"],
+            styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px} /*# sourceMappingURL=icon.css.map */ "],
             host: {
                 'role': 'img',
                 '[class.mat-icon]': 'true',
