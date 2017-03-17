@@ -30,8 +30,11 @@ export declare class MdTooltip implements OnInit, OnDestroy {
     _tooltipInstance: TooltipComponent;
     scrollSubscription: Subscription;
     private _position;
+    private _disabled;
     /** Allows the user to define the position of the tooltip relative to the parent element */
     position: TooltipPosition;
+    /** Disables the display of the tooltip. */
+    disabled: boolean;
     /** @deprecated */
     _positionDeprecated: TooltipPosition;
     /** The default delay in ms before showing the tooltip after show is called */
@@ -45,6 +48,7 @@ export declare class MdTooltip implements OnInit, OnDestroy {
     _deprecatedMessage: string;
     _matMessage: string;
     _matPosition: TooltipPosition;
+    _matDisabled: boolean;
     _matHideDelay: number;
     _matShowDelay: number;
     constructor(_overlay: Overlay, _elementRef: ElementRef, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _renderer: Renderer, _platform: Platform, _dir: Dir);

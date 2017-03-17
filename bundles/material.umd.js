@@ -14414,6 +14414,7 @@ var MdTooltip = (function () {
         this._platform = _platform;
         this._dir = _dir;
         this._position = 'below';
+        this._disabled = false;
         /** The default delay in ms before showing the tooltip after show is called */
         this.showDelay = 0;
         /** The default delay in ms before hiding the tooltip after hide is called */
@@ -14436,6 +14437,19 @@ var MdTooltip = (function () {
                 if (this._tooltipInstance) {
                     this._disposeTooltip();
                 }
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdTooltip.prototype, "disabled", {
+        /** Disables the display of the tooltip. */
+        get: function () { return this._disabled; },
+        set: function (value) {
+            this._disabled = coerceBooleanProperty(value);
+            // If tooltip is disabled, hide immediately.
+            if (this._disabled) {
+                this.hide(0);
             }
         },
         enumerable: true,
@@ -14481,6 +14495,13 @@ var MdTooltip = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdTooltip.prototype, "_matDisabled", {
+        // Properties with `mat-` prefix for noconflict mode.
+        get: function () { return this.disabled; },
+        set: function (v) { this.disabled = v; },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MdTooltip.prototype, "_matHideDelay", {
         // Properties with `mat-` prefix for noconflict mode.
         get: function () { return this.hideDelay; },
@@ -14519,7 +14540,7 @@ var MdTooltip = (function () {
     /** Shows the tooltip after the delay in ms, defaults to tooltip-delay-show or 0ms if no input */
     MdTooltip.prototype.show = function (delay) {
         if (delay === void 0) { delay = this.showDelay; }
-        if (!this._message || !this._message.trim()) {
+        if (this.disabled || !this._message || !this._message.trim()) {
             return;
         }
         if (!this._tooltipInstance) {
@@ -14541,7 +14562,7 @@ var MdTooltip = (function () {
     };
     /** Returns true if the tooltip is currently visible to the user */
     MdTooltip.prototype._isTooltipVisible = function () {
-        return this._tooltipInstance && this._tooltipInstance.isVisible();
+        return !!this._tooltipInstance && this._tooltipInstance.isVisible();
     };
     /** Create the tooltip to display */
     MdTooltip.prototype._createTooltip = function () {
@@ -14639,6 +14660,10 @@ var MdTooltip = (function () {
         __metadata$84('design:type', String)
     ], MdTooltip.prototype, "position", null);
     __decorate$84([
+        _angular_core.Input('mdTooltipDisabled'), 
+        __metadata$84('design:type', Boolean)
+    ], MdTooltip.prototype, "disabled", null);
+    __decorate$84([
         _angular_core.Input('tooltip-position'), 
         __metadata$84('design:type', String)
     ], MdTooltip.prototype, "_positionDeprecated", null);
@@ -14666,6 +14691,10 @@ var MdTooltip = (function () {
         _angular_core.Input('matTooltipPosition'), 
         __metadata$84('design:type', Object)
     ], MdTooltip.prototype, "_matPosition", null);
+    __decorate$84([
+        _angular_core.Input('matTooltipDisabled'), 
+        __metadata$84('design:type', Object)
+    ], MdTooltip.prototype, "_matDisabled", null);
     __decorate$84([
         _angular_core.Input('matTooltipHideDelay'), 
         __metadata$84('design:type', Object)

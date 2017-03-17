@@ -18,6 +18,7 @@ import { Dir } from '../core/rtl/dir';
 import { Platform } from '../core/platform/index';
 import 'rxjs/add/operator/first';
 import { ScrollDispatcher } from '../core/overlay/scroll/scroll-dispatcher';
+import { coerceBooleanProperty } from '../core/coercion/boolean-property';
 /** Time in ms to delay before changing the tooltip visibility to hidden */
 export var TOUCHEND_HIDE_DELAY = 1500;
 /** Time in ms to throttle repositioning after scroll events. */
@@ -40,6 +41,7 @@ export var MdTooltip = (function () {
         this._platform = _platform;
         this._dir = _dir;
         this._position = 'below';
+        this._disabled = false;
         /** The default delay in ms before showing the tooltip after show is called */
         this.showDelay = 0;
         /** The default delay in ms before hiding the tooltip after hide is called */
@@ -62,6 +64,19 @@ export var MdTooltip = (function () {
                 if (this._tooltipInstance) {
                     this._disposeTooltip();
                 }
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdTooltip.prototype, "disabled", {
+        /** Disables the display of the tooltip. */
+        get: function () { return this._disabled; },
+        set: function (value) {
+            this._disabled = coerceBooleanProperty(value);
+            // If tooltip is disabled, hide immediately.
+            if (this._disabled) {
+                this.hide(0);
             }
         },
         enumerable: true,
@@ -107,6 +122,13 @@ export var MdTooltip = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdTooltip.prototype, "_matDisabled", {
+        // Properties with `mat-` prefix for noconflict mode.
+        get: function () { return this.disabled; },
+        set: function (v) { this.disabled = v; },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MdTooltip.prototype, "_matHideDelay", {
         // Properties with `mat-` prefix for noconflict mode.
         get: function () { return this.hideDelay; },
@@ -145,7 +167,7 @@ export var MdTooltip = (function () {
     /** Shows the tooltip after the delay in ms, defaults to tooltip-delay-show or 0ms if no input */
     MdTooltip.prototype.show = function (delay) {
         if (delay === void 0) { delay = this.showDelay; }
-        if (!this._message || !this._message.trim()) {
+        if (this.disabled || !this._message || !this._message.trim()) {
             return;
         }
         if (!this._tooltipInstance) {
@@ -167,7 +189,7 @@ export var MdTooltip = (function () {
     };
     /** Returns true if the tooltip is currently visible to the user */
     MdTooltip.prototype._isTooltipVisible = function () {
-        return this._tooltipInstance && this._tooltipInstance.isVisible();
+        return !!this._tooltipInstance && this._tooltipInstance.isVisible();
     };
     /** Create the tooltip to display */
     MdTooltip.prototype._createTooltip = function () {
@@ -265,6 +287,10 @@ export var MdTooltip = (function () {
         __metadata('design:type', String)
     ], MdTooltip.prototype, "position", null);
     __decorate([
+        Input('mdTooltipDisabled'), 
+        __metadata('design:type', Boolean)
+    ], MdTooltip.prototype, "disabled", null);
+    __decorate([
         Input('tooltip-position'), 
         __metadata('design:type', String)
     ], MdTooltip.prototype, "_positionDeprecated", null);
@@ -292,6 +318,10 @@ export var MdTooltip = (function () {
         Input('matTooltipPosition'), 
         __metadata('design:type', Object)
     ], MdTooltip.prototype, "_matPosition", null);
+    __decorate([
+        Input('matTooltipDisabled'), 
+        __metadata('design:type', Object)
+    ], MdTooltip.prototype, "_matDisabled", null);
     __decorate([
         Input('matTooltipHideDelay'), 
         __metadata('design:type', Object)
