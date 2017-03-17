@@ -3103,7 +3103,7 @@ function isAnchorWithHref(element) {
 }
 /** Gets whether an element is an input element. */
 function isInputElement(element) {
-    return element.nodeName == 'input';
+    return element.nodeName.toLowerCase() == 'input';
 }
 /** Gets whether an element is an anchor element. */
 function isAnchorElement(element) {
