@@ -1,1 +1,1 @@
-{"version":3,"sources":["tab-body.css"],"names":[],"mappings":"AAAA;EACE,aAAa,EAAE","file":"tab-body.css","sourcesContent":[".mat-tab-body-content {\n  height: 100%; }\n"]}
+{"version":3,"file":"tab-body.css","sources":["tabs/tab-body.scss"],"sourcesContent":[".mat-tab-body-content {\n  height: 100%;\n}\n"],"names":[],"mappings":"AAAA,AAAA,qBAAqB,CAAC;EACpB,MAAM,EAAE,IAAI,GACb"}
