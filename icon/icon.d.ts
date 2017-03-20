@@ -91,6 +91,6 @@ export declare class MdIcon implements OnChanges, OnInit, AfterViewChecked {
 export declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MdIconRegistry, http: Http, sanitizer: DomSanitizer): MdIconRegistry;
 export declare const ICON_REGISTRY_PROVIDER: {
     provide: typeof MdIconRegistry;
-    deps: (Optional[] | typeof DomSanitizer | typeof Http)[];
+    deps: (typeof DomSanitizer | Optional[] | typeof Http)[];
     useFactory: (parentRegistry: MdIconRegistry, http: Http, sanitizer: DomSanitizer) => MdIconRegistry;
 };

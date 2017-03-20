@@ -4,13 +4,13 @@
   * License: MIT
   */
 import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, Injector, Input, NgModule, NgZone, OpaqueToken, Optional, Output, QueryList, Renderer, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, animate, forwardRef, isDevMode, state, style, transition, trigger } from '@angular/core';
+import { DOCUMENT, DomSanitizer, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/auditTime';
-import { DomSanitizer, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
 import { FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/first';
@@ -99,7 +99,7 @@ const MAT_ELEMENTS_SELECTOR = `
   mat-tab-group,
   mat-toolbar`;
 /** Selector that matches all elements that may have style collisions with AngularJS Material. */
-const MD_ELEMENTS_SELECTOR = `  
+const MD_ELEMENTS_SELECTOR = `
   [md-button],
   [md-dialog-actions],
   [md-dialog-close],
@@ -191,6 +191,12 @@ MdPrefixRejector = __decorate$2([
  * there are any uses of the `mat-` prefix.
  */
 let CompatibilityModule_1 = class CompatibilityModule {
+    constructor(document) {
+        if (isDevMode() && typeof document && !document.doctype) {
+            console.warn('Current document does not have a doctype. This may cause ' +
+                'some Angular Material components not to behave as expected.');
+        }
+    }
     static forRoot() {
         return {
             ngModule: CompatibilityModule_1,
@@ -203,8 +209,10 @@ CompatibilityModule = CompatibilityModule_1 = __decorate$2([
     NgModule({
         declarations: [MatPrefixRejector, MdPrefixRejector],
         exports: [MatPrefixRejector, MdPrefixRejector],
-    }), 
-    __metadata$2('design:paramtypes', [])
+    }),
+    __param(0, Optional()),
+    __param(0, Inject(DOCUMENT)), 
+    __metadata$2('design:paramtypes', [Object])
 ], CompatibilityModule);
 /**
  * Module that enforces "no-conflict" compatibility mode settings. When this module is loaded,
