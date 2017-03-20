@@ -1,0 +1,115 @@
+@import '../core/style/variables';
+@import '../core/style/elevation';
+@import '../core/style/button-common';
+
+
+// Flat and raised button standards
+$mat-button-padding: 0 16px !default;
+$mat-button-min-width: 88px !default;
+$mat-button-margin: 0 !default;
+$mat-button-line-height: 36px !default;
+$mat-button-border-radius: 2px !default;
+$mat-button-focus-transition: opacity 200ms $swift-ease-in-out-timing-function !default;
+
+// Icon Button standards
+$mat-icon-button-size: 40px !default;
+$mat-icon-button-border-radius: 50% !default;
+$mat-icon-button-line-height: 24px !default;
+
+// Fab standards
+$mat-fab-border-radius: 50% !default;
+$mat-fab-size: 56px !default;
+$mat-fab-padding: 16px !default;
+
+$mat-mini-fab-size: 40px !default;
+$mat-mini-fab-padding: 8px !default;
+
+// Applies base styles to all button types.
+%mat-button-base {
+  box-sizing: border-box;
+  position: relative;
+
+  // Reset browser <button> styles.
+  @include mat-button-reset();
+
+  // Make anchors render like buttons.
+  display: inline-block;
+  white-space: nowrap;
+  text-decoration: none;
+  vertical-align: baseline;
+
+  // Typography.
+  font-size: $mat-body-font-size-base;
+  font-family: $mat-font-family;
+  font-weight: 500;
+  text-align: center;
+
+  // Sizing.
+  margin: $mat-button-margin;
+  min-width: $mat-button-min-width;
+  line-height: $mat-button-line-height;
+  padding: $mat-button-padding;
+  border-radius: $mat-button-border-radius;
+
+  &[disabled] {
+    cursor: default;
+  }
+
+  &.cdk-keyboard-focused {
+    .mat-button-focus-overlay {
+      opacity: 1;
+    }
+  }
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
+}
+
+// Applies styles to buttons with backgrounds: raised, fab, and mini-fab
+%mat-raised-button {
+  @extend %mat-button-base;
+
+  @include mat-elevation(2);
+
+  // Force hardware acceleration.
+  transform: translate3d(0, 0, 0);
+
+  // Animation.
+  transition: background $swift-ease-out-duration $swift-ease-out-timing-function,
+              mat-elevation-transition-property-value();
+
+  &:not([disabled]):active {
+    @include mat-elevation(8);
+  }
+
+  &[disabled] {
+    box-shadow: none;
+  }
+}
+
+// Applies styles to fab and mini-fab button types only
+@mixin mat-fab($size, $padding) {
+  @extend %mat-raised-button;
+
+  @include mat-elevation(6);
+
+  // Reset the min-width from the button base.
+  min-width: 0;
+
+  border-radius: $mat-fab-border-radius;
+  width: $size;
+  height: $size;
+  padding: 0;
+
+  flex-shrink: 0;
+
+  &:not([disabled]):active {
+    @include mat-elevation(12);
+  }
+
+  i, .mat-icon {
+    padding: $padding 0;
+    line-height: $mat-icon-button-line-height;
+  }
+}

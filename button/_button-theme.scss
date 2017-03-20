@@ -1,0 +1,87 @@
+@import '../core/theming/theming';
+
+
+// Applies a focus style to an md-button element for each of the supported palettes.
+@mixin _mat-button-focus-color($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+
+  &.mat-primary .mat-button-focus-overlay {
+    background-color: mat-color($primary, 0.12);
+  }
+
+  &.mat-accent .mat-button-focus-overlay {
+    background-color: mat-color($accent, 0.12);
+  }
+
+  &.mat-warn .mat-button-focus-overlay {
+    background-color: mat-color($warn, 0.12);
+  }
+
+  &[disabled] .mat-button-focus-overlay {
+    background-color: transparent;
+  }
+}
+
+// Applies a property to an md-button element for each of the supported palettes.
+@mixin _mat-button-theme-color($theme, $property, $color: 'default') {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  &.mat-primary {
+    #{$property}: mat-color($primary, $color);
+  }
+  &.mat-accent {
+    #{$property}: mat-color($accent, $color);
+  }
+  &.mat-warn {
+    #{$property}: mat-color($warn, $color);
+  }
+
+  &.mat-primary, &.mat-accent, &.mat-warn, &[disabled] {
+    &[disabled] {
+      $palette: if($property == 'color', $foreground, $background);
+      #{$property}: mat-color($palette, disabled-button);
+    }
+  }
+}
+
+@mixin mat-button-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  .mat-button, .mat-icon-button, .mat-raised-button, .mat-fab, .mat-mini-fab {
+    // Appy color to focus overlay.
+    // The focus overlay will be visible when any button type is focused or when
+    // flat buttons or icon buttons are hovered.
+    @include _mat-button-focus-color($theme);
+  }
+
+  .mat-button, .mat-icon-button {
+    @include _mat-button-theme-color($theme, 'color');
+    background: transparent;
+  }
+
+  .mat-raised-button, .mat-fab, .mat-mini-fab {
+    // Default properties when not using any [color] value.
+    color: mat-color($foreground, text);
+    background-color: mat-color($background, raised-button);
+
+    @include _mat-button-theme-color($theme, 'color', default-contrast);
+    @include _mat-button-theme-color($theme, 'background-color');
+  }
+
+  .mat-fab, .mat-mini-fab {
+    background-color: mat-color($accent);
+    color: mat-color($accent, default-contrast);
+  }
+}
+
+

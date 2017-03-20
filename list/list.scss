@@ -1,0 +1,183 @@
+@import '../core/style/variables';
+@import '../core/style/list-common';
+
+
+$mat-list-side-padding: 16px;
+$mat-list-avatar-size: 40px;
+$mat-list-icon-size: 24px;
+
+// Normal list variables
+$mat-list-top-padding: 8px;
+$mat-list-font-size: 16px;
+$mat-list-secondary-font: 14px;
+// height for single-line lists
+$mat-list-base-height: 48px;
+// height for single-line lists with avatars
+$mat-list-avatar-height: 56px;
+// spec requires two- and three-line lists be taller
+$mat-list-two-line-height: 72px;
+$mat-list-three-line-height: 88px;
+
+// Dense list variables
+$mat-dense-top-padding: 4px;
+$mat-dense-font-size: 13px;
+$mat-dense-base-height: 40px;
+$mat-dense-avatar-height: 48px;
+$mat-dense-two-line-height: 60px;
+$mat-dense-three-line-height: 76px;
+
+// This mixin provides all list-item styles, changing font size and height
+// based on whether the list is in dense mode.
+@mixin mat-list-item-base($font-size, $base-height, $avatar-height,
+  $two-line-height, $three-line-height) {
+
+  // Prevents the wrapper `mat-list-item-content` from collapsing due to it
+  // being `inline` by default.
+  display: block;
+
+  .mat-list-item-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: $mat-font-family;
+    box-sizing: border-box;
+    font-size: $font-size;
+    height: $base-height;
+    padding: 0 $mat-list-side-padding;
+    position: relative;
+  }
+
+  &.mat-list-item-avatar .mat-list-item-content {
+    height: $avatar-height;
+  }
+
+  &.mat-2-line .mat-list-item-content {
+    height: $two-line-height;
+  }
+
+
+  &.mat-3-line .mat-list-item-content {
+    height: $three-line-height;
+  }
+
+  // list items with more than 3 lines should expand to match
+  // the height of its contained text
+  &.mat-multi-line .mat-list-item-content {
+    height: 100%;
+    padding: 8px $mat-list-side-padding;
+  }
+
+  .mat-list-text {
+    @include mat-line-wrapper-base();
+    padding: 0 $mat-list-side-padding;
+
+    &:first-child {
+      padding: 0;
+    }
+  }
+
+  .mat-list-avatar {
+    flex-shrink: 0;
+    width: $mat-list-avatar-size;
+    height: $mat-list-avatar-size;
+    border-radius: 50%;
+  }
+
+  .mat-list-icon {
+    width: $mat-list-icon-size;
+    height: $mat-list-icon-size;
+    border-radius: 50%;
+    padding: 4px;
+  }
+}
+
+// This mixin provides all subheader styles, adjusting heights and padding
+// based on whether the list is in dense mode.
+@mixin mat-subheader-base($top-padding, $secondary-size, $base-height) {
+  display: block;
+  box-sizing: border-box;
+  height: $base-height;
+  padding: $mat-list-side-padding;
+  margin: 0;
+
+  font-size: $secondary-size;
+  font-weight: 500;
+
+  &:first-child {
+    margin-top: -$top-padding;
+  }
+}
+
+.mat-list, .mat-nav-list {
+  padding-top: $mat-list-top-padding;
+  display: block;
+
+  .mat-subheader {
+    @include mat-subheader-base(
+      $mat-list-top-padding,
+      $mat-list-secondary-font,
+      $mat-list-base-height
+    );
+  }
+
+
+  .mat-list-item {
+    @include mat-list-item-base(
+      $mat-list-font-size,
+      $mat-list-base-height,
+      $mat-list-avatar-height,
+      $mat-list-two-line-height,
+      $mat-list-three-line-height
+    );
+
+    @include mat-line-base($mat-list-secondary-font);
+  }
+}
+
+
+.mat-list[dense], .mat-nav-list[dense] {
+  padding-top: $mat-dense-top-padding;
+  display: block;
+
+  .mat-subheader {
+    @include mat-subheader-base(
+      $mat-dense-top-padding,
+      $mat-dense-font-size,
+      $mat-dense-base-height
+    );
+  }
+
+  .mat-list-item {
+    @include mat-list-item-base(
+      $mat-dense-font-size,
+      $mat-dense-base-height,
+      $mat-dense-avatar-height,
+      $mat-dense-two-line-height,
+      $mat-dense-three-line-height
+    );
+
+    @include mat-line-base($mat-dense-font-size);
+  }
+}
+
+.mat-divider {
+  display: block;
+  border-top-style: solid;
+  border-top-width: 1px;
+  margin: 0;
+}
+
+.mat-nav-list {
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .mat-list-item-content {
+    cursor: pointer;
+
+    &:hover, &.mat-list-item-focus {
+      outline: none;
+    }
+  }
+}

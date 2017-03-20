@@ -1,0 +1,57 @@
+@import '../core/theming/palette';
+@import '../core/theming/theming';
+
+@mixin mat-select-theme($theme) {
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+  $primary: map-get($theme, primary);
+  $warn: map-get($theme, warn);
+
+  .mat-select-trigger {
+    color: mat-color($foreground, hint-text);
+
+    .mat-select:focus:not(.mat-select-disabled) & {
+      color: mat-color($primary);
+    }
+
+    .mat-select.ng-invalid.ng-touched:not(.mat-select-disabled) & {
+      color: mat-color($warn);
+    }
+  }
+
+  .mat-select-underline {
+    background-color: mat-color($foreground, divider);
+
+    .mat-select:focus:not(.mat-select-disabled) & {
+      background-color: mat-color($primary);
+    }
+
+    .mat-select.ng-invalid.ng-touched:not(.mat-select-disabled) & {
+      background-color: mat-color($warn);
+    }
+  }
+
+  .mat-select-arrow {
+    color: mat-color($foreground, hint-text);
+
+    .mat-select:focus:not(.mat-select-disabled) & {
+      color: mat-color($primary);
+    }
+
+    .mat-select.ng-invalid.ng-touched:not(.mat-select-disabled) & {
+      color: mat-color($warn);
+    }
+  }
+
+  .mat-select-content, .mat-select-panel-done-animating {
+    background: mat-color($background, card);
+  }
+
+  .mat-select-value {
+    color: mat-color($foreground, text);
+
+    .mat-select-disabled & {
+      color: mat-color($foreground, hint-text);
+    }
+  }
+}

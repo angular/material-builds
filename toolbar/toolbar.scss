@@ -1,0 +1,60 @@
+@import '../core/style/variables';
+
+$mat-toolbar-height-desktop: 64px !default;
+$mat-toolbar-height-mobile-portrait: 56px !default;
+$mat-toolbar-height-mobile-landscape: 48px !default;
+
+$mat-toolbar-font-size: 20px !default;
+$mat-toolbar-padding: 16px !default;
+
+
+@mixin mat-toolbar-height($height) {
+  .mat-toolbar {
+    min-height: $height;
+  }
+  .mat-toolbar-row {
+    height: $height;
+  }
+}
+
+.mat-toolbar {
+  display: flex;
+  box-sizing: border-box;
+
+  width: 100%;
+
+  // Font Styling
+  font-size: $mat-toolbar-font-size;
+  font-weight: 500;
+  font-family: $mat-font-family;
+
+  padding: 0 $mat-toolbar-padding;
+
+  flex-direction: column;
+
+  .mat-toolbar-row {
+    display: flex;
+    box-sizing: border-box;
+
+    width: 100%;
+
+    // Flexbox Vertical Alignment
+    flex-direction: row;
+    align-items: center;
+
+    // Per Material specs a toolbar cannot have multiple lines inside of a single row. 
+    // Disable text wrapping inside of the toolbar. Developers are still able to overwrite it.
+    white-space: nowrap;
+  }
+}
+
+// Set the default height for the toolbar.
+@include mat-toolbar-height($mat-toolbar-height-desktop);
+
+// As per specs, mobile devices will use a different height for toolbars than for desktop.
+// The height for mobile landscape devices has been ignored since relying on `@media orientation`
+// is causing issues on devices with a soft-keyboard.
+// See: https://material.io/guidelines/layout/structure.html#structure-app-bar
+@media ($mat-xsmall) {
+  @include mat-toolbar-height($mat-toolbar-height-mobile-portrait);
+}

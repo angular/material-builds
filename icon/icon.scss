@@ -1,0 +1,13 @@
+@import '../core/style/variables';
+
+
+// The width/height of the icon element.
+$mat-icon-size: 24px !default;
+
+.mat-icon {
+  background-repeat: no-repeat;
+  display: inline-block;
+  fill: currentColor;
+  height: $mat-icon-size;
+  width: $mat-icon-size;
+}
