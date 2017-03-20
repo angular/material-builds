@@ -63,16 +63,21 @@ export var PortalHostDirective = (function (_super) {
         get: function () {
             return this._portal;
         },
-        set: function (p) {
-            if (p) {
-                this._replaceAttachedPortal(p);
+        set: function (portal) {
+            if (this.hasAttached()) {
+                _super.prototype.detach.call(this);
             }
+            if (portal) {
+                _super.prototype.attach.call(this, portal);
+            }
+            this._portal = portal;
         },
         enumerable: true,
         configurable: true
     });
     PortalHostDirective.prototype.ngOnDestroy = function () {
         _super.prototype.dispose.call(this);
+        this._portal = null;
     };
     /**
      * Attach the given ComponentPortal to this PortalHost using the ComponentFactoryResolver.
@@ -89,6 +94,7 @@ export var PortalHostDirective = (function (_super) {
         var componentFactory = this._componentFactoryResolver.resolveComponentFactory(portal.component);
         var ref = viewContainerRef.createComponent(componentFactory, viewContainerRef.length, portal.injector || viewContainerRef.parentInjector);
         _super.prototype.setDisposeFn.call(this, function () { return ref.destroy(); });
+        this._portal = portal;
         return ref;
     };
     /**
@@ -100,18 +106,9 @@ export var PortalHostDirective = (function (_super) {
         portal.setAttachedHost(this);
         this._viewContainerRef.createEmbeddedView(portal.templateRef);
         _super.prototype.setDisposeFn.call(this, function () { return _this._viewContainerRef.clear(); });
+        this._portal = portal;
         // TODO(jelbourn): return locals from view
         return new Map();
-    };
-    /** Detaches the currently attached Portal (if there is one) and attaches the given Portal. */
-    PortalHostDirective.prototype._replaceAttachedPortal = function (p) {
-        if (this.hasAttached()) {
-            _super.prototype.detach.call(this);
-        }
-        if (p) {
-            _super.prototype.attach.call(this, p);
-            this._portal = p;
-        }
     };
     __decorate([
         Input('portalHost'), 

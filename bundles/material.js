@@ -1484,13 +1484,18 @@ let PortalHostDirective = class PortalHostDirective extends BasePortalHost {
     get portal() {
         return this._portal;
     }
-    set portal(p) {
-        if (p) {
-            this._replaceAttachedPortal(p);
+    set portal(portal) {
+        if (this.hasAttached()) {
+            super.detach();
         }
+        if (portal) {
+            super.attach(portal);
+        }
+        this._portal = portal;
     }
     ngOnDestroy() {
         super.dispose();
+        this._portal = null;
     }
     /**
      * Attach the given ComponentPortal to this PortalHost using the ComponentFactoryResolver.
@@ -1507,6 +1512,7 @@ let PortalHostDirective = class PortalHostDirective extends BasePortalHost {
         let componentFactory = this._componentFactoryResolver.resolveComponentFactory(portal.component);
         let ref = viewContainerRef.createComponent(componentFactory, viewContainerRef.length, portal.injector || viewContainerRef.parentInjector);
         super.setDisposeFn(() => ref.destroy());
+        this._portal = portal;
         return ref;
     }
     /**
@@ -1517,18 +1523,9 @@ let PortalHostDirective = class PortalHostDirective extends BasePortalHost {
         portal.setAttachedHost(this);
         this._viewContainerRef.createEmbeddedView(portal.templateRef);
         super.setDisposeFn(() => this._viewContainerRef.clear());
+        this._portal = portal;
         // TODO(jelbourn): return locals from view
         return new Map();
-    }
-    /** Detaches the currently attached Portal (if there is one) and attaches the given Portal. */
-    _replaceAttachedPortal(p) {
-        if (this.hasAttached()) {
-            super.detach();
-        }
-        if (p) {
-            super.attach(p);
-            this._portal = p;
-        }
     }
 };
 __decorate$12([
