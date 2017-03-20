@@ -26,8 +26,6 @@ export { MdOptionModule, MdOption } from './option/option';
 export { Portal, BasePortalHost, ComponentPortal, TemplatePortal } from './portal/portal';
 export { PortalHostDirective, TemplatePortalDirective, PortalModule } from './portal/portal-directives';
 export { DomPortalHost } from './portal/dom-portal-host';
-// Projection
-export * from './projection/projection';
 // Platform
 export * from './platform/index';
 /** @deprecated */
