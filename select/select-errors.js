@@ -8,23 +8,25 @@ import { MdError } from '../core/errors/error';
  * Exception thrown when attempting to change a select's `multiple` option after initialization.
  * @docs-private
  */
-export var MdSelectDynamicMultipleError = (function (_super) {
+var MdSelectDynamicMultipleError = (function (_super) {
     __extends(MdSelectDynamicMultipleError, _super);
     function MdSelectDynamicMultipleError() {
-        _super.call(this, 'Cannot change `multiple` mode of select after initialization.');
+        return _super.call(this, 'Cannot change `multiple` mode of select after initialization.') || this;
     }
     return MdSelectDynamicMultipleError;
 }(MdError));
+export { MdSelectDynamicMultipleError };
 /**
  * Exception thrown when attempting to assign a non-array value to a select in `multiple` mode.
  * Note that `undefined` and `null` are still valid values to allow for resetting the value.
  * @docs-private
  */
-export var MdSelectNonArrayValueError = (function (_super) {
+var MdSelectNonArrayValueError = (function (_super) {
     __extends(MdSelectNonArrayValueError, _super);
     function MdSelectNonArrayValueError() {
-        _super.call(this, 'Cannot assign truthy non-array value to select in `multiple` mode.');
+        return _super.call(this, 'Cannot assign truthy non-array value to select in `multiple` mode.') || this;
     }
     return MdSelectNonArrayValueError;
 }(MdError));
+export { MdSelectNonArrayValueError };
 //# sourceMappingURL=select-errors.js.map

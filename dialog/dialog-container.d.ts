@@ -1,4 +1,5 @@
-import { ComponentRef, NgZone, OnDestroy, Renderer, ElementRef, AnimationTransitionEvent, EventEmitter } from '@angular/core';
+import { ComponentRef, NgZone, OnDestroy, Renderer, ElementRef, EventEmitter } from '@angular/core';
+import { AnimationEvent } from '@angular/animations';
 import { BasePortalHost, ComponentPortal, PortalHostDirective, TemplatePortal } from '../core';
 import { MdDialogConfig } from './dialog-config';
 import { FocusTrapFactory } from '../core/a11y/focus-trap';
@@ -52,6 +53,6 @@ export declare class MdDialogContainer extends BasePortalHost implements OnDestr
      * Callback, invoked whenever an animation on the host completes.
      * @docs-private
      */
-    _onAnimationDone(event: AnimationTransitionEvent): void;
+    _onAnimationDone(event: AnimationEvent): void;
     ngOnDestroy(): void;
 }

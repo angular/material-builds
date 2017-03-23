@@ -5,36 +5,40 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 import { MdError } from '../core/errors/error';
 /** @docs-private */
-export var MdInputContainerPlaceholderConflictError = (function (_super) {
+var MdInputContainerPlaceholderConflictError = (function (_super) {
     __extends(MdInputContainerPlaceholderConflictError, _super);
     function MdInputContainerPlaceholderConflictError() {
-        _super.call(this, 'Placeholder attribute and child element were both specified.');
+        return _super.call(this, 'Placeholder attribute and child element were both specified.') || this;
     }
     return MdInputContainerPlaceholderConflictError;
 }(MdError));
+export { MdInputContainerPlaceholderConflictError };
 /** @docs-private */
-export var MdInputContainerUnsupportedTypeError = (function (_super) {
+var MdInputContainerUnsupportedTypeError = (function (_super) {
     __extends(MdInputContainerUnsupportedTypeError, _super);
     function MdInputContainerUnsupportedTypeError(type) {
-        _super.call(this, "Input type \"" + type + "\" isn't supported by md-input-container.");
+        return _super.call(this, "Input type \"" + type + "\" isn't supported by md-input-container.") || this;
     }
     return MdInputContainerUnsupportedTypeError;
 }(MdError));
+export { MdInputContainerUnsupportedTypeError };
 /** @docs-private */
-export var MdInputContainerDuplicatedHintError = (function (_super) {
+var MdInputContainerDuplicatedHintError = (function (_super) {
     __extends(MdInputContainerDuplicatedHintError, _super);
     function MdInputContainerDuplicatedHintError(align) {
-        _super.call(this, "A hint was already declared for 'align=\"" + align + "\"'.");
+        return _super.call(this, "A hint was already declared for 'align=\"" + align + "\"'.") || this;
     }
     return MdInputContainerDuplicatedHintError;
 }(MdError));
+export { MdInputContainerDuplicatedHintError };
 /** @docs-private */
-export var MdInputContainerMissingMdInputError = (function (_super) {
+var MdInputContainerMissingMdInputError = (function (_super) {
     __extends(MdInputContainerMissingMdInputError, _super);
     function MdInputContainerMissingMdInputError() {
-        _super.call(this, 'md-input-container must contain an mdInput directive. Did you forget to add mdInput ' +
-            'to the native input or textarea element?');
+        return _super.call(this, 'md-input-container must contain an mdInput directive. Did you forget to add mdInput ' +
+            'to the native input or textarea element?') || this;
     }
     return MdInputContainerMissingMdInputError;
 }(MdError));
+export { MdInputContainerMissingMdInputError };
 //# sourceMappingURL=input-container-errors.js.map

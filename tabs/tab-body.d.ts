@@ -1,4 +1,5 @@
-import { EventEmitter, OnInit, AnimationTransitionEvent, ElementRef, ChangeDetectorRef, AfterViewChecked, AfterContentChecked } from '@angular/core';
+import { EventEmitter, OnInit, ElementRef, ChangeDetectorRef, AfterViewChecked, AfterContentChecked } from '@angular/core';
+import { AnimationEvent } from '@angular/animations';
 import { TemplatePortal, PortalHostDirective, Dir, LayoutDirection } from '../core';
 import 'rxjs/add/operator/map';
 /**
@@ -68,8 +69,8 @@ export declare class MdTabBody implements OnInit, AfterViewChecked, AfterContent
      * https://github.com/angular/angular/commit/21030e9a1cf30e8101399d8535ed72d847a23ba6
      */
     ngAfterContentChecked(): void;
-    _onTranslateTabStarted(e: AnimationTransitionEvent): void;
-    _onTranslateTabComplete(e: AnimationTransitionEvent): void;
+    _onTranslateTabStarted(e: AnimationEvent): void;
+    _onTranslateTabComplete(e: AnimationEvent): void;
     /** The text direction of the containing app. */
     _getLayoutDirection(): LayoutDirection;
     /** Whether the provided position state is considered center, regardless of origin. */

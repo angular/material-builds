@@ -15,17 +15,18 @@ import 'rxjs/add/operator/map';
 /** Used to generate unique ID's for each tab component */
 var nextId = 0;
 /** A simple change event emitted on focus or selection changes. */
-export var MdTabChangeEvent = (function () {
+var MdTabChangeEvent = (function () {
     function MdTabChangeEvent() {
     }
     return MdTabChangeEvent;
 }());
+export { MdTabChangeEvent };
 /**
  * Material design tab-group component.  Supports basic tab pairs (label + content) and includes
  * animated ink-bar, keyboard navigation, and screen reader.
  * See: https://www.google.com/design/spec/components/tabs.html
  */
-export var MdTabGroup = (function () {
+var MdTabGroup = (function () {
     function MdTabGroup(_renderer) {
         this._renderer = _renderer;
         /** Whether this component has been initialized. */
@@ -162,55 +163,61 @@ export var MdTabGroup = (function () {
         this._tabBodyWrapperHeight = this._tabBodyWrapper.nativeElement.clientHeight;
         this._renderer.setElementStyle(this._tabBodyWrapper.nativeElement, 'height', '');
     };
-    __decorate([
-        ContentChildren(MdTab), 
-        __metadata('design:type', QueryList)
-    ], MdTabGroup.prototype, "_tabs", void 0);
-    __decorate([
-        ViewChild('tabBodyWrapper'), 
-        __metadata('design:type', ElementRef)
-    ], MdTabGroup.prototype, "_tabBodyWrapper", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Boolean)
-    ], MdTabGroup.prototype, "dynamicHeight", null);
-    __decorate([
-        Input('md-dynamic-height'), 
-        __metadata('design:type', Boolean)
-    ], MdTabGroup.prototype, "_dynamicHeightDeprecated", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Number), 
-        __metadata('design:paramtypes', [Number])
-    ], MdTabGroup.prototype, "selectedIndex", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], MdTabGroup.prototype, "headerPosition", void 0);
-    __decorate([
-        Output(), 
-        __metadata('design:type', Observable)
-    ], MdTabGroup.prototype, "selectedIndexChange", null);
-    __decorate([
-        Output(), 
-        __metadata('design:type', Observable)
-    ], MdTabGroup.prototype, "focusChange", null);
-    __decorate([
-        Output(), 
-        __metadata('design:type', Observable)
-    ], MdTabGroup.prototype, "selectChange", null);
-    MdTabGroup = __decorate([
-        Component({selector: 'md-tab-group, mat-tab-group',
-            template: "<md-tab-header [selectedIndex]=\"selectedIndex\" #tabHeader (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" md-tab-label-wrapper md-ripple *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [tabIndex]=\"selectedIndex == i ? 0 : -1\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" (click)=\"tabHeader.focusIndex = selectedIndex = i\"><template [ngIf]=\"tab.templateLabel\"><template [cdkPortalHost]=\"tab.templateLabel\"></template></template><template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</template></div></md-tab-header><div class=\"mat-tab-body-wrapper\" #tabBodyWrapper><md-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (onCentered)=\"_removeTabBodyWrapperHeight()\" (onCentering)=\"_setTabBodyWrapperHeight($event)\"></md-tab-body></div>",
-            styles: [":host{display:flex;flex-direction:column;font-family:Roboto,\"Helvetica Neue\",sans-serif}:host.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{line-height:48px;height:48px;padding:0 12px;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;position:relative}.mat-tab-label:focus{outline:0;opacity:1}@media (max-width:600px){.mat-tab-label{min-width:72px}}:host[mat-stretch-tabs] .mat-tab-label,:host[md-stretch-tabs] .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height .5s cubic-bezier(.35,0,.25,1)}.mat-tab-body{position:absolute;top:0;left:0;right:0;bottom:0;display:block;overflow:hidden}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}:host.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}.mat-tab-disabled{cursor:default;pointer-events:none} /*# sourceMappingURL=tab-group.css.map */ "],
-            host: {
-                '[class.mat-tab-group]': 'true',
-                '[class.mat-tab-group-dynamic-height]': 'dynamicHeight',
-                '[class.mat-tab-group-inverted-header]': 'headerPosition === "below"',
-            }
-        }), 
-        __metadata('design:paramtypes', [Renderer])
-    ], MdTabGroup);
     return MdTabGroup;
 }());
+__decorate([
+    ContentChildren(MdTab),
+    __metadata("design:type", QueryList)
+], MdTabGroup.prototype, "_tabs", void 0);
+__decorate([
+    ViewChild('tabBodyWrapper'),
+    __metadata("design:type", ElementRef)
+], MdTabGroup.prototype, "_tabBodyWrapper", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Boolean),
+    __metadata("design:paramtypes", [Boolean])
+], MdTabGroup.prototype, "dynamicHeight", null);
+__decorate([
+    Input('md-dynamic-height'),
+    __metadata("design:type", Boolean),
+    __metadata("design:paramtypes", [Boolean])
+], MdTabGroup.prototype, "_dynamicHeightDeprecated", null);
+__decorate([
+    Input(),
+    __metadata("design:type", Number),
+    __metadata("design:paramtypes", [Number])
+], MdTabGroup.prototype, "selectedIndex", null);
+__decorate([
+    Input(),
+    __metadata("design:type", String)
+], MdTabGroup.prototype, "headerPosition", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", Observable),
+    __metadata("design:paramtypes", [])
+], MdTabGroup.prototype, "selectedIndexChange", null);
+__decorate([
+    Output(),
+    __metadata("design:type", Observable),
+    __metadata("design:paramtypes", [])
+], MdTabGroup.prototype, "focusChange", null);
+__decorate([
+    Output(),
+    __metadata("design:type", Observable),
+    __metadata("design:paramtypes", [])
+], MdTabGroup.prototype, "selectChange", null);
+MdTabGroup = __decorate([
+    Component({selector: 'md-tab-group, mat-tab-group',
+        template: "<md-tab-header [selectedIndex]=\"selectedIndex\" #tabHeader (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" md-tab-label-wrapper md-ripple *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [tabIndex]=\"selectedIndex == i ? 0 : -1\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" (click)=\"tabHeader.focusIndex = selectedIndex = i\"><ng-template [ngIf]=\"tab.templateLabel\"><ng-template [cdkPortalHost]=\"tab.templateLabel\"></ng-template></ng-template><ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template></div></md-tab-header><div class=\"mat-tab-body-wrapper\" #tabBodyWrapper><md-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (onCentered)=\"_removeTabBodyWrapperHeight()\" (onCentering)=\"_setTabBodyWrapperHeight($event)\"></md-tab-body></div>",
+        styles: [":host{display:flex;flex-direction:column;font-family:Roboto,\"Helvetica Neue\",sans-serif}:host.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{line-height:48px;height:48px;padding:0 12px;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;position:relative}.mat-tab-label:focus{outline:0;opacity:1}@media (max-width:600px){.mat-tab-label{min-width:72px}}:host[mat-stretch-tabs] .mat-tab-label,:host[md-stretch-tabs] .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height .5s cubic-bezier(.35,0,.25,1)}.mat-tab-body{position:absolute;top:0;left:0;right:0;bottom:0;display:block;overflow:hidden}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}:host.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}.mat-tab-disabled{cursor:default;pointer-events:none} /*# sourceMappingURL=tab-group.css.map */ "],
+        host: {
+            '[class.mat-tab-group]': 'true',
+            '[class.mat-tab-group-dynamic-height]': 'dynamicHeight',
+            '[class.mat-tab-group-inverted-header]': 'headerPosition === "below"',
+        }
+    }),
+    __metadata("design:paramtypes", [Renderer])
+], MdTabGroup);
+export { MdTabGroup };
 //# sourceMappingURL=tab-group.js.map

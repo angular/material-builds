@@ -10,18 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Component, ViewEncapsulation, Input, ContentChildren, QueryList, Renderer, ElementRef, Optional } from '@angular/core';
+import { Component, ViewEncapsulation, Input, ContentChildren, QueryList, Renderer, ElementRef, Optional, } from '@angular/core';
 import { MdGridTile } from './grid-tile';
 import { TileCoordinator } from './tile-coordinator';
 import { FitTileStyler, RatioTileStyler, FixedTileStyler } from './tile-styler';
 import { MdGridListColsError } from './grid-list-errors';
 import { Dir } from '../core';
-import { coerceToString, coerceToNumber } from './grid-list-measure';
+import { coerceToString, coerceToNumber, } from './grid-list-measure';
 // TODO(kara): Conditional (responsive) column count / row size.
 // TODO(kara): Re-layout on window resize / media change (debounced).
 // TODO(kara): gridTileHeader and gridTileFooter.
 var MD_FIT_MODE = 'fit';
-export var MdGridList = (function () {
+var MdGridList = (function () {
     function MdGridList(_renderer, _element, _dir) {
         this._renderer = _renderer;
         this._element = _element;
@@ -105,36 +105,41 @@ export var MdGridList = (function () {
             this._renderer.setElementStyle(this._element.nativeElement, style[0], style[1]);
         }
     };
-    __decorate([
-        ContentChildren(MdGridTile), 
-        __metadata('design:type', QueryList)
-    ], MdGridList.prototype, "_tiles", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdGridList.prototype, "cols", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdGridList.prototype, "gutterSize", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object), 
-        __metadata('design:paramtypes', [Object])
-    ], MdGridList.prototype, "rowHeight", null);
-    MdGridList = __decorate([
-        Component({selector: 'md-grid-list, mat-grid-list',
-            template: "<div><ng-content></ng-content></div>",
-            styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-figure{display:flex;position:absolute;align-items:center;justify-content:center;height:100%;top:0;right:0;bottom:0;left:0;padding:0;margin:0}.mat-grid-tile .mat-grid-tile-footer,.mat-grid-tile .mat-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;font-size:16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-footer .mat-line,.mat-grid-tile .mat-grid-tile-header .mat-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;box-sizing:border-box}.mat-grid-tile .mat-grid-tile-footer .mat-line:nth-child(n+2),.mat-grid-tile .mat-grid-tile-header .mat-line:nth-child(n+2){font-size:12px}.mat-grid-tile .mat-grid-tile-footer>*,.mat-grid-tile .mat-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-tile-footer.mat-2-line,.mat-grid-tile .mat-grid-tile-header.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none} /*# sourceMappingURL=grid-list.css.map */ "],
-            host: {
-                'role': 'list',
-                '[class.mat-grid-list]': 'true',
-            },
-            encapsulation: ViewEncapsulation.None,
-        }),
-        __param(2, Optional()), 
-        __metadata('design:paramtypes', [Renderer, ElementRef, Dir])
-    ], MdGridList);
     return MdGridList;
 }());
+__decorate([
+    ContentChildren(MdGridTile),
+    __metadata("design:type", QueryList)
+], MdGridList.prototype, "_tiles", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], MdGridList.prototype, "cols", null);
+__decorate([
+    Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], MdGridList.prototype, "gutterSize", null);
+__decorate([
+    Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], MdGridList.prototype, "rowHeight", null);
+MdGridList = __decorate([
+    Component({selector: 'md-grid-list, mat-grid-list',
+        template: "<div><ng-content></ng-content></div>",
+        styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-figure{display:flex;position:absolute;align-items:center;justify-content:center;height:100%;top:0;right:0;bottom:0;left:0;padding:0;margin:0}.mat-grid-tile .mat-grid-tile-footer,.mat-grid-tile .mat-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;font-size:16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-footer .mat-line,.mat-grid-tile .mat-grid-tile-header .mat-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;box-sizing:border-box}.mat-grid-tile .mat-grid-tile-footer .mat-line:nth-child(n+2),.mat-grid-tile .mat-grid-tile-header .mat-line:nth-child(n+2){font-size:12px}.mat-grid-tile .mat-grid-tile-footer>*,.mat-grid-tile .mat-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-tile-footer.mat-2-line,.mat-grid-tile .mat-grid-tile-header.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none} /*# sourceMappingURL=grid-list.css.map */ "],
+        host: {
+            'role': 'list',
+            '[class.mat-grid-list]': 'true',
+        },
+        encapsulation: ViewEncapsulation.None,
+    }),
+    __param(2, Optional()),
+    __metadata("design:paramtypes", [Renderer,
+        ElementRef,
+        Dir])
+], MdGridList);
+export { MdGridList };
 //# sourceMappingURL=grid-list.js.map

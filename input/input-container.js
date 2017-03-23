@@ -33,48 +33,48 @@ var nextUniqueId = 0;
  * The placeholder directive. The content can declare this to implement more
  * complex placeholders.
  */
-export var MdPlaceholder = (function () {
+var MdPlaceholder = (function () {
     function MdPlaceholder() {
     }
-    MdPlaceholder = __decorate([
-        Directive({
-            selector: 'md-placeholder, mat-placeholder'
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdPlaceholder);
     return MdPlaceholder;
 }());
+MdPlaceholder = __decorate([
+    Directive({
+        selector: 'md-placeholder, mat-placeholder'
+    })
+], MdPlaceholder);
+export { MdPlaceholder };
 /** The hint directive, used to tag content as hint labels (going under the input). */
-export var MdHint = (function () {
+var MdHint = (function () {
     function MdHint() {
         // Whether to align the hint label at the start or end of the line.
         this.align = 'start';
         // Unique ID for the hint. Used for the aria-describedby on the input.
         this.id = "md-input-hint-" + nextUniqueId++;
     }
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdHint.prototype, "align", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], MdHint.prototype, "id", void 0);
-    MdHint = __decorate([
-        Directive({
-            selector: 'md-hint, mat-hint',
-            host: {
-                '[class.mat-hint]': 'true',
-                '[class.mat-right]': 'align == "end"',
-                '[attr.id]': 'id',
-            }
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdHint);
     return MdHint;
 }());
+__decorate([
+    Input(),
+    __metadata("design:type", String)
+], MdHint.prototype, "align", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", String)
+], MdHint.prototype, "id", void 0);
+MdHint = __decorate([
+    Directive({
+        selector: 'md-hint, mat-hint',
+        host: {
+            '[class.mat-hint]': 'true',
+            '[class.mat-right]': 'align == "end"',
+            '[attr.id]': 'id',
+        }
+    })
+], MdHint);
+export { MdHint };
 /** The input directive, used to mark the input that `MdInputContainer` is wrapping. */
-export var MdInputDirective = (function () {
+var MdInputDirective = (function () {
     function MdInputDirective(_elementRef, _renderer, _ngControl) {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
@@ -207,57 +207,65 @@ export var MdInputDirective = (function () {
         var nativeElement = this._elementRef.nativeElement;
         return nativeElement ? nativeElement.nodeName.toLowerCase() === 'textarea' : false;
     };
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdInputDirective.prototype, "disabled", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdInputDirective.prototype, "id", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdInputDirective.prototype, "placeholder", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdInputDirective.prototype, "required", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdInputDirective.prototype, "type", null);
-    __decorate([
-        Output(), 
-        __metadata('design:type', Object)
-    ], MdInputDirective.prototype, "_placeholderChange", void 0);
-    MdInputDirective = __decorate([
-        Directive({
-            selector: "input[mdInput], textarea[mdInput], input[matInput], textarea[matInput]",
-            host: {
-                '[class.mat-input-element]': 'true',
-                // Native input properties that are overwritten by Angular inputs need to be synced with
-                // the native input element. Otherwise property bindings for those don't work.
-                '[id]': 'id',
-                '[placeholder]': 'placeholder',
-                '[disabled]': 'disabled',
-                '[required]': 'required',
-                '[attr.aria-describedby]': 'ariaDescribedby',
-                '(blur)': '_onBlur()',
-                '(focus)': '_onFocus()',
-                '(input)': '_onInput()',
-            }
-        }),
-        __param(2, Optional()), 
-        __metadata('design:paramtypes', [ElementRef, Renderer, NgControl])
-    ], MdInputDirective);
     return MdInputDirective;
 }());
+__decorate([
+    Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], MdInputDirective.prototype, "disabled", null);
+__decorate([
+    Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [String])
+], MdInputDirective.prototype, "id", null);
+__decorate([
+    Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [String])
+], MdInputDirective.prototype, "placeholder", null);
+__decorate([
+    Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], MdInputDirective.prototype, "required", null);
+__decorate([
+    Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [String])
+], MdInputDirective.prototype, "type", null);
+__decorate([
+    Output(),
+    __metadata("design:type", Object)
+], MdInputDirective.prototype, "_placeholderChange", void 0);
+MdInputDirective = __decorate([
+    Directive({
+        selector: "input[mdInput], textarea[mdInput], input[matInput], textarea[matInput]",
+        host: {
+            '[class.mat-input-element]': 'true',
+            // Native input properties that are overwritten by Angular inputs need to be synced with
+            // the native input element. Otherwise property bindings for those don't work.
+            '[id]': 'id',
+            '[placeholder]': 'placeholder',
+            '[disabled]': 'disabled',
+            '[required]': 'required',
+            '[attr.aria-describedby]': 'ariaDescribedby',
+            '(blur)': '_onBlur()',
+            '(focus)': '_onFocus()',
+            '(input)': '_onInput()',
+        }
+    }),
+    __param(2, Optional()),
+    __metadata("design:paramtypes", [ElementRef,
+        Renderer,
+        NgControl])
+], MdInputDirective);
+export { MdInputDirective };
 /**
  * Component that represents a text input. It encapsulates the <input> HTMLElement and
  * improve on its behaviour, along with styling it according to the Material Design.
  */
-export var MdInputContainer = (function () {
+var MdInputContainer = (function () {
     function MdInputContainer() {
         /** Alignment of the input container's content. */
         this.align = 'start';
@@ -382,56 +390,58 @@ export var MdInputContainer = (function () {
         }
         this._mdInputChild.ariaDescribedby = ids.join(' ');
     };
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdInputContainer.prototype, "align", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdInputContainer.prototype, "dividerColor", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdInputContainer.prototype, "hintLabel", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdInputContainer.prototype, "floatPlaceholder", null);
-    __decorate([
-        ContentChild(MdInputDirective), 
-        __metadata('design:type', MdInputDirective)
-    ], MdInputContainer.prototype, "_mdInputChild", void 0);
-    __decorate([
-        ContentChild(MdPlaceholder), 
-        __metadata('design:type', MdPlaceholder)
-    ], MdInputContainer.prototype, "_placeholderChild", void 0);
-    __decorate([
-        ContentChildren(MdHint), 
-        __metadata('design:type', QueryList)
-    ], MdInputContainer.prototype, "_hintChildren", void 0);
-    MdInputContainer = __decorate([
-        Component({selector: 'md-input-container, mat-input-container',
-            template: "<div class=\"mat-input-wrapper\"><div class=\"mat-input-table\"><div class=\"mat-input-prefix\"><ng-content select=\"[mdPrefix], [matPrefix], [md-prefix]\"></ng-content></div><div class=\"mat-input-infix\" [class.mat-end]=\"align == 'end'\"><ng-content selector=\"input, textarea\"></ng-content><span class=\"mat-input-placeholder-wrapper\"><label class=\"mat-input-placeholder\" [attr.for]=\"_mdInputChild.id\" [class.mat-empty]=\"_mdInputChild.empty && !_shouldAlwaysFloat\" [class.mat-float]=\"_canPlaceholderFloat\" [class.mat-accent]=\"dividerColor == 'accent'\" [class.mat-warn]=\"dividerColor == 'warn'\" *ngIf=\"_hasPlaceholder()\"><ng-content select=\"md-placeholder, mat-placeholder\"></ng-content>{{_mdInputChild.placeholder}} <span class=\"mat-placeholder-required\" *ngIf=\"_mdInputChild.required\">*</span></label></span></div><div class=\"mat-input-suffix\"><ng-content select=\"[mdSuffix], [matSuffix], [md-suffix]\"></ng-content></div></div><div class=\"mat-input-underline\" [class.mat-disabled]=\"_mdInputChild.disabled\"><span class=\"mat-input-ripple\" [class.mat-accent]=\"dividerColor == 'accent'\" [class.mat-warn]=\"dividerColor == 'warn'\"></span></div><div *ngIf=\"hintLabel != ''\" [attr.id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"md-hint, mat-hint\"></ng-content></div>",
-            styles: [".mat-input-container{display:inline-block;position:relative;font-family:Roboto,\"Helvetica Neue\",sans-serif;line-height:normal;text-align:left}[dir=rtl] .mat-input-container{text-align:right}.mat-input-container .mat-icon{width:auto;height:auto;font-size:100%;vertical-align:top}.mat-input-wrapper{margin:1em 0;padding-bottom:6px}.mat-input-table{display:inline-table;flex-flow:column;vertical-align:bottom;width:100%}.mat-input-table>*{display:table-cell}.mat-input-infix{position:relative}.mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;width:100%}.mat-end .mat-input-element{text-align:right}[dir=rtl] .mat-end .mat-input-element{text-align:left}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element:-webkit-autofill+.mat-input-placeholder-wrapper .mat-float{display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}.mat-input-element::placeholder{color:transparent}.mat-input-element::-moz-placeholder{color:transparent}.mat-input-element::-webkit-input-placeholder{color:transparent}.mat-input-element:-ms-input-placeholder{color:transparent}.mat-input-placeholder{position:absolute;left:0;top:0;font-size:100%;pointer-events:none;z-index:1;padding-top:1em;width:100%;display:none;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:translateY(0);transform-origin:bottom left;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1)}.mat-input-placeholder.mat-empty{display:block;cursor:text}.mat-focused .mat-input-placeholder.mat-float,.mat-input-placeholder.mat-float:not(.mat-empty){display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}[dir=rtl] .mat-input-placeholder{transform-origin:bottom right;left:auto;right:0}.mat-input-placeholder-wrapper{position:absolute;left:0;top:-1em;width:100%;padding-top:1em;overflow:hidden;pointer-events:none;transform:translate3d(0,0,0)}.mat-input-placeholder-wrapper::after{content:'';display:inline-table}.mat-input-underline{position:absolute;height:1px;width:100%;margin-top:4px;border-top-width:1px;border-top-style:solid}.mat-input-underline.mat-disabled{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;border-top:0;background-position:0}.mat-input-underline .mat-input-ripple{position:absolute;height:2px;z-index:1;top:-1px;width:100%;transform-origin:top;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-focused .mat-input-underline .mat-input-ripple{opacity:1}.mat-hint{display:block;position:absolute;font-size:75%;bottom:0}.mat-hint.mat-right{right:0}[dir=rtl] .mat-hint{right:0;left:auto}[dir=rtl] .mat-hint.mat-right{right:auto;left:0}.mat-input-prefix,.mat-input-suffix{width:.1px;white-space:nowrap} /*# sourceMappingURL=input-container.css.map */ "],
-            host: {
-                // Remove align attribute to prevent it from interfering with layout.
-                '[attr.align]': 'null',
-                '[class.mat-input-container]': 'true',
-                '[class.mat-focused]': '_mdInputChild.focused',
-                '[class.ng-untouched]': '_shouldForward("untouched")',
-                '[class.ng-touched]': '_shouldForward("touched")',
-                '[class.ng-pristine]': '_shouldForward("pristine")',
-                '[class.ng-dirty]': '_shouldForward("dirty")',
-                '[class.ng-valid]': '_shouldForward("valid")',
-                '[class.ng-invalid]': '_shouldForward("invalid")',
-                '[class.ng-pending]': '_shouldForward("pending")',
-                '(click)': '_focusInput()',
-            },
-            encapsulation: ViewEncapsulation.None,
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdInputContainer);
     return MdInputContainer;
 }());
+__decorate([
+    Input(),
+    __metadata("design:type", String)
+], MdInputContainer.prototype, "align", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", String)
+], MdInputContainer.prototype, "dividerColor", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [String])
+], MdInputContainer.prototype, "hintLabel", null);
+__decorate([
+    Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [String])
+], MdInputContainer.prototype, "floatPlaceholder", null);
+__decorate([
+    ContentChild(MdInputDirective),
+    __metadata("design:type", MdInputDirective)
+], MdInputContainer.prototype, "_mdInputChild", void 0);
+__decorate([
+    ContentChild(MdPlaceholder),
+    __metadata("design:type", MdPlaceholder)
+], MdInputContainer.prototype, "_placeholderChild", void 0);
+__decorate([
+    ContentChildren(MdHint),
+    __metadata("design:type", QueryList)
+], MdInputContainer.prototype, "_hintChildren", void 0);
+MdInputContainer = __decorate([
+    Component({selector: 'md-input-container, mat-input-container',
+        template: "<div class=\"mat-input-wrapper\"><div class=\"mat-input-table\"><div class=\"mat-input-prefix\"><ng-content select=\"[mdPrefix], [matPrefix], [md-prefix]\"></ng-content></div><div class=\"mat-input-infix\" [class.mat-end]=\"align == 'end'\"><ng-content selector=\"input, textarea\"></ng-content><span class=\"mat-input-placeholder-wrapper\"><label class=\"mat-input-placeholder\" [attr.for]=\"_mdInputChild.id\" [class.mat-empty]=\"_mdInputChild.empty && !_shouldAlwaysFloat\" [class.mat-float]=\"_canPlaceholderFloat\" [class.mat-accent]=\"dividerColor == 'accent'\" [class.mat-warn]=\"dividerColor == 'warn'\" *ngIf=\"_hasPlaceholder()\"><ng-content select=\"md-placeholder, mat-placeholder\"></ng-content>{{_mdInputChild.placeholder}} <span class=\"mat-placeholder-required\" *ngIf=\"_mdInputChild.required\">*</span></label></span></div><div class=\"mat-input-suffix\"><ng-content select=\"[mdSuffix], [matSuffix], [md-suffix]\"></ng-content></div></div><div class=\"mat-input-underline\" [class.mat-disabled]=\"_mdInputChild.disabled\"><span class=\"mat-input-ripple\" [class.mat-accent]=\"dividerColor == 'accent'\" [class.mat-warn]=\"dividerColor == 'warn'\"></span></div><div *ngIf=\"hintLabel != ''\" [attr.id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"md-hint, mat-hint\"></ng-content></div>",
+        styles: [".mat-input-container{display:inline-block;position:relative;font-family:Roboto,\"Helvetica Neue\",sans-serif;line-height:normal;text-align:left}[dir=rtl] .mat-input-container{text-align:right}.mat-input-container .mat-icon{width:auto;height:auto;font-size:100%;vertical-align:top}.mat-input-wrapper{margin:1em 0;padding-bottom:6px}.mat-input-table{display:inline-table;flex-flow:column;vertical-align:bottom;width:100%}.mat-input-table>*{display:table-cell}.mat-input-infix{position:relative}.mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;width:100%}.mat-end .mat-input-element{text-align:right}[dir=rtl] .mat-end .mat-input-element{text-align:left}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element:-webkit-autofill+.mat-input-placeholder-wrapper .mat-float{display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}.mat-input-element::placeholder{color:transparent}.mat-input-element::-moz-placeholder{color:transparent}.mat-input-element::-webkit-input-placeholder{color:transparent}.mat-input-element:-ms-input-placeholder{color:transparent}.mat-input-placeholder{position:absolute;left:0;top:0;font-size:100%;pointer-events:none;z-index:1;padding-top:1em;width:100%;display:none;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:translateY(0);transform-origin:bottom left;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1)}.mat-input-placeholder.mat-empty{display:block;cursor:text}.mat-focused .mat-input-placeholder.mat-float,.mat-input-placeholder.mat-float:not(.mat-empty){display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}[dir=rtl] .mat-input-placeholder{transform-origin:bottom right;left:auto;right:0}.mat-input-placeholder-wrapper{position:absolute;left:0;top:-1em;width:100%;padding-top:1em;overflow:hidden;pointer-events:none;transform:translate3d(0,0,0)}.mat-input-placeholder-wrapper::after{content:'';display:inline-table}.mat-input-underline{position:absolute;height:1px;width:100%;margin-top:4px;border-top-width:1px;border-top-style:solid}.mat-input-underline.mat-disabled{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;border-top:0;background-position:0}.mat-input-underline .mat-input-ripple{position:absolute;height:2px;z-index:1;top:-1px;width:100%;transform-origin:top;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-focused .mat-input-underline .mat-input-ripple{opacity:1}.mat-hint{display:block;position:absolute;font-size:75%;bottom:0}.mat-hint.mat-right{right:0}[dir=rtl] .mat-hint{right:0;left:auto}[dir=rtl] .mat-hint.mat-right{right:auto;left:0}.mat-input-prefix,.mat-input-suffix{width:.1px;white-space:nowrap} /*# sourceMappingURL=input-container.css.map */ "],
+        host: {
+            // Remove align attribute to prevent it from interfering with layout.
+            '[attr.align]': 'null',
+            '[class.mat-input-container]': 'true',
+            '[class.mat-focused]': '_mdInputChild.focused',
+            '[class.ng-untouched]': '_shouldForward("untouched")',
+            '[class.ng-touched]': '_shouldForward("touched")',
+            '[class.ng-pristine]': '_shouldForward("pristine")',
+            '[class.ng-dirty]': '_shouldForward("dirty")',
+            '[class.ng-valid]': '_shouldForward("valid")',
+            '[class.ng-invalid]': '_shouldForward("invalid")',
+            '[class.ng-pending]': '_shouldForward("pending")',
+            '(click)': '_focusInput()',
+        },
+        encapsulation: ViewEncapsulation.None,
+    })
+], MdInputContainer);
+export { MdInputContainer };
 //# sourceMappingURL=input-container.js.map

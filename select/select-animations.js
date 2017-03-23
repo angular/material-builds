@@ -1,4 +1,4 @@
-import { animate, state, style, transition, trigger } from '@angular/core';
+import { animate, state, style, transition, trigger, } from '@angular/animations';
 /**
  * The following are all the animations for the md-select component, with each
  * const containing the metadata for one animation.

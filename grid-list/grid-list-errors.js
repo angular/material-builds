@@ -8,33 +8,36 @@ import { MdError } from '../core';
  * Exception thrown when cols property is missing from grid-list
  * @docs-private
  */
-export var MdGridListColsError = (function (_super) {
+var MdGridListColsError = (function (_super) {
     __extends(MdGridListColsError, _super);
     function MdGridListColsError() {
-        _super.call(this, "md-grid-list: must pass in number of columns. Example: <md-grid-list cols=\"3\">");
+        return _super.call(this, "md-grid-list: must pass in number of columns. Example: <md-grid-list cols=\"3\">") || this;
     }
     return MdGridListColsError;
 }(MdError));
+export { MdGridListColsError };
 /**
  * Exception thrown when a tile's colspan is longer than the number of cols in list
  * @docs-private
  */
-export var MdGridTileTooWideError = (function (_super) {
+var MdGridTileTooWideError = (function (_super) {
     __extends(MdGridTileTooWideError, _super);
     function MdGridTileTooWideError(cols, listLength) {
-        _super.call(this, "md-grid-list: tile with colspan " + cols + " is wider than grid with cols=\"" + listLength + "\".");
+        return _super.call(this, "md-grid-list: tile with colspan " + cols + " is wider than grid with cols=\"" + listLength + "\".") || this;
     }
     return MdGridTileTooWideError;
 }(MdError));
+export { MdGridTileTooWideError };
 /**
  * Exception thrown when an invalid ratio is passed in as a rowHeight
  * @docs-private
  */
-export var MdGridListBadRatioError = (function (_super) {
+var MdGridListBadRatioError = (function (_super) {
     __extends(MdGridListBadRatioError, _super);
     function MdGridListBadRatioError(value) {
-        _super.call(this, "md-grid-list: invalid ratio given for row-height: \"" + value + "\"");
+        return _super.call(this, "md-grid-list: invalid ratio given for row-height: \"" + value + "\"") || this;
     }
     return MdGridListBadRatioError;
 }(MdError));
+export { MdGridListBadRatioError };
 //# sourceMappingURL=grid-list-errors.js.map

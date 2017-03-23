@@ -3,7 +3,7 @@ import { Subject } from 'rxjs/Subject';
  * Reference to an overlay that has been created with the Overlay service.
  * Used to manipulate or dispose of said overlay.
  */
-export var OverlayRef = (function () {
+var OverlayRef = (function () {
     function OverlayRef(_portalHost, _pane, _state, _ngZone) {
         this._portalHost = _portalHost;
         this._pane = _pane;
@@ -159,6 +159,7 @@ export var OverlayRef = (function () {
     };
     return OverlayRef;
 }());
+export { OverlayRef };
 function formatCssUnit(value) {
     return typeof value === 'string' ? value : value + "px";
 }

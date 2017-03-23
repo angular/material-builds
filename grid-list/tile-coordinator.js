@@ -16,7 +16,7 @@ import { MdGridTileTooWideError } from './grid-list-errors';
  *
  * @docs-private
  */
-export var TileCoordinator = (function () {
+var TileCoordinator = (function () {
     function TileCoordinator(numColumns, tiles) {
         var _this = this;
         /** Index at which the search for the next gap will start. */
@@ -114,15 +114,17 @@ export var TileCoordinator = (function () {
     };
     return TileCoordinator;
 }());
+export { TileCoordinator };
 /**
  * Simple data structure for tile position (row, col).
  * @docs-private
  */
-export var TilePosition = (function () {
+var TilePosition = (function () {
     function TilePosition(row, col) {
         this.row = row;
         this.col = col;
     }
     return TilePosition;
 }());
+export { TilePosition };
 //# sourceMappingURL=tile-coordinator.js.map

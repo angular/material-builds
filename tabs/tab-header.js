@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { ViewChild, Component, Input, NgZone, QueryList, ElementRef, ViewEncapsulation, ContentChildren, Output, EventEmitter, Optional } from '@angular/core';
+import { ViewChild, Component, Input, NgZone, QueryList, ElementRef, ViewEncapsulation, ContentChildren, Output, EventEmitter, Optional, } from '@angular/core';
 import { RIGHT_ARROW, LEFT_ARROW, ENTER, Dir } from '../core';
 import { MdTabLabelWrapper } from './tab-label-wrapper';
 import { MdInkBar } from './ink-bar';
@@ -28,7 +28,7 @@ var EXAGGERATED_OVERSCROLL = 60;
  * left and right across the header.
  * @docs-private
  */
-export var MdTabHeader = (function () {
+var MdTabHeader = (function () {
     function MdTabHeader(_zone, _elementRef, _dir) {
         this._zone = _zone;
         this._elementRef = _elementRef;
@@ -315,49 +315,52 @@ export var MdTabHeader = (function () {
             });
         });
     };
-    __decorate([
-        ContentChildren(MdTabLabelWrapper), 
-        __metadata('design:type', QueryList)
-    ], MdTabHeader.prototype, "_labelWrappers", void 0);
-    __decorate([
-        ViewChild(MdInkBar), 
-        __metadata('design:type', MdInkBar)
-    ], MdTabHeader.prototype, "_inkBar", void 0);
-    __decorate([
-        ViewChild('tabListContainer'), 
-        __metadata('design:type', ElementRef)
-    ], MdTabHeader.prototype, "_tabListContainer", void 0);
-    __decorate([
-        ViewChild('tabList'), 
-        __metadata('design:type', ElementRef)
-    ], MdTabHeader.prototype, "_tabList", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Number), 
-        __metadata('design:paramtypes', [Number])
-    ], MdTabHeader.prototype, "selectedIndex", null);
-    __decorate([
-        Output(), 
-        __metadata('design:type', Object)
-    ], MdTabHeader.prototype, "selectFocusedIndex", void 0);
-    __decorate([
-        Output(), 
-        __metadata('design:type', Object)
-    ], MdTabHeader.prototype, "indexFocused", void 0);
-    MdTabHeader = __decorate([
-        Component({selector: 'md-tab-header, mat-tab-header',
-            template: "<div class=\"mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4\" aria-hidden=\"true\" md-ripple [mdRippleDisabled]=\"_disableScrollBefore\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollBefore\" (click)=\"_scrollHeader('before')\"><div class=\"mat-tab-header-pagination-chevron\"></div></div><div class=\"mat-tab-label-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\"><div class=\"mat-tab-list\" #tabList role=\"tablist\" (cdkObserveContent)=\"_onContentChanges()\"><div class=\"mat-tab-labels\"><ng-content></ng-content></div><md-ink-bar></md-ink-bar></div></div><div class=\"mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4\" aria-hidden=\"true\" md-ripple [mdRippleDisabled]=\"_disableScrollAfter\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollAfter\" (click)=\"_scrollHeader('after')\"><div class=\"mat-tab-header-pagination-chevron\"></div></div>",
-            styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-label{line-height:48px;height:48px;padding:0 12px;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;position:relative}.mat-tab-label:focus{outline:0;opacity:1}@media (max-width:600px){.mat-tab-label{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}.mat-tab-header-pagination{position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-pagination-after,.mat-tab-header-rtl .mat-tab-header-pagination-before{padding-right:4px}.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:'';height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-header-pagination-disabled .mat-tab-header-pagination-chevron{border-color:#ccc}.mat-tab-label-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}.mat-tab-list{flex-grow:1;position:relative;transition:transform .5s cubic-bezier(.35,0,.25,1)}.mat-tab-labels{display:flex} /*# sourceMappingURL=tab-header.css.map */ "],
-            encapsulation: ViewEncapsulation.None,
-            host: {
-                'class': 'mat-tab-header',
-                '[class.mat-tab-header-pagination-controls-enabled]': '_showPaginationControls',
-                '[class.mat-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
-            }
-        }),
-        __param(2, Optional()), 
-        __metadata('design:paramtypes', [NgZone, ElementRef, Dir])
-    ], MdTabHeader);
     return MdTabHeader;
 }());
+__decorate([
+    ContentChildren(MdTabLabelWrapper),
+    __metadata("design:type", QueryList)
+], MdTabHeader.prototype, "_labelWrappers", void 0);
+__decorate([
+    ViewChild(MdInkBar),
+    __metadata("design:type", MdInkBar)
+], MdTabHeader.prototype, "_inkBar", void 0);
+__decorate([
+    ViewChild('tabListContainer'),
+    __metadata("design:type", ElementRef)
+], MdTabHeader.prototype, "_tabListContainer", void 0);
+__decorate([
+    ViewChild('tabList'),
+    __metadata("design:type", ElementRef)
+], MdTabHeader.prototype, "_tabList", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Number),
+    __metadata("design:paramtypes", [Number])
+], MdTabHeader.prototype, "selectedIndex", null);
+__decorate([
+    Output(),
+    __metadata("design:type", Object)
+], MdTabHeader.prototype, "selectFocusedIndex", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", Object)
+], MdTabHeader.prototype, "indexFocused", void 0);
+MdTabHeader = __decorate([
+    Component({selector: 'md-tab-header, mat-tab-header',
+        template: "<div class=\"mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4\" aria-hidden=\"true\" md-ripple [mdRippleDisabled]=\"_disableScrollBefore\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollBefore\" (click)=\"_scrollHeader('before')\"><div class=\"mat-tab-header-pagination-chevron\"></div></div><div class=\"mat-tab-label-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\"><div class=\"mat-tab-list\" #tabList role=\"tablist\" (cdkObserveContent)=\"_onContentChanges()\"><div class=\"mat-tab-labels\"><ng-content></ng-content></div><md-ink-bar></md-ink-bar></div></div><div class=\"mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4\" aria-hidden=\"true\" md-ripple [mdRippleDisabled]=\"_disableScrollAfter\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollAfter\" (click)=\"_scrollHeader('after')\"><div class=\"mat-tab-header-pagination-chevron\"></div></div>",
+        styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-label{line-height:48px;height:48px;padding:0 12px;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;position:relative}.mat-tab-label:focus{outline:0;opacity:1}@media (max-width:600px){.mat-tab-label{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}.mat-tab-header-pagination{position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-pagination-after,.mat-tab-header-rtl .mat-tab-header-pagination-before{padding-right:4px}.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:'';height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-header-pagination-disabled .mat-tab-header-pagination-chevron{border-color:#ccc}.mat-tab-label-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}.mat-tab-list{flex-grow:1;position:relative;transition:transform .5s cubic-bezier(.35,0,.25,1)}.mat-tab-labels{display:flex} /*# sourceMappingURL=tab-header.css.map */ "],
+        encapsulation: ViewEncapsulation.None,
+        host: {
+            'class': 'mat-tab-header',
+            '[class.mat-tab-header-pagination-controls-enabled]': '_showPaginationControls',
+            '[class.mat-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
+        }
+    }),
+    __param(2, Optional()),
+    __metadata("design:paramtypes", [NgZone,
+        ElementRef,
+        Dir])
+], MdTabHeader);
+export { MdTabHeader };
 //# sourceMappingURL=tab-header.js.map

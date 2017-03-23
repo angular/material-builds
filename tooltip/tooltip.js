@@ -10,8 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Component, Directive, Input, ElementRef, ViewContainerRef, style, trigger, state, transition, animate, NgZone, Optional, Renderer, ChangeDetectorRef } from '@angular/core';
-import { Overlay, OverlayState, ComponentPortal } from '../core';
+import { Component, Directive, Input, ElementRef, ViewContainerRef, NgZone, Optional, Renderer, ChangeDetectorRef } from '@angular/core';
+import { style, trigger, state, transition, animate, } from '@angular/animations';
+import { Overlay, OverlayState, ComponentPortal, } from '../core';
 import { MdTooltipInvalidPositionError } from './tooltip-errors';
 import { Subject } from 'rxjs/Subject';
 import { Dir } from '../core/rtl/dir';
@@ -29,7 +30,7 @@ export var SCROLL_THROTTLE_MS = 20;
  *
  * https://material.google.com/components/tooltips.html
  */
-export var MdTooltip = (function () {
+var MdTooltip = (function () {
     function MdTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _renderer, _platform, _dir) {
         var _this = this;
         this._overlay = _overlay;
@@ -282,73 +283,91 @@ export var MdTooltip = (function () {
             }
         });
     };
-    __decorate([
-        Input('mdTooltipPosition'), 
-        __metadata('design:type', String)
-    ], MdTooltip.prototype, "position", null);
-    __decorate([
-        Input('mdTooltipDisabled'), 
-        __metadata('design:type', Boolean)
-    ], MdTooltip.prototype, "disabled", null);
-    __decorate([
-        Input('tooltip-position'), 
-        __metadata('design:type', String)
-    ], MdTooltip.prototype, "_positionDeprecated", null);
-    __decorate([
-        Input('mdTooltipShowDelay'), 
-        __metadata('design:type', Object)
-    ], MdTooltip.prototype, "showDelay", void 0);
-    __decorate([
-        Input('mdTooltipHideDelay'), 
-        __metadata('design:type', Object)
-    ], MdTooltip.prototype, "hideDelay", void 0);
-    __decorate([
-        Input('mdTooltip'), 
-        __metadata('design:type', Object)
-    ], MdTooltip.prototype, "message", null);
-    __decorate([
-        Input('md-tooltip'), 
-        __metadata('design:type', String)
-    ], MdTooltip.prototype, "_deprecatedMessage", null);
-    __decorate([
-        Input('matTooltip'), 
-        __metadata('design:type', Object)
-    ], MdTooltip.prototype, "_matMessage", null);
-    __decorate([
-        Input('matTooltipPosition'), 
-        __metadata('design:type', Object)
-    ], MdTooltip.prototype, "_matPosition", null);
-    __decorate([
-        Input('matTooltipDisabled'), 
-        __metadata('design:type', Object)
-    ], MdTooltip.prototype, "_matDisabled", null);
-    __decorate([
-        Input('matTooltipHideDelay'), 
-        __metadata('design:type', Object)
-    ], MdTooltip.prototype, "_matHideDelay", null);
-    __decorate([
-        Input('matTooltipShowDelay'), 
-        __metadata('design:type', Object)
-    ], MdTooltip.prototype, "_matShowDelay", null);
-    MdTooltip = __decorate([
-        Directive({
-            selector: '[md-tooltip], [mdTooltip], [mat-tooltip], [matTooltip]',
-            host: {
-                '(longpress)': 'show()',
-                '(touchend)': 'hide(' + TOUCHEND_HIDE_DELAY + ')',
-            },
-            exportAs: 'mdTooltip',
-        }),
-        __param(7, Optional()), 
-        __metadata('design:paramtypes', [Overlay, ElementRef, ScrollDispatcher, ViewContainerRef, NgZone, Renderer, Platform, Dir])
-    ], MdTooltip);
     return MdTooltip;
 }());
+__decorate([
+    Input('mdTooltipPosition'),
+    __metadata("design:type", String),
+    __metadata("design:paramtypes", [String])
+], MdTooltip.prototype, "position", null);
+__decorate([
+    Input('mdTooltipDisabled'),
+    __metadata("design:type", Boolean),
+    __metadata("design:paramtypes", [Object])
+], MdTooltip.prototype, "disabled", null);
+__decorate([
+    Input('tooltip-position'),
+    __metadata("design:type", String),
+    __metadata("design:paramtypes", [String])
+], MdTooltip.prototype, "_positionDeprecated", null);
+__decorate([
+    Input('mdTooltipShowDelay'),
+    __metadata("design:type", Object)
+], MdTooltip.prototype, "showDelay", void 0);
+__decorate([
+    Input('mdTooltipHideDelay'),
+    __metadata("design:type", Object)
+], MdTooltip.prototype, "hideDelay", void 0);
+__decorate([
+    Input('mdTooltip'),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [String])
+], MdTooltip.prototype, "message", null);
+__decorate([
+    Input('md-tooltip'),
+    __metadata("design:type", String),
+    __metadata("design:paramtypes", [String])
+], MdTooltip.prototype, "_deprecatedMessage", null);
+__decorate([
+    Input('matTooltip'),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], MdTooltip.prototype, "_matMessage", null);
+__decorate([
+    Input('matTooltipPosition'),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], MdTooltip.prototype, "_matPosition", null);
+__decorate([
+    Input('matTooltipDisabled'),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], MdTooltip.prototype, "_matDisabled", null);
+__decorate([
+    Input('matTooltipHideDelay'),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], MdTooltip.prototype, "_matHideDelay", null);
+__decorate([
+    Input('matTooltipShowDelay'),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], MdTooltip.prototype, "_matShowDelay", null);
+MdTooltip = __decorate([
+    Directive({
+        selector: '[md-tooltip], [mdTooltip], [mat-tooltip], [matTooltip]',
+        host: {
+            '(longpress)': 'show()',
+            '(touchend)': 'hide(' + TOUCHEND_HIDE_DELAY + ')',
+        },
+        exportAs: 'mdTooltip',
+    }),
+    __param(7, Optional()),
+    __metadata("design:paramtypes", [Overlay,
+        ElementRef,
+        ScrollDispatcher,
+        ViewContainerRef,
+        NgZone,
+        Renderer,
+        Platform,
+        Dir])
+], MdTooltip);
+export { MdTooltip };
 /**
  * Internal component that wraps the tooltip's content.
  * @docs-private
  */
-export var TooltipComponent = (function () {
+var TooltipComponent = (function () {
     function TooltipComponent(_dir, _changeDetectorRef) {
         this._dir = _dir;
         this._changeDetectorRef = _changeDetectorRef;
@@ -456,27 +475,28 @@ export var TooltipComponent = (function () {
             this.hide(0);
         }
     };
-    TooltipComponent = __decorate([
-        Component({selector: 'md-tooltip-component, mat-tooltip-component',
-            template: "<div class=\"mat-tooltip\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.done)=\"_afterVisibilityAnimation($event)\">{{message}}</div>",
-            styles: [":host{pointer-events:none}.mat-tooltip{color:#fff;padding:6px 8px;border-radius:2px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-size:10px;margin:14px;max-width:250px}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}} /*# sourceMappingURL=tooltip.css.map */ "],
-            animations: [
-                trigger('state', [
-                    state('void', style({ transform: 'scale(0)' })),
-                    state('initial', style({ transform: 'scale(0)' })),
-                    state('visible', style({ transform: 'scale(1)' })),
-                    state('hidden', style({ transform: 'scale(0)' })),
-                    transition('* => visible', animate('150ms cubic-bezier(0.0, 0.0, 0.2, 1)')),
-                    transition('* => hidden', animate('150ms cubic-bezier(0.4, 0.0, 1, 1)')),
-                ])
-            ],
-            host: {
-                '(body:click)': 'this._handleBodyInteraction()'
-            }
-        }),
-        __param(0, Optional()), 
-        __metadata('design:paramtypes', [Dir, ChangeDetectorRef])
-    ], TooltipComponent);
     return TooltipComponent;
 }());
+TooltipComponent = __decorate([
+    Component({selector: 'md-tooltip-component, mat-tooltip-component',
+        template: "<div class=\"mat-tooltip\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.done)=\"_afterVisibilityAnimation($event)\">{{message}}</div>",
+        styles: [":host{pointer-events:none}.mat-tooltip{color:#fff;padding:6px 8px;border-radius:2px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-size:10px;margin:14px;max-width:250px}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}} /*# sourceMappingURL=tooltip.css.map */ "],
+        animations: [
+            trigger('state', [
+                state('void', style({ transform: 'scale(0)' })),
+                state('initial', style({ transform: 'scale(0)' })),
+                state('visible', style({ transform: 'scale(1)' })),
+                state('hidden', style({ transform: 'scale(0)' })),
+                transition('* => visible', animate('150ms cubic-bezier(0.0, 0.0, 0.2, 1)')),
+                transition('* => hidden', animate('150ms cubic-bezier(0.4, 0.0, 1, 1)')),
+            ])
+        ],
+        host: {
+            '(body:click)': 'this._handleBodyInteraction()'
+        }
+    }),
+    __param(0, Optional()),
+    __metadata("design:paramtypes", [Dir, ChangeDetectorRef])
+], TooltipComponent);
+export { TooltipComponent };
 //# sourceMappingURL=tooltip.js.map

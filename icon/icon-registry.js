@@ -30,25 +30,27 @@ import 'rxjs/add/observable/throw';
  * Exception thrown when attempting to load an icon with a name that cannot be found.
  * @docs-private
  */
-export var MdIconNameNotFoundError = (function (_super) {
+var MdIconNameNotFoundError = (function (_super) {
     __extends(MdIconNameNotFoundError, _super);
     function MdIconNameNotFoundError(iconName) {
-        _super.call(this, "Unable to find icon with the name \"" + iconName + "\"");
+        return _super.call(this, "Unable to find icon with the name \"" + iconName + "\"") || this;
     }
     return MdIconNameNotFoundError;
 }(MdError));
+export { MdIconNameNotFoundError };
 /**
  * Exception thrown when attempting to load SVG content that does not contain the expected
  * <svg> tag.
  * @docs-private
  */
-export var MdIconSvgTagNotFoundError = (function (_super) {
+var MdIconSvgTagNotFoundError = (function (_super) {
     __extends(MdIconSvgTagNotFoundError, _super);
     function MdIconSvgTagNotFoundError() {
-        _super.call(this, '<svg> tag not found');
+        return _super.call(this, '<svg> tag not found') || this;
     }
     return MdIconSvgTagNotFoundError;
 }(MdError));
+export { MdIconSvgTagNotFoundError };
 /**
  * Configuration for an icon, including the URL and possibly the cached SVG element.
  * @docs-private
@@ -69,7 +71,7 @@ var iconKey = function (namespace, name) { return namespace + ':' + name; };
  * - Registers aliases for CSS classes, for use with icon fonts.
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
-export var MdIconRegistry = (function () {
+var MdIconRegistry = (function () {
     function MdIconRegistry(_http, _sanitizer) {
         this._http = _http;
         this._sanitizer = _sanitizer;
@@ -400,12 +402,13 @@ export var MdIconRegistry = (function () {
         this._inProgressUrlFetches.set(url, req);
         return req;
     };
-    MdIconRegistry = __decorate([
-        Injectable(), 
-        __metadata('design:paramtypes', [Http, DomSanitizer])
-    ], MdIconRegistry);
     return MdIconRegistry;
 }());
+MdIconRegistry = __decorate([
+    Injectable(),
+    __metadata("design:paramtypes", [Http, DomSanitizer])
+], MdIconRegistry);
+export { MdIconRegistry };
 /** Clones an SVGElement while preserving type information. */
 function cloneSvg(svg) {
     return svg.cloneNode(true);

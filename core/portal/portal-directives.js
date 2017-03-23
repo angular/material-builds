@@ -12,44 +12,46 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { NgModule, Directive, TemplateRef, ComponentFactoryResolver, ViewContainerRef, Input } from '@angular/core';
+import { NgModule, Directive, TemplateRef, ComponentFactoryResolver, ViewContainerRef, Input, } from '@angular/core';
 import { TemplatePortal, BasePortalHost } from './portal';
 /**
  * Directive version of a `TemplatePortal`. Because the directive *is* a TemplatePortal,
  * the directive instance itself can be attached to a host, enabling declarative use of portals.
  *
  * Usage:
- * <template portal #greeting>
+ * <ng-template portal #greeting>
  *   <p> Hello {{name}} </p>
- * </template>
+ * </ng-template>
  */
-export var TemplatePortalDirective = (function (_super) {
+var TemplatePortalDirective = (function (_super) {
     __extends(TemplatePortalDirective, _super);
     function TemplatePortalDirective(templateRef, viewContainerRef) {
-        _super.call(this, templateRef, viewContainerRef);
+        return _super.call(this, templateRef, viewContainerRef) || this;
     }
-    TemplatePortalDirective = __decorate([
-        Directive({
-            selector: '[cdk-portal], [portal]',
-            exportAs: 'cdkPortal',
-        }), 
-        __metadata('design:paramtypes', [TemplateRef, ViewContainerRef])
-    ], TemplatePortalDirective);
     return TemplatePortalDirective;
 }(TemplatePortal));
+TemplatePortalDirective = __decorate([
+    Directive({
+        selector: '[cdk-portal], [portal]',
+        exportAs: 'cdkPortal',
+    }),
+    __metadata("design:paramtypes", [TemplateRef, ViewContainerRef])
+], TemplatePortalDirective);
+export { TemplatePortalDirective };
 /**
  * Directive version of a PortalHost. Because the directive *is* a PortalHost, portals can be
  * directly attached to it, enabling declarative use.
  *
  * Usage:
- * <template [cdkPortalHost]="greeting"></template>
+ * <ng-template [cdkPortalHost]="greeting"></ng-template>
  */
-export var PortalHostDirective = (function (_super) {
+var PortalHostDirective = (function (_super) {
     __extends(PortalHostDirective, _super);
     function PortalHostDirective(_componentFactoryResolver, _viewContainerRef) {
-        _super.call(this);
-        this._componentFactoryResolver = _componentFactoryResolver;
-        this._viewContainerRef = _viewContainerRef;
+        var _this = _super.call(this) || this;
+        _this._componentFactoryResolver = _componentFactoryResolver;
+        _this._viewContainerRef = _viewContainerRef;
+        return _this;
     }
     Object.defineProperty(PortalHostDirective.prototype, "_deprecatedPortal", {
         /** @deprecated */
@@ -110,36 +112,40 @@ export var PortalHostDirective = (function (_super) {
         // TODO(jelbourn): return locals from view
         return new Map();
     };
-    __decorate([
-        Input('portalHost'), 
-        __metadata('design:type', Object)
-    ], PortalHostDirective.prototype, "_deprecatedPortal", null);
-    PortalHostDirective = __decorate([
-        Directive({
-            selector: '[cdkPortalHost], [portalHost]',
-            inputs: ['portal: cdkPortalHost']
-        }), 
-        __metadata('design:paramtypes', [ComponentFactoryResolver, ViewContainerRef])
-    ], PortalHostDirective);
     return PortalHostDirective;
 }(BasePortalHost));
-export var PortalModule = (function () {
+__decorate([
+    Input('portalHost'),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], PortalHostDirective.prototype, "_deprecatedPortal", null);
+PortalHostDirective = __decorate([
+    Directive({
+        selector: '[cdkPortalHost], [portalHost]',
+        inputs: ['portal: cdkPortalHost']
+    }),
+    __metadata("design:paramtypes", [ComponentFactoryResolver,
+        ViewContainerRef])
+], PortalHostDirective);
+export { PortalHostDirective };
+var PortalModule = PortalModule_1 = (function () {
     function PortalModule() {
     }
     /** @deprecated */
     PortalModule.forRoot = function () {
         return {
-            ngModule: PortalModule,
+            ngModule: PortalModule_1,
             providers: []
         };
     };
-    PortalModule = __decorate([
-        NgModule({
-            exports: [TemplatePortalDirective, PortalHostDirective],
-            declarations: [TemplatePortalDirective, PortalHostDirective],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], PortalModule);
     return PortalModule;
 }());
+PortalModule = PortalModule_1 = __decorate([
+    NgModule({
+        exports: [TemplatePortalDirective, PortalHostDirective],
+        declarations: [TemplatePortalDirective, PortalHostDirective],
+    })
+], PortalModule);
+export { PortalModule };
+var PortalModule_1;
 //# sourceMappingURL=portal-directives.js.map

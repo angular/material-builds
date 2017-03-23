@@ -4,34 +4,32 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CompatibilityModule } from '../core';
 import { A11yModule } from '../core/a11y/index';
 import { OverlayModule } from '../core/overlay/overlay-directives';
 import { MdSidenav, MdSidenavContainer } from './sidenav';
-export var MdSidenavModule = (function () {
+var MdSidenavModule = MdSidenavModule_1 = (function () {
     function MdSidenavModule() {
     }
     /** @deprecated */
     MdSidenavModule.forRoot = function () {
         return {
-            ngModule: MdSidenavModule,
+            ngModule: MdSidenavModule_1,
             providers: []
         };
     };
-    MdSidenavModule = __decorate([
-        NgModule({
-            imports: [CommonModule, CompatibilityModule, A11yModule, OverlayModule],
-            exports: [MdSidenavContainer, MdSidenav, CompatibilityModule],
-            declarations: [MdSidenavContainer, MdSidenav],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdSidenavModule);
     return MdSidenavModule;
 }());
+MdSidenavModule = MdSidenavModule_1 = __decorate([
+    NgModule({
+        imports: [CommonModule, CompatibilityModule, A11yModule, OverlayModule],
+        exports: [MdSidenavContainer, MdSidenav, CompatibilityModule],
+        declarations: [MdSidenavContainer, MdSidenav],
+    })
+], MdSidenavModule);
+export { MdSidenavModule };
 export * from './sidenav';
+var MdSidenavModule_1;
 //# sourceMappingURL=index.js.map

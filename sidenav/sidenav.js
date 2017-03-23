@@ -15,27 +15,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Component, ContentChildren, ElementRef, Input, Optional, Output, QueryList, ChangeDetectionStrategy, EventEmitter, Renderer, ViewEncapsulation, NgZone } from '@angular/core';
+import { Component, ContentChildren, ElementRef, Input, Optional, Output, QueryList, ChangeDetectionStrategy, EventEmitter, Renderer, ViewEncapsulation, NgZone, } from '@angular/core';
 import { Dir, MdError, coerceBooleanProperty } from '../core';
 import { FocusTrapFactory } from '../core/a11y/focus-trap';
 import { ESCAPE } from '../core/keyboard/keycodes';
 import 'rxjs/add/operator/first';
 /** Exception thrown when two MdSidenav are matching the same side. */
-export var MdDuplicatedSidenavError = (function (_super) {
+var MdDuplicatedSidenavError = (function (_super) {
     __extends(MdDuplicatedSidenavError, _super);
     function MdDuplicatedSidenavError(align) {
-        _super.call(this, "A sidenav was already declared for 'align=\"" + align + "\"'");
+        return _super.call(this, "A sidenav was already declared for 'align=\"" + align + "\"'") || this;
     }
     return MdDuplicatedSidenavError;
 }(MdError));
+export { MdDuplicatedSidenavError };
 /** Sidenav toggle promise result. */
-export var MdSidenavToggleResult = (function () {
+var MdSidenavToggleResult = (function () {
     function MdSidenavToggleResult(type, animationFinished) {
         this.type = type;
         this.animationFinished = animationFinished;
     }
     return MdSidenavToggleResult;
 }());
+export { MdSidenavToggleResult };
 /**
  * <md-sidenav> component.
  *
@@ -43,7 +45,7 @@ export var MdSidenavToggleResult = (function () {
  *
  * Please refer to README.md for examples on how to use it.
  */
-export var MdSidenav = (function () {
+var MdSidenav = (function () {
     /**
      * @param _elementRef The DOM element reference. Used for transition and width calculation.
      *     If not available we do not hook on transitions.
@@ -292,76 +294,82 @@ export var MdSidenav = (function () {
         enumerable: true,
         configurable: true
     });
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdSidenav.prototype, "align", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdSidenav.prototype, "mode", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Boolean)
-    ], MdSidenav.prototype, "disableClose", null);
-    __decorate([
-        Output('open-start'), 
-        __metadata('design:type', Object)
-    ], MdSidenav.prototype, "onOpenStart", void 0);
-    __decorate([
-        Output('open'), 
-        __metadata('design:type', Object)
-    ], MdSidenav.prototype, "onOpen", void 0);
-    __decorate([
-        Output('close-start'), 
-        __metadata('design:type', Object)
-    ], MdSidenav.prototype, "onCloseStart", void 0);
-    __decorate([
-        Output('close'), 
-        __metadata('design:type', Object)
-    ], MdSidenav.prototype, "onClose", void 0);
-    __decorate([
-        Output('align-changed'), 
-        __metadata('design:type', Object)
-    ], MdSidenav.prototype, "onAlignChanged", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Boolean)
-    ], MdSidenav.prototype, "opened", null);
-    MdSidenav = __decorate([
-        Component({selector: 'md-sidenav, mat-sidenav',
-            // TODO(mmalerba): move template to separate file.
-            template: "<ng-content></ng-content>",
-            host: {
-                '[class.mat-sidenav]': 'true',
-                '(transitionend)': '_onTransitionEnd($event)',
-                '(keydown)': 'handleKeydown($event)',
-                // must prevent the browser from aligning text based on value
-                '[attr.align]': 'null',
-                '[class.mat-sidenav-closed]': '_isClosed',
-                '[class.mat-sidenav-closing]': '_isClosing',
-                '[class.mat-sidenav-end]': '_isEnd',
-                '[class.mat-sidenav-opened]': '_isOpened',
-                '[class.mat-sidenav-opening]': '_isOpening',
-                '[class.mat-sidenav-over]': '_modeOver',
-                '[class.mat-sidenav-push]': '_modePush',
-                '[class.mat-sidenav-side]': '_modeSide',
-                'tabIndex': '-1'
-            },
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            encapsulation: ViewEncapsulation.None,
-        }), 
-        __metadata('design:paramtypes', [ElementRef, Renderer, FocusTrapFactory])
-    ], MdSidenav);
     return MdSidenav;
 }());
+__decorate([
+    Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], MdSidenav.prototype, "align", null);
+__decorate([
+    Input(),
+    __metadata("design:type", String)
+], MdSidenav.prototype, "mode", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Boolean),
+    __metadata("design:paramtypes", [Boolean])
+], MdSidenav.prototype, "disableClose", null);
+__decorate([
+    Output('open-start'),
+    __metadata("design:type", Object)
+], MdSidenav.prototype, "onOpenStart", void 0);
+__decorate([
+    Output('open'),
+    __metadata("design:type", Object)
+], MdSidenav.prototype, "onOpen", void 0);
+__decorate([
+    Output('close-start'),
+    __metadata("design:type", Object)
+], MdSidenav.prototype, "onCloseStart", void 0);
+__decorate([
+    Output('close'),
+    __metadata("design:type", Object)
+], MdSidenav.prototype, "onClose", void 0);
+__decorate([
+    Output('align-changed'),
+    __metadata("design:type", Object)
+], MdSidenav.prototype, "onAlignChanged", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Boolean),
+    __metadata("design:paramtypes", [Boolean])
+], MdSidenav.prototype, "opened", null);
+MdSidenav = __decorate([
+    Component({selector: 'md-sidenav, mat-sidenav',
+        // TODO(mmalerba): move template to separate file.
+        template: "<ng-content></ng-content>",
+        host: {
+            '[class.mat-sidenav]': 'true',
+            '(transitionend)': '_onTransitionEnd($event)',
+            '(keydown)': 'handleKeydown($event)',
+            // must prevent the browser from aligning text based on value
+            '[attr.align]': 'null',
+            '[class.mat-sidenav-closed]': '_isClosed',
+            '[class.mat-sidenav-closing]': '_isClosing',
+            '[class.mat-sidenav-end]': '_isEnd',
+            '[class.mat-sidenav-opened]': '_isOpened',
+            '[class.mat-sidenav-opening]': '_isOpening',
+            '[class.mat-sidenav-over]': '_modeOver',
+            '[class.mat-sidenav-push]': '_modePush',
+            '[class.mat-sidenav-side]': '_modeSide',
+            'tabIndex': '-1'
+        },
+        changeDetection: ChangeDetectionStrategy.OnPush,
+        encapsulation: ViewEncapsulation.None,
+    }),
+    __metadata("design:paramtypes", [ElementRef,
+        Renderer,
+        FocusTrapFactory])
+], MdSidenav);
+export { MdSidenav };
 /**
  * <md-sidenav-container> component.
  *
  * This is the parent component to one or two <md-sidenav>s that validates the state internally
  * and coordinates the backdrop and content styling.
  */
-export var MdSidenavContainer = (function () {
+var MdSidenavContainer = (function () {
     function MdSidenavContainer(_dir, _element, _renderer, _ngZone) {
         var _this = this;
         this._dir = _dir;
@@ -523,31 +531,33 @@ export var MdSidenavContainer = (function () {
             transform: "translate3d(" + this._getPositionOffset() + "px, 0, 0)"
         };
     };
-    __decorate([
-        ContentChildren(MdSidenav), 
-        __metadata('design:type', QueryList)
-    ], MdSidenavContainer.prototype, "_sidenavs", void 0);
-    __decorate([
-        Output(), 
-        __metadata('design:type', Object)
-    ], MdSidenavContainer.prototype, "backdropClick", void 0);
-    MdSidenavContainer = __decorate([
-        Component({selector: 'md-sidenav-container, mat-sidenav-container',
-            // Do not use ChangeDetectionStrategy.OnPush. It does not work for this component because
-            // technically it is a sibling of MdSidenav (on the content tree) and isn't updated when MdSidenav
-            // changes its state.
-            template: "<div class=\"mat-sidenav-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-sidenav-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"md-sidenav, mat-sidenav\"></ng-content><div class=\"mat-sidenav-content\" [ngStyle]=\"_getStyles()\" cdk-scrollable><ng-content></ng-content></div>",
-            styles: [".mat-sidenav-container{position:relative;transform:translate3d(0,0,0);box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-sidenav-container[fullscreen]{position:absolute;top:0;left:0;right:0;bottom:0}.mat-sidenav-container[fullscreen].mat-sidenav-opened{overflow:hidden}.mat-sidenav-backdrop{position:absolute;top:0;left:0;right:0;bottom:0;display:block;z-index:2;visibility:hidden}.mat-sidenav-backdrop.mat-sidenav-shown{visibility:visible}@media screen and (-ms-high-contrast:active){.mat-sidenav-backdrop{opacity:.5}}.mat-sidenav-content{position:relative;transform:translate3d(0,0,0);display:block;height:100%;overflow:auto}.mat-sidenav{position:relative;transform:translate3d(0,0,0);display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;height:100%;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-sidenav.mat-sidenav-closed{visibility:hidden}.mat-sidenav.mat-sidenav-opened,.mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-side{z-index:1}.mat-sidenav.mat-sidenav-end{right:0;transform:translate3d(100%,0,0)}.mat-sidenav.mat-sidenav-end.mat-sidenav-closed{visibility:hidden}.mat-sidenav.mat-sidenav-end.mat-sidenav-opened,.mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav{transform:translate3d(100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-closed{visibility:hidden}[dir=rtl] .mat-sidenav.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end{left:0;right:auto;transform:translate3d(-100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-closed{visibility:hidden}[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-opened:not(.mat-sidenav-side),.mat-sidenav.mat-sidenav-opening:not(.mat-sidenav-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)} /*# sourceMappingURL=sidenav.css.map */ ",
-".mat-sidenav-transition .mat-sidenav{transition:transform .4s cubic-bezier(.25,.8,.25,1)}.mat-sidenav-transition .mat-sidenav-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-sidenav-transition .mat-sidenav-backdrop.mat-sidenav-shown{transition:background-color .4s cubic-bezier(.25,.8,.25,1)} /*# sourceMappingURL=sidenav-transitions.css.map */ "],
-            host: {
-                '[class.mat-sidenav-container]': 'true',
-                '[class.mat-sidenav-transition]': '_enableTransitions',
-            },
-            encapsulation: ViewEncapsulation.None,
-        }),
-        __param(0, Optional()), 
-        __metadata('design:paramtypes', [Dir, ElementRef, Renderer, NgZone])
-    ], MdSidenavContainer);
     return MdSidenavContainer;
 }());
+__decorate([
+    ContentChildren(MdSidenav),
+    __metadata("design:type", QueryList)
+], MdSidenavContainer.prototype, "_sidenavs", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", Object)
+], MdSidenavContainer.prototype, "backdropClick", void 0);
+MdSidenavContainer = __decorate([
+    Component({selector: 'md-sidenav-container, mat-sidenav-container',
+        // Do not use ChangeDetectionStrategy.OnPush. It does not work for this component because
+        // technically it is a sibling of MdSidenav (on the content tree) and isn't updated when MdSidenav
+        // changes its state.
+        template: "<div class=\"mat-sidenav-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-sidenav-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"md-sidenav, mat-sidenav\"></ng-content><div class=\"mat-sidenav-content\" [ngStyle]=\"_getStyles()\" cdk-scrollable><ng-content></ng-content></div>",
+        styles: [".mat-sidenav-container{position:relative;transform:translate3d(0,0,0);box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-sidenav-container[fullscreen]{position:absolute;top:0;left:0;right:0;bottom:0}.mat-sidenav-container[fullscreen].mat-sidenav-opened{overflow:hidden}.mat-sidenav-backdrop{position:absolute;top:0;left:0;right:0;bottom:0;display:block;z-index:2;visibility:hidden}.mat-sidenav-backdrop.mat-sidenav-shown{visibility:visible}@media screen and (-ms-high-contrast:active){.mat-sidenav-backdrop{opacity:.5}}.mat-sidenav-content{position:relative;transform:translate3d(0,0,0);display:block;height:100%;overflow:auto}.mat-sidenav{position:relative;transform:translate3d(0,0,0);display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;height:100%;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-sidenav.mat-sidenav-closed{visibility:hidden}.mat-sidenav.mat-sidenav-opened,.mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-side{z-index:1}.mat-sidenav.mat-sidenav-end{right:0;transform:translate3d(100%,0,0)}.mat-sidenav.mat-sidenav-end.mat-sidenav-closed{visibility:hidden}.mat-sidenav.mat-sidenav-end.mat-sidenav-opened,.mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav{transform:translate3d(100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-closed{visibility:hidden}[dir=rtl] .mat-sidenav.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end{left:0;right:auto;transform:translate3d(-100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-closed{visibility:hidden}[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-opened:not(.mat-sidenav-side),.mat-sidenav.mat-sidenav-opening:not(.mat-sidenav-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)} /*# sourceMappingURL=sidenav.css.map */ ",
+".mat-sidenav-transition .mat-sidenav{transition:transform .4s cubic-bezier(.25,.8,.25,1)}.mat-sidenav-transition .mat-sidenav-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-sidenav-transition .mat-sidenav-backdrop.mat-sidenav-shown{transition:background-color .4s cubic-bezier(.25,.8,.25,1)} /*# sourceMappingURL=sidenav-transitions.css.map */ "],
+        host: {
+            '[class.mat-sidenav-container]': 'true',
+            '[class.mat-sidenav-transition]': '_enableTransitions',
+        },
+        encapsulation: ViewEncapsulation.None,
+    }),
+    __param(0, Optional()),
+    __metadata("design:paramtypes", [Dir, ElementRef,
+        Renderer, NgZone])
+], MdSidenavContainer);
+export { MdSidenavContainer };
 //# sourceMappingURL=sidenav.js.map

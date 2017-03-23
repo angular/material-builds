@@ -8,11 +8,12 @@ import { MdError } from '../core';
  * Exception thrown when a ComponentPortal is attached to a DomPortalHost without an origin.
  * @docs-private
  */
-export var MdDialogContentAlreadyAttachedError = (function (_super) {
+var MdDialogContentAlreadyAttachedError = (function (_super) {
     __extends(MdDialogContentAlreadyAttachedError, _super);
     function MdDialogContentAlreadyAttachedError() {
-        _super.call(this, 'Attempting to attach dialog content after content is already attached');
+        return _super.call(this, 'Attempting to attach dialog content after content is already attached') || this;
     }
     return MdDialogContentAlreadyAttachedError;
 }(MdError));
+export { MdDialogContentAlreadyAttachedError };
 //# sourceMappingURL=dialog-errors.js.map

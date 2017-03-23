@@ -8,35 +8,38 @@ import { MdError } from '../core';
  * Exception thrown when menu trigger doesn't have a valid md-menu instance
  * @docs-private
  */
-export var MdMenuMissingError = (function (_super) {
+var MdMenuMissingError = (function (_super) {
     __extends(MdMenuMissingError, _super);
     function MdMenuMissingError() {
-        _super.call(this, "md-menu-trigger: must pass in an md-menu instance.\n\n    Example:\n      <md-menu #menu=\"mdMenu\"></md-menu>\n      <button [mdMenuTriggerFor]=\"menu\"></button>\n    ");
+        return _super.call(this, "md-menu-trigger: must pass in an md-menu instance.\n\n    Example:\n      <md-menu #menu=\"mdMenu\"></md-menu>\n      <button [mdMenuTriggerFor]=\"menu\"></button>\n    ") || this;
     }
     return MdMenuMissingError;
 }(MdError));
+export { MdMenuMissingError };
 /**
  * Exception thrown when menu's x-position value isn't valid.
  * In other words, it doesn't match 'before' or 'after'.
  * @docs-private
  */
-export var MdMenuInvalidPositionX = (function (_super) {
+var MdMenuInvalidPositionX = (function (_super) {
     __extends(MdMenuInvalidPositionX, _super);
     function MdMenuInvalidPositionX() {
-        _super.call(this, "x-position value must be either 'before' or after'.\n      Example: <md-menu x-position=\"before\" #menu=\"mdMenu\"></md-menu>\n    ");
+        return _super.call(this, "x-position value must be either 'before' or after'.\n      Example: <md-menu x-position=\"before\" #menu=\"mdMenu\"></md-menu>\n    ") || this;
     }
     return MdMenuInvalidPositionX;
 }(MdError));
+export { MdMenuInvalidPositionX };
 /**
  * Exception thrown when menu's y-position value isn't valid.
  * In other words, it doesn't match 'above' or 'below'.
  * @docs-private
  */
-export var MdMenuInvalidPositionY = (function (_super) {
+var MdMenuInvalidPositionY = (function (_super) {
     __extends(MdMenuInvalidPositionY, _super);
     function MdMenuInvalidPositionY() {
-        _super.call(this, "y-position value must be either 'above' or below'.\n      Example: <md-menu y-position=\"above\" #menu=\"mdMenu\"></md-menu>\n    ");
+        return _super.call(this, "y-position value must be either 'above' or below'.\n      Example: <md-menu y-position=\"above\" #menu=\"mdMenu\"></md-menu>\n    ") || this;
     }
     return MdMenuInvalidPositionY;
 }(MdError));
+export { MdMenuInvalidPositionY };
 //# sourceMappingURL=menu-errors.js.map

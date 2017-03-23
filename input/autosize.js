@@ -11,7 +11,7 @@ import { Directive, ElementRef, Input } from '@angular/core';
 /**
  * Directive to automatically resize a textarea to fit its content.
  */
-export var MdTextareaAutosize = (function () {
+var MdTextareaAutosize = (function () {
     function MdTextareaAutosize(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -89,35 +89,38 @@ export var MdTextareaAutosize = (function () {
         // Use the scrollHeight to know how large the textarea *would* be if fit its entire value.
         textarea.style.height = textarea.scrollHeight + "px";
     };
-    __decorate([
-        Input(), 
-        __metadata('design:type', Number)
-    ], MdTextareaAutosize.prototype, "minRows", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Number)
-    ], MdTextareaAutosize.prototype, "mdAutosizeMinRows", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Number)
-    ], MdTextareaAutosize.prototype, "maxRows", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Number)
-    ], MdTextareaAutosize.prototype, "mdAutosizeMaxRows", null);
-    MdTextareaAutosize = __decorate([
-        Directive({
-            selector: 'textarea[md-autosize], textarea[mdTextareaAutosize],' +
-                'textarea[mat-autosize], textarea[matTextareaAutosize]',
-            exportAs: 'mdTextareaAutosize',
-            host: {
-                '(input)': 'resizeToFitContent()',
-                '[style.min-height]': '_minHeight',
-                '[style.max-height]': '_maxHeight',
-            },
-        }), 
-        __metadata('design:paramtypes', [ElementRef])
-    ], MdTextareaAutosize);
     return MdTextareaAutosize;
 }());
+__decorate([
+    Input(),
+    __metadata("design:type", Number)
+], MdTextareaAutosize.prototype, "minRows", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Number),
+    __metadata("design:paramtypes", [Number])
+], MdTextareaAutosize.prototype, "mdAutosizeMinRows", null);
+__decorate([
+    Input(),
+    __metadata("design:type", Number)
+], MdTextareaAutosize.prototype, "maxRows", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Number),
+    __metadata("design:paramtypes", [Number])
+], MdTextareaAutosize.prototype, "mdAutosizeMaxRows", null);
+MdTextareaAutosize = __decorate([
+    Directive({
+        selector: 'textarea[md-autosize], textarea[mdTextareaAutosize],' +
+            'textarea[mat-autosize], textarea[matTextareaAutosize]',
+        exportAs: 'mdTextareaAutosize',
+        host: {
+            '(input)': 'resizeToFitContent()',
+            '[style.min-height]': '_minHeight',
+            '[style.max-height]': '_maxHeight',
+        },
+    }),
+    __metadata("design:paramtypes", [ElementRef])
+], MdTextareaAutosize);
+export { MdTextareaAutosize };
 //# sourceMappingURL=autosize.js.map

@@ -22,7 +22,7 @@ import { SPACE, LEFT_ARROW, RIGHT_ARROW } from '../core/keyboard/keycodes';
  *       <md-chip>Chip 2<md-chip>
  *     </md-chip-list>
  */
-export var MdChipList = (function () {
+var MdChipList = (function () {
     function MdChipList(_elementRef) {
         this._elementRef = _elementRef;
         /** Track which chips we're listening to for focus/destruction. */
@@ -160,31 +160,33 @@ export var MdChipList = (function () {
     MdChipList.prototype._isValidIndex = function (index) {
         return index >= 0 && index < this.chips.length;
     };
-    __decorate([
-        Input(), 
-        __metadata('design:type', Boolean)
-    ], MdChipList.prototype, "selectable", null);
-    MdChipList = __decorate([
-        Component({selector: 'md-chip-list, mat-chip-list',
-            template: "<div class=\"mat-chip-list-wrapper\"><ng-content></ng-content></div>",
-            host: {
-                // Properties
-                'tabindex': '0',
-                'role': 'listbox',
-                '[class.mat-chip-list]': 'true',
-                // Events
-                '(focus)': 'focus()',
-                '(keydown)': '_keydown($event)'
-            },
-            queries: {
-                chips: new ContentChildren(MdChip)
-            },
-            styles: [".mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:flex-start}.mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){margin:0 3px 0 3px}.mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):first-child{margin-left:0;margin-right:3px}[dir=rtl] .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):first-child{margin-left:3px;margin-right:0}.mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-left:3px;margin-right:0}[dir=rtl] .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-left:0;margin-right:3px}.mat-chip:not(.mat-basic-chip){display:inline-block;padding:8px 12px 8px 12px;border-radius:24px;font-size:13px;line-height:16px}.mat-chip-list-stacked .mat-chip-list-wrapper{display:block}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){display:block;margin:0;margin-bottom:8px}[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){margin:0;margin-bottom:8px}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child,[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-bottom:0} /*# sourceMappingURL=chips.css.map */ "],
-            encapsulation: ViewEncapsulation.None,
-            changeDetection: ChangeDetectionStrategy.OnPush
-        }), 
-        __metadata('design:paramtypes', [ElementRef])
-    ], MdChipList);
     return MdChipList;
 }());
+__decorate([
+    Input(),
+    __metadata("design:type", Boolean),
+    __metadata("design:paramtypes", [Boolean])
+], MdChipList.prototype, "selectable", null);
+MdChipList = __decorate([
+    Component({selector: 'md-chip-list, mat-chip-list',
+        template: "<div class=\"mat-chip-list-wrapper\"><ng-content></ng-content></div>",
+        host: {
+            // Properties
+            'tabindex': '0',
+            'role': 'listbox',
+            '[class.mat-chip-list]': 'true',
+            // Events
+            '(focus)': 'focus()',
+            '(keydown)': '_keydown($event)'
+        },
+        queries: {
+            chips: new ContentChildren(MdChip)
+        },
+        styles: [".mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:flex-start}.mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){margin:0 3px 0 3px}.mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):first-child{margin-left:0;margin-right:3px}[dir=rtl] .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):first-child{margin-left:3px;margin-right:0}.mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-left:3px;margin-right:0}[dir=rtl] .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-left:0;margin-right:3px}.mat-chip:not(.mat-basic-chip){display:inline-block;padding:8px 12px 8px 12px;border-radius:24px;font-size:13px;line-height:16px}.mat-chip-list-stacked .mat-chip-list-wrapper{display:block}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){display:block;margin:0;margin-bottom:8px}[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){margin:0;margin-bottom:8px}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child,[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-bottom:0} /*# sourceMappingURL=chips.css.map */ "],
+        encapsulation: ViewEncapsulation.None,
+        changeDetection: ChangeDetectionStrategy.OnPush
+    }),
+    __metadata("design:paramtypes", [ElementRef])
+], MdChipList);
+export { MdChipList };
 //# sourceMappingURL=chip-list.js.map

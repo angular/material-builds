@@ -15,7 +15,7 @@ import { ActiveDescendantKeyManager } from '../core/a11y/activedescendant-key-ma
  * the component definition.
  */
 var _uniqueAutocompleteIdCounter = 0;
-export var MdAutocomplete = (function () {
+var MdAutocomplete = (function () {
     function MdAutocomplete() {
         /** Whether the autocomplete panel displays above or below its trigger. */
         this.positionY = 'below';
@@ -50,34 +50,34 @@ export var MdAutocomplete = (function () {
             'mat-autocomplete-hidden': !this.showPanel
         };
     };
-    __decorate([
-        ViewChild(TemplateRef), 
-        __metadata('design:type', TemplateRef)
-    ], MdAutocomplete.prototype, "template", void 0);
-    __decorate([
-        ViewChild('panel'), 
-        __metadata('design:type', ElementRef)
-    ], MdAutocomplete.prototype, "panel", void 0);
-    __decorate([
-        ContentChildren(MdOption), 
-        __metadata('design:type', QueryList)
-    ], MdAutocomplete.prototype, "options", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Function)
-    ], MdAutocomplete.prototype, "displayWith", void 0);
-    MdAutocomplete = __decorate([
-        Component({selector: 'md-autocomplete, mat-autocomplete',
-            template: "<template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_getClassList()\" #panel><ng-content></ng-content></div></template>",
-            styles: [".mat-autocomplete-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative}.mat-autocomplete-panel.mat-autocomplete-panel-below{top:6px}.mat-autocomplete-panel.mat-autocomplete-panel-above{top:-24px}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden} /*# sourceMappingURL=autocomplete.css.map */ "],
-            encapsulation: ViewEncapsulation.None,
-            exportAs: 'mdAutocomplete',
-            host: {
-                '[class.mat-autocomplete]': 'true'
-            }
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdAutocomplete);
     return MdAutocomplete;
 }());
+__decorate([
+    ViewChild(TemplateRef),
+    __metadata("design:type", TemplateRef)
+], MdAutocomplete.prototype, "template", void 0);
+__decorate([
+    ViewChild('panel'),
+    __metadata("design:type", ElementRef)
+], MdAutocomplete.prototype, "panel", void 0);
+__decorate([
+    ContentChildren(MdOption),
+    __metadata("design:type", QueryList)
+], MdAutocomplete.prototype, "options", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Function)
+], MdAutocomplete.prototype, "displayWith", void 0);
+MdAutocomplete = __decorate([
+    Component({selector: 'md-autocomplete, mat-autocomplete',
+        template: "<ng-template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_getClassList()\" #panel><ng-content></ng-content></div></ng-template>",
+        styles: [".mat-autocomplete-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative}.mat-autocomplete-panel.mat-autocomplete-panel-below{top:6px}.mat-autocomplete-panel.mat-autocomplete-panel-above{top:-24px}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden} /*# sourceMappingURL=autocomplete.css.map */ "],
+        encapsulation: ViewEncapsulation.None,
+        exportAs: 'mdAutocomplete',
+        host: {
+            '[class.mat-autocomplete]': 'true'
+        }
+    })
+], MdAutocomplete);
+export { MdAutocomplete };
 //# sourceMappingURL=autocomplete.js.map

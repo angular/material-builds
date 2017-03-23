@@ -12,8 +12,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, ViewChild, trigger, state, style, transition, animate, NgZone, Renderer, ElementRef } from '@angular/core';
-import { BasePortalHost, PortalHostDirective } from '../core';
+import { Component, ViewChild, NgZone, Renderer, ElementRef, } from '@angular/core';
+import { trigger, state, style, transition, animate, } from '@angular/animations';
+import { BasePortalHost, PortalHostDirective, } from '../core';
 import { MdSnackBarContentAlreadyAttached } from './snack-bar-errors';
 import { Subject } from 'rxjs/Subject';
 // TODO(jelbourn): we can't use constants from animation.ts here because you can't use
@@ -24,19 +25,20 @@ export var HIDE_ANIMATION = '195ms cubic-bezier(0.0,0.0,0.2,1)';
  * Internal component that wraps user-provided snack bar content.
  * @docs-private
  */
-export var MdSnackBarContainer = (function (_super) {
+var MdSnackBarContainer = (function (_super) {
     __extends(MdSnackBarContainer, _super);
     function MdSnackBarContainer(_ngZone, _renderer, _elementRef) {
-        _super.call(this);
-        this._ngZone = _ngZone;
-        this._renderer = _renderer;
-        this._elementRef = _elementRef;
+        var _this = _super.call(this) || this;
+        _this._ngZone = _ngZone;
+        _this._renderer = _renderer;
+        _this._elementRef = _elementRef;
         /** Subject for notifying that the snack bar has exited from view. */
-        this.onExit = new Subject();
+        _this.onExit = new Subject();
         /** Subject for notifying that the snack bar has finished entering the view. */
-        this.onEnter = new Subject();
+        _this.onEnter = new Subject();
         /** The state of the snack bar animations. */
-        this.animationState = 'initial';
+        _this.animationState = 'initial';
+        return _this;
     }
     /** Attach a component portal as content to this snack bar container. */
     MdSnackBarContainer.prototype.attachComponentPortal = function (portal) {
@@ -105,31 +107,34 @@ export var MdSnackBarContainer = (function (_super) {
             _this.onExit.complete();
         });
     };
-    __decorate([
-        ViewChild(PortalHostDirective), 
-        __metadata('design:type', PortalHostDirective)
-    ], MdSnackBarContainer.prototype, "_portalHost", void 0);
-    MdSnackBarContainer = __decorate([
-        Component({selector: 'snack-bar-container',
-            template: "<template cdkPortalHost></template>",
-            styles: [":host{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);background:#323232;border-radius:2px;box-sizing:content-box;display:block;height:20px;max-width:568px;min-width:288px;overflow:hidden;padding:14px 24px;transform:translateY(100%)}@media screen and (-ms-high-contrast:active){:host{border:solid 1px}} /*# sourceMappingURL=snack-bar-container.css.map */ "],
-            host: {
-                'role': 'alert',
-                '[@state]': 'animationState',
-                '(@state.done)': 'onAnimationEnd($event)'
-            },
-            animations: [
-                trigger('state', [
-                    state('initial', style({ transform: 'translateY(100%)' })),
-                    state('visible', style({ transform: 'translateY(0%)' })),
-                    state('complete', style({ transform: 'translateY(100%)' })),
-                    transition('visible => complete', animate(HIDE_ANIMATION)),
-                    transition('initial => visible, void => visible', animate(SHOW_ANIMATION)),
-                ])
-            ],
-        }), 
-        __metadata('design:paramtypes', [NgZone, Renderer, ElementRef])
-    ], MdSnackBarContainer);
     return MdSnackBarContainer;
 }(BasePortalHost));
+__decorate([
+    ViewChild(PortalHostDirective),
+    __metadata("design:type", PortalHostDirective)
+], MdSnackBarContainer.prototype, "_portalHost", void 0);
+MdSnackBarContainer = __decorate([
+    Component({selector: 'snack-bar-container',
+        template: "<ng-template cdkPortalHost></ng-template>",
+        styles: [":host{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);background:#323232;border-radius:2px;box-sizing:content-box;display:block;height:20px;max-width:568px;min-width:288px;overflow:hidden;padding:14px 24px;transform:translateY(100%)}@media screen and (-ms-high-contrast:active){:host{border:solid 1px}} /*# sourceMappingURL=snack-bar-container.css.map */ "],
+        host: {
+            'role': 'alert',
+            '[@state]': 'animationState',
+            '(@state.done)': 'onAnimationEnd($event)'
+        },
+        animations: [
+            trigger('state', [
+                state('initial', style({ transform: 'translateY(100%)' })),
+                state('visible', style({ transform: 'translateY(0%)' })),
+                state('complete', style({ transform: 'translateY(100%)' })),
+                transition('visible => complete', animate(HIDE_ANIMATION)),
+                transition('initial => visible, void => visible', animate(SHOW_ANIMATION)),
+            ])
+        ],
+    }),
+    __metadata("design:paramtypes", [NgZone,
+        Renderer,
+        ElementRef])
+], MdSnackBarContainer);
+export { MdSnackBarContainer };
 //# sourceMappingURL=snack-bar-container.js.map

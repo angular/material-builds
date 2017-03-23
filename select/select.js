@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Component, ContentChildren, ElementRef, EventEmitter, Input, Optional, Output, QueryList, Renderer, Self, ViewEncapsulation, ViewChild, ChangeDetectorRef, Attribute } from '@angular/core';
+import { Component, ContentChildren, ElementRef, EventEmitter, Input, Optional, Output, QueryList, Renderer, Self, ViewEncapsulation, ViewChild, ChangeDetectorRef, Attribute, } from '@angular/core';
 import { MdOption } from '../core/option/option';
 import { ENTER, SPACE } from '../core/keyboard/keycodes';
 import { FocusKeyManager } from '../core/a11y/focus-key-manager';
@@ -67,14 +67,15 @@ export var SELECT_PANEL_PADDING_Y = 16;
  */
 export var SELECT_PANEL_VIEWPORT_PADDING = 8;
 /** Change event object that is emitted when the select value has changed. */
-export var MdSelectChange = (function () {
+var MdSelectChange = (function () {
     function MdSelectChange(source, value) {
         this.source = source;
         this.value = value;
     }
     return MdSelectChange;
 }());
-export var MdSelect = (function () {
+export { MdSelectChange };
+var MdSelect = (function () {
     function MdSelect(_element, _renderer, _viewportRuler, _changeDetectorRef, _dir, _control, tabIndex) {
         this._element = _element;
         this._renderer = _renderer;
@@ -354,6 +355,7 @@ export var MdSelect = (function () {
         }
         else {
             this.onClose.emit();
+            this._panelDoneAnimating = false;
         }
     };
     /**
@@ -713,87 +715,94 @@ export var MdSelect = (function () {
     MdSelect.prototype._floatPlaceholderState = function () {
         return this._isRtl() ? 'floating-rtl' : 'floating-ltr';
     };
-    __decorate([
-        ViewChild('trigger'), 
-        __metadata('design:type', ElementRef)
-    ], MdSelect.prototype, "trigger", void 0);
-    __decorate([
-        ViewChild(ConnectedOverlayDirective), 
-        __metadata('design:type', ConnectedOverlayDirective)
-    ], MdSelect.prototype, "overlayDir", void 0);
-    __decorate([
-        ContentChildren(MdOption), 
-        __metadata('design:type', QueryList)
-    ], MdSelect.prototype, "options", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdSelect.prototype, "placeholder", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdSelect.prototype, "disabled", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdSelect.prototype, "required", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Boolean)
-    ], MdSelect.prototype, "multiple", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], MdSelect.prototype, "floatPlaceholder", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Number)
-    ], MdSelect.prototype, "tabIndex", null);
-    __decorate([
-        Output(), 
-        __metadata('design:type', EventEmitter)
-    ], MdSelect.prototype, "onOpen", void 0);
-    __decorate([
-        Output(), 
-        __metadata('design:type', EventEmitter)
-    ], MdSelect.prototype, "onClose", void 0);
-    __decorate([
-        Output(), 
-        __metadata('design:type', EventEmitter)
-    ], MdSelect.prototype, "change", void 0);
-    MdSelect = __decorate([
-        Component({selector: 'md-select, mat-select',
-            template: "<div class=\"mat-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><span class=\"mat-select-placeholder\" [class.mat-floating-placeholder]=\"_selectionModel.hasValue()\" [@transformPlaceholder]=\"_getPlaceholderAnimationState()\" [style.visibility]=\"_getPlaceholderVisibility()\" [style.width.px]=\"_selectedValueWidth\">{{ placeholder }} </span><span class=\"mat-select-value\" *ngIf=\"_selectionModel.hasValue()\"><span class=\"mat-select-value-text\">{{ triggerValue }}</span> </span><span class=\"mat-select-arrow\"></span> <span class=\"mat-select-underline\"></span></div><template cdk-connected-overlay [origin]=\"origin\" [open]=\"panelOpen\" hasBackdrop (backdropClick)=\"close()\" backdropClass=\"cdk-overlay-transparent-backdrop\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" [offsetX]=\"_offsetX\" (attach)=\"_setScrollTop()\"><div class=\"mat-select-panel\" [@transformPanel]=\"'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_keyManager.onKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></template>",
-            styles: [".mat-select{display:inline-block;outline:0;font-family:Roboto,\"Helvetica Neue\",sans-serif}.mat-select-trigger{display:flex;align-items:center;height:30px;min-width:112px;cursor:pointer;position:relative;box-sizing:border-box;font-size:16px}[aria-disabled=true] .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-underline{position:absolute;bottom:0;left:0;right:0;height:1px}[aria-disabled=true] .mat-select-underline{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;background-color:transparent;background-position:0 bottom}.mat-select-placeholder{position:relative;padding:0 2px;transform-origin:left top;flex-grow:1}.mat-select-placeholder.mat-floating-placeholder{top:-22px;left:-2px;text-align:left;transform:scale(.75)}[dir=rtl] .mat-select-placeholder{transform-origin:right top}[dir=rtl] .mat-select-placeholder.mat-floating-placeholder{left:2px;text-align:right}[aria-required=true] .mat-select-placeholder::after{content:'*'}.mat-select-value{position:absolute;max-width:calc(100% - 18px);flex-grow:1;top:0;left:0;bottom:0;display:flex;align-items:center}[dir=rtl] .mat-select-value{left:auto;right:0}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:30px}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}} /*# sourceMappingURL=select.css.map */ "],
-            encapsulation: ViewEncapsulation.None,
-            host: {
-                'role': 'listbox',
-                '[attr.tabindex]': 'tabIndex',
-                '[attr.aria-label]': 'placeholder',
-                '[attr.aria-required]': 'required.toString()',
-                '[attr.aria-disabled]': 'disabled.toString()',
-                '[attr.aria-invalid]': '_control?.invalid || "false"',
-                '[attr.aria-owns]': '_optionIds',
-                '[class.mat-select-disabled]': 'disabled',
-                '[class.mat-select]': 'true',
-                '(keydown)': '_handleKeydown($event)',
-                '(blur)': '_onBlur()'
-            },
-            animations: [
-                transformPlaceholder,
-                transformPanel,
-                fadeInContent
-            ],
-            exportAs: 'mdSelect',
-        }),
-        __param(4, Optional()),
-        __param(5, Self()),
-        __param(5, Optional()),
-        __param(6, Attribute('tabindex')), 
-        __metadata('design:paramtypes', [ElementRef, Renderer, ViewportRuler, ChangeDetectorRef, Dir, NgControl, String])
-    ], MdSelect);
     return MdSelect;
 }());
+__decorate([
+    ViewChild('trigger'),
+    __metadata("design:type", ElementRef)
+], MdSelect.prototype, "trigger", void 0);
+__decorate([
+    ViewChild(ConnectedOverlayDirective),
+    __metadata("design:type", ConnectedOverlayDirective)
+], MdSelect.prototype, "overlayDir", void 0);
+__decorate([
+    ContentChildren(MdOption),
+    __metadata("design:type", QueryList)
+], MdSelect.prototype, "options", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [String])
+], MdSelect.prototype, "placeholder", null);
+__decorate([
+    Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], MdSelect.prototype, "disabled", null);
+__decorate([
+    Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], MdSelect.prototype, "required", null);
+__decorate([
+    Input(),
+    __metadata("design:type", Boolean),
+    __metadata("design:paramtypes", [Boolean])
+], MdSelect.prototype, "multiple", null);
+__decorate([
+    Input(),
+    __metadata("design:type", String),
+    __metadata("design:paramtypes", [String])
+], MdSelect.prototype, "floatPlaceholder", null);
+__decorate([
+    Input(),
+    __metadata("design:type", Number),
+    __metadata("design:paramtypes", [Number])
+], MdSelect.prototype, "tabIndex", null);
+__decorate([
+    Output(),
+    __metadata("design:type", EventEmitter)
+], MdSelect.prototype, "onOpen", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", EventEmitter)
+], MdSelect.prototype, "onClose", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", EventEmitter)
+], MdSelect.prototype, "change", void 0);
+MdSelect = __decorate([
+    Component({selector: 'md-select, mat-select',
+        template: "<div class=\"mat-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><span class=\"mat-select-placeholder\" [class.mat-floating-placeholder]=\"_selectionModel.hasValue()\" [@transformPlaceholder]=\"_getPlaceholderAnimationState()\" [style.visibility]=\"_getPlaceholderVisibility()\" [style.width.px]=\"_selectedValueWidth\">{{ placeholder }} </span><span class=\"mat-select-value\" *ngIf=\"_selectionModel.hasValue()\"><span class=\"mat-select-value-text\">{{ triggerValue }}</span> </span><span class=\"mat-select-arrow\"></span> <span class=\"mat-select-underline\"></span></div><ng-template cdk-connected-overlay [origin]=\"origin\" [open]=\"panelOpen\" hasBackdrop (backdropClick)=\"close()\" backdropClass=\"cdk-overlay-transparent-backdrop\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" [offsetX]=\"_offsetX\" (attach)=\"_setScrollTop()\"><div class=\"mat-select-panel\" [@transformPanel]=\"'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_keyManager.onKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
+        styles: [".mat-select{display:inline-block;outline:0;font-family:Roboto,\"Helvetica Neue\",sans-serif}.mat-select-trigger{display:flex;align-items:center;height:30px;min-width:112px;cursor:pointer;position:relative;box-sizing:border-box;font-size:16px}[aria-disabled=true] .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-underline{position:absolute;bottom:0;left:0;right:0;height:1px}[aria-disabled=true] .mat-select-underline{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;background-color:transparent;background-position:0 bottom}.mat-select-placeholder{position:relative;padding:0 2px;transform-origin:left top;flex-grow:1}.mat-select-placeholder.mat-floating-placeholder{top:-22px;left:-2px;text-align:left;transform:scale(.75)}[dir=rtl] .mat-select-placeholder{transform-origin:right top}[dir=rtl] .mat-select-placeholder.mat-floating-placeholder{left:2px;text-align:right}[aria-required=true] .mat-select-placeholder::after{content:'*'}.mat-select-value{position:absolute;max-width:calc(100% - 18px);flex-grow:1;top:0;left:0;bottom:0;display:flex;align-items:center}[dir=rtl] .mat-select-value{left:auto;right:0}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:30px}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}} /*# sourceMappingURL=select.css.map */ "],
+        encapsulation: ViewEncapsulation.None,
+        host: {
+            'role': 'listbox',
+            '[attr.tabindex]': 'tabIndex',
+            '[attr.aria-label]': 'placeholder',
+            '[attr.aria-required]': 'required.toString()',
+            '[attr.aria-disabled]': 'disabled.toString()',
+            '[attr.aria-invalid]': '_control?.invalid || "false"',
+            '[attr.aria-owns]': '_optionIds',
+            '[class.mat-select-disabled]': 'disabled',
+            '[class.mat-select]': 'true',
+            '(keydown)': '_handleKeydown($event)',
+            '(blur)': '_onBlur()'
+        },
+        animations: [
+            transformPlaceholder,
+            transformPanel,
+            fadeInContent
+        ],
+        exportAs: 'mdSelect',
+    }),
+    __param(4, Optional()), __param(5, Self()), __param(5, Optional()),
+    __param(6, Attribute('tabindex')),
+    __metadata("design:paramtypes", [ElementRef, Renderer,
+        ViewportRuler, ChangeDetectorRef,
+        Dir, NgControl, String])
+], MdSelect);
+export { MdSelect };
 /** Clamps a value n between min and max values. */
 function clampValue(min, n, max) {
     return Math.min(Math.max(min, n), max);

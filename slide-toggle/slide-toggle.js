@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, ElementRef, Renderer, forwardRef, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, ElementRef, Renderer, forwardRef, ChangeDetectionStrategy, Input, Output, EventEmitter, ViewChild, ViewEncapsulation, } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { applyCssTransform, coerceBooleanProperty } from '../core';
 import { Observable } from 'rxjs/Observable';
@@ -17,17 +17,18 @@ export var MD_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     multi: true
 };
 // A simple change event emitted by the MdSlideToggle component.
-export var MdSlideToggleChange = (function () {
+var MdSlideToggleChange = (function () {
     function MdSlideToggleChange() {
     }
     return MdSlideToggleChange;
 }());
+export { MdSlideToggleChange };
 // Increasing integer for generating unique ids for slide-toggle components.
 var nextId = 0;
 /**
  * Two-state control, which can be also called `switch`.
  */
-export var MdSlideToggle = (function () {
+var MdSlideToggle = (function () {
     function MdSlideToggle(_elementRef, _renderer) {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
@@ -225,79 +226,85 @@ export var MdSlideToggle = (function () {
             setTimeout(function () { return _this._slideRenderer.stopThumbDrag(); });
         }
     };
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], MdSlideToggle.prototype, "name", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], MdSlideToggle.prototype, "id", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Number)
-    ], MdSlideToggle.prototype, "tabIndex", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdSlideToggle.prototype, "labelPosition", void 0);
-    __decorate([
-        Input('aria-label'), 
-        __metadata('design:type', String)
-    ], MdSlideToggle.prototype, "ariaLabel", void 0);
-    __decorate([
-        Input('aria-labelledby'), 
-        __metadata('design:type', String)
-    ], MdSlideToggle.prototype, "ariaLabelledby", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Boolean)
-    ], MdSlideToggle.prototype, "disabled", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Boolean)
-    ], MdSlideToggle.prototype, "required", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Boolean)
-    ], MdSlideToggle.prototype, "disableRipple", null);
-    __decorate([
-        Output(), 
-        __metadata('design:type', Observable)
-    ], MdSlideToggle.prototype, "change", void 0);
-    __decorate([
-        ViewChild('input'), 
-        __metadata('design:type', ElementRef)
-    ], MdSlideToggle.prototype, "_inputElement", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdSlideToggle.prototype, "checked", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], MdSlideToggle.prototype, "color", null);
-    MdSlideToggle = __decorate([
-        Component({selector: 'md-slide-toggle, mat-slide-toggle',
-            host: {
-                '[class.mat-slide-toggle]': 'true',
-                '[class.mat-checked]': 'checked',
-                '[class.mat-disabled]': 'disabled',
-                // This mat-slide-toggle prefix will change, once the temporary ripple is removed.
-                '[class.mat-slide-toggle-focused]': '_hasFocus',
-                '[class.mat-slide-toggle-label-before]': 'labelPosition == "before"',
-                '(mousedown)': '_setMousedown()'
-            },
-            template: "<label class=\"mat-slide-toggle-label\" #label><div class=\"mat-slide-toggle-bar\"><input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (blur)=\"_onInputBlur()\" (focus)=\"_onInputFocus()\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-slide-toggle-thumb-container\" (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"><div class=\"mat-slide-toggle-thumb\"></div><div class=\"mat-slide-toggle-ripple\" md-ripple [mdRippleTrigger]=\"label\" [mdRippleCentered]=\"true\" [mdRippleDisabled]=\"disableRipple || disabled\"></div></div></div><span class=\"mat-slide-toggle-content\"><ng-content></ng-content></span></label>",
-            styles: [".mat-slide-toggle{display:inline-block;height:24px;margin:16px 0;line-height:24px;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(16px,0,0)}.mat-slide-toggle.mat-disabled .mat-slide-toggle-label,.mat-slide-toggle.mat-disabled .mat-slide-toggle-thumb-container{cursor:default}.mat-slide-toggle-content{font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500}.mat-slide-toggle-label{display:flex;flex:1;flex-direction:row;align-items:center;cursor:pointer}.mat-slide-toggle-label-before .mat-slide-toggle-label{order:1}.mat-slide-toggle-label-before .mat-slide-toggle-bar{order:2}.mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar{margin-right:8px;margin-left:0}.mat-slide-toggle-label-before .mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-bar{margin-left:8px;margin-right:0}.mat-slide-toggle-thumb-container{position:absolute;z-index:1;width:20px;height:20px;top:-3px;left:0;transform:translate3d(0,0,0);transition:all 80ms linear;transition-property:transform;cursor:-webkit-grab;cursor:grab}.mat-slide-toggle-thumb-container.mat-dragging{transition-duration:0s}.mat-slide-toggle-thumb{height:20px;width:20px;border-radius:50%;box-shadow:0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-thumb{background:#fff;border:solid 1px #000}}.mat-slide-toggle-bar{position:relative;width:36px;height:14px;border-radius:8px}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-bar{background:#fff}}.mat-slide-toggle-input{bottom:0;left:10px}.mat-slide-toggle-bar,.mat-slide-toggle-thumb{transition:all 80ms linear;transition-property:background-color;transition-delay:50ms}.mat-slide-toggle-ripple{position:absolute;top:-13px;left:-13px;height:46px;width:46px;border-radius:50%;z-index:1;pointer-events:none} /*# sourceMappingURL=slide-toggle.css.map */ "],
-            providers: [MD_SLIDE_TOGGLE_VALUE_ACCESSOR],
-            encapsulation: ViewEncapsulation.None,
-            changeDetection: ChangeDetectionStrategy.OnPush
-        }), 
-        __metadata('design:paramtypes', [ElementRef, Renderer])
-    ], MdSlideToggle);
     return MdSlideToggle;
 }());
+__decorate([
+    Input(),
+    __metadata("design:type", String)
+], MdSlideToggle.prototype, "name", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", String)
+], MdSlideToggle.prototype, "id", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Number)
+], MdSlideToggle.prototype, "tabIndex", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", String)
+], MdSlideToggle.prototype, "labelPosition", void 0);
+__decorate([
+    Input('aria-label'),
+    __metadata("design:type", String)
+], MdSlideToggle.prototype, "ariaLabel", void 0);
+__decorate([
+    Input('aria-labelledby'),
+    __metadata("design:type", String)
+], MdSlideToggle.prototype, "ariaLabelledby", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Boolean),
+    __metadata("design:paramtypes", [Object])
+], MdSlideToggle.prototype, "disabled", null);
+__decorate([
+    Input(),
+    __metadata("design:type", Boolean),
+    __metadata("design:paramtypes", [Object])
+], MdSlideToggle.prototype, "required", null);
+__decorate([
+    Input(),
+    __metadata("design:type", Boolean),
+    __metadata("design:paramtypes", [Object])
+], MdSlideToggle.prototype, "disableRipple", null);
+__decorate([
+    Output(),
+    __metadata("design:type", Observable)
+], MdSlideToggle.prototype, "change", void 0);
+__decorate([
+    ViewChild('input'),
+    __metadata("design:type", ElementRef)
+], MdSlideToggle.prototype, "_inputElement", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], MdSlideToggle.prototype, "checked", null);
+__decorate([
+    Input(),
+    __metadata("design:type", String),
+    __metadata("design:paramtypes", [String])
+], MdSlideToggle.prototype, "color", null);
+MdSlideToggle = __decorate([
+    Component({selector: 'md-slide-toggle, mat-slide-toggle',
+        host: {
+            '[class.mat-slide-toggle]': 'true',
+            '[class.mat-checked]': 'checked',
+            '[class.mat-disabled]': 'disabled',
+            // This mat-slide-toggle prefix will change, once the temporary ripple is removed.
+            '[class.mat-slide-toggle-focused]': '_hasFocus',
+            '[class.mat-slide-toggle-label-before]': 'labelPosition == "before"',
+            '(mousedown)': '_setMousedown()'
+        },
+        template: "<label class=\"mat-slide-toggle-label\" #label><div class=\"mat-slide-toggle-bar\"><input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (blur)=\"_onInputBlur()\" (focus)=\"_onInputFocus()\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-slide-toggle-thumb-container\" (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"><div class=\"mat-slide-toggle-thumb\"></div><div class=\"mat-slide-toggle-ripple\" md-ripple [mdRippleTrigger]=\"label\" [mdRippleCentered]=\"true\" [mdRippleDisabled]=\"disableRipple || disabled\"></div></div></div><span class=\"mat-slide-toggle-content\"><ng-content></ng-content></span></label>",
+        styles: [".mat-slide-toggle{display:inline-block;height:24px;margin:16px 0;line-height:24px;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(16px,0,0)}.mat-slide-toggle.mat-disabled .mat-slide-toggle-label,.mat-slide-toggle.mat-disabled .mat-slide-toggle-thumb-container{cursor:default}.mat-slide-toggle-content{font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500}.mat-slide-toggle-label{display:flex;flex:1;flex-direction:row;align-items:center;cursor:pointer}.mat-slide-toggle-label-before .mat-slide-toggle-label{order:1}.mat-slide-toggle-label-before .mat-slide-toggle-bar{order:2}.mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar{margin-right:8px;margin-left:0}.mat-slide-toggle-label-before .mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-bar{margin-left:8px;margin-right:0}.mat-slide-toggle-thumb-container{position:absolute;z-index:1;width:20px;height:20px;top:-3px;left:0;transform:translate3d(0,0,0);transition:all 80ms linear;transition-property:transform;cursor:-webkit-grab;cursor:grab}.mat-slide-toggle-thumb-container.mat-dragging{transition-duration:0s}.mat-slide-toggle-thumb{height:20px;width:20px;border-radius:50%;box-shadow:0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-thumb{background:#fff;border:solid 1px #000}}.mat-slide-toggle-bar{position:relative;width:36px;height:14px;border-radius:8px}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-bar{background:#fff}}.mat-slide-toggle-input{bottom:0;left:10px}.mat-slide-toggle-bar,.mat-slide-toggle-thumb{transition:all 80ms linear;transition-property:background-color;transition-delay:50ms}.mat-slide-toggle-ripple{position:absolute;top:-13px;left:-13px;height:46px;width:46px;border-radius:50%;z-index:1;pointer-events:none} /*# sourceMappingURL=slide-toggle.css.map */ "],
+        providers: [MD_SLIDE_TOGGLE_VALUE_ACCESSOR],
+        encapsulation: ViewEncapsulation.None,
+        changeDetection: ChangeDetectionStrategy.OnPush
+    }),
+    __metadata("design:paramtypes", [ElementRef, Renderer])
+], MdSlideToggle);
+export { MdSlideToggle };
 /**
  * Renderer for the Slide Toggle component, which separates DOM modification in its own class
  */

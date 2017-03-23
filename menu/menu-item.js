@@ -13,7 +13,7 @@ import { coerceBooleanProperty } from '../core/coercion/boolean-property';
  * This directive is intended to be used inside an md-menu tag.
  * It exists mostly to set the role attribute.
  */
-export var MdMenuItem = (function () {
+var MdMenuItem = (function () {
     function MdMenuItem(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
@@ -52,25 +52,27 @@ export var MdMenuItem = (function () {
             event.stopPropagation();
         }
     };
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdMenuItem.prototype, "disabled", null);
-    MdMenuItem = __decorate([
-        Component({selector: '[md-menu-item], [mat-menu-item]',
-            host: {
-                'role': 'menuitem',
-                '[class.mat-menu-item]': 'true',
-                '[attr.tabindex]': '_getTabIndex()',
-                '[attr.aria-disabled]': 'disabled.toString()',
-                '[attr.disabled]': '_getDisabledAttr()',
-                '(click)': '_checkDisabled($event)',
-            },
-            template: "<ng-content></ng-content><div class=\"mat-menu-ripple\" *ngIf=\"!disabled\" md-ripple [mdRippleTrigger]=\"_getHostElement()\"></div>",
-            exportAs: 'mdMenuItem'
-        }), 
-        __metadata('design:paramtypes', [Renderer, ElementRef])
-    ], MdMenuItem);
     return MdMenuItem;
 }());
+__decorate([
+    Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], MdMenuItem.prototype, "disabled", null);
+MdMenuItem = __decorate([
+    Component({selector: '[md-menu-item], [mat-menu-item]',
+        host: {
+            'role': 'menuitem',
+            '[class.mat-menu-item]': 'true',
+            '[attr.tabindex]': '_getTabIndex()',
+            '[attr.aria-disabled]': 'disabled.toString()',
+            '[attr.disabled]': '_getDisabledAttr()',
+            '(click)': '_checkDisabled($event)',
+        },
+        template: "<ng-content></ng-content><div class=\"mat-menu-ripple\" *ngIf=\"!disabled\" md-ripple [mdRippleTrigger]=\"_getHostElement()\"></div>",
+        exportAs: 'mdMenuItem'
+    }),
+    __metadata("design:paramtypes", [Renderer, ElementRef])
+], MdMenuItem);
+export { MdMenuItem };
 //# sourceMappingURL=menu-item.js.map

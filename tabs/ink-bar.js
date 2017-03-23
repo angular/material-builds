@@ -12,7 +12,7 @@ import { Directive, Renderer, ElementRef } from '@angular/core';
  * The ink-bar is used to display and animate the line underneath the current active tab label.
  * @docs-private
  */
-export var MdInkBar = (function () {
+var MdInkBar = (function () {
     function MdInkBar(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
@@ -49,15 +49,16 @@ export var MdInkBar = (function () {
     MdInkBar.prototype._getElementWidth = function (element) {
         return element ? element.offsetWidth + 'px' : '0';
     };
-    MdInkBar = __decorate([
-        Directive({
-            selector: 'md-ink-bar, mat-ink-bar',
-            host: {
-                '[class.mat-ink-bar]': 'true',
-            },
-        }), 
-        __metadata('design:paramtypes', [Renderer, ElementRef])
-    ], MdInkBar);
     return MdInkBar;
 }());
+MdInkBar = __decorate([
+    Directive({
+        selector: 'md-ink-bar, mat-ink-bar',
+        host: {
+            '[class.mat-ink-bar]': 'true',
+        },
+    }),
+    __metadata("design:paramtypes", [Renderer, ElementRef])
+], MdInkBar);
+export { MdInkBar };
 //# sourceMappingURL=ink-bar.js.map

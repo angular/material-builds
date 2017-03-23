@@ -8,11 +8,12 @@ import { MdError } from '../core';
  * Exception thrown when a tooltip has an invalid position.
  * @docs-private
  */
-export var MdTooltipInvalidPositionError = (function (_super) {
+var MdTooltipInvalidPositionError = (function (_super) {
     __extends(MdTooltipInvalidPositionError, _super);
     function MdTooltipInvalidPositionError(position) {
-        _super.call(this, "Tooltip position \"" + position + "\" is invalid.");
+        return _super.call(this, "Tooltip position \"" + position + "\" is invalid.") || this;
     }
     return MdTooltipInvalidPositionError;
 }(MdError));
+export { MdTooltipInvalidPositionError };
 //# sourceMappingURL=tooltip-errors.js.map

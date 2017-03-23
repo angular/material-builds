@@ -16,7 +16,7 @@ import 'rxjs/add/observable/fromEvent';
  * ScrollDispatcher service to include itself as part of its collection of scrolling events that it
  * can be listened to through the service.
  */
-export var Scrollable = (function () {
+var Scrollable = (function () {
     function Scrollable(_elementRef, _scroll) {
         this._elementRef = _elementRef;
         this._scroll = _scroll;
@@ -36,12 +36,14 @@ export var Scrollable = (function () {
     Scrollable.prototype.getElementRef = function () {
         return this._elementRef;
     };
-    Scrollable = __decorate([
-        Directive({
-            selector: '[cdk-scrollable]'
-        }), 
-        __metadata('design:paramtypes', [ElementRef, ScrollDispatcher])
-    ], Scrollable);
     return Scrollable;
 }());
+Scrollable = __decorate([
+    Directive({
+        selector: '[cdk-scrollable]'
+    }),
+    __metadata("design:paramtypes", [ElementRef,
+        ScrollDispatcher])
+], Scrollable);
+export { Scrollable };
 //# sourceMappingURL=scrollable.js.map

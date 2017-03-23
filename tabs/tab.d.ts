@@ -3,7 +3,7 @@ import { ViewContainerRef, TemplateRef, OnInit } from '@angular/core';
 import { MdTabLabel } from './tab-label';
 export declare class MdTab implements OnInit {
     private _viewContainerRef;
-    /** Content for the tab label given by <template md-tab-label>. */
+    /** Content for the tab label given by <ng-template md-tab-label>. */
     templateLabel: MdTabLabel;
     /** Template inside the MdTab view that contains an <ng-content>. */
     _content: TemplateRef<any>;

@@ -4,9 +4,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 import { Injectable, Optional, SkipSelf } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
@@ -19,7 +16,7 @@ export var DEFAULT_SCROLL_TIME = 20;
  * Service contained all registered Scrollable references and emits an event when any one of the
  * Scrollable references emit a scrolled event.
  */
-export var ScrollDispatcher = (function () {
+var ScrollDispatcher = (function () {
     function ScrollDispatcher() {
         /** Subject for notifying that a registered scrollable reference element has been scrolled. */
         this._scrolled = new Subject();
@@ -107,12 +104,12 @@ export var ScrollDispatcher = (function () {
     ScrollDispatcher.prototype._notify = function () {
         this._scrolled.next();
     };
-    ScrollDispatcher = __decorate([
-        Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], ScrollDispatcher);
     return ScrollDispatcher;
 }());
+ScrollDispatcher = __decorate([
+    Injectable()
+], ScrollDispatcher);
+export { ScrollDispatcher };
 export function SCROLL_DISPATCHER_PROVIDER_FACTORY(parentDispatcher) {
     return parentDispatcher || new ScrollDispatcher();
 }

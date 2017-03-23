@@ -6,7 +6,7 @@ import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/auditTime';
 /** Time in ms to throttle the scrolling events by default. */
-export declare const DEFAULT_SCROLL_TIME: number;
+export declare const DEFAULT_SCROLL_TIME = 20;
 /**
  * Service contained all registered Scrollable references and emits an event when any one of the
  * Scrollable references emit a scrolled event.

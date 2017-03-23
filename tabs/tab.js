@@ -11,7 +11,7 @@ import { TemplatePortal } from '../core/portal/portal';
 import { ViewContainerRef, Input, TemplateRef, ViewChild, ContentChild, Component } from '@angular/core';
 import { coerceBooleanProperty } from '../core/coercion/boolean-property';
 import { MdTabLabel } from './tab-label';
-export var MdTab = (function () {
+var MdTab = (function () {
     function MdTab(_viewContainerRef) {
         this._viewContainerRef = _viewContainerRef;
         /** The plain text label for the tab, used when there is no template label. */
@@ -45,29 +45,30 @@ export var MdTab = (function () {
     MdTab.prototype.ngOnInit = function () {
         this._contentPortal = new TemplatePortal(this._content, this._viewContainerRef);
     };
-    __decorate([
-        ContentChild(MdTabLabel), 
-        __metadata('design:type', MdTabLabel)
-    ], MdTab.prototype, "templateLabel", void 0);
-    __decorate([
-        ViewChild(TemplateRef), 
-        __metadata('design:type', TemplateRef)
-    ], MdTab.prototype, "_content", void 0);
-    __decorate([
-        Input('label'), 
-        __metadata('design:type', String)
-    ], MdTab.prototype, "textLabel", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Boolean), 
-        __metadata('design:paramtypes', [Boolean])
-    ], MdTab.prototype, "disabled", null);
-    MdTab = __decorate([
-        Component({selector: 'md-tab, mat-tab',
-            template: "<template><ng-content></ng-content></template>",
-        }), 
-        __metadata('design:paramtypes', [ViewContainerRef])
-    ], MdTab);
     return MdTab;
 }());
+__decorate([
+    ContentChild(MdTabLabel),
+    __metadata("design:type", MdTabLabel)
+], MdTab.prototype, "templateLabel", void 0);
+__decorate([
+    ViewChild(TemplateRef),
+    __metadata("design:type", TemplateRef)
+], MdTab.prototype, "_content", void 0);
+__decorate([
+    Input('label'),
+    __metadata("design:type", String)
+], MdTab.prototype, "textLabel", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Boolean),
+    __metadata("design:paramtypes", [Boolean])
+], MdTab.prototype, "disabled", null);
+MdTab = __decorate([
+    Component({selector: 'md-tab, mat-tab',
+        template: "<ng-template><ng-content></ng-content></ng-template>",
+    }),
+    __metadata("design:paramtypes", [ViewContainerRef])
+], MdTab);
+export { MdTab };
 //# sourceMappingURL=tab.js.map

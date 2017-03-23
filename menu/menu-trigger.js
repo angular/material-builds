@@ -10,15 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Directive, ElementRef, EventEmitter, Input, Optional, Output, Renderer, ViewContainerRef } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Input, Optional, Output, Renderer, ViewContainerRef, } from '@angular/core';
 import { MdMenuMissingError } from './menu-errors';
-import { isFakeMousedownFromScreenReader, Dir, Overlay, OverlayState, TemplatePortal } from '../core';
+import { isFakeMousedownFromScreenReader, Dir, Overlay, OverlayState, TemplatePortal, } from '../core';
 // TODO(andrewseguin): Remove the kebab versions in favor of camelCased attribute selectors
 /**
  * This directive is intended to be used in conjunction with an md-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
  */
-export var MdMenuTrigger = (function () {
+var MdMenuTrigger = (function () {
     function MdMenuTrigger(_overlay, _element, _viewContainerRef, _renderer, _dir) {
         this._overlay = _overlay;
         this._element = _element;
@@ -235,43 +235,49 @@ export var MdMenuTrigger = (function () {
             this._openedByMouse = true;
         }
     };
-    __decorate([
-        Input('md-menu-trigger-for'), 
-        __metadata('design:type', Object)
-    ], MdMenuTrigger.prototype, "_deprecatedMdMenuTriggerFor", null);
-    __decorate([
-        Input('mat-menu-trigger-for'), 
-        __metadata('design:type', Object)
-    ], MdMenuTrigger.prototype, "_deprecatedMatMenuTriggerFor", null);
-    __decorate([
-        Input('matMenuTriggerFor'), 
-        __metadata('design:type', Object)
-    ], MdMenuTrigger.prototype, "_matMenuTriggerFor", null);
-    __decorate([
-        Input('mdMenuTriggerFor'), 
-        __metadata('design:type', Object)
-    ], MdMenuTrigger.prototype, "menu", void 0);
-    __decorate([
-        Output(), 
-        __metadata('design:type', Object)
-    ], MdMenuTrigger.prototype, "onMenuOpen", void 0);
-    __decorate([
-        Output(), 
-        __metadata('design:type', Object)
-    ], MdMenuTrigger.prototype, "onMenuClose", void 0);
-    MdMenuTrigger = __decorate([
-        Directive({
-            selector: "[md-menu-trigger-for], [mat-menu-trigger-for],\n             [mdMenuTriggerFor], [matMenuTriggerFor]",
-            host: {
-                'aria-haspopup': 'true',
-                '(mousedown)': '_handleMousedown($event)',
-                '(click)': 'toggleMenu()',
-            },
-            exportAs: 'mdMenuTrigger'
-        }),
-        __param(4, Optional()), 
-        __metadata('design:paramtypes', [Overlay, ElementRef, ViewContainerRef, Renderer, Dir])
-    ], MdMenuTrigger);
     return MdMenuTrigger;
 }());
+__decorate([
+    Input('md-menu-trigger-for'),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], MdMenuTrigger.prototype, "_deprecatedMdMenuTriggerFor", null);
+__decorate([
+    Input('mat-menu-trigger-for'),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], MdMenuTrigger.prototype, "_deprecatedMatMenuTriggerFor", null);
+__decorate([
+    Input('matMenuTriggerFor'),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], MdMenuTrigger.prototype, "_matMenuTriggerFor", null);
+__decorate([
+    Input('mdMenuTriggerFor'),
+    __metadata("design:type", Object)
+], MdMenuTrigger.prototype, "menu", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", Object)
+], MdMenuTrigger.prototype, "onMenuOpen", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", Object)
+], MdMenuTrigger.prototype, "onMenuClose", void 0);
+MdMenuTrigger = __decorate([
+    Directive({
+        selector: "[md-menu-trigger-for], [mat-menu-trigger-for],\n             [mdMenuTriggerFor], [matMenuTriggerFor]",
+        host: {
+            'aria-haspopup': 'true',
+            '(mousedown)': '_handleMousedown($event)',
+            '(click)': 'toggleMenu()',
+        },
+        exportAs: 'mdMenuTrigger'
+    }),
+    __param(4, Optional()),
+    __metadata("design:paramtypes", [Overlay, ElementRef,
+        ViewContainerRef, Renderer,
+        Dir])
+], MdMenuTrigger);
+export { MdMenuTrigger };
 //# sourceMappingURL=menu-trigger.js.map

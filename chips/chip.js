@@ -12,7 +12,7 @@ import { coerceBooleanProperty } from '../core/coercion/boolean-property';
 /**
  * Material design styled Chip component. Used inside the MdChipList component.
  */
-export var MdChip = (function () {
+var MdChip = (function () {
     function MdChip(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
@@ -133,46 +133,50 @@ export var MdChip = (function () {
             this._renderer.setElementClass(this._elementRef.nativeElement, "mat-" + color, isAdd);
         }
     };
-    __decorate([
-        Output(), 
-        __metadata('design:type', Object)
-    ], MdChip.prototype, "select", void 0);
-    __decorate([
-        Output(), 
-        __metadata('design:type', Object)
-    ], MdChip.prototype, "deselect", void 0);
-    __decorate([
-        Output(), 
-        __metadata('design:type', Object)
-    ], MdChip.prototype, "destroy", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Boolean)
-    ], MdChip.prototype, "disabled", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Boolean)
-    ], MdChip.prototype, "selected", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], MdChip.prototype, "color", null);
-    MdChip = __decorate([
-        Component({
-            selector: "md-basic-chip, [md-basic-chip], md-chip, [md-chip],\n             mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
-            template: "<ng-content></ng-content>",
-            host: {
-                '[class.mat-chip]': 'true',
-                'tabindex': '-1',
-                'role': 'option',
-                '[class.mat-chip-selected]': 'selected',
-                '[attr.disabled]': 'disabled',
-                '[attr.aria-disabled]': '_isAriaDisabled',
-                '(click)': '_handleClick($event)'
-            }
-        }), 
-        __metadata('design:paramtypes', [Renderer, ElementRef])
-    ], MdChip);
     return MdChip;
 }());
+__decorate([
+    Output(),
+    __metadata("design:type", Object)
+], MdChip.prototype, "select", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", Object)
+], MdChip.prototype, "deselect", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", Object)
+], MdChip.prototype, "destroy", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Boolean),
+    __metadata("design:paramtypes", [Boolean])
+], MdChip.prototype, "disabled", null);
+__decorate([
+    Input(),
+    __metadata("design:type", Boolean),
+    __metadata("design:paramtypes", [Boolean])
+], MdChip.prototype, "selected", null);
+__decorate([
+    Input(),
+    __metadata("design:type", String),
+    __metadata("design:paramtypes", [String])
+], MdChip.prototype, "color", null);
+MdChip = __decorate([
+    Component({
+        selector: "md-basic-chip, [md-basic-chip], md-chip, [md-chip],\n             mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
+        template: "<ng-content></ng-content>",
+        host: {
+            '[class.mat-chip]': 'true',
+            'tabindex': '-1',
+            'role': 'option',
+            '[class.mat-chip-selected]': 'selected',
+            '[attr.disabled]': 'disabled',
+            '[attr.aria-disabled]': '_isAriaDisabled',
+            '(click)': '_handleClick($event)'
+        }
+    }),
+    __metadata("design:paramtypes", [Renderer, ElementRef])
+], MdChip);
+export { MdChip };
 //# sourceMappingURL=chip.js.map

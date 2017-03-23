@@ -9,7 +9,7 @@ import { MdGridListBadRatioError } from './grid-list-errors';
  * Tile Coordinator.
  * @docs-private
  */
-export var TileStyler = (function () {
+var TileStyler = (function () {
     function TileStyler() {
         this._rows = 0;
         this._rowspan = 0;
@@ -117,16 +117,18 @@ export var TileStyler = (function () {
     TileStyler.prototype.getComputedHeight = function () { return null; };
     return TileStyler;
 }());
+export { TileStyler };
 /**
  * This type of styler is instantiated when the user passes in a fixed row height.
  * Example <md-grid-list cols="3" rowHeight="100px">
  * @docs-private
  */
-export var FixedTileStyler = (function (_super) {
+var FixedTileStyler = (function (_super) {
     __extends(FixedTileStyler, _super);
     function FixedTileStyler(fixedRowHeight) {
-        _super.call(this);
-        this.fixedRowHeight = fixedRowHeight;
+        var _this = _super.call(this) || this;
+        _this.fixedRowHeight = fixedRowHeight;
+        return _this;
     }
     FixedTileStyler.prototype.init = function (gutterSize, tracker, cols, direction) {
         _super.prototype.init.call(this, gutterSize, tracker, cols, direction);
@@ -143,16 +145,18 @@ export var FixedTileStyler = (function (_super) {
     };
     return FixedTileStyler;
 }(TileStyler));
+export { FixedTileStyler };
 /**
  * This type of styler is instantiated when the user passes in a width:height ratio
  * for the row height.  Example <md-grid-list cols="3" rowHeight="3:1">
  * @docs-private
  */
-export var RatioTileStyler = (function (_super) {
+var RatioTileStyler = (function (_super) {
     __extends(RatioTileStyler, _super);
     function RatioTileStyler(value) {
-        _super.call(this);
-        this._parseRatio(value);
+        var _this = _super.call(this) || this;
+        _this._parseRatio(value);
+        return _this;
     }
     RatioTileStyler.prototype.setRowStyles = function (tile, rowIndex, percentWidth, gutterWidth) {
         var percentHeightPerTile = percentWidth / this.rowHeightRatio;
@@ -177,6 +181,7 @@ export var RatioTileStyler = (function (_super) {
     };
     return RatioTileStyler;
 }(TileStyler));
+export { RatioTileStyler };
 /**
  * This type of styler is instantiated when the user selects a "fit" row height mode.
  * In other words, the row height will reflect the total height of the container divided
@@ -184,10 +189,10 @@ export var RatioTileStyler = (function (_super) {
  *
  * @docs-private
  */
-export var FitTileStyler = (function (_super) {
+var FitTileStyler = (function (_super) {
     __extends(FitTileStyler, _super);
     function FitTileStyler() {
-        _super.apply(this, arguments);
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     FitTileStyler.prototype.setRowStyles = function (tile, rowIndex, percentWidth, gutterWidth) {
         // Percent of the available vertical space that one row takes up.
@@ -201,6 +206,7 @@ export var FitTileStyler = (function (_super) {
     };
     return FitTileStyler;
 }(TileStyler));
+export { FitTileStyler };
 /** Wraps a CSS string in a calc function */
 function calc(exp) { return "calc(" + exp + ")"; }
 /** Appends pixels to a CSS string if no units are given. */

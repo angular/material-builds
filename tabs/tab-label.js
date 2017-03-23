@@ -15,17 +15,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Directive, TemplateRef, ViewContainerRef } from '@angular/core';
 import { TemplatePortalDirective } from '../core';
 /** Used to flag tab labels for use with the portal directive */
-export var MdTabLabel = (function (_super) {
+var MdTabLabel = (function (_super) {
     __extends(MdTabLabel, _super);
     function MdTabLabel(templateRef, viewContainerRef) {
-        _super.call(this, templateRef, viewContainerRef);
+        return _super.call(this, templateRef, viewContainerRef) || this;
     }
-    MdTabLabel = __decorate([
-        Directive({
-            selector: '[md-tab-label], [mat-tab-label]',
-        }), 
-        __metadata('design:paramtypes', [TemplateRef, ViewContainerRef])
-    ], MdTabLabel);
     return MdTabLabel;
 }(TemplatePortalDirective));
+MdTabLabel = __decorate([
+    Directive({
+        selector: '[md-tab-label], [mat-tab-label]',
+    }),
+    __metadata("design:paramtypes", [TemplateRef, ViewContainerRef])
+], MdTabLabel);
+export { MdTabLabel };
 //# sourceMappingURL=tab-label.js.map

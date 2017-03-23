@@ -1,7 +1,7 @@
 /**
  * Configuration used when opening a snack-bar.
  */
-export var MdSnackBarConfig = (function () {
+var MdSnackBarConfig = (function () {
     function MdSnackBarConfig() {
         /** The politeness level for the MdAriaLiveAnnouncer announcement. */
         this.politeness = 'assertive';
@@ -14,4 +14,5 @@ export var MdSnackBarConfig = (function () {
     }
     return MdSnackBarConfig;
 }());
+export { MdSnackBarConfig };
 //# sourceMappingURL=snack-bar-config.js.map

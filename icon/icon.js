@@ -12,19 +12,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { ChangeDetectionStrategy, Component, ElementRef, Input, Renderer, ViewEncapsulation, Optional, SkipSelf } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, Renderer, ViewEncapsulation, Optional, SkipSelf, } from '@angular/core';
 import { Http } from '@angular/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MdError } from '../core';
 import { MdIconRegistry } from './icon-registry';
 /** Exception thrown when an invalid icon name is passed to an md-icon component. */
-export var MdIconInvalidNameError = (function (_super) {
+var MdIconInvalidNameError = (function (_super) {
     __extends(MdIconInvalidNameError, _super);
     function MdIconInvalidNameError(iconName) {
-        _super.call(this, "Invalid icon name: \"" + iconName + "\"");
+        return _super.call(this, "Invalid icon name: \"" + iconName + "\"") || this;
     }
     return MdIconInvalidNameError;
 }(MdError));
+export { MdIconInvalidNameError };
 /**
  * Component to display an icon. It can be used in the following ways:
  * - Specify the svgSrc input to load an SVG icon from a URL. The SVG content is directly inlined
@@ -58,7 +59,7 @@ export var MdIconInvalidNameError = (function (_super) {
  *   Example:
  *     <md-icon fontSet="fa" fontIcon="alarm"></md-icon>
  */
-export var MdIcon = (function () {
+var MdIcon = (function () {
     function MdIcon(_elementRef, _renderer, _mdIconRegistry) {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
@@ -204,45 +205,49 @@ export var MdIcon = (function () {
             this._previousFontIconClass = this.fontIcon;
         }
     };
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], MdIcon.prototype, "svgIcon", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], MdIcon.prototype, "fontSet", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], MdIcon.prototype, "fontIcon", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], MdIcon.prototype, "alt", void 0);
-    __decorate([
-        Input('aria-label'), 
-        __metadata('design:type', String)
-    ], MdIcon.prototype, "hostAriaLabel", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], MdIcon.prototype, "color", null);
-    MdIcon = __decorate([
-        Component({template: '<ng-content></ng-content>',
-            selector: 'md-icon, mat-icon',
-            styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px} /*# sourceMappingURL=icon.css.map */ "],
-            host: {
-                'role': 'img',
-                '[class.mat-icon]': 'true',
-            },
-            encapsulation: ViewEncapsulation.None,
-            changeDetection: ChangeDetectionStrategy.OnPush,
-        }), 
-        __metadata('design:paramtypes', [ElementRef, Renderer, MdIconRegistry])
-    ], MdIcon);
     return MdIcon;
 }());
+__decorate([
+    Input(),
+    __metadata("design:type", String)
+], MdIcon.prototype, "svgIcon", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", String)
+], MdIcon.prototype, "fontSet", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", String)
+], MdIcon.prototype, "fontIcon", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", String)
+], MdIcon.prototype, "alt", void 0);
+__decorate([
+    Input('aria-label'),
+    __metadata("design:type", String)
+], MdIcon.prototype, "hostAriaLabel", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", String),
+    __metadata("design:paramtypes", [String])
+], MdIcon.prototype, "color", null);
+MdIcon = __decorate([
+    Component({template: '<ng-content></ng-content>',
+        selector: 'md-icon, mat-icon',
+        styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px} /*# sourceMappingURL=icon.css.map */ "],
+        host: {
+            'role': 'img',
+            '[class.mat-icon]': 'true',
+        },
+        encapsulation: ViewEncapsulation.None,
+        changeDetection: ChangeDetectionStrategy.OnPush,
+    }),
+    __metadata("design:paramtypes", [ElementRef,
+        Renderer,
+        MdIconRegistry])
+], MdIcon);
+export { MdIcon };
 export function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, http, sanitizer) {
     return parentRegistry || new MdIconRegistry(http, sanitizer);
 }

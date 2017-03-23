@@ -4,32 +4,30 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CompatibilityModule } from '../core/compatibility/compatibility';
 import { MdProgressBar } from './progress-bar';
-export var MdProgressBarModule = (function () {
+var MdProgressBarModule = MdProgressBarModule_1 = (function () {
     function MdProgressBarModule() {
     }
     /** @deprecated */
     MdProgressBarModule.forRoot = function () {
         return {
-            ngModule: MdProgressBarModule,
+            ngModule: MdProgressBarModule_1,
             providers: []
         };
     };
-    MdProgressBarModule = __decorate([
-        NgModule({
-            imports: [CommonModule, CompatibilityModule],
-            exports: [MdProgressBar, CompatibilityModule],
-            declarations: [MdProgressBar],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdProgressBarModule);
     return MdProgressBarModule;
 }());
+MdProgressBarModule = MdProgressBarModule_1 = __decorate([
+    NgModule({
+        imports: [CommonModule, CompatibilityModule],
+        exports: [MdProgressBar, CompatibilityModule],
+        declarations: [MdProgressBar],
+    })
+], MdProgressBarModule);
+export { MdProgressBarModule };
 export * from './progress-bar';
+var MdProgressBarModule_1;
 //# sourceMappingURL=index.js.map

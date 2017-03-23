@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Directive, ElementRef, forwardRef, Host, Input, NgZone, Optional, ViewContainerRef } from '@angular/core';
+import { Directive, ElementRef, forwardRef, Host, Input, NgZone, Optional, ViewContainerRef, } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Overlay, OverlayState, TemplatePortal } from '../core';
 import { MdAutocomplete } from './autocomplete';
@@ -40,7 +40,7 @@ export var MD_AUTOCOMPLETE_VALUE_ACCESSOR = {
     useExisting: forwardRef(function () { return MdAutocompleteTrigger; }),
     multi: true
 };
-export var MdAutocompleteTrigger = (function () {
+var MdAutocompleteTrigger = (function () {
     function MdAutocompleteTrigger(_element, _overlay, _viewContainerRef, _dir, _zone, _inputContainer) {
         this._element = _element;
         this._overlay = _overlay;
@@ -307,37 +307,41 @@ export var MdAutocompleteTrigger = (function () {
         this._positionStrategy.recalculateLastPosition();
         this.autocomplete._setVisibility();
     };
-    __decorate([
-        Input('mdAutocomplete'), 
-        __metadata('design:type', MdAutocomplete)
-    ], MdAutocompleteTrigger.prototype, "autocomplete", void 0);
-    __decorate([
-        Input('matAutocomplete'), 
-        __metadata('design:type', MdAutocomplete)
-    ], MdAutocompleteTrigger.prototype, "_matAutocomplete", null);
-    MdAutocompleteTrigger = __decorate([
-        Directive({
-            selector: 'input[mdAutocomplete], input[matAutocomplete]',
-            host: {
-                'role': 'combobox',
-                'autocomplete': 'off',
-                'aria-autocomplete': 'list',
-                'aria-multiline': 'false',
-                '[attr.aria-activedescendant]': 'activeOption?.id',
-                '[attr.aria-expanded]': 'panelOpen.toString()',
-                '[attr.aria-owns]': 'autocomplete?.id',
-                '(focus)': 'openPanel()',
-                '(blur)': '_handleBlur($event.relatedTarget?.tagName)',
-                '(input)': '_handleInput($event)',
-                '(keydown)': '_handleKeydown($event)',
-            },
-            providers: [MD_AUTOCOMPLETE_VALUE_ACCESSOR]
-        }),
-        __param(3, Optional()),
-        __param(5, Optional()),
-        __param(5, Host()), 
-        __metadata('design:paramtypes', [ElementRef, Overlay, ViewContainerRef, Dir, NgZone, MdInputContainer])
-    ], MdAutocompleteTrigger);
     return MdAutocompleteTrigger;
 }());
+__decorate([
+    Input('mdAutocomplete'),
+    __metadata("design:type", MdAutocomplete)
+], MdAutocompleteTrigger.prototype, "autocomplete", void 0);
+__decorate([
+    Input('matAutocomplete'),
+    __metadata("design:type", MdAutocomplete),
+    __metadata("design:paramtypes", [MdAutocomplete])
+], MdAutocompleteTrigger.prototype, "_matAutocomplete", null);
+MdAutocompleteTrigger = __decorate([
+    Directive({
+        selector: 'input[mdAutocomplete], input[matAutocomplete]',
+        host: {
+            'role': 'combobox',
+            'autocomplete': 'off',
+            'aria-autocomplete': 'list',
+            'aria-multiline': 'false',
+            '[attr.aria-activedescendant]': 'activeOption?.id',
+            '[attr.aria-expanded]': 'panelOpen.toString()',
+            '[attr.aria-owns]': 'autocomplete?.id',
+            '(focus)': 'openPanel()',
+            '(blur)': '_handleBlur($event.relatedTarget?.tagName)',
+            '(input)': '_handleInput($event)',
+            '(keydown)': '_handleKeydown($event)',
+        },
+        providers: [MD_AUTOCOMPLETE_VALUE_ACCESSOR]
+    }),
+    __param(3, Optional()),
+    __param(5, Optional()), __param(5, Host()),
+    __metadata("design:paramtypes", [ElementRef, Overlay,
+        ViewContainerRef,
+        Dir, NgZone,
+        MdInputContainer])
+], MdAutocompleteTrigger);
+export { MdAutocompleteTrigger };
 //# sourceMappingURL=autocomplete-trigger.js.map

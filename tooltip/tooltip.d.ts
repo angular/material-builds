@@ -1,4 +1,5 @@
-import { ElementRef, ViewContainerRef, AnimationTransitionEvent, NgZone, OnDestroy, Renderer, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ElementRef, ViewContainerRef, NgZone, OnDestroy, Renderer, OnInit, ChangeDetectorRef } from '@angular/core';
+import { AnimationEvent } from '@angular/animations';
 import { Overlay, OverlayRef, OverlayConnectionPosition, OriginConnectionPosition } from '../core';
 import { Observable } from 'rxjs/Observable';
 import { Dir } from '../core/rtl/dir';
@@ -8,9 +9,9 @@ import { ScrollDispatcher } from '../core/overlay/scroll/scroll-dispatcher';
 import { Subscription } from 'rxjs/Subscription';
 export declare type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'before' | 'after';
 /** Time in ms to delay before changing the tooltip visibility to hidden */
-export declare const TOUCHEND_HIDE_DELAY: number;
+export declare const TOUCHEND_HIDE_DELAY = 1500;
 /** Time in ms to throttle repositioning after scroll events. */
-export declare const SCROLL_THROTTLE_MS: number;
+export declare const SCROLL_THROTTLE_MS = 20;
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
@@ -122,7 +123,7 @@ export declare class TooltipComponent {
     isVisible(): boolean;
     /** Sets the tooltip transform origin according to the tooltip position */
     _setTransformOrigin(value: TooltipPosition): void;
-    _afterVisibilityAnimation(e: AnimationTransitionEvent): void;
+    _afterVisibilityAnimation(e: AnimationEvent): void;
     /**
      * Interactions on the HTML body should close the tooltip immediately as defined in the
      * material design spec.

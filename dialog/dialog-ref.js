@@ -4,7 +4,7 @@ import { Subject } from 'rxjs/Subject';
 /**
  * Reference to a dialog opened via the MdDialog service.
  */
-export var MdDialogRef = (function () {
+var MdDialogRef = (function () {
     function MdDialogRef(_overlayRef, _containerInstance) {
         var _this = this;
         this._overlayRef = _overlayRef;
@@ -40,4 +40,5 @@ export var MdDialogRef = (function () {
     };
     return MdDialogRef;
 }());
+export { MdDialogRef };
 //# sourceMappingURL=dialog-ref.js.map

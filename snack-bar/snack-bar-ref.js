@@ -3,7 +3,7 @@ import { Subject } from 'rxjs/Subject';
 /**
  * Reference to a snack bar dispatched from the snack bar service.
  */
-export var MdSnackBarRef = (function () {
+var MdSnackBarRef = (function () {
     function MdSnackBarRef(instance, containerInstance, _overlayRef) {
         var _this = this;
         this._overlayRef = _overlayRef;
@@ -66,4 +66,5 @@ export var MdSnackBarRef = (function () {
     };
     return MdSnackBarRef;
 }());
+export { MdSnackBarRef };
 //# sourceMappingURL=snack-bar-ref.js.map

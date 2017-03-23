@@ -15,21 +15,21 @@ import 'rxjs/add/operator/startWith';
  * the trigger element.
  */
 /** The fixed height of every option element. */
-export declare const SELECT_OPTION_HEIGHT: number;
+export declare const SELECT_OPTION_HEIGHT = 48;
 /** The max height of the select's overlay panel */
-export declare const SELECT_PANEL_MAX_HEIGHT: number;
+export declare const SELECT_PANEL_MAX_HEIGHT = 256;
 /** The max number of options visible at once in the select panel. */
-export declare const SELECT_MAX_OPTIONS_DISPLAYED: number;
+export declare const SELECT_MAX_OPTIONS_DISPLAYED = 5;
 /** The fixed height of the select's trigger element. */
-export declare const SELECT_TRIGGER_HEIGHT: number;
+export declare const SELECT_TRIGGER_HEIGHT = 30;
 /**
  * Must adjust for the difference in height between the option and the trigger,
  * so the text will align on the y axis.
  * (SELECT_OPTION_HEIGHT (48) - SELECT_TRIGGER_HEIGHT (30)) / 2 = 9
  */
-export declare const SELECT_OPTION_HEIGHT_ADJUSTMENT: number;
+export declare const SELECT_OPTION_HEIGHT_ADJUSTMENT = 9;
 /** The panel's padding on the x-axis */
-export declare const SELECT_PANEL_PADDING_X: number;
+export declare const SELECT_PANEL_PADDING_X = 16;
 /**
  * Distance between the panel edge and the option text in
  * multi-selection mode.
@@ -44,12 +44,12 @@ export declare const SELECT_MULTIPLE_PANEL_PADDING_X: number;
  * The panel's padding on the y-axis. This padding indicates there are more
  * options available if you scroll.
  */
-export declare const SELECT_PANEL_PADDING_Y: number;
+export declare const SELECT_PANEL_PADDING_Y = 16;
 /**
  * The select panel will only "fit" inside the viewport if it is positioned at
  * this value or more away from the viewport boundary.
  */
-export declare const SELECT_PANEL_VIEWPORT_PADDING: number;
+export declare const SELECT_PANEL_VIEWPORT_PADDING = 8;
 /** Change event object that is emitted when the select value has changed. */
 export declare class MdSelectChange {
     source: MdSelect;

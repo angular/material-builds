@@ -10,14 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { ViewChild, Component, Input, Output, EventEmitter, trigger, state, style, animate, transition, ElementRef, Optional, ChangeDetectorRef } from '@angular/core';
+import { ViewChild, Component, Input, Output, EventEmitter, ElementRef, Optional, ChangeDetectorRef, } from '@angular/core';
+import { trigger, state, style, animate, transition, } from '@angular/animations';
 import { TemplatePortal, PortalHostDirective, Dir } from '../core';
 import 'rxjs/add/operator/map';
 /**
  * Wrapper for the contents of a tab.
  * @docs-private
  */
-export var MdTabBody = (function () {
+var MdTabBody = (function () {
     function MdTabBody(_dir, _elementRef, _changeDetectorRef) {
         this._dir = _dir;
         this._elementRef = _elementRef;
@@ -124,61 +125,64 @@ export var MdTabBody = (function () {
             position == 'left-origin-center' ||
             position == 'right-origin-center';
     };
-    __decorate([
-        ViewChild(PortalHostDirective), 
-        __metadata('design:type', PortalHostDirective)
-    ], MdTabBody.prototype, "_portalHost", void 0);
-    __decorate([
-        Output(), 
-        __metadata('design:type', EventEmitter)
-    ], MdTabBody.prototype, "onCentering", void 0);
-    __decorate([
-        Output(), 
-        __metadata('design:type', EventEmitter)
-    ], MdTabBody.prototype, "onCentered", void 0);
-    __decorate([
-        Input('content'), 
-        __metadata('design:type', TemplatePortal)
-    ], MdTabBody.prototype, "_content", void 0);
-    __decorate([
-        Input('position'), 
-        __metadata('design:type', Number), 
-        __metadata('design:paramtypes', [Number])
-    ], MdTabBody.prototype, "position", null);
-    __decorate([
-        Input('origin'), 
-        __metadata('design:type', Number), 
-        __metadata('design:paramtypes', [Number])
-    ], MdTabBody.prototype, "origin", null);
-    MdTabBody = __decorate([
-        Component({selector: 'md-tab-body, mat-tab-body',
-            template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_canBeAnimated ? _position : null\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><template cdkPortalHost></template></div>",
-            styles: [".mat-tab-body-content{height:100%} /*# sourceMappingURL=tab-body.css.map */ "],
-            host: {
-                '[class.mat-tab-body]': 'true',
-            },
-            animations: [
-                trigger('translateTab', [
-                    state('left', style({ transform: 'translate3d(-100%, 0, 0)' })),
-                    state('left-origin-center', style({ transform: 'translate3d(0, 0, 0)' })),
-                    state('right-origin-center', style({ transform: 'translate3d(0, 0, 0)' })),
-                    state('center', style({ transform: 'translate3d(0, 0, 0)' })),
-                    state('right', style({ transform: 'translate3d(100%, 0, 0)' })),
-                    transition('* => left, * => right, left => center, right => center', animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')),
-                    transition('void => left-origin-center', [
-                        style({ transform: 'translate3d(-100%, 0, 0)' }),
-                        animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')
-                    ]),
-                    transition('void => right-origin-center', [
-                        style({ transform: 'translate3d(100%, 0, 0)' }),
-                        animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')
-                    ])
-                ])
-            ]
-        }),
-        __param(0, Optional()), 
-        __metadata('design:paramtypes', [Dir, ElementRef, ChangeDetectorRef])
-    ], MdTabBody);
     return MdTabBody;
 }());
+__decorate([
+    ViewChild(PortalHostDirective),
+    __metadata("design:type", PortalHostDirective)
+], MdTabBody.prototype, "_portalHost", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", EventEmitter)
+], MdTabBody.prototype, "onCentering", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", EventEmitter)
+], MdTabBody.prototype, "onCentered", void 0);
+__decorate([
+    Input('content'),
+    __metadata("design:type", TemplatePortal)
+], MdTabBody.prototype, "_content", void 0);
+__decorate([
+    Input('position'),
+    __metadata("design:type", Number),
+    __metadata("design:paramtypes", [Number])
+], MdTabBody.prototype, "position", null);
+__decorate([
+    Input('origin'),
+    __metadata("design:type", Number),
+    __metadata("design:paramtypes", [Number])
+], MdTabBody.prototype, "origin", null);
+MdTabBody = __decorate([
+    Component({selector: 'md-tab-body, mat-tab-body',
+        template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_canBeAnimated ? _position : null\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><ng-template cdkPortalHost></ng-template></div>",
+        styles: [".mat-tab-body-content{height:100%} /*# sourceMappingURL=tab-body.css.map */ "],
+        host: {
+            '[class.mat-tab-body]': 'true',
+        },
+        animations: [
+            trigger('translateTab', [
+                state('left', style({ transform: 'translate3d(-100%, 0, 0)' })),
+                state('left-origin-center', style({ transform: 'translate3d(0, 0, 0)' })),
+                state('right-origin-center', style({ transform: 'translate3d(0, 0, 0)' })),
+                state('center', style({ transform: 'translate3d(0, 0, 0)' })),
+                state('right', style({ transform: 'translate3d(100%, 0, 0)' })),
+                transition('* => left, * => right, left => center, right => center', animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')),
+                transition('void => left-origin-center', [
+                    style({ transform: 'translate3d(-100%, 0, 0)' }),
+                    animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')
+                ]),
+                transition('void => right-origin-center', [
+                    style({ transform: 'translate3d(100%, 0, 0)' }),
+                    animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')
+                ])
+            ])
+        ]
+    }),
+    __param(0, Optional()),
+    __metadata("design:paramtypes", [Dir,
+        ElementRef,
+        ChangeDetectorRef])
+], MdTabBody);
+export { MdTabBody };
 //# sourceMappingURL=tab-body.js.map

@@ -24,7 +24,7 @@ import 'rxjs/add/operator/first';
 /**
  * Service to open Material Design modal dialogs.
  */
-export var MdDialog = (function () {
+var MdDialog = (function () {
     function MdDialog(_overlay, _injector, _parentDialog) {
         this._overlay = _overlay;
         this._injector = _injector;
@@ -202,14 +202,16 @@ export var MdDialog = (function () {
             topDialog.close();
         }
     };
-    MdDialog = __decorate([
-        Injectable(),
-        __param(2, Optional()),
-        __param(2, SkipSelf()), 
-        __metadata('design:paramtypes', [Overlay, Injector, MdDialog])
-    ], MdDialog);
     return MdDialog;
 }());
+MdDialog = __decorate([
+    Injectable(),
+    __param(2, Optional()), __param(2, SkipSelf()),
+    __metadata("design:paramtypes", [Overlay,
+        Injector,
+        MdDialog])
+], MdDialog);
+export { MdDialog };
 /**
  * Applies default options to the dialog config.
  * @param dialogConfig Config to be modified.

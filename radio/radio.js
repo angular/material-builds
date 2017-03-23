@@ -10,9 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Component, ContentChildren, Directive, ElementRef, Renderer, EventEmitter, Input, Optional, Output, QueryList, ViewEncapsulation, forwardRef, ViewChild } from '@angular/core';
+import { Component, ContentChildren, Directive, ElementRef, Renderer, EventEmitter, Input, Optional, Output, QueryList, ViewEncapsulation, forwardRef, ViewChild, } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { UniqueSelectionDispatcher, MdRipple, FocusOriginMonitor } from '../core';
+import { UniqueSelectionDispatcher, MdRipple, FocusOriginMonitor, } from '../core';
 import { coerceBooleanProperty } from '../core/coercion/boolean-property';
 /**
  * Provider Expression that allows md-radio-group to register as a ControlValueAccessor. This
@@ -26,15 +26,16 @@ export var MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 };
 var _uniqueIdCounter = 0;
 /** Change event object emitted by MdRadio and MdRadioGroup. */
-export var MdRadioChange = (function () {
+var MdRadioChange = (function () {
     function MdRadioChange() {
     }
     return MdRadioChange;
 }());
+export { MdRadioChange };
 /**
  * A group of radio buttons. May contain one or more `<md-radio-button>` elements.
  */
-export var MdRadioGroup = (function () {
+var MdRadioGroup = (function () {
     function MdRadioGroup() {
         /**
          * Selected value for group. Should equal the value of the selected radio button if there *is*
@@ -216,55 +217,60 @@ export var MdRadioGroup = (function () {
     MdRadioGroup.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };
-    __decorate([
-        Output(), 
-        __metadata('design:type', EventEmitter)
-    ], MdRadioGroup.prototype, "change", void 0);
-    __decorate([
-        ContentChildren(forwardRef(function () { return MdRadioButton; })), 
-        __metadata('design:type', QueryList)
-    ], MdRadioGroup.prototype, "_radios", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], MdRadioGroup.prototype, "name", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdRadioGroup.prototype, "align", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdRadioGroup.prototype, "labelPosition", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Boolean)
-    ], MdRadioGroup.prototype, "disabled", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdRadioGroup.prototype, "value", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdRadioGroup.prototype, "selected", null);
-    MdRadioGroup = __decorate([
-        Directive({
-            selector: 'md-radio-group, mat-radio-group',
-            providers: [MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
-            host: {
-                'role': 'radiogroup',
-                '[class.mat-radio-group]': 'true',
-            },
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdRadioGroup);
     return MdRadioGroup;
 }());
+__decorate([
+    Output(),
+    __metadata("design:type", EventEmitter)
+], MdRadioGroup.prototype, "change", void 0);
+__decorate([
+    ContentChildren(forwardRef(function () { return MdRadioButton; })),
+    __metadata("design:type", QueryList)
+], MdRadioGroup.prototype, "_radios", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", String),
+    __metadata("design:paramtypes", [String])
+], MdRadioGroup.prototype, "name", null);
+__decorate([
+    Input(),
+    __metadata("design:type", String),
+    __metadata("design:paramtypes", [Object])
+], MdRadioGroup.prototype, "align", null);
+__decorate([
+    Input(),
+    __metadata("design:type", String)
+], MdRadioGroup.prototype, "labelPosition", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Boolean),
+    __metadata("design:paramtypes", [Object])
+], MdRadioGroup.prototype, "disabled", null);
+__decorate([
+    Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], MdRadioGroup.prototype, "value", null);
+__decorate([
+    Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [MdRadioButton])
+], MdRadioGroup.prototype, "selected", null);
+MdRadioGroup = __decorate([
+    Directive({
+        selector: 'md-radio-group, mat-radio-group',
+        providers: [MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
+        host: {
+            'role': 'radiogroup',
+            '[class.mat-radio-group]': 'true',
+        },
+    })
+], MdRadioGroup);
+export { MdRadioGroup };
 /**
  * A radio-button. May be inside of
  */
-export var MdRadioButton = (function () {
+var MdRadioButton = (function () {
     function MdRadioButton(radioGroup, _elementRef, _renderer, _focusOriginMonitor, _radioDispatcher) {
         // Assertions. Ideally these should be stripped out by the compiler.
         // TODO(jelbourn): Assert that there's no name binding AND a parent radio group.
@@ -471,73 +477,84 @@ export var MdRadioButton = (function () {
             }
         }
     };
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], MdRadioButton.prototype, "id", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], MdRadioButton.prototype, "name", void 0);
-    __decorate([
-        Input('aria-label'), 
-        __metadata('design:type', String)
-    ], MdRadioButton.prototype, "ariaLabel", void 0);
-    __decorate([
-        Input('aria-labelledby'), 
-        __metadata('design:type', String)
-    ], MdRadioButton.prototype, "ariaLabelledby", void 0);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Boolean)
-    ], MdRadioButton.prototype, "disableRipple", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Boolean)
-    ], MdRadioButton.prototype, "checked", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdRadioButton.prototype, "value", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdRadioButton.prototype, "align", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdRadioButton.prototype, "labelPosition", null);
-    __decorate([
-        Input(), 
-        __metadata('design:type', Boolean)
-    ], MdRadioButton.prototype, "disabled", null);
-    __decorate([
-        Output(), 
-        __metadata('design:type', EventEmitter)
-    ], MdRadioButton.prototype, "change", void 0);
-    __decorate([
-        ViewChild(MdRipple), 
-        __metadata('design:type', MdRipple)
-    ], MdRadioButton.prototype, "_ripple", void 0);
-    __decorate([
-        ViewChild('input'), 
-        __metadata('design:type', ElementRef)
-    ], MdRadioButton.prototype, "_inputElement", void 0);
-    MdRadioButton = __decorate([
-        Component({selector: 'md-radio-button, mat-radio-button',
-            template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"mat-radio-ripple\" [mdRippleTrigger]=\"label\" [mdRippleCentered]=\"true\"></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (blur)=\"_onInputBlur()\" (click)=\"_onInputClick($event)\"><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><ng-content></ng-content></div></label>",
-            styles: [".mat-radio-button{display:inline-block;font-family:Roboto,\"Helvetica Neue\",sans-serif}.mat-radio-label{cursor:pointer;display:inline-flex;align-items:baseline;white-space:nowrap}.mat-radio-container{box-sizing:border-box;display:inline-block;height:20px;position:relative;width:20px;top:2px}.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:border-color ease 280ms;width:20px;border-width:2px;border-style:solid;border-radius:50%}.mat-radio-inner-circle{border-radius:50%;box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:transform ease 280ms,background-color ease 280ms;transform:scale(0);width:20px}.mat-radio-checked .mat-radio-inner-circle{transform:scale(.5)}.mat-radio-label-content{display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none} /*# sourceMappingURL=radio.css.map */ "],
-            encapsulation: ViewEncapsulation.None,
-            host: {
-                '[class.mat-radio-button]': 'true',
-                '[class.mat-radio-checked]': 'checked',
-                '[class.mat-radio-disabled]': 'disabled',
-                '[attr.id]': 'id',
-            }
-        }),
-        __param(0, Optional()), 
-        __metadata('design:paramtypes', [MdRadioGroup, ElementRef, Renderer, FocusOriginMonitor, UniqueSelectionDispatcher])
-    ], MdRadioButton);
     return MdRadioButton;
 }());
+__decorate([
+    Input(),
+    __metadata("design:type", String)
+], MdRadioButton.prototype, "id", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", String)
+], MdRadioButton.prototype, "name", void 0);
+__decorate([
+    Input('aria-label'),
+    __metadata("design:type", String)
+], MdRadioButton.prototype, "ariaLabel", void 0);
+__decorate([
+    Input('aria-labelledby'),
+    __metadata("design:type", String)
+], MdRadioButton.prototype, "ariaLabelledby", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Boolean),
+    __metadata("design:paramtypes", [Object])
+], MdRadioButton.prototype, "disableRipple", null);
+__decorate([
+    Input(),
+    __metadata("design:type", Boolean),
+    __metadata("design:paramtypes", [Boolean])
+], MdRadioButton.prototype, "checked", null);
+__decorate([
+    Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], MdRadioButton.prototype, "value", null);
+__decorate([
+    Input(),
+    __metadata("design:type", String),
+    __metadata("design:paramtypes", [Object])
+], MdRadioButton.prototype, "align", null);
+__decorate([
+    Input(),
+    __metadata("design:type", String),
+    __metadata("design:paramtypes", [Object])
+], MdRadioButton.prototype, "labelPosition", null);
+__decorate([
+    Input(),
+    __metadata("design:type", Boolean),
+    __metadata("design:paramtypes", [Boolean])
+], MdRadioButton.prototype, "disabled", null);
+__decorate([
+    Output(),
+    __metadata("design:type", EventEmitter)
+], MdRadioButton.prototype, "change", void 0);
+__decorate([
+    ViewChild(MdRipple),
+    __metadata("design:type", MdRipple)
+], MdRadioButton.prototype, "_ripple", void 0);
+__decorate([
+    ViewChild('input'),
+    __metadata("design:type", ElementRef)
+], MdRadioButton.prototype, "_inputElement", void 0);
+MdRadioButton = __decorate([
+    Component({selector: 'md-radio-button, mat-radio-button',
+        template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"mat-radio-ripple\" [mdRippleTrigger]=\"label\" [mdRippleCentered]=\"true\"></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (blur)=\"_onInputBlur()\" (click)=\"_onInputClick($event)\"><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><ng-content></ng-content></div></label>",
+        styles: [".mat-radio-button{display:inline-block;font-family:Roboto,\"Helvetica Neue\",sans-serif}.mat-radio-label{cursor:pointer;display:inline-flex;align-items:baseline;white-space:nowrap}.mat-radio-container{box-sizing:border-box;display:inline-block;height:20px;position:relative;width:20px;top:2px}.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:border-color ease 280ms;width:20px;border-width:2px;border-style:solid;border-radius:50%}.mat-radio-inner-circle{border-radius:50%;box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:transform ease 280ms,background-color ease 280ms;transform:scale(0);width:20px}.mat-radio-checked .mat-radio-inner-circle{transform:scale(.5)}.mat-radio-label-content{display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none} /*# sourceMappingURL=radio.css.map */ "],
+        encapsulation: ViewEncapsulation.None,
+        host: {
+            '[class.mat-radio-button]': 'true',
+            '[class.mat-radio-checked]': 'checked',
+            '[class.mat-radio-disabled]': 'disabled',
+            '[attr.id]': 'id',
+        }
+    }),
+    __param(0, Optional()),
+    __metadata("design:paramtypes", [MdRadioGroup,
+        ElementRef,
+        Renderer,
+        FocusOriginMonitor,
+        UniqueSelectionDispatcher])
+], MdRadioButton);
+export { MdRadioButton };
 //# sourceMappingURL=radio.js.map

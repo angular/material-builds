@@ -8,21 +8,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component, ChangeDetectionStrategy, Input, ViewEncapsulation, Directive, ElementRef, Renderer } from '@angular/core';
-export var MdToolbarRow = (function () {
+var MdToolbarRow = (function () {
     function MdToolbarRow() {
     }
-    MdToolbarRow = __decorate([
-        Directive({
-            selector: 'md-toolbar-row, mat-toolbar-row',
-            host: {
-                '[class.mat-toolbar-row]': 'true',
-            },
-        }), 
-        __metadata('design:paramtypes', [])
-    ], MdToolbarRow);
     return MdToolbarRow;
 }());
-export var MdToolbar = (function () {
+MdToolbarRow = __decorate([
+    Directive({
+        selector: 'md-toolbar-row, mat-toolbar-row',
+        host: {
+            '[class.mat-toolbar-row]': 'true',
+        },
+    })
+], MdToolbarRow);
+export { MdToolbarRow };
+var MdToolbar = (function () {
     function MdToolbar(elementRef, renderer) {
         this.elementRef = elementRef;
         this.renderer = renderer;
@@ -48,23 +48,25 @@ export var MdToolbar = (function () {
             this.renderer.setElementClass(this.elementRef.nativeElement, "mat-" + color, isAdd);
         }
     };
-    __decorate([
-        Input(), 
-        __metadata('design:type', String)
-    ], MdToolbar.prototype, "color", null);
-    MdToolbar = __decorate([
-        Component({selector: 'md-toolbar, mat-toolbar',
-            template: "<div class=\"mat-toolbar-layout\"><md-toolbar-row><ng-content></ng-content></md-toolbar-row><ng-content select=\"md-toolbar-row, mat-toolbar-row\"></ng-content></div>",
-            styles: [".mat-toolbar{display:flex;box-sizing:border-box;width:100%;font-size:20px;font-weight:500;font-family:Roboto,\"Helvetica Neue\",sans-serif;padding:0 16px;flex-direction:column}.mat-toolbar .mat-toolbar-row{display:flex;box-sizing:border-box;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar{min-height:64px}.mat-toolbar-row{height:64px}@media (max-width:600px){.mat-toolbar{min-height:56px}.mat-toolbar-row{height:56px}} /*# sourceMappingURL=toolbar.css.map */ "],
-            host: {
-                '[class.mat-toolbar]': 'true',
-                'role': 'toolbar'
-            },
-            changeDetection: ChangeDetectionStrategy.OnPush,
-            encapsulation: ViewEncapsulation.None
-        }), 
-        __metadata('design:paramtypes', [ElementRef, Renderer])
-    ], MdToolbar);
     return MdToolbar;
 }());
+__decorate([
+    Input(),
+    __metadata("design:type", String),
+    __metadata("design:paramtypes", [String])
+], MdToolbar.prototype, "color", null);
+MdToolbar = __decorate([
+    Component({selector: 'md-toolbar, mat-toolbar',
+        template: "<div class=\"mat-toolbar-layout\"><md-toolbar-row><ng-content></ng-content></md-toolbar-row><ng-content select=\"md-toolbar-row, mat-toolbar-row\"></ng-content></div>",
+        styles: [".mat-toolbar{display:flex;box-sizing:border-box;width:100%;font-size:20px;font-weight:500;font-family:Roboto,\"Helvetica Neue\",sans-serif;padding:0 16px;flex-direction:column}.mat-toolbar .mat-toolbar-row{display:flex;box-sizing:border-box;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar{min-height:64px}.mat-toolbar-row{height:64px}@media (max-width:600px){.mat-toolbar{min-height:56px}.mat-toolbar-row{height:56px}} /*# sourceMappingURL=toolbar.css.map */ "],
+        host: {
+            '[class.mat-toolbar]': 'true',
+            'role': 'toolbar'
+        },
+        changeDetection: ChangeDetectionStrategy.OnPush,
+        encapsulation: ViewEncapsulation.None
+    }),
+    __metadata("design:paramtypes", [ElementRef, Renderer])
+], MdToolbar);
+export { MdToolbar };
 //# sourceMappingURL=toolbar.js.map

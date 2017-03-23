@@ -13,7 +13,7 @@ import { coerceBooleanProperty } from '../core/coercion/boolean-property';
  * Used in the `md-tab-group` view to display tab labels.
  * @docs-private
  */
-export var MdTabLabelWrapper = (function () {
+var MdTabLabelWrapper = (function () {
     function MdTabLabelWrapper(elementRef, _renderer) {
         this.elementRef = elementRef;
         this._renderer = _renderer;
@@ -37,19 +37,21 @@ export var MdTabLabelWrapper = (function () {
     MdTabLabelWrapper.prototype.getOffsetWidth = function () {
         return this.elementRef.nativeElement.offsetWidth;
     };
-    __decorate([
-        Input(), 
-        __metadata('design:type', Object)
-    ], MdTabLabelWrapper.prototype, "disabled", null);
-    MdTabLabelWrapper = __decorate([
-        Directive({
-            selector: '[md-tab-label-wrapper], [mat-tab-label-wrapper]',
-            host: {
-                '[class.mat-tab-disabled]': 'disabled'
-            }
-        }), 
-        __metadata('design:paramtypes', [ElementRef, Renderer])
-    ], MdTabLabelWrapper);
     return MdTabLabelWrapper;
 }());
+__decorate([
+    Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], MdTabLabelWrapper.prototype, "disabled", null);
+MdTabLabelWrapper = __decorate([
+    Directive({
+        selector: '[md-tab-label-wrapper], [mat-tab-label-wrapper]',
+        host: {
+            '[class.mat-tab-disabled]': 'disabled'
+        }
+    }),
+    __metadata("design:paramtypes", [ElementRef, Renderer])
+], MdTabLabelWrapper);
+export { MdTabLabelWrapper };
 //# sourceMappingURL=tab-label-wrapper.js.map

@@ -1,10 +1,11 @@
-import { ComponentRef, AnimationTransitionEvent, NgZone, OnDestroy, Renderer, ElementRef } from '@angular/core';
+import { ComponentRef, NgZone, OnDestroy, Renderer, ElementRef } from '@angular/core';
+import { AnimationEvent } from '@angular/animations';
 import { BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective } from '../core';
 import { MdSnackBarConfig } from './snack-bar-config';
 import { Observable } from 'rxjs/Observable';
 export declare type SnackBarState = 'initial' | 'visible' | 'complete' | 'void';
-export declare const SHOW_ANIMATION: string;
-export declare const HIDE_ANIMATION: string;
+export declare const SHOW_ANIMATION = "225ms cubic-bezier(0.4,0.0,1,1)";
+export declare const HIDE_ANIMATION = "195ms cubic-bezier(0.0,0.0,0.2,1)";
 /**
  * Internal component that wraps user-provided snack bar content.
  * @docs-private
@@ -29,7 +30,7 @@ export declare class MdSnackBarContainer extends BasePortalHost implements OnDes
     /** Attach a template portal as content to this snack bar container. */
     attachTemplatePortal(portal: TemplatePortal): Map<string, any>;
     /** Handle end of animations, updating the state of the snackbar. */
-    onAnimationEnd(event: AnimationTransitionEvent): void;
+    onAnimationEnd(event: AnimationEvent): void;
     /** Begin animation of snack bar entrance into view. */
     enter(): void;
     /** Returns an observable resolving when the enter animation completes.  */

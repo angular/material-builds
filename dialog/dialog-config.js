@@ -2,7 +2,7 @@
 /**
  * Configuration for opening a modal dialog with the MdDialog service.
  */
-export var MdDialogConfig = (function () {
+var MdDialogConfig = (function () {
     function MdDialogConfig() {
         /** The ARIA role of the dialog element. */
         this.role = 'dialog';
@@ -12,7 +12,9 @@ export var MdDialogConfig = (function () {
         this.width = '';
         /** Height of the dialog. */
         this.height = '';
+        // TODO(jelbourn): add configuration for lifecycle hooks, ARIA labelling.
     }
     return MdDialogConfig;
 }());
+export { MdDialogConfig };
 //# sourceMappingURL=dialog-config.js.map

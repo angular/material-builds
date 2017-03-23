@@ -12,7 +12,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, ViewChild, ViewEncapsulation, NgZone, Renderer, ElementRef, animate, state, style, transition, trigger, EventEmitter } from '@angular/core';
+import { Component, ViewChild, ViewEncapsulation, NgZone, Renderer, ElementRef, EventEmitter, } from '@angular/core';
+import { animate, trigger, state, style, transition, } from '@angular/animations';
 import { BasePortalHost, PortalHostDirective } from '../core';
 import { MdDialogContentAlreadyAttachedError } from './dialog-errors';
 import { FocusTrapFactory } from '../core/a11y/focus-trap';
@@ -22,20 +23,21 @@ import 'rxjs/add/operator/first';
  * Animation is based on https://material.io/guidelines/motion/choreography.html.
  * @docs-private
  */
-export var MdDialogContainer = (function (_super) {
+var MdDialogContainer = (function (_super) {
     __extends(MdDialogContainer, _super);
     function MdDialogContainer(_ngZone, _renderer, _elementRef, _focusTrapFactory) {
-        _super.call(this);
-        this._ngZone = _ngZone;
-        this._renderer = _renderer;
-        this._elementRef = _elementRef;
-        this._focusTrapFactory = _focusTrapFactory;
+        var _this = _super.call(this) || this;
+        _this._ngZone = _ngZone;
+        _this._renderer = _renderer;
+        _this._elementRef = _elementRef;
+        _this._focusTrapFactory = _focusTrapFactory;
         /** Element that was focused before the dialog was opened. Save this to restore upon close. */
-        this._elementFocusedBeforeDialogWasOpened = null;
+        _this._elementFocusedBeforeDialogWasOpened = null;
         /** State of the dialog animation. */
-        this._state = 'enter';
+        _this._state = 'enter';
         /** Emits the current animation state whenever it changes. */
-        this._onAnimationStateChange = new EventEmitter();
+        _this._onAnimationStateChange = new EventEmitter();
+        return _this;
     }
     /**
      * Attach a ComponentPortal as content to this dialog container.
@@ -110,32 +112,36 @@ export var MdDialogContainer = (function (_super) {
         });
         this._focusTrap.destroy();
     };
-    __decorate([
-        ViewChild(PortalHostDirective), 
-        __metadata('design:type', PortalHostDirective)
-    ], MdDialogContainer.prototype, "_portalHost", void 0);
-    MdDialogContainer = __decorate([
-        Component({selector: 'md-dialog-container, mat-dialog-container',
-            template: "<template cdkPortalHost></template>",
-            styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;max-width:80vw;width:100%;height:100%}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto}.mat-dialog-title{font-size:20px;font-weight:700;margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex}.mat-dialog-actions:last-child{margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center} /*# sourceMappingURL=dialog.css.map */ "],
-            encapsulation: ViewEncapsulation.None,
-            animations: [
-                trigger('slideDialog', [
-                    state('void', style({ transform: 'translateY(25%) scale(0.9)', opacity: 0 })),
-                    state('enter', style({ transform: 'translateY(0%) scale(1)', opacity: 1 })),
-                    state('exit', style({ transform: 'translateY(25%)', opacity: 0 })),
-                    transition('* => *', animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
-                ])
-            ],
-            host: {
-                '[class.mat-dialog-container]': 'true',
-                '[attr.role]': 'dialogConfig?.role',
-                '[@slideDialog]': '_state',
-                '(@slideDialog.done)': '_onAnimationDone($event)',
-            },
-        }), 
-        __metadata('design:paramtypes', [NgZone, Renderer, ElementRef, FocusTrapFactory])
-    ], MdDialogContainer);
     return MdDialogContainer;
 }(BasePortalHost));
+__decorate([
+    ViewChild(PortalHostDirective),
+    __metadata("design:type", PortalHostDirective)
+], MdDialogContainer.prototype, "_portalHost", void 0);
+MdDialogContainer = __decorate([
+    Component({selector: 'md-dialog-container, mat-dialog-container',
+        template: "<ng-template cdkPortalHost></ng-template>",
+        styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;max-width:80vw;width:100%;height:100%}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto}.mat-dialog-title{font-size:20px;font-weight:700;margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex}.mat-dialog-actions:last-child{margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center} /*# sourceMappingURL=dialog.css.map */ "],
+        encapsulation: ViewEncapsulation.None,
+        animations: [
+            trigger('slideDialog', [
+                state('void', style({ transform: 'translateY(25%) scale(0.9)', opacity: 0 })),
+                state('enter', style({ transform: 'translateY(0%) scale(1)', opacity: 1 })),
+                state('exit', style({ transform: 'translateY(25%)', opacity: 0 })),
+                transition('* => *', animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
+            ])
+        ],
+        host: {
+            '[class.mat-dialog-container]': 'true',
+            '[attr.role]': 'dialogConfig?.role',
+            '[@slideDialog]': '_state',
+            '(@slideDialog.done)': '_onAnimationDone($event)',
+        },
+    }),
+    __metadata("design:paramtypes", [NgZone,
+        Renderer,
+        ElementRef,
+        FocusTrapFactory])
+], MdDialogContainer);
+export { MdDialogContainer };
 //# sourceMappingURL=dialog-container.js.map

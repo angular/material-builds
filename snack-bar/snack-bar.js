@@ -11,7 +11,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 import { Injectable, Optional, SkipSelf } from '@angular/core';
-import { ComponentPortal, Overlay, OverlayState, LiveAnnouncer } from '../core';
+import { ComponentPortal, Overlay, OverlayState, LiveAnnouncer, } from '../core';
 import { MdSnackBarConfig } from './snack-bar-config';
 import { MdSnackBarRef } from './snack-bar-ref';
 import { MdSnackBarContainer } from './snack-bar-container';
@@ -20,7 +20,7 @@ import { extendObject } from '../core/util/object-extend';
 /**
  * Service to dispatch Material Design snack bar messages.
  */
-export var MdSnackBar = (function () {
+var MdSnackBar = (function () {
     function MdSnackBar(_overlay, _live, _parentSnackBar) {
         this._overlay = _overlay;
         this._live = _live;
@@ -135,14 +135,16 @@ export var MdSnackBar = (function () {
             .bottom('0');
         return this._overlay.create(state);
     };
-    MdSnackBar = __decorate([
-        Injectable(),
-        __param(2, Optional()),
-        __param(2, SkipSelf()), 
-        __metadata('design:paramtypes', [Overlay, LiveAnnouncer, MdSnackBar])
-    ], MdSnackBar);
     return MdSnackBar;
 }());
+MdSnackBar = __decorate([
+    Injectable(),
+    __param(2, Optional()), __param(2, SkipSelf()),
+    __metadata("design:paramtypes", [Overlay,
+        LiveAnnouncer,
+        MdSnackBar])
+], MdSnackBar);
+export { MdSnackBar };
 /**
  * Applies default options to the snackbar config.
  * @param config The configuration to which the defaults will be applied.

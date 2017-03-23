@@ -1,4 +1,4 @@
-import { trigger, state, style, animate, transition } from '@angular/core';
+import { trigger, state, style, animate, transition, } from '@angular/animations';
 /**
  * Below are all the animations for the md-menu component.
  * Animation duration and timing values are based on AngularJS Material.

@@ -3,7 +3,7 @@
   * Copyright (c) 2017 Google, Inc. https://material.angular.io/
   * License: MIT
   */
-import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, Injector, Input, NgModule, NgZone, OpaqueToken, Optional, Output, QueryList, Renderer, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, animate, forwardRef, isDevMode, state, style, transition, trigger } from '@angular/core';
+import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, Injector, Input, NgModule, NgZone, OpaqueToken, Optional, Output, QueryList, Renderer, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
 import { DOCUMENT, DomSanitizer, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
@@ -12,6 +12,7 @@ import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/auditTime';
 import { FormsModule, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/first';
 import { Http, HttpModule } from '@angular/http';
@@ -32,7 +33,7 @@ var __decorate$2 = (this && this.__decorate) || function (decorators, target, ke
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$2 = (this && this.__metadata) || function (k, v) {
+var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param = (this && this.__param) || function (paramIndex, decorator) {
@@ -167,9 +168,8 @@ let MatPrefixRejector = class MatPrefixRejector {
 };
 MatPrefixRejector = __decorate$2([
     Directive({ selector: MAT_ELEMENTS_SELECTOR }),
-    __param(0, Optional()),
-    __param(0, Inject(MATERIAL_COMPATIBILITY_MODE)), 
-    __metadata$2('design:paramtypes', [Boolean])
+    __param(0, Optional()), __param(0, Inject(MATERIAL_COMPATIBILITY_MODE)),
+    __metadata("design:paramtypes", [Boolean])
 ], MatPrefixRejector);
 /** Directive that enforces that the `md-` prefix cannot be used. */
 let MdPrefixRejector = class MdPrefixRejector {
@@ -181,16 +181,15 @@ let MdPrefixRejector = class MdPrefixRejector {
 };
 MdPrefixRejector = __decorate$2([
     Directive({ selector: MD_ELEMENTS_SELECTOR }),
-    __param(0, Optional()),
-    __param(0, Inject(MATERIAL_COMPATIBILITY_MODE)), 
-    __metadata$2('design:paramtypes', [Boolean])
+    __param(0, Optional()), __param(0, Inject(MATERIAL_COMPATIBILITY_MODE)),
+    __metadata("design:paramtypes", [Boolean])
 ], MdPrefixRejector);
 /**
  * Module that enforces the default compatibility mode settings. When this module is loaded
  * without NoConflictStyleCompatibilityMode also being imported, it will throw an error if
  * there are any uses of the `mat-` prefix.
  */
-let CompatibilityModule_1 = class CompatibilityModule {
+let CompatibilityModule = CompatibilityModule_1 = class CompatibilityModule {
     constructor(document) {
         if (isDevMode() && typeof document && !document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
@@ -204,15 +203,13 @@ let CompatibilityModule_1 = class CompatibilityModule {
         };
     }
 };
-let CompatibilityModule = CompatibilityModule_1;
 CompatibilityModule = CompatibilityModule_1 = __decorate$2([
     NgModule({
         declarations: [MatPrefixRejector, MdPrefixRejector],
         exports: [MatPrefixRejector, MdPrefixRejector],
     }),
-    __param(0, Optional()),
-    __param(0, Inject(DOCUMENT)), 
-    __metadata$2('design:paramtypes', [Object])
+    __param(0, Optional()), __param(0, Inject(DOCUMENT)),
+    __metadata("design:paramtypes", [Object])
 ], CompatibilityModule);
 /**
  * Module that enforces "no-conflict" compatibility mode settings. When this module is loaded,
@@ -225,18 +222,15 @@ NoConflictStyleCompatibilityMode = __decorate$2([
         providers: [{
                 provide: MATERIAL_COMPATIBILITY_MODE, useValue: true,
             }],
-    }), 
-    __metadata$2('design:paramtypes', [])
+    })
 ], NoConflictStyleCompatibilityMode);
+var CompatibilityModule_1;
 
 var __decorate$1 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$1 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
  * Shared directive to count lines inside a text area, such as a list item.
@@ -251,8 +245,7 @@ MdLine = __decorate$1([
         host: {
             '[class.mat-line]': 'true'
         }
-    }), 
-    __metadata$1('design:paramtypes', [])
+    })
 ], MdLine);
 /**
  * Helper that takes a query list of lines and sets the correct class on the host.
@@ -293,8 +286,7 @@ MdLineModule = __decorate$1([
         imports: [CompatibilityModule],
         exports: [MdLine, CompatibilityModule],
         declarations: [MdLine],
-    }), 
-    __metadata$1('design:paramtypes', [])
+    })
 ], MdLineModule);
 
 var __decorate$3 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -303,7 +295,7 @@ var __decorate$3 = (this && this.__decorate) || function (decorators, target, ke
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$3 = (this && this.__metadata) || function (k, v) {
+var __metadata$1 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -313,6 +305,12 @@ var __metadata$3 = (this && this.__metadata) || function (k, v) {
  * components can listen on changes of direction.
  */
 let Dir = class Dir {
+    /**
+     * Directive to listen for changes of direction of part of the DOM.
+     *
+     * Applications should use this directive instead of the native attribute so that Material
+     * components can listen on changes of direction.
+     */
     constructor() {
         /** Layout direction of the element. */
         this._dir = 'ltr';
@@ -335,26 +333,26 @@ let Dir = class Dir {
     set value(v) { this.dir = v; }
 };
 __decorate$3([
-    Input('dir'), 
-    __metadata$3('design:type', String)
+    Input('dir'),
+    __metadata$1("design:type", String)
 ], Dir.prototype, "_dir", void 0);
 __decorate$3([
-    Output(), 
-    __metadata$3('design:type', Object)
+    Output(),
+    __metadata$1("design:type", Object)
 ], Dir.prototype, "dirChange", void 0);
 __decorate$3([
-    HostBinding('attr.dir'), 
-    __metadata$3('design:type', String)
+    HostBinding('attr.dir'),
+    __metadata$1("design:type", String),
+    __metadata$1("design:paramtypes", [String])
 ], Dir.prototype, "dir", null);
 Dir = __decorate$3([
     Directive({
         selector: '[dir]',
         // TODO(hansl): maybe `$implicit` isn't the best option here, but for now that's the best we got.
         exportAs: '$implicit'
-    }), 
-    __metadata$3('design:paramtypes', [])
+    })
 ], Dir);
-let RtlModule_1 = class RtlModule {
+let RtlModule = RtlModule_1 = class RtlModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -363,14 +361,13 @@ let RtlModule_1 = class RtlModule {
         };
     }
 };
-let RtlModule = RtlModule_1;
 RtlModule = RtlModule_1 = __decorate$3([
     NgModule({
         exports: [Dir],
         declarations: [Dir]
-    }), 
-    __metadata$3('design:paramtypes', [])
+    })
 ], RtlModule);
+var RtlModule_1;
 
 var __decorate$4 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -378,7 +375,7 @@ var __decorate$4 = (this && this.__decorate) || function (decorators, target, ke
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$4 = (this && this.__metadata) || function (k, v) {
+var __metadata$2 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -406,16 +403,16 @@ let ObserveContent = class ObserveContent {
     }
 };
 __decorate$4([
-    Output('cdkObserveContent'), 
-    __metadata$4('design:type', Object)
+    Output('cdkObserveContent'),
+    __metadata$2("design:type", Object)
 ], ObserveContent.prototype, "event", void 0);
 ObserveContent = __decorate$4([
     Directive({
         selector: '[cdkObserveContent]'
-    }), 
-    __metadata$4('design:paramtypes', [ElementRef])
+    }),
+    __metadata$2("design:paramtypes", [ElementRef])
 ], ObserveContent);
-let ObserveContentModule_1 = class ObserveContentModule {
+let ObserveContentModule = ObserveContentModule_1 = class ObserveContentModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -424,14 +421,13 @@ let ObserveContentModule_1 = class ObserveContentModule {
         };
     }
 };
-let ObserveContentModule = ObserveContentModule_1;
 ObserveContentModule = ObserveContentModule_1 = __decorate$4([
     NgModule({
         exports: [ObserveContent],
         declarations: [ObserveContent]
-    }), 
-    __metadata$4('design:paramtypes', [])
+    })
 ], ObserveContentModule);
+var ObserveContentModule_1;
 
 // Due to a bug in the ChromeDriver, Angular keyboard events are not triggered by `sendKeys`
 // during E2E tests when using dot notation such as `(keydown.rightArrow)`. To get around this,
@@ -453,7 +449,7 @@ const BACKSPACE = 8;
 const DELETE = 46;
 
 /** Coerces a data-bound value (typically a string) to a boolean. */
-function coerceBooleanProperty(value) {
+/** Coerces a data-bound value (typically a string) to a boolean. */ function coerceBooleanProperty(value) {
     return value != null && `${value}` !== 'false';
 }
 
@@ -647,9 +643,6 @@ var __decorate$9 = (this && this.__decorate) || function (decorators, target, ke
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$9 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 /** Time in ms to throttle the scrolling events by default. */
 const DEFAULT_SCROLL_TIME = 20;
 /**
@@ -657,6 +650,10 @@ const DEFAULT_SCROLL_TIME = 20;
  * Scrollable references emit a scrolled event.
  */
 let ScrollDispatcher = class ScrollDispatcher {
+    /**
+     * Service contained all registered Scrollable references and emits an event when any one of the
+     * Scrollable references emit a scrolled event.
+     */
     constructor() {
         /** Subject for notifying that a registered scrollable reference element has been scrolled. */
         this._scrolled = new Subject();
@@ -742,8 +739,7 @@ let ScrollDispatcher = class ScrollDispatcher {
     }
 };
 ScrollDispatcher = __decorate$9([
-    Injectable(), 
-    __metadata$9('design:paramtypes', [])
+    Injectable()
 ], ScrollDispatcher);
 function SCROLL_DISPATCHER_PROVIDER_FACTORY(parentDispatcher) {
     return parentDispatcher || new ScrollDispatcher();
@@ -761,7 +757,7 @@ var __decorate$8 = (this && this.__decorate) || function (decorators, target, ke
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$8 = (this && this.__metadata) || function (k, v) {
+var __metadata$5 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -819,8 +815,8 @@ let ViewportRuler = class ViewportRuler {
     }
 };
 ViewportRuler = __decorate$8([
-    Injectable(), 
-    __metadata$8('design:paramtypes', [ScrollDispatcher])
+    Injectable(),
+    __metadata$5("design:paramtypes", [ScrollDispatcher])
 ], ViewportRuler);
 function VIEWPORT_RULER_PROVIDER_FACTORY(parentRuler, scrollDispatcher) {
     return parentRuler || new ViewportRuler(scrollDispatcher);
@@ -838,7 +834,7 @@ var __decorate$7 = (this && this.__decorate) || function (decorators, target, ke
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$7 = (this && this.__metadata) || function (k, v) {
+var __metadata$4 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$2 = (this && this.__param) || function (paramIndex, decorator) {
@@ -895,32 +891,32 @@ let MdRipple = class MdRipple {
     }
 };
 __decorate$7([
-    Input('mdRippleTrigger'), 
-    __metadata$7('design:type', Object)
+    Input('mdRippleTrigger'),
+    __metadata$4("design:type", HTMLElement)
 ], MdRipple.prototype, "trigger", void 0);
 __decorate$7([
-    Input('mdRippleCentered'), 
-    __metadata$7('design:type', Boolean)
+    Input('mdRippleCentered'),
+    __metadata$4("design:type", Boolean)
 ], MdRipple.prototype, "centered", void 0);
 __decorate$7([
-    Input('mdRippleDisabled'), 
-    __metadata$7('design:type', Boolean)
+    Input('mdRippleDisabled'),
+    __metadata$4("design:type", Boolean)
 ], MdRipple.prototype, "disabled", void 0);
 __decorate$7([
-    Input('mdRippleRadius'), 
-    __metadata$7('design:type', Number)
+    Input('mdRippleRadius'),
+    __metadata$4("design:type", Number)
 ], MdRipple.prototype, "radius", void 0);
 __decorate$7([
-    Input('mdRippleSpeedFactor'), 
-    __metadata$7('design:type', Number)
+    Input('mdRippleSpeedFactor'),
+    __metadata$4("design:type", Number)
 ], MdRipple.prototype, "speedFactor", void 0);
 __decorate$7([
-    Input('mdRippleColor'), 
-    __metadata$7('design:type', String)
+    Input('mdRippleColor'),
+    __metadata$4("design:type", String)
 ], MdRipple.prototype, "color", void 0);
 __decorate$7([
-    Input('mdRippleUnbounded'), 
-    __metadata$7('design:type', Boolean)
+    Input('mdRippleUnbounded'),
+    __metadata$4("design:type", Boolean)
 ], MdRipple.prototype, "unbounded", void 0);
 MdRipple = __decorate$7([
     Directive({
@@ -931,9 +927,10 @@ MdRipple = __decorate$7([
             '[class.mat-ripple-unbounded]': 'unbounded'
         }
     }),
-    __param$2(3, Optional()),
-    __param$2(3, Inject(MD_RIPPLE_GLOBAL_OPTIONS)), 
-    __metadata$7('design:paramtypes', [ElementRef, NgZone, ViewportRuler, Object])
+    __param$2(3, Optional()), __param$2(3, Inject(MD_RIPPLE_GLOBAL_OPTIONS)),
+    __metadata$4("design:paramtypes", [ElementRef,
+        NgZone,
+        ViewportRuler, Object])
 ], MdRipple);
 
 var __decorate$6 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -942,10 +939,7 @@ var __decorate$6 = (this && this.__decorate) || function (decorators, target, ke
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$6 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdRippleModule_1 = class MdRippleModule {
+let MdRippleModule = MdRippleModule_1 = class MdRippleModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -954,16 +948,15 @@ let MdRippleModule_1 = class MdRippleModule {
         };
     }
 };
-let MdRippleModule = MdRippleModule_1;
 MdRippleModule = MdRippleModule_1 = __decorate$6([
     NgModule({
         imports: [CompatibilityModule],
         exports: [MdRipple, CompatibilityModule],
         declarations: [MdRipple],
         providers: [VIEWPORT_RULER_PROVIDER, SCROLL_DISPATCHER_PROVIDER],
-    }), 
-    __metadata$6('design:paramtypes', [])
+    })
 ], MdRippleModule);
+var MdRippleModule_1;
 
 var __decorate$11 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -971,7 +964,7 @@ var __decorate$11 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$11 = (this && this.__metadata) || function (k, v) {
+var __metadata$6 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -1008,16 +1001,17 @@ let MdPseudoCheckbox = class MdPseudoCheckbox {
     }
 };
 __decorate$11([
-    Input(), 
-    __metadata$11('design:type', String)
+    Input(),
+    __metadata$6("design:type", String)
 ], MdPseudoCheckbox.prototype, "state", void 0);
 __decorate$11([
-    Input(), 
-    __metadata$11('design:type', Boolean)
+    Input(),
+    __metadata$6("design:type", Boolean)
 ], MdPseudoCheckbox.prototype, "disabled", void 0);
 __decorate$11([
-    Input(), 
-    __metadata$11('design:type', String)
+    Input(),
+    __metadata$6("design:type", String),
+    __metadata$6("design:paramtypes", [String])
 ], MdPseudoCheckbox.prototype, "color", null);
 MdPseudoCheckbox = __decorate$11([
     Component({encapsulation: ViewEncapsulation.None,
@@ -1030,8 +1024,8 @@ MdPseudoCheckbox = __decorate$11([
             '[class.mat-pseudo-checkbox-checked]': 'state === "checked"',
             '[class.mat-pseudo-checkbox-disabled]': 'disabled',
         },
-    }), 
-    __metadata$11('design:paramtypes', [ElementRef, Renderer])
+    }),
+    __metadata$6("design:paramtypes", [ElementRef, Renderer])
 ], MdPseudoCheckbox);
 
 var __decorate$10 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1040,17 +1034,13 @@ var __decorate$10 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$10 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 let MdSelectionModule = class MdSelectionModule {
 };
 MdSelectionModule = __decorate$10([
     NgModule({
         exports: [MdPseudoCheckbox],
         declarations: [MdPseudoCheckbox]
-    }), 
-    __metadata$10('design:paramtypes', [])
+    })
 ], MdSelectionModule);
 
 var __decorate$5 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1059,7 +1049,7 @@ var __decorate$5 = (this && this.__decorate) || function (decorators, target, ke
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$5 = (this && this.__metadata) || function (k, v) {
+var __metadata$3 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$1 = (this && this.__param) || function (paramIndex, decorator) {
@@ -1180,16 +1170,17 @@ let MdOption = class MdOption {
     ;
 };
 __decorate$5([
-    Input(), 
-    __metadata$5('design:type', Object)
+    Input(),
+    __metadata$3("design:type", Object)
 ], MdOption.prototype, "value", void 0);
 __decorate$5([
-    Input(), 
-    __metadata$5('design:type', Object)
+    Input(),
+    __metadata$3("design:type", Object),
+    __metadata$3("design:paramtypes", [Object])
 ], MdOption.prototype, "disabled", null);
 __decorate$5([
-    Output(), 
-    __metadata$5('design:type', Object)
+    Output(),
+    __metadata$3("design:type", Object)
 ], MdOption.prototype, "onSelectionChange", void 0);
 MdOption = __decorate$5([
     Component({selector: 'md-option, mat-option',
@@ -1210,11 +1201,11 @@ MdOption = __decorate$5([
         template: "<span [ngSwitch]=\"_isCompatibilityMode\" *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" *ngSwitchCase=\"true\" [state]=\"selected ? 'checked' : ''\" color=\"primary\"></mat-pseudo-checkbox><md-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" *ngSwitchDefault [state]=\"selected ? 'checked' : ''\" color=\"primary\"></md-pseudo-checkbox></span><ng-content></ng-content><div class=\"mat-option-ripple\" *ngIf=\"!disabled\" md-ripple [mdRippleTrigger]=\"_getHostElement()\"></div>",
         encapsulation: ViewEncapsulation.None
     }),
-    __param$1(2, Optional()),
-    __param$1(2, Inject(MATERIAL_COMPATIBILITY_MODE)), 
-    __metadata$5('design:paramtypes', [ElementRef, Renderer, Boolean])
+    __param$1(2, Optional()), __param$1(2, Inject(MATERIAL_COMPATIBILITY_MODE)),
+    __metadata$3("design:paramtypes", [ElementRef,
+        Renderer, Boolean])
 ], MdOption);
-let MdOptionModule_1 = class MdOptionModule {
+let MdOptionModule = MdOptionModule_1 = class MdOptionModule {
     static forRoot() {
         return {
             ngModule: MdOptionModule_1,
@@ -1222,21 +1213,21 @@ let MdOptionModule_1 = class MdOptionModule {
         };
     }
 };
-let MdOptionModule = MdOptionModule_1;
 MdOptionModule = MdOptionModule_1 = __decorate$5([
     NgModule({
         imports: [MdRippleModule, CommonModule, MdSelectionModule],
         exports: [MdOption],
         declarations: [MdOption]
-    }), 
-    __metadata$5('design:paramtypes', [])
+    })
 ], MdOptionModule);
+var MdOptionModule_1;
 
 // TODO(kara): Revisit why error messages are not being properly set.
 /**
  * Wrapper around Error that sets the error message.
  * @docs-private
  */
+// TODO(kara): Revisit why error messages are not being properly set.
 class MdError extends Error {
     constructor(value) {
         super();
@@ -1440,7 +1431,7 @@ var __decorate$12 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$12 = (this && this.__metadata) || function (k, v) {
+var __metadata$7 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -1448,9 +1439,9 @@ var __metadata$12 = (this && this.__metadata) || function (k, v) {
  * the directive instance itself can be attached to a host, enabling declarative use of portals.
  *
  * Usage:
- * <template portal #greeting>
+ * <ng-template portal #greeting>
  *   <p> Hello {{name}} </p>
- * </template>
+ * </ng-template>
  */
 let TemplatePortalDirective = class TemplatePortalDirective extends TemplatePortal {
     constructor(templateRef, viewContainerRef) {
@@ -1461,15 +1452,15 @@ TemplatePortalDirective = __decorate$12([
     Directive({
         selector: '[cdk-portal], [portal]',
         exportAs: 'cdkPortal',
-    }), 
-    __metadata$12('design:paramtypes', [TemplateRef, ViewContainerRef])
+    }),
+    __metadata$7("design:paramtypes", [TemplateRef, ViewContainerRef])
 ], TemplatePortalDirective);
 /**
  * Directive version of a PortalHost. Because the directive *is* a PortalHost, portals can be
  * directly attached to it, enabling declarative use.
  *
  * Usage:
- * <template [cdkPortalHost]="greeting"></template>
+ * <ng-template [cdkPortalHost]="greeting"></ng-template>
  */
 let PortalHostDirective = class PortalHostDirective extends BasePortalHost {
     constructor(_componentFactoryResolver, _viewContainerRef) {
@@ -1529,17 +1520,19 @@ let PortalHostDirective = class PortalHostDirective extends BasePortalHost {
     }
 };
 __decorate$12([
-    Input('portalHost'), 
-    __metadata$12('design:type', Object)
+    Input('portalHost'),
+    __metadata$7("design:type", Object),
+    __metadata$7("design:paramtypes", [Object])
 ], PortalHostDirective.prototype, "_deprecatedPortal", null);
 PortalHostDirective = __decorate$12([
     Directive({
         selector: '[cdkPortalHost], [portalHost]',
         inputs: ['portal: cdkPortalHost']
-    }), 
-    __metadata$12('design:paramtypes', [ComponentFactoryResolver, ViewContainerRef])
+    }),
+    __metadata$7("design:paramtypes", [ComponentFactoryResolver,
+        ViewContainerRef])
 ], PortalHostDirective);
-let PortalModule_1 = class PortalModule {
+let PortalModule = PortalModule_1 = class PortalModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -1548,14 +1541,13 @@ let PortalModule_1 = class PortalModule {
         };
     }
 };
-let PortalModule = PortalModule_1;
 PortalModule = PortalModule_1 = __decorate$12([
     NgModule({
         exports: [TemplatePortalDirective, PortalHostDirective],
         declarations: [TemplatePortalDirective, PortalHostDirective],
-    }), 
-    __metadata$12('design:paramtypes', [])
+    })
 ], PortalModule);
+var PortalModule_1;
 
 /**
  * OverlayState is a bag of values for either the initial configuration or current state of an
@@ -1569,6 +1561,10 @@ class OverlayState {
         this.backdropClass = 'cdk-overlay-dark-backdrop';
         /** The direction of the text in the overlay panel. */
         this.direction = 'ltr';
+        // TODO(jelbourn): configuration still to add
+        // - focus trap
+        // - disable pointer events
+        // - z-index
     }
 }
 
@@ -1812,12 +1808,13 @@ var __decorate$16 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$16 = (this && this.__metadata) || function (k, v) {
+var __metadata$11 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$4 = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+/** Horizontal dimension of a connection point on the perimeter of the origin or overlay element. */
 /** The points of the origin element and the overlay element to connect. */
 class ConnectionPositionPair {
     constructor(origin, overlay) {
@@ -1853,15 +1850,16 @@ class ConnectionPositionPair {
 class ScrollableViewProperties {
 }
 /** The change event emitted by the strategy when a fallback position is used. */
-class ConnectedOverlayPositionChange {
+let ConnectedOverlayPositionChange = class ConnectedOverlayPositionChange {
     constructor(connectionPair, scrollableViewProperties) {
         this.connectionPair = connectionPair;
         this.scrollableViewProperties = scrollableViewProperties;
     }
-}
+};
 ConnectedOverlayPositionChange = __decorate$16([
-    __param$4(1, Optional()), 
-    __metadata$16('design:paramtypes', [ConnectionPositionPair, ScrollableViewProperties])
+    __param$4(1, Optional()),
+    __metadata$11("design:paramtypes", [ConnectionPositionPair,
+        ScrollableViewProperties])
 ], ConnectedOverlayPositionChange);
 
 /**
@@ -2302,7 +2300,7 @@ var __decorate$15 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$15 = (this && this.__metadata) || function (k, v) {
+var __metadata$10 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /** Builder for overlay position strategy. */
@@ -2327,8 +2325,8 @@ let OverlayPositionBuilder = class OverlayPositionBuilder {
     }
 };
 OverlayPositionBuilder = __decorate$15([
-    Injectable(), 
-    __metadata$15('design:paramtypes', [ViewportRuler])
+    Injectable(),
+    __metadata$10("design:paramtypes", [ViewportRuler])
 ], OverlayPositionBuilder);
 
 var __decorate$17 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2336,9 +2334,6 @@ var __decorate$17 = (this && this.__decorate) || function (decorators, target, k
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$17 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
  * The OverlayContainer is the container in which all overlays will load.
@@ -2385,8 +2380,7 @@ let OverlayContainer = class OverlayContainer {
     }
 };
 OverlayContainer = __decorate$17([
-    Injectable(), 
-    __metadata$17('design:paramtypes', [])
+    Injectable()
 ], OverlayContainer);
 function OVERLAY_CONTAINER_PROVIDER_FACTORY(parentContainer) {
     return parentContainer || new OverlayContainer();
@@ -2405,7 +2399,7 @@ var __decorate$14 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$14 = (this && this.__metadata) || function (k, v) {
+var __metadata$9 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /** Next overlay unique ID. */
@@ -2473,8 +2467,13 @@ let Overlay = class Overlay {
     }
 };
 Overlay = __decorate$14([
-    Injectable(), 
-    __metadata$14('design:paramtypes', [OverlayContainer, ComponentFactoryResolver, OverlayPositionBuilder, ApplicationRef, Injector, NgZone])
+    Injectable(),
+    __metadata$9("design:paramtypes", [OverlayContainer,
+        ComponentFactoryResolver,
+        OverlayPositionBuilder,
+        ApplicationRef,
+        Injector,
+        NgZone])
 ], Overlay);
 /** Providers for Overlay and its related injectables. */
 const OVERLAY_PROVIDERS = [
@@ -2491,7 +2490,7 @@ var __decorate$18 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$18 = (this && this.__metadata) || function (k, v) {
+var __metadata$12 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -2523,8 +2522,9 @@ let Scrollable = class Scrollable {
 Scrollable = __decorate$18([
     Directive({
         selector: '[cdk-scrollable]'
-    }), 
-    __metadata$18('design:paramtypes', [ElementRef, ScrollDispatcher])
+    }),
+    __metadata$12("design:paramtypes", [ElementRef,
+        ScrollDispatcher])
 ], Scrollable);
 
 var __decorate$13 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2533,7 +2533,7 @@ var __decorate$13 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$13 = (this && this.__metadata) || function (k, v) {
+var __metadata$8 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$3 = (this && this.__param) || function (paramIndex, decorator) {
@@ -2557,8 +2557,8 @@ OverlayOrigin = __decorate$13([
     Directive({
         selector: '[cdk-overlay-origin], [overlay-origin]',
         exportAs: 'cdkOverlayOrigin',
-    }), 
-    __metadata$13('design:paramtypes', [ElementRef])
+    }),
+    __metadata$8("design:paramtypes", [ElementRef])
 ], OverlayOrigin);
 /**
  * Directive to facilitate declarative creation of an Overlay using a ConnectedPositionStrategy.
@@ -2718,74 +2718,81 @@ let ConnectedOverlayDirective = class ConnectedOverlayDirective {
     }
 };
 __decorate$13([
-    Input(), 
-    __metadata$13('design:type', OverlayOrigin)
+    Input(),
+    __metadata$8("design:type", OverlayOrigin)
 ], ConnectedOverlayDirective.prototype, "origin", void 0);
 __decorate$13([
-    Input(), 
-    __metadata$13('design:type', Array)
+    Input(),
+    __metadata$8("design:type", Array)
 ], ConnectedOverlayDirective.prototype, "positions", void 0);
 __decorate$13([
-    Input(), 
-    __metadata$13('design:type', Number)
+    Input(),
+    __metadata$8("design:type", Number),
+    __metadata$8("design:paramtypes", [Number])
 ], ConnectedOverlayDirective.prototype, "offsetX", null);
 __decorate$13([
-    Input(), 
-    __metadata$13('design:type', Object)
+    Input(),
+    __metadata$8("design:type", Object),
+    __metadata$8("design:paramtypes", [Number])
 ], ConnectedOverlayDirective.prototype, "offsetY", null);
 __decorate$13([
-    Input(), 
-    __metadata$13('design:type', Object)
+    Input(),
+    __metadata$8("design:type", Object)
 ], ConnectedOverlayDirective.prototype, "width", void 0);
 __decorate$13([
-    Input(), 
-    __metadata$13('design:type', Object)
+    Input(),
+    __metadata$8("design:type", Object)
 ], ConnectedOverlayDirective.prototype, "height", void 0);
 __decorate$13([
-    Input(), 
-    __metadata$13('design:type', Object)
+    Input(),
+    __metadata$8("design:type", Object)
 ], ConnectedOverlayDirective.prototype, "minWidth", void 0);
 __decorate$13([
-    Input(), 
-    __metadata$13('design:type', Object)
+    Input(),
+    __metadata$8("design:type", Object)
 ], ConnectedOverlayDirective.prototype, "minHeight", void 0);
 __decorate$13([
-    Input(), 
-    __metadata$13('design:type', String)
+    Input(),
+    __metadata$8("design:type", String)
 ], ConnectedOverlayDirective.prototype, "backdropClass", void 0);
 __decorate$13([
-    Input(), 
-    __metadata$13('design:type', Object)
+    Input(),
+    __metadata$8("design:type", Object),
+    __metadata$8("design:paramtypes", [Object])
 ], ConnectedOverlayDirective.prototype, "hasBackdrop", null);
 __decorate$13([
-    Input(), 
-    __metadata$13('design:type', Object)
+    Input(),
+    __metadata$8("design:type", Object),
+    __metadata$8("design:paramtypes", [Boolean])
 ], ConnectedOverlayDirective.prototype, "open", null);
 __decorate$13([
-    Output(), 
-    __metadata$13('design:type', Object)
+    Output(),
+    __metadata$8("design:type", Object)
 ], ConnectedOverlayDirective.prototype, "backdropClick", void 0);
 __decorate$13([
-    Output(), 
-    __metadata$13('design:type', Object)
+    Output(),
+    __metadata$8("design:type", Object)
 ], ConnectedOverlayDirective.prototype, "positionChange", void 0);
 __decorate$13([
-    Output(), 
-    __metadata$13('design:type', Object)
+    Output(),
+    __metadata$8("design:type", Object)
 ], ConnectedOverlayDirective.prototype, "attach", void 0);
 __decorate$13([
-    Output(), 
-    __metadata$13('design:type', Object)
+    Output(),
+    __metadata$8("design:type", Object)
 ], ConnectedOverlayDirective.prototype, "detach", void 0);
 ConnectedOverlayDirective = __decorate$13([
     Directive({
         selector: '[cdk-connected-overlay], [connected-overlay]',
         exportAs: 'cdkConnectedOverlay'
     }),
-    __param$3(3, Optional()), 
-    __metadata$13('design:paramtypes', [Overlay, TemplateRef, ViewContainerRef, Dir])
+    __param$3(3, Optional()),
+    __metadata$8("design:paramtypes", [Overlay,
+        TemplateRef,
+        ViewContainerRef,
+        Dir])
 ], ConnectedOverlayDirective);
-let OverlayModule_1 = class OverlayModule {
+let OverlayModule = OverlayModule_1 = class OverlayModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -2794,25 +2801,21 @@ let OverlayModule_1 = class OverlayModule {
         };
     }
 };
-let OverlayModule = OverlayModule_1;
 OverlayModule = OverlayModule_1 = __decorate$13([
     NgModule({
         imports: [PortalModule],
         exports: [ConnectedOverlayDirective, OverlayOrigin, Scrollable],
         declarations: [ConnectedOverlayDirective, OverlayOrigin, Scrollable],
         providers: [OVERLAY_PROVIDERS],
-    }), 
-    __metadata$13('design:paramtypes', [])
+    })
 ], OverlayModule);
+var OverlayModule_1;
 
 var __decorate$22 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$22 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // Whether the current platform supports the V8 Break Iterator. The V8 check
 // is necessary to detect all Blink based browsers.
@@ -2825,6 +2828,11 @@ const hasV8BreakIterator = typeof (window) !== 'undefined' ?
  * @docs-private
  */
 let Platform = class Platform {
+    /**
+     * Service to detect the current platform by comparing the userAgent strings and
+     * checking browser-specific global properties.
+     * @docs-private
+     */
     constructor() {
         /** Layout Engines */
         this.EDGE = /(edge)/i.test(navigator.userAgent);
@@ -2846,8 +2854,7 @@ let Platform = class Platform {
     }
 };
 Platform = __decorate$22([
-    Injectable(), 
-    __metadata$22('design:paramtypes', [])
+    Injectable()
 ], Platform);
 
 var __decorate$21 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2856,7 +2863,7 @@ var __decorate$21 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$21 = (this && this.__metadata) || function (k, v) {
+var __metadata$14 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -2971,8 +2978,8 @@ let InteractivityChecker = class InteractivityChecker {
     }
 };
 InteractivityChecker = __decorate$21([
-    Injectable(), 
-    __metadata$21('design:paramtypes', [Platform])
+    Injectable(),
+    __metadata$14("design:paramtypes", [Platform])
 ], InteractivityChecker);
 /** Checks whether the specified element has any geometry / rectangles. */
 function hasGeometry(element) {
@@ -3062,7 +3069,7 @@ var __decorate$20 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$20 = (this && this.__metadata) || function (k, v) {
+var __metadata$13 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -3210,8 +3217,8 @@ let FocusTrapFactory = class FocusTrapFactory {
     }
 };
 FocusTrapFactory = __decorate$20([
-    Injectable(), 
-    __metadata$20('design:paramtypes', [InteractivityChecker, NgZone])
+    Injectable(),
+    __metadata$13("design:paramtypes", [InteractivityChecker, NgZone])
 ], FocusTrapFactory);
 /**
  * Directive for trapping focus within a region.
@@ -3236,14 +3243,15 @@ let FocusTrapDeprecatedDirective = class FocusTrapDeprecatedDirective {
     }
 };
 __decorate$20([
-    Input(), 
-    __metadata$20('design:type', Boolean)
+    Input(),
+    __metadata$13("design:type", Boolean),
+    __metadata$13("design:paramtypes", [Boolean])
 ], FocusTrapDeprecatedDirective.prototype, "disabled", null);
 FocusTrapDeprecatedDirective = __decorate$20([
     Directive({
         selector: 'cdk-focus-trap',
-    }), 
-    __metadata$20('design:paramtypes', [ElementRef, FocusTrapFactory])
+    }),
+    __metadata$13("design:paramtypes", [ElementRef, FocusTrapFactory])
 ], FocusTrapDeprecatedDirective);
 /** Directive for trapping focus within a region. */
 let FocusTrapDirective = class FocusTrapDirective {
@@ -3263,14 +3271,15 @@ let FocusTrapDirective = class FocusTrapDirective {
     }
 };
 __decorate$20([
-    Input('cdkTrapFocus'), 
-    __metadata$20('design:type', Boolean)
+    Input('cdkTrapFocus'),
+    __metadata$13("design:type", Boolean),
+    __metadata$13("design:paramtypes", [Boolean])
 ], FocusTrapDirective.prototype, "enabled", null);
 FocusTrapDirective = __decorate$20([
     Directive({
         selector: '[cdkTrapFocus]'
-    }), 
-    __metadata$20('design:paramtypes', [ElementRef, FocusTrapFactory])
+    }),
+    __metadata$13("design:paramtypes", [ElementRef, FocusTrapFactory])
 ], FocusTrapDirective);
 
 var __decorate$23 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -3279,7 +3288,7 @@ var __decorate$23 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$23 = (this && this.__metadata) || function (k, v) {
+var __metadata$15 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$5 = (this && this.__param) || function (paramIndex, decorator) {
@@ -3326,9 +3335,8 @@ let LiveAnnouncer = class LiveAnnouncer {
 };
 LiveAnnouncer = __decorate$23([
     Injectable(),
-    __param$5(0, Optional()),
-    __param$5(0, Inject(LIVE_ANNOUNCER_ELEMENT_TOKEN)), 
-    __metadata$23('design:paramtypes', [Object])
+    __param$5(0, Optional()), __param$5(0, Inject(LIVE_ANNOUNCER_ELEMENT_TOKEN)),
+    __metadata$15("design:paramtypes", [Object])
 ], LiveAnnouncer);
 function LIVE_ANNOUNCER_PROVIDER_FACTORY(parentDispatcher, liveElement) {
     return parentDispatcher || new LiveAnnouncer(liveElement);
@@ -3390,10 +3398,7 @@ var __decorate$24 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$24 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let PlatformModule_1 = class PlatformModule {
+let PlatformModule = PlatformModule_1 = class PlatformModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -3402,13 +3407,12 @@ let PlatformModule_1 = class PlatformModule {
         };
     }
 };
-let PlatformModule = PlatformModule_1;
 PlatformModule = PlatformModule_1 = __decorate$24([
     NgModule({
         providers: [Platform]
-    }), 
-    __metadata$24('design:paramtypes', [])
+    })
 ], PlatformModule);
+var PlatformModule_1;
 
 var __decorate$19 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3416,10 +3420,7 @@ var __decorate$19 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$19 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let A11yModule_1 = class A11yModule {
+let A11yModule = A11yModule_1 = class A11yModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -3428,25 +3429,21 @@ let A11yModule_1 = class A11yModule {
         };
     }
 };
-let A11yModule = A11yModule_1;
 A11yModule = A11yModule_1 = __decorate$19([
     NgModule({
         imports: [CommonModule, PlatformModule],
         declarations: [FocusTrapDirective, FocusTrapDeprecatedDirective],
         exports: [FocusTrapDirective, FocusTrapDeprecatedDirective],
         providers: [InteractivityChecker, FocusTrapFactory, LIVE_ANNOUNCER_PROVIDER]
-    }), 
-    __metadata$19('design:paramtypes', [])
+    })
 ], A11yModule);
+var A11yModule_1;
 
 var __decorate$25 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$25 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
  * The FullscreenOverlayContainer is the alternative to OverlayContainer
@@ -3498,8 +3495,7 @@ let FullscreenOverlayContainer = class FullscreenOverlayContainer extends Overla
     }
 };
 FullscreenOverlayContainer = __decorate$25([
-    Injectable(), 
-    __metadata$25('design:paramtypes', [])
+    Injectable()
 ], FullscreenOverlayContainer);
 
 var __decorate$26 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -3508,7 +3504,7 @@ var __decorate$26 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$26 = (this && this.__metadata) || function (k, v) {
+var __metadata$16 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /* Adjusts configuration of our gesture library, Hammer. */
@@ -3569,8 +3565,8 @@ let GestureConfig = class GestureConfig extends HammerGestureConfig {
     }
 };
 GestureConfig = __decorate$26([
-    Injectable(), 
-    __metadata$26('design:paramtypes', [])
+    Injectable(),
+    __metadata$16("design:paramtypes", [])
 ], GestureConfig);
 
 /**
@@ -3726,9 +3722,6 @@ var __decorate$27 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$27 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 /**
  * Class to coordinate unique selection based on name.
  * Intended to be consumed as an Angular service.
@@ -3739,6 +3732,15 @@ var __metadata$27 = (this && this.__metadata) || function (k, v) {
  * less error-prone if they are simply passed through when the events occur.
  */
 let UniqueSelectionDispatcher = class UniqueSelectionDispatcher {
+    /**
+     * Class to coordinate unique selection based on name.
+     * Intended to be consumed as an Angular service.
+     * This service is needed because native radio change events are only fired on the item currently
+     * being selected, and we still need to uncheck the previous selection.
+     *
+     * This service does not *store* any IDs and names because they may change at any time, so it is
+     * less error-prone if they are simply passed through when the events occur.
+     */
     constructor() {
         this._listeners = [];
     }
@@ -3758,8 +3760,7 @@ let UniqueSelectionDispatcher = class UniqueSelectionDispatcher {
     }
 };
 UniqueSelectionDispatcher = __decorate$27([
-    Injectable(), 
-    __metadata$27('design:paramtypes', [])
+    Injectable()
 ], UniqueSelectionDispatcher);
 function UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY(parentDispatcher) {
     return parentDispatcher || new UniqueSelectionDispatcher();
@@ -3777,7 +3778,7 @@ var __decorate$29 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$29 = (this && this.__metadata) || function (k, v) {
+var __metadata$17 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // This is the value used by AngularJS Material. Through trial and error (on iPhone 6S) they found
@@ -3990,8 +3991,8 @@ let FocusOriginMonitor = class FocusOriginMonitor {
     }
 };
 FocusOriginMonitor = __decorate$29([
-    Injectable(), 
-    __metadata$29('design:paramtypes', [NgZone])
+    Injectable(),
+    __metadata$17("design:paramtypes", [NgZone])
 ], FocusOriginMonitor);
 /**
  * Directive that determines how a particular element was focused (via keyboard, mouse, touch, or
@@ -4015,14 +4016,15 @@ let CdkMonitorFocus = class CdkMonitorFocus {
     }
 };
 __decorate$29([
-    Output(), 
-    __metadata$29('design:type', Object)
+    Output(),
+    __metadata$17("design:type", Object)
 ], CdkMonitorFocus.prototype, "cdkFocusChange", void 0);
 CdkMonitorFocus = __decorate$29([
     Directive({
         selector: '[cdkMonitorElementFocus], [cdkMonitorSubtreeFocus]',
-    }), 
-    __metadata$29('design:paramtypes', [ElementRef, FocusOriginMonitor, Renderer])
+    }),
+    __metadata$17("design:paramtypes", [ElementRef, FocusOriginMonitor,
+        Renderer])
 ], CdkMonitorFocus);
 function FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY(parentDispatcher, ngZone) {
     return parentDispatcher || new FocusOriginMonitor(ngZone);
@@ -4039,7 +4041,11 @@ const FOCUS_ORIGIN_MONITOR_PROVIDER = {
  * @param element
  * @param transformValue
  */
-function applyCssTransform(element, transformValue) {
+/**
+ * Applies a CSS transform to an element, including browser-prefixed properties.
+ * @param element
+ * @param transformValue
+ */ function applyCssTransform(element, transformValue) {
     // It's important to trim the result, because the browser will ignore the set operation
     // if the string contains only whitespace.
     let value = transformValue.trim();
@@ -4053,9 +4059,6 @@ var __decorate$28 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$28 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 let StyleModule = class StyleModule {
 };
 StyleModule = __decorate$28([
@@ -4063,12 +4066,11 @@ StyleModule = __decorate$28([
         declarations: [CdkMonitorFocus],
         exports: [CdkMonitorFocus],
         providers: [FOCUS_ORIGIN_MONITOR_PROVIDER],
-    }), 
-    __metadata$28('design:paramtypes', [])
+    })
 ], StyleModule);
 
 /** @docs-private */
-class AnimationCurves {
+/** @docs-private */ class AnimationCurves {
 }
 AnimationCurves.STANDARD_CURVE = 'cubic-bezier(0.4,0.0,0.2,1)';
 AnimationCurves.DECELERATION_CURVE = 'cubic-bezier(0.0,0.0,0.2,1)';
@@ -4082,7 +4084,7 @@ AnimationDurations.ENTERING = '225ms';
 AnimationDurations.EXITING = '195ms';
 
 /** Coerces a data-bound value (typically a string) to a number. */
-function coerceNumberProperty(value, fallbackValue = 0) {
+/** Coerces a data-bound value (typically a string) to a number. */ function coerceNumberProperty(value, fallbackValue = 0) {
     // parseFloat(value) handles most of the cases we're interested in (it treats null, empty string,
     // and other non-number values as NaN, where Number just uses 0) but it considers the string
     // '123hello' to be a valid number. Therefore we also check if Number(value) is NaN.
@@ -4095,10 +4097,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdCoreModule_1 = class MdCoreModule {
+let MdCoreModule = MdCoreModule_1 = class MdCoreModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -4107,7 +4106,6 @@ let MdCoreModule_1 = class MdCoreModule {
         };
     }
 };
-let MdCoreModule = MdCoreModule_1;
 MdCoreModule = MdCoreModule_1 = __decorate([
     NgModule({
         imports: [
@@ -4132,9 +4130,9 @@ MdCoreModule = MdCoreModule_1 = __decorate([
             MdOptionModule,
             MdSelectionModule,
         ],
-    }), 
-    __metadata('design:paramtypes', [])
+    })
 ], MdCoreModule);
+var MdCoreModule_1;
 
 var __decorate$32 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4142,7 +4140,7 @@ var __decorate$32 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$32 = (this && this.__metadata) || function (k, v) {
+var __metadata$18 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$6 = (this && this.__param) || function (paramIndex, decorator) {
@@ -4164,6 +4162,7 @@ class MdButtonToggleChange {
 }
 /** Exclusive selection button toggle group that behaves like a radio-button group. */
 let MdButtonToggleGroup = class MdButtonToggleGroup {
+    /** Exclusive selection button toggle group that behaves like a radio-button group. */
     constructor() {
         /** The value for the button toggle group. Should match currently selected button toggle. */
         this._value = null;
@@ -4306,32 +4305,38 @@ let MdButtonToggleGroup = class MdButtonToggleGroup {
     }
 };
 __decorate$32([
-    ContentChildren(forwardRef(() => MdButtonToggle)), 
-    __metadata$32('design:type', QueryList)
+    ContentChildren(forwardRef(() => MdButtonToggle)),
+    __metadata$18("design:type", QueryList)
 ], MdButtonToggleGroup.prototype, "_buttonToggles", void 0);
 __decorate$32([
-    Input(), 
-    __metadata$32('design:type', String)
+    Input(),
+    __metadata$18("design:type", String),
+    __metadata$18("design:paramtypes", [String])
 ], MdButtonToggleGroup.prototype, "name", null);
 __decorate$32([
-    Input(), 
-    __metadata$32('design:type', Boolean)
+    Input(),
+    __metadata$18("design:type", Boolean),
+    __metadata$18("design:paramtypes", [Object])
 ], MdButtonToggleGroup.prototype, "disabled", null);
 __decorate$32([
-    Input(), 
-    __metadata$32('design:type', Boolean)
+    Input(),
+    __metadata$18("design:type", Boolean),
+    __metadata$18("design:paramtypes", [Object])
 ], MdButtonToggleGroup.prototype, "vertical", null);
 __decorate$32([
-    Input(), 
-    __metadata$32('design:type', Object)
+    Input(),
+    __metadata$18("design:type", Object),
+    __metadata$18("design:paramtypes", [Object])
 ], MdButtonToggleGroup.prototype, "value", null);
 __decorate$32([
-    Input(), 
-    __metadata$32('design:type', Object)
+    Input(),
+    __metadata$18("design:type", Object),
+    __metadata$18("design:paramtypes", [MdButtonToggle])
 ], MdButtonToggleGroup.prototype, "selected", null);
 __decorate$32([
-    Output(), 
-    __metadata$32('design:type', Observable)
+    Output(),
+    __metadata$18("design:type", Observable),
+    __metadata$18("design:paramtypes", [])
 ], MdButtonToggleGroup.prototype, "change", null);
 MdButtonToggleGroup = __decorate$32([
     Directive({
@@ -4343,11 +4348,11 @@ MdButtonToggleGroup = __decorate$32([
             '[class.mat-button-toggle-vertical]': 'vertical'
         },
         exportAs: 'mdButtonToggleGroup',
-    }), 
-    __metadata$32('design:paramtypes', [])
+    })
 ], MdButtonToggleGroup);
 /** Multiple selection button-toggle group. `ngModel` is not supported in this mode. */
 let MdButtonToggleGroupMultiple = class MdButtonToggleGroupMultiple {
+    /** Multiple selection button-toggle group. `ngModel` is not supported in this mode. */
     constructor() {
         /** Disables all toggles in the group. */
         this._disabled = null;
@@ -4370,12 +4375,14 @@ let MdButtonToggleGroupMultiple = class MdButtonToggleGroupMultiple {
     }
 };
 __decorate$32([
-    Input(), 
-    __metadata$32('design:type', Boolean)
+    Input(),
+    __metadata$18("design:type", Boolean),
+    __metadata$18("design:paramtypes", [Object])
 ], MdButtonToggleGroupMultiple.prototype, "disabled", null);
 __decorate$32([
-    Input(), 
-    __metadata$32('design:type', Boolean)
+    Input(),
+    __metadata$18("design:type", Boolean),
+    __metadata$18("design:paramtypes", [Object])
 ], MdButtonToggleGroupMultiple.prototype, "vertical", null);
 MdButtonToggleGroupMultiple = __decorate$32([
     Directive({
@@ -4385,8 +4392,7 @@ MdButtonToggleGroupMultiple = __decorate$32([
             '[class.mat-button-toggle-group]': 'true',
             '[class.mat-button-toggle-vertical]': 'vertical'
         }
-    }), 
-    __metadata$32('design:paramtypes', [])
+    })
 ], MdButtonToggleGroupMultiple);
 /** Single button inside of a toggle group. */
 let MdButtonToggle = class MdButtonToggle {
@@ -4519,35 +4525,39 @@ let MdButtonToggle = class MdButtonToggle {
     }
 };
 __decorate$32([
-    ViewChild('input'), 
-    __metadata$32('design:type', ElementRef)
+    ViewChild('input'),
+    __metadata$18("design:type", ElementRef)
 ], MdButtonToggle.prototype, "_inputElement", void 0);
 __decorate$32([
     HostBinding(),
-    Input(), 
-    __metadata$32('design:type', String)
+    Input(),
+    __metadata$18("design:type", String)
 ], MdButtonToggle.prototype, "id", void 0);
 __decorate$32([
-    Input(), 
-    __metadata$32('design:type', String)
+    Input(),
+    __metadata$18("design:type", String)
 ], MdButtonToggle.prototype, "name", void 0);
 __decorate$32([
     HostBinding('class.mat-button-toggle-checked'),
-    Input(), 
-    __metadata$32('design:type', Boolean)
+    Input(),
+    __metadata$18("design:type", Boolean),
+    __metadata$18("design:paramtypes", [Boolean])
 ], MdButtonToggle.prototype, "checked", null);
 __decorate$32([
-    Input(), 
-    __metadata$32('design:type', Object)
+    Input(),
+    __metadata$18("design:type", Object),
+    __metadata$18("design:paramtypes", [Object])
 ], MdButtonToggle.prototype, "value", null);
 __decorate$32([
     HostBinding('class.mat-button-toggle-disabled'),
-    Input(), 
-    __metadata$32('design:type', Boolean)
+    Input(),
+    __metadata$18("design:type", Boolean),
+    __metadata$18("design:paramtypes", [Boolean])
 ], MdButtonToggle.prototype, "disabled", null);
 __decorate$32([
-    Output(), 
-    __metadata$32('design:type', Observable)
+    Output(),
+    __metadata$18("design:type", Observable),
+    __metadata$18("design:paramtypes", [])
 ], MdButtonToggle.prototype, "change", null);
 MdButtonToggle = __decorate$32([
     Component({selector: 'md-button-toggle, mat-button-toggle',
@@ -4559,8 +4569,13 @@ MdButtonToggle = __decorate$32([
         }
     }),
     __param$6(0, Optional()),
-    __param$6(1, Optional()), 
-    __metadata$32('design:paramtypes', [MdButtonToggleGroup, MdButtonToggleGroupMultiple, UniqueSelectionDispatcher, Renderer, ElementRef, FocusOriginMonitor])
+    __param$6(1, Optional()),
+    __metadata$18("design:paramtypes", [MdButtonToggleGroup,
+        MdButtonToggleGroupMultiple,
+        UniqueSelectionDispatcher,
+        Renderer,
+        ElementRef,
+        FocusOriginMonitor])
 ], MdButtonToggle);
 
 var __decorate$31 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -4569,10 +4584,7 @@ var __decorate$31 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$31 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdButtonToggleModule_1 = class MdButtonToggleModule {
+let MdButtonToggleModule = MdButtonToggleModule_1 = class MdButtonToggleModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -4581,7 +4593,6 @@ let MdButtonToggleModule_1 = class MdButtonToggleModule {
         };
     }
 };
-let MdButtonToggleModule = MdButtonToggleModule_1;
 MdButtonToggleModule = MdButtonToggleModule_1 = __decorate$31([
     NgModule({
         imports: [FormsModule, CompatibilityModule],
@@ -4593,9 +4604,9 @@ MdButtonToggleModule = MdButtonToggleModule_1 = __decorate$31([
         ],
         declarations: [MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle],
         providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, FocusOriginMonitor]
-    }), 
-    __metadata$31('design:paramtypes', [])
+    })
 ], MdButtonToggleModule);
+var MdButtonToggleModule_1;
 
 var __decorate$34 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4603,7 +4614,7 @@ var __decorate$34 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$34 = (this && this.__metadata) || function (k, v) {
+var __metadata$19 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // TODO(kara): Convert attribute selectors to classes when attr maps become available
@@ -4619,8 +4630,7 @@ MdButtonCssMatStyler = __decorate$34([
         host: {
             '[class.mat-button]': 'true'
         }
-    }), 
-    __metadata$34('design:paramtypes', [])
+    })
 ], MdButtonCssMatStyler);
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -4635,8 +4645,7 @@ MdRaisedButtonCssMatStyler = __decorate$34([
         host: {
             '[class.mat-raised-button]': 'true'
         }
-    }), 
-    __metadata$34('design:paramtypes', [])
+    })
 ], MdRaisedButtonCssMatStyler);
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -4650,8 +4659,7 @@ MdIconButtonCssMatStyler = __decorate$34([
         host: {
             '[class.mat-icon-button]': 'true',
         }
-    }), 
-    __metadata$34('design:paramtypes', [])
+    })
 ], MdIconButtonCssMatStyler);
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -4665,8 +4673,7 @@ MdFabCssMatStyler = __decorate$34([
         host: {
             '[class.mat-fab]': 'true'
         }
-    }), 
-    __metadata$34('design:paramtypes', [])
+    })
 ], MdFabCssMatStyler);
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -4680,8 +4687,7 @@ MdMiniFabCssMatStyler = __decorate$34([
         host: {
             '[class.mat-mini-fab]': 'true'
         }
-    }), 
-    __metadata$34('design:paramtypes', [])
+    })
 ], MdMiniFabCssMatStyler);
 /**
  * Material design button.
@@ -4735,16 +4741,19 @@ let MdButton = class MdButton {
     }
 };
 __decorate$34([
-    Input(), 
-    __metadata$34('design:type', Object)
+    Input(),
+    __metadata$19("design:type", Object),
+    __metadata$19("design:paramtypes", [Object])
 ], MdButton.prototype, "disableRipple", null);
 __decorate$34([
-    Input(), 
-    __metadata$34('design:type', Object)
+    Input(),
+    __metadata$19("design:type", Object),
+    __metadata$19("design:paramtypes", [Boolean])
 ], MdButton.prototype, "disabled", null);
 __decorate$34([
-    Input(), 
-    __metadata$34('design:type', String)
+    Input(),
+    __metadata$19("design:type", String),
+    __metadata$19("design:paramtypes", [String])
 ], MdButton.prototype, "color", null);
 MdButton = __decorate$34([
     Component({selector: 'button[md-button], button[md-raised-button], button[md-icon-button],' +
@@ -4758,8 +4767,9 @@ MdButton = __decorate$34([
         styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([disabled]):active,.mat-mini-fab:not([disabled]):active,.mat-raised-button:not([disabled]):active{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button:hover .mat-button-focus-overlay,.mat-icon-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-icon,.mat-fab i{padding:16px 0;line-height:24px}.mat-mini-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-icon,.mat-mini-fab i{padding:8px 0;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{position:absolute;top:0;left:0;bottom:0;right:0}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}} /*# sourceMappingURL=button.css.map */ "],
         encapsulation: ViewEncapsulation.None,
         changeDetection: ChangeDetectionStrategy.OnPush,
-    }), 
-    __metadata$34('design:paramtypes', [ElementRef, Renderer, FocusOriginMonitor])
+    }),
+    __metadata$19("design:paramtypes", [ElementRef, Renderer,
+        FocusOriginMonitor])
 ], MdButton);
 /**
  * Raised Material design button.
@@ -4784,8 +4794,9 @@ let MdAnchor = class MdAnchor extends MdButton {
     }
 };
 __decorate$34([
-    HostBinding('tabIndex'), 
-    __metadata$34('design:type', Number)
+    HostBinding('tabIndex'),
+    __metadata$19("design:type", Number),
+    __metadata$19("design:paramtypes", [])
 ], MdAnchor.prototype, "tabIndex", null);
 MdAnchor = __decorate$34([
     Component({selector: `a[md-button], a[md-raised-button], a[md-icon-button], a[md-fab], a[md-mini-fab],
@@ -4798,8 +4809,8 @@ MdAnchor = __decorate$34([
         template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton\" [mdRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\" (touchstart)=\"$event.preventDefault()\"></div>",
         styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([disabled]):active,.mat-mini-fab:not([disabled]):active,.mat-raised-button:not([disabled]):active{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button:hover .mat-button-focus-overlay,.mat-icon-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-icon,.mat-fab i{padding:16px 0;line-height:24px}.mat-mini-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-icon,.mat-mini-fab i{padding:8px 0;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{position:absolute;top:0;left:0;bottom:0;right:0}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}} /*# sourceMappingURL=button.css.map */ "],
         encapsulation: ViewEncapsulation.None
-    }), 
-    __metadata$34('design:paramtypes', [ElementRef, Renderer, FocusOriginMonitor])
+    }),
+    __metadata$19("design:paramtypes", [ElementRef, Renderer, FocusOriginMonitor])
 ], MdAnchor);
 
 var __decorate$33 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -4808,10 +4819,7 @@ var __decorate$33 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$33 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdButtonModule_1 = class MdButtonModule {
+let MdButtonModule = MdButtonModule_1 = class MdButtonModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -4820,7 +4828,6 @@ let MdButtonModule_1 = class MdButtonModule {
         };
     }
 };
-let MdButtonModule = MdButtonModule_1;
 MdButtonModule = MdButtonModule_1 = __decorate$33([
     NgModule({
         imports: [
@@ -4848,9 +4855,9 @@ MdButtonModule = MdButtonModule_1 = __decorate$33([
             MdFabCssMatStyler,
             MdMiniFabCssMatStyler,
         ],
-    }), 
-    __metadata$33('design:paramtypes', [])
+    })
 ], MdButtonModule);
+var MdButtonModule_1;
 
 var __decorate$36 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -4858,7 +4865,7 @@ var __decorate$36 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$36 = (this && this.__metadata) || function (k, v) {
+var __metadata$20 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /** Monotonically increasing integer used to auto-generate unique ids for checkbox components. */
@@ -4990,8 +4997,10 @@ let MdCheckbox = class MdCheckbox {
     set checked(checked) {
         if (checked != this.checked) {
             if (this._indeterminate) {
-                this._indeterminate = false;
-                this.indeterminateChange.emit(this._indeterminate);
+                Promise.resolve().then(() => {
+                    this._indeterminate = false;
+                    this.indeterminateChange.emit(this._indeterminate);
+                });
             }
             this._checked = checked;
             this._changeDetectorRef.markForCheck();
@@ -5175,76 +5184,83 @@ let MdCheckbox = class MdCheckbox {
     }
 };
 __decorate$36([
-    Input('aria-label'), 
-    __metadata$36('design:type', String)
+    Input('aria-label'),
+    __metadata$20("design:type", String)
 ], MdCheckbox.prototype, "ariaLabel", void 0);
 __decorate$36([
-    Input('aria-labelledby'), 
-    __metadata$36('design:type', String)
+    Input('aria-labelledby'),
+    __metadata$20("design:type", String)
 ], MdCheckbox.prototype, "ariaLabelledby", void 0);
 __decorate$36([
-    Input(), 
-    __metadata$36('design:type', String)
+    Input(),
+    __metadata$20("design:type", String)
 ], MdCheckbox.prototype, "id", void 0);
 __decorate$36([
-    Input(), 
-    __metadata$36('design:type', Boolean)
+    Input(),
+    __metadata$20("design:type", Boolean),
+    __metadata$20("design:paramtypes", [Object])
 ], MdCheckbox.prototype, "disableRipple", null);
 __decorate$36([
-    Input(), 
-    __metadata$36('design:type', Boolean)
+    Input(),
+    __metadata$20("design:type", Boolean),
+    __metadata$20("design:paramtypes", [Object])
 ], MdCheckbox.prototype, "required", null);
 __decorate$36([
-    Input(), 
-    __metadata$36('design:type', Object)
+    Input(),
+    __metadata$20("design:type", String),
+    __metadata$20("design:paramtypes", [Object])
 ], MdCheckbox.prototype, "align", null);
 __decorate$36([
-    Input(), 
-    __metadata$36('design:type', Object)
+    Input(),
+    __metadata$20("design:type", String)
 ], MdCheckbox.prototype, "labelPosition", void 0);
 __decorate$36([
-    Input(), 
-    __metadata$36('design:type', Boolean)
+    Input(),
+    __metadata$20("design:type", Boolean),
+    __metadata$20("design:paramtypes", [Object])
 ], MdCheckbox.prototype, "disabled", null);
 __decorate$36([
-    Input(), 
-    __metadata$36('design:type', Number)
+    Input(),
+    __metadata$20("design:type", Number)
 ], MdCheckbox.prototype, "tabIndex", void 0);
 __decorate$36([
-    Input(), 
-    __metadata$36('design:type', String)
+    Input(),
+    __metadata$20("design:type", String)
 ], MdCheckbox.prototype, "name", void 0);
 __decorate$36([
-    Output(), 
-    __metadata$36('design:type', EventEmitter)
+    Output(),
+    __metadata$20("design:type", EventEmitter)
 ], MdCheckbox.prototype, "change", void 0);
 __decorate$36([
-    Output(), 
-    __metadata$36('design:type', EventEmitter)
+    Output(),
+    __metadata$20("design:type", EventEmitter)
 ], MdCheckbox.prototype, "indeterminateChange", void 0);
 __decorate$36([
-    Input(), 
-    __metadata$36('design:type', String)
+    Input(),
+    __metadata$20("design:type", String)
 ], MdCheckbox.prototype, "value", void 0);
 __decorate$36([
-    ViewChild('input'), 
-    __metadata$36('design:type', ElementRef)
+    ViewChild('input'),
+    __metadata$20("design:type", ElementRef)
 ], MdCheckbox.prototype, "_inputElement", void 0);
 __decorate$36([
-    ViewChild(MdRipple), 
-    __metadata$36('design:type', MdRipple)
+    ViewChild(MdRipple),
+    __metadata$20("design:type", MdRipple)
 ], MdCheckbox.prototype, "_ripple", void 0);
 __decorate$36([
-    Input(), 
-    __metadata$36('design:type', Object)
+    Input(),
+    __metadata$20("design:type", Object),
+    __metadata$20("design:paramtypes", [Boolean])
 ], MdCheckbox.prototype, "checked", null);
 __decorate$36([
-    Input(), 
-    __metadata$36('design:type', Object)
+    Input(),
+    __metadata$20("design:type", Object),
+    __metadata$20("design:paramtypes", [Boolean])
 ], MdCheckbox.prototype, "indeterminate", null);
 __decorate$36([
-    Input(), 
-    __metadata$36('design:type', String)
+    Input(),
+    __metadata$20("design:type", String),
+    __metadata$20("design:paramtypes", [String])
 ], MdCheckbox.prototype, "color", null);
 MdCheckbox = __decorate$36([
     Component({selector: 'md-checkbox, mat-checkbox',
@@ -5260,8 +5276,11 @@ MdCheckbox = __decorate$36([
         providers: [MD_CHECKBOX_CONTROL_VALUE_ACCESSOR],
         encapsulation: ViewEncapsulation.None,
         changeDetection: ChangeDetectionStrategy.OnPush
-    }), 
-    __metadata$36('design:paramtypes', [Renderer, ElementRef, ChangeDetectorRef, FocusOriginMonitor])
+    }),
+    __metadata$20("design:paramtypes", [Renderer,
+        ElementRef,
+        ChangeDetectorRef,
+        FocusOriginMonitor])
 ], MdCheckbox);
 
 var __decorate$35 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -5270,10 +5289,7 @@ var __decorate$35 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$35 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdCheckboxModule_1 = class MdCheckboxModule {
+let MdCheckboxModule = MdCheckboxModule_1 = class MdCheckboxModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -5282,16 +5298,15 @@ let MdCheckboxModule_1 = class MdCheckboxModule {
         };
     }
 };
-let MdCheckboxModule = MdCheckboxModule_1;
 MdCheckboxModule = MdCheckboxModule_1 = __decorate$35([
     NgModule({
         imports: [CommonModule, MdRippleModule, CompatibilityModule],
         exports: [MdCheckbox, CompatibilityModule],
         declarations: [MdCheckbox],
         providers: [FocusOriginMonitor]
-    }), 
-    __metadata$35('design:paramtypes', [])
+    })
 ], MdCheckboxModule);
+var MdCheckboxModule_1;
 
 var __decorate$38 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -5299,7 +5314,7 @@ var __decorate$38 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$38 = (this && this.__metadata) || function (k, v) {
+var __metadata$21 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$7 = (this && this.__param) || function (paramIndex, decorator) {
@@ -5323,6 +5338,9 @@ class MdRadioChange {
  * A group of radio buttons. May contain one or more `<md-radio-button>` elements.
  */
 let MdRadioGroup = class MdRadioGroup {
+    /**
+     * A group of radio buttons. May contain one or more `<md-radio-button>` elements.
+     */
     constructor() {
         /**
          * Selected value for group. Should equal the value of the selected radio button if there *is*
@@ -5484,36 +5502,41 @@ let MdRadioGroup = class MdRadioGroup {
     }
 };
 __decorate$38([
-    Output(), 
-    __metadata$38('design:type', EventEmitter)
+    Output(),
+    __metadata$21("design:type", EventEmitter)
 ], MdRadioGroup.prototype, "change", void 0);
 __decorate$38([
-    ContentChildren(forwardRef(() => MdRadioButton)), 
-    __metadata$38('design:type', QueryList)
+    ContentChildren(forwardRef(() => MdRadioButton)),
+    __metadata$21("design:type", QueryList)
 ], MdRadioGroup.prototype, "_radios", void 0);
 __decorate$38([
-    Input(), 
-    __metadata$38('design:type', String)
+    Input(),
+    __metadata$21("design:type", String),
+    __metadata$21("design:paramtypes", [String])
 ], MdRadioGroup.prototype, "name", null);
 __decorate$38([
-    Input(), 
-    __metadata$38('design:type', Object)
+    Input(),
+    __metadata$21("design:type", String),
+    __metadata$21("design:paramtypes", [Object])
 ], MdRadioGroup.prototype, "align", null);
 __decorate$38([
-    Input(), 
-    __metadata$38('design:type', Object)
+    Input(),
+    __metadata$21("design:type", String)
 ], MdRadioGroup.prototype, "labelPosition", void 0);
 __decorate$38([
-    Input(), 
-    __metadata$38('design:type', Boolean)
+    Input(),
+    __metadata$21("design:type", Boolean),
+    __metadata$21("design:paramtypes", [Object])
 ], MdRadioGroup.prototype, "disabled", null);
 __decorate$38([
-    Input(), 
-    __metadata$38('design:type', Object)
+    Input(),
+    __metadata$21("design:type", Object),
+    __metadata$21("design:paramtypes", [Object])
 ], MdRadioGroup.prototype, "value", null);
 __decorate$38([
-    Input(), 
-    __metadata$38('design:type', Object)
+    Input(),
+    __metadata$21("design:type", Object),
+    __metadata$21("design:paramtypes", [MdRadioButton])
 ], MdRadioGroup.prototype, "selected", null);
 MdRadioGroup = __decorate$38([
     Directive({
@@ -5523,8 +5546,7 @@ MdRadioGroup = __decorate$38([
             'role': 'radiogroup',
             '[class.mat-radio-group]': 'true',
         },
-    }), 
-    __metadata$38('design:paramtypes', [])
+    })
 ], MdRadioGroup);
 /**
  * A radio-button. May be inside of
@@ -5708,56 +5730,62 @@ let MdRadioButton = class MdRadioButton {
     }
 };
 __decorate$38([
-    Input(), 
-    __metadata$38('design:type', String)
+    Input(),
+    __metadata$21("design:type", String)
 ], MdRadioButton.prototype, "id", void 0);
 __decorate$38([
-    Input(), 
-    __metadata$38('design:type', String)
+    Input(),
+    __metadata$21("design:type", String)
 ], MdRadioButton.prototype, "name", void 0);
 __decorate$38([
-    Input('aria-label'), 
-    __metadata$38('design:type', String)
+    Input('aria-label'),
+    __metadata$21("design:type", String)
 ], MdRadioButton.prototype, "ariaLabel", void 0);
 __decorate$38([
-    Input('aria-labelledby'), 
-    __metadata$38('design:type', String)
+    Input('aria-labelledby'),
+    __metadata$21("design:type", String)
 ], MdRadioButton.prototype, "ariaLabelledby", void 0);
 __decorate$38([
-    Input(), 
-    __metadata$38('design:type', Boolean)
+    Input(),
+    __metadata$21("design:type", Boolean),
+    __metadata$21("design:paramtypes", [Object])
 ], MdRadioButton.prototype, "disableRipple", null);
 __decorate$38([
-    Input(), 
-    __metadata$38('design:type', Boolean)
+    Input(),
+    __metadata$21("design:type", Boolean),
+    __metadata$21("design:paramtypes", [Boolean])
 ], MdRadioButton.prototype, "checked", null);
 __decorate$38([
-    Input(), 
-    __metadata$38('design:type', Object)
+    Input(),
+    __metadata$21("design:type", Object),
+    __metadata$21("design:paramtypes", [Object])
 ], MdRadioButton.prototype, "value", null);
 __decorate$38([
-    Input(), 
-    __metadata$38('design:type', Object)
+    Input(),
+    __metadata$21("design:type", String),
+    __metadata$21("design:paramtypes", [Object])
 ], MdRadioButton.prototype, "align", null);
 __decorate$38([
-    Input(), 
-    __metadata$38('design:type', Object)
+    Input(),
+    __metadata$21("design:type", String),
+    __metadata$21("design:paramtypes", [Object])
 ], MdRadioButton.prototype, "labelPosition", null);
 __decorate$38([
-    Input(), 
-    __metadata$38('design:type', Boolean)
+    Input(),
+    __metadata$21("design:type", Boolean),
+    __metadata$21("design:paramtypes", [Boolean])
 ], MdRadioButton.prototype, "disabled", null);
 __decorate$38([
-    Output(), 
-    __metadata$38('design:type', EventEmitter)
+    Output(),
+    __metadata$21("design:type", EventEmitter)
 ], MdRadioButton.prototype, "change", void 0);
 __decorate$38([
-    ViewChild(MdRipple), 
-    __metadata$38('design:type', MdRipple)
+    ViewChild(MdRipple),
+    __metadata$21("design:type", MdRipple)
 ], MdRadioButton.prototype, "_ripple", void 0);
 __decorate$38([
-    ViewChild('input'), 
-    __metadata$38('design:type', ElementRef)
+    ViewChild('input'),
+    __metadata$21("design:type", ElementRef)
 ], MdRadioButton.prototype, "_inputElement", void 0);
 MdRadioButton = __decorate$38([
     Component({selector: 'md-radio-button, mat-radio-button',
@@ -5771,8 +5799,12 @@ MdRadioButton = __decorate$38([
             '[attr.id]': 'id',
         }
     }),
-    __param$7(0, Optional()), 
-    __metadata$38('design:paramtypes', [MdRadioGroup, ElementRef, Renderer, FocusOriginMonitor, UniqueSelectionDispatcher])
+    __param$7(0, Optional()),
+    __metadata$21("design:paramtypes", [MdRadioGroup,
+        ElementRef,
+        Renderer,
+        FocusOriginMonitor,
+        UniqueSelectionDispatcher])
 ], MdRadioButton);
 
 var __decorate$37 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -5781,10 +5813,7 @@ var __decorate$37 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$37 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdRadioModule_1 = class MdRadioModule {
+let MdRadioModule = MdRadioModule_1 = class MdRadioModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -5793,16 +5822,15 @@ let MdRadioModule_1 = class MdRadioModule {
         };
     }
 };
-let MdRadioModule = MdRadioModule_1;
 MdRadioModule = MdRadioModule_1 = __decorate$37([
     NgModule({
         imports: [CommonModule, MdRippleModule, CompatibilityModule],
         exports: [MdRadioGroup, MdRadioButton, CompatibilityModule],
         providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, VIEWPORT_RULER_PROVIDER, FocusOriginMonitor],
         declarations: [MdRadioGroup, MdRadioButton],
-    }), 
-    __metadata$37('design:paramtypes', [])
+    })
 ], MdRadioModule);
+var MdRadioModule_1;
 
 /**
  * This class manages keyboard events for selectable lists. If you pass it a query list
@@ -6057,7 +6085,7 @@ var __decorate$40 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$40 = (this && this.__metadata) || function (k, v) {
+var __metadata$22 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$8 = (this && this.__param) || function (paramIndex, decorator) {
@@ -6349,6 +6377,7 @@ let MdSelect = class MdSelect {
         }
         else {
             this.onClose.emit();
+            this._panelDoneAnimating = false;
         }
     }
     /**
@@ -6705,56 +6734,62 @@ let MdSelect = class MdSelect {
     }
 };
 __decorate$40([
-    ViewChild('trigger'), 
-    __metadata$40('design:type', ElementRef)
+    ViewChild('trigger'),
+    __metadata$22("design:type", ElementRef)
 ], MdSelect.prototype, "trigger", void 0);
 __decorate$40([
-    ViewChild(ConnectedOverlayDirective), 
-    __metadata$40('design:type', ConnectedOverlayDirective)
+    ViewChild(ConnectedOverlayDirective),
+    __metadata$22("design:type", ConnectedOverlayDirective)
 ], MdSelect.prototype, "overlayDir", void 0);
 __decorate$40([
-    ContentChildren(MdOption), 
-    __metadata$40('design:type', QueryList)
+    ContentChildren(MdOption),
+    __metadata$22("design:type", QueryList)
 ], MdSelect.prototype, "options", void 0);
 __decorate$40([
-    Input(), 
-    __metadata$40('design:type', Object)
+    Input(),
+    __metadata$22("design:type", Object),
+    __metadata$22("design:paramtypes", [String])
 ], MdSelect.prototype, "placeholder", null);
 __decorate$40([
-    Input(), 
-    __metadata$40('design:type', Object)
+    Input(),
+    __metadata$22("design:type", Object),
+    __metadata$22("design:paramtypes", [Object])
 ], MdSelect.prototype, "disabled", null);
 __decorate$40([
-    Input(), 
-    __metadata$40('design:type', Object)
+    Input(),
+    __metadata$22("design:type", Object),
+    __metadata$22("design:paramtypes", [Object])
 ], MdSelect.prototype, "required", null);
 __decorate$40([
-    Input(), 
-    __metadata$40('design:type', Boolean)
+    Input(),
+    __metadata$22("design:type", Boolean),
+    __metadata$22("design:paramtypes", [Boolean])
 ], MdSelect.prototype, "multiple", null);
 __decorate$40([
-    Input(), 
-    __metadata$40('design:type', String)
+    Input(),
+    __metadata$22("design:type", String),
+    __metadata$22("design:paramtypes", [String])
 ], MdSelect.prototype, "floatPlaceholder", null);
 __decorate$40([
-    Input(), 
-    __metadata$40('design:type', Number)
+    Input(),
+    __metadata$22("design:type", Number),
+    __metadata$22("design:paramtypes", [Number])
 ], MdSelect.prototype, "tabIndex", null);
 __decorate$40([
-    Output(), 
-    __metadata$40('design:type', EventEmitter)
+    Output(),
+    __metadata$22("design:type", EventEmitter)
 ], MdSelect.prototype, "onOpen", void 0);
 __decorate$40([
-    Output(), 
-    __metadata$40('design:type', EventEmitter)
+    Output(),
+    __metadata$22("design:type", EventEmitter)
 ], MdSelect.prototype, "onClose", void 0);
 __decorate$40([
-    Output(), 
-    __metadata$40('design:type', EventEmitter)
+    Output(),
+    __metadata$22("design:type", EventEmitter)
 ], MdSelect.prototype, "change", void 0);
 MdSelect = __decorate$40([
     Component({selector: 'md-select, mat-select',
-        template: "<div class=\"mat-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><span class=\"mat-select-placeholder\" [class.mat-floating-placeholder]=\"_selectionModel.hasValue()\" [@transformPlaceholder]=\"_getPlaceholderAnimationState()\" [style.visibility]=\"_getPlaceholderVisibility()\" [style.width.px]=\"_selectedValueWidth\">{{ placeholder }} </span><span class=\"mat-select-value\" *ngIf=\"_selectionModel.hasValue()\"><span class=\"mat-select-value-text\">{{ triggerValue }}</span> </span><span class=\"mat-select-arrow\"></span> <span class=\"mat-select-underline\"></span></div><template cdk-connected-overlay [origin]=\"origin\" [open]=\"panelOpen\" hasBackdrop (backdropClick)=\"close()\" backdropClass=\"cdk-overlay-transparent-backdrop\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" [offsetX]=\"_offsetX\" (attach)=\"_setScrollTop()\"><div class=\"mat-select-panel\" [@transformPanel]=\"'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_keyManager.onKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></template>",
+        template: "<div class=\"mat-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><span class=\"mat-select-placeholder\" [class.mat-floating-placeholder]=\"_selectionModel.hasValue()\" [@transformPlaceholder]=\"_getPlaceholderAnimationState()\" [style.visibility]=\"_getPlaceholderVisibility()\" [style.width.px]=\"_selectedValueWidth\">{{ placeholder }} </span><span class=\"mat-select-value\" *ngIf=\"_selectionModel.hasValue()\"><span class=\"mat-select-value-text\">{{ triggerValue }}</span> </span><span class=\"mat-select-arrow\"></span> <span class=\"mat-select-underline\"></span></div><ng-template cdk-connected-overlay [origin]=\"origin\" [open]=\"panelOpen\" hasBackdrop (backdropClick)=\"close()\" backdropClass=\"cdk-overlay-transparent-backdrop\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" [offsetX]=\"_offsetX\" (attach)=\"_setScrollTop()\"><div class=\"mat-select-panel\" [@transformPanel]=\"'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_keyManager.onKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
         styles: [".mat-select{display:inline-block;outline:0;font-family:Roboto,\"Helvetica Neue\",sans-serif}.mat-select-trigger{display:flex;align-items:center;height:30px;min-width:112px;cursor:pointer;position:relative;box-sizing:border-box;font-size:16px}[aria-disabled=true] .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-underline{position:absolute;bottom:0;left:0;right:0;height:1px}[aria-disabled=true] .mat-select-underline{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;background-color:transparent;background-position:0 bottom}.mat-select-placeholder{position:relative;padding:0 2px;transform-origin:left top;flex-grow:1}.mat-select-placeholder.mat-floating-placeholder{top:-22px;left:-2px;text-align:left;transform:scale(.75)}[dir=rtl] .mat-select-placeholder{transform-origin:right top}[dir=rtl] .mat-select-placeholder.mat-floating-placeholder{left:2px;text-align:right}[aria-required=true] .mat-select-placeholder::after{content:'*'}.mat-select-value{position:absolute;max-width:calc(100% - 18px);flex-grow:1;top:0;left:0;bottom:0;display:flex;align-items:center}[dir=rtl] .mat-select-value{left:auto;right:0}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:30px}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}} /*# sourceMappingURL=select.css.map */ "],
         encapsulation: ViewEncapsulation.None,
         host: {
@@ -6777,11 +6812,11 @@ MdSelect = __decorate$40([
         ],
         exportAs: 'mdSelect',
     }),
-    __param$8(4, Optional()),
-    __param$8(5, Self()),
-    __param$8(5, Optional()),
-    __param$8(6, Attribute('tabindex')), 
-    __metadata$40('design:paramtypes', [ElementRef, Renderer, ViewportRuler, ChangeDetectorRef, Dir, NgControl, String])
+    __param$8(4, Optional()), __param$8(5, Self()), __param$8(5, Optional()),
+    __param$8(6, Attribute('tabindex')),
+    __metadata$22("design:paramtypes", [ElementRef, Renderer,
+        ViewportRuler, ChangeDetectorRef,
+        Dir, NgControl, String])
 ], MdSelect);
 /** Clamps a value n between min and max values. */
 function clampValue(min, n, max) {
@@ -6794,10 +6829,7 @@ var __decorate$39 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$39 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdSelectModule_1 = class MdSelectModule {
+let MdSelectModule = MdSelectModule_1 = class MdSelectModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -6806,15 +6838,19 @@ let MdSelectModule_1 = class MdSelectModule {
         };
     }
 };
-let MdSelectModule = MdSelectModule_1;
 MdSelectModule = MdSelectModule_1 = __decorate$39([
     NgModule({
-        imports: [CommonModule, OverlayModule, MdOptionModule, CompatibilityModule],
+        imports: [
+            CommonModule,
+            OverlayModule,
+            MdOptionModule,
+            CompatibilityModule,
+        ],
         exports: [MdSelect, MdOptionModule, CompatibilityModule],
         declarations: [MdSelect],
-    }), 
-    __metadata$39('design:paramtypes', [])
+    })
 ], MdSelectModule);
+var MdSelectModule_1;
 
 var __decorate$42 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -6822,7 +6858,7 @@ var __decorate$42 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$42 = (this && this.__metadata) || function (k, v) {
+var __metadata$23 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const MD_SLIDE_TOGGLE_VALUE_ACCESSOR = {
@@ -7012,56 +7048,61 @@ let MdSlideToggle = class MdSlideToggle {
     }
 };
 __decorate$42([
-    Input(), 
-    __metadata$42('design:type', String)
+    Input(),
+    __metadata$23("design:type", String)
 ], MdSlideToggle.prototype, "name", void 0);
 __decorate$42([
-    Input(), 
-    __metadata$42('design:type', String)
+    Input(),
+    __metadata$23("design:type", String)
 ], MdSlideToggle.prototype, "id", void 0);
 __decorate$42([
-    Input(), 
-    __metadata$42('design:type', Number)
+    Input(),
+    __metadata$23("design:type", Number)
 ], MdSlideToggle.prototype, "tabIndex", void 0);
 __decorate$42([
-    Input(), 
-    __metadata$42('design:type', Object)
+    Input(),
+    __metadata$23("design:type", String)
 ], MdSlideToggle.prototype, "labelPosition", void 0);
 __decorate$42([
-    Input('aria-label'), 
-    __metadata$42('design:type', String)
+    Input('aria-label'),
+    __metadata$23("design:type", String)
 ], MdSlideToggle.prototype, "ariaLabel", void 0);
 __decorate$42([
-    Input('aria-labelledby'), 
-    __metadata$42('design:type', String)
+    Input('aria-labelledby'),
+    __metadata$23("design:type", String)
 ], MdSlideToggle.prototype, "ariaLabelledby", void 0);
 __decorate$42([
-    Input(), 
-    __metadata$42('design:type', Boolean)
+    Input(),
+    __metadata$23("design:type", Boolean),
+    __metadata$23("design:paramtypes", [Object])
 ], MdSlideToggle.prototype, "disabled", null);
 __decorate$42([
-    Input(), 
-    __metadata$42('design:type', Boolean)
+    Input(),
+    __metadata$23("design:type", Boolean),
+    __metadata$23("design:paramtypes", [Object])
 ], MdSlideToggle.prototype, "required", null);
 __decorate$42([
-    Input(), 
-    __metadata$42('design:type', Boolean)
+    Input(),
+    __metadata$23("design:type", Boolean),
+    __metadata$23("design:paramtypes", [Object])
 ], MdSlideToggle.prototype, "disableRipple", null);
 __decorate$42([
-    Output(), 
-    __metadata$42('design:type', Observable)
+    Output(),
+    __metadata$23("design:type", Observable)
 ], MdSlideToggle.prototype, "change", void 0);
 __decorate$42([
-    ViewChild('input'), 
-    __metadata$42('design:type', ElementRef)
+    ViewChild('input'),
+    __metadata$23("design:type", ElementRef)
 ], MdSlideToggle.prototype, "_inputElement", void 0);
 __decorate$42([
-    Input(), 
-    __metadata$42('design:type', Object)
+    Input(),
+    __metadata$23("design:type", Object),
+    __metadata$23("design:paramtypes", [Object])
 ], MdSlideToggle.prototype, "checked", null);
 __decorate$42([
-    Input(), 
-    __metadata$42('design:type', String)
+    Input(),
+    __metadata$23("design:type", String),
+    __metadata$23("design:paramtypes", [String])
 ], MdSlideToggle.prototype, "color", null);
 MdSlideToggle = __decorate$42([
     Component({selector: 'md-slide-toggle, mat-slide-toggle',
@@ -7079,8 +7120,8 @@ MdSlideToggle = __decorate$42([
         providers: [MD_SLIDE_TOGGLE_VALUE_ACCESSOR],
         encapsulation: ViewEncapsulation.None,
         changeDetection: ChangeDetectionStrategy.OnPush
-    }), 
-    __metadata$42('design:paramtypes', [ElementRef, Renderer])
+    }),
+    __metadata$23("design:paramtypes", [ElementRef, Renderer])
 ], MdSlideToggle);
 /**
  * Renderer for the Slide Toggle component, which separates DOM modification in its own class
@@ -7138,10 +7179,7 @@ var __decorate$41 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$41 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdSlideToggleModule_1 = class MdSlideToggleModule {
+let MdSlideToggleModule = MdSlideToggleModule_1 = class MdSlideToggleModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -7150,16 +7188,15 @@ let MdSlideToggleModule_1 = class MdSlideToggleModule {
         };
     }
 };
-let MdSlideToggleModule = MdSlideToggleModule_1;
 MdSlideToggleModule = MdSlideToggleModule_1 = __decorate$41([
     NgModule({
         imports: [FormsModule, MdRippleModule, CompatibilityModule],
         exports: [MdSlideToggle, CompatibilityModule],
         declarations: [MdSlideToggle],
         providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }],
-    }), 
-    __metadata$41('design:paramtypes', [])
+    })
 ], MdSlideToggleModule);
+var MdSlideToggleModule_1;
 
 var __decorate$44 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -7167,7 +7204,7 @@ var __decorate$44 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$44 = (this && this.__metadata) || function (k, v) {
+var __metadata$24 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$9 = (this && this.__param) || function (paramIndex, decorator) {
@@ -7645,56 +7682,67 @@ let MdSlider = class MdSlider {
     }
 };
 __decorate$44([
-    Input(), 
-    __metadata$44('design:type', Boolean)
+    Input(),
+    __metadata$24("design:type", Boolean),
+    __metadata$24("design:paramtypes", [Object])
 ], MdSlider.prototype, "disabled", null);
 __decorate$44([
-    Input(), 
-    __metadata$44('design:type', Object)
+    Input(),
+    __metadata$24("design:type", Object),
+    __metadata$24("design:paramtypes", [Object])
 ], MdSlider.prototype, "invert", null);
 __decorate$44([
-    Input(), 
-    __metadata$44('design:type', Object)
+    Input(),
+    __metadata$24("design:type", Object),
+    __metadata$24("design:paramtypes", [Number])
 ], MdSlider.prototype, "max", null);
 __decorate$44([
-    Input(), 
-    __metadata$44('design:type', Object)
+    Input(),
+    __metadata$24("design:type", Object),
+    __metadata$24("design:paramtypes", [Number])
 ], MdSlider.prototype, "min", null);
 __decorate$44([
-    Input(), 
-    __metadata$44('design:type', Object)
+    Input(),
+    __metadata$24("design:type", Object),
+    __metadata$24("design:paramtypes", [Object])
 ], MdSlider.prototype, "step", null);
 __decorate$44([
-    Input(), 
-    __metadata$44('design:type', Boolean)
+    Input(),
+    __metadata$24("design:type", Boolean),
+    __metadata$24("design:paramtypes", [Object])
 ], MdSlider.prototype, "thumbLabel", null);
 __decorate$44([
-    Input('thumb-label'), 
-    __metadata$44('design:type', Boolean)
+    Input('thumb-label'),
+    __metadata$24("design:type", Boolean),
+    __metadata$24("design:paramtypes", [Object])
 ], MdSlider.prototype, "_thumbLabelDeprecated", null);
 __decorate$44([
-    Input(), 
-    __metadata$44('design:type', Object)
+    Input(),
+    __metadata$24("design:type", Object),
+    __metadata$24("design:paramtypes", [Object])
 ], MdSlider.prototype, "tickInterval", null);
 __decorate$44([
-    Input('tick-interval'), 
-    __metadata$44('design:type', Object)
+    Input('tick-interval'),
+    __metadata$24("design:type", Object),
+    __metadata$24("design:paramtypes", [Object])
 ], MdSlider.prototype, "_tickIntervalDeprecated", null);
 __decorate$44([
-    Input(), 
-    __metadata$44('design:type', Object)
+    Input(),
+    __metadata$24("design:type", Object),
+    __metadata$24("design:paramtypes", [Number])
 ], MdSlider.prototype, "value", null);
 __decorate$44([
-    Input(), 
-    __metadata$44('design:type', Object)
+    Input(),
+    __metadata$24("design:type", Object),
+    __metadata$24("design:paramtypes", [Object])
 ], MdSlider.prototype, "vertical", null);
 __decorate$44([
-    Output(), 
-    __metadata$44('design:type', Object)
+    Output(),
+    __metadata$24("design:type", Object)
 ], MdSlider.prototype, "change", void 0);
 __decorate$44([
-    Output(), 
-    __metadata$44('design:type', Object)
+    Output(),
+    __metadata$24("design:type", Object)
 ], MdSlider.prototype, "input", void 0);
 MdSlider = __decorate$44([
     Component({selector: 'md-slider, mat-slider',
@@ -7730,8 +7778,9 @@ MdSlider = __decorate$44([
         styles: [".mat-slider{display:inline-block;position:relative;box-sizing:border-box;padding:8px;outline:0;vertical-align:middle}.mat-slider-wrapper{position:absolute}.mat-slider-track-wrapper{position:absolute;top:0;left:0;overflow:hidden}.mat-slider-track-fill{position:absolute;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-track-background{position:absolute;transform-origin:100% 100%;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-ticks-container{position:absolute;left:0;top:0;overflow:hidden}.mat-slider-ticks{box-sizing:border-box;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-container{position:absolute;z-index:1;transition:transform .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-focus-ring{position:absolute;width:30px;height:30px;border-radius:50%;transform:scale(0);opacity:0;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),opacity .4s cubic-bezier(.25,.8,.25,1)}.cdk-keyboard-focused .mat-slider-focus-ring{transform:scale(1);opacity:1}.mat-slider-thumb{position:absolute;right:-10px;bottom:-10px;box-sizing:border-box;width:20px;height:20px;border:3px solid transparent;border-radius:50%;transform:scale(.7);transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),border-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-label{display:none;align-items:center;justify-content:center;position:absolute;width:28px;height:28px;border-radius:50%;transition:transform .4s cubic-bezier(.25,.8,.25,1),border-radius .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-label-text{z-index:1;font-size:12px;font-weight:700;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-sliding .mat-slider-thumb-container,.mat-slider-sliding .mat-slider-track-background,.mat-slider-sliding .mat-slider-track-fill{transition-duration:0s}.mat-slider-has-ticks .mat-slider-wrapper::after{content:'';position:absolute;border:0 solid rgba(0,0,0,.6);opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after,.mat-slider-has-ticks:hover:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after{opacity:1}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-disabled) .mat-slider-ticks,.mat-slider-has-ticks:hover:not(.mat-slider-disabled) .mat-slider-ticks{opacity:1}.mat-slider-thumb-label-showing .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-thumb-label-showing .mat-slider-thumb-label{display:flex}.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:100% 100%}.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:0 0}.cdk-focused.mat-slider-thumb-label-showing .mat-slider-thumb{transform:scale(0)}.cdk-focused .mat-slider-thumb-label{border-radius:50% 50% 0}.cdk-focused .mat-slider-thumb-label-text{opacity:1}.cdk-mouse-focused .mat-slider-thumb,.cdk-program-focused .mat-slider-thumb,.cdk-touch-focused .mat-slider-thumb{border-width:2px;transform:scale(1)}.mat-slider-disabled .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-disabled .mat-slider-thumb{border-width:4px;transform:scale(.5)}.mat-slider-disabled .mat-slider-thumb-label{display:none}.mat-slider-horizontal{height:48px;min-width:128px}.mat-slider-horizontal .mat-slider-wrapper{height:2px;top:23px;left:8px;right:8px}.mat-slider-horizontal .mat-slider-wrapper::after{height:2px;border-left-width:2px;right:0;top:0}.mat-slider-horizontal .mat-slider-track-wrapper{height:2px;width:100%}.mat-slider-horizontal .mat-slider-track-fill{height:2px;width:100%;transform:scaleX(0)}.mat-slider-horizontal .mat-slider-track-background{height:2px;width:100%;transform:scaleX(1)}.mat-slider-horizontal .mat-slider-ticks-container{height:2px;width:100%}.mat-slider-horizontal .mat-slider-ticks{background:repeating-linear-gradient(to right,rgba(0,0,0,.6),rgba(0,0,0,.6) 2px,transparent 0,transparent) repeat;background:-moz-repeating-linear-gradient(.0001deg,rgba(0,0,0,.6),rgba(0,0,0,.6) 2px,transparent 0,transparent) repeat;background-clip:content-box;height:2px;width:100%}.mat-slider-horizontal .mat-slider-thumb-container{width:100%;height:0;top:50%}.mat-slider-horizontal .mat-slider-focus-ring{top:-15px;right:-15px}.mat-slider-horizontal .mat-slider-thumb-label{right:-14px;top:-40px;transform:translateY(26px) scale(.01) rotate(45deg)}.mat-slider-horizontal .mat-slider-thumb-label-text{transform:rotate(-45deg)}.mat-slider-horizontal.cdk-focused .mat-slider-thumb-label{transform:rotate(45deg)}.mat-slider-vertical{width:48px;min-height:128px}.mat-slider-vertical .mat-slider-wrapper{width:2px;top:8px;bottom:8px;left:23px}.mat-slider-vertical .mat-slider-wrapper::after{width:2px;border-top-width:2px;bottom:0;left:0}.mat-slider-vertical .mat-slider-track-wrapper{height:100%;width:2px}.mat-slider-vertical .mat-slider-track-fill{height:100%;width:2px;transform:scaleY(0)}.mat-slider-vertical .mat-slider-track-background{height:100%;width:2px;transform:scaleY(1)}.mat-slider-vertical .mat-slider-ticks-container{width:2px;height:100%}.mat-slider-vertical .mat-slider-focus-ring{bottom:-15px;left:-15px}.mat-slider-vertical .mat-slider-ticks{background:repeating-linear-gradient(to bottom,rgba(0,0,0,.6),rgba(0,0,0,.6) 2px,transparent 0,transparent) repeat;background-clip:content-box;width:2px;height:100%}.mat-slider-vertical .mat-slider-thumb-container{height:100%;width:0;left:50%}.mat-slider-vertical .mat-slider-thumb-label{bottom:-14px;left:-40px;transform:translateX(26px) scale(.01) rotate(-45deg)}.mat-slider-vertical .mat-slider-thumb-label-text{transform:rotate(45deg)}.mat-slider-vertical.cdk-focused .mat-slider-thumb-label{transform:rotate(-45deg)}[dir=rtl] .mat-slider-wrapper::after{left:0;right:auto}[dir=rtl] .mat-slider-horizontal .mat-slider-track-fill{transform-origin:100% 100%}[dir=rtl] .mat-slider-horizontal .mat-slider-track-background{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:100% 100%} /*# sourceMappingURL=slider.css.map */ "],
         encapsulation: ViewEncapsulation.None,
     }),
-    __param$9(3, Optional()), 
-    __metadata$44('design:paramtypes', [Renderer, ElementRef, FocusOriginMonitor, Dir])
+    __param$9(3, Optional()),
+    __metadata$24("design:paramtypes", [Renderer, ElementRef,
+        FocusOriginMonitor, Dir])
 ], MdSlider);
 /**
  * Renderer class in order to keep all dom manipulation in one place and outside of the main class.
@@ -7765,10 +7814,7 @@ var __decorate$43 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$43 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdSliderModule_1 = class MdSliderModule {
+let MdSliderModule = MdSliderModule_1 = class MdSliderModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -7777,16 +7823,15 @@ let MdSliderModule_1 = class MdSliderModule {
         };
     }
 };
-let MdSliderModule = MdSliderModule_1;
 MdSliderModule = MdSliderModule_1 = __decorate$43([
     NgModule({
         imports: [CommonModule, FormsModule, CompatibilityModule, StyleModule, RtlModule],
         exports: [MdSlider, CompatibilityModule],
         declarations: [MdSlider],
         providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
-    }), 
-    __metadata$43('design:paramtypes', [])
+    })
 ], MdSliderModule);
+var MdSliderModule_1;
 
 var __decorate$46 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -7794,7 +7839,7 @@ var __decorate$46 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$46 = (this && this.__metadata) || function (k, v) {
+var __metadata$25 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$10 = (this && this.__param) || function (paramIndex, decorator) {
@@ -8014,40 +8059,43 @@ let MdSidenav = class MdSidenav {
     }
 };
 __decorate$46([
-    Input(), 
-    __metadata$46('design:type', Object)
+    Input(),
+    __metadata$25("design:type", Object),
+    __metadata$25("design:paramtypes", [Object])
 ], MdSidenav.prototype, "align", null);
 __decorate$46([
-    Input(), 
-    __metadata$46('design:type', Object)
+    Input(),
+    __metadata$25("design:type", String)
 ], MdSidenav.prototype, "mode", void 0);
 __decorate$46([
-    Input(), 
-    __metadata$46('design:type', Boolean)
+    Input(),
+    __metadata$25("design:type", Boolean),
+    __metadata$25("design:paramtypes", [Boolean])
 ], MdSidenav.prototype, "disableClose", null);
 __decorate$46([
-    Output('open-start'), 
-    __metadata$46('design:type', Object)
+    Output('open-start'),
+    __metadata$25("design:type", Object)
 ], MdSidenav.prototype, "onOpenStart", void 0);
 __decorate$46([
-    Output('open'), 
-    __metadata$46('design:type', Object)
+    Output('open'),
+    __metadata$25("design:type", Object)
 ], MdSidenav.prototype, "onOpen", void 0);
 __decorate$46([
-    Output('close-start'), 
-    __metadata$46('design:type', Object)
+    Output('close-start'),
+    __metadata$25("design:type", Object)
 ], MdSidenav.prototype, "onCloseStart", void 0);
 __decorate$46([
-    Output('close'), 
-    __metadata$46('design:type', Object)
+    Output('close'),
+    __metadata$25("design:type", Object)
 ], MdSidenav.prototype, "onClose", void 0);
 __decorate$46([
-    Output('align-changed'), 
-    __metadata$46('design:type', Object)
+    Output('align-changed'),
+    __metadata$25("design:type", Object)
 ], MdSidenav.prototype, "onAlignChanged", void 0);
 __decorate$46([
-    Input(), 
-    __metadata$46('design:type', Boolean)
+    Input(),
+    __metadata$25("design:type", Boolean),
+    __metadata$25("design:paramtypes", [Boolean])
 ], MdSidenav.prototype, "opened", null);
 MdSidenav = __decorate$46([
     Component({selector: 'md-sidenav, mat-sidenav',
@@ -8071,8 +8119,10 @@ MdSidenav = __decorate$46([
         },
         changeDetection: ChangeDetectionStrategy.OnPush,
         encapsulation: ViewEncapsulation.None,
-    }), 
-    __metadata$46('design:paramtypes', [ElementRef, Renderer, FocusTrapFactory])
+    }),
+    __metadata$25("design:paramtypes", [ElementRef,
+        Renderer,
+        FocusTrapFactory])
 ], MdSidenav);
 /**
  * <md-sidenav-container> component.
@@ -8229,12 +8279,12 @@ let MdSidenavContainer = class MdSidenavContainer {
     }
 };
 __decorate$46([
-    ContentChildren(MdSidenav), 
-    __metadata$46('design:type', QueryList)
+    ContentChildren(MdSidenav),
+    __metadata$25("design:type", QueryList)
 ], MdSidenavContainer.prototype, "_sidenavs", void 0);
 __decorate$46([
-    Output(), 
-    __metadata$46('design:type', Object)
+    Output(),
+    __metadata$25("design:type", Object)
 ], MdSidenavContainer.prototype, "backdropClick", void 0);
 MdSidenavContainer = __decorate$46([
     Component({selector: 'md-sidenav-container, mat-sidenav-container',
@@ -8250,8 +8300,9 @@ MdSidenavContainer = __decorate$46([
         },
         encapsulation: ViewEncapsulation.None,
     }),
-    __param$10(0, Optional()), 
-    __metadata$46('design:paramtypes', [Dir, ElementRef, Renderer, NgZone])
+    __param$10(0, Optional()),
+    __metadata$25("design:paramtypes", [Dir, ElementRef,
+        Renderer, NgZone])
 ], MdSidenavContainer);
 
 var __decorate$45 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -8260,10 +8311,7 @@ var __decorate$45 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$45 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdSidenavModule_1 = class MdSidenavModule {
+let MdSidenavModule = MdSidenavModule_1 = class MdSidenavModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -8272,15 +8320,14 @@ let MdSidenavModule_1 = class MdSidenavModule {
         };
     }
 };
-let MdSidenavModule = MdSidenavModule_1;
 MdSidenavModule = MdSidenavModule_1 = __decorate$45([
     NgModule({
         imports: [CommonModule, CompatibilityModule, A11yModule, OverlayModule],
         exports: [MdSidenavContainer, MdSidenav, CompatibilityModule],
         declarations: [MdSidenavContainer, MdSidenav],
-    }), 
-    __metadata$45('design:paramtypes', [])
+    })
 ], MdSidenavModule);
+var MdSidenavModule_1;
 
 var __decorate$48 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -8288,7 +8335,7 @@ var __decorate$48 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$48 = (this && this.__metadata) || function (k, v) {
+var __metadata$26 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$11 = (this && this.__param) || function (paramIndex, decorator) {
@@ -8299,8 +8346,7 @@ let MdListDivider = class MdListDivider {
 MdListDivider = __decorate$48([
     Directive({
         selector: 'md-divider, mat-divider'
-    }), 
-    __metadata$48('design:paramtypes', [])
+    })
 ], MdListDivider);
 /**
  * Token used to inject the list type into child MdListItem components so they can know whether
@@ -8314,13 +8360,13 @@ let MdList = class MdList {
 MdList = __decorate$48([
     Component({selector: 'md-list, mat-list, md-nav-list, mat-nav-list',
         host: {
-            'role': 'list' },
+            'role': 'list'
+        },
         template: '<ng-content></ng-content>',
         styles: [".mat-list,.mat-nav-list{padding-top:8px;display:block}.mat-list .mat-subheader,.mat-nav-list .mat-subheader{display:block;box-sizing:border-box;height:48px;padding:16px;margin:0;font-size:14px;font-weight:500}.mat-list .mat-subheader:first-child,.mat-nav-list .mat-subheader:first-child{margin-top:-8px}.mat-list .mat-list-item,.mat-nav-list .mat-list-item{display:block}.mat-list .mat-list-item .mat-list-item-content,.mat-nav-list .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;font-family:Roboto,\"Helvetica Neue\",sans-serif;box-sizing:border-box;font-size:16px;height:48px;padding:0 16px;position:relative}.mat-list .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:56px}.mat-list .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-2-line .mat-list-item-content{height:72px}.mat-list .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-3-line .mat-list-item-content{height:88px}.mat-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list .mat-list-item .mat-list-text,.mat-nav-list .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-item .mat-list-text>*,.mat-nav-list .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-item .mat-list-text:empty,.mat-nav-list .mat-list-item .mat-list-text:empty{display:none}.mat-list .mat-list-item .mat-list-text:first-child,.mat-nav-list .mat-list-item .mat-list-text:first-child{padding:0}.mat-list .mat-list-item .mat-list-avatar,.mat-nav-list .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-item .mat-list-icon,.mat-nav-list .mat-list-item .mat-list-icon{width:24px;height:24px;border-radius:50%;padding:4px}.mat-list .mat-list-item .mat-line,.mat-nav-list .mat-list-item .mat-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;box-sizing:border-box}.mat-list .mat-list-item .mat-line:nth-child(n+2),.mat-nav-list .mat-list-item .mat-line:nth-child(n+2){font-size:14px}.mat-list[dense],.mat-nav-list[dense]{padding-top:4px;display:block}.mat-list[dense] .mat-subheader,.mat-nav-list[dense] .mat-subheader{display:block;box-sizing:border-box;height:40px;padding:16px;margin:0;font-size:13px;font-weight:500}.mat-list[dense] .mat-subheader:first-child,.mat-nav-list[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list[dense] .mat-list-item,.mat-nav-list[dense] .mat-list-item{display:block}.mat-list[dense] .mat-list-item .mat-list-item-content,.mat-nav-list[dense] .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;font-family:Roboto,\"Helvetica Neue\",sans-serif;box-sizing:border-box;font-size:13px;height:40px;padding:0 16px;position:relative}.mat-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:48px}.mat-list[dense] .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-2-line .mat-list-item-content{height:60px}.mat-list[dense] .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-3-line .mat-list-item-content{height:76px}.mat-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-item .mat-list-text,.mat-nav-list[dense] .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-item .mat-list-text>*,.mat-nav-list[dense] .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-item .mat-list-text:empty,.mat-nav-list[dense] .mat-list-item .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-item .mat-list-text:first-child,.mat-nav-list[dense] .mat-list-item .mat-list-text:first-child{padding:0}.mat-list[dense] .mat-list-item .mat-list-avatar,.mat-nav-list[dense] .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-item .mat-list-icon,.mat-nav-list[dense] .mat-list-item .mat-list-icon{width:24px;height:24px;border-radius:50%;padding:4px}.mat-list[dense] .mat-list-item .mat-line,.mat-nav-list[dense] .mat-list-item .mat-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;box-sizing:border-box}.mat-list[dense] .mat-list-item .mat-line:nth-child(n+2),.mat-nav-list[dense] .mat-list-item .mat-line:nth-child(n+2){font-size:13px}.mat-divider{display:block;border-top-style:solid;border-top-width:1px;margin:0}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item-content{cursor:pointer}.mat-nav-list .mat-list-item-content.mat-list-item-focus,.mat-nav-list .mat-list-item-content:hover{outline:0} /*# sourceMappingURL=list.css.map */ "],
         providers: [{ provide: LIST_TYPE_TOKEN, useValue: NORMAL_LIST_TYPE }],
         encapsulation: ViewEncapsulation.None
-    }), 
-    __metadata$48('design:paramtypes', [])
+    })
 ], MdList);
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -8334,8 +8380,7 @@ MdListCssMatStyler = __decorate$48([
         host: {
             '[class.mat-list]': 'true'
         }
-    }), 
-    __metadata$48('design:paramtypes', [])
+    })
 ], MdListCssMatStyler);
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -8349,8 +8394,7 @@ MdNavListCssMatStyler = __decorate$48([
         host: {
             '[class.mat-nav-list]': 'true'
         }
-    }), 
-    __metadata$48('design:paramtypes', [])
+    })
 ], MdNavListCssMatStyler);
 /**
  * Directive to set the ListType token to NAV_LIST_TYPE.
@@ -8361,8 +8405,7 @@ MdNavListTokenSetter = __decorate$48([
     Directive({
         selector: 'md-nav-list, mat-nav-list',
         providers: [{ provide: LIST_TYPE_TOKEN, useValue: NAV_LIST_TYPE }],
-    }), 
-    __metadata$48('design:paramtypes', [])
+    })
 ], MdNavListTokenSetter);
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -8376,8 +8419,7 @@ MdDividerCssMatStyler = __decorate$48([
         host: {
             '[class.mat-divider]': 'true'
         }
-    }), 
-    __metadata$48('design:paramtypes', [])
+    })
 ], MdDividerCssMatStyler);
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -8391,8 +8433,7 @@ MdListAvatarCssMatStyler = __decorate$48([
         host: {
             '[class.mat-list-avatar]': 'true'
         }
-    }), 
-    __metadata$48('design:paramtypes', [])
+    })
 ], MdListAvatarCssMatStyler);
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -8406,8 +8447,7 @@ MdListIconCssMatStyler = __decorate$48([
         host: {
             '[class.mat-list-icon]': 'true'
         }
-    }), 
-    __metadata$48('design:paramtypes', [])
+    })
 ], MdListIconCssMatStyler);
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -8421,8 +8461,7 @@ MdListSubheaderCssMatStyler = __decorate$48([
         host: {
             '[class.mat-subheader]': 'true'
         }
-    }), 
-    __metadata$48('design:paramtypes', [])
+    })
 ], MdListSubheaderCssMatStyler);
 let MdListItem = class MdListItem {
     constructor(_renderer, _element, _listType) {
@@ -8454,17 +8493,17 @@ let MdListItem = class MdListItem {
     }
 };
 __decorate$48([
-    Input(), 
-    __metadata$48('design:type', Boolean)
+    Input(),
+    __metadata$26("design:type", Boolean)
 ], MdListItem.prototype, "disableRipple", void 0);
 __decorate$48([
-    ContentChildren(MdLine), 
-    __metadata$48('design:type', QueryList)
+    ContentChildren(MdLine),
+    __metadata$26("design:type", QueryList)
 ], MdListItem.prototype, "_lines", void 0);
 __decorate$48([
-    ContentChild(MdListAvatarCssMatStyler), 
-    __metadata$48('design:type', MdListAvatarCssMatStyler), 
-    __metadata$48('design:paramtypes', [MdListAvatarCssMatStyler])
+    ContentChild(MdListAvatarCssMatStyler),
+    __metadata$26("design:type", MdListAvatarCssMatStyler),
+    __metadata$26("design:paramtypes", [MdListAvatarCssMatStyler])
 ], MdListItem.prototype, "_hasAvatar", null);
 MdListItem = __decorate$48([
     Component({selector: 'md-list-item, mat-list-item, a[md-list-item], a[mat-list-item]',
@@ -8477,9 +8516,8 @@ MdListItem = __decorate$48([
         template: "<div class=\"mat-list-item-content\" [class.mat-list-item-focus]=\"_hasFocus\" md-ripple [mdRippleDisabled]=\"!isRippleEnabled()\"><ng-content select=\"[md-list-avatar],[md-list-icon], [mat-list-avatar], [mat-list-icon]\"></ng-content><div class=\"mat-list-text\"><ng-content select=\"[md-line], [mat-line]\"></ng-content></div><ng-content></ng-content></div>",
         encapsulation: ViewEncapsulation.None
     }),
-    __param$11(2, Optional()),
-    __param$11(2, Inject(LIST_TYPE_TOKEN)), 
-    __metadata$48('design:paramtypes', [Renderer, ElementRef, String])
+    __param$11(2, Optional()), __param$11(2, Inject(LIST_TYPE_TOKEN)),
+    __metadata$26("design:paramtypes", [Renderer, ElementRef, String])
 ], MdListItem);
 
 var __decorate$47 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -8488,10 +8526,7 @@ var __decorate$47 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$47 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdListModule_1 = class MdListModule {
+let MdListModule = MdListModule_1 = class MdListModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -8500,7 +8535,6 @@ let MdListModule_1 = class MdListModule {
         };
     }
 };
-let MdListModule = MdListModule_1;
 MdListModule = MdListModule_1 = __decorate$47([
     NgModule({
         imports: [MdLineModule, MdRippleModule, CompatibilityModule],
@@ -8530,9 +8564,9 @@ MdListModule = MdListModule_1 = __decorate$47([
             MdListSubheaderCssMatStyler,
             MdNavListTokenSetter,
         ],
-    }), 
-    __metadata$47('design:paramtypes', [])
+    })
 ], MdListModule);
+var MdListModule_1;
 
 /**
  * Converts values into strings. Falsy values become empty strings.
@@ -8555,7 +8589,7 @@ var __decorate$50 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$50 = (this && this.__metadata) || function (k, v) {
+var __metadata$27 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 let MdGridTile = class MdGridTile {
@@ -8580,12 +8614,14 @@ let MdGridTile = class MdGridTile {
     }
 };
 __decorate$50([
-    Input(), 
-    __metadata$50('design:type', Object)
+    Input(),
+    __metadata$27("design:type", Object),
+    __metadata$27("design:paramtypes", [Object])
 ], MdGridTile.prototype, "rowspan", null);
 __decorate$50([
-    Input(), 
-    __metadata$50('design:type', Object)
+    Input(),
+    __metadata$27("design:type", Object),
+    __metadata$27("design:paramtypes", [Object])
 ], MdGridTile.prototype, "colspan", null);
 MdGridTile = __decorate$50([
     Component({selector: 'md-grid-tile, mat-grid-tile',
@@ -8596,8 +8632,8 @@ MdGridTile = __decorate$50([
         template: "<figure class=\"mat-figure\"><ng-content></ng-content></figure>",
         styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-figure{display:flex;position:absolute;align-items:center;justify-content:center;height:100%;top:0;right:0;bottom:0;left:0;padding:0;margin:0}.mat-grid-tile .mat-grid-tile-footer,.mat-grid-tile .mat-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;font-size:16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-footer .mat-line,.mat-grid-tile .mat-grid-tile-header .mat-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;box-sizing:border-box}.mat-grid-tile .mat-grid-tile-footer .mat-line:nth-child(n+2),.mat-grid-tile .mat-grid-tile-header .mat-line:nth-child(n+2){font-size:12px}.mat-grid-tile .mat-grid-tile-footer>*,.mat-grid-tile .mat-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-tile-footer.mat-2-line,.mat-grid-tile .mat-grid-tile-header.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none} /*# sourceMappingURL=grid-list.css.map */ "],
         encapsulation: ViewEncapsulation.None,
-    }), 
-    __metadata$50('design:paramtypes', [Renderer, ElementRef])
+    }),
+    __metadata$27("design:paramtypes", [Renderer, ElementRef])
 ], MdGridTile);
 let MdGridTileText = class MdGridTileText {
     constructor(_renderer, _element) {
@@ -8609,14 +8645,14 @@ let MdGridTileText = class MdGridTileText {
     }
 };
 __decorate$50([
-    ContentChildren(MdLine), 
-    __metadata$50('design:type', QueryList)
+    ContentChildren(MdLine),
+    __metadata$27("design:type", QueryList)
 ], MdGridTileText.prototype, "_lines", void 0);
 MdGridTileText = __decorate$50([
     Component({selector: 'md-grid-tile-header, mat-grid-tile-header, md-grid-tile-footer, mat-grid-tile-footer',
         template: "<ng-content select=\"[md-grid-avatar], [mat-grid-avatar]\"></ng-content><div class=\"mat-grid-list-text\"><ng-content select=\"[md-line], [mat-line]\"></ng-content></div><ng-content></ng-content>"
-    }), 
-    __metadata$50('design:paramtypes', [Renderer, ElementRef])
+    }),
+    __metadata$27("design:paramtypes", [Renderer, ElementRef])
 ], MdGridTileText);
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -8630,8 +8666,7 @@ MdGridAvatarCssMatStyler = __decorate$50([
         host: {
             '[class.mat-grid-avatar]': 'true'
         }
-    }), 
-    __metadata$50('design:paramtypes', [])
+    })
 ], MdGridAvatarCssMatStyler);
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -8645,8 +8680,7 @@ MdGridTileHeaderCssMatStyler = __decorate$50([
         host: {
             '[class.mat-grid-tile-header]': 'true'
         }
-    }), 
-    __metadata$50('design:paramtypes', [])
+    })
 ], MdGridTileHeaderCssMatStyler);
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -8660,8 +8694,7 @@ MdGridTileFooterCssMatStyler = __decorate$50([
         host: {
             '[class.mat-grid-tile-footer]': 'true'
         }
-    }), 
-    __metadata$50('design:paramtypes', [])
+    })
 ], MdGridTileFooterCssMatStyler);
 
 /**
@@ -9008,7 +9041,7 @@ var __decorate$51 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$51 = (this && this.__metadata) || function (k, v) {
+var __metadata$28 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$12 = (this && this.__param) || function (paramIndex, decorator) {
@@ -9091,21 +9124,23 @@ let MdGridList = class MdGridList {
     }
 };
 __decorate$51([
-    ContentChildren(MdGridTile), 
-    __metadata$51('design:type', QueryList)
+    ContentChildren(MdGridTile),
+    __metadata$28("design:type", QueryList)
 ], MdGridList.prototype, "_tiles", void 0);
 __decorate$51([
-    Input(), 
-    __metadata$51('design:type', Object)
+    Input(),
+    __metadata$28("design:type", Object),
+    __metadata$28("design:paramtypes", [Object])
 ], MdGridList.prototype, "cols", null);
 __decorate$51([
-    Input(), 
-    __metadata$51('design:type', Object)
+    Input(),
+    __metadata$28("design:type", Object),
+    __metadata$28("design:paramtypes", [Object])
 ], MdGridList.prototype, "gutterSize", null);
 __decorate$51([
-    Input(), 
-    __metadata$51('design:type', Object), 
-    __metadata$51('design:paramtypes', [Object])
+    Input(),
+    __metadata$28("design:type", Object),
+    __metadata$28("design:paramtypes", [Object])
 ], MdGridList.prototype, "rowHeight", null);
 MdGridList = __decorate$51([
     Component({selector: 'md-grid-list, mat-grid-list',
@@ -9117,8 +9152,10 @@ MdGridList = __decorate$51([
         },
         encapsulation: ViewEncapsulation.None,
     }),
-    __param$12(2, Optional()), 
-    __metadata$51('design:paramtypes', [Renderer, ElementRef, Dir])
+    __param$12(2, Optional()),
+    __metadata$28("design:paramtypes", [Renderer,
+        ElementRef,
+        Dir])
 ], MdGridList);
 
 var __decorate$49 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -9127,10 +9164,7 @@ var __decorate$49 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$49 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdGridListModule_1 = class MdGridListModule {
+let MdGridListModule = MdGridListModule_1 = class MdGridListModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -9139,7 +9173,6 @@ let MdGridListModule_1 = class MdGridListModule {
         };
     }
 };
-let MdGridListModule = MdGridListModule_1;
 MdGridListModule = MdGridListModule_1 = __decorate$49([
     NgModule({
         imports: [MdLineModule, CompatibilityModule],
@@ -9161,18 +9194,15 @@ MdGridListModule = MdGridListModule_1 = __decorate$49([
             MdGridTileFooterCssMatStyler,
             MdGridAvatarCssMatStyler
         ],
-    }), 
-    __metadata$49('design:paramtypes', [])
+    })
 ], MdGridListModule);
+var MdGridListModule_1;
 
 var __decorate$53 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$53 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
  * Content of a card, needed as it's used as a selector in the API.
@@ -9186,8 +9216,7 @@ MdCardContent = __decorate$53([
         host: {
             '[class.mat-card-content]': 'true'
         }
-    }), 
-    __metadata$53('design:paramtypes', [])
+    })
 ], MdCardContent);
 /**
  * Title of a card, needed as it's used as a selector in the API.
@@ -9201,8 +9230,7 @@ MdCardTitle = __decorate$53([
         host: {
             '[class.mat-card-title]': 'true'
         }
-    }), 
-    __metadata$53('design:paramtypes', [])
+    })
 ], MdCardTitle);
 /**
  * Sub-title of a card, needed as it's used as a selector in the API.
@@ -9216,8 +9244,7 @@ MdCardSubtitle = __decorate$53([
         host: {
             '[class.mat-card-subtitle]': 'true'
         }
-    }), 
-    __metadata$53('design:paramtypes', [])
+    })
 ], MdCardSubtitle);
 /**
  * Action section of a card, needed as it's used as a selector in the API.
@@ -9231,8 +9258,7 @@ MdCardActions = __decorate$53([
         host: {
             '[class.mat-card-actions]': 'true'
         }
-    }), 
-    __metadata$53('design:paramtypes', [])
+    })
 ], MdCardActions);
 /**
  * Footer of a card, needed as it's used as a selector in the API.
@@ -9246,8 +9272,7 @@ MdCardFooter = __decorate$53([
         host: {
             '[class.mat-card-footer]': 'true'
         }
-    }), 
-    __metadata$53('design:paramtypes', [])
+    })
 ], MdCardFooter);
 /**
  * Image used in a card, needed to add the mat- CSS styling.
@@ -9261,8 +9286,7 @@ MdCardSmImage = __decorate$53([
         host: {
             '[class.mat-card-sm-image]': 'true'
         }
-    }), 
-    __metadata$53('design:paramtypes', [])
+    })
 ], MdCardSmImage);
 /**
  * Image used in a card, needed to add the mat- CSS styling.
@@ -9276,8 +9300,7 @@ MdCardMdImage = __decorate$53([
         host: {
             '[class.mat-card-md-image]': 'true'
         }
-    }), 
-    __metadata$53('design:paramtypes', [])
+    })
 ], MdCardMdImage);
 /**
  * Image used in a card, needed to add the mat- CSS styling.
@@ -9291,8 +9314,7 @@ MdCardLgImage = __decorate$53([
         host: {
             'class.mat-card-lg-image': 'true'
         }
-    }), 
-    __metadata$53('design:paramtypes', [])
+    })
 ], MdCardLgImage);
 /**
  * Image used in a card, needed to add the mat- CSS styling.
@@ -9306,8 +9328,7 @@ MdCardImage = __decorate$53([
         host: {
             '[class.mat-card-image]': 'true'
         }
-    }), 
-    __metadata$53('design:paramtypes', [])
+    })
 ], MdCardImage);
 /**
  * Large image used in a card, needed to add the mat- CSS styling.
@@ -9321,8 +9342,7 @@ MdCardXlImage = __decorate$53([
         host: {
             '[class.mat-card-xl-image]': 'true'
         }
-    }), 
-    __metadata$53('design:paramtypes', [])
+    })
 ], MdCardXlImage);
 /**
  * Avatar image used in a card, needed to add the mat- CSS styling.
@@ -9336,8 +9356,7 @@ MdCardAvatar = __decorate$53([
         host: {
             '[class.mat-card-avatar]': 'true'
         }
-    }), 
-    __metadata$53('design:paramtypes', [])
+    })
 ], MdCardAvatar);
 /**
  * A basic content container component that adds the styles of a Material design card.
@@ -9361,8 +9380,7 @@ MdCard = __decorate$53([
         host: {
             '[class.mat-card]': 'true'
         }
-    }), 
-    __metadata$53('design:paramtypes', [])
+    })
 ], MdCard);
 /**
  * Component intended to be used within the `<md-card>` component. It adds styles for a
@@ -9379,8 +9397,7 @@ MdCardHeader = __decorate$53([
         host: {
             '[class.mat-card-header]': 'true'
         }
-    }), 
-    __metadata$53('design:paramtypes', [])
+    })
 ], MdCardHeader);
 /**
  * Component intended to be used within the <md-card> component. It adds styles for a preset
@@ -9397,8 +9414,7 @@ MdCardTitleGroup = __decorate$53([
         host: {
             '[class.mat-card-title-group]': 'true'
         }
-    }), 
-    __metadata$53('design:paramtypes', [])
+    })
 ], MdCardTitleGroup);
 
 var __decorate$52 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -9407,10 +9423,7 @@ var __decorate$52 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$52 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdCardModule_1 = class MdCardModule {
+let MdCardModule = MdCardModule_1 = class MdCardModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -9419,7 +9432,6 @@ let MdCardModule_1 = class MdCardModule {
         };
     }
 };
-let MdCardModule = MdCardModule_1;
 MdCardModule = MdCardModule_1 = __decorate$52([
     NgModule({
         imports: [CompatibilityModule],
@@ -9445,9 +9457,9 @@ MdCardModule = MdCardModule_1 = __decorate$52([
             MdCardActions, MdCardFooter, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardImage,
             MdCardXlImage, MdCardAvatar,
         ],
-    }), 
-    __metadata$52('design:paramtypes', [])
+    })
 ], MdCardModule);
+var MdCardModule_1;
 
 var __decorate$56 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -9455,7 +9467,7 @@ var __decorate$56 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$56 = (this && this.__metadata) || function (k, v) {
+var __metadata$30 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -9568,28 +9580,31 @@ let MdChip = class MdChip {
     }
 };
 __decorate$56([
-    Output(), 
-    __metadata$56('design:type', Object)
+    Output(),
+    __metadata$30("design:type", Object)
 ], MdChip.prototype, "select", void 0);
 __decorate$56([
-    Output(), 
-    __metadata$56('design:type', Object)
+    Output(),
+    __metadata$30("design:type", Object)
 ], MdChip.prototype, "deselect", void 0);
 __decorate$56([
-    Output(), 
-    __metadata$56('design:type', Object)
+    Output(),
+    __metadata$30("design:type", Object)
 ], MdChip.prototype, "destroy", void 0);
 __decorate$56([
-    Input(), 
-    __metadata$56('design:type', Boolean)
+    Input(),
+    __metadata$30("design:type", Boolean),
+    __metadata$30("design:paramtypes", [Boolean])
 ], MdChip.prototype, "disabled", null);
 __decorate$56([
-    Input(), 
-    __metadata$56('design:type', Boolean)
+    Input(),
+    __metadata$30("design:type", Boolean),
+    __metadata$30("design:paramtypes", [Boolean])
 ], MdChip.prototype, "selected", null);
 __decorate$56([
-    Input(), 
-    __metadata$56('design:type', String)
+    Input(),
+    __metadata$30("design:type", String),
+    __metadata$30("design:paramtypes", [String])
 ], MdChip.prototype, "color", null);
 MdChip = __decorate$56([
     Component({
@@ -9605,8 +9620,8 @@ MdChip = __decorate$56([
             '[attr.aria-disabled]': '_isAriaDisabled',
             '(click)': '_handleClick($event)'
         }
-    }), 
-    __metadata$56('design:paramtypes', [Renderer, ElementRef])
+    }),
+    __metadata$30("design:paramtypes", [Renderer, ElementRef])
 ], MdChip);
 
 var __decorate$55 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -9615,7 +9630,7 @@ var __decorate$55 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$55 = (this && this.__metadata) || function (k, v) {
+var __metadata$29 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -9761,8 +9776,9 @@ let MdChipList = class MdChipList {
     }
 };
 __decorate$55([
-    Input(), 
-    __metadata$55('design:type', Boolean)
+    Input(),
+    __metadata$29("design:type", Boolean),
+    __metadata$29("design:paramtypes", [Boolean])
 ], MdChipList.prototype, "selectable", null);
 MdChipList = __decorate$55([
     Component({selector: 'md-chip-list, mat-chip-list',
@@ -9782,8 +9798,8 @@ MdChipList = __decorate$55([
         styles: [".mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:flex-start}.mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){margin:0 3px 0 3px}.mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):first-child{margin-left:0;margin-right:3px}[dir=rtl] .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):first-child{margin-left:3px;margin-right:0}.mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-left:3px;margin-right:0}[dir=rtl] .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-left:0;margin-right:3px}.mat-chip:not(.mat-basic-chip){display:inline-block;padding:8px 12px 8px 12px;border-radius:24px;font-size:13px;line-height:16px}.mat-chip-list-stacked .mat-chip-list-wrapper{display:block}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){display:block;margin:0;margin-bottom:8px}[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){margin:0;margin-bottom:8px}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child,[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-bottom:0} /*# sourceMappingURL=chips.css.map */ "],
         encapsulation: ViewEncapsulation.None,
         changeDetection: ChangeDetectionStrategy.OnPush
-    }), 
-    __metadata$55('design:paramtypes', [ElementRef])
+    }),
+    __metadata$29("design:paramtypes", [ElementRef])
 ], MdChipList);
 
 var __decorate$54 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -9792,10 +9808,7 @@ var __decorate$54 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$54 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdChipsModule_1 = class MdChipsModule {
+let MdChipsModule = MdChipsModule_1 = class MdChipsModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -9804,15 +9817,14 @@ let MdChipsModule_1 = class MdChipsModule {
         };
     }
 };
-let MdChipsModule = MdChipsModule_1;
 MdChipsModule = MdChipsModule_1 = __decorate$54([
     NgModule({
         imports: [],
         exports: [MdChipList, MdChip],
         declarations: [MdChipList, MdChip]
-    }), 
-    __metadata$54('design:paramtypes', [])
+    })
 ], MdChipsModule);
+var MdChipsModule_1;
 
 var __decorate$59 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -9820,7 +9832,7 @@ var __decorate$59 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$59 = (this && this.__metadata) || function (k, v) {
+var __metadata$32 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -10185,8 +10197,8 @@ let MdIconRegistry = class MdIconRegistry {
     }
 };
 MdIconRegistry = __decorate$59([
-    Injectable(), 
-    __metadata$59('design:paramtypes', [Http, DomSanitizer])
+    Injectable(),
+    __metadata$32("design:paramtypes", [Http, DomSanitizer])
 ], MdIconRegistry);
 /** Clones an SVGElement while preserving type information. */
 function cloneSvg(svg) {
@@ -10199,7 +10211,7 @@ var __decorate$58 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$58 = (this && this.__metadata) || function (k, v) {
+var __metadata$31 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /** Exception thrown when an invalid icon name is passed to an md-icon component. */
@@ -10384,28 +10396,29 @@ let MdIcon = class MdIcon {
     }
 };
 __decorate$58([
-    Input(), 
-    __metadata$58('design:type', String)
+    Input(),
+    __metadata$31("design:type", String)
 ], MdIcon.prototype, "svgIcon", void 0);
 __decorate$58([
-    Input(), 
-    __metadata$58('design:type', String)
+    Input(),
+    __metadata$31("design:type", String)
 ], MdIcon.prototype, "fontSet", void 0);
 __decorate$58([
-    Input(), 
-    __metadata$58('design:type', String)
+    Input(),
+    __metadata$31("design:type", String)
 ], MdIcon.prototype, "fontIcon", void 0);
 __decorate$58([
-    Input(), 
-    __metadata$58('design:type', String)
+    Input(),
+    __metadata$31("design:type", String)
 ], MdIcon.prototype, "alt", void 0);
 __decorate$58([
-    Input('aria-label'), 
-    __metadata$58('design:type', String)
+    Input('aria-label'),
+    __metadata$31("design:type", String)
 ], MdIcon.prototype, "hostAriaLabel", void 0);
 __decorate$58([
-    Input(), 
-    __metadata$58('design:type', String)
+    Input(),
+    __metadata$31("design:type", String),
+    __metadata$31("design:paramtypes", [String])
 ], MdIcon.prototype, "color", null);
 MdIcon = __decorate$58([
     Component({template: '<ng-content></ng-content>',
@@ -10417,8 +10430,10 @@ MdIcon = __decorate$58([
         },
         encapsulation: ViewEncapsulation.None,
         changeDetection: ChangeDetectionStrategy.OnPush,
-    }), 
-    __metadata$58('design:paramtypes', [ElementRef, Renderer, MdIconRegistry])
+    }),
+    __metadata$31("design:paramtypes", [ElementRef,
+        Renderer,
+        MdIconRegistry])
 ], MdIcon);
 function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, http, sanitizer) {
     return parentRegistry || new MdIconRegistry(http, sanitizer);
@@ -10437,10 +10452,7 @@ var __decorate$57 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$57 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdIconModule_1 = class MdIconModule {
+let MdIconModule = MdIconModule_1 = class MdIconModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -10449,16 +10461,15 @@ let MdIconModule_1 = class MdIconModule {
         };
     }
 };
-let MdIconModule = MdIconModule_1;
 MdIconModule = MdIconModule_1 = __decorate$57([
     NgModule({
         imports: [HttpModule, CompatibilityModule],
         exports: [MdIcon, CompatibilityModule],
         declarations: [MdIcon],
         providers: [ICON_REGISTRY_PROVIDER],
-    }), 
-    __metadata$57('design:paramtypes', [])
+    })
 ], MdIconModule);
+var MdIconModule_1;
 
 var __decorate$61 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -10466,7 +10477,7 @@ var __decorate$61 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$61 = (this && this.__metadata) || function (k, v) {
+var __metadata$33 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // TODO(josephperrott): Benchpress tests.
@@ -10494,8 +10505,7 @@ MdProgressSpinnerCssMatStyler = __decorate$61([
         host: {
             '[class.mat-progress-spinner]': 'true'
         }
-    }), 
-    __metadata$61('design:paramtypes', [])
+    })
 ], MdProgressSpinnerCssMatStyler);
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -10509,8 +10519,7 @@ MdProgressCircleCssMatStyler = __decorate$61([
         host: {
             '[class.mat-progress-circle]': 'true'
         }
-    }), 
-    __metadata$61('design:paramtypes', [])
+    })
 ], MdProgressCircleCssMatStyler);
 /**
  * <md-progress-spinner> component.
@@ -10679,18 +10688,21 @@ let MdProgressSpinner = class MdProgressSpinner {
     }
 };
 __decorate$61([
-    Input(), 
-    __metadata$61('design:type', String)
+    Input(),
+    __metadata$33("design:type", String),
+    __metadata$33("design:paramtypes", [String])
 ], MdProgressSpinner.prototype, "color", null);
 __decorate$61([
     Input(),
-    HostBinding('attr.aria-valuenow'), 
-    __metadata$61('design:type', Object)
+    HostBinding('attr.aria-valuenow'),
+    __metadata$33("design:type", Object),
+    __metadata$33("design:paramtypes", [Number])
 ], MdProgressSpinner.prototype, "value", null);
 __decorate$61([
     HostBinding('attr.mode'),
-    Input(), 
-    __metadata$61('design:type', Object)
+    Input(),
+    __metadata$33("design:type", Object),
+    __metadata$33("design:paramtypes", [String])
 ], MdProgressSpinner.prototype, "mode", null);
 MdProgressSpinner = __decorate$61([
     Component({selector: 'md-progress-spinner, mat-progress-spinner, md-progress-circle, mat-progress-circle',
@@ -10702,8 +10714,10 @@ MdProgressSpinner = __decorate$61([
         template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"><path></path></svg>",
         styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px;transition:stroke .3s cubic-bezier(.35,0,.25,1)}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}} /*# sourceMappingURL=progress-spinner.css.map */ "],
         changeDetection: ChangeDetectionStrategy.OnPush,
-    }), 
-    __metadata$61('design:paramtypes', [NgZone, ElementRef, Renderer])
+    }),
+    __metadata$33("design:paramtypes", [NgZone,
+        ElementRef,
+        Renderer])
 ], MdProgressSpinner);
 /**
  * <md-spinner> component.
@@ -10731,8 +10745,8 @@ MdSpinner = __decorate$61([
         },
         template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"><path></path></svg>",
         styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px;transition:stroke .3s cubic-bezier(.35,0,.25,1)}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}} /*# sourceMappingURL=progress-spinner.css.map */ "],
-    }), 
-    __metadata$61('design:paramtypes', [ElementRef, NgZone, Renderer])
+    }),
+    __metadata$33("design:paramtypes", [ElementRef, NgZone, Renderer])
 ], MdSpinner);
 /**
  * Module functions.
@@ -10800,10 +10814,7 @@ var __decorate$60 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$60 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdProgressSpinnerModule_1 = class MdProgressSpinnerModule {
+let MdProgressSpinnerModule = MdProgressSpinnerModule_1 = class MdProgressSpinnerModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -10812,7 +10823,6 @@ let MdProgressSpinnerModule_1 = class MdProgressSpinnerModule {
         };
     }
 };
-let MdProgressSpinnerModule = MdProgressSpinnerModule_1;
 MdProgressSpinnerModule = MdProgressSpinnerModule_1 = __decorate$60([
     NgModule({
         imports: [CompatibilityModule],
@@ -10829,9 +10839,9 @@ MdProgressSpinnerModule = MdProgressSpinnerModule_1 = __decorate$60([
             MdProgressSpinnerCssMatStyler,
             MdProgressCircleCssMatStyler
         ],
-    }), 
-    __metadata$60('design:paramtypes', [])
+    })
 ], MdProgressSpinnerModule);
+var MdProgressSpinnerModule_1;
 
 var __decorate$63 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -10839,7 +10849,7 @@ var __decorate$63 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$63 = (this && this.__metadata) || function (k, v) {
+var __metadata$34 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // TODO(josephperrott): Benchpress tests.
@@ -10848,6 +10858,11 @@ var __metadata$63 = (this && this.__metadata) || function (k, v) {
  * <md-progress-bar> component.
  */
 let MdProgressBar = class MdProgressBar {
+    // TODO(josephperrott): Benchpress tests.
+    // TODO(josephperrott): Add ARIA attributes for progressbar "for".
+    /**
+     * <md-progress-bar> component.
+     */
     constructor() {
         /** Color of the progress bar. */
         this.color = 'primary';
@@ -10885,22 +10900,24 @@ let MdProgressBar = class MdProgressBar {
     }
 };
 __decorate$63([
-    Input(), 
-    __metadata$63('design:type', Object)
+    Input(),
+    __metadata$34("design:type", String)
 ], MdProgressBar.prototype, "color", void 0);
 __decorate$63([
     Input(),
-    HostBinding('attr.aria-valuenow'), 
-    __metadata$63('design:type', Object)
+    HostBinding('attr.aria-valuenow'),
+    __metadata$34("design:type", Object),
+    __metadata$34("design:paramtypes", [Number])
 ], MdProgressBar.prototype, "value", null);
 __decorate$63([
-    Input(), 
-    __metadata$63('design:type', Object)
+    Input(),
+    __metadata$34("design:type", Object),
+    __metadata$34("design:paramtypes", [Number])
 ], MdProgressBar.prototype, "bufferValue", null);
 __decorate$63([
     Input(),
-    HostBinding('attr.mode'), 
-    __metadata$63('design:type', Object)
+    HostBinding('attr.mode'),
+    __metadata$34("design:type", String)
 ], MdProgressBar.prototype, "mode", void 0);
 MdProgressBar = __decorate$63([
     Component({selector: 'md-progress-bar, mat-progress-bar',
@@ -10916,8 +10933,7 @@ MdProgressBar = __decorate$63([
         template: "<div class=\"mat-progress-bar-background mat-progress-bar-element\"></div><div class=\"mat-progress-bar-buffer mat-progress-bar-element\" [ngStyle]=\"_bufferTransform()\"></div><div class=\"mat-progress-bar-primary mat-progress-bar-fill mat-progress-bar-element\" [ngStyle]=\"_primaryTransform()\"></div><div class=\"mat-progress-bar-secondary mat-progress-bar-fill mat-progress-bar-element\"></div>",
         styles: [":host{display:block;height:5px;overflow:hidden;position:relative;transform:translateZ(0);transition:opacity 250ms linear;width:100%}:host .mat-progress-bar-element,:host .mat-progress-bar-fill::after{height:100%;position:absolute;width:100%}:host .mat-progress-bar-background{background-repeat:repeat-x;background-size:10px 4px;display:none}:host .mat-progress-bar-buffer{transform-origin:top left;transition:transform 250ms ease,stroke .3s cubic-bezier(.35,0,.25,1)}:host .mat-progress-bar-secondary{display:none}:host .mat-progress-bar-fill{animation:none;transform-origin:top left;transition:transform 250ms ease,stroke .3s cubic-bezier(.35,0,.25,1)}:host .mat-progress-bar-fill::after{animation:none;content:'';display:inline-block;left:0}:host[mode=query]{transform:rotateZ(180deg)}:host[mode=indeterminate] .mat-progress-bar-fill,:host[mode=query] .mat-progress-bar-fill{transition:none}:host[mode=indeterminate] .mat-progress-bar-primary,:host[mode=query] .mat-progress-bar-primary{animation:mat-progress-bar-primary-indeterminate-translate 2s infinite linear;left:-145.166611%}:host[mode=indeterminate] .mat-progress-bar-primary.mat-progress-bar-fill::after,:host[mode=query] .mat-progress-bar-primary.mat-progress-bar-fill::after{animation:mat-progress-bar-primary-indeterminate-scale 2s infinite linear}:host[mode=indeterminate] .mat-progress-bar-secondary,:host[mode=query] .mat-progress-bar-secondary{animation:mat-progress-bar-secondary-indeterminate-translate 2s infinite linear;left:-54.888891%;display:block}:host[mode=indeterminate] .mat-progress-bar-secondary.mat-progress-bar-fill::after,:host[mode=query] .mat-progress-bar-secondary.mat-progress-bar-fill::after{animation:mat-progress-bar-secondary-indeterminate-scale 2s infinite linear}:host[mode=buffer] .mat-progress-bar-background{animation:mat-progress-bar-background-scroll 250ms infinite linear;display:block}:host-context([dir=rtl]){transform:rotateY(180deg)}@keyframes mat-progress-bar-primary-indeterminate-translate{0%{transform:translateX(0)}20%{animation-timing-function:cubic-bezier(.5,0,.70173,.49582);transform:translateX(0)}59.15%{animation-timing-function:cubic-bezier(.30244,.38135,.55,.95635);transform:translateX(83.67142%)}100%{transform:translateX(200.61106%)}}@keyframes mat-progress-bar-primary-indeterminate-scale{0%{transform:scaleX(.08)}36.65%{animation-timing-function:cubic-bezier(.33473,.12482,.78584,1);transform:scaleX(.08)}69.15%{animation-timing-function:cubic-bezier(.06,.11,.6,1);transform:scaleX(.66148)}100%{transform:scaleX(.08)}}@keyframes mat-progress-bar-secondary-indeterminate-translate{0%{animation-timing-function:cubic-bezier(.15,0,.51506,.40969);transform:translateX(0)}25%{animation-timing-function:cubic-bezier(.31033,.28406,.8,.73371);transform:translateX(37.65191%)}48.35%{animation-timing-function:cubic-bezier(.4,.62704,.6,.90203);transform:translateX(84.38617%)}100%{transform:translateX(160.27778%)}}@keyframes mat-progress-bar-secondary-indeterminate-scale{0%{animation-timing-function:cubic-bezier(.15,0,.51506,.40969);transform:scaleX(.08)}19.15%{animation-timing-function:cubic-bezier(.31033,.28406,.8,.73371);transform:scaleX(.4571)}44.15%{animation-timing-function:cubic-bezier(.4,.62704,.6,.90203);transform:scaleX(.72796)}100%{transform:scaleX(.08)}}@keyframes mat-progress-bar-background-scroll{to{transform:translateX(-10px)}} /*# sourceMappingURL=progress-bar.css.map */ "],
         changeDetection: ChangeDetectionStrategy.OnPush,
-    }), 
-    __metadata$63('design:paramtypes', [])
+    })
 ], MdProgressBar);
 /** Clamps a value to be between two numbers, by default 0 and 100. */
 function clamp$1(v, min = 0, max = 100) {
@@ -10930,10 +10946,7 @@ var __decorate$62 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$62 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdProgressBarModule_1 = class MdProgressBarModule {
+let MdProgressBarModule = MdProgressBarModule_1 = class MdProgressBarModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -10942,15 +10955,14 @@ let MdProgressBarModule_1 = class MdProgressBarModule {
         };
     }
 };
-let MdProgressBarModule = MdProgressBarModule_1;
 MdProgressBarModule = MdProgressBarModule_1 = __decorate$62([
     NgModule({
         imports: [CommonModule, CompatibilityModule],
         exports: [MdProgressBar, CompatibilityModule],
         declarations: [MdProgressBar],
-    }), 
-    __metadata$62('design:paramtypes', [])
+    })
 ], MdProgressBarModule);
+var MdProgressBarModule_1;
 
 /** @docs-private */
 class MdInputContainerPlaceholderConflictError extends MdError {
@@ -10984,7 +10996,7 @@ var __decorate$65 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$65 = (this && this.__metadata) || function (k, v) {
+var __metadata$35 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$13 = (this && this.__param) || function (paramIndex, decorator) {
@@ -11013,11 +11025,11 @@ let MdPlaceholder = class MdPlaceholder {
 MdPlaceholder = __decorate$65([
     Directive({
         selector: 'md-placeholder, mat-placeholder'
-    }), 
-    __metadata$65('design:paramtypes', [])
+    })
 ], MdPlaceholder);
 /** The hint directive, used to tag content as hint labels (going under the input). */
 let MdHint = class MdHint {
+    /** The hint directive, used to tag content as hint labels (going under the input). */
     constructor() {
         // Whether to align the hint label at the start or end of the line.
         this.align = 'start';
@@ -11026,12 +11038,12 @@ let MdHint = class MdHint {
     }
 };
 __decorate$65([
-    Input(), 
-    __metadata$65('design:type', Object)
+    Input(),
+    __metadata$35("design:type", String)
 ], MdHint.prototype, "align", void 0);
 __decorate$65([
-    Input(), 
-    __metadata$65('design:type', String)
+    Input(),
+    __metadata$35("design:type", String)
 ], MdHint.prototype, "id", void 0);
 MdHint = __decorate$65([
     Directive({
@@ -11041,8 +11053,7 @@ MdHint = __decorate$65([
             '[class.mat-right]': 'align == "end"',
             '[attr.id]': 'id',
         }
-    }), 
-    __metadata$65('design:paramtypes', [])
+    })
 ], MdHint);
 /** The input directive, used to mark the input that `MdInputContainer` is wrapping. */
 let MdInputDirective = class MdInputDirective {
@@ -11148,28 +11159,33 @@ let MdInputDirective = class MdInputDirective {
     }
 };
 __decorate$65([
-    Input(), 
-    __metadata$65('design:type', Object)
+    Input(),
+    __metadata$35("design:type", Object),
+    __metadata$35("design:paramtypes", [Object])
 ], MdInputDirective.prototype, "disabled", null);
 __decorate$65([
-    Input(), 
-    __metadata$65('design:type', Object)
+    Input(),
+    __metadata$35("design:type", Object),
+    __metadata$35("design:paramtypes", [String])
 ], MdInputDirective.prototype, "id", null);
 __decorate$65([
-    Input(), 
-    __metadata$65('design:type', Object)
+    Input(),
+    __metadata$35("design:type", Object),
+    __metadata$35("design:paramtypes", [String])
 ], MdInputDirective.prototype, "placeholder", null);
 __decorate$65([
-    Input(), 
-    __metadata$65('design:type', Object)
+    Input(),
+    __metadata$35("design:type", Object),
+    __metadata$35("design:paramtypes", [Object])
 ], MdInputDirective.prototype, "required", null);
 __decorate$65([
-    Input(), 
-    __metadata$65('design:type', Object)
+    Input(),
+    __metadata$35("design:type", Object),
+    __metadata$35("design:paramtypes", [String])
 ], MdInputDirective.prototype, "type", null);
 __decorate$65([
-    Output(), 
-    __metadata$65('design:type', Object)
+    Output(),
+    __metadata$35("design:type", Object)
 ], MdInputDirective.prototype, "_placeholderChange", void 0);
 MdInputDirective = __decorate$65([
     Directive({
@@ -11188,14 +11204,20 @@ MdInputDirective = __decorate$65([
             '(input)': '_onInput()',
         }
     }),
-    __param$13(2, Optional()), 
-    __metadata$65('design:paramtypes', [ElementRef, Renderer, NgControl])
+    __param$13(2, Optional()),
+    __metadata$35("design:paramtypes", [ElementRef,
+        Renderer,
+        NgControl])
 ], MdInputDirective);
 /**
  * Component that represents a text input. It encapsulates the <input> HTMLElement and
  * improve on its behaviour, along with styling it according to the Material Design.
  */
 let MdInputContainer = class MdInputContainer {
+    /**
+     * Component that represents a text input. It encapsulates the <input> HTMLElement and
+     * improve on its behaviour, along with styling it according to the Material Design.
+     */
     constructor() {
         /** Alignment of the input container's content. */
         this.align = 'start';
@@ -11304,32 +11326,34 @@ let MdInputContainer = class MdInputContainer {
     }
 };
 __decorate$65([
-    Input(), 
-    __metadata$65('design:type', Object)
+    Input(),
+    __metadata$35("design:type", String)
 ], MdInputContainer.prototype, "align", void 0);
 __decorate$65([
-    Input(), 
-    __metadata$65('design:type', Object)
+    Input(),
+    __metadata$35("design:type", String)
 ], MdInputContainer.prototype, "dividerColor", void 0);
 __decorate$65([
-    Input(), 
-    __metadata$65('design:type', Object)
+    Input(),
+    __metadata$35("design:type", Object),
+    __metadata$35("design:paramtypes", [String])
 ], MdInputContainer.prototype, "hintLabel", null);
 __decorate$65([
-    Input(), 
-    __metadata$65('design:type', Object)
+    Input(),
+    __metadata$35("design:type", Object),
+    __metadata$35("design:paramtypes", [String])
 ], MdInputContainer.prototype, "floatPlaceholder", null);
 __decorate$65([
-    ContentChild(MdInputDirective), 
-    __metadata$65('design:type', MdInputDirective)
+    ContentChild(MdInputDirective),
+    __metadata$35("design:type", MdInputDirective)
 ], MdInputContainer.prototype, "_mdInputChild", void 0);
 __decorate$65([
-    ContentChild(MdPlaceholder), 
-    __metadata$65('design:type', MdPlaceholder)
+    ContentChild(MdPlaceholder),
+    __metadata$35("design:type", MdPlaceholder)
 ], MdInputContainer.prototype, "_placeholderChild", void 0);
 __decorate$65([
-    ContentChildren(MdHint), 
-    __metadata$65('design:type', QueryList)
+    ContentChildren(MdHint),
+    __metadata$35("design:type", QueryList)
 ], MdInputContainer.prototype, "_hintChildren", void 0);
 MdInputContainer = __decorate$65([
     Component({selector: 'md-input-container, mat-input-container',
@@ -11350,8 +11374,7 @@ MdInputContainer = __decorate$65([
             '(click)': '_focusInput()',
         },
         encapsulation: ViewEncapsulation.None,
-    }), 
-    __metadata$65('design:paramtypes', [])
+    })
 ], MdInputContainer);
 
 var __decorate$66 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -11360,7 +11383,7 @@ var __decorate$66 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$66 = (this && this.__metadata) || function (k, v) {
+var __metadata$36 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -11430,20 +11453,22 @@ let MdTextareaAutosize = class MdTextareaAutosize {
     }
 };
 __decorate$66([
-    Input(), 
-    __metadata$66('design:type', Number)
+    Input(),
+    __metadata$36("design:type", Number)
 ], MdTextareaAutosize.prototype, "minRows", void 0);
 __decorate$66([
-    Input(), 
-    __metadata$66('design:type', Number)
+    Input(),
+    __metadata$36("design:type", Number),
+    __metadata$36("design:paramtypes", [Number])
 ], MdTextareaAutosize.prototype, "mdAutosizeMinRows", null);
 __decorate$66([
-    Input(), 
-    __metadata$66('design:type', Number)
+    Input(),
+    __metadata$36("design:type", Number)
 ], MdTextareaAutosize.prototype, "maxRows", void 0);
 __decorate$66([
-    Input(), 
-    __metadata$66('design:type', Number)
+    Input(),
+    __metadata$36("design:type", Number),
+    __metadata$36("design:paramtypes", [Number])
 ], MdTextareaAutosize.prototype, "mdAutosizeMaxRows", null);
 MdTextareaAutosize = __decorate$66([
     Directive({
@@ -11455,8 +11480,8 @@ MdTextareaAutosize = __decorate$66([
             '[style.min-height]': '_minHeight',
             '[style.max-height]': '_maxHeight',
         },
-    }), 
-    __metadata$66('design:paramtypes', [ElementRef])
+    }),
+    __metadata$36("design:paramtypes", [ElementRef])
 ], MdTextareaAutosize);
 
 var __decorate$64 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -11465,10 +11490,7 @@ var __decorate$64 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$64 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdInputModule_1 = class MdInputModule {
+let MdInputModule = MdInputModule_1 = class MdInputModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -11477,7 +11499,6 @@ let MdInputModule_1 = class MdInputModule {
         };
     }
 };
-let MdInputModule = MdInputModule_1;
 MdInputModule = MdInputModule_1 = __decorate$64([
     NgModule({
         declarations: [
@@ -11499,9 +11520,9 @@ MdInputModule = MdInputModule_1 = __decorate$64([
             MdTextareaAutosize,
             MdInputDirective
         ],
-    }), 
-    __metadata$64('design:paramtypes', [])
+    })
 ], MdInputModule);
+var MdInputModule_1;
 
 /**
  * Configuration used when opening a snack-bar.
@@ -11597,7 +11618,7 @@ var __decorate$69 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$69 = (this && this.__metadata) || function (k, v) {
+var __metadata$38 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 // TODO(jelbourn): we can't use constants from animation.ts here because you can't use
@@ -11687,12 +11708,12 @@ let MdSnackBarContainer = class MdSnackBarContainer extends BasePortalHost {
     }
 };
 __decorate$69([
-    ViewChild(PortalHostDirective), 
-    __metadata$69('design:type', PortalHostDirective)
+    ViewChild(PortalHostDirective),
+    __metadata$38("design:type", PortalHostDirective)
 ], MdSnackBarContainer.prototype, "_portalHost", void 0);
 MdSnackBarContainer = __decorate$69([
     Component({selector: 'snack-bar-container',
-        template: "<template cdkPortalHost></template>",
+        template: "<ng-template cdkPortalHost></ng-template>",
         styles: [":host{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);background:#323232;border-radius:2px;box-sizing:content-box;display:block;height:20px;max-width:568px;min-width:288px;overflow:hidden;padding:14px 24px;transform:translateY(100%)}@media screen and (-ms-high-contrast:active){:host{border:solid 1px}} /*# sourceMappingURL=snack-bar-container.css.map */ "],
         host: {
             'role': 'alert',
@@ -11708,8 +11729,10 @@ MdSnackBarContainer = __decorate$69([
                 transition('initial => visible, void => visible', animate(SHOW_ANIMATION)),
             ])
         ],
-    }), 
-    __metadata$69('design:paramtypes', [NgZone, Renderer, ElementRef])
+    }),
+    __metadata$38("design:paramtypes", [NgZone,
+        Renderer,
+        ElementRef])
 ], MdSnackBarContainer);
 
 var __decorate$70 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -11717,9 +11740,6 @@ var __decorate$70 = (this && this.__decorate) || function (decorators, target, k
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$70 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
  * A component used to open as the default snack bar, matching material spec.
@@ -11740,8 +11760,7 @@ SimpleSnackBar = __decorate$70([
         host: {
             '[class.mat-simple-snackbar]': 'true',
         }
-    }), 
-    __metadata$70('design:paramtypes', [])
+    })
 ], SimpleSnackBar);
 
 /**
@@ -11751,7 +11770,13 @@ SimpleSnackBar = __decorate$70([
  * @param dest The object which will have properties copied to it.
  * @param sources The source objects from which properties will be copied.
  */
-function extendObject(dest, ...sources) {
+/**
+ * Extends an object with the *enumerable* and *own* properties of one or more source objects,
+ * similar to Object.assign.
+ *
+ * @param dest The object which will have properties copied to it.
+ * @param sources The source objects from which properties will be copied.
+ */ function extendObject(dest, ...sources) {
     if (dest == null) {
         throw TypeError('Cannot convert undefined or null to object');
     }
@@ -11773,7 +11798,7 @@ var __decorate$68 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$68 = (this && this.__metadata) || function (k, v) {
+var __metadata$37 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$14 = (this && this.__param) || function (paramIndex, decorator) {
@@ -11893,9 +11918,10 @@ let MdSnackBar = class MdSnackBar {
 };
 MdSnackBar = __decorate$68([
     Injectable(),
-    __param$14(2, Optional()),
-    __param$14(2, SkipSelf()), 
-    __metadata$68('design:paramtypes', [Overlay, LiveAnnouncer, MdSnackBar])
+    __param$14(2, Optional()), __param$14(2, SkipSelf()),
+    __metadata$37("design:paramtypes", [Overlay,
+        LiveAnnouncer,
+        MdSnackBar])
 ], MdSnackBar);
 /**
  * Applies default options to the snackbar config.
@@ -11912,10 +11938,7 @@ var __decorate$67 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$67 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdSnackBarModule_1 = class MdSnackBarModule {
+let MdSnackBarModule = MdSnackBarModule_1 = class MdSnackBarModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -11924,17 +11947,21 @@ let MdSnackBarModule_1 = class MdSnackBarModule {
         };
     }
 };
-let MdSnackBarModule = MdSnackBarModule_1;
 MdSnackBarModule = MdSnackBarModule_1 = __decorate$67([
     NgModule({
-        imports: [OverlayModule, PortalModule, CommonModule, CompatibilityModule],
+        imports: [
+            OverlayModule,
+            PortalModule,
+            CommonModule,
+            CompatibilityModule,
+        ],
         exports: [MdSnackBarContainer, CompatibilityModule],
         declarations: [MdSnackBarContainer, SimpleSnackBar],
         entryComponents: [MdSnackBarContainer, SimpleSnackBar],
         providers: [MdSnackBar, LIVE_ANNOUNCER_PROVIDER]
-    }), 
-    __metadata$67('design:paramtypes', [])
+    })
 ], MdSnackBarModule);
+var MdSnackBarModule_1;
 
 var __decorate$73 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -11942,7 +11969,7 @@ var __decorate$73 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$73 = (this && this.__metadata) || function (k, v) {
+var __metadata$40 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /** Used to flag tab labels for use with the portal directive */
@@ -11954,8 +11981,8 @@ let MdTabLabel = class MdTabLabel extends TemplatePortalDirective {
 MdTabLabel = __decorate$73([
     Directive({
         selector: '[md-tab-label], [mat-tab-label]',
-    }), 
-    __metadata$73('design:paramtypes', [TemplateRef, ViewContainerRef])
+    }),
+    __metadata$40("design:paramtypes", [TemplateRef, ViewContainerRef])
 ], MdTabLabel);
 
 var __decorate$72 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -11964,7 +11991,7 @@ var __decorate$72 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$72 = (this && this.__metadata) || function (k, v) {
+var __metadata$39 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 let MdTab = class MdTab {
@@ -11995,27 +12022,27 @@ let MdTab = class MdTab {
     }
 };
 __decorate$72([
-    ContentChild(MdTabLabel), 
-    __metadata$72('design:type', MdTabLabel)
+    ContentChild(MdTabLabel),
+    __metadata$39("design:type", MdTabLabel)
 ], MdTab.prototype, "templateLabel", void 0);
 __decorate$72([
-    ViewChild(TemplateRef), 
-    __metadata$72('design:type', TemplateRef)
+    ViewChild(TemplateRef),
+    __metadata$39("design:type", TemplateRef)
 ], MdTab.prototype, "_content", void 0);
 __decorate$72([
-    Input('label'), 
-    __metadata$72('design:type', String)
+    Input('label'),
+    __metadata$39("design:type", String)
 ], MdTab.prototype, "textLabel", void 0);
 __decorate$72([
-    Input(), 
-    __metadata$72('design:type', Boolean), 
-    __metadata$72('design:paramtypes', [Boolean])
+    Input(),
+    __metadata$39("design:type", Boolean),
+    __metadata$39("design:paramtypes", [Boolean])
 ], MdTab.prototype, "disabled", null);
 MdTab = __decorate$72([
     Component({selector: 'md-tab, mat-tab',
-        template: "<template><ng-content></ng-content></template>",
-    }), 
-    __metadata$72('design:paramtypes', [ViewContainerRef])
+        template: "<ng-template><ng-content></ng-content></ng-template>",
+    }),
+    __metadata$39("design:paramtypes", [ViewContainerRef])
 ], MdTab);
 
 var __decorate$74 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -12024,7 +12051,7 @@ var __decorate$74 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$74 = (this && this.__metadata) || function (k, v) {
+var __metadata$41 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /** Used to generate unique ID's for each tab component */
@@ -12151,53 +12178,58 @@ let MdTabGroup = class MdTabGroup {
     }
 };
 __decorate$74([
-    ContentChildren(MdTab), 
-    __metadata$74('design:type', QueryList)
+    ContentChildren(MdTab),
+    __metadata$41("design:type", QueryList)
 ], MdTabGroup.prototype, "_tabs", void 0);
 __decorate$74([
-    ViewChild('tabBodyWrapper'), 
-    __metadata$74('design:type', ElementRef)
+    ViewChild('tabBodyWrapper'),
+    __metadata$41("design:type", ElementRef)
 ], MdTabGroup.prototype, "_tabBodyWrapper", void 0);
 __decorate$74([
-    Input(), 
-    __metadata$74('design:type', Boolean)
+    Input(),
+    __metadata$41("design:type", Boolean),
+    __metadata$41("design:paramtypes", [Boolean])
 ], MdTabGroup.prototype, "dynamicHeight", null);
 __decorate$74([
-    Input('md-dynamic-height'), 
-    __metadata$74('design:type', Boolean)
+    Input('md-dynamic-height'),
+    __metadata$41("design:type", Boolean),
+    __metadata$41("design:paramtypes", [Boolean])
 ], MdTabGroup.prototype, "_dynamicHeightDeprecated", null);
 __decorate$74([
-    Input(), 
-    __metadata$74('design:type', Number), 
-    __metadata$74('design:paramtypes', [Number])
+    Input(),
+    __metadata$41("design:type", Number),
+    __metadata$41("design:paramtypes", [Number])
 ], MdTabGroup.prototype, "selectedIndex", null);
 __decorate$74([
-    Input(), 
-    __metadata$74('design:type', String)
+    Input(),
+    __metadata$41("design:type", String)
 ], MdTabGroup.prototype, "headerPosition", void 0);
 __decorate$74([
-    Output(), 
-    __metadata$74('design:type', Observable)
+    Output(),
+    __metadata$41("design:type", Observable),
+    __metadata$41("design:paramtypes", [])
 ], MdTabGroup.prototype, "selectedIndexChange", null);
 __decorate$74([
-    Output(), 
-    __metadata$74('design:type', Observable)
+    Output(),
+    __metadata$41("design:type", Observable),
+    __metadata$41("design:paramtypes", [])
 ], MdTabGroup.prototype, "focusChange", null);
 __decorate$74([
-    Output(), 
-    __metadata$74('design:type', Observable)
+    Output(),
+    __metadata$41("design:type", Observable),
+    __metadata$41("design:paramtypes", [])
 ], MdTabGroup.prototype, "selectChange", null);
 MdTabGroup = __decorate$74([
     Component({selector: 'md-tab-group, mat-tab-group',
-        template: "<md-tab-header [selectedIndex]=\"selectedIndex\" #tabHeader (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" md-tab-label-wrapper md-ripple *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [tabIndex]=\"selectedIndex == i ? 0 : -1\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" (click)=\"tabHeader.focusIndex = selectedIndex = i\"><template [ngIf]=\"tab.templateLabel\"><template [cdkPortalHost]=\"tab.templateLabel\"></template></template><template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</template></div></md-tab-header><div class=\"mat-tab-body-wrapper\" #tabBodyWrapper><md-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (onCentered)=\"_removeTabBodyWrapperHeight()\" (onCentering)=\"_setTabBodyWrapperHeight($event)\"></md-tab-body></div>",
+        template: "<md-tab-header [selectedIndex]=\"selectedIndex\" #tabHeader (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" md-tab-label-wrapper md-ripple *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [tabIndex]=\"selectedIndex == i ? 0 : -1\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" (click)=\"tabHeader.focusIndex = selectedIndex = i\"><ng-template [ngIf]=\"tab.templateLabel\"><ng-template [cdkPortalHost]=\"tab.templateLabel\"></ng-template></ng-template><ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template></div></md-tab-header><div class=\"mat-tab-body-wrapper\" #tabBodyWrapper><md-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (onCentered)=\"_removeTabBodyWrapperHeight()\" (onCentering)=\"_setTabBodyWrapperHeight($event)\"></md-tab-body></div>",
         styles: [":host{display:flex;flex-direction:column;font-family:Roboto,\"Helvetica Neue\",sans-serif}:host.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{line-height:48px;height:48px;padding:0 12px;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;position:relative}.mat-tab-label:focus{outline:0;opacity:1}@media (max-width:600px){.mat-tab-label{min-width:72px}}:host[mat-stretch-tabs] .mat-tab-label,:host[md-stretch-tabs] .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height .5s cubic-bezier(.35,0,.25,1)}.mat-tab-body{position:absolute;top:0;left:0;right:0;bottom:0;display:block;overflow:hidden}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}:host.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}.mat-tab-disabled{cursor:default;pointer-events:none} /*# sourceMappingURL=tab-group.css.map */ "],
         host: {
             '[class.mat-tab-group]': 'true',
             '[class.mat-tab-group-dynamic-height]': 'dynamicHeight',
             '[class.mat-tab-group-inverted-header]': 'headerPosition === "below"',
         }
-    }), 
-    __metadata$74('design:paramtypes', [Renderer])
+    }),
+    __metadata$41("design:paramtypes", [Renderer])
 ], MdTabGroup);
 
 var __decorate$75 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -12206,7 +12238,7 @@ var __decorate$75 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$75 = (this && this.__metadata) || function (k, v) {
+var __metadata$42 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -12235,8 +12267,9 @@ let MdTabLabelWrapper = class MdTabLabelWrapper {
     }
 };
 __decorate$75([
-    Input(), 
-    __metadata$75('design:type', Object)
+    Input(),
+    __metadata$42("design:type", Object),
+    __metadata$42("design:paramtypes", [Object])
 ], MdTabLabelWrapper.prototype, "disabled", null);
 MdTabLabelWrapper = __decorate$75([
     Directive({
@@ -12244,8 +12277,8 @@ MdTabLabelWrapper = __decorate$75([
         host: {
             '[class.mat-tab-disabled]': 'disabled'
         }
-    }), 
-    __metadata$75('design:paramtypes', [ElementRef, Renderer])
+    }),
+    __metadata$42("design:paramtypes", [ElementRef, Renderer])
 ], MdTabLabelWrapper);
 
 var __decorate$77 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -12254,7 +12287,7 @@ var __decorate$77 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$77 = (this && this.__metadata) || function (k, v) {
+var __metadata$44 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -12305,8 +12338,8 @@ MdInkBar = __decorate$77([
         host: {
             '[class.mat-ink-bar]': 'true',
         },
-    }), 
-    __metadata$77('design:paramtypes', [Renderer, ElementRef])
+    }),
+    __metadata$44("design:paramtypes", [Renderer, ElementRef])
 ], MdInkBar);
 
 var __decorate$76 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -12315,7 +12348,7 @@ var __decorate$76 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$76 = (this && this.__metadata) || function (k, v) {
+var __metadata$43 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$15 = (this && this.__param) || function (paramIndex, decorator) {
@@ -12340,8 +12373,8 @@ let MdTabNavBar = class MdTabNavBar {
     }
 };
 __decorate$76([
-    ViewChild(MdInkBar), 
-    __metadata$76('design:type', MdInkBar)
+    ViewChild(MdInkBar),
+    __metadata$43("design:type", MdInkBar)
 ], MdTabNavBar.prototype, "_inkBar", void 0);
 MdTabNavBar = __decorate$76([
     Component({selector: '[md-tab-nav-bar], [mat-tab-nav-bar]',
@@ -12351,8 +12384,7 @@ MdTabNavBar = __decorate$76([
             '[class.mat-tab-nav-bar]': 'true',
         },
         encapsulation: ViewEncapsulation.None,
-    }), 
-    __metadata$76('design:paramtypes', [])
+    })
 ], MdTabNavBar);
 /**
  * Link inside of a `md-tab-nav-bar`.
@@ -12373,8 +12405,9 @@ let MdTabLink = class MdTabLink {
     }
 };
 __decorate$76([
-    Input(), 
-    __metadata$76('design:type', Boolean)
+    Input(),
+    __metadata$43("design:type", Boolean),
+    __metadata$43("design:paramtypes", [Boolean])
 ], MdTabLink.prototype, "active", null);
 MdTabLink = __decorate$76([
     Directive({
@@ -12382,8 +12415,8 @@ MdTabLink = __decorate$76([
         host: {
             '[class.mat-tab-link]': 'true',
         }
-    }), 
-    __metadata$76('design:paramtypes', [MdTabNavBar, ElementRef])
+    }),
+    __metadata$43("design:paramtypes", [MdTabNavBar, ElementRef])
 ], MdTabLink);
 /**
  * Simple directive that extends the ripple and matches the selector of the MdTabLink. This
@@ -12401,9 +12434,8 @@ MdTabLinkRipple = __decorate$76([
             '[class.mat-tab-link]': 'true',
         },
     }),
-    __param$15(3, Optional()),
-    __param$15(3, Inject(MD_RIPPLE_GLOBAL_OPTIONS)), 
-    __metadata$76('design:paramtypes', [ElementRef, NgZone, ViewportRuler, Object])
+    __param$15(3, Optional()), __param$15(3, Inject(MD_RIPPLE_GLOBAL_OPTIONS)),
+    __metadata$43("design:paramtypes", [ElementRef, NgZone, ViewportRuler, Object])
 ], MdTabLinkRipple);
 
 var __decorate$78 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -12412,7 +12444,7 @@ var __decorate$78 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$78 = (this && this.__metadata) || function (k, v) {
+var __metadata$45 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$16 = (this && this.__param) || function (paramIndex, decorator) {
@@ -12523,34 +12555,34 @@ let MdTabBody = class MdTabBody {
     }
 };
 __decorate$78([
-    ViewChild(PortalHostDirective), 
-    __metadata$78('design:type', PortalHostDirective)
+    ViewChild(PortalHostDirective),
+    __metadata$45("design:type", PortalHostDirective)
 ], MdTabBody.prototype, "_portalHost", void 0);
 __decorate$78([
-    Output(), 
-    __metadata$78('design:type', EventEmitter)
+    Output(),
+    __metadata$45("design:type", EventEmitter)
 ], MdTabBody.prototype, "onCentering", void 0);
 __decorate$78([
-    Output(), 
-    __metadata$78('design:type', EventEmitter)
+    Output(),
+    __metadata$45("design:type", EventEmitter)
 ], MdTabBody.prototype, "onCentered", void 0);
 __decorate$78([
-    Input('content'), 
-    __metadata$78('design:type', TemplatePortal)
+    Input('content'),
+    __metadata$45("design:type", TemplatePortal)
 ], MdTabBody.prototype, "_content", void 0);
 __decorate$78([
-    Input('position'), 
-    __metadata$78('design:type', Number), 
-    __metadata$78('design:paramtypes', [Number])
+    Input('position'),
+    __metadata$45("design:type", Number),
+    __metadata$45("design:paramtypes", [Number])
 ], MdTabBody.prototype, "position", null);
 __decorate$78([
-    Input('origin'), 
-    __metadata$78('design:type', Number), 
-    __metadata$78('design:paramtypes', [Number])
+    Input('origin'),
+    __metadata$45("design:type", Number),
+    __metadata$45("design:paramtypes", [Number])
 ], MdTabBody.prototype, "origin", null);
 MdTabBody = __decorate$78([
     Component({selector: 'md-tab-body, mat-tab-body',
-        template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_canBeAnimated ? _position : null\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><template cdkPortalHost></template></div>",
+        template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_canBeAnimated ? _position : null\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><ng-template cdkPortalHost></ng-template></div>",
         styles: [".mat-tab-body-content{height:100%} /*# sourceMappingURL=tab-body.css.map */ "],
         host: {
             '[class.mat-tab-body]': 'true',
@@ -12574,8 +12606,10 @@ MdTabBody = __decorate$78([
             ])
         ]
     }),
-    __param$16(0, Optional()), 
-    __metadata$78('design:paramtypes', [Dir, ElementRef, ChangeDetectorRef])
+    __param$16(0, Optional()),
+    __metadata$45("design:paramtypes", [Dir,
+        ElementRef,
+        ChangeDetectorRef])
 ], MdTabBody);
 
 var __decorate$79 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -12584,7 +12618,7 @@ var __decorate$79 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$79 = (this && this.__metadata) || function (k, v) {
+var __metadata$46 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$17 = (this && this.__param) || function (paramIndex, decorator) {
@@ -12878,33 +12912,33 @@ let MdTabHeader = class MdTabHeader {
     }
 };
 __decorate$79([
-    ContentChildren(MdTabLabelWrapper), 
-    __metadata$79('design:type', QueryList)
+    ContentChildren(MdTabLabelWrapper),
+    __metadata$46("design:type", QueryList)
 ], MdTabHeader.prototype, "_labelWrappers", void 0);
 __decorate$79([
-    ViewChild(MdInkBar), 
-    __metadata$79('design:type', MdInkBar)
+    ViewChild(MdInkBar),
+    __metadata$46("design:type", MdInkBar)
 ], MdTabHeader.prototype, "_inkBar", void 0);
 __decorate$79([
-    ViewChild('tabListContainer'), 
-    __metadata$79('design:type', ElementRef)
+    ViewChild('tabListContainer'),
+    __metadata$46("design:type", ElementRef)
 ], MdTabHeader.prototype, "_tabListContainer", void 0);
 __decorate$79([
-    ViewChild('tabList'), 
-    __metadata$79('design:type', ElementRef)
+    ViewChild('tabList'),
+    __metadata$46("design:type", ElementRef)
 ], MdTabHeader.prototype, "_tabList", void 0);
 __decorate$79([
-    Input(), 
-    __metadata$79('design:type', Number), 
-    __metadata$79('design:paramtypes', [Number])
+    Input(),
+    __metadata$46("design:type", Number),
+    __metadata$46("design:paramtypes", [Number])
 ], MdTabHeader.prototype, "selectedIndex", null);
 __decorate$79([
-    Output(), 
-    __metadata$79('design:type', Object)
+    Output(),
+    __metadata$46("design:type", Object)
 ], MdTabHeader.prototype, "selectFocusedIndex", void 0);
 __decorate$79([
-    Output(), 
-    __metadata$79('design:type', Object)
+    Output(),
+    __metadata$46("design:type", Object)
 ], MdTabHeader.prototype, "indexFocused", void 0);
 MdTabHeader = __decorate$79([
     Component({selector: 'md-tab-header, mat-tab-header',
@@ -12917,8 +12951,10 @@ MdTabHeader = __decorate$79([
             '[class.mat-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
         }
     }),
-    __param$17(2, Optional()), 
-    __metadata$79('design:paramtypes', [NgZone, ElementRef, Dir])
+    __param$17(2, Optional()),
+    __metadata$46("design:paramtypes", [NgZone,
+        ElementRef,
+        Dir])
 ], MdTabHeader);
 
 var __decorate$71 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -12927,10 +12963,7 @@ var __decorate$71 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$71 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdTabsModule_1 = class MdTabsModule {
+let MdTabsModule = MdTabsModule_1 = class MdTabsModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -12939,10 +12972,14 @@ let MdTabsModule_1 = class MdTabsModule {
         };
     }
 };
-let MdTabsModule = MdTabsModule_1;
 MdTabsModule = MdTabsModule_1 = __decorate$71([
     NgModule({
-        imports: [CommonModule, PortalModule, MdRippleModule, ObserveContentModule],
+        imports: [
+            CommonModule,
+            PortalModule,
+            MdRippleModule,
+            ObserveContentModule,
+        ],
         // Don't export all components because some are only to be used internally.
         exports: [
             MdTabGroup,
@@ -12965,9 +13002,9 @@ MdTabsModule = MdTabsModule_1 = __decorate$71([
             MdTabHeader
         ],
         providers: [VIEWPORT_RULER_PROVIDER, SCROLL_DISPATCHER_PROVIDER],
-    }), 
-    __metadata$71('design:paramtypes', [])
+    })
 ], MdTabsModule);
+var MdTabsModule_1;
 
 var __decorate$81 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -12975,7 +13012,7 @@ var __decorate$81 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$81 = (this && this.__metadata) || function (k, v) {
+var __metadata$47 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 let MdToolbarRow = class MdToolbarRow {
@@ -12986,8 +13023,7 @@ MdToolbarRow = __decorate$81([
         host: {
             '[class.mat-toolbar-row]': 'true',
         },
-    }), 
-    __metadata$81('design:paramtypes', [])
+    })
 ], MdToolbarRow);
 let MdToolbar = class MdToolbar {
     constructor(elementRef, renderer) {
@@ -13013,8 +13049,9 @@ let MdToolbar = class MdToolbar {
     }
 };
 __decorate$81([
-    Input(), 
-    __metadata$81('design:type', String)
+    Input(),
+    __metadata$47("design:type", String),
+    __metadata$47("design:paramtypes", [String])
 ], MdToolbar.prototype, "color", null);
 MdToolbar = __decorate$81([
     Component({selector: 'md-toolbar, mat-toolbar',
@@ -13026,8 +13063,8 @@ MdToolbar = __decorate$81([
         },
         changeDetection: ChangeDetectionStrategy.OnPush,
         encapsulation: ViewEncapsulation.None
-    }), 
-    __metadata$81('design:paramtypes', [ElementRef, Renderer])
+    }),
+    __metadata$47("design:paramtypes", [ElementRef, Renderer])
 ], MdToolbar);
 
 var __decorate$80 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -13036,10 +13073,7 @@ var __decorate$80 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$80 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdToolbarModule_1 = class MdToolbarModule {
+let MdToolbarModule = MdToolbarModule_1 = class MdToolbarModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -13048,15 +13082,14 @@ let MdToolbarModule_1 = class MdToolbarModule {
         };
     }
 };
-let MdToolbarModule = MdToolbarModule_1;
 MdToolbarModule = MdToolbarModule_1 = __decorate$80([
     NgModule({
         imports: [CompatibilityModule],
         exports: [MdToolbar, MdToolbarRow, CompatibilityModule],
         declarations: [MdToolbar, MdToolbarRow],
-    }), 
-    __metadata$80('design:paramtypes', [])
+    })
 ], MdToolbarModule);
+var MdToolbarModule_1;
 
 /**
  * Exception thrown when a tooltip has an invalid position.
@@ -13074,7 +13107,7 @@ var __decorate$83 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$83 = (this && this.__metadata) || function (k, v) {
+var __metadata$48 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$18 = (this && this.__param) || function (paramIndex, decorator) {
@@ -13298,52 +13331,62 @@ let MdTooltip = class MdTooltip {
     }
 };
 __decorate$83([
-    Input('mdTooltipPosition'), 
-    __metadata$83('design:type', String)
+    Input('mdTooltipPosition'),
+    __metadata$48("design:type", String),
+    __metadata$48("design:paramtypes", [String])
 ], MdTooltip.prototype, "position", null);
 __decorate$83([
-    Input('mdTooltipDisabled'), 
-    __metadata$83('design:type', Boolean)
+    Input('mdTooltipDisabled'),
+    __metadata$48("design:type", Boolean),
+    __metadata$48("design:paramtypes", [Object])
 ], MdTooltip.prototype, "disabled", null);
 __decorate$83([
-    Input('tooltip-position'), 
-    __metadata$83('design:type', String)
+    Input('tooltip-position'),
+    __metadata$48("design:type", String),
+    __metadata$48("design:paramtypes", [String])
 ], MdTooltip.prototype, "_positionDeprecated", null);
 __decorate$83([
-    Input('mdTooltipShowDelay'), 
-    __metadata$83('design:type', Object)
+    Input('mdTooltipShowDelay'),
+    __metadata$48("design:type", Object)
 ], MdTooltip.prototype, "showDelay", void 0);
 __decorate$83([
-    Input('mdTooltipHideDelay'), 
-    __metadata$83('design:type', Object)
+    Input('mdTooltipHideDelay'),
+    __metadata$48("design:type", Object)
 ], MdTooltip.prototype, "hideDelay", void 0);
 __decorate$83([
-    Input('mdTooltip'), 
-    __metadata$83('design:type', Object)
+    Input('mdTooltip'),
+    __metadata$48("design:type", Object),
+    __metadata$48("design:paramtypes", [String])
 ], MdTooltip.prototype, "message", null);
 __decorate$83([
-    Input('md-tooltip'), 
-    __metadata$83('design:type', String)
+    Input('md-tooltip'),
+    __metadata$48("design:type", String),
+    __metadata$48("design:paramtypes", [String])
 ], MdTooltip.prototype, "_deprecatedMessage", null);
 __decorate$83([
-    Input('matTooltip'), 
-    __metadata$83('design:type', Object)
+    Input('matTooltip'),
+    __metadata$48("design:type", Object),
+    __metadata$48("design:paramtypes", [Object])
 ], MdTooltip.prototype, "_matMessage", null);
 __decorate$83([
-    Input('matTooltipPosition'), 
-    __metadata$83('design:type', Object)
+    Input('matTooltipPosition'),
+    __metadata$48("design:type", Object),
+    __metadata$48("design:paramtypes", [Object])
 ], MdTooltip.prototype, "_matPosition", null);
 __decorate$83([
-    Input('matTooltipDisabled'), 
-    __metadata$83('design:type', Object)
+    Input('matTooltipDisabled'),
+    __metadata$48("design:type", Object),
+    __metadata$48("design:paramtypes", [Object])
 ], MdTooltip.prototype, "_matDisabled", null);
 __decorate$83([
-    Input('matTooltipHideDelay'), 
-    __metadata$83('design:type', Object)
+    Input('matTooltipHideDelay'),
+    __metadata$48("design:type", Object),
+    __metadata$48("design:paramtypes", [Object])
 ], MdTooltip.prototype, "_matHideDelay", null);
 __decorate$83([
-    Input('matTooltipShowDelay'), 
-    __metadata$83('design:type', Object)
+    Input('matTooltipShowDelay'),
+    __metadata$48("design:type", Object),
+    __metadata$48("design:paramtypes", [Object])
 ], MdTooltip.prototype, "_matShowDelay", null);
 MdTooltip = __decorate$83([
     Directive({
@@ -13354,8 +13397,15 @@ MdTooltip = __decorate$83([
         },
         exportAs: 'mdTooltip',
     }),
-    __param$18(7, Optional()), 
-    __metadata$83('design:paramtypes', [Overlay, ElementRef, ScrollDispatcher, ViewContainerRef, NgZone, Renderer, Platform, Dir])
+    __param$18(7, Optional()),
+    __metadata$48("design:paramtypes", [Overlay,
+        ElementRef,
+        ScrollDispatcher,
+        ViewContainerRef,
+        NgZone,
+        Renderer,
+        Platform,
+        Dir])
 ], MdTooltip);
 /**
  * Internal component that wraps the tooltip's content.
@@ -13486,8 +13536,8 @@ TooltipComponent = __decorate$83([
             '(body:click)': 'this._handleBodyInteraction()'
         }
     }),
-    __param$18(0, Optional()), 
-    __metadata$83('design:paramtypes', [Dir, ChangeDetectorRef])
+    __param$18(0, Optional()),
+    __metadata$48("design:paramtypes", [Dir, ChangeDetectorRef])
 ], TooltipComponent);
 
 var __decorate$82 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -13496,10 +13546,7 @@ var __decorate$82 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$82 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdTooltipModule_1 = class MdTooltipModule {
+let MdTooltipModule = MdTooltipModule_1 = class MdTooltipModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -13508,16 +13555,15 @@ let MdTooltipModule_1 = class MdTooltipModule {
         };
     }
 };
-let MdTooltipModule = MdTooltipModule_1;
 MdTooltipModule = MdTooltipModule_1 = __decorate$82([
     NgModule({
         imports: [OverlayModule, CompatibilityModule, PlatformModule],
         exports: [MdTooltip, TooltipComponent, CompatibilityModule],
         declarations: [MdTooltip, TooltipComponent],
         entryComponents: [TooltipComponent],
-    }), 
-    __metadata$82('design:paramtypes', [])
+    })
 ], MdTooltipModule);
+var MdTooltipModule_1;
 
 /**
  * Exception thrown when menu trigger doesn't have a valid md-menu instance
@@ -13564,7 +13610,7 @@ var __decorate$86 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$86 = (this && this.__metadata) || function (k, v) {
+var __metadata$50 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -13608,8 +13654,9 @@ let MdMenuItem = class MdMenuItem {
     }
 };
 __decorate$86([
-    Input(), 
-    __metadata$86('design:type', Object)
+    Input(),
+    __metadata$50("design:type", Object),
+    __metadata$50("design:paramtypes", [Object])
 ], MdMenuItem.prototype, "disabled", null);
 MdMenuItem = __decorate$86([
     Component({selector: '[md-menu-item], [mat-menu-item]',
@@ -13623,8 +13670,8 @@ MdMenuItem = __decorate$86([
         },
         template: "<ng-content></ng-content><div class=\"mat-menu-ripple\" *ngIf=\"!disabled\" md-ripple [mdRippleTrigger]=\"_getHostElement()\"></div>",
         exportAs: 'mdMenuItem'
-    }), 
-    __metadata$86('design:paramtypes', [Renderer, ElementRef])
+    }),
+    __metadata$50("design:paramtypes", [Renderer, ElementRef])
 ], MdMenuItem);
 
 /**
@@ -13675,7 +13722,7 @@ var __decorate$85 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$85 = (this && this.__metadata) || function (k, v) {
+var __metadata$49 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$19 = (this && this.__param) || function (paramIndex, decorator) {
@@ -13769,30 +13816,30 @@ let MdMenu = class MdMenu {
     }
 };
 __decorate$85([
-    ViewChild(TemplateRef), 
-    __metadata$85('design:type', TemplateRef)
+    ViewChild(TemplateRef),
+    __metadata$49("design:type", TemplateRef)
 ], MdMenu.prototype, "templateRef", void 0);
 __decorate$85([
-    ContentChildren(MdMenuItem), 
-    __metadata$85('design:type', QueryList)
+    ContentChildren(MdMenuItem),
+    __metadata$49("design:type", QueryList)
 ], MdMenu.prototype, "items", void 0);
 __decorate$85([
-    Input(), 
-    __metadata$85('design:type', Object)
+    Input(),
+    __metadata$49("design:type", Object)
 ], MdMenu.prototype, "overlapTrigger", void 0);
 __decorate$85([
-    Input('class'), 
-    __metadata$85('design:type', String), 
-    __metadata$85('design:paramtypes', [String])
+    Input('class'),
+    __metadata$49("design:type", String),
+    __metadata$49("design:paramtypes", [String])
 ], MdMenu.prototype, "classList", null);
 __decorate$85([
-    Output(), 
-    __metadata$85('design:type', Object)
+    Output(),
+    __metadata$49("design:type", Object)
 ], MdMenu.prototype, "close", void 0);
 MdMenu = __decorate$85([
     Component({selector: 'md-menu, mat-menu',
         host: { 'role': 'menu' },
-        template: "<template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_keyManager.onKeydown($event)\" (click)=\"_emitCloseEvent()\" [@transformMenu]=\"'showing'\"><div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></template>",
+        template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_keyManager.onKeydown($event)\" (click)=\"_emitCloseEvent()\" [@transformMenu]=\"'showing'\"><div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></ng-template>",
         styles: [".mat-menu-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh + 48px)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;font-size:16px;font-family:Roboto,\"Helvetica Neue\",sans-serif;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px}button.mat-menu-item{width:100%}.mat-menu-ripple{position:absolute;top:0;left:0;bottom:0;right:0} /*# sourceMappingURL=menu.css.map */ "],
         encapsulation: ViewEncapsulation.None,
         animations: [
@@ -13804,8 +13851,8 @@ MdMenu = __decorate$85([
     __param$19(0, Attribute('xPosition')),
     __param$19(1, Attribute('yPosition')),
     __param$19(2, Attribute('x-position')),
-    __param$19(3, Attribute('y-position')), 
-    __metadata$85('design:paramtypes', [String, String, String, String])
+    __param$19(3, Attribute('y-position')),
+    __metadata$49("design:paramtypes", [String, String, String, String])
 ], MdMenu);
 
 var __decorate$87 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -13814,7 +13861,7 @@ var __decorate$87 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$87 = (this && this.__metadata) || function (k, v) {
+var __metadata$51 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$20 = (this && this.__param) || function (paramIndex, decorator) {
@@ -14021,28 +14068,31 @@ let MdMenuTrigger = class MdMenuTrigger {
     }
 };
 __decorate$87([
-    Input('md-menu-trigger-for'), 
-    __metadata$87('design:type', Object)
+    Input('md-menu-trigger-for'),
+    __metadata$51("design:type", Object),
+    __metadata$51("design:paramtypes", [Object])
 ], MdMenuTrigger.prototype, "_deprecatedMdMenuTriggerFor", null);
 __decorate$87([
-    Input('mat-menu-trigger-for'), 
-    __metadata$87('design:type', Object)
+    Input('mat-menu-trigger-for'),
+    __metadata$51("design:type", Object),
+    __metadata$51("design:paramtypes", [Object])
 ], MdMenuTrigger.prototype, "_deprecatedMatMenuTriggerFor", null);
 __decorate$87([
-    Input('matMenuTriggerFor'), 
-    __metadata$87('design:type', Object)
+    Input('matMenuTriggerFor'),
+    __metadata$51("design:type", Object),
+    __metadata$51("design:paramtypes", [Object])
 ], MdMenuTrigger.prototype, "_matMenuTriggerFor", null);
 __decorate$87([
-    Input('mdMenuTriggerFor'), 
-    __metadata$87('design:type', Object)
+    Input('mdMenuTriggerFor'),
+    __metadata$51("design:type", Object)
 ], MdMenuTrigger.prototype, "menu", void 0);
 __decorate$87([
-    Output(), 
-    __metadata$87('design:type', Object)
+    Output(),
+    __metadata$51("design:type", Object)
 ], MdMenuTrigger.prototype, "onMenuOpen", void 0);
 __decorate$87([
-    Output(), 
-    __metadata$87('design:type', Object)
+    Output(),
+    __metadata$51("design:type", Object)
 ], MdMenuTrigger.prototype, "onMenuClose", void 0);
 MdMenuTrigger = __decorate$87([
     Directive({
@@ -14055,8 +14105,10 @@ MdMenuTrigger = __decorate$87([
         },
         exportAs: 'mdMenuTrigger'
     }),
-    __param$20(4, Optional()), 
-    __metadata$87('design:paramtypes', [Overlay, ElementRef, ViewContainerRef, Renderer, Dir])
+    __param$20(4, Optional()),
+    __metadata$51("design:paramtypes", [Overlay, ElementRef,
+        ViewContainerRef, Renderer,
+        Dir])
 ], MdMenuTrigger);
 
 var __decorate$84 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -14065,10 +14117,7 @@ var __decorate$84 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$84 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdMenuModule_1 = class MdMenuModule {
+let MdMenuModule = MdMenuModule_1 = class MdMenuModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -14077,15 +14126,19 @@ let MdMenuModule_1 = class MdMenuModule {
         };
     }
 };
-let MdMenuModule = MdMenuModule_1;
 MdMenuModule = MdMenuModule_1 = __decorate$84([
     NgModule({
-        imports: [OverlayModule, CommonModule, MdRippleModule, CompatibilityModule],
+        imports: [
+            OverlayModule,
+            CommonModule,
+            MdRippleModule,
+            CompatibilityModule,
+        ],
         exports: [MdMenu, MdMenuItem, MdMenuTrigger, CompatibilityModule],
         declarations: [MdMenu, MdMenuItem, MdMenuTrigger],
-    }), 
-    __metadata$84('design:paramtypes', [])
+    })
 ], MdMenuModule);
+var MdMenuModule_1;
 
 // TODO(jelbourn): resizing
 // TODO(jelbourn): afterOpen and beforeClose
@@ -14159,6 +14212,7 @@ class MdDialogConfig {
         this.width = '';
         /** Height of the dialog. */
         this.height = '';
+        // TODO(jelbourn): add configuration for lifecycle hooks, ARIA labelling.
     }
 }
 
@@ -14178,7 +14232,7 @@ var __decorate$90 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$90 = (this && this.__metadata) || function (k, v) {
+var __metadata$53 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -14273,12 +14327,12 @@ let MdDialogContainer = class MdDialogContainer extends BasePortalHost {
     }
 };
 __decorate$90([
-    ViewChild(PortalHostDirective), 
-    __metadata$90('design:type', PortalHostDirective)
+    ViewChild(PortalHostDirective),
+    __metadata$53("design:type", PortalHostDirective)
 ], MdDialogContainer.prototype, "_portalHost", void 0);
 MdDialogContainer = __decorate$90([
     Component({selector: 'md-dialog-container, mat-dialog-container',
-        template: "<template cdkPortalHost></template>",
+        template: "<ng-template cdkPortalHost></ng-template>",
         styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;max-width:80vw;width:100%;height:100%}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto}.mat-dialog-title{font-size:20px;font-weight:700;margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex}.mat-dialog-actions:last-child{margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center} /*# sourceMappingURL=dialog.css.map */ "],
         encapsulation: ViewEncapsulation.None,
         animations: [
@@ -14295,8 +14349,11 @@ MdDialogContainer = __decorate$90([
             '[@slideDialog]': '_state',
             '(@slideDialog.done)': '_onAnimationDone($event)',
         },
-    }), 
-    __metadata$90('design:paramtypes', [NgZone, Renderer, ElementRef, FocusTrapFactory])
+    }),
+    __metadata$53("design:paramtypes", [NgZone,
+        Renderer,
+        ElementRef,
+        FocusTrapFactory])
 ], MdDialogContainer);
 
 var __decorate$89 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -14305,7 +14362,7 @@ var __decorate$89 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$89 = (this && this.__metadata) || function (k, v) {
+var __metadata$52 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$21 = (this && this.__param) || function (paramIndex, decorator) {
@@ -14482,9 +14539,10 @@ let MdDialog = class MdDialog {
 };
 MdDialog = __decorate$89([
     Injectable(),
-    __param$21(2, Optional()),
-    __param$21(2, SkipSelf()), 
-    __metadata$89('design:paramtypes', [Overlay, Injector, MdDialog])
+    __param$21(2, Optional()), __param$21(2, SkipSelf()),
+    __metadata$52("design:paramtypes", [Overlay,
+        Injector,
+        MdDialog])
 ], MdDialog);
 /**
  * Applies default options to the dialog config.
@@ -14501,7 +14559,7 @@ var __decorate$91 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$91 = (this && this.__metadata) || function (k, v) {
+var __metadata$54 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -14515,8 +14573,8 @@ let MdDialogClose = class MdDialogClose {
     }
 };
 __decorate$91([
-    Input('aria-label'), 
-    __metadata$91('design:type', String)
+    Input('aria-label'),
+    __metadata$54("design:type", String)
 ], MdDialogClose.prototype, "ariaLabel", void 0);
 MdDialogClose = __decorate$91([
     Directive({
@@ -14526,8 +14584,8 @@ MdDialogClose = __decorate$91([
             '[attr.aria-label]': 'ariaLabel',
             'type': 'button',
         }
-    }), 
-    __metadata$91('design:paramtypes', [MdDialogRef])
+    }),
+    __metadata$54("design:paramtypes", [MdDialogRef])
 ], MdDialogClose);
 /**
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
@@ -14540,8 +14598,7 @@ MdDialogTitle = __decorate$91([
         host: {
             '[class.mat-dialog-title]': 'true'
         }
-    }), 
-    __metadata$91('design:paramtypes', [])
+    })
 ], MdDialogTitle);
 /**
  * Scrollable content container of a dialog.
@@ -14554,8 +14611,7 @@ MdDialogContent = __decorate$91([
         host: {
             '[class.mat-dialog-content]': 'true'
         }
-    }), 
-    __metadata$91('design:paramtypes', [])
+    })
 ], MdDialogContent);
 /**
  * Container for the bottom action buttons in a dialog.
@@ -14569,8 +14625,7 @@ MdDialogActions = __decorate$91([
         host: {
             '[class.mat-dialog-actions]': 'true'
         }
-    }), 
-    __metadata$91('design:paramtypes', [])
+    })
 ], MdDialogActions);
 
 var __decorate$88 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -14579,10 +14634,7 @@ var __decorate$88 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$88 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdDialogModule_1 = class MdDialogModule {
+let MdDialogModule = MdDialogModule_1 = class MdDialogModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -14591,7 +14643,6 @@ let MdDialogModule_1 = class MdDialogModule {
         };
     }
 };
-let MdDialogModule = MdDialogModule_1;
 MdDialogModule = MdDialogModule_1 = __decorate$88([
     NgModule({
         imports: [
@@ -14619,9 +14670,9 @@ MdDialogModule = MdDialogModule_1 = __decorate$88([
             MdDialog,
         ],
         entryComponents: [MdDialogContainer],
-    }), 
-    __metadata$88('design:paramtypes', [])
+    })
 ], MdDialogModule);
+var MdDialogModule_1;
 
 class ActiveDescendantKeyManager extends ListKeyManager {
     constructor(items) {
@@ -14651,7 +14702,7 @@ var __decorate$93 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$93 = (this && this.__metadata) || function (k, v) {
+var __metadata$55 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
@@ -14695,32 +14746,31 @@ let MdAutocomplete = class MdAutocomplete {
     }
 };
 __decorate$93([
-    ViewChild(TemplateRef), 
-    __metadata$93('design:type', TemplateRef)
+    ViewChild(TemplateRef),
+    __metadata$55("design:type", TemplateRef)
 ], MdAutocomplete.prototype, "template", void 0);
 __decorate$93([
-    ViewChild('panel'), 
-    __metadata$93('design:type', ElementRef)
+    ViewChild('panel'),
+    __metadata$55("design:type", ElementRef)
 ], MdAutocomplete.prototype, "panel", void 0);
 __decorate$93([
-    ContentChildren(MdOption), 
-    __metadata$93('design:type', QueryList)
+    ContentChildren(MdOption),
+    __metadata$55("design:type", QueryList)
 ], MdAutocomplete.prototype, "options", void 0);
 __decorate$93([
-    Input(), 
-    __metadata$93('design:type', Function)
+    Input(),
+    __metadata$55("design:type", Function)
 ], MdAutocomplete.prototype, "displayWith", void 0);
 MdAutocomplete = __decorate$93([
     Component({selector: 'md-autocomplete, mat-autocomplete',
-        template: "<template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_getClassList()\" #panel><ng-content></ng-content></div></template>",
+        template: "<ng-template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_getClassList()\" #panel><ng-content></ng-content></div></ng-template>",
         styles: [".mat-autocomplete-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative}.mat-autocomplete-panel.mat-autocomplete-panel-below{top:6px}.mat-autocomplete-panel.mat-autocomplete-panel-above{top:-24px}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden} /*# sourceMappingURL=autocomplete.css.map */ "],
         encapsulation: ViewEncapsulation.None,
         exportAs: 'mdAutocomplete',
         host: {
             '[class.mat-autocomplete]': 'true'
         }
-    }), 
-    __metadata$93('design:paramtypes', [])
+    })
 ], MdAutocomplete);
 
 var __decorate$94 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -14729,7 +14779,7 @@ var __decorate$94 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$94 = (this && this.__metadata) || function (k, v) {
+var __metadata$56 = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var __param$22 = (this && this.__param) || function (paramIndex, decorator) {
@@ -14998,12 +15048,13 @@ let MdAutocompleteTrigger = class MdAutocompleteTrigger {
     }
 };
 __decorate$94([
-    Input('mdAutocomplete'), 
-    __metadata$94('design:type', MdAutocomplete)
+    Input('mdAutocomplete'),
+    __metadata$56("design:type", MdAutocomplete)
 ], MdAutocompleteTrigger.prototype, "autocomplete", void 0);
 __decorate$94([
-    Input('matAutocomplete'), 
-    __metadata$94('design:type', MdAutocomplete)
+    Input('matAutocomplete'),
+    __metadata$56("design:type", MdAutocomplete),
+    __metadata$56("design:paramtypes", [MdAutocomplete])
 ], MdAutocompleteTrigger.prototype, "_matAutocomplete", null);
 MdAutocompleteTrigger = __decorate$94([
     Directive({
@@ -15024,9 +15075,11 @@ MdAutocompleteTrigger = __decorate$94([
         providers: [MD_AUTOCOMPLETE_VALUE_ACCESSOR]
     }),
     __param$22(3, Optional()),
-    __param$22(5, Optional()),
-    __param$22(5, Host()), 
-    __metadata$94('design:paramtypes', [ElementRef, Overlay, ViewContainerRef, Dir, NgZone, MdInputContainer])
+    __param$22(5, Optional()), __param$22(5, Host()),
+    __metadata$56("design:paramtypes", [ElementRef, Overlay,
+        ViewContainerRef,
+        Dir, NgZone,
+        MdInputContainer])
 ], MdAutocompleteTrigger);
 
 var __decorate$92 = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -15035,10 +15088,7 @@ var __decorate$92 = (this && this.__decorate) || function (decorators, target, k
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata$92 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-let MdAutocompleteModule_1 = class MdAutocompleteModule {
+let MdAutocompleteModule = MdAutocompleteModule_1 = class MdAutocompleteModule {
     /** @deprecated */
     static forRoot() {
         return {
@@ -15047,24 +15097,20 @@ let MdAutocompleteModule_1 = class MdAutocompleteModule {
         };
     }
 };
-let MdAutocompleteModule = MdAutocompleteModule_1;
 MdAutocompleteModule = MdAutocompleteModule_1 = __decorate$92([
     NgModule({
         imports: [MdOptionModule, OverlayModule, CompatibilityModule, CommonModule],
         exports: [MdAutocomplete, MdOptionModule, MdAutocompleteTrigger, CompatibilityModule],
         declarations: [MdAutocomplete, MdAutocompleteTrigger],
-    }), 
-    __metadata$92('design:paramtypes', [])
+    })
 ], MdAutocompleteModule);
+var MdAutocompleteModule_1;
 
 var __decorate$30 = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata$30 = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const MATERIAL_MODULES = [
     MdAutocompleteModule,
@@ -15139,8 +15185,7 @@ MaterialRootModule = __decorate$30([
             CompatibilityModule.forRoot(),
         ],
         exports: MATERIAL_MODULES,
-    }), 
-    __metadata$30('design:paramtypes', [])
+    })
 ], MaterialRootModule);
 let MaterialModule = class MaterialModule {
     /** @deprecated */
@@ -15152,8 +15197,7 @@ MaterialModule = __decorate$30([
     NgModule({
         imports: MATERIAL_MODULES,
         exports: MATERIAL_MODULES,
-    }), 
-    __metadata$30('design:paramtypes', [])
+    })
 ], MaterialModule);
 
 export { MdCoreModule, Dir, RtlModule, ObserveContentModule, ObserveContent, MdOptionModule, MdOption, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, Platform as MdPlatform, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ScrollDispatcher, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, LiveAnnouncer as MdLiveAnnouncer, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher as MdUniqueSelectionDispatcher, MdLineModule, MdLine, MdLineSetter, MdError, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, PlatformModule, Platform, getSupportedInputTypes, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, MdRippleModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckbox, MaterialRootModule, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFabCssMatStyler, MdMiniFabCssMatStyler, MdButton, MdAnchor, MdButtonToggleModule, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckbox, MdDialogModule, MD_DIALOG_DATA, MdDialog, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdGridListModule, MdGridList, MdIconModule, MdIconRegistry, MdIconInvalidNameError, MdIcon, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdInputDirective, MdInputContainer, MdInputContainerPlaceholderConflictError, MdInputContainerUnsupportedTypeError, MdInputContainerDuplicatedHintError, MdInputContainerMissingMdInputError, MdListModule, MdListDivider, LIST_TYPE_TOKEN, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdNavListTokenSetter, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, MdMenuTrigger, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, MdProgressSpinnerModule as MdProgressCircleModule, MdProgressSpinner as MdProgressCircle, MdProgressSpinnerCssMatStyler, MdProgressCircleCssMatStyler, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroup, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_OPTION_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelect, MdSidenavModule, MdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabChangeEvent, MdTabGroup, MdTabNavBar, MdTabLink, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, MdTooltip, TooltipComponent };

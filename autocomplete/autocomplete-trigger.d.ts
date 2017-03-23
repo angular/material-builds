@@ -15,9 +15,9 @@ import { MdInputContainer } from '../input/input-container';
  * actually focusing the active item, scroll must be handled manually.
  */
 /** The height of each autocomplete option. */
-export declare const AUTOCOMPLETE_OPTION_HEIGHT: number;
+export declare const AUTOCOMPLETE_OPTION_HEIGHT = 48;
 /** The total height of the autocomplete panel. */
-export declare const AUTOCOMPLETE_PANEL_HEIGHT: number;
+export declare const AUTOCOMPLETE_PANEL_HEIGHT = 256;
 /**
  * Provider that allows the autocomplete to register as a ControlValueAccessor.
  * @docs-private
