@@ -1,1 +1,0 @@
-{"version":3,"sources":["tabs/tab-body.scss"],"names":[],"mappings":"AAAA,sBACE,OAAQ","file":"tab-body.css","sourcesContent":[".mat-tab-body-content {\n  height: 100%;\n}\n"]}

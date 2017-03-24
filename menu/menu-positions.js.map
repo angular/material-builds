@@ -1,1 +1,0 @@
-{"version":3,"file":"menu-positions.js","sourceRoot":"","sources":["../../../../src/lib/menu/menu-positions.ts"],"names":[],"mappings":"","sourcesContent":["\nexport type MenuPositionX = 'before' | 'after';\n\nexport type MenuPositionY = 'above' | 'below';\n"]}
