@@ -18249,8 +18249,9 @@ var MdAutocompleteTrigger = (function () {
             this._overlayRef.attach(this._portal);
             this._subscribeToClosingActions();
         }
-        this._panelOpen = true;
+        this.autocomplete._setVisibility();
         this._floatPlaceholder();
+        this._panelOpen = true;
     };
     /**
      * Closes the autocomplete suggestion panel.
