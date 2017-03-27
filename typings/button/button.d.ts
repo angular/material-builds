@@ -40,6 +40,8 @@ export declare class MdButton implements OnDestroy {
     private _color;
     /** Whether the button is round. */
     _isRoundButton: boolean;
+    /** Whether the button is icon button. */
+    _isIconButton: boolean;
     /** Whether the ripple effect on click should be disabled. */
     private _disableRipple;
     private _disabled;
@@ -57,6 +59,11 @@ export declare class MdButton implements OnDestroy {
     focus(): void;
     _getHostElement(): any;
     _isRippleDisabled(): boolean;
+    /**
+     * Gets whether the button has one of the given attributes
+     * with either an 'md-' or 'mat-' prefix.
+     */
+    _hasAttributeWithPrefix(...unprefixedAttributeNames: string[]): boolean;
 }
 /**
  * Raised Material design button.
