@@ -26037,7 +26037,7 @@ $mat-dark-theme-foreground: (
       color: mat-color($primary);
     }
 
-    .mat-select.ng-invalid.ng-touched:not(.mat-select-disabled) & {
+    .mat-select:not(:focus).ng-invalid.ng-touched:not(.mat-select-disabled) & {
       color: mat-color($warn);
     }
   }
@@ -26049,7 +26049,7 @@ $mat-dark-theme-foreground: (
       background-color: mat-color($primary);
     }
 
-    .mat-select.ng-invalid.ng-touched:not(.mat-select-disabled) & {
+    .mat-select:not(:focus).ng-invalid.ng-touched:not(.mat-select-disabled) & {
       background-color: mat-color($warn);
     }
   }
@@ -26061,7 +26061,7 @@ $mat-dark-theme-foreground: (
       color: mat-color($primary);
     }
 
-    .mat-select.ng-invalid.ng-touched:not(.mat-select-disabled) & {
+    .mat-select:not(:focus).ng-invalid.ng-touched:not(.mat-select-disabled) & {
       color: mat-color($warn);
     }
   }

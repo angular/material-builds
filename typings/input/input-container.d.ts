@@ -1,4 +1,4 @@
-import { AfterContentInit, ElementRef, QueryList, EventEmitter, Renderer } from '@angular/core';
+import { AfterContentInit, ElementRef, EventEmitter, QueryList, Renderer } from '@angular/core';
 import { NgControl } from '@angular/forms';
 /** Type for the available floatPlaceholder values. */
 export declare type FloatPlaceholderType = 'always' | 'never' | 'auto';
