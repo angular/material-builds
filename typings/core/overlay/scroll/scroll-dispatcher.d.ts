@@ -1,4 +1,4 @@
-import { ElementRef, Optional } from '@angular/core';
+import { ElementRef, Optional, NgZone } from '@angular/core';
 import { Scrollable } from './scrollable';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
@@ -12,6 +12,8 @@ export declare const DEFAULT_SCROLL_TIME = 20;
  * Scrollable references emit a scrolled event.
  */
 export declare class ScrollDispatcher {
+    private _ngZone;
+    constructor(_ngZone: NgZone);
     /** Subject for notifying that a registered scrollable reference element has been scrolled. */
     _scrolled: Subject<void>;
     /** Keeps track of the global `scroll` and `resize` subscriptions. */
@@ -47,9 +49,9 @@ export declare class ScrollDispatcher {
     /** Sends a notification that a scroll event has been fired. */
     _notify(): void;
 }
-export declare function SCROLL_DISPATCHER_PROVIDER_FACTORY(parentDispatcher: ScrollDispatcher): ScrollDispatcher;
+export declare function SCROLL_DISPATCHER_PROVIDER_FACTORY(parentDispatcher: ScrollDispatcher, ngZone: NgZone): ScrollDispatcher;
 export declare const SCROLL_DISPATCHER_PROVIDER: {
     provide: typeof ScrollDispatcher;
-    deps: Optional[][];
-    useFactory: (parentDispatcher: ScrollDispatcher) => ScrollDispatcher;
+    deps: (Optional[] | typeof NgZone)[];
+    useFactory: (parentDispatcher: ScrollDispatcher, ngZone: NgZone) => ScrollDispatcher;
 };

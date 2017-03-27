@@ -653,7 +653,11 @@ var DEFAULT_SCROLL_TIME = 20;
  * Scrollable references emit a scrolled event.
  */
 var ScrollDispatcher = (function () {
-    function ScrollDispatcher() {
+    /**
+     * @param {?} _ngZone
+     */
+    function ScrollDispatcher(_ngZone) {
+        this._ngZone = _ngZone;
         /** Subject for notifying that a registered scrollable reference element has been scrolled. */
         this._scrolled = new rxjs_Subject.Subject();
         /** Keeps track of the global `scroll` and `resize` subscriptions. */
@@ -705,7 +709,9 @@ var ScrollDispatcher = (function () {
             this._scrolled.asObservable();
         this._scrolledCount++;
         if (!this._globalSubscription) {
-            this._globalSubscription = rxjs_Observable.Observable.merge(rxjs_Observable.Observable.fromEvent(window.document, 'scroll'), rxjs_Observable.Observable.fromEvent(window, 'resize')).subscribe(function () { return _this._notify(); });
+            this._globalSubscription = this._ngZone.runOutsideAngular(function () {
+                return rxjs_Observable.Observable.merge(rxjs_Observable.Observable.fromEvent(window.document, 'scroll'), rxjs_Observable.Observable.fromEvent(window, 'resize')).subscribe(function () { return _this._notify(); });
+            });
         }
         // Note that we need to do the subscribing from here, in order to be able to remove
         // the global event listeners once there are no more subscriptions.
@@ -764,18 +770,21 @@ ScrollDispatcher.decorators = [
 /**
  * @nocollapse
  */
-ScrollDispatcher.ctorParameters = function () { return []; };
+ScrollDispatcher.ctorParameters = function () { return [
+    { type: _angular_core.NgZone, },
+]; };
 /**
  * @param {?} parentDispatcher
+ * @param {?} ngZone
  * @return {?}
  */
-function SCROLL_DISPATCHER_PROVIDER_FACTORY(parentDispatcher) {
-    return parentDispatcher || new ScrollDispatcher();
+function SCROLL_DISPATCHER_PROVIDER_FACTORY(parentDispatcher, ngZone) {
+    return parentDispatcher || new ScrollDispatcher(ngZone);
 }
 var SCROLL_DISPATCHER_PROVIDER = {
     // If there is already a ScrollDispatcher available, use that. Otherwise, provide a new one.
     provide: ScrollDispatcher,
-    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), ScrollDispatcher]],
+    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), ScrollDispatcher], _angular_core.NgZone],
     useFactory: SCROLL_DISPATCHER_PROVIDER_FACTORY
 };
 /**
@@ -2928,15 +2937,26 @@ var Scrollable = (function () {
     /**
      * @param {?} _elementRef
      * @param {?} _scroll
+     * @param {?} _ngZone
+     * @param {?} _renderer
      */
-    function Scrollable(_elementRef, _scroll) {
+    function Scrollable(_elementRef, _scroll, _ngZone, _renderer) {
         this._elementRef = _elementRef;
         this._scroll = _scroll;
+        this._ngZone = _ngZone;
+        this._renderer = _renderer;
+        this._elementScrolled = new rxjs_Subject.Subject();
     }
     /**
      * @return {?}
      */
     Scrollable.prototype.ngOnInit = function () {
+        var _this = this;
+        this._scrollListener = this._ngZone.runOutsideAngular(function () {
+            return _this._renderer.listen(_this.getElementRef().nativeElement, 'scroll', function (event) {
+                _this._elementScrolled.next(event);
+            });
+        });
         this._scroll.register(this);
     };
     /**
@@ -2944,13 +2964,17 @@ var Scrollable = (function () {
      */
     Scrollable.prototype.ngOnDestroy = function () {
         this._scroll.deregister(this);
+        if (this._scrollListener) {
+            this._scrollListener();
+            this._scrollListener = null;
+        }
     };
     /**
      * Returns observable that emits when a scroll event is fired on the host element.
      * @return {?}
      */
     Scrollable.prototype.elementScrolled = function () {
-        return rxjs_Observable.Observable.fromEvent(this._elementRef.nativeElement, 'scroll');
+        return this._elementScrolled.asObservable();
     };
     /**
      * @return {?}
@@ -2971,6 +2995,8 @@ Scrollable.decorators = [
 Scrollable.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: ScrollDispatcher, },
+    { type: _angular_core.NgZone, },
+    { type: _angular_core.Renderer, },
 ]; };
 /** Default set of positions for the overlay. Follows the behavior of a dropdown. */
 var defaultPositionList = [

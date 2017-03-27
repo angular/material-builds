@@ -746,7 +746,11 @@ const DEFAULT_SCROLL_TIME = 20;
  * Scrollable references emit a scrolled event.
  */
 class ScrollDispatcher {
-    constructor() {
+    /**
+     * @param {?} _ngZone
+     */
+    constructor(_ngZone) {
+        this._ngZone = _ngZone;
         /** Subject for notifying that a registered scrollable reference element has been scrolled. */
         this._scrolled = new Subject();
         /** Keeps track of the global `scroll` and `resize` subscriptions. */
@@ -795,7 +799,9 @@ class ScrollDispatcher {
             this._scrolled.asObservable();
         this._scrolledCount++;
         if (!this._globalSubscription) {
-            this._globalSubscription = Observable.merge(Observable.fromEvent(window.document, 'scroll'), Observable.fromEvent(window, 'resize')).subscribe(() => this._notify());
+            this._globalSubscription = this._ngZone.runOutsideAngular(() => {
+                return Observable.merge(Observable.fromEvent(window.document, 'scroll'), Observable.fromEvent(window, 'resize')).subscribe(() => this._notify());
+            });
         }
         // Note that we need to do the subscribing from here, in order to be able to remove
         // the global event listeners once there are no more subscriptions.
@@ -852,18 +858,21 @@ ScrollDispatcher.decorators = [
 /**
  * @nocollapse
  */
-ScrollDispatcher.ctorParameters = () => [];
+ScrollDispatcher.ctorParameters = () => [
+    { type: NgZone, },
+];
 /**
  * @param {?} parentDispatcher
+ * @param {?} ngZone
  * @return {?}
  */
-function SCROLL_DISPATCHER_PROVIDER_FACTORY(parentDispatcher) {
-    return parentDispatcher || new ScrollDispatcher();
+function SCROLL_DISPATCHER_PROVIDER_FACTORY(parentDispatcher, ngZone) {
+    return parentDispatcher || new ScrollDispatcher(ngZone);
 }
 const SCROLL_DISPATCHER_PROVIDER = {
     // If there is already a ScrollDispatcher available, use that. Otherwise, provide a new one.
     provide: ScrollDispatcher,
-    deps: [[new Optional(), new SkipSelf(), ScrollDispatcher]],
+    deps: [[new Optional(), new SkipSelf(), ScrollDispatcher], NgZone],
     useFactory: SCROLL_DISPATCHER_PROVIDER_FACTORY
 };
 
@@ -2887,15 +2896,25 @@ class Scrollable {
     /**
      * @param {?} _elementRef
      * @param {?} _scroll
+     * @param {?} _ngZone
+     * @param {?} _renderer
      */
-    constructor(_elementRef, _scroll) {
+    constructor(_elementRef, _scroll, _ngZone, _renderer) {
         this._elementRef = _elementRef;
         this._scroll = _scroll;
+        this._ngZone = _ngZone;
+        this._renderer = _renderer;
+        this._elementScrolled = new Subject();
     }
     /**
      * @return {?}
      */
     ngOnInit() {
+        this._scrollListener = this._ngZone.runOutsideAngular(() => {
+            return this._renderer.listen(this.getElementRef().nativeElement, 'scroll', (event) => {
+                this._elementScrolled.next(event);
+            });
+        });
         this._scroll.register(this);
     }
     /**
@@ -2903,13 +2922,17 @@ class Scrollable {
      */
     ngOnDestroy() {
         this._scroll.deregister(this);
+        if (this._scrollListener) {
+            this._scrollListener();
+            this._scrollListener = null;
+        }
     }
     /**
      * Returns observable that emits when a scroll event is fired on the host element.
      * @return {?}
      */
     elementScrolled() {
-        return Observable.fromEvent(this._elementRef.nativeElement, 'scroll');
+        return this._elementScrolled.asObservable();
     }
     /**
      * @return {?}
@@ -2929,6 +2952,8 @@ Scrollable.decorators = [
 Scrollable.ctorParameters = () => [
     { type: ElementRef, },
     { type: ScrollDispatcher, },
+    { type: NgZone, },
+    { type: Renderer, },
 ];
 
 /** Default set of positions for the overlay. Follows the behavior of a dropdown. */
