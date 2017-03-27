@@ -3852,7 +3852,8 @@ class FocusTrapDirective {
 }
 FocusTrapDirective.decorators = [
     { type: Directive, args: [{
-                selector: '[cdkTrapFocus]'
+                selector: '[cdkTrapFocus]',
+                exportAs: 'cdkTrapFocus',
             },] },
 ];
 /**
@@ -13064,7 +13065,7 @@ MdInputDirective.decorators = [
                     '[placeholder]': 'placeholder',
                     '[disabled]': 'disabled',
                     '[required]': 'required',
-                    '[attr.aria-describedby]': 'ariaDescribedby',
+                    '[attr.aria-describedby]': 'ariaDescribedby || null',
                     '(blur)': '_onBlur()',
                     '(focus)': '_onFocus()',
                     '(input)': '_onInput()',
