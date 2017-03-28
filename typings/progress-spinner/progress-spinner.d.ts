@@ -7,12 +7,6 @@ export declare type ProgressSpinnerMode = 'determinate' | 'indeterminate';
 export declare class MdProgressSpinnerCssMatStyler {
 }
 /**
- * Directive whose purpose is to add the mat- CSS styling to this selector.
- * @docs-private
- */
-export declare class MdProgressCircleCssMatStyler {
-}
-/**
  * <md-progress-spinner> component.
  */
 export declare class MdProgressSpinner implements OnDestroy {

@@ -75,7 +75,6 @@ const MAT_ELEMENTS_SELECTOR = `
   mat-option,
   mat-placeholder,
   mat-progress-bar,
-  mat-progress-circle,
   mat-pseudo-checkbox,
   mat-radio-button,
   mat-radio-group,
@@ -135,7 +134,6 @@ const MD_ELEMENTS_SELECTOR = `
   md-option,
   md-placeholder,
   md-progress-bar,
-  md-progress-circle,
   md-pseudo-checkbox,
   md-radio-button,
   md-radio-group,
@@ -12247,24 +12245,6 @@ MdProgressSpinnerCssMatStyler.decorators = [
  */
 MdProgressSpinnerCssMatStyler.ctorParameters = () => [];
 /**
- * Directive whose purpose is to add the mat- CSS styling to this selector.
- * \@docs-private
- */
-class MdProgressCircleCssMatStyler {
-}
-MdProgressCircleCssMatStyler.decorators = [
-    { type: Directive, args: [{
-                selector: 'md-progress-circle, mat-progress-circle',
-                host: {
-                    '[class.mat-progress-circle]': 'true'
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MdProgressCircleCssMatStyler.ctorParameters = () => [];
-/**
  * <md-progress-spinner> component.
  */
 class MdProgressSpinner {
@@ -12482,13 +12462,13 @@ class MdProgressSpinner {
     }
 }
 MdProgressSpinner.decorators = [
-    { type: Component, args: [{selector: 'md-progress-spinner, mat-progress-spinner, md-progress-circle, mat-progress-circle',
+    { type: Component, args: [{selector: 'md-progress-spinner, mat-progress-spinner',
                 host: {
                     'role': 'progressbar',
                     '[attr.aria-valuemin]': '_ariaValueMin',
                     '[attr.aria-valuemax]': '_ariaValueMax'
                 },
-                template: "<!-- preserveAspectRatio of xMidYMid meet as the center of the viewport is the circle's center.  The center of the circle with remain at the center of the md-progress-circle element containing the SVG. --> <svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"> <path></path> </svg> ",
+                template: "<!-- preserveAspectRatio of xMidYMid meet as the center of the viewport is the circle's center. The center of the circle will remain at the center of the md-progress-spinner element containing the SVG. --> <svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"> <path></path> </svg> ",
                 styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px;transition:stroke .3s cubic-bezier(.35,0,.25,1)}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}} /*# sourceMappingURL=progress-spinner.css.map */ "],
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
@@ -12538,7 +12518,7 @@ MdSpinner.decorators = [
                     'mode': 'indeterminate',
                     '[class.mat-spinner]': 'true',
                 },
-                template: "<!-- preserveAspectRatio of xMidYMid meet as the center of the viewport is the circle's center.  The center of the circle with remain at the center of the md-progress-circle element containing the SVG. --> <svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"> <path></path> </svg> ",
+                template: "<!-- preserveAspectRatio of xMidYMid meet as the center of the viewport is the circle's center. The center of the circle will remain at the center of the md-progress-spinner element containing the SVG. --> <svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"> <path></path> </svg> ",
                 styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px;transition:stroke .3s cubic-bezier(.35,0,.25,1)}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}} /*# sourceMappingURL=progress-spinner.css.map */ "],
             },] },
 ];
@@ -12644,14 +12624,12 @@ MdProgressSpinnerModule.decorators = [
                     MdProgressSpinner,
                     MdSpinner,
                     CompatibilityModule,
-                    MdProgressSpinnerCssMatStyler,
-                    MdProgressCircleCssMatStyler
+                    MdProgressSpinnerCssMatStyler
                 ],
                 declarations: [
                     MdProgressSpinner,
                     MdSpinner,
-                    MdProgressSpinnerCssMatStyler,
-                    MdProgressCircleCssMatStyler
+                    MdProgressSpinnerCssMatStyler
                 ],
             },] },
 ];
@@ -17686,4 +17664,4 @@ MaterialModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { Dir, RtlModule, ObserveContentModule, ObserveContent, MdOptionModule, MdOption, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, Platform as MdPlatform, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ScrollDispatcher, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, LiveAnnouncer as MdLiveAnnouncer, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher as MdUniqueSelectionDispatcher, MdLineModule, MdLine, MdLineSetter, MdError, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCoreModule, PlatformModule, Platform, getSupportedInputTypes, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckbox, MaterialRootModule, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFabCssMatStyler, MdMiniFabCssMatStyler, MdButton, MdAnchor, MdButtonToggleModule, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckbox, MdDialogModule, MD_DIALOG_DATA, MdDialog, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdGridListModule, MdGridList, MdIconModule, MdIconRegistry, MdIconInvalidNameError, MdIcon, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdInputDirective, MdInputContainer, MdInputContainerPlaceholderConflictError, MdInputContainerUnsupportedTypeError, MdInputContainerDuplicatedHintError, MdInputContainerMissingMdInputError, MdListModule, MdListDivider, LIST_TYPE_TOKEN, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdNavListTokenSetter, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, MdProgressSpinnerCssMatStyler, MdProgressCircleCssMatStyler, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroup, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_OPTION_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelect, MdSidenavModule, MdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabChangeEvent, MdTabGroup, MdTabNavBar, MdTabLink, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵf, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵg, OVERLAY_CONTAINER_PROVIDER as ɵb, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵa, OverlayPositionBuilder as ɵk, VIEWPORT_RULER_PROVIDER as ɵj, VIEWPORT_RULER_PROVIDER_FACTORY as ɵi, ViewportRuler as ɵh, SCROLL_DISPATCHER_PROVIDER as ɵd, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵc, Scrollable as ɵl, RippleRenderer as ɵe, MdGridAvatarCssMatStyler as ɵo, MdGridTile as ɵm, MdGridTileFooterCssMatStyler as ɵq, MdGridTileHeaderCssMatStyler as ɵp, MdGridTileText as ɵn };
+export { Dir, RtlModule, ObserveContentModule, ObserveContent, MdOptionModule, MdOption, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, Platform as MdPlatform, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ScrollDispatcher, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, LiveAnnouncer as MdLiveAnnouncer, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher as MdUniqueSelectionDispatcher, MdLineModule, MdLine, MdLineSetter, MdError, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCoreModule, PlatformModule, Platform, getSupportedInputTypes, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckbox, MaterialRootModule, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFabCssMatStyler, MdMiniFabCssMatStyler, MdButton, MdAnchor, MdButtonToggleModule, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckbox, MdDialogModule, MD_DIALOG_DATA, MdDialog, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdGridListModule, MdGridList, MdIconModule, MdIconRegistry, MdIconInvalidNameError, MdIcon, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdInputDirective, MdInputContainer, MdInputContainerPlaceholderConflictError, MdInputContainerUnsupportedTypeError, MdInputContainerDuplicatedHintError, MdInputContainerMissingMdInputError, MdListModule, MdListDivider, LIST_TYPE_TOKEN, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdNavListTokenSetter, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, MdProgressSpinnerCssMatStyler, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroup, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_OPTION_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelect, MdSidenavModule, MdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabChangeEvent, MdTabGroup, MdTabNavBar, MdTabLink, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵf, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵg, OVERLAY_CONTAINER_PROVIDER as ɵb, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵa, OverlayPositionBuilder as ɵk, VIEWPORT_RULER_PROVIDER as ɵj, VIEWPORT_RULER_PROVIDER_FACTORY as ɵi, ViewportRuler as ɵh, SCROLL_DISPATCHER_PROVIDER as ɵd, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵc, Scrollable as ɵl, RippleRenderer as ɵe, MdGridAvatarCssMatStyler as ɵo, MdGridTile as ɵm, MdGridTileFooterCssMatStyler as ɵq, MdGridTileHeaderCssMatStyler as ɵp, MdGridTileText as ɵn };
