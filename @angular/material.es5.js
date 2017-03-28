@@ -727,13 +727,15 @@ var ScrollDispatcher = (function () {
         }
         // Note that we need to do the subscribing from here, in order to be able to remove
         // the global event listeners once there are no more subscriptions.
-        return observable.subscribe(callback).add(function () {
+        var /** @type {?} */ subscription = observable.subscribe(callback);
+        subscription.add(function () {
             _this._scrolledCount--;
             if (_this._globalSubscription && !_this.scrollableReferences.size && !_this._scrolledCount) {
                 _this._globalSubscription.unsubscribe();
                 _this._globalSubscription = null;
             }
         });
+        return subscription;
     };
     /**
      * Returns all registered Scrollables that contain the provided element.
