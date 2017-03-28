@@ -7482,6 +7482,10 @@ var MdSelect = (function () {
             },
         ];
         this._floatPlaceholder = 'auto';
+        /** Aria label of the select. If not specified, the placeholder will be used as label. */
+        this.ariaLabel = '';
+        /** Input that can be used to specify the `aria-labelledby` attribute. */
+        this.ariaLabelledby = '';
         /** Event emitted when the select has been opened. */
         this.onOpen = new EventEmitter();
         /** Event emitted when the select has been closed. */
@@ -8095,6 +8099,19 @@ var MdSelect = (function () {
         return (this.floatPlaceholder !== 'never' || this._selectionModel.isEmpty()) ?
             'visible' : 'hidden';
     };
+    Object.defineProperty(MdSelect.prototype, "_ariaLabel", {
+        /**
+         * Returns the aria-label of the select component.
+         * @return {?}
+         */
+        get: function () {
+            // If an ariaLabelledby value has been set, the select should not overwrite the
+            // `aria-labelledby` value by setting the ariaLabel to the placeholder.
+            return this.ariaLabelledby ? null : this.ariaLabel || this.placeholder;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * Calculates the y-offset of the select's overlay panel in relation to the
      * top start corner of the trigger. It has to be adjusted in order for the
@@ -8227,7 +8244,8 @@ MdSelect.decorators = [
                 host: {
                     'role': 'listbox',
                     '[attr.tabindex]': 'tabIndex',
-                    '[attr.aria-label]': 'placeholder',
+                    '[attr.aria-label]': '_ariaLabel',
+                    '[attr.aria-labelledby]': 'ariaLabelledby',
                     '[attr.aria-required]': 'required.toString()',
                     '[attr.aria-disabled]': 'disabled.toString()',
                     '[attr.aria-invalid]': '_control?.invalid || "false"',
@@ -8267,6 +8285,8 @@ MdSelect.propDecorators = {
     'multiple': [{ type: Input },],
     'floatPlaceholder': [{ type: Input },],
     'tabIndex': [{ type: Input },],
+    'ariaLabel': [{ type: Input, args: ['aria-label',] },],
+    'ariaLabelledby': [{ type: Input, args: ['aria-labelledby',] },],
     'onOpen': [{ type: Output },],
     'onClose': [{ type: Output },],
     'change': [{ type: Output },],

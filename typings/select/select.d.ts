@@ -154,6 +154,10 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
     private _floatPlaceholder;
     /** Tab index for the select element. */
     tabIndex: number;
+    /** Aria label of the select. If not specified, the placeholder will be used as label. */
+    ariaLabel: string;
+    /** Input that can be used to specify the `aria-labelledby` attribute. */
+    ariaLabelledby: string;
     /** Combined stream of all of the child options' change events. */
     readonly optionSelectionChanges: Observable<MdOptionSelectionChange>;
     /** Event emitted when the select has been opened. */
@@ -310,6 +314,8 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
      * Determines the CSS `visibility` of the placeholder element.
      */
     _getPlaceholderVisibility(): 'visible' | 'hidden';
+    /** Returns the aria-label of the select component. */
+    readonly _ariaLabel: string;
     /**
      * Calculates the y-offset of the select's overlay panel in relation to the
      * top start corner of the trigger. It has to be adjusted in order for the
