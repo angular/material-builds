@@ -75,7 +75,9 @@ export declare class MdInputContainer implements AfterViewInit, AfterContentInit
     /** Alignment of the input container's content. */
     align: 'start' | 'end';
     /** Color of the input divider, based on the theme. */
-    dividerColor: 'primary' | 'accent' | 'warn';
+    color: 'primary' | 'accent' | 'warn';
+    /** @deprecated Use color instead. */
+    dividerColor: "accent" | "primary" | "warn";
     /** Whether the floating label should always float or not. */
     readonly _shouldAlwaysFloat: boolean;
     /** Whether the placeholder can float or not. */
