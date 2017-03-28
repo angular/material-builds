@@ -18612,10 +18612,23 @@ var MdAutocompleteTrigger = (function () {
      */
     MdAutocompleteTrigger.prototype._setValueAndClose = function (event) {
         if (event) {
+            this._clearPreviousSelectedOption(event.source);
             this._setTriggerValue(event.source.value);
             this._onChange(event.source.value);
         }
         this.closePanel();
+    };
+    /**
+     * Clear any previous selected option and emit a selection change event for this option
+     * @param {?} skip
+     * @return {?}
+     */
+    MdAutocompleteTrigger.prototype._clearPreviousSelectedOption = function (skip) {
+        this.autocomplete.options.forEach(function (option) {
+            if (option != skip && option.selected) {
+                option.deselect();
+            }
+        });
     };
     /**
      * @return {?}

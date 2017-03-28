@@ -17436,10 +17436,23 @@ class MdAutocompleteTrigger {
      */
     _setValueAndClose(event) {
         if (event) {
+            this._clearPreviousSelectedOption(event.source);
             this._setTriggerValue(event.source.value);
             this._onChange(event.source.value);
         }
         this.closePanel();
+    }
+    /**
+     * Clear any previous selected option and emit a selection change event for this option
+     * @param {?} skip
+     * @return {?}
+     */
+    _clearPreviousSelectedOption(skip) {
+        this.autocomplete.options.forEach((option) => {
+            if (option != skip && option.selected) {
+                option.deselect();
+            }
+        });
     }
     /**
      * @return {?}

@@ -118,6 +118,10 @@ export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDe
     * stemmed from the user.
     */
     private _setValueAndClose(event);
+    /**
+     * Clear any previous selected option and emit a selection change event for this option
+     */
+    private _clearPreviousSelectedOption(skip);
     private _createOverlay();
     private _getOverlayConfig();
     private _getOverlayPosition();
