@@ -30743,7 +30743,9 @@ $mat-dark-theme-foreground: (
 
 
 @mixin mat-slider-theme($theme) {
+  $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
 
   $mat-slider-off-color: rgba(black, 0.26);
   $mat-slider-off-focused-color: rgba(black, 0.38);
@@ -30757,24 +30759,38 @@ $mat-dark-theme-foreground: (
     background-color: $mat-slider-off-color;
   }
 
-  .mat-slider-track-fill {
-    background-color: mat-color($accent);
+  .mat-slider-track-fill,
+  .mat-slider-thumb,
+  .mat-slider-thumb-label {
+    .mat-primary & {
+      background-color: mat-color($primary);
+    }
+
+    .mat-accent & {
+      background-color: mat-color($accent);
+    }
+
+    .mat-warn & {
+      background-color: mat-color($warn);
+    }
   }
 
   .mat-slider-focus-ring {
     background-color: $mat-slider-focus-ring-color;
   }
 
-  .mat-slider-thumb {
-    background-color: mat-color($accent);
-  }
-
-  .mat-slider-thumb-label {
-    background-color: mat-color($accent);
-  }
-
   .mat-slider-thumb-label-text {
-    color: mat-color($accent, default-contrast);
+    .mat-primary & {
+      color: mat-color($primary, default-contrast);
+    }
+
+    .mat-accent & {
+      color: mat-color($accent, default-contrast);
+    }
+
+    .mat-warn & {
+      color: mat-color($warn, default-contrast);
+    }
   }
 
   .mat-slider:hover,

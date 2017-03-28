@@ -8828,6 +8828,7 @@ var MdSlider = (function () {
         this._tickInterval = 0;
         this._value = null;
         this._vertical = false;
+        this.color = 'accent';
         /** Event emitted when the slider value has changed. */
         this.change = new _angular_core.EventEmitter();
         /** Event emitted when the slider thumb moves. */
@@ -9547,6 +9548,9 @@ MdSlider.decorators = [
                     '[attr.aria-valuemax]': 'max',
                     '[attr.aria-valuemin]': 'min',
                     '[attr.aria-valuenow]': 'value',
+                    '[class.mat-primary]': 'color == "primary"',
+                    '[class.mat-accent]': 'color != "primary" && color != "warn"',
+                    '[class.mat-warn]': 'color == "warn"',
                     '[class.mat-slider-disabled]': 'disabled',
                     '[class.mat-slider-has-ticks]': 'tickInterval',
                     '[class.mat-slider-horizontal]': '!vertical',
@@ -9583,6 +9587,7 @@ MdSlider.propDecorators = {
     '_tickIntervalDeprecated': [{ type: _angular_core.Input, args: ['tick-interval',] },],
     'value': [{ type: _angular_core.Input },],
     'vertical': [{ type: _angular_core.Input },],
+    'color': [{ type: _angular_core.Input },],
     'change': [{ type: _angular_core.Output },],
     'input': [{ type: _angular_core.Output },],
 };

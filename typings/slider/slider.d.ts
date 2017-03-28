@@ -57,6 +57,7 @@ export declare class MdSlider implements ControlValueAccessor, OnDestroy {
     /** Whether the slider is vertical. */
     vertical: any;
     private _vertical;
+    color: 'primary' | 'accent' | 'warn';
     /** Event emitted when the slider value has changed. */
     change: EventEmitter<MdSliderChange>;
     /** Event emitted when the slider thumb moves. */
