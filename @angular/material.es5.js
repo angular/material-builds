@@ -13167,7 +13167,7 @@ var MdProgressSpinner = (function () {
         set: function (v) {
             if (v != null && this.mode == 'determinate') {
                 var /** @type {?} */ newValue = clamp(v);
-                this._animateCircle((this.value || 0), newValue, linearEase, DURATION_DETERMINATE, 0);
+                this._animateCircle(this.value || 0, newValue);
                 this._value = newValue;
             }
         },
@@ -13186,17 +13186,20 @@ var MdProgressSpinner = (function () {
             return this._mode;
         },
         /**
-         * @param {?} m
+         * @param {?} mode
          * @return {?}
          */
-        set: function (m) {
-            if (m == 'indeterminate') {
-                this._startIndeterminateAnimation();
+        set: function (mode) {
+            if (mode !== this._mode) {
+                if (mode === 'indeterminate') {
+                    this._startIndeterminateAnimation();
+                }
+                else {
+                    this._cleanupIndeterminateAnimation();
+                    this._animateCircle(0, this._value);
+                }
+                this._mode = mode;
             }
-            else {
-                this._cleanupIndeterminateAnimation();
-            }
-            this._mode = m;
         },
         enumerable: true,
         configurable: true
@@ -13206,14 +13209,17 @@ var MdProgressSpinner = (function () {
      *
      * @param {?} animateFrom The percentage of the circle filled starting the animation.
      * @param {?} animateTo The percentage of the circle filled ending the animation.
-     * @param {?} ease The easing function to manage the pace of change in the animation.
-     * @param {?} duration The length of time to show the animation, in milliseconds.
-     * @param {?} rotation The starting angle of the circle fill, with 0° represented at the top center
+     * @param {?=} ease The easing function to manage the pace of change in the animation.
+     * @param {?=} duration The length of time to show the animation, in milliseconds.
+     * @param {?=} rotation The starting angle of the circle fill, with 0° represented at the top center
      *    of the circle.
      * @return {?}
      */
     MdProgressSpinner.prototype._animateCircle = function (animateFrom, animateTo, ease, duration, rotation) {
         var _this = this;
+        if (ease === void 0) { ease = linearEase; }
+        if (duration === void 0) { duration = DURATION_DETERMINATE; }
+        if (rotation === void 0) { rotation = 0; }
         var /** @type {?} */ id = ++this._lastAnimationId;
         var /** @type {?} */ startTime = Date.now();
         var /** @type {?} */ changeInValue = animateTo - animateFrom;
@@ -13272,10 +13278,11 @@ var MdProgressSpinner = (function () {
      * Renders the arc onto the SVG element. Proxies `getArc` while setting the proper
      * DOM attribute on the `<path>`.
      * @param {?} currentValue
-     * @param {?} rotation
+     * @param {?=} rotation
      * @return {?}
      */
     MdProgressSpinner.prototype._renderArc = function (currentValue, rotation) {
+        if (rotation === void 0) { rotation = 0; }
         // Caches the path reference so it doesn't have to be looked up every time.
         var /** @type {?} */ path = this._path = this._path || this._elementRef.nativeElement.querySelector('path');
         // Ensure that the path was found. This may not be the case if the

@@ -64,7 +64,7 @@ export declare class MdProgressSpinner implements OnDestroy {
      * @param rotation The starting angle of the circle fill, with 0° represented at the top center
      *    of the circle.
      */
-    private _animateCircle(animateFrom, animateTo, ease, duration, rotation);
+    private _animateCircle(animateFrom, animateTo, ease?, duration?, rotation?);
     /**
      * Starts the indeterminate animation interval, if it is not already running.
      */
@@ -77,7 +77,7 @@ export declare class MdProgressSpinner implements OnDestroy {
      * Renders the arc onto the SVG element. Proxies `getArc` while setting the proper
      * DOM attribute on the `<path>`.
      */
-    private _renderArc(currentValue, rotation);
+    private _renderArc(currentValue, rotation?);
     /**
      * Updates the color of the progress-spinner by adding the new palette class to the element
      * and removing the old one.

@@ -12345,7 +12345,7 @@ class MdProgressSpinner {
     set value(v) {
         if (v != null && this.mode == 'determinate') {
             let /** @type {?} */ newValue = clamp(v);
-            this._animateCircle((this.value || 0), newValue, linearEase, DURATION_DETERMINATE, 0);
+            this._animateCircle(this.value || 0, newValue);
             this._value = newValue;
         }
     }
@@ -12360,30 +12360,33 @@ class MdProgressSpinner {
         return this._mode;
     }
     /**
-     * @param {?} m
+     * @param {?} mode
      * @return {?}
      */
-    set mode(m) {
-        if (m == 'indeterminate') {
-            this._startIndeterminateAnimation();
+    set mode(mode) {
+        if (mode !== this._mode) {
+            if (mode === 'indeterminate') {
+                this._startIndeterminateAnimation();
+            }
+            else {
+                this._cleanupIndeterminateAnimation();
+                this._animateCircle(0, this._value);
+            }
+            this._mode = mode;
         }
-        else {
-            this._cleanupIndeterminateAnimation();
-        }
-        this._mode = m;
     }
     /**
      * Animates the circle from one percentage value to another.
      *
      * @param {?} animateFrom The percentage of the circle filled starting the animation.
      * @param {?} animateTo The percentage of the circle filled ending the animation.
-     * @param {?} ease The easing function to manage the pace of change in the animation.
-     * @param {?} duration The length of time to show the animation, in milliseconds.
-     * @param {?} rotation The starting angle of the circle fill, with 0° represented at the top center
+     * @param {?=} ease The easing function to manage the pace of change in the animation.
+     * @param {?=} duration The length of time to show the animation, in milliseconds.
+     * @param {?=} rotation The starting angle of the circle fill, with 0° represented at the top center
      *    of the circle.
      * @return {?}
      */
-    _animateCircle(animateFrom, animateTo, ease, duration, rotation) {
+    _animateCircle(animateFrom, animateTo, ease = linearEase, duration = DURATION_DETERMINATE, rotation = 0) {
         let /** @type {?} */ id = ++this._lastAnimationId;
         let /** @type {?} */ startTime = Date.now();
         let /** @type {?} */ changeInValue = animateTo - animateFrom;
@@ -12441,10 +12444,10 @@ class MdProgressSpinner {
      * Renders the arc onto the SVG element. Proxies `getArc` while setting the proper
      * DOM attribute on the `<path>`.
      * @param {?} currentValue
-     * @param {?} rotation
+     * @param {?=} rotation
      * @return {?}
      */
-    _renderArc(currentValue, rotation) {
+    _renderArc(currentValue, rotation = 0) {
         // Caches the path reference so it doesn't have to be looked up every time.
         let /** @type {?} */ path = this._path = this._path || this._elementRef.nativeElement.querySelector('path');
         // Ensure that the path was found. This may not be the case if the
