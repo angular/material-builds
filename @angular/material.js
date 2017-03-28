@@ -5803,7 +5803,7 @@ class MdCheckbox {
         this._focusedSubscription = this._focusOriginMonitor
             .monitor(this._inputElement.nativeElement, this._renderer, false)
             .subscribe(focusOrigin => {
-            if (!this._focusedRipple && focusOrigin === 'keyboard') {
+            if (!this._focusedRipple && (focusOrigin === 'keyboard' || focusOrigin === 'program')) {
                 this._focusedRipple = this._ripple.launch(0, 0, { persistent: true, centered: true });
             }
         });
@@ -6018,7 +6018,7 @@ class MdCheckbox {
      * @return {?}
      */
     focus() {
-        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, this._renderer, 'keyboard');
+        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, this._renderer, 'program');
     }
     /**
      * @param {?} event

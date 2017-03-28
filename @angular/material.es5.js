@@ -6072,7 +6072,7 @@ var MdCheckbox = (function () {
         this._focusedSubscription = this._focusOriginMonitor
             .monitor(this._inputElement.nativeElement, this._renderer, false)
             .subscribe(function (focusOrigin) {
-            if (!_this._focusedRipple && focusOrigin === 'keyboard') {
+            if (!_this._focusedRipple && (focusOrigin === 'keyboard' || focusOrigin === 'program')) {
                 _this._focusedRipple = _this._ripple.launch(0, 0, { persistent: true, centered: true });
             }
         });
@@ -6300,7 +6300,7 @@ var MdCheckbox = (function () {
      * @return {?}
      */
     MdCheckbox.prototype.focus = function () {
-        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, this._renderer, 'keyboard');
+        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, this._renderer, 'program');
     };
     /**
      * @param {?} event
