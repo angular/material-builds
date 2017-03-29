@@ -16601,9 +16601,7 @@ class MdDialogContainer extends BasePortalHost {
         if (this._portalHost.hasAttached()) {
             throw new MdDialogContentAlreadyAttachedError();
         }
-        let /** @type {?} */ attachResult = this._portalHost.attachComponentPortal(portal);
-        this._trapFocus();
-        return attachResult;
+        return this._portalHost.attachComponentPortal(portal);
     }
     /**
      * Attach a TemplatePortal as content to this dialog container.
@@ -16614,9 +16612,7 @@ class MdDialogContainer extends BasePortalHost {
         if (this._portalHost.hasAttached()) {
             throw new MdDialogContentAlreadyAttachedError();
         }
-        let /** @type {?} */ attachedResult = this._portalHost.attachTemplatePortal(portal);
-        this._trapFocus();
-        return attachedResult;
+        return this._portalHost.attachTemplatePortal(portal);
     }
     /**
      * Moves the focus inside the focus trap.
@@ -16650,6 +16646,9 @@ class MdDialogContainer extends BasePortalHost {
      * @return {?}
      */
     _onAnimationDone(event) {
+        if (event.toState === 'enter') {
+            this._trapFocus();
+        }
         this._onAnimationStateChange.emit(/** @type {?} */ (event.toState));
     }
     /**
@@ -16669,7 +16668,9 @@ class MdDialogContainer extends BasePortalHost {
             }
             this._onAnimationStateChange.complete();
         });
-        this._focusTrap.destroy();
+        if (this._focusTrap) {
+            this._focusTrap.destroy();
+        }
     }
 }
 MdDialogContainer.decorators = [

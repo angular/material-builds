@@ -17724,9 +17724,7 @@ var MdDialogContainer = (function (_super) {
         if (this._portalHost.hasAttached()) {
             throw new MdDialogContentAlreadyAttachedError();
         }
-        var /** @type {?} */ attachResult = this._portalHost.attachComponentPortal(portal);
-        this._trapFocus();
-        return attachResult;
+        return this._portalHost.attachComponentPortal(portal);
     };
     /**
      * Attach a TemplatePortal as content to this dialog container.
@@ -17737,9 +17735,7 @@ var MdDialogContainer = (function (_super) {
         if (this._portalHost.hasAttached()) {
             throw new MdDialogContentAlreadyAttachedError();
         }
-        var /** @type {?} */ attachedResult = this._portalHost.attachTemplatePortal(portal);
-        this._trapFocus();
-        return attachedResult;
+        return this._portalHost.attachTemplatePortal(portal);
     };
     /**
      * Moves the focus inside the focus trap.
@@ -17774,6 +17770,9 @@ var MdDialogContainer = (function (_super) {
      * @return {?}
      */
     MdDialogContainer.prototype._onAnimationDone = function (event) {
+        if (event.toState === 'enter') {
+            this._trapFocus();
+        }
         this._onAnimationStateChange.emit(/** @type {?} */ (event.toState));
     };
     /**
@@ -17794,7 +17793,9 @@ var MdDialogContainer = (function (_super) {
             }
             _this._onAnimationStateChange.complete();
         });
-        this._focusTrap.destroy();
+        if (this._focusTrap) {
+            this._focusTrap.destroy();
+        }
     };
     return MdDialogContainer;
 }(BasePortalHost));
