@@ -1,5 +1,5 @@
-import { AfterViewInit, AfterContentInit, ElementRef, EventEmitter, Renderer, ChangeDetectorRef, QueryList } from '@angular/core';
-import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
+import { AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, QueryList, Renderer } from '@angular/core';
+import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 /** Type for the available floatPlaceholder values. */
 export declare type FloatPlaceholderType = 'always' | 'never' | 'auto';
 /**
@@ -15,6 +15,12 @@ export declare class MdHint {
 }
 /** Directive, used to display a single error message under the input. */
 export declare class MdErrorDirective {
+}
+/** The input prefix. */
+export declare class MdPrefix {
+}
+/** The input suffix. */
+export declare class MdSuffix {
 }
 /** The input directive, used to mark the input that `MdInputContainer` is wrapping. */
 export declare class MdInputDirective {
@@ -95,6 +101,8 @@ export declare class MdInputContainer implements AfterViewInit, AfterContentInit
     _placeholderChild: MdPlaceholder;
     _errorChildren: QueryList<MdErrorDirective>;
     _hintChildren: QueryList<MdHint>;
+    _prefixChildren: QueryList<MdPrefix>;
+    _suffixChildren: QueryList<MdSuffix>;
     constructor(_changeDetectorRef: ChangeDetectorRef, _parentForm: NgForm, _parentFormGroup: FormGroupDirective);
     ngAfterContentInit(): void;
     ngAfterViewInit(): void;

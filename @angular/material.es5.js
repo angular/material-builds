@@ -31,6 +31,8 @@ import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/switchMap';
+/** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
+var hasDoneGlobalChecks = false;
 var MATERIAL_COMPATIBILITY_MODE = new OpaqueToken('md-compatibility-mode');
 /** Selector that matches all elements that may have style collisions with AngularJS Material. */
 var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-dialog-actions],\n  [mat-dialog-close],\n  [mat-dialog-content],\n  [mat-dialog-title],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-menu-trigger-for],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [mat-tab-label],\n  [mat-tab-link],\n  [mat-tab-nav-bar],\n  [matTooltip],\n  mat-autocomplete,\n  mat-button-toggle,\n  mat-button-toggle-group,\n  mat-button-toggle,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-hint,\n  mat-icon,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-pseudo-checkbox,\n  mat-radio-button,\n  mat-radio-group,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-tab,\n  mat-tab-group,\n  mat-toolbar,\n  mat-error";
@@ -89,12 +91,14 @@ MdPrefixRejector.ctorParameters = function () { return [
  */
 var CompatibilityModule = (function () {
     /**
-     * @param {?} document
+     * @param {?} _document
      */
-    function CompatibilityModule(document) {
-        if (isDevMode() && typeof document && !document.doctype) {
-            console.warn('Current document does not have a doctype. This may cause ' +
-                'some Angular Material components not to behave as expected.');
+    function CompatibilityModule(_document) {
+        this._document = _document;
+        if (!hasDoneGlobalChecks && isDevMode()) {
+            this._checkDoctype();
+            this._checkTheme();
+            hasDoneGlobalChecks = true;
         }
     }
     /**
@@ -105,6 +109,31 @@ var CompatibilityModule = (function () {
             ngModule: CompatibilityModule,
             providers: [],
         };
+    };
+    /**
+     * @return {?}
+     */
+    CompatibilityModule.prototype._checkDoctype = function () {
+        if (this._document && !this._document.doctype) {
+            console.warn('Current document does not have a doctype. This may cause ' +
+                'some Angular Material components not to behave as expected.');
+        }
+    };
+    /**
+     * @return {?}
+     */
+    CompatibilityModule.prototype._checkTheme = function () {
+        if (this._document) {
+            var /** @type {?} */ testElement = this._document.createElement('div');
+            testElement.classList.add('mat-theme-loaded-marker');
+            this._document.body.appendChild(testElement);
+            if (getComputedStyle(testElement).display !== 'none') {
+                console.warn('Could not find Angular Material core theme. Most Material ' +
+                    'components may not work as expected. For more info refer ' +
+                    'to the theming guide: https://material.angular.io/guide/theming');
+            }
+            this._document.body.removeChild(testElement);
+        }
     };
     return CompatibilityModule;
 }());
@@ -7615,9 +7644,14 @@ var MdSelect = (function () {
     /**
      * @return {?}
      */
+    MdSelect.prototype.ngOnInit = function () {
+        this._selectionModel = new SelectionModel(this.multiple, null, false);
+    };
+    /**
+     * @return {?}
+     */
     MdSelect.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this._selectionModel = new SelectionModel(this.multiple, null, false);
         this._initKeyManager();
         this._changeSubscription = this.options.changes.startWith(null).subscribe(function () {
             _this._resetOptions();
@@ -7744,9 +7778,15 @@ var MdSelect = (function () {
          * @return {?}
          */
         get: function () {
-            return this.multiple ?
-                this._selectionModel.selected.map(function (option) { return option.viewValue; }).join(', ') :
-                this._selectionModel.selected[0].viewValue;
+            if (this._multiple) {
+                var /** @type {?} */ selectedOptions = this._selectionModel.selected.map(function (option) { return option.viewValue; });
+                if (this._isRtl()) {
+                    selectedOptions.reverse();
+                }
+                // TODO(crisbeto): delimiter should be configurable for proper localization.
+                return selectedOptions.join(', ');
+            }
+            return this._selectionModel.selected[0].viewValue;
         },
         enumerable: true,
         configurable: true
@@ -8353,10 +8393,12 @@ var MdSlideToggle = (function () {
     /**
      * @param {?} _elementRef
      * @param {?} _renderer
+     * @param {?} _focusOriginMonitor
      */
-    function MdSlideToggle(_elementRef, _renderer) {
+    function MdSlideToggle(_elementRef, _renderer, _focusOriginMonitor) {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
+        this._focusOriginMonitor = _focusOriginMonitor;
         this.onChange = function (_) { };
         this.onTouched = function () { };
         this._uniqueId = "md-slide-toggle-" + ++nextId$1;
@@ -8366,8 +8408,6 @@ var MdSlideToggle = (function () {
         this._disabled = false;
         this._required = false;
         this._disableRipple = false;
-        // Needs to be public to support AOT compilation (as host binding).
-        this._hasFocus = false;
         /** Name value will be applied to the input element if present */
         this.name = null;
         /** A unique id for the slide-toggle input. If none is supplied, it will be auto-generated. */
@@ -8439,7 +8479,21 @@ var MdSlideToggle = (function () {
      * @return {?}
      */
     MdSlideToggle.prototype.ngAfterContentInit = function () {
+        var _this = this;
         this._slideRenderer = new SlideToggleRenderer(this._elementRef);
+        this._focusOriginSubscription = this._focusOriginMonitor
+            .monitor(this._inputElement.nativeElement, this._renderer, false)
+            .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
+    };
+    /**
+     * @return {?}
+     */
+    MdSlideToggle.prototype.ngOnDestroy = function () {
+        this._focusOriginMonitor.unmonitor(this._inputElement.nativeElement);
+        if (this._focusOriginSubscription) {
+            this._focusOriginSubscription.unsubscribe();
+            this._focusOriginSubscription = null;
+        }
     };
     /**
      * The onChangeEvent method will be also called on click.
@@ -8490,23 +8544,6 @@ var MdSlideToggle = (function () {
         setTimeout(function () { return _this._isMousedown = false; }, 100);
     };
     /**
-     * @return {?}
-     */
-    MdSlideToggle.prototype._onInputFocus = function () {
-        // Only show the focus / ripple indicator when the focus was not triggered by a mouse
-        // interaction on the component.
-        if (!this._isMousedown) {
-            this._hasFocus = true;
-        }
-    };
-    /**
-     * @return {?}
-     */
-    MdSlideToggle.prototype._onInputBlur = function () {
-        this._hasFocus = false;
-        this.onTouched();
-    };
-    /**
      * Implemented as part of ControlValueAccessor.
      * @param {?} value
      * @return {?}
@@ -8543,8 +8580,7 @@ var MdSlideToggle = (function () {
      * @return {?}
      */
     MdSlideToggle.prototype.focus = function () {
-        this._renderer.invokeElementMethod(this._inputElement.nativeElement, 'focus');
-        this._onInputFocus();
+        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, this._renderer, 'program');
     };
     Object.defineProperty(MdSlideToggle.prototype, "checked", {
         /**
@@ -8587,6 +8623,25 @@ var MdSlideToggle = (function () {
      */
     MdSlideToggle.prototype.toggle = function () {
         this.checked = !this.checked;
+    };
+    /**
+     * Function is called whenever the focus changes for the input element.
+     * @param {?} focusOrigin
+     * @return {?}
+     */
+    MdSlideToggle.prototype._onInputFocusChange = function (focusOrigin) {
+        if (!this._focusRipple && focusOrigin === 'keyboard') {
+            // For keyboard focus show a persistent ripple as focus indicator.
+            this._focusRipple = this._ripple.launch(0, 0, { persistent: true, centered: true });
+        }
+        else if (!focusOrigin) {
+            this.onTouched();
+            // Fade out and clear the focus ripple if one is currently present.
+            if (this._focusRipple) {
+                this._focusRipple.fadeOut();
+                this._focusRipple = null;
+            }
+        }
     };
     /**
      * @param {?} newColor
@@ -8658,12 +8713,10 @@ MdSlideToggle.decorators = [
                     '[class.mat-slide-toggle]': 'true',
                     '[class.mat-checked]': 'checked',
                     '[class.mat-disabled]': 'disabled',
-                    // This mat-slide-toggle prefix will change, once the temporary ripple is removed.
-                    '[class.mat-slide-toggle-focused]': '_hasFocus',
                     '[class.mat-slide-toggle-label-before]': 'labelPosition == "before"',
                     '(mousedown)': '_setMousedown()'
                 },
-                template: "<label class=\"mat-slide-toggle-label\" #label> <div class=\"mat-slide-toggle-bar\"> <input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (blur)=\"_onInputBlur()\" (focus)=\"_onInputFocus()\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"> <div class=\"mat-slide-toggle-thumb-container\" (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"> <div class=\"mat-slide-toggle-thumb\"></div> <div class=\"mat-slide-toggle-ripple\" md-ripple [mdRippleTrigger]=\"label\" [mdRippleCentered]=\"true\" [mdRippleDisabled]=\"disableRipple || disabled\"> </div> </div> </div> <span class=\"mat-slide-toggle-content\"> <ng-content></ng-content> </span> </label> ",
+                template: "<label class=\"mat-slide-toggle-label\" #label> <div class=\"mat-slide-toggle-bar\"> <input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"> <div class=\"mat-slide-toggle-thumb-container\" (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"> <div class=\"mat-slide-toggle-thumb\"></div> <div class=\"mat-slide-toggle-ripple\" md-ripple [mdRippleTrigger]=\"label\" [mdRippleCentered]=\"true\" [mdRippleDisabled]=\"disableRipple || disabled\"> </div> </div> </div> <span class=\"mat-slide-toggle-content\"> <ng-content></ng-content> </span> </label> ",
                 styles: [".mat-slide-toggle{display:inline-block;height:24px;line-height:24px;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(16px,0,0)}.mat-slide-toggle.mat-disabled .mat-slide-toggle-label,.mat-slide-toggle.mat-disabled .mat-slide-toggle-thumb-container{cursor:default}.mat-slide-toggle-content{font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500}.mat-slide-toggle-label{display:flex;flex:1;flex-direction:row;align-items:center;cursor:pointer}.mat-slide-toggle-label-before .mat-slide-toggle-label{order:1}.mat-slide-toggle-label-before .mat-slide-toggle-bar{order:2}.mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar{margin-right:8px;margin-left:0}.mat-slide-toggle-label-before .mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-bar{margin-left:8px;margin-right:0}.mat-slide-toggle-thumb-container{position:absolute;z-index:1;width:20px;height:20px;top:-3px;left:0;transform:translate3d(0,0,0);transition:all 80ms linear;transition-property:transform;cursor:-webkit-grab;cursor:grab}.mat-slide-toggle-thumb-container.mat-dragging{transition-duration:0s}.mat-slide-toggle-thumb{height:20px;width:20px;border-radius:50%;box-shadow:0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-thumb{background:#fff;border:solid 1px #000}}.mat-slide-toggle-bar{position:relative;width:36px;height:14px;border-radius:8px}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-bar{background:#fff}}.mat-slide-toggle-input{bottom:0;left:10px}.mat-slide-toggle-bar,.mat-slide-toggle-thumb{transition:all 80ms linear;transition-property:background-color;transition-delay:50ms}.mat-slide-toggle-ripple{position:absolute;top:-13px;left:-13px;height:46px;width:46px;border-radius:50%;z-index:1;pointer-events:none} /*# sourceMappingURL=slide-toggle.css.map */ "],
                 providers: [MD_SLIDE_TOGGLE_VALUE_ACCESSOR],
                 encapsulation: ViewEncapsulation.None,
@@ -8676,6 +8729,7 @@ MdSlideToggle.decorators = [
 MdSlideToggle.ctorParameters = function () { return [
     { type: ElementRef, },
     { type: Renderer, },
+    { type: FocusOriginMonitor, },
 ]; };
 MdSlideToggle.propDecorators = {
     'name': [{ type: Input },],
@@ -8689,6 +8743,7 @@ MdSlideToggle.propDecorators = {
     'disableRipple': [{ type: Input },],
     'change': [{ type: Output },],
     '_inputElement': [{ type: ViewChild, args: ['input',] },],
+    '_ripple': [{ type: ViewChild, args: [MdRipple,] },],
     'checked': [{ type: Input },],
     'color': [{ type: Input },],
 };
@@ -8780,7 +8835,10 @@ MdSlideToggleModule.decorators = [
                 imports: [FormsModule, MdRippleModule, CompatibilityModule],
                 exports: [MdSlideToggle, CompatibilityModule],
                 declarations: [MdSlideToggle],
-                providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }],
+                providers: [
+                    FOCUS_ORIGIN_MONITOR_PROVIDER,
+                    { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
+                ],
             },] },
 ];
 /**
@@ -13743,6 +13801,40 @@ MdErrorDirective.decorators = [
  */
 MdErrorDirective.ctorParameters = function () { return []; };
 /**
+ * The input prefix.
+ */
+var MdPrefix = (function () {
+    function MdPrefix() {
+    }
+    return MdPrefix;
+}());
+MdPrefix.decorators = [
+    { type: Directive, args: [{
+                selector: '[mdPrefix], [matPrefix], [md-prefix]'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdPrefix.ctorParameters = function () { return []; };
+/**
+ * The input suffix.
+ */
+var MdSuffix = (function () {
+    function MdSuffix() {
+    }
+    return MdSuffix;
+}());
+MdSuffix.decorators = [
+    { type: Directive, args: [{
+                selector: '[mdSuffix], [matSuffix], [md-suffix]'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdSuffix.ctorParameters = function () { return []; };
+/**
  * The input directive, used to mark the input that `MdInputContainer` is wrapping.
  */
 var MdInputDirective = (function () {
@@ -14211,7 +14303,7 @@ var MdInputContainer = (function () {
 }());
 MdInputContainer.decorators = [
     { type: Component, args: [{ selector: 'md-input-container, mat-input-container',
-                template: "<div class=\"mat-input-wrapper\"> <div class=\"mat-input-table\"> <div class=\"mat-input-prefix\"> <!-- TODO(andrewseguin): remove [md-prefix] --> <ng-content select=\"[mdPrefix], [matPrefix], [md-prefix]\"></ng-content> </div> <div class=\"mat-input-infix\" [class.mat-end]=\"align == 'end'\"> <ng-content selector=\"input, textarea\"></ng-content> <span class=\"mat-input-placeholder-wrapper\"> <label class=\"mat-input-placeholder\" [attr.for]=\"_mdInputChild.id\" [class.mat-empty]=\"_mdInputChild.empty && !_shouldAlwaysFloat\" [class.mat-float]=\"_canPlaceholderFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" *ngIf=\"_hasPlaceholder()\"> <ng-content select=\"md-placeholder, mat-placeholder\"></ng-content> {{_mdInputChild.placeholder}} <span class=\"mat-placeholder-required\" *ngIf=\"_mdInputChild.required\">*</span> </label> </span> </div> <div class=\"mat-input-suffix\"> <!-- TODO(andrewseguin): remove [md-suffix] --> <ng-content select=\"[mdSuffix], [matSuffix], [md-suffix]\"></ng-content> </div> </div> <div class=\"mat-input-underline\" [class.mat-disabled]=\"_mdInputChild.disabled\"> <span class=\"mat-input-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span> </div> <div class=\"mat-input-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"> <div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"> <ng-content select=\"md-error, mat-error\"></ng-content> </div> <div class=\"mat-input-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"> <div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div> <ng-content select=\"md-hint, mat-hint\"></ng-content> </div> </div> </div> ",
+                template: "<div class=\"mat-input-wrapper\"> <div class=\"mat-input-table\"> <div class=\"mat-input-prefix\" *ngIf=\"_prefixChildren.length\"> <!-- TODO(andrewseguin): remove [md-prefix] --> <ng-content select=\"[mdPrefix], [matPrefix], [md-prefix]\"></ng-content> </div> <div class=\"mat-input-infix\" [class.mat-end]=\"align == 'end'\"> <ng-content selector=\"input, textarea\"></ng-content> <span class=\"mat-input-placeholder-wrapper\"> <label class=\"mat-input-placeholder\" [attr.for]=\"_mdInputChild.id\" [class.mat-empty]=\"_mdInputChild.empty && !_shouldAlwaysFloat\" [class.mat-float]=\"_canPlaceholderFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" *ngIf=\"_hasPlaceholder()\"> <ng-content select=\"md-placeholder, mat-placeholder\"></ng-content> {{_mdInputChild.placeholder}} <span class=\"mat-placeholder-required\" *ngIf=\"_mdInputChild.required\">*</span> </label> </span> </div> <div class=\"mat-input-suffix\" *ngIf=\"_suffixChildren.length\"> <!-- TODO(andrewseguin): remove [md-suffix] --> <ng-content select=\"[mdSuffix], [matSuffix], [md-suffix]\"></ng-content> </div> </div> <div class=\"mat-input-underline\" [class.mat-disabled]=\"_mdInputChild.disabled\"> <span class=\"mat-input-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span> </div> <div class=\"mat-input-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"> <div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"> <ng-content select=\"md-error, mat-error\"></ng-content> </div> <div class=\"mat-input-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"> <div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div> <ng-content select=\"md-hint, mat-hint\"></ng-content> </div> </div> </div> ",
                 styles: [".mat-input-container{display:inline-block;position:relative;font-family:Roboto,\"Helvetica Neue\",sans-serif;line-height:normal;text-align:left}[dir=rtl] .mat-input-container{text-align:right}.mat-input-container .mat-icon{width:auto;height:auto;font-size:100%;vertical-align:top}.mat-input-wrapper{margin:1em 0;padding-bottom:6px}.mat-input-table{display:inline-table;flex-flow:column;vertical-align:bottom;width:100%}.mat-input-table>*{display:table-cell}.mat-input-infix{position:relative}.mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;width:100%;vertical-align:bottom}.mat-end .mat-input-element{text-align:right}[dir=rtl] .mat-end .mat-input-element{text-align:left}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element:-webkit-autofill+.mat-input-placeholder-wrapper .mat-float{display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%;transition:none}.mat-input-element::placeholder{color:transparent}.mat-input-element::-moz-placeholder{color:transparent}.mat-input-element::-webkit-input-placeholder{color:transparent}.mat-input-element:-ms-input-placeholder{color:transparent}.mat-input-placeholder{position:absolute;left:0;top:0;font-size:100%;pointer-events:none;z-index:1;padding-top:1em;width:100%;display:none;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:translateY(0);transform-origin:bottom left;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1)}.mat-input-placeholder.mat-empty{display:block;cursor:text}.mat-focused .mat-input-placeholder.mat-float,.mat-input-placeholder.mat-float:not(.mat-empty){display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}[dir=rtl] .mat-input-placeholder{transform-origin:bottom right;left:auto;right:0}.mat-input-placeholder:not(.mat-empty){transition:none}.mat-input-placeholder-wrapper{position:absolute;left:0;top:-1em;width:100%;padding-top:1em;overflow:hidden;pointer-events:none;transform:translate3d(0,0,0)}.mat-input-placeholder-wrapper::after{content:'';display:inline-table}.mat-input-underline{position:absolute;height:1px;width:100%;margin-top:4px;border-top-width:1px;border-top-style:solid}.mat-input-underline.mat-disabled{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;border-top:0;background-position:0}.mat-input-underline .mat-input-ripple{position:absolute;height:2px;z-index:1;top:-1px;width:100%;transform-origin:top;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-focused .mat-input-underline .mat-input-ripple{opacity:1}.mat-input-subscript-wrapper{position:absolute;font-size:75%;top:100%;width:100%;margin-top:-1em;overflow:hidden}.mat-input-hint-wrapper::after,.mat-input-hint-wrapper::before{content:' ';display:table}.mat-input-hint-wrapper::after{clear:both}.mat-hint{display:block;float:left}.mat-hint.mat-right{float:right}[dir=rtl] .mat-hint{float:right}[dir=rtl] .mat-hint.mat-right{float:left}.mat-input-error{display:block}.mat-input-prefix,.mat-input-suffix{width:.1px;white-space:nowrap} /*# sourceMappingURL=input-container.css.map */ "],
                 animations: [
                     trigger('transitionMessages', [
@@ -14258,6 +14350,8 @@ MdInputContainer.propDecorators = {
     '_placeholderChild': [{ type: ContentChild, args: [MdPlaceholder,] },],
     '_errorChildren': [{ type: ContentChildren, args: [MdErrorDirective,] },],
     '_hintChildren': [{ type: ContentChildren, args: [MdHint,] },],
+    '_prefixChildren': [{ type: ContentChildren, args: [MdPrefix,] },],
+    '_suffixChildren': [{ type: ContentChildren, args: [MdSuffix,] },],
 };
 /**
  * Directive to automatically resize a textarea to fit its content.
@@ -14414,12 +14508,14 @@ var MdInputModule = (function () {
 MdInputModule.decorators = [
     { type: NgModule, args: [{
                 declarations: [
-                    MdPlaceholder,
-                    MdInputContainer,
+                    MdErrorDirective,
                     MdHint,
-                    MdTextareaAutosize,
+                    MdInputContainer,
                     MdInputDirective,
-                    MdErrorDirective
+                    MdPlaceholder,
+                    MdPrefix,
+                    MdSuffix,
+                    MdTextareaAutosize,
                 ],
                 imports: [
                     CommonModule,
@@ -14427,12 +14523,14 @@ MdInputModule.decorators = [
                     PlatformModule,
                 ],
                 exports: [
-                    MdPlaceholder,
-                    MdInputContainer,
+                    MdErrorDirective,
                     MdHint,
-                    MdTextareaAutosize,
+                    MdInputContainer,
                     MdInputDirective,
-                    MdErrorDirective
+                    MdPlaceholder,
+                    MdPrefix,
+                    MdSuffix,
+                    MdTextareaAutosize,
                 ],
             },] },
 ];
@@ -15379,10 +15477,12 @@ var MdInkBar = (function () {
     /**
      * @param {?} _renderer
      * @param {?} _elementRef
+     * @param {?} _ngZone
      */
-    function MdInkBar(_renderer, _elementRef) {
+    function MdInkBar(_renderer, _elementRef, _ngZone) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
+        this._ngZone = _ngZone;
     }
     /**
      * Calculates the styles from the provided element in order to align the ink-bar to that element.
@@ -15391,9 +15491,14 @@ var MdInkBar = (function () {
      * @return {?}
      */
     MdInkBar.prototype.alignToElement = function (element) {
+        var _this = this;
         this.show();
-        this._renderer.setElementStyle(this._elementRef.nativeElement, 'left', this._getLeftPosition(element));
-        this._renderer.setElementStyle(this._elementRef.nativeElement, 'width', this._getElementWidth(element));
+        this._ngZone.runOutsideAngular(function () {
+            requestAnimationFrame(function () {
+                _this._renderer.setElementStyle(_this._elementRef.nativeElement, 'left', _this._getLeftPosition(element));
+                _this._renderer.setElementStyle(_this._elementRef.nativeElement, 'width', _this._getElementWidth(element));
+            });
+        });
     };
     /**
      * Shows the ink bar.
@@ -15441,13 +15546,22 @@ MdInkBar.decorators = [
 MdInkBar.ctorParameters = function () { return [
     { type: Renderer, },
     { type: ElementRef, },
+    { type: NgZone, },
 ]; };
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
  */
 var MdTabNavBar = (function () {
-    function MdTabNavBar() {
+    /**
+     * @param {?} _dir
+     */
+    function MdTabNavBar(_dir) {
+        var _this = this;
+        this._dir = _dir;
+        if (_dir) {
+            this._directionChange = _dir.dirChange.subscribe(function () { return _this._alignInkBar(); });
+        }
     }
     /**
      * Notifies the component that the active link has been changed.
@@ -15464,9 +15578,25 @@ var MdTabNavBar = (function () {
      */
     MdTabNavBar.prototype.ngAfterContentChecked = function () {
         if (this._activeLinkChanged) {
-            this._inkBar.alignToElement(this._activeLinkElement.nativeElement);
+            this._alignInkBar();
             this._activeLinkChanged = false;
         }
+    };
+    /**
+     * @return {?}
+     */
+    MdTabNavBar.prototype.ngOnDestroy = function () {
+        if (this._directionChange) {
+            this._directionChange.unsubscribe();
+            this._directionChange = null;
+        }
+    };
+    /**
+     * Aligns the ink bar to the active link.
+     * @return {?}
+     */
+    MdTabNavBar.prototype._alignInkBar = function () {
+        this._inkBar.alignToElement(this._activeLinkElement.nativeElement);
     };
     return MdTabNavBar;
 }());
@@ -15483,7 +15613,9 @@ MdTabNavBar.decorators = [
 /**
  * @nocollapse
  */
-MdTabNavBar.ctorParameters = function () { return []; };
+MdTabNavBar.ctorParameters = function () { return [
+    { type: Dir, decorators: [{ type: Optional },] },
+]; };
 MdTabNavBar.propDecorators = {
     '_inkBar': [{ type: ViewChild, args: [MdInkBar,] },],
 };
@@ -15774,12 +15906,10 @@ var EXAGGERATED_OVERSCROLL = 60;
  */
 var MdTabHeader = (function () {
     /**
-     * @param {?} _zone
      * @param {?} _elementRef
      * @param {?} _dir
      */
-    function MdTabHeader(_zone, _elementRef, _dir) {
-        this._zone = _zone;
+    function MdTabHeader(_elementRef, _dir) {
         this._elementRef = _elementRef;
         this._dir = _dir;
         this._focusIndex = 0;
@@ -15861,7 +15991,20 @@ var MdTabHeader = (function () {
      * @return {?}
      */
     MdTabHeader.prototype.ngAfterContentInit = function () {
+        var _this = this;
         this._alignInkBarToSelectedTab();
+        if (this._dir) {
+            this._directionChange = this._dir.dirChange.subscribe(function () { return _this._alignInkBarToSelectedTab(); });
+        }
+    };
+    /**
+     * @return {?}
+     */
+    MdTabHeader.prototype.ngOnDestroy = function () {
+        if (this._directionChange) {
+            this._directionChange.unsubscribe();
+            this._directionChange = null;
+        }
     };
     /**
      * Callback for when the MutationObserver detects that the content has changed.
@@ -16110,15 +16253,10 @@ var MdTabHeader = (function () {
      * @return {?}
      */
     MdTabHeader.prototype._alignInkBarToSelectedTab = function () {
-        var _this = this;
         var /** @type {?} */ selectedLabelWrapper = this._labelWrappers && this._labelWrappers.length
             ? this._labelWrappers.toArray()[this.selectedIndex].elementRef.nativeElement
             : null;
-        this._zone.runOutsideAngular(function () {
-            requestAnimationFrame(function () {
-                _this._inkBar.alignToElement(selectedLabelWrapper);
-            });
-        });
+        this._inkBar.alignToElement(selectedLabelWrapper);
     };
     return MdTabHeader;
 }());
@@ -16138,7 +16276,6 @@ MdTabHeader.decorators = [
  * @nocollapse
  */
 MdTabHeader.ctorParameters = function () { return [
-    { type: NgZone, },
     { type: ElementRef, },
     { type: Dir, decorators: [{ type: Optional },] },
 ]; };
@@ -17754,17 +17891,14 @@ var MdDialogContainer = (function (_super) {
      * @return {?}
      */
     MdDialogContainer.prototype._trapFocus = function () {
-        var _this = this;
         if (!this._focusTrap) {
             this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
         }
         // If were to attempt to focus immediately, then the content of the dialog would not yet be
         // ready in instances where change detection has to run first. To deal with this, we simply
         // wait for the microtask queue to be empty.
-        this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
-            _this._elementFocusedBeforeDialogWasOpened = (document.activeElement);
-            _this._focusTrap.focusFirstTabbableElement();
-        });
+        this._elementFocusedBeforeDialogWasOpened = (document.activeElement);
+        this._focusTrap.focusFirstTabbableElementWhenReady();
     };
     /**
      * Kicks off the leave animation.
@@ -17791,19 +17925,18 @@ var MdDialogContainer = (function (_super) {
      * @return {?}
      */
     MdDialogContainer.prototype.ngOnDestroy = function () {
-        var _this = this;
         // When the dialog is destroyed, return focus to the element that originally had it before
         // the dialog was opened. Wait for the DOM to finish settling before changing the focus so
         // that it doesn't end up back on the <body>. Also note that we need the extra check, because
         // IE can set the `activeElement` to null in some cases.
+        var /** @type {?} */ toFocus = (this._elementFocusedBeforeDialogWasOpened);
+        // We shouldn't use `this` inside of the NgZone subscription, because it causes a memory leak.
+        var /** @type {?} */ animationStream = this._onAnimationStateChange;
         this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
-            var /** @type {?} */ toFocus = (_this._elementFocusedBeforeDialogWasOpened);
-            // We need to check whether the focus method exists at all, because IE seems to throw an
-            // exception, even if the element is the document.body.
             if (toFocus && 'focus' in toFocus) {
                 toFocus.focus();
             }
-            _this._onAnimationStateChange.complete();
+            animationStream.complete();
         });
         if (this._focusTrap) {
             this._focusTrap.destroy();
@@ -18498,6 +18631,7 @@ var MdAutocompleteTrigger = (function () {
         var _this = this;
         if (this.activeOption && event.keyCode === ENTER) {
             this.activeOption._selectViaInteraction();
+            event.preventDefault();
         }
         else {
             this.autocomplete._keyManager.onKeydown(event);
@@ -18863,4 +18997,4 @@ MaterialModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { Dir, RtlModule, ObserveContentModule, ObserveContent, MdOptionModule, MdOption, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, Platform as MdPlatform, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ScrollDispatcher, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, LiveAnnouncer as MdLiveAnnouncer, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher as MdUniqueSelectionDispatcher, MdLineModule, MdLine, MdLineSetter, MdError, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCoreModule, PlatformModule, Platform, getSupportedInputTypes, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckbox, MaterialRootModule, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFabCssMatStyler, MdMiniFabCssMatStyler, MdButton, MdAnchor, MdButtonToggleModule, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckbox, MdDialogModule, MD_DIALOG_DATA, MdDialog, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdGridListModule, MdGridList, MdIconModule, MdIconRegistry, MdIconInvalidNameError, MdIcon, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdInputDirective, MdInputContainer, MdInputContainerPlaceholderConflictError, MdInputContainerUnsupportedTypeError, MdInputContainerDuplicatedHintError, MdInputContainerMissingMdInputError, MdListModule, MdListDivider, LIST_TYPE_TOKEN, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdNavListTokenSetter, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, MdProgressSpinnerCssMatStyler, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroup, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_OPTION_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelect, MdSidenavModule, MdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabChangeEvent, MdTabGroup, MdTabNavBar, MdTabLink, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵf, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵg, OVERLAY_CONTAINER_PROVIDER as ɵb, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵa, OverlayPositionBuilder as ɵk, VIEWPORT_RULER_PROVIDER as ɵj, VIEWPORT_RULER_PROVIDER_FACTORY as ɵi, ViewportRuler as ɵh, SCROLL_DISPATCHER_PROVIDER as ɵd, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵc, Scrollable as ɵl, RippleRenderer as ɵe, MdGridAvatarCssMatStyler as ɵo, MdGridTile as ɵm, MdGridTileFooterCssMatStyler as ɵq, MdGridTileHeaderCssMatStyler as ɵp, MdGridTileText as ɵn };
+export { Dir, RtlModule, ObserveContentModule, ObserveContent, MdOptionModule, MdOption, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, Platform as MdPlatform, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ScrollDispatcher, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, LiveAnnouncer as MdLiveAnnouncer, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher as MdUniqueSelectionDispatcher, MdLineModule, MdLine, MdLineSetter, MdError, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCoreModule, PlatformModule, Platform, getSupportedInputTypes, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckbox, MaterialRootModule, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFabCssMatStyler, MdMiniFabCssMatStyler, MdButton, MdAnchor, MdButtonToggleModule, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckbox, MdDialogModule, MD_DIALOG_DATA, MdDialog, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdGridListModule, MdGridList, MdIconModule, MdIconRegistry, MdIconInvalidNameError, MdIcon, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, MdInputContainerPlaceholderConflictError, MdInputContainerUnsupportedTypeError, MdInputContainerDuplicatedHintError, MdInputContainerMissingMdInputError, MdListModule, MdListDivider, LIST_TYPE_TOKEN, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdNavListTokenSetter, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, MdProgressSpinnerCssMatStyler, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroup, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_OPTION_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelect, MdSidenavModule, MdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabChangeEvent, MdTabGroup, MdTabNavBar, MdTabLink, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵf, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵg, OVERLAY_CONTAINER_PROVIDER as ɵb, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵa, OverlayPositionBuilder as ɵk, VIEWPORT_RULER_PROVIDER as ɵj, VIEWPORT_RULER_PROVIDER_FACTORY as ɵi, ViewportRuler as ɵh, SCROLL_DISPATCHER_PROVIDER as ɵd, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵc, Scrollable as ɵl, RippleRenderer as ɵe, MdGridAvatarCssMatStyler as ɵo, MdGridTile as ɵm, MdGridTileFooterCssMatStyler as ɵq, MdGridTileHeaderCssMatStyler as ɵp, MdGridTileText as ɵn };

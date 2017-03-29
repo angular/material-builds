@@ -1,4 +1,4 @@
-import { AfterContentInit, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer, ChangeDetectorRef } from '@angular/core';
+import { AfterContentInit, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer, ChangeDetectorRef, OnInit } from '@angular/core';
 import { MdOption, MdOptionSelectionChange } from '../core/option/option';
 import { FocusKeyManager } from '../core/a11y/focus-key-manager';
 import { Dir } from '../core/rtl/dir';
@@ -58,7 +58,7 @@ export declare class MdSelectChange {
 }
 /** Allowed values for the floatPlaceholder option. */
 export declare type MdSelectFloatPlaceholderType = 'always' | 'never' | 'auto';
-export declare class MdSelect implements AfterContentInit, ControlValueAccessor, OnDestroy {
+export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, ControlValueAccessor {
     private _element;
     private _renderer;
     private _viewportRuler;
@@ -167,6 +167,7 @@ export declare class MdSelect implements AfterContentInit, ControlValueAccessor,
     /** Event emitted when the selected value has been changed by the user. */
     change: EventEmitter<MdSelectChange>;
     constructor(_element: ElementRef, _renderer: Renderer, _viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _dir: Dir, _control: NgControl, tabIndex: string);
+    ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Toggles the overlay panel open or closed. */

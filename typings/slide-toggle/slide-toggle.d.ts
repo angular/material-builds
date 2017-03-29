@@ -1,6 +1,6 @@
-import { ElementRef, Renderer, AfterContentInit } from '@angular/core';
+import { ElementRef, Renderer, AfterContentInit, OnDestroy } from '@angular/core';
+import { HammerInput, FocusOriginMonitor, MdRipple } from '../core';
 import { ControlValueAccessor } from '@angular/forms';
-import { HammerInput } from '../core';
 import { Observable } from 'rxjs/Observable';
 export declare const MD_SLIDE_TOGGLE_VALUE_ACCESSOR: any;
 export declare class MdSlideToggleChange {
@@ -10,9 +10,10 @@ export declare class MdSlideToggleChange {
 /**
  * Two-state control, which can be also called `switch`.
  */
-export declare class MdSlideToggle implements AfterContentInit, ControlValueAccessor {
+export declare class MdSlideToggle implements OnDestroy, AfterContentInit, ControlValueAccessor {
     private _elementRef;
     private _renderer;
+    private _focusOriginMonitor;
     private onChange;
     private onTouched;
     private _uniqueId;
@@ -23,7 +24,10 @@ export declare class MdSlideToggle implements AfterContentInit, ControlValueAcce
     private _disabled;
     private _required;
     private _disableRipple;
-    _hasFocus: boolean;
+    /** Reference to the focus state ripple. */
+    private _focusRipple;
+    /** Subscription to focus-origin changes. */
+    private _focusOriginSubscription;
     /** Name value will be applied to the input element if present */
     name: string;
     /** A unique id for the slide-toggle input. If none is supplied, it will be auto-generated. */
@@ -47,9 +51,13 @@ export declare class MdSlideToggle implements AfterContentInit, ControlValueAcce
     change: Observable<MdSlideToggleChange>;
     /** Returns the unique id for the visual hidden input. */
     readonly inputId: string;
+    /** Reference to the underlying input element. */
     _inputElement: ElementRef;
-    constructor(_elementRef: ElementRef, _renderer: Renderer);
+    /** Reference to the ripple directive on the thumb container. */
+    _ripple: MdRipple;
+    constructor(_elementRef: ElementRef, _renderer: Renderer, _focusOriginMonitor: FocusOriginMonitor);
     ngAfterContentInit(): void;
+    ngOnDestroy(): void;
     /**
      * The onChangeEvent method will be also called on click.
      * This is because everything for the slide-toggle is wrapped inside of a label,
@@ -58,8 +66,6 @@ export declare class MdSlideToggle implements AfterContentInit, ControlValueAcce
     _onChangeEvent(event: Event): void;
     _onInputClick(event: Event): void;
     _setMousedown(): void;
-    _onInputFocus(): void;
-    _onInputBlur(): void;
     /** Implemented as part of ControlValueAccessor. */
     writeValue(value: any): void;
     /** Implemented as part of ControlValueAccessor. */
@@ -76,6 +82,8 @@ export declare class MdSlideToggle implements AfterContentInit, ControlValueAcce
     color: string;
     /** Toggles the checked state of the slide-toggle. */
     toggle(): void;
+    /** Function is called whenever the focus changes for the input element. */
+    private _onInputFocusChange(focusOrigin);
     private _updateColor(newColor);
     private _setElementColor(color, isAdd);
     /** Emits the change event to the `change` output EventEmitter */

@@ -18,8 +18,11 @@ export declare class MdPrefixRejector {
  * there are any uses of the `mat-` prefix.
  */
 export declare class CompatibilityModule {
+    private _document;
     static forRoot(): ModuleWithProviders;
-    constructor(document: any);
+    constructor(_document: any);
+    private _checkDoctype();
+    private _checkTheme();
 }
 /**
  * Module that enforces "no-conflict" compatibility mode settings. When this module is loaded,

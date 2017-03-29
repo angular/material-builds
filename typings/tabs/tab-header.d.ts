@@ -1,4 +1,4 @@
-import { NgZone, QueryList, ElementRef, EventEmitter, AfterContentChecked, AfterContentInit } from '@angular/core';
+import { QueryList, ElementRef, EventEmitter, AfterContentChecked, AfterContentInit, OnDestroy } from '@angular/core';
 import { Dir, LayoutDirection } from '../core';
 import { MdTabLabelWrapper } from './tab-label-wrapper';
 import { MdInkBar } from './ink-bar';
@@ -16,8 +16,7 @@ export declare type ScrollDirection = 'after' | 'before';
  * left and right across the header.
  * @docs-private
  */
-export declare class MdTabHeader implements AfterContentChecked, AfterContentInit {
-    private _zone;
+export declare class MdTabHeader implements AfterContentChecked, AfterContentInit, OnDestroy {
     private _elementRef;
     private _dir;
     _labelWrappers: QueryList<MdTabLabelWrapper>;
@@ -30,6 +29,8 @@ export declare class MdTabHeader implements AfterContentChecked, AfterContentIni
     private _scrollDistance;
     /** Whether the header should scroll to the selected index after the view has been checked. */
     private _selectedIndexChanged;
+    /** Subscription to changes in the layout direction. */
+    private _directionChange;
     /** Whether the controls for pagination should be displayed */
     _showPaginationControls: boolean;
     /** Whether the tab list can be scrolled more towards the end of the tab label list. */
@@ -50,13 +51,14 @@ export declare class MdTabHeader implements AfterContentChecked, AfterContentIni
     selectFocusedIndex: EventEmitter<{}>;
     /** Event emitted when a label is focused. */
     indexFocused: EventEmitter<{}>;
-    constructor(_zone: NgZone, _elementRef: ElementRef, _dir: Dir);
+    constructor(_elementRef: ElementRef, _dir: Dir);
     ngAfterContentChecked(): void;
     _handleKeydown(event: KeyboardEvent): void;
     /**
      * Aligns the ink bar to the selected tab on load.
      */
     ngAfterContentInit(): void;
+    ngOnDestroy(): void;
     /**
      * Callback for when the MutationObserver detects that the content has changed.
      */
