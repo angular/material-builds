@@ -31,7 +31,7 @@ export declare class FocusOriginMonitor {
      * Stops monitoring an element and removes all focus classes.
      * @param element The element to stop monitoring.
      */
-    unmonitor(element: Element): void;
+    stopMonitoring(element: Element): void;
     /**
      * Focuses the element via the specified focus origin.
      * @param element The element to focus.

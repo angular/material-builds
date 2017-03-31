@@ -26,8 +26,6 @@ export declare class MdSlideToggle implements OnDestroy, AfterContentInit, Contr
     private _disableRipple;
     /** Reference to the focus state ripple. */
     private _focusRipple;
-    /** Subscription to focus-origin changes. */
-    private _focusOriginSubscription;
     /** Name value will be applied to the input element if present */
     name: string;
     /** A unique id for the slide-toggle input. If none is supplied, it will be auto-generated. */
