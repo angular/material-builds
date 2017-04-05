@@ -18,9 +18,9 @@ export declare class MdDialog {
     private _boundKeydown;
     /** Keeps track of the currently-open dialogs. */
     readonly _openDialogs: MdDialogRef<any>[];
-    /** Subject for notifying the user that all open dialogs have finished closing. */
-    readonly _afterOpen: Subject<MdDialogRef<any>>;
     /** Subject for notifying the user that a dialog has opened. */
+    readonly _afterOpen: Subject<MdDialogRef<any>>;
+    /** Subject for notifying the user that all open dialogs have finished closing. */
     readonly _afterAllClosed: Subject<void>;
     /** Gets an observable that is notified when a dialog has been opened. */
     afterOpen: Observable<MdDialogRef<any>>;
