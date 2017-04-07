@@ -1,5 +1,5 @@
 /**
-  * @license Angular Material v2.0.0-beta.2
+  * @license Angular Material v2.0.0-beta.3
   * Copyright (c) 2017 Google, Inc. https://material.angular.io/
   * License: MIT
   */
@@ -1155,7 +1155,6 @@ class MdPseudoCheckbox {
      * @return {?}
      */
     get color() { return this._color; }
-    ;
     /**
      * @param {?} value
      * @return {?}
@@ -1371,7 +1370,6 @@ class MdOption {
     _emitSelectionChangeEvent(isUserInput = false) {
         this.onSelectionChange.emit(new MdOptionSelectionChange(this, isUserInput));
     }
-    ;
 }
 MdOption.decorators = [
     { type: Component, args: [{selector: 'md-option, mat-option',
@@ -2827,7 +2825,6 @@ OverlayContainer.ctorParameters = () => [];
 function OVERLAY_CONTAINER_PROVIDER_FACTORY(parentContainer) {
     return parentContainer || new OverlayContainer();
 }
-
 const OVERLAY_CONTAINER_PROVIDER = {
     // If there is already an OverlayContainer available, use that. Otherwise, provide a new one.
     provide: OverlayContainer,
@@ -3962,7 +3959,6 @@ LiveAnnouncer.ctorParameters = () => [
 function LIVE_ANNOUNCER_PROVIDER_FACTORY(parentDispatcher, liveElement) {
     return parentDispatcher || new LiveAnnouncer(liveElement);
 }
-
 const LIVE_ANNOUNCER_PROVIDER = {
     // If there is already a LiveAnnouncer available, use that. Otherwise, provide a new one.
     provide: LiveAnnouncer,
@@ -12230,7 +12226,6 @@ MdIcon.propDecorators = {
 function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, http, sanitizer) {
     return parentRegistry || new MdIconRegistry(http, sanitizer);
 }
-
 const ICON_REGISTRY_PROVIDER = {
     // If there is already an MdIconRegistry available, use that. Otherwise, provide a new one.
     provide: MdIconRegistry,
@@ -13003,7 +12998,6 @@ class MdInputDirective {
      * @return {?}
      */
     get id() { return this._id; }
-    ;
     /**
      * @param {?} value
      * @return {?}
@@ -13205,7 +13199,6 @@ class MdInputContainer {
      * @return {?}
      */
     get _shouldAlwaysFloat() { return this._floatPlaceholder === 'always'; }
-    ;
     /**
      * Whether the placeholder can float or not.
      * @return {?}
@@ -16407,7 +16400,6 @@ class MdMenuTrigger {
             this.menu.focusFirstItem();
         }
     }
-    ;
     /**
      * This method resets the menu when it's closed, most importantly restoring
      * focus to the menu trigger if the menu was opened via the keyboard.

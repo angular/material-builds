@@ -1,5 +1,5 @@
 /**
-  * @license Angular Material v2.0.0-beta.2
+  * @license Angular Material v2.0.0-beta.3
   * Copyright (c) 2017 Google, Inc. https://material.angular.io/
   * License: MIT
   */
@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 /**
-  * @license Angular Material v2.0.0-beta.2
+  * @license Angular Material v2.0.0-beta.3
   * Copyright (c) 2017 Google, Inc. https://material.angular.io/
   * License: MIT
   */
@@ -1092,7 +1092,6 @@ var MdPseudoCheckbox = (function () {
         enumerable: true,
         configurable: true
     });
-    
     return MdPseudoCheckbox;
 }());
 MdPseudoCheckbox.decorators = [
@@ -1321,7 +1320,6 @@ var MdOption = (function () {
         if (isUserInput === void 0) { isUserInput = false; }
         this.onSelectionChange.emit(new MdOptionSelectionChange(this, isUserInput));
     };
-    
     return MdOption;
 }());
 MdOption.decorators = [
@@ -13876,7 +13874,6 @@ var MdInputDirective = (function () {
         enumerable: true,
         configurable: true
     });
-    
     Object.defineProperty(MdInputDirective.prototype, "placeholder", {
         /**
          * Placeholder attribute of the element.
@@ -14106,7 +14103,6 @@ var MdInputContainer = (function () {
         enumerable: true,
         configurable: true
     });
-    
     Object.defineProperty(MdInputContainer.prototype, "_canPlaceholderFloat", {
         /**
          * Whether the placeholder can float or not.
@@ -17531,7 +17527,6 @@ var MdMenuTrigger = (function () {
             this.menu.focusFirstItem();
         }
     };
-    
     /**
      * This method resets the menu when it's closed, most importantly restoring
      * focus to the menu trigger if the menu was opened via the keyboard.
