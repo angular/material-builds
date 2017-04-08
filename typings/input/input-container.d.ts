@@ -8,21 +8,21 @@ export declare type FloatPlaceholderType = 'always' | 'never' | 'auto';
  */
 export declare class MdPlaceholder {
 }
-/** The hint directive, used to tag content as hint labels (going under the input). */
+/** Hint text to be shown underneath the input. */
 export declare class MdHint {
     align: 'start' | 'end';
     id: string;
 }
-/** Directive, used to display a single error message under the input. */
+/** Single error message to be shown underneath the input. */
 export declare class MdErrorDirective {
 }
-/** The input prefix. */
+/** Prefix to be placed the the front of the input. */
 export declare class MdPrefix {
 }
-/** The input suffix. */
+/** Suffix to be placed at the end of the input. */
 export declare class MdSuffix {
 }
-/** The input directive, used to mark the input that `MdInputContainer` is wrapping. */
+/** Marker for the input element that `MdInputContainer` is wrapping. */
 export declare class MdInputDirective {
     private _elementRef;
     private _renderer;
@@ -71,8 +71,7 @@ export declare class MdInputDirective {
     private _isTextarea();
 }
 /**
- * Component that represents a text input. It encapsulates the <input> HTMLElement and
- * improve on its behaviour, along with styling it according to the Material Design.
+ * Container for text inputs that applies Material Design styling and behavior.
  */
 export declare class MdInputContainer implements AfterViewInit, AfterContentInit {
     private _changeDetectorRef;

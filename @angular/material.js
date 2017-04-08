@@ -12872,7 +12872,7 @@ MdPlaceholder.decorators = [
  */
 MdPlaceholder.ctorParameters = () => [];
 /**
- * The hint directive, used to tag content as hint labels (going under the input).
+ * Hint text to be shown underneath the input.
  */
 class MdHint {
     constructor() {
@@ -12901,7 +12901,7 @@ MdHint.propDecorators = {
     'id': [{ type: Input },],
 };
 /**
- * Directive, used to display a single error message under the input.
+ * Single error message to be shown underneath the input.
  */
 class MdErrorDirective {
 }
@@ -12918,7 +12918,7 @@ MdErrorDirective.decorators = [
  */
 MdErrorDirective.ctorParameters = () => [];
 /**
- * The input prefix.
+ * Prefix to be placed the the front of the input.
  */
 class MdPrefix {
 }
@@ -12932,7 +12932,7 @@ MdPrefix.decorators = [
  */
 MdPrefix.ctorParameters = () => [];
 /**
- * The input suffix.
+ * Suffix to be placed at the end of the input.
  */
 class MdSuffix {
 }
@@ -12946,7 +12946,7 @@ MdSuffix.decorators = [
  */
 MdSuffix.ctorParameters = () => [];
 /**
- * The input directive, used to mark the input that `MdInputContainer` is wrapping.
+ * Marker for the input element that `MdInputContainer` is wrapping.
  */
 class MdInputDirective {
     /**
@@ -13160,8 +13160,7 @@ MdInputDirective.propDecorators = {
     '_placeholderChange': [{ type: Output },],
 };
 /**
- * Component that represents a text input. It encapsulates the <input> HTMLElement and
- * improve on its behaviour, along with styling it according to the Material Design.
+ * Container for text inputs that applies Material Design styling and behavior.
  */
 class MdInputContainer {
     /**
@@ -13418,31 +13417,25 @@ class MdTextareaAutosize {
         this._elementRef = _elementRef;
     }
     /**
+     * Minimum number of rows for this textarea.
      * @return {?}
      */
-    get mdAutosizeMinRows() {
-        return this.minRows;
-    }
+    get mdAutosizeMinRows() { return this.minRows; }
     /**
      * @param {?} value
      * @return {?}
      */
-    set mdAutosizeMinRows(value) {
-        this.minRows = value;
-    }
+    set mdAutosizeMinRows(value) { this.minRows = value; }
     /**
+     * Minimum number of rows for this textarea.
      * @return {?}
      */
-    get mdAutosizeMaxRows() {
-        return this.maxRows;
-    }
+    get mdAutosizeMaxRows() { return this.maxRows; }
     /**
      * @param {?} value
      * @return {?}
      */
-    set mdAutosizeMaxRows(value) {
-        this.maxRows = value;
-    }
+    set mdAutosizeMaxRows(value) { this.maxRows = value; }
     /**
      * The minimum height of the textarea as determined by minRows.
      * @return {?}

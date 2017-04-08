@@ -13725,7 +13725,7 @@ MdPlaceholder.decorators = [
  */
 MdPlaceholder.ctorParameters = function () { return []; };
 /**
- * The hint directive, used to tag content as hint labels (going under the input).
+ * Hint text to be shown underneath the input.
  */
 var MdHint = (function () {
     function MdHint() {
@@ -13755,7 +13755,7 @@ MdHint.propDecorators = {
     'id': [{ type: _angular_core.Input },],
 };
 /**
- * Directive, used to display a single error message under the input.
+ * Single error message to be shown underneath the input.
  */
 var MdErrorDirective = (function () {
     function MdErrorDirective() {
@@ -13775,7 +13775,7 @@ MdErrorDirective.decorators = [
  */
 MdErrorDirective.ctorParameters = function () { return []; };
 /**
- * The input prefix.
+ * Prefix to be placed the the front of the input.
  */
 var MdPrefix = (function () {
     function MdPrefix() {
@@ -13792,7 +13792,7 @@ MdPrefix.decorators = [
  */
 MdPrefix.ctorParameters = function () { return []; };
 /**
- * The input suffix.
+ * Suffix to be placed at the end of the input.
  */
 var MdSuffix = (function () {
     function MdSuffix() {
@@ -13809,7 +13809,7 @@ MdSuffix.decorators = [
  */
 MdSuffix.ctorParameters = function () { return []; };
 /**
- * The input directive, used to mark the input that `MdInputContainer` is wrapping.
+ * Marker for the input element that `MdInputContainer` is wrapping.
  */
 var MdInputDirective = (function () {
     /**
@@ -14056,8 +14056,7 @@ MdInputDirective.propDecorators = {
     '_placeholderChange': [{ type: _angular_core.Output },],
 };
 /**
- * Component that represents a text input. It encapsulates the <input> HTMLElement and
- * improve on its behaviour, along with styling it according to the Material Design.
+ * Container for text inputs that applies Material Design styling and behavior.
  */
 var MdInputContainer = (function () {
     /**
@@ -14337,35 +14336,29 @@ var MdTextareaAutosize = (function () {
     }
     Object.defineProperty(MdTextareaAutosize.prototype, "mdAutosizeMinRows", {
         /**
+         * Minimum number of rows for this textarea.
          * @return {?}
          */
-        get: function () {
-            return this.minRows;
-        },
+        get: function () { return this.minRows; },
         /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
-            this.minRows = value;
-        },
+        set: function (value) { this.minRows = value; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdTextareaAutosize.prototype, "mdAutosizeMaxRows", {
         /**
+         * Minimum number of rows for this textarea.
          * @return {?}
          */
-        get: function () {
-            return this.maxRows;
-        },
+        get: function () { return this.maxRows; },
         /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
-            this.maxRows = value;
-        },
+        set: function (value) { this.maxRows = value; },
         enumerable: true,
         configurable: true
     });

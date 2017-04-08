@@ -4,11 +4,13 @@ import { ElementRef, OnInit } from '@angular/core';
  */
 export declare class MdTextareaAutosize implements OnInit {
     private _elementRef;
-    /** Minimum number of rows for this textarea. */
+    /** @deprecated Use mdAutosizeMinRows */
     minRows: number;
+    /** Minimum number of rows for this textarea. */
     mdAutosizeMinRows: number;
-    /** Maximum number of rows for this textarea. */
+    /** @deprecated Use mdAutosizeMaxRows */
     maxRows: number;
+    /** Minimum number of rows for this textarea. */
     mdAutosizeMaxRows: number;
     /** Cached height of a textarea with a single row. */
     private _cachedLineHeight;
