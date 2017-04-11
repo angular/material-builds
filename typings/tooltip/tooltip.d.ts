@@ -130,4 +130,10 @@ export declare class TooltipComponent {
      * https://material.google.com/components/tooltips.html#tooltips-interaction
      */
     _handleBodyInteraction(): void;
+    /**
+     * Marks that the tooltip needs to be checked in the next change detection run.
+     * Mainly used for rendering the initial text before positioning a tooltip, which
+     * can be problematic in components with OnPush change detection.
+     */
+    _markForCheck(): void;
 }

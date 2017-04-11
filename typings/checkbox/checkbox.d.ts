@@ -96,9 +96,7 @@ export declare class MdCheckbox implements ControlValueAccessor, AfterViewInit, 
     private _color;
     private _controlValueAccessorChangeFn;
     /** Reference to the focused state ripple. */
-    private _focusedRipple;
-    /** Reference to the focus origin monitor subscription. */
-    private _focusedSubscription;
+    private _focusRipple;
     constructor(_renderer: Renderer, _elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _focusOriginMonitor: FocusOriginMonitor);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
@@ -146,8 +144,8 @@ export declare class MdCheckbox implements ControlValueAccessor, AfterViewInit, 
     setDisabledState(isDisabled: boolean): void;
     private _transitionCheckState(newState);
     private _emitChangeEvent();
-    /** Informs the component when we lose focus in order to style accordingly */
-    _onInputBlur(): void;
+    /** Function is called whenever the focus changes for the input element. */
+    private _onInputFocusChange(focusOrigin);
     /** Toggles the `checked` state of the checkbox. */
     toggle(): void;
     /**
@@ -162,6 +160,6 @@ export declare class MdCheckbox implements ControlValueAccessor, AfterViewInit, 
     focus(): void;
     _onInteractionEvent(event: Event): void;
     private _getAnimationClassForCheckStateTransition(oldState, newState);
-    /** Fades out the focused state ripple. */
-    private _removeFocusedRipple();
+    /** Fades out the focus state ripple. */
+    private _removeFocusRipple();
 }

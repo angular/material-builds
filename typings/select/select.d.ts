@@ -214,10 +214,11 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
     readonly triggerValue: string;
     /** Whether the element is in RTL mode. */
     _isRtl(): boolean;
-    /** The width of the trigger element. This is necessary to match
+    /**
+     * Sets the width of the trigger element. This is necessary to match
      * the overlay width to the trigger width.
      */
-    _getWidth(): number;
+    private _setTriggerWidth();
     /** Ensures the panel opens if activated by the keyboard. */
     _handleKeydown(event: KeyboardEvent): void;
     /**

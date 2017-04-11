@@ -154,10 +154,8 @@ export declare class MdRadioButton implements OnInit, AfterViewInit, OnDestroy {
     private _disableRipple;
     /** The child ripple instance. */
     _ripple: MdRipple;
-    /** Stream of focus event from the focus origin monitor. */
-    private _focusOriginMonitorSubscription;
     /** Reference to the current focus ripple. */
-    private _focusedRippleRef;
+    private _focusRipple;
     /** The native `<input type=radio>` element */
     _inputElement: ElementRef;
     constructor(radioGroup: MdRadioGroup, _elementRef: ElementRef, _renderer: Renderer, _focusOriginMonitor: FocusOriginMonitor, _radioDispatcher: UniqueSelectionDispatcher);
@@ -169,11 +167,12 @@ export declare class MdRadioButton implements OnInit, AfterViewInit, OnDestroy {
     /** Dispatch change event with current value. */
     private _emitChangeEvent();
     _isRippleDisabled(): boolean;
-    _onInputBlur(): void;
     _onInputClick(event: Event): void;
     /**
      * Triggered when the radio button received a click or the input recognized any change.
      * Clicking on a label element, will trigger a change event on the associated input.
      */
     _onInputChange(event: Event): void;
+    /** Function is called whenever the focus changes for the input element. */
+    private _onInputFocusChange(focusOrigin);
 }

@@ -4,3 +4,4 @@ export declare class MdGridListModule {
     static forRoot(): ModuleWithProviders;
 }
 export * from './grid-list';
+export { MdGridTile } from './grid-tile';

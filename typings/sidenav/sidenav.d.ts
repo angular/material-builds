@@ -28,7 +28,7 @@ export declare class MdSidenav implements AfterContentInit, OnDestroy {
     private _align;
     /** Direction which the sidenav is aligned in. */
     align: "start" | "end";
-    /** Mode of the sidenav; whether 'over' or 'side'. */
+    /** Mode of the sidenav; one of 'over', 'push' or 'side'. */
     mode: 'over' | 'push' | 'side';
     /** Whether the sidenav can be closed with the escape key or not. */
     disableClose: boolean;
