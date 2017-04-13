@@ -6,7 +6,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/common'), require('rxjs/Subject'), require('rxjs/Observable'), require('rxjs/add/observable/fromEvent'), require('rxjs/add/observable/merge'), require('rxjs/add/operator/auditTime'), require('@angular/forms'), require('@angular/animations'), require('rxjs/add/operator/startWith'), require('rxjs/add/operator/first'), require('@angular/http'), require('rxjs/add/observable/forkJoin'), require('rxjs/add/observable/of'), require('rxjs/add/operator/map'), require('rxjs/add/operator/filter'), require('rxjs/add/operator/do'), require('rxjs/add/operator/share'), require('rxjs/add/operator/finally'), require('rxjs/add/operator/catch'), require('rxjs/add/observable/throw'), require('rxjs/add/operator/switchMap')) :
 	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', '@angular/common', 'rxjs/Subject', 'rxjs/Observable', 'rxjs/add/observable/fromEvent', 'rxjs/add/observable/merge', 'rxjs/add/operator/auditTime', '@angular/forms', '@angular/animations', 'rxjs/add/operator/startWith', 'rxjs/add/operator/first', '@angular/http', 'rxjs/add/observable/forkJoin', 'rxjs/add/observable/of', 'rxjs/add/operator/map', 'rxjs/add/operator/filter', 'rxjs/add/operator/do', 'rxjs/add/operator/share', 'rxjs/add/operator/finally', 'rxjs/add/operator/catch', 'rxjs/add/observable/throw', 'rxjs/add/operator/switchMap'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.platformBrowser,global.ng.common,global.Rx,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.ng.forms,global.ng.animations,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.ng.http));
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.material = global.ng.material.material || {}),global.ng.core,global.ng.platformBrowser,global.ng.common,global.Rx,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.ng.forms,global.ng.animations,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.ng.http));
 }(this, (function (exports,_angular_core,_angular_platformBrowser,_angular_common,rxjs_Subject,rxjs_Observable,rxjs_add_observable_fromEvent,rxjs_add_observable_merge,rxjs_add_operator_auditTime,_angular_forms,_angular_animations,rxjs_add_operator_startWith,rxjs_add_operator_first,_angular_http) { 'use strict';
 
 var __extends = (this && this.__extends) || function (d, b) {
@@ -1884,7 +1884,7 @@ var OverlayState = (function () {
     function OverlayState() {
         /** Whether the overlay has a backdrop. */
         this.hasBackdrop = false;
-        /** Custom class to add to the backdrop **/
+        /** Custom class to add to the backdrop */
         this.backdropClass = 'cdk-overlay-dark-backdrop';
         /** The direction of the text in the overlay panel. */
         this.direction = 'ltr';
@@ -2094,7 +2094,7 @@ var OverlayRef = (function () {
         }
     };
     /**
-     * Updates the text direction of the overlay panel. *
+     * Updates the text direction of the overlay panel.
      * @return {?}
      */
     OverlayRef.prototype.updateDirection = function () {

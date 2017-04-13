@@ -9,15 +9,15 @@ export declare class OverlayState {
     positionStrategy: PositionStrategy;
     /** Whether the overlay has a backdrop. */
     hasBackdrop: boolean;
-    /** Custom class to add to the backdrop **/
+    /** Custom class to add to the backdrop */
     backdropClass: string;
-    /** The width of the overlay panel. If a number is provided, pixel units are assumed. **/
+    /** The width of the overlay panel. If a number is provided, pixel units are assumed. */
     width: number | string;
-    /** The height of the overlay panel. If a number is provided, pixel units are assumed. **/
+    /** The height of the overlay panel. If a number is provided, pixel units are assumed. */
     height: number | string;
-    /** The min-width of the overlay panel. If a number is provided, pixel units are assumed. **/
+    /** The min-width of the overlay panel. If a number is provided, pixel units are assumed. */
     minWidth: number | string;
-    /** The min-height of the overlay panel. If a number is provided, pixel units are assumed. **/
+    /** The min-height of the overlay panel. If a number is provided, pixel units are assumed. */
     minHeight: number | string;
     /** The direction of the text in the overlay panel. */
     direction: LayoutDirection;

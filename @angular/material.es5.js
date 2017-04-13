@@ -1896,7 +1896,7 @@ var OverlayState = (function () {
     function OverlayState() {
         /** Whether the overlay has a backdrop. */
         this.hasBackdrop = false;
-        /** Custom class to add to the backdrop **/
+        /** Custom class to add to the backdrop */
         this.backdropClass = 'cdk-overlay-dark-backdrop';
         /** The direction of the text in the overlay panel. */
         this.direction = 'ltr';
@@ -2106,7 +2106,7 @@ var OverlayRef = (function () {
         }
     };
     /**
-     * Updates the text direction of the overlay panel. *
+     * Updates the text direction of the overlay panel.
      * @return {?}
      */
     OverlayRef.prototype.updateDirection = function () {
