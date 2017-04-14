@@ -1,8 +1,8 @@
-import { ElementRef, OnInit } from '@angular/core';
+import { ElementRef, AfterViewInit } from '@angular/core';
 /**
  * Directive to automatically resize a textarea to fit its content.
  */
-export declare class MdTextareaAutosize implements OnInit {
+export declare class MdTextareaAutosize implements AfterViewInit {
     private _elementRef;
     /** @deprecated Use mdAutosizeMinRows */
     minRows: number;
@@ -19,7 +19,7 @@ export declare class MdTextareaAutosize implements OnInit {
     readonly _minHeight: string;
     /** The maximum height of the textarea as determined by maxRows. */
     readonly _maxHeight: string;
-    ngOnInit(): void;
+    ngAfterViewInit(): void;
     /**
      * Cache the height of a single-row textarea.
      *

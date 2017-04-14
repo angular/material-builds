@@ -13480,7 +13480,7 @@ class MdTextareaAutosize {
     /**
      * @return {?}
      */
-    ngOnInit() {
+    ngAfterViewInit() {
         this._cacheTextareaLineHeight();
         this.resizeToFitContent();
     }
@@ -13503,12 +13503,12 @@ class MdTextareaAutosize {
         textareaClone.style.position = 'absolute';
         textareaClone.style.visibility = 'hidden';
         textareaClone.style.border = 'none';
-        textareaClone.style.padding = '';
+        textareaClone.style.padding = '0';
         textareaClone.style.height = '';
         textareaClone.style.minHeight = '';
         textareaClone.style.maxHeight = '';
         textarea.parentNode.appendChild(textareaClone);
-        this._cachedLineHeight = textareaClone.offsetHeight;
+        this._cachedLineHeight = textareaClone.clientHeight;
         textarea.parentNode.removeChild(textareaClone);
     }
     /**

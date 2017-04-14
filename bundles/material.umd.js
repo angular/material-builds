@@ -14416,7 +14416,7 @@ var MdTextareaAutosize = (function () {
     /**
      * @return {?}
      */
-    MdTextareaAutosize.prototype.ngOnInit = function () {
+    MdTextareaAutosize.prototype.ngAfterViewInit = function () {
         this._cacheTextareaLineHeight();
         this.resizeToFitContent();
     };
@@ -14439,12 +14439,12 @@ var MdTextareaAutosize = (function () {
         textareaClone.style.position = 'absolute';
         textareaClone.style.visibility = 'hidden';
         textareaClone.style.border = 'none';
-        textareaClone.style.padding = '';
+        textareaClone.style.padding = '0';
         textareaClone.style.height = '';
         textareaClone.style.minHeight = '';
         textareaClone.style.maxHeight = '';
         textarea.parentNode.appendChild(textareaClone);
-        this._cachedLineHeight = textareaClone.offsetHeight;
+        this._cachedLineHeight = textareaClone.clientHeight;
         textarea.parentNode.removeChild(textareaClone);
     };
     /**
