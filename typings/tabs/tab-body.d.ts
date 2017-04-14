@@ -64,9 +64,6 @@ export declare class MdTabBody implements OnInit, AfterViewChecked, AfterContent
      * computed style (with Angular > 2.3.0). This can alternatively be determined by checking the
      * transform: canBeAnimated = getComputedStyle(element) !== '', however document.contains should
      * be faster since it doesn't cause a reflow.
-     *
-     * TODO: This can safely be removed after we stop supporting Angular < 2.4.2. The fix landed via
-     * https://github.com/angular/angular/commit/21030e9a1cf30e8101399d8535ed72d847a23ba6
      */
     ngAfterContentChecked(): void;
     _onTranslateTabStarted(e: AnimationEvent): void;

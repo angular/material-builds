@@ -280,7 +280,6 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
     /**
      * Sets the `multiple` property on each option. The promise is necessary
      * in order to avoid Angular errors when modifying the property after init.
-     * TODO: there should be a better way of doing this.
      */
     private _setOptionMultiple();
     /**

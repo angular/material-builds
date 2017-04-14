@@ -8038,7 +8038,6 @@ var MdSelect = (function () {
     /**
      * Sets the `multiple` property on each option. The promise is necessary
      * in order to avoid Angular errors when modifying the property after init.
-     * TODO: there should be a better way of doing this.
      * @return {?}
      */
     MdSelect.prototype._setOptionMultiple = function () {
@@ -15800,12 +15799,11 @@ var MdTabBody = (function () {
      * computed style (with Angular > 2.3.0). This can alternatively be determined by checking the
      * transform: canBeAnimated = getComputedStyle(element) !== '', however document.contains should
      * be faster since it doesn't cause a reflow.
-     *
-     * TODO: This can safely be removed after we stop supporting Angular < 2.4.2. The fix landed via
-     * https://github.com/angular/angular/commit/21030e9a1cf30e8101399d8535ed72d847a23ba6
      * @return {?}
      */
     MdTabBody.prototype.ngAfterContentChecked = function () {
+        // TODO: This can safely be removed after we stop supporting Angular < 2.4.2. The fix landed via
+        // https://github.com/angular/angular/commit/21030e9a1cf30e8101399d8535ed72d847a23ba6
         if (!this._canBeAnimated) {
             this._canBeAnimated = document.body.contains(this._elementRef.nativeElement);
             if (this._canBeAnimated) {
