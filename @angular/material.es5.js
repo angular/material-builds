@@ -6264,6 +6264,7 @@ var MdCheckbox = (function () {
      */
     MdCheckbox.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
+        this._changeDetectorRef.markForCheck();
     };
     /**
      * @param {?} newState

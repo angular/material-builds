@@ -5976,6 +5976,7 @@ class MdCheckbox {
      */
     setDisabledState(isDisabled) {
         this.disabled = isDisabled;
+        this._changeDetectorRef.markForCheck();
     }
     /**
      * @param {?} newState
