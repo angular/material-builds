@@ -5855,8 +5855,7 @@ class MdCheckbox {
         this._focusOriginMonitor.stopMonitoring(this._inputElement.nativeElement);
     }
     /**
-     * Whether the checkbox is checked. Note that setting `checked` will immediately set
-     * `indeterminate` to false.
+     * Whether the checkbox is checked.
      * @return {?}
      */
     get checked() {
@@ -5868,12 +5867,6 @@ class MdCheckbox {
      */
     set checked(checked) {
         if (checked != this.checked) {
-            if (this._indeterminate) {
-                Promise.resolve().then(() => {
-                    this._indeterminate = false;
-                    this.indeterminateChange.emit(this._indeterminate);
-                });
-            }
             this._checked = checked;
             this._changeDetectorRef.markForCheck();
         }
@@ -5881,11 +5874,8 @@ class MdCheckbox {
     /**
      * Whether the checkbox is indeterminate. This is also known as "mixed" mode and can be used to
      * represent a checkbox with three states, e.g. a checkbox that represents a nested list of
-     * checkable items. Note that whenever `checked` is set, indeterminate is immediately set to
-     * false. This differs from the web platform in that indeterminate state on native
-     * checkboxes is only remove when the user manually checks the checkbox (rather than setting the
-     * `checked` property programmatically). However, we feel that this behavior is more accommodating
-     * to the way consumers would envision using this component.
+     * checkable items. Note that whenever checkbox is manually clicked, indeterminate is immediately
+     * set to false.
      * @return {?}
      */
     get indeterminate() {
@@ -6048,6 +6038,13 @@ class MdCheckbox {
         event.stopPropagation();
         this._removeFocusRipple();
         if (!this.disabled) {
+            // When user manually click on the checkbox, `indeterminate` is set to false.
+            if (this._indeterminate) {
+                Promise.resolve().then(() => {
+                    this._indeterminate = false;
+                    this.indeterminateChange.emit(this._indeterminate);
+                });
+            }
             this.toggle();
             this._transitionCheckState(this._checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
             // Emit our custom change event if the native input emitted one.

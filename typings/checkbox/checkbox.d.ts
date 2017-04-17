@@ -101,18 +101,14 @@ export declare class MdCheckbox implements ControlValueAccessor, AfterViewInit, 
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /**
-     * Whether the checkbox is checked. Note that setting `checked` will immediately set
-     * `indeterminate` to false.
+     * Whether the checkbox is checked.
      */
     checked: boolean;
     /**
      * Whether the checkbox is indeterminate. This is also known as "mixed" mode and can be used to
      * represent a checkbox with three states, e.g. a checkbox that represents a nested list of
-     * checkable items. Note that whenever `checked` is set, indeterminate is immediately set to
-     * false. This differs from the web platform in that indeterminate state on native
-     * checkboxes is only remove when the user manually checks the checkbox (rather than setting the
-     * `checked` property programmatically). However, we feel that this behavior is more accommodating
-     * to the way consumers would envision using this component.
+     * checkable items. Note that whenever checkbox is manually clicked, indeterminate is immediately
+     * set to false.
      */
     indeterminate: boolean;
     /** The color of the button. Can be `primary`, `accent`, or `warn`. */

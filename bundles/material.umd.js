@@ -6119,8 +6119,7 @@ var MdCheckbox = (function () {
     };
     Object.defineProperty(MdCheckbox.prototype, "checked", {
         /**
-         * Whether the checkbox is checked. Note that setting `checked` will immediately set
-         * `indeterminate` to false.
+         * Whether the checkbox is checked.
          * @return {?}
          */
         get: function () {
@@ -6131,14 +6130,7 @@ var MdCheckbox = (function () {
          * @return {?}
          */
         set: function (checked) {
-            var _this = this;
             if (checked != this.checked) {
-                if (this._indeterminate) {
-                    Promise.resolve().then(function () {
-                        _this._indeterminate = false;
-                        _this.indeterminateChange.emit(_this._indeterminate);
-                    });
-                }
                 this._checked = checked;
                 this._changeDetectorRef.markForCheck();
             }
@@ -6150,11 +6142,8 @@ var MdCheckbox = (function () {
         /**
          * Whether the checkbox is indeterminate. This is also known as "mixed" mode and can be used to
          * represent a checkbox with three states, e.g. a checkbox that represents a nested list of
-         * checkable items. Note that whenever `checked` is set, indeterminate is immediately set to
-         * false. This differs from the web platform in that indeterminate state on native
-         * checkboxes is only remove when the user manually checks the checkbox (rather than setting the
-         * `checked` property programmatically). However, we feel that this behavior is more accommodating
-         * to the way consumers would envision using this component.
+         * checkable items. Note that whenever checkbox is manually clicked, indeterminate is immediately
+         * set to false.
          * @return {?}
          */
         get: function () {
@@ -6314,6 +6303,7 @@ var MdCheckbox = (function () {
      * @return {?}
      */
     MdCheckbox.prototype._onInputClick = function (event) {
+        var _this = this;
         // We have to stop propagation for click events on the visual hidden input element.
         // By default, when a user clicks on a label element, a generated click event will be
         // dispatched on the associated input element. Since we are using a label element as our
@@ -6324,6 +6314,13 @@ var MdCheckbox = (function () {
         event.stopPropagation();
         this._removeFocusRipple();
         if (!this.disabled) {
+            // When user manually click on the checkbox, `indeterminate` is set to false.
+            if (this._indeterminate) {
+                Promise.resolve().then(function () {
+                    _this._indeterminate = false;
+                    _this.indeterminateChange.emit(_this._indeterminate);
+                });
+            }
             this.toggle();
             this._transitionCheckState(this._checked ? TransitionCheckState.Checked : TransitionCheckState.Unchecked);
             // Emit our custom change event if the native input emitted one.
