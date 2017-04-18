@@ -3,7 +3,7 @@
   * Copyright (c) 2017 Google, Inc. https://material.angular.io/
   * License: MIT
   */
-import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, Injector, Input, NgModule, NgZone, OpaqueToken, Optional, Output, Renderer, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
+import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, Injector, Input, NgModule, NgZone, OpaqueToken, Optional, Output, Renderer, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
 import { DOCUMENT, DomSanitizer, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
@@ -41,7 +41,9 @@ class MdError extends Error {
     }
 }
 
-/** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
+/**
+ * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
+ */
 let hasDoneGlobalChecks = false;
 const MATERIAL_COMPATIBILITY_MODE = new OpaqueToken('md-compatibility-mode');
 /**
@@ -58,7 +60,9 @@ class MdCompatibilityInvalidPrefixError extends MdError {
             `It was used on an "${nodeName.toLowerCase()}" element.`);
     }
 }
-/** Selector that matches all elements that may have style collisions with AngularJS Material. */
+/**
+ * Selector that matches all elements that may have style collisions with AngularJS Material.
+ */
 const MAT_ELEMENTS_SELECTOR = `
   [mat-button],
   [mat-dialog-actions],
@@ -117,7 +121,9 @@ const MAT_ELEMENTS_SELECTOR = `
   mat-tab-group,
   mat-toolbar,
   mat-error`;
-/** Selector that matches all elements that may have style collisions with AngularJS Material. */
+/**
+ * Selector that matches all elements that may have style collisions with AngularJS Material.
+ */
 const MD_ELEMENTS_SELECTOR = `
   [md-button],
   [md-dialog-actions],
@@ -396,9 +402,13 @@ MdLineModule.ctorParameters = () => [];
  */
 class Dir {
     constructor() {
-        /** Layout direction of the element. */
+        /**
+         * Layout direction of the element.
+         */
         this._dir = 'ltr';
-        /** Event emitted when the direction changes. */
+        /**
+         * Event emitted when the direction changes.
+         */
         this.dirChange = new EventEmitter();
     }
     /**
@@ -479,7 +489,9 @@ class ObserveContent {
      */
     constructor(_elementRef) {
         this._elementRef = _elementRef;
-        /** Event emitted for each change in the element's content. */
+        /**
+         * Event emitted for each change in the element's content.
+         */
         this.event = new EventEmitter();
     }
     /**
@@ -589,7 +601,9 @@ class RippleRef {
         this._renderer = _renderer;
         this.element = element;
         this.config = config;
-        /** Current state of the ripple reference. */
+        /**
+         * Current state of the ripple reference.
+         */
         this.state = RippleState.HIDDEN;
     }
     /**
@@ -601,9 +615,13 @@ class RippleRef {
     }
 }
 
-/** Fade-in duration for the ripples. Can be modified with the speedFactor option. */
+/**
+ * Fade-in duration for the ripples. Can be modified with the speedFactor option.
+ */
 const RIPPLE_FADE_IN_DURATION = 450;
-/** Fade-out duration for the ripples in milliseconds. This can't be modified by the speedFactor. */
+/**
+ * Fade-out duration for the ripples in milliseconds. This can't be modified by the speedFactor.
+ */
 const RIPPLE_FADE_OUT_DURATION = 400;
 /**
  * Helper service that performs DOM manipulations. Not intended to be used outside this module.
@@ -621,12 +639,25 @@ class RippleRenderer {
     constructor(_elementRef, _ngZone, _ruler) {
         this._ngZone = _ngZone;
         this._ruler = _ruler;
+        /**
+         * Whether the mouse is currently down or not.
+         */
         this._isMousedown = false;
+        /**
+         * Events to be registered on the trigger element.
+         */
         this._triggerEvents = new Map();
+        /**
+         * Set of currently active ripple references.
+         */
         this._activeRipples = new Set();
-        /** Ripple config for all ripples created by events. */
+        /**
+         * Ripple config for all ripples created by events.
+         */
         this.rippleConfig = {};
-        /** Whether mouse ripples should be created or not. */
+        /**
+         * Whether mouse ripples should be created or not.
+         */
         this.rippleDisabled = false;
         this._containerElement = _elementRef.nativeElement;
         // Specify events which need to be registered on the trigger.
@@ -800,7 +831,9 @@ function distanceToFurthestCorner(x, y, rect) {
     return Math.sqrt(distX * distX + distY * distY);
 }
 
-/** Time in ms to throttle the scrolling events by default. */
+/**
+ * Time in ms to throttle the scrolling events by default.
+ */
 const DEFAULT_SCROLL_TIME = 20;
 /**
  * Service contained all registered Scrollable references and emits an event when any one of the
@@ -812,10 +845,17 @@ class ScrollDispatcher {
      */
     constructor(_ngZone) {
         this._ngZone = _ngZone;
-        /** Subject for notifying that a registered scrollable reference element has been scrolled. */
+        /**
+         * Subject for notifying that a registered scrollable reference element has been scrolled.
+         */
         this._scrolled = new Subject();
-        /** Keeps track of the global `scroll` and `resize` subscriptions. */
+        /**
+         * Keeps track of the global `scroll` and `resize` subscriptions.
+         */
         this._globalSubscription = null;
+        /**
+         * Keeps track of the amount of subscriptions to `scrolled`. Used for cleaning up afterwards.
+         */
         this._scrolledCount = 0;
         /**
          * Map of all the scrollable references that are registered with the service and their
@@ -1028,7 +1068,9 @@ const VIEWPORT_RULER_PROVIDER = {
     useFactory: VIEWPORT_RULER_PROVIDER_FACTORY
 };
 
-/** OpaqueToken that can be used to specify the global ripple options. */
+/**
+ * OpaqueToken that can be used to specify the global ripple options.
+ */
 const MD_RIPPLE_GLOBAL_OPTIONS = new OpaqueToken('md-ripple-global-options');
 class MdRipple {
     /**
@@ -1176,9 +1218,13 @@ class MdPseudoCheckbox {
     constructor(_elementRef, _renderer) {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
-        /** Display state of the checkbox. */
+        /**
+         * Display state of the checkbox.
+         */
         this.state = 'unchecked';
-        /** Whether the checkbox is disabled. */
+        /**
+         * Whether the checkbox is disabled.
+         */
         this.disabled = false;
         this.color = 'accent';
     }
@@ -1272,11 +1318,18 @@ class MdOption {
         this._isCompatibilityMode = _isCompatibilityMode;
         this._selected = false;
         this._active = false;
+        /**
+         * Whether the option is disabled.
+         */
         this._disabled = false;
         this._id = `md-option-${_uniqueIdCounter++}`;
-        /** Whether the wrapping component is in multiple selection mode. */
+        /**
+         * Whether the wrapping component is in multiple selection mode.
+         */
         this.multiple = false;
-        /** Event emitted when the option is selected or deselected. */
+        /**
+         * Event emitted when the option is selected or deselected.
+         */
         this.onSelectionChange = new EventEmitter();
     }
     /**
@@ -1631,6 +1684,9 @@ class TemplatePortal extends Portal {
  */
 class BasePortalHost {
     constructor() {
+        /**
+         * Whether this host has already been permanently disposed.
+         */
         this._isDisposed = false;
     }
     /**
@@ -1879,11 +1935,17 @@ PortalModule.ctorParameters = () => [];
  */
 class OverlayState {
     constructor() {
-        /** Whether the overlay has a backdrop. */
+        /**
+         * Whether the overlay has a backdrop.
+         */
         this.hasBackdrop = false;
-        /** Custom class to add to the backdrop */
+        /**
+         * Custom class to add to the backdrop
+         */
         this.backdropClass = 'cdk-overlay-dark-backdrop';
-        /** The direction of the text in the overlay panel. */
+        /**
+         * The direction of the text in the overlay panel.
+         */
         this.direction = 'ltr';
         // TODO(jelbourn): configuration still to add
         // - focus trap
@@ -2273,10 +2335,21 @@ class ConnectedPositionStrategy {
         this._overlayPos = _overlayPos;
         this._viewportRuler = _viewportRuler;
         this._dir = 'ltr';
+        /**
+         * The offset in pixels for the overlay connection point on the x-axis
+         */
         this._offsetX = 0;
+        /**
+         * The offset in pixels for the overlay connection point on the y-axis
+         */
         this._offsetY = 0;
+        /**
+         * The Scrollable containers used to check scrollable view properties on position change.
+         */
         this.scrollables = [];
-        /** Ordered list of preferred positions, from most to least desirable. */
+        /**
+         * Ordered list of preferred positions, from most to least desirable.
+         */
         this._preferredPositions = [];
         this._onPositionChange = new Subject();
         this._origin = this._connectedTo.nativeElement;
@@ -2851,9 +2924,13 @@ const OVERLAY_CONTAINER_PROVIDER = {
     useFactory: OVERLAY_CONTAINER_PROVIDER_FACTORY
 };
 
-/** Next overlay unique ID. */
+/**
+ * Next overlay unique ID.
+ */
 let nextUniqueId = 0;
-/** The default state for newly created overlays. */
+/**
+ * The default state for newly created overlays.
+ */
 let defaultState = new OverlayState();
 /**
  * Service to create Overlays. Overlays are dynamically added pieces of floating UI, meant to be
@@ -2939,7 +3016,9 @@ Overlay.ctorParameters = () => [
     { type: Injector, },
     { type: NgZone, },
 ];
-/** Providers for Overlay and its related injectables. */
+/**
+ * Providers for Overlay and its related injectables.
+ */
 const OVERLAY_PROVIDERS = [
     Overlay,
     OverlayPositionBuilder,
@@ -3017,7 +3096,9 @@ Scrollable.ctorParameters = () => [
     { type: Renderer, },
 ];
 
-/** Default set of positions for the overlay. Follows the behavior of a dropdown. */
+/**
+ * Default set of positions for the overlay. Follows the behavior of a dropdown.
+ */
 let defaultPositionList = [
     new ConnectionPositionPair({ originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' }),
     new ConnectionPositionPair({ originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' }),
@@ -3063,13 +3144,21 @@ class ConnectedOverlayDirective {
         this._hasBackdrop = false;
         this._offsetX = 0;
         this._offsetY = 0;
-        /** Event emitted when the backdrop is clicked. */
+        /**
+         * Event emitted when the backdrop is clicked.
+         */
         this.backdropClick = new EventEmitter();
-        /** Event emitted when the position has changed. */
+        /**
+         * Event emitted when the position has changed.
+         */
         this.positionChange = new EventEmitter();
-        /** Event emitted when the overlay has been attached. */
+        /**
+         * Event emitted when the overlay has been attached.
+         */
         this.attach = new EventEmitter();
-        /** Event emitted when the overlay has been detached. */
+        /**
+         * Event emitted when the overlay has been detached.
+         */
         this.detach = new EventEmitter();
         this._templatePortal = new TemplatePortal(templateRef, viewContainerRef);
     }
@@ -3336,7 +3425,9 @@ const hasV8BreakIterator = typeof (window) !== 'undefined' ?
  */
 class Platform {
     constructor() {
-        /** Layout Engines */
+        /**
+         * Layout Engines
+         */
         this.EDGE = /(edge)/i.test(navigator.userAgent);
         this.TRIDENT = /(msie|trident)/i.test(navigator.userAgent);
         // EdgeHTML and Trident mock Blink specific things and need to excluded from this check.
@@ -3344,7 +3435,9 @@ class Platform {
         // Webkit is part of the userAgent in EdgeHTML Blink and Trident, so we need to
         // ensure that Webkit runs standalone and is not use as another engines base.
         this.WEBKIT = /AppleWebKit/i.test(navigator.userAgent) && !this.BLINK && !this.EDGE && !this.TRIDENT;
-        /** Browsers and Platform Types */
+        /**
+         * Browsers and Platform Types
+         */
         this.IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
         // It's difficult to detect the plain Gecko engine, because most of the browsers identify
         // them self as Gecko-like browsers and modify the userAgent's according to that.
@@ -4228,10 +4321,21 @@ class SelectionModel {
     constructor(_isMulti = false, initiallySelectedValues, _emitChanges = true) {
         this._isMulti = _isMulti;
         this._emitChanges = _emitChanges;
+        /**
+         * Currently-selected values.
+         */
         this._selection = new Set();
+        /**
+         * Keeps track of the deselected options that haven't been emitted by the change event.
+         */
         this._deselectedToEmit = [];
+        /**
+         * Keeps track of the selected option that haven't been emitted by the change event.
+         */
         this._selectedToEmit = [];
-        /** Event emitted when the value has changed. */
+        /**
+         * Event emitted when the value has changed.
+         */
         this.onChange = this._emitChanges ? new Subject() : null;
         if (initiallySelectedValues) {
             if (_isMulti) {
@@ -4466,8 +4570,17 @@ class FocusOriginMonitor {
      */
     constructor(_ngZone) {
         this._ngZone = _ngZone;
+        /**
+         * The focus origin that the next focus event is a result of.
+         */
         this._origin = null;
+        /**
+         * Whether the window has just been focused.
+         */
         this._windowFocused = false;
+        /**
+         * Weak map of elements being monitored to their info.
+         */
         this._elementInfo = new WeakMap();
         this._ngZone.runOutsideAngular(() => this._registerDocumentEvents());
     }
@@ -4866,16 +4979,42 @@ class MdButtonToggleChange {
  */
 class MdButtonToggleGroup {
     constructor() {
+        /**
+         * The value for the button toggle group. Should match currently selected button toggle.
+         */
         this._value = null;
+        /**
+         * The HTML name attribute applied to toggles in this group.
+         */
         this._name = `md-button-toggle-group-${_uniqueIdCounter$1++}`;
+        /**
+         * Disables all toggles in the group.
+         */
         this._disabled = null;
+        /**
+         * Whether the button toggle group should be vertical.
+         */
         this._vertical = false;
+        /**
+         * The currently selected button toggle, should match the value.
+         */
         this._selected = null;
+        /**
+         * Whether the button toggle group is initialized or not.
+         */
         this._isInitialized = false;
+        /**
+         * The method to be called in order to update ngModel.
+         * Now `ngModel` binding is not supported in multiple selection mode.
+         */
         this._controlValueAccessorChangeFn = (value) => { };
-        /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
+        /**
+         * onTouch function registered via registerOnTouch (ControlValueAccessor).
+         */
         this.onTouched = () => { };
-        /** Child button toggle buttons. */
+        /**
+         * Child button toggle buttons.
+         */
         this._buttonToggles = null;
         this._change = new EventEmitter();
     }
@@ -5079,7 +5218,13 @@ MdButtonToggleGroup.propDecorators = {
  */
 class MdButtonToggleGroupMultiple {
     constructor() {
+        /**
+         * Disables all toggles in the group.
+         */
         this._disabled = null;
+        /**
+         * Whether the button toggle group should be vertical.
+         */
         this._vertical = false;
     }
     /**
@@ -5146,10 +5291,25 @@ class MdButtonToggle {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
         this._focusOriginMonitor = _focusOriginMonitor;
+        /**
+         * Whether or not this button toggle is checked.
+         */
         this._checked = false;
+        /**
+         * Whether or not this button toggle is disabled.
+         */
         this._disabled = null;
+        /**
+         * Value assigned to this button toggle.
+         */
         this._value = null;
+        /**
+         * Whether or not the button toggle is a single selection.
+         */
         this._isSingleSelector = null;
+        /**
+         * Event emitted when the group value changes.
+         */
         this._change = new EventEmitter();
         this.buttonToggleGroup = toggleGroup;
         this.buttonToggleGroupMultiple = toggleGroupMultiple;
@@ -5476,10 +5636,17 @@ class MdButton {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this._focusOriginMonitor = _focusOriginMonitor;
-        /** Whether the button is round. */
+        /**
+         * Whether the button is round.
+         */
         this._isRoundButton = this._hasAttributeWithPrefix('fab', 'mini-fab');
-        /** Whether the button is icon button. */
+        /**
+         * Whether the button is icon button.
+         */
         this._isIconButton = this._hasAttributeWithPrefix('icon-button');
+        /**
+         * Whether the ripple effect on click should be disabled.
+         */
         this._disableRipple = false;
         this._disabled = null;
         this._focusOriginMonitor.monitor(this._elementRef.nativeElement, this._renderer, true);
@@ -5706,7 +5873,9 @@ MdButtonModule.decorators = [
  */
 MdButtonModule.ctorParameters = () => [];
 
-/** Monotonically increasing integer used to auto-generate unique ids for checkbox components. */
+/**
+ * Monotonically increasing integer used to auto-generate unique ids for checkbox components.
+ */
 let nextId = 0;
 /**
  * Provider Expression that allows md-checkbox to register as a ControlValueAccessor.
@@ -5761,18 +5930,30 @@ class MdCheckbox {
          * Users can specify the `aria-labelledby` attribute which will be forwarded to the input element
          */
         this.ariaLabelledby = null;
-        /** A unique id for the checkbox. If one is not supplied, it is auto-generated. */
+        /**
+         * A unique id for the checkbox. If one is not supplied, it is auto-generated.
+         */
         this.id = `md-checkbox-${++nextId}`;
-        /** Whether the label should appear after or before the checkbox. Defaults to 'after' */
+        /**
+         * Whether the label should appear after or before the checkbox. Defaults to 'after'
+         */
         this.labelPosition = 'after';
         this._disabled = false;
-        /** Tabindex value that is passed to the underlying input element. */
+        /**
+         * Tabindex value that is passed to the underlying input element.
+         */
         this.tabIndex = 0;
-        /** Name value will be applied to the input element if present */
+        /**
+         * Name value will be applied to the input element if present
+         */
         this.name = null;
-        /** Event emitted when the checkbox's `checked` value changes. */
+        /**
+         * Event emitted when the checkbox's `checked` value changes.
+         */
         this.change = new EventEmitter();
-        /** Event emitted when the checkbox's `indeterminate` value changes. */
+        /**
+         * Event emitted when the checkbox's `indeterminate` value changes.
+         */
         this.indeterminateChange = new EventEmitter();
         /**
          * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
@@ -6208,12 +6389,32 @@ class MdRadioChange {
  */
 class MdRadioGroup {
     constructor() {
+        /**
+         * Selected value for group. Should equal the value of the selected radio button if there *is*
+         * a corresponding radio button with a matching value. If there is *not* such a corresponding
+         * radio button, this value persists to be applied in case a new radio button is added with a
+         * matching value.
+         */
         this._value = null;
+        /**
+         * The HTML name attribute applied to radio buttons in this group.
+         */
         this._name = `md-radio-group-${_uniqueIdCounter$2++}`;
+        /**
+         * Disables all individual radio buttons assigned to this group.
+         */
         this._disabled = false;
+        /**
+         * The currently selected radio button. Should match value.
+         */
         this._selected = null;
+        /**
+         * Whether the `value` has been set to its initial value.
+         */
         this._isInitialized = false;
-        /** The method to be called in order to update ngModel */
+        /**
+         * The method to be called in order to update ngModel
+         */
         this._controlValueAccessorChangeFn = (value) => { };
         /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
@@ -6226,9 +6427,13 @@ class MdRadioGroup {
          * a radio button (the same behavior as `<input type-"radio">`).
          */
         this.change = new EventEmitter();
-        /** Child radio buttons. */
+        /**
+         * Child radio buttons.
+         */
         this._radios = null;
-        /** Whether the labels should appear after or before the radio-buttons. Defaults to 'after' */
+        /**
+         * Whether the labels should appear after or before the radio-buttons. Defaults to 'after'
+         */
         this.labelPosition = 'after';
     }
     /**
@@ -6450,7 +6655,9 @@ class MdRadioButton {
         this._renderer = _renderer;
         this._focusOriginMonitor = _focusOriginMonitor;
         this._radioDispatcher = _radioDispatcher;
-        /** The unique ID for the radio button. */
+        /**
+         * The unique ID for the radio button.
+         */
         this.id = `md-radio-${_uniqueIdCounter$2++}`;
         /**
          * Event emitted when the checked state of this radio button changes.
@@ -6458,7 +6665,13 @@ class MdRadioButton {
          * the radio button (the same behavior as `<input type-"radio">`).
          */
         this.change = new EventEmitter();
+        /**
+         * Whether this radio is checked.
+         */
         this._checked = false;
+        /**
+         * Value assigned to this radio.
+         */
         this._value = null;
         this.radioGroup = radioGroup;
         _radioDispatcher.listen((id, name) => {
@@ -6958,12 +7171,6 @@ class FocusKeyManager extends ListKeyManager {
 }
 
 /**
- * The following are all the animations for the md-select component, with each
- * const containing the metadata for one animation.
- *
- * The values below match the implementation of the AngularJS Material md-select animation.
- */
-/**
  * This animation shrinks the placeholder text to 75% of its normal size and translates
  * it to either the top left corner (ltr) or top right corner (rtl) of the trigger,
  * depending on the text direction of the application.
@@ -7042,17 +7249,20 @@ class MdSelectNonArrayValueError extends MdError {
 }
 
 /**
- * The following style constants are necessary to save here in order
- * to properly calculate the alignment of the selected option over
- * the trigger element.
+ * The fixed height of every option element.
  */
-/** The fixed height of every option element. */
 const SELECT_OPTION_HEIGHT = 48;
-/** The max height of the select's overlay panel */
+/**
+ * The max height of the select's overlay panel
+ */
 const SELECT_PANEL_MAX_HEIGHT = 256;
-/** The max number of options visible at once in the select panel. */
+/**
+ * The max number of options visible at once in the select panel.
+ */
 const SELECT_MAX_OPTIONS_DISPLAYED = 5;
-/** The fixed height of the select's trigger element. */
+/**
+ * The fixed height of the select's trigger element.
+ */
 const SELECT_TRIGGER_HEIGHT = 30;
 /**
  * Must adjust for the difference in height between the option and the trigger,
@@ -7060,7 +7270,9 @@ const SELECT_TRIGGER_HEIGHT = 30;
  * (SELECT_OPTION_HEIGHT (48) - SELECT_TRIGGER_HEIGHT (30)) / 2 = 9
  */
 const SELECT_OPTION_HEIGHT_ADJUSTMENT = 9;
-/** The panel's padding on the x-axis */
+/**
+ * The panel's padding on the x-axis
+ */
 const SELECT_PANEL_PADDING_X = 16;
 /**
  * Distance between the panel edge and the option text in
@@ -7112,21 +7324,49 @@ class MdSelect {
         this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
         this._control = _control;
+        /**
+         * Whether or not the overlay panel is open.
+         */
         this._panelOpen = false;
+        /**
+         * Whether filling out the select is required in the form.
+         */
         this._required = false;
+        /**
+         * Whether the select is disabled.
+         */
         this._disabled = false;
+        /**
+         * The scroll position of the overlay panel, calculated to center the selected option.
+         */
         this._scrollTop = 0;
+        /**
+         * Whether the component is in multiple selection mode.
+         */
         this._multiple = false;
+        /**
+         * The animation state of the placeholder.
+         */
         this._placeholderState = '';
-        /** View -> model callback called when value changes */
+        /**
+         * View -> model callback called when value changes
+         */
         this._onChange = (value) => { };
-        /** View -> model callback called when select has been touched */
+        /**
+         * View -> model callback called when select has been touched
+         */
         this._onTouched = () => { };
-        /** The IDs of child options to be passed to the aria-owns attribute. */
+        /**
+         * The IDs of child options to be passed to the aria-owns attribute.
+         */
         this._optionIds = '';
-        /** The value of the select panel's transform-origin property. */
+        /**
+         * The value of the select panel's transform-origin property.
+         */
         this._transformOrigin = 'top';
-        /** Whether the panel's animation is done. */
+        /**
+         * Whether the panel's animation is done.
+         */
         this._panelDoneAnimating = false;
         /**
          * The x-offset of the overlay panel in relation to the trigger's top start corner.
@@ -7161,15 +7401,25 @@ class MdSelect {
             },
         ];
         this._floatPlaceholder = 'auto';
-        /** Aria label of the select. If not specified, the placeholder will be used as label. */
+        /**
+         * Aria label of the select. If not specified, the placeholder will be used as label.
+         */
         this.ariaLabel = '';
-        /** Input that can be used to specify the `aria-labelledby` attribute. */
+        /**
+         * Input that can be used to specify the `aria-labelledby` attribute.
+         */
         this.ariaLabelledby = '';
-        /** Event emitted when the select has been opened. */
+        /**
+         * Event emitted when the select has been opened.
+         */
         this.onOpen = new EventEmitter();
-        /** Event emitted when the select has been closed. */
+        /**
+         * Event emitted when the select has been closed.
+         */
         this.onClose = new EventEmitter();
-        /** Event emitted when the selected value has been changed by the user. */
+        /**
+         * Event emitted when the selected value has been changed by the user.
+         */
         this.change = new EventEmitter();
         if (this._control) {
             this._control.valueAccessor = this;
@@ -8002,20 +8252,34 @@ class MdSlideToggle {
         this._disabled = false;
         this._required = false;
         this._disableRipple = false;
-        /** Name value will be applied to the input element if present */
+        /**
+         * Name value will be applied to the input element if present
+         */
         this.name = null;
-        /** A unique id for the slide-toggle input. If none is supplied, it will be auto-generated. */
+        /**
+         * A unique id for the slide-toggle input. If none is supplied, it will be auto-generated.
+         */
         this.id = this._uniqueId;
-        /** Used to specify the tabIndex value for the underlying input element. */
+        /**
+         * Used to specify the tabIndex value for the underlying input element.
+         */
         this.tabIndex = 0;
-        /** Whether the label should appear after or before the slide-toggle. Defaults to 'after' */
+        /**
+         * Whether the label should appear after or before the slide-toggle. Defaults to 'after'
+         */
         this.labelPosition = 'after';
-        /** Used to set the aria-label attribute on the underlying input element. */
+        /**
+         * Used to set the aria-label attribute on the underlying input element.
+         */
         this.ariaLabel = null;
-        /** Used to set the aria-labelledby attribute on the underlying input element. */
+        /**
+         * Used to set the aria-labelledby attribute on the underlying input element.
+         */
         this.ariaLabelledby = null;
         this._change = new EventEmitter();
-        /** An event will be dispatched each time the slide-toggle changes its value. */
+        /**
+         * An event will be dispatched each time the slide-toggle changes its value.
+         */
         this.change = this._change.asObservable();
     }
     /**
@@ -8318,7 +8582,9 @@ class SlideToggleRenderer {
      */
     constructor(_elementRef) {
         this._elementRef = _elementRef;
-        /** Whether the thumb is currently being dragged. */
+        /**
+         * Whether the thumb is currently being dragged.
+         */
         this.dragging = false;
         this._thumbEl = _elementRef.nativeElement.querySelector('.mat-slide-toggle-thumb-container');
         this._thumbBarEl = _elementRef.nativeElement.querySelector('.mat-slide-toggle-bar');
@@ -8410,11 +8676,17 @@ MdSlideToggleModule.ctorParameters = () => [];
  * the default separation we chose.
  */
 const MIN_AUTO_TICK_SEPARATION = 30;
-/** The thumb gap size for a disabled slider. */
+/**
+ * The thumb gap size for a disabled slider.
+ */
 const DISABLED_THUMB_GAP = 7;
-/** The thumb gap size for a non-active slider at its minimum value. */
+/**
+ * The thumb gap size for a non-active slider at its minimum value.
+ */
 const MIN_VALUE_NONACTIVE_THUMB_GAP = 7;
-/** The thumb gap size for an active slider at its minimum value. */
+/**
+ * The thumb gap size for an active slider at its minimum value.
+ */
 const MIN_VALUE_ACTIVE_THUMB_GAP = 10;
 /**
  * Provider Expression that allows md-slider to register as a ControlValueAccessor.
@@ -8455,11 +8727,17 @@ class MdSlider {
         this._value = null;
         this._vertical = false;
         this.color = 'accent';
-        /** Event emitted when the slider value has changed. */
+        /**
+         * Event emitted when the slider value has changed.
+         */
         this.change = new EventEmitter();
-        /** Event emitted when the slider thumb moves. */
+        /**
+         * Event emitted when the slider thumb moves.
+         */
         this.input = new EventEmitter();
-        /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
+        /**
+         * onTouch function registered via registerOnTouch (ControlValueAccessor).
+         */
         this.onTouched = () => { };
         this._percent = 0;
         /**
@@ -8472,11 +8750,26 @@ class MdSlider {
          * Used to shrink and grow the thumb as according to the Material Design spec.
          */
         this._isActive = false;
+        /**
+         * The size of a tick interval as a percentage of the size of the track.
+         */
         this._tickIntervalPercent = 0;
+        /**
+         * A renderer to handle updating the slider's thumb and fill track.
+         */
         this._renderer = null;
+        /**
+         * The dimensions of the slider.
+         */
         this._sliderDimensions = null;
         this._controlValueAccessorChangeFn = () => { };
+        /**
+         * The last value for which a change event was emitted.
+         */
         this._lastChangeValue = null;
+        /**
+         * The last value for which an input event was emitted.
+         */
         this._lastInputValue = null;
         this._focusOriginMonitor.monitor(this._elementRef.nativeElement, renderer, true)
             .subscribe((origin) => this._isActive = !!origin && origin !== 'keyboard');
@@ -9219,23 +9512,47 @@ class MdSidenav {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this._focusTrapFactory = _focusTrapFactory;
+        /**
+         * Alignment of the sidenav (direction neutral); whether 'start' or 'end'.
+         */
         this._align = 'start';
-        /** Mode of the sidenav; one of 'over', 'push' or 'side'. */
+        /**
+         * Mode of the sidenav; one of 'over', 'push' or 'side'.
+         */
         this.mode = 'over';
         this._disableClose = false;
-        /** Whether the sidenav is opened. */
+        /**
+         * Whether the sidenav is opened.
+         */
         this._opened = false;
-        /** Event emitted when the sidenav is being opened. Use this to synchronize animations. */
+        /**
+         * Event emitted when the sidenav is being opened. Use this to synchronize animations.
+         */
         this.onOpenStart = new EventEmitter();
-        /** Event emitted when the sidenav is fully opened. */
+        /**
+         * Event emitted when the sidenav is fully opened.
+         */
         this.onOpen = new EventEmitter();
-        /** Event emitted when the sidenav is being closed. Use this to synchronize animations. */
+        /**
+         * Event emitted when the sidenav is being closed. Use this to synchronize animations.
+         */
         this.onCloseStart = new EventEmitter();
-        /** Event emitted when the sidenav is fully closed. */
+        /**
+         * Event emitted when the sidenav is fully closed.
+         */
         this.onClose = new EventEmitter();
-        /** Event emitted when the sidenav alignment changes. */
+        /**
+         * Event emitted when the sidenav alignment changes.
+         */
         this.onAlignChanged = new EventEmitter();
+        /**
+         * The current toggle animation promise. `null` if no animation is in progress.
+         */
         this._toggleAnimationPromise = null;
+        /**
+         * The current toggle animation promise resolution function.
+         * `null` if no animation is in progress.
+         */
         this._resolveToggleAnimationPromise = null;
         this._elementFocusedBeforeSidenavWasOpened = null;
         this.onOpen.subscribe(() => {
@@ -9521,9 +9838,13 @@ class MdSidenavContainer {
         this._element = _element;
         this._renderer = _renderer;
         this._ngZone = _ngZone;
-        /** Event emitted when the sidenav backdrop is clicked. */
+        /**
+         * Event emitted when the sidenav backdrop is clicked.
+         */
         this.backdropClick = new EventEmitter();
-        /** Whether to enable open/close trantions. */
+        /**
+         * Whether to enable open/close trantions.
+         */
         this._enableTransitions = false;
         // If a `Dir` directive exists up the tree, listen direction changes and update the left/right
         // properties to point to the proper start/end.
@@ -9791,7 +10112,7 @@ MdList.decorators = [
                     'role': 'list'
                 },
                 template: '<ng-content></ng-content>',
-                styles: [".mat-list,.mat-nav-list{padding-top:8px;display:block}.mat-list .mat-subheader,.mat-nav-list .mat-subheader{display:block;box-sizing:border-box;height:48px;padding:16px;margin:0;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-size:14px;font-weight:500}.mat-list .mat-subheader:first-child,.mat-nav-list .mat-subheader:first-child{margin-top:-8px}.mat-list .mat-list-item,.mat-nav-list .mat-list-item{display:block}.mat-list .mat-list-item .mat-list-item-content,.mat-nav-list .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;font-family:Roboto,\"Helvetica Neue\",sans-serif;box-sizing:border-box;font-size:16px;height:48px;padding:0 16px;position:relative}.mat-list .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:56px}.mat-list .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-2-line .mat-list-item-content{height:72px}.mat-list .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-3-line .mat-list-item-content{height:88px}.mat-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list .mat-list-item .mat-list-text,.mat-nav-list .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-item .mat-list-text>*,.mat-nav-list .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-item .mat-list-text:empty,.mat-nav-list .mat-list-item .mat-list-text:empty{display:none}.mat-list .mat-list-item .mat-list-text:first-child,.mat-nav-list .mat-list-item .mat-list-text:first-child{padding:0}.mat-list .mat-list-item .mat-list-avatar,.mat-nav-list .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-item .mat-list-icon,.mat-nav-list .mat-list-item .mat-list-icon{width:24px;height:24px;font-size:24px;border-radius:50%;padding:4px}.mat-list .mat-list-item .mat-line,.mat-nav-list .mat-list-item .mat-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;box-sizing:border-box}.mat-list .mat-list-item .mat-line:nth-child(n+2),.mat-nav-list .mat-list-item .mat-line:nth-child(n+2){font-size:14px}.mat-list[dense],.mat-nav-list[dense]{padding-top:4px;display:block}.mat-list[dense] .mat-subheader,.mat-nav-list[dense] .mat-subheader{display:block;box-sizing:border-box;height:40px;padding:16px;margin:0;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-size:13px;font-weight:500}.mat-list[dense] .mat-subheader:first-child,.mat-nav-list[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list[dense] .mat-list-item,.mat-nav-list[dense] .mat-list-item{display:block}.mat-list[dense] .mat-list-item .mat-list-item-content,.mat-nav-list[dense] .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;font-family:Roboto,\"Helvetica Neue\",sans-serif;box-sizing:border-box;font-size:13px;height:40px;padding:0 16px;position:relative}.mat-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:48px}.mat-list[dense] .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-2-line .mat-list-item-content{height:60px}.mat-list[dense] .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-3-line .mat-list-item-content{height:76px}.mat-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-item .mat-list-text,.mat-nav-list[dense] .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-item .mat-list-text>*,.mat-nav-list[dense] .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-item .mat-list-text:empty,.mat-nav-list[dense] .mat-list-item .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-item .mat-list-text:first-child,.mat-nav-list[dense] .mat-list-item .mat-list-text:first-child{padding:0}.mat-list[dense] .mat-list-item .mat-list-avatar,.mat-nav-list[dense] .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-item .mat-list-icon,.mat-nav-list[dense] .mat-list-item .mat-list-icon{width:20px;height:20px;font-size:20px;border-radius:50%;padding:4px}.mat-list[dense] .mat-list-item .mat-line,.mat-nav-list[dense] .mat-list-item .mat-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;box-sizing:border-box}.mat-list[dense] .mat-list-item .mat-line:nth-child(n+2),.mat-nav-list[dense] .mat-list-item .mat-line:nth-child(n+2){font-size:13px}.mat-divider{display:block;border-top-style:solid;border-top-width:1px;margin:0}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item-content{cursor:pointer}.mat-nav-list .mat-list-item-content.mat-list-item-focus,.mat-nav-list .mat-list-item-content:hover{outline:0} /*# sourceMappingURL=list.css.map */ "],
+                styles: [".mat-list,.mat-nav-list{padding-top:8px;display:block}.mat-list .mat-subheader,.mat-nav-list .mat-subheader{display:block;box-sizing:border-box;height:48px;padding:16px;margin:0;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-size:14px;font-weight:500}.mat-list .mat-subheader:first-child,.mat-nav-list .mat-subheader:first-child{margin-top:-8px}.mat-list .mat-list-item,.mat-nav-list .mat-list-item{display:block}.mat-list .mat-list-item .mat-list-item-content,.mat-nav-list .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;font-family:Roboto,\"Helvetica Neue\",sans-serif;box-sizing:border-box;font-size:16px;height:48px;padding:0 16px;position:relative}.mat-list .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:56px}.mat-list .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-2-line .mat-list-item-content{height:72px}.mat-list .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-3-line .mat-list-item-content{height:88px}.mat-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list .mat-list-item .mat-list-text,.mat-nav-list .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-item .mat-list-text>*,.mat-nav-list .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-item .mat-list-text:empty,.mat-nav-list .mat-list-item .mat-list-text:empty{display:none}.mat-list .mat-list-item .mat-list-text:first-child,.mat-nav-list .mat-list-item .mat-list-text:first-child{padding:0}.mat-list .mat-list-item .mat-list-avatar,.mat-nav-list .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-item .mat-list-icon,.mat-nav-list .mat-list-item .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list .mat-list-item .mat-line,.mat-nav-list .mat-list-item .mat-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;box-sizing:border-box}.mat-list .mat-list-item .mat-line:nth-child(n+2),.mat-nav-list .mat-list-item .mat-line:nth-child(n+2){font-size:14px}.mat-list[dense],.mat-nav-list[dense]{padding-top:4px;display:block}.mat-list[dense] .mat-subheader,.mat-nav-list[dense] .mat-subheader{display:block;box-sizing:border-box;height:40px;padding:16px;margin:0;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-size:13px;font-weight:500}.mat-list[dense] .mat-subheader:first-child,.mat-nav-list[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list[dense] .mat-list-item,.mat-nav-list[dense] .mat-list-item{display:block}.mat-list[dense] .mat-list-item .mat-list-item-content,.mat-nav-list[dense] .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;font-family:Roboto,\"Helvetica Neue\",sans-serif;box-sizing:border-box;font-size:13px;height:40px;padding:0 16px;position:relative}.mat-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:48px}.mat-list[dense] .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-2-line .mat-list-item-content{height:60px}.mat-list[dense] .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-3-line .mat-list-item-content{height:76px}.mat-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-item .mat-list-text,.mat-nav-list[dense] .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-item .mat-list-text>*,.mat-nav-list[dense] .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-item .mat-list-text:empty,.mat-nav-list[dense] .mat-list-item .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-item .mat-list-text:first-child,.mat-nav-list[dense] .mat-list-item .mat-list-text:first-child{padding:0}.mat-list[dense] .mat-list-item .mat-list-avatar,.mat-nav-list[dense] .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-item .mat-list-icon,.mat-nav-list[dense] .mat-list-item .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense] .mat-list-item .mat-line,.mat-nav-list[dense] .mat-list-item .mat-line{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;box-sizing:border-box}.mat-list[dense] .mat-list-item .mat-line:nth-child(n+2),.mat-nav-list[dense] .mat-list-item .mat-line:nth-child(n+2){font-size:13px}.mat-divider{display:block;border-top-style:solid;border-top-width:1px;margin:0}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item-content{cursor:pointer}.mat-nav-list .mat-list-item-content.mat-list-item-focus,.mat-nav-list .mat-list-item-content:hover{outline:0} /*# sourceMappingURL=list.css.map */ "],
                 providers: [{ provide: LIST_TYPE_TOKEN, useValue: NORMAL_LIST_TYPE }],
                 encapsulation: ViewEncapsulation.None
             },] },
@@ -10274,9 +10595,13 @@ class TileCoordinator {
      * @param {?} tiles
      */
     constructor(numColumns, tiles) {
-        /** Index at which the search for the next gap will start. */
+        /**
+         * Index at which the search for the next gap will start.
+         */
         this.columnIndex = 0;
-        /** The current row index. */
+        /**
+         * The current row index.
+         */
         this.rowIndex = 0;
         this.tracker = new Array(numColumns);
         this.tracker.fill(0, 0, this.tracker.length);
@@ -10342,6 +10667,7 @@ class TileCoordinator {
             // If a gap large enough isn't found, we want to start looking immediately after the current
             // gap on the next iteration.
             this.columnIndex = gapStartIndex + 1;
+            // Continue iterating until we find a gap wide enough for this tile.
         } while (gapEndIndex - gapStartIndex < tileCols);
         return gapStartIndex;
     }
@@ -10676,6 +11002,9 @@ class MdGridList {
         this._renderer = _renderer;
         this._element = _element;
         this._dir = _dir;
+        /**
+         * The amount of space between tiles. This will be something like '5px' or '2em'.
+         */
         this._gutter = '1px';
     }
     /**
@@ -11170,19 +11499,33 @@ class MdChip {
     constructor(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
-        /** Whether or not the chip is disabled. Disabled chips cannot be focused. */
+        /**
+         * Whether or not the chip is disabled. Disabled chips cannot be focused.
+         */
         this._disabled = null;
-        /** Whether or not the chip is selected. */
+        /**
+         * Whether or not the chip is selected.
+         */
         this._selected = false;
-        /** The palette color of selected chips. */
+        /**
+         * The palette color of selected chips.
+         */
         this._color = 'primary';
-        /** Emitted when the chip is focused. */
+        /**
+         * Emitted when the chip is focused.
+         */
         this.onFocus = new EventEmitter();
-        /** Emitted when the chip is selected. */
+        /**
+         * Emitted when the chip is selected.
+         */
         this.select = new EventEmitter();
-        /** Emitted when the chip is deselected. */
+        /**
+         * Emitted when the chip is deselected.
+         */
         this.deselect = new EventEmitter();
-        /** Emitted when the chip is destroyed. */
+        /**
+         * Emitted when the chip is destroyed.
+         */
         this.destroy = new EventEmitter();
     }
     /**
@@ -11369,8 +11712,13 @@ class MdChipList {
      */
     constructor(_elementRef) {
         this._elementRef = _elementRef;
+        /**
+         * Track which chips we're listening to for focus/destruction.
+         */
         this._subscribed = new WeakMap();
-        /** Whether or not the chip is selectable. */
+        /**
+         * Whether or not the chip is selectable.
+         */
         this._selectable = true;
     }
     /**
@@ -11604,7 +11952,9 @@ class SvgIconConfig {
         this.svgElement = null;
     }
 }
-/** Returns the cache key to use for an icon namespace and name. */
+/**
+ * Returns the cache key to use for an icon namespace and name.
+ */
 const iconKey = (namespace, name) => namespace + ':' + name;
 /**
  * Service to register and display icons used by the <md-icon> component.
@@ -11621,11 +11971,32 @@ class MdIconRegistry {
     constructor(_http, _sanitizer) {
         this._http = _http;
         this._sanitizer = _sanitizer;
+        /**
+         * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
+         */
         this._svgIconConfigs = new Map();
+        /**
+         * SvgIconConfig objects and cached SVG elements for icon sets, keyed by namespace.
+         * Multiple icon sets can be registered under the same namespace.
+         */
         this._iconSetConfigs = new Map();
+        /**
+         * Cache for icons loaded by direct URLs.
+         */
         this._cachedIconsByUrl = new Map();
+        /**
+         * In-progress icon fetches. Used to coalesce multiple requests to the same URL.
+         */
         this._inProgressUrlFetches = new Map();
+        /**
+         * Map from font identifiers to their CSS class names. Used for icon fonts.
+         */
         this._fontCssClassesByAlias = new Map();
+        /**
+         * The CSS class to apply when an <md-icon> component has no icon name, url, or font specified.
+         * The default 'material-icons' value assumes that the material icon font has been loaded as
+         * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
+         */
         this._defaultFontSetClass = 'material-icons';
     }
     /**
@@ -12032,7 +12403,9 @@ class MdIcon {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this._mdIconRegistry = _mdIconRegistry;
-        /** Screenreader label for the icon. */
+        /**
+         * Screenreader label for the icon.
+         */
         this.hostAriaLabel = '';
     }
     /**
@@ -12282,19 +12655,32 @@ MdIconModule.decorators = [
  */
 MdIconModule.ctorParameters = () => [];
 
-// TODO(josephperrott): Benchpress tests.
-/** A single degree in radians. */
+/**
+ * A single degree in radians.
+ */
 const DEGREE_IN_RADIANS = Math.PI / 180;
-/** Duration of the indeterminate animation. */
+/**
+ * Duration of the indeterminate animation.
+ */
 const DURATION_INDETERMINATE = 667;
-/** Duration of the indeterminate animation. */
+/**
+ * Duration of the indeterminate animation.
+ */
 const DURATION_DETERMINATE = 225;
-/** Start animation value of the indeterminate animation */
+/**
+ * Start animation value of the indeterminate animation
+ */
 const startIndeterminate = 3;
-/** End animation value of the indeterminate animation */
+/**
+ * End animation value of the indeterminate animation
+ */
 const endIndeterminate = 80;
 /* Maximum angle for the arc. The angle can't be exactly 360, because the arc becomes hidden. */
 const MAX_ANGLE = 359.99 / 100;
+/**
+ * Whether the user's browser supports requestAnimationFrame.
+ */
+const HAS_RAF = typeof requestAnimationFrame !== 'undefined';
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
@@ -12326,6 +12712,9 @@ class MdProgressSpinner {
         this._ngZone = _ngZone;
         this._elementRef = _elementRef;
         this._renderer = _renderer;
+        /**
+         * The id of the last requested animation.
+         */
         this._lastAnimationId = 0;
         this._mode = 'determinate';
         this._color = 'primary';
@@ -12378,7 +12767,11 @@ class MdProgressSpinner {
      * @return {?}
      */
     set color(value) {
-        this._updateColor(value);
+        if (value) {
+            this._renderer.removeClass(this._elementRef.nativeElement, `mat-${this._color}`);
+            this._renderer.addClass(this._elementRef.nativeElement, `mat-${value}`);
+            this._color = value;
+        }
     }
     /**
      * Value of the progress circle. It is bound to the host as the attribute aria-valuenow.
@@ -12447,7 +12840,10 @@ class MdProgressSpinner {
         }
         else {
             let /** @type {?} */ animation = () => {
-                let /** @type {?} */ elapsedTime = Math.max(0, Math.min(Date.now() - startTime, duration));
+                // If there is no requestAnimationFrame, skip ahead to the end of the animation.
+                let /** @type {?} */ elapsedTime = HAS_RAF ?
+                    Math.max(0, Math.min(Date.now() - startTime, duration)) :
+                    duration;
                 this._renderArc(ease(elapsedTime, animateFrom, changeInValue, duration), rotation);
                 // Prevent overlapping animations by checking if a new animation has been called for and
                 // if the animation has lasted longer than the animation duration.
@@ -12499,34 +12895,8 @@ class MdProgressSpinner {
      * @return {?}
      */
     _renderArc(currentValue, rotation = 0) {
-        // Caches the path reference so it doesn't have to be looked up every time.
-        let /** @type {?} */ path = this._path = this._path || this._elementRef.nativeElement.querySelector('path');
-        // Ensure that the path was found. This may not be the case if the
-        // animation function fires too early.
-        if (path) {
-            path.setAttribute('d', getSvgArc(currentValue, rotation));
-        }
-    }
-    /**
-     * Updates the color of the progress-spinner by adding the new palette class to the element
-     * and removing the old one.
-     * @param {?} newColor
-     * @return {?}
-     */
-    _updateColor(newColor) {
-        this._setElementColor(this._color, false);
-        this._setElementColor(newColor, true);
-        this._color = newColor;
-    }
-    /**
-     * Sets the given palette class on the component element.
-     * @param {?} color
-     * @param {?} isAdd
-     * @return {?}
-     */
-    _setElementColor(color, isAdd) {
-        if (color != null && color != '') {
-            this._renderer.setElementClass(this._elementRef.nativeElement, `mat-${color}`, isAdd);
+        if (this._path) {
+            this._renderer.setAttribute(this._path.nativeElement, 'd', getSvgArc(currentValue, rotation));
         }
     }
 }
@@ -12537,7 +12907,7 @@ MdProgressSpinner.decorators = [
                     '[attr.aria-valuemin]': '_ariaValueMin',
                     '[attr.aria-valuemax]': '_ariaValueMax'
                 },
-                template: "<!-- preserveAspectRatio of xMidYMid meet as the center of the viewport is the circle's center. The center of the circle will remain at the center of the md-progress-spinner element containing the SVG. --> <svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"> <path></path> </svg> ",
+                template: "<!-- preserveAspectRatio of xMidYMid meet as the center of the viewport is the circle's center. The center of the circle will remain at the center of the md-progress-spinner element containing the SVG. --> <svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"> <path #path></path> </svg> ",
                 styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px;transition:stroke .3s cubic-bezier(.35,0,.25,1)}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}} /*# sourceMappingURL=progress-spinner.css.map */ "],
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
@@ -12548,9 +12918,10 @@ MdProgressSpinner.decorators = [
 MdProgressSpinner.ctorParameters = () => [
     { type: NgZone, },
     { type: ElementRef, },
-    { type: Renderer, },
+    { type: Renderer2, },
 ];
 MdProgressSpinner.propDecorators = {
+    '_path': [{ type: ViewChild, args: ['path',] },],
     'color': [{ type: Input },],
     'value': [{ type: Input }, { type: HostBinding, args: ['attr.aria-valuenow',] },],
     'mode': [{ type: HostBinding, args: ['attr.mode',] }, { type: Input },],
@@ -12587,7 +12958,7 @@ MdSpinner.decorators = [
                     'mode': 'indeterminate',
                     '[class.mat-spinner]': 'true',
                 },
-                template: "<!-- preserveAspectRatio of xMidYMid meet as the center of the viewport is the circle's center. The center of the circle will remain at the center of the md-progress-spinner element containing the SVG. --> <svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"> <path></path> </svg> ",
+                template: "<!-- preserveAspectRatio of xMidYMid meet as the center of the viewport is the circle's center. The center of the circle will remain at the center of the md-progress-spinner element containing the SVG. --> <svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"> <path #path></path> </svg> ",
                 styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px;transition:stroke .3s cubic-bezier(.35,0,.25,1)}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}} /*# sourceMappingURL=progress-spinner.css.map */ "],
             },] },
 ];
@@ -12597,7 +12968,7 @@ MdSpinner.decorators = [
 MdSpinner.ctorParameters = () => [
     { type: ElementRef, },
     { type: NgZone, },
-    { type: Renderer, },
+    { type: Renderer2, },
 ];
 /**
  * Clamps a value to be between 0 and 100.
@@ -12712,7 +13083,9 @@ MdProgressSpinnerModule.ctorParameters = () => [];
  */
 class MdProgressBar {
     constructor() {
-        /** Color of the progress bar. */
+        /**
+         * Color of the progress bar.
+         */
         this.color = 'primary';
         this._value = 0;
         this._bufferValue = 0;
@@ -12982,11 +13355,16 @@ class MdInputDirective {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this._ngControl = _ngControl;
+        /**
+         * Variables used as cache for getters and setters.
+         */
         this._type = 'text';
         this._placeholder = '';
         this._disabled = false;
         this._required = false;
-        /** Whether the element is focused or not. */
+        /**
+         * Whether the element is focused or not.
+         */
         this.focused = false;
         /**
          * Emits an event when the placeholder changes so that the `md-input-container` can re-validate.
@@ -13196,11 +13574,17 @@ class MdInputContainer {
         this._changeDetectorRef = _changeDetectorRef;
         this._parentForm = _parentForm;
         this._parentFormGroup = _parentFormGroup;
-        /** Alignment of the input container's content. */
+        /**
+         * Alignment of the input container's content.
+         */
         this.align = 'start';
-        /** Color of the input divider, based on the theme. */
+        /**
+         * Color of the input divider, based on the theme.
+         */
         this.color = 'primary';
-        /** State of the md-hint and md-error animations. */
+        /**
+         * State of the md-hint and md-error animations.
+         */
         this._subscriptAnimationState = '';
         this._hintLabel = '';
         // Unique id for the hint label.
@@ -13380,7 +13764,7 @@ class MdInputContainer {
 MdInputContainer.decorators = [
     { type: Component, args: [{selector: 'md-input-container, mat-input-container',
                 template: "<div class=\"mat-input-wrapper\"> <div class=\"mat-input-table\"> <div class=\"mat-input-prefix\" *ngIf=\"_prefixChildren.length\"> <!-- TODO(andrewseguin): remove [md-prefix] --> <ng-content select=\"[mdPrefix], [matPrefix], [md-prefix]\"></ng-content> </div> <div class=\"mat-input-infix\" [class.mat-end]=\"align == 'end'\"> <ng-content selector=\"input, textarea\"></ng-content> <span class=\"mat-input-placeholder-wrapper\"> <label class=\"mat-input-placeholder\" [attr.for]=\"_mdInputChild.id\" [class.mat-empty]=\"_mdInputChild.empty && !_shouldAlwaysFloat\" [class.mat-float]=\"_canPlaceholderFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" *ngIf=\"_hasPlaceholder()\"> <ng-content select=\"md-placeholder, mat-placeholder\"></ng-content> {{_mdInputChild.placeholder}} <span class=\"mat-placeholder-required\" *ngIf=\"_mdInputChild.required\">*</span> </label> </span> </div> <div class=\"mat-input-suffix\" *ngIf=\"_suffixChildren.length\"> <!-- TODO(andrewseguin): remove [md-suffix] --> <ng-content select=\"[mdSuffix], [matSuffix], [md-suffix]\"></ng-content> </div> </div> <div class=\"mat-input-underline\" [class.mat-disabled]=\"_mdInputChild.disabled\"> <span class=\"mat-input-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span> </div> <div class=\"mat-input-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"> <div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"> <ng-content select=\"md-error, mat-error\"></ng-content> </div> <div class=\"mat-input-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"> <div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div> <ng-content select=\"md-hint:not([align='end']), mat-hint:not([align='end'])\"></ng-content> <div class=\"mat-input-hint-spacer\"></div> <ng-content select=\"md-hint[align='end'], mat-hint[align='end']\"></ng-content> </div> </div> </div> ",
-                styles: [".mat-input-container{display:inline-block;position:relative;font-family:Roboto,\"Helvetica Neue\",sans-serif;line-height:normal;text-align:left}[dir=rtl] .mat-input-container{text-align:right}.mat-input-container .mat-icon{width:auto;height:auto;font-size:100%;vertical-align:top}.mat-input-wrapper{margin:1em 0;padding-bottom:6px}.mat-input-table{display:inline-table;flex-flow:column;vertical-align:bottom;width:100%}.mat-input-table>*{display:table-cell}.mat-input-infix{position:relative}.mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;width:100%;vertical-align:bottom}.mat-end .mat-input-element{text-align:right}[dir=rtl] .mat-end .mat-input-element{text-align:left}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element:-webkit-autofill+.mat-input-placeholder-wrapper .mat-float{display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%;transition:none}.mat-input-element::placeholder{color:transparent}.mat-input-element::-moz-placeholder{color:transparent}.mat-input-element::-webkit-input-placeholder{color:transparent}.mat-input-element:-ms-input-placeholder{color:transparent}.mat-input-placeholder{position:absolute;left:0;top:0;font-size:100%;pointer-events:none;z-index:1;padding-top:1em;width:100%;display:none;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:translateY(0);transform-origin:bottom left;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1)}.mat-input-placeholder.mat-empty{display:block;cursor:text}.mat-focused .mat-input-placeholder.mat-float,.mat-input-placeholder.mat-float:not(.mat-empty){display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}[dir=rtl] .mat-input-placeholder{transform-origin:bottom right;left:auto;right:0}.mat-input-placeholder:not(.mat-empty){transition:none}.mat-input-placeholder-wrapper{position:absolute;left:0;top:-1em;width:100%;padding-top:1em;overflow:hidden;pointer-events:none;transform:translate3d(0,0,0)}.mat-input-placeholder-wrapper::after{content:'';display:inline-table}.mat-input-underline{position:absolute;height:1px;width:100%;margin-top:4px;border-top-width:1px;border-top-style:solid}.mat-input-underline.mat-disabled{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;border-top:0;background-position:0}.mat-input-underline .mat-input-ripple{position:absolute;height:2px;z-index:1;top:-1px;width:100%;transform-origin:top;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-focused .mat-input-underline .mat-input-ripple{opacity:1}.mat-input-subscript-wrapper{position:absolute;font-size:75%;top:100%;width:100%;margin-top:-1em;overflow:hidden}.mat-input-hint-wrapper{display:flex}.mat-input-hint-spacer{flex:1 0 10px}.mat-input-error{display:block}.mat-input-prefix,.mat-input-suffix{width:.1px;white-space:nowrap} /*# sourceMappingURL=input-container.css.map */ "],
+                styles: [".mat-input-container{display:inline-block;position:relative;font-family:Roboto,\"Helvetica Neue\",sans-serif;line-height:normal;text-align:left}[dir=rtl] .mat-input-container{text-align:right}.mat-input-container .mat-icon{width:auto;height:auto;font-size:100%;vertical-align:top}.mat-input-wrapper{margin:1em 0;padding-bottom:6px}.mat-input-table{display:inline-table;flex-flow:column;vertical-align:bottom;width:100%}.mat-input-table>*{display:table-cell}.mat-input-infix{position:relative}.mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;width:100%;vertical-align:bottom}.mat-end .mat-input-element{text-align:right}[dir=rtl] .mat-end .mat-input-element{text-align:left}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element:-webkit-autofill+.mat-input-placeholder-wrapper .mat-float{display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%;transition:none}.mat-input-element::placeholder{color:transparent}.mat-input-element::-moz-placeholder{color:transparent}.mat-input-element::-webkit-input-placeholder{color:transparent}.mat-input-element:-ms-input-placeholder{color:transparent}.mat-input-placeholder{position:absolute;left:0;top:0;font-size:100%;z-index:1;padding-top:1em;width:100%;display:none;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:translateY(0);transform-origin:bottom left;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1)}.mat-input-placeholder.mat-empty{display:block;cursor:text}.mat-focused .mat-input-placeholder.mat-float,.mat-input-placeholder.mat-float:not(.mat-empty){display:block;transform:translateY(-1.35em) scale(.75);width:133.33333%}[dir=rtl] .mat-input-placeholder{transform-origin:bottom right;left:auto;right:0}.mat-input-placeholder:not(.mat-empty){transition:none}.mat-input-placeholder-wrapper{position:absolute;left:0;top:-1em;width:100%;padding-top:1em;overflow:hidden;transform:translate3d(0,0,0)}.mat-input-placeholder-wrapper::after{content:'';display:inline-table}.mat-input-underline{position:absolute;height:1px;width:100%;margin-top:4px;border-top-width:1px;border-top-style:solid}.mat-input-underline.mat-disabled{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;border-top:0;background-position:0}.mat-input-underline .mat-input-ripple{position:absolute;height:2px;z-index:1;top:-1px;width:100%;transform-origin:top;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-focused .mat-input-underline .mat-input-ripple{opacity:1}.mat-input-subscript-wrapper{position:absolute;font-size:75%;top:100%;width:100%;margin-top:-1em;overflow:hidden}.mat-input-hint-wrapper{display:flex}.mat-input-hint-spacer{flex:1 0 10px}.mat-input-error{display:block}.mat-input-prefix,.mat-input-suffix{width:.1px;white-space:nowrap} /*# sourceMappingURL=input-container.css.map */ "],
                 animations: [
                     trigger('transitionMessages', [
                         state('enter', style({ opacity: 1, transform: 'translateY(0%)' })),
@@ -13596,13 +13980,21 @@ MdInputModule.ctorParameters = () => [];
  */
 class MdSnackBarConfig {
     constructor() {
-        /** The politeness level for the MdAriaLiveAnnouncer announcement. */
+        /**
+         * The politeness level for the MdAriaLiveAnnouncer announcement.
+         */
         this.politeness = 'assertive';
-        /** Message to be announced by the MdAriaLiveAnnouncer */
+        /**
+         * Message to be announced by the MdAriaLiveAnnouncer
+         */
         this.announcementMessage = '';
-        /** The view container to place the overlay for the snack bar into. */
+        /**
+         * The view container to place the overlay for the snack bar into.
+         */
         this.viewContainerRef = null;
-        /** The length of time in milliseconds to wait before automatically dismissing the snack bar. */
+        /**
+         * The length of time in milliseconds to wait before automatically dismissing the snack bar.
+         */
         this.duration = 0;
     }
 }
@@ -13618,7 +14010,13 @@ class MdSnackBarRef {
      */
     constructor(instance, containerInstance, _overlayRef) {
         this._overlayRef = _overlayRef;
+        /**
+         * Subject for notifying the user that the snack bar has closed.
+         */
         this._afterClosed = new Subject();
+        /**
+         * Subject for notifying the user that the snack bar action was called.
+         */
         this._onAction = new Subject();
         // Sets the readonly instance of the snack bar content component.
         this._instance = instance;
@@ -13724,9 +14122,17 @@ class MdSnackBarContainer extends BasePortalHost {
         this._ngZone = _ngZone;
         this._renderer = _renderer;
         this._elementRef = _elementRef;
+        /**
+         * Subject for notifying that the snack bar has exited from view.
+         */
         this.onExit = new Subject();
+        /**
+         * Subject for notifying that the snack bar has finished entering the view.
+         */
         this.onEnter = new Subject();
-        /** The state of the snack bar animations. */
+        /**
+         * The state of the snack bar animations.
+         */
         this.animationState = 'initial';
     }
     /**
@@ -13971,6 +14377,7 @@ class MdSnackBar {
                 snackBarRef.containerInstance.enter();
             });
             this._openedSnackBarRef.dismiss();
+            // If no snack bar is in view, enter the new snack bar.
         }
         else {
             snackBarRef.containerInstance.enter();
@@ -14128,8 +14535,13 @@ class MdTab {
      */
     constructor(_viewContainerRef) {
         this._viewContainerRef = _viewContainerRef;
-        /** The plain text label for the tab, used when there is no template label. */
+        /**
+         * The plain text label for the tab, used when there is no template label.
+         */
         this.textLabel = '';
+        /**
+         * The portal that will be the hosted content of the tab
+         */
         this._contentPortal = null;
         /**
          * The relatively indexed position where 0 represents the center, negative is left, and positive
@@ -14182,7 +14594,9 @@ MdTab.propDecorators = {
     'disabled': [{ type: Input },],
 };
 
-/** Used to generate unique ID's for each tab component */
+/**
+ * Used to generate unique ID's for each tab component
+ */
 let nextId$2 = 0;
 /**
  * A simple change event emitted on focus or selection changes.
@@ -14200,12 +14614,26 @@ class MdTabGroup {
      */
     constructor(_renderer) {
         this._renderer = _renderer;
+        /**
+         * Whether this component has been initialized.
+         */
         this._isInitialized = false;
+        /**
+         * The tab index that should be selected after the content has been checked.
+         */
         this._indexToSelect = 0;
+        /**
+         * Snapshot of the height of the tab body wrapper before another tab is activated.
+         */
         this._tabBodyWrapperHeight = null;
+        /**
+         * Whether the tab group should grow to the size of the active tab
+         */
         this._dynamicHeight = false;
         this._selectedIndex = null;
-        /** Position of the tab header. */
+        /**
+         * Position of the tab header.
+         */
         this.headerPosition = 'above';
         this._onFocusChange = new EventEmitter();
         this._onSelectChange = new EventEmitter(true);
@@ -14400,6 +14828,9 @@ class MdTabLabelWrapper {
     constructor(elementRef, _renderer) {
         this.elementRef = elementRef;
         this._renderer = _renderer;
+        /**
+         * Whether the tab label is disabled.
+         */
         this._disabled = false;
     }
     /**
@@ -14692,11 +15123,17 @@ class MdTabBody {
         this._dir = _dir;
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
-        /** Event emitted when the tab begins to animate towards the center as the active tab. */
+        /**
+         * Event emitted when the tab begins to animate towards the center as the active tab.
+         */
         this.onCentering = new EventEmitter();
-        /** Event emitted when the tab completes its animation towards the center. */
+        /**
+         * Event emitted when the tab completes its animation towards the center.
+         */
         this.onCentered = new EventEmitter(true);
-        /** Whether the element is allowed to be animated. */
+        /**
+         * Whether the element is allowed to be animated.
+         */
         this._canBeAnimated = false;
     }
     /**
@@ -14815,7 +15252,7 @@ class MdTabBody {
 MdTabBody.decorators = [
     { type: Component, args: [{selector: 'md-tab-body, mat-tab-body',
                 template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_canBeAnimated ? _position : null\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"> <ng-template cdkPortalHost></ng-template> </div> ",
-                styles: [".mat-tab-body-content{height:100%} /*# sourceMappingURL=tab-body.css.map */ "],
+                styles: [".mat-tab-body-content{height:100%;overflow:auto} /*# sourceMappingURL=tab-body.css.map */ "],
                 host: {
                     '[class.mat-tab-body]': 'true',
                 },
@@ -14876,19 +15313,38 @@ class MdTabHeader {
     constructor(_elementRef, _dir) {
         this._elementRef = _elementRef;
         this._dir = _dir;
+        /**
+         * The tab index that is focused.
+         */
         this._focusIndex = 0;
+        /**
+         * The distance in pixels that the tab labels should be translated to the left.
+         */
         this._scrollDistance = 0;
+        /**
+         * Whether the header should scroll to the selected index after the view has been checked.
+         */
         this._selectedIndexChanged = false;
-        /** Whether the controls for pagination should be displayed */
+        /**
+         * Whether the controls for pagination should be displayed
+         */
         this._showPaginationControls = false;
-        /** Whether the tab list can be scrolled more towards the end of the tab label list. */
+        /**
+         * Whether the tab list can be scrolled more towards the end of the tab label list.
+         */
         this._disableScrollAfter = true;
-        /** Whether the tab list can be scrolled more towards the beginning of the tab label list. */
+        /**
+         * Whether the tab list can be scrolled more towards the beginning of the tab label list.
+         */
         this._disableScrollBefore = true;
         this._selectedIndex = 0;
-        /** Event emitted when the option is selected. */
+        /**
+         * Event emitted when the option is selected.
+         */
         this.selectFocusedIndex = new EventEmitter();
-        /** Event emitted when a label is focused. */
+        /**
+         * Event emitted when a label is focused.
+         */
         this.indexFocused = new EventEmitter();
     }
     /**
@@ -15405,9 +15861,13 @@ class MdTooltipInvalidPositionError extends MdError {
     }
 }
 
-/** Time in ms to delay before changing the tooltip visibility to hidden */
+/**
+ * Time in ms to delay before changing the tooltip visibility to hidden
+ */
 const TOUCHEND_HIDE_DELAY = 1500;
-/** Time in ms to throttle repositioning after scroll events. */
+/**
+ * Time in ms to throttle repositioning after scroll events.
+ */
 const SCROLL_THROTTLE_MS = 20;
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
@@ -15437,9 +15897,13 @@ class MdTooltip {
         this._dir = _dir;
         this._position = 'below';
         this._disabled = false;
-        /** The default delay in ms before showing the tooltip after show is called */
+        /**
+         * The default delay in ms before showing the tooltip after show is called
+         */
         this.showDelay = 0;
-        /** The default delay in ms before hiding the tooltip after hide is called */
+        /**
+         * The default delay in ms before hiding the tooltip after hide is called
+         */
         this.hideDelay = 0;
         // The mouse events shouldn't be bound on iOS devices, because
         // they can prevent the first tap from firing its click event.
@@ -15784,12 +16248,21 @@ class TooltipComponent {
     constructor(_dir, _changeDetectorRef) {
         this._dir = _dir;
         this._changeDetectorRef = _changeDetectorRef;
-        /** Property watched by the animation framework to show or hide the tooltip */
+        /**
+         * Property watched by the animation framework to show or hide the tooltip
+         */
         this._visibility = 'initial';
-        /** Whether interactions on the page should close the tooltip */
+        /**
+         * Whether interactions on the page should close the tooltip
+         */
         this._closeOnInteraction = false;
-        /** The transform origin used in the animation for showing and hiding the tooltip */
+        /**
+         * The transform origin used in the animation for showing and hiding the tooltip
+         */
         this._transformOrigin = 'bottom';
+        /**
+         * Subject for notifying that the tooltip has been hidden from the view
+         */
         this._onHide = new Subject();
     }
     /**
@@ -16011,6 +16484,9 @@ class MdMenuItem {
     constructor(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
+        /**
+         * Whether the menu item is disabled
+         */
         this._disabled = false;
     }
     /**
@@ -16140,14 +16616,22 @@ class MdMenu {
      * @param {?} deprecatedPosY
      */
     constructor(posX, posY, deprecatedPosX, deprecatedPosY) {
-        /** Config object to be passed into the menu's ngClass */
+        /**
+         * Config object to be passed into the menu's ngClass
+         */
         this._classList = {};
-        /** Position of the menu in the X axis. */
+        /**
+         * Position of the menu in the X axis.
+         */
         this.positionX = 'after';
-        /** Position of the menu in the Y axis. */
+        /**
+         * Position of the menu in the Y axis.
+         */
         this.positionY = 'below';
         this.overlapTrigger = true;
-        /** Event emitted when the menu is closed. */
+        /**
+         * Event emitted when the menu is closed.
+         */
         this.close = new EventEmitter();
         // TODO(kara): Remove kebab-case attributes after next release
         if (deprecatedPosX) {
@@ -16295,9 +16779,13 @@ class MdMenuTrigger {
         this._dir = _dir;
         this._menuOpen = false;
         this._openedByMouse = false;
-        /** Event emitted when the associated menu is opened. */
+        /**
+         * Event emitted when the associated menu is opened.
+         */
         this.onMenuOpen = new EventEmitter();
-        /** Event emitted when the associated menu is closed. */
+        /**
+         * Event emitted when the associated menu is closed.
+         */
         this.onMenuClose = new EventEmitter();
     }
     /**
@@ -16613,18 +17101,18 @@ class MdDialogRef {
     constructor(_overlayRef, _containerInstance) {
         this._overlayRef = _overlayRef;
         this._containerInstance = _containerInstance;
+        /**
+         * Subject for notifying the user that the dialog has finished closing.
+         */
         this._afterClosed = new Subject();
-        _containerInstance._onAnimationStateChange.subscribe((state$$1) => {
-            if (state$$1 === 'exit-start') {
-                // Transition the backdrop in parallel with the dialog.
-                this._overlayRef.detachBackdrop();
-            }
-            else if (state$$1 === 'exit') {
-                this._overlayRef.dispose();
-                this._afterClosed.next(this._result);
-                this._afterClosed.complete();
-                this.componentInstance = null;
-            }
+        _containerInstance._onAnimationStateChange
+            .filter((event) => event.toState === 'exit')
+            .subscribe(() => {
+            this._overlayRef.dispose();
+            this.componentInstance = null;
+        }, null, () => {
+            this._afterClosed.next(this._result);
+            this._afterClosed.complete();
         });
     }
     /**
@@ -16635,6 +17123,7 @@ class MdDialogRef {
     close(dialogResult) {
         this._result = dialogResult;
         this._containerInstance._exit();
+        this._overlayRef.detachBackdrop(); // Transition the backdrop in parallel with the dialog.
     }
     /**
      * Gets an observable that is notified when the dialog is finished closing.
@@ -16721,13 +17210,21 @@ class DialogInjector {
  */
 class MdDialogConfig {
     constructor() {
-        /** The ARIA role of the dialog element. */
+        /**
+         * The ARIA role of the dialog element.
+         */
         this.role = 'dialog';
-        /** Whether the user can use escape or clicking outside to close a modal. */
+        /**
+         * Whether the user can use escape or clicking outside to close a modal.
+         */
         this.disableClose = false;
-        /** Width of the dialog. */
+        /**
+         * Width of the dialog.
+         */
         this.width = '';
-        /** Height of the dialog. */
+        /**
+         * Height of the dialog.
+         */
         this.height = '';
         // TODO(jelbourn): add configuration for lifecycle hooks, ARIA labelling.
     }
@@ -16750,21 +17247,26 @@ class MdDialogContentAlreadyAttachedError extends MdError {
  */
 class MdDialogContainer extends BasePortalHost {
     /**
-     * @param {?} _ngZone
      * @param {?} _renderer
      * @param {?} _elementRef
      * @param {?} _focusTrapFactory
      */
-    constructor(_ngZone, _renderer, _elementRef, _focusTrapFactory) {
+    constructor(_renderer, _elementRef, _focusTrapFactory) {
         super();
-        this._ngZone = _ngZone;
         this._renderer = _renderer;
         this._elementRef = _elementRef;
         this._focusTrapFactory = _focusTrapFactory;
+        /**
+         * Element that was focused before the dialog was opened. Save this to restore upon close.
+         */
         this._elementFocusedBeforeDialogWasOpened = null;
-        /** State of the dialog animation. */
+        /**
+         * State of the dialog animation.
+         */
         this._state = 'enter';
-        /** Emits the current animation state whenever it changes. */
+        /**
+         * Emits the current animation state whenever it changes.
+         */
         this._onAnimationStateChange = new EventEmitter();
     }
     /**
@@ -16805,46 +17307,35 @@ class MdDialogContainer extends BasePortalHost {
         this._focusTrap.focusFirstTabbableElementWhenReady();
     }
     /**
-     * Kicks off the leave animation.
-     * \@docs-private
-     * @return {?}
-     */
-    _exit() {
-        this._state = 'exit';
-        this._onAnimationStateChange.emit('exit-start');
-    }
-    /**
      * Callback, invoked whenever an animation on the host completes.
      * \@docs-private
      * @param {?} event
      * @return {?}
      */
     _onAnimationDone(event) {
+        this._onAnimationStateChange.emit(event);
         if (event.toState === 'enter') {
             this._trapFocus();
         }
-        this._onAnimationStateChange.emit(/** @type {?} */ (event.toState));
+        else if (event.toState === 'exit') {
+            this._onAnimationStateChange.complete();
+        }
     }
     /**
+     * Kicks off the leave animation and restores focus to the previously-focused element.
+     * \@docs-private
      * @return {?}
      */
-    ngOnDestroy() {
-        // When the dialog is destroyed, return focus to the element that originally had it before
-        // the dialog was opened. Wait for the DOM to finish settling before changing the focus so
-        // that it doesn't end up back on the <body>. Also note that we need the extra check, because
-        // IE can set the `activeElement` to null in some cases.
-        let /** @type {?} */ toFocus = (this._elementFocusedBeforeDialogWasOpened);
-        // We shouldn't use `this` inside of the NgZone subscription, because it causes a memory leak.
-        let /** @type {?} */ animationStream = this._onAnimationStateChange;
-        this._ngZone.onMicrotaskEmpty.first().subscribe(() => {
-            if (toFocus && 'focus' in toFocus) {
-                toFocus.focus();
-            }
-            animationStream.complete();
-        });
+    _exit() {
+        // We need the extra check, because IE can set the `activeElement` to null in some cases.
+        let /** @type {?} */ toFocus = this._elementFocusedBeforeDialogWasOpened;
+        if (toFocus && 'focus' in toFocus) {
+            toFocus.focus();
+        }
         if (this._focusTrap) {
             this._focusTrap.destroy();
         }
+        this._state = 'exit';
     }
 }
 MdDialogContainer.decorators = [
@@ -16872,7 +17363,6 @@ MdDialogContainer.decorators = [
  * @nocollapse
  */
 MdDialogContainer.ctorParameters = () => [
-    { type: NgZone, },
     { type: Renderer, },
     { type: ElementRef, },
     { type: FocusTrapFactory, },
@@ -16898,9 +17388,13 @@ class MdDialog {
         this._afterAllClosedAtThisLevel = new Subject();
         this._afterOpenAtThisLevel = new Subject();
         this._boundKeydown = this._handleKeydown.bind(this);
-        /** Gets an observable that is notified when a dialog has been opened. */
+        /**
+         * Gets an observable that is notified when a dialog has been opened.
+         */
         this.afterOpen = this._afterOpen.asObservable();
-        /** Gets an observable that is notified when all open dialog have finished closing. */
+        /**
+         * Gets an observable that is notified when all open dialog have finished closing.
+         */
         this.afterAllClosed = this._afterAllClosed.asObservable();
     }
     /**
@@ -17087,7 +17581,9 @@ class MdDialogClose {
      */
     constructor(dialogRef) {
         this.dialogRef = dialogRef;
-        /** Screenreader label for the button. */
+        /**
+         * Screenreader label for the button.
+         */
         this.ariaLabel = 'Close dialog';
     }
 }
@@ -17243,11 +17739,17 @@ class ActiveDescendantKeyManager extends ListKeyManager {
 let _uniqueAutocompleteIdCounter = 0;
 class MdAutocomplete {
     constructor() {
-        /** Whether the autocomplete panel displays above or below its trigger. */
+        /**
+         * Whether the autocomplete panel displays above or below its trigger.
+         */
         this.positionY = 'below';
-        /** Whether the autocomplete panel should be visible, depending on option length. */
+        /**
+         * Whether the autocomplete panel should be visible, depending on option length.
+         */
         this.showPanel = false;
-        /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
+        /**
+         * Unique ID to be used by autocomplete trigger's "aria-owns" property.
+         */
         this.id = `md-autocomplete-${_uniqueAutocompleteIdCounter++}`;
     }
     /**
@@ -17310,13 +17812,12 @@ MdAutocomplete.propDecorators = {
 };
 
 /**
- * The following style constants are necessary to save here in order
- * to properly calculate the scrollTop of the panel. Because we are not
- * actually focusing the active item, scroll must be handled manually.
+ * The height of each autocomplete option.
  */
-/** The height of each autocomplete option. */
 const AUTOCOMPLETE_OPTION_HEIGHT = 48;
-/** The total height of the autocomplete panel. */
+/**
+ * The total height of the autocomplete panel.
+ */
 const AUTOCOMPLETE_PANEL_HEIGHT = 256;
 /**
  * Provider that allows the autocomplete to register as a ControlValueAccessor.
@@ -17344,11 +17845,21 @@ class MdAutocompleteTrigger {
         this._zone = _zone;
         this._inputContainer = _inputContainer;
         this._panelOpen = false;
+        /**
+         * Stream of blur events that should close the panel.
+         */
         this._blurStream = new Subject();
+        /**
+         * Whether or not the placeholder state is being overridden.
+         */
         this._manuallyFloatingPlaceholder = false;
-        /** View -> model callback called when value changes */
+        /**
+         * View -> model callback called when value changes
+         */
         this._onChange = (value) => { };
-        /** View -> model callback called when autocomplete has been touched */
+        /**
+         * View -> model callback called when autocomplete has been touched
+         */
         this._onTouched = () => { };
     }
     /**

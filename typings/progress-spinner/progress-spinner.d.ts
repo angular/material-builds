@@ -1,4 +1,4 @@
-import { OnDestroy, ElementRef, NgZone, Renderer } from '@angular/core';
+import { OnDestroy, ElementRef, NgZone, Renderer2 } from '@angular/core';
 export declare type ProgressSpinnerMode = 'determinate' | 'indeterminate';
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -47,7 +47,7 @@ export declare class MdProgressSpinner implements OnDestroy {
      * mode is bound to the host as the attribute host.
      */
     mode: ProgressSpinnerMode;
-    constructor(_ngZone: NgZone, _elementRef: ElementRef, _renderer: Renderer);
+    constructor(_ngZone: NgZone, _elementRef: ElementRef, _renderer: Renderer2);
     /**
      * Animates the circle from one percentage value to another.
      *
@@ -72,13 +72,6 @@ export declare class MdProgressSpinner implements OnDestroy {
      * DOM attribute on the `<path>`.
      */
     private _renderArc(currentValue, rotation?);
-    /**
-     * Updates the color of the progress-spinner by adding the new palette class to the element
-     * and removing the old one.
-     */
-    private _updateColor(newColor);
-    /** Sets the given palette class on the component element. */
-    private _setElementColor(color, isAdd);
 }
 /**
  * <md-spinner> component.
@@ -87,6 +80,6 @@ export declare class MdProgressSpinner implements OnDestroy {
  * indeterminate <md-progress-spinner> instance.
  */
 export declare class MdSpinner extends MdProgressSpinner implements OnDestroy {
-    constructor(elementRef: ElementRef, ngZone: NgZone, renderer: Renderer);
+    constructor(elementRef: ElementRef, ngZone: NgZone, renderer: Renderer2);
     ngOnDestroy(): void;
 }
