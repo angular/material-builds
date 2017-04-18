@@ -13566,11 +13566,13 @@ MdInputDirective.propDecorators = {
  */
 class MdInputContainer {
     /**
+     * @param {?} _elementRef
      * @param {?} _changeDetectorRef
      * @param {?} _parentForm
      * @param {?} _parentFormGroup
      */
-    constructor(_changeDetectorRef, _parentForm, _parentFormGroup) {
+    constructor(_elementRef, _changeDetectorRef, _parentForm, _parentFormGroup) {
+        this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
         this._parentForm = _parentForm;
         this._parentFormGroup = _parentFormGroup;
@@ -13796,6 +13798,7 @@ MdInputContainer.decorators = [
  * @nocollapse
  */
 MdInputContainer.ctorParameters = () => [
+    { type: ElementRef, },
     { type: ChangeDetectorRef, },
     { type: NgForm, decorators: [{ type: Optional },] },
     { type: FormGroupDirective, decorators: [{ type: Optional },] },
@@ -15117,12 +15120,10 @@ class MdTabBody {
     /**
      * @param {?} _dir
      * @param {?} _elementRef
-     * @param {?} _changeDetectorRef
      */
-    constructor(_dir, _elementRef, _changeDetectorRef) {
+    constructor(_dir, _elementRef) {
         this._dir = _dir;
         this._elementRef = _elementRef;
-        this._changeDetectorRef = _changeDetectorRef;
         /**
          * Event emitted when the tab begins to animate towards the center as the active tab.
          */
@@ -15131,10 +15132,6 @@ class MdTabBody {
          * Event emitted when the tab completes its animation towards the center.
          */
         this.onCentered = new EventEmitter(true);
-        /**
-         * Whether the element is allowed to be animated.
-         */
-        this._canBeAnimated = false;
     }
     /**
      * @param {?} position
@@ -15189,26 +15186,6 @@ class MdTabBody {
         }
     }
     /**
-     * After the content has been checked, determines whether the element should be allowed to
-     * animate. This has to be limited, because under a specific set of circumstances (see #2151),
-     * the animations can be triggered too early, which either crashes Chrome by putting it into an
-     * infinite loop (with Angular < 2.3.0) or throws an error because the element doesn't have a
-     * computed style (with Angular > 2.3.0). This can alternatively be determined by checking the
-     * transform: canBeAnimated = getComputedStyle(element) !== '', however document.contains should
-     * be faster since it doesn't cause a reflow.
-     * @return {?}
-     */
-    ngAfterContentChecked() {
-        // TODO: This can safely be removed after we stop supporting Angular < 2.4.2. The fix landed via
-        // https://github.com/angular/angular/commit/21030e9a1cf30e8101399d8535ed72d847a23ba6
-        if (!this._canBeAnimated) {
-            this._canBeAnimated = document.body.contains(this._elementRef.nativeElement);
-            if (this._canBeAnimated) {
-                this._changeDetectorRef.markForCheck();
-            }
-        }
-    }
-    /**
      * @param {?} e
      * @return {?}
      */
@@ -15251,7 +15228,7 @@ class MdTabBody {
 }
 MdTabBody.decorators = [
     { type: Component, args: [{selector: 'md-tab-body, mat-tab-body',
-                template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_canBeAnimated ? _position : null\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"> <ng-template cdkPortalHost></ng-template> </div> ",
+                template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_position\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"> <ng-template cdkPortalHost></ng-template> </div> ",
                 styles: [".mat-tab-body-content{height:100%;overflow:auto} /*# sourceMappingURL=tab-body.css.map */ "],
                 host: {
                     '[class.mat-tab-body]': 'true',
@@ -15282,7 +15259,6 @@ MdTabBody.decorators = [
 MdTabBody.ctorParameters = () => [
     { type: Dir, decorators: [{ type: Optional },] },
     { type: ElementRef, },
-    { type: ChangeDetectorRef, },
 ];
 MdTabBody.propDecorators = {
     '_portalHost': [{ type: ViewChild, args: [PortalHostDirective,] },],
@@ -17842,22 +17818,22 @@ class MdAutocompleteTrigger {
      * @param {?} _element
      * @param {?} _overlay
      * @param {?} _viewContainerRef
+     * @param {?} _changeDetectorRef
      * @param {?} _dir
      * @param {?} _zone
      * @param {?} _inputContainer
+     * @param {?} _document
      */
-    constructor(_element, _overlay, _viewContainerRef, _dir, _zone, _inputContainer) {
+    constructor(_element, _overlay, _viewContainerRef, _changeDetectorRef, _dir, _zone, _inputContainer, _document) {
         this._element = _element;
         this._overlay = _overlay;
         this._viewContainerRef = _viewContainerRef;
+        this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
         this._zone = _zone;
         this._inputContainer = _inputContainer;
+        this._document = _document;
         this._panelOpen = false;
-        /**
-         * Stream of blur events that should close the panel.
-         */
-        this._blurStream = new Subject();
         /**
          * Whether or not the placeholder state is being overridden.
          */
@@ -17930,6 +17906,11 @@ class MdAutocompleteTrigger {
         }
         this._panelOpen = false;
         this._resetPlaceholder();
+        // We need to trigger change detection manually, because
+        // `fromEvent` doesn't seem to do it at the proper time.
+        // This ensures that the placeholder is reset when the
+        // user clicks outside.
+        this._changeDetectorRef.detectChanges();
     }
     /**
      * A stream of actions that should close the autocomplete panel, including
@@ -17937,7 +17918,7 @@ class MdAutocompleteTrigger {
      * @return {?}
      */
     get panelClosingActions() {
-        return Observable.merge(this.optionSelections, this._blurStream.asObservable(), this.autocomplete._keyManager.tabOut);
+        return Observable.merge(this.optionSelections, this.autocomplete._keyManager.tabOut, this._outsideClickStream);
     }
     /**
      * Stream of autocomplete option selections.
@@ -17953,6 +17934,20 @@ class MdAutocompleteTrigger {
     get activeOption() {
         if (this.autocomplete._keyManager) {
             return (this.autocomplete._keyManager.activeItem);
+        }
+    }
+    /**
+     * Stream of clicks outside of the autocomplete panel.
+     * @return {?}
+     */
+    get _outsideClickStream() {
+        if (this._document) {
+            return Observable.fromEvent(this._document, 'click').filter((event) => {
+                let /** @type {?} */ clickTarget = (event.target);
+                return this._panelOpen &&
+                    !this._inputContainer._elementRef.nativeElement.contains(clickTarget) &&
+                    !this._overlayRef.overlayElement.contains(clickTarget);
+            });
         }
     }
     /**
@@ -17997,11 +17992,17 @@ class MdAutocompleteTrigger {
             event.preventDefault();
         }
         else {
+            const /** @type {?} */ prevActiveItem = this.autocomplete._keyManager.activeItem;
+            const /** @type {?} */ isArrowKey = event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW;
             this.autocomplete._keyManager.onKeydown(event);
-            if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
+            if (isArrowKey) {
                 this.openPanel();
-                Promise.resolve().then(() => this._scrollToOption());
             }
+            Promise.resolve().then(() => {
+                if (isArrowKey || this.autocomplete._keyManager.activeItem !== prevActiveItem) {
+                    this._scrollToOption();
+                }
+            });
         }
     }
     /**
@@ -18015,17 +18016,6 @@ class MdAutocompleteTrigger {
         if (document.activeElement === event.target) {
             this._onChange(((event.target)).value);
             this.openPanel();
-        }
-    }
-    /**
-     * @param {?} newlyFocusedTag
-     * @return {?}
-     */
-    _handleBlur(newlyFocusedTag) {
-        this._onTouched();
-        // Only emit blur event if the new focus is *not* on an option.
-        if (newlyFocusedTag !== 'MD-OPTION') {
-            this._blurStream.next(null);
         }
     }
     /**
@@ -18104,7 +18094,7 @@ class MdAutocompleteTrigger {
      * @return {?}
      */
     _setValueAndClose(event) {
-        if (event) {
+        if (event && event.source) {
             this._clearPreviousSelectedOption(event.source);
             this._setTriggerValue(event.source.value);
             this._onChange(event.source.value);
@@ -18197,8 +18187,8 @@ MdAutocompleteTrigger.decorators = [
                     '[attr.aria-expanded]': 'panelOpen.toString()',
                     '[attr.aria-owns]': 'autocomplete?.id',
                     '(focus)': 'openPanel()',
-                    '(blur)': '_handleBlur($event.relatedTarget?.tagName)',
                     '(input)': '_handleInput($event)',
+                    '(blur)': '_onTouched()',
                     '(keydown)': '_handleKeydown($event)',
                 },
                 providers: [MD_AUTOCOMPLETE_VALUE_ACCESSOR]
@@ -18211,9 +18201,11 @@ MdAutocompleteTrigger.ctorParameters = () => [
     { type: ElementRef, },
     { type: Overlay, },
     { type: ViewContainerRef, },
+    { type: ChangeDetectorRef, },
     { type: Dir, decorators: [{ type: Optional },] },
     { type: NgZone, },
     { type: MdInputContainer, decorators: [{ type: Optional }, { type: Host },] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
 MdAutocompleteTrigger.propDecorators = {
     'autocomplete': [{ type: Input, args: ['mdAutocomplete',] },],

@@ -1,14 +1,16 @@
-import { ElementRef, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
+import { ElementRef, NgZone, OnDestroy, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { Overlay } from '../core';
 import { MdAutocomplete } from './autocomplete';
 import { Observable } from 'rxjs/Observable';
 import { MdOptionSelectionChange, MdOption } from '../core/option/option';
 import { Dir } from '../core/rtl/dir';
+import { MdInputContainer } from '../input/input-container';
 import 'rxjs/add/observable/merge';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/switchMap';
-import { MdInputContainer } from '../input/input-container';
 /**
  * The following style constants are necessary to save here in order
  * to properly calculate the scrollTop of the panel. Because we are not
@@ -27,17 +29,17 @@ export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDe
     private _element;
     private _overlay;
     private _viewContainerRef;
+    private _changeDetectorRef;
     private _dir;
     private _zone;
     private _inputContainer;
+    private _document;
     private _overlayRef;
     private _portal;
     private _panelOpen;
     /** The subscription to positioning changes in the autocomplete panel. */
     private _panelPositionSubscription;
     private _positionStrategy;
-    /** Stream of blur events that should close the panel. */
-    private _blurStream;
     /** Whether or not the placeholder state is being overridden. */
     private _manuallyFloatingPlaceholder;
     /** View -> model callback called when value changes */
@@ -47,7 +49,7 @@ export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDe
     autocomplete: MdAutocomplete;
     /** Property with mat- prefix for no-conflict mode. */
     _matAutocomplete: MdAutocomplete;
-    constructor(_element: ElementRef, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _dir: Dir, _zone: NgZone, _inputContainer: MdInputContainer);
+    constructor(_element: ElementRef, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _changeDetectorRef: ChangeDetectorRef, _dir: Dir, _zone: NgZone, _inputContainer: MdInputContainer, _document: any);
     ngOnDestroy(): void;
     readonly panelOpen: boolean;
     /** Opens the autocomplete suggestion panel. */
@@ -63,6 +65,8 @@ export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDe
     readonly optionSelections: Observable<MdOptionSelectionChange>;
     /** The currently active option, coerced to MdOption type. */
     readonly activeOption: MdOption;
+    /** Stream of clicks outside of the autocomplete panel. */
+    private readonly _outsideClickStream;
     /**
      * Sets the autocomplete's value. Part of the ControlValueAccessor interface
      * required to integrate with Angular's core forms API.
@@ -88,7 +92,6 @@ export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDe
     registerOnTouched(fn: () => {}): void;
     _handleKeydown(event: KeyboardEvent): void;
     _handleInput(event: KeyboardEvent): void;
-    _handleBlur(newlyFocusedTag: string): void;
     /**
      * In "auto" mode, the placeholder will animate down as soon as focus is lost.
      * This causes the value to jump when selecting an option with the mouse.

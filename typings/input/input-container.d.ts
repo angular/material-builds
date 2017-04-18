@@ -74,6 +74,7 @@ export declare class MdInputDirective {
  * Container for text inputs that applies Material Design styling and behavior.
  */
 export declare class MdInputContainer implements AfterViewInit, AfterContentInit {
+    _elementRef: ElementRef;
     private _changeDetectorRef;
     private _parentForm;
     private _parentFormGroup;
@@ -102,7 +103,7 @@ export declare class MdInputContainer implements AfterViewInit, AfterContentInit
     _hintChildren: QueryList<MdHint>;
     _prefixChildren: QueryList<MdPrefix>;
     _suffixChildren: QueryList<MdSuffix>;
-    constructor(_changeDetectorRef: ChangeDetectorRef, _parentForm: NgForm, _parentFormGroup: FormGroupDirective);
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _parentForm: NgForm, _parentFormGroup: FormGroupDirective);
     ngAfterContentInit(): void;
     ngAfterViewInit(): void;
     /** Determines whether a class from the NgControl should be forwarded to the host element. */
