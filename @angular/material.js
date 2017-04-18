@@ -17738,7 +17738,11 @@ class ActiveDescendantKeyManager extends ListKeyManager {
  */
 let _uniqueAutocompleteIdCounter = 0;
 class MdAutocomplete {
-    constructor() {
+    /**
+     * @param {?} _changeDetectorRef
+     */
+    constructor(_changeDetectorRef) {
+        this._changeDetectorRef = _changeDetectorRef;
         /**
          * Whether the autocomplete panel displays above or below its trigger.
          */
@@ -17774,7 +17778,10 @@ class MdAutocomplete {
      * @return {?}
      */
     _setVisibility() {
-        Promise.resolve().then(() => this.showPanel = !!this.options.length);
+        Promise.resolve().then(() => {
+            this.showPanel = !!this.options.length;
+            this._changeDetectorRef.markForCheck();
+        });
     }
     /**
      * Sets a class on the panel based on its position (used to set y-offset).
@@ -17803,7 +17810,9 @@ MdAutocomplete.decorators = [
 /**
  * @nocollapse
  */
-MdAutocomplete.ctorParameters = () => [];
+MdAutocomplete.ctorParameters = () => [
+    { type: ChangeDetectorRef, },
+];
 MdAutocomplete.propDecorators = {
     'template': [{ type: ViewChild, args: [TemplateRef,] },],
     'panel': [{ type: ViewChild, args: ['panel',] },],

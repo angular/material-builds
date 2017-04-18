@@ -1,8 +1,9 @@
-import { AfterContentInit, ElementRef, QueryList, TemplateRef } from '@angular/core';
+import { AfterContentInit, ElementRef, QueryList, TemplateRef, ChangeDetectorRef } from '@angular/core';
 import { MdOption } from '../core';
 import { ActiveDescendantKeyManager } from '../core/a11y/activedescendant-key-manager';
 export declare type AutocompletePositionY = 'above' | 'below';
 export declare class MdAutocomplete implements AfterContentInit {
+    private _changeDetectorRef;
     /** Manages active item in option list based on key events. */
     _keyManager: ActiveDescendantKeyManager;
     /** Whether the autocomplete panel displays above or below its trigger. */
@@ -16,6 +17,7 @@ export declare class MdAutocomplete implements AfterContentInit {
     displayWith: (value: any) => string;
     /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
     id: string;
+    constructor(_changeDetectorRef: ChangeDetectorRef);
     ngAfterContentInit(): void;
     /**
      * Sets the panel scrollTop. This allows us to manually scroll to display

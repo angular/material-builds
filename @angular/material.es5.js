@@ -18918,7 +18918,11 @@ var ActiveDescendantKeyManager = (function (_super) {
  */
 var _uniqueAutocompleteIdCounter = 0;
 var MdAutocomplete = (function () {
-    function MdAutocomplete() {
+    /**
+     * @param {?} _changeDetectorRef
+     */
+    function MdAutocomplete(_changeDetectorRef) {
+        this._changeDetectorRef = _changeDetectorRef;
         /**
          * Whether the autocomplete panel displays above or below its trigger.
          */
@@ -18955,7 +18959,10 @@ var MdAutocomplete = (function () {
      */
     MdAutocomplete.prototype._setVisibility = function () {
         var _this = this;
-        Promise.resolve().then(function () { return _this.showPanel = !!_this.options.length; });
+        Promise.resolve().then(function () {
+            _this.showPanel = !!_this.options.length;
+            _this._changeDetectorRef.markForCheck();
+        });
     };
     /**
      * Sets a class on the panel based on its position (used to set y-offset).
@@ -18985,7 +18992,9 @@ MdAutocomplete.decorators = [
 /**
  * @nocollapse
  */
-MdAutocomplete.ctorParameters = function () { return []; };
+MdAutocomplete.ctorParameters = function () { return [
+    { type: ChangeDetectorRef, },
+]; };
 MdAutocomplete.propDecorators = {
     'template': [{ type: ViewChild, args: [TemplateRef,] },],
     'panel': [{ type: ViewChild, args: ['panel',] },],
