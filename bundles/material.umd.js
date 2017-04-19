@@ -19188,17 +19188,11 @@ var MdAutocompleteTrigger = (function () {
             event.preventDefault();
         }
         else {
-            var /** @type {?} */ prevActiveItem_1 = this.autocomplete._keyManager.activeItem;
-            var /** @type {?} */ isArrowKey_1 = event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW;
             this.autocomplete._keyManager.onKeydown(event);
-            if (isArrowKey_1) {
+            if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
                 this.openPanel();
+                Promise.resolve().then(function () { return _this._scrollToOption(); });
             }
-            Promise.resolve().then(function () {
-                if (isArrowKey_1 || _this.autocomplete._keyManager.activeItem !== prevActiveItem_1) {
-                    _this._scrollToOption();
-                }
-            });
         }
     };
     /**

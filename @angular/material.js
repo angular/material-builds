@@ -17992,17 +17992,11 @@ class MdAutocompleteTrigger {
             event.preventDefault();
         }
         else {
-            const /** @type {?} */ prevActiveItem = this.autocomplete._keyManager.activeItem;
-            const /** @type {?} */ isArrowKey = event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW;
             this.autocomplete._keyManager.onKeydown(event);
-            if (isArrowKey) {
+            if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
                 this.openPanel();
+                Promise.resolve().then(() => this._scrollToOption());
             }
-            Promise.resolve().then(() => {
-                if (isArrowKey || this.autocomplete._keyManager.activeItem !== prevActiveItem) {
-                    this._scrollToOption();
-                }
-            });
         }
     }
     /**
