@@ -4,22 +4,26 @@ import { ElementRef, AfterViewInit } from '@angular/core';
  */
 export declare class MdTextareaAutosize implements AfterViewInit {
     private _elementRef;
+    private _minRows;
+    private _maxRows;
     /** @deprecated Use mdAutosizeMinRows */
     minRows: number;
-    /** Minimum number of rows for this textarea. */
-    mdAutosizeMinRows: number;
     /** @deprecated Use mdAutosizeMaxRows */
     maxRows: number;
     /** Minimum number of rows for this textarea. */
+    mdAutosizeMinRows: number;
+    /** Maximum number of rows for this textarea. */
     mdAutosizeMaxRows: number;
     /** Cached height of a textarea with a single row. */
     private _cachedLineHeight;
     constructor(_elementRef: ElementRef);
-    /** The minimum height of the textarea as determined by minRows. */
-    readonly _minHeight: string;
-    /** The maximum height of the textarea as determined by maxRows. */
-    readonly _maxHeight: string;
+    /** Sets the minimum height of the textarea as determined by minRows. */
+    _setMinHeight(): void;
+    /** Sets the maximum height of the textarea as determined by maxRows. */
+    _setMaxHeight(): void;
     ngAfterViewInit(): void;
+    /** Sets a style property on the textarea element. */
+    private _setTextareaStyle(property, value);
     /**
      * Cache the height of a single-row textarea.
      *

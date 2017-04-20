@@ -13828,6 +13828,32 @@ class MdTextareaAutosize {
         this._elementRef = _elementRef;
     }
     /**
+     * @deprecated Use mdAutosizeMinRows
+     * @return {?}
+     */
+    get minRows() { return this._minRows; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set minRows(value) {
+        this._minRows = value;
+        this._setMinHeight();
+    }
+    /**
+     * @deprecated Use mdAutosizeMaxRows
+     * @return {?}
+     */
+    get maxRows() { return this._maxRows; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set maxRows(value) {
+        this._maxRows = value;
+        this._setMaxHeight();
+    }
+    /**
      * Minimum number of rows for this textarea.
      * @return {?}
      */
@@ -13838,7 +13864,7 @@ class MdTextareaAutosize {
      */
     set mdAutosizeMinRows(value) { this.minRows = value; }
     /**
-     * Minimum number of rows for this textarea.
+     * Maximum number of rows for this textarea.
      * @return {?}
      */
     get mdAutosizeMaxRows() { return this.maxRows; }
@@ -13848,18 +13874,26 @@ class MdTextareaAutosize {
      */
     set mdAutosizeMaxRows(value) { this.maxRows = value; }
     /**
-     * The minimum height of the textarea as determined by minRows.
+     * Sets the minimum height of the textarea as determined by minRows.
      * @return {?}
      */
-    get _minHeight() {
-        return this.minRows ? `${this.minRows * this._cachedLineHeight}px` : null;
+    _setMinHeight() {
+        const /** @type {?} */ minHeight = this.minRows && this._cachedLineHeight ?
+            `${this.minRows * this._cachedLineHeight}px` : null;
+        if (minHeight) {
+            this._setTextareaStyle('minHeight', minHeight);
+        }
     }
     /**
-     * The maximum height of the textarea as determined by maxRows.
+     * Sets the maximum height of the textarea as determined by maxRows.
      * @return {?}
      */
-    get _maxHeight() {
-        return this.maxRows ? `${this.maxRows * this._cachedLineHeight}px` : null;
+    _setMaxHeight() {
+        const /** @type {?} */ maxHeight = this.maxRows && this._cachedLineHeight ?
+            `${this.maxRows * this._cachedLineHeight}px` : null;
+        if (maxHeight) {
+            this._setTextareaStyle('maxHeight', maxHeight);
+        }
     }
     /**
      * @return {?}
@@ -13867,6 +13901,16 @@ class MdTextareaAutosize {
     ngAfterViewInit() {
         this._cacheTextareaLineHeight();
         this.resizeToFitContent();
+    }
+    /**
+     * Sets a style property on the textarea element.
+     * @param {?} property
+     * @param {?} value
+     * @return {?}
+     */
+    _setTextareaStyle(property, value) {
+        const /** @type {?} */ textarea = (this._elementRef.nativeElement);
+        textarea.style[property] = value;
     }
     /**
      * Cache the height of a single-row textarea.
@@ -13894,6 +13938,9 @@ class MdTextareaAutosize {
         textarea.parentNode.appendChild(textareaClone);
         this._cachedLineHeight = textareaClone.clientHeight;
         textarea.parentNode.removeChild(textareaClone);
+        // Min and max heights have to be re-calculated if the cached line height changes
+        this._setMinHeight();
+        this._setMaxHeight();
     }
     /**
      * Resize the textarea to fit its content.
@@ -13914,8 +13961,6 @@ MdTextareaAutosize.decorators = [
                 exportAs: 'mdTextareaAutosize',
                 host: {
                     '(input)': 'resizeToFitContent()',
-                    '[style.min-height]': '_minHeight',
-                    '[style.max-height]': '_maxHeight',
                 },
             },] },
 ];
@@ -13927,8 +13972,8 @@ MdTextareaAutosize.ctorParameters = () => [
 ];
 MdTextareaAutosize.propDecorators = {
     'minRows': [{ type: Input },],
-    'mdAutosizeMinRows': [{ type: Input },],
     'maxRows': [{ type: Input },],
+    'mdAutosizeMinRows': [{ type: Input },],
     'mdAutosizeMaxRows': [{ type: Input },],
 };
 
@@ -17992,11 +18037,17 @@ class MdAutocompleteTrigger {
             event.preventDefault();
         }
         else {
+            const /** @type {?} */ prevActiveItem = this.autocomplete._keyManager.activeItem;
+            const /** @type {?} */ isArrowKey = event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW;
             this.autocomplete._keyManager.onKeydown(event);
-            if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
+            if (isArrowKey) {
                 this.openPanel();
-                Promise.resolve().then(() => this._scrollToOption());
             }
+            Promise.resolve().then(() => {
+                if (isArrowKey || this.autocomplete._keyManager.activeItem !== prevActiveItem) {
+                    this._scrollToOption();
+                }
+            });
         }
     }
     /**

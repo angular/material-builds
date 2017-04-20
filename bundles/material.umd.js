@@ -14752,6 +14752,40 @@ var MdTextareaAutosize = (function () {
     function MdTextareaAutosize(_elementRef) {
         this._elementRef = _elementRef;
     }
+    Object.defineProperty(MdTextareaAutosize.prototype, "minRows", {
+        /**
+         * @deprecated Use mdAutosizeMinRows
+         * @return {?}
+         */
+        get: function () { return this._minRows; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._minRows = value;
+            this._setMinHeight();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdTextareaAutosize.prototype, "maxRows", {
+        /**
+         * @deprecated Use mdAutosizeMaxRows
+         * @return {?}
+         */
+        get: function () { return this._maxRows; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._maxRows = value;
+            this._setMaxHeight();
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MdTextareaAutosize.prototype, "mdAutosizeMinRows", {
         /**
          * Minimum number of rows for this textarea.
@@ -14768,7 +14802,7 @@ var MdTextareaAutosize = (function () {
     });
     Object.defineProperty(MdTextareaAutosize.prototype, "mdAutosizeMaxRows", {
         /**
-         * Minimum number of rows for this textarea.
+         * Maximum number of rows for this textarea.
          * @return {?}
          */
         get: function () { return this.maxRows; },
@@ -14780,34 +14814,44 @@ var MdTextareaAutosize = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdTextareaAutosize.prototype, "_minHeight", {
-        /**
-         * The minimum height of the textarea as determined by minRows.
-         * @return {?}
-         */
-        get: function () {
-            return this.minRows ? this.minRows * this._cachedLineHeight + "px" : null;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdTextareaAutosize.prototype, "_maxHeight", {
-        /**
-         * The maximum height of the textarea as determined by maxRows.
-         * @return {?}
-         */
-        get: function () {
-            return this.maxRows ? this.maxRows * this._cachedLineHeight + "px" : null;
-        },
-        enumerable: true,
-        configurable: true
-    });
+    /**
+     * Sets the minimum height of the textarea as determined by minRows.
+     * @return {?}
+     */
+    MdTextareaAutosize.prototype._setMinHeight = function () {
+        var /** @type {?} */ minHeight = this.minRows && this._cachedLineHeight ?
+            this.minRows * this._cachedLineHeight + "px" : null;
+        if (minHeight) {
+            this._setTextareaStyle('minHeight', minHeight);
+        }
+    };
+    /**
+     * Sets the maximum height of the textarea as determined by maxRows.
+     * @return {?}
+     */
+    MdTextareaAutosize.prototype._setMaxHeight = function () {
+        var /** @type {?} */ maxHeight = this.maxRows && this._cachedLineHeight ?
+            this.maxRows * this._cachedLineHeight + "px" : null;
+        if (maxHeight) {
+            this._setTextareaStyle('maxHeight', maxHeight);
+        }
+    };
     /**
      * @return {?}
      */
     MdTextareaAutosize.prototype.ngAfterViewInit = function () {
         this._cacheTextareaLineHeight();
         this.resizeToFitContent();
+    };
+    /**
+     * Sets a style property on the textarea element.
+     * @param {?} property
+     * @param {?} value
+     * @return {?}
+     */
+    MdTextareaAutosize.prototype._setTextareaStyle = function (property, value) {
+        var /** @type {?} */ textarea = (this._elementRef.nativeElement);
+        textarea.style[property] = value;
     };
     /**
      * Cache the height of a single-row textarea.
@@ -14835,6 +14879,9 @@ var MdTextareaAutosize = (function () {
         textarea.parentNode.appendChild(textareaClone);
         this._cachedLineHeight = textareaClone.clientHeight;
         textarea.parentNode.removeChild(textareaClone);
+        // Min and max heights have to be re-calculated if the cached line height changes
+        this._setMinHeight();
+        this._setMaxHeight();
     };
     /**
      * Resize the textarea to fit its content.
@@ -14856,8 +14903,6 @@ MdTextareaAutosize.decorators = [
                 exportAs: 'mdTextareaAutosize',
                 host: {
                     '(input)': 'resizeToFitContent()',
-                    '[style.min-height]': '_minHeight',
-                    '[style.max-height]': '_maxHeight',
                 },
             },] },
 ];
@@ -14869,8 +14914,8 @@ MdTextareaAutosize.ctorParameters = function () { return [
 ]; };
 MdTextareaAutosize.propDecorators = {
     'minRows': [{ type: _angular_core.Input },],
-    'mdAutosizeMinRows': [{ type: _angular_core.Input },],
     'maxRows': [{ type: _angular_core.Input },],
+    'mdAutosizeMinRows': [{ type: _angular_core.Input },],
     'mdAutosizeMaxRows': [{ type: _angular_core.Input },],
 };
 var MdInputModule = (function () {
@@ -19188,11 +19233,17 @@ var MdAutocompleteTrigger = (function () {
             event.preventDefault();
         }
         else {
+            var /** @type {?} */ prevActiveItem_1 = this.autocomplete._keyManager.activeItem;
+            var /** @type {?} */ isArrowKey_1 = event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW;
             this.autocomplete._keyManager.onKeydown(event);
-            if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
+            if (isArrowKey_1) {
                 this.openPanel();
-                Promise.resolve().then(function () { return _this._scrollToOption(); });
             }
+            Promise.resolve().then(function () {
+                if (isArrowKey_1 || _this.autocomplete._keyManager.activeItem !== prevActiveItem_1) {
+                    _this._scrollToOption();
+                }
+            });
         }
     };
     /**
