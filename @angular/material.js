@@ -17864,16 +17864,18 @@ class MdAutocompleteTrigger {
      * @param {?} _overlay
      * @param {?} _viewContainerRef
      * @param {?} _changeDetectorRef
+     * @param {?} _scrollDispatcher
      * @param {?} _dir
      * @param {?} _zone
      * @param {?} _inputContainer
      * @param {?} _document
      */
-    constructor(_element, _overlay, _viewContainerRef, _changeDetectorRef, _dir, _zone, _inputContainer, _document) {
+    constructor(_element, _overlay, _viewContainerRef, _changeDetectorRef, _scrollDispatcher, _dir, _zone, _inputContainer, _document) {
         this._element = _element;
         this._overlay = _overlay;
         this._viewContainerRef = _viewContainerRef;
         this._changeDetectorRef = _changeDetectorRef;
+        this._scrollDispatcher = _scrollDispatcher;
         this._dir = _dir;
         this._zone = _zone;
         this._inputContainer = _inputContainer;
@@ -17937,6 +17939,11 @@ class MdAutocompleteTrigger {
             this._overlayRef.attach(this._portal);
             this._subscribeToClosingActions();
         }
+        if (!this._scrollSubscription) {
+            this._scrollSubscription = this._scrollDispatcher.scrolled(0, () => {
+                this._overlayRef.updatePosition();
+            });
+        }
         this.autocomplete._setVisibility();
         this._floatPlaceholder();
         this._panelOpen = true;
@@ -17948,6 +17955,10 @@ class MdAutocompleteTrigger {
     closePanel() {
         if (this._overlayRef && this._overlayRef.hasAttached()) {
             this._overlayRef.detach();
+        }
+        if (this._scrollSubscription) {
+            this._scrollSubscription.unsubscribe();
+            this._scrollSubscription = null;
         }
         this._panelOpen = false;
         this._resetPlaceholder();
@@ -18247,6 +18258,7 @@ MdAutocompleteTrigger.ctorParameters = () => [
     { type: Overlay, },
     { type: ViewContainerRef, },
     { type: ChangeDetectorRef, },
+    { type: ScrollDispatcher, },
     { type: Dir, decorators: [{ type: Optional },] },
     { type: NgZone, },
     { type: MdInputContainer, decorators: [{ type: Optional }, { type: Host },] },

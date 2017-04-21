@@ -19033,16 +19033,18 @@ var MdAutocompleteTrigger = (function () {
      * @param {?} _overlay
      * @param {?} _viewContainerRef
      * @param {?} _changeDetectorRef
+     * @param {?} _scrollDispatcher
      * @param {?} _dir
      * @param {?} _zone
      * @param {?} _inputContainer
      * @param {?} _document
      */
-    function MdAutocompleteTrigger(_element, _overlay, _viewContainerRef, _changeDetectorRef, _dir, _zone, _inputContainer, _document) {
+    function MdAutocompleteTrigger(_element, _overlay, _viewContainerRef, _changeDetectorRef, _scrollDispatcher, _dir, _zone, _inputContainer, _document) {
         this._element = _element;
         this._overlay = _overlay;
         this._viewContainerRef = _viewContainerRef;
         this._changeDetectorRef = _changeDetectorRef;
+        this._scrollDispatcher = _scrollDispatcher;
         this._dir = _dir;
         this._zone = _zone;
         this._inputContainer = _inputContainer;
@@ -19103,6 +19105,7 @@ var MdAutocompleteTrigger = (function () {
      * @return {?}
      */
     MdAutocompleteTrigger.prototype.openPanel = function () {
+        var _this = this;
         if (!this._overlayRef) {
             this._createOverlay();
         }
@@ -19113,6 +19116,11 @@ var MdAutocompleteTrigger = (function () {
         if (!this._overlayRef.hasAttached()) {
             this._overlayRef.attach(this._portal);
             this._subscribeToClosingActions();
+        }
+        if (!this._scrollSubscription) {
+            this._scrollSubscription = this._scrollDispatcher.scrolled(0, function () {
+                _this._overlayRef.updatePosition();
+            });
         }
         this.autocomplete._setVisibility();
         this._floatPlaceholder();
@@ -19125,6 +19133,10 @@ var MdAutocompleteTrigger = (function () {
     MdAutocompleteTrigger.prototype.closePanel = function () {
         if (this._overlayRef && this._overlayRef.hasAttached()) {
             this._overlayRef.detach();
+        }
+        if (this._scrollSubscription) {
+            this._scrollSubscription.unsubscribe();
+            this._scrollSubscription = null;
         }
         this._panelOpen = false;
         this._resetPlaceholder();
@@ -19446,6 +19458,7 @@ MdAutocompleteTrigger.ctorParameters = function () { return [
     { type: Overlay, },
     { type: _angular_core.ViewContainerRef, },
     { type: _angular_core.ChangeDetectorRef, },
+    { type: ScrollDispatcher, },
     { type: Dir, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_core.NgZone, },
     { type: MdInputContainer, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Host },] },
