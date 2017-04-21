@@ -65,6 +65,8 @@ class MdCompatibilityInvalidPrefixError extends MdError {
  */
 const MAT_ELEMENTS_SELECTOR = `
   [mat-button],
+  [mat-card-subtitle],
+  [mat-card-title],
   [mat-dialog-actions],
   [mat-dialog-close],
   [mat-dialog-content],
@@ -126,6 +128,8 @@ const MAT_ELEMENTS_SELECTOR = `
  */
 const MD_ELEMENTS_SELECTOR = `
   [md-button],
+  [md-card-subtitle],
+  [md-card-title],
   [md-dialog-actions],
   [md-dialog-close],
   [md-dialog-content],
@@ -11243,7 +11247,7 @@ class MdCardTitle {
 }
 MdCardTitle.decorators = [
     { type: Directive, args: [{
-                selector: 'md-card-title, mat-card-title',
+                selector: 'md-card-title, mat-card-title, [md-card-title], [mat-card-title]',
                 host: {
                     '[class.mat-card-title]': 'true'
                 }
@@ -11261,7 +11265,7 @@ class MdCardSubtitle {
 }
 MdCardSubtitle.decorators = [
     { type: Directive, args: [{
-                selector: 'md-card-subtitle, mat-card-subtitle',
+                selector: 'md-card-subtitle, mat-card-subtitle, [md-card-subtitle], [mat-card-subtitle]',
                 host: {
                     '[class.mat-card-subtitle]': 'true'
                 }
@@ -11452,7 +11456,7 @@ class MdCardHeader {
 }
 MdCardHeader.decorators = [
     { type: Component, args: [{selector: 'md-card-header, mat-card-header',
-                template: "<ng-content select=\"[md-card-avatar], [mat-card-avatar]\"></ng-content> <div class=\"mat-card-header-text\"> <ng-content select=\"md-card-title, mat-card-title, md-card-subtitle, mat-card-subtitle\"></ng-content> </div> <ng-content></ng-content> ",
+                template: "<ng-content select=\"[md-card-avatar], [mat-card-avatar]\"></ng-content> <div class=\"mat-card-header-text\"> <ng-content select=\"md-card-title, mat-card-title, md-card-subtitle, mat-card-subtitle, [md-card-title], [mat-card-title], [md-card-subtitle], [mat-card-subtitle]\"></ng-content> </div> <ng-content></ng-content> ",
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 host: {
@@ -11473,7 +11477,7 @@ class MdCardTitleGroup {
 }
 MdCardTitleGroup.decorators = [
     { type: Component, args: [{selector: 'md-card-title-group, mat-card-title-group',
-                template: "<div> <ng-content select=\"md-card-title, mat-card-title, md-card-subtitle, mat-card-subtitle\"></ng-content> </div> <ng-content select=\"img\"></ng-content> <ng-content></ng-content> ",
+                template: "<div> <ng-content select=\"md-card-title, mat-card-title, md-card-subtitle, mat-card-subtitle, [md-card-title], [mat-card-title], [md-card-subtitle], [mat-card-subtitle]\"></ng-content> </div> <ng-content select=\"img\"></ng-content> <ng-content></ng-content> ",
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 host: {
