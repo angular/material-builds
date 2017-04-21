@@ -18,13 +18,15 @@ export declare class MdDialogContainer extends BasePortalHost {
     private _focusTrap;
     /** Element that was focused before the dialog was opened. Save this to restore upon close. */
     private _elementFocusedBeforeDialogWasOpened;
+    /** Reference to the global document object. */
+    private _document;
     /** The dialog configuration. */
     dialogConfig: MdDialogConfig;
     /** State of the dialog animation. */
     _state: 'void' | 'enter' | 'exit';
     /** Emits the current animation state whenever it changes. */
     _onAnimationStateChange: EventEmitter<AnimationEvent>;
-    constructor(_renderer: Renderer, _elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory);
+    constructor(_renderer: Renderer, _elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _document: any);
     /**
      * Attach a ComponentPortal as content to this dialog container.
      * @param portal Portal to be attached as the dialog content.
@@ -39,6 +41,10 @@ export declare class MdDialogContainer extends BasePortalHost {
      * Moves the focus inside the focus trap.
      */
     private _trapFocus();
+    /**
+     * Saves a reference to the element that was focused before the dialog was opened.
+     */
+    private _savePreviouslyFocusedElement();
     /**
      * Callback, invoked whenever an animation on the host completes.
      * @docs-private

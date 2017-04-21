@@ -17397,8 +17397,9 @@ class MdDialogContainer extends BasePortalHost {
      * @param {?} _renderer
      * @param {?} _elementRef
      * @param {?} _focusTrapFactory
+     * @param {?} _document
      */
-    constructor(_renderer, _elementRef, _focusTrapFactory) {
+    constructor(_renderer, _elementRef, _focusTrapFactory, _document) {
         super();
         this._renderer = _renderer;
         this._elementRef = _elementRef;
@@ -17415,6 +17416,7 @@ class MdDialogContainer extends BasePortalHost {
          * Emits the current animation state whenever it changes.
          */
         this._onAnimationStateChange = new EventEmitter();
+        this._document = _document;
     }
     /**
      * Attach a ComponentPortal as content to this dialog container.
@@ -17426,6 +17428,7 @@ class MdDialogContainer extends BasePortalHost {
         if (this._portalHost.hasAttached()) {
             throw new MdDialogContentAlreadyAttachedError();
         }
+        this._savePreviouslyFocusedElement();
         return this._portalHost.attachComponentPortal(portal);
     }
     /**
@@ -17437,6 +17440,7 @@ class MdDialogContainer extends BasePortalHost {
         if (this._portalHost.hasAttached()) {
             throw new MdDialogContentAlreadyAttachedError();
         }
+        this._savePreviouslyFocusedElement();
         return this._portalHost.attachTemplatePortal(portal);
     }
     /**
@@ -17450,8 +17454,16 @@ class MdDialogContainer extends BasePortalHost {
         // If were to attempt to focus immediately, then the content of the dialog would not yet be
         // ready in instances where change detection has to run first. To deal with this, we simply
         // wait for the microtask queue to be empty.
-        this._elementFocusedBeforeDialogWasOpened = (document.activeElement);
         this._focusTrap.focusFirstTabbableElementWhenReady();
+    }
+    /**
+     * Saves a reference to the element that was focused before the dialog was opened.
+     * @return {?}
+     */
+    _savePreviouslyFocusedElement() {
+        if (this._document) {
+            this._elementFocusedBeforeDialogWasOpened = (this._document.activeElement);
+        }
     }
     /**
      * Callback, invoked whenever an animation on the host completes.
@@ -17513,6 +17525,7 @@ MdDialogContainer.ctorParameters = () => [
     { type: Renderer, },
     { type: ElementRef, },
     { type: FocusTrapFactory, },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
 MdDialogContainer.propDecorators = {
     '_portalHost': [{ type: ViewChild, args: [PortalHostDirective,] },],
