@@ -7909,26 +7909,6 @@ var MdSelect = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSelect.prototype, "color", {
-        /**
-         * Theme color for the component.
-         * @return {?}
-         */
-        get: function () { return this._color; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            if (value && value !== this._color) {
-                this._renderer.removeClass(this._element.nativeElement, "mat-" + this._color);
-                this._renderer.addClass(this._element.nativeElement, "mat-" + value);
-                this._color = value;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(MdSelect.prototype, "optionSelectionChanges", {
         /**
          * Combined stream of all of the child options' change events.
@@ -7945,7 +7925,6 @@ var MdSelect = (function () {
      */
     MdSelect.prototype.ngOnInit = function () {
         this._selectionModel = new SelectionModel(this.multiple, null, false);
-        this.color = this.color || 'primary';
     };
     /**
      * @return {?}
@@ -8359,7 +8338,7 @@ var MdSelect = (function () {
      * @return {?}
      */
     MdSelect.prototype._focusHost = function () {
-        this._element.nativeElement.focus();
+        this._renderer.invokeElementMethod(this._element.nativeElement, 'focus');
     };
     /**
      * Gets the index of the provided option in the option list.
@@ -8582,7 +8561,7 @@ var MdSelect = (function () {
 }());
 MdSelect.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-select, mat-select',
-                template: "<div class=\"mat-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger> <span class=\"mat-select-placeholder\" [class.mat-floating-placeholder]=\"_selectionModel.hasValue()\" [@transformPlaceholder]=\"_getPlaceholderAnimationState()\" [style.visibility]=\"_getPlaceholderVisibility()\" [style.width.px]=\"_selectedValueWidth\"> {{ placeholder }} </span> <span class=\"mat-select-value\" *ngIf=\"_selectionModel.hasValue()\"> <span class=\"mat-select-value-text\">{{ triggerValue }}</span> </span> <span class=\"mat-select-arrow\"></span> <span class=\"mat-select-underline\"></span> </div> <ng-template cdk-connected-overlay [origin]=\"origin\" [open]=\"panelOpen\" hasBackdrop (backdropClick)=\"close()\" backdropClass=\"cdk-overlay-transparent-backdrop\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" [offsetX]=\"_offsetX\" (attach)=\"_setScrollTop()\" (detach)=\"close()\"> <div class=\"mat-select-panel\" [@transformPanel]=\"'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_keyManager.onKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [ngClass]=\"'mat-' + color\"> <div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"> <ng-content></ng-content> </div> </div> </ng-template> ",
+                template: "<div class=\"mat-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger> <span class=\"mat-select-placeholder\" [class.mat-floating-placeholder]=\"_selectionModel.hasValue()\" [@transformPlaceholder]=\"_getPlaceholderAnimationState()\" [style.visibility]=\"_getPlaceholderVisibility()\" [style.width.px]=\"_selectedValueWidth\"> {{ placeholder }} </span> <span class=\"mat-select-value\" *ngIf=\"_selectionModel.hasValue()\"> <span class=\"mat-select-value-text\">{{ triggerValue }}</span> </span> <span class=\"mat-select-arrow\"></span> <span class=\"mat-select-underline\"></span> </div> <ng-template cdk-connected-overlay [origin]=\"origin\" [open]=\"panelOpen\" hasBackdrop (backdropClick)=\"close()\" backdropClass=\"cdk-overlay-transparent-backdrop\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" [offsetX]=\"_offsetX\" (attach)=\"_setScrollTop()\" (detach)=\"close()\"> <div class=\"mat-select-panel\" [@transformPanel]=\"'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_keyManager.onKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\"> <div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"> <ng-content></ng-content> </div> </div> </ng-template> ",
                 styles: [".mat-select{display:inline-block;outline:0;font-family:Roboto,\"Helvetica Neue\",sans-serif}.mat-select-trigger{display:flex;align-items:center;height:30px;min-width:112px;cursor:pointer;position:relative;box-sizing:border-box;font-size:16px}[aria-disabled=true] .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-underline{position:absolute;bottom:0;left:0;right:0;height:1px}[aria-disabled=true] .mat-select-underline{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;background-color:transparent;background-position:0 bottom}.mat-select-placeholder{position:relative;padding:0 2px;transform-origin:left top;flex-grow:1}.mat-select-placeholder.mat-floating-placeholder{top:-22px;left:-2px;text-align:left;transform:scale(.75)}[dir=rtl] .mat-select-placeholder{transform-origin:right top}[dir=rtl] .mat-select-placeholder.mat-floating-placeholder{left:2px;text-align:right}[aria-required=true] .mat-select-placeholder::after{content:'*'}.mat-select-value{position:absolute;max-width:calc(100% - 18px);flex-grow:1;top:0;left:0;bottom:0;display:flex;align-items:center}[dir=rtl] .mat-select-value{left:auto;right:0}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:30px}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}} /*# sourceMappingURL=select.css.map */ "],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 host: {
@@ -8597,7 +8576,7 @@ MdSelect.decorators = [
                     '[class.mat-select-disabled]': 'disabled',
                     '[class.mat-select]': 'true',
                     '(keydown)': '_handleKeydown($event)',
-                    '(blur)': '_onBlur()',
+                    '(blur)': '_onBlur()'
                 },
                 animations: [
                     transformPlaceholder,
@@ -8612,7 +8591,7 @@ MdSelect.decorators = [
  */
 MdSelect.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
-    { type: _angular_core.Renderer2, },
+    { type: _angular_core.Renderer, },
     { type: ViewportRuler, },
     { type: _angular_core.ChangeDetectorRef, },
     { type: Dir, decorators: [{ type: _angular_core.Optional },] },
@@ -8631,7 +8610,6 @@ MdSelect.propDecorators = {
     'tabIndex': [{ type: _angular_core.Input },],
     'ariaLabel': [{ type: _angular_core.Input, args: ['aria-label',] },],
     'ariaLabelledby': [{ type: _angular_core.Input, args: ['aria-labelledby',] },],
-    'color': [{ type: _angular_core.Input },],
     'onOpen': [{ type: _angular_core.Output },],
     'onClose': [{ type: _angular_core.Output },],
     'change': [{ type: _angular_core.Output },],
@@ -13519,18 +13497,12 @@ var startIndeterminate = 3;
  * End animation value of the indeterminate animation
  */
 var endIndeterminate = 80;
-/**
- * Maximum angle for the arc. The angle can't be exactly 360, because the arc becomes hidden.
- */
+/* Maximum angle for the arc. The angle can't be exactly 360, because the arc becomes hidden. */
 var MAX_ANGLE = 359.99 / 100;
 /**
  * Whether the user's browser supports requestAnimationFrame.
  */
 var HAS_RAF = typeof requestAnimationFrame !== 'undefined';
-/**
- * Default stroke width as a percentage of the viewBox.
- */
-var PROGRESS_SPINNER_STROKE_WIDTH = 10;
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
@@ -13571,10 +13543,6 @@ var MdProgressSpinner = (function () {
         this._lastAnimationId = 0;
         this._mode = 'determinate';
         this._color = 'primary';
-        /**
-         * Stroke width of the progress spinner. By default uses 10px as stroke width.
-         */
-        this.strokeWidth = PROGRESS_SPINNER_STROKE_WIDTH;
     }
     Object.defineProperty(MdProgressSpinner.prototype, "_ariaValueMin", {
         /**
@@ -13783,8 +13751,7 @@ var MdProgressSpinner = (function () {
     MdProgressSpinner.prototype._renderArc = function (currentValue, rotation) {
         if (rotation === void 0) { rotation = 0; }
         if (this._path) {
-            var /** @type {?} */ svgArc = getSvgArc(currentValue, rotation, this.strokeWidth);
-            this._renderer.setAttribute(this._path.nativeElement, 'd', svgArc);
+            this._renderer.setAttribute(this._path.nativeElement, 'd', getSvgArc(currentValue, rotation));
         }
     };
     return MdProgressSpinner;
@@ -13796,8 +13763,8 @@ MdProgressSpinner.decorators = [
                     '[attr.aria-valuemin]': '_ariaValueMin',
                     '[attr.aria-valuemax]': '_ariaValueMax'
                 },
-                template: "<!-- preserveAspectRatio of xMidYMid meet as the center of the viewport is the circle's center. The center of the circle will remain at the center of the md-progress-spinner element containing the SVG. --> <svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"> <path #path [style.strokeWidth]=\"strokeWidth\"></path> </svg> ",
-                styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;transition:stroke .3s cubic-bezier(.35,0,.25,1)}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}} /*# sourceMappingURL=progress-spinner.css.map */ "],
+                template: "<!-- preserveAspectRatio of xMidYMid meet as the center of the viewport is the circle's center. The center of the circle will remain at the center of the md-progress-spinner element containing the SVG. --> <svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"> <path #path></path> </svg> ",
+                styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px;transition:stroke .3s cubic-bezier(.35,0,.25,1)}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}} /*# sourceMappingURL=progress-spinner.css.map */ "],
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
             },] },
 ];
@@ -13811,7 +13778,6 @@ MdProgressSpinner.ctorParameters = function () { return [
 ]; };
 MdProgressSpinner.propDecorators = {
     '_path': [{ type: _angular_core.ViewChild, args: ['path',] },],
-    'strokeWidth': [{ type: _angular_core.Input },],
     'color': [{ type: _angular_core.Input },],
     'value': [{ type: _angular_core.Input }, { type: _angular_core.HostBinding, args: ['attr.aria-valuenow',] },],
     'mode': [{ type: _angular_core.HostBinding, args: ['attr.mode',] }, { type: _angular_core.Input },],
@@ -13851,8 +13817,8 @@ MdSpinner.decorators = [
                     'mode': 'indeterminate',
                     '[class.mat-spinner]': 'true',
                 },
-                template: "<!-- preserveAspectRatio of xMidYMid meet as the center of the viewport is the circle's center. The center of the circle will remain at the center of the md-progress-spinner element containing the SVG. --> <svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"> <path #path [style.strokeWidth]=\"strokeWidth\"></path> </svg> ",
-                styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;transition:stroke .3s cubic-bezier(.35,0,.25,1)}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}} /*# sourceMappingURL=progress-spinner.css.map */ "],
+                template: "<!-- preserveAspectRatio of xMidYMid meet as the center of the viewport is the circle's center. The center of the circle will remain at the center of the md-progress-spinner element containing the SVG. --> <svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"> <path #path></path> </svg> ",
+                styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px;transition:stroke .3s cubic-bezier(.35,0,.25,1)}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}} /*# sourceMappingURL=progress-spinner.css.map */ "],
             },] },
 ];
 /**
@@ -13916,14 +13882,13 @@ function materialEase(currentTime, startValue, changeInValue, duration) {
  * @param {?} currentValue The current percentage value of the progress circle, the percentage of the
  *    circle to fill.
  * @param {?} rotation The starting point of the circle with 0 being the 0 degree point.
- * @param {?} strokeWidth Stroke width of the progress spinner arc.
  * @return {?} A string for an SVG path representing a circle filled from the starting point to the
  *    percentage value provided.
  */
-function getSvgArc(currentValue, rotation, strokeWidth) {
+function getSvgArc(currentValue, rotation) {
     var /** @type {?} */ startPoint = rotation || 0;
     var /** @type {?} */ radius = 50;
-    var /** @type {?} */ pathRadius = radius - strokeWidth;
+    var /** @type {?} */ pathRadius = 40;
     var /** @type {?} */ startAngle = startPoint * MAX_ANGLE;
     var /** @type {?} */ endAngle = currentValue * MAX_ANGLE;
     var /** @type {?} */ start = polarToCartesian(radius, pathRadius, startAngle);
@@ -19854,7 +19819,6 @@ exports.MdMenuTrigger = MdMenuTrigger;
 exports.MdProgressBarModule = MdProgressBarModule;
 exports.MdProgressBar = MdProgressBar;
 exports.MdProgressSpinnerModule = MdProgressSpinnerModule;
-exports.PROGRESS_SPINNER_STROKE_WIDTH = PROGRESS_SPINNER_STROKE_WIDTH;
 exports.MdProgressSpinnerCssMatStyler = MdProgressSpinnerCssMatStyler;
 exports.MdProgressSpinner = MdProgressSpinner;
 exports.MdSpinner = MdSpinner;
