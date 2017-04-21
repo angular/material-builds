@@ -1,12 +1,8 @@
-import { QueryList, ElementRef, EventEmitter, AfterContentChecked, AfterContentInit, OnDestroy, NgZone } from '@angular/core';
+import { QueryList, ElementRef, EventEmitter, AfterContentChecked, AfterContentInit, OnDestroy } from '@angular/core';
 import { Dir, LayoutDirection } from '../core';
 import { MdTabLabelWrapper } from './tab-label-wrapper';
 import { MdInkBar } from './ink-bar';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/auditTime';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/merge';
-import 'rxjs/add/operator/startWith';
 /**
  * The directions that scrolling can go in when the header's tabs exceed the header width. 'After'
  * will scroll the header towards the end of the tabs list and 'before' will scroll towards the
@@ -22,7 +18,6 @@ export declare type ScrollDirection = 'after' | 'before';
  */
 export declare class MdTabHeader implements AfterContentChecked, AfterContentInit, OnDestroy {
     private _elementRef;
-    private _ngZone;
     private _dir;
     _labelWrappers: QueryList<MdTabLabelWrapper>;
     _inkBar: MdInkBar;
@@ -34,8 +29,8 @@ export declare class MdTabHeader implements AfterContentChecked, AfterContentIni
     private _scrollDistance;
     /** Whether the header should scroll to the selected index after the view has been checked. */
     private _selectedIndexChanged;
-    /** Combines listeners that will re-align the ink bar whenever they're invoked. */
-    private _realignInkBar;
+    /** Subscription to changes in the layout direction. */
+    private _directionChange;
     /** Whether the controls for pagination should be displayed */
     _showPaginationControls: boolean;
     /** Whether the tab list can be scrolled more towards the end of the tab label list. */
@@ -56,7 +51,7 @@ export declare class MdTabHeader implements AfterContentChecked, AfterContentIni
     selectFocusedIndex: EventEmitter<{}>;
     /** Event emitted when a label is focused. */
     indexFocused: EventEmitter<{}>;
-    constructor(_elementRef: ElementRef, _ngZone: NgZone, _dir: Dir);
+    constructor(_elementRef: ElementRef, _dir: Dir);
     ngAfterContentChecked(): void;
     _handleKeydown(event: KeyboardEvent): void;
     /**

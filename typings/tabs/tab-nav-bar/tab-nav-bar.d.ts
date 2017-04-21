@@ -1,27 +1,21 @@
-import { ElementRef, NgZone, OnDestroy, AfterContentInit } from '@angular/core';
+import { ElementRef, NgZone, OnDestroy } from '@angular/core';
 import { MdInkBar } from '../ink-bar';
 import { MdRipple } from '../../core/ripple/index';
 import { ViewportRuler } from '../../core/overlay/position/viewport-ruler';
 import { RippleGlobalOptions, Dir } from '../../core';
-import 'rxjs/add/operator/auditTime';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/merge';
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
  */
-export declare class MdTabNavBar implements AfterContentInit, OnDestroy {
+export declare class MdTabNavBar implements OnDestroy {
     private _dir;
-    private _ngZone;
-    /** Combines listeners that will re-align the ink bar whenever they're invoked. */
-    private _realignInkBar;
+    private _directionChange;
     _activeLinkChanged: boolean;
     _activeLinkElement: ElementRef;
     _inkBar: MdInkBar;
-    constructor(_dir: Dir, _ngZone: NgZone);
+    constructor(_dir: Dir);
     /** Notifies the component that the active link has been changed. */
     updateActiveLink(element: ElementRef): void;
-    ngAfterContentInit(): void;
     /** Checks if the active link has been changed and, if so, will update the ink bar. */
     ngAfterContentChecked(): void;
     ngOnDestroy(): void;

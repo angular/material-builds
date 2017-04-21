@@ -16102,15 +16102,13 @@ MdInkBar.ctorParameters = function () { return [
 var MdTabNavBar = /*@__PURE__*/(function () {
     /**
      * @param {?} _dir
-     * @param {?} _ngZone
      */
-    function MdTabNavBar(_dir, _ngZone) {
+    function MdTabNavBar(_dir) {
+        var _this = this;
         this._dir = _dir;
-        this._ngZone = _ngZone;
-        /**
-         * Combines listeners that will re-align the ink bar whenever they're invoked.
-         */
-        this._realignInkBar = null;
+        if (_dir) {
+            this._directionChange = _dir.dirChange.subscribe(function () { return _this._alignInkBar(); });
+        }
     }
     /**
      * Notifies the component that the active link has been changed.
@@ -16120,19 +16118,6 @@ var MdTabNavBar = /*@__PURE__*/(function () {
     MdTabNavBar.prototype.updateActiveLink = function (element) {
         this._activeLinkChanged = this._activeLinkElement != element;
         this._activeLinkElement = element;
-    };
-    /**
-     * @return {?}
-     */
-    MdTabNavBar.prototype.ngAfterContentInit = function () {
-        var _this = this;
-        this._realignInkBar = this._ngZone.runOutsideAngular(function () {
-            var /** @type {?} */ dirChange = _this._dir ? _this._dir.dirChange : Observable.of(null);
-            var /** @type {?} */ resize = typeof window !== 'undefined' ?
-                Observable.fromEvent(window, 'resize').auditTime(10) :
-                Observable.of(null);
-            return Observable.merge(dirChange, resize).subscribe(function () { return _this._alignInkBar(); });
-        });
     };
     /**
      * Checks if the active link has been changed and, if so, will update the ink bar.
@@ -16148,9 +16133,9 @@ var MdTabNavBar = /*@__PURE__*/(function () {
      * @return {?}
      */
     MdTabNavBar.prototype.ngOnDestroy = function () {
-        if (this._realignInkBar) {
-            this._realignInkBar.unsubscribe();
-            this._realignInkBar = null;
+        if (this._directionChange) {
+            this._directionChange.unsubscribe();
+            this._directionChange = null;
         }
     };
     /**
@@ -16158,9 +16143,7 @@ var MdTabNavBar = /*@__PURE__*/(function () {
      * @return {?}
      */
     MdTabNavBar.prototype._alignInkBar = function () {
-        if (this._activeLinkElement) {
-            this._inkBar.alignToElement(this._activeLinkElement.nativeElement);
-        }
+        this._inkBar.alignToElement(this._activeLinkElement.nativeElement);
     };
     return MdTabNavBar;
 }());
@@ -16179,7 +16162,6 @@ MdTabNavBar.decorators = [
  */
 MdTabNavBar.ctorParameters = function () { return [
     { type: Dir, decorators: [{ type: Optional },] },
-    { type: NgZone, },
 ]; };
 MdTabNavBar.propDecorators = {
     '_inkBar': [{ type: ViewChild, args: [MdInkBar,] },],
@@ -16450,12 +16432,10 @@ var EXAGGERATED_OVERSCROLL = 60;
 var MdTabHeader = /*@__PURE__*/(function () {
     /**
      * @param {?} _elementRef
-     * @param {?} _ngZone
      * @param {?} _dir
      */
-    function MdTabHeader(_elementRef, _ngZone, _dir) {
+    function MdTabHeader(_elementRef, _dir) {
         this._elementRef = _elementRef;
-        this._ngZone = _ngZone;
         this._dir = _dir;
         /**
          * The tab index that is focused.
@@ -16469,10 +16449,6 @@ var MdTabHeader = /*@__PURE__*/(function () {
          * Whether the header should scroll to the selected index after the view has been checked.
          */
         this._selectedIndexChanged = false;
-        /**
-         * Combines listeners that will re-align the ink bar whenever they're invoked.
-         */
-        this._realignInkBar = null;
         /**
          * Whether the controls for pagination should be displayed
          */
@@ -16497,11 +16473,11 @@ var MdTabHeader = /*@__PURE__*/(function () {
     }
     Object.defineProperty(MdTabHeader.prototype, "selectedIndex", {
         /**
-         * The index of the active tab.
          * @return {?}
          */
         get: function () { return this._selectedIndex; },
         /**
+         * The index of the active tab.
          * @param {?} value
          * @return {?}
          */
@@ -16560,24 +16536,18 @@ var MdTabHeader = /*@__PURE__*/(function () {
      */
     MdTabHeader.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this._realignInkBar = this._ngZone.runOutsideAngular(function () {
-            var /** @type {?} */ dirChange = _this._dir ? _this._dir.dirChange : Observable.of(null);
-            var /** @type {?} */ resize = typeof window !== 'undefined' ?
-                Observable.fromEvent(window, 'resize').auditTime(10) :
-                Observable.of(null);
-            return Observable.merge(dirChange, resize).startWith(null).subscribe(function () {
-                _this._updatePagination();
-                _this._alignInkBarToSelectedTab();
-            });
-        });
+        this._alignInkBarToSelectedTab();
+        if (this._dir) {
+            this._directionChange = this._dir.dirChange.subscribe(function () { return _this._alignInkBarToSelectedTab(); });
+        }
     };
     /**
      * @return {?}
      */
     MdTabHeader.prototype.ngOnDestroy = function () {
-        if (this._realignInkBar) {
-            this._realignInkBar.unsubscribe();
-            this._realignInkBar = null;
+        if (this._directionChange) {
+            this._directionChange.unsubscribe();
+            this._directionChange = null;
         }
     };
     /**
@@ -16851,7 +16821,6 @@ MdTabHeader.decorators = [
  */
 MdTabHeader.ctorParameters = function () { return [
     { type: ElementRef, },
-    { type: NgZone, },
     { type: Dir, decorators: [{ type: Optional },] },
 ]; };
 MdTabHeader.propDecorators = {
