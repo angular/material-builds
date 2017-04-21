@@ -1,6 +1,5 @@
 import { ElementRef, OnDestroy, Renderer } from '@angular/core';
 import { FocusOriginMonitor } from '../core';
-import { CanDisable } from '../core/common-behaviors/disabled';
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * @docs-private
@@ -31,13 +30,10 @@ export declare class MdFabCssMatStyler {
  */
 export declare class MdMiniFabCssMatStyler {
 }
-export declare class MdButtonBase {
-}
-export declare const _MdButtonMixinBase: (new (...args: any[]) => CanDisable) & typeof MdButtonBase;
 /**
  * Material design button.
  */
-export declare class MdButton extends _MdButtonMixinBase implements OnDestroy, CanDisable {
+export declare class MdButton implements OnDestroy {
     private _elementRef;
     private _renderer;
     private _focusOriginMonitor;
@@ -48,8 +44,11 @@ export declare class MdButton extends _MdButtonMixinBase implements OnDestroy, C
     _isIconButton: boolean;
     /** Whether the ripple effect on click should be disabled. */
     private _disableRipple;
+    private _disabled;
     /** Whether the ripple effect for this button is disabled. */
     disableRipple: boolean;
+    /** Whether the button is disabled. */
+    disabled: boolean;
     constructor(_elementRef: ElementRef, _renderer: Renderer, _focusOriginMonitor: FocusOriginMonitor);
     ngOnDestroy(): void;
     /** The color of the button. Can be `primary`, `accent`, or `warn`. */

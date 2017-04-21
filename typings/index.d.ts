@@ -3,7 +3,6 @@
  */
 export * from './public_api';
 export { LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵf } from './core/a11y/live-announcer';
-export { mixinDisabled as ɵq } from './core/common-behaviors/disabled';
 export { UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵg } from './core/coordination/unique-selection-dispatcher';
 export { OVERLAY_CONTAINER_PROVIDER as ɵb, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵa } from './core/overlay/overlay-container';
 export { OverlayPositionBuilder as ɵo } from './core/overlay/position/overlay-position-builder';
