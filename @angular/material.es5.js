@@ -7720,17 +7720,15 @@ var MdSelect = /*@__PURE__*/(function () {
      * @param {?} _renderer
      * @param {?} _viewportRuler
      * @param {?} _changeDetectorRef
-     * @param {?} _scrollDispatcher
      * @param {?} _dir
      * @param {?} _control
      * @param {?} tabIndex
      */
-    function MdSelect(_element, _renderer, _viewportRuler, _changeDetectorRef, _scrollDispatcher, _dir, _control, tabIndex) {
+    function MdSelect(_element, _renderer, _viewportRuler, _changeDetectorRef, _dir, _control, tabIndex) {
         this._element = _element;
         this._renderer = _renderer;
         this._viewportRuler = _viewportRuler;
         this._changeDetectorRef = _changeDetectorRef;
-        this._scrollDispatcher = _scrollDispatcher;
         this._dir = _dir;
         this._control = _control;
         /**
@@ -8014,7 +8012,6 @@ var MdSelect = /*@__PURE__*/(function () {
      * @return {?}
      */
     MdSelect.prototype.open = function () {
-        var _this = this;
         if (this.disabled || !this.options.length) {
             return;
         }
@@ -8024,9 +8021,6 @@ var MdSelect = /*@__PURE__*/(function () {
         this._calculateOverlayPosition();
         this._placeholderState = this._floatPlaceholderState();
         this._panelOpen = true;
-        this._scrollSubscription = this._scrollDispatcher.scrolled(0, function () {
-            _this.overlayDir.overlayRef.updatePosition();
-        });
     };
     /**
      * Closes the overlay panel and focuses the host element.
@@ -8037,10 +8031,6 @@ var MdSelect = /*@__PURE__*/(function () {
             this._panelOpen = false;
             if (this._selectionModel.isEmpty()) {
                 this._placeholderState = '';
-            }
-            if (this._scrollSubscription) {
-                this._scrollSubscription.unsubscribe();
-                this._scrollSubscription = null;
             }
             this._focusHost();
         }
@@ -8651,7 +8641,6 @@ MdSelect.ctorParameters = function () { return [
     { type: Renderer2, },
     { type: ViewportRuler, },
     { type: ChangeDetectorRef, },
-    { type: ScrollDispatcher, },
     { type: Dir, decorators: [{ type: Optional },] },
     { type: NgControl, decorators: [{ type: Self }, { type: Optional },] },
     { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
