@@ -16,7 +16,6 @@ export declare class MdSlideToggle implements OnDestroy, AfterContentInit, Contr
     private onChange;
     private onTouched;
     private _uniqueId;
-    private _checked;
     private _color;
     private _isMousedown;
     private _slideRenderer;
@@ -33,6 +32,8 @@ export declare class MdSlideToggle implements OnDestroy, AfterContentInit, Contr
     tabIndex: number;
     /** Whether the label should appear after or before the slide-toggle. Defaults to 'after' */
     labelPosition: 'before' | 'after';
+    /** Whether the slide-toggle element is checked or not */
+    checked: boolean;
     /** Used to set the aria-label attribute on the underlying input element. */
     ariaLabel: string;
     /** Used to set the aria-labelledby attribute on the underlying input element. */
@@ -55,9 +56,7 @@ export declare class MdSlideToggle implements OnDestroy, AfterContentInit, Contr
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /**
-     * The onChangeEvent method will be also called on click.
-     * This is because everything for the slide-toggle is wrapped inside of a label,
-     * which triggers a onChange event on click.
+     * This function will called if the underlying input changed its value through user interaction.
      */
     _onChangeEvent(event: Event): void;
     _onInputClick(event: Event): void;
@@ -72,8 +71,6 @@ export declare class MdSlideToggle implements OnDestroy, AfterContentInit, Contr
     setDisabledState(isDisabled: boolean): void;
     /** Focuses the slide-toggle. */
     focus(): void;
-    /** Whether the slide-toggle is checked. */
-    checked: boolean;
     /** The color of the slide-toggle. Can be primary, accent, or warn. */
     color: string;
     /** Toggles the checked state of the slide-toggle. */
@@ -82,7 +79,9 @@ export declare class MdSlideToggle implements OnDestroy, AfterContentInit, Contr
     private _onInputFocusChange(focusOrigin);
     private _updateColor(newColor);
     private _setElementColor(color, isAdd);
-    /** Emits the change event to the `change` output EventEmitter */
+    /**
+     * Emits a change event on the `change` output. Also notifies the FormControl about the change.
+     */
     private _emitChangeEvent();
     _onDragStart(): void;
     _onDrag(event: HammerInput): void;
