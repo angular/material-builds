@@ -1,4 +1,6 @@
 import { OnDestroy, ElementRef, NgZone, Renderer2 } from '@angular/core';
+/** Default stroke width as a percentage of the viewBox. */
+export declare const PROGRESS_SPINNER_STROKE_WIDTH = 10;
 export declare type ProgressSpinnerMode = 'determinate' | 'indeterminate';
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -22,6 +24,8 @@ export declare class MdProgressSpinner implements OnDestroy {
     private _mode;
     private _value;
     private _color;
+    /** Stroke width of the progress spinner. By default uses 10px as stroke width. */
+    strokeWidth: number;
     /**
      * Values for aria max and min are only defined as numbers when in a determinate mode.  We do this
      * because voiceover does not report the progress indicator as indeterminate if the aria min
