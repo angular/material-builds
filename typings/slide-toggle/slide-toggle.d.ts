@@ -1,7 +1,6 @@
-import { ElementRef, Renderer, AfterContentInit, OnDestroy } from '@angular/core';
+import { ElementRef, Renderer, EventEmitter, AfterContentInit, OnDestroy } from '@angular/core';
 import { HammerInput, FocusOriginMonitor, MdRipple } from '../core';
 import { ControlValueAccessor } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
 export declare const MD_SLIDE_TOGGLE_VALUE_ACCESSOR: any;
 export declare class MdSlideToggleChange {
     source: MdSlideToggle;
@@ -44,9 +43,8 @@ export declare class MdSlideToggle implements OnDestroy, AfterContentInit, Contr
     required: boolean;
     /** Whether the ripple effect for this slide-toggle is disabled. */
     disableRipple: boolean;
-    private _change;
     /** An event will be dispatched each time the slide-toggle changes its value. */
-    change: Observable<MdSlideToggleChange>;
+    change: EventEmitter<MdSlideToggleChange>;
     /** Returns the unique id for the visual hidden input. */
     readonly inputId: string;
     /** Reference to the underlying input element. */

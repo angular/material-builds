@@ -1,4 +1,4 @@
-import { QueryList, ElementRef, Renderer } from '@angular/core';
+import { EventEmitter, QueryList, ElementRef, Renderer } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { MdTab } from './tab';
 import 'rxjs/add/operator/map';
@@ -36,12 +36,10 @@ export declare class MdTabGroup {
     headerPosition: MdTabHeaderPosition;
     /** Output to enable support for two-way binding on `[(selectedIndex)]` */
     readonly selectedIndexChange: Observable<number>;
-    private _onFocusChange;
     /** Event emitted when focus has changed within a tab group. */
-    readonly focusChange: Observable<MdTabChangeEvent>;
-    private _onSelectChange;
+    focusChange: EventEmitter<MdTabChangeEvent>;
     /** Event emitted when the tab selection has changed. */
-    readonly selectChange: Observable<MdTabChangeEvent>;
+    selectChange: EventEmitter<MdTabChangeEvent>;
     private _groupId;
     constructor(_renderer: Renderer);
     /**
