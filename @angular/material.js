@@ -14717,7 +14717,7 @@ class MdTabGroup {
      */
     get selectedIndex() { return this._selectedIndex; }
     /**
-     * Output to enable support for two-way binding on ([selectedIndex])
+     * Output to enable support for two-way binding on `[(selectedIndex)]`
      * @return {?}
      */
     get selectedIndexChange() {

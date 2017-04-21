@@ -15715,7 +15715,7 @@ var MdTabGroup = (function () {
     });
     Object.defineProperty(MdTabGroup.prototype, "selectedIndexChange", {
         /**
-         * Output to enable support for two-way binding on ([selectedIndex])
+         * Output to enable support for two-way binding on `[(selectedIndex)]`
          * @return {?}
          */
         get: function () {

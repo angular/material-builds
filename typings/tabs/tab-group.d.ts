@@ -34,7 +34,7 @@ export declare class MdTabGroup {
     selectedIndex: number;
     /** Position of the tab header. */
     headerPosition: MdTabHeaderPosition;
-    /** Output to enable support for two-way binding on ([selectedIndex]) */
+    /** Output to enable support for two-way binding on `[(selectedIndex)]` */
     readonly selectedIndexChange: Observable<number>;
     private _onFocusChange;
     /** Event emitted when focus has changed within a tab group. */
