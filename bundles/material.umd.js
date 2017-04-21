@@ -3184,12 +3184,14 @@ OverlayOrigin.ctorParameters = function () { return [
 var ConnectedOverlayDirective = (function () {
     /**
      * @param {?} _overlay
+     * @param {?} _renderer
      * @param {?} templateRef
      * @param {?} viewContainerRef
      * @param {?} _dir
      */
-    function ConnectedOverlayDirective(_overlay, templateRef, viewContainerRef, _dir) {
+    function ConnectedOverlayDirective(_overlay, _renderer, templateRef, viewContainerRef, _dir) {
         this._overlay = _overlay;
+        this._renderer = _renderer;
         this._dir = _dir;
         this._open = false;
         this._hasBackdrop = false;
@@ -3393,6 +3395,7 @@ var ConnectedOverlayDirective = (function () {
         }
         this._position.withDirection(this.dir);
         this._overlayRef.getState().direction = this.dir;
+        this._initEscapeListener();
         if (!this._overlayRef.hasAttached()) {
             this._overlayRef.attach(this._templatePortal);
             this.attach.emit();
@@ -3416,6 +3419,9 @@ var ConnectedOverlayDirective = (function () {
             this._backdropSubscription.unsubscribe();
             this._backdropSubscription = null;
         }
+        if (this._escapeListener) {
+            this._escapeListener();
+        }
     };
     /**
      * Destroys the overlay created by this directive.
@@ -3431,6 +3437,21 @@ var ConnectedOverlayDirective = (function () {
         if (this._positionSubscription) {
             this._positionSubscription.unsubscribe();
         }
+        if (this._escapeListener) {
+            this._escapeListener();
+        }
+    };
+    /**
+     * Sets the event listener that closes the overlay when pressing Escape.
+     * @return {?}
+     */
+    ConnectedOverlayDirective.prototype._initEscapeListener = function () {
+        var _this = this;
+        this._escapeListener = this._renderer.listen('document', 'keydown', function (event) {
+            if (event.keyCode === ESCAPE) {
+                _this._detachOverlay();
+            }
+        });
     };
     return ConnectedOverlayDirective;
 }());
@@ -3445,6 +3466,7 @@ ConnectedOverlayDirective.decorators = [
  */
 ConnectedOverlayDirective.ctorParameters = function () { return [
     { type: Overlay, },
+    { type: _angular_core.Renderer2, },
     { type: _angular_core.TemplateRef, },
     { type: _angular_core.ViewContainerRef, },
     { type: Dir, decorators: [{ type: _angular_core.Optional },] },
@@ -7887,6 +7909,26 @@ var MdSelect = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdSelect.prototype, "color", {
+        /**
+         * Theme color for the component.
+         * @return {?}
+         */
+        get: function () { return this._color; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            if (value && value !== this._color) {
+                this._renderer.removeClass(this._element.nativeElement, "mat-" + this._color);
+                this._renderer.addClass(this._element.nativeElement, "mat-" + value);
+                this._color = value;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MdSelect.prototype, "optionSelectionChanges", {
         /**
          * Combined stream of all of the child options' change events.
@@ -7903,6 +7945,7 @@ var MdSelect = (function () {
      */
     MdSelect.prototype.ngOnInit = function () {
         this._selectionModel = new SelectionModel(this.multiple, null, false);
+        this.color = this.color || 'primary';
     };
     /**
      * @return {?}
@@ -8316,7 +8359,7 @@ var MdSelect = (function () {
      * @return {?}
      */
     MdSelect.prototype._focusHost = function () {
-        this._renderer.invokeElementMethod(this._element.nativeElement, 'focus');
+        this._element.nativeElement.focus();
     };
     /**
      * Gets the index of the provided option in the option list.
@@ -8539,7 +8582,7 @@ var MdSelect = (function () {
 }());
 MdSelect.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-select, mat-select',
-                template: "<div class=\"mat-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger> <span class=\"mat-select-placeholder\" [class.mat-floating-placeholder]=\"_selectionModel.hasValue()\" [@transformPlaceholder]=\"_getPlaceholderAnimationState()\" [style.visibility]=\"_getPlaceholderVisibility()\" [style.width.px]=\"_selectedValueWidth\"> {{ placeholder }} </span> <span class=\"mat-select-value\" *ngIf=\"_selectionModel.hasValue()\"> <span class=\"mat-select-value-text\">{{ triggerValue }}</span> </span> <span class=\"mat-select-arrow\"></span> <span class=\"mat-select-underline\"></span> </div> <ng-template cdk-connected-overlay [origin]=\"origin\" [open]=\"panelOpen\" hasBackdrop (backdropClick)=\"close()\" backdropClass=\"cdk-overlay-transparent-backdrop\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" [offsetX]=\"_offsetX\" (attach)=\"_setScrollTop()\"> <div class=\"mat-select-panel\" [@transformPanel]=\"'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_keyManager.onKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\"> <div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"> <ng-content></ng-content> </div> </div> </ng-template> ",
+                template: "<div class=\"mat-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger> <span class=\"mat-select-placeholder\" [class.mat-floating-placeholder]=\"_selectionModel.hasValue()\" [@transformPlaceholder]=\"_getPlaceholderAnimationState()\" [style.visibility]=\"_getPlaceholderVisibility()\" [style.width.px]=\"_selectedValueWidth\"> {{ placeholder }} </span> <span class=\"mat-select-value\" *ngIf=\"_selectionModel.hasValue()\"> <span class=\"mat-select-value-text\">{{ triggerValue }}</span> </span> <span class=\"mat-select-arrow\"></span> <span class=\"mat-select-underline\"></span> </div> <ng-template cdk-connected-overlay [origin]=\"origin\" [open]=\"panelOpen\" hasBackdrop (backdropClick)=\"close()\" backdropClass=\"cdk-overlay-transparent-backdrop\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" [offsetX]=\"_offsetX\" (attach)=\"_setScrollTop()\" (detach)=\"close()\"> <div class=\"mat-select-panel\" [@transformPanel]=\"'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_keyManager.onKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [ngClass]=\"'mat-' + color\"> <div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"> <ng-content></ng-content> </div> </div> </ng-template> ",
                 styles: [".mat-select{display:inline-block;outline:0;font-family:Roboto,\"Helvetica Neue\",sans-serif}.mat-select-trigger{display:flex;align-items:center;height:30px;min-width:112px;cursor:pointer;position:relative;box-sizing:border-box;font-size:16px}[aria-disabled=true] .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-underline{position:absolute;bottom:0;left:0;right:0;height:1px}[aria-disabled=true] .mat-select-underline{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;background-color:transparent;background-position:0 bottom}.mat-select-placeholder{position:relative;padding:0 2px;transform-origin:left top;flex-grow:1}.mat-select-placeholder.mat-floating-placeholder{top:-22px;left:-2px;text-align:left;transform:scale(.75)}[dir=rtl] .mat-select-placeholder{transform-origin:right top}[dir=rtl] .mat-select-placeholder.mat-floating-placeholder{left:2px;text-align:right}[aria-required=true] .mat-select-placeholder::after{content:'*'}.mat-select-value{position:absolute;max-width:calc(100% - 18px);flex-grow:1;top:0;left:0;bottom:0;display:flex;align-items:center}[dir=rtl] .mat-select-value{left:auto;right:0}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:30px}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}} /*# sourceMappingURL=select.css.map */ "],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 host: {
@@ -8554,7 +8597,7 @@ MdSelect.decorators = [
                     '[class.mat-select-disabled]': 'disabled',
                     '[class.mat-select]': 'true',
                     '(keydown)': '_handleKeydown($event)',
-                    '(blur)': '_onBlur()'
+                    '(blur)': '_onBlur()',
                 },
                 animations: [
                     transformPlaceholder,
@@ -8569,7 +8612,7 @@ MdSelect.decorators = [
  */
 MdSelect.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
-    { type: _angular_core.Renderer, },
+    { type: _angular_core.Renderer2, },
     { type: ViewportRuler, },
     { type: _angular_core.ChangeDetectorRef, },
     { type: Dir, decorators: [{ type: _angular_core.Optional },] },
@@ -8588,6 +8631,7 @@ MdSelect.propDecorators = {
     'tabIndex': [{ type: _angular_core.Input },],
     'ariaLabel': [{ type: _angular_core.Input, args: ['aria-label',] },],
     'ariaLabelledby': [{ type: _angular_core.Input, args: ['aria-labelledby',] },],
+    'color': [{ type: _angular_core.Input },],
     'onOpen': [{ type: _angular_core.Output },],
     'onClose': [{ type: _angular_core.Output },],
     'change': [{ type: _angular_core.Output },],

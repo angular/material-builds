@@ -1,4 +1,4 @@
-import { AfterContentInit, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer, ChangeDetectorRef, OnInit } from '@angular/core';
+import { AfterContentInit, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer2, ChangeDetectorRef, OnInit } from '@angular/core';
 import { MdOption, MdOptionSelectionChange } from '../core/option/option';
 import { FocusKeyManager } from '../core/a11y/focus-key-manager';
 import { Dir } from '../core/rtl/dir';
@@ -89,6 +89,8 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
     private _placeholderState;
     /** Tab index for the element. */
     private _tabIndex;
+    /** Theme color for the component. */
+    private _color;
     /**
      * The width of the trigger. Must be saved to set the min width of the overlay panel
      * and the width of the selected value.
@@ -158,6 +160,8 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
     ariaLabel: string;
     /** Input that can be used to specify the `aria-labelledby` attribute. */
     ariaLabelledby: string;
+    /** Theme color for the component. */
+    color: string;
     /** Combined stream of all of the child options' change events. */
     readonly optionSelectionChanges: Observable<MdOptionSelectionChange>;
     /** Event emitted when the select has been opened. */
@@ -166,7 +170,7 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
     onClose: EventEmitter<void>;
     /** Event emitted when the selected value has been changed by the user. */
     change: EventEmitter<MdSelectChange>;
-    constructor(_element: ElementRef, _renderer: Renderer, _viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _dir: Dir, _control: NgControl, tabIndex: string);
+    constructor(_element: ElementRef, _renderer: Renderer2, _viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _dir: Dir, _control: NgControl, tabIndex: string);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

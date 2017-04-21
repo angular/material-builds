@@ -1,4 +1,4 @@
-import { ModuleWithProviders, EventEmitter, TemplateRef, ViewContainerRef, OnDestroy, ElementRef } from '@angular/core';
+import { ModuleWithProviders, EventEmitter, TemplateRef, ViewContainerRef, OnDestroy, ElementRef, Renderer2 } from '@angular/core';
 import { Overlay } from './overlay';
 import { OverlayRef } from './overlay-ref';
 import { ConnectionPositionPair, ConnectedOverlayPositionChange } from './position/connected-position';
@@ -16,6 +16,7 @@ export declare class OverlayOrigin {
  */
 export declare class ConnectedOverlayDirective implements OnDestroy {
     private _overlay;
+    private _renderer;
     private _dir;
     private _overlayRef;
     private _templatePortal;
@@ -26,6 +27,7 @@ export declare class ConnectedOverlayDirective implements OnDestroy {
     private _offsetX;
     private _offsetY;
     private _position;
+    private _escapeListener;
     /** Origin for the connected overlay. */
     origin: OverlayOrigin;
     /** Registered connected position pairs. */
@@ -55,7 +57,7 @@ export declare class ConnectedOverlayDirective implements OnDestroy {
     attach: EventEmitter<void>;
     /** Event emitted when the overlay has been detached. */
     detach: EventEmitter<void>;
-    constructor(_overlay: Overlay, templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef, _dir: Dir);
+    constructor(_overlay: Overlay, _renderer: Renderer2, templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef, _dir: Dir);
     /** The associated overlay reference. */
     readonly overlayRef: OverlayRef;
     /** The element's layout direction. */
@@ -74,6 +76,8 @@ export declare class ConnectedOverlayDirective implements OnDestroy {
     private _detachOverlay();
     /** Destroys the overlay created by this directive. */
     private _destroyOverlay();
+    /** Sets the event listener that closes the overlay when pressing Escape. */
+    private _initEscapeListener();
 }
 export declare class OverlayModule {
     /** @deprecated */

@@ -1433,19 +1433,29 @@ $mat-menu-side-padding: 16px !default;
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
   $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
 
   .mat-option {
     &:hover:not(.mat-option-disabled), &:focus:not(.mat-option-disabled) {
       background: mat-color($background, hover);
     }
 
-    &.mat-selected {
+    &.mat-selected.mat-primary, .mat-primary &.mat-selected {
       color: mat-color($primary);
+    }
 
-      // In multiple mode there is a checkbox to show that the option is selected.
-      &:not(.mat-option-multiple) {
-        background: mat-color($background, hover);
-      }
+    &.mat-selected.mat-accent, .mat-accent &.mat-selected {
+      color: mat-color($accent);
+    }
+
+    &.mat-selected.mat-warn, .mat-warn &.mat-selected {
+      color: mat-color($warn);
+    }
+
+    // In multiple mode there is a checkbox to show that the option is selected.
+    &.mat-selected:not(.mat-option-multiple) {
+      background: mat-color($background, hover);
     }
 
     &.mat-active {
@@ -1456,12 +1466,22 @@ $mat-menu-side-padding: 16px !default;
     &.mat-option-disabled {
       color: mat-color($foreground, hint-text);
     }
-
   }
 }
 
 
 
+@mixin _mat-pseudo-checkbox-inner-content-theme($theme, $pallete-name) {
+  $pallete: map-get($theme, $pallete-name);
+  $color: mat-color($pallete, 500);
+
+  .mat-pseudo-checkbox-checked.mat-#{$pallete-name},
+  .mat-pseudo-checkbox-indeterminate.mat-#{$pallete-name},
+  .mat-#{$pallete-name} .mat-pseudo-checkbox-checked,
+  .mat-#{$pallete-name} .mat-pseudo-checkbox-indeterminate {
+    background: $color;
+  }
+}
 
 @mixin mat-pseudo-checkbox-theme($theme) {
   $is-dark-theme: map-get($theme, is-dark);
@@ -1476,6 +1496,7 @@ $mat-menu-side-padding: 16px !default;
   $white-30pct-opacity-on-dark: #686868;
   $black-26pct-opacity-on-light: #b0b0b0;
   $disabled-color: if($is-dark-theme, $white-30pct-opacity-on-dark, $black-26pct-opacity-on-light);
+  $colored-box-selector: '.mat-pseudo-checkbox-checked, .mat-pseudo-checkbox-indeterminate';
 
   .mat-pseudo-checkbox {
     color: mat-color(map-get($theme, foreground), secondary-text);
@@ -1485,19 +1506,11 @@ $mat-menu-side-padding: 16px !default;
     }
   }
 
+  @include _mat-pseudo-checkbox-inner-content-theme($theme, primary);
+  @include _mat-pseudo-checkbox-inner-content-theme($theme, accent);
+  @include _mat-pseudo-checkbox-inner-content-theme($theme, warn);
+
   .mat-pseudo-checkbox-checked, .mat-pseudo-checkbox-indeterminate {
-    &.mat-primary {
-      background: mat-color($primary, 500);
-    }
-
-    &.mat-accent {
-      background: mat-color($accent, 500);
-    }
-
-    &.mat-warn {
-      background: mat-color($warn, 500);
-    }
-
     &.mat-pseudo-checkbox-disabled {
       background: $disabled-color;
     }
@@ -2216,46 +2229,33 @@ $mat-menu-side-padding: 16px !default;
 
 
 
+@mixin _mat-select-inner-content-theme($palette) {
+  $color: mat-color($palette);
+
+  .mat-select-trigger, .mat-select-arrow {
+    color: $color;
+  }
+
+  .mat-select-underline {
+    background-color: $color;
+  }
+}
+
 @mixin mat-select-theme($theme) {
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
   $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
-
-  .mat-select-trigger {
-    color: mat-color($foreground, hint-text);
-
-    .mat-select:focus:not(.mat-select-disabled) & {
-      color: mat-color($primary);
-    }
-
-    .mat-select:not(:focus).ng-invalid.ng-touched:not(.mat-select-disabled) & {
-      color: mat-color($warn);
-    }
-  }
 
   .mat-select-underline {
     background-color: mat-color($foreground, divider);
-
-    .mat-select:focus:not(.mat-select-disabled) & {
-      background-color: mat-color($primary);
-    }
-
-    .mat-select:not(:focus).ng-invalid.ng-touched:not(.mat-select-disabled) & {
-      background-color: mat-color($warn);
-    }
   }
 
-  .mat-select-arrow {
+  .mat-select-disabled .mat-select-value,
+  .mat-select-arrow,
+  .mat-select-trigger {
     color: mat-color($foreground, hint-text);
-
-    .mat-select:focus:not(.mat-select-disabled) & {
-      color: mat-color($primary);
-    }
-
-    .mat-select:not(:focus).ng-invalid.ng-touched:not(.mat-select-disabled) & {
-      color: mat-color($warn);
-    }
   }
 
   .mat-select-content, .mat-select-panel-done-animating {
@@ -2264,10 +2264,21 @@ $mat-menu-side-padding: 16px !default;
 
   .mat-select-value {
     color: mat-color($foreground, text);
+  }
 
-    .mat-select-disabled & {
-      color: mat-color($foreground, hint-text);
+  .mat-select:focus:not(.mat-select-disabled) {
+    &.mat-primary {
+      @include _mat-select-inner-content-theme($primary);
     }
+
+    &.mat-accent {
+      @include _mat-select-inner-content-theme($accent);
+    }
+  }
+
+  .mat-select:focus:not(.mat-select-disabled).mat-warn,
+  .mat-select:not(:focus).ng-invalid.ng-touched:not(.mat-select-disabled) {
+    @include _mat-select-inner-content-theme($warn);
   }
 }
 
