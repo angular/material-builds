@@ -13519,12 +13519,18 @@ var startIndeterminate = 3;
  * End animation value of the indeterminate animation
  */
 var endIndeterminate = 80;
-/* Maximum angle for the arc. The angle can't be exactly 360, because the arc becomes hidden. */
+/**
+ * Maximum angle for the arc. The angle can't be exactly 360, because the arc becomes hidden.
+ */
 var MAX_ANGLE = 359.99 / 100;
 /**
  * Whether the user's browser supports requestAnimationFrame.
  */
 var HAS_RAF = typeof requestAnimationFrame !== 'undefined';
+/**
+ * Default stroke width as a percentage of the viewBox.
+ */
+var PROGRESS_SPINNER_STROKE_WIDTH = 10;
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
@@ -13565,6 +13571,10 @@ var MdProgressSpinner = (function () {
         this._lastAnimationId = 0;
         this._mode = 'determinate';
         this._color = 'primary';
+        /**
+         * Stroke width of the progress spinner. By default uses 10px as stroke width.
+         */
+        this.strokeWidth = PROGRESS_SPINNER_STROKE_WIDTH;
     }
     Object.defineProperty(MdProgressSpinner.prototype, "_ariaValueMin", {
         /**
@@ -13773,7 +13783,8 @@ var MdProgressSpinner = (function () {
     MdProgressSpinner.prototype._renderArc = function (currentValue, rotation) {
         if (rotation === void 0) { rotation = 0; }
         if (this._path) {
-            this._renderer.setAttribute(this._path.nativeElement, 'd', getSvgArc(currentValue, rotation));
+            var /** @type {?} */ svgArc = getSvgArc(currentValue, rotation, this.strokeWidth);
+            this._renderer.setAttribute(this._path.nativeElement, 'd', svgArc);
         }
     };
     return MdProgressSpinner;
@@ -13785,8 +13796,8 @@ MdProgressSpinner.decorators = [
                     '[attr.aria-valuemin]': '_ariaValueMin',
                     '[attr.aria-valuemax]': '_ariaValueMax'
                 },
-                template: "<!-- preserveAspectRatio of xMidYMid meet as the center of the viewport is the circle's center. The center of the circle will remain at the center of the md-progress-spinner element containing the SVG. --> <svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"> <path #path></path> </svg> ",
-                styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px;transition:stroke .3s cubic-bezier(.35,0,.25,1)}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}} /*# sourceMappingURL=progress-spinner.css.map */ "],
+                template: "<!-- preserveAspectRatio of xMidYMid meet as the center of the viewport is the circle's center. The center of the circle will remain at the center of the md-progress-spinner element containing the SVG. --> <svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"> <path #path [style.strokeWidth]=\"strokeWidth\"></path> </svg> ",
+                styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;transition:stroke .3s cubic-bezier(.35,0,.25,1)}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}} /*# sourceMappingURL=progress-spinner.css.map */ "],
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
             },] },
 ];
@@ -13800,6 +13811,7 @@ MdProgressSpinner.ctorParameters = function () { return [
 ]; };
 MdProgressSpinner.propDecorators = {
     '_path': [{ type: _angular_core.ViewChild, args: ['path',] },],
+    'strokeWidth': [{ type: _angular_core.Input },],
     'color': [{ type: _angular_core.Input },],
     'value': [{ type: _angular_core.Input }, { type: _angular_core.HostBinding, args: ['attr.aria-valuenow',] },],
     'mode': [{ type: _angular_core.HostBinding, args: ['attr.mode',] }, { type: _angular_core.Input },],
@@ -13839,8 +13851,8 @@ MdSpinner.decorators = [
                     'mode': 'indeterminate',
                     '[class.mat-spinner]': 'true',
                 },
-                template: "<!-- preserveAspectRatio of xMidYMid meet as the center of the viewport is the circle's center. The center of the circle will remain at the center of the md-progress-spinner element containing the SVG. --> <svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"> <path #path></path> </svg> ",
-                styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;stroke-width:10px;transition:stroke .3s cubic-bezier(.35,0,.25,1)}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}} /*# sourceMappingURL=progress-spinner.css.map */ "],
+                template: "<!-- preserveAspectRatio of xMidYMid meet as the center of the viewport is the circle's center. The center of the circle will remain at the center of the md-progress-spinner element containing the SVG. --> <svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"> <path #path [style.strokeWidth]=\"strokeWidth\"></path> </svg> ",
+                styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;transition:stroke .3s cubic-bezier(.35,0,.25,1)}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}} /*# sourceMappingURL=progress-spinner.css.map */ "],
             },] },
 ];
 /**
@@ -13904,13 +13916,14 @@ function materialEase(currentTime, startValue, changeInValue, duration) {
  * @param {?} currentValue The current percentage value of the progress circle, the percentage of the
  *    circle to fill.
  * @param {?} rotation The starting point of the circle with 0 being the 0 degree point.
+ * @param {?} strokeWidth Stroke width of the progress spinner arc.
  * @return {?} A string for an SVG path representing a circle filled from the starting point to the
  *    percentage value provided.
  */
-function getSvgArc(currentValue, rotation) {
+function getSvgArc(currentValue, rotation, strokeWidth) {
     var /** @type {?} */ startPoint = rotation || 0;
     var /** @type {?} */ radius = 50;
-    var /** @type {?} */ pathRadius = 40;
+    var /** @type {?} */ pathRadius = radius - strokeWidth;
     var /** @type {?} */ startAngle = startPoint * MAX_ANGLE;
     var /** @type {?} */ endAngle = currentValue * MAX_ANGLE;
     var /** @type {?} */ start = polarToCartesian(radius, pathRadius, startAngle);
@@ -19841,6 +19854,7 @@ exports.MdMenuTrigger = MdMenuTrigger;
 exports.MdProgressBarModule = MdProgressBarModule;
 exports.MdProgressBar = MdProgressBar;
 exports.MdProgressSpinnerModule = MdProgressSpinnerModule;
+exports.PROGRESS_SPINNER_STROKE_WIDTH = PROGRESS_SPINNER_STROKE_WIDTH;
 exports.MdProgressSpinnerCssMatStyler = MdProgressSpinnerCssMatStyler;
 exports.MdProgressSpinner = MdProgressSpinner;
 exports.MdSpinner = MdSpinner;
