@@ -7349,15 +7349,17 @@ class MdSelect {
      * @param {?} _renderer
      * @param {?} _viewportRuler
      * @param {?} _changeDetectorRef
+     * @param {?} _scrollDispatcher
      * @param {?} _dir
      * @param {?} _control
      * @param {?} tabIndex
      */
-    constructor(_element, _renderer, _viewportRuler, _changeDetectorRef, _dir, _control, tabIndex) {
+    constructor(_element, _renderer, _viewportRuler, _changeDetectorRef, _scrollDispatcher, _dir, _control, tabIndex) {
         this._element = _element;
         this._renderer = _renderer;
         this._viewportRuler = _viewportRuler;
         this._changeDetectorRef = _changeDetectorRef;
+        this._scrollDispatcher = _scrollDispatcher;
         this._dir = _dir;
         this._control = _control;
         /**
@@ -7404,12 +7406,6 @@ class MdSelect {
          * Whether the panel's animation is done.
          */
         this._panelDoneAnimating = false;
-        /**
-         * The x-offset of the overlay panel in relation to the trigger's top start corner.
-         * This must be adjusted to align the selected option text over the trigger text when
-         * the panel opens. Will change based on LTR or RTL text direction.
-         */
-        this._offsetX = 0;
         /**
          * The y-offset of the overlay panel in relation to the trigger's top start corner.
          * This must be adjusted to align the selected option text over the trigger text.
@@ -7616,6 +7612,9 @@ class MdSelect {
         this._calculateOverlayPosition();
         this._placeholderState = this._floatPlaceholderState();
         this._panelOpen = true;
+        this._scrollSubscription = this._scrollDispatcher.scrolled(0, () => {
+            this.overlayDir.overlayRef.updatePosition();
+        });
     }
     /**
      * Closes the overlay panel and focuses the host element.
@@ -7626,6 +7625,10 @@ class MdSelect {
             this._panelOpen = false;
             if (this._selectionModel.isEmpty()) {
                 this._placeholderState = '';
+            }
+            if (this._scrollSubscription) {
+                this._scrollSubscription.unsubscribe();
+                this._scrollSubscription = null;
             }
             this._focusHost();
         }
@@ -7741,6 +7744,7 @@ class MdSelect {
         else {
             this.onClose.emit();
             this._panelDoneAnimating = false;
+            this.overlayDir.offsetX = 0;
         }
     }
     /**
@@ -7760,6 +7764,14 @@ class MdSelect {
         if (!this.panelOpen) {
             this._onTouched();
         }
+    }
+    /**
+     * Callback that is invoked when the overlay panel has been attached.
+     * @return {?}
+     */
+    _onAttached() {
+        this._calculateOverlayOffsetX();
+        this._setScrollTop();
     }
     /**
      * Sets the scroll position of the scroll container. This must be called after
@@ -7980,10 +7992,6 @@ class MdSelect {
      * @return {?}
      */
     _calculateOverlayPosition() {
-        this._offsetX = this.multiple ? SELECT_MULTIPLE_PANEL_PADDING_X : SELECT_PANEL_PADDING_X;
-        if (!this._isRtl()) {
-            this._offsetX *= -1;
-        }
         const /** @type {?} */ panelHeight = Math.min(this.options.length * SELECT_OPTION_HEIGHT, SELECT_PANEL_MAX_HEIGHT);
         const /** @type {?} */ scrollContainerHeight = this.options.length * SELECT_OPTION_HEIGHT;
         // The farthest the panel can be scrolled before it hits the bottom
@@ -7994,7 +8002,7 @@ class MdSelect {
             // center of the overlay panel rather than the top.
             const /** @type {?} */ scrollBuffer = panelHeight / 2;
             this._scrollTop = this._calculateOverlayScroll(selectedIndex, scrollBuffer, maxScroll);
-            this._offsetY = this._calculateOverlayOffset(selectedIndex, scrollBuffer, maxScroll);
+            this._offsetY = this._calculateOverlayOffsetY(selectedIndex, scrollBuffer, maxScroll);
         }
         else {
             // If no option is selected, the panel centers on the first option. In this case,
@@ -8057,6 +8065,37 @@ class MdSelect {
         return this.ariaLabelledby ? null : this.ariaLabel || this.placeholder;
     }
     /**
+     * Sets the x-offset of the overlay panel in relation to the trigger's top start corner.
+     * This must be adjusted to align the selected option text over the trigger text when
+     * the panel opens. Will change based on LTR or RTL text direction. Note that the offset
+     * can't be calculated until the panel has been attached, because we need to know the
+     * content width in order to constrain the panel within the viewport.
+     * @return {?}
+     */
+    _calculateOverlayOffsetX() {
+        const /** @type {?} */ overlayRect = this.overlayDir.overlayRef.overlayElement.getBoundingClientRect();
+        const /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
+        const /** @type {?} */ isRtl = this._isRtl();
+        let /** @type {?} */ offsetX = this.multiple ? SELECT_MULTIPLE_PANEL_PADDING_X : SELECT_PANEL_PADDING_X;
+        if (!isRtl) {
+            offsetX *= -1;
+        }
+        const /** @type {?} */ leftOverflow = 0 - (overlayRect.left + offsetX
+            - (isRtl ? SELECT_PANEL_PADDING_X * 2 : 0));
+        const /** @type {?} */ rightOverflow = overlayRect.right + offsetX - viewportRect.width
+            + (isRtl ? 0 : SELECT_PANEL_PADDING_X * 2);
+        if (leftOverflow > 0) {
+            offsetX += leftOverflow + SELECT_PANEL_VIEWPORT_PADDING;
+        }
+        else if (rightOverflow > 0) {
+            offsetX -= rightOverflow + SELECT_PANEL_VIEWPORT_PADDING;
+        }
+        // Set the offset directly in order to avoid having to go through change detection and
+        // potentially triggering "changed after it was checked" errors.
+        this.overlayDir.offsetX = offsetX;
+        this.overlayDir.overlayRef.updatePosition();
+    }
+    /**
      * Calculates the y-offset of the select's overlay panel in relation to the
      * top start corner of the trigger. It has to be adjusted in order for the
      * selected option to be aligned over the trigger when the panel opens.
@@ -8065,7 +8104,7 @@ class MdSelect {
      * @param {?} maxScroll
      * @return {?}
      */
-    _calculateOverlayOffset(selectedIndex, scrollBuffer, maxScroll) {
+    _calculateOverlayOffsetY(selectedIndex, scrollBuffer, maxScroll) {
         let /** @type {?} */ optionOffsetFromPanelTop;
         if (this._scrollTop === 0) {
             optionOffsetFromPanelTop = selectedIndex * SELECT_OPTION_HEIGHT;
@@ -8181,7 +8220,7 @@ class MdSelect {
 }
 MdSelect.decorators = [
     { type: Component, args: [{selector: 'md-select, mat-select',
-                template: "<div class=\"mat-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger> <span class=\"mat-select-placeholder\" [class.mat-floating-placeholder]=\"_selectionModel.hasValue()\" [@transformPlaceholder]=\"_getPlaceholderAnimationState()\" [style.visibility]=\"_getPlaceholderVisibility()\" [style.width.px]=\"_selectedValueWidth\"> {{ placeholder }} </span> <span class=\"mat-select-value\" *ngIf=\"_selectionModel.hasValue()\"> <span class=\"mat-select-value-text\">{{ triggerValue }}</span> </span> <span class=\"mat-select-arrow\"></span> <span class=\"mat-select-underline\"></span> </div> <ng-template cdk-connected-overlay [origin]=\"origin\" [open]=\"panelOpen\" hasBackdrop (backdropClick)=\"close()\" backdropClass=\"cdk-overlay-transparent-backdrop\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" [offsetX]=\"_offsetX\" (attach)=\"_setScrollTop()\" (detach)=\"close()\"> <div class=\"mat-select-panel\" [@transformPanel]=\"'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_keyManager.onKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [ngClass]=\"'mat-' + color\"> <div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"> <ng-content></ng-content> </div> </div> </ng-template> ",
+                template: "<div class=\"mat-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger> <span class=\"mat-select-placeholder\" [class.mat-floating-placeholder]=\"_selectionModel.hasValue()\" [@transformPlaceholder]=\"_getPlaceholderAnimationState()\" [style.visibility]=\"_getPlaceholderVisibility()\" [style.width.px]=\"_selectedValueWidth\"> {{ placeholder }} </span> <span class=\"mat-select-value\" *ngIf=\"_selectionModel.hasValue()\"> <span class=\"mat-select-value-text\">{{ triggerValue }}</span> </span> <span class=\"mat-select-arrow\"></span> <span class=\"mat-select-underline\"></span> </div> <ng-template cdk-connected-overlay [origin]=\"origin\" [open]=\"panelOpen\" hasBackdrop (backdropClick)=\"close()\" backdropClass=\"cdk-overlay-transparent-backdrop\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" (attach)=\"_onAttached()\" (detach)=\"close()\"> <div class=\"mat-select-panel\" [@transformPanel]=\"'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_keyManager.onKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [ngClass]=\"'mat-' + color\"> <div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"> <ng-content></ng-content> </div> </div> </ng-template> ",
                 styles: [".mat-select{display:inline-block;outline:0;font-family:Roboto,\"Helvetica Neue\",sans-serif}.mat-select-trigger{display:flex;align-items:center;height:30px;min-width:112px;cursor:pointer;position:relative;box-sizing:border-box;font-size:16px}[aria-disabled=true] .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-underline{position:absolute;bottom:0;left:0;right:0;height:1px}[aria-disabled=true] .mat-select-underline{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;background-color:transparent;background-position:0 bottom}.mat-select-placeholder{position:relative;padding:0 2px;transform-origin:left top;flex-grow:1}.mat-select-placeholder.mat-floating-placeholder{top:-22px;left:-2px;text-align:left;transform:scale(.75)}[dir=rtl] .mat-select-placeholder{transform-origin:right top}[dir=rtl] .mat-select-placeholder.mat-floating-placeholder{left:2px;text-align:right}[aria-required=true] .mat-select-placeholder::after{content:'*'}.mat-select-value{position:absolute;max-width:calc(100% - 18px);flex-grow:1;top:0;left:0;bottom:0;display:flex;align-items:center}[dir=rtl] .mat-select-value{left:auto;right:0}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:30px}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}} /*# sourceMappingURL=select.css.map */ "],
                 encapsulation: ViewEncapsulation.None,
                 host: {
@@ -8214,6 +8253,7 @@ MdSelect.ctorParameters = () => [
     { type: Renderer2, },
     { type: ViewportRuler, },
     { type: ChangeDetectorRef, },
+    { type: ScrollDispatcher, },
     { type: Dir, decorators: [{ type: Optional },] },
     { type: NgControl, decorators: [{ type: Self }, { type: Optional },] },
     { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },

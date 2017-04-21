@@ -7,6 +7,7 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { ConnectedOverlayDirective } from '../core/overlay/overlay-directives';
 import { ViewportRuler } from '../core/overlay/position/viewport-ruler';
 import { SelectionModel } from '../core/selection/selection';
+import { ScrollDispatcher } from '../core/overlay/scroll/scroll-dispatcher';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/startWith';
 /**
@@ -63,6 +64,7 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
     private _renderer;
     private _viewportRuler;
     private _changeDetectorRef;
+    private _scrollDispatcher;
     private _dir;
     _control: NgControl;
     /** Whether or not the overlay panel is open. */
@@ -73,6 +75,8 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
     private _changeSubscription;
     /** Subscription to tab events while overlay is focused. */
     private _tabSubscription;
+    /** Subscription to global scrolled events while the select is open. */
+    private _scrollSubscription;
     /** Whether filling out the select is required in the form.  */
     private _required;
     /** Whether the select is disabled.  */
@@ -113,12 +117,6 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
     _transformOrigin: string;
     /** Whether the panel's animation is done. */
     _panelDoneAnimating: boolean;
-    /**
-     * The x-offset of the overlay panel in relation to the trigger's top start corner.
-     * This must be adjusted to align the selected option text over the trigger text when
-     * the panel opens. Will change based on LTR or RTL text direction.
-     */
-    _offsetX: number;
     /**
      * The y-offset of the overlay panel in relation to the trigger's top start corner.
      * This must be adjusted to align the selected option text over the trigger text.
@@ -170,7 +168,7 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
     onClose: EventEmitter<void>;
     /** Event emitted when the selected value has been changed by the user. */
     change: EventEmitter<MdSelectChange>;
-    constructor(_element: ElementRef, _renderer: Renderer2, _viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _dir: Dir, _control: NgControl, tabIndex: string);
+    constructor(_element: ElementRef, _renderer: Renderer2, _viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _scrollDispatcher: ScrollDispatcher, _dir: Dir, _control: NgControl, tabIndex: string);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
@@ -241,11 +239,15 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
      */
     _onBlur(): void;
     /**
+     * Callback that is invoked when the overlay panel has been attached.
+     */
+    _onAttached(): void;
+    /**
      * Sets the scroll position of the scroll container. This must be called after
      * the overlay pane is attached or the scroll container element will not yet be
      * present in the DOM.
      */
-    _setScrollTop(): void;
+    private _setScrollTop();
     /**
      * Sets the selected option based on a value. If no option can be
      * found with the designated value, the select trigger is cleared.
@@ -322,11 +324,19 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
     /** Returns the aria-label of the select component. */
     readonly _ariaLabel: string;
     /**
+     * Sets the x-offset of the overlay panel in relation to the trigger's top start corner.
+     * This must be adjusted to align the selected option text over the trigger text when
+     * the panel opens. Will change based on LTR or RTL text direction. Note that the offset
+     * can't be calculated until the panel has been attached, because we need to know the
+     * content width in order to constrain the panel within the viewport.
+     */
+    private _calculateOverlayOffsetX();
+    /**
      * Calculates the y-offset of the select's overlay panel in relation to the
      * top start corner of the trigger. It has to be adjusted in order for the
      * selected option to be aligned over the trigger when the panel opens.
      */
-    private _calculateOverlayOffset(selectedIndex, scrollBuffer, maxScroll);
+    private _calculateOverlayOffsetY(selectedIndex, scrollBuffer, maxScroll);
     /**
      * Checks that the attempted overlay position will fit within the viewport.
      * If it will not fit, tries to adjust the scroll position and the associated
