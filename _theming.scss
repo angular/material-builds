@@ -1949,18 +1949,19 @@ $mat-menu-side-padding: 16px !default;
 
   .mat-input-placeholder {
     color: $input-placeholder-color;
+  }
 
-    // :focus is applied to the input, but we apply mat-focused to the other elements
-    // that need to listen to it.
-    .mat-focused & {
-      color: $input-floating-placeholder-color;
+  // :focus is applied to the input, but we apply mat-focused to the other elements
+  // that need to listen to it.
+  .mat-focused .mat-input-placeholder {
+    color: $input-floating-placeholder-color;
 
-      &.mat-accent {
-        color: $input-underline-color-accent;
-      }
-      &.mat-warn {
-        color: $input-underline-color-warn;
-      }
+    &.mat-accent {
+      color: $input-underline-color-accent;
+    }
+
+    &.mat-warn {
+      color: $input-underline-color-warn;
     }
   }
 
@@ -2190,28 +2191,26 @@ $mat-menu-side-padding: 16px !default;
 
   .mat-radio-outer-circle {
     border-color: mat-color($foreground, secondary-text);
+  }
 
-    .mat-radio-checked & {
-      border-color: mat-color($accent);
-    }
+  .mat-radio-checked .mat-radio-outer-circle {
+    border-color: mat-color($accent);
+  }
 
-    .mat-radio-disabled & {
-      border-color: mat-color($foreground, disabled);
-    }
+  .mat-radio-disabled .mat-radio-outer-circle {
+    border-color: mat-color($foreground, disabled);
   }
 
   .mat-radio-inner-circle {
     background-color: mat-color($accent);
-
-    .mat-radio-disabled & {
-      background-color: mat-color($foreground, disabled);
-    }
   }
 
   .mat-radio-ripple .mat-ripple-element {
     background-color: mat-color($accent, 0.26);
+  }
 
-    .mat-radio-disabled & {
+  .mat-radio-disabled {
+    .mat-radio-ripple .mat-ripple-element, .mat-radio-inner-circle {
       background-color: mat-color($foreground, disabled);
     }
   }
@@ -2238,6 +2237,11 @@ $mat-menu-side-padding: 16px !default;
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
+
+  .mat-select-trigger,
+  .mat-select-arrow {
+    color: mat-color($foreground, hint-text);
+  }
 
   .mat-select-underline {
     background-color: mat-color($foreground, divider);
@@ -2403,6 +2407,17 @@ $mat-menu-side-padding: 16px !default;
 
 
 
+@mixin _mat-slider-inner-content-theme($palette) {
+  .mat-slider-track-fill,
+  .mat-slider-thumb,
+  .mat-slider-thumb-label {
+    background-color: mat-color($palette);
+  }
+
+  .mat-slider-thumb-label-text {
+    color: mat-color($palette, default-contrast);
+  }
+}
 
 @mixin mat-slider-theme($theme) {
   $primary: map-get($theme, primary);
@@ -2421,38 +2436,20 @@ $mat-menu-side-padding: 16px !default;
     background-color: $mat-slider-off-color;
   }
 
-  .mat-slider-track-fill,
-  .mat-slider-thumb,
-  .mat-slider-thumb-label {
-    .mat-primary & {
-      background-color: mat-color($primary);
-    }
+  .mat-primary {
+    @include _mat-slider-inner-content-theme($primary);
+  }
 
-    .mat-accent & {
-      background-color: mat-color($accent);
-    }
+  .mat-accent {
+    @include _mat-slider-inner-content-theme($accent);
+  }
 
-    .mat-warn & {
-      background-color: mat-color($warn);
-    }
+  .mat-warn {
+    @include _mat-slider-inner-content-theme($warn);
   }
 
   .mat-slider-focus-ring {
     background-color: $mat-slider-focus-ring-color;
-  }
-
-  .mat-slider-thumb-label-text {
-    .mat-primary & {
-      color: mat-color($primary, default-contrast);
-    }
-
-    .mat-accent & {
-      color: mat-color($accent, default-contrast);
-    }
-
-    .mat-warn & {
-      color: mat-color($warn, default-contrast);
-    }
   }
 
   .mat-slider:hover,
@@ -2529,8 +2526,11 @@ $mat-menu-side-padding: 16px !default;
   .mat-tab-nav-bar,
   .mat-tab-header {
     border-bottom: $header-border;
+  }
 
-    .mat-tab-group-inverted-header & {
+  .mat-tab-group-inverted-header {
+    .mat-tab-nav-bar,
+    .mat-tab-header {
       border-top: $header-border;
       border-bottom: none;
     }
