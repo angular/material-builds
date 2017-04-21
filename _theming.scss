@@ -1740,7 +1740,7 @@ $mat-menu-side-padding: 16px !default;
 
   .mat-card {
     background: mat-color($background, card);
-    color: mat-color($foreground, base);
+    color: mat-color($foreground, text);
   }
 
   .mat-card-subtitle {
@@ -2025,7 +2025,7 @@ $mat-menu-side-padding: 16px !default;
 
   .mat-list, .mat-nav-list {
     .mat-list-item {
-      color: mat-color($foreground, base);
+      color: mat-color($foreground, text);
     }
 
     .mat-subheader {

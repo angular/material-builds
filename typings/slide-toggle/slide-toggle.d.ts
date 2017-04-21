@@ -17,7 +17,6 @@ export declare class MdSlideToggle implements OnDestroy, AfterContentInit, Contr
     private onTouched;
     private _uniqueId;
     private _color;
-    private _isMousedown;
     private _slideRenderer;
     private _disabled;
     private _required;
@@ -60,7 +59,6 @@ export declare class MdSlideToggle implements OnDestroy, AfterContentInit, Contr
      */
     _onChangeEvent(event: Event): void;
     _onInputClick(event: Event): void;
-    _setMousedown(): void;
     /** Implemented as part of ControlValueAccessor. */
     writeValue(value: any): void;
     /** Implemented as part of ControlValueAccessor. */
