@@ -40,7 +40,7 @@ import 'rxjs/add/operator/switchMap';
  * Wrapper around Error that sets the error message.
  * \@docs-private
  */
-var MdError = (function (_super) {
+var MdError = /*@__PURE__*/(function (_super) {
     __extends(MdError, _super);
     /**
      * @param {?} value
@@ -61,7 +61,7 @@ var MATERIAL_COMPATIBILITY_MODE = new OpaqueToken('md-compatibility-mode');
  * Exception thrown if the consumer has used an invalid Material prefix on a component.
  * \@docs-private
  */
-var MdCompatibilityInvalidPrefixError = (function (_super) {
+var MdCompatibilityInvalidPrefixError = /*@__PURE__*/(function (_super) {
     __extends(MdCompatibilityInvalidPrefixError, _super);
     /**
      * @param {?} prefix
@@ -84,7 +84,7 @@ var MD_ELEMENTS_SELECTOR = "\n  [md-button],\n  [md-dialog-actions],\n  [md-dial
 /**
  * Directive that enforces that the `mat-` prefix cannot be used.
  */
-var MatPrefixRejector = (function () {
+var MatPrefixRejector = /*@__PURE__*/(function () {
     /**
      * @param {?} isCompatibilityMode
      * @param {?} elementRef
@@ -109,7 +109,7 @@ MatPrefixRejector.ctorParameters = function () { return [
 /**
  * Directive that enforces that the `md-` prefix cannot be used.
  */
-var MdPrefixRejector = (function () {
+var MdPrefixRejector = /*@__PURE__*/(function () {
     /**
      * @param {?} isCompatibilityMode
      * @param {?} elementRef
@@ -136,7 +136,7 @@ MdPrefixRejector.ctorParameters = function () { return [
  * without NoConflictStyleCompatibilityMode also being imported, it will throw an error if
  * there are any uses of the `mat-` prefix.
  */
-var CompatibilityModule = (function () {
+var CompatibilityModule = /*@__PURE__*/(function () {
     /**
      * @param {?} _document
      */
@@ -200,7 +200,7 @@ CompatibilityModule.ctorParameters = function () { return [
  * Module that enforces "no-conflict" compatibility mode settings. When this module is loaded,
  * it will throw an error if there are any uses of the `md-` prefix.
  */
-var NoConflictStyleCompatibilityMode = (function () {
+var NoConflictStyleCompatibilityMode = /*@__PURE__*/(function () {
     function NoConflictStyleCompatibilityMode() {
     }
     return NoConflictStyleCompatibilityMode;
@@ -221,7 +221,7 @@ NoConflictStyleCompatibilityMode.ctorParameters = function () { return []; };
  * Line elements can be extracted with a \@ContentChildren(MdLine) query, then
  * counted by checking the query list's length.
  */
-var MdLine = (function () {
+var MdLine = /*@__PURE__*/(function () {
     function MdLine() {
     }
     return MdLine;
@@ -242,7 +242,7 @@ MdLine.ctorParameters = function () { return []; };
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
  */
-var MdLineSetter = (function () {
+var MdLineSetter = /*@__PURE__*/(function () {
     /**
      * @param {?} _lines
      * @param {?} _renderer
@@ -289,7 +289,7 @@ var MdLineSetter = (function () {
     };
     return MdLineSetter;
 }());
-var MdLineModule = (function () {
+var MdLineModule = /*@__PURE__*/(function () {
     function MdLineModule() {
     }
     return MdLineModule;
@@ -311,7 +311,7 @@ MdLineModule.ctorParameters = function () { return []; };
  * Applications should use this directive instead of the native attribute so that Material
  * components can listen on changes of direction.
  */
-var Dir = (function () {
+var Dir = /*@__PURE__*/(function () {
     function Dir() {
         /**
          * Layout direction of the element.
@@ -376,7 +376,7 @@ Dir.propDecorators = {
     'dirChange': [{ type: Output },],
     'dir': [{ type: HostBinding, args: ['attr.dir',] },],
 };
-var RtlModule = (function () {
+var RtlModule = /*@__PURE__*/(function () {
     function RtlModule() {
     }
     /**
@@ -405,7 +405,7 @@ RtlModule.ctorParameters = function () { return []; };
  * Directive that triggers a callback whenever the content of
  * its associated element has changed.
  */
-var ObserveContent = (function () {
+var ObserveContent = /*@__PURE__*/(function () {
     /**
      * @param {?} _elementRef
      */
@@ -452,7 +452,7 @@ ObserveContent.ctorParameters = function () { return [
 ObserveContent.propDecorators = {
     'event': [{ type: Output, args: ['cdkObserveContent',] },],
 };
-var ObserveContentModule = (function () {
+var ObserveContentModule = /*@__PURE__*/(function () {
     function ObserveContentModule() {
     }
     /**
@@ -515,7 +515,7 @@ RippleState[RippleState.HIDDEN] = "HIDDEN";
 /**
  * Reference to a previously launched ripple element.
  */
-var RippleRef = (function () {
+var RippleRef = /*@__PURE__*/(function () {
     /**
      * @param {?} _renderer
      * @param {?} element
@@ -554,7 +554,7 @@ var RIPPLE_FADE_OUT_DURATION = 400;
  * This will eventually become a custom renderer once Angular support exists.
  * \@docs-private
  */
-var RippleRenderer = (function () {
+var RippleRenderer = /*@__PURE__*/(function () {
     /**
      * @param {?} _elementRef
      * @param {?} _ngZone
@@ -767,7 +767,7 @@ var DEFAULT_SCROLL_TIME = 20;
  * Service contained all registered Scrollable references and emits an event when any one of the
  * Scrollable references emit a scrolled event.
  */
-var ScrollDispatcher = (function () {
+var ScrollDispatcher = /*@__PURE__*/(function () {
     /**
      * @param {?} _ngZone
      */
@@ -915,7 +915,7 @@ var SCROLL_DISPATCHER_PROVIDER = {
  * Simple utility for getting the bounds of the browser viewport.
  * \@docs-private
  */
-var ViewportRuler = (function () {
+var ViewportRuler = /*@__PURE__*/(function () {
     /**
      * @param {?} scrollDispatcher
      */
@@ -1007,7 +1007,7 @@ var VIEWPORT_RULER_PROVIDER = {
  * OpaqueToken that can be used to specify the global ripple options.
  */
 var MD_RIPPLE_GLOBAL_OPTIONS = new OpaqueToken('md-ripple-global-options');
-var MdRipple = (function () {
+var MdRipple = /*@__PURE__*/(function () {
     /**
      * @param {?} elementRef
      * @param {?} ngZone
@@ -1114,7 +1114,7 @@ MdRipple.propDecorators = {
     'color': [{ type: Input, args: ['mdRippleColor',] },],
     'unbounded': [{ type: Input, args: ['mdRippleUnbounded',] },],
 };
-var MdRippleModule = (function () {
+var MdRippleModule = /*@__PURE__*/(function () {
     function MdRippleModule() {
     }
     /**
@@ -1152,7 +1152,7 @@ MdRippleModule.ctorParameters = function () { return []; };
  * more complex components that appropriately handle selected / checked state.
  * \@docs-private
  */
-var MdPseudoCheckbox = (function () {
+var MdPseudoCheckbox = /*@__PURE__*/(function () {
     /**
      * @param {?} _elementRef
      * @param {?} _renderer
@@ -1218,7 +1218,7 @@ MdPseudoCheckbox.propDecorators = {
     'disabled': [{ type: Input },],
     'color': [{ type: Input },],
 };
-var MdSelectionModule = (function () {
+var MdSelectionModule = /*@__PURE__*/(function () {
     function MdSelectionModule() {
     }
     return MdSelectionModule;
@@ -1241,7 +1241,7 @@ var _uniqueIdCounter = 0;
 /**
  * Event object emitted by MdOption when selected or deselected.
  */
-var MdOptionSelectionChange = (function () {
+var MdOptionSelectionChange = /*@__PURE__*/(function () {
     /**
      * @param {?} source
      * @param {?=} isUserInput
@@ -1256,7 +1256,7 @@ var MdOptionSelectionChange = (function () {
 /**
  * Single option inside of a `<md-select>` element.
  */
-var MdOption = (function () {
+var MdOption = /*@__PURE__*/(function () {
     /**
      * @param {?} _element
      * @param {?} _renderer
@@ -1461,7 +1461,7 @@ MdOption.propDecorators = {
     'disabled': [{ type: Input },],
     'onSelectionChange': [{ type: Output },],
 };
-var MdOptionModule = (function () {
+var MdOptionModule = /*@__PURE__*/(function () {
     function MdOptionModule() {
     }
     /**
@@ -1490,7 +1490,7 @@ MdOptionModule.ctorParameters = function () { return []; };
  * Exception thrown when attempting to attach a null portal to a host.
  * \@docs-private
  */
-var NullPortalError = (function (_super) {
+var NullPortalError = /*@__PURE__*/(function (_super) {
     __extends(NullPortalError, _super);
     function NullPortalError() {
         return _super.call(this, 'Must provide a portal to attach') || this;
@@ -1501,7 +1501,7 @@ var NullPortalError = (function (_super) {
  * Exception thrown when attempting to attach a portal to a host that is already attached.
  * \@docs-private
  */
-var PortalAlreadyAttachedError = (function (_super) {
+var PortalAlreadyAttachedError = /*@__PURE__*/(function (_super) {
     __extends(PortalAlreadyAttachedError, _super);
     function PortalAlreadyAttachedError() {
         return _super.call(this, 'Host already has a portal attached') || this;
@@ -1512,7 +1512,7 @@ var PortalAlreadyAttachedError = (function (_super) {
  * Exception thrown when attempting to attach a portal to an already-disposed host.
  * \@docs-private
  */
-var PortalHostAlreadyDisposedError = (function (_super) {
+var PortalHostAlreadyDisposedError = /*@__PURE__*/(function (_super) {
     __extends(PortalHostAlreadyDisposedError, _super);
     function PortalHostAlreadyDisposedError() {
         return _super.call(this, 'This PortalHost has already been disposed') || this;
@@ -1523,7 +1523,7 @@ var PortalHostAlreadyDisposedError = (function (_super) {
  * Exception thrown when attempting to attach an unknown portal type.
  * \@docs-private
  */
-var UnknownPortalTypeError = (function (_super) {
+var UnknownPortalTypeError = /*@__PURE__*/(function (_super) {
     __extends(UnknownPortalTypeError, _super);
     function UnknownPortalTypeError() {
         return _super.call(this, 'Attempting to attach an unknown Portal type. ' +
@@ -1535,7 +1535,7 @@ var UnknownPortalTypeError = (function (_super) {
  * Exception thrown when attempting to attach a portal to a null host.
  * \@docs-private
  */
-var NullPortalHostError = (function (_super) {
+var NullPortalHostError = /*@__PURE__*/(function (_super) {
     __extends(NullPortalHostError, _super);
     function NullPortalHostError() {
         return _super.call(this, 'Attempting to attach a portal to a null PortalHost') || this;
@@ -1546,7 +1546,7 @@ var NullPortalHostError = (function (_super) {
  * Exception thrown when attempting to detach a portal that is not attached.
  * \@docs-private
  */
-var NoPortalAttachedError = (function (_super) {
+var NoPortalAttachedError = /*@__PURE__*/(function (_super) {
     __extends(NoPortalAttachedError, _super);
     function NoPortalAttachedError() {
         return _super.call(this, 'Attempting to detach a portal that is not attached to a host') || this;
@@ -1558,7 +1558,7 @@ var NoPortalAttachedError = (function (_super) {
  * It can be attach to / detached from a `PortalHost`.
  * @abstract
  */
-var Portal = (function () {
+var Portal = /*@__PURE__*/(function () {
     function Portal() {
     }
     /**
@@ -1613,7 +1613,7 @@ var Portal = (function () {
 /**
  * A `ComponentPortal` is a portal that instantiates some Component upon attachment.
  */
-var ComponentPortal = (function (_super) {
+var ComponentPortal = /*@__PURE__*/(function (_super) {
     __extends(ComponentPortal, _super);
     /**
      * @param {?} component
@@ -1634,7 +1634,7 @@ var ComponentPortal = (function (_super) {
 /**
  * A `TemplatePortal` is a portal that represents some embedded template (TemplateRef).
  */
-var TemplatePortal = (function (_super) {
+var TemplatePortal = /*@__PURE__*/(function (_super) {
     __extends(TemplatePortal, _super);
     /**
      * @param {?} template
@@ -1686,7 +1686,7 @@ var TemplatePortal = (function (_super) {
  * ComponentPortal or a TemplatePortal.
  * @abstract
  */
-var BasePortalHost = (function () {
+var BasePortalHost = /*@__PURE__*/(function () {
     function BasePortalHost() {
         /**
          * Whether this host has already been permanently disposed.
@@ -1784,7 +1784,7 @@ var BasePortalHost = (function () {
  *   <p> Hello {{name}} </p>
  * </ng-template>
  */
-var TemplatePortalDirective = (function (_super) {
+var TemplatePortalDirective = /*@__PURE__*/(function (_super) {
     __extends(TemplatePortalDirective, _super);
     /**
      * @param {?} templateRef
@@ -1815,7 +1815,7 @@ TemplatePortalDirective.ctorParameters = function () { return [
  * Usage:
  * <ng-template [cdkPortalHost]="greeting"></ng-template>
  */
-var PortalHostDirective = (function (_super) {
+var PortalHostDirective = /*@__PURE__*/(function (_super) {
     __extends(PortalHostDirective, _super);
     /**
      * @param {?} _componentFactoryResolver
@@ -1924,7 +1924,7 @@ PortalHostDirective.ctorParameters = function () { return [
 PortalHostDirective.propDecorators = {
     '_deprecatedPortal': [{ type: Input, args: ['portalHost',] },],
 };
-var PortalModule = (function () {
+var PortalModule = /*@__PURE__*/(function () {
     function PortalModule() {
     }
     /**
@@ -1953,7 +1953,7 @@ PortalModule.ctorParameters = function () { return []; };
  * OverlayState is a bag of values for either the initial configuration or current state of an
  * overlay.
  */
-var OverlayState = (function () {
+var OverlayState = /*@__PURE__*/(function () {
     function OverlayState() {
         /**
          * Whether the overlay has a backdrop.
@@ -1980,7 +1980,7 @@ var OverlayState = (function () {
  *
  * This is the only part of the portal core that directly touches the DOM.
  */
-var DomPortalHost = (function (_super) {
+var DomPortalHost = /*@__PURE__*/(function (_super) {
     __extends(DomPortalHost, _super);
     /**
      * @param {?} _hostDomElement
@@ -2074,7 +2074,7 @@ var DomPortalHost = (function (_super) {
  * Reference to an overlay that has been created with the Overlay service.
  * Used to manipulate or dispose of said overlay.
  */
-var OverlayRef = (function () {
+var OverlayRef = /*@__PURE__*/(function () {
     /**
      * @param {?} _portalHost
      * @param {?} _pane
@@ -2287,7 +2287,7 @@ function formatCssUnit(value) {
 /**
  * The points of the origin element and the overlay element to connect.
  */
-var ConnectionPositionPair = (function () {
+var ConnectionPositionPair = /*@__PURE__*/(function () {
     /**
      * @param {?} origin
      * @param {?} overlay
@@ -2323,7 +2323,7 @@ var ConnectionPositionPair = (function () {
  *  |                        |
  *  --------------------------
  */
-var ScrollableViewProperties = (function () {
+var ScrollableViewProperties = /*@__PURE__*/(function () {
     function ScrollableViewProperties() {
     }
     return ScrollableViewProperties;
@@ -2331,7 +2331,7 @@ var ScrollableViewProperties = (function () {
 /**
  * The change event emitted by the strategy when a fallback position is used.
  */
-var ConnectedOverlayPositionChange = (function () {
+var ConnectedOverlayPositionChange = /*@__PURE__*/(function () {
     /**
      * @param {?} connectionPair
      * @param {?} scrollableViewProperties
@@ -2356,7 +2356,7 @@ ConnectedOverlayPositionChange.ctorParameters = function () { return [
  * a basic dropdown is connecting the bottom-left corner of the origin to the top-left corner
  * of the overlay.
  */
-var ConnectedPositionStrategy = (function () {
+var ConnectedPositionStrategy = /*@__PURE__*/(function () {
     /**
      * @param {?} _connectedTo
      * @param {?} _originPos
@@ -2720,7 +2720,7 @@ var ConnectedPositionStrategy = (function () {
  * transforms, in order to avoid issues with subpixel rendering which can cause the
  * element to become blurry.
  */
-var GlobalPositionStrategy = (function () {
+var GlobalPositionStrategy = /*@__PURE__*/(function () {
     function GlobalPositionStrategy() {
         this._cssPosition = 'static';
         this._topOffset = '';
@@ -2872,7 +2872,7 @@ var GlobalPositionStrategy = (function () {
 /**
  * Builder for overlay position strategy.
  */
-var OverlayPositionBuilder = (function () {
+var OverlayPositionBuilder = /*@__PURE__*/(function () {
     /**
      * @param {?} _viewportRuler
      */
@@ -2911,7 +2911,7 @@ OverlayPositionBuilder.ctorParameters = function () { return [
  * The OverlayContainer is the container in which all overlays will load.
  * It should be provided in the root component to ensure it is properly shared.
  */
-var OverlayContainer = (function () {
+var OverlayContainer = /*@__PURE__*/(function () {
     function OverlayContainer() {
     }
     Object.defineProperty(OverlayContainer.prototype, "themeClass", {
@@ -3000,7 +3000,7 @@ var defaultState = new OverlayState();
  *
  * An overlay *is* a PortalHost, so any kind of Portal can be loaded into one.
  */
-var Overlay = (function () {
+var Overlay = /*@__PURE__*/(function () {
     /**
      * @param {?} _overlayContainer
      * @param {?} _componentFactoryResolver
@@ -3093,7 +3093,7 @@ var OVERLAY_PROVIDERS = [
  * ScrollDispatcher service to include itself as part of its collection of scrolling events that it
  * can be listened to through the service.
  */
-var Scrollable = (function () {
+var Scrollable = /*@__PURE__*/(function () {
     /**
      * @param {?} _elementRef
      * @param {?} _scroll
@@ -3169,7 +3169,7 @@ var defaultPositionList = [
  * Directive applied to an element to make it usable as an origin for an Overlay using a
  * ConnectedPositionStrategy.
  */
-var OverlayOrigin = (function () {
+var OverlayOrigin = /*@__PURE__*/(function () {
     /**
      * @param {?} elementRef
      */
@@ -3193,7 +3193,7 @@ OverlayOrigin.ctorParameters = function () { return [
 /**
  * Directive to facilitate declarative creation of an Overlay using a ConnectedPositionStrategy.
  */
-var ConnectedOverlayDirective = (function () {
+var ConnectedOverlayDirective = /*@__PURE__*/(function () {
     /**
      * @param {?} _overlay
      * @param {?} templateRef
@@ -3478,7 +3478,7 @@ ConnectedOverlayDirective.propDecorators = {
     'attach': [{ type: Output },],
     'detach': [{ type: Output },],
 };
-var OverlayModule = (function () {
+var OverlayModule = /*@__PURE__*/(function () {
     function OverlayModule() {
     }
     /**
@@ -3515,7 +3515,7 @@ var hasV8BreakIterator = typeof (window) !== 'undefined' ?
  * checking browser-specific global properties.
  * \@docs-private
  */
-var Platform = (function () {
+var Platform = /*@__PURE__*/(function () {
     function Platform() {
         /**
          * Layout Engines
@@ -3552,7 +3552,7 @@ Platform.ctorParameters = function () { return []; };
  * Utility for checking the interactivity of an element, such as whether is is focusable or
  * tabbable.
  */
-var InteractivityChecker = (function () {
+var InteractivityChecker = /*@__PURE__*/(function () {
     /**
      * @param {?} _platform
      */
@@ -3797,7 +3797,7 @@ function getWindow(node) {
  * Things like tabIndex > 0, flex `order`, and shadow roots can cause to two to misalign.
  * This will be replaced with a more intelligent solution before the library is considered stable.
  */
-var FocusTrap = (function () {
+var FocusTrap = /*@__PURE__*/(function () {
     /**
      * @param {?} _element
      * @param {?} _checker
@@ -3971,7 +3971,7 @@ var FocusTrap = (function () {
 /**
  * Factory that allows easy instantiation of focus traps.
  */
-var FocusTrapFactory = (function () {
+var FocusTrapFactory = /*@__PURE__*/(function () {
     /**
      * @param {?} _checker
      * @param {?} _ngZone
@@ -4005,7 +4005,7 @@ FocusTrapFactory.ctorParameters = function () { return [
  * Directive for trapping focus within a region.
  * @deprecated
  */
-var FocusTrapDeprecatedDirective = (function () {
+var FocusTrapDeprecatedDirective = /*@__PURE__*/(function () {
     /**
      * @param {?} _elementRef
      * @param {?} _focusTrapFactory
@@ -4063,7 +4063,7 @@ FocusTrapDeprecatedDirective.propDecorators = {
 /**
  * Directive for trapping focus within a region.
  */
-var FocusTrapDirective = (function () {
+var FocusTrapDirective = /*@__PURE__*/(function () {
     /**
      * @param {?} _elementRef
      * @param {?} _focusTrapFactory
@@ -4118,7 +4118,7 @@ FocusTrapDirective.propDecorators = {
     'enabled': [{ type: Input, args: ['cdkTrapFocus',] },],
 };
 var LIVE_ANNOUNCER_ELEMENT_TOKEN = new OpaqueToken('liveAnnouncerElement');
-var LiveAnnouncer = (function () {
+var LiveAnnouncer = /*@__PURE__*/(function () {
     /**
      * @param {?} elementToken
      */
@@ -4236,7 +4236,7 @@ function getSupportedInputTypes() {
     }
     return supportedInputTypes;
 }
-var PlatformModule = (function () {
+var PlatformModule = /*@__PURE__*/(function () {
     function PlatformModule() {
     }
     /**
@@ -4260,7 +4260,7 @@ PlatformModule.decorators = [
  * @nocollapse
  */
 PlatformModule.ctorParameters = function () { return []; };
-var A11yModule = (function () {
+var A11yModule = /*@__PURE__*/(function () {
     function A11yModule() {
     }
     /**
@@ -4296,7 +4296,7 @@ A11yModule.ctorParameters = function () { return []; };
  *   {provide: OverlayContainer, useClass: FullscreenOverlayContainer}
  * ],
  */
-var FullscreenOverlayContainer = (function (_super) {
+var FullscreenOverlayContainer = /*@__PURE__*/(function (_super) {
     __extends(FullscreenOverlayContainer, _super);
     function FullscreenOverlayContainer() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -4360,7 +4360,7 @@ FullscreenOverlayContainer.decorators = [
  * @nocollapse
  */
 FullscreenOverlayContainer.ctorParameters = function () { return []; };
-var GestureConfig = (function (_super) {
+var GestureConfig = /*@__PURE__*/(function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
         var _this = _super.call(this) || this;
@@ -4440,7 +4440,7 @@ GestureConfig.ctorParameters = function () { return []; };
  * Class to be used to power selecting one or more options from a list.
  * \@docs-private
  */
-var SelectionModel = (function () {
+var SelectionModel = /*@__PURE__*/(function () {
     /**
      * @param {?=} _isMulti
      * @param {?=} initiallySelectedValues
@@ -4617,7 +4617,7 @@ var SelectionModel = (function () {
  * Describes an event emitted when the value of a MdSelectionModel has changed.
  * \@docs-private
  */
-var SelectionChange = (function () {
+var SelectionChange = /*@__PURE__*/(function () {
     /**
      * @param {?=} added
      * @param {?=} removed
@@ -4649,7 +4649,7 @@ function isFakeMousedownFromScreenReader(event) {
  * This service does not *store* any IDs and names because they may change at any time, so it is
  * less error-prone if they are simply passed through when the events occur.
  */
-var UniqueSelectionDispatcher = (function () {
+var UniqueSelectionDispatcher = /*@__PURE__*/(function () {
     function UniqueSelectionDispatcher() {
         this._listeners = [];
     }
@@ -4701,7 +4701,7 @@ var TOUCH_BUFFER_MS = 650;
 /**
  * Monitors mouse and keyboard events to determine the cause of focus events.
  */
-var FocusOriginMonitor = (function () {
+var FocusOriginMonitor = /*@__PURE__*/(function () {
     /**
      * @param {?} _ngZone
      */
@@ -4947,7 +4947,7 @@ FocusOriginMonitor.ctorParameters = function () { return [
  *    focused.
  * 2) cdkMonitorSubtreeFocus: considers an element focused if it or any of its children are focused.
  */
-var CdkMonitorFocus = (function () {
+var CdkMonitorFocus = /*@__PURE__*/(function () {
     /**
      * @param {?} _elementRef
      * @param {?} _focusOriginMonitor
@@ -5012,7 +5012,7 @@ function applyCssTransform(element, transformValue) {
     element.style.transform = value;
     element.style.webkitTransform = value;
 }
-var StyleModule = (function () {
+var StyleModule = /*@__PURE__*/(function () {
     function StyleModule() {
     }
     return StyleModule;
@@ -5031,7 +5031,7 @@ StyleModule.ctorParameters = function () { return []; };
 /**
  * \@docs-private
  */
-var AnimationCurves = (function () {
+var AnimationCurves = /*@__PURE__*/(function () {
     function AnimationCurves() {
     }
     return AnimationCurves;
@@ -5043,7 +5043,7 @@ AnimationCurves.SHARP_CURVE = 'cubic-bezier(0.4,0.0,0.6,1)';
 /**
  * \@docs-private
  */
-var AnimationDurations = (function () {
+var AnimationDurations = /*@__PURE__*/(function () {
     function AnimationDurations() {
     }
     return AnimationDurations;
@@ -5064,7 +5064,7 @@ function coerceNumberProperty(value, fallbackValue) {
     // '123hello' to be a valid number. Therefore we also check if Number(value) is NaN.
     return isNaN(parseFloat(/** @type {?} */ (value))) || isNaN(Number(value)) ? fallbackValue : Number(value);
 }
-var MdCoreModule = (function () {
+var MdCoreModule = /*@__PURE__*/(function () {
     function MdCoreModule() {
     }
     /**
@@ -5123,7 +5123,7 @@ var _uniqueIdCounter$1 = 0;
 /**
  * Change event object emitted by MdButtonToggle.
  */
-var MdButtonToggleChange = (function () {
+var MdButtonToggleChange = /*@__PURE__*/(function () {
     function MdButtonToggleChange() {
     }
     return MdButtonToggleChange;
@@ -5131,7 +5131,7 @@ var MdButtonToggleChange = (function () {
 /**
  * Exclusive selection button toggle group that behaves like a radio-button group.
  */
-var MdButtonToggleGroup = (function () {
+var MdButtonToggleGroup = /*@__PURE__*/(function () {
     function MdButtonToggleGroup() {
         /**
          * The value for the button toggle group. Should match currently selected button toggle.
@@ -5397,7 +5397,7 @@ MdButtonToggleGroup.propDecorators = {
 /**
  * Multiple selection button-toggle group. `ngModel` is not supported in this mode.
  */
-var MdButtonToggleGroupMultiple = (function () {
+var MdButtonToggleGroupMultiple = /*@__PURE__*/(function () {
     function MdButtonToggleGroupMultiple() {
         /**
          * Disables all toggles in the group.
@@ -5467,7 +5467,7 @@ MdButtonToggleGroupMultiple.propDecorators = {
 /**
  * Single button inside of a toggle group.
  */
-var MdButtonToggle = (function () {
+var MdButtonToggle = /*@__PURE__*/(function () {
     /**
      * @param {?} toggleGroup
      * @param {?} toggleGroupMultiple
@@ -5713,7 +5713,7 @@ MdButtonToggle.propDecorators = {
     'disabled': [{ type: HostBinding, args: ['class.mat-button-toggle-disabled',] }, { type: Input },],
     'change': [{ type: Output },],
 };
-var MdButtonToggleModule = (function () {
+var MdButtonToggleModule = /*@__PURE__*/(function () {
     function MdButtonToggleModule() {
     }
     /**
@@ -5749,7 +5749,7 @@ MdButtonToggleModule.ctorParameters = function () { return []; };
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdButtonCssMatStyler = (function () {
+var MdButtonCssMatStyler = /*@__PURE__*/(function () {
     function MdButtonCssMatStyler() {
     }
     return MdButtonCssMatStyler;
@@ -5770,7 +5770,7 @@ MdButtonCssMatStyler.ctorParameters = function () { return []; };
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdRaisedButtonCssMatStyler = (function () {
+var MdRaisedButtonCssMatStyler = /*@__PURE__*/(function () {
     function MdRaisedButtonCssMatStyler() {
     }
     return MdRaisedButtonCssMatStyler;
@@ -5792,7 +5792,7 @@ MdRaisedButtonCssMatStyler.ctorParameters = function () { return []; };
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdIconButtonCssMatStyler = (function () {
+var MdIconButtonCssMatStyler = /*@__PURE__*/(function () {
     function MdIconButtonCssMatStyler() {
     }
     return MdIconButtonCssMatStyler;
@@ -5813,7 +5813,7 @@ MdIconButtonCssMatStyler.ctorParameters = function () { return []; };
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdFabCssMatStyler = (function () {
+var MdFabCssMatStyler = /*@__PURE__*/(function () {
     function MdFabCssMatStyler() {
     }
     return MdFabCssMatStyler;
@@ -5834,7 +5834,7 @@ MdFabCssMatStyler.ctorParameters = function () { return []; };
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdMiniFabCssMatStyler = (function () {
+var MdMiniFabCssMatStyler = /*@__PURE__*/(function () {
     function MdMiniFabCssMatStyler() {
     }
     return MdMiniFabCssMatStyler;
@@ -5854,7 +5854,7 @@ MdMiniFabCssMatStyler.ctorParameters = function () { return []; };
 /**
  * Material design button.
  */
-var MdButton = (function () {
+var MdButton = /*@__PURE__*/(function () {
     /**
      * @param {?} _elementRef
      * @param {?} _renderer
@@ -6014,7 +6014,7 @@ MdButton.propDecorators = {
 /**
  * Raised Material design button.
  */
-var MdAnchor = (function (_super) {
+var MdAnchor = /*@__PURE__*/(function (_super) {
     __extends(MdAnchor, _super);
     /**
      * @param {?} elementRef
@@ -6081,7 +6081,7 @@ MdAnchor.ctorParameters = function () { return [
 MdAnchor.propDecorators = {
     'tabIndex': [{ type: HostBinding, args: ['tabIndex',] },],
 };
-var MdButtonModule = (function () {
+var MdButtonModule = /*@__PURE__*/(function () {
     function MdButtonModule() {
     }
     /**
@@ -6155,7 +6155,7 @@ TransitionCheckState[TransitionCheckState.Indeterminate] = "Indeterminate";
 /**
  * Change event object emitted by MdCheckbox.
  */
-var MdCheckboxChange = (function () {
+var MdCheckboxChange = /*@__PURE__*/(function () {
     function MdCheckboxChange() {
     }
     return MdCheckboxChange;
@@ -6168,7 +6168,7 @@ var MdCheckboxChange = (function () {
  * have the checkbox be accessible, you may supply an [aria-label] input.
  * See: https://www.google.com/design/spec/components/selection-controls.html
  */
-var MdCheckbox = (function () {
+var MdCheckbox = /*@__PURE__*/(function () {
     /**
      * @param {?} _renderer
      * @param {?} _elementRef
@@ -6636,7 +6636,7 @@ MdCheckbox.propDecorators = {
     'indeterminate': [{ type: Input },],
     'color': [{ type: Input },],
 };
-var MdCheckboxModule = (function () {
+var MdCheckboxModule = /*@__PURE__*/(function () {
     function MdCheckboxModule() {
     }
     /**
@@ -6677,7 +6677,7 @@ var _uniqueIdCounter$2 = 0;
 /**
  * Change event object emitted by MdRadio and MdRadioGroup.
  */
-var MdRadioChange = (function () {
+var MdRadioChange = /*@__PURE__*/(function () {
     function MdRadioChange() {
     }
     return MdRadioChange;
@@ -6685,7 +6685,7 @@ var MdRadioChange = (function () {
 /**
  * A group of radio buttons. May contain one or more `<md-radio-button>` elements.
  */
-var MdRadioGroup = (function () {
+var MdRadioGroup = /*@__PURE__*/(function () {
     function MdRadioGroup() {
         /**
          * Selected value for group. Should equal the value of the selected radio button if there *is*
@@ -6961,7 +6961,7 @@ MdRadioGroup.propDecorators = {
 /**
  * A radio-button. May be inside of
  */
-var MdRadioButton = (function () {
+var MdRadioButton = /*@__PURE__*/(function () {
     /**
      * @param {?} radioGroup
      * @param {?} _elementRef
@@ -7290,7 +7290,7 @@ MdRadioButton.propDecorators = {
     '_ripple': [{ type: ViewChild, args: [MdRipple,] },],
     '_inputElement': [{ type: ViewChild, args: ['input',] },],
 };
-var MdRadioModule = (function () {
+var MdRadioModule = /*@__PURE__*/(function () {
     function MdRadioModule() {
     }
     /**
@@ -7321,7 +7321,7 @@ MdRadioModule.ctorParameters = function () { return []; };
  * This class manages keyboard events for selectable lists. If you pass it a query list
  * of items, it will set the active item correctly when arrow events occur.
  */
-var ListKeyManager = (function () {
+var ListKeyManager = /*@__PURE__*/(function () {
     /**
      * @param {?} _items
      */
@@ -7518,7 +7518,7 @@ var ListKeyManager = (function () {
     };
     return ListKeyManager;
 }());
-var FocusKeyManager = (function (_super) {
+var FocusKeyManager = /*@__PURE__*/(function (_super) {
     __extends(FocusKeyManager, _super);
     /**
      * @param {?} items
@@ -7599,7 +7599,7 @@ var fadeInContent = trigger('fadeInContent', [
  * Exception thrown when attempting to change a select's `multiple` option after initialization.
  * \@docs-private
  */
-var MdSelectDynamicMultipleError = (function (_super) {
+var MdSelectDynamicMultipleError = /*@__PURE__*/(function (_super) {
     __extends(MdSelectDynamicMultipleError, _super);
     function MdSelectDynamicMultipleError() {
         return _super.call(this, 'Cannot change `multiple` mode of select after initialization.') || this;
@@ -7611,7 +7611,7 @@ var MdSelectDynamicMultipleError = (function (_super) {
  * Note that `undefined` and `null` are still valid values to allow for resetting the value.
  * \@docs-private
  */
-var MdSelectNonArrayValueError = (function (_super) {
+var MdSelectNonArrayValueError = /*@__PURE__*/(function (_super) {
     __extends(MdSelectNonArrayValueError, _super);
     function MdSelectNonArrayValueError() {
         return _super.call(this, 'Cannot assign truthy non-array value to select in `multiple` mode.') || this;
@@ -7667,7 +7667,7 @@ var SELECT_PANEL_VIEWPORT_PADDING = 8;
 /**
  * Change event object that is emitted when the select value has changed.
  */
-var MdSelectChange = (function () {
+var MdSelectChange = /*@__PURE__*/(function () {
     /**
      * @param {?} source
      * @param {?} value
@@ -7678,7 +7678,7 @@ var MdSelectChange = (function () {
     }
     return MdSelectChange;
 }());
-var MdSelect = (function () {
+var MdSelect = /*@__PURE__*/(function () {
     /**
      * @param {?} _element
      * @param {?} _renderer
@@ -8614,7 +8614,7 @@ MdSelect.propDecorators = {
 function clampValue(min, n, max) {
     return Math.min(Math.max(min, n), max);
 }
-var MdSelectModule = (function () {
+var MdSelectModule = /*@__PURE__*/(function () {
     function MdSelectModule() {
     }
     /**
@@ -8650,7 +8650,7 @@ var MD_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     useExisting: forwardRef(function () { return MdSlideToggle; }),
     multi: true
 };
-var MdSlideToggleChange = (function () {
+var MdSlideToggleChange = /*@__PURE__*/(function () {
     function MdSlideToggleChange() {
     }
     return MdSlideToggleChange;
@@ -8660,7 +8660,7 @@ var nextId$1 = 0;
 /**
  * Two-state control, which can be also called `switch`.
  */
-var MdSlideToggle = (function () {
+var MdSlideToggle = /*@__PURE__*/(function () {
     /**
      * @param {?} _elementRef
      * @param {?} _renderer
@@ -9031,7 +9031,7 @@ MdSlideToggle.propDecorators = {
 /**
  * Renderer for the Slide Toggle component, which separates DOM modification in its own class
  */
-var SlideToggleRenderer = (function () {
+var SlideToggleRenderer = /*@__PURE__*/(function () {
     /**
      * @param {?} _elementRef
      */
@@ -9098,7 +9098,7 @@ var SlideToggleRenderer = (function () {
     };
     return SlideToggleRenderer;
 }());
-var MdSlideToggleModule = (function () {
+var MdSlideToggleModule = /*@__PURE__*/(function () {
     function MdSlideToggleModule() {
     }
     /**
@@ -9157,7 +9157,7 @@ var MD_SLIDER_VALUE_ACCESSOR = {
 /**
  * A simple change event emitted by the MdSlider component.
  */
-var MdSliderChange = (function () {
+var MdSliderChange = /*@__PURE__*/(function () {
     function MdSliderChange() {
     }
     return MdSliderChange;
@@ -9166,7 +9166,7 @@ var MdSliderChange = (function () {
  * Allows users to select from a range of values by moving the slider thumb. It is similar in
  * behavior to the native `<input type="range">` element.
  */
-var MdSlider = (function () {
+var MdSlider = /*@__PURE__*/(function () {
     /**
      * @param {?} renderer
      * @param {?} _elementRef
@@ -9975,7 +9975,7 @@ MdSlider.propDecorators = {
  * Renderer class in order to keep all dom manipulation in one place and outside of the main class.
  * \@docs-private
  */
-var SliderRenderer = (function () {
+var SliderRenderer = /*@__PURE__*/(function () {
     /**
      * @param {?} elementRef
      */
@@ -10002,7 +10002,7 @@ var SliderRenderer = (function () {
     };
     return SliderRenderer;
 }());
-var MdSliderModule = (function () {
+var MdSliderModule = /*@__PURE__*/(function () {
     function MdSliderModule() {
     }
     /**
@@ -10032,7 +10032,7 @@ MdSliderModule.ctorParameters = function () { return []; };
 /**
  * Exception thrown when two MdSidenav are matching the same side.
  */
-var MdDuplicatedSidenavError = (function (_super) {
+var MdDuplicatedSidenavError = /*@__PURE__*/(function (_super) {
     __extends(MdDuplicatedSidenavError, _super);
     /**
      * @param {?} align
@@ -10045,7 +10045,7 @@ var MdDuplicatedSidenavError = (function (_super) {
 /**
  * Sidenav toggle promise result.
  */
-var MdSidenavToggleResult = (function () {
+var MdSidenavToggleResult = /*@__PURE__*/(function () {
     /**
      * @param {?} type
      * @param {?} animationFinished
@@ -10063,7 +10063,7 @@ var MdSidenavToggleResult = (function () {
  *
  * Please refer to README.md for examples on how to use it.
  */
-var MdSidenav = (function () {
+var MdSidenav = /*@__PURE__*/(function () {
     /**
      * @param {?} _elementRef The DOM element reference. Used for transition and width calculation.
      *     If not available we do not hook on transitions.
@@ -10444,7 +10444,7 @@ MdSidenav.propDecorators = {
  * This is the parent component to one or two <md-sidenav>s that validates the state internally
  * and coordinates the backdrop and content styling.
  */
-var MdSidenavContainer = (function () {
+var MdSidenavContainer = /*@__PURE__*/(function () {
     /**
      * @param {?} _dir
      * @param {?} _element
@@ -10693,7 +10693,7 @@ MdSidenavContainer.propDecorators = {
     '_sidenavs': [{ type: ContentChildren, args: [MdSidenav,] },],
     'backdropClick': [{ type: Output },],
 };
-var MdSidenavModule = (function () {
+var MdSidenavModule = /*@__PURE__*/(function () {
     function MdSidenavModule() {
     }
     /**
@@ -10719,7 +10719,7 @@ MdSidenavModule.decorators = [
  * @nocollapse
  */
 MdSidenavModule.ctorParameters = function () { return []; };
-var MdListDivider = (function () {
+var MdListDivider = /*@__PURE__*/(function () {
     function MdListDivider() {
     }
     return MdListDivider;
@@ -10740,7 +10740,7 @@ MdListDivider.ctorParameters = function () { return []; };
 var LIST_TYPE_TOKEN = new OpaqueToken('list_type');
 var NORMAL_LIST_TYPE = 'normal_list_type';
 var NAV_LIST_TYPE = 'nav_list_type';
-var MdList = (function () {
+var MdList = /*@__PURE__*/(function () {
     function MdList() {
     }
     return MdList;
@@ -10764,7 +10764,7 @@ MdList.ctorParameters = function () { return []; };
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdListCssMatStyler = (function () {
+var MdListCssMatStyler = /*@__PURE__*/(function () {
     function MdListCssMatStyler() {
     }
     return MdListCssMatStyler;
@@ -10785,7 +10785,7 @@ MdListCssMatStyler.ctorParameters = function () { return []; };
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdNavListCssMatStyler = (function () {
+var MdNavListCssMatStyler = /*@__PURE__*/(function () {
     function MdNavListCssMatStyler() {
     }
     return MdNavListCssMatStyler;
@@ -10805,7 +10805,7 @@ MdNavListCssMatStyler.ctorParameters = function () { return []; };
 /**
  * Directive to set the ListType token to NAV_LIST_TYPE.
  */
-var MdNavListTokenSetter = (function () {
+var MdNavListTokenSetter = /*@__PURE__*/(function () {
     function MdNavListTokenSetter() {
     }
     return MdNavListTokenSetter;
@@ -10824,7 +10824,7 @@ MdNavListTokenSetter.ctorParameters = function () { return []; };
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdDividerCssMatStyler = (function () {
+var MdDividerCssMatStyler = /*@__PURE__*/(function () {
     function MdDividerCssMatStyler() {
     }
     return MdDividerCssMatStyler;
@@ -10845,7 +10845,7 @@ MdDividerCssMatStyler.ctorParameters = function () { return []; };
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdListAvatarCssMatStyler = (function () {
+var MdListAvatarCssMatStyler = /*@__PURE__*/(function () {
     function MdListAvatarCssMatStyler() {
     }
     return MdListAvatarCssMatStyler;
@@ -10866,7 +10866,7 @@ MdListAvatarCssMatStyler.ctorParameters = function () { return []; };
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdListIconCssMatStyler = (function () {
+var MdListIconCssMatStyler = /*@__PURE__*/(function () {
     function MdListIconCssMatStyler() {
     }
     return MdListIconCssMatStyler;
@@ -10887,7 +10887,7 @@ MdListIconCssMatStyler.ctorParameters = function () { return []; };
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdListSubheaderCssMatStyler = (function () {
+var MdListSubheaderCssMatStyler = /*@__PURE__*/(function () {
     function MdListSubheaderCssMatStyler() {
     }
     return MdListSubheaderCssMatStyler;
@@ -10904,7 +10904,7 @@ MdListSubheaderCssMatStyler.decorators = [
  * @nocollapse
  */
 MdListSubheaderCssMatStyler.ctorParameters = function () { return []; };
-var MdListItem = (function () {
+var MdListItem = /*@__PURE__*/(function () {
     /**
      * @param {?} _renderer
      * @param {?} _element
@@ -10984,7 +10984,7 @@ MdListItem.propDecorators = {
     '_lines': [{ type: ContentChildren, args: [MdLine,] },],
     '_hasAvatar': [{ type: ContentChild, args: [MdListAvatarCssMatStyler,] },],
 };
-var MdListModule = (function () {
+var MdListModule = /*@__PURE__*/(function () {
     function MdListModule() {
     }
     /**
@@ -11052,7 +11052,7 @@ function coerceToString(value) {
 function coerceToNumber(value) {
     return typeof value === 'string' ? parseInt(value, 10) : value;
 }
-var MdGridTile = (function () {
+var MdGridTile = /*@__PURE__*/(function () {
     /**
      * @param {?} _renderer
      * @param {?} _element
@@ -11125,7 +11125,7 @@ MdGridTile.propDecorators = {
     'rowspan': [{ type: Input },],
     'colspan': [{ type: Input },],
 };
-var MdGridTileText = (function () {
+var MdGridTileText = /*@__PURE__*/(function () {
     /**
      * @param {?} _renderer
      * @param {?} _element
@@ -11161,7 +11161,7 @@ MdGridTileText.propDecorators = {
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdGridAvatarCssMatStyler = (function () {
+var MdGridAvatarCssMatStyler = /*@__PURE__*/(function () {
     function MdGridAvatarCssMatStyler() {
     }
     return MdGridAvatarCssMatStyler;
@@ -11182,7 +11182,7 @@ MdGridAvatarCssMatStyler.ctorParameters = function () { return []; };
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdGridTileHeaderCssMatStyler = (function () {
+var MdGridTileHeaderCssMatStyler = /*@__PURE__*/(function () {
     function MdGridTileHeaderCssMatStyler() {
     }
     return MdGridTileHeaderCssMatStyler;
@@ -11203,7 +11203,7 @@ MdGridTileHeaderCssMatStyler.ctorParameters = function () { return []; };
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdGridTileFooterCssMatStyler = (function () {
+var MdGridTileFooterCssMatStyler = /*@__PURE__*/(function () {
     function MdGridTileFooterCssMatStyler() {
     }
     return MdGridTileFooterCssMatStyler;
@@ -11224,7 +11224,7 @@ MdGridTileFooterCssMatStyler.ctorParameters = function () { return []; };
  * Exception thrown when cols property is missing from grid-list
  * \@docs-private
  */
-var MdGridListColsError = (function (_super) {
+var MdGridListColsError = /*@__PURE__*/(function (_super) {
     __extends(MdGridListColsError, _super);
     function MdGridListColsError() {
         return _super.call(this, "md-grid-list: must pass in number of columns. Example: <md-grid-list cols=\"3\">") || this;
@@ -11235,7 +11235,7 @@ var MdGridListColsError = (function (_super) {
  * Exception thrown when a tile's colspan is longer than the number of cols in list
  * \@docs-private
  */
-var MdGridTileTooWideError = (function (_super) {
+var MdGridTileTooWideError = /*@__PURE__*/(function (_super) {
     __extends(MdGridTileTooWideError, _super);
     /**
      * @param {?} cols
@@ -11250,7 +11250,7 @@ var MdGridTileTooWideError = (function (_super) {
  * Exception thrown when an invalid ratio is passed in as a rowHeight
  * \@docs-private
  */
-var MdGridListBadRatioError = (function (_super) {
+var MdGridListBadRatioError = /*@__PURE__*/(function (_super) {
     __extends(MdGridListBadRatioError, _super);
     /**
      * @param {?} value
@@ -11277,7 +11277,7 @@ var MdGridListBadRatioError = (function (_super) {
  *
  * \@docs-private
  */
-var TileCoordinator = (function () {
+var TileCoordinator = /*@__PURE__*/(function () {
     /**
      * @param {?} numColumns
      * @param {?} tiles
@@ -11412,7 +11412,7 @@ var TileCoordinator = (function () {
  * Simple data structure for tile position (row, col).
  * \@docs-private
  */
-var TilePosition = (function () {
+var TilePosition = /*@__PURE__*/(function () {
     /**
      * @param {?} row
      * @param {?} col
@@ -11428,7 +11428,7 @@ var TilePosition = (function () {
  * Tile Coordinator.
  * \@docs-private
  */
-var TileStyler = (function () {
+var TileStyler = /*@__PURE__*/(function () {
     function TileStyler() {
         this._rows = 0;
         this._rowspan = 0;
@@ -11558,7 +11558,7 @@ var TileStyler = (function () {
  * Example <md-grid-list cols="3" rowHeight="100px">
  * \@docs-private
  */
-var FixedTileStyler = (function (_super) {
+var FixedTileStyler = /*@__PURE__*/(function (_super) {
     __extends(FixedTileStyler, _super);
     /**
      * @param {?} fixedRowHeight
@@ -11605,7 +11605,7 @@ var FixedTileStyler = (function (_super) {
  * for the row height.  Example <md-grid-list cols="3" rowHeight="3:1">
  * \@docs-private
  */
-var RatioTileStyler = (function (_super) {
+var RatioTileStyler = /*@__PURE__*/(function (_super) {
     __extends(RatioTileStyler, _super);
     /**
      * @param {?} value
@@ -11659,7 +11659,7 @@ var RatioTileStyler = (function (_super) {
  *
  * \@docs-private
  */
-var FitTileStyler = (function (_super) {
+var FitTileStyler = /*@__PURE__*/(function (_super) {
     __extends(FitTileStyler, _super);
     function FitTileStyler() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -11701,7 +11701,7 @@ function normalizeUnits(value) {
 // TODO(kara): Re-layout on window resize / media change (debounced).
 // TODO(kara): gridTileHeader and gridTileFooter.
 var MD_FIT_MODE = 'fit';
-var MdGridList = (function () {
+var MdGridList = /*@__PURE__*/(function () {
     /**
      * @param {?} _renderer
      * @param {?} _element
@@ -11857,7 +11857,7 @@ MdGridList.propDecorators = {
     'gutterSize': [{ type: Input },],
     'rowHeight': [{ type: Input },],
 };
-var MdGridListModule = (function () {
+var MdGridListModule = /*@__PURE__*/(function () {
     function MdGridListModule() {
     }
     /**
@@ -11903,7 +11903,7 @@ MdGridListModule.ctorParameters = function () { return []; };
  * Content of a card, needed as it's used as a selector in the API.
  * \@docs-private
  */
-var MdCardContent = (function () {
+var MdCardContent = /*@__PURE__*/(function () {
     function MdCardContent() {
     }
     return MdCardContent;
@@ -11924,7 +11924,7 @@ MdCardContent.ctorParameters = function () { return []; };
  * Title of a card, needed as it's used as a selector in the API.
  * \@docs-private
  */
-var MdCardTitle = (function () {
+var MdCardTitle = /*@__PURE__*/(function () {
     function MdCardTitle() {
     }
     return MdCardTitle;
@@ -11945,7 +11945,7 @@ MdCardTitle.ctorParameters = function () { return []; };
  * Sub-title of a card, needed as it's used as a selector in the API.
  * \@docs-private
  */
-var MdCardSubtitle = (function () {
+var MdCardSubtitle = /*@__PURE__*/(function () {
     function MdCardSubtitle() {
     }
     return MdCardSubtitle;
@@ -11966,7 +11966,7 @@ MdCardSubtitle.ctorParameters = function () { return []; };
  * Action section of a card, needed as it's used as a selector in the API.
  * \@docs-private
  */
-var MdCardActions = (function () {
+var MdCardActions = /*@__PURE__*/(function () {
     function MdCardActions() {
     }
     return MdCardActions;
@@ -11987,7 +11987,7 @@ MdCardActions.ctorParameters = function () { return []; };
  * Footer of a card, needed as it's used as a selector in the API.
  * \@docs-private
  */
-var MdCardFooter = (function () {
+var MdCardFooter = /*@__PURE__*/(function () {
     function MdCardFooter() {
     }
     return MdCardFooter;
@@ -12008,7 +12008,7 @@ MdCardFooter.ctorParameters = function () { return []; };
  * Image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
  */
-var MdCardSmImage = (function () {
+var MdCardSmImage = /*@__PURE__*/(function () {
     function MdCardSmImage() {
     }
     return MdCardSmImage;
@@ -12029,7 +12029,7 @@ MdCardSmImage.ctorParameters = function () { return []; };
  * Image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
  */
-var MdCardMdImage = (function () {
+var MdCardMdImage = /*@__PURE__*/(function () {
     function MdCardMdImage() {
     }
     return MdCardMdImage;
@@ -12050,7 +12050,7 @@ MdCardMdImage.ctorParameters = function () { return []; };
  * Image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
  */
-var MdCardLgImage = (function () {
+var MdCardLgImage = /*@__PURE__*/(function () {
     function MdCardLgImage() {
     }
     return MdCardLgImage;
@@ -12071,7 +12071,7 @@ MdCardLgImage.ctorParameters = function () { return []; };
  * Image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
  */
-var MdCardImage = (function () {
+var MdCardImage = /*@__PURE__*/(function () {
     function MdCardImage() {
     }
     return MdCardImage;
@@ -12092,7 +12092,7 @@ MdCardImage.ctorParameters = function () { return []; };
  * Large image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
  */
-var MdCardXlImage = (function () {
+var MdCardXlImage = /*@__PURE__*/(function () {
     function MdCardXlImage() {
     }
     return MdCardXlImage;
@@ -12113,7 +12113,7 @@ MdCardXlImage.ctorParameters = function () { return []; };
  * Avatar image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
  */
-var MdCardAvatar = (function () {
+var MdCardAvatar = /*@__PURE__*/(function () {
     function MdCardAvatar() {
     }
     return MdCardAvatar;
@@ -12141,7 +12141,7 @@ MdCardAvatar.ctorParameters = function () { return []; };
  * - md-card-actions
  * - md-card-footer
  */
-var MdCard = (function () {
+var MdCard = /*@__PURE__*/(function () {
     function MdCard() {
     }
     return MdCard;
@@ -12166,7 +12166,7 @@ MdCard.ctorParameters = function () { return []; };
  * preset header section (i.e. a title, subtitle, and avatar layout).
  * \@docs-private
  */
-var MdCardHeader = (function () {
+var MdCardHeader = /*@__PURE__*/(function () {
     function MdCardHeader() {
     }
     return MdCardHeader;
@@ -12190,7 +12190,7 @@ MdCardHeader.ctorParameters = function () { return []; };
  * layout that groups an image with a title section.
  * \@docs-private
  */
-var MdCardTitleGroup = (function () {
+var MdCardTitleGroup = /*@__PURE__*/(function () {
     function MdCardTitleGroup() {
     }
     return MdCardTitleGroup;
@@ -12209,7 +12209,7 @@ MdCardTitleGroup.decorators = [
  * @nocollapse
  */
 MdCardTitleGroup.ctorParameters = function () { return []; };
-var MdCardModule = (function () {
+var MdCardModule = /*@__PURE__*/(function () {
     function MdCardModule() {
     }
     /**
@@ -12258,7 +12258,7 @@ MdCardModule.ctorParameters = function () { return []; };
 /**
  * Material design styled Chip component. Used inside the MdChipList component.
  */
-var MdChip = (function () {
+var MdChip = /*@__PURE__*/(function () {
     /**
      * @param {?} _renderer
      * @param {?} _elementRef
@@ -12488,7 +12488,7 @@ MdChip.propDecorators = {
  *       <md-chip>Chip 2<md-chip>
  *     </md-chip-list>
  */
-var MdChipList = (function () {
+var MdChipList = /*@__PURE__*/(function () {
     /**
      * @param {?} _elementRef
      */
@@ -12682,7 +12682,7 @@ MdChipList.ctorParameters = function () { return [
 MdChipList.propDecorators = {
     'selectable': [{ type: Input },],
 };
-var MdChipsModule = (function () {
+var MdChipsModule = /*@__PURE__*/(function () {
     function MdChipsModule() {
     }
     /**
@@ -12712,7 +12712,7 @@ MdChipsModule.ctorParameters = function () { return []; };
  * Exception thrown when attempting to load an icon with a name that cannot be found.
  * \@docs-private
  */
-var MdIconNameNotFoundError = (function (_super) {
+var MdIconNameNotFoundError = /*@__PURE__*/(function (_super) {
     __extends(MdIconNameNotFoundError, _super);
     /**
      * @param {?} iconName
@@ -12727,7 +12727,7 @@ var MdIconNameNotFoundError = (function (_super) {
  * <svg> tag.
  * \@docs-private
  */
-var MdIconSvgTagNotFoundError = (function (_super) {
+var MdIconSvgTagNotFoundError = /*@__PURE__*/(function (_super) {
     __extends(MdIconSvgTagNotFoundError, _super);
     function MdIconSvgTagNotFoundError() {
         return _super.call(this, '<svg> tag not found') || this;
@@ -12738,7 +12738,7 @@ var MdIconSvgTagNotFoundError = (function (_super) {
  * Configuration for an icon, including the URL and possibly the cached SVG element.
  * \@docs-private
  */
-var SvgIconConfig = (function () {
+var SvgIconConfig = /*@__PURE__*/(function () {
     /**
      * @param {?} url
      */
@@ -12759,7 +12759,7 @@ var iconKey = function (namespace, name) { return namespace + ':' + name; };
  * - Registers aliases for CSS classes, for use with icon fonts.
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
-var MdIconRegistry = (function () {
+var MdIconRegistry = /*@__PURE__*/(function () {
     /**
      * @param {?} _http
      * @param {?} _sanitizer
@@ -13155,7 +13155,7 @@ function cloneSvg(svg) {
 /**
  * Exception thrown when an invalid icon name is passed to an md-icon component.
  */
-var MdIconInvalidNameError = (function (_super) {
+var MdIconInvalidNameError = /*@__PURE__*/(function (_super) {
     __extends(MdIconInvalidNameError, _super);
     /**
      * @param {?} iconName
@@ -13198,7 +13198,7 @@ var MdIconInvalidNameError = (function (_super) {
  *   Example:
  *     <md-icon fontSet="fa" fontIcon="alarm"></md-icon>
  */
-var MdIcon = (function () {
+var MdIcon = /*@__PURE__*/(function () {
     /**
      * @param {?} _elementRef
      * @param {?} _renderer
@@ -13440,7 +13440,7 @@ var ICON_REGISTRY_PROVIDER = {
     deps: [[new Optional(), new SkipSelf(), MdIconRegistry], Http, DomSanitizer],
     useFactory: ICON_REGISTRY_PROVIDER_FACTORY,
 };
-var MdIconModule = (function () {
+var MdIconModule = /*@__PURE__*/(function () {
     function MdIconModule() {
     }
     /**
@@ -13497,7 +13497,7 @@ var HAS_RAF = typeof requestAnimationFrame !== 'undefined';
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdProgressSpinnerCssMatStyler = (function () {
+var MdProgressSpinnerCssMatStyler = /*@__PURE__*/(function () {
     function MdProgressSpinnerCssMatStyler() {
     }
     return MdProgressSpinnerCssMatStyler;
@@ -13517,7 +13517,7 @@ MdProgressSpinnerCssMatStyler.ctorParameters = function () { return []; };
 /**
  * <md-progress-spinner> component.
  */
-var MdProgressSpinner = (function () {
+var MdProgressSpinner = /*@__PURE__*/(function () {
     /**
      * @param {?} _ngZone
      * @param {?} _elementRef
@@ -13778,7 +13778,7 @@ MdProgressSpinner.propDecorators = {
  * This is a component definition to be used as a convenience reference to create an
  * indeterminate <md-progress-spinner> instance.
  */
-var MdSpinner = (function (_super) {
+var MdSpinner = /*@__PURE__*/(function (_super) {
     __extends(MdSpinner, _super);
     /**
      * @param {?} elementRef
@@ -13893,7 +13893,7 @@ function getSvgArc(currentValue, rotation) {
     }
     return "M" + start + "A" + pathRadius + "," + pathRadius + " 0 " + largeArcFlag + "," + arcSweep + " " + end;
 }
-var MdProgressSpinnerModule = (function () {
+var MdProgressSpinnerModule = /*@__PURE__*/(function () {
     function MdProgressSpinnerModule() {
     }
     /**
@@ -13931,7 +13931,7 @@ MdProgressSpinnerModule.ctorParameters = function () { return []; };
 /**
  * <md-progress-bar> component.
  */
-var MdProgressBar = (function () {
+var MdProgressBar = /*@__PURE__*/(function () {
     function MdProgressBar() {
         /**
          * Color of the progress bar.
@@ -14035,7 +14035,7 @@ function clamp$1(v, min, max) {
     if (max === void 0) { max = 100; }
     return Math.max(min, Math.min(max, v));
 }
-var MdProgressBarModule = (function () {
+var MdProgressBarModule = /*@__PURE__*/(function () {
     function MdProgressBarModule() {
     }
     /**
@@ -14064,7 +14064,7 @@ MdProgressBarModule.ctorParameters = function () { return []; };
 /**
  * \@docs-private
  */
-var MdInputContainerPlaceholderConflictError = (function (_super) {
+var MdInputContainerPlaceholderConflictError = /*@__PURE__*/(function (_super) {
     __extends(MdInputContainerPlaceholderConflictError, _super);
     function MdInputContainerPlaceholderConflictError() {
         return _super.call(this, 'Placeholder attribute and child element were both specified.') || this;
@@ -14074,7 +14074,7 @@ var MdInputContainerPlaceholderConflictError = (function (_super) {
 /**
  * \@docs-private
  */
-var MdInputContainerUnsupportedTypeError = (function (_super) {
+var MdInputContainerUnsupportedTypeError = /*@__PURE__*/(function (_super) {
     __extends(MdInputContainerUnsupportedTypeError, _super);
     /**
      * @param {?} type
@@ -14087,7 +14087,7 @@ var MdInputContainerUnsupportedTypeError = (function (_super) {
 /**
  * \@docs-private
  */
-var MdInputContainerDuplicatedHintError = (function (_super) {
+var MdInputContainerDuplicatedHintError = /*@__PURE__*/(function (_super) {
     __extends(MdInputContainerDuplicatedHintError, _super);
     /**
      * @param {?} align
@@ -14100,7 +14100,7 @@ var MdInputContainerDuplicatedHintError = (function (_super) {
 /**
  * \@docs-private
  */
-var MdInputContainerMissingMdInputError = (function (_super) {
+var MdInputContainerMissingMdInputError = /*@__PURE__*/(function (_super) {
     __extends(MdInputContainerMissingMdInputError, _super);
     function MdInputContainerMissingMdInputError() {
         return _super.call(this, 'md-input-container must contain an mdInput directive. Did you forget to add mdInput ' +
@@ -14126,7 +14126,7 @@ var nextUniqueId$1 = 0;
  * The placeholder directive. The content can declare this to implement more
  * complex placeholders.
  */
-var MdPlaceholder = (function () {
+var MdPlaceholder = /*@__PURE__*/(function () {
     function MdPlaceholder() {
     }
     return MdPlaceholder;
@@ -14143,7 +14143,7 @@ MdPlaceholder.ctorParameters = function () { return []; };
 /**
  * Hint text to be shown underneath the input.
  */
-var MdHint = (function () {
+var MdHint = /*@__PURE__*/(function () {
     function MdHint() {
         // Whether to align the hint label at the start or end of the line.
         this.align = 'start';
@@ -14173,7 +14173,7 @@ MdHint.propDecorators = {
 /**
  * Single error message to be shown underneath the input.
  */
-var MdErrorDirective = (function () {
+var MdErrorDirective = /*@__PURE__*/(function () {
     function MdErrorDirective() {
     }
     return MdErrorDirective;
@@ -14193,7 +14193,7 @@ MdErrorDirective.ctorParameters = function () { return []; };
 /**
  * Prefix to be placed the the front of the input.
  */
-var MdPrefix = (function () {
+var MdPrefix = /*@__PURE__*/(function () {
     function MdPrefix() {
     }
     return MdPrefix;
@@ -14210,7 +14210,7 @@ MdPrefix.ctorParameters = function () { return []; };
 /**
  * Suffix to be placed at the end of the input.
  */
-var MdSuffix = (function () {
+var MdSuffix = /*@__PURE__*/(function () {
     function MdSuffix() {
     }
     return MdSuffix;
@@ -14227,7 +14227,7 @@ MdSuffix.ctorParameters = function () { return []; };
 /**
  * Marker for the input element that `MdInputContainer` is wrapping.
  */
-var MdInputDirective = (function () {
+var MdInputDirective = /*@__PURE__*/(function () {
     /**
      * @param {?} _elementRef
      * @param {?} _renderer
@@ -14479,7 +14479,7 @@ MdInputDirective.propDecorators = {
 /**
  * Container for text inputs that applies Material Design styling and behavior.
  */
-var MdInputContainer = (function () {
+var MdInputContainer = /*@__PURE__*/(function () {
     /**
      * @param {?} _elementRef
      * @param {?} _changeDetectorRef
@@ -14757,7 +14757,7 @@ MdInputContainer.propDecorators = {
 /**
  * Directive to automatically resize a textarea to fit its content.
  */
-var MdTextareaAutosize = (function () {
+var MdTextareaAutosize = /*@__PURE__*/(function () {
     /**
      * @param {?} _elementRef
      */
@@ -14930,7 +14930,7 @@ MdTextareaAutosize.propDecorators = {
     'mdAutosizeMinRows': [{ type: Input },],
     'mdAutosizeMaxRows': [{ type: Input },],
 };
-var MdInputModule = (function () {
+var MdInputModule = /*@__PURE__*/(function () {
     function MdInputModule() {
     }
     /**
@@ -14981,7 +14981,7 @@ MdInputModule.ctorParameters = function () { return []; };
 /**
  * Configuration used when opening a snack-bar.
  */
-var MdSnackBarConfig = (function () {
+var MdSnackBarConfig = /*@__PURE__*/(function () {
     function MdSnackBarConfig() {
         /**
          * The politeness level for the MdAriaLiveAnnouncer announcement.
@@ -15005,7 +15005,7 @@ var MdSnackBarConfig = (function () {
 /**
  * Reference to a snack bar dispatched from the snack bar service.
  */
-var MdSnackBarRef = (function () {
+var MdSnackBarRef = /*@__PURE__*/(function () {
     /**
      * @param {?} instance
      * @param {?} containerInstance
@@ -15105,7 +15105,7 @@ var MdSnackBarRef = (function () {
  * Error that is thrown when attempting to attach a snack bar that is already attached.
  * \@docs-private
  */
-var MdSnackBarContentAlreadyAttached = (function (_super) {
+var MdSnackBarContentAlreadyAttached = /*@__PURE__*/(function (_super) {
     __extends(MdSnackBarContentAlreadyAttached, _super);
     function MdSnackBarContentAlreadyAttached() {
         return _super.call(this, 'Attempting to attach snack bar content after content is already attached') || this;
@@ -15120,7 +15120,7 @@ var HIDE_ANIMATION = '195ms cubic-bezier(0.0,0.0,0.2,1)';
  * Internal component that wraps user-provided snack bar content.
  * \@docs-private
  */
-var MdSnackBarContainer = (function (_super) {
+var MdSnackBarContainer = /*@__PURE__*/(function (_super) {
     __extends(MdSnackBarContainer, _super);
     /**
      * @param {?} _ngZone
@@ -15277,7 +15277,7 @@ MdSnackBarContainer.propDecorators = {
  * A component used to open as the default snack bar, matching material spec.
  * This should only be used internally by the snack bar service.
  */
-var SimpleSnackBar = (function () {
+var SimpleSnackBar = /*@__PURE__*/(function () {
     function SimpleSnackBar() {
     }
     /**
@@ -15342,7 +15342,7 @@ function extendObject(dest) {
 /**
  * Service to dispatch Material Design snack bar messages.
  */
-var MdSnackBar = (function () {
+var MdSnackBar = /*@__PURE__*/(function () {
     /**
      * @param {?} _overlay
      * @param {?} _live
@@ -15504,7 +15504,7 @@ MdSnackBar.ctorParameters = function () { return [
 function _applyConfigDefaults(config) {
     return extendObject(new MdSnackBarConfig(), config);
 }
-var MdSnackBarModule = (function () {
+var MdSnackBarModule = /*@__PURE__*/(function () {
     function MdSnackBarModule() {
     }
     /**
@@ -15540,7 +15540,7 @@ MdSnackBarModule.ctorParameters = function () { return []; };
 /**
  * Used to flag tab labels for use with the portal directive
  */
-var MdTabLabel = (function (_super) {
+var MdTabLabel = /*@__PURE__*/(function (_super) {
     __extends(MdTabLabel, _super);
     /**
      * @param {?} templateRef
@@ -15563,7 +15563,7 @@ MdTabLabel.ctorParameters = function () { return [
     { type: TemplateRef, },
     { type: ViewContainerRef, },
 ]; };
-var MdTab = (function () {
+var MdTab = /*@__PURE__*/(function () {
     /**
      * @param {?} _viewContainerRef
      */
@@ -15643,7 +15643,7 @@ var nextId$2 = 0;
 /**
  * A simple change event emitted on focus or selection changes.
  */
-var MdTabChangeEvent = (function () {
+var MdTabChangeEvent = /*@__PURE__*/(function () {
     function MdTabChangeEvent() {
     }
     return MdTabChangeEvent;
@@ -15653,7 +15653,7 @@ var MdTabChangeEvent = (function () {
  * animated ink-bar, keyboard navigation, and screen reader.
  * See: https://www.google.com/design/spec/components/tabs.html
  */
-var MdTabGroup = (function () {
+var MdTabGroup = /*@__PURE__*/(function () {
     /**
      * @param {?} _renderer
      */
@@ -15890,7 +15890,7 @@ MdTabGroup.propDecorators = {
  * Used in the `md-tab-group` view to display tab labels.
  * \@docs-private
  */
-var MdTabLabelWrapper = (function () {
+var MdTabLabelWrapper = /*@__PURE__*/(function () {
     /**
      * @param {?} elementRef
      * @param {?} _renderer
@@ -15960,7 +15960,7 @@ MdTabLabelWrapper.propDecorators = {
  * The ink-bar is used to display and animate the line underneath the current active tab label.
  * \@docs-private
  */
-var MdInkBar = (function () {
+var MdInkBar = /*@__PURE__*/(function () {
     /**
      * @param {?} _renderer
      * @param {?} _elementRef
@@ -16039,7 +16039,7 @@ MdInkBar.ctorParameters = function () { return [
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
  */
-var MdTabNavBar = (function () {
+var MdTabNavBar = /*@__PURE__*/(function () {
     /**
      * @param {?} _dir
      */
@@ -16109,7 +16109,7 @@ MdTabNavBar.propDecorators = {
 /**
  * Link inside of a `md-tab-nav-bar`.
  */
-var MdTabLink = (function () {
+var MdTabLink = /*@__PURE__*/(function () {
     /**
      * @param {?} _mdTabNavBar
      * @param {?} _elementRef
@@ -16162,7 +16162,7 @@ MdTabLink.propDecorators = {
  * Simple directive that extends the ripple and matches the selector of the MdTabLink. This
  * adds the ripple behavior to nav bar labels.
  */
-var MdTabLinkRipple = (function (_super) {
+var MdTabLinkRipple = /*@__PURE__*/(function (_super) {
     __extends(MdTabLinkRipple, _super);
     /**
      * @param {?} elementRef
@@ -16196,7 +16196,7 @@ MdTabLinkRipple.ctorParameters = function () { return [
  * Wrapper for the contents of a tab.
  * \@docs-private
  */
-var MdTabBody = (function () {
+var MdTabBody = /*@__PURE__*/(function () {
     /**
      * @param {?} _dir
      * @param {?} _elementRef
@@ -16369,7 +16369,7 @@ var EXAGGERATED_OVERSCROLL = 60;
  * left and right across the header.
  * \@docs-private
  */
-var MdTabHeader = (function () {
+var MdTabHeader = /*@__PURE__*/(function () {
     /**
      * @param {?} _elementRef
      * @param {?} _dir
@@ -16772,7 +16772,7 @@ MdTabHeader.propDecorators = {
     'selectFocusedIndex': [{ type: Output },],
     'indexFocused': [{ type: Output },],
 };
-var MdTabsModule = (function () {
+var MdTabsModule = /*@__PURE__*/(function () {
     function MdTabsModule() {
     }
     /**
@@ -16823,7 +16823,7 @@ MdTabsModule.decorators = [
  * @nocollapse
  */
 MdTabsModule.ctorParameters = function () { return []; };
-var MdToolbarRow = (function () {
+var MdToolbarRow = /*@__PURE__*/(function () {
     function MdToolbarRow() {
     }
     return MdToolbarRow;
@@ -16840,7 +16840,7 @@ MdToolbarRow.decorators = [
  * @nocollapse
  */
 MdToolbarRow.ctorParameters = function () { return []; };
-var MdToolbar = (function () {
+var MdToolbar = /*@__PURE__*/(function () {
     /**
      * @param {?} elementRef
      * @param {?} renderer
@@ -16910,7 +16910,7 @@ MdToolbar.ctorParameters = function () { return [
 MdToolbar.propDecorators = {
     'color': [{ type: Input },],
 };
-var MdToolbarModule = (function () {
+var MdToolbarModule = /*@__PURE__*/(function () {
     function MdToolbarModule() {
     }
     /**
@@ -16940,7 +16940,7 @@ MdToolbarModule.ctorParameters = function () { return []; };
  * Exception thrown when a tooltip has an invalid position.
  * \@docs-private
  */
-var MdTooltipInvalidPositionError = (function (_super) {
+var MdTooltipInvalidPositionError = /*@__PURE__*/(function (_super) {
     __extends(MdTooltipInvalidPositionError, _super);
     /**
      * @param {?} position
@@ -16964,7 +16964,7 @@ var SCROLL_THROTTLE_MS = 20;
  *
  * https://material.google.com/components/tooltips.html
  */
-var MdTooltip = (function () {
+var MdTooltip = /*@__PURE__*/(function () {
     /**
      * @param {?} _overlay
      * @param {?} _elementRef
@@ -17377,7 +17377,7 @@ MdTooltip.propDecorators = {
  * Internal component that wraps the tooltip's content.
  * \@docs-private
  */
-var TooltipComponent = (function () {
+var TooltipComponent = /*@__PURE__*/(function () {
     /**
      * @param {?} _dir
      * @param {?} _changeDetectorRef
@@ -17547,7 +17547,7 @@ TooltipComponent.ctorParameters = function () { return [
     { type: Dir, decorators: [{ type: Optional },] },
     { type: ChangeDetectorRef, },
 ]; };
-var MdTooltipModule = (function () {
+var MdTooltipModule = /*@__PURE__*/(function () {
     function MdTooltipModule() {
     }
     /**
@@ -17578,7 +17578,7 @@ MdTooltipModule.ctorParameters = function () { return []; };
  * Exception thrown when menu trigger doesn't have a valid md-menu instance
  * \@docs-private
  */
-var MdMenuMissingError = (function (_super) {
+var MdMenuMissingError = /*@__PURE__*/(function (_super) {
     __extends(MdMenuMissingError, _super);
     function MdMenuMissingError() {
         return _super.call(this, "md-menu-trigger: must pass in an md-menu instance.\n\n    Example:\n      <md-menu #menu=\"mdMenu\"></md-menu>\n      <button [mdMenuTriggerFor]=\"menu\"></button>\n    ") || this;
@@ -17590,7 +17590,7 @@ var MdMenuMissingError = (function (_super) {
  * In other words, it doesn't match 'before' or 'after'.
  * \@docs-private
  */
-var MdMenuInvalidPositionX = (function (_super) {
+var MdMenuInvalidPositionX = /*@__PURE__*/(function (_super) {
     __extends(MdMenuInvalidPositionX, _super);
     function MdMenuInvalidPositionX() {
         return _super.call(this, "x-position value must be either 'before' or after'.\n      Example: <md-menu x-position=\"before\" #menu=\"mdMenu\"></md-menu>\n    ") || this;
@@ -17602,7 +17602,7 @@ var MdMenuInvalidPositionX = (function (_super) {
  * In other words, it doesn't match 'above' or 'below'.
  * \@docs-private
  */
-var MdMenuInvalidPositionY = (function (_super) {
+var MdMenuInvalidPositionY = /*@__PURE__*/(function (_super) {
     __extends(MdMenuInvalidPositionY, _super);
     function MdMenuInvalidPositionY() {
         return _super.call(this, "y-position value must be either 'above' or below'.\n      Example: <md-menu y-position=\"above\" #menu=\"mdMenu\"></md-menu>\n    ") || this;
@@ -17613,7 +17613,7 @@ var MdMenuInvalidPositionY = (function (_super) {
  * This directive is intended to be used inside an md-menu tag.
  * It exists mostly to set the role attribute.
  */
-var MdMenuItem = (function () {
+var MdMenuItem = /*@__PURE__*/(function () {
     /**
      * @param {?} _renderer
      * @param {?} _elementRef
@@ -17748,7 +17748,7 @@ var fadeInItems = trigger('fadeInItems', [
     ])
 ]);
 // TODO(kara): prevent-close functionality
-var MdMenu = (function () {
+var MdMenu = /*@__PURE__*/(function () {
     /**
      * @param {?} posX
      * @param {?} posY
@@ -17908,7 +17908,7 @@ MdMenu.propDecorators = {
  * This directive is intended to be used in conjunction with an md-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
  */
-var MdMenuTrigger = (function () {
+var MdMenuTrigger = /*@__PURE__*/(function () {
     /**
      * @param {?} _overlay
      * @param {?} _element
@@ -18228,7 +18228,7 @@ MdMenuTrigger.propDecorators = {
     'onMenuOpen': [{ type: Output },],
     'onMenuClose': [{ type: Output },],
 };
-var MdMenuModule = (function () {
+var MdMenuModule = /*@__PURE__*/(function () {
     function MdMenuModule() {
     }
     /**
@@ -18262,7 +18262,7 @@ MdMenuModule.ctorParameters = function () { return []; };
 /**
  * Reference to a dialog opened via the MdDialog service.
  */
-var MdDialogRef = (function () {
+var MdDialogRef = /*@__PURE__*/(function () {
     /**
      * @param {?} _overlayRef
      * @param {?} _containerInstance
@@ -18350,7 +18350,7 @@ var MD_DIALOG_DATA = new OpaqueToken('MdDialogData');
 /**
  * Custom injector type specifically for instantiating components with a dialog.
  */
-var DialogInjector = (function () {
+var DialogInjector = /*@__PURE__*/(function () {
     /**
      * @param {?} _parentInjector
      * @param {?} _dialogRef
@@ -18380,7 +18380,7 @@ var DialogInjector = (function () {
 /**
  * Configuration for opening a modal dialog with the MdDialog service.
  */
-var MdDialogConfig = (function () {
+var MdDialogConfig = /*@__PURE__*/(function () {
     function MdDialogConfig() {
         /**
          * The ARIA role of the dialog element.
@@ -18406,7 +18406,7 @@ var MdDialogConfig = (function () {
  * Exception thrown when a ComponentPortal is attached to a DomPortalHost without an origin.
  * \@docs-private
  */
-var MdDialogContentAlreadyAttachedError = (function (_super) {
+var MdDialogContentAlreadyAttachedError = /*@__PURE__*/(function (_super) {
     __extends(MdDialogContentAlreadyAttachedError, _super);
     function MdDialogContentAlreadyAttachedError() {
         return _super.call(this, 'Attempting to attach dialog content after content is already attached') || this;
@@ -18418,7 +18418,7 @@ var MdDialogContentAlreadyAttachedError = (function (_super) {
  * Animation is based on https://material.io/guidelines/motion/choreography.html.
  * \@docs-private
  */
-var MdDialogContainer = (function (_super) {
+var MdDialogContainer = /*@__PURE__*/(function (_super) {
     __extends(MdDialogContainer, _super);
     /**
      * @param {?} _renderer
@@ -18549,7 +18549,7 @@ MdDialogContainer.propDecorators = {
 /**
  * Service to open Material Design modal dialogs.
  */
-var MdDialog = (function () {
+var MdDialog = /*@__PURE__*/(function () {
     /**
      * @param {?} _overlay
      * @param {?} _injector
@@ -18763,7 +18763,7 @@ function _applyConfigDefaults$1(config) {
 /**
  * Button that will close the current dialog.
  */
-var MdDialogClose = (function () {
+var MdDialogClose = /*@__PURE__*/(function () {
     /**
      * @param {?} dialogRef
      */
@@ -18798,7 +18798,7 @@ MdDialogClose.propDecorators = {
 /**
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
  */
-var MdDialogTitle = (function () {
+var MdDialogTitle = /*@__PURE__*/(function () {
     function MdDialogTitle() {
     }
     return MdDialogTitle;
@@ -18818,7 +18818,7 @@ MdDialogTitle.ctorParameters = function () { return []; };
 /**
  * Scrollable content container of a dialog.
  */
-var MdDialogContent = (function () {
+var MdDialogContent = /*@__PURE__*/(function () {
     function MdDialogContent() {
     }
     return MdDialogContent;
@@ -18839,7 +18839,7 @@ MdDialogContent.ctorParameters = function () { return []; };
  * Container for the bottom action buttons in a dialog.
  * Stays fixed to the bottom when scrolling.
  */
-var MdDialogActions = (function () {
+var MdDialogActions = /*@__PURE__*/(function () {
     function MdDialogActions() {
     }
     return MdDialogActions;
@@ -18856,7 +18856,7 @@ MdDialogActions.decorators = [
  * @nocollapse
  */
 MdDialogActions.ctorParameters = function () { return []; };
-var MdDialogModule = (function () {
+var MdDialogModule = /*@__PURE__*/(function () {
     function MdDialogModule() {
     }
     /**
@@ -18904,7 +18904,7 @@ MdDialogModule.decorators = [
  * @nocollapse
  */
 MdDialogModule.ctorParameters = function () { return []; };
-var ActiveDescendantKeyManager = (function (_super) {
+var ActiveDescendantKeyManager = /*@__PURE__*/(function (_super) {
     __extends(ActiveDescendantKeyManager, _super);
     /**
      * @param {?} items
@@ -18938,7 +18938,7 @@ var ActiveDescendantKeyManager = (function (_super) {
  * the component definition.
  */
 var _uniqueAutocompleteIdCounter = 0;
-var MdAutocomplete = (function () {
+var MdAutocomplete = /*@__PURE__*/(function () {
     /**
      * @param {?} _changeDetectorRef
      */
@@ -19039,7 +19039,7 @@ var MD_AUTOCOMPLETE_VALUE_ACCESSOR = {
     useExisting: forwardRef(function () { return MdAutocompleteTrigger; }),
     multi: true
 };
-var MdAutocompleteTrigger = (function () {
+var MdAutocompleteTrigger = /*@__PURE__*/(function () {
     /**
      * @param {?} _element
      * @param {?} _overlay
@@ -19467,7 +19467,7 @@ MdAutocompleteTrigger.propDecorators = {
     'autocomplete': [{ type: Input, args: ['mdAutocomplete',] },],
     '_matAutocomplete': [{ type: Input, args: ['matAutocomplete',] },],
 };
-var MdAutocompleteModule = (function () {
+var MdAutocompleteModule = /*@__PURE__*/(function () {
     function MdAutocompleteModule() {
     }
     /**
@@ -19530,7 +19530,7 @@ var MATERIAL_MODULES = [
 /**
  * @deprecated
  */
-var MaterialRootModule = (function () {
+var MaterialRootModule = /*@__PURE__*/(function () {
     function MaterialRootModule() {
     }
     return MaterialRootModule;
@@ -19581,7 +19581,7 @@ MaterialRootModule.ctorParameters = function () { return []; };
 /**
  * @deprecated
  */
-var MaterialModule = (function () {
+var MaterialModule = /*@__PURE__*/(function () {
     function MaterialModule() {
     }
     /**
