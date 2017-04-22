@@ -7558,7 +7558,9 @@ var FocusKeyManager = (function (_super) {
      */
     FocusKeyManager.prototype.setActiveItem = function (index) {
         _super.prototype.setActiveItem.call(this, index);
-        this.activeItem.focus();
+        if (this.activeItem) {
+            this.activeItem.focus();
+        }
     };
     return FocusKeyManager;
 }(ListKeyManager));
@@ -8136,6 +8138,23 @@ var MdSelect = (function () {
         if (event.keyCode === ENTER || event.keyCode === SPACE) {
             this.open();
         }
+        else if (!this.disabled) {
+            var /** @type {?} */ prevActiveItem = this._keyManager.activeItem;
+            // Cycle though the select options even when the select is closed,
+            // matching the behavior of the native select element.
+            // TODO(crisbeto): native selects also cycle through the options with left/right arrows,
+            // however the key manager only supports up/down at the moment.
+            this._keyManager.onKeydown(event);
+            var /** @type {?} */ currentActiveItem = (this._keyManager.activeItem);
+            if (this._multiple) {
+                this.open();
+            }
+            else if (currentActiveItem !== prevActiveItem) {
+                this._clearSelection();
+                this._setSelectionByValue(currentActiveItem.value);
+                this._propagateChanges();
+            }
+        }
     };
     /**
      * When the panel element is finished transforming in (though not fading in), it
@@ -8221,10 +8240,12 @@ var MdSelect = (function () {
      * @return {?} Option that has the corresponding value.
      */
     MdSelect.prototype._selectValue = function (value) {
-        var /** @type {?} */ correspondingOption = this.options.find(function (option) { return option.value === value; });
+        var /** @type {?} */ optionsArray = this.options.toArray();
+        var /** @type {?} */ correspondingOption = optionsArray.find(function (option) { return option.value === value; });
         if (correspondingOption) {
             correspondingOption.select();
             this._selectionModel.select(correspondingOption);
+            this._keyManager.setActiveItem(optionsArray.indexOf(correspondingOption));
         }
         return correspondingOption;
     };

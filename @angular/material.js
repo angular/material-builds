@@ -7202,7 +7202,9 @@ class FocusKeyManager extends ListKeyManager {
      */
     setActiveItem(index) {
         super.setActiveItem(index);
-        this.activeItem.focus();
+        if (this.activeItem) {
+            this.activeItem.focus();
+        }
     }
 }
 
@@ -7730,6 +7732,23 @@ class MdSelect {
         if (event.keyCode === ENTER || event.keyCode === SPACE) {
             this.open();
         }
+        else if (!this.disabled) {
+            let /** @type {?} */ prevActiveItem = this._keyManager.activeItem;
+            // Cycle though the select options even when the select is closed,
+            // matching the behavior of the native select element.
+            // TODO(crisbeto): native selects also cycle through the options with left/right arrows,
+            // however the key manager only supports up/down at the moment.
+            this._keyManager.onKeydown(event);
+            let /** @type {?} */ currentActiveItem = (this._keyManager.activeItem);
+            if (this._multiple) {
+                this.open();
+            }
+            else if (currentActiveItem !== prevActiveItem) {
+                this._clearSelection();
+                this._setSelectionByValue(currentActiveItem.value);
+                this._propagateChanges();
+            }
+        }
     }
     /**
      * When the panel element is finished transforming in (though not fading in), it
@@ -7814,10 +7833,12 @@ class MdSelect {
      * @return {?} Option that has the corresponding value.
      */
     _selectValue(value) {
-        let /** @type {?} */ correspondingOption = this.options.find(option => option.value === value);
+        let /** @type {?} */ optionsArray = this.options.toArray();
+        let /** @type {?} */ correspondingOption = optionsArray.find(option => option.value === value);
         if (correspondingOption) {
             correspondingOption.select();
             this._selectionModel.select(correspondingOption);
+            this._keyManager.setActiveItem(optionsArray.indexOf(correspondingOption));
         }
         return correspondingOption;
     }
