@@ -8793,6 +8793,7 @@ var MdSlideToggle = /*@__PURE__*/(function () {
         this.onChange = function (_) { };
         this.onTouched = function () { };
         this._uniqueId = "md-slide-toggle-" + ++nextId$1;
+        this._checked = false;
         this._slideRenderer = null;
         this._disabled = false;
         this._required = false;
@@ -8813,10 +8814,6 @@ var MdSlideToggle = /*@__PURE__*/(function () {
          * Whether the label should appear after or before the slide-toggle. Defaults to 'after'
          */
         this.labelPosition = 'after';
-        /**
-         * Whether the slide-toggle element is checked or not
-         */
-        this.checked = false;
         /**
          * Used to set the aria-label attribute on the underlying input element.
          */
@@ -8898,7 +8895,9 @@ var MdSlideToggle = /*@__PURE__*/(function () {
         this._focusOriginMonitor.stopMonitoring(this._inputElement.nativeElement);
     };
     /**
-     * This function will called if the underlying input changed its value through user interaction.
+     * The onChangeEvent method will be also called on click.
+     * This is because everything for the slide-toggle is wrapped inside of a label,
+     * which triggers a onChange event on click.
      * @param {?} event
      * @return {?}
      */
@@ -8907,24 +8906,21 @@ var MdSlideToggle = /*@__PURE__*/(function () {
         // Otherwise the change event, from the input element, will bubble up and
         // emit its event object to the component's `change` output.
         event.stopPropagation();
-        // Sync the value from the underlying input element with the slide-toggle component.
-        this.checked = this._inputElement.nativeElement.checked;
-        // Emit our custom change event if the native input emitted one.
-        // It is important to only emit it, if the native input triggered one, because we don't want
-        // to trigger a change event, when the `checked` variable changes programmatically.
-        this._emitChangeEvent();
+        // Once a drag is currently in progress, we do not want to toggle the slide-toggle on a click.
+        if (!this.disabled && !this._slideRenderer.dragging) {
+            this.toggle();
+            // Emit our custom change event if the native input emitted one.
+            // It is important to only emit it, if the native input triggered one, because
+            // we don't want to trigger a change event, when the `checked` variable changes for example.
+            this._emitChangeEvent();
+        }
     };
     /**
      * @param {?} event
      * @return {?}
      */
     MdSlideToggle.prototype._onInputClick = function (event) {
-        // In some situations the user will release the mouse on the label element. The label element
-        // redirects the click to the underlying input element and will result in a value change.
-        // Prevent the default behavior if dragging, because the value will be set after drag.
-        if (this._slideRenderer.dragging) {
-            event.preventDefault();
-        }
+        this.onTouched();
         // We have to stop propagation for click events on the visual hidden input element.
         // By default, when a user clicks on a label element, a generated click event will be
         // dispatched on the associated input element. Since we are using a label element as our
@@ -8973,6 +8969,25 @@ var MdSlideToggle = /*@__PURE__*/(function () {
     MdSlideToggle.prototype.focus = function () {
         this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, this._renderer, 'keyboard');
     };
+    Object.defineProperty(MdSlideToggle.prototype, "checked", {
+        /**
+         * Whether the slide-toggle is checked.
+         * @return {?}
+         */
+        get: function () { return !!this._checked; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            if (this.checked !== !!value) {
+                this._checked = value;
+                this.onChange(this._checked);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MdSlideToggle.prototype, "color", {
         /**
          * The color of the slide-toggle. Can be primary, accent, or warn.
@@ -9035,7 +9050,7 @@ var MdSlideToggle = /*@__PURE__*/(function () {
         }
     };
     /**
-     * Emits a change event on the `change` output. Also notifies the FormControl about the change.
+     * Emits the change event to the `change` output EventEmitter
      * @return {?}
      */
     MdSlideToggle.prototype._emitChangeEvent = function () {
@@ -9043,7 +9058,6 @@ var MdSlideToggle = /*@__PURE__*/(function () {
         event.source = this;
         event.checked = this.checked;
         this.change.emit(event);
-        this.onChange(this.checked);
     };
     /**
      * @return {?}
@@ -9108,7 +9122,6 @@ MdSlideToggle.propDecorators = {
     'id': [{ type: Input },],
     'tabIndex': [{ type: Input },],
     'labelPosition': [{ type: Input },],
-    'checked': [{ type: Input },],
     'ariaLabel': [{ type: Input, args: ['aria-label',] },],
     'ariaLabelledby': [{ type: Input, args: ['aria-labelledby',] },],
     'disabled': [{ type: Input },],
@@ -9117,6 +9130,7 @@ MdSlideToggle.propDecorators = {
     'change': [{ type: Output },],
     '_inputElement': [{ type: ViewChild, args: ['input',] },],
     '_ripple': [{ type: ViewChild, args: [MdRipple,] },],
+    'checked': [{ type: Input },],
     'color': [{ type: Input },],
 };
 /**
