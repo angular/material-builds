@@ -5,7 +5,7 @@
   */
 import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, Injector, Input, NgModule, NgZone, OpaqueToken, Optional, Output, Renderer, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
 import { DOCUMENT, DomSanitizer, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
@@ -17594,11 +17594,13 @@ class MdDialog {
     /**
      * @param {?} _overlay
      * @param {?} _injector
+     * @param {?} _location
      * @param {?} _parentDialog
      */
-    constructor(_overlay, _injector, _parentDialog) {
+    constructor(_overlay, _injector, _location, _parentDialog) {
         this._overlay = _overlay;
         this._injector = _injector;
+        this._location = _location;
         this._parentDialog = _parentDialog;
         this._openDialogsAtThisLevel = [];
         this._afterAllClosedAtThisLevel = new Subject();
@@ -17612,6 +17614,12 @@ class MdDialog {
          * Gets an observable that is notified when all open dialog have finished closing.
          */
         this.afterAllClosed = this._afterAllClosed.asObservable();
+        // Close all of the dialogs when the user goes forwards/backwards in history or when the
+        // location hash changes. Note that this usually doesn't include clicking on links (unless
+        // the user is using the `HashLocationStrategy`).
+        if (!_parentDialog && _location) {
+            _location.subscribe(() => this.closeAll());
+        }
     }
     /**
      * Keeps track of the currently-open dialogs.
@@ -17780,6 +17788,7 @@ MdDialog.decorators = [
 MdDialog.ctorParameters = () => [
     { type: Overlay, },
     { type: Injector, },
+    { type: Location, decorators: [{ type: Optional },] },
     { type: MdDialog, decorators: [{ type: Optional }, { type: SkipSelf },] },
 ];
 /**
@@ -17893,6 +17902,7 @@ class MdDialogModule {
 MdDialogModule.decorators = [
     { type: NgModule, args: [{
                 imports: [
+                    CommonModule,
                     OverlayModule,
                     PortalModule,
                     A11yModule,

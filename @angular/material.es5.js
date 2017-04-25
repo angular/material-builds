@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
   */
 import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, Injector, Input, NgModule, NgZone, OpaqueToken, Optional, Output, Renderer, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
 import { DOCUMENT, DomSanitizer, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
@@ -18751,11 +18751,14 @@ var MdDialog = /*@__PURE__*/(function () {
     /**
      * @param {?} _overlay
      * @param {?} _injector
+     * @param {?} _location
      * @param {?} _parentDialog
      */
-    function MdDialog(_overlay, _injector, _parentDialog) {
+    function MdDialog(_overlay, _injector, _location, _parentDialog) {
+        var _this = this;
         this._overlay = _overlay;
         this._injector = _injector;
+        this._location = _location;
         this._parentDialog = _parentDialog;
         this._openDialogsAtThisLevel = [];
         this._afterAllClosedAtThisLevel = new Subject();
@@ -18769,6 +18772,12 @@ var MdDialog = /*@__PURE__*/(function () {
          * Gets an observable that is notified when all open dialog have finished closing.
          */
         this.afterAllClosed = this._afterAllClosed.asObservable();
+        // Close all of the dialogs when the user goes forwards/backwards in history or when the
+        // location hash changes. Note that this usually doesn't include clicking on links (unless
+        // the user is using the `HashLocationStrategy`).
+        if (!_parentDialog && _location) {
+            _location.subscribe(function () { return _this.closeAll(); });
+        }
     }
     Object.defineProperty(MdDialog.prototype, "_openDialogs", {
         /**
@@ -18951,6 +18960,7 @@ MdDialog.decorators = [
 MdDialog.ctorParameters = function () { return [
     { type: Overlay, },
     { type: Injector, },
+    { type: Location, decorators: [{ type: Optional },] },
     { type: MdDialog, decorators: [{ type: Optional }, { type: SkipSelf },] },
 ]; };
 /**
@@ -19075,6 +19085,7 @@ var MdDialogModule = /*@__PURE__*/(function () {
 MdDialogModule.decorators = [
     { type: NgModule, args: [{
                 imports: [
+                    CommonModule,
                     OverlayModule,
                     PortalModule,
                     A11yModule,
