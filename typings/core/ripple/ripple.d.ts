@@ -4,10 +4,10 @@ import { ViewportRuler } from '../overlay/position/viewport-ruler';
 import { RippleRef } from './ripple-ref';
 /** OpaqueToken that can be used to specify the global ripple options. */
 export declare const MD_RIPPLE_GLOBAL_OPTIONS: OpaqueToken;
-export declare type RippleGlobalOptions = {
+export interface RippleGlobalOptions {
     disabled?: boolean;
     baseSpeedFactor?: number;
-};
+}
 export declare class MdRipple implements OnChanges, OnDestroy {
     /**
      * The element that triggers the ripple when click events are received. Defaults to the
@@ -44,7 +44,7 @@ export declare class MdRipple implements OnChanges, OnDestroy {
     private _rippleRenderer;
     /** Options that are set globally for all ripples. */
     private _globalOptions;
-    constructor(elementRef: ElementRef, ngZone: NgZone, ruler: ViewportRuler, globalOptions: any);
+    constructor(elementRef: ElementRef, ngZone: NgZone, ruler: ViewportRuler, globalOptions: RippleGlobalOptions);
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     /** Launches a manual ripple at the specified position. */
@@ -53,4 +53,6 @@ export declare class MdRipple implements OnChanges, OnDestroy {
     fadeOutAll(): void;
     /** Ripple configuration from the directive's input values. */
     readonly rippleConfig: RippleConfig;
+    /** Updates the ripple renderer with the latest ripple configuration. */
+    private _updateRippleRenderer();
 }
