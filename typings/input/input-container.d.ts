@@ -84,6 +84,9 @@ export declare class MdInputContainer implements AfterViewInit, AfterContentInit
     color: 'primary' | 'accent' | 'warn';
     /** @deprecated Use color instead. */
     dividerColor: "accent" | "primary" | "warn";
+    /** Whether we should hide the required marker. */
+    hideRequiredMarker: any;
+    private _hideRequiredMarker;
     /** Whether the floating label should always float or not. */
     readonly _shouldAlwaysFloat: boolean;
     /** Whether the placeholder can float or not. */
