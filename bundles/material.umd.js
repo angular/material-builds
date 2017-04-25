@@ -1247,12 +1247,10 @@ var MdOptionSelectionChange = (function () {
 var MdOption = (function () {
     /**
      * @param {?} _element
-     * @param {?} _renderer
      * @param {?} _isCompatibilityMode
      */
-    function MdOption(_element, _renderer, _isCompatibilityMode) {
+    function MdOption(_element, _isCompatibilityMode) {
         this._element = _element;
-        this._renderer = _renderer;
         this._isCompatibilityMode = _isCompatibilityMode;
         this._selected = false;
         this._active = false;
@@ -1350,7 +1348,7 @@ var MdOption = (function () {
      * @return {?}
      */
     MdOption.prototype.focus = function () {
-        this._renderer.invokeElementMethod(this._getHostElement(), 'focus');
+        this._getHostElement().focus();
     };
     /**
      * This method sets display styles on the option to make it appear
@@ -1441,7 +1439,6 @@ MdOption.decorators = [
  */
 MdOption.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
-    { type: _angular_core.Renderer, },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
 ]; };
 MdOption.propDecorators = {

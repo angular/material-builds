@@ -1313,12 +1313,10 @@ class MdOptionSelectionChange {
 class MdOption {
     /**
      * @param {?} _element
-     * @param {?} _renderer
      * @param {?} _isCompatibilityMode
      */
-    constructor(_element, _renderer, _isCompatibilityMode) {
+    constructor(_element, _isCompatibilityMode) {
         this._element = _element;
-        this._renderer = _renderer;
         this._isCompatibilityMode = _isCompatibilityMode;
         this._selected = false;
         this._active = false;
@@ -1396,7 +1394,7 @@ class MdOption {
      * @return {?}
      */
     focus() {
-        this._renderer.invokeElementMethod(this._getHostElement(), 'focus');
+        this._getHostElement().focus();
     }
     /**
      * This method sets display styles on the option to make it appear
@@ -1485,7 +1483,6 @@ MdOption.decorators = [
  */
 MdOption.ctorParameters = () => [
     { type: ElementRef, },
-    { type: Renderer, },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
 ];
 MdOption.propDecorators = {
