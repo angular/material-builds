@@ -5,7 +5,7 @@
   */
 import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, Injector, Input, NgModule, NgZone, OpaqueToken, Optional, Output, Renderer, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
 import { DOCUMENT, DomSanitizer, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
@@ -1083,7 +1083,9 @@ class MdRipple {
      * @param {?} ruler
      * @param {?} globalOptions
      */
-    constructor(elementRef, ngZone, ruler, globalOptions) {
+    constructor(elementRef, ngZone, ruler, 
+        // Type needs to be `any` because of https://github.com/angular/angular/issues/12631
+        globalOptions) {
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -1098,7 +1100,6 @@ class MdRipple {
         this.speedFactor = 1;
         this._rippleRenderer = new RippleRenderer(elementRef, ngZone, ruler);
         this._globalOptions = globalOptions ? globalOptions : {};
-        this._updateRippleRenderer();
     }
     /**
      * @param {?} changes
@@ -1108,7 +1109,8 @@ class MdRipple {
         if (changes['trigger'] && this.trigger) {
             this._rippleRenderer.setTriggerElement(this.trigger);
         }
-        this._updateRippleRenderer();
+        this._rippleRenderer.rippleDisabled = this._globalOptions.disabled || this.disabled;
+        this._rippleRenderer.rippleConfig = this.rippleConfig;
     }
     /**
      * @return {?}
@@ -1145,14 +1147,6 @@ class MdRipple {
             radius: this.radius,
             color: this.color
         };
-    }
-    /**
-     * Updates the ripple renderer with the latest ripple configuration.
-     * @return {?}
-     */
-    _updateRippleRenderer() {
-        this._rippleRenderer.rippleDisabled = this._globalOptions.disabled || this.disabled;
-        this._rippleRenderer.rippleConfig = this.rippleConfig;
     }
 }
 MdRipple.decorators = [
@@ -17594,13 +17588,11 @@ class MdDialog {
     /**
      * @param {?} _overlay
      * @param {?} _injector
-     * @param {?} _location
      * @param {?} _parentDialog
      */
-    constructor(_overlay, _injector, _location, _parentDialog) {
+    constructor(_overlay, _injector, _parentDialog) {
         this._overlay = _overlay;
         this._injector = _injector;
-        this._location = _location;
         this._parentDialog = _parentDialog;
         this._openDialogsAtThisLevel = [];
         this._afterAllClosedAtThisLevel = new Subject();
@@ -17614,12 +17606,6 @@ class MdDialog {
          * Gets an observable that is notified when all open dialog have finished closing.
          */
         this.afterAllClosed = this._afterAllClosed.asObservable();
-        // Close all of the dialogs when the user goes forwards/backwards in history or when the
-        // location hash changes. Note that this usually doesn't include clicking on links (unless
-        // the user is using the `HashLocationStrategy`).
-        if (!_parentDialog && _location) {
-            _location.subscribe(() => this.closeAll());
-        }
     }
     /**
      * Keeps track of the currently-open dialogs.
@@ -17788,7 +17774,6 @@ MdDialog.decorators = [
 MdDialog.ctorParameters = () => [
     { type: Overlay, },
     { type: Injector, },
-    { type: Location, decorators: [{ type: Optional },] },
     { type: MdDialog, decorators: [{ type: Optional }, { type: SkipSelf },] },
 ];
 /**
@@ -17902,7 +17887,6 @@ class MdDialogModule {
 MdDialogModule.decorators = [
     { type: NgModule, args: [{
                 imports: [
-                    CommonModule,
                     OverlayModule,
                     PortalModule,
                     A11yModule,

@@ -1,5 +1,4 @@
 import { Injector, TemplateRef } from '@angular/core';
-import { Location } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Overlay, ComponentType } from '../core';
@@ -12,7 +11,6 @@ import 'rxjs/add/operator/first';
 export declare class MdDialog {
     private _overlay;
     private _injector;
-    private _location;
     private _parentDialog;
     private _openDialogsAtThisLevel;
     private _afterAllClosedAtThisLevel;
@@ -28,7 +26,7 @@ export declare class MdDialog {
     afterOpen: Observable<MdDialogRef<any>>;
     /** Gets an observable that is notified when all open dialog have finished closing. */
     afterAllClosed: Observable<void>;
-    constructor(_overlay: Overlay, _injector: Injector, _location: Location, _parentDialog: MdDialog);
+    constructor(_overlay: Overlay, _injector: Injector, _parentDialog: MdDialog);
     /**
      * Opens a modal dialog containing the given component.
      * @param componentOrTemplateRef Type of the component to load into the dialog,
