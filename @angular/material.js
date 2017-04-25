@@ -1100,6 +1100,7 @@ class MdRipple {
         this.speedFactor = 1;
         this._rippleRenderer = new RippleRenderer(elementRef, ngZone, ruler);
         this._globalOptions = globalOptions ? globalOptions : {};
+        this._updateRippleRenderer();
     }
     /**
      * @param {?} changes
@@ -1109,8 +1110,7 @@ class MdRipple {
         if (changes['trigger'] && this.trigger) {
             this._rippleRenderer.setTriggerElement(this.trigger);
         }
-        this._rippleRenderer.rippleDisabled = this._globalOptions.disabled || this.disabled;
-        this._rippleRenderer.rippleConfig = this.rippleConfig;
+        this._updateRippleRenderer();
     }
     /**
      * @return {?}
@@ -1147,6 +1147,14 @@ class MdRipple {
             radius: this.radius,
             color: this.color
         };
+    }
+    /**
+     * Updates the ripple renderer with the latest ripple configuration.
+     * @return {?}
+     */
+    _updateRippleRenderer() {
+        this._rippleRenderer.rippleDisabled = this._globalOptions.disabled || this.disabled;
+        this._rippleRenderer.rippleConfig = this.rippleConfig;
     }
 }
 MdRipple.decorators = [

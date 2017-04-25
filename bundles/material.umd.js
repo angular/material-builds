@@ -1019,6 +1019,7 @@ var MdRipple = (function () {
         this.speedFactor = 1;
         this._rippleRenderer = new RippleRenderer(elementRef, ngZone, ruler);
         this._globalOptions = globalOptions ? globalOptions : {};
+        this._updateRippleRenderer();
     }
     /**
      * @param {?} changes
@@ -1028,8 +1029,7 @@ var MdRipple = (function () {
         if (changes['trigger'] && this.trigger) {
             this._rippleRenderer.setTriggerElement(this.trigger);
         }
-        this._rippleRenderer.rippleDisabled = this._globalOptions.disabled || this.disabled;
-        this._rippleRenderer.rippleConfig = this.rippleConfig;
+        this._updateRippleRenderer();
     };
     /**
      * @return {?}
@@ -1072,6 +1072,14 @@ var MdRipple = (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * Updates the ripple renderer with the latest ripple configuration.
+     * @return {?}
+     */
+    MdRipple.prototype._updateRippleRenderer = function () {
+        this._rippleRenderer.rippleDisabled = this._globalOptions.disabled || this.disabled;
+        this._rippleRenderer.rippleConfig = this.rippleConfig;
+    };
     return MdRipple;
 }());
 MdRipple.decorators = [
