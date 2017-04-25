@@ -18523,6 +18523,14 @@ var MdDialogConfig = /*@__PURE__*/(function () {
          */
         this.role = 'dialog';
         /**
+         * Whether the dialog has a backdrop.
+         */
+        this.hasBackdrop = true;
+        /**
+         * Custom class for the backdrop,
+         */
+        this.backdropClass = '';
+        /**
          * Whether the user can use escape or clicking outside to close a modal.
          */
         this.disableClose = false;
@@ -18811,7 +18819,10 @@ var MdDialog = /*@__PURE__*/(function () {
      */
     MdDialog.prototype._getOverlayState = function (dialogConfig) {
         var /** @type {?} */ overlayState = new OverlayState();
-        overlayState.hasBackdrop = true;
+        overlayState.hasBackdrop = dialogConfig.hasBackdrop;
+        if (dialogConfig.backdropClass) {
+            overlayState.backdropClass = dialogConfig.backdropClass;
+        }
         overlayState.positionStrategy = this._overlay.position().global();
         return overlayState;
     };

@@ -17373,6 +17373,14 @@ class MdDialogConfig {
          */
         this.role = 'dialog';
         /**
+         * Whether the dialog has a backdrop.
+         */
+        this.hasBackdrop = true;
+        /**
+         * Custom class for the backdrop,
+         */
+        this.backdropClass = '';
+        /**
          * Whether the user can use escape or clicking outside to close a modal.
          */
         this.disableClose = false;
@@ -17645,7 +17653,10 @@ class MdDialog {
      */
     _getOverlayState(dialogConfig) {
         let /** @type {?} */ overlayState = new OverlayState();
-        overlayState.hasBackdrop = true;
+        overlayState.hasBackdrop = dialogConfig.hasBackdrop;
+        if (dialogConfig.backdropClass) {
+            overlayState.backdropClass = dialogConfig.backdropClass;
+        }
         overlayState.positionStrategy = this._overlay.position().global();
         return overlayState;
     }
