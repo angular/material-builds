@@ -10595,6 +10595,20 @@ var MdSidenavContainer = (function () {
         this._ngZone.onMicrotaskEmpty.first().subscribe(function () { return _this._enableTransitions = true; });
     };
     /**
+     * Calls `open` of both start and end sidenavs
+     * @return {?}
+     */
+    MdSidenavContainer.prototype.open = function () {
+        return Promise.all([this._start, this._end].map(function (sidenav) { return sidenav && sidenav.open(); }));
+    };
+    /**
+     * Calls `close` of both start and end sidenavs
+     * @return {?}
+     */
+    MdSidenavContainer.prototype.close = function () {
+        return Promise.all([this._start, this._end].map(function (sidenav) { return sidenav && sidenav.close(); }));
+    };
+    /**
      * Subscribes to sidenav events in order to set a class on the main container element when the
      * sidenav is open and the backdrop is visible. This ensures any overflow on the container element
      * is properly hidden.
