@@ -12,7 +12,7 @@ export declare const MD_SLIDER_VALUE_ACCESSOR: any;
 export declare class MdSliderChange {
     /** The MdSlider that changed. */
     source: MdSlider;
-    /** Thew new value of the source slider. */
+    /** The new value of the source slider. */
     value: number;
 }
 /**
