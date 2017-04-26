@@ -1002,9 +1002,7 @@ var MdRipple = (function () {
      * @param {?} ruler
      * @param {?} globalOptions
      */
-    function MdRipple(elementRef, ngZone, ruler, 
-        // Type needs to be `any` because of https://github.com/angular/angular/issues/12631
-        globalOptions) {
+    function MdRipple(elementRef, ngZone, ruler, globalOptions) {
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -18741,11 +18739,14 @@ var MdDialog = (function () {
     /**
      * @param {?} _overlay
      * @param {?} _injector
+     * @param {?} _location
      * @param {?} _parentDialog
      */
-    function MdDialog(_overlay, _injector, _parentDialog) {
+    function MdDialog(_overlay, _injector, _location, _parentDialog) {
+        var _this = this;
         this._overlay = _overlay;
         this._injector = _injector;
+        this._location = _location;
         this._parentDialog = _parentDialog;
         this._openDialogsAtThisLevel = [];
         this._afterAllClosedAtThisLevel = new rxjs_Subject.Subject();
@@ -18759,6 +18760,12 @@ var MdDialog = (function () {
          * Gets an observable that is notified when all open dialog have finished closing.
          */
         this.afterAllClosed = this._afterAllClosed.asObservable();
+        // Close all of the dialogs when the user goes forwards/backwards in history or when the
+        // location hash changes. Note that this usually doesn't include clicking on links (unless
+        // the user is using the `HashLocationStrategy`).
+        if (!_parentDialog && _location) {
+            _location.subscribe(function () { return _this.closeAll(); });
+        }
     }
     Object.defineProperty(MdDialog.prototype, "_openDialogs", {
         /**
@@ -18941,6 +18948,7 @@ MdDialog.decorators = [
 MdDialog.ctorParameters = function () { return [
     { type: Overlay, },
     { type: _angular_core.Injector, },
+    { type: _angular_common.Location, decorators: [{ type: _angular_core.Optional },] },
     { type: MdDialog, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
 ]; };
 /**
@@ -19065,6 +19073,7 @@ var MdDialogModule = (function () {
 MdDialogModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [
+                    _angular_common.CommonModule,
                     OverlayModule,
                     PortalModule,
                     A11yModule,
