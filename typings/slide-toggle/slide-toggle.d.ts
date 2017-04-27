@@ -1,17 +1,15 @@
-import { AfterContentInit, ElementRef, EventEmitter, OnDestroy, Renderer } from '@angular/core';
-import { FocusOriginMonitor, HammerInput, MdRipple } from '../core';
+import { ElementRef, Renderer, EventEmitter, AfterContentInit, OnDestroy } from '@angular/core';
+import { HammerInput, FocusOriginMonitor, MdRipple } from '../core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanDisable } from '../core/common-behaviors/disabled';
 export declare const MD_SLIDE_TOGGLE_VALUE_ACCESSOR: any;
 export declare class MdSlideToggleChange {
     source: MdSlideToggle;
     checked: boolean;
 }
-export declare class MdSlideToggleBase {
-}
-export declare const _MdSlideToggleMixinBase: (new (...args: any[]) => CanDisable) & typeof MdSlideToggleBase;
-/** Represents a slidable "switch" toggle that can be moved between on and off. */
-export declare class MdSlideToggle extends _MdSlideToggleMixinBase implements OnDestroy, AfterContentInit, ControlValueAccessor, CanDisable {
+/**
+ * Two-state control, which can be also called `switch`.
+ */
+export declare class MdSlideToggle implements OnDestroy, AfterContentInit, ControlValueAccessor {
     private _elementRef;
     private _renderer;
     private _focusOriginMonitor;
@@ -21,6 +19,7 @@ export declare class MdSlideToggle extends _MdSlideToggleMixinBase implements On
     private _checked;
     private _color;
     private _slideRenderer;
+    private _disabled;
     private _required;
     private _disableRipple;
     /** Reference to the focus state ripple. */
@@ -37,6 +36,8 @@ export declare class MdSlideToggle extends _MdSlideToggleMixinBase implements On
     ariaLabel: string;
     /** Used to set the aria-labelledby attribute on the underlying input element. */
     ariaLabelledby: string;
+    /** Whether the slide-toggle is disabled. */
+    disabled: boolean;
     /** Whether the slide-toggle is required. */
     required: boolean;
     /** Whether the ripple effect for this slide-toggle is disabled. */
