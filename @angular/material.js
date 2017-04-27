@@ -3,7 +3,7 @@
   * Copyright (c) 2017 Google, Inc. https://material.angular.io/
   * License: MIT
   */
-import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, Injector, Input, NgModule, NgZone, OpaqueToken, Optional, Output, Renderer, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
+import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, InjectionToken, Injector, Input, NgModule, NgZone, OpaqueToken, Optional, Output, Renderer, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
 import { DOCUMENT, DomSanitizer, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
 import { CommonModule, Location } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
@@ -41,11 +41,11 @@ class MdError extends Error {
     }
 }
 
-/**
- * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
- */
-let hasDoneGlobalChecks = false;
 const MATERIAL_COMPATIBILITY_MODE = new OpaqueToken('md-compatibility-mode');
+/**
+ * Injection token that configures whether the Material sanity checks are enabled.
+ */
+const MATERIAL_SANITY_CHECKS = new InjectionToken('md-sanity-checks');
 /**
  * Exception thrown if the consumer has used an invalid Material prefix on a component.
  * \@docs-private
@@ -242,13 +242,19 @@ MdPrefixRejector.ctorParameters = () => [
 class CompatibilityModule {
     /**
      * @param {?} _document
+     * @param {?} _sanityChecksEnabled
      */
-    constructor(_document) {
+    constructor(_document, _sanityChecksEnabled) {
         this._document = _document;
-        if (!hasDoneGlobalChecks && isDevMode()) {
+        /**
+         * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
+         */
+        this._hasDoneGlobalChecks = false;
+        if (_sanityChecksEnabled && !this._hasDoneGlobalChecks && _document && isDevMode()) {
+            // Delay running the check to allow more time for the user's styles to load.
             this._checkDoctype();
             this._checkTheme();
-            hasDoneGlobalChecks = true;
+            this._hasDoneGlobalChecks = true;
         }
     }
     /**
@@ -264,7 +270,7 @@ class CompatibilityModule {
      * @return {?}
      */
     _checkDoctype() {
-        if (this._document && !this._document.doctype) {
+        if (!this._document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
                 'some Angular Material components not to behave as expected.');
         }
@@ -273,7 +279,7 @@ class CompatibilityModule {
      * @return {?}
      */
     _checkTheme() {
-        if (this._document && typeof getComputedStyle === 'function') {
+        if (typeof getComputedStyle === 'function') {
             const /** @type {?} */ testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
             this._document.body.appendChild(testElement);
@@ -290,6 +296,9 @@ CompatibilityModule.decorators = [
     { type: NgModule, args: [{
                 declarations: [MatPrefixRejector, MdPrefixRejector],
                 exports: [MatPrefixRejector, MdPrefixRejector],
+                providers: [{
+                        provide: MATERIAL_SANITY_CHECKS, useValue: true,
+                    }],
             },] },
 ];
 /**
@@ -297,6 +306,7 @@ CompatibilityModule.decorators = [
  */
 CompatibilityModule.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
 ];
 /**
  * Module that enforces "no-conflict" compatibility mode settings. When this module is loaded,
@@ -315,6 +325,25 @@ NoConflictStyleCompatibilityMode.decorators = [
  * @nocollapse
  */
 NoConflictStyleCompatibilityMode.ctorParameters = () => [];
+
+/**
+ * Module that captures anything that should be loaded and/or run for *all* Angular Material
+ * components. This includes Bidi, compatibility mode, etc.
+ *
+ * This module should be imported to each top-level component module (e.g., MdTabsModule).
+ */
+class MdCommonModule {
+}
+MdCommonModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [CompatibilityModule],
+                exports: [CompatibilityModule],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdCommonModule.ctorParameters = () => [];
 
 /**
  * Shared directive to count lines inside a text area, such as a list item.
@@ -388,8 +417,8 @@ class MdLineModule {
 }
 MdLineModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CompatibilityModule],
-                exports: [MdLine, CompatibilityModule],
+                imports: [MdCommonModule],
+                exports: [MdLine, MdCommonModule],
                 declarations: [MdLine],
             },] },
 ];
@@ -1198,8 +1227,8 @@ class MdRippleModule {
 }
 MdRippleModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CompatibilityModule],
-                exports: [MdRipple, CompatibilityModule],
+                imports: [MdCommonModule],
+                exports: [MdRipple, MdCommonModule],
                 declarations: [MdRipple],
                 providers: [VIEWPORT_RULER_PROVIDER, SCROLL_DISPATCHER_PROVIDER],
             },] },
@@ -1798,7 +1827,7 @@ class TemplatePortalDirective extends TemplatePortal {
 }
 TemplatePortalDirective.decorators = [
     { type: Directive, args: [{
-                selector: '[cdk-portal], [portal]',
+                selector: '[cdk-portal], [cdkPortal], [portal]',
                 exportAs: 'cdkPortal',
             },] },
 ];
@@ -3090,7 +3119,7 @@ class Scrollable {
 }
 Scrollable.decorators = [
     { type: Directive, args: [{
-                selector: '[cdk-scrollable]'
+                selector: '[cdk-scrollable], [cdkScrollable]'
             },] },
 ];
 /**
@@ -3124,7 +3153,7 @@ class OverlayOrigin {
 }
 OverlayOrigin.decorators = [
     { type: Directive, args: [{
-                selector: '[cdk-overlay-origin], [overlay-origin]',
+                selector: '[cdk-overlay-origin], [overlay-origin], [cdkOverlayOrigin]',
                 exportAs: 'cdkOverlayOrigin',
             },] },
 ];
@@ -3385,7 +3414,7 @@ class ConnectedOverlayDirective {
 }
 ConnectedOverlayDirective.decorators = [
     { type: Directive, args: [{
-                selector: '[cdk-connected-overlay], [connected-overlay]',
+                selector: '[cdk-connected-overlay], [connected-overlay], [cdkConnectedOverlay]',
                 exportAs: 'cdkConnectedOverlay'
             },] },
 ];
@@ -5534,12 +5563,12 @@ class MdButtonToggleModule {
 }
 MdButtonToggleModule.decorators = [
     { type: NgModule, args: [{
-                imports: [FormsModule, CompatibilityModule],
+                imports: [FormsModule, MdCommonModule],
                 exports: [
                     MdButtonToggleGroup,
                     MdButtonToggleGroupMultiple,
                     MdButtonToggle,
-                    CompatibilityModule,
+                    MdCommonModule,
                 ],
                 declarations: [MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle],
                 providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, FocusOriginMonitor]
@@ -5784,9 +5813,9 @@ MdButton.decorators = [
                 host: {
                     '[disabled]': 'disabled || null',
                 },
-                inputs: ['disabled'],
                 template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span> <div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton || _isIconButton\" [mdRippleCentered]=\"_isIconButton\" [mdRippleTrigger]=\"_getHostElement()\"></div> <!-- the touchstart handler prevents the overlay from capturing the initial tap on touch devices --> <div class=\"mat-button-focus-overlay\" (touchstart)=\"$event.preventDefault()\"></div> ",
                 styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([disabled]):active,.mat-mini-fab:not([disabled]):active,.mat-raised-button:not([disabled]):active{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-icon,.mat-fab i{padding:16px 0;line-height:24px}.mat-mini-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-icon,.mat-mini-fab i{padding:8px 0;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{position:absolute;top:0;left:0;bottom:0;right:0}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}} /*# sourceMappingURL=button.css.map */ "],
+                inputs: ['disabled'],
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
@@ -5883,13 +5912,13 @@ MdButtonModule.decorators = [
                 imports: [
                     CommonModule,
                     MdRippleModule,
-                    CompatibilityModule,
+                    MdCommonModule,
                     StyleModule,
                 ],
                 exports: [
                     MdButton,
                     MdAnchor,
-                    CompatibilityModule,
+                    MdCommonModule,
                     MdButtonCssMatStyler,
                     MdRaisedButtonCssMatStyler,
                     MdIconButtonCssMatStyler,
@@ -5940,6 +5969,9 @@ TransitionCheckState[TransitionCheckState.Indeterminate] = "Indeterminate";
  */
 class MdCheckboxChange {
 }
+class MdCheckboxBase {
+}
+const _MdCheckboxMixinBase = mixinDisabled(MdCheckboxBase);
 /**
  * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
  * and exposes a similar API. A MdCheckbox can be either checked, unchecked, indeterminate, or
@@ -5948,7 +5980,7 @@ class MdCheckboxChange {
  * have the checkbox be accessible, you may supply an [aria-label] input.
  * See: https://www.google.com/design/spec/components/selection-controls.html
  */
-class MdCheckbox {
+class MdCheckbox extends _MdCheckboxMixinBase {
     /**
      * @param {?} _renderer
      * @param {?} _elementRef
@@ -5956,6 +5988,7 @@ class MdCheckbox {
      * @param {?} _focusOriginMonitor
      */
     constructor(_renderer, _elementRef, _changeDetectorRef, _focusOriginMonitor) {
+        super();
         this._renderer = _renderer;
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
@@ -5977,7 +6010,6 @@ class MdCheckbox {
          * Whether the label should appear after or before the checkbox. Defaults to 'after'
          */
         this.labelPosition = 'after';
-        this._disabled = false;
         /**
          * Tabindex value that is passed to the underlying input element.
          */
@@ -6050,16 +6082,6 @@ class MdCheckbox {
     set align(v) {
         this.labelPosition = (v == 'start') ? 'after' : 'before';
     }
-    /**
-     * Whether the checkbox is disabled.
-     * @return {?}
-     */
-    get disabled() { return this._disabled; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set disabled(value) { this._disabled = coerceBooleanProperty(value); }
     /**
      * @return {?}
      */
@@ -6341,13 +6363,14 @@ MdCheckbox.decorators = [
                 template: "<label class=\"mat-checkbox-layout\" #label> <div class=\"mat-checkbox-inner-container\"> <input #input class=\"mat-checkbox-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [value]=\"value\" [disabled]=\"disabled\" [name]=\"name\" [tabIndex]=\"tabIndex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"> <div md-ripple class=\"mat-checkbox-ripple\" [mdRippleTrigger]=\"label\" [mdRippleDisabled]=\"_isRippleDisabled()\" [mdRippleCentered]=\"true\"></div> <div class=\"mat-checkbox-frame\"></div> <div class=\"mat-checkbox-background\"> <svg version=\"1.1\" class=\"mat-checkbox-checkmark\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"> <path class=\"mat-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/> </svg> <!-- Element for rendering the indeterminate state checkbox. --> <div class=\"mat-checkbox-mixedmark\"></div> </div> </div> <span class=\"mat-checkbox-label\"> <ng-content></ng-content> </span> </label> ",
                 styles: ["@keyframes mat-checkbox-fade-in-background{0%{opacity:0}50%{opacity:1}}@keyframes mat-checkbox-fade-out-background{0%,50%{opacity:1}100%{opacity:0}}@keyframes mat-checkbox-unchecked-checked-checkmark-path{0%,50%{stroke-dashoffset:22.91026}50%{animation-timing-function:cubic-bezier(0,0,.2,.1)}100%{stroke-dashoffset:0}}@keyframes mat-checkbox-unchecked-indeterminate-mixedmark{0%,68.2%{transform:scaleX(0)}68.2%{animation-timing-function:cubic-bezier(0,0,0,1)}100%{transform:scaleX(1)}}@keyframes mat-checkbox-checked-unchecked-checkmark-path{from{animation-timing-function:cubic-bezier(.4,0,1,1);stroke-dashoffset:0}to{stroke-dashoffset:-22.91026}}@keyframes mat-checkbox-checked-indeterminate-checkmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(45deg)}}@keyframes mat-checkbox-indeterminate-checked-checkmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:0;transform:rotate(45deg)}to{opacity:1;transform:rotate(360deg)}}@keyframes mat-checkbox-checked-indeterminate-mixedmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:0;transform:rotate(-45deg)}to{opacity:1;transform:rotate(0)}}@keyframes mat-checkbox-indeterminate-checked-mixedmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(315deg)}}@keyframes mat-checkbox-indeterminate-unchecked-mixedmark{0%{animation-timing-function:linear;opacity:1;transform:scaleX(1)}100%,32.8%{opacity:0;transform:scaleX(0)}}.mat-checkbox-background,.mat-checkbox-checkmark,.mat-checkbox-frame{bottom:0;left:0;position:absolute;right:0;top:0}.mat-checkbox-checkmark,.mat-checkbox-mixedmark{width:calc(100% - 4px)}.mat-checkbox-background,.mat-checkbox-frame{border-radius:2px;box-sizing:border-box;pointer-events:none}.mat-checkbox{font-family:Roboto,\"Helvetica Neue\",sans-serif;transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-checkbox-label{cursor:pointer}.mat-checkbox-layout{cursor:inherit;align-items:baseline;vertical-align:middle;display:inline-flex}.mat-checkbox-inner-container{display:inline-block;height:20px;line-height:0;margin:auto;margin-right:8px;order:0;position:relative;vertical-align:middle;white-space:nowrap;width:20px;flex-shrink:0}[dir=rtl] .mat-checkbox-inner-container{margin-left:8px;margin-right:auto}.mat-checkbox-layout .mat-checkbox-label{line-height:24px}.mat-checkbox-frame{background-color:transparent;transition:border-color 90ms cubic-bezier(0,0,.2,.1);border-width:2px;border-style:solid}.mat-checkbox-background{align-items:center;display:inline-flex;justify-content:center;transition:background-color 90ms cubic-bezier(0,0,.2,.1),opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-checkbox-checkmark{width:100%}.mat-checkbox-checkmark-path{stroke-dashoffset:22.91026;stroke-dasharray:22.91026;stroke-width:2.66667px}.mat-checkbox-mixedmark{height:2px;opacity:0;transform:scaleX(0) rotate(0)}.mat-checkbox-label-before .mat-checkbox-inner-container{order:1;margin-left:8px;margin-right:auto}[dir=rtl] .mat-checkbox-label-before .mat-checkbox-inner-container{margin-left:auto;margin-right:8px}.mat-checkbox-checked .mat-checkbox-checkmark{opacity:1}.mat-checkbox-checked .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-checked .mat-checkbox-mixedmark{transform:scaleX(1) rotate(-45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark{opacity:0;transform:rotate(45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-indeterminate .mat-checkbox-mixedmark{opacity:1;transform:scaleX(1) rotate(0)}.mat-checkbox-unchecked .mat-checkbox-background{background-color:transparent}.mat-checkbox-disabled{cursor:default}.mat-checkbox-anim-unchecked-checked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-checked .mat-checkbox-checkmark-path{animation:180ms linear 0s mat-checkbox-unchecked-checked-checkmark-path}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-unchecked-indeterminate-mixedmark}.mat-checkbox-anim-checked-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-checked-unchecked .mat-checkbox-checkmark-path{animation:90ms linear 0s mat-checkbox-checked-unchecked-checkmark-path}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-checkmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-checkmark}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-mixedmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-checkmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-checkmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-mixedmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-mixedmark}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-mixedmark{animation:.3s linear 0s mat-checkbox-indeterminate-unchecked-mixedmark}.mat-checkbox-input{bottom:0;left:50%}.mat-checkbox-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none} /*# sourceMappingURL=checkbox.css.map */ "],
                 host: {
-                    '[class.mat-checkbox]': 'true',
+                    'class': 'mat-checkbox',
                     '[class.mat-checkbox-indeterminate]': 'indeterminate',
                     '[class.mat-checkbox-checked]': 'checked',
                     '[class.mat-checkbox-disabled]': 'disabled',
                     '[class.mat-checkbox-label-before]': 'labelPosition == "before"',
                 },
                 providers: [MD_CHECKBOX_CONTROL_VALUE_ACCESSOR],
+                inputs: ['disabled'],
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush
             },] },
@@ -6369,7 +6392,6 @@ MdCheckbox.propDecorators = {
     'required': [{ type: Input },],
     'align': [{ type: Input },],
     'labelPosition': [{ type: Input },],
-    'disabled': [{ type: Input },],
     'tabIndex': [{ type: Input },],
     'name': [{ type: Input },],
     'change': [{ type: Output },],
@@ -6396,8 +6418,8 @@ class MdCheckboxModule {
 }
 MdCheckboxModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CommonModule, MdRippleModule, CompatibilityModule],
-                exports: [MdCheckbox, CompatibilityModule],
+                imports: [CommonModule, MdRippleModule, MdCommonModule],
+                exports: [MdCheckbox, MdCommonModule],
                 declarations: [MdCheckbox],
                 providers: [FocusOriginMonitor]
             },] },
@@ -6423,11 +6445,15 @@ let _uniqueIdCounter$2 = 0;
  */
 class MdRadioChange {
 }
+class MdRadioGroupBase {
+}
+const _MdRadioGroupMixinBase = mixinDisabled(MdRadioGroupBase);
 /**
  * A group of radio buttons. May contain one or more `<md-radio-button>` elements.
  */
-class MdRadioGroup {
+class MdRadioGroup extends _MdRadioGroupMixinBase {
     constructor() {
+        super(...arguments);
         /**
          * Selected value for group. Should equal the value of the selected radio button if there *is*
          * a corresponding radio button with a matching value. If there is *not* such a corresponding
@@ -6439,10 +6465,6 @@ class MdRadioGroup {
          * The HTML name attribute applied to radio buttons in this group.
          */
         this._name = `md-radio-group-${_uniqueIdCounter$2++}`;
-        /**
-         * Disables all individual radio buttons assigned to this group.
-         */
-        this._disabled = false;
         /**
          * The currently selected radio button. Should match value.
          */
@@ -6504,19 +6526,6 @@ class MdRadioGroup {
      */
     set align(v) {
         this.labelPosition = (v == 'start') ? 'after' : 'before';
-    }
-    /**
-     * Whether the radio button is disabled.
-     * @return {?}
-     */
-    get disabled() { return this._disabled; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set disabled(value) {
-        // The presence of *any* disabled value makes the component disabled, *except* for false.
-        this._disabled = (value != null && value !== false) ? true : null;
     }
     /**
      * Value of the radio button.
@@ -6660,6 +6669,7 @@ MdRadioGroup.decorators = [
                     'role': 'radiogroup',
                     '[class.mat-radio-group]': 'true',
                 },
+                inputs: ['disabled'],
             },] },
 ];
 /**
@@ -6672,7 +6682,6 @@ MdRadioGroup.propDecorators = {
     'name': [{ type: Input },],
     'align': [{ type: Input },],
     'labelPosition': [{ type: Input },],
-    'disabled': [{ type: Input },],
     'value': [{ type: Input },],
     'selected': [{ type: Input },],
 };
@@ -6825,8 +6834,7 @@ class MdRadioButton {
      * @return {?}
      */
     set disabled(value) {
-        // The presence of *any* disabled value makes the component disabled, *except* for false.
-        this._disabled = (value != null && value !== false) ? true : null;
+        this._disabled = coerceBooleanProperty(value);
     }
     /**
      * ID of the native input element inside `<md-radio-button>`
@@ -6992,8 +7000,8 @@ class MdRadioModule {
 }
 MdRadioModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CommonModule, MdRippleModule, CompatibilityModule],
-                exports: [MdRadioGroup, MdRadioButton, CompatibilityModule],
+                imports: [CommonModule, MdRippleModule, MdCommonModule],
+                exports: [MdRadioGroup, MdRadioButton, MdCommonModule],
                 providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, VIEWPORT_RULER_PROVIDER, FocusOriginMonitor],
                 declarations: [MdRadioGroup, MdRadioButton],
             },] },
@@ -8328,9 +8336,9 @@ MdSelectModule.decorators = [
                     CommonModule,
                     OverlayModule,
                     MdOptionModule,
-                    CompatibilityModule,
+                    MdCommonModule,
                 ],
-                exports: [MdSelect, MdOptionModule, CompatibilityModule],
+                exports: [MdSelect, MdOptionModule, MdCommonModule],
                 declarations: [MdSelect],
             },] },
 ];
@@ -8348,16 +8356,20 @@ class MdSlideToggleChange {
 }
 // Increasing integer for generating unique ids for slide-toggle components.
 let nextId$1 = 0;
+class MdSlideToggleBase {
+}
+const _MdSlideToggleMixinBase = mixinDisabled(MdSlideToggleBase);
 /**
- * Two-state control, which can be also called `switch`.
+ * Represents a slidable "switch" toggle that can be moved between on and off.
  */
-class MdSlideToggle {
+class MdSlideToggle extends _MdSlideToggleMixinBase {
     /**
      * @param {?} _elementRef
      * @param {?} _renderer
      * @param {?} _focusOriginMonitor
      */
     constructor(_elementRef, _renderer, _focusOriginMonitor) {
+        super();
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this._focusOriginMonitor = _focusOriginMonitor;
@@ -8366,7 +8378,6 @@ class MdSlideToggle {
         this._uniqueId = `md-slide-toggle-${++nextId$1}`;
         this._checked = false;
         this._slideRenderer = null;
-        this._disabled = false;
         this._required = false;
         this._disableRipple = false;
         /**
@@ -8398,16 +8409,6 @@ class MdSlideToggle {
          */
         this.change = new EventEmitter();
     }
-    /**
-     * Whether the slide-toggle is disabled.
-     * @return {?}
-     */
-    get disabled() { return this._disabled; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set disabled(value) { this._disabled = coerceBooleanProperty(value); }
     /**
      * Whether the slide-toggle is required.
      * @return {?}
@@ -8649,6 +8650,7 @@ MdSlideToggle.decorators = [
                 template: "<label class=\"mat-slide-toggle-label\" #label> <div class=\"mat-slide-toggle-bar\"> <input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"> <div class=\"mat-slide-toggle-thumb-container\" (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"> <div class=\"mat-slide-toggle-thumb\"></div> <div class=\"mat-slide-toggle-ripple\" md-ripple [mdRippleTrigger]=\"label\" [mdRippleCentered]=\"true\" [mdRippleDisabled]=\"disableRipple || disabled\"> </div> </div> </div> <span class=\"mat-slide-toggle-content\"> <ng-content></ng-content> </span> </label> ",
                 styles: [".mat-slide-toggle{display:inline-block;height:24px;line-height:24px;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(16px,0,0)}.mat-slide-toggle.mat-disabled .mat-slide-toggle-label,.mat-slide-toggle.mat-disabled .mat-slide-toggle-thumb-container{cursor:default}.mat-slide-toggle-content{font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500}.mat-slide-toggle-label{display:flex;flex:1;flex-direction:row;align-items:center;cursor:pointer}.mat-slide-toggle-label-before .mat-slide-toggle-label{order:1}.mat-slide-toggle-label-before .mat-slide-toggle-bar{order:2}.mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar{margin-right:8px;margin-left:0}.mat-slide-toggle-label-before .mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-bar{margin-left:8px;margin-right:0}.mat-slide-toggle-thumb-container{position:absolute;z-index:1;width:20px;height:20px;top:-3px;left:0;transform:translate3d(0,0,0);transition:all 80ms linear;transition-property:transform;cursor:-webkit-grab;cursor:grab}.mat-slide-toggle-thumb-container.mat-dragging,.mat-slide-toggle-thumb-container:active{cursor:-webkit-grabbing;cursor:grabbing;transition-duration:0s}.mat-slide-toggle-thumb{height:20px;width:20px;border-radius:50%;box-shadow:0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-thumb{background:#fff;border:solid 1px #000}}.mat-slide-toggle-bar{position:relative;width:36px;height:14px;border-radius:8px}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-bar{background:#fff}}.mat-slide-toggle-input{bottom:0;left:10px}.mat-slide-toggle-bar,.mat-slide-toggle-thumb{transition:all 80ms linear;transition-property:background-color;transition-delay:50ms}.mat-slide-toggle-ripple{position:absolute;top:-13px;left:-13px;height:46px;width:46px;border-radius:50%;z-index:1;pointer-events:none} /*# sourceMappingURL=slide-toggle.css.map */ "],
                 providers: [MD_SLIDE_TOGGLE_VALUE_ACCESSOR],
+                inputs: ['disabled'],
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush
             },] },
@@ -8668,7 +8670,6 @@ MdSlideToggle.propDecorators = {
     'labelPosition': [{ type: Input },],
     'ariaLabel': [{ type: Input, args: ['aria-label',] },],
     'ariaLabelledby': [{ type: Input, args: ['aria-labelledby',] },],
-    'disabled': [{ type: Input },],
     'required': [{ type: Input },],
     'disableRipple': [{ type: Input },],
     'change': [{ type: Output },],
@@ -8761,8 +8762,8 @@ class MdSlideToggleModule {
 }
 MdSlideToggleModule.decorators = [
     { type: NgModule, args: [{
-                imports: [FormsModule, MdRippleModule, CompatibilityModule],
-                exports: [MdSlideToggle, CompatibilityModule],
+                imports: [FormsModule, MdRippleModule, MdCommonModule],
+                exports: [MdSlideToggle, MdCommonModule],
                 declarations: [MdSlideToggle],
                 providers: [
                     FOCUS_ORIGIN_MONITOR_PROVIDER,
@@ -8806,11 +8807,14 @@ const MD_SLIDER_VALUE_ACCESSOR = {
  */
 class MdSliderChange {
 }
+class MdSliderBase {
+}
+const _MdSliderMixinBase = mixinDisabled(MdSliderBase);
 /**
  * Allows users to select from a range of values by moving the slider thumb. It is similar in
  * behavior to the native `<input type="range">` element.
  */
-class MdSlider {
+class MdSlider extends _MdSliderMixinBase {
     /**
      * @param {?} renderer
      * @param {?} _elementRef
@@ -8818,10 +8822,10 @@ class MdSlider {
      * @param {?} _dir
      */
     constructor(renderer, _elementRef, _focusOriginMonitor, _dir) {
+        super();
         this._elementRef = _elementRef;
         this._focusOriginMonitor = _focusOriginMonitor;
         this._dir = _dir;
-        this._disabled = false;
         this._invert = false;
         this._max = 100;
         this._min = 0;
@@ -8879,16 +8883,6 @@ class MdSlider {
             .subscribe((origin) => this._isActive = !!origin && origin !== 'keyboard');
         this._renderer = new SliderRenderer(this._elementRef);
     }
-    /**
-     * Whether or not the slider is disabled.
-     * @return {?}
-     */
-    get disabled() { return this._disabled; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set disabled(value) { this._disabled = coerceBooleanProperty(value); }
     /**
      * Whether the slider is inverted.
      * @return {?}
@@ -9459,7 +9453,6 @@ MdSlider.decorators = [
     { type: Component, args: [{selector: 'md-slider, mat-slider',
                 providers: [MD_SLIDER_VALUE_ACCESSOR],
                 host: {
-                    '[class.mat-slider]': 'true',
                     '(focus)': '_onFocus()',
                     '(blur)': '_onBlur()',
                     '(click)': '_onClick($event)',
@@ -9469,6 +9462,7 @@ MdSlider.decorators = [
                     '(slide)': '_onSlide($event)',
                     '(slideend)': '_onSlideEnd()',
                     '(slidestart)': '_onSlideStart($event)',
+                    'class': 'mat-slider',
                     'role': 'slider',
                     'tabindex': '0',
                     '[attr.aria-disabled]': 'disabled',
@@ -9490,6 +9484,7 @@ MdSlider.decorators = [
                 },
                 template: "<div class=\"mat-slider-wrapper\"> <div class=\"mat-slider-track-wrapper\"> <div class=\"mat-slider-track-background\" [ngStyle]=\"_trackBackgroundStyles\"></div> <div class=\"mat-slider-track-fill\" [ngStyle]=\"_trackFillStyles\"></div> </div> <div class=\"mat-slider-ticks-container\" [ngStyle]=\"_ticksContainerStyles\"> <div class=\"mat-slider-ticks\" [ngStyle]=\"_ticksStyles\"></div> </div> <div class=\"mat-slider-thumb-container\" [ngStyle]=\"_thumbContainerStyles\"> <div class=\"mat-slider-focus-ring\"></div> <div class=\"mat-slider-thumb\"></div> <div class=\"mat-slider-thumb-label\"> <span class=\"mat-slider-thumb-label-text\">{{displayValue}}</span> </div> </div> </div> ",
                 styles: [".mat-slider{display:inline-block;position:relative;box-sizing:border-box;padding:8px;outline:0;vertical-align:middle}.mat-slider-wrapper{position:absolute}.mat-slider-track-wrapper{position:absolute;top:0;left:0;overflow:hidden}.mat-slider-track-fill{position:absolute;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-track-background{position:absolute;transform-origin:100% 100%;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-ticks-container{position:absolute;left:0;top:0;overflow:hidden}.mat-slider-ticks{box-sizing:border-box;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-container{position:absolute;z-index:1;transition:transform .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-focus-ring{position:absolute;width:30px;height:30px;border-radius:50%;transform:scale(0);opacity:0;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),opacity .4s cubic-bezier(.25,.8,.25,1)}.cdk-keyboard-focused .mat-slider-focus-ring{transform:scale(1);opacity:1}.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb-label{cursor:-webkit-grab;cursor:grab}.mat-slider-sliding:not(.mat-slider-disabled) .mat-slider-thumb,.mat-slider-sliding:not(.mat-slider-disabled) .mat-slider-thumb-label,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb-label:active,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb:active{cursor:-webkit-grabbing;cursor:grabbing}.mat-slider-thumb{position:absolute;right:-10px;bottom:-10px;box-sizing:border-box;width:20px;height:20px;border:3px solid transparent;border-radius:50%;transform:scale(.7);transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),border-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-label{display:none;align-items:center;justify-content:center;position:absolute;width:28px;height:28px;border-radius:50%;transition:transform .4s cubic-bezier(.25,.8,.25,1),border-radius .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-label-text{z-index:1;font-size:12px;font-weight:700;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-sliding .mat-slider-thumb-container,.mat-slider-sliding .mat-slider-track-background,.mat-slider-sliding .mat-slider-track-fill{transition-duration:0s}.mat-slider-has-ticks .mat-slider-wrapper::after{content:'';position:absolute;border:0 solid rgba(0,0,0,.6);opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after,.mat-slider-has-ticks:hover:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after{opacity:1}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-disabled) .mat-slider-ticks,.mat-slider-has-ticks:hover:not(.mat-slider-disabled) .mat-slider-ticks{opacity:1}.mat-slider-thumb-label-showing .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-thumb-label-showing .mat-slider-thumb-label{display:flex}.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:100% 100%}.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:0 0}.cdk-focused.mat-slider-thumb-label-showing .mat-slider-thumb{transform:scale(0)}.cdk-focused .mat-slider-thumb-label{border-radius:50% 50% 0}.cdk-focused .mat-slider-thumb-label-text{opacity:1}.cdk-mouse-focused .mat-slider-thumb,.cdk-program-focused .mat-slider-thumb,.cdk-touch-focused .mat-slider-thumb{border-width:2px;transform:scale(1)}.mat-slider-disabled .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-disabled .mat-slider-thumb{border-width:4px;transform:scale(.5)}.mat-slider-disabled .mat-slider-thumb-label{display:none}.mat-slider-horizontal{height:48px;min-width:128px}.mat-slider-horizontal .mat-slider-wrapper{height:2px;top:23px;left:8px;right:8px}.mat-slider-horizontal .mat-slider-wrapper::after{height:2px;border-left-width:2px;right:0;top:0}.mat-slider-horizontal .mat-slider-track-wrapper{height:2px;width:100%}.mat-slider-horizontal .mat-slider-track-fill{height:2px;width:100%;transform:scaleX(0)}.mat-slider-horizontal .mat-slider-track-background{height:2px;width:100%;transform:scaleX(1)}.mat-slider-horizontal .mat-slider-ticks-container{height:2px;width:100%}.mat-slider-horizontal .mat-slider-ticks{background:repeating-linear-gradient(to right,rgba(0,0,0,.6),rgba(0,0,0,.6) 2px,transparent 0,transparent) repeat;background:-moz-repeating-linear-gradient(.0001deg,rgba(0,0,0,.6),rgba(0,0,0,.6) 2px,transparent 0,transparent) repeat;background-clip:content-box;height:2px;width:100%}.mat-slider-horizontal .mat-slider-thumb-container{width:100%;height:0;top:50%}.mat-slider-horizontal .mat-slider-focus-ring{top:-15px;right:-15px}.mat-slider-horizontal .mat-slider-thumb-label{right:-14px;top:-40px;transform:translateY(26px) scale(.01) rotate(45deg)}.mat-slider-horizontal .mat-slider-thumb-label-text{transform:rotate(-45deg)}.mat-slider-horizontal.cdk-focused .mat-slider-thumb-label{transform:rotate(45deg)}.mat-slider-vertical{width:48px;min-height:128px}.mat-slider-vertical .mat-slider-wrapper{width:2px;top:8px;bottom:8px;left:23px}.mat-slider-vertical .mat-slider-wrapper::after{width:2px;border-top-width:2px;bottom:0;left:0}.mat-slider-vertical .mat-slider-track-wrapper{height:100%;width:2px}.mat-slider-vertical .mat-slider-track-fill{height:100%;width:2px;transform:scaleY(0)}.mat-slider-vertical .mat-slider-track-background{height:100%;width:2px;transform:scaleY(1)}.mat-slider-vertical .mat-slider-ticks-container{width:2px;height:100%}.mat-slider-vertical .mat-slider-focus-ring{bottom:-15px;left:-15px}.mat-slider-vertical .mat-slider-ticks{background:repeating-linear-gradient(to bottom,rgba(0,0,0,.6),rgba(0,0,0,.6) 2px,transparent 0,transparent) repeat;background-clip:content-box;width:2px;height:100%}.mat-slider-vertical .mat-slider-thumb-container{height:100%;width:0;left:50%}.mat-slider-vertical .mat-slider-thumb-label{bottom:-14px;left:-40px;transform:translateX(26px) scale(.01) rotate(-45deg)}.mat-slider-vertical .mat-slider-thumb-label-text{transform:rotate(45deg)}.mat-slider-vertical.cdk-focused .mat-slider-thumb-label{transform:rotate(-45deg)}[dir=rtl] .mat-slider-wrapper::after{left:0;right:auto}[dir=rtl] .mat-slider-horizontal .mat-slider-track-fill{transform-origin:100% 100%}[dir=rtl] .mat-slider-horizontal .mat-slider-track-background{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:100% 100%} /*# sourceMappingURL=slider.css.map */ "],
+                inputs: ['disabled'],
                 encapsulation: ViewEncapsulation.None,
             },] },
 ];
@@ -9503,7 +9498,6 @@ MdSlider.ctorParameters = () => [
     { type: Dir, decorators: [{ type: Optional },] },
 ];
 MdSlider.propDecorators = {
-    'disabled': [{ type: Input },],
     'invert': [{ type: Input },],
     'max': [{ type: Input },],
     'min': [{ type: Input },],
@@ -9563,8 +9557,8 @@ class MdSliderModule {
 }
 MdSliderModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CommonModule, FormsModule, CompatibilityModule, StyleModule, RtlModule],
-                exports: [MdSlider, CompatibilityModule],
+                imports: [CommonModule, FormsModule, MdCommonModule, StyleModule, RtlModule],
+                exports: [MdSlider, MdCommonModule],
                 declarations: [MdSlider],
                 providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
             },] },
@@ -10194,8 +10188,8 @@ class MdSidenavModule {
 }
 MdSidenavModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CommonModule, CompatibilityModule, A11yModule, OverlayModule],
-                exports: [MdSidenavContainer, MdSidenav, CompatibilityModule],
+                imports: [CommonModule, MdCommonModule, A11yModule, OverlayModule],
+                exports: [MdSidenavContainer, MdSidenav, MdCommonModule],
                 declarations: [MdSidenavContainer, MdSidenav],
             },] },
 ];
@@ -10457,14 +10451,14 @@ class MdListModule {
 }
 MdListModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MdLineModule, MdRippleModule, CompatibilityModule],
+                imports: [MdLineModule, MdRippleModule, MdCommonModule],
                 exports: [
                     MdList,
                     MdListItem,
                     MdListDivider,
                     MdListAvatarCssMatStyler,
                     MdLineModule,
-                    CompatibilityModule,
+                    MdCommonModule,
                     MdListIconCssMatStyler,
                     MdListCssMatStyler,
                     MdNavListCssMatStyler,
@@ -11270,13 +11264,13 @@ class MdGridListModule {
 }
 MdGridListModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MdLineModule, CompatibilityModule],
+                imports: [MdLineModule, MdCommonModule],
                 exports: [
                     MdGridList,
                     MdGridTile,
                     MdGridTileText,
                     MdLineModule,
-                    CompatibilityModule,
+                    MdCommonModule,
                     MdGridTileHeaderCssMatStyler,
                     MdGridTileFooterCssMatStyler,
                     MdGridAvatarCssMatStyler
@@ -11579,7 +11573,7 @@ class MdCardModule {
 }
 MdCardModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CompatibilityModule],
+                imports: [MdCommonModule],
                 exports: [
                     MdCard,
                     MdCardHeader,
@@ -11595,7 +11589,7 @@ MdCardModule.decorators = [
                     MdCardImage,
                     MdCardXlImage,
                     MdCardAvatar,
-                    CompatibilityModule,
+                    MdCommonModule,
                 ],
                 declarations: [
                     MdCard, MdCardHeader, MdCardTitleGroup, MdCardContent, MdCardTitle, MdCardSubtitle,
@@ -12765,8 +12759,8 @@ class MdIconModule {
 }
 MdIconModule.decorators = [
     { type: NgModule, args: [{
-                imports: [HttpModule, CompatibilityModule],
-                exports: [MdIcon, CompatibilityModule],
+                imports: [HttpModule, MdCommonModule],
+                exports: [MdIcon, MdCommonModule],
                 declarations: [MdIcon],
                 providers: [ICON_REGISTRY_PROVIDER],
             },] },
@@ -13193,11 +13187,11 @@ class MdProgressSpinnerModule {
 }
 MdProgressSpinnerModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CompatibilityModule],
+                imports: [MdCommonModule],
                 exports: [
                     MdProgressSpinner,
                     MdSpinner,
-                    CompatibilityModule,
+                    MdCommonModule,
                     MdProgressSpinnerCssMatStyler
                 ],
                 declarations: [
@@ -13323,8 +13317,8 @@ class MdProgressBarModule {
 }
 MdProgressBarModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CommonModule, CompatibilityModule],
-                exports: [MdProgressBar, CompatibilityModule],
+                imports: [CommonModule, MdCommonModule],
+                exports: [MdProgressBar, MdCommonModule],
                 declarations: [MdProgressBar],
             },] },
 ];
@@ -14686,9 +14680,9 @@ MdSnackBarModule.decorators = [
                     OverlayModule,
                     PortalModule,
                     CommonModule,
-                    CompatibilityModule,
+                    MdCommonModule,
                 ],
-                exports: [MdSnackBarContainer, CompatibilityModule],
+                exports: [MdSnackBarContainer, MdCommonModule],
                 declarations: [MdSnackBarContainer, SimpleSnackBar],
                 entryComponents: [MdSnackBarContainer, SimpleSnackBar],
                 providers: [MdSnackBar, LIVE_ANNOUNCER_PROVIDER]
@@ -16029,8 +16023,8 @@ class MdToolbarModule {
 }
 MdToolbarModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CompatibilityModule],
-                exports: [MdToolbar, MdToolbarRow, CompatibilityModule],
+                imports: [MdCommonModule],
+                exports: [MdToolbar, MdToolbarRow, MdCommonModule],
                 declarations: [MdToolbar, MdToolbarRow],
             },] },
 ];
@@ -16613,8 +16607,8 @@ class MdTooltipModule {
 }
 MdTooltipModule.decorators = [
     { type: NgModule, args: [{
-                imports: [OverlayModule, CompatibilityModule, PlatformModule],
-                exports: [MdTooltip, TooltipComponent, CompatibilityModule],
+                imports: [OverlayModule, MdCommonModule, PlatformModule],
+                exports: [MdTooltip, TooltipComponent, MdCommonModule],
                 declarations: [MdTooltip, TooltipComponent],
                 entryComponents: [TooltipComponent],
             },] },
@@ -17270,9 +17264,9 @@ MdMenuModule.decorators = [
                     OverlayModule,
                     CommonModule,
                     MdRippleModule,
-                    CompatibilityModule,
+                    MdCommonModule,
                 ],
-                exports: [MdMenu, MdMenuItem, MdMenuTrigger, CompatibilityModule],
+                exports: [MdMenu, MdMenuItem, MdMenuTrigger, MdCommonModule],
                 declarations: [MdMenu, MdMenuItem, MdMenuTrigger],
             },] },
 ];
@@ -17906,7 +17900,7 @@ MdDialogModule.decorators = [
                     OverlayModule,
                     PortalModule,
                     A11yModule,
-                    CompatibilityModule,
+                    MdCommonModule,
                 ],
                 exports: [
                     MdDialogContainer,
@@ -17914,7 +17908,7 @@ MdDialogModule.decorators = [
                     MdDialogTitle,
                     MdDialogContent,
                     MdDialogActions,
-                    CompatibilityModule,
+                    MdCommonModule,
                 ],
                 declarations: [
                     MdDialogContainer,
@@ -18491,8 +18485,8 @@ class MdAutocompleteModule {
 }
 MdAutocompleteModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MdOptionModule, OverlayModule, CompatibilityModule, CommonModule],
-                exports: [MdAutocomplete, MdOptionModule, MdAutocompleteTrigger, CompatibilityModule],
+                imports: [MdOptionModule, OverlayModule, MdCommonModule, CommonModule],
+                exports: [MdAutocomplete, MdOptionModule, MdAutocompleteTrigger, MdCommonModule],
                 declarations: [MdAutocomplete, MdAutocompleteTrigger],
             },] },
 ];
@@ -18532,7 +18526,7 @@ const MATERIAL_MODULES = [
     StyleModule,
     A11yModule,
     PlatformModule,
-    CompatibilityModule,
+    MdCommonModule,
     ObserveContentModule
 ];
 /**
@@ -18574,7 +18568,7 @@ MaterialRootModule.decorators = [
                     MdTooltipModule.forRoot(),
                     PlatformModule.forRoot(),
                     OverlayModule.forRoot(),
-                    CompatibilityModule.forRoot(),
+                    MdCommonModule,
                 ],
                 exports: MATERIAL_MODULES,
             },] },
@@ -18616,5 +18610,5 @@ MaterialModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { Dir, RtlModule, ObserveContentModule, ObserveContent, MdOptionModule, MdOption, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ScrollDispatcher, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, MdError, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCoreModule, PlatformModule, Platform, getSupportedInputTypes, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, MdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckbox, MaterialRootModule, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFabCssMatStyler, MdMiniFabCssMatStyler, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckbox, MdDialogModule, MD_DIALOG_DATA, MdDialog, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconRegistry, MdIconInvalidNameError, MdIcon, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, MdInputContainerPlaceholderConflictError, MdInputContainerUnsupportedTypeError, MdInputContainerDuplicatedHintError, MdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroup, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_OPTION_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelect, MdSidenavModule, MdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabChangeEvent, MdTabGroup, MdTabNavBar, MdTabLink, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵf, mixinDisabled as ɵq, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵg, OVERLAY_CONTAINER_PROVIDER as ɵb, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵa, OverlayPositionBuilder as ɵo, VIEWPORT_RULER_PROVIDER as ɵn, VIEWPORT_RULER_PROVIDER_FACTORY as ɵm, ViewportRuler as ɵl, SCROLL_DISPATCHER_PROVIDER as ɵd, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵc, Scrollable as ɵp, RippleRenderer as ɵe, MdGridAvatarCssMatStyler as ɵi, MdGridTileFooterCssMatStyler as ɵk, MdGridTileHeaderCssMatStyler as ɵj, MdGridTileText as ɵh };
+export { Dir, RtlModule, ObserveContentModule, ObserveContent, MdOptionModule, MdOption, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ScrollDispatcher, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, MdError, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MdCoreModule, PlatformModule, Platform, getSupportedInputTypes, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, MATERIAL_SANITY_CHECKS, MdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckbox, MaterialRootModule, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFabCssMatStyler, MdMiniFabCssMatStyler, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, MdDialogModule, MD_DIALOG_DATA, MdDialog, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconRegistry, MdIconInvalidNameError, MdIcon, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, MdInputContainerPlaceholderConflictError, MdInputContainerUnsupportedTypeError, MdInputContainerDuplicatedHintError, MdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_OPTION_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelect, MdSidenavModule, MdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabChangeEvent, MdTabGroup, MdTabNavBar, MdTabLink, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵf, mixinDisabled as ɵq, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵg, OVERLAY_CONTAINER_PROVIDER as ɵb, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵa, OverlayPositionBuilder as ɵo, VIEWPORT_RULER_PROVIDER as ɵn, VIEWPORT_RULER_PROVIDER_FACTORY as ɵm, ViewportRuler as ɵl, SCROLL_DISPATCHER_PROVIDER as ɵd, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵc, Scrollable as ɵp, RippleRenderer as ɵe, MdGridAvatarCssMatStyler as ɵi, MdGridTileFooterCssMatStyler as ɵk, MdGridTileHeaderCssMatStyler as ɵj, MdGridTileText as ɵh };
 //# sourceMappingURL=material.js.map

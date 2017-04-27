@@ -1,6 +1,7 @@
 import { AfterContentInit, ElementRef, Renderer, EventEmitter, OnInit, QueryList, OnDestroy, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { UniqueSelectionDispatcher, MdRipple, FocusOriginMonitor } from '../core';
+import { CanDisable } from '../core/common-behaviors/disabled';
 /**
  * Provider Expression that allows md-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
@@ -14,10 +15,13 @@ export declare class MdRadioChange {
     /** The value of the MdRadioButton. */
     value: any;
 }
+export declare class MdRadioGroupBase {
+}
+export declare const _MdRadioGroupMixinBase: (new (...args: any[]) => CanDisable) & typeof MdRadioGroupBase;
 /**
  * A group of radio buttons. May contain one or more `<md-radio-button>` elements.
  */
-export declare class MdRadioGroup implements AfterContentInit, ControlValueAccessor {
+export declare class MdRadioGroup extends _MdRadioGroupMixinBase implements AfterContentInit, ControlValueAccessor, CanDisable {
     /**
      * Selected value for group. Should equal the value of the selected radio button if there *is*
      * a corresponding radio button with a matching value. If there is *not* such a corresponding
@@ -27,8 +31,6 @@ export declare class MdRadioGroup implements AfterContentInit, ControlValueAcces
     private _value;
     /** The HTML name attribute applied to radio buttons in this group. */
     private _name;
-    /** Disables all individual radio buttons assigned to this group. */
-    private _disabled;
     /** The currently selected radio button. Should match value. */
     private _selected;
     /** Whether the `value` has been set to its initial value. */
@@ -57,8 +59,6 @@ export declare class MdRadioGroup implements AfterContentInit, ControlValueAcces
     align: 'start' | 'end';
     /** Whether the labels should appear after or before the radio-buttons. Defaults to 'after' */
     labelPosition: 'before' | 'after';
-    /** Whether the radio button is disabled. */
-    disabled: boolean;
     /** Value of the radio button. */
     value: any;
     _checkSelectedRadioButton(): void;

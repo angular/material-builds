@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, ElementRef, EventEmitter, Renderer, AfterViewInit, OnDestroy } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, Renderer } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { MdRipple, FocusOriginMonitor } from '../core';
+import { FocusOriginMonitor, MdRipple } from '../core';
+import { CanDisable } from '../core/common-behaviors/disabled';
 /**
  * Provider Expression that allows md-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -28,6 +29,9 @@ export declare class MdCheckboxChange {
     /** The new `checked` value of the checkbox. */
     checked: boolean;
 }
+export declare class MdCheckboxBase {
+}
+export declare const _MdCheckboxMixinBase: (new (...args: any[]) => CanDisable) & typeof MdCheckboxBase;
 /**
  * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
  * and exposes a similar API. A MdCheckbox can be either checked, unchecked, indeterminate, or
@@ -36,7 +40,7 @@ export declare class MdCheckboxChange {
  * have the checkbox be accessible, you may supply an [aria-label] input.
  * See: https://www.google.com/design/spec/components/selection-controls.html
  */
-export declare class MdCheckbox implements ControlValueAccessor, AfterViewInit, OnDestroy {
+export declare class MdCheckbox extends _MdCheckboxMixinBase implements ControlValueAccessor, AfterViewInit, OnDestroy, CanDisable {
     private _renderer;
     private _elementRef;
     private _changeDetectorRef;
@@ -68,9 +72,6 @@ export declare class MdCheckbox implements ControlValueAccessor, AfterViewInit, 
     align: 'start' | 'end';
     /** Whether the label should appear after or before the checkbox. Defaults to 'after' */
     labelPosition: 'before' | 'after';
-    private _disabled;
-    /** Whether the checkbox is disabled. */
-    disabled: boolean;
     /** Tabindex value that is passed to the underlying input element. */
     tabIndex: number;
     /** Name value will be applied to the input element if present */

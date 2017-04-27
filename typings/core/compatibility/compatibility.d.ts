@@ -1,6 +1,8 @@
-import { ModuleWithProviders, OpaqueToken, ElementRef } from '@angular/core';
+import { ModuleWithProviders, OpaqueToken, ElementRef, InjectionToken } from '@angular/core';
 import { MdError } from '../errors/error';
 export declare const MATERIAL_COMPATIBILITY_MODE: OpaqueToken;
+/** Injection token that configures whether the Material sanity checks are enabled. */
+export declare const MATERIAL_SANITY_CHECKS: InjectionToken<boolean>;
 /**
  * Exception thrown if the consumer has used an invalid Material prefix on a component.
  * @docs-private
@@ -27,8 +29,10 @@ export declare class MdPrefixRejector {
  */
 export declare class CompatibilityModule {
     private _document;
+    /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
+    private _hasDoneGlobalChecks;
     static forRoot(): ModuleWithProviders;
-    constructor(_document: any);
+    constructor(_document: any, _sanityChecksEnabled: boolean);
     private _checkDoctype();
     private _checkTheme();
 }

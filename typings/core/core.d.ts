@@ -37,6 +37,7 @@ export * from './selection/index';
 export { coerceBooleanProperty } from './coercion/boolean-property';
 export { coerceNumberProperty } from './coercion/number-property';
 export { CompatibilityModule, NoConflictStyleCompatibilityMode } from './compatibility/compatibility';
+export { MdCommonModule } from './common-behaviors/common-module';
 export declare class MdCoreModule {
     /** @deprecated */
     static forRoot(): ModuleWithProviders;
