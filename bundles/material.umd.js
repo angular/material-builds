@@ -40,11 +40,11 @@ var MdError = (function (_super) {
     }
     return MdError;
 }(Error));
-/**
- * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
- */
-var hasDoneGlobalChecks = false;
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.OpaqueToken('md-compatibility-mode');
+/**
+ * Injection token that configures whether the Material sanity checks are enabled.
+ */
+var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('md-sanity-checks');
 /**
  * Exception thrown if the consumer has used an invalid Material prefix on a component.
  * \@docs-private
@@ -127,13 +127,19 @@ MdPrefixRejector.ctorParameters = function () { return [
 var CompatibilityModule = (function () {
     /**
      * @param {?} _document
+     * @param {?} _sanityChecksEnabled
      */
-    function CompatibilityModule(_document) {
+    function CompatibilityModule(_document, _sanityChecksEnabled) {
         this._document = _document;
-        if (!hasDoneGlobalChecks && _angular_core.isDevMode()) {
+        /**
+         * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
+         */
+        this._hasDoneGlobalChecks = false;
+        if (_sanityChecksEnabled && !this._hasDoneGlobalChecks && _document && _angular_core.isDevMode()) {
+            // Delay running the check to allow more time for the user's styles to load.
             this._checkDoctype();
             this._checkTheme();
-            hasDoneGlobalChecks = true;
+            this._hasDoneGlobalChecks = true;
         }
     }
     /**
@@ -149,7 +155,7 @@ var CompatibilityModule = (function () {
      * @return {?}
      */
     CompatibilityModule.prototype._checkDoctype = function () {
-        if (this._document && !this._document.doctype) {
+        if (!this._document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
                 'some Angular Material components not to behave as expected.');
         }
@@ -158,7 +164,7 @@ var CompatibilityModule = (function () {
      * @return {?}
      */
     CompatibilityModule.prototype._checkTheme = function () {
-        if (this._document && typeof getComputedStyle === 'function') {
+        if (typeof getComputedStyle === 'function') {
             var /** @type {?} */ testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
             this._document.body.appendChild(testElement);
@@ -176,6 +182,9 @@ CompatibilityModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 declarations: [MatPrefixRejector, MdPrefixRejector],
                 exports: [MatPrefixRejector, MdPrefixRejector],
+                providers: [{
+                        provide: MATERIAL_SANITY_CHECKS, useValue: true,
+                    }],
             },] },
 ];
 /**
@@ -183,6 +192,7 @@ CompatibilityModule.decorators = [
  */
 CompatibilityModule.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
 ]; };
 /**
  * Module that enforces "no-conflict" compatibility mode settings. When this module is loaded,
@@ -1788,7 +1798,7 @@ var TemplatePortalDirective = (function (_super) {
 }(TemplatePortal));
 TemplatePortalDirective.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[cdk-portal], [portal]',
+                selector: '[cdk-portal], [cdkPortal], [portal]',
                 exportAs: 'cdkPortal',
             },] },
 ];
@@ -3137,7 +3147,7 @@ var Scrollable = (function () {
 }());
 Scrollable.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[cdk-scrollable]'
+                selector: '[cdk-scrollable], [cdkScrollable]'
             },] },
 ];
 /**
@@ -3171,7 +3181,7 @@ var OverlayOrigin = (function () {
 }());
 OverlayOrigin.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[cdk-overlay-origin], [overlay-origin]',
+                selector: '[cdk-overlay-origin], [overlay-origin], [cdkOverlayOrigin]',
                 exportAs: 'cdkOverlayOrigin',
             },] },
 ];
@@ -3460,7 +3470,7 @@ var ConnectedOverlayDirective = (function () {
 }());
 ConnectedOverlayDirective.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[cdk-connected-overlay], [connected-overlay]',
+                selector: '[cdk-connected-overlay], [connected-overlay], [cdkConnectedOverlay]',
                 exportAs: 'cdkConnectedOverlay'
             },] },
 ];
@@ -19902,6 +19912,7 @@ exports.ESCAPE = ESCAPE;
 exports.BACKSPACE = BACKSPACE;
 exports.DELETE = DELETE;
 exports.MATERIAL_COMPATIBILITY_MODE = MATERIAL_COMPATIBILITY_MODE;
+exports.MATERIAL_SANITY_CHECKS = MATERIAL_SANITY_CHECKS;
 exports.MdCompatibilityInvalidPrefixError = MdCompatibilityInvalidPrefixError;
 exports.MAT_ELEMENTS_SELECTOR = MAT_ELEMENTS_SELECTOR;
 exports.MD_ELEMENTS_SELECTOR = MD_ELEMENTS_SELECTOR;
