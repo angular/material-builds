@@ -1,4 +1,4 @@
-import { ElementRef, ViewContainerRef, NgZone, OnDestroy, Renderer, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ElementRef, ViewContainerRef, NgZone, OnDestroy, Renderer2, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
 import { Overlay, OverlayRef, OverlayConnectionPosition, OriginConnectionPosition } from '../core';
 import { Observable } from 'rxjs/Observable';
@@ -52,7 +52,7 @@ export declare class MdTooltip implements OnInit, OnDestroy {
     _matDisabled: boolean;
     _matHideDelay: number;
     _matShowDelay: number;
-    constructor(_overlay: Overlay, _elementRef: ElementRef, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _renderer: Renderer, _platform: Platform, _dir: Dir);
+    constructor(_overlay: Overlay, _elementRef: ElementRef, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _renderer: Renderer2, _platform: Platform, _dir: Dir);
     ngOnInit(): void;
     /**
      * Dispose the tooltip when destroyed.

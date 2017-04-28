@@ -1,5 +1,5 @@
-import { OpaqueToken, Optional } from '@angular/core';
-export declare const LIVE_ANNOUNCER_ELEMENT_TOKEN: OpaqueToken;
+import { InjectionToken, Optional } from '@angular/core';
+export declare const LIVE_ANNOUNCER_ELEMENT_TOKEN: InjectionToken<HTMLElement>;
 /** Possible politeness levels. */
 export declare type AriaLivePoliteness = 'off' | 'polite' | 'assertive';
 export declare class LiveAnnouncer {

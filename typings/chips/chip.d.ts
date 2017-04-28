@@ -1,4 +1,4 @@
-import { ElementRef, EventEmitter, OnDestroy, OnInit, Renderer } from '@angular/core';
+import { ElementRef, EventEmitter, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { Focusable } from '../core/a11y/focus-key-manager';
 export interface MdChipEvent {
     chip: MdChip;
@@ -7,7 +7,7 @@ export interface MdChipEvent {
  * Material design styled Chip component. Used inside the MdChipList component.
  */
 export declare class MdChip implements Focusable, OnInit, OnDestroy {
-    protected _renderer: Renderer;
+    protected _renderer: Renderer2;
     protected _elementRef: ElementRef;
     /** Whether or not the chip is disabled. Disabled chips cannot be focused. */
     protected _disabled: boolean;
@@ -23,7 +23,7 @@ export declare class MdChip implements Focusable, OnInit, OnDestroy {
     deselect: EventEmitter<MdChipEvent>;
     /** Emitted when the chip is destroyed. */
     destroy: EventEmitter<MdChipEvent>;
-    constructor(_renderer: Renderer, _elementRef: ElementRef);
+    constructor(_renderer: Renderer2, _elementRef: ElementRef);
     ngOnInit(): void;
     ngOnDestroy(): void;
     /** Whether or not the chip is disabled. */

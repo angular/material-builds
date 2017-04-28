@@ -1,4 +1,4 @@
-import { ElementRef, EventEmitter, NgZone, OnDestroy, Optional, Renderer } from '@angular/core';
+import { ElementRef, EventEmitter, NgZone, OnDestroy, Optional, Renderer2 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 export declare const TOUCH_BUFFER_MS = 650;
 export declare type FocusOrigin = 'touch' | 'mouse' | 'keyboard' | 'program';
@@ -26,19 +26,19 @@ export declare class FocusOriginMonitor {
      * @returns An observable that emits when the focus state of the element changes.
      *     When the element is blurred, null will be emitted.
      */
-    monitor(element: Element, renderer: Renderer, checkChildren: boolean): Observable<FocusOrigin>;
+    monitor(element: HTMLElement, renderer: Renderer2, checkChildren: boolean): Observable<FocusOrigin>;
     /**
      * Stops monitoring an element and removes all focus classes.
      * @param element The element to stop monitoring.
      */
-    stopMonitoring(element: Element): void;
+    stopMonitoring(element: HTMLElement): void;
     /**
      * Focuses the element via the specified focus origin.
      * @param element The element to focus.
      * @param renderer The renderer to use to invoke the focus method on the element.
      * @param origin The focus origin.
      */
-    focusVia(element: Node, renderer: Renderer, origin: FocusOrigin): void;
+    focusVia(element: HTMLElement, renderer: Renderer2, origin: FocusOrigin): void;
     /** Register necessary event listeners on the document and window. */
     private _registerDocumentEvents();
     /**
@@ -84,7 +84,7 @@ export declare class CdkMonitorFocus implements OnDestroy {
     private _elementRef;
     private _focusOriginMonitor;
     cdkFocusChange: EventEmitter<FocusOrigin>;
-    constructor(_elementRef: ElementRef, _focusOriginMonitor: FocusOriginMonitor, renderer: Renderer);
+    constructor(_elementRef: ElementRef, _focusOriginMonitor: FocusOriginMonitor, renderer: Renderer2);
     ngOnDestroy(): void;
 }
 export declare function FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY(parentDispatcher: FocusOriginMonitor, ngZone: NgZone): FocusOriginMonitor;

@@ -1,4 +1,4 @@
-import { ElementRef, Renderer, EventEmitter, OnInit, QueryList, AfterViewInit } from '@angular/core';
+import { ElementRef, Renderer2, EventEmitter, OnInit, QueryList, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { UniqueSelectionDispatcher, FocusOriginMonitor } from '../core';
 /** Acceptable types for a button toggle. */
@@ -125,7 +125,7 @@ export declare class MdButtonToggle implements OnInit {
     disabled: boolean;
     /** Event emitted when the group value changes. */
     change: EventEmitter<MdButtonToggleChange>;
-    constructor(toggleGroup: MdButtonToggleGroup, toggleGroupMultiple: MdButtonToggleGroupMultiple, _buttonToggleDispatcher: UniqueSelectionDispatcher, _renderer: Renderer, _elementRef: ElementRef, _focusOriginMonitor: FocusOriginMonitor);
+    constructor(toggleGroup: MdButtonToggleGroup, toggleGroupMultiple: MdButtonToggleGroupMultiple, _buttonToggleDispatcher: UniqueSelectionDispatcher, _renderer: Renderer2, _elementRef: ElementRef, _focusOriginMonitor: FocusOriginMonitor);
     ngOnInit(): void;
     /** Focuses the button. */
     focus(): void;

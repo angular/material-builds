@@ -1,4 +1,4 @@
-import { AfterContentInit, ElementRef, Renderer, EventEmitter, OnInit, QueryList, OnDestroy, AfterViewInit } from '@angular/core';
+import { AfterContentInit, ElementRef, Renderer2, EventEmitter, OnInit, QueryList, OnDestroy, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { UniqueSelectionDispatcher, MdRipple, FocusOriginMonitor } from '../core';
 import { CanDisable } from '../core/common-behaviors/disabled';
@@ -158,7 +158,7 @@ export declare class MdRadioButton implements OnInit, AfterViewInit, OnDestroy {
     private _focusRipple;
     /** The native `<input type=radio>` element */
     _inputElement: ElementRef;
-    constructor(radioGroup: MdRadioGroup, _elementRef: ElementRef, _renderer: Renderer, _focusOriginMonitor: FocusOriginMonitor, _radioDispatcher: UniqueSelectionDispatcher);
+    constructor(radioGroup: MdRadioGroup, _elementRef: ElementRef, _renderer: Renderer2, _focusOriginMonitor: FocusOriginMonitor, _radioDispatcher: UniqueSelectionDispatcher);
     /** Focuses the radio button. */
     focus(): void;
     ngOnInit(): void;

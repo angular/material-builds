@@ -3,7 +3,7 @@
   * Copyright (c) 2017 Google, Inc. https://material.angular.io/
   * License: MIT
   */
-import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, InjectionToken, Injector, Input, NgModule, NgZone, OpaqueToken, Optional, Output, Renderer, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
+import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, InjectionToken, Injector, Input, NgModule, NgZone, Optional, Output, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
 import { DOCUMENT, DomSanitizer, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
 import { CommonModule, Location } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
@@ -41,7 +41,7 @@ class MdError extends Error {
     }
 }
 
-const MATERIAL_COMPATIBILITY_MODE = new OpaqueToken('md-compatibility-mode');
+const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
@@ -406,11 +406,16 @@ class MdLineSetter {
     }
     /**
      * @param {?} className
-     * @param {?} bool
+     * @param {?} isAdd
      * @return {?}
      */
-    _setClass(className, bool) {
-        this._renderer.setElementClass(this._element.nativeElement, className, bool);
+    _setClass(className, isAdd) {
+        if (isAdd) {
+            this._renderer.addClass(this._element.nativeElement, className);
+        }
+        else {
+            this._renderer.removeClass(this._element.nativeElement, className);
+        }
     }
 }
 class MdLineModule {
@@ -1102,9 +1107,9 @@ const VIEWPORT_RULER_PROVIDER = {
 };
 
 /**
- * OpaqueToken that can be used to specify the global ripple options.
+ * Injection token that can be used to specify the global ripple options.
  */
-const MD_RIPPLE_GLOBAL_OPTIONS = new OpaqueToken('md-ripple-global-options');
+const MD_RIPPLE_GLOBAL_OPTIONS = new InjectionToken('md-ripple-global-options');
 class MdRipple {
     /**
      * @param {?} elementRef
@@ -1279,8 +1284,8 @@ class MdPseudoCheckbox {
     set color(value) {
         if (value) {
             let /** @type {?} */ nativeElement = this._elementRef.nativeElement;
-            this._renderer.setElementClass(nativeElement, `mat-${this.color}`, false);
-            this._renderer.setElementClass(nativeElement, `mat-${value}`, true);
+            this._renderer.removeClass(nativeElement, `mat-${this.color}`);
+            this._renderer.addClass(nativeElement, `mat-${value}`);
             this._color = value;
         }
     }
@@ -1303,7 +1308,7 @@ MdPseudoCheckbox.decorators = [
  */
 MdPseudoCheckbox.ctorParameters = () => [
     { type: ElementRef, },
-    { type: Renderer, },
+    { type: Renderer2, },
 ];
 MdPseudoCheckbox.propDecorators = {
     'state': [{ type: Input },],
@@ -3129,7 +3134,7 @@ Scrollable.ctorParameters = () => [
     { type: ElementRef, },
     { type: ScrollDispatcher, },
     { type: NgZone, },
-    { type: Renderer, },
+    { type: Renderer2, },
 ];
 
 /**
@@ -4062,7 +4067,7 @@ FocusTrapDirective.propDecorators = {
     'enabled': [{ type: Input, args: ['cdkTrapFocus',] },],
 };
 
-const LIVE_ANNOUNCER_ELEMENT_TOKEN = new OpaqueToken('liveAnnouncerElement');
+const LIVE_ANNOUNCER_ELEMENT_TOKEN = new InjectionToken('liveAnnouncerElement');
 class LiveAnnouncer {
     /**
      * @param {?} elementToken
@@ -4701,7 +4706,7 @@ class FocusOriginMonitor {
      */
     focusVia(element, renderer, origin) {
         this._setOriginForCurrentEventQueue(origin);
-        renderer.invokeElementMethod(element, 'focus');
+        element.focus();
     }
     /**
      * Register necessary event listeners on the document and window.
@@ -4747,11 +4752,14 @@ class FocusOriginMonitor {
      */
     _setClasses(element, origin) {
         let /** @type {?} */ renderer = this._elementInfo.get(element).renderer;
-        renderer.setElementClass(element, 'cdk-focused', !!origin);
-        renderer.setElementClass(element, 'cdk-touch-focused', origin === 'touch');
-        renderer.setElementClass(element, 'cdk-keyboard-focused', origin === 'keyboard');
-        renderer.setElementClass(element, 'cdk-mouse-focused', origin === 'mouse');
-        renderer.setElementClass(element, 'cdk-program-focused', origin === 'program');
+        let /** @type {?} */ toggleClass = (className, shouldSet) => {
+            shouldSet ? renderer.addClass(element, className) : renderer.removeClass(element, className);
+        };
+        toggleClass('cdk-focused', !!origin);
+        toggleClass('cdk-touch-focused', origin === 'touch');
+        toggleClass('cdk-keyboard-focused', origin === 'keyboard');
+        toggleClass('cdk-mouse-focused', origin === 'mouse');
+        toggleClass('cdk-program-focused', origin === 'program');
     }
     /**
      * Sets the origin and schedules an async function to clear it at the end of the event queue.
@@ -4893,7 +4901,7 @@ CdkMonitorFocus.decorators = [
 CdkMonitorFocus.ctorParameters = () => [
     { type: ElementRef, },
     { type: FocusOriginMonitor, },
-    { type: Renderer, },
+    { type: Renderer2, },
 ];
 CdkMonitorFocus.propDecorators = {
     'cdkFocusChange': [{ type: Output },],
@@ -5464,7 +5472,7 @@ class MdButtonToggle {
      * @return {?}
      */
     focus() {
-        this._renderer.invokeElementMethod(this._inputElement.nativeElement, 'focus');
+        this._inputElement.nativeElement.focus();
     }
     /**
      * Toggle the state of the current button toggle.
@@ -5535,7 +5543,7 @@ MdButtonToggle.ctorParameters = () => [
     { type: MdButtonToggleGroup, decorators: [{ type: Optional },] },
     { type: MdButtonToggleGroupMultiple, decorators: [{ type: Optional },] },
     { type: UniqueSelectionDispatcher, },
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: ElementRef, },
     { type: FocusOriginMonitor, },
 ];
@@ -5770,7 +5778,12 @@ class MdButton extends _MdButtonMixinBase {
      */
     _setElementColor(color, isAdd) {
         if (color != null && color != '') {
-            this._renderer.setElementClass(this._getHostElement(), `mat-${color}`, isAdd);
+            if (isAdd) {
+                this._renderer.addClass(this._getHostElement(), `mat-${color}`);
+            }
+            else {
+                this._renderer.removeClass(this._getHostElement(), `mat-${color}`);
+            }
         }
     }
     /**
@@ -5778,7 +5791,7 @@ class MdButton extends _MdButtonMixinBase {
      * @return {?}
      */
     focus() {
-        this._renderer.invokeElementMethod(this._getHostElement(), 'focus');
+        this._getHostElement().focus();
     }
     /**
      * @return {?}
@@ -5825,7 +5838,7 @@ MdButton.decorators = [
  */
 MdButton.ctorParameters = () => [
     { type: ElementRef, },
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: FocusOriginMonitor, },
 ];
 MdButton.propDecorators = {
@@ -5888,7 +5901,7 @@ MdAnchor.decorators = [
  */
 MdAnchor.ctorParameters = () => [
     { type: ElementRef, },
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: FocusOriginMonitor, },
 ];
 MdAnchor.propDecorators = {
@@ -6174,7 +6187,12 @@ class MdCheckbox extends _MdCheckboxMixinBase {
      */
     _setElementColor(color, isAdd) {
         if (color != null && color != '') {
-            this._renderer.setElementClass(this._elementRef.nativeElement, `mat-${color}`, isAdd);
+            if (isAdd) {
+                this._renderer.addClass(this._elementRef.nativeElement, `mat-${color}`);
+            }
+            else {
+                this._renderer.removeClass(this._elementRef.nativeElement, `mat-${color}`);
+            }
         }
     }
     /**
@@ -6230,12 +6248,12 @@ class MdCheckbox extends _MdCheckboxMixinBase {
             return;
         }
         if (this._currentAnimationClass.length > 0) {
-            renderer.setElementClass(elementRef.nativeElement, this._currentAnimationClass, false);
+            renderer.removeClass(elementRef.nativeElement, this._currentAnimationClass);
         }
         this._currentAnimationClass = this._getAnimationClassForCheckStateTransition(oldState, newState);
         this._currentCheckState = newState;
         if (this._currentAnimationClass.length > 0) {
-            renderer.setElementClass(elementRef.nativeElement, this._currentAnimationClass, true);
+            renderer.addClass(elementRef.nativeElement, this._currentAnimationClass);
         }
     }
     /**
@@ -6387,7 +6405,7 @@ MdCheckbox.decorators = [
  * @nocollapse
  */
 MdCheckbox.ctorParameters = () => [
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: ElementRef, },
     { type: ChangeDetectorRef, },
     { type: FocusOriginMonitor, },
@@ -6975,7 +6993,7 @@ MdRadioButton.decorators = [
 MdRadioButton.ctorParameters = () => [
     { type: MdRadioGroup, decorators: [{ type: Optional },] },
     { type: ElementRef, },
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: FocusOriginMonitor, },
     { type: UniqueSelectionDispatcher, },
 ];
@@ -8616,7 +8634,12 @@ class MdSlideToggle extends _MdSlideToggleMixinBase {
      */
     _setElementColor(color, isAdd) {
         if (color != null && color != '') {
-            this._renderer.setElementClass(this._elementRef.nativeElement, `mat-${color}`, isAdd);
+            if (isAdd) {
+                this._renderer.addClass(this._elementRef.nativeElement, `mat-${color}`);
+            }
+            else {
+                this._renderer.removeClass(this._elementRef.nativeElement, `mat-${color}`);
+            }
         }
     }
     /**
@@ -8683,7 +8706,7 @@ MdSlideToggle.decorators = [
  */
 MdSlideToggle.ctorParameters = () => [
     { type: ElementRef, },
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: FocusOriginMonitor, },
 ];
 MdSlideToggle.propDecorators = {
@@ -9515,7 +9538,7 @@ MdSlider.decorators = [
  * @nocollapse
  */
 MdSlider.ctorParameters = () => [
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: ElementRef, },
     { type: FocusOriginMonitor, },
     { type: Dir, decorators: [{ type: Optional },] },
@@ -9626,12 +9649,10 @@ class MdSidenav {
     /**
      * @param {?} _elementRef The DOM element reference. Used for transition and width calculation.
      *     If not available we do not hook on transitions.
-     * @param {?} _renderer
      * @param {?} _focusTrapFactory
      */
-    constructor(_elementRef, _renderer, _focusTrapFactory) {
+    constructor(_elementRef, _focusTrapFactory) {
         this._elementRef = _elementRef;
-        this._renderer = _renderer;
         this._focusTrapFactory = _focusTrapFactory;
         /**
          * Alignment of the sidenav (direction neutral); whether 'start' or 'end'.
@@ -9684,10 +9705,10 @@ class MdSidenav {
         });
         this.onClose.subscribe(() => {
             if (this._elementFocusedBeforeSidenavWasOpened instanceof HTMLElement) {
-                this._renderer.invokeElementMethod(this._elementFocusedBeforeSidenavWasOpened, 'focus');
+                this._elementFocusedBeforeSidenavWasOpened.focus();
             }
             else {
-                this._renderer.invokeElementMethod(this._elementRef.nativeElement, 'blur');
+                this._elementRef.nativeElement.blur();
             }
             this._elementFocusedBeforeSidenavWasOpened = null;
         });
@@ -9927,7 +9948,6 @@ MdSidenav.decorators = [
  */
 MdSidenav.ctorParameters = () => [
     { type: ElementRef, },
-    { type: Renderer, },
     { type: FocusTrapFactory, },
 ];
 MdSidenav.propDecorators = {
@@ -10042,11 +10062,16 @@ class MdSidenavContainer {
     /**
      * Toggles the 'mat-sidenav-opened' class on the main 'md-sidenav-container' element.
      * @param {?} sidenav
-     * @param {?} bool
+     * @param {?} isAdd
      * @return {?}
      */
-    _setContainerClass(sidenav, bool) {
-        this._renderer.setElementClass(this._element.nativeElement, 'mat-sidenav-opened', bool);
+    _setContainerClass(sidenav, isAdd) {
+        if (isAdd) {
+            this._renderer.addClass(this._element.nativeElement, 'mat-sidenav-opened');
+        }
+        else {
+            this._renderer.removeClass(this._element.nativeElement, 'mat-sidenav-opened');
+        }
     }
     /**
      * Validate the state of the sidenav children components.
@@ -10189,7 +10214,7 @@ MdSidenavContainer.decorators = [
 MdSidenavContainer.ctorParameters = () => [
     { type: Dir, decorators: [{ type: Optional },] },
     { type: ElementRef, },
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: NgZone, },
 ];
 MdSidenavContainer.propDecorators = {
@@ -10405,7 +10430,12 @@ class MdListItem {
      * @return {?}
      */
     set _hasAvatar(avatar) {
-        this._renderer.setElementClass(this._element.nativeElement, 'mat-list-item-avatar', avatar != null);
+        if (avatar != null) {
+            this._renderer.addClass(this._element.nativeElement, 'mat-list-item-avatar');
+        }
+        else {
+            this._renderer.removeClass(this._element.nativeElement, 'mat-list-item-avatar');
+        }
     }
     /**
      * @return {?}
@@ -10449,7 +10479,7 @@ MdListItem.decorators = [
  * @nocollapse
  */
 MdListItem.ctorParameters = () => [
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: ElementRef, },
     { type: MdList, decorators: [{ type: Optional },] },
     { type: MdNavListCssMatStyler, decorators: [{ type: Optional },] },
@@ -10564,7 +10594,7 @@ class MdGridTile {
      * @return {?}
      */
     _setStyle(property, value) {
-        this._renderer.setElementStyle(this._element.nativeElement, property, value);
+        this._renderer.setStyle(this._element.nativeElement, property, value);
     }
 }
 MdGridTile.decorators = [
@@ -10582,7 +10612,7 @@ MdGridTile.decorators = [
  * @nocollapse
  */
 MdGridTile.ctorParameters = () => [
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: ElementRef, },
 ];
 MdGridTile.propDecorators = {
@@ -10614,7 +10644,7 @@ MdGridTileText.decorators = [
  * @nocollapse
  */
 MdGridTileText.ctorParameters = () => [
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: ElementRef, },
 ];
 MdGridTileText.propDecorators = {
@@ -11243,7 +11273,7 @@ class MdGridList {
      */
     _setListStyle(style$$1) {
         if (style$$1) {
-            this._renderer.setElementStyle(this._element.nativeElement, style$$1[0], style$$1[1]);
+            this._renderer.setStyle(this._element.nativeElement, style$$1[0], style$$1[1]);
         }
     }
 }
@@ -11262,7 +11292,7 @@ MdGridList.decorators = [
  * @nocollapse
  */
 MdGridList.ctorParameters = () => [
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: ElementRef, },
     { type: Dir, decorators: [{ type: Optional },] },
 ];
@@ -11748,7 +11778,7 @@ class MdChip {
      * @return {?}
      */
     focus() {
-        this._renderer.invokeElementMethod(this._elementRef.nativeElement, 'focus');
+        this._elementRef.nativeElement.focus();
         this.onFocus.emit({ chip: this });
     }
     /**
@@ -11773,11 +11803,11 @@ class MdChip {
     _addDefaultCSSClass() {
         let /** @type {?} */ el = this._elementRef.nativeElement;
         // Always add the `mat-chip` class
-        el.classList.add('mat-chip');
+        this._renderer.addClass(el, 'mat-chip');
         // If we are a basic chip, also add the `mat-basic-chip` class for :not() targeting
         if (el.nodeName.toLowerCase() == 'mat-basic-chip' || el.hasAttribute('mat-basic-chip') ||
             el.nodeName.toLowerCase() == 'md-basic-chip' || el.hasAttribute('md-basic-chip')) {
-            el.classList.add('mat-basic-chip');
+            this._renderer.addClass(el, 'mat-basic-chip');
         }
     }
     /**
@@ -11798,7 +11828,12 @@ class MdChip {
      */
     _setElementColor(color, isAdd) {
         if (color != null && color != '') {
-            this._renderer.setElementClass(this._elementRef.nativeElement, `mat-${color}`, isAdd);
+            if (isAdd) {
+                this._renderer.addClass(this._elementRef.nativeElement, `mat-${color}`);
+            }
+            else {
+                this._renderer.removeClass(this._elementRef.nativeElement, `mat-${color}`);
+            }
         }
     }
 }
@@ -11822,7 +11857,7 @@ MdChip.decorators = [
  * @nocollapse
  */
 MdChip.ctorParameters = () => [
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: ElementRef, },
 ];
 MdChip.propDecorators = {
@@ -12572,7 +12607,12 @@ class MdIcon {
      */
     _setElementColor(color, isAdd) {
         if (color != null && color != '') {
-            this._renderer.setElementClass(this._elementRef.nativeElement, `mat-${color}`, isAdd);
+            if (isAdd) {
+                this._renderer.addClass(this._elementRef.nativeElement, `mat-${color}`);
+            }
+            else {
+                this._renderer.removeClass(this._elementRef.nativeElement, `mat-${color}`);
+            }
         }
     }
     /**
@@ -12648,7 +12688,7 @@ class MdIcon {
         const /** @type {?} */ ariaLabel = this._getAriaLabel();
         if (ariaLabel && ariaLabel !== this._previousAriaLabel) {
             this._previousAriaLabel = ariaLabel;
-            this._renderer.setElementAttribute(this._elementRef.nativeElement, 'aria-label', ariaLabel);
+            this._renderer.setAttribute(this._elementRef.nativeElement, 'aria-label', ariaLabel);
         }
     }
     /**
@@ -12691,7 +12731,7 @@ class MdIcon {
         // We would use renderer.detachView(Array.from(layoutElement.childNodes)) here,
         // but it fails in IE11: https://github.com/angular/angular/issues/6327
         layoutElement.innerHTML = '';
-        this._renderer.projectNodes(layoutElement, [svg]);
+        this._renderer.appendChild(layoutElement, svg);
     }
     /**
      * @return {?}
@@ -12706,19 +12746,19 @@ class MdIcon {
             this._mdIconRegistry.getDefaultFontSetClass();
         if (fontSetClass != this._previousFontSetClass) {
             if (this._previousFontSetClass) {
-                this._renderer.setElementClass(elem, this._previousFontSetClass, false);
+                this._renderer.removeClass(elem, this._previousFontSetClass);
             }
             if (fontSetClass) {
-                this._renderer.setElementClass(elem, fontSetClass, true);
+                this._renderer.addClass(elem, fontSetClass);
             }
             this._previousFontSetClass = fontSetClass;
         }
         if (this.fontIcon != this._previousFontIconClass) {
             if (this._previousFontIconClass) {
-                this._renderer.setElementClass(elem, this._previousFontIconClass, false);
+                this._renderer.removeClass(elem, this._previousFontIconClass);
             }
             if (this.fontIcon) {
-                this._renderer.setElementClass(elem, this.fontIcon, true);
+                this._renderer.addClass(elem, this.fontIcon);
             }
             this._previousFontIconClass = this.fontIcon;
         }
@@ -12741,7 +12781,7 @@ MdIcon.decorators = [
  */
 MdIcon.ctorParameters = () => [
     { type: ElementRef, },
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: MdIconRegistry, },
 ];
 MdIcon.propDecorators = {
@@ -13597,7 +13637,7 @@ class MdInputDirective {
         // input element. To ensure that bindings for `type` work, we need to sync the setter
         // with the native property. Textarea elements don't support the type property or attribute.
         if (!this._isTextarea() && getSupportedInputTypes().has(this._type)) {
-            this._renderer.setElementProperty(this._elementRef.nativeElement, 'type', this._type);
+            this._renderer.setProperty(this._elementRef.nativeElement, 'type', this._type);
         }
     }
     /**
@@ -13629,7 +13669,7 @@ class MdInputDirective {
      * Focuses the input element.
      * @return {?}
      */
-    focus() { this._renderer.invokeElementMethod(this._elementRef.nativeElement, 'focus'); }
+    focus() { this._elementRef.nativeElement.focus(); }
     /**
      * @return {?}
      */
@@ -13701,7 +13741,7 @@ MdInputDirective.decorators = [
  */
 MdInputDirective.ctorParameters = () => [
     { type: ElementRef, },
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: NgControl, decorators: [{ type: Optional }, { type: Self },] },
 ];
 MdInputDirective.propDecorators = {
@@ -14361,7 +14401,7 @@ class MdSnackBarContainer extends BasePortalHost {
             // Not the most efficient way of adding classes, but the renderer doesn't allow us
             // to pass in an array or a space-separated list.
             for (let /** @type {?} */ cssClass of this.snackBarConfig.extraClasses) {
-                this._renderer.setElementClass(this._elementRef.nativeElement, cssClass, true);
+                this._renderer.addClass(this._elementRef.nativeElement, cssClass);
             }
         }
         return this._portalHost.attachComponentPortal(portal);
@@ -14464,7 +14504,7 @@ MdSnackBarContainer.decorators = [
  */
 MdSnackBarContainer.ctorParameters = () => [
     { type: NgZone, },
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: ElementRef, },
 ];
 MdSnackBarContainer.propDecorators = {
@@ -14975,11 +15015,11 @@ class MdTabGroup {
         if (!this._dynamicHeight || !this._tabBodyWrapperHeight) {
             return;
         }
-        this._renderer.setElementStyle(this._tabBodyWrapper.nativeElement, 'height', this._tabBodyWrapperHeight + 'px');
+        this._renderer.setStyle(this._tabBodyWrapper.nativeElement, 'height', this._tabBodyWrapperHeight + 'px');
         // This conditional forces the browser to paint the height so that
         // the animation to the new height can have an origin.
         if (this._tabBodyWrapper.nativeElement.offsetHeight) {
-            this._renderer.setElementStyle(this._tabBodyWrapper.nativeElement, 'height', tabHeight + 'px');
+            this._renderer.setStyle(this._tabBodyWrapper.nativeElement, 'height', tabHeight + 'px');
         }
     }
     /**
@@ -14988,7 +15028,7 @@ class MdTabGroup {
      */
     _removeTabBodyWrapperHeight() {
         this._tabBodyWrapperHeight = this._tabBodyWrapper.nativeElement.clientHeight;
-        this._renderer.setElementStyle(this._tabBodyWrapper.nativeElement, 'height', '');
+        this._renderer.setStyle(this._tabBodyWrapper.nativeElement, 'height', '');
     }
 }
 MdTabGroup.decorators = [
@@ -15006,7 +15046,7 @@ MdTabGroup.decorators = [
  * @nocollapse
  */
 MdTabGroup.ctorParameters = () => [
-    { type: Renderer, },
+    { type: Renderer2, },
 ];
 MdTabGroup.propDecorators = {
     '_tabs': [{ type: ContentChildren, args: [MdTab,] },],
@@ -15027,11 +15067,9 @@ MdTabGroup.propDecorators = {
 class MdTabLabelWrapper {
     /**
      * @param {?} elementRef
-     * @param {?} _renderer
      */
-    constructor(elementRef, _renderer) {
+    constructor(elementRef) {
         this.elementRef = elementRef;
-        this._renderer = _renderer;
         /**
          * Whether the tab label is disabled.
          */
@@ -15052,7 +15090,7 @@ class MdTabLabelWrapper {
      * @return {?}
      */
     focus() {
-        this._renderer.invokeElementMethod(this.elementRef.nativeElement, 'focus');
+        this.elementRef.nativeElement.focus();
     }
     /**
      * @return {?}
@@ -15080,7 +15118,6 @@ MdTabLabelWrapper.decorators = [
  */
 MdTabLabelWrapper.ctorParameters = () => [
     { type: ElementRef, },
-    { type: Renderer, },
 ];
 MdTabLabelWrapper.propDecorators = {
     'disabled': [{ type: Input },],
@@ -15111,8 +15148,8 @@ class MdInkBar {
         this.show();
         this._ngZone.runOutsideAngular(() => {
             requestAnimationFrame(() => {
-                this._renderer.setElementStyle(this._elementRef.nativeElement, 'left', this._getLeftPosition(element));
-                this._renderer.setElementStyle(this._elementRef.nativeElement, 'width', this._getElementWidth(element));
+                this._renderer.setStyle(this._elementRef.nativeElement, 'left', this._getLeftPosition(element));
+                this._renderer.setStyle(this._elementRef.nativeElement, 'width', this._getElementWidth(element));
             });
         });
     }
@@ -15121,14 +15158,14 @@ class MdInkBar {
      * @return {?}
      */
     show() {
-        this._renderer.setElementStyle(this._elementRef.nativeElement, 'visibility', 'visible');
+        this._renderer.setStyle(this._elementRef.nativeElement, 'visibility', 'visible');
     }
     /**
      * Hides the ink bar.
      * @return {?}
      */
     hide() {
-        this._renderer.setElementStyle(this._elementRef.nativeElement, 'visibility', 'hidden');
+        this._renderer.setStyle(this._elementRef.nativeElement, 'visibility', 'hidden');
     }
     /**
      * Generates the pixel distance from the left based on the provided element in string format.
@@ -15159,7 +15196,7 @@ MdInkBar.decorators = [
  * @nocollapse
  */
 MdInkBar.ctorParameters = () => [
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: ElementRef, },
     { type: NgZone, },
 ];
@@ -15968,12 +16005,12 @@ MdToolbarRow.decorators = [
 MdToolbarRow.ctorParameters = () => [];
 class MdToolbar {
     /**
-     * @param {?} elementRef
-     * @param {?} renderer
+     * @param {?} _elementRef
+     * @param {?} _renderer
      */
-    constructor(elementRef, renderer) {
-        this.elementRef = elementRef;
-        this.renderer = renderer;
+    constructor(_elementRef, _renderer) {
+        this._elementRef = _elementRef;
+        this._renderer = _renderer;
     }
     /**
      * The color of the toolbar. Can be primary, accent, or warn.
@@ -16005,7 +16042,13 @@ class MdToolbar {
      */
     _setElementColor(color, isAdd) {
         if (color != null && color != '') {
-            this.renderer.setElementClass(this.elementRef.nativeElement, `mat-${color}`, isAdd);
+            let /** @type {?} */ element = this._elementRef.nativeElement;
+            if (isAdd) {
+                this._renderer.addClass(element, `mat-${color}`);
+            }
+            else {
+                this._renderer.removeClass(element, `mat-${color}`);
+            }
         }
     }
 }
@@ -16026,7 +16069,7 @@ MdToolbar.decorators = [
  */
 MdToolbar.ctorParameters = () => [
     { type: ElementRef, },
-    { type: Renderer, },
+    { type: Renderer2, },
 ];
 MdToolbar.propDecorators = {
     'color': [{ type: Input },],
@@ -16426,7 +16469,7 @@ MdTooltip.ctorParameters = () => [
     { type: ScrollDispatcher, },
     { type: ViewContainerRef, },
     { type: NgZone, },
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: Platform, },
     { type: Dir, decorators: [{ type: Optional },] },
 ];
@@ -16686,11 +16729,9 @@ class MdMenuInvalidPositionY extends MdError {
  */
 class MdMenuItem {
     /**
-     * @param {?} _renderer
      * @param {?} _elementRef
      */
-    constructor(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    constructor(_elementRef) {
         this._elementRef = _elementRef;
         /**
          * Whether the menu item is disabled
@@ -16702,7 +16743,7 @@ class MdMenuItem {
      * @return {?}
      */
     focus() {
-        this._renderer.invokeElementMethod(this._getHostElement(), 'focus');
+        this._getHostElement().focus();
     }
     /**
      * Whether the menu item is disabled.
@@ -16767,7 +16808,6 @@ MdMenuItem.decorators = [
  * @nocollapse
  */
 MdMenuItem.ctorParameters = () => [
-    { type: Renderer, },
     { type: ElementRef, },
 ];
 MdMenuItem.propDecorators = {
@@ -16976,14 +17016,12 @@ class MdMenuTrigger {
      * @param {?} _overlay
      * @param {?} _element
      * @param {?} _viewContainerRef
-     * @param {?} _renderer
      * @param {?} _dir
      */
-    constructor(_overlay, _element, _viewContainerRef, _renderer, _dir) {
+    constructor(_overlay, _element, _viewContainerRef, _dir) {
         this._overlay = _overlay;
         this._element = _element;
         this._viewContainerRef = _viewContainerRef;
-        this._renderer = _renderer;
         this._dir = _dir;
         this._menuOpen = false;
         this._openedByMouse = false;
@@ -17087,7 +17125,7 @@ class MdMenuTrigger {
      * @return {?}
      */
     focus() {
-        this._renderer.invokeElementMethod(this._element.nativeElement, 'focus');
+        this._element.nativeElement.focus();
     }
     /**
      * The text direction of the containing app.
@@ -17257,7 +17295,6 @@ MdMenuTrigger.ctorParameters = () => [
     { type: Overlay, },
     { type: ElementRef, },
     { type: ViewContainerRef, },
-    { type: Renderer, },
     { type: Dir, decorators: [{ type: Optional },] },
 ];
 MdMenuTrigger.propDecorators = {
@@ -17382,7 +17419,7 @@ class MdDialogRef {
     }
 }
 
-const MD_DIALOG_DATA = new OpaqueToken('MdDialogData');
+const MD_DIALOG_DATA = new InjectionToken('MdDialogData');
 /**
  * Custom injector type specifically for instantiating components with a dialog.
  */
@@ -17467,14 +17504,14 @@ class MdDialogContentAlreadyAttachedError extends MdError {
  */
 class MdDialogContainer extends BasePortalHost {
     /**
-     * @param {?} _renderer
+     * @param {?} _ngZone
      * @param {?} _elementRef
      * @param {?} _focusTrapFactory
      * @param {?} _document
      */
-    constructor(_renderer, _elementRef, _focusTrapFactory, _document) {
+    constructor(_ngZone, _elementRef, _focusTrapFactory, _document) {
         super();
-        this._renderer = _renderer;
+        this._ngZone = _ngZone;
         this._elementRef = _elementRef;
         this._focusTrapFactory = _focusTrapFactory;
         /**
@@ -17595,7 +17632,7 @@ MdDialogContainer.decorators = [
  * @nocollapse
  */
 MdDialogContainer.ctorParameters = () => [
-    { type: Renderer, },
+    { type: NgZone, },
     { type: ElementRef, },
     { type: FocusTrapFactory, },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },

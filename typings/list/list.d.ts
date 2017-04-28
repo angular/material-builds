@@ -1,4 +1,4 @@
-import { QueryList, ElementRef, Renderer, AfterContentInit } from '@angular/core';
+import { QueryList, ElementRef, Renderer2, AfterContentInit } from '@angular/core';
 import { MdLine } from '../core';
 export declare class MdListDivider {
 }
@@ -61,7 +61,7 @@ export declare class MdListItem implements AfterContentInit {
     disableRipple: boolean;
     _lines: QueryList<MdLine>;
     _hasAvatar: MdListAvatarCssMatStyler;
-    constructor(_renderer: Renderer, _element: ElementRef, _list: MdList, navList: MdNavListCssMatStyler);
+    constructor(_renderer: Renderer2, _element: ElementRef, _list: MdList, navList: MdNavListCssMatStyler);
     ngAfterContentInit(): void;
     /** Whether this list item should show a ripple effect when clicked.  */
     isRippleEnabled(): boolean;

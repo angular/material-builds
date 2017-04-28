@@ -1,4 +1,4 @@
-import { AfterContentInit, ElementRef, EventEmitter, OnDestroy, Renderer } from '@angular/core';
+import { AfterContentInit, ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
 import { FocusOriginMonitor, HammerInput, MdRipple } from '../core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanDisable } from '../core/common-behaviors/disabled';
@@ -49,7 +49,7 @@ export declare class MdSlideToggle extends _MdSlideToggleMixinBase implements On
     _inputElement: ElementRef;
     /** Reference to the ripple directive on the thumb container. */
     _ripple: MdRipple;
-    constructor(_elementRef: ElementRef, _renderer: Renderer, _focusOriginMonitor: FocusOriginMonitor);
+    constructor(_elementRef: ElementRef, _renderer: Renderer2, _focusOriginMonitor: FocusOriginMonitor);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /**

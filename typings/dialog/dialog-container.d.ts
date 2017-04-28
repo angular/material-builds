@@ -1,4 +1,4 @@
-import { ComponentRef, Renderer, ElementRef, EventEmitter } from '@angular/core';
+import { ComponentRef, NgZone, ElementRef, EventEmitter } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
 import { BasePortalHost, ComponentPortal, PortalHostDirective, TemplatePortal } from '../core';
 import { MdDialogConfig } from './dialog-config';
@@ -9,7 +9,7 @@ import { FocusTrapFactory } from '../core/a11y/focus-trap';
  * @docs-private
  */
 export declare class MdDialogContainer extends BasePortalHost {
-    private _renderer;
+    private _ngZone;
     private _elementRef;
     private _focusTrapFactory;
     /** The portal host inside of this container into which the dialog content will be loaded. */
@@ -26,7 +26,7 @@ export declare class MdDialogContainer extends BasePortalHost {
     _state: 'void' | 'enter' | 'exit';
     /** Emits the current animation state whenever it changes. */
     _onAnimationStateChange: EventEmitter<AnimationEvent>;
-    constructor(_renderer: Renderer, _elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _document: any);
+    constructor(_ngZone: NgZone, _elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _document: any);
     /**
      * Attach a ComponentPortal as content to this dialog container.
      * @param portal Portal to be attached as the dialog content.

@@ -13,7 +13,7 @@ var __extends = (this && this.__extends) || (function () {
   * Copyright (c) 2017 Google, Inc. https://material.angular.io/
   * License: MIT
   */
-import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, InjectionToken, Injector, Input, NgModule, NgZone, OpaqueToken, Optional, Output, Renderer, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
+import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, InjectionToken, Injector, Input, NgModule, NgZone, Optional, Output, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
 import { DOCUMENT, DomSanitizer, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
 import { CommonModule, Location } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
@@ -52,7 +52,7 @@ var MdError = /*@__PURE__*/(function (_super) {
     }
     return MdError;
 }(Error));
-var MATERIAL_COMPATIBILITY_MODE = new OpaqueToken('md-compatibility-mode');
+var MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
@@ -312,11 +312,16 @@ var MdLineSetter = /*@__PURE__*/(function () {
     };
     /**
      * @param {?} className
-     * @param {?} bool
+     * @param {?} isAdd
      * @return {?}
      */
-    MdLineSetter.prototype._setClass = function (className, bool) {
-        this._renderer.setElementClass(this._element.nativeElement, className, bool);
+    MdLineSetter.prototype._setClass = function (className, isAdd) {
+        if (isAdd) {
+            this._renderer.addClass(this._element.nativeElement, className);
+        }
+        else {
+            this._renderer.removeClass(this._element.nativeElement, className);
+        }
     };
     return MdLineSetter;
 }());
@@ -1035,9 +1040,9 @@ var VIEWPORT_RULER_PROVIDER = {
     useFactory: VIEWPORT_RULER_PROVIDER_FACTORY
 };
 /**
- * OpaqueToken that can be used to specify the global ripple options.
+ * Injection token that can be used to specify the global ripple options.
  */
-var MD_RIPPLE_GLOBAL_OPTIONS = new OpaqueToken('md-ripple-global-options');
+var MD_RIPPLE_GLOBAL_OPTIONS = new InjectionToken('md-ripple-global-options');
 var MdRipple = /*@__PURE__*/(function () {
     /**
      * @param {?} elementRef
@@ -1220,8 +1225,8 @@ var MdPseudoCheckbox = /*@__PURE__*/(function () {
         set: function (value) {
             if (value) {
                 var /** @type {?} */ nativeElement = this._elementRef.nativeElement;
-                this._renderer.setElementClass(nativeElement, "mat-" + this.color, false);
-                this._renderer.setElementClass(nativeElement, "mat-" + value, true);
+                this._renderer.removeClass(nativeElement, "mat-" + this.color);
+                this._renderer.addClass(nativeElement, "mat-" + value);
                 this._color = value;
             }
         },
@@ -1248,7 +1253,7 @@ MdPseudoCheckbox.decorators = [
  */
 MdPseudoCheckbox.ctorParameters = function () { return [
     { type: ElementRef, },
-    { type: Renderer, },
+    { type: Renderer2, },
 ]; };
 MdPseudoCheckbox.propDecorators = {
     'state': [{ type: Input },],
@@ -3190,7 +3195,7 @@ Scrollable.ctorParameters = function () { return [
     { type: ElementRef, },
     { type: ScrollDispatcher, },
     { type: NgZone, },
-    { type: Renderer, },
+    { type: Renderer2, },
 ]; };
 /**
  * Default set of positions for the overlay. Follows the behavior of a dropdown.
@@ -4173,7 +4178,7 @@ FocusTrapDirective.ctorParameters = function () { return [
 FocusTrapDirective.propDecorators = {
     'enabled': [{ type: Input, args: ['cdkTrapFocus',] },],
 };
-var LIVE_ANNOUNCER_ELEMENT_TOKEN = new OpaqueToken('liveAnnouncerElement');
+var LIVE_ANNOUNCER_ELEMENT_TOKEN = new InjectionToken('liveAnnouncerElement');
 var LiveAnnouncer = /*@__PURE__*/(function () {
     /**
      * @param {?} elementToken
@@ -4839,7 +4844,7 @@ var FocusOriginMonitor = /*@__PURE__*/(function () {
      */
     FocusOriginMonitor.prototype.focusVia = function (element, renderer, origin) {
         this._setOriginForCurrentEventQueue(origin);
-        renderer.invokeElementMethod(element, 'focus');
+        element.focus();
     };
     /**
      * Register necessary event listeners on the document and window.
@@ -4886,11 +4891,14 @@ var FocusOriginMonitor = /*@__PURE__*/(function () {
      */
     FocusOriginMonitor.prototype._setClasses = function (element, origin) {
         var /** @type {?} */ renderer = this._elementInfo.get(element).renderer;
-        renderer.setElementClass(element, 'cdk-focused', !!origin);
-        renderer.setElementClass(element, 'cdk-touch-focused', origin === 'touch');
-        renderer.setElementClass(element, 'cdk-keyboard-focused', origin === 'keyboard');
-        renderer.setElementClass(element, 'cdk-mouse-focused', origin === 'mouse');
-        renderer.setElementClass(element, 'cdk-program-focused', origin === 'program');
+        var /** @type {?} */ toggleClass = function (className, shouldSet) {
+            shouldSet ? renderer.addClass(element, className) : renderer.removeClass(element, className);
+        };
+        toggleClass('cdk-focused', !!origin);
+        toggleClass('cdk-touch-focused', origin === 'touch');
+        toggleClass('cdk-keyboard-focused', origin === 'keyboard');
+        toggleClass('cdk-mouse-focused', origin === 'mouse');
+        toggleClass('cdk-program-focused', origin === 'program');
     };
     /**
      * Sets the origin and schedules an async function to clear it at the end of the event queue.
@@ -5036,7 +5044,7 @@ CdkMonitorFocus.decorators = [
 CdkMonitorFocus.ctorParameters = function () { return [
     { type: ElementRef, },
     { type: FocusOriginMonitor, },
-    { type: Renderer, },
+    { type: Renderer2, },
 ]; };
 CdkMonitorFocus.propDecorators = {
     'cdkFocusChange': [{ type: Output },],
@@ -5666,7 +5674,7 @@ var MdButtonToggle = /*@__PURE__*/(function () {
      * @return {?}
      */
     MdButtonToggle.prototype.focus = function () {
-        this._renderer.invokeElementMethod(this._inputElement.nativeElement, 'focus');
+        this._inputElement.nativeElement.focus();
     };
     /**
      * Toggle the state of the current button toggle.
@@ -5738,7 +5746,7 @@ MdButtonToggle.ctorParameters = function () { return [
     { type: MdButtonToggleGroup, decorators: [{ type: Optional },] },
     { type: MdButtonToggleGroupMultiple, decorators: [{ type: Optional },] },
     { type: UniqueSelectionDispatcher, },
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: ElementRef, },
     { type: FocusOriginMonitor, },
 ]; };
@@ -6012,7 +6020,12 @@ var MdButton = /*@__PURE__*/(function (_super) {
      */
     MdButton.prototype._setElementColor = function (color, isAdd) {
         if (color != null && color != '') {
-            this._renderer.setElementClass(this._getHostElement(), "mat-" + color, isAdd);
+            if (isAdd) {
+                this._renderer.addClass(this._getHostElement(), "mat-" + color);
+            }
+            else {
+                this._renderer.removeClass(this._getHostElement(), "mat-" + color);
+            }
         }
     };
     /**
@@ -6020,7 +6033,7 @@ var MdButton = /*@__PURE__*/(function (_super) {
      * @return {?}
      */
     MdButton.prototype.focus = function () {
-        this._renderer.invokeElementMethod(this._getHostElement(), 'focus');
+        this._getHostElement().focus();
     };
     /**
      * @return {?}
@@ -6073,7 +6086,7 @@ MdButton.decorators = [
  */
 MdButton.ctorParameters = function () { return [
     { type: ElementRef, },
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: FocusOriginMonitor, },
 ]; };
 MdButton.propDecorators = {
@@ -6145,7 +6158,7 @@ MdAnchor.decorators = [
  */
 MdAnchor.ctorParameters = function () { return [
     { type: ElementRef, },
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: FocusOriginMonitor, },
 ]; };
 MdAnchor.propDecorators = {
@@ -6469,7 +6482,12 @@ var MdCheckbox = /*@__PURE__*/(function (_super) {
      */
     MdCheckbox.prototype._setElementColor = function (color, isAdd) {
         if (color != null && color != '') {
-            this._renderer.setElementClass(this._elementRef.nativeElement, "mat-" + color, isAdd);
+            if (isAdd) {
+                this._renderer.addClass(this._elementRef.nativeElement, "mat-" + color);
+            }
+            else {
+                this._renderer.removeClass(this._elementRef.nativeElement, "mat-" + color);
+            }
         }
     };
     /**
@@ -6525,12 +6543,12 @@ var MdCheckbox = /*@__PURE__*/(function (_super) {
             return;
         }
         if (this._currentAnimationClass.length > 0) {
-            renderer.setElementClass(elementRef.nativeElement, this._currentAnimationClass, false);
+            renderer.removeClass(elementRef.nativeElement, this._currentAnimationClass);
         }
         this._currentAnimationClass = this._getAnimationClassForCheckStateTransition(oldState, newState);
         this._currentCheckState = newState;
         if (this._currentAnimationClass.length > 0) {
-            renderer.setElementClass(elementRef.nativeElement, this._currentAnimationClass, true);
+            renderer.addClass(elementRef.nativeElement, this._currentAnimationClass);
         }
     };
     /**
@@ -6684,7 +6702,7 @@ MdCheckbox.decorators = [
  * @nocollapse
  */
 MdCheckbox.ctorParameters = function () { return [
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: ElementRef, },
     { type: ChangeDetectorRef, },
     { type: FocusOriginMonitor, },
@@ -7331,7 +7349,7 @@ MdRadioButton.decorators = [
 MdRadioButton.ctorParameters = function () { return [
     { type: MdRadioGroup, decorators: [{ type: Optional },] },
     { type: ElementRef, },
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: FocusOriginMonitor, },
     { type: UniqueSelectionDispatcher, },
 ]; };
@@ -9078,7 +9096,12 @@ var MdSlideToggle = /*@__PURE__*/(function (_super) {
      */
     MdSlideToggle.prototype._setElementColor = function (color, isAdd) {
         if (color != null && color != '') {
-            this._renderer.setElementClass(this._elementRef.nativeElement, "mat-" + color, isAdd);
+            if (isAdd) {
+                this._renderer.addClass(this._elementRef.nativeElement, "mat-" + color);
+            }
+            else {
+                this._renderer.removeClass(this._elementRef.nativeElement, "mat-" + color);
+            }
         }
     };
     /**
@@ -9147,7 +9170,7 @@ MdSlideToggle.decorators = [
  */
 MdSlideToggle.ctorParameters = function () { return [
     { type: ElementRef, },
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: FocusOriginMonitor, },
 ]; };
 MdSlideToggle.propDecorators = {
@@ -10081,7 +10104,7 @@ MdSlider.decorators = [
  * @nocollapse
  */
 MdSlider.ctorParameters = function () { return [
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: ElementRef, },
     { type: FocusOriginMonitor, },
     { type: Dir, decorators: [{ type: Optional },] },
@@ -10197,13 +10220,11 @@ var MdSidenav = /*@__PURE__*/(function () {
     /**
      * @param {?} _elementRef The DOM element reference. Used for transition and width calculation.
      *     If not available we do not hook on transitions.
-     * @param {?} _renderer
      * @param {?} _focusTrapFactory
      */
-    function MdSidenav(_elementRef, _renderer, _focusTrapFactory) {
+    function MdSidenav(_elementRef, _focusTrapFactory) {
         var _this = this;
         this._elementRef = _elementRef;
-        this._renderer = _renderer;
         this._focusTrapFactory = _focusTrapFactory;
         /**
          * Alignment of the sidenav (direction neutral); whether 'start' or 'end'.
@@ -10256,10 +10277,10 @@ var MdSidenav = /*@__PURE__*/(function () {
         });
         this.onClose.subscribe(function () {
             if (_this._elementFocusedBeforeSidenavWasOpened instanceof HTMLElement) {
-                _this._renderer.invokeElementMethod(_this._elementFocusedBeforeSidenavWasOpened, 'focus');
+                _this._elementFocusedBeforeSidenavWasOpened.focus();
             }
             else {
-                _this._renderer.invokeElementMethod(_this._elementRef.nativeElement, 'blur');
+                _this._elementRef.nativeElement.blur();
             }
             _this._elementFocusedBeforeSidenavWasOpened = null;
         });
@@ -10554,7 +10575,6 @@ MdSidenav.decorators = [
  */
 MdSidenav.ctorParameters = function () { return [
     { type: ElementRef, },
-    { type: Renderer, },
     { type: FocusTrapFactory, },
 ]; };
 MdSidenav.propDecorators = {
@@ -10681,11 +10701,16 @@ var MdSidenavContainer = /*@__PURE__*/(function () {
     /**
      * Toggles the 'mat-sidenav-opened' class on the main 'md-sidenav-container' element.
      * @param {?} sidenav
-     * @param {?} bool
+     * @param {?} isAdd
      * @return {?}
      */
-    MdSidenavContainer.prototype._setContainerClass = function (sidenav, bool) {
-        this._renderer.setElementClass(this._element.nativeElement, 'mat-sidenav-opened', bool);
+    MdSidenavContainer.prototype._setContainerClass = function (sidenav, isAdd) {
+        if (isAdd) {
+            this._renderer.addClass(this._element.nativeElement, 'mat-sidenav-opened');
+        }
+        else {
+            this._renderer.removeClass(this._element.nativeElement, 'mat-sidenav-opened');
+        }
     };
     /**
      * Validate the state of the sidenav children components.
@@ -10830,7 +10855,7 @@ MdSidenavContainer.decorators = [
 MdSidenavContainer.ctorParameters = function () { return [
     { type: Dir, decorators: [{ type: Optional },] },
     { type: ElementRef, },
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: NgZone, },
 ]; };
 MdSidenavContainer.propDecorators = {
@@ -11078,7 +11103,12 @@ var MdListItem = /*@__PURE__*/(function () {
          * @return {?}
          */
         set: function (avatar) {
-            this._renderer.setElementClass(this._element.nativeElement, 'mat-list-item-avatar', avatar != null);
+            if (avatar != null) {
+                this._renderer.addClass(this._element.nativeElement, 'mat-list-item-avatar');
+            }
+            else {
+                this._renderer.removeClass(this._element.nativeElement, 'mat-list-item-avatar');
+            }
         },
         enumerable: true,
         configurable: true
@@ -11126,7 +11156,7 @@ MdListItem.decorators = [
  * @nocollapse
  */
 MdListItem.ctorParameters = function () { return [
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: ElementRef, },
     { type: MdList, decorators: [{ type: Optional },] },
     { type: MdNavListCssMatStyler, decorators: [{ type: Optional },] },
@@ -11249,7 +11279,7 @@ var MdGridTile = /*@__PURE__*/(function () {
      * @return {?}
      */
     MdGridTile.prototype._setStyle = function (property, value) {
-        this._renderer.setElementStyle(this._element.nativeElement, property, value);
+        this._renderer.setStyle(this._element.nativeElement, property, value);
     };
     return MdGridTile;
 }());
@@ -11268,7 +11298,7 @@ MdGridTile.decorators = [
  * @nocollapse
  */
 MdGridTile.ctorParameters = function () { return [
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: ElementRef, },
 ]; };
 MdGridTile.propDecorators = {
@@ -11301,7 +11331,7 @@ MdGridTileText.decorators = [
  * @nocollapse
  */
 MdGridTileText.ctorParameters = function () { return [
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: ElementRef, },
 ]; };
 MdGridTileText.propDecorators = {
@@ -11977,7 +12007,7 @@ var MdGridList = /*@__PURE__*/(function () {
      */
     MdGridList.prototype._setListStyle = function (style$$1) {
         if (style$$1) {
-            this._renderer.setElementStyle(this._element.nativeElement, style$$1[0], style$$1[1]);
+            this._renderer.setStyle(this._element.nativeElement, style$$1[0], style$$1[1]);
         }
     };
     return MdGridList;
@@ -11997,7 +12027,7 @@ MdGridList.decorators = [
  * @nocollapse
  */
 MdGridList.ctorParameters = function () { return [
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: ElementRef, },
     { type: Dir, decorators: [{ type: Optional },] },
 ]; };
@@ -12543,7 +12573,7 @@ var MdChip = /*@__PURE__*/(function () {
      * @return {?}
      */
     MdChip.prototype.focus = function () {
-        this._renderer.invokeElementMethod(this._elementRef.nativeElement, 'focus');
+        this._elementRef.nativeElement.focus();
         this.onFocus.emit({ chip: this });
     };
     /**
@@ -12568,11 +12598,11 @@ var MdChip = /*@__PURE__*/(function () {
     MdChip.prototype._addDefaultCSSClass = function () {
         var /** @type {?} */ el = this._elementRef.nativeElement;
         // Always add the `mat-chip` class
-        el.classList.add('mat-chip');
+        this._renderer.addClass(el, 'mat-chip');
         // If we are a basic chip, also add the `mat-basic-chip` class for :not() targeting
         if (el.nodeName.toLowerCase() == 'mat-basic-chip' || el.hasAttribute('mat-basic-chip') ||
             el.nodeName.toLowerCase() == 'md-basic-chip' || el.hasAttribute('md-basic-chip')) {
-            el.classList.add('mat-basic-chip');
+            this._renderer.addClass(el, 'mat-basic-chip');
         }
     };
     /**
@@ -12593,7 +12623,12 @@ var MdChip = /*@__PURE__*/(function () {
      */
     MdChip.prototype._setElementColor = function (color, isAdd) {
         if (color != null && color != '') {
-            this._renderer.setElementClass(this._elementRef.nativeElement, "mat-" + color, isAdd);
+            if (isAdd) {
+                this._renderer.addClass(this._elementRef.nativeElement, "mat-" + color);
+            }
+            else {
+                this._renderer.removeClass(this._elementRef.nativeElement, "mat-" + color);
+            }
         }
     };
     return MdChip;
@@ -12617,7 +12652,7 @@ MdChip.decorators = [
  * @nocollapse
  */
 MdChip.ctorParameters = function () { return [
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: ElementRef, },
 ]; };
 MdChip.propDecorators = {
@@ -13393,7 +13428,12 @@ var MdIcon = /*@__PURE__*/(function () {
      */
     MdIcon.prototype._setElementColor = function (color, isAdd) {
         if (color != null && color != '') {
-            this._renderer.setElementClass(this._elementRef.nativeElement, "mat-" + color, isAdd);
+            if (isAdd) {
+                this._renderer.addClass(this._elementRef.nativeElement, "mat-" + color);
+            }
+            else {
+                this._renderer.removeClass(this._elementRef.nativeElement, "mat-" + color);
+            }
         }
     };
     /**
@@ -13470,7 +13510,7 @@ var MdIcon = /*@__PURE__*/(function () {
         var /** @type {?} */ ariaLabel = this._getAriaLabel();
         if (ariaLabel && ariaLabel !== this._previousAriaLabel) {
             this._previousAriaLabel = ariaLabel;
-            this._renderer.setElementAttribute(this._elementRef.nativeElement, 'aria-label', ariaLabel);
+            this._renderer.setAttribute(this._elementRef.nativeElement, 'aria-label', ariaLabel);
         }
     };
     /**
@@ -13513,7 +13553,7 @@ var MdIcon = /*@__PURE__*/(function () {
         // We would use renderer.detachView(Array.from(layoutElement.childNodes)) here,
         // but it fails in IE11: https://github.com/angular/angular/issues/6327
         layoutElement.innerHTML = '';
-        this._renderer.projectNodes(layoutElement, [svg]);
+        this._renderer.appendChild(layoutElement, svg);
     };
     /**
      * @return {?}
@@ -13528,19 +13568,19 @@ var MdIcon = /*@__PURE__*/(function () {
             this._mdIconRegistry.getDefaultFontSetClass();
         if (fontSetClass != this._previousFontSetClass) {
             if (this._previousFontSetClass) {
-                this._renderer.setElementClass(elem, this._previousFontSetClass, false);
+                this._renderer.removeClass(elem, this._previousFontSetClass);
             }
             if (fontSetClass) {
-                this._renderer.setElementClass(elem, fontSetClass, true);
+                this._renderer.addClass(elem, fontSetClass);
             }
             this._previousFontSetClass = fontSetClass;
         }
         if (this.fontIcon != this._previousFontIconClass) {
             if (this._previousFontIconClass) {
-                this._renderer.setElementClass(elem, this._previousFontIconClass, false);
+                this._renderer.removeClass(elem, this._previousFontIconClass);
             }
             if (this.fontIcon) {
-                this._renderer.setElementClass(elem, this.fontIcon, true);
+                this._renderer.addClass(elem, this.fontIcon);
             }
             this._previousFontIconClass = this.fontIcon;
         }
@@ -13564,7 +13604,7 @@ MdIcon.decorators = [
  */
 MdIcon.ctorParameters = function () { return [
     { type: ElementRef, },
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: MdIconRegistry, },
 ]; };
 MdIcon.propDecorators = {
@@ -14508,7 +14548,7 @@ var MdInputDirective = /*@__PURE__*/(function () {
             // input element. To ensure that bindings for `type` work, we need to sync the setter
             // with the native property. Textarea elements don't support the type property or attribute.
             if (!this._isTextarea() && getSupportedInputTypes().has(this._type)) {
-                this._renderer.setElementProperty(this._elementRef.nativeElement, 'type', this._type);
+                this._renderer.setProperty(this._elementRef.nativeElement, 'type', this._type);
             }
         },
         enumerable: true,
@@ -14555,7 +14595,7 @@ var MdInputDirective = /*@__PURE__*/(function () {
      * Focuses the input element.
      * @return {?}
      */
-    MdInputDirective.prototype.focus = function () { this._renderer.invokeElementMethod(this._elementRef.nativeElement, 'focus'); };
+    MdInputDirective.prototype.focus = function () { this._elementRef.nativeElement.focus(); };
     /**
      * @return {?}
      */
@@ -14628,7 +14668,7 @@ MdInputDirective.decorators = [
  */
 MdInputDirective.ctorParameters = function () { return [
     { type: ElementRef, },
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: NgControl, decorators: [{ type: Optional }, { type: Self },] },
 ]; };
 MdInputDirective.propDecorators = {
@@ -15341,7 +15381,7 @@ var MdSnackBarContainer = /*@__PURE__*/(function (_super) {
             // to pass in an array or a space-separated list.
             for (var _i = 0, _a = this.snackBarConfig.extraClasses; _i < _a.length; _i++) {
                 var cssClass = _a[_i];
-                this._renderer.setElementClass(this._elementRef.nativeElement, cssClass, true);
+                this._renderer.addClass(this._elementRef.nativeElement, cssClass);
             }
         }
         return this._portalHost.attachComponentPortal(portal);
@@ -15447,7 +15487,7 @@ MdSnackBarContainer.decorators = [
  */
 MdSnackBarContainer.ctorParameters = function () { return [
     { type: NgZone, },
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: ElementRef, },
 ]; };
 MdSnackBarContainer.propDecorators = {
@@ -16005,11 +16045,11 @@ var MdTabGroup = /*@__PURE__*/(function () {
         if (!this._dynamicHeight || !this._tabBodyWrapperHeight) {
             return;
         }
-        this._renderer.setElementStyle(this._tabBodyWrapper.nativeElement, 'height', this._tabBodyWrapperHeight + 'px');
+        this._renderer.setStyle(this._tabBodyWrapper.nativeElement, 'height', this._tabBodyWrapperHeight + 'px');
         // This conditional forces the browser to paint the height so that
         // the animation to the new height can have an origin.
         if (this._tabBodyWrapper.nativeElement.offsetHeight) {
-            this._renderer.setElementStyle(this._tabBodyWrapper.nativeElement, 'height', tabHeight + 'px');
+            this._renderer.setStyle(this._tabBodyWrapper.nativeElement, 'height', tabHeight + 'px');
         }
     };
     /**
@@ -16018,7 +16058,7 @@ var MdTabGroup = /*@__PURE__*/(function () {
      */
     MdTabGroup.prototype._removeTabBodyWrapperHeight = function () {
         this._tabBodyWrapperHeight = this._tabBodyWrapper.nativeElement.clientHeight;
-        this._renderer.setElementStyle(this._tabBodyWrapper.nativeElement, 'height', '');
+        this._renderer.setStyle(this._tabBodyWrapper.nativeElement, 'height', '');
     };
     return MdTabGroup;
 }());
@@ -16037,7 +16077,7 @@ MdTabGroup.decorators = [
  * @nocollapse
  */
 MdTabGroup.ctorParameters = function () { return [
-    { type: Renderer, },
+    { type: Renderer2, },
 ]; };
 MdTabGroup.propDecorators = {
     '_tabs': [{ type: ContentChildren, args: [MdTab,] },],
@@ -16057,11 +16097,9 @@ MdTabGroup.propDecorators = {
 var MdTabLabelWrapper = /*@__PURE__*/(function () {
     /**
      * @param {?} elementRef
-     * @param {?} _renderer
      */
-    function MdTabLabelWrapper(elementRef, _renderer) {
+    function MdTabLabelWrapper(elementRef) {
         this.elementRef = elementRef;
-        this._renderer = _renderer;
         /**
          * Whether the tab label is disabled.
          */
@@ -16086,7 +16124,7 @@ var MdTabLabelWrapper = /*@__PURE__*/(function () {
      * @return {?}
      */
     MdTabLabelWrapper.prototype.focus = function () {
-        this._renderer.invokeElementMethod(this.elementRef.nativeElement, 'focus');
+        this.elementRef.nativeElement.focus();
     };
     /**
      * @return {?}
@@ -16115,7 +16153,6 @@ MdTabLabelWrapper.decorators = [
  */
 MdTabLabelWrapper.ctorParameters = function () { return [
     { type: ElementRef, },
-    { type: Renderer, },
 ]; };
 MdTabLabelWrapper.propDecorators = {
     'disabled': [{ type: Input },],
@@ -16146,8 +16183,8 @@ var MdInkBar = /*@__PURE__*/(function () {
         this.show();
         this._ngZone.runOutsideAngular(function () {
             requestAnimationFrame(function () {
-                _this._renderer.setElementStyle(_this._elementRef.nativeElement, 'left', _this._getLeftPosition(element));
-                _this._renderer.setElementStyle(_this._elementRef.nativeElement, 'width', _this._getElementWidth(element));
+                _this._renderer.setStyle(_this._elementRef.nativeElement, 'left', _this._getLeftPosition(element));
+                _this._renderer.setStyle(_this._elementRef.nativeElement, 'width', _this._getElementWidth(element));
             });
         });
     };
@@ -16156,14 +16193,14 @@ var MdInkBar = /*@__PURE__*/(function () {
      * @return {?}
      */
     MdInkBar.prototype.show = function () {
-        this._renderer.setElementStyle(this._elementRef.nativeElement, 'visibility', 'visible');
+        this._renderer.setStyle(this._elementRef.nativeElement, 'visibility', 'visible');
     };
     /**
      * Hides the ink bar.
      * @return {?}
      */
     MdInkBar.prototype.hide = function () {
-        this._renderer.setElementStyle(this._elementRef.nativeElement, 'visibility', 'hidden');
+        this._renderer.setStyle(this._elementRef.nativeElement, 'visibility', 'hidden');
     };
     /**
      * Generates the pixel distance from the left based on the provided element in string format.
@@ -16195,7 +16232,7 @@ MdInkBar.decorators = [
  * @nocollapse
  */
 MdInkBar.ctorParameters = function () { return [
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: ElementRef, },
     { type: NgZone, },
 ]; };
@@ -17037,12 +17074,12 @@ MdToolbarRow.decorators = [
 MdToolbarRow.ctorParameters = function () { return []; };
 var MdToolbar = /*@__PURE__*/(function () {
     /**
-     * @param {?} elementRef
-     * @param {?} renderer
+     * @param {?} _elementRef
+     * @param {?} _renderer
      */
-    function MdToolbar(elementRef, renderer) {
-        this.elementRef = elementRef;
-        this.renderer = renderer;
+    function MdToolbar(_elementRef, _renderer) {
+        this._elementRef = _elementRef;
+        this._renderer = _renderer;
     }
     Object.defineProperty(MdToolbar.prototype, "color", {
         /**
@@ -17078,7 +17115,13 @@ var MdToolbar = /*@__PURE__*/(function () {
      */
     MdToolbar.prototype._setElementColor = function (color, isAdd) {
         if (color != null && color != '') {
-            this.renderer.setElementClass(this.elementRef.nativeElement, "mat-" + color, isAdd);
+            var /** @type {?} */ element = this._elementRef.nativeElement;
+            if (isAdd) {
+                this._renderer.addClass(element, "mat-" + color);
+            }
+            else {
+                this._renderer.removeClass(element, "mat-" + color);
+            }
         }
     };
     return MdToolbar;
@@ -17100,7 +17143,7 @@ MdToolbar.decorators = [
  */
 MdToolbar.ctorParameters = function () { return [
     { type: ElementRef, },
-    { type: Renderer, },
+    { type: Renderer2, },
 ]; };
 MdToolbar.propDecorators = {
     'color': [{ type: Input },],
@@ -17550,7 +17593,7 @@ MdTooltip.ctorParameters = function () { return [
     { type: ScrollDispatcher, },
     { type: ViewContainerRef, },
     { type: NgZone, },
-    { type: Renderer, },
+    { type: Renderer2, },
     { type: Platform, },
     { type: Dir, decorators: [{ type: Optional },] },
 ]; };
@@ -17810,11 +17853,9 @@ var MdMenuInvalidPositionY = /*@__PURE__*/(function (_super) {
  */
 var MdMenuItem = /*@__PURE__*/(function () {
     /**
-     * @param {?} _renderer
      * @param {?} _elementRef
      */
-    function MdMenuItem(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MdMenuItem(_elementRef) {
         this._elementRef = _elementRef;
         /**
          * Whether the menu item is disabled
@@ -17826,7 +17867,7 @@ var MdMenuItem = /*@__PURE__*/(function () {
      * @return {?}
      */
     MdMenuItem.prototype.focus = function () {
-        this._renderer.invokeElementMethod(this._getHostElement(), 'focus');
+        this._getHostElement().focus();
     };
     Object.defineProperty(MdMenuItem.prototype, "disabled", {
         /**
@@ -17896,7 +17937,6 @@ MdMenuItem.decorators = [
  * @nocollapse
  */
 MdMenuItem.ctorParameters = function () { return [
-    { type: Renderer, },
     { type: ElementRef, },
 ]; };
 MdMenuItem.propDecorators = {
@@ -18108,14 +18148,12 @@ var MdMenuTrigger = /*@__PURE__*/(function () {
      * @param {?} _overlay
      * @param {?} _element
      * @param {?} _viewContainerRef
-     * @param {?} _renderer
      * @param {?} _dir
      */
-    function MdMenuTrigger(_overlay, _element, _viewContainerRef, _renderer, _dir) {
+    function MdMenuTrigger(_overlay, _element, _viewContainerRef, _dir) {
         this._overlay = _overlay;
         this._element = _element;
         this._viewContainerRef = _viewContainerRef;
-        this._renderer = _renderer;
         this._dir = _dir;
         this._menuOpen = false;
         this._openedByMouse = false;
@@ -18236,7 +18274,7 @@ var MdMenuTrigger = /*@__PURE__*/(function () {
      * @return {?}
      */
     MdMenuTrigger.prototype.focus = function () {
-        this._renderer.invokeElementMethod(this._element.nativeElement, 'focus');
+        this._element.nativeElement.focus();
     };
     Object.defineProperty(MdMenuTrigger.prototype, "dir", {
         /**
@@ -18412,7 +18450,6 @@ MdMenuTrigger.ctorParameters = function () { return [
     { type: Overlay, },
     { type: ElementRef, },
     { type: ViewContainerRef, },
-    { type: Renderer, },
     { type: Dir, decorators: [{ type: Optional },] },
 ]; };
 MdMenuTrigger.propDecorators = {
@@ -18541,7 +18578,7 @@ var MdDialogRef = /*@__PURE__*/(function () {
     };
     return MdDialogRef;
 }());
-var MD_DIALOG_DATA = new OpaqueToken('MdDialogData');
+var MD_DIALOG_DATA = new InjectionToken('MdDialogData');
 /**
  * Custom injector type specifically for instantiating components with a dialog.
  */
@@ -18628,14 +18665,14 @@ var MdDialogContentAlreadyAttachedError = /*@__PURE__*/(function (_super) {
 var MdDialogContainer = /*@__PURE__*/(function (_super) {
     __extends(MdDialogContainer, _super);
     /**
-     * @param {?} _renderer
+     * @param {?} _ngZone
      * @param {?} _elementRef
      * @param {?} _focusTrapFactory
      * @param {?} _document
      */
-    function MdDialogContainer(_renderer, _elementRef, _focusTrapFactory, _document) {
+    function MdDialogContainer(_ngZone, _elementRef, _focusTrapFactory, _document) {
         var _this = _super.call(this) || this;
-        _this._renderer = _renderer;
+        _this._ngZone = _ngZone;
         _this._elementRef = _elementRef;
         _this._focusTrapFactory = _focusTrapFactory;
         /**
@@ -18758,7 +18795,7 @@ MdDialogContainer.decorators = [
  * @nocollapse
  */
 MdDialogContainer.ctorParameters = function () { return [
-    { type: Renderer, },
+    { type: NgZone, },
     { type: ElementRef, },
     { type: FocusTrapFactory, },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },

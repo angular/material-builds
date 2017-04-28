@@ -1,4 +1,4 @@
-import { ElementRef, OnChanges, OnInit, Renderer, SimpleChange, AfterViewChecked, Optional } from '@angular/core';
+import { ElementRef, OnChanges, OnInit, Renderer2, SimpleChange, AfterViewChecked, Optional } from '@angular/core';
 import { Http } from '@angular/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MdError } from '../core';
@@ -60,7 +60,7 @@ export declare class MdIcon implements OnChanges, OnInit, AfterViewChecked {
     private _previousFontSetClass;
     private _previousFontIconClass;
     private _previousAriaLabel;
-    constructor(_elementRef: ElementRef, _renderer: Renderer, _mdIconRegistry: MdIconRegistry);
+    constructor(_elementRef: ElementRef, _renderer: Renderer2, _mdIconRegistry: MdIconRegistry);
     _updateColor(newColor: string): void;
     _setElementColor(color: string, isAdd: boolean): void;
     /**

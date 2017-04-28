@@ -1,4 +1,4 @@
-import { EventEmitter, QueryList, ElementRef, Renderer } from '@angular/core';
+import { EventEmitter, QueryList, ElementRef, Renderer2 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { MdTab } from './tab';
 import 'rxjs/add/operator/map';
@@ -41,7 +41,7 @@ export declare class MdTabGroup {
     /** Event emitted when the tab selection has changed. */
     selectChange: EventEmitter<MdTabChangeEvent>;
     private _groupId;
-    constructor(_renderer: Renderer);
+    constructor(_renderer: Renderer2);
     /**
      * After the content is checked, this component knows what tabs have been defined
      * and what the selected index should be. This is where we can know exactly what position

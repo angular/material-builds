@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, QueryList, Renderer } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, QueryList, Renderer2 } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 /** Type for the available floatPlaceholder values. */
 export declare type FloatPlaceholderType = 'always' | 'never' | 'auto';
@@ -57,7 +57,7 @@ export declare class MdInputDirective {
     readonly empty: boolean;
     private readonly _uid;
     private _neverEmptyInputTypes;
-    constructor(_elementRef: ElementRef, _renderer: Renderer, _ngControl: NgControl);
+    constructor(_elementRef: ElementRef, _renderer: Renderer2, _ngControl: NgControl);
     /** Focuses the input element. */
     focus(): void;
     _onFocus(): void;

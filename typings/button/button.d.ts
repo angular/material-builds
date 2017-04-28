@@ -1,4 +1,4 @@
-import { ElementRef, OnDestroy, Renderer } from '@angular/core';
+import { ElementRef, OnDestroy, Renderer2 } from '@angular/core';
 import { FocusOriginMonitor } from '../core';
 import { CanDisable } from '../core/common-behaviors/disabled';
 /**
@@ -50,7 +50,7 @@ export declare class MdButton extends _MdButtonMixinBase implements OnDestroy, C
     private _disableRipple;
     /** Whether the ripple effect for this button is disabled. */
     disableRipple: boolean;
-    constructor(_elementRef: ElementRef, _renderer: Renderer, _focusOriginMonitor: FocusOriginMonitor);
+    constructor(_elementRef: ElementRef, _renderer: Renderer2, _focusOriginMonitor: FocusOriginMonitor);
     ngOnDestroy(): void;
     /** The color of the button. Can be `primary`, `accent`, or `warn`. */
     color: string;
@@ -70,7 +70,7 @@ export declare class MdButton extends _MdButtonMixinBase implements OnDestroy, C
  * Raised Material design button.
  */
 export declare class MdAnchor extends MdButton {
-    constructor(elementRef: ElementRef, renderer: Renderer, focusOriginMonitor: FocusOriginMonitor);
+    constructor(elementRef: ElementRef, renderer: Renderer2, focusOriginMonitor: FocusOriginMonitor);
     /** @docs-private */
     readonly tabIndex: number;
     readonly _isAriaDisabled: string;

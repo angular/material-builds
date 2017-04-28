@@ -1,6 +1,6 @@
-import { ModuleWithProviders, OpaqueToken, ElementRef, InjectionToken } from '@angular/core';
+import { ModuleWithProviders, ElementRef, InjectionToken } from '@angular/core';
 import { MdError } from '../errors/error';
-export declare const MATERIAL_COMPATIBILITY_MODE: OpaqueToken;
+export declare const MATERIAL_COMPATIBILITY_MODE: InjectionToken<boolean>;
 /** Injection token that configures whether the Material sanity checks are enabled. */
 export declare const MATERIAL_SANITY_CHECKS: InjectionToken<boolean>;
 /**

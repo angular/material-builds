@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, Renderer } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { FocusOriginMonitor, MdRipple } from '../core';
 import { CanDisable } from '../core/common-behaviors/disabled';
@@ -102,7 +102,7 @@ export declare class MdCheckbox extends _MdCheckboxMixinBase implements ControlV
     private _controlValueAccessorChangeFn;
     /** Reference to the focused state ripple. */
     private _focusRipple;
-    constructor(_renderer: Renderer, _elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _focusOriginMonitor: FocusOriginMonitor);
+    constructor(_renderer: Renderer2, _elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _focusOriginMonitor: FocusOriginMonitor);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /**
