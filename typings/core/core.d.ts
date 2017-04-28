@@ -1,4 +1,3 @@
-import { ModuleWithProviders } from '@angular/core';
 export { Dir, LayoutDirection, RtlModule } from './rtl/dir';
 export { ObserveContentModule, ObserveContent } from './observe-content/observe-content';
 export { MdOptionModule, MdOption } from './option/option';
@@ -39,6 +38,4 @@ export { coerceNumberProperty } from './coercion/number-property';
 export { CompatibilityModule, NoConflictStyleCompatibilityMode } from './compatibility/compatibility';
 export { MdCommonModule } from './common-behaviors/common-module';
 export declare class MdCoreModule {
-    /** @deprecated */
-    static forRoot(): ModuleWithProviders;
 }

@@ -157,15 +157,6 @@ var CompatibilityModule = /*@__PURE__*/(function () {
     /**
      * @return {?}
      */
-    CompatibilityModule.forRoot = function () {
-        return {
-            ngModule: CompatibilityModule,
-            providers: [],
-        };
-    };
-    /**
-     * @return {?}
-     */
     CompatibilityModule.prototype._checkDoctype = function () {
         if (!this._document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
@@ -415,16 +406,6 @@ Dir.propDecorators = {
 var RtlModule = /*@__PURE__*/(function () {
     function RtlModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    RtlModule.forRoot = function () {
-        return {
-            ngModule: RtlModule,
-            providers: []
-        };
-    };
     return RtlModule;
 }());
 RtlModule.decorators = [
@@ -491,16 +472,6 @@ ObserveContent.propDecorators = {
 var ObserveContentModule = /*@__PURE__*/(function () {
     function ObserveContentModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    ObserveContentModule.forRoot = function () {
-        return {
-            ngModule: ObserveContentModule,
-            providers: []
-        };
-    };
     return ObserveContentModule;
 }());
 ObserveContentModule.decorators = [
@@ -1159,16 +1130,6 @@ MdRipple.propDecorators = {
 var MdRippleModule = /*@__PURE__*/(function () {
     function MdRippleModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdRippleModule.forRoot = function () {
-        return {
-            ngModule: MdRippleModule,
-            providers: []
-        };
-    };
     return MdRippleModule;
 }());
 MdRippleModule.decorators = [
@@ -1503,15 +1464,6 @@ MdOption.propDecorators = {
 var MdOptionModule = /*@__PURE__*/(function () {
     function MdOptionModule() {
     }
-    /**
-     * @return {?}
-     */
-    MdOptionModule.forRoot = function () {
-        return {
-            ngModule: MdOptionModule,
-            providers: []
-        };
-    };
     return MdOptionModule;
 }());
 MdOptionModule.decorators = [
@@ -1966,16 +1918,6 @@ PortalHostDirective.propDecorators = {
 var PortalModule = /*@__PURE__*/(function () {
     function PortalModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    PortalModule.forRoot = function () {
-        return {
-            ngModule: PortalModule,
-            providers: []
-        };
-    };
     return PortalModule;
 }());
 PortalModule.decorators = [
@@ -3542,16 +3484,6 @@ ConnectedOverlayDirective.propDecorators = {
 var OverlayModule = /*@__PURE__*/(function () {
     function OverlayModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    OverlayModule.forRoot = function () {
-        return {
-            ngModule: OverlayModule,
-            providers: [],
-        };
-    };
     return OverlayModule;
 }());
 OverlayModule.decorators = [
@@ -4300,16 +4232,6 @@ function getSupportedInputTypes() {
 var PlatformModule = /*@__PURE__*/(function () {
     function PlatformModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    PlatformModule.forRoot = function () {
-        return {
-            ngModule: PlatformModule,
-            providers: [],
-        };
-    };
     return PlatformModule;
 }());
 PlatformModule.decorators = [
@@ -4324,16 +4246,6 @@ PlatformModule.ctorParameters = function () { return []; };
 var A11yModule = /*@__PURE__*/(function () {
     function A11yModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    A11yModule.forRoot = function () {
-        return {
-            ngModule: A11yModule,
-            providers: [],
-        };
-    };
     return A11yModule;
 }());
 A11yModule.decorators = [
@@ -5131,16 +5043,6 @@ function coerceNumberProperty(value, fallbackValue) {
 var MdCoreModule = /*@__PURE__*/(function () {
     function MdCoreModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdCoreModule.forRoot = function () {
-        return {
-            ngModule: MdCoreModule,
-            providers: [],
-        };
-    };
     return MdCoreModule;
 }());
 MdCoreModule.decorators = [
@@ -5762,16 +5664,6 @@ MdButtonToggle.propDecorators = {
 var MdButtonToggleModule = /*@__PURE__*/(function () {
     function MdButtonToggleModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdButtonToggleModule.forRoot = function () {
-        return {
-            ngModule: MdButtonToggleModule,
-            providers: []
-        };
-    };
     return MdButtonToggleModule;
 }());
 MdButtonToggleModule.decorators = [
@@ -6167,16 +6059,6 @@ MdAnchor.propDecorators = {
 var MdButtonModule = /*@__PURE__*/(function () {
     function MdButtonModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdButtonModule.forRoot = function () {
-        return {
-            ngModule: MdButtonModule,
-            providers: []
-        };
-    };
     return MdButtonModule;
 }());
 MdButtonModule.decorators = [
@@ -6730,16 +6612,6 @@ MdCheckbox.propDecorators = {
 var MdCheckboxModule = /*@__PURE__*/(function () {
     function MdCheckboxModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdCheckboxModule.forRoot = function () {
-        return {
-            ngModule: MdCheckboxModule,
-            providers: []
-        };
-    };
     return MdCheckboxModule;
 }());
 MdCheckboxModule.decorators = [
@@ -7371,16 +7243,6 @@ MdRadioButton.propDecorators = {
 var MdRadioModule = /*@__PURE__*/(function () {
     function MdRadioModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdRadioModule.forRoot = function () {
-        return {
-            ngModule: MdRadioModule,
-            providers: [],
-        };
-    };
     return MdRadioModule;
 }());
 MdRadioModule.decorators = [
@@ -8793,16 +8655,6 @@ function clampValue(min, n, max) {
 var MdSelectModule = /*@__PURE__*/(function () {
     function MdSelectModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdSelectModule.forRoot = function () {
-        return {
-            ngModule: MdSelectModule,
-            providers: []
-        };
-    };
     return MdSelectModule;
 }());
 MdSelectModule.decorators = [
@@ -9261,16 +9113,6 @@ var SlideToggleRenderer = /*@__PURE__*/(function () {
 var MdSlideToggleModule = /*@__PURE__*/(function () {
     function MdSlideToggleModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdSlideToggleModule.forRoot = function () {
-        return {
-            ngModule: MdSlideToggleModule,
-            providers: []
-        };
-    };
     return MdSlideToggleModule;
 }());
 MdSlideToggleModule.decorators = [
@@ -10158,16 +10000,6 @@ var SliderRenderer = /*@__PURE__*/(function () {
 var MdSliderModule = /*@__PURE__*/(function () {
     function MdSliderModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdSliderModule.forRoot = function () {
-        return {
-            ngModule: MdSliderModule,
-            providers: []
-        };
-    };
     return MdSliderModule;
 }());
 MdSliderModule.decorators = [
@@ -10865,16 +10697,6 @@ MdSidenavContainer.propDecorators = {
 var MdSidenavModule = /*@__PURE__*/(function () {
     function MdSidenavModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdSidenavModule.forRoot = function () {
-        return {
-            ngModule: MdSidenavModule,
-            providers: []
-        };
-    };
     return MdSidenavModule;
 }());
 MdSidenavModule.decorators = [
@@ -11169,16 +10991,6 @@ MdListItem.propDecorators = {
 var MdListModule = /*@__PURE__*/(function () {
     function MdListModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdListModule.forRoot = function () {
-        return {
-            ngModule: MdListModule,
-            providers: []
-        };
-    };
     return MdListModule;
 }());
 MdListModule.decorators = [
@@ -12040,16 +11852,6 @@ MdGridList.propDecorators = {
 var MdGridListModule = /*@__PURE__*/(function () {
     function MdGridListModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdGridListModule.forRoot = function () {
-        return {
-            ngModule: MdGridListModule,
-            providers: []
-        };
-    };
     return MdGridListModule;
 }());
 MdGridListModule.decorators = [
@@ -12392,16 +12194,6 @@ MdCardTitleGroup.ctorParameters = function () { return []; };
 var MdCardModule = /*@__PURE__*/(function () {
     function MdCardModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdCardModule.forRoot = function () {
-        return {
-            ngModule: MdCardModule,
-            providers: []
-        };
-    };
     return MdCardModule;
 }());
 MdCardModule.decorators = [
@@ -12870,16 +12662,6 @@ MdChipList.propDecorators = {
 var MdChipsModule = /*@__PURE__*/(function () {
     function MdChipsModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdChipsModule.forRoot = function () {
-        return {
-            ngModule: MdChipsModule,
-            providers: []
-        };
-    };
     return MdChipsModule;
 }());
 MdChipsModule.decorators = [
@@ -13633,16 +13415,6 @@ var ICON_REGISTRY_PROVIDER = {
 var MdIconModule = /*@__PURE__*/(function () {
     function MdIconModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdIconModule.forRoot = function () {
-        return {
-            ngModule: MdIconModule,
-            providers: [],
-        };
-    };
     return MdIconModule;
 }());
 MdIconModule.decorators = [
@@ -14099,16 +13871,6 @@ function getSvgArc(currentValue, rotation, strokeWidth) {
 var MdProgressSpinnerModule = /*@__PURE__*/(function () {
     function MdProgressSpinnerModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdProgressSpinnerModule.forRoot = function () {
-        return {
-            ngModule: MdProgressSpinnerModule,
-            providers: []
-        };
-    };
     return MdProgressSpinnerModule;
 }());
 MdProgressSpinnerModule.decorators = [
@@ -14241,16 +14003,6 @@ function clamp$1(v, min, max) {
 var MdProgressBarModule = /*@__PURE__*/(function () {
     function MdProgressBarModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdProgressBarModule.forRoot = function () {
-        return {
-            ngModule: MdProgressBarModule,
-            providers: []
-        };
-    };
     return MdProgressBarModule;
 }());
 MdProgressBarModule.decorators = [
@@ -15153,16 +14905,6 @@ MdTextareaAutosize.propDecorators = {
 var MdInputModule = /*@__PURE__*/(function () {
     function MdInputModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdInputModule.forRoot = function () {
-        return {
-            ngModule: MdInputModule,
-            providers: [],
-        };
-    };
     return MdInputModule;
 }());
 MdInputModule.decorators = [
@@ -15727,16 +15469,6 @@ function _applyConfigDefaults(config) {
 var MdSnackBarModule = /*@__PURE__*/(function () {
     function MdSnackBarModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdSnackBarModule.forRoot = function () {
-        return {
-            ngModule: MdSnackBarModule,
-            providers: []
-        };
-    };
     return MdSnackBarModule;
 }());
 MdSnackBarModule.decorators = [
@@ -17007,16 +16739,6 @@ MdTabHeader.propDecorators = {
 var MdTabsModule = /*@__PURE__*/(function () {
     function MdTabsModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdTabsModule.forRoot = function () {
-        return {
-            ngModule: MdTabsModule,
-            providers: []
-        };
-    };
     return MdTabsModule;
 }());
 MdTabsModule.decorators = [
@@ -17151,16 +16873,6 @@ MdToolbar.propDecorators = {
 var MdToolbarModule = /*@__PURE__*/(function () {
     function MdToolbarModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdToolbarModule.forRoot = function () {
-        return {
-            ngModule: MdToolbarModule,
-            providers: []
-        };
-    };
     return MdToolbarModule;
 }());
 MdToolbarModule.decorators = [
@@ -17788,16 +17500,6 @@ TooltipComponent.ctorParameters = function () { return [
 var MdTooltipModule = /*@__PURE__*/(function () {
     function MdTooltipModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdTooltipModule.forRoot = function () {
-        return {
-            ngModule: MdTooltipModule,
-            providers: []
-        };
-    };
     return MdTooltipModule;
 }());
 MdTooltipModule.decorators = [
@@ -18463,16 +18165,6 @@ MdMenuTrigger.propDecorators = {
 var MdMenuModule = /*@__PURE__*/(function () {
     function MdMenuModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdMenuModule.forRoot = function () {
-        return {
-            ngModule: MdMenuModule,
-            providers: [],
-        };
-    };
     return MdMenuModule;
 }());
 MdMenuModule.decorators = [
@@ -19129,16 +18821,6 @@ MdDialogActions.ctorParameters = function () { return []; };
 var MdDialogModule = /*@__PURE__*/(function () {
     function MdDialogModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdDialogModule.forRoot = function () {
-        return {
-            ngModule: MdDialogModule,
-            providers: [],
-        };
-    };
     return MdDialogModule;
 }());
 MdDialogModule.decorators = [
@@ -19751,16 +19433,6 @@ MdAutocompleteTrigger.propDecorators = {
 var MdAutocompleteModule = /*@__PURE__*/(function () {
     function MdAutocompleteModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdAutocompleteModule.forRoot = function () {
-        return {
-            ngModule: MdAutocompleteModule,
-            providers: [OVERLAY_PROVIDERS]
-        };
-    };
     return MdAutocompleteModule;
 }());
 MdAutocompleteModule.decorators = [
@@ -19811,67 +19483,9 @@ var MATERIAL_MODULES = [
 /**
  * @deprecated
  */
-var MaterialRootModule = /*@__PURE__*/(function () {
-    function MaterialRootModule() {
-    }
-    return MaterialRootModule;
-}());
-MaterialRootModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [
-                    MdAutocompleteModule.forRoot(),
-                    MdButtonModule.forRoot(),
-                    MdCardModule.forRoot(),
-                    MdChipsModule.forRoot(),
-                    MdCheckboxModule.forRoot(),
-                    MdGridListModule.forRoot(),
-                    MdInputModule.forRoot(),
-                    MdListModule.forRoot(),
-                    MdProgressBarModule.forRoot(),
-                    MdProgressSpinnerModule.forRoot(),
-                    MdRippleModule.forRoot(),
-                    MdSelectModule.forRoot(),
-                    MdSidenavModule.forRoot(),
-                    MdTabsModule.forRoot(),
-                    MdToolbarModule.forRoot(),
-                    PortalModule.forRoot(),
-                    RtlModule.forRoot(),
-                    ObserveContentModule.forRoot(),
-                    // These modules include providers.
-                    A11yModule.forRoot(),
-                    MdButtonToggleModule.forRoot(),
-                    MdDialogModule.forRoot(),
-                    MdIconModule.forRoot(),
-                    MdMenuModule.forRoot(),
-                    MdRadioModule.forRoot(),
-                    MdSliderModule.forRoot(),
-                    MdSlideToggleModule.forRoot(),
-                    MdSnackBarModule.forRoot(),
-                    MdTooltipModule.forRoot(),
-                    PlatformModule.forRoot(),
-                    OverlayModule.forRoot(),
-                    MdCommonModule,
-                ],
-                exports: MATERIAL_MODULES,
-            },] },
-];
-/**
- * @nocollapse
- */
-MaterialRootModule.ctorParameters = function () { return []; };
-/**
- * @deprecated
- */
 var MaterialModule = /*@__PURE__*/(function () {
     function MaterialModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MaterialModule.forRoot = function () {
-        return { ngModule: MaterialRootModule };
-    };
     return MaterialModule;
 }());
 MaterialModule.decorators = [
@@ -19892,5 +19506,5 @@ MaterialModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { Dir, RtlModule, ObserveContentModule, ObserveContent, MdOptionModule, MdOption, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ScrollDispatcher, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, MdError, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MdCoreModule, PlatformModule, Platform, getSupportedInputTypes, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, MATERIAL_SANITY_CHECKS, MdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckbox, MaterialRootModule, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFabCssMatStyler, MdMiniFabCssMatStyler, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, MdDialogModule, MD_DIALOG_DATA, MdDialog, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconRegistry, MdIconInvalidNameError, MdIcon, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, MdInputContainerPlaceholderConflictError, MdInputContainerUnsupportedTypeError, MdInputContainerDuplicatedHintError, MdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_OPTION_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelect, MdSidenavModule, MdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabChangeEvent, MdTabGroup, MdTabNavBar, MdTabLink, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵf, mixinDisabled as ɵq, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵg, OVERLAY_CONTAINER_PROVIDER as ɵb, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵa, OverlayPositionBuilder as ɵo, VIEWPORT_RULER_PROVIDER as ɵn, VIEWPORT_RULER_PROVIDER_FACTORY as ɵm, ViewportRuler as ɵl, SCROLL_DISPATCHER_PROVIDER as ɵd, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵc, Scrollable as ɵp, RippleRenderer as ɵe, MdGridAvatarCssMatStyler as ɵi, MdGridTileFooterCssMatStyler as ɵk, MdGridTileHeaderCssMatStyler as ɵj, MdGridTileText as ɵh };
+export { Dir, RtlModule, ObserveContentModule, ObserveContent, MdOptionModule, MdOption, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ScrollDispatcher, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, MdError, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MdCoreModule, PlatformModule, Platform, getSupportedInputTypes, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, MATERIAL_SANITY_CHECKS, MdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckbox, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFabCssMatStyler, MdMiniFabCssMatStyler, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, MdDialogModule, MD_DIALOG_DATA, MdDialog, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconRegistry, MdIconInvalidNameError, MdIcon, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, MdInputContainerPlaceholderConflictError, MdInputContainerUnsupportedTypeError, MdInputContainerDuplicatedHintError, MdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_OPTION_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelect, MdSidenavModule, MdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabChangeEvent, MdTabGroup, MdTabNavBar, MdTabLink, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵf, mixinDisabled as ɵq, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵg, OVERLAY_CONTAINER_PROVIDER as ɵb, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵa, OverlayPositionBuilder as ɵo, VIEWPORT_RULER_PROVIDER as ɵn, VIEWPORT_RULER_PROVIDER_FACTORY as ɵm, ViewportRuler as ɵl, SCROLL_DISPATCHER_PROVIDER as ɵd, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵc, Scrollable as ɵp, RippleRenderer as ɵe, MdGridAvatarCssMatStyler as ɵi, MdGridTileFooterCssMatStyler as ɵk, MdGridTileHeaderCssMatStyler as ɵj, MdGridTileText as ɵh };
 //# sourceMappingURL=material.es5.js.map

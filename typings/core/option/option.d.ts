@@ -1,4 +1,4 @@
-import { ElementRef, EventEmitter, ModuleWithProviders } from '@angular/core';
+import { ElementRef, EventEmitter } from '@angular/core';
 /** Event object emitted by MdOption when selected or deselected. */
 export declare class MdOptionSelectionChange {
     source: MdOption;
@@ -74,5 +74,4 @@ export declare class MdOption {
     private _emitSelectionChangeEvent(isUserInput?);
 }
 export declare class MdOptionModule {
-    static forRoot(): ModuleWithProviders;
 }

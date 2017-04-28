@@ -1,4 +1,4 @@
-import { ModuleWithProviders, ElementRef, InjectionToken } from '@angular/core';
+import { ElementRef, InjectionToken } from '@angular/core';
 import { MdError } from '../errors/error';
 export declare const MATERIAL_COMPATIBILITY_MODE: InjectionToken<boolean>;
 /** Injection token that configures whether the Material sanity checks are enabled. */
@@ -31,7 +31,6 @@ export declare class CompatibilityModule {
     private _document;
     /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
     private _hasDoneGlobalChecks;
-    static forRoot(): ModuleWithProviders;
     constructor(_document: any, _sanityChecksEnabled: boolean);
     private _checkDoctype();
     private _checkTheme();

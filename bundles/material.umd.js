@@ -145,15 +145,6 @@ var CompatibilityModule = (function () {
     /**
      * @return {?}
      */
-    CompatibilityModule.forRoot = function () {
-        return {
-            ngModule: CompatibilityModule,
-            providers: [],
-        };
-    };
-    /**
-     * @return {?}
-     */
     CompatibilityModule.prototype._checkDoctype = function () {
         if (!this._document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
@@ -403,16 +394,6 @@ Dir.propDecorators = {
 var RtlModule = (function () {
     function RtlModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    RtlModule.forRoot = function () {
-        return {
-            ngModule: RtlModule,
-            providers: []
-        };
-    };
     return RtlModule;
 }());
 RtlModule.decorators = [
@@ -479,16 +460,6 @@ ObserveContent.propDecorators = {
 var ObserveContentModule = (function () {
     function ObserveContentModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    ObserveContentModule.forRoot = function () {
-        return {
-            ngModule: ObserveContentModule,
-            providers: []
-        };
-    };
     return ObserveContentModule;
 }());
 ObserveContentModule.decorators = [
@@ -1147,16 +1118,6 @@ MdRipple.propDecorators = {
 var MdRippleModule = (function () {
     function MdRippleModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdRippleModule.forRoot = function () {
-        return {
-            ngModule: MdRippleModule,
-            providers: []
-        };
-    };
     return MdRippleModule;
 }());
 MdRippleModule.decorators = [
@@ -1491,15 +1452,6 @@ MdOption.propDecorators = {
 var MdOptionModule = (function () {
     function MdOptionModule() {
     }
-    /**
-     * @return {?}
-     */
-    MdOptionModule.forRoot = function () {
-        return {
-            ngModule: MdOptionModule,
-            providers: []
-        };
-    };
     return MdOptionModule;
 }());
 MdOptionModule.decorators = [
@@ -1954,16 +1906,6 @@ PortalHostDirective.propDecorators = {
 var PortalModule = (function () {
     function PortalModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    PortalModule.forRoot = function () {
-        return {
-            ngModule: PortalModule,
-            providers: []
-        };
-    };
     return PortalModule;
 }());
 PortalModule.decorators = [
@@ -3530,16 +3472,6 @@ ConnectedOverlayDirective.propDecorators = {
 var OverlayModule = (function () {
     function OverlayModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    OverlayModule.forRoot = function () {
-        return {
-            ngModule: OverlayModule,
-            providers: [],
-        };
-    };
     return OverlayModule;
 }());
 OverlayModule.decorators = [
@@ -4288,16 +4220,6 @@ function getSupportedInputTypes() {
 var PlatformModule = (function () {
     function PlatformModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    PlatformModule.forRoot = function () {
-        return {
-            ngModule: PlatformModule,
-            providers: [],
-        };
-    };
     return PlatformModule;
 }());
 PlatformModule.decorators = [
@@ -4312,16 +4234,6 @@ PlatformModule.ctorParameters = function () { return []; };
 var A11yModule = (function () {
     function A11yModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    A11yModule.forRoot = function () {
-        return {
-            ngModule: A11yModule,
-            providers: [],
-        };
-    };
     return A11yModule;
 }());
 A11yModule.decorators = [
@@ -5119,16 +5031,6 @@ function coerceNumberProperty(value, fallbackValue) {
 var MdCoreModule = (function () {
     function MdCoreModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdCoreModule.forRoot = function () {
-        return {
-            ngModule: MdCoreModule,
-            providers: [],
-        };
-    };
     return MdCoreModule;
 }());
 MdCoreModule.decorators = [
@@ -5750,16 +5652,6 @@ MdButtonToggle.propDecorators = {
 var MdButtonToggleModule = (function () {
     function MdButtonToggleModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdButtonToggleModule.forRoot = function () {
-        return {
-            ngModule: MdButtonToggleModule,
-            providers: []
-        };
-    };
     return MdButtonToggleModule;
 }());
 MdButtonToggleModule.decorators = [
@@ -6155,16 +6047,6 @@ MdAnchor.propDecorators = {
 var MdButtonModule = (function () {
     function MdButtonModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdButtonModule.forRoot = function () {
-        return {
-            ngModule: MdButtonModule,
-            providers: []
-        };
-    };
     return MdButtonModule;
 }());
 MdButtonModule.decorators = [
@@ -6718,16 +6600,6 @@ MdCheckbox.propDecorators = {
 var MdCheckboxModule = (function () {
     function MdCheckboxModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdCheckboxModule.forRoot = function () {
-        return {
-            ngModule: MdCheckboxModule,
-            providers: []
-        };
-    };
     return MdCheckboxModule;
 }());
 MdCheckboxModule.decorators = [
@@ -7359,16 +7231,6 @@ MdRadioButton.propDecorators = {
 var MdRadioModule = (function () {
     function MdRadioModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdRadioModule.forRoot = function () {
-        return {
-            ngModule: MdRadioModule,
-            providers: [],
-        };
-    };
     return MdRadioModule;
 }());
 MdRadioModule.decorators = [
@@ -8781,16 +8643,6 @@ function clampValue(min, n, max) {
 var MdSelectModule = (function () {
     function MdSelectModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdSelectModule.forRoot = function () {
-        return {
-            ngModule: MdSelectModule,
-            providers: []
-        };
-    };
     return MdSelectModule;
 }());
 MdSelectModule.decorators = [
@@ -9249,16 +9101,6 @@ var SlideToggleRenderer = (function () {
 var MdSlideToggleModule = (function () {
     function MdSlideToggleModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdSlideToggleModule.forRoot = function () {
-        return {
-            ngModule: MdSlideToggleModule,
-            providers: []
-        };
-    };
     return MdSlideToggleModule;
 }());
 MdSlideToggleModule.decorators = [
@@ -10146,16 +9988,6 @@ var SliderRenderer = (function () {
 var MdSliderModule = (function () {
     function MdSliderModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdSliderModule.forRoot = function () {
-        return {
-            ngModule: MdSliderModule,
-            providers: []
-        };
-    };
     return MdSliderModule;
 }());
 MdSliderModule.decorators = [
@@ -10853,16 +10685,6 @@ MdSidenavContainer.propDecorators = {
 var MdSidenavModule = (function () {
     function MdSidenavModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdSidenavModule.forRoot = function () {
-        return {
-            ngModule: MdSidenavModule,
-            providers: []
-        };
-    };
     return MdSidenavModule;
 }());
 MdSidenavModule.decorators = [
@@ -11157,16 +10979,6 @@ MdListItem.propDecorators = {
 var MdListModule = (function () {
     function MdListModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdListModule.forRoot = function () {
-        return {
-            ngModule: MdListModule,
-            providers: []
-        };
-    };
     return MdListModule;
 }());
 MdListModule.decorators = [
@@ -12028,16 +11840,6 @@ MdGridList.propDecorators = {
 var MdGridListModule = (function () {
     function MdGridListModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdGridListModule.forRoot = function () {
-        return {
-            ngModule: MdGridListModule,
-            providers: []
-        };
-    };
     return MdGridListModule;
 }());
 MdGridListModule.decorators = [
@@ -12380,16 +12182,6 @@ MdCardTitleGroup.ctorParameters = function () { return []; };
 var MdCardModule = (function () {
     function MdCardModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdCardModule.forRoot = function () {
-        return {
-            ngModule: MdCardModule,
-            providers: []
-        };
-    };
     return MdCardModule;
 }());
 MdCardModule.decorators = [
@@ -12858,16 +12650,6 @@ MdChipList.propDecorators = {
 var MdChipsModule = (function () {
     function MdChipsModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdChipsModule.forRoot = function () {
-        return {
-            ngModule: MdChipsModule,
-            providers: []
-        };
-    };
     return MdChipsModule;
 }());
 MdChipsModule.decorators = [
@@ -13621,16 +13403,6 @@ var ICON_REGISTRY_PROVIDER = {
 var MdIconModule = (function () {
     function MdIconModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdIconModule.forRoot = function () {
-        return {
-            ngModule: MdIconModule,
-            providers: [],
-        };
-    };
     return MdIconModule;
 }());
 MdIconModule.decorators = [
@@ -14087,16 +13859,6 @@ function getSvgArc(currentValue, rotation, strokeWidth) {
 var MdProgressSpinnerModule = (function () {
     function MdProgressSpinnerModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdProgressSpinnerModule.forRoot = function () {
-        return {
-            ngModule: MdProgressSpinnerModule,
-            providers: []
-        };
-    };
     return MdProgressSpinnerModule;
 }());
 MdProgressSpinnerModule.decorators = [
@@ -14229,16 +13991,6 @@ function clamp$1(v, min, max) {
 var MdProgressBarModule = (function () {
     function MdProgressBarModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdProgressBarModule.forRoot = function () {
-        return {
-            ngModule: MdProgressBarModule,
-            providers: []
-        };
-    };
     return MdProgressBarModule;
 }());
 MdProgressBarModule.decorators = [
@@ -15141,16 +14893,6 @@ MdTextareaAutosize.propDecorators = {
 var MdInputModule = (function () {
     function MdInputModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdInputModule.forRoot = function () {
-        return {
-            ngModule: MdInputModule,
-            providers: [],
-        };
-    };
     return MdInputModule;
 }());
 MdInputModule.decorators = [
@@ -15715,16 +15457,6 @@ function _applyConfigDefaults(config) {
 var MdSnackBarModule = (function () {
     function MdSnackBarModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdSnackBarModule.forRoot = function () {
-        return {
-            ngModule: MdSnackBarModule,
-            providers: []
-        };
-    };
     return MdSnackBarModule;
 }());
 MdSnackBarModule.decorators = [
@@ -16995,16 +16727,6 @@ MdTabHeader.propDecorators = {
 var MdTabsModule = (function () {
     function MdTabsModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdTabsModule.forRoot = function () {
-        return {
-            ngModule: MdTabsModule,
-            providers: []
-        };
-    };
     return MdTabsModule;
 }());
 MdTabsModule.decorators = [
@@ -17139,16 +16861,6 @@ MdToolbar.propDecorators = {
 var MdToolbarModule = (function () {
     function MdToolbarModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdToolbarModule.forRoot = function () {
-        return {
-            ngModule: MdToolbarModule,
-            providers: []
-        };
-    };
     return MdToolbarModule;
 }());
 MdToolbarModule.decorators = [
@@ -17776,16 +17488,6 @@ TooltipComponent.ctorParameters = function () { return [
 var MdTooltipModule = (function () {
     function MdTooltipModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdTooltipModule.forRoot = function () {
-        return {
-            ngModule: MdTooltipModule,
-            providers: []
-        };
-    };
     return MdTooltipModule;
 }());
 MdTooltipModule.decorators = [
@@ -18451,16 +18153,6 @@ MdMenuTrigger.propDecorators = {
 var MdMenuModule = (function () {
     function MdMenuModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdMenuModule.forRoot = function () {
-        return {
-            ngModule: MdMenuModule,
-            providers: [],
-        };
-    };
     return MdMenuModule;
 }());
 MdMenuModule.decorators = [
@@ -19117,16 +18809,6 @@ MdDialogActions.ctorParameters = function () { return []; };
 var MdDialogModule = (function () {
     function MdDialogModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdDialogModule.forRoot = function () {
-        return {
-            ngModule: MdDialogModule,
-            providers: [],
-        };
-    };
     return MdDialogModule;
 }());
 MdDialogModule.decorators = [
@@ -19739,16 +19421,6 @@ MdAutocompleteTrigger.propDecorators = {
 var MdAutocompleteModule = (function () {
     function MdAutocompleteModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MdAutocompleteModule.forRoot = function () {
-        return {
-            ngModule: MdAutocompleteModule,
-            providers: [OVERLAY_PROVIDERS]
-        };
-    };
     return MdAutocompleteModule;
 }());
 MdAutocompleteModule.decorators = [
@@ -19799,67 +19471,9 @@ var MATERIAL_MODULES = [
 /**
  * @deprecated
  */
-var MaterialRootModule = (function () {
-    function MaterialRootModule() {
-    }
-    return MaterialRootModule;
-}());
-MaterialRootModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [
-                    MdAutocompleteModule.forRoot(),
-                    MdButtonModule.forRoot(),
-                    MdCardModule.forRoot(),
-                    MdChipsModule.forRoot(),
-                    MdCheckboxModule.forRoot(),
-                    MdGridListModule.forRoot(),
-                    MdInputModule.forRoot(),
-                    MdListModule.forRoot(),
-                    MdProgressBarModule.forRoot(),
-                    MdProgressSpinnerModule.forRoot(),
-                    MdRippleModule.forRoot(),
-                    MdSelectModule.forRoot(),
-                    MdSidenavModule.forRoot(),
-                    MdTabsModule.forRoot(),
-                    MdToolbarModule.forRoot(),
-                    PortalModule.forRoot(),
-                    RtlModule.forRoot(),
-                    ObserveContentModule.forRoot(),
-                    // These modules include providers.
-                    A11yModule.forRoot(),
-                    MdButtonToggleModule.forRoot(),
-                    MdDialogModule.forRoot(),
-                    MdIconModule.forRoot(),
-                    MdMenuModule.forRoot(),
-                    MdRadioModule.forRoot(),
-                    MdSliderModule.forRoot(),
-                    MdSlideToggleModule.forRoot(),
-                    MdSnackBarModule.forRoot(),
-                    MdTooltipModule.forRoot(),
-                    PlatformModule.forRoot(),
-                    OverlayModule.forRoot(),
-                    MdCommonModule,
-                ],
-                exports: MATERIAL_MODULES,
-            },] },
-];
-/**
- * @nocollapse
- */
-MaterialRootModule.ctorParameters = function () { return []; };
-/**
- * @deprecated
- */
 var MaterialModule = (function () {
     function MaterialModule() {
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    MaterialModule.forRoot = function () {
-        return { ngModule: MaterialRootModule };
-    };
     return MaterialModule;
 }());
 MaterialModule.decorators = [
@@ -19969,7 +19583,6 @@ exports.AnimationCurves = AnimationCurves;
 exports.AnimationDurations = AnimationDurations;
 exports.MdSelectionModule = MdSelectionModule;
 exports.MdPseudoCheckbox = MdPseudoCheckbox;
-exports.MaterialRootModule = MaterialRootModule;
 exports.MaterialModule = MaterialModule;
 exports.MdAutocompleteModule = MdAutocompleteModule;
 exports.MdAutocomplete = MdAutocomplete;

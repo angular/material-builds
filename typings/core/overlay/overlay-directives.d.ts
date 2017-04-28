@@ -1,4 +1,4 @@
-import { ModuleWithProviders, EventEmitter, TemplateRef, ViewContainerRef, OnDestroy, ElementRef, Renderer2 } from '@angular/core';
+import { EventEmitter, TemplateRef, ViewContainerRef, OnDestroy, ElementRef, Renderer2 } from '@angular/core';
 import { Overlay } from './overlay';
 import { OverlayRef } from './overlay-ref';
 import { ConnectionPositionPair, ConnectedOverlayPositionChange } from './position/connected-position';
@@ -80,6 +80,4 @@ export declare class ConnectedOverlayDirective implements OnDestroy {
     private _initEscapeListener();
 }
 export declare class OverlayModule {
-    /** @deprecated */
-    static forRoot(): ModuleWithProviders;
 }

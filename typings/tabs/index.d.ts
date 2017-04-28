@@ -1,7 +1,4 @@
-import { ModuleWithProviders } from '@angular/core';
 export declare class MdTabsModule {
-    /** @deprecated */
-    static forRoot(): ModuleWithProviders;
 }
 export * from './tab-group';
 export { MdInkBar } from './ink-bar';
