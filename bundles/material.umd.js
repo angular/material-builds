@@ -19128,11 +19128,8 @@ MdDialogModule.decorators = [
 MdDialogModule.ctorParameters = function () { return []; };
 var ActiveDescendantKeyManager = (function (_super) {
     __extends(ActiveDescendantKeyManager, _super);
-    /**
-     * @param {?} items
-     */
-    function ActiveDescendantKeyManager(items) {
-        return _super.call(this, items) || this;
+    function ActiveDescendantKeyManager() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
      * This method sets the active item to the item at the specified index.

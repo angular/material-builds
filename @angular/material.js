@@ -17953,12 +17953,6 @@ MdDialogModule.ctorParameters = () => [];
 
 class ActiveDescendantKeyManager extends ListKeyManager {
     /**
-     * @param {?} items
-     */
-    constructor(items) {
-        super(items);
-    }
-    /**
      * This method sets the active item to the item at the specified index.
      * It also adds active styles to the newly active item and removes active
      * styles from the previously active item.
