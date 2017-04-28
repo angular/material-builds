@@ -318,9 +318,9 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
      */
     _getPlaceholderAnimationState(): string;
     /**
-     * Determines the CSS `visibility` of the placeholder element.
+     * Determines the CSS `opacity` of the placeholder element.
      */
-    _getPlaceholderVisibility(): 'visible' | 'hidden';
+    _getPlaceholderOpacity(): string;
     /** Returns the aria-label of the select component. */
     readonly _ariaLabel: string;
     /**

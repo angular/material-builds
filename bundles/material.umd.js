@@ -6049,9 +6049,9 @@ MdButton.decorators = [
                 host: {
                     '[disabled]': 'disabled || null',
                 },
-                inputs: ['disabled'],
                 template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span> <div md-ripple *ngIf=\"!_isRippleDisabled()\" class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton || _isIconButton\" [mdRippleCentered]=\"_isIconButton\" [mdRippleTrigger]=\"_getHostElement()\"></div> <!-- the touchstart handler prevents the overlay from capturing the initial tap on touch devices --> <div class=\"mat-button-focus-overlay\" (touchstart)=\"$event.preventDefault()\"></div> ",
                 styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([disabled]):active,.mat-mini-fab:not([disabled]):active,.mat-raised-button:not([disabled]):active{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-icon,.mat-fab i{padding:16px 0;line-height:24px}.mat-mini-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-icon,.mat-mini-fab i{padding:8px 0;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{position:absolute;top:0;left:0;bottom:0;right:0}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}} /*# sourceMappingURL=button.css.map */ "],
+                inputs: ['disabled'],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
             },] },
@@ -6218,6 +6218,12 @@ var MdCheckboxChange = (function () {
     }
     return MdCheckboxChange;
 }());
+var MdCheckboxBase = (function () {
+    function MdCheckboxBase() {
+    }
+    return MdCheckboxBase;
+}());
+var _MdCheckboxMixinBase = mixinDisabled(MdCheckboxBase);
 /**
  * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
  * and exposes a similar API. A MdCheckbox can be either checked, unchecked, indeterminate, or
@@ -6226,7 +6232,8 @@ var MdCheckboxChange = (function () {
  * have the checkbox be accessible, you may supply an [aria-label] input.
  * See: https://www.google.com/design/spec/components/selection-controls.html
  */
-var MdCheckbox = (function () {
+var MdCheckbox = (function (_super) {
+    __extends(MdCheckbox, _super);
     /**
      * @param {?} _renderer
      * @param {?} _elementRef
@@ -6234,55 +6241,56 @@ var MdCheckbox = (function () {
      * @param {?} _focusOriginMonitor
      */
     function MdCheckbox(_renderer, _elementRef, _changeDetectorRef, _focusOriginMonitor) {
-        this._renderer = _renderer;
-        this._elementRef = _elementRef;
-        this._changeDetectorRef = _changeDetectorRef;
-        this._focusOriginMonitor = _focusOriginMonitor;
+        var _this = _super.call(this) || this;
+        _this._renderer = _renderer;
+        _this._elementRef = _elementRef;
+        _this._changeDetectorRef = _changeDetectorRef;
+        _this._focusOriginMonitor = _focusOriginMonitor;
         /**
          * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
          * take precedence so this may be omitted.
          */
-        this.ariaLabel = '';
+        _this.ariaLabel = '';
         /**
          * Users can specify the `aria-labelledby` attribute which will be forwarded to the input element
          */
-        this.ariaLabelledby = null;
+        _this.ariaLabelledby = null;
         /**
          * A unique id for the checkbox. If one is not supplied, it is auto-generated.
          */
-        this.id = "md-checkbox-" + ++nextId;
+        _this.id = "md-checkbox-" + ++nextId;
         /**
          * Whether the label should appear after or before the checkbox. Defaults to 'after'
          */
-        this.labelPosition = 'after';
-        this._disabled = false;
+        _this.labelPosition = 'after';
         /**
          * Tabindex value that is passed to the underlying input element.
          */
-        this.tabIndex = 0;
+        _this.tabIndex = 0;
         /**
          * Name value will be applied to the input element if present
          */
-        this.name = null;
+        _this.name = null;
         /**
          * Event emitted when the checkbox's `checked` value changes.
          */
-        this.change = new _angular_core.EventEmitter();
+        _this.change = new _angular_core.EventEmitter();
         /**
          * Event emitted when the checkbox's `indeterminate` value changes.
          */
-        this.indeterminateChange = new _angular_core.EventEmitter();
+        _this.indeterminateChange = new _angular_core.EventEmitter();
         /**
          * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
          * \@docs-private
          */
-        this.onTouched = function () { };
-        this._currentAnimationClass = '';
-        this._currentCheckState = TransitionCheckState.Init;
-        this._checked = false;
-        this._indeterminate = false;
-        this._controlValueAccessorChangeFn = function (value) { };
-        this.color = 'accent';
+        _this.onTouched = function () { };
+        _this._currentAnimationClass = '';
+        _this._currentCheckState = TransitionCheckState.Init;
+        _this._checked = false;
+        _this._indeterminate = false;
+        _this._controlValueAccessorChangeFn = function (value) { };
+        _this.color = 'accent';
+        return _this;
     }
     Object.defineProperty(MdCheckbox.prototype, "disableRipple", {
         /**
@@ -6341,20 +6349,6 @@ var MdCheckbox = (function () {
         set: function (v) {
             this.labelPosition = (v == 'start') ? 'after' : 'before';
         },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdCheckbox.prototype, "disabled", {
-        /**
-         * Whether the checkbox is disabled.
-         * @return {?}
-         */
-        get: function () { return this._disabled; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) { this._disabled = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -6648,19 +6642,20 @@ var MdCheckbox = (function () {
         }
     };
     return MdCheckbox;
-}());
+}(_MdCheckboxMixinBase));
 MdCheckbox.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-checkbox, mat-checkbox',
                 template: "<label class=\"mat-checkbox-layout\" #label> <div class=\"mat-checkbox-inner-container\"> <input #input class=\"mat-checkbox-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [value]=\"value\" [disabled]=\"disabled\" [name]=\"name\" [tabIndex]=\"tabIndex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"> <div md-ripple class=\"mat-checkbox-ripple\" [mdRippleTrigger]=\"label\" [mdRippleDisabled]=\"_isRippleDisabled()\" [mdRippleCentered]=\"true\"></div> <div class=\"mat-checkbox-frame\"></div> <div class=\"mat-checkbox-background\"> <svg version=\"1.1\" class=\"mat-checkbox-checkmark\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"> <path class=\"mat-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/> </svg> <!-- Element for rendering the indeterminate state checkbox. --> <div class=\"mat-checkbox-mixedmark\"></div> </div> </div> <span class=\"mat-checkbox-label\"> <ng-content></ng-content> </span> </label> ",
                 styles: ["@keyframes mat-checkbox-fade-in-background{0%{opacity:0}50%{opacity:1}}@keyframes mat-checkbox-fade-out-background{0%,50%{opacity:1}100%{opacity:0}}@keyframes mat-checkbox-unchecked-checked-checkmark-path{0%,50%{stroke-dashoffset:22.91026}50%{animation-timing-function:cubic-bezier(0,0,.2,.1)}100%{stroke-dashoffset:0}}@keyframes mat-checkbox-unchecked-indeterminate-mixedmark{0%,68.2%{transform:scaleX(0)}68.2%{animation-timing-function:cubic-bezier(0,0,0,1)}100%{transform:scaleX(1)}}@keyframes mat-checkbox-checked-unchecked-checkmark-path{from{animation-timing-function:cubic-bezier(.4,0,1,1);stroke-dashoffset:0}to{stroke-dashoffset:-22.91026}}@keyframes mat-checkbox-checked-indeterminate-checkmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(45deg)}}@keyframes mat-checkbox-indeterminate-checked-checkmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:0;transform:rotate(45deg)}to{opacity:1;transform:rotate(360deg)}}@keyframes mat-checkbox-checked-indeterminate-mixedmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:0;transform:rotate(-45deg)}to{opacity:1;transform:rotate(0)}}@keyframes mat-checkbox-indeterminate-checked-mixedmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(315deg)}}@keyframes mat-checkbox-indeterminate-unchecked-mixedmark{0%{animation-timing-function:linear;opacity:1;transform:scaleX(1)}100%,32.8%{opacity:0;transform:scaleX(0)}}.mat-checkbox-background,.mat-checkbox-checkmark,.mat-checkbox-frame{bottom:0;left:0;position:absolute;right:0;top:0}.mat-checkbox-checkmark,.mat-checkbox-mixedmark{width:calc(100% - 4px)}.mat-checkbox-background,.mat-checkbox-frame{border-radius:2px;box-sizing:border-box;pointer-events:none}.mat-checkbox{font-family:Roboto,\"Helvetica Neue\",sans-serif;transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-checkbox-label{cursor:pointer}.mat-checkbox-layout{cursor:inherit;align-items:baseline;vertical-align:middle;display:inline-flex}.mat-checkbox-inner-container{display:inline-block;height:20px;line-height:0;margin:auto;margin-right:8px;order:0;position:relative;vertical-align:middle;white-space:nowrap;width:20px;flex-shrink:0}[dir=rtl] .mat-checkbox-inner-container{margin-left:8px;margin-right:auto}.mat-checkbox-layout .mat-checkbox-label{line-height:24px}.mat-checkbox-frame{background-color:transparent;transition:border-color 90ms cubic-bezier(0,0,.2,.1);border-width:2px;border-style:solid}.mat-checkbox-background{align-items:center;display:inline-flex;justify-content:center;transition:background-color 90ms cubic-bezier(0,0,.2,.1),opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-checkbox-checkmark{width:100%}.mat-checkbox-checkmark-path{stroke-dashoffset:22.91026;stroke-dasharray:22.91026;stroke-width:2.66667px}.mat-checkbox-mixedmark{height:2px;opacity:0;transform:scaleX(0) rotate(0)}.mat-checkbox-label-before .mat-checkbox-inner-container{order:1;margin-left:8px;margin-right:auto}[dir=rtl] .mat-checkbox-label-before .mat-checkbox-inner-container{margin-left:auto;margin-right:8px}.mat-checkbox-checked .mat-checkbox-checkmark{opacity:1}.mat-checkbox-checked .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-checked .mat-checkbox-mixedmark{transform:scaleX(1) rotate(-45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark{opacity:0;transform:rotate(45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-indeterminate .mat-checkbox-mixedmark{opacity:1;transform:scaleX(1) rotate(0)}.mat-checkbox-unchecked .mat-checkbox-background{background-color:transparent}.mat-checkbox-disabled{cursor:default}.mat-checkbox-anim-unchecked-checked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-checked .mat-checkbox-checkmark-path{animation:180ms linear 0s mat-checkbox-unchecked-checked-checkmark-path}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-unchecked-indeterminate-mixedmark}.mat-checkbox-anim-checked-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-checked-unchecked .mat-checkbox-checkmark-path{animation:90ms linear 0s mat-checkbox-checked-unchecked-checkmark-path}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-checkmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-checkmark}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-mixedmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-checkmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-checkmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-mixedmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-mixedmark}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-mixedmark{animation:.3s linear 0s mat-checkbox-indeterminate-unchecked-mixedmark}.mat-checkbox-input{bottom:0;left:50%}.mat-checkbox-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none} /*# sourceMappingURL=checkbox.css.map */ "],
                 host: {
-                    '[class.mat-checkbox]': 'true',
+                    'class': 'mat-checkbox',
                     '[class.mat-checkbox-indeterminate]': 'indeterminate',
                     '[class.mat-checkbox-checked]': 'checked',
                     '[class.mat-checkbox-disabled]': 'disabled',
                     '[class.mat-checkbox-label-before]': 'labelPosition == "before"',
                 },
                 providers: [MD_CHECKBOX_CONTROL_VALUE_ACCESSOR],
+                inputs: ['disabled'],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
             },] },
@@ -6682,7 +6677,6 @@ MdCheckbox.propDecorators = {
     'required': [{ type: _angular_core.Input },],
     'align': [{ type: _angular_core.Input },],
     'labelPosition': [{ type: _angular_core.Input },],
-    'disabled': [{ type: _angular_core.Input },],
     'tabIndex': [{ type: _angular_core.Input },],
     'name': [{ type: _angular_core.Input },],
     'change': [{ type: _angular_core.Output },],
@@ -6740,57 +6734,62 @@ var MdRadioChange = (function () {
     }
     return MdRadioChange;
 }());
+var MdRadioGroupBase = (function () {
+    function MdRadioGroupBase() {
+    }
+    return MdRadioGroupBase;
+}());
+var _MdRadioGroupMixinBase = mixinDisabled(MdRadioGroupBase);
 /**
  * A group of radio buttons. May contain one or more `<md-radio-button>` elements.
  */
-var MdRadioGroup = (function () {
+var MdRadioGroup = (function (_super) {
+    __extends(MdRadioGroup, _super);
     function MdRadioGroup() {
+        var _this = _super.apply(this, arguments) || this;
         /**
          * Selected value for group. Should equal the value of the selected radio button if there *is*
          * a corresponding radio button with a matching value. If there is *not* such a corresponding
          * radio button, this value persists to be applied in case a new radio button is added with a
          * matching value.
          */
-        this._value = null;
+        _this._value = null;
         /**
          * The HTML name attribute applied to radio buttons in this group.
          */
-        this._name = "md-radio-group-" + _uniqueIdCounter$2++;
-        /**
-         * Disables all individual radio buttons assigned to this group.
-         */
-        this._disabled = false;
+        _this._name = "md-radio-group-" + _uniqueIdCounter$2++;
         /**
          * The currently selected radio button. Should match value.
          */
-        this._selected = null;
+        _this._selected = null;
         /**
          * Whether the `value` has been set to its initial value.
          */
-        this._isInitialized = false;
+        _this._isInitialized = false;
         /**
          * The method to be called in order to update ngModel
          */
-        this._controlValueAccessorChangeFn = function (value) { };
+        _this._controlValueAccessorChangeFn = function (value) { };
         /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          * \@docs-private
          */
-        this.onTouched = function () { };
+        _this.onTouched = function () { };
         /**
          * Event emitted when the group value changes.
          * Change events are only emitted when the value changes due to user interaction with
          * a radio button (the same behavior as `<input type-"radio">`).
          */
-        this.change = new _angular_core.EventEmitter();
+        _this.change = new _angular_core.EventEmitter();
         /**
          * Child radio buttons.
          */
-        this._radios = null;
+        _this._radios = null;
         /**
          * Whether the labels should appear after or before the radio-buttons. Defaults to 'after'
          */
-        this.labelPosition = 'after';
+        _this.labelPosition = 'after';
+        return _this;
     }
     Object.defineProperty(MdRadioGroup.prototype, "name", {
         /**
@@ -6826,23 +6825,6 @@ var MdRadioGroup = (function () {
          */
         set: function (v) {
             this.labelPosition = (v == 'start') ? 'after' : 'before';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRadioGroup.prototype, "disabled", {
-        /**
-         * Whether the radio button is disabled.
-         * @return {?}
-         */
-        get: function () { return this._disabled; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            // The presence of *any* disabled value makes the component disabled, *except* for false.
-            this._disabled = (value != null && value !== false) ? true : null;
         },
         enumerable: true,
         configurable: true
@@ -6991,7 +6973,7 @@ var MdRadioGroup = (function () {
         this.disabled = isDisabled;
     };
     return MdRadioGroup;
-}());
+}(_MdRadioGroupMixinBase));
 MdRadioGroup.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: 'md-radio-group, mat-radio-group',
@@ -7000,6 +6982,7 @@ MdRadioGroup.decorators = [
                     'role': 'radiogroup',
                     '[class.mat-radio-group]': 'true',
                 },
+                inputs: ['disabled'],
             },] },
 ];
 /**
@@ -7012,7 +6995,6 @@ MdRadioGroup.propDecorators = {
     'name': [{ type: _angular_core.Input },],
     'align': [{ type: _angular_core.Input },],
     'labelPosition': [{ type: _angular_core.Input },],
-    'disabled': [{ type: _angular_core.Input },],
     'value': [{ type: _angular_core.Input },],
     'selected': [{ type: _angular_core.Input },],
 };
@@ -7187,8 +7169,7 @@ var MdRadioButton = (function () {
          * @return {?}
          */
         set: function (value) {
-            // The presence of *any* disabled value makes the component disabled, *except* for false.
-            this._disabled = (value != null && value !== false) ? true : null;
+            this._disabled = coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -8514,12 +8495,12 @@ var MdSelect = (function () {
         return this._placeholderState;
     };
     /**
-     * Determines the CSS `visibility` of the placeholder element.
+     * Determines the CSS `opacity` of the placeholder element.
      * @return {?}
      */
-    MdSelect.prototype._getPlaceholderVisibility = function () {
+    MdSelect.prototype._getPlaceholderOpacity = function () {
         return (this.floatPlaceholder !== 'never' || this._selectionModel.isEmpty()) ?
-            'visible' : 'hidden';
+            '1' : '0';
     };
     Object.defineProperty(MdSelect.prototype, "_ariaLabel", {
         /**
@@ -8691,7 +8672,7 @@ var MdSelect = (function () {
 }());
 MdSelect.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-select, mat-select',
-                template: "<div class=\"mat-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger> <span class=\"mat-select-placeholder\" [class.mat-floating-placeholder]=\"_selectionModel.hasValue()\" [@transformPlaceholder]=\"_getPlaceholderAnimationState()\" [style.visibility]=\"_getPlaceholderVisibility()\" [style.width.px]=\"_selectedValueWidth\"> {{ placeholder }} </span> <span class=\"mat-select-value\" *ngIf=\"_selectionModel.hasValue()\"> <span class=\"mat-select-value-text\">{{ triggerValue }}</span> </span> <span class=\"mat-select-arrow\"></span> <span class=\"mat-select-underline\"></span> </div> <ng-template cdk-connected-overlay [origin]=\"origin\" [open]=\"panelOpen\" hasBackdrop (backdropClick)=\"close()\" backdropClass=\"cdk-overlay-transparent-backdrop\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" (attach)=\"_onAttached()\" (detach)=\"close()\"> <div class=\"mat-select-panel\" [@transformPanel]=\"'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_keyManager.onKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [ngClass]=\"'mat-' + color\"> <div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"> <ng-content></ng-content> </div> </div> </ng-template> ",
+                template: "<div class=\"mat-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger> <span class=\"mat-select-placeholder\" [class.mat-floating-placeholder]=\"_selectionModel.hasValue()\" [@transformPlaceholder]=\"_getPlaceholderAnimationState()\" [style.opacity]=\"_getPlaceholderOpacity()\" [style.width.px]=\"_selectedValueWidth\"> {{ placeholder }} </span> <span class=\"mat-select-value\" *ngIf=\"_selectionModel.hasValue()\"> <span class=\"mat-select-value-text\">{{ triggerValue }}</span> </span> <span class=\"mat-select-arrow\"></span> <span class=\"mat-select-underline\"></span> </div> <ng-template cdk-connected-overlay [origin]=\"origin\" [open]=\"panelOpen\" hasBackdrop (backdropClick)=\"close()\" backdropClass=\"cdk-overlay-transparent-backdrop\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" (attach)=\"_onAttached()\" (detach)=\"close()\"> <div class=\"mat-select-panel\" [@transformPanel]=\"'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_keyManager.onKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [ngClass]=\"'mat-' + color\"> <div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"> <ng-content></ng-content> </div> </div> </ng-template> ",
                 styles: [".mat-select{display:inline-block;outline:0;font-family:Roboto,\"Helvetica Neue\",sans-serif}.mat-select-trigger{display:flex;align-items:center;height:30px;min-width:112px;cursor:pointer;position:relative;box-sizing:border-box;font-size:16px}[aria-disabled=true] .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-underline{position:absolute;bottom:0;left:0;right:0;height:1px}[aria-disabled=true] .mat-select-underline{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;background-color:transparent;background-position:0 bottom}.mat-select-placeholder{position:relative;padding:0 2px;transform-origin:left top;flex-grow:1}.mat-select-placeholder.mat-floating-placeholder{top:-22px;left:-2px;text-align:left;transform:scale(.75)}[dir=rtl] .mat-select-placeholder{transform-origin:right top}[dir=rtl] .mat-select-placeholder.mat-floating-placeholder{left:2px;text-align:right}[aria-required=true] .mat-select-placeholder::after{content:'*'}.mat-select-value{position:absolute;max-width:calc(100% - 18px);flex-grow:1;top:0;left:0;bottom:0;display:flex;align-items:center}[dir=rtl] .mat-select-value{left:auto;right:0}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:30px}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}} /*# sourceMappingURL=select.css.map */ "],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 host: {
@@ -8799,70 +8780,64 @@ var MdSlideToggleChange = (function () {
 }());
 // Increasing integer for generating unique ids for slide-toggle components.
 var nextId$1 = 0;
+var MdSlideToggleBase = (function () {
+    function MdSlideToggleBase() {
+    }
+    return MdSlideToggleBase;
+}());
+var _MdSlideToggleMixinBase = mixinDisabled(MdSlideToggleBase);
 /**
- * Two-state control, which can be also called `switch`.
+ * Represents a slidable "switch" toggle that can be moved between on and off.
  */
-var MdSlideToggle = (function () {
+var MdSlideToggle = (function (_super) {
+    __extends(MdSlideToggle, _super);
     /**
      * @param {?} _elementRef
      * @param {?} _renderer
      * @param {?} _focusOriginMonitor
      */
     function MdSlideToggle(_elementRef, _renderer, _focusOriginMonitor) {
-        this._elementRef = _elementRef;
-        this._renderer = _renderer;
-        this._focusOriginMonitor = _focusOriginMonitor;
-        this.onChange = function (_) { };
-        this.onTouched = function () { };
-        this._uniqueId = "md-slide-toggle-" + ++nextId$1;
-        this._checked = false;
-        this._slideRenderer = null;
-        this._disabled = false;
-        this._required = false;
-        this._disableRipple = false;
+        var _this = _super.call(this) || this;
+        _this._elementRef = _elementRef;
+        _this._renderer = _renderer;
+        _this._focusOriginMonitor = _focusOriginMonitor;
+        _this.onChange = function (_) { };
+        _this.onTouched = function () { };
+        _this._uniqueId = "md-slide-toggle-" + ++nextId$1;
+        _this._checked = false;
+        _this._slideRenderer = null;
+        _this._required = false;
+        _this._disableRipple = false;
         /**
          * Name value will be applied to the input element if present
          */
-        this.name = null;
+        _this.name = null;
         /**
          * A unique id for the slide-toggle input. If none is supplied, it will be auto-generated.
          */
-        this.id = this._uniqueId;
+        _this.id = _this._uniqueId;
         /**
          * Used to specify the tabIndex value for the underlying input element.
          */
-        this.tabIndex = 0;
+        _this.tabIndex = 0;
         /**
          * Whether the label should appear after or before the slide-toggle. Defaults to 'after'
          */
-        this.labelPosition = 'after';
+        _this.labelPosition = 'after';
         /**
          * Used to set the aria-label attribute on the underlying input element.
          */
-        this.ariaLabel = null;
+        _this.ariaLabel = null;
         /**
          * Used to set the aria-labelledby attribute on the underlying input element.
          */
-        this.ariaLabelledby = null;
+        _this.ariaLabelledby = null;
         /**
          * An event will be dispatched each time the slide-toggle changes its value.
          */
-        this.change = new _angular_core.EventEmitter();
+        _this.change = new _angular_core.EventEmitter();
+        return _this;
     }
-    Object.defineProperty(MdSlideToggle.prototype, "disabled", {
-        /**
-         * Whether the slide-toggle is disabled.
-         * @return {?}
-         */
-        get: function () { return this._disabled; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) { this._disabled = coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(MdSlideToggle.prototype, "required", {
         /**
          * Whether the slide-toggle is required.
@@ -9115,7 +9090,7 @@ var MdSlideToggle = (function () {
         }
     };
     return MdSlideToggle;
-}());
+}(_MdSlideToggleMixinBase));
 MdSlideToggle.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-slide-toggle, mat-slide-toggle',
                 host: {
@@ -9127,6 +9102,7 @@ MdSlideToggle.decorators = [
                 template: "<label class=\"mat-slide-toggle-label\" #label> <div class=\"mat-slide-toggle-bar\"> <input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"> <div class=\"mat-slide-toggle-thumb-container\" (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"> <div class=\"mat-slide-toggle-thumb\"></div> <div class=\"mat-slide-toggle-ripple\" md-ripple [mdRippleTrigger]=\"label\" [mdRippleCentered]=\"true\" [mdRippleDisabled]=\"disableRipple || disabled\"> </div> </div> </div> <span class=\"mat-slide-toggle-content\"> <ng-content></ng-content> </span> </label> ",
                 styles: [".mat-slide-toggle{display:inline-block;height:24px;line-height:24px;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(16px,0,0)}.mat-slide-toggle.mat-disabled .mat-slide-toggle-label,.mat-slide-toggle.mat-disabled .mat-slide-toggle-thumb-container{cursor:default}.mat-slide-toggle-content{font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500}.mat-slide-toggle-label{display:flex;flex:1;flex-direction:row;align-items:center;cursor:pointer}.mat-slide-toggle-label-before .mat-slide-toggle-label{order:1}.mat-slide-toggle-label-before .mat-slide-toggle-bar{order:2}.mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar{margin-right:8px;margin-left:0}.mat-slide-toggle-label-before .mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-bar{margin-left:8px;margin-right:0}.mat-slide-toggle-thumb-container{position:absolute;z-index:1;width:20px;height:20px;top:-3px;left:0;transform:translate3d(0,0,0);transition:all 80ms linear;transition-property:transform;cursor:-webkit-grab;cursor:grab}.mat-slide-toggle-thumb-container.mat-dragging,.mat-slide-toggle-thumb-container:active{cursor:-webkit-grabbing;cursor:grabbing;transition-duration:0s}.mat-slide-toggle-thumb{height:20px;width:20px;border-radius:50%;box-shadow:0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-thumb{background:#fff;border:solid 1px #000}}.mat-slide-toggle-bar{position:relative;width:36px;height:14px;border-radius:8px}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-bar{background:#fff}}.mat-slide-toggle-input{bottom:0;left:10px}.mat-slide-toggle-bar,.mat-slide-toggle-thumb{transition:all 80ms linear;transition-property:background-color;transition-delay:50ms}.mat-slide-toggle-ripple{position:absolute;top:-13px;left:-13px;height:46px;width:46px;border-radius:50%;z-index:1;pointer-events:none} /*# sourceMappingURL=slide-toggle.css.map */ "],
                 providers: [MD_SLIDE_TOGGLE_VALUE_ACCESSOR],
+                inputs: ['disabled'],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
             },] },
@@ -9146,7 +9122,6 @@ MdSlideToggle.propDecorators = {
     'labelPosition': [{ type: _angular_core.Input },],
     'ariaLabel': [{ type: _angular_core.Input, args: ['aria-label',] },],
     'ariaLabelledby': [{ type: _angular_core.Input, args: ['aria-labelledby',] },],
-    'disabled': [{ type: _angular_core.Input },],
     'required': [{ type: _angular_core.Input },],
     'disableRipple': [{ type: _angular_core.Input },],
     'change': [{ type: _angular_core.Output },],
@@ -9289,11 +9264,18 @@ var MdSliderChange = (function () {
     }
     return MdSliderChange;
 }());
+var MdSliderBase = (function () {
+    function MdSliderBase() {
+    }
+    return MdSliderBase;
+}());
+var _MdSliderMixinBase = mixinDisabled(MdSliderBase);
 /**
  * Allows users to select from a range of values by moving the slider thumb. It is similar in
  * behavior to the native `<input type="range">` element.
  */
-var MdSlider = (function () {
+var MdSlider = (function (_super) {
+    __extends(MdSlider, _super);
     /**
      * @param {?} renderer
      * @param {?} _elementRef
@@ -9301,82 +9283,68 @@ var MdSlider = (function () {
      * @param {?} _dir
      */
     function MdSlider(renderer, _elementRef, _focusOriginMonitor, _dir) {
-        var _this = this;
-        this._elementRef = _elementRef;
-        this._focusOriginMonitor = _focusOriginMonitor;
-        this._dir = _dir;
-        this._disabled = false;
-        this._invert = false;
-        this._max = 100;
-        this._min = 0;
-        this._step = 1;
-        this._thumbLabel = false;
-        this._tickInterval = 0;
-        this._value = null;
-        this._vertical = false;
-        this.color = 'accent';
+        var _this = _super.call(this) || this;
+        _this._elementRef = _elementRef;
+        _this._focusOriginMonitor = _focusOriginMonitor;
+        _this._dir = _dir;
+        _this._invert = false;
+        _this._max = 100;
+        _this._min = 0;
+        _this._step = 1;
+        _this._thumbLabel = false;
+        _this._tickInterval = 0;
+        _this._value = null;
+        _this._vertical = false;
+        _this.color = 'accent';
         /**
          * Event emitted when the slider value has changed.
          */
-        this.change = new _angular_core.EventEmitter();
+        _this.change = new _angular_core.EventEmitter();
         /**
          * Event emitted when the slider thumb moves.
          */
-        this.input = new _angular_core.EventEmitter();
+        _this.input = new _angular_core.EventEmitter();
         /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          */
-        this.onTouched = function () { };
-        this._percent = 0;
+        _this.onTouched = function () { };
+        _this._percent = 0;
         /**
          * Whether or not the thumb is sliding.
          * Used to determine if there should be a transition for the thumb and fill track.
          */
-        this._isSliding = false;
+        _this._isSliding = false;
         /**
          * Whether or not the slider is active (clicked or sliding).
          * Used to shrink and grow the thumb as according to the Material Design spec.
          */
-        this._isActive = false;
+        _this._isActive = false;
         /**
          * The size of a tick interval as a percentage of the size of the track.
          */
-        this._tickIntervalPercent = 0;
+        _this._tickIntervalPercent = 0;
         /**
          * A renderer to handle updating the slider's thumb and fill track.
          */
-        this._renderer = null;
+        _this._renderer = null;
         /**
          * The dimensions of the slider.
          */
-        this._sliderDimensions = null;
-        this._controlValueAccessorChangeFn = function () { };
+        _this._sliderDimensions = null;
+        _this._controlValueAccessorChangeFn = function () { };
         /**
          * The last value for which a change event was emitted.
          */
-        this._lastChangeValue = null;
+        _this._lastChangeValue = null;
         /**
          * The last value for which an input event was emitted.
          */
-        this._lastInputValue = null;
-        this._focusOriginMonitor.monitor(this._elementRef.nativeElement, renderer, true)
+        _this._lastInputValue = null;
+        _this._focusOriginMonitor.monitor(_this._elementRef.nativeElement, renderer, true)
             .subscribe(function (origin) { return _this._isActive = !!origin && origin !== 'keyboard'; });
-        this._renderer = new SliderRenderer(this._elementRef);
+        _this._renderer = new SliderRenderer(_this._elementRef);
+        return _this;
     }
-    Object.defineProperty(MdSlider.prototype, "disabled", {
-        /**
-         * Whether or not the slider is disabled.
-         * @return {?}
-         */
-        get: function () { return this._disabled; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) { this._disabled = coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(MdSlider.prototype, "invert", {
         /**
          * Whether the slider is inverted.
@@ -10034,12 +10002,11 @@ var MdSlider = (function () {
         this.disabled = isDisabled;
     };
     return MdSlider;
-}());
+}(_MdSliderMixinBase));
 MdSlider.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-slider, mat-slider',
                 providers: [MD_SLIDER_VALUE_ACCESSOR],
                 host: {
-                    '[class.mat-slider]': 'true',
                     '(focus)': '_onFocus()',
                     '(blur)': '_onBlur()',
                     '(click)': '_onClick($event)',
@@ -10049,6 +10016,7 @@ MdSlider.decorators = [
                     '(slide)': '_onSlide($event)',
                     '(slideend)': '_onSlideEnd()',
                     '(slidestart)': '_onSlideStart($event)',
+                    'class': 'mat-slider',
                     'role': 'slider',
                     'tabindex': '0',
                     '[attr.aria-disabled]': 'disabled',
@@ -10070,6 +10038,7 @@ MdSlider.decorators = [
                 },
                 template: "<div class=\"mat-slider-wrapper\"> <div class=\"mat-slider-track-wrapper\"> <div class=\"mat-slider-track-background\" [ngStyle]=\"_trackBackgroundStyles\"></div> <div class=\"mat-slider-track-fill\" [ngStyle]=\"_trackFillStyles\"></div> </div> <div class=\"mat-slider-ticks-container\" [ngStyle]=\"_ticksContainerStyles\"> <div class=\"mat-slider-ticks\" [ngStyle]=\"_ticksStyles\"></div> </div> <div class=\"mat-slider-thumb-container\" [ngStyle]=\"_thumbContainerStyles\"> <div class=\"mat-slider-focus-ring\"></div> <div class=\"mat-slider-thumb\"></div> <div class=\"mat-slider-thumb-label\"> <span class=\"mat-slider-thumb-label-text\">{{displayValue}}</span> </div> </div> </div> ",
                 styles: [".mat-slider{display:inline-block;position:relative;box-sizing:border-box;padding:8px;outline:0;vertical-align:middle}.mat-slider-wrapper{position:absolute}.mat-slider-track-wrapper{position:absolute;top:0;left:0;overflow:hidden}.mat-slider-track-fill{position:absolute;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-track-background{position:absolute;transform-origin:100% 100%;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-ticks-container{position:absolute;left:0;top:0;overflow:hidden}.mat-slider-ticks{box-sizing:border-box;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-container{position:absolute;z-index:1;transition:transform .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-focus-ring{position:absolute;width:30px;height:30px;border-radius:50%;transform:scale(0);opacity:0;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),opacity .4s cubic-bezier(.25,.8,.25,1)}.cdk-keyboard-focused .mat-slider-focus-ring{transform:scale(1);opacity:1}.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb-label{cursor:-webkit-grab;cursor:grab}.mat-slider-sliding:not(.mat-slider-disabled) .mat-slider-thumb,.mat-slider-sliding:not(.mat-slider-disabled) .mat-slider-thumb-label,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb-label:active,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb:active{cursor:-webkit-grabbing;cursor:grabbing}.mat-slider-thumb{position:absolute;right:-10px;bottom:-10px;box-sizing:border-box;width:20px;height:20px;border:3px solid transparent;border-radius:50%;transform:scale(.7);transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),border-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-label{display:none;align-items:center;justify-content:center;position:absolute;width:28px;height:28px;border-radius:50%;transition:transform .4s cubic-bezier(.25,.8,.25,1),border-radius .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-label-text{z-index:1;font-size:12px;font-weight:700;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-sliding .mat-slider-thumb-container,.mat-slider-sliding .mat-slider-track-background,.mat-slider-sliding .mat-slider-track-fill{transition-duration:0s}.mat-slider-has-ticks .mat-slider-wrapper::after{content:'';position:absolute;border:0 solid rgba(0,0,0,.6);opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after,.mat-slider-has-ticks:hover:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after{opacity:1}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-disabled) .mat-slider-ticks,.mat-slider-has-ticks:hover:not(.mat-slider-disabled) .mat-slider-ticks{opacity:1}.mat-slider-thumb-label-showing .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-thumb-label-showing .mat-slider-thumb-label{display:flex}.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:100% 100%}.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:0 0}.cdk-focused.mat-slider-thumb-label-showing .mat-slider-thumb{transform:scale(0)}.cdk-focused .mat-slider-thumb-label{border-radius:50% 50% 0}.cdk-focused .mat-slider-thumb-label-text{opacity:1}.cdk-mouse-focused .mat-slider-thumb,.cdk-program-focused .mat-slider-thumb,.cdk-touch-focused .mat-slider-thumb{border-width:2px;transform:scale(1)}.mat-slider-disabled .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-disabled .mat-slider-thumb{border-width:4px;transform:scale(.5)}.mat-slider-disabled .mat-slider-thumb-label{display:none}.mat-slider-horizontal{height:48px;min-width:128px}.mat-slider-horizontal .mat-slider-wrapper{height:2px;top:23px;left:8px;right:8px}.mat-slider-horizontal .mat-slider-wrapper::after{height:2px;border-left-width:2px;right:0;top:0}.mat-slider-horizontal .mat-slider-track-wrapper{height:2px;width:100%}.mat-slider-horizontal .mat-slider-track-fill{height:2px;width:100%;transform:scaleX(0)}.mat-slider-horizontal .mat-slider-track-background{height:2px;width:100%;transform:scaleX(1)}.mat-slider-horizontal .mat-slider-ticks-container{height:2px;width:100%}.mat-slider-horizontal .mat-slider-ticks{background:repeating-linear-gradient(to right,rgba(0,0,0,.6),rgba(0,0,0,.6) 2px,transparent 0,transparent) repeat;background:-moz-repeating-linear-gradient(.0001deg,rgba(0,0,0,.6),rgba(0,0,0,.6) 2px,transparent 0,transparent) repeat;background-clip:content-box;height:2px;width:100%}.mat-slider-horizontal .mat-slider-thumb-container{width:100%;height:0;top:50%}.mat-slider-horizontal .mat-slider-focus-ring{top:-15px;right:-15px}.mat-slider-horizontal .mat-slider-thumb-label{right:-14px;top:-40px;transform:translateY(26px) scale(.01) rotate(45deg)}.mat-slider-horizontal .mat-slider-thumb-label-text{transform:rotate(-45deg)}.mat-slider-horizontal.cdk-focused .mat-slider-thumb-label{transform:rotate(45deg)}.mat-slider-vertical{width:48px;min-height:128px}.mat-slider-vertical .mat-slider-wrapper{width:2px;top:8px;bottom:8px;left:23px}.mat-slider-vertical .mat-slider-wrapper::after{width:2px;border-top-width:2px;bottom:0;left:0}.mat-slider-vertical .mat-slider-track-wrapper{height:100%;width:2px}.mat-slider-vertical .mat-slider-track-fill{height:100%;width:2px;transform:scaleY(0)}.mat-slider-vertical .mat-slider-track-background{height:100%;width:2px;transform:scaleY(1)}.mat-slider-vertical .mat-slider-ticks-container{width:2px;height:100%}.mat-slider-vertical .mat-slider-focus-ring{bottom:-15px;left:-15px}.mat-slider-vertical .mat-slider-ticks{background:repeating-linear-gradient(to bottom,rgba(0,0,0,.6),rgba(0,0,0,.6) 2px,transparent 0,transparent) repeat;background-clip:content-box;width:2px;height:100%}.mat-slider-vertical .mat-slider-thumb-container{height:100%;width:0;left:50%}.mat-slider-vertical .mat-slider-thumb-label{bottom:-14px;left:-40px;transform:translateX(26px) scale(.01) rotate(-45deg)}.mat-slider-vertical .mat-slider-thumb-label-text{transform:rotate(45deg)}.mat-slider-vertical.cdk-focused .mat-slider-thumb-label{transform:rotate(-45deg)}[dir=rtl] .mat-slider-wrapper::after{left:0;right:auto}[dir=rtl] .mat-slider-horizontal .mat-slider-track-fill{transform-origin:100% 100%}[dir=rtl] .mat-slider-horizontal .mat-slider-track-background{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:100% 100%} /*# sourceMappingURL=slider.css.map */ "],
+                inputs: ['disabled'],
                 encapsulation: _angular_core.ViewEncapsulation.None,
             },] },
 ];
@@ -10083,7 +10052,6 @@ MdSlider.ctorParameters = function () { return [
     { type: Dir, decorators: [{ type: _angular_core.Optional },] },
 ]; };
 MdSlider.propDecorators = {
-    'disabled': [{ type: _angular_core.Input },],
     'invert': [{ type: _angular_core.Input },],
     'max': [{ type: _angular_core.Input },],
     'min': [{ type: _angular_core.Input },],
@@ -19990,6 +19958,8 @@ exports.MdCheckboxModule = MdCheckboxModule;
 exports.MD_CHECKBOX_CONTROL_VALUE_ACCESSOR = MD_CHECKBOX_CONTROL_VALUE_ACCESSOR;
 exports.TransitionCheckState = TransitionCheckState;
 exports.MdCheckboxChange = MdCheckboxChange;
+exports.MdCheckboxBase = MdCheckboxBase;
+exports._MdCheckboxMixinBase = _MdCheckboxMixinBase;
 exports.MdCheckbox = MdCheckbox;
 exports.MdDialogModule = MdDialogModule;
 exports.MD_DIALOG_DATA = MD_DIALOG_DATA;
@@ -20049,6 +20019,8 @@ exports.MdSpinner = MdSpinner;
 exports.MdRadioModule = MdRadioModule;
 exports.MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR;
 exports.MdRadioChange = MdRadioChange;
+exports.MdRadioGroupBase = MdRadioGroupBase;
+exports._MdRadioGroupMixinBase = _MdRadioGroupMixinBase;
 exports.MdRadioGroup = MdRadioGroup;
 exports.MdRadioButton = MdRadioButton;
 exports.MdSelectModule = MdSelectModule;
@@ -20074,11 +20046,15 @@ exports.MdSidenavContainer = MdSidenavContainer;
 exports.MdSliderModule = MdSliderModule;
 exports.MD_SLIDER_VALUE_ACCESSOR = MD_SLIDER_VALUE_ACCESSOR;
 exports.MdSliderChange = MdSliderChange;
+exports.MdSliderBase = MdSliderBase;
+exports._MdSliderMixinBase = _MdSliderMixinBase;
 exports.MdSlider = MdSlider;
 exports.SliderRenderer = SliderRenderer;
 exports.MdSlideToggleModule = MdSlideToggleModule;
 exports.MD_SLIDE_TOGGLE_VALUE_ACCESSOR = MD_SLIDE_TOGGLE_VALUE_ACCESSOR;
 exports.MdSlideToggleChange = MdSlideToggleChange;
+exports.MdSlideToggleBase = MdSlideToggleBase;
+exports._MdSlideToggleMixinBase = _MdSlideToggleMixinBase;
 exports.MdSlideToggle = MdSlideToggle;
 exports.MdSnackBarModule = MdSnackBarModule;
 exports.MdSnackBar = MdSnackBar;
