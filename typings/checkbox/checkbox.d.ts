@@ -84,6 +84,10 @@ export declare class MdCheckbox extends _MdCheckboxMixinBase implements ControlV
     value: string;
     /** The native `<input type="checkbox"> element */
     _inputElement: ElementRef;
+    _labelWrapper: ElementRef;
+    /** Whether the checkbox has label */
+    _hasLabel(): boolean;
+    /** Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor. */
     _ripple: MdRipple;
     /**
      * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
