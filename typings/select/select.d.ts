@@ -221,7 +221,7 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
      * the overlay width to the trigger width.
      */
     private _setTriggerWidth();
-    /** Ensures the panel opens if activated by the keyboard. */
+    /** Handles the keyboard interactions of a closed select. */
     _handleKeydown(event: KeyboardEvent): void;
     /**
      * When the panel element is finished transforming in (though not fading in), it
@@ -352,4 +352,6 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
     private _getOriginBasedOnOption();
     /** Figures out the floating placeholder state value. */
     private _floatPlaceholderState();
+    /** Handles the user pressing the arrow keys on a closed select.  */
+    private _handleArrowKey(event);
 }

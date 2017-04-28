@@ -8166,29 +8166,18 @@ var MdSelect = /*@__PURE__*/(function () {
         this._triggerWidth = this._getTriggerRect().width;
     };
     /**
-     * Ensures the panel opens if activated by the keyboard.
+     * Handles the keyboard interactions of a closed select.
      * @param {?} event
      * @return {?}
      */
     MdSelect.prototype._handleKeydown = function (event) {
-        if (event.keyCode === ENTER || event.keyCode === SPACE) {
-            this.open();
-        }
-        else if (!this.disabled) {
-            var /** @type {?} */ prevActiveItem = this._keyManager.activeItem;
-            // Cycle though the select options even when the select is closed,
-            // matching the behavior of the native select element.
-            // TODO(crisbeto): native selects also cycle through the options with left/right arrows,
-            // however the key manager only supports up/down at the moment.
-            this._keyManager.onKeydown(event);
-            var /** @type {?} */ currentActiveItem = (this._keyManager.activeItem);
-            if (this._multiple) {
+        if (!this.disabled) {
+            if (event.keyCode === ENTER || event.keyCode === SPACE) {
+                event.preventDefault(); // prevents the page from scrolling down when pressing space
                 this.open();
             }
-            else if (currentActiveItem !== prevActiveItem) {
-                this._clearSelection();
-                this._setSelectionByValue(currentActiveItem.value);
-                this._propagateChanges();
+            else if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
+                this._handleArrowKey(event);
             }
         }
     };
@@ -8688,6 +8677,31 @@ var MdSelect = /*@__PURE__*/(function () {
      */
     MdSelect.prototype._floatPlaceholderState = function () {
         return this._isRtl() ? 'floating-rtl' : 'floating-ltr';
+    };
+    /**
+     * Handles the user pressing the arrow keys on a closed select.
+     * @param {?} event
+     * @return {?}
+     */
+    MdSelect.prototype._handleArrowKey = function (event) {
+        if (this._multiple) {
+            event.preventDefault();
+            this.open();
+        }
+        else {
+            var /** @type {?} */ prevActiveItem = this._keyManager.activeItem;
+            // Cycle though the select options even when the select is closed,
+            // matching the behavior of the native select element.
+            // TODO(crisbeto): native selects also cycle through the options with left/right arrows,
+            // however the key manager only supports up/down at the moment.
+            this._keyManager.onKeydown(event);
+            var /** @type {?} */ currentActiveItem = (this._keyManager.activeItem);
+            if (currentActiveItem !== prevActiveItem) {
+                this._clearSelection();
+                this._setSelectionByValue(currentActiveItem.value);
+                this._propagateChanges();
+            }
+        }
     };
     return MdSelect;
 }());
