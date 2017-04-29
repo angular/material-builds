@@ -16263,6 +16263,7 @@ MdTabBody.decorators = [
                 },
                 animations: [
                     _angular_animations.trigger('translateTab', [
+                        _angular_animations.state('void', _angular_animations.style({ transform: 'translate3d(0, 0, 0)' })),
                         _angular_animations.state('left', _angular_animations.style({ transform: 'translate3d(-100%, 0, 0)' })),
                         _angular_animations.state('left-origin-center', _angular_animations.style({ transform: 'translate3d(0, 0, 0)' })),
                         _angular_animations.state('right-origin-center', _angular_animations.style({ transform: 'translate3d(0, 0, 0)' })),
@@ -19493,6 +19494,7 @@ exports.ObserveContentModule = ObserveContentModule;
 exports.ObserveContent = ObserveContent;
 exports.MdOptionModule = MdOptionModule;
 exports.MdOption = MdOption;
+exports.MdOptionSelectionChange = MdOptionSelectionChange;
 exports.Portal = Portal;
 exports.BasePortalHost = BasePortalHost;
 exports.ComponentPortal = ComponentPortal;
