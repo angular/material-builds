@@ -18199,7 +18199,7 @@ var MdDialogRef = (function () {
      */
     MdDialogRef.prototype.close = function (dialogResult) {
         this._result = dialogResult;
-        this._containerInstance._exit();
+        this._containerInstance._state = 'exit';
         this._overlayRef.detachBackdrop(); // Transition the backdrop in parallel with the dialog.
     };
     /**
@@ -18404,6 +18404,20 @@ var MdDialogContainer = (function (_super) {
         this._focusTrap.focusFirstTabbableElementWhenReady();
     };
     /**
+     * Restores focus to the element that was focused before the dialog opened.
+     * @return {?}
+     */
+    MdDialogContainer.prototype._restoreFocus = function () {
+        var /** @type {?} */ toFocus = this._elementFocusedBeforeDialogWasOpened;
+        // We need the extra check, because IE can set the `activeElement` to null in some cases.
+        if (toFocus && 'focus' in toFocus) {
+            toFocus.focus();
+        }
+        if (this._focusTrap) {
+            this._focusTrap.destroy();
+        }
+    };
+    /**
      * Saves a reference to the element that was focused before the dialog was opened.
      * @return {?}
      */
@@ -18414,7 +18428,6 @@ var MdDialogContainer = (function (_super) {
     };
     /**
      * Callback, invoked whenever an animation on the host completes.
-     * \@docs-private
      * @param {?} event
      * @return {?}
      */
@@ -18424,24 +18437,9 @@ var MdDialogContainer = (function (_super) {
             this._trapFocus();
         }
         else if (event.toState === 'exit') {
+            this._restoreFocus();
             this._onAnimationStateChange.complete();
         }
-    };
-    /**
-     * Kicks off the leave animation and restores focus to the previously-focused element.
-     * \@docs-private
-     * @return {?}
-     */
-    MdDialogContainer.prototype._exit = function () {
-        // We need the extra check, because IE can set the `activeElement` to null in some cases.
-        var /** @type {?} */ toFocus = this._elementFocusedBeforeDialogWasOpened;
-        if (toFocus && 'focus' in toFocus) {
-            toFocus.focus();
-        }
-        if (this._focusTrap) {
-            this._focusTrap.destroy();
-        }
-        this._state = 'exit';
     };
     return MdDialogContainer;
 }(BasePortalHost));
