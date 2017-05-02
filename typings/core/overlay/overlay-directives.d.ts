@@ -3,6 +3,8 @@ import { Overlay } from './overlay';
 import { OverlayRef } from './overlay-ref';
 import { ConnectionPositionPair, ConnectedOverlayPositionChange } from './position/connected-position';
 import { Dir, LayoutDirection } from '../rtl/dir';
+import { ScrollStrategy } from './scroll/scroll-strategy';
+import { ScrollDispatcher } from './scroll/scroll-dispatcher';
 /**
  * Directive applied to an element to make it usable as an origin for an Overlay using a
  * ConnectedPositionStrategy.
@@ -17,6 +19,7 @@ export declare class OverlayOrigin {
 export declare class ConnectedOverlayDirective implements OnDestroy {
     private _overlay;
     private _renderer;
+    private _scrollDispatcher;
     private _dir;
     private _overlayRef;
     private _templatePortal;
@@ -46,6 +49,8 @@ export declare class ConnectedOverlayDirective implements OnDestroy {
     minHeight: number | string;
     /** The custom class to be set on the backdrop element. */
     backdropClass: string;
+    /** Strategy to be used when handling scroll events while the overlay is open. */
+    scrollStrategy: ScrollStrategy;
     /** Whether or not the overlay should attach a backdrop. */
     hasBackdrop: any;
     open: boolean;
@@ -57,7 +62,7 @@ export declare class ConnectedOverlayDirective implements OnDestroy {
     attach: EventEmitter<void>;
     /** Event emitted when the overlay has been detached. */
     detach: EventEmitter<void>;
-    constructor(_overlay: Overlay, _renderer: Renderer2, templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef, _dir: Dir);
+    constructor(_overlay: Overlay, _renderer: Renderer2, _scrollDispatcher: ScrollDispatcher, templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef, _dir: Dir);
     /** The associated overlay reference. */
     readonly overlayRef: OverlayRef;
     /** The element's layout direction. */

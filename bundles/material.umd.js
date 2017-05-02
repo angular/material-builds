@@ -1919,11 +1919,35 @@ PortalModule.decorators = [
  */
 PortalModule.ctorParameters = function () { return []; };
 /**
+ * Scroll strategy that doesn't do anything.
+ */
+var NoopScrollStrategy = (function () {
+    function NoopScrollStrategy() {
+    }
+    /**
+     * @return {?}
+     */
+    NoopScrollStrategy.prototype.enable = function () { };
+    /**
+     * @return {?}
+     */
+    NoopScrollStrategy.prototype.disable = function () { };
+    /**
+     * @return {?}
+     */
+    NoopScrollStrategy.prototype.attach = function () { };
+    return NoopScrollStrategy;
+}());
+/**
  * OverlayState is a bag of values for either the initial configuration or current state of an
  * overlay.
  */
 var OverlayState = (function () {
     function OverlayState() {
+        /**
+         * Strategy to be used when handling scroll events while the overlay is open.
+         */
+        this.scrollStrategy = new NoopScrollStrategy();
         /**
          * Whether the overlay has a backdrop.
          */
@@ -2057,6 +2081,9 @@ var OverlayRef = (function () {
         this._ngZone = _ngZone;
         this._backdropElement = null;
         this._backdropClick = new rxjs_Subject.Subject();
+        this._attachments = new rxjs_Subject.Subject();
+        this._detachments = new rxjs_Subject.Subject();
+        this._state.scrollStrategy.attach(this);
     }
     Object.defineProperty(OverlayRef.prototype, "overlayElement", {
         /**
@@ -2081,6 +2108,8 @@ var OverlayRef = (function () {
         this.updateSize();
         this.updateDirection();
         this.updatePosition();
+        this._attachments.next();
+        this._state.scrollStrategy.enable();
         // Enable pointer events for the overlay pane element.
         this._togglePointerEvents(true);
         if (this._state.hasBackdrop) {
@@ -2098,6 +2127,8 @@ var OverlayRef = (function () {
         // This is necessary because otherwise the pane element will cover the page and disable
         // pointer events therefore. Depends on the position strategy and the applied pane boundaries.
         this._togglePointerEvents(false);
+        this._state.scrollStrategy.disable();
+        this._detachments.next();
         return this._portalHost.detach();
     };
     /**
@@ -2110,6 +2141,10 @@ var OverlayRef = (function () {
         }
         this.detachBackdrop();
         this._portalHost.dispose();
+        this._state.scrollStrategy.disable();
+        this._detachments.next();
+        this._detachments.complete();
+        this._attachments.complete();
     };
     /**
      * Checks whether the overlay has been attached.
@@ -2124,6 +2159,20 @@ var OverlayRef = (function () {
      */
     OverlayRef.prototype.backdropClick = function () {
         return this._backdropClick.asObservable();
+    };
+    /**
+     * Returns an observable that emits when the overlay has been attached.
+     * @return {?}
+     */
+    OverlayRef.prototype.attachments = function () {
+        return this._attachments.asObservable();
+    };
+    /**
+     * Returns an observable that emits when the overlay has been detached.
+     * @return {?}
+     */
+    OverlayRef.prototype.detachments = function () {
+        return this._detachments.asObservable();
     };
     /**
      * Gets the current state config of the overlay.
@@ -3128,6 +3177,49 @@ Scrollable.ctorParameters = function () { return [
     { type: _angular_core.Renderer2, },
 ]; };
 /**
+ * Strategy that will update the element position as the user is scrolling.
+ */
+var RepositionScrollStrategy = (function () {
+    /**
+     * @param {?} _scrollDispatcher
+     * @param {?=} _scrollThrottle
+     */
+    function RepositionScrollStrategy(_scrollDispatcher, _scrollThrottle) {
+        if (_scrollThrottle === void 0) { _scrollThrottle = 0; }
+        this._scrollDispatcher = _scrollDispatcher;
+        this._scrollThrottle = _scrollThrottle;
+        this._scrollSubscription = null;
+    }
+    /**
+     * @param {?} overlayRef
+     * @return {?}
+     */
+    RepositionScrollStrategy.prototype.attach = function (overlayRef) {
+        this._overlayRef = overlayRef;
+    };
+    /**
+     * @return {?}
+     */
+    RepositionScrollStrategy.prototype.enable = function () {
+        var _this = this;
+        if (!this._scrollSubscription) {
+            this._scrollSubscription = this._scrollDispatcher.scrolled(this._scrollThrottle, function () {
+                _this._overlayRef.updatePosition();
+            });
+        }
+    };
+    /**
+     * @return {?}
+     */
+    RepositionScrollStrategy.prototype.disable = function () {
+        if (this._scrollSubscription) {
+            this._scrollSubscription.unsubscribe();
+            this._scrollSubscription = null;
+        }
+    };
+    return RepositionScrollStrategy;
+}());
+/**
  * Default set of positions for the overlay. Follows the behavior of a dropdown.
  */
 var defaultPositionList = [
@@ -3166,18 +3258,24 @@ var ConnectedOverlayDirective = (function () {
     /**
      * @param {?} _overlay
      * @param {?} _renderer
+     * @param {?} _scrollDispatcher
      * @param {?} templateRef
      * @param {?} viewContainerRef
      * @param {?} _dir
      */
-    function ConnectedOverlayDirective(_overlay, _renderer, templateRef, viewContainerRef, _dir) {
+    function ConnectedOverlayDirective(_overlay, _renderer, _scrollDispatcher, templateRef, viewContainerRef, _dir) {
         this._overlay = _overlay;
         this._renderer = _renderer;
+        this._scrollDispatcher = _scrollDispatcher;
         this._dir = _dir;
         this._open = false;
         this._hasBackdrop = false;
         this._offsetX = 0;
         this._offsetY = 0;
+        /**
+         * Strategy to be used when handling scroll events while the overlay is open.
+         */
+        this.scrollStrategy = new RepositionScrollStrategy(this._scrollDispatcher);
         /**
          * Event emitted when the backdrop is clicked.
          */
@@ -3336,6 +3434,7 @@ var ConnectedOverlayDirective = (function () {
         }
         this._position = (this._createPositionStrategy());
         overlayConfig.positionStrategy = this._position;
+        overlayConfig.scrollStrategy = this.scrollStrategy;
         return overlayConfig;
     };
     /**
@@ -3448,6 +3547,7 @@ ConnectedOverlayDirective.decorators = [
 ConnectedOverlayDirective.ctorParameters = function () { return [
     { type: Overlay, },
     { type: _angular_core.Renderer2, },
+    { type: ScrollDispatcher, },
     { type: _angular_core.TemplateRef, },
     { type: _angular_core.ViewContainerRef, },
     { type: Dir, decorators: [{ type: _angular_core.Optional },] },
@@ -3462,6 +3562,7 @@ ConnectedOverlayDirective.propDecorators = {
     'minWidth': [{ type: _angular_core.Input },],
     'minHeight': [{ type: _angular_core.Input },],
     'backdropClass': [{ type: _angular_core.Input },],
+    'scrollStrategy': [{ type: _angular_core.Input },],
     'hasBackdrop': [{ type: _angular_core.Input },],
     'open': [{ type: _angular_core.Input },],
     'backdropClick': [{ type: _angular_core.Output },],
@@ -4321,6 +4422,49 @@ FullscreenOverlayContainer.decorators = [
  * @nocollapse
  */
 FullscreenOverlayContainer.ctorParameters = function () { return []; };
+/**
+ * Strategy that will close the overlay as soon as the user starts scrolling.
+ */
+var CloseScrollStrategy = (function () {
+    /**
+     * @param {?} _scrollDispatcher
+     */
+    function CloseScrollStrategy(_scrollDispatcher) {
+        this._scrollDispatcher = _scrollDispatcher;
+        this._scrollSubscription = null;
+    }
+    /**
+     * @param {?} overlayRef
+     * @return {?}
+     */
+    CloseScrollStrategy.prototype.attach = function (overlayRef) {
+        this._overlayRef = overlayRef;
+    };
+    /**
+     * @return {?}
+     */
+    CloseScrollStrategy.prototype.enable = function () {
+        var _this = this;
+        if (!this._scrollSubscription) {
+            this._scrollSubscription = this._scrollDispatcher.scrolled(null, function () {
+                if (_this._overlayRef.hasAttached()) {
+                    _this._overlayRef.detach();
+                }
+                _this.disable();
+            });
+        }
+    };
+    /**
+     * @return {?}
+     */
+    CloseScrollStrategy.prototype.disable = function () {
+        if (this._scrollSubscription) {
+            this._scrollSubscription.unsubscribe();
+            this._scrollSubscription = null;
+        }
+    };
+    return CloseScrollStrategy;
+}());
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
@@ -7614,17 +7758,15 @@ var MdSelect = (function () {
      * @param {?} _renderer
      * @param {?} _viewportRuler
      * @param {?} _changeDetectorRef
-     * @param {?} _scrollDispatcher
      * @param {?} _dir
      * @param {?} _control
      * @param {?} tabIndex
      */
-    function MdSelect(_element, _renderer, _viewportRuler, _changeDetectorRef, _scrollDispatcher, _dir, _control, tabIndex) {
+    function MdSelect(_element, _renderer, _viewportRuler, _changeDetectorRef, _dir, _control, tabIndex) {
         this._element = _element;
         this._renderer = _renderer;
         this._viewportRuler = _viewportRuler;
         this._changeDetectorRef = _changeDetectorRef;
-        this._scrollDispatcher = _scrollDispatcher;
         this._dir = _dir;
         this._control = _control;
         /**
@@ -7902,7 +8044,6 @@ var MdSelect = (function () {
      * @return {?}
      */
     MdSelect.prototype.open = function () {
-        var _this = this;
         if (this.disabled || !this.options.length) {
             return;
         }
@@ -7912,9 +8053,6 @@ var MdSelect = (function () {
         this._calculateOverlayPosition();
         this._placeholderState = this._floatPlaceholderState();
         this._panelOpen = true;
-        this._scrollSubscription = this._scrollDispatcher.scrolled(0, function () {
-            _this.overlayDir.overlayRef.updatePosition();
-        });
     };
     /**
      * Closes the overlay panel and focuses the host element.
@@ -7925,10 +8063,6 @@ var MdSelect = (function () {
             this._panelOpen = false;
             if (this._selectionModel.isEmpty()) {
                 this._placeholderState = '';
-            }
-            if (this._scrollSubscription) {
-                this._scrollSubscription.unsubscribe();
-                this._scrollSubscription = null;
             }
             this._focusHost();
         }
@@ -8608,7 +8742,6 @@ MdSelect.ctorParameters = function () { return [
     { type: _angular_core.Renderer2, },
     { type: ViewportRuler, },
     { type: _angular_core.ChangeDetectorRef, },
-    { type: ScrollDispatcher, },
     { type: Dir, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_forms.NgControl, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional },] },
     { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['tabindex',] },] },
@@ -17097,28 +17230,12 @@ var MdTooltip = (function () {
         configurable: true
     });
     /**
-     * @return {?}
-     */
-    MdTooltip.prototype.ngOnInit = function () {
-        var _this = this;
-        // When a scroll on the page occurs, update the position in case this tooltip needs
-        // to be repositioned.
-        this.scrollSubscription = this._scrollDispatcher.scrolled(SCROLL_THROTTLE_MS, function () {
-            if (_this._overlayRef) {
-                _this._overlayRef.updatePosition();
-            }
-        });
-    };
-    /**
      * Dispose the tooltip when destroyed.
      * @return {?}
      */
     MdTooltip.prototype.ngOnDestroy = function () {
         if (this._tooltipInstance) {
             this._disposeTooltip();
-        }
-        if (this.scrollSubscription) {
-            this.scrollSubscription.unsubscribe();
         }
     };
     /**
@@ -17200,6 +17317,8 @@ var MdTooltip = (function () {
         });
         var /** @type {?} */ config = new OverlayState();
         config.positionStrategy = strategy;
+        config.scrollStrategy =
+            new RepositionScrollStrategy(this._scrollDispatcher, SCROLL_THROTTLE_MS);
         this._overlayRef = this._overlay.create(config);
     };
     /**
@@ -17834,12 +17953,14 @@ var MdMenuTrigger = (function () {
      * @param {?} _element
      * @param {?} _viewContainerRef
      * @param {?} _dir
+     * @param {?} _scrollDispatcher
      */
-    function MdMenuTrigger(_overlay, _element, _viewContainerRef, _dir) {
+    function MdMenuTrigger(_overlay, _element, _viewContainerRef, _dir, _scrollDispatcher) {
         this._overlay = _overlay;
         this._element = _element;
         this._viewContainerRef = _viewContainerRef;
         this._dir = _dir;
+        this._scrollDispatcher = _scrollDispatcher;
         this._menuOpen = false;
         this._openedByMouse = false;
         /**
@@ -18055,6 +18176,7 @@ var MdMenuTrigger = (function () {
         overlayState.hasBackdrop = true;
         overlayState.backdropClass = 'cdk-overlay-transparent-backdrop';
         overlayState.direction = this.dir;
+        overlayState.scrollStrategy = new RepositionScrollStrategy(this._scrollDispatcher);
         return overlayState;
     };
     /**
@@ -18136,6 +18258,7 @@ MdMenuTrigger.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.ViewContainerRef, },
     { type: Dir, decorators: [{ type: _angular_core.Optional },] },
+    { type: ScrollDispatcher, },
 ]; };
 MdMenuTrigger.propDecorators = {
     '_deprecatedMdMenuTriggerFor': [{ type: _angular_core.Input, args: ['md-menu-trigger-for',] },],
@@ -19048,7 +19171,6 @@ var MdAutocompleteTrigger = (function () {
      * @return {?}
      */
     MdAutocompleteTrigger.prototype.openPanel = function () {
-        var _this = this;
         if (!this._overlayRef) {
             this._createOverlay();
         }
@@ -19059,11 +19181,6 @@ var MdAutocompleteTrigger = (function () {
         if (!this._overlayRef.hasAttached()) {
             this._overlayRef.attach(this._portal);
             this._subscribeToClosingActions();
-        }
-        if (!this._scrollSubscription) {
-            this._scrollSubscription = this._scrollDispatcher.scrolled(0, function () {
-                _this._overlayRef.updatePosition();
-            });
         }
         this.autocomplete._setVisibility();
         this._floatPlaceholder();
@@ -19076,10 +19193,6 @@ var MdAutocompleteTrigger = (function () {
     MdAutocompleteTrigger.prototype.closePanel = function () {
         if (this._overlayRef && this._overlayRef.hasAttached()) {
             this._overlayRef.detach();
-        }
-        if (this._scrollSubscription) {
-            this._scrollSubscription.unsubscribe();
-            this._scrollSubscription = null;
         }
         this._panelOpen = false;
         this._resetPlaceholder();
@@ -19325,6 +19438,7 @@ var MdAutocompleteTrigger = (function () {
         overlayState.positionStrategy = this._getOverlayPosition();
         overlayState.width = this._getHostWidth();
         overlayState.direction = this._dir ? this._dir.value : 'ltr';
+        overlayState.scrollStrategy = new RepositionScrollStrategy(this._scrollDispatcher);
         return overlayState;
     };
     /**
@@ -19505,6 +19619,9 @@ exports.ConnectedOverlayDirective = ConnectedOverlayDirective;
 exports.OverlayOrigin = OverlayOrigin;
 exports.OverlayModule = OverlayModule;
 exports.ScrollDispatcher = ScrollDispatcher;
+exports.RepositionScrollStrategy = RepositionScrollStrategy;
+exports.CloseScrollStrategy = CloseScrollStrategy;
+exports.NoopScrollStrategy = NoopScrollStrategy;
 exports.GestureConfig = GestureConfig;
 exports.LiveAnnouncer = LiveAnnouncer;
 exports.LIVE_ANNOUNCER_ELEMENT_TOKEN = LIVE_ANNOUNCER_ELEMENT_TOKEN;

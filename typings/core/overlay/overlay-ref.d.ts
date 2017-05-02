@@ -13,6 +13,8 @@ export declare class OverlayRef implements PortalHost {
     private _ngZone;
     private _backdropElement;
     private _backdropClick;
+    private _attachments;
+    private _detachments;
     constructor(_portalHost: PortalHost, _pane: HTMLElement, _state: OverlayState, _ngZone: NgZone);
     /** The overlay's HTML element */
     readonly overlayElement: HTMLElement;
@@ -39,6 +41,10 @@ export declare class OverlayRef implements PortalHost {
      * Returns an observable that emits when the backdrop has been clicked.
      */
     backdropClick(): Observable<void>;
+    /** Returns an observable that emits when the overlay has been attached. */
+    attachments(): Observable<void>;
+    /** Returns an observable that emits when the overlay has been detached. */
+    detachments(): Observable<void>;
     /**
      * Gets the current state config of the overlay.
      */

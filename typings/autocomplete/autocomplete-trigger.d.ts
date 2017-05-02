@@ -40,8 +40,6 @@ export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDe
     private _panelOpen;
     /** The subscription to positioning changes in the autocomplete panel. */
     private _panelPositionSubscription;
-    /** Subscription to global scroll events. */
-    private _scrollSubscription;
     /** Strategy that is used to position the panel. */
     private _positionStrategy;
     /** Whether or not the placeholder state is being overridden. */
