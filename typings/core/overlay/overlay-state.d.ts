@@ -1,5 +1,6 @@
 import { PositionStrategy } from './position/position-strategy';
 import { LayoutDirection } from '../rtl/dir';
+import { ScrollStrategy } from './scroll/scroll-strategy';
 /**
  * OverlayState is a bag of values for either the initial configuration or current state of an
  * overlay.
@@ -7,6 +8,8 @@ import { LayoutDirection } from '../rtl/dir';
 export declare class OverlayState {
     /** Strategy with which to position the overlay. */
     positionStrategy: PositionStrategy;
+    /** Strategy to be used when handling scroll events while the overlay is open. */
+    scrollStrategy: ScrollStrategy;
     /** Whether the overlay has a backdrop. */
     hasBackdrop: boolean;
     /** Custom class to add to the backdrop */

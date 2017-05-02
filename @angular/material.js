@@ -1913,11 +1913,33 @@ PortalModule.decorators = [
 PortalModule.ctorParameters = () => [];
 
 /**
+ * Scroll strategy that doesn't do anything.
+ */
+class NoopScrollStrategy {
+    /**
+     * @return {?}
+     */
+    enable() { }
+    /**
+     * @return {?}
+     */
+    disable() { }
+    /**
+     * @return {?}
+     */
+    attach() { }
+}
+
+/**
  * OverlayState is a bag of values for either the initial configuration or current state of an
  * overlay.
  */
 class OverlayState {
     constructor() {
+        /**
+         * Strategy to be used when handling scroll events while the overlay is open.
+         */
+        this.scrollStrategy = new NoopScrollStrategy();
         /**
          * Whether the overlay has a backdrop.
          */
@@ -2047,6 +2069,9 @@ class OverlayRef {
         this._ngZone = _ngZone;
         this._backdropElement = null;
         this._backdropClick = new Subject();
+        this._attachments = new Subject();
+        this._detachments = new Subject();
+        this._state.scrollStrategy.attach(this);
     }
     /**
      * The overlay's HTML element
@@ -2067,6 +2092,8 @@ class OverlayRef {
         this.updateSize();
         this.updateDirection();
         this.updatePosition();
+        this._attachments.next();
+        this._state.scrollStrategy.enable();
         // Enable pointer events for the overlay pane element.
         this._togglePointerEvents(true);
         if (this._state.hasBackdrop) {
@@ -2084,6 +2111,8 @@ class OverlayRef {
         // This is necessary because otherwise the pane element will cover the page and disable
         // pointer events therefore. Depends on the position strategy and the applied pane boundaries.
         this._togglePointerEvents(false);
+        this._state.scrollStrategy.disable();
+        this._detachments.next();
         return this._portalHost.detach();
     }
     /**
@@ -2096,6 +2125,10 @@ class OverlayRef {
         }
         this.detachBackdrop();
         this._portalHost.dispose();
+        this._state.scrollStrategy.disable();
+        this._detachments.next();
+        this._detachments.complete();
+        this._attachments.complete();
     }
     /**
      * Checks whether the overlay has been attached.
@@ -2110,6 +2143,20 @@ class OverlayRef {
      */
     backdropClick() {
         return this._backdropClick.asObservable();
+    }
+    /**
+     * Returns an observable that emits when the overlay has been attached.
+     * @return {?}
+     */
+    attachments() {
+        return this._attachments.asObservable();
+    }
+    /**
+     * Returns an observable that emits when the overlay has been detached.
+     * @return {?}
+     */
+    detachments() {
+        return this._detachments.asObservable();
     }
     /**
      * Gets the current state config of the overlay.
@@ -3080,6 +3127,47 @@ Scrollable.ctorParameters = () => [
 ];
 
 /**
+ * Strategy that will update the element position as the user is scrolling.
+ */
+class RepositionScrollStrategy {
+    /**
+     * @param {?} _scrollDispatcher
+     * @param {?=} _scrollThrottle
+     */
+    constructor(_scrollDispatcher, _scrollThrottle = 0) {
+        this._scrollDispatcher = _scrollDispatcher;
+        this._scrollThrottle = _scrollThrottle;
+        this._scrollSubscription = null;
+    }
+    /**
+     * @param {?} overlayRef
+     * @return {?}
+     */
+    attach(overlayRef) {
+        this._overlayRef = overlayRef;
+    }
+    /**
+     * @return {?}
+     */
+    enable() {
+        if (!this._scrollSubscription) {
+            this._scrollSubscription = this._scrollDispatcher.scrolled(this._scrollThrottle, () => {
+                this._overlayRef.updatePosition();
+            });
+        }
+    }
+    /**
+     * @return {?}
+     */
+    disable() {
+        if (this._scrollSubscription) {
+            this._scrollSubscription.unsubscribe();
+            this._scrollSubscription = null;
+        }
+    }
+}
+
+/**
  * Default set of positions for the overlay. Follows the behavior of a dropdown.
  */
 let defaultPositionList = [
@@ -3117,18 +3205,24 @@ class ConnectedOverlayDirective {
     /**
      * @param {?} _overlay
      * @param {?} _renderer
+     * @param {?} _scrollDispatcher
      * @param {?} templateRef
      * @param {?} viewContainerRef
      * @param {?} _dir
      */
-    constructor(_overlay, _renderer, templateRef, viewContainerRef, _dir) {
+    constructor(_overlay, _renderer, _scrollDispatcher, templateRef, viewContainerRef, _dir) {
         this._overlay = _overlay;
         this._renderer = _renderer;
+        this._scrollDispatcher = _scrollDispatcher;
         this._dir = _dir;
         this._open = false;
         this._hasBackdrop = false;
         this._offsetX = 0;
         this._offsetY = 0;
+        /**
+         * Strategy to be used when handling scroll events while the overlay is open.
+         */
+        this.scrollStrategy = new RepositionScrollStrategy(this._scrollDispatcher);
         /**
          * Event emitted when the backdrop is clicked.
          */
@@ -3263,6 +3357,7 @@ class ConnectedOverlayDirective {
         }
         this._position = (this._createPositionStrategy());
         overlayConfig.positionStrategy = this._position;
+        overlayConfig.scrollStrategy = this.scrollStrategy;
         return overlayConfig;
     }
     /**
@@ -3371,6 +3466,7 @@ ConnectedOverlayDirective.decorators = [
 ConnectedOverlayDirective.ctorParameters = () => [
     { type: Overlay, },
     { type: Renderer2, },
+    { type: ScrollDispatcher, },
     { type: TemplateRef, },
     { type: ViewContainerRef, },
     { type: Dir, decorators: [{ type: Optional },] },
@@ -3385,6 +3481,7 @@ ConnectedOverlayDirective.propDecorators = {
     'minWidth': [{ type: Input },],
     'minHeight': [{ type: Input },],
     'backdropClass': [{ type: Input },],
+    'scrollStrategy': [{ type: Input },],
     'hasBackdrop': [{ type: Input },],
     'open': [{ type: Input },],
     'backdropClick': [{ type: Output },],
@@ -4211,6 +4308,48 @@ FullscreenOverlayContainer.decorators = [
  * @nocollapse
  */
 FullscreenOverlayContainer.ctorParameters = () => [];
+
+/**
+ * Strategy that will close the overlay as soon as the user starts scrolling.
+ */
+class CloseScrollStrategy {
+    /**
+     * @param {?} _scrollDispatcher
+     */
+    constructor(_scrollDispatcher) {
+        this._scrollDispatcher = _scrollDispatcher;
+        this._scrollSubscription = null;
+    }
+    /**
+     * @param {?} overlayRef
+     * @return {?}
+     */
+    attach(overlayRef) {
+        this._overlayRef = overlayRef;
+    }
+    /**
+     * @return {?}
+     */
+    enable() {
+        if (!this._scrollSubscription) {
+            this._scrollSubscription = this._scrollDispatcher.scrolled(null, () => {
+                if (this._overlayRef.hasAttached()) {
+                    this._overlayRef.detach();
+                }
+                this.disable();
+            });
+        }
+    }
+    /**
+     * @return {?}
+     */
+    disable() {
+        if (this._scrollSubscription) {
+            this._scrollSubscription.unsubscribe();
+            this._scrollSubscription = null;
+        }
+    }
+}
 
 class GestureConfig extends HammerGestureConfig {
     constructor() {
@@ -7251,17 +7390,15 @@ class MdSelect {
      * @param {?} _renderer
      * @param {?} _viewportRuler
      * @param {?} _changeDetectorRef
-     * @param {?} _scrollDispatcher
      * @param {?} _dir
      * @param {?} _control
      * @param {?} tabIndex
      */
-    constructor(_element, _renderer, _viewportRuler, _changeDetectorRef, _scrollDispatcher, _dir, _control, tabIndex) {
+    constructor(_element, _renderer, _viewportRuler, _changeDetectorRef, _dir, _control, tabIndex) {
         this._element = _element;
         this._renderer = _renderer;
         this._viewportRuler = _viewportRuler;
         this._changeDetectorRef = _changeDetectorRef;
-        this._scrollDispatcher = _scrollDispatcher;
         this._dir = _dir;
         this._control = _control;
         /**
@@ -7514,9 +7651,6 @@ class MdSelect {
         this._calculateOverlayPosition();
         this._placeholderState = this._floatPlaceholderState();
         this._panelOpen = true;
-        this._scrollSubscription = this._scrollDispatcher.scrolled(0, () => {
-            this.overlayDir.overlayRef.updatePosition();
-        });
     }
     /**
      * Closes the overlay panel and focuses the host element.
@@ -7527,10 +7661,6 @@ class MdSelect {
             this._panelOpen = false;
             if (this._selectionModel.isEmpty()) {
                 this._placeholderState = '';
-            }
-            if (this._scrollSubscription) {
-                this._scrollSubscription.unsubscribe();
-                this._scrollSubscription = null;
             }
             this._focusHost();
         }
@@ -8188,7 +8318,6 @@ MdSelect.ctorParameters = () => [
     { type: Renderer2, },
     { type: ViewportRuler, },
     { type: ChangeDetectorRef, },
-    { type: ScrollDispatcher, },
     { type: Dir, decorators: [{ type: Optional },] },
     { type: NgControl, decorators: [{ type: Self }, { type: Optional },] },
     { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
@@ -15992,27 +16121,12 @@ class MdTooltip {
      */
     set _matShowDelay(v) { this.showDelay = v; }
     /**
-     * @return {?}
-     */
-    ngOnInit() {
-        // When a scroll on the page occurs, update the position in case this tooltip needs
-        // to be repositioned.
-        this.scrollSubscription = this._scrollDispatcher.scrolled(SCROLL_THROTTLE_MS, () => {
-            if (this._overlayRef) {
-                this._overlayRef.updatePosition();
-            }
-        });
-    }
-    /**
      * Dispose the tooltip when destroyed.
      * @return {?}
      */
     ngOnDestroy() {
         if (this._tooltipInstance) {
             this._disposeTooltip();
-        }
-        if (this.scrollSubscription) {
-            this.scrollSubscription.unsubscribe();
         }
     }
     /**
@@ -16090,6 +16204,8 @@ class MdTooltip {
         });
         let /** @type {?} */ config = new OverlayState();
         config.positionStrategy = strategy;
+        config.scrollStrategy =
+            new RepositionScrollStrategy(this._scrollDispatcher, SCROLL_THROTTLE_MS);
         this._overlayRef = this._overlay.create(config);
     }
     /**
@@ -16704,12 +16820,14 @@ class MdMenuTrigger {
      * @param {?} _element
      * @param {?} _viewContainerRef
      * @param {?} _dir
+     * @param {?} _scrollDispatcher
      */
-    constructor(_overlay, _element, _viewContainerRef, _dir) {
+    constructor(_overlay, _element, _viewContainerRef, _dir, _scrollDispatcher) {
         this._overlay = _overlay;
         this._element = _element;
         this._viewContainerRef = _viewContainerRef;
         this._dir = _dir;
+        this._scrollDispatcher = _scrollDispatcher;
         this._menuOpen = false;
         this._openedByMouse = false;
         /**
@@ -16903,6 +17021,7 @@ class MdMenuTrigger {
         overlayState.hasBackdrop = true;
         overlayState.backdropClass = 'cdk-overlay-transparent-backdrop';
         overlayState.direction = this.dir;
+        overlayState.scrollStrategy = new RepositionScrollStrategy(this._scrollDispatcher);
         return overlayState;
     }
     /**
@@ -16983,6 +17102,7 @@ MdMenuTrigger.ctorParameters = () => [
     { type: ElementRef, },
     { type: ViewContainerRef, },
     { type: Dir, decorators: [{ type: Optional },] },
+    { type: ScrollDispatcher, },
 ];
 MdMenuTrigger.propDecorators = {
     '_deprecatedMdMenuTriggerFor': [{ type: Input, args: ['md-menu-trigger-for',] },],
@@ -17044,7 +17164,7 @@ class MdDialogRef {
      */
     close(dialogResult) {
         this._result = dialogResult;
-        this._containerInstance._exit();
+        this._containerInstance._state = 'exit';
         this._overlayRef.detachBackdrop(); // Transition the backdrop in parallel with the dialog.
     }
     /**
@@ -17244,6 +17364,20 @@ class MdDialogContainer extends BasePortalHost {
         this._focusTrap.focusFirstTabbableElementWhenReady();
     }
     /**
+     * Restores focus to the element that was focused before the dialog opened.
+     * @return {?}
+     */
+    _restoreFocus() {
+        const /** @type {?} */ toFocus = this._elementFocusedBeforeDialogWasOpened;
+        // We need the extra check, because IE can set the `activeElement` to null in some cases.
+        if (toFocus && 'focus' in toFocus) {
+            toFocus.focus();
+        }
+        if (this._focusTrap) {
+            this._focusTrap.destroy();
+        }
+    }
+    /**
      * Saves a reference to the element that was focused before the dialog was opened.
      * @return {?}
      */
@@ -17254,7 +17388,6 @@ class MdDialogContainer extends BasePortalHost {
     }
     /**
      * Callback, invoked whenever an animation on the host completes.
-     * \@docs-private
      * @param {?} event
      * @return {?}
      */
@@ -17264,24 +17397,9 @@ class MdDialogContainer extends BasePortalHost {
             this._trapFocus();
         }
         else if (event.toState === 'exit') {
+            this._restoreFocus();
             this._onAnimationStateChange.complete();
         }
-    }
-    /**
-     * Kicks off the leave animation and restores focus to the previously-focused element.
-     * \@docs-private
-     * @return {?}
-     */
-    _exit() {
-        // We need the extra check, because IE can set the `activeElement` to null in some cases.
-        let /** @type {?} */ toFocus = this._elementFocusedBeforeDialogWasOpened;
-        if (toFocus && 'focus' in toFocus) {
-            toFocus.focus();
-        }
-        if (this._focusTrap) {
-            this._focusTrap.destroy();
-        }
-        this._state = 'exit';
     }
 }
 MdDialogContainer.decorators = [
@@ -17862,11 +17980,6 @@ class MdAutocompleteTrigger {
             this._overlayRef.attach(this._portal);
             this._subscribeToClosingActions();
         }
-        if (!this._scrollSubscription) {
-            this._scrollSubscription = this._scrollDispatcher.scrolled(0, () => {
-                this._overlayRef.updatePosition();
-            });
-        }
         this.autocomplete._setVisibility();
         this._floatPlaceholder();
         this._panelOpen = true;
@@ -17878,10 +17991,6 @@ class MdAutocompleteTrigger {
     closePanel() {
         if (this._overlayRef && this._overlayRef.hasAttached()) {
             this._overlayRef.detach();
-        }
-        if (this._scrollSubscription) {
-            this._scrollSubscription.unsubscribe();
-            this._scrollSubscription = null;
         }
         this._panelOpen = false;
         this._resetPlaceholder();
@@ -18107,6 +18216,7 @@ class MdAutocompleteTrigger {
         overlayState.positionStrategy = this._getOverlayPosition();
         overlayState.width = this._getHostWidth();
         overlayState.direction = this._dir ? this._dir.value : 'ltr';
+        overlayState.scrollStrategy = new RepositionScrollStrategy(this._scrollDispatcher);
         return overlayState;
     }
     /**
@@ -18266,5 +18376,5 @@ MaterialModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { Dir, RtlModule, ObserveContentModule, ObserveContent, MdOptionModule, MdOption, MdOptionSelectionChange, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ScrollDispatcher, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, MdError, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MdCoreModule, PlatformModule, Platform, getSupportedInputTypes, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, MATERIAL_SANITY_CHECKS, MdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckbox, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFabCssMatStyler, MdMiniFabCssMatStyler, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, MdDialogModule, MD_DIALOG_DATA, MdDialog, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconRegistry, MdIconInvalidNameError, MdIcon, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, MdInputContainerPlaceholderConflictError, MdInputContainerUnsupportedTypeError, MdInputContainerDuplicatedHintError, MdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_OPTION_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelect, MdSidenavModule, MdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabChangeEvent, MdTabGroup, MdTabNavBar, MdTabLink, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵf, mixinDisabled as ɵq, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵg, OVERLAY_CONTAINER_PROVIDER as ɵb, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵa, OverlayPositionBuilder as ɵo, VIEWPORT_RULER_PROVIDER as ɵn, VIEWPORT_RULER_PROVIDER_FACTORY as ɵm, ViewportRuler as ɵl, SCROLL_DISPATCHER_PROVIDER as ɵd, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵc, Scrollable as ɵp, RippleRenderer as ɵe, MdGridAvatarCssMatStyler as ɵi, MdGridTileFooterCssMatStyler as ɵk, MdGridTileHeaderCssMatStyler as ɵj, MdGridTileText as ɵh };
+export { Dir, RtlModule, ObserveContentModule, ObserveContent, MdOptionModule, MdOption, MdOptionSelectionChange, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ScrollDispatcher, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, MdError, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MdCoreModule, PlatformModule, Platform, getSupportedInputTypes, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, MATERIAL_SANITY_CHECKS, MdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckbox, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFabCssMatStyler, MdMiniFabCssMatStyler, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, MdDialogModule, MD_DIALOG_DATA, MdDialog, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconRegistry, MdIconInvalidNameError, MdIcon, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, MdInputContainerPlaceholderConflictError, MdInputContainerUnsupportedTypeError, MdInputContainerDuplicatedHintError, MdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_OPTION_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelect, MdSidenavModule, MdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabChangeEvent, MdTabGroup, MdTabNavBar, MdTabLink, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵf, mixinDisabled as ɵq, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵg, OVERLAY_CONTAINER_PROVIDER as ɵb, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵa, OverlayPositionBuilder as ɵo, VIEWPORT_RULER_PROVIDER as ɵn, VIEWPORT_RULER_PROVIDER_FACTORY as ɵm, ViewportRuler as ɵl, SCROLL_DISPATCHER_PROVIDER as ɵd, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵc, Scrollable as ɵp, RippleRenderer as ɵe, MdGridAvatarCssMatStyler as ɵi, MdGridTileFooterCssMatStyler as ɵk, MdGridTileHeaderCssMatStyler as ɵj, MdGridTileText as ɵh };
 //# sourceMappingURL=material.js.map

@@ -37,22 +37,12 @@ export declare class MdDialogContainer extends BasePortalHost {
      * @param portal Portal to be attached as the dialog content.
      */
     attachTemplatePortal(portal: TemplatePortal): Map<string, any>;
-    /**
-     * Moves the focus inside the focus trap.
-     */
+    /** Moves the focus inside the focus trap. */
     private _trapFocus();
-    /**
-     * Saves a reference to the element that was focused before the dialog was opened.
-     */
+    /** Restores focus to the element that was focused before the dialog opened. */
+    private _restoreFocus();
+    /** Saves a reference to the element that was focused before the dialog was opened. */
     private _savePreviouslyFocusedElement();
-    /**
-     * Callback, invoked whenever an animation on the host completes.
-     * @docs-private
-     */
+    /** Callback, invoked whenever an animation on the host completes. */
     _onAnimationDone(event: AnimationEvent): void;
-    /**
-     * Kicks off the leave animation and restores focus to the previously-focused element.
-     * @docs-private
-     */
-    _exit(): void;
 }

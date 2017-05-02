@@ -7,7 +7,6 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { ConnectedOverlayDirective } from '../core/overlay/overlay-directives';
 import { ViewportRuler } from '../core/overlay/position/viewport-ruler';
 import { SelectionModel } from '../core/selection/selection';
-import { ScrollDispatcher } from '../core/overlay/scroll/scroll-dispatcher';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/startWith';
 /**
@@ -64,7 +63,6 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
     private _renderer;
     private _viewportRuler;
     private _changeDetectorRef;
-    private _scrollDispatcher;
     private _dir;
     _control: NgControl;
     /** Whether or not the overlay panel is open. */
@@ -75,8 +73,6 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
     private _changeSubscription;
     /** Subscription to tab events while overlay is focused. */
     private _tabSubscription;
-    /** Subscription to global scrolled events while the select is open. */
-    private _scrollSubscription;
     /** Whether filling out the select is required in the form.  */
     private _required;
     /** Whether the select is disabled.  */
@@ -168,7 +164,7 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
     onClose: EventEmitter<void>;
     /** Event emitted when the selected value has been changed by the user. */
     change: EventEmitter<MdSelectChange>;
-    constructor(_element: ElementRef, _renderer: Renderer2, _viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _scrollDispatcher: ScrollDispatcher, _dir: Dir, _control: NgControl, tabIndex: string);
+    constructor(_element: ElementRef, _renderer: Renderer2, _viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _dir: Dir, _control: NgControl, tabIndex: string);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
