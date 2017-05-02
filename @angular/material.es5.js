@@ -15,8 +15,9 @@ var __extends = (this && this.__extends) || (function () {
   */
 import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, InjectionToken, Injector, Input, NgModule, NgZone, Optional, Output, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
 import { DOCUMENT, DomSanitizer, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
-import { CommonModule, Location } from '@angular/common';
 import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/debounceTime';
+import { CommonModule, Location } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/observable/merge';
@@ -25,7 +26,7 @@ import { FormGroupDirective, FormsModule, NG_VALUE_ACCESSOR, NgControl, NgForm }
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/first';
-import { Http, HttpModule } from '@angular/http';
+import { Http } from '@angular/http';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
@@ -419,26 +420,65 @@ RtlModule.decorators = [
  */
 RtlModule.ctorParameters = function () { return []; };
 /**
+ * Factory that creates a new MutationObserver and allows us to stub it out in unit tests.
+ * \@docs-private
+ */
+var MdMutationObserverFactory = /*@__PURE__*/(function () {
+    function MdMutationObserverFactory() {
+    }
+    /**
+     * @param {?} callback
+     * @return {?}
+     */
+    MdMutationObserverFactory.prototype.create = function (callback) {
+        return new MutationObserver(callback);
+    };
+    return MdMutationObserverFactory;
+}());
+MdMutationObserverFactory.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+MdMutationObserverFactory.ctorParameters = function () { return []; };
+/**
  * Directive that triggers a callback whenever the content of
  * its associated element has changed.
  */
 var ObserveContent = /*@__PURE__*/(function () {
     /**
+     * @param {?} _mutationObserverFactory
      * @param {?} _elementRef
      */
-    function ObserveContent(_elementRef) {
+    function ObserveContent(_mutationObserverFactory, _elementRef) {
+        this._mutationObserverFactory = _mutationObserverFactory;
         this._elementRef = _elementRef;
         /**
          * Event emitted for each change in the element's content.
          */
         this.event = new EventEmitter();
+        /**
+         * Used for debouncing the emitted values to the observeContent event.
+         */
+        this._debouncer = new Subject();
     }
     /**
      * @return {?}
      */
     ObserveContent.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this._observer = new MutationObserver(function (mutations) { return mutations.forEach(function () { return _this.event.emit(); }); });
+        if (this.debounce > 0) {
+            this._debouncer
+                .debounceTime(this.debounce)
+                .subscribe(function (mutations) { return _this.event.emit(mutations); });
+        }
+        else {
+            this._debouncer.subscribe(function (mutations) { return _this.event.emit(mutations); });
+        }
+        this._observer = this._mutationObserverFactory.create(function (mutations) {
+            _this._debouncer.next(mutations);
+        });
         this._observer.observe(this._elementRef.nativeElement, {
             characterData: true,
             childList: true,
@@ -451,6 +491,8 @@ var ObserveContent = /*@__PURE__*/(function () {
     ObserveContent.prototype.ngOnDestroy = function () {
         if (this._observer) {
             this._observer.disconnect();
+            this._debouncer.complete();
+            this._debouncer = this._observer = null;
         }
     };
     return ObserveContent;
@@ -464,10 +506,12 @@ ObserveContent.decorators = [
  * @nocollapse
  */
 ObserveContent.ctorParameters = function () { return [
+    { type: MdMutationObserverFactory, },
     { type: ElementRef, },
 ]; };
 ObserveContent.propDecorators = {
     'event': [{ type: Output, args: ['cdkObserveContent',] },],
+    'debounce': [{ type: Input },],
 };
 var ObserveContentModule = /*@__PURE__*/(function () {
     function ObserveContentModule() {
@@ -477,7 +521,8 @@ var ObserveContentModule = /*@__PURE__*/(function () {
 ObserveContentModule.decorators = [
     { type: NgModule, args: [{
                 exports: [ObserveContent],
-                declarations: [ObserveContent]
+                declarations: [ObserveContent],
+                providers: [MdMutationObserverFactory]
             },] },
 ];
 /**
@@ -12835,6 +12880,32 @@ var MdIconSvgTagNotFoundError = /*@__PURE__*/(function (_super) {
     return MdIconSvgTagNotFoundError;
 }(MdError));
 /**
+ * Exception thrown when the consumer attempts to use `<md-icon>` without including \@angular/http.
+ * \@docs-private
+ */
+var MdIconNoHttpProviderError = /*@__PURE__*/(function (_super) {
+    __extends(MdIconNoHttpProviderError, _super);
+    function MdIconNoHttpProviderError() {
+        return _super.call(this, 'Could not find Http provider for use with Angular Material icons. ' +
+            'Please include the HttpModule from @angular/http in your app imports.') || this;
+    }
+    return MdIconNoHttpProviderError;
+}(MdError));
+/**
+ * Exception thrown when an invalid icon name is passed to an md-icon component.
+ * \@docs-private
+ */
+var MdIconInvalidNameError = /*@__PURE__*/(function (_super) {
+    __extends(MdIconInvalidNameError, _super);
+    /**
+     * @param {?} iconName
+     */
+    function MdIconInvalidNameError(iconName) {
+        return _super.call(this, "Invalid icon name: \"" + iconName + "\"") || this;
+    }
+    return MdIconInvalidNameError;
+}(MdError));
+/**
  * Configuration for an icon, including the URL and possibly the cached SVG element.
  * \@docs-private
  */
@@ -12848,10 +12919,6 @@ var SvgIconConfig = /*@__PURE__*/(function () {
     }
     return SvgIconConfig;
 }());
-/**
- * Returns the cache key to use for an icon namespace and name.
- */
-var iconKey = function (namespace, name) { return namespace + ':' + name; };
 /**
  * Service to register and display icons used by the <md-icon> component.
  * - Registers icon URLs by namespace and name.
@@ -13214,6 +13281,9 @@ var MdIconRegistry = /*@__PURE__*/(function () {
      */
     MdIconRegistry.prototype._fetchUrl = function (safeUrl) {
         var _this = this;
+        if (!this._http) {
+            throw new MdIconNoHttpProviderError();
+        }
         var /** @type {?} */ url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, safeUrl);
         // Store in-progress fetches to avoid sending a duplicate request for a URL when there is
         // already a request in progress for that URL. It's necessary to call share() on the
@@ -13241,9 +13311,24 @@ MdIconRegistry.decorators = [
  * @nocollapse
  */
 MdIconRegistry.ctorParameters = function () { return [
-    { type: Http, },
+    { type: Http, decorators: [{ type: Optional },] },
     { type: DomSanitizer, },
 ]; };
+/**
+ * @param {?} parentRegistry
+ * @param {?} http
+ * @param {?} sanitizer
+ * @return {?}
+ */
+function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, http, sanitizer) {
+    return parentRegistry || new MdIconRegistry(http, sanitizer);
+}
+var ICON_REGISTRY_PROVIDER = {
+    // If there is already an MdIconRegistry available, use that. Otherwise, provide a new one.
+    provide: MdIconRegistry,
+    deps: [[new Optional(), new SkipSelf(), MdIconRegistry], [new Optional(), Http], DomSanitizer],
+    useFactory: ICON_REGISTRY_PROVIDER_FACTORY
+};
 /**
  * Clones an SVGElement while preserving type information.
  * @param {?} svg
@@ -13253,18 +13338,14 @@ function cloneSvg(svg) {
     return (svg.cloneNode(true));
 }
 /**
- * Exception thrown when an invalid icon name is passed to an md-icon component.
+ * Returns the cache key to use for an icon namespace and name.
+ * @param {?} namespace
+ * @param {?} name
+ * @return {?}
  */
-var MdIconInvalidNameError = /*@__PURE__*/(function (_super) {
-    __extends(MdIconInvalidNameError, _super);
-    /**
-     * @param {?} iconName
-     */
-    function MdIconInvalidNameError(iconName) {
-        return _super.call(this, "Invalid icon name: \"" + iconName + "\"") || this;
-    }
-    return MdIconInvalidNameError;
-}(MdError));
+function iconKey(namespace, name) {
+    return namespace + ':' + name;
+}
 /**
  * Component to display an icon. It can be used in the following ways:
  * - Specify the svgSrc input to load an SVG icon from a URL. The SVG content is directly inlined
@@ -13530,21 +13611,6 @@ MdIcon.propDecorators = {
     'hostAriaLabel': [{ type: Input, args: ['aria-label',] },],
     'color': [{ type: Input },],
 };
-/**
- * @param {?} parentRegistry
- * @param {?} http
- * @param {?} sanitizer
- * @return {?}
- */
-function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, http, sanitizer) {
-    return parentRegistry || new MdIconRegistry(http, sanitizer);
-}
-var ICON_REGISTRY_PROVIDER = {
-    // If there is already an MdIconRegistry available, use that. Otherwise, provide a new one.
-    provide: MdIconRegistry,
-    deps: [[new Optional(), new SkipSelf(), MdIconRegistry], Http, DomSanitizer],
-    useFactory: ICON_REGISTRY_PROVIDER_FACTORY,
-};
 var MdIconModule = /*@__PURE__*/(function () {
     function MdIconModule() {
     }
@@ -13552,7 +13618,7 @@ var MdIconModule = /*@__PURE__*/(function () {
 }());
 MdIconModule.decorators = [
     { type: NgModule, args: [{
-                imports: [HttpModule, MdCommonModule],
+                imports: [MdCommonModule],
                 exports: [MdIcon, MdCommonModule],
                 declarations: [MdIcon],
                 providers: [ICON_REGISTRY_PROVIDER],
@@ -19613,5 +19679,5 @@ MaterialModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { Dir, RtlModule, ObserveContentModule, ObserveContent, MdOptionModule, MdOption, MdOptionSelectionChange, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ScrollDispatcher, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, MdError, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MdCoreModule, PlatformModule, Platform, getSupportedInputTypes, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, MATERIAL_SANITY_CHECKS, MdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckbox, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFabCssMatStyler, MdMiniFabCssMatStyler, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, MdDialogModule, MD_DIALOG_DATA, MdDialog, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconRegistry, MdIconInvalidNameError, MdIcon, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, MdInputContainerPlaceholderConflictError, MdInputContainerUnsupportedTypeError, MdInputContainerDuplicatedHintError, MdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_OPTION_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelect, MdSidenavModule, MdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabChangeEvent, MdTabGroup, MdTabNavBar, MdTabLink, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵf, mixinDisabled as ɵq, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵg, OVERLAY_CONTAINER_PROVIDER as ɵb, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵa, OverlayPositionBuilder as ɵo, VIEWPORT_RULER_PROVIDER as ɵn, VIEWPORT_RULER_PROVIDER_FACTORY as ɵm, ViewportRuler as ɵl, SCROLL_DISPATCHER_PROVIDER as ɵd, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵc, Scrollable as ɵp, RippleRenderer as ɵe, MdGridAvatarCssMatStyler as ɵi, MdGridTileFooterCssMatStyler as ɵk, MdGridTileHeaderCssMatStyler as ɵj, MdGridTileText as ɵh };
+export { Dir, RtlModule, ObserveContentModule, ObserveContent, MdOptionModule, MdOption, MdOptionSelectionChange, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ScrollDispatcher, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, MdError, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MdCoreModule, PlatformModule, Platform, getSupportedInputTypes, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, MATERIAL_SANITY_CHECKS, MdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckbox, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFabCssMatStyler, MdMiniFabCssMatStyler, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, MdDialogModule, MD_DIALOG_DATA, MdDialog, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIcon, MdIconNameNotFoundError, MdIconSvgTagNotFoundError, MdIconNoHttpProviderError, MdIconInvalidNameError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, MdInputContainerPlaceholderConflictError, MdInputContainerUnsupportedTypeError, MdInputContainerDuplicatedHintError, MdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_OPTION_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelect, MdSidenavModule, MdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabChangeEvent, MdTabGroup, MdTabNavBar, MdTabLink, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵg, mixinDisabled as ɵr, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵh, MdMutationObserverFactory as ɵa, OVERLAY_CONTAINER_PROVIDER as ɵc, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵb, OverlayPositionBuilder as ɵp, VIEWPORT_RULER_PROVIDER as ɵo, VIEWPORT_RULER_PROVIDER_FACTORY as ɵn, ViewportRuler as ɵm, SCROLL_DISPATCHER_PROVIDER as ɵe, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵd, Scrollable as ɵq, RippleRenderer as ɵf, MdGridAvatarCssMatStyler as ɵj, MdGridTileFooterCssMatStyler as ɵl, MdGridTileHeaderCssMatStyler as ɵk, MdGridTileText as ɵi };
 //# sourceMappingURL=material.es5.js.map

@@ -1,6 +1,6 @@
+import { Optional } from '@angular/core';
 import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import { Http } from '@angular/http';
-import { MdError } from '../core';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/observable/of';
@@ -11,21 +11,6 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-/**
- * Exception thrown when attempting to load an icon with a name that cannot be found.
- * @docs-private
- */
-export declare class MdIconNameNotFoundError extends MdError {
-    constructor(iconName: string);
-}
-/**
- * Exception thrown when attempting to load SVG content that does not contain the expected
- * <svg> tag.
- * @docs-private
- */
-export declare class MdIconSvgTagNotFoundError extends MdError {
-    constructor();
-}
 /**
  * Service to register and display icons used by the <md-icon> component.
  * - Registers icon URLs by namespace and name.
@@ -179,3 +164,9 @@ export declare class MdIconRegistry {
      */
     private _fetchUrl(safeUrl);
 }
+export declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MdIconRegistry, http: Http, sanitizer: DomSanitizer): MdIconRegistry;
+export declare const ICON_REGISTRY_PROVIDER: {
+    provide: typeof MdIconRegistry;
+    deps: (Optional[] | typeof DomSanitizer)[];
+    useFactory: (parentRegistry: MdIconRegistry, http: Http, sanitizer: DomSanitizer) => MdIconRegistry;
+};

@@ -4,10 +4,10 @@
   * License: MIT
   */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/common'), require('rxjs/Subject'), require('rxjs/Observable'), require('rxjs/add/observable/fromEvent'), require('rxjs/add/observable/merge'), require('rxjs/add/operator/auditTime'), require('@angular/forms'), require('@angular/animations'), require('rxjs/add/operator/startWith'), require('rxjs/add/operator/first'), require('@angular/http'), require('rxjs/add/observable/forkJoin'), require('rxjs/add/observable/of'), require('rxjs/add/operator/map'), require('rxjs/add/operator/filter'), require('rxjs/add/operator/do'), require('rxjs/add/operator/share'), require('rxjs/add/operator/finally'), require('rxjs/add/operator/catch'), require('rxjs/add/observable/throw'), require('rxjs/add/operator/switchMap')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', '@angular/common', 'rxjs/Subject', 'rxjs/Observable', 'rxjs/add/observable/fromEvent', 'rxjs/add/observable/merge', 'rxjs/add/operator/auditTime', '@angular/forms', '@angular/animations', 'rxjs/add/operator/startWith', 'rxjs/add/operator/first', '@angular/http', 'rxjs/add/observable/forkJoin', 'rxjs/add/observable/of', 'rxjs/add/operator/map', 'rxjs/add/operator/filter', 'rxjs/add/operator/do', 'rxjs/add/operator/share', 'rxjs/add/operator/finally', 'rxjs/add/operator/catch', 'rxjs/add/observable/throw', 'rxjs/add/operator/switchMap'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.material = global.ng.material.material || {}),global.ng.core,global.ng.platformBrowser,global.ng.common,global.Rx,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.ng.forms,global.ng.animations,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.ng.http));
-}(this, (function (exports,_angular_core,_angular_platformBrowser,_angular_common,rxjs_Subject,rxjs_Observable,rxjs_add_observable_fromEvent,rxjs_add_observable_merge,rxjs_add_operator_auditTime,_angular_forms,_angular_animations,rxjs_add_operator_startWith,rxjs_add_operator_first,_angular_http) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('rxjs/Subject'), require('rxjs/add/operator/debounceTime'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/add/observable/fromEvent'), require('rxjs/add/observable/merge'), require('rxjs/add/operator/auditTime'), require('@angular/forms'), require('@angular/animations'), require('rxjs/add/operator/startWith'), require('rxjs/add/operator/first'), require('@angular/http'), require('rxjs/add/observable/forkJoin'), require('rxjs/add/observable/of'), require('rxjs/add/operator/map'), require('rxjs/add/operator/filter'), require('rxjs/add/operator/do'), require('rxjs/add/operator/share'), require('rxjs/add/operator/finally'), require('rxjs/add/operator/catch'), require('rxjs/add/observable/throw'), require('rxjs/add/operator/switchMap')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', 'rxjs/Subject', 'rxjs/add/operator/debounceTime', '@angular/common', 'rxjs/Observable', 'rxjs/add/observable/fromEvent', 'rxjs/add/observable/merge', 'rxjs/add/operator/auditTime', '@angular/forms', '@angular/animations', 'rxjs/add/operator/startWith', 'rxjs/add/operator/first', '@angular/http', 'rxjs/add/observable/forkJoin', 'rxjs/add/observable/of', 'rxjs/add/operator/map', 'rxjs/add/operator/filter', 'rxjs/add/operator/do', 'rxjs/add/operator/share', 'rxjs/add/operator/finally', 'rxjs/add/operator/catch', 'rxjs/add/observable/throw', 'rxjs/add/operator/switchMap'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.material = global.ng.material.material || {}),global.ng.core,global.ng.platformBrowser,global.Rx,global.Rx.Observable.prototype,global.ng.common,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.ng.forms,global.ng.animations,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.ng.http));
+}(this, (function (exports,_angular_core,_angular_platformBrowser,rxjs_Subject,rxjs_add_operator_debounceTime,_angular_common,rxjs_Observable,rxjs_add_observable_fromEvent,rxjs_add_observable_merge,rxjs_add_operator_auditTime,_angular_forms,_angular_animations,rxjs_add_operator_startWith,rxjs_add_operator_first,_angular_http) { 'use strict';
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -407,26 +407,65 @@ RtlModule.decorators = [
  */
 RtlModule.ctorParameters = function () { return []; };
 /**
+ * Factory that creates a new MutationObserver and allows us to stub it out in unit tests.
+ * \@docs-private
+ */
+var MdMutationObserverFactory = (function () {
+    function MdMutationObserverFactory() {
+    }
+    /**
+     * @param {?} callback
+     * @return {?}
+     */
+    MdMutationObserverFactory.prototype.create = function (callback) {
+        return new MutationObserver(callback);
+    };
+    return MdMutationObserverFactory;
+}());
+MdMutationObserverFactory.decorators = [
+    { type: _angular_core.Injectable },
+];
+/**
+ * @nocollapse
+ */
+MdMutationObserverFactory.ctorParameters = function () { return []; };
+/**
  * Directive that triggers a callback whenever the content of
  * its associated element has changed.
  */
 var ObserveContent = (function () {
     /**
+     * @param {?} _mutationObserverFactory
      * @param {?} _elementRef
      */
-    function ObserveContent(_elementRef) {
+    function ObserveContent(_mutationObserverFactory, _elementRef) {
+        this._mutationObserverFactory = _mutationObserverFactory;
         this._elementRef = _elementRef;
         /**
          * Event emitted for each change in the element's content.
          */
         this.event = new _angular_core.EventEmitter();
+        /**
+         * Used for debouncing the emitted values to the observeContent event.
+         */
+        this._debouncer = new rxjs_Subject.Subject();
     }
     /**
      * @return {?}
      */
     ObserveContent.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this._observer = new MutationObserver(function (mutations) { return mutations.forEach(function () { return _this.event.emit(); }); });
+        if (this.debounce > 0) {
+            this._debouncer
+                .debounceTime(this.debounce)
+                .subscribe(function (mutations) { return _this.event.emit(mutations); });
+        }
+        else {
+            this._debouncer.subscribe(function (mutations) { return _this.event.emit(mutations); });
+        }
+        this._observer = this._mutationObserverFactory.create(function (mutations) {
+            _this._debouncer.next(mutations);
+        });
         this._observer.observe(this._elementRef.nativeElement, {
             characterData: true,
             childList: true,
@@ -439,6 +478,8 @@ var ObserveContent = (function () {
     ObserveContent.prototype.ngOnDestroy = function () {
         if (this._observer) {
             this._observer.disconnect();
+            this._debouncer.complete();
+            this._debouncer = this._observer = null;
         }
     };
     return ObserveContent;
@@ -452,10 +493,12 @@ ObserveContent.decorators = [
  * @nocollapse
  */
 ObserveContent.ctorParameters = function () { return [
+    { type: MdMutationObserverFactory, },
     { type: _angular_core.ElementRef, },
 ]; };
 ObserveContent.propDecorators = {
     'event': [{ type: _angular_core.Output, args: ['cdkObserveContent',] },],
+    'debounce': [{ type: _angular_core.Input },],
 };
 var ObserveContentModule = (function () {
     function ObserveContentModule() {
@@ -465,7 +508,8 @@ var ObserveContentModule = (function () {
 ObserveContentModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 exports: [ObserveContent],
-                declarations: [ObserveContent]
+                declarations: [ObserveContent],
+                providers: [MdMutationObserverFactory]
             },] },
 ];
 /**
@@ -12823,6 +12867,32 @@ var MdIconSvgTagNotFoundError = (function (_super) {
     return MdIconSvgTagNotFoundError;
 }(MdError));
 /**
+ * Exception thrown when the consumer attempts to use `<md-icon>` without including \@angular/http.
+ * \@docs-private
+ */
+var MdIconNoHttpProviderError = (function (_super) {
+    __extends(MdIconNoHttpProviderError, _super);
+    function MdIconNoHttpProviderError() {
+        return _super.call(this, 'Could not find Http provider for use with Angular Material icons. ' +
+            'Please include the HttpModule from @angular/http in your app imports.') || this;
+    }
+    return MdIconNoHttpProviderError;
+}(MdError));
+/**
+ * Exception thrown when an invalid icon name is passed to an md-icon component.
+ * \@docs-private
+ */
+var MdIconInvalidNameError = (function (_super) {
+    __extends(MdIconInvalidNameError, _super);
+    /**
+     * @param {?} iconName
+     */
+    function MdIconInvalidNameError(iconName) {
+        return _super.call(this, "Invalid icon name: \"" + iconName + "\"") || this;
+    }
+    return MdIconInvalidNameError;
+}(MdError));
+/**
  * Configuration for an icon, including the URL and possibly the cached SVG element.
  * \@docs-private
  */
@@ -12836,10 +12906,6 @@ var SvgIconConfig = (function () {
     }
     return SvgIconConfig;
 }());
-/**
- * Returns the cache key to use for an icon namespace and name.
- */
-var iconKey = function (namespace, name) { return namespace + ':' + name; };
 /**
  * Service to register and display icons used by the <md-icon> component.
  * - Registers icon URLs by namespace and name.
@@ -13202,6 +13268,9 @@ var MdIconRegistry = (function () {
      */
     MdIconRegistry.prototype._fetchUrl = function (safeUrl) {
         var _this = this;
+        if (!this._http) {
+            throw new MdIconNoHttpProviderError();
+        }
         var /** @type {?} */ url = this._sanitizer.sanitize(_angular_core.SecurityContext.RESOURCE_URL, safeUrl);
         // Store in-progress fetches to avoid sending a duplicate request for a URL when there is
         // already a request in progress for that URL. It's necessary to call share() on the
@@ -13229,9 +13298,24 @@ MdIconRegistry.decorators = [
  * @nocollapse
  */
 MdIconRegistry.ctorParameters = function () { return [
-    { type: _angular_http.Http, },
+    { type: _angular_http.Http, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_platformBrowser.DomSanitizer, },
 ]; };
+/**
+ * @param {?} parentRegistry
+ * @param {?} http
+ * @param {?} sanitizer
+ * @return {?}
+ */
+function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, http, sanitizer) {
+    return parentRegistry || new MdIconRegistry(http, sanitizer);
+}
+var ICON_REGISTRY_PROVIDER = {
+    // If there is already an MdIconRegistry available, use that. Otherwise, provide a new one.
+    provide: MdIconRegistry,
+    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), MdIconRegistry], [new _angular_core.Optional(), _angular_http.Http], _angular_platformBrowser.DomSanitizer],
+    useFactory: ICON_REGISTRY_PROVIDER_FACTORY
+};
 /**
  * Clones an SVGElement while preserving type information.
  * @param {?} svg
@@ -13241,18 +13325,14 @@ function cloneSvg(svg) {
     return (svg.cloneNode(true));
 }
 /**
- * Exception thrown when an invalid icon name is passed to an md-icon component.
+ * Returns the cache key to use for an icon namespace and name.
+ * @param {?} namespace
+ * @param {?} name
+ * @return {?}
  */
-var MdIconInvalidNameError = (function (_super) {
-    __extends(MdIconInvalidNameError, _super);
-    /**
-     * @param {?} iconName
-     */
-    function MdIconInvalidNameError(iconName) {
-        return _super.call(this, "Invalid icon name: \"" + iconName + "\"") || this;
-    }
-    return MdIconInvalidNameError;
-}(MdError));
+function iconKey(namespace, name) {
+    return namespace + ':' + name;
+}
 /**
  * Component to display an icon. It can be used in the following ways:
  * - Specify the svgSrc input to load an SVG icon from a URL. The SVG content is directly inlined
@@ -13518,21 +13598,6 @@ MdIcon.propDecorators = {
     'hostAriaLabel': [{ type: _angular_core.Input, args: ['aria-label',] },],
     'color': [{ type: _angular_core.Input },],
 };
-/**
- * @param {?} parentRegistry
- * @param {?} http
- * @param {?} sanitizer
- * @return {?}
- */
-function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, http, sanitizer) {
-    return parentRegistry || new MdIconRegistry(http, sanitizer);
-}
-var ICON_REGISTRY_PROVIDER = {
-    // If there is already an MdIconRegistry available, use that. Otherwise, provide a new one.
-    provide: MdIconRegistry,
-    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), MdIconRegistry], _angular_http.Http, _angular_platformBrowser.DomSanitizer],
-    useFactory: ICON_REGISTRY_PROVIDER_FACTORY,
-};
 var MdIconModule = (function () {
     function MdIconModule() {
     }
@@ -13540,7 +13605,7 @@ var MdIconModule = (function () {
 }());
 MdIconModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [_angular_http.HttpModule, MdCommonModule],
+                imports: [MdCommonModule],
                 exports: [MdIcon, MdCommonModule],
                 declarations: [MdIcon],
                 providers: [ICON_REGISTRY_PROVIDER],
@@ -19756,9 +19821,12 @@ exports.MdGridListModule = MdGridListModule;
 exports.MdGridTile = MdGridTile;
 exports.MdGridList = MdGridList;
 exports.MdIconModule = MdIconModule;
-exports.MdIconRegistry = MdIconRegistry;
-exports.MdIconInvalidNameError = MdIconInvalidNameError;
 exports.MdIcon = MdIcon;
+exports.MdIconNameNotFoundError = MdIconNameNotFoundError;
+exports.MdIconSvgTagNotFoundError = MdIconSvgTagNotFoundError;
+exports.MdIconNoHttpProviderError = MdIconNoHttpProviderError;
+exports.MdIconInvalidNameError = MdIconInvalidNameError;
+exports.MdIconRegistry = MdIconRegistry;
 exports.ICON_REGISTRY_PROVIDER_FACTORY = ICON_REGISTRY_PROVIDER_FACTORY;
 exports.ICON_REGISTRY_PROVIDER = ICON_REGISTRY_PROVIDER;
 exports.MdInputModule = MdInputModule;
@@ -19865,23 +19933,24 @@ exports.TOUCHEND_HIDE_DELAY = TOUCHEND_HIDE_DELAY;
 exports.SCROLL_THROTTLE_MS = SCROLL_THROTTLE_MS;
 exports.MdTooltip = MdTooltip;
 exports.TooltipComponent = TooltipComponent;
-exports.ɵf = LIVE_ANNOUNCER_PROVIDER_FACTORY;
-exports.ɵq = mixinDisabled;
-exports.ɵg = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
-exports.ɵb = OVERLAY_CONTAINER_PROVIDER;
-exports.ɵa = OVERLAY_CONTAINER_PROVIDER_FACTORY;
-exports.ɵo = OverlayPositionBuilder;
-exports.ɵn = VIEWPORT_RULER_PROVIDER;
-exports.ɵm = VIEWPORT_RULER_PROVIDER_FACTORY;
-exports.ɵl = ViewportRuler;
-exports.ɵd = SCROLL_DISPATCHER_PROVIDER;
-exports.ɵc = SCROLL_DISPATCHER_PROVIDER_FACTORY;
-exports.ɵp = Scrollable;
-exports.ɵe = RippleRenderer;
-exports.ɵi = MdGridAvatarCssMatStyler;
-exports.ɵk = MdGridTileFooterCssMatStyler;
-exports.ɵj = MdGridTileHeaderCssMatStyler;
-exports.ɵh = MdGridTileText;
+exports.ɵg = LIVE_ANNOUNCER_PROVIDER_FACTORY;
+exports.ɵr = mixinDisabled;
+exports.ɵh = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
+exports.ɵa = MdMutationObserverFactory;
+exports.ɵc = OVERLAY_CONTAINER_PROVIDER;
+exports.ɵb = OVERLAY_CONTAINER_PROVIDER_FACTORY;
+exports.ɵp = OverlayPositionBuilder;
+exports.ɵo = VIEWPORT_RULER_PROVIDER;
+exports.ɵn = VIEWPORT_RULER_PROVIDER_FACTORY;
+exports.ɵm = ViewportRuler;
+exports.ɵe = SCROLL_DISPATCHER_PROVIDER;
+exports.ɵd = SCROLL_DISPATCHER_PROVIDER_FACTORY;
+exports.ɵq = Scrollable;
+exports.ɵf = RippleRenderer;
+exports.ɵj = MdGridAvatarCssMatStyler;
+exports.ɵl = MdGridTileFooterCssMatStyler;
+exports.ɵk = MdGridTileHeaderCssMatStyler;
+exports.ɵi = MdGridTileText;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

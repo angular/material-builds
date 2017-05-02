@@ -1,12 +1,5 @@
-import { ElementRef, OnChanges, OnInit, Renderer2, SimpleChange, AfterViewChecked, Optional } from '@angular/core';
-import { Http } from '@angular/http';
-import { DomSanitizer } from '@angular/platform-browser';
-import { MdError } from '../core';
+import { ElementRef, OnChanges, OnInit, Renderer2, SimpleChange, AfterViewChecked } from '@angular/core';
 import { MdIconRegistry } from './icon-registry';
-/** Exception thrown when an invalid icon name is passed to an md-icon component. */
-export declare class MdIconInvalidNameError extends MdError {
-    constructor(iconName: string);
-}
 /**
  * Component to display an icon. It can be used in the following ways:
  * - Specify the svgSrc input to load an SVG icon from a URL. The SVG content is directly inlined
@@ -88,9 +81,3 @@ export declare class MdIcon implements OnChanges, OnInit, AfterViewChecked {
     private _setSvgElement(svg);
     private _updateFontIconClasses();
 }
-export declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MdIconRegistry, http: Http, sanitizer: DomSanitizer): MdIconRegistry;
-export declare const ICON_REGISTRY_PROVIDER: {
-    provide: typeof MdIconRegistry;
-    deps: (Optional[] | typeof Http | typeof DomSanitizer)[];
-    useFactory: (parentRegistry: MdIconRegistry, http: Http, sanitizer: DomSanitizer) => MdIconRegistry;
-};
