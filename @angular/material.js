@@ -16402,26 +16402,26 @@ class MdMenuMissingError extends MdError {
     }
 }
 /**
- * Exception thrown when menu's x-position value isn't valid.
+ * Exception thrown when menu's xPosition value isn't valid.
  * In other words, it doesn't match 'before' or 'after'.
  * \@docs-private
  */
 class MdMenuInvalidPositionX extends MdError {
     constructor() {
-        super(`x-position value must be either 'before' or after'.
-      Example: <md-menu x-position="before" #menu="mdMenu"></md-menu>
+        super(`xPosition value must be either 'before' or after'.
+      Example: <md-menu xPosition="before" #menu="mdMenu"></md-menu>
     `);
     }
 }
 /**
- * Exception thrown when menu's y-position value isn't valid.
+ * Exception thrown when menu's yPosition value isn't valid.
  * In other words, it doesn't match 'above' or 'below'.
  * \@docs-private
  */
 class MdMenuInvalidPositionY extends MdError {
     constructor() {
-        super(`y-position value must be either 'above' or below'.
-      Example: <md-menu y-position="above" #menu="mdMenu"></md-menu>
+        super(`yPosition value must be either 'above' or below'.
+      Example: <md-menu yPosition="above" #menu="mdMenu"></md-menu>
     `);
     }
 }
@@ -16560,53 +16560,60 @@ const fadeInItems = trigger('fadeInItems', [
 
 // TODO(kara): prevent-close functionality
 class MdMenu {
-    /**
-     * @param {?} posX
-     * @param {?} posY
-     * @param {?} deprecatedPosX
-     * @param {?} deprecatedPosY
-     */
-    constructor(posX, posY, deprecatedPosX, deprecatedPosY) {
+    constructor() {
+        this._xPosition = 'after';
+        this._yPosition = 'below';
         /**
          * Config object to be passed into the menu's ngClass
          */
         this._classList = {};
         /**
-         * Position of the menu in the X axis.
+         * Whether the menu should overlap its trigger.
          */
-        this.positionX = 'after';
-        /**
-         * Position of the menu in the Y axis.
-         */
-        this.positionY = 'below';
         this.overlapTrigger = true;
         /**
          * Event emitted when the menu is closed.
          */
         this.close = new EventEmitter();
-        // TODO(kara): Remove kebab-case attributes after next release
-        if (deprecatedPosX) {
-            this._setPositionX(deprecatedPosX);
+    }
+    /**
+     * Position of the menu in the X axis.
+     * @return {?}
+     */
+    get xPosition() { return this._xPosition; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set xPosition(value) {
+        if (value !== 'before' && value !== 'after') {
+            throw new MdMenuInvalidPositionX();
         }
-        if (deprecatedPosY) {
-            this._setPositionY(deprecatedPosY);
+        this._xPosition = value;
+        this.setPositionClasses();
+    }
+    /**
+     * Position of the menu in the Y axis.
+     * @return {?}
+     */
+    get yPosition() { return this._yPosition; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set yPosition(value) {
+        if (value !== 'above' && value !== 'below') {
+            throw new MdMenuInvalidPositionY();
         }
-        if (posX) {
-            this._setPositionX(posX);
-        }
-        if (posY) {
-            this._setPositionY(posY);
-        }
-        this.setPositionClasses(this.positionX, this.positionY);
+        this._yPosition = value;
+        this.setPositionClasses();
     }
     /**
      * @return {?}
      */
     ngAfterContentInit() {
         this._keyManager = new FocusKeyManager(this.items).withWrap();
-        this._tabSubscription = this._keyManager.tabOut.subscribe(() => {
-            this._emitCloseEvent();
-        });
+        this._tabSubscription = this._keyManager.tabOut.subscribe(() => this._emitCloseEvent());
     }
     /**
      * @return {?}
@@ -16628,7 +16635,7 @@ class MdMenu {
             obj[className] = true;
             return obj;
         }, {});
-        this.setPositionClasses(this.positionX, this.positionY);
+        this.setPositionClasses();
     }
     /**
      * Focus the first item in the menu. This method is used by the menu trigger
@@ -16647,37 +16654,17 @@ class MdMenu {
         this.close.emit();
     }
     /**
-     * @param {?} pos
-     * @return {?}
-     */
-    _setPositionX(pos) {
-        if (pos !== 'before' && pos !== 'after') {
-            throw new MdMenuInvalidPositionX();
-        }
-        this.positionX = pos;
-    }
-    /**
-     * @param {?} pos
-     * @return {?}
-     */
-    _setPositionY(pos) {
-        if (pos !== 'above' && pos !== 'below') {
-            throw new MdMenuInvalidPositionY();
-        }
-        this.positionY = pos;
-    }
-    /**
      * It's necessary to set position-based classes to ensure the menu panel animation
      * folds out from the correct direction.
-     * @param {?} posX
-     * @param {?} posY
+     * @param {?=} posX
+     * @param {?=} posY
      * @return {?}
      */
-    setPositionClasses(posX, posY) {
-        this._classList['mat-menu-before'] = posX == 'before';
-        this._classList['mat-menu-after'] = posX == 'after';
-        this._classList['mat-menu-above'] = posY == 'above';
-        this._classList['mat-menu-below'] = posY == 'below';
+    setPositionClasses(posX = this.xPosition, posY = this.yPosition) {
+        this._classList['mat-menu-before'] = posX === 'before';
+        this._classList['mat-menu-after'] = posX === 'after';
+        this._classList['mat-menu-above'] = posY === 'above';
+        this._classList['mat-menu-below'] = posY === 'below';
     }
 }
 MdMenu.decorators = [
@@ -16696,13 +16683,10 @@ MdMenu.decorators = [
 /**
  * @nocollapse
  */
-MdMenu.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Attribute, args: ['xPosition',] },] },
-    { type: undefined, decorators: [{ type: Attribute, args: ['yPosition',] },] },
-    { type: undefined, decorators: [{ type: Attribute, args: ['x-position',] },] },
-    { type: undefined, decorators: [{ type: Attribute, args: ['y-position',] },] },
-];
+MdMenu.ctorParameters = () => [];
 MdMenu.propDecorators = {
+    'xPosition': [{ type: Input },],
+    'yPosition': [{ type: Input },],
     'templateRef': [{ type: ViewChild, args: [TemplateRef,] },],
     'items': [{ type: ContentChildren, args: [MdMenuItem,] },],
     'overlapTrigger': [{ type: Input },],
@@ -16944,8 +16928,8 @@ class MdMenuTrigger {
      * @return {?} ConnectedPositionStrategy
      */
     _getPosition() {
-        const [posX, fallbackX] = this.menu.positionX === 'before' ? ['end', 'start'] : ['start', 'end'];
-        const [overlayY, fallbackOverlayY] = this.menu.positionY === 'above' ? ['bottom', 'top'] : ['top', 'bottom'];
+        const [posX, fallbackX] = this.menu.xPosition === 'before' ? ['end', 'start'] : ['start', 'end'];
+        const [overlayY, fallbackOverlayY] = this.menu.yPosition === 'above' ? ['bottom', 'top'] : ['top', 'bottom'];
         let /** @type {?} */ originY = overlayY;
         let /** @type {?} */ fallbackOriginY = fallbackOverlayY;
         if (!this.menu.overlapTrigger) {

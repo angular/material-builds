@@ -17527,26 +17527,26 @@ var MdMenuMissingError = /*@__PURE__*/(function (_super) {
     return MdMenuMissingError;
 }(MdError));
 /**
- * Exception thrown when menu's x-position value isn't valid.
+ * Exception thrown when menu's xPosition value isn't valid.
  * In other words, it doesn't match 'before' or 'after'.
  * \@docs-private
  */
 var MdMenuInvalidPositionX = /*@__PURE__*/(function (_super) {
     __extends(MdMenuInvalidPositionX, _super);
     function MdMenuInvalidPositionX() {
-        return _super.call(this, "x-position value must be either 'before' or after'.\n      Example: <md-menu x-position=\"before\" #menu=\"mdMenu\"></md-menu>\n    ") || this;
+        return _super.call(this, "xPosition value must be either 'before' or after'.\n      Example: <md-menu xPosition=\"before\" #menu=\"mdMenu\"></md-menu>\n    ") || this;
     }
     return MdMenuInvalidPositionX;
 }(MdError));
 /**
- * Exception thrown when menu's y-position value isn't valid.
+ * Exception thrown when menu's yPosition value isn't valid.
  * In other words, it doesn't match 'above' or 'below'.
  * \@docs-private
  */
 var MdMenuInvalidPositionY = /*@__PURE__*/(function (_super) {
     __extends(MdMenuInvalidPositionY, _super);
     function MdMenuInvalidPositionY() {
-        return _super.call(this, "y-position value must be either 'above' or below'.\n      Example: <md-menu y-position=\"above\" #menu=\"mdMenu\"></md-menu>\n    ") || this;
+        return _super.call(this, "yPosition value must be either 'above' or below'.\n      Example: <md-menu yPosition=\"above\" #menu=\"mdMenu\"></md-menu>\n    ") || this;
     }
     return MdMenuInvalidPositionY;
 }(MdError));
@@ -17687,54 +17687,69 @@ var fadeInItems = trigger('fadeInItems', [
 ]);
 // TODO(kara): prevent-close functionality
 var MdMenu = /*@__PURE__*/(function () {
-    /**
-     * @param {?} posX
-     * @param {?} posY
-     * @param {?} deprecatedPosX
-     * @param {?} deprecatedPosY
-     */
-    function MdMenu(posX, posY, deprecatedPosX, deprecatedPosY) {
+    function MdMenu() {
+        this._xPosition = 'after';
+        this._yPosition = 'below';
         /**
          * Config object to be passed into the menu's ngClass
          */
         this._classList = {};
         /**
-         * Position of the menu in the X axis.
+         * Whether the menu should overlap its trigger.
          */
-        this.positionX = 'after';
-        /**
-         * Position of the menu in the Y axis.
-         */
-        this.positionY = 'below';
         this.overlapTrigger = true;
         /**
          * Event emitted when the menu is closed.
          */
         this.close = new EventEmitter();
-        // TODO(kara): Remove kebab-case attributes after next release
-        if (deprecatedPosX) {
-            this._setPositionX(deprecatedPosX);
-        }
-        if (deprecatedPosY) {
-            this._setPositionY(deprecatedPosY);
-        }
-        if (posX) {
-            this._setPositionX(posX);
-        }
-        if (posY) {
-            this._setPositionY(posY);
-        }
-        this.setPositionClasses(this.positionX, this.positionY);
     }
+    Object.defineProperty(MdMenu.prototype, "xPosition", {
+        /**
+         * Position of the menu in the X axis.
+         * @return {?}
+         */
+        get: function () { return this._xPosition; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            if (value !== 'before' && value !== 'after') {
+                throw new MdMenuInvalidPositionX();
+            }
+            this._xPosition = value;
+            this.setPositionClasses();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdMenu.prototype, "yPosition", {
+        /**
+         * Position of the menu in the Y axis.
+         * @return {?}
+         */
+        get: function () { return this._yPosition; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            if (value !== 'above' && value !== 'below') {
+                throw new MdMenuInvalidPositionY();
+            }
+            this._yPosition = value;
+            this.setPositionClasses();
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @return {?}
      */
     MdMenu.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._keyManager = new FocusKeyManager(this.items).withWrap();
-        this._tabSubscription = this._keyManager.tabOut.subscribe(function () {
-            _this._emitCloseEvent();
-        });
+        this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this._emitCloseEvent(); });
     };
     /**
      * @return {?}
@@ -17757,7 +17772,7 @@ var MdMenu = /*@__PURE__*/(function () {
                 obj[className] = true;
                 return obj;
             }, {});
-            this.setPositionClasses(this.positionX, this.positionY);
+            this.setPositionClasses();
         },
         enumerable: true,
         configurable: true
@@ -17779,37 +17794,19 @@ var MdMenu = /*@__PURE__*/(function () {
         this.close.emit();
     };
     /**
-     * @param {?} pos
-     * @return {?}
-     */
-    MdMenu.prototype._setPositionX = function (pos) {
-        if (pos !== 'before' && pos !== 'after') {
-            throw new MdMenuInvalidPositionX();
-        }
-        this.positionX = pos;
-    };
-    /**
-     * @param {?} pos
-     * @return {?}
-     */
-    MdMenu.prototype._setPositionY = function (pos) {
-        if (pos !== 'above' && pos !== 'below') {
-            throw new MdMenuInvalidPositionY();
-        }
-        this.positionY = pos;
-    };
-    /**
      * It's necessary to set position-based classes to ensure the menu panel animation
      * folds out from the correct direction.
-     * @param {?} posX
-     * @param {?} posY
+     * @param {?=} posX
+     * @param {?=} posY
      * @return {?}
      */
     MdMenu.prototype.setPositionClasses = function (posX, posY) {
-        this._classList['mat-menu-before'] = posX == 'before';
-        this._classList['mat-menu-after'] = posX == 'after';
-        this._classList['mat-menu-above'] = posY == 'above';
-        this._classList['mat-menu-below'] = posY == 'below';
+        if (posX === void 0) { posX = this.xPosition; }
+        if (posY === void 0) { posY = this.yPosition; }
+        this._classList['mat-menu-before'] = posX === 'before';
+        this._classList['mat-menu-after'] = posX === 'after';
+        this._classList['mat-menu-above'] = posY === 'above';
+        this._classList['mat-menu-below'] = posY === 'below';
     };
     return MdMenu;
 }());
@@ -17829,13 +17826,10 @@ MdMenu.decorators = [
 /**
  * @nocollapse
  */
-MdMenu.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: Attribute, args: ['xPosition',] },] },
-    { type: undefined, decorators: [{ type: Attribute, args: ['yPosition',] },] },
-    { type: undefined, decorators: [{ type: Attribute, args: ['x-position',] },] },
-    { type: undefined, decorators: [{ type: Attribute, args: ['y-position',] },] },
-]; };
+MdMenu.ctorParameters = function () { return []; };
 MdMenu.propDecorators = {
+    'xPosition': [{ type: Input },],
+    'yPosition': [{ type: Input },],
     'templateRef': [{ type: ViewChild, args: [TemplateRef,] },],
     'items': [{ type: ContentChildren, args: [MdMenuItem,] },],
     'overlapTrigger': [{ type: Input },],
@@ -18099,8 +18093,8 @@ var MdMenuTrigger = /*@__PURE__*/(function () {
      * @return {?} ConnectedPositionStrategy
      */
     MdMenuTrigger.prototype._getPosition = function () {
-        var _a = this.menu.positionX === 'before' ? ['end', 'start'] : ['start', 'end'], posX = _a[0], fallbackX = _a[1];
-        var _b = this.menu.positionY === 'above' ? ['bottom', 'top'] : ['top', 'bottom'], overlayY = _b[0], fallbackOverlayY = _b[1];
+        var _a = this.menu.xPosition === 'before' ? ['end', 'start'] : ['start', 'end'], posX = _a[0], fallbackX = _a[1];
+        var _b = this.menu.yPosition === 'above' ? ['bottom', 'top'] : ['top', 'bottom'], overlayY = _b[0], fallbackOverlayY = _b[1];
         var /** @type {?} */ originY = overlayY;
         var /** @type {?} */ fallbackOriginY = fallbackOverlayY;
         if (!this.menu.overlapTrigger) {
