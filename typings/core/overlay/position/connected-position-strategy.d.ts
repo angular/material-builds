@@ -128,12 +128,8 @@ export declare class ConnectedPositionStrategy implements PositionStrategy {
     private isElementOutsideView(elementBounds, containersBounds);
     /** Whether the element is clipped by any of the containers. */
     private isElementClipped(elementBounds, containersBounds);
-    /**
-     * Physically positions the overlay element to the given coordinate.
-     * @param element
-     * @param overlayPoint
-     */
-    private _setElementPosition(element, overlayPoint);
+    /** Physically positions the overlay element to the given coordinate. */
+    private _setElementPosition(element, overlayRect, overlayPoint, pos);
     /** Returns the bounding positions of the provided element with respect to the viewport. */
     private _getElementBounds(element);
     /**
