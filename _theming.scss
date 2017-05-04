@@ -1466,7 +1466,7 @@ $mat-menu-icon-margin: 16px !default;
 
 @mixin _mat-pseudo-checkbox-inner-content-theme($theme, $pallete-name) {
   $pallete: map-get($theme, $pallete-name);
-  $color: mat-color($pallete, 500);
+  $color: mat-color($pallete);
 
   .mat-pseudo-checkbox-checked.mat-#{$pallete-name},
   .mat-pseudo-checkbox-indeterminate.mat-#{$pallete-name},
@@ -1785,15 +1785,15 @@ $mat-menu-icon-margin: 16px !default;
 
   .mat-checkbox-indeterminate, .mat-checkbox-checked {
     &.mat-primary .mat-checkbox-background {
-      background-color: mat-color($primary, 500);
+      background-color: mat-color($primary);
     }
 
     &.mat-accent .mat-checkbox-background {
-      background-color: mat-color($accent, 500);
+      background-color: mat-color($accent);
     }
 
     &.mat-warn .mat-checkbox-background {
-      background-color: mat-color($warn, 500);
+      background-color: mat-color($warn);
     }
   }
 
@@ -1860,18 +1860,18 @@ $mat-menu-icon-margin: 16px !default;
     color: $selected-foreground;
 
     &.mat-primary {
-      background-color: mat-color($primary, 500);
-      color: mat-contrast($primary, 500);
+      background-color: mat-color($primary);
+      color: mat-color($primary, default-contrast);
     }
 
     &.mat-accent {
-      background-color: mat-color($accent, 500);
-      color: mat-contrast($accent, 500);
+      background-color: mat-color($accent);
+      color: mat-color($accent, default-contrast);
     }
 
     &.mat-warn {
-      background-color: mat-color($warn, 500);
-      color: mat-contrast($warn, 500);
+      background-color: mat-color($warn);
+      color: mat-color($warn, default-contrast);
     }
   }
 }
@@ -2517,7 +2517,7 @@ $mat-menu-icon-margin: 16px !default;
   $warn: map-get($theme, warn);
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
-  $header-border: 1px solid mat-color($background, status-bar);
+  $header-border: 1px solid mat-color($foreground, divider);
 
   .mat-tab-nav-bar,
   .mat-tab-header {
@@ -2533,15 +2533,15 @@ $mat-menu-icon-margin: 16px !default;
   }
 
   .mat-tab-label:focus {
-    background-color: mat-color($primary, 100, 0.3);
+    background-color: mat-color($primary, lighter, 0.3);
   }
 
   .mat-ink-bar {
-    background-color: mat-color($primary, 500);
+    background-color: mat-color($primary);
   }
 
   .mat-tab-label, .mat-tab-link {
-    color: currentColor;
+    color: mat-color($foreground, text);
 
     &.mat-tab-disabled {
       color: mat-color($foreground, disabled-text);
