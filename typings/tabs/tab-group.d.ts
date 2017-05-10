@@ -29,6 +29,9 @@ export declare class MdTabGroup {
     dynamicHeight: boolean;
     /** @deprecated */
     _dynamicHeightDeprecated: boolean;
+    /** Whether ripples for the tab-group should be disabled or not. */
+    disableRipple: boolean;
+    private _disableRipple;
     private _selectedIndex;
     /** The index of the active tab. */
     selectedIndex: number;

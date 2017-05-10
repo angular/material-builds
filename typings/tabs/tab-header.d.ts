@@ -52,6 +52,9 @@ export declare class MdTabHeader implements AfterContentChecked, AfterContentIni
     private _selectedIndex;
     /** The index of the active tab. */
     selectedIndex: number;
+    /** Whether ripples for the tab-header labels should be disabled or not. */
+    disableRipple: boolean;
+    private _disableRipple;
     /** Event emitted when the option is selected. */
     selectFocusedIndex: EventEmitter<{}>;
     /** Event emitted when a label is focused. */
