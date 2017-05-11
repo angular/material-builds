@@ -6,17 +6,6 @@ import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { Scrollable } from '../scroll/scrollable';
 /**
- * Container to hold the bounding positions of a particular element with respect to the viewport,
- * where top and bottom are the y-axis coordinates of the bounding rectangle and left and right are
- * the x-axis coordinates.
- */
-export declare type ElementBoundingPositions = {
-    top: number;
-    right: number;
-    bottom: number;
-    left: number;
-};
-/**
  * A strategy for positioning overlays. Using this strategy, an overlay is given an
  * implicit position relative some origin element. The relative position is defined in terms of
  * a point on the origin element that is connected to a point on the overlay element. For example,
