@@ -3595,10 +3595,10 @@ class Platform {
          */
         this.EDGE = /(edge)/i.test(navigator.userAgent);
         this.TRIDENT = /(msie|trident)/i.test(navigator.userAgent);
-        // EdgeHTML and Trident mock Blink specific things and need to excluded from this check.
+        // EdgeHTML and Trident mock Blink specific things and need to be excluded from this check.
         this.BLINK = !!(window.chrome || hasV8BreakIterator) && !!CSS && !this.EDGE && !this.TRIDENT;
-        // Webkit is part of the userAgent in EdgeHTML Blink and Trident, so we need to
-        // ensure that Webkit runs standalone and is not use as another engines base.
+        // Webkit is part of the userAgent in EdgeHTML, Blink and Trident. Therefore we need to
+        // ensure that Webkit runs standalone and is not used as another engine's base.
         this.WEBKIT = /AppleWebKit/i.test(navigator.userAgent) && !this.BLINK && !this.EDGE && !this.TRIDENT;
         /**
          * Browsers and Platform Types
