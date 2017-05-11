@@ -15373,14 +15373,16 @@ var MdSnackBarContainer = /*@__PURE__*/(function (_super) {
      * @return {?}
      */
     MdSnackBarContainer.prototype.onAnimationEnd = function (event) {
-        var _this = this;
         if (event.toState === 'void' || event.toState === 'complete') {
             this._completeExit();
         }
         if (event.toState === 'visible') {
+            // Note: we shouldn't use `this` inside the zone callback,
+            // because it can cause a memory leak.
+            var /** @type {?} */ onEnter_1 = this.onEnter;
             this._ngZone.run(function () {
-                _this.onEnter.next();
-                _this.onEnter.complete();
+                onEnter_1.next();
+                onEnter_1.complete();
             });
         }
     };
@@ -15427,10 +15429,12 @@ var MdSnackBarContainer = /*@__PURE__*/(function (_super) {
      * @return {?}
      */
     MdSnackBarContainer.prototype._completeExit = function () {
-        var _this = this;
+        // Note: we shouldn't use `this` inside the zone callback,
+        // because it can cause a memory leak.
+        var /** @type {?} */ onExit = this.onExit;
         this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
-            _this.onExit.next();
-            _this.onExit.complete();
+            onExit.next();
+            onExit.complete();
         });
     };
     return MdSnackBarContainer;

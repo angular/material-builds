@@ -14389,9 +14389,12 @@ class MdSnackBarContainer extends BasePortalHost {
             this._completeExit();
         }
         if (event.toState === 'visible') {
+            // Note: we shouldn't use `this` inside the zone callback,
+            // because it can cause a memory leak.
+            const /** @type {?} */ onEnter = this.onEnter;
             this._ngZone.run(() => {
-                this.onEnter.next();
-                this.onEnter.complete();
+                onEnter.next();
+                onEnter.complete();
             });
         }
     }
@@ -14438,9 +14441,12 @@ class MdSnackBarContainer extends BasePortalHost {
      * @return {?}
      */
     _completeExit() {
+        // Note: we shouldn't use `this` inside the zone callback,
+        // because it can cause a memory leak.
+        const /** @type {?} */ onExit = this.onExit;
         this._ngZone.onMicrotaskEmpty.first().subscribe(() => {
-            this.onExit.next();
-            this.onExit.complete();
+            onExit.next();
+            onExit.complete();
         });
     }
 }
