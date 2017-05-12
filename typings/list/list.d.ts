@@ -67,4 +67,6 @@ export declare class MdListItem implements AfterContentInit {
     isRippleEnabled(): boolean;
     _handleFocus(): void;
     _handleBlur(): void;
+    /** Retrieves the DOM element of the component host. */
+    _getHostElement(): HTMLElement;
 }
