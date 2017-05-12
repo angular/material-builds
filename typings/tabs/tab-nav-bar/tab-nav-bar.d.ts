@@ -2,7 +2,7 @@ import { ElementRef, NgZone, OnDestroy, AfterContentInit } from '@angular/core';
 import { MdInkBar } from '../ink-bar';
 import { MdRipple } from '../../core/ripple/index';
 import { ViewportRuler } from '../../core/overlay/position/viewport-ruler';
-import { RippleGlobalOptions, Dir } from '../../core';
+import { RippleGlobalOptions, Dir, Platform } from '../../core';
 import 'rxjs/add/operator/auditTime';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/merge';
@@ -44,5 +44,5 @@ export declare class MdTabLink {
  * adds the ripple behavior to nav bar labels.
  */
 export declare class MdTabLinkRipple extends MdRipple {
-    constructor(elementRef: ElementRef, ngZone: NgZone, ruler: ViewportRuler, globalOptions: RippleGlobalOptions);
+    constructor(elementRef: ElementRef, ngZone: NgZone, ruler: ViewportRuler, platform: Platform, globalOptions: RippleGlobalOptions);
 }

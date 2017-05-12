@@ -9,6 +9,7 @@ import { ViewportRuler } from '../core/overlay/position/viewport-ruler';
 import { SelectionModel } from '../core/selection/selection';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/filter';
 /**
  * The following style constants are necessary to save here in order
  * to properly calculate the alignment of the selected option over

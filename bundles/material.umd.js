@@ -1,13 +1,13 @@
 /**
-  * @license Angular Material v2.0.0-beta.3
+  * @license Angular Material v2.0.0-beta.4
   * Copyright (c) 2017 Google, Inc. https://material.angular.io/
   * License: MIT
   */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('rxjs/Subject'), require('rxjs/add/operator/debounceTime'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/add/observable/fromEvent'), require('rxjs/add/observable/merge'), require('rxjs/add/operator/auditTime'), require('rxjs/add/operator/first'), require('@angular/forms'), require('@angular/animations'), require('rxjs/add/operator/startWith'), require('@angular/http'), require('rxjs/add/observable/forkJoin'), require('rxjs/add/observable/of'), require('rxjs/add/operator/map'), require('rxjs/add/operator/filter'), require('rxjs/add/operator/do'), require('rxjs/add/operator/share'), require('rxjs/add/operator/finally'), require('rxjs/add/operator/catch'), require('rxjs/add/observable/throw'), require('rxjs/add/operator/switchMap')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', 'rxjs/Subject', 'rxjs/add/operator/debounceTime', '@angular/common', 'rxjs/Observable', 'rxjs/add/observable/fromEvent', 'rxjs/add/observable/merge', 'rxjs/add/operator/auditTime', 'rxjs/add/operator/first', '@angular/forms', '@angular/animations', 'rxjs/add/operator/startWith', '@angular/http', 'rxjs/add/observable/forkJoin', 'rxjs/add/observable/of', 'rxjs/add/operator/map', 'rxjs/add/operator/filter', 'rxjs/add/operator/do', 'rxjs/add/operator/share', 'rxjs/add/operator/finally', 'rxjs/add/operator/catch', 'rxjs/add/observable/throw', 'rxjs/add/operator/switchMap'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.material = global.ng.material.material || {}),global.ng.core,global.ng.platformBrowser,global.Rx,global.Rx.Observable.prototype,global.ng.common,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.ng.forms,global.ng.animations,global.Rx.Observable.prototype,global.ng.http));
-}(this, (function (exports,_angular_core,_angular_platformBrowser,rxjs_Subject,rxjs_add_operator_debounceTime,_angular_common,rxjs_Observable,rxjs_add_observable_fromEvent,rxjs_add_observable_merge,rxjs_add_operator_auditTime,rxjs_add_operator_first,_angular_forms,_angular_animations,rxjs_add_operator_startWith,_angular_http) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('rxjs/Subject'), require('rxjs/add/operator/debounceTime'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/Subscription'), require('rxjs/add/observable/fromEvent'), require('rxjs/add/observable/merge'), require('rxjs/add/operator/auditTime'), require('rxjs/add/operator/first'), require('@angular/forms'), require('@angular/animations'), require('rxjs/add/operator/startWith'), require('rxjs/add/operator/filter'), require('@angular/http'), require('rxjs/add/observable/forkJoin'), require('rxjs/add/observable/of'), require('rxjs/add/operator/map'), require('rxjs/add/operator/do'), require('rxjs/add/operator/share'), require('rxjs/add/operator/finally'), require('rxjs/add/operator/catch'), require('rxjs/add/observable/throw'), require('rxjs/add/operator/switchMap')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', 'rxjs/Subject', 'rxjs/add/operator/debounceTime', '@angular/common', 'rxjs/Observable', 'rxjs/Subscription', 'rxjs/add/observable/fromEvent', 'rxjs/add/observable/merge', 'rxjs/add/operator/auditTime', 'rxjs/add/operator/first', '@angular/forms', '@angular/animations', 'rxjs/add/operator/startWith', 'rxjs/add/operator/filter', '@angular/http', 'rxjs/add/observable/forkJoin', 'rxjs/add/observable/of', 'rxjs/add/operator/map', 'rxjs/add/operator/do', 'rxjs/add/operator/share', 'rxjs/add/operator/finally', 'rxjs/add/operator/catch', 'rxjs/add/observable/throw', 'rxjs/add/operator/switchMap'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.material = global.ng.material.material || {}),global.ng.core,global.ng.platformBrowser,global.Rx,global.Rx.Observable.prototype,global.ng.common,global.Rx,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.ng.forms,global.ng.animations,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.ng.http));
+}(this, (function (exports,_angular_core,_angular_platformBrowser,rxjs_Subject,rxjs_add_operator_debounceTime,_angular_common,rxjs_Observable,rxjs_Subscription,rxjs_add_observable_fromEvent,rxjs_add_observable_merge,rxjs_add_operator_auditTime,rxjs_add_operator_first,_angular_forms,_angular_animations,rxjs_add_operator_startWith,rxjs_add_operator_filter,_angular_http) { 'use strict';
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -20,7 +20,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 /**
-  * @license Angular Material v2.0.0-beta.3
+  * @license Angular Material v2.0.0-beta.4
   * Copyright (c) 2017 Google, Inc. https://material.angular.io/
   * License: MIT
   */
@@ -595,11 +595,12 @@ var RIPPLE_FADE_OUT_DURATION = 400;
  */
 var RippleRenderer = (function () {
     /**
-     * @param {?} _elementRef
+     * @param {?} elementRef
      * @param {?} _ngZone
      * @param {?} _ruler
+     * @param {?} platform
      */
-    function RippleRenderer(_elementRef, _ngZone, _ruler) {
+    function RippleRenderer(elementRef, _ngZone, _ruler, platform) {
         this._ngZone = _ngZone;
         this._ruler = _ruler;
         /**
@@ -622,13 +623,16 @@ var RippleRenderer = (function () {
          * Whether mouse ripples should be created or not.
          */
         this.rippleDisabled = false;
-        this._containerElement = _elementRef.nativeElement;
-        // Specify events which need to be registered on the trigger.
-        this._triggerEvents.set('mousedown', this.onMousedown.bind(this));
-        this._triggerEvents.set('mouseup', this.onMouseup.bind(this));
-        this._triggerEvents.set('mouseleave', this.onMouseLeave.bind(this));
-        // By default use the host element as trigger element.
-        this.setTriggerElement(this._containerElement);
+        // Only do anything if we're on the browser.
+        if (platform.isBrowser) {
+            this._containerElement = elementRef.nativeElement;
+            // Specify events which need to be registered on the trigger.
+            this._triggerEvents.set('mousedown', this.onMousedown.bind(this));
+            this._triggerEvents.set('mouseup', this.onMouseup.bind(this));
+            this._triggerEvents.set('mouseleave', this.onMouseLeave.bind(this));
+            // By default use the host element as trigger element.
+            this.setTriggerElement(this._containerElement);
+        }
     }
     /**
      * Fades in a ripple at the given coordinates.
@@ -798,6 +802,105 @@ function distanceToFurthestCorner(x, y, rect) {
     var /** @type {?} */ distY = Math.max(Math.abs(y - rect.top), Math.abs(y - rect.bottom));
     return Math.sqrt(distX * distX + distY * distY);
 }
+// Whether the current platform supports the V8 Break Iterator. The V8 check
+// is necessary to detect all Blink based browsers.
+var hasV8BreakIterator = typeof (window) !== 'undefined' ?
+    (window.Intl && ((window.Intl)).v8BreakIterator) :
+    (typeof (Intl) !== 'undefined' && ((Intl)).v8BreakIterator);
+/**
+ * Service to detect the current platform by comparing the userAgent strings and
+ * checking browser-specific global properties.
+ * \@docs-private
+ */
+var Platform = (function () {
+    function Platform() {
+        this.isBrowser = typeof document === 'object' && !!document;
+        /**
+         * Layout Engines
+         */
+        this.EDGE = /(edge)/i.test(navigator.userAgent);
+        this.TRIDENT = /(msie|trident)/i.test(navigator.userAgent);
+        // EdgeHTML and Trident mock Blink specific things and need to be excluded from this check.
+        this.BLINK = !!(window.chrome || hasV8BreakIterator) && !!CSS && !this.EDGE && !this.TRIDENT;
+        // Webkit is part of the userAgent in EdgeHTML, Blink and Trident. Therefore we need to
+        // ensure that Webkit runs standalone and is not used as another engine's base.
+        this.WEBKIT = /AppleWebKit/i.test(navigator.userAgent) && !this.BLINK && !this.EDGE && !this.TRIDENT;
+        /**
+         * Browsers and Platform Types
+         */
+        this.IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        // It's difficult to detect the plain Gecko engine, because most of the browsers identify
+        // them self as Gecko-like browsers and modify the userAgent's according to that.
+        // Since we only cover one explicit Firefox case, we can simply check for Firefox
+        // instead of having an unstable check for Gecko.
+        this.FIREFOX = /(firefox|minefield)/i.test(navigator.userAgent);
+        // Trident on mobile adds the android platform to the userAgent to trick detections.
+        this.ANDROID = /android/i.test(navigator.userAgent) && !this.TRIDENT;
+    }
+    return Platform;
+}());
+Platform.decorators = [
+    { type: _angular_core.Injectable },
+];
+/**
+ * @nocollapse
+ */
+Platform.ctorParameters = function () { return []; };
+var supportedInputTypes;
+/**
+ * @return {?} The input types supported by this browser.
+ */
+function getSupportedInputTypes() {
+    if (!supportedInputTypes) {
+        var /** @type {?} */ featureTestInput_1 = document.createElement('input');
+        supportedInputTypes = new Set([
+            // `color` must come first. Chrome 56 shows a warning if we change the type to `color` after
+            // first changing it to something else:
+            // The specified value "" does not conform to the required format.
+            // The format is "#rrggbb" where rr, gg, bb are two-digit hexadecimal numbers.
+            'color',
+            'button',
+            'checkbox',
+            'date',
+            'datetime-local',
+            'email',
+            'file',
+            'hidden',
+            'image',
+            'month',
+            'number',
+            'password',
+            'radio',
+            'range',
+            'reset',
+            'search',
+            'submit',
+            'tel',
+            'text',
+            'time',
+            'url',
+            'week',
+        ].filter(function (value) {
+            featureTestInput_1.setAttribute('type', value);
+            return featureTestInput_1.type === value;
+        }));
+    }
+    return supportedInputTypes;
+}
+var PlatformModule = (function () {
+    function PlatformModule() {
+    }
+    return PlatformModule;
+}());
+PlatformModule.decorators = [
+    { type: _angular_core.NgModule, args: [{
+                providers: [Platform]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+PlatformModule.ctorParameters = function () { return []; };
 /**
  * Time in ms to throttle the scrolling events by default.
  */
@@ -809,9 +912,11 @@ var DEFAULT_SCROLL_TIME = 20;
 var ScrollDispatcher = (function () {
     /**
      * @param {?} _ngZone
+     * @param {?} _platform
      */
-    function ScrollDispatcher(_ngZone) {
+    function ScrollDispatcher(_ngZone, _platform) {
         this._ngZone = _ngZone;
+        this._platform = _platform;
         /**
          * Subject for notifying that a registered scrollable reference element has been scrolled.
          */
@@ -863,6 +968,10 @@ var ScrollDispatcher = (function () {
     ScrollDispatcher.prototype.scrolled = function (auditTimeInMs, callback) {
         var _this = this;
         if (auditTimeInMs === void 0) { auditTimeInMs = DEFAULT_SCROLL_TIME; }
+        // Scroll events can only happen on the browser, so do nothing if we're not on the browser.
+        if (!this._platform.isBrowser) {
+            return rxjs_Subscription.Subscription.EMPTY;
+        }
         // In the case of a 0ms delay, use an observable without auditTime
         // since it does add a perceptible delay in processing overhead.
         var /** @type {?} */ observable = auditTimeInMs > 0 ?
@@ -935,19 +1044,21 @@ ScrollDispatcher.decorators = [
  */
 ScrollDispatcher.ctorParameters = function () { return [
     { type: _angular_core.NgZone, },
+    { type: Platform, },
 ]; };
 /**
  * @param {?} parentDispatcher
  * @param {?} ngZone
+ * @param {?} platform
  * @return {?}
  */
-function SCROLL_DISPATCHER_PROVIDER_FACTORY(parentDispatcher, ngZone) {
-    return parentDispatcher || new ScrollDispatcher(ngZone);
+function SCROLL_DISPATCHER_PROVIDER_FACTORY(parentDispatcher, ngZone, platform) {
+    return parentDispatcher || new ScrollDispatcher(ngZone, platform);
 }
 var SCROLL_DISPATCHER_PROVIDER = {
     // If there is already a ScrollDispatcher available, use that. Otherwise, provide a new one.
     provide: ScrollDispatcher,
-    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), ScrollDispatcher], _angular_core.NgZone],
+    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), ScrollDispatcher], _angular_core.NgZone, Platform],
     useFactory: SCROLL_DISPATCHER_PROVIDER_FACTORY
 };
 /**
@@ -960,8 +1071,6 @@ var ViewportRuler = (function () {
      */
     function ViewportRuler(scrollDispatcher) {
         var _this = this;
-        // Initially cache the document rectangle.
-        this._cacheViewportGeometry();
         // Subscribe to scroll and resize events and update the document rectangle on changes.
         scrollDispatcher.scrolled(null, function () { return _this._cacheViewportGeometry(); });
     }
@@ -972,6 +1081,11 @@ var ViewportRuler = (function () {
      */
     ViewportRuler.prototype.getViewportRect = function (documentRect) {
         if (documentRect === void 0) { documentRect = this._documentRect; }
+        // Cache the document bounding rect so that we don't recompute it for multiple calls.
+        if (!documentRect) {
+            this._cacheViewportGeometry();
+            documentRect = this._documentRect;
+        }
         // Use the document element's bounding rect rather than the window scroll properties
         // (e.g. pageYOffset, scrollY) due to in issue in Chrome and IE where window scroll
         // properties and client coordinates (boundingClientRect, clientX/Y, etc.) are in different
@@ -1000,6 +1114,11 @@ var ViewportRuler = (function () {
      */
     ViewportRuler.prototype.getViewportScrollPosition = function (documentRect) {
         if (documentRect === void 0) { documentRect = this._documentRect; }
+        // Cache the document bounding rect so that we don't recompute it for multiple calls.
+        if (!documentRect) {
+            this._cacheViewportGeometry();
+            documentRect = this._documentRect;
+        }
         // The top-left-corner of the viewport is determined by the scroll position of the document
         // body, normally just (scrollLeft, scrollTop). However, Chrome and Firefox disagree about
         // whether `document.body` or `document.documentElement` is the scrolled element, so reading
@@ -1051,9 +1170,10 @@ var MdRipple = (function () {
      * @param {?} elementRef
      * @param {?} ngZone
      * @param {?} ruler
+     * @param {?} platform
      * @param {?} globalOptions
      */
-    function MdRipple(elementRef, ngZone, ruler, globalOptions) {
+    function MdRipple(elementRef, ngZone, ruler, platform, globalOptions) {
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -1066,7 +1186,7 @@ var MdRipple = (function () {
          * A changed speedFactor will not modify the fade-out duration of the ripples.
          */
         this.speedFactor = 1;
-        this._rippleRenderer = new RippleRenderer(elementRef, ngZone, ruler);
+        this._rippleRenderer = new RippleRenderer(elementRef, ngZone, ruler, platform);
         this._globalOptions = globalOptions ? globalOptions : {};
         this._updateRippleRenderer();
     }
@@ -1136,7 +1256,7 @@ MdRipple.decorators = [
                 selector: '[md-ripple], [mat-ripple], [mdRipple], [matRipple]',
                 exportAs: 'mdRipple',
                 host: {
-                    '[class.mat-ripple]': 'true',
+                    'class': 'mat-ripple',
                     '[class.mat-ripple-unbounded]': 'unbounded'
                 }
             },] },
@@ -1148,6 +1268,7 @@ MdRipple.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.NgZone, },
     { type: ViewportRuler, },
+    { type: Platform, },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_RIPPLE_GLOBAL_OPTIONS,] },] },
 ]; };
 MdRipple.propDecorators = {
@@ -1159,6 +1280,93 @@ MdRipple.propDecorators = {
     'color': [{ type: _angular_core.Input, args: ['mdRippleColor',] },],
     'unbounded': [{ type: _angular_core.Input, args: ['mdRippleUnbounded',] },],
 };
+/**
+ * Sends an event when the directive's element is scrolled. Registers itself with the
+ * ScrollDispatcher service to include itself as part of its collection of scrolling events that it
+ * can be listened to through the service.
+ */
+var Scrollable = (function () {
+    /**
+     * @param {?} _elementRef
+     * @param {?} _scroll
+     * @param {?} _ngZone
+     * @param {?} _renderer
+     */
+    function Scrollable(_elementRef, _scroll, _ngZone, _renderer) {
+        this._elementRef = _elementRef;
+        this._scroll = _scroll;
+        this._ngZone = _ngZone;
+        this._renderer = _renderer;
+        this._elementScrolled = new rxjs_Subject.Subject();
+    }
+    /**
+     * @return {?}
+     */
+    Scrollable.prototype.ngOnInit = function () {
+        var _this = this;
+        this._scrollListener = this._ngZone.runOutsideAngular(function () {
+            return _this._renderer.listen(_this.getElementRef().nativeElement, 'scroll', function (event) {
+                _this._elementScrolled.next(event);
+            });
+        });
+        this._scroll.register(this);
+    };
+    /**
+     * @return {?}
+     */
+    Scrollable.prototype.ngOnDestroy = function () {
+        this._scroll.deregister(this);
+        if (this._scrollListener) {
+            this._scrollListener();
+            this._scrollListener = null;
+        }
+    };
+    /**
+     * Returns observable that emits when a scroll event is fired on the host element.
+     * @return {?}
+     */
+    Scrollable.prototype.elementScrolled = function () {
+        return this._elementScrolled.asObservable();
+    };
+    /**
+     * @return {?}
+     */
+    Scrollable.prototype.getElementRef = function () {
+        return this._elementRef;
+    };
+    return Scrollable;
+}());
+Scrollable.decorators = [
+    { type: _angular_core.Directive, args: [{
+                selector: '[cdk-scrollable], [cdkScrollable]'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+Scrollable.ctorParameters = function () { return [
+    { type: _angular_core.ElementRef, },
+    { type: ScrollDispatcher, },
+    { type: _angular_core.NgZone, },
+    { type: _angular_core.Renderer2, },
+]; };
+var ScrollDispatchModule = (function () {
+    function ScrollDispatchModule() {
+    }
+    return ScrollDispatchModule;
+}());
+ScrollDispatchModule.decorators = [
+    { type: _angular_core.NgModule, args: [{
+                imports: [PlatformModule],
+                exports: [Scrollable],
+                declarations: [Scrollable],
+                providers: [SCROLL_DISPATCHER_PROVIDER],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+ScrollDispatchModule.ctorParameters = function () { return []; };
 var MdRippleModule = (function () {
     function MdRippleModule() {
     }
@@ -1166,10 +1374,10 @@ var MdRippleModule = (function () {
 }());
 MdRippleModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdCommonModule],
+                imports: [MdCommonModule, PlatformModule, ScrollDispatchModule],
                 exports: [MdRipple, MdCommonModule],
                 declarations: [MdRipple],
-                providers: [VIEWPORT_RULER_PROVIDER, SCROLL_DISPATCHER_PROVIDER],
+                providers: [VIEWPORT_RULER_PROVIDER],
             },] },
 ];
 /**
@@ -3179,79 +3387,8 @@ var OVERLAY_PROVIDERS = [
     Overlay,
     OverlayPositionBuilder,
     VIEWPORT_RULER_PROVIDER,
-    SCROLL_DISPATCHER_PROVIDER,
     OVERLAY_CONTAINER_PROVIDER,
 ];
-/**
- * Sends an event when the directive's element is scrolled. Registers itself with the
- * ScrollDispatcher service to include itself as part of its collection of scrolling events that it
- * can be listened to through the service.
- */
-var Scrollable = (function () {
-    /**
-     * @param {?} _elementRef
-     * @param {?} _scroll
-     * @param {?} _ngZone
-     * @param {?} _renderer
-     */
-    function Scrollable(_elementRef, _scroll, _ngZone, _renderer) {
-        this._elementRef = _elementRef;
-        this._scroll = _scroll;
-        this._ngZone = _ngZone;
-        this._renderer = _renderer;
-        this._elementScrolled = new rxjs_Subject.Subject();
-    }
-    /**
-     * @return {?}
-     */
-    Scrollable.prototype.ngOnInit = function () {
-        var _this = this;
-        this._scrollListener = this._ngZone.runOutsideAngular(function () {
-            return _this._renderer.listen(_this.getElementRef().nativeElement, 'scroll', function (event) {
-                _this._elementScrolled.next(event);
-            });
-        });
-        this._scroll.register(this);
-    };
-    /**
-     * @return {?}
-     */
-    Scrollable.prototype.ngOnDestroy = function () {
-        this._scroll.deregister(this);
-        if (this._scrollListener) {
-            this._scrollListener();
-            this._scrollListener = null;
-        }
-    };
-    /**
-     * Returns observable that emits when a scroll event is fired on the host element.
-     * @return {?}
-     */
-    Scrollable.prototype.elementScrolled = function () {
-        return this._elementScrolled.asObservable();
-    };
-    /**
-     * @return {?}
-     */
-    Scrollable.prototype.getElementRef = function () {
-        return this._elementRef;
-    };
-    return Scrollable;
-}());
-Scrollable.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[cdk-scrollable], [cdkScrollable]'
-            },] },
-];
-/**
- * @nocollapse
- */
-Scrollable.ctorParameters = function () { return [
-    { type: _angular_core.ElementRef, },
-    { type: ScrollDispatcher, },
-    { type: _angular_core.NgZone, },
-    { type: _angular_core.Renderer2, },
-]; };
 /**
  * Strategy that will update the element position as the user is scrolling.
  */
@@ -3344,7 +3481,6 @@ var ConnectedOverlayDirective = (function () {
         this._renderer = _renderer;
         this._scrollDispatcher = _scrollDispatcher;
         this._dir = _dir;
-        this._open = false;
         this._hasBackdrop = false;
         this._offsetX = 0;
         this._offsetY = 0;
@@ -3352,6 +3488,10 @@ var ConnectedOverlayDirective = (function () {
          * Strategy to be used when handling scroll events while the overlay is open.
          */
         this.scrollStrategy = new RepositionScrollStrategy(this._scrollDispatcher);
+        /**
+         * Whether the overlay is open.
+         */
+        this.open = false;
         /**
          * Event emitted when the backdrop is clicked.
          */
@@ -3430,24 +3570,6 @@ var ConnectedOverlayDirective = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "open", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this._open;
-        },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            value ? this._attachOverlay() : this._detachOverlay();
-            this._open = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(ConnectedOverlayDirective.prototype, "overlayRef", {
         /**
          * The associated overlay reference.
@@ -3475,6 +3597,15 @@ var ConnectedOverlayDirective = (function () {
      */
     ConnectedOverlayDirective.prototype.ngOnDestroy = function () {
         this._destroyOverlay();
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    ConnectedOverlayDirective.prototype.ngOnChanges = function (changes) {
+        if (changes['open']) {
+            this.open ? this._attachOverlay() : this._detachOverlay();
+        }
     };
     /**
      * Creates an overlay
@@ -3639,8 +3770,8 @@ ConnectedOverlayDirective.propDecorators = {
     'minHeight': [{ type: _angular_core.Input },],
     'backdropClass': [{ type: _angular_core.Input },],
     'scrollStrategy': [{ type: _angular_core.Input },],
-    'hasBackdrop': [{ type: _angular_core.Input },],
     'open': [{ type: _angular_core.Input },],
+    'hasBackdrop': [{ type: _angular_core.Input },],
     'backdropClick': [{ type: _angular_core.Output },],
     'positionChange': [{ type: _angular_core.Output },],
     'attach': [{ type: _angular_core.Output },],
@@ -3653,9 +3784,9 @@ var OverlayModule = (function () {
 }());
 OverlayModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [PortalModule],
-                exports: [ConnectedOverlayDirective, OverlayOrigin, Scrollable],
-                declarations: [ConnectedOverlayDirective, OverlayOrigin, Scrollable],
+                imports: [PortalModule, ScrollDispatchModule],
+                exports: [ConnectedOverlayDirective, OverlayOrigin, ScrollDispatchModule],
+                declarations: [ConnectedOverlayDirective, OverlayOrigin],
                 providers: [OVERLAY_PROVIDERS],
             },] },
 ];
@@ -3663,49 +3794,6 @@ OverlayModule.decorators = [
  * @nocollapse
  */
 OverlayModule.ctorParameters = function () { return []; };
-// Whether the current platform supports the V8 Break Iterator. The V8 check
-// is necessary to detect all Blink based browsers.
-var hasV8BreakIterator = typeof (window) !== 'undefined' ?
-    (window.Intl && ((window.Intl)).v8BreakIterator) :
-    (typeof (Intl) !== 'undefined' && ((Intl)).v8BreakIterator);
-/**
- * Service to detect the current platform by comparing the userAgent strings and
- * checking browser-specific global properties.
- * \@docs-private
- */
-var Platform = (function () {
-    function Platform() {
-        /**
-         * Layout Engines
-         */
-        this.EDGE = /(edge)/i.test(navigator.userAgent);
-        this.TRIDENT = /(msie|trident)/i.test(navigator.userAgent);
-        // EdgeHTML and Trident mock Blink specific things and need to be excluded from this check.
-        this.BLINK = !!(window.chrome || hasV8BreakIterator) && !!CSS && !this.EDGE && !this.TRIDENT;
-        // Webkit is part of the userAgent in EdgeHTML, Blink and Trident. Therefore we need to
-        // ensure that Webkit runs standalone and is not used as another engine's base.
-        this.WEBKIT = /AppleWebKit/i.test(navigator.userAgent) && !this.BLINK && !this.EDGE && !this.TRIDENT;
-        /**
-         * Browsers and Platform Types
-         */
-        this.IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        // It's difficult to detect the plain Gecko engine, because most of the browsers identify
-        // them self as Gecko-like browsers and modify the userAgent's according to that.
-        // Since we only cover one explicit Firefox case, we can simply check for Firefox
-        // instead of having an unstable check for Gecko.
-        this.FIREFOX = /(firefox|minefield)/i.test(navigator.userAgent);
-        // Trident on mobile adds the android platform to the userAgent to trick detections.
-        this.ANDROID = /android/i.test(navigator.userAgent) && !this.TRIDENT;
-    }
-    return Platform;
-}());
-Platform.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-Platform.ctorParameters = function () { return []; };
 /**
  * Utility for checking the interactivity of an element, such as whether is is focusable or
  * tabbable.
@@ -4279,12 +4367,16 @@ var LIVE_ANNOUNCER_ELEMENT_TOKEN = new _angular_core.InjectionToken('liveAnnounc
 var LiveAnnouncer = (function () {
     /**
      * @param {?} elementToken
+     * @param {?} platform
      */
-    function LiveAnnouncer(elementToken) {
-        // We inject the live element as `any` because the constructor signature cannot reference
-        // browser globals (HTMLElement) on non-browser environments, since having a class decorator
-        // causes TypeScript to preserve the constructor signature types.
-        this._liveElement = elementToken || this._createLiveElement();
+    function LiveAnnouncer(elementToken, platform) {
+        // Only do anything if we're on the browser platform.
+        if (platform.isBrowser) {
+            // We inject the live element as `any` because the constructor signature cannot reference
+            // browser globals (HTMLElement) on non-browser environments, since having a class decorator
+            // causes TypeScript to preserve the constructor signature types.
+            this._liveElement = elementToken || this._createLiveElement();
+        }
     }
     /**
      * Announces a message to screenreaders.
@@ -4335,79 +4427,27 @@ LiveAnnouncer.decorators = [
  */
 LiveAnnouncer.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [LIVE_ANNOUNCER_ELEMENT_TOKEN,] },] },
+    { type: Platform, },
 ]; };
 /**
  * @param {?} parentDispatcher
  * @param {?} liveElement
+ * @param {?} platform
  * @return {?}
  */
-function LIVE_ANNOUNCER_PROVIDER_FACTORY(parentDispatcher, liveElement) {
-    return parentDispatcher || new LiveAnnouncer(liveElement);
+function LIVE_ANNOUNCER_PROVIDER_FACTORY(parentDispatcher, liveElement, platform) {
+    return parentDispatcher || new LiveAnnouncer(liveElement, platform);
 }
 var LIVE_ANNOUNCER_PROVIDER = {
     // If there is already a LiveAnnouncer available, use that. Otherwise, provide a new one.
     provide: LiveAnnouncer,
     deps: [
         [new _angular_core.Optional(), new _angular_core.SkipSelf(), LiveAnnouncer],
-        [new _angular_core.Optional(), new _angular_core.Inject(LIVE_ANNOUNCER_ELEMENT_TOKEN)]
+        [new _angular_core.Optional(), new _angular_core.Inject(LIVE_ANNOUNCER_ELEMENT_TOKEN)],
+        Platform,
     ],
     useFactory: LIVE_ANNOUNCER_PROVIDER_FACTORY
 };
-var supportedInputTypes;
-/**
- * @return {?} The input types supported by this browser.
- */
-function getSupportedInputTypes() {
-    if (!supportedInputTypes) {
-        var /** @type {?} */ featureTestInput_1 = document.createElement('input');
-        supportedInputTypes = new Set([
-            // `color` must come first. Chrome 56 shows a warning if we change the type to `color` after
-            // first changing it to something else:
-            // The specified value "" does not conform to the required format.
-            // The format is "#rrggbb" where rr, gg, bb are two-digit hexadecimal numbers.
-            'color',
-            'button',
-            'checkbox',
-            'date',
-            'datetime-local',
-            'email',
-            'file',
-            'hidden',
-            'image',
-            'month',
-            'number',
-            'password',
-            'radio',
-            'range',
-            'reset',
-            'search',
-            'submit',
-            'tel',
-            'text',
-            'time',
-            'url',
-            'week',
-        ].filter(function (value) {
-            featureTestInput_1.setAttribute('type', value);
-            return featureTestInput_1.type === value;
-        }));
-    }
-    return supportedInputTypes;
-}
-var PlatformModule = (function () {
-    function PlatformModule() {
-    }
-    return PlatformModule;
-}());
-PlatformModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                providers: [Platform]
-            },] },
-];
-/**
- * @nocollapse
- */
-PlatformModule.ctorParameters = function () { return []; };
 var A11yModule = (function () {
     function A11yModule() {
     }
@@ -4885,10 +4925,12 @@ var TOUCH_BUFFER_MS = 650;
 var FocusOriginMonitor = (function () {
     /**
      * @param {?} _ngZone
+     * @param {?} _platform
      */
-    function FocusOriginMonitor(_ngZone) {
+    function FocusOriginMonitor(_ngZone, _platform) {
         var _this = this;
         this._ngZone = _ngZone;
+        this._platform = _platform;
         /**
          * The focus origin that the next focus event is a result of.
          */
@@ -4913,6 +4955,10 @@ var FocusOriginMonitor = (function () {
      */
     FocusOriginMonitor.prototype.monitor = function (element, renderer, checkChildren) {
         var _this = this;
+        // Do nothing if we're not on the browser platform.
+        if (!this._platform.isBrowser) {
+            return rxjs_Observable.Observable.of();
+        }
         // Check if we're already monitoring this element.
         if (this._elementInfo.has(element)) {
             var /** @type {?} */ info_1 = this._elementInfo.get(element);
@@ -4972,6 +5018,10 @@ var FocusOriginMonitor = (function () {
      */
     FocusOriginMonitor.prototype._registerDocumentEvents = function () {
         var _this = this;
+        // Do nothing if we're not on the browser platform.
+        if (!this._platform.isBrowser) {
+            return;
+        }
         // Note: we listen to events in the capture phase so we can detect them even if the user stops
         // propagation.
         // On keydown record the origin and clear any touch event that may be in progress.
@@ -5121,6 +5171,7 @@ FocusOriginMonitor.decorators = [
  */
 FocusOriginMonitor.ctorParameters = function () { return [
     { type: _angular_core.NgZone, },
+    { type: Platform, },
 ]; };
 /**
  * Directive that determines how a particular element was focused (via keyboard, mouse, touch, or
@@ -5172,15 +5223,16 @@ CdkMonitorFocus.propDecorators = {
 /**
  * @param {?} parentDispatcher
  * @param {?} ngZone
+ * @param {?} platform
  * @return {?}
  */
-function FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY(parentDispatcher, ngZone) {
-    return parentDispatcher || new FocusOriginMonitor(ngZone);
+function FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY(parentDispatcher, ngZone, platform) {
+    return parentDispatcher || new FocusOriginMonitor(ngZone, platform);
 }
 var FOCUS_ORIGIN_MONITOR_PROVIDER = {
     // If there is already a FocusOriginMonitor available, use that. Otherwise, provide a new one.
     provide: FocusOriginMonitor,
-    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), FocusOriginMonitor], _angular_core.NgZone],
+    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), FocusOriginMonitor], _angular_core.NgZone, Platform],
     useFactory: FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY
 };
 /**
@@ -5203,6 +5255,7 @@ var StyleModule = (function () {
 }());
 StyleModule.decorators = [
     { type: _angular_core.NgModule, args: [{
+                imports: [PlatformModule],
                 declarations: [CdkMonitorFocus],
                 exports: [CdkMonitorFocus],
                 providers: [FOCUS_ORIGIN_MONITOR_PROVIDER],
@@ -5248,6 +5301,516 @@ function coerceNumberProperty(value, fallbackValue) {
     // '123hello' to be a valid number. Therefore we also check if Number(value) is NaN.
     return isNaN(parseFloat(/** @type {?} */ (value))) || isNaN(Number(value)) ? fallbackValue : Number(value);
 }
+/**
+ * Adapts type `D` to be usable as a date by cdk-based components that work with dates.
+ * @abstract
+ */
+var DateAdapter = (function () {
+    function DateAdapter() {
+    }
+    /**
+     * Gets the year component of the given date.
+     * @abstract
+     * @param {?} date The date to extract the year from.
+     * @return {?} The year component.
+     */
+    DateAdapter.prototype.getYear = function (date) { };
+    /**
+     * Gets the month component of the given date.
+     * @abstract
+     * @param {?} date The date to extract the month from.
+     * @return {?} The month component (0-indexed, 0 = January).
+     */
+    DateAdapter.prototype.getMonth = function (date) { };
+    /**
+     * Gets the date of the month component of the given date.
+     * @abstract
+     * @param {?} date The date to extract the date of the month from.
+     * @return {?} The month component (1-indexed, 1 = first of month).
+     */
+    DateAdapter.prototype.getDate = function (date) { };
+    /**
+     * Gets the day of the week component of the given date.
+     * @abstract
+     * @param {?} date The date to extract the day of the week from.
+     * @return {?} The month component (0-indexed, 0 = Sunday).
+     */
+    DateAdapter.prototype.getDayOfWeek = function (date) { };
+    /**
+     * Gets a list of names for the months.
+     * @abstract
+     * @param {?} style The naming style (e.g. long = 'January', short = 'Jan', narrow = 'J').
+     * @return {?} An ordered list of all month names, starting with January.
+     */
+    DateAdapter.prototype.getMonthNames = function (style$$1) { };
+    /**
+     * Gets a list of names for the dates of the month.
+     * @abstract
+     * @return {?} An ordered list of all date of the month names, starting with '1'.
+     */
+    DateAdapter.prototype.getDateNames = function () { };
+    /**
+     * Gets a list of names for the days of the week.
+     * @abstract
+     * @param {?} style The naming style (e.g. long = 'Sunday', short = 'Sun', narrow = 'S').
+     * @return {?} An ordered list of all weekday names, starting with Sunday.
+     */
+    DateAdapter.prototype.getDayOfWeekNames = function (style$$1) { };
+    /**
+     * Gets the name for the year of the given date.
+     * @abstract
+     * @param {?} date The date to get the year name for.
+     * @return {?} The name of the given year (e.g. '2017').
+     */
+    DateAdapter.prototype.getYearName = function (date) { };
+    /**
+     * Gets the first day of the week.
+     * @abstract
+     * @return {?} The first day of the week (0-indexed, 0 = Sunday).
+     */
+    DateAdapter.prototype.getFirstDayOfWeek = function () { };
+    /**
+     * Gets the number of days in the month of the given date.
+     * @abstract
+     * @param {?} date The date whose month should be checked.
+     * @return {?} The number of days in the month of the given date.
+     */
+    DateAdapter.prototype.getNumDaysInMonth = function (date) { };
+    /**
+     * Clones the given date.
+     * @abstract
+     * @param {?} date The date to clone
+     * @return {?} A new date equal to the given date.
+     */
+    DateAdapter.prototype.clone = function (date) { };
+    /**
+     * Creates a date with the given year, month, and date. Does not allow over/under-flow of the
+     * month and date.
+     * @abstract
+     * @param {?} year The full year of the date. (e.g. 89 means the year 89, not the year 1989).
+     * @param {?} month The month of the date (0-indexed, 0 = January). Must be an integer 0 - 11.
+     * @param {?} date The date of month of the date. Must be an integer 1 - length of the given month.
+     * @return {?} The new date, or null if invalid.
+     */
+    DateAdapter.prototype.createDate = function (year, month, date) { };
+    /**
+     * Gets today's date.
+     * @abstract
+     * @return {?} Today's date.
+     */
+    DateAdapter.prototype.today = function () { };
+    /**
+     * Parses a date from a value.
+     * @abstract
+     * @param {?} value The value to parse.
+     * @param {?} parseFormat The expected format of the value being parsed
+     *     (type is implementation-dependent).
+     * @return {?} The parsed date, or null if date could not be parsed.
+     */
+    DateAdapter.prototype.parse = function (value, parseFormat) { };
+    /**
+     * Formats a date as a string.
+     * @abstract
+     * @param {?} date The value to parse.
+     * @param {?} displayFormat The format to use to display the date as a string.
+     * @return {?} The parsed date, or null if date could not be parsed.
+     */
+    DateAdapter.prototype.format = function (date, displayFormat) { };
+    /**
+     * Adds the given number of years to the date. Years are counted as if flipping 12 pages on the
+     * calendar for each year and then finding the closest date in the new month. For example when
+     * adding 1 year to Feb 29, 2016, the resulting date will be Feb 28, 2017.
+     * @abstract
+     * @param {?} date The date to add years to.
+     * @param {?} years The number of years to add (may be negative).
+     * @return {?} A new date equal to the given one with the specified number of years added.
+     */
+    DateAdapter.prototype.addCalendarYears = function (date, years) { };
+    /**
+     * Adds the given number of months to the date. Months are counted as if flipping a page on the
+     * calendar for each month and then finding the closest date in the new month. For example when
+     * adding 1 month to Jan 31, 2017, the resulting date will be Feb 28, 2017.
+     * @abstract
+     * @param {?} date The date to add months to.
+     * @param {?} months The number of months to add (may be negative).
+     * @return {?} A new date equal to the given one with the specified number of months added.
+     */
+    DateAdapter.prototype.addCalendarMonths = function (date, months) { };
+    /**
+     * Adds the given number of days to the date. Days are counted as if moving one cell on the
+     * calendar for each day.
+     * @abstract
+     * @param {?} date The date to add days to.
+     * @param {?} days The number of days to add (may be negative).
+     * @return {?} A new date equal to the given one with the specified number of days added.
+     */
+    DateAdapter.prototype.addCalendarDays = function (date, days) { };
+    /**
+     * Gets the RFC 3339 compatible date string (https://tools.ietf.org/html/rfc3339)  for the given
+     * date.
+     * @abstract
+     * @param {?} date The date to get the ISO date string for.
+     * @return {?} The ISO date string date string.
+     */
+    DateAdapter.prototype.getISODateString = function (date) { };
+    /**
+     * Sets the locale used for all dates.
+     * @param {?} locale The new locale.
+     * @return {?}
+     */
+    DateAdapter.prototype.setLocale = function (locale) {
+        this.locale = locale;
+    };
+    /**
+     * Compares two dates.
+     * @param {?} first The first date to compare.
+     * @param {?} second The second date to compare.
+     * @return {?} 0 if the dates are equal, a number less than 0 if the first date is earlier,
+     *     a number greater than 0 if the first date is later.
+     */
+    DateAdapter.prototype.compareDate = function (first, second) {
+        return this.getYear(first) - this.getYear(second) ||
+            this.getMonth(first) - this.getMonth(second) ||
+            this.getDate(first) - this.getDate(second);
+    };
+    /**
+     * Checks if two dates are equal.
+     * @param {?} first The first date to check.
+     * @param {?} second The second date to check.
+     *     Null dates are considered equal to other null dates.
+     * @return {?}
+     */
+    DateAdapter.prototype.sameDate = function (first, second) {
+        return first && second ? !this.compareDate(first, second) : first == second;
+    };
+    /**
+     * Clamp the given date between min and max dates.
+     * @param {?} date The date to clamp.
+     * @param {?=} min The minimum value to allow. If null or omitted no min is enforced.
+     * @param {?=} max The maximum value to allow. If null or omitted no max is enforced.
+     * @return {?} `min` if `date` is less than `min`, `max` if date is greater than `max`,
+     *     otherwise `date`.
+     */
+    DateAdapter.prototype.clampDate = function (date, min, max) {
+        if (min && this.compareDate(date, min) < 0) {
+            return min;
+        }
+        if (max && this.compareDate(date, max) > 0) {
+            return max;
+        }
+        return date;
+    };
+    return DateAdapter;
+}());
+/**
+ * Whether the browser supports the Intl API.
+ */
+var SUPPORTS_INTL_API = typeof Intl != 'undefined';
+/**
+ * The default month names to use if Intl API is not available.
+ */
+var DEFAULT_MONTH_NAMES = {
+    'long': [
+        'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+        'October', 'November', 'December'
+    ],
+    'short': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    'narrow': ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
+};
+/**
+ * The default date names to use if Intl API is not available.
+ */
+var DEFAULT_DATE_NAMES = range(31, function (i) { return String(i + 1); });
+/**
+ * The default day of the week names to use if Intl API is not available.
+ */
+var DEFAULT_DAY_OF_WEEK_NAMES = {
+    'long': ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    'short': ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    'narrow': ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+};
+/**
+ * Creates an array and fills it with values.
+ * @template T
+ * @param {?} length
+ * @param {?} valueFunction
+ * @return {?}
+ */
+function range(length, valueFunction) {
+    return Array.apply(null, Array(length)).map(function (v, i) { return valueFunction(i); });
+}
+/**
+ * Adapts the native JS Date for use with cdk-based components that work with dates.
+ */
+var NativeDateAdapter = (function (_super) {
+    __extends(NativeDateAdapter, _super);
+    function NativeDateAdapter() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * @param {?} date
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.getYear = function (date) {
+        return date.getFullYear();
+    };
+    /**
+     * @param {?} date
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.getMonth = function (date) {
+        return date.getMonth();
+    };
+    /**
+     * @param {?} date
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.getDate = function (date) {
+        return date.getDate();
+    };
+    /**
+     * @param {?} date
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.getDayOfWeek = function (date) {
+        return date.getDay();
+    };
+    /**
+     * @param {?} style
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.getMonthNames = function (style$$1) {
+        var _this = this;
+        if (SUPPORTS_INTL_API) {
+            var /** @type {?} */ dtf_1 = new Intl.DateTimeFormat(this.locale, { month: style$$1 });
+            return range(12, function (i) { return _this._stripDirectionalityCharacters(dtf_1.format(new Date(2017, i, 1))); });
+        }
+        return DEFAULT_MONTH_NAMES[style$$1];
+    };
+    /**
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.getDateNames = function () {
+        var _this = this;
+        if (SUPPORTS_INTL_API) {
+            var /** @type {?} */ dtf_2 = new Intl.DateTimeFormat(this.locale, { day: 'numeric' });
+            return range(31, function (i) { return _this._stripDirectionalityCharacters(dtf_2.format(new Date(2017, 0, i + 1))); });
+        }
+        return DEFAULT_DATE_NAMES;
+    };
+    /**
+     * @param {?} style
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.getDayOfWeekNames = function (style$$1) {
+        var _this = this;
+        if (SUPPORTS_INTL_API) {
+            var /** @type {?} */ dtf_3 = new Intl.DateTimeFormat(this.locale, { weekday: style$$1 });
+            return range(7, function (i) { return _this._stripDirectionalityCharacters(dtf_3.format(new Date(2017, 0, i + 1))); });
+        }
+        return DEFAULT_DAY_OF_WEEK_NAMES[style$$1];
+    };
+    /**
+     * @param {?} date
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.getYearName = function (date) {
+        if (SUPPORTS_INTL_API) {
+            var /** @type {?} */ dtf = new Intl.DateTimeFormat(this.locale, { year: 'numeric' });
+            return this._stripDirectionalityCharacters(dtf.format(date));
+        }
+        return String(this.getYear(date));
+    };
+    /**
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.getFirstDayOfWeek = function () {
+        // We can't tell using native JS Date what the first day of the week is, we default to Sunday.
+        return 0;
+    };
+    /**
+     * @param {?} date
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.getNumDaysInMonth = function (date) {
+        return this.getDate(this._createDateWithOverflow(this.getYear(date), this.getMonth(date) + 1, 0));
+    };
+    /**
+     * @param {?} date
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.clone = function (date) {
+        return this.createDate(this.getYear(date), this.getMonth(date), this.getDate(date));
+    };
+    /**
+     * @param {?} year
+     * @param {?} month
+     * @param {?} date
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.createDate = function (year, month, date) {
+        // Check for invalid month and date (except upper bound on date which we have to check after
+        // creating the Date).
+        if (month < 0 || month > 11 || date < 1) {
+            return null;
+        }
+        var /** @type {?} */ result = this._createDateWithOverflow(year, month, date);
+        // Check that the date wasn't above the upper bound for the month, causing the month to
+        // overflow.
+        if (result.getMonth() != month) {
+            return null;
+        }
+        return result;
+    };
+    /**
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.today = function () {
+        return new Date();
+    };
+    /**
+     * @param {?} value
+     * @param {?} parseFormat
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.parse = function (value, parseFormat) {
+        // We have no way using the native JS Date to set the parse format or locale, so we ignore these
+        // parameters.
+        var /** @type {?} */ timestamp = typeof value == 'number' ? value : Date.parse(value);
+        return isNaN(timestamp) ? null : new Date(timestamp);
+    };
+    /**
+     * @param {?} date
+     * @param {?} displayFormat
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.format = function (date, displayFormat) {
+        if (SUPPORTS_INTL_API) {
+            var /** @type {?} */ dtf = new Intl.DateTimeFormat(this.locale, displayFormat);
+            return this._stripDirectionalityCharacters(dtf.format(date));
+        }
+        return this._stripDirectionalityCharacters(date.toDateString());
+    };
+    /**
+     * @param {?} date
+     * @param {?} years
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.addCalendarYears = function (date, years) {
+        return this.addCalendarMonths(date, years * 12);
+    };
+    /**
+     * @param {?} date
+     * @param {?} months
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.addCalendarMonths = function (date, months) {
+        var /** @type {?} */ newDate = this._createDateWithOverflow(this.getYear(date), this.getMonth(date) + months, this.getDate(date));
+        // It's possible to wind up in the wrong month if the original month has more days than the new
+        // month. In this case we want to go to the last day of the desired month.
+        // Note: the additional + 12 % 12 ensures we end up with a positive number, since JS % doesn't
+        // guarantee this.
+        if (this.getMonth(newDate) != ((this.getMonth(date) + months) % 12 + 12) % 12) {
+            newDate = this._createDateWithOverflow(this.getYear(newDate), this.getMonth(newDate), 0);
+        }
+        return newDate;
+    };
+    /**
+     * @param {?} date
+     * @param {?} days
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.addCalendarDays = function (date, days) {
+        return this._createDateWithOverflow(this.getYear(date), this.getMonth(date), this.getDate(date) + days);
+    };
+    /**
+     * @param {?} date
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.getISODateString = function (date) {
+        return [
+            date.getUTCFullYear(),
+            this._2digit(date.getUTCMonth() + 1),
+            this._2digit(date.getUTCDate())
+        ].join('-');
+    };
+    /**
+     * Creates a date but allows the month and date to overflow.
+     * @param {?} year
+     * @param {?} month
+     * @param {?} date
+     * @return {?}
+     */
+    NativeDateAdapter.prototype._createDateWithOverflow = function (year, month, date) {
+        var /** @type {?} */ result = new Date(year, month, date);
+        // We need to correct for the fact that JS native Date treats years in range [0, 99] as
+        // abbreviations for 19xx.
+        if (year >= 0 && year < 100) {
+            result.setFullYear(this.getYear(result) - 1900);
+        }
+        return result;
+    };
+    /**
+     * Pads a number to make it two digits.
+     * @param {?} n The number to pad.
+     * @return {?} The padded number.
+     */
+    NativeDateAdapter.prototype._2digit = function (n) {
+        return ('00' + n).slice(-2);
+    };
+    /**
+     * Strip out unicode LTR and RTL characters. Edge and IE insert these into formatted dates while
+     * other browsers do not. We remove them to make output consistent and because they interfere with
+     * date parsing.
+     * @param {?} s The string to strip direction characters from.
+     * @return {?} The stripped string.
+     */
+    NativeDateAdapter.prototype._stripDirectionalityCharacters = function (s) {
+        return s.replace(/[\u200e\u200f]/g, '');
+    };
+    return NativeDateAdapter;
+}(DateAdapter));
+var MD_DATE_FORMATS = new _angular_core.InjectionToken('md-date-formats');
+var MD_NATIVE_DATE_FORMATS = {
+    parse: {
+        dateInput: null,
+    },
+    display: {
+        dateInput: { year: 'numeric', month: 'numeric', day: 'numeric' },
+        monthYearLabel: { year: 'numeric', month: 'short' },
+        dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
+        monthYearA11yLabel: { year: 'numeric', month: 'long' },
+    }
+};
+var NativeDateModule = (function () {
+    function NativeDateModule() {
+    }
+    return NativeDateModule;
+}());
+NativeDateModule.decorators = [
+    { type: _angular_core.NgModule, args: [{
+                providers: [{ provide: DateAdapter, useClass: NativeDateAdapter }],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+NativeDateModule.ctorParameters = function () { return []; };
+var MdNativeDateModule = (function () {
+    function MdNativeDateModule() {
+    }
+    return MdNativeDateModule;
+}());
+MdNativeDateModule.decorators = [
+    { type: _angular_core.NgModule, args: [{
+                imports: [NativeDateModule],
+                providers: [{ provide: MD_DATE_FORMATS, useValue: MD_NATIVE_DATE_FORMATS }],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdNativeDateModule.ctorParameters = function () { return []; };
 var MdCoreModule = (function () {
     function MdCoreModule() {
     }
@@ -5876,7 +6439,7 @@ var MdButtonToggleModule = (function () {
 }());
 MdButtonToggleModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [_angular_forms.FormsModule, MdCommonModule],
+                imports: [_angular_forms.FormsModule, MdCommonModule, StyleModule],
                 exports: [
                     MdButtonToggleGroup,
                     MdButtonToggleGroupMultiple,
@@ -5884,7 +6447,7 @@ MdButtonToggleModule.decorators = [
                     MdCommonModule,
                 ],
                 declarations: [MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle],
-                providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, FocusOriginMonitor]
+                providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER]
             },] },
 ];
 /**
@@ -5940,9 +6503,7 @@ var MdButtonCssMatStyler = (function () {
 MdButtonCssMatStyler.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: 'button[md-button], button[mat-button], a[md-button], a[mat-button]',
-                host: {
-                    '[class.mat-button]': 'true'
-                }
+                host: { 'class': 'mat-button' }
             },] },
 ];
 /**
@@ -5962,9 +6523,7 @@ MdRaisedButtonCssMatStyler.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: 'button[md-raised-button], button[mat-raised-button], ' +
                     'a[md-raised-button], a[mat-raised-button]',
-                host: {
-                    '[class.mat-raised-button]': 'true'
-                }
+                host: { 'class': 'mat-raised-button' }
             },] },
 ];
 /**
@@ -5983,9 +6542,7 @@ var MdIconButtonCssMatStyler = (function () {
 MdIconButtonCssMatStyler.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: 'button[md-icon-button], button[mat-icon-button], a[md-icon-button], a[mat-icon-button]',
-                host: {
-                    '[class.mat-icon-button]': 'true',
-                }
+                host: { 'class': 'mat-icon-button' }
             },] },
 ];
 /**
@@ -6004,9 +6561,7 @@ var MdFabCssMatStyler = (function () {
 MdFabCssMatStyler.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: 'button[md-fab], button[mat-fab], a[md-fab], a[mat-fab]',
-                host: {
-                    '[class.mat-fab]': 'true'
-                }
+                host: { 'class': 'mat-fab' }
             },] },
 ];
 /**
@@ -6025,9 +6580,7 @@ var MdMiniFabCssMatStyler = (function () {
 MdMiniFabCssMatStyler.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: 'button[md-mini-fab], button[mat-mini-fab], a[md-mini-fab], a[mat-mini-fab]',
-                host: {
-                    '[class.mat-mini-fab]': 'true'
-                }
+                host: { 'class': 'mat-mini-fab' }
             },] },
 ];
 /**
@@ -6048,12 +6601,14 @@ var MdButton = (function (_super) {
     /**
      * @param {?} _elementRef
      * @param {?} _renderer
+     * @param {?} _platform
      * @param {?} _focusOriginMonitor
      */
-    function MdButton(_elementRef, _renderer, _focusOriginMonitor) {
+    function MdButton(_elementRef, _renderer, _platform, _focusOriginMonitor) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._renderer = _renderer;
+        _this._platform = _platform;
         _this._focusOriginMonitor = _focusOriginMonitor;
         /**
          * Whether the button is round.
@@ -6159,6 +6714,12 @@ var MdButton = (function (_super) {
         for (var _i = 0; _i < arguments.length; _i++) {
             unprefixedAttributeNames[_i] = arguments[_i];
         }
+        // If not on the browser, say that there are none of the attributes present.
+        // Since these only affect how the ripple displays (and ripples only happen on the client),
+        // detecting these attributes isn't necessary when not on the browser.
+        if (!this._platform.isBrowser) {
+            return false;
+        }
         return unprefixedAttributeNames.some(function (suffix) {
             var /** @type {?} */ el = _this._getHostElement();
             return el.hasAttribute('md-' + suffix) || el.hasAttribute('mat-' + suffix);
@@ -6187,6 +6748,7 @@ MdButton.decorators = [
 MdButton.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.Renderer2, },
+    { type: Platform, },
     { type: FocusOriginMonitor, },
 ]; };
 MdButton.propDecorators = {
@@ -6201,10 +6763,11 @@ var MdAnchor = (function (_super) {
     /**
      * @param {?} elementRef
      * @param {?} renderer
+     * @param {?} platform
      * @param {?} focusOriginMonitor
      */
-    function MdAnchor(elementRef, renderer, focusOriginMonitor) {
-        return _super.call(this, elementRef, renderer, focusOriginMonitor) || this;
+    function MdAnchor(elementRef, renderer, platform, focusOriginMonitor) {
+        return _super.call(this, elementRef, renderer, platform, focusOriginMonitor) || this;
     }
     Object.defineProperty(MdAnchor.prototype, "tabIndex", {
         /**
@@ -6259,6 +6822,7 @@ MdAnchor.decorators = [
 MdAnchor.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.Renderer2, },
+    { type: Platform, },
     { type: FocusOriginMonitor, },
 ]; };
 MdAnchor.propDecorators = {
@@ -14892,8 +15456,8 @@ var MdInputContainer = (function () {
 }());
 MdInputContainer.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-input-container, mat-input-container',
-                template: "<div class=\"mat-input-wrapper\"> <div class=\"mat-input-table\"> <div class=\"mat-input-prefix\" *ngIf=\"_prefixChildren.length\"> <!-- TODO(andrewseguin): remove [md-prefix] --> <ng-content select=\"[mdPrefix], [matPrefix], [md-prefix]\"></ng-content> </div> <div class=\"mat-input-infix\" [class.mat-end]=\"align == 'end'\"> <ng-content selector=\"input, textarea\"></ng-content> <span class=\"mat-input-placeholder-wrapper\"> <label class=\"mat-input-placeholder\" [attr.for]=\"_mdInputChild.id\" [class.mat-empty]=\"_mdInputChild.empty && !_shouldAlwaysFloat\" [class.mat-float]=\"_canPlaceholderFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" *ngIf=\"_hasPlaceholder()\"> <ng-content select=\"md-placeholder, mat-placeholder\"></ng-content> {{_mdInputChild.placeholder}} <span class=\"mat-placeholder-required\" *ngIf=\"!hideRequiredMarker && _mdInputChild.required\">*</span> </label> </span> </div> <div class=\"mat-input-suffix\" *ngIf=\"_suffixChildren.length\"> <!-- TODO(andrewseguin): remove [md-suffix] --> <ng-content select=\"[mdSuffix], [matSuffix], [md-suffix]\"></ng-content> </div> </div> <div class=\"mat-input-underline\" [class.mat-disabled]=\"_mdInputChild.disabled\"> <span class=\"mat-input-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span> </div> <div class=\"mat-input-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"> <div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"> <ng-content select=\"md-error, mat-error\"></ng-content> </div> <div class=\"mat-input-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"> <div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div> <ng-content select=\"md-hint:not([align='end']), mat-hint:not([align='end'])\"></ng-content> <div class=\"mat-input-hint-spacer\"></div> <ng-content select=\"md-hint[align='end'], mat-hint[align='end']\"></ng-content> </div> </div> </div> ",
-                styles: [".mat-input-container{display:inline-block;position:relative;font-family:Roboto,\"Helvetica Neue\",sans-serif;line-height:normal;text-align:left}[dir=rtl] .mat-input-container{text-align:right}.mat-input-container .mat-icon{width:auto;height:auto;font-size:100%;vertical-align:top}.mat-input-wrapper{margin:1em 0;padding-bottom:6px}.mat-input-table{display:inline-table;flex-flow:column;vertical-align:bottom;width:100%}.mat-input-table>*{display:table-cell}.mat-input-infix{position:relative}.mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;width:100%;vertical-align:bottom}.mat-end .mat-input-element{text-align:right}[dir=rtl] .mat-end .mat-input-element{text-align:left}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element:-webkit-autofill+.mat-input-placeholder-wrapper .mat-float{display:block;transform:translate3d(0,-1.35em,0) scale(.75);width:133.33333%;transition:none}.mat-input-element::placeholder{color:transparent!important}.mat-input-element::-moz-placeholder{color:transparent!important}.mat-input-element::-webkit-input-placeholder{color:transparent!important}.mat-input-element:-ms-input-placeholder{color:transparent!important}.mat-input-placeholder{position:absolute;left:0;top:0;font-size:100%;pointer-events:none;z-index:1;padding-top:1em;width:100%;display:none;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:translate3d(0,0,0);transform-origin:bottom left;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1)}.mat-input-placeholder.mat-empty{display:block;cursor:text}.mat-focused .mat-input-placeholder.mat-float,.mat-input-placeholder.mat-float:not(.mat-empty){display:block;transform:translate3d(0,-1.35em,0) scale(.75);width:133.33333%}[dir=rtl] .mat-input-placeholder{transform-origin:bottom right;left:auto;right:0}.mat-input-placeholder:not(.mat-empty){transition:none}.mat-input-placeholder-wrapper{position:absolute;left:0;top:-1em;width:100%;padding-top:1em;overflow:hidden;pointer-events:none;transform:translate3d(0,0,0)}.mat-input-placeholder-wrapper::after{content:'';display:inline-table}.mat-input-underline{position:absolute;height:1px;width:100%;margin-top:4px;border-top-width:1px;border-top-style:solid}.mat-input-underline.mat-disabled{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;border-top:0;background-position:0}.mat-input-underline .mat-input-ripple{position:absolute;height:2px;z-index:1;top:-1px;width:100%;transform-origin:top;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-focused .mat-input-underline .mat-input-ripple{opacity:1}.mat-input-subscript-wrapper{position:absolute;font-size:75%;top:100%;width:100%;margin-top:-1.2em;line-height:1.2em;overflow:hidden}.mat-input-hint-wrapper{display:flex}.mat-input-hint-spacer{flex:1 0 10px}.mat-input-error{display:block}.mat-input-prefix,.mat-input-suffix{width:.1px;white-space:nowrap} /*# sourceMappingURL=input-container.css.map */ "],
+                template: "<div class=\"mat-input-wrapper\"> <div class=\"mat-input-table\"> <div class=\"mat-input-prefix\" *ngIf=\"_prefixChildren.length\"> <!-- TODO(andrewseguin): remove [md-prefix] --> <ng-content select=\"[mdPrefix], [matPrefix], [md-prefix]\"></ng-content> </div> <div class=\"mat-input-infix\" [class.mat-end]=\"align == 'end'\"> <ng-content selector=\"input, textarea\"></ng-content> <span class=\"mat-input-placeholder-wrapper\"> <label class=\"mat-input-placeholder\" [attr.for]=\"_mdInputChild.id\" [class.mat-empty]=\"_mdInputChild.empty && !_shouldAlwaysFloat\" [class.mat-float]=\"_canPlaceholderFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" *ngIf=\"_hasPlaceholder()\"> <ng-content select=\"md-placeholder, mat-placeholder\"></ng-content> {{_mdInputChild.placeholder}} <span class=\"mat-placeholder-required\" *ngIf=\"!hideRequiredMarker && _mdInputChild.required\">*</span> </label> </span> </div> <div class=\"mat-input-suffix\" *ngIf=\"_suffixChildren.length\"> <!-- TODO(andrewseguin): remove [md-suffix] --> <ng-content select=\"[mdSuffix], [matSuffix], [md-suffix]\"></ng-content> </div> </div> <div class=\"mat-input-underline\" #underline [class.mat-disabled]=\"_mdInputChild.disabled\"> <span class=\"mat-input-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span> </div> <div class=\"mat-input-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"> <div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"> <ng-content select=\"md-error, mat-error\"></ng-content> </div> <div class=\"mat-input-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"> <div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div> <ng-content select=\"md-hint:not([align='end']), mat-hint:not([align='end'])\"></ng-content> <div class=\"mat-input-hint-spacer\"></div> <ng-content select=\"md-hint[align='end'], mat-hint[align='end']\"></ng-content> </div> </div> </div> ",
+                styles: [".mat-input-container{display:inline-block;position:relative;font-family:Roboto,\"Helvetica Neue\",sans-serif;line-height:normal;text-align:left}[dir=rtl] .mat-input-container{text-align:right}.mat-input-container .mat-datepicker-toggle,.mat-input-container .mat-icon{width:1em;height:1em;font-size:100%;vertical-align:top}.mat-input-wrapper{margin:1em 0;padding-bottom:6px}.mat-input-table{display:inline-table;flex-flow:column;vertical-align:bottom;width:100%}.mat-input-table>*{display:table-cell}.mat-input-infix{position:relative}.mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;width:100%;vertical-align:bottom}.mat-end .mat-input-element{text-align:right}[dir=rtl] .mat-end .mat-input-element{text-align:left}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element:-webkit-autofill+.mat-input-placeholder-wrapper .mat-float{display:block;transform:translate3d(0,-1.35em,0) scale(.75);width:133.33333%;transition:none}.mat-input-element::placeholder{color:transparent!important}.mat-input-element::-moz-placeholder{color:transparent!important}.mat-input-element::-webkit-input-placeholder{color:transparent!important}.mat-input-element:-ms-input-placeholder{color:transparent!important}.mat-input-placeholder{position:absolute;left:0;top:0;font-size:100%;pointer-events:none;z-index:1;padding-top:1em;width:100%;display:none;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:translate3d(0,0,0);transform-origin:bottom left;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1)}.mat-input-placeholder.mat-empty{display:block;cursor:text}.mat-focused .mat-input-placeholder.mat-float,.mat-input-placeholder.mat-float:not(.mat-empty){display:block;transform:translate3d(0,-1.35em,0) scale(.75);width:133.33333%}[dir=rtl] .mat-input-placeholder{transform-origin:bottom right;left:auto;right:0}.mat-input-placeholder:not(.mat-empty){transition:none}.mat-input-placeholder-wrapper{position:absolute;left:0;top:-1em;width:100%;padding-top:1em;overflow:hidden;pointer-events:none;transform:translate3d(0,0,0)}.mat-input-placeholder-wrapper::after{content:'';display:inline-table}.mat-input-underline{position:absolute;height:1px;width:100%;margin-top:4px;border-top-width:1px;border-top-style:solid}.mat-input-underline.mat-disabled{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;border-top:0;background-position:0}.mat-input-underline .mat-input-ripple{position:absolute;height:2px;z-index:1;top:-1px;width:100%;transform-origin:top;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-focused .mat-input-underline .mat-input-ripple{opacity:1}.mat-input-subscript-wrapper{position:absolute;font-size:75%;top:100%;width:100%;margin-top:-1.2em;line-height:1.2em;overflow:hidden}.mat-input-hint-wrapper{display:flex}.mat-input-hint-spacer{flex:1 0 10px}.mat-input-error{display:block}.mat-input-prefix,.mat-input-suffix{width:.1px;white-space:nowrap} /*# sourceMappingURL=input-container.css.map */ "],
                 animations: [
                     _angular_animations.trigger('transitionMessages', [
                         _angular_animations.state('enter', _angular_animations.style({ opacity: 1, transform: 'translateY(0%)' })),
@@ -14937,6 +15501,7 @@ MdInputContainer.propDecorators = {
     'hideRequiredMarker': [{ type: _angular_core.Input },],
     'hintLabel': [{ type: _angular_core.Input },],
     'floatPlaceholder': [{ type: _angular_core.Input },],
+    'underlineRef': [{ type: _angular_core.ViewChild, args: ['underline',] },],
     '_mdInputChild': [{ type: _angular_core.ContentChild, args: [MdInputDirective,] },],
     '_placeholderChild': [{ type: _angular_core.ContentChild, args: [MdPlaceholder,] },],
     '_errorChildren': [{ type: _angular_core.ContentChildren, args: [MdErrorDirective,] },],
@@ -16279,9 +16844,7 @@ MdTabNavBar.decorators = [
     { type: _angular_core.Component, args: [{ selector: '[md-tab-nav-bar], [mat-tab-nav-bar]',
                 template: "<div class=\"mat-tab-links\"> <ng-content></ng-content> <md-ink-bar></md-ink-bar> </div> ",
                 styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative}.mat-tab-link{line-height:48px;height:48px;padding:0 12px;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif;font-weight:500;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-block;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0;opacity:1}@media (max-width:600px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0} /*# sourceMappingURL=tab-nav-bar.css.map */ "],
-                host: {
-                    '[class.mat-tab-nav-bar]': 'true',
-                },
+                host: { 'class': 'mat-tab-nav-bar' },
                 encapsulation: _angular_core.ViewEncapsulation.None,
             },] },
 ];
@@ -16332,9 +16895,7 @@ var MdTabLink = (function () {
 MdTabLink.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: '[md-tab-link], [mat-tab-link]',
-                host: {
-                    '[class.mat-tab-link]': 'true',
-                }
+                host: { 'class': 'mat-tab-link' }
             },] },
 ];
 /**
@@ -16357,19 +16918,18 @@ var MdTabLinkRipple = (function (_super) {
      * @param {?} elementRef
      * @param {?} ngZone
      * @param {?} ruler
+     * @param {?} platform
      * @param {?} globalOptions
      */
-    function MdTabLinkRipple(elementRef, ngZone, ruler, globalOptions) {
-        return _super.call(this, elementRef, ngZone, ruler, globalOptions) || this;
+    function MdTabLinkRipple(elementRef, ngZone, ruler, platform, globalOptions) {
+        return _super.call(this, elementRef, ngZone, ruler, platform, globalOptions) || this;
     }
     return MdTabLinkRipple;
 }(MdRipple));
 MdTabLinkRipple.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: '[md-tab-link], [mat-tab-link]',
-                host: {
-                    '[class.mat-tab-link]': 'true',
-                },
+                host: { 'class': 'mat-tab-link' },
             },] },
 ];
 /**
@@ -16379,6 +16939,7 @@ MdTabLinkRipple.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.NgZone, },
     { type: ViewportRuler, },
+    { type: Platform, },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_RIPPLE_GLOBAL_OPTIONS,] },] },
 ]; };
 /**
@@ -17003,6 +17564,7 @@ MdTabsModule.decorators = [
                     PortalModule,
                     MdRippleModule,
                     ObserveContentModule,
+                    ScrollDispatchModule,
                 ],
                 // Don't export all components because some are only to be used internally.
                 exports: [
@@ -17025,7 +17587,7 @@ MdTabsModule.decorators = [
                     MdTabLinkRipple,
                     MdTabHeader
                 ],
-                providers: [VIEWPORT_RULER_PROVIDER, SCROLL_DISPATCHER_PROVIDER],
+                providers: [VIEWPORT_RULER_PROVIDER],
             },] },
 ];
 /**
@@ -19675,6 +20237,1545 @@ MdAutocompleteModule.decorators = [
  * @nocollapse
  */
 MdAutocompleteModule.ctorParameters = function () { return []; };
+/**
+ * An internal class that represents the data corresponding to a single calendar cell.
+ * \@docs-private
+ */
+var MdCalendarCell = (function () {
+    /**
+     * @param {?} value
+     * @param {?} displayValue
+     * @param {?} ariaLabel
+     * @param {?} enabled
+     */
+    function MdCalendarCell(value, displayValue, ariaLabel, enabled) {
+        this.value = value;
+        this.displayValue = displayValue;
+        this.ariaLabel = ariaLabel;
+        this.enabled = enabled;
+    }
+    return MdCalendarCell;
+}());
+/**
+ * An internal component used to display calendar data in a table.
+ * \@docs-private
+ */
+var MdCalendarBody = (function () {
+    function MdCalendarBody() {
+        /**
+         * The number of columns in the table.
+         */
+        this.numCols = 7;
+        /**
+         * Whether to allow selection of disabled cells.
+         */
+        this.allowDisabledSelection = false;
+        /**
+         * The cell number of the active cell in the table.
+         */
+        this.activeCell = 0;
+        /**
+         * Emits when a new value is selected.
+         */
+        this.selectedValueChange = new _angular_core.EventEmitter();
+    }
+    /**
+     * @param {?} cell
+     * @return {?}
+     */
+    MdCalendarBody.prototype._cellClicked = function (cell) {
+        if (!this.allowDisabledSelection && !cell.enabled) {
+            return;
+        }
+        this.selectedValueChange.emit(cell.value);
+    };
+    Object.defineProperty(MdCalendarBody.prototype, "_firstRowOffset", {
+        /**
+         * The number of blank cells to put at the beginning for the first row.
+         * @return {?}
+         */
+        get: function () {
+            return this.rows && this.rows.length && this.rows[0].length ?
+                this.numCols - this.rows[0].length : 0;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param {?} rowIndex
+     * @param {?} colIndex
+     * @return {?}
+     */
+    MdCalendarBody.prototype._isActiveCell = function (rowIndex, colIndex) {
+        var /** @type {?} */ cellNumber = rowIndex * this.numCols + colIndex;
+        // Account for the fact that the first row may not have as many cells.
+        if (rowIndex) {
+            cellNumber -= this._firstRowOffset;
+        }
+        return cellNumber == this.activeCell;
+    };
+    return MdCalendarBody;
+}());
+MdCalendarBody.decorators = [
+    { type: _angular_core.Component, args: [{ selector: '[md-calendar-body]',
+                template: "<!-- If there's not enough space in the first row, create a separate label row. We mark this row as aria-hidden because we don't want it to be read out as one of the weeks in the month. --> <tr *ngIf=\"_firstRowOffset < labelMinRequiredCells\" aria-hidden=\"true\"> <td class=\"mat-calendar-body-label\" [attr.colspan]=\"numCols\" >{{label}}</td> </tr> <!-- Create the first row separately so we can include a special spacer cell. --> <tr *ngFor=\"let row of rows; let rowIndex = index\" role=\"row\"> <!-- We mark this cell as aria-hidden so it doesn't get read out as one of the days in the week. --> <td *ngIf=\"rowIndex === 0 && _firstRowOffset\" aria-hidden=\"true\" class=\"mat-calendar-body-label\" [attr.colspan]=\"_firstRowOffset\"> {{_firstRowOffset >= labelMinRequiredCells ? label : ''}} </td> <td *ngFor=\"let item of row; let colIndex = index\" role=\"gridcell\" class=\"mat-calendar-body-cell\" [tabindex]=\"_isActiveCell(rowIndex, colIndex) ? 0 : -1\" [class.mat-calendar-body-disabled]=\"!item.enabled\" [class.mat-calendar-body-active]=\"_isActiveCell(rowIndex, colIndex)\" [attr.aria-label]=\"item.ariaLabel\" [attr.aria-disabled]=\"!item.enabled || null\" (click)=\"_cellClicked(item)\"> <div class=\"mat-calendar-body-cell-content\" [class.mat-calendar-body-selected]=\"selectedValue === item.value\" [class.mat-calendar-body-today]=\"todayValue === item.value\"> {{item.displayValue}} </div> </td> </tr> ",
+                styles: [".mat-calendar-body{font-size:13px;min-width:224px}.mat-calendar-body-label{padding:7.14286% 0 7.14286% 7.14286%;height:0;line-height:0;transform:translateX(-6px);text-align:left;font-size:14px;font-weight:700}.mat-calendar-body-cell{position:relative;width:14.28571%;height:0;line-height:0;padding:7.14286% 0;text-align:center;outline:0}.mat-calendar-body-cell-content{position:absolute;top:5%;left:5%;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:90%;height:90%;border-width:1px;border-style:solid;border-radius:50%}[dir=rtl] .mat-calendar-body-label{padding:0 7.14286% 0 0;transform:translateX(6px);text-align:right} /*# sourceMappingURL=calendar-body.css.map */ "],
+                host: {
+                    'class': 'mat-calendar-body',
+                },
+                encapsulation: _angular_core.ViewEncapsulation.None,
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdCalendarBody.ctorParameters = function () { return []; };
+MdCalendarBody.propDecorators = {
+    'label': [{ type: _angular_core.Input },],
+    'rows': [{ type: _angular_core.Input },],
+    'todayValue': [{ type: _angular_core.Input },],
+    'selectedValue': [{ type: _angular_core.Input },],
+    'labelMinRequiredCells': [{ type: _angular_core.Input },],
+    'numCols': [{ type: _angular_core.Input },],
+    'allowDisabledSelection': [{ type: _angular_core.Input },],
+    'activeCell': [{ type: _angular_core.Input },],
+    'selectedValueChange': [{ type: _angular_core.Output },],
+};
+/**
+ * \@docs-private
+ * @param {?} provider
+ * @return {?}
+ */
+function createMissingDateImplError(provider) {
+    return new Error("MdDatepicker: No provider found for " + provider + ". You must import one of the following" +
+        "modules at your application root: MdNativeDateModule, or provide a custom implementation.");
+}
+var DAYS_PER_WEEK = 7;
+/**
+ * An internal component used to display a single month in the datepicker.
+ * \@docs-private
+ */
+var MdMonthView = (function () {
+    /**
+     * @param {?} _dateAdapter
+     * @param {?} _dateFormats
+     */
+    function MdMonthView(_dateAdapter, _dateFormats) {
+        this._dateAdapter = _dateAdapter;
+        this._dateFormats = _dateFormats;
+        /**
+         * Emits when a new date is selected.
+         */
+        this.selectedChange = new _angular_core.EventEmitter();
+        if (!this._dateAdapter) {
+            throw createMissingDateImplError('DateAdapter');
+        }
+        if (!this._dateFormats) {
+            throw createMissingDateImplError('MD_DATE_FORMATS');
+        }
+        var firstDayOfWeek = this._dateAdapter.getFirstDayOfWeek();
+        var narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
+        var longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
+        // Rotate the labels for days of the week based on the configured first day of the week.
+        var weekdays = longWeekdays.map(function (long, i) {
+            return { long: long, narrow: narrowWeekdays[i] };
+        });
+        this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
+        this._activeDate = this._dateAdapter.today();
+    }
+    Object.defineProperty(MdMonthView.prototype, "activeDate", {
+        /**
+         * The date to display in this month view (everything other than the month and year is ignored).
+         * @return {?}
+         */
+        get: function () { return this._activeDate; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            var /** @type {?} */ oldActiveDate = this._activeDate;
+            this._activeDate = value || this._dateAdapter.today();
+            if (!this._hasSameMonthAndYear(oldActiveDate, this._activeDate)) {
+                this._init();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdMonthView.prototype, "selected", {
+        /**
+         * The currently selected date.
+         * @return {?}
+         */
+        get: function () { return this._selected; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._selected = value;
+            this._selectedDate = this._getDateInCurrentMonth(this.selected);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    MdMonthView.prototype.ngAfterContentInit = function () {
+        this._init();
+    };
+    /**
+     * Handles when a new date is selected.
+     * @param {?} date
+     * @return {?}
+     */
+    MdMonthView.prototype._dateSelected = function (date) {
+        if (this._selectedDate == date) {
+            return;
+        }
+        this.selectedChange.emit(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), date));
+    };
+    /**
+     * Initializes this month view.
+     * @return {?}
+     */
+    MdMonthView.prototype._init = function () {
+        this._selectedDate = this._getDateInCurrentMonth(this.selected);
+        this._todayDate = this._getDateInCurrentMonth(this._dateAdapter.today());
+        this._monthLabel =
+            this._dateAdapter.getMonthNames('short')[this._dateAdapter.getMonth(this.activeDate)]
+                .toLocaleUpperCase();
+        var /** @type {?} */ firstOfMonth = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), 1);
+        this._firstWeekOffset =
+            (DAYS_PER_WEEK + this._dateAdapter.getDayOfWeek(firstOfMonth) -
+                this._dateAdapter.getFirstDayOfWeek()) % DAYS_PER_WEEK;
+        this._createWeekCells();
+    };
+    /**
+     * Creates MdCalendarCells for the dates in this month.
+     * @return {?}
+     */
+    MdMonthView.prototype._createWeekCells = function () {
+        var /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(this.activeDate);
+        var /** @type {?} */ dateNames = this._dateAdapter.getDateNames();
+        this._weeks = [[]];
+        for (var /** @type {?} */ i = 0, /** @type {?} */ cell = this._firstWeekOffset; i < daysInMonth; i++, cell++) {
+            if (cell == DAYS_PER_WEEK) {
+                this._weeks.push([]);
+                cell = 0;
+            }
+            var /** @type {?} */ date = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), i + 1);
+            var /** @type {?} */ enabled = !this.dateFilter ||
+                this.dateFilter(date);
+            var /** @type {?} */ ariaLabel = this._dateAdapter.format(date, this._dateFormats.display.dateA11yLabel);
+            this._weeks[this._weeks.length - 1]
+                .push(new MdCalendarCell(i + 1, dateNames[i], ariaLabel, enabled));
+        }
+    };
+    /**
+     * Gets the date in this month that the given Date falls on.
+     * Returns null if the given Date is in another month.
+     * @param {?} date
+     * @return {?}
+     */
+    MdMonthView.prototype._getDateInCurrentMonth = function (date) {
+        return this._hasSameMonthAndYear(date, this.activeDate) ?
+            this._dateAdapter.getDate(date) : null;
+    };
+    /**
+     * Checks whether the 2 dates are non-null and fall within the same month of the same year.
+     * @param {?} d1
+     * @param {?} d2
+     * @return {?}
+     */
+    MdMonthView.prototype._hasSameMonthAndYear = function (d1, d2) {
+        return !!(d1 && d2 && this._dateAdapter.getMonth(d1) == this._dateAdapter.getMonth(d2) &&
+            this._dateAdapter.getYear(d1) == this._dateAdapter.getYear(d2));
+    };
+    return MdMonthView;
+}());
+MdMonthView.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'md-month-view',
+                template: "<table class=\"mat-calendar-table\"> <thead class=\"mat-calendar-table-header\"> <tr><th *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr> <tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr> </thead> <tbody md-calendar-body role=\"grid\" [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\"> </tbody> </table> ",
+                encapsulation: _angular_core.ViewEncapsulation.None,
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdMonthView.ctorParameters = function () { return [
+    { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_DATE_FORMATS,] },] },
+]; };
+MdMonthView.propDecorators = {
+    'activeDate': [{ type: _angular_core.Input },],
+    'selected': [{ type: _angular_core.Input },],
+    'dateFilter': [{ type: _angular_core.Input },],
+    'selectedChange': [{ type: _angular_core.Output },],
+};
+/**
+ * An internal component used to display a single year in the datepicker.
+ * \@docs-private
+ */
+var MdYearView = (function () {
+    /**
+     * @param {?} _dateAdapter
+     * @param {?} _dateFormats
+     */
+    function MdYearView(_dateAdapter, _dateFormats) {
+        this._dateAdapter = _dateAdapter;
+        this._dateFormats = _dateFormats;
+        /**
+         * Emits when a new month is selected.
+         */
+        this.selectedChange = new _angular_core.EventEmitter();
+        if (!this._dateAdapter) {
+            throw createMissingDateImplError('DateAdapter');
+        }
+        if (!this._dateFormats) {
+            throw createMissingDateImplError('MD_DATE_FORMATS');
+        }
+        this._activeDate = this._dateAdapter.today();
+    }
+    Object.defineProperty(MdYearView.prototype, "activeDate", {
+        /**
+         * The date to display in this year view (everything other than the year is ignored).
+         * @return {?}
+         */
+        get: function () { return this._activeDate; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            var /** @type {?} */ oldActiveDate = this._activeDate;
+            this._activeDate = value || this._dateAdapter.today();
+            if (this._dateAdapter.getYear(oldActiveDate) != this._dateAdapter.getYear(this._activeDate)) {
+                this._init();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdYearView.prototype, "selected", {
+        /**
+         * The currently selected date.
+         * @return {?}
+         */
+        get: function () { return this._selected; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._selected = value;
+            this._selectedMonth = this._getMonthInCurrentYear(this.selected);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    MdYearView.prototype.ngAfterContentInit = function () {
+        this._init();
+    };
+    /**
+     * Handles when a new month is selected.
+     * @param {?} month
+     * @return {?}
+     */
+    MdYearView.prototype._monthSelected = function (month) {
+        this.selectedChange.emit(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, this._dateAdapter.getDate(this.activeDate)));
+    };
+    /**
+     * Initializes this month view.
+     * @return {?}
+     */
+    MdYearView.prototype._init = function () {
+        var _this = this;
+        this._selectedMonth = this._getMonthInCurrentYear(this.selected);
+        this._todayMonth = this._getMonthInCurrentYear(this._dateAdapter.today());
+        this._yearLabel = this._dateAdapter.getYearName(this.activeDate);
+        var /** @type {?} */ monthNames = this._dateAdapter.getMonthNames('short');
+        // First row of months only contains 5 elements so we can fit the year label on the same row.
+        this._months = [[0, 1, 2, 3, 4], [5, 6, 7, 8, 9, 10, 11]].map(function (row) { return row.map(function (month) { return _this._createCellForMonth(month, monthNames[month]); }); });
+    };
+    /**
+     * Gets the month in this year that the given Date falls on.
+     * Returns null if the given Date is in another year.
+     * @param {?} date
+     * @return {?}
+     */
+    MdYearView.prototype._getMonthInCurrentYear = function (date) {
+        return date && this._dateAdapter.getYear(date) == this._dateAdapter.getYear(this.activeDate) ?
+            this._dateAdapter.getMonth(date) : null;
+    };
+    /**
+     * Creates an MdCalendarCell for the given month.
+     * @param {?} month
+     * @param {?} monthName
+     * @return {?}
+     */
+    MdYearView.prototype._createCellForMonth = function (month, monthName) {
+        var /** @type {?} */ ariaLabel = this._dateAdapter.format(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1), this._dateFormats.display.monthYearA11yLabel);
+        return new MdCalendarCell(month, monthName.toLocaleUpperCase(), ariaLabel, this._isMonthEnabled(month));
+    };
+    /**
+     * Whether the given month is enabled.
+     * @param {?} month
+     * @return {?}
+     */
+    MdYearView.prototype._isMonthEnabled = function (month) {
+        if (!this.dateFilter) {
+            return true;
+        }
+        var /** @type {?} */ firstOfMonth = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1);
+        // If any date in the month is enabled count the month as enabled.
+        for (var /** @type {?} */ date = firstOfMonth; this._dateAdapter.getMonth(date) == month; date = this._dateAdapter.addCalendarDays(date, 1)) {
+            if (this.dateFilter(date)) {
+                return true;
+            }
+        }
+        return false;
+    };
+    return MdYearView;
+}());
+MdYearView.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'md-year-view',
+                template: "<table class=\"mat-calendar-table\"> <thead class=\"mat-calendar-table-header\"> <tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\"></th></tr> </thead> <tbody md-calendar-body role=\"grid\" allowDisabledSelection=\"true\" [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\"> </tbody> </table> ",
+                encapsulation: _angular_core.ViewEncapsulation.None,
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdYearView.ctorParameters = function () { return [
+    { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_DATE_FORMATS,] },] },
+]; };
+MdYearView.propDecorators = {
+    'activeDate': [{ type: _angular_core.Input },],
+    'selected': [{ type: _angular_core.Input },],
+    'dateFilter': [{ type: _angular_core.Input },],
+    'selectedChange': [{ type: _angular_core.Output },],
+};
+/**
+ * Datepicker data that requires internationalization.
+ */
+var MdDatepickerIntl = (function () {
+    function MdDatepickerIntl() {
+        /**
+         * A label for the calendar popup (used by screen readers).
+         */
+        this.calendarLabel = 'Calendar';
+        /**
+         * A label for the button used to open the calendar popup (used by screen readers).
+         */
+        this.openCalendarLabel = 'Open calendar';
+        /**
+         * A label for the previous month button (used by screen readers).
+         */
+        this.prevMonthLabel = 'Previous month';
+        /**
+         * A label for the next month button (used by screen readers).
+         */
+        this.nextMonthLabel = 'Next month';
+        /**
+         * A label for the previous year button (used by screen readers).
+         */
+        this.prevYearLabel = 'Previous year';
+        /**
+         * A label for the next year button (used by screen readers).
+         */
+        this.nextYearLabel = 'Next year';
+        /**
+         * A label for the 'switch to month view' button (used by screen readers).
+         */
+        this.switchToMonthViewLabel = 'Change to month view';
+        /**
+         * A label for the 'switch to year view' button (used by screen readers).
+         */
+        this.switchToYearViewLabel = 'Change to year view';
+    }
+    return MdDatepickerIntl;
+}());
+MdDatepickerIntl.decorators = [
+    { type: _angular_core.Injectable },
+];
+/**
+ * @nocollapse
+ */
+MdDatepickerIntl.ctorParameters = function () { return []; };
+/**
+ * A calendar that is used as part of the datepicker.
+ * \@docs-private
+ */
+var MdCalendar = (function () {
+    /**
+     * @param {?} _elementRef
+     * @param {?} _intl
+     * @param {?} _ngZone
+     * @param {?} _dateAdapter
+     * @param {?} _dateFormats
+     */
+    function MdCalendar(_elementRef, _intl, _ngZone, _dateAdapter, _dateFormats) {
+        var _this = this;
+        this._elementRef = _elementRef;
+        this._intl = _intl;
+        this._ngZone = _ngZone;
+        this._dateAdapter = _dateAdapter;
+        this._dateFormats = _dateFormats;
+        /**
+         * Whether the calendar should be started in month or year view.
+         */
+        this.startView = 'month';
+        /**
+         * Emits when the currently selected date changes.
+         */
+        this.selectedChange = new _angular_core.EventEmitter();
+        /**
+         * Date filter for the month and year views.
+         */
+        this._dateFilterForViews = function (date) {
+            return !!date &&
+                (!_this.dateFilter || _this.dateFilter(date)) &&
+                (!_this.minDate || _this._dateAdapter.compareDate(date, _this.minDate) >= 0) &&
+                (!_this.maxDate || _this._dateAdapter.compareDate(date, _this.maxDate) <= 0);
+        };
+        if (!this._dateAdapter) {
+            throw createMissingDateImplError('DateAdapter');
+        }
+        if (!this._dateFormats) {
+            throw createMissingDateImplError('MD_DATE_FORMATS');
+        }
+    }
+    Object.defineProperty(MdCalendar.prototype, "_activeDate", {
+        /**
+         * The current active date. This determines which time period is shown and which date is
+         * highlighted when using keyboard navigation.
+         * @return {?}
+         */
+        get: function () { return this._clampedActiveDate; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._clampedActiveDate = this._dateAdapter.clampDate(value, this.minDate, this.maxDate);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdCalendar.prototype, "_periodButtonText", {
+        /**
+         * The label for the current calendar view.
+         * @return {?}
+         */
+        get: function () {
+            return this._monthView ?
+                this._dateAdapter.format(this._activeDate, this._dateFormats.display.monthYearLabel)
+                    .toLocaleUpperCase() :
+                this._dateAdapter.getYearName(this._activeDate);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdCalendar.prototype, "_periodButtonLabel", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._monthView ? this._intl.switchToYearViewLabel : this._intl.switchToMonthViewLabel;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdCalendar.prototype, "_prevButtonLabel", {
+        /**
+         * The label for the the previous button.
+         * @return {?}
+         */
+        get: function () {
+            return this._monthView ? this._intl.prevMonthLabel : this._intl.prevYearLabel;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdCalendar.prototype, "_nextButtonLabel", {
+        /**
+         * The label for the the next button.
+         * @return {?}
+         */
+        get: function () {
+            return this._monthView ? this._intl.nextMonthLabel : this._intl.nextYearLabel;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    MdCalendar.prototype.ngAfterContentInit = function () {
+        this._activeDate = this.startAt || this._dateAdapter.today();
+        this._focusActiveCell();
+        this._monthView = this.startView != 'year';
+    };
+    /**
+     * Handles date selection in the month view.
+     * @param {?} date
+     * @return {?}
+     */
+    MdCalendar.prototype._dateSelected = function (date) {
+        if (!this._dateAdapter.sameDate(date, this.selected)) {
+            this.selectedChange.emit(date);
+        }
+    };
+    /**
+     * Handles month selection in the year view.
+     * @param {?} month
+     * @return {?}
+     */
+    MdCalendar.prototype._monthSelected = function (month) {
+        this._activeDate = month;
+        this._monthView = true;
+    };
+    /**
+     * Handles user clicks on the period label.
+     * @return {?}
+     */
+    MdCalendar.prototype._currentPeriodClicked = function () {
+        this._monthView = !this._monthView;
+    };
+    /**
+     * Handles user clicks on the previous button.
+     * @return {?}
+     */
+    MdCalendar.prototype._previousClicked = function () {
+        this._activeDate = this._monthView ?
+            this._dateAdapter.addCalendarMonths(this._activeDate, -1) :
+            this._dateAdapter.addCalendarYears(this._activeDate, -1);
+    };
+    /**
+     * Handles user clicks on the next button.
+     * @return {?}
+     */
+    MdCalendar.prototype._nextClicked = function () {
+        this._activeDate = this._monthView ?
+            this._dateAdapter.addCalendarMonths(this._activeDate, 1) :
+            this._dateAdapter.addCalendarYears(this._activeDate, 1);
+    };
+    /**
+     * Whether the previous period button is enabled.
+     * @return {?}
+     */
+    MdCalendar.prototype._previousEnabled = function () {
+        if (!this.minDate) {
+            return true;
+        }
+        return !this.minDate || !this._isSameView(this._activeDate, this.minDate);
+    };
+    /**
+     * Whether the next period button is enabled.
+     * @return {?}
+     */
+    MdCalendar.prototype._nextEnabled = function () {
+        return !this.maxDate || !this._isSameView(this._activeDate, this.maxDate);
+    };
+    /**
+     * Handles keydown events on the calendar body.
+     * @param {?} event
+     * @return {?}
+     */
+    MdCalendar.prototype._handleCalendarBodyKeydown = function (event) {
+        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
+        // disabled ones from being selected. This may not be ideal, we should look into whether
+        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
+        if (this._monthView) {
+            this._handleCalendarBodyKeydownInMonthView(event);
+        }
+        else {
+            this._handleCalendarBodyKeydownInYearView(event);
+        }
+    };
+    /**
+     * Focuses the active cell after the microtask queue is empty.
+     * @return {?}
+     */
+    MdCalendar.prototype._focusActiveCell = function () {
+        var _this = this;
+        this._ngZone.runOutsideAngular(function () { return _this._ngZone.onStable.first().subscribe(function () {
+            var /** @type {?} */ activeEl = _this._elementRef.nativeElement.querySelector('.mat-calendar-body-active');
+            activeEl.focus();
+        }); });
+    };
+    /**
+     * Whether the two dates represent the same view in the current view mode (month or year).
+     * @param {?} date1
+     * @param {?} date2
+     * @return {?}
+     */
+    MdCalendar.prototype._isSameView = function (date1, date2) {
+        return this._monthView ?
+            this._dateAdapter.getYear(date1) == this._dateAdapter.getYear(date2) &&
+                this._dateAdapter.getMonth(date1) == this._dateAdapter.getMonth(date2) :
+            this._dateAdapter.getYear(date1) == this._dateAdapter.getYear(date2);
+    };
+    /**
+     * Handles keydown events on the calendar body when calendar is in month view.
+     * @param {?} event
+     * @return {?}
+     */
+    MdCalendar.prototype._handleCalendarBodyKeydownInMonthView = function (event) {
+        switch (event.keyCode) {
+            case LEFT_ARROW:
+                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, -1);
+                break;
+            case RIGHT_ARROW:
+                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, 1);
+                break;
+            case UP_ARROW:
+                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, -7);
+                break;
+            case DOWN_ARROW:
+                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, 7);
+                break;
+            case HOME:
+                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, 1 - this._dateAdapter.getDate(this._activeDate));
+                break;
+            case END:
+                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, (this._dateAdapter.getNumDaysInMonth(this._activeDate) -
+                    this._dateAdapter.getDate(this._activeDate)));
+                break;
+            case PAGE_UP:
+                this._activeDate = event.altKey ?
+                    this._dateAdapter.addCalendarYears(this._activeDate, -1) :
+                    this._dateAdapter.addCalendarMonths(this._activeDate, -1);
+                break;
+            case PAGE_DOWN:
+                this._activeDate = event.altKey ?
+                    this._dateAdapter.addCalendarYears(this._activeDate, 1) :
+                    this._dateAdapter.addCalendarMonths(this._activeDate, 1);
+                break;
+            case ENTER:
+                if (this._dateFilterForViews(this._activeDate)) {
+                    this._dateSelected(this._activeDate);
+                    // Prevent unexpected default actions such as form submission.
+                    event.preventDefault();
+                }
+                return;
+            default:
+                // Don't prevent default or focus active cell on keys that we don't explicitly handle.
+                return;
+        }
+        this._focusActiveCell();
+        // Prevent unexpected default actions such as form submission.
+        event.preventDefault();
+    };
+    /**
+     * Handles keydown events on the calendar body when calendar is in year view.
+     * @param {?} event
+     * @return {?}
+     */
+    MdCalendar.prototype._handleCalendarBodyKeydownInYearView = function (event) {
+        switch (event.keyCode) {
+            case LEFT_ARROW:
+                this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, -1);
+                break;
+            case RIGHT_ARROW:
+                this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, 1);
+                break;
+            case UP_ARROW:
+                this._activeDate = this._prevMonthInSameCol(this._activeDate);
+                break;
+            case DOWN_ARROW:
+                this._activeDate = this._nextMonthInSameCol(this._activeDate);
+                break;
+            case HOME:
+                this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, -this._dateAdapter.getMonth(this._activeDate));
+                break;
+            case END:
+                this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, 11 - this._dateAdapter.getMonth(this._activeDate));
+                break;
+            case PAGE_UP:
+                this._activeDate =
+                    this._dateAdapter.addCalendarYears(this._activeDate, event.altKey ? -10 : -1);
+                break;
+            case PAGE_DOWN:
+                this._activeDate =
+                    this._dateAdapter.addCalendarYears(this._activeDate, event.altKey ? 10 : 1);
+                break;
+            case ENTER:
+                this._monthSelected(this._activeDate);
+                break;
+            default:
+                // Don't prevent default or focus active cell on keys that we don't explicitly handle.
+                return;
+        }
+        this._focusActiveCell();
+        // Prevent unexpected default actions such as form submission.
+        event.preventDefault();
+    };
+    /**
+     * Determine the date for the month that comes before the given month in the same column in the
+     * calendar table.
+     * @param {?} date
+     * @return {?}
+     */
+    MdCalendar.prototype._prevMonthInSameCol = function (date) {
+        // Determine how many months to jump forward given that there are 2 empty slots at the beginning
+        // of each year.
+        var /** @type {?} */ increment = this._dateAdapter.getMonth(date) <= 4 ? -5 :
+            (this._dateAdapter.getMonth(date) >= 7 ? -7 : -12);
+        return this._dateAdapter.addCalendarMonths(date, increment);
+    };
+    /**
+     * Determine the date for the month that comes after the given month in the same column in the
+     * calendar table.
+     * @param {?} date
+     * @return {?}
+     */
+    MdCalendar.prototype._nextMonthInSameCol = function (date) {
+        // Determine how many months to jump forward given that there are 2 empty slots at the beginning
+        // of each year.
+        var /** @type {?} */ increment = this._dateAdapter.getMonth(date) <= 4 ? 7 :
+            (this._dateAdapter.getMonth(date) >= 7 ? 5 : 12);
+        return this._dateAdapter.addCalendarMonths(date, increment);
+    };
+    return MdCalendar;
+}());
+MdCalendar.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'md-calendar',
+                template: "<div class=\"mat-calendar-header\"> <div class=\"mat-calendar-controls\"> <button md-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\"> {{_periodButtonText}} <div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div> </button> <div class=\"mat-calendar-spacer\"></div> <button md-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"> </button> <button md-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"> </button> </div> </div> <div class=\"mat-calendar-content\" (keydown)=\"_handleCalendarBodyKeydown($event)\" cdkMonitorSubtreeFocus> <md-month-view *ngIf=\"_monthView\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_dateSelected($event)\"> </md-month-view> <md-year-view *ngIf=\"!_monthView\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_monthSelected($event)\"> </md-year-view> </div> ",
+                styles: [".mat-calendar{display:block}.mat-calendar-header{padding:8px 8px 0 8px}.mat-calendar-content{padding:0 8px 8px 8px;outline:0}.mat-calendar-controls{display:flex;padding:5% calc(100% / 14 - 22px) 5% calc(100% / 14 - 22px)}.mat-calendar-spacer{flex:1 1 auto}.mat-calendar-period-button{font:inherit;font-size:14px;font-weight:700;min-width:0}.mat-calendar-arrow{display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top-width:5px;border-top-style:solid;margin:0 0 0 5px;vertical-align:middle}.mat-calendar-arrow.mat-calendar-invert{transform:rotate(180deg)}.mat-calendar-next-button,.mat-calendar-previous-button{position:relative}.mat-calendar-next-button::after,.mat-calendar-previous-button::after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;margin:15.5px;border:0 solid currentColor;border-top-width:2px}.mat-calendar-previous-button::after{border-left-width:2px;transform:translateX(2px) rotate(-45deg)}.mat-calendar-next-button::after{border-right-width:2px;transform:translateX(-2px) rotate(45deg)}.mat-calendar-table{border-spacing:0;border-collapse:collapse;width:100%}.mat-calendar-table-header th{text-align:center;font-size:11px;font-weight:400;padding:0 0 8px 0}.mat-calendar-table-header-divider{position:relative;height:1px}.mat-calendar-table-header-divider::after{content:'';position:absolute;top:0;left:-8px;right:-8px;height:1px} /*# sourceMappingURL=calendar.css.map */ "],
+                host: {
+                    '[class.mat-calendar]': 'true',
+                },
+                encapsulation: _angular_core.ViewEncapsulation.None,
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdCalendar.ctorParameters = function () { return [
+    { type: _angular_core.ElementRef, },
+    { type: MdDatepickerIntl, },
+    { type: _angular_core.NgZone, },
+    { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_DATE_FORMATS,] },] },
+]; };
+MdCalendar.propDecorators = {
+    'startAt': [{ type: _angular_core.Input },],
+    'startView': [{ type: _angular_core.Input },],
+    'selected': [{ type: _angular_core.Input },],
+    'minDate': [{ type: _angular_core.Input },],
+    'maxDate': [{ type: _angular_core.Input },],
+    'dateFilter': [{ type: _angular_core.Input },],
+    'selectedChange': [{ type: _angular_core.Output },],
+};
+/**
+ * Used to generate a unique ID for each datepicker instance.
+ */
+var datepickerUid = 0;
+/**
+ * Component used as the content for the datepicker dialog and popup. We use this instead of using
+ * MdCalendar directly as the content so we can control the initial focus. This also gives us a
+ * place to put additional features of the popup that are not part of the calendar itself in the
+ * future. (e.g. confirmation buttons).
+ * \@docs-internal
+ */
+var MdDatepickerContent = (function () {
+    function MdDatepickerContent() {
+    }
+    /**
+     * @return {?}
+     */
+    MdDatepickerContent.prototype.ngAfterContentInit = function () {
+        this._calendar._focusActiveCell();
+    };
+    /**
+     * Handles keydown event on datepicker content.
+     * @param {?} event The event.
+     * @return {?}
+     */
+    MdDatepickerContent.prototype._handleKeydown = function (event) {
+        switch (event.keyCode) {
+            case ESCAPE:
+                this.datepicker.close();
+                break;
+            default:
+                // Return so that we don't preventDefault on keys that are not explicitly handled.
+                return;
+        }
+        event.preventDefault();
+    };
+    return MdDatepickerContent;
+}());
+MdDatepickerContent.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'md-datepicker-content',
+                template: "<md-calendar cdkTrapFocus [id]=\"datepicker.id\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" (selectedChange)=\"datepicker._selectAndClose($event)\"> </md-calendar> ",
+                styles: [".mat-calendar{width:296px;box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-datepicker-content-touch{display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{width:64vmin;height:80vmin;min-width:250px;min-height:312px;max-width:750px;max-height:788px;box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12)} /*# sourceMappingURL=datepicker-content.css.map */ "],
+                host: {
+                    'class': 'mat-datepicker-content',
+                    '[class.mat-datepicker-content-touch]': 'datepicker.touchUi',
+                    '(keydown)': '_handleKeydown($event)',
+                },
+                encapsulation: _angular_core.ViewEncapsulation.None,
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdDatepickerContent.ctorParameters = function () { return []; };
+MdDatepickerContent.propDecorators = {
+    '_calendar': [{ type: _angular_core.ViewChild, args: [MdCalendar,] },],
+};
+/**
+ * Component responsible for managing the datepicker popup/dialog.
+ */
+var MdDatepicker = (function () {
+    /**
+     * @param {?} _dialog
+     * @param {?} _overlay
+     * @param {?} _viewContainerRef
+     * @param {?} _dateAdapter
+     * @param {?} _dir
+     */
+    function MdDatepicker(_dialog, _overlay, _viewContainerRef, _dateAdapter, _dir) {
+        this._dialog = _dialog;
+        this._overlay = _overlay;
+        this._viewContainerRef = _viewContainerRef;
+        this._dateAdapter = _dateAdapter;
+        this._dir = _dir;
+        /**
+         * The view that the calendar should start in.
+         */
+        this.startView = 'month';
+        /**
+         * Whether the calendar UI is in touch mode. In touch mode the calendar opens in a dialog rather
+         * than a popup and elements have more padding to allow for bigger touch targets.
+         */
+        this.touchUi = false;
+        /**
+         * Emits new selected date when selected date changes.
+         */
+        this.selectedChanged = new _angular_core.EventEmitter();
+        /**
+         * Whether the calendar is open.
+         */
+        this.opened = false;
+        /**
+         * The id for the datepicker calendar.
+         */
+        this.id = "md-datepicker-" + datepickerUid++;
+        /**
+         * The currently selected date.
+         */
+        this._selected = null;
+        if (!this._dateAdapter) {
+            throw createMissingDateImplError('DateAdapter');
+        }
+    }
+    Object.defineProperty(MdDatepicker.prototype, "startAt", {
+        /**
+         * The date to open the calendar to initially.
+         * @return {?}
+         */
+        get: function () {
+            // If an explicit startAt is set we start there, otherwise we start at whatever the currently
+            // selected value is.
+            return this._startAt || (this._datepickerInput ? this._datepickerInput.value : null);
+        },
+        /**
+         * @param {?} date
+         * @return {?}
+         */
+        set: function (date) { this._startAt = date; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdDatepicker.prototype, "_minDate", {
+        /**
+         * The minimum selectable date.
+         * @return {?}
+         */
+        get: function () {
+            return this._datepickerInput && this._datepickerInput.min;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdDatepicker.prototype, "_maxDate", {
+        /**
+         * The maximum selectable date.
+         * @return {?}
+         */
+        get: function () {
+            return this._datepickerInput && this._datepickerInput.max;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdDatepicker.prototype, "_dateFilter", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._datepickerInput && this._datepickerInput._dateFilter;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    MdDatepicker.prototype.ngOnDestroy = function () {
+        this.close();
+        if (this._popupRef) {
+            this._popupRef.dispose();
+        }
+        if (this._inputSubscription) {
+            this._inputSubscription.unsubscribe();
+        }
+    };
+    /**
+     * Selects the given date and closes the currently open popup or dialog.
+     * @param {?} date
+     * @return {?}
+     */
+    MdDatepicker.prototype._selectAndClose = function (date) {
+        var /** @type {?} */ oldValue = this._selected;
+        this._selected = date;
+        if (!this._dateAdapter.sameDate(oldValue, this._selected)) {
+            this.selectedChanged.emit(date);
+        }
+        this.close();
+    };
+    /**
+     * Register an input with this datepicker.
+     * @param {?} input The datepicker input to register with this datepicker.
+     * @return {?}
+     */
+    MdDatepicker.prototype._registerInput = function (input) {
+        var _this = this;
+        if (this._datepickerInput) {
+            throw new MdError('An MdDatepicker can only be associated with a single input.');
+        }
+        this._datepickerInput = input;
+        this._inputSubscription =
+            this._datepickerInput._valueChange.subscribe(function (value) { return _this._selected = value; });
+    };
+    /**
+     * Open the calendar.
+     * @return {?}
+     */
+    MdDatepicker.prototype.open = function () {
+        if (this.opened) {
+            return;
+        }
+        if (!this._datepickerInput) {
+            throw new MdError('Attempted to open an MdDatepicker with no associated input.');
+        }
+        this.touchUi ? this._openAsDialog() : this._openAsPopup();
+        this.opened = true;
+    };
+    /**
+     * Close the calendar.
+     * @return {?}
+     */
+    MdDatepicker.prototype.close = function () {
+        if (!this.opened) {
+            return;
+        }
+        if (this._popupRef && this._popupRef.hasAttached()) {
+            this._popupRef.detach();
+        }
+        if (this._dialogRef) {
+            this._dialogRef.close();
+            this._dialogRef = null;
+        }
+        if (this._calendarPortal && this._calendarPortal.isAttached) {
+            this._calendarPortal.detach();
+        }
+        this.opened = false;
+    };
+    /**
+     * Open the calendar as a dialog.
+     * @return {?}
+     */
+    MdDatepicker.prototype._openAsDialog = function () {
+        var _this = this;
+        var /** @type {?} */ config = new MdDialogConfig();
+        config.viewContainerRef = this._viewContainerRef;
+        this._dialogRef = this._dialog.open(MdDatepickerContent, config);
+        this._dialogRef.afterClosed().first().subscribe(function () { return _this.close(); });
+        this._dialogRef.componentInstance.datepicker = this;
+    };
+    /**
+     * Open the calendar as a popup.
+     * @return {?}
+     */
+    MdDatepicker.prototype._openAsPopup = function () {
+        var _this = this;
+        if (!this._calendarPortal) {
+            this._calendarPortal = new ComponentPortal(MdDatepickerContent, this._viewContainerRef);
+        }
+        if (!this._popupRef) {
+            this._createPopup();
+        }
+        if (!this._popupRef.hasAttached()) {
+            var /** @type {?} */ componentRef = this._popupRef.attach(this._calendarPortal);
+            componentRef.instance.datepicker = this;
+        }
+        this._popupRef.backdropClick().first().subscribe(function () { return _this.close(); });
+    };
+    /**
+     * Create the popup.
+     * @return {?}
+     */
+    MdDatepicker.prototype._createPopup = function () {
+        var /** @type {?} */ overlayState = new OverlayState();
+        overlayState.positionStrategy = this._createPopupPositionStrategy();
+        overlayState.hasBackdrop = true;
+        overlayState.backdropClass = 'md-overlay-transparent-backdrop';
+        overlayState.direction = this._dir ? this._dir.value : 'ltr';
+        this._popupRef = this._overlay.create(overlayState);
+    };
+    /**
+     * Create the popup PositionStrategy.
+     * @return {?}
+     */
+    MdDatepicker.prototype._createPopupPositionStrategy = function () {
+        var /** @type {?} */ origin = ({ originX: 'start', originY: 'bottom' });
+        var /** @type {?} */ overlay = ({ overlayX: 'start', overlayY: 'top' });
+        return this._overlay.position().connectedTo(this._datepickerInput.getPopupConnectionElementRef(), origin, overlay);
+    };
+    return MdDatepicker;
+}());
+MdDatepicker.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'md-datepicker, mat-datepicker',
+                template: '',
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdDatepicker.ctorParameters = function () { return [
+    { type: MdDialog, },
+    { type: Overlay, },
+    { type: _angular_core.ViewContainerRef, },
+    { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
+    { type: Dir, decorators: [{ type: _angular_core.Optional },] },
+]; };
+MdDatepicker.propDecorators = {
+    'startAt': [{ type: _angular_core.Input },],
+    'startView': [{ type: _angular_core.Input },],
+    'touchUi': [{ type: _angular_core.Input },],
+    'selectedChanged': [{ type: _angular_core.Output },],
+};
+var MD_DATEPICKER_VALUE_ACCESSOR = {
+    provide: _angular_forms.NG_VALUE_ACCESSOR,
+    useExisting: _angular_core.forwardRef(function () { return MdDatepickerInput; }),
+    multi: true
+};
+var MD_DATEPICKER_VALIDATORS = {
+    provide: _angular_forms.NG_VALIDATORS,
+    useExisting: _angular_core.forwardRef(function () { return MdDatepickerInput; }),
+    multi: true
+};
+/**
+ * Directive used to connect an input to a MdDatepicker.
+ */
+var MdDatepickerInput = (function () {
+    /**
+     * @param {?} _elementRef
+     * @param {?} _renderer
+     * @param {?} _dateAdapter
+     * @param {?} _dateFormats
+     * @param {?} _mdInputContainer
+     */
+    function MdDatepickerInput(_elementRef, _renderer, _dateAdapter, _dateFormats, _mdInputContainer) {
+        var _this = this;
+        this._elementRef = _elementRef;
+        this._renderer = _renderer;
+        this._dateAdapter = _dateAdapter;
+        this._dateFormats = _dateFormats;
+        this._mdInputContainer = _mdInputContainer;
+        /**
+         * Emits when the value changes (either due to user input or programmatic change).
+         */
+        this._valueChange = new _angular_core.EventEmitter();
+        this._onTouched = function () { };
+        this._cvaOnChange = function (value) { };
+        this._validatorOnChange = function () { };
+        /**
+         * The form control validator for the min date.
+         */
+        this._minValidator = function (control) {
+            return (!_this.min || !control.value ||
+                _this._dateAdapter.compareDate(_this.min, control.value) < 0) ?
+                null : { 'mdDatepickerMin': { 'min': _this.min, 'actual': control.value } };
+        };
+        /**
+         * The form control validator for the max date.
+         */
+        this._maxValidator = function (control) {
+            return (!_this.max || !control.value ||
+                _this._dateAdapter.compareDate(_this.max, control.value) > 0) ?
+                null : { 'mdDatepickerMax': { 'max': _this.max, 'actual': control.value } };
+        };
+        /**
+         * The form control validator for the date filter.
+         */
+        this._filterValidator = function (control) {
+            return !_this._dateFilter || !control.value || _this._dateFilter(control.value) ?
+                null : { 'mdDatepickerFilter': true };
+        };
+        /**
+         * The combined form control validator for this input.
+         */
+        this._validator = _angular_forms.Validators.compose([this._minValidator, this._maxValidator, this._filterValidator]);
+        if (!this._dateAdapter) {
+            throw createMissingDateImplError('DateAdapter');
+        }
+        if (!this._dateFormats) {
+            throw createMissingDateImplError('MD_DATE_FORMATS');
+        }
+    }
+    Object.defineProperty(MdDatepickerInput.prototype, "mdDatepicker", {
+        /**
+         * The datepicker that this input is associated with.
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            if (value) {
+                this._datepicker = value;
+                this._datepicker._registerInput(this);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdDatepickerInput.prototype, "matDatepicker", {
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) { this.mdDatepicker = value; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdDatepickerInput.prototype, "mdDatepickerFilter", {
+        /**
+         * @param {?} filter
+         * @return {?}
+         */
+        set: function (filter) {
+            this._dateFilter = filter;
+            this._validatorOnChange();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdDatepickerInput.prototype, "matDatepickerFilter", {
+        /**
+         * @param {?} filter
+         * @return {?}
+         */
+        set: function (filter) {
+            this.mdDatepickerFilter = filter;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdDatepickerInput.prototype, "value", {
+        /**
+         * The value of the input.
+         * @return {?}
+         */
+        get: function () {
+            return this._dateAdapter.parse(this._elementRef.nativeElement.value, this._dateFormats.parse.dateInput);
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            var /** @type {?} */ date = this._dateAdapter.parse(value, this._dateFormats.parse.dateInput);
+            var /** @type {?} */ oldDate = this.value;
+            this._renderer.setProperty(this._elementRef.nativeElement, 'value', date ? this._dateAdapter.format(date, this._dateFormats.display.dateInput) : '');
+            if (!this._dateAdapter.sameDate(oldDate, date)) {
+                this._valueChange.emit(date);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdDatepickerInput.prototype, "min", {
+        /**
+         * The minimum valid date.
+         * @return {?}
+         */
+        get: function () { return this._min; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._min = value;
+            this._validatorOnChange();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdDatepickerInput.prototype, "max", {
+        /**
+         * The maximum valid date.
+         * @return {?}
+         */
+        get: function () { return this._max; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._max = value;
+            this._validatorOnChange();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    MdDatepickerInput.prototype.ngAfterContentInit = function () {
+        var _this = this;
+        if (this._datepicker) {
+            this._datepickerSubscription =
+                this._datepicker.selectedChanged.subscribe(function (selected) {
+                    _this.value = selected;
+                    _this._cvaOnChange(selected);
+                });
+        }
+    };
+    /**
+     * @return {?}
+     */
+    MdDatepickerInput.prototype.ngOnDestroy = function () {
+        if (this._datepickerSubscription) {
+            this._datepickerSubscription.unsubscribe();
+        }
+    };
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    MdDatepickerInput.prototype.registerOnValidatorChange = function (fn) {
+        this._validatorOnChange = fn;
+    };
+    /**
+     * @param {?} c
+     * @return {?}
+     */
+    MdDatepickerInput.prototype.validate = function (c) {
+        return this._validator ? this._validator(c) : null;
+    };
+    /**
+     * Gets the element that the datepicker popup should be connected to.
+     * @return {?} The element to connect the popup to.
+     */
+    MdDatepickerInput.prototype.getPopupConnectionElementRef = function () {
+        return this._mdInputContainer ? this._mdInputContainer.underlineRef : this._elementRef;
+    };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    MdDatepickerInput.prototype.writeValue = function (value) {
+        this.value = value;
+    };
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    MdDatepickerInput.prototype.registerOnChange = function (fn) {
+        this._cvaOnChange = fn;
+    };
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    MdDatepickerInput.prototype.registerOnTouched = function (fn) {
+        this._onTouched = fn;
+    };
+    /**
+     * @param {?} disabled
+     * @return {?}
+     */
+    MdDatepickerInput.prototype.setDisabledState = function (disabled) {
+        this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', disabled);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MdDatepickerInput.prototype._onKeydown = function (event) {
+        if (event.altKey && event.keyCode === DOWN_ARROW) {
+            this._datepicker.open();
+            event.preventDefault();
+        }
+    };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    MdDatepickerInput.prototype._onInput = function (value) {
+        var /** @type {?} */ date = this._dateAdapter.parse(value, this._dateFormats.parse.dateInput);
+        this._cvaOnChange(date);
+        this._valueChange.emit(date);
+    };
+    return MdDatepickerInput;
+}());
+MdDatepickerInput.decorators = [
+    { type: _angular_core.Directive, args: [{
+                selector: 'input[mdDatepicker], input[matDatepicker]',
+                providers: [MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS],
+                host: {
+                    '[attr.aria-expanded]': '_datepicker?.opened || "false"',
+                    '[attr.aria-haspopup]': 'true',
+                    '[attr.aria-owns]': '_datepicker?.id',
+                    '[attr.min]': 'min ? _dateAdapter.getISODateString(min) : null',
+                    '[attr.max]': 'max ? _dateAdapter.getISODateString(max) : null',
+                    '(input)': '_onInput($event.target.value)',
+                    '(blur)': '_onTouched()',
+                    '(keydown)': '_onKeydown($event)',
+                }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdDatepickerInput.ctorParameters = function () { return [
+    { type: _angular_core.ElementRef, },
+    { type: _angular_core.Renderer2, },
+    { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_DATE_FORMATS,] },] },
+    { type: MdInputContainer, decorators: [{ type: _angular_core.Optional },] },
+]; };
+MdDatepickerInput.propDecorators = {
+    'mdDatepicker': [{ type: _angular_core.Input },],
+    'matDatepicker': [{ type: _angular_core.Input },],
+    'mdDatepickerFilter': [{ type: _angular_core.Input },],
+    'matDatepickerFilter': [{ type: _angular_core.Input },],
+    'value': [{ type: _angular_core.Input },],
+    'min': [{ type: _angular_core.Input },],
+    'max': [{ type: _angular_core.Input },],
+};
+var MdDatepickerToggle = (function () {
+    /**
+     * @param {?} _intl
+     */
+    function MdDatepickerToggle(_intl) {
+        this._intl = _intl;
+    }
+    Object.defineProperty(MdDatepickerToggle.prototype, "_datepicker", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this.datepicker; },
+        /**
+         * @param {?} v
+         * @return {?}
+         */
+        set: function (v) { this.datepicker = v; },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MdDatepickerToggle.prototype._open = function (event) {
+        if (this.datepicker) {
+            this.datepicker.open();
+            event.stopPropagation();
+        }
+    };
+    return MdDatepickerToggle;
+}());
+MdDatepickerToggle.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'button[mdDatepickerToggle], button[matDatepickerToggle]',
+                template: '',
+                styles: [".mat-datepicker-toggle{display:inline-block;background:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iY3VycmVudENvbG9yIj48cGF0aCBkPSJNMCAwaDI0djI0SDB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTE5IDNoLTFWMWgtMnYySDhWMUg2djJINWMtMS4xMSAwLTEuOTkuOS0xLjk5IDJMMyAxOWMwIDEuMS44OSAyIDIgMmgxNGMxLjEgMCAyLS45IDItMlY1YzAtMS4xLS45LTItMi0yem0wIDE2SDVWOGgxNHYxMXpNNyAxMGg1djVIN3oiLz48L3N2Zz4=) no-repeat;background-size:contain;height:24px;width:24px;border:none;outline:0;vertical-align:middle} /*# sourceMappingURL=datepicker-toggle.css.map */ "],
+                host: {
+                    '[class.mat-datepicker-toggle]': 'true',
+                    '[attr.aria-label]': '_intl.openCalendarLabel',
+                    '(click)': '_open($event)',
+                },
+                encapsulation: _angular_core.ViewEncapsulation.None,
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdDatepickerToggle.ctorParameters = function () { return [
+    { type: MdDatepickerIntl, },
+]; };
+MdDatepickerToggle.propDecorators = {
+    'datepicker': [{ type: _angular_core.Input, args: ['mdDatepickerToggle',] },],
+    '_datepicker': [{ type: _angular_core.Input, args: ['matDatepickerToggle',] },],
+};
+var MdDatepickerModule = (function () {
+    function MdDatepickerModule() {
+    }
+    return MdDatepickerModule;
+}());
+MdDatepickerModule.decorators = [
+    { type: _angular_core.NgModule, args: [{
+                imports: [
+                    _angular_common.CommonModule,
+                    MdButtonModule,
+                    MdDialogModule,
+                    OverlayModule,
+                    StyleModule,
+                ],
+                exports: [
+                    MdDatepicker,
+                    MdDatepickerContent,
+                    MdDatepickerInput,
+                    MdDatepickerToggle,
+                ],
+                declarations: [
+                    MdCalendar,
+                    MdCalendarBody,
+                    MdDatepicker,
+                    MdDatepickerContent,
+                    MdDatepickerInput,
+                    MdDatepickerToggle,
+                    MdMonthView,
+                    MdYearView,
+                ],
+                providers: [
+                    MdDatepickerIntl,
+                ],
+                entryComponents: [
+                    MdDatepickerContent,
+                ]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdDatepickerModule.ctorParameters = function () { return []; };
 var MATERIAL_MODULES = [
     MdAutocompleteModule,
     MdButtonModule,
@@ -19682,6 +21783,7 @@ var MATERIAL_MODULES = [
     MdCardModule,
     MdChipsModule,
     MdCheckboxModule,
+    MdDatepickerModule,
     MdDialogModule,
     MdGridListModule,
     MdIconModule,
@@ -19707,7 +21809,7 @@ var MATERIAL_MODULES = [
     A11yModule,
     PlatformModule,
     MdCommonModule,
-    ObserveContentModule
+    ObserveContentModule,
 ];
 /**
  * @deprecated
@@ -19828,6 +21930,10 @@ exports.AnimationCurves = AnimationCurves;
 exports.AnimationDurations = AnimationDurations;
 exports.MdSelectionModule = MdSelectionModule;
 exports.MdPseudoCheckbox = MdPseudoCheckbox;
+exports.NativeDateModule = NativeDateModule;
+exports.MdNativeDateModule = MdNativeDateModule;
+exports.DateAdapter = DateAdapter;
+exports.NativeDateAdapter = NativeDateAdapter;
 exports.MaterialModule = MaterialModule;
 exports.MdAutocompleteModule = MdAutocompleteModule;
 exports.MdAutocomplete = MdAutocomplete;
@@ -19876,6 +21982,19 @@ exports.MdCheckboxChange = MdCheckboxChange;
 exports.MdCheckboxBase = MdCheckboxBase;
 exports._MdCheckboxMixinBase = _MdCheckboxMixinBase;
 exports.MdCheckbox = MdCheckbox;
+exports.MdDatepickerModule = MdDatepickerModule;
+exports.MdCalendar = MdCalendar;
+exports.MdCalendarCell = MdCalendarCell;
+exports.MdCalendarBody = MdCalendarBody;
+exports.MdDatepickerContent = MdDatepickerContent;
+exports.MdDatepicker = MdDatepicker;
+exports.MD_DATEPICKER_VALUE_ACCESSOR = MD_DATEPICKER_VALUE_ACCESSOR;
+exports.MD_DATEPICKER_VALIDATORS = MD_DATEPICKER_VALIDATORS;
+exports.MdDatepickerInput = MdDatepickerInput;
+exports.MdDatepickerIntl = MdDatepickerIntl;
+exports.MdDatepickerToggle = MdDatepickerToggle;
+exports.MdMonthView = MdMonthView;
+exports.MdYearView = MdYearView;
 exports.MdDialogModule = MdDialogModule;
 exports.MD_DIALOG_DATA = MD_DIALOG_DATA;
 exports.MdDialog = MdDialog;
@@ -20003,18 +22122,21 @@ exports.SCROLL_THROTTLE_MS = SCROLL_THROTTLE_MS;
 exports.MdTooltip = MdTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.ɵg = LIVE_ANNOUNCER_PROVIDER_FACTORY;
-exports.ɵr = mixinDisabled;
+exports.ɵu = mixinDisabled;
 exports.ɵh = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
+exports.ɵs = MD_DATE_FORMATS;
+exports.ɵt = MD_NATIVE_DATE_FORMATS;
 exports.ɵa = MdMutationObserverFactory;
 exports.ɵc = OVERLAY_CONTAINER_PROVIDER;
 exports.ɵb = OVERLAY_CONTAINER_PROVIDER_FACTORY;
-exports.ɵp = OverlayPositionBuilder;
-exports.ɵo = VIEWPORT_RULER_PROVIDER;
-exports.ɵn = VIEWPORT_RULER_PROVIDER_FACTORY;
-exports.ɵm = ViewportRuler;
+exports.ɵr = OverlayPositionBuilder;
+exports.ɵq = VIEWPORT_RULER_PROVIDER;
+exports.ɵp = VIEWPORT_RULER_PROVIDER_FACTORY;
+exports.ɵo = ViewportRuler;
+exports.ɵm = ScrollDispatchModule;
 exports.ɵe = SCROLL_DISPATCHER_PROVIDER;
 exports.ɵd = SCROLL_DISPATCHER_PROVIDER_FACTORY;
-exports.ɵq = Scrollable;
+exports.ɵn = Scrollable;
 exports.ɵf = RippleRenderer;
 exports.ɵj = MdGridAvatarCssMatStyler;
 exports.ɵl = MdGridTileFooterCssMatStyler;

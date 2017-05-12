@@ -1,4 +1,4 @@
-import { EventEmitter, TemplateRef, ViewContainerRef, OnDestroy, ElementRef, Renderer2 } from '@angular/core';
+import { EventEmitter, TemplateRef, ViewContainerRef, OnDestroy, ElementRef, Renderer2, OnChanges, SimpleChanges } from '@angular/core';
 import { Overlay } from './overlay';
 import { OverlayRef } from './overlay-ref';
 import { ConnectionPositionPair, ConnectedOverlayPositionChange } from './position/connected-position';
@@ -16,14 +16,13 @@ export declare class OverlayOrigin {
 /**
  * Directive to facilitate declarative creation of an Overlay using a ConnectedPositionStrategy.
  */
-export declare class ConnectedOverlayDirective implements OnDestroy {
+export declare class ConnectedOverlayDirective implements OnDestroy, OnChanges {
     private _overlay;
     private _renderer;
     private _scrollDispatcher;
     private _dir;
     private _overlayRef;
     private _templatePortal;
-    private _open;
     private _hasBackdrop;
     private _backdropSubscription;
     private _positionSubscription;
@@ -51,9 +50,10 @@ export declare class ConnectedOverlayDirective implements OnDestroy {
     backdropClass: string;
     /** Strategy to be used when handling scroll events while the overlay is open. */
     scrollStrategy: ScrollStrategy;
+    /** Whether the overlay is open. */
+    open: boolean;
     /** Whether or not the overlay should attach a backdrop. */
     hasBackdrop: any;
-    open: boolean;
     /** Event emitted when the backdrop is clicked. */
     backdropClick: EventEmitter<void>;
     /** Event emitted when the position has changed. */
@@ -68,6 +68,7 @@ export declare class ConnectedOverlayDirective implements OnDestroy {
     /** The element's layout direction. */
     readonly dir: LayoutDirection;
     ngOnDestroy(): void;
+    ngOnChanges(changes: SimpleChanges): void;
     /** Creates an overlay */
     private _createOverlay();
     /** Builds the overlay config based on the directive's inputs */

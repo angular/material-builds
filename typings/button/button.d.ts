@@ -1,5 +1,5 @@
 import { ElementRef, OnDestroy, Renderer2 } from '@angular/core';
-import { FocusOriginMonitor } from '../core';
+import { FocusOriginMonitor, Platform } from '../core';
 import { CanDisable } from '../core/common-behaviors/disabled';
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -40,6 +40,7 @@ export declare const _MdButtonMixinBase: (new (...args: any[]) => CanDisable) & 
 export declare class MdButton extends _MdButtonMixinBase implements OnDestroy, CanDisable {
     private _elementRef;
     private _renderer;
+    private _platform;
     private _focusOriginMonitor;
     private _color;
     /** Whether the button is round. */
@@ -50,7 +51,7 @@ export declare class MdButton extends _MdButtonMixinBase implements OnDestroy, C
     private _disableRipple;
     /** Whether the ripple effect for this button is disabled. */
     disableRipple: boolean;
-    constructor(_elementRef: ElementRef, _renderer: Renderer2, _focusOriginMonitor: FocusOriginMonitor);
+    constructor(_elementRef: ElementRef, _renderer: Renderer2, _platform: Platform, _focusOriginMonitor: FocusOriginMonitor);
     ngOnDestroy(): void;
     /** The color of the button. Can be `primary`, `accent`, or `warn`. */
     color: string;
@@ -70,7 +71,7 @@ export declare class MdButton extends _MdButtonMixinBase implements OnDestroy, C
  * Raised Material design button.
  */
 export declare class MdAnchor extends MdButton {
-    constructor(elementRef: ElementRef, renderer: Renderer2, focusOriginMonitor: FocusOriginMonitor);
+    constructor(elementRef: ElementRef, renderer: Renderer2, platform: Platform, focusOriginMonitor: FocusOriginMonitor);
     /** @docs-private */
     readonly tabIndex: number;
     readonly _isAriaDisabled: string;

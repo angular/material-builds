@@ -1,10 +1,12 @@
 import { ElementRef, EventEmitter, NgZone, OnDestroy, Optional, Renderer2 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Platform } from '../platform/platform';
 export declare const TOUCH_BUFFER_MS = 650;
 export declare type FocusOrigin = 'touch' | 'mouse' | 'keyboard' | 'program';
 /** Monitors mouse and keyboard events to determine the cause of focus events. */
 export declare class FocusOriginMonitor {
     private _ngZone;
+    private _platform;
     /** The focus origin that the next focus event is a result of. */
     private _origin;
     /** The FocusOrigin of the last focus event tracked by the FocusOriginMonitor. */
@@ -17,7 +19,7 @@ export declare class FocusOriginMonitor {
     private _touchTimeout;
     /** Weak map of elements being monitored to their info. */
     private _elementInfo;
-    constructor(_ngZone: NgZone);
+    constructor(_ngZone: NgZone, _platform: Platform);
     /**
      * Monitors focus on an element and applies appropriate CSS classes.
      * @param element The element to monitor
@@ -87,9 +89,9 @@ export declare class CdkMonitorFocus implements OnDestroy {
     constructor(_elementRef: ElementRef, _focusOriginMonitor: FocusOriginMonitor, renderer: Renderer2);
     ngOnDestroy(): void;
 }
-export declare function FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY(parentDispatcher: FocusOriginMonitor, ngZone: NgZone): FocusOriginMonitor;
+export declare function FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY(parentDispatcher: FocusOriginMonitor, ngZone: NgZone, platform: Platform): FocusOriginMonitor;
 export declare const FOCUS_ORIGIN_MONITOR_PROVIDER: {
     provide: typeof FocusOriginMonitor;
-    deps: (Optional[] | typeof NgZone)[];
-    useFactory: (parentDispatcher: FocusOriginMonitor, ngZone: NgZone) => FocusOriginMonitor;
+    deps: (typeof Platform | Optional[] | typeof NgZone)[];
+    useFactory: (parentDispatcher: FocusOriginMonitor, ngZone: NgZone, platform: Platform) => FocusOriginMonitor;
 };

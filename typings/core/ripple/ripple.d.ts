@@ -1,7 +1,8 @@
 import { ElementRef, NgZone, OnChanges, SimpleChanges, OnDestroy, InjectionToken } from '@angular/core';
 import { RippleConfig } from './ripple-renderer';
-import { ViewportRuler } from '../overlay/position/viewport-ruler';
 import { RippleRef } from './ripple-ref';
+import { ViewportRuler } from '../overlay/position/viewport-ruler';
+import { Platform } from '../platform/platform';
 export interface RippleGlobalOptions {
     disabled?: boolean;
     baseSpeedFactor?: number;
@@ -44,7 +45,7 @@ export declare class MdRipple implements OnChanges, OnDestroy {
     private _rippleRenderer;
     /** Options that are set globally for all ripples. */
     private _globalOptions;
-    constructor(elementRef: ElementRef, ngZone: NgZone, ruler: ViewportRuler, globalOptions: RippleGlobalOptions);
+    constructor(elementRef: ElementRef, ngZone: NgZone, ruler: ViewportRuler, platform: Platform, globalOptions: RippleGlobalOptions);
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     /** Launches a manual ripple at the specified position. */

@@ -28,5 +28,6 @@ export { coerceBooleanProperty } from './coercion/boolean-property';
 export { coerceNumberProperty } from './coercion/number-property';
 export { CompatibilityModule, NoConflictStyleCompatibilityMode } from './compatibility/compatibility';
 export { MdCommonModule } from './common-behaviors/common-module';
+export * from './datetime/index';
 export declare class MdCoreModule {
 }

@@ -100,6 +100,7 @@ export declare class MdInputContainer implements AfterViewInit, AfterContentInit
     /** Whether the placeholder should always float, never float or float as the user types. */
     floatPlaceholder: FloatPlaceholderType;
     private _floatPlaceholder;
+    underlineRef: ElementRef;
     _mdInputChild: MdInputDirective;
     _placeholderChild: MdPlaceholder;
     _errorChildren: QueryList<MdErrorDirective>;
