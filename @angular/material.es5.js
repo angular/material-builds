@@ -9,7 +9,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 /**
-  * @license Angular Material v2.0.0-beta.4
+  * @license Angular Material v2.0.0-beta.5
   * Copyright (c) 2017 Google, Inc. https://material.angular.io/
   * License: MIT
   */
