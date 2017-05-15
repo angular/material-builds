@@ -1125,10 +1125,8 @@ var ViewportRuler = (function () {
         // `scrollTop` and `scrollLeft` is inconsistent. However, using the bounding rect of
         // `document.documentElement` works consistently, where the `top` and `left` values will
         // equal negative the scroll position.
-        var /** @type {?} */ top = -documentRect.top || document.body.scrollTop || window.scrollY ||
-            document.documentElement.scrollTop || 0;
-        var /** @type {?} */ left = -documentRect.left || document.body.scrollLeft || window.scrollX ||
-            document.documentElement.scrollLeft || 0;
+        var /** @type {?} */ top = -documentRect.top || document.body.scrollTop || window.scrollY || 0;
+        var /** @type {?} */ left = -documentRect.left || document.body.scrollLeft || window.scrollX || 0;
         return { top: top, left: left };
     };
     /**
@@ -4582,68 +4580,6 @@ var CloseScrollStrategy = (function () {
         }
     };
     return CloseScrollStrategy;
-}());
-/**
- * Strategy that will prevent the user from scrolling while the overlay is visible.
- */
-var BlockScrollStrategy = (function () {
-    /**
-     * @param {?} _viewportRuler
-     */
-    function BlockScrollStrategy(_viewportRuler) {
-        this._viewportRuler = _viewportRuler;
-        this._previousHTMLStyles = { top: null, left: null };
-        this._isEnabled = false;
-    }
-    /**
-     * @return {?}
-     */
-    BlockScrollStrategy.prototype.attach = function () { };
-    /**
-     * @return {?}
-     */
-    BlockScrollStrategy.prototype.enable = function () {
-        if (this._canBeEnabled()) {
-            var /** @type {?} */ root = document.documentElement;
-            this._previousScrollPosition = this._viewportRuler.getViewportScrollPosition();
-            // Cache the previous inline styles in case the user had set them.
-            this._previousHTMLStyles.left = root.style.left;
-            this._previousHTMLStyles.top = root.style.top;
-            // Note: we're using the `html` node, instead of the `body`, because the `body` may
-            // have the user agent margin, whereas the `html` is guaranteed not to have one.
-            root.style.left = -this._previousScrollPosition.left + "px";
-            root.style.top = -this._previousScrollPosition.top + "px";
-            root.classList.add('cdk-global-scrollblock');
-            this._isEnabled = true;
-        }
-    };
-    /**
-     * @return {?}
-     */
-    BlockScrollStrategy.prototype.disable = function () {
-        if (this._isEnabled) {
-            this._isEnabled = false;
-            document.documentElement.style.left = this._previousHTMLStyles.left;
-            document.documentElement.style.top = this._previousHTMLStyles.top;
-            document.documentElement.classList.remove('cdk-global-scrollblock');
-            window.scroll(this._previousScrollPosition.left, this._previousScrollPosition.top);
-        }
-    };
-    /**
-     * @return {?}
-     */
-    BlockScrollStrategy.prototype._canBeEnabled = function () {
-        // Since the scroll strategies can't be singletons, we have to use a global CSS class
-        // (`cdk-global-scrollblock`) to make sure that we don't try to disable global
-        // scrolling multiple times.
-        if (document.documentElement.classList.contains('cdk-global-scrollblock') || this._isEnabled) {
-            return false;
-        }
-        var /** @type {?} */ body = document.body;
-        var /** @type {?} */ viewport = this._viewportRuler.getViewportRect();
-        return body.scrollHeight > viewport.height || body.scrollWidth > viewport.width;
-    };
-    return BlockScrollStrategy;
 }());
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
@@ -19372,15 +19308,13 @@ var MdDialog = (function () {
     /**
      * @param {?} _overlay
      * @param {?} _injector
-     * @param {?} _viewportRuler
      * @param {?} _location
      * @param {?} _parentDialog
      */
-    function MdDialog(_overlay, _injector, _viewportRuler, _location, _parentDialog) {
+    function MdDialog(_overlay, _injector, _location, _parentDialog) {
         var _this = this;
         this._overlay = _overlay;
         this._injector = _injector;
-        this._viewportRuler = _viewportRuler;
         this._location = _location;
         this._parentDialog = _parentDialog;
         this._openDialogsAtThisLevel = [];
@@ -19489,7 +19423,6 @@ var MdDialog = (function () {
     MdDialog.prototype._getOverlayState = function (dialogConfig) {
         var /** @type {?} */ overlayState = new OverlayState();
         overlayState.hasBackdrop = dialogConfig.hasBackdrop;
-        overlayState.scrollStrategy = new BlockScrollStrategy(this._viewportRuler);
         if (dialogConfig.backdropClass) {
             overlayState.backdropClass = dialogConfig.backdropClass;
         }
@@ -19584,7 +19517,6 @@ MdDialog.decorators = [
 MdDialog.ctorParameters = function () { return [
     { type: Overlay, },
     { type: _angular_core.Injector, },
-    { type: ViewportRuler, },
     { type: _angular_common.Location, decorators: [{ type: _angular_core.Optional },] },
     { type: MdDialog, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
 ]; };
@@ -21958,13 +21890,11 @@ exports.ConnectedOverlayDirective = ConnectedOverlayDirective;
 exports.OverlayOrigin = OverlayOrigin;
 exports.OverlayModule = OverlayModule;
 exports.ScrollDispatcher = ScrollDispatcher;
-exports.ViewportRuler = ViewportRuler;
 exports.GlobalPositionStrategy = GlobalPositionStrategy;
 exports.ConnectedPositionStrategy = ConnectedPositionStrategy;
 exports.RepositionScrollStrategy = RepositionScrollStrategy;
 exports.CloseScrollStrategy = CloseScrollStrategy;
 exports.NoopScrollStrategy = NoopScrollStrategy;
-exports.BlockScrollStrategy = BlockScrollStrategy;
 exports.ConnectionPositionPair = ConnectionPositionPair;
 exports.ScrollableViewProperties = ScrollableViewProperties;
 exports.ConnectedOverlayPositionChange = ConnectedOverlayPositionChange;
@@ -22206,24 +22136,25 @@ exports.TOUCHEND_HIDE_DELAY = TOUCHEND_HIDE_DELAY;
 exports.SCROLL_THROTTLE_MS = SCROLL_THROTTLE_MS;
 exports.MdTooltip = MdTooltip;
 exports.TooltipComponent = TooltipComponent;
-exports.ɵi = LIVE_ANNOUNCER_PROVIDER_FACTORY;
-exports.ɵr = mixinDisabled;
-exports.ɵj = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
+exports.ɵg = LIVE_ANNOUNCER_PROVIDER_FACTORY;
+exports.ɵs = mixinDisabled;
+exports.ɵh = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
 exports.ɵa = MdMutationObserverFactory;
 exports.ɵc = OVERLAY_CONTAINER_PROVIDER;
 exports.ɵb = OVERLAY_CONTAINER_PROVIDER_FACTORY;
-exports.ɵq = OverlayPositionBuilder;
-exports.ɵg = VIEWPORT_RULER_PROVIDER;
-exports.ɵf = VIEWPORT_RULER_PROVIDER_FACTORY;
-exports.ɵo = ScrollDispatchModule;
+exports.ɵr = OverlayPositionBuilder;
+exports.ɵq = VIEWPORT_RULER_PROVIDER;
+exports.ɵp = VIEWPORT_RULER_PROVIDER_FACTORY;
+exports.ɵo = ViewportRuler;
+exports.ɵm = ScrollDispatchModule;
 exports.ɵe = SCROLL_DISPATCHER_PROVIDER;
 exports.ɵd = SCROLL_DISPATCHER_PROVIDER_FACTORY;
-exports.ɵp = Scrollable;
-exports.ɵh = RippleRenderer;
-exports.ɵl = MdGridAvatarCssMatStyler;
-exports.ɵn = MdGridTileFooterCssMatStyler;
-exports.ɵm = MdGridTileHeaderCssMatStyler;
-exports.ɵk = MdGridTileText;
+exports.ɵn = Scrollable;
+exports.ɵf = RippleRenderer;
+exports.ɵj = MdGridAvatarCssMatStyler;
+exports.ɵl = MdGridTileFooterCssMatStyler;
+exports.ɵk = MdGridTileHeaderCssMatStyler;
+exports.ɵi = MdGridTileText;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
