@@ -1816,6 +1816,10 @@ $mat-menu-icon-margin: 16px !default;
         border-color: $disabled-color;
       }
     }
+
+    .mat-checkbox-label {
+      color: $disabled-color;
+    }
   }
 
   .mat-checkbox:not(.mat-checkbox-disabled) {
@@ -2169,7 +2173,7 @@ $mat-menu-icon-margin: 16px !default;
   $warn: map-get($theme, warn);
 
   .mat-progress-bar-background {
-    background: #{_mat-progress-bar-buffer($primary, lighter)};
+    background-image: #{_mat-progress-bar-buffer($primary, lighter)};
   }
 
   .mat-progress-bar-buffer {
@@ -2182,12 +2186,13 @@ $mat-menu-icon-margin: 16px !default;
 
   .mat-progress-bar.mat-accent {
     .mat-progress-bar-background {
-      background: #{_mat-progress-bar-buffer($accent, lighter)};
+      background-image: #{_mat-progress-bar-buffer($accent, lighter)};
     }
 
     .mat-progress-bar-buffer {
       background-color: mat-color($accent, lighter);
     }
+
     .mat-progress-bar-fill::after {
       background-color: mat-color($accent);
     }
@@ -2195,12 +2200,13 @@ $mat-menu-icon-margin: 16px !default;
 
   .mat-progress-bar.mat-warn {
     .mat-progress-bar-background {
-      background: #{_mat-progress-bar-buffer($warn, lighter)};
+      background-image: #{_mat-progress-bar-buffer($warn, lighter)};
     }
 
     .mat-progress-bar-buffer {
       background-color: mat-color($warn, lighter);
     }
+
     .mat-progress-bar-fill::after {
       background-color: mat-color($warn);
     }
@@ -2296,6 +2302,10 @@ $mat-menu-icon-margin: 16px !default;
   .mat-radio-disabled {
     .mat-radio-ripple .mat-ripple-element, .mat-radio-inner-circle {
       background-color: mat-color($foreground, disabled);
+    }
+
+    .mat-radio-label-content {
+      color: mat-color($foreground, disabled);
     }
   }
 }
