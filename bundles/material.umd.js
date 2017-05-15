@@ -1125,8 +1125,10 @@ var ViewportRuler = (function () {
         // `scrollTop` and `scrollLeft` is inconsistent. However, using the bounding rect of
         // `document.documentElement` works consistently, where the `top` and `left` values will
         // equal negative the scroll position.
-        var /** @type {?} */ top = -documentRect.top || document.body.scrollTop || window.scrollY || 0;
-        var /** @type {?} */ left = -documentRect.left || document.body.scrollLeft || window.scrollX || 0;
+        var /** @type {?} */ top = -documentRect.top || document.body.scrollTop || window.scrollY ||
+            document.documentElement.scrollTop || 0;
+        var /** @type {?} */ left = -documentRect.left || document.body.scrollLeft || window.scrollX ||
+            document.documentElement.scrollLeft || 0;
         return { top: top, left: left };
     };
     /**
@@ -4580,6 +4582,68 @@ var CloseScrollStrategy = (function () {
         }
     };
     return CloseScrollStrategy;
+}());
+/**
+ * Strategy that will prevent the user from scrolling while the overlay is visible.
+ */
+var BlockScrollStrategy = (function () {
+    /**
+     * @param {?} _viewportRuler
+     */
+    function BlockScrollStrategy(_viewportRuler) {
+        this._viewportRuler = _viewportRuler;
+        this._previousHTMLStyles = { top: null, left: null };
+        this._isEnabled = false;
+    }
+    /**
+     * @return {?}
+     */
+    BlockScrollStrategy.prototype.attach = function () { };
+    /**
+     * @return {?}
+     */
+    BlockScrollStrategy.prototype.enable = function () {
+        if (this._canBeEnabled()) {
+            var /** @type {?} */ root = document.documentElement;
+            this._previousScrollPosition = this._viewportRuler.getViewportScrollPosition();
+            // Cache the previous inline styles in case the user had set them.
+            this._previousHTMLStyles.left = root.style.left;
+            this._previousHTMLStyles.top = root.style.top;
+            // Note: we're using the `html` node, instead of the `body`, because the `body` may
+            // have the user agent margin, whereas the `html` is guaranteed not to have one.
+            root.style.left = -this._previousScrollPosition.left + "px";
+            root.style.top = -this._previousScrollPosition.top + "px";
+            root.classList.add('cdk-global-scrollblock');
+            this._isEnabled = true;
+        }
+    };
+    /**
+     * @return {?}
+     */
+    BlockScrollStrategy.prototype.disable = function () {
+        if (this._isEnabled) {
+            this._isEnabled = false;
+            document.documentElement.style.left = this._previousHTMLStyles.left;
+            document.documentElement.style.top = this._previousHTMLStyles.top;
+            document.documentElement.classList.remove('cdk-global-scrollblock');
+            window.scroll(this._previousScrollPosition.left, this._previousScrollPosition.top);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    BlockScrollStrategy.prototype._canBeEnabled = function () {
+        // Since the scroll strategies can't be singletons, we have to use a global CSS class
+        // (`cdk-global-scrollblock`) to make sure that we don't try to disable global
+        // scrolling multiple times.
+        if (document.documentElement.classList.contains('cdk-global-scrollblock') || this._isEnabled) {
+            return false;
+        }
+        var /** @type {?} */ body = document.body;
+        var /** @type {?} */ viewport = this._viewportRuler.getViewportRect();
+        return body.scrollHeight > viewport.height || body.scrollWidth > viewport.width;
+    };
+    return BlockScrollStrategy;
 }());
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
@@ -15464,7 +15528,7 @@ var MdInputContainer = (function () {
 MdInputContainer.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-input-container, mat-input-container',
                 template: "<div class=\"mat-input-wrapper\"> <div class=\"mat-input-table\"> <div class=\"mat-input-prefix\" *ngIf=\"_prefixChildren.length\"> <!-- TODO(andrewseguin): remove [md-prefix] --> <ng-content select=\"[mdPrefix], [matPrefix], [md-prefix]\"></ng-content> </div> <div class=\"mat-input-infix\" [class.mat-end]=\"align == 'end'\"> <ng-content selector=\"input, textarea\"></ng-content> <span class=\"mat-input-placeholder-wrapper\"> <label class=\"mat-input-placeholder\" [attr.for]=\"_mdInputChild.id\" [class.mat-empty]=\"_mdInputChild.empty && !_shouldAlwaysFloat\" [class.mat-float]=\"_canPlaceholderFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" *ngIf=\"_hasPlaceholder()\"> <ng-content select=\"md-placeholder, mat-placeholder\"></ng-content> {{_mdInputChild.placeholder}} <span class=\"mat-placeholder-required\" *ngIf=\"!hideRequiredMarker && _mdInputChild.required\">*</span> </label> </span> </div> <div class=\"mat-input-suffix\" *ngIf=\"_suffixChildren.length\"> <!-- TODO(andrewseguin): remove [md-suffix] --> <ng-content select=\"[mdSuffix], [matSuffix], [md-suffix]\"></ng-content> </div> </div> <div class=\"mat-input-underline\" #underline [class.mat-disabled]=\"_mdInputChild.disabled\"> <span class=\"mat-input-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span> </div> <div class=\"mat-input-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"> <div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"> <ng-content select=\"md-error, mat-error\"></ng-content> </div> <div class=\"mat-input-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"> <div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div> <ng-content select=\"md-hint:not([align='end']), mat-hint:not([align='end'])\"></ng-content> <div class=\"mat-input-hint-spacer\"></div> <ng-content select=\"md-hint[align='end'], mat-hint[align='end']\"></ng-content> </div> </div> </div> ",
-                styles: [".mat-input-container{display:inline-block;position:relative;font-family:Roboto,\"Helvetica Neue\",sans-serif;line-height:normal;text-align:left}[dir=rtl] .mat-input-container{text-align:right}.mat-input-container .mat-datepicker-toggle,.mat-input-container .mat-icon{width:1em;height:1em;font-size:100%;vertical-align:top}.mat-input-wrapper{margin:1em 0;padding-bottom:6px}.mat-input-table{display:inline-table;flex-flow:column;vertical-align:bottom;width:100%}.mat-input-table>*{display:table-cell}.mat-input-infix{position:relative}.mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;width:100%;vertical-align:bottom}.mat-end .mat-input-element{text-align:right}[dir=rtl] .mat-end .mat-input-element{text-align:left}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element:-webkit-autofill+.mat-input-placeholder-wrapper .mat-float{display:block;transform:translate3d(0,-1.35em,0) scale(.75);width:133.33333%;transition:none}.mat-input-element::placeholder{color:transparent!important}.mat-input-element::-moz-placeholder{color:transparent!important}.mat-input-element::-webkit-input-placeholder{color:transparent!important}.mat-input-element:-ms-input-placeholder{color:transparent!important}.mat-input-placeholder{position:absolute;left:0;top:0;font-size:100%;pointer-events:none;z-index:1;padding-top:1em;width:100%;display:none;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:translate3d(0,0,0);transform-origin:bottom left;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1)}.mat-input-placeholder.mat-empty{display:block;cursor:text}.mat-focused .mat-input-placeholder.mat-float,.mat-input-placeholder.mat-float:not(.mat-empty){display:block;transform:translate3d(0,-1.35em,0) scale(.75);width:133.33333%}[dir=rtl] .mat-input-placeholder{transform-origin:bottom right;left:auto;right:0}.mat-input-placeholder:not(.mat-empty){transition:none}.mat-input-placeholder-wrapper{position:absolute;left:0;top:-1em;width:100%;padding-top:1em;overflow:hidden;pointer-events:none;transform:translate3d(0,0,0)}.mat-input-placeholder-wrapper::after{content:'';display:inline-table}.mat-input-underline{position:absolute;height:1px;width:100%;margin-top:4px;border-top-width:1px;border-top-style:solid}.mat-input-underline.mat-disabled{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;border-top:0;background-position:0}.mat-input-underline .mat-input-ripple{position:absolute;height:2px;z-index:1;top:-1px;width:100%;transform-origin:top;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-focused .mat-input-underline .mat-input-ripple{opacity:1}.mat-input-subscript-wrapper{position:absolute;font-size:75%;top:100%;width:100%;margin-top:-1.2em;line-height:1.2em;overflow:hidden}.mat-input-hint-wrapper{display:flex}.mat-input-hint-spacer{flex:1 0 10px}.mat-input-error{display:block}.mat-input-prefix,.mat-input-suffix{width:.1px;white-space:nowrap} /*# sourceMappingURL=input-container.css.map */ "],
+                styles: [".mat-input-container{display:inline-block;position:relative;font-family:Roboto,\"Helvetica Neue\",sans-serif;line-height:normal;text-align:left}[dir=rtl] .mat-input-container{text-align:right}.mat-input-container .mat-datepicker-toggle,.mat-input-container .mat-icon{width:1em;height:1em;font-size:100%;vertical-align:top}.mat-input-wrapper{margin:1em 0;padding-bottom:6px}.mat-input-table{display:inline-table;flex-flow:column;vertical-align:bottom;width:100%}.mat-input-table>*{display:table-cell}.mat-input-infix{position:relative}.mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;width:100%;vertical-align:bottom}.mat-end .mat-input-element{text-align:right}[dir=rtl] .mat-end .mat-input-element{text-align:left}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element:-webkit-autofill+.mat-input-placeholder-wrapper .mat-float{display:block;transform:translate3d(0,-1.35em,0) scale(.75);width:133.33333%;transition:none}.mat-input-element::placeholder{color:transparent!important}.mat-input-element::-moz-placeholder{color:transparent!important}.mat-input-element::-webkit-input-placeholder{color:transparent!important}.mat-input-element:-ms-input-placeholder{color:transparent!important}.mat-input-placeholder{position:absolute;left:0;top:0;font-size:100%;pointer-events:none;z-index:1;padding-top:1em;width:100%;display:none;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:translate3d(0,0,0);transform-origin:bottom left;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1)}.mat-input-placeholder.mat-empty{display:block;cursor:text}.mat-focused .mat-input-placeholder.mat-float,.mat-input-placeholder.mat-float:not(.mat-empty){display:block;transform:translate3d(0,-1.35em,0) scale(.75);width:133.33333%}[dir=rtl] .mat-input-placeholder{transform-origin:bottom right;left:auto;right:0}.mat-input-placeholder:not(.mat-empty){transition:none}.mat-input-placeholder-wrapper{position:absolute;left:0;top:-1em;width:100%;padding-top:1em;overflow:hidden;pointer-events:none;transform:translate3d(0,0,0)}.mat-input-placeholder-wrapper::after{content:'';display:inline-table}.mat-input-underline{position:absolute;height:1px;width:100%;margin-top:4px;border-top-width:1px;border-top-style:solid}.mat-input-underline.mat-disabled{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;border-top:0;background-position:0}.mat-input-underline .mat-input-ripple{position:absolute;height:2px;z-index:1;top:-1px;width:100%;transform-origin:50%;transform:scaleX(.5);visibility:hidden;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-focused .mat-input-underline .mat-input-ripple,.mat-input-invalid .mat-input-underline .mat-input-ripple{visibility:visible;transform:scaleX(1);transition:transform 150ms linear,background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-input-subscript-wrapper{position:absolute;font-size:75%;top:100%;width:100%;margin-top:-1.2em;line-height:1.2em;overflow:hidden}.mat-input-hint-wrapper{display:flex}.mat-input-hint-spacer{flex:1 0 10px}.mat-input-error{display:block}.mat-input-prefix,.mat-input-suffix{width:.1px;white-space:nowrap} /*# sourceMappingURL=input-container.css.map */ "],
                 animations: [
                     _angular_animations.trigger('transitionMessages', [
                         _angular_animations.state('enter', _angular_animations.style({ opacity: 1, transform: 'translateY(0%)' })),
@@ -19308,13 +19372,15 @@ var MdDialog = (function () {
     /**
      * @param {?} _overlay
      * @param {?} _injector
+     * @param {?} _viewportRuler
      * @param {?} _location
      * @param {?} _parentDialog
      */
-    function MdDialog(_overlay, _injector, _location, _parentDialog) {
+    function MdDialog(_overlay, _injector, _viewportRuler, _location, _parentDialog) {
         var _this = this;
         this._overlay = _overlay;
         this._injector = _injector;
+        this._viewportRuler = _viewportRuler;
         this._location = _location;
         this._parentDialog = _parentDialog;
         this._openDialogsAtThisLevel = [];
@@ -19423,6 +19489,7 @@ var MdDialog = (function () {
     MdDialog.prototype._getOverlayState = function (dialogConfig) {
         var /** @type {?} */ overlayState = new OverlayState();
         overlayState.hasBackdrop = dialogConfig.hasBackdrop;
+        overlayState.scrollStrategy = new BlockScrollStrategy(this._viewportRuler);
         if (dialogConfig.backdropClass) {
             overlayState.backdropClass = dialogConfig.backdropClass;
         }
@@ -19517,6 +19584,7 @@ MdDialog.decorators = [
 MdDialog.ctorParameters = function () { return [
     { type: Overlay, },
     { type: _angular_core.Injector, },
+    { type: ViewportRuler, },
     { type: _angular_common.Location, decorators: [{ type: _angular_core.Optional },] },
     { type: MdDialog, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
 ]; };
@@ -21890,11 +21958,13 @@ exports.ConnectedOverlayDirective = ConnectedOverlayDirective;
 exports.OverlayOrigin = OverlayOrigin;
 exports.OverlayModule = OverlayModule;
 exports.ScrollDispatcher = ScrollDispatcher;
+exports.ViewportRuler = ViewportRuler;
 exports.GlobalPositionStrategy = GlobalPositionStrategy;
 exports.ConnectedPositionStrategy = ConnectedPositionStrategy;
 exports.RepositionScrollStrategy = RepositionScrollStrategy;
 exports.CloseScrollStrategy = CloseScrollStrategy;
 exports.NoopScrollStrategy = NoopScrollStrategy;
+exports.BlockScrollStrategy = BlockScrollStrategy;
 exports.ConnectionPositionPair = ConnectionPositionPair;
 exports.ScrollableViewProperties = ScrollableViewProperties;
 exports.ConnectedOverlayPositionChange = ConnectedOverlayPositionChange;
@@ -22136,25 +22206,24 @@ exports.TOUCHEND_HIDE_DELAY = TOUCHEND_HIDE_DELAY;
 exports.SCROLL_THROTTLE_MS = SCROLL_THROTTLE_MS;
 exports.MdTooltip = MdTooltip;
 exports.TooltipComponent = TooltipComponent;
-exports.ɵg = LIVE_ANNOUNCER_PROVIDER_FACTORY;
-exports.ɵs = mixinDisabled;
-exports.ɵh = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
+exports.ɵi = LIVE_ANNOUNCER_PROVIDER_FACTORY;
+exports.ɵr = mixinDisabled;
+exports.ɵj = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
 exports.ɵa = MdMutationObserverFactory;
 exports.ɵc = OVERLAY_CONTAINER_PROVIDER;
 exports.ɵb = OVERLAY_CONTAINER_PROVIDER_FACTORY;
-exports.ɵr = OverlayPositionBuilder;
-exports.ɵq = VIEWPORT_RULER_PROVIDER;
-exports.ɵp = VIEWPORT_RULER_PROVIDER_FACTORY;
-exports.ɵo = ViewportRuler;
-exports.ɵm = ScrollDispatchModule;
+exports.ɵq = OverlayPositionBuilder;
+exports.ɵg = VIEWPORT_RULER_PROVIDER;
+exports.ɵf = VIEWPORT_RULER_PROVIDER_FACTORY;
+exports.ɵo = ScrollDispatchModule;
 exports.ɵe = SCROLL_DISPATCHER_PROVIDER;
 exports.ɵd = SCROLL_DISPATCHER_PROVIDER_FACTORY;
-exports.ɵn = Scrollable;
-exports.ɵf = RippleRenderer;
-exports.ɵj = MdGridAvatarCssMatStyler;
-exports.ɵl = MdGridTileFooterCssMatStyler;
-exports.ɵk = MdGridTileHeaderCssMatStyler;
-exports.ɵi = MdGridTileText;
+exports.ɵp = Scrollable;
+exports.ɵh = RippleRenderer;
+exports.ɵl = MdGridAvatarCssMatStyler;
+exports.ɵn = MdGridTileFooterCssMatStyler;
+exports.ɵm = MdGridTileHeaderCssMatStyler;
+exports.ɵk = MdGridTileText;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
