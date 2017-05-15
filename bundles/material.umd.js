@@ -24,43 +24,23 @@ var __extends = (this && this.__extends) || (function () {
   * Copyright (c) 2017 Google, Inc. https://material.angular.io/
   * License: MIT
   */
-/**
- * Wrapper around Error that sets the error message.
- * \@docs-private
- */
-var MdError = (function (_super) {
-    __extends(MdError, _super);
-    /**
-     * @param {?} value
-     */
-    function MdError(value) {
-        var _this = _super.call(this) || this;
-        _this.message = value;
-        return _this;
-    }
-    return MdError;
-}(Error));
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
 var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('md-sanity-checks');
 /**
- * Exception thrown if the consumer has used an invalid Material prefix on a component.
+ * Returns an exception to be thrown if the consumer has used
+ * an invalid Material prefix on a component.
  * \@docs-private
+ * @param {?} prefix
+ * @param {?} nodeName
+ * @return {?}
  */
-var MdCompatibilityInvalidPrefixError = (function (_super) {
-    __extends(MdCompatibilityInvalidPrefixError, _super);
-    /**
-     * @param {?} prefix
-     * @param {?} nodeName
-     */
-    function MdCompatibilityInvalidPrefixError(prefix, nodeName) {
-        return _super.call(this, "The \"" + prefix + "-\" prefix cannot be used in ng-material v1 compatibility mode. " +
-            ("It was used on an \"" + nodeName.toLowerCase() + "\" element.")) || this;
-    }
-    return MdCompatibilityInvalidPrefixError;
-}(MdError));
+function getMdCompatibilityInvalidPrefixError(prefix, nodeName) {
+    return new Error("The \"" + prefix + "-\" prefix cannot be used in ng-material v1 compatibility mode. " +
+        ("It was used on an \"" + nodeName.toLowerCase() + "\" element."));
+}
 /**
  * Selector that matches all elements that may have style collisions with AngularJS Material.
  */
@@ -79,7 +59,7 @@ var MatPrefixRejector = (function () {
      */
     function MatPrefixRejector(isCompatibilityMode, elementRef) {
         if (!isCompatibilityMode) {
-            throw new MdCompatibilityInvalidPrefixError('mat', elementRef.nativeElement.nodeName);
+            throw getMdCompatibilityInvalidPrefixError('mat', elementRef.nativeElement.nodeName);
         }
     }
     return MatPrefixRejector;
@@ -104,7 +84,7 @@ var MdPrefixRejector = (function () {
      */
     function MdPrefixRejector(isCompatibilityMode, elementRef) {
         if (isCompatibilityMode) {
-            throw new MdCompatibilityInvalidPrefixError('md', elementRef.nativeElement.nodeName);
+            throw getMdCompatibilityInvalidPrefixError('md', elementRef.nativeElement.nodeName);
         }
     }
     return MdPrefixRejector;
@@ -1125,8 +1105,10 @@ var ViewportRuler = (function () {
         // `scrollTop` and `scrollLeft` is inconsistent. However, using the bounding rect of
         // `document.documentElement` works consistently, where the `top` and `left` values will
         // equal negative the scroll position.
-        var /** @type {?} */ top = -documentRect.top || document.body.scrollTop || window.scrollY || 0;
-        var /** @type {?} */ left = -documentRect.left || document.body.scrollLeft || window.scrollX || 0;
+        var /** @type {?} */ top = -documentRect.top || document.body.scrollTop || window.scrollY ||
+            document.documentElement.scrollTop || 0;
+        var /** @type {?} */ left = -documentRect.left || document.body.scrollLeft || window.scrollX ||
+            document.documentElement.scrollLeft || 0;
         return { top: top, left: left };
     };
     /**
@@ -1718,72 +1700,54 @@ MdOptionModule.decorators = [
  */
 MdOptionModule.ctorParameters = function () { return []; };
 /**
- * Exception thrown when attempting to attach a null portal to a host.
+ * Throws an exception when attempting to attach a null portal to a host.
  * \@docs-private
+ * @return {?}
  */
-var NullPortalError = (function (_super) {
-    __extends(NullPortalError, _super);
-    function NullPortalError() {
-        return _super.call(this, 'Must provide a portal to attach') || this;
-    }
-    return NullPortalError;
-}(MdError));
+function throwNullPortalError() {
+    throw new Error('Must provide a portal to attach');
+}
 /**
- * Exception thrown when attempting to attach a portal to a host that is already attached.
+ * Throws an exception when attempting to attach a portal to a host that is already attached.
  * \@docs-private
+ * @return {?}
  */
-var PortalAlreadyAttachedError = (function (_super) {
-    __extends(PortalAlreadyAttachedError, _super);
-    function PortalAlreadyAttachedError() {
-        return _super.call(this, 'Host already has a portal attached') || this;
-    }
-    return PortalAlreadyAttachedError;
-}(MdError));
+function throwPortalAlreadyAttachedError() {
+    throw new Error('Host already has a portal attached');
+}
 /**
- * Exception thrown when attempting to attach a portal to an already-disposed host.
+ * Throws an exception when attempting to attach a portal to an already-disposed host.
  * \@docs-private
+ * @return {?}
  */
-var PortalHostAlreadyDisposedError = (function (_super) {
-    __extends(PortalHostAlreadyDisposedError, _super);
-    function PortalHostAlreadyDisposedError() {
-        return _super.call(this, 'This PortalHost has already been disposed') || this;
-    }
-    return PortalHostAlreadyDisposedError;
-}(MdError));
+function throwPortalHostAlreadyDisposedError() {
+    throw new Error('This PortalHost has already been disposed');
+}
 /**
- * Exception thrown when attempting to attach an unknown portal type.
+ * Throws an exception when attempting to attach an unknown portal type.
  * \@docs-private
+ * @return {?}
  */
-var UnknownPortalTypeError = (function (_super) {
-    __extends(UnknownPortalTypeError, _super);
-    function UnknownPortalTypeError() {
-        return _super.call(this, 'Attempting to attach an unknown Portal type. ' +
-            'BasePortalHost accepts either a ComponentPortal or a TemplatePortal.') || this;
-    }
-    return UnknownPortalTypeError;
-}(MdError));
+function throwUnknownPortalTypeError() {
+    throw new Error('Attempting to attach an unknown Portal type. BasePortalHost accepts either' +
+        'a ComponentPortal or a TemplatePortal.');
+}
 /**
- * Exception thrown when attempting to attach a portal to a null host.
+ * Throws an exception when attempting to attach a portal to a null host.
  * \@docs-private
+ * @return {?}
  */
-var NullPortalHostError = (function (_super) {
-    __extends(NullPortalHostError, _super);
-    function NullPortalHostError() {
-        return _super.call(this, 'Attempting to attach a portal to a null PortalHost') || this;
-    }
-    return NullPortalHostError;
-}(MdError));
+function throwNullPortalHostError() {
+    throw new Error('Attempting to attach a portal to a null PortalHost');
+}
 /**
- * Exception thrown when attempting to detach a portal that is not attached.
- * \@docs-private
+ * Throws an exception when attempting to detach a portal that is not attached.
+ * \@docs-privatew
+ * @return {?}
  */
-var NoPortalAttachedError = (function (_super) {
-    __extends(NoPortalAttachedError, _super);
-    function NoPortalAttachedError() {
-        return _super.call(this, 'Attempting to detach a portal that is not attached to a host') || this;
-    }
-    return NoPortalAttachedError;
-}(MdError));
+function throwNoPortalAttachedError() {
+    throw new Error('Attempting to detach a portal that is not attached to a host');
+}
 /**
  * A `Portal` is something that you want to render somewhere else.
  * It can be attach to / detached from a `PortalHost`.
@@ -1799,10 +1763,10 @@ var Portal = (function () {
      */
     Portal.prototype.attach = function (host) {
         if (host == null) {
-            throw new NullPortalHostError();
+            throwNullPortalHostError();
         }
         if (host.hasAttached()) {
-            throw new PortalAlreadyAttachedError();
+            throwPortalAlreadyAttachedError();
         }
         this._attachedHost = host;
         return (host.attach(this));
@@ -1814,7 +1778,7 @@ var Portal = (function () {
     Portal.prototype.detach = function () {
         var /** @type {?} */ host = this._attachedHost;
         if (host == null) {
-            throw new NoPortalAttachedError();
+            throwNoPortalAttachedError();
         }
         this._attachedHost = null;
         return host.detach();
@@ -1937,13 +1901,13 @@ var BasePortalHost = (function () {
      */
     BasePortalHost.prototype.attach = function (portal) {
         if (!portal) {
-            throw new NullPortalError();
+            throwNullPortalError();
         }
         if (this.hasAttached()) {
-            throw new PortalAlreadyAttachedError();
+            throwPortalAlreadyAttachedError();
         }
         if (this._isDisposed) {
-            throw new PortalHostAlreadyDisposedError();
+            throwPortalHostAlreadyDisposedError();
         }
         if (portal instanceof ComponentPortal) {
             this._attachedPortal = portal;
@@ -1953,7 +1917,7 @@ var BasePortalHost = (function () {
             this._attachedPortal = portal;
             return this.attachTemplatePortal(portal);
         }
-        throw new UnknownPortalTypeError();
+        throwUnknownPortalTypeError();
     };
     /**
      * @abstract
@@ -4580,6 +4544,68 @@ var CloseScrollStrategy = (function () {
         }
     };
     return CloseScrollStrategy;
+}());
+/**
+ * Strategy that will prevent the user from scrolling while the overlay is visible.
+ */
+var BlockScrollStrategy = (function () {
+    /**
+     * @param {?} _viewportRuler
+     */
+    function BlockScrollStrategy(_viewportRuler) {
+        this._viewportRuler = _viewportRuler;
+        this._previousHTMLStyles = { top: null, left: null };
+        this._isEnabled = false;
+    }
+    /**
+     * @return {?}
+     */
+    BlockScrollStrategy.prototype.attach = function () { };
+    /**
+     * @return {?}
+     */
+    BlockScrollStrategy.prototype.enable = function () {
+        if (this._canBeEnabled()) {
+            var /** @type {?} */ root = document.documentElement;
+            this._previousScrollPosition = this._viewportRuler.getViewportScrollPosition();
+            // Cache the previous inline styles in case the user had set them.
+            this._previousHTMLStyles.left = root.style.left;
+            this._previousHTMLStyles.top = root.style.top;
+            // Note: we're using the `html` node, instead of the `body`, because the `body` may
+            // have the user agent margin, whereas the `html` is guaranteed not to have one.
+            root.style.left = -this._previousScrollPosition.left + "px";
+            root.style.top = -this._previousScrollPosition.top + "px";
+            root.classList.add('cdk-global-scrollblock');
+            this._isEnabled = true;
+        }
+    };
+    /**
+     * @return {?}
+     */
+    BlockScrollStrategy.prototype.disable = function () {
+        if (this._isEnabled) {
+            this._isEnabled = false;
+            document.documentElement.style.left = this._previousHTMLStyles.left;
+            document.documentElement.style.top = this._previousHTMLStyles.top;
+            document.documentElement.classList.remove('cdk-global-scrollblock');
+            window.scroll(this._previousScrollPosition.left, this._previousScrollPosition.top);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    BlockScrollStrategy.prototype._canBeEnabled = function () {
+        // Since the scroll strategies can't be singletons, we have to use a global CSS class
+        // (`cdk-global-scrollblock`) to make sure that we don't try to disable global
+        // scrolling multiple times.
+        if (document.documentElement.classList.contains('cdk-global-scrollblock') || this._isEnabled) {
+            return false;
+        }
+        var /** @type {?} */ body = document.body;
+        var /** @type {?} */ viewport = this._viewportRuler.getViewportRect();
+        return body.scrollHeight > viewport.height || body.scrollWidth > viewport.width;
+    };
+    return BlockScrollStrategy;
 }());
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
@@ -8310,28 +8336,24 @@ var fadeInContent = _angular_animations.trigger('fadeInContent', [
     ])
 ]);
 /**
- * Exception thrown when attempting to change a select's `multiple` option after initialization.
+ * Returns an exception to be thrown when attempting to change a s
+ * elect's `multiple` option after initialization.
  * \@docs-private
+ * @return {?}
  */
-var MdSelectDynamicMultipleError = (function (_super) {
-    __extends(MdSelectDynamicMultipleError, _super);
-    function MdSelectDynamicMultipleError() {
-        return _super.call(this, 'Cannot change `multiple` mode of select after initialization.') || this;
-    }
-    return MdSelectDynamicMultipleError;
-}(MdError));
+function getMdSelectDynamicMultipleError() {
+    return new Error('Cannot change `multiple` mode of select after initialization.');
+}
 /**
- * Exception thrown when attempting to assign a non-array value to a select in `multiple` mode.
- * Note that `undefined` and `null` are still valid values to allow for resetting the value.
+ * Returns an exception to be thrown when attempting to assign a non-array value to a select
+ * in `multiple` mode. Note that `undefined` and `null` are still valid values to allow for
+ * resetting the value.
  * \@docs-private
+ * @return {?}
  */
-var MdSelectNonArrayValueError = (function (_super) {
-    __extends(MdSelectNonArrayValueError, _super);
-    function MdSelectNonArrayValueError() {
-        return _super.call(this, 'Cannot assign truthy non-array value to select in `multiple` mode.') || this;
-    }
-    return MdSelectNonArrayValueError;
-}(MdError));
+function getMdSelectNonArrayValueError() {
+    return new Error('Cannot assign truthy non-array value to select in `multiple` mode.');
+}
 /**
  * The fixed height of every option element.
  */
@@ -8566,7 +8588,7 @@ var MdSelect = (function () {
          */
         set: function (value) {
             if (this._selectionModel) {
-                throw new MdSelectDynamicMultipleError();
+                throw getMdSelectDynamicMultipleError();
             }
             this._multiple = coerceBooleanProperty(value);
         },
@@ -8885,7 +8907,7 @@ var MdSelect = (function () {
         var _this = this;
         var /** @type {?} */ isArray = Array.isArray(value);
         if (this.multiple && value && !isArray) {
-            throw new MdSelectNonArrayValueError();
+            throw getMdSelectNonArrayValueError();
         }
         if (isArray) {
             this._clearSelection();
@@ -10776,18 +10798,13 @@ MdSliderModule.decorators = [
  */
 MdSliderModule.ctorParameters = function () { return []; };
 /**
- * Exception thrown when two MdSidenav are matching the same side.
+ * Throws an exception when two MdSidenav are matching the same side.
+ * @param {?} align
+ * @return {?}
  */
-var MdDuplicatedSidenavError = (function (_super) {
-    __extends(MdDuplicatedSidenavError, _super);
-    /**
-     * @param {?} align
-     */
-    function MdDuplicatedSidenavError(align) {
-        return _super.call(this, "A sidenav was already declared for 'align=\"" + align + "\"'") || this;
-    }
-    return MdDuplicatedSidenavError;
-}(MdError));
+function throwMdDuplicatedSidenavError(align) {
+    throw new Error("A sidenav was already declared for 'align=\"" + align + "\"'");
+}
 /**
  * Sidenav toggle promise result.
  */
@@ -11318,13 +11335,13 @@ var MdSidenavContainer = (function () {
             var sidenav = _a[_i];
             if (sidenav.align == 'end') {
                 if (this._end != null) {
-                    throw new MdDuplicatedSidenavError('end');
+                    throwMdDuplicatedSidenavError('end');
                 }
                 this._end = sidenav;
             }
             else {
                 if (this._start != null) {
-                    throw new MdDuplicatedSidenavError('start');
+                    throwMdDuplicatedSidenavError('start');
                 }
                 this._start = sidenav;
             }
@@ -11981,46 +11998,6 @@ MdGridTileFooterCssMatStyler.decorators = [
  */
 MdGridTileFooterCssMatStyler.ctorParameters = function () { return []; };
 /**
- * Exception thrown when cols property is missing from grid-list
- * \@docs-private
- */
-var MdGridListColsError = (function (_super) {
-    __extends(MdGridListColsError, _super);
-    function MdGridListColsError() {
-        return _super.call(this, "md-grid-list: must pass in number of columns. Example: <md-grid-list cols=\"3\">") || this;
-    }
-    return MdGridListColsError;
-}(MdError));
-/**
- * Exception thrown when a tile's colspan is longer than the number of cols in list
- * \@docs-private
- */
-var MdGridTileTooWideError = (function (_super) {
-    __extends(MdGridTileTooWideError, _super);
-    /**
-     * @param {?} cols
-     * @param {?} listLength
-     */
-    function MdGridTileTooWideError(cols, listLength) {
-        return _super.call(this, "md-grid-list: tile with colspan " + cols + " is wider than grid with cols=\"" + listLength + "\".") || this;
-    }
-    return MdGridTileTooWideError;
-}(MdError));
-/**
- * Exception thrown when an invalid ratio is passed in as a rowHeight
- * \@docs-private
- */
-var MdGridListBadRatioError = (function (_super) {
-    __extends(MdGridListBadRatioError, _super);
-    /**
-     * @param {?} value
-     */
-    function MdGridListBadRatioError(value) {
-        return _super.call(this, "md-grid-list: invalid ratio given for row-height: \"" + value + "\"") || this;
-    }
-    return MdGridListBadRatioError;
-}(MdError));
-/**
  * Class for determining, from a list of tiles, the (row, col) position of each of those tiles
  * in the grid. This is necessary (rather than just rendering the tiles in normal document flow)
  * because the tiles can have a rowspan.
@@ -12102,7 +12079,8 @@ var TileCoordinator = (function () {
      */
     TileCoordinator.prototype._findMatchingGap = function (tileCols) {
         if (tileCols > this.tracker.length) {
-            throw new MdGridTileTooWideError(tileCols, this.tracker.length);
+            throw new Error("md-grid-list: tile with colspan " + tileCols + " is wider than " +
+                ("grid with cols=\"" + this.tracker.length + "\"."));
         }
         // Start index is inclusive, end index is exclusive.
         var /** @type {?} */ gapStartIndex = -1;
@@ -12406,7 +12384,7 @@ var RatioTileStyler = (function (_super) {
     RatioTileStyler.prototype._parseRatio = function (value) {
         var /** @type {?} */ ratioParts = value.split(':');
         if (ratioParts.length !== 2) {
-            throw new MdGridListBadRatioError(value);
+            throw new Error("md-grid-list: invalid ratio given for row-height: \"" + value + "\"");
         }
         this.rowHeightRatio = parseFloat(ratioParts[0]) / parseFloat(ratioParts[1]);
     };
@@ -12538,7 +12516,8 @@ var MdGridList = (function () {
      */
     MdGridList.prototype._checkCols = function () {
         if (!this.cols) {
-            throw new MdGridListColsError();
+            throw new Error("md-grid-list: must pass in number of columns. " +
+                "Example: <md-grid-list cols=\"3\">");
         }
     };
     /**
@@ -13444,57 +13423,25 @@ MdChipsModule.decorators = [
  */
 MdChipsModule.ctorParameters = function () { return []; };
 /**
- * Exception thrown when attempting to load an icon with a name that cannot be found.
+ * Returns an exception to be thrown in the case when attempting to
+ * load an icon with a name that cannot be found.
  * \@docs-private
+ * @param {?} iconName
+ * @return {?}
  */
-var MdIconNameNotFoundError = (function (_super) {
-    __extends(MdIconNameNotFoundError, _super);
-    /**
-     * @param {?} iconName
-     */
-    function MdIconNameNotFoundError(iconName) {
-        return _super.call(this, "Unable to find icon with the name \"" + iconName + "\"") || this;
-    }
-    return MdIconNameNotFoundError;
-}(MdError));
+function getMdIconNameNotFoundError(iconName) {
+    return new Error("Unable to find icon with the name \"" + iconName + "\"");
+}
 /**
- * Exception thrown when attempting to load SVG content that does not contain the expected
- * <svg> tag.
+ * Returns an exception to be thrown when the consumer attempts to use
+ * `<md-icon>` without including \@angular/http.
  * \@docs-private
+ * @return {?}
  */
-var MdIconSvgTagNotFoundError = (function (_super) {
-    __extends(MdIconSvgTagNotFoundError, _super);
-    function MdIconSvgTagNotFoundError() {
-        return _super.call(this, '<svg> tag not found') || this;
-    }
-    return MdIconSvgTagNotFoundError;
-}(MdError));
-/**
- * Exception thrown when the consumer attempts to use `<md-icon>` without including \@angular/http.
- * \@docs-private
- */
-var MdIconNoHttpProviderError = (function (_super) {
-    __extends(MdIconNoHttpProviderError, _super);
-    function MdIconNoHttpProviderError() {
-        return _super.call(this, 'Could not find Http provider for use with Angular Material icons. ' +
-            'Please include the HttpModule from @angular/http in your app imports.') || this;
-    }
-    return MdIconNoHttpProviderError;
-}(MdError));
-/**
- * Exception thrown when an invalid icon name is passed to an md-icon component.
- * \@docs-private
- */
-var MdIconInvalidNameError = (function (_super) {
-    __extends(MdIconInvalidNameError, _super);
-    /**
-     * @param {?} iconName
-     */
-    function MdIconInvalidNameError(iconName) {
-        return _super.call(this, "Invalid icon name: \"" + iconName + "\"") || this;
-    }
-    return MdIconInvalidNameError;
-}(MdError));
+function getMdIconNoHttpProviderError() {
+    return new Error('Could not find Http provider for use with Angular Material icons. ' +
+        'Please include the HttpModule from @angular/http in your app imports.');
+}
 /**
  * Configuration for an icon, including the URL and possibly the cached SVG element.
  * \@docs-private
@@ -13661,7 +13608,7 @@ var MdIconRegistry = (function () {
     /**
      * Returns an Observable that produces the icon (as an <svg> DOM element) with the given name
      * and namespace. The icon must have been previously registered with addIcon or addIconSet;
-     * if not, the Observable will throw an MdIconNameNotFoundError.
+     * if not, the Observable will throw an error.
      *
      * @param {?} name Name of the icon to be retrieved.
      * @param {?=} namespace Namespace in which to look for the icon.
@@ -13679,7 +13626,7 @@ var MdIconRegistry = (function () {
         if (iconSetConfigs) {
             return this._getSvgFromIconSetConfigs(name, iconSetConfigs);
         }
-        return rxjs_Observable.Observable.throw(new MdIconNameNotFoundError(key));
+        return rxjs_Observable.Observable.throw(getMdIconNameNotFoundError(key));
     };
     /**
      * Returns the cached icon for a SvgIconConfig if available, or fetches it from its URL if not.
@@ -13704,7 +13651,7 @@ var MdIconRegistry = (function () {
      * if found copies the element to a new <svg> element. If not found, fetches all icon sets
      * that have not been cached, and searches again after all fetches are completed.
      * The returned Observable produces the SVG element if possible, and throws
-     * MdIconNameNotFoundError if no icon with the specified name can be found.
+     * an error if no icon with the specified name can be found.
      * @param {?} name
      * @param {?} iconSetConfigs
      * @return {?}
@@ -13744,7 +13691,7 @@ var MdIconRegistry = (function () {
             .map(function (ignoredResults) {
             var /** @type {?} */ foundIcon = _this._extractIconWithNameFromAnySet(name, iconSetConfigs);
             if (!foundIcon) {
-                throw new MdIconNameNotFoundError(name);
+                throw getMdIconNameNotFoundError(name);
             }
             return foundIcon;
         });
@@ -13843,7 +13790,7 @@ var MdIconRegistry = (function () {
         div.innerHTML = str;
         var /** @type {?} */ svg = (div.querySelector('svg'));
         if (!svg) {
-            throw new MdIconSvgTagNotFoundError();
+            throw new Error('<svg> tag not found');
         }
         return svg;
     };
@@ -13872,7 +13819,7 @@ var MdIconRegistry = (function () {
     MdIconRegistry.prototype._fetchUrl = function (safeUrl) {
         var _this = this;
         if (!this._http) {
-            throw new MdIconNoHttpProviderError();
+            throw getMdIconNoHttpProviderError();
         }
         var /** @type {?} */ url = this._sanitizer.sanitize(_angular_core.SecurityContext.RESOURCE_URL, safeUrl);
         // Store in-progress fetches to avoid sending a duplicate request for a URL when there is
@@ -14028,12 +13975,12 @@ var MdIcon = (function () {
      * The separator for the two fields is ':'. If there is no separator, an empty
      * string is returned for the icon set and the entire value is returned for
      * the icon name. If the argument is falsy, returns an array of two empty strings.
-     * Throws a MdIconInvalidNameError if the name contains two or more ':' separators.
+     * Throws an error if the name contains two or more ':' separators.
      * Examples:
      *   'social:cake' -> ['social', 'cake']
      *   'penguin' -> ['', 'penguin']
      *   null -> ['', '']
-     *   'a:b:c' -> (throws MdIconInvalidNameError)
+     *   'a:b:c' -> (throws Error)
      * @param {?} iconName
      * @return {?}
      */
@@ -14049,7 +13996,7 @@ var MdIcon = (function () {
             case 2:
                 return (parts);
             default:
-                throw new MdIconInvalidNameError(iconName);
+                throw new Error("Invalid icon name: \"" + iconName + "\"");
         }
     };
     /**
@@ -14807,51 +14754,35 @@ MdProgressBarModule.decorators = [
 MdProgressBarModule.ctorParameters = function () { return []; };
 /**
  * \@docs-private
+ * @return {?}
  */
-var MdInputContainerPlaceholderConflictError = (function (_super) {
-    __extends(MdInputContainerPlaceholderConflictError, _super);
-    function MdInputContainerPlaceholderConflictError() {
-        return _super.call(this, 'Placeholder attribute and child element were both specified.') || this;
-    }
-    return MdInputContainerPlaceholderConflictError;
-}(MdError));
+function getMdInputContainerPlaceholderConflictError() {
+    return new Error('Placeholder attribute and child element were both specified.');
+}
 /**
  * \@docs-private
+ * @param {?} type
+ * @return {?}
  */
-var MdInputContainerUnsupportedTypeError = (function (_super) {
-    __extends(MdInputContainerUnsupportedTypeError, _super);
-    /**
-     * @param {?} type
-     */
-    function MdInputContainerUnsupportedTypeError(type) {
-        return _super.call(this, "Input type \"" + type + "\" isn't supported by md-input-container.") || this;
-    }
-    return MdInputContainerUnsupportedTypeError;
-}(MdError));
+function getMdInputContainerUnsupportedTypeError(type) {
+    return new Error("Input type \"" + type + "\" isn't supported by md-input-container.");
+}
 /**
  * \@docs-private
+ * @param {?} align
+ * @return {?}
  */
-var MdInputContainerDuplicatedHintError = (function (_super) {
-    __extends(MdInputContainerDuplicatedHintError, _super);
-    /**
-     * @param {?} align
-     */
-    function MdInputContainerDuplicatedHintError(align) {
-        return _super.call(this, "A hint was already declared for 'align=\"" + align + "\"'.") || this;
-    }
-    return MdInputContainerDuplicatedHintError;
-}(MdError));
+function getMdInputContainerDuplicatedHintError(align) {
+    return new Error("A hint was already declared for 'align=\"" + align + "\"'.");
+}
 /**
  * \@docs-private
+ * @return {?}
  */
-var MdInputContainerMissingMdInputError = (function (_super) {
-    __extends(MdInputContainerMissingMdInputError, _super);
-    function MdInputContainerMissingMdInputError() {
-        return _super.call(this, 'md-input-container must contain an mdInput directive. Did you forget to add mdInput ' +
-            'to the native input or textarea element?') || this;
-    }
-    return MdInputContainerMissingMdInputError;
-}(MdError));
+function getMdInputContainerMissingMdInputError() {
+    return new Error('md-input-container must contain an mdInput directive. ' +
+        'Did you forget to add mdInput to the native input or textarea element?');
+}
 // Invalid input type. Using one of these will throw an MdInputContainerUnsupportedTypeError.
 var MD_INPUT_INVALID_TYPES = [
     'button',
@@ -15163,7 +15094,7 @@ var MdInputDirective = (function () {
      */
     MdInputDirective.prototype._validateType = function () {
         if (MD_INPUT_INVALID_TYPES.indexOf(this._type) !== -1) {
-            throw new MdInputContainerUnsupportedTypeError(this._type);
+            throw getMdInputContainerUnsupportedTypeError(this._type);
         }
     };
     /**
@@ -15339,7 +15270,7 @@ var MdInputContainer = (function () {
     MdInputContainer.prototype.ngAfterContentInit = function () {
         var _this = this;
         if (!this._mdInputChild) {
-            throw new MdInputContainerMissingMdInputError();
+            throw getMdInputContainerMissingMdInputError();
         }
         this._processHints();
         this._validatePlaceholders();
@@ -15400,7 +15331,7 @@ var MdInputContainer = (function () {
      */
     MdInputContainer.prototype._validatePlaceholders = function () {
         if (this._mdInputChild.placeholder && this._placeholderChild) {
-            throw new MdInputContainerPlaceholderConflictError();
+            throw getMdInputContainerPlaceholderConflictError();
         }
     };
     /**
@@ -15424,13 +15355,13 @@ var MdInputContainer = (function () {
             this._hintChildren.forEach(function (hint) {
                 if (hint.align == 'start') {
                     if (startHint_1 || _this.hintLabel) {
-                        throw new MdInputContainerDuplicatedHintError('start');
+                        throw getMdInputContainerDuplicatedHintError('start');
                     }
                     startHint_1 = hint;
                 }
                 else if (hint.align == 'end') {
                     if (endHint_1) {
-                        throw new MdInputContainerDuplicatedHintError('end');
+                        throw getMdInputContainerDuplicatedHintError('end');
                     }
                     endHint_1 = hint;
                 }
@@ -15853,17 +15784,6 @@ var MdSnackBarRef = (function () {
     };
     return MdSnackBarRef;
 }());
-/**
- * Error that is thrown when attempting to attach a snack bar that is already attached.
- * \@docs-private
- */
-var MdSnackBarContentAlreadyAttached = (function (_super) {
-    __extends(MdSnackBarContentAlreadyAttached, _super);
-    function MdSnackBarContentAlreadyAttached() {
-        return _super.call(this, 'Attempting to attach snack bar content after content is already attached') || this;
-    }
-    return MdSnackBarContentAlreadyAttached;
-}(MdError));
 // TODO(jelbourn): we can't use constants from animation.ts here because you can't use
 // a text interpolation in anything that is analyzed statically with ngc (for AoT compile).
 var SHOW_ANIMATION = '225ms cubic-bezier(0.4,0.0,1,1)';
@@ -15906,7 +15826,7 @@ var MdSnackBarContainer = (function (_super) {
      */
     MdSnackBarContainer.prototype.attachComponentPortal = function (portal) {
         if (this._portalHost.hasAttached()) {
-            throw new MdSnackBarContentAlreadyAttached();
+            throw new Error('Attempting to attach snack bar content after content is already attached');
         }
         if (this.snackBarConfig.extraClasses) {
             // Not the most efficient way of adding classes, but the renderer doesn't allow us
@@ -15924,7 +15844,7 @@ var MdSnackBarContainer = (function (_super) {
      * @return {?}
      */
     MdSnackBarContainer.prototype.attachTemplatePortal = function (portal) {
-        throw Error('Not yet implemented');
+        throw new Error('Not yet implemented');
     };
     /**
      * Handle end of animations, updating the state of the snackbar.
@@ -17711,20 +17631,6 @@ MdToolbarModule.decorators = [
  */
 MdToolbarModule.ctorParameters = function () { return []; };
 /**
- * Exception thrown when a tooltip has an invalid position.
- * \@docs-private
- */
-var MdTooltipInvalidPositionError = (function (_super) {
-    __extends(MdTooltipInvalidPositionError, _super);
-    /**
-     * @param {?} position
-     */
-    function MdTooltipInvalidPositionError(position) {
-        return _super.call(this, "Tooltip position \"" + position + "\" is invalid.") || this;
-    }
-    return MdTooltipInvalidPositionError;
-}(MdError));
-/**
  * Time in ms to delay before changing the tooltip visibility to hidden
  */
 var TOUCHEND_HIDE_DELAY = 1500;
@@ -17732,6 +17638,14 @@ var TOUCHEND_HIDE_DELAY = 1500;
  * Time in ms to throttle repositioning after scroll events.
  */
 var SCROLL_THROTTLE_MS = 20;
+/**
+ * Throws an error if the user supplied an invalid tooltip position.
+ * @param {?} position
+ * @return {?}
+ */
+function throwMdTooltipInvalidPositionError(position) {
+    throw new Error("Tooltip position \"" + position + "\" is invalid.");
+}
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
@@ -18051,7 +17965,7 @@ var MdTooltip = (function () {
             this.position == 'before' && !isDirectionLtr) {
             return { originX: 'end', originY: 'center' };
         }
-        throw new MdTooltipInvalidPositionError(this.position);
+        throwMdTooltipInvalidPositionError(this.position);
     };
     /**
      * Returns the overlay position based on the user's preference
@@ -18075,7 +17989,7 @@ var MdTooltip = (function () {
             this.position == 'before' && !isLtr) {
             return { overlayX: 'start', overlayY: 'center' };
         }
-        throw new MdTooltipInvalidPositionError(this.position);
+        throwMdTooltipInvalidPositionError(this.position);
     };
     /**
      * Updates the tooltip message and repositions the overlay according to the new message length
@@ -18247,7 +18161,7 @@ var TooltipComponent = (function () {
             case 'below':
                 this._transformOrigin = 'top';
                 break;
-            default: throw new MdTooltipInvalidPositionError(value);
+            default: throwMdTooltipInvalidPositionError(value);
         }
     };
     /**
@@ -18325,40 +18239,31 @@ MdTooltipModule.decorators = [
  */
 MdTooltipModule.ctorParameters = function () { return []; };
 /**
- * Exception thrown when menu trigger doesn't have a valid md-menu instance
+ * Throws an exception for the case when menu trigger doesn't have a valid md-menu instance
  * \@docs-private
+ * @return {?}
  */
-var MdMenuMissingError = (function (_super) {
-    __extends(MdMenuMissingError, _super);
-    function MdMenuMissingError() {
-        return _super.call(this, "md-menu-trigger: must pass in an md-menu instance.\n\n    Example:\n      <md-menu #menu=\"mdMenu\"></md-menu>\n      <button [mdMenuTriggerFor]=\"menu\"></button>\n    ") || this;
-    }
-    return MdMenuMissingError;
-}(MdError));
+function throwMdMenuMissingError() {
+    throw new Error("md-menu-trigger: must pass in an md-menu instance.\n\n    Example:\n      <md-menu #menu=\"mdMenu\"></md-menu>\n      <button [mdMenuTriggerFor]=\"menu\"></button>");
+}
 /**
- * Exception thrown when menu's xPosition value isn't valid.
+ * Throws an exception for the case when menu's x-position value isn't valid.
  * In other words, it doesn't match 'before' or 'after'.
  * \@docs-private
+ * @return {?}
  */
-var MdMenuInvalidPositionX = (function (_super) {
-    __extends(MdMenuInvalidPositionX, _super);
-    function MdMenuInvalidPositionX() {
-        return _super.call(this, "xPosition value must be either 'before' or after'.\n      Example: <md-menu xPosition=\"before\" #menu=\"mdMenu\"></md-menu>\n    ") || this;
-    }
-    return MdMenuInvalidPositionX;
-}(MdError));
+function throwMdMenuInvalidPositionX() {
+    throw new Error("x-position value must be either 'before' or after'.\n      Example: <md-menu x-position=\"before\" #menu=\"mdMenu\"></md-menu>");
+}
 /**
- * Exception thrown when menu's yPosition value isn't valid.
+ * Throws an exception for the case when menu's y-position value isn't valid.
  * In other words, it doesn't match 'above' or 'below'.
  * \@docs-private
+ * @return {?}
  */
-var MdMenuInvalidPositionY = (function (_super) {
-    __extends(MdMenuInvalidPositionY, _super);
-    function MdMenuInvalidPositionY() {
-        return _super.call(this, "yPosition value must be either 'above' or below'.\n      Example: <md-menu yPosition=\"above\" #menu=\"mdMenu\"></md-menu>\n    ") || this;
-    }
-    return MdMenuInvalidPositionY;
-}(MdError));
+function throwMdMenuInvalidPositionY() {
+    throw new Error("y-position value must be either 'above' or below'.\n      Example: <md-menu y-position=\"above\" #menu=\"mdMenu\"></md-menu>");
+}
 /**
  * This directive is intended to be used inside an md-menu tag.
  * It exists mostly to set the role attribute.
@@ -18524,7 +18429,7 @@ var MdMenu = (function () {
          */
         set: function (value) {
             if (value !== 'before' && value !== 'after') {
-                throw new MdMenuInvalidPositionX();
+                throwMdMenuInvalidPositionX();
             }
             this._xPosition = value;
             this.setPositionClasses();
@@ -18544,7 +18449,7 @@ var MdMenu = (function () {
          */
         set: function (value) {
             if (value !== 'above' && value !== 'below') {
-                throw new MdMenuInvalidPositionY();
+                throwMdMenuInvalidPositionY();
             }
             this._yPosition = value;
             this.setPositionClasses();
@@ -18851,7 +18756,7 @@ var MdMenuTrigger = (function () {
      */
     MdMenuTrigger.prototype._checkMenu = function () {
         if (!this.menu) {
-            throw new MdMenuMissingError();
+            throwMdMenuMissingError();
         }
     };
     /**
@@ -19147,16 +19052,14 @@ var MdDialogConfig = (function () {
     return MdDialogConfig;
 }());
 /**
- * Exception thrown when a ComponentPortal is attached to a DomPortalHost without an origin.
+ * Throws an exception for the case when a ComponentPortal is
+ * attached to a DomPortalHost without an origin.
  * \@docs-private
+ * @return {?}
  */
-var MdDialogContentAlreadyAttachedError = (function (_super) {
-    __extends(MdDialogContentAlreadyAttachedError, _super);
-    function MdDialogContentAlreadyAttachedError() {
-        return _super.call(this, 'Attempting to attach dialog content after content is already attached') || this;
-    }
-    return MdDialogContentAlreadyAttachedError;
-}(MdError));
+function throwMdDialogContentAlreadyAttachedError() {
+    throw new Error('Attempting to attach dialog content after content is already attached');
+}
 /**
  * Internal component that wraps user-provided dialog content.
  * Animation is based on https://material.io/guidelines/motion/choreography.html.
@@ -19198,7 +19101,7 @@ var MdDialogContainer = (function (_super) {
      */
     MdDialogContainer.prototype.attachComponentPortal = function (portal) {
         if (this._portalHost.hasAttached()) {
-            throw new MdDialogContentAlreadyAttachedError();
+            throwMdDialogContentAlreadyAttachedError();
         }
         this._savePreviouslyFocusedElement();
         return this._portalHost.attachComponentPortal(portal);
@@ -19210,7 +19113,7 @@ var MdDialogContainer = (function (_super) {
      */
     MdDialogContainer.prototype.attachTemplatePortal = function (portal) {
         if (this._portalHost.hasAttached()) {
-            throw new MdDialogContentAlreadyAttachedError();
+            throwMdDialogContentAlreadyAttachedError();
         }
         this._savePreviouslyFocusedElement();
         return this._portalHost.attachTemplatePortal(portal);
@@ -19308,13 +19211,15 @@ var MdDialog = (function () {
     /**
      * @param {?} _overlay
      * @param {?} _injector
+     * @param {?} _viewportRuler
      * @param {?} _location
      * @param {?} _parentDialog
      */
-    function MdDialog(_overlay, _injector, _location, _parentDialog) {
+    function MdDialog(_overlay, _injector, _viewportRuler, _location, _parentDialog) {
         var _this = this;
         this._overlay = _overlay;
         this._injector = _injector;
+        this._viewportRuler = _viewportRuler;
         this._location = _location;
         this._parentDialog = _parentDialog;
         this._openDialogsAtThisLevel = [];
@@ -19423,6 +19328,7 @@ var MdDialog = (function () {
     MdDialog.prototype._getOverlayState = function (dialogConfig) {
         var /** @type {?} */ overlayState = new OverlayState();
         overlayState.hasBackdrop = dialogConfig.hasBackdrop;
+        overlayState.scrollStrategy = new BlockScrollStrategy(this._viewportRuler);
         if (dialogConfig.backdropClass) {
             overlayState.backdropClass = dialogConfig.backdropClass;
         }
@@ -19517,6 +19423,7 @@ MdDialog.decorators = [
 MdDialog.ctorParameters = function () { return [
     { type: Overlay, },
     { type: _angular_core.Injector, },
+    { type: ViewportRuler, },
     { type: _angular_common.Location, decorators: [{ type: _angular_core.Optional },] },
     { type: MdDialog, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
 ]; };
@@ -21273,7 +21180,7 @@ var MdDatepicker = (function () {
     MdDatepicker.prototype._registerInput = function (input) {
         var _this = this;
         if (this._datepickerInput) {
-            throw new MdError('An MdDatepicker can only be associated with a single input.');
+            throw new Error('An MdDatepicker can only be associated with a single input.');
         }
         this._datepickerInput = input;
         this._inputSubscription =
@@ -21288,7 +21195,7 @@ var MdDatepicker = (function () {
             return;
         }
         if (!this._datepickerInput) {
-            throw new MdError('Attempted to open an MdDatepicker with no associated input.');
+            throw new Error('Attempted to open an MdDatepicker with no associated input.');
         }
         this.touchUi ? this._openAsDialog() : this._openAsPopup();
         this.opened = true;
@@ -21870,7 +21777,6 @@ exports.UNIQUE_SELECTION_DISPATCHER_PROVIDER = UNIQUE_SELECTION_DISPATCHER_PROVI
 exports.MdLineModule = MdLineModule;
 exports.MdLine = MdLine;
 exports.MdLineSetter = MdLineSetter;
-exports.MdError = MdError;
 exports.coerceBooleanProperty = coerceBooleanProperty;
 exports.coerceNumberProperty = coerceNumberProperty;
 exports.CompatibilityModule = CompatibilityModule;
@@ -21890,11 +21796,13 @@ exports.ConnectedOverlayDirective = ConnectedOverlayDirective;
 exports.OverlayOrigin = OverlayOrigin;
 exports.OverlayModule = OverlayModule;
 exports.ScrollDispatcher = ScrollDispatcher;
+exports.ViewportRuler = ViewportRuler;
 exports.GlobalPositionStrategy = GlobalPositionStrategy;
 exports.ConnectedPositionStrategy = ConnectedPositionStrategy;
 exports.RepositionScrollStrategy = RepositionScrollStrategy;
 exports.CloseScrollStrategy = CloseScrollStrategy;
 exports.NoopScrollStrategy = NoopScrollStrategy;
+exports.BlockScrollStrategy = BlockScrollStrategy;
 exports.ConnectionPositionPair = ConnectionPositionPair;
 exports.ScrollableViewProperties = ScrollableViewProperties;
 exports.ConnectedOverlayPositionChange = ConnectedOverlayPositionChange;
@@ -21934,7 +21842,7 @@ exports.BACKSPACE = BACKSPACE;
 exports.DELETE = DELETE;
 exports.MATERIAL_COMPATIBILITY_MODE = MATERIAL_COMPATIBILITY_MODE;
 exports.MATERIAL_SANITY_CHECKS = MATERIAL_SANITY_CHECKS;
-exports.MdCompatibilityInvalidPrefixError = MdCompatibilityInvalidPrefixError;
+exports.getMdCompatibilityInvalidPrefixError = getMdCompatibilityInvalidPrefixError;
 exports.MAT_ELEMENTS_SELECTOR = MAT_ELEMENTS_SELECTOR;
 exports.MD_ELEMENTS_SELECTOR = MD_ELEMENTS_SELECTOR;
 exports.MatPrefixRejector = MatPrefixRejector;
@@ -22013,6 +21921,7 @@ exports.MdYearView = MdYearView;
 exports.MdDialogModule = MdDialogModule;
 exports.MD_DIALOG_DATA = MD_DIALOG_DATA;
 exports.MdDialog = MdDialog;
+exports.throwMdDialogContentAlreadyAttachedError = throwMdDialogContentAlreadyAttachedError;
 exports.MdDialogContainer = MdDialogContainer;
 exports.MdDialogClose = MdDialogClose;
 exports.MdDialogTitle = MdDialogTitle;
@@ -22025,10 +21934,8 @@ exports.MdGridTile = MdGridTile;
 exports.MdGridList = MdGridList;
 exports.MdIconModule = MdIconModule;
 exports.MdIcon = MdIcon;
-exports.MdIconNameNotFoundError = MdIconNameNotFoundError;
-exports.MdIconSvgTagNotFoundError = MdIconSvgTagNotFoundError;
-exports.MdIconNoHttpProviderError = MdIconNoHttpProviderError;
-exports.MdIconInvalidNameError = MdIconInvalidNameError;
+exports.getMdIconNameNotFoundError = getMdIconNameNotFoundError;
+exports.getMdIconNoHttpProviderError = getMdIconNoHttpProviderError;
 exports.MdIconRegistry = MdIconRegistry;
 exports.ICON_REGISTRY_PROVIDER_FACTORY = ICON_REGISTRY_PROVIDER_FACTORY;
 exports.ICON_REGISTRY_PROVIDER = ICON_REGISTRY_PROVIDER;
@@ -22041,10 +21948,10 @@ exports.MdPrefix = MdPrefix;
 exports.MdSuffix = MdSuffix;
 exports.MdInputDirective = MdInputDirective;
 exports.MdInputContainer = MdInputContainer;
-exports.MdInputContainerPlaceholderConflictError = MdInputContainerPlaceholderConflictError;
-exports.MdInputContainerUnsupportedTypeError = MdInputContainerUnsupportedTypeError;
-exports.MdInputContainerDuplicatedHintError = MdInputContainerDuplicatedHintError;
-exports.MdInputContainerMissingMdInputError = MdInputContainerMissingMdInputError;
+exports.getMdInputContainerPlaceholderConflictError = getMdInputContainerPlaceholderConflictError;
+exports.getMdInputContainerUnsupportedTypeError = getMdInputContainerUnsupportedTypeError;
+exports.getMdInputContainerDuplicatedHintError = getMdInputContainerDuplicatedHintError;
+exports.getMdInputContainerMissingMdInputError = getMdInputContainerMissingMdInputError;
 exports.MdListModule = MdListModule;
 exports.MdListDivider = MdListDivider;
 exports.MdList = MdList;
@@ -22091,7 +21998,7 @@ exports.SELECT_PANEL_VIEWPORT_PADDING = SELECT_PANEL_VIEWPORT_PADDING;
 exports.MdSelectChange = MdSelectChange;
 exports.MdSelect = MdSelect;
 exports.MdSidenavModule = MdSidenavModule;
-exports.MdDuplicatedSidenavError = MdDuplicatedSidenavError;
+exports.throwMdDuplicatedSidenavError = throwMdDuplicatedSidenavError;
 exports.MdSidenavToggleResult = MdSidenavToggleResult;
 exports.MdSidenav = MdSidenav;
 exports.MdSidenavContainer = MdSidenavContainer;
@@ -22134,27 +22041,27 @@ exports.MdToolbar = MdToolbar;
 exports.MdTooltipModule = MdTooltipModule;
 exports.TOUCHEND_HIDE_DELAY = TOUCHEND_HIDE_DELAY;
 exports.SCROLL_THROTTLE_MS = SCROLL_THROTTLE_MS;
+exports.throwMdTooltipInvalidPositionError = throwMdTooltipInvalidPositionError;
 exports.MdTooltip = MdTooltip;
 exports.TooltipComponent = TooltipComponent;
-exports.ɵg = LIVE_ANNOUNCER_PROVIDER_FACTORY;
-exports.ɵs = mixinDisabled;
-exports.ɵh = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
+exports.ɵi = LIVE_ANNOUNCER_PROVIDER_FACTORY;
+exports.ɵr = mixinDisabled;
+exports.ɵj = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
 exports.ɵa = MdMutationObserverFactory;
 exports.ɵc = OVERLAY_CONTAINER_PROVIDER;
 exports.ɵb = OVERLAY_CONTAINER_PROVIDER_FACTORY;
-exports.ɵr = OverlayPositionBuilder;
-exports.ɵq = VIEWPORT_RULER_PROVIDER;
-exports.ɵp = VIEWPORT_RULER_PROVIDER_FACTORY;
-exports.ɵo = ViewportRuler;
-exports.ɵm = ScrollDispatchModule;
+exports.ɵq = OverlayPositionBuilder;
+exports.ɵg = VIEWPORT_RULER_PROVIDER;
+exports.ɵf = VIEWPORT_RULER_PROVIDER_FACTORY;
+exports.ɵo = ScrollDispatchModule;
 exports.ɵe = SCROLL_DISPATCHER_PROVIDER;
 exports.ɵd = SCROLL_DISPATCHER_PROVIDER_FACTORY;
-exports.ɵn = Scrollable;
-exports.ɵf = RippleRenderer;
-exports.ɵj = MdGridAvatarCssMatStyler;
-exports.ɵl = MdGridTileFooterCssMatStyler;
-exports.ɵk = MdGridTileHeaderCssMatStyler;
-exports.ɵi = MdGridTileText;
+exports.ɵp = Scrollable;
+exports.ɵh = RippleRenderer;
+exports.ɵl = MdGridAvatarCssMatStyler;
+exports.ɵn = MdGridTileFooterCssMatStyler;
+exports.ɵm = MdGridTileHeaderCssMatStyler;
+exports.ɵk = MdGridTileText;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

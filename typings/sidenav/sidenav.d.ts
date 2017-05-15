@@ -1,11 +1,9 @@
 import { AfterContentInit, ElementRef, QueryList, EventEmitter, Renderer2, NgZone, OnDestroy } from '@angular/core';
-import { Dir, MdError } from '../core';
+import { Dir } from '../core';
 import { FocusTrapFactory } from '../core/a11y/focus-trap';
 import 'rxjs/add/operator/first';
-/** Exception thrown when two MdSidenav are matching the same side. */
-export declare class MdDuplicatedSidenavError extends MdError {
-    constructor(align: string);
-}
+/** Throws an exception when two MdSidenav are matching the same side. */
+export declare function throwMdDuplicatedSidenavError(align: string): void;
 /** Sidenav toggle promise result. */
 export declare class MdSidenavToggleResult {
     type: 'open' | 'close';

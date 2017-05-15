@@ -62,12 +62,12 @@ export declare class MdIcon implements OnChanges, OnInit, AfterViewChecked {
      * The separator for the two fields is ':'. If there is no separator, an empty
      * string is returned for the icon set and the entire value is returned for
      * the icon name. If the argument is falsy, returns an array of two empty strings.
-     * Throws a MdIconInvalidNameError if the name contains two or more ':' separators.
+     * Throws an error if the name contains two or more ':' separators.
      * Examples:
      *   'social:cake' -> ['social', 'cake']
      *   'penguin' -> ['', 'penguin']
      *   null -> ['', '']
-     *   'a:b:c' -> (throws MdIconInvalidNameError)
+     *   'a:b:c' -> (throws Error)
      */
     private _splitIconName(iconName);
     ngOnChanges(changes: {

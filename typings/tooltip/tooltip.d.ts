@@ -11,6 +11,8 @@ export declare type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'be
 export declare const TOUCHEND_HIDE_DELAY = 1500;
 /** Time in ms to throttle repositioning after scroll events. */
 export declare const SCROLL_THROTTLE_MS = 20;
+/** Throws an error if the user supplied an invalid tooltip position. */
+export declare function throwMdTooltipInvalidPositionError(position: string): void;
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).

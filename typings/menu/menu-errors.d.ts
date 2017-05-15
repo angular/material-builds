@@ -1,24 +1,17 @@
-import { MdError } from '../core';
 /**
- * Exception thrown when menu trigger doesn't have a valid md-menu instance
+ * Throws an exception for the case when menu trigger doesn't have a valid md-menu instance
  * @docs-private
  */
-export declare class MdMenuMissingError extends MdError {
-    constructor();
-}
+export declare function throwMdMenuMissingError(): void;
 /**
- * Exception thrown when menu's xPosition value isn't valid.
+ * Throws an exception for the case when menu's x-position value isn't valid.
  * In other words, it doesn't match 'before' or 'after'.
  * @docs-private
  */
-export declare class MdMenuInvalidPositionX extends MdError {
-    constructor();
-}
+export declare function throwMdMenuInvalidPositionX(): void;
 /**
- * Exception thrown when menu's yPosition value isn't valid.
+ * Throws an exception for the case when menu's y-position value isn't valid.
  * In other words, it doesn't match 'above' or 'below'.
  * @docs-private
  */
-export declare class MdMenuInvalidPositionY extends MdError {
-    constructor();
-}
+export declare function throwMdMenuInvalidPositionY(): void;

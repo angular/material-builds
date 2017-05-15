@@ -1,15 +1,13 @@
 import { ElementRef, InjectionToken } from '@angular/core';
-import { MdError } from '../errors/error';
 export declare const MATERIAL_COMPATIBILITY_MODE: InjectionToken<boolean>;
 /** Injection token that configures whether the Material sanity checks are enabled. */
 export declare const MATERIAL_SANITY_CHECKS: InjectionToken<boolean>;
 /**
- * Exception thrown if the consumer has used an invalid Material prefix on a component.
+ * Returns an exception to be thrown if the consumer has used
+ * an invalid Material prefix on a component.
  * @docs-private
  */
-export declare class MdCompatibilityInvalidPrefixError extends MdError {
-    constructor(prefix: string, nodeName: string);
-}
+export declare function getMdCompatibilityInvalidPrefixError(prefix: string, nodeName: string): Error;
 /** Selector that matches all elements that may have style collisions with AngularJS Material. */
 export declare const MAT_ELEMENTS_SELECTOR: string;
 /** Selector that matches all elements that may have style collisions with AngularJS Material. */

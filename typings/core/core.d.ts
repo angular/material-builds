@@ -18,7 +18,6 @@ export { A11yModule } from './a11y/index';
 export { UniqueSelectionDispatcher, UniqueSelectionDispatcherListener, UNIQUE_SELECTION_DISPATCHER_PROVIDER } from './coordination/unique-selection-dispatcher';
 export { MdLineModule, MdLine, MdLineSetter } from './line/line';
 export * from './style/index';
-export { MdError } from './errors/error';
 export { ComponentType } from './overlay/generic-component-type';
 export * from './keyboard/keycodes';
 export * from './compatibility/compatibility';

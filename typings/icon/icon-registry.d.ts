@@ -12,6 +12,18 @@ import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 /**
+ * Returns an exception to be thrown in the case when attempting to
+ * load an icon with a name that cannot be found.
+ * @docs-private
+ */
+export declare function getMdIconNameNotFoundError(iconName: string): Error;
+/**
+ * Returns an exception to be thrown when the consumer attempts to use
+ * `<md-icon>` without including @angular/http.
+ * @docs-private
+ */
+export declare function getMdIconNoHttpProviderError(): Error;
+/**
  * Service to register and display icons used by the <md-icon> component.
  * - Registers icon URLs by namespace and name.
  * - Registers icon set URLs by namespace.
@@ -105,7 +117,7 @@ export declare class MdIconRegistry {
     /**
      * Returns an Observable that produces the icon (as an <svg> DOM element) with the given name
      * and namespace. The icon must have been previously registered with addIcon or addIconSet;
-     * if not, the Observable will throw an MdIconNameNotFoundError.
+     * if not, the Observable will throw an error.
      *
      * @param name Name of the icon to be retrieved.
      * @param namespace Namespace in which to look for the icon.
@@ -121,7 +133,7 @@ export declare class MdIconRegistry {
      * if found copies the element to a new <svg> element. If not found, fetches all icon sets
      * that have not been cached, and searches again after all fetches are completed.
      * The returned Observable produces the SVG element if possible, and throws
-     * MdIconNameNotFoundError if no icon with the specified name can be found.
+     * an error if no icon with the specified name can be found.
      */
     private _getSvgFromIconSetConfigs(name, iconSetConfigs);
     /**

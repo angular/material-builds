@@ -4,6 +4,12 @@ import { BasePortalHost, ComponentPortal, PortalHostDirective, TemplatePortal } 
 import { MdDialogConfig } from './dialog-config';
 import { FocusTrapFactory } from '../core/a11y/focus-trap';
 /**
+ * Throws an exception for the case when a ComponentPortal is
+ * attached to a DomPortalHost without an origin.
+ * @docs-private
+ */
+export declare function throwMdDialogContentAlreadyAttachedError(): void;
+/**
  * Internal component that wraps user-provided dialog content.
  * Animation is based on https://material.io/guidelines/motion/choreography.html.
  * @docs-private
