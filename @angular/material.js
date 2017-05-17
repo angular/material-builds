@@ -14355,14 +14355,18 @@ class MdInputContainer {
      * @return {?}
      */
     ngAfterContentInit() {
-        if (!this._mdInputChild) {
-            throw getMdInputContainerMissingMdInputError();
-        }
+        this._validateInputChild();
         this._processHints();
         this._validatePlaceholders();
         // Re-validate when things change.
         this._hintChildren.changes.subscribe(() => this._processHints());
         this._mdInputChild._placeholderChange.subscribe(() => this._validatePlaceholders());
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterContentChecked() {
+        this._validateInputChild();
     }
     /**
      * @return {?}
@@ -14459,21 +14463,32 @@ class MdInputContainer {
      * @return {?}
      */
     _syncAriaDescribedby() {
-        let /** @type {?} */ ids = [];
-        let /** @type {?} */ startHint = this._hintChildren ?
-            this._hintChildren.find(hint => hint.align === 'start') : null;
-        let /** @type {?} */ endHint = this._hintChildren ?
-            this._hintChildren.find(hint => hint.align === 'end') : null;
-        if (startHint) {
-            ids.push(startHint.id);
+        if (this._mdInputChild) {
+            let /** @type {?} */ ids = [];
+            let /** @type {?} */ startHint = this._hintChildren ?
+                this._hintChildren.find(hint => hint.align === 'start') : null;
+            let /** @type {?} */ endHint = this._hintChildren ?
+                this._hintChildren.find(hint => hint.align === 'end') : null;
+            if (startHint) {
+                ids.push(startHint.id);
+            }
+            else if (this._hintLabel) {
+                ids.push(this._hintLabelId);
+            }
+            if (endHint) {
+                ids.push(endHint.id);
+            }
+            this._mdInputChild.ariaDescribedby = ids.join(' ');
         }
-        else if (this._hintLabel) {
-            ids.push(this._hintLabelId);
+    }
+    /**
+     * Throws an error if the container's input child was removed.
+     * @return {?}
+     */
+    _validateInputChild() {
+        if (!this._mdInputChild) {
+            throw getMdInputContainerMissingMdInputError();
         }
-        if (endHint) {
-            ids.push(endHint.id);
-        }
-        this._mdInputChild.ariaDescribedby = ids.join(' ');
     }
 }
 MdInputContainer.decorators = [
@@ -18673,9 +18688,12 @@ class MdAutocompleteTrigger {
     get _outsideClickStream() {
         if (this._document) {
             return Observable.fromEvent(this._document, 'click').filter((event) => {
-                let /** @type {?} */ clickTarget = (event.target);
+                const /** @type {?} */ clickTarget = (event.target);
+                const /** @type {?} */ inputContainer = this._inputContainer ?
+                    this._inputContainer._elementRef.nativeElement : null;
                 return this._panelOpen &&
-                    !this._inputContainer._elementRef.nativeElement.contains(clickTarget) &&
+                    clickTarget !== this._element.nativeElement &&
+                    (!inputContainer || !inputContainer.contains(clickTarget)) &&
                     !this._overlayRef.overlayElement.contains(clickTarget);
             });
         }
@@ -20339,7 +20357,7 @@ class MdDatepickerToggle {
 MdDatepickerToggle.decorators = [
     { type: Component, args: [{selector: 'button[mdDatepickerToggle], button[matDatepickerToggle]',
                 template: '',
-                styles: [".mat-datepicker-toggle{display:inline-block;background:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iY3VycmVudENvbG9yIj48cGF0aCBkPSJNMCAwaDI0djI0SDB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTE5IDNoLTFWMWgtMnYySDhWMUg2djJINWMtMS4xMSAwLTEuOTkuOS0xLjk5IDJMMyAxOWMwIDEuMS44OSAyIDIgMmgxNGMxLjEgMCAyLS45IDItMlY1YzAtMS4xLS45LTItMi0yem0wIDE2SDVWOGgxNHYxMXpNNyAxMGg1djVIN3oiLz48L3N2Zz4=) no-repeat;background-size:contain;height:24px;width:24px;border:none;outline:0;vertical-align:middle;cursor:pointer} /*# sourceMappingURL=datepicker-toggle.css.map */ "],
+                styles: [".mat-datepicker-toggle{display:inline-block;background:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iY3VycmVudENvbG9yIj48cGF0aCBkPSJNMCAwaDI0djI0SDB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTE5IDNoLTFWMWgtMnYySDhWMUg2djJINWMtMS4xMSAwLTEuOTkuOS0xLjk5IDJMMyAxOWMwIDEuMS44OSAyIDIgMmgxNGMxLjEgMCAyLS45IDItMlY1YzAtMS4xLS45LTItMi0yem0wIDE2SDVWOGgxNHYxMXpNNyAxMGg1djVIN3oiLz48L3N2Zz4=) no-repeat;background-size:contain;height:24px;width:24px;border:none;outline:0;vertical-align:middle}.mat-datepicker-toggle:not([disabled]){cursor:pointer} /*# sourceMappingURL=datepicker-toggle.css.map */ "],
                 host: {
                     '[attr.type]': 'type',
                     '[class.mat-datepicker-toggle]': 'true',

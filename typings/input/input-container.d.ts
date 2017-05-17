@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, QueryList, Renderer2 } from '@angular/core';
+import { AfterContentInit, AfterContentChecked, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, QueryList, Renderer2 } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 /** Type for the available floatPlaceholder values. */
 export declare type FloatPlaceholderType = 'always' | 'never' | 'auto';
@@ -73,7 +73,7 @@ export declare class MdInputDirective {
 /**
  * Container for text inputs that applies Material Design styling and behavior.
  */
-export declare class MdInputContainer implements AfterViewInit, AfterContentInit {
+export declare class MdInputContainer implements AfterViewInit, AfterContentInit, AfterContentChecked {
     _elementRef: ElementRef;
     private _changeDetectorRef;
     private _parentForm;
@@ -109,6 +109,7 @@ export declare class MdInputContainer implements AfterViewInit, AfterContentInit
     _suffixChildren: QueryList<MdSuffix>;
     constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _parentForm: NgForm, _parentFormGroup: FormGroupDirective);
     ngAfterContentInit(): void;
+    ngAfterContentChecked(): void;
     ngAfterViewInit(): void;
     /** Determines whether a class from the NgControl should be forwarded to the host element. */
     _shouldForward(prop: string): boolean;
@@ -139,4 +140,8 @@ export declare class MdInputContainer implements AfterViewInit, AfterContentInit
      * of the currently-specified hints, as well as a generated id for the hint label.
      */
     private _syncAriaDescribedby();
+    /**
+     * Throws an error if the container's input child was removed.
+     */
+    private _validateInputChild();
 }
