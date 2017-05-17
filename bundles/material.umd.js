@@ -1332,6 +1332,174 @@ Scrollable.ctorParameters = function () { return [
     { type: _angular_core.NgZone, },
     { type: _angular_core.Renderer2, },
 ]; };
+/**
+ * Strategy that will update the element position as the user is scrolling.
+ */
+var RepositionScrollStrategy = (function () {
+    /**
+     * @param {?} _scrollDispatcher
+     * @param {?=} _scrollThrottle
+     */
+    function RepositionScrollStrategy(_scrollDispatcher, _scrollThrottle) {
+        if (_scrollThrottle === void 0) { _scrollThrottle = 0; }
+        this._scrollDispatcher = _scrollDispatcher;
+        this._scrollThrottle = _scrollThrottle;
+        this._scrollSubscription = null;
+    }
+    /**
+     * @param {?} overlayRef
+     * @return {?}
+     */
+    RepositionScrollStrategy.prototype.attach = function (overlayRef) {
+        this._overlayRef = overlayRef;
+    };
+    /**
+     * @return {?}
+     */
+    RepositionScrollStrategy.prototype.enable = function () {
+        var _this = this;
+        if (!this._scrollSubscription) {
+            this._scrollSubscription = this._scrollDispatcher.scrolled(this._scrollThrottle, function () {
+                _this._overlayRef.updatePosition();
+            });
+        }
+    };
+    /**
+     * @return {?}
+     */
+    RepositionScrollStrategy.prototype.disable = function () {
+        if (this._scrollSubscription) {
+            this._scrollSubscription.unsubscribe();
+            this._scrollSubscription = null;
+        }
+    };
+    return RepositionScrollStrategy;
+}());
+/**
+ * Strategy that will close the overlay as soon as the user starts scrolling.
+ */
+var CloseScrollStrategy = (function () {
+    /**
+     * @param {?} _scrollDispatcher
+     */
+    function CloseScrollStrategy(_scrollDispatcher) {
+        this._scrollDispatcher = _scrollDispatcher;
+        this._scrollSubscription = null;
+    }
+    /**
+     * @param {?} overlayRef
+     * @return {?}
+     */
+    CloseScrollStrategy.prototype.attach = function (overlayRef) {
+        this._overlayRef = overlayRef;
+    };
+    /**
+     * @return {?}
+     */
+    CloseScrollStrategy.prototype.enable = function () {
+        var _this = this;
+        if (!this._scrollSubscription) {
+            this._scrollSubscription = this._scrollDispatcher.scrolled(null, function () {
+                if (_this._overlayRef.hasAttached()) {
+                    _this._overlayRef.detach();
+                }
+                _this.disable();
+            });
+        }
+    };
+    /**
+     * @return {?}
+     */
+    CloseScrollStrategy.prototype.disable = function () {
+        if (this._scrollSubscription) {
+            this._scrollSubscription.unsubscribe();
+            this._scrollSubscription = null;
+        }
+    };
+    return CloseScrollStrategy;
+}());
+/**
+ * Scroll strategy that doesn't do anything.
+ */
+var NoopScrollStrategy = (function () {
+    function NoopScrollStrategy() {
+    }
+    /**
+     * @return {?}
+     */
+    NoopScrollStrategy.prototype.enable = function () { };
+    /**
+     * @return {?}
+     */
+    NoopScrollStrategy.prototype.disable = function () { };
+    /**
+     * @return {?}
+     */
+    NoopScrollStrategy.prototype.attach = function () { };
+    return NoopScrollStrategy;
+}());
+/**
+ * Strategy that will prevent the user from scrolling while the overlay is visible.
+ */
+var BlockScrollStrategy = (function () {
+    /**
+     * @param {?} _viewportRuler
+     */
+    function BlockScrollStrategy(_viewportRuler) {
+        this._viewportRuler = _viewportRuler;
+        this._previousHTMLStyles = { top: null, left: null };
+        this._isEnabled = false;
+    }
+    /**
+     * @return {?}
+     */
+    BlockScrollStrategy.prototype.attach = function () { };
+    /**
+     * @return {?}
+     */
+    BlockScrollStrategy.prototype.enable = function () {
+        if (this._canBeEnabled()) {
+            var /** @type {?} */ root = document.documentElement;
+            this._previousScrollPosition = this._viewportRuler.getViewportScrollPosition();
+            // Cache the previous inline styles in case the user had set them.
+            this._previousHTMLStyles.left = root.style.left;
+            this._previousHTMLStyles.top = root.style.top;
+            // Note: we're using the `html` node, instead of the `body`, because the `body` may
+            // have the user agent margin, whereas the `html` is guaranteed not to have one.
+            root.style.left = -this._previousScrollPosition.left + "px";
+            root.style.top = -this._previousScrollPosition.top + "px";
+            root.classList.add('cdk-global-scrollblock');
+            this._isEnabled = true;
+        }
+    };
+    /**
+     * @return {?}
+     */
+    BlockScrollStrategy.prototype.disable = function () {
+        if (this._isEnabled) {
+            this._isEnabled = false;
+            document.documentElement.style.left = this._previousHTMLStyles.left;
+            document.documentElement.style.top = this._previousHTMLStyles.top;
+            document.documentElement.classList.remove('cdk-global-scrollblock');
+            window.scroll(this._previousScrollPosition.left, this._previousScrollPosition.top);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    BlockScrollStrategy.prototype._canBeEnabled = function () {
+        // Since the scroll strategies can't be singletons, we have to use a global CSS class
+        // (`cdk-global-scrollblock`) to make sure that we don't try to disable global
+        // scrolling multiple times.
+        if (document.documentElement.classList.contains('cdk-global-scrollblock') || this._isEnabled) {
+            return false;
+        }
+        var /** @type {?} */ body = document.body;
+        var /** @type {?} */ viewport = this._viewportRuler.getViewportRect();
+        return body.scrollHeight > viewport.height || body.scrollWidth > viewport.width;
+    };
+    return BlockScrollStrategy;
+}());
 var ScrollDispatchModule = (function () {
     function ScrollDispatchModule() {
     }
@@ -2134,26 +2302,6 @@ PortalModule.decorators = [
  * @nocollapse
  */
 PortalModule.ctorParameters = function () { return []; };
-/**
- * Scroll strategy that doesn't do anything.
- */
-var NoopScrollStrategy = (function () {
-    function NoopScrollStrategy() {
-    }
-    /**
-     * @return {?}
-     */
-    NoopScrollStrategy.prototype.enable = function () { };
-    /**
-     * @return {?}
-     */
-    NoopScrollStrategy.prototype.disable = function () { };
-    /**
-     * @return {?}
-     */
-    NoopScrollStrategy.prototype.attach = function () { };
-    return NoopScrollStrategy;
-}());
 /**
  * OverlayState is a bag of values for either the initial configuration or current state of an
  * overlay.
@@ -3354,49 +3502,6 @@ var OVERLAY_PROVIDERS = [
     OVERLAY_CONTAINER_PROVIDER,
 ];
 /**
- * Strategy that will update the element position as the user is scrolling.
- */
-var RepositionScrollStrategy = (function () {
-    /**
-     * @param {?} _scrollDispatcher
-     * @param {?=} _scrollThrottle
-     */
-    function RepositionScrollStrategy(_scrollDispatcher, _scrollThrottle) {
-        if (_scrollThrottle === void 0) { _scrollThrottle = 0; }
-        this._scrollDispatcher = _scrollDispatcher;
-        this._scrollThrottle = _scrollThrottle;
-        this._scrollSubscription = null;
-    }
-    /**
-     * @param {?} overlayRef
-     * @return {?}
-     */
-    RepositionScrollStrategy.prototype.attach = function (overlayRef) {
-        this._overlayRef = overlayRef;
-    };
-    /**
-     * @return {?}
-     */
-    RepositionScrollStrategy.prototype.enable = function () {
-        var _this = this;
-        if (!this._scrollSubscription) {
-            this._scrollSubscription = this._scrollDispatcher.scrolled(this._scrollThrottle, function () {
-                _this._overlayRef.updatePosition();
-            });
-        }
-    };
-    /**
-     * @return {?}
-     */
-    RepositionScrollStrategy.prototype.disable = function () {
-        if (this._scrollSubscription) {
-            this._scrollSubscription.unsubscribe();
-            this._scrollSubscription = null;
-        }
-    };
-    return RepositionScrollStrategy;
-}());
-/**
  * Default set of positions for the overlay. Follows the behavior of a dropdown.
  */
 var defaultPositionList = [
@@ -4502,111 +4607,6 @@ FullscreenOverlayContainer.decorators = [
  * @nocollapse
  */
 FullscreenOverlayContainer.ctorParameters = function () { return []; };
-/**
- * Strategy that will close the overlay as soon as the user starts scrolling.
- */
-var CloseScrollStrategy = (function () {
-    /**
-     * @param {?} _scrollDispatcher
-     */
-    function CloseScrollStrategy(_scrollDispatcher) {
-        this._scrollDispatcher = _scrollDispatcher;
-        this._scrollSubscription = null;
-    }
-    /**
-     * @param {?} overlayRef
-     * @return {?}
-     */
-    CloseScrollStrategy.prototype.attach = function (overlayRef) {
-        this._overlayRef = overlayRef;
-    };
-    /**
-     * @return {?}
-     */
-    CloseScrollStrategy.prototype.enable = function () {
-        var _this = this;
-        if (!this._scrollSubscription) {
-            this._scrollSubscription = this._scrollDispatcher.scrolled(null, function () {
-                if (_this._overlayRef.hasAttached()) {
-                    _this._overlayRef.detach();
-                }
-                _this.disable();
-            });
-        }
-    };
-    /**
-     * @return {?}
-     */
-    CloseScrollStrategy.prototype.disable = function () {
-        if (this._scrollSubscription) {
-            this._scrollSubscription.unsubscribe();
-            this._scrollSubscription = null;
-        }
-    };
-    return CloseScrollStrategy;
-}());
-/**
- * Strategy that will prevent the user from scrolling while the overlay is visible.
- */
-var BlockScrollStrategy = (function () {
-    /**
-     * @param {?} _viewportRuler
-     */
-    function BlockScrollStrategy(_viewportRuler) {
-        this._viewportRuler = _viewportRuler;
-        this._previousHTMLStyles = { top: null, left: null };
-        this._isEnabled = false;
-    }
-    /**
-     * @return {?}
-     */
-    BlockScrollStrategy.prototype.attach = function () { };
-    /**
-     * @return {?}
-     */
-    BlockScrollStrategy.prototype.enable = function () {
-        if (this._canBeEnabled()) {
-            var /** @type {?} */ root = document.documentElement;
-            this._previousScrollPosition = this._viewportRuler.getViewportScrollPosition();
-            // Cache the previous inline styles in case the user had set them.
-            this._previousHTMLStyles.left = root.style.left;
-            this._previousHTMLStyles.top = root.style.top;
-            // Note: we're using the `html` node, instead of the `body`, because the `body` may
-            // have the user agent margin, whereas the `html` is guaranteed not to have one.
-            root.style.left = -this._previousScrollPosition.left + "px";
-            root.style.top = -this._previousScrollPosition.top + "px";
-            root.classList.add('cdk-global-scrollblock');
-            this._isEnabled = true;
-        }
-    };
-    /**
-     * @return {?}
-     */
-    BlockScrollStrategy.prototype.disable = function () {
-        if (this._isEnabled) {
-            this._isEnabled = false;
-            document.documentElement.style.left = this._previousHTMLStyles.left;
-            document.documentElement.style.top = this._previousHTMLStyles.top;
-            document.documentElement.classList.remove('cdk-global-scrollblock');
-            window.scroll(this._previousScrollPosition.left, this._previousScrollPosition.top);
-        }
-    };
-    /**
-     * @return {?}
-     */
-    BlockScrollStrategy.prototype._canBeEnabled = function () {
-        // Since the scroll strategies can't be singletons, we have to use a global CSS class
-        // (`cdk-global-scrollblock`) to make sure that we don't try to disable global
-        // scrolling multiple times.
-        if (document.documentElement.classList.contains('cdk-global-scrollblock') || this._isEnabled) {
-            return false;
-        }
-        var /** @type {?} */ body = document.body;
-        var /** @type {?} */ viewport = this._viewportRuler.getViewportRect();
-        return body.scrollHeight > viewport.height || body.scrollWidth > viewport.width;
-    };
-    return BlockScrollStrategy;
-}());
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
@@ -21795,17 +21795,19 @@ exports.OverlayState = OverlayState;
 exports.ConnectedOverlayDirective = ConnectedOverlayDirective;
 exports.OverlayOrigin = OverlayOrigin;
 exports.OverlayModule = OverlayModule;
-exports.ScrollDispatcher = ScrollDispatcher;
 exports.ViewportRuler = ViewportRuler;
 exports.GlobalPositionStrategy = GlobalPositionStrategy;
 exports.ConnectedPositionStrategy = ConnectedPositionStrategy;
+exports.ConnectionPositionPair = ConnectionPositionPair;
+exports.ScrollableViewProperties = ScrollableViewProperties;
+exports.ConnectedOverlayPositionChange = ConnectedOverlayPositionChange;
+exports.Scrollable = Scrollable;
+exports.ScrollDispatcher = ScrollDispatcher;
 exports.RepositionScrollStrategy = RepositionScrollStrategy;
 exports.CloseScrollStrategy = CloseScrollStrategy;
 exports.NoopScrollStrategy = NoopScrollStrategy;
 exports.BlockScrollStrategy = BlockScrollStrategy;
-exports.ConnectionPositionPair = ConnectionPositionPair;
-exports.ScrollableViewProperties = ScrollableViewProperties;
-exports.ConnectedOverlayPositionChange = ConnectedOverlayPositionChange;
+exports.ScrollDispatchModule = ScrollDispatchModule;
 exports.MdRipple = MdRipple;
 exports.MD_RIPPLE_GLOBAL_OPTIONS = MD_RIPPLE_GLOBAL_OPTIONS;
 exports.RippleRef = RippleRef;
@@ -22045,18 +22047,16 @@ exports.throwMdTooltipInvalidPositionError = throwMdTooltipInvalidPositionError;
 exports.MdTooltip = MdTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.ɵi = LIVE_ANNOUNCER_PROVIDER_FACTORY;
-exports.ɵr = mixinDisabled;
+exports.ɵp = mixinDisabled;
 exports.ɵj = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
 exports.ɵa = MdMutationObserverFactory;
 exports.ɵc = OVERLAY_CONTAINER_PROVIDER;
 exports.ɵb = OVERLAY_CONTAINER_PROVIDER_FACTORY;
-exports.ɵq = OverlayPositionBuilder;
-exports.ɵg = VIEWPORT_RULER_PROVIDER;
-exports.ɵf = VIEWPORT_RULER_PROVIDER_FACTORY;
-exports.ɵo = ScrollDispatchModule;
-exports.ɵe = SCROLL_DISPATCHER_PROVIDER;
-exports.ɵd = SCROLL_DISPATCHER_PROVIDER_FACTORY;
-exports.ɵp = Scrollable;
+exports.ɵo = OverlayPositionBuilder;
+exports.ɵe = VIEWPORT_RULER_PROVIDER;
+exports.ɵd = VIEWPORT_RULER_PROVIDER_FACTORY;
+exports.ɵg = SCROLL_DISPATCHER_PROVIDER;
+exports.ɵf = SCROLL_DISPATCHER_PROVIDER_FACTORY;
 exports.ɵh = RippleRenderer;
 exports.ɵl = MdGridAvatarCssMatStyler;
 exports.ɵn = MdGridTileFooterCssMatStyler;
