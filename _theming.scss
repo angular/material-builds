@@ -1454,6 +1454,8 @@ $mat-menu-icon-margin: 16px !default;
   $warn: map-get($theme, warn);
 
   .mat-option {
+    color: mat-color($foreground, text);
+
     &:hover:not(.mat-option-disabled), &:focus:not(.mat-option-disabled) {
       background: mat-color($background, hover);
     }
