@@ -1,4 +1,4 @@
-import { AfterContentInit, ElementRef, QueryList, Renderer2 } from '@angular/core';
+import { QueryList, ElementRef, Renderer2, AfterContentInit } from '@angular/core';
 import { MdLine } from '../core';
 export declare class MdListDivider {
 }
@@ -53,6 +53,7 @@ export declare class MdListItem implements AfterContentInit {
     private _lineSetter;
     private _disableRipple;
     private _isNavList;
+    _hasFocus: boolean;
     /**
      * Whether the ripple effect on click should be disabled. This applies only to list items that are
      * part of a nav list. The value of `disableRipple` on the `md-nav-list` overrides this flag.

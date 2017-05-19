@@ -1,4 +1,4 @@
-import { AfterContentInit, QueryList, OnDestroy } from '@angular/core';
+import { AfterContentInit, ElementRef, QueryList } from '@angular/core';
 import { MdChip } from './chip';
 import { FocusKeyManager } from '../core/a11y/focus-key-manager';
 /**
@@ -11,21 +11,18 @@ import { FocusKeyManager } from '../core/a11y/focus-key-manager';
  *       <md-chip>Chip 2<md-chip>
  *     </md-chip-list>
  */
-export declare class MdChipList implements AfterContentInit, OnDestroy {
+export declare class MdChipList implements AfterContentInit {
+    private _elementRef;
     /** Track which chips we're listening to for focus/destruction. */
     private _subscribed;
-    /** Subscription to tabbing out from the chip list. */
-    private _tabOutSubscription;
     /** Whether or not the chip is selectable. */
     protected _selectable: boolean;
     /** The FocusKeyManager which handles focus. */
     _keyManager: FocusKeyManager;
     /** The chip components contained within this chip list. */
     chips: QueryList<MdChip>;
-    /** Tab index for the chip list. */
-    _tabIndex: number;
+    constructor(_elementRef: ElementRef);
     ngAfterContentInit(): void;
-    ngOnDestroy(): void;
     /**
      * Whether or not this chip is selectable. When a chip is not selectable,
      * it's selected state is always ignored.

@@ -148,7 +148,7 @@ export declare class MdSidenavContainer implements AfterContentInit {
      */
     private _watchSidenavAlign(sidenav);
     /** Toggles the 'mat-sidenav-opened' class on the main 'md-sidenav-container' element. */
-    private _setContainerClass(isAdd);
+    private _setContainerClass(sidenav, isAdd);
     /** Validate the state of the sidenav children components. */
     private _validateDrawers();
     _onBackdropClicked(): void;
