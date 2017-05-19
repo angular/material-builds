@@ -12441,11 +12441,7 @@ MdChip.propDecorators = {
  *     </md-chip-list>
  */
 class MdChipList {
-    /**
-     * @param {?} _elementRef
-     */
-    constructor(_elementRef) {
-        this._elementRef = _elementRef;
+    constructor() {
         /**
          * Track which chips we're listening to for focus/destruction.
          */
@@ -12454,12 +12450,22 @@ class MdChipList {
          * Whether or not the chip is selectable.
          */
         this._selectable = true;
+        /**
+         * Tab index for the chip list.
+         */
+        this._tabIndex = 0;
     }
     /**
      * @return {?}
      */
     ngAfterContentInit() {
         this._keyManager = new FocusKeyManager(this.chips).withWrap();
+        // Prevents the chip list from capturing focus and redirecting
+        // it back to the first chip when the user tabs out.
+        this._tabOutSubscription = this._keyManager.tabOut.subscribe(() => {
+            this._tabIndex = -1;
+            setTimeout(() => this._tabIndex = 0);
+        });
         // Go ahead and subscribe all of the initial chips
         this._subscribeChips(this.chips);
         // When the list changes, re-subscribe
@@ -12468,13 +12474,19 @@ class MdChipList {
         });
     }
     /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        if (this._tabOutSubscription) {
+            this._tabOutSubscription.unsubscribe();
+        }
+    }
+    /**
      * Whether or not this chip is selectable. When a chip is not selectable,
      * it's selected state is always ignored.
      * @return {?}
      */
-    get selectable() {
-        return this._selectable;
-    }
+    get selectable() { return this._selectable; }
     /**
      * @param {?} value
      * @return {?}
@@ -12602,7 +12614,7 @@ MdChipList.decorators = [
                 template: `<div class="mat-chip-list-wrapper"><ng-content></ng-content></div>`,
                 host: {
                     // Properties
-                    'tabindex': '0',
+                    '[attr.tabindex]': '_tabIndex',
                     'role': 'listbox',
                     '[class.mat-chip-list]': 'true',
                     // Events
@@ -12620,9 +12632,7 @@ MdChipList.decorators = [
 /**
  * @nocollapse
  */
-MdChipList.ctorParameters = () => [
-    { type: ElementRef, },
-];
+MdChipList.ctorParameters = () => [];
 MdChipList.propDecorators = {
     'selectable': [{ type: Input },],
 };

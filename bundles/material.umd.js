@@ -13211,11 +13211,7 @@ MdChip.propDecorators = {
  *     </md-chip-list>
  */
 var MdChipList = (function () {
-    /**
-     * @param {?} _elementRef
-     */
-    function MdChipList(_elementRef) {
-        this._elementRef = _elementRef;
+    function MdChipList() {
         /**
          * Track which chips we're listening to for focus/destruction.
          */
@@ -13224,6 +13220,10 @@ var MdChipList = (function () {
          * Whether or not the chip is selectable.
          */
         this._selectable = true;
+        /**
+         * Tab index for the chip list.
+         */
+        this._tabIndex = 0;
     }
     /**
      * @return {?}
@@ -13231,6 +13231,12 @@ var MdChipList = (function () {
     MdChipList.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._keyManager = new FocusKeyManager(this.chips).withWrap();
+        // Prevents the chip list from capturing focus and redirecting
+        // it back to the first chip when the user tabs out.
+        this._tabOutSubscription = this._keyManager.tabOut.subscribe(function () {
+            _this._tabIndex = -1;
+            setTimeout(function () { return _this._tabIndex = 0; });
+        });
         // Go ahead and subscribe all of the initial chips
         this._subscribeChips(this.chips);
         // When the list changes, re-subscribe
@@ -13238,15 +13244,21 @@ var MdChipList = (function () {
             _this._subscribeChips(chips);
         });
     };
+    /**
+     * @return {?}
+     */
+    MdChipList.prototype.ngOnDestroy = function () {
+        if (this._tabOutSubscription) {
+            this._tabOutSubscription.unsubscribe();
+        }
+    };
     Object.defineProperty(MdChipList.prototype, "selectable", {
         /**
          * Whether or not this chip is selectable. When a chip is not selectable,
          * it's selected state is always ignored.
          * @return {?}
          */
-        get: function () {
-            return this._selectable;
-        },
+        get: function () { return this._selectable; },
         /**
          * @param {?} value
          * @return {?}
@@ -13380,7 +13392,7 @@ MdChipList.decorators = [
                 template: "<div class=\"mat-chip-list-wrapper\"><ng-content></ng-content></div>",
                 host: {
                     // Properties
-                    'tabindex': '0',
+                    '[attr.tabindex]': '_tabIndex',
                     'role': 'listbox',
                     '[class.mat-chip-list]': 'true',
                     // Events
@@ -13398,9 +13410,7 @@ MdChipList.decorators = [
 /**
  * @nocollapse
  */
-MdChipList.ctorParameters = function () { return [
-    { type: _angular_core.ElementRef, },
-]; };
+MdChipList.ctorParameters = function () { return []; };
 MdChipList.propDecorators = {
     'selectable': [{ type: _angular_core.Input },],
 };
