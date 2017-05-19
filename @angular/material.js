@@ -885,24 +885,26 @@ class Platform {
         /**
          * Layout Engines
          */
-        this.EDGE = /(edge)/i.test(navigator.userAgent);
-        this.TRIDENT = /(msie|trident)/i.test(navigator.userAgent);
+        this.EDGE = this.isBrowser && /(edge)/i.test(navigator.userAgent);
+        this.TRIDENT = this.isBrowser && /(msie|trident)/i.test(navigator.userAgent);
         // EdgeHTML and Trident mock Blink specific things and need to be excluded from this check.
-        this.BLINK = !!(((window)).chrome || hasV8BreakIterator) && !!CSS && !this.EDGE && !this.TRIDENT;
+        this.BLINK = this.isBrowser &&
+            (!!(((window)).chrome || hasV8BreakIterator) && !!CSS && !this.EDGE && !this.TRIDENT);
         // Webkit is part of the userAgent in EdgeHTML, Blink and Trident. Therefore we need to
         // ensure that Webkit runs standalone and is not used as another engine's base.
-        this.WEBKIT = /AppleWebKit/i.test(navigator.userAgent) && !this.BLINK && !this.EDGE && !this.TRIDENT;
+        this.WEBKIT = this.isBrowser &&
+            /AppleWebKit/i.test(navigator.userAgent) && !this.BLINK && !this.EDGE && !this.TRIDENT;
         /**
          * Browsers and Platform Types
          */
-        this.IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        this.IOS = this.isBrowser && /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
         // It's difficult to detect the plain Gecko engine, because most of the browsers identify
         // them self as Gecko-like browsers and modify the userAgent's according to that.
         // Since we only cover one explicit Firefox case, we can simply check for Firefox
         // instead of having an unstable check for Gecko.
-        this.FIREFOX = /(firefox|minefield)/i.test(navigator.userAgent);
+        this.FIREFOX = this.isBrowser && /(firefox|minefield)/i.test(navigator.userAgent);
         // Trident on mobile adds the android platform to the userAgent to trick detections.
-        this.ANDROID = /android/i.test(navigator.userAgent) && !this.TRIDENT;
+        this.ANDROID = this.isBrowser && /android/i.test(navigator.userAgent) && !this.TRIDENT;
     }
 }
 Platform.decorators = [
@@ -10668,8 +10670,8 @@ class MdSidenavContainer {
         if (!sidenav || sidenav.mode === 'side') {
             return;
         }
-        sidenav.onOpen.subscribe(() => this._setContainerClass(sidenav, true));
-        sidenav.onClose.subscribe(() => this._setContainerClass(sidenav, false));
+        sidenav.onOpen.subscribe(() => this._setContainerClass(true));
+        sidenav.onClose.subscribe(() => this._setContainerClass(false));
     }
     /**
      * Subscribes to sidenav onAlignChanged event in order to re-validate drawers when the align
@@ -10687,11 +10689,10 @@ class MdSidenavContainer {
     }
     /**
      * Toggles the 'mat-sidenav-opened' class on the main 'md-sidenav-container' element.
-     * @param {?} sidenav
      * @param {?} isAdd
      * @return {?}
      */
-    _setContainerClass(sidenav, isAdd) {
+    _setContainerClass(isAdd) {
         if (isAdd) {
             this._renderer.addClass(this._element.nativeElement, 'mat-sidenav-opened');
         }
