@@ -3078,7 +3078,6 @@ var ConnectedPositionStrategy = /*@__PURE__*/(function () {
      * @return {?}
      */
     ConnectedPositionStrategy.prototype._setElementPosition = function (element, overlayRect, overlayPoint, pos) {
-        var /** @type {?} */ viewport = this._viewportRuler.getViewportRect();
         // We want to set either `top` or `bottom` based on whether the overlay wants to appear above
         // or below the origin and the direction in which the element will expand.
         var /** @type {?} */ verticalStyleProperty = pos.overlayY === 'bottom' ? 'bottom' : 'top';
@@ -3086,7 +3085,7 @@ var ConnectedPositionStrategy = /*@__PURE__*/(function () {
         // from the bottom of the viewport rather than the top.
         var /** @type {?} */ y = verticalStyleProperty === 'top' ?
             overlayPoint.y :
-            viewport.height - (overlayPoint.y + overlayRect.height);
+            document.documentElement.clientHeight - (overlayPoint.y + overlayRect.height);
         // We want to set either `left` or `right` based on whether the overlay wants to appear "before"
         // or "after" the origin, which determines the direction in which the element will expand.
         // For the horizontal axis, the meaning of "before" and "after" change based on whether the
@@ -3102,7 +3101,7 @@ var ConnectedPositionStrategy = /*@__PURE__*/(function () {
         // from the right edge of the viewport rather than the left edge.
         var /** @type {?} */ x = horizontalStyleProperty === 'left' ?
             overlayPoint.x :
-            viewport.width - (overlayPoint.x + overlayRect.width);
+            document.documentElement.clientWidth - (overlayPoint.x + overlayRect.width);
         // Reset any existing styles. This is necessary in case the preferred position has
         // changed since the last `apply`.
         ['top', 'bottom', 'left', 'right'].forEach(function (p) { return element.style[p] = null; });
