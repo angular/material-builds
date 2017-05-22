@@ -19519,13 +19519,23 @@ var MdDialogClose = /*@__PURE__*/(function () {
          */
         this.ariaLabel = 'Close dialog';
     }
+    Object.defineProperty(MdDialogClose.prototype, "_matDialogClose", {
+        /**
+         * Dialog close input for compatibility mode.
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) { this.dialogResult = value; },
+        enumerable: true,
+        configurable: true
+    });
     return MdDialogClose;
 }());
 MdDialogClose.decorators = [
     { type: Directive, args: [{
                 selector: 'button[md-dialog-close], button[mat-dialog-close]',
                 host: {
-                    '(click)': 'dialogRef.close()',
+                    '(click)': 'dialogRef.close(dialogResult)',
                     '[attr.aria-label]': 'ariaLabel',
                     'type': 'button',
                 }
@@ -19539,6 +19549,8 @@ MdDialogClose.ctorParameters = function () { return [
 ]; };
 MdDialogClose.propDecorators = {
     'ariaLabel': [{ type: Input, args: ['aria-label',] },],
+    'dialogResult': [{ type: Input, args: ['md-dialog-close',] },],
+    '_matDialogClose': [{ type: Input, args: ['mat-dialog-close',] },],
 };
 /**
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.

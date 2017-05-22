@@ -18361,12 +18361,18 @@ class MdDialogClose {
          */
         this.ariaLabel = 'Close dialog';
     }
+    /**
+     * Dialog close input for compatibility mode.
+     * @param {?} value
+     * @return {?}
+     */
+    set _matDialogClose(value) { this.dialogResult = value; }
 }
 MdDialogClose.decorators = [
     { type: Directive, args: [{
                 selector: 'button[md-dialog-close], button[mat-dialog-close]',
                 host: {
-                    '(click)': 'dialogRef.close()',
+                    '(click)': 'dialogRef.close(dialogResult)',
                     '[attr.aria-label]': 'ariaLabel',
                     'type': 'button',
                 }
@@ -18380,6 +18386,8 @@ MdDialogClose.ctorParameters = () => [
 ];
 MdDialogClose.propDecorators = {
     'ariaLabel': [{ type: Input, args: ['aria-label',] },],
+    'dialogResult': [{ type: Input, args: ['md-dialog-close',] },],
+    '_matDialogClose': [{ type: Input, args: ['mat-dialog-close',] },],
 };
 /**
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
