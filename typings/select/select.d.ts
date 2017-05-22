@@ -97,13 +97,13 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
      * and the width of the selected value.
      */
     _triggerWidth: number;
+    /** Manages keyboard events for options in the panel. */
+    _keyManager: FocusKeyManager;
     /**
      * The width of the selected option's value. Must be set programmatically
      * to ensure its overflow is clipped, as it's absolutely positioned.
      */
     _selectedValueWidth: number;
-    /** Manages keyboard events for options in the panel. */
-    _keyManager: FocusKeyManager;
     /** View -> model callback called when value changes */
     _onChange: (value: any) => void;
     /** View -> model callback called when select has been touched */
@@ -219,7 +219,9 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
      */
     private _setTriggerWidth();
     /** Handles the keyboard interactions of a closed select. */
-    _handleKeydown(event: KeyboardEvent): void;
+    _handleClosedKeydown(event: KeyboardEvent): void;
+    /** Handles keypresses inside the panel. */
+    _handlePanelKeydown(event: KeyboardEvent): void;
     /**
      * When the panel element is finished transforming in (though not fading in), it
      * emits an event and focuses an option if the panel is open.
