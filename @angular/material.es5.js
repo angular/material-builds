@@ -18536,22 +18536,6 @@ var MdMenu = /*@__PURE__*/(function () {
         enumerable: true,
         configurable: true
     });
-    /**
-     * @return {?}
-     */
-    MdMenu.prototype.ngAfterContentInit = function () {
-        var _this = this;
-        this._keyManager = new FocusKeyManager(this.items).withWrap();
-        this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this._emitCloseEvent(); });
-    };
-    /**
-     * @return {?}
-     */
-    MdMenu.prototype.ngOnDestroy = function () {
-        if (this._tabSubscription) {
-            this._tabSubscription.unsubscribe();
-        }
-    };
     Object.defineProperty(MdMenu.prototype, "classList", {
         /**
          * This method takes classes set on the host md-menu element and applies them on the
@@ -18570,6 +18554,36 @@ var MdMenu = /*@__PURE__*/(function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * @return {?}
+     */
+    MdMenu.prototype.ngAfterContentInit = function () {
+        var _this = this;
+        this._keyManager = new FocusKeyManager(this.items).withWrap();
+        this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this._emitCloseEvent(); });
+    };
+    /**
+     * @return {?}
+     */
+    MdMenu.prototype.ngOnDestroy = function () {
+        if (this._tabSubscription) {
+            this._tabSubscription.unsubscribe();
+        }
+    };
+    /**
+     * Handle a keyboard event from the menu, delegating to the appropriate action.
+     * @param {?} event
+     * @return {?}
+     */
+    MdMenu.prototype._handleKeydown = function (event) {
+        switch (event.keyCode) {
+            case ESCAPE:
+                this._emitCloseEvent();
+                return;
+            default:
+                this._keyManager.onKeydown(event);
+        }
+    };
     /**
      * Focus the first item in the menu. This method is used by the menu trigger
      * to focus the first item when the menu is opened by the ENTER key.
@@ -18606,7 +18620,7 @@ var MdMenu = /*@__PURE__*/(function () {
 MdMenu.decorators = [
     { type: Component, args: [{ selector: 'md-menu, mat-menu',
                 host: { 'role': 'menu' },
-                template: "<ng-template> <div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_keyManager.onKeydown($event)\" (click)=\"_emitCloseEvent()\" [@transformMenu]=\"'showing'\"> <div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"> <ng-content></ng-content> </div> </div> </ng-template> ",
+                template: "<ng-template> <div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"_emitCloseEvent()\" [@transformMenu]=\"'showing'\"> <div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"> <ng-content></ng-content> </div> </div> </ng-template> ",
                 styles: [".mat-menu-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;font-size:16px;font-family:Roboto,\"Helvetica Neue\",sans-serif;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}button.mat-menu-item{width:100%}.mat-menu-ripple{position:absolute;top:0;left:0;bottom:0;right:0} /*# sourceMappingURL=menu.css.map */ "],
                 encapsulation: ViewEncapsulation.None,
                 animations: [

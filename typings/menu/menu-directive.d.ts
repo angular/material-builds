@@ -19,8 +19,6 @@ export declare class MdMenu implements AfterContentInit, MdMenuPanel, OnDestroy 
     items: QueryList<MdMenuItem>;
     /** Whether the menu should overlap its trigger. */
     overlapTrigger: boolean;
-    ngAfterContentInit(): void;
-    ngOnDestroy(): void;
     /**
      * This method takes classes set on the host md-menu element and applies them on the
      * menu template that displays in the overlay container.  Otherwise, it's difficult
@@ -30,6 +28,10 @@ export declare class MdMenu implements AfterContentInit, MdMenuPanel, OnDestroy 
     classList: string;
     /** Event emitted when the menu is closed. */
     close: EventEmitter<void>;
+    ngAfterContentInit(): void;
+    ngOnDestroy(): void;
+    /** Handle a keyboard event from the menu, delegating to the appropriate action. */
+    _handleKeydown(event: KeyboardEvent): void;
     /**
      * Focus the first item in the menu. This method is used by the menu trigger
      * to focus the first item when the menu is opened by the ENTER key.
