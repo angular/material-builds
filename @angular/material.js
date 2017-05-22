@@ -18919,6 +18919,7 @@ class MdAutocompleteTrigger {
             this._clearPreviousSelectedOption(event.source);
             this._setTriggerValue(event.source.value);
             this._onChange(event.source.value);
+            this._element.nativeElement.focus();
         }
         this.closePanel();
     }
