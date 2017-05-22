@@ -4107,6 +4107,12 @@ class FocusTrap {
         });
     }
     /**
+     * @return {?}
+     */
+    focusInitialElementWhenReady() {
+        this._ngZone.onMicrotaskEmpty.first().subscribe(() => this.focusInitialElement());
+    }
+    /**
      * Waits for microtask queue to empty, then focuses
      * the first tabbable element within the focus trap region.
      * @return {?}
@@ -4123,12 +4129,47 @@ class FocusTrap {
         this._ngZone.onMicrotaskEmpty.first().subscribe(() => this.focusLastTabbableElement());
     }
     /**
+     * Get the specified boundary element of the trapped region.
+     * @param {?} bound The boundary to get (start or end of trapped region).
+     * @return {?} The boundary element.
+     */
+    _getRegionBoundary(bound) {
+        let /** @type {?} */ markers = [
+            ...Array.prototype.slice.call(this._element.querySelectorAll(`[cdk-focus-region-${bound}]`)),
+            // Deprecated version of selector, for temporary backwards comparability:
+            ...Array.prototype.slice.call(this._element.querySelectorAll(`[cdk-focus-${bound}]`)),
+        ];
+        markers.forEach((el) => {
+            if (el.hasAttribute(`cdk-focus-${bound}`)) {
+                console.warn(`Found use of deprecated attribute 'cdk-focus-${bound}',` +
+                    ` use 'cdk-focus-region-${bound}' instead.`, el);
+            }
+        });
+        if (bound == 'start') {
+            return markers.length ? markers[0] : this._getFirstTabbableElement(this._element);
+        }
+        return markers.length ?
+            markers[markers.length - 1] : this._getLastTabbableElement(this._element);
+    }
+    /**
+     * Focuses the element that should be focused when the focus trap is initialized.
+     * @return {?}
+     */
+    focusInitialElement() {
+        let /** @type {?} */ redirectToElement = (this._element.querySelector('[cdk-focus-initial]'));
+        if (redirectToElement) {
+            redirectToElement.focus();
+        }
+        else {
+            this.focusFirstTabbableElement();
+        }
+    }
+    /**
      * Focuses the first tabbable element within the focus trap region.
      * @return {?}
      */
     focusFirstTabbableElement() {
-        let /** @type {?} */ redirectToElement = (this._element.querySelector('[cdk-focus-start]')) ||
-            this._getFirstTabbableElement(this._element);
+        let /** @type {?} */ redirectToElement = this._getRegionBoundary('start');
         if (redirectToElement) {
             redirectToElement.focus();
         }
@@ -4138,14 +4179,7 @@ class FocusTrap {
      * @return {?}
      */
     focusLastTabbableElement() {
-        let /** @type {?} */ focusTargets = this._element.querySelectorAll('[cdk-focus-end]');
-        let /** @type {?} */ redirectToElement = null;
-        if (focusTargets.length) {
-            redirectToElement = (focusTargets[focusTargets.length - 1]);
-        }
-        else {
-            redirectToElement = this._getLastTabbableElement(this._element);
-        }
+        let /** @type {?} */ redirectToElement = this._getRegionBoundary('end');
         if (redirectToElement) {
             redirectToElement.focus();
         }
@@ -10156,6 +10190,7 @@ MdSlider.decorators = [
                     '[attr.aria-valuemax]': 'max',
                     '[attr.aria-valuemin]': 'min',
                     '[attr.aria-valuenow]': 'value',
+                    '[attr.aria-orientation]': 'vertical ? "vertical" : "horizontal"',
                     '[class.mat-primary]': 'color == "primary"',
                     '[class.mat-accent]': 'color != "primary" && color != "warn"',
                     '[class.mat-warn]': 'color == "warn"',
@@ -10328,7 +10363,7 @@ class MdSidenav {
         this.onOpen.subscribe(() => {
             this._elementFocusedBeforeSidenavWasOpened = document.activeElement;
             if (this.isFocusTrapEnabled && this._focusTrap) {
-                this._focusTrap.focusFirstTabbableElementWhenReady();
+                this._focusTrap.focusInitialElementWhenReady();
             }
         });
         this.onClose.subscribe(() => {
@@ -10670,8 +10705,8 @@ class MdSidenavContainer {
         if (!sidenav || sidenav.mode === 'side') {
             return;
         }
-        sidenav.onOpen.subscribe(() => this._setContainerClass(sidenav, true));
-        sidenav.onClose.subscribe(() => this._setContainerClass(sidenav, false));
+        sidenav.onOpen.subscribe(() => this._setContainerClass(true));
+        sidenav.onClose.subscribe(() => this._setContainerClass(false));
     }
     /**
      * Subscribes to sidenav onAlignChanged event in order to re-validate drawers when the align
@@ -10689,11 +10724,10 @@ class MdSidenavContainer {
     }
     /**
      * Toggles the 'mat-sidenav-opened' class on the main 'md-sidenav-container' element.
-     * @param {?} sidenav
      * @param {?} isAdd
      * @return {?}
      */
-    _setContainerClass(sidenav, isAdd) {
+    _setContainerClass(isAdd) {
         if (isAdd) {
             this._renderer.addClass(this._element.nativeElement, 'mat-sidenav-opened');
         }
@@ -11029,7 +11063,6 @@ class MdListItem {
         this._list = _list;
         this._disableRipple = false;
         this._isNavList = false;
-        this._hasFocus = false;
         this._isNavList = !!navList;
     }
     /**
@@ -11072,13 +11105,13 @@ class MdListItem {
      * @return {?}
      */
     _handleFocus() {
-        this._hasFocus = true;
+        this._renderer.addClass(this._element.nativeElement, 'mat-list-item-focus');
     }
     /**
      * @return {?}
      */
     _handleBlur() {
-        this._hasFocus = false;
+        this._renderer.removeClass(this._element.nativeElement, 'mat-list-item-focus');
     }
     /**
      * Retrieves the DOM element of the component host.
@@ -11096,7 +11129,7 @@ MdListItem.decorators = [
                     '(blur)': '_handleBlur()',
                     '[class.mat-list-item]': 'true',
                 },
-                template: "<div class=\"mat-list-item-content\" [class.mat-list-item-focus]=\"_hasFocus\"> <div class=\"mat-list-item-ripple\" md-ripple [mdRippleTrigger]=\"_getHostElement()\" [mdRippleDisabled]=\"!isRippleEnabled()\"> </div> <ng-content select=\"[md-list-avatar],[md-list-icon], [mat-list-avatar], [mat-list-icon]\"></ng-content> <div class=\"mat-list-text\"><ng-content select=\"[md-line], [mat-line]\"></ng-content></div> <ng-content></ng-content> </div> ",
+                template: "<div class=\"mat-list-item-content\"> <div class=\"mat-list-item-ripple\" md-ripple [mdRippleTrigger]=\"_getHostElement()\" [mdRippleDisabled]=\"!isRippleEnabled()\"> </div> <ng-content select=\"[md-list-avatar],[md-list-icon], [mat-list-avatar], [mat-list-icon]\"></ng-content> <div class=\"mat-list-text\"><ng-content select=\"[md-line], [mat-line]\"></ng-content></div> <ng-content></ng-content> </div> ",
                 encapsulation: ViewEncapsulation.None
             },] },
 ];
@@ -12442,11 +12475,7 @@ MdChip.propDecorators = {
  *     </md-chip-list>
  */
 class MdChipList {
-    /**
-     * @param {?} _elementRef
-     */
-    constructor(_elementRef) {
-        this._elementRef = _elementRef;
+    constructor() {
         /**
          * Track which chips we're listening to for focus/destruction.
          */
@@ -12455,12 +12484,22 @@ class MdChipList {
          * Whether or not the chip is selectable.
          */
         this._selectable = true;
+        /**
+         * Tab index for the chip list.
+         */
+        this._tabIndex = 0;
     }
     /**
      * @return {?}
      */
     ngAfterContentInit() {
         this._keyManager = new FocusKeyManager(this.chips).withWrap();
+        // Prevents the chip list from capturing focus and redirecting
+        // it back to the first chip when the user tabs out.
+        this._tabOutSubscription = this._keyManager.tabOut.subscribe(() => {
+            this._tabIndex = -1;
+            setTimeout(() => this._tabIndex = 0);
+        });
         // Go ahead and subscribe all of the initial chips
         this._subscribeChips(this.chips);
         // When the list changes, re-subscribe
@@ -12469,13 +12508,19 @@ class MdChipList {
         });
     }
     /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        if (this._tabOutSubscription) {
+            this._tabOutSubscription.unsubscribe();
+        }
+    }
+    /**
      * Whether or not this chip is selectable. When a chip is not selectable,
      * it's selected state is always ignored.
      * @return {?}
      */
-    get selectable() {
-        return this._selectable;
-    }
+    get selectable() { return this._selectable; }
     /**
      * @param {?} value
      * @return {?}
@@ -12603,7 +12648,7 @@ MdChipList.decorators = [
                 template: `<div class="mat-chip-list-wrapper"><ng-content></ng-content></div>`,
                 host: {
                     // Properties
-                    'tabindex': '0',
+                    '[attr.tabindex]': '_tabIndex',
                     'role': 'listbox',
                     '[class.mat-chip-list]': 'true',
                     // Events
@@ -12621,9 +12666,7 @@ MdChipList.decorators = [
 /**
  * @nocollapse
  */
-MdChipList.ctorParameters = () => [
-    { type: ElementRef, },
-];
+MdChipList.ctorParameters = () => [];
 MdChipList.propDecorators = {
     'selectable': [{ type: Input },],
 };
@@ -18012,7 +18055,7 @@ class MdDialogContainer extends BasePortalHost {
         // If were to attempt to focus immediately, then the content of the dialog would not yet be
         // ready in instances where change detection has to run first. To deal with this, we simply
         // wait for the microtask queue to be empty.
-        this._focusTrap.focusFirstTabbableElementWhenReady();
+        this._focusTrap.focusInitialElementWhenReady();
     }
     /**
      * Restores focus to the element that was focused before the dialog opened.
