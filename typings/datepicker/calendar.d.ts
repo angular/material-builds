@@ -10,6 +10,7 @@ export declare class MdCalendar<D> implements AfterContentInit {
     private _elementRef;
     private _intl;
     private _ngZone;
+    _isCompatibilityMode: boolean;
     private _dateAdapter;
     private _dateFormats;
     /** A date representing the period (month or year) to start the calendar in. */
@@ -43,7 +44,7 @@ export declare class MdCalendar<D> implements AfterContentInit {
     readonly _prevButtonLabel: string;
     /** The label for the the next button. */
     readonly _nextButtonLabel: string;
-    constructor(_elementRef: ElementRef, _intl: MdDatepickerIntl, _ngZone: NgZone, _dateAdapter: DateAdapter<D>, _dateFormats: MdDateFormats);
+    constructor(_elementRef: ElementRef, _intl: MdDatepickerIntl, _ngZone: NgZone, _isCompatibilityMode: boolean, _dateAdapter: DateAdapter<D>, _dateFormats: MdDateFormats);
     ngAfterContentInit(): void;
     /** Handles date selection in the month view. */
     _dateSelected(date: D): void;

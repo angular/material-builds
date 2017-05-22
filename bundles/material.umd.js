@@ -20729,14 +20729,16 @@ var MdCalendar = (function () {
      * @param {?} _elementRef
      * @param {?} _intl
      * @param {?} _ngZone
+     * @param {?} _isCompatibilityMode
      * @param {?} _dateAdapter
      * @param {?} _dateFormats
      */
-    function MdCalendar(_elementRef, _intl, _ngZone, _dateAdapter, _dateFormats) {
+    function MdCalendar(_elementRef, _intl, _ngZone, _isCompatibilityMode, _dateAdapter, _dateFormats) {
         var _this = this;
         this._elementRef = _elementRef;
         this._intl = _intl;
         this._ngZone = _ngZone;
+        this._isCompatibilityMode = _isCompatibilityMode;
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
         /**
@@ -21059,7 +21061,7 @@ var MdCalendar = (function () {
 }());
 MdCalendar.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-calendar',
-                template: "<div class=\"mat-calendar-header\"> <div class=\"mat-calendar-controls\"> <button md-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\"> {{_periodButtonText}} <div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div> </button> <div class=\"mat-calendar-spacer\"></div> <button md-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"> </button> <button md-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"> </button> </div> </div> <div class=\"mat-calendar-content\" (keydown)=\"_handleCalendarBodyKeydown($event)\" cdkMonitorSubtreeFocus> <md-month-view *ngIf=\"_monthView\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_dateSelected($event)\"> </md-month-view> <md-year-view *ngIf=\"!_monthView\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_monthSelected($event)\"> </md-year-view> </div> ",
+                template: "<div class=\"mat-calendar-header\"> <div class=\"mat-calendar-controls\"> <!-- TODO(mmalerba): Clean up duplicated compatibility mode code when we have a better way to do this. --> <!-- Check for compatibility mode and use correct prefix for md-button. --> <button *ngIf=\"!_isCompatibilityMode\" md-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\"  [attr.aria-label]=\"_periodButtonLabel\"> {{_periodButtonText}} <div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div> </button> <button *ngIf=\"_isCompatibilityMode\" mat-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\"  [attr.aria-label]=\"_periodButtonLabel\"> {{_periodButtonText}} <div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div> </button> <div class=\"mat-calendar-spacer\"></div> <!-- Check for compatibility mode and use correct prefix for md-icon-button. --> <button *ngIf=\"!_isCompatibilityMode\" md-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"> </button> <button *ngIf=\"_isCompatibilityMode\" mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"> </button> <!-- Check for compatibility mode and use correct prefix for md-icon-button. --> <button *ngIf=\"!_isCompatibilityMode\" md-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"> </button> <button *ngIf=\"_isCompatibilityMode\" mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"> </button> </div> </div> <div class=\"mat-calendar-content\" (keydown)=\"_handleCalendarBodyKeydown($event)\" cdkMonitorSubtreeFocus> <md-month-view *ngIf=\"_monthView\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_dateSelected($event)\"> </md-month-view> <md-year-view *ngIf=\"!_monthView\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_monthSelected($event)\"> </md-year-view> </div> ",
                 styles: [".mat-calendar{display:block}.mat-calendar-header{padding:8px 8px 0 8px}.mat-calendar-content{padding:0 8px 8px 8px;outline:0}.mat-calendar-controls{display:flex;padding:5% calc(100% / 14 - 22px) 5% calc(100% / 14 - 22px)}.mat-calendar-spacer{flex:1 1 auto}.mat-calendar-period-button{font:inherit;font-size:14px;font-weight:700;min-width:0}.mat-calendar-arrow{display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top-width:5px;border-top-style:solid;margin:0 0 0 5px;vertical-align:middle}.mat-calendar-arrow.mat-calendar-invert{transform:rotate(180deg)}.mat-calendar-next-button,.mat-calendar-previous-button{position:relative}.mat-calendar-next-button::after,.mat-calendar-previous-button::after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;margin:15.5px;border:0 solid currentColor;border-top-width:2px}.mat-calendar-previous-button::after{border-left-width:2px;transform:translateX(2px) rotate(-45deg)}.mat-calendar-next-button::after{border-right-width:2px;transform:translateX(-2px) rotate(45deg)}.mat-calendar-table{border-spacing:0;border-collapse:collapse;width:100%}.mat-calendar-table-header th{text-align:center;font-size:11px;font-weight:400;padding:0 0 8px 0}.mat-calendar-table-header-divider{position:relative;height:1px}.mat-calendar-table-header-divider::after{content:'';position:absolute;top:0;left:-8px;right:-8px;height:1px} /*# sourceMappingURL=calendar.css.map */ "],
                 host: {
                     '[class.mat-calendar]': 'true',
@@ -21075,6 +21077,7 @@ MdCalendar.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: MdDatepickerIntl, },
     { type: _angular_core.NgZone, },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
     { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_DATE_FORMATS,] },] },
 ]; };
