@@ -1,6 +1,6 @@
 {
   "name": "@angular/material",
-  "version": "2.0.0-beta.5-eecf897",
+  "version": "2.0.0-beta.6-1fce545",
   "description": "Angular Material",
   "main": "./bundles/material.umd.js",
   "module": "./@angular/material.es5.js",
@@ -24,5 +24,8 @@
   "peerDependencies": {
     "@angular/core": "^4.0.0",
     "@angular/common": "^4.0.0"
+  },
+  "dependencies": {
+    "tslib": "^1.7.1"
   }
 }

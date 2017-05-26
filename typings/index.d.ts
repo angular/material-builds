@@ -5,6 +5,8 @@ export * from './public_api';
 export { LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵi } from './core/a11y/live-announcer';
 export { mixinDisabled as ɵp } from './core/common-behaviors/disabled';
 export { UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵj } from './core/coordination/unique-selection-dispatcher';
+export { CdkCell as ɵv, CdkCellDef as ɵr, CdkColumnDef as ɵt, CdkHeaderCell as ɵu, CdkHeaderCellDef as ɵs } from './core/data-table/cell';
+export { CdkCellOutlet as ɵy, CdkHeaderRow as ɵz, CdkHeaderRowDef as ɵw, CdkRow as ɵba, CdkRowDef as ɵx } from './core/data-table/row';
 export { MdDateFormats as ɵq } from './core/datetime/date-formats';
 export { MdMutationObserverFactory as ɵa } from './core/observe-content/observe-content';
 export { OVERLAY_CONTAINER_PROVIDER as ɵc, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵb } from './core/overlay/overlay-container';

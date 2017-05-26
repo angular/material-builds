@@ -1,26 +1,42 @@
 /**
-  * @license Angular Material v2.0.0-beta.5
+  * @license Angular Material v2.0.0-beta.6
   * Copyright (c) 2017 Google, Inc. https://material.angular.io/
   * License: MIT
   */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('rxjs/Subject'), require('rxjs/add/operator/debounceTime'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/Subscription'), require('rxjs/add/observable/fromEvent'), require('rxjs/add/observable/merge'), require('rxjs/add/operator/auditTime'), require('rxjs/add/operator/first'), require('rxjs/add/observable/of'), require('@angular/forms'), require('@angular/animations'), require('rxjs/add/operator/startWith'), require('rxjs/add/operator/filter'), require('@angular/http'), require('rxjs/add/observable/forkJoin'), require('rxjs/add/operator/map'), require('rxjs/add/operator/do'), require('rxjs/add/operator/share'), require('rxjs/add/operator/finally'), require('rxjs/add/operator/catch'), require('rxjs/add/observable/throw'), require('rxjs/add/operator/switchMap')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', 'rxjs/Subject', 'rxjs/add/operator/debounceTime', '@angular/common', 'rxjs/Observable', 'rxjs/Subscription', 'rxjs/add/observable/fromEvent', 'rxjs/add/observable/merge', 'rxjs/add/operator/auditTime', 'rxjs/add/operator/first', 'rxjs/add/observable/of', '@angular/forms', '@angular/animations', 'rxjs/add/operator/startWith', 'rxjs/add/operator/filter', '@angular/http', 'rxjs/add/observable/forkJoin', 'rxjs/add/operator/map', 'rxjs/add/operator/do', 'rxjs/add/operator/share', 'rxjs/add/operator/finally', 'rxjs/add/operator/catch', 'rxjs/add/observable/throw', 'rxjs/add/operator/switchMap'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.platformBrowser,global.Rx,global.Rx.Observable.prototype,global.ng.common,global.Rx,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.ng.forms,global.ng.animations,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.ng.http));
-}(this, (function (exports,_angular_core,_angular_platformBrowser,rxjs_Subject,rxjs_add_operator_debounceTime,_angular_common,rxjs_Observable,rxjs_Subscription,rxjs_add_observable_fromEvent,rxjs_add_observable_merge,rxjs_add_operator_auditTime,rxjs_add_operator_first,rxjs_add_observable_of,_angular_forms,_angular_animations,rxjs_add_operator_startWith,rxjs_add_operator_filter,_angular_http) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('rxjs/Subject'), require('rxjs/add/operator/debounceTime'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/Subscription'), require('rxjs/add/observable/fromEvent'), require('rxjs/add/observable/merge'), require('rxjs/add/operator/auditTime'), require('rxjs/add/operator/first'), require('rxjs/add/observable/of'), require('@angular/forms'), require('@angular/animations'), require('rxjs/add/operator/startWith'), require('rxjs/add/operator/filter'), require('@angular/http'), require('rxjs/add/observable/forkJoin'), require('rxjs/add/operator/map'), require('rxjs/add/operator/do'), require('rxjs/add/operator/share'), require('rxjs/add/operator/finally'), require('rxjs/add/operator/catch'), require('rxjs/add/observable/throw'), require('rxjs/add/operator/switchMap'), require('rxjs/BehaviorSubject'), require('rxjs/add/operator/let'), require('rxjs/add/observable/combineLatest')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', 'rxjs/Subject', 'rxjs/add/operator/debounceTime', '@angular/common', 'rxjs/Observable', 'rxjs/Subscription', 'rxjs/add/observable/fromEvent', 'rxjs/add/observable/merge', 'rxjs/add/operator/auditTime', 'rxjs/add/operator/first', 'rxjs/add/observable/of', '@angular/forms', '@angular/animations', 'rxjs/add/operator/startWith', 'rxjs/add/operator/filter', '@angular/http', 'rxjs/add/observable/forkJoin', 'rxjs/add/operator/map', 'rxjs/add/operator/do', 'rxjs/add/operator/share', 'rxjs/add/operator/finally', 'rxjs/add/operator/catch', 'rxjs/add/observable/throw', 'rxjs/add/operator/switchMap', 'rxjs/BehaviorSubject', 'rxjs/add/operator/let', 'rxjs/add/observable/combineLatest'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.platformBrowser,global.Rx,global.Rx.Observable.prototype,global.ng.common,global.Rx,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.ng.forms,global.ng.animations,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.ng.http,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx));
+}(this, (function (exports,_angular_core,_angular_platformBrowser,rxjs_Subject,rxjs_add_operator_debounceTime,_angular_common,rxjs_Observable,rxjs_Subscription,rxjs_add_observable_fromEvent,rxjs_add_observable_merge,rxjs_add_operator_auditTime,rxjs_add_operator_first,rxjs_add_observable_of,_angular_forms,_angular_animations,rxjs_add_operator_startWith,rxjs_add_operator_filter,_angular_http,rxjs_add_observable_forkJoin,rxjs_add_operator_map,rxjs_add_operator_do,rxjs_add_operator_share,rxjs_add_operator_finally,rxjs_add_operator_catch,rxjs_add_observable_throw,rxjs_add_operator_switchMap,rxjs_BehaviorSubject) { 'use strict';
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = Object.setPrototypeOf ||
+    ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+    function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
 /**
-  * @license Angular Material v2.0.0-beta.5
+  * @license Angular Material v2.0.0-beta.6
   * Copyright (c) 2017 Google, Inc. https://material.angular.io/
   * License: MIT
   */
@@ -7393,7 +7409,7 @@ var MdCheckbox = (function (_super) {
 }(_MdCheckboxMixinBase));
 MdCheckbox.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-checkbox, mat-checkbox',
-                template: "<label class=\"mat-checkbox-layout\" #label> <div class=\"mat-checkbox-inner-container\" [class.mat-checkbox-inner-container-no-side-margin]=\"!_hasLabel()\"> <input #input class=\"mat-checkbox-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [value]=\"value\" [disabled]=\"disabled\" [name]=\"name\" [tabIndex]=\"tabIndex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"> <div md-ripple class=\"mat-checkbox-ripple\" [mdRippleTrigger]=\"label\" [mdRippleDisabled]=\"_isRippleDisabled()\" [mdRippleCentered]=\"true\"></div> <div class=\"mat-checkbox-frame\"></div> <div class=\"mat-checkbox-background\"> <svg version=\"1.1\" class=\"mat-checkbox-checkmark\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"> <path class=\"mat-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/> </svg> <!-- Element for rendering the indeterminate state checkbox. --> <div class=\"mat-checkbox-mixedmark\"></div> </div> </div> <span class=\"mat-checkbox-label\" #labelWrapper> <ng-content></ng-content> </span> </label> ",
+                template: "<label [attr.for]=\"inputId\" class=\"mat-checkbox-layout\" #label> <div class=\"mat-checkbox-inner-container\" [class.mat-checkbox-inner-container-no-side-margin]=\"!_hasLabel()\"> <input #input class=\"mat-checkbox-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [value]=\"value\" [disabled]=\"disabled\" [name]=\"name\" [tabIndex]=\"tabIndex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"> <div md-ripple class=\"mat-checkbox-ripple\" [mdRippleTrigger]=\"label\" [mdRippleDisabled]=\"_isRippleDisabled()\" [mdRippleCentered]=\"true\"></div> <div class=\"mat-checkbox-frame\"></div> <div class=\"mat-checkbox-background\"> <svg version=\"1.1\" class=\"mat-checkbox-checkmark\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"> <path class=\"mat-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/> </svg> <!-- Element for rendering the indeterminate state checkbox. --> <div class=\"mat-checkbox-mixedmark\"></div> </div> </div> <span class=\"mat-checkbox-label\" #labelWrapper> <!-- Add an invisible span so JAWS can read the label --> <span style=\"display:none\">&nbsp;</span> <ng-content></ng-content> </span> </label> ",
                 styles: ["@keyframes mat-checkbox-fade-in-background{0%{opacity:0}50%{opacity:1}}@keyframes mat-checkbox-fade-out-background{0%,50%{opacity:1}100%{opacity:0}}@keyframes mat-checkbox-unchecked-checked-checkmark-path{0%,50%{stroke-dashoffset:22.91026}50%{animation-timing-function:cubic-bezier(0,0,.2,.1)}100%{stroke-dashoffset:0}}@keyframes mat-checkbox-unchecked-indeterminate-mixedmark{0%,68.2%{transform:scaleX(0)}68.2%{animation-timing-function:cubic-bezier(0,0,0,1)}100%{transform:scaleX(1)}}@keyframes mat-checkbox-checked-unchecked-checkmark-path{from{animation-timing-function:cubic-bezier(.4,0,1,1);stroke-dashoffset:0}to{stroke-dashoffset:-22.91026}}@keyframes mat-checkbox-checked-indeterminate-checkmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(45deg)}}@keyframes mat-checkbox-indeterminate-checked-checkmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:0;transform:rotate(45deg)}to{opacity:1;transform:rotate(360deg)}}@keyframes mat-checkbox-checked-indeterminate-mixedmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:0;transform:rotate(-45deg)}to{opacity:1;transform:rotate(0)}}@keyframes mat-checkbox-indeterminate-checked-mixedmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(315deg)}}@keyframes mat-checkbox-indeterminate-unchecked-mixedmark{0%{animation-timing-function:linear;opacity:1;transform:scaleX(1)}100%,32.8%{opacity:0;transform:scaleX(0)}}.mat-checkbox-background,.mat-checkbox-checkmark,.mat-checkbox-frame{bottom:0;left:0;position:absolute;right:0;top:0}.mat-checkbox-checkmark,.mat-checkbox-mixedmark{width:calc(100% - 4px)}.mat-checkbox-background,.mat-checkbox-frame{border-radius:2px;box-sizing:border-box;pointer-events:none}.mat-checkbox{font-family:Roboto,\"Helvetica Neue\",sans-serif;transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);cursor:pointer}.mat-checkbox-layout{cursor:inherit;align-items:baseline;vertical-align:middle;display:inline-flex}.mat-checkbox-inner-container{display:inline-block;height:20px;line-height:0;margin:auto;margin-right:8px;order:0;position:relative;vertical-align:middle;white-space:nowrap;width:20px;flex-shrink:0}[dir=rtl] .mat-checkbox-inner-container{margin-left:8px;margin-right:auto}.mat-checkbox-inner-container-no-side-margin{margin-left:0;margin-right:0}.mat-checkbox-layout .mat-checkbox-label{line-height:24px}.mat-checkbox-frame{background-color:transparent;transition:border-color 90ms cubic-bezier(0,0,.2,.1);border-width:2px;border-style:solid}.mat-checkbox-background{align-items:center;display:inline-flex;justify-content:center;transition:background-color 90ms cubic-bezier(0,0,.2,.1),opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-checkbox-checkmark{width:100%}.mat-checkbox-checkmark-path{stroke-dashoffset:22.91026;stroke-dasharray:22.91026;stroke-width:2.66667px}.mat-checkbox-mixedmark{height:2px;opacity:0;transform:scaleX(0) rotate(0)}.mat-checkbox-label-before .mat-checkbox-inner-container{order:1;margin-left:8px;margin-right:auto}[dir=rtl] .mat-checkbox-label-before .mat-checkbox-inner-container{margin-left:auto;margin-right:8px}.mat-checkbox-checked .mat-checkbox-checkmark{opacity:1}.mat-checkbox-checked .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-checked .mat-checkbox-mixedmark{transform:scaleX(1) rotate(-45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark{opacity:0;transform:rotate(45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-indeterminate .mat-checkbox-mixedmark{opacity:1;transform:scaleX(1) rotate(0)}.mat-checkbox-unchecked .mat-checkbox-background{background-color:transparent}.mat-checkbox-disabled{cursor:default}.mat-checkbox-anim-unchecked-checked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-checked .mat-checkbox-checkmark-path{animation:180ms linear 0s mat-checkbox-unchecked-checked-checkmark-path}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-unchecked-indeterminate-mixedmark}.mat-checkbox-anim-checked-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-checked-unchecked .mat-checkbox-checkmark-path{animation:90ms linear 0s mat-checkbox-checked-unchecked-checkmark-path}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-checkmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-checkmark}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-mixedmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-checkmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-checkmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-mixedmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-mixedmark}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-mixedmark{animation:.3s linear 0s mat-checkbox-indeterminate-unchecked-mixedmark}.mat-checkbox-input{bottom:0;left:50%}.mat-checkbox-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none} /*# sourceMappingURL=checkbox.css.map */ "],
                 host: {
                     'class': 'mat-checkbox',
@@ -7484,8 +7500,12 @@ var _MdRadioGroupMixinBase = mixinDisabled(MdRadioGroupBase);
  */
 var MdRadioGroup = (function (_super) {
     __extends(MdRadioGroup, _super);
-    function MdRadioGroup() {
-        var _this = _super.apply(this, arguments) || this;
+    /**
+     * @param {?} _changeDetector
+     */
+    function MdRadioGroup(_changeDetector) {
+        var _this = _super.call(this) || this;
+        _this._changeDetector = _changeDetector;
         /**
          * Selected value for group. Should equal the value of the selected radio button if there *is*
          * a corresponding radio button with a matching value. If there is *not* such a corresponding
@@ -7506,6 +7526,14 @@ var MdRadioGroup = (function (_super) {
          */
         _this._isInitialized = false;
         /**
+         * Whether the labels should appear after or before the radio-buttons. Defaults to 'after'
+         */
+        _this._labelPosition = 'after';
+        /**
+         * Whether the radio group is disabled.
+         */
+        _this._disabled = false;
+        /**
          * The method to be called in order to update ngModel
          */
         _this._controlValueAccessorChangeFn = function (value) { };
@@ -7524,10 +7552,6 @@ var MdRadioGroup = (function (_super) {
          * Child radio buttons.
          */
         _this._radios = null;
-        /**
-         * Whether the labels should appear after or before the radio-buttons. Defaults to 'after'
-         */
-        _this.labelPosition = 'after';
         return _this;
     }
     Object.defineProperty(MdRadioGroup.prototype, "name", {
@@ -7564,6 +7588,25 @@ var MdRadioGroup = (function (_super) {
          */
         set: function (v) {
             this.labelPosition = (v == 'start') ? 'after' : 'before';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdRadioGroup.prototype, "labelPosition", {
+        /**
+         * Whether the labels should appear after or before the radio-buttons. Defaults to 'after'
+         * @return {?}
+         */
+        get: function () {
+            return this._labelPosition;
+        },
+        /**
+         * @param {?} v
+         * @return {?}
+         */
+        set: function (v) {
+            this._labelPosition = (v == 'before') ? 'before' : 'after';
+            this._markRadiosForCheck();
         },
         enumerable: true,
         configurable: true
@@ -7611,6 +7654,23 @@ var MdRadioGroup = (function (_super) {
             this._selected = selected;
             this.value = selected ? selected.value : null;
             this._checkSelectedRadioButton();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdRadioGroup.prototype, "disabled", {
+        /**
+         * Whether the radio group is diabled
+         * @return {?}
+         */
+        get: function () { return this._disabled; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._disabled = value;
+            this._markRadiosForCheck();
         },
         enumerable: true,
         configurable: true
@@ -7678,12 +7738,21 @@ var MdRadioGroup = (function (_super) {
         }
     };
     /**
+     * @return {?}
+     */
+    MdRadioGroup.prototype._markRadiosForCheck = function () {
+        if (this._radios) {
+            this._radios.forEach(function (radio) { return radio._markForCheck(); });
+        }
+    };
+    /**
      * Sets the model value. Implemented as part of ControlValueAccessor.
      * @param {?} value
      * @return {?}
      */
     MdRadioGroup.prototype.writeValue = function (value) {
         this.value = value;
+        this._changeDetector.markForCheck();
     };
     /**
      * Registers a callback to be triggered when the model value changes.
@@ -7710,6 +7779,7 @@ var MdRadioGroup = (function (_super) {
      */
     MdRadioGroup.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
+        this._changeDetector.markForCheck();
     };
     return MdRadioGroup;
 }(_MdRadioGroupMixinBase));
@@ -7727,7 +7797,9 @@ MdRadioGroup.decorators = [
 /**
  * @nocollapse
  */
-MdRadioGroup.ctorParameters = function () { return []; };
+MdRadioGroup.ctorParameters = function () { return [
+    { type: _angular_core.ChangeDetectorRef, },
+]; };
 MdRadioGroup.propDecorators = {
     'change': [{ type: _angular_core.Output },],
     '_radios': [{ type: _angular_core.ContentChildren, args: [_angular_core.forwardRef(function () { return MdRadioButton; }),] },],
@@ -7736,6 +7808,7 @@ MdRadioGroup.propDecorators = {
     'labelPosition': [{ type: _angular_core.Input },],
     'value': [{ type: _angular_core.Input },],
     'selected': [{ type: _angular_core.Input },],
+    'disabled': [{ type: _angular_core.Input },],
 };
 /**
  * A radio-button. May be inside of
@@ -7745,15 +7818,17 @@ var MdRadioButton = (function () {
      * @param {?} radioGroup
      * @param {?} _elementRef
      * @param {?} _renderer
+     * @param {?} _changeDetector
      * @param {?} _focusOriginMonitor
      * @param {?} _radioDispatcher
      */
-    function MdRadioButton(radioGroup, _elementRef, _renderer, _focusOriginMonitor, _radioDispatcher) {
+    function MdRadioButton(radioGroup, _elementRef, _renderer, _changeDetector, _focusOriginMonitor, _radioDispatcher) {
         var _this = this;
         // Assertions. Ideally these should be stripped out by the compiler.
         // TODO(jelbourn): Assert that there's no name binding AND a parent radio group.
         this._elementRef = _elementRef;
         this._renderer = _renderer;
+        this._changeDetector = _changeDetector;
         this._focusOriginMonitor = _focusOriginMonitor;
         this._radioDispatcher = _radioDispatcher;
         /**
@@ -7822,6 +7897,7 @@ var MdRadioButton = (function () {
                     // Notify all radio buttons with the same name to un-check.
                     this._radioDispatcher.notify(this.id, this.name);
                 }
+                this._changeDetector.markForCheck();
             }
         },
         enumerable: true,
@@ -7932,6 +8008,17 @@ var MdRadioButton = (function () {
         this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, this._renderer, 'keyboard');
     };
     /**
+     * Marks the radio button as needing checking for change detection.
+     * This method is exposed because the parent radio group will directly
+     * update bound properties of the radio button.
+     * @return {?}
+     */
+    MdRadioButton.prototype._markForCheck = function () {
+        // When group value changes, the button will not be notified. Use `markForCheck` to explicit
+        // update radio button's status
+        this._changeDetector.markForCheck();
+    };
+    /**
      * @return {?}
      */
     MdRadioButton.prototype.ngOnInit = function () {
@@ -8032,7 +8119,7 @@ var MdRadioButton = (function () {
 }());
 MdRadioButton.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-radio-button, mat-radio-button',
-                template: "<!-- TODO(jelbourn): render the radio on either side of the content --> <!-- TODO(mtlin): Evaluate trade-offs of using native radio vs. cost of additional bindings. --> <label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label> <!-- The actual 'radio' part of the control. --> <div class=\"mat-radio-container\"> <div class=\"mat-radio-outer-circle\"></div> <div class=\"mat-radio-inner-circle\"></div> <div md-ripple class=\"mat-radio-ripple\" [mdRippleTrigger]=\"label\" [mdRippleDisabled]=\"_isRippleDisabled()\" [mdRippleCentered]=\"true\"></div> </div> <input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"> <!-- The label content for radio control. --> <div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"> <ng-content></ng-content> </div> </label> ",
+                template: "<!-- TODO(jelbourn): render the radio on either side of the content --> <!-- TODO(mtlin): Evaluate trade-offs of using native radio vs. cost of additional bindings. --> <label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label> <!-- The actual 'radio' part of the control. --> <div class=\"mat-radio-container\"> <div class=\"mat-radio-outer-circle\"></div> <div class=\"mat-radio-inner-circle\"></div> <div md-ripple class=\"mat-radio-ripple\" [mdRippleTrigger]=\"label\" [mdRippleDisabled]=\"_isRippleDisabled()\" [mdRippleCentered]=\"true\"></div> </div> <input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"> <!-- The label content for radio control. --> <div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"> <!-- Add an invisible span so JAWS can read the label --> <span style=\"display:none\">&nbsp;</span> <ng-content></ng-content> </div> </label> ",
                 styles: [".mat-radio-button{display:inline-block;font-family:Roboto,\"Helvetica Neue\",sans-serif}.mat-radio-label{cursor:pointer;display:inline-flex;align-items:baseline;white-space:nowrap}.mat-radio-container{box-sizing:border-box;display:inline-block;height:20px;position:relative;width:20px;top:2px}.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:border-color ease 280ms;width:20px;border-width:2px;border-style:solid;border-radius:50%}.mat-radio-inner-circle{border-radius:50%;box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:transform ease 280ms,background-color ease 280ms;transform:scale(0);width:20px}.mat-radio-checked .mat-radio-inner-circle{transform:scale(.5)}.mat-radio-label-content{display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none} /*# sourceMappingURL=radio.css.map */ "],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 host: {
@@ -8040,7 +8127,8 @@ MdRadioButton.decorators = [
                     '[class.mat-radio-checked]': 'checked',
                     '[class.mat-radio-disabled]': 'disabled',
                     '[attr.id]': 'id',
-                }
+                },
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
             },] },
 ];
 /**
@@ -8050,6 +8138,7 @@ MdRadioButton.ctorParameters = function () { return [
     { type: MdRadioGroup, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_core.ElementRef, },
     { type: _angular_core.Renderer2, },
+    { type: _angular_core.ChangeDetectorRef, },
     { type: FocusOriginMonitor, },
     { type: UniqueSelectionDispatcher, },
 ]; };
@@ -8948,13 +9037,13 @@ var MdSelect = (function () {
         if (this.multiple && value && !isArray) {
             throw getMdSelectNonArrayValueError();
         }
+        this._clearSelection();
         if (isArray) {
-            this._clearSelection();
             value.forEach(function (currentValue) { return _this._selectValue(currentValue); });
             this._sortValues();
         }
-        else if (!this._selectValue(value)) {
-            this._clearSelection();
+        else {
+            this._selectValue(value);
         }
         this._setValueWidth();
         if (this._selectionModel.isEmpty()) {
@@ -8969,7 +9058,7 @@ var MdSelect = (function () {
      */
     MdSelect.prototype._selectValue = function (value) {
         var /** @type {?} */ optionsArray = this.options.toArray();
-        var /** @type {?} */ correspondingOption = optionsArray.find(function (option) { return option.value === value; });
+        var /** @type {?} */ correspondingOption = optionsArray.find(function (option) { return option.value && option.value === value; });
         if (correspondingOption) {
             correspondingOption.select();
             this._selectionModel.select(correspondingOption);
@@ -9038,14 +9127,20 @@ var MdSelect = (function () {
      */
     MdSelect.prototype._onSelect = function (option) {
         var /** @type {?} */ wasSelected = this._selectionModel.isSelected(option);
+        // TODO(crisbeto): handle blank/null options inside multi-select.
         if (this.multiple) {
             this._selectionModel.toggle(option);
             wasSelected ? option.deselect() : option.select();
             this._sortValues();
         }
         else {
-            this._clearSelection(option);
-            this._selectionModel.select(option);
+            this._clearSelection(option.value == null ? null : option);
+            if (option.value == null) {
+                this._propagateChanges(option.value);
+            }
+            else {
+                this._selectionModel.select(option);
+            }
         }
         if (wasSelected !== this._selectionModel.isSelected(option)) {
             this._propagateChanges();
@@ -9079,12 +9174,17 @@ var MdSelect = (function () {
     };
     /**
      * Emits change event to set the model value.
+     * @param {?=} fallbackValue
      * @return {?}
      */
-    MdSelect.prototype._propagateChanges = function () {
-        var /** @type {?} */ valueToEmit = Array.isArray(this.selected) ?
-            this.selected.map(function (option) { return option.value; }) :
-            this.selected.value;
+    MdSelect.prototype._propagateChanges = function (fallbackValue) {
+        var /** @type {?} */ valueToEmit = null;
+        if (Array.isArray(this.selected)) {
+            valueToEmit = this.selected.map(function (option) { return option.value; });
+        }
+        else {
+            valueToEmit = this.selected ? this.selected.value : fallbackValue;
+        }
         this._onChange(valueToEmit);
         this.change.emit(new MdSelectChange(this, valueToEmit));
     };
@@ -13813,8 +13913,14 @@ var MdIconRegistry = (function () {
         }
         // If the icon node is itself an <svg> node, clone and return it directly. If not, set it as
         // the content of a new <svg> node.
-        if (iconNode.tagName.toLowerCase() == 'svg') {
+        if (iconNode.tagName.toLowerCase() === 'svg') {
             return this._setSvgAttributes(/** @type {?} */ (iconNode.cloneNode(true)));
+        }
+        // If the node is a <symbol>, it won't be rendered so we have to convert it into <svg>. Note
+        // that the same could be achieved by referring to it via <use href="#id">, however the <use>
+        // tag is problematic on Firefox, because it needs to include the current page path.
+        if (iconNode.nodeName.toLowerCase() === 'symbol') {
+            return this._setSvgAttributes(this._toSvgElement(iconNode));
         }
         // createElement('SVG') doesn't work as expected; the DOM ends up with
         // the correct nodes, but the SVG content doesn't render. Instead we
@@ -13839,6 +13945,20 @@ var MdIconRegistry = (function () {
         var /** @type {?} */ svg = (div.querySelector('svg'));
         if (!svg) {
             throw new Error('<svg> tag not found');
+        }
+        return svg;
+    };
+    /**
+     * Converts an element into an SVG node by cloning all of its children.
+     * @param {?} element
+     * @return {?}
+     */
+    MdIconRegistry.prototype._toSvgElement = function (element) {
+        var /** @type {?} */ svg = this._svgElementFromString('<svg></svg>');
+        for (var /** @type {?} */ i = 0; i < element.childNodes.length; i++) {
+            if (element.childNodes[i].nodeType === Node.ELEMENT_NODE) {
+                svg.appendChild(element.childNodes[i].cloneNode(true));
+            }
         }
         return svg;
     };
@@ -14868,9 +14988,13 @@ MdPlaceholder.ctorParameters = function () { return []; };
  */
 var MdHint = (function () {
     function MdHint() {
-        // Whether to align the hint label at the start or end of the line.
+        /**
+         * Whether to align the hint label at the start or end of the line.
+         */
         this.align = 'start';
-        // Unique ID for the hint. Used for the aria-describedby on the input.
+        /**
+         * Unique ID for the hint. Used for the aria-describedby on the input.
+         */
         this.id = "md-input-hint-" + nextUniqueId$1++;
     }
     return MdHint;
@@ -15090,6 +15214,7 @@ var MdInputDirective = (function () {
     });
     Object.defineProperty(MdInputDirective.prototype, "empty", {
         /**
+         * Whether the input is empty.
          * @return {?}
          */
         get: function () {
@@ -15247,7 +15372,7 @@ var MdInputContainer = (function () {
     });
     Object.defineProperty(MdInputContainer.prototype, "hideRequiredMarker", {
         /**
-         * Whether we should hide the required marker.
+         * Whether the required marker should be hidden.
          * @return {?}
          */
         get: function () { return this._hideRequiredMarker; },
@@ -15745,6 +15870,10 @@ var MdSnackBarConfig = (function () {
          * The length of time in milliseconds to wait before automatically dismissing the snack bar.
          */
         this.duration = 0;
+        /**
+         * Text layout direction for the snack bar.
+         */
+        this.direction = 'ltr';
     }
     return MdSnackBarConfig;
 }());
@@ -16031,7 +16160,9 @@ var SimpleSnackBar = (function () {
          * If the action button should be shown.
          * @return {?}
          */
-        get: function () { return !!this.action; },
+        get: function () {
+            return !!this.action;
+        },
         enumerable: true,
         configurable: true
     });
@@ -16040,7 +16171,8 @@ var SimpleSnackBar = (function () {
 SimpleSnackBar.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'simple-snack-bar',
                 template: "{{message}} <button class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\" (click)=\"dismiss()\">{{action}}</button> ",
-                styles: [":host{display:flex;justify-content:space-between;color:#fff;line-height:20px;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;background:0 0;color:inherit;line-height:1;flex-shrink:0;margin-left:48px;font-family:inherit;font-size:inherit;font-weight:600} /*# sourceMappingURL=simple-snack-bar.css.map */ "],
+                styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;color:#fff;line-height:20px;font-size:14px;font-family:Roboto,\"Helvetica Neue\",sans-serif}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;background:0 0;color:inherit;line-height:1;flex-shrink:0;margin-left:48px;font-family:inherit;font-size:inherit;font-weight:600}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0} /*# sourceMappingURL=simple-snack-bar.css.map */ "],
+                encapsulation: _angular_core.ViewEncapsulation.None,
                 host: {
                     '[class.mat-simple-snackbar]': 'true',
                 }
@@ -16128,7 +16260,7 @@ var MdSnackBar = (function () {
     MdSnackBar.prototype.openFromComponent = function (component, config) {
         var _this = this;
         config = _applyConfigDefaults(config);
-        var /** @type {?} */ overlayRef = this._createOverlay();
+        var /** @type {?} */ overlayRef = this._createOverlay(config);
         var /** @type {?} */ snackBarContainer = this._attachSnackBarContainer(overlayRef, config);
         var /** @type {?} */ snackBarRef = this._attachSnackbarContent(component, snackBarContainer, overlayRef);
         // When the snackbar is dismissed, clear the reference to it.
@@ -16213,13 +16345,13 @@ var MdSnackBar = (function () {
     };
     /**
      * Creates a new overlay and places it in the correct location.
+     * @param {?} config The user-specified snack bar config.
      * @return {?}
      */
-    MdSnackBar.prototype._createOverlay = function () {
+    MdSnackBar.prototype._createOverlay = function (config) {
         var /** @type {?} */ state$$1 = new OverlayState();
-        state$$1.positionStrategy = this._overlay.position().global()
-            .centerHorizontally()
-            .bottom('0');
+        state$$1.direction = config.direction;
+        state$$1.positionStrategy = this._overlay.position().global().centerHorizontally().bottom('0');
         return this._overlay.create(state$$1);
     };
     return MdSnackBar;
@@ -21794,6 +21926,510 @@ MdDatepickerModule.decorators = [
  * @nocollapse
  */
 MdDatepickerModule.ctorParameters = function () { return []; };
+/**
+ * Header row definition for the CDK data-table.
+ * Captures the header row's template and other header properties such as the columns to display.
+ */
+var CdkHeaderRowDef = (function () {
+    /**
+     * @param {?} template
+     */
+    function CdkHeaderRowDef(template) {
+        this.template = template;
+    }
+    return CdkHeaderRowDef;
+}());
+CdkHeaderRowDef.decorators = [
+    { type: _angular_core.Directive, args: [{ selector: '[cdkHeaderRowDef]' },] },
+];
+/**
+ * @nocollapse
+ */
+CdkHeaderRowDef.ctorParameters = function () { return [
+    { type: _angular_core.TemplateRef, },
+]; };
+CdkHeaderRowDef.propDecorators = {
+    'columns': [{ type: _angular_core.Input, args: ['cdkHeaderRowDef',] },],
+};
+/**
+ * Data row definition for the CDK data-table.
+ * Captures the header row's template and other row properties such as the columns to display.
+ */
+var CdkRowDef = (function () {
+    /**
+     * @param {?} template
+     */
+    function CdkRowDef(template) {
+        this.template = template;
+    }
+    return CdkRowDef;
+}());
+CdkRowDef.decorators = [
+    { type: _angular_core.Directive, args: [{ selector: '[cdkRowDef]' },] },
+];
+/**
+ * @nocollapse
+ */
+CdkRowDef.ctorParameters = function () { return [
+    { type: _angular_core.TemplateRef, },
+]; };
+CdkRowDef.propDecorators = {
+    'columns': [{ type: _angular_core.Input, args: ['cdkRowDefColumns',] },],
+};
+/**
+ * Outlet for rendering cells inside of a row or header row.
+ * \@docs-private
+ */
+var CdkCellOutlet = (function () {
+    /**
+     * @param {?} _viewContainer
+     */
+    function CdkCellOutlet(_viewContainer) {
+        this._viewContainer = _viewContainer;
+        CdkCellOutlet.mostRecentCellOutlet = this;
+    }
+    /**
+     * @return {?}
+     */
+    CdkCellOutlet.prototype.ngOnInit = function () {
+        var _this = this;
+        this.cells.forEach(function (cell) {
+            _this._viewContainer.createEmbeddedView(cell.template, _this.context);
+        });
+    };
+    return CdkCellOutlet;
+}());
+/**
+ * Static property containing the latest constructed instance of this class.
+ * Used by the CDK data-table when each CdkHeaderRow and CdkRow component is created using
+ * createEmbeddedView. After one of these components are created, this property will provide
+ * a handle to provide that component's cells and context. After init, the CdkCellOutlet will
+ * construct the cells with the provided context.
+ */
+CdkCellOutlet.mostRecentCellOutlet = null;
+CdkCellOutlet.decorators = [
+    { type: _angular_core.Directive, args: [{ selector: '[cdkCellOutlet]' },] },
+];
+/**
+ * @nocollapse
+ */
+CdkCellOutlet.ctorParameters = function () { return [
+    { type: _angular_core.ViewContainerRef, },
+]; };
+/**
+ * Header template container that contains the cell outlet. Adds the right class and role.
+ */
+var CdkHeaderRow = (function () {
+    function CdkHeaderRow() {
+    }
+    return CdkHeaderRow;
+}());
+CdkHeaderRow.decorators = [
+    { type: _angular_core.Component, args: [{
+                selector: 'cdk-header-row',
+                template: '<ng-container cdkCellOutlet></ng-container>',
+                host: {
+                    'class': 'cdk-header-row',
+                    'role': 'row',
+                },
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+CdkHeaderRow.ctorParameters = function () { return []; };
+/**
+ * Data row template container that contains the cell outlet. Adds the right class and role.
+ */
+var CdkRow = (function () {
+    function CdkRow() {
+    }
+    return CdkRow;
+}());
+CdkRow.decorators = [
+    { type: _angular_core.Component, args: [{
+                selector: 'cdk-row',
+                template: '<ng-container cdkCellOutlet></ng-container>',
+                host: {
+                    'class': 'cdk-row',
+                    'role': 'row',
+                },
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+CdkRow.ctorParameters = function () { return []; };
+/**
+ * Cell definition for a CDK data-table.
+ * Captures the template of a column's data row cell as well as cell-specific properties.
+ */
+var CdkCellDef = (function () {
+    /**
+     * @param {?} template
+     */
+    function CdkCellDef(template) {
+        this.template = template;
+    }
+    return CdkCellDef;
+}());
+CdkCellDef.decorators = [
+    { type: _angular_core.Directive, args: [{ selector: '[cdkCellDef]' },] },
+];
+/**
+ * @nocollapse
+ */
+CdkCellDef.ctorParameters = function () { return [
+    { type: _angular_core.TemplateRef, },
+]; };
+/**
+ * Header cell definition for a CDK data-table.
+ * Captures the template of a column's header cell and as well as cell-specific properties.
+ */
+var CdkHeaderCellDef = (function () {
+    /**
+     * @param {?} template
+     */
+    function CdkHeaderCellDef(template) {
+        this.template = template;
+    }
+    return CdkHeaderCellDef;
+}());
+CdkHeaderCellDef.decorators = [
+    { type: _angular_core.Directive, args: [{ selector: '[cdkHeaderCellDef]' },] },
+];
+/**
+ * @nocollapse
+ */
+CdkHeaderCellDef.ctorParameters = function () { return [
+    { type: _angular_core.TemplateRef, },
+]; };
+/**
+ * Column definition for the CDK data-table.
+ * Defines a set of cells available for a table column.
+ */
+var CdkColumnDef = (function () {
+    function CdkColumnDef() {
+    }
+    return CdkColumnDef;
+}());
+CdkColumnDef.decorators = [
+    { type: _angular_core.Directive, args: [{ selector: '[cdkColumnDef]' },] },
+];
+/**
+ * @nocollapse
+ */
+CdkColumnDef.ctorParameters = function () { return []; };
+CdkColumnDef.propDecorators = {
+    'name': [{ type: _angular_core.Input, args: ['cdkColumnDef',] },],
+    'cell': [{ type: _angular_core.ContentChild, args: [CdkCellDef,] },],
+    'headerCell': [{ type: _angular_core.ContentChild, args: [CdkHeaderCellDef,] },],
+};
+/**
+ * Header cell template container that adds the right classes and role.
+ */
+var CdkHeaderCell = (function () {
+    /**
+     * @param {?} columnDef
+     * @param {?} elementRef
+     * @param {?} renderer
+     */
+    function CdkHeaderCell(columnDef, elementRef, renderer) {
+        this.columnDef = columnDef;
+        this.elementRef = elementRef;
+        this.renderer = renderer;
+        this.renderer.addClass(elementRef.nativeElement, "cdk-column-" + columnDef.name);
+    }
+    return CdkHeaderCell;
+}());
+CdkHeaderCell.decorators = [
+    { type: _angular_core.Directive, args: [{
+                selector: 'cdk-header-cell',
+                host: {
+                    'class': 'cdk-header-cell',
+                    'role': 'columnheader',
+                },
+            },] },
+];
+/**
+ * @nocollapse
+ */
+CdkHeaderCell.ctorParameters = function () { return [
+    { type: CdkColumnDef, },
+    { type: _angular_core.ElementRef, },
+    { type: _angular_core.Renderer2, },
+]; };
+/**
+ * Cell template container that adds the right classes and role.
+ */
+var CdkCell = (function () {
+    /**
+     * @param {?} columnDef
+     * @param {?} elementRef
+     * @param {?} renderer
+     */
+    function CdkCell(columnDef, elementRef, renderer) {
+        this.columnDef = columnDef;
+        this.elementRef = elementRef;
+        this.renderer = renderer;
+        this.renderer.addClass(elementRef.nativeElement, "cdk-column-" + columnDef.name);
+    }
+    return CdkCell;
+}());
+CdkCell.decorators = [
+    { type: _angular_core.Directive, args: [{
+                selector: 'cdk-cell',
+                host: {
+                    'class': 'cdk-cell',
+                    'role': 'gridcell',
+                },
+            },] },
+];
+/**
+ * @nocollapse
+ */
+CdkCell.ctorParameters = function () { return [
+    { type: CdkColumnDef, },
+    { type: _angular_core.ElementRef, },
+    { type: _angular_core.Renderer2, },
+]; };
+/**
+ * Provides a handle for the table to grab the view container's ng-container to insert data rows.
+ * \@docs-private
+ */
+var RowPlaceholder = (function () {
+    /**
+     * @param {?} viewContainer
+     */
+    function RowPlaceholder(viewContainer) {
+        this.viewContainer = viewContainer;
+    }
+    return RowPlaceholder;
+}());
+RowPlaceholder.decorators = [
+    { type: _angular_core.Directive, args: [{ selector: '[rowPlaceholder]' },] },
+];
+/**
+ * @nocollapse
+ */
+RowPlaceholder.ctorParameters = function () { return [
+    { type: _angular_core.ViewContainerRef, },
+]; };
+/**
+ * Provides a handle for the table to grab the view container's ng-container to insert the header.
+ * \@docs-private
+ */
+var HeaderRowPlaceholder = (function () {
+    /**
+     * @param {?} viewContainer
+     */
+    function HeaderRowPlaceholder(viewContainer) {
+        this.viewContainer = viewContainer;
+    }
+    return HeaderRowPlaceholder;
+}());
+HeaderRowPlaceholder.decorators = [
+    { type: _angular_core.Directive, args: [{ selector: '[headerRowPlaceholder]' },] },
+];
+/**
+ * @nocollapse
+ */
+HeaderRowPlaceholder.ctorParameters = function () { return [
+    { type: _angular_core.ViewContainerRef, },
+]; };
+/**
+ * A data table that connects with a data source to retrieve data and renders
+ * a header row and data rows. Updates the rows when new data is provided by the data source.
+ */
+var CdkTable = (function () {
+    /**
+     * @param {?} _changeDetectorRef
+     */
+    function CdkTable(_changeDetectorRef) {
+        this._changeDetectorRef = _changeDetectorRef;
+        /**
+         * Stream containing the latest information on what rows are being displayed on screen.
+         * Can be used by the data source to as a heuristic of what data should be provided.
+         */
+        this.viewChanged = new rxjs_BehaviorSubject.BehaviorSubject({ start: 0, end: Number.MAX_VALUE });
+        /**
+         * Map of all the user's defined columns identified by name.
+         * Contains the header and data-cell templates.
+         */
+        this._columnDefinitionsByName = new Map();
+        console.warn('The data table is still in active development ' +
+            'and should be considered unstable.');
+    }
+    /**
+     * @return {?}
+     */
+    CdkTable.prototype.ngOnDestroy = function () {
+        // TODO(andrewseguin): Disconnect from the data source so
+        // that it can unsubscribe from its streams.
+    };
+    /**
+     * @return {?}
+     */
+    CdkTable.prototype.ngOnInit = function () {
+        // TODO(andrewseguin): Setup a listener for scroll events
+        //   and emit the calculated view to this.viewChanged
+    };
+    /**
+     * @return {?}
+     */
+    CdkTable.prototype.ngAfterContentInit = function () {
+        var _this = this;
+        // TODO(andrewseguin): Throw an error if two columns share the same name
+        this._columnDefinitions.forEach(function (columnDef) {
+            _this._columnDefinitionsByName.set(columnDef.name, columnDef);
+        });
+    };
+    /**
+     * @return {?}
+     */
+    CdkTable.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        // TODO(andrewseguin): Re-render the header when the header's columns change.
+        this.renderHeaderRow();
+        // TODO(andrewseguin): Re-render rows when their list of columns change.
+        // TODO(andrewseguin): If the data source is not
+        //   present after view init, connect it when it is defined.
+        // TODO(andrewseguin): Unsubscribe from this on destroy.
+        this.dataSource.connect(this).subscribe(function (rowsData) {
+            // TODO(andrewseguin): Add a differ that will check if the data has changed,
+            //   rather than re-rendering all rows
+            _this._rowPlaceholder.viewContainer.clear();
+            rowsData.forEach(function (rowData) { return _this.insertRow(rowData); });
+            _this._changeDetectorRef.markForCheck();
+        });
+    };
+    /**
+     * Create the embedded view for the header template and place it in the header row view container.
+     * @return {?}
+     */
+    CdkTable.prototype.renderHeaderRow = function () {
+        var /** @type {?} */ cells = this.getHeaderCellTemplatesForRow(this._headerDefinition);
+        // TODO(andrewseguin): add some code to enforce that exactly
+        // one CdkCellOutlet was instantiated as a result
+        // of `createEmbeddedView`.
+        this._headerRowPlaceholder.viewContainer
+            .createEmbeddedView(this._headerDefinition.template, { cells: cells });
+        CdkCellOutlet.mostRecentCellOutlet.cells = cells;
+        CdkCellOutlet.mostRecentCellOutlet.context = {};
+    };
+    /**
+     * Create the embedded view for the data row template and place it in the correct index location
+     * within the data row view container.
+     * @param {?} rowData
+     * @return {?}
+     */
+    CdkTable.prototype.insertRow = function (rowData) {
+        // TODO(andrewseguin): Add when predicates to the row definitions
+        //   to find the right template to used based on
+        //   the data rather than choosing the first row definition.
+        var /** @type {?} */ row = this._rowDefinitions.first;
+        // TODO(andrewseguin): Add more context, such as first/last/isEven/etc
+        var /** @type {?} */ context = { $implicit: rowData };
+        // TODO(andrewseguin): add some code to enforce that exactly one
+        //   CdkCellOutlet was instantiated as a result  of `createEmbeddedView`.
+        this._rowPlaceholder.viewContainer.createEmbeddedView(row.template, context);
+        // Insert empty cells if there is no data to improve rendering time.
+        CdkCellOutlet.mostRecentCellOutlet.cells = rowData ? this.getCellTemplatesForRow(row) : [];
+        CdkCellOutlet.mostRecentCellOutlet.context = context;
+    };
+    /**
+     * Returns the cell template definitions to insert into the header
+     * as defined by its list of columns to display.
+     * @param {?} headerDef
+     * @return {?}
+     */
+    CdkTable.prototype.getHeaderCellTemplatesForRow = function (headerDef) {
+        var _this = this;
+        return headerDef.columns.map(function (columnId) {
+            return _this._columnDefinitionsByName.get(columnId).headerCell;
+        });
+    };
+    /**
+     * Returns the cell template definitions to insert in the provided row
+     * as defined by its list of columns to display.
+     * @param {?} rowDef
+     * @return {?}
+     */
+    CdkTable.prototype.getCellTemplatesForRow = function (rowDef) {
+        var _this = this;
+        return rowDef.columns.map(function (columnId) {
+            return _this._columnDefinitionsByName.get(columnId).cell;
+        });
+    };
+    return CdkTable;
+}());
+CdkTable.decorators = [
+    { type: _angular_core.Component, args: [{
+                selector: 'cdk-table',
+                template: "\n    <ng-container headerRowPlaceholder></ng-container>\n    <ng-container rowPlaceholder></ng-container>\n  ",
+                host: {
+                    'class': 'cdk-table',
+                    'role': 'grid' // TODO(andrewseguin): Allow the user to choose either grid or treegrid
+                },
+                encapsulation: _angular_core.ViewEncapsulation.None,
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+CdkTable.ctorParameters = function () { return [
+    { type: _angular_core.ChangeDetectorRef, },
+]; };
+CdkTable.propDecorators = {
+    'dataSource': [{ type: _angular_core.Input },],
+    '_rowPlaceholder': [{ type: _angular_core.ViewChild, args: [RowPlaceholder,] },],
+    '_headerRowPlaceholder': [{ type: _angular_core.ViewChild, args: [HeaderRowPlaceholder,] },],
+    '_columnDefinitions': [{ type: _angular_core.ContentChildren, args: [CdkColumnDef,] },],
+    '_headerDefinition': [{ type: _angular_core.ContentChild, args: [CdkHeaderRowDef,] },],
+    '_rowDefinitions': [{ type: _angular_core.ContentChildren, args: [CdkRowDef,] },],
+};
+/**
+ * @abstract
+ */
+var DataSource = (function () {
+    function DataSource() {
+    }
+    /**
+     * @abstract
+     * @param {?} collectionViewer
+     * @return {?}
+     */
+    DataSource.prototype.connect = function (collectionViewer) { };
+    return DataSource;
+}());
+var CdkDataTableModule = (function () {
+    function CdkDataTableModule() {
+    }
+    return CdkDataTableModule;
+}());
+CdkDataTableModule.decorators = [
+    { type: _angular_core.NgModule, args: [{
+                imports: [_angular_common.CommonModule],
+                exports: [
+                    CdkTable, CdkRowDef, CdkCellDef, CdkCellOutlet, CdkHeaderCellDef,
+                    CdkColumnDef, CdkCell, CdkRow,
+                    CdkHeaderCell, CdkHeaderRow, CdkHeaderRowDef
+                ],
+                declarations: [
+                    CdkTable, CdkRowDef, CdkCellDef, CdkCellOutlet, CdkHeaderCellDef,
+                    CdkColumnDef, CdkCell, CdkRow,
+                    CdkHeaderCell, CdkHeaderRow, CdkHeaderRowDef,
+                    RowPlaceholder, HeaderRowPlaceholder,
+                ]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+CdkDataTableModule.ctorParameters = function () { return []; };
 var MATERIAL_MODULES = [
     MdAutocompleteModule,
     MdButtonModule,
@@ -21828,6 +22464,7 @@ var MATERIAL_MODULES = [
     PlatformModule,
     MdCommonModule,
     ObserveContentModule,
+    CdkDataTableModule
 ];
 /**
  * @deprecated
@@ -22005,6 +22642,11 @@ exports.MdCheckboxChange = MdCheckboxChange;
 exports.MdCheckboxBase = MdCheckboxBase;
 exports._MdCheckboxMixinBase = _MdCheckboxMixinBase;
 exports.MdCheckbox = MdCheckbox;
+exports.CdkDataTableModule = CdkDataTableModule;
+exports.DataSource = DataSource;
+exports.RowPlaceholder = RowPlaceholder;
+exports.HeaderRowPlaceholder = HeaderRowPlaceholder;
+exports.CdkTable = CdkTable;
 exports.MdDatepickerModule = MdDatepickerModule;
 exports.MdCalendar = MdCalendar;
 exports.MdCalendarCell = MdCalendarCell;
@@ -22147,6 +22789,16 @@ exports.TooltipComponent = TooltipComponent;
 exports.ɵi = LIVE_ANNOUNCER_PROVIDER_FACTORY;
 exports.ɵp = mixinDisabled;
 exports.ɵj = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
+exports.ɵv = CdkCell;
+exports.ɵr = CdkCellDef;
+exports.ɵt = CdkColumnDef;
+exports.ɵu = CdkHeaderCell;
+exports.ɵs = CdkHeaderCellDef;
+exports.ɵy = CdkCellOutlet;
+exports.ɵz = CdkHeaderRow;
+exports.ɵw = CdkHeaderRowDef;
+exports.ɵba = CdkRow;
+exports.ɵx = CdkRowDef;
 exports.ɵa = MdMutationObserverFactory;
 exports.ɵc = OVERLAY_CONTAINER_PROVIDER;
 exports.ɵb = OVERLAY_CONTAINER_PROVIDER_FACTORY;

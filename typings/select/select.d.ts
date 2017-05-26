@@ -279,7 +279,7 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
     /** Unsubscribes from all option subscriptions. */
     private _dropSubscriptions();
     /** Emits change event to set the model value. */
-    private _propagateChanges();
+    private _propagateChanges(fallbackValue?);
     /** Records option IDs to pass to the aria-owns property. */
     private _setOptionIds();
     /**

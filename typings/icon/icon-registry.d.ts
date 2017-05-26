@@ -167,6 +167,10 @@ export declare class MdIconRegistry {
      */
     private _svgElementFromString(str);
     /**
+     * Converts an element into an SVG node by cloning all of its children.
+     */
+    private _toSvgElement(element);
+    /**
      * Sets the default attributes for an SVG element to be used as an icon.
      */
     private _setSvgAttributes(svg);

@@ -1,4 +1,4 @@
-import { AfterContentInit, ElementRef, Renderer2, EventEmitter, OnInit, QueryList, OnDestroy, AfterViewInit } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, Renderer2, EventEmitter, OnInit, QueryList, OnDestroy, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { UniqueSelectionDispatcher, MdRipple, FocusOriginMonitor } from '../core';
 import { CanDisable } from '../core/common-behaviors/disabled';
@@ -22,6 +22,7 @@ export declare const _MdRadioGroupMixinBase: (new (...args: any[]) => CanDisable
  * A group of radio buttons. May contain one or more `<md-radio-button>` elements.
  */
 export declare class MdRadioGroup extends _MdRadioGroupMixinBase implements AfterContentInit, ControlValueAccessor, CanDisable {
+    private _changeDetector;
     /**
      * Selected value for group. Should equal the value of the selected radio button if there *is*
      * a corresponding radio button with a matching value. If there is *not* such a corresponding
@@ -35,6 +36,10 @@ export declare class MdRadioGroup extends _MdRadioGroupMixinBase implements Afte
     private _selected;
     /** Whether the `value` has been set to its initial value. */
     private _isInitialized;
+    /** Whether the labels should appear after or before the radio-buttons. Defaults to 'after' */
+    private _labelPosition;
+    /** Whether the radio group is disabled. */
+    private _disabled;
     /** The method to be called in order to update ngModel */
     _controlValueAccessorChangeFn: (value: any) => void;
     /**
@@ -58,12 +63,15 @@ export declare class MdRadioGroup extends _MdRadioGroupMixinBase implements Afte
      */
     align: 'start' | 'end';
     /** Whether the labels should appear after or before the radio-buttons. Defaults to 'after' */
-    labelPosition: 'before' | 'after';
+    labelPosition: "before" | "after";
     /** Value of the radio button. */
     value: any;
     _checkSelectedRadioButton(): void;
     /** Whether the radio button is selected. */
     selected: MdRadioButton;
+    /** Whether the radio group is diabled */
+    disabled: boolean;
+    constructor(_changeDetector: ChangeDetectorRef);
     /**
      * Initialize properties once content children are available.
      * This allows us to propagate relevant attributes to associated buttons.
@@ -79,6 +87,7 @@ export declare class MdRadioGroup extends _MdRadioGroupMixinBase implements Afte
     private _updateSelectedRadioFromValue();
     /** Dispatch change event with current selection and group value. */
     _emitChangeEvent(): void;
+    _markRadiosForCheck(): void;
     /**
      * Sets the model value. Implemented as part of ControlValueAccessor.
      * @param value
@@ -108,6 +117,7 @@ export declare class MdRadioGroup extends _MdRadioGroupMixinBase implements Afte
 export declare class MdRadioButton implements OnInit, AfterViewInit, OnDestroy {
     private _elementRef;
     private _renderer;
+    private _changeDetector;
     private _focusOriginMonitor;
     private _radioDispatcher;
     /** The unique ID for the radio button. */
@@ -158,9 +168,15 @@ export declare class MdRadioButton implements OnInit, AfterViewInit, OnDestroy {
     private _focusRipple;
     /** The native `<input type=radio>` element */
     _inputElement: ElementRef;
-    constructor(radioGroup: MdRadioGroup, _elementRef: ElementRef, _renderer: Renderer2, _focusOriginMonitor: FocusOriginMonitor, _radioDispatcher: UniqueSelectionDispatcher);
+    constructor(radioGroup: MdRadioGroup, _elementRef: ElementRef, _renderer: Renderer2, _changeDetector: ChangeDetectorRef, _focusOriginMonitor: FocusOriginMonitor, _radioDispatcher: UniqueSelectionDispatcher);
     /** Focuses the radio button. */
     focus(): void;
+    /**
+     * Marks the radio button as needing checking for change detection.
+     * This method is exposed because the parent radio group will directly
+     * update bound properties of the radio button.
+     */
+    _markForCheck(): void;
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;

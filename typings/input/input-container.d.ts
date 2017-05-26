@@ -10,7 +10,9 @@ export declare class MdPlaceholder {
 }
 /** Hint text to be shown underneath the input. */
 export declare class MdHint {
+    /** Whether to align the hint label at the start or end of the line. */
     align: 'start' | 'end';
+    /** Unique ID for the hint. Used for the aria-describedby on the input. */
     id: string;
 }
 /** Single error message to be shown underneath the input. */
@@ -54,6 +56,7 @@ export declare class MdInputDirective {
      * Emits an event when the placeholder changes so that the `md-input-container` can re-validate.
      */
     _placeholderChange: EventEmitter<string>;
+    /** Whether the input is empty. */
     readonly empty: boolean;
     private readonly _uid;
     private _neverEmptyInputTypes;
@@ -84,7 +87,7 @@ export declare class MdInputContainer implements AfterViewInit, AfterContentInit
     color: 'primary' | 'accent' | 'warn';
     /** @deprecated Use color instead. */
     dividerColor: "accent" | "primary" | "warn";
-    /** Whether we should hide the required marker. */
+    /** Whether the required marker should be hidden. */
     hideRequiredMarker: any;
     private _hideRequiredMarker;
     /** Whether the floating label should always float or not. */
@@ -100,6 +103,7 @@ export declare class MdInputContainer implements AfterViewInit, AfterContentInit
     /** Whether the placeholder should always float, never float or float as the user types. */
     floatPlaceholder: FloatPlaceholderType;
     private _floatPlaceholder;
+    /** Reference to the input's underline element. */
     underlineRef: ElementRef;
     _mdInputChild: MdInputDirective;
     _placeholderChild: MdPlaceholder;
