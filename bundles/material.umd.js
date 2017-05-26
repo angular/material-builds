@@ -20132,7 +20132,10 @@ var MdAutocompleteTrigger = (function () {
      */
     MdAutocompleteTrigger.prototype._handleKeydown = function (event) {
         var _this = this;
-        if (this.activeOption && event.keyCode === ENTER) {
+        if (event.keyCode === ESCAPE && this.panelOpen) {
+            this.closePanel();
+        }
+        else if (this.activeOption && event.keyCode === ENTER) {
             this.activeOption._selectViaInteraction();
             event.preventDefault();
         }
