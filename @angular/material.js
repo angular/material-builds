@@ -18919,7 +18919,10 @@ class MdAutocompleteTrigger {
      * @return {?}
      */
     _handleKeydown(event) {
-        if (this.activeOption && event.keyCode === ENTER) {
+        if (event.keyCode === ESCAPE && this.panelOpen) {
+            this.closePanel();
+        }
+        else if (this.activeOption && event.keyCode === ENTER) {
             this.activeOption._selectViaInteraction();
             event.preventDefault();
         }
@@ -19933,7 +19936,7 @@ class MdCalendar {
 }
 MdCalendar.decorators = [
     { type: Component, args: [{selector: 'md-calendar',
-                template: "<div class=\"mat-calendar-header\"> <div class=\"mat-calendar-controls\"> <!-- TODO(mmalerba): Clean up duplicated compatibility mode code when we have a better way to do this. --> <!-- Check for compatibility mode and use correct prefix for md-button. --> <button *ngIf=\"!_isCompatibilityMode\" md-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\"  [attr.aria-label]=\"_periodButtonLabel\"> {{_periodButtonText}} <div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div> </button> <button *ngIf=\"_isCompatibilityMode\" mat-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\"  [attr.aria-label]=\"_periodButtonLabel\"> {{_periodButtonText}} <div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div> </button> <div class=\"mat-calendar-spacer\"></div> <!-- Check for compatibility mode and use correct prefix for md-icon-button. --> <button *ngIf=\"!_isCompatibilityMode\" md-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"> </button> <button *ngIf=\"_isCompatibilityMode\" mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"> </button> <!-- Check for compatibility mode and use correct prefix for md-icon-button. --> <button *ngIf=\"!_isCompatibilityMode\" md-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"> </button> <button *ngIf=\"_isCompatibilityMode\" mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"> </button> </div> </div> <div class=\"mat-calendar-content\" (keydown)=\"_handleCalendarBodyKeydown($event)\" cdkMonitorSubtreeFocus> <md-month-view *ngIf=\"_monthView\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_dateSelected($event)\"> </md-month-view> <md-year-view *ngIf=\"!_monthView\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_monthSelected($event)\"> </md-year-view> </div> ",
+                template: "<div class=\"mat-calendar-header\"> <div class=\"mat-calendar-controls\"> <!-- TODO(mmalerba): Clean up duplicated compatibility mode code when we have a better way to do this. --> <!-- Check for compatibility mode and use correct prefix for md-button. --> <button *ngIf=\"!_isCompatibilityMode\" md-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\"  [attr.aria-label]=\"_periodButtonLabel\"> {{_periodButtonText}} <div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div> </button> <button *ngIf=\"_isCompatibilityMode\" mat-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\"  [attr.aria-label]=\"_periodButtonLabel\"> {{_periodButtonText}} <div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div> </button> <div class=\"mat-calendar-spacer\"></div> <!-- Check for compatibility mode and use correct prefix for md-icon-button. --> <button *ngIf=\"!_isCompatibilityMode\" md-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"> </button> <button *ngIf=\"_isCompatibilityMode\" mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"> </button> <!-- Check for compatibility mode and use correct prefix for md-icon-button. --> <button *ngIf=\"!_isCompatibilityMode\" md-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"> </button> <button *ngIf=\"_isCompatibilityMode\" mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"> </button> </div> </div> <div class=\"mat-calendar-content\" (keydown)=\"_handleCalendarBodyKeydown($event)\" [ngSwitch]=\"_monthView\" cdkMonitorSubtreeFocus> <md-month-view *ngSwitchCase=\"true\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_dateSelected($event)\"> </md-month-view> <md-year-view *ngSwitchDefault [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_monthSelected($event)\"> </md-year-view> </div> ",
                 styles: [".mat-calendar{display:block}.mat-calendar-header{padding:8px 8px 0 8px}.mat-calendar-content{padding:0 8px 8px 8px;outline:0}.mat-calendar-controls{display:flex;padding:5% calc(100% / 14 - 22px) 5% calc(100% / 14 - 22px)}.mat-calendar-spacer{flex:1 1 auto}.mat-calendar-period-button{font:inherit;font-size:14px;font-weight:700;min-width:0}.mat-calendar-arrow{display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top-width:5px;border-top-style:solid;margin:0 0 0 5px;vertical-align:middle}.mat-calendar-arrow.mat-calendar-invert{transform:rotate(180deg)}.mat-calendar-next-button,.mat-calendar-previous-button{position:relative}.mat-calendar-next-button::after,.mat-calendar-previous-button::after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;margin:15.5px;border:0 solid currentColor;border-top-width:2px}.mat-calendar-previous-button::after{border-left-width:2px;transform:translateX(2px) rotate(-45deg)}.mat-calendar-next-button::after{border-right-width:2px;transform:translateX(-2px) rotate(45deg)}.mat-calendar-table{border-spacing:0;border-collapse:collapse;width:100%}.mat-calendar-table-header th{text-align:center;font-size:11px;font-weight:400;padding:0 0 8px 0}.mat-calendar-table-header-divider{position:relative;height:1px}.mat-calendar-table-header-divider::after{content:'';position:absolute;top:0;left:-8px;right:-8px;height:1px} /*# sourceMappingURL=calendar.css.map */ "],
                 host: {
                     '[class.mat-calendar]': 'true',
@@ -20025,14 +20028,18 @@ class MdDatepicker {
     /**
      * @param {?} _dialog
      * @param {?} _overlay
+     * @param {?} _ngZone
      * @param {?} _viewContainerRef
+     * @param {?} _scrollDispatcher
      * @param {?} _dateAdapter
      * @param {?} _dir
      */
-    constructor(_dialog, _overlay, _viewContainerRef, _dateAdapter, _dir) {
+    constructor(_dialog, _overlay, _ngZone, _viewContainerRef, _scrollDispatcher, _dateAdapter, _dir) {
         this._dialog = _dialog;
         this._overlay = _overlay;
+        this._ngZone = _ngZone;
         this._viewContainerRef = _viewContainerRef;
+        this._scrollDispatcher = _scrollDispatcher;
         this._dateAdapter = _dateAdapter;
         this._dir = _dir;
         /**
@@ -20195,6 +20202,8 @@ class MdDatepicker {
         if (!this._popupRef.hasAttached()) {
             let /** @type {?} */ componentRef = this._popupRef.attach(this._calendarPortal);
             componentRef.instance.datepicker = this;
+            // Update the position once the calendar has rendered.
+            this._ngZone.onStable.first().subscribe(() => this._popupRef.updatePosition());
         }
         this._popupRef.backdropClick().first().subscribe(() => this.close());
     }
@@ -20208,6 +20217,7 @@ class MdDatepicker {
         overlayState.hasBackdrop = true;
         overlayState.backdropClass = 'md-overlay-transparent-backdrop';
         overlayState.direction = this._dir ? this._dir.value : 'ltr';
+        overlayState.scrollStrategy = new RepositionScrollStrategy(this._scrollDispatcher);
         this._popupRef = this._overlay.create(overlayState);
     }
     /**
@@ -20215,9 +20225,11 @@ class MdDatepicker {
      * @return {?}
      */
     _createPopupPositionStrategy() {
-        let /** @type {?} */ origin = ({ originX: 'start', originY: 'bottom' });
-        let /** @type {?} */ overlay = ({ overlayX: 'start', overlayY: 'top' });
-        return this._overlay.position().connectedTo(this._datepickerInput.getPopupConnectionElementRef(), origin, overlay);
+        return this._overlay.position()
+            .connectedTo(this._datepickerInput.getPopupConnectionElementRef(), { originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' })
+            .withFallbackPosition({ originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' })
+            .withFallbackPosition({ originX: 'end', originY: 'bottom' }, { overlayX: 'end', overlayY: 'top' })
+            .withFallbackPosition({ originX: 'end', originY: 'top' }, { overlayX: 'end', overlayY: 'bottom' });
     }
 }
 MdDatepicker.decorators = [
@@ -20231,7 +20243,9 @@ MdDatepicker.decorators = [
 MdDatepicker.ctorParameters = () => [
     { type: MdDialog, },
     { type: Overlay, },
+    { type: NgZone, },
     { type: ViewContainerRef, },
+    { type: ScrollDispatcher, },
     { type: DateAdapter, decorators: [{ type: Optional },] },
     { type: Dir, decorators: [{ type: Optional },] },
 ];
