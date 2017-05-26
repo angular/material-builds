@@ -1984,7 +1984,7 @@ var Portal = /*@__PURE__*/(function () {
 /**
  * A `ComponentPortal` is a portal that instantiates some Component upon attachment.
  */
-var ComponentPortal = (function (_super) {
+var ComponentPortal = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(ComponentPortal, _super);
     /**
      * @param {?} component
@@ -2005,7 +2005,7 @@ var ComponentPortal = (function (_super) {
 /**
  * A `TemplatePortal` is a portal that represents some embedded template (TemplateRef).
  */
-var TemplatePortal = (function (_super) {
+var TemplatePortal = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(TemplatePortal, _super);
     /**
      * @param {?} template
@@ -2155,7 +2155,7 @@ var BasePortalHost = /*@__PURE__*/(function () {
  *   <p> Hello {{name}} </p>
  * </ng-template>
  */
-var TemplatePortalDirective = (function (_super) {
+var TemplatePortalDirective = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(TemplatePortalDirective, _super);
     /**
      * @param {?} templateRef
@@ -2186,7 +2186,7 @@ TemplatePortalDirective.ctorParameters = function () { return [
  * Usage:
  * <ng-template [cdkPortalHost]="greeting"></ng-template>
  */
-var PortalHostDirective = (function (_super) {
+var PortalHostDirective = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(PortalHostDirective, _super);
     /**
      * @param {?} _componentFactoryResolver
@@ -2345,7 +2345,7 @@ var OverlayState = /*@__PURE__*/(function () {
  *
  * This is the only part of the portal core that directly touches the DOM.
  */
-var DomPortalHost = (function (_super) {
+var DomPortalHost = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(DomPortalHost, _super);
     /**
      * @param {?} _hostDomElement
@@ -4581,7 +4581,7 @@ A11yModule.ctorParameters = function () { return []; };
  *   {provide: OverlayContainer, useClass: FullscreenOverlayContainer}
  * ],
  */
-var FullscreenOverlayContainer = (function (_super) {
+var FullscreenOverlayContainer = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(FullscreenOverlayContainer, _super);
     function FullscreenOverlayContainer() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -4645,7 +4645,7 @@ FullscreenOverlayContainer.decorators = [
  * @nocollapse
  */
 FullscreenOverlayContainer.ctorParameters = function () { return []; };
-var GestureConfig = (function (_super) {
+var GestureConfig = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(GestureConfig, _super);
     function GestureConfig() {
         var _this = _super.call(this) || this;
@@ -5606,7 +5606,7 @@ function range(length, valueFunction) {
 /**
  * Adapts the native JS Date for use with cdk-based components that work with dates.
  */
-var NativeDateAdapter = (function (_super) {
+var NativeDateAdapter = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(NativeDateAdapter, _super);
     function NativeDateAdapter() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -6660,7 +6660,7 @@ var _MdButtonMixinBase = mixinDisabled(MdButtonBase);
 /**
  * Material design button.
  */
-var MdButton = (function (_super) {
+var MdButton = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(MdButton, _super);
     /**
      * @param {?} _elementRef
@@ -6822,7 +6822,7 @@ MdButton.propDecorators = {
 /**
  * Raised Material design button.
  */
-var MdAnchor = (function (_super) {
+var MdAnchor = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(MdAnchor, _super);
     /**
      * @param {?} elementRef
@@ -6975,7 +6975,7 @@ var _MdCheckboxMixinBase = mixinDisabled(MdCheckboxBase);
  * have the checkbox be accessible, you may supply an [aria-label] input.
  * See: https://www.google.com/design/spec/components/selection-controls.html
  */
-var MdCheckbox = (function (_super) {
+var MdCheckbox = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(MdCheckbox, _super);
     /**
      * @param {?} _renderer
@@ -7490,7 +7490,7 @@ var _MdRadioGroupMixinBase = mixinDisabled(MdRadioGroupBase);
 /**
  * A group of radio buttons. May contain one or more `<md-radio-button>` elements.
  */
-var MdRadioGroup = (function (_super) {
+var MdRadioGroup = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(MdRadioGroup, _super);
     /**
      * @param {?} _changeDetector
@@ -8361,7 +8361,7 @@ var ListKeyManager = /*@__PURE__*/(function () {
     };
     return ListKeyManager;
 }());
-var FocusKeyManager = (function (_super) {
+var FocusKeyManager = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(FocusKeyManager, _super);
     /**
      * @param {?} items
@@ -9608,7 +9608,7 @@ var _MdSlideToggleMixinBase = mixinDisabled(MdSlideToggleBase);
 /**
  * Represents a slidable "switch" toggle that can be moved between on and off.
  */
-var MdSlideToggle = (function (_super) {
+var MdSlideToggle = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(MdSlideToggle, _super);
     /**
      * @param {?} _elementRef
@@ -10088,7 +10088,7 @@ var _MdSliderMixinBase = mixinDisabled(MdSliderBase);
  * Allows users to select from a range of values by moving the slider thumb. It is similar in
  * behavior to the native `<input type="range">` element.
  */
-var MdSlider = (function (_super) {
+var MdSlider = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(MdSlider, _super);
     /**
      * @param {?} renderer
@@ -12426,7 +12426,7 @@ var TileStyler = /*@__PURE__*/(function () {
  * Example <md-grid-list cols="3" rowHeight="100px">
  * \@docs-private
  */
-var FixedTileStyler = (function (_super) {
+var FixedTileStyler = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(FixedTileStyler, _super);
     /**
      * @param {?} fixedRowHeight
@@ -12473,7 +12473,7 @@ var FixedTileStyler = (function (_super) {
  * for the row height.  Example <md-grid-list cols="3" rowHeight="3:1">
  * \@docs-private
  */
-var RatioTileStyler = (function (_super) {
+var RatioTileStyler = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(RatioTileStyler, _super);
     /**
      * @param {?} value
@@ -12527,7 +12527,7 @@ var RatioTileStyler = (function (_super) {
  *
  * \@docs-private
  */
-var FitTileStyler = (function (_super) {
+var FitTileStyler = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(FitTileStyler, _super);
     function FitTileStyler() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -14648,7 +14648,7 @@ MdProgressSpinner.propDecorators = {
  * This is a component definition to be used as a convenience reference to create an
  * indeterminate <md-progress-spinner> instance.
  */
-var MdSpinner = (function (_super) {
+var MdSpinner = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(MdSpinner, _super);
     /**
      * @param {?} elementRef
@@ -15976,7 +15976,7 @@ var HIDE_ANIMATION = '195ms cubic-bezier(0.0,0.0,0.2,1)';
  * Internal component that wraps user-provided snack bar content.
  * \@docs-private
  */
-var MdSnackBarContainer = (function (_super) {
+var MdSnackBarContainer = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(MdSnackBarContainer, _super);
     /**
      * @param {?} _ngZone
@@ -16393,7 +16393,7 @@ MdSnackBarModule.ctorParameters = function () { return []; };
 /**
  * Used to flag tab labels for use with the portal directive
  */
-var MdTabLabel = (function (_super) {
+var MdTabLabel = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(MdTabLabel, _super);
     /**
      * @param {?} templateRef
@@ -17026,7 +17026,7 @@ MdTabLink.propDecorators = {
  * Simple directive that extends the ripple and matches the selector of the MdTabLink. This
  * adds the ripple behavior to nav bar labels.
  */
-var MdTabLinkRipple = (function (_super) {
+var MdTabLinkRipple = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(MdTabLinkRipple, _super);
     /**
      * @param {?} elementRef
@@ -19268,7 +19268,7 @@ function throwMdDialogContentAlreadyAttachedError() {
  * Animation is based on https://material.io/guidelines/motion/choreography.html.
  * \@docs-private
  */
-var MdDialogContainer = (function (_super) {
+var MdDialogContainer = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(MdDialogContainer, _super);
     /**
      * @param {?} _ngZone
@@ -19785,7 +19785,7 @@ MdDialogModule.decorators = [
  * @nocollapse
  */
 MdDialogModule.ctorParameters = function () { return []; };
-var ActiveDescendantKeyManager = (function (_super) {
+var ActiveDescendantKeyManager = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(ActiveDescendantKeyManager, _super);
     function ActiveDescendantKeyManager() {
         return _super !== null && _super.apply(this, arguments) || this;
