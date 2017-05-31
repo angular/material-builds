@@ -2329,6 +2329,10 @@ var OverlayState = (function () {
          */
         this.scrollStrategy = new NoopScrollStrategy();
         /**
+         * Custom class to add to the overlay pane.
+         */
+        this.panelClass = '';
+        /**
          * Whether the overlay has a backdrop.
          */
         this.hasBackdrop = false;
@@ -2494,6 +2498,9 @@ var OverlayRef = (function () {
         this._togglePointerEvents(true);
         if (this._state.hasBackdrop) {
             this._attachBackdrop();
+        }
+        if (this._state.panelClass) {
+            this._pane.classList.add(this._state.panelClass);
         }
         return attachResult;
     };
@@ -19236,6 +19243,10 @@ var MdDialogConfig = (function () {
          */
         this.role = 'dialog';
         /**
+         * Custom class for the overlay pane.
+         */
+        this.panelClass = '';
+        /**
          * Whether the dialog has a backdrop.
          */
         this.hasBackdrop = true;
@@ -19539,6 +19550,7 @@ var MdDialog = (function () {
      */
     MdDialog.prototype._getOverlayState = function (dialogConfig) {
         var /** @type {?} */ overlayState = new OverlayState();
+        overlayState.panelClass = dialogConfig.panelClass;
         overlayState.hasBackdrop = dialogConfig.hasBackdrop;
         overlayState.scrollStrategy = new BlockScrollStrategy(this._viewportRuler);
         if (dialogConfig.backdropClass) {
@@ -21236,7 +21248,7 @@ var datepickerUid = 0;
  * MdCalendar directly as the content so we can control the initial focus. This also gives us a
  * place to put additional features of the popup that are not part of the calendar itself in the
  * future. (e.g. confirmation buttons).
- * \@docs-internal
+ * \@docs-private
  */
 var MdDatepickerContent = (function () {
     function MdDatepickerContent() {
@@ -21844,10 +21856,6 @@ var MdDatepickerToggle = (function () {
      */
     function MdDatepickerToggle(_intl) {
         this._intl = _intl;
-        /**
-         * Type of the button.
-         */
-        this.type = 'button';
     }
     Object.defineProperty(MdDatepickerToggle.prototype, "_datepicker", {
         /**
@@ -21879,8 +21887,8 @@ MdDatepickerToggle.decorators = [
                 template: '',
                 styles: [".mat-datepicker-toggle{display:inline-block;background:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNHB4IiBoZWlnaHQ9IjI0cHgiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iY3VycmVudENvbG9yIj48cGF0aCBkPSJNMCAwaDI0djI0SDB6IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTE5IDNoLTFWMWgtMnYySDhWMUg2djJINWMtMS4xMSAwLTEuOTkuOS0xLjk5IDJMMyAxOWMwIDEuMS44OSAyIDIgMmgxNGMxLjEgMCAyLS45IDItMlY1YzAtMS4xLS45LTItMi0yem0wIDE2SDVWOGgxNHYxMXpNNyAxMGg1djVIN3oiLz48L3N2Zz4=) no-repeat;background-size:contain;height:24px;width:24px;border:none;outline:0;vertical-align:middle}.mat-datepicker-toggle:not([disabled]){cursor:pointer} /*# sourceMappingURL=datepicker-toggle.css.map */ "],
                 host: {
-                    '[attr.type]': 'type',
-                    '[class.mat-datepicker-toggle]': 'true',
+                    'type': 'button',
+                    'class': 'mat-datepicker-toggle',
                     '[attr.aria-label]': '_intl.openCalendarLabel',
                     '(click)': '_open($event)',
                 },
@@ -21896,7 +21904,6 @@ MdDatepickerToggle.ctorParameters = function () { return [
 ]; };
 MdDatepickerToggle.propDecorators = {
     'datepicker': [{ type: _angular_core.Input, args: ['mdDatepickerToggle',] },],
-    'type': [{ type: _angular_core.Input },],
     '_datepicker': [{ type: _angular_core.Input, args: ['matDatepickerToggle',] },],
 };
 var MdDatepickerModule = (function () {

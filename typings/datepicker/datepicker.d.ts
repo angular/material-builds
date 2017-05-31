@@ -12,7 +12,7 @@ import 'rxjs/add/operator/first';
  * MdCalendar directly as the content so we can control the initial focus. This also gives us a
  * place to put additional features of the popup that are not part of the calendar itself in the
  * future. (e.g. confirmation buttons).
- * @docs-internal
+ * @docs-private
  */
 export declare class MdDatepickerContent<D> implements AfterContentInit {
     datepicker: MdDatepicker<D>;
