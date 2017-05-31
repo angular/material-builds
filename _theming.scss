@@ -25,15 +25,14 @@
   }
 }
 
-// Typography
-$mat-body-font-size-base: 14px !default;
-$mat-font-family: Roboto, 'Helvetica Neue', sans-serif !default;
-
 // Media queries
 // TODO: Find a way to respect media query ranges.
 // TODO: For example the xs-breakpoint should not interfere with the sm-breakpoint.
 $mat-xsmall: 'max-width: 600px';
 $mat-small: 'max-width: 960px';
+
+// TODO(crisbeto): this isn't being used anywhere within Material. keeping for backwards compat.
+$mat-font-family: Roboto, 'Helvetica Neue', sans-serif !default;
 
 // TODO: Revisit all z-indices before beta
 // z-index master list
@@ -1272,9 +1271,9 @@ $mat-menu-overlay-min-width: 112px !default;   // 56 * 2
 $mat-menu-overlay-max-width: 280px !default;   // 56 * 5
 
 $mat-menu-item-height: 48px !default;
-$mat-menu-font-size: 16px !default;
 $mat-menu-side-padding: 16px !default;
 $mat-menu-icon-margin: 16px !default;
+
 
 @mixin mat-menu-base() {
   @include mat-elevation(8);
@@ -1294,8 +1293,6 @@ $mat-menu-icon-margin: 16px !default;
   height: $mat-menu-item-height;
   padding: 0 $mat-menu-side-padding;
 
-  font-size: $mat-menu-font-size;
-  font-family: $mat-font-family;
   text-align: left;
   text-decoration: none;   // necessary to reset anchor tags
 
@@ -1445,6 +1442,44 @@ $mat-menu-icon-margin: 16px !default;
 
 
 
+// Utility for fetching a nested value from a typography config.
+@function _mat-get-type-value($config, $level, $name) {
+  @return map-get(map-get($config, $level), $name);
+}
+
+// Gets the font size for a level inside a typography config.
+@function mat-font-size($config, $level) {
+  @return _mat-get-type-value($config, $level, font-size);
+}
+
+// Gets the line height for a level inside a typography config.
+@function mat-line-height($config, $level) {
+  @return _mat-get-type-value($config, $level, line-height);
+}
+
+// Gets the font weight for a level inside a typography config.
+@function mat-font-weight($config, $level) {
+  @return _mat-get-type-value($config, $level, font-weight);
+}
+
+// Gets the font-family from a typography config and removes the quotes around it.
+@function mat-font-family($config) {
+  @return unquote(map-get($config, font-family));
+}
+
+// Converts a typography level into CSS styles.
+@mixin mat-typography-level-to-styles($config, $level) {
+  $font-size: mat-font-size($config, $level);
+  $font-weight: mat-font-weight($config, $level);
+  $line-height: mat-line-height($config, $level);
+  $font-family: mat-font-family($config);
+
+  // Use the shorthand `font` to represent a typography level, because it's the shortest. Notes that
+  // we need to use interpolation for `font-size/line-height` in order to prevent SASS from dividing
+  // the two values.
+  font: $font-weight #{$font-size}/#{$line-height} $font-family;
+}
+
 
 @mixin mat-option-theme($theme) {
   $foreground: map-get($theme, foreground);
@@ -1484,6 +1519,15 @@ $mat-menu-icon-margin: 16px !default;
 
     &.mat-option-disabled {
       color: mat-color($foreground, hint-text);
+    }
+  }
+}
+
+@mixin mat-option-typography($config) {
+  .mat-option {
+    font: {
+      family: mat-font-family($config);
+      size: mat-font-size($config, subheading);
     }
   }
 }
@@ -1537,39 +1581,101 @@ $mat-menu-icon-margin: 16px !default;
 }
 
 
-// Mixin that renders all of the core styles that are not theme-dependent.
-@mixin mat-core() {
-  // Provides external CSS classes for each elevation value. Each CSS class is formatted as
-  // `mat-elevation-z$zValue` where `$zValue` corresponds to the z-space to which the element is
-  // elevated.
-  @for $zValue from 0 through 24 {
-    .mat-elevation-z#{$zValue} {
-      @include mat-elevation($zValue);
-    }
-  }
 
-  @include mat-ripple();
-  @include mat-option();
-  @include cdk-a11y();
-  @include cdk-overlay();
+// Represents a typography level from the Material design spec.
+@function mat-typography-level($font-size, $line-height: $font-size, $font-weight: 400) {
+  @return (
+    font-size: $font-size,
+    line-height: $line-height,
+    font-weight: $font-weight
+  );
 }
 
-// Mixin that renders all of the core styles that depend on the theme.
-@mixin mat-core-theme($theme) {
-  @include mat-ripple-theme($theme);
-  @include mat-option-theme($theme);
-  @include mat-pseudo-checkbox-theme($theme);
+// Represents a collection of typography levels.
+// Defaults come from https://material.io/guidelines/style/typography.html
+@function mat-typography-config(
+  $font-family: 'Roboto, "Helvetica Neue", sans-serif',
+  $display-4:   mat-typography-level(112px, 112px, 300),
+  $display-3:   mat-typography-level(56px, 56px, 400),
+  $display-2:   mat-typography-level(45px, 48px, 400),
+  $display-1:   mat-typography-level(34px, 40px, 400),
+  $headline:    mat-typography-level(24px, 32px, 400),
+  $title:       mat-typography-level(20px, 20px, 500),
+  $subheading:  mat-typography-level(16px, 28px, 400),
+  $body-2:      mat-typography-level(14px, 24px, 500),
+  $body-1:      mat-typography-level(14px, 20px, 400),
+  $caption:     mat-typography-level(12px, 12px, 400),
+  $button:      mat-typography-level(14px, 14px, 500)
+) {
+  @return (
+    font-family: $font-family,
+    display-4:   $display-4,
+    display-3:   $display-3,
+    display-2:   $display-2,
+    display-1:   $display-1,
+    headline:    $headline,
+    title:       $title,
+    subheading:  $subheading,
+    body-2:      $body-2,
+    body-1:      $body-1,
+    caption:     $caption,
+    button:      $button
+  );
+}
 
-  // Wrapper element that provides the theme background when the
-  // user's content isn't inside of a `md-sidenav-container`.
-  .mat-app-background {
-    $background: map-get($theme, background);
-    background-color: mat-color($background, background);
+// Adds the base typography styles, based on a config.
+// TODO(crisbeto): the headers need to handle margins as well.
+@mixin mat-base-typography($config, $selector: '.mat-typography') {
+  .mat-h0, .mat-hero-header {
+    @include mat-typography-level-to-styles($config, display-4);
+
+    // Note: The spec doesn't mention letter spacing. The value comes from
+    // eyeballing it until it looked exactly like the spec examples.
+    letter-spacing: -0.05em;
   }
 
-  // Marker that is used to determine whether the user has added a theme to their page.
-  .mat-theme-loaded-marker {
-    display: none;
+  .mat-h1, #{$selector} h1 {
+    @include mat-typography-level-to-styles($config, display-3);
+
+    // Note: The spec doesn't mention letter spacing. The value comes from
+    // eyeballing it until it looked exactly like the spec examples.
+    letter-spacing: -0.02em;
+  }
+
+  .mat-h2, #{$selector} h2 {
+    @include mat-typography-level-to-styles($config, display-2)
+
+    // Note: The spec doesn't mention letter spacing. The value comes from
+    // eyeballing it until it looked exactly like the spec examples.;
+    letter-spacing: -0.005em;
+  }
+
+  .mat-h3, #{$selector} h3 {
+    @include mat-typography-level-to-styles($config, display-1);
+  }
+
+  .mat-h4, #{$selector} h4 {
+    @include mat-typography-level-to-styles($config, headline);
+  }
+
+  .mat-h5, #{$selector} h5 {
+    @include mat-typography-level-to-styles($config, title);
+  }
+
+  .mat-h6, #{$selector} h6 {
+    @include mat-typography-level-to-styles($config, subheading);
+  }
+
+  .mat-body-strong {
+    @include mat-typography-level-to-styles($config, body-2);
+  }
+
+  .mat-body, #{$selector} {
+    @include mat-typography-level-to-styles($config, body-1);
+  }
+
+  .mat-small {
+    @include mat-typography-level-to-styles($config, caption);
   }
 }
 
@@ -1597,6 +1703,10 @@ $mat-menu-icon-margin: 16px !default;
   }
 
 }
+
+@mixin mat-autocomplete-typography($config) { }
+
+
 
 
 // Applies a focus style to an md-button element for each of the supported palettes.
@@ -1716,6 +1826,11 @@ $mat-menu-icon-margin: 16px !default;
   }
 }
 
+@mixin mat-button-typography($config) {
+  .mat-button, .mat-raised-button, .mat-icon-button {
+    @include mat-typography-level-to-styles($config, button);
+  }
+}
 
 
 
@@ -1757,6 +1872,13 @@ $mat-menu-icon-margin: 16px !default;
   }
 }
 
+@mixin mat-button-toggle-typography($config) {
+  .mat-button-toggle {
+    font-family: mat-font-family($config);
+  }
+}
+
+
 
 
 
@@ -1774,6 +1896,26 @@ $mat-menu-icon-margin: 16px !default;
     color: mat-color($foreground, secondary-text);
   }
 }
+
+@mixin mat-card-typography($config) {
+  .mat-card {
+    font-family: mat-font-family($config);
+  }
+
+  .mat-card-title {
+    font: {
+      size: mat-font-size($config, headline);
+      weight: mat-font-weight($config, headline);
+    }
+  }
+
+  .mat-card-subtitle,
+  .mat-card-content,
+  .mat-card-header .mat-card-title {
+    font-size: mat-font-size($config, body-1);
+  }
+}
+
 
 
 
@@ -1861,7 +2003,24 @@ $mat-menu-icon-margin: 16px !default;
   }
 }
 
+@mixin mat-checkbox-typography($config) {
+  .mat-checkbox {
+    font-family: mat-font-family($config);
+  }
 
+  // TODO(kara): Remove this style when fixing vertical baseline
+  .mat-checkbox-layout .mat-checkbox-label {
+    line-height: mat-line-height($config, body-2);
+  }
+}
+
+
+
+
+
+// TODO(crisbeto): these values don't correspond to any of the typography breakpoints.
+$mat-chip-font-size: 13px;
+$mat-chip-line-height: 16px;
 
 
 @mixin mat-chips-theme($theme) {
@@ -1911,86 +2070,13 @@ $mat-menu-icon-margin: 16px !default;
   }
 }
 
-
-
-
-
-@mixin mat-datepicker-theme($theme) {
-  $primary: map-get($theme, primary);
-  $foreground: map-get($theme, foreground);
-  $background: map-get($theme, background);
-
-  $mat-datepicker-selected-today-box-shadow-width: 1px;
-  $mat-datepicker-selected-fade-amount: 0.6;
-  $mat-datepicker-today-fade-amount: 0.2;
-
-  .mat-datepicker-content {
-    background-color: mat-color($background, card);
-  }
-
-  .mat-calendar-arrow {
-    border-top-color: mat-color($foreground, icon);
-  }
-
-  .mat-calendar-next-button,
-  .mat-calendar-previous-button {
-    color: mat-color($foreground, icon);
-  }
-
-  .mat-calendar-table-header {
-    color: mat-color($foreground, hint-text);
-  }
-
-  .mat-calendar-table-header-divider::after {
-    background: mat-color($foreground, divider);
-  }
-
-  .mat-calendar-body-label {
-    color: mat-color($foreground, secondary-text);
-  }
-
-  .mat-calendar-body-cell-content {
-    color: mat-color($foreground, text);
-    border-color: transparent;
-
-    .mat-calendar-body-disabled > &:not(.mat-calendar-body-selected) {
-      color: mat-color($foreground, disabled-text);
-    }
-  }
-
-  :not(.mat-calendar-body-disabled):hover,
-  .cdk-keyboard-focused .mat-calendar-body-active {
-    & > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
-      background-color: mat-color($background, hover);
-    }
-  }
-
-  .mat-calendar-body-selected {
-    background-color: mat-color($primary);
-    color: mat-color($primary, default-contrast);
-  }
-
-  .mat-calendar-body-disabled > .mat-calendar-body-selected {
-    background-color: fade-out(mat-color($primary), $mat-datepicker-selected-fade-amount);
-  }
-
-  .mat-calendar-body-today {
-    &:not(.mat-calendar-body-selected) {
-      // Note: though it's not text, the border is a hint about the fact that this is today's date,
-      // so we use the hint color.
-      border-color: mat-color($foreground, hint-text);
-    }
-
-    &.mat-calendar-body-selected {
-      box-shadow: inset 0 0 0 $mat-datepicker-selected-today-box-shadow-width
-                  mat-color($primary, default-contrast);
-    }
-  }
-
-  .mat-calendar-body-disabled > .mat-calendar-body-today:not(.mat-calendar-body-selected) {
-    border-color: fade-out(mat-color($foreground, hint-text), $mat-datepicker-today-fade-amount);
+@mixin mat-chips-typography($config) {
+  .mat-chip:not(.mat-basic-chip) {
+    font-size: $mat-chip-font-size;
+    line-height: $mat-chip-line-height;
   }
 }
+
 
 
 
@@ -2004,12 +2090,28 @@ $mat-menu-icon-margin: 16px !default;
   }
 }
 
+@mixin mat-dialog-typography($config) {
+  .mat-dialog-title {
+    @include mat-typography-level-to-styles($config, title);
+  }
+}
+
+
+
 
 
 
 
 // Include this empty mixin for consistency with the other components.
 @mixin mat-grid-list-theme($theme) { }
+
+@mixin mat-grid-list-typography($config) {
+  .mat-grid-tile-header,
+  .mat-grid-tile-footer {
+    @include mat-line-base(mat-font-size($config, caption));
+    font-size: mat-font-size($config, body-1);
+  }
+}
 
 
 
@@ -2036,6 +2138,9 @@ $mat-menu-icon-margin: 16px !default;
     }
   }
 }
+
+@mixin mat-icon-typography($config) { }
+
 
 
 
@@ -2128,6 +2233,27 @@ $mat-menu-icon-margin: 16px !default;
   }
 }
 
+@mixin mat-input-typography($config) {
+  .mat-input-container {
+    font-family: mat-font-family($config);
+    line-height: normal;
+
+    .mat-icon {
+      font-size: 100%;
+    }
+  }
+
+  .mat-input-placeholder {
+    font-size: 100%;
+  }
+
+  .mat-input-subscript-wrapper {
+    font-size: 75%;
+  }
+}
+
+
+
 
 
 
@@ -2159,6 +2285,39 @@ $mat-menu-icon-margin: 16px !default;
   }
 }
 
+@mixin mat-list-typography($config) {
+  $font-family: mat-font-family($config);
+
+  .mat-list-item {
+    font-family: $font-family;
+  }
+
+  // Default list
+  .mat-list, .mat-nav-list {
+    .mat-list-item {
+      font-size: mat-font-size($config, subheading);
+      @include mat-line-base(mat-font-size($config, body-1));
+    }
+
+    .mat-subheader {
+      @include mat-typography-level-to-styles($config, body-2);
+    }
+  }
+
+  // Dense list
+  .mat-list[dense], .mat-nav-list[dense] {
+    .mat-list-item {
+      font-size: mat-font-size($config, caption);
+      @include mat-line-base(mat-font-size($config, caption));
+    }
+
+    .mat-subheader {
+      font: mat-font-weight($config, body-2) mat-font-size($config, caption) $font-family;
+    }
+  }
+}
+
+
 
 
 
@@ -2186,6 +2345,15 @@ $mat-menu-icon-margin: 16px !default;
 
     &:hover:not([disabled]), &:focus:not([disabled]) {
       background: mat-color($background, 'hover');
+    }
+  }
+}
+
+@mixin mat-menu-typography($config) {
+  .mat-menu-item {
+    font: {
+      family: mat-font-family($config);
+      size: mat-font-size($config, subheading);
     }
   }
 }
@@ -2239,6 +2407,8 @@ $mat-menu-icon-margin: 16px !default;
     }
   }
 }
+
+@mixin mat-progress-bar-typography($config) { }
 
 // TODO(josephperrott): Find better way to inline svgs.
 // In buffer mode a repeated SVG object is used as a background.
@@ -2295,6 +2465,9 @@ $mat-menu-icon-margin: 16px !default;
   }
 }
 
+@mixin mat-progress-spinner-typography($config) { }
+
+
 
 
 
@@ -2336,6 +2509,13 @@ $mat-menu-icon-margin: 16px !default;
     }
   }
 }
+
+@mixin mat-radio-typography($config) {
+  .mat-radio-button {
+    font-family: mat-font-family($config);
+  }
+}
+
 
 
 
@@ -2398,6 +2578,16 @@ $mat-menu-icon-margin: 16px !default;
   }
 }
 
+@mixin mat-select-typography($config) {
+  .mat-select {
+    font-family: mat-font-family($config);
+  }
+
+  .mat-select-trigger {
+    font-size: mat-font-size($config, subheading);
+  }
+}
+
 
 
 
@@ -2410,7 +2600,7 @@ $mat-menu-icon-margin: 16px !default;
   $foreground: map-get($theme, foreground);
 
   // We use invert() here to have the darken the background color expected to be used. If the
-  // background is light, we use a dark backdrop. If the background is dark, 
+  // background is light, we use a dark backdrop. If the background is dark,
   // we use a light backdrop.
   $sidenav-backdrop-color: invert(mat-color($background, card, 0.6)) !default;
   $sidenav-background-color: mat-color($background, dialog) !default;
@@ -2435,6 +2625,9 @@ $mat-menu-icon-margin: 16px !default;
     background-color: $sidenav-backdrop-color;
   }
 }
+
+@mixin mat-sidenav-typography($config) { }
+
 
 
 
@@ -2496,7 +2689,7 @@ $mat-menu-icon-margin: 16px !default;
       @include _mat-slide-toggle-checked($primary, $thumb-checked-hue);
       @include _mat-slide-toggle-ripple($accent, $ripple-unchecked-color, $ripple-primary-color);
     }
-  
+
     &.mat-warn {
       @include _mat-slide-toggle-checked($warn, $thumb-checked-hue);
       @include _mat-slide-toggle-ripple($accent, $ripple-unchecked-color, $ripple-warn-color);
@@ -2524,6 +2717,13 @@ $mat-menu-icon-margin: 16px !default;
     background-color: $bar-normal-color;
   }
 }
+
+@mixin mat-slide-toggle-typography($config) {
+  .mat-slide-toggle-content {
+    @include mat-typography-level-to-styles($config, button);
+  }
+}
+
 
 
 
@@ -2655,6 +2855,16 @@ $mat-menu-icon-margin: 16px !default;
   }
 }
 
+@mixin mat-slider-typography($config) {
+  .mat-slider-thumb-label-text {
+    font: {
+      size: mat-font-size($config, caption);
+      weight: mat-font-weight($config, body-2);
+    }
+  }
+}
+
+
 
 
 
@@ -2696,6 +2906,17 @@ $mat-menu-icon-margin: 16px !default;
   }
 }
 
+@mixin mat-tabs-typography($config) {
+  .mat-tab-group {
+    font-family: mat-font-family($config);
+  }
+
+  .mat-tab-label, .mat-tab-link {
+    @include mat-typography-level-to-styles($config, button);
+  }
+}
+
+
 
 
 
@@ -2730,15 +2951,238 @@ $mat-menu-icon-margin: 16px !default;
   }
 }
 
+@mixin mat-toolbar-typography($config) {
+  .mat-toolbar,
+  .mat-toolbar h1,
+  .mat-toolbar h2,
+  .mat-toolbar h3,
+  .mat-toolbar h4,
+  .mat-toolbar h5,
+  .mat-toolbar h6 {
+    @include mat-typography-level-to-styles($config, title);
+  }
+}
 
 
 
+
+
+// TODO(crisbeto): these doesn't correspond to any typography levels
+// and the width/height appear to be off from the spec.
+$mat-tooltip-target-height: 22px;
+$mat-tooltip-font-size: 10px;
+$mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-size) / 2;
 
 @mixin mat-tooltip-theme($theme) {
   .mat-tooltip {
     background: mat-color($mat-grey, 700, 0.9);
   }
 }
+
+@mixin mat-tooltip-typography($config) {
+  .mat-tooltip {
+    font-family: mat-font-family($config);
+    font-size: $mat-tooltip-font-size;
+    padding-top: $mat-tooltip-vertical-padding;
+    padding-bottom: $mat-tooltip-vertical-padding;
+  }
+}
+
+
+
+@mixin mat-simple-snack-bar-theme($theme) { }
+
+@mixin mat-simple-snack-bar-typography($config) {
+  .mat-simple-snackbar {
+    font: {
+      family: mat-font-family($config);
+      size: mat-font-size($config, body-1);
+    }
+  }
+
+  .mat-simple-snackbar-action {
+    line-height: 1;
+    font: {
+      family: inherit;
+      size: inherit;
+      weight: mat-font-weight($config, button);
+    }
+  }
+}
+
+
+
+
+// Includes all of the typographic styles.
+@mixin angular-material-typography($config: mat-typography-config()) {
+  @include mat-base-typography($config);
+  @include mat-autocomplete-typography($config);
+  @include mat-button-typography($config);
+  @include mat-button-toggle-typography($config);
+  @include mat-card-typography($config);
+  @include mat-checkbox-typography($config);
+  @include mat-chips-typography($config);
+  @include mat-dialog-typography($config);
+  @include mat-grid-list-typography($config);
+  @include mat-icon-typography($config);
+  @include mat-input-typography($config);
+  @include mat-menu-typography($config);
+  @include mat-progress-bar-typography($config);
+  @include mat-progress-spinner-typography($config);
+  @include mat-radio-typography($config);
+  @include mat-select-typography($config);
+  @include mat-sidenav-typography($config);
+  @include mat-slide-toggle-typography($config);
+  @include mat-slider-typography($config);
+  @include mat-tabs-typography($config);
+  @include mat-toolbar-typography($config);
+  @include mat-tooltip-typography($config);
+  @include mat-list-typography($config);
+  @include mat-option-typography($config);
+  @include mat-simple-snack-bar-typography($config);
+}
+
+
+// Mixin that renders all of the core styles that are not theme-dependent.
+@mixin mat-core() {
+  // Provides external CSS classes for each elevation value. Each CSS class is formatted as
+  // `mat-elevation-z$zValue` where `$zValue` corresponds to the z-space to which the element is
+  // elevated.
+  @for $zValue from 0 through 24 {
+    .mat-elevation-z#{$zValue} {
+      @include mat-elevation($zValue);
+    }
+  }
+
+  @include angular-material-typography();
+  @include mat-ripple();
+  @include mat-option();
+  @include cdk-a11y();
+  @include cdk-overlay();
+}
+
+// Mixin that renders all of the core styles that depend on the theme.
+@mixin mat-core-theme($theme) {
+  @include mat-ripple-theme($theme);
+  @include mat-option-theme($theme);
+  @include mat-pseudo-checkbox-theme($theme);
+
+  // Wrapper element that provides the theme background when the
+  // user's content isn't inside of a `md-sidenav-container`.
+  .mat-app-background {
+    $background: map-get($theme, background);
+    background-color: mat-color($background, background);
+  }
+
+  // Marker that is used to determine whether the user has added a theme to their page.
+  .mat-theme-loaded-marker {
+    display: none;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+@mixin mat-datepicker-theme($theme) {
+  $primary: map-get($theme, primary);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  $mat-datepicker-selected-today-box-shadow-width: 1px;
+  $mat-datepicker-selected-fade-amount: 0.6;
+  $mat-datepicker-today-fade-amount: 0.2;
+
+  .mat-datepicker-content {
+    background-color: mat-color($background, card);
+  }
+
+  .mat-calendar-arrow {
+    border-top-color: mat-color($foreground, icon);
+  }
+
+  .mat-calendar-next-button,
+  .mat-calendar-previous-button {
+    color: mat-color($foreground, icon);
+  }
+
+  .mat-calendar-table-header {
+    color: mat-color($foreground, hint-text);
+  }
+
+  .mat-calendar-table-header-divider::after {
+    background: mat-color($foreground, divider);
+  }
+
+  .mat-calendar-body-label {
+    color: mat-color($foreground, secondary-text);
+  }
+
+  .mat-calendar-body-cell-content {
+    color: mat-color($foreground, text);
+    border-color: transparent;
+
+    .mat-calendar-body-disabled > &:not(.mat-calendar-body-selected) {
+      color: mat-color($foreground, disabled-text);
+    }
+  }
+
+  :not(.mat-calendar-body-disabled):hover,
+  .cdk-keyboard-focused .mat-calendar-body-active {
+    & > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+      background-color: mat-color($background, hover);
+    }
+  }
+
+  .mat-calendar-body-selected {
+    background-color: mat-color($primary);
+    color: mat-color($primary, default-contrast);
+  }
+
+  .mat-calendar-body-disabled > .mat-calendar-body-selected {
+    background-color: fade-out(mat-color($primary), $mat-datepicker-selected-fade-amount);
+  }
+
+  .mat-calendar-body-today {
+    &:not(.mat-calendar-body-selected) {
+      // Note: though it's not text, the border is a hint about the fact that this is today's date,
+      // so we use the hint color.
+      border-color: mat-color($foreground, hint-text);
+    }
+
+    &.mat-calendar-body-selected {
+      box-shadow: inset 0 0 0 $mat-datepicker-selected-today-box-shadow-width
+                  mat-color($primary, default-contrast);
+    }
+  }
+
+  .mat-calendar-body-disabled > .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+    border-color: fade-out(mat-color($foreground, hint-text), $mat-datepicker-today-fade-amount);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2768,4 +3212,5 @@ $mat-menu-icon-margin: 16px !default;
   @include mat-tabs-theme($theme);
   @include mat-toolbar-theme($theme);
   @include mat-tooltip-theme($theme);
+  @include mat-simple-snack-bar-theme($theme);
 }
