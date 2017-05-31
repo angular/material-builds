@@ -14213,11 +14213,15 @@ class MdInputDirective {
      * @param {?} _elementRef
      * @param {?} _renderer
      * @param {?} _ngControl
+     * @param {?} _parentForm
+     * @param {?} _parentFormGroup
      */
-    constructor(_elementRef, _renderer, _ngControl) {
+    constructor(_elementRef, _renderer, _ngControl, _parentForm, _parentFormGroup) {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this._ngControl = _ngControl;
+        this._parentForm = _parentForm;
+        this._parentFormGroup = _parentFormGroup;
         /**
          * Variables used as cache for getters and setters.
          */
@@ -14364,6 +14368,18 @@ class MdInputDirective {
         // FormsModule or ReactiveFormsModule, because Angular forms also listens to input events.
     }
     /**
+     * Whether the input is in an error state.
+     * @return {?}
+     */
+    _isErrorState() {
+        const /** @type {?} */ control = this._ngControl;
+        const /** @type {?} */ isInvalid = control && control.invalid;
+        const /** @type {?} */ isTouched = control && control.touched;
+        const /** @type {?} */ isSubmitted = (this._parentFormGroup && this._parentFormGroup.submitted) ||
+            (this._parentForm && this._parentForm.submitted);
+        return !!(isInvalid && (isTouched || isSubmitted));
+    }
+    /**
      * Make sure the input is a supported type.
      * @return {?}
      */
@@ -14403,6 +14419,7 @@ MdInputDirective.decorators = [
                     '[disabled]': 'disabled',
                     '[required]': 'required',
                     '[attr.aria-describedby]': 'ariaDescribedby || null',
+                    '[attr.aria-invalid]': '_isErrorState()',
                     '(blur)': '_onBlur()',
                     '(focus)': '_onFocus()',
                     '(input)': '_onInput()',
@@ -14416,6 +14433,8 @@ MdInputDirective.ctorParameters = () => [
     { type: ElementRef, },
     { type: Renderer2, },
     { type: NgControl, decorators: [{ type: Optional }, { type: Self },] },
+    { type: NgForm, decorators: [{ type: Optional },] },
+    { type: FormGroupDirective, decorators: [{ type: Optional },] },
 ];
 MdInputDirective.propDecorators = {
     'disabled': [{ type: Input },],
@@ -14432,14 +14451,10 @@ class MdInputContainer {
     /**
      * @param {?} _elementRef
      * @param {?} _changeDetectorRef
-     * @param {?} _parentForm
-     * @param {?} _parentFormGroup
      */
-    constructor(_elementRef, _changeDetectorRef, _parentForm, _parentFormGroup) {
+    constructor(_elementRef, _changeDetectorRef) {
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
-        this._parentForm = _parentForm;
-        this._parentFormGroup = _parentFormGroup;
         /**
          * Alignment of the input container's content.
          */
@@ -14559,23 +14574,12 @@ class MdInputContainer {
      */
     _focusInput() { this._mdInputChild.focus(); }
     /**
-     * Whether the input container is in an error state.
-     * @return {?}
-     */
-    _isErrorState() {
-        const /** @type {?} */ control = this._mdInputChild._ngControl;
-        const /** @type {?} */ isInvalid = control && control.invalid;
-        const /** @type {?} */ isTouched = control && control.touched;
-        const /** @type {?} */ isSubmitted = (this._parentFormGroup && this._parentFormGroup.submitted) ||
-            (this._parentForm && this._parentForm.submitted);
-        return !!(isInvalid && (isTouched || isSubmitted));
-    }
-    /**
      * Determines whether to display hints or errors.
      * @return {?}
      */
     _getDisplayedMessages() {
-        return (this._errorChildren.length > 0 && this._isErrorState()) ? 'error' : 'hint';
+        let /** @type {?} */ input = this._mdInputChild;
+        return (this._errorChildren.length > 0 && input._isErrorState()) ? 'error' : 'hint';
     }
     /**
      * Ensure that there is only one placeholder (either `input` attribute or child element with the
@@ -14671,7 +14675,7 @@ MdInputContainer.decorators = [
                     // Remove align attribute to prevent it from interfering with layout.
                     '[attr.align]': 'null',
                     '[class.mat-input-container]': 'true',
-                    '[class.mat-input-invalid]': '_isErrorState()',
+                    '[class.mat-input-invalid]': '_mdInputChild._isErrorState()',
                     '[class.mat-focused]': '_mdInputChild.focused',
                     '[class.ng-untouched]': '_shouldForward("untouched")',
                     '[class.ng-touched]': '_shouldForward("touched")',
@@ -14691,8 +14695,6 @@ MdInputContainer.decorators = [
 MdInputContainer.ctorParameters = () => [
     { type: ElementRef, },
     { type: ChangeDetectorRef, },
-    { type: NgForm, decorators: [{ type: Optional },] },
-    { type: FormGroupDirective, decorators: [{ type: Optional },] },
 ];
 MdInputContainer.propDecorators = {
     'align': [{ type: Input },],

@@ -29,6 +29,8 @@ export declare class MdInputDirective {
     private _elementRef;
     private _renderer;
     _ngControl: NgControl;
+    private _parentForm;
+    private _parentFormGroup;
     /** Variables used as cache for getters and setters. */
     private _type;
     private _placeholder;
@@ -60,12 +62,14 @@ export declare class MdInputDirective {
     readonly empty: boolean;
     private readonly _uid;
     private _neverEmptyInputTypes;
-    constructor(_elementRef: ElementRef, _renderer: Renderer2, _ngControl: NgControl);
+    constructor(_elementRef: ElementRef, _renderer: Renderer2, _ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective);
     /** Focuses the input element. */
     focus(): void;
     _onFocus(): void;
     _onBlur(): void;
     _onInput(): void;
+    /** Whether the input is in an error state. */
+    _isErrorState(): boolean;
     /** Make sure the input is a supported type. */
     private _validateType();
     private _isNeverEmpty();
@@ -79,8 +83,6 @@ export declare class MdInputDirective {
 export declare class MdInputContainer implements AfterViewInit, AfterContentInit, AfterContentChecked {
     _elementRef: ElementRef;
     private _changeDetectorRef;
-    private _parentForm;
-    private _parentFormGroup;
     /** Alignment of the input container's content. */
     align: 'start' | 'end';
     /** Color of the input divider, based on the theme. */
@@ -111,7 +113,7 @@ export declare class MdInputContainer implements AfterViewInit, AfterContentInit
     _hintChildren: QueryList<MdHint>;
     _prefixChildren: QueryList<MdPrefix>;
     _suffixChildren: QueryList<MdSuffix>;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _parentForm: NgForm, _parentFormGroup: FormGroupDirective);
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef);
     ngAfterContentInit(): void;
     ngAfterContentChecked(): void;
     ngAfterViewInit(): void;
@@ -121,8 +123,6 @@ export declare class MdInputContainer implements AfterViewInit, AfterContentInit
     _hasPlaceholder(): boolean;
     /** Focuses the underlying input. */
     _focusInput(): void;
-    /** Whether the input container is in an error state. */
-    _isErrorState(): boolean;
     /** Determines whether to display hints or errors. */
     _getDisplayedMessages(): 'error' | 'hint';
     /**
