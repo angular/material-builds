@@ -1828,7 +1828,11 @@ $mat-menu-icon-margin: 16px !default;
 
 @mixin mat-button-typography($config) {
   .mat-button, .mat-raised-button, .mat-icon-button {
-    @include mat-typography-level-to-styles($config, button);
+    font: {
+      family: mat-font-family($config);
+      size: mat-font-size($config, button);
+      weight: mat-font-weight($config, button);
+    }
   }
 }
 
@@ -2912,7 +2916,11 @@ $mat-chip-line-height: 16px;
   }
 
   .mat-tab-label, .mat-tab-link {
-    @include mat-typography-level-to-styles($config, button);
+    font: {
+      family: mat-font-family($config);
+      size: mat-font-size($config, button);
+      weight: mat-font-weight($config, button);
+    }
   }
 }
 
