@@ -1,6 +1,6 @@
 import { AfterViewInit, ElementRef, EventEmitter, OnDestroy, ViewContainerRef } from '@angular/core';
 import { MdMenuPanel } from './menu-panel';
-import { Dir, LayoutDirection, Overlay, ScrollDispatcher } from '../core';
+import { Dir, LayoutDirection, Overlay } from '../core';
 /**
  * This directive is intended to be used in conjunction with an md-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
@@ -10,7 +10,6 @@ export declare class MdMenuTrigger implements AfterViewInit, OnDestroy {
     private _element;
     private _viewContainerRef;
     private _dir;
-    private _scrollDispatcher;
     private _portal;
     private _overlayRef;
     private _menuOpen;
@@ -28,7 +27,7 @@ export declare class MdMenuTrigger implements AfterViewInit, OnDestroy {
     onMenuOpen: EventEmitter<void>;
     /** Event emitted when the associated menu is closed. */
     onMenuClose: EventEmitter<void>;
-    constructor(_overlay: Overlay, _element: ElementRef, _viewContainerRef: ViewContainerRef, _dir: Dir, _scrollDispatcher: ScrollDispatcher);
+    constructor(_overlay: Overlay, _element: ElementRef, _viewContainerRef: ViewContainerRef, _dir: Dir);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Whether the menu is open. */

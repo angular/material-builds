@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import { MdOptionSelectionChange, MdOption } from '../core/option/option';
 import { Dir } from '../core/rtl/dir';
 import { MdInputContainer } from '../input/input-container';
-import { ScrollDispatcher } from '../core/overlay/scroll/scroll-dispatcher';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/filter';
@@ -34,7 +33,6 @@ export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDe
     private _overlay;
     private _viewContainerRef;
     private _changeDetectorRef;
-    private _scrollDispatcher;
     private _dir;
     private _zone;
     private _inputContainer;
@@ -55,7 +53,7 @@ export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDe
     autocomplete: MdAutocomplete;
     /** Property with mat- prefix for no-conflict mode. */
     _matAutocomplete: MdAutocomplete;
-    constructor(_element: ElementRef, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _changeDetectorRef: ChangeDetectorRef, _scrollDispatcher: ScrollDispatcher, _dir: Dir, _zone: NgZone, _inputContainer: MdInputContainer, _document: any);
+    constructor(_element: ElementRef, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _changeDetectorRef: ChangeDetectorRef, _dir: Dir, _zone: NgZone, _inputContainer: MdInputContainer, _document: any);
     ngOnDestroy(): void;
     readonly panelOpen: boolean;
     /** Opens the autocomplete suggestion panel. */

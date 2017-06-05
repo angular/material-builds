@@ -2,7 +2,6 @@ import { AfterContentInit, EventEmitter, OnDestroy, ViewContainerRef, NgZone } f
 import { Overlay } from '../core/overlay/overlay';
 import { Dir } from '../core/rtl/dir';
 import { MdDialog } from '../dialog/dialog';
-import { ScrollDispatcher } from '../core/overlay/index';
 import { MdDatepickerInput } from './datepicker-input';
 import { DateAdapter } from '../core/datetime/index';
 import { MdCalendar } from './calendar';
@@ -30,7 +29,6 @@ export declare class MdDatepicker<D> implements OnDestroy {
     private _overlay;
     private _ngZone;
     private _viewContainerRef;
-    private _scrollDispatcher;
     private _dateAdapter;
     private _dir;
     /** The date to open the calendar to initially. */
@@ -65,7 +63,7 @@ export declare class MdDatepicker<D> implements OnDestroy {
     /** The input element this datepicker is associated with. */
     private _datepickerInput;
     private _inputSubscription;
-    constructor(_dialog: MdDialog, _overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, _scrollDispatcher: ScrollDispatcher, _dateAdapter: DateAdapter<D>, _dir: Dir);
+    constructor(_dialog: MdDialog, _overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, _dateAdapter: DateAdapter<D>, _dir: Dir);
     ngOnDestroy(): void;
     /** Selects the given date and closes the currently open popup or dialog. */
     _selectAndClose(date: D): void;
