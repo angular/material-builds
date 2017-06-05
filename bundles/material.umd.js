@@ -19492,12 +19492,8 @@ MdDialogContainer.decorators = [
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 animations: [
                     _angular_animations.trigger('slideDialog', [
-                        // Note: The `enter` animation doesn't transition to something like `translate3d(0, 0, 0)
-                        // scale(1)`, because for some reason specifying the transform explicitly, causes IE both
-                        // to blur the dialog content and decimate the animation performance. Leaving it blank
-                        // solves both issues.
-                        _angular_animations.state('enter', _angular_animations.style({ opacity: 1 })),
                         _angular_animations.state('void', _angular_animations.style({ transform: 'translate3d(0, 25%, 0) scale(0.9)', opacity: 0 })),
+                        _angular_animations.state('enter', _angular_animations.style({ transform: 'translate3d(0, 0, 0) scale(1)', opacity: 1 })),
                         _angular_animations.state('exit', _angular_animations.style({ transform: 'translate3d(0, 25%, 0)', opacity: 0 })),
                         _angular_animations.transition('* => *', _angular_animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
                     ])
