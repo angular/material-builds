@@ -17991,12 +17991,10 @@ class MdDialogRef {
         this._afterClosed = new Subject();
         _containerInstance._onAnimationStateChange
             .filter((event) => event.toState === 'exit')
-            .subscribe(() => {
-            this._overlayRef.dispose();
-            this.componentInstance = null;
-        }, null, () => {
+            .subscribe(() => this._overlayRef.dispose(), null, () => {
             this._afterClosed.next(this._result);
             this._afterClosed.complete();
+            this.componentInstance = null;
         });
     }
     /**
@@ -20605,6 +20603,7 @@ MdDatepickerModule.decorators = [
                     MdDialogModule,
                     OverlayModule,
                     StyleModule,
+                    A11yModule,
                 ],
                 exports: [
                     MdDatepicker,

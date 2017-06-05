@@ -19130,12 +19130,10 @@ var MdDialogRef = /*@__PURE__*/(function () {
         this._afterClosed = new Subject();
         _containerInstance._onAnimationStateChange
             .filter(function (event) { return event.toState === 'exit'; })
-            .subscribe(function () {
-            _this._overlayRef.dispose();
-            _this.componentInstance = null;
-        }, null, function () {
+            .subscribe(function () { return _this._overlayRef.dispose(); }, null, function () {
             _this._afterClosed.next(_this._result);
             _this._afterClosed.complete();
+            _this.componentInstance = null;
         });
     }
     /**
@@ -21916,6 +21914,7 @@ MdDatepickerModule.decorators = [
                     MdDialogModule,
                     OverlayModule,
                     StyleModule,
+                    A11yModule,
                 ],
                 exports: [
                     MdDatepicker,
