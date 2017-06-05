@@ -19941,6 +19941,15 @@ var MD_AUTOCOMPLETE_VALUE_ACCESSOR = {
     useExisting: _angular_core.forwardRef(function () { return MdAutocompleteTrigger; }),
     multi: true
 };
+/**
+ * Creates an error to be thrown when attempting to use an autocomplete trigger without a panel.
+ * @return {?}
+ */
+function getMdAutocompleteMissingPanelError() {
+    return new Error('Attempting to open an undefined instance of `md-autocomplete`. ' +
+        'Make sure that the id passed to the `mdAutocomplete` is correct and that ' +
+        'you\'re attempting to open it after the ngAfterContentInit hook.');
+}
 var MdAutocompleteTrigger = (function () {
     /**
      * @param {?} _element
@@ -20019,6 +20028,9 @@ var MdAutocompleteTrigger = (function () {
      * @return {?}
      */
     MdAutocompleteTrigger.prototype.openPanel = function () {
+        if (!this.autocomplete) {
+            throw getMdAutocompleteMissingPanelError();
+        }
         if (!this._overlayRef) {
             this._createOverlay();
         }
@@ -20080,7 +20092,7 @@ var MdAutocompleteTrigger = (function () {
          * @return {?}
          */
         get: function () {
-            if (this.autocomplete._keyManager) {
+            if (this.autocomplete && this.autocomplete._keyManager) {
                 return (this.autocomplete._keyManager.activeItem);
             }
         },
@@ -22658,6 +22670,7 @@ exports.MdAutocomplete = MdAutocomplete;
 exports.AUTOCOMPLETE_OPTION_HEIGHT = AUTOCOMPLETE_OPTION_HEIGHT;
 exports.AUTOCOMPLETE_PANEL_HEIGHT = AUTOCOMPLETE_PANEL_HEIGHT;
 exports.MD_AUTOCOMPLETE_VALUE_ACCESSOR = MD_AUTOCOMPLETE_VALUE_ACCESSOR;
+exports.getMdAutocompleteMissingPanelError = getMdAutocompleteMissingPanelError;
 exports.MdAutocompleteTrigger = MdAutocompleteTrigger;
 exports.MdButtonModule = MdButtonModule;
 exports.MdButtonCssMatStyler = MdButtonCssMatStyler;

@@ -25,6 +25,10 @@ export declare const AUTOCOMPLETE_PANEL_HEIGHT = 256;
  * @docs-private
  */
 export declare const MD_AUTOCOMPLETE_VALUE_ACCESSOR: any;
+/**
+ * Creates an error to be thrown when attempting to use an autocomplete trigger without a panel.
+ */
+export declare function getMdAutocompleteMissingPanelError(): Error;
 export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
     private _element;
     private _overlay;
