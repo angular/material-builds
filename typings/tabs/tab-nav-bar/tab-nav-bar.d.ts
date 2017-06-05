@@ -1,9 +1,10 @@
-import { ElementRef, NgZone, OnDestroy, AfterContentInit } from '@angular/core';
+import { AfterContentInit, ElementRef, NgZone, OnDestroy } from '@angular/core';
 import { MdInkBar } from '../ink-bar';
 import { MdRipple } from '../../core/ripple/index';
 import { ViewportRuler } from '../../core/overlay/position/viewport-ruler';
-import { RippleGlobalOptions, Dir, Platform } from '../../core';
+import { Dir, Platform, RippleGlobalOptions } from '../../core';
 import 'rxjs/add/operator/auditTime';
+import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/merge';
 /**
@@ -13,8 +14,8 @@ import 'rxjs/add/observable/merge';
 export declare class MdTabNavBar implements AfterContentInit, OnDestroy {
     private _dir;
     private _ngZone;
-    /** Combines listeners that will re-align the ink bar whenever they're invoked. */
-    private _realignInkBar;
+    /** Subject that emits when the component has been destroyed. */
+    private _onDestroy;
     _activeLinkChanged: boolean;
     _activeLinkElement: ElementRef;
     _inkBar: MdInkBar;
@@ -26,7 +27,7 @@ export declare class MdTabNavBar implements AfterContentInit, OnDestroy {
     ngAfterContentChecked(): void;
     ngOnDestroy(): void;
     /** Aligns the ink bar to the active link. */
-    private _alignInkBar();
+    _alignInkBar(): void;
 }
 /**
  * Link inside of a `md-tab-nav-bar`.

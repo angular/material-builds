@@ -28,6 +28,7 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/operator/switchMap';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/let';
@@ -16992,9 +16993,9 @@ var MdTabNavBar = /*@__PURE__*/(function () {
         this._dir = _dir;
         this._ngZone = _ngZone;
         /**
-         * Combines listeners that will re-align the ink bar whenever they're invoked.
+         * Subject that emits when the component has been destroyed.
          */
-        this._realignInkBar = null;
+        this._onDestroy = new Subject();
     }
     /**
      * Notifies the component that the active link has been changed.
@@ -17010,12 +17011,14 @@ var MdTabNavBar = /*@__PURE__*/(function () {
      */
     MdTabNavBar.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this._realignInkBar = this._ngZone.runOutsideAngular(function () {
+        this._ngZone.runOutsideAngular(function () {
             var /** @type {?} */ dirChange = _this._dir ? _this._dir.dirChange : Observable.of(null);
             var /** @type {?} */ resize = typeof window !== 'undefined' ?
                 Observable.fromEvent(window, 'resize').auditTime(10) :
                 Observable.of(null);
-            return Observable.merge(dirChange, resize).subscribe(function () { return _this._alignInkBar(); });
+            return Observable.merge(dirChange, resize)
+                .takeUntil(_this._onDestroy)
+                .subscribe(function () { return _this._alignInkBar(); });
         });
     };
     /**
@@ -17032,10 +17035,7 @@ var MdTabNavBar = /*@__PURE__*/(function () {
      * @return {?}
      */
     MdTabNavBar.prototype.ngOnDestroy = function () {
-        if (this._realignInkBar) {
-            this._realignInkBar.unsubscribe();
-            this._realignInkBar = null;
-        }
+        this._onDestroy.next();
     };
     /**
      * Aligns the ink bar to the active link.
@@ -17050,7 +17050,7 @@ var MdTabNavBar = /*@__PURE__*/(function () {
 }());
 MdTabNavBar.decorators = [
     { type: Component, args: [{ selector: '[md-tab-nav-bar], [mat-tab-nav-bar]',
-                template: "<div class=\"mat-tab-links\"><ng-content></ng-content><md-ink-bar></md-ink-bar></div>",
+                template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><md-ink-bar></md-ink-bar></div>",
                 styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative}.mat-tab-link{line-height:48px;height:48px;padding:0 12px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-block;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0;opacity:1}@media (max-width:600px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}"],
                 host: { 'class': 'mat-tab-nav-bar' },
                 encapsulation: ViewEncapsulation.None,

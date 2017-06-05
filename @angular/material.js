@@ -27,6 +27,7 @@ import 'rxjs/add/operator/share';
 import 'rxjs/add/operator/finally';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/operator/switchMap';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/let';
@@ -15981,9 +15982,9 @@ class MdTabNavBar {
         this._dir = _dir;
         this._ngZone = _ngZone;
         /**
-         * Combines listeners that will re-align the ink bar whenever they're invoked.
+         * Subject that emits when the component has been destroyed.
          */
-        this._realignInkBar = null;
+        this._onDestroy = new Subject();
     }
     /**
      * Notifies the component that the active link has been changed.
@@ -15998,12 +15999,14 @@ class MdTabNavBar {
      * @return {?}
      */
     ngAfterContentInit() {
-        this._realignInkBar = this._ngZone.runOutsideAngular(() => {
+        this._ngZone.runOutsideAngular(() => {
             let /** @type {?} */ dirChange = this._dir ? this._dir.dirChange : Observable.of(null);
             let /** @type {?} */ resize = typeof window !== 'undefined' ?
                 Observable.fromEvent(window, 'resize').auditTime(10) :
                 Observable.of(null);
-            return Observable.merge(dirChange, resize).subscribe(() => this._alignInkBar());
+            return Observable.merge(dirChange, resize)
+                .takeUntil(this._onDestroy)
+                .subscribe(() => this._alignInkBar());
         });
     }
     /**
@@ -16020,10 +16023,7 @@ class MdTabNavBar {
      * @return {?}
      */
     ngOnDestroy() {
-        if (this._realignInkBar) {
-            this._realignInkBar.unsubscribe();
-            this._realignInkBar = null;
-        }
+        this._onDestroy.next();
     }
     /**
      * Aligns the ink bar to the active link.
@@ -16037,7 +16037,7 @@ class MdTabNavBar {
 }
 MdTabNavBar.decorators = [
     { type: Component, args: [{selector: '[md-tab-nav-bar], [mat-tab-nav-bar]',
-                template: "<div class=\"mat-tab-links\"><ng-content></ng-content><md-ink-bar></md-ink-bar></div>",
+                template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><md-ink-bar></md-ink-bar></div>",
                 styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative}.mat-tab-link{line-height:48px;height:48px;padding:0 12px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-block;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0;opacity:1}@media (max-width:600px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}"],
                 host: { 'class': 'mat-tab-nav-bar' },
                 encapsulation: ViewEncapsulation.None,
