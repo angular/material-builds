@@ -20603,7 +20603,6 @@ MdDatepickerModule.decorators = [
                     MdDialogModule,
                     OverlayModule,
                     StyleModule,
-                    A11yModule,
                 ],
                 exports: [
                     MdDatepicker,
