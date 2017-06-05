@@ -4258,29 +4258,31 @@ var FocusTrap = /*@__PURE__*/(function () {
         });
     };
     /**
+     * Waits for the zone to stabilize, then either focuses the first element that the
+     * user specified, or the first tabbable element..
      * @return {?}
      */
     FocusTrap.prototype.focusInitialElementWhenReady = function () {
         var _this = this;
-        this._ngZone.onMicrotaskEmpty.first().subscribe(function () { return _this.focusInitialElement(); });
+        this._executeOnStable(function () { return _this.focusInitialElement(); });
     };
     /**
-     * Waits for microtask queue to empty, then focuses
+     * Waits for the zone to stabilize, then focuses
      * the first tabbable element within the focus trap region.
      * @return {?}
      */
     FocusTrap.prototype.focusFirstTabbableElementWhenReady = function () {
         var _this = this;
-        this._ngZone.onMicrotaskEmpty.first().subscribe(function () { return _this.focusFirstTabbableElement(); });
+        this._executeOnStable(function () { return _this.focusFirstTabbableElement(); });
     };
     /**
-     * Waits for microtask queue to empty, then focuses
+     * Waits for the zone to stabilize, then focuses
      * the last tabbable element within the focus trap region.
      * @return {?}
      */
     FocusTrap.prototype.focusLastTabbableElementWhenReady = function () {
         var _this = this;
-        this._ngZone.onMicrotaskEmpty.first().subscribe(function () { return _this.focusLastTabbableElement(); });
+        this._executeOnStable(function () { return _this.focusLastTabbableElement(); });
     };
     /**
      * Get the specified boundary element of the trapped region.
@@ -4288,13 +4290,15 @@ var FocusTrap = /*@__PURE__*/(function () {
      * @return {?} The boundary element.
      */
     FocusTrap.prototype._getRegionBoundary = function (bound) {
-        var /** @type {?} */ markers = Array.prototype.slice.call(this._element.querySelectorAll("[cdk-focus-region-" + bound + "]")).concat(Array.prototype.slice.call(this._element.querySelectorAll("[cdk-focus-" + bound + "]")));
-        markers.forEach(function (el) {
-            if (el.hasAttribute("cdk-focus-" + bound)) {
+        // Contains the deprecated version of selector, for temporary backwards comparability.
+        var /** @type {?} */ markers = (this._element.querySelectorAll("[cdk-focus-region-" + bound + "], " +
+            ("[cdk-focus-" + bound + "]")));
+        for (var /** @type {?} */ i = 0; i < markers.length; i++) {
+            if (markers[i].hasAttribute("cdk-focus-" + bound)) {
                 console.warn("Found use of deprecated attribute 'cdk-focus-" + bound + "'," +
-                    (" use 'cdk-focus-region-" + bound + "' instead."), el);
+                    (" use 'cdk-focus-region-" + bound + "' instead."), markers[i]);
             }
-        });
+        }
         if (bound == 'start') {
             return markers.length ? markers[0] : this._getFirstTabbableElement(this._element);
         }
@@ -4387,6 +4391,19 @@ var FocusTrap = /*@__PURE__*/(function () {
         anchor.classList.add('cdk-visually-hidden');
         anchor.classList.add('cdk-focus-trap-anchor');
         return anchor;
+    };
+    /**
+     * Executes a function when the zone is stable.
+     * @param {?} fn
+     * @return {?}
+     */
+    FocusTrap.prototype._executeOnStable = function (fn) {
+        if (this._ngZone.isStable) {
+            fn();
+        }
+        else {
+            this._ngZone.onStable.first().subscribe(fn);
+        }
     };
     return FocusTrap;
 }());
@@ -9119,7 +9136,9 @@ var MdSelect = /*@__PURE__*/(function () {
      */
     MdSelect.prototype._selectValue = function (value) {
         var /** @type {?} */ optionsArray = this.options.toArray();
-        var /** @type {?} */ correspondingOption = optionsArray.find(function (option) { return option.value && option.value === value; });
+        var /** @type {?} */ correspondingOption = optionsArray.find(function (option) {
+            return option.value != null && option.value === value;
+        });
         if (correspondingOption) {
             correspondingOption.select();
             this._selectionModel.select(correspondingOption);

@@ -4180,26 +4180,28 @@ class FocusTrap {
         });
     }
     /**
+     * Waits for the zone to stabilize, then either focuses the first element that the
+     * user specified, or the first tabbable element..
      * @return {?}
      */
     focusInitialElementWhenReady() {
-        this._ngZone.onMicrotaskEmpty.first().subscribe(() => this.focusInitialElement());
+        this._executeOnStable(() => this.focusInitialElement());
     }
     /**
-     * Waits for microtask queue to empty, then focuses
+     * Waits for the zone to stabilize, then focuses
      * the first tabbable element within the focus trap region.
      * @return {?}
      */
     focusFirstTabbableElementWhenReady() {
-        this._ngZone.onMicrotaskEmpty.first().subscribe(() => this.focusFirstTabbableElement());
+        this._executeOnStable(() => this.focusFirstTabbableElement());
     }
     /**
-     * Waits for microtask queue to empty, then focuses
+     * Waits for the zone to stabilize, then focuses
      * the last tabbable element within the focus trap region.
      * @return {?}
      */
     focusLastTabbableElementWhenReady() {
-        this._ngZone.onMicrotaskEmpty.first().subscribe(() => this.focusLastTabbableElement());
+        this._executeOnStable(() => this.focusLastTabbableElement());
     }
     /**
      * Get the specified boundary element of the trapped region.
@@ -4207,17 +4209,15 @@ class FocusTrap {
      * @return {?} The boundary element.
      */
     _getRegionBoundary(bound) {
-        let /** @type {?} */ markers = [
-            ...Array.prototype.slice.call(this._element.querySelectorAll(`[cdk-focus-region-${bound}]`)),
-            // Deprecated version of selector, for temporary backwards comparability:
-            ...Array.prototype.slice.call(this._element.querySelectorAll(`[cdk-focus-${bound}]`)),
-        ];
-        markers.forEach((el) => {
-            if (el.hasAttribute(`cdk-focus-${bound}`)) {
+        // Contains the deprecated version of selector, for temporary backwards comparability.
+        let /** @type {?} */ markers = (this._element.querySelectorAll(`[cdk-focus-region-${bound}], ` +
+            `[cdk-focus-${bound}]`));
+        for (let /** @type {?} */ i = 0; i < markers.length; i++) {
+            if (markers[i].hasAttribute(`cdk-focus-${bound}`)) {
                 console.warn(`Found use of deprecated attribute 'cdk-focus-${bound}',` +
-                    ` use 'cdk-focus-region-${bound}' instead.`, el);
+                    ` use 'cdk-focus-region-${bound}' instead.`, markers[i]);
             }
-        });
+        }
         if (bound == 'start') {
             return markers.length ? markers[0] : this._getFirstTabbableElement(this._element);
         }
@@ -4310,6 +4310,19 @@ class FocusTrap {
         anchor.classList.add('cdk-visually-hidden');
         anchor.classList.add('cdk-focus-trap-anchor');
         return anchor;
+    }
+    /**
+     * Executes a function when the zone is stable.
+     * @param {?} fn
+     * @return {?}
+     */
+    _executeOnStable(fn) {
+        if (this._ngZone.isStable) {
+            fn();
+        }
+        else {
+            this._ngZone.onStable.first().subscribe(fn);
+        }
     }
 }
 /**
@@ -8704,7 +8717,9 @@ class MdSelect {
      */
     _selectValue(value) {
         let /** @type {?} */ optionsArray = this.options.toArray();
-        let /** @type {?} */ correspondingOption = optionsArray.find(option => option.value && option.value === value);
+        let /** @type {?} */ correspondingOption = optionsArray.find(option => {
+            return option.value != null && option.value === value;
+        });
         if (correspondingOption) {
             correspondingOption.select();
             this._selectionModel.select(correspondingOption);
