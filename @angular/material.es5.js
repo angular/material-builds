@@ -4,7 +4,7 @@ import * as tslib_1 from "tslib";
   * Copyright (c) 2017 Google, Inc. https://material.angular.io/
   * License: MIT
   */
-import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, InjectionToken, Injector, Input, NgModule, NgZone, Optional, Output, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
+import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, InjectionToken, Injector, Input, IterableDiffers, NgModule, NgZone, Optional, Output, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
 import { DOCUMENT, DomSanitizer, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
@@ -9622,12 +9622,14 @@ var MdSlideToggle = /*@__PURE__*/(function (_super) {
      * @param {?} _elementRef
      * @param {?} _renderer
      * @param {?} _focusOriginMonitor
+     * @param {?} _changeDetectorRef
      */
-    function MdSlideToggle(_elementRef, _renderer, _focusOriginMonitor) {
+    function MdSlideToggle(_elementRef, _renderer, _focusOriginMonitor, _changeDetectorRef) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._renderer = _renderer;
         _this._focusOriginMonitor = _focusOriginMonitor;
+        _this._changeDetectorRef = _changeDetectorRef;
         _this.onChange = function (_) { };
         _this.onTouched = function () { };
         _this._uniqueId = "md-slide-toggle-" + ++nextId$1;
@@ -9785,6 +9787,7 @@ var MdSlideToggle = /*@__PURE__*/(function (_super) {
      */
     MdSlideToggle.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
+        this._changeDetectorRef.markForCheck();
     };
     /**
      * Focuses the slide-toggle.
@@ -9946,6 +9949,7 @@ MdSlideToggle.ctorParameters = function () { return [
     { type: ElementRef, },
     { type: Renderer2, },
     { type: FocusOriginMonitor, },
+    { type: ChangeDetectorRef, },
 ]; };
 MdSlideToggle.propDecorators = {
     'name': [{ type: Input },],
@@ -22255,14 +22259,16 @@ HeaderRowPlaceholder.ctorParameters = function () { return [
     { type: ViewContainerRef, },
 ]; };
 /**
- * A data table that connects with a data source to retrieve data and renders
+ * A data table that connects with a data source to retrieve data of type T and renders
  * a header row and data rows. Updates the rows when new data is provided by the data source.
  */
 var CdkTable = /*@__PURE__*/(function () {
     /**
+     * @param {?} _differs
      * @param {?} _changeDetectorRef
      */
-    function CdkTable(_changeDetectorRef) {
+    function CdkTable(_differs, _changeDetectorRef) {
+        this._differs = _differs;
         this._changeDetectorRef = _changeDetectorRef;
         /**
          * Stream containing the latest information on what rows are being displayed on screen.
@@ -22274,8 +22280,15 @@ var CdkTable = /*@__PURE__*/(function () {
          * Contains the header and data-cell templates.
          */
         this._columnDefinitionsByName = new Map();
+        /**
+         * Differ used to find the changes in the data provided by the data source.
+         */
+        this._dataDiffer = null;
         console.warn('The data table is still in active development ' +
             'and should be considered unstable.');
+        // TODO(andrewseguin): Add trackby function input.
+        // Find and construct an iterable differ that can be used to find the diff in an array.
+        this._dataDiffer = this._differs.find([]).create();
     }
     /**
      * @return {?}
@@ -22313,11 +22326,7 @@ var CdkTable = /*@__PURE__*/(function () {
         //   present after view init, connect it when it is defined.
         // TODO(andrewseguin): Unsubscribe from this on destroy.
         this.dataSource.connect(this).subscribe(function (rowsData) {
-            // TODO(andrewseguin): Add a differ that will check if the data has changed,
-            //   rather than re-rendering all rows
-            _this._rowPlaceholder.viewContainer.clear();
-            rowsData.forEach(function (rowData) { return _this.insertRow(rowData); });
-            _this._changeDetectorRef.markForCheck();
+            _this.renderRowChanges(rowsData);
         });
     };
     /**
@@ -22335,12 +22344,38 @@ var CdkTable = /*@__PURE__*/(function () {
         CdkCellOutlet.mostRecentCellOutlet.context = {};
     };
     /**
+     * Check for changes made in the data and render each change (row added/removed/moved).
+     * @param {?} dataRows
+     * @return {?}
+     */
+    CdkTable.prototype.renderRowChanges = function (dataRows) {
+        var _this = this;
+        var /** @type {?} */ changes = this._dataDiffer.diff(dataRows);
+        if (!changes) {
+            return;
+        }
+        changes.forEachOperation(function (item, adjustedPreviousIndex, currentIndex) {
+            if (item.previousIndex == null) {
+                _this.insertRow(dataRows[currentIndex], currentIndex);
+            }
+            else if (currentIndex == null) {
+                _this._rowPlaceholder.viewContainer.remove(adjustedPreviousIndex);
+            }
+            else {
+                var /** @type {?} */ view = _this._rowPlaceholder.viewContainer.get(adjustedPreviousIndex);
+                _this._rowPlaceholder.viewContainer.move(view, currentIndex);
+            }
+        });
+        this._changeDetectorRef.markForCheck();
+    };
+    /**
      * Create the embedded view for the data row template and place it in the correct index location
      * within the data row view container.
      * @param {?} rowData
+     * @param {?} index
      * @return {?}
      */
-    CdkTable.prototype.insertRow = function (rowData) {
+    CdkTable.prototype.insertRow = function (rowData, index) {
         // TODO(andrewseguin): Add when predicates to the row definitions
         //   to find the right template to used based on
         //   the data rather than choosing the first row definition.
@@ -22349,7 +22384,7 @@ var CdkTable = /*@__PURE__*/(function () {
         var /** @type {?} */ context = { $implicit: rowData };
         // TODO(andrewseguin): add some code to enforce that exactly one
         //   CdkCellOutlet was instantiated as a result  of `createEmbeddedView`.
-        this._rowPlaceholder.viewContainer.createEmbeddedView(row.template, context);
+        this._rowPlaceholder.viewContainer.createEmbeddedView(row.template, context, index);
         // Insert empty cells if there is no data to improve rendering time.
         CdkCellOutlet.mostRecentCellOutlet.cells = rowData ? this.getCellTemplatesForRow(row) : [];
         CdkCellOutlet.mostRecentCellOutlet.context = context;
@@ -22396,6 +22431,7 @@ CdkTable.decorators = [
  * @nocollapse
  */
 CdkTable.ctorParameters = function () { return [
+    { type: IterableDiffers, },
     { type: ChangeDetectorRef, },
 ]; };
 CdkTable.propDecorators = {
