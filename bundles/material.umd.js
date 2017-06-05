@@ -4,10 +4,10 @@
   * License: MIT
   */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('rxjs/Subject'), require('rxjs/add/operator/debounceTime'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/Subscription'), require('rxjs/add/observable/fromEvent'), require('rxjs/add/observable/merge'), require('rxjs/add/operator/auditTime'), require('rxjs/add/operator/first'), require('rxjs/add/observable/of'), require('@angular/forms'), require('@angular/animations'), require('rxjs/add/operator/startWith'), require('rxjs/add/operator/filter'), require('@angular/http'), require('rxjs/add/observable/forkJoin'), require('rxjs/add/operator/map'), require('rxjs/add/operator/do'), require('rxjs/add/operator/share'), require('rxjs/add/operator/finally'), require('rxjs/add/operator/catch'), require('rxjs/add/observable/throw'), require('rxjs/add/operator/switchMap'), require('rxjs/BehaviorSubject'), require('rxjs/add/operator/let'), require('rxjs/add/observable/combineLatest')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', 'rxjs/Subject', 'rxjs/add/operator/debounceTime', '@angular/common', 'rxjs/Observable', 'rxjs/Subscription', 'rxjs/add/observable/fromEvent', 'rxjs/add/observable/merge', 'rxjs/add/operator/auditTime', 'rxjs/add/operator/first', 'rxjs/add/observable/of', '@angular/forms', '@angular/animations', 'rxjs/add/operator/startWith', 'rxjs/add/operator/filter', '@angular/http', 'rxjs/add/observable/forkJoin', 'rxjs/add/operator/map', 'rxjs/add/operator/do', 'rxjs/add/operator/share', 'rxjs/add/operator/finally', 'rxjs/add/operator/catch', 'rxjs/add/observable/throw', 'rxjs/add/operator/switchMap', 'rxjs/BehaviorSubject', 'rxjs/add/operator/let', 'rxjs/add/observable/combineLatest'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.platformBrowser,global.Rx,global.Rx.Observable.prototype,global.ng.common,global.Rx,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.ng.forms,global.ng.animations,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.ng.http,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx));
-}(this, (function (exports,_angular_core,_angular_platformBrowser,rxjs_Subject,rxjs_add_operator_debounceTime,_angular_common,rxjs_Observable,rxjs_Subscription,rxjs_add_observable_fromEvent,rxjs_add_observable_merge,rxjs_add_operator_auditTime,rxjs_add_operator_first,rxjs_add_observable_of,_angular_forms,_angular_animations,rxjs_add_operator_startWith,rxjs_add_operator_filter,_angular_http,rxjs_add_observable_forkJoin,rxjs_add_operator_map,rxjs_add_operator_do,rxjs_add_operator_share,rxjs_add_operator_finally,rxjs_add_operator_catch,rxjs_add_observable_throw,rxjs_add_operator_switchMap,rxjs_BehaviorSubject) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('rxjs/Subject'), require('rxjs/add/operator/debounceTime'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/Subscription'), require('rxjs/add/observable/fromEvent'), require('rxjs/add/observable/merge'), require('rxjs/add/operator/auditTime'), require('rxjs/add/operator/first'), require('rxjs/add/observable/of'), require('@angular/forms'), require('@angular/animations'), require('rxjs/add/operator/startWith'), require('rxjs/add/operator/filter'), require('@angular/http'), require('rxjs/add/observable/forkJoin'), require('rxjs/add/operator/map'), require('rxjs/add/operator/do'), require('rxjs/add/operator/share'), require('rxjs/add/operator/finally'), require('rxjs/add/operator/catch'), require('rxjs/add/observable/throw'), require('rxjs/add/operator/takeUntil'), require('rxjs/add/operator/switchMap'), require('rxjs/BehaviorSubject'), require('rxjs/add/operator/let'), require('rxjs/add/observable/combineLatest')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', 'rxjs/Subject', 'rxjs/add/operator/debounceTime', '@angular/common', 'rxjs/Observable', 'rxjs/Subscription', 'rxjs/add/observable/fromEvent', 'rxjs/add/observable/merge', 'rxjs/add/operator/auditTime', 'rxjs/add/operator/first', 'rxjs/add/observable/of', '@angular/forms', '@angular/animations', 'rxjs/add/operator/startWith', 'rxjs/add/operator/filter', '@angular/http', 'rxjs/add/observable/forkJoin', 'rxjs/add/operator/map', 'rxjs/add/operator/do', 'rxjs/add/operator/share', 'rxjs/add/operator/finally', 'rxjs/add/operator/catch', 'rxjs/add/observable/throw', 'rxjs/add/operator/takeUntil', 'rxjs/add/operator/switchMap', 'rxjs/BehaviorSubject', 'rxjs/add/operator/let', 'rxjs/add/observable/combineLatest'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.platformBrowser,global.Rx,global.Rx.Observable.prototype,global.ng.common,global.Rx,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.ng.forms,global.ng.animations,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.ng.http,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx));
+}(this, (function (exports,_angular_core,_angular_platformBrowser,rxjs_Subject,rxjs_add_operator_debounceTime,_angular_common,rxjs_Observable,rxjs_Subscription,rxjs_add_observable_fromEvent,rxjs_add_observable_merge,rxjs_add_operator_auditTime,rxjs_add_operator_first,rxjs_add_observable_of,_angular_forms,_angular_animations,rxjs_add_operator_startWith,rxjs_add_operator_filter,_angular_http,rxjs_add_observable_forkJoin,rxjs_add_operator_map,rxjs_add_operator_do,rxjs_add_operator_share,rxjs_add_operator_finally,rxjs_add_operator_catch,rxjs_add_observable_throw,rxjs_add_operator_takeUntil,rxjs_add_operator_switchMap,rxjs_BehaviorSubject) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -9144,7 +9144,9 @@ var MdSelect = (function () {
      */
     MdSelect.prototype._selectValue = function (value) {
         var /** @type {?} */ optionsArray = this.options.toArray();
-        var /** @type {?} */ correspondingOption = optionsArray.find(function (option) { return option.value && option.value === value; });
+        var /** @type {?} */ correspondingOption = optionsArray.find(function (option) {
+            return option.value != null && option.value === value;
+        });
         if (correspondingOption) {
             correspondingOption.select();
             this._selectionModel.select(correspondingOption);
@@ -11724,7 +11726,11 @@ var MdListDivider = (function () {
 }());
 MdListDivider.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: 'md-divider, mat-divider'
+                selector: 'md-divider, mat-divider',
+                host: {
+                    'role': 'separator',
+                    'aria-orientation': 'horizontal'
+                }
             },] },
 ];
 /**
@@ -15888,6 +15894,9 @@ MdTextareaAutosize.decorators = [
                 exportAs: 'mdTextareaAutosize',
                 host: {
                     '(input)': 'resizeToFitContent()',
+                    // Textarea elements that have the directive applied should have a single row by default.
+                    // Browsers normally show two rows by default and therefore this limits the minRows binding.
+                    'rows': '1',
                 },
             },] },
 ];
@@ -16998,9 +17007,9 @@ var MdTabNavBar = (function () {
         this._dir = _dir;
         this._ngZone = _ngZone;
         /**
-         * Combines listeners that will re-align the ink bar whenever they're invoked.
+         * Subject that emits when the component has been destroyed.
          */
-        this._realignInkBar = null;
+        this._onDestroy = new rxjs_Subject.Subject();
     }
     /**
      * Notifies the component that the active link has been changed.
@@ -17016,12 +17025,14 @@ var MdTabNavBar = (function () {
      */
     MdTabNavBar.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this._realignInkBar = this._ngZone.runOutsideAngular(function () {
+        this._ngZone.runOutsideAngular(function () {
             var /** @type {?} */ dirChange = _this._dir ? _this._dir.dirChange : rxjs_Observable.Observable.of(null);
             var /** @type {?} */ resize = typeof window !== 'undefined' ?
                 rxjs_Observable.Observable.fromEvent(window, 'resize').auditTime(10) :
                 rxjs_Observable.Observable.of(null);
-            return rxjs_Observable.Observable.merge(dirChange, resize).subscribe(function () { return _this._alignInkBar(); });
+            return rxjs_Observable.Observable.merge(dirChange, resize)
+                .takeUntil(_this._onDestroy)
+                .subscribe(function () { return _this._alignInkBar(); });
         });
     };
     /**
@@ -17038,10 +17049,7 @@ var MdTabNavBar = (function () {
      * @return {?}
      */
     MdTabNavBar.prototype.ngOnDestroy = function () {
-        if (this._realignInkBar) {
-            this._realignInkBar.unsubscribe();
-            this._realignInkBar = null;
-        }
+        this._onDestroy.next();
     };
     /**
      * Aligns the ink bar to the active link.
@@ -17056,7 +17064,7 @@ var MdTabNavBar = (function () {
 }());
 MdTabNavBar.decorators = [
     { type: _angular_core.Component, args: [{ selector: '[md-tab-nav-bar], [mat-tab-nav-bar]',
-                template: "<div class=\"mat-tab-links\"><ng-content></ng-content><md-ink-bar></md-ink-bar></div>",
+                template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><md-ink-bar></md-ink-bar></div>",
                 styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative}.mat-tab-link{line-height:48px;height:48px;padding:0 12px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-block;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0;opacity:1}@media (max-width:600px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}"],
                 host: { 'class': 'mat-tab-nav-bar' },
                 encapsulation: _angular_core.ViewEncapsulation.None,
@@ -18500,6 +18508,9 @@ TooltipComponent.decorators = [
                     ])
                 ],
                 host: {
+                    // Forces the element to have a layout in IE and Edge. This fixes issues where the element
+                    // won't be rendered if the animations are disabled or there is no web animations polyfill.
+                    '[style.zoom]': '_visibility === "visible" ? 1 : null',
                     '(body:click)': 'this._handleBodyInteraction()'
                 }
             },] },
