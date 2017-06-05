@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, QueryList, ViewContainerRef } from '@angular/core';
+import { ChangeDetectorRef, IterableDiffers, NgIterable, QueryList, ViewContainerRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/let';
 import 'rxjs/add/operator/debounceTime';
@@ -23,16 +23,17 @@ export declare class HeaderRowPlaceholder {
     constructor(viewContainer: ViewContainerRef);
 }
 /**
- * A data table that connects with a data source to retrieve data and renders
+ * A data table that connects with a data source to retrieve data of type T and renders
  * a header row and data rows. Updates the rows when new data is provided by the data source.
  */
-export declare class CdkTable implements CollectionViewer {
-    private _changeDetectorRef;
+export declare class CdkTable<T> implements CollectionViewer {
+    private readonly _differs;
+    private readonly _changeDetectorRef;
     /**
      * Provides a stream containing the latest data array to render. Influenced by the table's
      * stream of view window (what rows are currently on screen).
      */
-    dataSource: DataSource<any>;
+    dataSource: DataSource<T>;
     /**
      * Stream containing the latest information on what rows are being displayed on screen.
      * Can be used by the data source to as a heuristic of what data should be provided.
@@ -46,6 +47,8 @@ export declare class CdkTable implements CollectionViewer {
      * Contains the header and data-cell templates.
      */
     private _columnDefinitionsByName;
+    /** Differ used to find the changes in the data provided by the data source. */
+    private _dataDiffer;
     _rowPlaceholder: RowPlaceholder;
     _headerRowPlaceholder: HeaderRowPlaceholder;
     /**
@@ -57,7 +60,7 @@ export declare class CdkTable implements CollectionViewer {
     _headerDefinition: CdkHeaderRowDef;
     /** Set of templates that used as the data row containers. */
     _rowDefinitions: QueryList<CdkRowDef>;
-    constructor(_changeDetectorRef: ChangeDetectorRef);
+    constructor(_differs: IterableDiffers, _changeDetectorRef: ChangeDetectorRef);
     ngOnDestroy(): void;
     ngOnInit(): void;
     ngAfterContentInit(): void;
@@ -66,11 +69,13 @@ export declare class CdkTable implements CollectionViewer {
      * Create the embedded view for the header template and place it in the header row view container.
      */
     renderHeaderRow(): void;
+    /** Check for changes made in the data and render each change (row added/removed/moved). */
+    renderRowChanges(dataRows: NgIterable<T>): void;
     /**
      * Create the embedded view for the data row template and place it in the correct index location
      * within the data row view container.
      */
-    insertRow(rowData: any): void;
+    insertRow(rowData: T, index: number): void;
     /**
      * Returns the cell template definitions to insert into the header
      * as defined by its list of columns to display.
