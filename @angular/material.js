@@ -2530,7 +2530,6 @@ class OverlayRef {
         this.updateSize();
         this.updateDirection();
         this.updatePosition();
-        this._attachments.next();
         this._scrollStrategy.enable();
         // Enable pointer events for the overlay pane element.
         this._togglePointerEvents(true);
@@ -2540,6 +2539,8 @@ class OverlayRef {
         if (this._state.panelClass) {
             this._pane.classList.add(this._state.panelClass);
         }
+        // Only emit the `attachments` event once all other setup is done.
+        this._attachments.next();
         return attachResult;
     }
     /**
@@ -2553,8 +2554,10 @@ class OverlayRef {
         // pointer events therefore. Depends on the position strategy and the applied pane boundaries.
         this._togglePointerEvents(false);
         this._scrollStrategy.disable();
+        let /** @type {?} */ detachmentResult = this._portalHost.detach();
+        // Only emit after everything is detached.
         this._detachments.next();
-        return this._portalHost.detach();
+        return detachmentResult;
     }
     /**
      * Cleans up the overlay from the DOM.
@@ -2570,9 +2573,9 @@ class OverlayRef {
         }
         this.detachBackdrop();
         this._portalHost.dispose();
+        this._attachments.complete();
         this._detachments.next();
         this._detachments.complete();
-        this._attachments.complete();
     }
     /**
      * Checks whether the overlay has been attached.
@@ -18338,8 +18341,12 @@ MdDialogContainer.decorators = [
                 encapsulation: ViewEncapsulation.None,
                 animations: [
                     trigger('slideDialog', [
+                        // Note: The `enter` animation doesn't transition to something like `translate3d(0, 0, 0)
+                        // scale(1)`, because for some reason specifying the transform explicitly, causes IE both
+                        // to blur the dialog content and decimate the animation performance. Leaving it blank
+                        // solves both issues.
+                        state('enter', style({ opacity: 1 })),
                         state('void', style({ transform: 'translate3d(0, 25%, 0) scale(0.9)', opacity: 0 })),
-                        state('enter', style({ transform: 'translate3d(0, 0, 0) scale(1)', opacity: 1 })),
                         state('exit', style({ transform: 'translate3d(0, 25%, 0)', opacity: 0 })),
                         transition('* => *', animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
                     ])
@@ -21045,8 +21052,12 @@ class CdkTable {
          * Differ used to find the changes in the data provided by the data source.
          */
         this._dataDiffer = null;
-        console.warn('The data table is still in active development ' +
-            'and should be considered unstable.');
+        // Show the stability warning of the data-table only if it doesn't run inside of jasmine.
+        // This is just temporary and should reduce warnings when running the tests.
+        if (!(typeof window !== 'undefined' && window['jasmine'])) {
+            console.warn('The data table is still in active development ' +
+                'and should be considered unstable.');
+        }
         // TODO(andrewseguin): Add trackby function input.
         // Find and construct an iterable differ that can be used to find the diff in an array.
         this._dataDiffer = this._differs.find([]).create();
