@@ -2423,17 +2423,17 @@ class DomPortalHost extends BasePortalHost {
      */
     attachComponentPortal(portal) {
         let /** @type {?} */ componentFactory = this._componentFactoryResolver.resolveComponentFactory(portal.component);
-        let /** @type {?} */ componentRef;
+        let /** @type {?} */ componentRef = componentFactory.create(portal.injector || this._defaultInjector);
+        componentRef.hostView.detectChanges();
         // If the portal specifies a ViewContainerRef, we will use that as the attachment point
         // for the component (in terms of Angular's component tree, not rendering).
         // When the ViewContainerRef is missing, we use the factory to create the component directly
         // and then manually attach the view to the application.
         if (portal.viewContainerRef) {
-            componentRef = portal.viewContainerRef.createComponent(componentFactory, portal.viewContainerRef.length, portal.injector || portal.viewContainerRef.parentInjector);
+            portal.viewContainerRef.insert(componentRef.hostView);
             this.setDisposeFn(() => componentRef.destroy());
         }
         else {
-            componentRef = componentFactory.create(portal.injector || this._defaultInjector);
             this._appRef.attachView(componentRef.hostView);
             this.setDisposeFn(() => {
                 this._appRef.detachView(componentRef.hostView);
@@ -20118,11 +20118,11 @@ class MdDatepickerContent {
 }
 MdDatepickerContent.decorators = [
     { type: Component, args: [{selector: 'md-datepicker-content',
-                template: "<md-calendar cdkTrapFocus [id]=\"datepicker.id\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" (selectedChange)=\"datepicker._selectAndClose($event)\"></md-calendar>",
+                template: "<md-calendar cdkTrapFocus [id]=\"datepicker?.id\" [startAt]=\"datepicker?.startAt\" [startView]=\"datepicker?.startView\" [minDate]=\"datepicker?._minDate\" [maxDate]=\"datepicker?._maxDate\" [dateFilter]=\"datepicker?._dateFilter\" [selected]=\"datepicker?._selected\" (selectedChange)=\"datepicker?._selectAndClose($event)\"></md-calendar>",
                 styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block}.mat-calendar{width:296px}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{width:64vmin;height:80vmin;min-width:250px;min-height:312px;max-width:750px;max-height:788px}"],
                 host: {
                     'class': 'mat-datepicker-content',
-                    '[class.mat-datepicker-content-touch]': 'datepicker.touchUi',
+                    '[class.mat-datepicker-content-touch]': 'datepicker?.touchUi',
                     '(keydown)': '_handleKeydown($event)',
                 },
                 encapsulation: ViewEncapsulation.None,
