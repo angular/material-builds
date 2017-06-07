@@ -10991,11 +10991,13 @@ var MdSidenav = /*@__PURE__*/(function () {
      * @param {?} _elementRef The DOM element reference. Used for transition and width calculation.
      *     If not available we do not hook on transitions.
      * @param {?} _focusTrapFactory
+     * @param {?} _doc
      */
-    function MdSidenav(_elementRef, _focusTrapFactory) {
+    function MdSidenav(_elementRef, _focusTrapFactory, _doc) {
         var _this = this;
         this._elementRef = _elementRef;
         this._focusTrapFactory = _focusTrapFactory;
+        this._doc = _doc;
         /**
          * Alignment of the sidenav (direction neutral); whether 'start' or 'end'.
          */
@@ -11040,20 +11042,14 @@ var MdSidenav = /*@__PURE__*/(function () {
         this._resolveToggleAnimationPromise = null;
         this._elementFocusedBeforeSidenavWasOpened = null;
         this.onOpen.subscribe(function () {
-            _this._elementFocusedBeforeSidenavWasOpened = document.activeElement;
+            if (_this._doc) {
+                _this._elementFocusedBeforeSidenavWasOpened = _this._doc.activeElement;
+            }
             if (_this.isFocusTrapEnabled && _this._focusTrap) {
                 _this._focusTrap.focusInitialElementWhenReady();
             }
         });
-        this.onClose.subscribe(function () {
-            if (_this._elementFocusedBeforeSidenavWasOpened instanceof HTMLElement) {
-                _this._elementFocusedBeforeSidenavWasOpened.focus();
-            }
-            else {
-                _this._elementRef.nativeElement.blur();
-            }
-            _this._elementFocusedBeforeSidenavWasOpened = null;
-        });
+        this.onClose.subscribe(function () { return _this._restoreFocus(); });
     }
     Object.defineProperty(MdSidenav.prototype, "align", {
         /**
@@ -11101,6 +11097,23 @@ var MdSidenav = /*@__PURE__*/(function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * If focus is currently inside the sidenav, restores it to where it was before the sidenav
+     * opened.
+     * @return {?}
+     */
+    MdSidenav.prototype._restoreFocus = function () {
+        var /** @type {?} */ activeEl = this._doc && this._doc.activeElement;
+        if (activeEl && this._elementRef.nativeElement.contains(activeEl)) {
+            if (this._elementFocusedBeforeSidenavWasOpened instanceof HTMLElement) {
+                this._elementFocusedBeforeSidenavWasOpened.focus();
+            }
+            else {
+                this._elementRef.nativeElement.blur();
+            }
+        }
+        this._elementFocusedBeforeSidenavWasOpened = null;
+    };
     /**
      * @return {?}
      */
@@ -11346,6 +11359,7 @@ MdSidenav.decorators = [
 MdSidenav.ctorParameters = function () { return [
     { type: ElementRef, },
     { type: FocusTrapFactory, },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ]; };
 MdSidenav.propDecorators = {
     'align': [{ type: Input },],

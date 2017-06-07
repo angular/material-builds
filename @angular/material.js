@@ -10436,10 +10436,12 @@ class MdSidenav {
      * @param {?} _elementRef The DOM element reference. Used for transition and width calculation.
      *     If not available we do not hook on transitions.
      * @param {?} _focusTrapFactory
+     * @param {?} _doc
      */
-    constructor(_elementRef, _focusTrapFactory) {
+    constructor(_elementRef, _focusTrapFactory, _doc) {
         this._elementRef = _elementRef;
         this._focusTrapFactory = _focusTrapFactory;
+        this._doc = _doc;
         /**
          * Alignment of the sidenav (direction neutral); whether 'start' or 'end'.
          */
@@ -10484,20 +10486,14 @@ class MdSidenav {
         this._resolveToggleAnimationPromise = null;
         this._elementFocusedBeforeSidenavWasOpened = null;
         this.onOpen.subscribe(() => {
-            this._elementFocusedBeforeSidenavWasOpened = document.activeElement;
+            if (this._doc) {
+                this._elementFocusedBeforeSidenavWasOpened = this._doc.activeElement;
+            }
             if (this.isFocusTrapEnabled && this._focusTrap) {
                 this._focusTrap.focusInitialElementWhenReady();
             }
         });
-        this.onClose.subscribe(() => {
-            if (this._elementFocusedBeforeSidenavWasOpened instanceof HTMLElement) {
-                this._elementFocusedBeforeSidenavWasOpened.focus();
-            }
-            else {
-                this._elementRef.nativeElement.blur();
-            }
-            this._elementFocusedBeforeSidenavWasOpened = null;
-        });
+        this.onClose.subscribe(() => this._restoreFocus());
     }
     /**
      * Direction which the sidenav is aligned in.
@@ -10532,6 +10528,23 @@ class MdSidenav {
     get isFocusTrapEnabled() {
         // The focus trap is only enabled when the sidenav is open in any mode other than side.
         return this.opened && this.mode !== 'side';
+    }
+    /**
+     * If focus is currently inside the sidenav, restores it to where it was before the sidenav
+     * opened.
+     * @return {?}
+     */
+    _restoreFocus() {
+        let /** @type {?} */ activeEl = this._doc && this._doc.activeElement;
+        if (activeEl && this._elementRef.nativeElement.contains(activeEl)) {
+            if (this._elementFocusedBeforeSidenavWasOpened instanceof HTMLElement) {
+                this._elementFocusedBeforeSidenavWasOpened.focus();
+            }
+            else {
+                this._elementRef.nativeElement.blur();
+            }
+        }
+        this._elementFocusedBeforeSidenavWasOpened = null;
     }
     /**
      * @return {?}
@@ -10735,6 +10748,7 @@ MdSidenav.decorators = [
 MdSidenav.ctorParameters = () => [
     { type: ElementRef, },
     { type: FocusTrapFactory, },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
 MdSidenav.propDecorators = {
     'align': [{ type: Input },],

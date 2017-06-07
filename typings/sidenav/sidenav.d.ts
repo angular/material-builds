@@ -20,6 +20,7 @@ export declare class MdSidenavToggleResult {
 export declare class MdSidenav implements AfterContentInit, OnDestroy {
     private _elementRef;
     private _focusTrapFactory;
+    private _doc;
     private _focusTrap;
     /** Alignment of the sidenav (direction neutral); whether 'start' or 'end'. */
     private _align;
@@ -54,7 +55,12 @@ export declare class MdSidenav implements AfterContentInit, OnDestroy {
      * @param _elementRef The DOM element reference. Used for transition and width calculation.
      *     If not available we do not hook on transitions.
      */
-    constructor(_elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory);
+    constructor(_elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _doc: any);
+    /**
+     * If focus is currently inside the sidenav, restores it to where it was before the sidenav
+     * opened.
+     */
+    private _restoreFocus();
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /**
