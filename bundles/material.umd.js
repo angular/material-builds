@@ -20279,7 +20279,8 @@ var MdAutocompleteTrigger = (function () {
 }());
 MdAutocompleteTrigger.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: 'input[mdAutocomplete], input[matAutocomplete]',
+                selector: 'input[mdAutocomplete], input[matAutocomplete],' +
+                    'textarea[mdAutocomplete], textarea[matAutocomplete]',
                 host: {
                     'role': 'combobox',
                     'autocomplete': 'off',
