@@ -2,25 +2,26 @@ import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestro
 import { FocusOriginMonitor, HammerInput, MdRipple } from '../core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanDisable } from '../core/common-behaviors/disabled';
+import { CanColor } from '../core/common-behaviors/color';
 export declare const MD_SLIDE_TOGGLE_VALUE_ACCESSOR: any;
 export declare class MdSlideToggleChange {
     source: MdSlideToggle;
     checked: boolean;
 }
 export declare class MdSlideToggleBase {
+    _renderer: Renderer2;
+    _elementRef: ElementRef;
+    constructor(_renderer: Renderer2, _elementRef: ElementRef);
 }
-export declare const _MdSlideToggleMixinBase: (new (...args: any[]) => CanDisable) & typeof MdSlideToggleBase;
+export declare const _MdSlideToggleMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisable) & typeof MdSlideToggleBase;
 /** Represents a slidable "switch" toggle that can be moved between on and off. */
-export declare class MdSlideToggle extends _MdSlideToggleMixinBase implements OnDestroy, AfterContentInit, ControlValueAccessor, CanDisable {
-    private _elementRef;
-    private _renderer;
+export declare class MdSlideToggle extends _MdSlideToggleMixinBase implements OnDestroy, AfterContentInit, ControlValueAccessor, CanDisable, CanColor {
     private _focusOriginMonitor;
     private _changeDetectorRef;
     private onChange;
     private onTouched;
     private _uniqueId;
     private _checked;
-    private _color;
     private _slideRenderer;
     private _required;
     private _disableRipple;
@@ -50,7 +51,7 @@ export declare class MdSlideToggle extends _MdSlideToggleMixinBase implements On
     _inputElement: ElementRef;
     /** Reference to the ripple directive on the thumb container. */
     _ripple: MdRipple;
-    constructor(_elementRef: ElementRef, _renderer: Renderer2, _focusOriginMonitor: FocusOriginMonitor, _changeDetectorRef: ChangeDetectorRef);
+    constructor(elementRef: ElementRef, renderer: Renderer2, _focusOriginMonitor: FocusOriginMonitor, _changeDetectorRef: ChangeDetectorRef);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /**
@@ -72,14 +73,10 @@ export declare class MdSlideToggle extends _MdSlideToggleMixinBase implements On
     focus(): void;
     /** Whether the slide-toggle is checked. */
     checked: boolean;
-    /** The color of the slide-toggle. Can be primary, accent, or warn. */
-    color: string;
     /** Toggles the checked state of the slide-toggle. */
     toggle(): void;
     /** Function is called whenever the focus changes for the input element. */
     private _onInputFocusChange(focusOrigin);
-    private _updateColor(newColor);
-    private _setElementColor(color, isAdd);
     /** Emits the change event to the `change` output EventEmitter */
     private _emitChangeEvent();
     _onDragStart(): void;

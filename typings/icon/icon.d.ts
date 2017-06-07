@@ -1,5 +1,12 @@
 import { ElementRef, OnChanges, OnInit, Renderer2, SimpleChange, AfterViewChecked } from '@angular/core';
 import { MdIconRegistry } from './icon-registry';
+import { CanColor } from '../core/common-behaviors/color';
+export declare class MdIconBase {
+    _renderer: Renderer2;
+    _elementRef: ElementRef;
+    constructor(_renderer: Renderer2, _elementRef: ElementRef);
+}
+export declare const _MdIconMixinBase: (new (...args: any[]) => CanColor) & typeof MdIconBase;
 /**
  * Component to display an icon. It can be used in the following ways:
  * - Specify the svgSrc input to load an SVG icon from a URL. The SVG content is directly inlined
@@ -33,11 +40,8 @@ import { MdIconRegistry } from './icon-registry';
  *   Example:
  *     <md-icon fontSet="fa" fontIcon="alarm"></md-icon>
  */
-export declare class MdIcon implements OnChanges, OnInit, AfterViewChecked {
-    private _elementRef;
-    private _renderer;
+export declare class MdIcon extends _MdIconMixinBase implements OnChanges, OnInit, AfterViewChecked, CanColor {
     private _mdIconRegistry;
-    private _color;
     /** Name of the icon in the SVG icon set. */
     svgIcon: string;
     /** Font set that the icon is a part of. */
@@ -48,14 +52,10 @@ export declare class MdIcon implements OnChanges, OnInit, AfterViewChecked {
     alt: string;
     /** Screenreader label for the icon. */
     hostAriaLabel: string;
-    /** Color of the icon. */
-    color: string;
     private _previousFontSetClass;
     private _previousFontIconClass;
     private _previousAriaLabel;
-    constructor(_elementRef: ElementRef, _renderer: Renderer2, _mdIconRegistry: MdIconRegistry);
-    _updateColor(newColor: string): void;
-    _setElementColor(color: string, isAdd: boolean): void;
+    constructor(_mdIconRegistry: MdIconRegistry, renderer: Renderer2, elementRef: ElementRef);
     /**
      * Splits an svgIcon binding value into its icon set and icon name components.
      * Returns a 2-element array of [(icon set), (icon name)].

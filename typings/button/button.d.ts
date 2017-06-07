@@ -1,6 +1,7 @@
 import { ElementRef, OnDestroy, Renderer2 } from '@angular/core';
 import { FocusOriginMonitor, Platform } from '../core';
 import { CanDisable } from '../core/common-behaviors/disabled';
+import { CanColor } from '../core/common-behaviors/color';
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * @docs-private
@@ -32,17 +33,17 @@ export declare class MdFabCssMatStyler {
 export declare class MdMiniFabCssMatStyler {
 }
 export declare class MdButtonBase {
+    _renderer: Renderer2;
+    _elementRef: ElementRef;
+    constructor(_renderer: Renderer2, _elementRef: ElementRef);
 }
-export declare const _MdButtonMixinBase: (new (...args: any[]) => CanDisable) & typeof MdButtonBase;
+export declare const _MdButtonMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisable) & typeof MdButtonBase;
 /**
  * Material design button.
  */
-export declare class MdButton extends _MdButtonMixinBase implements OnDestroy, CanDisable {
-    private _elementRef;
-    private _renderer;
+export declare class MdButton extends _MdButtonMixinBase implements OnDestroy, CanDisable, CanColor {
     private _platform;
     private _focusOriginMonitor;
-    private _color;
     /** Whether the button is round. */
     _isRoundButton: boolean;
     /** Whether the button is icon button. */
@@ -51,12 +52,8 @@ export declare class MdButton extends _MdButtonMixinBase implements OnDestroy, C
     private _disableRipple;
     /** Whether the ripple effect for this button is disabled. */
     disableRipple: boolean;
-    constructor(_elementRef: ElementRef, _renderer: Renderer2, _platform: Platform, _focusOriginMonitor: FocusOriginMonitor);
+    constructor(renderer: Renderer2, elementRef: ElementRef, _platform: Platform, _focusOriginMonitor: FocusOriginMonitor);
     ngOnDestroy(): void;
-    /** The color of the button. Can be `primary`, `accent`, or `warn`. */
-    color: string;
-    _updateColor(newColor: string): void;
-    _setElementColor(color: string, isAdd: boolean): void;
     /** Focuses the button. */
     focus(): void;
     _getHostElement(): any;
@@ -71,7 +68,7 @@ export declare class MdButton extends _MdButtonMixinBase implements OnDestroy, C
  * Raised Material design button.
  */
 export declare class MdAnchor extends MdButton {
-    constructor(elementRef: ElementRef, renderer: Renderer2, platform: Platform, focusOriginMonitor: FocusOriginMonitor);
+    constructor(platform: Platform, focusOriginMonitor: FocusOriginMonitor, elementRef: ElementRef, renderer: Renderer2);
     /** @docs-private */
     readonly tabIndex: number;
     readonly _isAriaDisabled: string;

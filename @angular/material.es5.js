@@ -1603,6 +1603,69 @@ MdRippleModule.decorators = [
  */
 MdRippleModule.ctorParameters = function () { return []; };
 /**
+ * Mixin to augment a directive with a `color` property.
+ * @template T
+ * @param {?} base
+ * @param {?=} defaultColor
+ * @return {?}
+ */
+function mixinColor(base, defaultColor) {
+    return (function (_super) {
+        tslib_1.__extends(class_1, _super);
+        /**
+         * @param {...?} args
+         */
+        function class_1() {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            var _this = _super.apply(this, args) || this;
+            _this._color = null;
+            // Set the default color that can be specified from the mixin.
+            _this.color = defaultColor;
+            return _this;
+        }
+        Object.defineProperty(class_1.prototype, "color", {
+            /**
+             * @return {?}
+             */
+            get: function () { return this._color; },
+            /**
+             * @param {?} value
+             * @return {?}
+             */
+            set: function (value) {
+                var /** @type {?} */ colorPalette = value || defaultColor;
+                if (colorPalette !== this._color) {
+                    if (this._color) {
+                        this._renderer.removeClass(this._elementRef.nativeElement, "mat-" + this._color);
+                    }
+                    if (colorPalette) {
+                        this._renderer.addClass(this._elementRef.nativeElement, "mat-" + colorPalette);
+                    }
+                    this._color = colorPalette;
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return class_1;
+    }(base));
+}
+var MdPseudoCheckboxBase = /*@__PURE__*/(function () {
+    /**
+     * @param {?} _renderer
+     * @param {?} _elementRef
+     */
+    function MdPseudoCheckboxBase(_renderer, _elementRef) {
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
+    }
+    return MdPseudoCheckboxBase;
+}());
+var _MdPseudoCheckboxBase = mixinColor(MdPseudoCheckboxBase, 'accent');
+/**
  * Component that shows a simplified checkbox without including any kind of "real" checkbox.
  * Meant to be used when the checkbox is purely decorative and a large number of them will be
  * included, such as for the options in a multi-select. Uses no SVGs or complex animations.
@@ -1613,51 +1676,31 @@ MdRippleModule.ctorParameters = function () { return []; };
  * more complex components that appropriately handle selected / checked state.
  * \@docs-private
  */
-var MdPseudoCheckbox = /*@__PURE__*/(function () {
+var MdPseudoCheckbox = /*@__PURE__*/(function (_super) {
+    tslib_1.__extends(MdPseudoCheckbox, _super);
     /**
-     * @param {?} _elementRef
-     * @param {?} _renderer
+     * @param {?} elementRef
+     * @param {?} renderer
      */
-    function MdPseudoCheckbox(_elementRef, _renderer) {
-        this._elementRef = _elementRef;
-        this._renderer = _renderer;
+    function MdPseudoCheckbox(elementRef, renderer) {
+        var _this = _super.call(this, renderer, elementRef) || this;
         /**
          * Display state of the checkbox.
          */
-        this.state = 'unchecked';
+        _this.state = 'unchecked';
         /**
          * Whether the checkbox is disabled.
          */
-        this.disabled = false;
-        this.color = 'accent';
+        _this.disabled = false;
+        return _this;
     }
-    Object.defineProperty(MdPseudoCheckbox.prototype, "color", {
-        /**
-         * Color of the checkbox.
-         * @return {?}
-         */
-        get: function () { return this._color; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            if (value) {
-                var /** @type {?} */ nativeElement = this._elementRef.nativeElement;
-                this._renderer.removeClass(nativeElement, "mat-" + this.color);
-                this._renderer.addClass(nativeElement, "mat-" + value);
-                this._color = value;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
     return MdPseudoCheckbox;
-}());
+}(_MdPseudoCheckboxBase));
 MdPseudoCheckbox.decorators = [
     { type: Component, args: [{ encapsulation: ViewEncapsulation.None,
                 selector: 'md-pseudo-checkbox, mat-pseudo-checkbox',
                 styles: [".mat-pseudo-checkbox{width:20px;height:20px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;transition:border-color 90ms cubic-bezier(0,0,.2,.1),background-color 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:'';border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:9px;left:2px;width:16px;opacity:1}.mat-pseudo-checkbox-checked::after{top:5px;left:3px;width:12px;height:5px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1}"],
+                inputs: ['color'],
                 template: '',
                 host: {
                     '[class.mat-pseudo-checkbox]': 'true',
@@ -1677,7 +1720,6 @@ MdPseudoCheckbox.ctorParameters = function () { return [
 MdPseudoCheckbox.propDecorators = {
     'state': [{ type: Input },],
     'disabled': [{ type: Input },],
-    'color': [{ type: Input },],
 };
 var MdSelectionModule = /*@__PURE__*/(function () {
     function MdSelectionModule() {
@@ -6616,11 +6658,11 @@ MdButtonToggleModule.ctorParameters = function () { return []; };
  */
 function mixinDisabled(base) {
     return (function (_super) {
-        tslib_1.__extends(class_1, _super);
+        tslib_1.__extends(class_2, _super);
         /**
          * @param {...?} args
          */
-        function class_1() {
+        function class_2() {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
@@ -6629,7 +6671,7 @@ function mixinDisabled(base) {
             _this._disabled = false;
             return _this;
         }
-        Object.defineProperty(class_1.prototype, "disabled", {
+        Object.defineProperty(class_2.prototype, "disabled", {
             /**
              * @return {?}
              */
@@ -6642,7 +6684,7 @@ function mixinDisabled(base) {
             enumerable: true,
             configurable: true
         });
-        return class_1;
+        return class_2;
     }(base));
 }
 /**
@@ -6742,26 +6784,30 @@ MdMiniFabCssMatStyler.decorators = [
  */
 MdMiniFabCssMatStyler.ctorParameters = function () { return []; };
 var MdButtonBase = /*@__PURE__*/(function () {
-    function MdButtonBase() {
+    /**
+     * @param {?} _renderer
+     * @param {?} _elementRef
+     */
+    function MdButtonBase(_renderer, _elementRef) {
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
     }
     return MdButtonBase;
 }());
-var _MdButtonMixinBase = mixinDisabled(MdButtonBase);
+var _MdButtonMixinBase = mixinColor(mixinDisabled(MdButtonBase));
 /**
  * Material design button.
  */
 var MdButton = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(MdButton, _super);
     /**
-     * @param {?} _elementRef
-     * @param {?} _renderer
+     * @param {?} renderer
+     * @param {?} elementRef
      * @param {?} _platform
      * @param {?} _focusOriginMonitor
      */
-    function MdButton(_elementRef, _renderer, _platform, _focusOriginMonitor) {
-        var _this = _super.call(this) || this;
-        _this._elementRef = _elementRef;
-        _this._renderer = _renderer;
+    function MdButton(renderer, elementRef, _platform, _focusOriginMonitor) {
+        var _this = _super.call(this, renderer, elementRef) || this;
         _this._platform = _platform;
         _this._focusOriginMonitor = _focusOriginMonitor;
         /**
@@ -6798,44 +6844,6 @@ var MdButton = /*@__PURE__*/(function (_super) {
      */
     MdButton.prototype.ngOnDestroy = function () {
         this._focusOriginMonitor.stopMonitoring(this._elementRef.nativeElement);
-    };
-    Object.defineProperty(MdButton.prototype, "color", {
-        /**
-         * The color of the button. Can be `primary`, `accent`, or `warn`.
-         * @return {?}
-         */
-        get: function () { return this._color; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) { this._updateColor(value); },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @param {?} newColor
-     * @return {?}
-     */
-    MdButton.prototype._updateColor = function (newColor) {
-        this._setElementColor(this._color, false);
-        this._setElementColor(newColor, true);
-        this._color = newColor;
-    };
-    /**
-     * @param {?} color
-     * @param {?} isAdd
-     * @return {?}
-     */
-    MdButton.prototype._setElementColor = function (color, isAdd) {
-        if (color != null && color != '') {
-            if (isAdd) {
-                this._renderer.addClass(this._getHostElement(), "mat-" + color);
-            }
-            else {
-                this._renderer.removeClass(this._getHostElement(), "mat-" + color);
-            }
-        }
     };
     /**
      * Focuses the button.
@@ -6891,7 +6899,7 @@ MdButton.decorators = [
                 },
                 template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div md-ripple class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton || _isIconButton\" [mdRippleDisabled]=\"_isRippleDisabled()\" [mdRippleCentered]=\"_isIconButton\" [mdRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\"></div>",
                 styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([disabled]):active,.mat-mini-fab:not([disabled]):active,.mat-raised-button:not([disabled]):active{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-icon,.mat-fab i{padding:16px 0;line-height:24px}.mat-mini-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-icon,.mat-mini-fab i{padding:8px 0;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{position:absolute;top:0;left:0;bottom:0;right:0;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
-                inputs: ['disabled'],
+                inputs: ['disabled', 'color'],
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
@@ -6900,14 +6908,13 @@ MdButton.decorators = [
  * @nocollapse
  */
 MdButton.ctorParameters = function () { return [
-    { type: ElementRef, },
     { type: Renderer2, },
+    { type: ElementRef, },
     { type: Platform, },
     { type: FocusOriginMonitor, },
 ]; };
 MdButton.propDecorators = {
     'disableRipple': [{ type: Input },],
-    'color': [{ type: Input },],
 };
 /**
  * Raised Material design button.
@@ -6915,13 +6922,13 @@ MdButton.propDecorators = {
 var MdAnchor = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(MdAnchor, _super);
     /**
-     * @param {?} elementRef
-     * @param {?} renderer
      * @param {?} platform
      * @param {?} focusOriginMonitor
+     * @param {?} elementRef
+     * @param {?} renderer
      */
-    function MdAnchor(elementRef, renderer, platform, focusOriginMonitor) {
-        return _super.call(this, elementRef, renderer, platform, focusOriginMonitor) || this;
+    function MdAnchor(platform, focusOriginMonitor, elementRef, renderer) {
+        return _super.call(this, renderer, elementRef, platform, focusOriginMonitor) || this;
     }
     Object.defineProperty(MdAnchor.prototype, "tabIndex", {
         /**
@@ -6964,7 +6971,7 @@ MdAnchor.decorators = [
                     '[attr.aria-disabled]': '_isAriaDisabled',
                     '(click)': '_haltDisabledEvents($event)',
                 },
-                inputs: ['disabled'],
+                inputs: ['disabled', 'color'],
                 template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div md-ripple class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton || _isIconButton\" [mdRippleDisabled]=\"_isRippleDisabled()\" [mdRippleCentered]=\"_isIconButton\" [mdRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\"></div>",
                 styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([disabled]):active,.mat-mini-fab:not([disabled]):active,.mat-raised-button:not([disabled]):active{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-icon,.mat-fab i{padding:16px 0;line-height:24px}.mat-mini-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-icon,.mat-mini-fab i{padding:8px 0;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{position:absolute;top:0;left:0;bottom:0;right:0;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
                 encapsulation: ViewEncapsulation.None
@@ -6974,10 +6981,10 @@ MdAnchor.decorators = [
  * @nocollapse
  */
 MdAnchor.ctorParameters = function () { return [
-    { type: ElementRef, },
-    { type: Renderer2, },
     { type: Platform, },
     { type: FocusOriginMonitor, },
+    { type: ElementRef, },
+    { type: Renderer2, },
 ]; };
 MdAnchor.propDecorators = {
     'tabIndex': [{ type: HostBinding, args: ['tabIndex',] },],
@@ -7052,11 +7059,17 @@ var MdCheckboxChange = /*@__PURE__*/(function () {
     return MdCheckboxChange;
 }());
 var MdCheckboxBase = /*@__PURE__*/(function () {
-    function MdCheckboxBase() {
+    /**
+     * @param {?} _renderer
+     * @param {?} _elementRef
+     */
+    function MdCheckboxBase(_renderer, _elementRef) {
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
     }
     return MdCheckboxBase;
 }());
-var _MdCheckboxMixinBase = mixinDisabled(MdCheckboxBase);
+var _MdCheckboxMixinBase = mixinColor(mixinDisabled(MdCheckboxBase), 'accent');
 /**
  * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
  * and exposes a similar API. A MdCheckbox can be either checked, unchecked, indeterminate, or
@@ -7068,15 +7081,13 @@ var _MdCheckboxMixinBase = mixinDisabled(MdCheckboxBase);
 var MdCheckbox = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(MdCheckbox, _super);
     /**
-     * @param {?} _renderer
-     * @param {?} _elementRef
+     * @param {?} renderer
+     * @param {?} elementRef
      * @param {?} _changeDetectorRef
      * @param {?} _focusOriginMonitor
      */
-    function MdCheckbox(_renderer, _elementRef, _changeDetectorRef, _focusOriginMonitor) {
-        var _this = _super.call(this) || this;
-        _this._renderer = _renderer;
-        _this._elementRef = _elementRef;
+    function MdCheckbox(renderer, elementRef, _changeDetectorRef, _focusOriginMonitor) {
+        var _this = _super.call(this, renderer, elementRef) || this;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._focusOriginMonitor = _focusOriginMonitor;
         /**
@@ -7122,7 +7133,6 @@ var MdCheckbox = /*@__PURE__*/(function (_super) {
         _this._checked = false;
         _this._indeterminate = false;
         _this._controlValueAccessorChangeFn = function (value) { };
-        _this.color = 'accent';
         return _this;
     }
     Object.defineProperty(MdCheckbox.prototype, "disableRipple", {
@@ -7260,44 +7270,6 @@ var MdCheckbox = /*@__PURE__*/(function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdCheckbox.prototype, "color", {
-        /**
-         * The color of the button. Can be `primary`, `accent`, or `warn`.
-         * @return {?}
-         */
-        get: function () { return this._color; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) { this._updateColor(value); },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @param {?} newColor
-     * @return {?}
-     */
-    MdCheckbox.prototype._updateColor = function (newColor) {
-        this._setElementColor(this._color, false);
-        this._setElementColor(newColor, true);
-        this._color = newColor;
-    };
-    /**
-     * @param {?} color
-     * @param {?} isAdd
-     * @return {?}
-     */
-    MdCheckbox.prototype._setElementColor = function (color, isAdd) {
-        if (color != null && color != '') {
-            if (isAdd) {
-                this._renderer.addClass(this._elementRef.nativeElement, "mat-" + color);
-            }
-            else {
-                this._renderer.removeClass(this._elementRef.nativeElement, "mat-" + color);
-            }
-        }
-    };
     /**
      * @return {?}
      */
@@ -7501,7 +7473,7 @@ MdCheckbox.decorators = [
                     '[class.mat-checkbox-label-before]': 'labelPosition == "before"',
                 },
                 providers: [MD_CHECKBOX_CONTROL_VALUE_ACCESSOR],
-                inputs: ['disabled'],
+                inputs: ['disabled', 'color'],
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush
             },] },
@@ -7533,7 +7505,6 @@ MdCheckbox.propDecorators = {
     '_ripple': [{ type: ViewChild, args: [MdRipple,] },],
     'checked': [{ type: Input },],
     'indeterminate': [{ type: Input },],
-    'color': [{ type: Input },],
 };
 var MdCheckboxModule = /*@__PURE__*/(function () {
     function MdCheckboxModule() {
@@ -8482,20 +8453,20 @@ var transformPlaceholder = trigger('transformPlaceholder', [
     state('floating-ltr', style({
         top: '-22px',
         left: '-2px',
-        transform: "scale(0.75)"
+        transform: 'scale(0.75)'
     })),
     state('floating-rtl', style({
         top: '-22px',
         left: '2px',
-        transform: "scale(0.75)"
+        transform: 'scale(0.75)'
     })),
-    transition('* => *', animate("400ms cubic-bezier(0.25, 0.8, 0.25, 1)"))
+    transition('* => *', animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
 ]);
 /**
  * This animation transforms the select's overlay panel on and off the page.
  *
- * When the panel is attached to the DOM, it expands its width 32px, scales it up to
- * 100% on the Y axis, fades in its border, and translates slightly up and to the
+ * When the panel is attached to the DOM, it expands its width by the amount of padding, scales it
+ * up to 100% on the Y axis, fades in its border, and translates slightly up and to the
  * side to ensure the option text correctly overlaps the trigger text.
  *
  * When the panel is removed from the DOM, it simply fades out linearly.
@@ -8504,15 +8475,20 @@ var transformPanel = trigger('transformPanel', [
     state('showing', style({
         opacity: 1,
         minWidth: 'calc(100% + 32px)',
-        transform: "scaleY(1)"
+        transform: 'scaleY(1)'
+    })),
+    state('showing-multiple', style({
+        opacity: 1,
+        minWidth: 'calc(100% + 64px)',
+        transform: 'scaleY(1)'
     })),
     transition('void => *', [
         style({
             opacity: 0,
             minWidth: '100%',
-            transform: "scaleY(0)"
+            transform: 'scaleY(0)'
         }),
-        animate("150ms cubic-bezier(0.25, 0.8, 0.25, 1)")
+        animate('150ms cubic-bezier(0.25, 0.8, 0.25, 1)')
     ]),
     transition('* => void', [
         animate('250ms 100ms linear', style({ opacity: 0 }))
@@ -8527,7 +8503,7 @@ var fadeInContent = trigger('fadeInContent', [
     state('showing', style({ opacity: 1 })),
     transition('void => showing', [
         style({ opacity: 0 }),
-        animate("150ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)")
+        animate('150ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
     ])
 ]);
 /**
@@ -8609,80 +8585,92 @@ var MdSelectChange = /*@__PURE__*/(function () {
     }
     return MdSelectChange;
 }());
-var MdSelect = /*@__PURE__*/(function () {
+var MdSelectBase = /*@__PURE__*/(function () {
     /**
-     * @param {?} _element
      * @param {?} _renderer
+     * @param {?} _elementRef
+     */
+    function MdSelectBase(_renderer, _elementRef) {
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
+    }
+    return MdSelectBase;
+}());
+var _MdSelectMixinBase = mixinColor(MdSelectBase, 'primary');
+var MdSelect = /*@__PURE__*/(function (_super) {
+    tslib_1.__extends(MdSelect, _super);
+    /**
      * @param {?} _viewportRuler
      * @param {?} _changeDetectorRef
+     * @param {?} renderer
+     * @param {?} elementRef
      * @param {?} _dir
      * @param {?} _control
      * @param {?} tabIndex
      */
-    function MdSelect(_element, _renderer, _viewportRuler, _changeDetectorRef, _dir, _control, tabIndex) {
-        this._element = _element;
-        this._renderer = _renderer;
-        this._viewportRuler = _viewportRuler;
-        this._changeDetectorRef = _changeDetectorRef;
-        this._dir = _dir;
-        this._control = _control;
+    function MdSelect(_viewportRuler, _changeDetectorRef, renderer, elementRef, _dir, _control, tabIndex) {
+        var _this = _super.call(this, renderer, elementRef) || this;
+        _this._viewportRuler = _viewportRuler;
+        _this._changeDetectorRef = _changeDetectorRef;
+        _this._dir = _dir;
+        _this._control = _control;
         /**
          * Whether or not the overlay panel is open.
          */
-        this._panelOpen = false;
+        _this._panelOpen = false;
         /**
          * Whether filling out the select is required in the form.
          */
-        this._required = false;
+        _this._required = false;
         /**
          * Whether the select is disabled.
          */
-        this._disabled = false;
+        _this._disabled = false;
         /**
          * The scroll position of the overlay panel, calculated to center the selected option.
          */
-        this._scrollTop = 0;
+        _this._scrollTop = 0;
         /**
          * Whether the component is in multiple selection mode.
          */
-        this._multiple = false;
+        _this._multiple = false;
         /**
          * The animation state of the placeholder.
          */
-        this._placeholderState = '';
+        _this._placeholderState = '';
         /**
          * View -> model callback called when value changes
          */
-        this._onChange = function (value) { };
+        _this._onChange = function (value) { };
         /**
          * View -> model callback called when select has been touched
          */
-        this._onTouched = function () { };
+        _this._onTouched = function () { };
         /**
          * The IDs of child options to be passed to the aria-owns attribute.
          */
-        this._optionIds = '';
+        _this._optionIds = '';
         /**
          * The value of the select panel's transform-origin property.
          */
-        this._transformOrigin = 'top';
+        _this._transformOrigin = 'top';
         /**
          * Whether the panel's animation is done.
          */
-        this._panelDoneAnimating = false;
+        _this._panelDoneAnimating = false;
         /**
          * The y-offset of the overlay panel in relation to the trigger's top start corner.
          * This must be adjusted to align the selected option text over the trigger text.
          * when the panel opens. Will change based on the y-position of the selected option.
          */
-        this._offsetY = 0;
+        _this._offsetY = 0;
         /**
          * This position config ensures that the top "start" corner of the overlay
          * is aligned with with the top "start" of the origin by default (overlapping
          * the trigger completely). If the panel cannot fit below the trigger, it
          * will fall back to a position above the trigger.
          */
-        this._positions = [
+        _this._positions = [
             {
                 originX: 'start',
                 originY: 'top',
@@ -8696,31 +8684,32 @@ var MdSelect = /*@__PURE__*/(function () {
                 overlayY: 'bottom',
             },
         ];
-        this._floatPlaceholder = 'auto';
+        _this._floatPlaceholder = 'auto';
         /**
          * Aria label of the select. If not specified, the placeholder will be used as label.
          */
-        this.ariaLabel = '';
+        _this.ariaLabel = '';
         /**
          * Input that can be used to specify the `aria-labelledby` attribute.
          */
-        this.ariaLabelledby = '';
+        _this.ariaLabelledby = '';
         /**
          * Event emitted when the select has been opened.
          */
-        this.onOpen = new EventEmitter();
+        _this.onOpen = new EventEmitter();
         /**
          * Event emitted when the select has been closed.
          */
-        this.onClose = new EventEmitter();
+        _this.onClose = new EventEmitter();
         /**
          * Event emitted when the selected value has been changed by the user.
          */
-        this.change = new EventEmitter();
-        if (this._control) {
-            this._control.valueAccessor = this;
+        _this.change = new EventEmitter();
+        if (_this._control) {
+            _this._control.valueAccessor = _this;
         }
-        this._tabIndex = parseInt(tabIndex) || 0;
+        _this._tabIndex = parseInt(tabIndex) || 0;
+        return _this;
     }
     Object.defineProperty(MdSelect.prototype, "placeholder", {
         /**
@@ -8824,26 +8813,6 @@ var MdSelect = /*@__PURE__*/(function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSelect.prototype, "color", {
-        /**
-         * Theme color for the component.
-         * @return {?}
-         */
-        get: function () { return this._color; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            if (value && value !== this._color) {
-                this._renderer.removeClass(this._element.nativeElement, "mat-" + this._color);
-                this._renderer.addClass(this._element.nativeElement, "mat-" + value);
-                this._color = value;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(MdSelect.prototype, "optionSelectionChanges", {
         /**
          * Combined stream of all of the child options' change events.
@@ -8860,7 +8829,6 @@ var MdSelect = /*@__PURE__*/(function () {
      */
     MdSelect.prototype.ngOnInit = function () {
         this._selectionModel = new SelectionModel(this.multiple, null, false);
-        this.color = this.color || 'primary';
     };
     /**
      * @return {?}
@@ -9319,7 +9287,7 @@ var MdSelect = /*@__PURE__*/(function () {
      * @return {?}
      */
     MdSelect.prototype._focusHost = function () {
-        this._element.nativeElement.focus();
+        this._elementRef.nativeElement.focus();
     };
     /**
      * Gets the index of the provided option in the option list.
@@ -9424,14 +9392,15 @@ var MdSelect = /*@__PURE__*/(function () {
         var /** @type {?} */ overlayRect = this.overlayDir.overlayRef.overlayElement.getBoundingClientRect();
         var /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
         var /** @type {?} */ isRtl = this._isRtl();
+        var /** @type {?} */ paddingWidth = this.multiple ? SELECT_MULTIPLE_PANEL_PADDING_X + SELECT_PANEL_PADDING_X :
+            SELECT_PANEL_PADDING_X * 2;
         var /** @type {?} */ offsetX = this.multiple ? SELECT_MULTIPLE_PANEL_PADDING_X : SELECT_PANEL_PADDING_X;
         if (!isRtl) {
             offsetX *= -1;
         }
-        var /** @type {?} */ leftOverflow = 0 - (overlayRect.left + offsetX
-            - (isRtl ? SELECT_PANEL_PADDING_X * 2 : 0));
+        var /** @type {?} */ leftOverflow = 0 - (overlayRect.left + offsetX - (isRtl ? paddingWidth : 0));
         var /** @type {?} */ rightOverflow = overlayRect.right + offsetX - viewportRect.width
-            + (isRtl ? 0 : SELECT_PANEL_PADDING_X * 2);
+            + (isRtl ? 0 : paddingWidth);
         if (leftOverflow > 0) {
             offsetX += leftOverflow + SELECT_PANEL_VIEWPORT_PADDING;
         }
@@ -9591,11 +9560,12 @@ var MdSelect = /*@__PURE__*/(function () {
         }
     };
     return MdSelect;
-}());
+}(_MdSelectMixinBase));
 MdSelect.decorators = [
     { type: Component, args: [{ selector: 'md-select, mat-select',
-                template: "<div class=\"mat-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><span class=\"mat-select-placeholder\" [class.mat-floating-placeholder]=\"_selectionModel.hasValue()\" [@transformPlaceholder]=\"_getPlaceholderAnimationState()\" [style.opacity]=\"_getPlaceholderOpacity()\" [style.width.px]=\"_selectedValueWidth\">{{ placeholder }} </span><span class=\"mat-select-value\" *ngIf=\"_selectionModel.hasValue()\"><span class=\"mat-select-value-text\">{{ triggerValue }}</span> </span><span class=\"mat-select-arrow\"></span> <span class=\"mat-select-underline\"></span></div><ng-template cdk-connected-overlay [origin]=\"origin\" [open]=\"panelOpen\" hasBackdrop (backdropClick)=\"close()\" backdropClass=\"cdk-overlay-transparent-backdrop\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div class=\"mat-select-panel {{ 'mat-' + color }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_handlePanelKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
+                template: "<div class=\"mat-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><span class=\"mat-select-placeholder\" [class.mat-floating-placeholder]=\"_selectionModel.hasValue()\" [@transformPlaceholder]=\"_getPlaceholderAnimationState()\" [style.opacity]=\"_getPlaceholderOpacity()\" [style.width.px]=\"_selectedValueWidth\">{{ placeholder }} </span><span class=\"mat-select-value\" *ngIf=\"_selectionModel.hasValue()\"><span class=\"mat-select-value-text\">{{ triggerValue }}</span> </span><span class=\"mat-select-arrow\"></span> <span class=\"mat-select-underline\"></span></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div class=\"mat-select-panel {{ 'mat-' + color }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_handlePanelKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
                 styles: [".mat-select{display:inline-block;outline:0}.mat-select-trigger{display:flex;align-items:center;height:30px;min-width:112px;cursor:pointer;position:relative;box-sizing:border-box}[aria-disabled=true] .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-underline{position:absolute;bottom:0;left:0;right:0;height:1px}[aria-disabled=true] .mat-select-underline{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;background-color:transparent;background-position:0 bottom}.mat-select-placeholder{position:relative;padding:0 2px;transform-origin:left top;flex-grow:1}.mat-select-placeholder.mat-floating-placeholder{top:-22px;left:-2px;text-align:left;transform:scale(.75)}[dir=rtl] .mat-select-placeholder{transform-origin:right top}[dir=rtl] .mat-select-placeholder.mat-floating-placeholder{left:2px;text-align:right}[aria-required=true] .mat-select-placeholder::after{content:'*'}.mat-select-value{position:absolute;max-width:calc(100% - 18px);flex-grow:1;top:0;left:0;bottom:0;display:flex;align-items:center}[dir=rtl] .mat-select-value{left:auto;right:0}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:30px}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}}"],
+                inputs: ['color'],
                 encapsulation: ViewEncapsulation.None,
                 host: {
                     'role': 'listbox',
@@ -9623,10 +9593,10 @@ MdSelect.decorators = [
  * @nocollapse
  */
 MdSelect.ctorParameters = function () { return [
-    { type: ElementRef, },
-    { type: Renderer2, },
     { type: ViewportRuler, },
     { type: ChangeDetectorRef, },
+    { type: Renderer2, },
+    { type: ElementRef, },
     { type: Dir, decorators: [{ type: Optional },] },
     { type: NgControl, decorators: [{ type: Self }, { type: Optional },] },
     { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
@@ -9644,7 +9614,6 @@ MdSelect.propDecorators = {
     'tabIndex': [{ type: Input },],
     'ariaLabel': [{ type: Input, args: ['aria-label',] },],
     'ariaLabelledby': [{ type: Input, args: ['aria-labelledby',] },],
-    'color': [{ type: Input },],
     'onOpen': [{ type: Output },],
     'onClose': [{ type: Output },],
     'change': [{ type: Output },],
@@ -9693,26 +9662,30 @@ var MdSlideToggleChange = /*@__PURE__*/(function () {
 // Increasing integer for generating unique ids for slide-toggle components.
 var nextId$1 = 0;
 var MdSlideToggleBase = /*@__PURE__*/(function () {
-    function MdSlideToggleBase() {
+    /**
+     * @param {?} _renderer
+     * @param {?} _elementRef
+     */
+    function MdSlideToggleBase(_renderer, _elementRef) {
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
     }
     return MdSlideToggleBase;
 }());
-var _MdSlideToggleMixinBase = mixinDisabled(MdSlideToggleBase);
+var _MdSlideToggleMixinBase = mixinColor(mixinDisabled(MdSlideToggleBase), 'accent');
 /**
  * Represents a slidable "switch" toggle that can be moved between on and off.
  */
 var MdSlideToggle = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(MdSlideToggle, _super);
     /**
-     * @param {?} _elementRef
-     * @param {?} _renderer
+     * @param {?} elementRef
+     * @param {?} renderer
      * @param {?} _focusOriginMonitor
      * @param {?} _changeDetectorRef
      */
-    function MdSlideToggle(_elementRef, _renderer, _focusOriginMonitor, _changeDetectorRef) {
-        var _this = _super.call(this) || this;
-        _this._elementRef = _elementRef;
-        _this._renderer = _renderer;
+    function MdSlideToggle(elementRef, renderer, _focusOriginMonitor, _changeDetectorRef) {
+        var _this = _super.call(this, renderer, elementRef) || this;
         _this._focusOriginMonitor = _focusOriginMonitor;
         _this._changeDetectorRef = _changeDetectorRef;
         _this.onChange = function (_) { };
@@ -9900,22 +9873,6 @@ var MdSlideToggle = /*@__PURE__*/(function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlideToggle.prototype, "color", {
-        /**
-         * The color of the slide-toggle. Can be primary, accent, or warn.
-         * @return {?}
-         */
-        get: function () { return this._color; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this._updateColor(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * Toggles the checked state of the slide-toggle.
      * @return {?}
@@ -9939,30 +9896,6 @@ var MdSlideToggle = /*@__PURE__*/(function (_super) {
             if (this._focusRipple) {
                 this._focusRipple.fadeOut();
                 this._focusRipple = null;
-            }
-        }
-    };
-    /**
-     * @param {?} newColor
-     * @return {?}
-     */
-    MdSlideToggle.prototype._updateColor = function (newColor) {
-        this._setElementColor(this._color, false);
-        this._setElementColor(newColor, true);
-        this._color = newColor;
-    };
-    /**
-     * @param {?} color
-     * @param {?} isAdd
-     * @return {?}
-     */
-    MdSlideToggle.prototype._setElementColor = function (color, isAdd) {
-        if (color != null && color != '') {
-            if (isAdd) {
-                this._renderer.addClass(this._elementRef.nativeElement, "mat-" + color);
-            }
-            else {
-                this._renderer.removeClass(this._elementRef.nativeElement, "mat-" + color);
             }
         }
     };
@@ -10022,7 +9955,7 @@ MdSlideToggle.decorators = [
                 template: "<label class=\"mat-slide-toggle-label\" #label><div class=\"mat-slide-toggle-bar\"><input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-slide-toggle-thumb-container\" (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"><div class=\"mat-slide-toggle-thumb\"></div><div class=\"mat-slide-toggle-ripple\" md-ripple [mdRippleTrigger]=\"label\" [mdRippleCentered]=\"true\" [mdRippleDisabled]=\"disableRipple || disabled\"></div></div></div><span class=\"mat-slide-toggle-content\"><ng-content></ng-content></span></label>",
                 styles: [".mat-slide-toggle{display:inline-block;height:24px;line-height:24px;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(16px,0,0)}.mat-slide-toggle.mat-disabled .mat-slide-toggle-label,.mat-slide-toggle.mat-disabled .mat-slide-toggle-thumb-container{cursor:default}.mat-slide-toggle-label{display:flex;flex:1;flex-direction:row;align-items:center;cursor:pointer}.mat-slide-toggle-label-before .mat-slide-toggle-label{order:1}.mat-slide-toggle-label-before .mat-slide-toggle-bar{order:2}.mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar{margin-right:8px;margin-left:0}.mat-slide-toggle-label-before .mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-bar{margin-left:8px;margin-right:0}.mat-slide-toggle-thumb-container{position:absolute;z-index:1;width:20px;height:20px;top:-3px;left:0;transform:translate3d(0,0,0);transition:all 80ms linear;transition-property:transform;cursor:-webkit-grab;cursor:grab}.mat-slide-toggle-thumb-container.mat-dragging,.mat-slide-toggle-thumb-container:active{cursor:-webkit-grabbing;cursor:grabbing;transition-duration:0s}.mat-slide-toggle-thumb{height:20px;width:20px;border-radius:50%;box-shadow:0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-thumb{background:#fff;border:solid 1px #000}}.mat-slide-toggle-bar{position:relative;width:36px;height:14px;border-radius:8px}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-bar{background:#fff}}.mat-slide-toggle-input{bottom:0;left:10px}.mat-slide-toggle-bar,.mat-slide-toggle-thumb{transition:all 80ms linear;transition-property:background-color;transition-delay:50ms}.mat-slide-toggle-ripple{position:absolute;top:-13px;left:-13px;height:46px;width:46px;border-radius:50%;z-index:1;pointer-events:none}"],
                 providers: [MD_SLIDE_TOGGLE_VALUE_ACCESSOR],
-                inputs: ['disabled'],
+                inputs: ['disabled', 'color'],
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush
             },] },
@@ -10049,7 +9982,6 @@ MdSlideToggle.propDecorators = {
     '_inputElement': [{ type: ViewChild, args: ['input',] },],
     '_ripple': [{ type: ViewChild, args: [MdRipple,] },],
     'checked': [{ type: Input },],
-    'color': [{ type: Input },],
 };
 /**
  * Renderer for the Slide Toggle component, which separates DOM modification in its own class
@@ -13204,52 +13136,60 @@ MdCardModule.decorators = [
  * @nocollapse
  */
 MdCardModule.ctorParameters = function () { return []; };
-/**
- * Material design styled Chip component. Used inside the MdChipList component.
- */
-var MdChip = /*@__PURE__*/(function () {
+var MdChipBase = /*@__PURE__*/(function () {
     /**
      * @param {?} _renderer
      * @param {?} _elementRef
      */
-    function MdChip(_renderer, _elementRef) {
+    function MdChipBase(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
+    }
+    return MdChipBase;
+}());
+var _MdChipMixinBase = mixinColor(MdChipBase, 'primary');
+/**
+ * Material design styled Chip component. Used inside the MdChipList component.
+ */
+var MdChip = /*@__PURE__*/(function (_super) {
+    tslib_1.__extends(MdChip, _super);
+    /**
+     * @param {?} renderer
+     * @param {?} elementRef
+     */
+    function MdChip(renderer, elementRef) {
+        var _this = _super.call(this, renderer, elementRef) || this;
         /**
          * Whether or not the chip is disabled. Disabled chips cannot be focused.
          */
-        this._disabled = null;
+        _this._disabled = null;
         /**
          * Whether or not the chip is selected.
          */
-        this._selected = false;
-        /**
-         * The palette color of selected chips.
-         */
-        this._color = 'primary';
+        _this._selected = false;
         /**
          * Emitted when the chip is focused.
          */
-        this.onFocus = new EventEmitter();
+        _this.onFocus = new EventEmitter();
         /**
          * Emitted when the chip is selected.
          */
-        this.select = new EventEmitter();
+        _this.select = new EventEmitter();
         /**
          * Emitted when the chip is deselected.
          */
-        this.deselect = new EventEmitter();
+        _this.deselect = new EventEmitter();
         /**
          * Emitted when the chip is destroyed.
          */
-        this.destroy = new EventEmitter();
+        _this.destroy = new EventEmitter();
+        return _this;
     }
     /**
      * @return {?}
      */
     MdChip.prototype.ngOnInit = function () {
         this._addDefaultCSSClass();
-        this._updateColor(this._color);
     };
     /**
      * @return {?}
@@ -13319,24 +13259,6 @@ var MdChip = /*@__PURE__*/(function () {
         this.selected = !this.selected;
         return this.selected;
     };
-    Object.defineProperty(MdChip.prototype, "color", {
-        /**
-         * The color of the chip. Can be `primary`, `accent`, or `warn`.
-         * @return {?}
-         */
-        get: function () {
-            return this._color;
-        },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this._updateColor(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * Allows for programmatic focusing of the chip.
      * @return {?}
@@ -13374,38 +13296,13 @@ var MdChip = /*@__PURE__*/(function () {
             this._renderer.addClass(el, 'mat-basic-chip');
         }
     };
-    /**
-     * Updates the private _color variable and the native element.
-     * @param {?} newColor
-     * @return {?}
-     */
-    MdChip.prototype._updateColor = function (newColor) {
-        this._setElementColor(this._color, false);
-        this._setElementColor(newColor, true);
-        this._color = newColor;
-    };
-    /**
-     * Sets the mat-color on the native element.
-     * @param {?} color
-     * @param {?} isAdd
-     * @return {?}
-     */
-    MdChip.prototype._setElementColor = function (color, isAdd) {
-        if (color != null && color != '') {
-            if (isAdd) {
-                this._renderer.addClass(this._elementRef.nativeElement, "mat-" + color);
-            }
-            else {
-                this._renderer.removeClass(this._elementRef.nativeElement, "mat-" + color);
-            }
-        }
-    };
     return MdChip;
-}());
+}(_MdChipMixinBase));
 MdChip.decorators = [
     { type: Component, args: [{
                 selector: "md-basic-chip, [md-basic-chip], md-chip, [md-chip],\n             mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
                 template: "<ng-content></ng-content>",
+                inputs: ['color'],
                 host: {
                     '[class.mat-chip]': 'true',
                     'tabindex': '-1',
@@ -13430,7 +13327,6 @@ MdChip.propDecorators = {
     'destroy': [{ type: Output },],
     'disabled': [{ type: Input },],
     'selected': [{ type: Input },],
-    'color': [{ type: Input },],
 };
 /**
  * A material design chips component (named ChipList for it's similarity to the List component).
@@ -14143,6 +14039,18 @@ function cloneSvg(svg) {
 function iconKey(namespace, name) {
     return namespace + ':' + name;
 }
+var MdIconBase = /*@__PURE__*/(function () {
+    /**
+     * @param {?} _renderer
+     * @param {?} _elementRef
+     */
+    function MdIconBase(_renderer, _elementRef) {
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
+    }
+    return MdIconBase;
+}());
+var _MdIconMixinBase = mixinColor(MdIconBase);
 /**
  * Component to display an icon. It can be used in the following ways:
  * - Specify the svgSrc input to load an SVG icon from a URL. The SVG content is directly inlined
@@ -14176,59 +14084,22 @@ function iconKey(namespace, name) {
  *   Example:
  *     <md-icon fontSet="fa" fontIcon="alarm"></md-icon>
  */
-var MdIcon = /*@__PURE__*/(function () {
+var MdIcon = /*@__PURE__*/(function (_super) {
+    tslib_1.__extends(MdIcon, _super);
     /**
-     * @param {?} _elementRef
-     * @param {?} _renderer
      * @param {?} _mdIconRegistry
+     * @param {?} renderer
+     * @param {?} elementRef
      */
-    function MdIcon(_elementRef, _renderer, _mdIconRegistry) {
-        this._elementRef = _elementRef;
-        this._renderer = _renderer;
-        this._mdIconRegistry = _mdIconRegistry;
+    function MdIcon(_mdIconRegistry, renderer, elementRef) {
+        var _this = _super.call(this, renderer, elementRef) || this;
+        _this._mdIconRegistry = _mdIconRegistry;
         /**
          * Screenreader label for the icon.
          */
-        this.hostAriaLabel = '';
+        _this.hostAriaLabel = '';
+        return _this;
     }
-    Object.defineProperty(MdIcon.prototype, "color", {
-        /**
-         * Color of the icon.
-         * @return {?}
-         */
-        get: function () { return this._color; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) { this._updateColor(value); },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @param {?} newColor
-     * @return {?}
-     */
-    MdIcon.prototype._updateColor = function (newColor) {
-        this._setElementColor(this._color, false);
-        this._setElementColor(newColor, true);
-        this._color = newColor;
-    };
-    /**
-     * @param {?} color
-     * @param {?} isAdd
-     * @return {?}
-     */
-    MdIcon.prototype._setElementColor = function (color, isAdd) {
-        if (color != null && color != '') {
-            if (isAdd) {
-                this._renderer.addClass(this._elementRef.nativeElement, "mat-" + color);
-            }
-            else {
-                this._renderer.removeClass(this._elementRef.nativeElement, "mat-" + color);
-            }
-        }
-    };
     /**
      * Splits an svgIcon binding value into its icon set and icon name components.
      * Returns a 2-element array of [(icon set), (icon name)].
@@ -14379,11 +14250,12 @@ var MdIcon = /*@__PURE__*/(function () {
         }
     };
     return MdIcon;
-}());
+}(_MdIconMixinBase));
 MdIcon.decorators = [
     { type: Component, args: [{ template: '<ng-content></ng-content>',
                 selector: 'md-icon, mat-icon',
                 styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px}"],
+                inputs: ['color'],
                 host: {
                     'role': 'img',
                     '[class.mat-icon]': 'true',
@@ -14396,9 +14268,9 @@ MdIcon.decorators = [
  * @nocollapse
  */
 MdIcon.ctorParameters = function () { return [
-    { type: ElementRef, },
-    { type: Renderer2, },
     { type: MdIconRegistry, },
+    { type: Renderer2, },
+    { type: ElementRef, },
 ]; };
 MdIcon.propDecorators = {
     'svgIcon': [{ type: Input },],
@@ -14406,7 +14278,6 @@ MdIcon.propDecorators = {
     'fontIcon': [{ type: Input },],
     'alt': [{ type: Input },],
     'hostAriaLabel': [{ type: Input, args: ['aria-label',] },],
-    'color': [{ type: Input },],
 };
 var MdIconModule = /*@__PURE__*/(function () {
     function MdIconModule() {
@@ -14478,29 +14349,41 @@ MdProgressSpinnerCssMatStyler.decorators = [
  * @nocollapse
  */
 MdProgressSpinnerCssMatStyler.ctorParameters = function () { return []; };
+var MdProgressSpinnerBase = /*@__PURE__*/(function () {
+    /**
+     * @param {?} _renderer
+     * @param {?} _elementRef
+     */
+    function MdProgressSpinnerBase(_renderer, _elementRef) {
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
+    }
+    return MdProgressSpinnerBase;
+}());
+var _MdProgressSpinnerMixinBase = mixinColor(MdProgressSpinnerBase, 'primary');
 /**
  * <md-progress-spinner> component.
  */
-var MdProgressSpinner = /*@__PURE__*/(function () {
+var MdProgressSpinner = /*@__PURE__*/(function (_super) {
+    tslib_1.__extends(MdProgressSpinner, _super);
     /**
+     * @param {?} renderer
+     * @param {?} elementRef
      * @param {?} _ngZone
-     * @param {?} _elementRef
-     * @param {?} _renderer
      */
-    function MdProgressSpinner(_ngZone, _elementRef, _renderer) {
-        this._ngZone = _ngZone;
-        this._elementRef = _elementRef;
-        this._renderer = _renderer;
+    function MdProgressSpinner(renderer, elementRef, _ngZone) {
+        var _this = _super.call(this, renderer, elementRef) || this;
+        _this._ngZone = _ngZone;
         /**
          * The id of the last requested animation.
          */
-        this._lastAnimationId = 0;
-        this._mode = 'determinate';
-        this._color = 'primary';
+        _this._lastAnimationId = 0;
+        _this._mode = 'determinate';
         /**
          * Stroke width of the progress spinner. By default uses 10px as stroke width.
          */
-        this.strokeWidth = PROGRESS_SPINNER_STROKE_WIDTH;
+        _this.strokeWidth = PROGRESS_SPINNER_STROKE_WIDTH;
+        return _this;
     }
     Object.defineProperty(MdProgressSpinner.prototype, "_ariaValueMin", {
         /**
@@ -14552,26 +14435,6 @@ var MdProgressSpinner = /*@__PURE__*/(function () {
     MdProgressSpinner.prototype.ngOnDestroy = function () {
         this._cleanupIndeterminateAnimation();
     };
-    Object.defineProperty(MdProgressSpinner.prototype, "color", {
-        /**
-         * The color of the progress-spinner. Can be primary, accent, or warn.
-         * @return {?}
-         */
-        get: function () { return this._color; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            if (value) {
-                this._renderer.removeClass(this._elementRef.nativeElement, "mat-" + this._color);
-                this._renderer.addClass(this._elementRef.nativeElement, "mat-" + value);
-                this._color = value;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(MdProgressSpinner.prototype, "value", {
         /**
          * Value of the progress circle. It is bound to the host as the attribute aria-valuenow.
@@ -14714,7 +14577,7 @@ var MdProgressSpinner = /*@__PURE__*/(function () {
         }
     };
     return MdProgressSpinner;
-}());
+}(_MdProgressSpinnerMixinBase));
 MdProgressSpinner.decorators = [
     { type: Component, args: [{ selector: 'md-progress-spinner, mat-progress-spinner',
                 host: {
@@ -14722,6 +14585,7 @@ MdProgressSpinner.decorators = [
                     '[attr.aria-valuemin]': '_ariaValueMin',
                     '[attr.aria-valuemax]': '_ariaValueMax'
                 },
+                inputs: ['color'],
                 template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"><path #path [style.strokeWidth]=\"strokeWidth\"></path></svg>",
                 styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;transition:stroke .3s cubic-bezier(.35,0,.25,1)}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
                 changeDetection: ChangeDetectionStrategy.OnPush,
@@ -14731,14 +14595,13 @@ MdProgressSpinner.decorators = [
  * @nocollapse
  */
 MdProgressSpinner.ctorParameters = function () { return [
-    { type: NgZone, },
-    { type: ElementRef, },
     { type: Renderer2, },
+    { type: ElementRef, },
+    { type: NgZone, },
 ]; };
 MdProgressSpinner.propDecorators = {
     '_path': [{ type: ViewChild, args: ['path',] },],
     'strokeWidth': [{ type: Input },],
-    'color': [{ type: Input },],
     'value': [{ type: Input }, { type: HostBinding, args: ['attr.aria-valuenow',] },],
     'mode': [{ type: HostBinding, args: ['attr.mode',] }, { type: Input },],
 };
@@ -14756,7 +14619,7 @@ var MdSpinner = /*@__PURE__*/(function (_super) {
      * @param {?} renderer
      */
     function MdSpinner(elementRef, ngZone, renderer) {
-        var _this = _super.call(this, ngZone, elementRef, renderer) || this;
+        var _this = _super.call(this, renderer, elementRef, ngZone) || this;
         _this.mode = 'indeterminate';
         return _this;
     }
@@ -14777,6 +14640,7 @@ MdSpinner.decorators = [
                     'mode': 'indeterminate',
                     '[class.mat-spinner]': 'true',
                 },
+                inputs: ['color'],
                 template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"><path #path [style.strokeWidth]=\"strokeWidth\"></path></svg>",
                 styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;transition:stroke .3s cubic-bezier(.35,0,.25,1)}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
             },] },
@@ -17830,64 +17694,34 @@ MdToolbarRow.decorators = [
  * @nocollapse
  */
 MdToolbarRow.ctorParameters = function () { return []; };
-var MdToolbar = /*@__PURE__*/(function () {
+var MdToolbarBase = /*@__PURE__*/(function () {
     /**
-     * @param {?} _elementRef
      * @param {?} _renderer
+     * @param {?} _elementRef
      */
-    function MdToolbar(_elementRef, _renderer) {
-        this._elementRef = _elementRef;
+    function MdToolbarBase(_renderer, _elementRef) {
         this._renderer = _renderer;
+        this._elementRef = _elementRef;
     }
-    Object.defineProperty(MdToolbar.prototype, "color", {
-        /**
-         * The color of the toolbar. Can be primary, accent, or warn.
-         * @return {?}
-         */
-        get: function () {
-            return this._color;
-        },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this._updateColor(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @param {?} newColor
-     * @return {?}
-     */
-    MdToolbar.prototype._updateColor = function (newColor) {
-        this._setElementColor(this._color, false);
-        this._setElementColor(newColor, true);
-        this._color = newColor;
-    };
-    /**
-     * @param {?} color
-     * @param {?} isAdd
-     * @return {?}
-     */
-    MdToolbar.prototype._setElementColor = function (color, isAdd) {
-        if (color != null && color != '') {
-            var /** @type {?} */ element = this._elementRef.nativeElement;
-            if (isAdd) {
-                this._renderer.addClass(element, "mat-" + color);
-            }
-            else {
-                this._renderer.removeClass(element, "mat-" + color);
-            }
-        }
-    };
-    return MdToolbar;
+    return MdToolbarBase;
 }());
+var _MdToolbarMixinBase = mixinColor(MdToolbarBase);
+var MdToolbar = /*@__PURE__*/(function (_super) {
+    tslib_1.__extends(MdToolbar, _super);
+    /**
+     * @param {?} renderer
+     * @param {?} elementRef
+     */
+    function MdToolbar(renderer, elementRef) {
+        return _super.call(this, renderer, elementRef) || this;
+    }
+    return MdToolbar;
+}(_MdToolbarMixinBase));
 MdToolbar.decorators = [
     { type: Component, args: [{ selector: 'md-toolbar, mat-toolbar',
                 template: "<div class=\"mat-toolbar-layout\"><md-toolbar-row><ng-content></ng-content></md-toolbar-row><ng-content select=\"md-toolbar-row, mat-toolbar-row\"></ng-content></div>",
                 styles: [".mat-toolbar{display:flex;box-sizing:border-box;width:100%;padding:0 16px;flex-direction:column}.mat-toolbar .mat-toolbar-row{display:flex;box-sizing:border-box;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar{min-height:64px}.mat-toolbar-row{height:64px}@media (max-width:600px){.mat-toolbar{min-height:56px}.mat-toolbar-row{height:56px}}"],
+                inputs: ['color'],
                 host: {
                     '[class.mat-toolbar]': 'true',
                     'role': 'toolbar'
@@ -17900,12 +17734,9 @@ MdToolbar.decorators = [
  * @nocollapse
  */
 MdToolbar.ctorParameters = function () { return [
-    { type: ElementRef, },
     { type: Renderer2, },
+    { type: ElementRef, },
 ]; };
-MdToolbar.propDecorators = {
-    'color': [{ type: Input },],
-};
 var MdToolbarModule = /*@__PURE__*/(function () {
     function MdToolbarModule() {
     }
@@ -22645,5 +22476,5 @@ MaterialModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { Dir, RtlModule, ObserveContentModule, ObserveContent, MdOptionModule, MdOption, MdOptionSelectionChange, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MdCoreModule, PlatformModule, Platform, getSupportedInputTypes, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, MATERIAL_SANITY_CHECKS, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFabCssMatStyler, MdMiniFabCssMatStyler, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, CdkDataTableModule, DataSource, RowPlaceholder, HeaderRowPlaceholder, CdkTable, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_OPTION_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabChangeEvent, MdTabGroup, MdTabNavBar, MdTabLink, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, throwMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵi, mixinDisabled as ɵp, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵj, CdkCell as ɵv, CdkCellDef as ɵr, CdkColumnDef as ɵt, CdkHeaderCell as ɵu, CdkHeaderCellDef as ɵs, CdkCellOutlet as ɵy, CdkHeaderRow as ɵz, CdkHeaderRowDef as ɵw, CdkRow as ɵba, CdkRowDef as ɵx, MdMutationObserverFactory as ɵa, OVERLAY_CONTAINER_PROVIDER as ɵc, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵb, OverlayPositionBuilder as ɵo, VIEWPORT_RULER_PROVIDER as ɵe, VIEWPORT_RULER_PROVIDER_FACTORY as ɵd, SCROLL_DISPATCHER_PROVIDER as ɵg, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵf, RippleRenderer as ɵh, MdGridAvatarCssMatStyler as ɵl, MdGridTileFooterCssMatStyler as ɵn, MdGridTileHeaderCssMatStyler as ɵm, MdGridTileText as ɵk };
+export { Dir, RtlModule, ObserveContentModule, ObserveContent, MdOptionModule, MdOption, MdOptionSelectionChange, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MdCoreModule, PlatformModule, Platform, getSupportedInputTypes, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, MATERIAL_SANITY_CHECKS, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFabCssMatStyler, MdMiniFabCssMatStyler, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, CdkDataTableModule, DataSource, RowPlaceholder, HeaderRowPlaceholder, CdkTable, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_OPTION_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabChangeEvent, MdTabGroup, MdTabNavBar, MdTabLink, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, throwMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵi, mixinColor as ɵp, mixinDisabled as ɵq, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵj, CdkCell as ɵw, CdkCellDef as ɵs, CdkColumnDef as ɵu, CdkHeaderCell as ɵv, CdkHeaderCellDef as ɵt, CdkCellOutlet as ɵz, CdkHeaderRow as ɵba, CdkHeaderRowDef as ɵx, CdkRow as ɵbb, CdkRowDef as ɵy, MdMutationObserverFactory as ɵa, OVERLAY_CONTAINER_PROVIDER as ɵc, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵb, OverlayPositionBuilder as ɵo, VIEWPORT_RULER_PROVIDER as ɵe, VIEWPORT_RULER_PROVIDER_FACTORY as ɵd, SCROLL_DISPATCHER_PROVIDER as ɵg, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵf, RippleRenderer as ɵh, MdGridAvatarCssMatStyler as ɵl, MdGridTileFooterCssMatStyler as ɵn, MdGridTileHeaderCssMatStyler as ɵm, MdGridTileText as ɵk };
 //# sourceMappingURL=material.es5.js.map

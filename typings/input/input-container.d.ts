@@ -88,7 +88,7 @@ export declare class MdInputContainer implements AfterViewInit, AfterContentInit
     /** Color of the input divider, based on the theme. */
     color: 'primary' | 'accent' | 'warn';
     /** @deprecated Use color instead. */
-    dividerColor: "accent" | "primary" | "warn";
+    dividerColor: "primary" | "accent" | "warn";
     /** Whether the required marker should be hidden. */
     hideRequiredMarker: any;
     private _hideRequiredMarker;

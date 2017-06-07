@@ -10,6 +10,7 @@ import { SelectionModel } from '../core/selection/selection';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/filter';
+import { CanColor } from '../core/common-behaviors/color';
 /**
  * The following style constants are necessary to save here in order
  * to properly calculate the alignment of the selected option over
@@ -59,9 +60,13 @@ export declare class MdSelectChange {
 }
 /** Allowed values for the floatPlaceholder option. */
 export declare type MdSelectFloatPlaceholderType = 'always' | 'never' | 'auto';
-export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, ControlValueAccessor {
-    private _element;
-    private _renderer;
+export declare class MdSelectBase {
+    _renderer: Renderer2;
+    _elementRef: ElementRef;
+    constructor(_renderer: Renderer2, _elementRef: ElementRef);
+}
+export declare const _MdSelectMixinBase: (new (...args: any[]) => CanColor) & typeof MdSelectBase;
+export declare class MdSelect extends _MdSelectMixinBase implements AfterContentInit, OnDestroy, OnInit, ControlValueAccessor, CanColor {
     private _viewportRuler;
     private _changeDetectorRef;
     private _dir;
@@ -90,8 +95,6 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
     private _placeholderState;
     /** Tab index for the element. */
     private _tabIndex;
-    /** Theme color for the component. */
-    private _color;
     /**
      * The width of the trigger. Must be saved to set the min width of the overlay panel
      * and the width of the selected value.
@@ -159,8 +162,6 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
     ariaLabel: string;
     /** Input that can be used to specify the `aria-labelledby` attribute. */
     ariaLabelledby: string;
-    /** Theme color for the component. */
-    color: string;
     /** Combined stream of all of the child options' change events. */
     readonly optionSelectionChanges: Observable<MdOptionSelectionChange>;
     /** Event emitted when the select has been opened. */
@@ -169,7 +170,7 @@ export declare class MdSelect implements AfterContentInit, OnDestroy, OnInit, Co
     onClose: EventEmitter<void>;
     /** Event emitted when the selected value has been changed by the user. */
     change: EventEmitter<MdSelectChange>;
-    constructor(_element: ElementRef, _renderer: Renderer2, _viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _dir: Dir, _control: NgControl, tabIndex: string);
+    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef, _dir: Dir, _control: NgControl, tabIndex: string);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

@@ -1,13 +1,13 @@
 import { ElementRef, Renderer2 } from '@angular/core';
+import { CanColor } from '../core/common-behaviors/color';
 export declare class MdToolbarRow {
 }
-export declare class MdToolbar {
-    private _elementRef;
-    private _renderer;
-    private _color;
-    constructor(_elementRef: ElementRef, _renderer: Renderer2);
-    /** The color of the toolbar. Can be primary, accent, or warn. */
-    color: string;
-    private _updateColor(newColor);
-    private _setElementColor(color, isAdd);
+export declare class MdToolbarBase {
+    _renderer: Renderer2;
+    _elementRef: ElementRef;
+    constructor(_renderer: Renderer2, _elementRef: ElementRef);
+}
+export declare const _MdToolbarMixinBase: (new (...args: any[]) => CanColor) & typeof MdToolbarBase;
+export declare class MdToolbar extends _MdToolbarMixinBase implements CanColor {
+    constructor(renderer: Renderer2, elementRef: ElementRef);
 }

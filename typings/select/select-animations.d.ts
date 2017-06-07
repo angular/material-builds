@@ -14,8 +14,8 @@ export declare const transformPlaceholder: AnimationTriggerMetadata;
 /**
  * This animation transforms the select's overlay panel on and off the page.
  *
- * When the panel is attached to the DOM, it expands its width 32px, scales it up to
- * 100% on the Y axis, fades in its border, and translates slightly up and to the
+ * When the panel is attached to the DOM, it expands its width by the amount of padding, scales it
+ * up to 100% on the Y axis, fades in its border, and translates slightly up and to the
  * side to ensure the option text correctly overlaps the trigger text.
  *
  * When the panel is removed from the DOM, it simply fades out linearly.

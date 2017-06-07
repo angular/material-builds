@@ -2,6 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, 
 import { ControlValueAccessor } from '@angular/forms';
 import { FocusOriginMonitor, MdRipple } from '../core';
 import { CanDisable } from '../core/common-behaviors/disabled';
+import { CanColor } from '../core/common-behaviors/color';
 /**
  * Provider Expression that allows md-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -30,8 +31,11 @@ export declare class MdCheckboxChange {
     checked: boolean;
 }
 export declare class MdCheckboxBase {
+    _renderer: Renderer2;
+    _elementRef: ElementRef;
+    constructor(_renderer: Renderer2, _elementRef: ElementRef);
 }
-export declare const _MdCheckboxMixinBase: (new (...args: any[]) => CanDisable) & typeof MdCheckboxBase;
+export declare const _MdCheckboxMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisable) & typeof MdCheckboxBase;
 /**
  * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
  * and exposes a similar API. A MdCheckbox can be either checked, unchecked, indeterminate, or
@@ -40,9 +44,7 @@ export declare const _MdCheckboxMixinBase: (new (...args: any[]) => CanDisable) 
  * have the checkbox be accessible, you may supply an [aria-label] input.
  * See: https://www.google.com/design/spec/components/selection-controls.html
  */
-export declare class MdCheckbox extends _MdCheckboxMixinBase implements ControlValueAccessor, AfterViewInit, OnDestroy, CanDisable {
-    private _renderer;
-    private _elementRef;
+export declare class MdCheckbox extends _MdCheckboxMixinBase implements ControlValueAccessor, AfterViewInit, OnDestroy, CanColor, CanDisable {
     private _changeDetectorRef;
     private _focusOriginMonitor;
     /**
@@ -98,11 +100,10 @@ export declare class MdCheckbox extends _MdCheckboxMixinBase implements ControlV
     private _currentCheckState;
     private _checked;
     private _indeterminate;
-    private _color;
     private _controlValueAccessorChangeFn;
     /** Reference to the focused state ripple. */
     private _focusRipple;
-    constructor(_renderer: Renderer2, _elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _focusOriginMonitor: FocusOriginMonitor);
+    constructor(renderer: Renderer2, elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _focusOriginMonitor: FocusOriginMonitor);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /**
@@ -116,10 +117,6 @@ export declare class MdCheckbox extends _MdCheckboxMixinBase implements ControlV
      * set to false.
      */
     indeterminate: boolean;
-    /** The color of the button. Can be `primary`, `accent`, or `warn`. */
-    color: string;
-    _updateColor(newColor: string): void;
-    _setElementColor(color: string, isAdd: boolean): void;
     _isRippleDisabled(): boolean;
     /**
      * Sets the model value. Implemented as part of ControlValueAccessor.
