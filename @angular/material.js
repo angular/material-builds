@@ -5072,11 +5072,10 @@ class FocusOriginMonitor {
     /**
      * Focuses the element via the specified focus origin.
      * @param {?} element The element to focus.
-     * @param {?} renderer The renderer to use to invoke the focus method on the element.
      * @param {?} origin The focus origin.
      * @return {?}
      */
-    focusVia(element, renderer, origin) {
+    focusVia(element, origin) {
         this._setOriginForCurrentEventQueue(origin);
         element.focus();
     }
@@ -7116,7 +7115,7 @@ class MdCheckbox extends _MdCheckboxMixinBase {
      * @return {?}
      */
     focus() {
-        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, this._renderer, 'keyboard');
+        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
     }
     /**
      * @param {?} event
@@ -7706,7 +7705,7 @@ class MdRadioButton {
      * @return {?}
      */
     focus() {
-        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, this._renderer, 'keyboard');
+        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
     }
     /**
      * Marks the radio button as needing checking for change detection.
@@ -9408,7 +9407,7 @@ class MdSlideToggle extends _MdSlideToggleMixinBase {
      * @return {?}
      */
     focus() {
-        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, this._renderer, 'keyboard');
+        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
     }
     /**
      * Whether the slide-toggle is checked.
@@ -18031,6 +18030,10 @@ class MdDialogConfig {
          * Data being injected into the child component.
          */
         this.data = null;
+        /**
+         * Layout direction for the dialog's content.
+         */
+        this.direction = 'ltr';
         // TODO(jelbourn): add configuration for lifecycle hooks, ARIA labelling.
     }
 }
@@ -18300,6 +18303,7 @@ class MdDialog {
         overlayState.panelClass = dialogConfig.panelClass;
         overlayState.hasBackdrop = dialogConfig.hasBackdrop;
         overlayState.scrollStrategy = this._overlay.scrollStrategies.block();
+        overlayState.direction = dialogConfig.direction;
         if (dialogConfig.backdropClass) {
             overlayState.backdropClass = dialogConfig.backdropClass;
         }

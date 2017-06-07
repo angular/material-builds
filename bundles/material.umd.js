@@ -5207,11 +5207,10 @@ var FocusOriginMonitor = (function () {
     /**
      * Focuses the element via the specified focus origin.
      * @param {?} element The element to focus.
-     * @param {?} renderer The renderer to use to invoke the focus method on the element.
      * @param {?} origin The focus origin.
      * @return {?}
      */
-    FocusOriginMonitor.prototype.focusVia = function (element, renderer, origin) {
+    FocusOriginMonitor.prototype.focusVia = function (element, origin) {
         this._setOriginForCurrentEventQueue(origin);
         element.focus();
     };
@@ -7409,7 +7408,7 @@ var MdCheckbox = (function (_super) {
      * @return {?}
      */
     MdCheckbox.prototype.focus = function () {
-        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, this._renderer, 'keyboard');
+        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
     };
     /**
      * @param {?} event
@@ -8065,7 +8064,7 @@ var MdRadioButton = (function () {
      * @return {?}
      */
     MdRadioButton.prototype.focus = function () {
-        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, this._renderer, 'keyboard');
+        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
     };
     /**
      * Marks the radio button as needing checking for change detection.
@@ -9859,7 +9858,7 @@ var MdSlideToggle = (function (_super) {
      * @return {?}
      */
     MdSlideToggle.prototype.focus = function () {
-        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, this._renderer, 'keyboard');
+        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
     };
     Object.defineProperty(MdSlideToggle.prototype, "checked", {
         /**
@@ -19167,6 +19166,10 @@ var MdDialogConfig = (function () {
          * Data being injected into the child component.
          */
         this.data = null;
+        /**
+         * Layout direction for the dialog's content.
+         */
+        this.direction = 'ltr';
         // TODO(jelbourn): add configuration for lifecycle hooks, ARIA labelling.
     }
     return MdDialogConfig;
@@ -19452,6 +19455,7 @@ var MdDialog = (function () {
         overlayState.panelClass = dialogConfig.panelClass;
         overlayState.hasBackdrop = dialogConfig.hasBackdrop;
         overlayState.scrollStrategy = this._overlay.scrollStrategies.block();
+        overlayState.direction = dialogConfig.direction;
         if (dialogConfig.backdropClass) {
             overlayState.backdropClass = dialogConfig.backdropClass;
         }

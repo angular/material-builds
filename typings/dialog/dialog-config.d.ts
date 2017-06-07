@@ -1,4 +1,5 @@
 import { ViewContainerRef } from '@angular/core';
+import { LayoutDirection } from '../core';
 /** Valid ARIA roles for a dialog element. */
 export declare type DialogRole = 'dialog' | 'alertdialog';
 /** Possible overrides for a dialog's position. */
@@ -37,4 +38,6 @@ export declare class MdDialogConfig {
     position?: DialogPosition;
     /** Data being injected into the child component. */
     data?: any;
+    /** Layout direction for the dialog's content. */
+    direction?: LayoutDirection;
 }
