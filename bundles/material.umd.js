@@ -973,7 +973,7 @@ var ScrollDispatcher = (function () {
     ScrollDispatcher.prototype.getScrollContainers = function (elementRef) {
         var _this = this;
         var /** @type {?} */ scrollingContainers = [];
-        this.scrollableReferences.forEach(function (_subscription, scrollable) {
+        this.scrollableReferences.forEach(function (subscription, scrollable) {
             if (_this.scrollableContainsElement(scrollable, elementRef)) {
                 scrollingContainers.push(scrollable);
             }
@@ -5824,11 +5824,7 @@ var DEFAULT_DAY_OF_WEEK_NAMES = {
  * @return {?}
  */
 function range(length, valueFunction) {
-    var /** @type {?} */ valuesArray = Array(length);
-    for (var /** @type {?} */ i = 0; i < length; i++) {
-        valuesArray[i] = valueFunction(i);
-    }
-    return valuesArray;
+    return Array.apply(null, Array(length)).map(function (v, i) { return valueFunction(i); });
 }
 /**
  * Adapts the native JS Date for use with cdk-based components that work with dates.
@@ -5961,9 +5957,10 @@ var NativeDateAdapter = (function (_super) {
     };
     /**
      * @param {?} value
+     * @param {?} parseFormat
      * @return {?}
      */
-    NativeDateAdapter.prototype.parse = function (value) {
+    NativeDateAdapter.prototype.parse = function (value, parseFormat) {
         // We have no way using the native JS Date to set the parse format or locale, so we ignore these
         // parameters.
         var /** @type {?} */ timestamp = typeof value == 'number' ? value : Date.parse(value);
@@ -6192,7 +6189,7 @@ var MdButtonToggleGroup = (function () {
          * The method to be called in order to update ngModel.
          * Now `ngModel` binding is not supported in multiple selection mode.
          */
-        this._controlValueAccessorChangeFn = function () { };
+        this._controlValueAccessorChangeFn = function (value) { };
         /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          */
@@ -6698,7 +6695,7 @@ var MdButtonToggle = (function () {
 }());
 MdButtonToggle.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-button-toggle, mat-button-toggle',
-                template: "<label [attr.for]=\"inputId\" class=\"mat-button-toggle-label\"><input #input class=\"mat-button-toggle-input cdk-visually-hidden\" [type]=\"_type\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-button-toggle-label-content\"><ng-content></ng-content></div></label><div class=\"mat-button-toggle-focus-overlay\"></div>",
+                template: "<label [attr.for]=\"inputId\" class=\"mat-button-toggle-label\"><input #input class=\"mat-button-toggle-input cdk-visually-hidden\" [type]=\"_type\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-button-toggle-label-content\"><ng-content></ng-content></div></label><div class=\"mat-button-toggle-focus-overlay\" (touchstart)=\"$event.preventDefault()\"></div>",
                 styles: [".mat-button-toggle-group{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle-disabled .mat-button-toggle-label-content{cursor:default}.mat-button-toggle{white-space:nowrap;position:relative}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:1}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px;cursor:pointer}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;position:absolute;top:0;left:0;right:0;bottom:0}"],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 host: {
@@ -7216,7 +7213,7 @@ var MdCheckbox = (function (_super) {
         _this._currentCheckState = TransitionCheckState.Init;
         _this._checked = false;
         _this._indeterminate = false;
-        _this._controlValueAccessorChangeFn = function () { };
+        _this._controlValueAccessorChangeFn = function (value) { };
         return _this;
     }
     Object.defineProperty(MdCheckbox.prototype, "disableRipple", {
@@ -7674,7 +7671,7 @@ var MdRadioGroup = (function (_super) {
         /**
          * The method to be called in order to update ngModel
          */
-        _this._controlValueAccessorChangeFn = function () { };
+        _this._controlValueAccessorChangeFn = function (value) { };
         /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          * \@docs-private
@@ -8730,7 +8727,7 @@ var MdSelect = (function (_super) {
         /**
          * View -> model callback called when value changes
          */
-        _this._onChange = function () { };
+        _this._onChange = function (value) { };
         /**
          * View -> model callback called when select has been touched
          */
@@ -12474,7 +12471,6 @@ var TilePosition = (function () {
  * Sets the style properties for an individual tile, given the position calculated by the
  * Tile Coordinator.
  * \@docs-private
- * @abstract
  */
 var TileStyler = (function () {
     function TileStyler() {
@@ -12585,7 +12581,6 @@ var TileStyler = (function () {
      * Sets the vertical placement of the tile in the list.
      * This method will be implemented by each type of TileStyler.
      * \@docs-private
-     * @abstract
      * @param {?} tile
      * @param {?} rowIndex
      * @param {?} percentWidth
@@ -12595,7 +12590,7 @@ var TileStyler = (function () {
     TileStyler.prototype.setRowStyles = function (tile, rowIndex, percentWidth, gutterWidth) { };
     /**
      * Calculates the computed height and returns the correct style property to set.
-     * This method can be implemented by each type of TileStyler.
+     * This method will be implemented by each type of TileStyler.
      * \@docs-private
      * @return {?}
      */
@@ -12631,9 +12626,11 @@ var FixedTileStyler = (function (_super) {
     /**
      * @param {?} tile
      * @param {?} rowIndex
+     * @param {?} percentWidth
+     * @param {?} gutterWidth
      * @return {?}
      */
-    FixedTileStyler.prototype.setRowStyles = function (tile, rowIndex) {
+    FixedTileStyler.prototype.setRowStyles = function (tile, rowIndex, percentWidth, gutterWidth) {
         tile._setStyle('top', this.getTilePosition(this.fixedRowHeight, rowIndex));
         tile._setStyle('height', calc(this.getTileSize(this.fixedRowHeight, tile.rowspan)));
     };
@@ -12714,9 +12711,11 @@ var FitTileStyler = (function (_super) {
     /**
      * @param {?} tile
      * @param {?} rowIndex
+     * @param {?} percentWidth
+     * @param {?} gutterWidth
      * @return {?}
      */
-    FitTileStyler.prototype.setRowStyles = function (tile, rowIndex) {
+    FitTileStyler.prototype.setRowStyles = function (tile, rowIndex, percentWidth, gutterWidth) {
         // Percent of the available vertical space that one row takes up.
         var /** @type {?} */ percentHeightPerTile = 100 / this._rowspan;
         // Fraction of the horizontal gutter size that each column takes up.
@@ -13925,7 +13924,7 @@ var MdIconRegistry = (function () {
         var /** @type {?} */ iconSetFetchRequests = iconSetConfigs
             .filter(function (iconSetConfig) { return !iconSetConfig.svgElement; })
             .map(function (iconSetConfig) { return _this._loadSvgIconSetFromConfig(iconSetConfig)
-            .catch(function (err) {
+            .catch(function (err, caught) {
             var /** @type {?} */ url = _this._sanitizer.sanitize(_angular_core.SecurityContext.RESOURCE_URL, iconSetConfig.url);
             // Swallow errors fetching individual URLs so the combined Observable won't
             // necessarily fail.
@@ -13941,7 +13940,7 @@ var MdIconRegistry = (function () {
         // Fetch all the icon set URLs. When the requests complete, every IconSet should have a
         // cached SVG element (unless the request failed), and we can check again for the icon.
         return rxjs_Observable.Observable.forkJoin(iconSetFetchRequests)
-            .map(function () {
+            .map(function (ignoredResults) {
             var /** @type {?} */ foundIcon = _this._extractIconWithNameFromAnySet(name, iconSetConfigs);
             if (!foundIcon) {
                 throw getMdIconNameNotFoundError(name);
@@ -16077,9 +16076,10 @@ var MdSnackBarContainer = (function (_super) {
     };
     /**
      * Attach a template portal as content to this snack bar container.
+     * @param {?} portal
      * @return {?}
      */
-    MdSnackBarContainer.prototype.attachTemplatePortal = function () {
+    MdSnackBarContainer.prototype.attachTemplatePortal = function (portal) {
         throw new Error('Not yet implemented');
     };
     /**
@@ -19999,7 +19999,7 @@ var MdAutocompleteTrigger = (function () {
         /**
          * View -> model callback called when value changes
          */
-        this._onChange = function () { };
+        this._onChange = function (value) { };
         /**
          * View -> model callback called when autocomplete has been touched
          */
@@ -21615,7 +21615,7 @@ var MdDatepickerInput = (function () {
          */
         this._valueChange = new _angular_core.EventEmitter();
         this._onTouched = function () { };
-        this._cvaOnChange = function () { };
+        this._cvaOnChange = function (value) { };
         this._validatorOnChange = function () { };
         /**
          * The form control validator for the min date.

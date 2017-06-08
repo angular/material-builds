@@ -1043,7 +1043,7 @@ class ScrollDispatcher {
      */
     getScrollContainers(elementRef) {
         const /** @type {?} */ scrollingContainers = [];
-        this.scrollableReferences.forEach((_subscription, scrollable) => {
+        this.scrollableReferences.forEach((subscription, scrollable) => {
             if (this.scrollableContainsElement(scrollable, elementRef)) {
                 scrollingContainers.push(scrollable);
             }
@@ -5663,11 +5663,7 @@ const DEFAULT_DAY_OF_WEEK_NAMES = {
  * @return {?}
  */
 function range(length, valueFunction) {
-    const /** @type {?} */ valuesArray = Array(length);
-    for (let /** @type {?} */ i = 0; i < length; i++) {
-        valuesArray[i] = valueFunction(i);
-    }
-    return valuesArray;
+    return Array.apply(null, Array(length)).map((v, i) => valueFunction(i));
 }
 /**
  * Adapts the native JS Date for use with cdk-based components that work with dates.
@@ -5793,9 +5789,10 @@ class NativeDateAdapter extends DateAdapter {
     }
     /**
      * @param {?} value
+     * @param {?} parseFormat
      * @return {?}
      */
-    parse(value) {
+    parse(value, parseFormat) {
         // We have no way using the native JS Date to set the parse format or locale, so we ignore these
         // parameters.
         let /** @type {?} */ timestamp = typeof value == 'number' ? value : Date.parse(value);
@@ -6017,7 +6014,7 @@ class MdButtonToggleGroup {
          * The method to be called in order to update ngModel.
          * Now `ngModel` binding is not supported in multiple selection mode.
          */
-        this._controlValueAccessorChangeFn = () => { };
+        this._controlValueAccessorChangeFn = (value) => { };
         /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          */
@@ -6473,7 +6470,7 @@ class MdButtonToggle {
 }
 MdButtonToggle.decorators = [
     { type: Component, args: [{selector: 'md-button-toggle, mat-button-toggle',
-                template: "<label [attr.for]=\"inputId\" class=\"mat-button-toggle-label\"><input #input class=\"mat-button-toggle-input cdk-visually-hidden\" [type]=\"_type\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-button-toggle-label-content\"><ng-content></ng-content></div></label><div class=\"mat-button-toggle-focus-overlay\"></div>",
+                template: "<label [attr.for]=\"inputId\" class=\"mat-button-toggle-label\"><input #input class=\"mat-button-toggle-input cdk-visually-hidden\" [type]=\"_type\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-button-toggle-label-content\"><ng-content></ng-content></div></label><div class=\"mat-button-toggle-focus-overlay\" (touchstart)=\"$event.preventDefault()\"></div>",
                 styles: [".mat-button-toggle-group{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle-disabled .mat-button-toggle-label-content{cursor:default}.mat-button-toggle{white-space:nowrap;position:relative}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:1}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px;cursor:pointer}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;position:absolute;top:0;left:0;right:0;bottom:0}"],
                 encapsulation: ViewEncapsulation.None,
                 host: {
@@ -6951,7 +6948,7 @@ class MdCheckbox extends _MdCheckboxMixinBase {
         this._currentCheckState = TransitionCheckState.Init;
         this._checked = false;
         this._indeterminate = false;
-        this._controlValueAccessorChangeFn = () => { };
+        this._controlValueAccessorChangeFn = (value) => { };
     }
     /**
      * Whether the ripple effect for this checkbox is disabled.
@@ -7373,7 +7370,7 @@ class MdRadioGroup extends _MdRadioGroupMixinBase {
         /**
          * The method to be called in order to update ngModel
          */
-        this._controlValueAccessorChangeFn = () => { };
+        this._controlValueAccessorChangeFn = (value) => { };
         /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          * \@docs-private
@@ -8353,7 +8350,7 @@ class MdSelect extends _MdSelectMixinBase {
         /**
          * View -> model callback called when value changes
          */
-        this._onChange = () => { };
+        this._onChange = (value) => { };
         /**
          * View -> model callback called when select has been touched
          */
@@ -11779,7 +11776,6 @@ class TilePosition {
  * Sets the style properties for an individual tile, given the position calculated by the
  * Tile Coordinator.
  * \@docs-private
- * @abstract
  */
 class TileStyler {
     constructor() {
@@ -11890,7 +11886,6 @@ class TileStyler {
      * Sets the vertical placement of the tile in the list.
      * This method will be implemented by each type of TileStyler.
      * \@docs-private
-     * @abstract
      * @param {?} tile
      * @param {?} rowIndex
      * @param {?} percentWidth
@@ -11900,7 +11895,7 @@ class TileStyler {
     setRowStyles(tile, rowIndex, percentWidth, gutterWidth) { }
     /**
      * Calculates the computed height and returns the correct style property to set.
-     * This method can be implemented by each type of TileStyler.
+     * This method will be implemented by each type of TileStyler.
      * \@docs-private
      * @return {?}
      */
@@ -11933,9 +11928,11 @@ class FixedTileStyler extends TileStyler {
     /**
      * @param {?} tile
      * @param {?} rowIndex
+     * @param {?} percentWidth
+     * @param {?} gutterWidth
      * @return {?}
      */
-    setRowStyles(tile, rowIndex) {
+    setRowStyles(tile, rowIndex, percentWidth, gutterWidth) {
         tile._setStyle('top', this.getTilePosition(this.fixedRowHeight, rowIndex));
         tile._setStyle('height', calc(this.getTileSize(this.fixedRowHeight, tile.rowspan)));
     }
@@ -12008,9 +12005,11 @@ class FitTileStyler extends TileStyler {
     /**
      * @param {?} tile
      * @param {?} rowIndex
+     * @param {?} percentWidth
+     * @param {?} gutterWidth
      * @return {?}
      */
-    setRowStyles(tile, rowIndex) {
+    setRowStyles(tile, rowIndex, percentWidth, gutterWidth) {
         // Percent of the available vertical space that one row takes up.
         let /** @type {?} */ percentHeightPerTile = 100 / this._rowspan;
         // Fraction of the horizontal gutter size that each column takes up.
@@ -13133,7 +13132,7 @@ class MdIconRegistry {
         const /** @type {?} */ iconSetFetchRequests = iconSetConfigs
             .filter(iconSetConfig => !iconSetConfig.svgElement)
             .map(iconSetConfig => this._loadSvgIconSetFromConfig(iconSetConfig)
-            .catch((err) => {
+            .catch((err, caught) => {
             let /** @type {?} */ url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, iconSetConfig.url);
             // Swallow errors fetching individual URLs so the combined Observable won't
             // necessarily fail.
@@ -13149,7 +13148,7 @@ class MdIconRegistry {
         // Fetch all the icon set URLs. When the requests complete, every IconSet should have a
         // cached SVG element (unless the request failed), and we can check again for the icon.
         return Observable.forkJoin(iconSetFetchRequests)
-            .map(() => {
+            .map((ignoredResults) => {
             const /** @type {?} */ foundIcon = this._extractIconWithNameFromAnySet(name, iconSetConfigs);
             if (!foundIcon) {
                 throw getMdIconNameNotFoundError(name);
@@ -15130,9 +15129,10 @@ class MdSnackBarContainer extends BasePortalHost {
     }
     /**
      * Attach a template portal as content to this snack bar container.
+     * @param {?} portal
      * @return {?}
      */
-    attachTemplatePortal() {
+    attachTemplatePortal(portal) {
         throw new Error('Not yet implemented');
     }
     /**
@@ -18827,7 +18827,7 @@ class MdAutocompleteTrigger {
         /**
          * View -> model callback called when value changes
          */
-        this._onChange = () => { };
+        this._onChange = (value) => { };
         /**
          * View -> model callback called when autocomplete has been touched
          */
@@ -20346,7 +20346,7 @@ class MdDatepickerInput {
          */
         this._valueChange = new EventEmitter();
         this._onTouched = () => { };
-        this._cvaOnChange = () => { };
+        this._cvaOnChange = (value) => { };
         this._validatorOnChange = () => { };
         /**
          * The form control validator for the min date.

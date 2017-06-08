@@ -5,7 +5,7 @@ import { TileCoordinator } from './tile-coordinator';
  * Tile Coordinator.
  * @docs-private
  */
-export declare abstract class TileStyler {
+export declare class TileStyler {
     _gutterSize: string;
     _rows: number;
     _rowspan: number;
@@ -66,10 +66,10 @@ export declare abstract class TileStyler {
      * This method will be implemented by each type of TileStyler.
      * @docs-private
      */
-    abstract setRowStyles(tile: MdGridTile, rowIndex: number, percentWidth: number, gutterWidth: number): any;
+    setRowStyles(tile: MdGridTile, rowIndex: number, percentWidth: number, gutterWidth: number): void;
     /**
      * Calculates the computed height and returns the correct style property to set.
-     * This method can be implemented by each type of TileStyler.
+     * This method will be implemented by each type of TileStyler.
      * @docs-private
      */
     getComputedHeight(): [string, string];
@@ -83,7 +83,7 @@ export declare class FixedTileStyler extends TileStyler {
     fixedRowHeight: string;
     constructor(fixedRowHeight: string);
     init(gutterSize: string, tracker: TileCoordinator, cols: number, direction: string): void;
-    setRowStyles(tile: MdGridTile, rowIndex: number): void;
+    setRowStyles(tile: MdGridTile, rowIndex: number, percentWidth: number, gutterWidth: number): void;
     getComputedHeight(): [string, string];
 }
 /**
@@ -108,5 +108,5 @@ export declare class RatioTileStyler extends TileStyler {
  * @docs-private
  */
 export declare class FitTileStyler extends TileStyler {
-    setRowStyles(tile: MdGridTile, rowIndex: number): void;
+    setRowStyles(tile: MdGridTile, rowIndex: number, percentWidth: number, gutterWidth: number): void;
 }
