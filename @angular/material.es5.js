@@ -2628,7 +2628,6 @@ var OverlayRef = /*@__PURE__*/(function () {
         this.detachBackdrop();
         this._portalHost.dispose();
         this._attachments.complete();
-        this._backdropClick.complete();
         this._detachments.next();
         this._detachments.complete();
     };
@@ -19015,10 +19014,6 @@ var MdDialogRef = /*@__PURE__*/(function () {
         this._overlayRef = _overlayRef;
         this._containerInstance = _containerInstance;
         /**
-         * Whether the user is allowed to close the dialog.
-         */
-        this.disableClose = this._containerInstance.config.disableClose;
-        /**
          * Subject for notifying the user that the dialog has finished closing.
          */
         this._afterClosed = new Subject();
@@ -19306,7 +19301,7 @@ MdDialogContainer.decorators = [
                 ],
                 host: {
                     '[class.mat-dialog-container]': 'true',
-                    '[attr.role]': 'config?.role',
+                    '[attr.role]': 'dialogConfig?.role',
                     '[@slideDialog]': '_state',
                     '(@slideDialog.done)': '_onAnimationDone($event)',
                 },
@@ -19465,7 +19460,7 @@ var MdDialog = /*@__PURE__*/(function () {
         var /** @type {?} */ viewContainer = config ? config.viewContainerRef : null;
         var /** @type {?} */ containerPortal = new ComponentPortal(MdDialogContainer, viewContainer);
         var /** @type {?} */ containerRef = overlay.attach(containerPortal);
-        containerRef.instance.config = config;
+        containerRef.instance.dialogConfig = config;
         return containerRef.instance;
     };
     /**
@@ -19482,13 +19477,9 @@ var MdDialog = /*@__PURE__*/(function () {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
         var /** @type {?} */ dialogRef = new MdDialogRef(overlayRef, dialogContainer);
-        // When the dialog backdrop is clicked, we want to close it.
-        if (config.hasBackdrop) {
-            overlayRef.backdropClick().subscribe(function () {
-                if (!dialogRef.disableClose) {
-                    dialogRef.close();
-                }
-            });
+        if (!config.disableClose) {
+            // When the dialog backdrop is clicked, we want to close it.
+            overlayRef.backdropClick().first().subscribe(function () { return dialogRef.close(); });
         }
         // We create an injector specifically for the component we're instantiating so that it can
         // inject the MdDialogRef. This allows a component loaded inside of a dialog to close itself
@@ -19531,7 +19522,7 @@ var MdDialog = /*@__PURE__*/(function () {
      */
     MdDialog.prototype._handleKeydown = function (event) {
         var /** @type {?} */ topDialog = this._openDialogs[this._openDialogs.length - 1];
-        var /** @type {?} */ canClose = topDialog ? !topDialog.disableClose : false;
+        var /** @type {?} */ canClose = topDialog ? !topDialog._containerInstance.dialogConfig.disableClose : false;
         if (event.keyCode === ESCAPE && canClose) {
             topDialog.close();
         }
