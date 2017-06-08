@@ -890,45 +890,61 @@ Platform.decorators = [
  */
 Platform.ctorParameters = () => [];
 
+/**
+ * Cached result Set of input types support by the current browser.
+ */
 let supportedInputTypes;
+/**
+ * Types of <input> that *might* be supported.
+ */
+const candidateInputTypes = [
+    // `color` must come first. Chrome 56 shows a warning if we change the type to `color` after
+    // first changing it to something else:
+    // The specified value "" does not conform to the required format.
+    // The format is "#rrggbb" where rr, gg, bb are two-digit hexadecimal numbers.
+    'color',
+    'button',
+    'checkbox',
+    'date',
+    'datetime-local',
+    'email',
+    'file',
+    'hidden',
+    'image',
+    'month',
+    'number',
+    'password',
+    'radio',
+    'range',
+    'reset',
+    'search',
+    'submit',
+    'tel',
+    'text',
+    'time',
+    'url',
+    'week',
+];
 /**
  * @return {?} The input types supported by this browser.
  */
 function getSupportedInputTypes() {
-    if (!supportedInputTypes) {
-        let /** @type {?} */ featureTestInput = document.createElement('input');
-        supportedInputTypes = new Set([
-            // `color` must come first. Chrome 56 shows a warning if we change the type to `color` after
-            // first changing it to something else:
-            // The specified value "" does not conform to the required format.
-            // The format is "#rrggbb" where rr, gg, bb are two-digit hexadecimal numbers.
-            'color',
-            'button',
-            'checkbox',
-            'date',
-            'datetime-local',
-            'email',
-            'file',
-            'hidden',
-            'image',
-            'month',
-            'number',
-            'password',
-            'radio',
-            'range',
-            'reset',
-            'search',
-            'submit',
-            'tel',
-            'text',
-            'time',
-            'url',
-            'week',
-        ].filter(value => {
-            featureTestInput.setAttribute('type', value);
-            return featureTestInput.type === value;
-        }));
+    // Result is cached.
+    if (supportedInputTypes) {
+        return supportedInputTypes;
     }
+    // We can't check if an input type is not supported until we're on the browser, so say that
+    // everything is supported when not on the browser. We don't use `Platform` here since it's
+    // just a helper function and can't inject it.
+    if (typeof document !== 'object' || !document) {
+        supportedInputTypes = new Set(candidateInputTypes);
+        return supportedInputTypes;
+    }
+    let /** @type {?} */ featureTestInput = document.createElement('input');
+    supportedInputTypes = new Set(candidateInputTypes.filter(value => {
+        featureTestInput.setAttribute('type', value);
+        return featureTestInput.type === value;
+    }));
     return supportedInputTypes;
 }
 
@@ -4016,6 +4032,10 @@ class InteractivityChecker {
      * @return {?} Whether the element is tabbable.
      */
     isTabbable(element) {
+        // Nothing is tabbable on the the server 😎
+        if (!this._platform.isBrowser) {
+            return false;
+        }
         let /** @type {?} */ frameElement = (getWindow(element).frameElement);
         if (frameElement) {
             let /** @type {?} */ frameType = frameElement && frameElement.nodeName.toLowerCase();
@@ -4226,12 +4246,14 @@ function getWindow(node) {
 class FocusTrap {
     /**
      * @param {?} _element
+     * @param {?} _platform
      * @param {?} _checker
      * @param {?} _ngZone
      * @param {?=} deferAnchors
      */
-    constructor(_element, _checker, _ngZone, deferAnchors = false) {
+    constructor(_element, _platform, _checker, _ngZone, deferAnchors = false) {
         this._element = _element;
+        this._platform = _platform;
         this._checker = _checker;
         this._ngZone = _ngZone;
         this._enabled = true;
@@ -4273,6 +4295,10 @@ class FocusTrap {
      * @return {?}
      */
     attachAnchors() {
+        // If we're not on the browser, there can be no focus to trap.
+        if (!this._platform.isBrowser) {
+            return;
+        }
         if (!this._startAnchor) {
             this._startAnchor = this._createAnchor();
         }
@@ -4438,10 +4464,12 @@ class FocusTrap {
 class FocusTrapFactory {
     /**
      * @param {?} _checker
+     * @param {?} _platform
      * @param {?} _ngZone
      */
-    constructor(_checker, _ngZone) {
+    constructor(_checker, _platform, _ngZone) {
         this._checker = _checker;
+        this._platform = _platform;
         this._ngZone = _ngZone;
     }
     /**
@@ -4450,7 +4478,7 @@ class FocusTrapFactory {
      * @return {?}
      */
     create(element, deferAnchors = false) {
-        return new FocusTrap(element, this._checker, this._ngZone, deferAnchors);
+        return new FocusTrap(element, this._platform, this._checker, this._ngZone, deferAnchors);
     }
 }
 FocusTrapFactory.decorators = [
@@ -4461,6 +4489,7 @@ FocusTrapFactory.decorators = [
  */
 FocusTrapFactory.ctorParameters = () => [
     { type: InteractivityChecker, },
+    { type: Platform, },
     { type: NgZone, },
 ];
 /**
@@ -9377,11 +9406,13 @@ class MdSlideToggle extends _MdSlideToggleMixinBase {
     /**
      * @param {?} elementRef
      * @param {?} renderer
+     * @param {?} _platform
      * @param {?} _focusOriginMonitor
      * @param {?} _changeDetectorRef
      */
-    constructor(elementRef, renderer, _focusOriginMonitor, _changeDetectorRef) {
+    constructor(elementRef, renderer, _platform, _focusOriginMonitor, _changeDetectorRef) {
         super(renderer, elementRef);
+        this._platform = _platform;
         this._focusOriginMonitor = _focusOriginMonitor;
         this._changeDetectorRef = _changeDetectorRef;
         this.onChange = (_) => { };
@@ -9449,7 +9480,7 @@ class MdSlideToggle extends _MdSlideToggleMixinBase {
      * @return {?}
      */
     ngAfterContentInit() {
-        this._slideRenderer = new SlideToggleRenderer(this._elementRef);
+        this._slideRenderer = new SlideToggleRenderer(this._elementRef, this._platform);
         this._focusOriginMonitor
             .monitor(this._inputElement.nativeElement, this._renderer, false)
             .subscribe(focusOrigin => this._onInputFocusChange(focusOrigin));
@@ -9623,7 +9654,7 @@ class MdSlideToggle extends _MdSlideToggleMixinBase {
 MdSlideToggle.decorators = [
     { type: Component, args: [{selector: 'md-slide-toggle, mat-slide-toggle',
                 host: {
-                    '[class.mat-slide-toggle]': 'true',
+                    'class': 'mat-slide-toggle',
                     '[class.mat-checked]': 'checked',
                     '[class.mat-disabled]': 'disabled',
                     '[class.mat-slide-toggle-label-before]': 'labelPosition == "before"',
@@ -9642,6 +9673,7 @@ MdSlideToggle.decorators = [
 MdSlideToggle.ctorParameters = () => [
     { type: ElementRef, },
     { type: Renderer2, },
+    { type: Platform, },
     { type: FocusOriginMonitor, },
     { type: ChangeDetectorRef, },
 ];
@@ -9665,15 +9697,20 @@ MdSlideToggle.propDecorators = {
 class SlideToggleRenderer {
     /**
      * @param {?} _elementRef
+     * @param {?} platform
      */
-    constructor(_elementRef) {
+    constructor(_elementRef, platform) {
         this._elementRef = _elementRef;
         /**
          * Whether the thumb is currently being dragged.
          */
         this.dragging = false;
-        this._thumbEl = _elementRef.nativeElement.querySelector('.mat-slide-toggle-thumb-container');
-        this._thumbBarEl = _elementRef.nativeElement.querySelector('.mat-slide-toggle-bar');
+        // We only need to interact with these elements when we're on the browser, so only grab
+        // the reference in that case.
+        if (platform.isBrowser) {
+            this._thumbEl = _elementRef.nativeElement.querySelector('.mat-slide-toggle-thumb-container');
+            this._thumbBarEl = _elementRef.nativeElement.querySelector('.mat-slide-toggle-bar');
+        }
     }
     /**
      * Initializes the drag of the slide-toggle.
@@ -9733,7 +9770,7 @@ class MdSlideToggleModule {
 }
 MdSlideToggleModule.decorators = [
     { type: NgModule, args: [{
-                imports: [FormsModule, MdRippleModule, MdCommonModule],
+                imports: [FormsModule, MdRippleModule, MdCommonModule, PlatformModule],
                 exports: [MdSlideToggle, MdCommonModule],
                 declarations: [MdSlideToggle],
                 providers: [
@@ -12500,6 +12537,22 @@ class MdChipBase {
 }
 const _MdChipMixinBase = mixinColor(MdChipBase, 'primary');
 /**
+ * Dummy directive to add CSS class to basic chips.
+ * \@docs-private
+ */
+class MdBasicChip {
+}
+MdBasicChip.decorators = [
+    { type: Directive, args: [{
+                selector: `md-basic-chip, [md-basic-chip], mat-basic-chip, [mat-basic-chip]`,
+                host: { 'class': 'mat-basic-chip' }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdBasicChip.ctorParameters = () => [];
+/**
  * Material design styled Chip component. Used inside the MdChipList component.
  */
 class MdChip extends _MdChipMixinBase {
@@ -12509,14 +12562,12 @@ class MdChip extends _MdChipMixinBase {
      */
     constructor(renderer, elementRef) {
         super(renderer, elementRef);
-        /**
-         * Whether or not the chip is disabled. Disabled chips cannot be focused.
-         */
         this._disabled = null;
-        /**
-         * Whether or not the chip is selected.
-         */
         this._selected = false;
+        /**
+         * Whether the chip has focus.
+         */
+        this._hasFocus = false;
         /**
          * Emitted when the chip is focused.
          */
@@ -12535,58 +12586,33 @@ class MdChip extends _MdChipMixinBase {
         this.destroy = new EventEmitter();
     }
     /**
-     * @return {?}
-     */
-    ngOnInit() {
-        this._addDefaultCSSClass();
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this.destroy.emit({ chip: this });
-    }
-    /**
      * Whether or not the chip is disabled.
      * @return {?}
      */
-    get disabled() {
-        return this._disabled;
-    }
+    get disabled() { return this._disabled; }
     /**
-     * Sets the disabled state of the chip.
      * @param {?} value
      * @return {?}
      */
-    set disabled(value) {
-        this._disabled = coerceBooleanProperty(value) ? true : null;
-    }
+    set disabled(value) { this._disabled = coerceBooleanProperty(value); }
     /**
-     * A String representation of the current disabled state.
+     * Whether the chip is selected.
      * @return {?}
      */
-    get _isAriaDisabled() {
-        return String(coerceBooleanProperty(this.disabled));
-    }
-    /**
-     * Whether or not this chip is selected.
-     * @return {?}
-     */
-    get selected() {
-        return this._selected;
-    }
+    get selected() { return this._selected; }
     /**
      * @param {?} value
      * @return {?}
      */
     set selected(value) {
         this._selected = coerceBooleanProperty(value);
-        if (this._selected) {
-            this.select.emit({ chip: this });
-        }
-        else {
-            this.deselect.emit({ chip: this });
-        }
+        (this.selected ? this.select : this.deselect).emit({ chip: this });
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this.destroy.emit({ chip: this });
     }
     /**
      * Toggles the current selected state of this chip.
@@ -12605,6 +12631,13 @@ class MdChip extends _MdChipMixinBase {
         this.onFocus.emit({ chip: this });
     }
     /**
+     * The aria-disabled state for the chip
+     * @return {?}
+     */
+    _isAriaDisabled() {
+        return String(this.disabled);
+    }
+    /**
      * Ensures events fire properly upon click.
      * @param {?} event
      * @return {?}
@@ -12619,35 +12652,22 @@ class MdChip extends _MdChipMixinBase {
             this.focus();
         }
     }
-    /**
-     * Initializes the appropriate CSS classes based on the chip type (basic or standard).
-     * @return {?}
-     */
-    _addDefaultCSSClass() {
-        let /** @type {?} */ el = this._elementRef.nativeElement;
-        // Always add the `mat-chip` class
-        this._renderer.addClass(el, 'mat-chip');
-        // If we are a basic chip, also add the `mat-basic-chip` class for :not() targeting
-        if (el.nodeName.toLowerCase() == 'mat-basic-chip' || el.hasAttribute('mat-basic-chip') ||
-            el.nodeName.toLowerCase() == 'md-basic-chip' || el.hasAttribute('md-basic-chip')) {
-            this._renderer.addClass(el, 'mat-basic-chip');
-        }
-    }
 }
 MdChip.decorators = [
-    { type: Component, args: [{
+    { type: Directive, args: [{
                 selector: `md-basic-chip, [md-basic-chip], md-chip, [md-chip],
              mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]`,
-                template: `<ng-content></ng-content>`,
                 inputs: ['color'],
                 host: {
-                    '[class.mat-chip]': 'true',
+                    'class': 'mat-chip',
                     'tabindex': '-1',
                     'role': 'option',
                     '[class.mat-chip-selected]': 'selected',
-                    '[attr.disabled]': 'disabled',
-                    '[attr.aria-disabled]': '_isAriaDisabled',
-                    '(click)': '_handleClick($event)'
+                    '[attr.disabled]': 'disabled || null',
+                    '[attr.aria-disabled]': '_isAriaDisabled()',
+                    '(click)': '_handleClick($event)',
+                    '(focus)': '_hasFocus = true',
+                    '(blur)': '_hasFocus = false',
                 }
             },] },
 ];
@@ -12659,11 +12679,11 @@ MdChip.ctorParameters = () => [
     { type: ElementRef, },
 ];
 MdChip.propDecorators = {
+    'disabled': [{ type: Input },],
+    'selected': [{ type: Input },],
     'select': [{ type: Output },],
     'deselect': [{ type: Output },],
     'destroy': [{ type: Output },],
-    'disabled': [{ type: Input },],
-    'selected': [{ type: Input },],
 };
 
 /**
@@ -12821,7 +12841,7 @@ class MdChipList {
         // On destroy, remove the item from our list, and check focus
         chip.destroy.subscribe(() => {
             let /** @type {?} */ chipIndex = this.chips.toArray().indexOf(chip);
-            if (this._isValidIndex(chipIndex)) {
+            if (this._isValidIndex(chipIndex) && chip._hasFocus) {
                 // Check whether the chip is the last item
                 if (chipIndex < this.chips.length - 1) {
                     this._keyManager.setActiveItem(chipIndex);
@@ -12878,8 +12898,8 @@ class MdChipsModule {
 MdChipsModule.decorators = [
     { type: NgModule, args: [{
                 imports: [],
-                exports: [MdChipList, MdChip],
-                declarations: [MdChipList, MdChip]
+                exports: [MdChipList, MdChip, MdBasicChip],
+                declarations: [MdChipList, MdChip, MdBasicChip]
             },] },
 ];
 /**
@@ -14430,7 +14450,9 @@ class MdInputDirective {
      * @return {?}
      */
     _isBadInput() {
-        return ((this._elementRef.nativeElement)).validity.badInput;
+        // The `validity` property won't be present on platform-server.
+        let /** @type {?} */ validity = ((this._elementRef.nativeElement)).validity;
+        return validity && validity.badInput;
     }
     /**
      * Determines if the component host is a textarea. If not recognizable it returns false.
@@ -20243,7 +20265,7 @@ class MdDatepicker {
         let /** @type {?} */ config = new MdDialogConfig();
         config.viewContainerRef = this._viewContainerRef;
         this._dialogRef = this._dialog.open(MdDatepickerContent, config);
-        this._dialogRef.afterClosed().first().subscribe(() => this.close());
+        this._dialogRef.afterClosed().subscribe(() => this.close());
         this._dialogRef.componentInstance.datepicker = this;
     }
     /**
@@ -20263,7 +20285,7 @@ class MdDatepicker {
             // Update the position once the calendar has rendered.
             this._ngZone.onStable.first().subscribe(() => this._popupRef.updatePosition());
         }
-        this._popupRef.backdropClick().first().subscribe(() => this.close());
+        this._popupRef.backdropClick().subscribe(() => this.close());
     }
     /**
      * Create the popup.
@@ -21807,5 +21829,5 @@ MaterialModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { Dir, RtlModule, ObserveContentModule, ObserveContent, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, CdkDataTableModule, DataSource, RowPlaceholder, HeaderRowPlaceholder, CdkTable, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabChangeEvent, MdTabGroup, MdTabNavBar, MdTabLink, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, throwMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵi, mixinColor as ɵq, mixinDisabled as ɵr, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵj, CdkCell as ɵx, CdkCellDef as ɵt, CdkColumnDef as ɵv, CdkHeaderCell as ɵw, CdkHeaderCellDef as ɵu, BaseRowDef as ɵy, CdkCellOutlet as ɵbb, CdkHeaderRow as ɵbc, CdkHeaderRowDef as ɵz, CdkRow as ɵbd, CdkRowDef as ɵba, MdMutationObserverFactory as ɵa, OVERLAY_CONTAINER_PROVIDER as ɵc, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵb, OverlayPositionBuilder as ɵp, VIEWPORT_RULER_PROVIDER as ɵe, VIEWPORT_RULER_PROVIDER_FACTORY as ɵd, SCROLL_DISPATCHER_PROVIDER as ɵg, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵf, RippleRenderer as ɵh, EXPANSION_PANEL_ANIMATION_TIMING as ɵk, MdGridAvatarCssMatStyler as ɵm, MdGridTileFooterCssMatStyler as ɵo, MdGridTileHeaderCssMatStyler as ɵn, MdGridTileText as ɵl };
+export { Dir, RtlModule, ObserveContentModule, ObserveContent, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, CdkDataTableModule, DataSource, RowPlaceholder, HeaderRowPlaceholder, CdkTable, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabChangeEvent, MdTabGroup, MdTabNavBar, MdTabLink, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, throwMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵi, mixinColor as ɵq, mixinDisabled as ɵr, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵj, CdkCell as ɵx, CdkCellDef as ɵt, CdkColumnDef as ɵv, CdkHeaderCell as ɵw, CdkHeaderCellDef as ɵu, BaseRowDef as ɵy, CdkCellOutlet as ɵbb, CdkHeaderRow as ɵbc, CdkHeaderRowDef as ɵz, CdkRow as ɵbd, CdkRowDef as ɵba, MdMutationObserverFactory as ɵa, OVERLAY_CONTAINER_PROVIDER as ɵc, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵb, OverlayPositionBuilder as ɵp, VIEWPORT_RULER_PROVIDER as ɵe, VIEWPORT_RULER_PROVIDER_FACTORY as ɵd, SCROLL_DISPATCHER_PROVIDER as ɵg, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵf, RippleRenderer as ɵh, EXPANSION_PANEL_ANIMATION_TIMING as ɵk, MdGridAvatarCssMatStyler as ɵm, MdGridTileFooterCssMatStyler as ɵo, MdGridTileHeaderCssMatStyler as ɵn, MdGridTileText as ɵl };
 //# sourceMappingURL=material.js.map

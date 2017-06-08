@@ -1,4 +1,4 @@
-import { ElementRef, EventEmitter, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
 import { Focusable } from '../core/a11y/focus-key-manager';
 import { CanColor } from '../core/common-behaviors/color';
 export interface MdChipEvent {
@@ -11,13 +11,23 @@ export declare class MdChipBase {
 }
 export declare const _MdChipMixinBase: (new (...args: any[]) => CanColor) & typeof MdChipBase;
 /**
+ * Dummy directive to add CSS class to basic chips.
+ * @docs-private
+ */
+export declare class MdBasicChip {
+}
+/**
  * Material design styled Chip component. Used inside the MdChipList component.
  */
-export declare class MdChip extends _MdChipMixinBase implements Focusable, OnInit, OnDestroy, CanColor {
-    /** Whether or not the chip is disabled. Disabled chips cannot be focused. */
+export declare class MdChip extends _MdChipMixinBase implements Focusable, OnDestroy, CanColor {
+    /** Whether or not the chip is disabled. */
+    disabled: boolean;
     protected _disabled: boolean;
-    /** Whether or not the chip is selected. */
+    /** Whether the chip is selected. */
+    selected: boolean;
     protected _selected: boolean;
+    /** Whether the chip has focus. */
+    _hasFocus: boolean;
     /** Emitted when the chip is focused. */
     onFocus: EventEmitter<MdChipEvent>;
     /** Emitted when the chip is selected. */
@@ -27,15 +37,7 @@ export declare class MdChip extends _MdChipMixinBase implements Focusable, OnIni
     /** Emitted when the chip is destroyed. */
     destroy: EventEmitter<MdChipEvent>;
     constructor(renderer: Renderer2, elementRef: ElementRef);
-    ngOnInit(): void;
     ngOnDestroy(): void;
-    /** Whether or not the chip is disabled. */
-    /** Sets the disabled state of the chip. */
-    disabled: boolean;
-    /** A String representation of the current disabled state. */
-    readonly _isAriaDisabled: string;
-    /** Whether or not this chip is selected. */
-    selected: boolean;
     /**
      * Toggles the current selected state of this chip.
      * @return Whether the chip is selected.
@@ -43,8 +45,8 @@ export declare class MdChip extends _MdChipMixinBase implements Focusable, OnIni
     toggleSelected(): boolean;
     /** Allows for programmatic focusing of the chip. */
     focus(): void;
+    /** The aria-disabled state for the chip */
+    _isAriaDisabled(): string;
     /** Ensures events fire properly upon click. */
     _handleClick(event: Event): void;
-    /** Initializes the appropriate CSS classes based on the chip type (basic or standard). */
-    private _addDefaultCSSClass();
 }
