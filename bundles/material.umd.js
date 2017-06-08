@@ -42,10 +42,6 @@ function __extends(d, b) {
   */
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
- * Injection token that configures whether the Material sanity checks are enabled.
- */
-var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('md-sanity-checks');
-/**
  * Returns an exception to be thrown if the consumer has used
  * an invalid Material prefix on a component.
  * \@docs-private
@@ -121,66 +117,20 @@ MdPrefixRejector.ctorParameters = function () { return [
  * there are any uses of the `mat-` prefix.
  */
 var CompatibilityModule = (function () {
-    /**
-     * @param {?} _document
-     * @param {?} _sanityChecksEnabled
-     */
-    function CompatibilityModule(_document, _sanityChecksEnabled) {
-        this._document = _document;
-        /**
-         * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
-         */
-        this._hasDoneGlobalChecks = false;
-        if (_sanityChecksEnabled && !this._hasDoneGlobalChecks && _document && _angular_core.isDevMode()) {
-            // Delay running the check to allow more time for the user's styles to load.
-            this._checkDoctype();
-            this._checkTheme();
-            this._hasDoneGlobalChecks = true;
-        }
+    function CompatibilityModule() {
     }
-    /**
-     * @return {?}
-     */
-    CompatibilityModule.prototype._checkDoctype = function () {
-        if (!this._document.doctype) {
-            console.warn('Current document does not have a doctype. This may cause ' +
-                'some Angular Material components not to behave as expected.');
-        }
-    };
-    /**
-     * @return {?}
-     */
-    CompatibilityModule.prototype._checkTheme = function () {
-        if (typeof getComputedStyle === 'function') {
-            var /** @type {?} */ testElement = this._document.createElement('div');
-            testElement.classList.add('mat-theme-loaded-marker');
-            this._document.body.appendChild(testElement);
-            if (getComputedStyle(testElement).display !== 'none') {
-                console.warn('Could not find Angular Material core theme. Most Material ' +
-                    'components may not work as expected. For more info refer ' +
-                    'to the theming guide: https://material.angular.io/guide/theming');
-            }
-            this._document.body.removeChild(testElement);
-        }
-    };
     return CompatibilityModule;
 }());
 CompatibilityModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 declarations: [MatPrefixRejector, MdPrefixRejector],
                 exports: [MatPrefixRejector, MdPrefixRejector],
-                providers: [{
-                        provide: MATERIAL_SANITY_CHECKS, useValue: true,
-                    }],
             },] },
 ];
 /**
  * @nocollapse
  */
-CompatibilityModule.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
-]; };
+CompatibilityModule.ctorParameters = function () { return []; };
 /**
  * Module that enforces "no-conflict" compatibility mode settings. When this module is loaded,
  * it will throw an error if there are any uses of the `md-` prefix.
@@ -202,26 +152,75 @@ NoConflictStyleCompatibilityMode.decorators = [
  */
 NoConflictStyleCompatibilityMode.ctorParameters = function () { return []; };
 /**
+ * Injection token that configures whether the Material sanity checks are enabled.
+ */
+var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('md-sanity-checks');
+/**
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
  * components. This includes Bidi, compatibility mode, etc.
  *
  * This module should be imported to each top-level component module (e.g., MdTabsModule).
  */
 var MdCommonModule = (function () {
-    function MdCommonModule() {
+    /**
+     * @param {?} _document
+     * @param {?} _sanityChecksEnabled
+     */
+    function MdCommonModule(_document, _sanityChecksEnabled) {
+        this._document = _document;
+        /**
+         * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
+         */
+        this._hasDoneGlobalChecks = false;
+        if (_sanityChecksEnabled && !this._hasDoneGlobalChecks && _document && _angular_core.isDevMode()) {
+            this._checkDoctype();
+            this._checkTheme();
+            this._hasDoneGlobalChecks = true;
+        }
     }
+    /**
+     * @return {?}
+     */
+    MdCommonModule.prototype._checkDoctype = function () {
+        if (!this._document.doctype) {
+            console.warn('Current document does not have a doctype. This may cause ' +
+                'some Angular Material components not to behave as expected.');
+        }
+    };
+    /**
+     * @return {?}
+     */
+    MdCommonModule.prototype._checkTheme = function () {
+        if (typeof getComputedStyle === 'function') {
+            var /** @type {?} */ testElement = this._document.createElement('div');
+            testElement.classList.add('mat-theme-loaded-marker');
+            this._document.body.appendChild(testElement);
+            if (getComputedStyle(testElement).display !== 'none') {
+                console.warn('Could not find Angular Material core theme. Most Material ' +
+                    'components may not work as expected. For more info refer ' +
+                    'to the theming guide: https://material.angular.io/guide/theming');
+            }
+            this._document.body.removeChild(testElement);
+        }
+    };
     return MdCommonModule;
 }());
 MdCommonModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [CompatibilityModule],
                 exports: [CompatibilityModule],
+                providers: [{
+                        provide: MATERIAL_SANITY_CHECKS, useValue: true,
+                    }],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdCommonModule.ctorParameters = function () { return []; };
+MdCommonModule.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
+]; };
 /**
  * Shared directive to count lines inside a text area, such as a list item.
  * Line elements can be extracted with a \@ContentChildren(MdLine) query, then
@@ -22358,8 +22357,11 @@ var CdkTable = (function () {
     /**
      * @param {?} _differs
      * @param {?} _changeDetectorRef
+     * @param {?} elementRef
+     * @param {?} renderer
+     * @param {?} role
      */
-    function CdkTable(_differs, _changeDetectorRef) {
+    function CdkTable(_differs, _changeDetectorRef, elementRef, renderer, role) {
         this._differs = _differs;
         this._changeDetectorRef = _changeDetectorRef;
         /**
@@ -22385,6 +22387,9 @@ var CdkTable = (function () {
         if (!(typeof window !== 'undefined' && window['jasmine'])) {
             console.warn('The data table is still in active development ' +
                 'and should be considered unstable.');
+        }
+        if (!role) {
+            renderer.setAttribute(elementRef.nativeElement, 'role', 'grid');
         }
         // TODO(andrewseguin): Add trackby function input.
         // Find and construct an iterable differ that can be used to find the diff in an array.
@@ -22535,7 +22540,6 @@ CdkTable.decorators = [
                 template: "\n    <ng-container headerRowPlaceholder></ng-container>\n    <ng-container rowPlaceholder></ng-container>\n  ",
                 host: {
                     'class': 'cdk-table',
-                    'role': 'grid' // TODO(andrewseguin): Allow the user to choose either grid or treegrid
                 },
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -22547,6 +22551,9 @@ CdkTable.decorators = [
 CdkTable.ctorParameters = function () { return [
     { type: _angular_core.IterableDiffers, },
     { type: _angular_core.ChangeDetectorRef, },
+    { type: _angular_core.ElementRef, },
+    { type: _angular_core.Renderer2, },
+    { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['role',] },] },
 ]; };
 CdkTable.propDecorators = {
     'dataSource': [{ type: _angular_core.Input },],
@@ -23184,6 +23191,7 @@ exports.coerceNumberProperty = coerceNumberProperty;
 exports.CompatibilityModule = CompatibilityModule;
 exports.NoConflictStyleCompatibilityMode = NoConflictStyleCompatibilityMode;
 exports.MdCommonModule = MdCommonModule;
+exports.MATERIAL_SANITY_CHECKS = MATERIAL_SANITY_CHECKS;
 exports.MD_PLACEHOLDER_GLOBAL_OPTIONS = MD_PLACEHOLDER_GLOBAL_OPTIONS;
 exports.MdCoreModule = MdCoreModule;
 exports.MdOptionModule = MdOptionModule;
@@ -23253,7 +23261,6 @@ exports.ESCAPE = ESCAPE;
 exports.BACKSPACE = BACKSPACE;
 exports.DELETE = DELETE;
 exports.MATERIAL_COMPATIBILITY_MODE = MATERIAL_COMPATIBILITY_MODE;
-exports.MATERIAL_SANITY_CHECKS = MATERIAL_SANITY_CHECKS;
 exports.getMdCompatibilityInvalidPrefixError = getMdCompatibilityInvalidPrefixError;
 exports.MAT_ELEMENTS_SELECTOR = MAT_ELEMENTS_SELECTOR;
 exports.MD_ELEMENTS_SELECTOR = MD_ELEMENTS_SELECTOR;

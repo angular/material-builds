@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, IterableDiffers, NgIterable, QueryList, ViewContainerRef } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, IterableDiffers, NgIterable, QueryList, Renderer2, ViewContainerRef } from '@angular/core';
 import { CollectionViewer, DataSource } from './data-source';
 import { CdkHeaderRowDef, CdkRowDef } from './row';
 import { CdkCellDef, CdkColumnDef, CdkHeaderCellDef } from './cell';
@@ -63,7 +63,7 @@ export declare class CdkTable<T> implements CollectionViewer {
     _headerDefinition: CdkHeaderRowDef;
     /** Set of templates that used as the data row containers. */
     _rowDefinitions: QueryList<CdkRowDef>;
-    constructor(_differs: IterableDiffers, _changeDetectorRef: ChangeDetectorRef);
+    constructor(_differs: IterableDiffers, _changeDetectorRef: ChangeDetectorRef, elementRef: ElementRef, renderer: Renderer2, role: string);
     ngOnDestroy(): void;
     ngOnInit(): void;
     ngAfterContentInit(): void;
