@@ -21034,11 +21034,8 @@ class CdkTable {
     /**
      * @param {?} _differs
      * @param {?} _changeDetectorRef
-     * @param {?} elementRef
-     * @param {?} renderer
-     * @param {?} role
      */
-    constructor(_differs, _changeDetectorRef, elementRef, renderer, role) {
+    constructor(_differs, _changeDetectorRef) {
         this._differs = _differs;
         this._changeDetectorRef = _changeDetectorRef;
         /**
@@ -21064,9 +21061,6 @@ class CdkTable {
         if (!(typeof window !== 'undefined' && window['jasmine'])) {
             console.warn('The data table is still in active development ' +
                 'and should be considered unstable.');
-        }
-        if (!role) {
-            renderer.setAttribute(elementRef.nativeElement, 'role', 'grid');
         }
         // TODO(andrewseguin): Add trackby function input.
         // Find and construct an iterable differ that can be used to find the diff in an array.
@@ -21213,6 +21207,7 @@ CdkTable.decorators = [
   `,
                 host: {
                     'class': 'cdk-table',
+                    'role': 'grid' // TODO(andrewseguin): Allow the user to choose either grid or treegrid
                 },
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21224,9 +21219,6 @@ CdkTable.decorators = [
 CdkTable.ctorParameters = () => [
     { type: IterableDiffers, },
     { type: ChangeDetectorRef, },
-    { type: ElementRef, },
-    { type: Renderer2, },
-    { type: undefined, decorators: [{ type: Attribute, args: ['role',] },] },
 ];
 CdkTable.propDecorators = {
     'dataSource': [{ type: Input },],

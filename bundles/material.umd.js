@@ -22358,11 +22358,8 @@ var CdkTable = (function () {
     /**
      * @param {?} _differs
      * @param {?} _changeDetectorRef
-     * @param {?} elementRef
-     * @param {?} renderer
-     * @param {?} role
      */
-    function CdkTable(_differs, _changeDetectorRef, elementRef, renderer, role) {
+    function CdkTable(_differs, _changeDetectorRef) {
         this._differs = _differs;
         this._changeDetectorRef = _changeDetectorRef;
         /**
@@ -22388,9 +22385,6 @@ var CdkTable = (function () {
         if (!(typeof window !== 'undefined' && window['jasmine'])) {
             console.warn('The data table is still in active development ' +
                 'and should be considered unstable.');
-        }
-        if (!role) {
-            renderer.setAttribute(elementRef.nativeElement, 'role', 'grid');
         }
         // TODO(andrewseguin): Add trackby function input.
         // Find and construct an iterable differ that can be used to find the diff in an array.
@@ -22541,6 +22535,7 @@ CdkTable.decorators = [
                 template: "\n    <ng-container headerRowPlaceholder></ng-container>\n    <ng-container rowPlaceholder></ng-container>\n  ",
                 host: {
                     'class': 'cdk-table',
+                    'role': 'grid' // TODO(andrewseguin): Allow the user to choose either grid or treegrid
                 },
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -22552,9 +22547,6 @@ CdkTable.decorators = [
 CdkTable.ctorParameters = function () { return [
     { type: _angular_core.IterableDiffers, },
     { type: _angular_core.ChangeDetectorRef, },
-    { type: _angular_core.ElementRef, },
-    { type: _angular_core.Renderer2, },
-    { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['role',] },] },
 ]; };
 CdkTable.propDecorators = {
     'dataSource': [{ type: _angular_core.Input },],
