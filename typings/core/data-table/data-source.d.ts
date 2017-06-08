@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 export interface CollectionViewer {
-    viewChanged: Observable<{
+    viewChange: Observable<{
         start: number;
         end: number;
     }>;

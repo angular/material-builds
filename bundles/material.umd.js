@@ -21896,55 +21896,112 @@ MdDatepickerModule.decorators = [
  */
 MdDatepickerModule.ctorParameters = function () { return []; };
 /**
+ * Base class for the CdkHeaderRowDef and CdkRowDef that handles checking their columns inputs
+ * for changes and notifying the table.
+ * @abstract
+ */
+var BaseRowDef = (function () {
+    /**
+     * @param {?} template
+     * @param {?} _differs
+     */
+    function BaseRowDef(template, _differs) {
+        this.template = template;
+        this._differs = _differs;
+        /**
+         * Event stream that emits when changes are made to the columns.
+         */
+        this.columnsChange = new rxjs_Subject.Subject();
+        this.viewInitialized = false;
+    }
+    /**
+     * @return {?}
+     */
+    BaseRowDef.prototype.ngAfterViewInit = function () {
+        this.viewInitialized = true;
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    BaseRowDef.prototype.ngOnChanges = function (changes) {
+        // Create a new columns differ if one does not yet exist. Initialize it based on initial value
+        // of the columns property.
+        if (!this._columnsDiffer) {
+            this._columnsDiffer = this._differs.find(changes['columns'].currentValue).create();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    BaseRowDef.prototype.ngDoCheck = function () {
+        if (!this.viewInitialized || !this._columnsDiffer || !this.columns) {
+            return;
+        }
+        // Notify the table if there are any changes to the columns.
+        var /** @type {?} */ changes = this._columnsDiffer.diff(this.columns);
+        if (changes) {
+            this.columnsChange.next();
+        }
+    };
+    return BaseRowDef;
+}());
+/**
  * Header row definition for the CDK data-table.
  * Captures the header row's template and other header properties such as the columns to display.
  */
-var CdkHeaderRowDef = (function () {
+var CdkHeaderRowDef = (function (_super) {
+    __extends(CdkHeaderRowDef, _super);
     /**
      * @param {?} template
+     * @param {?} _differs
      */
-    function CdkHeaderRowDef(template) {
-        this.template = template;
+    function CdkHeaderRowDef(template, _differs) {
+        return _super.call(this, template, _differs) || this;
     }
     return CdkHeaderRowDef;
-}());
+}(BaseRowDef));
 CdkHeaderRowDef.decorators = [
-    { type: _angular_core.Directive, args: [{ selector: '[cdkHeaderRowDef]' },] },
+    { type: _angular_core.Directive, args: [{
+                selector: '[cdkHeaderRowDef]',
+                inputs: ['columns: cdkHeaderRowDef'],
+            },] },
 ];
 /**
  * @nocollapse
  */
 CdkHeaderRowDef.ctorParameters = function () { return [
     { type: _angular_core.TemplateRef, },
+    { type: _angular_core.IterableDiffers, },
 ]; };
-CdkHeaderRowDef.propDecorators = {
-    'columns': [{ type: _angular_core.Input, args: ['cdkHeaderRowDef',] },],
-};
 /**
  * Data row definition for the CDK data-table.
  * Captures the header row's template and other row properties such as the columns to display.
  */
-var CdkRowDef = (function () {
+var CdkRowDef = (function (_super) {
+    __extends(CdkRowDef, _super);
     /**
      * @param {?} template
+     * @param {?} _differs
      */
-    function CdkRowDef(template) {
-        this.template = template;
+    function CdkRowDef(template, _differs) {
+        return _super.call(this, template, _differs) || this;
     }
     return CdkRowDef;
-}());
+}(BaseRowDef));
 CdkRowDef.decorators = [
-    { type: _angular_core.Directive, args: [{ selector: '[cdkRowDef]' },] },
+    { type: _angular_core.Directive, args: [{
+                selector: '[cdkRowDef]',
+                inputs: ['columns: cdkRowDefColumns'],
+            },] },
 ];
 /**
  * @nocollapse
  */
 CdkRowDef.ctorParameters = function () { return [
     { type: _angular_core.TemplateRef, },
+    { type: _angular_core.IterableDiffers, },
 ]; };
-CdkRowDef.propDecorators = {
-    'columns': [{ type: _angular_core.Input, args: ['cdkRowDefColumns',] },],
-};
 /**
  * Outlet for rendering cells inside of a row or header row.
  * \@docs-private
@@ -22224,7 +22281,11 @@ var CdkTable = (function () {
          * Stream containing the latest information on what rows are being displayed on screen.
          * Can be used by the data source to as a heuristic of what data should be provided.
          */
-        this.viewChanged = new rxjs_BehaviorSubject.BehaviorSubject({ start: 0, end: Number.MAX_VALUE });
+        this.viewChange = new rxjs_BehaviorSubject.BehaviorSubject({ start: 0, end: Number.MAX_VALUE });
+        /**
+         * Stream that emits when a row def has a change to its array of columns to render.
+         */
+        this._columnsChange = new rxjs_Observable.Observable();
         /**
          * Map of all the user's defined columns identified by name.
          * Contains the header and data-cell templates.
@@ -22249,14 +22310,14 @@ var CdkTable = (function () {
      */
     CdkTable.prototype.ngOnDestroy = function () {
         // TODO(andrewseguin): Disconnect from the data source so
-        // that it can unsubscribe from its streams.
+        //   that it can unsubscribe from its streams.
     };
     /**
      * @return {?}
      */
     CdkTable.prototype.ngOnInit = function () {
         // TODO(andrewseguin): Setup a listener for scroll events
-        //   and emit the calculated view to this.viewChanged
+        //   and emit the calculated view to this.viewChange
     };
     /**
      * @return {?}
@@ -22267,19 +22328,31 @@ var CdkTable = (function () {
         this._columnDefinitions.forEach(function (columnDef) {
             _this._columnDefinitionsByName.set(columnDef.name, columnDef);
         });
+        // Get and merge the streams for column changes made to the row defs
+        var /** @type {?} */ rowDefs = this._rowDefinitions.toArray().concat([this._headerDefinition]);
+        var /** @type {?} */ columnChangeStreams = rowDefs.map(function (rowDef) { return rowDef.columnsChange; });
+        this._columnsChange = rxjs_Observable.Observable.merge.apply(rxjs_Observable.Observable, columnChangeStreams);
     };
     /**
      * @return {?}
      */
     CdkTable.prototype.ngAfterViewInit = function () {
         var _this = this;
-        // TODO(andrewseguin): Re-render the header when the header's columns change.
         this.renderHeaderRow();
-        // TODO(andrewseguin): Re-render rows when their list of columns change.
+        // Re-render the header row if the columns changed.
+        this._columnsChange.subscribe(function () {
+            _this._headerRowPlaceholder.viewContainer.clear();
+            _this.renderHeaderRow();
+            // Reset the data to an empty array so that renderRowChanges will re-render all new rows.
+            _this._rowPlaceholder.viewContainer.clear();
+            _this._dataDiffer.diff([]);
+        });
         // TODO(andrewseguin): If the data source is not
         //   present after view init, connect it when it is defined.
         // TODO(andrewseguin): Unsubscribe from this on destroy.
-        this.dataSource.connect(this).subscribe(function (rowsData) {
+        var /** @type {?} */ streams = [this.dataSource.connect(this), this._columnsChange];
+        rxjs_Observable.Observable.combineLatest(streams).subscribe(function (_a) {
+            var rowsData = _a[0];
             _this.renderRowChanges(rowsData);
         });
     };
@@ -22290,8 +22363,8 @@ var CdkTable = (function () {
     CdkTable.prototype.renderHeaderRow = function () {
         var /** @type {?} */ cells = this.getHeaderCellTemplatesForRow(this._headerDefinition);
         // TODO(andrewseguin): add some code to enforce that exactly
-        // one CdkCellOutlet was instantiated as a result
-        // of `createEmbeddedView`.
+        //   one CdkCellOutlet was instantiated as a result
+        //   of `createEmbeddedView`.
         this._headerRowPlaceholder.viewContainer
             .createEmbeddedView(this._headerDefinition.template, { cells: cells });
         CdkCellOutlet.mostRecentCellOutlet.cells = cells;
@@ -22352,6 +22425,7 @@ var CdkTable = (function () {
     CdkTable.prototype.getHeaderCellTemplatesForRow = function (headerDef) {
         var _this = this;
         return headerDef.columns.map(function (columnId) {
+            // TODO(andrewseguin): Throw an error if there is no column with this columnId
             return _this._columnDefinitionsByName.get(columnId).headerCell;
         });
     };
@@ -22364,6 +22438,7 @@ var CdkTable = (function () {
     CdkTable.prototype.getCellTemplatesForRow = function (rowDef) {
         var _this = this;
         return rowDef.columns.map(function (columnId) {
+            // TODO(andrewseguin): Throw an error if there is no column with this columnId
             return _this._columnDefinitionsByName.get(columnId).cell;
         });
     };
@@ -23328,11 +23403,12 @@ exports.ɵt = CdkCellDef;
 exports.ɵv = CdkColumnDef;
 exports.ɵw = CdkHeaderCell;
 exports.ɵu = CdkHeaderCellDef;
-exports.ɵba = CdkCellOutlet;
-exports.ɵbb = CdkHeaderRow;
-exports.ɵy = CdkHeaderRowDef;
-exports.ɵbc = CdkRow;
-exports.ɵz = CdkRowDef;
+exports.ɵy = BaseRowDef;
+exports.ɵbb = CdkCellOutlet;
+exports.ɵbc = CdkHeaderRow;
+exports.ɵz = CdkHeaderRowDef;
+exports.ɵbd = CdkRow;
+exports.ɵba = CdkRowDef;
 exports.ɵa = MdMutationObserverFactory;
 exports.ɵc = OVERLAY_CONTAINER_PROVIDER;
 exports.ɵb = OVERLAY_CONTAINER_PROVIDER_FACTORY;

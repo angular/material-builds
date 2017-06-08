@@ -1,22 +1,38 @@
-import { TemplateRef, ViewContainerRef } from '@angular/core';
+import { IterableDiffer, IterableDiffers, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { CdkCellDef } from './cell';
+import { Subject } from 'rxjs/Subject';
+/**
+ * Base class for the CdkHeaderRowDef and CdkRowDef that handles checking their columns inputs
+ * for changes and notifying the table.
+ */
+export declare abstract class BaseRowDef {
+    template: TemplateRef<any>;
+    protected _differs: IterableDiffers;
+    /** The columns to be displayed on this row. */
+    columns: string[];
+    /** Event stream that emits when changes are made to the columns. */
+    columnsChange: Subject<void>;
+    /** Differ used to check if any changes were made to the columns. */
+    protected _columnsDiffer: IterableDiffer<any>;
+    private viewInitialized;
+    constructor(template: TemplateRef<any>, _differs: IterableDiffers);
+    ngAfterViewInit(): void;
+    ngOnChanges(changes: SimpleChanges): void;
+    ngDoCheck(): void;
+}
 /**
  * Header row definition for the CDK data-table.
  * Captures the header row's template and other header properties such as the columns to display.
  */
-export declare class CdkHeaderRowDef {
-    template: TemplateRef<any>;
-    columns: string[];
-    constructor(template: TemplateRef<any>);
+export declare class CdkHeaderRowDef extends BaseRowDef {
+    constructor(template: TemplateRef<any>, _differs: IterableDiffers);
 }
 /**
  * Data row definition for the CDK data-table.
  * Captures the header row's template and other row properties such as the columns to display.
  */
-export declare class CdkRowDef {
-    template: TemplateRef<any>;
-    columns: string[];
-    constructor(template: TemplateRef<any>);
+export declare class CdkRowDef extends BaseRowDef {
+    constructor(template: TemplateRef<any>, _differs: IterableDiffers);
 }
 /**
  * Outlet for rendering cells inside of a row or header row.

@@ -1,11 +1,12 @@
 import { ChangeDetectorRef, IterableDiffers, NgIterable, QueryList, ViewContainerRef } from '@angular/core';
+import { CollectionViewer, DataSource } from './data-source';
+import { CdkHeaderRowDef, CdkRowDef } from './row';
+import { CdkCellDef, CdkColumnDef, CdkHeaderCellDef } from './cell';
+import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/let';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/observable/combineLatest';
-import { CollectionViewer, DataSource } from './data-source';
-import { CdkHeaderRowDef, CdkRowDef } from './row';
-import { CdkCellDef, CdkColumnDef, CdkHeaderCellDef } from './cell';
 /**
  * Provides a handle for the table to grab the view container's ng-container to insert data rows.
  * @docs-private
@@ -38,10 +39,12 @@ export declare class CdkTable<T> implements CollectionViewer {
      * Stream containing the latest information on what rows are being displayed on screen.
      * Can be used by the data source to as a heuristic of what data should be provided.
      */
-    viewChanged: BehaviorSubject<{
+    viewChange: BehaviorSubject<{
         start: number;
         end: number;
     }>;
+    /** Stream that emits when a row def has a change to its array of columns to render. */
+    _columnsChange: Observable<void>;
     /**
      * Map of all the user's defined columns identified by name.
      * Contains the header and data-cell templates.

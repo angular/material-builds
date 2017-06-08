@@ -7,7 +7,7 @@ export { mixinColor as ɵq } from './core/common-behaviors/color';
 export { mixinDisabled as ɵr } from './core/common-behaviors/disabled';
 export { UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵj } from './core/coordination/unique-selection-dispatcher';
 export { CdkCell as ɵx, CdkCellDef as ɵt, CdkColumnDef as ɵv, CdkHeaderCell as ɵw, CdkHeaderCellDef as ɵu } from './core/data-table/cell';
-export { CdkCellOutlet as ɵba, CdkHeaderRow as ɵbb, CdkHeaderRowDef as ɵy, CdkRow as ɵbc, CdkRowDef as ɵz } from './core/data-table/row';
+export { BaseRowDef as ɵy, CdkCellOutlet as ɵbb, CdkHeaderRow as ɵbc, CdkHeaderRowDef as ɵz, CdkRow as ɵbd, CdkRowDef as ɵba } from './core/data-table/row';
 export { MdDateFormats as ɵs } from './core/datetime/date-formats';
 export { MdMutationObserverFactory as ɵa } from './core/observe-content/observe-content';
 export { OVERLAY_CONTAINER_PROVIDER as ɵc, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵb } from './core/overlay/overlay-container';
