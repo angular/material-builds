@@ -1,8 +1,9 @@
-import { AfterContentInit, EventEmitter, OnDestroy, QueryList, TemplateRef } from '@angular/core';
+import { AfterContentInit, EventEmitter, OnDestroy, QueryList, TemplateRef, ElementRef } from '@angular/core';
 import { MenuPositionX, MenuPositionY } from './menu-positions';
 import { MdMenuItem } from './menu-item';
 import { MdMenuPanel } from './menu-panel';
 export declare class MdMenu implements AfterContentInit, MdMenuPanel, OnDestroy {
+    private _elementRef;
     private _keyManager;
     private _xPosition;
     private _yPosition;
@@ -28,6 +29,7 @@ export declare class MdMenu implements AfterContentInit, MdMenuPanel, OnDestroy 
     classList: string;
     /** Event emitted when the menu is closed. */
     close: EventEmitter<void>;
+    constructor(_elementRef: ElementRef);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Handle a keyboard event from the menu, delegating to the appropriate action. */
