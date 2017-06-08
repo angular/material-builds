@@ -22435,6 +22435,510 @@ CdkDataTableModule.decorators = [
  * @nocollapse
  */
 CdkDataTableModule.ctorParameters = function () { return []; };
+/**
+ * Unique ID counter
+ */
+var nextId$3 = 0;
+/**
+ * Directive whose purpose is to manage the expanded state of CdkAccordionItem children.
+ */
+var CdkAccordion = (function () {
+    function CdkAccordion() {
+        /**
+         * A readonly id value to use for unique selection coordination.
+         */
+        this.id = "cdk-accordion-" + nextId$3++;
+        this._multi = false;
+        this._hideToggle = false;
+        /**
+         * The display mode used for all expansion panels in the accordion. Currently two display
+         * modes exist:
+         *   default - a gutter-like spacing is placed around any expanded panel, placing the expanded
+         *     panel at a different elevation from the reset of the accordion.
+         *  flat - no spacing is placed around expanded panels, showing all panels at the same
+         *     elevation.
+         */
+        this.displayMode = 'default';
+    }
+    Object.defineProperty(CdkAccordion.prototype, "multi", {
+        /**
+         * Whether the accordion should allow multiple expanded accordion items simulateously.
+         * @return {?}
+         */
+        get: function () { return this._multi; },
+        /**
+         * @param {?} multi
+         * @return {?}
+         */
+        set: function (multi) { this._multi = coerceBooleanProperty(multi); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(CdkAccordion.prototype, "hideToggle", {
+        /**
+         * Whether the expansion indicator should be hidden.
+         * @return {?}
+         */
+        get: function () { return this._hideToggle; },
+        /**
+         * @param {?} show
+         * @return {?}
+         */
+        set: function (show) { this._hideToggle = coerceBooleanProperty(show); },
+        enumerable: true,
+        configurable: true
+    });
+    return CdkAccordion;
+}());
+CdkAccordion.decorators = [
+    { type: _angular_core.Directive, args: [{
+                selector: '[cdk-accordion]',
+            },] },
+];
+/**
+ * @nocollapse
+ */
+CdkAccordion.ctorParameters = function () { return []; };
+CdkAccordion.propDecorators = {
+    'multi': [{ type: _angular_core.Input },],
+    'hideToggle': [{ type: _angular_core.Input },],
+    'displayMode': [{ type: _angular_core.Input },],
+};
+/**
+ * Directive for a Material Design Accordion.
+ */
+var MdAccordion = (function (_super) {
+    __extends(MdAccordion, _super);
+    function MdAccordion() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return MdAccordion;
+}(CdkAccordion));
+MdAccordion.decorators = [
+    { type: _angular_core.Directive, args: [{
+                selector: 'mat-accordion, md-accordion',
+                host: {
+                    class: 'mat-accordion'
+                }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdAccordion.ctorParameters = function () { return []; };
+/**
+ * Used to generate unique ID for each expansion panel.
+ */
+var nextId$4 = 0;
+/**
+ * An abstract class to be extended and decorated as a component.  Sets up all
+ * events and attributes needed to be managed by a CdkAccordion parent.
+ */
+var AccordionItem = (function () {
+    /**
+     * @param {?} accordion
+     * @param {?} _expansionDispatcher
+     */
+    function AccordionItem(accordion, _expansionDispatcher) {
+        var _this = this;
+        this.accordion = accordion;
+        this._expansionDispatcher = _expansionDispatcher;
+        /**
+         * Event emitted every time the MdAccordianChild is closed.
+         */
+        this.closed = new _angular_core.EventEmitter();
+        /**
+         * Event emitted every time the MdAccordianChild is opened.
+         */
+        this.opened = new _angular_core.EventEmitter();
+        /**
+         * Event emitted when the MdAccordianChild is destroyed.
+         */
+        this.destroyed = new _angular_core.EventEmitter();
+        /**
+         * The unique MdAccordianChild id.
+         */
+        this.id = "cdk-accordion-child-" + nextId$4++;
+        _expansionDispatcher.listen(function (id, accordionId) {
+            if (_this.accordion && !_this.accordion.multi &&
+                _this.accordion.id === accordionId && _this.id !== id) {
+                _this.expanded = false;
+            }
+        });
+    }
+    Object.defineProperty(AccordionItem.prototype, "expanded", {
+        /**
+         * Whether the MdAccordianChild is expanded.
+         * @return {?}
+         */
+        get: function () { return this._expanded; },
+        /**
+         * @param {?} expanded
+         * @return {?}
+         */
+        set: function (expanded) {
+            // Only emit events and update the internal value if the value changes.
+            if (this._expanded !== expanded) {
+                this._expanded = expanded;
+                if (expanded) {
+                    this.opened.emit();
+                    /**
+                     * In the unique selection dispatcher, the id parameter is the id of the CdkAccordonItem,
+                     * the name value is the id of the accordion.
+                     */
+                    var accordionId = this.accordion ? this.accordion.id : this.id;
+                    this._expansionDispatcher.notify(this.id, accordionId);
+                }
+                else {
+                    this.closed.emit();
+                }
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Emits an event for the accordion item being destroyed.
+     * @return {?}
+     */
+    AccordionItem.prototype.ngOnDestroy = function () {
+        this.destroyed.emit();
+    };
+    /**
+     * Toggles the expanded state of the accordion item.
+     * @return {?}
+     */
+    AccordionItem.prototype.toggle = function () {
+        this.expanded = !this.expanded;
+    };
+    /**
+     * Sets the expanded state of the accordion item to false.
+     * @return {?}
+     */
+    AccordionItem.prototype.close = function () {
+        this.expanded = false;
+    };
+    /**
+     * Sets the expanded state of the accordion item to true.
+     * @return {?}
+     */
+    AccordionItem.prototype.open = function () {
+        this.expanded = true;
+    };
+    return AccordionItem;
+}());
+AccordionItem.decorators = [
+    { type: _angular_core.Injectable },
+];
+/**
+ * @nocollapse
+ */
+AccordionItem.ctorParameters = function () { return [
+    { type: CdkAccordion, decorators: [{ type: _angular_core.Optional },] },
+    { type: UniqueSelectionDispatcher, },
+]; };
+AccordionItem.propDecorators = {
+    'closed': [{ type: _angular_core.Output },],
+    'opened': [{ type: _angular_core.Output },],
+    'destroyed': [{ type: _angular_core.Output },],
+    'expanded': [{ type: _angular_core.Input },],
+};
+/**
+ * Time and timing curve for expansion panel animations.
+ */
+var EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
+/**
+ * <md-expansion-panel> component.
+ *
+ * This component can be used as a single element to show expandable content, or as one of
+ * multiple children of an element with the CdkAccordion directive attached.
+ *
+ * Please refer to README.md for examples on how to use it.
+ */
+var MdExpansionPanel = (function (_super) {
+    __extends(MdExpansionPanel, _super);
+    /**
+     * @param {?} accordion
+     * @param {?} _uniqueSelectionDispatcher
+     */
+    function MdExpansionPanel(accordion, _uniqueSelectionDispatcher) {
+        var _this = _super.call(this, accordion, _uniqueSelectionDispatcher) || this;
+        /**
+         * Whether the toggle indicator should be hidden.
+         */
+        _this.hideToggle = false;
+        _this.accordion = accordion;
+        return _this;
+    }
+    /**
+     * Whether the expansion indicator should be hidden.
+     * @return {?}
+     */
+    MdExpansionPanel.prototype._getHideToggle = function () {
+        if (this.accordion) {
+            return this.accordion.hideToggle;
+        }
+        return this.hideToggle;
+    };
+    /**
+     * Gets the panel's display mode.
+     * @return {?}
+     */
+    MdExpansionPanel.prototype._getDisplayMode = function () {
+        if (!this.expanded) {
+            return this._getExpandedState();
+        }
+        if (this.accordion) {
+            return this.accordion.displayMode;
+        }
+        return this._getExpandedState();
+    };
+    /**
+     * Gets the expanded state string.
+     * @return {?}
+     */
+    MdExpansionPanel.prototype._getExpandedState = function () {
+        return this.expanded ? 'expanded' : 'collapsed';
+    };
+    return MdExpansionPanel;
+}(AccordionItem));
+MdExpansionPanel.decorators = [
+    { type: _angular_core.Component, args: [{ styles: [".mat-expansion-panel{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);will-change:box-shadow;box-sizing:content-box;display:block}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-expansion-panel-content{overflow:hidden}.mat-expansion-panel-body{padding:0 24px 16px}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button{margin-left:8px}"],
+                selector: 'md-expansion-panel, mat-expansion-panel',
+                template: "<ng-content select=\"mat-expansion-panel-header, md-expansion-panel-header\"></ng-content><div [class.mat-expanded]=\"expanded\" class=\"mat-expansion-panel-content\" [@bodyExpansion]=\"_getExpandedState()\" [id]=\"id\"><div class=\"mat-expansion-panel-body\"><ng-content></ng-content></div><ng-content select=\"mat-action-row, md-action-row\"></ng-content></div>",
+                encapsulation: _angular_core.ViewEncapsulation.None,
+                host: {
+                    'class': 'mat-expansion-panel',
+                    '[class.mat-expanded]': 'expanded',
+                    '[@displayMode]': '_getDisplayMode()',
+                },
+                providers: [
+                    { provide: AccordionItem, useExisting: _angular_core.forwardRef(function () { return MdExpansionPanel; }) }
+                ],
+                animations: [
+                    _angular_animations.trigger('bodyExpansion', [
+                        _angular_animations.state('collapsed', _angular_animations.style({ height: '0px' })),
+                        _angular_animations.state('expanded', _angular_animations.style({ height: '*' })),
+                        _angular_animations.transition('expanded <=> collapsed', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+                    ]),
+                    _angular_animations.trigger('displayMode', [
+                        _angular_animations.state('collapsed', _angular_animations.style({ margin: '0' })),
+                        _angular_animations.state('default', _angular_animations.style({ margin: '16px 0' })),
+                        _angular_animations.state('flat', _angular_animations.style({ margin: '0' })),
+                        _angular_animations.transition('flat <=> collapsed, default <=> collapsed, flat <=> default', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+                    ]),
+                ],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdExpansionPanel.ctorParameters = function () { return [
+    { type: MdAccordion, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Host },] },
+    { type: UniqueSelectionDispatcher, },
+]; };
+MdExpansionPanel.propDecorators = {
+    'hideToggle': [{ type: _angular_core.Input },],
+};
+var MdExpansionPanelActionRow = (function () {
+    function MdExpansionPanelActionRow() {
+    }
+    return MdExpansionPanelActionRow;
+}());
+MdExpansionPanelActionRow.decorators = [
+    { type: _angular_core.Directive, args: [{
+                selector: 'mat-action-row, md-action-row',
+                host: {
+                    class: 'mat-action-row'
+                }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdExpansionPanelActionRow.ctorParameters = function () { return []; };
+/**
+ * <md-expansion-panel-header> component.
+ *
+ * This component corresponds to the header element of an <md-expansion-panel>.
+ *
+ * Please refer to README.md for examples on how to use it.
+ */
+var MdExpansionPanelHeader = (function () {
+    /**
+     * @param {?} panel
+     */
+    function MdExpansionPanelHeader(panel) {
+        this.panel = panel;
+    }
+    /**
+     * Toggles the expanded state of the panel.
+     * @param {?=} event
+     * @return {?}
+     */
+    MdExpansionPanelHeader.prototype._toggle = function (event) {
+        this.panel.toggle();
+    };
+    /**
+     * Gets whether the panel is expanded.
+     * @return {?}
+     */
+    MdExpansionPanelHeader.prototype._isExpanded = function () {
+        return this.panel.expanded;
+    };
+    /**
+     * Gets the expanded state string of the panel.
+     * @return {?}
+     */
+    MdExpansionPanelHeader.prototype._getExpandedState = function () {
+        return this.panel._getExpandedState();
+    };
+    /**
+     * Gets the panel id.
+     * @return {?}
+     */
+    MdExpansionPanelHeader.prototype._getPanelId = function () {
+        return this.panel.id;
+    };
+    /**
+     * Gets whether the expand indicator is hidden.
+     * @return {?}
+     */
+    MdExpansionPanelHeader.prototype._getHideToggle = function () {
+        return this.panel.hideToggle;
+    };
+    /**
+     * Handle keyup event calling to toggle() if appropriate.
+     * @param {?} event
+     * @return {?}
+     */
+    MdExpansionPanelHeader.prototype._keyup = function (event) {
+        switch (event.keyCode) {
+            // Toggle for space and enter keys.
+            case SPACE:
+            case ENTER:
+                event.preventDefault();
+                this._toggle();
+                break;
+            default:
+                return;
+        }
+    };
+    return MdExpansionPanelHeader;
+}());
+MdExpansionPanelHeader.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'md-expansion-panel-header, mat-expansion-panel-header',
+                styles: [".mat-expansion-panel-header{cursor:pointer;display:flex;flex-direction:row;height:48px;line-height:48px;padding:0 24px}.mat-expansion-panel-header.mat-expanded{height:64px;line-height:64px}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-title{display:flex;flex-grow:1;font-size:15px;margin-right:16px}.mat-expansion-panel-header-description{display:flex;flex-grow:2;font-size:15px;margin-right:16px}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:'';display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}"],
+                template: "<span class=\"mat-content\"><ng-content select=\"md-panel-title, mat-panel-title\"></ng-content><ng-content select=\"md-panel-description, mat-panel-description\"></ng-content><ng-content></ng-content></span><span [@indicatorRotate]=\"_getExpandedState()\" *ngIf=\"!_getHideToggle()\" class=\"mat-expansion-indicator\"></span>",
+                encapsulation: _angular_core.ViewEncapsulation.None,
+                host: {
+                    'class': 'mat-expansion-panel-header',
+                    'role': 'button',
+                    'tabindex': '0',
+                    '[attr.aria-controls]': '_getPanelId()',
+                    '[attr.aria-expanded]': '_isExpanded()',
+                    '[class.mat-expanded]': '_isExpanded()',
+                    '(click)': '_toggle()',
+                    '(keyup)': '_keyup($event)',
+                    '[@expansionHeight]': '_getExpandedState()',
+                },
+                animations: [
+                    _angular_animations.trigger('indicatorRotate', [
+                        _angular_animations.state('collapsed', _angular_animations.style({ transform: 'rotate(0deg)' })),
+                        _angular_animations.state('expanded', _angular_animations.style({ transform: 'rotate(180deg)' })),
+                        _angular_animations.transition('expanded <=> collapsed', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+                    ]),
+                    _angular_animations.trigger('expansionHeight', [
+                        _angular_animations.state('collapsed', _angular_animations.style({ height: '48px', 'line-height': '48px' })),
+                        _angular_animations.state('expanded', _angular_animations.style({ height: '64px', 'line-height': '68px' })),
+                        _angular_animations.transition('expanded <=> collapsed', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+                    ]),
+                ],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdExpansionPanelHeader.ctorParameters = function () { return [
+    { type: MdExpansionPanel, decorators: [{ type: _angular_core.Host },] },
+]; };
+/**
+ * <md-panel-description> directive.
+ *
+ * This direction is to be used inside of the MdExpansionPanelHeader component.
+ */
+var MdExpansionPanelDescription = (function () {
+    function MdExpansionPanelDescription() {
+    }
+    return MdExpansionPanelDescription;
+}());
+MdExpansionPanelDescription.decorators = [
+    { type: _angular_core.Directive, args: [{
+                selector: 'md-panel-description, mat-panel-description',
+                host: {
+                    class: 'mat-expansion-panel-header-description'
+                }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdExpansionPanelDescription.ctorParameters = function () { return []; };
+/**
+ * <md-panel-title> directive.
+ *
+ * This direction is to be used inside of the MdExpansionPanelHeader component.
+ */
+var MdExpansionPanelTitle = (function () {
+    function MdExpansionPanelTitle() {
+    }
+    return MdExpansionPanelTitle;
+}());
+MdExpansionPanelTitle.decorators = [
+    { type: _angular_core.Directive, args: [{
+                selector: 'md-panel-title, mat-panel-title',
+                host: {
+                    class: 'mat-expansion-panel-header-title'
+                }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdExpansionPanelTitle.ctorParameters = function () { return []; };
+var MdExpansionModule = (function () {
+    function MdExpansionModule() {
+    }
+    return MdExpansionModule;
+}());
+MdExpansionModule.decorators = [
+    { type: _angular_core.NgModule, args: [{
+                imports: [CompatibilityModule, _angular_common.CommonModule],
+                exports: [
+                    CdkAccordion,
+                    MdAccordion,
+                    MdExpansionPanel,
+                    MdExpansionPanelActionRow,
+                    MdExpansionPanelHeader,
+                    MdExpansionPanelTitle,
+                    MdExpansionPanelDescription
+                ],
+                declarations: [
+                    CdkAccordion,
+                    MdAccordion,
+                    MdExpansionPanel,
+                    MdExpansionPanelActionRow,
+                    MdExpansionPanelHeader,
+                    MdExpansionPanelTitle,
+                    MdExpansionPanelDescription
+                ],
+                providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdExpansionModule.ctorParameters = function () { return []; };
 var MATERIAL_MODULES = [
     MdAutocompleteModule,
     MdButtonModule,
@@ -22444,6 +22948,7 @@ var MATERIAL_MODULES = [
     MdCheckboxModule,
     MdDatepickerModule,
     MdDialogModule,
+    MdExpansionModule,
     MdGridListModule,
     MdIconModule,
     MdInputModule,
@@ -22682,6 +23187,15 @@ exports.MdDialogContent = MdDialogContent;
 exports.MdDialogActions = MdDialogActions;
 exports.MdDialogConfig = MdDialogConfig;
 exports.MdDialogRef = MdDialogRef;
+exports.MdExpansionModule = MdExpansionModule;
+exports.CdkAccordion = CdkAccordion;
+exports.MdAccordion = MdAccordion;
+exports.AccordionItem = AccordionItem;
+exports.MdExpansionPanel = MdExpansionPanel;
+exports.MdExpansionPanelActionRow = MdExpansionPanelActionRow;
+exports.MdExpansionPanelHeader = MdExpansionPanelHeader;
+exports.MdExpansionPanelDescription = MdExpansionPanelDescription;
+exports.MdExpansionPanelTitle = MdExpansionPanelTitle;
 exports.MdGridListModule = MdGridListModule;
 exports.MdGridTile = MdGridTile;
 exports.MdGridList = MdGridList;
@@ -22806,32 +23320,33 @@ exports.throwMdTooltipInvalidPositionError = throwMdTooltipInvalidPositionError;
 exports.MdTooltip = MdTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.ɵi = LIVE_ANNOUNCER_PROVIDER_FACTORY;
-exports.ɵp = mixinColor;
-exports.ɵq = mixinDisabled;
+exports.ɵq = mixinColor;
+exports.ɵr = mixinDisabled;
 exports.ɵj = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
-exports.ɵw = CdkCell;
-exports.ɵs = CdkCellDef;
-exports.ɵu = CdkColumnDef;
-exports.ɵv = CdkHeaderCell;
-exports.ɵt = CdkHeaderCellDef;
-exports.ɵz = CdkCellOutlet;
-exports.ɵba = CdkHeaderRow;
-exports.ɵx = CdkHeaderRowDef;
-exports.ɵbb = CdkRow;
-exports.ɵy = CdkRowDef;
+exports.ɵx = CdkCell;
+exports.ɵt = CdkCellDef;
+exports.ɵv = CdkColumnDef;
+exports.ɵw = CdkHeaderCell;
+exports.ɵu = CdkHeaderCellDef;
+exports.ɵba = CdkCellOutlet;
+exports.ɵbb = CdkHeaderRow;
+exports.ɵy = CdkHeaderRowDef;
+exports.ɵbc = CdkRow;
+exports.ɵz = CdkRowDef;
 exports.ɵa = MdMutationObserverFactory;
 exports.ɵc = OVERLAY_CONTAINER_PROVIDER;
 exports.ɵb = OVERLAY_CONTAINER_PROVIDER_FACTORY;
-exports.ɵo = OverlayPositionBuilder;
+exports.ɵp = OverlayPositionBuilder;
 exports.ɵe = VIEWPORT_RULER_PROVIDER;
 exports.ɵd = VIEWPORT_RULER_PROVIDER_FACTORY;
 exports.ɵg = SCROLL_DISPATCHER_PROVIDER;
 exports.ɵf = SCROLL_DISPATCHER_PROVIDER_FACTORY;
 exports.ɵh = RippleRenderer;
-exports.ɵl = MdGridAvatarCssMatStyler;
-exports.ɵn = MdGridTileFooterCssMatStyler;
-exports.ɵm = MdGridTileHeaderCssMatStyler;
-exports.ɵk = MdGridTileText;
+exports.ɵk = EXPANSION_PANEL_ANIMATION_TIMING;
+exports.ɵm = MdGridAvatarCssMatStyler;
+exports.ɵo = MdGridTileFooterCssMatStyler;
+exports.ɵn = MdGridTileHeaderCssMatStyler;
+exports.ɵl = MdGridTileText;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
