@@ -512,32 +512,6 @@ ObserveContentModule.decorators = [
  * @nocollapse
  */
 ObserveContentModule.ctorParameters = function () { return []; };
-// Due to a bug in the ChromeDriver, Angular keyboard events are not triggered by `sendKeys`
-// during E2E tests when using dot notation such as `(keydown.rightArrow)`. To get around this,
-// we are temporarily using a single (keydown) handler.
-// See: https://github.com/angular/angular/issues/9419
-var UP_ARROW = 38;
-var DOWN_ARROW = 40;
-var RIGHT_ARROW = 39;
-var LEFT_ARROW = 37;
-var PAGE_UP = 33;
-var PAGE_DOWN = 34;
-var HOME = 36;
-var END = 35;
-var ENTER = 13;
-var SPACE = 32;
-var TAB = 9;
-var ESCAPE = 27;
-var BACKSPACE = 8;
-var DELETE = 46;
-/**
- * Coerces a data-bound value (typically a string) to a boolean.
- * @param {?} value
- * @return {?}
- */
-function coerceBooleanProperty(value) {
-    return value != null && "" + value !== 'false';
-}
 var RippleState = {};
 RippleState.FADING_IN = 0;
 RippleState.VISIBLE = 1;
@@ -1743,6 +1717,113 @@ MdSelectionModule.decorators = [
  * @nocollapse
  */
 MdSelectionModule.ctorParameters = function () { return []; };
+// Due to a bug in the ChromeDriver, Angular keyboard events are not triggered by `sendKeys`
+// during E2E tests when using dot notation such as `(keydown.rightArrow)`. To get around this,
+// we are temporarily using a single (keydown) handler.
+// See: https://github.com/angular/angular/issues/9419
+var UP_ARROW = 38;
+var DOWN_ARROW = 40;
+var RIGHT_ARROW = 39;
+var LEFT_ARROW = 37;
+var PAGE_UP = 33;
+var PAGE_DOWN = 34;
+var HOME = 36;
+var END = 35;
+var ENTER = 13;
+var SPACE = 32;
+var TAB = 9;
+var ESCAPE = 27;
+var BACKSPACE = 8;
+var DELETE = 46;
+/**
+ * Coerces a data-bound value (typically a string) to a boolean.
+ * @param {?} value
+ * @return {?}
+ */
+function coerceBooleanProperty(value) {
+    return value != null && "" + value !== 'false';
+}
+/**
+ * Mixin to augment a directive with a `disabled` property.
+ * @template T
+ * @param {?} base
+ * @return {?}
+ */
+function mixinDisabled(base) {
+    return (function (_super) {
+        __extends(class_2, _super);
+        /**
+         * @param {...?} args
+         */
+        function class_2() {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            var _this = _super.apply(this, args) || this;
+            _this._disabled = false;
+            return _this;
+        }
+        Object.defineProperty(class_2.prototype, "disabled", {
+            /**
+             * @return {?}
+             */
+            get: function () { return this._disabled; },
+            /**
+             * @param {?} value
+             * @return {?}
+             */
+            set: function (value) { this._disabled = coerceBooleanProperty(value); },
+            enumerable: true,
+            configurable: true
+        });
+        return class_2;
+    }(base));
+}
+var MdOptgroupBase = (function () {
+    function MdOptgroupBase() {
+    }
+    return MdOptgroupBase;
+}());
+var _MdOptgroupMixinBase = mixinDisabled(MdOptgroupBase);
+// Counter for unique group ids.
+var _uniqueOptgroupIdCounter = 0;
+/**
+ * Component that is used to group instances of `md-option`.
+ */
+var MdOptgroup = (function (_super) {
+    __extends(MdOptgroup, _super);
+    function MdOptgroup() {
+        var _this = _super.apply(this, arguments) || this;
+        /**
+         * Unique id for the underlying label.
+         */
+        _this._labelId = "mat-optgroup-label-" + _uniqueOptgroupIdCounter++;
+        return _this;
+    }
+    return MdOptgroup;
+}(_MdOptgroupMixinBase));
+MdOptgroup.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'md-optgroup, mat-optgroup',
+                template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"md-option, mat-option\"></ng-content>",
+                encapsulation: _angular_core.ViewEncapsulation.None,
+                inputs: ['disabled'],
+                host: {
+                    'class': 'mat-optgroup',
+                    'role': 'group',
+                    '[class.mat-optgroup-disabled]': 'disabled',
+                    '[attr.aria-disabled]': 'disabled.toString()',
+                    '[attr.aria-labelledby]': '_labelId',
+                }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdOptgroup.ctorParameters = function () { return []; };
+MdOptgroup.propDecorators = {
+    'label': [{ type: _angular_core.Input },],
+};
 /**
  * Option IDs need to be unique across components, so this counter exists outside of
  * the component definition.
@@ -1769,10 +1850,12 @@ var MdOptionSelectionChange = (function () {
 var MdOption = (function () {
     /**
      * @param {?} _element
+     * @param {?} group
      * @param {?} _isCompatibilityMode
      */
-    function MdOption(_element, _isCompatibilityMode) {
+    function MdOption(_element, group, _isCompatibilityMode) {
         this._element = _element;
+        this.group = group;
         this._isCompatibilityMode = _isCompatibilityMode;
         this._selected = false;
         this._active = false;
@@ -1813,7 +1896,7 @@ var MdOption = (function () {
          * Whether the option is disabled.
          * @return {?}
          */
-        get: function () { return this._disabled; },
+        get: function () { return (this.group && this.group.disabled) || this._disabled; },
         /**
          * @param {?} value
          * @return {?}
@@ -1961,6 +2044,7 @@ MdOption.decorators = [
  */
 MdOption.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
+    { type: MdOptgroup, decorators: [{ type: _angular_core.Optional },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
 ]; };
 MdOption.propDecorators = {
@@ -1976,8 +2060,8 @@ var MdOptionModule = (function () {
 MdOptionModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [MdRippleModule, _angular_common.CommonModule, MdSelectionModule],
-                exports: [MdOption],
-                declarations: [MdOption]
+                exports: [MdOption, MdOptgroup],
+                declarations: [MdOption, MdOptgroup]
             },] },
 ];
 /**
@@ -2635,6 +2719,7 @@ var OverlayRef = (function () {
         this.detachBackdrop();
         this._portalHost.dispose();
         this._attachments.complete();
+        this._backdropClick.complete();
         this._detachments.next();
         this._detachments.complete();
     };
@@ -6013,6 +6098,10 @@ MdNativeDateModule.decorators = [
  * @nocollapse
  */
 MdNativeDateModule.ctorParameters = function () { return []; };
+/**
+ * InjectionToken that can be used to specify the global placeholder options.
+ */
+var MD_PLACEHOLDER_GLOBAL_OPTIONS = new _angular_core.InjectionToken('md-placeholder-global-options');
 var MdCoreModule = (function () {
     function MdCoreModule() {
     }
@@ -6656,43 +6745,6 @@ MdButtonToggleModule.decorators = [
  * @nocollapse
  */
 MdButtonToggleModule.ctorParameters = function () { return []; };
-/**
- * Mixin to augment a directive with a `disabled` property.
- * @template T
- * @param {?} base
- * @return {?}
- */
-function mixinDisabled(base) {
-    return (function (_super) {
-        __extends(class_2, _super);
-        /**
-         * @param {...?} args
-         */
-        function class_2() {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments[_i];
-            }
-            var _this = _super.apply(this, args) || this;
-            _this._disabled = false;
-            return _this;
-        }
-        Object.defineProperty(class_2.prototype, "disabled", {
-            /**
-             * @return {?}
-             */
-            get: function () { return this._disabled; },
-            /**
-             * @param {?} value
-             * @return {?}
-             */
-            set: function (value) { this._disabled = coerceBooleanProperty(value); },
-            enumerable: true,
-            configurable: true
-        });
-        return class_2;
-    }(base));
-}
 /**
  * Default color palette for round buttons (md-fab and md-mini-fab)
  */
@@ -8555,9 +8607,9 @@ function getMdSelectNonArrayValueError() {
     return new Error('Cannot assign truthy non-array value to select in `multiple` mode.');
 }
 /**
- * The fixed height of every option element.
+ * The fixed height of every option element (option, group header etc.).
  */
-var SELECT_OPTION_HEIGHT = 48;
+var SELECT_ITEM_HEIGHT = 48;
 /**
  * The max height of the select's overlay panel
  */
@@ -8565,7 +8617,7 @@ var SELECT_PANEL_MAX_HEIGHT = 256;
 /**
  * The max number of options visible at once in the select panel.
  */
-var SELECT_MAX_OPTIONS_DISPLAYED = 5;
+var SELECT_MAX_OPTIONS_DISPLAYED = Math.floor(SELECT_PANEL_MAX_HEIGHT / SELECT_ITEM_HEIGHT);
 /**
  * The fixed height of the select's trigger element.
  */
@@ -8573,13 +8625,16 @@ var SELECT_TRIGGER_HEIGHT = 30;
 /**
  * Must adjust for the difference in height between the option and the trigger,
  * so the text will align on the y axis.
- * (SELECT_OPTION_HEIGHT (48) - SELECT_TRIGGER_HEIGHT (30)) / 2 = 9
  */
-var SELECT_OPTION_HEIGHT_ADJUSTMENT = 9;
+var SELECT_OPTION_HEIGHT_ADJUSTMENT = (SELECT_ITEM_HEIGHT - SELECT_TRIGGER_HEIGHT) / 2;
 /**
  * The panel's padding on the x-axis
  */
 var SELECT_PANEL_PADDING_X = 16;
+/**
+ * The panel's x axis padding if it is indented (e.g. there is an option group).
+ */
+var SELECT_PANEL_INDENT_PADDING_X = SELECT_PANEL_PADDING_X * 2;
 /**
  * Distance between the panel edge and the option text in
  * multi-selection mode.
@@ -8636,8 +8691,9 @@ var MdSelect = (function (_super) {
      * @param {?} _dir
      * @param {?} _control
      * @param {?} tabIndex
+     * @param {?} placeholderOptions
      */
-    function MdSelect(_viewportRuler, _changeDetectorRef, renderer, elementRef, _dir, _control, tabIndex) {
+    function MdSelect(_viewportRuler, _changeDetectorRef, renderer, elementRef, _dir, _control, tabIndex, placeholderOptions) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._viewportRuler = _viewportRuler;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -8713,7 +8769,6 @@ var MdSelect = (function (_super) {
                 overlayY: 'bottom',
             },
         ];
-        _this._floatPlaceholder = 'auto';
         /**
          * Aria label of the select. If not specified, the placeholder will be used as label.
          */
@@ -8738,6 +8793,8 @@ var MdSelect = (function (_super) {
             _this._control.valueAccessor = _this;
         }
         _this._tabIndex = parseInt(tabIndex) || 0;
+        _this._placeholderOptions = placeholderOptions ? placeholderOptions : {};
+        _this.floatPlaceholder = _this._placeholderOptions.float || 'auto';
         return _this;
     }
     Object.defineProperty(MdSelect.prototype, "placeholder", {
@@ -8819,7 +8876,7 @@ var MdSelect = (function (_super) {
          * @return {?}
          */
         set: function (value) {
-            this._floatPlaceholder = value || 'auto';
+            this._floatPlaceholder = value || this._placeholderOptions.float || 'auto';
         },
         enumerable: true,
         configurable: true
@@ -9333,24 +9390,26 @@ var MdSelect = (function (_super) {
      * @return {?}
      */
     MdSelect.prototype._calculateOverlayPosition = function () {
-        var /** @type {?} */ panelHeight = Math.min(this.options.length * SELECT_OPTION_HEIGHT, SELECT_PANEL_MAX_HEIGHT);
-        var /** @type {?} */ scrollContainerHeight = this.options.length * SELECT_OPTION_HEIGHT;
+        var /** @type {?} */ items = this._getItemCount();
+        var /** @type {?} */ panelHeight = Math.min(items * SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT);
+        var /** @type {?} */ scrollContainerHeight = items * SELECT_ITEM_HEIGHT;
         // The farthest the panel can be scrolled before it hits the bottom
         var /** @type {?} */ maxScroll = scrollContainerHeight - panelHeight;
         if (this._selectionModel.hasValue()) {
-            var /** @type {?} */ selectedIndex = this._getOptionIndex(this._selectionModel.selected[0]);
+            var /** @type {?} */ selectedOptionOffset = this._getOptionIndex(this._selectionModel.selected[0]);
+            selectedOptionOffset += this._getLabelCountBeforeOption(selectedOptionOffset);
             // We must maintain a scroll buffer so the selected option will be scrolled to the
             // center of the overlay panel rather than the top.
             var /** @type {?} */ scrollBuffer = panelHeight / 2;
-            this._scrollTop = this._calculateOverlayScroll(selectedIndex, scrollBuffer, maxScroll);
-            this._offsetY = this._calculateOverlayOffsetY(selectedIndex, scrollBuffer, maxScroll);
+            this._scrollTop = this._calculateOverlayScroll(selectedOptionOffset, scrollBuffer, maxScroll);
+            this._offsetY = this._calculateOverlayOffsetY(selectedOptionOffset, scrollBuffer, maxScroll);
         }
         else {
             // If no option is selected, the panel centers on the first option. In this case,
             // we must only adjust for the height difference between the option element
             // and the trigger element, then multiply it by -1 to ensure the panel moves
             // in the correct direction up the page.
-            this._offsetY = (SELECT_OPTION_HEIGHT - SELECT_TRIGGER_HEIGHT) / 2 * -1;
+            this._offsetY = (SELECT_ITEM_HEIGHT - SELECT_TRIGGER_HEIGHT) / 2 * -1;
         }
         this._checkOverlayWithinViewport(maxScroll);
     };
@@ -9366,8 +9425,8 @@ var MdSelect = (function (_super) {
      * @return {?}
      */
     MdSelect.prototype._calculateOverlayScroll = function (selectedIndex, scrollBuffer, maxScroll) {
-        var /** @type {?} */ optionOffsetFromScrollTop = SELECT_OPTION_HEIGHT * selectedIndex;
-        var /** @type {?} */ halfOptionHeight = SELECT_OPTION_HEIGHT / 2;
+        var /** @type {?} */ optionOffsetFromScrollTop = SELECT_ITEM_HEIGHT * selectedIndex;
+        var /** @type {?} */ halfOptionHeight = SELECT_ITEM_HEIGHT / 2;
         // Starts at the optionOffsetFromScrollTop, which scrolls the option to the top of the
         // scroll container, then subtracts the scroll buffer to scroll the option down to
         // the center of the overlay panel. Half the option height must be re-added to the
@@ -9423,13 +9482,24 @@ var MdSelect = (function (_super) {
         var /** @type {?} */ isRtl = this._isRtl();
         var /** @type {?} */ paddingWidth = this.multiple ? SELECT_MULTIPLE_PANEL_PADDING_X + SELECT_PANEL_PADDING_X :
             SELECT_PANEL_PADDING_X * 2;
-        var /** @type {?} */ offsetX = this.multiple ? SELECT_MULTIPLE_PANEL_PADDING_X : SELECT_PANEL_PADDING_X;
+        var /** @type {?} */ offsetX;
+        // Adjust the offset, depending on the option padding.
+        if (this.multiple) {
+            offsetX = SELECT_MULTIPLE_PANEL_PADDING_X;
+        }
+        else {
+            var /** @type {?} */ selected = this._selectionModel.selected[0];
+            offsetX = selected && selected.group ? SELECT_PANEL_INDENT_PADDING_X : SELECT_PANEL_PADDING_X;
+        }
+        // Invert the offset in LTR.
         if (!isRtl) {
             offsetX *= -1;
         }
+        // Determine how much the select overflows on each side.
         var /** @type {?} */ leftOverflow = 0 - (overlayRect.left + offsetX - (isRtl ? paddingWidth : 0));
         var /** @type {?} */ rightOverflow = overlayRect.right + offsetX - viewportRect.width
             + (isRtl ? 0 : paddingWidth);
+        // If the element overflows on either side, reduce the offset to allow it to fit.
         if (leftOverflow > 0) {
             offsetX += leftOverflow + SELECT_PANEL_VIEWPORT_PADDING;
         }
@@ -9453,23 +9523,23 @@ var MdSelect = (function (_super) {
     MdSelect.prototype._calculateOverlayOffsetY = function (selectedIndex, scrollBuffer, maxScroll) {
         var /** @type {?} */ optionOffsetFromPanelTop;
         if (this._scrollTop === 0) {
-            optionOffsetFromPanelTop = selectedIndex * SELECT_OPTION_HEIGHT;
+            optionOffsetFromPanelTop = selectedIndex * SELECT_ITEM_HEIGHT;
         }
         else if (this._scrollTop === maxScroll) {
-            var /** @type {?} */ firstDisplayedIndex = this.options.length - SELECT_MAX_OPTIONS_DISPLAYED;
+            var /** @type {?} */ firstDisplayedIndex = this._getItemCount() - SELECT_MAX_OPTIONS_DISPLAYED;
             var /** @type {?} */ selectedDisplayIndex = selectedIndex - firstDisplayedIndex;
             // Because the panel height is longer than the height of the options alone,
             // there is always extra padding at the top or bottom of the panel. When
             // scrolled to the very bottom, this padding is at the top of the panel and
             // must be added to the offset.
             optionOffsetFromPanelTop =
-                selectedDisplayIndex * SELECT_OPTION_HEIGHT + SELECT_PANEL_PADDING_Y;
+                selectedDisplayIndex * SELECT_ITEM_HEIGHT + SELECT_PANEL_PADDING_Y;
         }
         else {
             // If the option was scrolled to the middle of the panel using a scroll buffer,
             // its offset will be the scroll buffer minus the half height that was added to
             // center it.
-            optionOffsetFromPanelTop = scrollBuffer - SELECT_OPTION_HEIGHT / 2;
+            optionOffsetFromPanelTop = scrollBuffer - SELECT_ITEM_HEIGHT / 2;
         }
         // The final offset is the option's offset from the top, adjusted for the height
         // difference, multiplied by -1 to ensure that the overlay moves in the correct
@@ -9490,7 +9560,7 @@ var MdSelect = (function (_super) {
         var /** @type {?} */ topSpaceAvailable = triggerRect.top - SELECT_PANEL_VIEWPORT_PADDING;
         var /** @type {?} */ bottomSpaceAvailable = viewportRect.height - triggerRect.bottom - SELECT_PANEL_VIEWPORT_PADDING;
         var /** @type {?} */ panelHeightTop = Math.abs(this._offsetY);
-        var /** @type {?} */ totalPanelHeight = Math.min(this.options.length * SELECT_OPTION_HEIGHT, SELECT_PANEL_MAX_HEIGHT);
+        var /** @type {?} */ totalPanelHeight = Math.min(this._getItemCount() * SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT);
         var /** @type {?} */ panelHeightBottom = totalPanelHeight - panelHeightTop - triggerRect.height;
         if (panelHeightBottom > bottomSpaceAvailable) {
             this._adjustPanelUp(panelHeightBottom, bottomSpaceAvailable);
@@ -9553,7 +9623,7 @@ var MdSelect = (function (_super) {
      * @return {?}
      */
     MdSelect.prototype._getOriginBasedOnOption = function () {
-        var /** @type {?} */ originY = Math.abs(this._offsetY) - SELECT_OPTION_HEIGHT_ADJUSTMENT + SELECT_OPTION_HEIGHT / 2;
+        var /** @type {?} */ originY = Math.abs(this._offsetY) - SELECT_OPTION_HEIGHT_ADJUSTMENT + SELECT_ITEM_HEIGHT / 2;
         return "50% " + originY + "px 0px";
     };
     /**
@@ -9587,6 +9657,34 @@ var MdSelect = (function (_super) {
                 this._propagateChanges();
             }
         }
+    };
+    /**
+     * Calculates the amount of items in the select. This includes options and group labels.
+     * @return {?}
+     */
+    MdSelect.prototype._getItemCount = function () {
+        return this.options.length + this.optionGroups.length;
+    };
+    /**
+     * Calculates the amount of option group labels that precede the specified option.
+     * Useful when positioning the panel, because the labels will offset the index of the
+     * currently-selected option.
+     * @param {?} optionIndex
+     * @return {?}
+     */
+    MdSelect.prototype._getLabelCountBeforeOption = function (optionIndex) {
+        if (this.optionGroups.length) {
+            var /** @type {?} */ options = this.options.toArray();
+            var /** @type {?} */ groups = this.optionGroups.toArray();
+            var /** @type {?} */ groupCounter = 0;
+            for (var /** @type {?} */ i = 0; i < optionIndex + 1; i++) {
+                if (options[i].group && options[i].group === groups[groupCounter]) {
+                    groupCounter++;
+                }
+            }
+            return groupCounter;
+        }
+        return 0;
     };
     return MdSelect;
 }(_MdSelectMixinBase));
@@ -9629,11 +9727,13 @@ MdSelect.ctorParameters = function () { return [
     { type: Dir, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_forms.NgControl, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional },] },
     { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['tabindex',] },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
 ]; };
 MdSelect.propDecorators = {
     'trigger': [{ type: _angular_core.ViewChild, args: ['trigger',] },],
     'overlayDir': [{ type: _angular_core.ViewChild, args: [ConnectedOverlayDirective,] },],
-    'options': [{ type: _angular_core.ContentChildren, args: [MdOption,] },],
+    'options': [{ type: _angular_core.ContentChildren, args: [MdOption, { descendants: true },] },],
+    'optionGroups': [{ type: _angular_core.ContentChildren, args: [MdOptgroup,] },],
     'panelClass': [{ type: _angular_core.Input },],
     'placeholder': [{ type: _angular_core.Input },],
     'disabled': [{ type: _angular_core.Input },],
@@ -15279,10 +15379,15 @@ var MdInputContainer = (function () {
     /**
      * @param {?} _elementRef
      * @param {?} _changeDetectorRef
+     * @param {?} _parentForm
+     * @param {?} _parentFormGroup
+     * @param {?} placeholderOptions
      */
-    function MdInputContainer(_elementRef, _changeDetectorRef) {
+    function MdInputContainer(_elementRef, _changeDetectorRef, _parentForm, _parentFormGroup, placeholderOptions) {
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
+        this._parentForm = _parentForm;
+        this._parentFormGroup = _parentFormGroup;
         /**
          * Alignment of the input container's content.
          */
@@ -15298,7 +15403,8 @@ var MdInputContainer = (function () {
         this._hintLabel = '';
         // Unique id for the hint label.
         this._hintLabelId = "md-input-hint-" + nextUniqueId$1++;
-        this._floatPlaceholder = 'auto';
+        this._placeholderOptions = placeholderOptions ? placeholderOptions : {};
+        this.floatPlaceholder = this._placeholderOptions.float || 'auto';
     }
     Object.defineProperty(MdInputContainer.prototype, "dividerColor", {
         /**
@@ -15376,7 +15482,7 @@ var MdInputContainer = (function () {
          * @return {?}
          */
         set: function (value) {
-            this._floatPlaceholder = value || 'auto';
+            this._floatPlaceholder = value || this._placeholderOptions.float || 'auto';
         },
         enumerable: true,
         configurable: true
@@ -15550,6 +15656,9 @@ MdInputContainer.decorators = [
 MdInputContainer.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.ChangeDetectorRef, },
+    { type: _angular_forms.NgForm, decorators: [{ type: _angular_core.Optional },] },
+    { type: _angular_forms.FormGroupDirective, decorators: [{ type: _angular_core.Optional },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
 ]; };
 MdInputContainer.propDecorators = {
     'align': [{ type: _angular_core.Input },],
@@ -19021,6 +19130,10 @@ var MdDialogRef = (function () {
         this._overlayRef = _overlayRef;
         this._containerInstance = _containerInstance;
         /**
+         * Whether the user is allowed to close the dialog.
+         */
+        this.disableClose = this._containerInstance.config.disableClose;
+        /**
          * Subject for notifying the user that the dialog has finished closing.
          */
         this._afterClosed = new rxjs_Subject.Subject();
@@ -19308,7 +19421,7 @@ MdDialogContainer.decorators = [
                 ],
                 host: {
                     '[class.mat-dialog-container]': 'true',
-                    '[attr.role]': 'dialogConfig?.role',
+                    '[attr.role]': 'config?.role',
                     '[@slideDialog]': '_state',
                     '(@slideDialog.done)': '_onAnimationDone($event)',
                 },
@@ -19467,7 +19580,7 @@ var MdDialog = (function () {
         var /** @type {?} */ viewContainer = config ? config.viewContainerRef : null;
         var /** @type {?} */ containerPortal = new ComponentPortal(MdDialogContainer, viewContainer);
         var /** @type {?} */ containerRef = overlay.attach(containerPortal);
-        containerRef.instance.dialogConfig = config;
+        containerRef.instance.config = config;
         return containerRef.instance;
     };
     /**
@@ -19484,9 +19597,13 @@ var MdDialog = (function () {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
         var /** @type {?} */ dialogRef = new MdDialogRef(overlayRef, dialogContainer);
-        if (!config.disableClose) {
-            // When the dialog backdrop is clicked, we want to close it.
-            overlayRef.backdropClick().first().subscribe(function () { return dialogRef.close(); });
+        // When the dialog backdrop is clicked, we want to close it.
+        if (config.hasBackdrop) {
+            overlayRef.backdropClick().subscribe(function () {
+                if (!dialogRef.disableClose) {
+                    dialogRef.close();
+                }
+            });
         }
         // We create an injector specifically for the component we're instantiating so that it can
         // inject the MdDialogRef. This allows a component loaded inside of a dialog to close itself
@@ -19529,7 +19646,7 @@ var MdDialog = (function () {
      */
     MdDialog.prototype._handleKeydown = function (event) {
         var /** @type {?} */ topDialog = this._openDialogs[this._openDialogs.length - 1];
-        var /** @type {?} */ canClose = topDialog ? !topDialog._containerInstance.dialogConfig.disableClose : false;
+        var /** @type {?} */ canClose = topDialog ? !topDialog.disableClose : false;
         if (event.keyCode === ESCAPE && canClose) {
             topDialog.close();
         }
@@ -23032,9 +23149,6 @@ exports.Dir = Dir;
 exports.RtlModule = RtlModule;
 exports.ObserveContentModule = ObserveContentModule;
 exports.ObserveContent = ObserveContent;
-exports.MdOptionModule = MdOptionModule;
-exports.MdOption = MdOption;
-exports.MdOptionSelectionChange = MdOptionSelectionChange;
 exports.Portal = Portal;
 exports.BasePortalHost = BasePortalHost;
 exports.ComponentPortal = ComponentPortal;
@@ -23060,7 +23174,14 @@ exports.coerceNumberProperty = coerceNumberProperty;
 exports.CompatibilityModule = CompatibilityModule;
 exports.NoConflictStyleCompatibilityMode = NoConflictStyleCompatibilityMode;
 exports.MdCommonModule = MdCommonModule;
+exports.MD_PLACEHOLDER_GLOBAL_OPTIONS = MD_PLACEHOLDER_GLOBAL_OPTIONS;
 exports.MdCoreModule = MdCoreModule;
+exports.MdOptionModule = MdOptionModule;
+exports.MdOptionSelectionChange = MdOptionSelectionChange;
+exports.MdOption = MdOption;
+exports.MdOptgroupBase = MdOptgroupBase;
+exports._MdOptgroupMixinBase = _MdOptgroupMixinBase;
+exports.MdOptgroup = MdOptgroup;
 exports.PlatformModule = PlatformModule;
 exports.Platform = Platform;
 exports.getSupportedInputTypes = getSupportedInputTypes;
@@ -23290,12 +23411,13 @@ exports.MdSelectModule = MdSelectModule;
 exports.fadeInContent = fadeInContent;
 exports.transformPanel = transformPanel;
 exports.transformPlaceholder = transformPlaceholder;
-exports.SELECT_OPTION_HEIGHT = SELECT_OPTION_HEIGHT;
+exports.SELECT_ITEM_HEIGHT = SELECT_ITEM_HEIGHT;
 exports.SELECT_PANEL_MAX_HEIGHT = SELECT_PANEL_MAX_HEIGHT;
 exports.SELECT_MAX_OPTIONS_DISPLAYED = SELECT_MAX_OPTIONS_DISPLAYED;
 exports.SELECT_TRIGGER_HEIGHT = SELECT_TRIGGER_HEIGHT;
 exports.SELECT_OPTION_HEIGHT_ADJUSTMENT = SELECT_OPTION_HEIGHT_ADJUSTMENT;
 exports.SELECT_PANEL_PADDING_X = SELECT_PANEL_PADDING_X;
+exports.SELECT_PANEL_INDENT_PADDING_X = SELECT_PANEL_INDENT_PADDING_X;
 exports.SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_MULTIPLE_PANEL_PADDING_X;
 exports.SELECT_PANEL_PADDING_Y = SELECT_PANEL_PADDING_Y;
 exports.SELECT_PANEL_VIEWPORT_PADDING = SELECT_PANEL_VIEWPORT_PADDING;

@@ -1,7 +1,6 @@
 import { AfterContentInit, AfterContentChecked, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, QueryList, Renderer2 } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-/** Type for the available floatPlaceholder values. */
-export declare type FloatPlaceholderType = 'always' | 'never' | 'auto';
+import { FloatPlaceholderType, PlaceholderOptions } from '../core/placeholder/placeholder-options';
 /**
  * The placeholder directive. The content can declare this to implement more
  * complex placeholders.
@@ -83,6 +82,9 @@ export declare class MdInputDirective {
 export declare class MdInputContainer implements AfterViewInit, AfterContentInit, AfterContentChecked {
     _elementRef: ElementRef;
     private _changeDetectorRef;
+    private _parentForm;
+    private _parentFormGroup;
+    private _placeholderOptions;
     /** Alignment of the input container's content. */
     align: 'start' | 'end';
     /** Color of the input divider, based on the theme. */
@@ -113,7 +115,7 @@ export declare class MdInputContainer implements AfterViewInit, AfterContentInit
     _hintChildren: QueryList<MdHint>;
     _prefixChildren: QueryList<MdPrefix>;
     _suffixChildren: QueryList<MdSuffix>;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef);
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, placeholderOptions: PlaceholderOptions);
     ngAfterContentInit(): void;
     ngAfterContentChecked(): void;
     ngAfterViewInit(): void;

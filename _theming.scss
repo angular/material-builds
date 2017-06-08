@@ -1408,6 +1408,15 @@ $mat-menu-icon-margin: 16px !default;
       @include user-select(none);
       cursor: default;
     }
+
+    .mat-optgroup &:not(.mat-option-multiple) {
+      padding-left: $mat-menu-side-padding * 2;
+
+      [dir='rtl'] & {
+        padding-left: $mat-menu-side-padding;
+        padding-right: $mat-menu-side-padding * 2;
+      }
+    }
   }
 
   .mat-option-ripple {
@@ -1422,7 +1431,7 @@ $mat-menu-icon-margin: 16px !default;
     // Pointer events can be safely disabled because the ripple trigger element is the host element.
     pointer-events: none;
 
-    // In high contrast mode this completely covers the text.
+    // Prevents the ripple from completely covering the option in high contrast mode.
     @include cdk-high-contrast {
       opacity: 0.5;
     }
@@ -1529,6 +1538,36 @@ $mat-menu-icon-margin: 16px !default;
       family: mat-font-family($config);
       size: mat-font-size($config, subheading);
     }
+  }
+}
+
+
+
+
+@mixin mat-optgroup() {
+  .mat-optgroup-label {
+    @include mat-menu-item-base();
+    @include user-select(none);
+    cursor: default;
+
+    // TODO(crisbeto): should use the typography functions once #4375 is in.
+    font-weight: bold;
+    font-size: 14px;
+  }
+}
+
+
+
+
+@mixin mat-optgroup-theme($theme) {
+  $foreground: map-get($theme, foreground);
+
+  .mat-optgroup-label {
+    color: mat-color($foreground, secondary-text);
+  }
+
+  .mat-optgroup-disabled .mat-optgroup-label {
+    color: mat-color($foreground, hint-text);
   }
 }
 
@@ -3271,6 +3310,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
   @include angular-material-typography();
   @include mat-ripple();
   @include mat-option();
+  @include mat-optgroup();
   @include cdk-a11y();
   @include cdk-overlay();
 }
@@ -3279,6 +3319,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
 @mixin mat-core-theme($theme) {
   @include mat-ripple-theme($theme);
   @include mat-option-theme($theme);
+  @include mat-optgroup-theme($theme);
   @include mat-pseudo-checkbox-theme($theme);
 
   // Wrapper element that provides the theme background when the

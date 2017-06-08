@@ -1,6 +1,6 @@
 export { Dir, LayoutDirection, RtlModule } from './rtl/dir';
 export { ObserveContentModule, ObserveContent } from './observe-content/observe-content';
-export { MdOptionModule, MdOption, MdOptionSelectionChange } from './option/option';
+export * from './option/index';
 export { Portal, PortalHost, BasePortalHost, ComponentPortal, TemplatePortal } from './portal/portal';
 export { PortalHostDirective, TemplatePortalDirective, PortalModule } from './portal/portal-directives';
 export { DomPortalHost } from './portal/dom-portal-host';
@@ -28,5 +28,6 @@ export { coerceNumberProperty } from './coercion/number-property';
 export { CompatibilityModule, NoConflictStyleCompatibilityMode } from './compatibility/compatibility';
 export { MdCommonModule } from './common-behaviors/common-module';
 export * from './datetime/index';
+export { FloatPlaceholderType, PlaceholderOptions, MD_PLACEHOLDER_GLOBAL_OPTIONS } from './placeholder/placeholder-options';
 export declare class MdCoreModule {
 }

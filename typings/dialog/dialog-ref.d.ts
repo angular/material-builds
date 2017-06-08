@@ -8,9 +8,11 @@ import 'rxjs/add/operator/filter';
  */
 export declare class MdDialogRef<T> {
     private _overlayRef;
-    _containerInstance: MdDialogContainer;
+    private _containerInstance;
     /** The instance of component opened into the dialog. */
     componentInstance: T;
+    /** Whether the user is allowed to close the dialog. */
+    disableClose: boolean;
     /** Subject for notifying the user that the dialog has finished closing. */
     private _afterClosed;
     /** Result to be passed to afterClosed. */

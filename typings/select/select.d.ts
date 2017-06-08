@@ -1,5 +1,5 @@
 import { AfterContentInit, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer2, ChangeDetectorRef, OnInit } from '@angular/core';
-import { MdOption, MdOptionSelectionChange } from '../core/option/option';
+import { MdOption, MdOptionSelectionChange, MdOptgroup } from '../core/option/index';
 import { FocusKeyManager } from '../core/a11y/focus-key-manager';
 import { Dir } from '../core/rtl/dir';
 import { Observable } from 'rxjs/Observable';
@@ -11,27 +11,29 @@ import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/filter';
 import { CanColor } from '../core/common-behaviors/color';
+import { FloatPlaceholderType, PlaceholderOptions } from '../core/placeholder/placeholder-options';
 /**
  * The following style constants are necessary to save here in order
  * to properly calculate the alignment of the selected option over
  * the trigger element.
  */
-/** The fixed height of every option element. */
-export declare const SELECT_OPTION_HEIGHT = 48;
+/** The fixed height of every option element (option, group header etc.). */
+export declare const SELECT_ITEM_HEIGHT = 48;
 /** The max height of the select's overlay panel */
 export declare const SELECT_PANEL_MAX_HEIGHT = 256;
 /** The max number of options visible at once in the select panel. */
-export declare const SELECT_MAX_OPTIONS_DISPLAYED = 5;
+export declare const SELECT_MAX_OPTIONS_DISPLAYED: number;
 /** The fixed height of the select's trigger element. */
 export declare const SELECT_TRIGGER_HEIGHT = 30;
 /**
  * Must adjust for the difference in height between the option and the trigger,
  * so the text will align on the y axis.
- * (SELECT_OPTION_HEIGHT (48) - SELECT_TRIGGER_HEIGHT (30)) / 2 = 9
  */
-export declare const SELECT_OPTION_HEIGHT_ADJUSTMENT = 9;
+export declare const SELECT_OPTION_HEIGHT_ADJUSTMENT: number;
 /** The panel's padding on the x-axis */
 export declare const SELECT_PANEL_PADDING_X = 16;
+/** The panel's x axis padding if it is indented (e.g. there is an option group). */
+export declare const SELECT_PANEL_INDENT_PADDING_X: number;
 /**
  * Distance between the panel edge and the option text in
  * multi-selection mode.
@@ -58,8 +60,6 @@ export declare class MdSelectChange {
     value: any;
     constructor(source: MdSelect, value: any);
 }
-/** Allowed values for the floatPlaceholder option. */
-export declare type MdSelectFloatPlaceholderType = 'always' | 'never' | 'auto';
 export declare class MdSelectBase {
     _renderer: Renderer2;
     _elementRef: ElementRef;
@@ -95,6 +95,8 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
     private _placeholderState;
     /** Tab index for the element. */
     private _tabIndex;
+    /** Deals with configuring placeholder options */
+    private _placeholderOptions;
     /**
      * The width of the trigger. Must be saved to set the min width of the overlay panel
      * and the width of the selected value.
@@ -141,6 +143,8 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
     overlayDir: ConnectedOverlayDirective;
     /** All of the defined select options. */
     options: QueryList<MdOption>;
+    /** All of the defined groups of options. */
+    optionGroups: QueryList<MdOptgroup>;
     /** Classes to be passed to the select panel. Supports the same syntax as `ngClass`. */
     panelClass: string | string[] | Set<string> | {
         [key: string]: any;
@@ -154,7 +158,7 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
     /** Whether the user should be allowed to select multiple options. */
     multiple: boolean;
     /** Whether to float the placeholder text. */
-    floatPlaceholder: MdSelectFloatPlaceholderType;
+    floatPlaceholder: FloatPlaceholderType;
     private _floatPlaceholder;
     /** Tab index for the select element. */
     tabIndex: number;
@@ -170,7 +174,7 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
     onClose: EventEmitter<void>;
     /** Event emitted when the selected value has been changed by the user. */
     change: EventEmitter<MdSelectChange>;
-    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef, _dir: Dir, _control: NgControl, tabIndex: string);
+    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef, _dir: Dir, _control: NgControl, tabIndex: string, placeholderOptions: PlaceholderOptions);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
@@ -358,4 +362,12 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
     private _floatPlaceholderState();
     /** Handles the user pressing the arrow keys on a closed select.  */
     private _handleArrowKey(event);
+    /** Calculates the amount of items in the select. This includes options and group labels. */
+    private _getItemCount();
+    /**
+     * Calculates the amount of option group labels that precede the specified option.
+     * Useful when positioning the panel, because the labels will offset the index of the
+     * currently-selected option.
+     */
+    private _getLabelCountBeforeOption(optionIndex);
 }
