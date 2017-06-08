@@ -5,7 +5,6 @@ import { Subject } from 'rxjs/Subject';
 import { Overlay, ComponentType } from '../core';
 import { MdDialogConfig } from './dialog-config';
 import { MdDialogRef } from './dialog-ref';
-import 'rxjs/add/operator/first';
 /**
  * Service to open Material Design modal dialogs.
  */

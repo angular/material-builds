@@ -2607,6 +2607,7 @@ class OverlayRef {
         this.detachBackdrop();
         this._portalHost.dispose();
         this._attachments.complete();
+        this._backdropClick.complete();
         this._detachments.next();
         this._detachments.complete();
     }
@@ -13308,17 +13309,19 @@ const _MdIconMixinBase = mixinColor(MdIconBase);
  */
 class MdIcon extends _MdIconMixinBase {
     /**
-     * @param {?} _mdIconRegistry
      * @param {?} renderer
      * @param {?} elementRef
+     * @param {?} _mdIconRegistry
+     * @param {?} ariaHidden
      */
-    constructor(_mdIconRegistry, renderer, elementRef) {
+    constructor(renderer, elementRef, _mdIconRegistry, ariaHidden) {
         super(renderer, elementRef);
         this._mdIconRegistry = _mdIconRegistry;
-        /**
-         * Screenreader label for the icon.
-         */
-        this.hostAriaLabel = '';
+        // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
+        // the right thing to do for the majority of icon use-cases.
+        if (!ariaHidden) {
+            renderer.setAttribute(elementRef.nativeElement, 'aria-hidden', 'true');
+        }
     }
     /**
      * Splits an svgIcon binding value into its icon set and icon name components.
@@ -13366,7 +13369,6 @@ class MdIcon extends _MdIconMixinBase {
         if (this._usingFontIcon()) {
             this._updateFontIconClasses();
         }
-        this._updateAriaLabel();
     }
     /**
      * @return {?}
@@ -13377,48 +13379,6 @@ class MdIcon extends _MdIconMixinBase {
         if (this._usingFontIcon()) {
             this._updateFontIconClasses();
         }
-    }
-    /**
-     * @return {?}
-     */
-    ngAfterViewChecked() {
-        // Update aria label here because it may depend on the projected text content.
-        // (e.g. <md-icon>home</md-icon> should use 'home').
-        this._updateAriaLabel();
-    }
-    /**
-     * @return {?}
-     */
-    _updateAriaLabel() {
-        const /** @type {?} */ ariaLabel = this._getAriaLabel();
-        if (ariaLabel && ariaLabel !== this._previousAriaLabel) {
-            this._previousAriaLabel = ariaLabel;
-            this._renderer.setAttribute(this._elementRef.nativeElement, 'aria-label', ariaLabel);
-        }
-    }
-    /**
-     * @return {?}
-     */
-    _getAriaLabel() {
-        // If the parent provided an aria-label attribute value, use it as-is. Otherwise look for a
-        // reasonable value from the alt attribute, font icon name, SVG icon name, or (for ligatures)
-        // the text content of the directive.
-        const /** @type {?} */ label = this.hostAriaLabel ||
-            this.alt ||
-            this.fontIcon ||
-            this._splitIconName(this.svgIcon)[1];
-        if (label) {
-            return label;
-        }
-        // The "content" of an SVG icon is not a useful label.
-        if (this._usingFontIcon()) {
-            const /** @type {?} */ text = this._elementRef.nativeElement.textContent;
-            if (text) {
-                return text;
-            }
-        }
-        // TODO: Warn here in dev mode.
-        return null;
     }
     /**
      * @return {?}
@@ -13476,7 +13436,7 @@ MdIcon.decorators = [
                 inputs: ['color'],
                 host: {
                     'role': 'img',
-                    '[class.mat-icon]': 'true',
+                    'class': 'mat-icon'
                 },
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
@@ -13486,16 +13446,15 @@ MdIcon.decorators = [
  * @nocollapse
  */
 MdIcon.ctorParameters = () => [
-    { type: MdIconRegistry, },
     { type: Renderer2, },
     { type: ElementRef, },
+    { type: MdIconRegistry, },
+    { type: undefined, decorators: [{ type: Attribute, args: ['aria-hidden',] },] },
 ];
 MdIcon.propDecorators = {
     'svgIcon': [{ type: Input },],
     'fontSet': [{ type: Input },],
     'fontIcon': [{ type: Input },],
-    'alt': [{ type: Input },],
-    'hostAriaLabel': [{ type: Input, args: ['aria-label',] },],
 };
 
 class MdIconModule {
@@ -17933,6 +17892,10 @@ class MdDialogRef {
         this._overlayRef = _overlayRef;
         this._containerInstance = _containerInstance;
         /**
+         * Whether the user is allowed to close the dialog.
+         */
+        this.disableClose = this._containerInstance.config.disableClose;
+        /**
          * Subject for notifying the user that the dialog has finished closing.
          */
         this._afterClosed = new Subject();
@@ -18215,7 +18178,7 @@ MdDialogContainer.decorators = [
                 ],
                 host: {
                     '[class.mat-dialog-container]': 'true',
-                    '[attr.role]': 'dialogConfig?.role',
+                    '[attr.role]': 'config?.role',
                     '[@slideDialog]': '_state',
                     '(@slideDialog.done)': '_onAnimationDone($event)',
                 },
@@ -18361,7 +18324,7 @@ class MdDialog {
         let /** @type {?} */ viewContainer = config ? config.viewContainerRef : null;
         let /** @type {?} */ containerPortal = new ComponentPortal(MdDialogContainer, viewContainer);
         let /** @type {?} */ containerRef = overlay.attach(containerPortal);
-        containerRef.instance.dialogConfig = config;
+        containerRef.instance.config = config;
         return containerRef.instance;
     }
     /**
@@ -18378,9 +18341,13 @@ class MdDialog {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
         let /** @type {?} */ dialogRef = new MdDialogRef(overlayRef, dialogContainer);
-        if (!config.disableClose) {
-            // When the dialog backdrop is clicked, we want to close it.
-            overlayRef.backdropClick().first().subscribe(() => dialogRef.close());
+        // When the dialog backdrop is clicked, we want to close it.
+        if (config.hasBackdrop) {
+            overlayRef.backdropClick().subscribe(() => {
+                if (!dialogRef.disableClose) {
+                    dialogRef.close();
+                }
+            });
         }
         // We create an injector specifically for the component we're instantiating so that it can
         // inject the MdDialogRef. This allows a component loaded inside of a dialog to close itself
@@ -18423,7 +18390,7 @@ class MdDialog {
      */
     _handleKeydown(event) {
         let /** @type {?} */ topDialog = this._openDialogs[this._openDialogs.length - 1];
-        let /** @type {?} */ canClose = topDialog ? !topDialog._containerInstance.dialogConfig.disableClose : false;
+        let /** @type {?} */ canClose = topDialog ? !topDialog.disableClose : false;
         if (event.keyCode === ESCAPE && canClose) {
             topDialog.close();
         }

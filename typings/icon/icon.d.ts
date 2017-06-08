@@ -1,4 +1,4 @@
-import { ElementRef, OnChanges, OnInit, Renderer2, SimpleChange, AfterViewChecked } from '@angular/core';
+import { ElementRef, OnChanges, OnInit, Renderer2, SimpleChange } from '@angular/core';
 import { MdIconRegistry } from './icon-registry';
 import { CanColor } from '../core/common-behaviors/color';
 export declare class MdIconBase {
@@ -40,7 +40,7 @@ export declare const _MdIconMixinBase: (new (...args: any[]) => CanColor) & type
  *   Example:
  *     <md-icon fontSet="fa" fontIcon="alarm"></md-icon>
  */
-export declare class MdIcon extends _MdIconMixinBase implements OnChanges, OnInit, AfterViewChecked, CanColor {
+export declare class MdIcon extends _MdIconMixinBase implements OnChanges, OnInit, CanColor {
     private _mdIconRegistry;
     /** Name of the icon in the SVG icon set. */
     svgIcon: string;
@@ -48,14 +48,9 @@ export declare class MdIcon extends _MdIconMixinBase implements OnChanges, OnIni
     fontSet: string;
     /** Name of an icon within a font set. */
     fontIcon: string;
-    /** Alt label to be used for accessibility. */
-    alt: string;
-    /** Screenreader label for the icon. */
-    hostAriaLabel: string;
     private _previousFontSetClass;
     private _previousFontIconClass;
-    private _previousAriaLabel;
-    constructor(_mdIconRegistry: MdIconRegistry, renderer: Renderer2, elementRef: ElementRef);
+    constructor(renderer: Renderer2, elementRef: ElementRef, _mdIconRegistry: MdIconRegistry, ariaHidden: string);
     /**
      * Splits an svgIcon binding value into its icon set and icon name components.
      * Returns a 2-element array of [(icon set), (icon name)].
@@ -74,9 +69,6 @@ export declare class MdIcon extends _MdIconMixinBase implements OnChanges, OnIni
         [propertyName: string]: SimpleChange;
     }): void;
     ngOnInit(): void;
-    ngAfterViewChecked(): void;
-    private _updateAriaLabel();
-    private _getAriaLabel();
     private _usingFontIcon();
     private _setSvgElement(svg);
     private _updateFontIconClasses();

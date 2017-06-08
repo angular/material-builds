@@ -27,7 +27,7 @@ export declare class MdDialogContainer extends BasePortalHost {
     /** Reference to the global document object. */
     private _document;
     /** The dialog configuration. */
-    dialogConfig: MdDialogConfig;
+    config: MdDialogConfig;
     /** State of the dialog animation. */
     _state: 'void' | 'enter' | 'exit';
     /** Emits the current animation state whenever it changes. */
