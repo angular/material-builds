@@ -24,13 +24,16 @@ export declare class MdIconButtonCssMatStyler {
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * @docs-private
  */
-export declare class MdFabCssMatStyler {
+export declare class MdFab {
+    constructor(button: MdButton, anchor: MdAnchor);
 }
 /**
- * Directive whose purpose is to add the mat- CSS styling to this selector.
+ * Directive that targets mini-fab buttons and anchors. It's used to apply the `mat-` class
+ * to all mini-fab buttons and also is responsible for setting the default color palette.
  * @docs-private
  */
-export declare class MdMiniFabCssMatStyler {
+export declare class MdMiniFab {
+    constructor(button: MdButton, anchor: MdAnchor);
 }
 export declare class MdButtonBase {
     _renderer: Renderer2;

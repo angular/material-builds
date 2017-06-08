@@ -6694,6 +6694,10 @@ function mixinDisabled(base) {
     }(base));
 }
 /**
+ * Default color palette for round buttons (md-fab and md-mini-fab)
+ */
+var DEFAULT_ROUND_BUTTON_COLOR = 'accent';
+/**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
@@ -6755,12 +6759,18 @@ MdIconButtonCssMatStyler.ctorParameters = function () { return []; };
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdFabCssMatStyler = (function () {
-    function MdFabCssMatStyler() {
+var MdFab = (function () {
+    /**
+     * @param {?} button
+     * @param {?} anchor
+     */
+    function MdFab(button, anchor) {
+        // Set the default color palette for the md-fab components.
+        (button || anchor).color = DEFAULT_ROUND_BUTTON_COLOR;
     }
-    return MdFabCssMatStyler;
+    return MdFab;
 }());
-MdFabCssMatStyler.decorators = [
+MdFab.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: 'button[md-fab], button[mat-fab], a[md-fab], a[mat-fab]',
                 host: { 'class': 'mat-fab' }
@@ -6769,17 +6779,27 @@ MdFabCssMatStyler.decorators = [
 /**
  * @nocollapse
  */
-MdFabCssMatStyler.ctorParameters = function () { return []; };
+MdFab.ctorParameters = function () { return [
+    { type: MdButton, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MdButton; }),] },] },
+    { type: MdAnchor, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MdAnchor; }),] },] },
+]; };
 /**
- * Directive whose purpose is to add the mat- CSS styling to this selector.
+ * Directive that targets mini-fab buttons and anchors. It's used to apply the `mat-` class
+ * to all mini-fab buttons and also is responsible for setting the default color palette.
  * \@docs-private
  */
-var MdMiniFabCssMatStyler = (function () {
-    function MdMiniFabCssMatStyler() {
+var MdMiniFab = (function () {
+    /**
+     * @param {?} button
+     * @param {?} anchor
+     */
+    function MdMiniFab(button, anchor) {
+        // Set the default color palette for the md-mini-fab components.
+        (button || anchor).color = DEFAULT_ROUND_BUTTON_COLOR;
     }
-    return MdMiniFabCssMatStyler;
+    return MdMiniFab;
 }());
-MdMiniFabCssMatStyler.decorators = [
+MdMiniFab.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: 'button[md-mini-fab], button[mat-mini-fab], a[md-mini-fab], a[mat-mini-fab]',
                 host: { 'class': 'mat-mini-fab' }
@@ -6788,7 +6808,10 @@ MdMiniFabCssMatStyler.decorators = [
 /**
  * @nocollapse
  */
-MdMiniFabCssMatStyler.ctorParameters = function () { return []; };
+MdMiniFab.ctorParameters = function () { return [
+    { type: MdButton, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MdButton; }),] },] },
+    { type: MdAnchor, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MdAnchor; }),] },] },
+]; };
 var MdButtonBase = (function () {
     /**
      * @param {?} _renderer
@@ -7011,21 +7034,21 @@ MdButtonModule.decorators = [
                 exports: [
                     MdButton,
                     MdAnchor,
+                    MdMiniFab,
+                    MdFab,
                     MdCommonModule,
                     MdButtonCssMatStyler,
                     MdRaisedButtonCssMatStyler,
                     MdIconButtonCssMatStyler,
-                    MdFabCssMatStyler,
-                    MdMiniFabCssMatStyler,
                 ],
                 declarations: [
                     MdButton,
                     MdAnchor,
+                    MdMiniFab,
+                    MdFab,
                     MdButtonCssMatStyler,
                     MdRaisedButtonCssMatStyler,
                     MdIconButtonCssMatStyler,
-                    MdFabCssMatStyler,
-                    MdMiniFabCssMatStyler,
                 ],
             },] },
 ];
@@ -22591,8 +22614,8 @@ exports.MdButtonModule = MdButtonModule;
 exports.MdButtonCssMatStyler = MdButtonCssMatStyler;
 exports.MdRaisedButtonCssMatStyler = MdRaisedButtonCssMatStyler;
 exports.MdIconButtonCssMatStyler = MdIconButtonCssMatStyler;
-exports.MdFabCssMatStyler = MdFabCssMatStyler;
-exports.MdMiniFabCssMatStyler = MdMiniFabCssMatStyler;
+exports.MdFab = MdFab;
+exports.MdMiniFab = MdMiniFab;
 exports.MdButtonBase = MdButtonBase;
 exports._MdButtonMixinBase = _MdButtonMixinBase;
 exports.MdButton = MdButton;
