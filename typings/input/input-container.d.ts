@@ -82,8 +82,6 @@ export declare class MdInputDirective {
 export declare class MdInputContainer implements AfterViewInit, AfterContentInit, AfterContentChecked {
     _elementRef: ElementRef;
     private _changeDetectorRef;
-    private _parentForm;
-    private _parentFormGroup;
     private _placeholderOptions;
     /** Alignment of the input container's content. */
     align: 'start' | 'end';
@@ -115,7 +113,7 @@ export declare class MdInputContainer implements AfterViewInit, AfterContentInit
     _hintChildren: QueryList<MdHint>;
     _prefixChildren: QueryList<MdPrefix>;
     _suffixChildren: QueryList<MdSuffix>;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, placeholderOptions: PlaceholderOptions);
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, placeholderOptions: PlaceholderOptions);
     ngAfterContentInit(): void;
     ngAfterContentChecked(): void;
     ngAfterViewInit(): void;

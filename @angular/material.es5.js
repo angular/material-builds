@@ -15394,15 +15394,11 @@ var MdInputContainer = /*@__PURE__*/(function () {
     /**
      * @param {?} _elementRef
      * @param {?} _changeDetectorRef
-     * @param {?} _parentForm
-     * @param {?} _parentFormGroup
      * @param {?} placeholderOptions
      */
-    function MdInputContainer(_elementRef, _changeDetectorRef, _parentForm, _parentFormGroup, placeholderOptions) {
+    function MdInputContainer(_elementRef, _changeDetectorRef, placeholderOptions) {
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
-        this._parentForm = _parentForm;
-        this._parentFormGroup = _parentFormGroup;
         /**
          * Alignment of the input container's content.
          */
@@ -15671,8 +15667,6 @@ MdInputContainer.decorators = [
 MdInputContainer.ctorParameters = function () { return [
     { type: ElementRef, },
     { type: ChangeDetectorRef, },
-    { type: NgForm, decorators: [{ type: Optional },] },
-    { type: FormGroupDirective, decorators: [{ type: Optional },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MD_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
 ]; };
 MdInputContainer.propDecorators = {
