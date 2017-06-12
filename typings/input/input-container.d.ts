@@ -1,4 +1,5 @@
 import { AfterContentInit, AfterContentChecked, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, QueryList, Renderer2 } from '@angular/core';
+import { Platform } from '../core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { FloatPlaceholderType, PlaceholderOptions } from '../core/placeholder/placeholder-options';
 /**
@@ -27,6 +28,7 @@ export declare class MdSuffix {
 export declare class MdInputDirective {
     private _elementRef;
     private _renderer;
+    private _platform;
     _ngControl: NgControl;
     private _parentForm;
     private _parentFormGroup;
@@ -61,7 +63,7 @@ export declare class MdInputDirective {
     readonly empty: boolean;
     private readonly _uid;
     private _neverEmptyInputTypes;
-    constructor(_elementRef: ElementRef, _renderer: Renderer2, _ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective);
+    constructor(_elementRef: ElementRef, _renderer: Renderer2, _platform: Platform, _ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective);
     /** Focuses the input element. */
     focus(): void;
     _onFocus(): void;

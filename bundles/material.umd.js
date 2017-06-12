@@ -413,7 +413,7 @@ var MdMutationObserverFactory = (function () {
      * @return {?}
      */
     MdMutationObserverFactory.prototype.create = function (callback) {
-        return new MutationObserver(callback);
+        return typeof MutationObserver === 'undefined' ? null : new MutationObserver(callback);
     };
     return MdMutationObserverFactory;
 }());
@@ -461,11 +461,13 @@ var ObserveContent = (function () {
         this._observer = this._mutationObserverFactory.create(function (mutations) {
             _this._debouncer.next(mutations);
         });
-        this._observer.observe(this._elementRef.nativeElement, {
-            characterData: true,
-            childList: true,
-            subtree: true
-        });
+        if (this._observer) {
+            this._observer.observe(this._elementRef.nativeElement, {
+                characterData: true,
+                childList: true,
+                subtree: true
+            });
+        }
     };
     /**
      * @return {?}
@@ -15127,13 +15129,15 @@ var MdInputDirective = (function () {
     /**
      * @param {?} _elementRef
      * @param {?} _renderer
+     * @param {?} _platform
      * @param {?} _ngControl
      * @param {?} _parentForm
      * @param {?} _parentFormGroup
      */
-    function MdInputDirective(_elementRef, _renderer, _ngControl, _parentForm, _parentFormGroup) {
+    function MdInputDirective(_elementRef, _renderer, _platform, _ngControl, _parentForm, _parentFormGroup) {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
+        this._platform = _platform;
         this._ngControl = _ngControl;
         this._parentForm = _parentForm;
         this._parentFormGroup = _parentFormGroup;
@@ -15353,7 +15357,11 @@ var MdInputDirective = (function () {
      */
     MdInputDirective.prototype._isTextarea = function () {
         var /** @type {?} */ nativeElement = this._elementRef.nativeElement;
-        return nativeElement ? nativeElement.nodeName.toLowerCase() === 'textarea' : false;
+        // In Universal, we don't have access to `nodeName`, but the same can be achieved with `name`.
+        // Note that this shouldn't be necessary once Angular switches to an API that resembles the
+        // DOM closer.
+        var /** @type {?} */ nodeName = this._platform.isBrowser ? nativeElement.nodeName : nativeElement.name;
+        return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
     };
     return MdInputDirective;
 }());
@@ -15382,6 +15390,7 @@ MdInputDirective.decorators = [
 MdInputDirective.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.Renderer2, },
+    { type: Platform, },
     { type: _angular_forms.NgControl, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Self },] },
     { type: _angular_forms.NgForm, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_forms.FormGroupDirective, decorators: [{ type: _angular_core.Optional },] },
