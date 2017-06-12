@@ -19149,7 +19149,7 @@ var MdDialogRef = /*@__PURE__*/(function () {
         /**
          * Whether the user is allowed to close the dialog.
          */
-        this.disableClose = this._containerInstance.config.disableClose;
+        this.disableClose = this._containerInstance._config.disableClose;
         /**
          * Subject for notifying the user that the dialog has finished closing.
          */
@@ -19438,7 +19438,7 @@ MdDialogContainer.decorators = [
                 ],
                 host: {
                     '[class.mat-dialog-container]': 'true',
-                    '[attr.role]': 'config?.role',
+                    '[attr.role]': '_config?.role',
                     '[@slideDialog]': '_state',
                     '(@slideDialog.done)': '_onAnimationDone($event)',
                 },
@@ -19597,7 +19597,7 @@ var MdDialog = /*@__PURE__*/(function () {
         var /** @type {?} */ viewContainer = config ? config.viewContainerRef : null;
         var /** @type {?} */ containerPortal = new ComponentPortal(MdDialogContainer, viewContainer);
         var /** @type {?} */ containerRef = overlay.attach(containerPortal);
-        containerRef.instance.config = config;
+        containerRef.instance._config = config;
         return containerRef.instance;
     };
     /**
