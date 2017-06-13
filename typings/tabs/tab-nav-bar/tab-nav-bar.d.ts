@@ -11,7 +11,7 @@ import 'rxjs/add/observable/merge';
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
  */
-export declare class MdTabNavBar implements AfterContentInit, OnDestroy {
+export declare class MdTabNav implements AfterContentInit, OnDestroy {
     private _dir;
     private _ngZone;
     /** Subject that emits when the component has been destroyed. */
@@ -38,7 +38,7 @@ export declare class MdTabLink {
     private _isActive;
     /** Whether the link is active. */
     active: boolean;
-    constructor(_mdTabNavBar: MdTabNavBar, _elementRef: ElementRef);
+    constructor(_mdTabNavBar: MdTabNav, _elementRef: ElementRef);
 }
 /**
  * Simple directive that extends the ripple and matches the selector of the MdTabLink. This

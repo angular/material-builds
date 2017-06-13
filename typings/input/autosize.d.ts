@@ -6,14 +6,10 @@ export declare class MdTextareaAutosize implements AfterViewInit {
     private _elementRef;
     private _minRows;
     private _maxRows;
-    /** @deprecated Use mdAutosizeMinRows */
     minRows: number;
-    /** @deprecated Use mdAutosizeMaxRows */
     maxRows: number;
-    /** Minimum number of rows for this textarea. */
-    mdAutosizeMinRows: number;
-    /** Maximum number of rows for this textarea. */
-    mdAutosizeMaxRows: number;
+    _matAutosizeMinRows: number;
+    _matAutosizeMaxRows: number;
     /** Cached height of a textarea with a single row. */
     private _cachedLineHeight;
     constructor(_elementRef: ElementRef);

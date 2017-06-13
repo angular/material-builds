@@ -2,6 +2,7 @@ import { AfterContentInit, ChangeDetectorRef, ElementRef, Renderer2, EventEmitte
 import { ControlValueAccessor } from '@angular/forms';
 import { UniqueSelectionDispatcher, MdRipple, FocusOriginMonitor } from '../core';
 import { CanDisable } from '../core/common-behaviors/disabled';
+import { CanColor } from '../core/common-behaviors/color';
 /**
  * Provider Expression that allows md-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
@@ -111,12 +112,16 @@ export declare class MdRadioGroup extends _MdRadioGroupMixinBase implements Afte
      */
     setDisabledState(isDisabled: boolean): void;
 }
+export declare class MdRadioButtonBase {
+    _renderer: Renderer2;
+    _elementRef: ElementRef;
+    constructor(_renderer: Renderer2, _elementRef: ElementRef);
+}
+export declare const _MdRadioButtonMixinBase: (new (...args: any[]) => CanColor) & typeof MdRadioButtonBase;
 /**
  * A radio-button. May be inside of
  */
-export declare class MdRadioButton implements OnInit, AfterViewInit, OnDestroy {
-    private _elementRef;
-    private _renderer;
+export declare class MdRadioButton extends _MdRadioButtonMixinBase implements OnInit, AfterViewInit, OnDestroy, CanColor {
     private _changeDetector;
     private _focusOriginMonitor;
     private _radioDispatcher;
@@ -168,7 +173,7 @@ export declare class MdRadioButton implements OnInit, AfterViewInit, OnDestroy {
     private _focusRipple;
     /** The native `<input type=radio>` element */
     _inputElement: ElementRef;
-    constructor(radioGroup: MdRadioGroup, _elementRef: ElementRef, _renderer: Renderer2, _changeDetector: ChangeDetectorRef, _focusOriginMonitor: FocusOriginMonitor, _radioDispatcher: UniqueSelectionDispatcher);
+    constructor(radioGroup: MdRadioGroup, elementRef: ElementRef, renderer: Renderer2, _changeDetector: ChangeDetectorRef, _focusOriginMonitor: FocusOriginMonitor, _radioDispatcher: UniqueSelectionDispatcher);
     /** Focuses the radio button. */
     focus(): void;
     /**

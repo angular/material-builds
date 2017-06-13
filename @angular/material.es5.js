@@ -49,11 +49,11 @@ function getMdCompatibilityInvalidPrefixError(prefix, nodeName) {
 /**
  * Selector that matches all elements that may have style collisions with AngularJS Material.
  */
-var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-card-subtitle],\n  [mat-card-title],\n  [mat-dialog-actions],\n  [mat-dialog-close],\n  [mat-dialog-content],\n  [mat-dialog-title],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-menu-trigger-for],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [mat-tab-label],\n  [mat-tab-link],\n  [mat-tab-nav-bar],\n  [matTooltip],\n  mat-autocomplete,\n  mat-button-toggle,\n  mat-button-toggle-group,\n  mat-button-toggle,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-hint,\n  mat-icon,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-pseudo-checkbox,\n  mat-radio-button,\n  mat-radio-group,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-tab,\n  mat-tab-group,\n  mat-toolbar,\n  mat-error";
+var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [matCardSubtitle],\n  [matCardTitle],\n  [matDialogActions],\n  [matDialogClose],\n  [matDialogContent],\n  [matDialogTitle],\n  [matLine],\n  [matTabLabel],\n  [matTabLink],\n  [matTabNav],\n  [matTooltip],\n  mat-autocomplete,\n  mat-button-toggle,\n  mat-button-toggle,\n  mat-button-toggle-group,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-error,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-hint,\n  mat-icon,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-pseudo-checkbox,\n  mat-radio-button,\n  mat-radio-group,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-tab,\n  mat-tab-group,\n  mat-toolbar";
 /**
  * Selector that matches all elements that may have style collisions with AngularJS Material.
  */
-var MD_ELEMENTS_SELECTOR = "\n  [md-button],\n  [md-card-subtitle],\n  [md-card-title],\n  [md-dialog-actions],\n  [md-dialog-close],\n  [md-dialog-content],\n  [md-dialog-title],\n  [md-fab],\n  [md-icon-button],\n  [md-menu-trigger-for],\n  [md-mini-fab],\n  [md-raised-button],\n  [md-tab-label],\n  [md-tab-link],\n  [md-tab-nav-bar],\n  [mdTooltip],\n  md-autocomplete,\n  md-button-toggle,\n  md-button-toggle-group,\n  md-button-toggle,\n  md-card,\n  md-card-actions,\n  md-card-content,\n  md-card-footer,\n  md-card-header,\n  md-card-subtitle,\n  md-card-title,\n  md-card-title-group,\n  md-checkbox,\n  md-chip,\n  md-dialog-actions,\n  md-dialog-container,\n  md-dialog-content,\n  md-divider,\n  md-grid-list,\n  md-grid-tile,\n  md-grid-tile-footer,\n  md-grid-tile-header,\n  md-hint,\n  md-icon,\n  md-list,\n  md-list-item,\n  md-menu,\n  md-nav-list,\n  md-option,\n  md-placeholder,\n  md-progress-bar,\n  md-pseudo-checkbox,\n  md-radio-button,\n  md-radio-group,\n  md-select,\n  md-sidenav,\n  md-sidenav-container,\n  md-slider,\n  md-spinner,\n  md-tab,\n  md-tab-group,\n  md-toolbar,\n  md-error";
+var MD_ELEMENTS_SELECTOR = "\n  [md-button],\n  [md-fab],\n  [md-icon-button],\n  [md-mini-fab],\n  [md-raised-button],\n  [mdCardSubtitle],\n  [mdCardTitle],\n  [mdDialogActions],\n  [mdDialogClose],\n  [mdDialogContent],\n  [mdDialogTitle],\n  [mdLine],\n  [mdTabLabel],\n  [mdTabLink],\n  [mdTabNav],\n  [mdTooltip],\n  md-autocomplete,\n  md-button-toggle,\n  md-button-toggle,\n  md-button-toggle-group,\n  md-card,\n  md-card-actions,\n  md-card-content,\n  md-card-footer,\n  md-card-header,\n  md-card-subtitle,\n  md-card-title,\n  md-card-title-group,\n  md-checkbox,\n  md-chip,\n  md-dialog-actions,\n  md-dialog-container,\n  md-dialog-content,\n  md-divider,\n  md-error,\n  md-grid-list,\n  md-grid-tile,\n  md-grid-tile-footer,\n  md-grid-tile-header,\n  md-hint,\n  md-icon,\n  md-list,\n  md-list-item,\n  md-menu,\n  md-nav-list,\n  md-option,\n  md-placeholder,\n  md-progress-bar,\n  md-pseudo-checkbox,\n  md-radio-button,\n  md-radio-group,\n  md-select,\n  md-sidenav,\n  md-sidenav-container,\n  md-slider,\n  md-spinner,\n  md-tab,\n  md-tab-group,\n  md-toolbar";
 /**
  * Directive that enforces that the `mat-` prefix cannot be used.
  */
@@ -226,10 +226,8 @@ var MdLine = /*@__PURE__*/(function () {
 }());
 MdLine.decorators = [
     { type: Directive, args: [{
-                selector: '[md-line], [mat-line]',
-                host: {
-                    '[class.mat-line]': 'true'
-                }
+                selector: '[md-line], [mat-line], [mdLine], [matLine]',
+                host: { 'class': 'mat-line' }
             },] },
 ];
 /**
@@ -1698,7 +1696,7 @@ MdPseudoCheckbox.decorators = [
                 inputs: ['color'],
                 template: '',
                 host: {
-                    '[class.mat-pseudo-checkbox]': 'true',
+                    'class': 'mat-pseudo-checkbox',
                     '[class.mat-pseudo-checkbox-indeterminate]': 'state === "indeterminate"',
                     '[class.mat-pseudo-checkbox-checked]': 'state === "checked"',
                     '[class.mat-pseudo-checkbox-disabled]': 'disabled',
@@ -2047,7 +2045,7 @@ MdOption.decorators = [
                     '[class.mat-option-disabled]': 'disabled',
                     '(click)': '_selectViaInteraction()',
                     '(keydown)': '_handleKeydown($event)',
-                    '[class.mat-option]': 'true',
+                    'class': 'mat-option',
                 },
                 template: "<span [ngSwitch]=\"_isCompatibilityMode\" *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" *ngSwitchCase=\"true\" [state]=\"selected ? 'checked' : ''\" color=\"primary\"></mat-pseudo-checkbox><md-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" *ngSwitchDefault [state]=\"selected ? 'checked' : ''\" color=\"primary\"></md-pseudo-checkbox></span><ng-content></ng-content><div class=\"mat-option-ripple\" *ngIf=\"!disabled\" md-ripple [mdRippleTrigger]=\"_getHostElement()\"></div>",
                 encapsulation: ViewEncapsulation.None
@@ -6424,8 +6422,8 @@ MdButtonToggleGroup.decorators = [
                 selector: 'md-button-toggle-group:not([multiple]), mat-button-toggle-group:not([multiple])',
                 providers: [MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR],
                 host: {
-                    '[class.mat-button-toggle-group]': 'true',
                     'role': 'radiogroup',
+                    'class': 'mat-button-toggle-group',
                     '[class.mat-button-toggle-vertical]': 'vertical'
                 },
                 exportAs: 'mdButtonToggleGroup',
@@ -6501,7 +6499,7 @@ MdButtonToggleGroupMultiple.decorators = [
                 selector: 'md-button-toggle-group[multiple], mat-button-toggle-group[multiple]',
                 exportAs: 'mdButtonToggleGroup',
                 host: {
-                    '[class.mat-button-toggle-group]': 'true',
+                    'class': 'mat-button-toggle-group',
                     '[class.mat-button-toggle-vertical]': 'vertical'
                 }
             },] },
@@ -6729,7 +6727,7 @@ MdButtonToggle.decorators = [
                 styles: [".mat-button-toggle-group{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle-disabled .mat-button-toggle-label-content{cursor:default}.mat-button-toggle{white-space:nowrap;position:relative}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:1}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px;cursor:pointer}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;position:absolute;top:0;left:0;right:0;bottom:0}"],
                 encapsulation: ViewEncapsulation.None,
                 host: {
-                    '[class.mat-button-toggle]': 'true'
+                    'class': 'mat-button-toggle'
                 }
             },] },
 ];
@@ -7954,7 +7952,7 @@ MdRadioGroup.decorators = [
                 providers: [MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
                 host: {
                     'role': 'radiogroup',
-                    '[class.mat-radio-group]': 'true',
+                    'class': 'mat-radio-group',
                 },
                 inputs: ['disabled'],
             },] },
@@ -7975,51 +7973,65 @@ MdRadioGroup.propDecorators = {
     'selected': [{ type: Input },],
     'disabled': [{ type: Input },],
 };
+var MdRadioButtonBase = /*@__PURE__*/(function () {
+    /**
+     * @param {?} _renderer
+     * @param {?} _elementRef
+     */
+    function MdRadioButtonBase(_renderer, _elementRef) {
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
+    }
+    return MdRadioButtonBase;
+}());
+// As per Material design specifications the selection control radio should use the accent color
+// palette by default. https://material.io/guidelines/components/selection-controls.html
+var _MdRadioButtonMixinBase = mixinColor(MdRadioButtonBase, 'accent');
 /**
  * A radio-button. May be inside of
  */
-var MdRadioButton = /*@__PURE__*/(function () {
+var MdRadioButton = /*@__PURE__*/(function (_super) {
+    tslib_1.__extends(MdRadioButton, _super);
     /**
      * @param {?} radioGroup
-     * @param {?} _elementRef
-     * @param {?} _renderer
+     * @param {?} elementRef
+     * @param {?} renderer
      * @param {?} _changeDetector
      * @param {?} _focusOriginMonitor
      * @param {?} _radioDispatcher
      */
-    function MdRadioButton(radioGroup, _elementRef, _renderer, _changeDetector, _focusOriginMonitor, _radioDispatcher) {
-        var _this = this;
-        // Assertions. Ideally these should be stripped out by the compiler.
-        // TODO(jelbourn): Assert that there's no name binding AND a parent radio group.
-        this._elementRef = _elementRef;
-        this._renderer = _renderer;
-        this._changeDetector = _changeDetector;
-        this._focusOriginMonitor = _focusOriginMonitor;
-        this._radioDispatcher = _radioDispatcher;
+    function MdRadioButton(radioGroup, elementRef, renderer, _changeDetector, _focusOriginMonitor, _radioDispatcher) {
+        var _this = _super.call(this, renderer, elementRef) || this;
+        _this._changeDetector = _changeDetector;
+        _this._focusOriginMonitor = _focusOriginMonitor;
+        _this._radioDispatcher = _radioDispatcher;
         /**
          * The unique ID for the radio button.
          */
-        this.id = "md-radio-" + _uniqueIdCounter$2++;
+        _this.id = "md-radio-" + _uniqueIdCounter$2++;
         /**
          * Event emitted when the checked state of this radio button changes.
          * Change events are only emitted when the value changes due to user interaction with
          * the radio button (the same behavior as `<input type-"radio">`).
          */
-        this.change = new EventEmitter();
+        _this.change = new EventEmitter();
         /**
          * Whether this radio is checked.
          */
-        this._checked = false;
+        _this._checked = false;
         /**
          * Value assigned to this radio.
          */
-        this._value = null;
-        this.radioGroup = radioGroup;
+        _this._value = null;
+        // Assertions. Ideally these should be stripped out by the compiler.
+        // TODO(jelbourn): Assert that there's no name binding AND a parent radio group.
+        _this.radioGroup = radioGroup;
         _radioDispatcher.listen(function (id, name) {
             if (id != _this.id && name == _this.name) {
                 _this.checked = false;
             }
         });
+        return _this;
     }
     Object.defineProperty(MdRadioButton.prototype, "disableRipple", {
         /**
@@ -8281,14 +8293,15 @@ var MdRadioButton = /*@__PURE__*/(function () {
         }
     };
     return MdRadioButton;
-}());
+}(_MdRadioButtonMixinBase));
 MdRadioButton.decorators = [
     { type: Component, args: [{ selector: 'md-radio-button, mat-radio-button',
                 template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div md-ripple class=\"mat-radio-ripple\" [mdRippleTrigger]=\"label\" [mdRippleDisabled]=\"_isRippleDisabled()\" [mdRippleCentered]=\"true\"></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></div></label>",
                 styles: [".mat-radio-button{display:inline-block}.mat-radio-label{cursor:pointer;display:inline-flex;align-items:baseline;white-space:nowrap}.mat-radio-container{box-sizing:border-box;display:inline-block;height:20px;position:relative;width:20px;top:2px}.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:border-color ease 280ms;width:20px;border-width:2px;border-style:solid;border-radius:50%}.mat-radio-inner-circle{border-radius:50%;box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:transform ease 280ms,background-color ease 280ms;transform:scale(0);width:20px}.mat-radio-checked .mat-radio-inner-circle{transform:scale(.5)}.mat-radio-label-content{display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none}"],
+                inputs: ['color'],
                 encapsulation: ViewEncapsulation.None,
                 host: {
-                    '[class.mat-radio-button]': 'true',
+                    'class': 'mat-radio-button',
                     '[class.mat-radio-checked]': 'checked',
                     '[class.mat-radio-disabled]': 'disabled',
                     '[attr.id]': 'id',
@@ -9735,7 +9748,7 @@ MdSelect.decorators = [
                     '[attr.aria-invalid]': '_control?.invalid || "false"',
                     '[attr.aria-owns]': '_optionIds',
                     '[class.mat-select-disabled]': 'disabled',
-                    '[class.mat-select]': 'true',
+                    'class': 'mat-select',
                     '(keydown)': '_handleClosedKeydown($event)',
                     '(blur)': '_onBlur()',
                 },
@@ -11503,7 +11516,7 @@ MdSidenav.decorators = [
                 // TODO(mmalerba): move template to separate file.
                 template: "<ng-content></ng-content>",
                 host: {
-                    '[class.mat-sidenav]': 'true',
+                    'class': 'mat-sidenav',
                     '(transitionend)': '_onTransitionEnd($event)',
                     '(keydown)': 'handleKeydown($event)',
                     // must prevent the browser from aligning text based on value
@@ -11794,7 +11807,7 @@ MdSidenavContainer.decorators = [
                 template: "<div class=\"mat-sidenav-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-sidenav-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"md-sidenav, mat-sidenav\"></ng-content><div class=\"mat-sidenav-content\" [ngStyle]=\"_getStyles()\" cdk-scrollable><ng-content></ng-content></div>",
                 styles: [".mat-sidenav-container{position:relative;transform:translate3d(0,0,0);box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-sidenav-container[fullscreen]{position:absolute;top:0;left:0;right:0;bottom:0}.mat-sidenav-container[fullscreen].mat-sidenav-opened{overflow:hidden}.mat-sidenav-backdrop{position:absolute;top:0;left:0;right:0;bottom:0;display:block;z-index:2;visibility:hidden}.mat-sidenav-backdrop.mat-sidenav-shown{visibility:visible}@media screen and (-ms-high-contrast:active){.mat-sidenav-backdrop{opacity:.5}}.mat-sidenav-content{position:relative;transform:translate3d(0,0,0);display:block;height:100%;overflow:auto}.mat-sidenav{position:relative;transform:translate3d(0,0,0);display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;height:100%;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-sidenav.mat-sidenav-closed{visibility:hidden}.mat-sidenav.mat-sidenav-opened,.mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-side{z-index:1}.mat-sidenav.mat-sidenav-end{right:0;transform:translate3d(100%,0,0)}.mat-sidenav.mat-sidenav-end.mat-sidenav-closed{visibility:hidden}.mat-sidenav.mat-sidenav-end.mat-sidenav-opened,.mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav{transform:translate3d(100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-closed{visibility:hidden}[dir=rtl] .mat-sidenav.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end{left:0;right:auto;transform:translate3d(-100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-closed{visibility:hidden}[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-opened:not(.mat-sidenav-side),.mat-sidenav.mat-sidenav-opening:not(.mat-sidenav-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)} .mat-sidenav-transition .mat-sidenav{transition:transform .4s cubic-bezier(.25,.8,.25,1)}.mat-sidenav-transition .mat-sidenav-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-sidenav-transition .mat-sidenav-backdrop.mat-sidenav-shown{transition:background-color .4s cubic-bezier(.25,.8,.25,1)}"],
                 host: {
-                    '[class.mat-sidenav-container]': 'true',
+                    'class': 'mat-sidenav-container',
                     '[class.mat-sidenav-transition]': '_enableTransitions',
                 },
                 encapsulation: ViewEncapsulation.None,
@@ -11870,9 +11883,7 @@ var MdList = /*@__PURE__*/(function () {
 }());
 MdList.decorators = [
     { type: Component, args: [{ selector: 'md-list, mat-list, md-nav-list, mat-nav-list',
-                host: {
-                    'role': 'list'
-                },
+                host: { 'role': 'list' },
                 template: '<ng-content></ng-content>',
                 styles: [".mat-subheader{display:block;box-sizing:border-box;padding:16px;margin:0}.mat-list,.mat-nav-list{padding-top:8px;display:block}.mat-list .mat-subheader,.mat-nav-list .mat-subheader{height:48px}.mat-list .mat-subheader:first-child,.mat-nav-list .mat-subheader:first-child{margin-top:-8px}.mat-list .mat-list-item,.mat-nav-list .mat-list-item{display:block}.mat-list .mat-list-item .mat-list-item-content,.mat-nav-list .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:48px;padding:0 16px;position:relative}.mat-list .mat-list-item .mat-list-item-ripple,.mat-nav-list .mat-list-item .mat-list-item-ripple{position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none}.mat-list .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:56px}.mat-list .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-2-line .mat-list-item-content{height:72px}.mat-list .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-3-line .mat-list-item-content{height:88px}.mat-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list .mat-list-item .mat-list-text,.mat-nav-list .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-item .mat-list-text>*,.mat-nav-list .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-item .mat-list-text:empty,.mat-nav-list .mat-list-item .mat-list-text:empty{display:none}.mat-list .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list .mat-list-item .mat-list-avatar,.mat-nav-list .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-item .mat-list-icon,.mat-nav-list .mat-list-item .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense],.mat-nav-list[dense]{padding-top:4px;display:block}.mat-list[dense] .mat-subheader,.mat-nav-list[dense] .mat-subheader{height:40px}.mat-list[dense] .mat-subheader:first-child,.mat-nav-list[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list[dense] .mat-list-item,.mat-nav-list[dense] .mat-list-item{display:block}.mat-list[dense] .mat-list-item .mat-list-item-content,.mat-nav-list[dense] .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:40px;padding:0 16px;position:relative}.mat-list[dense] .mat-list-item .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-item .mat-list-item-ripple{position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none}.mat-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:48px}.mat-list[dense] .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-2-line .mat-list-item-content{height:60px}.mat-list[dense] .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-3-line .mat-list-item-content{height:76px}.mat-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-item .mat-list-text,.mat-nav-list[dense] .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-item .mat-list-text>*,.mat-nav-list[dense] .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-item .mat-list-text:empty,.mat-nav-list[dense] .mat-list-item .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list[dense] .mat-list-item .mat-list-avatar,.mat-nav-list[dense] .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-item .mat-list-icon,.mat-nav-list[dense] .mat-list-item .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-divider{display:block;border-top-style:solid;border-top-width:1px;margin:0}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item-content{cursor:pointer}.mat-nav-list .mat-list-item-content.mat-list-item-focus,.mat-nav-list .mat-list-item-content:hover{outline:0}"],
                 encapsulation: ViewEncapsulation.None
@@ -11897,9 +11908,7 @@ var MdListCssMatStyler = /*@__PURE__*/(function () {
 MdListCssMatStyler.decorators = [
     { type: Directive, args: [{
                 selector: 'md-list, mat-list',
-                host: {
-                    '[class.mat-list]': 'true'
-                }
+                host: { 'class': 'mat-list' }
             },] },
 ];
 /**
@@ -11918,9 +11927,7 @@ var MdNavListCssMatStyler = /*@__PURE__*/(function () {
 MdNavListCssMatStyler.decorators = [
     { type: Directive, args: [{
                 selector: 'md-nav-list, mat-nav-list',
-                host: {
-                    '[class.mat-nav-list]': 'true'
-                }
+                host: { 'class': 'mat-nav-list' }
             },] },
 ];
 /**
@@ -11939,9 +11946,7 @@ var MdDividerCssMatStyler = /*@__PURE__*/(function () {
 MdDividerCssMatStyler.decorators = [
     { type: Directive, args: [{
                 selector: 'md-divider, mat-divider',
-                host: {
-                    '[class.mat-divider]': 'true'
-                }
+                host: { 'class': 'mat-divider' }
             },] },
 ];
 /**
@@ -11959,10 +11964,8 @@ var MdListAvatarCssMatStyler = /*@__PURE__*/(function () {
 }());
 MdListAvatarCssMatStyler.decorators = [
     { type: Directive, args: [{
-                selector: '[md-list-avatar], [mat-list-avatar]',
-                host: {
-                    '[class.mat-list-avatar]': 'true'
-                }
+                selector: '[md-list-avatar], [mat-list-avatar], [mdListAvatar], [matListAvatar]',
+                host: { 'class': 'mat-list-avatar' }
             },] },
 ];
 /**
@@ -11980,10 +11983,8 @@ var MdListIconCssMatStyler = /*@__PURE__*/(function () {
 }());
 MdListIconCssMatStyler.decorators = [
     { type: Directive, args: [{
-                selector: '[md-list-icon], [mat-list-icon]',
-                host: {
-                    '[class.mat-list-icon]': 'true'
-                }
+                selector: '[md-list-icon], [mat-list-icon], [mdListIcon], [matListIcon]',
+                host: { 'class': 'mat-list-icon' }
             },] },
 ];
 /**
@@ -12002,9 +12003,7 @@ var MdListSubheaderCssMatStyler = /*@__PURE__*/(function () {
 MdListSubheaderCssMatStyler.decorators = [
     { type: Directive, args: [{
                 selector: '[md-subheader], [mat-subheader]',
-                host: {
-                    '[class.mat-subheader]': 'true'
-                }
+                host: { 'class': 'mat-subheader' }
             },] },
 ];
 /**
@@ -12095,9 +12094,9 @@ MdListItem.decorators = [
     { type: Component, args: [{ selector: 'md-list-item, mat-list-item, a[md-list-item], a[mat-list-item]',
                 host: {
                     'role': 'listitem',
+                    'class': 'mat-list-item',
                     '(focus)': '_handleFocus()',
                     '(blur)': '_handleBlur()',
-                    '[class.mat-list-item]': 'true',
                 },
                 template: "<div class=\"mat-list-item-content\"><div class=\"mat-list-item-ripple\" md-ripple [mdRippleTrigger]=\"_getHostElement()\" [mdRippleDisabled]=\"!isRippleEnabled()\"></div><ng-content select=\"[md-list-avatar],[md-list-icon], [mat-list-avatar], [mat-list-icon]\"></ng-content><div class=\"mat-list-text\"><ng-content select=\"[md-line], [mat-line]\"></ng-content></div><ng-content></ng-content></div>",
                 encapsulation: ViewEncapsulation.None
@@ -12228,7 +12227,7 @@ MdGridTile.decorators = [
     { type: Component, args: [{ selector: 'md-grid-tile, mat-grid-tile',
                 host: {
                     'role': 'listitem',
-                    '[class.mat-grid-tile]': 'true',
+                    'class': 'mat-grid-tile',
                 },
                 template: "<figure class=\"mat-figure\"><ng-content></ng-content></figure>",
                 styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-figure{display:flex;position:absolute;align-items:center;justify-content:center;height:100%;top:0;right:0;bottom:0;left:0;padding:0;margin:0}.mat-grid-tile .mat-grid-tile-footer,.mat-grid-tile .mat-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-footer>*,.mat-grid-tile .mat-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-tile-footer.mat-2-line,.mat-grid-tile .mat-grid-tile-header.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none}"],
@@ -12289,10 +12288,8 @@ var MdGridAvatarCssMatStyler = /*@__PURE__*/(function () {
 }());
 MdGridAvatarCssMatStyler.decorators = [
     { type: Directive, args: [{
-                selector: '[md-grid-avatar], [mat-grid-avatar]',
-                host: {
-                    '[class.mat-grid-avatar]': 'true'
-                }
+                selector: '[md-grid-avatar], [mat-grid-avatar], [mdGridAvatar], [matGridAvatar]',
+                host: { 'class': 'mat-grid-avatar' }
             },] },
 ];
 /**
@@ -12311,9 +12308,7 @@ var MdGridTileHeaderCssMatStyler = /*@__PURE__*/(function () {
 MdGridTileHeaderCssMatStyler.decorators = [
     { type: Directive, args: [{
                 selector: 'md-grid-tile-header, mat-grid-tile-header',
-                host: {
-                    '[class.mat-grid-tile-header]': 'true'
-                }
+                host: { 'class': 'mat-grid-tile-header' }
             },] },
 ];
 /**
@@ -12332,9 +12327,7 @@ var MdGridTileFooterCssMatStyler = /*@__PURE__*/(function () {
 MdGridTileFooterCssMatStyler.decorators = [
     { type: Directive, args: [{
                 selector: 'md-grid-tile-footer, mat-grid-tile-footer',
-                host: {
-                    '[class.mat-grid-tile-footer]': 'true'
-                }
+                host: { 'class': 'mat-grid-tile-footer' }
             },] },
 ];
 /**
@@ -12919,7 +12912,7 @@ MdGridList.decorators = [
                 styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-figure{display:flex;position:absolute;align-items:center;justify-content:center;height:100%;top:0;right:0;bottom:0;left:0;padding:0;margin:0}.mat-grid-tile .mat-grid-tile-footer,.mat-grid-tile .mat-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-footer>*,.mat-grid-tile .mat-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-tile-footer.mat-2-line,.mat-grid-tile .mat-grid-tile-header.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none}"],
                 host: {
                     'role': 'list',
-                    '[class.mat-grid-list]': 'true',
+                    'class': 'mat-grid-list',
                 },
                 encapsulation: ViewEncapsulation.None,
             },] },
@@ -13000,8 +12993,11 @@ var MdCardTitle = /*@__PURE__*/(function () {
 }());
 MdCardTitle.decorators = [
     { type: Directive, args: [{
-                selector: 'md-card-title, mat-card-title, [md-card-title], [mat-card-title]',
-                host: { 'class': 'mat-card-title' }
+                selector: 'md-card-title, mat-card-title, [md-card-title], [mat-card-title],' +
+                    '[mdCardTitle], [matCardTitle]',
+                host: {
+                    'class': 'mat-card-title '
+                }
             },] },
 ];
 /**
@@ -13019,8 +13015,11 @@ var MdCardSubtitle = /*@__PURE__*/(function () {
 }());
 MdCardSubtitle.decorators = [
     { type: Directive, args: [{
-                selector: 'md-card-subtitle, mat-card-subtitle, [md-card-subtitle], [mat-card-subtitle]',
-                host: { 'class': 'mat-card-subtitle' }
+                selector: 'md-card-subtitle, mat-card-subtitle, [md-card-subtitle], [mat-card-subtitle],' +
+                    '[mdCardSubtitle], [matCardSubtitle]',
+                host: {
+                    'class': 'mat-card-subtitle '
+                }
             },] },
 ];
 /**
@@ -13069,6 +13068,25 @@ MdCardFooter.ctorParameters = function () { return []; };
  * Image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
  */
+var MdCardImage = /*@__PURE__*/(function () {
+    function MdCardImage() {
+    }
+    return MdCardImage;
+}());
+MdCardImage.decorators = [
+    { type: Directive, args: [{
+                selector: '[md-card-image], [mat-card-image], [mdCardImage], [matCardImage]',
+                host: { 'class': 'mat-card-image' }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdCardImage.ctorParameters = function () { return []; };
+/**
+ * Image used in a card, needed to add the mat- CSS styling.
+ * \@docs-private
+ */
 var MdCardSmImage = /*@__PURE__*/(function () {
     function MdCardSmImage() {
     }
@@ -13076,7 +13094,7 @@ var MdCardSmImage = /*@__PURE__*/(function () {
 }());
 MdCardSmImage.decorators = [
     { type: Directive, args: [{
-                selector: '[md-card-sm-image], [mat-card-sm-image]',
+                selector: '[md-card-sm-image], [mat-card-sm-image], [mdCardImageSmall], [matCardImageSmall]',
                 host: { 'class': 'mat-card-sm-image' }
             },] },
 ];
@@ -13095,7 +13113,7 @@ var MdCardMdImage = /*@__PURE__*/(function () {
 }());
 MdCardMdImage.decorators = [
     { type: Directive, args: [{
-                selector: '[md-card-md-image], [mat-card-md-image]',
+                selector: '[md-card-md-image], [mat-card-md-image], [mdCardImageMedium], [matCardImageMedium]',
                 host: { 'class': 'mat-card-md-image' }
             },] },
 ];
@@ -13114,7 +13132,7 @@ var MdCardLgImage = /*@__PURE__*/(function () {
 }());
 MdCardLgImage.decorators = [
     { type: Directive, args: [{
-                selector: '[md-card-lg-image], [mat-card-lg-image]',
+                selector: '[md-card-lg-image], [mat-card-lg-image], [mdCardImageLarge], [matCardImageLarge]',
                 host: { 'class': 'mat-card-lg-image' }
             },] },
 ];
@@ -13122,25 +13140,6 @@ MdCardLgImage.decorators = [
  * @nocollapse
  */
 MdCardLgImage.ctorParameters = function () { return []; };
-/**
- * Image used in a card, needed to add the mat- CSS styling.
- * \@docs-private
- */
-var MdCardImage = /*@__PURE__*/(function () {
-    function MdCardImage() {
-    }
-    return MdCardImage;
-}());
-MdCardImage.decorators = [
-    { type: Directive, args: [{
-                selector: '[md-card-image], [mat-card-image]',
-                host: { 'class': 'mat-card-image' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MdCardImage.ctorParameters = function () { return []; };
 /**
  * Large image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
@@ -13152,7 +13151,7 @@ var MdCardXlImage = /*@__PURE__*/(function () {
 }());
 MdCardXlImage.decorators = [
     { type: Directive, args: [{
-                selector: '[md-card-xl-image], [mat-card-xl-image]',
+                selector: '[md-card-xl-image], [mat-card-xl-image], [mdCardImageXLarge], [matCardImageXLarge]',
                 host: { 'class': 'mat-card-xl-image' }
             },] },
 ];
@@ -13171,7 +13170,7 @@ var MdCardAvatar = /*@__PURE__*/(function () {
 }());
 MdCardAvatar.decorators = [
     { type: Directive, args: [{
-                selector: '[md-card-avatar], [mat-card-avatar]',
+                selector: '[md-card-avatar], [mat-card-avatar], [mdCardAvatar], [matCardAvatar]',
                 host: { 'class': 'mat-card-avatar' }
             },] },
 ];
@@ -13640,7 +13639,7 @@ MdChipList.decorators = [
                     // Properties
                     '[attr.tabindex]': '_tabIndex',
                     'role': 'listbox',
-                    '[class.mat-chip-list]': 'true',
+                    'class': 'mat-chip-list',
                     // Events
                     '(focus)': 'focus()',
                     '(keydown)': '_keydown($event)'
@@ -14335,7 +14334,7 @@ MdIcon.decorators = [
                 inputs: ['color'],
                 host: {
                     'role': 'img',
-                    'class': 'mat-icon'
+                    'class': 'mat-icon',
                 },
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
@@ -14416,9 +14415,7 @@ var MdProgressSpinnerCssMatStyler = /*@__PURE__*/(function () {
 MdProgressSpinnerCssMatStyler.decorators = [
     { type: Directive, args: [{
                 selector: 'md-progress-spinner, mat-progress-spinner',
-                host: {
-                    '[class.mat-progress-spinner]': 'true'
-                }
+                host: { 'class': 'mat-progress-spinner' }
             },] },
 ];
 /**
@@ -14714,7 +14711,7 @@ MdSpinner.decorators = [
                 host: {
                     'role': 'progressbar',
                     'mode': 'indeterminate',
-                    '[class.mat-spinner]': 'true',
+                    'class': 'mat-spinner',
                 },
                 inputs: ['color'],
                 template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"><path #path [style.strokeWidth]=\"strokeWidth\"></path></svg>",
@@ -14907,7 +14904,7 @@ MdProgressBar.decorators = [
                     '[class.mat-primary]': 'color == "primary"',
                     '[class.mat-accent]': 'color == "accent"',
                     '[class.mat-warn]': 'color == "warn"',
-                    '[class.mat-progress-bar]': 'true',
+                    'class': 'mat-progress-bar',
                 },
                 template: "<div class=\"mat-progress-bar-background mat-progress-bar-element\"></div><div class=\"mat-progress-bar-buffer mat-progress-bar-element\" [ngStyle]=\"_bufferTransform()\"></div><div class=\"mat-progress-bar-primary mat-progress-bar-fill mat-progress-bar-element\" [ngStyle]=\"_primaryTransform()\"></div><div class=\"mat-progress-bar-secondary mat-progress-bar-fill mat-progress-bar-element\"></div>",
                 styles: [":host{display:block;height:5px;overflow:hidden;position:relative;transform:translateZ(0);transition:opacity 250ms linear;width:100%}:host .mat-progress-bar-element,:host .mat-progress-bar-fill::after{height:100%;position:absolute;width:100%}:host .mat-progress-bar-background{background-repeat:repeat-x;background-size:10px 4px;display:none}:host .mat-progress-bar-buffer{transform-origin:top left;transition:transform 250ms ease,stroke .3s cubic-bezier(.35,0,.25,1)}:host .mat-progress-bar-secondary{display:none}:host .mat-progress-bar-fill{animation:none;transform-origin:top left;transition:transform 250ms ease,stroke .3s cubic-bezier(.35,0,.25,1)}:host .mat-progress-bar-fill::after{animation:none;content:'';display:inline-block;left:0}:host[mode=query]{transform:rotateZ(180deg)}:host[mode=indeterminate] .mat-progress-bar-fill,:host[mode=query] .mat-progress-bar-fill{transition:none}:host[mode=indeterminate] .mat-progress-bar-primary,:host[mode=query] .mat-progress-bar-primary{animation:mat-progress-bar-primary-indeterminate-translate 2s infinite linear;left:-145.166611%}:host[mode=indeterminate] .mat-progress-bar-primary.mat-progress-bar-fill::after,:host[mode=query] .mat-progress-bar-primary.mat-progress-bar-fill::after{animation:mat-progress-bar-primary-indeterminate-scale 2s infinite linear}:host[mode=indeterminate] .mat-progress-bar-secondary,:host[mode=query] .mat-progress-bar-secondary{animation:mat-progress-bar-secondary-indeterminate-translate 2s infinite linear;left:-54.888891%;display:block}:host[mode=indeterminate] .mat-progress-bar-secondary.mat-progress-bar-fill::after,:host[mode=query] .mat-progress-bar-secondary.mat-progress-bar-fill::after{animation:mat-progress-bar-secondary-indeterminate-scale 2s infinite linear}:host[mode=buffer] .mat-progress-bar-background{animation:mat-progress-bar-background-scroll 250ms infinite linear;display:block}:host-context([dir=rtl]){transform:rotateY(180deg)}@keyframes mat-progress-bar-primary-indeterminate-translate{0%{transform:translateX(0)}20%{animation-timing-function:cubic-bezier(.5,0,.70173,.49582);transform:translateX(0)}59.15%{animation-timing-function:cubic-bezier(.30244,.38135,.55,.95635);transform:translateX(83.67142%)}100%{transform:translateX(200.61106%)}}@keyframes mat-progress-bar-primary-indeterminate-scale{0%{transform:scaleX(.08)}36.65%{animation-timing-function:cubic-bezier(.33473,.12482,.78584,1);transform:scaleX(.08)}69.15%{animation-timing-function:cubic-bezier(.06,.11,.6,1);transform:scaleX(.66148)}100%{transform:scaleX(.08)}}@keyframes mat-progress-bar-secondary-indeterminate-translate{0%{animation-timing-function:cubic-bezier(.15,0,.51506,.40969);transform:translateX(0)}25%{animation-timing-function:cubic-bezier(.31033,.28406,.8,.73371);transform:translateX(37.65191%)}48.35%{animation-timing-function:cubic-bezier(.4,.62704,.6,.90203);transform:translateX(84.38617%)}100%{transform:translateX(160.27778%)}}@keyframes mat-progress-bar-secondary-indeterminate-scale{0%{animation-timing-function:cubic-bezier(.15,0,.51506,.40969);transform:scaleX(.08)}19.15%{animation-timing-function:cubic-bezier(.31033,.28406,.8,.73371);transform:scaleX(.4571)}44.15%{animation-timing-function:cubic-bezier(.4,.62704,.6,.90203);transform:scaleX(.72796)}100%{transform:scaleX(.08)}}@keyframes mat-progress-bar-background-scroll{to{transform:translateX(-10px)}}"],
@@ -15035,7 +15032,7 @@ MdHint.decorators = [
     { type: Directive, args: [{
                 selector: 'md-hint, mat-hint',
                 host: {
-                    '[class.mat-hint]': 'true',
+                    'class': 'mat-hint',
                     '[class.mat-right]': 'align == "end"',
                     '[attr.id]': 'id',
                 }
@@ -15061,7 +15058,7 @@ MdErrorDirective.decorators = [
     { type: Directive, args: [{
                 selector: 'md-error, mat-error',
                 host: {
-                    '[class.mat-input-error]': 'true'
+                    'class': 'mat-input-error'
                 }
             },] },
 ];
@@ -15350,7 +15347,7 @@ MdInputDirective.decorators = [
     { type: Directive, args: [{
                 selector: "input[mdInput], textarea[mdInput], input[matInput], textarea[matInput]",
                 host: {
-                    '[class.mat-input-element]': 'true',
+                    'class': 'mat-input-element',
                     // Native input properties that are overwritten by Angular inputs need to be synced with
                     // the native input element. Otherwise property bindings for those don't work.
                     '[id]': 'id',
@@ -15643,7 +15640,7 @@ MdInputContainer.decorators = [
                 host: {
                     // Remove align attribute to prevent it from interfering with layout.
                     '[attr.align]': 'null',
-                    '[class.mat-input-container]': 'true',
+                    'class': 'mat-input-container',
                     '[class.mat-input-invalid]': '_mdInputChild._isErrorState()',
                     '[class.mat-focused]': '_mdInputChild.focused',
                     '[class.ng-untouched]': '_shouldForward("untouched")',
@@ -15693,7 +15690,6 @@ var MdTextareaAutosize = /*@__PURE__*/(function () {
     }
     Object.defineProperty(MdTextareaAutosize.prototype, "minRows", {
         /**
-         * @deprecated Use mdAutosizeMinRows
          * @return {?}
          */
         get: function () { return this._minRows; },
@@ -15710,7 +15706,6 @@ var MdTextareaAutosize = /*@__PURE__*/(function () {
     });
     Object.defineProperty(MdTextareaAutosize.prototype, "maxRows", {
         /**
-         * @deprecated Use mdAutosizeMaxRows
          * @return {?}
          */
         get: function () { return this._maxRows; },
@@ -15725,31 +15720,29 @@ var MdTextareaAutosize = /*@__PURE__*/(function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdTextareaAutosize.prototype, "mdAutosizeMinRows", {
+    Object.defineProperty(MdTextareaAutosize.prototype, "_matAutosizeMinRows", {
         /**
-         * Minimum number of rows for this textarea.
          * @return {?}
          */
         get: function () { return this.minRows; },
         /**
-         * @param {?} value
+         * @param {?} v
          * @return {?}
          */
-        set: function (value) { this.minRows = value; },
+        set: function (v) { this.minRows = v; },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdTextareaAutosize.prototype, "mdAutosizeMaxRows", {
+    Object.defineProperty(MdTextareaAutosize.prototype, "_matAutosizeMaxRows", {
         /**
-         * Maximum number of rows for this textarea.
          * @return {?}
          */
         get: function () { return this.maxRows; },
         /**
-         * @param {?} value
+         * @param {?} v
          * @return {?}
          */
-        set: function (value) { this.maxRows = value; },
+        set: function (v) { this.maxRows = v; },
         enumerable: true,
         configurable: true
     });
@@ -15855,10 +15848,10 @@ MdTextareaAutosize.ctorParameters = function () { return [
     { type: ElementRef, },
 ]; };
 MdTextareaAutosize.propDecorators = {
-    'minRows': [{ type: Input },],
-    'maxRows': [{ type: Input },],
-    'mdAutosizeMinRows': [{ type: Input },],
-    'mdAutosizeMaxRows': [{ type: Input },],
+    'minRows': [{ type: Input, args: ['mdAutosizeMinRows',] },],
+    'maxRows': [{ type: Input, args: ['mdAutosizeMaxRows',] },],
+    '_matAutosizeMinRows': [{ type: Input, args: ['matAutosizeMaxRows',] },],
+    '_matAutosizeMaxRows': [{ type: Input, args: ['matAutosizeMaxRows',] },],
 };
 var MdInputModule = /*@__PURE__*/(function () {
     function MdInputModule() {
@@ -16222,7 +16215,7 @@ SimpleSnackBar.decorators = [
                 styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;color:#fff;line-height:20px}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;background:0 0;color:inherit;flex-shrink:0;margin-left:48px}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0}"],
                 encapsulation: ViewEncapsulation.None,
                 host: {
-                    '[class.mat-simple-snackbar]': 'true',
+                    'class': 'mat-simple-snackbar',
                 }
             },] },
 ];
@@ -16462,7 +16455,7 @@ var MdTabLabel = /*@__PURE__*/(function (_super) {
 }(TemplatePortalDirective));
 MdTabLabel.decorators = [
     { type: Directive, args: [{
-                selector: '[md-tab-label], [mat-tab-label]',
+                selector: '[md-tab-label], [mat-tab-label], [mdTabLabel], [matTabLabel]',
             },] },
 ];
 /**
@@ -16771,7 +16764,7 @@ MdTabGroup.decorators = [
                 template: "<md-tab-header #tabHeader [selectedIndex]=\"selectedIndex\" [disableRipple]=\"disableRipple\" (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" md-tab-label-wrapper md-ripple *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [tabIndex]=\"selectedIndex == i ? 0 : -1\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" [mdRippleDisabled]=\"disableRipple\" (click)=\"tabHeader.focusIndex = selectedIndex = i\"><ng-template [ngIf]=\"tab.templateLabel\"><ng-template [cdkPortalHost]=\"tab.templateLabel\"></ng-template></ng-template><ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template></div></md-tab-header><div class=\"mat-tab-body-wrapper\" #tabBodyWrapper><md-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (onCentered)=\"_removeTabBodyWrapperHeight()\" (onCentering)=\"_setTabBodyWrapperHeight($event)\"></md-tab-body></div>",
                 styles: [":host{display:flex;flex-direction:column}:host.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{line-height:48px;height:48px;padding:0 12px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;position:relative}.mat-tab-label:focus{outline:0;opacity:1}@media (max-width:600px){.mat-tab-label{min-width:72px}}:host[mat-stretch-tabs] .mat-tab-label,:host[md-stretch-tabs] .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height .5s cubic-bezier(.35,0,.25,1)}.mat-tab-body{position:absolute;top:0;left:0;right:0;bottom:0;display:block;overflow:hidden}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}:host.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}.mat-tab-disabled{cursor:default;pointer-events:none}"],
                 host: {
-                    '[class.mat-tab-group]': 'true',
+                    'class': 'mat-tab-group',
                     '[class.mat-tab-group-dynamic-height]': 'dynamicHeight',
                     '[class.mat-tab-group-inverted-header]': 'headerPosition === "below"',
                 }
@@ -16929,7 +16922,7 @@ MdInkBar.decorators = [
     { type: Directive, args: [{
                 selector: 'md-ink-bar, mat-ink-bar',
                 host: {
-                    '[class.mat-ink-bar]': 'true',
+                    'class': 'mat-ink-bar',
                 },
             },] },
 ];
@@ -16945,12 +16938,12 @@ MdInkBar.ctorParameters = function () { return [
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
  */
-var MdTabNavBar = /*@__PURE__*/(function () {
+var MdTabNav = /*@__PURE__*/(function () {
     /**
      * @param {?} _dir
      * @param {?} _ngZone
      */
-    function MdTabNavBar(_dir, _ngZone) {
+    function MdTabNav(_dir, _ngZone) {
         this._dir = _dir;
         this._ngZone = _ngZone;
         /**
@@ -16963,14 +16956,14 @@ var MdTabNavBar = /*@__PURE__*/(function () {
      * @param {?} element
      * @return {?}
      */
-    MdTabNavBar.prototype.updateActiveLink = function (element) {
+    MdTabNav.prototype.updateActiveLink = function (element) {
         this._activeLinkChanged = this._activeLinkElement != element;
         this._activeLinkElement = element;
     };
     /**
      * @return {?}
      */
-    MdTabNavBar.prototype.ngAfterContentInit = function () {
+    MdTabNav.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._ngZone.runOutsideAngular(function () {
             var /** @type {?} */ dirChange = _this._dir ? _this._dir.dirChange : Observable.of(null);
@@ -16986,7 +16979,7 @@ var MdTabNavBar = /*@__PURE__*/(function () {
      * Checks if the active link has been changed and, if so, will update the ink bar.
      * @return {?}
      */
-    MdTabNavBar.prototype.ngAfterContentChecked = function () {
+    MdTabNav.prototype.ngAfterContentChecked = function () {
         if (this._activeLinkChanged) {
             this._alignInkBar();
             this._activeLinkChanged = false;
@@ -16995,22 +16988,22 @@ var MdTabNavBar = /*@__PURE__*/(function () {
     /**
      * @return {?}
      */
-    MdTabNavBar.prototype.ngOnDestroy = function () {
+    MdTabNav.prototype.ngOnDestroy = function () {
         this._onDestroy.next();
     };
     /**
      * Aligns the ink bar to the active link.
      * @return {?}
      */
-    MdTabNavBar.prototype._alignInkBar = function () {
+    MdTabNav.prototype._alignInkBar = function () {
         if (this._activeLinkElement) {
             this._inkBar.alignToElement(this._activeLinkElement.nativeElement);
         }
     };
-    return MdTabNavBar;
+    return MdTabNav;
 }());
-MdTabNavBar.decorators = [
-    { type: Component, args: [{ selector: '[md-tab-nav-bar], [mat-tab-nav-bar]',
+MdTabNav.decorators = [
+    { type: Component, args: [{ selector: '[md-tab-nav-bar], [mat-tab-nav-bar], [mdTabNav], [matTabNav]',
                 template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><md-ink-bar></md-ink-bar></div>",
                 styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative}.mat-tab-link{line-height:48px;height:48px;padding:0 12px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-block;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0;opacity:1}@media (max-width:600px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}"],
                 host: { 'class': 'mat-tab-nav-bar' },
@@ -17020,11 +17013,11 @@ MdTabNavBar.decorators = [
 /**
  * @nocollapse
  */
-MdTabNavBar.ctorParameters = function () { return [
+MdTabNav.ctorParameters = function () { return [
     { type: Dir, decorators: [{ type: Optional },] },
     { type: NgZone, },
 ]; };
-MdTabNavBar.propDecorators = {
+MdTabNav.propDecorators = {
     '_inkBar': [{ type: ViewChild, args: [MdInkBar,] },],
 };
 /**
@@ -17063,7 +17056,7 @@ var MdTabLink = /*@__PURE__*/(function () {
 }());
 MdTabLink.decorators = [
     { type: Directive, args: [{
-                selector: '[md-tab-link], [mat-tab-link]',
+                selector: '[md-tab-link], [mat-tab-link], [mdTabLink], [matTabLink]',
                 host: { 'class': 'mat-tab-link' }
             },] },
 ];
@@ -17071,7 +17064,7 @@ MdTabLink.decorators = [
  * @nocollapse
  */
 MdTabLink.ctorParameters = function () { return [
-    { type: MdTabNavBar, },
+    { type: MdTabNav, },
     { type: ElementRef, },
 ]; };
 MdTabLink.propDecorators = {
@@ -17097,8 +17090,7 @@ var MdTabLinkRipple = /*@__PURE__*/(function (_super) {
 }(MdRipple));
 MdTabLinkRipple.decorators = [
     { type: Directive, args: [{
-                selector: '[md-tab-link], [mat-tab-link]',
-                host: { 'class': 'mat-tab-link' },
+                selector: '[md-tab-link], [mat-tab-link], [mdTabLink], [matTabLink]',
             },] },
 ];
 /**
@@ -17240,7 +17232,7 @@ MdTabBody.decorators = [
                 styles: [".mat-tab-body-content{height:100%;overflow:auto}.mat-tab-group-dynamic-height .mat-tab-body-content{overflow:hidden}"],
                 encapsulation: ViewEncapsulation.None,
                 host: {
-                    '[class.mat-tab-body]': 'true',
+                    'class': 'mat-tab-body',
                 },
                 animations: [
                     trigger('translateTab', [
@@ -17741,7 +17733,7 @@ MdTabsModule.decorators = [
                     MdTabGroup,
                     MdTabLabel,
                     MdTab,
-                    MdTabNavBar,
+                    MdTabNav,
                     MdTabLink,
                     MdTabLinkRipple
                 ],
@@ -17751,7 +17743,7 @@ MdTabsModule.decorators = [
                     MdTab,
                     MdInkBar,
                     MdTabLabelWrapper,
-                    MdTabNavBar,
+                    MdTabNav,
                     MdTabLink,
                     MdTabBody,
                     MdTabLinkRipple,
@@ -17772,9 +17764,7 @@ var MdToolbarRow = /*@__PURE__*/(function () {
 MdToolbarRow.decorators = [
     { type: Directive, args: [{
                 selector: 'md-toolbar-row, mat-toolbar-row',
-                host: {
-                    '[class.mat-toolbar-row]': 'true',
-                },
+                host: { 'class': 'mat-toolbar-row' },
             },] },
 ];
 /**
@@ -17810,7 +17800,7 @@ MdToolbar.decorators = [
                 styles: [".mat-toolbar{display:flex;box-sizing:border-box;width:100%;padding:0 16px;flex-direction:column}.mat-toolbar .mat-toolbar-row{display:flex;box-sizing:border-box;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar{min-height:64px}.mat-toolbar-row{height:64px}@media (max-width:600px){.mat-toolbar{min-height:56px}.mat-toolbar-row{height:56px}}"],
                 inputs: ['color'],
                 host: {
-                    '[class.mat-toolbar]': 'true',
+                    'class': 'mat-toolbar',
                     'role': 'toolbar'
                 },
                 changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18555,7 +18545,7 @@ MdMenuItem.decorators = [
     { type: Component, args: [{ selector: '[md-menu-item], [mat-menu-item]',
                 host: {
                     'role': 'menuitem',
-                    '[class.mat-menu-item]': 'true',
+                    'class': 'mat-menu-item',
                     '[attr.tabindex]': '_getTabIndex()',
                     '[attr.aria-disabled]': 'disabled.toString()',
                     '[attr.disabled]': '_getDisabledAttr()',
@@ -19434,7 +19424,7 @@ MdDialogContainer.decorators = [
                     ])
                 ],
                 host: {
-                    '[class.mat-dialog-container]': 'true',
+                    'class': 'mat-dialog-container',
                     '[attr.role]': '_config?.role',
                     '[@slideDialog]': '_state',
                     '(@slideDialog.done)': '_onAnimationDone($event)',
@@ -19715,7 +19705,8 @@ var MdDialogClose = /*@__PURE__*/(function () {
 }());
 MdDialogClose.decorators = [
     { type: Directive, args: [{
-                selector: 'button[md-dialog-close], button[mat-dialog-close]',
+                selector: 'button[md-dialog-close], button[mat-dialog-close],' +
+                    'button[mdDialogClose], button[matDialogClose]',
                 host: {
                     '(click)': 'dialogRef.close(dialogResult)',
                     '[attr.aria-label]': 'ariaLabel',
@@ -19744,10 +19735,8 @@ var MdDialogTitle = /*@__PURE__*/(function () {
 }());
 MdDialogTitle.decorators = [
     { type: Directive, args: [{
-                selector: '[md-dialog-title], [mat-dialog-title]',
-                host: {
-                    '[class.mat-dialog-title]': 'true'
-                }
+                selector: '[md-dialog-title], [mat-dialog-title], [mdDialogTitle], [matDialogTitle]',
+                host: { 'class': 'mat-dialog-title' },
             },] },
 ];
 /**
@@ -19764,10 +19753,9 @@ var MdDialogContent = /*@__PURE__*/(function () {
 }());
 MdDialogContent.decorators = [
     { type: Directive, args: [{
-                selector: '[md-dialog-content], md-dialog-content, [mat-dialog-content], mat-dialog-content',
-                host: {
-                    '[class.mat-dialog-content]': 'true'
-                }
+                selector: '[md-dialog-content], md-dialog-content, [mat-dialog-content], mat-dialog-content,' +
+                    '[mdDialogContent], [matDialogContent]',
+                host: { 'class': 'mat-dialog-content' }
             },] },
 ];
 /**
@@ -19785,10 +19773,9 @@ var MdDialogActions = /*@__PURE__*/(function () {
 }());
 MdDialogActions.decorators = [
     { type: Directive, args: [{
-                selector: '[md-dialog-actions], md-dialog-actions, [mat-dialog-actions], mat-dialog-actions',
-                host: {
-                    '[class.mat-dialog-actions]': 'true'
-                }
+                selector: '[md-dialog-actions], md-dialog-actions, [mat-dialog-actions], mat-dialog-actions,' +
+                    '[mdDialogActions], [matDialogActions]',
+                host: { 'class': 'mat-dialog-actions' }
             },] },
 ];
 /**
@@ -19933,7 +19920,7 @@ MdAutocomplete.decorators = [
                 encapsulation: ViewEncapsulation.None,
                 exportAs: 'mdAutocomplete',
                 host: {
-                    '[class.mat-autocomplete]': 'true'
+                    'class': 'mat-autocomplete'
                 }
             },] },
 ];
@@ -21251,7 +21238,7 @@ MdCalendar.decorators = [
                 template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button *ngIf=\"!_isCompatibilityMode\" md-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div></button> <button *ngIf=\"_isCompatibilityMode\" mat-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div></button><div class=\"mat-calendar-spacer\"></div><button *ngIf=\"!_isCompatibilityMode\" md-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button *ngIf=\"_isCompatibilityMode\" mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button *ngIf=\"!_isCompatibilityMode\" md-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button> <button *ngIf=\"_isCompatibilityMode\" mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button></div></div><div class=\"mat-calendar-content\" (keydown)=\"_handleCalendarBodyKeydown($event)\" [ngSwitch]=\"_monthView\" cdkMonitorSubtreeFocus><md-month-view *ngSwitchCase=\"true\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_dateSelected($event)\"></md-month-view><md-year-view *ngSwitchDefault [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_monthSelected($event)\"></md-year-view></div>",
                 styles: [".mat-calendar{display:block}.mat-calendar-header{padding:8px 8px 0 8px}.mat-calendar-content{padding:0 8px 8px 8px;outline:0}.mat-calendar-controls{display:flex;padding:5% calc(100% / 14 - 22px) 5% calc(100% / 14 - 22px)}.mat-calendar-spacer{flex:1 1 auto}.mat-calendar-period-button{min-width:0}.mat-calendar-arrow{display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top-width:5px;border-top-style:solid;margin:0 0 0 5px;vertical-align:middle}.mat-calendar-arrow.mat-calendar-invert{transform:rotate(180deg)}[dir=rtl] .mat-calendar-arrow{margin:0 5px 0 0}.mat-calendar-next-button,.mat-calendar-previous-button{position:relative}.mat-calendar-next-button::after,.mat-calendar-previous-button::after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;margin:15.5px;border:0 solid currentColor;border-top-width:2px}[dir=rtl] .mat-calendar-next-button,[dir=rtl] .mat-calendar-previous-button{transform:rotate(180deg)}.mat-calendar-previous-button::after{border-left-width:2px;transform:translateX(2px) rotate(-45deg)}.mat-calendar-next-button::after{border-right-width:2px;transform:translateX(-2px) rotate(45deg)}.mat-calendar-table{border-spacing:0;border-collapse:collapse;width:100%}.mat-calendar-table-header th{text-align:center;padding:0 0 8px 0}.mat-calendar-table-header-divider{position:relative;height:1px}.mat-calendar-table-header-divider::after{content:'';position:absolute;top:0;left:-8px;right:-8px;height:1px}"],
                 host: {
-                    '[class.mat-calendar]': 'true',
+                    'class': 'mat-calendar',
                 },
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23173,5 +23160,5 @@ MaterialModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { Dir, RtlModule, ObserveContentModule, ObserveContent, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, CdkDataTableModule, DataSource, RowPlaceholder, HeaderRowPlaceholder, CdkTable, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabChangeEvent, MdTabGroup, MdTabNavBar, MdTabLink, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, throwMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵi, mixinColor as ɵq, mixinDisabled as ɵr, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵj, CdkCell as ɵx, CdkCellDef as ɵt, CdkColumnDef as ɵv, CdkHeaderCell as ɵw, CdkHeaderCellDef as ɵu, BaseRowDef as ɵy, CdkCellOutlet as ɵbb, CdkHeaderRow as ɵbc, CdkHeaderRowDef as ɵz, CdkRow as ɵbd, CdkRowDef as ɵba, MdMutationObserverFactory as ɵa, OVERLAY_CONTAINER_PROVIDER as ɵc, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵb, OverlayPositionBuilder as ɵp, VIEWPORT_RULER_PROVIDER as ɵe, VIEWPORT_RULER_PROVIDER_FACTORY as ɵd, SCROLL_DISPATCHER_PROVIDER as ɵg, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵf, RippleRenderer as ɵh, EXPANSION_PANEL_ANIMATION_TIMING as ɵk, MdGridAvatarCssMatStyler as ɵm, MdGridTileFooterCssMatStyler as ɵo, MdGridTileHeaderCssMatStyler as ɵn, MdGridTileText as ɵl };
+export { Dir, RtlModule, ObserveContentModule, ObserveContent, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, CdkDataTableModule, DataSource, RowPlaceholder, HeaderRowPlaceholder, CdkTable, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, throwMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵi, mixinColor as ɵq, mixinDisabled as ɵr, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵj, CdkCell as ɵx, CdkCellDef as ɵt, CdkColumnDef as ɵv, CdkHeaderCell as ɵw, CdkHeaderCellDef as ɵu, BaseRowDef as ɵy, CdkCellOutlet as ɵbb, CdkHeaderRow as ɵbc, CdkHeaderRowDef as ɵz, CdkRow as ɵbd, CdkRowDef as ɵba, MdMutationObserverFactory as ɵa, OVERLAY_CONTAINER_PROVIDER as ɵc, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵb, OverlayPositionBuilder as ɵp, VIEWPORT_RULER_PROVIDER as ɵe, VIEWPORT_RULER_PROVIDER_FACTORY as ɵd, SCROLL_DISPATCHER_PROVIDER as ɵg, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵf, RippleRenderer as ɵh, EXPANSION_PANEL_ANIMATION_TIMING as ɵk, MdGridAvatarCssMatStyler as ɵm, MdGridTileFooterCssMatStyler as ɵo, MdGridTileHeaderCssMatStyler as ɵn, MdGridTileText as ɵl };
 //# sourceMappingURL=material.es5.js.map

@@ -7,3 +7,4 @@ export { MdTabHeader, ScrollDirection } from './tab-header';
 export { MdTabLabelWrapper } from './tab-label-wrapper';
 export { MdTab } from './tab';
 export { MdTabLabel } from './tab-label';
+export { MdTabNav, MdTabLink } from './tab-nav-bar/index';
