@@ -260,12 +260,12 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
      * Sets the selected option based on a value. If no option can be
      * found with the designated value, the select trigger is cleared.
      */
-    private _setSelectionByValue(value);
+    private _setSelectionByValue(value, isUserInput?);
     /**
      * Finds and selects and option based on its value.
      * @returns Option that has the corresponding value.
      */
-    private _selectValue(value);
+    private _selectValue(value, isUserInput?);
     /**
      * Clears the select trigger and deselects every option in the list.
      * @param skip Option that should not be deselected.

@@ -8794,20 +8794,21 @@ class MdSelect extends _MdSelectMixinBase {
      * Sets the selected option based on a value. If no option can be
      * found with the designated value, the select trigger is cleared.
      * @param {?} value
+     * @param {?=} isUserInput
      * @return {?}
      */
-    _setSelectionByValue(value) {
+    _setSelectionByValue(value, isUserInput = false) {
         const /** @type {?} */ isArray = Array.isArray(value);
         if (this.multiple && value && !isArray) {
             throw getMdSelectNonArrayValueError();
         }
         this._clearSelection();
         if (isArray) {
-            value.forEach((currentValue) => this._selectValue(currentValue));
+            value.forEach((currentValue) => this._selectValue(currentValue, isUserInput));
             this._sortValues();
         }
         else {
-            this._selectValue(value);
+            this._selectValue(value, isUserInput);
         }
         this._setValueWidth();
         if (this._selectionModel.isEmpty()) {
@@ -8818,15 +8819,16 @@ class MdSelect extends _MdSelectMixinBase {
     /**
      * Finds and selects and option based on its value.
      * @param {?} value
+     * @param {?=} isUserInput
      * @return {?} Option that has the corresponding value.
      */
-    _selectValue(value) {
+    _selectValue(value, isUserInput = false) {
         let /** @type {?} */ optionsArray = this.options.toArray();
         let /** @type {?} */ correspondingOption = optionsArray.find(option => {
             return option.value != null && option.value === value;
         });
         if (correspondingOption) {
-            correspondingOption.select();
+            isUserInput ? correspondingOption._selectViaInteraction() : correspondingOption.select();
             this._selectionModel.select(correspondingOption);
             this._keyManager.setActiveItem(optionsArray.indexOf(correspondingOption));
         }
@@ -9273,7 +9275,7 @@ class MdSelect extends _MdSelectMixinBase {
             const /** @type {?} */ currentActiveItem = (this._keyManager.activeItem);
             if (currentActiveItem !== prevActiveItem) {
                 this._clearSelection();
-                this._setSelectionByValue(currentActiveItem.value);
+                this._setSelectionByValue(currentActiveItem.value, true);
                 this._propagateChanges();
             }
         }

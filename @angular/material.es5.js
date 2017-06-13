@@ -9209,21 +9209,23 @@ var MdSelect = /*@__PURE__*/(function (_super) {
      * Sets the selected option based on a value. If no option can be
      * found with the designated value, the select trigger is cleared.
      * @param {?} value
+     * @param {?=} isUserInput
      * @return {?}
      */
-    MdSelect.prototype._setSelectionByValue = function (value) {
+    MdSelect.prototype._setSelectionByValue = function (value, isUserInput) {
         var _this = this;
+        if (isUserInput === void 0) { isUserInput = false; }
         var /** @type {?} */ isArray = Array.isArray(value);
         if (this.multiple && value && !isArray) {
             throw getMdSelectNonArrayValueError();
         }
         this._clearSelection();
         if (isArray) {
-            value.forEach(function (currentValue) { return _this._selectValue(currentValue); });
+            value.forEach(function (currentValue) { return _this._selectValue(currentValue, isUserInput); });
             this._sortValues();
         }
         else {
-            this._selectValue(value);
+            this._selectValue(value, isUserInput);
         }
         this._setValueWidth();
         if (this._selectionModel.isEmpty()) {
@@ -9234,15 +9236,17 @@ var MdSelect = /*@__PURE__*/(function (_super) {
     /**
      * Finds and selects and option based on its value.
      * @param {?} value
+     * @param {?=} isUserInput
      * @return {?} Option that has the corresponding value.
      */
-    MdSelect.prototype._selectValue = function (value) {
+    MdSelect.prototype._selectValue = function (value, isUserInput) {
+        if (isUserInput === void 0) { isUserInput = false; }
         var /** @type {?} */ optionsArray = this.options.toArray();
         var /** @type {?} */ correspondingOption = optionsArray.find(function (option) {
             return option.value != null && option.value === value;
         });
         if (correspondingOption) {
-            correspondingOption.select();
+            isUserInput ? correspondingOption._selectViaInteraction() : correspondingOption.select();
             this._selectionModel.select(correspondingOption);
             this._keyManager.setActiveItem(optionsArray.indexOf(correspondingOption));
         }
@@ -9697,7 +9701,7 @@ var MdSelect = /*@__PURE__*/(function (_super) {
             var /** @type {?} */ currentActiveItem = (this._keyManager.activeItem);
             if (currentActiveItem !== prevActiveItem) {
                 this._clearSelection();
-                this._setSelectionByValue(currentActiveItem.value);
+                this._setSelectionByValue(currentActiveItem.value, true);
                 this._propagateChanges();
             }
         }
