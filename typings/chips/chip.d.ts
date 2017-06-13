@@ -1,6 +1,7 @@
 import { ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
 import { Focusable } from '../core/a11y/focus-key-manager';
 import { CanColor } from '../core/common-behaviors/color';
+import { CanDisable } from '../core/common-behaviors/disabled';
 export interface MdChipEvent {
     chip: MdChip;
 }
@@ -9,7 +10,7 @@ export declare class MdChipBase {
     _elementRef: ElementRef;
     constructor(_renderer: Renderer2, _elementRef: ElementRef);
 }
-export declare const _MdChipMixinBase: (new (...args: any[]) => CanColor) & typeof MdChipBase;
+export declare const _MdChipMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisable) & typeof MdChipBase;
 /**
  * Dummy directive to add CSS class to basic chips.
  * @docs-private
@@ -19,10 +20,7 @@ export declare class MdBasicChip {
 /**
  * Material design styled Chip component. Used inside the MdChipList component.
  */
-export declare class MdChip extends _MdChipMixinBase implements Focusable, OnDestroy, CanColor {
-    /** Whether or not the chip is disabled. */
-    disabled: boolean;
-    protected _disabled: boolean;
+export declare class MdChip extends _MdChipMixinBase implements Focusable, OnDestroy, CanColor, CanDisable {
     /** Whether the chip is selected. */
     selected: boolean;
     protected _selected: boolean;

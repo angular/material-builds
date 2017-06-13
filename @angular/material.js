@@ -12541,7 +12541,7 @@ class MdChipBase {
         this._elementRef = _elementRef;
     }
 }
-const _MdChipMixinBase = mixinColor(MdChipBase, 'primary');
+const _MdChipMixinBase = mixinColor(mixinDisabled(MdChipBase), 'primary');
 /**
  * Dummy directive to add CSS class to basic chips.
  * \@docs-private
@@ -12568,7 +12568,6 @@ class MdChip extends _MdChipMixinBase {
      */
     constructor(renderer, elementRef) {
         super(renderer, elementRef);
-        this._disabled = null;
         this._selected = false;
         /**
          * Whether the chip has focus.
@@ -12591,16 +12590,6 @@ class MdChip extends _MdChipMixinBase {
          */
         this.destroy = new EventEmitter();
     }
-    /**
-     * Whether or not the chip is disabled.
-     * @return {?}
-     */
-    get disabled() { return this._disabled; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set disabled(value) { this._disabled = coerceBooleanProperty(value); }
     /**
      * Whether the chip is selected.
      * @return {?}
@@ -12663,7 +12652,7 @@ MdChip.decorators = [
     { type: Directive, args: [{
                 selector: `md-basic-chip, [md-basic-chip], md-chip, [md-chip],
              mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]`,
-                inputs: ['color'],
+                inputs: ['color', 'disabled'],
                 host: {
                     'class': 'mat-chip',
                     'tabindex': '-1',
@@ -12685,7 +12674,6 @@ MdChip.ctorParameters = () => [
     { type: ElementRef, },
 ];
 MdChip.propDecorators = {
-    'disabled': [{ type: Input },],
     'selected': [{ type: Input },],
     'select': [{ type: Output },],
     'deselect': [{ type: Output },],
@@ -21615,10 +21603,9 @@ class MdExpansionPanelHeader {
     }
     /**
      * Toggles the expanded state of the panel.
-     * @param {?=} event
      * @return {?}
      */
-    _toggle(event) {
+    _toggle() {
         this.panel.toggle();
     }
     /**

@@ -13299,7 +13299,7 @@ var MdChipBase = /*@__PURE__*/(function () {
     }
     return MdChipBase;
 }());
-var _MdChipMixinBase = mixinColor(MdChipBase, 'primary');
+var _MdChipMixinBase = mixinColor(mixinDisabled(MdChipBase), 'primary');
 /**
  * Dummy directive to add CSS class to basic chips.
  * \@docs-private
@@ -13330,7 +13330,6 @@ var MdChip = /*@__PURE__*/(function (_super) {
      */
     function MdChip(renderer, elementRef) {
         var _this = _super.call(this, renderer, elementRef) || this;
-        _this._disabled = null;
         _this._selected = false;
         /**
          * Whether the chip has focus.
@@ -13354,20 +13353,6 @@ var MdChip = /*@__PURE__*/(function (_super) {
         _this.destroy = new EventEmitter();
         return _this;
     }
-    Object.defineProperty(MdChip.prototype, "disabled", {
-        /**
-         * Whether or not the chip is disabled.
-         * @return {?}
-         */
-        get: function () { return this._disabled; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) { this._disabled = coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(MdChip.prototype, "selected", {
         /**
          * Whether the chip is selected.
@@ -13434,7 +13419,7 @@ var MdChip = /*@__PURE__*/(function (_super) {
 MdChip.decorators = [
     { type: Directive, args: [{
                 selector: "md-basic-chip, [md-basic-chip], md-chip, [md-chip],\n             mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
-                inputs: ['color'],
+                inputs: ['color', 'disabled'],
                 host: {
                     'class': 'mat-chip',
                     'tabindex': '-1',
@@ -13456,7 +13441,6 @@ MdChip.ctorParameters = function () { return [
     { type: ElementRef, },
 ]; };
 MdChip.propDecorators = {
-    'disabled': [{ type: Input },],
     'selected': [{ type: Input },],
     'select': [{ type: Output },],
     'deselect': [{ type: Output },],
@@ -22961,10 +22945,9 @@ var MdExpansionPanelHeader = /*@__PURE__*/(function () {
     }
     /**
      * Toggles the expanded state of the panel.
-     * @param {?=} event
      * @return {?}
      */
-    MdExpansionPanelHeader.prototype._toggle = function (event) {
+    MdExpansionPanelHeader.prototype._toggle = function () {
         this.panel.toggle();
     };
     /**

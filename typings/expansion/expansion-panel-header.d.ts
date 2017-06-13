@@ -10,7 +10,7 @@ export declare class MdExpansionPanelHeader {
     panel: MdExpansionPanel;
     constructor(panel: MdExpansionPanel);
     /** Toggles the expanded state of the panel. */
-    _toggle(event?: KeyboardEvent): void;
+    _toggle(): void;
     /** Gets whether the panel is expanded. */
     _isExpanded(): boolean;
     /** Gets the expanded state string of the panel. */
