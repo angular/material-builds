@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { QueryList, ElementRef, EventEmitter, AfterContentChecked, AfterContentInit, OnDestroy, NgZone } from '@angular/core';
 import { Dir, LayoutDirection } from '../core';
 import { MdTabLabelWrapper } from './tab-label-wrapper';

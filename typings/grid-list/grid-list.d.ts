@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { AfterContentChecked, OnInit, QueryList, Renderer2, ElementRef } from '@angular/core';
 import { MdGridTile } from './grid-tile';
 import { Dir } from '../core';

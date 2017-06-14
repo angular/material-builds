@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
 import { Focusable } from '../core/a11y/focus-key-manager';
 import { CanColor } from '../core/common-behaviors/color';

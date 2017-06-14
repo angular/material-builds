@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { ElementRef, NgZone, OnDestroy, AfterContentInit } from '@angular/core';
 import { InteractivityChecker } from './interactivity-checker';
 import { Platform } from '../platform/platform';

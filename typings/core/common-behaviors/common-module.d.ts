@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { InjectionToken } from '@angular/core';
 /** Injection token that configures whether the Material sanity checks are enabled. */
 export declare const MATERIAL_SANITY_CHECKS: InjectionToken<boolean>;

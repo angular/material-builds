@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { AfterContentInit, EventEmitter, OnDestroy, QueryList, TemplateRef, ElementRef } from '@angular/core';
 import { MenuPositionX, MenuPositionY } from './menu-positions';
 import { MdMenuItem } from './menu-item';

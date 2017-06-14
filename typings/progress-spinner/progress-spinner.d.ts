@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { OnDestroy, ElementRef, NgZone, Renderer2 } from '@angular/core';
 import { CanColor } from '../core/common-behaviors/color';
 /** Default stroke width as a percentage of the viewBox. */
