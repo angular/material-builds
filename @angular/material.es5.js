@@ -18050,11 +18050,11 @@ MdTabBody.decorators = [
                 },
                 animations: [
                     trigger('translateTab', [
-                        state('void', style({ transform: 'translate3d(0, 0, 0)' })),
+                        state('void', style({ transform: 'translate3d(0%, 0, 0)' })),
                         state('left', style({ transform: 'translate3d(-100%, 0, 0)' })),
-                        state('left-origin-center', style({ transform: 'translate3d(0, 0, 0)' })),
-                        state('right-origin-center', style({ transform: 'translate3d(0, 0, 0)' })),
-                        state('center', style({ transform: 'translate3d(0, 0, 0)' })),
+                        state('left-origin-center', style({ transform: 'translate3d(0%, 0, 0)' })),
+                        state('right-origin-center', style({ transform: 'translate3d(0%, 0, 0)' })),
+                        state('center', style({ transform: 'translate3d(0%, 0, 0)' })),
                         state('right', style({ transform: 'translate3d(100%, 0, 0)' })),
                         transition('* => left, * => right, left => center, right => center', animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')),
                         transition('void => left-origin-center', [
@@ -18822,6 +18822,25 @@ var MdTooltip = /*@__PURE__*/(function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdTooltip.prototype, "tooltipClass", {
+        /**
+         * Classes to be passed to the tooltip. Supports the same syntax as `ngClass`.
+         * @return {?}
+         */
+        get: function () { return this._tooltipClass; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._tooltipClass = value;
+            if (this._tooltipInstance) {
+                this._setTooltipClass(this._tooltipClass);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MdTooltip.prototype, "_deprecatedMessage", {
         /**
          * @deprecated
@@ -18901,6 +18920,19 @@ var MdTooltip = /*@__PURE__*/(function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdTooltip.prototype, "_matClass", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this.tooltipClass; },
+        /**
+         * @param {?} v
+         * @return {?}
+         */
+        set: function (v) { this.tooltipClass = v; },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * Dispose the tooltip when destroyed.
      * @return {?}
@@ -18923,6 +18955,7 @@ var MdTooltip = /*@__PURE__*/(function () {
         if (!this._tooltipInstance) {
             this._createTooltip();
         }
+        this._setTooltipClass(this._tooltipClass);
         this._setTooltipMessage(this._message);
         this._tooltipInstance.show(this._position, delay);
     };
@@ -19066,6 +19099,15 @@ var MdTooltip = /*@__PURE__*/(function () {
             }
         });
     };
+    /**
+     * Updates the tooltip class
+     * @param {?} tooltipClass
+     * @return {?}
+     */
+    MdTooltip.prototype._setTooltipClass = function (tooltipClass) {
+        this._tooltipInstance.tooltipClass = tooltipClass;
+        this._tooltipInstance._markForCheck();
+    };
     return MdTooltip;
 }());
 MdTooltip.decorators = [
@@ -19098,12 +19140,14 @@ MdTooltip.propDecorators = {
     'showDelay': [{ type: Input, args: ['mdTooltipShowDelay',] },],
     'hideDelay': [{ type: Input, args: ['mdTooltipHideDelay',] },],
     'message': [{ type: Input, args: ['mdTooltip',] },],
+    'tooltipClass': [{ type: Input, args: ['mdTooltipClass',] },],
     '_deprecatedMessage': [{ type: Input, args: ['md-tooltip',] },],
     '_matMessage': [{ type: Input, args: ['matTooltip',] },],
     '_matPosition': [{ type: Input, args: ['matTooltipPosition',] },],
     '_matDisabled': [{ type: Input, args: ['matTooltipDisabled',] },],
     '_matHideDelay': [{ type: Input, args: ['matTooltipHideDelay',] },],
     '_matShowDelay': [{ type: Input, args: ['matTooltipShowDelay',] },],
+    '_matClass': [{ type: Input, args: ['matTooltipClass',] },],
 };
 /**
  * Internal component that wraps the tooltip's content.
@@ -19255,8 +19299,9 @@ var TooltipComponent = /*@__PURE__*/(function () {
 }());
 TooltipComponent.decorators = [
     { type: Component, args: [{ selector: 'md-tooltip-component, mat-tooltip-component',
-                template: "<div class=\"mat-tooltip\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.done)=\"_afterVisibilityAnimation($event)\">{{message}}</div>",
+                template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.done)=\"_afterVisibilityAnimation($event)\">{{message}}</div>",
                 styles: [":host{pointer-events:none}.mat-tooltip{color:#fff;border-radius:2px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}"],
+                encapsulation: ViewEncapsulation.None,
                 animations: [
                     trigger('state', [
                         state('void', style({ transform: 'scale(0)' })),
@@ -19296,7 +19341,12 @@ var MdTooltipModule = /*@__PURE__*/(function () {
 }());
 MdTooltipModule.decorators = [
     { type: NgModule, args: [{
-                imports: [OverlayModule, MdCommonModule, PlatformModule],
+                imports: [
+                    CommonModule,
+                    OverlayModule,
+                    MdCommonModule,
+                    PlatformModule
+                ],
                 exports: [MdTooltip, TooltipComponent, MdCommonModule],
                 declarations: [MdTooltip, TooltipComponent],
                 entryComponents: [TooltipComponent],

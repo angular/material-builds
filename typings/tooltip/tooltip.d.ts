@@ -39,6 +39,7 @@ export declare class MdTooltip implements OnDestroy {
     _tooltipInstance: TooltipComponent;
     private _position;
     private _disabled;
+    private _tooltipClass;
     /** Allows the user to define the position of the tooltip relative to the parent element */
     position: TooltipPosition;
     /** Disables the display of the tooltip. */
@@ -52,6 +53,10 @@ export declare class MdTooltip implements OnDestroy {
     private _message;
     /** The message to be displayed in the tooltip */
     message: string;
+    /** Classes to be passed to the tooltip. Supports the same syntax as `ngClass`. */
+    tooltipClass: string | string[] | Set<string> | {
+        [key: string]: any;
+    };
     /** @deprecated */
     _deprecatedMessage: string;
     _matMessage: string;
@@ -59,6 +64,9 @@ export declare class MdTooltip implements OnDestroy {
     _matDisabled: boolean;
     _matHideDelay: number;
     _matShowDelay: number;
+    _matClass: string | Set<string> | string[] | {
+        [key: string]: any;
+    };
     constructor(_overlay: Overlay, _elementRef: ElementRef, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _renderer: Renderer2, _platform: Platform, _dir: Dir);
     /**
      * Dispose the tooltip when destroyed.
@@ -84,6 +92,8 @@ export declare class MdTooltip implements OnDestroy {
     _getOverlayPosition(): OverlayConnectionPosition;
     /** Updates the tooltip message and repositions the overlay according to the new message length */
     private _setTooltipMessage(message);
+    /** Updates the tooltip class */
+    private _setTooltipClass(tooltipClass);
 }
 export declare type TooltipVisibility = 'initial' | 'visible' | 'hidden';
 /**
@@ -95,6 +105,10 @@ export declare class TooltipComponent {
     private _changeDetectorRef;
     /** Message to display in the tooltip */
     message: string;
+    /** Classes to be added to the tooltip. Supports the same syntax as `ngClass`. */
+    tooltipClass: string | string[] | Set<string> | {
+        [key: string]: any;
+    };
     /** The timeout ID of any current timer set to show the tooltip */
     _showTimeoutId: number;
     /** The timeout ID of any current timer set to hide the tooltip */
