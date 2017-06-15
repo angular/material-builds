@@ -61,7 +61,7 @@ var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibi
  * @return {?}
  */
 function getMdCompatibilityInvalidPrefixError(prefix, nodeName) {
-    return new Error("The \"" + prefix + "-\" prefix cannot be used in ng-material v1 compatibility mode. " +
+    return Error("The \"" + prefix + "-\" prefix cannot be used in ng-material v1 compatibility mode. " +
         ("It was used on an \"" + nodeName.toLowerCase() + "\" element."));
 }
 /**
@@ -2306,7 +2306,7 @@ MdOptionModule.ctorParameters = function () { return []; };
  * @return {?}
  */
 function throwNullPortalError() {
-    throw new Error('Must provide a portal to attach');
+    throw Error('Must provide a portal to attach');
 }
 /**
  * Throws an exception when attempting to attach a portal to a host that is already attached.
@@ -2314,7 +2314,7 @@ function throwNullPortalError() {
  * @return {?}
  */
 function throwPortalAlreadyAttachedError() {
-    throw new Error('Host already has a portal attached');
+    throw Error('Host already has a portal attached');
 }
 /**
  * Throws an exception when attempting to attach a portal to an already-disposed host.
@@ -2322,7 +2322,7 @@ function throwPortalAlreadyAttachedError() {
  * @return {?}
  */
 function throwPortalHostAlreadyDisposedError() {
-    throw new Error('This PortalHost has already been disposed');
+    throw Error('This PortalHost has already been disposed');
 }
 /**
  * Throws an exception when attempting to attach an unknown portal type.
@@ -2330,7 +2330,7 @@ function throwPortalHostAlreadyDisposedError() {
  * @return {?}
  */
 function throwUnknownPortalTypeError() {
-    throw new Error('Attempting to attach an unknown Portal type. BasePortalHost accepts either' +
+    throw Error('Attempting to attach an unknown Portal type. BasePortalHost accepts either' +
         'a ComponentPortal or a TemplatePortal.');
 }
 /**
@@ -2339,7 +2339,7 @@ function throwUnknownPortalTypeError() {
  * @return {?}
  */
 function throwNullPortalHostError() {
-    throw new Error('Attempting to attach a portal to a null PortalHost');
+    throw Error('Attempting to attach a portal to a null PortalHost');
 }
 /**
  * Throws an exception when attempting to detach a portal that is not attached.
@@ -2347,7 +2347,7 @@ function throwNullPortalHostError() {
  * @return {?}
  */
 function throwNoPortalAttachedError() {
-    throw new Error('Attempting to detach a portal that is not attached to a host');
+    throw Error('Attempting to detach a portal that is not attached to a host');
 }
 /**
  * @license
@@ -2823,17 +2823,17 @@ var DomPortalHost = (function (_super) {
     DomPortalHost.prototype.attachComponentPortal = function (portal) {
         var _this = this;
         var /** @type {?} */ componentFactory = this._componentFactoryResolver.resolveComponentFactory(portal.component);
-        var /** @type {?} */ componentRef = componentFactory.create(portal.injector || this._defaultInjector);
-        componentRef.hostView.detectChanges();
+        var /** @type {?} */ componentRef;
         // If the portal specifies a ViewContainerRef, we will use that as the attachment point
         // for the component (in terms of Angular's component tree, not rendering).
         // When the ViewContainerRef is missing, we use the factory to create the component directly
         // and then manually attach the view to the application.
         if (portal.viewContainerRef) {
-            portal.viewContainerRef.insert(componentRef.hostView);
+            componentRef = portal.viewContainerRef.createComponent(componentFactory, portal.viewContainerRef.length, portal.injector || portal.viewContainerRef.parentInjector);
             this.setDisposeFn(function () { return componentRef.destroy(); });
         }
         else {
+            componentRef = componentFactory.create(portal.injector || this._defaultInjector);
             this._appRef.attachView(componentRef.hostView);
             this.setDisposeFn(function () {
                 _this._appRef.detachView(componentRef.hostView);
@@ -9152,7 +9152,7 @@ var fadeInContent = _angular_animations.trigger('fadeInContent', [
  * @return {?}
  */
 function getMdSelectDynamicMultipleError() {
-    return new Error('Cannot change `multiple` mode of select after initialization.');
+    return Error('Cannot change `multiple` mode of select after initialization.');
 }
 /**
  * Returns an exception to be thrown when attempting to assign a non-array value to a select
@@ -9162,7 +9162,7 @@ function getMdSelectDynamicMultipleError() {
  * @return {?}
  */
 function getMdSelectNonArrayValueError() {
-    return new Error('Cannot assign truthy non-array value to select in `multiple` mode.');
+    return Error('Cannot assign truthy non-array value to select in `multiple` mode.');
 }
 /**
  * @license
@@ -11712,7 +11712,7 @@ MdSliderModule.ctorParameters = function () { return []; };
  * @return {?}
  */
 function throwMdDuplicatedSidenavError(align) {
-    throw new Error("A sidenav was already declared for 'align=\"" + align + "\"'");
+    throw Error("A sidenav was already declared for 'align=\"" + align + "\"'");
 }
 /**
  * Sidenav toggle promise result.
@@ -13018,7 +13018,7 @@ var TileCoordinator = (function () {
      */
     TileCoordinator.prototype._findMatchingGap = function (tileCols) {
         if (tileCols > this.tracker.length) {
-            throw new Error("md-grid-list: tile with colspan " + tileCols + " is wider than " +
+            throw Error("md-grid-list: tile with colspan " + tileCols + " is wider than " +
                 ("grid with cols=\"" + this.tracker.length + "\"."));
         }
         // Start index is inclusive, end index is exclusive.
@@ -13330,7 +13330,7 @@ var RatioTileStyler = (function (_super) {
     RatioTileStyler.prototype._parseRatio = function (value) {
         var /** @type {?} */ ratioParts = value.split(':');
         if (ratioParts.length !== 2) {
-            throw new Error("md-grid-list: invalid ratio given for row-height: \"" + value + "\"");
+            throw Error("md-grid-list: invalid ratio given for row-height: \"" + value + "\"");
         }
         this.rowHeightRatio = parseFloat(ratioParts[0]) / parseFloat(ratioParts[1]);
     };
@@ -13467,7 +13467,7 @@ var MdGridList = (function () {
      */
     MdGridList.prototype._checkCols = function () {
         if (!this.cols) {
-            throw new Error("md-grid-list: must pass in number of columns. " +
+            throw Error("md-grid-list: must pass in number of columns. " +
                 "Example: <md-grid-list cols=\"3\">");
         }
     };
@@ -14348,7 +14348,7 @@ MdChipsModule.ctorParameters = function () { return []; };
  * @return {?}
  */
 function getMdIconNameNotFoundError(iconName) {
-    return new Error("Unable to find icon with the name \"" + iconName + "\"");
+    return Error("Unable to find icon with the name \"" + iconName + "\"");
 }
 /**
  * Returns an exception to be thrown when the consumer attempts to use
@@ -14357,7 +14357,7 @@ function getMdIconNameNotFoundError(iconName) {
  * @return {?}
  */
 function getMdIconNoHttpProviderError() {
-    return new Error('Could not find Http provider for use with Angular Material icons. ' +
+    return Error('Could not find Http provider for use with Angular Material icons. ' +
         'Please include the HttpModule from @angular/http in your app imports.');
 }
 /**
@@ -14714,7 +14714,7 @@ var MdIconRegistry = (function () {
         div.innerHTML = str;
         var /** @type {?} */ svg = (div.querySelector('svg'));
         if (!svg) {
-            throw new Error('<svg> tag not found');
+            throw Error('<svg> tag not found');
         }
         return svg;
     };
@@ -14918,7 +14918,7 @@ var MdIcon = (function (_super) {
             case 2:
                 return (parts);
             default:
-                throw new Error("Invalid icon name: \"" + iconName + "\"");
+                throw Error("Invalid icon name: \"" + iconName + "\"");
         }
     };
     /**
@@ -15661,7 +15661,7 @@ MdProgressBarModule.ctorParameters = function () { return []; };
  * @return {?}
  */
 function getMdInputContainerPlaceholderConflictError() {
-    return new Error('Placeholder attribute and child element were both specified.');
+    return Error('Placeholder attribute and child element were both specified.');
 }
 /**
  * \@docs-private
@@ -15669,7 +15669,7 @@ function getMdInputContainerPlaceholderConflictError() {
  * @return {?}
  */
 function getMdInputContainerUnsupportedTypeError(type) {
-    return new Error("Input type \"" + type + "\" isn't supported by md-input-container.");
+    return Error("Input type \"" + type + "\" isn't supported by md-input-container.");
 }
 /**
  * \@docs-private
@@ -15677,14 +15677,14 @@ function getMdInputContainerUnsupportedTypeError(type) {
  * @return {?}
  */
 function getMdInputContainerDuplicatedHintError(align) {
-    return new Error("A hint was already declared for 'align=\"" + align + "\"'.");
+    return Error("A hint was already declared for 'align=\"" + align + "\"'.");
 }
 /**
  * \@docs-private
  * @return {?}
  */
 function getMdInputContainerMissingMdInputError() {
-    return new Error('md-input-container must contain an mdInput directive. ' +
+    return Error('md-input-container must contain an mdInput directive. ' +
         'Did you forget to add mdInput to the native input or textarea element?');
 }
 /**
@@ -16809,7 +16809,7 @@ var MdSnackBarContainer = (function (_super) {
      */
     MdSnackBarContainer.prototype.attachComponentPortal = function (portal) {
         if (this._portalHost.hasAttached()) {
-            throw new Error('Attempting to attach snack bar content after content is already attached');
+            throw Error('Attempting to attach snack bar content after content is already attached');
         }
         if (this.snackBarConfig.extraClasses) {
             // Not the most efficient way of adding classes, but the renderer doesn't allow us
@@ -16826,7 +16826,7 @@ var MdSnackBarContainer = (function (_super) {
      * @return {?}
      */
     MdSnackBarContainer.prototype.attachTemplatePortal = function () {
-        throw new Error('Not yet implemented');
+        throw Error('Not yet implemented');
     };
     /**
      * Handle end of animations, updating the state of the snackbar.
@@ -17132,6 +17132,10 @@ var MdSnackBar = (function () {
         var /** @type {?} */ containerPortal = new ComponentPortal(MdSnackBarContainer, config.viewContainerRef);
         var /** @type {?} */ containerRef = overlayRef.attach(containerPortal);
         containerRef.instance.snackBarConfig = config;
+        // The snackbar animation needs the content to be resolved in order to transform the bar
+        // out of the view initially (so it can slide in). To make the content resolve, we manually
+        // detect changes.
+        containerRef.changeDetectorRef.detectChanges();
         return containerRef.instance;
     };
     /**
@@ -18705,7 +18709,7 @@ var SCROLL_THROTTLE_MS = 20;
  * @return {?}
  */
 function throwMdTooltipInvalidPositionError(position) {
-    throw new Error("Tooltip position \"" + position + "\" is invalid.");
+    throw Error("Tooltip position \"" + position + "\" is invalid.");
 }
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
@@ -19317,7 +19321,7 @@ MdTooltipModule.ctorParameters = function () { return []; };
  * @return {?}
  */
 function throwMdMenuMissingError() {
-    throw new Error("md-menu-trigger: must pass in an md-menu instance.\n\n    Example:\n      <md-menu #menu=\"mdMenu\"></md-menu>\n      <button [mdMenuTriggerFor]=\"menu\"></button>");
+    throw Error("md-menu-trigger: must pass in an md-menu instance.\n\n    Example:\n      <md-menu #menu=\"mdMenu\"></md-menu>\n      <button [mdMenuTriggerFor]=\"menu\"></button>");
 }
 /**
  * Throws an exception for the case when menu's x-position value isn't valid.
@@ -19326,7 +19330,7 @@ function throwMdMenuMissingError() {
  * @return {?}
  */
 function throwMdMenuInvalidPositionX() {
-    throw new Error("x-position value must be either 'before' or after'.\n      Example: <md-menu x-position=\"before\" #menu=\"mdMenu\"></md-menu>");
+    throw Error("x-position value must be either 'before' or after'.\n      Example: <md-menu x-position=\"before\" #menu=\"mdMenu\"></md-menu>");
 }
 /**
  * Throws an exception for the case when menu's y-position value isn't valid.
@@ -19335,7 +19339,7 @@ function throwMdMenuInvalidPositionX() {
  * @return {?}
  */
 function throwMdMenuInvalidPositionY() {
-    throw new Error("y-position value must be either 'above' or below'.\n      Example: <md-menu y-position=\"above\" #menu=\"mdMenu\"></md-menu>");
+    throw Error("y-position value must be either 'above' or below'.\n      Example: <md-menu y-position=\"above\" #menu=\"mdMenu\"></md-menu>");
 }
 /**
  * @license
@@ -20230,7 +20234,7 @@ var MdDialogConfig = (function () {
  * @return {?}
  */
 function throwMdDialogContentAlreadyAttachedError() {
-    throw new Error('Attempting to attach dialog content after content is already attached');
+    throw Error('Attempting to attach dialog content after content is already attached');
 }
 /**
  * Internal component that wraps user-provided dialog content.
@@ -20937,7 +20941,7 @@ var MD_AUTOCOMPLETE_VALUE_ACCESSOR = {
  * @return {?}
  */
 function getMdAutocompleteMissingPanelError() {
-    return new Error('Attempting to open an undefined instance of `md-autocomplete`. ' +
+    return Error('Attempting to open an undefined instance of `md-autocomplete`. ' +
         'Make sure that the id passed to the `mdAutocomplete` is correct and that ' +
         'you\'re attempting to open it after the ngAfterContentInit hook.');
 }
@@ -21523,7 +21527,7 @@ MdCalendarBody.propDecorators = {
  * @return {?}
  */
 function createMissingDateImplError(provider) {
-    return new Error("MdDatepicker: No provider found for " + provider + ". You must import one of the following" +
+    return Error("MdDatepicker: No provider found for " + provider + ". You must import one of the following" +
         "modules at your application root: MdNativeDateModule, or provide a custom implementation.");
 }
 /**
@@ -22332,11 +22336,11 @@ var MdDatepickerContent = (function () {
 }());
 MdDatepickerContent.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-datepicker-content',
-                template: "<md-calendar cdkTrapFocus [id]=\"datepicker?.id\" [startAt]=\"datepicker?.startAt\" [startView]=\"datepicker?.startView\" [minDate]=\"datepicker?._minDate\" [maxDate]=\"datepicker?._maxDate\" [dateFilter]=\"datepicker?._dateFilter\" [selected]=\"datepicker?._selected\" (selectedChange)=\"datepicker?._selectAndClose($event)\"></md-calendar>",
+                template: "<md-calendar cdkTrapFocus [id]=\"datepicker.id\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" (selectedChange)=\"datepicker._selectAndClose($event)\"></md-calendar>",
                 styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block}.mat-calendar{width:296px}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{width:64vmin;height:80vmin;min-width:250px;min-height:312px;max-width:750px;max-height:788px}"],
                 host: {
                     'class': 'mat-datepicker-content',
-                    '[class.mat-datepicker-content-touch]': 'datepicker?.touchUi',
+                    '[class.mat-datepicker-content-touch]': 'datepicker.touchUi',
                     '(keydown)': '_handleKeydown($event)',
                 },
                 encapsulation: _angular_core.ViewEncapsulation.None,
@@ -22481,7 +22485,7 @@ var MdDatepicker = (function () {
     MdDatepicker.prototype._registerInput = function (input) {
         var _this = this;
         if (this._datepickerInput) {
-            throw new Error('An MdDatepicker can only be associated with a single input.');
+            throw Error('An MdDatepicker can only be associated with a single input.');
         }
         this._datepickerInput = input;
         this._inputSubscription =
@@ -22496,7 +22500,7 @@ var MdDatepicker = (function () {
             return;
         }
         if (!this._datepickerInput) {
-            throw new Error('Attempted to open an MdDatepicker with no associated input.');
+            throw Error('Attempted to open an MdDatepicker with no associated input.');
         }
         this.touchUi ? this._openAsDialog() : this._openAsPopup();
         this.opened = true;
