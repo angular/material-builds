@@ -17,8 +17,11 @@ export declare class MdAutocomplete implements AfterContentInit {
     positionY: AutocompletePositionY;
     /** Whether the autocomplete panel should be visible, depending on option length. */
     showPanel: boolean;
+    /** @docs-private */
     template: TemplateRef<any>;
+    /** Element for the panel containing the autocomplete options. */
     panel: ElementRef;
+    /** @docs-private */
     options: QueryList<MdOption>;
     /** Function that maps an option's control value to its display value in the trigger. */
     displayWith: (value: any) => string;
