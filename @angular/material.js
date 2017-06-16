@@ -21120,15 +21120,10 @@ class MdDatepickerContent {
      * @return {?}
      */
     _handleKeydown(event) {
-        switch (event.keyCode) {
-            case ESCAPE:
-                this.datepicker.close();
-                break;
-            default:
-                // Return so that we don't preventDefault on keys that are not explicitly handled.
-                return;
+        if (event.keyCode === ESCAPE) {
+            this.datepicker.close();
+            event.preventDefault();
         }
-        event.preventDefault();
     }
 }
 MdDatepickerContent.decorators = [
@@ -21162,14 +21157,16 @@ class MdDatepicker {
      * @param {?} _viewContainerRef
      * @param {?} _dateAdapter
      * @param {?} _dir
+     * @param {?} _document
      */
-    constructor(_dialog, _overlay, _ngZone, _viewContainerRef, _dateAdapter, _dir) {
+    constructor(_dialog, _overlay, _ngZone, _viewContainerRef, _dateAdapter, _dir, _document) {
         this._dialog = _dialog;
         this._overlay = _overlay;
         this._ngZone = _ngZone;
         this._viewContainerRef = _viewContainerRef;
         this._dateAdapter = _dateAdapter;
         this._dir = _dir;
+        this._document = _document;
         /**
          * The view that the calendar should start in.
          */
@@ -21282,6 +21279,9 @@ class MdDatepicker {
         if (!this._datepickerInput) {
             throw Error('Attempted to open an MdDatepicker with no associated input.');
         }
+        if (this._document) {
+            this._focusedElementBeforeOpen = this._document.activeElement;
+        }
         this.touchUi ? this._openAsDialog() : this._openAsPopup();
         this.opened = true;
     }
@@ -21302,6 +21302,10 @@ class MdDatepicker {
         }
         if (this._calendarPortal && this._calendarPortal.isAttached) {
             this._calendarPortal.detach();
+        }
+        if (this._focusedElementBeforeOpen && 'focus' in this._focusedElementBeforeOpen) {
+            this._focusedElementBeforeOpen.focus();
+            this._focusedElementBeforeOpen = null;
         }
         this.opened = false;
     }
@@ -21375,6 +21379,7 @@ MdDatepicker.ctorParameters = () => [
     { type: ViewContainerRef, },
     { type: DateAdapter, decorators: [{ type: Optional },] },
     { type: Dir, decorators: [{ type: Optional },] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
 MdDatepicker.propDecorators = {
     'startAt': [{ type: Input },],

@@ -38,6 +38,7 @@ export declare class MdDatepicker<D> implements OnDestroy {
     private _viewContainerRef;
     private _dateAdapter;
     private _dir;
+    private _document;
     /** The date to open the calendar to initially. */
     startAt: D;
     private _startAt;
@@ -69,8 +70,10 @@ export declare class MdDatepicker<D> implements OnDestroy {
     private _calendarPortal;
     /** The input element this datepicker is associated with. */
     private _datepickerInput;
+    /** The element that was focused before the datepicker was opened. */
+    private _focusedElementBeforeOpen;
     private _inputSubscription;
-    constructor(_dialog: MdDialog, _overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, _dateAdapter: DateAdapter<D>, _dir: Dir);
+    constructor(_dialog: MdDialog, _overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, _dateAdapter: DateAdapter<D>, _dir: Dir, _document: any);
     ngOnDestroy(): void;
     /** Selects the given date and closes the currently open popup or dialog. */
     _selectAndClose(date: D): void;
