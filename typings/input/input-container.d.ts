@@ -92,8 +92,6 @@ export declare class MdInputContainer implements AfterViewInit, AfterContentInit
     _elementRef: ElementRef;
     private _changeDetectorRef;
     private _placeholderOptions;
-    /** Alignment of the input container's content. */
-    align: 'start' | 'end';
     /** Color of the input divider, based on the theme. */
     color: 'primary' | 'accent' | 'warn';
     /** @deprecated Use color instead. */
