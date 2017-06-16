@@ -16815,7 +16815,7 @@ class MdTabNav {
     }
 }
 MdTabNav.decorators = [
-    { type: Component, args: [{selector: '[md-tab-nav-bar], [mat-tab-nav-bar], [mdTabNav], [matTabNav]',
+    { type: Component, args: [{selector: '[md-tab-nav-bar], [mat-tab-nav-bar]',
                 template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><md-ink-bar></md-ink-bar></div>",
                 styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative}.mat-tab-link{line-height:48px;height:48px;padding:0 12px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-block;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0;opacity:1}@media (max-width:600px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}"],
                 host: { 'class': 'mat-tab-nav-bar' },
@@ -22153,14 +22153,17 @@ class CdkTable {
         this._differs = _differs;
         this._changeDetectorRef = _changeDetectorRef;
         /**
-         * Stream containing the latest information on what rows are being displayed on screen.
-         * Can be used by the data source to as a heuristic of what data should be provided.
+         * Subject that emits when the component has been destroyed.
          */
-        this.viewChange = new BehaviorSubject({ start: 0, end: Number.MAX_VALUE });
+        this._onDestroy = new Subject();
         /**
-         * Stream that emits when a row def has a change to its array of columns to render.
+         * Flag set to true after the component has been initialized.
          */
-        this._columnsChange = new Observable();
+        this._isViewInitialized = false;
+        /**
+         * Latest data provided by the data source through the connect interface.
+         */
+        this._data = [];
         /**
          * Map of all the user's defined columns identified by name.
          * Contains the header and data-cell templates.
@@ -22170,6 +22173,11 @@ class CdkTable {
          * Differ used to find the changes in the data provided by the data source.
          */
         this._dataDiffer = null;
+        /**
+         * Stream containing the latest information on what rows are being displayed on screen.
+         * Can be used by the data source to as a heuristic of what data should be provided.
+         */
+        this.viewChange = new BehaviorSubject({ start: 0, end: Number.MAX_VALUE });
         // Show the stability warning of the data-table only if it doesn't run inside of jasmine.
         // This is just temporary and should reduce warnings when running the tests.
         if (!(typeof window !== 'undefined' && window['jasmine'])) {
@@ -22181,14 +22189,29 @@ class CdkTable {
         }
         // TODO(andrewseguin): Add trackby function input.
         // Find and construct an iterable differ that can be used to find the diff in an array.
-        this._dataDiffer = this._differs.find([]).create();
+        this._dataDiffer = this._differs.find(this._data).create();
+    }
+    /**
+     * Provides a stream containing the latest data array to render. Influenced by the table's
+     * stream of view window (what rows are currently on screen).
+     * @return {?}
+     */
+    get dataSource() { return this._dataSource; }
+    /**
+     * @param {?} dataSource
+     * @return {?}
+     */
+    set dataSource(dataSource) {
+        if (this._dataSource !== dataSource) {
+            this._switchDataSource(dataSource);
+        }
     }
     /**
      * @return {?}
      */
     ngOnDestroy() {
-        // TODO(andrewseguin): Disconnect from the data source so
-        //   that it can unsubscribe from its streams.
+        this._onDestroy.next();
+        this._onDestroy.complete();
     }
     /**
      * @return {?}
@@ -22205,38 +22228,77 @@ class CdkTable {
         this._columnDefinitions.forEach(columnDef => {
             this._columnDefinitionsByName.set(columnDef.name, columnDef);
         });
-        // Get and merge the streams for column changes made to the row defs
-        const /** @type {?} */ rowDefs = [...this._rowDefinitions.toArray(), this._headerDefinition];
-        const /** @type {?} */ columnChangeStreams = rowDefs.map((rowDef) => rowDef.columnsChange);
-        this._columnsChange = Observable.merge(...columnChangeStreams);
+        // Re-render the rows if any of their columns change.
+        // TODO(andrewseguin): Determine how to only re-render the rows that have their columns changed.
+        Observable.merge(...this._rowDefinitions.map(rowDef => rowDef.columnsChange))
+            .takeUntil(this._onDestroy)
+            .subscribe(() => {
+            // Reset the data to an empty array so that renderRowChanges will re-render all new rows.
+            this._rowPlaceholder.viewContainer.clear();
+            this._dataDiffer.diff([]);
+            this._renderRowChanges();
+        });
+        // Re-render the header row if the columns change
+        this._headerDefinition.columnsChange
+            .takeUntil(this._onDestroy)
+            .subscribe(() => {
+            this._headerRowPlaceholder.viewContainer.clear();
+            this._renderHeaderRow();
+        });
     }
     /**
      * @return {?}
      */
     ngAfterViewInit() {
-        this.renderHeaderRow();
-        // Re-render the header row if the columns changed.
-        this._columnsChange.subscribe(() => {
-            this._headerRowPlaceholder.viewContainer.clear();
-            this.renderHeaderRow();
-            // Reset the data to an empty array so that renderRowChanges will re-render all new rows.
-            this._rowPlaceholder.viewContainer.clear();
-            this._dataDiffer.diff([]);
-        });
-        // TODO(andrewseguin): If the data source is not
-        //   present after view init, connect it when it is defined.
-        // TODO(andrewseguin): Unsubscribe from this on destroy.
-        const /** @type {?} */ streams = [this.dataSource.connect(this), this._columnsChange];
-        Observable.combineLatest(streams).subscribe(([rowsData]) => {
-            this.renderRowChanges(rowsData);
+        this._renderHeaderRow();
+        if (this.dataSource) {
+            this._observeRenderChanges();
+        }
+        this._isViewInitialized = true;
+    }
+    /**
+     * Switch to the provided data source by resetting the data and unsubscribing from the current
+     * render change subscription if one exists. If the data source is null, interpret this by
+     * clearing the row placeholder. Otherwise start listening for new data.
+     * @param {?} dataSource
+     * @return {?}
+     */
+    _switchDataSource(dataSource) {
+        this._data = [];
+        this._dataSource = dataSource;
+        if (this._isViewInitialized) {
+            if (this._renderChangeSubscription) {
+                this._renderChangeSubscription.unsubscribe();
+            }
+            if (this._dataSource) {
+                this._observeRenderChanges();
+            }
+            else {
+                this._rowPlaceholder.viewContainer.clear();
+            }
+        }
+    }
+    /**
+     * Set up a subscription for the data provided by the data source.
+     * @return {?}
+     */
+    _observeRenderChanges() {
+        this._renderChangeSubscription = this.dataSource.connect(this)
+            .takeUntil(this._onDestroy)
+            .subscribe(data => {
+            this._data = data;
+            this._renderRowChanges();
         });
     }
     /**
      * Create the embedded view for the header template and place it in the header row view container.
      * @return {?}
      */
-    renderHeaderRow() {
-        const /** @type {?} */ cells = this.getHeaderCellTemplatesForRow(this._headerDefinition);
+    _renderHeaderRow() {
+        const /** @type {?} */ cells = this._getHeaderCellTemplatesForRow(this._headerDefinition);
+        if (!cells.length) {
+            return;
+        }
         // TODO(andrewseguin): add some code to enforce that exactly
         //   one CdkCellOutlet was instantiated as a result
         //   of `createEmbeddedView`.
@@ -22244,20 +22306,20 @@ class CdkTable {
             .createEmbeddedView(this._headerDefinition.template, { cells });
         CdkCellOutlet.mostRecentCellOutlet.cells = cells;
         CdkCellOutlet.mostRecentCellOutlet.context = {};
+        this._changeDetectorRef.markForCheck();
     }
     /**
      * Check for changes made in the data and render each change (row added/removed/moved).
-     * @param {?} dataRows
      * @return {?}
      */
-    renderRowChanges(dataRows) {
-        const /** @type {?} */ changes = this._dataDiffer.diff(dataRows);
+    _renderRowChanges() {
+        const /** @type {?} */ changes = this._dataDiffer.diff(this._data);
         if (!changes) {
             return;
         }
         changes.forEachOperation((item, adjustedPreviousIndex, currentIndex) => {
             if (item.previousIndex == null) {
-                this.insertRow(dataRows[currentIndex], currentIndex);
+                this._insertRow(this._data[currentIndex], currentIndex);
             }
             else if (currentIndex == null) {
                 this._rowPlaceholder.viewContainer.remove(adjustedPreviousIndex);
@@ -22267,7 +22329,6 @@ class CdkTable {
                 this._rowPlaceholder.viewContainer.move(view, currentIndex);
             }
         });
-        this._changeDetectorRef.markForCheck();
     }
     /**
      * Create the embedded view for the data row template and place it in the correct index location
@@ -22276,7 +22337,7 @@ class CdkTable {
      * @param {?} index
      * @return {?}
      */
-    insertRow(rowData, index) {
+    _insertRow(rowData, index) {
         // TODO(andrewseguin): Add when predicates to the row definitions
         //   to find the right template to used based on
         //   the data rather than choosing the first row definition.
@@ -22287,8 +22348,9 @@ class CdkTable {
         //   CdkCellOutlet was instantiated as a result  of `createEmbeddedView`.
         this._rowPlaceholder.viewContainer.createEmbeddedView(row.template, context, index);
         // Insert empty cells if there is no data to improve rendering time.
-        CdkCellOutlet.mostRecentCellOutlet.cells = rowData ? this.getCellTemplatesForRow(row) : [];
+        CdkCellOutlet.mostRecentCellOutlet.cells = rowData ? this._getCellTemplatesForRow(row) : [];
         CdkCellOutlet.mostRecentCellOutlet.context = context;
+        this._changeDetectorRef.markForCheck();
     }
     /**
      * Returns the cell template definitions to insert into the header
@@ -22296,7 +22358,7 @@ class CdkTable {
      * @param {?} headerDef
      * @return {?}
      */
-    getHeaderCellTemplatesForRow(headerDef) {
+    _getHeaderCellTemplatesForRow(headerDef) {
         return headerDef.columns.map(columnId => {
             // TODO(andrewseguin): Throw an error if there is no column with this columnId
             return this._columnDefinitionsByName.get(columnId).headerCell;
@@ -22308,7 +22370,7 @@ class CdkTable {
      * @param {?} rowDef
      * @return {?}
      */
-    getCellTemplatesForRow(rowDef) {
+    _getCellTemplatesForRow(rowDef) {
         return rowDef.columns.map(columnId => {
             // TODO(andrewseguin): Throw an error if there is no column with this columnId
             return this._columnDefinitionsByName.get(columnId).cell;
