@@ -7,19 +7,19 @@
  */
 import { ElementRef } from '@angular/core';
 import { Focusable } from '../core/a11y/focus-key-manager';
+import { CanDisable } from '../core/common-behaviors/disabled';
+export declare class MdMenuItemBase {
+}
+export declare const _MdMenuItemMixinBase: (new (...args: any[]) => CanDisable) & typeof MdMenuItemBase;
 /**
  * This directive is intended to be used inside an md-menu tag.
  * It exists mostly to set the role attribute.
  */
-export declare class MdMenuItem implements Focusable {
+export declare class MdMenuItem extends _MdMenuItemMixinBase implements Focusable, CanDisable {
     private _elementRef;
-    /** Whether the menu item is disabled */
-    private _disabled;
     constructor(_elementRef: ElementRef);
     /** Focuses the menu item. */
     focus(): void;
-    /** Whether the menu item is disabled. */
-    disabled: any;
     /** Used to set the `tabindex`. */
     _getTabIndex(): string;
     /** Used to set the HTML `disabled` attribute. Necessary for links to be disabled properly. */

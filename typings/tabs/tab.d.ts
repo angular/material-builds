@@ -7,8 +7,12 @@
  */
 import { TemplatePortal } from '../core/portal/portal';
 import { ViewContainerRef, TemplateRef, OnInit } from '@angular/core';
+import { CanDisable } from '../core/common-behaviors/disabled';
 import { MdTabLabel } from './tab-label';
-export declare class MdTab implements OnInit {
+export declare class MdTabBase {
+}
+export declare const _MdTabMixinBase: (new (...args: any[]) => CanDisable) & typeof MdTabBase;
+export declare class MdTab extends _MdTabMixinBase implements OnInit, CanDisable {
     private _viewContainerRef;
     /** Content for the tab label given by <ng-template md-tab-label>. */
     templateLabel: MdTabLabel;
@@ -29,9 +33,6 @@ export declare class MdTab implements OnInit {
      * was already a selected tab. Provides context of what position the tab should originate from.
      */
     origin: number;
-    private _disabled;
-    /** Whether the tab is disabled */
-    disabled: boolean;
     constructor(_viewContainerRef: ViewContainerRef);
     ngOnInit(): void;
 }

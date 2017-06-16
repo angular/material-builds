@@ -18,6 +18,7 @@ import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/filter';
 import { CanColor } from '../core/common-behaviors/color';
+import { CanDisable } from '../core/common-behaviors/disabled';
 import { FloatPlaceholderType, PlaceholderOptions } from '../core/placeholder/placeholder-options';
 /**
  * The following style constants are necessary to save here in order
@@ -72,8 +73,8 @@ export declare class MdSelectBase {
     _elementRef: ElementRef;
     constructor(_renderer: Renderer2, _elementRef: ElementRef);
 }
-export declare const _MdSelectMixinBase: (new (...args: any[]) => CanColor) & typeof MdSelectBase;
-export declare class MdSelect extends _MdSelectMixinBase implements AfterContentInit, OnDestroy, OnInit, ControlValueAccessor, CanColor {
+export declare const _MdSelectMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisable) & typeof MdSelectBase;
+export declare class MdSelect extends _MdSelectMixinBase implements AfterContentInit, OnDestroy, OnInit, ControlValueAccessor, CanColor, CanDisable {
     private _viewportRuler;
     private _changeDetectorRef;
     private _dir;
@@ -88,8 +89,6 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
     private _tabSubscription;
     /** Whether filling out the select is required in the form.  */
     private _required;
-    /** Whether the select is disabled.  */
-    private _disabled;
     /** The scroll position of the overlay panel, calculated to center the selected option. */
     private _scrollTop;
     /** The placeholder displayed in the trigger of the select. */
@@ -158,8 +157,6 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
     };
     /** Placeholder to be shown if no value has been selected. */
     placeholder: string;
-    /** Whether the component is disabled. */
-    disabled: any;
     /** Whether the component is required. */
     required: any;
     /** Whether the user should be allowed to select multiple options. */

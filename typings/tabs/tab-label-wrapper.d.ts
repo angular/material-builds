@@ -6,17 +6,17 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ElementRef } from '@angular/core';
+import { CanDisable } from '../core/common-behaviors/disabled';
+export declare class MdTabLabelWrapperBase {
+}
+export declare const _MdTabLabelWrapperMixinBase: (new (...args: any[]) => CanDisable) & typeof MdTabLabelWrapperBase;
 /**
  * Used in the `md-tab-group` view to display tab labels.
  * @docs-private
  */
-export declare class MdTabLabelWrapper {
+export declare class MdTabLabelWrapper extends _MdTabLabelWrapperMixinBase implements CanDisable {
     elementRef: ElementRef;
     constructor(elementRef: ElementRef);
-    /** Whether the tab label is disabled.  */
-    private _disabled;
-    /** Whether the element is disabled. */
-    disabled: any;
     /** Sets focus on the wrapper element */
     focus(): void;
     getOffsetLeft(): number;

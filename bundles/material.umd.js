@@ -6609,6 +6609,12 @@ MdCoreModule.ctorParameters = function () { return []; };
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+var MdButtonToggleGroupBase = (function () {
+    function MdButtonToggleGroupBase() {
+    }
+    return MdButtonToggleGroupBase;
+}());
+var _MdButtonToggleGroupMixinBase = mixinDisabled(MdButtonToggleGroupBase);
 /**
  * Provider Expression that allows md-button-toggle-group to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -6631,49 +6637,48 @@ var MdButtonToggleChange = (function () {
 /**
  * Exclusive selection button toggle group that behaves like a radio-button group.
  */
-var MdButtonToggleGroup = (function () {
+var MdButtonToggleGroup = (function (_super) {
+    __extends(MdButtonToggleGroup, _super);
     function MdButtonToggleGroup() {
+        var _this = _super.apply(this, arguments) || this;
         /**
          * The value for the button toggle group. Should match currently selected button toggle.
          */
-        this._value = null;
+        _this._value = null;
         /**
          * The HTML name attribute applied to toggles in this group.
          */
-        this._name = "md-button-toggle-group-" + _uniqueIdCounter$1++;
-        /**
-         * Disables all toggles in the group.
-         */
-        this._disabled = null;
+        _this._name = "md-button-toggle-group-" + _uniqueIdCounter$1++;
         /**
          * Whether the button toggle group should be vertical.
          */
-        this._vertical = false;
+        _this._vertical = false;
         /**
          * The currently selected button toggle, should match the value.
          */
-        this._selected = null;
+        _this._selected = null;
         /**
          * Whether the button toggle group is initialized or not.
          */
-        this._isInitialized = false;
+        _this._isInitialized = false;
         /**
          * The method to be called in order to update ngModel.
          * Now `ngModel` binding is not supported in multiple selection mode.
          */
-        this._controlValueAccessorChangeFn = function () { };
+        _this._controlValueAccessorChangeFn = function () { };
         /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          */
-        this.onTouched = function () { };
+        _this.onTouched = function () { };
         /**
          * Child button toggle buttons.
          */
-        this._buttonToggles = null;
+        _this._buttonToggles = null;
         /**
          * Event emitted when the group's value changes.
          */
-        this.change = new _angular_core.EventEmitter();
+        _this.change = new _angular_core.EventEmitter();
+        return _this;
     }
     /**
      * @return {?}
@@ -6696,24 +6701,6 @@ var MdButtonToggleGroup = (function () {
         set: function (value) {
             this._name = value;
             this._updateButtonToggleNames();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdButtonToggleGroup.prototype, "disabled", {
-        /**
-         * Whether the toggle group is disabled.
-         * @return {?}
-         */
-        get: function () {
-            return this._disabled;
-        },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this._disabled = coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -6860,11 +6847,12 @@ var MdButtonToggleGroup = (function () {
         this.disabled = isDisabled;
     };
     return MdButtonToggleGroup;
-}());
+}(_MdButtonToggleGroupMixinBase));
 MdButtonToggleGroup.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: 'md-button-toggle-group:not([multiple]), mat-button-toggle-group:not([multiple])',
                 providers: [MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR],
+                inputs: ['disabled'],
                 host: {
                     'role': 'radiogroup',
                     'class': 'mat-button-toggle-group',
@@ -6880,7 +6868,6 @@ MdButtonToggleGroup.ctorParameters = function () { return []; };
 MdButtonToggleGroup.propDecorators = {
     '_buttonToggles': [{ type: _angular_core.ContentChildren, args: [_angular_core.forwardRef(function () { return MdButtonToggle; }),] },],
     'name': [{ type: _angular_core.Input },],
-    'disabled': [{ type: _angular_core.Input },],
     'vertical': [{ type: _angular_core.Input },],
     'value': [{ type: _angular_core.Input },],
     'selected': [{ type: _angular_core.Input },],
@@ -6889,35 +6876,16 @@ MdButtonToggleGroup.propDecorators = {
 /**
  * Multiple selection button-toggle group. `ngModel` is not supported in this mode.
  */
-var MdButtonToggleGroupMultiple = (function () {
+var MdButtonToggleGroupMultiple = (function (_super) {
+    __extends(MdButtonToggleGroupMultiple, _super);
     function MdButtonToggleGroupMultiple() {
-        /**
-         * Disables all toggles in the group.
-         */
-        this._disabled = null;
+        var _this = _super.apply(this, arguments) || this;
         /**
          * Whether the button toggle group should be vertical.
          */
-        this._vertical = false;
+        _this._vertical = false;
+        return _this;
     }
-    Object.defineProperty(MdButtonToggleGroupMultiple.prototype, "disabled", {
-        /**
-         * Whether the toggle group is disabled.
-         * @return {?}
-         */
-        get: function () {
-            return this._disabled;
-        },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this._disabled = (value != null && value !== false) ? true : null;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(MdButtonToggleGroupMultiple.prototype, "vertical", {
         /**
          * Whether the toggle group is vertical.
@@ -6937,11 +6905,12 @@ var MdButtonToggleGroupMultiple = (function () {
         configurable: true
     });
     return MdButtonToggleGroupMultiple;
-}());
+}(_MdButtonToggleGroupMixinBase));
 MdButtonToggleGroupMultiple.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: 'md-button-toggle-group[multiple], mat-button-toggle-group[multiple]',
                 exportAs: 'mdButtonToggleGroup',
+                inputs: ['disabled'],
                 host: {
                     'class': 'mat-button-toggle-group',
                     '[class.mat-button-toggle-vertical]': 'vertical'
@@ -6953,7 +6922,6 @@ MdButtonToggleGroupMultiple.decorators = [
  */
 MdButtonToggleGroupMultiple.ctorParameters = function () { return []; };
 MdButtonToggleGroupMultiple.propDecorators = {
-    'disabled': [{ type: _angular_core.Input },],
     'vertical': [{ type: _angular_core.Input },],
 };
 /**
@@ -9245,7 +9213,7 @@ var MdSelectBase = (function () {
     }
     return MdSelectBase;
 }());
-var _MdSelectMixinBase = mixinColor(MdSelectBase, 'primary');
+var _MdSelectMixinBase = mixinColor(mixinDisabled(MdSelectBase), 'primary');
 var MdSelect = (function (_super) {
     __extends(MdSelect, _super);
     /**
@@ -9272,10 +9240,6 @@ var MdSelect = (function (_super) {
          * Whether filling out the select is required in the form.
          */
         _this._required = false;
-        /**
-         * Whether the select is disabled.
-         */
-        _this._disabled = false;
         /**
          * The scroll position of the overlay panel, calculated to center the selected option.
          */
@@ -9381,22 +9345,6 @@ var MdSelect = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSelect.prototype, "disabled", {
-        /**
-         * Whether the component is disabled.
-         * @return {?}
-         */
-        get: function () { return this._disabled; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this._disabled = coerceBooleanProperty(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(MdSelect.prototype, "required", {
         /**
          * Whether the component is required.
@@ -9451,7 +9399,7 @@ var MdSelect = (function (_super) {
          * Tab index for the select element.
          * @return {?}
          */
-        get: function () { return this._disabled ? -1 : this._tabIndex; },
+        get: function () { return this.disabled ? -1 : this._tabIndex; },
         /**
          * @param {?} value
          * @return {?}
@@ -10261,7 +10209,7 @@ MdSelect.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-select, mat-select',
                 template: "<div class=\"mat-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><span class=\"mat-select-placeholder\" [class.mat-floating-placeholder]=\"_selectionModel.hasValue()\" [@transformPlaceholder]=\"_getPlaceholderAnimationState()\" [style.opacity]=\"_getPlaceholderOpacity()\" [style.width.px]=\"_selectedValueWidth\">{{ placeholder }} </span><span class=\"mat-select-value\" *ngIf=\"_selectionModel.hasValue()\"><span class=\"mat-select-value-text\">{{ triggerValue }}</span> </span><span class=\"mat-select-arrow\"></span> <span class=\"mat-select-underline\"></span></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div class=\"mat-select-panel {{ 'mat-' + color }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_handlePanelKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
                 styles: [".mat-select{display:inline-block;outline:0}.mat-select-trigger{display:flex;align-items:center;height:30px;min-width:112px;cursor:pointer;position:relative;box-sizing:border-box}[aria-disabled=true] .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-underline{position:absolute;bottom:0;left:0;right:0;height:1px}[aria-disabled=true] .mat-select-underline{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;background-color:transparent;background-position:0 bottom}.mat-select-placeholder{position:relative;padding:0 2px;transform-origin:left top;flex-grow:1}.mat-select-placeholder.mat-floating-placeholder{top:-22px;left:-2px;text-align:left;transform:scale(.75)}[dir=rtl] .mat-select-placeholder{transform-origin:right top}[dir=rtl] .mat-select-placeholder.mat-floating-placeholder{left:2px;text-align:right}[aria-required=true] .mat-select-placeholder::after{content:'*'}.mat-select-value{position:absolute;max-width:calc(100% - 18px);flex-grow:1;top:0;left:0;bottom:0;display:flex;align-items:center}[dir=rtl] .mat-select-value{left:auto;right:0}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:30px}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}}"],
-                inputs: ['color'],
+                inputs: ['color', 'disabled'],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 host: {
                     'role': 'listbox',
@@ -10305,7 +10253,6 @@ MdSelect.propDecorators = {
     'optionGroups': [{ type: _angular_core.ContentChildren, args: [MdOptgroup,] },],
     'panelClass': [{ type: _angular_core.Input },],
     'placeholder': [{ type: _angular_core.Input },],
-    'disabled': [{ type: _angular_core.Input },],
     'required': [{ type: _angular_core.Input },],
     'multiple': [{ type: _angular_core.Input },],
     'floatPlaceholder': [{ type: _angular_core.Input },],
@@ -17253,51 +17200,45 @@ MdTabLabel.ctorParameters = function () { return [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-var MdTab = (function () {
+var MdTabBase = (function () {
+    function MdTabBase() {
+    }
+    return MdTabBase;
+}());
+var _MdTabMixinBase = mixinDisabled(MdTabBase);
+var MdTab = (function (_super) {
+    __extends(MdTab, _super);
     /**
      * @param {?} _viewContainerRef
      */
     function MdTab(_viewContainerRef) {
-        this._viewContainerRef = _viewContainerRef;
+        var _this = _super.call(this) || this;
+        _this._viewContainerRef = _viewContainerRef;
         /**
          * The plain text label for the tab, used when there is no template label.
          */
-        this.textLabel = '';
+        _this.textLabel = '';
         /**
          * The portal that will be the hosted content of the tab
          */
-        this._contentPortal = null;
+        _this._contentPortal = null;
         /**
          * The relatively indexed position where 0 represents the center, negative is left, and positive
          * represents the right.
          */
-        this.position = null;
+        _this.position = null;
         /**
          * The initial relatively index origin of the tab if it was created and selected after there
          * was already a selected tab. Provides context of what position the tab should originate from.
          */
-        this.origin = null;
-        this._disabled = false;
+        _this.origin = null;
+        return _this;
     }
     Object.defineProperty(MdTab.prototype, "content", {
         /**
          * @return {?}
          */
         get: function () { return this._contentPortal; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdTab.prototype, "disabled", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this._disabled; },
-        /**
-         * Whether the tab is disabled
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) { this._disabled = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -17308,10 +17249,11 @@ var MdTab = (function () {
         this._contentPortal = new TemplatePortal(this._content, this._viewContainerRef);
     };
     return MdTab;
-}());
+}(_MdTabMixinBase));
 MdTab.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-tab, mat-tab',
                 template: "<ng-template><ng-content></ng-content></ng-template>",
+                inputs: ['disabled']
             },] },
 ];
 /**
@@ -17324,7 +17266,6 @@ MdTab.propDecorators = {
     'templateLabel': [{ type: _angular_core.ContentChild, args: [MdTabLabel,] },],
     '_content': [{ type: _angular_core.ViewChild, args: [_angular_core.TemplateRef,] },],
     'textLabel': [{ type: _angular_core.Input, args: ['label',] },],
-    'disabled': [{ type: _angular_core.Input },],
 };
 /**
  * @license
@@ -17590,35 +17531,26 @@ MdTabGroup.propDecorators = {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+var MdTabLabelWrapperBase = (function () {
+    function MdTabLabelWrapperBase() {
+    }
+    return MdTabLabelWrapperBase;
+}());
+var _MdTabLabelWrapperMixinBase = mixinDisabled(MdTabLabelWrapperBase);
 /**
  * Used in the `md-tab-group` view to display tab labels.
  * \@docs-private
  */
-var MdTabLabelWrapper = (function () {
+var MdTabLabelWrapper = (function (_super) {
+    __extends(MdTabLabelWrapper, _super);
     /**
      * @param {?} elementRef
      */
     function MdTabLabelWrapper(elementRef) {
-        this.elementRef = elementRef;
-        /**
-         * Whether the tab label is disabled.
-         */
-        this._disabled = false;
+        var _this = _super.call(this) || this;
+        _this.elementRef = elementRef;
+        return _this;
     }
-    Object.defineProperty(MdTabLabelWrapper.prototype, "disabled", {
-        /**
-         * Whether the element is disabled.
-         * @return {?}
-         */
-        get: function () { return this._disabled; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) { this._disabled = coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * Sets focus on the wrapper element
      * @return {?}
@@ -17639,10 +17571,11 @@ var MdTabLabelWrapper = (function () {
         return this.elementRef.nativeElement.offsetWidth;
     };
     return MdTabLabelWrapper;
-}());
+}(_MdTabLabelWrapperMixinBase));
 MdTabLabelWrapper.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: '[md-tab-label-wrapper], [mat-tab-label-wrapper]',
+                inputs: ['disabled'],
                 host: {
                     '[class.mat-tab-disabled]': 'disabled'
                 }
@@ -17654,9 +17587,6 @@ MdTabLabelWrapper.decorators = [
 MdTabLabelWrapper.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
 ]; };
-MdTabLabelWrapper.propDecorators = {
-    'disabled': [{ type: _angular_core.Input },],
-};
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -19398,20 +19328,25 @@ function throwMdMenuInvalidPositionY() {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+var MdMenuItemBase = (function () {
+    function MdMenuItemBase() {
+    }
+    return MdMenuItemBase;
+}());
+var _MdMenuItemMixinBase = mixinDisabled(MdMenuItemBase);
 /**
  * This directive is intended to be used inside an md-menu tag.
  * It exists mostly to set the role attribute.
  */
-var MdMenuItem = (function () {
+var MdMenuItem = (function (_super) {
+    __extends(MdMenuItem, _super);
     /**
      * @param {?} _elementRef
      */
     function MdMenuItem(_elementRef) {
-        this._elementRef = _elementRef;
-        /**
-         * Whether the menu item is disabled
-         */
-        this._disabled = false;
+        var _this = _super.call(this) || this;
+        _this._elementRef = _elementRef;
+        return _this;
     }
     /**
      * Focuses the menu item.
@@ -19420,35 +19355,19 @@ var MdMenuItem = (function () {
     MdMenuItem.prototype.focus = function () {
         this._getHostElement().focus();
     };
-    Object.defineProperty(MdMenuItem.prototype, "disabled", {
-        /**
-         * Whether the menu item is disabled.
-         * @return {?}
-         */
-        get: function () { return this._disabled; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this._disabled = coerceBooleanProperty(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * Used to set the `tabindex`.
      * @return {?}
      */
     MdMenuItem.prototype._getTabIndex = function () {
-        return this._disabled ? '-1' : '0';
+        return this.disabled ? '-1' : '0';
     };
     /**
      * Used to set the HTML `disabled` attribute. Necessary for links to be disabled properly.
      * @return {?}
      */
     MdMenuItem.prototype._getDisabledAttr = function () {
-        return this._disabled ? true : null;
+        return this.disabled ? true : null;
     };
     /**
      * Returns the host DOM element.
@@ -19469,9 +19388,10 @@ var MdMenuItem = (function () {
         }
     };
     return MdMenuItem;
-}());
+}(_MdMenuItemMixinBase));
 MdMenuItem.decorators = [
     { type: _angular_core.Component, args: [{ selector: '[md-menu-item], [mat-menu-item]',
+                inputs: ['disabled'],
                 host: {
                     'role': 'menuitem',
                     'class': 'mat-menu-item',
@@ -19490,9 +19410,6 @@ MdMenuItem.decorators = [
 MdMenuItem.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
 ]; };
-MdMenuItem.propDecorators = {
-    'disabled': [{ type: _angular_core.Input },],
-};
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -24537,6 +24454,8 @@ exports._MdButtonMixinBase = _MdButtonMixinBase;
 exports.MdButton = MdButton;
 exports.MdAnchor = MdAnchor;
 exports.MdButtonToggleModule = MdButtonToggleModule;
+exports.MdButtonToggleGroupBase = MdButtonToggleGroupBase;
+exports._MdButtonToggleGroupMixinBase = _MdButtonToggleGroupMixinBase;
 exports.MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR;
 exports.MdButtonToggleChange = MdButtonToggleChange;
 exports.MdButtonToggleGroup = MdButtonToggleGroup;
@@ -24735,24 +24654,24 @@ exports.throwMdTooltipInvalidPositionError = throwMdTooltipInvalidPositionError;
 exports.MdTooltip = MdTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.ɵi = LIVE_ANNOUNCER_PROVIDER_FACTORY;
-exports.ɵq = mixinColor;
-exports.ɵr = mixinDisabled;
+exports.ɵw = mixinColor;
+exports.ɵx = mixinDisabled;
 exports.ɵj = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
-exports.ɵx = CdkCell;
-exports.ɵt = CdkCellDef;
-exports.ɵv = CdkColumnDef;
-exports.ɵw = CdkHeaderCell;
-exports.ɵu = CdkHeaderCellDef;
-exports.ɵy = BaseRowDef;
-exports.ɵbb = CdkCellOutlet;
-exports.ɵbc = CdkHeaderRow;
-exports.ɵz = CdkHeaderRowDef;
-exports.ɵbd = CdkRow;
-exports.ɵba = CdkRowDef;
+exports.ɵbd = CdkCell;
+exports.ɵz = CdkCellDef;
+exports.ɵbb = CdkColumnDef;
+exports.ɵbc = CdkHeaderCell;
+exports.ɵba = CdkHeaderCellDef;
+exports.ɵbe = BaseRowDef;
+exports.ɵbh = CdkCellOutlet;
+exports.ɵbi = CdkHeaderRow;
+exports.ɵbf = CdkHeaderRowDef;
+exports.ɵbj = CdkRow;
+exports.ɵbg = CdkRowDef;
 exports.ɵa = MdMutationObserverFactory;
 exports.ɵc = OVERLAY_CONTAINER_PROVIDER;
 exports.ɵb = OVERLAY_CONTAINER_PROVIDER_FACTORY;
-exports.ɵp = OverlayPositionBuilder;
+exports.ɵv = OverlayPositionBuilder;
 exports.ɵe = VIEWPORT_RULER_PROVIDER;
 exports.ɵd = VIEWPORT_RULER_PROVIDER_FACTORY;
 exports.ɵg = SCROLL_DISPATCHER_PROVIDER;
@@ -24763,6 +24682,12 @@ exports.ɵm = MdGridAvatarCssMatStyler;
 exports.ɵo = MdGridTileFooterCssMatStyler;
 exports.ɵn = MdGridTileHeaderCssMatStyler;
 exports.ɵl = MdGridTileText;
+exports.ɵp = MdMenuItemBase;
+exports.ɵq = _MdMenuItemMixinBase;
+exports.ɵt = MdTabBase;
+exports.ɵu = _MdTabMixinBase;
+exports.ɵr = MdTabLabelWrapperBase;
+exports.ɵs = _MdTabLabelWrapperMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

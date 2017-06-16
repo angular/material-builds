@@ -6438,6 +6438,9 @@ MdCoreModule.ctorParameters = () => [];
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+class MdButtonToggleGroupBase {
+}
+const _MdButtonToggleGroupMixinBase = mixinDisabled(MdButtonToggleGroupBase);
 /**
  * Provider Expression that allows md-button-toggle-group to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -6457,8 +6460,9 @@ class MdButtonToggleChange {
 /**
  * Exclusive selection button toggle group that behaves like a radio-button group.
  */
-class MdButtonToggleGroup {
+class MdButtonToggleGroup extends _MdButtonToggleGroupMixinBase {
     constructor() {
+        super(...arguments);
         /**
          * The value for the button toggle group. Should match currently selected button toggle.
          */
@@ -6467,10 +6471,6 @@ class MdButtonToggleGroup {
          * The HTML name attribute applied to toggles in this group.
          */
         this._name = `md-button-toggle-group-${_uniqueIdCounter$1++}`;
-        /**
-         * Disables all toggles in the group.
-         */
-        this._disabled = null;
         /**
          * Whether the button toggle group should be vertical.
          */
@@ -6521,20 +6521,6 @@ class MdButtonToggleGroup {
     set name(value) {
         this._name = value;
         this._updateButtonToggleNames();
-    }
-    /**
-     * Whether the toggle group is disabled.
-     * @return {?}
-     */
-    get disabled() {
-        return this._disabled;
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set disabled(value) {
-        this._disabled = coerceBooleanProperty(value);
     }
     /**
      * Whether the toggle group is vertical.
@@ -6668,6 +6654,7 @@ MdButtonToggleGroup.decorators = [
     { type: Directive, args: [{
                 selector: 'md-button-toggle-group:not([multiple]), mat-button-toggle-group:not([multiple])',
                 providers: [MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR],
+                inputs: ['disabled'],
                 host: {
                     'role': 'radiogroup',
                     'class': 'mat-button-toggle-group',
@@ -6683,7 +6670,6 @@ MdButtonToggleGroup.ctorParameters = () => [];
 MdButtonToggleGroup.propDecorators = {
     '_buttonToggles': [{ type: ContentChildren, args: [forwardRef(() => MdButtonToggle),] },],
     'name': [{ type: Input },],
-    'disabled': [{ type: Input },],
     'vertical': [{ type: Input },],
     'value': [{ type: Input },],
     'selected': [{ type: Input },],
@@ -6692,30 +6678,13 @@ MdButtonToggleGroup.propDecorators = {
 /**
  * Multiple selection button-toggle group. `ngModel` is not supported in this mode.
  */
-class MdButtonToggleGroupMultiple {
+class MdButtonToggleGroupMultiple extends _MdButtonToggleGroupMixinBase {
     constructor() {
-        /**
-         * Disables all toggles in the group.
-         */
-        this._disabled = null;
+        super(...arguments);
         /**
          * Whether the button toggle group should be vertical.
          */
         this._vertical = false;
-    }
-    /**
-     * Whether the toggle group is disabled.
-     * @return {?}
-     */
-    get disabled() {
-        return this._disabled;
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set disabled(value) {
-        this._disabled = (value != null && value !== false) ? true : null;
     }
     /**
      * Whether the toggle group is vertical.
@@ -6736,6 +6705,7 @@ MdButtonToggleGroupMultiple.decorators = [
     { type: Directive, args: [{
                 selector: 'md-button-toggle-group[multiple], mat-button-toggle-group[multiple]',
                 exportAs: 'mdButtonToggleGroup',
+                inputs: ['disabled'],
                 host: {
                     'class': 'mat-button-toggle-group',
                     '[class.mat-button-toggle-vertical]': 'vertical'
@@ -6747,7 +6717,6 @@ MdButtonToggleGroupMultiple.decorators = [
  */
 MdButtonToggleGroupMultiple.ctorParameters = () => [];
 MdButtonToggleGroupMultiple.propDecorators = {
-    'disabled': [{ type: Input },],
     'vertical': [{ type: Input },],
 };
 /**
@@ -8868,7 +8837,7 @@ class MdSelectBase {
         this._elementRef = _elementRef;
     }
 }
-const _MdSelectMixinBase = mixinColor(MdSelectBase, 'primary');
+const _MdSelectMixinBase = mixinColor(mixinDisabled(MdSelectBase), 'primary');
 class MdSelect extends _MdSelectMixinBase {
     /**
      * @param {?} _viewportRuler
@@ -8894,10 +8863,6 @@ class MdSelect extends _MdSelectMixinBase {
          * Whether filling out the select is required in the form.
          */
         this._required = false;
-        /**
-         * Whether the select is disabled.
-         */
-        this._disabled = false;
         /**
          * The scroll position of the overlay panel, calculated to center the selected option.
          */
@@ -8998,18 +8963,6 @@ class MdSelect extends _MdSelectMixinBase {
         Promise.resolve(null).then(() => this._setTriggerWidth());
     }
     /**
-     * Whether the component is disabled.
-     * @return {?}
-     */
-    get disabled() { return this._disabled; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set disabled(value) {
-        this._disabled = coerceBooleanProperty(value);
-    }
-    /**
      * Whether the component is required.
      * @return {?}
      */
@@ -9050,7 +9003,7 @@ class MdSelect extends _MdSelectMixinBase {
      * Tab index for the select element.
      * @return {?}
      */
-    get tabIndex() { return this._disabled ? -1 : this._tabIndex; }
+    get tabIndex() { return this.disabled ? -1 : this._tabIndex; }
     /**
      * @param {?} value
      * @return {?}
@@ -9828,7 +9781,7 @@ MdSelect.decorators = [
     { type: Component, args: [{selector: 'md-select, mat-select',
                 template: "<div class=\"mat-select-trigger\" cdk-overlay-origin (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><span class=\"mat-select-placeholder\" [class.mat-floating-placeholder]=\"_selectionModel.hasValue()\" [@transformPlaceholder]=\"_getPlaceholderAnimationState()\" [style.opacity]=\"_getPlaceholderOpacity()\" [style.width.px]=\"_selectedValueWidth\">{{ placeholder }} </span><span class=\"mat-select-value\" *ngIf=\"_selectionModel.hasValue()\"><span class=\"mat-select-value-text\">{{ triggerValue }}</span> </span><span class=\"mat-select-arrow\"></span> <span class=\"mat-select-underline\"></span></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div class=\"mat-select-panel {{ 'mat-' + color }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_handlePanelKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
                 styles: [".mat-select{display:inline-block;outline:0}.mat-select-trigger{display:flex;align-items:center;height:30px;min-width:112px;cursor:pointer;position:relative;box-sizing:border-box}[aria-disabled=true] .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-underline{position:absolute;bottom:0;left:0;right:0;height:1px}[aria-disabled=true] .mat-select-underline{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;background-color:transparent;background-position:0 bottom}.mat-select-placeholder{position:relative;padding:0 2px;transform-origin:left top;flex-grow:1}.mat-select-placeholder.mat-floating-placeholder{top:-22px;left:-2px;text-align:left;transform:scale(.75)}[dir=rtl] .mat-select-placeholder{transform-origin:right top}[dir=rtl] .mat-select-placeholder.mat-floating-placeholder{left:2px;text-align:right}[aria-required=true] .mat-select-placeholder::after{content:'*'}.mat-select-value{position:absolute;max-width:calc(100% - 18px);flex-grow:1;top:0;left:0;bottom:0;display:flex;align-items:center}[dir=rtl] .mat-select-value{left:auto;right:0}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:30px}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}}"],
-                inputs: ['color'],
+                inputs: ['color', 'disabled'],
                 encapsulation: ViewEncapsulation.None,
                 host: {
                     'role': 'listbox',
@@ -9872,7 +9825,6 @@ MdSelect.propDecorators = {
     'optionGroups': [{ type: ContentChildren, args: [MdOptgroup,] },],
     'panelClass': [{ type: Input },],
     'placeholder': [{ type: Input },],
-    'disabled': [{ type: Input },],
     'required': [{ type: Input },],
     'multiple': [{ type: Input },],
     'floatPlaceholder': [{ type: Input },],
@@ -16288,11 +16240,15 @@ MdTabLabel.ctorParameters = () => [
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-class MdTab {
+class MdTabBase {
+}
+const _MdTabMixinBase = mixinDisabled(MdTabBase);
+class MdTab extends _MdTabMixinBase {
     /**
      * @param {?} _viewContainerRef
      */
     constructor(_viewContainerRef) {
+        super();
         this._viewContainerRef = _viewContainerRef;
         /**
          * The plain text label for the tab, used when there is no template label.
@@ -16312,22 +16268,11 @@ class MdTab {
          * was already a selected tab. Provides context of what position the tab should originate from.
          */
         this.origin = null;
-        this._disabled = false;
     }
     /**
      * @return {?}
      */
     get content() { return this._contentPortal; }
-    /**
-     * Whether the tab is disabled
-     * @param {?} value
-     * @return {?}
-     */
-    set disabled(value) { this._disabled = coerceBooleanProperty(value); }
-    /**
-     * @return {?}
-     */
-    get disabled() { return this._disabled; }
     /**
      * @return {?}
      */
@@ -16338,6 +16283,7 @@ class MdTab {
 MdTab.decorators = [
     { type: Component, args: [{selector: 'md-tab, mat-tab',
                 template: "<ng-template><ng-content></ng-content></ng-template>",
+                inputs: ['disabled']
             },] },
 ];
 /**
@@ -16350,7 +16296,6 @@ MdTab.propDecorators = {
     'templateLabel': [{ type: ContentChild, args: [MdTabLabel,] },],
     '_content': [{ type: ViewChild, args: [TemplateRef,] },],
     'textLabel': [{ type: Input, args: ['label',] },],
-    'disabled': [{ type: Input },],
 };
 
 /**
@@ -16593,31 +16538,21 @@ MdTabGroup.propDecorators = {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+class MdTabLabelWrapperBase {
+}
+const _MdTabLabelWrapperMixinBase = mixinDisabled(MdTabLabelWrapperBase);
 /**
  * Used in the `md-tab-group` view to display tab labels.
  * \@docs-private
  */
-class MdTabLabelWrapper {
+class MdTabLabelWrapper extends _MdTabLabelWrapperMixinBase {
     /**
      * @param {?} elementRef
      */
     constructor(elementRef) {
+        super();
         this.elementRef = elementRef;
-        /**
-         * Whether the tab label is disabled.
-         */
-        this._disabled = false;
     }
-    /**
-     * Whether the element is disabled.
-     * @return {?}
-     */
-    get disabled() { return this._disabled; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set disabled(value) { this._disabled = coerceBooleanProperty(value); }
     /**
      * Sets focus on the wrapper element
      * @return {?}
@@ -16641,6 +16576,7 @@ class MdTabLabelWrapper {
 MdTabLabelWrapper.decorators = [
     { type: Directive, args: [{
                 selector: '[md-tab-label-wrapper], [mat-tab-label-wrapper]',
+                inputs: ['disabled'],
                 host: {
                     '[class.mat-tab-disabled]': 'disabled'
                 }
@@ -16652,9 +16588,6 @@ MdTabLabelWrapper.decorators = [
 MdTabLabelWrapper.ctorParameters = () => [
     { type: ElementRef, },
 ];
-MdTabLabelWrapper.propDecorators = {
-    'disabled': [{ type: Input },],
-};
 
 /**
  * @license
@@ -18303,20 +18236,20 @@ function throwMdMenuInvalidPositionY() {
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+class MdMenuItemBase {
+}
+const _MdMenuItemMixinBase = mixinDisabled(MdMenuItemBase);
 /**
  * This directive is intended to be used inside an md-menu tag.
  * It exists mostly to set the role attribute.
  */
-class MdMenuItem {
+class MdMenuItem extends _MdMenuItemMixinBase {
     /**
      * @param {?} _elementRef
      */
     constructor(_elementRef) {
+        super();
         this._elementRef = _elementRef;
-        /**
-         * Whether the menu item is disabled
-         */
-        this._disabled = false;
     }
     /**
      * Focuses the menu item.
@@ -18326,30 +18259,18 @@ class MdMenuItem {
         this._getHostElement().focus();
     }
     /**
-     * Whether the menu item is disabled.
-     * @return {?}
-     */
-    get disabled() { return this._disabled; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set disabled(value) {
-        this._disabled = coerceBooleanProperty(value);
-    }
-    /**
      * Used to set the `tabindex`.
      * @return {?}
      */
     _getTabIndex() {
-        return this._disabled ? '-1' : '0';
+        return this.disabled ? '-1' : '0';
     }
     /**
      * Used to set the HTML `disabled` attribute. Necessary for links to be disabled properly.
      * @return {?}
      */
     _getDisabledAttr() {
-        return this._disabled ? true : null;
+        return this.disabled ? true : null;
     }
     /**
      * Returns the host DOM element.
@@ -18372,6 +18293,7 @@ class MdMenuItem {
 }
 MdMenuItem.decorators = [
     { type: Component, args: [{selector: '[md-menu-item], [mat-menu-item]',
+                inputs: ['disabled'],
                 host: {
                     'role': 'menuitem',
                     'class': 'mat-menu-item',
@@ -18390,9 +18312,6 @@ MdMenuItem.decorators = [
 MdMenuItem.ctorParameters = () => [
     { type: ElementRef, },
 ];
-MdMenuItem.propDecorators = {
-    'disabled': [{ type: Input },],
-};
 
 /**
  * @license
@@ -23048,5 +22967,5 @@ MaterialModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { Dir, RtlModule, ObserveContentModule, ObserveContent, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, CdkDataTableModule, DataSource, RowPlaceholder, HeaderRowPlaceholder, CdkTable, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, throwMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵi, mixinColor as ɵq, mixinDisabled as ɵr, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵj, CdkCell as ɵx, CdkCellDef as ɵt, CdkColumnDef as ɵv, CdkHeaderCell as ɵw, CdkHeaderCellDef as ɵu, BaseRowDef as ɵy, CdkCellOutlet as ɵbb, CdkHeaderRow as ɵbc, CdkHeaderRowDef as ɵz, CdkRow as ɵbd, CdkRowDef as ɵba, MdMutationObserverFactory as ɵa, OVERLAY_CONTAINER_PROVIDER as ɵc, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵb, OverlayPositionBuilder as ɵp, VIEWPORT_RULER_PROVIDER as ɵe, VIEWPORT_RULER_PROVIDER_FACTORY as ɵd, SCROLL_DISPATCHER_PROVIDER as ɵg, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵf, RippleRenderer as ɵh, EXPANSION_PANEL_ANIMATION_TIMING as ɵk, MdGridAvatarCssMatStyler as ɵm, MdGridTileFooterCssMatStyler as ɵo, MdGridTileHeaderCssMatStyler as ɵn, MdGridTileText as ɵl };
+export { Dir, RtlModule, ObserveContentModule, ObserveContent, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, CdkDataTableModule, DataSource, RowPlaceholder, HeaderRowPlaceholder, CdkTable, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, throwMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵi, mixinColor as ɵw, mixinDisabled as ɵx, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵj, CdkCell as ɵbd, CdkCellDef as ɵz, CdkColumnDef as ɵbb, CdkHeaderCell as ɵbc, CdkHeaderCellDef as ɵba, BaseRowDef as ɵbe, CdkCellOutlet as ɵbh, CdkHeaderRow as ɵbi, CdkHeaderRowDef as ɵbf, CdkRow as ɵbj, CdkRowDef as ɵbg, MdMutationObserverFactory as ɵa, OVERLAY_CONTAINER_PROVIDER as ɵc, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵb, OverlayPositionBuilder as ɵv, VIEWPORT_RULER_PROVIDER as ɵe, VIEWPORT_RULER_PROVIDER_FACTORY as ɵd, SCROLL_DISPATCHER_PROVIDER as ɵg, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵf, RippleRenderer as ɵh, EXPANSION_PANEL_ANIMATION_TIMING as ɵk, MdGridAvatarCssMatStyler as ɵm, MdGridTileFooterCssMatStyler as ɵo, MdGridTileHeaderCssMatStyler as ɵn, MdGridTileText as ɵl, MdMenuItemBase as ɵp, _MdMenuItemMixinBase as ɵq, MdTabBase as ɵt, _MdTabMixinBase as ɵu, MdTabLabelWrapperBase as ɵr, _MdTabLabelWrapperMixinBase as ɵs };
 //# sourceMappingURL=material.js.map
