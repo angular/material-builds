@@ -1,4 +1,4 @@
-export { Dir, LayoutDirection, RtlModule } from './rtl/dir';
+export { Dir, Direction, Directionality, BidiModule } from './bidi/index';
 export { ObserveContentModule, ObserveContent } from './observe-content/observe-content';
 export * from './option/index';
 export { Portal, PortalHost, BasePortalHost, ComponentPortal, TemplatePortal } from './portal/portal';

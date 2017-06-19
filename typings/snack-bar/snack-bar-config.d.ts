@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ViewContainerRef } from '@angular/core';
-import { AriaLivePoliteness, LayoutDirection } from '../core';
+import { AriaLivePoliteness, Direction } from '../core';
 /**
  * Configuration used when opening a snack-bar.
  */
@@ -22,5 +22,5 @@ export declare class MdSnackBarConfig {
     /** Extra CSS classes to be added to the snack bar container. */
     extraClasses?: string[];
     /** Text layout direction for the snack bar. */
-    direction?: LayoutDirection;
+    direction?: Direction;
 }

@@ -9,7 +9,7 @@ import { ElementRef, ViewContainerRef, NgZone, OnDestroy, Renderer2, ChangeDetec
 import { AnimationEvent } from '@angular/animations';
 import { Overlay, OverlayRef, OverlayConnectionPosition, OriginConnectionPosition } from '../core';
 import { Observable } from 'rxjs/Observable';
-import { Dir } from '../core/rtl/dir';
+import { Directionality } from '../core/bidi/index';
 import { Platform } from '../core/platform/index';
 import 'rxjs/add/operator/first';
 import { ScrollDispatcher } from '../core/overlay/scroll/scroll-dispatcher';
@@ -67,7 +67,7 @@ export declare class MdTooltip implements OnDestroy {
     _matClass: string | Set<string> | string[] | {
         [key: string]: any;
     };
-    constructor(_overlay: Overlay, _elementRef: ElementRef, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _renderer: Renderer2, _platform: Platform, _dir: Dir);
+    constructor(_overlay: Overlay, _elementRef: ElementRef, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _renderer: Renderer2, _platform: Platform, _dir: Directionality);
     /**
      * Dispose the tooltip when destroyed.
      */
@@ -121,7 +121,7 @@ export declare class TooltipComponent {
     _transformOrigin: string;
     /** Subject for notifying that the tooltip has been hidden from the view */
     private _onHide;
-    constructor(_dir: Dir, _changeDetectorRef: ChangeDetectorRef);
+    constructor(_dir: Directionality, _changeDetectorRef: ChangeDetectorRef);
     /**
      * Shows the tooltip with an animation originating from the provided origin
      * @param position Position of the tooltip.

@@ -8,7 +8,7 @@
 import { ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { HammerInput } from '../core';
-import { Dir } from '../core/rtl/dir';
+import { Directionality } from '../core/bidi/index';
 import { FocusOriginMonitor } from '../core/style/focus-origin-monitor';
 import { CanDisable } from '../core/common-behaviors/disabled';
 /**
@@ -138,7 +138,7 @@ export declare class MdSlider extends _MdSliderMixinBase implements ControlValue
     private readonly _invertMouseCoords;
     /** The language direction for this slider element. */
     private readonly _direction;
-    constructor(renderer: Renderer2, _elementRef: ElementRef, _focusOriginMonitor: FocusOriginMonitor, _dir: Dir);
+    constructor(renderer: Renderer2, _elementRef: ElementRef, _focusOriginMonitor: FocusOriginMonitor, _dir: Directionality);
     ngOnDestroy(): void;
     _onMouseenter(): void;
     _onClick(event: MouseEvent): void;

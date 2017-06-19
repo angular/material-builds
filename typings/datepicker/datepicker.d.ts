@@ -7,7 +7,7 @@
  */
 import { AfterContentInit, EventEmitter, OnDestroy, ViewContainerRef, NgZone } from '@angular/core';
 import { Overlay } from '../core/overlay/overlay';
-import { Dir } from '../core/rtl/dir';
+import { Directionality } from '../core/bidi/index';
 import { MdDialog } from '../dialog/dialog';
 import { MdDatepickerInput } from './datepicker-input';
 import { DateAdapter } from '../core/datetime/index';
@@ -73,7 +73,7 @@ export declare class MdDatepicker<D> implements OnDestroy {
     /** The element that was focused before the datepicker was opened. */
     private _focusedElementBeforeOpen;
     private _inputSubscription;
-    constructor(_dialog: MdDialog, _overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, _dateAdapter: DateAdapter<D>, _dir: Dir, _document: any);
+    constructor(_dialog: MdDialog, _overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, _dateAdapter: DateAdapter<D>, _dir: Directionality, _document: any);
     ngOnDestroy(): void;
     /** Selects the given date and closes the currently open popup or dialog. */
     _selectAndClose(date: D): void;

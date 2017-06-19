@@ -26,6 +26,6 @@ export declare class LiveAnnouncer {
 export declare function LIVE_ANNOUNCER_PROVIDER_FACTORY(parentDispatcher: LiveAnnouncer, liveElement: any, platform: Platform): LiveAnnouncer;
 export declare const LIVE_ANNOUNCER_PROVIDER: {
     provide: typeof LiveAnnouncer;
-    deps: (typeof Platform | Optional[])[];
+    deps: (Optional[] | typeof Platform)[];
     useFactory: (parentDispatcher: LiveAnnouncer, liveElement: any, platform: Platform) => LiveAnnouncer;
 };

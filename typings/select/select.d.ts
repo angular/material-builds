@@ -8,7 +8,7 @@
 import { AfterContentInit, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer2, ChangeDetectorRef, OnInit } from '@angular/core';
 import { MdOption, MdOptionSelectionChange, MdOptgroup } from '../core/option/index';
 import { FocusKeyManager } from '../core/a11y/focus-key-manager';
-import { Dir } from '../core/rtl/dir';
+import { Directionality } from '../core/bidi/index';
 import { Observable } from 'rxjs/Observable';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { ConnectedOverlayDirective } from '../core/overlay/overlay-directives';
@@ -178,7 +178,7 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
     onClose: EventEmitter<void>;
     /** Event emitted when the selected value has been changed by the user. */
     change: EventEmitter<MdSelectChange>;
-    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef, _dir: Dir, _control: NgControl, tabIndex: string, placeholderOptions: PlaceholderOptions);
+    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef, _dir: Directionality, _control: NgControl, tabIndex: string, placeholderOptions: PlaceholderOptions);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

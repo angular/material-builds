@@ -149,6 +149,164 @@ NoConflictStyleCompatibilityMode.decorators = [
  */
 NoConflictStyleCompatibilityMode.ctorParameters = function () { return []; };
 /**
+ * Injection token used to inject the document into Directionality.
+ * This is used so that the value can be faked in tests.
+ *
+ * We can't use the real document in tests because changing the real `dir` causes geometry-based
+ * tests in Safari to fail.
+ *
+ * We also can't re-provide the DOCUMENT token from platform-brower because the unit tests
+ * themselves use things like `querySelector` in test code.
+ */
+var DIR_DOCUMENT = new _angular_core.InjectionToken('md-dir-doc');
+/**
+ * The directionality (LTR / RTL) context for the application (or a subtree of it).
+ * Exposes the current direction and a stream of direction changes.
+ */
+var Directionality = (function () {
+    /**
+     * @param {?=} _document
+     */
+    function Directionality(_document) {
+        this.value = 'ltr';
+        this.change = new _angular_core.EventEmitter();
+        if (typeof _document === 'object' && !!_document) {
+            // TODO: handle 'auto' value -
+            // We still need to account for dir="auto".
+            // It looks like HTMLElemenet.dir is also "auto" when that's set to the attribute,
+            // but getComputedStyle return either "ltr" or "rtl". avoiding getComputedStyle for now
+            // though, we're already calling it for the theming check.
+            this.value = (_document.body.dir || _document.documentElement.dir || 'ltr');
+        }
+    }
+    return Directionality;
+}());
+Directionality.decorators = [
+    { type: _angular_core.Injectable },
+];
+/**
+ * @nocollapse
+ */
+Directionality.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [DIR_DOCUMENT,] },] },
+]; };
+/**
+ * @param {?} parentDirectionality
+ * @param {?} _document
+ * @return {?}
+ */
+function DIRECTIONALITY_PROVIDER_FACTORY(parentDirectionality, _document) {
+    return parentDirectionality || new Directionality(_document);
+}
+var DIRECTIONALITY_PROVIDER = {
+    // If there is already a Directionality available, use that. Otherwise, provide a new one.
+    provide: Directionality,
+    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), Directionality], [new _angular_core.Optional(), _angular_platformBrowser.DOCUMENT]],
+    useFactory: DIRECTIONALITY_PROVIDER_FACTORY
+};
+/**
+ * Directive to listen for changes of direction of part of the DOM.
+ *
+ * Would provide itself in case a component looks for the Directionality service
+ */
+var Dir = (function () {
+    function Dir() {
+        /**
+         * Layout direction of the element.
+         */
+        this._dir = 'ltr';
+        /**
+         * Whether the `value` has been set to its initial value.
+         */
+        this._isInitialized = false;
+        /**
+         * Event emitted when the direction changes.
+         */
+        this.change = new _angular_core.EventEmitter();
+    }
+    Object.defineProperty(Dir.prototype, "dir", {
+        /**
+         * \@docs-private
+         * @return {?}
+         */
+        get: function () {
+            return this._dir;
+        },
+        /**
+         * @param {?} v
+         * @return {?}
+         */
+        set: function (v) {
+            var /** @type {?} */ old = this._dir;
+            this._dir = v;
+            if (old !== this._dir && this._isInitialized) {
+                this.change.emit();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Dir.prototype, "value", {
+        /**
+         * Current layout direction of the element.
+         * @return {?}
+         */
+        get: function () { return this.dir; },
+        /**
+         * @param {?} v
+         * @return {?}
+         */
+        set: function (v) { this.dir = v; },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Initialize once default value has been set.
+     * @return {?}
+     */
+    Dir.prototype.ngAfterContentInit = function () {
+        this._isInitialized = true;
+    };
+    return Dir;
+}());
+Dir.decorators = [
+    { type: _angular_core.Directive, args: [{
+                selector: '[dir]',
+                // TODO(hansl): maybe `$implicit` isn't the best option here, but for now that's the best we got.
+                exportAs: '$implicit',
+                providers: [
+                    { provide: Directionality, useExisting: Dir }
+                ]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+Dir.ctorParameters = function () { return []; };
+Dir.propDecorators = {
+    'change': [{ type: _angular_core.Output, args: ['dirChange',] },],
+    'dir': [{ type: _angular_core.HostBinding, args: ['attr.dir',] }, { type: _angular_core.Input, args: ['dir',] },],
+};
+var BidiModule = (function () {
+    function BidiModule() {
+    }
+    return BidiModule;
+}());
+BidiModule.decorators = [
+    { type: _angular_core.NgModule, args: [{
+                exports: [Dir],
+                declarations: [Dir],
+                providers: [
+                    { provide: DIR_DOCUMENT, useExisting: _angular_platformBrowser.DOCUMENT },
+                    Directionality,
+                ]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+BidiModule.ctorParameters = function () { return []; };
+/**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
 var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('md-sanity-checks');
@@ -204,8 +362,8 @@ var MdCommonModule = (function () {
 }());
 MdCommonModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [CompatibilityModule],
-                exports: [CompatibilityModule],
+                imports: [CompatibilityModule, BidiModule],
+                exports: [CompatibilityModule, BidiModule],
                 providers: [{
                         provide: MATERIAL_SANITY_CHECKS, useValue: true,
                     }],
@@ -310,92 +468,6 @@ MdLineModule.decorators = [
  * @nocollapse
  */
 MdLineModule.ctorParameters = function () { return []; };
-/**
- * Directive to listen for changes of direction of part of the DOM.
- *
- * Applications should use this directive instead of the native attribute so that Material
- * components can listen on changes of direction.
- */
-var Dir = (function () {
-    function Dir() {
-        /**
-         * Layout direction of the element.
-         */
-        this._dir = 'ltr';
-        /**
-         * Event emitted when the direction changes.
-         */
-        this.dirChange = new _angular_core.EventEmitter();
-    }
-    Object.defineProperty(Dir.prototype, "dir", {
-        /**
-         * \@docs-private
-         * @return {?}
-         */
-        get: function () {
-            return this._dir;
-        },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) {
-            var /** @type {?} */ old = this._dir;
-            this._dir = v;
-            if (old != this._dir) {
-                this.dirChange.emit();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Dir.prototype, "value", {
-        /**
-         * Current layout direction of the element.
-         * @return {?}
-         */
-        get: function () { return this.dir; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.dir = v; },
-        enumerable: true,
-        configurable: true
-    });
-    return Dir;
-}());
-Dir.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[dir]',
-                // TODO(hansl): maybe `$implicit` isn't the best option here, but for now that's the best we got.
-                exportAs: '$implicit'
-            },] },
-];
-/**
- * @nocollapse
- */
-Dir.ctorParameters = function () { return []; };
-Dir.propDecorators = {
-    '_dir': [{ type: _angular_core.Input, args: ['dir',] },],
-    'dirChange': [{ type: _angular_core.Output },],
-    'dir': [{ type: _angular_core.HostBinding, args: ['attr.dir',] },],
-};
-var RtlModule = (function () {
-    function RtlModule() {
-    }
-    return RtlModule;
-}());
-RtlModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                exports: [Dir],
-                declarations: [Dir]
-            },] },
-];
-/**
- * @nocollapse
- */
-RtlModule.ctorParameters = function () { return []; };
 /**
  * Factory that creates a new MutationObserver and allows us to stub it out in unit tests.
  * \@docs-private
@@ -4056,7 +4128,7 @@ ConnectedOverlayDirective.ctorParameters = function () { return [
     { type: _angular_core.Renderer2, },
     { type: _angular_core.TemplateRef, },
     { type: _angular_core.ViewContainerRef, },
-    { type: Dir, decorators: [{ type: _angular_core.Optional },] },
+    { type: Directionality, decorators: [{ type: _angular_core.Optional },] },
 ]; };
 ConnectedOverlayDirective.propDecorators = {
     'origin': [{ type: _angular_core.Input },],
@@ -6143,7 +6215,7 @@ MdCoreModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [
                     MdLineModule,
-                    RtlModule,
+                    BidiModule,
                     MdRippleModule,
                     ObserveContentModule,
                     PortalModule,
@@ -6154,7 +6226,7 @@ MdCoreModule.decorators = [
                 ],
                 exports: [
                     MdLineModule,
-                    RtlModule,
+                    BidiModule,
                     MdRippleModule,
                     ObserveContentModule,
                     PortalModule,
@@ -9724,7 +9796,7 @@ MdSelect.ctorParameters = function () { return [
     { type: _angular_core.ChangeDetectorRef, },
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ElementRef, },
-    { type: Dir, decorators: [{ type: _angular_core.Optional },] },
+    { type: Directionality, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_forms.NgControl, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional },] },
     { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['tabindex',] },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
@@ -11029,7 +11101,7 @@ MdSlider.ctorParameters = function () { return [
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ElementRef, },
     { type: FocusOriginMonitor, },
-    { type: Dir, decorators: [{ type: _angular_core.Optional },] },
+    { type: Directionality, decorators: [{ type: _angular_core.Optional },] },
 ]; };
 MdSlider.propDecorators = {
     'invert': [{ type: _angular_core.Input },],
@@ -11084,7 +11156,7 @@ var MdSliderModule = (function () {
 }());
 MdSliderModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [_angular_common.CommonModule, _angular_forms.FormsModule, MdCommonModule, StyleModule, RtlModule],
+                imports: [_angular_common.CommonModule, _angular_forms.FormsModule, MdCommonModule, StyleModule, BidiModule],
                 exports: [MdSlider, MdCommonModule],
                 declarations: [MdSlider],
                 providers: [{ provide: _angular_platformBrowser.HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
@@ -11539,7 +11611,7 @@ var MdSidenavContainer = (function () {
         // If a `Dir` directive exists up the tree, listen direction changes and update the left/right
         // properties to point to the proper start/end.
         if (_dir != null) {
-            _dir.dirChange.subscribe(function () { return _this._validateDrawers(); });
+            _dir.change.subscribe(function () { return _this._validateDrawers(); });
         }
     }
     Object.defineProperty(MdSidenavContainer.prototype, "start", {
@@ -11772,7 +11844,7 @@ MdSidenavContainer.decorators = [
  * @nocollapse
  */
 MdSidenavContainer.ctorParameters = function () { return [
-    { type: Dir, decorators: [{ type: _angular_core.Optional },] },
+    { type: Directionality, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_core.ElementRef, },
     { type: _angular_core.Renderer2, },
     { type: _angular_core.NgZone, },
@@ -12878,7 +12950,7 @@ MdGridList.decorators = [
 MdGridList.ctorParameters = function () { return [
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ElementRef, },
-    { type: Dir, decorators: [{ type: _angular_core.Optional },] },
+    { type: Directionality, decorators: [{ type: _angular_core.Optional },] },
 ]; };
 MdGridList.propDecorators = {
     '_tiles': [{ type: _angular_core.ContentChildren, args: [MdGridTile,] },],
@@ -16903,7 +16975,7 @@ var MdTabNav = (function () {
     MdTabNav.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._ngZone.runOutsideAngular(function () {
-            var /** @type {?} */ dirChange = _this._dir ? _this._dir.dirChange : rxjs_Observable.Observable.of(null);
+            var /** @type {?} */ dirChange = _this._dir ? _this._dir.change : rxjs_Observable.Observable.of(null);
             var /** @type {?} */ resize = typeof window !== 'undefined' ?
                 rxjs_Observable.Observable.fromEvent(window, 'resize').auditTime(10) :
                 rxjs_Observable.Observable.of(null);
@@ -16951,7 +17023,7 @@ MdTabNav.decorators = [
  * @nocollapse
  */
 MdTabNav.ctorParameters = function () { return [
-    { type: Dir, decorators: [{ type: _angular_core.Optional },] },
+    { type: Directionality, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_core.NgZone, },
 ]; };
 MdTabNav.propDecorators = {
@@ -17046,12 +17118,12 @@ MdTabLinkRipple.ctorParameters = function () { return [
  */
 var MdTabBody = (function () {
     /**
-     * @param {?} _dir
      * @param {?} _elementRef
+     * @param {?} _dir
      */
-    function MdTabBody(_dir, _elementRef) {
-        this._dir = _dir;
+    function MdTabBody(_elementRef, _dir) {
         this._elementRef = _elementRef;
+        this._dir = _dir;
         /**
          * Event emitted when the tab begins to animate towards the center as the active tab.
          */
@@ -17196,8 +17268,8 @@ MdTabBody.decorators = [
  * @nocollapse
  */
 MdTabBody.ctorParameters = function () { return [
-    { type: Dir, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_core.ElementRef, },
+    { type: Directionality, decorators: [{ type: _angular_core.Optional },] },
 ]; };
 MdTabBody.propDecorators = {
     '_portalHost': [{ type: _angular_core.ViewChild, args: [PortalHostDirective,] },],
@@ -17348,7 +17420,7 @@ var MdTabHeader = (function () {
     MdTabHeader.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._realignInkBar = this._ngZone.runOutsideAngular(function () {
-            var /** @type {?} */ dirChange = _this._dir ? _this._dir.dirChange : rxjs_Observable.Observable.of(null);
+            var /** @type {?} */ dirChange = _this._dir ? _this._dir.change : rxjs_Observable.Observable.of(null);
             var /** @type {?} */ resize = typeof window !== 'undefined' ?
                 rxjs_Observable.Observable.fromEvent(window, 'resize').auditTime(10) :
                 rxjs_Observable.Observable.of(null);
@@ -17639,7 +17711,7 @@ MdTabHeader.decorators = [
 MdTabHeader.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.NgZone, },
-    { type: Dir, decorators: [{ type: _angular_core.Optional },] },
+    { type: Directionality, decorators: [{ type: _angular_core.Optional },] },
 ]; };
 MdTabHeader.propDecorators = {
     '_labelWrappers': [{ type: _angular_core.ContentChildren, args: [MdTabLabelWrapper,] },],
@@ -18212,7 +18284,7 @@ MdTooltip.ctorParameters = function () { return [
     { type: _angular_core.NgZone, },
     { type: _angular_core.Renderer2, },
     { type: Platform, },
-    { type: Dir, decorators: [{ type: _angular_core.Optional },] },
+    { type: Directionality, decorators: [{ type: _angular_core.Optional },] },
 ]; };
 MdTooltip.propDecorators = {
     'position': [{ type: _angular_core.Input, args: ['mdTooltipPosition',] },],
@@ -18405,7 +18477,7 @@ TooltipComponent.decorators = [
  * @nocollapse
  */
 TooltipComponent.ctorParameters = function () { return [
-    { type: Dir, decorators: [{ type: _angular_core.Optional },] },
+    { type: Directionality, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_core.ChangeDetectorRef, },
 ]; };
 var MdTooltipModule = (function () {
@@ -19063,7 +19135,7 @@ MdMenuTrigger.ctorParameters = function () { return [
     { type: Overlay, },
     { type: _angular_core.ElementRef, },
     { type: _angular_core.ViewContainerRef, },
-    { type: Dir, decorators: [{ type: _angular_core.Optional },] },
+    { type: Directionality, decorators: [{ type: _angular_core.Optional },] },
 ]; };
 MdMenuTrigger.propDecorators = {
     '_deprecatedMdMenuTriggerFor': [{ type: _angular_core.Input, args: ['md-menu-trigger-for',] },],
@@ -19940,19 +20012,19 @@ var MdAutocompleteTrigger = (function () {
      * @param {?} _element
      * @param {?} _overlay
      * @param {?} _viewContainerRef
+     * @param {?} _zone
      * @param {?} _changeDetectorRef
      * @param {?} _dir
-     * @param {?} _zone
      * @param {?} _inputContainer
      * @param {?} _document
      */
-    function MdAutocompleteTrigger(_element, _overlay, _viewContainerRef, _changeDetectorRef, _dir, _zone, _inputContainer, _document) {
+    function MdAutocompleteTrigger(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, _dir, _inputContainer, _document) {
         this._element = _element;
         this._overlay = _overlay;
         this._viewContainerRef = _viewContainerRef;
+        this._zone = _zone;
         this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
-        this._zone = _zone;
         this._inputContainer = _inputContainer;
         this._document = _document;
         this._panelOpen = false;
@@ -20366,9 +20438,9 @@ MdAutocompleteTrigger.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: Overlay, },
     { type: _angular_core.ViewContainerRef, },
-    { type: _angular_core.ChangeDetectorRef, },
-    { type: Dir, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_core.NgZone, },
+    { type: _angular_core.ChangeDetectorRef, },
+    { type: Directionality, decorators: [{ type: _angular_core.Optional },] },
     { type: MdInputContainer, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Host },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
 ]; };
@@ -21542,7 +21614,7 @@ MdDatepicker.ctorParameters = function () { return [
     { type: _angular_core.NgZone, },
     { type: _angular_core.ViewContainerRef, },
     { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
-    { type: Dir, decorators: [{ type: _angular_core.Optional },] },
+    { type: Directionality, decorators: [{ type: _angular_core.Optional },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
 ]; };
 MdDatepicker.propDecorators = {
@@ -23168,7 +23240,7 @@ var MATERIAL_MODULES = [
     MdTooltipModule,
     OverlayModule,
     PortalModule,
-    RtlModule,
+    BidiModule,
     StyleModule,
     A11yModule,
     PlatformModule,
@@ -23196,7 +23268,8 @@ MaterialModule.decorators = [
 MaterialModule.ctorParameters = function () { return []; };
 
 exports.Dir = Dir;
-exports.RtlModule = RtlModule;
+exports.Directionality = Directionality;
+exports.BidiModule = BidiModule;
 exports.ObserveContentModule = ObserveContentModule;
 exports.ObserveContent = ObserveContent;
 exports.Portal = Portal;
@@ -23529,41 +23602,42 @@ exports.SCROLL_THROTTLE_MS = SCROLL_THROTTLE_MS;
 exports.throwMdTooltipInvalidPositionError = throwMdTooltipInvalidPositionError;
 exports.MdTooltip = MdTooltip;
 exports.TooltipComponent = TooltipComponent;
-exports.ɵi = LIVE_ANNOUNCER_PROVIDER_FACTORY;
-exports.ɵw = mixinColor;
-exports.ɵx = mixinDisabled;
-exports.ɵj = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
-exports.ɵbd = CdkCell;
-exports.ɵz = CdkCellDef;
-exports.ɵbb = CdkColumnDef;
-exports.ɵbc = CdkHeaderCell;
-exports.ɵba = CdkHeaderCellDef;
-exports.ɵbe = BaseRowDef;
-exports.ɵbh = CdkCellOutlet;
-exports.ɵbi = CdkHeaderRow;
-exports.ɵbf = CdkHeaderRowDef;
-exports.ɵbj = CdkRow;
-exports.ɵbg = CdkRowDef;
-exports.ɵa = MdMutationObserverFactory;
-exports.ɵc = OVERLAY_CONTAINER_PROVIDER;
-exports.ɵb = OVERLAY_CONTAINER_PROVIDER_FACTORY;
-exports.ɵv = OverlayPositionBuilder;
-exports.ɵe = VIEWPORT_RULER_PROVIDER;
-exports.ɵd = VIEWPORT_RULER_PROVIDER_FACTORY;
-exports.ɵg = SCROLL_DISPATCHER_PROVIDER;
-exports.ɵf = SCROLL_DISPATCHER_PROVIDER_FACTORY;
-exports.ɵh = RippleRenderer;
-exports.ɵk = EXPANSION_PANEL_ANIMATION_TIMING;
-exports.ɵm = MdGridAvatarCssMatStyler;
-exports.ɵo = MdGridTileFooterCssMatStyler;
-exports.ɵn = MdGridTileHeaderCssMatStyler;
-exports.ɵl = MdGridTileText;
-exports.ɵp = MdMenuItemBase;
-exports.ɵq = _MdMenuItemMixinBase;
-exports.ɵt = MdTabBase;
-exports.ɵu = _MdTabMixinBase;
-exports.ɵr = MdTabLabelWrapperBase;
-exports.ɵs = _MdTabLabelWrapperMixinBase;
+exports.ɵj = LIVE_ANNOUNCER_PROVIDER_FACTORY;
+exports.ɵa = DIR_DOCUMENT;
+exports.ɵx = mixinColor;
+exports.ɵy = mixinDisabled;
+exports.ɵk = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
+exports.ɵbe = CdkCell;
+exports.ɵba = CdkCellDef;
+exports.ɵbc = CdkColumnDef;
+exports.ɵbd = CdkHeaderCell;
+exports.ɵbb = CdkHeaderCellDef;
+exports.ɵbf = BaseRowDef;
+exports.ɵbi = CdkCellOutlet;
+exports.ɵbj = CdkHeaderRow;
+exports.ɵbg = CdkHeaderRowDef;
+exports.ɵbk = CdkRow;
+exports.ɵbh = CdkRowDef;
+exports.ɵb = MdMutationObserverFactory;
+exports.ɵd = OVERLAY_CONTAINER_PROVIDER;
+exports.ɵc = OVERLAY_CONTAINER_PROVIDER_FACTORY;
+exports.ɵw = OverlayPositionBuilder;
+exports.ɵf = VIEWPORT_RULER_PROVIDER;
+exports.ɵe = VIEWPORT_RULER_PROVIDER_FACTORY;
+exports.ɵh = SCROLL_DISPATCHER_PROVIDER;
+exports.ɵg = SCROLL_DISPATCHER_PROVIDER_FACTORY;
+exports.ɵi = RippleRenderer;
+exports.ɵl = EXPANSION_PANEL_ANIMATION_TIMING;
+exports.ɵn = MdGridAvatarCssMatStyler;
+exports.ɵp = MdGridTileFooterCssMatStyler;
+exports.ɵo = MdGridTileHeaderCssMatStyler;
+exports.ɵm = MdGridTileText;
+exports.ɵq = MdMenuItemBase;
+exports.ɵr = _MdMenuItemMixinBase;
+exports.ɵu = MdTabBase;
+exports.ɵv = _MdTabMixinBase;
+exports.ɵs = MdTabLabelWrapperBase;
+exports.ɵt = _MdTabLabelWrapperMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

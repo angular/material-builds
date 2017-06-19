@@ -258,6 +258,154 @@ NoConflictStyleCompatibilityMode.decorators = [
 NoConflictStyleCompatibilityMode.ctorParameters = () => [];
 
 /**
+ * Injection token used to inject the document into Directionality.
+ * This is used so that the value can be faked in tests.
+ *
+ * We can't use the real document in tests because changing the real `dir` causes geometry-based
+ * tests in Safari to fail.
+ *
+ * We also can't re-provide the DOCUMENT token from platform-brower because the unit tests
+ * themselves use things like `querySelector` in test code.
+ */
+const DIR_DOCUMENT = new InjectionToken('md-dir-doc');
+/**
+ * The directionality (LTR / RTL) context for the application (or a subtree of it).
+ * Exposes the current direction and a stream of direction changes.
+ */
+class Directionality {
+    /**
+     * @param {?=} _document
+     */
+    constructor(_document) {
+        this.value = 'ltr';
+        this.change = new EventEmitter();
+        if (typeof _document === 'object' && !!_document) {
+            // TODO: handle 'auto' value -
+            // We still need to account for dir="auto".
+            // It looks like HTMLElemenet.dir is also "auto" when that's set to the attribute,
+            // but getComputedStyle return either "ltr" or "rtl". avoiding getComputedStyle for now
+            // though, we're already calling it for the theming check.
+            this.value = (_document.body.dir || _document.documentElement.dir || 'ltr');
+        }
+    }
+}
+Directionality.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+Directionality.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DIR_DOCUMENT,] },] },
+];
+/**
+ * @param {?} parentDirectionality
+ * @param {?} _document
+ * @return {?}
+ */
+function DIRECTIONALITY_PROVIDER_FACTORY(parentDirectionality, _document) {
+    return parentDirectionality || new Directionality(_document);
+}
+const DIRECTIONALITY_PROVIDER = {
+    // If there is already a Directionality available, use that. Otherwise, provide a new one.
+    provide: Directionality,
+    deps: [[new Optional(), new SkipSelf(), Directionality], [new Optional(), DOCUMENT]],
+    useFactory: DIRECTIONALITY_PROVIDER_FACTORY
+};
+
+/**
+ * Directive to listen for changes of direction of part of the DOM.
+ *
+ * Would provide itself in case a component looks for the Directionality service
+ */
+class Dir {
+    constructor() {
+        /**
+         * Layout direction of the element.
+         */
+        this._dir = 'ltr';
+        /**
+         * Whether the `value` has been set to its initial value.
+         */
+        this._isInitialized = false;
+        /**
+         * Event emitted when the direction changes.
+         */
+        this.change = new EventEmitter();
+    }
+    /**
+     * \@docs-private
+     * @return {?}
+     */
+    get dir() {
+        return this._dir;
+    }
+    /**
+     * @param {?} v
+     * @return {?}
+     */
+    set dir(v) {
+        let /** @type {?} */ old = this._dir;
+        this._dir = v;
+        if (old !== this._dir && this._isInitialized) {
+            this.change.emit();
+        }
+    }
+    /**
+     * Current layout direction of the element.
+     * @return {?}
+     */
+    get value() { return this.dir; }
+    /**
+     * @param {?} v
+     * @return {?}
+     */
+    set value(v) { this.dir = v; }
+    /**
+     * Initialize once default value has been set.
+     * @return {?}
+     */
+    ngAfterContentInit() {
+        this._isInitialized = true;
+    }
+}
+Dir.decorators = [
+    { type: Directive, args: [{
+                selector: '[dir]',
+                // TODO(hansl): maybe `$implicit` isn't the best option here, but for now that's the best we got.
+                exportAs: '$implicit',
+                providers: [
+                    { provide: Directionality, useExisting: Dir }
+                ]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+Dir.ctorParameters = () => [];
+Dir.propDecorators = {
+    'change': [{ type: Output, args: ['dirChange',] },],
+    'dir': [{ type: HostBinding, args: ['attr.dir',] }, { type: Input, args: ['dir',] },],
+};
+
+class BidiModule {
+}
+BidiModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [Dir],
+                declarations: [Dir],
+                providers: [
+                    { provide: DIR_DOCUMENT, useExisting: DOCUMENT },
+                    Directionality,
+                ]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+BidiModule.ctorParameters = () => [];
+
+/**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
 const MATERIAL_SANITY_CHECKS = new InjectionToken('md-sanity-checks');
@@ -312,8 +460,8 @@ class MdCommonModule {
 }
 MdCommonModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CompatibilityModule],
-                exports: [CompatibilityModule],
+                imports: [CompatibilityModule, BidiModule],
+                exports: [CompatibilityModule, BidiModule],
                 providers: [{
                         provide: MATERIAL_SANITY_CHECKS, useValue: true,
                     }],
@@ -411,81 +559,6 @@ MdLineModule.decorators = [
  * @nocollapse
  */
 MdLineModule.ctorParameters = () => [];
-
-/**
- * Directive to listen for changes of direction of part of the DOM.
- *
- * Applications should use this directive instead of the native attribute so that Material
- * components can listen on changes of direction.
- */
-class Dir {
-    constructor() {
-        /**
-         * Layout direction of the element.
-         */
-        this._dir = 'ltr';
-        /**
-         * Event emitted when the direction changes.
-         */
-        this.dirChange = new EventEmitter();
-    }
-    /**
-     * \@docs-private
-     * @return {?}
-     */
-    get dir() {
-        return this._dir;
-    }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set dir(v) {
-        let /** @type {?} */ old = this._dir;
-        this._dir = v;
-        if (old != this._dir) {
-            this.dirChange.emit();
-        }
-    }
-    /**
-     * Current layout direction of the element.
-     * @return {?}
-     */
-    get value() { return this.dir; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set value(v) { this.dir = v; }
-}
-Dir.decorators = [
-    { type: Directive, args: [{
-                selector: '[dir]',
-                // TODO(hansl): maybe `$implicit` isn't the best option here, but for now that's the best we got.
-                exportAs: '$implicit'
-            },] },
-];
-/**
- * @nocollapse
- */
-Dir.ctorParameters = () => [];
-Dir.propDecorators = {
-    '_dir': [{ type: Input, args: ['dir',] },],
-    'dirChange': [{ type: Output },],
-    'dir': [{ type: HostBinding, args: ['attr.dir',] },],
-};
-class RtlModule {
-}
-RtlModule.decorators = [
-    { type: NgModule, args: [{
-                exports: [Dir],
-                declarations: [Dir]
-            },] },
-];
-/**
- * @nocollapse
- */
-RtlModule.ctorParameters = () => [];
 
 /**
  * Factory that creates a new MutationObserver and allows us to stub it out in unit tests.
@@ -3961,7 +4034,7 @@ ConnectedOverlayDirective.ctorParameters = () => [
     { type: Renderer2, },
     { type: TemplateRef, },
     { type: ViewContainerRef, },
-    { type: Dir, decorators: [{ type: Optional },] },
+    { type: Directionality, decorators: [{ type: Optional },] },
 ];
 ConnectedOverlayDirective.propDecorators = {
     'origin': [{ type: Input },],
@@ -5975,7 +6048,7 @@ MdCoreModule.decorators = [
     { type: NgModule, args: [{
                 imports: [
                     MdLineModule,
-                    RtlModule,
+                    BidiModule,
                     MdRippleModule,
                     ObserveContentModule,
                     PortalModule,
@@ -5986,7 +6059,7 @@ MdCoreModule.decorators = [
                 ],
                 exports: [
                     MdLineModule,
-                    RtlModule,
+                    BidiModule,
                     MdRippleModule,
                     ObserveContentModule,
                     PortalModule,
@@ -9300,7 +9373,7 @@ MdSelect.ctorParameters = () => [
     { type: ChangeDetectorRef, },
     { type: Renderer2, },
     { type: ElementRef, },
-    { type: Dir, decorators: [{ type: Optional },] },
+    { type: Directionality, decorators: [{ type: Optional },] },
     { type: NgControl, decorators: [{ type: Self }, { type: Optional },] },
     { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MD_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
@@ -10477,7 +10550,7 @@ MdSlider.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
     { type: FocusOriginMonitor, },
-    { type: Dir, decorators: [{ type: Optional },] },
+    { type: Directionality, decorators: [{ type: Optional },] },
 ];
 MdSlider.propDecorators = {
     'invert': [{ type: Input },],
@@ -10529,7 +10602,7 @@ class MdSliderModule {
 }
 MdSliderModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CommonModule, FormsModule, MdCommonModule, StyleModule, RtlModule],
+                imports: [CommonModule, FormsModule, MdCommonModule, StyleModule, BidiModule],
                 exports: [MdSlider, MdCommonModule],
                 declarations: [MdSlider],
                 providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
@@ -10927,7 +11000,7 @@ class MdSidenavContainer {
         // If a `Dir` directive exists up the tree, listen direction changes and update the left/right
         // properties to point to the proper start/end.
         if (_dir != null) {
-            _dir.dirChange.subscribe(() => this._validateDrawers());
+            _dir.change.subscribe(() => this._validateDrawers());
         }
     }
     /**
@@ -11147,7 +11220,7 @@ MdSidenavContainer.decorators = [
  * @nocollapse
  */
 MdSidenavContainer.ctorParameters = () => [
-    { type: Dir, decorators: [{ type: Optional },] },
+    { type: Directionality, decorators: [{ type: Optional },] },
     { type: ElementRef, },
     { type: Renderer2, },
     { type: NgZone, },
@@ -12164,7 +12237,7 @@ MdGridList.decorators = [
 MdGridList.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
-    { type: Dir, decorators: [{ type: Optional },] },
+    { type: Directionality, decorators: [{ type: Optional },] },
 ];
 MdGridList.propDecorators = {
     '_tiles': [{ type: ContentChildren, args: [MdGridTile,] },],
@@ -15907,7 +15980,7 @@ class MdTabNav {
      */
     ngAfterContentInit() {
         this._ngZone.runOutsideAngular(() => {
-            let /** @type {?} */ dirChange = this._dir ? this._dir.dirChange : Observable.of(null);
+            let /** @type {?} */ dirChange = this._dir ? this._dir.change : Observable.of(null);
             let /** @type {?} */ resize = typeof window !== 'undefined' ?
                 Observable.fromEvent(window, 'resize').auditTime(10) :
                 Observable.of(null);
@@ -15954,7 +16027,7 @@ MdTabNav.decorators = [
  * @nocollapse
  */
 MdTabNav.ctorParameters = () => [
-    { type: Dir, decorators: [{ type: Optional },] },
+    { type: Directionality, decorators: [{ type: Optional },] },
     { type: NgZone, },
 ];
 MdTabNav.propDecorators = {
@@ -16043,12 +16116,12 @@ MdTabLinkRipple.ctorParameters = () => [
  */
 class MdTabBody {
     /**
-     * @param {?} _dir
      * @param {?} _elementRef
+     * @param {?} _dir
      */
-    constructor(_dir, _elementRef) {
-        this._dir = _dir;
+    constructor(_elementRef, _dir) {
         this._elementRef = _elementRef;
+        this._dir = _dir;
         /**
          * Event emitted when the tab begins to animate towards the center as the active tab.
          */
@@ -16184,8 +16257,8 @@ MdTabBody.decorators = [
  * @nocollapse
  */
 MdTabBody.ctorParameters = () => [
-    { type: Dir, decorators: [{ type: Optional },] },
     { type: ElementRef, },
+    { type: Directionality, decorators: [{ type: Optional },] },
 ];
 MdTabBody.propDecorators = {
     '_portalHost': [{ type: ViewChild, args: [PortalHostDirective,] },],
@@ -16328,7 +16401,7 @@ class MdTabHeader {
      */
     ngAfterContentInit() {
         this._realignInkBar = this._ngZone.runOutsideAngular(() => {
-            let /** @type {?} */ dirChange = this._dir ? this._dir.dirChange : Observable.of(null);
+            let /** @type {?} */ dirChange = this._dir ? this._dir.change : Observable.of(null);
             let /** @type {?} */ resize = typeof window !== 'undefined' ?
                 Observable.fromEvent(window, 'resize').auditTime(10) :
                 Observable.of(null);
@@ -16610,7 +16683,7 @@ MdTabHeader.decorators = [
 MdTabHeader.ctorParameters = () => [
     { type: ElementRef, },
     { type: NgZone, },
-    { type: Dir, decorators: [{ type: Optional },] },
+    { type: Directionality, decorators: [{ type: Optional },] },
 ];
 MdTabHeader.propDecorators = {
     '_labelWrappers': [{ type: ContentChildren, args: [MdTabLabelWrapper,] },],
@@ -17120,7 +17193,7 @@ MdTooltip.ctorParameters = () => [
     { type: NgZone, },
     { type: Renderer2, },
     { type: Platform, },
-    { type: Dir, decorators: [{ type: Optional },] },
+    { type: Directionality, decorators: [{ type: Optional },] },
 ];
 MdTooltip.propDecorators = {
     'position': [{ type: Input, args: ['mdTooltipPosition',] },],
@@ -17310,7 +17383,7 @@ TooltipComponent.decorators = [
  * @nocollapse
  */
 TooltipComponent.ctorParameters = () => [
-    { type: Dir, decorators: [{ type: Optional },] },
+    { type: Directionality, decorators: [{ type: Optional },] },
     { type: ChangeDetectorRef, },
 ];
 
@@ -17932,7 +18005,7 @@ MdMenuTrigger.ctorParameters = () => [
     { type: Overlay, },
     { type: ElementRef, },
     { type: ViewContainerRef, },
-    { type: Dir, decorators: [{ type: Optional },] },
+    { type: Directionality, decorators: [{ type: Optional },] },
 ];
 MdMenuTrigger.propDecorators = {
     '_deprecatedMdMenuTriggerFor': [{ type: Input, args: ['md-menu-trigger-for',] },],
@@ -18768,19 +18841,19 @@ class MdAutocompleteTrigger {
      * @param {?} _element
      * @param {?} _overlay
      * @param {?} _viewContainerRef
+     * @param {?} _zone
      * @param {?} _changeDetectorRef
      * @param {?} _dir
-     * @param {?} _zone
      * @param {?} _inputContainer
      * @param {?} _document
      */
-    constructor(_element, _overlay, _viewContainerRef, _changeDetectorRef, _dir, _zone, _inputContainer, _document) {
+    constructor(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, _dir, _inputContainer, _document) {
         this._element = _element;
         this._overlay = _overlay;
         this._viewContainerRef = _viewContainerRef;
+        this._zone = _zone;
         this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
-        this._zone = _zone;
         this._inputContainer = _inputContainer;
         this._document = _document;
         this._panelOpen = false;
@@ -19164,9 +19237,9 @@ MdAutocompleteTrigger.ctorParameters = () => [
     { type: ElementRef, },
     { type: Overlay, },
     { type: ViewContainerRef, },
-    { type: ChangeDetectorRef, },
-    { type: Dir, decorators: [{ type: Optional },] },
     { type: NgZone, },
+    { type: ChangeDetectorRef, },
+    { type: Directionality, decorators: [{ type: Optional },] },
     { type: MdInputContainer, decorators: [{ type: Optional }, { type: Host },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
@@ -20273,7 +20346,7 @@ MdDatepicker.ctorParameters = () => [
     { type: NgZone, },
     { type: ViewContainerRef, },
     { type: DateAdapter, decorators: [{ type: Optional },] },
-    { type: Dir, decorators: [{ type: Optional },] },
+    { type: Directionality, decorators: [{ type: Optional },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
 MdDatepicker.propDecorators = {
@@ -21804,7 +21877,7 @@ const MATERIAL_MODULES = [
     MdTooltipModule,
     OverlayModule,
     PortalModule,
-    RtlModule,
+    BidiModule,
     StyleModule,
     A11yModule,
     PlatformModule,
@@ -21832,5 +21905,5 @@ MaterialModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { Dir, RtlModule, ObserveContentModule, ObserveContent, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, CdkDataTableModule, DataSource, RowPlaceholder, HeaderRowPlaceholder, CdkTable, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, throwMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵi, mixinColor as ɵw, mixinDisabled as ɵx, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵj, CdkCell as ɵbd, CdkCellDef as ɵz, CdkColumnDef as ɵbb, CdkHeaderCell as ɵbc, CdkHeaderCellDef as ɵba, BaseRowDef as ɵbe, CdkCellOutlet as ɵbh, CdkHeaderRow as ɵbi, CdkHeaderRowDef as ɵbf, CdkRow as ɵbj, CdkRowDef as ɵbg, MdMutationObserverFactory as ɵa, OVERLAY_CONTAINER_PROVIDER as ɵc, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵb, OverlayPositionBuilder as ɵv, VIEWPORT_RULER_PROVIDER as ɵe, VIEWPORT_RULER_PROVIDER_FACTORY as ɵd, SCROLL_DISPATCHER_PROVIDER as ɵg, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵf, RippleRenderer as ɵh, EXPANSION_PANEL_ANIMATION_TIMING as ɵk, MdGridAvatarCssMatStyler as ɵm, MdGridTileFooterCssMatStyler as ɵo, MdGridTileHeaderCssMatStyler as ɵn, MdGridTileText as ɵl, MdMenuItemBase as ɵp, _MdMenuItemMixinBase as ɵq, MdTabBase as ɵt, _MdTabMixinBase as ɵu, MdTabLabelWrapperBase as ɵr, _MdTabLabelWrapperMixinBase as ɵs };
+export { Dir, Directionality, BidiModule, ObserveContentModule, ObserveContent, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, CdkDataTableModule, DataSource, RowPlaceholder, HeaderRowPlaceholder, CdkTable, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, throwMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵj, DIR_DOCUMENT as ɵa, mixinColor as ɵx, mixinDisabled as ɵy, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵk, CdkCell as ɵbe, CdkCellDef as ɵba, CdkColumnDef as ɵbc, CdkHeaderCell as ɵbd, CdkHeaderCellDef as ɵbb, BaseRowDef as ɵbf, CdkCellOutlet as ɵbi, CdkHeaderRow as ɵbj, CdkHeaderRowDef as ɵbg, CdkRow as ɵbk, CdkRowDef as ɵbh, MdMutationObserverFactory as ɵb, OVERLAY_CONTAINER_PROVIDER as ɵd, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵc, OverlayPositionBuilder as ɵw, VIEWPORT_RULER_PROVIDER as ɵf, VIEWPORT_RULER_PROVIDER_FACTORY as ɵe, SCROLL_DISPATCHER_PROVIDER as ɵh, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵg, RippleRenderer as ɵi, EXPANSION_PANEL_ANIMATION_TIMING as ɵl, MdGridAvatarCssMatStyler as ɵn, MdGridTileFooterCssMatStyler as ɵp, MdGridTileHeaderCssMatStyler as ɵo, MdGridTileText as ɵm, MdMenuItemBase as ɵq, _MdMenuItemMixinBase as ɵr, MdTabBase as ɵu, _MdTabMixinBase as ɵv, MdTabLabelWrapperBase as ɵs, _MdTabLabelWrapperMixinBase as ɵt };
 //# sourceMappingURL=material.js.map

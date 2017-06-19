@@ -7,7 +7,7 @@
  */
 import { AfterContentChecked, OnInit, QueryList, Renderer2, ElementRef } from '@angular/core';
 import { MdGridTile } from './grid-tile';
-import { Dir } from '../core';
+import { Directionality } from '../core';
 export declare class MdGridList implements OnInit, AfterContentChecked {
     private _renderer;
     private _element;
@@ -27,7 +27,7 @@ export declare class MdGridList implements OnInit, AfterContentChecked {
     private _tileStyler;
     /** Query list of tiles that are being rendered. */
     _tiles: QueryList<MdGridTile>;
-    constructor(_renderer: Renderer2, _element: ElementRef, _dir: Dir);
+    constructor(_renderer: Renderer2, _element: ElementRef, _dir: Directionality);
     /** Amount of columns in the grid list. */
     cols: any;
     /** Size of the grid list's gutter in pixels. */

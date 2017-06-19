@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { PositionStrategy } from './position/position-strategy';
-import { LayoutDirection } from '../rtl/dir';
+import { Direction } from '../bidi/index';
 import { ScrollStrategy } from './scroll/scroll-strategy';
 /**
  * OverlayState is a bag of values for either the initial configuration or current state of an
@@ -32,5 +32,5 @@ export declare class OverlayState {
     /** The min-height of the overlay panel. If a number is provided, pixel units are assumed. */
     minHeight: number | string;
     /** The direction of the text in the overlay panel. */
-    direction: LayoutDirection;
+    direction: Direction;
 }

@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ViewContainerRef } from '@angular/core';
-import { LayoutDirection } from '../core';
+import { Direction } from '../core';
 /** Valid ARIA roles for a dialog element. */
 export declare type DialogRole = 'dialog' | 'alertdialog';
 /** Possible overrides for a dialog's position. */
@@ -46,5 +46,5 @@ export declare class MdDialogConfig {
     /** Data being injected into the child component. */
     data?: any;
     /** Layout direction for the dialog's content. */
-    direction?: LayoutDirection;
+    direction?: Direction;
 }

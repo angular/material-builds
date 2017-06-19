@@ -9,7 +9,7 @@ import { EventEmitter, TemplateRef, ViewContainerRef, OnDestroy, ElementRef, Ren
 import { Overlay } from './overlay';
 import { OverlayRef } from './overlay-ref';
 import { ConnectionPositionPair, ConnectedOverlayPositionChange } from './position/connected-position';
-import { Dir, LayoutDirection } from '../rtl/dir';
+import { Directionality, Direction } from '../bidi/index';
 import { ScrollStrategy } from './scroll/scroll-strategy';
 /**
  * Directive applied to an element to make it usable as an origin for an Overlay using a
@@ -67,11 +67,11 @@ export declare class ConnectedOverlayDirective implements OnDestroy, OnChanges {
     attach: EventEmitter<void>;
     /** Event emitted when the overlay has been detached. */
     detach: EventEmitter<void>;
-    constructor(_overlay: Overlay, _renderer: Renderer2, templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef, _dir: Dir);
+    constructor(_overlay: Overlay, _renderer: Renderer2, templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef, _dir: Directionality);
     /** The associated overlay reference. */
     readonly overlayRef: OverlayRef;
     /** The element's layout direction. */
-    readonly dir: LayoutDirection;
+    readonly dir: Direction;
     ngOnDestroy(): void;
     ngOnChanges(changes: SimpleChanges): void;
     /** Creates an overlay */

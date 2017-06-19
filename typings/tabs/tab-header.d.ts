@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { QueryList, ElementRef, EventEmitter, AfterContentChecked, AfterContentInit, OnDestroy, NgZone } from '@angular/core';
-import { Dir, LayoutDirection } from '../core';
+import { Directionality, Direction } from '../core';
 import { MdTabLabelWrapper } from './tab-label-wrapper';
 import { MdInkBar } from './ink-bar';
 import 'rxjs/add/operator/map';
@@ -66,7 +66,7 @@ export declare class MdTabHeader implements AfterContentChecked, AfterContentIni
     selectFocusedIndex: EventEmitter<{}>;
     /** Event emitted when a label is focused. */
     indexFocused: EventEmitter<{}>;
-    constructor(_elementRef: ElementRef, _ngZone: NgZone, _dir: Dir);
+    constructor(_elementRef: ElementRef, _ngZone: NgZone, _dir: Directionality);
     ngAfterContentChecked(): void;
     _handleKeydown(event: KeyboardEvent): void;
     /**
@@ -105,7 +105,7 @@ export declare class MdTabHeader implements AfterContentChecked, AfterContentIni
     /** Decrement the focus index by 1 until a valid tab is found. */
     _focusPreviousTab(): void;
     /** The layout direction of the containing app. */
-    _getLayoutDirection(): LayoutDirection;
+    _getLayoutDirection(): Direction;
     /** Performs the CSS transformation on the tab list that will cause the list to scroll. */
     _updateTabScrollPosition(): void;
     /** Sets the distance in pixels that the tab header should be transformed in the X-axis. */

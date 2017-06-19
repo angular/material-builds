@@ -6,22 +6,23 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { EventEmitter } from '@angular/core';
-export declare type LayoutDirection = 'ltr' | 'rtl';
+import { Direction, Directionality } from './directionality';
 /**
  * Directive to listen for changes of direction of part of the DOM.
  *
- * Applications should use this directive instead of the native attribute so that Material
- * components can listen on changes of direction.
+ * Would provide itself in case a component looks for the Directionality service
  */
-export declare class Dir {
+export declare class Dir implements Directionality {
     /** Layout direction of the element. */
-    _dir: LayoutDirection;
+    _dir: Direction;
+    /** Whether the `value` has been set to its initial value. */
+    private _isInitialized;
     /** Event emitted when the direction changes. */
-    dirChange: EventEmitter<void>;
+    change: EventEmitter<void>;
     /** @docs-private */
-    dir: LayoutDirection;
+    dir: Direction;
     /** Current layout direction of the element. */
-    value: LayoutDirection;
-}
-export declare class RtlModule {
+    value: Direction;
+    /** Initialize once default value has been set. */
+    ngAfterContentInit(): void;
 }

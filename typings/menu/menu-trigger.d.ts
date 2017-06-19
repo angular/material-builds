@@ -7,7 +7,7 @@
  */
 import { AfterViewInit, ElementRef, EventEmitter, OnDestroy, ViewContainerRef } from '@angular/core';
 import { MdMenuPanel } from './menu-panel';
-import { Dir, LayoutDirection, Overlay } from '../core';
+import { Directionality, Direction, Overlay } from '../core';
 /**
  * This directive is intended to be used in conjunction with an md-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
@@ -34,7 +34,7 @@ export declare class MdMenuTrigger implements AfterViewInit, OnDestroy {
     onMenuOpen: EventEmitter<void>;
     /** Event emitted when the associated menu is closed. */
     onMenuClose: EventEmitter<void>;
-    constructor(_overlay: Overlay, _element: ElementRef, _viewContainerRef: ViewContainerRef, _dir: Dir);
+    constructor(_overlay: Overlay, _element: ElementRef, _viewContainerRef: ViewContainerRef, _dir: Directionality);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Whether the menu is open. */
@@ -50,7 +50,7 @@ export declare class MdMenuTrigger implements AfterViewInit, OnDestroy {
     /** Focuses the menu trigger. */
     focus(): void;
     /** The text direction of the containing app. */
-    readonly dir: LayoutDirection;
+    readonly dir: Direction;
     /**
      * This method ensures that the menu closes when the overlay backdrop is clicked.
      * We do not use first() here because doing so would not catch clicks from within

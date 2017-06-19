@@ -61,6 +61,6 @@ export declare class ScrollDispatcher {
 export declare function SCROLL_DISPATCHER_PROVIDER_FACTORY(parentDispatcher: ScrollDispatcher, ngZone: NgZone, platform: Platform): ScrollDispatcher;
 export declare const SCROLL_DISPATCHER_PROVIDER: {
     provide: typeof ScrollDispatcher;
-    deps: (typeof Platform | Optional[] | typeof NgZone)[];
+    deps: (Optional[] | typeof Platform | typeof NgZone)[];
     useFactory: (parentDispatcher: ScrollDispatcher, ngZone: NgZone, platform: Platform) => ScrollDispatcher;
 };

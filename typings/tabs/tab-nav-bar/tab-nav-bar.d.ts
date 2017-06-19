@@ -9,7 +9,7 @@ import { AfterContentInit, ElementRef, NgZone, OnDestroy } from '@angular/core';
 import { MdInkBar } from '../ink-bar';
 import { MdRipple } from '../../core/ripple/index';
 import { ViewportRuler } from '../../core/overlay/position/viewport-ruler';
-import { Dir, Platform, RippleGlobalOptions } from '../../core';
+import { Directionality, Platform, RippleGlobalOptions } from '../../core';
 import 'rxjs/add/operator/auditTime';
 import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/observable/of';
@@ -26,7 +26,7 @@ export declare class MdTabNav implements AfterContentInit, OnDestroy {
     _activeLinkChanged: boolean;
     _activeLinkElement: ElementRef;
     _inkBar: MdInkBar;
-    constructor(_dir: Dir, _ngZone: NgZone);
+    constructor(_dir: Directionality, _ngZone: NgZone);
     /** Notifies the component that the active link has been changed. */
     updateActiveLink(element: ElementRef): void;
     ngAfterContentInit(): void;

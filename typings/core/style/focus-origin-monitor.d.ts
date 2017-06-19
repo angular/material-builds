@@ -99,6 +99,6 @@ export declare class CdkMonitorFocus implements OnDestroy {
 export declare function FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY(parentDispatcher: FocusOriginMonitor, ngZone: NgZone, platform: Platform): FocusOriginMonitor;
 export declare const FOCUS_ORIGIN_MONITOR_PROVIDER: {
     provide: typeof FocusOriginMonitor;
-    deps: (typeof Platform | Optional[] | typeof NgZone)[];
+    deps: (Optional[] | typeof Platform | typeof NgZone)[];
     useFactory: (parentDispatcher: FocusOriginMonitor, ngZone: NgZone, platform: Platform) => FocusOriginMonitor;
 };

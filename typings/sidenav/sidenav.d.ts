@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AfterContentInit, ElementRef, QueryList, EventEmitter, Renderer2, NgZone, OnDestroy } from '@angular/core';
-import { Dir } from '../core';
+import { Directionality } from '../core';
 import { FocusTrapFactory } from '../core/a11y/focus-trap';
 import 'rxjs/add/operator/first';
 /** Throws an exception when two MdSidenav are matching the same side. */
@@ -143,7 +143,7 @@ export declare class MdSidenavContainer implements AfterContentInit {
     private _right;
     /** Whether to enable open/close trantions. */
     _enableTransitions: boolean;
-    constructor(_dir: Dir, _element: ElementRef, _renderer: Renderer2, _ngZone: NgZone);
+    constructor(_dir: Directionality, _element: ElementRef, _renderer: Renderer2, _ngZone: NgZone);
     ngAfterContentInit(): void;
     /** Calls `open` of both start and end sidenavs */
     open(): Promise<MdSidenavToggleResult[]>;
