@@ -35,13 +35,6 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/let';
 import 'rxjs/add/observable/combineLatest';
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -265,13 +258,6 @@ NoConflictStyleCompatibilityMode.decorators = [
 NoConflictStyleCompatibilityMode.ctorParameters = () => [];
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
 const MATERIAL_SANITY_CHECKS = new InjectionToken('md-sanity-checks');
@@ -341,13 +327,6 @@ MdCommonModule.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
 ];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Shared directive to count lines inside a text area, such as a list item.
  * Line elements can be extracted with a \@ContentChildren(MdLine) query, then
@@ -434,13 +413,6 @@ MdLineModule.decorators = [
 MdLineModule.ctorParameters = () => [];
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Directive to listen for changes of direction of part of the DOM.
  *
  * Applications should use this directive instead of the native attribute so that Material
@@ -515,13 +487,6 @@ RtlModule.decorators = [
  */
 RtlModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Factory that creates a new MutationObserver and allows us to stub it out in unit tests.
  * \@docs-private
@@ -627,13 +592,6 @@ ObserveContentModule.decorators = [
  */
 ObserveContentModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 let RippleState = {};
 RippleState.FADING_IN = 0;
 RippleState.VISIBLE = 1;
@@ -670,13 +628,6 @@ class RippleRef {
     }
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Fade-in duration for the ripples. Can be modified with the speedFactor option.
  */
@@ -897,13 +848,6 @@ function distanceToFurthestCorner(x, y, rect) {
     return Math.sqrt(distX * distX + distY * distY);
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 // Whether the current platform supports the V8 Break Iterator. The V8 check
 // is necessary to detect all Blink based browsers.
 const hasV8BreakIterator = (typeof (Intl) !== 'undefined' && ((Intl)).v8BreakIterator);
@@ -1010,13 +954,6 @@ function getSupportedInputTypes() {
     return supportedInputTypes;
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class PlatformModule {
 }
 PlatformModule.decorators = [
@@ -1029,13 +966,6 @@ PlatformModule.decorators = [
  */
 PlatformModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Time in ms to throttle the scrolling events by default.
  */
@@ -1193,13 +1123,6 @@ const SCROLL_DISPATCHER_PROVIDER = {
 };
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Simple utility for getting the bounds of the browser viewport.
  * \@docs-private
  */
@@ -1298,13 +1221,6 @@ const VIEWPORT_RULER_PROVIDER = {
     useFactory: VIEWPORT_RULER_PROVIDER_FACTORY
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Injection token that can be used to specify the global ripple options.
  */
@@ -1420,13 +1336,6 @@ MdRipple.propDecorators = {
 };
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Sends an event when the directive's element is scrolled. Registers itself with the
  * ScrollDispatcher service to include itself as part of its collection of scrolling events that it
  * can be listened to through the service.
@@ -1496,13 +1405,6 @@ Scrollable.ctorParameters = () => [
 ];
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Returns an error to be thrown when attempting to attach an already-attached scroll strategy.
  * @return {?}
  */
@@ -1510,13 +1412,6 @@ function getMdScrollStrategyAlreadyAttachedError() {
     return Error(`Scroll strategy has already been attached.`);
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Strategy that will close the overlay as soon as the user starts scrolling.
  */
@@ -1563,13 +1458,6 @@ class CloseScrollStrategy {
 }
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Scroll strategy that doesn't do anything.
  */
 class NoopScrollStrategy {
@@ -1587,13 +1475,6 @@ class NoopScrollStrategy {
     attach() { }
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Strategy that will prevent the user from scrolling while the overlay is visible.
  */
@@ -1657,13 +1538,6 @@ class BlockScrollStrategy {
 }
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Strategy that will update the element position as the user is scrolling.
  */
 class RepositionScrollStrategy {
@@ -1709,13 +1583,6 @@ class RepositionScrollStrategy {
 }
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Options for how an overlay will handle scrolling.
  *
  * Users can provide a custom value for `ScrollStrategyOptions` to replace the default
@@ -1760,13 +1627,6 @@ ScrollStrategyOptions.ctorParameters = () => [
     { type: ViewportRuler, },
 ];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class ScrollDispatchModule {
 }
 ScrollDispatchModule.decorators = [
@@ -1782,13 +1642,6 @@ ScrollDispatchModule.decorators = [
  */
 ScrollDispatchModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdRippleModule {
 }
 MdRippleModule.decorators = [
@@ -1804,13 +1657,6 @@ MdRippleModule.decorators = [
  */
 MdRippleModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Mixin to augment a directive with a `color` property.
  * @template T
@@ -1852,13 +1698,6 @@ function mixinColor(base, defaultColor) {
     };
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdPseudoCheckboxBase {
     /**
      * @param {?} _renderer
@@ -1924,13 +1763,6 @@ MdPseudoCheckbox.propDecorators = {
     'disabled': [{ type: Input },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdSelectionModule {
 }
 MdSelectionModule.decorators = [
@@ -1944,24 +1776,11 @@ MdSelectionModule.decorators = [
  */
 MdSelectionModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 // Due to a bug in the ChromeDriver, Angular keyboard events are not triggered by `sendKeys`
 // during E2E tests when using dot notation such as `(keydown.rightArrow)`. To get around this,
 // we are temporarily using a single (keydown) handler.
 // See: https://github.com/angular/angular/issues/9419
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */ const UP_ARROW = 38;
+ const UP_ARROW = 38;
 const DOWN_ARROW = 40;
 const RIGHT_ARROW = 39;
 const LEFT_ARROW = 37;
@@ -1985,13 +1804,6 @@ function coerceBooleanProperty(value) {
     return value != null && `${value}` !== 'false';
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Mixin to augment a directive with a `disabled` property.
  * @template T
@@ -2019,13 +1831,6 @@ function mixinDisabled(base) {
     };
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdOptgroupBase {
 }
 const _MdOptgroupMixinBase = mixinDisabled(MdOptgroupBase);
@@ -2065,13 +1870,6 @@ MdOptgroup.propDecorators = {
     'label': [{ type: Input },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Option IDs need to be unique across components, so this counter exists outside of
  * the component definition.
@@ -2277,13 +2075,6 @@ MdOption.propDecorators = {
     'onSelectionChange': [{ type: Output },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdOptionModule {
 }
 MdOptionModule.decorators = [
@@ -2348,13 +2139,6 @@ function throwNoPortalAttachedError() {
     throw Error('Attempting to detach a portal that is not attached to a host');
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * A `Portal` is something that you want to render somewhere else.
  * It can be attach to / detached from a `PortalHost`.
@@ -2559,13 +2343,6 @@ class BasePortalHost {
 }
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Directive version of a `TemplatePortal`. Because the directive *is* a TemplatePortal,
  * the directive instance itself can be attached to a host, enabling declarative use of portals.
  *
@@ -2714,13 +2491,6 @@ PortalModule.decorators = [
 PortalModule.ctorParameters = () => [];
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * OverlayState is a bag of values for either the initial configuration or current state of an
  * overlay.
  */
@@ -2749,13 +2519,6 @@ class OverlayState {
     }
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * A PortalHost for attaching portals to an arbitrary DOM element outside of the Angular
  * application context.
@@ -2848,13 +2611,6 @@ class DomPortalHost extends BasePortalHost {
     }
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Reference to an overlay that has been created with the Overlay service.
  * Used to manipulate or dispose of said overlay.
@@ -3099,13 +2855,6 @@ function formatCssUnit(value) {
     return typeof value === 'string' ? (value) : `${value}px`;
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /** Horizontal dimension of a connection point on the perimeter of the origin or overlay element. */
 /**
  * The points of the origin element and the overlay element to connect.
@@ -3168,13 +2917,6 @@ ConnectedOverlayPositionChange.ctorParameters = () => [
     { type: ScrollableViewProperties, decorators: [{ type: Optional },] },
 ];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * A strategy for positioning overlays. Using this strategy, an overlay is given an
  * implicit position relative some origin element. The relative position is defined in terms of
@@ -3554,13 +3296,6 @@ class ConnectedPositionStrategy {
 }
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * A strategy for positioning overlays. Using this strategy, an overlay is given an
  * explicit position relative to the browser's viewport. We use flexbox, instead of
  * transforms, in order to avoid issues with subpixel rendering which can cause the
@@ -3714,13 +3449,6 @@ class GlobalPositionStrategy {
 }
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Builder for overlay position strategy.
  */
 class OverlayPositionBuilder {
@@ -3758,13 +3486,6 @@ OverlayPositionBuilder.ctorParameters = () => [
     { type: ViewportRuler, },
 ];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * The OverlayContainer is the container in which all overlays will load.
  * It should be provided in the root component to ensure it is properly shared.
@@ -3836,13 +3557,6 @@ const OVERLAY_CONTAINER_PROVIDER = {
     useFactory: OVERLAY_CONTAINER_PROVIDER_FACTORY
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Next overlay unique ID.
  */
@@ -3950,13 +3664,6 @@ const OVERLAY_PROVIDERS = [
     OVERLAY_CONTAINER_PROVIDER,
 ];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Default set of positions for the overlay. Follows the behavior of a dropdown.
  */
@@ -4290,13 +3997,6 @@ OverlayModule.decorators = [
 OverlayModule.ctorParameters = () => [];
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Utility for checking the interactivity of an element, such as whether is is focusable or
  * tabbable.
  */
@@ -4541,13 +4241,6 @@ function getWindow(node) {
     return node.ownerDocument.defaultView || window;
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Class that allows for trapping focus within a DOM element.
  *
@@ -4912,13 +4605,6 @@ FocusTrapDirective.propDecorators = {
     'enabled': [{ type: Input, args: ['cdkTrapFocus',] },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 const LIVE_ANNOUNCER_ELEMENT_TOKEN = new InjectionToken('liveAnnouncerElement');
 class LiveAnnouncer {
     /**
@@ -5002,13 +4688,6 @@ const LIVE_ANNOUNCER_PROVIDER = {
     useFactory: LIVE_ANNOUNCER_PROVIDER_FACTORY
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class A11yModule {
 }
 A11yModule.decorators = [
@@ -5024,13 +4703,6 @@ A11yModule.decorators = [
  */
 A11yModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * The FullscreenOverlayContainer is the alternative to OverlayContainer
  * that supports correct displaying of overlay elements in Fullscreen mode
@@ -5099,21 +4771,6 @@ FullscreenOverlayContainer.decorators = [
  */
 FullscreenOverlayContainer.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class GestureConfig extends HammerGestureConfig {
     constructor() {
         super();
@@ -5184,13 +4841,6 @@ GestureConfig.decorators = [
  */
 GestureConfig.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Class to be used to power selecting one or more options from a list.
  * \@docs-private
@@ -5388,13 +5038,6 @@ function isFakeMousedownFromScreenReader(event) {
 }
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Class to coordinate unique selection based on name.
  * Intended to be consumed as an Angular service.
  * This service is needed because native radio change events are only fired on the item currently
@@ -5448,13 +5091,6 @@ const UNIQUE_SELECTION_DISPATCHER_PROVIDER = {
     useFactory: UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 // This is the value used by AngularJS Material. Through trial and error (on iPhone 6S) they found
 // that a value of around 650ms seems appropriate.
 const TOUCH_BUFFER_MS = 650;
@@ -5781,13 +5417,6 @@ function applyCssTransform(element, transformValue) {
     element.style.webkitTransform = value;
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class StyleModule {
 }
 StyleModule.decorators = [
@@ -6033,13 +5662,6 @@ class DateAdapter {
     }
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Whether the browser supports the Intl API.
  */
@@ -6304,22 +5926,8 @@ class NativeDateAdapter extends DateAdapter {
     }
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 const MD_DATE_FORMATS = new InjectionToken('md-date-formats');
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 const MD_NATIVE_DATE_FORMATS = {
     parse: {
         dateInput: null,
@@ -6332,13 +5940,6 @@ const MD_NATIVE_DATE_FORMATS = {
     }
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class NativeDateModule {
 }
 NativeDateModule.decorators = [
@@ -6364,24 +5965,10 @@ MdNativeDateModule.decorators = [
 MdNativeDateModule.ctorParameters = () => [];
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * InjectionToken that can be used to specify the global placeholder options.
  */
 const MD_PLACEHOLDER_GLOBAL_OPTIONS = new InjectionToken('md-placeholder-global-options');
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdCoreModule {
 }
 MdCoreModule.decorators = [
@@ -6415,29 +6002,6 @@ MdCoreModule.decorators = [
  */
 MdCoreModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdButtonToggleGroupBase {
 }
 const _MdButtonToggleGroupMixinBase = mixinDisabled(MdButtonToggleGroupBase);
@@ -6941,13 +6505,6 @@ MdButtonToggle.propDecorators = {
     'change': [{ type: Output },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdButtonToggleModule {
 }
 MdButtonToggleModule.decorators = [
@@ -6968,13 +6525,6 @@ MdButtonToggleModule.decorators = [
  */
 MdButtonToggleModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Default color palette for round buttons (md-fab and md-mini-fab)
  */
@@ -7268,13 +6818,6 @@ MdAnchor.propDecorators = {
     'tabIndex': [{ type: HostBinding, args: ['tabIndex',] },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdButtonModule {
 }
 MdButtonModule.decorators = [
@@ -7311,13 +6854,6 @@ MdButtonModule.decorators = [
  */
 MdButtonModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Monotonically increasing integer used to auto-generate unique ids for checkbox components.
  */
@@ -7766,13 +7302,6 @@ MdCheckbox.propDecorators = {
     'indeterminate': [{ type: Input },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdCheckboxModule {
 }
 MdCheckboxModule.decorators = [
@@ -7788,13 +7317,6 @@ MdCheckboxModule.decorators = [
  */
 MdCheckboxModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Provider Expression that allows md-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
@@ -8430,13 +7952,6 @@ MdRadioButton.propDecorators = {
     '_inputElement': [{ type: ViewChild, args: ['input',] },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdRadioModule {
 }
 MdRadioModule.decorators = [
@@ -8452,13 +7967,6 @@ MdRadioModule.decorators = [
  */
 MdRadioModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * This class manages keyboard events for selectable lists. If you pass it a query list
  * of items, it will set the active item correctly when arrow events occur.
@@ -8640,13 +8148,6 @@ class ListKeyManager {
     }
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class FocusKeyManager extends ListKeyManager {
     /**
      * @param {?} items
@@ -8668,13 +8169,6 @@ class FocusKeyManager extends ListKeyManager {
     }
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * This animation shrinks the placeholder text to 75% of its normal size and translates
  * it to either the top left corner (ltr) or top right corner (rtl) of the trigger,
@@ -8758,13 +8252,6 @@ function getMdSelectNonArrayValueError() {
     return Error('Cannot assign truthy non-array value to select in `multiple` mode.');
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * The fixed height of every option element (option, group header etc.).
  */
@@ -9846,13 +9333,6 @@ function clampValue(min, n, max) {
     return Math.min(Math.max(min, n), max);
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdSelectModule {
 }
 MdSelectModule.decorators = [
@@ -9872,13 +9352,6 @@ MdSelectModule.decorators = [
  */
 MdSelectModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 const MD_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MdSlideToggle),
@@ -10266,13 +9739,6 @@ class SlideToggleRenderer {
     }
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdSlideToggleModule {
 }
 MdSlideToggleModule.decorators = [
@@ -10291,13 +9757,6 @@ MdSlideToggleModule.decorators = [
  */
 MdSlideToggleModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Visually, a 30px separation between tick marks looks best. This is very subjective but it is
  * the default separation we chose.
@@ -11066,13 +10525,6 @@ class SliderRenderer {
     }
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdSliderModule {
 }
 MdSliderModule.decorators = [
@@ -11088,13 +10540,6 @@ MdSliderModule.decorators = [
  */
 MdSliderModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Throws an exception when two MdSidenav are matching the same side.
  * @param {?} align
@@ -11712,13 +11157,6 @@ MdSidenavContainer.propDecorators = {
     'backdropClick': [{ type: Output },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdSidenavModule {
 }
 MdSidenavModule.decorators = [
@@ -11733,13 +11171,6 @@ MdSidenavModule.decorators = [
  */
 MdSidenavModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdListDivider {
 }
 MdListDivider.decorators = [
@@ -11980,13 +11411,6 @@ MdListItem.propDecorators = {
     '_hasAvatar': [{ type: ContentChild, args: [MdListAvatarCssMatStyler,] },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdListModule {
 }
 MdListModule.decorators = [
@@ -12042,13 +11466,6 @@ function coerceToNumber(value) {
     return typeof value === 'string' ? parseInt(value, 10) : value;
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdGridTile {
     /**
      * @param {?} _renderer
@@ -12193,13 +11610,6 @@ MdGridTileFooterCssMatStyler.decorators = [
  */
 MdGridTileFooterCssMatStyler.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Class for determining, from a list of tiles, the (row, col) position of each of those tiles
  * in the grid. This is necessary (rather than just rendering the tiles in normal document flow)
@@ -12354,13 +11764,6 @@ class TilePosition {
     }
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Sets the style properties for an individual tile, given the position calculated by the
  * Tile Coordinator.
@@ -12622,13 +12025,6 @@ function normalizeUnits(value) {
     return (value.match(/px|em|rem/)) ? value : value + 'px';
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 // TODO(kara): Conditional (responsive) column count / row size.
 // TODO(kara): Re-layout on window resize / media change (debounced).
 // TODO(kara): gridTileHeader and gridTileFooter.
@@ -12777,13 +12173,6 @@ MdGridList.propDecorators = {
     'rowHeight': [{ type: Input },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdGridListModule {
 }
 MdGridListModule.decorators = [
@@ -12814,13 +12203,6 @@ MdGridListModule.decorators = [
  */
 MdGridListModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Content of a card, needed as it's used as a selector in the API.
  * \@docs-private
@@ -13068,13 +12450,6 @@ MdCardTitleGroup.decorators = [
  */
 MdCardTitleGroup.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdCardModule {
 }
 MdCardModule.decorators = [
@@ -13109,13 +12484,6 @@ MdCardModule.decorators = [
  */
 MdCardModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdChipBase {
     /**
      * @param {?} _renderer
@@ -13265,13 +12633,6 @@ MdChip.propDecorators = {
     'destroy': [{ type: Output },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * A material design chips component (named ChipList for it's similarity to the List component).
  *
@@ -13479,13 +12840,6 @@ MdChipList.propDecorators = {
     'selectable': [{ type: Input },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdChipsModule {
 }
 MdChipsModule.decorators = [
@@ -13500,13 +12854,6 @@ MdChipsModule.decorators = [
  */
 MdChipsModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Returns an exception to be thrown in the case when attempting to
  * load an icon with a name that cannot be found.
@@ -13980,13 +13327,6 @@ function iconKey(namespace, name) {
     return namespace + ':' + name;
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdIconBase {
     /**
      * @param {?} _renderer
@@ -14181,13 +13521,6 @@ MdIcon.propDecorators = {
     'fontIcon': [{ type: Input },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdIconModule {
 }
 MdIconModule.decorators = [
@@ -14203,13 +13536,6 @@ MdIconModule.decorators = [
  */
 MdIconModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * A single degree in radians.
  */
@@ -14605,13 +13931,6 @@ function getSvgArc(currentValue, rotation, strokeWidth) {
     return `M${start}A${pathRadius},${pathRadius} 0 ${largeArcFlag},${arcSweep} ${end}`;
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdProgressSpinnerModule {
 }
 MdProgressSpinnerModule.decorators = [
@@ -14635,13 +13954,6 @@ MdProgressSpinnerModule.decorators = [
  */
 MdProgressSpinnerModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * <md-progress-bar> component.
  */
@@ -14739,13 +14051,6 @@ function clamp$1(v, min = 0, max = 100) {
     return Math.max(min, Math.min(max, v));
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdProgressBarModule {
 }
 MdProgressBarModule.decorators = [
@@ -14792,13 +14097,6 @@ function getMdInputContainerMissingMdInputError() {
         'Did you forget to add mdInput to the native input or textarea element?');
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 // Invalid input type. Using one of these will throw an MdInputContainerUnsupportedTypeError.
 const MD_INPUT_INVALID_TYPES = [
     'button',
@@ -15421,13 +14719,6 @@ MdInputContainer.propDecorators = {
 };
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Directive to automatically resize a textarea to fit its content.
  */
 class MdTextareaAutosize {
@@ -15586,13 +14877,6 @@ MdTextareaAutosize.propDecorators = {
     '_matAutosizeMaxRows': [{ type: Input, args: ['matAutosizeMaxRows',] },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdInputModule {
 }
 MdInputModule.decorators = [
@@ -15630,13 +14914,6 @@ MdInputModule.decorators = [
 MdInputModule.ctorParameters = () => [];
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Configuration used when opening a snack-bar.
  */
 class MdSnackBarConfig {
@@ -15664,13 +14941,6 @@ class MdSnackBarConfig {
     }
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Reference to a snack bar dispatched from the snack bar service.
  */
@@ -15765,13 +15035,6 @@ class MdSnackBarRef {
     }
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 // TODO(jelbourn): we can't use constants from animation.ts here because you can't use
 // a text interpolation in anything that is analyzed statically with ngc (for AoT compile).
 const SHOW_ANIMATION = '225ms cubic-bezier(0.4,0.0,1,1)';
@@ -15934,13 +15197,6 @@ MdSnackBarContainer.propDecorators = {
 };
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * A component used to open as the default snack bar, matching material spec.
  * This should only be used internally by the snack bar service.
  */
@@ -15999,13 +15255,6 @@ function extendObject(dest, ...sources) {
     return dest;
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Service to dispatch Material Design snack bar messages.
  */
@@ -16168,13 +15417,6 @@ function _applyConfigDefaults(config) {
     return extendObject(new MdSnackBarConfig(), config);
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdSnackBarModule {
 }
 MdSnackBarModule.decorators = [
@@ -16196,13 +15438,6 @@ MdSnackBarModule.decorators = [
  */
 MdSnackBarModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Used to flag tab labels for use with the portal directive
  */
@@ -16228,13 +15463,6 @@ MdTabLabel.ctorParameters = () => [
     { type: ViewContainerRef, },
 ];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdTabBase {
 }
 const _MdTabMixinBase = mixinDisabled(MdTabBase);
@@ -16293,13 +15521,6 @@ MdTab.propDecorators = {
     'textLabel': [{ type: Input, args: ['label',] },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Used to generate unique ID's for each tab component
  */
@@ -16526,13 +15747,6 @@ MdTabGroup.propDecorators = {
     'selectChange': [{ type: Output },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdTabLabelWrapperBase {
 }
 const _MdTabLabelWrapperMixinBase = mixinDisabled(MdTabLabelWrapperBase);
@@ -16584,13 +15798,6 @@ MdTabLabelWrapper.ctorParameters = () => [
     { type: ElementRef, },
 ];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * The ink-bar is used to display and animate the line underneath the current active tab label.
  * \@docs-private
@@ -16669,13 +15876,6 @@ MdInkBar.ctorParameters = () => [
     { type: NgZone, },
 ];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
@@ -16838,13 +16038,6 @@ MdTabLinkRipple.ctorParameters = () => [
 ];
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Wrapper for the contents of a tab.
  * \@docs-private
  */
@@ -17003,13 +16196,6 @@ MdTabBody.propDecorators = {
     'origin': [{ type: Input, args: ['origin',] },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * The distance in pixels that will be overshot when scrolling a tab label into view. This helps
  * provide a small affordance to the label next to it.
@@ -17437,21 +16623,6 @@ MdTabHeader.propDecorators = {
     'indexFocused': [{ type: Output },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdTabsModule {
 }
 MdTabsModule.decorators = [
@@ -17492,13 +16663,6 @@ MdTabsModule.decorators = [
  */
 MdTabsModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdToolbarRow {
 }
 MdToolbarRow.decorators = [
@@ -17552,13 +16716,6 @@ MdToolbar.ctorParameters = () => [
     { type: ElementRef, },
 ];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdToolbarModule {
 }
 MdToolbarModule.decorators = [
@@ -17573,13 +16730,6 @@ MdToolbarModule.decorators = [
  */
 MdToolbarModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Time in ms to delay before changing the tooltip visibility to hidden
  */
@@ -18164,13 +17314,6 @@ TooltipComponent.ctorParameters = () => [
     { type: ChangeDetectorRef, },
 ];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdTooltipModule {
 }
 MdTooltipModule.decorators = [
@@ -18224,13 +17367,6 @@ function throwMdMenuInvalidPositionY() {
       Example: <md-menu y-position="above" #menu="mdMenu"></md-menu>`);
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdMenuItemBase {
 }
 const _MdMenuItemMixinBase = mixinDisabled(MdMenuItemBase);
@@ -18309,13 +17445,6 @@ MdMenuItem.ctorParameters = () => [
 ];
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Below are all the animations for the md-menu component.
  * Animation duration and timing values are based on AngularJS Material.
  */
@@ -18356,13 +17485,6 @@ const fadeInItems = trigger('fadeInItems', [
     ])
 ]);
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdMenu {
     /**
      * @param {?} _elementRef
@@ -18521,13 +17643,6 @@ MdMenu.propDecorators = {
     'close': [{ type: Output },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * This directive is intended to be used in conjunction with an md-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
@@ -18828,21 +17943,6 @@ MdMenuTrigger.propDecorators = {
     'onMenuClose': [{ type: Output },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdMenuModule {
 }
 MdMenuModule.decorators = [
@@ -18862,13 +17962,6 @@ MdMenuModule.decorators = [
  */
 MdMenuModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Reference to a dialog opened via the MdDialog service.
  */
@@ -18955,13 +18048,6 @@ class MdDialogRef {
     }
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 const MD_DIALOG_DATA = new InjectionToken('MdDialogData');
 /**
  * Custom injector type specifically for instantiating components with a dialog.
@@ -18993,13 +18079,6 @@ class DialogInjector {
     }
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Configuration for opening a modal dialog with the MdDialog service.
  */
@@ -19045,13 +18124,6 @@ class MdDialogConfig {
     }
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Throws an exception for the case when a ComponentPortal is
  * attached to a DomPortalHost without an origin.
@@ -19207,13 +18279,6 @@ MdDialogContainer.propDecorators = {
     '_portalHost': [{ type: ViewChild, args: [PortalHostDirective,] },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Service to open Material Design modal dialogs.
  */
@@ -19435,13 +18500,6 @@ function _applyConfigDefaults$1(config) {
 }
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Button that will close the current dialog.
  */
 class MdDialogClose {
@@ -19533,13 +18591,6 @@ MdDialogActions.decorators = [
  */
 MdDialogActions.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdDialogModule {
 }
 MdDialogModule.decorators = [
@@ -19577,13 +18628,6 @@ MdDialogModule.decorators = [
  */
 MdDialogModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class ActiveDescendantKeyManager extends ListKeyManager {
     /**
      * This method sets the active item to the item at the specified index.
@@ -19605,13 +18649,6 @@ class ActiveDescendantKeyManager extends ListKeyManager {
     }
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Autocomplete IDs need to be unique across components, so this counter exists outside of
  * the component definition.
@@ -19700,13 +18737,6 @@ MdAutocomplete.propDecorators = {
     'displayWith': [{ type: Input },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * The height of each autocomplete option.
  */
@@ -20145,13 +19175,6 @@ MdAutocompleteTrigger.propDecorators = {
     '_matAutocomplete': [{ type: Input, args: ['matAutocomplete',] },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdAutocompleteModule {
 }
 MdAutocompleteModule.decorators = [
@@ -20166,13 +19189,6 @@ MdAutocompleteModule.decorators = [
  */
 MdAutocompleteModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * An internal class that represents the data corresponding to a single calendar cell.
  * \@docs-private
@@ -20283,13 +19299,6 @@ function createMissingDateImplError(provider) {
         `modules at your application root: MdNativeDateModule, or provide a custom implementation.`);
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 const DAYS_PER_WEEK = 7;
 /**
  * An internal component used to display a single month in the datepicker.
@@ -20449,13 +19458,6 @@ MdMonthView.propDecorators = {
 };
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * An internal component used to display a single year in the datepicker.
  * \@docs-private
  */
@@ -20595,13 +19597,6 @@ MdYearView.propDecorators = {
 };
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Datepicker data that requires internationalization.
  */
 class MdDatepickerIntl {
@@ -20648,13 +19643,6 @@ MdDatepickerIntl.decorators = [
  */
 MdDatepickerIntl.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * A calendar that is used as part of the datepicker.
  * \@docs-private
@@ -21004,13 +19992,6 @@ MdCalendar.propDecorators = {
 };
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Used to generate a unique ID for each datepicker instance.
  */
 let datepickerUid = 0;
@@ -21302,13 +20283,6 @@ MdDatepicker.propDecorators = {
     'selectedChanged': [{ type: Output },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 const MD_DATEPICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MdDatepickerInput),
@@ -21578,13 +20552,6 @@ MdDatepickerInput.propDecorators = {
     'max': [{ type: Input },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdDatepickerToggle {
     /**
      * @param {?} _intl
@@ -21637,13 +20604,6 @@ MdDatepickerToggle.propDecorators = {
     '_datepicker': [{ type: Input, args: ['matDatepickerToggle',] },],
 };
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdDatepickerModule {
 }
 MdDatepickerModule.decorators = [
@@ -21685,13 +20645,6 @@ MdDatepickerModule.decorators = [
  */
 MdDatepickerModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Base class for the CdkHeaderRowDef and CdkRowDef that handles checking their columns inputs
  * for changes and notifying the table.
@@ -21874,13 +20827,6 @@ CdkRow.decorators = [
 CdkRow.ctorParameters = () => [];
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Cell definition for a CDK data-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
  */
@@ -22007,13 +20953,6 @@ CdkCell.ctorParameters = () => [
     { type: Renderer2, },
 ];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Provides a handle for the table to grab the view container's ng-container to insert data rows.
  * \@docs-private
@@ -22330,13 +21269,6 @@ CdkTable.propDecorators = {
 };
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * @abstract
  */
 class DataSource {
@@ -22348,13 +21280,6 @@ class DataSource {
     connect(collectionViewer) { }
 }
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class CdkDataTableModule {
 }
 CdkDataTableModule.decorators = [
@@ -22378,13 +21303,6 @@ CdkDataTableModule.decorators = [
  */
 CdkDataTableModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Unique ID counter
  */
@@ -22463,13 +21381,6 @@ MdAccordion.decorators = [
  */
 MdAccordion.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * Used to generate unique ID for each expansion panel.
  */
@@ -22583,13 +21494,6 @@ AccordionItem.propDecorators = {
 };
 
 /**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
  * Time and timing curve for expansion panel animations.
  */
 const EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
@@ -22698,13 +21602,6 @@ MdExpansionPanelActionRow.decorators = [
  */
 MdExpansionPanelActionRow.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 /**
  * <md-expansion-panel-header> component.
  *
@@ -22847,13 +21744,6 @@ MdExpansionPanelTitle.decorators = [
  */
 MdExpansionPanelTitle.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 class MdExpansionModule {
 }
 MdExpansionModule.decorators = [
@@ -22885,13 +21775,6 @@ MdExpansionModule.decorators = [
  */
 MdExpansionModule.ctorParameters = () => [];
 
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 const MATERIAL_MODULES = [
     MdAutocompleteModule,
     MdButtonModule,
@@ -22944,19 +21827,6 @@ MaterialModule.decorators = [
  * @nocollapse
  */
 MaterialModule.ctorParameters = () => [];
-
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-/**
- * @module
- * @description
- * Entry point for all public APIs of Angular Material.
- */
 
 /**
  * Generated bundle index. Do not edit.
