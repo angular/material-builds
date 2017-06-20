@@ -1542,12 +1542,9 @@ $mat-menu-icon-margin: 16px !default;
     @include mat-menu-item-base();
     @include user-select(none);
     cursor: default;
-
-    // TODO(crisbeto): should use the typography functions once #4375 is in.
-    font-weight: bold;
-    font-size: 14px;
   }
 }
+
 
 
 
@@ -1561,6 +1558,12 @@ $mat-menu-icon-margin: 16px !default;
 
   .mat-optgroup-disabled .mat-optgroup-label {
     color: mat-color($foreground, hint-text);
+  }
+}
+
+@mixin mat-optgroup-typography($config) {
+  .mat-optgroup-label {
+    @include mat-typography-level-to-styles($config, body-2);
   }
 }
 
@@ -3303,6 +3306,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
 
 
 
+
 // Includes all of the typographic styles.
 @mixin angular-material-typography($config: mat-typography-config()) {
   @include mat-base-typography($config);
@@ -3330,6 +3334,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
   @include mat-tooltip-typography($config);
   @include mat-list-typography($config);
   @include mat-option-typography($config);
+  @include mat-optgroup-typography($config);
   @include mat-simple-snack-bar-typography($config);
 }
 

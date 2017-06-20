@@ -3796,15 +3796,6 @@ Overlay.ctorParameters = function () { return [
     { type: NgZone, },
 ]; };
 /**
- * Providers for Overlay and its related injectables.
- */
-var OVERLAY_PROVIDERS = [
-    Overlay,
-    OverlayPositionBuilder,
-    VIEWPORT_RULER_PROVIDER,
-    OVERLAY_CONTAINER_PROVIDER,
-];
-/**
  * Default set of positions for the overlay. Follows the behavior of a dropdown.
  */
 var defaultPositionList = [
@@ -4146,6 +4137,85 @@ ConnectedOverlayDirective.propDecorators = {
     'attach': [{ type: Output },],
     'detach': [{ type: Output },],
 };
+/**
+ * The FullscreenOverlayContainer is the alternative to OverlayContainer
+ * that supports correct displaying of overlay elements in Fullscreen mode
+ * https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullScreen
+ * It should be provided in the root component that way:
+ * providers: [
+ *   {provide: OverlayContainer, useClass: FullscreenOverlayContainer}
+ * ],
+ */
+var FullscreenOverlayContainer = /*@__PURE__*/(function (_super) {
+    tslib_1.__extends(FullscreenOverlayContainer, _super);
+    function FullscreenOverlayContainer() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * @return {?}
+     */
+    FullscreenOverlayContainer.prototype._createContainer = function () {
+        var _this = this;
+        _super.prototype._createContainer.call(this);
+        this._adjustParentForFullscreenChange();
+        this._addFullscreenChangeListener(function () { return _this._adjustParentForFullscreenChange(); });
+    };
+    /**
+     * @return {?}
+     */
+    FullscreenOverlayContainer.prototype._adjustParentForFullscreenChange = function () {
+        if (!this._containerElement) {
+            return;
+        }
+        var /** @type {?} */ fullscreenElement = this.getFullscreenElement();
+        var /** @type {?} */ parent = fullscreenElement || document.body;
+        parent.appendChild(this._containerElement);
+    };
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    FullscreenOverlayContainer.prototype._addFullscreenChangeListener = function (fn) {
+        if (document.fullscreenEnabled) {
+            document.addEventListener('fullscreenchange', fn);
+        }
+        else if (document.webkitFullscreenEnabled) {
+            document.addEventListener('webkitfullscreenchange', fn);
+        }
+        else if (((document)).mozFullScreenEnabled) {
+            document.addEventListener('mozfullscreenchange', fn);
+        }
+        else if (((document)).msFullscreenEnabled) {
+            document.addEventListener('MSFullscreenChange', fn);
+        }
+    };
+    /**
+     * When the page is put into fullscreen mode, a specific element is specified.
+     * Only that element and its children are visible when in fullscreen mode.
+     * @return {?}
+     */
+    FullscreenOverlayContainer.prototype.getFullscreenElement = function () {
+        return document.fullscreenElement ||
+            document.webkitFullscreenElement ||
+            ((document)).mozFullScreenElement ||
+            ((document)).msFullscreenElement ||
+            null;
+    };
+    return FullscreenOverlayContainer;
+}(OverlayContainer));
+FullscreenOverlayContainer.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+FullscreenOverlayContainer.ctorParameters = function () { return []; };
+var OVERLAY_PROVIDERS = [
+    Overlay,
+    OverlayPositionBuilder,
+    VIEWPORT_RULER_PROVIDER,
+    OVERLAY_CONTAINER_PROVIDER,
+];
 var OverlayModule = /*@__PURE__*/(function () {
     function OverlayModule() {
     }
@@ -4895,79 +4965,6 @@ A11yModule.decorators = [
  * @nocollapse
  */
 A11yModule.ctorParameters = function () { return []; };
-/**
- * The FullscreenOverlayContainer is the alternative to OverlayContainer
- * that supports correct displaying of overlay elements in Fullscreen mode
- * https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullScreen
- * It should be provided in the root component that way:
- * providers: [
- *   {provide: OverlayContainer, useClass: FullscreenOverlayContainer}
- * ],
- */
-var FullscreenOverlayContainer = /*@__PURE__*/(function (_super) {
-    tslib_1.__extends(FullscreenOverlayContainer, _super);
-    function FullscreenOverlayContainer() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    /**
-     * @return {?}
-     */
-    FullscreenOverlayContainer.prototype._createContainer = function () {
-        var _this = this;
-        _super.prototype._createContainer.call(this);
-        this._adjustParentForFullscreenChange();
-        this._addFullscreenChangeListener(function () { return _this._adjustParentForFullscreenChange(); });
-    };
-    /**
-     * @return {?}
-     */
-    FullscreenOverlayContainer.prototype._adjustParentForFullscreenChange = function () {
-        if (!this._containerElement) {
-            return;
-        }
-        var /** @type {?} */ fullscreenElement = this.getFullscreenElement();
-        var /** @type {?} */ parent = fullscreenElement || document.body;
-        parent.appendChild(this._containerElement);
-    };
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    FullscreenOverlayContainer.prototype._addFullscreenChangeListener = function (fn) {
-        if (document.fullscreenEnabled) {
-            document.addEventListener('fullscreenchange', fn);
-        }
-        else if (document.webkitFullscreenEnabled) {
-            document.addEventListener('webkitfullscreenchange', fn);
-        }
-        else if (((document)).mozFullScreenEnabled) {
-            document.addEventListener('mozfullscreenchange', fn);
-        }
-        else if (((document)).msFullscreenEnabled) {
-            document.addEventListener('MSFullscreenChange', fn);
-        }
-    };
-    /**
-     * When the page is put into fullscreen mode, a specific element is specified.
-     * Only that element and its children are visible when in fullscreen mode.
-     * @return {?}
-     */
-    FullscreenOverlayContainer.prototype.getFullscreenElement = function () {
-        return document.fullscreenElement ||
-            document.webkitFullscreenElement ||
-            ((document)).mozFullScreenElement ||
-            ((document)).msFullscreenElement ||
-            null;
-    };
-    return FullscreenOverlayContainer;
-}(OverlayContainer));
-FullscreenOverlayContainer.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-FullscreenOverlayContainer.ctorParameters = function () { return []; };
 var GestureConfig = /*@__PURE__*/(function (_super) {
     tslib_1.__extends(GestureConfig, _super);
     function GestureConfig() {
@@ -23307,5 +23304,5 @@ MaterialModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { Dir, Directionality, BidiModule, ObserveContentModule, ObserveContent, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, Overlay, OVERLAY_PROVIDERS, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, OverlayModule, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, CdkDataTableModule, DataSource, RowPlaceholder, HeaderRowPlaceholder, CdkTable, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, throwMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵj, DIR_DOCUMENT as ɵa, mixinColor as ɵx, mixinDisabled as ɵy, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵk, CdkCell as ɵbe, CdkCellDef as ɵba, CdkColumnDef as ɵbc, CdkHeaderCell as ɵbd, CdkHeaderCellDef as ɵbb, BaseRowDef as ɵbf, CdkCellOutlet as ɵbi, CdkHeaderRow as ɵbj, CdkHeaderRowDef as ɵbg, CdkRow as ɵbk, CdkRowDef as ɵbh, MdMutationObserverFactory as ɵb, OVERLAY_CONTAINER_PROVIDER as ɵd, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵc, OverlayPositionBuilder as ɵw, VIEWPORT_RULER_PROVIDER as ɵf, VIEWPORT_RULER_PROVIDER_FACTORY as ɵe, SCROLL_DISPATCHER_PROVIDER as ɵh, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵg, RippleRenderer as ɵi, EXPANSION_PANEL_ANIMATION_TIMING as ɵl, MdGridAvatarCssMatStyler as ɵn, MdGridTileFooterCssMatStyler as ɵp, MdGridTileHeaderCssMatStyler as ɵo, MdGridTileText as ɵm, MdMenuItemBase as ɵq, _MdMenuItemMixinBase as ɵr, MdTabBase as ɵu, _MdTabMixinBase as ɵv, MdTabLabelWrapperBase as ɵs, _MdTabLabelWrapperMixinBase as ɵt };
+export { Dir, Directionality, BidiModule, ObserveContentModule, ObserveContent, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, coerceBooleanProperty, coerceNumberProperty, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, CdkDataTableModule, DataSource, RowPlaceholder, HeaderRowPlaceholder, CdkTable, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, throwMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵj, DIR_DOCUMENT as ɵa, mixinColor as ɵx, mixinDisabled as ɵy, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵk, CdkCell as ɵbe, CdkCellDef as ɵba, CdkColumnDef as ɵbc, CdkHeaderCell as ɵbd, CdkHeaderCellDef as ɵbb, BaseRowDef as ɵbf, CdkCellOutlet as ɵbi, CdkHeaderRow as ɵbj, CdkHeaderRowDef as ɵbg, CdkRow as ɵbk, CdkRowDef as ɵbh, MdMutationObserverFactory as ɵb, OVERLAY_CONTAINER_PROVIDER as ɵd, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵc, OverlayPositionBuilder as ɵw, VIEWPORT_RULER_PROVIDER as ɵf, VIEWPORT_RULER_PROVIDER_FACTORY as ɵe, SCROLL_DISPATCHER_PROVIDER as ɵh, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵg, RippleRenderer as ɵi, EXPANSION_PANEL_ANIMATION_TIMING as ɵl, MdGridAvatarCssMatStyler as ɵn, MdGridTileFooterCssMatStyler as ɵp, MdGridTileHeaderCssMatStyler as ɵo, MdGridTileText as ɵm, MdMenuItemBase as ɵq, _MdMenuItemMixinBase as ɵr, MdTabBase as ɵu, _MdTabMixinBase as ɵv, MdTabLabelWrapperBase as ɵs, _MdTabLabelWrapperMixinBase as ɵt };
 //# sourceMappingURL=material.es5.js.map

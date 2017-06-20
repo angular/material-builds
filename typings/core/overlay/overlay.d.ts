@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ComponentFactoryResolver, ApplicationRef, Injector, NgZone, Provider } from '@angular/core';
+import { ComponentFactoryResolver, ApplicationRef, Injector, NgZone } from '@angular/core';
 import { OverlayState } from './overlay-state';
 import { OverlayRef } from './overlay-ref';
 import { OverlayPositionBuilder } from './position/overlay-position-builder';
@@ -57,5 +57,3 @@ export declare class Overlay {
      */
     private _createOverlayRef(pane, state);
 }
-/** Providers for Overlay and its related injectables. */
-export declare const OVERLAY_PROVIDERS: Provider[];

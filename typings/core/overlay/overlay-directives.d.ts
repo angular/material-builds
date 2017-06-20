@@ -90,5 +90,3 @@ export declare class ConnectedOverlayDirective implements OnDestroy, OnChanges {
     /** Sets the event listener that closes the overlay when pressing Escape. */
     private _initEscapeListener();
 }
-export declare class OverlayModule {
-}

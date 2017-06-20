@@ -1,6 +1,6 @@
 {
   "name": "@angular/material",
-  "version": "2.0.0-beta.7-aee984a",
+  "version": "2.0.0-beta.7-b5bf6f5",
   "description": "Angular Material",
   "main": "./bundles/material.umd.js",
   "module": "./@angular/material.es5.js",

@@ -3798,15 +3798,6 @@ Overlay.ctorParameters = function () { return [
     { type: _angular_core.NgZone, },
 ]; };
 /**
- * Providers for Overlay and its related injectables.
- */
-var OVERLAY_PROVIDERS = [
-    Overlay,
-    OverlayPositionBuilder,
-    VIEWPORT_RULER_PROVIDER,
-    OVERLAY_CONTAINER_PROVIDER,
-];
-/**
  * Default set of positions for the overlay. Follows the behavior of a dropdown.
  */
 var defaultPositionList = [
@@ -4148,6 +4139,85 @@ ConnectedOverlayDirective.propDecorators = {
     'attach': [{ type: _angular_core.Output },],
     'detach': [{ type: _angular_core.Output },],
 };
+/**
+ * The FullscreenOverlayContainer is the alternative to OverlayContainer
+ * that supports correct displaying of overlay elements in Fullscreen mode
+ * https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullScreen
+ * It should be provided in the root component that way:
+ * providers: [
+ *   {provide: OverlayContainer, useClass: FullscreenOverlayContainer}
+ * ],
+ */
+var FullscreenOverlayContainer = (function (_super) {
+    __extends(FullscreenOverlayContainer, _super);
+    function FullscreenOverlayContainer() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * @return {?}
+     */
+    FullscreenOverlayContainer.prototype._createContainer = function () {
+        var _this = this;
+        _super.prototype._createContainer.call(this);
+        this._adjustParentForFullscreenChange();
+        this._addFullscreenChangeListener(function () { return _this._adjustParentForFullscreenChange(); });
+    };
+    /**
+     * @return {?}
+     */
+    FullscreenOverlayContainer.prototype._adjustParentForFullscreenChange = function () {
+        if (!this._containerElement) {
+            return;
+        }
+        var /** @type {?} */ fullscreenElement = this.getFullscreenElement();
+        var /** @type {?} */ parent = fullscreenElement || document.body;
+        parent.appendChild(this._containerElement);
+    };
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    FullscreenOverlayContainer.prototype._addFullscreenChangeListener = function (fn) {
+        if (document.fullscreenEnabled) {
+            document.addEventListener('fullscreenchange', fn);
+        }
+        else if (document.webkitFullscreenEnabled) {
+            document.addEventListener('webkitfullscreenchange', fn);
+        }
+        else if (((document)).mozFullScreenEnabled) {
+            document.addEventListener('mozfullscreenchange', fn);
+        }
+        else if (((document)).msFullscreenEnabled) {
+            document.addEventListener('MSFullscreenChange', fn);
+        }
+    };
+    /**
+     * When the page is put into fullscreen mode, a specific element is specified.
+     * Only that element and its children are visible when in fullscreen mode.
+     * @return {?}
+     */
+    FullscreenOverlayContainer.prototype.getFullscreenElement = function () {
+        return document.fullscreenElement ||
+            document.webkitFullscreenElement ||
+            ((document)).mozFullScreenElement ||
+            ((document)).msFullscreenElement ||
+            null;
+    };
+    return FullscreenOverlayContainer;
+}(OverlayContainer));
+FullscreenOverlayContainer.decorators = [
+    { type: _angular_core.Injectable },
+];
+/**
+ * @nocollapse
+ */
+FullscreenOverlayContainer.ctorParameters = function () { return []; };
+var OVERLAY_PROVIDERS = [
+    Overlay,
+    OverlayPositionBuilder,
+    VIEWPORT_RULER_PROVIDER,
+    OVERLAY_CONTAINER_PROVIDER,
+];
 var OverlayModule = (function () {
     function OverlayModule() {
     }
@@ -4897,79 +4967,6 @@ A11yModule.decorators = [
  * @nocollapse
  */
 A11yModule.ctorParameters = function () { return []; };
-/**
- * The FullscreenOverlayContainer is the alternative to OverlayContainer
- * that supports correct displaying of overlay elements in Fullscreen mode
- * https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullScreen
- * It should be provided in the root component that way:
- * providers: [
- *   {provide: OverlayContainer, useClass: FullscreenOverlayContainer}
- * ],
- */
-var FullscreenOverlayContainer = (function (_super) {
-    __extends(FullscreenOverlayContainer, _super);
-    function FullscreenOverlayContainer() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    /**
-     * @return {?}
-     */
-    FullscreenOverlayContainer.prototype._createContainer = function () {
-        var _this = this;
-        _super.prototype._createContainer.call(this);
-        this._adjustParentForFullscreenChange();
-        this._addFullscreenChangeListener(function () { return _this._adjustParentForFullscreenChange(); });
-    };
-    /**
-     * @return {?}
-     */
-    FullscreenOverlayContainer.prototype._adjustParentForFullscreenChange = function () {
-        if (!this._containerElement) {
-            return;
-        }
-        var /** @type {?} */ fullscreenElement = this.getFullscreenElement();
-        var /** @type {?} */ parent = fullscreenElement || document.body;
-        parent.appendChild(this._containerElement);
-    };
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    FullscreenOverlayContainer.prototype._addFullscreenChangeListener = function (fn) {
-        if (document.fullscreenEnabled) {
-            document.addEventListener('fullscreenchange', fn);
-        }
-        else if (document.webkitFullscreenEnabled) {
-            document.addEventListener('webkitfullscreenchange', fn);
-        }
-        else if (((document)).mozFullScreenEnabled) {
-            document.addEventListener('mozfullscreenchange', fn);
-        }
-        else if (((document)).msFullscreenEnabled) {
-            document.addEventListener('MSFullscreenChange', fn);
-        }
-    };
-    /**
-     * When the page is put into fullscreen mode, a specific element is specified.
-     * Only that element and its children are visible when in fullscreen mode.
-     * @return {?}
-     */
-    FullscreenOverlayContainer.prototype.getFullscreenElement = function () {
-        return document.fullscreenElement ||
-            document.webkitFullscreenElement ||
-            ((document)).mozFullScreenElement ||
-            ((document)).msFullscreenElement ||
-            null;
-    };
-    return FullscreenOverlayContainer;
-}(OverlayContainer));
-FullscreenOverlayContainer.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-FullscreenOverlayContainer.ctorParameters = function () { return []; };
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
@@ -23349,15 +23346,15 @@ exports.MdOptgroup = MdOptgroup;
 exports.PlatformModule = PlatformModule;
 exports.Platform = Platform;
 exports.getSupportedInputTypes = getSupportedInputTypes;
-exports.Overlay = Overlay;
 exports.OVERLAY_PROVIDERS = OVERLAY_PROVIDERS;
+exports.OverlayModule = OverlayModule;
+exports.Overlay = Overlay;
 exports.OverlayContainer = OverlayContainer;
 exports.FullscreenOverlayContainer = FullscreenOverlayContainer;
 exports.OverlayRef = OverlayRef;
 exports.OverlayState = OverlayState;
 exports.ConnectedOverlayDirective = ConnectedOverlayDirective;
 exports.OverlayOrigin = OverlayOrigin;
-exports.OverlayModule = OverlayModule;
 exports.ViewportRuler = ViewportRuler;
 exports.GlobalPositionStrategy = GlobalPositionStrategy;
 exports.ConnectedPositionStrategy = ConnectedPositionStrategy;
