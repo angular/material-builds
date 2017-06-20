@@ -5,13 +5,14 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Injector, TemplateRef } from '@angular/core';
+import { Injector, InjectionToken, TemplateRef } from '@angular/core';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Overlay, ComponentType } from '../core';
 import { MdDialogConfig } from './dialog-config';
 import { MdDialogRef } from './dialog-ref';
+export declare const MD_DIALOG_DATA: InjectionToken<any>;
 /**
  * Service to open Material Design modal dialogs.
  */
@@ -76,6 +77,15 @@ export declare class MdDialog {
      * @returns A promise resolving to the MdDialogRef that should be returned to the user.
      */
     private _attachDialogContent<T>(componentOrTemplateRef, dialogContainer, overlayRef, config);
+    /**
+     * Creates a custom injector to be used inside the dialog. This allows a component loaded inside
+     * of a dialog to close itself and, optionally, to return a value.
+     * @param config Config object that is used to construct the dialog.
+     * @param dialogRef Reference to the dialog.
+     * @param container Dialog container element that wraps all of the contents.
+     * @returns The custom injector that can be used inside the dialog.
+     */
+    private _createInjector<T>(config, dialogRef, dialogContainer);
     /**
      * Removes a dialog from the array of open dialogs.
      * @param dialogRef Dialog to be removed.

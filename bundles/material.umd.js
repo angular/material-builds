@@ -19167,6 +19167,77 @@ MdMenuModule.decorators = [
  */
 MdMenuModule.ctorParameters = function () { return []; };
 /**
+ * Custom injector type specifically for instantiating components with a dialog.
+ */
+var DialogInjector = (function () {
+    /**
+     * @param {?} _parentInjector
+     * @param {?} _customTokens
+     */
+    function DialogInjector(_parentInjector, _customTokens) {
+        this._parentInjector = _parentInjector;
+        this._customTokens = _customTokens;
+    }
+    /**
+     * @param {?} token
+     * @param {?=} notFoundValue
+     * @return {?}
+     */
+    DialogInjector.prototype.get = function (token, notFoundValue) {
+        var /** @type {?} */ value = this._customTokens.get(token);
+        if (typeof value !== 'undefined') {
+            return value;
+        }
+        return this._parentInjector.get(token, notFoundValue);
+    };
+    return DialogInjector;
+}());
+/**
+ * Configuration for opening a modal dialog with the MdDialog service.
+ */
+var MdDialogConfig = (function () {
+    function MdDialogConfig() {
+        /**
+         * The ARIA role of the dialog element.
+         */
+        this.role = 'dialog';
+        /**
+         * Custom class for the overlay pane.
+         */
+        this.panelClass = '';
+        /**
+         * Whether the dialog has a backdrop.
+         */
+        this.hasBackdrop = true;
+        /**
+         * Custom class for the backdrop,
+         */
+        this.backdropClass = '';
+        /**
+         * Whether the user can use escape or clicking outside to close a modal.
+         */
+        this.disableClose = false;
+        /**
+         * Width of the dialog.
+         */
+        this.width = '';
+        /**
+         * Height of the dialog.
+         */
+        this.height = '';
+        /**
+         * Data being injected into the child component.
+         */
+        this.data = null;
+        /**
+         * Layout direction for the dialog's content.
+         */
+        this.direction = 'ltr';
+        // TODO(jelbourn): add configuration for lifecycle hooks, ARIA labelling.
+    }
+    return MdDialogConfig;
+}());
+/**
  * Reference to a dialog opened via the MdDialog service.
  */
 var MdDialogRef = (function () {
@@ -19255,82 +19326,6 @@ var MdDialogRef = (function () {
     };
     return MdDialogRef;
 }());
-var MD_DIALOG_DATA = new _angular_core.InjectionToken('MdDialogData');
-/**
- * Custom injector type specifically for instantiating components with a dialog.
- */
-var DialogInjector = (function () {
-    /**
-     * @param {?} _parentInjector
-     * @param {?} _dialogRef
-     * @param {?} _data
-     */
-    function DialogInjector(_parentInjector, _dialogRef, _data) {
-        this._parentInjector = _parentInjector;
-        this._dialogRef = _dialogRef;
-        this._data = _data;
-    }
-    /**
-     * @param {?} token
-     * @param {?=} notFoundValue
-     * @return {?}
-     */
-    DialogInjector.prototype.get = function (token, notFoundValue) {
-        if (token === MdDialogRef) {
-            return this._dialogRef;
-        }
-        if (token === MD_DIALOG_DATA) {
-            return this._data;
-        }
-        return this._parentInjector.get(token, notFoundValue);
-    };
-    return DialogInjector;
-}());
-/**
- * Configuration for opening a modal dialog with the MdDialog service.
- */
-var MdDialogConfig = (function () {
-    function MdDialogConfig() {
-        /**
-         * The ARIA role of the dialog element.
-         */
-        this.role = 'dialog';
-        /**
-         * Custom class for the overlay pane.
-         */
-        this.panelClass = '';
-        /**
-         * Whether the dialog has a backdrop.
-         */
-        this.hasBackdrop = true;
-        /**
-         * Custom class for the backdrop,
-         */
-        this.backdropClass = '';
-        /**
-         * Whether the user can use escape or clicking outside to close a modal.
-         */
-        this.disableClose = false;
-        /**
-         * Width of the dialog.
-         */
-        this.width = '';
-        /**
-         * Height of the dialog.
-         */
-        this.height = '';
-        /**
-         * Data being injected into the child component.
-         */
-        this.data = null;
-        /**
-         * Layout direction for the dialog's content.
-         */
-        this.direction = 'ltr';
-        // TODO(jelbourn): add configuration for lifecycle hooks, ARIA labelling.
-    }
-    return MdDialogConfig;
-}());
 /**
  * Throws an exception for the case when a ComponentPortal is
  * attached to a DomPortalHost without an origin.
@@ -19370,6 +19365,10 @@ var MdDialogContainer = (function (_super) {
          * Emits the current animation state whenever it changes.
          */
         _this._onAnimationStateChange = new _angular_core.EventEmitter();
+        /**
+         * ID of the element that should be considered as the dialog's label.
+         */
+        _this._ariaLabelledBy = null;
         _this._document = _document;
         return _this;
     }
@@ -19471,6 +19470,7 @@ MdDialogContainer.decorators = [
                 host: {
                     'class': 'mat-dialog-container',
                     '[attr.role]': '_config?.role',
+                    '[attr.aria-labelledby]': '_ariaLabelledBy',
                     '[@slideDialog]': '_state',
                     '(@slideDialog.done)': '_onAnimationDone($event)',
                 },
@@ -19488,6 +19488,7 @@ MdDialogContainer.ctorParameters = function () { return [
 MdDialogContainer.propDecorators = {
     '_portalHost': [{ type: _angular_core.ViewChild, args: [PortalHostDirective,] },],
 };
+var MD_DIALOG_DATA = new _angular_core.InjectionToken('MdDialogData');
 /**
  * Service to open Material Design modal dialogs.
  */
@@ -19654,22 +19655,35 @@ var MdDialog = (function () {
                 }
             });
         }
-        // We create an injector specifically for the component we're instantiating so that it can
-        // inject the MdDialogRef. This allows a component loaded inside of a dialog to close itself
-        // and, optionally, to return a value.
-        var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        var /** @type {?} */ dialogInjector = new DialogInjector(userInjector || this._injector, dialogRef, config.data);
         if (componentOrTemplateRef instanceof _angular_core.TemplateRef) {
             dialogContainer.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, null));
         }
         else {
-            var /** @type {?} */ contentRef = dialogContainer.attachComponentPortal(new ComponentPortal(componentOrTemplateRef, null, dialogInjector));
+            var /** @type {?} */ injector = this._createInjector(config, dialogRef, dialogContainer);
+            var /** @type {?} */ contentRef = dialogContainer.attachComponentPortal(new ComponentPortal(componentOrTemplateRef, null, injector));
             dialogRef.componentInstance = contentRef.instance;
         }
         dialogRef
             .updateSize(config.width, config.height)
             .updatePosition(config.position);
         return dialogRef;
+    };
+    /**
+     * Creates a custom injector to be used inside the dialog. This allows a component loaded inside
+     * of a dialog to close itself and, optionally, to return a value.
+     * @template T
+     * @param {?} config Config object that is used to construct the dialog.
+     * @param {?} dialogRef Reference to the dialog.
+     * @param {?} dialogContainer
+     * @return {?} The custom injector that can be used inside the dialog.
+     */
+    MdDialog.prototype._createInjector = function (config, dialogRef, dialogContainer) {
+        var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        var /** @type {?} */ injectionTokens = new WeakMap();
+        injectionTokens.set(MdDialogRef, dialogRef);
+        injectionTokens.set(MdDialogContainer, dialogContainer);
+        injectionTokens.set(MD_DIALOG_DATA, config.data);
+        return new DialogInjector(userInjector || this._injector, injectionTokens);
     };
     /**
      * Removes a dialog from the array of open dialogs.
@@ -19723,6 +19737,10 @@ function _applyConfigDefaults$1(config) {
     return extendObject(new MdDialogConfig(), config);
 }
 /**
+ * Counter used to generate unique IDs for dialog elements.
+ */
+var dialogElementUid = 0;
+/**
  * Button that will close the current dialog.
  */
 var MdDialogClose = (function () {
@@ -19774,20 +19792,42 @@ MdDialogClose.propDecorators = {
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
  */
 var MdDialogTitle = (function () {
-    function MdDialogTitle() {
+    /**
+     * @param {?} _container
+     */
+    function MdDialogTitle(_container) {
+        this._container = _container;
+        this.id = "md-dialog-title-" + dialogElementUid++;
     }
+    /**
+     * @return {?}
+     */
+    MdDialogTitle.prototype.ngOnInit = function () {
+        var _this = this;
+        if (this._container && !this._container._ariaLabelledBy) {
+            Promise.resolve().then(function () { return _this._container._ariaLabelledBy = _this.id; });
+        }
+    };
     return MdDialogTitle;
 }());
 MdDialogTitle.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: '[md-dialog-title], [mat-dialog-title], [mdDialogTitle], [matDialogTitle]',
-                host: { 'class': 'mat-dialog-title' },
+                host: {
+                    'class': 'mat-dialog-title',
+                    '[id]': 'id',
+                },
             },] },
 ];
 /**
  * @nocollapse
  */
-MdDialogTitle.ctorParameters = function () { return []; };
+MdDialogTitle.ctorParameters = function () { return [
+    { type: MdDialogContainer, decorators: [{ type: _angular_core.Optional },] },
+]; };
+MdDialogTitle.propDecorators = {
+    'id': [{ type: _angular_core.Input },],
+};
 /**
  * Scrollable content container of a dialog.
  */

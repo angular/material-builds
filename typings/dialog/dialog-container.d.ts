@@ -39,6 +39,8 @@ export declare class MdDialogContainer extends BasePortalHost {
     _state: 'void' | 'enter' | 'exit';
     /** Emits the current animation state whenever it changes. */
     _onAnimationStateChange: EventEmitter<AnimationEvent>;
+    /** ID of the element that should be considered as the dialog's label. */
+    _ariaLabelledBy: string | null;
     constructor(_ngZone: NgZone, _elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _document: any);
     /**
      * Attach a ComponentPortal as content to this dialog container.
