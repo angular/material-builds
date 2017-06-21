@@ -19,7 +19,7 @@ export declare const MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR: any;
 /** Change event object emitted by MdRadio and MdRadioGroup. */
 export declare class MdRadioChange {
     /** The MdRadioButton that emits the change event. */
-    source: MdRadioButton;
+    source: MdRadioButton | null;
     /** The value of the MdRadioButton. */
     value: any;
 }
@@ -76,7 +76,7 @@ export declare class MdRadioGroup extends _MdRadioGroupMixinBase implements Afte
     value: any;
     _checkSelectedRadioButton(): void;
     /** Whether the radio button is selected. */
-    selected: MdRadioButton;
+    selected: MdRadioButton | null;
     /** Whether the radio group is diabled */
     disabled: boolean;
     constructor(_changeDetector: ChangeDetectorRef);

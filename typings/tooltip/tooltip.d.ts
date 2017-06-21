@@ -18,8 +18,8 @@ export declare type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'be
 export declare const TOUCHEND_HIDE_DELAY = 1500;
 /** Time in ms to throttle repositioning after scroll events. */
 export declare const SCROLL_THROTTLE_MS = 20;
-/** Throws an error if the user supplied an invalid tooltip position. */
-export declare function throwMdTooltipInvalidPositionError(position: string): void;
+/** Creates an error to be thrown if the user supplied an invalid tooltip position. */
+export declare function getMdTooltipInvalidPositionError(position: string): Error;
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
@@ -35,8 +35,8 @@ export declare class MdTooltip implements OnDestroy {
     private _renderer;
     private _platform;
     private _dir;
-    _overlayRef: OverlayRef;
-    _tooltipInstance: TooltipComponent;
+    _overlayRef: OverlayRef | null;
+    _tooltipInstance: TooltipComponent | null;
     private _position;
     private _disabled;
     private _tooltipClass;

@@ -9,7 +9,7 @@ import { Constructor } from './constructor';
 import { ElementRef, Renderer2 } from '@angular/core';
 /** @docs-private */
 export interface CanColor {
-    color: string;
+    color: ThemePalette;
 }
 /** @docs-private */
 export interface HasRenderer {
@@ -17,6 +17,6 @@ export interface HasRenderer {
     _elementRef: ElementRef;
 }
 /** Possible color palette values.  */
-export declare type ThemePalette = 'primary' | 'accent' | 'warn' | null;
+export declare type ThemePalette = 'primary' | 'accent' | 'warn' | undefined;
 /** Mixin to augment a directive with a `color` property. */
 export declare function mixinColor<T extends Constructor<HasRenderer>>(base: T, defaultColor?: ThemePalette): Constructor<CanColor> & T;

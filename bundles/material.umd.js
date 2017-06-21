@@ -544,7 +544,6 @@ var ObserveContent = (function () {
         if (this._observer) {
             this._observer.disconnect();
             this._debouncer.complete();
-            this._debouncer = this._observer = null;
         }
     };
     return ObserveContent;
@@ -706,7 +705,7 @@ var RippleRenderer = (function () {
         ripple.style.height = radius * 2 + "px";
         ripple.style.width = radius * 2 + "px";
         // If the color is not set, the default CSS color will be used.
-        ripple.style.backgroundColor = config.color;
+        ripple.style.backgroundColor = config.color || null;
         ripple.style.transitionDuration = duration + "ms";
         this._containerElement.appendChild(ripple);
         // By default the browser does not recalculate the styles of dynamically created
@@ -744,8 +743,8 @@ var RippleRenderer = (function () {
         rippleRef.state = RippleState.FADING_OUT;
         // Once the ripple faded out, the ripple can be safely removed from the DOM.
         this.runTimeoutOutsideZone(function () {
-            rippleRef.state = RippleState.HIDDEN;
-            rippleEl.parentNode.removeChild(rippleEl);
+            rippleRef.state = RippleState.HIDDEN; /** @type {?} */
+            ((rippleEl.parentNode)).removeChild(rippleEl);
         }, RIPPLE_FADE_OUT_DURATION);
     };
     /**
@@ -764,7 +763,9 @@ var RippleRenderer = (function () {
         var _this = this;
         // Remove all previously register event listeners from the trigger element.
         if (this._triggerElement) {
-            this._triggerEvents.forEach(function (fn, type) { return _this._triggerElement.removeEventListener(type, fn); });
+            this._triggerEvents.forEach(function (fn, type) {
+                ((_this._triggerElement)).removeEventListener(type, fn);
+            });
         }
         if (element) {
             // If the element is not null, register all event listeners on the trigger element.
@@ -1011,8 +1012,9 @@ var ScrollDispatcher = (function () {
      * @return {?}
      */
     ScrollDispatcher.prototype.deregister = function (scrollable) {
-        if (this.scrollableReferences.has(scrollable)) {
-            this.scrollableReferences.get(scrollable).unsubscribe();
+        var /** @type {?} */ scrollableReference = this.scrollableReferences.get(scrollable);
+        if (scrollableReference) {
+            scrollableReference.unsubscribe();
             this.scrollableReferences.delete(scrollable);
         }
     };
@@ -1085,6 +1087,7 @@ var ScrollDispatcher = (function () {
                 return true;
             }
         } while (element = element.parentElement);
+        return false;
     };
     /**
      * Sends a notification that a scroll event has been fired.
@@ -1131,7 +1134,7 @@ var ViewportRuler = (function () {
     function ViewportRuler(scrollDispatcher) {
         var _this = this;
         // Subscribe to scroll and resize events and update the document rectangle on changes.
-        scrollDispatcher.scrolled(null, function () { return _this._cacheViewportGeometry(); });
+        scrollDispatcher.scrolled(0, function () { return _this._cacheViewportGeometry(); });
     }
     /**
      * Gets a ClientRect for the viewport's bounds.
@@ -1184,9 +1187,9 @@ var ViewportRuler = (function () {
         // `scrollTop` and `scrollLeft` is inconsistent. However, using the bounding rect of
         // `document.documentElement` works consistently, where the `top` and `left` values will
         // equal negative the scroll position.
-        var /** @type {?} */ top = -documentRect.top || document.body.scrollTop || window.scrollY ||
+        var /** @type {?} */ top = -((documentRect)).top || document.body.scrollTop || window.scrollY ||
             document.documentElement.scrollTop || 0;
-        var /** @type {?} */ left = -documentRect.left || document.body.scrollLeft || window.scrollX ||
+        var /** @type {?} */ left = -((documentRect)).left || document.body.scrollLeft || window.scrollX ||
             document.documentElement.scrollLeft || 0;
         return { top: top, left: left };
     };
@@ -1445,7 +1448,7 @@ var CloseScrollStrategy = (function () {
     CloseScrollStrategy.prototype.enable = function () {
         var _this = this;
         if (!this._scrollSubscription) {
-            this._scrollSubscription = this._scrollDispatcher.scrolled(null, function () {
+            this._scrollSubscription = this._scrollDispatcher.scrolled(0, function () {
                 if (_this._overlayRef.hasAttached()) {
                     _this._overlayRef.detach();
                 }
@@ -1493,7 +1496,7 @@ var BlockScrollStrategy = (function () {
      */
     function BlockScrollStrategy(_viewportRuler) {
         this._viewportRuler = _viewportRuler;
-        this._previousHTMLStyles = { top: null, left: null };
+        this._previousHTMLStyles = { top: '', left: '' };
         this._isEnabled = false;
     }
     /**
@@ -1508,8 +1511,8 @@ var BlockScrollStrategy = (function () {
             var /** @type {?} */ root = document.documentElement;
             this._previousScrollPosition = this._viewportRuler.getViewportScrollPosition();
             // Cache the previous inline styles in case the user had set them.
-            this._previousHTMLStyles.left = root.style.left;
-            this._previousHTMLStyles.top = root.style.top;
+            this._previousHTMLStyles.left = root.style.left || '';
+            this._previousHTMLStyles.top = root.style.top || '';
             // Note: we're using the `html` node, instead of the `body`, because the `body` may
             // have the user agent margin, whereas the `html` is guaranteed not to have one.
             root.style.left = -this._previousScrollPosition.left + "px";
@@ -1552,7 +1555,7 @@ var BlockScrollStrategy = (function () {
 var RepositionScrollStrategy = (function () {
     /**
      * @param {?} _scrollDispatcher
-     * @param {?} _config
+     * @param {?=} _config
      */
     function RepositionScrollStrategy(_scrollDispatcher, _config) {
         this._scrollDispatcher = _scrollDispatcher;
@@ -1691,7 +1694,6 @@ function mixinColor(base, defaultColor) {
                 args[_i] = arguments[_i];
             }
             var _this = _super.apply(this, args) || this;
-            _this._color = null;
             // Set the default color that can be specified from the mixin.
             _this.color = defaultColor;
             return _this;
@@ -2016,7 +2018,7 @@ var MdOption = (function () {
          */
         get: function () {
             // TODO(kara): Add input property alternative for node envs.
-            return this._getHostElement().textContent.trim();
+            return (this._getHostElement().textContent || '').trim();
         },
         enumerable: true,
         configurable: true
@@ -2238,8 +2240,10 @@ var Portal = (function () {
         if (host == null) {
             throwNoPortalAttachedError();
         }
-        this._attachedHost = null;
-        return host.detach();
+        else {
+            this._attachedHost = null;
+            host.detach();
+        }
     };
     Object.defineProperty(Portal.prototype, "isAttached", {
         /**
@@ -2274,8 +2278,6 @@ var ComponentPortal = (function (_super) {
      * @param {?=} injector
      */
     function ComponentPortal(component, viewContainerRef, injector) {
-        if (viewContainerRef === void 0) { viewContainerRef = null; }
-        if (injector === void 0) { injector = null; }
         var _this = _super.call(this) || this;
         _this.component = component;
         _this.viewContainerRef = viewContainerRef;
@@ -2478,6 +2480,10 @@ var PortalHostDirective = (function (_super) {
         var _this = _super.call(this) || this;
         _this._componentFactoryResolver = _componentFactoryResolver;
         _this._viewContainerRef = _viewContainerRef;
+        /**
+         * The attached portal.
+         */
+        _this._portal = null;
         return _this;
     }
     Object.defineProperty(PortalHostDirective.prototype, "_deprecatedPortal", {
@@ -2803,7 +2809,6 @@ var OverlayRef = (function () {
         }
         if (this._scrollStrategy) {
             this._scrollStrategy.disable();
-            this._scrollStrategy = null;
         }
         this.detachBackdrop();
         this._portalHost.dispose();
@@ -2861,7 +2866,7 @@ var OverlayRef = (function () {
      * @return {?}
      */
     OverlayRef.prototype.updateDirection = function () {
-        this._pane.setAttribute('dir', this._state.direction);
+        this._pane.setAttribute('dir', /** @type {?} */ ((this._state.direction)));
     };
     /**
      * Updates the size of the overlay based on the overlay config.
@@ -2897,10 +2902,13 @@ var OverlayRef = (function () {
         var _this = this;
         this._backdropElement = document.createElement('div');
         this._backdropElement.classList.add('cdk-overlay-backdrop');
-        this._backdropElement.classList.add(this._state.backdropClass);
+        if (this._state.backdropClass) {
+            this._backdropElement.classList.add(this._state.backdropClass);
+        } /** @type {?} */
+        ((
         // Insert the backdrop before the pane in the DOM order,
         // in order to handle stacked overlays properly.
-        this._pane.parentElement.insertBefore(this._backdropElement, this._pane);
+        this._pane.parentElement)).insertBefore(this._backdropElement, this._pane);
         // Forward backdrop clicks such that the consumer of the overlay can perform whatever
         // action desired when such a click occurs (usually closing the overlay).
         this._backdropElement.addEventListener('click', function () { return _this._backdropClick.next(null); });
@@ -2921,7 +2929,7 @@ var OverlayRef = (function () {
      */
     OverlayRef.prototype._updateStackingOrder = function () {
         if (this._pane.nextSibling) {
-            this._pane.parentNode.appendChild(this._pane);
+            ((this._pane.parentNode)).appendChild(this._pane);
         }
     };
     /**
@@ -2945,7 +2953,9 @@ var OverlayRef = (function () {
                 }
             };
             backdropToDetach.classList.remove('cdk-overlay-backdrop-showing');
-            backdropToDetach.classList.remove(this._state.backdropClass);
+            if (this._state.backdropClass) {
+                backdropToDetach.classList.remove(this._state.backdropClass);
+            }
             backdropToDetach.addEventListener('transitionend', finishDetach_1);
             // If the backdrop doesn't have a transition, the `transitionend` event won't fire.
             // In this case we make it unclickable and we try to remove it after a delay.
@@ -3129,8 +3139,8 @@ var ConnectedPositionStrategy = (function () {
         // We use the viewport rect to determine whether a position would go off-screen.
         var /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
         // Fallback point if none of the fallbacks fit into the viewport.
-        var /** @type {?} */ fallbackPoint = null;
-        var /** @type {?} */ fallbackPosition = null;
+        var /** @type {?} */ fallbackPoint;
+        var /** @type {?} */ fallbackPosition;
         // We want to place the overlay in the first of the preferred positions such that the
         // overlay fits on-screen.
         for (var _i = 0, _a = this._preferredPositions; _i < _a.length; _i++) {
@@ -3148,7 +3158,7 @@ var ConnectedPositionStrategy = (function () {
                 var /** @type {?} */ scrollableViewProperties = this.getScrollableViewProperties(element);
                 var /** @type {?} */ positionChange = new ConnectedOverlayPositionChange(pos, scrollableViewProperties);
                 this._onPositionChange.next(positionChange);
-                return Promise.resolve(null);
+                return;
             }
             else if (!fallbackPoint || fallbackPoint.visibleArea < overlayPoint.visibleArea) {
                 fallbackPoint = overlayPoint;
@@ -3157,8 +3167,7 @@ var ConnectedPositionStrategy = (function () {
         }
         // If none of the preferred positions were in the viewport, take the one
         // with the largest visible area.
-        this._setElementPosition(element, overlayRect, fallbackPoint, fallbackPosition);
-        return Promise.resolve(null);
+        this._setElementPosition(element, overlayRect, /** @type {?} */ ((fallbackPoint)), /** @type {?} */ ((fallbackPosition)));
     };
     /**
      * This re-aligns the overlay element with the trigger in its last calculated position,
@@ -3446,13 +3455,15 @@ var GlobalPositionStrategy = (function () {
         this._justifyContent = '';
         this._width = '';
         this._height = '';
+        this._wrapper = null;
     }
     /**
      * Sets the top position of the overlay. Clears any previously set vertical position.
-     * @param {?} value New top offset.
+     * @param {?=} value New top offset.
      * @return {?}
      */
     GlobalPositionStrategy.prototype.top = function (value) {
+        if (value === void 0) { value = ''; }
         this._bottomOffset = '';
         this._topOffset = value;
         this._alignItems = 'flex-start';
@@ -3460,10 +3471,11 @@ var GlobalPositionStrategy = (function () {
     };
     /**
      * Sets the left position of the overlay. Clears any previously set horizontal position.
-     * @param {?} value New left offset.
+     * @param {?=} value New left offset.
      * @return {?}
      */
     GlobalPositionStrategy.prototype.left = function (value) {
+        if (value === void 0) { value = ''; }
         this._rightOffset = '';
         this._leftOffset = value;
         this._justifyContent = 'flex-start';
@@ -3471,10 +3483,11 @@ var GlobalPositionStrategy = (function () {
     };
     /**
      * Sets the bottom position of the overlay. Clears any previously set vertical position.
-     * @param {?} value New bottom offset.
+     * @param {?=} value New bottom offset.
      * @return {?}
      */
     GlobalPositionStrategy.prototype.bottom = function (value) {
+        if (value === void 0) { value = ''; }
         this._topOffset = '';
         this._bottomOffset = value;
         this._alignItems = 'flex-end';
@@ -3482,10 +3495,11 @@ var GlobalPositionStrategy = (function () {
     };
     /**
      * Sets the right position of the overlay. Clears any previously set horizontal position.
-     * @param {?} value New right offset.
+     * @param {?=} value New right offset.
      * @return {?}
      */
     GlobalPositionStrategy.prototype.right = function (value) {
+        if (value === void 0) { value = ''; }
         this._leftOffset = '';
         this._rightOffset = value;
         this._justifyContent = 'flex-end';
@@ -3493,10 +3507,11 @@ var GlobalPositionStrategy = (function () {
     };
     /**
      * Sets the overlay width and clears any previously set width.
-     * @param {?} value New width for the overlay
+     * @param {?=} value New width for the overlay
      * @return {?}
      */
     GlobalPositionStrategy.prototype.width = function (value) {
+        if (value === void 0) { value = ''; }
         this._width = value;
         // When the width is 100%, we should reset the `left` and the offset,
         // in order to ensure that the element is flush against the viewport edge.
@@ -3507,10 +3522,11 @@ var GlobalPositionStrategy = (function () {
     };
     /**
      * Sets the overlay height and clears any previously set height.
-     * @param {?} value New height for the overlay
+     * @param {?=} value New height for the overlay
      * @return {?}
      */
     GlobalPositionStrategy.prototype.height = function (value) {
+        if (value === void 0) { value = ''; }
         this._height = value;
         // When the height is 100%, we should reset the `top` and the offset,
         // in order to ensure that the element is flush against the viewport edge.
@@ -3553,7 +3569,7 @@ var GlobalPositionStrategy = (function () {
      * @return {?} Resolved when the styles have been applied.
      */
     GlobalPositionStrategy.prototype.apply = function (element) {
-        if (!this._wrapper) {
+        if (!this._wrapper && element.parentNode) {
             this._wrapper = document.createElement('div');
             this._wrapper.classList.add('cdk-global-overlay-wrapper');
             element.parentNode.insertBefore(this._wrapper, element);
@@ -3570,7 +3586,6 @@ var GlobalPositionStrategy = (function () {
         styles.height = this._height;
         parentStyles.justifyContent = this._justifyContent;
         parentStyles.alignItems = this._alignItems;
-        return Promise.resolve(null);
     };
     /**
      * Removes the wrapper element from the DOM.
@@ -4441,7 +4456,7 @@ function getTabIndexValue(element) {
         return null;
     }
     // See browser issue in Gecko https://bugzilla.mozilla.org/show_bug.cgi?id=1128054
-    var /** @type {?} */ tabIndex = parseInt(element.getAttribute('tabindex'), 10);
+    var /** @type {?} */ tabIndex = parseInt(element.getAttribute('tabindex') || '', 10);
     return isNaN(tabIndex) ? -1 : tabIndex;
 }
 /**
@@ -4558,10 +4573,12 @@ var FocusTrap = (function () {
             this._endAnchor = this._createAnchor();
         }
         this._ngZone.runOutsideAngular(function () {
-            _this._startAnchor.addEventListener('focus', function () { return _this.focusLastTabbableElement(); });
-            _this._endAnchor.addEventListener('focus', function () { return _this.focusFirstTabbableElement(); });
-            _this._element.parentNode.insertBefore(_this._startAnchor, _this._element);
-            _this._element.parentNode.insertBefore(_this._endAnchor, _this._element.nextSibling);
+            ((_this._startAnchor)).addEventListener('focus', function () { return _this.focusLastTabbableElement(); }); /** @type {?} */
+            ((_this._endAnchor)).addEventListener('focus', function () { return _this.focusFirstTabbableElement(); });
+            if (_this._element.parentNode) {
+                _this._element.parentNode.insertBefore(/** @type {?} */ ((_this._startAnchor)), _this._element);
+                _this._element.parentNode.insertBefore(/** @type {?} */ ((_this._endAnchor)), _this._element.nextSibling);
+            }
         });
     };
     /**
@@ -5163,7 +5180,7 @@ var SelectionModel = (function () {
      * @return {?}
      */
     SelectionModel.prototype.sort = function (predicate) {
-        if (this._isMulti && this.selected) {
+        if (this._isMulti && this._selected) {
             this._selected.sort(predicate);
         }
     };
@@ -5174,7 +5191,9 @@ var SelectionModel = (function () {
     SelectionModel.prototype._emitChangeEvent = function () {
         if (this._selectedToEmit.length || this._deselectedToEmit.length) {
             var /** @type {?} */ eventData = new SelectionChange(this._selectedToEmit, this._deselectedToEmit);
-            this.onChange.next(eventData);
+            if (this.onChange) {
+                this.onChange.next(eventData);
+            }
             this._deselectedToEmit = [];
             this._selectedToEmit = [];
         }
@@ -5344,17 +5363,17 @@ var FocusOriginMonitor = (function () {
         var _this = this;
         // Do nothing if we're not on the browser platform.
         if (!this._platform.isBrowser) {
-            return rxjs_Observable.Observable.of();
+            return rxjs_Observable.Observable.of(null);
         }
         // Check if we're already monitoring this element.
         if (this._elementInfo.has(element)) {
-            var /** @type {?} */ info_1 = this._elementInfo.get(element);
-            info_1.checkChildren = checkChildren;
-            return info_1.subject.asObservable();
+            var /** @type {?} */ info_1 = this._elementInfo.get(element); /** @type {?} */
+            ((info_1)).checkChildren = checkChildren;
+            return ((info_1)).subject.asObservable();
         }
         // Create monitored element info.
         var /** @type {?} */ info = {
-            unlisten: null,
+            unlisten: function () { },
             checkChildren: checkChildren,
             renderer: renderer,
             subject: new rxjs_Subject.Subject()
@@ -5384,7 +5403,7 @@ var FocusOriginMonitor = (function () {
         if (elementInfo) {
             elementInfo.unlisten();
             elementInfo.subject.complete();
-            this._setClasses(element, null);
+            this._setClasses(element);
             this._elementInfo.delete(element);
         }
     };
@@ -5442,19 +5461,22 @@ var FocusOriginMonitor = (function () {
     /**
      * Sets the focus classes on the element based on the given focus origin.
      * @param {?} element The element to update the classes on.
-     * @param {?} origin The focus origin.
+     * @param {?=} origin The focus origin.
      * @return {?}
      */
     FocusOriginMonitor.prototype._setClasses = function (element, origin) {
-        var /** @type {?} */ renderer = this._elementInfo.get(element).renderer;
-        var /** @type {?} */ toggleClass = function (className, shouldSet) {
-            shouldSet ? renderer.addClass(element, className) : renderer.removeClass(element, className);
-        };
-        toggleClass('cdk-focused', !!origin);
-        toggleClass('cdk-touch-focused', origin === 'touch');
-        toggleClass('cdk-keyboard-focused', origin === 'keyboard');
-        toggleClass('cdk-mouse-focused', origin === 'mouse');
-        toggleClass('cdk-program-focused', origin === 'program');
+        var /** @type {?} */ elementInfo = this._elementInfo.get(element);
+        if (elementInfo) {
+            var /** @type {?} */ toggleClass = function (className, shouldSet) {
+                shouldSet ? elementInfo.renderer.addClass(element, className) :
+                    elementInfo.renderer.removeClass(element, className);
+            };
+            toggleClass('cdk-focused', !!origin);
+            toggleClass('cdk-touch-focused', origin === 'touch');
+            toggleClass('cdk-keyboard-focused', origin === 'keyboard');
+            toggleClass('cdk-mouse-focused', origin === 'mouse');
+            toggleClass('cdk-program-focused', origin === 'program');
+        }
     };
     /**
      * Sets the origin and schedules an async function to clear it at the end of the event queue.
@@ -5506,7 +5528,8 @@ var FocusOriginMonitor = (function () {
         // it. (This only matters for elements that have includesChildren = true).
         // If we are not counting child-element-focus as focused, make sure that the event target is the
         // monitored element itself.
-        if (!this._elementInfo.get(element).checkChildren && element !== event.target) {
+        var /** @type {?} */ elementInfo = this._elementInfo.get(element);
+        if (!elementInfo || (!elementInfo.checkChildren && element !== event.target)) {
             return;
         }
         // If we couldn't detect a cause for the focus event, it's due to one of three reasons:
@@ -5527,7 +5550,7 @@ var FocusOriginMonitor = (function () {
             }
         }
         this._setClasses(element, this._origin);
-        this._elementInfo.get(element).subject.next(this._origin);
+        elementInfo.subject.next(this._origin);
         this._lastFocusOrigin = this._origin;
         this._origin = null;
     };
@@ -5540,12 +5563,13 @@ var FocusOriginMonitor = (function () {
     FocusOriginMonitor.prototype._onBlur = function (event, element) {
         // If we are counting child-element-focus as focused, make sure that we aren't just blurring in
         // order to focus another child of the monitored element.
-        if (this._elementInfo.get(element).checkChildren && event.relatedTarget instanceof Node &&
-            element.contains(event.relatedTarget)) {
+        var /** @type {?} */ elementInfo = this._elementInfo.get(element);
+        if (!elementInfo || (elementInfo.checkChildren && event.relatedTarget instanceof Node &&
+            element.contains(event.relatedTarget))) {
             return;
         }
-        this._setClasses(element, null);
-        this._elementInfo.get(element).subject.next(null);
+        this._setClasses(element);
+        elementInfo.subject.next(null);
     };
     return FocusOriginMonitor;
 }());
@@ -6041,14 +6065,16 @@ var NativeDateAdapter = (function (_super) {
     NativeDateAdapter.prototype.createDate = function (year, month, date) {
         // Check for invalid month and date (except upper bound on date which we have to check after
         // creating the Date).
-        if (month < 0 || month > 11 || date < 1) {
-            return null;
+        if (month < 0 || month > 11) {
+            throw Error("Invalid month index \"" + month + "\". Month index has to be between 0 and 11.");
+        }
+        if (date < 1) {
+            throw Error("Invalid date \"" + date + "\". Date has to be greater than 0.");
         }
         var /** @type {?} */ result = this._createDateWithOverflow(year, month, date);
-        // Check that the date wasn't above the upper bound for the month, causing the month to
-        // overflow.
+        // Check that the date wasn't above the upper bound for the month, causing the month to overflow
         if (result.getMonth() != month) {
-            return null;
+            throw Error("Invalid date \"" + date + "\" for month with index \"" + month + "\".");
         }
         return result;
     };
@@ -6151,11 +6177,11 @@ var NativeDateAdapter = (function (_super) {
      * Strip out unicode LTR and RTL characters. Edge and IE insert these into formatted dates while
      * other browsers do not. We remove them to make output consistent and because they interfere with
      * date parsing.
-     * @param {?} s The string to strip direction characters from.
+     * @param {?} str The string to strip direction characters from.
      * @return {?} The stripped string.
      */
-    NativeDateAdapter.prototype._stripDirectionalityCharacters = function (s) {
-        return s.replace(/[\u200e\u200f]/g, '');
+    NativeDateAdapter.prototype._stripDirectionalityCharacters = function (str) {
+        return str.replace(/[\u200e\u200f]/g, '');
     };
     return NativeDateAdapter;
 }(DateAdapter));
@@ -6300,10 +6326,6 @@ var MdButtonToggleGroup = (function (_super) {
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          */
         _this.onTouched = function () { };
-        /**
-         * Child button toggle buttons.
-         */
-        _this._buttonToggles = null;
         /**
          * Event emitted when the group's value changes.
          */
@@ -6579,7 +6601,7 @@ var MdButtonToggle = (function () {
         /**
          * Whether or not this button toggle is disabled.
          */
-        this._disabled = null;
+        this._disabled = false;
         /**
          * Value assigned to this button toggle.
          */
@@ -6587,7 +6609,7 @@ var MdButtonToggle = (function () {
         /**
          * Whether or not the button toggle is a single selection.
          */
-        this._isSingleSelector = null;
+        this._isSingleSelector = false;
         /**
          * Event emitted when the group value changes.
          */
@@ -6686,7 +6708,7 @@ var MdButtonToggle = (function () {
          * @return {?}
          */
         set: function (value) {
-            this._disabled = (value != null && value !== false) ? true : null;
+            this._disabled = coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -6765,7 +6787,7 @@ var MdButtonToggle = (function () {
 }());
 MdButtonToggle.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-button-toggle, mat-button-toggle',
-                template: "<label [attr.for]=\"inputId\" class=\"mat-button-toggle-label\"><input #input class=\"mat-button-toggle-input cdk-visually-hidden\" [type]=\"_type\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-button-toggle-label-content\"><ng-content></ng-content></div></label><div class=\"mat-button-toggle-focus-overlay\"></div>",
+                template: "<label [attr.for]=\"inputId\" class=\"mat-button-toggle-label\"><input #input class=\"mat-button-toggle-input cdk-visually-hidden\" [type]=\"_type\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled || null\" [name]=\"name\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-button-toggle-label-content\"><ng-content></ng-content></div></label><div class=\"mat-button-toggle-focus-overlay\"></div>",
                 styles: [".mat-button-toggle-group{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle-disabled .mat-button-toggle-label-content{cursor:default}.mat-button-toggle{white-space:nowrap;position:relative}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:1}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px;cursor:pointer}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;position:absolute;top:0;left:0;right:0;bottom:0}"],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 host: {
@@ -7573,7 +7595,7 @@ var MdCheckbox = (function (_super) {
      * @return {?}
      */
     MdCheckbox.prototype._getAnimationClassForCheckStateTransition = function (oldState, newState) {
-        var /** @type {?} */ animSuffix;
+        var /** @type {?} */ animSuffix = '';
         switch (oldState) {
             case TransitionCheckState.Init:
                 // Handle edge case where user interacts with checkbox that does not have [(ngModel)] or
@@ -7599,6 +7621,7 @@ var MdCheckbox = (function (_super) {
             case TransitionCheckState.Indeterminate:
                 animSuffix = newState === TransitionCheckState.Checked ?
                     'indeterminate-checked' : 'indeterminate-unchecked';
+                break;
         }
         return "mat-checkbox-anim-" + animSuffix;
     };
@@ -7753,10 +7776,6 @@ var MdRadioGroup = (function (_super) {
          * a radio button (the same behavior as `<input type-"radio">`).
          */
         _this.change = new _angular_core.EventEmitter();
-        /**
-         * Child radio buttons.
-         */
-        _this._radios = null;
         return _this;
     }
     Object.defineProperty(MdRadioGroup.prototype, "name", {
@@ -7841,7 +7860,7 @@ var MdRadioGroup = (function (_super) {
      * @return {?}
      */
     MdRadioGroup.prototype._checkSelectedRadioButton = function () {
-        if (this.selected && !this._selected.checked) {
+        if (this._selected && !this._selected.checked) {
             this._selected.checked = true;
         }
     };
@@ -8404,7 +8423,7 @@ var ListKeyManager = (function () {
      */
     function ListKeyManager(_items) {
         this._items = _items;
-        this._activeItemIndex = null;
+        this._activeItemIndex = -1;
         this._tabOut = new rxjs_Subject.Subject();
         this._wrap = false;
     }
@@ -8491,14 +8510,14 @@ var ListKeyManager = (function () {
      * @return {?}
      */
     ListKeyManager.prototype.setNextItemActive = function () {
-        this._activeItemIndex === null ? this.setFirstItemActive() : this._setActiveItemByDelta(1);
+        this._activeItemIndex < 0 ? this.setFirstItemActive() : this._setActiveItemByDelta(1);
     };
     /**
      * Sets the active item to a previous enabled item in the list.
      * @return {?}
      */
     ListKeyManager.prototype.setPreviousItemActive = function () {
-        this._activeItemIndex === null && this._wrap ? this.setLastItemActive()
+        this._activeItemIndex < 0 && this._wrap ? this.setLastItemActive()
             : this._setActiveItemByDelta(-1);
     };
     /**
@@ -8980,7 +8999,7 @@ var MdSelect = (function (_super) {
      * @return {?}
      */
     MdSelect.prototype.ngOnInit = function () {
-        this._selectionModel = new SelectionModel(this.multiple, null, false);
+        this._selectionModel = new SelectionModel(this.multiple, undefined, false);
     };
     /**
      * @return {?}
@@ -9224,8 +9243,8 @@ var MdSelect = (function (_super) {
      * @return {?}
      */
     MdSelect.prototype._setScrollTop = function () {
-        var /** @type {?} */ scrollContainer = this.overlayDir.overlayRef.overlayElement.querySelector('.mat-select-panel');
-        scrollContainer.scrollTop = this._scrollTop;
+        var /** @type {?} */ scrollContainer = this.overlayDir.overlayRef.overlayElement.querySelector('.mat-select-panel'); /** @type {?} */
+        ((scrollContainer)).scrollTop = this._scrollTop;
     };
     /**
      * Sets the selected option based on a value. If no option can be
@@ -9342,7 +9361,7 @@ var MdSelect = (function (_super) {
             this._sortValues();
         }
         else {
-            this._clearSelection(option.value == null ? null : option);
+            this._clearSelection(option.value == null ? undefined : option);
             if (option.value == null) {
                 this._propagateChanges(option.value);
             }
@@ -9435,7 +9454,7 @@ var MdSelect = (function (_super) {
             this._keyManager.setFirstItemActive();
         }
         else {
-            this._keyManager.setActiveItem(this._getOptionIndex(this._selectionModel.selected[0]));
+            this._keyManager.setActiveItem(/** @type {?} */ ((this._getOptionIndex(this._selectionModel.selected[0]))));
         }
     };
     /**
@@ -9466,7 +9485,7 @@ var MdSelect = (function (_super) {
         // The farthest the panel can be scrolled before it hits the bottom
         var /** @type {?} */ maxScroll = scrollContainerHeight - panelHeight;
         if (this._selectionModel.hasValue()) {
-            var /** @type {?} */ selectedOptionOffset = this._getOptionIndex(this._selectionModel.selected[0]);
+            var /** @type {?} */ selectedOptionOffset = ((this._getOptionIndex(this._selectionModel.selected[0])));
             selectedOptionOffset += this._getLabelCountBeforeOption(selectedOptionOffset);
             // We must maintain a scroll buffer so the selected option will be scrolled to the
             // center of the overlay panel rather than the top.
@@ -9892,7 +9911,6 @@ var MdSlideToggle = (function (_super) {
         _this.onTouched = function () { };
         _this._uniqueId = "md-slide-toggle-" + ++nextId$1;
         _this._checked = false;
-        _this._slideRenderer = null;
         _this._required = false;
         _this._disableRipple = false;
         /**
@@ -10225,7 +10243,7 @@ var SlideToggleRenderer = (function () {
      */
     SlideToggleRenderer.prototype.stopThumbDrag = function () {
         if (!this.dragging) {
-            return;
+            return false;
         }
         this.dragging = false;
         this._thumbEl.classList.remove('mat-dragging');
@@ -10373,22 +10391,10 @@ var MdSlider = (function (_super) {
          */
         _this._tickIntervalPercent = 0;
         /**
-         * A renderer to handle updating the slider's thumb and fill track.
-         */
-        _this._renderer = null;
-        /**
          * The dimensions of the slider.
          */
         _this._sliderDimensions = null;
         _this._controlValueAccessorChangeFn = function () { };
-        /**
-         * The last value for which a change event was emitted.
-         */
-        _this._lastChangeValue = null;
-        /**
-         * The last value for which an input event was emitted.
-         */
-        _this._lastInputValue = null;
         _this._focusOriginMonitor.monitor(_this._elementRef.nativeElement, renderer, true)
             .subscribe(function (origin) { return _this._isActive = !!origin && origin !== 'keyboard'; });
         _this._renderer = new SliderRenderer(_this._elementRef);
@@ -10463,7 +10469,7 @@ var MdSlider = (function (_super) {
         set: function (v) {
             this._step = coerceNumberProperty(v, this._step);
             if (this._step % 1 !== 0) {
-                this._roundLabelTo = this._step.toString().split('.').pop().length;
+                this._roundLabelTo = ((this._step.toString().split('.').pop())).length;
             }
         },
         enumerable: true,
@@ -10553,7 +10559,7 @@ var MdSlider = (function (_super) {
          * @return {?}
          */
         set: function (v) {
-            this._value = coerceNumberProperty(v, this._value);
+            this._value = coerceNumberProperty(v, this._value || 0);
             this._percent = this._calculatePercentage(this._value);
         },
         enumerable: true,
@@ -10582,10 +10588,10 @@ var MdSlider = (function (_super) {
             // Note that this could be improved further by rounding something like 0.999 to 1 or
             // 0.899 to 0.9, however it is very performance sensitive, because it gets called on
             // every change detection cycle.
-            if (this._roundLabelTo && this.value % 1 !== 0) {
+            if (this._roundLabelTo && this.value && this.value % 1 !== 0) {
                 return this.value.toFixed(this._roundLabelTo);
             }
-            return this.value;
+            return this.value || 0;
         },
         enumerable: true,
         configurable: true
@@ -10905,7 +10911,7 @@ var MdSlider = (function (_super) {
      * @return {?}
      */
     MdSlider.prototype._increment = function (numSteps) {
-        this.value = this._clamp(this.value + this.step * numSteps, this.min, this.max);
+        this.value = this._clamp((this.value || 0) + this.step * numSteps, this.min, this.max);
         this._emitInputEvent();
         this._emitValueIfChanged();
     };
@@ -10961,7 +10967,7 @@ var MdSlider = (function (_super) {
      * @return {?}
      */
     MdSlider.prototype._updateTickIntervalPercent = function () {
-        if (!this.tickInterval) {
+        if (!this.tickInterval || !this._sliderDimensions) {
             return;
         }
         if (this.tickInterval == 'auto') {
@@ -10993,7 +10999,7 @@ var MdSlider = (function (_super) {
      * @return {?}
      */
     MdSlider.prototype._calculatePercentage = function (value) {
-        return (value - this.min) / (this.max - this.min);
+        return ((value || 0) - this.min) / (this.max - this.min);
     };
     /**
      * Calculates the value a percentage of the slider corresponds to.
@@ -11135,7 +11141,7 @@ var SliderRenderer = (function () {
      */
     SliderRenderer.prototype.getSliderDimensions = function () {
         var /** @type {?} */ wrapperElement = this._sliderElement.querySelector('.mat-slider-wrapper');
-        return wrapperElement.getBoundingClientRect();
+        return wrapperElement ? wrapperElement.getBoundingClientRect() : null;
     };
     /**
      * Focuses the native element.
@@ -11329,7 +11335,7 @@ var MdSidenav = (function () {
         this._focusTrap.enabled = this.isFocusTrapEnabled;
         // This can happen when the sidenav is set to opened in
         // the template and the transition hasn't ended.
-        if (this._toggleAnimationPromise) {
+        if (this._toggleAnimationPromise && this._resolveToggleAnimationPromise) {
             this._resolveToggleAnimationPromise(true);
             this._toggleAnimationPromise = this._resolveToggleAnimationPromise = null;
         }
@@ -11399,7 +11405,7 @@ var MdSidenav = (function () {
         else {
             this.onCloseStart.emit();
         }
-        if (this._toggleAnimationPromise) {
+        if (this._toggleAnimationPromise && this._resolveToggleAnimationPromise) {
             this._resolveToggleAnimationPromise(false);
         }
         this._toggleAnimationPromise = new Promise(function (resolve) {
@@ -11435,7 +11441,7 @@ var MdSidenav = (function () {
             else {
                 this.onClose.emit();
             }
-            if (this._toggleAnimationPromise) {
+            if (this._toggleAnimationPromise && this._resolveToggleAnimationPromise) {
                 this._resolveToggleAnimationPromise(true);
                 this._toggleAnimationPromise = this._resolveToggleAnimationPromise = null;
             }
@@ -11650,14 +11656,18 @@ var MdSidenavContainer = (function () {
      * @return {?}
      */
     MdSidenavContainer.prototype.open = function () {
-        return Promise.all([this._start, this._end].map(function (sidenav) { return sidenav && sidenav.open(); }));
+        return Promise.all([this._start, this._end]
+            .filter(function (sidenav) { return sidenav; })
+            .map(function (sidenav) { return ((sidenav)).open(); }));
     };
     /**
      * Calls `close` of both start and end sidenavs
      * @return {?}
      */
     MdSidenavContainer.prototype.close = function () {
-        return Promise.all([this._start, this._end].map(function (sidenav) { return sidenav && sidenav.close(); }));
+        return Promise.all([this._start, this._end]
+            .filter(function (sidenav) { return sidenav; })
+            .map(function (sidenav) { return ((sidenav)).close(); }));
     };
     /**
      * Subscribes to sidenav events in order to set a class on the main container element when the
@@ -11751,14 +11761,14 @@ var MdSidenavContainer = (function () {
         // Close all open sidenav's where closing is not disabled and the mode is not `side`.
         [this._start, this._end]
             .filter(function (sidenav) { return sidenav && !sidenav.disableClose && sidenav.mode !== 'side'; })
-            .forEach(function (sidenav) { return sidenav.close(); });
+            .forEach(function (sidenav) { return ((sidenav)).close(); });
     };
     /**
      * @return {?}
      */
     MdSidenavContainer.prototype._isShowingBackdrop = function () {
-        return (this._isSidenavOpen(this._start) && this._start.mode != 'side')
-            || (this._isSidenavOpen(this._end) && this._end.mode != 'side');
+        return (this._isSidenavOpen(this._start) && ((this._start)).mode != 'side')
+            || (this._isSidenavOpen(this._end) && ((this._end)).mode != 'side');
     };
     /**
      * @param {?} side
@@ -11781,25 +11791,25 @@ var MdSidenavContainer = (function () {
      * @return {?}
      */
     MdSidenavContainer.prototype._getMarginLeft = function () {
-        return this._getSidenavEffectiveWidth(this._left, 'side');
+        return this._left ? this._getSidenavEffectiveWidth(this._left, 'side') : 0;
     };
     /**
      * @return {?}
      */
     MdSidenavContainer.prototype._getMarginRight = function () {
-        return this._getSidenavEffectiveWidth(this._right, 'side');
+        return this._right ? this._getSidenavEffectiveWidth(this._right, 'side') : 0;
     };
     /**
      * @return {?}
      */
     MdSidenavContainer.prototype._getPositionLeft = function () {
-        return this._getSidenavEffectiveWidth(this._left, 'push');
+        return this._left ? this._getSidenavEffectiveWidth(this._left, 'push') : 0;
     };
     /**
      * @return {?}
      */
     MdSidenavContainer.prototype._getPositionRight = function () {
-        return this._getSidenavEffectiveWidth(this._right, 'push');
+        return this._right ? this._getSidenavEffectiveWidth(this._right, 'push') : 0;
     };
     /**
      * Returns the horizontal offset for the content area.  There should never be a value for both
@@ -13589,7 +13599,7 @@ var MdChipList = (function () {
             return;
         }
         var /** @type {?} */ focusedIndex = this._keyManager.activeItemIndex;
-        if (this._isValidIndex(focusedIndex)) {
+        if (typeof focusedIndex === 'number' && this._isValidIndex(focusedIndex)) {
             var /** @type {?} */ focusedChip = this.chips.toArray()[focusedIndex];
             if (focusedChip) {
                 focusedChip.toggleSelected();
@@ -13721,6 +13731,16 @@ function getMdIconNoHttpProviderError() {
         'Please include the HttpModule from @angular/http in your app imports.');
 }
 /**
+ * Returns an exception to be thrown when a URL couldn't be sanitized.
+ * \@docs-private
+ * @param {?} url URL that was attempted to be sanitized.
+ * @return {?}
+ */
+function getMdIconFailedToSanitizeError(url) {
+    return Error("The URL provided to MdIconRegistry was not trusted as a resource URL " +
+        ("via Angular's DomSanitizer. Attempted URL was \"" + url + "\"."));
+}
+/**
  * Configuration for an icon, including the URL and possibly the cached SVG element.
  * \@docs-private
  */
@@ -13814,8 +13834,9 @@ var MdIconRegistry = (function () {
      */
     MdIconRegistry.prototype.addSvgIconSetInNamespace = function (namespace, url) {
         var /** @type {?} */ config = new SvgIconConfig(url);
-        if (this._iconSetConfigs.has(namespace)) {
-            this._iconSetConfigs.get(namespace).push(config);
+        var /** @type {?} */ configNamespace = this._iconSetConfigs.get(namespace);
+        if (configNamespace) {
+            configNamespace.push(config);
         }
         else {
             this._iconSetConfigs.set(namespace, [config]);
@@ -13876,11 +13897,15 @@ var MdIconRegistry = (function () {
     MdIconRegistry.prototype.getSvgIconFromUrl = function (safeUrl) {
         var _this = this;
         var /** @type {?} */ url = this._sanitizer.sanitize(_angular_core.SecurityContext.RESOURCE_URL, safeUrl);
-        if (this._cachedIconsByUrl.has(url)) {
-            return rxjs_Observable.Observable.of(cloneSvg(this._cachedIconsByUrl.get(url)));
+        if (!url) {
+            throw getMdIconFailedToSanitizeError(safeUrl);
+        }
+        var /** @type {?} */ cachedIcon = this._cachedIconsByUrl.get(url);
+        if (cachedIcon) {
+            return rxjs_Observable.Observable.of(cloneSvg(cachedIcon));
         }
         return this._loadSvgIconFromConfig(new SvgIconConfig(url))
-            .do(function (svg) { return _this._cachedIconsByUrl.set(url, svg); })
+            .do(function (svg) { return _this._cachedIconsByUrl.set(/** @type {?} */ ((url)), svg); })
             .map(function (svg) { return cloneSvg(svg); });
     };
     /**
@@ -13896,8 +13921,9 @@ var MdIconRegistry = (function () {
         if (namespace === void 0) { namespace = ''; }
         // Return (copy of) cached icon if possible.
         var /** @type {?} */ key = iconKey(namespace, name);
-        if (this._svgIconConfigs.has(key)) {
-            return this._getSvgFromConfig(this._svgIconConfigs.get(key));
+        var /** @type {?} */ config = this._svgIconConfigs.get(key);
+        if (config) {
+            return this._getSvgFromConfig(config);
         }
         // See if we have any icon sets registered for the namespace.
         var /** @type {?} */ iconSetConfigs = this._iconSetConfigs.get(namespace);
@@ -14120,11 +14146,15 @@ var MdIconRegistry = (function () {
             throw getMdIconNoHttpProviderError();
         }
         var /** @type {?} */ url = this._sanitizer.sanitize(_angular_core.SecurityContext.RESOURCE_URL, safeUrl);
+        if (!url) {
+            throw getMdIconFailedToSanitizeError(safeUrl);
+        }
         // Store in-progress fetches to avoid sending a duplicate request for a URL when there is
         // already a request in progress for that URL. It's necessary to call share() on the
         // Observable returned by http.get() so that multiple subscribers don't cause multiple XHRs.
-        if (this._inProgressUrlFetches.has(url)) {
-            return this._inProgressUrlFetches.get(url);
+        var /** @type {?} */ inProgressFetch = this._inProgressUrlFetches.get(url);
+        if (inProgressFetch) {
+            return inProgressFetch;
         }
         // TODO(jelbourn): for some reason, the `finally` operator "loses" the generic type on the
         // Observable. Figure out why and fix it.
@@ -14520,7 +14550,9 @@ var MdProgressSpinner = (function (_super) {
          * @return {?}
          */
         set: function (interval) {
-            clearInterval(this._interdeterminateInterval);
+            if (this._interdeterminateInterval) {
+                clearInterval(this._interdeterminateInterval);
+            }
             this._interdeterminateInterval = interval;
         },
         enumerable: true,
@@ -14542,6 +14574,7 @@ var MdProgressSpinner = (function (_super) {
             if (this.mode == 'determinate') {
                 return this._value;
             }
+            return 0;
         },
         /**
          * @param {?} v
@@ -15592,8 +15625,8 @@ var MdInputContainer = (function () {
     MdInputContainer.prototype._validateHints = function () {
         var _this = this;
         if (this._hintChildren) {
-            var /** @type {?} */ startHint_1 = null;
-            var /** @type {?} */ endHint_1 = null;
+            var /** @type {?} */ startHint_1;
+            var /** @type {?} */ endHint_1;
             this._hintChildren.forEach(function (hint) {
                 if (hint.align == 'start') {
                     if (startHint_1 || _this.hintLabel) {
@@ -15827,10 +15860,10 @@ var MdTextareaAutosize = (function () {
         textareaClone.style.padding = '0';
         textareaClone.style.height = '';
         textareaClone.style.minHeight = '';
-        textareaClone.style.maxHeight = '';
-        textarea.parentNode.appendChild(textareaClone);
-        this._cachedLineHeight = textareaClone.clientHeight;
-        textarea.parentNode.removeChild(textareaClone);
+        textareaClone.style.maxHeight = ''; /** @type {?} */
+        ((textarea.parentNode)).appendChild(textareaClone);
+        this._cachedLineHeight = textareaClone.clientHeight; /** @type {?} */
+        ((textarea.parentNode)).removeChild(textareaClone);
         // Min and max heights have to be re-calculated if the cached line height changes
         this._setMinHeight();
         this._setMaxHeight();
@@ -15924,10 +15957,6 @@ var MdSnackBarConfig = (function () {
          * Message to be announced by the MdAriaLiveAnnouncer
          */
         this.announcementMessage = '';
-        /**
-         * The view container to place the overlay for the snack bar into.
-         */
-        this.viewContainerRef = null;
         /**
          * The length of time in milliseconds to wait before automatically dismissing the snack bar.
          */
@@ -16284,6 +16313,12 @@ var MdSnackBar = (function () {
         this._overlay = _overlay;
         this._live = _live;
         this._parentSnackBar = _parentSnackBar;
+        /**
+         * Reference to the current snack bar in the view *at this level* (in the Angular injector tree).
+         * If there is a parent snack-bar service, all operations should delegate to that parent
+         * via `_openedSnackBarRef`.
+         */
+        this._snackBarRefAtThisLevel = null;
     }
     Object.defineProperty(MdSnackBar.prototype, "_openedSnackBarRef", {
         /**
@@ -16291,8 +16326,8 @@ var MdSnackBar = (function () {
          * @return {?}
          */
         get: function () {
-            return this._parentSnackBar ?
-                this._parentSnackBar._openedSnackBarRef : this._snackBarRefAtThisLevel;
+            var /** @type {?} */ parent = this._parentSnackBar;
+            return parent ? parent._openedSnackBarRef : this._snackBarRefAtThisLevel;
         },
         /**
          * @param {?} value
@@ -16344,12 +16379,14 @@ var MdSnackBar = (function () {
             snackBarRef.containerInstance.enter();
         }
         // If a dismiss timeout is provided, set up dismiss based on after the snackbar is opened.
-        if (config.duration > 0) {
+        if (config.duration && config.duration > 0) {
             snackBarRef.afterOpened().subscribe(function () {
-                setTimeout(function () { return snackBarRef.dismiss(); }, config.duration);
+                setTimeout(function () { return snackBarRef.dismiss(); }, /** @type {?} */ ((config)).duration);
             });
         }
-        this._live.announce(config.announcementMessage, config.politeness);
+        if (config.announcementMessage) {
+            this._live.announce(config.announcementMessage, config.politeness);
+        }
         this._openedSnackBarRef = snackBarRef;
         return this._openedSnackBarRef;
     };
@@ -16362,9 +16399,9 @@ var MdSnackBar = (function () {
      */
     MdSnackBar.prototype.open = function (message, action, config) {
         if (action === void 0) { action = ''; }
-        if (config === void 0) { config = {}; }
-        config.announcementMessage = message;
-        var /** @type {?} */ simpleSnackBarRef = this.openFromComponent(SimpleSnackBar, config);
+        var /** @type {?} */ _config = _applyConfigDefaults(config);
+        _config.announcementMessage = message;
+        var /** @type {?} */ simpleSnackBarRef = this.openFromComponent(SimpleSnackBar, _config);
         simpleSnackBarRef.instance.snackBarRef = simpleSnackBarRef;
         simpleSnackBarRef.instance.message = message;
         simpleSnackBarRef.instance.action = action;
@@ -16434,7 +16471,7 @@ MdSnackBar.ctorParameters = function () { return [
 ]; };
 /**
  * Applies default options to the snackbar config.
- * @param {?} config The configuration to which the defaults will be applied.
+ * @param {?=} config The configuration to which the defaults will be applied.
  * @return {?} The new configuration object with defaults applied.
  */
 function _applyConfigDefaults(config) {
@@ -16590,7 +16627,7 @@ var MdTabGroup = (function () {
         /**
          * Snapshot of the height of the tab body wrapper before another tab is activated.
          */
-        this._tabBodyWrapperHeight = null;
+        this._tabBodyWrapperHeight = 0;
         /**
          * Whether the tab group should grow to the size of the active tab
          */
@@ -16689,23 +16726,23 @@ var MdTabGroup = (function () {
         // Clamp the next selected index to the bounds of 0 and the tabs length. Note the `|| 0`, which
         // ensures that values like NaN can't get through and which would otherwise throw the
         // component into an infinite loop (since Math.max(NaN, 0) === NaN).
-        this._indexToSelect =
+        var /** @type {?} */ indexToSelect = this._indexToSelect =
             Math.min(this._tabs.length - 1, Math.max(this._indexToSelect || 0, 0));
         // If there is a change in selected index, emit a change event. Should not trigger if
         // the selected index has not yet been initialized.
-        if (this._selectedIndex != this._indexToSelect && this._selectedIndex != null) {
-            this.selectChange.emit(this._createChangeEvent(this._indexToSelect));
+        if (this._selectedIndex != indexToSelect && this._selectedIndex != null) {
+            this.selectChange.emit(this._createChangeEvent(indexToSelect));
         }
         // Setup the position for each tab and optionally setup an origin on the next selected tab.
         this._tabs.forEach(function (tab, index) {
-            tab.position = index - _this._indexToSelect;
+            tab.position = index - indexToSelect;
             // If there is already a selected tab, then set up an origin for the next selected tab
             // if it doesn't have one already.
             if (_this._selectedIndex != null && tab.position == 0 && !tab.origin) {
-                tab.origin = _this._indexToSelect - _this._selectedIndex;
+                tab.origin = indexToSelect - _this._selectedIndex;
             }
         });
-        this._selectedIndex = this._indexToSelect;
+        this._selectedIndex = indexToSelect;
     };
     /**
      * Waits one frame for the view to update, then updates the ink bar
@@ -17487,7 +17524,7 @@ var MdTabHeader = (function () {
             return true;
         }
         var /** @type {?} */ tab = this._labelWrappers ? this._labelWrappers.toArray()[index] : null;
-        return tab && !tab.disabled;
+        return !!tab && !tab.disabled;
     };
     /**
      * Sets focus on the HTML element for the label wrapper and scrolls it into the view if
@@ -17846,12 +17883,12 @@ var TOUCHEND_HIDE_DELAY = 1500;
  */
 var SCROLL_THROTTLE_MS = 20;
 /**
- * Throws an error if the user supplied an invalid tooltip position.
+ * Creates an error to be thrown if the user supplied an invalid tooltip position.
  * @param {?} position
  * @return {?}
  */
-function throwMdTooltipInvalidPositionError(position) {
-    throw Error("Tooltip position \"" + position + "\" is invalid.");
+function getMdTooltipInvalidPositionError(position) {
+    return Error("Tooltip position \"" + position + "\" is invalid.");
 }
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
@@ -17966,9 +18003,7 @@ var MdTooltip = (function () {
          */
         set: function (value) {
             this._message = value;
-            if (this._tooltipInstance) {
-                this._setTooltipMessage(this._message);
-            }
+            this._setTooltipMessage(this._message);
         },
         enumerable: true,
         configurable: true
@@ -18107,8 +18142,8 @@ var MdTooltip = (function () {
             this._createTooltip();
         }
         this._setTooltipClass(this._tooltipClass);
-        this._setTooltipMessage(this._message);
-        this._tooltipInstance.show(this._position, delay);
+        this._setTooltipMessage(this._message); /** @type {?} */
+        ((this._tooltipInstance)).show(this._position, delay);
     };
     /**
      * Hides the tooltip after the delay in ms, defaults to tooltip-delay-hide or 0ms if no input
@@ -18141,11 +18176,12 @@ var MdTooltip = (function () {
      */
     MdTooltip.prototype._createTooltip = function () {
         var _this = this;
-        this._createOverlay();
+        var /** @type {?} */ overlayRef = this._createOverlay();
         var /** @type {?} */ portal = new ComponentPortal(TooltipComponent, this._viewContainerRef);
-        this._tooltipInstance = this._overlayRef.attach(portal).instance;
+        this._tooltipInstance = overlayRef.attach(portal).instance; /** @type {?} */
+        ((
         // Dispose the overlay when finished the shown tooltip.
-        this._tooltipInstance.afterHidden().subscribe(function () {
+        this._tooltipInstance)).afterHidden().subscribe(function () {
             // Check first if the tooltip has already been removed through this components destroy.
             if (_this._tooltipInstance) {
                 _this._disposeTooltip();
@@ -18178,14 +18214,17 @@ var MdTooltip = (function () {
             scrollThrottle: SCROLL_THROTTLE_MS
         });
         this._overlayRef = this._overlay.create(config);
+        return this._overlayRef;
     };
     /**
      * Disposes the current tooltip and the overlay it is attached to
      * @return {?}
      */
     MdTooltip.prototype._disposeTooltip = function () {
-        this._overlayRef.dispose();
-        this._overlayRef = null;
+        if (this._overlayRef) {
+            this._overlayRef.dispose();
+            this._overlayRef = null;
+        }
         this._tooltipInstance = null;
     };
     /**
@@ -18207,7 +18246,7 @@ var MdTooltip = (function () {
             this.position == 'before' && !isDirectionLtr) {
             return { originX: 'end', originY: 'center' };
         }
-        throwMdTooltipInvalidPositionError(this.position);
+        throw getMdTooltipInvalidPositionError(this.position);
     };
     /**
      * Returns the overlay position based on the user's preference
@@ -18231,7 +18270,7 @@ var MdTooltip = (function () {
             this.position == 'before' && !isLtr) {
             return { overlayX: 'start', overlayY: 'center' };
         }
-        throwMdTooltipInvalidPositionError(this.position);
+        throw getMdTooltipInvalidPositionError(this.position);
     };
     /**
      * Updates the tooltip message and repositions the overlay according to the new message length
@@ -18242,13 +18281,15 @@ var MdTooltip = (function () {
         var _this = this;
         // Must wait for the message to be painted to the tooltip so that the overlay can properly
         // calculate the correct positioning based on the size of the text.
-        this._tooltipInstance.message = message;
-        this._tooltipInstance._markForCheck();
-        this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
-            if (_this._tooltipInstance) {
-                _this._overlayRef.updatePosition();
-            }
-        });
+        if (this._tooltipInstance) {
+            this._tooltipInstance.message = message;
+            this._tooltipInstance._markForCheck();
+            this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
+                if (_this._tooltipInstance) {
+                    ((_this._overlayRef)).updatePosition();
+                }
+            });
+        }
     };
     /**
      * Updates the tooltip class
@@ -18256,8 +18297,10 @@ var MdTooltip = (function () {
      * @return {?}
      */
     MdTooltip.prototype._setTooltipClass = function (tooltipClass) {
-        this._tooltipInstance.tooltipClass = tooltipClass;
-        this._tooltipInstance._markForCheck();
+        if (this._tooltipInstance) {
+            this._tooltipInstance.tooltipClass = tooltipClass;
+            this._tooltipInstance._markForCheck();
+        }
     };
     return MdTooltip;
 }());
@@ -18414,7 +18457,7 @@ var TooltipComponent = (function () {
             case 'below':
                 this._transformOrigin = 'top';
                 break;
-            default: throwMdTooltipInvalidPositionError(value);
+            default: throw getMdTooltipInvalidPositionError(value);
         }
     };
     /**
@@ -18561,13 +18604,6 @@ var MdMenuItem = (function (_super) {
         return this.disabled ? '-1' : '0';
     };
     /**
-     * Used to set the HTML `disabled` attribute. Necessary for links to be disabled properly.
-     * @return {?}
-     */
-    MdMenuItem.prototype._getDisabledAttr = function () {
-        return this.disabled ? true : null;
-    };
-    /**
      * Returns the host DOM element.
      * @return {?}
      */
@@ -18595,7 +18631,7 @@ MdMenuItem.decorators = [
                     'class': 'mat-menu-item',
                     '[attr.tabindex]': '_getTabIndex()',
                     '[attr.aria-disabled]': 'disabled.toString()',
-                    '[attr.disabled]': '_getDisabledAttr()',
+                    '[attr.disabled]': 'disabled || null',
                     '(click)': '_checkDisabled($event)',
                 },
                 template: "<ng-content></ng-content><div class=\"mat-menu-ripple\" *ngIf=\"!disabled\" md-ripple [mdRippleTrigger]=\"_getHostElement()\"></div>",
@@ -18837,6 +18873,7 @@ var MdMenuTrigger = (function () {
         this._element = _element;
         this._viewContainerRef = _viewContainerRef;
         this._dir = _dir;
+        this._overlayRef = null;
         this._menuOpen = false;
         this._openedByMouse = false;
         /**
@@ -18923,8 +18960,7 @@ var MdMenuTrigger = (function () {
      */
     MdMenuTrigger.prototype.openMenu = function () {
         if (!this._menuOpen) {
-            this._createOverlay();
-            this._overlayRef.attach(this._portal);
+            this._createOverlay().attach(this._portal);
             this._subscribeToBackdrop();
             this._initMenu();
         }
@@ -18978,9 +19014,11 @@ var MdMenuTrigger = (function () {
      */
     MdMenuTrigger.prototype._subscribeToBackdrop = function () {
         var _this = this;
-        this._backdropSubscription = this._overlayRef.backdropClick().subscribe(function () {
-            _this.menu._emitCloseEvent();
-        });
+        if (this._overlayRef) {
+            this._backdropSubscription = this._overlayRef.backdropClick().subscribe(function () {
+                _this.menu._emitCloseEvent();
+            });
+        }
     };
     /**
      * This method sets the menu state to open and focuses the first item if
@@ -19040,6 +19078,7 @@ var MdMenuTrigger = (function () {
             this._subscribeToPositions(/** @type {?} */ (config.positionStrategy));
             this._overlayRef = this._overlay.create(config);
         }
+        return this._overlayRef;
     };
     /**
      * This method builds the configuration object needed to create the overlay, the OverlayState.
@@ -19257,7 +19296,7 @@ var MdDialogRef = (function () {
         this._afterClosed = new rxjs_Subject.Subject();
         _containerInstance._onAnimationStateChange
             .filter(function (event) { return event.toState === 'exit'; })
-            .subscribe(function () { return _this._overlayRef.dispose(); }, null, function () {
+            .subscribe(function () { return _this._overlayRef.dispose(); }, undefined, function () {
             _this._afterClosed.next(_this._result);
             _this._afterClosed.complete();
             _this.componentInstance = null;
@@ -19625,8 +19664,7 @@ var MdDialog = (function () {
      * @return {?} A promise resolving to a ComponentRef for the attached container.
      */
     MdDialog.prototype._attachDialogContainer = function (overlay, config) {
-        var /** @type {?} */ viewContainer = config ? config.viewContainerRef : null;
-        var /** @type {?} */ containerPortal = new ComponentPortal(MdDialogContainer, viewContainer);
+        var /** @type {?} */ containerPortal = new ComponentPortal(MdDialogContainer, config.viewContainerRef);
         var /** @type {?} */ containerRef = overlay.attach(containerPortal);
         containerRef.instance._config = config;
         return containerRef.instance;
@@ -19654,11 +19692,11 @@ var MdDialog = (function () {
             });
         }
         if (componentOrTemplateRef instanceof _angular_core.TemplateRef) {
-            dialogContainer.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, null));
+            dialogContainer.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null))));
         }
         else {
             var /** @type {?} */ injector = this._createInjector(config, dialogRef, dialogContainer);
-            var /** @type {?} */ contentRef = dialogContainer.attachComponentPortal(new ComponentPortal(componentOrTemplateRef, null, injector));
+            var /** @type {?} */ contentRef = dialogContainer.attachComponentPortal(new ComponentPortal(componentOrTemplateRef, undefined, injector));
             dialogRef.componentInstance = contentRef.instance;
         }
         dialogRef
@@ -19728,7 +19766,7 @@ MdDialog.ctorParameters = function () { return [
 ]; };
 /**
  * Applies default options to the dialog config.
- * @param {?} config Config to be modified.
+ * @param {?=} config Config to be modified.
  * @return {?} The new configuration object.
  */
 function _applyConfigDefaults$1(config) {
@@ -19950,6 +19988,10 @@ var MdAutocomplete = (function () {
          */
         this.showPanel = false;
         /**
+         * Function that maps an option's control value to its display value in the trigger.
+         */
+        this.displayWith = null;
+        /**
          * Unique ID to be used by autocomplete trigger's "aria-owns" property.
          */
         this.id = "md-autocomplete-" + _uniqueAutocompleteIdCounter++;
@@ -20132,7 +20174,7 @@ var MdAutocompleteTrigger = (function () {
             this._overlayRef.getState().width = this._getHostWidth();
             this._overlayRef.updateSize();
         }
-        if (!this._overlayRef.hasAttached()) {
+        if (this._overlayRef && !this._overlayRef.hasAttached()) {
             this._overlayRef.attach(this._portal);
             this._subscribeToClosingActions();
         }
@@ -20188,6 +20230,7 @@ var MdAutocompleteTrigger = (function () {
             if (this.autocomplete && this.autocomplete._keyManager) {
                 return (this.autocomplete._keyManager.activeItem);
             }
+            return null;
         },
         enumerable: true,
         configurable: true
@@ -20207,9 +20250,10 @@ var MdAutocompleteTrigger = (function () {
                     return _this._panelOpen &&
                         clickTarget !== _this._element.nativeElement &&
                         (!inputContainer || !inputContainer.contains(clickTarget)) &&
-                        !_this._overlayRef.overlayElement.contains(clickTarget);
+                        (!!_this._overlayRef && !_this._overlayRef.overlayElement.contains(clickTarget));
                 });
             }
+            return rxjs_Observable.Observable.of(null);
         },
         enumerable: true,
         configurable: true
@@ -20317,7 +20361,8 @@ var MdAutocompleteTrigger = (function () {
      * @return {?}
      */
     MdAutocompleteTrigger.prototype._scrollToOption = function () {
-        var /** @type {?} */ optionOffset = this.autocomplete._keyManager.activeItemIndex * AUTOCOMPLETE_OPTION_HEIGHT;
+        var /** @type {?} */ optionOffset = this.autocomplete._keyManager.activeItemIndex ?
+            this.autocomplete._keyManager.activeItemIndex * AUTOCOMPLETE_OPTION_HEIGHT : 0;
         var /** @type {?} */ newScrollTop = Math.max(0, optionOffset - AUTOCOMPLETE_PANEL_HEIGHT + AUTOCOMPLETE_OPTION_HEIGHT);
         this.autocomplete._setScrollTop(newScrollTop);
     };
@@ -20431,11 +20476,11 @@ var MdAutocompleteTrigger = (function () {
         return this._element.nativeElement.getBoundingClientRect().width;
     };
     /**
-     * Reset active item to null so arrow events will activate the correct options.
+     * Reset active item to -1 so arrow events will activate the correct options.
      * @return {?}
      */
     MdAutocompleteTrigger.prototype._resetActiveItem = function () {
-        this.autocomplete._keyManager.setActiveItem(null);
+        this.autocomplete._keyManager.setActiveItem(-1);
     };
     /**
      * Resets the active item and re-calculates alignment of the panel in case its size
@@ -21446,6 +21491,10 @@ var MdDatepicker = (function () {
          * The currently selected date.
          */
         this._selected = null;
+        /**
+         * The element that was focused before the datepicker was opened.
+         */
+        this._focusedElementBeforeOpen = null;
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -22189,14 +22238,6 @@ var CdkCellOutlet = (function () {
     };
     return CdkCellOutlet;
 }());
-/**
- * Static property containing the latest constructed instance of this class.
- * Used by the CDK data-table when each CdkHeaderRow and CdkRow component is created using
- * createEmbeddedView. After one of these components are created, this property will provide
- * a handle to provide that component's cells and context. After init, the CdkCellOutlet will
- * construct the cells with the provided context.
- */
-CdkCellOutlet.mostRecentCellOutlet = null;
 CdkCellOutlet.decorators = [
     { type: _angular_core.Directive, args: [{ selector: '[cdkCellOutlet]' },] },
 ];
@@ -22386,6 +22427,15 @@ CdkCell.ctorParameters = function () { return [
     { type: _angular_core.Renderer2, },
 ]; };
 /**
+ * Returns an error to be thrown when attempting to find an unexisting column.
+ * \@docs-private
+ * @param {?} id Id whose lookup failed.
+ * @return {?}
+ */
+function getDataTableUnknownColumnError(id) {
+    return new Error("md-data-table: Could not find column with id \"" + id + "\".");
+}
+/**
  * Provides a handle for the table to grab the view container's ng-container to insert data rows.
  * \@docs-private
  */
@@ -22461,10 +22511,6 @@ var CdkTable = (function () {
          * Contains the header and data-cell templates.
          */
         this._columnDefinitionsByName = new Map();
-        /**
-         * Differ used to find the changes in the data provided by the data source.
-         */
-        this._dataDiffer = null;
         /**
          * Stream containing the latest information on what rows are being displayed on screen.
          * Can be used by the data source to as a heuristic of what data should be provided.
@@ -22624,7 +22670,7 @@ var CdkTable = (function () {
             }
             else {
                 var /** @type {?} */ view = _this._rowPlaceholder.viewContainer.get(adjustedPreviousIndex);
-                _this._rowPlaceholder.viewContainer.move(view, currentIndex);
+                _this._rowPlaceholder.viewContainer.move(/** @type {?} */ ((view)), currentIndex);
             }
         });
     };
@@ -22659,8 +22705,11 @@ var CdkTable = (function () {
     CdkTable.prototype._getHeaderCellTemplatesForRow = function (headerDef) {
         var _this = this;
         return headerDef.columns.map(function (columnId) {
-            // TODO(andrewseguin): Throw an error if there is no column with this columnId
-            return _this._columnDefinitionsByName.get(columnId).headerCell;
+            var /** @type {?} */ column = _this._columnDefinitionsByName.get(columnId);
+            if (!column) {
+                throw getDataTableUnknownColumnError(columnId);
+            }
+            return column.headerCell;
         });
     };
     /**
@@ -22672,8 +22721,11 @@ var CdkTable = (function () {
     CdkTable.prototype._getCellTemplatesForRow = function (rowDef) {
         var _this = this;
         return rowDef.columns.map(function (columnId) {
-            // TODO(andrewseguin): Throw an error if there is no column with this columnId
-            return _this._columnDefinitionsByName.get(columnId).cell;
+            var /** @type {?} */ column = _this._columnDefinitionsByName.get(columnId);
+            if (!column) {
+                throw getDataTableUnknownColumnError(columnId);
+            }
+            return column.cell;
         });
     };
     return CdkTable;
@@ -23478,6 +23530,7 @@ exports._MdCheckboxMixinBase = _MdCheckboxMixinBase;
 exports.MdCheckbox = MdCheckbox;
 exports.CdkDataTableModule = CdkDataTableModule;
 exports.DataSource = DataSource;
+exports.getDataTableUnknownColumnError = getDataTableUnknownColumnError;
 exports.RowPlaceholder = RowPlaceholder;
 exports.HeaderRowPlaceholder = HeaderRowPlaceholder;
 exports.CdkTable = CdkTable;
@@ -23523,6 +23576,7 @@ exports._MdIconMixinBase = _MdIconMixinBase;
 exports.MdIcon = MdIcon;
 exports.getMdIconNameNotFoundError = getMdIconNameNotFoundError;
 exports.getMdIconNoHttpProviderError = getMdIconNoHttpProviderError;
+exports.getMdIconFailedToSanitizeError = getMdIconFailedToSanitizeError;
 exports.MdIconRegistry = MdIconRegistry;
 exports.ICON_REGISTRY_PROVIDER_FACTORY = ICON_REGISTRY_PROVIDER_FACTORY;
 exports.ICON_REGISTRY_PROVIDER = ICON_REGISTRY_PROVIDER;
@@ -23637,7 +23691,7 @@ exports.MdToolbar = MdToolbar;
 exports.MdTooltipModule = MdTooltipModule;
 exports.TOUCHEND_HIDE_DELAY = TOUCHEND_HIDE_DELAY;
 exports.SCROLL_THROTTLE_MS = SCROLL_THROTTLE_MS;
-exports.throwMdTooltipInvalidPositionError = throwMdTooltipInvalidPositionError;
+exports.getMdTooltipInvalidPositionError = getMdTooltipInvalidPositionError;
 exports.MdTooltip = MdTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.ɵj = LIVE_ANNOUNCER_PROVIDER_FACTORY;

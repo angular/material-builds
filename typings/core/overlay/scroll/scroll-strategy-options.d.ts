@@ -25,5 +25,5 @@ export declare class ScrollStrategyOptions {
      * @param config Configuration to be used inside the scroll strategy.
      * Allows debouncing the reposition calls.
      */
-    reposition: (config?: RepositionScrollStrategyConfig) => RepositionScrollStrategy;
+    reposition: (config?: RepositionScrollStrategyConfig | undefined) => RepositionScrollStrategy;
 }

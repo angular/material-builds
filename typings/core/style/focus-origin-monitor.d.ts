@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import { Platform } from '../platform/platform';
 import 'rxjs/add/observable/of';
 export declare const TOUCH_BUFFER_MS = 650;
-export declare type FocusOrigin = 'touch' | 'mouse' | 'keyboard' | 'program';
+export declare type FocusOrigin = 'touch' | 'mouse' | 'keyboard' | 'program' | null;
 /** Monitors mouse and keyboard events to determine the cause of focus events. */
 export declare class FocusOriginMonitor {
     private _ngZone;
@@ -55,7 +55,7 @@ export declare class FocusOriginMonitor {
      * @param element The element to update the classes on.
      * @param origin The focus origin.
      */
-    private _setClasses(element, origin);
+    private _setClasses(element, origin?);
     /**
      * Sets the origin and schedules an async function to clear it at the end of the event queue.
      * @param origin The origin to set.

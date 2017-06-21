@@ -22,8 +22,6 @@ export declare class MdMenuItem extends _MdMenuItemMixinBase implements Focusabl
     focus(): void;
     /** Used to set the `tabindex`. */
     _getTabIndex(): string;
-    /** Used to set the HTML `disabled` attribute. Necessary for links to be disabled properly. */
-    _getDisabledAttr(): boolean;
     /** Returns the host DOM element. */
     _getHostElement(): HTMLElement;
     /** Prevents the default element actions if it is disabled. */

@@ -16,7 +16,7 @@ export declare class MdSnackBar {
      */
     private _snackBarRefAtThisLevel;
     /** Reference to the currently opened snackbar at *any* level. */
-    _openedSnackBarRef: MdSnackBarRef<any>;
+    _openedSnackBarRef: MdSnackBarRef<any> | null;
     constructor(_overlay: Overlay, _live: LiveAnnouncer, _parentSnackBar: MdSnackBar);
     /**
      * Creates and dispatches a snack bar with a custom component for the content, removing any

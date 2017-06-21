@@ -52,7 +52,7 @@ export declare class RippleRenderer {
     /** Fades out all currently active ripples. */
     fadeOutAll(): void;
     /** Sets the trigger element and registers the mouse events. */
-    setTriggerElement(element: HTMLElement): void;
+    setTriggerElement(element: HTMLElement | null): void;
     /** Listener being called on mousedown event. */
     private onMousedown(event);
     /** Listener being called on mouseup event. */

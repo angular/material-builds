@@ -22,17 +22,17 @@ export declare class MdTab extends _MdTabMixinBase implements OnInit, CanDisable
     textLabel: string;
     /** The portal that will be the hosted content of the tab */
     private _contentPortal;
-    readonly content: TemplatePortal;
+    readonly content: TemplatePortal | null;
     /**
      * The relatively indexed position where 0 represents the center, negative is left, and positive
      * represents the right.
      */
-    position: number;
+    position: number | null;
     /**
      * The initial relatively index origin of the tab if it was created and selected after there
      * was already a selected tab. Provides context of what position the tab should originate from.
      */
-    origin: number;
+    origin: number | null;
     constructor(_viewContainerRef: ViewContainerRef);
     ngOnInit(): void;
 }

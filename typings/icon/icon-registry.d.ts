@@ -31,6 +31,12 @@ export declare function getMdIconNameNotFoundError(iconName: string): Error;
  */
 export declare function getMdIconNoHttpProviderError(): Error;
 /**
+ * Returns an exception to be thrown when a URL couldn't be sanitized.
+ * @param url URL that was attempted to be sanitized.
+ * @docs-private
+ */
+export declare function getMdIconFailedToSanitizeError(url: SafeResourceUrl): Error;
+/**
  * Service to register and display icons used by the <md-icon> component.
  * - Registers icon URLs by namespace and name.
  * - Registers icon set URLs by namespace.

@@ -42,11 +42,11 @@ export declare class MdProgressSpinner extends _MdProgressSpinnerMixinBase imple
      * because voiceover does not report the progress indicator as indeterminate if the aria min
      * and/or max value are number values.
      */
-    readonly _ariaValueMin: number;
-    readonly _ariaValueMax: number;
+    readonly _ariaValueMin: number | null;
+    readonly _ariaValueMax: number | null;
     /** @docs-private */
     /** @docs-private */
-    interdeterminateInterval: number;
+    interdeterminateInterval: number | null;
     /**
      * Clean up any animations that were running.
      */

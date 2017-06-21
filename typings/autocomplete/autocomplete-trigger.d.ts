@@ -17,6 +17,7 @@ import 'rxjs/add/observable/merge';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/observable/of';
 /**
  * The following style constants are necessary to save here in order
  * to properly calculate the scrollTop of the panel. Because we are not
@@ -75,7 +76,7 @@ export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDe
     /** Stream of autocomplete option selections. */
     readonly optionSelections: Observable<MdOptionSelectionChange>;
     /** The currently active option, coerced to MdOption type. */
-    readonly activeOption: MdOption;
+    readonly activeOption: MdOption | null;
     /** Stream of clicks outside of the autocomplete panel. */
     private readonly _outsideClickStream;
     /**
@@ -146,7 +147,7 @@ export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDe
     private _subscribeToPositionChanges(strategy);
     /** Returns the width of the input element, so the panel width can match it. */
     private _getHostWidth();
-    /** Reset active item to null so arrow events will activate the correct options.*/
+    /** Reset active item to -1 so arrow events will activate the correct options.*/
     private _resetActiveItem();
     /**
      * Resets the active item and re-calculates alignment of the panel in case its size

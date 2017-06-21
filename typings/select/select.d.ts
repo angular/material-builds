@@ -334,7 +334,7 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
      */
     _getPlaceholderOpacity(): string;
     /** Returns the aria-label of the select component. */
-    readonly _ariaLabel: string;
+    readonly _ariaLabel: string | null;
     /**
      * Sets the x-offset of the overlay panel in relation to the trigger's top start corner.
      * This must be adjusted to align the selected option text over the trigger text when

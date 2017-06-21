@@ -59,7 +59,7 @@ export declare class ConnectedPositionStrategy implements PositionStrategy {
      * @param element Element to which to apply the CSS styles.
      * @returns Resolves when the styles have been applied.
      */
-    apply(element: HTMLElement): Promise<void>;
+    apply(element: HTMLElement): void;
     /**
      * This re-aligns the overlay element with the trigger in its last calculated position,
      * even if a position higher in the "preferred positions" list would now fit. This

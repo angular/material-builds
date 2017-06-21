@@ -125,9 +125,9 @@ export declare class MdSidenavContainer implements AfterContentInit {
     private _ngZone;
     _sidenavs: QueryList<MdSidenav>;
     /** The sidenav child with the `start` alignment. */
-    readonly start: MdSidenav;
+    readonly start: MdSidenav | null;
     /** The sidenav child with the `end` alignment. */
-    readonly end: MdSidenav;
+    readonly end: MdSidenav | null;
     /** Event emitted when the sidenav backdrop is clicked. */
     backdropClick: EventEmitter<void>;
     /** The sidenav at the start/end alignment, independent of direction. */

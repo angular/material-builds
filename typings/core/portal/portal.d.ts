@@ -23,7 +23,7 @@ export declare abstract class Portal<T> {
      * Sets the PortalHost reference without performing `attach()`. This is used directly by
      * the PortalHost when it is performing an `attach()` or `detach()`.
      */
-    setAttachedHost(host: PortalHost): void;
+    setAttachedHost(host: PortalHost | null): void;
 }
 /**
  * A `ComponentPortal` is a portal that instantiates some Component upon attachment.
@@ -36,10 +36,10 @@ export declare class ComponentPortal<T> extends Portal<ComponentRef<T>> {
      * This is different from where the component *renders*, which is determined by the PortalHost.
      * The origin is necessary when the host is outside of the Angular application context.
      */
-    viewContainerRef: ViewContainerRef;
+    viewContainerRef?: ViewContainerRef | null;
     /** [Optional] Injector used for the instantiation of the component. */
-    injector: Injector;
-    constructor(component: ComponentType<T>, viewContainerRef?: ViewContainerRef, injector?: Injector);
+    injector?: Injector | null;
+    constructor(component: ComponentType<T>, viewContainerRef?: ViewContainerRef | null, injector?: Injector | null);
 }
 /**
  * A `TemplatePortal` is a portal that represents some embedded template (TemplateRef).

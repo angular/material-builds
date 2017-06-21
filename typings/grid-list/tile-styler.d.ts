@@ -79,7 +79,7 @@ export declare abstract class TileStyler {
      * This method can be implemented by each type of TileStyler.
      * @docs-private
      */
-    getComputedHeight(): [string, string];
+    getComputedHeight(): [string, string] | null;
 }
 /**
  * This type of styler is instantiated when the user passes in a fixed row height.

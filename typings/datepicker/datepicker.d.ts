@@ -56,7 +56,7 @@ export declare class MdDatepicker<D> implements OnDestroy {
     /** The id for the datepicker calendar. */
     id: string;
     /** The currently selected date. */
-    _selected: D;
+    _selected: D | null;
     /** The minimum selectable date. */
     readonly _minDate: D;
     /** The maximum selectable date. */

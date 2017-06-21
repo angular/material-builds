@@ -27,7 +27,7 @@ export declare class MdMonthView<D> implements AfterContentInit {
     /** A function used to filter which dates are selectable. */
     dateFilter: (date: D) => boolean;
     /** Emits when a new date is selected. */
-    selectedChange: EventEmitter<D>;
+    selectedChange: EventEmitter<D | null>;
     /** The label for this month (e.g. "January 2017"). */
     _monthLabel: string;
     /** Grid of calendar cells representing the dates of the month. */
@@ -38,9 +38,9 @@ export declare class MdMonthView<D> implements AfterContentInit {
      * The date of the month that the currently selected Date falls on.
      * Null if the currently selected Date is in another month.
      */
-    _selectedDate: number;
+    _selectedDate: number | null;
     /** The date of the month that today falls on. Null if today is in another month. */
-    _todayDate: number;
+    _todayDate: number | null;
     /** The names of the weekdays. */
     _weekdays: {
         long: string;

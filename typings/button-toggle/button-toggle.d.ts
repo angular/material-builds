@@ -23,7 +23,7 @@ export declare const MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR: any;
 /** Change event object emitted by MdButtonToggle. */
 export declare class MdButtonToggleChange {
     /** The MdButtonToggle that emits the event. */
-    source: MdButtonToggle;
+    source: MdButtonToggle | null;
     /** The value assigned to the MdButtonToggle. */
     value: any;
 }
@@ -56,7 +56,7 @@ export declare class MdButtonToggleGroup extends _MdButtonToggleGroupMixinBase i
     /** Value of the toggle group. */
     value: any;
     /** Whether the toggle group is selected. */
-    selected: MdButtonToggle;
+    selected: MdButtonToggle | null;
     /** Event emitted when the group's value changes. */
     change: EventEmitter<MdButtonToggleChange>;
     private _updateButtonToggleNames();

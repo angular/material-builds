@@ -41,7 +41,7 @@ export declare class MdTabGroup {
     private _disableRipple;
     private _selectedIndex;
     /** The index of the active tab. */
-    selectedIndex: number;
+    selectedIndex: number | null;
     /** Position of the tab header. */
     headerPosition: MdTabHeaderPosition;
     /** Output to enable support for two-way binding on `[(selectedIndex)]` */

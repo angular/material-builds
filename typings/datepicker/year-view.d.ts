@@ -31,12 +31,12 @@ export declare class MdYearView<D> implements AfterContentInit {
     /** The label for this year (e.g. "2017"). */
     _yearLabel: string;
     /** The month in this year that today falls on. Null if today is in a different year. */
-    _todayMonth: number;
+    _todayMonth: number | null;
     /**
      * The month in this year that the selected Date falls on.
      * Null if the selected Date is in a different year.
      */
-    _selectedMonth: number;
+    _selectedMonth: number | null;
     constructor(_dateAdapter: DateAdapter<D>, _dateFormats: MdDateFormats);
     ngAfterContentInit(): void;
     /** Handles when a new month is selected. */

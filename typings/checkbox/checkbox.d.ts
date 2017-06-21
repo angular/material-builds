@@ -62,7 +62,7 @@ export declare class MdCheckbox extends _MdCheckboxMixinBase implements ControlV
     /**
      * Users can specify the `aria-labelledby` attribute which will be forwarded to the input element
      */
-    ariaLabelledby: string;
+    ariaLabelledby: string | null;
     /** A unique id for the checkbox. If one is not supplied, it is auto-generated. */
     id: string;
     /** Whether the ripple effect on click should be disabled. */
@@ -84,7 +84,7 @@ export declare class MdCheckbox extends _MdCheckboxMixinBase implements ControlV
     /** Tabindex value that is passed to the underlying input element. */
     tabIndex: number;
     /** Name value will be applied to the input element if present */
-    name: string;
+    name: string | null;
     /** Event emitted when the checkbox's `checked` value changes. */
     change: EventEmitter<MdCheckboxChange>;
     /** Event emitted when the checkbox's `indeterminate` value changes. */

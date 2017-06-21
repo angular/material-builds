@@ -39,8 +39,8 @@ export declare class NativeDateAdapter extends DateAdapter<Date> {
      * Strip out unicode LTR and RTL characters. Edge and IE insert these into formatted dates while
      * other browsers do not. We remove them to make output consistent and because they interfere with
      * date parsing.
-     * @param s The string to strip direction characters from.
+     * @param str The string to strip direction characters from.
      * @returns The stripped string.
      */
-    private _stripDirectionalityCharacters(s);
+    private _stripDirectionalityCharacters(str);
 }

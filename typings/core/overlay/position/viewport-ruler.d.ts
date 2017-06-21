@@ -16,17 +16,17 @@ export declare class ViewportRuler {
     private _documentRect?;
     constructor(scrollDispatcher: ScrollDispatcher);
     /** Gets a ClientRect for the viewport's bounds. */
-    getViewportRect(documentRect?: ClientRect): ClientRect;
+    getViewportRect(documentRect?: ClientRect | undefined): ClientRect;
     /**
      * Gets the (top, left) scroll position of the viewport.
      * @param documentRect
      */
-    getViewportScrollPosition(documentRect?: ClientRect): {
+    getViewportScrollPosition(documentRect?: ClientRect | undefined): {
         top: number;
         left: number;
     };
     /** Caches the latest client rectangle of the document element. */
-    _cacheViewportGeometry?(): void;
+    _cacheViewportGeometry(): void;
 }
 export declare function VIEWPORT_RULER_PROVIDER_FACTORY(parentRuler: ViewportRuler, scrollDispatcher: ScrollDispatcher): ViewportRuler;
 export declare const VIEWPORT_RULER_PROVIDER: {

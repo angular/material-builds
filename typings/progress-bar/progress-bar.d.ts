@@ -28,5 +28,5 @@ export declare class MdProgressBar {
      */
     _bufferTransform(): {
         transform: string;
-    };
+    } | undefined;
 }

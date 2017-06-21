@@ -19,7 +19,7 @@ export declare class MdDialogRef<T> {
     /** The instance of component opened into the dialog. */
     componentInstance: T;
     /** Whether the user is allowed to close the dialog. */
-    disableClose: boolean;
+    disableClose: boolean | undefined;
     /** Subject for notifying the user that the dialog has finished closing. */
     private _afterClosed;
     /** Result to be passed to afterClosed. */

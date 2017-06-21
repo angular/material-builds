@@ -21,7 +21,7 @@ export declare class MdSliderChange {
     /** The MdSlider that changed. */
     source: MdSlider;
     /** The new value of the source slider. */
-    value: number;
+    value: number | null;
 }
 export declare class MdSliderBase {
 }
@@ -60,7 +60,7 @@ export declare class MdSlider extends _MdSliderMixinBase implements ControlValue
     /** @deprecated */
     _tickIntervalDeprecated: number | "auto";
     /** Value of the slider. */
-    value: number;
+    value: number | null;
     private _value;
     /** Whether the slider is vertical. */
     vertical: any;
@@ -203,7 +203,7 @@ export declare class SliderRenderer {
      * The track is used rather than the native element to ignore the extra space that the thumb can
      * take up.
      */
-    getSliderDimensions(): ClientRect;
+    getSliderDimensions(): ClientRect | null;
     /**
      * Focuses the native element.
      * Currently only used to allow a blur event to fire but will be used with keyboard input later.

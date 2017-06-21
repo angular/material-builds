@@ -24,7 +24,7 @@ export declare class MdAutocomplete implements AfterContentInit {
     /** @docs-private */
     options: QueryList<MdOption>;
     /** Function that maps an option's control value to its display value in the trigger. */
-    displayWith: (value: any) => string;
+    displayWith: ((value: any) => string) | null;
     /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
     id: string;
     constructor(_changeDetectorRef: ChangeDetectorRef);

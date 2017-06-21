@@ -27,32 +27,32 @@ export declare class GlobalPositionStrategy implements PositionStrategy {
      * Sets the top position of the overlay. Clears any previously set vertical position.
      * @param value New top offset.
      */
-    top(value: string): this;
+    top(value?: string): this;
     /**
      * Sets the left position of the overlay. Clears any previously set horizontal position.
      * @param value New left offset.
      */
-    left(value: string): this;
+    left(value?: string): this;
     /**
      * Sets the bottom position of the overlay. Clears any previously set vertical position.
      * @param value New bottom offset.
      */
-    bottom(value: string): this;
+    bottom(value?: string): this;
     /**
      * Sets the right position of the overlay. Clears any previously set horizontal position.
      * @param value New right offset.
      */
-    right(value: string): this;
+    right(value?: string): this;
     /**
      * Sets the overlay width and clears any previously set width.
      * @param value New width for the overlay
      */
-    width(value: string): this;
+    width(value?: string): this;
     /**
      * Sets the overlay height and clears any previously set height.
      * @param value New height for the overlay
      */
-    height(value: string): this;
+    height(value?: string): this;
     /**
      * Centers the overlay horizontally with an optional offset.
      * Clears any previously set horizontal position.
@@ -74,7 +74,7 @@ export declare class GlobalPositionStrategy implements PositionStrategy {
      * @param element Element to which to apply the CSS.
      * @returns Resolved when the styles have been applied.
      */
-    apply(element: HTMLElement): Promise<void>;
+    apply(element: HTMLElement): void;
     /**
      * Removes the wrapper element from the DOM.
      */

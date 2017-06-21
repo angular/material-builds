@@ -49,5 +49,5 @@ export declare class MdGridList implements OnInit, AfterContentChecked {
     /** Computes and applies the size and position for all children grid tiles. */
     private _layoutTiles();
     /** Sets style on the main grid-list element, given the style name and value. */
-    _setListStyle(style: [string, string]): void;
+    _setListStyle(style: [string, string] | null): void;
 }

@@ -12,7 +12,7 @@ import 'rxjs/add/operator/debounceTime';
  * @docs-private
  */
 export declare class MdMutationObserverFactory {
-    create(callback: any): MutationObserver;
+    create(callback: any): MutationObserver | null;
 }
 /**
  * Directive that triggers a callback whenever the content of

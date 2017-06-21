@@ -36,7 +36,7 @@ export declare class MdSlideToggle extends _MdSlideToggleMixinBase implements On
     /** Reference to the focus state ripple. */
     private _focusRipple;
     /** Name value will be applied to the input element if present */
-    name: string;
+    name: string | null;
     /** A unique id for the slide-toggle input. If none is supplied, it will be auto-generated. */
     id: string;
     /** Used to specify the tabIndex value for the underlying input element. */
@@ -44,9 +44,9 @@ export declare class MdSlideToggle extends _MdSlideToggleMixinBase implements On
     /** Whether the label should appear after or before the slide-toggle. Defaults to 'after' */
     labelPosition: 'before' | 'after';
     /** Used to set the aria-label attribute on the underlying input element. */
-    ariaLabel: string;
+    ariaLabel: string | null;
     /** Used to set the aria-labelledby attribute on the underlying input element. */
-    ariaLabelledby: string;
+    ariaLabelledby: string | null;
     /** Whether the slide-toggle is required. */
     required: boolean;
     /** Whether the ripple effect for this slide-toggle is disabled. */

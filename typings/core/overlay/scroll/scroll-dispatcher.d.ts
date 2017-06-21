@@ -26,7 +26,7 @@ export declare class ScrollDispatcher {
     /** Subject for notifying that a registered scrollable reference element has been scrolled. */
     _scrolled: Subject<void>;
     /** Keeps track of the global `scroll` and `resize` subscriptions. */
-    _globalSubscription: Subscription;
+    _globalSubscription: Subscription | null;
     /** Keeps track of the amount of subscriptions to `scrolled`. Used for cleaning up afterwards. */
     private _scrolledCount;
     /**
@@ -50,7 +50,7 @@ export declare class ScrollDispatcher {
      * references (or window, document, or body) fire a scrolled event. Can provide a time in ms
      * to override the default "throttle" time.
      */
-    scrolled(auditTimeInMs: number, callback: () => any): Subscription;
+    scrolled(auditTimeInMs: number | undefined, callback: () => any): Subscription;
     /** Returns all registered Scrollables that contain the provided element. */
     getScrollContainers(elementRef: ElementRef): Scrollable[];
     /** Returns true if the element is contained within the provided Scrollable. */
