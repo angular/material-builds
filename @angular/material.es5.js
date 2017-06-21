@@ -168,13 +168,14 @@ var Directionality = /*@__PURE__*/(function () {
     function Directionality(_document) {
         this.value = 'ltr';
         this.change = new EventEmitter();
-        if (typeof _document === 'object' && !!_document) {
+        if (_document) {
             // TODO: handle 'auto' value -
             // We still need to account for dir="auto".
             // It looks like HTMLElemenet.dir is also "auto" when that's set to the attribute,
             // but getComputedStyle return either "ltr" or "rtl". avoiding getComputedStyle for now
-            // though, we're already calling it for the theming check.
-            this.value = (_document.body.dir || _document.documentElement.dir || 'ltr');
+            var bodyDir = _document.body ? _document.body.dir : null;
+            var htmlDir = _document.documentElement ? _document.documentElement.dir : null;
+            this.value = (bodyDir || htmlDir || 'ltr');
         }
     }
     return Directionality;
