@@ -22189,15 +22189,6 @@ var CdkCellOutlet = (function () {
         this._viewContainer = _viewContainer;
         CdkCellOutlet.mostRecentCellOutlet = this;
     }
-    /**
-     * @return {?}
-     */
-    CdkCellOutlet.prototype.ngOnInit = function () {
-        var _this = this;
-        this.cells.forEach(function (cell) {
-            _this._viewContainer.createEmbeddedView(cell.template, _this.context);
-        });
-    };
     return CdkCellOutlet;
 }());
 CdkCellOutlet.decorators = [
@@ -22554,11 +22545,16 @@ var CdkTable = (function () {
      * @return {?}
      */
     CdkTable.prototype.ngAfterViewInit = function () {
+        this._isViewInitialized = true;
         this._renderHeaderRow();
-        if (this.dataSource) {
+    };
+    /**
+     * @return {?}
+     */
+    CdkTable.prototype.ngDoCheck = function () {
+        if (this._isViewInitialized && this.dataSource && !this._renderChangeSubscription) {
             this._observeRenderChanges();
         }
-        this._isViewInitialized = true;
     };
     /**
      * Switch to the provided data source by resetting the data and unsubscribing from the current
@@ -22609,8 +22605,9 @@ var CdkTable = (function () {
         //   of `createEmbeddedView`.
         this._headerRowPlaceholder.viewContainer
             .createEmbeddedView(this._headerDefinition.template, { cells: cells });
-        CdkCellOutlet.mostRecentCellOutlet.cells = cells;
-        CdkCellOutlet.mostRecentCellOutlet.context = {};
+        cells.forEach(function (cell) {
+            CdkCellOutlet.mostRecentCellOutlet._viewContainer.createEmbeddedView(cell.template, {});
+        });
         this._changeDetectorRef.markForCheck();
     };
     /**
@@ -22623,18 +22620,20 @@ var CdkTable = (function () {
         if (!changes) {
             return;
         }
+        var /** @type {?} */ viewContainer = this._rowPlaceholder.viewContainer;
         changes.forEachOperation(function (item, adjustedPreviousIndex, currentIndex) {
             if (item.previousIndex == null) {
                 _this._insertRow(_this._data[currentIndex], currentIndex);
             }
             else if (currentIndex == null) {
-                _this._rowPlaceholder.viewContainer.remove(adjustedPreviousIndex);
+                viewContainer.remove(adjustedPreviousIndex);
             }
             else {
-                var /** @type {?} */ view = _this._rowPlaceholder.viewContainer.get(adjustedPreviousIndex);
-                _this._rowPlaceholder.viewContainer.move(/** @type {?} */ ((view)), currentIndex);
+                var /** @type {?} */ view = viewContainer.get(adjustedPreviousIndex);
+                viewContainer.move(/** @type {?} */ ((view)), currentIndex);
             }
         });
+        this._updateRowContext();
     };
     /**
      * Create the embedded view for the data row template and place it in the correct index location
@@ -22648,15 +22647,35 @@ var CdkTable = (function () {
         //   to find the right template to used based on
         //   the data rather than choosing the first row definition.
         var /** @type {?} */ row = this._rowDefinitions.first;
-        // TODO(andrewseguin): Add more context, such as first/last/isEven/etc
+        // Row context that will be provided to both the created embedded row view and its cells.
         var /** @type {?} */ context = { $implicit: rowData };
         // TODO(andrewseguin): add some code to enforce that exactly one
         //   CdkCellOutlet was instantiated as a result  of `createEmbeddedView`.
         this._rowPlaceholder.viewContainer.createEmbeddedView(row.template, context, index);
         // Insert empty cells if there is no data to improve rendering time.
-        CdkCellOutlet.mostRecentCellOutlet.cells = rowData ? this._getCellTemplatesForRow(row) : [];
-        CdkCellOutlet.mostRecentCellOutlet.context = context;
+        var /** @type {?} */ cells = rowData ? this._getCellTemplatesForRow(row) : [];
+        cells.forEach(function (cell) {
+            CdkCellOutlet.mostRecentCellOutlet._viewContainer.createEmbeddedView(cell.template, context);
+        });
         this._changeDetectorRef.markForCheck();
+    };
+    /**
+     * Updates the context for each row to reflect any data changes that may have caused
+     * rows to be added, removed, or moved. The view container contains the same context
+     * that was provided to each of its cells.
+     * @return {?}
+     */
+    CdkTable.prototype._updateRowContext = function () {
+        var /** @type {?} */ viewContainer = this._rowPlaceholder.viewContainer;
+        for (var /** @type {?} */ index = 0, /** @type {?} */ count = viewContainer.length; index < count; index++) {
+            var /** @type {?} */ viewRef = (viewContainer.get(index));
+            viewRef.context.index = index;
+            viewRef.context.count = count;
+            viewRef.context.first = index === 0;
+            viewRef.context.last = index === count - 1;
+            viewRef.context.even = index % 2 === 0;
+            viewRef.context.odd = index % 2 !== 0;
+        }
     };
     /**
      * Returns the cell template definitions to insert into the header

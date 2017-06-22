@@ -20884,14 +20884,6 @@ class CdkCellOutlet {
         this._viewContainer = _viewContainer;
         CdkCellOutlet.mostRecentCellOutlet = this;
     }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        this.cells.forEach(cell => {
-            this._viewContainer.createEmbeddedView(cell.template, this.context);
-        });
-    }
 }
 CdkCellOutlet.decorators = [
     { type: Directive, args: [{ selector: '[cdkCellOutlet]' },] },
@@ -21230,11 +21222,16 @@ class CdkTable {
      * @return {?}
      */
     ngAfterViewInit() {
+        this._isViewInitialized = true;
         this._renderHeaderRow();
-        if (this.dataSource) {
+    }
+    /**
+     * @return {?}
+     */
+    ngDoCheck() {
+        if (this._isViewInitialized && this.dataSource && !this._renderChangeSubscription) {
             this._observeRenderChanges();
         }
-        this._isViewInitialized = true;
     }
     /**
      * Switch to the provided data source by resetting the data and unsubscribing from the current
@@ -21284,8 +21281,9 @@ class CdkTable {
         //   of `createEmbeddedView`.
         this._headerRowPlaceholder.viewContainer
             .createEmbeddedView(this._headerDefinition.template, { cells });
-        CdkCellOutlet.mostRecentCellOutlet.cells = cells;
-        CdkCellOutlet.mostRecentCellOutlet.context = {};
+        cells.forEach(cell => {
+            CdkCellOutlet.mostRecentCellOutlet._viewContainer.createEmbeddedView(cell.template, {});
+        });
         this._changeDetectorRef.markForCheck();
     }
     /**
@@ -21297,18 +21295,20 @@ class CdkTable {
         if (!changes) {
             return;
         }
+        const /** @type {?} */ viewContainer = this._rowPlaceholder.viewContainer;
         changes.forEachOperation((item, adjustedPreviousIndex, currentIndex) => {
             if (item.previousIndex == null) {
                 this._insertRow(this._data[currentIndex], currentIndex);
             }
             else if (currentIndex == null) {
-                this._rowPlaceholder.viewContainer.remove(adjustedPreviousIndex);
+                viewContainer.remove(adjustedPreviousIndex);
             }
             else {
-                const /** @type {?} */ view = this._rowPlaceholder.viewContainer.get(adjustedPreviousIndex);
-                this._rowPlaceholder.viewContainer.move(/** @type {?} */ ((view)), currentIndex);
+                const /** @type {?} */ view = viewContainer.get(adjustedPreviousIndex);
+                viewContainer.move(/** @type {?} */ ((view)), currentIndex);
             }
         });
+        this._updateRowContext();
     }
     /**
      * Create the embedded view for the data row template and place it in the correct index location
@@ -21322,15 +21322,35 @@ class CdkTable {
         //   to find the right template to used based on
         //   the data rather than choosing the first row definition.
         const /** @type {?} */ row = this._rowDefinitions.first;
-        // TODO(andrewseguin): Add more context, such as first/last/isEven/etc
+        // Row context that will be provided to both the created embedded row view and its cells.
         const /** @type {?} */ context = { $implicit: rowData };
         // TODO(andrewseguin): add some code to enforce that exactly one
         //   CdkCellOutlet was instantiated as a result  of `createEmbeddedView`.
         this._rowPlaceholder.viewContainer.createEmbeddedView(row.template, context, index);
         // Insert empty cells if there is no data to improve rendering time.
-        CdkCellOutlet.mostRecentCellOutlet.cells = rowData ? this._getCellTemplatesForRow(row) : [];
-        CdkCellOutlet.mostRecentCellOutlet.context = context;
+        const /** @type {?} */ cells = rowData ? this._getCellTemplatesForRow(row) : [];
+        cells.forEach(cell => {
+            CdkCellOutlet.mostRecentCellOutlet._viewContainer.createEmbeddedView(cell.template, context);
+        });
         this._changeDetectorRef.markForCheck();
+    }
+    /**
+     * Updates the context for each row to reflect any data changes that may have caused
+     * rows to be added, removed, or moved. The view container contains the same context
+     * that was provided to each of its cells.
+     * @return {?}
+     */
+    _updateRowContext() {
+        const /** @type {?} */ viewContainer = this._rowPlaceholder.viewContainer;
+        for (let /** @type {?} */ index = 0, /** @type {?} */ count = viewContainer.length; index < count; index++) {
+            const /** @type {?} */ viewRef = (viewContainer.get(index));
+            viewRef.context.index = index;
+            viewRef.context.count = count;
+            viewRef.context.first = index === 0;
+            viewRef.context.last = index === count - 1;
+            viewRef.context.even = index % 2 === 0;
+            viewRef.context.odd = index % 2 !== 0;
+        }
     }
     /**
      * Returns the cell template definitions to insert into the header
