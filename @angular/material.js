@@ -6843,6 +6843,12 @@ class MdAnchor extends MdButton {
         return this.disabled ? -1 : 0;
     }
     /**
+     * @return {?}
+     */
+    get _isAriaDisabled() {
+        return this.disabled ? 'true' : 'false';
+    }
+    /**
      * @param {?} event
      * @return {?}
      */
@@ -6859,7 +6865,7 @@ MdAnchor.decorators = [
              a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab], a[mat-mini-fab]`,
                 host: {
                     '[attr.disabled]': 'disabled || null',
-                    '[attr.aria-disabled]': 'disabled.toString()',
+                    '[attr.aria-disabled]': '_isAriaDisabled',
                     '(click)': '_haltDisabledEvents($event)',
                 },
                 inputs: ['disabled', 'color'],
@@ -12630,6 +12636,13 @@ class MdChip extends _MdChipMixinBase {
         this.onFocus.emit({ chip: this });
     }
     /**
+     * The aria-disabled state for the chip
+     * @return {?}
+     */
+    _isAriaDisabled() {
+        return String(this.disabled);
+    }
+    /**
      * Ensures events fire properly upon click.
      * @param {?} event
      * @return {?}
@@ -12656,7 +12669,7 @@ MdChip.decorators = [
                     'role': 'option',
                     '[class.mat-chip-selected]': 'selected',
                     '[attr.disabled]': 'disabled || null',
-                    '[attr.aria-disabled]': 'disabled.toString()',
+                    '[attr.aria-disabled]': '_isAriaDisabled()',
                     '(click)': '_handleClick($event)',
                     '(focus)': '_hasFocus = true',
                     '(blur)': '_hasFocus = false',
