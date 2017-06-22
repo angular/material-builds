@@ -31,9 +31,9 @@ export declare class MdTabGroup {
     private _indexToSelect;
     /** Snapshot of the height of the tab body wrapper before another tab is activated. */
     private _tabBodyWrapperHeight;
-    /** Whether the tab group should grow to the size of the active tab */
-    private _dynamicHeight;
+    /** Whether the tab group should grow to the size of the active tab. */
     dynamicHeight: boolean;
+    private _dynamicHeight;
     /** @deprecated */
     _dynamicHeightDeprecated: boolean;
     /** Whether ripples for the tab-group should be disabled or not. */

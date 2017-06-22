@@ -15659,9 +15659,6 @@ class MdTabGroup {
          * Snapshot of the height of the tab body wrapper before another tab is activated.
          */
         this._tabBodyWrapperHeight = 0;
-        /**
-         * Whether the tab group should grow to the size of the active tab
-         */
         this._dynamicHeight = false;
         this._disableRipple = false;
         this._selectedIndex = null;
@@ -15680,6 +15677,7 @@ class MdTabGroup {
         this._groupId = nextId$2++;
     }
     /**
+     * Whether the tab group should grow to the size of the active tab.
      * @return {?}
      */
     get dynamicHeight() { return this._dynamicHeight; }

@@ -16628,9 +16628,6 @@ var MdTabGroup = (function () {
          * Snapshot of the height of the tab body wrapper before another tab is activated.
          */
         this._tabBodyWrapperHeight = 0;
-        /**
-         * Whether the tab group should grow to the size of the active tab
-         */
         this._dynamicHeight = false;
         this._disableRipple = false;
         this._selectedIndex = null;
@@ -16650,6 +16647,7 @@ var MdTabGroup = (function () {
     }
     Object.defineProperty(MdTabGroup.prototype, "dynamicHeight", {
         /**
+         * Whether the tab group should grow to the size of the active tab.
          * @return {?}
          */
         get: function () { return this._dynamicHeight; },
