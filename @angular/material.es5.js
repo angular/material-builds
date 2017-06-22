@@ -5286,10 +5286,17 @@ var UniqueSelectionDispatcher = /*@__PURE__*/(function () {
     /**
      * Listen for future changes to item selection.
      * @param {?} listener
-     * @return {?}
+     * @return {?} Function used to unregister listener
+     *
      */
     UniqueSelectionDispatcher.prototype.listen = function (listener) {
+        var _this = this;
         this._listeners.push(listener);
+        return function () {
+            _this._listeners = _this._listeners.filter(function (registered) {
+                return listener !== registered;
+            });
+        };
     };
     return UniqueSelectionDispatcher;
 }());
@@ -6589,17 +6596,22 @@ var MdButtonToggle = /*@__PURE__*/(function () {
          */
         this._isSingleSelector = false;
         /**
+         * Unregister function for _buttonToggleDispatcher *
+         */
+        this._removeUniqueSelectionListener = function () { };
+        /**
          * Event emitted when the group value changes.
          */
         this.change = new EventEmitter();
         this.buttonToggleGroup = toggleGroup;
         this.buttonToggleGroupMultiple = toggleGroupMultiple;
         if (this.buttonToggleGroup) {
-            _buttonToggleDispatcher.listen(function (id, name) {
-                if (id != _this.id && name == _this.name) {
-                    _this.checked = false;
-                }
-            });
+            this._removeUniqueSelectionListener =
+                _buttonToggleDispatcher.listen(function (id, name) {
+                    if (id != _this.id && name == _this.name) {
+                        _this.checked = false;
+                    }
+                });
             this._type = 'radio';
             this.name = this.buttonToggleGroup.name;
             this._isSingleSelector = true;
@@ -6761,14 +6773,21 @@ var MdButtonToggle = /*@__PURE__*/(function () {
         event.value = this._value;
         this.change.emit(event);
     };
+    /**
+     * @return {?}
+     */
+    MdButtonToggle.prototype.ngOnDestroy = function () {
+        this._removeUniqueSelectionListener();
+    };
     return MdButtonToggle;
 }());
 MdButtonToggle.decorators = [
     { type: Component, args: [{ selector: 'md-button-toggle, mat-button-toggle',
                 template: "<label [attr.for]=\"inputId\" class=\"mat-button-toggle-label\"><input #input class=\"mat-button-toggle-input cdk-visually-hidden\" [type]=\"_type\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled || null\" [name]=\"name\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-button-toggle-label-content\"><ng-content></ng-content></div></label><div class=\"mat-button-toggle-focus-overlay\"></div>",
-                styles: [".mat-button-toggle-group{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle-disabled .mat-button-toggle-label-content{cursor:default}.mat-button-toggle{white-space:nowrap;position:relative}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:1}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px;cursor:pointer}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;position:absolute;top:0;left:0;right:0;bottom:0}"],
+                styles: [".mat-button-toggle-group,.mat-button-toggle-standalone{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle-disabled .mat-button-toggle-label-content{cursor:default}.mat-button-toggle{white-space:nowrap;position:relative}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:1}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px;cursor:pointer}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;position:absolute;top:0;left:0;right:0;bottom:0}"],
                 encapsulation: ViewEncapsulation.None,
                 host: {
+                    '[class.mat-button-toggle-standalone]': '!buttonToggleGroup && !buttonToggleGroupMultiple',
                     'class': 'mat-button-toggle'
                 }
             },] },
@@ -8052,14 +8071,19 @@ var MdRadioButton = /*@__PURE__*/(function (_super) {
          * Value assigned to this radio.
          */
         _this._value = null;
+        /**
+         * Unregister function for _radioDispatcher *
+         */
+        _this._removeUniqueSelectionListener = function () { };
         // Assertions. Ideally these should be stripped out by the compiler.
         // TODO(jelbourn): Assert that there's no name binding AND a parent radio group.
         _this.radioGroup = radioGroup;
-        _radioDispatcher.listen(function (id, name) {
-            if (id != _this.id && name == _this.name) {
-                _this.checked = false;
-            }
-        });
+        _this._removeUniqueSelectionListener =
+            _radioDispatcher.listen(function (id, name) {
+                if (id != _this.id && name == _this.name) {
+                    _this.checked = false;
+                }
+            });
         return _this;
     }
     Object.defineProperty(MdRadioButton.prototype, "disableRipple", {
@@ -8249,6 +8273,7 @@ var MdRadioButton = /*@__PURE__*/(function (_super) {
      */
     MdRadioButton.prototype.ngOnDestroy = function () {
         this._focusOriginMonitor.stopMonitoring(this._inputElement.nativeElement);
+        this._removeUniqueSelectionListener();
     };
     /**
      * Dispatch change event with current value.
@@ -9466,7 +9491,8 @@ var MdSelect = /*@__PURE__*/(function (_super) {
             // we must only adjust for the height difference between the option element
             // and the trigger element, then multiply it by -1 to ensure the panel moves
             // in the correct direction up the page.
-            this._offsetY = (SELECT_ITEM_HEIGHT - SELECT_TRIGGER_HEIGHT) / 2 * -1;
+            this._offsetY = (SELECT_ITEM_HEIGHT - SELECT_TRIGGER_HEIGHT) / 2 * -1 -
+                (this._getLabelCountBeforeOption(0) * SELECT_ITEM_HEIGHT);
         }
         this._checkOverlayWithinViewport(maxScroll);
     };
@@ -9545,7 +9571,7 @@ var MdSelect = /*@__PURE__*/(function (_super) {
             offsetX = SELECT_MULTIPLE_PANEL_PADDING_X;
         }
         else {
-            var /** @type {?} */ selected = this._selectionModel.selected[0];
+            var /** @type {?} */ selected = this._selectionModel.selected[0] || this.options.first;
             offsetX = selected && selected.group ? SELECT_PANEL_INDENT_PADDING_X : SELECT_PANEL_PADDING_X;
         }
         // Invert the offset in LTR.
@@ -18790,8 +18816,7 @@ var MdMenu = /*@__PURE__*/(function () {
 }());
 MdMenu.decorators = [
     { type: Component, args: [{ selector: 'md-menu, mat-menu',
-                host: { 'role': 'menu' },
-                template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"_emitCloseEvent()\" [@transformMenu]=\"'showing'\"><div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></ng-template>",
+                template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"_emitCloseEvent()\" [@transformMenu]=\"'showing'\" role=\"menu\"><div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></ng-template>",
                 styles: [".mat-menu-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}button.mat-menu-item{width:100%}.mat-menu-ripple{position:absolute;top:0;left:0;bottom:0;right:0}"],
                 encapsulation: ViewEncapsulation.None,
                 animations: [
@@ -21596,9 +21621,10 @@ var MdDatepicker = /*@__PURE__*/(function () {
      */
     MdDatepicker.prototype._openAsDialog = function () {
         var _this = this;
-        var /** @type {?} */ config = new MdDialogConfig();
-        config.viewContainerRef = this._viewContainerRef;
-        this._dialogRef = this._dialog.open(MdDatepickerContent, config);
+        this._dialogRef = this._dialog.open(MdDatepickerContent, {
+            viewContainerRef: this._viewContainerRef,
+            direction: this._dir ? this._dir.value : 'ltr'
+        });
         this._dialogRef.afterClosed().subscribe(function () { return _this.close(); });
         this._dialogRef.componentInstance.datepicker = this;
     };
@@ -22902,12 +22928,17 @@ var AccordionItem = /*@__PURE__*/(function () {
          * The unique MdAccordianChild id.
          */
         this.id = "cdk-accordion-child-" + nextId$4++;
-        _expansionDispatcher.listen(function (id, accordionId) {
-            if (_this.accordion && !_this.accordion.multi &&
-                _this.accordion.id === accordionId && _this.id !== id) {
-                _this.expanded = false;
-            }
-        });
+        /**
+         * Unregister function for _expansionDispatcher *
+         */
+        this._removeUniqueSelectionListener = function () { };
+        this._removeUniqueSelectionListener =
+            _expansionDispatcher.listen(function (id, accordionId) {
+                if (_this.accordion && !_this.accordion.multi &&
+                    _this.accordion.id === accordionId && _this.id !== id) {
+                    _this.expanded = false;
+                }
+            });
     }
     Object.defineProperty(AccordionItem.prototype, "expanded", {
         /**
@@ -22946,6 +22977,7 @@ var AccordionItem = /*@__PURE__*/(function () {
      */
     AccordionItem.prototype.ngOnDestroy = function () {
         this.destroyed.emit();
+        this._removeUniqueSelectionListener();
     };
     /**
      * Toggles the expanded state of the accordion item.
