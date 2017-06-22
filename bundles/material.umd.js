@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('rxjs/Subject'), require('rxjs/add/operator/debounceTime'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/Subscription'), require('rxjs/add/observable/fromEvent'), require('rxjs/add/observable/merge'), require('rxjs/add/operator/auditTime'), require('rxjs/add/operator/first'), require('rxjs/add/observable/of'), require('@angular/forms'), require('@angular/animations'), require('rxjs/add/operator/startWith'), require('rxjs/add/operator/filter'), require('@angular/http'), require('rxjs/add/observable/forkJoin'), require('rxjs/add/operator/map'), require('rxjs/add/operator/do'), require('rxjs/add/operator/share'), require('rxjs/add/operator/finally'), require('rxjs/add/operator/catch'), require('rxjs/add/observable/throw'), require('rxjs/add/operator/takeUntil'), require('rxjs/add/operator/switchMap'), require('rxjs/BehaviorSubject'), require('rxjs/add/operator/let'), require('rxjs/add/observable/combineLatest')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', 'rxjs/Subject', 'rxjs/add/operator/debounceTime', '@angular/common', 'rxjs/Observable', 'rxjs/Subscription', 'rxjs/add/observable/fromEvent', 'rxjs/add/observable/merge', 'rxjs/add/operator/auditTime', 'rxjs/add/operator/first', 'rxjs/add/observable/of', '@angular/forms', '@angular/animations', 'rxjs/add/operator/startWith', 'rxjs/add/operator/filter', '@angular/http', 'rxjs/add/observable/forkJoin', 'rxjs/add/operator/map', 'rxjs/add/operator/do', 'rxjs/add/operator/share', 'rxjs/add/operator/finally', 'rxjs/add/operator/catch', 'rxjs/add/observable/throw', 'rxjs/add/operator/takeUntil', 'rxjs/add/operator/switchMap', 'rxjs/BehaviorSubject', 'rxjs/add/operator/let', 'rxjs/add/observable/combineLatest'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.platformBrowser,global.Rx,global.Rx.Observable.prototype,global.ng.common,global.Rx,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.ng.forms,global.ng.animations,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.ng.http,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx));
-}(this, (function (exports,_angular_core,_angular_platformBrowser,rxjs_Subject,rxjs_add_operator_debounceTime,_angular_common,rxjs_Observable,rxjs_Subscription,rxjs_add_observable_fromEvent,rxjs_add_observable_merge,rxjs_add_operator_auditTime,rxjs_add_operator_first,rxjs_add_observable_of,_angular_forms,_angular_animations,rxjs_add_operator_startWith,rxjs_add_operator_filter,_angular_http,rxjs_add_observable_forkJoin,rxjs_add_operator_map,rxjs_add_operator_do,rxjs_add_operator_share,rxjs_add_operator_finally,rxjs_add_operator_catch,rxjs_add_observable_throw,rxjs_add_operator_takeUntil,rxjs_add_operator_switchMap,rxjs_BehaviorSubject) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('rxjs/Subject'), require('rxjs/add/operator/debounceTime'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/Subscription'), require('rxjs/add/observable/fromEvent'), require('rxjs/add/observable/merge'), require('rxjs/add/operator/auditTime'), require('@angular/cdk'), require('rxjs/add/operator/first'), require('rxjs/add/observable/of'), require('@angular/forms'), require('@angular/animations'), require('rxjs/add/operator/startWith'), require('rxjs/add/operator/filter'), require('@angular/http'), require('rxjs/add/observable/forkJoin'), require('rxjs/add/operator/map'), require('rxjs/add/operator/do'), require('rxjs/add/operator/share'), require('rxjs/add/operator/finally'), require('rxjs/add/operator/catch'), require('rxjs/add/observable/throw'), require('rxjs/add/operator/takeUntil'), require('rxjs/add/operator/switchMap'), require('rxjs/BehaviorSubject'), require('rxjs/add/operator/let'), require('rxjs/add/observable/combineLatest')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', 'rxjs/Subject', 'rxjs/add/operator/debounceTime', '@angular/common', 'rxjs/Observable', 'rxjs/Subscription', 'rxjs/add/observable/fromEvent', 'rxjs/add/observable/merge', 'rxjs/add/operator/auditTime', '@angular/cdk', 'rxjs/add/operator/first', 'rxjs/add/observable/of', '@angular/forms', '@angular/animations', 'rxjs/add/operator/startWith', 'rxjs/add/operator/filter', '@angular/http', 'rxjs/add/observable/forkJoin', 'rxjs/add/operator/map', 'rxjs/add/operator/do', 'rxjs/add/operator/share', 'rxjs/add/operator/finally', 'rxjs/add/operator/catch', 'rxjs/add/observable/throw', 'rxjs/add/operator/takeUntil', 'rxjs/add/operator/switchMap', 'rxjs/BehaviorSubject', 'rxjs/add/operator/let', 'rxjs/add/observable/combineLatest'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.platformBrowser,global.Rx,global.Rx.Observable.prototype,global.ng.common,global.Rx,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.ng.cdk,global.Rx.Observable.prototype,global.Rx.Observable,global.ng.forms,global.ng.animations,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.ng.http,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx));
+}(this, (function (exports,_angular_core,_angular_platformBrowser,rxjs_Subject,rxjs_add_operator_debounceTime,_angular_common,rxjs_Observable,rxjs_Subscription,rxjs_add_observable_fromEvent,rxjs_add_observable_merge,rxjs_add_operator_auditTime,_angular_cdk,rxjs_add_operator_first,rxjs_add_observable_of,_angular_forms,_angular_animations,rxjs_add_operator_startWith,rxjs_add_operator_filter,_angular_http,rxjs_add_observable_forkJoin,rxjs_add_operator_map,rxjs_add_operator_do,rxjs_add_operator_share,rxjs_add_operator_finally,rxjs_add_operator_catch,rxjs_add_observable_throw,rxjs_add_operator_takeUntil,rxjs_add_operator_switchMap,rxjs_BehaviorSubject) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1827,14 +1827,6 @@ var ESCAPE = 27;
 var BACKSPACE = 8;
 var DELETE = 46;
 /**
- * Coerces a data-bound value (typically a string) to a boolean.
- * @param {?} value
- * @return {?}
- */
-function coerceBooleanProperty(value) {
-    return value != null && "" + value !== 'false';
-}
-/**
  * Mixin to augment a directive with a `disabled` property.
  * @template T
  * @param {?} base
@@ -1864,7 +1856,7 @@ function mixinDisabled(base) {
              * @param {?} value
              * @return {?}
              */
-            set: function (value) { this._disabled = coerceBooleanProperty(value); },
+            set: function (value) { this._disabled = _angular_cdk.coerceBooleanProperty(value); },
             enumerable: true,
             configurable: true
         });
@@ -1992,7 +1984,7 @@ var MdOption = (function () {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._disabled = coerceBooleanProperty(value); },
+        set: function (value) { this._disabled = _angular_cdk.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -3944,7 +3936,7 @@ var ConnectedOverlayDirective = (function () {
          * @return {?}
          */
         set: function (value) {
-            this._hasBackdrop = coerceBooleanProperty(value);
+            this._hasBackdrop = _angular_cdk.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -4792,7 +4784,7 @@ var FocusTrapDeprecatedDirective = (function () {
          * @return {?}
          */
         set: function (val) {
-            this.focusTrap.enabled = !coerceBooleanProperty(val);
+            this.focusTrap.enabled = !_angular_cdk.coerceBooleanProperty(val);
         },
         enumerable: true,
         configurable: true
@@ -4849,7 +4841,7 @@ var FocusTrapDirective = (function () {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this.focusTrap.enabled = coerceBooleanProperty(value); },
+        set: function (value) { this.focusTrap.enabled = _angular_cdk.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -5699,19 +5691,6 @@ AnimationDurations.COMPLEX = '375ms';
 AnimationDurations.ENTERING = '225ms';
 AnimationDurations.EXITING = '195ms';
 /**
- * Coerces a data-bound value (typically a string) to a number.
- * @param {?} value
- * @param {?=} fallbackValue
- * @return {?}
- */
-function coerceNumberProperty(value, fallbackValue) {
-    if (fallbackValue === void 0) { fallbackValue = 0; }
-    // parseFloat(value) handles most of the cases we're interested in (it treats null, empty string,
-    // and other non-number values as NaN, where Number just uses 0) but it considers the string
-    // '123hello' to be a valid number. Therefore we also check if Number(value) is NaN.
-    return isNaN(parseFloat(/** @type {?} */ (value))) || isNaN(Number(value)) ? fallbackValue : Number(value);
-}
-/**
  * Adapts type `D` to be usable as a date by cdk-based components that work with dates.
  * @abstract
  */
@@ -6370,7 +6349,7 @@ var MdButtonToggleGroup = (function (_super) {
          * @return {?}
          */
         set: function (value) {
-            this._vertical = coerceBooleanProperty(value);
+            this._vertical = _angular_cdk.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -6551,7 +6530,7 @@ var MdButtonToggleGroupMultiple = (function (_super) {
          * @return {?}
          */
         set: function (value) {
-            this._vertical = coerceBooleanProperty(value);
+            this._vertical = _angular_cdk.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -6708,7 +6687,7 @@ var MdButtonToggle = (function () {
          * @return {?}
          */
         set: function (value) {
-            this._disabled = coerceBooleanProperty(value);
+            this._disabled = _angular_cdk.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -7008,7 +6987,7 @@ var MdButton = (function (_super) {
          * @param {?} v
          * @return {?}
          */
-        set: function (v) { this._disableRipple = coerceBooleanProperty(v); },
+        set: function (v) { this._disableRipple = _angular_cdk.coerceBooleanProperty(v); },
         enumerable: true,
         configurable: true
     });
@@ -7318,7 +7297,7 @@ var MdCheckbox = (function (_super) {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._disableRipple = coerceBooleanProperty(value); },
+        set: function (value) { this._disableRipple = _angular_cdk.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -7343,7 +7322,7 @@ var MdCheckbox = (function (_super) {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._required = coerceBooleanProperty(value); },
+        set: function (value) { this._required = _angular_cdk.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -8104,7 +8083,7 @@ var MdRadioButton = (function (_super) {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._disableRipple = coerceBooleanProperty(value); },
+        set: function (value) { this._disableRipple = _angular_cdk.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -8222,7 +8201,7 @@ var MdRadioButton = (function (_super) {
          * @return {?}
          */
         set: function (value) {
-            this._disabled = coerceBooleanProperty(value);
+            this._disabled = _angular_cdk.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -8927,7 +8906,7 @@ var MdSelect = (function (_super) {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._required = coerceBooleanProperty(value); },
+        set: function (value) { this._required = _angular_cdk.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -8945,7 +8924,7 @@ var MdSelect = (function (_super) {
             if (this._selectionModel) {
                 throw getMdSelectDynamicMultipleError();
             }
-            this._multiple = coerceBooleanProperty(value);
+            this._multiple = _angular_cdk.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -9953,7 +9932,7 @@ var MdSlideToggle = (function (_super) {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._required = coerceBooleanProperty(value); },
+        set: function (value) { this._required = _angular_cdk.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -9967,7 +9946,7 @@ var MdSlideToggle = (function (_super) {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._disableRipple = coerceBooleanProperty(value); },
+        set: function (value) { this._disableRipple = _angular_cdk.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -10410,7 +10389,7 @@ var MdSlider = (function (_super) {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._invert = coerceBooleanProperty(value); },
+        set: function (value) { this._invert = _angular_cdk.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -10427,7 +10406,7 @@ var MdSlider = (function (_super) {
          * @return {?}
          */
         set: function (v) {
-            this._max = coerceNumberProperty(v, this._max);
+            this._max = _angular_cdk.coerceNumberProperty(v, this._max);
             this._percent = this._calculatePercentage(this._value);
         },
         enumerable: true,
@@ -10446,7 +10425,7 @@ var MdSlider = (function (_super) {
          * @return {?}
          */
         set: function (v) {
-            this._min = coerceNumberProperty(v, this._min);
+            this._min = _angular_cdk.coerceNumberProperty(v, this._min);
             // If the value wasn't explicitly set by the user, set it to the min.
             if (this._value === null) {
                 this.value = this._min;
@@ -10467,7 +10446,7 @@ var MdSlider = (function (_super) {
          * @return {?}
          */
         set: function (v) {
-            this._step = coerceNumberProperty(v, this._step);
+            this._step = _angular_cdk.coerceNumberProperty(v, this._step);
             if (this._step % 1 !== 0) {
                 this._roundLabelTo = ((this._step.toString().split('.').pop())).length;
             }
@@ -10485,7 +10464,7 @@ var MdSlider = (function (_super) {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._thumbLabel = coerceBooleanProperty(value); },
+        set: function (value) { this._thumbLabel = _angular_cdk.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -10519,7 +10498,7 @@ var MdSlider = (function (_super) {
                 this._tickInterval = 'auto';
             }
             else if (typeof value === 'number' || typeof value === 'string') {
-                this._tickInterval = coerceNumberProperty(value, /** @type {?} */ (this._tickInterval));
+                this._tickInterval = _angular_cdk.coerceNumberProperty(value, /** @type {?} */ (this._tickInterval));
             }
             else {
                 this._tickInterval = 0;
@@ -10559,7 +10538,7 @@ var MdSlider = (function (_super) {
          * @return {?}
          */
         set: function (v) {
-            this._value = coerceNumberProperty(v, this._value || 0);
+            this._value = _angular_cdk.coerceNumberProperty(v, this._value || 0);
             this._percent = this._calculatePercentage(this._value);
         },
         enumerable: true,
@@ -10575,7 +10554,7 @@ var MdSlider = (function (_super) {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._vertical = coerceBooleanProperty(value); },
+        set: function (value) { this._vertical = _angular_cdk.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -11295,7 +11274,7 @@ var MdSidenav = (function () {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._disableClose = coerceBooleanProperty(value); },
+        set: function (value) { this._disableClose = _angular_cdk.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -11360,7 +11339,7 @@ var MdSidenav = (function () {
          * @return {?}
          */
         set: function (v) {
-            this.toggle(coerceBooleanProperty(v));
+            this.toggle(_angular_cdk.coerceBooleanProperty(v));
         },
         enumerable: true,
         configurable: true
@@ -11910,7 +11889,7 @@ var MdList = (function () {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._disableRipple = coerceBooleanProperty(value); },
+        set: function (value) { this._disableRipple = _angular_cdk.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -12071,7 +12050,7 @@ var MdListItem = (function () {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._disableRipple = coerceBooleanProperty(value); },
+        set: function (value) { this._disableRipple = _angular_cdk.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -13398,7 +13377,7 @@ var MdChip = (function (_super) {
          * @return {?}
          */
         set: function (value) {
-            this._selected = coerceBooleanProperty(value);
+            this._selected = _angular_cdk.coerceBooleanProperty(value);
             (this.selected ? this.select : this.deselect).emit({ chip: this });
         },
         enumerable: true,
@@ -13544,7 +13523,7 @@ var MdChipList = (function () {
          * @return {?}
          */
         set: function (value) {
-            this._selectable = coerceBooleanProperty(value);
+            this._selectable = _angular_cdk.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -15216,7 +15195,7 @@ var MdInputDirective = (function () {
          * @return {?}
          */
         set: function (value) {
-            this._disabled = coerceBooleanProperty(value);
+            this._disabled = _angular_cdk.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -15264,7 +15243,7 @@ var MdInputDirective = (function () {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._required = coerceBooleanProperty(value); },
+        set: function (value) { this._required = _angular_cdk.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -15490,7 +15469,7 @@ var MdInputContainer = (function () {
          * @return {?}
          */
         set: function (value) {
-            this._hideRequiredMarker = coerceBooleanProperty(value);
+            this._hideRequiredMarker = _angular_cdk.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -16655,7 +16634,7 @@ var MdTabGroup = (function () {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._dynamicHeight = coerceBooleanProperty(value); },
+        set: function (value) { this._dynamicHeight = _angular_cdk.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -16683,7 +16662,7 @@ var MdTabGroup = (function () {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._disableRipple = coerceBooleanProperty(value); },
+        set: function (value) { this._disableRipple = _angular_cdk.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -17401,7 +17380,7 @@ var MdTabHeader = (function () {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._disableRipple = coerceBooleanProperty(value); },
+        set: function (value) { this._disableRipple = _angular_cdk.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -17966,7 +17945,7 @@ var MdTooltip = (function () {
          * @return {?}
          */
         set: function (value) {
-            this._disabled = coerceBooleanProperty(value);
+            this._disabled = _angular_cdk.coerceBooleanProperty(value);
             // If tooltip is disabled, hide immediately.
             if (this._disabled) {
                 this.hide(0);
@@ -20504,7 +20483,9 @@ MdAutocompleteTrigger.decorators = [
                     '[attr.aria-activedescendant]': 'activeOption?.id',
                     '[attr.aria-expanded]': 'panelOpen.toString()',
                     '[attr.aria-owns]': 'autocomplete?.id',
-                    '(focus)': 'openPanel()',
+                    // Note: we use `focusin`, as opposed to `focus`, in order to open the panel
+                    // a little earlier. This avoids issues where IE delays the focusing of the input.
+                    '(focusin)': 'openPanel()',
                     '(input)': '_handleInput($event)',
                     '(blur)': '_onTouched()',
                     '(keydown)': '_handleKeydown($event)',
@@ -22831,7 +22812,7 @@ var CdkAccordion = (function () {
          * @param {?} multi
          * @return {?}
          */
-        set: function (multi) { this._multi = coerceBooleanProperty(multi); },
+        set: function (multi) { this._multi = _angular_cdk.coerceBooleanProperty(multi); },
         enumerable: true,
         configurable: true
     });
@@ -22845,7 +22826,7 @@ var CdkAccordion = (function () {
          * @param {?} show
          * @return {?}
          */
-        set: function (show) { this._hideToggle = coerceBooleanProperty(show); },
+        set: function (show) { this._hideToggle = _angular_cdk.coerceBooleanProperty(show); },
         enumerable: true,
         configurable: true
     });
@@ -23355,6 +23336,8 @@ MaterialModule.decorators = [
  */
 MaterialModule.ctorParameters = function () { return []; };
 
+exports.coerceBooleanProperty = _angular_cdk.coerceBooleanProperty;
+exports.coerceNumberProperty = _angular_cdk.coerceNumberProperty;
 exports.Dir = Dir;
 exports.Directionality = Directionality;
 exports.BidiModule = BidiModule;
@@ -23380,8 +23363,6 @@ exports.UNIQUE_SELECTION_DISPATCHER_PROVIDER = UNIQUE_SELECTION_DISPATCHER_PROVI
 exports.MdLineModule = MdLineModule;
 exports.MdLine = MdLine;
 exports.MdLineSetter = MdLineSetter;
-exports.coerceBooleanProperty = coerceBooleanProperty;
-exports.coerceNumberProperty = coerceNumberProperty;
 exports.CompatibilityModule = CompatibilityModule;
 exports.NoConflictStyleCompatibilityMode = NoConflictStyleCompatibilityMode;
 exports.MdCommonModule = MdCommonModule;
