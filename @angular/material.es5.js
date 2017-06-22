@@ -7092,16 +7092,6 @@ var MdAnchor = /*@__PURE__*/(function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdAnchor.prototype, "_isAriaDisabled", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this.disabled ? 'true' : 'false';
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @param {?} event
      * @return {?}
@@ -7119,7 +7109,7 @@ MdAnchor.decorators = [
     { type: Component, args: [{ selector: "a[md-button], a[md-raised-button], a[md-icon-button], a[md-fab], a[md-mini-fab],\n             a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab], a[mat-mini-fab]",
                 host: {
                     '[attr.disabled]': 'disabled || null',
-                    '[attr.aria-disabled]': '_isAriaDisabled',
+                    '[attr.aria-disabled]': 'disabled.toString()',
                     '(click)': '_haltDisabledEvents($event)',
                 },
                 inputs: ['disabled', 'color'],
@@ -13405,13 +13395,6 @@ var MdChip = /*@__PURE__*/(function (_super) {
         this.onFocus.emit({ chip: this });
     };
     /**
-     * The aria-disabled state for the chip
-     * @return {?}
-     */
-    MdChip.prototype._isAriaDisabled = function () {
-        return String(this.disabled);
-    };
-    /**
      * Ensures events fire properly upon click.
      * @param {?} event
      * @return {?}
@@ -13438,7 +13421,7 @@ MdChip.decorators = [
                     'role': 'option',
                     '[class.mat-chip-selected]': 'selected',
                     '[attr.disabled]': 'disabled || null',
-                    '[attr.aria-disabled]': '_isAriaDisabled()',
+                    '[attr.aria-disabled]': 'disabled.toString()',
                     '(click)': '_handleClick($event)',
                     '(focus)': '_hasFocus = true',
                     '(blur)': '_hasFocus = false',
@@ -20219,7 +20202,7 @@ var MdAutocompleteTrigger = /*@__PURE__*/(function () {
         get: function () {
             var _this = this;
             if (this._document) {
-                return Observable.fromEvent(this._document, 'click').filter(function (event) {
+                return Observable.merge(Observable.fromEvent(this._document, 'click'), Observable.fromEvent(this._document, 'touchend')).filter(function (event) {
                     var /** @type {?} */ clickTarget = (event.target);
                     var /** @type {?} */ inputContainer = _this._inputContainer ?
                         _this._inputContainer._elementRef.nativeElement : null;

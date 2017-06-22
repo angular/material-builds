@@ -6843,12 +6843,6 @@ class MdAnchor extends MdButton {
         return this.disabled ? -1 : 0;
     }
     /**
-     * @return {?}
-     */
-    get _isAriaDisabled() {
-        return this.disabled ? 'true' : 'false';
-    }
-    /**
      * @param {?} event
      * @return {?}
      */
@@ -6865,7 +6859,7 @@ MdAnchor.decorators = [
              a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab], a[mat-mini-fab]`,
                 host: {
                     '[attr.disabled]': 'disabled || null',
-                    '[attr.aria-disabled]': '_isAriaDisabled',
+                    '[attr.aria-disabled]': 'disabled.toString()',
                     '(click)': '_haltDisabledEvents($event)',
                 },
                 inputs: ['disabled', 'color'],
@@ -12636,13 +12630,6 @@ class MdChip extends _MdChipMixinBase {
         this.onFocus.emit({ chip: this });
     }
     /**
-     * The aria-disabled state for the chip
-     * @return {?}
-     */
-    _isAriaDisabled() {
-        return String(this.disabled);
-    }
-    /**
      * Ensures events fire properly upon click.
      * @param {?} event
      * @return {?}
@@ -12669,7 +12656,7 @@ MdChip.decorators = [
                     'role': 'option',
                     '[class.mat-chip-selected]': 'selected',
                     '[attr.disabled]': 'disabled || null',
-                    '[attr.aria-disabled]': '_isAriaDisabled()',
+                    '[attr.aria-disabled]': 'disabled.toString()',
                     '(click)': '_handleClick($event)',
                     '(focus)': '_hasFocus = true',
                     '(blur)': '_hasFocus = false',
@@ -19026,7 +19013,7 @@ class MdAutocompleteTrigger {
      */
     get _outsideClickStream() {
         if (this._document) {
-            return Observable.fromEvent(this._document, 'click').filter((event) => {
+            return Observable.merge(Observable.fromEvent(this._document, 'click'), Observable.fromEvent(this._document, 'touchend')).filter((event) => {
                 const /** @type {?} */ clickTarget = (event.target);
                 const /** @type {?} */ inputContainer = this._inputContainer ?
                     this._inputContainer._elementRef.nativeElement : null;
