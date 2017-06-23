@@ -1775,6 +1775,9 @@ function mixinColor(base, defaultColor) {
     };
 }
 
+/**
+ * \@docs-private
+ */
 class MdPseudoCheckboxBase {
     /**
      * @param {?} _renderer
@@ -1899,6 +1902,9 @@ function mixinDisabled(base) {
     };
 }
 
+/**
+ * \@docs-private
+ */
 class MdOptgroupBase {
 }
 const _MdOptgroupMixinBase = mixinDisabled(MdOptgroupBase);
@@ -6081,6 +6087,9 @@ MdCoreModule.decorators = [
  */
 MdCoreModule.ctorParameters = () => [];
 
+/**
+ * \@docs-private
+ */
 class MdButtonToggleGroupBase {
 }
 const _MdButtonToggleGroupMixinBase = mixinDisabled(MdButtonToggleGroupBase);
@@ -6720,6 +6729,9 @@ MdMiniFab.ctorParameters = () => [
     { type: MdButton, decorators: [{ type: Self }, { type: Optional }, { type: Inject, args: [forwardRef(() => MdButton),] },] },
     { type: MdAnchor, decorators: [{ type: Self }, { type: Optional }, { type: Inject, args: [forwardRef(() => MdAnchor),] },] },
 ];
+/**
+ * \@docs-private
+ */
 class MdButtonBase {
     /**
      * @param {?} _renderer
@@ -6963,6 +6975,9 @@ TransitionCheckState[TransitionCheckState.Indeterminate] = "Indeterminate";
  */
 class MdCheckboxChange {
 }
+/**
+ * \@docs-private
+ */
 class MdCheckboxBase {
     /**
      * @param {?} _renderer
@@ -7415,6 +7430,9 @@ let _uniqueIdCounter$2 = 0;
  */
 class MdRadioChange {
 }
+/**
+ * \@docs-private
+ */
 class MdRadioGroupBase {
 }
 const _MdRadioGroupMixinBase = mixinDisabled(MdRadioGroupBase);
@@ -7700,6 +7718,9 @@ MdRadioGroup.propDecorators = {
     'selected': [{ type: Input },],
     'disabled': [{ type: Input },],
 };
+/**
+ * \@docs-private
+ */
 class MdRadioButtonBase {
     /**
      * @param {?} _renderer
@@ -8398,6 +8419,9 @@ class MdSelectChange {
         this.value = value;
     }
 }
+/**
+ * \@docs-private
+ */
 class MdSelectBase {
     /**
      * @param {?} _renderer
@@ -9446,6 +9470,9 @@ class MdSlideToggleChange {
 }
 // Increasing integer for generating unique ids for slide-toggle components.
 let nextId$1 = 0;
+/**
+ * \@docs-private
+ */
 class MdSlideToggleBase {
     /**
      * @param {?} _renderer
@@ -9872,6 +9899,9 @@ const MD_SLIDER_VALUE_ACCESSOR = {
  */
 class MdSliderChange {
 }
+/**
+ * \@docs-private
+ */
 class MdSliderBase {
 }
 const _MdSliderMixinBase = mixinDisabled(MdSliderBase);
@@ -12560,6 +12590,9 @@ MdCardModule.decorators = [
  */
 MdCardModule.ctorParameters = () => [];
 
+/**
+ * \@docs-private
+ */
 class MdChipBase {
     /**
      * @param {?} _renderer
@@ -13416,6 +13449,9 @@ function iconKey(namespace, name) {
     return namespace + ':' + name;
 }
 
+/**
+ * \@docs-private
+ */
 class MdIconBase {
     /**
      * @param {?} _renderer
@@ -13673,6 +13709,9 @@ MdProgressSpinnerCssMatStyler.decorators = [
  * @nocollapse
  */
 MdProgressSpinnerCssMatStyler.ctorParameters = () => [];
+/**
+ * \@docs-private
+ */
 class MdProgressSpinnerBase {
     /**
      * @param {?} _renderer
@@ -15560,6 +15599,9 @@ MdTabLabel.ctorParameters = () => [
     { type: ViewContainerRef, },
 ];
 
+/**
+ * \@docs-private
+ */
 class MdTabBase {
 }
 const _MdTabMixinBase = mixinDisabled(MdTabBase);
@@ -15842,6 +15884,9 @@ MdTabGroup.propDecorators = {
     'selectChange': [{ type: Output },],
 };
 
+/**
+ * \@docs-private
+ */
 class MdTabLabelWrapperBase {
 }
 const _MdTabLabelWrapperMixinBase = mixinDisabled(MdTabLabelWrapperBase);
@@ -16770,6 +16815,9 @@ MdToolbarRow.decorators = [
  * @nocollapse
  */
 MdToolbarRow.ctorParameters = () => [];
+/**
+ * \@docs-private
+ */
 class MdToolbarBase {
     /**
      * @param {?} _renderer
@@ -17468,6 +17516,9 @@ function throwMdMenuInvalidPositionY() {
       Example: <md-menu y-position="above" #menu="mdMenu"></md-menu>`);
 }
 
+/**
+ * \@docs-private
+ */
 class MdMenuItemBase {
 }
 const _MdMenuItemMixinBase = mixinDisabled(MdMenuItemBase);

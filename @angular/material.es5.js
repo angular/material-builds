@@ -1724,6 +1724,9 @@ function mixinColor(base, defaultColor) {
         return class_1;
     }(base));
 }
+/**
+ * \@docs-private
+ */
 var MdPseudoCheckboxBase = /*@__PURE__*/(function () {
     /**
      * @param {?} _renderer
@@ -1862,6 +1865,9 @@ function mixinDisabled(base) {
         return class_2;
     }(base));
 }
+/**
+ * \@docs-private
+ */
 var MdOptgroupBase = /*@__PURE__*/(function () {
     function MdOptgroupBase() {
     }
@@ -6250,6 +6256,9 @@ MdCoreModule.decorators = [
  * @nocollapse
  */
 MdCoreModule.ctorParameters = function () { return []; };
+/**
+ * \@docs-private
+ */
 var MdButtonToggleGroupBase = /*@__PURE__*/(function () {
     function MdButtonToggleGroupBase() {
     }
@@ -6953,6 +6962,9 @@ MdMiniFab.ctorParameters = function () { return [
     { type: MdButton, decorators: [{ type: Self }, { type: Optional }, { type: Inject, args: [forwardRef(function () { return MdButton; }),] },] },
     { type: MdAnchor, decorators: [{ type: Self }, { type: Optional }, { type: Inject, args: [forwardRef(function () { return MdAnchor; }),] },] },
 ]; };
+/**
+ * \@docs-private
+ */
 var MdButtonBase = /*@__PURE__*/(function () {
     /**
      * @param {?} _renderer
@@ -7218,6 +7230,9 @@ var MdCheckboxChange = /*@__PURE__*/(function () {
     }
     return MdCheckboxChange;
 }());
+/**
+ * \@docs-private
+ */
 var MdCheckboxBase = /*@__PURE__*/(function () {
     /**
      * @param {?} _renderer
@@ -7704,6 +7719,9 @@ var MdRadioChange = /*@__PURE__*/(function () {
     }
     return MdRadioChange;
 }());
+/**
+ * \@docs-private
+ */
 var MdRadioGroupBase = /*@__PURE__*/(function () {
     function MdRadioGroupBase() {
     }
@@ -8021,6 +8039,9 @@ MdRadioGroup.propDecorators = {
     'selected': [{ type: Input },],
     'disabled': [{ type: Input },],
 };
+/**
+ * \@docs-private
+ */
 var MdRadioButtonBase = /*@__PURE__*/(function () {
     /**
      * @param {?} _renderer
@@ -8767,6 +8788,9 @@ var MdSelectChange = /*@__PURE__*/(function () {
     }
     return MdSelectChange;
 }());
+/**
+ * \@docs-private
+ */
 var MdSelectBase = /*@__PURE__*/(function () {
     /**
      * @param {?} _renderer
@@ -9872,6 +9896,9 @@ var MdSlideToggleChange = /*@__PURE__*/(function () {
 }());
 // Increasing integer for generating unique ids for slide-toggle components.
 var nextId$1 = 0;
+/**
+ * \@docs-private
+ */
 var MdSlideToggleBase = /*@__PURE__*/(function () {
     /**
      * @param {?} _renderer
@@ -10325,6 +10352,9 @@ var MdSliderChange = /*@__PURE__*/(function () {
     }
     return MdSliderChange;
 }());
+/**
+ * \@docs-private
+ */
 var MdSliderBase = /*@__PURE__*/(function () {
     function MdSliderBase() {
     }
@@ -13316,6 +13346,9 @@ MdCardModule.decorators = [
  * @nocollapse
  */
 MdCardModule.ctorParameters = function () { return []; };
+/**
+ * \@docs-private
+ */
 var MdChipBase = /*@__PURE__*/(function () {
     /**
      * @param {?} _renderer
@@ -14198,6 +14231,9 @@ function cloneSvg(svg) {
 function iconKey(namespace, name) {
     return namespace + ':' + name;
 }
+/**
+ * \@docs-private
+ */
 var MdIconBase = /*@__PURE__*/(function () {
     /**
      * @param {?} _renderer
@@ -14464,6 +14500,9 @@ MdProgressSpinnerCssMatStyler.decorators = [
  * @nocollapse
  */
 MdProgressSpinnerCssMatStyler.ctorParameters = function () { return []; };
+/**
+ * \@docs-private
+ */
 var MdProgressSpinnerBase = /*@__PURE__*/(function () {
     /**
      * @param {?} _renderer
@@ -16513,6 +16552,9 @@ MdTabLabel.ctorParameters = function () { return [
     { type: TemplateRef, },
     { type: ViewContainerRef, },
 ]; };
+/**
+ * \@docs-private
+ */
 var MdTabBase = /*@__PURE__*/(function () {
     function MdTabBase() {
     }
@@ -16828,6 +16870,9 @@ MdTabGroup.propDecorators = {
     'focusChange': [{ type: Output },],
     'selectChange': [{ type: Output },],
 };
+/**
+ * \@docs-private
+ */
 var MdTabLabelWrapperBase = /*@__PURE__*/(function () {
     function MdTabLabelWrapperBase() {
     }
@@ -17800,6 +17845,9 @@ MdToolbarRow.decorators = [
  * @nocollapse
  */
 MdToolbarRow.ctorParameters = function () { return []; };
+/**
+ * \@docs-private
+ */
 var MdToolbarBase = /*@__PURE__*/(function () {
     /**
      * @param {?} _renderer
@@ -18554,6 +18602,9 @@ function throwMdMenuInvalidPositionX() {
 function throwMdMenuInvalidPositionY() {
     throw Error("y-position value must be either 'above' or below'.\n      Example: <md-menu y-position=\"above\" #menu=\"mdMenu\"></md-menu>");
 }
+/**
+ * \@docs-private
+ */
 var MdMenuItemBase = /*@__PURE__*/(function () {
     function MdMenuItemBase() {
     }

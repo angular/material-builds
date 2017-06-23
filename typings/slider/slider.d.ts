@@ -23,6 +23,7 @@ export declare class MdSliderChange {
     /** The new value of the source slider. */
     value: number | null;
 }
+/** @docs-private */
 export declare class MdSliderBase {
 }
 export declare const _MdSliderMixinBase: (new (...args: any[]) => CanDisable) & typeof MdSliderBase;

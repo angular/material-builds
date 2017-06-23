@@ -68,6 +68,7 @@ export declare class MdSelectChange {
     value: any;
     constructor(source: MdSelect, value: any);
 }
+/** @docs-private */
 export declare class MdSelectBase {
     _renderer: Renderer2;
     _elementRef: ElementRef;

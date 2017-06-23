@@ -8,6 +8,7 @@
 import { ElementRef, OnChanges, OnInit, Renderer2, SimpleChange } from '@angular/core';
 import { MdIconRegistry } from './icon-registry';
 import { CanColor } from '../core/common-behaviors/color';
+/** @docs-private */
 export declare class MdIconBase {
     _renderer: Renderer2;
     _elementRef: ElementRef;

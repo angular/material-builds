@@ -9,6 +9,7 @@ import { ElementRef, Renderer2 } from '@angular/core';
 import { CanColor } from '../core/common-behaviors/color';
 export declare class MdToolbarRow {
 }
+/** @docs-private */
 export declare class MdToolbarBase {
     _renderer: Renderer2;
     _elementRef: ElementRef;

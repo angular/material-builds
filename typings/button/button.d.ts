@@ -42,6 +42,7 @@ export declare class MdFab {
 export declare class MdMiniFab {
     constructor(button: MdButton, anchor: MdAnchor);
 }
+/** @docs-private */
 export declare class MdButtonBase {
     _renderer: Renderer2;
     _elementRef: ElementRef;

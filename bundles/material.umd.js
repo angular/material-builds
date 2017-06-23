@@ -1725,6 +1725,9 @@ function mixinColor(base, defaultColor) {
         return class_1;
     }(base));
 }
+/**
+ * \@docs-private
+ */
 var MdPseudoCheckboxBase = (function () {
     /**
      * @param {?} _renderer
@@ -1863,6 +1866,9 @@ function mixinDisabled(base) {
         return class_2;
     }(base));
 }
+/**
+ * \@docs-private
+ */
 var MdOptgroupBase = (function () {
     function MdOptgroupBase() {
     }
@@ -6251,6 +6257,9 @@ MdCoreModule.decorators = [
  * @nocollapse
  */
 MdCoreModule.ctorParameters = function () { return []; };
+/**
+ * \@docs-private
+ */
 var MdButtonToggleGroupBase = (function () {
     function MdButtonToggleGroupBase() {
     }
@@ -6954,6 +6963,9 @@ MdMiniFab.ctorParameters = function () { return [
     { type: MdButton, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MdButton; }),] },] },
     { type: MdAnchor, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MdAnchor; }),] },] },
 ]; };
+/**
+ * \@docs-private
+ */
 var MdButtonBase = (function () {
     /**
      * @param {?} _renderer
@@ -7219,6 +7231,9 @@ var MdCheckboxChange = (function () {
     }
     return MdCheckboxChange;
 }());
+/**
+ * \@docs-private
+ */
 var MdCheckboxBase = (function () {
     /**
      * @param {?} _renderer
@@ -7705,6 +7720,9 @@ var MdRadioChange = (function () {
     }
     return MdRadioChange;
 }());
+/**
+ * \@docs-private
+ */
 var MdRadioGroupBase = (function () {
     function MdRadioGroupBase() {
     }
@@ -8022,6 +8040,9 @@ MdRadioGroup.propDecorators = {
     'selected': [{ type: _angular_core.Input },],
     'disabled': [{ type: _angular_core.Input },],
 };
+/**
+ * \@docs-private
+ */
 var MdRadioButtonBase = (function () {
     /**
      * @param {?} _renderer
@@ -8768,6 +8789,9 @@ var MdSelectChange = (function () {
     }
     return MdSelectChange;
 }());
+/**
+ * \@docs-private
+ */
 var MdSelectBase = (function () {
     /**
      * @param {?} _renderer
@@ -9873,6 +9897,9 @@ var MdSlideToggleChange = (function () {
 }());
 // Increasing integer for generating unique ids for slide-toggle components.
 var nextId$1 = 0;
+/**
+ * \@docs-private
+ */
 var MdSlideToggleBase = (function () {
     /**
      * @param {?} _renderer
@@ -10326,6 +10353,9 @@ var MdSliderChange = (function () {
     }
     return MdSliderChange;
 }());
+/**
+ * \@docs-private
+ */
 var MdSliderBase = (function () {
     function MdSliderBase() {
     }
@@ -13317,6 +13347,9 @@ MdCardModule.decorators = [
  * @nocollapse
  */
 MdCardModule.ctorParameters = function () { return []; };
+/**
+ * \@docs-private
+ */
 var MdChipBase = (function () {
     /**
      * @param {?} _renderer
@@ -14199,6 +14232,9 @@ function cloneSvg(svg) {
 function iconKey(namespace, name) {
     return namespace + ':' + name;
 }
+/**
+ * \@docs-private
+ */
 var MdIconBase = (function () {
     /**
      * @param {?} _renderer
@@ -14465,6 +14501,9 @@ MdProgressSpinnerCssMatStyler.decorators = [
  * @nocollapse
  */
 MdProgressSpinnerCssMatStyler.ctorParameters = function () { return []; };
+/**
+ * \@docs-private
+ */
 var MdProgressSpinnerBase = (function () {
     /**
      * @param {?} _renderer
@@ -16514,6 +16553,9 @@ MdTabLabel.ctorParameters = function () { return [
     { type: _angular_core.TemplateRef, },
     { type: _angular_core.ViewContainerRef, },
 ]; };
+/**
+ * \@docs-private
+ */
 var MdTabBase = (function () {
     function MdTabBase() {
     }
@@ -16829,6 +16871,9 @@ MdTabGroup.propDecorators = {
     'focusChange': [{ type: _angular_core.Output },],
     'selectChange': [{ type: _angular_core.Output },],
 };
+/**
+ * \@docs-private
+ */
 var MdTabLabelWrapperBase = (function () {
     function MdTabLabelWrapperBase() {
     }
@@ -17801,6 +17846,9 @@ MdToolbarRow.decorators = [
  * @nocollapse
  */
 MdToolbarRow.ctorParameters = function () { return []; };
+/**
+ * \@docs-private
+ */
 var MdToolbarBase = (function () {
     /**
      * @param {?} _renderer
@@ -18555,6 +18603,9 @@ function throwMdMenuInvalidPositionX() {
 function throwMdMenuInvalidPositionY() {
     throw Error("y-position value must be either 'above' or below'.\n      Example: <md-menu y-position=\"above\" #menu=\"mdMenu\"></md-menu>");
 }
+/**
+ * \@docs-private
+ */
 var MdMenuItemBase = (function () {
     function MdMenuItemBase() {
     }

@@ -23,6 +23,7 @@ export declare class MdRadioChange {
     /** The value of the MdRadioButton. */
     value: any;
 }
+/** @docs-private */
 export declare class MdRadioGroupBase {
 }
 export declare const _MdRadioGroupMixinBase: (new (...args: any[]) => CanDisable) & typeof MdRadioGroupBase;
@@ -119,6 +120,7 @@ export declare class MdRadioGroup extends _MdRadioGroupMixinBase implements Afte
      */
     setDisabledState(isDisabled: boolean): void;
 }
+/** @docs-private */
 export declare class MdRadioButtonBase {
     _renderer: Renderer2;
     _elementRef: ElementRef;

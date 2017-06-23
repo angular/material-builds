@@ -7,6 +7,7 @@
  */
 import { ElementRef } from '@angular/core';
 import { CanDisable } from '../core/common-behaviors/disabled';
+/** @docs-private */
 export declare class MdTabLabelWrapperBase {
 }
 export declare const _MdTabLabelWrapperMixinBase: (new (...args: any[]) => CanDisable) & typeof MdTabLabelWrapperBase;

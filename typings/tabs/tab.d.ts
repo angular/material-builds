@@ -9,6 +9,7 @@ import { TemplatePortal } from '../core/portal/portal';
 import { ViewContainerRef, TemplateRef, OnInit } from '@angular/core';
 import { CanDisable } from '../core/common-behaviors/disabled';
 import { MdTabLabel } from './tab-label';
+/** @docs-private */
 export declare class MdTabBase {
 }
 export declare const _MdTabMixinBase: (new (...args: any[]) => CanDisable) & typeof MdTabBase;
