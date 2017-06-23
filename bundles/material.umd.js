@@ -5287,10 +5287,17 @@ var UniqueSelectionDispatcher = (function () {
     /**
      * Listen for future changes to item selection.
      * @param {?} listener
-     * @return {?}
+     * @return {?} Function used to unregister listener
+     *
      */
     UniqueSelectionDispatcher.prototype.listen = function (listener) {
+        var _this = this;
         this._listeners.push(listener);
+        return function () {
+            _this._listeners = _this._listeners.filter(function (registered) {
+                return listener !== registered;
+            });
+        };
     };
     return UniqueSelectionDispatcher;
 }());
@@ -6590,17 +6597,22 @@ var MdButtonToggle = (function () {
          */
         this._isSingleSelector = false;
         /**
+         * Unregister function for _buttonToggleDispatcher *
+         */
+        this._removeUniqueSelectionListener = function () { };
+        /**
          * Event emitted when the group value changes.
          */
         this.change = new _angular_core.EventEmitter();
         this.buttonToggleGroup = toggleGroup;
         this.buttonToggleGroupMultiple = toggleGroupMultiple;
         if (this.buttonToggleGroup) {
-            _buttonToggleDispatcher.listen(function (id, name) {
-                if (id != _this.id && name == _this.name) {
-                    _this.checked = false;
-                }
-            });
+            this._removeUniqueSelectionListener =
+                _buttonToggleDispatcher.listen(function (id, name) {
+                    if (id != _this.id && name == _this.name) {
+                        _this.checked = false;
+                    }
+                });
             this._type = 'radio';
             this.name = this.buttonToggleGroup.name;
             this._isSingleSelector = true;
@@ -6762,14 +6774,21 @@ var MdButtonToggle = (function () {
         event.value = this._value;
         this.change.emit(event);
     };
+    /**
+     * @return {?}
+     */
+    MdButtonToggle.prototype.ngOnDestroy = function () {
+        this._removeUniqueSelectionListener();
+    };
     return MdButtonToggle;
 }());
 MdButtonToggle.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-button-toggle, mat-button-toggle',
                 template: "<label [attr.for]=\"inputId\" class=\"mat-button-toggle-label\"><input #input class=\"mat-button-toggle-input cdk-visually-hidden\" [type]=\"_type\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled || null\" [name]=\"name\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-button-toggle-label-content\"><ng-content></ng-content></div></label><div class=\"mat-button-toggle-focus-overlay\"></div>",
-                styles: [".mat-button-toggle-group{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle-disabled .mat-button-toggle-label-content{cursor:default}.mat-button-toggle{white-space:nowrap;position:relative}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:1}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px;cursor:pointer}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;position:absolute;top:0;left:0;right:0;bottom:0}"],
+                styles: [".mat-button-toggle-group,.mat-button-toggle-standalone{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle-disabled .mat-button-toggle-label-content{cursor:default}.mat-button-toggle{white-space:nowrap;position:relative}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:1}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px;cursor:pointer}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;position:absolute;top:0;left:0;right:0;bottom:0}"],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 host: {
+                    '[class.mat-button-toggle-standalone]': '!buttonToggleGroup && !buttonToggleGroupMultiple',
                     'class': 'mat-button-toggle'
                 }
             },] },
@@ -7093,16 +7112,6 @@ var MdAnchor = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdAnchor.prototype, "_isAriaDisabled", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this.disabled ? 'true' : 'false';
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @param {?} event
      * @return {?}
@@ -7120,7 +7129,7 @@ MdAnchor.decorators = [
     { type: _angular_core.Component, args: [{ selector: "a[md-button], a[md-raised-button], a[md-icon-button], a[md-fab], a[md-mini-fab],\n             a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab], a[mat-mini-fab]",
                 host: {
                     '[attr.disabled]': 'disabled || null',
-                    '[attr.aria-disabled]': '_isAriaDisabled',
+                    '[attr.aria-disabled]': 'disabled.toString()',
                     '(click)': '_haltDisabledEvents($event)',
                 },
                 inputs: ['disabled', 'color'],
@@ -8063,14 +8072,19 @@ var MdRadioButton = (function (_super) {
          * Value assigned to this radio.
          */
         _this._value = null;
+        /**
+         * Unregister function for _radioDispatcher *
+         */
+        _this._removeUniqueSelectionListener = function () { };
         // Assertions. Ideally these should be stripped out by the compiler.
         // TODO(jelbourn): Assert that there's no name binding AND a parent radio group.
         _this.radioGroup = radioGroup;
-        _radioDispatcher.listen(function (id, name) {
-            if (id != _this.id && name == _this.name) {
-                _this.checked = false;
-            }
-        });
+        _this._removeUniqueSelectionListener =
+            _radioDispatcher.listen(function (id, name) {
+                if (id != _this.id && name == _this.name) {
+                    _this.checked = false;
+                }
+            });
         return _this;
     }
     Object.defineProperty(MdRadioButton.prototype, "disableRipple", {
@@ -8260,6 +8274,7 @@ var MdRadioButton = (function (_super) {
      */
     MdRadioButton.prototype.ngOnDestroy = function () {
         this._focusOriginMonitor.stopMonitoring(this._inputElement.nativeElement);
+        this._removeUniqueSelectionListener();
     };
     /**
      * Dispatch change event with current value.
@@ -9477,7 +9492,8 @@ var MdSelect = (function (_super) {
             // we must only adjust for the height difference between the option element
             // and the trigger element, then multiply it by -1 to ensure the panel moves
             // in the correct direction up the page.
-            this._offsetY = (SELECT_ITEM_HEIGHT - SELECT_TRIGGER_HEIGHT) / 2 * -1;
+            this._offsetY = (SELECT_ITEM_HEIGHT - SELECT_TRIGGER_HEIGHT) / 2 * -1 -
+                (this._getLabelCountBeforeOption(0) * SELECT_ITEM_HEIGHT);
         }
         this._checkOverlayWithinViewport(maxScroll);
     };
@@ -9556,7 +9572,7 @@ var MdSelect = (function (_super) {
             offsetX = SELECT_MULTIPLE_PANEL_PADDING_X;
         }
         else {
-            var /** @type {?} */ selected = this._selectionModel.selected[0];
+            var /** @type {?} */ selected = this._selectionModel.selected[0] || this.options.first;
             offsetX = selected && selected.group ? SELECT_PANEL_INDENT_PADDING_X : SELECT_PANEL_PADDING_X;
         }
         // Invert the offset in LTR.
@@ -13406,13 +13422,6 @@ var MdChip = (function (_super) {
         this.onFocus.emit({ chip: this });
     };
     /**
-     * The aria-disabled state for the chip
-     * @return {?}
-     */
-    MdChip.prototype._isAriaDisabled = function () {
-        return String(this.disabled);
-    };
-    /**
      * Ensures events fire properly upon click.
      * @param {?} event
      * @return {?}
@@ -13439,7 +13448,7 @@ MdChip.decorators = [
                     'role': 'option',
                     '[class.mat-chip-selected]': 'selected',
                     '[attr.disabled]': 'disabled || null',
-                    '[attr.aria-disabled]': '_isAriaDisabled()',
+                    '[attr.aria-disabled]': 'disabled.toString()',
                     '(click)': '_handleClick($event)',
                     '(focus)': '_hasFocus = true',
                     '(blur)': '_hasFocus = false',
@@ -15660,7 +15669,7 @@ var MdInputContainer = (function () {
 MdInputContainer.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-input-container, mat-input-container',
                 template: "<div class=\"mat-input-wrapper\"><div class=\"mat-input-flex\"><div class=\"mat-input-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[mdPrefix], [matPrefix]\"></ng-content></div><div class=\"mat-input-infix\"><ng-content selector=\"input, textarea\"></ng-content><span class=\"mat-input-placeholder-wrapper\"><label class=\"mat-input-placeholder\" [attr.for]=\"_mdInputChild.id\" [class.mat-empty]=\"_mdInputChild.empty && !_shouldAlwaysFloat\" [class.mat-float]=\"_canPlaceholderFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" *ngIf=\"_hasPlaceholder()\"><ng-content select=\"md-placeholder, mat-placeholder\"></ng-content>{{_mdInputChild.placeholder}} <span class=\"mat-placeholder-required\" *ngIf=\"!hideRequiredMarker && _mdInputChild.required\">*</span></label></span></div><div class=\"mat-input-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[mdSuffix], [matSuffix]\"></ng-content></div></div><div class=\"mat-input-underline\" #underline [class.mat-disabled]=\"_mdInputChild.disabled\"><span class=\"mat-input-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-input-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"md-error, mat-error\"></ng-content></div><div class=\"mat-input-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"md-hint:not([align='end']), mat-hint:not([align='end'])\"></ng-content><div class=\"mat-input-hint-spacer\"></div><ng-content select=\"md-hint[align='end'], mat-hint[align='end']\"></ng-content></div></div></div>",
-                styles: [".mat-input-container{display:inline-block;position:relative;text-align:left}[dir=rtl] .mat-input-container{text-align:right}.mat-input-wrapper{position:relative}.mat-input-flex{display:inline-flex;align-items:baseline;width:100%}.mat-input-prefix,.mat-input-suffix{white-space:nowrap;flex:none}.mat-input-prefix .mat-datepicker-toggle,.mat-input-prefix .mat-icon,.mat-input-suffix .mat-datepicker-toggle,.mat-input-suffix .mat-icon{width:1em;height:1em;vertical-align:text-bottom}.mat-input-prefix .mat-icon-button,.mat-input-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-input-prefix .mat-icon-button .mat-icon,.mat-input-suffix .mat-icon-button .mat-icon{font-size:inherit;width:1em;height:1em;vertical-align:baseline}.mat-input-infix{display:block;position:relative;flex:auto}.mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;width:100%;vertical-align:bottom}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element:-webkit-autofill+.mat-input-placeholder-wrapper .mat-input-placeholder{display:none}.mat-input-element:-webkit-autofill+.mat-input-placeholder-wrapper .mat-float{display:block;transition:none}.mat-input-element::placeholder{color:transparent!important}.mat-input-element::-moz-placeholder{color:transparent!important}.mat-input-element::-webkit-input-placeholder{color:transparent!important}.mat-input-element:-ms-input-placeholder{color:transparent!important}.mat-input-placeholder-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}textarea.mat-input-element{overflow:auto}.mat-input-placeholder{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:perspective(100px);-ms-transform:none;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}.mat-focused .mat-input-placeholder.mat-float,.mat-input-placeholder.mat-empty,.mat-input-placeholder.mat-float:not(.mat-empty){display:block}[dir=rtl] .mat-input-placeholder{transform-origin:100% 0;left:auto;right:0}.mat-input-placeholder:not(.mat-empty){transition:none}.mat-input-underline{position:absolute;height:1px;width:100%}.mat-input-underline.mat-disabled{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;background-position:0;background-color:transparent}.mat-input-underline .mat-input-ripple{position:absolute;height:2px;top:0;width:100%;transform-origin:50%;transform:scaleX(.5);visibility:hidden;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-focused .mat-input-underline .mat-input-ripple,.mat-input-invalid .mat-input-underline .mat-input-ripple{visibility:visible;transform:scaleX(1);transition:transform 150ms linear,background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-input-subscript-wrapper{position:absolute;width:100%;overflow:hidden}.mat-input-placeholder-wrapper .mat-datepicker-toggle,.mat-input-placeholder-wrapper .mat-icon,.mat-input-subscript-wrapper .mat-datepicker-toggle,.mat-input-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-input-hint-wrapper{display:flex}.mat-input-hint-spacer{flex:1 0 1em}.mat-input-error{display:block}"],
+                styles: [".mat-input-container{display:inline-block;position:relative;text-align:left}[dir=rtl] .mat-input-container{text-align:right}.mat-input-wrapper{position:relative}.mat-input-flex{display:inline-flex;align-items:baseline;width:100%}.mat-input-prefix,.mat-input-suffix{white-space:nowrap;flex:none}.mat-input-prefix .mat-datepicker-toggle,.mat-input-prefix .mat-icon,.mat-input-suffix .mat-datepicker-toggle,.mat-input-suffix .mat-icon{width:1em;height:1em;vertical-align:text-bottom}.mat-input-prefix .mat-icon-button,.mat-input-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-input-prefix .mat-icon-button .mat-icon,.mat-input-suffix .mat-icon-button .mat-icon{font-size:inherit;width:1em;height:1em;vertical-align:baseline}.mat-input-infix{display:block;position:relative;flex:auto}.mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;width:100%;vertical-align:bottom}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element:-webkit-autofill+.mat-input-placeholder-wrapper .mat-input-placeholder{display:none}.mat-input-element:-webkit-autofill+.mat-input-placeholder-wrapper .mat-float{display:block;transition:none}.mat-input-element::placeholder{color:transparent!important}.mat-input-element::-moz-placeholder{color:transparent!important}.mat-input-element::-webkit-input-placeholder{color:transparent!important}.mat-input-element:-ms-input-placeholder{color:transparent!important}.mat-input-placeholder-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}textarea.mat-input-element{overflow:auto}.mat-input-placeholder{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:perspective(100px);-ms-transform:none;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}.mat-focused .mat-input-placeholder.mat-float,.mat-input-placeholder.mat-empty,.mat-input-placeholder.mat-float:not(.mat-empty){display:block}[dir=rtl] .mat-input-placeholder{transform-origin:100% 0;left:auto;right:0}.mat-input-placeholder:not(.mat-empty){transition:none}.mat-input-underline{position:absolute;height:1px;width:100%}.mat-input-underline.mat-disabled{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;background-position:0;background-color:transparent}.mat-input-underline .mat-input-ripple{position:absolute;height:2px;top:0;left:0;width:100%;transform-origin:50%;transform:scaleX(.5);visibility:hidden;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-focused .mat-input-underline .mat-input-ripple,.mat-input-invalid .mat-input-underline .mat-input-ripple{visibility:visible;transform:scaleX(1);transition:transform 150ms linear,background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-input-subscript-wrapper{position:absolute;width:100%;overflow:hidden}.mat-input-placeholder-wrapper .mat-datepicker-toggle,.mat-input-placeholder-wrapper .mat-icon,.mat-input-subscript-wrapper .mat-datepicker-toggle,.mat-input-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-input-hint-wrapper{display:flex}.mat-input-hint-spacer{flex:1 0 1em}.mat-input-error{display:block}"],
                 animations: [
                     _angular_animations.trigger('transitionMessages', [
                         _angular_animations.state('enter', _angular_animations.style({ opacity: 1, transform: 'translateY(0%)' })),
@@ -18808,8 +18817,7 @@ var MdMenu = (function () {
 }());
 MdMenu.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-menu, mat-menu',
-                host: { 'role': 'menu' },
-                template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"_emitCloseEvent()\" [@transformMenu]=\"'showing'\"><div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></ng-template>",
+                template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"_emitCloseEvent()\" [@transformMenu]=\"'showing'\" role=\"menu\"><div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></ng-template>",
                 styles: [".mat-menu-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}button.mat-menu-item{width:100%}.mat-menu-ripple{position:absolute;top:0;left:0;bottom:0;right:0}"],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 animations: [
@@ -20220,7 +20228,7 @@ var MdAutocompleteTrigger = (function () {
         get: function () {
             var _this = this;
             if (this._document) {
-                return rxjs_Observable.Observable.fromEvent(this._document, 'click').filter(function (event) {
+                return rxjs_Observable.Observable.merge(rxjs_Observable.Observable.fromEvent(this._document, 'click'), rxjs_Observable.Observable.fromEvent(this._document, 'touchend')).filter(function (event) {
                     var /** @type {?} */ clickTarget = (event.target);
                     var /** @type {?} */ inputContainer = _this._inputContainer ?
                         _this._inputContainer._elementRef.nativeElement : null;
@@ -21614,9 +21622,10 @@ var MdDatepicker = (function () {
      */
     MdDatepicker.prototype._openAsDialog = function () {
         var _this = this;
-        var /** @type {?} */ config = new MdDialogConfig();
-        config.viewContainerRef = this._viewContainerRef;
-        this._dialogRef = this._dialog.open(MdDatepickerContent, config);
+        this._dialogRef = this._dialog.open(MdDatepickerContent, {
+            viewContainerRef: this._viewContainerRef,
+            direction: this._dir ? this._dir.value : 'ltr'
+        });
         this._dialogRef.afterClosed().subscribe(function () { return _this.close(); });
         this._dialogRef.componentInstance.datepicker = this;
     };
@@ -22206,15 +22215,6 @@ var CdkCellOutlet = (function () {
         this._viewContainer = _viewContainer;
         CdkCellOutlet.mostRecentCellOutlet = this;
     }
-    /**
-     * @return {?}
-     */
-    CdkCellOutlet.prototype.ngOnInit = function () {
-        var _this = this;
-        this.cells.forEach(function (cell) {
-            _this._viewContainer.createEmbeddedView(cell.template, _this.context);
-        });
-    };
     return CdkCellOutlet;
 }());
 CdkCellOutlet.decorators = [
@@ -22571,11 +22571,16 @@ var CdkTable = (function () {
      * @return {?}
      */
     CdkTable.prototype.ngAfterViewInit = function () {
+        this._isViewInitialized = true;
         this._renderHeaderRow();
-        if (this.dataSource) {
+    };
+    /**
+     * @return {?}
+     */
+    CdkTable.prototype.ngDoCheck = function () {
+        if (this._isViewInitialized && this.dataSource && !this._renderChangeSubscription) {
             this._observeRenderChanges();
         }
-        this._isViewInitialized = true;
     };
     /**
      * Switch to the provided data source by resetting the data and unsubscribing from the current
@@ -22626,8 +22631,9 @@ var CdkTable = (function () {
         //   of `createEmbeddedView`.
         this._headerRowPlaceholder.viewContainer
             .createEmbeddedView(this._headerDefinition.template, { cells: cells });
-        CdkCellOutlet.mostRecentCellOutlet.cells = cells;
-        CdkCellOutlet.mostRecentCellOutlet.context = {};
+        cells.forEach(function (cell) {
+            CdkCellOutlet.mostRecentCellOutlet._viewContainer.createEmbeddedView(cell.template, {});
+        });
         this._changeDetectorRef.markForCheck();
     };
     /**
@@ -22640,18 +22646,20 @@ var CdkTable = (function () {
         if (!changes) {
             return;
         }
+        var /** @type {?} */ viewContainer = this._rowPlaceholder.viewContainer;
         changes.forEachOperation(function (item, adjustedPreviousIndex, currentIndex) {
             if (item.previousIndex == null) {
                 _this._insertRow(_this._data[currentIndex], currentIndex);
             }
             else if (currentIndex == null) {
-                _this._rowPlaceholder.viewContainer.remove(adjustedPreviousIndex);
+                viewContainer.remove(adjustedPreviousIndex);
             }
             else {
-                var /** @type {?} */ view = _this._rowPlaceholder.viewContainer.get(adjustedPreviousIndex);
-                _this._rowPlaceholder.viewContainer.move(/** @type {?} */ ((view)), currentIndex);
+                var /** @type {?} */ view = viewContainer.get(adjustedPreviousIndex);
+                viewContainer.move(/** @type {?} */ ((view)), currentIndex);
             }
         });
+        this._updateRowContext();
     };
     /**
      * Create the embedded view for the data row template and place it in the correct index location
@@ -22665,15 +22673,35 @@ var CdkTable = (function () {
         //   to find the right template to used based on
         //   the data rather than choosing the first row definition.
         var /** @type {?} */ row = this._rowDefinitions.first;
-        // TODO(andrewseguin): Add more context, such as first/last/isEven/etc
+        // Row context that will be provided to both the created embedded row view and its cells.
         var /** @type {?} */ context = { $implicit: rowData };
         // TODO(andrewseguin): add some code to enforce that exactly one
         //   CdkCellOutlet was instantiated as a result  of `createEmbeddedView`.
         this._rowPlaceholder.viewContainer.createEmbeddedView(row.template, context, index);
         // Insert empty cells if there is no data to improve rendering time.
-        CdkCellOutlet.mostRecentCellOutlet.cells = rowData ? this._getCellTemplatesForRow(row) : [];
-        CdkCellOutlet.mostRecentCellOutlet.context = context;
+        var /** @type {?} */ cells = rowData ? this._getCellTemplatesForRow(row) : [];
+        cells.forEach(function (cell) {
+            CdkCellOutlet.mostRecentCellOutlet._viewContainer.createEmbeddedView(cell.template, context);
+        });
         this._changeDetectorRef.markForCheck();
+    };
+    /**
+     * Updates the context for each row to reflect any data changes that may have caused
+     * rows to be added, removed, or moved. The view container contains the same context
+     * that was provided to each of its cells.
+     * @return {?}
+     */
+    CdkTable.prototype._updateRowContext = function () {
+        var /** @type {?} */ viewContainer = this._rowPlaceholder.viewContainer;
+        for (var /** @type {?} */ index = 0, /** @type {?} */ count = viewContainer.length; index < count; index++) {
+            var /** @type {?} */ viewRef = (viewContainer.get(index));
+            viewRef.context.index = index;
+            viewRef.context.count = count;
+            viewRef.context.first = index === 0;
+            viewRef.context.last = index === count - 1;
+            viewRef.context.even = index % 2 === 0;
+            viewRef.context.odd = index % 2 !== 0;
+        }
     };
     /**
      * Returns the cell template definitions to insert into the header
@@ -22901,12 +22929,17 @@ var AccordionItem = (function () {
          * The unique MdAccordianChild id.
          */
         this.id = "cdk-accordion-child-" + nextId$4++;
-        _expansionDispatcher.listen(function (id, accordionId) {
-            if (_this.accordion && !_this.accordion.multi &&
-                _this.accordion.id === accordionId && _this.id !== id) {
-                _this.expanded = false;
-            }
-        });
+        /**
+         * Unregister function for _expansionDispatcher *
+         */
+        this._removeUniqueSelectionListener = function () { };
+        this._removeUniqueSelectionListener =
+            _expansionDispatcher.listen(function (id, accordionId) {
+                if (_this.accordion && !_this.accordion.multi &&
+                    _this.accordion.id === accordionId && _this.id !== id) {
+                    _this.expanded = false;
+                }
+            });
     }
     Object.defineProperty(AccordionItem.prototype, "expanded", {
         /**
@@ -22945,6 +22978,7 @@ var AccordionItem = (function () {
      */
     AccordionItem.prototype.ngOnDestroy = function () {
         this.destroyed.emit();
+        this._removeUniqueSelectionListener();
     };
     /**
      * Toggles the expanded state of the accordion item.

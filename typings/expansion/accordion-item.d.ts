@@ -26,6 +26,8 @@ export declare class AccordionItem implements OnDestroy {
     /** Whether the MdAccordianChild is expanded. */
     expanded: boolean;
     private _expanded;
+    /** Unregister function for _expansionDispatcher **/
+    private _removeUniqueSelectionListener;
     constructor(accordion: CdkAccordion, _expansionDispatcher: UniqueSelectionDispatcher);
     /** Emits an event for the accordion item being destroyed. */
     ngOnDestroy(): void;

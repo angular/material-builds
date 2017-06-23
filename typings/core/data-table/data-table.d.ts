@@ -8,11 +8,11 @@
 import { ChangeDetectorRef, ElementRef, IterableDiffers, QueryList, Renderer2, ViewContainerRef } from '@angular/core';
 import { CollectionViewer, DataSource } from './data-source';
 import { CdkHeaderRowDef, CdkRowDef } from './row';
-import { CdkColumnDef } from './cell';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/let';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/observable/combineLatest';
+import { CdkColumnDef } from './cell';
 /**
  * Returns an error to be thrown when attempting to find an unexisting column.
  * @param id Id whose lookup failed.
@@ -87,6 +87,7 @@ export declare class CdkTable<T> implements CollectionViewer {
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngAfterViewInit(): void;
+    ngDoCheck(): void;
     /**
      * Switch to the provided data source by resetting the data and unsubscribing from the current
      * render change subscription if one exists. If the data source is null, interpret this by
@@ -106,6 +107,12 @@ export declare class CdkTable<T> implements CollectionViewer {
      * within the data row view container.
      */
     private _insertRow(rowData, index);
+    /**
+     * Updates the context for each row to reflect any data changes that may have caused
+     * rows to be added, removed, or moved. The view container contains the same context
+     * that was provided to each of its cells.
+     */
+    private _updateRowContext();
     /**
      * Returns the cell template definitions to insert into the header
      * as defined by its list of columns to display.

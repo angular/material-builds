@@ -24,8 +24,11 @@ export declare class UniqueSelectionDispatcher {
      * @param name Name of the item.
      */
     notify(id: string, name: string): void;
-    /** Listen for future changes to item selection. */
-    listen(listener: UniqueSelectionDispatcherListener): void;
+    /**
+     * Listen for future changes to item selection.
+     * @return Function used to unregister listener
+     **/
+    listen(listener: UniqueSelectionDispatcherListener): () => void;
 }
 export declare function UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY(parentDispatcher: UniqueSelectionDispatcher): UniqueSelectionDispatcher;
 export declare const UNIQUE_SELECTION_DISPATCHER_PROVIDER: {
