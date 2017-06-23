@@ -2070,6 +2070,8 @@ var MdOption = (function () {
     MdOption.prototype._handleKeydown = function (event) {
         if (event.keyCode === ENTER || event.keyCode === SPACE) {
             this._selectViaInteraction();
+            // Prevent the page from scrolling down and form submits.
+            event.preventDefault();
         }
     };
     /**
@@ -15764,9 +15766,14 @@ MdInputContainer.propDecorators = {
 var MdTextareaAutosize = (function () {
     /**
      * @param {?} _elementRef
+     * @param {?} formControl
      */
-    function MdTextareaAutosize(_elementRef) {
+    function MdTextareaAutosize(_elementRef, formControl) {
+        var _this = this;
         this._elementRef = _elementRef;
+        if (formControl && formControl.valueChanges) {
+            formControl.valueChanges.subscribe(function () { return _this.resizeToFitContent(); });
+        }
     }
     Object.defineProperty(MdTextareaAutosize.prototype, "minRows", {
         /**
@@ -15901,10 +15908,14 @@ var MdTextareaAutosize = (function () {
      */
     MdTextareaAutosize.prototype.resizeToFitContent = function () {
         var /** @type {?} */ textarea = (this._elementRef.nativeElement);
+        if (textarea.value === this._previousValue) {
+            return;
+        }
         // Reset the textarea height to auto in order to shrink back to its default size.
         textarea.style.height = 'auto';
         // Use the scrollHeight to know how large the textarea *would* be if fit its entire value.
         textarea.style.height = textarea.scrollHeight + "px";
+        this._previousValue = textarea.value;
     };
     return MdTextareaAutosize;
 }());
@@ -15926,6 +15937,7 @@ MdTextareaAutosize.decorators = [
  */
 MdTextareaAutosize.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
+    { type: _angular_forms.NgControl, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Self },] },
 ]; };
 MdTextareaAutosize.propDecorators = {
     'minRows': [{ type: _angular_core.Input, args: ['mdAutosizeMinRows',] },],

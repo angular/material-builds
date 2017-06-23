@@ -2069,6 +2069,8 @@ var MdOption = /*@__PURE__*/(function () {
     MdOption.prototype._handleKeydown = function (event) {
         if (event.keyCode === ENTER || event.keyCode === SPACE) {
             this._selectViaInteraction();
+            // Prevent the page from scrolling down and form submits.
+            event.preventDefault();
         }
     };
     /**
@@ -15763,9 +15765,14 @@ MdInputContainer.propDecorators = {
 var MdTextareaAutosize = /*@__PURE__*/(function () {
     /**
      * @param {?} _elementRef
+     * @param {?} formControl
      */
-    function MdTextareaAutosize(_elementRef) {
+    function MdTextareaAutosize(_elementRef, formControl) {
+        var _this = this;
         this._elementRef = _elementRef;
+        if (formControl && formControl.valueChanges) {
+            formControl.valueChanges.subscribe(function () { return _this.resizeToFitContent(); });
+        }
     }
     Object.defineProperty(MdTextareaAutosize.prototype, "minRows", {
         /**
@@ -15900,10 +15907,14 @@ var MdTextareaAutosize = /*@__PURE__*/(function () {
      */
     MdTextareaAutosize.prototype.resizeToFitContent = function () {
         var /** @type {?} */ textarea = (this._elementRef.nativeElement);
+        if (textarea.value === this._previousValue) {
+            return;
+        }
         // Reset the textarea height to auto in order to shrink back to its default size.
         textarea.style.height = 'auto';
         // Use the scrollHeight to know how large the textarea *would* be if fit its entire value.
         textarea.style.height = textarea.scrollHeight + "px";
+        this._previousValue = textarea.value;
     };
     return MdTextareaAutosize;
 }());
@@ -15925,6 +15936,7 @@ MdTextareaAutosize.decorators = [
  */
 MdTextareaAutosize.ctorParameters = function () { return [
     { type: ElementRef, },
+    { type: NgControl, decorators: [{ type: Optional }, { type: Self },] },
 ]; };
 MdTextareaAutosize.propDecorators = {
     'minRows': [{ type: Input, args: ['mdAutosizeMinRows',] },],

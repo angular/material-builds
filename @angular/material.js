@@ -2079,6 +2079,8 @@ class MdOption {
     _handleKeydown(event) {
         if (event.keyCode === ENTER || event.keyCode === SPACE) {
             this._selectViaInteraction();
+            // Prevent the page from scrolling down and form submits.
+            event.preventDefault();
         }
     }
     /**
@@ -14855,9 +14857,13 @@ MdInputContainer.propDecorators = {
 class MdTextareaAutosize {
     /**
      * @param {?} _elementRef
+     * @param {?} formControl
      */
-    constructor(_elementRef) {
+    constructor(_elementRef, formControl) {
         this._elementRef = _elementRef;
+        if (formControl && formControl.valueChanges) {
+            formControl.valueChanges.subscribe(() => this.resizeToFitContent());
+        }
     }
     /**
      * @return {?}
@@ -14976,10 +14982,14 @@ class MdTextareaAutosize {
      */
     resizeToFitContent() {
         const /** @type {?} */ textarea = (this._elementRef.nativeElement);
+        if (textarea.value === this._previousValue) {
+            return;
+        }
         // Reset the textarea height to auto in order to shrink back to its default size.
         textarea.style.height = 'auto';
         // Use the scrollHeight to know how large the textarea *would* be if fit its entire value.
         textarea.style.height = `${textarea.scrollHeight}px`;
+        this._previousValue = textarea.value;
     }
 }
 MdTextareaAutosize.decorators = [
@@ -15000,6 +15010,7 @@ MdTextareaAutosize.decorators = [
  */
 MdTextareaAutosize.ctorParameters = () => [
     { type: ElementRef, },
+    { type: NgControl, decorators: [{ type: Optional }, { type: Self },] },
 ];
 MdTextareaAutosize.propDecorators = {
     'minRows': [{ type: Input, args: ['mdAutosizeMinRows',] },],
