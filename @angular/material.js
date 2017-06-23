@@ -8679,7 +8679,7 @@ class MdSelect extends _MdSelectMixinBase {
             if (this._selectionModel.isEmpty()) {
                 this._placeholderState = '';
             }
-            this._focusHost();
+            this.focus();
         }
     }
     /**
@@ -9058,10 +9058,10 @@ class MdSelect extends _MdSelectMixinBase {
         }
     }
     /**
-     * Focuses the host element when the panel closes.
+     * Focuses the select element.
      * @return {?}
      */
-    _focusHost() {
+    focus() {
         this._elementRef.nativeElement.focus();
     }
     /**
@@ -22024,6 +22024,246 @@ MdExpansionModule.decorators = [
  */
 MdExpansionModule.ctorParameters = () => [];
 
+/**
+ * To modify the labels and text displayed, create a new instance of MdPaginatorIntl and
+ * include it in a custom provider
+ */
+class MdPaginatorIntl {
+    constructor() {
+        /**
+         * A label for the page size selector.
+         */
+        this.itemsPerPageLabel = 'Items per page:';
+        /**
+         * A label for the button that increments the current page.
+         */
+        this.nextPageLabel = 'Next page';
+        /**
+         * A label for the button that decrements the current page.
+         */
+        this.previousPageLabel = 'Previous page';
+        /**
+         * A label for the range of items within the current page and the length of the whole list.
+         */
+        this.getRangeLabel = (page, pageSize, length) => {
+            if (length == 0 || pageSize == 0) {
+                return `0 of ${length}`;
+            }
+            length = Math.max(length, 0);
+            const startIndex = page * pageSize;
+            // If the start index exceeds the list length, do not try and fix the end index to the end.
+            const endIndex = startIndex < length ?
+                Math.min(startIndex + pageSize, length) :
+                startIndex + pageSize;
+            return `${startIndex + 1} - ${endIndex} of ${length}`;
+        };
+    }
+}
+MdPaginatorIntl.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+MdPaginatorIntl.ctorParameters = () => [];
+
+/**
+ * Change event object that is emitted when the user selects a
+ * different page size or navigates to another page.
+ */
+class PageEvent {
+}
+/**
+ * Component to provide navigation between paged information. Displays the size of the current
+ * page, user-selectable options to change that size, what items are being shown, and
+ * navigational button to go to the previous or next page.
+ */
+class MdPaginator {
+    /**
+     * @param {?} _intl
+     */
+    constructor(_intl) {
+        this._intl = _intl;
+        /**
+         * The zero-based page index of the displayed list of items. Defaulted to 0.
+         */
+        this.pageIndex = 0;
+        /**
+         * The length of the total number of items that are being paginated. Defaulted to 0.
+         */
+        this.length = 0;
+        this._pageSize = 50;
+        this._pageSizeOptions = [];
+        /**
+         * Event emitted when the paginator changes the page size or page index.
+         */
+        this.page = new EventEmitter();
+    }
+    /**
+     * Number of items to display on a page. By default set to 50.
+     * @return {?}
+     */
+    get pageSize() { return this._pageSize; }
+    /**
+     * @param {?} pageSize
+     * @return {?}
+     */
+    set pageSize(pageSize) {
+        this._pageSize = pageSize;
+        this._updateDisplayedPageSizeOptions();
+    }
+    /**
+     * The set of provided page size options to display to the user.
+     * @return {?}
+     */
+    get pageSizeOptions() { return this._pageSizeOptions; }
+    /**
+     * @param {?} pageSizeOptions
+     * @return {?}
+     */
+    set pageSizeOptions(pageSizeOptions) {
+        this._pageSizeOptions = pageSizeOptions;
+        this._updateDisplayedPageSizeOptions();
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        this._initialized = true;
+        this._updateDisplayedPageSizeOptions();
+    }
+    /**
+     * Increments the page index to the next page index if a next page exists.
+     * @return {?}
+     */
+    nextPage() {
+        if (!this.hasNextPage()) {
+            return;
+        }
+        this.pageIndex++;
+        this._emitPageEvent();
+    }
+    /**
+     * Decrements the page index to the previous page index if a next page exists.
+     * @return {?}
+     */
+    previousPage() {
+        if (!this.hasPreviousPage()) {
+            return;
+        }
+        this.pageIndex--;
+        this._emitPageEvent();
+    }
+    /**
+     * Returns true if the user can go to the next page.
+     * @return {?}
+     */
+    hasPreviousPage() {
+        return this.pageIndex >= 1 && this.pageSize != 0;
+    }
+    /**
+     * Returns true if the user can go to the next page.
+     * @return {?}
+     */
+    hasNextPage() {
+        const /** @type {?} */ numberOfPages = Math.ceil(this.length / this.pageSize) - 1;
+        return this.pageIndex < numberOfPages && this.pageSize != 0;
+    }
+    /**
+     * Changes the page size so that the first item displayed on the page will still be
+     * displayed using the new page size.
+     *
+     * For example, if the page size is 10 and on the second page (items indexed 10-19) then
+     * switching so that the page size is 5 will set the third page as the current page so
+     * that the 10th item will still be displayed.
+     * @param {?} pageSize
+     * @return {?}
+     */
+    _changePageSize(pageSize) {
+        // Current page needs to be updated to reflect the new page size. Navigate to the page
+        // containing the previous page's first item.
+        const /** @type {?} */ startIndex = this.pageIndex * this.pageSize;
+        this.pageIndex = Math.floor(startIndex / pageSize) || 0;
+        this.pageSize = pageSize;
+        this._emitPageEvent();
+    }
+    /**
+     * Updates the list of page size options to display to the user. Includes making sure that
+     * the page size is an option and that the list is sorted.
+     * @return {?}
+     */
+    _updateDisplayedPageSizeOptions() {
+        if (!this._initialized) {
+            return;
+        }
+        this._displayedPageSizeOptions = this.pageSizeOptions.slice();
+        if (this._displayedPageSizeOptions.indexOf(this.pageSize) == -1) {
+            this._displayedPageSizeOptions.push(this.pageSize);
+        }
+        // Sort the numbers using a number-specific sort function.
+        this._displayedPageSizeOptions.sort((a, b) => a - b);
+    }
+    /**
+     * Emits an event notifying that a change of the paginator's properties has been triggered.
+     * @return {?}
+     */
+    _emitPageEvent() {
+        this.page.next({
+            pageIndex: this.pageIndex,
+            pageSize: this.pageSize,
+            length: this.length
+        });
+    }
+}
+MdPaginator.decorators = [
+    { type: Component, args: [{selector: 'md-paginator, mat-paginator',
+                template: "<div class=\"mat-paginator-page-size\"><div class=\"mat-paginator-page-size-label\">{{_intl.itemsPerPageLabel}}</div><md-select *ngIf=\"_displayedPageSizeOptions.length > 1\" class=\"mat-paginator-page-size-select\" [ngModel]=\"pageSize\" [aria-label]=\"_intl.itemsPerPageLabel\" (change)=\"_changePageSize($event.value)\"><md-option *ngFor=\"let pageSizeOption of _displayedPageSizeOptions\" [value]=\"pageSizeOption\">{{pageSizeOption}}</md-option></md-select><div *ngIf=\"_displayedPageSizeOptions.length <= 1\">{{pageSize}}</div></div><div class=\"mat-paginator-range-label\">{{_intl.getRangeLabel(pageIndex, pageSize, length)}}</div><button md-icon-button class=\"mat-paginator-navigation-previous\" (click)=\"previousPage()\" [attr.aria-label]=\"_intl.previousPageLabel\" [mdTooltip]=\"_intl.previousPageLabel\" [mdTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\"><div class=\"mat-paginator-increment\"></div></button> <button md-icon-button class=\"mat-paginator-navigation-next\" (click)=\"nextPage()\" [attr.aria-label]=\"_intl.nextPageLabel\" [mdTooltip]=\"_intl.nextPageLabel\" [mdTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\"><div class=\"mat-paginator-decrement\"></div></button>",
+                styles: [".mat-paginator{display:flex;align-items:center;justify-content:flex-end;min-height:56px;padding:0 8px}.mat-paginator-page-size{display:flex;align-items:center}.mat-paginator-page-size-label{margin:0 4px}.mat-paginator-page-size-select{margin:0 4px}.mat-paginator-page-size-select .mat-select-trigger{min-width:56px}.mat-paginator-range-label{margin:0 32px}.mat-paginator-increment-button+.mat-paginator-increment-button{margin:0 0 0 8px}[dir=rtl] .mat-paginator-increment-button+.mat-paginator-increment-button{margin:0 8px 0 0}.mat-paginator-decrement,.mat-paginator-increment{width:8px;height:8px}.mat-paginator-decrement,[dir=rtl] .mat-paginator-increment{transform:rotate(45deg)}.mat-paginator-increment,[dir=rtl] .mat-paginator-decrement{transform:rotate(225deg)}.mat-paginator-decrement{margin-left:12px}[dir=rtl] .mat-paginator-decrement{margin-right:12px}.mat-paginator-increment{margin-left:16px}[dir=rtl] .mat-paginator-increment{margin-right:16px}"],
+                host: {
+                    'class': 'mat-paginator',
+                },
+                providers: [
+                    { provide: MATERIAL_COMPATIBILITY_MODE, useValue: false }
+                ],
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdPaginator.ctorParameters = () => [
+    { type: MdPaginatorIntl, },
+];
+MdPaginator.propDecorators = {
+    'pageIndex': [{ type: Input },],
+    'length': [{ type: Input },],
+    'pageSize': [{ type: Input },],
+    'pageSizeOptions': [{ type: Input },],
+    'page': [{ type: Output },],
+};
+
+class MdPaginatorModule {
+}
+MdPaginatorModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [
+                    CommonModule,
+                    FormsModule,
+                    MdButtonModule,
+                    MdSelectModule,
+                    MdTooltipModule,
+                ],
+                exports: [MdPaginator],
+                declarations: [MdPaginator],
+                providers: [MdPaginatorIntl],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdPaginatorModule.ctorParameters = () => [];
+
 const MATERIAL_MODULES = [
     MdAutocompleteModule,
     MdButtonModule,
@@ -22039,6 +22279,7 @@ const MATERIAL_MODULES = [
     MdInputModule,
     MdListModule,
     MdMenuModule,
+    MdPaginatorModule,
     MdProgressBarModule,
     MdProgressSpinnerModule,
     MdRadioModule,
@@ -22081,5 +22322,5 @@ MaterialModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { coerceBooleanProperty, coerceNumberProperty, Dir, Directionality, BidiModule, ObserveContentModule, ObserveContent, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, CdkDataTableModule, DataSource, getDataTableUnknownColumnError, RowPlaceholder, HeaderRowPlaceholder, CdkTable, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, getMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵj, DIR_DOCUMENT as ɵa, mixinColor as ɵx, mixinDisabled as ɵy, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵk, CdkCell as ɵbe, CdkCellDef as ɵba, CdkColumnDef as ɵbc, CdkHeaderCell as ɵbd, CdkHeaderCellDef as ɵbb, BaseRowDef as ɵbf, CdkCellOutlet as ɵbi, CdkHeaderRow as ɵbj, CdkHeaderRowDef as ɵbg, CdkRow as ɵbk, CdkRowDef as ɵbh, MdMutationObserverFactory as ɵb, OVERLAY_CONTAINER_PROVIDER as ɵd, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵc, OverlayPositionBuilder as ɵw, VIEWPORT_RULER_PROVIDER as ɵf, VIEWPORT_RULER_PROVIDER_FACTORY as ɵe, SCROLL_DISPATCHER_PROVIDER as ɵh, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵg, RippleRenderer as ɵi, EXPANSION_PANEL_ANIMATION_TIMING as ɵl, MdGridAvatarCssMatStyler as ɵn, MdGridTileFooterCssMatStyler as ɵp, MdGridTileHeaderCssMatStyler as ɵo, MdGridTileText as ɵm, MdMenuItemBase as ɵq, _MdMenuItemMixinBase as ɵr, MdTabBase as ɵu, _MdTabMixinBase as ɵv, MdTabLabelWrapperBase as ɵs, _MdTabLabelWrapperMixinBase as ɵt };
+export { coerceBooleanProperty, coerceNumberProperty, Dir, Directionality, BidiModule, ObserveContentModule, ObserveContent, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, CdkDataTableModule, DataSource, getDataTableUnknownColumnError, RowPlaceholder, HeaderRowPlaceholder, CdkTable, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkRipple, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, getMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵj, DIR_DOCUMENT as ɵa, mixinColor as ɵx, mixinDisabled as ɵy, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵk, CdkCell as ɵbf, CdkCellDef as ɵbb, CdkColumnDef as ɵbd, CdkHeaderCell as ɵbe, CdkHeaderCellDef as ɵbc, BaseRowDef as ɵbg, CdkCellOutlet as ɵbj, CdkHeaderRow as ɵbk, CdkHeaderRowDef as ɵbh, CdkRow as ɵbl, CdkRowDef as ɵbi, MdMutationObserverFactory as ɵb, OVERLAY_CONTAINER_PROVIDER as ɵd, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵc, OverlayPositionBuilder as ɵw, VIEWPORT_RULER_PROVIDER as ɵf, VIEWPORT_RULER_PROVIDER_FACTORY as ɵe, SCROLL_DISPATCHER_PROVIDER as ɵh, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵg, RippleRenderer as ɵi, EXPANSION_PANEL_ANIMATION_TIMING as ɵl, MdGridAvatarCssMatStyler as ɵn, MdGridTileFooterCssMatStyler as ɵp, MdGridTileHeaderCssMatStyler as ɵo, MdGridTileText as ɵm, MdMenuItemBase as ɵq, _MdMenuItemMixinBase as ɵr, MdPaginatorIntl as ɵba, MdTabBase as ɵu, _MdTabMixinBase as ɵv, MdTabLabelWrapperBase as ɵs, _MdTabLabelWrapperMixinBase as ɵt };
 //# sourceMappingURL=material.js.map

@@ -312,8 +312,8 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
      * the first item instead.
      */
     private _focusCorrectOption();
-    /** Focuses the host element when the panel closes. */
-    private _focusHost();
+    /** Focuses the select element. */
+    focus(): void;
     /** Gets the index of the provided option in the option list. */
     private _getOptionIndex(option);
     /** Calculates the scroll position and x- and y-offsets of the overlay panel. */

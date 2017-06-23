@@ -2601,6 +2601,49 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
 
 
+
+@mixin mat-paginator-theme($theme) {
+  $foreground: map-get($theme, foreground);
+
+  .mat-paginator,
+  .mat-paginator-page-size .mat-select-trigger {
+    color: mat-color($foreground, secondary-text);
+  }
+
+  .mat-paginator-increment,
+  .mat-paginator-decrement {
+    border-top: 2px solid mat-color($foreground, 'icon');
+    border-right: 2px solid mat-color($foreground, 'icon');
+  }
+
+  .mat-icon-button[disabled] {
+    .mat-paginator-increment,
+    .mat-paginator-decrement {
+      border-color: mat-color($foreground, 'disabled');
+    }
+  }
+}
+
+@mixin mat-paginator-typography($config) {
+  .mat-paginator {
+    font: {
+      family: mat-font-family($config);
+      size: mat-font-size($config, caption);
+    }
+  }
+
+  .mat-paginator-page-size .mat-select-trigger {
+    font: {
+      family: mat-font-family($config);
+      size: mat-font-size($config, caption);
+    }
+  }
+}
+
+
+
+
+
 @mixin mat-progress-bar-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
@@ -3288,6 +3331,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
   @include mat-icon-typography($config);
   @include mat-input-typography($config);
   @include mat-menu-typography($config);
+  @include mat-paginator-typography($config);
   @include mat-progress-bar-typography($config);
   @include mat-progress-spinner-typography($config);
   @include mat-radio-typography($config);
@@ -3402,6 +3446,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
 
 
 
+
 // Create a theme.
 @mixin angular-material-theme($theme) {
   @include mat-core-theme($theme);
@@ -3419,6 +3464,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
   @include mat-input-theme($theme);
   @include mat-list-theme($theme);
   @include mat-menu-theme($theme);
+  @include mat-paginator-theme($theme);
   @include mat-progress-bar-theme($theme);
   @include mat-progress-spinner-theme($theme);
   @include mat-radio-theme($theme);

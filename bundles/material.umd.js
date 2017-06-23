@@ -9078,7 +9078,7 @@ var MdSelect = (function (_super) {
             if (this._selectionModel.isEmpty()) {
                 this._placeholderState = '';
             }
-            this._focusHost();
+            this.focus();
         }
     };
     /**
@@ -9476,10 +9476,10 @@ var MdSelect = (function (_super) {
         }
     };
     /**
-     * Focuses the host element when the panel closes.
+     * Focuses the select element.
      * @return {?}
      */
-    MdSelect.prototype._focusHost = function () {
+    MdSelect.prototype.focus = function () {
         this._elementRef.nativeElement.focus();
     };
     /**
@@ -23388,6 +23388,259 @@ MdExpansionModule.decorators = [
  * @nocollapse
  */
 MdExpansionModule.ctorParameters = function () { return []; };
+/**
+ * To modify the labels and text displayed, create a new instance of MdPaginatorIntl and
+ * include it in a custom provider
+ */
+var MdPaginatorIntl = (function () {
+    function MdPaginatorIntl() {
+        /**
+         * A label for the page size selector.
+         */
+        this.itemsPerPageLabel = 'Items per page:';
+        /**
+         * A label for the button that increments the current page.
+         */
+        this.nextPageLabel = 'Next page';
+        /**
+         * A label for the button that decrements the current page.
+         */
+        this.previousPageLabel = 'Previous page';
+        /**
+         * A label for the range of items within the current page and the length of the whole list.
+         */
+        this.getRangeLabel = function (page, pageSize, length) {
+            if (length == 0 || pageSize == 0) {
+                return "0 of " + length;
+            }
+            length = Math.max(length, 0);
+            var startIndex = page * pageSize;
+            // If the start index exceeds the list length, do not try and fix the end index to the end.
+            var endIndex = startIndex < length ?
+                Math.min(startIndex + pageSize, length) :
+                startIndex + pageSize;
+            return startIndex + 1 + " - " + endIndex + " of " + length;
+        };
+    }
+    return MdPaginatorIntl;
+}());
+MdPaginatorIntl.decorators = [
+    { type: _angular_core.Injectable },
+];
+/**
+ * @nocollapse
+ */
+MdPaginatorIntl.ctorParameters = function () { return []; };
+/**
+ * Change event object that is emitted when the user selects a
+ * different page size or navigates to another page.
+ */
+var PageEvent = (function () {
+    function PageEvent() {
+    }
+    return PageEvent;
+}());
+/**
+ * Component to provide navigation between paged information. Displays the size of the current
+ * page, user-selectable options to change that size, what items are being shown, and
+ * navigational button to go to the previous or next page.
+ */
+var MdPaginator = (function () {
+    /**
+     * @param {?} _intl
+     */
+    function MdPaginator(_intl) {
+        this._intl = _intl;
+        /**
+         * The zero-based page index of the displayed list of items. Defaulted to 0.
+         */
+        this.pageIndex = 0;
+        /**
+         * The length of the total number of items that are being paginated. Defaulted to 0.
+         */
+        this.length = 0;
+        this._pageSize = 50;
+        this._pageSizeOptions = [];
+        /**
+         * Event emitted when the paginator changes the page size or page index.
+         */
+        this.page = new _angular_core.EventEmitter();
+    }
+    Object.defineProperty(MdPaginator.prototype, "pageSize", {
+        /**
+         * Number of items to display on a page. By default set to 50.
+         * @return {?}
+         */
+        get: function () { return this._pageSize; },
+        /**
+         * @param {?} pageSize
+         * @return {?}
+         */
+        set: function (pageSize) {
+            this._pageSize = pageSize;
+            this._updateDisplayedPageSizeOptions();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdPaginator.prototype, "pageSizeOptions", {
+        /**
+         * The set of provided page size options to display to the user.
+         * @return {?}
+         */
+        get: function () { return this._pageSizeOptions; },
+        /**
+         * @param {?} pageSizeOptions
+         * @return {?}
+         */
+        set: function (pageSizeOptions) {
+            this._pageSizeOptions = pageSizeOptions;
+            this._updateDisplayedPageSizeOptions();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    MdPaginator.prototype.ngOnInit = function () {
+        this._initialized = true;
+        this._updateDisplayedPageSizeOptions();
+    };
+    /**
+     * Increments the page index to the next page index if a next page exists.
+     * @return {?}
+     */
+    MdPaginator.prototype.nextPage = function () {
+        if (!this.hasNextPage()) {
+            return;
+        }
+        this.pageIndex++;
+        this._emitPageEvent();
+    };
+    /**
+     * Decrements the page index to the previous page index if a next page exists.
+     * @return {?}
+     */
+    MdPaginator.prototype.previousPage = function () {
+        if (!this.hasPreviousPage()) {
+            return;
+        }
+        this.pageIndex--;
+        this._emitPageEvent();
+    };
+    /**
+     * Returns true if the user can go to the next page.
+     * @return {?}
+     */
+    MdPaginator.prototype.hasPreviousPage = function () {
+        return this.pageIndex >= 1 && this.pageSize != 0;
+    };
+    /**
+     * Returns true if the user can go to the next page.
+     * @return {?}
+     */
+    MdPaginator.prototype.hasNextPage = function () {
+        var /** @type {?} */ numberOfPages = Math.ceil(this.length / this.pageSize) - 1;
+        return this.pageIndex < numberOfPages && this.pageSize != 0;
+    };
+    /**
+     * Changes the page size so that the first item displayed on the page will still be
+     * displayed using the new page size.
+     *
+     * For example, if the page size is 10 and on the second page (items indexed 10-19) then
+     * switching so that the page size is 5 will set the third page as the current page so
+     * that the 10th item will still be displayed.
+     * @param {?} pageSize
+     * @return {?}
+     */
+    MdPaginator.prototype._changePageSize = function (pageSize) {
+        // Current page needs to be updated to reflect the new page size. Navigate to the page
+        // containing the previous page's first item.
+        var /** @type {?} */ startIndex = this.pageIndex * this.pageSize;
+        this.pageIndex = Math.floor(startIndex / pageSize) || 0;
+        this.pageSize = pageSize;
+        this._emitPageEvent();
+    };
+    /**
+     * Updates the list of page size options to display to the user. Includes making sure that
+     * the page size is an option and that the list is sorted.
+     * @return {?}
+     */
+    MdPaginator.prototype._updateDisplayedPageSizeOptions = function () {
+        if (!this._initialized) {
+            return;
+        }
+        this._displayedPageSizeOptions = this.pageSizeOptions.slice();
+        if (this._displayedPageSizeOptions.indexOf(this.pageSize) == -1) {
+            this._displayedPageSizeOptions.push(this.pageSize);
+        }
+        // Sort the numbers using a number-specific sort function.
+        this._displayedPageSizeOptions.sort(function (a, b) { return a - b; });
+    };
+    /**
+     * Emits an event notifying that a change of the paginator's properties has been triggered.
+     * @return {?}
+     */
+    MdPaginator.prototype._emitPageEvent = function () {
+        this.page.next({
+            pageIndex: this.pageIndex,
+            pageSize: this.pageSize,
+            length: this.length
+        });
+    };
+    return MdPaginator;
+}());
+MdPaginator.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'md-paginator, mat-paginator',
+                template: "<div class=\"mat-paginator-page-size\"><div class=\"mat-paginator-page-size-label\">{{_intl.itemsPerPageLabel}}</div><md-select *ngIf=\"_displayedPageSizeOptions.length > 1\" class=\"mat-paginator-page-size-select\" [ngModel]=\"pageSize\" [aria-label]=\"_intl.itemsPerPageLabel\" (change)=\"_changePageSize($event.value)\"><md-option *ngFor=\"let pageSizeOption of _displayedPageSizeOptions\" [value]=\"pageSizeOption\">{{pageSizeOption}}</md-option></md-select><div *ngIf=\"_displayedPageSizeOptions.length <= 1\">{{pageSize}}</div></div><div class=\"mat-paginator-range-label\">{{_intl.getRangeLabel(pageIndex, pageSize, length)}}</div><button md-icon-button class=\"mat-paginator-navigation-previous\" (click)=\"previousPage()\" [attr.aria-label]=\"_intl.previousPageLabel\" [mdTooltip]=\"_intl.previousPageLabel\" [mdTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\"><div class=\"mat-paginator-increment\"></div></button> <button md-icon-button class=\"mat-paginator-navigation-next\" (click)=\"nextPage()\" [attr.aria-label]=\"_intl.nextPageLabel\" [mdTooltip]=\"_intl.nextPageLabel\" [mdTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\"><div class=\"mat-paginator-decrement\"></div></button>",
+                styles: [".mat-paginator{display:flex;align-items:center;justify-content:flex-end;min-height:56px;padding:0 8px}.mat-paginator-page-size{display:flex;align-items:center}.mat-paginator-page-size-label{margin:0 4px}.mat-paginator-page-size-select{margin:0 4px}.mat-paginator-page-size-select .mat-select-trigger{min-width:56px}.mat-paginator-range-label{margin:0 32px}.mat-paginator-increment-button+.mat-paginator-increment-button{margin:0 0 0 8px}[dir=rtl] .mat-paginator-increment-button+.mat-paginator-increment-button{margin:0 8px 0 0}.mat-paginator-decrement,.mat-paginator-increment{width:8px;height:8px}.mat-paginator-decrement,[dir=rtl] .mat-paginator-increment{transform:rotate(45deg)}.mat-paginator-increment,[dir=rtl] .mat-paginator-decrement{transform:rotate(225deg)}.mat-paginator-decrement{margin-left:12px}[dir=rtl] .mat-paginator-decrement{margin-right:12px}.mat-paginator-increment{margin-left:16px}[dir=rtl] .mat-paginator-increment{margin-right:16px}"],
+                host: {
+                    'class': 'mat-paginator',
+                },
+                providers: [
+                    { provide: MATERIAL_COMPATIBILITY_MODE, useValue: false }
+                ],
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                encapsulation: _angular_core.ViewEncapsulation.None,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdPaginator.ctorParameters = function () { return [
+    { type: MdPaginatorIntl, },
+]; };
+MdPaginator.propDecorators = {
+    'pageIndex': [{ type: _angular_core.Input },],
+    'length': [{ type: _angular_core.Input },],
+    'pageSize': [{ type: _angular_core.Input },],
+    'pageSizeOptions': [{ type: _angular_core.Input },],
+    'page': [{ type: _angular_core.Output },],
+};
+var MdPaginatorModule = (function () {
+    function MdPaginatorModule() {
+    }
+    return MdPaginatorModule;
+}());
+MdPaginatorModule.decorators = [
+    { type: _angular_core.NgModule, args: [{
+                imports: [
+                    _angular_common.CommonModule,
+                    _angular_forms.FormsModule,
+                    MdButtonModule,
+                    MdSelectModule,
+                    MdTooltipModule,
+                ],
+                exports: [MdPaginator],
+                declarations: [MdPaginator],
+                providers: [MdPaginatorIntl],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdPaginatorModule.ctorParameters = function () { return []; };
 var MATERIAL_MODULES = [
     MdAutocompleteModule,
     MdButtonModule,
@@ -23403,6 +23656,7 @@ var MATERIAL_MODULES = [
     MdInputModule,
     MdListModule,
     MdMenuModule,
+    MdPaginatorModule,
     MdProgressBarModule,
     MdProgressSpinnerModule,
     MdRadioModule,
@@ -23696,6 +23950,9 @@ exports.transformMenu = transformMenu;
 exports.MdMenu = MdMenu;
 exports.MdMenuItem = MdMenuItem;
 exports.MdMenuTrigger = MdMenuTrigger;
+exports.MdPaginatorModule = MdPaginatorModule;
+exports.PageEvent = PageEvent;
+exports.MdPaginator = MdPaginator;
 exports.MdProgressBarModule = MdProgressBarModule;
 exports.MdProgressBar = MdProgressBar;
 exports.MdProgressSpinnerModule = MdProgressSpinnerModule;
@@ -23786,17 +24043,17 @@ exports.ɵa = DIR_DOCUMENT;
 exports.ɵx = mixinColor;
 exports.ɵy = mixinDisabled;
 exports.ɵk = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
-exports.ɵbe = CdkCell;
-exports.ɵba = CdkCellDef;
-exports.ɵbc = CdkColumnDef;
-exports.ɵbd = CdkHeaderCell;
-exports.ɵbb = CdkHeaderCellDef;
-exports.ɵbf = BaseRowDef;
-exports.ɵbi = CdkCellOutlet;
-exports.ɵbj = CdkHeaderRow;
-exports.ɵbg = CdkHeaderRowDef;
-exports.ɵbk = CdkRow;
-exports.ɵbh = CdkRowDef;
+exports.ɵbf = CdkCell;
+exports.ɵbb = CdkCellDef;
+exports.ɵbd = CdkColumnDef;
+exports.ɵbe = CdkHeaderCell;
+exports.ɵbc = CdkHeaderCellDef;
+exports.ɵbg = BaseRowDef;
+exports.ɵbj = CdkCellOutlet;
+exports.ɵbk = CdkHeaderRow;
+exports.ɵbh = CdkHeaderRowDef;
+exports.ɵbl = CdkRow;
+exports.ɵbi = CdkRowDef;
 exports.ɵb = MdMutationObserverFactory;
 exports.ɵd = OVERLAY_CONTAINER_PROVIDER;
 exports.ɵc = OVERLAY_CONTAINER_PROVIDER_FACTORY;
@@ -23813,6 +24070,7 @@ exports.ɵo = MdGridTileHeaderCssMatStyler;
 exports.ɵm = MdGridTileText;
 exports.ɵq = MdMenuItemBase;
 exports.ɵr = _MdMenuItemMixinBase;
+exports.ɵba = MdPaginatorIntl;
 exports.ɵu = MdTabBase;
 exports.ɵv = _MdTabMixinBase;
 exports.ɵs = MdTabLabelWrapperBase;
