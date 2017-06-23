@@ -7,7 +7,7 @@
  */
 import { AfterContentInit, ElementRef, NgZone, OnDestroy } from '@angular/core';
 import { MdInkBar } from '../ink-bar';
-import { MdRipple } from '../../core/ripple/index';
+import { CanDisable } from '../../core/common-behaviors/disabled';
 import { ViewportRuler } from '../../core/overlay/position/viewport-ruler';
 import { Directionality, Platform, RippleGlobalOptions } from '../../core';
 import 'rxjs/add/operator/auditTime';
@@ -36,21 +36,23 @@ export declare class MdTabNav implements AfterContentInit, OnDestroy {
     /** Aligns the ink bar to the active link. */
     _alignInkBar(): void;
 }
+export declare class MdTabLinkBase {
+}
+export declare const _MdTabLinkMixinBase: (new (...args: any[]) => CanDisable) & typeof MdTabLinkBase;
 /**
  * Link inside of a `md-tab-nav-bar`.
  */
-export declare class MdTabLink {
+export declare class MdTabLink extends _MdTabLinkMixinBase implements OnDestroy, CanDisable {
     private _mdTabNavBar;
     private _elementRef;
+    /** Whether the tab link is active or not. */
     private _isActive;
+    /** Reference to the instance of the ripple for the tab link. */
+    private _tabLinkRipple;
     /** Whether the link is active. */
     active: boolean;
-    constructor(_mdTabNavBar: MdTabNav, _elementRef: ElementRef);
-}
-/**
- * Simple directive that extends the ripple and matches the selector of the MdTabLink. This
- * adds the ripple behavior to nav bar labels.
- */
-export declare class MdTabLinkRipple extends MdRipple {
-    constructor(elementRef: ElementRef, ngZone: NgZone, ruler: ViewportRuler, platform: Platform, globalOptions: RippleGlobalOptions);
+    /** @docs-private */
+    readonly tabIndex: number;
+    constructor(_mdTabNavBar: MdTabNav, _elementRef: ElementRef, ngZone: NgZone, ruler: ViewportRuler, platform: Platform, globalOptions: RippleGlobalOptions);
+    ngOnDestroy(): void;
 }
