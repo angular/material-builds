@@ -16,6 +16,7 @@ export declare type ProgressSpinnerMode = 'determinate' | 'indeterminate';
  */
 export declare class MdProgressSpinnerCssMatStyler {
 }
+/** @docs-private */
 export declare class MdProgressSpinnerBase {
     _renderer: Renderer2;
     _elementRef: ElementRef;

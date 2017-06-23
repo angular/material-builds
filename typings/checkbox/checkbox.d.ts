@@ -37,6 +37,7 @@ export declare class MdCheckboxChange {
     /** The new `checked` value of the checkbox. */
     checked: boolean;
 }
+/** @docs-private */
 export declare class MdCheckboxBase {
     _renderer: Renderer2;
     _elementRef: ElementRef;

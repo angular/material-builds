@@ -15,6 +15,7 @@ export declare class MdSlideToggleChange {
     source: MdSlideToggle;
     checked: boolean;
 }
+/** @docs-private */
 export declare class MdSlideToggleBase {
     _renderer: Renderer2;
     _elementRef: ElementRef;

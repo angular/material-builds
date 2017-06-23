@@ -8,6 +8,7 @@
 import { ElementRef, Renderer2 } from '@angular/core';
 import { CanColor } from '../../common-behaviors/color';
 export declare type MdPseudoCheckboxState = 'unchecked' | 'checked' | 'indeterminate';
+/** @docs-private */
 export declare class MdPseudoCheckboxBase {
     _renderer: Renderer2;
     _elementRef: ElementRef;

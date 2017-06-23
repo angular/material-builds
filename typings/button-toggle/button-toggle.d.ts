@@ -11,6 +11,7 @@ import { UniqueSelectionDispatcher, FocusOriginMonitor } from '../core';
 import { CanDisable } from '../core/common-behaviors/disabled';
 /** Acceptable types for a button toggle. */
 export declare type ToggleType = 'checkbox' | 'radio';
+/** @docs-private */
 export declare class MdButtonToggleGroupBase {
 }
 export declare const _MdButtonToggleGroupMixinBase: (new (...args: any[]) => CanDisable) & typeof MdButtonToggleGroupBase;

@@ -12,6 +12,7 @@ import { CanDisable } from '../core/common-behaviors/disabled';
 export interface MdChipEvent {
     chip: MdChip;
 }
+/** @docs-private */
 export declare class MdChipBase {
     _renderer: Renderer2;
     _elementRef: ElementRef;

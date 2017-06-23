@@ -8,6 +8,7 @@
 import { ElementRef } from '@angular/core';
 import { Focusable } from '../core/a11y/focus-key-manager';
 import { CanDisable } from '../core/common-behaviors/disabled';
+/** @docs-private */
 export declare class MdMenuItemBase {
 }
 export declare const _MdMenuItemMixinBase: (new (...args: any[]) => CanDisable) & typeof MdMenuItemBase;

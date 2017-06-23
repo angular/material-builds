@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectorRef, ElementRef, IterableDiffers, QueryList, Renderer2, ViewContainerRef } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, IterableDiffers, QueryList, Renderer2, TrackByFunction, ViewContainerRef } from '@angular/core';
 import { CollectionViewer, DataSource } from './data-source';
 import { CdkHeaderRowDef, CdkRowDef } from './row';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -57,6 +57,14 @@ export declare class CdkTable<T> implements CollectionViewer {
     private _columnDefinitionsByName;
     /** Differ used to find the changes in the data provided by the data source. */
     private _dataDiffer;
+    /**
+     * Tracking function that will be used to check the differences in data changes. Used similarly
+     * to ngFor trackBy function. Optimize row operations by identifying a row based on its data
+     * relative to the function to know if a row should be added/removed/moved.
+     * Accepts a function that takes two parameters, `index` and `item`.
+     */
+    trackBy: TrackByFunction<T>;
+    private _trackByFn;
     /**
      * Stream containing the latest information on what rows are being displayed on screen.
      * Can be used by the data source to as a heuristic of what data should be provided.

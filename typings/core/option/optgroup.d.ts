@@ -1,4 +1,5 @@
 import { CanDisable } from '../common-behaviors/disabled';
+/** @docs-private */
 export declare class MdOptgroupBase {
 }
 export declare const _MdOptgroupMixinBase: (new (...args: any[]) => CanDisable) & typeof MdOptgroupBase;
