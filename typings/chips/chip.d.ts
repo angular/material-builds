@@ -50,6 +50,8 @@ export declare class MdChip extends _MdChipMixinBase implements Focusable, OnDes
     toggleSelected(): boolean;
     /** Allows for programmatic focusing of the chip. */
     focus(): void;
+    /** The aria-disabled state for the chip */
+    _isAriaDisabled(): string;
     /** Ensures events fire properly upon click. */
     _handleClick(event: Event): void;
 }

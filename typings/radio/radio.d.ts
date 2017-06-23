@@ -178,8 +178,6 @@ export declare class MdRadioButton extends _MdRadioButtonMixinBase implements On
     _ripple: MdRipple;
     /** Reference to the current focus ripple. */
     private _focusRipple;
-    /** Unregister function for _radioDispatcher **/
-    private _removeUniqueSelectionListener;
     /** The native `<input type=radio>` element */
     _inputElement: ElementRef;
     constructor(radioGroup: MdRadioGroup, elementRef: ElementRef, renderer: Renderer2, _changeDetector: ChangeDetectorRef, _focusOriginMonitor: FocusOriginMonitor, _radioDispatcher: UniqueSelectionDispatcher);

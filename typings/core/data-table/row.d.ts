@@ -41,29 +41,12 @@ export declare class CdkHeaderRowDef extends BaseRowDef {
 export declare class CdkRowDef extends BaseRowDef {
     constructor(template: TemplateRef<any>, _differs: IterableDiffers);
 }
-/** Context provided to the row cells */
-export interface CdkCellOutletRowContext<T> {
-    /** Data for the row that this cell is located within. */
-    $implicit: T;
-    /** Index location of the row that this cell is located within. */
-    index?: number;
-    /** Length of the number of total rows. */
-    count?: number;
-    /** True if this cell is contained in the first row. */
-    first?: boolean;
-    /** True if this cell is contained in the last row. */
-    last?: boolean;
-    /** True if this cell is contained in a row with an even-numbered index. */
-    even?: boolean;
-    /** True if this cell is contained in a row with an odd-numbered index. */
-    odd?: boolean;
-}
 /**
  * Outlet for rendering cells inside of a row or header row.
  * @docs-private
  */
 export declare class CdkCellOutlet {
-    _viewContainer: ViewContainerRef;
+    private _viewContainer;
     /** The ordered list of cells to render within this outlet's view container */
     cells: CdkCellDef[];
     /** The data context to be provided to each cell */
@@ -77,6 +60,7 @@ export declare class CdkCellOutlet {
      */
     static mostRecentCellOutlet: CdkCellOutlet;
     constructor(_viewContainer: ViewContainerRef);
+    ngOnInit(): void;
 }
 /** Header template container that contains the cell outlet. Adds the right class and role. */
 export declare class CdkHeaderRow {

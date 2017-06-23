@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, Renderer2, EventEmitter, OnInit, OnDestroy, QueryList, AfterViewInit } from '@angular/core';
+import { ElementRef, Renderer2, EventEmitter, OnInit, QueryList, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { UniqueSelectionDispatcher, FocusOriginMonitor } from '../core';
 import { CanDisable } from '../core/common-behaviors/disabled';
@@ -94,7 +94,7 @@ export declare class MdButtonToggleGroupMultiple extends _MdButtonToggleGroupMix
     vertical: boolean;
 }
 /** Single button inside of a toggle group. */
-export declare class MdButtonToggle implements OnInit, OnDestroy {
+export declare class MdButtonToggle implements OnInit {
     private _buttonToggleDispatcher;
     private _renderer;
     private _elementRef;
@@ -109,8 +109,6 @@ export declare class MdButtonToggle implements OnInit, OnDestroy {
     private _value;
     /** Whether or not the button toggle is a single selection. */
     private _isSingleSelector;
-    /** Unregister function for _buttonToggleDispatcher **/
-    private _removeUniqueSelectionListener;
     _inputElement: ElementRef;
     /** The parent button toggle group (exclusive selection). Optional. */
     buttonToggleGroup: MdButtonToggleGroup;
@@ -141,5 +139,4 @@ export declare class MdButtonToggle implements OnInit, OnDestroy {
     _onInputClick(event: Event): void;
     /** Dispatch change event with current value. */
     private _emitChangeEvent();
-    ngOnDestroy(): void;
 }
