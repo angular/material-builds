@@ -8,7 +8,6 @@
 import { ElementRef, NgZone, OnDestroy, AfterContentInit } from '@angular/core';
 import { InteractivityChecker } from './interactivity-checker';
 import { Platform } from '../platform/platform';
-import 'rxjs/add/operator/first';
 /**
  * Class that allows for trapping focus within a DOM element.
  *

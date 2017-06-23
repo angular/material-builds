@@ -12,7 +12,6 @@ import { MdDialog } from '../dialog/dialog';
 import { MdDatepickerInput } from './datepicker-input';
 import { DateAdapter } from '../core/datetime/index';
 import { MdCalendar } from './calendar';
-import 'rxjs/add/operator/first';
 /**
  * Component used as the content for the datepicker dialog and popup. We use this instead of using
  * MdCalendar directly as the content so we can control the initial focus. This also gives us a

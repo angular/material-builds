@@ -9,9 +9,6 @@ import { ChangeDetectorRef, ElementRef, IterableDiffers, QueryList, Renderer2, T
 import { CollectionViewer, DataSource } from './data-source';
 import { CdkHeaderRowDef, CdkRowDef } from './row';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/let';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/observable/combineLatest';
 import { CdkColumnDef } from './cell';
 /**
  * Returns an error to be thrown when attempting to find an unexisting column.

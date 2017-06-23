@@ -11,7 +11,6 @@ import { Overlay, OverlayRef, OverlayConnectionPosition, OriginConnectionPositio
 import { Observable } from 'rxjs/Observable';
 import { Directionality } from '../core/bidi/index';
 import { Platform } from '../core/platform/index';
-import 'rxjs/add/operator/first';
 import { ScrollDispatcher } from '../core/overlay/scroll/scroll-dispatcher';
 export declare type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'before' | 'after';
 /** Time in ms to delay before changing the tooltip visibility to hidden */

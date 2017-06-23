@@ -8,33 +8,31 @@
 import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, InjectionToken, Injector, Input, IterableDiffers, NgModule, NgZone, Optional, Output, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
 import { DOCUMENT, DomSanitizer, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/debounceTime';
+import { _finally } from 'rxjs/operator/finally';
+import { _catch } from 'rxjs/operator/catch';
+import { _do } from 'rxjs/operator/do';
+import { map } from 'rxjs/operator/map';
+import { filter } from 'rxjs/operator/filter';
+import { share } from 'rxjs/operator/share';
+import { first } from 'rxjs/operator/first';
+import { switchMap } from 'rxjs/operator/switchMap';
+import { startWith } from 'rxjs/operator/startWith';
+import { debounceTime } from 'rxjs/operator/debounceTime';
+import { auditTime } from 'rxjs/operator/auditTime';
+import { takeUntil } from 'rxjs/operator/takeUntil';
 import { CommonModule, Location } from '@angular/common';
-import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/observable/merge';
-import 'rxjs/add/operator/auditTime';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { merge } from 'rxjs/observable/merge';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk';
-import 'rxjs/add/operator/first';
-import 'rxjs/add/observable/of';
+import { of } from 'rxjs/observable/of';
 import { FormGroupDirective, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl, NgForm, Validators } from '@angular/forms';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/filter';
 import { Http } from '@angular/http';
-import 'rxjs/add/observable/forkJoin';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/share';
-import 'rxjs/add/operator/finally';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/takeUntil';
-import 'rxjs/add/operator/switchMap';
+import { Observable } from 'rxjs/Observable';
+import { _throw } from 'rxjs/observable/throw';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/let';
-import 'rxjs/add/observable/combineLatest';
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -563,6 +561,83 @@ MdLineModule.decorators = [
 MdLineModule.ctorParameters = () => [];
 
 /**
+ * Utility class used to chain RxJS operators.
+ *
+ * This class is the concrete implementation, but the type used by the user when chaining
+ * is StrictRxChain. The strict chain enforces types on the operators to the same level as
+ * the prototype-added equivalents.
+ *
+ * \@docs-private
+ */
+class RxChain {
+    /**
+     * @param {?} _context
+     */
+    constructor(_context) {
+        this._context = _context;
+    }
+    /**
+     * Starts a new chain and specifies the initial `this` value.
+     * @template T
+     * @param {?} context Initial `this` value for the chain.
+     * @return {?}
+     */
+    static from(context) {
+        return new RxChain(context);
+    }
+    /**
+     * Invokes an RxJS operator as a part of the chain.
+     * @param {?} operator Operator to be invoked.
+     * @param {...?} args Arguments to be passed to the operator.
+     * @return {?}
+     */
+    call(operator, ...args) {
+        this._context = operator.call(this._context, ...args);
+        return this;
+    }
+    /**
+     * Subscribes to the result of the chain.
+     * @param {?} fn Callback to be invoked when the result emits a value.
+     * @return {?}
+     */
+    subscribe(fn) {
+        return this._context.subscribe(fn);
+    }
+    /**
+     * Returns the result of the chain.
+     * @return {?}
+     */
+    result() {
+        return this._context;
+    }
+}
+
+// @docs-private
+const finallyOperator = (_finally);
+// @docs-private
+const catchOperator = (_catch);
+// @docs-private
+const doOperator = (_do);
+// @docs-private
+const map$1 = (map);
+// @docs-private
+const filter$1 = (filter);
+// @docs-private
+const share$1 = (share);
+// @docs-private
+const first$1 = (first);
+// @docs-private
+const switchMap$1 = (switchMap);
+// @docs-private
+const startWith$1 = (startWith);
+// @docs-private
+const debounceTime$1 = (debounceTime);
+// @docs-private
+const auditTime$1 = (auditTime);
+// @docs-private
+const takeUntil$1 = (takeUntil);
+
+/**
  * Factory that creates a new MutationObserver and allows us to stub it out in unit tests.
  * \@docs-private
  */
@@ -608,9 +683,9 @@ class ObserveContent {
      */
     ngAfterContentInit() {
         if (this.debounce > 0) {
-            this._debouncer
-                .debounceTime(this.debounce)
-                .subscribe(mutations => this.event.emit(mutations));
+            RxChain.from(this._debouncer)
+                .call(debounceTime$1, this.debounce)
+                .subscribe((mutations) => this.event.emit(mutations));
         }
         else {
             this._debouncer.subscribe(mutations => this.event.emit(mutations));
@@ -1114,12 +1189,12 @@ class ScrollDispatcher {
         // In the case of a 0ms delay, use an observable without auditTime
         // since it does add a perceptible delay in processing overhead.
         let /** @type {?} */ observable = auditTimeInMs > 0 ?
-            this._scrolled.asObservable().auditTime(auditTimeInMs) :
+            auditTime$1.call(this._scrolled.asObservable(), auditTimeInMs) :
             this._scrolled.asObservable();
         this._scrolledCount++;
         if (!this._globalSubscription) {
             this._globalSubscription = this._ngZone.runOutsideAngular(() => {
-                return Observable.merge(Observable.fromEvent(window.document, 'scroll'), Observable.fromEvent(window, 'resize')).subscribe(() => this._notify());
+                return merge(fromEvent(window.document, 'scroll'), fromEvent(window, 'resize')).subscribe(() => this._notify());
             });
         }
         // Note that we need to do the subscribing from here, in order to be able to remove
@@ -4613,7 +4688,7 @@ class FocusTrap {
             fn();
         }
         else {
-            this._ngZone.onStable.first().subscribe(fn);
+            first$1.call(this._ngZone.onStable).subscribe(fn);
         }
     }
 }
@@ -5223,7 +5298,7 @@ class FocusOriginMonitor {
     monitor(element, renderer, checkChildren) {
         // Do nothing if we're not on the browser platform.
         if (!this._platform.isBrowser) {
-            return Observable.of(null);
+            return of(null);
         }
         // Check if we're already monitoring this element.
         if (this._elementInfo.has(element)) {
@@ -5713,10 +5788,10 @@ class DateAdapter {
      * @return {?} 0 if the dates are equal, a number less than 0 if the first date is earlier,
      *     a number greater than 0 if the first date is later.
      */
-    compareDate(first, second) {
-        return this.getYear(first) - this.getYear(second) ||
-            this.getMonth(first) - this.getMonth(second) ||
-            this.getDate(first) - this.getDate(second);
+    compareDate(first$$1, second) {
+        return this.getYear(first$$1) - this.getYear(second) ||
+            this.getMonth(first$$1) - this.getMonth(second) ||
+            this.getDate(first$$1) - this.getDate(second);
     }
     /**
      * Checks if two dates are equal.
@@ -5725,8 +5800,8 @@ class DateAdapter {
      *     Null dates are considered equal to other null dates.
      * @return {?}
      */
-    sameDate(first, second) {
-        return first && second ? !this.compareDate(first, second) : first == second;
+    sameDate(first$$1, second) {
+        return first$$1 && second ? !this.compareDate(first$$1, second) : first$$1 == second;
     }
     /**
      * Clamp the given date between min and max dates.
@@ -8615,7 +8690,7 @@ class MdSelect extends _MdSelectMixinBase {
      * @return {?}
      */
     get optionSelectionChanges() {
-        return Observable.merge(...this.options.map(option => option.onSelectionChange));
+        return merge(...this.options.map(option => option.onSelectionChange));
     }
     /**
      * @return {?}
@@ -8628,7 +8703,7 @@ class MdSelect extends _MdSelectMixinBase {
      */
     ngAfterContentInit() {
         this._initKeyManager();
-        this._changeSubscription = this.options.changes.startWith(null).subscribe(() => {
+        this._changeSubscription = startWith$1.call(this.options.changes, null).subscribe(() => {
             this._resetOptions();
             if (this._control) {
                 // Defer setting the value in order to avoid the "Expression
@@ -8941,9 +9016,7 @@ class MdSelect extends _MdSelectMixinBase {
      * @return {?}
      */
     _listenToOptions() {
-        this._optionSubscription = this.optionSelectionChanges
-            .filter(event => event.isUserInput)
-            .subscribe(event => {
+        this._optionSubscription = filter$1.call(this.optionSelectionChanges, event => event.isUserInput).subscribe(event => {
             this._onSelect(event.source);
             this._setValueWidth();
             if (!this.multiple) {
@@ -11056,7 +11129,7 @@ class MdSidenavContainer {
         });
         this._validateDrawers();
         // Give the view a chance to render the initial state, then enable transitions.
-        this._ngZone.onMicrotaskEmpty.first().subscribe(() => this._enableTransitions = true);
+        first$1.call(this._ngZone.onMicrotaskEmpty).subscribe(() => this._enableTransitions = true);
     }
     /**
      * Calls `open` of both start and end sidenavs
@@ -11102,7 +11175,7 @@ class MdSidenavContainer {
         }
         // NOTE: We need to wait for the microtask queue to be empty before validating,
         // since both drawers may be swapping sides at the same time.
-        sidenav.onAlignChanged.subscribe(() => this._ngZone.onMicrotaskEmpty.first().subscribe(() => this._validateDrawers()));
+        sidenav.onAlignChanged.subscribe(() => first$1.call(this._ngZone.onMicrotaskEmpty).subscribe(() => this._validateDrawers()));
     }
     /**
      * Toggles the 'mat-sidenav-opened' class on the main 'md-sidenav-container' element.
@@ -13147,11 +13220,12 @@ class MdIconRegistry {
         }
         let /** @type {?} */ cachedIcon = this._cachedIconsByUrl.get(url);
         if (cachedIcon) {
-            return Observable.of(cloneSvg(cachedIcon));
+            return of(cloneSvg(cachedIcon));
         }
-        return this._loadSvgIconFromConfig(new SvgIconConfig(url))
-            .do(svg => this._cachedIconsByUrl.set(/** @type {?} */ ((url)), svg))
-            .map(svg => cloneSvg(svg));
+        return RxChain.from(this._loadSvgIconFromConfig(new SvgIconConfig(url)))
+            .call(doOperator, svg => this._cachedIconsByUrl.set(/** @type {?} */ ((url)), svg))
+            .call(map$1, svg => cloneSvg(svg))
+            .result();
     }
     /**
      * Returns an Observable that produces the icon (as an <svg> DOM element) with the given name
@@ -13174,7 +13248,7 @@ class MdIconRegistry {
         if (iconSetConfigs) {
             return this._getSvgFromIconSetConfigs(name, iconSetConfigs);
         }
-        return Observable.throw(getMdIconNameNotFoundError(key));
+        return _throw(getMdIconNameNotFoundError(key));
     }
     /**
      * Returns the cached icon for a SvgIconConfig if available, or fetches it from its URL if not.
@@ -13184,13 +13258,14 @@ class MdIconRegistry {
     _getSvgFromConfig(config) {
         if (config.svgElement) {
             // We already have the SVG element for this icon, return a copy.
-            return Observable.of(cloneSvg(config.svgElement));
+            return of(cloneSvg(config.svgElement));
         }
         else {
             // Fetch the icon from the config's URL, cache it, and return a copy.
-            return this._loadSvgIconFromConfig(config)
-                .do(svg => config.svgElement = svg)
-                .map(svg => cloneSvg(svg));
+            return RxChain.from(this._loadSvgIconFromConfig(config))
+                .call(doOperator, svg => config.svgElement = svg)
+                .call(map$1, svg => cloneSvg(svg))
+                .result();
         }
     }
     /**
@@ -13212,30 +13287,32 @@ class MdIconRegistry {
             // We could cache namedIcon in _svgIconConfigs, but since we have to make a copy every
             // time anyway, there's probably not much advantage compared to just always extracting
             // it from the icon set.
-            return Observable.of(namedIcon);
+            return of(namedIcon);
         }
         // Not found in any cached icon sets. If there are icon sets with URLs that we haven't
         // fetched, fetch them now and look for iconName in the results.
         const /** @type {?} */ iconSetFetchRequests = iconSetConfigs
             .filter(iconSetConfig => !iconSetConfig.svgElement)
-            .map(iconSetConfig => this._loadSvgIconSetFromConfig(iconSetConfig)
-            .catch((err) => {
-            let /** @type {?} */ url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, iconSetConfig.url);
-            // Swallow errors fetching individual URLs so the combined Observable won't
-            // necessarily fail.
-            console.log(`Loading icon set URL: ${url} failed: ${err}`);
-            return Observable.of(null);
-        })
-            .do(svg => {
-            // Cache SVG element.
-            if (svg) {
-                iconSetConfig.svgElement = svg;
-            }
-        }));
+            .map(iconSetConfig => {
+            return RxChain.from(this._loadSvgIconSetFromConfig(iconSetConfig))
+                .call(catchOperator, (err) => {
+                let /** @type {?} */ url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, iconSetConfig.url);
+                // Swallow errors fetching individual URLs so the combined Observable won't
+                // necessarily fail.
+                console.log(`Loading icon set URL: ${url} failed: ${err}`);
+                return of(null);
+            })
+                .call(doOperator, svg => {
+                // Cache the SVG element.
+                if (svg) {
+                    iconSetConfig.svgElement = svg;
+                }
+            })
+                .result();
+        });
         // Fetch all the icon set URLs. When the requests complete, every IconSet should have a
         // cached SVG element (unless the request failed), and we can check again for the icon.
-        return Observable.forkJoin(iconSetFetchRequests)
-            .map(() => {
+        return map$1.call(forkJoin.call(Observable, iconSetFetchRequests), () => {
             const /** @type {?} */ foundIcon = this._extractIconWithNameFromAnySet(name, iconSetConfigs);
             if (!foundIcon) {
                 throw getMdIconNameNotFoundError(name);
@@ -13271,8 +13348,7 @@ class MdIconRegistry {
      * @return {?}
      */
     _loadSvgIconFromConfig(config) {
-        return this._fetchUrl(config.url)
-            .map(svgText => this._createSvgElementForSingleIcon(svgText));
+        return map$1.call(this._fetchUrl(config.url), svgText => this._createSvgElementForSingleIcon(svgText));
     }
     /**
      * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
@@ -13282,8 +13358,7 @@ class MdIconRegistry {
      */
     _loadSvgIconSetFromConfig(config) {
         // TODO: Document that icons should only be loaded from trusted sources.
-        return this._fetchUrl(config.url)
-            .map(svgText => this._svgElementFromString(svgText));
+        return map$1.call(this._fetchUrl(config.url), svgText => this._svgElementFromString(svgText));
     }
     /**
      * Creates a DOM element from the given SVG string, and adds default attributes.
@@ -13398,12 +13473,11 @@ class MdIconRegistry {
         }
         // TODO(jelbourn): for some reason, the `finally` operator "loses" the generic type on the
         // Observable. Figure out why and fix it.
-        const /** @type {?} */ req = (this._http.get(url)
-            .map(response => response.text())
-            .finally(() => {
-            this._inProgressUrlFetches.delete(url);
-        })
-            .share());
+        const /** @type {?} */ req = RxChain.from(this._http.get(url))
+            .call(map$1, response => response.text())
+            .call(finallyOperator, () => this._inProgressUrlFetches.delete(url))
+            .call(share$1)
+            .result();
         this._inProgressUrlFetches.set(url, req);
         return req;
     }
@@ -13554,7 +13628,7 @@ class MdIcon extends _MdIconMixinBase {
         if (changedInputs.indexOf('svgIcon') != -1 || changedInputs.indexOf('svgSrc') != -1) {
             if (this.svgIcon) {
                 const [namespace, iconName] = this._splitIconName(this.svgIcon);
-                this._mdIconRegistry.getNamedSvgIcon(iconName, namespace).first().subscribe(svg => this._setSvgElement(svg), (err) => console.log(`Error retrieving icon: ${err.message}`));
+                first$1.call(this._mdIconRegistry.getNamedSvgIcon(iconName, namespace)).subscribe(svg => this._setSvgElement(svg), (err) => console.log(`Error retrieving icon: ${err.message}`));
             }
         }
         if (this._usingFontIcon()) {
@@ -15305,7 +15379,7 @@ class MdSnackBarContainer extends BasePortalHost {
         // Note: we shouldn't use `this` inside the zone callback,
         // because it can cause a memory leak.
         const /** @type {?} */ onExit = this.onExit;
-        this._ngZone.onMicrotaskEmpty.first().subscribe(() => {
+        first$1.call(this._ngZone.onMicrotaskEmpty).subscribe(() => {
             onExit.next();
             onExit.complete();
         });
@@ -15774,7 +15848,7 @@ class MdTabGroup {
      * @return {?}
      */
     get selectedIndexChange() {
-        return this.selectChange.map(event => event.index);
+        return map$1.call(this.selectChange, event => event.index);
     }
     /**
      * After the content is checked, this component knows what tabs have been defined
@@ -16067,12 +16141,11 @@ class MdTabNav {
      */
     ngAfterContentInit() {
         this._ngZone.runOutsideAngular(() => {
-            let /** @type {?} */ dirChange = this._dir ? this._dir.change : Observable.of(null);
+            let /** @type {?} */ dirChange = this._dir ? this._dir.change : of(null);
             let /** @type {?} */ resize = typeof window !== 'undefined' ?
-                Observable.fromEvent(window, 'resize').auditTime(10) :
-                Observable.of(null);
-            return Observable.merge(dirChange, resize)
-                .takeUntil(this._onDestroy)
+                auditTime$1.call(fromEvent(window, 'resize'), 10) :
+                of(null);
+            return takeUntil$1.call(merge(dirChange, resize), this._onDestroy)
                 .subscribe(() => this._alignInkBar());
         });
     }
@@ -16496,11 +16569,11 @@ class MdTabHeader {
      */
     ngAfterContentInit() {
         this._realignInkBar = this._ngZone.runOutsideAngular(() => {
-            let /** @type {?} */ dirChange = this._dir ? this._dir.change : Observable.of(null);
+            let /** @type {?} */ dirChange = this._dir ? this._dir.change : of(null);
             let /** @type {?} */ resize = typeof window !== 'undefined' ?
-                Observable.fromEvent(window, 'resize').auditTime(10) :
-                Observable.of(null);
-            return Observable.merge(dirChange, resize).startWith(null).subscribe(() => {
+                auditTime$1.call(fromEvent(window, 'resize'), 10) :
+                of(null);
+            return startWith$1.call(merge(dirChange, resize), null).subscribe(() => {
                 this._updatePagination();
                 this._alignInkBarToSelectedTab();
             });
@@ -17255,7 +17328,7 @@ class MdTooltip {
         if (this._tooltipInstance) {
             this._tooltipInstance.message = message;
             this._tooltipInstance._markForCheck();
-            this._ngZone.onMicrotaskEmpty.first().subscribe(() => {
+            first$1.call(this._ngZone.onMicrotaskEmpty).subscribe(() => {
                 if (this._tooltipInstance) {
                     ((this._overlayRef)).updatePosition();
                 }
@@ -18225,8 +18298,7 @@ class MdDialogRef {
          * Subject for notifying the user that the dialog has finished closing.
          */
         this._afterClosed = new Subject();
-        _containerInstance._onAnimationStateChange
-            .filter((event) => event.toState === 'exit')
+        filter$1.call(_containerInstance._onAnimationStateChange, (event) => event.toState === 'exit')
             .subscribe(() => this._overlayRef.dispose(), undefined, () => {
             this._afterClosed.next(this._result);
             this._afterClosed.complete();
@@ -19089,14 +19161,14 @@ class MdAutocompleteTrigger {
      * @return {?}
      */
     get panelClosingActions() {
-        return Observable.merge(this.optionSelections, this.autocomplete._keyManager.tabOut, this._outsideClickStream);
+        return merge(this.optionSelections, this.autocomplete._keyManager.tabOut, this._outsideClickStream);
     }
     /**
      * Stream of autocomplete option selections.
      * @return {?}
      */
     get optionSelections() {
-        return Observable.merge(...this.autocomplete.options.map(option => option.onSelectionChange));
+        return merge(...this.autocomplete.options.map(option => option.onSelectionChange));
     }
     /**
      * The currently active option, coerced to MdOption type.
@@ -19113,18 +19185,18 @@ class MdAutocompleteTrigger {
      * @return {?}
      */
     get _outsideClickStream() {
-        if (this._document) {
-            return Observable.merge(Observable.fromEvent(this._document, 'click'), Observable.fromEvent(this._document, 'touchend')).filter((event) => {
-                const /** @type {?} */ clickTarget = (event.target);
-                const /** @type {?} */ inputContainer = this._inputContainer ?
-                    this._inputContainer._elementRef.nativeElement : null;
-                return this._panelOpen &&
-                    clickTarget !== this._element.nativeElement &&
-                    (!inputContainer || !inputContainer.contains(clickTarget)) &&
-                    (!!this._overlayRef && !this._overlayRef.overlayElement.contains(clickTarget));
-            });
+        if (!this._document) {
+            return of(null);
         }
-        return Observable.of(null);
+        return RxChain.from(merge(fromEvent(this._document, 'click'), fromEvent(this._document, 'touchend'))).call(filter$1, (event) => {
+            const /** @type {?} */ clickTarget = (event.target);
+            const /** @type {?} */ inputContainer = this._inputContainer ?
+                this._inputContainer._elementRef.nativeElement : null;
+            return this._panelOpen &&
+                clickTarget !== this._element.nativeElement &&
+                (!inputContainer || !inputContainer.contains(clickTarget)) &&
+                (!!this._overlayRef && !this._overlayRef.overlayElement.contains(clickTarget));
+        }).result();
     }
     /**
      * Sets the autocomplete's value. Part of the ControlValueAccessor interface
@@ -19239,12 +19311,12 @@ class MdAutocompleteTrigger {
      */
     _subscribeToClosingActions() {
         // When the zone is stable initially, and when the option list changes...
-        Observable.merge(this._zone.onStable.first(), this.autocomplete.options.changes)
-            .switchMap(() => {
+        RxChain.from(merge(first$1.call(this._zone.onStable), this.autocomplete.options.changes))
+            .call(switchMap$1, () => {
             this._resetPanel();
             return this.panelClosingActions;
         })
-            .first()
+            .call(first$1)
             .subscribe(event => this._setValueAndClose(event));
     }
     /**
@@ -20042,9 +20114,8 @@ class MdCalendar {
      * @return {?}
      */
     _focusActiveCell() {
-        this._ngZone.runOutsideAngular(() => this._ngZone.onStable.first().subscribe(() => {
-            let /** @type {?} */ activeEl = this._elementRef.nativeElement.querySelector('.mat-calendar-body-active');
-            activeEl.focus();
+        this._ngZone.runOutsideAngular(() => first$1.call(this._ngZone.onStable).subscribe(() => {
+            this._elementRef.nativeElement.querySelector('.mat-calendar-body-active').focus();
         }));
     }
     /**
@@ -20457,7 +20528,7 @@ class MdDatepicker {
             let /** @type {?} */ componentRef = this._popupRef.attach(this._calendarPortal);
             componentRef.instance.datepicker = this;
             // Update the position once the calendar has rendered.
-            this._ngZone.onStable.first().subscribe(() => this._popupRef.updatePosition());
+            first$1.call(this._ngZone.onStable).subscribe(() => this._popupRef.updatePosition());
         }
         this._popupRef.backdropClick().subscribe(() => this.close());
     }
@@ -20598,16 +20669,16 @@ class MdDatepickerInput {
      * @param {?} filter
      * @return {?}
      */
-    set mdDatepickerFilter(filter) {
-        this._dateFilter = filter;
+    set mdDatepickerFilter(filter$$1) {
+        this._dateFilter = filter$$1;
         this._validatorOnChange();
     }
     /**
      * @param {?} filter
      * @return {?}
      */
-    set matDatepickerFilter(filter) {
-        this.mdDatepickerFilter = filter;
+    set matDatepickerFilter(filter$$1) {
+        this.mdDatepickerFilter = filter$$1;
     }
     /**
      * The value of the input.
@@ -21320,18 +21391,15 @@ class CdkTable {
         });
         // Re-render the rows if any of their columns change.
         // TODO(andrewseguin): Determine how to only re-render the rows that have their columns changed.
-        Observable.merge(...this._rowDefinitions.map(rowDef => rowDef.columnsChange))
-            .takeUntil(this._onDestroy)
-            .subscribe(() => {
+        const /** @type {?} */ columnChangeEvents = this._rowDefinitions.map(rowDef => rowDef.columnsChange);
+        takeUntil$1.call(merge(...columnChangeEvents), this._onDestroy).subscribe(() => {
             // Reset the data to an empty array so that renderRowChanges will re-render all new rows.
             this._rowPlaceholder.viewContainer.clear();
             this._dataDiffer.diff([]);
             this._renderRowChanges();
         });
         // Re-render the header row if the columns change
-        this._headerDefinition.columnsChange
-            .takeUntil(this._onDestroy)
-            .subscribe(() => {
+        takeUntil$1.call(this._headerDefinition.columnsChange, this._onDestroy).subscribe(() => {
             this._headerRowPlaceholder.viewContainer.clear();
             this._renderHeaderRow();
         });
@@ -21380,8 +21448,7 @@ class CdkTable {
      * @return {?}
      */
     _observeRenderChanges() {
-        this._renderChangeSubscription = this.dataSource.connect(this)
-            .takeUntil(this._onDestroy)
+        this._renderChangeSubscription = takeUntil$1.call(this.dataSource.connect(this), this._onDestroy)
             .subscribe(data => {
             this._data = data;
             this._renderRowChanges();

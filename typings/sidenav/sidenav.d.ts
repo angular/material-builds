@@ -8,7 +8,6 @@
 import { AfterContentInit, ElementRef, QueryList, EventEmitter, Renderer2, NgZone, OnDestroy } from '@angular/core';
 import { Directionality } from '../core';
 import { FocusTrapFactory } from '../core/a11y/focus-trap';
-import 'rxjs/add/operator/first';
 /** Throws an exception when two MdSidenav are matching the same side. */
 export declare function throwMdDuplicatedSidenavError(align: string): void;
 /** Sidenav toggle promise result. */

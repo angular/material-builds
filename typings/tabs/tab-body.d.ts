@@ -8,7 +8,6 @@
 import { EventEmitter, OnInit, ElementRef, AfterViewChecked } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
 import { TemplatePortal, PortalHostDirective, Directionality, Direction } from '../core';
-import 'rxjs/add/operator/map';
 /**
  * These position states are used internally as animation states for the tab body. Setting the
  * position state to left, right, or center will transition the tab body from its current

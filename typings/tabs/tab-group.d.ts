@@ -8,7 +8,6 @@
 import { EventEmitter, QueryList, ElementRef, Renderer2 } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { MdTab } from './tab';
-import 'rxjs/add/operator/map';
 /** A simple change event emitted on focus or selection changes. */
 export declare class MdTabChangeEvent {
     index: number;

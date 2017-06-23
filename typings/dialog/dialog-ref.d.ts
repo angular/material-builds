@@ -9,7 +9,6 @@ import { OverlayRef } from '../core';
 import { DialogPosition } from './dialog-config';
 import { Observable } from 'rxjs/Observable';
 import { MdDialogContainer } from './dialog-container';
-import 'rxjs/add/operator/filter';
 /**
  * Reference to a dialog opened via the MdDialog service.
  */

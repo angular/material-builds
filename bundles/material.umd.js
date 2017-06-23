@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('rxjs/Subject'), require('rxjs/add/operator/debounceTime'), require('@angular/common'), require('rxjs/Observable'), require('rxjs/Subscription'), require('rxjs/add/observable/fromEvent'), require('rxjs/add/observable/merge'), require('rxjs/add/operator/auditTime'), require('@angular/cdk'), require('rxjs/add/operator/first'), require('rxjs/add/observable/of'), require('@angular/forms'), require('@angular/animations'), require('rxjs/add/operator/startWith'), require('rxjs/add/operator/filter'), require('@angular/http'), require('rxjs/add/observable/forkJoin'), require('rxjs/add/operator/map'), require('rxjs/add/operator/do'), require('rxjs/add/operator/share'), require('rxjs/add/operator/finally'), require('rxjs/add/operator/catch'), require('rxjs/add/observable/throw'), require('rxjs/add/operator/takeUntil'), require('rxjs/add/operator/switchMap'), require('rxjs/BehaviorSubject'), require('rxjs/add/operator/let'), require('rxjs/add/observable/combineLatest')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', 'rxjs/Subject', 'rxjs/add/operator/debounceTime', '@angular/common', 'rxjs/Observable', 'rxjs/Subscription', 'rxjs/add/observable/fromEvent', 'rxjs/add/observable/merge', 'rxjs/add/operator/auditTime', '@angular/cdk', 'rxjs/add/operator/first', 'rxjs/add/observable/of', '@angular/forms', '@angular/animations', 'rxjs/add/operator/startWith', 'rxjs/add/operator/filter', '@angular/http', 'rxjs/add/observable/forkJoin', 'rxjs/add/operator/map', 'rxjs/add/operator/do', 'rxjs/add/operator/share', 'rxjs/add/operator/finally', 'rxjs/add/operator/catch', 'rxjs/add/observable/throw', 'rxjs/add/operator/takeUntil', 'rxjs/add/operator/switchMap', 'rxjs/BehaviorSubject', 'rxjs/add/operator/let', 'rxjs/add/observable/combineLatest'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.platformBrowser,global.Rx,global.Rx.Observable.prototype,global.ng.common,global.Rx,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.ng.cdk,global.Rx.Observable.prototype,global.Rx.Observable,global.ng.forms,global.ng.animations,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.ng.http,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx));
-}(this, (function (exports,_angular_core,_angular_platformBrowser,rxjs_Subject,rxjs_add_operator_debounceTime,_angular_common,rxjs_Observable,rxjs_Subscription,rxjs_add_observable_fromEvent,rxjs_add_observable_merge,rxjs_add_operator_auditTime,_angular_cdk,rxjs_add_operator_first,rxjs_add_observable_of,_angular_forms,_angular_animations,rxjs_add_operator_startWith,rxjs_add_operator_filter,_angular_http,rxjs_add_observable_forkJoin,rxjs_add_operator_map,rxjs_add_operator_do,rxjs_add_operator_share,rxjs_add_operator_finally,rxjs_add_operator_catch,rxjs_add_observable_throw,rxjs_add_operator_takeUntil,rxjs_add_operator_switchMap,rxjs_BehaviorSubject) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('rxjs/Subject'), require('rxjs/operator/finally'), require('rxjs/operator/catch'), require('rxjs/operator/do'), require('rxjs/operator/map'), require('rxjs/operator/filter'), require('rxjs/operator/share'), require('rxjs/operator/first'), require('rxjs/operator/switchMap'), require('rxjs/operator/startWith'), require('rxjs/operator/debounceTime'), require('rxjs/operator/auditTime'), require('rxjs/operator/takeUntil'), require('@angular/common'), require('rxjs/Subscription'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('@angular/cdk'), require('rxjs/observable/of'), require('@angular/forms'), require('@angular/animations'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/throw'), require('rxjs/observable/forkJoin'), require('rxjs/BehaviorSubject')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', 'rxjs/Subject', 'rxjs/operator/finally', 'rxjs/operator/catch', 'rxjs/operator/do', 'rxjs/operator/map', 'rxjs/operator/filter', 'rxjs/operator/share', 'rxjs/operator/first', 'rxjs/operator/switchMap', 'rxjs/operator/startWith', 'rxjs/operator/debounceTime', 'rxjs/operator/auditTime', 'rxjs/operator/takeUntil', '@angular/common', 'rxjs/Subscription', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', '@angular/cdk', 'rxjs/observable/of', '@angular/forms', '@angular/animations', '@angular/http', 'rxjs/Observable', 'rxjs/observable/throw', 'rxjs/observable/forkJoin', 'rxjs/BehaviorSubject'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.platformBrowser,global.Rx,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.ng.common,global.Rx,global.Rx.Observable,global.Rx.Observable,global.ng.cdk,global.Rx.Observable,global.ng.forms,global.ng.animations,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx));
+}(this, (function (exports,_angular_core,_angular_platformBrowser,rxjs_Subject,rxjs_operator_finally,rxjs_operator_catch,rxjs_operator_do,rxjs_operator_map,rxjs_operator_filter,rxjs_operator_share,rxjs_operator_first,rxjs_operator_switchMap,rxjs_operator_startWith,rxjs_operator_debounceTime,rxjs_operator_auditTime,rxjs_operator_takeUntil,_angular_common,rxjs_Subscription,rxjs_observable_fromEvent,rxjs_observable_merge,_angular_cdk,rxjs_observable_of,_angular_forms,_angular_animations,_angular_http,rxjs_Observable,rxjs_observable_throw,rxjs_observable_forkJoin,rxjs_BehaviorSubject) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -470,6 +470,86 @@ MdLineModule.decorators = [
  */
 MdLineModule.ctorParameters = function () { return []; };
 /**
+ * Utility class used to chain RxJS operators.
+ *
+ * This class is the concrete implementation, but the type used by the user when chaining
+ * is StrictRxChain. The strict chain enforces types on the operators to the same level as
+ * the prototype-added equivalents.
+ *
+ * \@docs-private
+ */
+var RxChain = (function () {
+    /**
+     * @param {?} _context
+     */
+    function RxChain(_context) {
+        this._context = _context;
+    }
+    /**
+     * Starts a new chain and specifies the initial `this` value.
+     * @template T
+     * @param {?} context Initial `this` value for the chain.
+     * @return {?}
+     */
+    RxChain.from = function (context) {
+        return new RxChain(context);
+    };
+    /**
+     * Invokes an RxJS operator as a part of the chain.
+     * @param {?} operator Operator to be invoked.
+     * @param {...?} args Arguments to be passed to the operator.
+     * @return {?}
+     */
+    RxChain.prototype.call = function (operator) {
+        var args = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            args[_i - 1] = arguments[_i];
+        }
+        this._context = operator.call.apply(operator, [this._context].concat(args));
+        return this;
+    };
+    /**
+     * Subscribes to the result of the chain.
+     * @param {?} fn Callback to be invoked when the result emits a value.
+     * @return {?}
+     */
+    RxChain.prototype.subscribe = function (fn) {
+        return this._context.subscribe(fn);
+    };
+    /**
+     * Returns the result of the chain.
+     * @return {?}
+     */
+    RxChain.prototype.result = function () {
+        return this._context;
+    };
+    return RxChain;
+}());
+// @docs-private
+var finallyOperator = (rxjs_operator_finally._finally);
+// @docs-private
+var catchOperator = (rxjs_operator_catch._catch);
+// @docs-private
+var doOperator = (rxjs_operator_do._do);
+// @docs-private
+var map$1 = (rxjs_operator_map.map);
+// @docs-private
+var filter$1 = (rxjs_operator_filter.filter);
+// @docs-private
+var share$1 = (rxjs_operator_share.share);
+// @docs-private
+var first$1 = (rxjs_operator_first.first);
+// @docs-private
+var switchMap$1 = (rxjs_operator_switchMap.switchMap);
+// @docs-private
+var startWith$1 = (rxjs_operator_startWith.startWith);
+// @docs-private
+var debounceTime$1 = (rxjs_operator_debounceTime.debounceTime);
+// @docs-private
+var auditTime$1 = (rxjs_operator_auditTime.auditTime);
+// @docs-private
+var takeUntil$1 = (rxjs_operator_takeUntil.takeUntil);
+/**
  * Factory that creates a new MutationObserver and allows us to stub it out in unit tests.
  * \@docs-private
  */
@@ -519,8 +599,8 @@ var ObserveContent = (function () {
     ObserveContent.prototype.ngAfterContentInit = function () {
         var _this = this;
         if (this.debounce > 0) {
-            this._debouncer
-                .debounceTime(this.debounce)
+            RxChain.from(this._debouncer)
+                .call(debounceTime$1, this.debounce)
                 .subscribe(function (mutations) { return _this.event.emit(mutations); });
         }
         else {
@@ -1036,12 +1116,12 @@ var ScrollDispatcher = (function () {
         // In the case of a 0ms delay, use an observable without auditTime
         // since it does add a perceptible delay in processing overhead.
         var /** @type {?} */ observable = auditTimeInMs > 0 ?
-            this._scrolled.asObservable().auditTime(auditTimeInMs) :
+            auditTime$1.call(this._scrolled.asObservable(), auditTimeInMs) :
             this._scrolled.asObservable();
         this._scrolledCount++;
         if (!this._globalSubscription) {
             this._globalSubscription = this._ngZone.runOutsideAngular(function () {
-                return rxjs_Observable.Observable.merge(rxjs_Observable.Observable.fromEvent(window.document, 'scroll'), rxjs_Observable.Observable.fromEvent(window, 'resize')).subscribe(function () { return _this._notify(); });
+                return rxjs_observable_merge.merge(rxjs_observable_fromEvent.fromEvent(window.document, 'scroll'), rxjs_observable_fromEvent.fromEvent(window, 'resize')).subscribe(function () { return _this._notify(); });
             });
         }
         // Note that we need to do the subscribing from here, in order to be able to remove
@@ -4726,7 +4806,7 @@ var FocusTrap = (function () {
             fn();
         }
         else {
-            this._ngZone.onStable.first().subscribe(fn);
+            first$1.call(this._ngZone.onStable).subscribe(fn);
         }
     };
     return FocusTrap;
@@ -5370,7 +5450,7 @@ var FocusOriginMonitor = (function () {
         var _this = this;
         // Do nothing if we're not on the browser platform.
         if (!this._platform.isBrowser) {
-            return rxjs_Observable.Observable.of(null);
+            return rxjs_observable_of.of(null);
         }
         // Check if we're already monitoring this element.
         if (this._elementInfo.has(element)) {
@@ -5872,10 +5952,10 @@ var DateAdapter = (function () {
      * @return {?} 0 if the dates are equal, a number less than 0 if the first date is earlier,
      *     a number greater than 0 if the first date is later.
      */
-    DateAdapter.prototype.compareDate = function (first, second) {
-        return this.getYear(first) - this.getYear(second) ||
-            this.getMonth(first) - this.getMonth(second) ||
-            this.getDate(first) - this.getDate(second);
+    DateAdapter.prototype.compareDate = function (first$$1, second) {
+        return this.getYear(first$$1) - this.getYear(second) ||
+            this.getMonth(first$$1) - this.getMonth(second) ||
+            this.getDate(first$$1) - this.getDate(second);
     };
     /**
      * Checks if two dates are equal.
@@ -5884,8 +5964,8 @@ var DateAdapter = (function () {
      *     Null dates are considered equal to other null dates.
      * @return {?}
      */
-    DateAdapter.prototype.sameDate = function (first, second) {
-        return first && second ? !this.compareDate(first, second) : first == second;
+    DateAdapter.prototype.sameDate = function (first$$1, second) {
+        return first$$1 && second ? !this.compareDate(first$$1, second) : first$$1 == second;
     };
     /**
      * Clamp the given date between min and max dates.
@@ -9010,7 +9090,7 @@ var MdSelect = (function (_super) {
          * @return {?}
          */
         get: function () {
-            return rxjs_Observable.Observable.merge.apply(rxjs_Observable.Observable, this.options.map(function (option) { return option.onSelectionChange; }));
+            return rxjs_observable_merge.merge.apply(void 0, this.options.map(function (option) { return option.onSelectionChange; }));
         },
         enumerable: true,
         configurable: true
@@ -9027,7 +9107,7 @@ var MdSelect = (function (_super) {
     MdSelect.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._initKeyManager();
-        this._changeSubscription = this.options.changes.startWith(null).subscribe(function () {
+        this._changeSubscription = startWith$1.call(this.options.changes, null).subscribe(function () {
             _this._resetOptions();
             if (_this._control) {
                 // Defer setting the value in order to avoid the "Expression
@@ -9357,9 +9437,7 @@ var MdSelect = (function (_super) {
      */
     MdSelect.prototype._listenToOptions = function () {
         var _this = this;
-        this._optionSubscription = this.optionSelectionChanges
-            .filter(function (event) { return event.isUserInput; })
-            .subscribe(function (event) {
+        this._optionSubscription = filter$1.call(this.optionSelectionChanges, function (event) { return event.isUserInput; }).subscribe(function (event) {
             _this._onSelect(event.source);
             _this._setValueWidth();
             if (!_this.multiple) {
@@ -11676,7 +11754,7 @@ var MdSidenavContainer = (function () {
         });
         this._validateDrawers();
         // Give the view a chance to render the initial state, then enable transitions.
-        this._ngZone.onMicrotaskEmpty.first().subscribe(function () { return _this._enableTransitions = true; });
+        first$1.call(this._ngZone.onMicrotaskEmpty).subscribe(function () { return _this._enableTransitions = true; });
     };
     /**
      * Calls `open` of both start and end sidenavs
@@ -11724,7 +11802,7 @@ var MdSidenavContainer = (function () {
         }
         // NOTE: We need to wait for the microtask queue to be empty before validating,
         // since both drawers may be swapping sides at the same time.
-        sidenav.onAlignChanged.subscribe(function () { return _this._ngZone.onMicrotaskEmpty.first().subscribe(function () { return _this._validateDrawers(); }); });
+        sidenav.onAlignChanged.subscribe(function () { return first$1.call(_this._ngZone.onMicrotaskEmpty).subscribe(function () { return _this._validateDrawers(); }); });
     };
     /**
      * Toggles the 'mat-sidenav-opened' class on the main 'md-sidenav-container' element.
@@ -13925,11 +14003,12 @@ var MdIconRegistry = (function () {
         }
         var /** @type {?} */ cachedIcon = this._cachedIconsByUrl.get(url);
         if (cachedIcon) {
-            return rxjs_Observable.Observable.of(cloneSvg(cachedIcon));
+            return rxjs_observable_of.of(cloneSvg(cachedIcon));
         }
-        return this._loadSvgIconFromConfig(new SvgIconConfig(url))
-            .do(function (svg) { return _this._cachedIconsByUrl.set(/** @type {?} */ ((url)), svg); })
-            .map(function (svg) { return cloneSvg(svg); });
+        return RxChain.from(this._loadSvgIconFromConfig(new SvgIconConfig(url)))
+            .call(doOperator, function (svg) { return _this._cachedIconsByUrl.set(/** @type {?} */ ((url)), svg); })
+            .call(map$1, function (svg) { return cloneSvg(svg); })
+            .result();
     };
     /**
      * Returns an Observable that produces the icon (as an <svg> DOM element) with the given name
@@ -13953,7 +14032,7 @@ var MdIconRegistry = (function () {
         if (iconSetConfigs) {
             return this._getSvgFromIconSetConfigs(name, iconSetConfigs);
         }
-        return rxjs_Observable.Observable.throw(getMdIconNameNotFoundError(key));
+        return rxjs_observable_throw._throw(getMdIconNameNotFoundError(key));
     };
     /**
      * Returns the cached icon for a SvgIconConfig if available, or fetches it from its URL if not.
@@ -13963,13 +14042,14 @@ var MdIconRegistry = (function () {
     MdIconRegistry.prototype._getSvgFromConfig = function (config) {
         if (config.svgElement) {
             // We already have the SVG element for this icon, return a copy.
-            return rxjs_Observable.Observable.of(cloneSvg(config.svgElement));
+            return rxjs_observable_of.of(cloneSvg(config.svgElement));
         }
         else {
             // Fetch the icon from the config's URL, cache it, and return a copy.
-            return this._loadSvgIconFromConfig(config)
-                .do(function (svg) { return config.svgElement = svg; })
-                .map(function (svg) { return cloneSvg(svg); });
+            return RxChain.from(this._loadSvgIconFromConfig(config))
+                .call(doOperator, function (svg) { return config.svgElement = svg; })
+                .call(map$1, function (svg) { return cloneSvg(svg); })
+                .result();
         }
     };
     /**
@@ -13992,30 +14072,32 @@ var MdIconRegistry = (function () {
             // We could cache namedIcon in _svgIconConfigs, but since we have to make a copy every
             // time anyway, there's probably not much advantage compared to just always extracting
             // it from the icon set.
-            return rxjs_Observable.Observable.of(namedIcon);
+            return rxjs_observable_of.of(namedIcon);
         }
         // Not found in any cached icon sets. If there are icon sets with URLs that we haven't
         // fetched, fetch them now and look for iconName in the results.
         var /** @type {?} */ iconSetFetchRequests = iconSetConfigs
             .filter(function (iconSetConfig) { return !iconSetConfig.svgElement; })
-            .map(function (iconSetConfig) { return _this._loadSvgIconSetFromConfig(iconSetConfig)
-            .catch(function (err) {
-            var /** @type {?} */ url = _this._sanitizer.sanitize(_angular_core.SecurityContext.RESOURCE_URL, iconSetConfig.url);
-            // Swallow errors fetching individual URLs so the combined Observable won't
-            // necessarily fail.
-            console.log("Loading icon set URL: " + url + " failed: " + err);
-            return rxjs_Observable.Observable.of(null);
-        })
-            .do(function (svg) {
-            // Cache SVG element.
-            if (svg) {
-                iconSetConfig.svgElement = svg;
-            }
-        }); });
+            .map(function (iconSetConfig) {
+            return RxChain.from(_this._loadSvgIconSetFromConfig(iconSetConfig))
+                .call(catchOperator, function (err) {
+                var /** @type {?} */ url = _this._sanitizer.sanitize(_angular_core.SecurityContext.RESOURCE_URL, iconSetConfig.url);
+                // Swallow errors fetching individual URLs so the combined Observable won't
+                // necessarily fail.
+                console.log("Loading icon set URL: " + url + " failed: " + err);
+                return rxjs_observable_of.of(null);
+            })
+                .call(doOperator, function (svg) {
+                // Cache the SVG element.
+                if (svg) {
+                    iconSetConfig.svgElement = svg;
+                }
+            })
+                .result();
+        });
         // Fetch all the icon set URLs. When the requests complete, every IconSet should have a
         // cached SVG element (unless the request failed), and we can check again for the icon.
-        return rxjs_Observable.Observable.forkJoin(iconSetFetchRequests)
-            .map(function () {
+        return map$1.call(rxjs_observable_forkJoin.forkJoin.call(rxjs_Observable.Observable, iconSetFetchRequests), function () {
             var /** @type {?} */ foundIcon = _this._extractIconWithNameFromAnySet(name, iconSetConfigs);
             if (!foundIcon) {
                 throw getMdIconNameNotFoundError(name);
@@ -14052,8 +14134,7 @@ var MdIconRegistry = (function () {
      */
     MdIconRegistry.prototype._loadSvgIconFromConfig = function (config) {
         var _this = this;
-        return this._fetchUrl(config.url)
-            .map(function (svgText) { return _this._createSvgElementForSingleIcon(svgText); });
+        return map$1.call(this._fetchUrl(config.url), function (svgText) { return _this._createSvgElementForSingleIcon(svgText); });
     };
     /**
      * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
@@ -14064,8 +14145,7 @@ var MdIconRegistry = (function () {
     MdIconRegistry.prototype._loadSvgIconSetFromConfig = function (config) {
         var _this = this;
         // TODO: Document that icons should only be loaded from trusted sources.
-        return this._fetchUrl(config.url)
-            .map(function (svgText) { return _this._svgElementFromString(svgText); });
+        return map$1.call(this._fetchUrl(config.url), function (svgText) { return _this._svgElementFromString(svgText); });
     };
     /**
      * Creates a DOM element from the given SVG string, and adds default attributes.
@@ -14181,12 +14261,11 @@ var MdIconRegistry = (function () {
         }
         // TODO(jelbourn): for some reason, the `finally` operator "loses" the generic type on the
         // Observable. Figure out why and fix it.
-        var /** @type {?} */ req = (this._http.get(url)
-            .map(function (response) { return response.text(); })
-            .finally(function () {
-            _this._inProgressUrlFetches.delete(url);
-        })
-            .share());
+        var /** @type {?} */ req = RxChain.from(this._http.get(url))
+            .call(map$1, function (response) { return response.text(); })
+            .call(finallyOperator, function () { return _this._inProgressUrlFetches.delete(url); })
+            .call(share$1)
+            .result();
         this._inProgressUrlFetches.set(url, req);
         return req;
     };
@@ -14341,7 +14420,7 @@ var MdIcon = (function (_super) {
         if (changedInputs.indexOf('svgIcon') != -1 || changedInputs.indexOf('svgSrc') != -1) {
             if (this.svgIcon) {
                 var _a = this._splitIconName(this.svgIcon), namespace = _a[0], iconName = _a[1];
-                this._mdIconRegistry.getNamedSvgIcon(iconName, namespace).first().subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
+                first$1.call(this._mdIconRegistry.getNamedSvgIcon(iconName, namespace)).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
             }
         }
         if (this._usingFontIcon()) {
@@ -16242,7 +16321,7 @@ var MdSnackBarContainer = (function (_super) {
         // Note: we shouldn't use `this` inside the zone callback,
         // because it can cause a memory leak.
         var /** @type {?} */ onExit = this.onExit;
-        this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
+        first$1.call(this._ngZone.onMicrotaskEmpty).subscribe(function () {
             onExit.next();
             onExit.complete();
         });
@@ -16759,7 +16838,7 @@ var MdTabGroup = (function () {
          * @return {?}
          */
         get: function () {
-            return this.selectChange.map(function (event) { return event.index; });
+            return map$1.call(this.selectChange, function (event) { return event.index; });
         },
         enumerable: true,
         configurable: true
@@ -17063,12 +17142,11 @@ var MdTabNav = (function () {
     MdTabNav.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._ngZone.runOutsideAngular(function () {
-            var /** @type {?} */ dirChange = _this._dir ? _this._dir.change : rxjs_Observable.Observable.of(null);
+            var /** @type {?} */ dirChange = _this._dir ? _this._dir.change : rxjs_observable_of.of(null);
             var /** @type {?} */ resize = typeof window !== 'undefined' ?
-                rxjs_Observable.Observable.fromEvent(window, 'resize').auditTime(10) :
-                rxjs_Observable.Observable.of(null);
-            return rxjs_Observable.Observable.merge(dirChange, resize)
-                .takeUntil(_this._onDestroy)
+                auditTime$1.call(rxjs_observable_fromEvent.fromEvent(window, 'resize'), 10) :
+                rxjs_observable_of.of(null);
+            return takeUntil$1.call(rxjs_observable_merge.merge(dirChange, resize), _this._onDestroy)
                 .subscribe(function () { return _this._alignInkBar(); });
         });
     };
@@ -17523,11 +17601,11 @@ var MdTabHeader = (function () {
     MdTabHeader.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._realignInkBar = this._ngZone.runOutsideAngular(function () {
-            var /** @type {?} */ dirChange = _this._dir ? _this._dir.change : rxjs_Observable.Observable.of(null);
+            var /** @type {?} */ dirChange = _this._dir ? _this._dir.change : rxjs_observable_of.of(null);
             var /** @type {?} */ resize = typeof window !== 'undefined' ?
-                rxjs_Observable.Observable.fromEvent(window, 'resize').auditTime(10) :
-                rxjs_Observable.Observable.of(null);
-            return rxjs_Observable.Observable.merge(dirChange, resize).startWith(null).subscribe(function () {
+                auditTime$1.call(rxjs_observable_fromEvent.fromEvent(window, 'resize'), 10) :
+                rxjs_observable_of.of(null);
+            return startWith$1.call(rxjs_observable_merge.merge(dirChange, resize), null).subscribe(function () {
                 _this._updatePagination();
                 _this._alignInkBarToSelectedTab();
             });
@@ -18353,7 +18431,7 @@ var MdTooltip = (function () {
         if (this._tooltipInstance) {
             this._tooltipInstance.message = message;
             this._tooltipInstance._markForCheck();
-            this._ngZone.onMicrotaskEmpty.first().subscribe(function () {
+            first$1.call(this._ngZone.onMicrotaskEmpty).subscribe(function () {
                 if (_this._tooltipInstance) {
                     ((_this._overlayRef)).updatePosition();
                 }
@@ -19365,8 +19443,7 @@ var MdDialogRef = (function () {
          * Subject for notifying the user that the dialog has finished closing.
          */
         this._afterClosed = new rxjs_Subject.Subject();
-        _containerInstance._onAnimationStateChange
-            .filter(function (event) { return event.toState === 'exit'; })
+        filter$1.call(_containerInstance._onAnimationStateChange, function (event) { return event.toState === 'exit'; })
             .subscribe(function () { return _this._overlayRef.dispose(); }, undefined, function () {
             _this._afterClosed.next(_this._result);
             _this._afterClosed.complete();
@@ -20276,7 +20353,7 @@ var MdAutocompleteTrigger = (function () {
          * @return {?}
          */
         get: function () {
-            return rxjs_Observable.Observable.merge(this.optionSelections, this.autocomplete._keyManager.tabOut, this._outsideClickStream);
+            return rxjs_observable_merge.merge(this.optionSelections, this.autocomplete._keyManager.tabOut, this._outsideClickStream);
         },
         enumerable: true,
         configurable: true
@@ -20287,7 +20364,7 @@ var MdAutocompleteTrigger = (function () {
          * @return {?}
          */
         get: function () {
-            return rxjs_Observable.Observable.merge.apply(rxjs_Observable.Observable, this.autocomplete.options.map(function (option) { return option.onSelectionChange; }));
+            return rxjs_observable_merge.merge.apply(void 0, this.autocomplete.options.map(function (option) { return option.onSelectionChange; }));
         },
         enumerable: true,
         configurable: true
@@ -20313,18 +20390,18 @@ var MdAutocompleteTrigger = (function () {
          */
         get: function () {
             var _this = this;
-            if (this._document) {
-                return rxjs_Observable.Observable.merge(rxjs_Observable.Observable.fromEvent(this._document, 'click'), rxjs_Observable.Observable.fromEvent(this._document, 'touchend')).filter(function (event) {
-                    var /** @type {?} */ clickTarget = (event.target);
-                    var /** @type {?} */ inputContainer = _this._inputContainer ?
-                        _this._inputContainer._elementRef.nativeElement : null;
-                    return _this._panelOpen &&
-                        clickTarget !== _this._element.nativeElement &&
-                        (!inputContainer || !inputContainer.contains(clickTarget)) &&
-                        (!!_this._overlayRef && !_this._overlayRef.overlayElement.contains(clickTarget));
-                });
+            if (!this._document) {
+                return rxjs_observable_of.of(null);
             }
-            return rxjs_Observable.Observable.of(null);
+            return RxChain.from(rxjs_observable_merge.merge(rxjs_observable_fromEvent.fromEvent(this._document, 'click'), rxjs_observable_fromEvent.fromEvent(this._document, 'touchend'))).call(filter$1, function (event) {
+                var /** @type {?} */ clickTarget = (event.target);
+                var /** @type {?} */ inputContainer = _this._inputContainer ?
+                    _this._inputContainer._elementRef.nativeElement : null;
+                return _this._panelOpen &&
+                    clickTarget !== _this._element.nativeElement &&
+                    (!inputContainer || !inputContainer.contains(clickTarget)) &&
+                    (!!_this._overlayRef && !_this._overlayRef.overlayElement.contains(clickTarget));
+            }).result();
         },
         enumerable: true,
         configurable: true
@@ -20445,12 +20522,12 @@ var MdAutocompleteTrigger = (function () {
     MdAutocompleteTrigger.prototype._subscribeToClosingActions = function () {
         var _this = this;
         // When the zone is stable initially, and when the option list changes...
-        rxjs_Observable.Observable.merge(this._zone.onStable.first(), this.autocomplete.options.changes)
-            .switchMap(function () {
+        RxChain.from(rxjs_observable_merge.merge(first$1.call(this._zone.onStable), this.autocomplete.options.changes))
+            .call(switchMap$1, function () {
             _this._resetPanel();
             return _this.panelClosingActions;
         })
-            .first()
+            .call(first$1)
             .subscribe(function (event) { return _this._setValueAndClose(event); });
     };
     /**
@@ -21294,9 +21371,8 @@ var MdCalendar = (function () {
      */
     MdCalendar.prototype._focusActiveCell = function () {
         var _this = this;
-        this._ngZone.runOutsideAngular(function () { return _this._ngZone.onStable.first().subscribe(function () {
-            var /** @type {?} */ activeEl = _this._elementRef.nativeElement.querySelector('.mat-calendar-body-active');
-            activeEl.focus();
+        this._ngZone.runOutsideAngular(function () { return first$1.call(_this._ngZone.onStable).subscribe(function () {
+            _this._elementRef.nativeElement.querySelector('.mat-calendar-body-active').focus();
         }); });
     };
     /**
@@ -21731,7 +21807,7 @@ var MdDatepicker = (function () {
             var /** @type {?} */ componentRef = this._popupRef.attach(this._calendarPortal);
             componentRef.instance.datepicker = this;
             // Update the position once the calendar has rendered.
-            this._ngZone.onStable.first().subscribe(function () { return _this._popupRef.updatePosition(); });
+            first$1.call(this._ngZone.onStable).subscribe(function () { return _this._popupRef.updatePosition(); });
         }
         this._popupRef.backdropClick().subscribe(function () { return _this.close(); });
     };
@@ -21882,8 +21958,8 @@ var MdDatepickerInput = (function () {
          * @param {?} filter
          * @return {?}
          */
-        set: function (filter) {
-            this._dateFilter = filter;
+        set: function (filter$$1) {
+            this._dateFilter = filter$$1;
             this._validatorOnChange();
         },
         enumerable: true,
@@ -21894,8 +21970,8 @@ var MdDatepickerInput = (function () {
          * @param {?} filter
          * @return {?}
          */
-        set: function (filter) {
-            this.mdDatepickerFilter = filter;
+        set: function (filter$$1) {
+            this.mdDatepickerFilter = filter$$1;
         },
         enumerable: true,
         configurable: true
@@ -22658,17 +22734,15 @@ var CdkTable = (function () {
         });
         // Re-render the rows if any of their columns change.
         // TODO(andrewseguin): Determine how to only re-render the rows that have their columns changed.
-        rxjs_Observable.Observable.merge.apply(rxjs_Observable.Observable, this._rowDefinitions.map(function (rowDef) { return rowDef.columnsChange; })).takeUntil(this._onDestroy)
-            .subscribe(function () {
+        var /** @type {?} */ columnChangeEvents = this._rowDefinitions.map(function (rowDef) { return rowDef.columnsChange; });
+        takeUntil$1.call(rxjs_observable_merge.merge.apply(void 0, columnChangeEvents), this._onDestroy).subscribe(function () {
             // Reset the data to an empty array so that renderRowChanges will re-render all new rows.
             _this._rowPlaceholder.viewContainer.clear();
             _this._dataDiffer.diff([]);
             _this._renderRowChanges();
         });
         // Re-render the header row if the columns change
-        this._headerDefinition.columnsChange
-            .takeUntil(this._onDestroy)
-            .subscribe(function () {
+        takeUntil$1.call(this._headerDefinition.columnsChange, this._onDestroy).subscribe(function () {
             _this._headerRowPlaceholder.viewContainer.clear();
             _this._renderHeaderRow();
         });
@@ -22718,8 +22792,7 @@ var CdkTable = (function () {
      */
     CdkTable.prototype._observeRenderChanges = function () {
         var _this = this;
-        this._renderChangeSubscription = this.dataSource.connect(this)
-            .takeUntil(this._onDestroy)
+        this._renderChangeSubscription = takeUntil$1.call(this.dataSource.connect(this), this._onDestroy)
             .subscribe(function (data) {
             _this._data = data;
             _this._renderRowChanges();

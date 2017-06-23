@@ -10,10 +10,6 @@ import { MdInkBar } from '../ink-bar';
 import { CanDisable } from '../../core/common-behaviors/disabled';
 import { ViewportRuler } from '../../core/overlay/position/viewport-ruler';
 import { Directionality, Platform, RippleGlobalOptions } from '../../core';
-import 'rxjs/add/operator/auditTime';
-import 'rxjs/add/operator/takeUntil';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/merge';
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
