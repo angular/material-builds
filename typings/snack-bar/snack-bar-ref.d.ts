@@ -27,9 +27,16 @@ export declare class MdSnackBarRef<T> {
     private _afterOpened;
     /** Subject for notifying the user that the snack bar action was called. */
     private _onAction;
+    /**
+     * Timeout ID for the duration setTimeout call. Used to clear the timeout if the snackbar is
+     * dismissed before the duration passes.
+     */
+    private _durationTimeoutId;
     constructor(instance: T, containerInstance: MdSnackBarContainer, _overlayRef: OverlayRef);
     /** Dismisses the snack bar. */
     dismiss(): void;
+    /** Dismisses the snack bar after some duration */
+    _dismissAfter(duration: number): void;
     /** Marks the snackbar action clicked. */
     _action(): void;
     /** Marks the snackbar as opened */

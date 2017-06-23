@@ -15120,6 +15120,15 @@ class MdSnackBarRef {
         if (!this._afterClosed.closed) {
             this.containerInstance.exit();
         }
+        clearTimeout(this._durationTimeoutId);
+    }
+    /**
+     * Dismisses the snack bar after some duration
+     * @param {?} duration
+     * @return {?}
+     */
+    _dismissAfter(duration) {
+        this._durationTimeoutId = setTimeout(() => this.dismiss(), duration);
     }
     /**
      * Marks the snackbar action clicked.
@@ -15469,7 +15478,7 @@ class MdSnackBar {
         // If a dismiss timeout is provided, set up dismiss based on after the snackbar is opened.
         if (config.duration && config.duration > 0) {
             snackBarRef.afterOpened().subscribe(() => {
-                setTimeout(() => snackBarRef.dismiss(), /** @type {?} */ ((config)).duration);
+                snackBarRef._dismissAfter(/** @type {?} */ ((((config)).duration)));
             });
         }
         if (config.announcementMessage) {

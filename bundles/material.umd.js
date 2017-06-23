@@ -16053,6 +16053,16 @@ var MdSnackBarRef = (function () {
         if (!this._afterClosed.closed) {
             this.containerInstance.exit();
         }
+        clearTimeout(this._durationTimeoutId);
+    };
+    /**
+     * Dismisses the snack bar after some duration
+     * @param {?} duration
+     * @return {?}
+     */
+    MdSnackBarRef.prototype._dismissAfter = function (duration) {
+        var _this = this;
+        this._durationTimeoutId = setTimeout(function () { return _this.dismiss(); }, duration);
     };
     /**
      * Marks the snackbar action clicked.
@@ -16420,7 +16430,7 @@ var MdSnackBar = (function () {
         // If a dismiss timeout is provided, set up dismiss based on after the snackbar is opened.
         if (config.duration && config.duration > 0) {
             snackBarRef.afterOpened().subscribe(function () {
-                setTimeout(function () { return snackBarRef.dismiss(); }, /** @type {?} */ ((config)).duration);
+                snackBarRef._dismissAfter(/** @type {?} */ ((((config)).duration)));
             });
         }
         if (config.announcementMessage) {
