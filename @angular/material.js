@@ -5534,7 +5534,7 @@ class CdkMonitorFocus {
         this._elementRef = _elementRef;
         this._focusOriginMonitor = _focusOriginMonitor;
         this.cdkFocusChange = new EventEmitter();
-        this._focusOriginMonitor.monitor(this._elementRef.nativeElement, renderer, this._elementRef.nativeElement.hasAttribute('cdkMonitorSubtreeFocus'))
+        this._monitorSubscription = this._focusOriginMonitor.monitor(this._elementRef.nativeElement, renderer, this._elementRef.nativeElement.hasAttribute('cdkMonitorSubtreeFocus'))
             .subscribe(origin => this.cdkFocusChange.emit(origin));
     }
     /**
@@ -5542,6 +5542,7 @@ class CdkMonitorFocus {
      */
     ngOnDestroy() {
         this._focusOriginMonitor.stopMonitoring(this._elementRef.nativeElement);
+        this._monitorSubscription.unsubscribe();
     }
 }
 CdkMonitorFocus.decorators = [
@@ -16140,7 +16141,7 @@ class MdTabNav {
      * @return {?}
      */
     ngAfterContentInit() {
-        this._ngZone.runOutsideAngular(() => {
+        this._resizeSubscription = this._ngZone.runOutsideAngular(() => {
             let /** @type {?} */ dirChange = this._dir ? this._dir.change : of(null);
             let /** @type {?} */ resize = typeof window !== 'undefined' ?
                 auditTime$1.call(fromEvent(window, 'resize'), 10) :
@@ -16164,6 +16165,7 @@ class MdTabNav {
      */
     ngOnDestroy() {
         this._onDestroy.next();
+        this._resizeSubscription.unsubscribe();
     }
     /**
      * Aligns the ink bar to the active link.
@@ -19133,7 +19135,7 @@ class MdAutocompleteTrigger {
         }
         if (this._overlayRef && !this._overlayRef.hasAttached()) {
             this._overlayRef.attach(this._portal);
-            this._subscribeToClosingActions();
+            this._closingActionsSubscription = this._subscribeToClosingActions();
         }
         this.autocomplete._setVisibility();
         this._floatPlaceholder();
@@ -19146,6 +19148,7 @@ class MdAutocompleteTrigger {
     closePanel() {
         if (this._overlayRef && this._overlayRef.hasAttached()) {
             this._overlayRef.detach();
+            this._closingActionsSubscription.unsubscribe();
         }
         this._panelOpen = false;
         this._resetPlaceholder();
@@ -19311,7 +19314,7 @@ class MdAutocompleteTrigger {
      */
     _subscribeToClosingActions() {
         // When the zone is stable initially, and when the option list changes...
-        RxChain.from(merge(first$1.call(this._zone.onStable), this.autocomplete.options.changes))
+        return RxChain.from(merge(first$1.call(this._zone.onStable), this.autocomplete.options.changes))
             .call(switchMap$1, () => {
             this._resetPanel();
             return this.panelClosingActions;

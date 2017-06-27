@@ -22,6 +22,8 @@ export declare class MdTabNav implements AfterContentInit, OnDestroy {
     _activeLinkChanged: boolean;
     _activeLinkElement: ElementRef;
     _inkBar: MdInkBar;
+    /** Subscription for window.resize event **/
+    private _resizeSubscription;
     constructor(_dir: Directionality, _ngZone: NgZone);
     /** Notifies the component that the active link has been changed. */
     updateActiveLink(element: ElementRef): void;

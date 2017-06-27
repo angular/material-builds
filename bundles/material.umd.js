@@ -5690,7 +5690,7 @@ var CdkMonitorFocus = (function () {
         this._elementRef = _elementRef;
         this._focusOriginMonitor = _focusOriginMonitor;
         this.cdkFocusChange = new _angular_core.EventEmitter();
-        this._focusOriginMonitor.monitor(this._elementRef.nativeElement, renderer, this._elementRef.nativeElement.hasAttribute('cdkMonitorSubtreeFocus'))
+        this._monitorSubscription = this._focusOriginMonitor.monitor(this._elementRef.nativeElement, renderer, this._elementRef.nativeElement.hasAttribute('cdkMonitorSubtreeFocus'))
             .subscribe(function (origin) { return _this.cdkFocusChange.emit(origin); });
     }
     /**
@@ -5698,6 +5698,7 @@ var CdkMonitorFocus = (function () {
      */
     CdkMonitorFocus.prototype.ngOnDestroy = function () {
         this._focusOriginMonitor.stopMonitoring(this._elementRef.nativeElement);
+        this._monitorSubscription.unsubscribe();
     };
     return CdkMonitorFocus;
 }());
@@ -17141,7 +17142,7 @@ var MdTabNav = (function () {
      */
     MdTabNav.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this._ngZone.runOutsideAngular(function () {
+        this._resizeSubscription = this._ngZone.runOutsideAngular(function () {
             var /** @type {?} */ dirChange = _this._dir ? _this._dir.change : rxjs_observable_of.of(null);
             var /** @type {?} */ resize = typeof window !== 'undefined' ?
                 auditTime$1.call(rxjs_observable_fromEvent.fromEvent(window, 'resize'), 10) :
@@ -17165,6 +17166,7 @@ var MdTabNav = (function () {
      */
     MdTabNav.prototype.ngOnDestroy = function () {
         this._onDestroy.next();
+        this._resizeSubscription.unsubscribe();
     };
     /**
      * Aligns the ink bar to the active link.
@@ -20324,7 +20326,7 @@ var MdAutocompleteTrigger = (function () {
         }
         if (this._overlayRef && !this._overlayRef.hasAttached()) {
             this._overlayRef.attach(this._portal);
-            this._subscribeToClosingActions();
+            this._closingActionsSubscription = this._subscribeToClosingActions();
         }
         this.autocomplete._setVisibility();
         this._floatPlaceholder();
@@ -20337,6 +20339,7 @@ var MdAutocompleteTrigger = (function () {
     MdAutocompleteTrigger.prototype.closePanel = function () {
         if (this._overlayRef && this._overlayRef.hasAttached()) {
             this._overlayRef.detach();
+            this._closingActionsSubscription.unsubscribe();
         }
         this._panelOpen = false;
         this._resetPlaceholder();
@@ -20522,7 +20525,7 @@ var MdAutocompleteTrigger = (function () {
     MdAutocompleteTrigger.prototype._subscribeToClosingActions = function () {
         var _this = this;
         // When the zone is stable initially, and when the option list changes...
-        RxChain.from(rxjs_observable_merge.merge(first$1.call(this._zone.onStable), this.autocomplete.options.changes))
+        return RxChain.from(rxjs_observable_merge.merge(first$1.call(this._zone.onStable), this.autocomplete.options.changes))
             .call(switchMap$1, function () {
             _this._resetPanel();
             return _this.panelClosingActions;

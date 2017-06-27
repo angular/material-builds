@@ -49,6 +49,8 @@ export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDe
     private _positionStrategy;
     /** Whether or not the placeholder state is being overridden. */
     private _manuallyFloatingPlaceholder;
+    /** The subscription for closing actions (some are bound to document). */
+    private _closingActionsSubscription;
     /** View -> model callback called when value changes */
     _onChange: (value: any) => void;
     /** View -> model callback called when autocomplete has been touched */

@@ -91,6 +91,7 @@ export declare class FocusOriginMonitor {
 export declare class CdkMonitorFocus implements OnDestroy {
     private _elementRef;
     private _focusOriginMonitor;
+    private _monitorSubscription;
     cdkFocusChange: EventEmitter<FocusOrigin>;
     constructor(_elementRef: ElementRef, _focusOriginMonitor: FocusOriginMonitor, renderer: Renderer2);
     ngOnDestroy(): void;
