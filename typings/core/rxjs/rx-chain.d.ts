@@ -14,8 +14,6 @@ import { StrictRxChain } from './rx-operators';
  * This class is the concrete implementation, but the type used by the user when chaining
  * is StrictRxChain. The strict chain enforces types on the operators to the same level as
  * the prototype-added equivalents.
- *
- * @docs-private
  */
 export declare class RxChain<T> {
     private _context;

@@ -566,8 +566,6 @@ MdLineModule.ctorParameters = () => [];
  * This class is the concrete implementation, but the type used by the user when chaining
  * is StrictRxChain. The strict chain enforces types on the operators to the same level as
  * the prototype-added equivalents.
- *
- * \@docs-private
  */
 class RxChain {
     /**
@@ -612,29 +610,17 @@ class RxChain {
     }
 }
 
-// @docs-private
 const finallyOperator = (_finally);
-// @docs-private
 const catchOperator = (_catch);
-// @docs-private
 const doOperator = (_do);
-// @docs-private
 const map$1 = (map);
-// @docs-private
 const filter$1 = (filter);
-// @docs-private
 const share$1 = (share);
-// @docs-private
 const first$1 = (first);
-// @docs-private
 const switchMap$1 = (switchMap);
-// @docs-private
 const startWith$1 = (startWith);
-// @docs-private
 const debounceTime$1 = (debounceTime);
-// @docs-private
 const auditTime$1 = (auditTime);
-// @docs-private
 const takeUntil$1 = (takeUntil);
 
 /**

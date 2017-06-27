@@ -32,8 +32,6 @@ import { takeUntil as takeUntilOperator } from 'rxjs/operator/takeUntil';
  *
  * The downside to this approach is that operators must be imported in their type-coerced form
  * rather than from the normal rxjs location.
- *
- * @docs-private
  */
 export interface StrictRxChain<T> {
     call<R>(operator: mapOperatorType<T, R>, project: (value: T, index: number) => R, thisArg?: any): StrictRxChain<R>;

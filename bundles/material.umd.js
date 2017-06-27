@@ -475,8 +475,6 @@ MdLineModule.ctorParameters = function () { return []; };
  * This class is the concrete implementation, but the type used by the user when chaining
  * is StrictRxChain. The strict chain enforces types on the operators to the same level as
  * the prototype-added equivalents.
- *
- * \@docs-private
  */
 var RxChain = (function () {
     /**
@@ -525,29 +523,17 @@ var RxChain = (function () {
     };
     return RxChain;
 }());
-// @docs-private
 var finallyOperator = (rxjs_operator_finally._finally);
-// @docs-private
 var catchOperator = (rxjs_operator_catch._catch);
-// @docs-private
 var doOperator = (rxjs_operator_do._do);
-// @docs-private
 var map$1 = (rxjs_operator_map.map);
-// @docs-private
 var filter$1 = (rxjs_operator_filter.filter);
-// @docs-private
 var share$1 = (rxjs_operator_share.share);
-// @docs-private
 var first$1 = (rxjs_operator_first.first);
-// @docs-private
 var switchMap$1 = (rxjs_operator_switchMap.switchMap);
-// @docs-private
 var startWith$1 = (rxjs_operator_startWith.startWith);
-// @docs-private
 var debounceTime$1 = (rxjs_operator_debounceTime.debounceTime);
-// @docs-private
 var auditTime$1 = (rxjs_operator_auditTime.auditTime);
-// @docs-private
 var takeUntil$1 = (rxjs_operator_takeUntil.takeUntil);
 /**
  * Factory that creates a new MutationObserver and allows us to stub it out in unit tests.
