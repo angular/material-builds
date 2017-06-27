@@ -17475,11 +17475,13 @@ var MdTabHeader = /*@__PURE__*/(function () {
     /**
      * @param {?} _elementRef
      * @param {?} _ngZone
+     * @param {?} _renderer
      * @param {?} _dir
      */
-    function MdTabHeader(_elementRef, _ngZone, _dir) {
+    function MdTabHeader(_elementRef, _ngZone, _renderer, _dir) {
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
+        this._renderer = _renderer;
         this._dir = _dir;
         /**
          * The tab index that is focused.
@@ -17739,11 +17741,9 @@ var MdTabHeader = /*@__PURE__*/(function () {
      * @return {?}
      */
     MdTabHeader.prototype._updateTabScrollPosition = function () {
-        var /** @type {?} */ translateX = this.scrollDistance + 'px';
-        if (this._getLayoutDirection() == 'ltr') {
-            translateX = '-' + translateX;
-        }
-        applyCssTransform(this._tabList.nativeElement, "translate3d(" + translateX + ", 0, 0)");
+        var /** @type {?} */ scrollDistance = this.scrollDistance;
+        var /** @type {?} */ translateX = this._getLayoutDirection() === 'ltr' ? -scrollDistance : scrollDistance;
+        this._renderer.setStyle(this._tabList.nativeElement, 'transform', "translate3d(" + translateX + "px, 0, 0)");
     };
     Object.defineProperty(MdTabHeader.prototype, "scrollDistance", {
         /**
@@ -17859,7 +17859,7 @@ var MdTabHeader = /*@__PURE__*/(function () {
     MdTabHeader.prototype._getMaxScrollDistance = function () {
         var /** @type {?} */ lengthOfTabList = this._tabList.nativeElement.scrollWidth;
         var /** @type {?} */ viewLength = this._tabListContainer.nativeElement.offsetWidth;
-        return lengthOfTabList - viewLength;
+        return (lengthOfTabList - viewLength) || 0;
     };
     /**
      * Tells the ink-bar to align itself to the current label wrapper
@@ -17891,6 +17891,7 @@ MdTabHeader.decorators = [
 MdTabHeader.ctorParameters = function () { return [
     { type: ElementRef, },
     { type: NgZone, },
+    { type: Renderer2, },
     { type: Directionality, decorators: [{ type: Optional },] },
 ]; };
 MdTabHeader.propDecorators = {

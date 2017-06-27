@@ -16455,11 +16455,13 @@ class MdTabHeader {
     /**
      * @param {?} _elementRef
      * @param {?} _ngZone
+     * @param {?} _renderer
      * @param {?} _dir
      */
-    constructor(_elementRef, _ngZone, _dir) {
+    constructor(_elementRef, _ngZone, _renderer, _dir) {
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
+        this._renderer = _renderer;
         this._dir = _dir;
         /**
          * The tab index that is focused.
@@ -16706,11 +16708,9 @@ class MdTabHeader {
      * @return {?}
      */
     _updateTabScrollPosition() {
-        let /** @type {?} */ translateX = this.scrollDistance + 'px';
-        if (this._getLayoutDirection() == 'ltr') {
-            translateX = '-' + translateX;
-        }
-        applyCssTransform(this._tabList.nativeElement, `translate3d(${translateX}, 0, 0)`);
+        const /** @type {?} */ scrollDistance = this.scrollDistance;
+        const /** @type {?} */ translateX = this._getLayoutDirection() === 'ltr' ? -scrollDistance : scrollDistance;
+        this._renderer.setStyle(this._tabList.nativeElement, 'transform', `translate3d(${translateX}px, 0, 0)`);
     }
     /**
      * Sets the distance in pixels that the tab header should be transformed in the X-axis.
@@ -16822,7 +16822,7 @@ class MdTabHeader {
     _getMaxScrollDistance() {
         const /** @type {?} */ lengthOfTabList = this._tabList.nativeElement.scrollWidth;
         const /** @type {?} */ viewLength = this._tabListContainer.nativeElement.offsetWidth;
-        return lengthOfTabList - viewLength;
+        return (lengthOfTabList - viewLength) || 0;
     }
     /**
      * Tells the ink-bar to align itself to the current label wrapper
@@ -16853,6 +16853,7 @@ MdTabHeader.decorators = [
 MdTabHeader.ctorParameters = () => [
     { type: ElementRef, },
     { type: NgZone, },
+    { type: Renderer2, },
     { type: Directionality, decorators: [{ type: Optional },] },
 ];
 MdTabHeader.propDecorators = {

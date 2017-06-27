@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { QueryList, ElementRef, EventEmitter, AfterContentChecked, AfterContentInit, OnDestroy, NgZone } from '@angular/core';
+import { QueryList, ElementRef, EventEmitter, AfterContentChecked, AfterContentInit, OnDestroy, NgZone, Renderer2 } from '@angular/core';
 import { Directionality, Direction } from '../core';
 import { MdTabLabelWrapper } from './tab-label-wrapper';
 import { MdInkBar } from './ink-bar';
@@ -25,6 +25,7 @@ export declare type ScrollDirection = 'after' | 'before';
 export declare class MdTabHeader implements AfterContentChecked, AfterContentInit, OnDestroy {
     private _elementRef;
     private _ngZone;
+    private _renderer;
     private _dir;
     _labelWrappers: QueryList<MdTabLabelWrapper>;
     _inkBar: MdInkBar;
@@ -61,7 +62,7 @@ export declare class MdTabHeader implements AfterContentChecked, AfterContentIni
     selectFocusedIndex: EventEmitter<{}>;
     /** Event emitted when a label is focused. */
     indexFocused: EventEmitter<{}>;
-    constructor(_elementRef: ElementRef, _ngZone: NgZone, _dir: Directionality);
+    constructor(_elementRef: ElementRef, _ngZone: NgZone, _renderer: Renderer2, _dir: Directionality);
     ngAfterContentChecked(): void;
     _handleKeydown(event: KeyboardEvent): void;
     /**
