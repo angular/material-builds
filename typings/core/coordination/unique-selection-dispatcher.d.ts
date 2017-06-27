@@ -26,7 +26,7 @@ export declare class UniqueSelectionDispatcher {
     notify(id: string, name: string): void;
     /**
      * Listen for future changes to item selection.
-     * @return Function used to unregister listener
+     * @return Function used to deregister listener
      **/
     listen(listener: UniqueSelectionDispatcherListener): () => void;
 }

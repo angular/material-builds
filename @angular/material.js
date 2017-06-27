@@ -5212,7 +5212,7 @@ class UniqueSelectionDispatcher {
     /**
      * Listen for future changes to item selection.
      * @param {?} listener
-     * @return {?} Function used to unregister listener
+     * @return {?} Function used to deregister listener
      *
      */
     listen(listener) {
@@ -21400,7 +21400,6 @@ class CdkTable {
     ngAfterViewInit() {
         // Find and construct an iterable differ that can be used to find the diff in an array.
         this._dataDiffer = this._differs.find([]).create(this._trackByFn);
-        this._renderHeaderRow();
         this._isViewInitialized = true;
     }
     /**
@@ -21408,7 +21407,10 @@ class CdkTable {
      */
     ngDoCheck() {
         if (this._isViewInitialized && this.dataSource && !this._renderChangeSubscription) {
-            this._observeRenderChanges();
+            this._renderHeaderRow();
+            if (this.dataSource && !this._renderChangeSubscription) {
+                this._observeRenderChanges();
+            }
         }
     }
     /**
@@ -22108,6 +22110,297 @@ MdExpansionModule.decorators = [
 MdExpansionModule.ctorParameters = () => [];
 
 /**
+ * \@docs-private
+ * @param {?} id
+ * @return {?}
+ */
+function getMdSortDuplicateMdSortableIdError(id) {
+    return Error(`Cannot have two MdSortables with the same id (${id}).`);
+}
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function getMdSortHeaderNotContainedWithinMdSortError() {
+    return Error(`MdSortHeader must be placed within a parent element with the MdSort directive.`);
+}
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function getMdSortHeaderMissingIdError() {
+    return Error(`MdSortHeader must be provided with a unique id.`);
+}
+
+/**
+ * Container for MdSortables to manage the sort state and provide default sort parameters.
+ */
+class MdSort {
+    constructor() {
+        /**
+         * Collection of all registered sortables that this directive manages.
+         */
+        this.sortables = new Map();
+        /**
+         * The direction to set when an MdSortable is initially sorted.
+         * May be overriden by the MdSortable's sort start.
+         */
+        this.start = 'asc';
+        /**
+         * The sort direction of the currently active MdSortable.
+         */
+        this.direction = '';
+        /**
+         * Event emitted when the user changes either the active sort or sort direction.
+         */
+        this.mdSortChange = new EventEmitter();
+    }
+    /**
+     * Whether to disable the user from clearing the sort by finishing the sort direction cycle.
+     * May be overriden by the MdSortable's disable clear input.
+     * @return {?}
+     */
+    get disableClear() { return this._disableClear; }
+    /**
+     * @param {?} v
+     * @return {?}
+     */
+    set disableClear(v) { this._disableClear = coerceBooleanProperty(v); }
+    /**
+     * Register function to be used by the contained MdSortables. Adds the MdSortable to the
+     * collection of MdSortables.
+     * @param {?} sortable
+     * @return {?}
+     */
+    register(sortable) {
+        if (!sortable.id) {
+            throw getMdSortHeaderMissingIdError();
+        }
+        if (this.sortables.has(sortable.id)) {
+            throw getMdSortDuplicateMdSortableIdError(sortable.id);
+        }
+        this.sortables.set(sortable.id, sortable);
+    }
+    /**
+     * Unregister function to be used by the contained MdSortables. Removes the MdSortable from the
+     * collection of contained MdSortables.
+     * @param {?} sortable
+     * @return {?}
+     */
+    deregister(sortable) {
+        this.sortables.delete(sortable.id);
+    }
+    /**
+     * Sets the active sort id and determines the new sort direction.
+     * @param {?} sortable
+     * @return {?}
+     */
+    sort(sortable) {
+        if (this.active != sortable.id) {
+            this.active = sortable.id;
+            this.direction = sortable.start ? sortable.start : this.start;
+        }
+        else {
+            this.direction = this.getNextSortDirection(sortable);
+        }
+        this.mdSortChange.next({ active: this.active, direction: this.direction });
+    }
+    /**
+     * Returns the next sort direction of the active sortable, checking for potential overrides.
+     * @param {?} sortable
+     * @return {?}
+     */
+    getNextSortDirection(sortable) {
+        if (!sortable) {
+            return '';
+        }
+        // Get the sort direction cycle with the potential sortable overrides.
+        const /** @type {?} */ disableClear = sortable.disableClear != null ? sortable.disableClear : this.disableClear;
+        let /** @type {?} */ sortDirectionCycle = getSortDirectionCycle(sortable.start || this.start, disableClear);
+        // Get and return the next direction in the cycle
+        let /** @type {?} */ nextDirectionIndex = sortDirectionCycle.indexOf(this.direction) + 1;
+        if (nextDirectionIndex >= sortDirectionCycle.length) {
+            nextDirectionIndex = 0;
+        }
+        return sortDirectionCycle[nextDirectionIndex];
+    }
+}
+MdSort.decorators = [
+    { type: Directive, args: [{
+                selector: '[mdSort], [matSort]',
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdSort.ctorParameters = () => [];
+MdSort.propDecorators = {
+    'active': [{ type: Input, args: ['mdSortActive',] },],
+    'start': [{ type: Input, args: ['mdSortStart',] },],
+    'direction': [{ type: Input, args: ['mdSortDirection',] },],
+    'disableClear': [{ type: Input, args: ['mdSortDisableClear',] },],
+    'mdSortChange': [{ type: Output },],
+};
+/**
+ * Returns the sort direction cycle to use given the provided parameters of order and clear.
+ * @param {?} start
+ * @param {?} disableClear
+ * @return {?}
+ */
+function getSortDirectionCycle(start, disableClear) {
+    let /** @type {?} */ sortOrder = ['asc', 'desc'];
+    if (start == 'desc') {
+        sortOrder.reverse();
+    }
+    if (!disableClear) {
+        sortOrder.push('');
+    }
+    return sortOrder;
+}
+
+/**
+ * To modify the labels and text displayed, create a new instance of MdSortHeaderIntl and
+ * include it in a custom provider.
+ */
+class MdSortHeaderIntl {
+    constructor() {
+        this.sortButtonLabel = (id) => {
+            return `Change sorting for ${id}`;
+        };
+        /**
+         * A label to describe the current sort (visible only to screenreaders).
+         */
+        this.sortDescriptionLabel = (id, direction) => {
+            return `Sorted by ${id} ${direction == 'asc' ? 'ascending' : 'descending'}`;
+        };
+    }
+}
+MdSortHeaderIntl.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+MdSortHeaderIntl.ctorParameters = () => [];
+
+/**
+ * Applies sorting behavior (click to change sort) and styles to an element, including an
+ * arrow to display the current sort direction.
+ *
+ * Must be provided with an id and contained within a parent MdSort directive.
+ *
+ * If used on header cells in a CdkTable, it will automatically default its id from its containing
+ * column definition.
+ */
+class MdSortHeader {
+    /**
+     * @param {?} _intl
+     * @param {?} _changeDetectorRef
+     * @param {?} _sort
+     * @param {?} _cdkColumnDef
+     */
+    constructor(_intl, _changeDetectorRef, _sort, _cdkColumnDef) {
+        this._intl = _intl;
+        this._changeDetectorRef = _changeDetectorRef;
+        this._sort = _sort;
+        this._cdkColumnDef = _cdkColumnDef;
+        /**
+         * Sets the position of the arrow that displays when sorted.
+         */
+        this.arrowPosition = 'after';
+        if (!_sort) {
+            throw getMdSortHeaderNotContainedWithinMdSortError();
+        }
+        this.sortSubscription = _sort.mdSortChange.subscribe(() => _changeDetectorRef.markForCheck());
+    }
+    /**
+     * Overrides the disable clear value of the containing MdSort for this MdSortable.
+     * @return {?}
+     */
+    get disableClear() { return this._disableClear; }
+    /**
+     * @param {?} v
+     * @return {?}
+     */
+    set disableClear(v) { this._disableClear = coerceBooleanProperty(v); }
+    /**
+     * @return {?}
+     */
+    get _id() { return this.id; }
+    /**
+     * @param {?} v
+     * @return {?}
+     */
+    set _id(v) { this.id = v; }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        if (!this.id && this._cdkColumnDef) {
+            this.id = this._cdkColumnDef.name;
+        }
+        this._sort.register(this);
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._sort.deregister(this);
+        this.sortSubscription.unsubscribe();
+    }
+    /**
+     * Whether this MdSortHeader is currently sorted in either ascending or descending order.
+     * @return {?}
+     */
+    _isSorted() {
+        return this._sort.active == this.id && this._sort.direction;
+    }
+}
+MdSortHeader.decorators = [
+    { type: Component, args: [{selector: '[md-sort-header], [mat-sort-header]',
+                template: "<div class=\"mat-sort-header-container\" [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\"><button class=\"mat-sort-header-button\" type=\"button\" [attr.aria-label]=\"_intl.sortButtonLabel(id)\"><ng-content></ng-content></button><div *ngIf=\"_isSorted()\" class=\"mat-sort-header-arrow\" [class.mat-sort-header-asc]=\"_sort.direction == 'asc'\" [class.mat-sort-header-desc]=\"_sort.direction == 'desc'\"><div class=\"mat-sort-header-stem\"></div><div class=\"mat-sort-header-pointer-left\"></div><div class=\"mat-sort-header-pointer-right\"></div></div></div><span class=\"cdk-visually-hidden\" *ngIf=\"_isSorted()\">{{_intl.sortDescriptionLabel(id, _sort.direction)}}</span>",
+                styles: [".mat-sort-header-container{display:flex;cursor:pointer}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:pointer;outline:0;font:inherit;color:currentColor}.mat-sort-header-arrow{display:none;height:10px;width:10px;position:relative;margin:0 0 0 6px}.mat-sort-header-position-before .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-asc{display:block;transform:rotate(45deg)}.mat-sort-header-desc{display:block;transform:rotate(225deg);top:2px}.mat-sort-header-stem{background:currentColor;transform:rotate(135deg);height:10px;width:2px;margin:auto}.mat-sort-header-pointer-left{background:currentColor;width:2px;height:8px;position:absolute;bottom:0;right:0}.mat-sort-header-pointer-right{background:currentColor;width:8px;height:2px;position:absolute;bottom:0;right:0}"],
+                host: {
+                    '(click)': '_sort.sort(this)',
+                    '[class.mat-sort-header-sorted]': '_isSorted()',
+                },
+                encapsulation: ViewEncapsulation.None,
+                changeDetection: ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdSortHeader.ctorParameters = () => [
+    { type: MdSortHeaderIntl, },
+    { type: ChangeDetectorRef, },
+    { type: MdSort, decorators: [{ type: Optional },] },
+    { type: CdkColumnDef, decorators: [{ type: Optional },] },
+];
+MdSortHeader.propDecorators = {
+    'id': [{ type: Input, args: ['md-sort-header',] },],
+    'arrowPosition': [{ type: Input },],
+    'start': [{ type: Input, args: ['start',] },],
+    'disableClear': [{ type: Input },],
+    '_id': [{ type: Input, args: ['mat-sort-header',] },],
+};
+
+class MdSortModule {
+}
+MdSortModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [CommonModule],
+                exports: [MdSort, MdSortHeader],
+                declarations: [MdSort, MdSortHeader],
+                providers: [MdSortHeaderIntl]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdSortModule.ctorParameters = () => [];
+
+/**
  * To modify the labels and text displayed, create a new instance of MdPaginatorIntl and
  * include it in a custom provider
  */
@@ -22372,6 +22665,7 @@ const MATERIAL_MODULES = [
     MdSliderModule,
     MdSlideToggleModule,
     MdSnackBarModule,
+    MdSortModule,
     MdTabsModule,
     MdToolbarModule,
     MdTooltipModule,
@@ -22405,5 +22699,5 @@ MaterialModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { coerceBooleanProperty, coerceNumberProperty, Dir, Directionality, BidiModule, ObserveContentModule, ObserveContent, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, CdkDataTableModule, DataSource, getDataTableUnknownColumnError, RowPlaceholder, HeaderRowPlaceholder, CdkTable, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkBase, _MdTabLinkMixinBase, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, getMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵj, DIR_DOCUMENT as ɵa, mixinColor as ɵx, mixinDisabled as ɵy, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵk, CdkCell as ɵbf, CdkCellDef as ɵbb, CdkColumnDef as ɵbd, CdkHeaderCell as ɵbe, CdkHeaderCellDef as ɵbc, BaseRowDef as ɵbg, CdkCellOutlet as ɵbj, CdkHeaderRow as ɵbk, CdkHeaderRowDef as ɵbh, CdkRow as ɵbl, CdkRowDef as ɵbi, MdMutationObserverFactory as ɵb, OVERLAY_CONTAINER_PROVIDER as ɵd, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵc, OverlayPositionBuilder as ɵw, VIEWPORT_RULER_PROVIDER as ɵf, VIEWPORT_RULER_PROVIDER_FACTORY as ɵe, SCROLL_DISPATCHER_PROVIDER as ɵh, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵg, RippleRenderer as ɵi, EXPANSION_PANEL_ANIMATION_TIMING as ɵl, MdGridAvatarCssMatStyler as ɵn, MdGridTileFooterCssMatStyler as ɵp, MdGridTileHeaderCssMatStyler as ɵo, MdGridTileText as ɵm, MdMenuItemBase as ɵq, _MdMenuItemMixinBase as ɵr, MdPaginatorIntl as ɵba, MdTabBase as ɵu, _MdTabMixinBase as ɵv, MdTabLabelWrapperBase as ɵs, _MdTabLabelWrapperMixinBase as ɵt };
+export { coerceBooleanProperty, coerceNumberProperty, Dir, Directionality, BidiModule, ObserveContentModule, ObserveContent, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, CdkDataTableModule, DataSource, getDataTableUnknownColumnError, RowPlaceholder, HeaderRowPlaceholder, CdkTable, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkBase, _MdTabLinkMixinBase, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, getMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵj, DIR_DOCUMENT as ɵa, mixinColor as ɵx, mixinDisabled as ɵy, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵk, CdkCell as ɵbf, CdkCellDef as ɵbb, CdkColumnDef as ɵbd, CdkHeaderCell as ɵbe, CdkHeaderCellDef as ɵbc, BaseRowDef as ɵbg, CdkCellOutlet as ɵbj, CdkHeaderRow as ɵbk, CdkHeaderRowDef as ɵbh, CdkRow as ɵbl, CdkRowDef as ɵbi, MdMutationObserverFactory as ɵb, OVERLAY_CONTAINER_PROVIDER as ɵd, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵc, OverlayPositionBuilder as ɵw, VIEWPORT_RULER_PROVIDER as ɵf, VIEWPORT_RULER_PROVIDER_FACTORY as ɵe, SCROLL_DISPATCHER_PROVIDER as ɵh, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵg, RippleRenderer as ɵi, EXPANSION_PANEL_ANIMATION_TIMING as ɵl, MdGridAvatarCssMatStyler as ɵn, MdGridTileFooterCssMatStyler as ɵp, MdGridTileHeaderCssMatStyler as ɵo, MdGridTileText as ɵm, MdMenuItemBase as ɵq, _MdMenuItemMixinBase as ɵr, MdPaginatorIntl as ɵba, MdTabBase as ɵu, _MdTabMixinBase as ɵv, MdTabLabelWrapperBase as ɵs, _MdTabLabelWrapperMixinBase as ɵt };
 //# sourceMappingURL=material.js.map
