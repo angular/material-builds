@@ -6291,6 +6291,30 @@ MdNativeDateModule.ctorParameters = function () { return []; };
  * InjectionToken that can be used to specify the global placeholder options.
  */
 var MD_PLACEHOLDER_GLOBAL_OPTIONS = new _angular_core.InjectionToken('md-placeholder-global-options');
+/**
+ * Injection token that can be used to specify the global error options.
+ */
+var MD_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('md-error-global-options');
+/**
+ * Returns whether control is invalid and is either touched or is a part of a submitted form.
+ * @param {?} control
+ * @param {?} form
+ * @return {?}
+ */
+function defaultErrorStateMatcher(control, form) {
+    var /** @type {?} */ isSubmitted = form && form.submitted;
+    return !!(control.invalid && (control.touched || isSubmitted));
+}
+/**
+ * Returns whether control is invalid and is either dirty or is a part of a submitted form.
+ * @param {?} control
+ * @param {?} form
+ * @return {?}
+ */
+function showOnDirtyErrorStateMatcher(control, form) {
+    var /** @type {?} */ isSubmitted = form && form.submitted;
+    return !!(control.invalid && (control.dirty || isSubmitted));
+}
 var MdCoreModule = (function () {
     function MdCoreModule() {
     }
@@ -15264,8 +15288,9 @@ var MdInputDirective = (function () {
      * @param {?} _ngControl
      * @param {?} _parentForm
      * @param {?} _parentFormGroup
+     * @param {?} errorOptions
      */
-    function MdInputDirective(_elementRef, _renderer, _platform, _ngControl, _parentForm, _parentFormGroup) {
+    function MdInputDirective(_elementRef, _renderer, _platform, _ngControl, _parentForm, _parentFormGroup, errorOptions) {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this._platform = _platform;
@@ -15297,6 +15322,8 @@ var MdInputDirective = (function () {
         ].filter(function (t) { return getSupportedInputTypes().has(t); });
         // Force setter to be called in case id was not specified.
         this.id = this.id;
+        this._errorOptions = errorOptions ? errorOptions : {};
+        this.errorStateMatcher = this._errorOptions.errorStateMatcher || defaultErrorStateMatcher;
     }
     Object.defineProperty(MdInputDirective.prototype, "disabled", {
         /**
@@ -15455,11 +15482,8 @@ var MdInputDirective = (function () {
      */
     MdInputDirective.prototype._isErrorState = function () {
         var /** @type {?} */ control = this._ngControl;
-        var /** @type {?} */ isInvalid = control && control.invalid;
-        var /** @type {?} */ isTouched = control && control.touched;
-        var /** @type {?} */ isSubmitted = (this._parentFormGroup && this._parentFormGroup.submitted) ||
-            (this._parentForm && this._parentForm.submitted);
-        return !!(isInvalid && (isTouched || isSubmitted));
+        var /** @type {?} */ form = this._parentFormGroup || this._parentForm;
+        return control && this.errorStateMatcher(/** @type {?} */ (control.control), form);
     };
     /**
      * Make sure the input is a supported type.
@@ -15525,6 +15549,7 @@ MdInputDirective.ctorParameters = function () { return [
     { type: _angular_forms.NgControl, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Self },] },
     { type: _angular_forms.NgForm, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_forms.FormGroupDirective, decorators: [{ type: _angular_core.Optional },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_ERROR_GLOBAL_OPTIONS,] },] },
 ]; };
 MdInputDirective.propDecorators = {
     'disabled': [{ type: _angular_core.Input },],
@@ -15532,6 +15557,7 @@ MdInputDirective.propDecorators = {
     'placeholder': [{ type: _angular_core.Input },],
     'required': [{ type: _angular_core.Input },],
     'type': [{ type: _angular_core.Input },],
+    'errorStateMatcher': [{ type: _angular_core.Input },],
     '_placeholderChange': [{ type: _angular_core.Output },],
 };
 /**
@@ -24155,6 +24181,9 @@ exports.NoConflictStyleCompatibilityMode = NoConflictStyleCompatibilityMode;
 exports.MdCommonModule = MdCommonModule;
 exports.MATERIAL_SANITY_CHECKS = MATERIAL_SANITY_CHECKS;
 exports.MD_PLACEHOLDER_GLOBAL_OPTIONS = MD_PLACEHOLDER_GLOBAL_OPTIONS;
+exports.MD_ERROR_GLOBAL_OPTIONS = MD_ERROR_GLOBAL_OPTIONS;
+exports.defaultErrorStateMatcher = defaultErrorStateMatcher;
+exports.showOnDirtyErrorStateMatcher = showOnDirtyErrorStateMatcher;
 exports.MdCoreModule = MdCoreModule;
 exports.MdOptionModule = MdOptionModule;
 exports.MdOptionSelectionChange = MdOptionSelectionChange;

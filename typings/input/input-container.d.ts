@@ -9,6 +9,7 @@ import { AfterContentInit, AfterContentChecked, AfterViewInit, ChangeDetectorRef
 import { Platform } from '../core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { FloatPlaceholderType, PlaceholderOptions } from '../core/placeholder/placeholder-options';
+import { ErrorStateMatcher, ErrorOptions } from '../core/error/error-options';
 /**
  * The placeholder directive. The content can declare this to implement more
  * complex placeholders.
@@ -46,6 +47,7 @@ export declare class MdInputDirective {
     private _required;
     private _id;
     private _cachedUid;
+    private _errorOptions;
     /** Whether the element is focused or not. */
     focused: boolean;
     /** Sets the aria-describedby attribute on the input for improved a11y. */
@@ -60,6 +62,8 @@ export declare class MdInputDirective {
     required: any;
     /** Input type of the element. */
     type: string;
+    /** A function used to control when error messages are shown. */
+    errorStateMatcher: ErrorStateMatcher;
     /** The input element's value. */
     value: string;
     /**
@@ -70,7 +74,7 @@ export declare class MdInputDirective {
     readonly empty: boolean;
     private readonly _uid;
     private _neverEmptyInputTypes;
-    constructor(_elementRef: ElementRef, _renderer: Renderer2, _platform: Platform, _ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective);
+    constructor(_elementRef: ElementRef, _renderer: Renderer2, _platform: Platform, _ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, errorOptions: ErrorOptions);
     /** Focuses the input element. */
     focus(): void;
     _onFocus(): void;

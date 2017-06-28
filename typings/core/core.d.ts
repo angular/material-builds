@@ -28,5 +28,6 @@ export { CompatibilityModule, NoConflictStyleCompatibilityMode } from './compati
 export { MdCommonModule, MATERIAL_SANITY_CHECKS } from './common-behaviors/common-module';
 export * from './datetime/index';
 export { FloatPlaceholderType, PlaceholderOptions, MD_PLACEHOLDER_GLOBAL_OPTIONS } from './placeholder/placeholder-options';
+export { ErrorStateMatcher, ErrorOptions, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher } from './error/error-options';
 export declare class MdCoreModule {
 }
