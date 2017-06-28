@@ -20555,7 +20555,9 @@ var MdAutocompleteTrigger = (function () {
      */
     MdAutocompleteTrigger.prototype._setTriggerValue = function (value) {
         var /** @type {?} */ toDisplay = this.autocomplete.displayWith ? this.autocomplete.displayWith(value) : value;
-        this._element.nativeElement.value = toDisplay || '';
+        // Simply falling back to an empty string if the display value is falsy does not work properly.
+        // The display value can also be the number zero and shouldn't fall back to an empty string.
+        this._element.nativeElement.value = toDisplay != null ? toDisplay : '';
     };
     /**
      * This method closes the panel, and if a value is specified, also sets the associated
