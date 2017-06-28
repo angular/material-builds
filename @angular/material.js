@@ -18958,8 +18958,8 @@ class MdAutocomplete {
         this._keyManager = new ActiveDescendantKeyManager(this.options).withWrap();
     }
     /**
-     * Sets the panel scrollTop. This allows us to manually scroll to display
-     * options below the fold, as they are not actually being focused when active.
+     * Sets the panel scrollTop. This allows us to manually scroll to display options
+     * above or below the fold, as they are not actually being focused when active.
      * @param {?} scrollTop
      * @return {?}
      */
@@ -18967,6 +18967,13 @@ class MdAutocomplete {
         if (this.panel) {
             this.panel.nativeElement.scrollTop = scrollTop;
         }
+    }
+    /**
+     * Returns the panel's scrollTop.
+     * @return {?}
+     */
+    _getScrollTop() {
+        return this.panel ? this.panel.nativeElement.scrollTop : 0;
     }
     /**
      * Panel should hide itself when the option list is empty.
@@ -19284,15 +19291,26 @@ class MdAutocompleteTrigger {
     /**
      * Given that we are not actually focusing active options, we must manually adjust scroll
      * to reveal options below the fold. First, we find the offset of the option from the top
-     * of the panel. The new scrollTop will be that offset - the panel height + the option
-     * height, so the active option will be just visible at the bottom of the panel.
+     * of the panel. If that offset is below the fold, the new scrollTop will be the offset -
+     * the panel height + the option height, so the active option will be just visible at the
+     * bottom of the panel. If that offset is above the top of the visible panel, the new scrollTop
+     * will become the offset. If that offset is visible within the panel already, the scrollTop is
+     * not adjusted.
      * @return {?}
      */
     _scrollToOption() {
         const /** @type {?} */ optionOffset = this.autocomplete._keyManager.activeItemIndex ?
             this.autocomplete._keyManager.activeItemIndex * AUTOCOMPLETE_OPTION_HEIGHT : 0;
-        const /** @type {?} */ newScrollTop = Math.max(0, optionOffset - AUTOCOMPLETE_PANEL_HEIGHT + AUTOCOMPLETE_OPTION_HEIGHT);
-        this.autocomplete._setScrollTop(newScrollTop);
+        const /** @type {?} */ panelTop = this.autocomplete._getScrollTop();
+        if (optionOffset < panelTop) {
+            // Scroll up to reveal selected option scrolled above the panel top
+            this.autocomplete._setScrollTop(optionOffset);
+        }
+        else if (optionOffset + AUTOCOMPLETE_OPTION_HEIGHT > panelTop + AUTOCOMPLETE_PANEL_HEIGHT) {
+            // Scroll down to reveal selected option scrolled below the panel bottom
+            const /** @type {?} */ newScrollTop = Math.max(0, optionOffset - AUTOCOMPLETE_PANEL_HEIGHT + AUTOCOMPLETE_OPTION_HEIGHT);
+            this.autocomplete._setScrollTop(newScrollTop);
+        }
     }
     /**
      * This method listens to a stream of panel closing actions and resets the
