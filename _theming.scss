@@ -2105,6 +2105,44 @@ $mat-chip-line-height: 16px;
 
 
 
+@mixin mat-table-theme($theme) {
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  .mat-table {
+    background: mat-color($background, 'card');
+  }
+
+  .mat-row, .mat-header-row {
+    border-bottom-color: mat-color($foreground, divider);
+  }
+
+  .mat-header-cell {
+    color: mat-color($foreground, secondary-text);
+  }
+
+  .mat-cell {
+    color: mat-color($foreground, text);
+  }
+}
+
+@mixin mat-table-typography($config) {
+  $font-family: mat-font-family($config);
+
+  .mat-header-cell {
+    font-size: mat-font-size($config, caption);
+    font-weight: mat-font-weight($config, body-2);
+  }
+
+  .mat-cell {
+    font-size: mat-font-size($config, body-1);
+  }
+}
+
+
+
+
+
 
 $mat-calendar-body-font-size: 13px !default;
 $mat-calendar-weekday-table-font-size: 11px !default;
@@ -2604,6 +2642,11 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
 @mixin mat-paginator-theme($theme) {
   $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  .mat-paginator {
+    background: mat-color($background, 'card');
+  }
 
   .mat-paginator,
   .mat-paginator-page-size .mat-select-trigger {
@@ -3325,6 +3368,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
   @include mat-card-typography($config);
   @include mat-checkbox-typography($config);
   @include mat-chips-typography($config);
+  @include mat-table-typography($config);
   @include mat-datepicker-typography($config);
   @include mat-dialog-typography($config);
   @include mat-grid-list-typography($config);
@@ -3399,6 +3443,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
 
 
 
+
 @mixin mat-expansion-panel-theme($theme) {
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
@@ -3456,6 +3501,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
   @include mat-card-theme($theme);
   @include mat-checkbox-theme($theme);
   @include mat-chips-theme($theme);
+  @include mat-table-theme($theme);
   @include mat-datepicker-theme($theme);
   @include mat-dialog-theme($theme);
   @include mat-expansion-panel-theme($theme);

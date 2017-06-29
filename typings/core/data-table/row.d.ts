@@ -9,6 +9,11 @@ import { IterableDiffer, IterableDiffers, SimpleChanges, TemplateRef, ViewContai
 import { CdkCellDef } from './cell';
 import { Subject } from 'rxjs/Subject';
 /**
+ * The row template that can be used by the md-table. Should not be used outside of the
+ * material library.
+ */
+export declare const CDK_ROW_TEMPLATE: string;
+/**
  * Base class for the CdkHeaderRowDef and CdkRowDef that handles checking their columns inputs
  * for changes and notifying the table.
  */

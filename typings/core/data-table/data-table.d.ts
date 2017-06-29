@@ -33,6 +33,11 @@ export declare class HeaderRowPlaceholder {
     constructor(viewContainer: ViewContainerRef);
 }
 /**
+ * The table template that can be used by the md-table. Should not be used outside of the
+ * material library.
+ */
+export declare const CDK_TABLE_TEMPLATE: string;
+/**
  * A data table that connects with a data source to retrieve data of type T and renders
  * a header row and data rows. Updates the rows when new data is provided by the data source.
  */

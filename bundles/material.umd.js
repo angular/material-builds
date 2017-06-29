@@ -53,11 +53,11 @@ function getMdCompatibilityInvalidPrefixError(prefix, nodeName) {
 /**
  * Selector that matches all elements that may have style collisions with AngularJS Material.
  */
-var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [matCardSubtitle],\n  [matCardTitle],\n  [matDialogActions],\n  [matDialogClose],\n  [matDialogContent],\n  [matDialogTitle],\n  [matLine],\n  [matTabLabel],\n  [matTabLink],\n  [matTabNav],\n  [matTooltip],\n  mat-autocomplete,\n  mat-button-toggle,\n  mat-button-toggle,\n  mat-button-toggle-group,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-error,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-hint,\n  mat-icon,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-pseudo-checkbox,\n  mat-radio-button,\n  mat-radio-group,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-tab,\n  mat-tab-group,\n  mat-toolbar";
+var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [matCardSubtitle],\n  [matCardTitle],\n  [matDialogActions],\n  [matDialogClose],\n  [matDialogContent],\n  [matDialogTitle],\n  [matLine],\n  [matTabLabel],\n  [matTabLink],\n  [matTabNav],\n  [matTooltip],\n  mat-autocomplete,\n  mat-button-toggle,\n  mat-button-toggle,\n  mat-button-toggle-group,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-cell,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-error,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-header-cell,\n  mat-hint,\n  mat-icon,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-pseudo-checkbox,\n  mat-radio-button,\n  mat-radio-group,\n  mat-row,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-tab,\n  mat-table,\n  mat-tab-group,\n  mat-toolbar";
 /**
  * Selector that matches all elements that may have style collisions with AngularJS Material.
  */
-var MD_ELEMENTS_SELECTOR = "\n  [md-button],\n  [md-fab],\n  [md-icon-button],\n  [md-mini-fab],\n  [md-raised-button],\n  [mdCardSubtitle],\n  [mdCardTitle],\n  [mdDialogActions],\n  [mdDialogClose],\n  [mdDialogContent],\n  [mdDialogTitle],\n  [mdLine],\n  [mdTabLabel],\n  [mdTabLink],\n  [mdTabNav],\n  [mdTooltip],\n  md-autocomplete,\n  md-button-toggle,\n  md-button-toggle,\n  md-button-toggle-group,\n  md-card,\n  md-card-actions,\n  md-card-content,\n  md-card-footer,\n  md-card-header,\n  md-card-subtitle,\n  md-card-title,\n  md-card-title-group,\n  md-checkbox,\n  md-chip,\n  md-dialog-actions,\n  md-dialog-container,\n  md-dialog-content,\n  md-divider,\n  md-error,\n  md-grid-list,\n  md-grid-tile,\n  md-grid-tile-footer,\n  md-grid-tile-header,\n  md-hint,\n  md-icon,\n  md-list,\n  md-list-item,\n  md-menu,\n  md-nav-list,\n  md-option,\n  md-placeholder,\n  md-progress-bar,\n  md-pseudo-checkbox,\n  md-radio-button,\n  md-radio-group,\n  md-select,\n  md-sidenav,\n  md-sidenav-container,\n  md-slider,\n  md-spinner,\n  md-tab,\n  md-tab-group,\n  md-toolbar";
+var MD_ELEMENTS_SELECTOR = "\n  [md-button],\n  [md-fab],\n  [md-icon-button],\n  [md-mini-fab],\n  [md-raised-button],\n  [mdCardSubtitle],\n  [mdCardTitle],\n  [mdDialogActions],\n  [mdDialogClose],\n  [mdDialogContent],\n  [mdDialogTitle],\n  [mdLine],\n  [mdTabLabel],\n  [mdTabLink],\n  [mdTabNav],\n  [mdTooltip],\n  md-autocomplete,\n  md-button-toggle,\n  md-button-toggle,\n  md-button-toggle-group,\n  md-card,\n  md-card-actions,\n  md-card-content,\n  md-card-footer,\n  md-card-header,\n  md-card-subtitle,\n  md-card-title,\n  md-card-title-group,\n  md-cell,\n  md-checkbox,\n  md-chip,\n  md-dialog-actions,\n  md-dialog-container,\n  md-dialog-content,\n  md-divider,\n  md-error,\n  md-grid-list,\n  md-grid-tile,\n  md-grid-tile-footer,\n  md-grid-tile-header,\n  md-header-cell,\n  md-hint,\n  md-icon,\n  md-list,\n  md-list-item,\n  md-menu,\n  md-nav-list,\n  md-option,\n  md-placeholder,\n  md-progress-bar,\n  md-pseudo-checkbox,\n  md-radio-button,\n  md-radio-group,\n  md-row,\n  md-select,\n  md-sidenav,\n  md-sidenav-container,\n  md-slider,\n  md-spinner,\n  md-tab,\n  md-table,\n  md-tab-group,\n  md-toolbar";
 /**
  * Directive that enforces that the `mat-` prefix cannot be used.
  */
@@ -22295,6 +22295,11 @@ MdDatepickerModule.decorators = [
  */
 MdDatepickerModule.ctorParameters = function () { return []; };
 /**
+ * The row template that can be used by the md-table. Should not be used outside of the
+ * material library.
+ */
+var CDK_ROW_TEMPLATE = "<ng-container cdkCellOutlet></ng-container>";
+/**
  * Base class for the CdkHeaderRowDef and CdkRowDef that handles checking their columns inputs
  * for changes and notifying the table.
  * @abstract
@@ -22326,7 +22331,7 @@ var BaseRowDef = (function () {
     BaseRowDef.prototype.ngOnChanges = function (changes) {
         // Create a new columns differ if one does not yet exist. Initialize it based on initial value
         // of the columns property.
-        if (!this._columnsDiffer) {
+        if (!this._columnsDiffer && changes['columns'].currentValue) {
             this._columnsDiffer = this._differs.find(changes['columns'].currentValue).create();
         }
     };
@@ -22435,7 +22440,7 @@ var CdkHeaderRow = (function () {
 CdkHeaderRow.decorators = [
     { type: _angular_core.Component, args: [{
                 selector: 'cdk-header-row',
-                template: '<ng-container cdkCellOutlet></ng-container>',
+                template: CDK_ROW_TEMPLATE,
                 host: {
                     'class': 'cdk-header-row',
                     'role': 'row',
@@ -22458,7 +22463,7 @@ var CdkRow = (function () {
 CdkRow.decorators = [
     { type: _angular_core.Component, args: [{
                 selector: 'cdk-row',
-                template: '<ng-container cdkCellOutlet></ng-container>',
+                template: CDK_ROW_TEMPLATE,
                 host: {
                     'class': 'cdk-row',
                     'role': 'row',
@@ -22656,6 +22661,11 @@ HeaderRowPlaceholder.decorators = [
 HeaderRowPlaceholder.ctorParameters = function () { return [
     { type: _angular_core.ViewContainerRef, },
 ]; };
+/**
+ * The table template that can be used by the md-table. Should not be used outside of the
+ * material library.
+ */
+var CDK_TABLE_TEMPLATE = "\n  <ng-container headerRowPlaceholder></ng-container>\n  <ng-container rowPlaceholder></ng-container>";
 /**
  * A data table that connects with a data source to retrieve data of type T and renders
  * a header row and data rows. Updates the rows when new data is provided by the data source.
@@ -22930,6 +22940,9 @@ var CdkTable = (function () {
      */
     CdkTable.prototype._getHeaderCellTemplatesForRow = function (headerDef) {
         var _this = this;
+        if (!headerDef.columns) {
+            return [];
+        }
         return headerDef.columns.map(function (columnId) {
             var /** @type {?} */ column = _this._columnDefinitionsByName.get(columnId);
             if (!column) {
@@ -22946,6 +22959,9 @@ var CdkTable = (function () {
      */
     CdkTable.prototype._getCellTemplatesForRow = function (rowDef) {
         var _this = this;
+        if (!rowDef.columns) {
+            return [];
+        }
         return rowDef.columns.map(function (columnId) {
             var /** @type {?} */ column = _this._columnDefinitionsByName.get(columnId);
             if (!column) {
@@ -22959,7 +22975,7 @@ var CdkTable = (function () {
 CdkTable.decorators = [
     { type: _angular_core.Component, args: [{
                 selector: 'cdk-table',
-                template: "\n    <ng-container headerRowPlaceholder></ng-container>\n    <ng-container rowPlaceholder></ng-container>\n  ",
+                template: CDK_TABLE_TEMPLATE,
                 host: {
                     'class': 'cdk-table',
                 },
@@ -23000,6 +23016,21 @@ var DataSource = (function () {
     DataSource.prototype.connect = function (collectionViewer) { };
     return DataSource;
 }());
+var EXPORTED_DECLARATIONS = [
+    CdkTable,
+    CdkRowDef,
+    CdkCellDef,
+    CdkCellOutlet,
+    CdkHeaderCellDef,
+    CdkColumnDef,
+    CdkCell,
+    CdkRow,
+    CdkHeaderCell,
+    CdkHeaderRow,
+    CdkHeaderRowDef,
+    RowPlaceholder,
+    HeaderRowPlaceholder,
+];
 var CdkDataTableModule = (function () {
     function CdkDataTableModule() {
     }
@@ -23008,17 +23039,8 @@ var CdkDataTableModule = (function () {
 CdkDataTableModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [_angular_common.CommonModule],
-                exports: [
-                    CdkTable, CdkRowDef, CdkCellDef, CdkCellOutlet, CdkHeaderCellDef,
-                    CdkColumnDef, CdkCell, CdkRow,
-                    CdkHeaderCell, CdkHeaderRow, CdkHeaderRowDef
-                ],
-                declarations: [
-                    CdkTable, CdkRowDef, CdkCellDef, CdkCellOutlet, CdkHeaderCellDef,
-                    CdkColumnDef, CdkCell, CdkRow,
-                    CdkHeaderCell, CdkHeaderRow, CdkHeaderRowDef,
-                    RowPlaceholder, HeaderRowPlaceholder,
-                ]
+                exports: [EXPORTED_DECLARATIONS],
+                declarations: [EXPORTED_DECLARATIONS]
             },] },
 ];
 /**
@@ -23534,6 +23556,165 @@ MdExpansionModule.decorators = [
  * @nocollapse
  */
 MdExpansionModule.ctorParameters = function () { return []; };
+/**
+ * Wrapper for the CdkTable with Material design styles.
+ */
+var MdTable = (function (_super) {
+    __extends(MdTable, _super);
+    function MdTable() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return MdTable;
+}(CdkTable));
+MdTable.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'md-table, mat-table',
+                template: CDK_TABLE_TEMPLATE,
+                styles: [".mat-table{display:block}.mat-header-row,.mat-row{display:flex;border-bottom-width:1px;border-bottom-style:solid;align-items:center;height:48px;padding:0 24px}.mat-cell,.mat-header-cell{flex:1}"],
+                host: {
+                    'class': 'mat-table',
+                },
+                encapsulation: _angular_core.ViewEncapsulation.None,
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdTable.ctorParameters = function () { return []; };
+/**
+ * Header cell template container that adds the right classes and role.
+ */
+var MdHeaderCell = (function (_super) {
+    __extends(MdHeaderCell, _super);
+    /**
+     * @param {?} columnDef
+     * @param {?} elementRef
+     * @param {?} renderer
+     */
+    function MdHeaderCell(columnDef, elementRef, renderer) {
+        var _this = _super.call(this, columnDef, elementRef, renderer) || this;
+        renderer.addClass(elementRef.nativeElement, "mat-column-" + columnDef.name);
+        return _this;
+    }
+    return MdHeaderCell;
+}(CdkHeaderCell));
+MdHeaderCell.decorators = [
+    { type: _angular_core.Directive, args: [{
+                selector: 'md-header-cell, mat-header-cell',
+                host: {
+                    'class': 'mat-header-cell',
+                    'role': 'columnheader',
+                },
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdHeaderCell.ctorParameters = function () { return [
+    { type: CdkColumnDef, },
+    { type: _angular_core.ElementRef, },
+    { type: _angular_core.Renderer2, },
+]; };
+/**
+ * Cell template container that adds the right classes and role.
+ */
+var MdCell = (function (_super) {
+    __extends(MdCell, _super);
+    /**
+     * @param {?} columnDef
+     * @param {?} elementRef
+     * @param {?} renderer
+     */
+    function MdCell(columnDef, elementRef, renderer) {
+        var _this = _super.call(this, columnDef, elementRef, renderer) || this;
+        renderer.addClass(elementRef.nativeElement, "mat-column-" + columnDef.name);
+        return _this;
+    }
+    return MdCell;
+}(CdkCell));
+MdCell.decorators = [
+    { type: _angular_core.Directive, args: [{
+                selector: 'md-cell, mat-cell',
+                host: {
+                    'class': 'mat-cell',
+                    'role': 'gridcell',
+                },
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdCell.ctorParameters = function () { return [
+    { type: CdkColumnDef, },
+    { type: _angular_core.ElementRef, },
+    { type: _angular_core.Renderer2, },
+]; };
+/**
+ * Header template container that contains the cell outlet. Adds the right class and role.
+ */
+var MdHeaderRow = (function (_super) {
+    __extends(MdHeaderRow, _super);
+    function MdHeaderRow() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return MdHeaderRow;
+}(CdkHeaderRow));
+MdHeaderRow.decorators = [
+    { type: _angular_core.Component, args: [{
+                selector: 'md-header-row, mat-header-row',
+                template: CDK_ROW_TEMPLATE,
+                host: {
+                    'class': 'mat-header-row',
+                    'role': 'row',
+                },
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdHeaderRow.ctorParameters = function () { return []; };
+/**
+ * Data row template container that contains the cell outlet. Adds the right class and role.
+ */
+var MdRow = (function (_super) {
+    __extends(MdRow, _super);
+    function MdRow() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return MdRow;
+}(CdkRow));
+MdRow.decorators = [
+    { type: _angular_core.Component, args: [{
+                selector: 'md-row, mat-row',
+                template: CDK_ROW_TEMPLATE,
+                host: {
+                    'class': 'mat-row',
+                    'role': 'row',
+                },
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdRow.ctorParameters = function () { return []; };
+var MdTableModule = (function () {
+    function MdTableModule() {
+    }
+    return MdTableModule;
+}());
+MdTableModule.decorators = [
+    { type: _angular_core.NgModule, args: [{
+                imports: [CdkDataTableModule, _angular_common.CommonModule, MdCommonModule],
+                exports: [MdTable, MdHeaderCell, MdCell, MdHeaderRow, MdRow],
+                declarations: [MdTable, MdHeaderCell, MdCell, MdHeaderRow, MdRow],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdTableModule.ctorParameters = function () { return []; };
 /**
  * \@docs-private
  * @param {?} id
@@ -24099,6 +24280,7 @@ var MATERIAL_MODULES = [
     MdChipsModule,
     MdCheckboxModule,
     MdDatepickerModule,
+    MdTableModule,
     MdDialogModule,
     MdExpansionModule,
     MdGridListModule,
@@ -24128,7 +24310,7 @@ var MATERIAL_MODULES = [
     PlatformModule,
     MdCommonModule,
     ObserveContentModule,
-    CdkDataTableModule
+    CdkDataTableModule,
 ];
 /**
  * @deprecated
@@ -24328,7 +24510,14 @@ exports.DataSource = DataSource;
 exports.getDataTableUnknownColumnError = getDataTableUnknownColumnError;
 exports.RowPlaceholder = RowPlaceholder;
 exports.HeaderRowPlaceholder = HeaderRowPlaceholder;
+exports.CDK_TABLE_TEMPLATE = CDK_TABLE_TEMPLATE;
 exports.CdkTable = CdkTable;
+exports.MdTableModule = MdTableModule;
+exports.MdHeaderCell = MdHeaderCell;
+exports.MdCell = MdCell;
+exports.MdTable = MdTable;
+exports.MdHeaderRow = MdHeaderRow;
+exports.MdRow = MdRow;
 exports.MdDatepickerModule = MdDatepickerModule;
 exports.MdCalendar = MdCalendar;
 exports.MdCalendarCell = MdCalendarCell;
@@ -24502,12 +24691,13 @@ exports.ɵa = DIR_DOCUMENT;
 exports.ɵx = mixinColor;
 exports.ɵy = mixinDisabled;
 exports.ɵk = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
-exports.ɵbf = CdkCell;
-exports.ɵbb = CdkCellDef;
-exports.ɵbd = CdkColumnDef;
-exports.ɵbe = CdkHeaderCell;
-exports.ɵbc = CdkHeaderCellDef;
+exports.ɵbe = CdkCell;
+exports.ɵba = CdkCellDef;
+exports.ɵbc = CdkColumnDef;
+exports.ɵbd = CdkHeaderCell;
+exports.ɵbb = CdkHeaderCellDef;
 exports.ɵbg = BaseRowDef;
+exports.ɵbf = CDK_ROW_TEMPLATE;
 exports.ɵbj = CdkCellOutlet;
 exports.ɵbk = CdkHeaderRow;
 exports.ɵbh = CdkHeaderRowDef;
@@ -24529,7 +24719,7 @@ exports.ɵo = MdGridTileHeaderCssMatStyler;
 exports.ɵm = MdGridTileText;
 exports.ɵq = MdMenuItemBase;
 exports.ɵr = _MdMenuItemMixinBase;
-exports.ɵba = MdPaginatorIntl;
+exports.ɵbm = MdPaginatorIntl;
 exports.ɵu = MdTabBase;
 exports.ɵv = _MdTabMixinBase;
 exports.ɵs = MdTabLabelWrapperBase;

@@ -50,11 +50,11 @@ function getMdCompatibilityInvalidPrefixError(prefix, nodeName) {
 /**
  * Selector that matches all elements that may have style collisions with AngularJS Material.
  */
-var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [matCardSubtitle],\n  [matCardTitle],\n  [matDialogActions],\n  [matDialogClose],\n  [matDialogContent],\n  [matDialogTitle],\n  [matLine],\n  [matTabLabel],\n  [matTabLink],\n  [matTabNav],\n  [matTooltip],\n  mat-autocomplete,\n  mat-button-toggle,\n  mat-button-toggle,\n  mat-button-toggle-group,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-error,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-hint,\n  mat-icon,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-pseudo-checkbox,\n  mat-radio-button,\n  mat-radio-group,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-tab,\n  mat-tab-group,\n  mat-toolbar";
+var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [matCardSubtitle],\n  [matCardTitle],\n  [matDialogActions],\n  [matDialogClose],\n  [matDialogContent],\n  [matDialogTitle],\n  [matLine],\n  [matTabLabel],\n  [matTabLink],\n  [matTabNav],\n  [matTooltip],\n  mat-autocomplete,\n  mat-button-toggle,\n  mat-button-toggle,\n  mat-button-toggle-group,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-cell,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-error,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-header-cell,\n  mat-hint,\n  mat-icon,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-pseudo-checkbox,\n  mat-radio-button,\n  mat-radio-group,\n  mat-row,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-tab,\n  mat-table,\n  mat-tab-group,\n  mat-toolbar";
 /**
  * Selector that matches all elements that may have style collisions with AngularJS Material.
  */
-var MD_ELEMENTS_SELECTOR = "\n  [md-button],\n  [md-fab],\n  [md-icon-button],\n  [md-mini-fab],\n  [md-raised-button],\n  [mdCardSubtitle],\n  [mdCardTitle],\n  [mdDialogActions],\n  [mdDialogClose],\n  [mdDialogContent],\n  [mdDialogTitle],\n  [mdLine],\n  [mdTabLabel],\n  [mdTabLink],\n  [mdTabNav],\n  [mdTooltip],\n  md-autocomplete,\n  md-button-toggle,\n  md-button-toggle,\n  md-button-toggle-group,\n  md-card,\n  md-card-actions,\n  md-card-content,\n  md-card-footer,\n  md-card-header,\n  md-card-subtitle,\n  md-card-title,\n  md-card-title-group,\n  md-checkbox,\n  md-chip,\n  md-dialog-actions,\n  md-dialog-container,\n  md-dialog-content,\n  md-divider,\n  md-error,\n  md-grid-list,\n  md-grid-tile,\n  md-grid-tile-footer,\n  md-grid-tile-header,\n  md-hint,\n  md-icon,\n  md-list,\n  md-list-item,\n  md-menu,\n  md-nav-list,\n  md-option,\n  md-placeholder,\n  md-progress-bar,\n  md-pseudo-checkbox,\n  md-radio-button,\n  md-radio-group,\n  md-select,\n  md-sidenav,\n  md-sidenav-container,\n  md-slider,\n  md-spinner,\n  md-tab,\n  md-tab-group,\n  md-toolbar";
+var MD_ELEMENTS_SELECTOR = "\n  [md-button],\n  [md-fab],\n  [md-icon-button],\n  [md-mini-fab],\n  [md-raised-button],\n  [mdCardSubtitle],\n  [mdCardTitle],\n  [mdDialogActions],\n  [mdDialogClose],\n  [mdDialogContent],\n  [mdDialogTitle],\n  [mdLine],\n  [mdTabLabel],\n  [mdTabLink],\n  [mdTabNav],\n  [mdTooltip],\n  md-autocomplete,\n  md-button-toggle,\n  md-button-toggle,\n  md-button-toggle-group,\n  md-card,\n  md-card-actions,\n  md-card-content,\n  md-card-footer,\n  md-card-header,\n  md-card-subtitle,\n  md-card-title,\n  md-card-title-group,\n  md-cell,\n  md-checkbox,\n  md-chip,\n  md-dialog-actions,\n  md-dialog-container,\n  md-dialog-content,\n  md-divider,\n  md-error,\n  md-grid-list,\n  md-grid-tile,\n  md-grid-tile-footer,\n  md-grid-tile-header,\n  md-header-cell,\n  md-hint,\n  md-icon,\n  md-list,\n  md-list-item,\n  md-menu,\n  md-nav-list,\n  md-option,\n  md-placeholder,\n  md-progress-bar,\n  md-pseudo-checkbox,\n  md-radio-button,\n  md-radio-group,\n  md-row,\n  md-select,\n  md-sidenav,\n  md-sidenav-container,\n  md-slider,\n  md-spinner,\n  md-tab,\n  md-table,\n  md-tab-group,\n  md-toolbar";
 /**
  * Directive that enforces that the `mat-` prefix cannot be used.
  */
@@ -22292,6 +22292,11 @@ MdDatepickerModule.decorators = [
  */
 MdDatepickerModule.ctorParameters = function () { return []; };
 /**
+ * The row template that can be used by the md-table. Should not be used outside of the
+ * material library.
+ */
+var CDK_ROW_TEMPLATE = "<ng-container cdkCellOutlet></ng-container>";
+/**
  * Base class for the CdkHeaderRowDef and CdkRowDef that handles checking their columns inputs
  * for changes and notifying the table.
  * @abstract
@@ -22323,7 +22328,7 @@ var BaseRowDef = /*@__PURE__*/(function () {
     BaseRowDef.prototype.ngOnChanges = function (changes) {
         // Create a new columns differ if one does not yet exist. Initialize it based on initial value
         // of the columns property.
-        if (!this._columnsDiffer) {
+        if (!this._columnsDiffer && changes['columns'].currentValue) {
             this._columnsDiffer = this._differs.find(changes['columns'].currentValue).create();
         }
     };
@@ -22432,7 +22437,7 @@ var CdkHeaderRow = /*@__PURE__*/(function () {
 CdkHeaderRow.decorators = [
     { type: Component, args: [{
                 selector: 'cdk-header-row',
-                template: '<ng-container cdkCellOutlet></ng-container>',
+                template: CDK_ROW_TEMPLATE,
                 host: {
                     'class': 'cdk-header-row',
                     'role': 'row',
@@ -22455,7 +22460,7 @@ var CdkRow = /*@__PURE__*/(function () {
 CdkRow.decorators = [
     { type: Component, args: [{
                 selector: 'cdk-row',
-                template: '<ng-container cdkCellOutlet></ng-container>',
+                template: CDK_ROW_TEMPLATE,
                 host: {
                     'class': 'cdk-row',
                     'role': 'row',
@@ -22653,6 +22658,11 @@ HeaderRowPlaceholder.decorators = [
 HeaderRowPlaceholder.ctorParameters = function () { return [
     { type: ViewContainerRef, },
 ]; };
+/**
+ * The table template that can be used by the md-table. Should not be used outside of the
+ * material library.
+ */
+var CDK_TABLE_TEMPLATE = "\n  <ng-container headerRowPlaceholder></ng-container>\n  <ng-container rowPlaceholder></ng-container>";
 /**
  * A data table that connects with a data source to retrieve data of type T and renders
  * a header row and data rows. Updates the rows when new data is provided by the data source.
@@ -22927,6 +22937,9 @@ var CdkTable = /*@__PURE__*/(function () {
      */
     CdkTable.prototype._getHeaderCellTemplatesForRow = function (headerDef) {
         var _this = this;
+        if (!headerDef.columns) {
+            return [];
+        }
         return headerDef.columns.map(function (columnId) {
             var /** @type {?} */ column = _this._columnDefinitionsByName.get(columnId);
             if (!column) {
@@ -22943,6 +22956,9 @@ var CdkTable = /*@__PURE__*/(function () {
      */
     CdkTable.prototype._getCellTemplatesForRow = function (rowDef) {
         var _this = this;
+        if (!rowDef.columns) {
+            return [];
+        }
         return rowDef.columns.map(function (columnId) {
             var /** @type {?} */ column = _this._columnDefinitionsByName.get(columnId);
             if (!column) {
@@ -22956,7 +22972,7 @@ var CdkTable = /*@__PURE__*/(function () {
 CdkTable.decorators = [
     { type: Component, args: [{
                 selector: 'cdk-table',
-                template: "\n    <ng-container headerRowPlaceholder></ng-container>\n    <ng-container rowPlaceholder></ng-container>\n  ",
+                template: CDK_TABLE_TEMPLATE,
                 host: {
                     'class': 'cdk-table',
                 },
@@ -22997,6 +23013,21 @@ var DataSource = /*@__PURE__*/(function () {
     DataSource.prototype.connect = function (collectionViewer) { };
     return DataSource;
 }());
+var EXPORTED_DECLARATIONS = [
+    CdkTable,
+    CdkRowDef,
+    CdkCellDef,
+    CdkCellOutlet,
+    CdkHeaderCellDef,
+    CdkColumnDef,
+    CdkCell,
+    CdkRow,
+    CdkHeaderCell,
+    CdkHeaderRow,
+    CdkHeaderRowDef,
+    RowPlaceholder,
+    HeaderRowPlaceholder,
+];
 var CdkDataTableModule = /*@__PURE__*/(function () {
     function CdkDataTableModule() {
     }
@@ -23005,17 +23036,8 @@ var CdkDataTableModule = /*@__PURE__*/(function () {
 CdkDataTableModule.decorators = [
     { type: NgModule, args: [{
                 imports: [CommonModule],
-                exports: [
-                    CdkTable, CdkRowDef, CdkCellDef, CdkCellOutlet, CdkHeaderCellDef,
-                    CdkColumnDef, CdkCell, CdkRow,
-                    CdkHeaderCell, CdkHeaderRow, CdkHeaderRowDef
-                ],
-                declarations: [
-                    CdkTable, CdkRowDef, CdkCellDef, CdkCellOutlet, CdkHeaderCellDef,
-                    CdkColumnDef, CdkCell, CdkRow,
-                    CdkHeaderCell, CdkHeaderRow, CdkHeaderRowDef,
-                    RowPlaceholder, HeaderRowPlaceholder,
-                ]
+                exports: [EXPORTED_DECLARATIONS],
+                declarations: [EXPORTED_DECLARATIONS]
             },] },
 ];
 /**
@@ -23531,6 +23553,165 @@ MdExpansionModule.decorators = [
  * @nocollapse
  */
 MdExpansionModule.ctorParameters = function () { return []; };
+/**
+ * Wrapper for the CdkTable with Material design styles.
+ */
+var MdTable = /*@__PURE__*/(function (_super) {
+    tslib_1.__extends(MdTable, _super);
+    function MdTable() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return MdTable;
+}(CdkTable));
+MdTable.decorators = [
+    { type: Component, args: [{ selector: 'md-table, mat-table',
+                template: CDK_TABLE_TEMPLATE,
+                styles: [".mat-table{display:block}.mat-header-row,.mat-row{display:flex;border-bottom-width:1px;border-bottom-style:solid;align-items:center;height:48px;padding:0 24px}.mat-cell,.mat-header-cell{flex:1}"],
+                host: {
+                    'class': 'mat-table',
+                },
+                encapsulation: ViewEncapsulation.None,
+                changeDetection: ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdTable.ctorParameters = function () { return []; };
+/**
+ * Header cell template container that adds the right classes and role.
+ */
+var MdHeaderCell = /*@__PURE__*/(function (_super) {
+    tslib_1.__extends(MdHeaderCell, _super);
+    /**
+     * @param {?} columnDef
+     * @param {?} elementRef
+     * @param {?} renderer
+     */
+    function MdHeaderCell(columnDef, elementRef, renderer) {
+        var _this = _super.call(this, columnDef, elementRef, renderer) || this;
+        renderer.addClass(elementRef.nativeElement, "mat-column-" + columnDef.name);
+        return _this;
+    }
+    return MdHeaderCell;
+}(CdkHeaderCell));
+MdHeaderCell.decorators = [
+    { type: Directive, args: [{
+                selector: 'md-header-cell, mat-header-cell',
+                host: {
+                    'class': 'mat-header-cell',
+                    'role': 'columnheader',
+                },
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdHeaderCell.ctorParameters = function () { return [
+    { type: CdkColumnDef, },
+    { type: ElementRef, },
+    { type: Renderer2, },
+]; };
+/**
+ * Cell template container that adds the right classes and role.
+ */
+var MdCell = /*@__PURE__*/(function (_super) {
+    tslib_1.__extends(MdCell, _super);
+    /**
+     * @param {?} columnDef
+     * @param {?} elementRef
+     * @param {?} renderer
+     */
+    function MdCell(columnDef, elementRef, renderer) {
+        var _this = _super.call(this, columnDef, elementRef, renderer) || this;
+        renderer.addClass(elementRef.nativeElement, "mat-column-" + columnDef.name);
+        return _this;
+    }
+    return MdCell;
+}(CdkCell));
+MdCell.decorators = [
+    { type: Directive, args: [{
+                selector: 'md-cell, mat-cell',
+                host: {
+                    'class': 'mat-cell',
+                    'role': 'gridcell',
+                },
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdCell.ctorParameters = function () { return [
+    { type: CdkColumnDef, },
+    { type: ElementRef, },
+    { type: Renderer2, },
+]; };
+/**
+ * Header template container that contains the cell outlet. Adds the right class and role.
+ */
+var MdHeaderRow = /*@__PURE__*/(function (_super) {
+    tslib_1.__extends(MdHeaderRow, _super);
+    function MdHeaderRow() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return MdHeaderRow;
+}(CdkHeaderRow));
+MdHeaderRow.decorators = [
+    { type: Component, args: [{
+                selector: 'md-header-row, mat-header-row',
+                template: CDK_ROW_TEMPLATE,
+                host: {
+                    'class': 'mat-header-row',
+                    'role': 'row',
+                },
+                changeDetection: ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdHeaderRow.ctorParameters = function () { return []; };
+/**
+ * Data row template container that contains the cell outlet. Adds the right class and role.
+ */
+var MdRow = /*@__PURE__*/(function (_super) {
+    tslib_1.__extends(MdRow, _super);
+    function MdRow() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return MdRow;
+}(CdkRow));
+MdRow.decorators = [
+    { type: Component, args: [{
+                selector: 'md-row, mat-row',
+                template: CDK_ROW_TEMPLATE,
+                host: {
+                    'class': 'mat-row',
+                    'role': 'row',
+                },
+                changeDetection: ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdRow.ctorParameters = function () { return []; };
+var MdTableModule = /*@__PURE__*/(function () {
+    function MdTableModule() {
+    }
+    return MdTableModule;
+}());
+MdTableModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [CdkDataTableModule, CommonModule, MdCommonModule],
+                exports: [MdTable, MdHeaderCell, MdCell, MdHeaderRow, MdRow],
+                declarations: [MdTable, MdHeaderCell, MdCell, MdHeaderRow, MdRow],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdTableModule.ctorParameters = function () { return []; };
 /**
  * \@docs-private
  * @param {?} id
@@ -24096,6 +24277,7 @@ var MATERIAL_MODULES = [
     MdChipsModule,
     MdCheckboxModule,
     MdDatepickerModule,
+    MdTableModule,
     MdDialogModule,
     MdExpansionModule,
     MdGridListModule,
@@ -24125,7 +24307,7 @@ var MATERIAL_MODULES = [
     PlatformModule,
     MdCommonModule,
     ObserveContentModule,
-    CdkDataTableModule
+    CdkDataTableModule,
 ];
 /**
  * @deprecated
@@ -24148,5 +24330,5 @@ MaterialModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { coerceBooleanProperty, coerceNumberProperty, Dir, Directionality, BidiModule, ObserveContentModule, ObserveContent, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, CdkDataTableModule, DataSource, getDataTableUnknownColumnError, RowPlaceholder, HeaderRowPlaceholder, CdkTable, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkBase, _MdTabLinkMixinBase, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, getMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵj, DIR_DOCUMENT as ɵa, mixinColor as ɵx, mixinDisabled as ɵy, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵk, CdkCell as ɵbf, CdkCellDef as ɵbb, CdkColumnDef as ɵbd, CdkHeaderCell as ɵbe, CdkHeaderCellDef as ɵbc, BaseRowDef as ɵbg, CdkCellOutlet as ɵbj, CdkHeaderRow as ɵbk, CdkHeaderRowDef as ɵbh, CdkRow as ɵbl, CdkRowDef as ɵbi, MdMutationObserverFactory as ɵb, OVERLAY_CONTAINER_PROVIDER as ɵd, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵc, OverlayPositionBuilder as ɵw, VIEWPORT_RULER_PROVIDER as ɵf, VIEWPORT_RULER_PROVIDER_FACTORY as ɵe, SCROLL_DISPATCHER_PROVIDER as ɵh, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵg, RippleRenderer as ɵi, EXPANSION_PANEL_ANIMATION_TIMING as ɵl, MdGridAvatarCssMatStyler as ɵn, MdGridTileFooterCssMatStyler as ɵp, MdGridTileHeaderCssMatStyler as ɵo, MdGridTileText as ɵm, MdMenuItemBase as ɵq, _MdMenuItemMixinBase as ɵr, MdPaginatorIntl as ɵba, MdTabBase as ɵu, _MdTabMixinBase as ɵv, MdTabLabelWrapperBase as ɵs, _MdTabLabelWrapperMixinBase as ɵt };
+export { coerceBooleanProperty, coerceNumberProperty, Dir, Directionality, BidiModule, ObserveContentModule, ObserveContent, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, CdkDataTableModule, DataSource, getDataTableUnknownColumnError, RowPlaceholder, HeaderRowPlaceholder, CDK_TABLE_TEMPLATE, CdkTable, MdTableModule, MdHeaderCell, MdCell, MdTable, MdHeaderRow, MdRow, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkBase, _MdTabLinkMixinBase, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, getMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵj, DIR_DOCUMENT as ɵa, mixinColor as ɵx, mixinDisabled as ɵy, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵk, CdkCell as ɵbe, CdkCellDef as ɵba, CdkColumnDef as ɵbc, CdkHeaderCell as ɵbd, CdkHeaderCellDef as ɵbb, BaseRowDef as ɵbg, CDK_ROW_TEMPLATE as ɵbf, CdkCellOutlet as ɵbj, CdkHeaderRow as ɵbk, CdkHeaderRowDef as ɵbh, CdkRow as ɵbl, CdkRowDef as ɵbi, MdMutationObserverFactory as ɵb, OVERLAY_CONTAINER_PROVIDER as ɵd, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵc, OverlayPositionBuilder as ɵw, VIEWPORT_RULER_PROVIDER as ɵf, VIEWPORT_RULER_PROVIDER_FACTORY as ɵe, SCROLL_DISPATCHER_PROVIDER as ɵh, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵg, RippleRenderer as ɵi, EXPANSION_PANEL_ANIMATION_TIMING as ɵl, MdGridAvatarCssMatStyler as ɵn, MdGridTileFooterCssMatStyler as ɵp, MdGridTileHeaderCssMatStyler as ɵo, MdGridTileText as ɵm, MdMenuItemBase as ɵq, _MdMenuItemMixinBase as ɵr, MdPaginatorIntl as ɵbm, MdTabBase as ɵu, _MdTabMixinBase as ɵv, MdTabLabelWrapperBase as ɵs, _MdTabLabelWrapperMixinBase as ɵt };
 //# sourceMappingURL=material.es5.js.map
