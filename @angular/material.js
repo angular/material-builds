@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, InjectionToken, Injector, Input, IterableDiffers, NgModule, NgZone, Optional, Output, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
+import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, InjectionToken, Injector, Input, NgModule, NgZone, Optional, Output, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
 import { DOCUMENT, DomSanitizer, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
 import { Subject } from 'rxjs/Subject';
 import { _finally } from 'rxjs/operator/finally';
@@ -24,7 +24,7 @@ import { CommonModule, Location } from '@angular/common';
 import { Subscription } from 'rxjs/Subscription';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
-import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk';
+import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkColumnDef, CdkHeaderCell, CdkHeaderRow, CdkTable, CdkTableModule, coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk';
 import { of } from 'rxjs/observable/of';
 import { FormGroupDirective, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl, NgForm, Validators } from '@angular/forms';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -32,7 +32,6 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { _throw } from 'rxjs/observable/throw';
 import { forkJoin } from 'rxjs/observable/forkJoin';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -20989,725 +20988,6 @@ MdDatepickerModule.decorators = [
 MdDatepickerModule.ctorParameters = () => [];
 
 /**
- * The row template that can be used by the md-table. Should not be used outside of the
- * material library.
- */
-const CDK_ROW_TEMPLATE = `<ng-container cdkCellOutlet></ng-container>`;
-/**
- * Base class for the CdkHeaderRowDef and CdkRowDef that handles checking their columns inputs
- * for changes and notifying the table.
- * @abstract
- */
-class BaseRowDef {
-    /**
-     * @param {?} template
-     * @param {?} _differs
-     */
-    constructor(template, _differs) {
-        this.template = template;
-        this._differs = _differs;
-        /**
-         * Event stream that emits when changes are made to the columns.
-         */
-        this.columnsChange = new Subject();
-        this.viewInitialized = false;
-    }
-    /**
-     * @return {?}
-     */
-    ngAfterViewInit() {
-        this.viewInitialized = true;
-    }
-    /**
-     * @param {?} changes
-     * @return {?}
-     */
-    ngOnChanges(changes) {
-        // Create a new columns differ if one does not yet exist. Initialize it based on initial value
-        // of the columns property.
-        if (!this._columnsDiffer && changes['columns'].currentValue) {
-            this._columnsDiffer = this._differs.find(changes['columns'].currentValue).create();
-        }
-    }
-    /**
-     * @return {?}
-     */
-    ngDoCheck() {
-        if (!this.viewInitialized || !this._columnsDiffer || !this.columns) {
-            return;
-        }
-        // Notify the table if there are any changes to the columns.
-        const /** @type {?} */ changes = this._columnsDiffer.diff(this.columns);
-        if (changes) {
-            this.columnsChange.next();
-        }
-    }
-}
-/**
- * Header row definition for the CDK data-table.
- * Captures the header row's template and other header properties such as the columns to display.
- */
-class CdkHeaderRowDef extends BaseRowDef {
-    /**
-     * @param {?} template
-     * @param {?} _differs
-     */
-    constructor(template, _differs) {
-        super(template, _differs);
-    }
-}
-CdkHeaderRowDef.decorators = [
-    { type: Directive, args: [{
-                selector: '[cdkHeaderRowDef]',
-                inputs: ['columns: cdkHeaderRowDef'],
-            },] },
-];
-/**
- * @nocollapse
- */
-CdkHeaderRowDef.ctorParameters = () => [
-    { type: TemplateRef, },
-    { type: IterableDiffers, },
-];
-/**
- * Data row definition for the CDK data-table.
- * Captures the header row's template and other row properties such as the columns to display.
- */
-class CdkRowDef extends BaseRowDef {
-    /**
-     * @param {?} template
-     * @param {?} _differs
-     */
-    constructor(template, _differs) {
-        super(template, _differs);
-    }
-}
-CdkRowDef.decorators = [
-    { type: Directive, args: [{
-                selector: '[cdkRowDef]',
-                inputs: ['columns: cdkRowDefColumns'],
-            },] },
-];
-/**
- * @nocollapse
- */
-CdkRowDef.ctorParameters = () => [
-    { type: TemplateRef, },
-    { type: IterableDiffers, },
-];
-/**
- * Outlet for rendering cells inside of a row or header row.
- * \@docs-private
- */
-class CdkCellOutlet {
-    /**
-     * @param {?} _viewContainer
-     */
-    constructor(_viewContainer) {
-        this._viewContainer = _viewContainer;
-        CdkCellOutlet.mostRecentCellOutlet = this;
-    }
-}
-CdkCellOutlet.decorators = [
-    { type: Directive, args: [{ selector: '[cdkCellOutlet]' },] },
-];
-/**
- * @nocollapse
- */
-CdkCellOutlet.ctorParameters = () => [
-    { type: ViewContainerRef, },
-];
-/**
- * Header template container that contains the cell outlet. Adds the right class and role.
- */
-class CdkHeaderRow {
-}
-CdkHeaderRow.decorators = [
-    { type: Component, args: [{
-                selector: 'cdk-header-row',
-                template: CDK_ROW_TEMPLATE,
-                host: {
-                    'class': 'cdk-header-row',
-                    'role': 'row',
-                },
-                changeDetection: ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-CdkHeaderRow.ctorParameters = () => [];
-/**
- * Data row template container that contains the cell outlet. Adds the right class and role.
- */
-class CdkRow {
-}
-CdkRow.decorators = [
-    { type: Component, args: [{
-                selector: 'cdk-row',
-                template: CDK_ROW_TEMPLATE,
-                host: {
-                    'class': 'cdk-row',
-                    'role': 'row',
-                },
-                changeDetection: ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-CdkRow.ctorParameters = () => [];
-
-/**
- * Cell definition for a CDK data-table.
- * Captures the template of a column's data row cell as well as cell-specific properties.
- */
-class CdkCellDef {
-    /**
-     * @param {?} template
-     */
-    constructor(template) {
-        this.template = template;
-    }
-}
-CdkCellDef.decorators = [
-    { type: Directive, args: [{ selector: '[cdkCellDef]' },] },
-];
-/**
- * @nocollapse
- */
-CdkCellDef.ctorParameters = () => [
-    { type: TemplateRef, },
-];
-/**
- * Header cell definition for a CDK data-table.
- * Captures the template of a column's header cell and as well as cell-specific properties.
- */
-class CdkHeaderCellDef {
-    /**
-     * @param {?} template
-     */
-    constructor(template) {
-        this.template = template;
-    }
-}
-CdkHeaderCellDef.decorators = [
-    { type: Directive, args: [{ selector: '[cdkHeaderCellDef]' },] },
-];
-/**
- * @nocollapse
- */
-CdkHeaderCellDef.ctorParameters = () => [
-    { type: TemplateRef, },
-];
-/**
- * Column definition for the CDK data-table.
- * Defines a set of cells available for a table column.
- */
-class CdkColumnDef {
-}
-CdkColumnDef.decorators = [
-    { type: Directive, args: [{ selector: '[cdkColumnDef]' },] },
-];
-/**
- * @nocollapse
- */
-CdkColumnDef.ctorParameters = () => [];
-CdkColumnDef.propDecorators = {
-    'name': [{ type: Input, args: ['cdkColumnDef',] },],
-    'cell': [{ type: ContentChild, args: [CdkCellDef,] },],
-    'headerCell': [{ type: ContentChild, args: [CdkHeaderCellDef,] },],
-};
-/**
- * Header cell template container that adds the right classes and role.
- */
-class CdkHeaderCell {
-    /**
-     * @param {?} columnDef
-     * @param {?} elementRef
-     * @param {?} renderer
-     */
-    constructor(columnDef, elementRef, renderer) {
-        this.columnDef = columnDef;
-        this.elementRef = elementRef;
-        this.renderer = renderer;
-        this.renderer.addClass(elementRef.nativeElement, `cdk-column-${columnDef.name}`);
-    }
-}
-CdkHeaderCell.decorators = [
-    { type: Directive, args: [{
-                selector: 'cdk-header-cell',
-                host: {
-                    'class': 'cdk-header-cell',
-                    'role': 'columnheader',
-                },
-            },] },
-];
-/**
- * @nocollapse
- */
-CdkHeaderCell.ctorParameters = () => [
-    { type: CdkColumnDef, },
-    { type: ElementRef, },
-    { type: Renderer2, },
-];
-/**
- * Cell template container that adds the right classes and role.
- */
-class CdkCell {
-    /**
-     * @param {?} columnDef
-     * @param {?} elementRef
-     * @param {?} renderer
-     */
-    constructor(columnDef, elementRef, renderer) {
-        this.columnDef = columnDef;
-        this.elementRef = elementRef;
-        this.renderer = renderer;
-        this.renderer.addClass(elementRef.nativeElement, `cdk-column-${columnDef.name}`);
-    }
-}
-CdkCell.decorators = [
-    { type: Directive, args: [{
-                selector: 'cdk-cell',
-                host: {
-                    'class': 'cdk-cell',
-                    'role': 'gridcell',
-                },
-            },] },
-];
-/**
- * @nocollapse
- */
-CdkCell.ctorParameters = () => [
-    { type: CdkColumnDef, },
-    { type: ElementRef, },
-    { type: Renderer2, },
-];
-
-/**
- * Returns an error to be thrown when attempting to find an unexisting column.
- * \@docs-private
- * @param {?} id Id whose lookup failed.
- * @return {?}
- */
-function getDataTableUnknownColumnError(id) {
-    return new Error(`md-data-table: Could not find column with id "${id}".`);
-}
-/**
- * Provides a handle for the table to grab the view container's ng-container to insert data rows.
- * \@docs-private
- */
-class RowPlaceholder {
-    /**
-     * @param {?} viewContainer
-     */
-    constructor(viewContainer) {
-        this.viewContainer = viewContainer;
-    }
-}
-RowPlaceholder.decorators = [
-    { type: Directive, args: [{ selector: '[rowPlaceholder]' },] },
-];
-/**
- * @nocollapse
- */
-RowPlaceholder.ctorParameters = () => [
-    { type: ViewContainerRef, },
-];
-/**
- * Provides a handle for the table to grab the view container's ng-container to insert the header.
- * \@docs-private
- */
-class HeaderRowPlaceholder {
-    /**
-     * @param {?} viewContainer
-     */
-    constructor(viewContainer) {
-        this.viewContainer = viewContainer;
-    }
-}
-HeaderRowPlaceholder.decorators = [
-    { type: Directive, args: [{ selector: '[headerRowPlaceholder]' },] },
-];
-/**
- * @nocollapse
- */
-HeaderRowPlaceholder.ctorParameters = () => [
-    { type: ViewContainerRef, },
-];
-/**
- * The table template that can be used by the md-table. Should not be used outside of the
- * material library.
- */
-const CDK_TABLE_TEMPLATE = `
-  <ng-container headerRowPlaceholder></ng-container>
-  <ng-container rowPlaceholder></ng-container>`;
-/**
- * A data table that connects with a data source to retrieve data of type T and renders
- * a header row and data rows. Updates the rows when new data is provided by the data source.
- */
-class CdkTable {
-    /**
-     * @param {?} _differs
-     * @param {?} _changeDetectorRef
-     * @param {?} elementRef
-     * @param {?} renderer
-     * @param {?} role
-     */
-    constructor(_differs, _changeDetectorRef, elementRef, renderer, role) {
-        this._differs = _differs;
-        this._changeDetectorRef = _changeDetectorRef;
-        /**
-         * Subject that emits when the component has been destroyed.
-         */
-        this._onDestroy = new Subject();
-        /**
-         * Flag set to true after the component has been initialized.
-         */
-        this._isViewInitialized = false;
-        /**
-         * Latest data provided by the data source through the connect interface.
-         */
-        this._data = [];
-        /**
-         * Map of all the user's defined columns identified by name.
-         * Contains the header and data-cell templates.
-         */
-        this._columnDefinitionsByName = new Map();
-        /**
-         * Stream containing the latest information on what rows are being displayed on screen.
-         * Can be used by the data source to as a heuristic of what data should be provided.
-         */
-        this.viewChange = new BehaviorSubject({ start: 0, end: Number.MAX_VALUE });
-        // Show the stability warning of the data-table only if it doesn't run inside of jasmine.
-        // This is just temporary and should reduce warnings when running the tests.
-        if (!(typeof window !== 'undefined' && window['jasmine'])) {
-            console.warn('The data table is still in active development ' +
-                'and should be considered unstable.');
-        }
-        if (!role) {
-            renderer.setAttribute(elementRef.nativeElement, 'role', 'grid');
-        }
-    }
-    /**
-     * Tracking function that will be used to check the differences in data changes. Used similarly
-     * to ngFor trackBy function. Optimize row operations by identifying a row based on its data
-     * relative to the function to know if a row should be added/removed/moved.
-     * Accepts a function that takes two parameters, `index` and `item`.
-     * @param {?} fn
-     * @return {?}
-     */
-    set trackBy(fn) {
-        if (isDevMode() &&
-            fn != null && typeof fn !== 'function' && (console) && (console.warn)) {
-            console.warn(`trackBy must be a function, but received ${JSON.stringify(fn)}.`);
-        }
-        this._trackByFn = fn;
-    }
-    /**
-     * @return {?}
-     */
-    get trackBy() { return this._trackByFn; }
-    /**
-     * Provides a stream containing the latest data array to render. Influenced by the table's
-     * stream of view window (what rows are currently on screen).
-     * @return {?}
-     */
-    get dataSource() { return this._dataSource; }
-    /**
-     * @param {?} dataSource
-     * @return {?}
-     */
-    set dataSource(dataSource) {
-        if (this._dataSource !== dataSource) {
-            this._switchDataSource(dataSource);
-        }
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this._onDestroy.next();
-        this._onDestroy.complete();
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        // TODO(andrewseguin): Setup a listener for scroll events
-        //   and emit the calculated view to this.viewChange
-    }
-    /**
-     * @return {?}
-     */
-    ngAfterContentInit() {
-        // TODO(andrewseguin): Throw an error if two columns share the same name
-        this._columnDefinitions.forEach(columnDef => {
-            this._columnDefinitionsByName.set(columnDef.name, columnDef);
-        });
-        // Re-render the rows if any of their columns change.
-        // TODO(andrewseguin): Determine how to only re-render the rows that have their columns changed.
-        const /** @type {?} */ columnChangeEvents = this._rowDefinitions.map(rowDef => rowDef.columnsChange);
-        takeUntil$1.call(merge(...columnChangeEvents), this._onDestroy).subscribe(() => {
-            // Reset the data to an empty array so that renderRowChanges will re-render all new rows.
-            this._rowPlaceholder.viewContainer.clear();
-            this._dataDiffer.diff([]);
-            this._renderRowChanges();
-        });
-        // Re-render the header row if the columns change
-        takeUntil$1.call(this._headerDefinition.columnsChange, this._onDestroy).subscribe(() => {
-            this._headerRowPlaceholder.viewContainer.clear();
-            this._renderHeaderRow();
-        });
-    }
-    /**
-     * @return {?}
-     */
-    ngAfterViewInit() {
-        // Find and construct an iterable differ that can be used to find the diff in an array.
-        this._dataDiffer = this._differs.find([]).create(this._trackByFn);
-        this._isViewInitialized = true;
-    }
-    /**
-     * @return {?}
-     */
-    ngDoCheck() {
-        if (this._isViewInitialized && this.dataSource && !this._renderChangeSubscription) {
-            this._renderHeaderRow();
-            if (this.dataSource && !this._renderChangeSubscription) {
-                this._observeRenderChanges();
-            }
-        }
-    }
-    /**
-     * Switch to the provided data source by resetting the data and unsubscribing from the current
-     * render change subscription if one exists. If the data source is null, interpret this by
-     * clearing the row placeholder. Otherwise start listening for new data.
-     * @param {?} dataSource
-     * @return {?}
-     */
-    _switchDataSource(dataSource) {
-        this._data = [];
-        this._dataSource = dataSource;
-        if (this._isViewInitialized) {
-            if (this._renderChangeSubscription) {
-                this._renderChangeSubscription.unsubscribe();
-            }
-            if (this._dataSource) {
-                this._observeRenderChanges();
-            }
-            else {
-                this._rowPlaceholder.viewContainer.clear();
-            }
-        }
-    }
-    /**
-     * Set up a subscription for the data provided by the data source.
-     * @return {?}
-     */
-    _observeRenderChanges() {
-        this._renderChangeSubscription = takeUntil$1.call(this.dataSource.connect(this), this._onDestroy)
-            .subscribe(data => {
-            this._data = data;
-            this._renderRowChanges();
-        });
-    }
-    /**
-     * Create the embedded view for the header template and place it in the header row view container.
-     * @return {?}
-     */
-    _renderHeaderRow() {
-        const /** @type {?} */ cells = this._getHeaderCellTemplatesForRow(this._headerDefinition);
-        if (!cells.length) {
-            return;
-        }
-        // TODO(andrewseguin): add some code to enforce that exactly
-        //   one CdkCellOutlet was instantiated as a result
-        //   of `createEmbeddedView`.
-        this._headerRowPlaceholder.viewContainer
-            .createEmbeddedView(this._headerDefinition.template, { cells });
-        cells.forEach(cell => {
-            CdkCellOutlet.mostRecentCellOutlet._viewContainer.createEmbeddedView(cell.template, {});
-        });
-        this._changeDetectorRef.markForCheck();
-    }
-    /**
-     * Check for changes made in the data and render each change (row added/removed/moved).
-     * @return {?}
-     */
-    _renderRowChanges() {
-        const /** @type {?} */ changes = this._dataDiffer.diff(this._data);
-        if (!changes) {
-            return;
-        }
-        const /** @type {?} */ viewContainer = this._rowPlaceholder.viewContainer;
-        changes.forEachOperation((item, adjustedPreviousIndex, currentIndex) => {
-            if (item.previousIndex == null) {
-                this._insertRow(this._data[currentIndex], currentIndex);
-            }
-            else if (currentIndex == null) {
-                viewContainer.remove(adjustedPreviousIndex);
-            }
-            else {
-                const /** @type {?} */ view = viewContainer.get(adjustedPreviousIndex);
-                viewContainer.move(/** @type {?} */ ((view)), currentIndex);
-            }
-        });
-        this._updateRowContext();
-    }
-    /**
-     * Create the embedded view for the data row template and place it in the correct index location
-     * within the data row view container.
-     * @param {?} rowData
-     * @param {?} index
-     * @return {?}
-     */
-    _insertRow(rowData, index) {
-        // TODO(andrewseguin): Add when predicates to the row definitions
-        //   to find the right template to used based on
-        //   the data rather than choosing the first row definition.
-        const /** @type {?} */ row = this._rowDefinitions.first;
-        // Row context that will be provided to both the created embedded row view and its cells.
-        const /** @type {?} */ context = { $implicit: rowData };
-        // TODO(andrewseguin): add some code to enforce that exactly one
-        //   CdkCellOutlet was instantiated as a result  of `createEmbeddedView`.
-        this._rowPlaceholder.viewContainer.createEmbeddedView(row.template, context, index);
-        // Insert empty cells if there is no data to improve rendering time.
-        const /** @type {?} */ cells = rowData ? this._getCellTemplatesForRow(row) : [];
-        cells.forEach(cell => {
-            CdkCellOutlet.mostRecentCellOutlet._viewContainer.createEmbeddedView(cell.template, context);
-        });
-        this._changeDetectorRef.markForCheck();
-    }
-    /**
-     * Updates the context for each row to reflect any data changes that may have caused
-     * rows to be added, removed, or moved. The view container contains the same context
-     * that was provided to each of its cells.
-     * @return {?}
-     */
-    _updateRowContext() {
-        const /** @type {?} */ viewContainer = this._rowPlaceholder.viewContainer;
-        for (let /** @type {?} */ index = 0, /** @type {?} */ count = viewContainer.length; index < count; index++) {
-            const /** @type {?} */ viewRef = (viewContainer.get(index));
-            viewRef.context.index = index;
-            viewRef.context.count = count;
-            viewRef.context.first = index === 0;
-            viewRef.context.last = index === count - 1;
-            viewRef.context.even = index % 2 === 0;
-            viewRef.context.odd = index % 2 !== 0;
-        }
-    }
-    /**
-     * Returns the cell template definitions to insert into the header
-     * as defined by its list of columns to display.
-     * @param {?} headerDef
-     * @return {?}
-     */
-    _getHeaderCellTemplatesForRow(headerDef) {
-        if (!headerDef.columns) {
-            return [];
-        }
-        return headerDef.columns.map(columnId => {
-            const /** @type {?} */ column = this._columnDefinitionsByName.get(columnId);
-            if (!column) {
-                throw getDataTableUnknownColumnError(columnId);
-            }
-            return column.headerCell;
-        });
-    }
-    /**
-     * Returns the cell template definitions to insert in the provided row
-     * as defined by its list of columns to display.
-     * @param {?} rowDef
-     * @return {?}
-     */
-    _getCellTemplatesForRow(rowDef) {
-        if (!rowDef.columns) {
-            return [];
-        }
-        return rowDef.columns.map(columnId => {
-            const /** @type {?} */ column = this._columnDefinitionsByName.get(columnId);
-            if (!column) {
-                throw getDataTableUnknownColumnError(columnId);
-            }
-            return column.cell;
-        });
-    }
-}
-CdkTable.decorators = [
-    { type: Component, args: [{
-                selector: 'cdk-table',
-                template: CDK_TABLE_TEMPLATE,
-                host: {
-                    'class': 'cdk-table',
-                },
-                encapsulation: ViewEncapsulation.None,
-                changeDetection: ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-CdkTable.ctorParameters = () => [
-    { type: IterableDiffers, },
-    { type: ChangeDetectorRef, },
-    { type: ElementRef, },
-    { type: Renderer2, },
-    { type: undefined, decorators: [{ type: Attribute, args: ['role',] },] },
-];
-CdkTable.propDecorators = {
-    'trackBy': [{ type: Input },],
-    'dataSource': [{ type: Input },],
-    '_rowPlaceholder': [{ type: ViewChild, args: [RowPlaceholder,] },],
-    '_headerRowPlaceholder': [{ type: ViewChild, args: [HeaderRowPlaceholder,] },],
-    '_columnDefinitions': [{ type: ContentChildren, args: [CdkColumnDef,] },],
-    '_headerDefinition': [{ type: ContentChild, args: [CdkHeaderRowDef,] },],
-    '_rowDefinitions': [{ type: ContentChildren, args: [CdkRowDef,] },],
-};
-
-/**
- * @abstract
- */
-class DataSource {
-    /**
-     * @abstract
-     * @param {?} collectionViewer
-     * @return {?}
-     */
-    connect(collectionViewer) { }
-}
-
-const EXPORTED_DECLARATIONS = [
-    CdkTable,
-    CdkRowDef,
-    CdkCellDef,
-    CdkCellOutlet,
-    CdkHeaderCellDef,
-    CdkColumnDef,
-    CdkCell,
-    CdkRow,
-    CdkHeaderCell,
-    CdkHeaderRow,
-    CdkHeaderRowDef,
-    RowPlaceholder,
-    HeaderRowPlaceholder,
-];
-class CdkDataTableModule {
-}
-CdkDataTableModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [CommonModule],
-                exports: [EXPORTED_DECLARATIONS],
-                declarations: [EXPORTED_DECLARATIONS]
-            },] },
-];
-/**
- * @nocollapse
- */
-CdkDataTableModule.ctorParameters = () => [];
-
-/**
  * Unique ID counter
  */
 let nextId$3 = 0;
@@ -22186,9 +21466,13 @@ MdExpansionModule.decorators = [
 MdExpansionModule.ctorParameters = () => [];
 
 /**
+ * Workaround for https://github.com/angular/angular/issues/17849
+ */
+const _MdTable = CdkTable;
+/**
  * Wrapper for the CdkTable with Material design styles.
  */
-class MdTable extends CdkTable {
+class MdTable extends _MdTable {
 }
 MdTable.decorators = [
     { type: Component, args: [{selector: 'md-table, mat-table',
@@ -22207,9 +21491,14 @@ MdTable.decorators = [
 MdTable.ctorParameters = () => [];
 
 /**
+ * Workaround for https://github.com/angular/angular/issues/17849
+ */
+const _MdHeaderCellBase = CdkHeaderCell;
+const _MdCell = CdkCell;
+/**
  * Header cell template container that adds the right classes and role.
  */
-class MdHeaderCell extends CdkHeaderCell {
+class MdHeaderCell extends _MdHeaderCellBase {
     /**
      * @param {?} columnDef
      * @param {?} elementRef
@@ -22240,7 +21529,7 @@ MdHeaderCell.ctorParameters = () => [
 /**
  * Cell template container that adds the right classes and role.
  */
-class MdCell extends CdkCell {
+class MdCell extends _MdCell {
     /**
      * @param {?} columnDef
      * @param {?} elementRef
@@ -22270,9 +21559,14 @@ MdCell.ctorParameters = () => [
 ];
 
 /**
+ * Workaround for https://github.com/angular/angular/issues/17849
+ */
+const _MdHeaderRow = CdkHeaderRow;
+const _MdRow = CdkHeaderRow;
+/**
  * Header template container that contains the cell outlet. Adds the right class and role.
  */
-class MdHeaderRow extends CdkHeaderRow {
+class MdHeaderRow extends _MdHeaderRow {
 }
 MdHeaderRow.decorators = [
     { type: Component, args: [{
@@ -22292,7 +21586,7 @@ MdHeaderRow.ctorParameters = () => [];
 /**
  * Data row template container that contains the cell outlet. Adds the right class and role.
  */
-class MdRow extends CdkRow {
+class MdRow extends _MdRow {
 }
 MdRow.decorators = [
     { type: Component, args: [{
@@ -22314,7 +21608,7 @@ class MdTableModule {
 }
 MdTableModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CdkDataTableModule, CommonModule, MdCommonModule],
+                imports: [CdkTableModule, CommonModule, MdCommonModule],
                 exports: [MdTable, MdHeaderCell, MdCell, MdHeaderRow, MdRow],
                 declarations: [MdTable, MdHeaderCell, MdCell, MdHeaderRow, MdRow],
             },] },
@@ -22892,8 +22186,7 @@ const MATERIAL_MODULES = [
     A11yModule,
     PlatformModule,
     MdCommonModule,
-    ObserveContentModule,
-    CdkDataTableModule,
+    ObserveContentModule
 ];
 /**
  * @deprecated
@@ -22915,5 +22208,5 @@ MaterialModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { coerceBooleanProperty, coerceNumberProperty, Dir, Directionality, BidiModule, ObserveContentModule, ObserveContent, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, CdkDataTableModule, DataSource, getDataTableUnknownColumnError, RowPlaceholder, HeaderRowPlaceholder, CDK_TABLE_TEMPLATE, CdkTable, MdTableModule, MdHeaderCell, MdCell, MdTable, MdHeaderRow, MdRow, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkBase, _MdTabLinkMixinBase, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, getMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵj, DIR_DOCUMENT as ɵa, mixinColor as ɵx, mixinDisabled as ɵy, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵk, CdkCell as ɵbe, CdkCellDef as ɵba, CdkColumnDef as ɵbc, CdkHeaderCell as ɵbd, CdkHeaderCellDef as ɵbb, BaseRowDef as ɵbg, CDK_ROW_TEMPLATE as ɵbf, CdkCellOutlet as ɵbj, CdkHeaderRow as ɵbk, CdkHeaderRowDef as ɵbh, CdkRow as ɵbl, CdkRowDef as ɵbi, MdMutationObserverFactory as ɵb, OVERLAY_CONTAINER_PROVIDER as ɵd, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵc, OverlayPositionBuilder as ɵw, VIEWPORT_RULER_PROVIDER as ɵf, VIEWPORT_RULER_PROVIDER_FACTORY as ɵe, SCROLL_DISPATCHER_PROVIDER as ɵh, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵg, RippleRenderer as ɵi, EXPANSION_PANEL_ANIMATION_TIMING as ɵl, MdGridAvatarCssMatStyler as ɵn, MdGridTileFooterCssMatStyler as ɵp, MdGridTileHeaderCssMatStyler as ɵo, MdGridTileText as ɵm, MdMenuItemBase as ɵq, _MdMenuItemMixinBase as ɵr, MdPaginatorIntl as ɵbm, MdTabBase as ɵu, _MdTabMixinBase as ɵv, MdTabLabelWrapperBase as ɵs, _MdTabLabelWrapperMixinBase as ɵt };
+export { coerceBooleanProperty, coerceNumberProperty, Dir, Directionality, BidiModule, ObserveContentModule, ObserveContent, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort, MdTableModule, _MdHeaderCellBase, _MdCell, MdHeaderCell, MdCell, _MdTable, MdTable, _MdHeaderRow, _MdRow, MdHeaderRow, MdRow, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkBase, _MdTabLinkMixinBase, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, getMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵj, DIR_DOCUMENT as ɵa, mixinColor as ɵx, mixinDisabled as ɵy, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵk, MdMutationObserverFactory as ɵb, OVERLAY_CONTAINER_PROVIDER as ɵd, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵc, OverlayPositionBuilder as ɵw, VIEWPORT_RULER_PROVIDER as ɵf, VIEWPORT_RULER_PROVIDER_FACTORY as ɵe, SCROLL_DISPATCHER_PROVIDER as ɵh, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵg, RippleRenderer as ɵi, EXPANSION_PANEL_ANIMATION_TIMING as ɵl, MdGridAvatarCssMatStyler as ɵn, MdGridTileFooterCssMatStyler as ɵp, MdGridTileHeaderCssMatStyler as ɵo, MdGridTileText as ɵm, MdMenuItemBase as ɵq, _MdMenuItemMixinBase as ɵr, MdPaginatorIntl as ɵba, MdTabBase as ɵu, _MdTabMixinBase as ɵv, MdTabLabelWrapperBase as ɵs, _MdTabLabelWrapperMixinBase as ɵt };
 //# sourceMappingURL=material.js.map

@@ -8,7 +8,7 @@
 import { ChangeDetectorRef } from '@angular/core';
 import { MdSort, MdSortable } from './sort';
 import { MdSortHeaderIntl } from './sort-header-intl';
-import { CdkColumnDef } from '../core/data-table/cell';
+import { CdkColumnDef } from '@angular/cdk';
 import { Subscription } from 'rxjs/Subscription';
 /**
  * Applies sorting behavior (click to change sort) and styles to an element, including an

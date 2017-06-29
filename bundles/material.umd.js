@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('rxjs/Subject'), require('rxjs/operator/finally'), require('rxjs/operator/catch'), require('rxjs/operator/do'), require('rxjs/operator/map'), require('rxjs/operator/filter'), require('rxjs/operator/share'), require('rxjs/operator/first'), require('rxjs/operator/switchMap'), require('rxjs/operator/startWith'), require('rxjs/operator/debounceTime'), require('rxjs/operator/auditTime'), require('rxjs/operator/takeUntil'), require('@angular/common'), require('rxjs/Subscription'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('@angular/cdk'), require('rxjs/observable/of'), require('@angular/forms'), require('@angular/animations'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/throw'), require('rxjs/observable/forkJoin'), require('rxjs/BehaviorSubject')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', 'rxjs/Subject', 'rxjs/operator/finally', 'rxjs/operator/catch', 'rxjs/operator/do', 'rxjs/operator/map', 'rxjs/operator/filter', 'rxjs/operator/share', 'rxjs/operator/first', 'rxjs/operator/switchMap', 'rxjs/operator/startWith', 'rxjs/operator/debounceTime', 'rxjs/operator/auditTime', 'rxjs/operator/takeUntil', '@angular/common', 'rxjs/Subscription', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', '@angular/cdk', 'rxjs/observable/of', '@angular/forms', '@angular/animations', '@angular/http', 'rxjs/Observable', 'rxjs/observable/throw', 'rxjs/observable/forkJoin', 'rxjs/BehaviorSubject'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.platformBrowser,global.Rx,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.ng.common,global.Rx,global.Rx.Observable,global.Rx.Observable,global.ng.cdk,global.Rx.Observable,global.ng.forms,global.ng.animations,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx));
-}(this, (function (exports,_angular_core,_angular_platformBrowser,rxjs_Subject,rxjs_operator_finally,rxjs_operator_catch,rxjs_operator_do,rxjs_operator_map,rxjs_operator_filter,rxjs_operator_share,rxjs_operator_first,rxjs_operator_switchMap,rxjs_operator_startWith,rxjs_operator_debounceTime,rxjs_operator_auditTime,rxjs_operator_takeUntil,_angular_common,rxjs_Subscription,rxjs_observable_fromEvent,rxjs_observable_merge,_angular_cdk,rxjs_observable_of,_angular_forms,_angular_animations,_angular_http,rxjs_Observable,rxjs_observable_throw,rxjs_observable_forkJoin,rxjs_BehaviorSubject) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('rxjs/Subject'), require('rxjs/operator/finally'), require('rxjs/operator/catch'), require('rxjs/operator/do'), require('rxjs/operator/map'), require('rxjs/operator/filter'), require('rxjs/operator/share'), require('rxjs/operator/first'), require('rxjs/operator/switchMap'), require('rxjs/operator/startWith'), require('rxjs/operator/debounceTime'), require('rxjs/operator/auditTime'), require('rxjs/operator/takeUntil'), require('@angular/common'), require('rxjs/Subscription'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('@angular/cdk'), require('rxjs/observable/of'), require('@angular/forms'), require('@angular/animations'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/throw'), require('rxjs/observable/forkJoin')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', 'rxjs/Subject', 'rxjs/operator/finally', 'rxjs/operator/catch', 'rxjs/operator/do', 'rxjs/operator/map', 'rxjs/operator/filter', 'rxjs/operator/share', 'rxjs/operator/first', 'rxjs/operator/switchMap', 'rxjs/operator/startWith', 'rxjs/operator/debounceTime', 'rxjs/operator/auditTime', 'rxjs/operator/takeUntil', '@angular/common', 'rxjs/Subscription', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', '@angular/cdk', 'rxjs/observable/of', '@angular/forms', '@angular/animations', '@angular/http', 'rxjs/Observable', 'rxjs/observable/throw', 'rxjs/observable/forkJoin'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.platformBrowser,global.Rx,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.ng.common,global.Rx,global.Rx.Observable,global.Rx.Observable,global.ng.cdk,global.Rx.Observable,global.ng.forms,global.ng.animations,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_platformBrowser,rxjs_Subject,rxjs_operator_finally,rxjs_operator_catch,rxjs_operator_do,rxjs_operator_map,rxjs_operator_filter,rxjs_operator_share,rxjs_operator_first,rxjs_operator_switchMap,rxjs_operator_startWith,rxjs_operator_debounceTime,rxjs_operator_auditTime,rxjs_operator_takeUntil,_angular_common,rxjs_Subscription,rxjs_observable_fromEvent,rxjs_observable_merge,_angular_cdk,rxjs_observable_of,_angular_forms,_angular_animations,_angular_http,rxjs_Observable,rxjs_observable_throw,rxjs_observable_forkJoin) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -22295,759 +22295,6 @@ MdDatepickerModule.decorators = [
  */
 MdDatepickerModule.ctorParameters = function () { return []; };
 /**
- * The row template that can be used by the md-table. Should not be used outside of the
- * material library.
- */
-var CDK_ROW_TEMPLATE = "<ng-container cdkCellOutlet></ng-container>";
-/**
- * Base class for the CdkHeaderRowDef and CdkRowDef that handles checking their columns inputs
- * for changes and notifying the table.
- * @abstract
- */
-var BaseRowDef = (function () {
-    /**
-     * @param {?} template
-     * @param {?} _differs
-     */
-    function BaseRowDef(template, _differs) {
-        this.template = template;
-        this._differs = _differs;
-        /**
-         * Event stream that emits when changes are made to the columns.
-         */
-        this.columnsChange = new rxjs_Subject.Subject();
-        this.viewInitialized = false;
-    }
-    /**
-     * @return {?}
-     */
-    BaseRowDef.prototype.ngAfterViewInit = function () {
-        this.viewInitialized = true;
-    };
-    /**
-     * @param {?} changes
-     * @return {?}
-     */
-    BaseRowDef.prototype.ngOnChanges = function (changes) {
-        // Create a new columns differ if one does not yet exist. Initialize it based on initial value
-        // of the columns property.
-        if (!this._columnsDiffer && changes['columns'].currentValue) {
-            this._columnsDiffer = this._differs.find(changes['columns'].currentValue).create();
-        }
-    };
-    /**
-     * @return {?}
-     */
-    BaseRowDef.prototype.ngDoCheck = function () {
-        if (!this.viewInitialized || !this._columnsDiffer || !this.columns) {
-            return;
-        }
-        // Notify the table if there are any changes to the columns.
-        var /** @type {?} */ changes = this._columnsDiffer.diff(this.columns);
-        if (changes) {
-            this.columnsChange.next();
-        }
-    };
-    return BaseRowDef;
-}());
-/**
- * Header row definition for the CDK data-table.
- * Captures the header row's template and other header properties such as the columns to display.
- */
-var CdkHeaderRowDef = (function (_super) {
-    __extends(CdkHeaderRowDef, _super);
-    /**
-     * @param {?} template
-     * @param {?} _differs
-     */
-    function CdkHeaderRowDef(template, _differs) {
-        return _super.call(this, template, _differs) || this;
-    }
-    return CdkHeaderRowDef;
-}(BaseRowDef));
-CdkHeaderRowDef.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[cdkHeaderRowDef]',
-                inputs: ['columns: cdkHeaderRowDef'],
-            },] },
-];
-/**
- * @nocollapse
- */
-CdkHeaderRowDef.ctorParameters = function () { return [
-    { type: _angular_core.TemplateRef, },
-    { type: _angular_core.IterableDiffers, },
-]; };
-/**
- * Data row definition for the CDK data-table.
- * Captures the header row's template and other row properties such as the columns to display.
- */
-var CdkRowDef = (function (_super) {
-    __extends(CdkRowDef, _super);
-    /**
-     * @param {?} template
-     * @param {?} _differs
-     */
-    function CdkRowDef(template, _differs) {
-        return _super.call(this, template, _differs) || this;
-    }
-    return CdkRowDef;
-}(BaseRowDef));
-CdkRowDef.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[cdkRowDef]',
-                inputs: ['columns: cdkRowDefColumns'],
-            },] },
-];
-/**
- * @nocollapse
- */
-CdkRowDef.ctorParameters = function () { return [
-    { type: _angular_core.TemplateRef, },
-    { type: _angular_core.IterableDiffers, },
-]; };
-/**
- * Outlet for rendering cells inside of a row or header row.
- * \@docs-private
- */
-var CdkCellOutlet = (function () {
-    /**
-     * @param {?} _viewContainer
-     */
-    function CdkCellOutlet(_viewContainer) {
-        this._viewContainer = _viewContainer;
-        CdkCellOutlet.mostRecentCellOutlet = this;
-    }
-    return CdkCellOutlet;
-}());
-CdkCellOutlet.decorators = [
-    { type: _angular_core.Directive, args: [{ selector: '[cdkCellOutlet]' },] },
-];
-/**
- * @nocollapse
- */
-CdkCellOutlet.ctorParameters = function () { return [
-    { type: _angular_core.ViewContainerRef, },
-]; };
-/**
- * Header template container that contains the cell outlet. Adds the right class and role.
- */
-var CdkHeaderRow = (function () {
-    function CdkHeaderRow() {
-    }
-    return CdkHeaderRow;
-}());
-CdkHeaderRow.decorators = [
-    { type: _angular_core.Component, args: [{
-                selector: 'cdk-header-row',
-                template: CDK_ROW_TEMPLATE,
-                host: {
-                    'class': 'cdk-header-row',
-                    'role': 'row',
-                },
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-CdkHeaderRow.ctorParameters = function () { return []; };
-/**
- * Data row template container that contains the cell outlet. Adds the right class and role.
- */
-var CdkRow = (function () {
-    function CdkRow() {
-    }
-    return CdkRow;
-}());
-CdkRow.decorators = [
-    { type: _angular_core.Component, args: [{
-                selector: 'cdk-row',
-                template: CDK_ROW_TEMPLATE,
-                host: {
-                    'class': 'cdk-row',
-                    'role': 'row',
-                },
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-CdkRow.ctorParameters = function () { return []; };
-/**
- * Cell definition for a CDK data-table.
- * Captures the template of a column's data row cell as well as cell-specific properties.
- */
-var CdkCellDef = (function () {
-    /**
-     * @param {?} template
-     */
-    function CdkCellDef(template) {
-        this.template = template;
-    }
-    return CdkCellDef;
-}());
-CdkCellDef.decorators = [
-    { type: _angular_core.Directive, args: [{ selector: '[cdkCellDef]' },] },
-];
-/**
- * @nocollapse
- */
-CdkCellDef.ctorParameters = function () { return [
-    { type: _angular_core.TemplateRef, },
-]; };
-/**
- * Header cell definition for a CDK data-table.
- * Captures the template of a column's header cell and as well as cell-specific properties.
- */
-var CdkHeaderCellDef = (function () {
-    /**
-     * @param {?} template
-     */
-    function CdkHeaderCellDef(template) {
-        this.template = template;
-    }
-    return CdkHeaderCellDef;
-}());
-CdkHeaderCellDef.decorators = [
-    { type: _angular_core.Directive, args: [{ selector: '[cdkHeaderCellDef]' },] },
-];
-/**
- * @nocollapse
- */
-CdkHeaderCellDef.ctorParameters = function () { return [
-    { type: _angular_core.TemplateRef, },
-]; };
-/**
- * Column definition for the CDK data-table.
- * Defines a set of cells available for a table column.
- */
-var CdkColumnDef = (function () {
-    function CdkColumnDef() {
-    }
-    return CdkColumnDef;
-}());
-CdkColumnDef.decorators = [
-    { type: _angular_core.Directive, args: [{ selector: '[cdkColumnDef]' },] },
-];
-/**
- * @nocollapse
- */
-CdkColumnDef.ctorParameters = function () { return []; };
-CdkColumnDef.propDecorators = {
-    'name': [{ type: _angular_core.Input, args: ['cdkColumnDef',] },],
-    'cell': [{ type: _angular_core.ContentChild, args: [CdkCellDef,] },],
-    'headerCell': [{ type: _angular_core.ContentChild, args: [CdkHeaderCellDef,] },],
-};
-/**
- * Header cell template container that adds the right classes and role.
- */
-var CdkHeaderCell = (function () {
-    /**
-     * @param {?} columnDef
-     * @param {?} elementRef
-     * @param {?} renderer
-     */
-    function CdkHeaderCell(columnDef, elementRef, renderer) {
-        this.columnDef = columnDef;
-        this.elementRef = elementRef;
-        this.renderer = renderer;
-        this.renderer.addClass(elementRef.nativeElement, "cdk-column-" + columnDef.name);
-    }
-    return CdkHeaderCell;
-}());
-CdkHeaderCell.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: 'cdk-header-cell',
-                host: {
-                    'class': 'cdk-header-cell',
-                    'role': 'columnheader',
-                },
-            },] },
-];
-/**
- * @nocollapse
- */
-CdkHeaderCell.ctorParameters = function () { return [
-    { type: CdkColumnDef, },
-    { type: _angular_core.ElementRef, },
-    { type: _angular_core.Renderer2, },
-]; };
-/**
- * Cell template container that adds the right classes and role.
- */
-var CdkCell = (function () {
-    /**
-     * @param {?} columnDef
-     * @param {?} elementRef
-     * @param {?} renderer
-     */
-    function CdkCell(columnDef, elementRef, renderer) {
-        this.columnDef = columnDef;
-        this.elementRef = elementRef;
-        this.renderer = renderer;
-        this.renderer.addClass(elementRef.nativeElement, "cdk-column-" + columnDef.name);
-    }
-    return CdkCell;
-}());
-CdkCell.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: 'cdk-cell',
-                host: {
-                    'class': 'cdk-cell',
-                    'role': 'gridcell',
-                },
-            },] },
-];
-/**
- * @nocollapse
- */
-CdkCell.ctorParameters = function () { return [
-    { type: CdkColumnDef, },
-    { type: _angular_core.ElementRef, },
-    { type: _angular_core.Renderer2, },
-]; };
-/**
- * Returns an error to be thrown when attempting to find an unexisting column.
- * \@docs-private
- * @param {?} id Id whose lookup failed.
- * @return {?}
- */
-function getDataTableUnknownColumnError(id) {
-    return new Error("md-data-table: Could not find column with id \"" + id + "\".");
-}
-/**
- * Provides a handle for the table to grab the view container's ng-container to insert data rows.
- * \@docs-private
- */
-var RowPlaceholder = (function () {
-    /**
-     * @param {?} viewContainer
-     */
-    function RowPlaceholder(viewContainer) {
-        this.viewContainer = viewContainer;
-    }
-    return RowPlaceholder;
-}());
-RowPlaceholder.decorators = [
-    { type: _angular_core.Directive, args: [{ selector: '[rowPlaceholder]' },] },
-];
-/**
- * @nocollapse
- */
-RowPlaceholder.ctorParameters = function () { return [
-    { type: _angular_core.ViewContainerRef, },
-]; };
-/**
- * Provides a handle for the table to grab the view container's ng-container to insert the header.
- * \@docs-private
- */
-var HeaderRowPlaceholder = (function () {
-    /**
-     * @param {?} viewContainer
-     */
-    function HeaderRowPlaceholder(viewContainer) {
-        this.viewContainer = viewContainer;
-    }
-    return HeaderRowPlaceholder;
-}());
-HeaderRowPlaceholder.decorators = [
-    { type: _angular_core.Directive, args: [{ selector: '[headerRowPlaceholder]' },] },
-];
-/**
- * @nocollapse
- */
-HeaderRowPlaceholder.ctorParameters = function () { return [
-    { type: _angular_core.ViewContainerRef, },
-]; };
-/**
- * The table template that can be used by the md-table. Should not be used outside of the
- * material library.
- */
-var CDK_TABLE_TEMPLATE = "\n  <ng-container headerRowPlaceholder></ng-container>\n  <ng-container rowPlaceholder></ng-container>";
-/**
- * A data table that connects with a data source to retrieve data of type T and renders
- * a header row and data rows. Updates the rows when new data is provided by the data source.
- */
-var CdkTable = (function () {
-    /**
-     * @param {?} _differs
-     * @param {?} _changeDetectorRef
-     * @param {?} elementRef
-     * @param {?} renderer
-     * @param {?} role
-     */
-    function CdkTable(_differs, _changeDetectorRef, elementRef, renderer, role) {
-        this._differs = _differs;
-        this._changeDetectorRef = _changeDetectorRef;
-        /**
-         * Subject that emits when the component has been destroyed.
-         */
-        this._onDestroy = new rxjs_Subject.Subject();
-        /**
-         * Flag set to true after the component has been initialized.
-         */
-        this._isViewInitialized = false;
-        /**
-         * Latest data provided by the data source through the connect interface.
-         */
-        this._data = [];
-        /**
-         * Map of all the user's defined columns identified by name.
-         * Contains the header and data-cell templates.
-         */
-        this._columnDefinitionsByName = new Map();
-        /**
-         * Stream containing the latest information on what rows are being displayed on screen.
-         * Can be used by the data source to as a heuristic of what data should be provided.
-         */
-        this.viewChange = new rxjs_BehaviorSubject.BehaviorSubject({ start: 0, end: Number.MAX_VALUE });
-        // Show the stability warning of the data-table only if it doesn't run inside of jasmine.
-        // This is just temporary and should reduce warnings when running the tests.
-        if (!(typeof window !== 'undefined' && window['jasmine'])) {
-            console.warn('The data table is still in active development ' +
-                'and should be considered unstable.');
-        }
-        if (!role) {
-            renderer.setAttribute(elementRef.nativeElement, 'role', 'grid');
-        }
-    }
-    Object.defineProperty(CdkTable.prototype, "trackBy", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this._trackByFn; },
-        /**
-         * Tracking function that will be used to check the differences in data changes. Used similarly
-         * to ngFor trackBy function. Optimize row operations by identifying a row based on its data
-         * relative to the function to know if a row should be added/removed/moved.
-         * Accepts a function that takes two parameters, `index` and `item`.
-         * @param {?} fn
-         * @return {?}
-         */
-        set: function (fn) {
-            if (_angular_core.isDevMode() &&
-                fn != null && typeof fn !== 'function' && (console) && (console.warn)) {
-                console.warn("trackBy must be a function, but received " + JSON.stringify(fn) + ".");
-            }
-            this._trackByFn = fn;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CdkTable.prototype, "dataSource", {
-        /**
-         * Provides a stream containing the latest data array to render. Influenced by the table's
-         * stream of view window (what rows are currently on screen).
-         * @return {?}
-         */
-        get: function () { return this._dataSource; },
-        /**
-         * @param {?} dataSource
-         * @return {?}
-         */
-        set: function (dataSource) {
-            if (this._dataSource !== dataSource) {
-                this._switchDataSource(dataSource);
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    CdkTable.prototype.ngOnDestroy = function () {
-        this._onDestroy.next();
-        this._onDestroy.complete();
-    };
-    /**
-     * @return {?}
-     */
-    CdkTable.prototype.ngOnInit = function () {
-        // TODO(andrewseguin): Setup a listener for scroll events
-        //   and emit the calculated view to this.viewChange
-    };
-    /**
-     * @return {?}
-     */
-    CdkTable.prototype.ngAfterContentInit = function () {
-        var _this = this;
-        // TODO(andrewseguin): Throw an error if two columns share the same name
-        this._columnDefinitions.forEach(function (columnDef) {
-            _this._columnDefinitionsByName.set(columnDef.name, columnDef);
-        });
-        // Re-render the rows if any of their columns change.
-        // TODO(andrewseguin): Determine how to only re-render the rows that have their columns changed.
-        var /** @type {?} */ columnChangeEvents = this._rowDefinitions.map(function (rowDef) { return rowDef.columnsChange; });
-        takeUntil$1.call(rxjs_observable_merge.merge.apply(void 0, columnChangeEvents), this._onDestroy).subscribe(function () {
-            // Reset the data to an empty array so that renderRowChanges will re-render all new rows.
-            _this._rowPlaceholder.viewContainer.clear();
-            _this._dataDiffer.diff([]);
-            _this._renderRowChanges();
-        });
-        // Re-render the header row if the columns change
-        takeUntil$1.call(this._headerDefinition.columnsChange, this._onDestroy).subscribe(function () {
-            _this._headerRowPlaceholder.viewContainer.clear();
-            _this._renderHeaderRow();
-        });
-    };
-    /**
-     * @return {?}
-     */
-    CdkTable.prototype.ngAfterViewInit = function () {
-        // Find and construct an iterable differ that can be used to find the diff in an array.
-        this._dataDiffer = this._differs.find([]).create(this._trackByFn);
-        this._isViewInitialized = true;
-    };
-    /**
-     * @return {?}
-     */
-    CdkTable.prototype.ngDoCheck = function () {
-        if (this._isViewInitialized && this.dataSource && !this._renderChangeSubscription) {
-            this._renderHeaderRow();
-            if (this.dataSource && !this._renderChangeSubscription) {
-                this._observeRenderChanges();
-            }
-        }
-    };
-    /**
-     * Switch to the provided data source by resetting the data and unsubscribing from the current
-     * render change subscription if one exists. If the data source is null, interpret this by
-     * clearing the row placeholder. Otherwise start listening for new data.
-     * @param {?} dataSource
-     * @return {?}
-     */
-    CdkTable.prototype._switchDataSource = function (dataSource) {
-        this._data = [];
-        this._dataSource = dataSource;
-        if (this._isViewInitialized) {
-            if (this._renderChangeSubscription) {
-                this._renderChangeSubscription.unsubscribe();
-            }
-            if (this._dataSource) {
-                this._observeRenderChanges();
-            }
-            else {
-                this._rowPlaceholder.viewContainer.clear();
-            }
-        }
-    };
-    /**
-     * Set up a subscription for the data provided by the data source.
-     * @return {?}
-     */
-    CdkTable.prototype._observeRenderChanges = function () {
-        var _this = this;
-        this._renderChangeSubscription = takeUntil$1.call(this.dataSource.connect(this), this._onDestroy)
-            .subscribe(function (data) {
-            _this._data = data;
-            _this._renderRowChanges();
-        });
-    };
-    /**
-     * Create the embedded view for the header template and place it in the header row view container.
-     * @return {?}
-     */
-    CdkTable.prototype._renderHeaderRow = function () {
-        var /** @type {?} */ cells = this._getHeaderCellTemplatesForRow(this._headerDefinition);
-        if (!cells.length) {
-            return;
-        }
-        // TODO(andrewseguin): add some code to enforce that exactly
-        //   one CdkCellOutlet was instantiated as a result
-        //   of `createEmbeddedView`.
-        this._headerRowPlaceholder.viewContainer
-            .createEmbeddedView(this._headerDefinition.template, { cells: cells });
-        cells.forEach(function (cell) {
-            CdkCellOutlet.mostRecentCellOutlet._viewContainer.createEmbeddedView(cell.template, {});
-        });
-        this._changeDetectorRef.markForCheck();
-    };
-    /**
-     * Check for changes made in the data and render each change (row added/removed/moved).
-     * @return {?}
-     */
-    CdkTable.prototype._renderRowChanges = function () {
-        var _this = this;
-        var /** @type {?} */ changes = this._dataDiffer.diff(this._data);
-        if (!changes) {
-            return;
-        }
-        var /** @type {?} */ viewContainer = this._rowPlaceholder.viewContainer;
-        changes.forEachOperation(function (item, adjustedPreviousIndex, currentIndex) {
-            if (item.previousIndex == null) {
-                _this._insertRow(_this._data[currentIndex], currentIndex);
-            }
-            else if (currentIndex == null) {
-                viewContainer.remove(adjustedPreviousIndex);
-            }
-            else {
-                var /** @type {?} */ view = viewContainer.get(adjustedPreviousIndex);
-                viewContainer.move(/** @type {?} */ ((view)), currentIndex);
-            }
-        });
-        this._updateRowContext();
-    };
-    /**
-     * Create the embedded view for the data row template and place it in the correct index location
-     * within the data row view container.
-     * @param {?} rowData
-     * @param {?} index
-     * @return {?}
-     */
-    CdkTable.prototype._insertRow = function (rowData, index) {
-        // TODO(andrewseguin): Add when predicates to the row definitions
-        //   to find the right template to used based on
-        //   the data rather than choosing the first row definition.
-        var /** @type {?} */ row = this._rowDefinitions.first;
-        // Row context that will be provided to both the created embedded row view and its cells.
-        var /** @type {?} */ context = { $implicit: rowData };
-        // TODO(andrewseguin): add some code to enforce that exactly one
-        //   CdkCellOutlet was instantiated as a result  of `createEmbeddedView`.
-        this._rowPlaceholder.viewContainer.createEmbeddedView(row.template, context, index);
-        // Insert empty cells if there is no data to improve rendering time.
-        var /** @type {?} */ cells = rowData ? this._getCellTemplatesForRow(row) : [];
-        cells.forEach(function (cell) {
-            CdkCellOutlet.mostRecentCellOutlet._viewContainer.createEmbeddedView(cell.template, context);
-        });
-        this._changeDetectorRef.markForCheck();
-    };
-    /**
-     * Updates the context for each row to reflect any data changes that may have caused
-     * rows to be added, removed, or moved. The view container contains the same context
-     * that was provided to each of its cells.
-     * @return {?}
-     */
-    CdkTable.prototype._updateRowContext = function () {
-        var /** @type {?} */ viewContainer = this._rowPlaceholder.viewContainer;
-        for (var /** @type {?} */ index = 0, /** @type {?} */ count = viewContainer.length; index < count; index++) {
-            var /** @type {?} */ viewRef = (viewContainer.get(index));
-            viewRef.context.index = index;
-            viewRef.context.count = count;
-            viewRef.context.first = index === 0;
-            viewRef.context.last = index === count - 1;
-            viewRef.context.even = index % 2 === 0;
-            viewRef.context.odd = index % 2 !== 0;
-        }
-    };
-    /**
-     * Returns the cell template definitions to insert into the header
-     * as defined by its list of columns to display.
-     * @param {?} headerDef
-     * @return {?}
-     */
-    CdkTable.prototype._getHeaderCellTemplatesForRow = function (headerDef) {
-        var _this = this;
-        if (!headerDef.columns) {
-            return [];
-        }
-        return headerDef.columns.map(function (columnId) {
-            var /** @type {?} */ column = _this._columnDefinitionsByName.get(columnId);
-            if (!column) {
-                throw getDataTableUnknownColumnError(columnId);
-            }
-            return column.headerCell;
-        });
-    };
-    /**
-     * Returns the cell template definitions to insert in the provided row
-     * as defined by its list of columns to display.
-     * @param {?} rowDef
-     * @return {?}
-     */
-    CdkTable.prototype._getCellTemplatesForRow = function (rowDef) {
-        var _this = this;
-        if (!rowDef.columns) {
-            return [];
-        }
-        return rowDef.columns.map(function (columnId) {
-            var /** @type {?} */ column = _this._columnDefinitionsByName.get(columnId);
-            if (!column) {
-                throw getDataTableUnknownColumnError(columnId);
-            }
-            return column.cell;
-        });
-    };
-    return CdkTable;
-}());
-CdkTable.decorators = [
-    { type: _angular_core.Component, args: [{
-                selector: 'cdk-table',
-                template: CDK_TABLE_TEMPLATE,
-                host: {
-                    'class': 'cdk-table',
-                },
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-CdkTable.ctorParameters = function () { return [
-    { type: _angular_core.IterableDiffers, },
-    { type: _angular_core.ChangeDetectorRef, },
-    { type: _angular_core.ElementRef, },
-    { type: _angular_core.Renderer2, },
-    { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['role',] },] },
-]; };
-CdkTable.propDecorators = {
-    'trackBy': [{ type: _angular_core.Input },],
-    'dataSource': [{ type: _angular_core.Input },],
-    '_rowPlaceholder': [{ type: _angular_core.ViewChild, args: [RowPlaceholder,] },],
-    '_headerRowPlaceholder': [{ type: _angular_core.ViewChild, args: [HeaderRowPlaceholder,] },],
-    '_columnDefinitions': [{ type: _angular_core.ContentChildren, args: [CdkColumnDef,] },],
-    '_headerDefinition': [{ type: _angular_core.ContentChild, args: [CdkHeaderRowDef,] },],
-    '_rowDefinitions': [{ type: _angular_core.ContentChildren, args: [CdkRowDef,] },],
-};
-/**
- * @abstract
- */
-var DataSource = (function () {
-    function DataSource() {
-    }
-    /**
-     * @abstract
-     * @param {?} collectionViewer
-     * @return {?}
-     */
-    DataSource.prototype.connect = function (collectionViewer) { };
-    return DataSource;
-}());
-var EXPORTED_DECLARATIONS = [
-    CdkTable,
-    CdkRowDef,
-    CdkCellDef,
-    CdkCellOutlet,
-    CdkHeaderCellDef,
-    CdkColumnDef,
-    CdkCell,
-    CdkRow,
-    CdkHeaderCell,
-    CdkHeaderRow,
-    CdkHeaderRowDef,
-    RowPlaceholder,
-    HeaderRowPlaceholder,
-];
-var CdkDataTableModule = (function () {
-    function CdkDataTableModule() {
-    }
-    return CdkDataTableModule;
-}());
-CdkDataTableModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [_angular_common.CommonModule],
-                exports: [EXPORTED_DECLARATIONS],
-                declarations: [EXPORTED_DECLARATIONS]
-            },] },
-];
-/**
- * @nocollapse
- */
-CdkDataTableModule.ctorParameters = function () { return []; };
-/**
  * Unique ID counter
  */
 var nextId$3 = 0;
@@ -23557,6 +22804,10 @@ MdExpansionModule.decorators = [
  */
 MdExpansionModule.ctorParameters = function () { return []; };
 /**
+ * Workaround for https://github.com/angular/angular/issues/17849
+ */
+var _MdTable = _angular_cdk.CdkTable;
+/**
  * Wrapper for the CdkTable with Material design styles.
  */
 var MdTable = (function (_super) {
@@ -23565,10 +22816,10 @@ var MdTable = (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     return MdTable;
-}(CdkTable));
+}(_MdTable));
 MdTable.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-table, mat-table',
-                template: CDK_TABLE_TEMPLATE,
+                template: _angular_cdk.CDK_TABLE_TEMPLATE,
                 styles: [".mat-table{display:block}.mat-header-row,.mat-row{display:flex;border-bottom-width:1px;border-bottom-style:solid;align-items:center;height:48px;padding:0 24px}.mat-cell,.mat-header-cell{flex:1}"],
                 host: {
                     'class': 'mat-table',
@@ -23581,6 +22832,11 @@ MdTable.decorators = [
  * @nocollapse
  */
 MdTable.ctorParameters = function () { return []; };
+/**
+ * Workaround for https://github.com/angular/angular/issues/17849
+ */
+var _MdHeaderCellBase = _angular_cdk.CdkHeaderCell;
+var _MdCell = _angular_cdk.CdkCell;
 /**
  * Header cell template container that adds the right classes and role.
  */
@@ -23597,7 +22853,7 @@ var MdHeaderCell = (function (_super) {
         return _this;
     }
     return MdHeaderCell;
-}(CdkHeaderCell));
+}(_MdHeaderCellBase));
 MdHeaderCell.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: 'md-header-cell, mat-header-cell',
@@ -23611,7 +22867,7 @@ MdHeaderCell.decorators = [
  * @nocollapse
  */
 MdHeaderCell.ctorParameters = function () { return [
-    { type: CdkColumnDef, },
+    { type: _angular_cdk.CdkColumnDef, },
     { type: _angular_core.ElementRef, },
     { type: _angular_core.Renderer2, },
 ]; };
@@ -23631,7 +22887,7 @@ var MdCell = (function (_super) {
         return _this;
     }
     return MdCell;
-}(CdkCell));
+}(_MdCell));
 MdCell.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: 'md-cell, mat-cell',
@@ -23645,10 +22901,15 @@ MdCell.decorators = [
  * @nocollapse
  */
 MdCell.ctorParameters = function () { return [
-    { type: CdkColumnDef, },
+    { type: _angular_cdk.CdkColumnDef, },
     { type: _angular_core.ElementRef, },
     { type: _angular_core.Renderer2, },
 ]; };
+/**
+ * Workaround for https://github.com/angular/angular/issues/17849
+ */
+var _MdHeaderRow = _angular_cdk.CdkHeaderRow;
+var _MdRow = _angular_cdk.CdkHeaderRow;
 /**
  * Header template container that contains the cell outlet. Adds the right class and role.
  */
@@ -23658,11 +22919,11 @@ var MdHeaderRow = (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     return MdHeaderRow;
-}(CdkHeaderRow));
+}(_MdHeaderRow));
 MdHeaderRow.decorators = [
     { type: _angular_core.Component, args: [{
                 selector: 'md-header-row, mat-header-row',
-                template: CDK_ROW_TEMPLATE,
+                template: _angular_cdk.CDK_ROW_TEMPLATE,
                 host: {
                     'class': 'mat-header-row',
                     'role': 'row',
@@ -23683,11 +22944,11 @@ var MdRow = (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     return MdRow;
-}(CdkRow));
+}(_MdRow));
 MdRow.decorators = [
     { type: _angular_core.Component, args: [{
                 selector: 'md-row, mat-row',
-                template: CDK_ROW_TEMPLATE,
+                template: _angular_cdk.CDK_ROW_TEMPLATE,
                 host: {
                     'class': 'mat-row',
                     'role': 'row',
@@ -23706,7 +22967,7 @@ var MdTableModule = (function () {
 }());
 MdTableModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [CdkDataTableModule, _angular_common.CommonModule, MdCommonModule],
+                imports: [_angular_cdk.CdkTableModule, _angular_common.CommonModule, MdCommonModule],
                 exports: [MdTable, MdHeaderCell, MdCell, MdHeaderRow, MdRow],
                 declarations: [MdTable, MdHeaderCell, MdCell, MdHeaderRow, MdRow],
             },] },
@@ -23993,7 +23254,7 @@ MdSortHeader.ctorParameters = function () { return [
     { type: MdSortHeaderIntl, },
     { type: _angular_core.ChangeDetectorRef, },
     { type: MdSort, decorators: [{ type: _angular_core.Optional },] },
-    { type: CdkColumnDef, decorators: [{ type: _angular_core.Optional },] },
+    { type: _angular_cdk.CdkColumnDef, decorators: [{ type: _angular_core.Optional },] },
 ]; };
 MdSortHeader.propDecorators = {
     'id': [{ type: _angular_core.Input, args: ['md-sort-header',] },],
@@ -24309,8 +23570,7 @@ var MATERIAL_MODULES = [
     A11yModule,
     PlatformModule,
     MdCommonModule,
-    ObserveContentModule,
-    CdkDataTableModule,
+    ObserveContentModule
 ];
 /**
  * @deprecated
@@ -24505,19 +23765,6 @@ exports.MdCheckboxChange = MdCheckboxChange;
 exports.MdCheckboxBase = MdCheckboxBase;
 exports._MdCheckboxMixinBase = _MdCheckboxMixinBase;
 exports.MdCheckbox = MdCheckbox;
-exports.CdkDataTableModule = CdkDataTableModule;
-exports.DataSource = DataSource;
-exports.getDataTableUnknownColumnError = getDataTableUnknownColumnError;
-exports.RowPlaceholder = RowPlaceholder;
-exports.HeaderRowPlaceholder = HeaderRowPlaceholder;
-exports.CDK_TABLE_TEMPLATE = CDK_TABLE_TEMPLATE;
-exports.CdkTable = CdkTable;
-exports.MdTableModule = MdTableModule;
-exports.MdHeaderCell = MdHeaderCell;
-exports.MdCell = MdCell;
-exports.MdTable = MdTable;
-exports.MdHeaderRow = MdHeaderRow;
-exports.MdRow = MdRow;
 exports.MdDatepickerModule = MdDatepickerModule;
 exports.MdCalendar = MdCalendar;
 exports.MdCalendarCell = MdCalendarCell;
@@ -24662,6 +23909,17 @@ exports.MdSortModule = MdSortModule;
 exports.MdSortHeader = MdSortHeader;
 exports.MdSortHeaderIntl = MdSortHeaderIntl;
 exports.MdSort = MdSort;
+exports.MdTableModule = MdTableModule;
+exports._MdHeaderCellBase = _MdHeaderCellBase;
+exports._MdCell = _MdCell;
+exports.MdHeaderCell = MdHeaderCell;
+exports.MdCell = MdCell;
+exports._MdTable = _MdTable;
+exports.MdTable = MdTable;
+exports._MdHeaderRow = _MdHeaderRow;
+exports._MdRow = _MdRow;
+exports.MdHeaderRow = MdHeaderRow;
+exports.MdRow = MdRow;
 exports.MdTabsModule = MdTabsModule;
 exports.MdInkBar = MdInkBar;
 exports.MdTabBody = MdTabBody;
@@ -24691,18 +23949,6 @@ exports.ɵa = DIR_DOCUMENT;
 exports.ɵx = mixinColor;
 exports.ɵy = mixinDisabled;
 exports.ɵk = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
-exports.ɵbe = CdkCell;
-exports.ɵba = CdkCellDef;
-exports.ɵbc = CdkColumnDef;
-exports.ɵbd = CdkHeaderCell;
-exports.ɵbb = CdkHeaderCellDef;
-exports.ɵbg = BaseRowDef;
-exports.ɵbf = CDK_ROW_TEMPLATE;
-exports.ɵbj = CdkCellOutlet;
-exports.ɵbk = CdkHeaderRow;
-exports.ɵbh = CdkHeaderRowDef;
-exports.ɵbl = CdkRow;
-exports.ɵbi = CdkRowDef;
 exports.ɵb = MdMutationObserverFactory;
 exports.ɵd = OVERLAY_CONTAINER_PROVIDER;
 exports.ɵc = OVERLAY_CONTAINER_PROVIDER_FACTORY;
@@ -24719,7 +23965,7 @@ exports.ɵo = MdGridTileHeaderCssMatStyler;
 exports.ɵm = MdGridTileText;
 exports.ɵq = MdMenuItemBase;
 exports.ɵr = _MdMenuItemMixinBase;
-exports.ɵbm = MdPaginatorIntl;
+exports.ɵba = MdPaginatorIntl;
 exports.ɵu = MdTabBase;
 exports.ɵv = _MdTabMixinBase;
 exports.ɵs = MdTabLabelWrapperBase;
