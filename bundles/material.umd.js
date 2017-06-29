@@ -20844,7 +20844,7 @@ MdCalendarBody.propDecorators = {
  * @return {?}
  */
 function createMissingDateImplError(provider) {
-    return Error("MdDatepicker: No provider found for " + provider + ". You must import one of the following " +
+    return Error("MdDatepicker: No provider found for " + provider + ". You must import one of the following" +
         "modules at your application root: MdNativeDateModule, or provide a custom implementation.");
 }
 var DAYS_PER_WEEK = 7;
