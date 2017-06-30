@@ -12,8 +12,11 @@ import { MdPaginatorIntl } from './paginator-intl';
  * different page size or navigates to another page.
  */
 export declare class PageEvent {
+    /** The current page index. */
     pageIndex: number;
+    /** The current page size */
     pageSize: number;
+    /** The current total number of items being paged */
     length: number;
 }
 /**
@@ -40,13 +43,13 @@ export declare class MdPaginator implements OnInit {
     _displayedPageSizeOptions: number[];
     constructor(_intl: MdPaginatorIntl);
     ngOnInit(): void;
-    /** Increments the page index to the next page index if a next page exists. */
+    /** Advances to the next page if it exists. */
     nextPage(): void;
-    /** Decrements the page index to the previous page index if a next page exists. */
+    /** Move back to the previous page if it exists. */
     previousPage(): void;
-    /** Returns true if the user can go to the next page. */
+    /** Whether there is a previous page. */
     hasPreviousPage(): boolean;
-    /** Returns true if the user can go to the next page. */
+    /** Whether there is a next page. */
     hasNextPage(): boolean;
     /**
      * Changes the page size so that the first item displayed on the page will still be

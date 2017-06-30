@@ -20259,7 +20259,7 @@ class MdPaginator {
         this._updateDisplayedPageSizeOptions();
     }
     /**
-     * Increments the page index to the next page index if a next page exists.
+     * Advances to the next page if it exists.
      * @return {?}
      */
     nextPage() {
@@ -20270,7 +20270,7 @@ class MdPaginator {
         this._emitPageEvent();
     }
     /**
-     * Decrements the page index to the previous page index if a next page exists.
+     * Move back to the previous page if it exists.
      * @return {?}
      */
     previousPage() {
@@ -20281,14 +20281,14 @@ class MdPaginator {
         this._emitPageEvent();
     }
     /**
-     * Returns true if the user can go to the next page.
+     * Whether there is a previous page.
      * @return {?}
      */
     hasPreviousPage() {
         return this.pageIndex >= 1 && this.pageSize != 0;
     }
     /**
-     * Returns true if the user can go to the next page.
+     * Whether there is a next page.
      * @return {?}
      */
     hasNextPage() {
