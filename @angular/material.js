@@ -7,24 +7,12 @@
  */
 import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, InjectionToken, Injector, Input, NgModule, NgZone, Optional, Output, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
 import { DOCUMENT, DomSanitizer, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
+import { A11yModule, BACKSPACE, BasePortalHost, BidiModule, CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkColumnDef, CdkHeaderCell, CdkHeaderRow, CdkTable, CdkTableModule, ComponentPortal, DELETE, DOWN_ARROW, Dir, Directionality, DomPortalHost, END, ENTER, ESCAPE, FocusTrap, FocusTrapDeprecatedDirective, FocusTrapDirective, FocusTrapFactory, HOME, InteractivityChecker, LEFT_ARROW, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, ListKeyManager, LiveAnnouncer, PAGE_DOWN, PAGE_UP, Platform, PlatformModule, Portal, PortalHostDirective, PortalModule, RIGHT_ARROW, RxChain, SPACE, TAB, TemplatePortal, TemplatePortalDirective, UP_ARROW, auditTime, catchOperator, coerceBooleanProperty, coerceNumberProperty, debounceTime, doOperator, filter, finallyOperator, first, getSupportedInputTypes, isFakeMousedownFromScreenReader, map, share, startWith, switchMap, takeUntil } from '@angular/cdk';
 import { Subject } from 'rxjs/Subject';
-import { _finally } from 'rxjs/operator/finally';
-import { _catch } from 'rxjs/operator/catch';
-import { _do } from 'rxjs/operator/do';
-import { map } from 'rxjs/operator/map';
-import { filter } from 'rxjs/operator/filter';
-import { share } from 'rxjs/operator/share';
-import { first } from 'rxjs/operator/first';
-import { switchMap } from 'rxjs/operator/switchMap';
-import { startWith } from 'rxjs/operator/startWith';
-import { debounceTime } from 'rxjs/operator/debounceTime';
-import { auditTime } from 'rxjs/operator/auditTime';
-import { takeUntil } from 'rxjs/operator/takeUntil';
 import { CommonModule, Location } from '@angular/common';
 import { Subscription } from 'rxjs/Subscription';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
-import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkColumnDef, CdkHeaderCell, CdkHeaderRow, CdkTable, CdkTableModule, coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk';
 import { of } from 'rxjs/observable/of';
 import { FormGroupDirective, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl, NgForm, Validators } from '@angular/forms';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -264,155 +252,6 @@ NoConflictStyleCompatibilityMode.decorators = [
 NoConflictStyleCompatibilityMode.ctorParameters = () => [];
 
 /**
- * Injection token used to inject the document into Directionality.
- * This is used so that the value can be faked in tests.
- *
- * We can't use the real document in tests because changing the real `dir` causes geometry-based
- * tests in Safari to fail.
- *
- * We also can't re-provide the DOCUMENT token from platform-brower because the unit tests
- * themselves use things like `querySelector` in test code.
- */
-const DIR_DOCUMENT = new InjectionToken('md-dir-doc');
-/**
- * The directionality (LTR / RTL) context for the application (or a subtree of it).
- * Exposes the current direction and a stream of direction changes.
- */
-class Directionality {
-    /**
-     * @param {?=} _document
-     */
-    constructor(_document) {
-        this.value = 'ltr';
-        this.change = new EventEmitter();
-        if (_document) {
-            // TODO: handle 'auto' value -
-            // We still need to account for dir="auto".
-            // It looks like HTMLElemenet.dir is also "auto" when that's set to the attribute,
-            // but getComputedStyle return either "ltr" or "rtl". avoiding getComputedStyle for now
-            const bodyDir = _document.body ? _document.body.dir : null;
-            const htmlDir = _document.documentElement ? _document.documentElement.dir : null;
-            this.value = (bodyDir || htmlDir || 'ltr');
-        }
-    }
-}
-Directionality.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-Directionality.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DIR_DOCUMENT,] },] },
-];
-/**
- * @param {?} parentDirectionality
- * @param {?} _document
- * @return {?}
- */
-function DIRECTIONALITY_PROVIDER_FACTORY(parentDirectionality, _document) {
-    return parentDirectionality || new Directionality(_document);
-}
-const DIRECTIONALITY_PROVIDER = {
-    // If there is already a Directionality available, use that. Otherwise, provide a new one.
-    provide: Directionality,
-    deps: [[new Optional(), new SkipSelf(), Directionality], [new Optional(), DOCUMENT]],
-    useFactory: DIRECTIONALITY_PROVIDER_FACTORY
-};
-
-/**
- * Directive to listen for changes of direction of part of the DOM.
- *
- * Would provide itself in case a component looks for the Directionality service
- */
-class Dir {
-    constructor() {
-        /**
-         * Layout direction of the element.
-         */
-        this._dir = 'ltr';
-        /**
-         * Whether the `value` has been set to its initial value.
-         */
-        this._isInitialized = false;
-        /**
-         * Event emitted when the direction changes.
-         */
-        this.change = new EventEmitter();
-    }
-    /**
-     * \@docs-private
-     * @return {?}
-     */
-    get dir() {
-        return this._dir;
-    }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set dir(v) {
-        let /** @type {?} */ old = this._dir;
-        this._dir = v;
-        if (old !== this._dir && this._isInitialized) {
-            this.change.emit();
-        }
-    }
-    /**
-     * Current layout direction of the element.
-     * @return {?}
-     */
-    get value() { return this.dir; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set value(v) { this.dir = v; }
-    /**
-     * Initialize once default value has been set.
-     * @return {?}
-     */
-    ngAfterContentInit() {
-        this._isInitialized = true;
-    }
-}
-Dir.decorators = [
-    { type: Directive, args: [{
-                selector: '[dir]',
-                // TODO(hansl): maybe `$implicit` isn't the best option here, but for now that's the best we got.
-                exportAs: '$implicit',
-                providers: [
-                    { provide: Directionality, useExisting: Dir }
-                ]
-            },] },
-];
-/**
- * @nocollapse
- */
-Dir.ctorParameters = () => [];
-Dir.propDecorators = {
-    'change': [{ type: Output, args: ['dirChange',] },],
-    'dir': [{ type: HostBinding, args: ['attr.dir',] }, { type: Input, args: ['dir',] },],
-};
-
-class BidiModule {
-}
-BidiModule.decorators = [
-    { type: NgModule, args: [{
-                exports: [Dir],
-                declarations: [Dir],
-                providers: [
-                    { provide: DIR_DOCUMENT, useExisting: DOCUMENT },
-                    Directionality,
-                ]
-            },] },
-];
-/**
- * @nocollapse
- */
-BidiModule.ctorParameters = () => [];
-
-/**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
 const MATERIAL_SANITY_CHECKS = new InjectionToken('md-sanity-checks');
@@ -568,69 +407,6 @@ MdLineModule.decorators = [
 MdLineModule.ctorParameters = () => [];
 
 /**
- * Utility class used to chain RxJS operators.
- *
- * This class is the concrete implementation, but the type used by the user when chaining
- * is StrictRxChain. The strict chain enforces types on the operators to the same level as
- * the prototype-added equivalents.
- */
-class RxChain {
-    /**
-     * @param {?} _context
-     */
-    constructor(_context) {
-        this._context = _context;
-    }
-    /**
-     * Starts a new chain and specifies the initial `this` value.
-     * @template T
-     * @param {?} context Initial `this` value for the chain.
-     * @return {?}
-     */
-    static from(context) {
-        return new RxChain(context);
-    }
-    /**
-     * Invokes an RxJS operator as a part of the chain.
-     * @param {?} operator Operator to be invoked.
-     * @param {...?} args Arguments to be passed to the operator.
-     * @return {?}
-     */
-    call(operator, ...args) {
-        this._context = operator.call(this._context, ...args);
-        return this;
-    }
-    /**
-     * Subscribes to the result of the chain.
-     * @param {?} fn Callback to be invoked when the result emits a value.
-     * @return {?}
-     */
-    subscribe(fn) {
-        return this._context.subscribe(fn);
-    }
-    /**
-     * Returns the result of the chain.
-     * @return {?}
-     */
-    result() {
-        return this._context;
-    }
-}
-
-const finallyOperator = (_finally);
-const catchOperator = (_catch);
-const doOperator = (_do);
-const map$1 = (map);
-const filter$1 = (filter);
-const share$1 = (share);
-const first$1 = (first);
-const switchMap$1 = (switchMap);
-const startWith$1 = (startWith);
-const debounceTime$1 = (debounceTime);
-const auditTime$1 = (auditTime);
-const takeUntil$1 = (takeUntil);
-
-/**
  * Factory that creates a new MutationObserver and allows us to stub it out in unit tests.
  * \@docs-private
  */
@@ -677,7 +453,7 @@ class ObserveContent {
     ngAfterContentInit() {
         if (this.debounce > 0) {
             RxChain.from(this._debouncer)
-                .call(debounceTime$1, this.debounce)
+                .call(debounceTime, this.debounce)
                 .subscribe((mutations) => this.event.emit(mutations));
         }
         else {
@@ -992,124 +768,6 @@ function distanceToFurthestCorner(x, y, rect) {
     return Math.sqrt(distX * distX + distY * distY);
 }
 
-// Whether the current platform supports the V8 Break Iterator. The V8 check
-// is necessary to detect all Blink based browsers.
-const hasV8BreakIterator = (typeof (Intl) !== 'undefined' && ((Intl)).v8BreakIterator);
-/**
- * Service to detect the current platform by comparing the userAgent strings and
- * checking browser-specific global properties.
- * \@docs-private
- */
-class Platform {
-    constructor() {
-        this.isBrowser = typeof document === 'object' && !!document;
-        /**
-         * Layout Engines
-         */
-        this.EDGE = this.isBrowser && /(edge)/i.test(navigator.userAgent);
-        this.TRIDENT = this.isBrowser && /(msie|trident)/i.test(navigator.userAgent);
-        // EdgeHTML and Trident mock Blink specific things and need to be excluded from this check.
-        this.BLINK = this.isBrowser &&
-            (!!(((window)).chrome || hasV8BreakIterator) && !!CSS && !this.EDGE && !this.TRIDENT);
-        // Webkit is part of the userAgent in EdgeHTML, Blink and Trident. Therefore we need to
-        // ensure that Webkit runs standalone and is not used as another engine's base.
-        this.WEBKIT = this.isBrowser &&
-            /AppleWebKit/i.test(navigator.userAgent) && !this.BLINK && !this.EDGE && !this.TRIDENT;
-        /**
-         * Browsers and Platform Types
-         */
-        this.IOS = this.isBrowser && /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        // It's difficult to detect the plain Gecko engine, because most of the browsers identify
-        // them self as Gecko-like browsers and modify the userAgent's according to that.
-        // Since we only cover one explicit Firefox case, we can simply check for Firefox
-        // instead of having an unstable check for Gecko.
-        this.FIREFOX = this.isBrowser && /(firefox|minefield)/i.test(navigator.userAgent);
-        // Trident on mobile adds the android platform to the userAgent to trick detections.
-        this.ANDROID = this.isBrowser && /android/i.test(navigator.userAgent) && !this.TRIDENT;
-        // Safari browsers will include the Safari keyword in their userAgent. Some browsers may fake
-        // this and just place the Safari keyword in the userAgent. To be more safe about Safari every
-        // Safari browser should also use Webkit as its layout engine.
-        this.SAFARI = this.isBrowser && /safari/i.test(navigator.userAgent) && this.WEBKIT;
-    }
-}
-Platform.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-Platform.ctorParameters = () => [];
-
-/**
- * Cached result Set of input types support by the current browser.
- */
-let supportedInputTypes;
-/**
- * Types of <input> that *might* be supported.
- */
-const candidateInputTypes = [
-    // `color` must come first. Chrome 56 shows a warning if we change the type to `color` after
-    // first changing it to something else:
-    // The specified value "" does not conform to the required format.
-    // The format is "#rrggbb" where rr, gg, bb are two-digit hexadecimal numbers.
-    'color',
-    'button',
-    'checkbox',
-    'date',
-    'datetime-local',
-    'email',
-    'file',
-    'hidden',
-    'image',
-    'month',
-    'number',
-    'password',
-    'radio',
-    'range',
-    'reset',
-    'search',
-    'submit',
-    'tel',
-    'text',
-    'time',
-    'url',
-    'week',
-];
-/**
- * @return {?} The input types supported by this browser.
- */
-function getSupportedInputTypes() {
-    // Result is cached.
-    if (supportedInputTypes) {
-        return supportedInputTypes;
-    }
-    // We can't check if an input type is not supported until we're on the browser, so say that
-    // everything is supported when not on the browser. We don't use `Platform` here since it's
-    // just a helper function and can't inject it.
-    if (typeof document !== 'object' || !document) {
-        supportedInputTypes = new Set(candidateInputTypes);
-        return supportedInputTypes;
-    }
-    let /** @type {?} */ featureTestInput = document.createElement('input');
-    supportedInputTypes = new Set(candidateInputTypes.filter(value => {
-        featureTestInput.setAttribute('type', value);
-        return featureTestInput.type === value;
-    }));
-    return supportedInputTypes;
-}
-
-class PlatformModule {
-}
-PlatformModule.decorators = [
-    { type: NgModule, args: [{
-                providers: [Platform]
-            },] },
-];
-/**
- * @nocollapse
- */
-PlatformModule.ctorParameters = () => [];
-
 /**
  * Time in ms to throttle the scrolling events by default.
  */
@@ -1182,7 +840,7 @@ class ScrollDispatcher {
         // In the case of a 0ms delay, use an observable without auditTime
         // since it does add a perceptible delay in processing overhead.
         let /** @type {?} */ observable = auditTimeInMs > 0 ?
-            auditTime$1.call(this._scrolled.asObservable(), auditTimeInMs) :
+            auditTime.call(this._scrolled.asObservable(), auditTimeInMs) :
             this._scrolled.asObservable();
         this._scrolledCount++;
         if (!this._globalSubscription) {
@@ -1924,25 +1582,6 @@ MdSelectionModule.decorators = [
  */
 MdSelectionModule.ctorParameters = () => [];
 
-// Due to a bug in the ChromeDriver, Angular keyboard events are not triggered by `sendKeys`
-// during E2E tests when using dot notation such as `(keydown.rightArrow)`. To get around this,
-// we are temporarily using a single (keydown) handler.
-// See: https://github.com/angular/angular/issues/9419
- const UP_ARROW = 38;
-const DOWN_ARROW = 40;
-const RIGHT_ARROW = 39;
-const LEFT_ARROW = 37;
-const PAGE_UP = 33;
-const PAGE_DOWN = 34;
-const HOME = 36;
-const END = 35;
-const ENTER = 13;
-const SPACE = 32;
-const TAB = 9;
-const ESCAPE = 27;
-const BACKSPACE = 8;
-const DELETE = 46;
-
 /**
  * Mixin to augment a directive with a `disabled` property.
  * @template T
@@ -2234,413 +1873,6 @@ MdOptionModule.decorators = [
 MdOptionModule.ctorParameters = () => [];
 
 /**
- * Throws an exception when attempting to attach a null portal to a host.
- * \@docs-private
- * @return {?}
- */
-function throwNullPortalError() {
-    throw Error('Must provide a portal to attach');
-}
-/**
- * Throws an exception when attempting to attach a portal to a host that is already attached.
- * \@docs-private
- * @return {?}
- */
-function throwPortalAlreadyAttachedError() {
-    throw Error('Host already has a portal attached');
-}
-/**
- * Throws an exception when attempting to attach a portal to an already-disposed host.
- * \@docs-private
- * @return {?}
- */
-function throwPortalHostAlreadyDisposedError() {
-    throw Error('This PortalHost has already been disposed');
-}
-/**
- * Throws an exception when attempting to attach an unknown portal type.
- * \@docs-private
- * @return {?}
- */
-function throwUnknownPortalTypeError() {
-    throw Error('Attempting to attach an unknown Portal type. BasePortalHost accepts either' +
-        'a ComponentPortal or a TemplatePortal.');
-}
-/**
- * Throws an exception when attempting to attach a portal to a null host.
- * \@docs-private
- * @return {?}
- */
-function throwNullPortalHostError() {
-    throw Error('Attempting to attach a portal to a null PortalHost');
-}
-/**
- * Throws an exception when attempting to detach a portal that is not attached.
- * \@docs-privatew
- * @return {?}
- */
-function throwNoPortalAttachedError() {
-    throw Error('Attempting to detach a portal that is not attached to a host');
-}
-
-/**
- * A `Portal` is something that you want to render somewhere else.
- * It can be attach to / detached from a `PortalHost`.
- * @abstract
- */
-class Portal {
-    /**
-     * Attach this portal to a host.
-     * @param {?} host
-     * @return {?}
-     */
-    attach(host) {
-        if (host == null) {
-            throwNullPortalHostError();
-        }
-        if (host.hasAttached()) {
-            throwPortalAlreadyAttachedError();
-        }
-        this._attachedHost = host;
-        return (host.attach(this));
-    }
-    /**
-     * Detach this portal from its host
-     * @return {?}
-     */
-    detach() {
-        let /** @type {?} */ host = this._attachedHost;
-        if (host == null) {
-            throwNoPortalAttachedError();
-        }
-        else {
-            this._attachedHost = null;
-            host.detach();
-        }
-    }
-    /**
-     * Whether this portal is attached to a host.
-     * @return {?}
-     */
-    get isAttached() {
-        return this._attachedHost != null;
-    }
-    /**
-     * Sets the PortalHost reference without performing `attach()`. This is used directly by
-     * the PortalHost when it is performing an `attach()` or `detach()`.
-     * @param {?} host
-     * @return {?}
-     */
-    setAttachedHost(host) {
-        this._attachedHost = host;
-    }
-}
-/**
- * A `ComponentPortal` is a portal that instantiates some Component upon attachment.
- */
-class ComponentPortal extends Portal {
-    /**
-     * @param {?} component
-     * @param {?=} viewContainerRef
-     * @param {?=} injector
-     */
-    constructor(component, viewContainerRef, injector) {
-        super();
-        this.component = component;
-        this.viewContainerRef = viewContainerRef;
-        this.injector = injector;
-    }
-}
-/**
- * A `TemplatePortal` is a portal that represents some embedded template (TemplateRef).
- */
-class TemplatePortal extends Portal {
-    /**
-     * @param {?} template
-     * @param {?} viewContainerRef
-     */
-    constructor(template, viewContainerRef) {
-        super();
-        /**
-         * Additional locals for the instantiated embedded view.
-         * These locals can be seen as "exports" for the template, such as how ngFor has
-         * index / event / odd.
-         * See https://angular.io/docs/ts/latest/api/core/EmbeddedViewRef-class.html
-         */
-        this.locals = new Map();
-        this.templateRef = template;
-        this.viewContainerRef = viewContainerRef;
-    }
-    /**
-     * @return {?}
-     */
-    get origin() {
-        return this.templateRef.elementRef;
-    }
-    /**
-     * @param {?} host
-     * @param {?=} locals
-     * @return {?}
-     */
-    attach(host, locals) {
-        this.locals = locals == null ? new Map() : locals;
-        return super.attach(host);
-    }
-    /**
-     * @return {?}
-     */
-    detach() {
-        this.locals = new Map();
-        return super.detach();
-    }
-}
-/**
- * Partial implementation of PortalHost that only deals with attaching either a
- * ComponentPortal or a TemplatePortal.
- * @abstract
- */
-class BasePortalHost {
-    constructor() {
-        /**
-         * Whether this host has already been permanently disposed.
-         */
-        this._isDisposed = false;
-    }
-    /**
-     * Whether this host has an attached portal.
-     * @return {?}
-     */
-    hasAttached() {
-        return !!this._attachedPortal;
-    }
-    /**
-     * @param {?} portal
-     * @return {?}
-     */
-    attach(portal) {
-        if (!portal) {
-            throwNullPortalError();
-        }
-        if (this.hasAttached()) {
-            throwPortalAlreadyAttachedError();
-        }
-        if (this._isDisposed) {
-            throwPortalHostAlreadyDisposedError();
-        }
-        if (portal instanceof ComponentPortal) {
-            this._attachedPortal = portal;
-            return this.attachComponentPortal(portal);
-        }
-        else if (portal instanceof TemplatePortal) {
-            this._attachedPortal = portal;
-            return this.attachTemplatePortal(portal);
-        }
-        throwUnknownPortalTypeError();
-    }
-    /**
-     * @abstract
-     * @template T
-     * @param {?} portal
-     * @return {?}
-     */
-    attachComponentPortal(portal) { }
-    /**
-     * @abstract
-     * @param {?} portal
-     * @return {?}
-     */
-    attachTemplatePortal(portal) { }
-    /**
-     * @return {?}
-     */
-    detach() {
-        if (this._attachedPortal) {
-            this._attachedPortal.setAttachedHost(null);
-            this._attachedPortal = null;
-        }
-        this._invokeDisposeFn();
-    }
-    /**
-     * @return {?}
-     */
-    dispose() {
-        if (this.hasAttached()) {
-            this.detach();
-        }
-        this._invokeDisposeFn();
-        this._isDisposed = true;
-    }
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    setDisposeFn(fn) {
-        this._disposeFn = fn;
-    }
-    /**
-     * @return {?}
-     */
-    _invokeDisposeFn() {
-        if (this._disposeFn) {
-            this._disposeFn();
-            this._disposeFn = null;
-        }
-    }
-}
-
-/**
- * Directive version of a `TemplatePortal`. Because the directive *is* a TemplatePortal,
- * the directive instance itself can be attached to a host, enabling declarative use of portals.
- *
- * Usage:
- * <ng-template portal #greeting>
- *   <p> Hello {{name}} </p>
- * </ng-template>
- */
-class TemplatePortalDirective extends TemplatePortal {
-    /**
-     * @param {?} templateRef
-     * @param {?} viewContainerRef
-     */
-    constructor(templateRef, viewContainerRef) {
-        super(templateRef, viewContainerRef);
-    }
-}
-TemplatePortalDirective.decorators = [
-    { type: Directive, args: [{
-                selector: '[cdk-portal], [cdkPortal], [portal]',
-                exportAs: 'cdkPortal',
-            },] },
-];
-/**
- * @nocollapse
- */
-TemplatePortalDirective.ctorParameters = () => [
-    { type: TemplateRef, },
-    { type: ViewContainerRef, },
-];
-/**
- * Directive version of a PortalHost. Because the directive *is* a PortalHost, portals can be
- * directly attached to it, enabling declarative use.
- *
- * Usage:
- * <ng-template [cdkPortalHost]="greeting"></ng-template>
- */
-class PortalHostDirective extends BasePortalHost {
-    /**
-     * @param {?} _componentFactoryResolver
-     * @param {?} _viewContainerRef
-     */
-    constructor(_componentFactoryResolver, _viewContainerRef) {
-        super();
-        this._componentFactoryResolver = _componentFactoryResolver;
-        this._viewContainerRef = _viewContainerRef;
-        /**
-         * The attached portal.
-         */
-        this._portal = null;
-    }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    get _deprecatedPortal() { return this.portal; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set _deprecatedPortal(v) { this.portal = v; }
-    /**
-     * Portal associated with the Portal host.
-     * @return {?}
-     */
-    get portal() {
-        return this._portal;
-    }
-    /**
-     * @param {?} portal
-     * @return {?}
-     */
-    set portal(portal) {
-        if (this.hasAttached()) {
-            super.detach();
-        }
-        if (portal) {
-            super.attach(portal);
-        }
-        this._portal = portal;
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        super.dispose();
-        this._portal = null;
-    }
-    /**
-     * Attach the given ComponentPortal to this PortalHost using the ComponentFactoryResolver.
-     *
-     * @template T
-     * @param {?} portal Portal to be attached to the portal host.
-     * @return {?}
-     */
-    attachComponentPortal(portal) {
-        portal.setAttachedHost(this);
-        // If the portal specifies an origin, use that as the logical location of the component
-        // in the application tree. Otherwise use the location of this PortalHost.
-        let /** @type {?} */ viewContainerRef = portal.viewContainerRef != null ?
-            portal.viewContainerRef :
-            this._viewContainerRef;
-        let /** @type {?} */ componentFactory = this._componentFactoryResolver.resolveComponentFactory(portal.component);
-        let /** @type {?} */ ref = viewContainerRef.createComponent(componentFactory, viewContainerRef.length, portal.injector || viewContainerRef.parentInjector);
-        super.setDisposeFn(() => ref.destroy());
-        this._portal = portal;
-        return ref;
-    }
-    /**
-     * Attach the given TemplatePortal to this PortlHost as an embedded View.
-     * @param {?} portal Portal to be attached.
-     * @return {?}
-     */
-    attachTemplatePortal(portal) {
-        portal.setAttachedHost(this);
-        this._viewContainerRef.createEmbeddedView(portal.templateRef);
-        super.setDisposeFn(() => this._viewContainerRef.clear());
-        this._portal = portal;
-        // TODO(jelbourn): return locals from view
-        return new Map();
-    }
-}
-PortalHostDirective.decorators = [
-    { type: Directive, args: [{
-                selector: '[cdkPortalHost], [portalHost]',
-                inputs: ['portal: cdkPortalHost']
-            },] },
-];
-/**
- * @nocollapse
- */
-PortalHostDirective.ctorParameters = () => [
-    { type: ComponentFactoryResolver, },
-    { type: ViewContainerRef, },
-];
-PortalHostDirective.propDecorators = {
-    '_deprecatedPortal': [{ type: Input, args: ['portalHost',] },],
-};
-class PortalModule {
-}
-PortalModule.decorators = [
-    { type: NgModule, args: [{
-                exports: [TemplatePortalDirective, PortalHostDirective],
-                declarations: [TemplatePortalDirective, PortalHostDirective],
-            },] },
-];
-/**
- * @nocollapse
- */
-PortalModule.ctorParameters = () => [];
-
-/**
  * OverlayState is a bag of values for either the initial configuration or current state of an
  * overlay.
  */
@@ -2666,98 +1898,6 @@ class OverlayState {
         // - focus trap
         // - disable pointer events
         // - z-index
-    }
-}
-
-/**
- * A PortalHost for attaching portals to an arbitrary DOM element outside of the Angular
- * application context.
- *
- * This is the only part of the portal core that directly touches the DOM.
- */
-class DomPortalHost extends BasePortalHost {
-    /**
-     * @param {?} _hostDomElement
-     * @param {?} _componentFactoryResolver
-     * @param {?} _appRef
-     * @param {?} _defaultInjector
-     */
-    constructor(_hostDomElement, _componentFactoryResolver, _appRef, _defaultInjector) {
-        super();
-        this._hostDomElement = _hostDomElement;
-        this._componentFactoryResolver = _componentFactoryResolver;
-        this._appRef = _appRef;
-        this._defaultInjector = _defaultInjector;
-    }
-    /**
-     * Attach the given ComponentPortal to DOM element using the ComponentFactoryResolver.
-     * @template T
-     * @param {?} portal Portal to be attached
-     * @return {?}
-     */
-    attachComponentPortal(portal) {
-        let /** @type {?} */ componentFactory = this._componentFactoryResolver.resolveComponentFactory(portal.component);
-        let /** @type {?} */ componentRef;
-        // If the portal specifies a ViewContainerRef, we will use that as the attachment point
-        // for the component (in terms of Angular's component tree, not rendering).
-        // When the ViewContainerRef is missing, we use the factory to create the component directly
-        // and then manually attach the view to the application.
-        if (portal.viewContainerRef) {
-            componentRef = portal.viewContainerRef.createComponent(componentFactory, portal.viewContainerRef.length, portal.injector || portal.viewContainerRef.parentInjector);
-            this.setDisposeFn(() => componentRef.destroy());
-        }
-        else {
-            componentRef = componentFactory.create(portal.injector || this._defaultInjector);
-            this._appRef.attachView(componentRef.hostView);
-            this.setDisposeFn(() => {
-                this._appRef.detachView(componentRef.hostView);
-                componentRef.destroy();
-            });
-        }
-        // At this point the component has been instantiated, so we move it to the location in the DOM
-        // where we want it to be rendered.
-        this._hostDomElement.appendChild(this._getComponentRootNode(componentRef));
-        return componentRef;
-    }
-    /**
-     * Attaches a template portal to the DOM as an embedded view.
-     * @param {?} portal Portal to be attached.
-     * @return {?}
-     */
-    attachTemplatePortal(portal) {
-        let /** @type {?} */ viewContainer = portal.viewContainerRef;
-        let /** @type {?} */ viewRef = viewContainer.createEmbeddedView(portal.templateRef);
-        viewRef.detectChanges();
-        // The method `createEmbeddedView` will add the view as a child of the viewContainer.
-        // But for the DomPortalHost the view can be added everywhere in the DOM (e.g Overlay Container)
-        // To move the view to the specified host element. We just re-append the existing root nodes.
-        viewRef.rootNodes.forEach(rootNode => this._hostDomElement.appendChild(rootNode));
-        this.setDisposeFn((() => {
-            let /** @type {?} */ index = viewContainer.indexOf(viewRef);
-            if (index !== -1) {
-                viewContainer.remove(index);
-            }
-        }));
-        // TODO(jelbourn): Return locals from view.
-        return new Map();
-    }
-    /**
-     * Clears out a portal from the DOM.
-     * @return {?}
-     */
-    dispose() {
-        super.dispose();
-        if (this._hostDomElement.parentNode != null) {
-            this._hostDomElement.parentNode.removeChild(this._hostDomElement);
-        }
-    }
-    /**
-     * Gets the root HTMLElement for an instantiated component.
-     * @param {?} componentRef
-     * @return {?}
-     */
-    _getComponentRootNode(componentRef) {
-        return (((componentRef.hostView)).rootNodes[0]);
     }
 }
 
@@ -4215,715 +3355,6 @@ OverlayModule.decorators = [
  */
 OverlayModule.ctorParameters = () => [];
 
-/**
- * Utility for checking the interactivity of an element, such as whether is is focusable or
- * tabbable.
- */
-class InteractivityChecker {
-    /**
-     * @param {?} _platform
-     */
-    constructor(_platform) {
-        this._platform = _platform;
-    }
-    /**
-     * Gets whether an element is disabled.
-     *
-     * @param {?} element Element to be checked.
-     * @return {?} Whether the element is disabled.
-     */
-    isDisabled(element) {
-        // This does not capture some cases, such as a non-form control with a disabled attribute or
-        // a form control inside of a disabled form, but should capture the most common cases.
-        return element.hasAttribute('disabled');
-    }
-    /**
-     * Gets whether an element is visible for the purposes of interactivity.
-     *
-     * This will capture states like `display: none` and `visibility: hidden`, but not things like
-     * being clipped by an `overflow: hidden` parent or being outside the viewport.
-     *
-     * @param {?} element
-     * @return {?} Whether the element is visible.
-     */
-    isVisible(element) {
-        return hasGeometry(element) && getComputedStyle(element).visibility === 'visible';
-    }
-    /**
-     * Gets whether an element can be reached via Tab key.
-     * Assumes that the element has already been checked with isFocusable.
-     *
-     * @param {?} element Element to be checked.
-     * @return {?} Whether the element is tabbable.
-     */
-    isTabbable(element) {
-        // Nothing is tabbable on the the server 😎
-        if (!this._platform.isBrowser) {
-            return false;
-        }
-        let /** @type {?} */ frameElement = (getWindow(element).frameElement);
-        if (frameElement) {
-            let /** @type {?} */ frameType = frameElement && frameElement.nodeName.toLowerCase();
-            // Frame elements inherit their tabindex onto all child elements.
-            if (getTabIndexValue(frameElement) === -1) {
-                return false;
-            }
-            // Webkit and Blink consider anything inside of an <object> element as non-tabbable.
-            if ((this._platform.BLINK || this._platform.WEBKIT) && frameType === 'object') {
-                return false;
-            }
-            // Webkit and Blink disable tabbing to an element inside of an invisible frame.
-            if ((this._platform.BLINK || this._platform.WEBKIT) && !this.isVisible(frameElement)) {
-                return false;
-            }
-        }
-        let /** @type {?} */ nodeName = element.nodeName.toLowerCase();
-        let /** @type {?} */ tabIndexValue = getTabIndexValue(element);
-        if (element.hasAttribute('contenteditable')) {
-            return tabIndexValue !== -1;
-        }
-        if (nodeName === 'iframe') {
-            // The frames may be tabbable depending on content, but it's not possibly to reliably
-            // investigate the content of the frames.
-            return false;
-        }
-        if (nodeName === 'audio') {
-            if (!element.hasAttribute('controls')) {
-                // By default an <audio> element without the controls enabled is not tabbable.
-                return false;
-            }
-            else if (this._platform.BLINK) {
-                // In Blink <audio controls> elements are always tabbable.
-                return true;
-            }
-        }
-        if (nodeName === 'video') {
-            if (!element.hasAttribute('controls') && this._platform.TRIDENT) {
-                // In Trident a <video> element without the controls enabled is not tabbable.
-                return false;
-            }
-            else if (this._platform.BLINK || this._platform.FIREFOX) {
-                // In Chrome and Firefox <video controls> elements are always tabbable.
-                return true;
-            }
-        }
-        if (nodeName === 'object' && (this._platform.BLINK || this._platform.WEBKIT)) {
-            // In all Blink and WebKit based browsers <object> elements are never tabbable.
-            return false;
-        }
-        // In iOS the browser only considers some specific elements as tabbable.
-        if (this._platform.WEBKIT && this._platform.IOS && !isPotentiallyTabbableIOS(element)) {
-            return false;
-        }
-        return element.tabIndex >= 0;
-    }
-    /**
-     * Gets whether an element can be focused by the user.
-     *
-     * @param {?} element Element to be checked.
-     * @return {?} Whether the element is focusable.
-     */
-    isFocusable(element) {
-        // Perform checks in order of left to most expensive.
-        // Again, naive approach that does not capture many edge cases and browser quirks.
-        return isPotentiallyFocusable(element) && !this.isDisabled(element) && this.isVisible(element);
-    }
-}
-InteractivityChecker.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-InteractivityChecker.ctorParameters = () => [
-    { type: Platform, },
-];
-/**
- * Checks whether the specified element has any geometry / rectangles.
- * @param {?} element
- * @return {?}
- */
-function hasGeometry(element) {
-    // Use logic from jQuery to check for an invisible element.
-    // See https://github.com/jquery/jquery/blob/master/src/css/hiddenVisibleSelectors.js#L12
-    return !!(element.offsetWidth || element.offsetHeight || element.getClientRects().length);
-}
-/**
- * Gets whether an element's
- * @param {?} element
- * @return {?}
- */
-function isNativeFormElement(element) {
-    let /** @type {?} */ nodeName = element.nodeName.toLowerCase();
-    return nodeName === 'input' ||
-        nodeName === 'select' ||
-        nodeName === 'button' ||
-        nodeName === 'textarea';
-}
-/**
- * Gets whether an element is an <input type="hidden">.
- * @param {?} element
- * @return {?}
- */
-function isHiddenInput(element) {
-    return isInputElement(element) && element.type == 'hidden';
-}
-/**
- * Gets whether an element is an anchor that has an href attribute.
- * @param {?} element
- * @return {?}
- */
-function isAnchorWithHref(element) {
-    return isAnchorElement(element) && element.hasAttribute('href');
-}
-/**
- * Gets whether an element is an input element.
- * @param {?} element
- * @return {?}
- */
-function isInputElement(element) {
-    return element.nodeName.toLowerCase() == 'input';
-}
-/**
- * Gets whether an element is an anchor element.
- * @param {?} element
- * @return {?}
- */
-function isAnchorElement(element) {
-    return element.nodeName.toLowerCase() == 'a';
-}
-/**
- * Gets whether an element has a valid tabindex.
- * @param {?} element
- * @return {?}
- */
-function hasValidTabIndex(element) {
-    if (!element.hasAttribute('tabindex') || element.tabIndex === undefined) {
-        return false;
-    }
-    let /** @type {?} */ tabIndex = element.getAttribute('tabindex');
-    // IE11 parses tabindex="" as the value "-32768"
-    if (tabIndex == '-32768') {
-        return false;
-    }
-    return !!(tabIndex && !isNaN(parseInt(tabIndex, 10)));
-}
-/**
- * Returns the parsed tabindex from the element attributes instead of returning the
- * evaluated tabindex from the browsers defaults.
- * @param {?} element
- * @return {?}
- */
-function getTabIndexValue(element) {
-    if (!hasValidTabIndex(element)) {
-        return null;
-    }
-    // See browser issue in Gecko https://bugzilla.mozilla.org/show_bug.cgi?id=1128054
-    const /** @type {?} */ tabIndex = parseInt(element.getAttribute('tabindex') || '', 10);
-    return isNaN(tabIndex) ? -1 : tabIndex;
-}
-/**
- * Checks whether the specified element is potentially tabbable on iOS
- * @param {?} element
- * @return {?}
- */
-function isPotentiallyTabbableIOS(element) {
-    let /** @type {?} */ nodeName = element.nodeName.toLowerCase();
-    let /** @type {?} */ inputType = nodeName === 'input' && ((element)).type;
-    return inputType === 'text'
-        || inputType === 'password'
-        || nodeName === 'select'
-        || nodeName === 'textarea';
-}
-/**
- * Gets whether an element is potentially focusable without taking current visible/disabled state
- * into account.
- * @param {?} element
- * @return {?}
- */
-function isPotentiallyFocusable(element) {
-    // Inputs are potentially focusable *unless* they're type="hidden".
-    if (isHiddenInput(element)) {
-        return false;
-    }
-    return isNativeFormElement(element) ||
-        isAnchorWithHref(element) ||
-        element.hasAttribute('contenteditable') ||
-        hasValidTabIndex(element);
-}
-/**
- * Gets the parent window of a DOM node with regards of being inside of an iframe.
- * @param {?} node
- * @return {?}
- */
-function getWindow(node) {
-    return node.ownerDocument.defaultView || window;
-}
-
-/**
- * Class that allows for trapping focus within a DOM element.
- *
- * NOTE: This class currently uses a very simple (naive) approach to focus trapping.
- * It assumes that the tab order is the same as DOM order, which is not necessarily true.
- * Things like tabIndex > 0, flex `order`, and shadow roots can cause to two to misalign.
- * This will be replaced with a more intelligent solution before the library is considered stable.
- */
-class FocusTrap {
-    /**
-     * @param {?} _element
-     * @param {?} _platform
-     * @param {?} _checker
-     * @param {?} _ngZone
-     * @param {?=} deferAnchors
-     */
-    constructor(_element, _platform, _checker, _ngZone, deferAnchors = false) {
-        this._element = _element;
-        this._platform = _platform;
-        this._checker = _checker;
-        this._ngZone = _ngZone;
-        this._enabled = true;
-        if (!deferAnchors) {
-            this.attachAnchors();
-        }
-    }
-    /**
-     * Whether the focus trap is active.
-     * @return {?}
-     */
-    get enabled() { return this._enabled; }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
-    set enabled(val) {
-        this._enabled = val;
-        if (this._startAnchor && this._endAnchor) {
-            this._startAnchor.tabIndex = this._endAnchor.tabIndex = this._enabled ? 0 : -1;
-        }
-    }
-    /**
-     * Destroys the focus trap by cleaning up the anchors.
-     * @return {?}
-     */
-    destroy() {
-        if (this._startAnchor && this._startAnchor.parentNode) {
-            this._startAnchor.parentNode.removeChild(this._startAnchor);
-        }
-        if (this._endAnchor && this._endAnchor.parentNode) {
-            this._endAnchor.parentNode.removeChild(this._endAnchor);
-        }
-        this._startAnchor = this._endAnchor = null;
-    }
-    /**
-     * Inserts the anchors into the DOM. This is usually done automatically
-     * in the constructor, but can be deferred for cases like directives with `*ngIf`.
-     * @return {?}
-     */
-    attachAnchors() {
-        // If we're not on the browser, there can be no focus to trap.
-        if (!this._platform.isBrowser) {
-            return;
-        }
-        if (!this._startAnchor) {
-            this._startAnchor = this._createAnchor();
-        }
-        if (!this._endAnchor) {
-            this._endAnchor = this._createAnchor();
-        }
-        this._ngZone.runOutsideAngular(() => {
-            ((this._startAnchor)).addEventListener('focus', () => this.focusLastTabbableElement()); /** @type {?} */
-            ((this._endAnchor)).addEventListener('focus', () => this.focusFirstTabbableElement());
-            if (this._element.parentNode) {
-                this._element.parentNode.insertBefore(/** @type {?} */ ((this._startAnchor)), this._element);
-                this._element.parentNode.insertBefore(/** @type {?} */ ((this._endAnchor)), this._element.nextSibling);
-            }
-        });
-    }
-    /**
-     * Waits for the zone to stabilize, then either focuses the first element that the
-     * user specified, or the first tabbable element..
-     * @return {?}
-     */
-    focusInitialElementWhenReady() {
-        this._executeOnStable(() => this.focusInitialElement());
-    }
-    /**
-     * Waits for the zone to stabilize, then focuses
-     * the first tabbable element within the focus trap region.
-     * @return {?}
-     */
-    focusFirstTabbableElementWhenReady() {
-        this._executeOnStable(() => this.focusFirstTabbableElement());
-    }
-    /**
-     * Waits for the zone to stabilize, then focuses
-     * the last tabbable element within the focus trap region.
-     * @return {?}
-     */
-    focusLastTabbableElementWhenReady() {
-        this._executeOnStable(() => this.focusLastTabbableElement());
-    }
-    /**
-     * Get the specified boundary element of the trapped region.
-     * @param {?} bound The boundary to get (start or end of trapped region).
-     * @return {?} The boundary element.
-     */
-    _getRegionBoundary(bound) {
-        // Contains the deprecated version of selector, for temporary backwards comparability.
-        let /** @type {?} */ markers = (this._element.querySelectorAll(`[cdk-focus-region-${bound}], ` +
-            `[cdk-focus-${bound}]`));
-        for (let /** @type {?} */ i = 0; i < markers.length; i++) {
-            if (markers[i].hasAttribute(`cdk-focus-${bound}`)) {
-                console.warn(`Found use of deprecated attribute 'cdk-focus-${bound}',` +
-                    ` use 'cdk-focus-region-${bound}' instead.`, markers[i]);
-            }
-        }
-        if (bound == 'start') {
-            return markers.length ? markers[0] : this._getFirstTabbableElement(this._element);
-        }
-        return markers.length ?
-            markers[markers.length - 1] : this._getLastTabbableElement(this._element);
-    }
-    /**
-     * Focuses the element that should be focused when the focus trap is initialized.
-     * @return {?}
-     */
-    focusInitialElement() {
-        let /** @type {?} */ redirectToElement = (this._element.querySelector('[cdk-focus-initial]'));
-        if (redirectToElement) {
-            redirectToElement.focus();
-        }
-        else {
-            this.focusFirstTabbableElement();
-        }
-    }
-    /**
-     * Focuses the first tabbable element within the focus trap region.
-     * @return {?}
-     */
-    focusFirstTabbableElement() {
-        let /** @type {?} */ redirectToElement = this._getRegionBoundary('start');
-        if (redirectToElement) {
-            redirectToElement.focus();
-        }
-    }
-    /**
-     * Focuses the last tabbable element within the focus trap region.
-     * @return {?}
-     */
-    focusLastTabbableElement() {
-        let /** @type {?} */ redirectToElement = this._getRegionBoundary('end');
-        if (redirectToElement) {
-            redirectToElement.focus();
-        }
-    }
-    /**
-     * Get the first tabbable element from a DOM subtree (inclusive).
-     * @param {?} root
-     * @return {?}
-     */
-    _getFirstTabbableElement(root) {
-        if (this._checker.isFocusable(root) && this._checker.isTabbable(root)) {
-            return root;
-        }
-        // Iterate in DOM order. Note that IE doesn't have `children` for SVG so we fall
-        // back to `childNodes` which includes text nodes, comments etc.
-        let /** @type {?} */ children = root.children || root.childNodes;
-        for (let /** @type {?} */ i = 0; i < children.length; i++) {
-            let /** @type {?} */ tabbableChild = children[i].nodeType === Node.ELEMENT_NODE ?
-                this._getFirstTabbableElement(/** @type {?} */ (children[i])) :
-                null;
-            if (tabbableChild) {
-                return tabbableChild;
-            }
-        }
-        return null;
-    }
-    /**
-     * Get the last tabbable element from a DOM subtree (inclusive).
-     * @param {?} root
-     * @return {?}
-     */
-    _getLastTabbableElement(root) {
-        if (this._checker.isFocusable(root) && this._checker.isTabbable(root)) {
-            return root;
-        }
-        // Iterate in reverse DOM order.
-        let /** @type {?} */ children = root.children || root.childNodes;
-        for (let /** @type {?} */ i = children.length - 1; i >= 0; i--) {
-            let /** @type {?} */ tabbableChild = children[i].nodeType === Node.ELEMENT_NODE ?
-                this._getLastTabbableElement(/** @type {?} */ (children[i])) :
-                null;
-            if (tabbableChild) {
-                return tabbableChild;
-            }
-        }
-        return null;
-    }
-    /**
-     * Creates an anchor element.
-     * @return {?}
-     */
-    _createAnchor() {
-        let /** @type {?} */ anchor = document.createElement('div');
-        anchor.tabIndex = this._enabled ? 0 : -1;
-        anchor.classList.add('cdk-visually-hidden');
-        anchor.classList.add('cdk-focus-trap-anchor');
-        return anchor;
-    }
-    /**
-     * Executes a function when the zone is stable.
-     * @param {?} fn
-     * @return {?}
-     */
-    _executeOnStable(fn) {
-        if (this._ngZone.isStable) {
-            fn();
-        }
-        else {
-            first$1.call(this._ngZone.onStable).subscribe(fn);
-        }
-    }
-}
-/**
- * Factory that allows easy instantiation of focus traps.
- */
-class FocusTrapFactory {
-    /**
-     * @param {?} _checker
-     * @param {?} _platform
-     * @param {?} _ngZone
-     */
-    constructor(_checker, _platform, _ngZone) {
-        this._checker = _checker;
-        this._platform = _platform;
-        this._ngZone = _ngZone;
-    }
-    /**
-     * @param {?} element
-     * @param {?=} deferAnchors
-     * @return {?}
-     */
-    create(element, deferAnchors = false) {
-        return new FocusTrap(element, this._platform, this._checker, this._ngZone, deferAnchors);
-    }
-}
-FocusTrapFactory.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-FocusTrapFactory.ctorParameters = () => [
-    { type: InteractivityChecker, },
-    { type: Platform, },
-    { type: NgZone, },
-];
-/**
- * Directive for trapping focus within a region.
- * @deprecated
- */
-class FocusTrapDeprecatedDirective {
-    /**
-     * @param {?} _elementRef
-     * @param {?} _focusTrapFactory
-     */
-    constructor(_elementRef, _focusTrapFactory) {
-        this._elementRef = _elementRef;
-        this._focusTrapFactory = _focusTrapFactory;
-        this.focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement, true);
-    }
-    /**
-     * Whether the focus trap is active.
-     * @return {?}
-     */
-    get disabled() { return !this.focusTrap.enabled; }
-    /**
-     * @param {?} val
-     * @return {?}
-     */
-    set disabled(val) {
-        this.focusTrap.enabled = !coerceBooleanProperty(val);
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this.focusTrap.destroy();
-    }
-    /**
-     * @return {?}
-     */
-    ngAfterContentInit() {
-        this.focusTrap.attachAnchors();
-    }
-}
-FocusTrapDeprecatedDirective.decorators = [
-    { type: Directive, args: [{
-                selector: 'cdk-focus-trap',
-            },] },
-];
-/**
- * @nocollapse
- */
-FocusTrapDeprecatedDirective.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: FocusTrapFactory, },
-];
-FocusTrapDeprecatedDirective.propDecorators = {
-    'disabled': [{ type: Input },],
-};
-/**
- * Directive for trapping focus within a region.
- */
-class FocusTrapDirective {
-    /**
-     * @param {?} _elementRef
-     * @param {?} _focusTrapFactory
-     */
-    constructor(_elementRef, _focusTrapFactory) {
-        this._elementRef = _elementRef;
-        this._focusTrapFactory = _focusTrapFactory;
-        this.focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement, true);
-    }
-    /**
-     * Whether the focus trap is active.
-     * @return {?}
-     */
-    get enabled() { return this.focusTrap.enabled; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set enabled(value) { this.focusTrap.enabled = coerceBooleanProperty(value); }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this.focusTrap.destroy();
-    }
-    /**
-     * @return {?}
-     */
-    ngAfterContentInit() {
-        this.focusTrap.attachAnchors();
-    }
-}
-FocusTrapDirective.decorators = [
-    { type: Directive, args: [{
-                selector: '[cdkTrapFocus]',
-                exportAs: 'cdkTrapFocus',
-            },] },
-];
-/**
- * @nocollapse
- */
-FocusTrapDirective.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: FocusTrapFactory, },
-];
-FocusTrapDirective.propDecorators = {
-    'enabled': [{ type: Input, args: ['cdkTrapFocus',] },],
-};
-
-const LIVE_ANNOUNCER_ELEMENT_TOKEN = new InjectionToken('liveAnnouncerElement');
-class LiveAnnouncer {
-    /**
-     * @param {?} elementToken
-     * @param {?} platform
-     */
-    constructor(elementToken, platform) {
-        // Only do anything if we're on the browser platform.
-        if (platform.isBrowser) {
-            // We inject the live element as `any` because the constructor signature cannot reference
-            // browser globals (HTMLElement) on non-browser environments, since having a class decorator
-            // causes TypeScript to preserve the constructor signature types.
-            this._liveElement = elementToken || this._createLiveElement();
-        }
-    }
-    /**
-     * Announces a message to screenreaders.
-     * @param {?} message Message to be announced to the screenreader
-     * @param {?=} politeness The politeness of the announcer element
-     * @return {?}
-     */
-    announce(message, politeness = 'polite') {
-        this._liveElement.textContent = '';
-        // TODO: ensure changing the politeness works on all environments we support.
-        this._liveElement.setAttribute('aria-live', politeness);
-        // This 100ms timeout is necessary for some browser + screen-reader combinations:
-        // - Both JAWS and NVDA over IE11 will not announce anything without a non-zero timeout.
-        // - With Chrome and IE11 with NVDA or JAWS, a repeated (identical) message won't be read a
-        //   second time without clearing and then using a non-zero delay.
-        // (using JAWS 17 at time of this writing).
-        setTimeout(() => this._liveElement.textContent = message, 100);
-    }
-    /**
-     * Removes the aria-live element from the DOM.
-     * @return {?}
-     */
-    _removeLiveElement() {
-        if (this._liveElement && this._liveElement.parentNode) {
-            this._liveElement.parentNode.removeChild(this._liveElement);
-        }
-    }
-    /**
-     * @return {?}
-     */
-    _createLiveElement() {
-        let /** @type {?} */ liveEl = document.createElement('div');
-        liveEl.classList.add('cdk-visually-hidden');
-        liveEl.setAttribute('aria-atomic', 'true');
-        liveEl.setAttribute('aria-live', 'polite');
-        document.body.appendChild(liveEl);
-        return liveEl;
-    }
-}
-LiveAnnouncer.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-LiveAnnouncer.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [LIVE_ANNOUNCER_ELEMENT_TOKEN,] },] },
-    { type: Platform, },
-];
-/**
- * @param {?} parentDispatcher
- * @param {?} liveElement
- * @param {?} platform
- * @return {?}
- */
-function LIVE_ANNOUNCER_PROVIDER_FACTORY(parentDispatcher, liveElement, platform) {
-    return parentDispatcher || new LiveAnnouncer(liveElement, platform);
-}
-const LIVE_ANNOUNCER_PROVIDER = {
-    // If there is already a LiveAnnouncer available, use that. Otherwise, provide a new one.
-    provide: LiveAnnouncer,
-    deps: [
-        [new Optional(), new SkipSelf(), LiveAnnouncer],
-        [new Optional(), new Inject(LIVE_ANNOUNCER_ELEMENT_TOKEN)],
-        Platform,
-    ],
-    useFactory: LIVE_ANNOUNCER_PROVIDER_FACTORY
-};
-
-class A11yModule {
-}
-A11yModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [CommonModule, PlatformModule],
-                declarations: [FocusTrapDirective, FocusTrapDeprecatedDirective],
-                exports: [FocusTrapDirective, FocusTrapDeprecatedDirective],
-                providers: [InteractivityChecker, FocusTrapFactory, LIVE_ANNOUNCER_PROVIDER]
-            },] },
-];
-/**
- * @nocollapse
- */
-A11yModule.ctorParameters = () => [];
-
 class GestureConfig extends HammerGestureConfig {
     constructor() {
         super();
@@ -5177,19 +3608,6 @@ class SelectionChange {
         this.added = added;
         this.removed = removed;
     }
-}
-
-/**
- * Screenreaders will often fire fake mousedown events when a focusable element
- * is activated using the keyboard. We can typically distinguish between these faked
- * mousedown events and real mousedown events using the "buttons" property. While
- * real mousedowns will indicate the mouse button that was pressed (e.g. "1" for
- * the left mouse button), faked mousedowns will usually set the property value to 0.
- * @param {?} event
- * @return {?}
- */
-function isFakeMousedownFromScreenReader(event) {
-    return event.buttons === 0;
 }
 
 /**
@@ -8168,187 +6586,6 @@ MdRadioModule.decorators = [
  */
 MdRadioModule.ctorParameters = () => [];
 
-/**
- * This class manages keyboard events for selectable lists. If you pass it a query list
- * of items, it will set the active item correctly when arrow events occur.
- */
-class ListKeyManager {
-    /**
-     * @param {?} _items
-     */
-    constructor(_items) {
-        this._items = _items;
-        this._activeItemIndex = -1;
-        this._tabOut = new Subject();
-        this._wrap = false;
-    }
-    /**
-     * Turns on wrapping mode, which ensures that the active item will wrap to
-     * the other end of list when there are no more items in the given direction.
-     *
-     * @return {?} The ListKeyManager that the method was called on.
-     */
-    withWrap() {
-        this._wrap = true;
-        return this;
-    }
-    /**
-     * Sets the active item to the item at the index specified.
-     *
-     * @param {?} index The index of the item to be set as active.
-     * @return {?}
-     */
-    setActiveItem(index) {
-        this._activeItemIndex = index;
-        this._activeItem = this._items.toArray()[index];
-    }
-    /**
-     * Sets the active item depending on the key event passed in.
-     * @param {?} event Keyboard event to be used for determining which element should be active.
-     * @return {?}
-     */
-    onKeydown(event) {
-        switch (event.keyCode) {
-            case DOWN_ARROW:
-                this.setNextItemActive();
-                break;
-            case UP_ARROW:
-                this.setPreviousItemActive();
-                break;
-            case TAB:
-                // Note that we shouldn't prevent the default action on tab.
-                this._tabOut.next(null);
-                return;
-            default:
-                return;
-        }
-        event.preventDefault();
-    }
-    /**
-     * Returns the index of the currently active item.
-     * @return {?}
-     */
-    get activeItemIndex() {
-        return this._activeItemIndex;
-    }
-    /**
-     * Returns the currently active item.
-     * @return {?}
-     */
-    get activeItem() {
-        return this._activeItem;
-    }
-    /**
-     * Sets the active item to the first enabled item in the list.
-     * @return {?}
-     */
-    setFirstItemActive() {
-        this._setActiveItemByIndex(0, 1);
-    }
-    /**
-     * Sets the active item to the last enabled item in the list.
-     * @return {?}
-     */
-    setLastItemActive() {
-        this._setActiveItemByIndex(this._items.length - 1, -1);
-    }
-    /**
-     * Sets the active item to the next enabled item in the list.
-     * @return {?}
-     */
-    setNextItemActive() {
-        this._activeItemIndex < 0 ? this.setFirstItemActive() : this._setActiveItemByDelta(1);
-    }
-    /**
-     * Sets the active item to a previous enabled item in the list.
-     * @return {?}
-     */
-    setPreviousItemActive() {
-        this._activeItemIndex < 0 && this._wrap ? this.setLastItemActive()
-            : this._setActiveItemByDelta(-1);
-    }
-    /**
-     * Allows setting of the activeItemIndex without any other effects.
-     * @param {?} index The new activeItemIndex.
-     * @return {?}
-     */
-    updateActiveItemIndex(index) {
-        this._activeItemIndex = index;
-    }
-    /**
-     * Observable that emits any time the TAB key is pressed, so components can react
-     * when focus is shifted off of the list.
-     * @return {?}
-     */
-    get tabOut() {
-        return this._tabOut.asObservable();
-    }
-    /**
-     * This method sets the active item, given a list of items and the delta between the
-     * currently active item and the new active item. It will calculate differently
-     * depending on whether wrap mode is turned on.
-     * @param {?} delta
-     * @param {?=} items
-     * @return {?}
-     */
-    _setActiveItemByDelta(delta, items = this._items.toArray()) {
-        this._wrap ? this._setActiveInWrapMode(delta, items)
-            : this._setActiveInDefaultMode(delta, items);
-    }
-    /**
-     * Sets the active item properly given "wrap" mode. In other words, it will continue to move
-     * down the list until it finds an item that is not disabled, and it will wrap if it
-     * encounters either end of the list.
-     * @param {?} delta
-     * @param {?} items
-     * @return {?}
-     */
-    _setActiveInWrapMode(delta, items) {
-        // when active item would leave menu, wrap to beginning or end
-        this._activeItemIndex =
-            (this._activeItemIndex + delta + items.length) % items.length;
-        // skip all disabled menu items recursively until an enabled one is reached
-        if (items[this._activeItemIndex].disabled) {
-            this._setActiveInWrapMode(delta, items);
-        }
-        else {
-            this.setActiveItem(this._activeItemIndex);
-        }
-    }
-    /**
-     * Sets the active item properly given the default mode. In other words, it will
-     * continue to move down the list until it finds an item that is not disabled. If
-     * it encounters either end of the list, it will stop and not wrap.
-     * @param {?} delta
-     * @param {?} items
-     * @return {?}
-     */
-    _setActiveInDefaultMode(delta, items) {
-        this._setActiveItemByIndex(this._activeItemIndex + delta, delta, items);
-    }
-    /**
-     * Sets the active item to the first enabled item starting at the index specified. If the
-     * item is disabled, it will move in the fallbackDelta direction until it either
-     * finds an enabled item or encounters the end of the list.
-     * @param {?} index
-     * @param {?} fallbackDelta
-     * @param {?=} items
-     * @return {?}
-     */
-    _setActiveItemByIndex(index, fallbackDelta, items = this._items.toArray()) {
-        if (!items[index]) {
-            return;
-        }
-        while (items[index].disabled) {
-            index += fallbackDelta;
-            if (!items[index]) {
-                return;
-            }
-        }
-        this.setActiveItem(index);
-    }
-}
-
 class FocusKeyManager extends ListKeyManager {
     /**
      * @param {?} items
@@ -8722,7 +6959,7 @@ class MdSelect extends _MdSelectMixinBase {
      */
     ngAfterContentInit() {
         this._initKeyManager();
-        this._changeSubscription = startWith$1.call(this.options.changes, null).subscribe(() => {
+        this._changeSubscription = startWith.call(this.options.changes, null).subscribe(() => {
             this._resetOptions();
             if (this._control) {
                 // Defer setting the value in order to avoid the "Expression
@@ -9035,7 +7272,7 @@ class MdSelect extends _MdSelectMixinBase {
      * @return {?}
      */
     _listenToOptions() {
-        this._optionSubscription = filter$1.call(this.optionSelectionChanges, event => event.isUserInput).subscribe(event => {
+        this._optionSubscription = filter.call(this.optionSelectionChanges, event => event.isUserInput).subscribe(event => {
             this._onSelect(event.source);
             this._setValueWidth();
             if (!this.multiple) {
@@ -11148,7 +9385,7 @@ class MdSidenavContainer {
         });
         this._validateDrawers();
         // Give the view a chance to render the initial state, then enable transitions.
-        first$1.call(this._ngZone.onMicrotaskEmpty).subscribe(() => this._enableTransitions = true);
+        first.call(this._ngZone.onMicrotaskEmpty).subscribe(() => this._enableTransitions = true);
     }
     /**
      * Calls `open` of both start and end sidenavs
@@ -11194,7 +9431,7 @@ class MdSidenavContainer {
         }
         // NOTE: We need to wait for the microtask queue to be empty before validating,
         // since both drawers may be swapping sides at the same time.
-        sidenav.onAlignChanged.subscribe(() => first$1.call(this._ngZone.onMicrotaskEmpty).subscribe(() => this._validateDrawers()));
+        sidenav.onAlignChanged.subscribe(() => first.call(this._ngZone.onMicrotaskEmpty).subscribe(() => this._validateDrawers()));
     }
     /**
      * Toggles the 'mat-sidenav-opened' class on the main 'md-sidenav-container' element.
@@ -13243,7 +11480,7 @@ class MdIconRegistry {
         }
         return RxChain.from(this._loadSvgIconFromConfig(new SvgIconConfig(url)))
             .call(doOperator, svg => this._cachedIconsByUrl.set(/** @type {?} */ ((url)), svg))
-            .call(map$1, svg => cloneSvg(svg))
+            .call(map, svg => cloneSvg(svg))
             .result();
     }
     /**
@@ -13283,7 +11520,7 @@ class MdIconRegistry {
             // Fetch the icon from the config's URL, cache it, and return a copy.
             return RxChain.from(this._loadSvgIconFromConfig(config))
                 .call(doOperator, svg => config.svgElement = svg)
-                .call(map$1, svg => cloneSvg(svg))
+                .call(map, svg => cloneSvg(svg))
                 .result();
         }
     }
@@ -13331,7 +11568,7 @@ class MdIconRegistry {
         });
         // Fetch all the icon set URLs. When the requests complete, every IconSet should have a
         // cached SVG element (unless the request failed), and we can check again for the icon.
-        return map$1.call(forkJoin.call(Observable, iconSetFetchRequests), () => {
+        return map.call(forkJoin.call(Observable, iconSetFetchRequests), () => {
             const /** @type {?} */ foundIcon = this._extractIconWithNameFromAnySet(name, iconSetConfigs);
             if (!foundIcon) {
                 throw getMdIconNameNotFoundError(name);
@@ -13367,7 +11604,7 @@ class MdIconRegistry {
      * @return {?}
      */
     _loadSvgIconFromConfig(config) {
-        return map$1.call(this._fetchUrl(config.url), svgText => this._createSvgElementForSingleIcon(svgText));
+        return map.call(this._fetchUrl(config.url), svgText => this._createSvgElementForSingleIcon(svgText));
     }
     /**
      * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
@@ -13377,7 +11614,7 @@ class MdIconRegistry {
      */
     _loadSvgIconSetFromConfig(config) {
         // TODO: Document that icons should only be loaded from trusted sources.
-        return map$1.call(this._fetchUrl(config.url), svgText => this._svgElementFromString(svgText));
+        return map.call(this._fetchUrl(config.url), svgText => this._svgElementFromString(svgText));
     }
     /**
      * Creates a DOM element from the given SVG string, and adds default attributes.
@@ -13493,9 +11730,9 @@ class MdIconRegistry {
         // TODO(jelbourn): for some reason, the `finally` operator "loses" the generic type on the
         // Observable. Figure out why and fix it.
         const /** @type {?} */ req = RxChain.from(this._http.get(url))
-            .call(map$1, response => response.text())
+            .call(map, response => response.text())
             .call(finallyOperator, () => this._inProgressUrlFetches.delete(url))
-            .call(share$1)
+            .call(share)
             .result();
         this._inProgressUrlFetches.set(url, req);
         return req;
@@ -13647,7 +11884,7 @@ class MdIcon extends _MdIconMixinBase {
         if (changedInputs.indexOf('svgIcon') != -1 || changedInputs.indexOf('svgSrc') != -1) {
             if (this.svgIcon) {
                 const [namespace, iconName] = this._splitIconName(this.svgIcon);
-                first$1.call(this._mdIconRegistry.getNamedSvgIcon(iconName, namespace)).subscribe(svg => this._setSvgElement(svg), (err) => console.log(`Error retrieving icon: ${err.message}`));
+                first.call(this._mdIconRegistry.getNamedSvgIcon(iconName, namespace)).subscribe(svg => this._setSvgElement(svg), (err) => console.log(`Error retrieving icon: ${err.message}`));
             }
         }
         if (this._usingFontIcon()) {
@@ -15400,7 +13637,7 @@ class MdSnackBarContainer extends BasePortalHost {
         // Note: we shouldn't use `this` inside the zone callback,
         // because it can cause a memory leak.
         const /** @type {?} */ onExit = this.onExit;
-        first$1.call(this._ngZone.onMicrotaskEmpty).subscribe(() => {
+        first.call(this._ngZone.onMicrotaskEmpty).subscribe(() => {
             onExit.next();
             onExit.complete();
         });
@@ -15690,9 +13927,13 @@ MdSnackBarModule.decorators = [
 MdSnackBarModule.ctorParameters = () => [];
 
 /**
+ * Workaround for https://github.com/angular/angular/issues/17849
+ */
+const _MdTabLabelBaseClass = TemplatePortalDirective;
+/**
  * Used to flag tab labels for use with the portal directive
  */
-class MdTabLabel extends TemplatePortalDirective {
+class MdTabLabel extends _MdTabLabelBaseClass {
     /**
      * @param {?} templateRef
      * @param {?} viewContainerRef
@@ -15869,7 +14110,7 @@ class MdTabGroup {
      * @return {?}
      */
     get selectedIndexChange() {
-        return map$1.call(this.selectChange, event => event.index);
+        return map.call(this.selectChange, event => event.index);
     }
     /**
      * After the content is checked, this component knows what tabs have been defined
@@ -16164,9 +14405,9 @@ class MdTabNav {
         this._resizeSubscription = this._ngZone.runOutsideAngular(() => {
             let /** @type {?} */ dirChange = this._dir ? this._dir.change : of(null);
             let /** @type {?} */ resize = typeof window !== 'undefined' ?
-                auditTime$1.call(fromEvent(window, 'resize'), 10) :
+                auditTime.call(fromEvent(window, 'resize'), 10) :
                 of(null);
-            return takeUntil$1.call(merge(dirChange, resize), this._onDestroy)
+            return takeUntil.call(merge(dirChange, resize), this._onDestroy)
                 .subscribe(() => this._alignInkBar());
         });
     }
@@ -16595,9 +14836,9 @@ class MdTabHeader {
         this._realignInkBar = this._ngZone.runOutsideAngular(() => {
             let /** @type {?} */ dirChange = this._dir ? this._dir.change : of(null);
             let /** @type {?} */ resize = typeof window !== 'undefined' ?
-                auditTime$1.call(fromEvent(window, 'resize'), 10) :
+                auditTime.call(fromEvent(window, 'resize'), 10) :
                 of(null);
-            return startWith$1.call(merge(dirChange, resize), null).subscribe(() => {
+            return startWith.call(merge(dirChange, resize), null).subscribe(() => {
                 this._updatePagination();
                 this._alignInkBarToSelectedTab();
             });
@@ -17351,7 +15592,7 @@ class MdTooltip {
         if (this._tooltipInstance) {
             this._tooltipInstance.message = message;
             this._tooltipInstance._markForCheck();
-            first$1.call(this._ngZone.onMicrotaskEmpty).subscribe(() => {
+            first.call(this._ngZone.onMicrotaskEmpty).subscribe(() => {
                 if (this._tooltipInstance) {
                     ((this._overlayRef)).updatePosition();
                 }
@@ -18321,7 +16562,7 @@ class MdDialogRef {
          * Subject for notifying the user that the dialog has finished closing.
          */
         this._afterClosed = new Subject();
-        filter$1.call(_containerInstance._onAnimationStateChange, (event) => event.toState === 'exit')
+        filter.call(_containerInstance._onAnimationStateChange, (event) => event.toState === 'exit')
             .subscribe(() => this._overlayRef.dispose(), undefined, () => {
             this._afterClosed.next(this._result);
             this._afterClosed.complete();
@@ -19219,7 +17460,7 @@ class MdAutocompleteTrigger {
         if (!this._document) {
             return of(null);
         }
-        return RxChain.from(merge(fromEvent(this._document, 'click'), fromEvent(this._document, 'touchend'))).call(filter$1, (event) => {
+        return RxChain.from(merge(fromEvent(this._document, 'click'), fromEvent(this._document, 'touchend'))).call(filter, (event) => {
             const /** @type {?} */ clickTarget = (event.target);
             const /** @type {?} */ inputContainer = this._inputContainer ?
                 this._inputContainer._elementRef.nativeElement : null;
@@ -19353,12 +17594,12 @@ class MdAutocompleteTrigger {
      */
     _subscribeToClosingActions() {
         // When the zone is stable initially, and when the option list changes...
-        return RxChain.from(merge(first$1.call(this._zone.onStable), this.autocomplete.options.changes))
-            .call(switchMap$1, () => {
+        return RxChain.from(merge(first.call(this._zone.onStable), this.autocomplete.options.changes))
+            .call(switchMap, () => {
             this._resetPanel();
             return this.panelClosingActions;
         })
-            .call(first$1)
+            .call(first)
             .subscribe(event => this._setValueAndClose(event));
     }
     /**
@@ -20158,7 +18399,7 @@ class MdCalendar {
      * @return {?}
      */
     _focusActiveCell() {
-        this._ngZone.runOutsideAngular(() => first$1.call(this._ngZone.onStable).subscribe(() => {
+        this._ngZone.runOutsideAngular(() => first.call(this._ngZone.onStable).subscribe(() => {
             this._elementRef.nativeElement.querySelector('.mat-calendar-body-active').focus();
         }));
     }
@@ -20572,7 +18813,7 @@ class MdDatepicker {
             let /** @type {?} */ componentRef = this._popupRef.attach(this._calendarPortal);
             componentRef.instance.datepicker = this;
             // Update the position once the calendar has rendered.
-            first$1.call(this._ngZone.onStable).subscribe(() => this._popupRef.updatePosition());
+            first.call(this._ngZone.onStable).subscribe(() => this._popupRef.updatePosition());
         }
         this._popupRef.backdropClick().subscribe(() => this.close());
     }
@@ -22208,5 +20449,5 @@ MaterialModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { coerceBooleanProperty, coerceNumberProperty, Dir, Directionality, BidiModule, ObserveContentModule, ObserveContent, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort, MdTableModule, _MdHeaderCellBase, _MdCell, MdHeaderCell, MdCell, _MdTable, MdTable, _MdHeaderRow, _MdRow, MdHeaderRow, MdRow, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkBase, _MdTabLinkMixinBase, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, getMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, LIVE_ANNOUNCER_PROVIDER_FACTORY as ɵj, DIR_DOCUMENT as ɵa, mixinColor as ɵx, mixinDisabled as ɵy, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵk, MdMutationObserverFactory as ɵb, OVERLAY_CONTAINER_PROVIDER as ɵd, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵc, OverlayPositionBuilder as ɵw, VIEWPORT_RULER_PROVIDER as ɵf, VIEWPORT_RULER_PROVIDER_FACTORY as ɵe, SCROLL_DISPATCHER_PROVIDER as ɵh, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵg, RippleRenderer as ɵi, EXPANSION_PANEL_ANIMATION_TIMING as ɵl, MdGridAvatarCssMatStyler as ɵn, MdGridTileFooterCssMatStyler as ɵp, MdGridTileHeaderCssMatStyler as ɵo, MdGridTileText as ɵm, MdMenuItemBase as ɵq, _MdMenuItemMixinBase as ɵr, MdPaginatorIntl as ɵba, MdTabBase as ɵu, _MdTabMixinBase as ɵv, MdTabLabelWrapperBase as ɵs, _MdTabLabelWrapperMixinBase as ɵt };
+export { coerceBooleanProperty, coerceNumberProperty, Dir, Directionality, BidiModule, ObserveContentModule, ObserveContent, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort, MdTableModule, _MdHeaderCellBase, _MdCell, MdHeaderCell, MdCell, _MdTable, MdTable, _MdHeaderRow, _MdRow, MdHeaderRow, MdRow, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkBase, _MdTabLinkMixinBase, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, getMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, mixinColor as ɵv, mixinDisabled as ɵw, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵi, MdMutationObserverFactory as ɵa, OVERLAY_CONTAINER_PROVIDER as ɵc, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵb, OverlayPositionBuilder as ɵu, VIEWPORT_RULER_PROVIDER as ɵe, VIEWPORT_RULER_PROVIDER_FACTORY as ɵd, SCROLL_DISPATCHER_PROVIDER as ɵg, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵf, RippleRenderer as ɵh, EXPANSION_PANEL_ANIMATION_TIMING as ɵj, MdGridAvatarCssMatStyler as ɵl, MdGridTileFooterCssMatStyler as ɵn, MdGridTileHeaderCssMatStyler as ɵm, MdGridTileText as ɵk, MdMenuItemBase as ɵo, _MdMenuItemMixinBase as ɵp, MdPaginatorIntl as ɵy, MdTabBase as ɵs, _MdTabMixinBase as ɵt, MdTabLabelWrapperBase as ɵq, _MdTabLabelWrapperMixinBase as ɵr };
 //# sourceMappingURL=material.js.map

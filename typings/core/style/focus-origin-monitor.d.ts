@@ -77,7 +77,7 @@ export declare class FocusOriginMonitor {
      * @param event The blur event.
      * @param element The monitored element.
      */
-    private _onBlur(event, element);
+    _onBlur(event: FocusEvent, element: HTMLElement): void;
 }
 /**
  * Directive that determines how a particular element was focused (via keyboard, mouse, touch, or
@@ -99,6 +99,6 @@ export declare class CdkMonitorFocus implements OnDestroy {
 export declare function FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY(parentDispatcher: FocusOriginMonitor, ngZone: NgZone, platform: Platform): FocusOriginMonitor;
 export declare const FOCUS_ORIGIN_MONITOR_PROVIDER: {
     provide: typeof FocusOriginMonitor;
-    deps: (Optional[] | typeof Platform | typeof NgZone)[];
+    deps: (Optional[] | typeof NgZone | typeof Platform)[];
     useFactory: (parentDispatcher: FocusOriginMonitor, ngZone: NgZone, platform: Platform) => FocusOriginMonitor;
 };

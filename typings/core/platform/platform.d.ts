@@ -1,18 +1,8 @@
 /**
- * Service to detect the current platform by comparing the userAgent strings and
- * checking browser-specific global properties.
- * @docs-private
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
-export declare class Platform {
-    isBrowser: boolean;
-    /** Layout Engines */
-    EDGE: boolean;
-    TRIDENT: boolean;
-    BLINK: boolean;
-    WEBKIT: boolean;
-    /** Browsers and Platform Types */
-    IOS: boolean;
-    FIREFOX: boolean;
-    ANDROID: boolean;
-    SAFARI: boolean;
-}
+export { Platform } from '@angular/cdk';

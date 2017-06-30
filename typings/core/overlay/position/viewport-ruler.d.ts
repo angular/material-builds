@@ -31,6 +31,6 @@ export declare class ViewportRuler {
 export declare function VIEWPORT_RULER_PROVIDER_FACTORY(parentRuler: ViewportRuler, scrollDispatcher: ScrollDispatcher): ViewportRuler;
 export declare const VIEWPORT_RULER_PROVIDER: {
     provide: typeof ViewportRuler;
-    deps: (Optional[] | typeof ScrollDispatcher)[];
+    deps: (typeof ScrollDispatcher | Optional[])[];
     useFactory: (parentRuler: ViewportRuler, scrollDispatcher: ScrollDispatcher) => ViewportRuler;
 };

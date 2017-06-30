@@ -63,7 +63,7 @@ export declare class MdTooltip implements OnDestroy {
     _matDisabled: boolean;
     _matHideDelay: number;
     _matShowDelay: number;
-    _matClass: string | Set<string> | string[] | {
+    _matClass: string | string[] | Set<string> | {
         [key: string]: any;
     };
     constructor(_overlay: Overlay, _elementRef: ElementRef, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _renderer: Renderer2, _platform: Platform, _dir: Directionality);
