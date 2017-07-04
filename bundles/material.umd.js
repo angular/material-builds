@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk'), require('rxjs/Subject'), require('@angular/common'), require('rxjs/Subscription'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/forms'), require('@angular/animations'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/throw'), require('rxjs/observable/forkJoin')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', '@angular/cdk', 'rxjs/Subject', '@angular/common', 'rxjs/Subscription', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/forms', '@angular/animations', '@angular/http', 'rxjs/Observable', 'rxjs/observable/throw', 'rxjs/observable/forkJoin'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.platformBrowser,global.ng.cdk,global.Rx,global.ng.common,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.forms,global.ng.animations,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_platformBrowser,_angular_cdk,rxjs_Subject,_angular_common,rxjs_Subscription,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of,_angular_forms,_angular_animations,_angular_http,rxjs_Observable,rxjs_observable_throw,rxjs_observable_forkJoin) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk'), require('@angular/platform-browser'), require('@angular/common'), require('rxjs/Subject'), require('rxjs/Subscription'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/forms'), require('@angular/animations'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/throw'), require('rxjs/observable/forkJoin')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk', '@angular/platform-browser', '@angular/common', 'rxjs/Subject', 'rxjs/Subscription', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/forms', '@angular/animations', '@angular/http', 'rxjs/Observable', 'rxjs/observable/throw', 'rxjs/observable/forkJoin'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk,global.ng.platformBrowser,global.ng.common,global.Rx,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.forms,global.ng.animations,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_cdk,_angular_platformBrowser,_angular_common,rxjs_Subject,rxjs_Subscription,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of,_angular_forms,_angular_animations,_angular_http,rxjs_Observable,rxjs_observable_throw,rxjs_observable_forkJoin) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -310,117 +310,6 @@ MdLineModule.decorators = [
  * @nocollapse
  */
 MdLineModule.ctorParameters = function () { return []; };
-/**
- * Factory that creates a new MutationObserver and allows us to stub it out in unit tests.
- * \@docs-private
- */
-var MdMutationObserverFactory = (function () {
-    function MdMutationObserverFactory() {
-    }
-    /**
-     * @param {?} callback
-     * @return {?}
-     */
-    MdMutationObserverFactory.prototype.create = function (callback) {
-        return typeof MutationObserver === 'undefined' ? null : new MutationObserver(callback);
-    };
-    return MdMutationObserverFactory;
-}());
-MdMutationObserverFactory.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-MdMutationObserverFactory.ctorParameters = function () { return []; };
-/**
- * Directive that triggers a callback whenever the content of
- * its associated element has changed.
- */
-var ObserveContent = (function () {
-    /**
-     * @param {?} _mutationObserverFactory
-     * @param {?} _elementRef
-     */
-    function ObserveContent(_mutationObserverFactory, _elementRef) {
-        this._mutationObserverFactory = _mutationObserverFactory;
-        this._elementRef = _elementRef;
-        /**
-         * Event emitted for each change in the element's content.
-         */
-        this.event = new _angular_core.EventEmitter();
-        /**
-         * Used for debouncing the emitted values to the observeContent event.
-         */
-        this._debouncer = new rxjs_Subject.Subject();
-    }
-    /**
-     * @return {?}
-     */
-    ObserveContent.prototype.ngAfterContentInit = function () {
-        var _this = this;
-        if (this.debounce > 0) {
-            _angular_cdk.RxChain.from(this._debouncer)
-                .call(_angular_cdk.debounceTime, this.debounce)
-                .subscribe(function (mutations) { return _this.event.emit(mutations); });
-        }
-        else {
-            this._debouncer.subscribe(function (mutations) { return _this.event.emit(mutations); });
-        }
-        this._observer = this._mutationObserverFactory.create(function (mutations) {
-            _this._debouncer.next(mutations);
-        });
-        if (this._observer) {
-            this._observer.observe(this._elementRef.nativeElement, {
-                characterData: true,
-                childList: true,
-                subtree: true
-            });
-        }
-    };
-    /**
-     * @return {?}
-     */
-    ObserveContent.prototype.ngOnDestroy = function () {
-        if (this._observer) {
-            this._observer.disconnect();
-            this._debouncer.complete();
-        }
-    };
-    return ObserveContent;
-}());
-ObserveContent.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[cdkObserveContent]'
-            },] },
-];
-/**
- * @nocollapse
- */
-ObserveContent.ctorParameters = function () { return [
-    { type: MdMutationObserverFactory, },
-    { type: _angular_core.ElementRef, },
-]; };
-ObserveContent.propDecorators = {
-    'event': [{ type: _angular_core.Output, args: ['cdkObserveContent',] },],
-    'debounce': [{ type: _angular_core.Input },],
-};
-var ObserveContentModule = (function () {
-    function ObserveContentModule() {
-    }
-    return ObserveContentModule;
-}());
-ObserveContentModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                exports: [ObserveContent],
-                declarations: [ObserveContent],
-                providers: [MdMutationObserverFactory]
-            },] },
-];
-/**
- * @nocollapse
- */
-ObserveContentModule.ctorParameters = function () { return []; };
 var RippleState = {};
 RippleState.FADING_IN = 0;
 RippleState.VISIBLE = 1;
@@ -4683,7 +4572,7 @@ MdCoreModule.decorators = [
                     MdLineModule,
                     _angular_cdk.BidiModule,
                     MdRippleModule,
-                    ObserveContentModule,
+                    _angular_cdk.ObserveContentModule,
                     _angular_cdk.PortalModule,
                     OverlayModule,
                     _angular_cdk.A11yModule,
@@ -4694,7 +4583,7 @@ MdCoreModule.decorators = [
                     MdLineModule,
                     _angular_cdk.BidiModule,
                     MdRippleModule,
-                    ObserveContentModule,
+                    _angular_cdk.ObserveContentModule,
                     _angular_cdk.PortalModule,
                     OverlayModule,
                     _angular_cdk.A11yModule,
@@ -6141,7 +6030,7 @@ var MdCheckboxModule = (function () {
 }());
 MdCheckboxModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [_angular_common.CommonModule, MdRippleModule, MdCommonModule, ObserveContentModule],
+                imports: [_angular_common.CommonModule, MdRippleModule, MdCommonModule, _angular_cdk.ObserveContentModule],
                 exports: [MdCheckbox, MdCommonModule],
                 declarations: [MdCheckbox],
                 providers: [FocusOriginMonitor]
@@ -16096,7 +15985,7 @@ MdTabsModule.decorators = [
                     _angular_common.CommonModule,
                     _angular_cdk.PortalModule,
                     MdRippleModule,
-                    ObserveContentModule,
+                    _angular_cdk.ObserveContentModule,
                     ScrollDispatchModule,
                 ],
                 // Don't export all components because some are only to be used internally.
@@ -21075,7 +20964,7 @@ MdCell.ctorParameters = function () { return [
  * Workaround for https://github.com/angular/angular/issues/17849
  */
 var _MdHeaderRow = _angular_cdk.CdkHeaderRow;
-var _MdRow = _angular_cdk.CdkHeaderRow;
+var _MdRow = _angular_cdk.CdkRow;
 /**
  * Header template container that contains the cell outlet. Adds the right class and role.
  */
@@ -21736,7 +21625,7 @@ var MATERIAL_MODULES = [
     _angular_cdk.A11yModule,
     _angular_cdk.PlatformModule,
     MdCommonModule,
-    ObserveContentModule
+    _angular_cdk.ObserveContentModule
 ];
 /**
  * @deprecated
@@ -21759,11 +21648,11 @@ MaterialModule.ctorParameters = function () { return []; };
 
 exports.coerceBooleanProperty = _angular_cdk.coerceBooleanProperty;
 exports.coerceNumberProperty = _angular_cdk.coerceNumberProperty;
+exports.ObserveContentModule = _angular_cdk.ObserveContentModule;
+exports.ObserveContent = _angular_cdk.ObserveContent;
 exports.Dir = _angular_cdk.Dir;
 exports.Directionality = _angular_cdk.Directionality;
 exports.BidiModule = _angular_cdk.BidiModule;
-exports.ObserveContentModule = ObserveContentModule;
-exports.ObserveContent = ObserveContent;
 exports.Portal = _angular_cdk.Portal;
 exports.BasePortalHost = _angular_cdk.BasePortalHost;
 exports.ComponentPortal = _angular_cdk.ComponentPortal;
@@ -22110,30 +21999,29 @@ exports.SCROLL_THROTTLE_MS = SCROLL_THROTTLE_MS;
 exports.getMdTooltipInvalidPositionError = getMdTooltipInvalidPositionError;
 exports.MdTooltip = MdTooltip;
 exports.TooltipComponent = TooltipComponent;
-exports.ɵv = mixinColor;
-exports.ɵw = mixinDisabled;
-exports.ɵi = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
-exports.ɵa = MdMutationObserverFactory;
-exports.ɵc = OVERLAY_CONTAINER_PROVIDER;
-exports.ɵb = OVERLAY_CONTAINER_PROVIDER_FACTORY;
-exports.ɵu = OverlayPositionBuilder;
-exports.ɵe = VIEWPORT_RULER_PROVIDER;
-exports.ɵd = VIEWPORT_RULER_PROVIDER_FACTORY;
-exports.ɵg = SCROLL_DISPATCHER_PROVIDER;
-exports.ɵf = SCROLL_DISPATCHER_PROVIDER_FACTORY;
-exports.ɵh = RippleRenderer;
-exports.ɵj = EXPANSION_PANEL_ANIMATION_TIMING;
-exports.ɵl = MdGridAvatarCssMatStyler;
-exports.ɵn = MdGridTileFooterCssMatStyler;
-exports.ɵm = MdGridTileHeaderCssMatStyler;
-exports.ɵk = MdGridTileText;
-exports.ɵo = MdMenuItemBase;
-exports.ɵp = _MdMenuItemMixinBase;
-exports.ɵy = MdPaginatorIntl;
-exports.ɵs = MdTabBase;
-exports.ɵt = _MdTabMixinBase;
-exports.ɵq = MdTabLabelWrapperBase;
-exports.ɵr = _MdTabLabelWrapperMixinBase;
+exports.ɵu = mixinColor;
+exports.ɵv = mixinDisabled;
+exports.ɵh = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
+exports.ɵb = OVERLAY_CONTAINER_PROVIDER;
+exports.ɵa = OVERLAY_CONTAINER_PROVIDER_FACTORY;
+exports.ɵt = OverlayPositionBuilder;
+exports.ɵd = VIEWPORT_RULER_PROVIDER;
+exports.ɵc = VIEWPORT_RULER_PROVIDER_FACTORY;
+exports.ɵf = SCROLL_DISPATCHER_PROVIDER;
+exports.ɵe = SCROLL_DISPATCHER_PROVIDER_FACTORY;
+exports.ɵg = RippleRenderer;
+exports.ɵi = EXPANSION_PANEL_ANIMATION_TIMING;
+exports.ɵk = MdGridAvatarCssMatStyler;
+exports.ɵm = MdGridTileFooterCssMatStyler;
+exports.ɵl = MdGridTileHeaderCssMatStyler;
+exports.ɵj = MdGridTileText;
+exports.ɵn = MdMenuItemBase;
+exports.ɵo = _MdMenuItemMixinBase;
+exports.ɵx = MdPaginatorIntl;
+exports.ɵr = MdTabBase;
+exports.ɵs = _MdTabMixinBase;
+exports.ɵp = MdTabLabelWrapperBase;
+exports.ɵq = _MdTabLabelWrapperMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

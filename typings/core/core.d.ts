@@ -1,6 +1,5 @@
-export { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk';
+export { coerceBooleanProperty, coerceNumberProperty, ObserveContentModule, ObserveContent } from '@angular/cdk';
 export { Dir, Direction, Directionality, BidiModule } from './bidi/index';
-export { ObserveContentModule, ObserveContent } from './observe-content/observe-content';
 export * from './option/index';
 export { Portal, PortalHost, BasePortalHost, ComponentPortal, TemplatePortal } from './portal/portal';
 export { PortalHostDirective, TemplatePortalDirective, PortalModule } from './portal/portal-directives';
