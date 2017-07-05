@@ -28,8 +28,8 @@ export declare class MdRipple implements OnChanges, OnDestroy {
      */
     centered: boolean;
     /**
-     * Whether click events will not trigger the ripple. Ripples can be still launched manually
-     * by using the `launch()` method.
+     * Whether click events will not trigger the ripple. It can still be triggered by manually
+     * calling createRipple()
      */
     disabled: boolean;
     /**
