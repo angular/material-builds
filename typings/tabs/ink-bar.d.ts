@@ -26,13 +26,8 @@ export declare class MdInkBar {
     /** Hides the ink bar. */
     hide(): void;
     /**
-     * Generates the pixel distance from the left based on the provided element in string format.
+     * Sets the proper styles to the ink bar element.
      * @param element
      */
-    private _getLeftPosition(element);
-    /**
-     * Generates the pixel width from the provided element in string format.
-     * @param element
-     */
-    private _getElementWidth(element);
+    private _setStyles(element);
 }

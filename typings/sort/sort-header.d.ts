@@ -24,6 +24,7 @@ export declare class MdSortHeader implements MdSortable {
     private _changeDetectorRef;
     _sort: MdSort;
     _cdkColumnDef: CdkColumnDef;
+    /** @docs-private  */
     sortSubscription: Subscription;
     /**
      * ID of this sort header. If used within the context of a CdkColumnDef, this will default to
