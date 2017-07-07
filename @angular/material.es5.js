@@ -14382,6 +14382,7 @@ MdSnackBarContainer.decorators = [
     { type: Component, args: [{ selector: 'snack-bar-container',
                 template: "<ng-template cdkPortalHost></ng-template>",
                 styles: [":host{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);background:#323232;border-radius:2px;box-sizing:content-box;display:block;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%)}@media screen and (-ms-high-contrast:active){:host{border:solid 1px}}"],
+                changeDetection: ChangeDetectionStrategy.OnPush,
                 host: {
                     'role': 'alert',
                     '[@state]': 'animationState',
@@ -14389,6 +14390,7 @@ MdSnackBarContainer.decorators = [
                 },
                 animations: [
                     trigger('state', [
+                        state('void', style({ transform: 'translateY(100%)' })),
                         state('initial', style({ transform: 'translateY(100%)' })),
                         state('visible', style({ transform: 'translateY(0%)' })),
                         state('complete', style({ transform: 'translateY(100%)' })),
@@ -14441,6 +14443,7 @@ SimpleSnackBar.decorators = [
                 template: "{{message}} <button class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\" (click)=\"dismiss()\">{{action}}</button>",
                 styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;color:#fff;line-height:20px}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;background:0 0;color:inherit;flex-shrink:0;margin-left:48px}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0}"],
                 encapsulation: ViewEncapsulation.None,
+                changeDetection: ChangeDetectionStrategy.OnPush,
                 host: {
                     'class': 'mat-simple-snackbar',
                 }
@@ -14604,10 +14607,6 @@ var MdSnackBar = /*@__PURE__*/(function () {
         var /** @type {?} */ containerPortal = new ComponentPortal(MdSnackBarContainer, config.viewContainerRef);
         var /** @type {?} */ containerRef = overlayRef.attach(containerPortal);
         containerRef.instance.snackBarConfig = config;
-        // The snackbar animation needs the content to be resolved in order to transform the bar
-        // out of the view initially (so it can slide in). To make the content resolve, we manually
-        // detect changes.
-        containerRef.changeDetectorRef.detectChanges();
         return containerRef.instance;
     };
     /**
