@@ -47,4 +47,6 @@ export declare class MdDialogConfig {
     data?: any;
     /** Layout direction for the dialog's content. */
     direction?: Direction;
+    /** ID of the element that describes the dialog.  */
+    ariaDescribedBy?: string | null;
 }
