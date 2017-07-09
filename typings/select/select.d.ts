@@ -252,6 +252,8 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
      * Callback that is invoked when the overlay panel has been attached.
      */
     _onAttached(): void;
+    /** Whether the select has a value. */
+    _hasValue(): boolean;
     /**
      * Sets the scroll position of the scroll container. This must be called after
      * the overlay pane is attached or the scroll container element will not yet be
