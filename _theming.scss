@@ -2910,6 +2910,10 @@ $mat-calendar-weekday-table-font-size: 11px !default;
     &.mat-accent {
       @include _mat-select-inner-content-theme($accent);
     }
+
+    &.mat-select-required .mat-select-placeholder::after {
+      color: mat-color($warn);
+    }
   }
 
   .mat-select:focus:not(.mat-select-disabled).mat-warn,
