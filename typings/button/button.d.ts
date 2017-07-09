@@ -80,7 +80,5 @@ export declare class MdButton extends _MdButtonMixinBase implements OnDestroy, C
  */
 export declare class MdAnchor extends MdButton {
     constructor(platform: Platform, focusOriginMonitor: FocusOriginMonitor, elementRef: ElementRef, renderer: Renderer2);
-    /** @docs-private */
-    readonly tabIndex: number;
     _haltDisabledEvents(event: Event): void;
 }

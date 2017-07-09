@@ -5276,13 +5276,6 @@ class MdAnchor extends MdButton {
         super(renderer, elementRef, platform, focusOriginMonitor);
     }
     /**
-     * \@docs-private
-     * @return {?}
-     */
-    get tabIndex() {
-        return this.disabled ? -1 : 0;
-    }
-    /**
      * @param {?} event
      * @return {?}
      */
@@ -5298,6 +5291,7 @@ MdAnchor.decorators = [
     { type: Component, args: [{selector: `a[md-button], a[md-raised-button], a[md-icon-button], a[md-fab], a[md-mini-fab],
              a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab], a[mat-mini-fab]`,
                 host: {
+                    '[attr.tabindex]': 'disabled ? -1 : 0',
                     '[attr.disabled]': 'disabled || null',
                     '[attr.aria-disabled]': 'disabled.toString()',
                     '(click)': '_haltDisabledEvents($event)',
@@ -5305,7 +5299,8 @@ MdAnchor.decorators = [
                 inputs: ['disabled', 'color'],
                 template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div md-ripple class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton || _isIconButton\" [mdRippleDisabled]=\"_isRippleDisabled()\" [mdRippleCentered]=\"_isIconButton\" [mdRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\"></div>",
                 styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([disabled]):active,.mat-mini-fab:not([disabled]):active,.mat-raised-button:not([disabled]):active{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-icon,.mat-fab i{padding:16px 0;line-height:24px}.mat-mini-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-icon,.mat-mini-fab i{padding:8px 0;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{position:absolute;top:0;left:0;bottom:0;right:0;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
-                encapsulation: ViewEncapsulation.None
+                encapsulation: ViewEncapsulation.None,
+                changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
 /**
@@ -5317,9 +5312,6 @@ MdAnchor.ctorParameters = () => [
     { type: ElementRef, },
     { type: Renderer2, },
 ];
-MdAnchor.propDecorators = {
-    'tabIndex': [{ type: HostBinding, args: ['tabIndex',] },],
-};
 
 class MdButtonModule {
 }
@@ -8142,12 +8134,14 @@ class MdSlider extends _MdSliderMixinBase {
      * @param {?} renderer
      * @param {?} _elementRef
      * @param {?} _focusOriginMonitor
+     * @param {?} _changeDetectorRef
      * @param {?} _dir
      */
-    constructor(renderer, _elementRef, _focusOriginMonitor, _dir) {
+    constructor(renderer, _elementRef, _focusOriginMonitor, _changeDetectorRef, _dir) {
         super();
         this._elementRef = _elementRef;
         this._focusOriginMonitor = _focusOriginMonitor;
+        this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
         this._invert = false;
         this._max = 100;
@@ -8190,7 +8184,8 @@ class MdSlider extends _MdSliderMixinBase {
          */
         this._sliderDimensions = null;
         this._controlValueAccessorChangeFn = () => { };
-        this._focusOriginMonitor.monitor(this._elementRef.nativeElement, renderer, true)
+        this._focusOriginMonitor
+            .monitor(this._elementRef.nativeElement, renderer, true)
             .subscribe((origin) => this._isActive = !!origin && origin !== 'keyboard');
         this._renderer = new SliderRenderer(this._elementRef);
     }
@@ -8203,14 +8198,14 @@ class MdSlider extends _MdSliderMixinBase {
      * @param {?} value
      * @return {?}
      */
-    set invert(value) { this._invert = coerceBooleanProperty(value); }
+    set invert(value) {
+        this._invert = coerceBooleanProperty(value);
+    }
     /**
      * The maximum value that the slider can have.
      * @return {?}
      */
-    get max() {
-        return this._max;
-    }
+    get max() { return this._max; }
     /**
      * @param {?} v
      * @return {?}
@@ -8218,14 +8213,14 @@ class MdSlider extends _MdSliderMixinBase {
     set max(v) {
         this._max = coerceNumberProperty(v, this._max);
         this._percent = this._calculatePercentage(this._value);
+        // Since this also modifies the percentage, we need to let the change detection know.
+        this._changeDetectorRef.markForCheck();
     }
     /**
      * The minimum value that the slider can have.
      * @return {?}
      */
-    get min() {
-        return this._min;
-    }
+    get min() { return this._min; }
     /**
      * @param {?} v
      * @return {?}
@@ -8237,6 +8232,8 @@ class MdSlider extends _MdSliderMixinBase {
             this.value = this._min;
         }
         this._percent = this._calculatePercentage(this._value);
+        // Since this also modifies the percentage, we need to let the change detection know.
+        this._changeDetectorRef.markForCheck();
     }
     /**
      * The values at which the thumb will snap.
@@ -8252,6 +8249,8 @@ class MdSlider extends _MdSliderMixinBase {
         if (this._step % 1 !== 0) {
             this._roundLabelTo = ((this._step.toString().split('.').pop())).length;
         }
+        // Since this could modify the label, we need to notify the change detection.
+        this._changeDetectorRef.markForCheck();
     }
     /**
      * Whether or not to show the thumb label.
@@ -8320,8 +8319,12 @@ class MdSlider extends _MdSliderMixinBase {
      * @return {?}
      */
     set value(v) {
-        this._value = coerceNumberProperty(v, this._value || 0);
-        this._percent = this._calculatePercentage(this._value);
+        if (v !== this._value) {
+            this._value = coerceNumberProperty(v, this._value || 0);
+            this._percent = this._calculatePercentage(this._value);
+            // Since this also modifies the percentage, we need to let the change detection know.
+            this._changeDetectorRef.markForCheck();
+        }
     }
     /**
      * Whether the slider is vertical.
@@ -8332,7 +8335,9 @@ class MdSlider extends _MdSliderMixinBase {
      * @param {?} value
      * @return {?}
      */
-    set vertical(value) { this._vertical = coerceBooleanProperty(value); }
+    set vertical(value) {
+        this._vertical = coerceBooleanProperty(value);
+    }
     /**
      * The value to be used for display purposes.
      * @return {?}
@@ -8798,6 +8803,7 @@ MdSlider.decorators = [
                 styles: [".mat-slider{display:inline-block;position:relative;box-sizing:border-box;padding:8px;outline:0;vertical-align:middle}.mat-slider-wrapper{position:absolute}.mat-slider-track-wrapper{position:absolute;top:0;left:0;overflow:hidden}.mat-slider-track-fill{position:absolute;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-track-background{position:absolute;transform-origin:100% 100%;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-ticks-container{position:absolute;left:0;top:0;overflow:hidden}.mat-slider-ticks{background-repeat:repeat;background-clip:content-box;box-sizing:border-box;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-container{position:absolute;z-index:1;transition:transform .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-focus-ring{position:absolute;width:30px;height:30px;border-radius:50%;transform:scale(0);opacity:0;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),opacity .4s cubic-bezier(.25,.8,.25,1)}.cdk-keyboard-focused .mat-slider-focus-ring{transform:scale(1);opacity:1}.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb-label{cursor:-webkit-grab;cursor:grab}.mat-slider-sliding:not(.mat-slider-disabled) .mat-slider-thumb,.mat-slider-sliding:not(.mat-slider-disabled) .mat-slider-thumb-label,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb-label:active,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb:active{cursor:-webkit-grabbing;cursor:grabbing}.mat-slider-thumb{position:absolute;right:-10px;bottom:-10px;box-sizing:border-box;width:20px;height:20px;border:3px solid transparent;border-radius:50%;transform:scale(.7);transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),border-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-label{display:none;align-items:center;justify-content:center;position:absolute;width:28px;height:28px;border-radius:50%;transition:transform .4s cubic-bezier(.25,.8,.25,1),border-radius .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-label-text{z-index:1;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-sliding .mat-slider-thumb-container,.mat-slider-sliding .mat-slider-track-background,.mat-slider-sliding .mat-slider-track-fill{transition-duration:0s}.mat-slider-has-ticks .mat-slider-wrapper::after{content:'';position:absolute;border-width:0;border-style:solid;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after,.mat-slider-has-ticks:hover:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after{opacity:1}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-disabled) .mat-slider-ticks,.mat-slider-has-ticks:hover:not(.mat-slider-disabled) .mat-slider-ticks{opacity:1}.mat-slider-thumb-label-showing .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-thumb-label-showing .mat-slider-thumb-label{display:flex}.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:100% 100%}.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:0 0}.cdk-focused.mat-slider-thumb-label-showing .mat-slider-thumb{transform:scale(0)}.cdk-focused .mat-slider-thumb-label{border-radius:50% 50% 0}.cdk-focused .mat-slider-thumb-label-text{opacity:1}.cdk-mouse-focused .mat-slider-thumb,.cdk-program-focused .mat-slider-thumb,.cdk-touch-focused .mat-slider-thumb{border-width:2px;transform:scale(1)}.mat-slider-disabled .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-disabled .mat-slider-thumb{border-width:4px;transform:scale(.5)}.mat-slider-disabled .mat-slider-thumb-label{display:none}.mat-slider-horizontal{height:48px;min-width:128px}.mat-slider-horizontal .mat-slider-wrapper{height:2px;top:23px;left:8px;right:8px}.mat-slider-horizontal .mat-slider-wrapper::after{height:2px;border-left-width:2px;right:0;top:0}.mat-slider-horizontal .mat-slider-track-wrapper{height:2px;width:100%}.mat-slider-horizontal .mat-slider-track-fill{height:2px;width:100%;transform:scaleX(0)}.mat-slider-horizontal .mat-slider-track-background{height:2px;width:100%;transform:scaleX(1)}.mat-slider-horizontal .mat-slider-ticks-container{height:2px;width:100%}.mat-slider-horizontal .mat-slider-ticks{height:2px;width:100%}.mat-slider-horizontal .mat-slider-thumb-container{width:100%;height:0;top:50%}.mat-slider-horizontal .mat-slider-focus-ring{top:-15px;right:-15px}.mat-slider-horizontal .mat-slider-thumb-label{right:-14px;top:-40px;transform:translateY(26px) scale(.01) rotate(45deg)}.mat-slider-horizontal .mat-slider-thumb-label-text{transform:rotate(-45deg)}.mat-slider-horizontal.cdk-focused .mat-slider-thumb-label{transform:rotate(45deg)}.mat-slider-vertical{width:48px;min-height:128px}.mat-slider-vertical .mat-slider-wrapper{width:2px;top:8px;bottom:8px;left:23px}.mat-slider-vertical .mat-slider-wrapper::after{width:2px;border-top-width:2px;bottom:0;left:0}.mat-slider-vertical .mat-slider-track-wrapper{height:100%;width:2px}.mat-slider-vertical .mat-slider-track-fill{height:100%;width:2px;transform:scaleY(0)}.mat-slider-vertical .mat-slider-track-background{height:100%;width:2px;transform:scaleY(1)}.mat-slider-vertical .mat-slider-ticks-container{width:2px;height:100%}.mat-slider-vertical .mat-slider-focus-ring{bottom:-15px;left:-15px}.mat-slider-vertical .mat-slider-ticks{width:2px;height:100%}.mat-slider-vertical .mat-slider-thumb-container{height:100%;width:0;left:50%}.mat-slider-vertical .mat-slider-thumb-label{bottom:-14px;left:-40px;transform:translateX(26px) scale(.01) rotate(-45deg)}.mat-slider-vertical .mat-slider-thumb-label-text{transform:rotate(45deg)}.mat-slider-vertical.cdk-focused .mat-slider-thumb-label{transform:rotate(-45deg)}[dir=rtl] .mat-slider-wrapper::after{left:0;right:auto}[dir=rtl] .mat-slider-horizontal .mat-slider-track-fill{transform-origin:100% 100%}[dir=rtl] .mat-slider-horizontal .mat-slider-track-background{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:100% 100%}"],
                 inputs: ['disabled'],
                 encapsulation: ViewEncapsulation.None,
+                changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
 /**
@@ -8807,6 +8813,7 @@ MdSlider.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
     { type: FocusOriginMonitor, },
+    { type: ChangeDetectorRef, },
     { type: Directionality, decorators: [{ type: Optional },] },
 ];
 MdSlider.propDecorators = {
@@ -8859,7 +8866,7 @@ class MdSliderModule {
 }
 MdSliderModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CommonModule, FormsModule, MdCommonModule, StyleModule, BidiModule],
+                imports: [CommonModule, MdCommonModule, StyleModule, BidiModule],
                 exports: [MdSlider, MdCommonModule],
                 declarations: [MdSlider],
                 providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
@@ -19220,10 +19227,12 @@ let nextId$4 = 0;
 class AccordionItem {
     /**
      * @param {?} accordion
+     * @param {?} _changeDetectorRef
      * @param {?} _expansionDispatcher
      */
-    constructor(accordion, _expansionDispatcher) {
+    constructor(accordion, _changeDetectorRef, _expansionDispatcher) {
         this.accordion = accordion;
+        this._changeDetectorRef = _changeDetectorRef;
         this._expansionDispatcher = _expansionDispatcher;
         /**
          * Event emitted every time the MdAccordianChild is closed.
@@ -19278,6 +19287,9 @@ class AccordionItem {
             else {
                 this.closed.emit();
             }
+            // Ensures that the animation will run when the value is set outside of an `@Input`.
+            // This includes cases like the open, close and toggle methods.
+            this._changeDetectorRef.markForCheck();
         }
     }
     /**
@@ -19318,6 +19330,7 @@ AccordionItem.decorators = [
  */
 AccordionItem.ctorParameters = () => [
     { type: CdkAccordion, decorators: [{ type: Optional },] },
+    { type: ChangeDetectorRef, },
     { type: UniqueSelectionDispatcher, },
 ];
 AccordionItem.propDecorators = {
@@ -19342,10 +19355,11 @@ const EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
 class MdExpansionPanel extends AccordionItem {
     /**
      * @param {?} accordion
+     * @param {?} _changeDetectorRef
      * @param {?} _uniqueSelectionDispatcher
      */
-    constructor(accordion, _uniqueSelectionDispatcher) {
-        super(accordion, _uniqueSelectionDispatcher);
+    constructor(accordion, _changeDetectorRef, _uniqueSelectionDispatcher) {
+        super(accordion, _changeDetectorRef, _uniqueSelectionDispatcher);
         /**
          * Whether the toggle indicator should be hidden.
          */
@@ -19388,6 +19402,7 @@ MdExpansionPanel.decorators = [
                 selector: 'md-expansion-panel, mat-expansion-panel',
                 template: "<ng-content select=\"mat-expansion-panel-header, md-expansion-panel-header\"></ng-content><div [class.mat-expanded]=\"expanded\" class=\"mat-expansion-panel-content\" [@bodyExpansion]=\"_getExpandedState()\" [id]=\"id\"><div class=\"mat-expansion-panel-body\"><ng-content></ng-content></div><ng-content select=\"mat-action-row, md-action-row\"></ng-content></div>",
                 encapsulation: ViewEncapsulation.None,
+                changeDetection: ChangeDetectionStrategy.OnPush,
                 host: {
                     'class': 'mat-expansion-panel',
                     '[class.mat-expanded]': 'expanded',
@@ -19416,6 +19431,7 @@ MdExpansionPanel.decorators = [
  */
 MdExpansionPanel.ctorParameters = () => [
     { type: MdAccordion, decorators: [{ type: Optional }, { type: Host },] },
+    { type: ChangeDetectorRef, },
     { type: UniqueSelectionDispatcher, },
 ];
 MdExpansionPanel.propDecorators = {
@@ -19508,6 +19524,7 @@ MdExpansionPanelHeader.decorators = [
                 styles: [".mat-expansion-panel-header{cursor:pointer;display:flex;flex-direction:row;height:48px;line-height:48px;padding:0 24px}.mat-expansion-panel-header.mat-expanded{height:64px;line-height:64px}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-title{display:flex;flex-grow:1;font-size:15px;margin-right:16px}.mat-expansion-panel-header-description{display:flex;flex-grow:2;font-size:15px;margin-right:16px}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:'';display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}"],
                 template: "<span class=\"mat-content\"><ng-content select=\"md-panel-title, mat-panel-title\"></ng-content><ng-content select=\"md-panel-description, mat-panel-description\"></ng-content><ng-content></ng-content></span><span [@indicatorRotate]=\"_getExpandedState()\" *ngIf=\"!_getHideToggle()\" class=\"mat-expansion-indicator\"></span>",
                 encapsulation: ViewEncapsulation.None,
+                changeDetection: ChangeDetectionStrategy.OnPush,
                 host: {
                     'class': 'mat-expansion-panel-header',
                     'role': 'button',

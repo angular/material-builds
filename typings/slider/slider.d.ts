@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
+import { ElementRef, EventEmitter, OnDestroy, Renderer2, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { HammerInput } from '../core';
 import { Directionality } from '../core/bidi/index';
@@ -34,6 +34,7 @@ export declare const _MdSliderMixinBase: (new (...args: any[]) => CanDisable) & 
 export declare class MdSlider extends _MdSliderMixinBase implements ControlValueAccessor, OnDestroy, CanDisable {
     private _elementRef;
     private _focusOriginMonitor;
+    private _changeDetectorRef;
     private _dir;
     /** Whether the slider is inverted. */
     invert: any;
@@ -139,7 +140,7 @@ export declare class MdSlider extends _MdSliderMixinBase implements ControlValue
     private readonly _invertMouseCoords;
     /** The language direction for this slider element. */
     private readonly _direction;
-    constructor(renderer: Renderer2, _elementRef: ElementRef, _focusOriginMonitor: FocusOriginMonitor, _dir: Directionality);
+    constructor(renderer: Renderer2, _elementRef: ElementRef, _focusOriginMonitor: FocusOriginMonitor, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality);
     ngOnDestroy(): void;
     _onMouseenter(): void;
     _onClick(event: MouseEvent): void;

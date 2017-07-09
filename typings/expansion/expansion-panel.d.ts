@@ -1,3 +1,11 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { ChangeDetectorRef } from '@angular/core';
 import { MdAccordion, MdAccordionDisplayMode } from './accordion';
 import { AccordionItem } from './accordion-item';
 import { UniqueSelectionDispatcher } from '../core';
@@ -16,7 +24,7 @@ export declare const EXPANSION_PANEL_ANIMATION_TIMING = "225ms cubic-bezier(0.4,
 export declare class MdExpansionPanel extends AccordionItem {
     /** Whether the toggle indicator should be hidden. */
     hideToggle: boolean;
-    constructor(accordion: MdAccordion, _uniqueSelectionDispatcher: UniqueSelectionDispatcher);
+    constructor(accordion: MdAccordion, _changeDetectorRef: ChangeDetectorRef, _uniqueSelectionDispatcher: UniqueSelectionDispatcher);
     /** Whether the expansion indicator should be hidden. */
     _getHideToggle(): boolean;
     /** Gets the panel's display mode. */

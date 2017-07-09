@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { EventEmitter, OnDestroy } from '@angular/core';
+import { EventEmitter, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { UniqueSelectionDispatcher } from '../core';
 import { CdkAccordion } from './accordion';
 /**
@@ -14,6 +14,7 @@ import { CdkAccordion } from './accordion';
  */
 export declare class AccordionItem implements OnDestroy {
     accordion: CdkAccordion;
+    private _changeDetectorRef;
     protected _expansionDispatcher: UniqueSelectionDispatcher;
     /** Event emitted every time the MdAccordianChild is closed. */
     closed: EventEmitter<void>;
@@ -28,7 +29,7 @@ export declare class AccordionItem implements OnDestroy {
     private _expanded;
     /** Unregister function for _expansionDispatcher **/
     private _removeUniqueSelectionListener;
-    constructor(accordion: CdkAccordion, _expansionDispatcher: UniqueSelectionDispatcher);
+    constructor(accordion: CdkAccordion, _changeDetectorRef: ChangeDetectorRef, _expansionDispatcher: UniqueSelectionDispatcher);
     /** Emits an event for the accordion item being destroyed. */
     ngOnDestroy(): void;
     /** Toggles the expanded state of the accordion item. */
