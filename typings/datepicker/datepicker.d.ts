@@ -48,6 +48,9 @@ export declare class MdDatepicker<D> implements OnDestroy {
      * than a popup and elements have more padding to allow for bigger touch targets.
      */
     touchUi: boolean;
+    /** Whether the datepicker pop-up should be disabled. */
+    disabled: any;
+    private _disabled;
     /** Emits new selected date when selected date changes. */
     selectedChanged: EventEmitter<D>;
     /** Whether the calendar is open. */

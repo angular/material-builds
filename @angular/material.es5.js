@@ -10431,6 +10431,7 @@ MdGridTile.decorators = [
                 template: "<figure class=\"mat-figure\"><ng-content></ng-content></figure>",
                 styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-figure{display:flex;position:absolute;align-items:center;justify-content:center;height:100%;top:0;right:0;bottom:0;left:0;padding:0;margin:0}.mat-grid-tile .mat-grid-tile-footer,.mat-grid-tile .mat-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-footer>*,.mat-grid-tile .mat-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-tile-footer.mat-2-line,.mat-grid-tile .mat-grid-tile-header.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none}"],
                 encapsulation: ViewEncapsulation.None,
+                changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
 /**
@@ -10463,7 +10464,8 @@ var MdGridTileText = /*@__PURE__*/(function () {
 }());
 MdGridTileText.decorators = [
     { type: Component, args: [{ selector: 'md-grid-tile-header, mat-grid-tile-header, md-grid-tile-footer, mat-grid-tile-footer',
-                template: "<ng-content select=\"[md-grid-avatar], [mat-grid-avatar]\"></ng-content><div class=\"mat-grid-list-text\"><ng-content select=\"[md-line], [mat-line]\"></ng-content></div><ng-content></ng-content>"
+                template: "<ng-content select=\"[md-grid-avatar], [mat-grid-avatar]\"></ng-content><div class=\"mat-grid-list-text\"><ng-content select=\"[md-line], [mat-line]\"></ng-content></div><ng-content></ng-content>",
+                changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
 /**
@@ -11113,6 +11115,7 @@ MdGridList.decorators = [
                     'role': 'list',
                     'class': 'mat-grid-list',
                 },
+                changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
             },] },
 ];
@@ -18412,6 +18415,9 @@ var MdAutocompleteTrigger = /*@__PURE__*/(function () {
      * @return {?}
      */
     MdAutocompleteTrigger.prototype.closePanel = function () {
+        if (!this.panelOpen) {
+            return;
+        }
         if (this._overlayRef && this._overlayRef.hasAttached()) {
             this._overlayRef.detach();
             this._closingActionsSubscription.unsubscribe();
@@ -19757,6 +19763,24 @@ var MdDatepicker = /*@__PURE__*/(function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdDatepicker.prototype, "disabled", {
+        /**
+         * Whether the datepicker pop-up should be disabled.
+         * @return {?}
+         */
+        get: function () {
+            return this._disabled === undefined ? this._datepickerInput.disabled : this._disabled;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._disabled = coerceBooleanProperty(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MdDatepicker.prototype, "_minDate", {
         /**
          * The minimum selectable date.
@@ -19833,7 +19857,7 @@ var MdDatepicker = /*@__PURE__*/(function () {
      * @return {?}
      */
     MdDatepicker.prototype.open = function () {
-        if (this.opened) {
+        if (this.opened || this.disabled) {
             return;
         }
         if (!this._datepickerInput) {
@@ -19931,6 +19955,7 @@ var MdDatepicker = /*@__PURE__*/(function () {
 MdDatepicker.decorators = [
     { type: Component, args: [{ selector: 'md-datepicker, mat-datepicker',
                 template: '',
+                changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
 /**
@@ -19949,6 +19974,7 @@ MdDatepicker.propDecorators = {
     'startAt': [{ type: Input },],
     'startView': [{ type: Input },],
     'touchUi': [{ type: Input },],
+    'disabled': [{ type: Input },],
     'selectedChanged': [{ type: Output },],
 };
 var MD_DATEPICKER_VALUE_ACCESSOR = {
@@ -20124,6 +20150,22 @@ var MdDatepickerInput = /*@__PURE__*/(function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdDatepickerInput.prototype, "disabled", {
+        /**
+         * Whether the datepicker-input is disabled.
+         * @return {?}
+         */
+        get: function () { return this._disabled; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._disabled = coerceBooleanProperty(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @return {?}
      */
@@ -20225,6 +20267,7 @@ MdDatepickerInput.decorators = [
                     '[attr.aria-owns]': '_datepicker?.id',
                     '[attr.min]': 'min ? _dateAdapter.getISODateString(min) : null',
                     '[attr.max]': 'max ? _dateAdapter.getISODateString(max) : null',
+                    '[disabled]': 'disabled',
                     '(input)': '_onInput($event.target.value)',
                     '(blur)': '_onTouched()',
                     '(keydown)': '_onKeydown($event)',
@@ -20249,6 +20292,7 @@ MdDatepickerInput.propDecorators = {
     'value': [{ type: Input },],
     'min': [{ type: Input },],
     'max': [{ type: Input },],
+    'disabled': [{ type: Input },],
 };
 var MdDatepickerToggle = /*@__PURE__*/(function () {
     /**
@@ -20270,12 +20314,30 @@ var MdDatepickerToggle = /*@__PURE__*/(function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdDatepickerToggle.prototype, "disabled", {
+        /**
+         * Whether the toggle button is disabled.
+         * @return {?}
+         */
+        get: function () {
+            return this._disabled === undefined ? this.datepicker.disabled : this._disabled;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._disabled = coerceBooleanProperty(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @param {?} event
      * @return {?}
      */
     MdDatepickerToggle.prototype._open = function (event) {
-        if (this.datepicker) {
+        if (this.datepicker && !this.disabled) {
             this.datepicker.open();
             event.stopPropagation();
         }
@@ -20290,6 +20352,7 @@ MdDatepickerToggle.decorators = [
                     'type': 'button',
                     'class': 'mat-datepicker-toggle',
                     '[attr.aria-label]': '_intl.openCalendarLabel',
+                    '[disabled]': 'disabled',
                     '(click)': '_open($event)',
                 },
                 encapsulation: ViewEncapsulation.None,
@@ -20305,6 +20368,7 @@ MdDatepickerToggle.ctorParameters = function () { return [
 MdDatepickerToggle.propDecorators = {
     'datepicker': [{ type: Input, args: ['mdDatepickerToggle',] },],
     '_datepicker': [{ type: Input, args: ['matDatepickerToggle',] },],
+    'disabled': [{ type: Input },],
 };
 var MdDatepickerModule = /*@__PURE__*/(function () {
     function MdDatepickerModule() {

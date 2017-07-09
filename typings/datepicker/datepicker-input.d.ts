@@ -35,6 +35,9 @@ export declare class MdDatepickerInput<D> implements AfterContentInit, ControlVa
     /** The maximum valid date. */
     max: D;
     private _max;
+    /** Whether the datepicker-input is disabled. */
+    disabled: any;
+    private _disabled;
     /** Emits when the value changes (either due to user input or programmatic change). */
     _valueChange: EventEmitter<D | null>;
     _onTouched: () => void;
