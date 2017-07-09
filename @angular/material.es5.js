@@ -20624,8 +20624,8 @@ MdExpansionPanel.decorators = [
                 ],
                 animations: [
                     trigger('bodyExpansion', [
-                        state('collapsed', style({ height: '0px' })),
-                        state('expanded', style({ height: '*' })),
+                        state('collapsed', style({ height: '0px', visibility: 'hidden' })),
+                        state('expanded', style({ height: '*', visibility: 'visible' })),
                         transition('expanded <=> collapsed', animate(EXPANSION_PANEL_ANIMATION_TIMING)),
                     ]),
                     trigger('displayMode', [

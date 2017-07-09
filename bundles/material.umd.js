@@ -20640,8 +20640,8 @@ MdExpansionPanel.decorators = [
                 ],
                 animations: [
                     _angular_animations.trigger('bodyExpansion', [
-                        _angular_animations.state('collapsed', _angular_animations.style({ height: '0px' })),
-                        _angular_animations.state('expanded', _angular_animations.style({ height: '*' })),
+                        _angular_animations.state('collapsed', _angular_animations.style({ height: '0px', visibility: 'hidden' })),
+                        _angular_animations.state('expanded', _angular_animations.style({ height: '*', visibility: 'visible' })),
                         _angular_animations.transition('expanded <=> collapsed', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
                     ]),
                     _angular_animations.trigger('displayMode', [
