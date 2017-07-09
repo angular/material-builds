@@ -8601,6 +8601,8 @@ class MdSlider extends _MdSliderMixinBase {
                 // it.
                 return;
         }
+        this._emitInputEvent();
+        this._emitValueIfChanged();
         this._isSliding = true;
         event.preventDefault();
     }
@@ -8617,8 +8619,6 @@ class MdSlider extends _MdSliderMixinBase {
      */
     _increment(numSteps) {
         this.value = this._clamp((this.value || 0) + this.step * numSteps, this.min, this.max);
-        this._emitInputEvent();
-        this._emitValueIfChanged();
     }
     /**
      * Calculate the new value from the new physical location. The value will always be snapped.
@@ -12187,14 +12187,6 @@ class MdSpinner extends MdProgressSpinner {
         super(renderer, elementRef, ngZone);
         this.mode = 'indeterminate';
     }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        // The `ngOnDestroy` from `MdProgressSpinner` should be called explicitly, because
-        // in certain cases Angular won't call it (e.g. when using AoT and in unit tests).
-        super.ngOnDestroy();
-    }
 }
 MdSpinner.decorators = [
     { type: Component, args: [{selector: 'md-spinner, mat-spinner',
@@ -12206,6 +12198,7 @@ MdSpinner.decorators = [
                 inputs: ['color'],
                 template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"><path #path [style.strokeWidth]=\"strokeWidth\"></path></svg>",
                 styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;transition:stroke .3s cubic-bezier(.35,0,.25,1)}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
+                changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
 /**
@@ -15978,6 +15971,8 @@ class MdMenu {
         if (this._tabSubscription) {
             this._tabSubscription.unsubscribe();
         }
+        this._emitCloseEvent();
+        this.close.complete();
     }
     /**
      * Handle a keyboard event from the menu, delegating to the appropriate action.

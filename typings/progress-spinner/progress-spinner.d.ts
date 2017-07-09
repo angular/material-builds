@@ -93,7 +93,6 @@ export declare class MdProgressSpinner extends _MdProgressSpinnerMixinBase imple
  * This is a component definition to be used as a convenience reference to create an
  * indeterminate <md-progress-spinner> instance.
  */
-export declare class MdSpinner extends MdProgressSpinner implements OnDestroy {
+export declare class MdSpinner extends MdProgressSpinner {
     constructor(elementRef: ElementRef, ngZone: NgZone, renderer: Renderer2);
-    ngOnDestroy(): void;
 }
