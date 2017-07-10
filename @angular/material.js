@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, InjectionToken, Injector, Input, NgModule, NgZone, Optional, Output, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
+import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, InjectionToken, Injector, Input, LOCALE_ID, NgModule, NgZone, Optional, Output, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
 import { A11yModule, BACKSPACE, BasePortalHost, BidiModule, CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkColumnDef, CdkHeaderCell, CdkHeaderRow, CdkRow, CdkTable, CdkTableModule, ComponentPortal, DELETE, DOWN_ARROW, Dir, Directionality, DomPortalHost, END, ENTER, ESCAPE, FocusTrap, FocusTrapDeprecatedDirective, FocusTrapDirective, FocusTrapFactory, HOME, InteractivityChecker, LEFT_ARROW, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, ListKeyManager, LiveAnnouncer, ObserveContent, ObserveContentModule, PAGE_DOWN, PAGE_UP, Platform, PlatformModule, Portal, PortalHostDirective, PortalModule, RIGHT_ARROW, RxChain, SPACE, TAB, TemplatePortal, TemplatePortalDirective, UP_ARROW, auditTime, catchOperator, coerceBooleanProperty, coerceNumberProperty, doOperator, filter, finallyOperator, first, getSupportedInputTypes, isFakeMousedownFromScreenReader, map, share, startWith, switchMap, takeUntil } from '@angular/cdk';
 import { DOCUMENT, DomSanitizer, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
 import { CommonModule, Location } from '@angular/common';
@@ -4176,6 +4176,13 @@ function range(length, valueFunction) {
  */
 class NativeDateAdapter extends DateAdapter {
     /**
+     * @param {?} localeId
+     */
+    constructor(localeId) {
+        super();
+        super.setLocale(localeId);
+    }
+    /**
      * @param {?} date
      * @return {?}
      */
@@ -4395,6 +4402,15 @@ class NativeDateAdapter extends DateAdapter {
         return str.replace(/[\u200e\u200f]/g, '');
     }
 }
+NativeDateAdapter.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+NativeDateAdapter.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [LOCALE_ID,] },] },
+];
 
 const MD_DATE_FORMATS = new InjectionToken('md-date-formats');
 

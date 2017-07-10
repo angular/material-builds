@@ -4265,8 +4265,13 @@ function range(length, valueFunction) {
  */
 var NativeDateAdapter = (function (_super) {
     __extends(NativeDateAdapter, _super);
-    function NativeDateAdapter() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    /**
+     * @param {?} localeId
+     */
+    function NativeDateAdapter(localeId) {
+        var _this = _super.call(this) || this;
+        _super.prototype.setLocale.call(_this, localeId);
+        return _this;
     }
     /**
      * @param {?} date
@@ -4492,6 +4497,15 @@ var NativeDateAdapter = (function (_super) {
     };
     return NativeDateAdapter;
 }(DateAdapter));
+NativeDateAdapter.decorators = [
+    { type: _angular_core.Injectable },
+];
+/**
+ * @nocollapse
+ */
+NativeDateAdapter.ctorParameters = function () { return [
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.LOCALE_ID,] },] },
+]; };
 var MD_DATE_FORMATS = new _angular_core.InjectionToken('md-date-formats');
 var MD_NATIVE_DATE_FORMATS = {
     parse: {
