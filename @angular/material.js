@@ -1,3 +1,5 @@
+console.log('Using ES2015 format');
+
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.

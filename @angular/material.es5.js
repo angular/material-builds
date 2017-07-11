@@ -1,3 +1,5 @@
+console.log('Using ES5 format');
+
 import * as tslib_1 from "tslib";
 /**
  * @license

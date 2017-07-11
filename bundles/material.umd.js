@@ -1,3 +1,5 @@
+console.log('Using UMD format');
+
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
