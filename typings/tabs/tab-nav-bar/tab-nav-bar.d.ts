@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentInit, ElementRef, NgZone, OnDestroy } from '@angular/core';
+import { AfterContentInit, ElementRef, NgZone, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { MdInkBar } from '../ink-bar';
 import { CanDisable } from '../../core/common-behaviors/disabled';
 import { ViewportRuler } from '../../core/overlay/position/viewport-ruler';
@@ -17,6 +17,7 @@ import { Directionality, Platform, RippleGlobalOptions } from '../../core';
 export declare class MdTabNav implements AfterContentInit, OnDestroy {
     private _dir;
     private _ngZone;
+    private _changeDetectorRef;
     /** Subject that emits when the component has been destroyed. */
     private _onDestroy;
     _activeLinkChanged: boolean;
@@ -24,7 +25,7 @@ export declare class MdTabNav implements AfterContentInit, OnDestroy {
     _inkBar: MdInkBar;
     /** Subscription for window.resize event **/
     private _resizeSubscription;
-    constructor(_dir: Directionality, _ngZone: NgZone);
+    constructor(_dir: Directionality, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef);
     /** Notifies the component that the active link has been changed. */
     updateActiveLink(element: ElementRef): void;
     ngAfterContentInit(): void;

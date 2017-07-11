@@ -134,6 +134,7 @@ export declare class MdRadioButton extends _MdRadioButtonMixinBase implements On
     private _changeDetector;
     private _focusOriginMonitor;
     private _radioDispatcher;
+    private _uniqueId;
     /** The unique ID for the radio button. */
     id: string;
     /** Analog to HTML 'name' attribute used to group radios for unique selection. */

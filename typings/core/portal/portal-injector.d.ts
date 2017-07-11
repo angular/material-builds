@@ -6,8 +6,12 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Injector } from '@angular/core';
-/** Custom injector type specifically for instantiating components with a dialog. */
-export declare class DialogInjector implements Injector {
+/**
+ * Custom injector to be used when providing custom
+ * injection tokens to components inside a portal.
+ * @docs-private
+ */
+export declare class PortalInjector implements Injector {
     private _parentInjector;
     private _customTokens;
     constructor(_parentInjector: Injector, _customTokens: WeakMap<any, any>);

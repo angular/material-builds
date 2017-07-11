@@ -13,9 +13,8 @@ import { MdSnackBarContainer } from './snack-bar-container';
  */
 export declare class MdSnackBarRef<T> {
     private _overlayRef;
-    private _instance;
     /** The instance of the component making up the content of the snack bar. */
-    readonly instance: T;
+    instance: T;
     /**
      * The instance of the component making up the content of the snack bar.
      * @docs-private
@@ -32,7 +31,7 @@ export declare class MdSnackBarRef<T> {
      * dismissed before the duration passes.
      */
     private _durationTimeoutId;
-    constructor(instance: T, containerInstance: MdSnackBarContainer, _overlayRef: OverlayRef);
+    constructor(containerInstance: MdSnackBarContainer, _overlayRef: OverlayRef);
     /** Dismisses the snack bar. */
     dismiss(): void;
     /** Dismisses the snack bar after some duration */

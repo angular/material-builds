@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { EventEmitter, QueryList, ElementRef, Renderer2 } from '@angular/core';
+import { EventEmitter, QueryList, ElementRef, Renderer2, ChangeDetectorRef, AfterViewChecked, AfterContentInit, AfterContentChecked, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { MdTab } from './tab';
 /** A simple change event emitted on focus or selection changes. */
@@ -20,8 +20,9 @@ export declare type MdTabHeaderPosition = 'above' | 'below';
  * animated ink-bar, keyboard navigation, and screen reader.
  * See: https://www.google.com/design/spec/components/tabs.html
  */
-export declare class MdTabGroup {
+export declare class MdTabGroup implements AfterContentInit, AfterContentChecked, AfterViewChecked, OnDestroy {
     private _renderer;
+    private _changeDetectorRef;
     _tabs: QueryList<MdTab>;
     _tabBodyWrapper: ElementRef;
     /** Whether this component has been initialized. */
@@ -30,6 +31,10 @@ export declare class MdTabGroup {
     private _indexToSelect;
     /** Snapshot of the height of the tab body wrapper before another tab is activated. */
     private _tabBodyWrapperHeight;
+    /** Subscription to tabs being added/removed. */
+    private _tabsSubscription;
+    /** Subscription to changes in the tab labels. */
+    private _tabLabelSubscription;
     /** Whether the tab group should grow to the size of the active tab. */
     dynamicHeight: boolean;
     private _dynamicHeight;
@@ -38,9 +43,9 @@ export declare class MdTabGroup {
     /** Whether ripples for the tab-group should be disabled or not. */
     disableRipple: boolean;
     private _disableRipple;
-    private _selectedIndex;
     /** The index of the active tab. */
     selectedIndex: number | null;
+    private _selectedIndex;
     /** Position of the tab header. */
     headerPosition: MdTabHeaderPosition;
     /** Output to enable support for two-way binding on `[(selectedIndex)]` */
@@ -50,7 +55,7 @@ export declare class MdTabGroup {
     /** Event emitted when the tab selection has changed. */
     selectChange: EventEmitter<MdTabChangeEvent>;
     private _groupId;
-    constructor(_renderer: Renderer2);
+    constructor(_renderer: Renderer2, _changeDetectorRef: ChangeDetectorRef);
     /**
      * After the content is checked, this component knows what tabs have been defined
      * and what the selected index should be. This is where we can know exactly what position
@@ -58,6 +63,8 @@ export declare class MdTabGroup {
      * a new selected tab should transition in (from the left or right).
      */
     ngAfterContentChecked(): void;
+    ngAfterContentInit(): void;
+    ngOnDestroy(): void;
     /**
      * Waits one frame for the view to update, then updates the ink bar
      * Note: This must be run outside of the zone or it will create an infinite change detection loop.
@@ -65,6 +72,13 @@ export declare class MdTabGroup {
     ngAfterViewChecked(): void;
     _focusChanged(index: number): void;
     private _createChangeEvent(index);
+    /**
+     * Subscribes to changes in the tab labels. This is needed, because the @Input for the label is
+     * on the MdTab component, whereas the data binding is inside the MdTabGroup. In order for the
+     * binding to be updated, we need to subscribe to changes in it and trigger change detection
+     * manually.
+     */
+    private _subscribeToTabLabels();
     /** Returns a unique id for each tab label element */
     _getTabLabelId(i: number): string;
     /** Returns a unique id for each tab content element */

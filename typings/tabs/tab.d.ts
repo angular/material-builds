@@ -6,14 +6,15 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { TemplatePortal } from '../core/portal/portal';
-import { ViewContainerRef, TemplateRef, OnInit } from '@angular/core';
+import { ViewContainerRef, TemplateRef, OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { CanDisable } from '../core/common-behaviors/disabled';
 import { MdTabLabel } from './tab-label';
+import { Subject } from 'rxjs/Subject';
 /** @docs-private */
 export declare class MdTabBase {
 }
 export declare const _MdTabMixinBase: (new (...args: any[]) => CanDisable) & typeof MdTabBase;
-export declare class MdTab extends _MdTabMixinBase implements OnInit, CanDisable {
+export declare class MdTab extends _MdTabMixinBase implements OnInit, CanDisable, OnChanges, OnDestroy {
     private _viewContainerRef;
     /** Content for the tab label given by <ng-template md-tab-label>. */
     templateLabel: MdTabLabel;
@@ -24,6 +25,8 @@ export declare class MdTab extends _MdTabMixinBase implements OnInit, CanDisable
     /** The portal that will be the hosted content of the tab */
     private _contentPortal;
     readonly content: TemplatePortal | null;
+    /** Emits whenever the label changes. */
+    _labelChange: Subject<void>;
     /**
      * The relatively indexed position where 0 represents the center, negative is left, and positive
      * represents the right.
@@ -35,5 +38,7 @@ export declare class MdTab extends _MdTabMixinBase implements OnInit, CanDisable
      */
     origin: number | null;
     constructor(_viewContainerRef: ViewContainerRef);
+    ngOnChanges(changes: SimpleChanges): void;
+    ngOnDestroy(): void;
     ngOnInit(): void;
 }

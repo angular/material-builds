@@ -1441,6 +1441,7 @@ class MdPseudoCheckbox extends _MdPseudoCheckboxBase {
 }
 MdPseudoCheckbox.decorators = [
     { type: Component, args: [{encapsulation: ViewEncapsulation.None,
+                changeDetection: ChangeDetectionStrategy.OnPush,
                 selector: 'md-pseudo-checkbox, mat-pseudo-checkbox',
                 styles: [".mat-pseudo-checkbox{width:20px;height:20px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;transition:border-color 90ms cubic-bezier(0,0,.2,.1),background-color 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:'';border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:9px;left:2px;width:16px;opacity:1}.mat-pseudo-checkbox-checked::after{top:5px;left:3px;width:12px;height:5px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1}"],
                 inputs: ['color'],
@@ -1529,6 +1530,7 @@ MdOptgroup.decorators = [
     { type: Component, args: [{selector: 'md-optgroup, mat-optgroup',
                 template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"md-option, mat-option\"></ng-content>",
                 encapsulation: ViewEncapsulation.None,
+                changeDetection: ChangeDetectionStrategy.OnPush,
                 inputs: ['disabled'],
                 host: {
                     'class': 'mat-optgroup',
@@ -1571,28 +1573,42 @@ class MdOptionSelectionChange {
 class MdOption {
     /**
      * @param {?} _element
+     * @param {?} _changeDetectorRef
      * @param {?} group
      * @param {?} _isCompatibilityMode
      */
-    constructor(_element, group, _isCompatibilityMode) {
+    constructor(_element, _changeDetectorRef, group, _isCompatibilityMode) {
         this._element = _element;
+        this._changeDetectorRef = _changeDetectorRef;
         this.group = group;
         this._isCompatibilityMode = _isCompatibilityMode;
         this._selected = false;
         this._active = false;
+        this._multiple = false;
         /**
          * Whether the option is disabled.
          */
         this._disabled = false;
         this._id = `md-option-${_uniqueIdCounter++}`;
         /**
-         * Whether the wrapping component is in multiple selection mode.
-         */
-        this.multiple = false;
-        /**
          * Event emitted when the option is selected or deselected.
          */
         this.onSelectionChange = new EventEmitter();
+    }
+    /**
+     * Whether the wrapping component is in multiple selection mode.
+     * @return {?}
+     */
+    get multiple() { return this._multiple; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set multiple(value) {
+        if (value !== this._multiple) {
+            this._multiple = value;
+            this._changeDetectorRef.markForCheck();
+        }
     }
     /**
      * The unique ID of the option.
@@ -1639,6 +1655,7 @@ class MdOption {
      */
     select() {
         this._selected = true;
+        this._changeDetectorRef.markForCheck();
         this._emitSelectionChangeEvent();
     }
     /**
@@ -1647,6 +1664,7 @@ class MdOption {
      */
     deselect() {
         this._selected = false;
+        this._changeDetectorRef.markForCheck();
         this._emitSelectionChangeEvent();
     }
     /**
@@ -1663,7 +1681,10 @@ class MdOption {
      * @return {?}
      */
     setActiveStyles() {
-        this._active = true;
+        if (!this._active) {
+            this._active = true;
+            this._changeDetectorRef.markForCheck();
+        }
     }
     /**
      * This method removes display styles on the option that made it appear
@@ -1672,7 +1693,10 @@ class MdOption {
      * @return {?}
      */
     setInactiveStyles() {
-        this._active = false;
+        if (this._active) {
+            this._active = false;
+            this._changeDetectorRef.markForCheck();
+        }
     }
     /**
      * Ensures the option is selected when activated from the keyboard.
@@ -1694,6 +1718,7 @@ class MdOption {
     _selectViaInteraction() {
         if (!this.disabled) {
             this._selected = this.multiple ? !this._selected : true;
+            this._changeDetectorRef.markForCheck();
             this._emitSelectionChangeEvent(true);
         }
     }
@@ -1737,7 +1762,8 @@ MdOption.decorators = [
                     'class': 'mat-option',
                 },
                 template: "<span [ngSwitch]=\"_isCompatibilityMode\" *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" *ngSwitchCase=\"true\" [state]=\"selected ? 'checked' : ''\" color=\"primary\"></mat-pseudo-checkbox><md-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" *ngSwitchDefault [state]=\"selected ? 'checked' : ''\" color=\"primary\"></md-pseudo-checkbox></span><ng-content></ng-content><div class=\"mat-option-ripple\" *ngIf=\"!disabled\" md-ripple [mdRippleTrigger]=\"_getHostElement()\"></div>",
-                encapsulation: ViewEncapsulation.None
+                encapsulation: ViewEncapsulation.None,
+                changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
 /**
@@ -1745,6 +1771,7 @@ MdOption.decorators = [
  */
 MdOption.ctorParameters = () => [
     { type: ElementRef, },
+    { type: ChangeDetectorRef, },
     { type: MdOptgroup, decorators: [{ type: Optional },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
 ];
@@ -5365,10 +5392,8 @@ MdButtonModule.decorators = [
  */
 MdButtonModule.ctorParameters = () => [];
 
-/**
- * Monotonically increasing integer used to auto-generate unique ids for checkbox components.
- */
-let nextId = 0;
+// Increasing integer for generating unique ids for checkbox components.
+let nextUniqueId$1 = 0;
 /**
  * Provider Expression that allows md-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -5435,10 +5460,11 @@ class MdCheckbox extends _MdCheckboxMixinBase {
          * Users can specify the `aria-labelledby` attribute which will be forwarded to the input element
          */
         this.ariaLabelledby = null;
+        this._uniqueId = `md-checkbox-${++nextUniqueId$1}`;
         /**
-         * A unique id for the checkbox. If one is not supplied, it is auto-generated.
+         * A unique id for the checkbox input. If none is supplied, it will be auto-generated.
          */
-        this.id = `md-checkbox-${++nextId}`;
+        this.id = this._uniqueId;
         /**
          * Whether the label should appear after or before the checkbox. Defaults to 'after'
          */
@@ -5471,6 +5497,11 @@ class MdCheckbox extends _MdCheckboxMixinBase {
         this._controlValueAccessorChangeFn = () => { };
     }
     /**
+     * Returns the unique id for the visual hidden input.
+     * @return {?}
+     */
+    get inputId() { return `${this.id || this._uniqueId}-input`; }
+    /**
      * Whether the ripple effect for this checkbox is disabled.
      * @return {?}
      */
@@ -5480,13 +5511,6 @@ class MdCheckbox extends _MdCheckboxMixinBase {
      * @return {?}
      */
     set disableRipple(value) { this._disableRipple = coerceBooleanProperty(value); }
-    /**
-     * ID of the native input element inside `<md-checkbox>`
-     * @return {?}
-     */
-    get inputId() {
-        return `input-${this.id}`;
-    }
     /**
      * Whether the checkbox is required.
      * @return {?}
@@ -5778,6 +5802,7 @@ MdCheckbox.decorators = [
                 styles: ["@keyframes mat-checkbox-fade-in-background{0%{opacity:0}50%{opacity:1}}@keyframes mat-checkbox-fade-out-background{0%,50%{opacity:1}100%{opacity:0}}@keyframes mat-checkbox-unchecked-checked-checkmark-path{0%,50%{stroke-dashoffset:22.91026}50%{animation-timing-function:cubic-bezier(0,0,.2,.1)}100%{stroke-dashoffset:0}}@keyframes mat-checkbox-unchecked-indeterminate-mixedmark{0%,68.2%{transform:scaleX(0)}68.2%{animation-timing-function:cubic-bezier(0,0,0,1)}100%{transform:scaleX(1)}}@keyframes mat-checkbox-checked-unchecked-checkmark-path{from{animation-timing-function:cubic-bezier(.4,0,1,1);stroke-dashoffset:0}to{stroke-dashoffset:-22.91026}}@keyframes mat-checkbox-checked-indeterminate-checkmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(45deg)}}@keyframes mat-checkbox-indeterminate-checked-checkmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:0;transform:rotate(45deg)}to{opacity:1;transform:rotate(360deg)}}@keyframes mat-checkbox-checked-indeterminate-mixedmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:0;transform:rotate(-45deg)}to{opacity:1;transform:rotate(0)}}@keyframes mat-checkbox-indeterminate-checked-mixedmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(315deg)}}@keyframes mat-checkbox-indeterminate-unchecked-mixedmark{0%{animation-timing-function:linear;opacity:1;transform:scaleX(1)}100%,32.8%{opacity:0;transform:scaleX(0)}}.mat-checkbox-background,.mat-checkbox-checkmark,.mat-checkbox-frame{bottom:0;left:0;position:absolute;right:0;top:0}.mat-checkbox-checkmark,.mat-checkbox-mixedmark{width:calc(100% - 4px)}.mat-checkbox-background,.mat-checkbox-frame{border-radius:2px;box-sizing:border-box;pointer-events:none}.mat-checkbox{transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);cursor:pointer}.mat-checkbox-layout{cursor:inherit;align-items:baseline;vertical-align:middle;display:inline-flex}.mat-checkbox-inner-container{display:inline-block;height:20px;line-height:0;margin:auto;margin-right:8px;order:0;position:relative;vertical-align:middle;white-space:nowrap;width:20px;flex-shrink:0}[dir=rtl] .mat-checkbox-inner-container{margin-left:8px;margin-right:auto}.mat-checkbox-inner-container-no-side-margin{margin-left:0;margin-right:0}.mat-checkbox-frame{background-color:transparent;transition:border-color 90ms cubic-bezier(0,0,.2,.1);border-width:2px;border-style:solid}.mat-checkbox-background{align-items:center;display:inline-flex;justify-content:center;transition:background-color 90ms cubic-bezier(0,0,.2,.1),opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-checkbox-checkmark{width:100%}.mat-checkbox-checkmark-path{stroke-dashoffset:22.91026;stroke-dasharray:22.91026;stroke-width:2.66667px}.mat-checkbox-mixedmark{height:2px;opacity:0;transform:scaleX(0) rotate(0)}.mat-checkbox-label-before .mat-checkbox-inner-container{order:1;margin-left:8px;margin-right:auto}[dir=rtl] .mat-checkbox-label-before .mat-checkbox-inner-container{margin-left:auto;margin-right:8px}.mat-checkbox-checked .mat-checkbox-checkmark{opacity:1}.mat-checkbox-checked .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-checked .mat-checkbox-mixedmark{transform:scaleX(1) rotate(-45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark{opacity:0;transform:rotate(45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-indeterminate .mat-checkbox-mixedmark{opacity:1;transform:scaleX(1) rotate(0)}.mat-checkbox-unchecked .mat-checkbox-background{background-color:transparent}.mat-checkbox-disabled{cursor:default}.mat-checkbox-anim-unchecked-checked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-checked .mat-checkbox-checkmark-path{animation:180ms linear 0s mat-checkbox-unchecked-checked-checkmark-path}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-unchecked-indeterminate-mixedmark}.mat-checkbox-anim-checked-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-checked-unchecked .mat-checkbox-checkmark-path{animation:90ms linear 0s mat-checkbox-checked-unchecked-checkmark-path}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-checkmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-checkmark}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-mixedmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-checkmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-checkmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-mixedmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-mixedmark}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-mixedmark{animation:.3s linear 0s mat-checkbox-indeterminate-unchecked-mixedmark}.mat-checkbox-input{bottom:0;left:50%}.mat-checkbox-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none}"],
                 host: {
                     'class': 'mat-checkbox',
+                    '[id]': 'id',
                     '[class.mat-checkbox-indeterminate]': 'indeterminate',
                     '[class.mat-checkbox-checked]': 'checked',
                     '[class.mat-checkbox-disabled]': 'disabled',
@@ -5832,6 +5857,8 @@ MdCheckboxModule.decorators = [
  */
 MdCheckboxModule.ctorParameters = () => [];
 
+// Increasing integer for generating unique ids for radio components.
+let nextUniqueId$2 = 0;
 /**
  * Provider Expression that allows md-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
@@ -5842,7 +5869,6 @@ const MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
     useExisting: forwardRef(() => MdRadioGroup),
     multi: true
 };
-let _uniqueIdCounter$2 = 0;
 /**
  * Change event object emitted by MdRadio and MdRadioGroup.
  */
@@ -5874,7 +5900,7 @@ class MdRadioGroup extends _MdRadioGroupMixinBase {
         /**
          * The HTML name attribute applied to radio buttons in this group.
          */
-        this._name = `md-radio-group-${_uniqueIdCounter$2++}`;
+        this._name = `md-radio-group-${nextUniqueId$2++}`;
         /**
          * The currently selected radio button. Should match value.
          */
@@ -6169,10 +6195,11 @@ class MdRadioButton extends _MdRadioButtonMixinBase {
         this._changeDetector = _changeDetector;
         this._focusOriginMonitor = _focusOriginMonitor;
         this._radioDispatcher = _radioDispatcher;
+        this._uniqueId = `md-radio-${++nextUniqueId$2}`;
         /**
          * The unique ID for the radio button.
          */
-        this.id = `md-radio-${_uniqueIdCounter$2++}`;
+        this.id = this._uniqueId;
         /**
          * Event emitted when the checked state of this radio button changes.
          * Change events are only emitted when the value changes due to user interaction with
@@ -6314,9 +6341,7 @@ class MdRadioButton extends _MdRadioButtonMixinBase {
      * ID of the native input element inside `<md-radio-button>`
      * @return {?}
      */
-    get inputId() {
-        return `${this.id}-input`;
-    }
+    get inputId() { return `${this.id || this._uniqueId}-input`; }
     /**
      * Focuses the radio button.
      * @return {?}
@@ -7704,6 +7729,8 @@ MdSelectModule.decorators = [
  */
 MdSelectModule.ctorParameters = () => [];
 
+// Increasing integer for generating unique ids for slide-toggle components.
+let nextUniqueId$3 = 0;
 const MD_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MdSlideToggle),
@@ -7711,8 +7738,6 @@ const MD_SLIDE_TOGGLE_VALUE_ACCESSOR = {
 };
 class MdSlideToggleChange {
 }
-// Increasing integer for generating unique ids for slide-toggle components.
-let nextId$1 = 0;
 /**
  * \@docs-private
  */
@@ -7745,7 +7770,7 @@ class MdSlideToggle extends _MdSlideToggleMixinBase {
         this._changeDetectorRef = _changeDetectorRef;
         this.onChange = (_) => { };
         this.onTouched = () => { };
-        this._uniqueId = `md-slide-toggle-${++nextId$1}`;
+        this._uniqueId = `md-slide-toggle-${++nextUniqueId$3}`;
         this._checked = false;
         this._required = false;
         this._disableRipple = false;
@@ -7982,6 +8007,7 @@ MdSlideToggle.decorators = [
     { type: Component, args: [{selector: 'md-slide-toggle, mat-slide-toggle',
                 host: {
                     'class': 'mat-slide-toggle',
+                    '[id]': 'id',
                     '[class.mat-checked]': 'checked',
                     '[class.mat-disabled]': 'disabled',
                     '[class.mat-slide-toggle-label-before]': 'labelPosition == "before"',
@@ -9570,7 +9596,7 @@ MdList.decorators = [
     { type: Component, args: [{selector: 'md-list, mat-list, md-nav-list, mat-nav-list',
                 host: { 'role': 'list' },
                 template: '<ng-content></ng-content>',
-                styles: [".mat-subheader{display:block;box-sizing:border-box;padding:16px;margin:0}.mat-list,.mat-nav-list{padding-top:8px;display:block}.mat-list .mat-subheader,.mat-nav-list .mat-subheader{height:48px}.mat-list .mat-subheader:first-child,.mat-nav-list .mat-subheader:first-child{margin-top:-8px}.mat-list .mat-list-item,.mat-nav-list .mat-list-item{display:block}.mat-list .mat-list-item .mat-list-item-content,.mat-nav-list .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:48px;padding:0 16px;position:relative}.mat-list .mat-list-item .mat-list-item-ripple,.mat-nav-list .mat-list-item .mat-list-item-ripple{position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none}.mat-list .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:56px}.mat-list .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-2-line .mat-list-item-content{height:72px}.mat-list .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-3-line .mat-list-item-content{height:88px}.mat-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list .mat-list-item .mat-list-text,.mat-nav-list .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-item .mat-list-text>*,.mat-nav-list .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-item .mat-list-text:empty,.mat-nav-list .mat-list-item .mat-list-text:empty{display:none}.mat-list .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list .mat-list-item .mat-list-avatar,.mat-nav-list .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-item .mat-list-icon,.mat-nav-list .mat-list-item .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense],.mat-nav-list[dense]{padding-top:4px;display:block}.mat-list[dense] .mat-subheader,.mat-nav-list[dense] .mat-subheader{height:40px}.mat-list[dense] .mat-subheader:first-child,.mat-nav-list[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list[dense] .mat-list-item,.mat-nav-list[dense] .mat-list-item{display:block}.mat-list[dense] .mat-list-item .mat-list-item-content,.mat-nav-list[dense] .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:40px;padding:0 16px;position:relative}.mat-list[dense] .mat-list-item .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-item .mat-list-item-ripple{position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none}.mat-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:48px}.mat-list[dense] .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-2-line .mat-list-item-content{height:60px}.mat-list[dense] .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-3-line .mat-list-item-content{height:76px}.mat-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-item .mat-list-text,.mat-nav-list[dense] .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-item .mat-list-text>*,.mat-nav-list[dense] .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-item .mat-list-text:empty,.mat-nav-list[dense] .mat-list-item .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list[dense] .mat-list-item .mat-list-avatar,.mat-nav-list[dense] .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-item .mat-list-icon,.mat-nav-list[dense] .mat-list-item .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-divider{display:block;border-top-style:solid;border-top-width:1px;margin:0}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item-content{cursor:pointer}.mat-nav-list .mat-list-item-content.mat-list-item-focus,.mat-nav-list .mat-list-item-content:hover{outline:0}"],
+                styles: [".mat-subheader{display:block;box-sizing:border-box;padding:16px}.mat-list .mat-subheader{margin:0}.mat-list,.mat-nav-list{padding-top:8px;display:block}.mat-list .mat-subheader,.mat-nav-list .mat-subheader{height:48px}.mat-list .mat-subheader:first-child,.mat-nav-list .mat-subheader:first-child{margin-top:-8px}.mat-list .mat-list-item,.mat-nav-list .mat-list-item{display:block}.mat-list .mat-list-item .mat-list-item-content,.mat-nav-list .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:48px;padding:0 16px;position:relative}.mat-list .mat-list-item .mat-list-item-ripple,.mat-nav-list .mat-list-item .mat-list-item-ripple{position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none}.mat-list .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:56px}.mat-list .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-2-line .mat-list-item-content{height:72px}.mat-list .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-3-line .mat-list-item-content{height:88px}.mat-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list .mat-list-item .mat-list-text,.mat-nav-list .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-item .mat-list-text>*,.mat-nav-list .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-item .mat-list-text:empty,.mat-nav-list .mat-list-item .mat-list-text:empty{display:none}.mat-list .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list .mat-list-item .mat-list-avatar,.mat-nav-list .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-item .mat-list-icon,.mat-nav-list .mat-list-item .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense],.mat-nav-list[dense]{padding-top:4px;display:block}.mat-list[dense] .mat-subheader,.mat-nav-list[dense] .mat-subheader{height:40px}.mat-list[dense] .mat-subheader:first-child,.mat-nav-list[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list[dense] .mat-list-item,.mat-nav-list[dense] .mat-list-item{display:block}.mat-list[dense] .mat-list-item .mat-list-item-content,.mat-nav-list[dense] .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:40px;padding:0 16px;position:relative}.mat-list[dense] .mat-list-item .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-item .mat-list-item-ripple{position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none}.mat-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:48px}.mat-list[dense] .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-2-line .mat-list-item-content{height:60px}.mat-list[dense] .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-3-line .mat-list-item-content{height:76px}.mat-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-item .mat-list-text,.mat-nav-list[dense] .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-item .mat-list-text>*,.mat-nav-list[dense] .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-item .mat-list-text:empty,.mat-nav-list[dense] .mat-list-item .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list[dense] .mat-list-item .mat-list-avatar,.mat-nav-list[dense] .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-item .mat-list-icon,.mat-nav-list[dense] .mat-list-item .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-divider{display:block;border-top-style:solid;border-top-width:1px;margin:0}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item-content{cursor:pointer}.mat-nav-list .mat-list-item-content.mat-list-item-focus,.mat-nav-list .mat-list-item-content:hover{outline:0}"],
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
@@ -12498,7 +12524,7 @@ const MD_INPUT_INVALID_TYPES = [
     'reset',
     'submit'
 ];
-let nextUniqueId$1 = 0;
+let nextUniqueId$4 = 0;
 /**
  * The placeholder directive. The content can declare this to implement more
  * complex placeholders.
@@ -12526,7 +12552,7 @@ class MdHint {
         /**
          * Unique ID for the hint. Used for the aria-describedby on the input.
          */
-        this.id = `md-input-hint-${nextUniqueId$1++}`;
+        this.id = `md-input-hint-${nextUniqueId$4++}`;
     }
 }
 MdHint.decorators = [
@@ -12733,7 +12759,7 @@ class MdInputDirective {
     /**
      * @return {?}
      */
-    get _uid() { return this._cachedUid = this._cachedUid || `md-input-${nextUniqueId$1++}`; }
+    get _uid() { return this._cachedUid = this._cachedUid || `md-input-${nextUniqueId$4++}`; }
     /**
      * Focuses the input element.
      * @return {?}
@@ -12864,7 +12890,7 @@ class MdInputContainer {
         this._subscriptAnimationState = '';
         this._hintLabel = '';
         // Unique id for the hint label.
-        this._hintLabelId = `md-input-hint-${nextUniqueId$1++}`;
+        this._hintLabelId = `md-input-hint-${nextUniqueId$4++}`;
         this._placeholderOptions = placeholderOptions ? placeholderOptions : {};
         this.floatPlaceholder = this._placeholderOptions.float || 'auto';
     }
@@ -13312,6 +13338,59 @@ MdInputModule.decorators = [
 MdInputModule.ctorParameters = () => [];
 
 /**
+ * Custom injector to be used when providing custom
+ * injection tokens to components inside a portal.
+ * \@docs-private
+ */
+class PortalInjector {
+    /**
+     * @param {?} _parentInjector
+     * @param {?} _customTokens
+     */
+    constructor(_parentInjector, _customTokens) {
+        this._parentInjector = _parentInjector;
+        this._customTokens = _customTokens;
+    }
+    /**
+     * @param {?} token
+     * @param {?=} notFoundValue
+     * @return {?}
+     */
+    get(token, notFoundValue) {
+        const /** @type {?} */ value = this._customTokens.get(token);
+        if (typeof value !== 'undefined') {
+            return value;
+        }
+        return this._parentInjector.get(token, notFoundValue);
+    }
+}
+
+/**
+ * Extends an object with the *enumerable* and *own* properties of one or more source objects,
+ * similar to Object.assign.
+ *
+ * @param {?} dest The object which will have properties copied to it.
+ * @param {...?} sources The source objects from which properties will be copied.
+ * @return {?}
+ */
+function extendObject(dest, ...sources) {
+    if (dest == null) {
+        throw TypeError('Cannot convert undefined or null to object');
+    }
+    for (let /** @type {?} */ source of sources) {
+        if (source != null) {
+            for (let /** @type {?} */ key in source) {
+                if (source.hasOwnProperty(key)) {
+                    dest[key] = source[key];
+                }
+            }
+        }
+    }
+    return dest;
+}
+
+const MD_SNACK_BAR_DATA = new InjectionToken('MdSnackBarData');
+/**
  * Configuration used when opening a snack-bar.
  */
 class MdSnackBarConfig {
@@ -13332,6 +13411,10 @@ class MdSnackBarConfig {
          * Text layout direction for the snack bar.
          */
         this.direction = 'ltr';
+        /**
+         * Data being injected into the child component.
+         */
+        this.data = null;
     }
 }
 
@@ -13340,11 +13423,10 @@ class MdSnackBarConfig {
  */
 class MdSnackBarRef {
     /**
-     * @param {?} instance
      * @param {?} containerInstance
      * @param {?} _overlayRef
      */
-    constructor(instance, containerInstance, _overlayRef) {
+    constructor(containerInstance, _overlayRef) {
         this._overlayRef = _overlayRef;
         /**
          * Subject for notifying the user that the snack bar has closed.
@@ -13354,19 +13436,10 @@ class MdSnackBarRef {
          * Subject for notifying the user that the snack bar action was called.
          */
         this._onAction = new Subject();
-        // Sets the readonly instance of the snack bar content component.
-        this._instance = instance;
         this.containerInstance = containerInstance;
         // Dismiss snackbar on action.
         this.onAction().subscribe(() => this.dismiss());
         containerInstance._onExit().subscribe(() => this._finishDismiss());
-    }
-    /**
-     * The instance of the component making up the content of the snack bar.
-     * @return {?}
-     */
-    get instance() {
-        return this._instance;
     }
     /**
      * Dismisses the snack bar.
@@ -13607,6 +13680,14 @@ MdSnackBarContainer.propDecorators = {
  */
 class SimpleSnackBar {
     /**
+     * @param {?} snackBarRef
+     * @param {?} data
+     */
+    constructor(snackBarRef, data) {
+        this.snackBarRef = snackBarRef;
+        this.data = data;
+    }
+    /**
      * Dismisses the snack bar.
      * @return {?}
      */
@@ -13618,12 +13699,12 @@ class SimpleSnackBar {
      * @return {?}
      */
     get hasAction() {
-        return !!this.action;
+        return !!this.data.action;
     }
 }
 SimpleSnackBar.decorators = [
     { type: Component, args: [{selector: 'simple-snack-bar',
-                template: "{{message}} <button class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\" (click)=\"dismiss()\">{{action}}</button>",
+                template: "{{data.message}} <button class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\" (click)=\"dismiss()\">{{data.action}}</button>",
                 styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;color:#fff;line-height:20px}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;background:0 0;color:inherit;flex-shrink:0;margin-left:48px}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0}"],
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
@@ -13635,31 +13716,10 @@ SimpleSnackBar.decorators = [
 /**
  * @nocollapse
  */
-SimpleSnackBar.ctorParameters = () => [];
-
-/**
- * Extends an object with the *enumerable* and *own* properties of one or more source objects,
- * similar to Object.assign.
- *
- * @param {?} dest The object which will have properties copied to it.
- * @param {...?} sources The source objects from which properties will be copied.
- * @return {?}
- */
-function extendObject(dest, ...sources) {
-    if (dest == null) {
-        throw TypeError('Cannot convert undefined or null to object');
-    }
-    for (let /** @type {?} */ source of sources) {
-        if (source != null) {
-            for (let /** @type {?} */ key in source) {
-                if (source.hasOwnProperty(key)) {
-                    dest[key] = source[key];
-                }
-            }
-        }
-    }
-    return dest;
-}
+SimpleSnackBar.ctorParameters = () => [
+    { type: MdSnackBarRef, },
+    { type: undefined, decorators: [{ type: Inject, args: [MD_SNACK_BAR_DATA,] },] },
+];
 
 /**
  * Service to dispatch Material Design snack bar messages.
@@ -13668,11 +13728,13 @@ class MdSnackBar {
     /**
      * @param {?} _overlay
      * @param {?} _live
+     * @param {?} _injector
      * @param {?} _parentSnackBar
      */
-    constructor(_overlay, _live, _parentSnackBar) {
+    constructor(_overlay, _live, _injector, _parentSnackBar) {
         this._overlay = _overlay;
         this._live = _live;
+        this._injector = _injector;
         this._parentSnackBar = _parentSnackBar;
         /**
          * Reference to the current snack bar in the view *at this level* (in the Angular injector tree).
@@ -13686,7 +13748,7 @@ class MdSnackBar {
      * @return {?}
      */
     get _openedSnackBarRef() {
-        let /** @type {?} */ parent = this._parentSnackBar;
+        const /** @type {?} */ parent = this._parentSnackBar;
         return parent ? parent._openedSnackBarRef : this._snackBarRefAtThisLevel;
     }
     /**
@@ -13711,10 +13773,8 @@ class MdSnackBar {
      * @return {?}
      */
     openFromComponent(component, config) {
-        config = _applyConfigDefaults(config);
-        let /** @type {?} */ overlayRef = this._createOverlay(config);
-        let /** @type {?} */ snackBarContainer = this._attachSnackBarContainer(overlayRef, config);
-        let /** @type {?} */ snackBarRef = this._attachSnackbarContent(component, snackBarContainer, overlayRef);
+        const /** @type {?} */ _config = _applyConfigDefaults(config);
+        const /** @type {?} */ snackBarRef = this._attach(component, _config);
         // When the snackbar is dismissed, clear the reference to it.
         snackBarRef.afterDismissed().subscribe(() => {
             // Clear the snackbar ref if it hasn't already been replaced by a newer snackbar.
@@ -13722,26 +13782,24 @@ class MdSnackBar {
                 this._openedSnackBarRef = null;
             }
         });
-        // If a snack bar is already in view, dismiss it and enter the new snack bar after exit
-        // animation is complete.
         if (this._openedSnackBarRef) {
+            // If a snack bar is already in view, dismiss it and enter the
+            // new snack bar after exit animation is complete.
             this._openedSnackBarRef.afterDismissed().subscribe(() => {
                 snackBarRef.containerInstance.enter();
             });
             this._openedSnackBarRef.dismiss();
-            // If no snack bar is in view, enter the new snack bar.
         }
         else {
+            // If no snack bar is in view, enter the new snack bar.
             snackBarRef.containerInstance.enter();
         }
         // If a dismiss timeout is provided, set up dismiss based on after the snackbar is opened.
-        if (config.duration && config.duration > 0) {
-            snackBarRef.afterOpened().subscribe(() => {
-                snackBarRef._dismissAfter(/** @type {?} */ ((((config)).duration)));
-            });
+        if (_config.duration && _config.duration > 0) {
+            snackBarRef.afterOpened().subscribe(() => snackBarRef._dismissAfter(/** @type {?} */ ((((_config)).duration))));
         }
-        if (config.announcementMessage) {
-            this._live.announce(config.announcementMessage, config.politeness);
+        if (_config.announcementMessage) {
+            this._live.announce(_config.announcementMessage, _config.politeness);
         }
         this._openedSnackBarRef = snackBarRef;
         return this._openedSnackBarRef;
@@ -13754,13 +13812,12 @@ class MdSnackBar {
      * @return {?}
      */
     open(message, action = '', config) {
-        let /** @type {?} */ _config = _applyConfigDefaults(config);
+        const /** @type {?} */ _config = _applyConfigDefaults(config);
+        // Since the user doesn't have access to the component, we can
+        // override the data to pass in our own message and action.
+        _config.data = { message, action };
         _config.announcementMessage = message;
-        let /** @type {?} */ simpleSnackBarRef = this.openFromComponent(SimpleSnackBar, _config);
-        simpleSnackBarRef.instance.snackBarRef = simpleSnackBarRef;
-        simpleSnackBarRef.instance.message = message;
-        simpleSnackBarRef.instance.action = action;
-        return simpleSnackBarRef;
+        return this.openFromComponent(SimpleSnackBar, _config);
     }
     /**
      * Dismisses the currently-visible snack bar.
@@ -13778,8 +13835,8 @@ class MdSnackBar {
      * @return {?}
      */
     _attachSnackBarContainer(overlayRef, config) {
-        let /** @type {?} */ containerPortal = new ComponentPortal(MdSnackBarContainer, config.viewContainerRef);
-        let /** @type {?} */ containerRef = overlayRef.attach(containerPortal);
+        const /** @type {?} */ containerPortal = new ComponentPortal(MdSnackBarContainer, config.viewContainerRef);
+        const /** @type {?} */ containerRef = overlayRef.attach(containerPortal);
         containerRef.instance.snackBarConfig = config;
         return containerRef.instance;
     }
@@ -13787,14 +13844,19 @@ class MdSnackBar {
      * Places a new component as the content of the snack bar container.
      * @template T
      * @param {?} component
-     * @param {?} container
-     * @param {?} overlayRef
+     * @param {?} config
      * @return {?}
      */
-    _attachSnackbarContent(component, container, overlayRef) {
-        let /** @type {?} */ portal = new ComponentPortal(component);
-        let /** @type {?} */ contentRef = container.attachComponentPortal(portal);
-        return new MdSnackBarRef(contentRef.instance, container, overlayRef);
+    _attach(component, config) {
+        const /** @type {?} */ overlayRef = this._createOverlay(config);
+        const /** @type {?} */ container = this._attachSnackBarContainer(overlayRef, config);
+        const /** @type {?} */ snackBarRef = new MdSnackBarRef(container, overlayRef);
+        const /** @type {?} */ injector = this._createInjector(config, snackBarRef);
+        const /** @type {?} */ portal = new ComponentPortal(component, undefined, injector);
+        const /** @type {?} */ contentRef = container.attachComponentPortal(portal);
+        // We can't pass this via the injector, because the injector is created earlier.
+        snackBarRef.instance = contentRef.instance;
+        return snackBarRef;
     }
     /**
      * Creates a new overlay and places it in the correct location.
@@ -13802,10 +13864,24 @@ class MdSnackBar {
      * @return {?}
      */
     _createOverlay(config) {
-        let /** @type {?} */ state$$1 = new OverlayState();
+        const /** @type {?} */ state$$1 = new OverlayState();
         state$$1.direction = config.direction;
         state$$1.positionStrategy = this._overlay.position().global().centerHorizontally().bottom('0');
         return this._overlay.create(state$$1);
+    }
+    /**
+     * Creates an injector to be used inside of a snack bar component.
+     * @template T
+     * @param {?} config Config that was used to create the snack bar.
+     * @param {?} snackBarRef Reference to the snack bar.
+     * @return {?}
+     */
+    _createInjector(config, snackBarRef) {
+        const /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        const /** @type {?} */ injectionTokens = new WeakMap();
+        injectionTokens.set(MdSnackBarRef, snackBarRef);
+        injectionTokens.set(MD_SNACK_BAR_DATA, config.data);
+        return new PortalInjector(userInjector || this._injector, injectionTokens);
     }
 }
 MdSnackBar.decorators = [
@@ -13817,6 +13893,7 @@ MdSnackBar.decorators = [
 MdSnackBar.ctorParameters = () => [
     { type: Overlay, },
     { type: LiveAnnouncer, },
+    { type: Injector, },
     { type: MdSnackBar, decorators: [{ type: Optional }, { type: SkipSelf },] },
 ];
 /**
@@ -13900,6 +13977,10 @@ class MdTab extends _MdTabMixinBase {
          */
         this._contentPortal = null;
         /**
+         * Emits whenever the label changes.
+         */
+        this._labelChange = new Subject();
+        /**
          * The relatively indexed position where 0 represents the center, negative is left, and positive
          * represents the right.
          */
@@ -13915,6 +13996,21 @@ class MdTab extends _MdTabMixinBase {
      */
     get content() { return this._contentPortal; }
     /**
+     * @param {?} changes
+     * @return {?}
+     */
+    ngOnChanges(changes) {
+        if (changes.hasOwnProperty('textLabel')) {
+            this._labelChange.next();
+        }
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._labelChange.complete();
+    }
+    /**
      * @return {?}
      */
     ngOnInit() {
@@ -13924,7 +14020,8 @@ class MdTab extends _MdTabMixinBase {
 MdTab.decorators = [
     { type: Component, args: [{selector: 'md-tab, mat-tab',
                 template: "<ng-template><ng-content></ng-content></ng-template>",
-                inputs: ['disabled']
+                inputs: ['disabled'],
+                changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
 /**
@@ -13942,7 +14039,7 @@ MdTab.propDecorators = {
 /**
  * Used to generate unique ID's for each tab component
  */
-let nextId$2 = 0;
+let nextId = 0;
 /**
  * A simple change event emitted on focus or selection changes.
  */
@@ -13956,9 +14053,11 @@ class MdTabChangeEvent {
 class MdTabGroup {
     /**
      * @param {?} _renderer
+     * @param {?} _changeDetectorRef
      */
-    constructor(_renderer) {
+    constructor(_renderer, _changeDetectorRef) {
         this._renderer = _renderer;
+        this._changeDetectorRef = _changeDetectorRef;
         /**
          * Whether this component has been initialized.
          */
@@ -13986,7 +14085,7 @@ class MdTabGroup {
          * Event emitted when the tab selection has changed.
          */
         this.selectChange = new EventEmitter(true);
-        this._groupId = nextId$2++;
+        this._groupId = nextId++;
     }
     /**
      * Whether the tab group should grow to the size of the active tab.
@@ -14062,7 +14161,33 @@ class MdTabGroup {
                 tab.origin = indexToSelect - this._selectedIndex;
             }
         });
-        this._selectedIndex = indexToSelect;
+        if (this._selectedIndex !== indexToSelect) {
+            this._selectedIndex = indexToSelect;
+            this._changeDetectorRef.markForCheck();
+        }
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterContentInit() {
+        this._subscribeToTabLabels();
+        // Subscribe to changes in the amount of tabs, in order to be
+        // able to re-render the content as new tabs are added or removed.
+        this._tabsSubscription = this._tabs.changes.subscribe(() => {
+            this._subscribeToTabLabels();
+            this._changeDetectorRef.markForCheck();
+        });
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        if (this._tabsSubscription) {
+            this._tabsSubscription.unsubscribe();
+        }
+        if (this._tabLabelSubscription) {
+            this._tabLabelSubscription.unsubscribe();
+        }
     }
     /**
      * Waits one frame for the view to update, then updates the ink bar
@@ -14090,6 +14215,21 @@ class MdTabGroup {
             event.tab = this._tabs.toArray()[index];
         }
         return event;
+    }
+    /**
+     * Subscribes to changes in the tab labels. This is needed, because the \@Input for the label is
+     * on the MdTab component, whereas the data binding is inside the MdTabGroup. In order for the
+     * binding to be updated, we need to subscribe to changes in it and trigger change detection
+     * manually.
+     * @return {?}
+     */
+    _subscribeToTabLabels() {
+        if (this._tabLabelSubscription) {
+            this._tabLabelSubscription.unsubscribe();
+        }
+        this._tabLabelSubscription = merge(...this._tabs.map(tab => tab._labelChange)).subscribe(() => {
+            this._changeDetectorRef.markForCheck();
+        });
     }
     /**
      * Returns a unique id for each tab label element
@@ -14137,6 +14277,7 @@ MdTabGroup.decorators = [
     { type: Component, args: [{selector: 'md-tab-group, mat-tab-group',
                 template: "<md-tab-header #tabHeader [selectedIndex]=\"selectedIndex\" [disableRipple]=\"disableRipple\" (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" md-tab-label-wrapper md-ripple *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [tabIndex]=\"selectedIndex == i ? 0 : -1\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" [mdRippleDisabled]=\"disableRipple\" (click)=\"tabHeader.focusIndex = selectedIndex = i\"><ng-template [ngIf]=\"tab.templateLabel\"><ng-template [cdkPortalHost]=\"tab.templateLabel\"></ng-template></ng-template><ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template></div></md-tab-header><div class=\"mat-tab-body-wrapper\" #tabBodyWrapper><md-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (onCentered)=\"_removeTabBodyWrapperHeight()\" (onCentering)=\"_setTabBodyWrapperHeight($event)\"></md-tab-body></div>",
                 styles: [":host{display:flex;flex-direction:column}:host.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{line-height:48px;height:48px;padding:0 12px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;position:relative}.mat-tab-label:focus{outline:0;opacity:1}.mat-tab-label.mat-tab-disabled{cursor:default;pointer-events:none}@media (max-width:600px){.mat-tab-label{min-width:72px}}:host[mat-stretch-tabs] .mat-tab-label,:host[md-stretch-tabs] .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height .5s cubic-bezier(.35,0,.25,1)}.mat-tab-body{position:absolute;top:0;left:0;right:0;bottom:0;display:block;overflow:hidden}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}:host.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}"],
+                changeDetection: ChangeDetectionStrategy.OnPush,
                 host: {
                     'class': 'mat-tab-group',
                     '[class.mat-tab-group-dynamic-height]': 'dynamicHeight',
@@ -14149,6 +14290,7 @@ MdTabGroup.decorators = [
  */
 MdTabGroup.ctorParameters = () => [
     { type: Renderer2, },
+    { type: ChangeDetectorRef, },
 ];
 MdTabGroup.propDecorators = {
     '_tabs': [{ type: ContentChildren, args: [MdTab,] },],
@@ -14300,10 +14442,12 @@ class MdTabNav {
     /**
      * @param {?} _dir
      * @param {?} _ngZone
+     * @param {?} _changeDetectorRef
      */
-    constructor(_dir, _ngZone) {
+    constructor(_dir, _ngZone, _changeDetectorRef) {
         this._dir = _dir;
         this._ngZone = _ngZone;
+        this._changeDetectorRef = _changeDetectorRef;
         /**
          * Subject that emits when the component has been destroyed.
          */
@@ -14317,6 +14461,9 @@ class MdTabNav {
     updateActiveLink(element) {
         this._activeLinkChanged = this._activeLinkElement != element;
         this._activeLinkElement = element;
+        if (this._activeLinkChanged) {
+            this._changeDetectorRef.markForCheck();
+        }
     }
     /**
      * @return {?}
@@ -14364,6 +14511,7 @@ MdTabNav.decorators = [
                 styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative}.mat-tab-link{line-height:48px;height:48px;padding:0 12px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-block;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0;opacity:1}.mat-tab-link.mat-tab-disabled{cursor:default;pointer-events:none}@media (max-width:600px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}"],
                 host: { 'class': 'mat-tab-nav-bar' },
                 encapsulation: ViewEncapsulation.None,
+                changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
 /**
@@ -14372,6 +14520,7 @@ MdTabNav.decorators = [
 MdTabNav.ctorParameters = () => [
     { type: Directionality, decorators: [{ type: Optional },] },
     { type: NgZone, },
+    { type: ChangeDetectorRef, },
 ];
 MdTabNav.propDecorators = {
     '_inkBar': [{ type: ViewChild, args: [MdInkBar,] },],
@@ -14580,6 +14729,7 @@ MdTabBody.decorators = [
                 template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_position\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><ng-template cdkPortalHost></ng-template></div>",
                 styles: [".mat-tab-body-content{height:100%;overflow:auto}.mat-tab-group-dynamic-height .mat-tab-body-content{overflow:hidden}"],
                 encapsulation: ViewEncapsulation.None,
+                changeDetection: ChangeDetectionStrategy.OnPush,
                 host: {
                     'class': 'mat-tab-body',
                 },
@@ -14637,12 +14787,14 @@ class MdTabHeader {
      * @param {?} _elementRef
      * @param {?} _ngZone
      * @param {?} _renderer
+     * @param {?} _changeDetectorRef
      * @param {?} _dir
      */
-    constructor(_elementRef, _ngZone, _renderer, _dir) {
+    constructor(_elementRef, _ngZone, _renderer, _changeDetectorRef, _dir) {
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
         this._renderer = _renderer;
+        this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
         /**
          * The tab index that is focused.
@@ -14715,6 +14867,7 @@ class MdTabHeader {
         if (this._tabLabelCount != this._labelWrappers.length) {
             this._updatePagination();
             this._tabLabelCount = this._labelWrappers.length;
+            this._changeDetectorRef.markForCheck();
         }
         // If the selected index has changed, scroll to the label and check if the scrolling controls
         // should be disabled.
@@ -14723,12 +14876,14 @@ class MdTabHeader {
             this._checkScrollingControls();
             this._alignInkBarToSelectedTab();
             this._selectedIndexChanged = false;
+            this._changeDetectorRef.markForCheck();
         }
         // If the scroll distance has been changed (tab selected, focused, scroll controls activated),
         // then translate the header to reflect this.
         if (this._scrollDistanceChanged) {
             this._updateTabScrollPosition();
             this._scrollDistanceChanged = false;
+            this._changeDetectorRef.markForCheck();
         }
     }
     /**
@@ -14780,6 +14935,7 @@ class MdTabHeader {
     _onContentChanges() {
         this._updatePagination();
         this._alignInkBarToSelectedTab();
+        this._changeDetectorRef.markForCheck();
     }
     /**
      * Updating the view whether pagination should be enabled or not
@@ -14933,9 +15089,7 @@ class MdTabHeader {
      * @return {?}
      */
     _scrollToLabel(labelIndex) {
-        const /** @type {?} */ selectedLabel = this._labelWrappers
-            ? this._labelWrappers.toArray()[labelIndex]
-            : null;
+        const /** @type {?} */ selectedLabel = this._labelWrappers ? this._labelWrappers.toArray()[labelIndex] : null;
         if (!selectedLabel) {
             return;
         }
@@ -14976,6 +15130,7 @@ class MdTabHeader {
         if (!this._showPaginationControls) {
             this.scrollDistance = 0;
         }
+        this._changeDetectorRef.markForCheck();
     }
     /**
      * Evaluate whether the before and after controls should be enabled or disabled.
@@ -14991,6 +15146,7 @@ class MdTabHeader {
         // Check if the pagination arrows should be activated.
         this._disableScrollBefore = this.scrollDistance == 0;
         this._disableScrollAfter = this.scrollDistance == this._getMaxScrollDistance();
+        this._changeDetectorRef.markForCheck();
     }
     /**
      * Determines what is the maximum length in pixels that can be set for the scroll distance. This
@@ -15021,6 +15177,7 @@ MdTabHeader.decorators = [
                 template: "<div class=\"mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4\" aria-hidden=\"true\" md-ripple [mdRippleDisabled]=\"_disableScrollBefore || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollBefore\" (click)=\"_scrollHeader('before')\"><div class=\"mat-tab-header-pagination-chevron\"></div></div><div class=\"mat-tab-label-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\"><div class=\"mat-tab-list\" #tabList role=\"tablist\" (cdkObserveContent)=\"_onContentChanges()\"><div class=\"mat-tab-labels\"><ng-content></ng-content></div><md-ink-bar></md-ink-bar></div></div><div class=\"mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4\" aria-hidden=\"true\" md-ripple [mdRippleDisabled]=\"_disableScrollAfter || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollAfter\" (click)=\"_scrollHeader('after')\"><div class=\"mat-tab-header-pagination-chevron\"></div></div>",
                 styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-label{line-height:48px;height:48px;padding:0 12px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;position:relative}.mat-tab-label:focus{outline:0;opacity:1}.mat-tab-label.mat-tab-disabled{cursor:default;pointer-events:none}@media (max-width:600px){.mat-tab-label{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}.mat-tab-header-pagination{position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-pagination-after,.mat-tab-header-rtl .mat-tab-header-pagination-before{padding-right:4px}.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:'';height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-header-pagination-disabled .mat-tab-header-pagination-chevron{border-color:#ccc}.mat-tab-label-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}.mat-tab-list{flex-grow:1;position:relative;transition:transform .5s cubic-bezier(.35,0,.25,1)}.mat-tab-labels{display:flex}"],
                 encapsulation: ViewEncapsulation.None,
+                changeDetection: ChangeDetectionStrategy.OnPush,
                 host: {
                     'class': 'mat-tab-header',
                     '[class.mat-tab-header-pagination-controls-enabled]': '_showPaginationControls',
@@ -15035,6 +15192,7 @@ MdTabHeader.ctorParameters = () => [
     { type: ElementRef, },
     { type: NgZone, },
     { type: Renderer2, },
+    { type: ChangeDetectorRef, },
     { type: Directionality, decorators: [{ type: Optional },] },
 ];
 MdTabHeader.propDecorators = {
@@ -15054,6 +15212,7 @@ MdTabsModule.decorators = [
     { type: NgModule, args: [{
                 imports: [
                     CommonModule,
+                    MdCommonModule,
                     PortalModule,
                     MdRippleModule,
                     ObserveContentModule,
@@ -15061,6 +15220,7 @@ MdTabsModule.decorators = [
                 ],
                 // Don't export all components because some are only to be used internally.
                 exports: [
+                    MdCommonModule,
                     MdTabGroup,
                     MdTabLabel,
                     MdTab,
@@ -16402,32 +16562,6 @@ MdMenuModule.decorators = [
 MdMenuModule.ctorParameters = () => [];
 
 /**
- * Custom injector type specifically for instantiating components with a dialog.
- */
-class DialogInjector {
-    /**
-     * @param {?} _parentInjector
-     * @param {?} _customTokens
-     */
-    constructor(_parentInjector, _customTokens) {
-        this._parentInjector = _parentInjector;
-        this._customTokens = _customTokens;
-    }
-    /**
-     * @param {?} token
-     * @param {?=} notFoundValue
-     * @return {?}
-     */
-    get(token, notFoundValue) {
-        const /** @type {?} */ value = this._customTokens.get(token);
-        if (typeof value !== 'undefined') {
-            return value;
-        }
-        return this._parentInjector.get(token, notFoundValue);
-    }
-}
-
-/**
  * Configuration for opening a modal dialog with the MdDialog service.
  */
 class MdDialogConfig {
@@ -16902,7 +17036,7 @@ class MdDialog {
         injectionTokens.set(MdDialogRef, dialogRef);
         injectionTokens.set(MdDialogContainer, dialogContainer);
         injectionTokens.set(MD_DIALOG_DATA, config.data);
-        return new DialogInjector(userInjector || this._injector, injectionTokens);
+        return new PortalInjector(userInjector || this._injector, injectionTokens);
     }
     /**
      * Removes a dialog from the array of open dialogs.
@@ -19215,7 +19349,7 @@ MdDatepickerModule.ctorParameters = () => [];
 /**
  * Unique ID counter
  */
-let nextId$3 = 0;
+let nextId$1 = 0;
 /**
  * Directive whose purpose is to manage the expanded state of CdkAccordionItem children.
  */
@@ -19224,7 +19358,7 @@ class CdkAccordion {
         /**
          * A readonly id value to use for unique selection coordination.
          */
-        this.id = `cdk-accordion-${nextId$3++}`;
+        this.id = `cdk-accordion-${nextId$1++}`;
         this._multi = false;
         this._hideToggle = false;
         /**
@@ -19293,7 +19427,7 @@ MdAccordion.ctorParameters = () => [];
 /**
  * Used to generate unique ID for each expansion panel.
  */
-let nextId$4 = 0;
+let nextId$2 = 0;
 /**
  * An abstract class to be extended and decorated as a component.  Sets up all
  * events and attributes needed to be managed by a CdkAccordion parent.
@@ -19323,7 +19457,7 @@ class AccordionItem {
         /**
          * The unique MdAccordianChild id.
          */
-        this.id = `cdk-accordion-child-${nextId$4++}`;
+        this.id = `cdk-accordion-child-${nextId$2++}`;
         /**
          * Unregister function for _expansionDispatcher *
          */
@@ -20443,5 +20577,5 @@ MaterialModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { coerceBooleanProperty, coerceNumberProperty, ObserveContentModule, ObserveContent, Dir, Directionality, BidiModule, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort, MdTableModule, _MdHeaderCellBase, _MdCell, MdHeaderCell, MdCell, _MdTable, MdTable, _MdHeaderRow, _MdRow, MdHeaderRow, MdRow, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkBase, _MdTabLinkMixinBase, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, getMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, mixinColor as ɵu, mixinDisabled as ɵv, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵh, OVERLAY_CONTAINER_PROVIDER as ɵb, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵa, OverlayPositionBuilder as ɵt, VIEWPORT_RULER_PROVIDER as ɵd, VIEWPORT_RULER_PROVIDER_FACTORY as ɵc, SCROLL_DISPATCHER_PROVIDER as ɵf, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵe, RippleRenderer as ɵg, EXPANSION_PANEL_ANIMATION_TIMING as ɵi, MdGridAvatarCssMatStyler as ɵk, MdGridTileFooterCssMatStyler as ɵm, MdGridTileHeaderCssMatStyler as ɵl, MdGridTileText as ɵj, MdMenuItemBase as ɵn, _MdMenuItemMixinBase as ɵo, MdPaginatorIntl as ɵx, MdTabBase as ɵr, _MdTabMixinBase as ɵs, MdTabLabelWrapperBase as ɵp, _MdTabLabelWrapperMixinBase as ɵq };
+export { coerceBooleanProperty, coerceNumberProperty, ObserveContentModule, ObserveContent, Dir, Directionality, BidiModule, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MD_SNACK_BAR_DATA, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort, MdTableModule, _MdHeaderCellBase, _MdCell, MdHeaderCell, MdCell, _MdTable, MdTable, _MdHeaderRow, _MdRow, MdHeaderRow, MdRow, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkBase, _MdTabLinkMixinBase, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, getMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, mixinColor as ɵu, mixinDisabled as ɵv, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵh, OVERLAY_CONTAINER_PROVIDER as ɵb, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵa, OverlayPositionBuilder as ɵt, VIEWPORT_RULER_PROVIDER as ɵd, VIEWPORT_RULER_PROVIDER_FACTORY as ɵc, SCROLL_DISPATCHER_PROVIDER as ɵf, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵe, RippleRenderer as ɵg, EXPANSION_PANEL_ANIMATION_TIMING as ɵi, MdGridAvatarCssMatStyler as ɵk, MdGridTileFooterCssMatStyler as ɵm, MdGridTileHeaderCssMatStyler as ɵl, MdGridTileText as ɵj, MdMenuItemBase as ɵn, _MdMenuItemMixinBase as ɵo, MdPaginatorIntl as ɵx, MdTabBase as ɵr, _MdTabMixinBase as ɵs, MdTabLabelWrapperBase as ɵp, _MdTabLabelWrapperMixinBase as ɵq };
 //# sourceMappingURL=material.js.map

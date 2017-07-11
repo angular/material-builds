@@ -64,14 +64,15 @@ export declare class MdCheckbox extends _MdCheckboxMixinBase implements ControlV
      * Users can specify the `aria-labelledby` attribute which will be forwarded to the input element
      */
     ariaLabelledby: string | null;
-    /** A unique id for the checkbox. If one is not supplied, it is auto-generated. */
+    private _uniqueId;
+    /** A unique id for the checkbox input. If none is supplied, it will be auto-generated. */
     id: string;
+    /** Returns the unique id for the visual hidden input. */
+    readonly inputId: string;
     /** Whether the ripple effect on click should be disabled. */
     private _disableRipple;
     /** Whether the ripple effect for this checkbox is disabled. */
     disableRipple: boolean;
-    /** ID of the native input element inside `<md-checkbox>` */
-    readonly inputId: string;
     private _required;
     /** Whether the checkbox is required. */
     required: boolean;

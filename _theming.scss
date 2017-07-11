@@ -3364,7 +3364,11 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
 
 
 // Includes all of the typographic styles.
-@mixin angular-material-typography($config: mat-typography-config()) {
+@mixin angular-material-typography($config: null) {
+  @if $config == null {
+    $config: mat-typography-config();
+  }
+
   @include mat-base-typography($config);
   @include mat-autocomplete-typography($config);
   @include mat-button-typography($config);
@@ -3398,7 +3402,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
 
 
 // Mixin that renders all of the core styles that are not theme-dependent.
-@mixin mat-core() {
+@mixin mat-core($typography-config: null) {
   // Provides external CSS classes for each elevation value. Each CSS class is formatted as
   // `mat-elevation-z$zValue` where `$zValue` corresponds to the z-space to which the element is
   // elevated.
@@ -3408,7 +3412,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
     }
   }
 
-  @include angular-material-typography();
+  @include angular-material-typography($typography-config);
   @include mat-ripple();
   @include mat-option();
   @include mat-optgroup();
