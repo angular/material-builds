@@ -14,6 +14,5 @@ export { RippleRenderer as ɵg } from './core/ripple/ripple-renderer';
 export { EXPANSION_PANEL_ANIMATION_TIMING as ɵi } from './expansion/expansion-panel';
 export { MdGridAvatarCssMatStyler as ɵk, MdGridTileFooterCssMatStyler as ɵm, MdGridTileHeaderCssMatStyler as ɵl, MdGridTileText as ɵj } from './grid-list/grid-tile';
 export { MdMenuItemBase as ɵn, _MdMenuItemMixinBase as ɵo } from './menu/menu-item';
-export { MdPaginatorIntl as ɵx } from './paginator/paginator-intl';
 export { MdTabBase as ɵr, _MdTabMixinBase as ɵs } from './tabs/tab';
 export { MdTabLabelWrapperBase as ɵp, _MdTabLabelWrapperMixinBase as ɵq } from './tabs/tab-label-wrapper';
