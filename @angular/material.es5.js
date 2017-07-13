@@ -20680,19 +20680,19 @@ var AccordionItem = /*@__PURE__*/(function () {
         this._changeDetectorRef = _changeDetectorRef;
         this._expansionDispatcher = _expansionDispatcher;
         /**
-         * Event emitted every time the MdAccordionChild is closed.
+         * Event emitted every time the MdAccordianChild is closed.
          */
         this.closed = new EventEmitter();
         /**
-         * Event emitted every time the MdAccordionChild is opened.
+         * Event emitted every time the MdAccordianChild is opened.
          */
         this.opened = new EventEmitter();
         /**
-         * Event emitted when the MdAccordionChild is destroyed.
+         * Event emitted when the MdAccordianChild is destroyed.
          */
         this.destroyed = new EventEmitter();
         /**
-         * The unique MdAccordionChild id.
+         * The unique MdAccordianChild id.
          */
         this.id = "cdk-accordion-child-" + nextId$2++;
         /**
@@ -20709,7 +20709,7 @@ var AccordionItem = /*@__PURE__*/(function () {
     }
     Object.defineProperty(AccordionItem.prototype, "expanded", {
         /**
-         * Whether the MdAccordionChild is expanded.
+         * Whether the MdAccordianChild is expanded.
          * @return {?}
          */
         get: function () { return this._expanded; },
@@ -20724,7 +20724,7 @@ var AccordionItem = /*@__PURE__*/(function () {
                 if (expanded) {
                     this.opened.emit();
                     /**
-                     * In the unique selection dispatcher, the id parameter is the id of the CdkAccordionItem,
+                     * In the unique selection dispatcher, the id parameter is the id of the CdkAccordonItem,
                      * the name value is the id of the accordion.
                      */
                     var accordionId = this.accordion ? this.accordion.id : this.id;
