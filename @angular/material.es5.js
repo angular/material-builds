@@ -11242,7 +11242,7 @@ MdCardTitle.decorators = [
                 selector: 'md-card-title, mat-card-title, [md-card-title], [mat-card-title],' +
                     '[mdCardTitle], [matCardTitle]',
                 host: {
-                    'class': 'mat-card-title '
+                    'class': 'mat-card-title'
                 }
             },] },
 ];
@@ -11264,7 +11264,7 @@ MdCardSubtitle.decorators = [
                 selector: 'md-card-subtitle, mat-card-subtitle, [md-card-subtitle], [mat-card-subtitle],' +
                     '[mdCardSubtitle], [matCardSubtitle]',
                 host: {
-                    'class': 'mat-card-subtitle '
+                    'class': 'mat-card-subtitle'
                 }
             },] },
 ];
@@ -15382,7 +15382,9 @@ var MdTabNav = /*@__PURE__*/(function () {
      */
     MdTabNav.prototype.ngOnDestroy = function () {
         this._onDestroy.next();
-        this._resizeSubscription.unsubscribe();
+        if (this._resizeSubscription) {
+            this._resizeSubscription.unsubscribe();
+        }
     };
     /**
      * Aligns the ink bar to the active link.
@@ -20678,19 +20680,19 @@ var AccordionItem = /*@__PURE__*/(function () {
         this._changeDetectorRef = _changeDetectorRef;
         this._expansionDispatcher = _expansionDispatcher;
         /**
-         * Event emitted every time the MdAccordianChild is closed.
+         * Event emitted every time the MdAccordionChild is closed.
          */
         this.closed = new EventEmitter();
         /**
-         * Event emitted every time the MdAccordianChild is opened.
+         * Event emitted every time the MdAccordionChild is opened.
          */
         this.opened = new EventEmitter();
         /**
-         * Event emitted when the MdAccordianChild is destroyed.
+         * Event emitted when the MdAccordionChild is destroyed.
          */
         this.destroyed = new EventEmitter();
         /**
-         * The unique MdAccordianChild id.
+         * The unique MdAccordionChild id.
          */
         this.id = "cdk-accordion-child-" + nextId$2++;
         /**
@@ -20707,7 +20709,7 @@ var AccordionItem = /*@__PURE__*/(function () {
     }
     Object.defineProperty(AccordionItem.prototype, "expanded", {
         /**
-         * Whether the MdAccordianChild is expanded.
+         * Whether the MdAccordionChild is expanded.
          * @return {?}
          */
         get: function () { return this._expanded; },
@@ -20722,7 +20724,7 @@ var AccordionItem = /*@__PURE__*/(function () {
                 if (expanded) {
                     this.opened.emit();
                     /**
-                     * In the unique selection dispatcher, the id parameter is the id of the CdkAccordonItem,
+                     * In the unique selection dispatcher, the id parameter is the id of the CdkAccordionItem,
                      * the name value is the id of the accordion.
                      */
                     var accordionId = this.accordion ? this.accordion.id : this.id;
