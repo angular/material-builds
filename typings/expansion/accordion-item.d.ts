@@ -16,15 +16,15 @@ export declare class AccordionItem implements OnDestroy {
     accordion: CdkAccordion;
     private _changeDetectorRef;
     protected _expansionDispatcher: UniqueSelectionDispatcher;
-    /** Event emitted every time the MdAccordianChild is closed. */
+    /** Event emitted every time the MdAccordionChild is closed. */
     closed: EventEmitter<void>;
-    /** Event emitted every time the MdAccordianChild is opened. */
+    /** Event emitted every time the MdAccordionChild is opened. */
     opened: EventEmitter<void>;
-    /** Event emitted when the MdAccordianChild is destroyed. */
+    /** Event emitted when the MdAccordionChild is destroyed. */
     destroyed: EventEmitter<void>;
-    /** The unique MdAccordianChild id. */
+    /** The unique MdAccordionChild id. */
     readonly id: string;
-    /** Whether the MdAccordianChild is expanded. */
+    /** Whether the MdAccordionChild is expanded. */
     expanded: boolean;
     private _expanded;
     /** Unregister function for _expansionDispatcher **/

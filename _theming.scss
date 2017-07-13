@@ -3465,10 +3465,11 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
     border-top-color: mat-color($foreground, divider);
   }
 
-  .mat-expansion-panel-header:focus, 
+  .mat-expansion-panel-header:focus,
   .mat-expansion-panel-header:hover {
     background: mat-color($background, hover);
   }
+
   .mat-expansion-panel-header-title {
     color: mat-color($foreground, text);
   }
@@ -3481,6 +3482,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
     color: mat-color($foreground, secondary-text);
   }
 }
+
 
 
 
