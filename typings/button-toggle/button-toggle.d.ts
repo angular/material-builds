@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, Renderer2, EventEmitter, OnInit, OnDestroy, QueryList, AfterViewInit } from '@angular/core';
+import { ElementRef, Renderer2, EventEmitter, OnInit, OnDestroy, QueryList, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { UniqueSelectionDispatcher, FocusOriginMonitor } from '../core';
 import { CanDisable } from '../core/common-behaviors/disabled';
@@ -96,6 +96,7 @@ export declare class MdButtonToggleGroupMultiple extends _MdButtonToggleGroupMix
 }
 /** Single button inside of a toggle group. */
 export declare class MdButtonToggle implements OnInit, OnDestroy {
+    private _changeDetectorRef;
     private _buttonToggleDispatcher;
     private _renderer;
     private _elementRef;
@@ -131,7 +132,7 @@ export declare class MdButtonToggle implements OnInit, OnDestroy {
     disabled: boolean;
     /** Event emitted when the group value changes. */
     change: EventEmitter<MdButtonToggleChange>;
-    constructor(toggleGroup: MdButtonToggleGroup, toggleGroupMultiple: MdButtonToggleGroupMultiple, _buttonToggleDispatcher: UniqueSelectionDispatcher, _renderer: Renderer2, _elementRef: ElementRef, _focusOriginMonitor: FocusOriginMonitor);
+    constructor(toggleGroup: MdButtonToggleGroup, toggleGroupMultiple: MdButtonToggleGroupMultiple, _changeDetectorRef: ChangeDetectorRef, _buttonToggleDispatcher: UniqueSelectionDispatcher, _renderer: Renderer2, _elementRef: ElementRef, _focusOriginMonitor: FocusOriginMonitor);
     ngOnInit(): void;
     /** Focuses the button. */
     focus(): void;

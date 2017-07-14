@@ -4946,13 +4946,15 @@ var MdButtonToggle = /*@__PURE__*/(function () {
     /**
      * @param {?} toggleGroup
      * @param {?} toggleGroupMultiple
+     * @param {?} _changeDetectorRef
      * @param {?} _buttonToggleDispatcher
      * @param {?} _renderer
      * @param {?} _elementRef
      * @param {?} _focusOriginMonitor
      */
-    function MdButtonToggle(toggleGroup, toggleGroupMultiple, _buttonToggleDispatcher, _renderer, _elementRef, _focusOriginMonitor) {
+    function MdButtonToggle(toggleGroup, toggleGroupMultiple, _changeDetectorRef, _buttonToggleDispatcher, _renderer, _elementRef, _focusOriginMonitor) {
         var _this = this;
+        this._changeDetectorRef = _changeDetectorRef;
         this._buttonToggleDispatcher = _buttonToggleDispatcher;
         this._renderer = _renderer;
         this._elementRef = _elementRef;
@@ -4988,6 +4990,7 @@ var MdButtonToggle = /*@__PURE__*/(function () {
                 _buttonToggleDispatcher.listen(function (id, name) {
                     if (id != _this.id && name == _this.name) {
                         _this.checked = false;
+                        _this._changeDetectorRef.markForCheck();
                     }
                 });
             this._type = 'radio';
@@ -5025,11 +5028,10 @@ var MdButtonToggle = /*@__PURE__*/(function () {
          * @return {?}
          */
         set: function (newCheckedState) {
-            if (this._isSingleSelector) {
-                if (newCheckedState) {
-                    // Notify all button toggles with the same name (in the same group) to un-check.
-                    this._buttonToggleDispatcher.notify(this.id, this.name);
-                }
+            if (this._isSingleSelector && newCheckedState) {
+                // Notify all button toggles with the same name (in the same group) to un-check.
+                this._buttonToggleDispatcher.notify(this.id, this.name);
+                this._changeDetectorRef.markForCheck();
             }
             this._checked = newCheckedState;
             if (newCheckedState && this._isSingleSelector && this.buttonToggleGroup.value != this.value) {
@@ -5164,6 +5166,7 @@ MdButtonToggle.decorators = [
                 template: "<label [attr.for]=\"inputId\" class=\"mat-button-toggle-label\"><input #input class=\"mat-button-toggle-input cdk-visually-hidden\" [type]=\"_type\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled || null\" [name]=\"name\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-button-toggle-label-content\"><ng-content></ng-content></div></label><div class=\"mat-button-toggle-focus-overlay\"></div>",
                 styles: [".mat-button-toggle-group,.mat-button-toggle-standalone{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle-disabled .mat-button-toggle-label-content{cursor:default}.mat-button-toggle{white-space:nowrap;position:relative}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:1}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px;cursor:pointer}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;position:absolute;top:0;left:0;right:0;bottom:0}"],
                 encapsulation: ViewEncapsulation.None,
+                changeDetection: ChangeDetectionStrategy.OnPush,
                 host: {
                     '[class.mat-button-toggle-standalone]': '!buttonToggleGroup && !buttonToggleGroupMultiple',
                     'class': 'mat-button-toggle'
@@ -5176,6 +5179,7 @@ MdButtonToggle.decorators = [
 MdButtonToggle.ctorParameters = function () { return [
     { type: MdButtonToggleGroup, decorators: [{ type: Optional },] },
     { type: MdButtonToggleGroupMultiple, decorators: [{ type: Optional },] },
+    { type: ChangeDetectorRef, },
     { type: UniqueSelectionDispatcher, },
     { type: Renderer2, },
     { type: ElementRef, },
@@ -6727,7 +6731,7 @@ var MdRadioButton = /*@__PURE__*/(function (_super) {
 MdRadioButton.decorators = [
     { type: Component, args: [{ selector: 'md-radio-button, mat-radio-button',
                 template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div md-ripple class=\"mat-radio-ripple\" [mdRippleTrigger]=\"label\" [mdRippleDisabled]=\"_isRippleDisabled()\" [mdRippleCentered]=\"true\"></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></div></label>",
-                styles: [".mat-radio-button{display:inline-block}.mat-radio-label{cursor:pointer;display:inline-flex;align-items:center;white-space:nowrap;vertical-align:middle}.mat-radio-container{box-sizing:border-box;display:inline-block;height:20px;position:relative;width:20px}.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:border-color ease 280ms;width:20px;border-width:2px;border-style:solid;border-radius:50%}.mat-radio-inner-circle{border-radius:50%;box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:transform ease 280ms,background-color ease 280ms;transform:scale(0);width:20px}.mat-radio-checked .mat-radio-inner-circle{transform:scale(.5)}.mat-radio-label-content{display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none}"],
+                styles: [".mat-radio-button{display:inline-block}.mat-radio-label{cursor:pointer;display:inline-flex;align-items:center;white-space:nowrap;vertical-align:middle}.mat-radio-container{box-sizing:border-box;display:inline-block;height:20px;position:relative;width:20px}.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:border-color ease 280ms;width:20px;border-width:2px;border-style:solid;border-radius:50%}.mat-radio-inner-circle{border-radius:50%;box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:transform ease 280ms,background-color ease 280ms;width:20px;transform:scale(.001)}.mat-radio-checked .mat-radio-inner-circle{transform:scale(.5)}.mat-radio-label-content{display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none}"],
                 inputs: ['color'],
                 encapsulation: ViewEncapsulation.None,
                 host: {
@@ -7226,6 +7230,7 @@ var MdSelect = /*@__PURE__*/(function (_super) {
         this._calculateOverlayPosition();
         this._placeholderState = this._floatPlaceholderState();
         this._panelOpen = true;
+        this._changeDetectorRef.markForCheck();
     };
     /**
      * Closes the overlay panel and focuses the host element.
@@ -7237,6 +7242,7 @@ var MdSelect = /*@__PURE__*/(function (_super) {
             if (this._selectionModel.isEmpty()) {
                 this._placeholderState = '';
             }
+            this._changeDetectorRef.markForCheck();
             this.focus();
         }
     };
@@ -7283,6 +7289,7 @@ var MdSelect = /*@__PURE__*/(function (_super) {
      */
     MdSelect.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
+        this._changeDetectorRef.markForCheck();
     };
     Object.defineProperty(MdSelect.prototype, "panelOpen", {
         /**
@@ -7339,6 +7346,7 @@ var MdSelect = /*@__PURE__*/(function (_super) {
      */
     MdSelect.prototype._setTriggerWidth = function () {
         this._triggerWidth = this._getTriggerRect().width;
+        this._changeDetectorRef.markForCheck();
     };
     /**
      * Handles the keyboard interactions of a closed select.
@@ -7385,6 +7393,7 @@ var MdSelect = /*@__PURE__*/(function (_super) {
             this.onClose.emit();
             this._panelDoneAnimating = false;
             this.overlayDir.offsetX = 0;
+            this._changeDetectorRef.markForCheck();
         }
     };
     /**
@@ -7394,6 +7403,7 @@ var MdSelect = /*@__PURE__*/(function (_super) {
      */
     MdSelect.prototype._onFadeInDone = function () {
         this._panelDoneAnimating = this.panelOpen;
+        this._changeDetectorRef.markForCheck();
     };
     /**
      * Calls the touched callback only if the panel is closed. Otherwise, the trigger will
@@ -7403,6 +7413,7 @@ var MdSelect = /*@__PURE__*/(function (_super) {
     MdSelect.prototype._onBlur = function () {
         if (!this.disabled && !this.panelOpen) {
             this._onTouched();
+            this._changeDetectorRef.markForCheck();
         }
     };
     /**
@@ -7625,6 +7636,7 @@ var MdSelect = /*@__PURE__*/(function (_super) {
      */
     MdSelect.prototype._setValueWidth = function () {
         this._selectedValueWidth = this._triggerWidth - 13;
+        this._changeDetectorRef.markForCheck();
     };
     /**
      * Focuses the selected item. If no option is selected, it will focus
@@ -7724,8 +7736,7 @@ var MdSelect = /*@__PURE__*/(function (_super) {
      * @return {?}
      */
     MdSelect.prototype._getPlaceholderOpacity = function () {
-        return (this.floatPlaceholder !== 'never' || this._selectionModel.isEmpty()) ?
-            '1' : '0';
+        return (this.floatPlaceholder !== 'never' || this._selectionModel.isEmpty()) ? '1' : '0';
     };
     Object.defineProperty(MdSelect.prototype, "_ariaLabel", {
         /**
@@ -7966,6 +7977,7 @@ MdSelect.decorators = [
                 styles: [".mat-select{display:inline-block;outline:0}.mat-select-trigger{display:flex;align-items:center;height:30px;min-width:112px;cursor:pointer;position:relative;box-sizing:border-box}[aria-disabled=true] .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-underline{position:absolute;bottom:0;left:0;right:0;height:1px}[aria-disabled=true] .mat-select-underline{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;background-color:transparent;background-position:0 bottom}.mat-select-placeholder{position:relative;padding:0 2px;transform-origin:left top;flex-grow:1}.mat-select-placeholder.mat-floating-placeholder{top:-22px;left:-2px;text-align:left;transform:scale(.75)}[dir=rtl] .mat-select-placeholder{transform-origin:right top}[dir=rtl] .mat-select-placeholder.mat-floating-placeholder{left:2px;text-align:right}.mat-select-required .mat-select-placeholder::after{content:'*'}.mat-select-value{position:absolute;max-width:calc(100% - 18px);flex-grow:1;top:0;left:0;bottom:0;display:flex;align-items:center}[dir=rtl] .mat-select-value{left:auto;right:0}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:30px}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}}"],
                 inputs: ['color', 'disabled'],
                 encapsulation: ViewEncapsulation.None,
+                changeDetection: ChangeDetectionStrategy.OnPush,
                 host: {
                     'role': 'listbox',
                     '[attr.tabindex]': 'tabIndex',
@@ -11278,19 +11290,29 @@ MdCardSubtitle.ctorParameters = function () { return []; };
  */
 var MdCardActions = /*@__PURE__*/(function () {
     function MdCardActions() {
+        /**
+         * Position of the actions inside the card.
+         */
+        this.align = 'start';
     }
     return MdCardActions;
 }());
 MdCardActions.decorators = [
     { type: Directive, args: [{
                 selector: 'md-card-actions, mat-card-actions',
-                host: { 'class': 'mat-card-actions' }
+                host: {
+                    'class': 'mat-card-actions',
+                    '[class.mat-card-actions-align-end]': 'align === "end"',
+                }
             },] },
 ];
 /**
  * @nocollapse
  */
 MdCardActions.ctorParameters = function () { return []; };
+MdCardActions.propDecorators = {
+    'align': [{ type: Input },],
+};
 /**
  * Footer of a card, needed as it's used as a selector in the API.
  * \@docs-private
@@ -11442,8 +11464,8 @@ var MdCard = /*@__PURE__*/(function () {
 }());
 MdCard.decorators = [
     { type: Component, args: [{ selector: 'md-card, mat-card',
-                template: "<ng-content></ng-content>",
-                styles: [".mat-card{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:block;position:relative;padding:24px;border-radius:2px}.mat-card:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-card{outline:solid 1px}}.mat-card-flat{box-shadow:none}.mat-card-actions,.mat-card-content,.mat-card-subtitle,.mat-card-title{display:block;margin-bottom:16px}.mat-card-actions{margin-left:-16px;margin-right:-16px;padding:8px 0}.mat-card-actions[align=end]{display:flex;justify-content:flex-end}.mat-card-image{width:calc(100% + 48px);margin:0 -24px 16px -24px}.mat-card-xl-image{width:240px;height:240px;margin:-8px}.mat-card-footer{position:absolute;width:100%;min-height:5px;bottom:0;left:0}.mat-card-actions .mat-button,.mat-card-actions .mat-raised-button{margin:0 4px}.mat-card-header{display:flex;flex-direction:row}.mat-card-header-text{margin:0 8px}.mat-card-avatar{height:40px;width:40px;border-radius:50%;flex-shrink:0}.mat-card-lg-image,.mat-card-md-image,.mat-card-sm-image{margin:-8px 0}.mat-card-title-group{display:flex;justify-content:space-between;margin:0 -8px}.mat-card-sm-image{width:80px;height:80px}.mat-card-md-image{width:112px;height:112px}.mat-card-lg-image{width:152px;height:152px}@media (max-width:600px){.mat-card{padding:24px 16px}.mat-card-actions{margin-left:-8px;margin-right:-8px}.mat-card-image{width:calc(100% + 32px);margin:16px -16px}.mat-card-title-group{margin:0}.mat-card-xl-image{margin-left:0;margin-right:0}.mat-card-header{margin:-8px 0 0 0}}.mat-card-content>:first-child,.mat-card>:first-child{margin-top:0}.mat-card-content>:last-child,.mat-card>:last-child{margin-bottom:0}.mat-card-image:first-child{margin-top:-24px}.mat-card>.mat-card-actions:last-child{margin-bottom:-16px;padding-bottom:0}.mat-card-actions .mat-button:first-child,.mat-card-actions .mat-raised-button:first-child{margin-left:0;margin-right:0}.mat-card-subtitle:not(:first-child),.mat-card-title:not(:first-child){margin-top:-4px}.mat-card-header .mat-card-subtitle:not(:first-child){margin-top:-8px}.mat-card>.mat-card-xl-image:first-child{margin-top:-8px}.mat-card>.mat-card-xl-image:last-child{margin-bottom:-8px}"],
+                template: "<ng-content></ng-content><ng-content select=\"md-card-footer, mat-card-footer\"></ng-content>",
+                styles: [".mat-card{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:block;position:relative;padding:24px;border-radius:2px}.mat-card:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-card{outline:solid 1px}}.mat-card-flat{box-shadow:none}.mat-card-actions,.mat-card-content,.mat-card-subtitle,.mat-card-title{display:block;margin-bottom:16px}.mat-card-actions{margin-left:-16px;margin-right:-16px;padding:8px 0}.mat-card-actions-align-end{display:flex;justify-content:flex-end}.mat-card-image{width:calc(100% + 48px);margin:0 -24px 16px -24px}.mat-card-xl-image{width:240px;height:240px;margin:-8px}.mat-card-footer{display:block;margin:0 -24px -24px -24px}.mat-card-actions .mat-button,.mat-card-actions .mat-raised-button{margin:0 4px}.mat-card-header{display:flex;flex-direction:row}.mat-card-header-text{margin:0 8px}.mat-card-avatar{height:40px;width:40px;border-radius:50%;flex-shrink:0}.mat-card-lg-image,.mat-card-md-image,.mat-card-sm-image{margin:-8px 0}.mat-card-title-group{display:flex;justify-content:space-between;margin:0 -8px}.mat-card-sm-image{width:80px;height:80px}.mat-card-md-image{width:112px;height:112px}.mat-card-lg-image{width:152px;height:152px}@media (max-width:600px){.mat-card{padding:24px 16px}.mat-card-actions{margin-left:-8px;margin-right:-8px}.mat-card-image{width:calc(100% + 32px);margin:16px -16px}.mat-card-title-group{margin:0}.mat-card-xl-image{margin-left:0;margin-right:0}.mat-card-header{margin:-8px 0 0 0}.mat-card-footer{margin-left:-16px;margin-right:-16px}}.mat-card-content>:first-child,.mat-card>:first-child{margin-top:0}.mat-card-content>:last-child:not(.mat-card-footer),.mat-card>:last-child:not(.mat-card-footer){margin-bottom:0}.mat-card-image:first-child{margin-top:-24px}.mat-card>.mat-card-actions:last-child{margin-bottom:-16px;padding-bottom:0}.mat-card-actions .mat-button:first-child,.mat-card-actions .mat-raised-button:first-child{margin-left:0;margin-right:0}.mat-card-subtitle:not(:first-child),.mat-card-title:not(:first-child){margin-top:-4px}.mat-card-header .mat-card-subtitle:not(:first-child){margin-top:-8px}.mat-card>.mat-card-xl-image:first-child{margin-top:-8px}.mat-card>.mat-card-xl-image:last-child{margin-bottom:-8px}"],
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 host: { 'class': 'mat-card' }
@@ -11579,6 +11601,8 @@ var MdChip = /*@__PURE__*/(function (_super) {
     function MdChip(renderer, elementRef) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._selected = false;
+        _this._selectable = true;
+        _this._removable = true;
         /**
          * Whether the chip has focus.
          */
@@ -11599,6 +11623,10 @@ var MdChip = /*@__PURE__*/(function (_super) {
          * Emitted when the chip is destroyed.
          */
         _this.destroy = new EventEmitter();
+        /**
+         * Emitted when a chip is to be removed.
+         */
+        _this.onRemove = new EventEmitter();
         return _this;
     }
     Object.defineProperty(MdChip.prototype, "selected", {
@@ -11618,6 +11646,43 @@ var MdChip = /*@__PURE__*/(function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdChip.prototype, "selectable", {
+        /**
+         * Whether or not the chips are selectable. When a chip is not selectable,
+         * changes to it's selected state are always ignored.
+         * @return {?}
+         */
+        get: function () {
+            return this._selectable;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._selectable = coerceBooleanProperty(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdChip.prototype, "removable", {
+        /**
+         * Determines whether or not the chip displays the remove styling and emits (remove) events.
+         * @return {?}
+         */
+        get: function () {
+            return this._removable;
+        },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._removable = coerceBooleanProperty(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @return {?}
      */
@@ -11626,7 +11691,7 @@ var MdChip = /*@__PURE__*/(function (_super) {
     };
     /**
      * Toggles the current selected state of this chip.
-     * @return {?} Whether the chip is selected.
+     * @return {?}
      */
     MdChip.prototype.toggleSelected = function () {
         this.selected = !this.selected;
@@ -11641,6 +11706,18 @@ var MdChip = /*@__PURE__*/(function (_super) {
         this.onFocus.emit({ chip: this });
     };
     /**
+     * Allows for programmatic removal of the chip. Called by the MdChipList when the DELETE or
+     * BACKSPACE keys are pressed.
+     *
+     * Informs any listeners of the removal request. Does not remove the chip from the DOM.
+     * @return {?}
+     */
+    MdChip.prototype.remove = function () {
+        if (this.removable) {
+            this.onRemove.emit({ chip: this });
+        }
+    };
+    /**
      * Ensures events fire properly upon click.
      * @param {?} event
      * @return {?}
@@ -11648,11 +11725,37 @@ var MdChip = /*@__PURE__*/(function (_super) {
     MdChip.prototype._handleClick = function (event) {
         // Check disabled
         if (this.disabled) {
-            event.preventDefault();
-            event.stopPropagation();
+            return;
         }
-        else {
-            this.focus();
+        event.preventDefault();
+        event.stopPropagation();
+        this.focus();
+    };
+    /**
+     * Handle custom key presses.
+     * @param {?} event
+     * @return {?}
+     */
+    MdChip.prototype._handleKeydown = function (event) {
+        if (this.disabled) {
+            return;
+        }
+        switch (event.keyCode) {
+            case DELETE:
+            case BACKSPACE:
+                // If we are removable, remove the focused chip
+                this.remove();
+                // Always prevent so page navigation does not occur
+                event.preventDefault();
+                break;
+            case SPACE:
+                // If we are selectable, toggle the focused chip
+                if (this.selectable) {
+                    this.toggleSelected();
+                }
+                // Always prevent space from scrolling the page since the list has focus
+                event.preventDefault();
+                break;
         }
     };
     return MdChip;
@@ -11669,6 +11772,7 @@ MdChip.decorators = [
                     '[attr.disabled]': 'disabled || null',
                     '[attr.aria-disabled]': 'disabled.toString()',
                     '(click)': '_handleClick($event)',
+                    '(keydown)': '_handleKeydown($event)',
                     '(focus)': '_hasFocus = true',
                     '(blur)': '_hasFocus = false',
                 }
@@ -11682,11 +11786,61 @@ MdChip.ctorParameters = function () { return [
     { type: ElementRef, },
 ]; };
 MdChip.propDecorators = {
+    '_chipRemove': [{ type: ContentChild, args: [forwardRef(function () { return MdChipRemove; }),] },],
     'selected': [{ type: Input },],
+    'selectable': [{ type: Input },],
+    'removable': [{ type: Input },],
     'select': [{ type: Output },],
     'deselect': [{ type: Output },],
     'destroy': [{ type: Output },],
+    'onRemove': [{ type: Output, args: ['remove',] },],
 };
+/**
+ * Applies proper (click) support and adds styling for use with the Material Design "cancel" icon
+ * available at https://material.io/icons/#ic_cancel.
+ *
+ * Example:
+ *
+ *     <md-chip>
+ *       <md-icon mdChipRemove>cancel</md-icon>
+ *     </md-chip>
+ *
+ * You *may* use a custom icon, but you may need to override the `md-chip-remove` positioning styles
+ * to properly center the icon within the chip.
+ */
+var MdChipRemove = /*@__PURE__*/(function () {
+    /**
+     * @param {?} _parentChip
+     */
+    function MdChipRemove(_parentChip) {
+        this._parentChip = _parentChip;
+    }
+    /**
+     * Calls the parent chip's public `remove()` method if applicable.
+     * @return {?}
+     */
+    MdChipRemove.prototype._handleClick = function () {
+        if (this._parentChip.removable) {
+            this._parentChip.remove();
+        }
+    };
+    return MdChipRemove;
+}());
+MdChipRemove.decorators = [
+    { type: Directive, args: [{
+                selector: '[mdChipRemove], [matChipRemove]',
+                host: {
+                    'class': 'mat-chip-remove',
+                    '(click)': '_handleClick($event)'
+                }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdChipRemove.ctorParameters = function () { return [
+    { type: MdChip, },
+]; };
 /**
  * A material design chips component (named ChipList for it's similarity to the List component).
  *
@@ -11698,11 +11852,23 @@ MdChip.propDecorators = {
  *     </md-chip-list>
  */
 var MdChipList = /*@__PURE__*/(function () {
-    function MdChipList() {
+    /**
+     * @param {?} _renderer
+     * @param {?} _elementRef
+     * @param {?} _dir
+     */
+    function MdChipList(_renderer, _elementRef, _dir) {
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
+        this._dir = _dir;
+        /**
+         * When a chip is destroyed, we track the index so we can focus the appropriate next chip.
+         */
+        this._lastDestroyedIndex = null;
         /**
          * Track which chips we're listening to for focus/destruction.
          */
-        this._subscribed = new WeakMap();
+        this._chipSet = new WeakMap();
         /**
          * Whether or not the chip is selectable.
          */
@@ -11726,9 +11892,19 @@ var MdChipList = /*@__PURE__*/(function () {
         });
         // Go ahead and subscribe all of the initial chips
         this._subscribeChips(this.chips);
+        // Make sure we set our tab index at the start
+        this._updateTabIndex();
         // When the list changes, re-subscribe
         this.chips.changes.subscribe(function (chips) {
             _this._subscribeChips(chips);
+            // If we have 0 chips, attempt to focus an input (if available)
+            if (chips.length === 0) {
+                _this._focusInput();
+            }
+            // Check to see if we need to update our tab index
+            _this._updateTabIndex();
+            // Check to see if we have a destroyed chip and need to refocus
+            _this._updateFocusForDestroyedChips();
         });
     };
     /**
@@ -11745,7 +11921,9 @@ var MdChipList = /*@__PURE__*/(function () {
          * it's selected state is always ignored.
          * @return {?}
          */
-        get: function () { return this._selectable; },
+        get: function () {
+            return this._selectable;
+        },
         /**
          * @param {?} value
          * @return {?}
@@ -11757,59 +11935,68 @@ var MdChipList = /*@__PURE__*/(function () {
         configurable: true
     });
     /**
-     * Programmatically focus the chip list. This in turn focuses the first
-     * non-disabled chip in this chip list.
+     * Associates an HTML input element with this chip list.
+     * @param {?} inputElement
+     * @return {?}
+     */
+    MdChipList.prototype.registerInput = function (inputElement) {
+        this._inputElement = inputElement;
+    };
+    /**
+     * Focuses the the first non-disabled chip in this chip list, or the associated input when there
+     * are no eligible chips.
      * @return {?}
      */
     MdChipList.prototype.focus = function () {
-        // TODO: ARIA says this should focus the first `selected` chip.
-        this._keyManager.setFirstItemActive();
+        // TODO: ARIA says this should focus the first `selected` chip if any are selected.
+        if (this.chips.length > 0) {
+            this._keyManager.setFirstItemActive();
+        }
+        else {
+            this._focusInput();
+        }
     };
     /**
-     * Passes relevant key presses to our key manager.
+     * Attempt to focus an input if we have one.
+     * @return {?}
+     */
+    MdChipList.prototype._focusInput = function () {
+        if (this._inputElement) {
+            this._inputElement.focus();
+        }
+    };
+    /**
+     * Pass events to the keyboard manager. Available here for tests.
      * @param {?} event
      * @return {?}
      */
     MdChipList.prototype._keydown = function (event) {
+        var /** @type {?} */ code = event.keyCode;
         var /** @type {?} */ target = (event.target);
-        // If they are on a chip, check for space/left/right, otherwise pass to our key manager
-        if (target && target.classList.contains('mat-chip')) {
-            switch (event.keyCode) {
-                case SPACE:
-                    // If we are selectable, toggle the focused chip
-                    if (this.selectable) {
-                        this._toggleSelectOnFocusedChip();
-                    }
-                    // Always prevent space from scrolling the page since the list has focus
-                    event.preventDefault();
-                    break;
-                case LEFT_ARROW:
-                    this._keyManager.setPreviousItemActive();
-                    event.preventDefault();
-                    break;
-                case RIGHT_ARROW:
-                    this._keyManager.setNextItemActive();
-                    event.preventDefault();
-                    break;
-                default:
-                    this._keyManager.onKeydown(event);
-            }
-        }
-    };
-    /**
-     * Toggles the selected state of the currently focused chip.
-     * @return {?}
-     */
-    MdChipList.prototype._toggleSelectOnFocusedChip = function () {
-        // Allow disabling of chip selection
-        if (!this.selectable) {
+        var /** @type {?} */ isInputEmpty = this._isInputEmpty(target);
+        var /** @type {?} */ isRtl = this._dir && this._dir.value == 'rtl';
+        var /** @type {?} */ isPrevKey = (code === (isRtl ? RIGHT_ARROW : LEFT_ARROW));
+        var /** @type {?} */ isNextKey = (code === (isRtl ? LEFT_ARROW : RIGHT_ARROW));
+        var /** @type {?} */ isBackKey = (code === BACKSPACE || code == DELETE || code == UP_ARROW || isPrevKey);
+        // If they are on an empty input and hit backspace/delete/left arrow, focus the last chip
+        if (isInputEmpty && isBackKey) {
+            this._keyManager.setLastItemActive();
+            event.preventDefault();
             return;
         }
-        var /** @type {?} */ focusedIndex = this._keyManager.activeItemIndex;
-        if (typeof focusedIndex === 'number' && this._isValidIndex(focusedIndex)) {
-            var /** @type {?} */ focusedChip = this.chips.toArray()[focusedIndex];
-            if (focusedChip) {
-                focusedChip.toggleSelected();
+        // If they are on a chip, check for space/left/right, otherwise pass to our key manager (like
+        // up/down keys)
+        if (target && target.classList.contains('mat-chip')) {
+            if (isPrevKey) {
+                this._keyManager.setPreviousItemActive();
+                event.preventDefault();
+            }
+            else if (isNextKey) {
+                this._keyManager.setNextItemActive();
+                event.preventDefault();
+            }
+            else {
+                this._keyManager.onKeydown(event);
             }
         }
     };
@@ -11825,6 +12012,14 @@ var MdChipList = /*@__PURE__*/(function () {
         chips.forEach(function (chip) { return _this._addChip(chip); });
     };
     /**
+     * Check the tab index as you should not be allowed to focus an empty list.
+     * @return {?}
+     */
+    MdChipList.prototype._updateTabIndex = function () {
+        // If we have 0 chips, we should not allow keyboard focus
+        this._tabIndex = (this.chips.length === 0 ? -1 : 0);
+    };
+    /**
      * Add a specific chip to our subscribed list. If the chip has
      * already been subscribed, this ensures it is only subscribed
      * once.
@@ -11836,7 +12031,7 @@ var MdChipList = /*@__PURE__*/(function () {
     MdChipList.prototype._addChip = function (chip) {
         var _this = this;
         // If we've already been subscribed to a parent, do nothing
-        if (this._subscribed.has(chip)) {
+        if (this._chipSet.has(chip)) {
             return;
         }
         // Watch for focus events outside of the keyboard navigation
@@ -11846,22 +12041,47 @@ var MdChipList = /*@__PURE__*/(function () {
                 _this._keyManager.updateActiveItemIndex(chipIndex);
             }
         });
-        // On destroy, remove the item from our list, and check focus
+        // On destroy, remove the item from our list, and setup our destroyed focus check
         chip.destroy.subscribe(function () {
             var /** @type {?} */ chipIndex = _this.chips.toArray().indexOf(chip);
-            if (_this._isValidIndex(chipIndex) && chip._hasFocus) {
-                // Check whether the chip is the last item
-                if (chipIndex < _this.chips.length - 1) {
-                    _this._keyManager.setActiveItem(chipIndex);
+            if (_this._isValidIndex(chipIndex)) {
+                if (chip._hasFocus) {
+                    // Check whether the chip is the last item
+                    if (chipIndex < _this.chips.length - 1) {
+                        _this._keyManager.setActiveItem(chipIndex);
+                    }
+                    else if (chipIndex - 1 >= 0) {
+                        _this._keyManager.setActiveItem(chipIndex - 1);
+                    }
                 }
-                else if (chipIndex - 1 >= 0) {
-                    _this._keyManager.setActiveItem(chipIndex - 1);
+                if (_this._keyManager.activeItemIndex === chipIndex) {
+                    _this._lastDestroyedIndex = chipIndex;
                 }
             }
-            _this._subscribed.delete(chip);
+            _this._chipSet.delete(chip);
             chip.destroy.unsubscribe();
         });
-        this._subscribed.set(chip, true);
+        this._chipSet.set(chip, true);
+    };
+    /**
+     * Checks to see if a focus chip was recently destroyed so that we can refocus the next closest
+     * one.
+     * @return {?}
+     */
+    MdChipList.prototype._updateFocusForDestroyedChips = function () {
+        var /** @type {?} */ chipsArray = this.chips;
+        if (this._lastDestroyedIndex != null && chipsArray.length > 0) {
+            // Check whether the destroyed chip was the last item
+            var /** @type {?} */ newFocusIndex = Math.min(this._lastDestroyedIndex, chipsArray.length - 1);
+            this._keyManager.setActiveItem(newFocusIndex);
+            var /** @type {?} */ focusChip = this._keyManager.activeItem;
+            // Focus the chip
+            if (focusChip) {
+                focusChip.focus();
+            }
+        }
+        // Reset our destroyed index
+        this._lastDestroyedIndex = null;
     };
     /**
      * Utility to ensure all indexes are valid.
@@ -11872,24 +12092,33 @@ var MdChipList = /*@__PURE__*/(function () {
     MdChipList.prototype._isValidIndex = function (index) {
         return index >= 0 && index < this.chips.length;
     };
+    /**
+     * @param {?} element
+     * @return {?}
+     */
+    MdChipList.prototype._isInputEmpty = function (element) {
+        if (element && element.nodeName.toLowerCase() === 'input') {
+            var /** @type {?} */ input = (element);
+            return !input.value;
+        }
+        return false;
+    };
     return MdChipList;
 }());
 MdChipList.decorators = [
     { type: Component, args: [{ selector: 'md-chip-list, mat-chip-list',
                 template: "<div class=\"mat-chip-list-wrapper\"><ng-content></ng-content></div>",
                 host: {
-                    // Properties
                     '[attr.tabindex]': '_tabIndex',
                     'role': 'listbox',
                     'class': 'mat-chip-list',
-                    // Events
                     '(focus)': 'focus()',
                     '(keydown)': '_keydown($event)'
                 },
                 queries: {
                     chips: new ContentChildren(MdChip)
                 },
-                styles: [".mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:flex-start}.mat-chip:not(.mat-basic-chip){display:inline-block;padding:8px 12px 8px 12px;border-radius:24px}.mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 0 0 3px}[dir=rtl] .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 3px 0 0}@media screen and (-ms-high-contrast:active){.mat-chip:not(.mat-basic-chip){outline:solid 1px}}.mat-chip-list-stacked .mat-chip-list-wrapper{display:block}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){display:block;margin:0;margin-bottom:8px}[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){margin:0;margin-bottom:8px}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child,[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-bottom:0}"],
+                styles: [".mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:flex-start}.mat-chip:not(.mat-basic-chip){display:inline-block;padding:8px 12px 8px 12px;border-radius:24px}.mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 0 0 3px}[dir=rtl] .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 3px 0 0}.mat-input-prefix .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip):last-child{margin-right:3px}[dir=rtl] .mat-input-prefix .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip):last-child{margin-left:3px}@media screen and (-ms-high-contrast:active){.mat-chip:not(.mat-basic-chip){outline:solid 1px}}.mat-chip-list-stacked .mat-chip-list-wrapper{display:block}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){display:block;margin:0;margin-bottom:8px}[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){margin:0;margin-bottom:8px}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child,[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-bottom:0}.mat-input-prefix .mat-chip-list-wrapper{margin-bottom:8px}.mat-chip-remove{margin:0 -4px 0 0}"],
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush
             },] },
@@ -11897,9 +12126,157 @@ MdChipList.decorators = [
 /**
  * @nocollapse
  */
-MdChipList.ctorParameters = function () { return []; };
+MdChipList.ctorParameters = function () { return [
+    { type: Renderer2, },
+    { type: ElementRef, },
+    { type: Directionality, decorators: [{ type: Optional },] },
+]; };
 MdChipList.propDecorators = {
     'selectable': [{ type: Input },],
+};
+var MdChipInput = /*@__PURE__*/(function () {
+    /**
+     * @param {?} _elementRef
+     */
+    function MdChipInput(_elementRef) {
+        this._elementRef = _elementRef;
+        this._addOnBlur = false;
+        /**
+         * The list of key codes that will trigger a chipEnd event.
+         *
+         * Defaults to `[ENTER]`.
+         */
+        // TODO(tinayuangao): Support Set here
+        this.separatorKeyCodes = [ENTER];
+        /**
+         * Emitted when a chip is to be added.
+         */
+        this.chipEnd = new EventEmitter();
+        this._inputElement = this._elementRef.nativeElement;
+    }
+    Object.defineProperty(MdChipInput.prototype, "chipList", {
+        /**
+         * Register input for chip list
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            if (value) {
+                this._chipList = value;
+                this._chipList.registerInput(this._inputElement);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdChipInput.prototype, "addOnBlur", {
+        /**
+         * Whether or not the chipEnd event will be emitted when the input is blurred.
+         * @return {?}
+         */
+        get: function () { return this._addOnBlur; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) { this._addOnBlur = coerceBooleanProperty(value); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdChipInput.prototype, "matChipList", {
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) { this.chipList = value; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdChipInput.prototype, "matAddOnBlur", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this._addOnBlur; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) { this.addOnBlur = value; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdChipInput.prototype, "matSeparatorKeyCodes", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this.separatorKeyCodes; },
+        /**
+         * @param {?} v
+         * @return {?}
+         */
+        set: function (v) { this.separatorKeyCodes = v; },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Utility method to make host definition/tests more clear.
+     * @param {?=} event
+     * @return {?}
+     */
+    MdChipInput.prototype._keydown = function (event) {
+        this._emitChipEnd(event);
+    };
+    /**
+     * Checks to see if the blur should emit the (chipEnd) event.
+     * @return {?}
+     */
+    MdChipInput.prototype._blur = function () {
+        if (this.addOnBlur) {
+            this._emitChipEnd();
+        }
+    };
+    /**
+     * Checks to see if the (chipEnd) event needs to be emitted.
+     * @param {?=} event
+     * @return {?}
+     */
+    MdChipInput.prototype._emitChipEnd = function (event) {
+        if (!this._inputElement.value && !!event) {
+            this._chipList._keydown(event);
+        }
+        if (!event || this.separatorKeyCodes.indexOf(event.keyCode) > -1) {
+            this.chipEnd.emit({ input: this._inputElement, value: this._inputElement.value });
+            if (event) {
+                event.preventDefault();
+            }
+        }
+    };
+    return MdChipInput;
+}());
+MdChipInput.decorators = [
+    { type: Directive, args: [{
+                selector: 'input[mdChipInputFor], input[matChipInputFor]',
+                host: {
+                    'class': 'mat-chip-input',
+                    '(keydown)': '_keydown($event)',
+                    '(blur)': '_blur()'
+                }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdChipInput.ctorParameters = function () { return [
+    { type: ElementRef, },
+]; };
+MdChipInput.propDecorators = {
+    'chipList': [{ type: Input, args: ['mdChipInputFor',] },],
+    'addOnBlur': [{ type: Input, args: ['mdChipInputAddOnBlur',] },],
+    'separatorKeyCodes': [{ type: Input, args: ['mdChipInputSeparatorKeyCodes',] },],
+    'chipEnd': [{ type: Output, args: ['mdChipInputTokenEnd',] },],
+    'matChipList': [{ type: Input, args: ['matChipInputFor',] },],
+    'matAddOnBlur': [{ type: Input, args: ['matChipInputAddOnBlur',] },],
+    'matSeparatorKeyCodes': [{ type: Input, args: ['matChipInputSeparatorKeyCodes',] },],
 };
 var MdChipsModule = /*@__PURE__*/(function () {
     function MdChipsModule() {
@@ -11909,8 +12286,8 @@ var MdChipsModule = /*@__PURE__*/(function () {
 MdChipsModule.decorators = [
     { type: NgModule, args: [{
                 imports: [],
-                exports: [MdChipList, MdChip, MdBasicChip],
-                declarations: [MdChipList, MdChip, MdBasicChip]
+                exports: [MdChipList, MdChip, MdChipInput, MdChipRemove, MdChipRemove, MdBasicChip],
+                declarations: [MdChipList, MdChip, MdChipInput, MdChipRemove, MdChipRemove, MdBasicChip]
             },] },
 ];
 /**
@@ -13341,7 +13718,7 @@ var MdPrefix = /*@__PURE__*/(function () {
 }());
 MdPrefix.decorators = [
     { type: Directive, args: [{
-                selector: '[mdPrefix], [matPrefix], [md-prefix]'
+                selector: '[mdPrefix], [matPrefix]'
             },] },
 ];
 /**
@@ -13358,7 +13735,7 @@ var MdSuffix = /*@__PURE__*/(function () {
 }());
 MdSuffix.decorators = [
     { type: Directive, args: [{
-                selector: '[mdSuffix], [matSuffix], [md-suffix]'
+                selector: '[mdSuffix], [matSuffix]'
             },] },
 ];
 /**
@@ -13766,6 +14143,11 @@ var MdInputContainer = /*@__PURE__*/(function () {
         // Re-validate when things change.
         this._hintChildren.changes.subscribe(function () { return _this._processHints(); });
         this._mdInputChild._placeholderChange.subscribe(function () { return _this._validatePlaceholders(); });
+        // Mark for check when the input's value changes to recalculate whether input is empty
+        var /** @type {?} */ control = this._mdInputChild._ngControl;
+        if (control && control.valueChanges) {
+            control.valueChanges.subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        }
     };
     /**
      * @return {?}
@@ -16264,6 +16646,10 @@ var TOUCHEND_HIDE_DELAY = 1500;
  */
 var SCROLL_THROTTLE_MS = 20;
 /**
+ * CSS class that will be attached to the overlay panel.
+ */
+var TOOLTIP_PANEL_CLASS = 'mat-tooltip-panel';
+/**
  * Creates an error to be thrown if the user supplied an invalid tooltip position.
  * @param {?} position
  * @return {?}
@@ -16598,6 +16984,7 @@ var MdTooltip = /*@__PURE__*/(function () {
         var /** @type {?} */ config = new OverlayState();
         config.direction = this._dir ? this._dir.value : 'ltr';
         config.positionStrategy = strategy;
+        config.panelClass = TOOLTIP_PANEL_CLASS;
         config.scrollStrategy = this._overlay.scrollStrategies.reposition({
             scrollThrottle: SCROLL_THROTTLE_MS
         });
@@ -16882,7 +17269,7 @@ var TooltipComponent = /*@__PURE__*/(function () {
 TooltipComponent.decorators = [
     { type: Component, args: [{ selector: 'md-tooltip-component, mat-tooltip-component',
                 template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.done)=\"_afterVisibilityAnimation($event)\">{{message}}</div>",
-                styles: [":host{pointer-events:none}.mat-tooltip{color:#fff;border-radius:2px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}"],
+                styles: [".mat-tooltip-panel{pointer-events:none!important}.mat-tooltip{color:#fff;border-radius:2px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}"],
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 animations: [
@@ -19830,7 +20217,7 @@ var MdDatepickerContent = /*@__PURE__*/(function () {
 MdDatepickerContent.decorators = [
     { type: Component, args: [{ selector: 'md-datepicker-content',
                 template: "<md-calendar cdkTrapFocus [id]=\"datepicker.id\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" (selectedChange)=\"datepicker._selectAndClose($event)\"></md-calendar>",
-                styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block}.mat-calendar{width:296px}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{width:64vmin;height:80vmin;min-width:250px;min-height:312px;max-width:750px;max-height:788px}"],
+                styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block}.mat-calendar{width:296px;height:354px}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{width:64vmin;height:80vmin;min-width:250px;min-height:312px;max-width:750px;max-height:788px}"],
                 host: {
                     'class': 'mat-datepicker-content',
                     '[class.mat-datepicker-content-touch]': 'datepicker.touchUi',
@@ -21878,5 +22265,5 @@ MaterialModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { coerceBooleanProperty, coerceNumberProperty, ObserveContentModule, ObserveContent, Dir, Directionality, BidiModule, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdPaginatorIntl, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MD_SNACK_BAR_DATA, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort, MdTableModule, _MdHeaderCellBase, _MdCell, MdHeaderCell, MdCell, _MdTable, MdTable, _MdHeaderRow, _MdRow, MdHeaderRow, MdRow, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkBase, _MdTabLinkMixinBase, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, getMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, mixinColor as ɵu, mixinDisabled as ɵv, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵh, OVERLAY_CONTAINER_PROVIDER as ɵb, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵa, OverlayPositionBuilder as ɵt, VIEWPORT_RULER_PROVIDER as ɵd, VIEWPORT_RULER_PROVIDER_FACTORY as ɵc, SCROLL_DISPATCHER_PROVIDER as ɵf, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵe, RippleRenderer as ɵg, EXPANSION_PANEL_ANIMATION_TIMING as ɵi, MdGridAvatarCssMatStyler as ɵk, MdGridTileFooterCssMatStyler as ɵm, MdGridTileHeaderCssMatStyler as ɵl, MdGridTileText as ɵj, MdMenuItemBase as ɵn, _MdMenuItemMixinBase as ɵo, MdTabBase as ɵr, _MdTabMixinBase as ɵs, MdTabLabelWrapperBase as ɵp, _MdTabLabelWrapperMixinBase as ɵq };
+export { coerceBooleanProperty, coerceNumberProperty, ObserveContentModule, ObserveContent, Dir, Directionality, BidiModule, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdChipRemove, MdChipInput, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdPaginatorIntl, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MD_SNACK_BAR_DATA, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort, MdTableModule, _MdHeaderCellBase, _MdCell, MdHeaderCell, MdCell, _MdTable, MdTable, _MdHeaderRow, _MdRow, MdHeaderRow, MdRow, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkBase, _MdTabLinkMixinBase, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, mixinColor as ɵu, mixinDisabled as ɵv, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵh, OVERLAY_CONTAINER_PROVIDER as ɵb, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵa, OverlayPositionBuilder as ɵt, VIEWPORT_RULER_PROVIDER as ɵd, VIEWPORT_RULER_PROVIDER_FACTORY as ɵc, SCROLL_DISPATCHER_PROVIDER as ɵf, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵe, RippleRenderer as ɵg, EXPANSION_PANEL_ANIMATION_TIMING as ɵi, MdGridAvatarCssMatStyler as ɵk, MdGridTileFooterCssMatStyler as ɵm, MdGridTileHeaderCssMatStyler as ɵl, MdGridTileText as ɵj, MdMenuItemBase as ɵn, _MdMenuItemMixinBase as ɵo, MdTabBase as ɵr, _MdTabMixinBase as ɵs, MdTabLabelWrapperBase as ɵp, _MdTabLabelWrapperMixinBase as ɵq };
 //# sourceMappingURL=material.es5.js.map

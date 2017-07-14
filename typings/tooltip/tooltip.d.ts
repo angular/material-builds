@@ -17,6 +17,8 @@ export declare type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'be
 export declare const TOUCHEND_HIDE_DELAY = 1500;
 /** Time in ms to throttle repositioning after scroll events. */
 export declare const SCROLL_THROTTLE_MS = 20;
+/** CSS class that will be attached to the overlay panel. */
+export declare const TOOLTIP_PANEL_CLASS = "mat-tooltip-panel";
 /** Creates an error to be thrown if the user supplied an invalid tooltip position. */
 export declare function getMdTooltipInvalidPositionError(position: string): Error;
 /**
