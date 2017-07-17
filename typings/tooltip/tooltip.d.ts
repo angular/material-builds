@@ -5,9 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, ViewContainerRef, NgZone, OnDestroy, Renderer2, ChangeDetectorRef } from '@angular/core';
+import { ElementRef, ViewContainerRef, NgZone, OnDestroy, Renderer2, ChangeDetectorRef, InjectionToken } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
-import { Overlay, OverlayRef, OverlayConnectionPosition, OriginConnectionPosition } from '../core';
+import { Overlay, OverlayRef, OverlayConnectionPosition, OriginConnectionPosition, RepositionScrollStrategy, ScrollStrategy } from '../core';
 import { Observable } from 'rxjs/Observable';
 import { Directionality } from '../core/bidi/index';
 import { Platform } from '../core/platform/index';
@@ -21,6 +21,16 @@ export declare const SCROLL_THROTTLE_MS = 20;
 export declare const TOOLTIP_PANEL_CLASS = "mat-tooltip-panel";
 /** Creates an error to be thrown if the user supplied an invalid tooltip position. */
 export declare function getMdTooltipInvalidPositionError(position: string): Error;
+/** Injection token that determines the scroll handling while a tooltip is visible. */
+export declare const MD_TOOLTIP_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
+/** @docs-private */
+export declare function MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => RepositionScrollStrategy;
+/** @docs-private */
+export declare const MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER: {
+    provide: InjectionToken<() => ScrollStrategy>;
+    deps: typeof Overlay[];
+    useFactory: (overlay: Overlay) => () => RepositionScrollStrategy;
+};
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
@@ -35,6 +45,7 @@ export declare class MdTooltip implements OnDestroy {
     private _ngZone;
     private _renderer;
     private _platform;
+    private _scrollStrategy;
     private _dir;
     _overlayRef: OverlayRef | null;
     _tooltipInstance: TooltipComponent | null;
@@ -70,7 +81,7 @@ export declare class MdTooltip implements OnDestroy {
     };
     private _enterListener;
     private _leaveListener;
-    constructor(_overlay: Overlay, _elementRef: ElementRef, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _renderer: Renderer2, _platform: Platform, _dir: Directionality);
+    constructor(_overlay: Overlay, _elementRef: ElementRef, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _renderer: Renderer2, _platform: Platform, _scrollStrategy: any, _dir: Directionality);
     /**
      * Dispose the tooltip when destroyed.
      */

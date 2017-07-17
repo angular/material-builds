@@ -5,12 +5,22 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { EventEmitter, TemplateRef, ViewContainerRef, OnDestroy, ElementRef, Renderer2, OnChanges, SimpleChanges } from '@angular/core';
+import { EventEmitter, TemplateRef, ViewContainerRef, OnDestroy, ElementRef, Renderer2, OnChanges, SimpleChanges, InjectionToken } from '@angular/core';
 import { Overlay } from './overlay';
 import { OverlayRef } from './overlay-ref';
 import { ConnectionPositionPair, ConnectedOverlayPositionChange } from './position/connected-position';
 import { Directionality, Direction } from '../bidi/index';
-import { ScrollStrategy } from './scroll/scroll-strategy';
+import { ScrollStrategy, RepositionScrollStrategy } from './scroll/index';
+/** Injection token that determines the scroll handling while the connected overlay is open. */
+export declare const MD_CONNECTED_OVERLAY_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
+/** @docs-private */
+export declare function MD_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => RepositionScrollStrategy;
+/** @docs-private */
+export declare const MD_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER: {
+    provide: InjectionToken<() => ScrollStrategy>;
+    deps: typeof Overlay[];
+    useFactory: (overlay: Overlay) => () => RepositionScrollStrategy;
+};
 /**
  * Directive applied to an element to make it usable as an origin for an Overlay using a
  * ConnectedPositionStrategy.
@@ -25,6 +35,7 @@ export declare class OverlayOrigin {
 export declare class ConnectedOverlayDirective implements OnDestroy, OnChanges {
     private _overlay;
     private _renderer;
+    private _scrollStrategy;
     private _dir;
     private _overlayRef;
     private _templatePortal;
@@ -67,7 +78,7 @@ export declare class ConnectedOverlayDirective implements OnDestroy, OnChanges {
     attach: EventEmitter<void>;
     /** Event emitted when the overlay has been detached. */
     detach: EventEmitter<void>;
-    constructor(_overlay: Overlay, _renderer: Renderer2, templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef, _dir: Directionality);
+    constructor(_overlay: Overlay, _renderer: Renderer2, templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef, _scrollStrategy: any, _dir: Directionality);
     /** The associated overlay reference. */
     readonly overlayRef: OverlayRef;
     /** The element's layout direction. */

@@ -5,9 +5,19 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterViewInit, ElementRef, EventEmitter, OnDestroy, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, ElementRef, EventEmitter, OnDestroy, ViewContainerRef, InjectionToken } from '@angular/core';
 import { MdMenuPanel } from './menu-panel';
-import { Directionality, Direction, Overlay } from '../core';
+import { Directionality, Direction, Overlay, RepositionScrollStrategy, ScrollStrategy } from '../core';
+/** Injection token that determines the scroll handling while the menu is open. */
+export declare const MD_MENU_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
+/** @docs-private */
+export declare function MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => RepositionScrollStrategy;
+/** @docs-private */
+export declare const MD_MENU_SCROLL_STRATEGY_PROVIDER: {
+    provide: InjectionToken<() => ScrollStrategy>;
+    deps: typeof Overlay[];
+    useFactory: (overlay: Overlay) => () => RepositionScrollStrategy;
+};
 /**
  * This directive is intended to be used in conjunction with an md-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
@@ -16,6 +26,7 @@ export declare class MdMenuTrigger implements AfterViewInit, OnDestroy {
     private _overlay;
     private _element;
     private _viewContainerRef;
+    private _scrollStrategy;
     private _dir;
     private _portal;
     private _overlayRef;
@@ -34,7 +45,7 @@ export declare class MdMenuTrigger implements AfterViewInit, OnDestroy {
     onMenuOpen: EventEmitter<void>;
     /** Event emitted when the associated menu is closed. */
     onMenuClose: EventEmitter<void>;
-    constructor(_overlay: Overlay, _element: ElementRef, _viewContainerRef: ViewContainerRef, _dir: Directionality);
+    constructor(_overlay: Overlay, _element: ElementRef, _viewContainerRef: ViewContainerRef, _scrollStrategy: any, _dir: Directionality);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Whether the menu is open. */

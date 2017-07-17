@@ -5,9 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, NgZone, OnDestroy, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
+import { ElementRef, NgZone, OnDestroy, ViewContainerRef, ChangeDetectorRef, InjectionToken } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { Overlay } from '../core';
+import { Overlay, RepositionScrollStrategy, ScrollStrategy } from '../core';
 import { MdAutocomplete } from './autocomplete';
 import { Observable } from 'rxjs/Observable';
 import { MdOptionSelectionChange, MdOption } from '../core/option/option';
@@ -22,6 +22,16 @@ import { MdInputContainer } from '../input/input-container';
 export declare const AUTOCOMPLETE_OPTION_HEIGHT = 48;
 /** The total height of the autocomplete panel. */
 export declare const AUTOCOMPLETE_PANEL_HEIGHT = 256;
+/** Injection token that determines the scroll handling while the autocomplete panel is open. */
+export declare const MD_AUTOCOMPLETE_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
+/** @docs-private */
+export declare function MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => RepositionScrollStrategy;
+/** @docs-private */
+export declare const MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER: {
+    provide: InjectionToken<() => ScrollStrategy>;
+    deps: typeof Overlay[];
+    useFactory: (overlay: Overlay) => () => RepositionScrollStrategy;
+};
 /**
  * Provider that allows the autocomplete to register as a ControlValueAccessor.
  * @docs-private
@@ -37,6 +47,7 @@ export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDe
     private _viewContainerRef;
     private _zone;
     private _changeDetectorRef;
+    private _scrollStrategy;
     private _dir;
     private _inputContainer;
     private _document;
@@ -58,7 +69,7 @@ export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDe
     autocomplete: MdAutocomplete;
     /** Property with mat- prefix for no-conflict mode. */
     _matAutocomplete: MdAutocomplete;
-    constructor(_element: ElementRef, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, _inputContainer: MdInputContainer, _document: any);
+    constructor(_element: ElementRef, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, _scrollStrategy: any, _dir: Directionality, _inputContainer: MdInputContainer, _document: any);
     ngOnDestroy(): void;
     readonly panelOpen: boolean;
     /** Opens the autocomplete suggestion panel. */

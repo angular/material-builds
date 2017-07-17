@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentInit, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer2, ChangeDetectorRef, OnInit } from '@angular/core';
+import { AfterContentInit, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer2, ChangeDetectorRef, OnInit, InjectionToken } from '@angular/core';
 import { MdOption, MdOptionSelectionChange, MdOptgroup } from '../core/option/index';
 import { FocusKeyManager } from '../core/a11y/focus-key-manager';
 import { Directionality } from '../core/bidi/index';
@@ -14,9 +14,11 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { ConnectedOverlayDirective } from '../core/overlay/overlay-directives';
 import { ViewportRuler } from '../core/overlay/position/viewport-ruler';
 import { SelectionModel } from '../core/selection/selection';
+import { Overlay } from '../core/overlay/overlay';
 import { CanColor } from '../core/common-behaviors/color';
 import { CanDisable } from '../core/common-behaviors/disabled';
 import { FloatPlaceholderType, PlaceholderOptions } from '../core/placeholder/placeholder-options';
+import { ScrollStrategy, RepositionScrollStrategy } from '../core/overlay/scroll';
 /**
  * The following style constants are necessary to save here in order
  * to properly calculate the alignment of the selected option over
@@ -59,6 +61,16 @@ export declare const SELECT_PANEL_PADDING_Y = 16;
  * this value or more away from the viewport boundary.
  */
 export declare const SELECT_PANEL_VIEWPORT_PADDING = 8;
+/** Injection token that determines the scroll handling while a select is open. */
+export declare const MD_SELECT_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
+/** @docs-private */
+export declare function MD_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => RepositionScrollStrategy;
+/** @docs-private */
+export declare const MD_SELECT_SCROLL_STRATEGY_PROVIDER: {
+    provide: InjectionToken<() => ScrollStrategy>;
+    deps: typeof Overlay[];
+    useFactory: (overlay: Overlay) => () => RepositionScrollStrategy;
+};
 /** Change event object that is emitted when the select value has changed. */
 export declare class MdSelectChange {
     source: MdSelect;
@@ -75,8 +87,10 @@ export declare const _MdSelectMixinBase: (new (...args: any[]) => CanColor) & (n
 export declare class MdSelect extends _MdSelectMixinBase implements AfterContentInit, OnDestroy, OnInit, ControlValueAccessor, CanColor, CanDisable {
     private _viewportRuler;
     private _changeDetectorRef;
+    private _overlay;
     private _dir;
     _control: NgControl;
+    private _scrollStrategyFactory;
     /** Whether or not the overlay panel is open. */
     private _panelOpen;
     /** Subscriptions to option events. */
@@ -123,6 +137,8 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
     _transformOrigin: string;
     /** Whether the panel's animation is done. */
     _panelDoneAnimating: boolean;
+    /** Strategy that will be used to handle scrolling while the select panel is open. */
+    _scrollStrategy: any;
     /**
      * The y-offset of the overlay panel in relation to the trigger's top start corner.
      * This must be adjusted to align the selected option text over the trigger text.
@@ -176,7 +192,7 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
     onClose: EventEmitter<void>;
     /** Event emitted when the selected value has been changed by the user. */
     change: EventEmitter<MdSelectChange>;
-    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef, _dir: Directionality, _control: NgControl, tabIndex: string, placeholderOptions: PlaceholderOptions);
+    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _overlay: Overlay, renderer: Renderer2, elementRef: ElementRef, _dir: Directionality, _control: NgControl, tabIndex: string, placeholderOptions: PlaceholderOptions, _scrollStrategyFactory: any);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

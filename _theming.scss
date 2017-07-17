@@ -1233,8 +1233,8 @@ $mat-menu-side-padding: 16px !default;
 $mat-menu-icon-margin: 16px !default;
 
 
-@mixin mat-menu-base() {
-  @include mat-elevation(8);
+@mixin mat-menu-base($elevation) {
+  @include mat-elevation($elevation);
   min-width: $mat-menu-overlay-min-width;
   max-width: $mat-menu-overlay-max-width;
 
@@ -2139,7 +2139,9 @@ $mat-chip-line-height: 16px;
 }
 
 @mixin mat-table-typography($config) {
-  $font-family: mat-font-family($config);
+  .mat-table {
+    font-family: mat-font-family($config);
+  }
 
   .mat-header-cell {
     font-size: mat-font-size($config, caption);
@@ -2281,6 +2283,55 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 @mixin mat-dialog-typography($config) {
   .mat-dialog-title {
     @include mat-typography-level-to-styles($config, title);
+  }
+}
+
+
+
+
+
+@mixin mat-expansion-panel-theme($theme) {
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  .mat-expansion-panel {
+    background: mat-color($background, card);
+    color: mat-color($foreground, base);
+  }
+
+  .mat-action-row {
+    border-top-color: mat-color($foreground, divider);
+  }
+
+  .mat-expansion-panel-header:focus,
+  .mat-expansion-panel-header:hover {
+    background: mat-color($background, hover);
+  }
+
+  .mat-expansion-panel-header-title {
+    color: mat-color($foreground, text);
+  }
+
+  .mat-expansion-panel-header-description {
+    color: mat-color($foreground, secondary-text);
+  }
+
+  .mat-expansion-indicator::after {
+    color: mat-color($foreground, secondary-text);
+  }
+}
+
+@mixin mat-expansion-panel-typography($config) {
+  .mat-expansion-panel-header {
+    font: {
+      family: mat-font-family($config);
+      size: mat-font-size($config, subheading-1);
+      weight: mat-font-weight($config, subheading-1);
+    }
+  }
+
+  .mat-expansion-panel-content {
+    @include mat-typography-level-to-styles($config, body-1);
   }
 }
 
@@ -2615,7 +2666,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
 
-  .mat-menu-content {
+  .mat-menu-panel {
     background: mat-color($background, 'card');
   }
 
@@ -3391,6 +3442,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
   @include mat-table-typography($config);
   @include mat-datepicker-typography($config);
   @include mat-dialog-typography($config);
+  @include mat-expansion-panel-typography($config);
   @include mat-grid-list-typography($config);
   @include mat-icon-typography($config);
   @include mat-input-typography($config);
@@ -3461,39 +3513,6 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
 
 
 
-
-
-
-@mixin mat-expansion-panel-theme($theme) {
-  $background: map-get($theme, background);
-  $foreground: map-get($theme, foreground);
-
-  .mat-expansion-panel {
-    background: mat-color($background, card);
-    color: mat-color($foreground, base);
-  }
-
-  .mat-action-row {
-    border-top-color: mat-color($foreground, divider);
-  }
-
-  .mat-expansion-panel-header:focus,
-  .mat-expansion-panel-header:hover {
-    background: mat-color($background, hover);
-  }
-
-  .mat-expansion-panel-header-title {
-    color: mat-color($foreground, text);
-  }
-
-  .mat-expansion-panel-header-description {
-    color: mat-color($foreground, secondary-text);
-  }
-
-  .mat-expansion-indicator::after {
-    color: mat-color($foreground, secondary-text);
-  }
-}
 
 
 

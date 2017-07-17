@@ -2894,6 +2894,26 @@ var defaultPositionList = [
     new ConnectionPositionPair({ originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' }),
 ];
 /**
+ * Injection token that determines the scroll handling while the connected overlay is open.
+ */
+var MD_CONNECTED_OVERLAY_SCROLL_STRATEGY = new InjectionToken('md-connected-overlay-scroll-strategy');
+/**
+ * \@docs-private
+ * @param {?} overlay
+ * @return {?}
+ */
+function MD_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
+    return function () { return overlay.scrollStrategies.reposition(); };
+}
+/**
+ * \@docs-private
+ */
+var MD_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER = {
+    provide: MD_CONNECTED_OVERLAY_SCROLL_STRATEGY,
+    deps: [Overlay],
+    useFactory: MD_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY,
+};
+/**
  * Directive applied to an element to make it usable as an origin for an Overlay using a
  * ConnectedPositionStrategy.
  */
@@ -2927,11 +2947,13 @@ var ConnectedOverlayDirective = /*@__PURE__*/(function () {
      * @param {?} _renderer
      * @param {?} templateRef
      * @param {?} viewContainerRef
+     * @param {?} _scrollStrategy
      * @param {?} _dir
      */
-    function ConnectedOverlayDirective(_overlay, _renderer, templateRef, viewContainerRef, _dir) {
+    function ConnectedOverlayDirective(_overlay, _renderer, templateRef, viewContainerRef, _scrollStrategy, _dir) {
         this._overlay = _overlay;
         this._renderer = _renderer;
+        this._scrollStrategy = _scrollStrategy;
         this._dir = _dir;
         this._hasBackdrop = false;
         this._offsetX = 0;
@@ -2939,7 +2961,7 @@ var ConnectedOverlayDirective = /*@__PURE__*/(function () {
         /**
          * Strategy to be used when handling scroll events while the overlay is open.
          */
-        this.scrollStrategy = this._overlay.scrollStrategies.reposition();
+        this.scrollStrategy = this._scrollStrategy();
         /**
          * Whether the overlay is open.
          */
@@ -3208,6 +3230,7 @@ ConnectedOverlayDirective.ctorParameters = function () { return [
     { type: Renderer2, },
     { type: TemplateRef, },
     { type: ViewContainerRef, },
+    { type: undefined, decorators: [{ type: Inject, args: [MD_CONNECTED_OVERLAY_SCROLL_STRATEGY,] },] },
     { type: Directionality, decorators: [{ type: Optional },] },
 ]; };
 ConnectedOverlayDirective.propDecorators = {
@@ -3306,6 +3329,7 @@ var OVERLAY_PROVIDERS = [
     OverlayPositionBuilder,
     VIEWPORT_RULER_PROVIDER,
     OVERLAY_CONTAINER_PROVIDER,
+    MD_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER,
 ];
 var OverlayModule = /*@__PURE__*/(function () {
     function OverlayModule() {
@@ -6939,6 +6963,26 @@ var SELECT_PANEL_PADDING_Y = 16;
  */
 var SELECT_PANEL_VIEWPORT_PADDING = 8;
 /**
+ * Injection token that determines the scroll handling while a select is open.
+ */
+var MD_SELECT_SCROLL_STRATEGY = new InjectionToken('md-select-scroll-strategy');
+/**
+ * \@docs-private
+ * @param {?} overlay
+ * @return {?}
+ */
+function MD_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
+    return function () { return overlay.scrollStrategies.reposition(); };
+}
+/**
+ * \@docs-private
+ */
+var MD_SELECT_SCROLL_STRATEGY_PROVIDER = {
+    provide: MD_SELECT_SCROLL_STRATEGY,
+    deps: [Overlay],
+    useFactory: MD_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY,
+};
+/**
  * Change event object that is emitted when the select value has changed.
  */
 var MdSelectChange = /*@__PURE__*/(function () {
@@ -6972,19 +7016,23 @@ var MdSelect = /*@__PURE__*/(function (_super) {
     /**
      * @param {?} _viewportRuler
      * @param {?} _changeDetectorRef
+     * @param {?} _overlay
      * @param {?} renderer
      * @param {?} elementRef
      * @param {?} _dir
      * @param {?} _control
      * @param {?} tabIndex
      * @param {?} placeholderOptions
+     * @param {?} _scrollStrategyFactory
      */
-    function MdSelect(_viewportRuler, _changeDetectorRef, renderer, elementRef, _dir, _control, tabIndex, placeholderOptions) {
+    function MdSelect(_viewportRuler, _changeDetectorRef, _overlay, renderer, elementRef, _dir, _control, tabIndex, placeholderOptions, _scrollStrategyFactory) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._viewportRuler = _viewportRuler;
         _this._changeDetectorRef = _changeDetectorRef;
+        _this._overlay = _overlay;
         _this._dir = _dir;
         _this._control = _control;
+        _this._scrollStrategyFactory = _scrollStrategyFactory;
         /**
          * Whether or not the overlay panel is open.
          */
@@ -7025,6 +7073,10 @@ var MdSelect = /*@__PURE__*/(function (_super) {
          * Whether the panel's animation is done.
          */
         _this._panelDoneAnimating = false;
+        /**
+         * Strategy that will be used to handle scrolling while the select panel is open.
+         */
+        _this._scrollStrategy = _this._scrollStrategyFactory();
         /**
          * The y-offset of the overlay panel in relation to the trigger's top start corner.
          * This must be adjusted to align the selected option text over the trigger text.
@@ -7973,8 +8025,8 @@ var MdSelect = /*@__PURE__*/(function (_super) {
 }(_MdSelectMixinBase));
 MdSelect.decorators = [
     { type: Component, args: [{ selector: 'md-select, mat-select',
-                template: "<div cdk-overlay-origin class=\"mat-select-trigger\" aria-hidden=\"true\" (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><span class=\"mat-select-placeholder\" [class.mat-floating-placeholder]=\"_hasValue()\" [@transformPlaceholder]=\"_getPlaceholderAnimationState()\" [style.opacity]=\"_getPlaceholderOpacity()\" [style.width.px]=\"_selectedValueWidth\">{{ placeholder }} </span><span class=\"mat-select-value\" *ngIf=\"_hasValue()\"><span class=\"mat-select-value-text\">{{ triggerValue }}</span> </span><span class=\"mat-select-arrow\"></span> <span class=\"mat-select-underline\"></span></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div class=\"mat-select-panel {{ 'mat-' + color }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_handlePanelKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
-                styles: [".mat-select{display:inline-block;outline:0}.mat-select-trigger{display:flex;align-items:center;height:30px;min-width:112px;cursor:pointer;position:relative;box-sizing:border-box}[aria-disabled=true] .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-underline{position:absolute;bottom:0;left:0;right:0;height:1px}[aria-disabled=true] .mat-select-underline{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;background-color:transparent;background-position:0 bottom}.mat-select-placeholder{position:relative;padding:0 2px;transform-origin:left top;flex-grow:1}.mat-select-placeholder.mat-floating-placeholder{top:-22px;left:-2px;text-align:left;transform:scale(.75)}[dir=rtl] .mat-select-placeholder{transform-origin:right top}[dir=rtl] .mat-select-placeholder.mat-floating-placeholder{left:2px;text-align:right}.mat-select-required .mat-select-placeholder::after{content:'*'}.mat-select-value{position:absolute;max-width:calc(100% - 18px);flex-grow:1;top:0;left:0;bottom:0;display:flex;align-items:center}[dir=rtl] .mat-select-value{left:auto;right:0}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:30px}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}}"],
+                template: "<div cdk-overlay-origin class=\"mat-select-trigger\" aria-hidden=\"true\" (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><span class=\"mat-select-placeholder\" [class.mat-floating-placeholder]=\"_hasValue()\" [@transformPlaceholder]=\"_getPlaceholderAnimationState()\" [style.opacity]=\"_getPlaceholderOpacity()\" [style.width.px]=\"_selectedValueWidth\">{{ placeholder }} </span><span class=\"mat-select-value\" *ngIf=\"_hasValue()\"><span class=\"mat-select-value-text\">{{ triggerValue }}</span> </span><span class=\"mat-select-arrow\"></span> <span class=\"mat-select-underline\"></span></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [scrollStrategy]=\"_scrollStrategy\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerWidth\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div class=\"mat-select-panel {{ 'mat-' + color }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_handlePanelKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
+                styles: [".mat-select{display:inline-block;outline:0}.mat-select-trigger{display:flex;align-items:center;height:30px;min-width:112px;cursor:pointer;position:relative;box-sizing:border-box}.mat-select-disabled .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-underline{position:absolute;bottom:0;left:0;right:0;height:1px}.mat-select:focus .mat-select-underline{height:2px}.mat-select-disabled .mat-select-underline{background-image:linear-gradient(to right,rgba(0,0,0,.26) 0,rgba(0,0,0,.26) 33%,transparent 0);background-size:4px 1px;background-repeat:repeat-x;background-color:transparent;background-position:0 bottom}.mat-select-placeholder{position:relative;padding:0 2px;transform-origin:left top;flex-grow:1}.mat-select-placeholder.mat-floating-placeholder{top:-22px;left:-2px;text-align:left;transform:scale(.75)}[dir=rtl] .mat-select-placeholder{transform-origin:right top}[dir=rtl] .mat-select-placeholder.mat-floating-placeholder{left:2px;text-align:right}.mat-select-required .mat-select-placeholder::after{content:'*'}.mat-select-value{position:absolute;max-width:calc(100% - 18px);flex-grow:1;top:0;left:0;bottom:0;display:flex;align-items:center}[dir=rtl] .mat-select-value{left:auto;right:0}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:30px}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}}"],
                 inputs: ['color', 'disabled'],
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
@@ -8007,12 +8059,14 @@ MdSelect.decorators = [
 MdSelect.ctorParameters = function () { return [
     { type: ViewportRuler, },
     { type: ChangeDetectorRef, },
+    { type: Overlay, },
     { type: Renderer2, },
     { type: ElementRef, },
     { type: Directionality, decorators: [{ type: Optional },] },
     { type: NgControl, decorators: [{ type: Self }, { type: Optional },] },
     { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MD_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [MD_SELECT_SCROLL_STRATEGY,] },] },
 ]; };
 MdSelect.propDecorators = {
     'trigger': [{ type: ViewChild, args: ['trigger',] },],
@@ -8056,6 +8110,7 @@ MdSelectModule.decorators = [
                 ],
                 exports: [MdSelect, MdOptionModule, MdCommonModule],
                 declarations: [MdSelect],
+                providers: [MD_SELECT_SCROLL_STRATEGY_PROVIDER]
             },] },
 ];
 /**
@@ -16658,6 +16713,26 @@ function getMdTooltipInvalidPositionError(position) {
     return Error("Tooltip position \"" + position + "\" is invalid.");
 }
 /**
+ * Injection token that determines the scroll handling while a tooltip is visible.
+ */
+var MD_TOOLTIP_SCROLL_STRATEGY = new InjectionToken('md-tooltip-scroll-strategy');
+/**
+ * \@docs-private
+ * @param {?} overlay
+ * @return {?}
+ */
+function MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
+    return function () { return overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }); };
+}
+/**
+ * \@docs-private
+ */
+var MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
+    provide: MD_TOOLTIP_SCROLL_STRATEGY,
+    deps: [Overlay],
+    useFactory: MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY
+};
+/**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
  *
@@ -16672,9 +16747,10 @@ var MdTooltip = /*@__PURE__*/(function () {
      * @param {?} _ngZone
      * @param {?} _renderer
      * @param {?} _platform
+     * @param {?} _scrollStrategy
      * @param {?} _dir
      */
-    function MdTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _renderer, _platform, _dir) {
+    function MdTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _renderer, _platform, _scrollStrategy, _dir) {
         var _this = this;
         this._overlay = _overlay;
         this._elementRef = _elementRef;
@@ -16683,6 +16759,7 @@ var MdTooltip = /*@__PURE__*/(function () {
         this._ngZone = _ngZone;
         this._renderer = _renderer;
         this._platform = _platform;
+        this._scrollStrategy = _scrollStrategy;
         this._dir = _dir;
         this._position = 'below';
         this._disabled = false;
@@ -16985,9 +17062,7 @@ var MdTooltip = /*@__PURE__*/(function () {
         config.direction = this._dir ? this._dir.value : 'ltr';
         config.positionStrategy = strategy;
         config.panelClass = TOOLTIP_PANEL_CLASS;
-        config.scrollStrategy = this._overlay.scrollStrategies.reposition({
-            scrollThrottle: SCROLL_THROTTLE_MS
-        });
+        config.scrollStrategy = this._scrollStrategy();
         this._overlayRef = this._overlay.create(config);
         return this._overlayRef;
     };
@@ -17100,6 +17175,7 @@ MdTooltip.ctorParameters = function () { return [
     { type: NgZone, },
     { type: Renderer2, },
     { type: Platform, },
+    { type: undefined, decorators: [{ type: Inject, args: [MD_TOOLTIP_SCROLL_STRATEGY,] },] },
     { type: Directionality, decorators: [{ type: Optional },] },
 ]; };
 MdTooltip.propDecorators = {
@@ -17313,6 +17389,7 @@ MdTooltipModule.decorators = [
                 exports: [MdTooltip, TooltipComponent, MdCommonModule],
                 declarations: [MdTooltip, TooltipComponent],
                 entryComponents: [TooltipComponent],
+                providers: [MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER],
             },] },
 ];
 /**
@@ -17438,20 +17515,20 @@ MdMenuItem.ctorParameters = function () { return [
  */
 // TODO(kara): switch to :enter and :leave once Mobile Safari is sorted out.
 var transformMenu = trigger('transformMenu', [
-    state('showing', style({
-        opacity: 1,
-        transform: "scale(1)"
+    state('void', style({
+        opacity: 0,
+        transform: 'scale(0, 0)'
     })),
-    transition('void => *', [
-        style({
-            opacity: 0,
-            transform: "scale(0)"
-        }),
-        animate("200ms cubic-bezier(0.25, 0.8, 0.25, 1)")
-    ]),
-    transition('* => void', [
-        animate('50ms 100ms linear', style({ opacity: 0 }))
-    ])
+    state('enter-start', style({
+        opacity: 1,
+        transform: "scale(1, 0.5)"
+    })),
+    state('enter', style({
+        transform: 'scale(1, 1)'
+    })),
+    transition('void => enter-start', animate('100ms linear')),
+    transition('enter-start => enter', animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
+    transition('* => void', animate('150ms 50ms linear', style({ opacity: 0 })))
 ]);
 /**
  * This animation fades in the background color and content of the menu panel
@@ -17461,7 +17538,7 @@ var fadeInItems = trigger('fadeInItems', [
     state('showing', style({ opacity: 1 })),
     transition('void => *', [
         style({ opacity: 0 }),
-        animate("200ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)")
+        animate("400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)")
     ])
 ]);
 var MdMenu = /*@__PURE__*/(function () {
@@ -17476,6 +17553,10 @@ var MdMenu = /*@__PURE__*/(function () {
          * Config object to be passed into the menu's ngClass
          */
         this._classList = {};
+        /**
+         * Current state of the panel animation.
+         */
+        this._panelAnimationState = 'void';
         /**
          * Whether the menu should overlap its trigger.
          */
@@ -17609,12 +17690,37 @@ var MdMenu = /*@__PURE__*/(function () {
         this._classList['mat-menu-above'] = posY === 'above';
         this._classList['mat-menu-below'] = posY === 'below';
     };
+    /**
+     * Starts the enter animation.
+     * @return {?}
+     */
+    MdMenu.prototype._startAnimation = function () {
+        this._panelAnimationState = 'enter-start';
+    };
+    /**
+     * Resets the panel animation to its initial state.
+     * @return {?}
+     */
+    MdMenu.prototype._resetAnimation = function () {
+        this._panelAnimationState = 'void';
+    };
+    /**
+     * Callback that is invoked when the panel animation completes.
+     * @param {?} event
+     * @return {?}
+     */
+    MdMenu.prototype._onAnimationDone = function (event) {
+        // After the initial expansion is done, trigger the second phase of the enter animation.
+        if (event.toState === 'enter-start') {
+            this._panelAnimationState = 'enter';
+        }
+    };
     return MdMenu;
 }());
 MdMenu.decorators = [
     { type: Component, args: [{ selector: 'md-menu, mat-menu',
-                template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"_emitCloseEvent()\" [@transformMenu]=\"'showing'\" role=\"menu\"><div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></ng-template>",
-                styles: [".mat-menu-panel{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}button.mat-menu-item{width:100%}.mat-menu-ripple{position:absolute;top:0;left:0;bottom:0;right:0}"],
+                template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"_emitCloseEvent()\" [@transformMenu]=\"_panelAnimationState\" (@transformMenu.done)=\"_onAnimationDone($event)\" role=\"menu\"><div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></ng-template>",
+                styles: [".mat-menu-panel{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}button.mat-menu-item{width:100%}.mat-menu-ripple{position:absolute;top:0;left:0;bottom:0;right:0}"],
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
                 animations: [
@@ -17640,6 +17746,26 @@ MdMenu.propDecorators = {
     'close': [{ type: Output },],
 };
 /**
+ * Injection token that determines the scroll handling while the menu is open.
+ */
+var MD_MENU_SCROLL_STRATEGY = new InjectionToken('md-menu-scroll-strategy');
+/**
+ * \@docs-private
+ * @param {?} overlay
+ * @return {?}
+ */
+function MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
+    return function () { return overlay.scrollStrategies.reposition(); };
+}
+/**
+ * \@docs-private
+ */
+var MD_MENU_SCROLL_STRATEGY_PROVIDER = {
+    provide: MD_MENU_SCROLL_STRATEGY,
+    deps: [Overlay],
+    useFactory: MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY,
+};
+/**
  * This directive is intended to be used in conjunction with an md-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
  */
@@ -17648,12 +17774,14 @@ var MdMenuTrigger = /*@__PURE__*/(function () {
      * @param {?} _overlay
      * @param {?} _element
      * @param {?} _viewContainerRef
+     * @param {?} _scrollStrategy
      * @param {?} _dir
      */
-    function MdMenuTrigger(_overlay, _element, _viewContainerRef, _dir) {
+    function MdMenuTrigger(_overlay, _element, _viewContainerRef, _scrollStrategy, _dir) {
         this._overlay = _overlay;
         this._element = _element;
         this._viewContainerRef = _viewContainerRef;
+        this._scrollStrategy = _scrollStrategy;
         this._dir = _dir;
         this._overlayRef = null;
         this._menuOpen = false;
@@ -17745,6 +17873,9 @@ var MdMenuTrigger = /*@__PURE__*/(function () {
             this._createOverlay().attach(this._portal);
             this._subscribeToBackdrop();
             this._initMenu();
+            if (this.menu instanceof MdMenu) {
+                this.menu._startAnimation();
+            }
         }
     };
     /**
@@ -17756,6 +17887,9 @@ var MdMenuTrigger = /*@__PURE__*/(function () {
             this._overlayRef.detach();
             this._backdropSubscription.unsubscribe();
             this._resetMenu();
+            if (this.menu instanceof MdMenu) {
+                this.menu._resetAnimation();
+            }
         }
     };
     /**
@@ -17873,7 +18007,7 @@ var MdMenuTrigger = /*@__PURE__*/(function () {
         overlayState.hasBackdrop = true;
         overlayState.backdropClass = 'cdk-overlay-transparent-backdrop';
         overlayState.direction = this.dir;
-        overlayState.scrollStrategy = this._overlay.scrollStrategies.reposition();
+        overlayState.scrollStrategy = this._scrollStrategy();
         return overlayState;
     };
     /**
@@ -17951,6 +18085,7 @@ MdMenuTrigger.ctorParameters = function () { return [
     { type: Overlay, },
     { type: ElementRef, },
     { type: ViewContainerRef, },
+    { type: undefined, decorators: [{ type: Inject, args: [MD_MENU_SCROLL_STRATEGY,] },] },
     { type: Directionality, decorators: [{ type: Optional },] },
 ]; };
 MdMenuTrigger.propDecorators = {
@@ -17976,6 +18111,7 @@ MdMenuModule.decorators = [
                 ],
                 exports: [MdMenu, MdMenuItem, MdMenuTrigger, MdCommonModule],
                 declarations: [MdMenu, MdMenuItem, MdMenuTrigger],
+                providers: [MD_MENU_SCROLL_STRATEGY_PROVIDER],
             },] },
 ];
 /**
@@ -18284,19 +18420,41 @@ MdDialogContainer.propDecorators = {
 };
 var MD_DIALOG_DATA = new InjectionToken('MdDialogData');
 /**
+ * Injection token that determines the scroll handling while the dialog is open.
+ */
+var MD_DIALOG_SCROLL_STRATEGY = new InjectionToken('md-dialog-scroll-strategy');
+/**
+ * \@docs-private
+ * @param {?} overlay
+ * @return {?}
+ */
+function MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
+    return function () { return overlay.scrollStrategies.block(); };
+}
+/**
+ * \@docs-private
+ */
+var MD_DIALOG_SCROLL_STRATEGY_PROVIDER = {
+    provide: MD_DIALOG_SCROLL_STRATEGY,
+    deps: [Overlay],
+    useFactory: MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY,
+};
+/**
  * Service to open Material Design modal dialogs.
  */
 var MdDialog = /*@__PURE__*/(function () {
     /**
      * @param {?} _overlay
      * @param {?} _injector
+     * @param {?} _scrollStrategy
      * @param {?} _location
      * @param {?} _parentDialog
      */
-    function MdDialog(_overlay, _injector, _location, _parentDialog) {
+    function MdDialog(_overlay, _injector, _scrollStrategy, _location, _parentDialog) {
         var _this = this;
         this._overlay = _overlay;
         this._injector = _injector;
+        this._scrollStrategy = _scrollStrategy;
         this._location = _location;
         this._parentDialog = _parentDialog;
         this._openDialogsAtThisLevel = [];
@@ -18406,7 +18564,7 @@ var MdDialog = /*@__PURE__*/(function () {
         var /** @type {?} */ overlayState = new OverlayState();
         overlayState.panelClass = dialogConfig.panelClass;
         overlayState.hasBackdrop = dialogConfig.hasBackdrop;
-        overlayState.scrollStrategy = this._overlay.scrollStrategies.block();
+        overlayState.scrollStrategy = this._scrollStrategy();
         overlayState.direction = dialogConfig.direction;
         if (dialogConfig.backdropClass) {
             overlayState.backdropClass = dialogConfig.backdropClass;
@@ -18518,6 +18676,7 @@ MdDialog.decorators = [
 MdDialog.ctorParameters = function () { return [
     { type: Overlay, },
     { type: Injector, },
+    { type: undefined, decorators: [{ type: Inject, args: [MD_DIALOG_SCROLL_STRATEGY,] },] },
     { type: Location, decorators: [{ type: Optional },] },
     { type: MdDialog, decorators: [{ type: Optional }, { type: SkipSelf },] },
 ]; };
@@ -18691,6 +18850,7 @@ MdDialogModule.decorators = [
                 ],
                 providers: [
                     MdDialog,
+                    MD_DIALOG_SCROLL_STRATEGY_PROVIDER,
                 ],
                 entryComponents: [MdDialogContainer],
             },] },
@@ -18835,6 +18995,26 @@ var AUTOCOMPLETE_OPTION_HEIGHT = 48;
  */
 var AUTOCOMPLETE_PANEL_HEIGHT = 256;
 /**
+ * Injection token that determines the scroll handling while the autocomplete panel is open.
+ */
+var MD_AUTOCOMPLETE_SCROLL_STRATEGY = new InjectionToken('md-autocomplete-scroll-strategy');
+/**
+ * \@docs-private
+ * @param {?} overlay
+ * @return {?}
+ */
+function MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
+    return function () { return overlay.scrollStrategies.reposition(); };
+}
+/**
+ * \@docs-private
+ */
+var MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER = {
+    provide: MD_AUTOCOMPLETE_SCROLL_STRATEGY,
+    deps: [Overlay],
+    useFactory: MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY,
+};
+/**
  * Provider that allows the autocomplete to register as a ControlValueAccessor.
  * \@docs-private
  */
@@ -18859,16 +19039,18 @@ var MdAutocompleteTrigger = /*@__PURE__*/(function () {
      * @param {?} _viewContainerRef
      * @param {?} _zone
      * @param {?} _changeDetectorRef
+     * @param {?} _scrollStrategy
      * @param {?} _dir
      * @param {?} _inputContainer
      * @param {?} _document
      */
-    function MdAutocompleteTrigger(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, _dir, _inputContainer, _document) {
+    function MdAutocompleteTrigger(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, _scrollStrategy, _dir, _inputContainer, _document) {
         this._element = _element;
         this._overlay = _overlay;
         this._viewContainerRef = _viewContainerRef;
         this._zone = _zone;
         this._changeDetectorRef = _changeDetectorRef;
+        this._scrollStrategy = _scrollStrategy;
         this._dir = _dir;
         this._inputContainer = _inputContainer;
         this._document = _document;
@@ -19226,7 +19408,7 @@ var MdAutocompleteTrigger = /*@__PURE__*/(function () {
         overlayState.positionStrategy = this._getOverlayPosition();
         overlayState.width = this._getHostWidth();
         overlayState.direction = this._dir ? this._dir.value : 'ltr';
-        overlayState.scrollStrategy = this._overlay.scrollStrategies.reposition();
+        overlayState.scrollStrategy = this._scrollStrategy();
         return overlayState;
     };
     /**
@@ -19307,6 +19489,7 @@ MdAutocompleteTrigger.ctorParameters = function () { return [
     { type: ViewContainerRef, },
     { type: NgZone, },
     { type: ChangeDetectorRef, },
+    { type: undefined, decorators: [{ type: Inject, args: [MD_AUTOCOMPLETE_SCROLL_STRATEGY,] },] },
     { type: Directionality, decorators: [{ type: Optional },] },
     { type: MdInputContainer, decorators: [{ type: Optional }, { type: Host },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
@@ -19325,6 +19508,7 @@ MdAutocompleteModule.decorators = [
                 imports: [MdOptionModule, OverlayModule, MdCommonModule, CommonModule],
                 exports: [MdAutocomplete, MdOptionModule, MdAutocompleteTrigger, MdCommonModule],
                 declarations: [MdAutocomplete, MdAutocompleteTrigger],
+                providers: [MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER],
             },] },
 ];
 /**
@@ -20186,6 +20370,26 @@ MdCalendar.propDecorators = {
  */
 var datepickerUid = 0;
 /**
+ * Injection token that determines the scroll handling while the calendar is open.
+ */
+var MD_DATEPICKER_SCROLL_STRATEGY = new InjectionToken('md-datepicker-scroll-strategy');
+/**
+ * \@docs-private
+ * @param {?} overlay
+ * @return {?}
+ */
+function MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
+    return function () { return overlay.scrollStrategies.reposition(); };
+}
+/**
+ * \@docs-private
+ */
+var MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER = {
+    provide: MD_DATEPICKER_SCROLL_STRATEGY,
+    deps: [Overlay],
+    useFactory: MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY,
+};
+/**
  * Component used as the content for the datepicker dialog and popup. We use this instead of using
  * MdCalendar directly as the content so we can control the initial focus. This also gives us a
  * place to put additional features of the popup that are not part of the calendar itself in the
@@ -20243,15 +20447,17 @@ var MdDatepicker = /*@__PURE__*/(function () {
      * @param {?} _overlay
      * @param {?} _ngZone
      * @param {?} _viewContainerRef
+     * @param {?} _scrollStrategy
      * @param {?} _dateAdapter
      * @param {?} _dir
      * @param {?} _document
      */
-    function MdDatepicker(_dialog, _overlay, _ngZone, _viewContainerRef, _dateAdapter, _dir, _document) {
+    function MdDatepicker(_dialog, _overlay, _ngZone, _viewContainerRef, _scrollStrategy, _dateAdapter, _dir, _document) {
         this._dialog = _dialog;
         this._overlay = _overlay;
         this._ngZone = _ngZone;
         this._viewContainerRef = _viewContainerRef;
+        this._scrollStrategy = _scrollStrategy;
         this._dateAdapter = _dateAdapter;
         this._dir = _dir;
         this._document = _document;
@@ -20479,7 +20685,7 @@ var MdDatepicker = /*@__PURE__*/(function () {
         overlayState.hasBackdrop = true;
         overlayState.backdropClass = 'md-overlay-transparent-backdrop';
         overlayState.direction = this._dir ? this._dir.value : 'ltr';
-        overlayState.scrollStrategy = this._overlay.scrollStrategies.reposition();
+        overlayState.scrollStrategy = this._scrollStrategy();
         this._popupRef = this._overlay.create(overlayState);
     };
     /**
@@ -20509,6 +20715,7 @@ MdDatepicker.ctorParameters = function () { return [
     { type: Overlay, },
     { type: NgZone, },
     { type: ViewContainerRef, },
+    { type: undefined, decorators: [{ type: Inject, args: [MD_DATEPICKER_SCROLL_STRATEGY,] },] },
     { type: DateAdapter, decorators: [{ type: Optional },] },
     { type: Directionality, decorators: [{ type: Optional },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
@@ -20946,6 +21153,7 @@ MdDatepickerModule.decorators = [
                 ],
                 providers: [
                     MdDatepickerIntl,
+                    MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER,
                 ],
                 entryComponents: [
                     MdDatepickerContent,
@@ -21363,7 +21571,7 @@ var MdExpansionPanelHeader = /*@__PURE__*/(function () {
 }());
 MdExpansionPanelHeader.decorators = [
     { type: Component, args: [{ selector: 'md-expansion-panel-header, mat-expansion-panel-header',
-                styles: [".mat-expansion-panel-header{cursor:pointer;display:flex;flex-direction:row;height:48px;line-height:48px;padding:0 24px}.mat-expansion-panel-header.mat-expanded{height:64px;line-height:64px}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-title{display:flex;flex-grow:1;font-size:15px;margin-right:16px}.mat-expansion-panel-header-description{display:flex;flex-grow:2;font-size:15px;margin-right:16px}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:'';display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}"],
+                styles: [".mat-expansion-panel-header{cursor:pointer;display:flex;flex-direction:row;height:48px;line-height:48px;padding:0 24px}.mat-expansion-panel-header.mat-expanded{height:64px;line-height:64px}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-title{display:flex;flex-grow:1;margin-right:16px}.mat-expansion-panel-header-description{display:flex;flex-grow:2;margin-right:16px}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:'';display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}"],
                 template: "<span class=\"mat-content\"><ng-content select=\"md-panel-title, mat-panel-title\"></ng-content><ng-content select=\"md-panel-description, mat-panel-description\"></ng-content><ng-content></ng-content></span><span [@indicatorRotate]=\"_getExpandedState()\" *ngIf=\"!_getHideToggle()\" class=\"mat-expansion-indicator\"></span>",
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22265,5 +22473,5 @@ MaterialModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { coerceBooleanProperty, coerceNumberProperty, ObserveContentModule, ObserveContent, Dir, Directionality, BidiModule, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdChipRemove, MdChipInput, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdPaginatorIntl, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MD_SNACK_BAR_DATA, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort, MdTableModule, _MdHeaderCellBase, _MdCell, MdHeaderCell, MdCell, _MdTable, MdTable, _MdHeaderRow, _MdRow, MdHeaderRow, MdRow, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkBase, _MdTabLinkMixinBase, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMdTooltipInvalidPositionError, MdTooltip, TooltipComponent, mixinColor as ɵu, mixinDisabled as ɵv, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵh, OVERLAY_CONTAINER_PROVIDER as ɵb, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵa, OverlayPositionBuilder as ɵt, VIEWPORT_RULER_PROVIDER as ɵd, VIEWPORT_RULER_PROVIDER_FACTORY as ɵc, SCROLL_DISPATCHER_PROVIDER as ɵf, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵe, RippleRenderer as ɵg, EXPANSION_PANEL_ANIMATION_TIMING as ɵi, MdGridAvatarCssMatStyler as ɵk, MdGridTileFooterCssMatStyler as ɵm, MdGridTileHeaderCssMatStyler as ɵl, MdGridTileText as ɵj, MdMenuItemBase as ɵn, _MdMenuItemMixinBase as ɵo, MdTabBase as ɵr, _MdTabMixinBase as ɵs, MdTabLabelWrapperBase as ɵp, _MdTabLabelWrapperMixinBase as ɵq };
+export { coerceBooleanProperty, coerceNumberProperty, ObserveContentModule, ObserveContent, Dir, Directionality, BidiModule, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckboxBase, _MdPseudoCheckboxBase, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_SCROLL_STRATEGY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdChipRemove, MdChipInput, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MD_DATEPICKER_SCROLL_STRATEGY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MD_DIALOG_SCROLL_STRATEGY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdPaginatorIntl, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MD_SELECT_SCROLL_STRATEGY, MD_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_SELECT_SCROLL_STRATEGY_PROVIDER, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, SliderRenderer, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MD_SNACK_BAR_DATA, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort, MdTableModule, _MdHeaderCellBase, _MdCell, MdHeaderCell, MdCell, _MdTable, MdTable, _MdHeaderRow, _MdRow, MdHeaderRow, MdRow, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroup, MdTabLinkBase, _MdTabLinkMixinBase, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMdTooltipInvalidPositionError, MD_TOOLTIP_SCROLL_STRATEGY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MdTooltip, TooltipComponent, mixinColor as ɵba, mixinDisabled as ɵbb, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵk, OVERLAY_CONTAINER_PROVIDER as ɵb, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵa, MD_CONNECTED_OVERLAY_SCROLL_STRATEGY as ɵc, MD_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER as ɵe, MD_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵd, OverlayPositionBuilder as ɵz, VIEWPORT_RULER_PROVIDER as ɵg, VIEWPORT_RULER_PROVIDER_FACTORY as ɵf, SCROLL_DISPATCHER_PROVIDER as ɵi, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵh, RippleRenderer as ɵj, EXPANSION_PANEL_ANIMATION_TIMING as ɵl, MdGridAvatarCssMatStyler as ɵn, MdGridTileFooterCssMatStyler as ɵp, MdGridTileHeaderCssMatStyler as ɵo, MdGridTileText as ɵm, MdMenuItemBase as ɵq, _MdMenuItemMixinBase as ɵr, MD_MENU_SCROLL_STRATEGY as ɵs, MD_MENU_SCROLL_STRATEGY_PROVIDER as ɵu, MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵt, MdTabBase as ɵx, _MdTabMixinBase as ɵy, MdTabLabelWrapperBase as ɵv, _MdTabLabelWrapperMixinBase as ɵw };
 //# sourceMappingURL=material.es5.js.map
