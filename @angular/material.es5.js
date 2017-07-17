@@ -8124,6 +8124,9 @@ var MD_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     useExisting: forwardRef(function () { return MdSlideToggle; }),
     multi: true
 };
+/**
+ * Change event object emitted by a MdSlideToggle.
+ */
 var MdSlideToggleChange = /*@__PURE__*/(function () {
     function MdSlideToggleChange() {
     }

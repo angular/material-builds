@@ -11,6 +11,7 @@ import { ControlValueAccessor } from '@angular/forms';
 import { CanDisable } from '../core/common-behaviors/disabled';
 import { CanColor } from '../core/common-behaviors/color';
 export declare const MD_SLIDE_TOGGLE_VALUE_ACCESSOR: any;
+/** Change event object emitted by a MdSlideToggle. */
 export declare class MdSlideToggleChange {
     source: MdSlideToggle;
     checked: boolean;

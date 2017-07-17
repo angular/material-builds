@@ -7803,6 +7803,9 @@ const MD_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     useExisting: forwardRef(() => MdSlideToggle),
     multi: true
 };
+/**
+ * Change event object emitted by a MdSlideToggle.
+ */
 class MdSlideToggleChange {
 }
 /**

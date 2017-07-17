@@ -8140,6 +8140,9 @@ var MD_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     useExisting: _angular_core.forwardRef(function () { return MdSlideToggle; }),
     multi: true
 };
+/**
+ * Change event object emitted by a MdSlideToggle.
+ */
 var MdSlideToggleChange = (function () {
     function MdSlideToggleChange() {
     }
