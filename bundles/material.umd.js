@@ -720,6 +720,7 @@ ScrollDispatcher.ctorParameters = function () { return [
     { type: _angular_cdk.Platform, },
 ]; };
 /**
+ * \@docs-private
  * @param {?} parentDispatcher
  * @param {?} ngZone
  * @param {?} platform
@@ -728,6 +729,9 @@ ScrollDispatcher.ctorParameters = function () { return [
 function SCROLL_DISPATCHER_PROVIDER_FACTORY(parentDispatcher, ngZone, platform) {
     return parentDispatcher || new ScrollDispatcher(ngZone, platform);
 }
+/**
+ * \@docs-private
+ */
 var SCROLL_DISPATCHER_PROVIDER = {
     // If there is already a ScrollDispatcher available, use that. Otherwise, provide a new one.
     provide: ScrollDispatcher,
@@ -823,6 +827,7 @@ ViewportRuler.ctorParameters = function () { return [
     { type: ScrollDispatcher, },
 ]; };
 /**
+ * \@docs-private
  * @param {?} parentRuler
  * @param {?} scrollDispatcher
  * @return {?}
@@ -830,6 +835,9 @@ ViewportRuler.ctorParameters = function () { return [
 function VIEWPORT_RULER_PROVIDER_FACTORY(parentRuler, scrollDispatcher) {
     return parentRuler || new ViewportRuler(scrollDispatcher);
 }
+/**
+ * \@docs-private
+ */
 var VIEWPORT_RULER_PROVIDER = {
     // If there is already a ViewportRuler available, use that. Otherwise, provide a new one.
     provide: ViewportRuler,
@@ -2791,12 +2799,16 @@ OverlayContainer.decorators = [
  */
 OverlayContainer.ctorParameters = function () { return []; };
 /**
+ * \@docs-private
  * @param {?} parentContainer
  * @return {?}
  */
 function OVERLAY_CONTAINER_PROVIDER_FACTORY(parentContainer) {
     return parentContainer || new OverlayContainer();
 }
+/**
+ * \@docs-private
+ */
 var OVERLAY_CONTAINER_PROVIDER = {
     // If there is already an OverlayContainer available, use that. Otherwise, provide a new one.
     provide: OverlayContainer,
@@ -3684,12 +3696,16 @@ UniqueSelectionDispatcher.decorators = [
  */
 UniqueSelectionDispatcher.ctorParameters = function () { return []; };
 /**
+ * \@docs-private
  * @param {?} parentDispatcher
  * @return {?}
  */
 function UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY(parentDispatcher) {
     return parentDispatcher || new UniqueSelectionDispatcher();
 }
+/**
+ * \@docs-private
+ */
 var UNIQUE_SELECTION_DISPATCHER_PROVIDER = {
     // If there is already a dispatcher available, use that. Otherwise, provide a new one.
     provide: UniqueSelectionDispatcher,
@@ -4006,6 +4022,7 @@ CdkMonitorFocus.propDecorators = {
     'cdkFocusChange': [{ type: _angular_core.Output },],
 };
 /**
+ * \@docs-private
  * @param {?} parentDispatcher
  * @param {?} ngZone
  * @param {?} platform
@@ -4014,6 +4031,9 @@ CdkMonitorFocus.propDecorators = {
 function FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY(parentDispatcher, ngZone, platform) {
     return parentDispatcher || new FocusOriginMonitor(ngZone, platform);
 }
+/**
+ * \@docs-private
+ */
 var FOCUS_ORIGIN_MONITOR_PROVIDER = {
     // If there is already a FocusOriginMonitor available, use that. Otherwise, provide a new one.
     provide: FocusOriginMonitor,
@@ -12839,6 +12859,7 @@ MdIconRegistry.ctorParameters = function () { return [
     { type: _angular_platformBrowser.DomSanitizer, },
 ]; };
 /**
+ * \@docs-private
  * @param {?} parentRegistry
  * @param {?} http
  * @param {?} sanitizer
@@ -12847,6 +12868,9 @@ MdIconRegistry.ctorParameters = function () { return [
 function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, http, sanitizer) {
     return parentRegistry || new MdIconRegistry(http, sanitizer);
 }
+/**
+ * \@docs-private
+ */
 var ICON_REGISTRY_PROVIDER = {
     // If there is already an MdIconRegistry available, use that. Otherwise, provide a new one.
     provide: MdIconRegistry,

@@ -55,7 +55,9 @@ export declare class ScrollDispatcher {
     /** Sends a notification that a scroll event has been fired. */
     _notify(): void;
 }
+/** @docs-private */
 export declare function SCROLL_DISPATCHER_PROVIDER_FACTORY(parentDispatcher: ScrollDispatcher, ngZone: NgZone, platform: Platform): ScrollDispatcher;
+/** @docs-private */
 export declare const SCROLL_DISPATCHER_PROVIDER: {
     provide: typeof ScrollDispatcher;
     deps: (Optional[] | typeof NgZone | typeof Platform)[];

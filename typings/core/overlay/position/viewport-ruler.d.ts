@@ -28,7 +28,9 @@ export declare class ViewportRuler {
     /** Caches the latest client rectangle of the document element. */
     _cacheViewportGeometry(): void;
 }
+/** @docs-private */
 export declare function VIEWPORT_RULER_PROVIDER_FACTORY(parentRuler: ViewportRuler, scrollDispatcher: ScrollDispatcher): ViewportRuler;
+/** @docs-private */
 export declare const VIEWPORT_RULER_PROVIDER: {
     provide: typeof ViewportRuler;
     deps: (typeof ScrollDispatcher | Optional[])[];

@@ -30,7 +30,9 @@ export declare class UniqueSelectionDispatcher {
      **/
     listen(listener: UniqueSelectionDispatcherListener): () => void;
 }
+/** @docs-private */
 export declare function UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY(parentDispatcher: UniqueSelectionDispatcher): UniqueSelectionDispatcher;
+/** @docs-private */
 export declare const UNIQUE_SELECTION_DISPATCHER_PROVIDER: {
     provide: typeof UniqueSelectionDispatcher;
     deps: Optional[][];

@@ -30,7 +30,9 @@ export declare class OverlayContainer {
      */
     protected _createContainer(): void;
 }
+/** @docs-private */
 export declare function OVERLAY_CONTAINER_PROVIDER_FACTORY(parentContainer: OverlayContainer): OverlayContainer;
+/** @docs-private */
 export declare const OVERLAY_CONTAINER_PROVIDER: {
     provide: typeof OverlayContainer;
     deps: Optional[][];

@@ -184,7 +184,9 @@ export declare class MdIconRegistry {
      */
     private _fetchUrl(safeUrl);
 }
+/** @docs-private */
 export declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MdIconRegistry, http: Http, sanitizer: DomSanitizer): MdIconRegistry;
+/** @docs-private */
 export declare const ICON_REGISTRY_PROVIDER: {
     provide: typeof MdIconRegistry;
     deps: (Optional[] | typeof DomSanitizer)[];
