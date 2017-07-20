@@ -6284,7 +6284,7 @@ var MdRadioGroup = /*@__PURE__*/(function (_super) {
     });
     Object.defineProperty(MdRadioGroup.prototype, "disabled", {
         /**
-         * Whether the radio group is diabled
+         * Whether the radio group is disabled
          * @return {?}
          */
         get: function () { return this._disabled; },
@@ -6293,7 +6293,7 @@ var MdRadioGroup = /*@__PURE__*/(function (_super) {
          * @return {?}
          */
         set: function (value) {
-            this._disabled = value;
+            this._disabled = coerceBooleanProperty(value);
             this._markRadiosForCheck();
         },
         enumerable: true,

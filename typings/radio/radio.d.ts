@@ -78,7 +78,7 @@ export declare class MdRadioGroup extends _MdRadioGroupMixinBase implements Afte
     _checkSelectedRadioButton(): void;
     /** Whether the radio button is selected. */
     selected: MdRadioButton | null;
-    /** Whether the radio group is diabled */
+    /** Whether the radio group is disabled */
     disabled: boolean;
     constructor(_changeDetector: ChangeDetectorRef);
     /**

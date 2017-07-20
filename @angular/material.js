@@ -6057,7 +6057,7 @@ class MdRadioGroup extends _MdRadioGroupMixinBase {
         this._checkSelectedRadioButton();
     }
     /**
-     * Whether the radio group is diabled
+     * Whether the radio group is disabled
      * @return {?}
      */
     get disabled() { return this._disabled; }
@@ -6066,7 +6066,7 @@ class MdRadioGroup extends _MdRadioGroupMixinBase {
      * @return {?}
      */
     set disabled(value) {
-        this._disabled = value;
+        this._disabled = coerceBooleanProperty(value);
         this._markRadiosForCheck();
     }
     /**
