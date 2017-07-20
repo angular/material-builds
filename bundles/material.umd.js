@@ -21603,7 +21603,7 @@ MdExpansionPanelHeader.decorators = [
                     ]),
                     _angular_animations.trigger('expansionHeight', [
                         _angular_animations.state('collapsed', _angular_animations.style({ height: '48px', 'line-height': '48px' })),
-                        _angular_animations.state('expanded', _angular_animations.style({ height: '64px', 'line-height': '68px' })),
+                        _angular_animations.state('expanded', _angular_animations.style({ height: '64px', 'line-height': '64px' })),
                         _angular_animations.transition('expanded <=> collapsed', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
                     ]),
                 ],
