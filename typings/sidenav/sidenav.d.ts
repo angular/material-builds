@@ -140,8 +140,6 @@ export declare class MdSidenavContainer implements AfterContentInit {
      */
     private _left;
     private _right;
-    /** Whether to enable open/close trantions. */
-    _enableTransitions: boolean;
     constructor(_dir: Directionality, _element: ElementRef, _renderer: Renderer2, _ngZone: NgZone);
     ngAfterContentInit(): void;
     /** Calls `open` of both start and end sidenavs */
