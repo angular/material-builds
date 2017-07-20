@@ -13867,6 +13867,7 @@ var MdInputDirective = (function () {
         this._placeholder = '';
         this._disabled = false;
         this._required = false;
+        this._readonly = false;
         /**
          * Whether the element is focused or not.
          */
@@ -13976,6 +13977,20 @@ var MdInputDirective = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdInputDirective.prototype, "readonly", {
+        /**
+         * Whether the element is readonly.
+         * @return {?}
+         */
+        get: function () { return this._readonly; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) { this._readonly = _angular_cdk.coerceBooleanProperty(value); },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MdInputDirective.prototype, "value", {
         /**
          * The input element's value.
@@ -14022,7 +14037,11 @@ var MdInputDirective = (function () {
     /**
      * @return {?}
      */
-    MdInputDirective.prototype._onFocus = function () { this.focused = true; };
+    MdInputDirective.prototype._onFocus = function () {
+        if (!this._readonly) {
+            this.focused = true;
+        }
+    };
     /**
      * @return {?}
      */
@@ -14120,6 +14139,7 @@ MdInputDirective.propDecorators = {
     'placeholder': [{ type: _angular_core.Input },],
     'required': [{ type: _angular_core.Input },],
     'type': [{ type: _angular_core.Input },],
+    'readonly': [{ type: _angular_core.Input },],
     'errorStateMatcher': [{ type: _angular_core.Input },],
     '_placeholderChange': [{ type: _angular_core.Output },],
 };

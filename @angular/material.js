@@ -13077,6 +13077,7 @@ class MdInputDirective {
         this._placeholder = '';
         this._disabled = false;
         this._required = false;
+        this._readonly = false;
         /**
          * Whether the element is focused or not.
          */
@@ -13167,6 +13168,16 @@ class MdInputDirective {
         }
     }
     /**
+     * Whether the element is readonly.
+     * @return {?}
+     */
+    get readonly() { return this._readonly; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set readonly(value) { this._readonly = coerceBooleanProperty(value); }
+    /**
      * The input element's value.
      * @return {?}
      */
@@ -13200,7 +13211,11 @@ class MdInputDirective {
     /**
      * @return {?}
      */
-    _onFocus() { this.focused = true; }
+    _onFocus() {
+        if (!this._readonly) {
+            this.focused = true;
+        }
+    }
     /**
      * @return {?}
      */
@@ -13297,6 +13312,7 @@ MdInputDirective.propDecorators = {
     'placeholder': [{ type: Input },],
     'required': [{ type: Input },],
     'type': [{ type: Input },],
+    'readonly': [{ type: Input },],
     'errorStateMatcher': [{ type: Input },],
     '_placeholderChange': [{ type: Output },],
 };

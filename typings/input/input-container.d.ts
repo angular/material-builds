@@ -45,6 +45,7 @@ export declare class MdInputDirective {
     private _placeholder;
     private _disabled;
     private _required;
+    private _readonly;
     private _id;
     private _cachedUid;
     private _errorOptions;
@@ -62,6 +63,8 @@ export declare class MdInputDirective {
     required: any;
     /** Input type of the element. */
     type: string;
+    /** Whether the element is readonly. */
+    readonly: any;
     /** A function used to control when error messages are shown. */
     errorStateMatcher: ErrorStateMatcher;
     /** The input element's value. */
