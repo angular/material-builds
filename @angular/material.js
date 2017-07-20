@@ -1810,6 +1810,10 @@ MdOptionModule.ctorParameters = () => [];
 class OverlayState {
     constructor() {
         /**
+         * Strategy to be used when handling scroll events while the overlay is open.
+         */
+        this.scrollStrategy = new NoopScrollStrategy();
+        /**
          * Custom class to add to the overlay pane.
          */
         this.panelClass = '';
@@ -1841,20 +1845,18 @@ class OverlayRef {
      * @param {?} _portalHost
      * @param {?} _pane
      * @param {?} _state
-     * @param {?} _scrollStrategy
      * @param {?} _ngZone
      */
-    constructor(_portalHost, _pane, _state, _scrollStrategy, _ngZone) {
+    constructor(_portalHost, _pane, _state, _ngZone) {
         this._portalHost = _portalHost;
         this._pane = _pane;
         this._state = _state;
-        this._scrollStrategy = _scrollStrategy;
         this._ngZone = _ngZone;
         this._backdropElement = null;
         this._backdropClick = new Subject();
         this._attachments = new Subject();
         this._detachments = new Subject();
-        _scrollStrategy.attach(this);
+        _state.scrollStrategy.attach(this);
     }
     /**
      * The overlay's HTML element
@@ -1875,7 +1877,7 @@ class OverlayRef {
         this.updateSize();
         this.updateDirection();
         this.updatePosition();
-        this._scrollStrategy.enable();
+        this._state.scrollStrategy.enable();
         // Enable pointer events for the overlay pane element.
         this._togglePointerEvents(true);
         if (this._state.hasBackdrop) {
@@ -1898,7 +1900,7 @@ class OverlayRef {
         // This is necessary because otherwise the pane element will cover the page and disable
         // pointer events therefore. Depends on the position strategy and the applied pane boundaries.
         this._togglePointerEvents(false);
-        this._scrollStrategy.disable();
+        this._state.scrollStrategy.disable();
         let /** @type {?} */ detachmentResult = this._portalHost.detach();
         // Only emit after everything is detached.
         this._detachments.next();
@@ -1912,9 +1914,7 @@ class OverlayRef {
         if (this._state.positionStrategy) {
             this._state.positionStrategy.dispose();
         }
-        if (this._scrollStrategy) {
-            this._scrollStrategy.disable();
-        }
+        this._state.scrollStrategy.disable();
         this.detachBackdrop();
         this._portalHost.dispose();
         this._attachments.complete();
@@ -2826,7 +2826,9 @@ class Overlay {
      * @return {?} Reference to the created overlay.
      */
     create(state$$1 = defaultState) {
-        return this._createOverlayRef(this._createPaneElement(), state$$1);
+        const /** @type {?} */ pane = this._createPaneElement();
+        const /** @type {?} */ portalHost = this._createPortalHost(pane);
+        return new OverlayRef(portalHost, pane, state$$1, this._ngZone);
     }
     /**
      * Returns a position builder that can be used, via fluent API,
@@ -2854,17 +2856,6 @@ class Overlay {
      */
     _createPortalHost(pane) {
         return new DomPortalHost(pane, this._componentFactoryResolver, this._appRef, this._injector);
-    }
-    /**
-     * Creates an OverlayRef for an overlay in the given DOM element.
-     * @param {?} pane DOM element for the overlay
-     * @param {?} state
-     * @return {?}
-     */
-    _createOverlayRef(pane, state$$1) {
-        let /** @type {?} */ scrollStrategy = state$$1.scrollStrategy || this.scrollStrategies.noop();
-        let /** @type {?} */ portalHost = this._createPortalHost(pane);
-        return new OverlayRef(portalHost, pane, state$$1, scrollStrategy, this._ngZone);
     }
 }
 Overlay.decorators = [

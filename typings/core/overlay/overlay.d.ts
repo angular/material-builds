@@ -50,10 +50,4 @@ export declare class Overlay {
      * @returns A portal host for the given DOM element.
      */
     private _createPortalHost(pane);
-    /**
-     * Creates an OverlayRef for an overlay in the given DOM element.
-     * @param pane DOM element for the overlay
-     * @param state
-     */
-    private _createOverlayRef(pane, state);
 }
