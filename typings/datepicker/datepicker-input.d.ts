@@ -13,6 +13,18 @@ import { DateAdapter } from '../core/datetime/index';
 import { MdDateFormats } from '../core/datetime/date-formats';
 export declare const MD_DATEPICKER_VALUE_ACCESSOR: any;
 export declare const MD_DATEPICKER_VALIDATORS: any;
+/**
+ * An event used for datepicker input and change events. We don't always have access to a native
+ * input or change event because the event may have been triggered by the user clicking on the
+ * calendar popup. For consistency, we always use MdDatepickerInputEvent instead.
+ */
+export declare class MdDatepickerInputEvent<D> {
+    target: MdDatepickerInput<D>;
+    targetElement: HTMLElement;
+    /** The new value for the target datepicker input. */
+    value: D | null;
+    constructor(target: MdDatepickerInput<D>, targetElement: HTMLElement);
+}
 /** Directive used to connect an input to a MdDatepicker. */
 export declare class MdDatepickerInput<D> implements AfterContentInit, ControlValueAccessor, OnDestroy, Validator {
     private _elementRef;
@@ -38,6 +50,10 @@ export declare class MdDatepickerInput<D> implements AfterContentInit, ControlVa
     /** Whether the datepicker-input is disabled. */
     disabled: any;
     private _disabled;
+    /** Emits when a `change` event is fired on this `<input>`. */
+    dateChange: EventEmitter<MdDatepickerInputEvent<D>>;
+    /** Emits when an `input` event is fired on this `<input>`. */
+    dateInput: EventEmitter<MdDatepickerInputEvent<D>>;
     /** Emits when the value changes (either due to user input or programmatic change). */
     _valueChange: EventEmitter<D | null>;
     _onTouched: () => void;
@@ -68,4 +84,5 @@ export declare class MdDatepickerInput<D> implements AfterContentInit, ControlVa
     setDisabledState(disabled: boolean): void;
     _onKeydown(event: KeyboardEvent): void;
     _onInput(value: string): void;
+    _onChange(): void;
 }

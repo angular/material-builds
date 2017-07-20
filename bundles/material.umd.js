@@ -20748,6 +20748,23 @@ var MD_DATEPICKER_VALIDATORS = {
     multi: true
 };
 /**
+ * An event used for datepicker input and change events. We don't always have access to a native
+ * input or change event because the event may have been triggered by the user clicking on the
+ * calendar popup. For consistency, we always use MdDatepickerInputEvent instead.
+ */
+var MdDatepickerInputEvent = (function () {
+    /**
+     * @param {?} target
+     * @param {?} targetElement
+     */
+    function MdDatepickerInputEvent(target, targetElement) {
+        this.target = target;
+        this.targetElement = targetElement;
+        this.value = this.target.value;
+    }
+    return MdDatepickerInputEvent;
+}());
+/**
  * Directive used to connect an input to a MdDatepicker.
  */
 var MdDatepickerInput = (function () {
@@ -20765,6 +20782,14 @@ var MdDatepickerInput = (function () {
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
         this._mdInputContainer = _mdInputContainer;
+        /**
+         * Emits when a `change` event is fired on this `<input>`.
+         */
+        this.dateChange = new _angular_core.EventEmitter();
+        /**
+         * Emits when an `input` event is fired on this `<input>`.
+         */
+        this.dateInput = new _angular_core.EventEmitter();
         /**
          * Emits when the value changes (either due to user input or programmatic change).
          */
@@ -20936,6 +20961,8 @@ var MdDatepickerInput = (function () {
                 this._datepicker.selectedChanged.subscribe(function (selected) {
                     _this.value = selected;
                     _this._cvaOnChange(selected);
+                    _this.dateInput.emit(new MdDatepickerInputEvent(_this, _this._elementRef.nativeElement));
+                    _this.dateChange.emit(new MdDatepickerInputEvent(_this, _this._elementRef.nativeElement));
                 });
         }
     };
@@ -21014,6 +21041,13 @@ var MdDatepickerInput = (function () {
         var /** @type {?} */ date = this._dateAdapter.parse(value, this._dateFormats.parse.dateInput);
         this._cvaOnChange(date);
         this._valueChange.emit(date);
+        this.dateInput.emit(new MdDatepickerInputEvent(this, this._elementRef.nativeElement));
+    };
+    /**
+     * @return {?}
+     */
+    MdDatepickerInput.prototype._onChange = function () {
+        this.dateChange.emit(new MdDatepickerInputEvent(this, this._elementRef.nativeElement));
     };
     return MdDatepickerInput;
 }());
@@ -21028,9 +21062,11 @@ MdDatepickerInput.decorators = [
                     '[attr.max]': 'max ? _dateAdapter.getISODateString(max) : null',
                     '[disabled]': 'disabled',
                     '(input)': '_onInput($event.target.value)',
+                    '(change)': '_onChange()',
                     '(blur)': '_onTouched()',
                     '(keydown)': '_onKeydown($event)',
-                }
+                },
+                exportAs: 'mdDatepickerInput',
             },] },
 ];
 /**
@@ -21052,6 +21088,8 @@ MdDatepickerInput.propDecorators = {
     'min': [{ type: _angular_core.Input },],
     'max': [{ type: _angular_core.Input },],
     'disabled': [{ type: _angular_core.Input },],
+    'dateChange': [{ type: _angular_core.Output },],
+    'dateInput': [{ type: _angular_core.Output },],
 };
 var MdDatepickerToggle = (function () {
     /**
@@ -22670,6 +22708,7 @@ exports.MdDatepickerContent = MdDatepickerContent;
 exports.MdDatepicker = MdDatepicker;
 exports.MD_DATEPICKER_VALUE_ACCESSOR = MD_DATEPICKER_VALUE_ACCESSOR;
 exports.MD_DATEPICKER_VALIDATORS = MD_DATEPICKER_VALIDATORS;
+exports.MdDatepickerInputEvent = MdDatepickerInputEvent;
 exports.MdDatepickerInput = MdDatepickerInput;
 exports.MdDatepickerIntl = MdDatepickerIntl;
 exports.MdDatepickerToggle = MdDatepickerToggle;
