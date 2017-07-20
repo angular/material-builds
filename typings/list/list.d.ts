@@ -7,15 +7,18 @@
  */
 import { AfterContentInit, ElementRef, QueryList, Renderer2 } from '@angular/core';
 import { MdLine } from '../core';
+import { CanDisableRipple } from '../core/common-behaviors/disable-ripple';
+/** @docs-private */
+export declare class MdListBase {
+}
+export declare const _MdListMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MdListBase;
+/** @docs-private */
+export declare class MdListItemBase {
+}
+export declare const _MdListItemMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MdListItemBase;
 export declare class MdListDivider {
 }
-export declare class MdList {
-    private _disableRipple;
-    /**
-     * Whether the ripple effect should be disabled on the list-items or not.
-     * This flag only has an effect for `md-nav-list` components.
-     */
-    disableRipple: boolean;
+export declare class MdList extends _MdListMixinBase implements CanDisableRipple {
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -53,18 +56,12 @@ export declare class MdListIconCssMatStyler {
  */
 export declare class MdListSubheaderCssMatStyler {
 }
-export declare class MdListItem implements AfterContentInit {
+export declare class MdListItem extends _MdListItemMixinBase implements AfterContentInit, CanDisableRipple {
     private _renderer;
     private _element;
     private _list;
     private _lineSetter;
-    private _disableRipple;
     private _isNavList;
-    /**
-     * Whether the ripple effect on click should be disabled. This applies only to list items that are
-     * part of a nav list. The value of `disableRipple` on the `md-nav-list` overrides this flag.
-     */
-    disableRipple: boolean;
     _lines: QueryList<MdLine>;
     _hasAvatar: MdListAvatarCssMatStyler;
     constructor(_renderer: Renderer2, _element: ElementRef, _list: MdList, navList: MdNavListCssMatStyler);

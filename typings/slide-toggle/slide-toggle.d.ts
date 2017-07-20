@@ -10,6 +10,7 @@ import { FocusOriginMonitor, HammerInput, MdRipple, Platform } from '../core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanDisable } from '../core/common-behaviors/disabled';
 import { CanColor } from '../core/common-behaviors/color';
+import { CanDisableRipple } from '../core/common-behaviors/disable-ripple';
 export declare const MD_SLIDE_TOGGLE_VALUE_ACCESSOR: any;
 /** Change event object emitted by a MdSlideToggle. */
 export declare class MdSlideToggleChange {
@@ -22,9 +23,9 @@ export declare class MdSlideToggleBase {
     _elementRef: ElementRef;
     constructor(_renderer: Renderer2, _elementRef: ElementRef);
 }
-export declare const _MdSlideToggleMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisable) & typeof MdSlideToggleBase;
+export declare const _MdSlideToggleMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MdSlideToggleBase;
 /** Represents a slidable "switch" toggle that can be moved between on and off. */
-export declare class MdSlideToggle extends _MdSlideToggleMixinBase implements OnDestroy, AfterContentInit, ControlValueAccessor, CanDisable, CanColor {
+export declare class MdSlideToggle extends _MdSlideToggleMixinBase implements OnDestroy, AfterContentInit, ControlValueAccessor, CanDisable, CanColor, CanDisableRipple {
     private _platform;
     private _focusOriginMonitor;
     private _changeDetectorRef;
@@ -34,7 +35,6 @@ export declare class MdSlideToggle extends _MdSlideToggleMixinBase implements On
     private _checked;
     private _slideRenderer;
     private _required;
-    private _disableRipple;
     /** Reference to the focus state ripple. */
     private _focusRipple;
     /** Name value will be applied to the input element if present */
@@ -51,8 +51,6 @@ export declare class MdSlideToggle extends _MdSlideToggleMixinBase implements On
     ariaLabelledby: string | null;
     /** Whether the slide-toggle is required. */
     required: boolean;
-    /** Whether the ripple effect for this slide-toggle is disabled. */
-    disableRipple: boolean;
     /** An event will be dispatched each time the slide-toggle changes its value. */
     change: EventEmitter<MdSlideToggleChange>;
     /** Returns the unique id for the visual hidden input. */

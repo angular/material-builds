@@ -10,6 +10,7 @@ import { ControlValueAccessor } from '@angular/forms';
 import { FocusOriginMonitor, MdRipple } from '../core';
 import { CanDisable } from '../core/common-behaviors/disabled';
 import { CanColor } from '../core/common-behaviors/color';
+import { CanDisableRipple } from '../core/common-behaviors/disable-ripple';
 /**
  * Provider Expression that allows md-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -43,7 +44,7 @@ export declare class MdCheckboxBase {
     _elementRef: ElementRef;
     constructor(_renderer: Renderer2, _elementRef: ElementRef);
 }
-export declare const _MdCheckboxMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisable) & typeof MdCheckboxBase;
+export declare const _MdCheckboxMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MdCheckboxBase;
 /**
  * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
  * and exposes a similar API. A MdCheckbox can be either checked, unchecked, indeterminate, or
@@ -52,7 +53,7 @@ export declare const _MdCheckboxMixinBase: (new (...args: any[]) => CanColor) & 
  * have the checkbox be accessible, you may supply an [aria-label] input.
  * See: https://www.google.com/design/spec/components/selection-controls.html
  */
-export declare class MdCheckbox extends _MdCheckboxMixinBase implements ControlValueAccessor, AfterViewInit, OnDestroy, CanColor, CanDisable {
+export declare class MdCheckbox extends _MdCheckboxMixinBase implements ControlValueAccessor, AfterViewInit, OnDestroy, CanColor, CanDisable, CanDisableRipple {
     private _changeDetectorRef;
     private _focusOriginMonitor;
     /**
@@ -69,10 +70,6 @@ export declare class MdCheckbox extends _MdCheckboxMixinBase implements ControlV
     id: string;
     /** Returns the unique id for the visual hidden input. */
     readonly inputId: string;
-    /** Whether the ripple effect on click should be disabled. */
-    private _disableRipple;
-    /** Whether the ripple effect for this checkbox is disabled. */
-    disableRipple: boolean;
     private _required;
     /** Whether the checkbox is required. */
     required: boolean;

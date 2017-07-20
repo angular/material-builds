@@ -8,6 +8,7 @@
 import { EventEmitter, QueryList, ElementRef, Renderer2, ChangeDetectorRef, AfterViewChecked, AfterContentInit, AfterContentChecked, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { MdTab } from './tab';
+import { CanDisableRipple } from '../core/common-behaviors/disable-ripple';
 /** A simple change event emitted on focus or selection changes. */
 export declare class MdTabChangeEvent {
     index: number;
@@ -15,12 +16,16 @@ export declare class MdTabChangeEvent {
 }
 /** Possible positions for the tab header. */
 export declare type MdTabHeaderPosition = 'above' | 'below';
+/** @docs-private */
+export declare class MdTabGroupBase {
+}
+export declare const _MdTabGroupMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MdTabGroupBase;
 /**
  * Material design tab-group component.  Supports basic tab pairs (label + content) and includes
  * animated ink-bar, keyboard navigation, and screen reader.
  * See: https://www.google.com/design/spec/components/tabs.html
  */
-export declare class MdTabGroup implements AfterContentInit, AfterContentChecked, AfterViewChecked, OnDestroy {
+export declare class MdTabGroup extends _MdTabGroupMixinBase implements AfterContentInit, AfterContentChecked, AfterViewChecked, OnDestroy, CanDisableRipple {
     private _renderer;
     private _changeDetectorRef;
     _tabs: QueryList<MdTab>;
@@ -40,9 +45,6 @@ export declare class MdTabGroup implements AfterContentInit, AfterContentChecked
     private _dynamicHeight;
     /** @deprecated */
     _dynamicHeightDeprecated: boolean;
-    /** Whether ripples for the tab-group should be disabled or not. */
-    disableRipple: boolean;
-    private _disableRipple;
     /** The index of the active tab. */
     selectedIndex: number | null;
     private _selectedIndex;

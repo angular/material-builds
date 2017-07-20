@@ -9,12 +9,17 @@ import { QueryList, ElementRef, EventEmitter, AfterContentChecked, AfterContentI
 import { Directionality, Direction } from '../core';
 import { MdTabLabelWrapper } from './tab-label-wrapper';
 import { MdInkBar } from './ink-bar';
+import { CanDisableRipple } from '../core/common-behaviors/disable-ripple';
 /**
  * The directions that scrolling can go in when the header's tabs exceed the header width. 'After'
  * will scroll the header towards the end of the tabs list and 'before' will scroll towards the
  * beginning of the list.
  */
 export declare type ScrollDirection = 'after' | 'before';
+/** @docs-private */
+export declare class MdTabHeaderBase {
+}
+export declare const _MdTabHeaderMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MdTabHeaderBase;
 /**
  * The header of the tab group which displays a list of all the tabs in the tab group. Includes
  * an ink bar that follows the currently selected tab. When the tabs list's width exceeds the
@@ -22,7 +27,7 @@ export declare type ScrollDirection = 'after' | 'before';
  * left and right across the header.
  * @docs-private
  */
-export declare class MdTabHeader implements AfterContentChecked, AfterContentInit, OnDestroy {
+export declare class MdTabHeader extends _MdTabHeaderMixinBase implements AfterContentChecked, AfterContentInit, OnDestroy, CanDisableRipple {
     private _elementRef;
     private _ngZone;
     private _renderer;
@@ -56,9 +61,6 @@ export declare class MdTabHeader implements AfterContentChecked, AfterContentIni
     private _selectedIndex;
     /** The index of the active tab. */
     selectedIndex: number;
-    /** Whether ripples for the tab-header labels should be disabled or not. */
-    disableRipple: boolean;
-    private _disableRipple;
     /** Event emitted when the option is selected. */
     selectFocusedIndex: EventEmitter<{}>;
     /** Event emitted when a label is focused. */

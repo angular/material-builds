@@ -10,6 +10,7 @@ import { ControlValueAccessor } from '@angular/forms';
 import { UniqueSelectionDispatcher, MdRipple, FocusOriginMonitor } from '../core';
 import { CanDisable } from '../core/common-behaviors/disabled';
 import { CanColor } from '../core/common-behaviors/color';
+import { CanDisableRipple } from '../core/common-behaviors/disable-ripple';
 /**
  * Provider Expression that allows md-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
@@ -126,11 +127,11 @@ export declare class MdRadioButtonBase {
     _elementRef: ElementRef;
     constructor(_renderer: Renderer2, _elementRef: ElementRef);
 }
-export declare const _MdRadioButtonMixinBase: (new (...args: any[]) => CanColor) & typeof MdRadioButtonBase;
+export declare const _MdRadioButtonMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisableRipple) & typeof MdRadioButtonBase;
 /**
  * A radio-button. May be inside of
  */
-export declare class MdRadioButton extends _MdRadioButtonMixinBase implements OnInit, AfterViewInit, OnDestroy, CanColor {
+export declare class MdRadioButton extends _MdRadioButtonMixinBase implements OnInit, AfterViewInit, OnDestroy, CanColor, CanDisableRipple {
     private _changeDetector;
     private _focusOriginMonitor;
     private _radioDispatcher;
@@ -143,8 +144,6 @@ export declare class MdRadioButton extends _MdRadioButtonMixinBase implements On
     ariaLabel: string;
     /** The 'aria-labelledby' attribute takes precedence as the element's text alternative. */
     ariaLabelledby: string;
-    /** Whether the ripple effect for this radio button is disabled. */
-    disableRipple: boolean;
     /** Whether this radio button is checked. */
     checked: boolean;
     /** The value of this radio button. */
@@ -175,8 +174,6 @@ export declare class MdRadioButton extends _MdRadioButtonMixinBase implements On
     private _disabled;
     /** Value assigned to this radio.*/
     private _value;
-    /** Whether the ripple effect on click should be disabled. */
-    private _disableRipple;
     /** The child ripple instance. */
     _ripple: MdRipple;
     /** Reference to the current focus ripple. */
