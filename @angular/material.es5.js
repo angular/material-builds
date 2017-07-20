@@ -21587,7 +21587,7 @@ MdExpansionPanelHeader.decorators = [
                     ]),
                     trigger('expansionHeight', [
                         state('collapsed', style({ height: '48px', 'line-height': '48px' })),
-                        state('expanded', style({ height: '64px', 'line-height': '64px' })),
+                        state('expanded', style({ height: '64px', 'line-height': '68px' })),
                         transition('expanded <=> collapsed', animate(EXPANSION_PANEL_ANIMATION_TIMING)),
                     ]),
                 ],
