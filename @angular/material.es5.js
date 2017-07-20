@@ -21738,7 +21738,7 @@ var MdTable = /*@__PURE__*/(function (_super) {
 MdTable.decorators = [
     { type: Component, args: [{ selector: 'md-table, mat-table',
                 template: CDK_TABLE_TEMPLATE,
-                styles: [".mat-table{display:block}.mat-header-row,.mat-row{display:flex;border-bottom-width:1px;border-bottom-style:solid;align-items:center;height:48px;padding:0 24px}.mat-cell,.mat-header-cell{flex:1}"],
+                styles: [".mat-table{display:block}.mat-header-row,.mat-row{display:flex;border-bottom-width:1px;border-bottom-style:solid;align-items:center;min-height:48px;padding:0 24px}.mat-cell,.mat-header-cell{flex:1}"],
                 host: {
                     'class': 'mat-table',
                 },
