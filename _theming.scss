@@ -999,6 +999,7 @@ $mat-light-theme-background: (
   selected-button: map_get($mat-grey, 300),
   selected-disabled-button: map_get($mat-grey, 400),
   disabled-button-toggle: map_get($mat-grey, 200),
+  unselected-chip: map_get($mat-grey, 300),
 );
 
 // Background palette for dark themes.
@@ -1015,6 +1016,7 @@ $mat-dark-theme-background: (
   selected-button: map_get($mat-grey, 900),
   selected-disabled-button: map_get($mat-grey, 800),
   disabled-button-toggle: map_get($mat-grey, 1000),
+  unselected-chip: map_get($mat-grey, 700),
 );
 
 // Foreground palette for light themes.
@@ -1876,7 +1878,7 @@ $mat-menu-icon-margin: 16px !default;
 }
 
 @mixin mat-button-typography($config) {
-  .mat-button, .mat-raised-button, .mat-icon-button {
+  .mat-button, .mat-raised-button, .mat-icon-button, .mat-fab, .mat-mini-fab {
     font: {
       family: mat-font-family($config, button);
       size: mat-font-size($config, button);
@@ -2073,10 +2075,11 @@ $mat-menu-icon-margin: 16px !default;
 
 // TODO(crisbeto): these values don't correspond to any of the typography breakpoints.
 $mat-chip-font-size: 13px;
-$mat-chip-line-height: 16px;
+$mat-chip-line-height: 18px;
+$mat-chip-remove-font-size: 18px;
 
 @mixin mat-chips-theme-color($color) {
-  @include mat-chips-color(mat-contrast($color, 500), mat-color($color, 500));
+  @include mat-chips-color(mat-color($color, default-contrast), mat-color($color));
 }
 
 @mixin mat-chips-color($foreground, $background) {
@@ -2101,25 +2104,15 @@ $mat-chip-line-height: 16px;
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
 
-  // Use spec-recommended color for regular foreground, and utilise contrast color for a grey very
-  // close to the selected spec since no guidance is provided and to ensure palette consistency.
-  $light-foreground: rgba(0, 0, 0, 0.87);
-  $light-selected-foreground: mat-contrast($mat-grey, 600);
+  $unselected-background: mat-color($background, unselected-chip);
+  $unselected-foreground: mat-color($foreground, text);
 
-  // The spec only provides guidance for light-themed chips. When inside of a dark theme, fall back
-  // to standard background and foreground colors.
-  $unselected-background: if($is-dark-theme, mat-color($background, card), #e0e0e0);
-  $unselected-foreground: if($is-dark-theme, mat-color($foreground, text), $light-foreground);
-
-  $selected-background: if($is-dark-theme, mat-color($background, app-bar), #808080);
-  $selected-foreground: if($is-dark-theme, mat-color($foreground, text), $light-selected-foreground);
 
   .mat-chip:not(.mat-basic-chip) {
     @include mat-chips-color($unselected-foreground, $unselected-background);
   }
 
   .mat-chip.mat-chip-selected {
-    @include mat-chips-color($selected-foreground, $selected-background);
 
     &.mat-primary {
       @include mat-chips-theme-color($primary);
@@ -2139,6 +2132,10 @@ $mat-chip-line-height: 16px;
   .mat-chip {
     font-size: $mat-chip-font-size;
     line-height: $mat-chip-line-height;
+
+    .mat-chip-remove.mat-icon {
+      font-size: $mat-chip-remove-font-size;
+    }
   }
 }
 
@@ -2411,6 +2408,15 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
 
 
+// Renders a gradient for showing the dashed line when the input is disabled.
+// Unlike using a border, a gradient allows us to adjust the spacing of the dotted line
+// to match the Material Design spec.
+@mixin mat-control-disabled-underline($color) {
+  background-image: linear-gradient(to right, $color 0%, $color 33%, transparent 0%);
+  background-size: 4px 1px;
+  background-repeat: repeat-x;
+}
+
 
 
 
@@ -2420,20 +2426,25 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   $warn: map-get($theme, warn);
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
+  $is-dark-theme: map-get($theme, is-dark);
 
   // Placeholder colors. Required is used for the `*` star shown in the placeholder.
-  $input-placeholder-color: mat-color($foreground, hint-text);
+  $input-placeholder-color: mat-color($foreground, secondary-text);
   $input-floating-placeholder-color: mat-color($primary);
   $input-required-placeholder-color: mat-color($accent);
 
   // Underline colors.
-  $input-underline-color: mat-color($foreground, divider);
+  $input-underline-color: mat-color($foreground, divider, if($is-dark-theme, 0.7, 0.42));
   $input-underline-color-accent: mat-color($accent);
   $input-underline-color-warn: mat-color($warn);
   $input-underline-focused-color: mat-color($primary);
 
   .mat-input-placeholder {
     color: $input-placeholder-color;
+  }
+
+  .mat-hint {
+    color: mat-color($foreground, secondary-text);
   }
 
   // :focus is applied to the input, but we apply mat-focused to the other elements
@@ -2451,7 +2462,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   }
 
   .mat-input-element:disabled {
-    color: mat-color($foreground, disabled-text);
+    color: mat-color($foreground, secondary-text, if($is-dark-theme, 0.7, 0.42));
   }
 
   // See _mat-input-placeholder-floating mixin in input-container.scss
@@ -2464,6 +2475,10 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
   .mat-input-underline {
     background-color: $input-underline-color;
+
+    &.mat-disabled {
+      @include mat-control-disabled-underline($input-underline-color);
+    }
   }
 
   .mat-input-ripple {
@@ -2951,6 +2966,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
 
 
+
 @mixin _mat-select-inner-content-theme($palette) {
   $color: mat-color($palette);
 
@@ -2969,20 +2985,27 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
+  $is-dark-theme: map-get($theme, is-dark);
+  $underline-color: mat-color($foreground, divider, if($is-dark-theme, 0.7, 0.42));
 
   .mat-select-trigger,
   .mat-select-arrow {
-    color: mat-color($foreground, hint-text);
+    color: mat-color($foreground, secondary-text);
   }
 
   .mat-select-underline {
-    background-color: mat-color($foreground, divider);
+    background-color: $underline-color;
+  }
+
+  [aria-disabled='true'] .mat-select-underline {
+    // Since this is a dotted line, we need to make it slightly darker to get it to stand out.
+    @include mat-control-disabled-underline($underline-color);
   }
 
   .mat-select-disabled .mat-select-value,
   .mat-select-arrow,
   .mat-select-trigger {
-    color: mat-color($foreground, hint-text);
+    color: mat-color($foreground, secondary-text);
   }
 
   .mat-select-content, .mat-select-panel-done-animating {

@@ -101,6 +101,15 @@ export declare class MdButtonToggle implements OnInit, OnDestroy {
     private _renderer;
     private _elementRef;
     private _focusOriginMonitor;
+    /**
+     * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
+     * take precedence so this may be omitted.
+     */
+    ariaLabel: string;
+    /**
+     * Users can specify the `aria-labelledby` attribute which will be forwarded to the input element
+     */
+    ariaLabelledby: string | null;
     /** Whether or not this button toggle is checked. */
     private _checked;
     /** Type of the button toggle. Either 'radio' or 'checkbox'. */
