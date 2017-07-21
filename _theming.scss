@@ -1434,8 +1434,14 @@ $mat-menu-icon-margin: 16px !default;
 }
 
 // Gets the font-family from a typography config and removes the quotes around it.
-@function mat-font-family($config) {
-  @return unquote(map-get($config, font-family));
+@function mat-font-family($config, $level: null) {
+  $font-family: map-get($config, font-family);
+
+  @if $level != null {
+    $font-family: _mat-get-type-value($config, $level, font-family);
+  }
+
+  @return unquote($font-family);
 }
 
 // Converts a typography level into CSS styles.
@@ -1443,7 +1449,7 @@ $mat-menu-icon-margin: 16px !default;
   $font-size: mat-font-size($config, $level);
   $font-weight: mat-font-weight($config, $level);
   $line-height: mat-line-height($config, $level);
-  $font-family: mat-font-family($config);
+  $font-family: mat-font-family($config, $level);
 
   // Use the shorthand `font` to represent a typography level, because it's the shortest. Notes that
   // we need to use interpolation for `font-size/line-height` in order to prevent SASS from dividing
@@ -1497,7 +1503,7 @@ $mat-menu-icon-margin: 16px !default;
 @mixin mat-option-typography($config) {
   .mat-option {
     font: {
-      family: mat-font-family($config);
+      family: mat-font-family($config, subheading-2);
       size: mat-font-size($config, subheading-2);
     }
   }
@@ -1587,11 +1593,17 @@ $mat-menu-icon-margin: 16px !default;
 
 
 // Represents a typography level from the Material design spec.
-@function mat-typography-level($font-size, $line-height: $font-size, $font-weight: 400) {
+@function mat-typography-level(
+  $font-size,
+  $line-height: $font-size,
+  $font-weight: 400,
+  $font-family: null) {
+
   @return (
     font-size: $font-size,
     line-height: $line-height,
-    font-weight: $font-weight
+    font-weight: $font-weight,
+    font-family: $font-family
   );
 }
 
@@ -1614,8 +1626,9 @@ $mat-menu-icon-margin: 16px !default;
   // Line-height must be unit-less fraction of the font-size.
   $input:         mat-typography-level(inherit, 1.125, 400)
 ) {
-  @return (
-    font-family:    $font-family,
+
+  // Declare an initial map with all of the levels.
+  $config: (
     display-4:      $display-4,
     display-3:      $display-3,
     display-2:      $display-2,
@@ -1630,6 +1643,18 @@ $mat-menu-icon-margin: 16px !default;
     button:         $button,
     input:          $input,
   );
+
+  // Loop through the levels and set the `font-family` of the ones that don't have one to the base.
+  // Note that SASS can't modify maps in place, which means that we need to merge and re-assign.
+  @each $key, $level in $config {
+    @if map-get($level, font-family) == null {
+      $new-level: map-merge($level, (font-family: $font-family));
+      $config: map-merge($config, ($key: $new-level));
+    }
+  }
+
+  // Add the base font family to the config.
+  @return map-merge($config, (font-family: $font-family));
 }
 
 // Adds the base typography styles, based on a config.
@@ -1660,7 +1685,7 @@ $mat-menu-icon-margin: 16px !default;
   .mat-h5, #{$selector} h5 {
     font-size: mat-font-size($config, body-1) * 0.83;
     font-weight: mat-font-weight($config, body-1);
-    font-family: mat-font-family($config);
+    font-family: mat-font-family($config, body-1);
     line-height: mat-line-height($config, body-1);
     margin: 0 0 12px;
   }
@@ -1668,7 +1693,7 @@ $mat-menu-icon-margin: 16px !default;
   .mat-h6, #{$selector} h6 {
     font-size: mat-font-size($config, body-1) * 0.67;
     font-weight: mat-font-weight($config, body-1);
-    font-family: mat-font-family($config);
+    font-family: mat-font-family($config, body-1);
     line-height: mat-line-height($config, body-1);
     margin: 0 0 12px;
   }
@@ -1853,7 +1878,7 @@ $mat-menu-icon-margin: 16px !default;
 @mixin mat-button-typography($config) {
   .mat-button, .mat-raised-button, .mat-icon-button {
     font: {
-      family: mat-font-family($config);
+      family: mat-font-family($config, button);
       size: mat-font-size($config, button);
       weight: mat-font-weight($config, button);
     }
@@ -2328,7 +2353,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 @mixin mat-expansion-panel-typography($config) {
   .mat-expansion-panel-header {
     font: {
-      family: mat-font-family($config);
+      family: mat-font-family($config, subheading-1);
       size: mat-font-size($config, subheading-1);
       weight: mat-font-weight($config, subheading-1);
     }
@@ -2687,7 +2712,12 @@ $mat-calendar-weekday-table-font-size: 11px !default;
       vertical-align: middle;
     }
 
-    &:hover:not([disabled]), &:focus:not([disabled]) {
+  }
+
+  .mat-menu-item:hover,
+  .mat-menu-item:focus,
+  .mat-menu-item-highlighted {
+    &:not([disabled]) {
       background: mat-color($background, 'hover');
     }
   }
@@ -2696,7 +2726,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 @mixin mat-menu-typography($config) {
   .mat-menu-item {
     font: {
-      family: mat-font-family($config);
+      family: mat-font-family($config, subheading-2);
       size: mat-font-size($config, subheading-2);
     }
   }
@@ -2735,16 +2765,10 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 }
 
 @mixin mat-paginator-typography($config) {
-  .mat-paginator {
-    font: {
-      family: mat-font-family($config);
-      size: mat-font-size($config, caption);
-    }
-  }
-
+  .mat-paginator,
   .mat-paginator-page-size .mat-select-trigger {
     font: {
-      family: mat-font-family($config);
+      family: mat-font-family($config, caption);
       size: mat-font-size($config, caption);
     }
   }
@@ -3325,7 +3349,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
   .mat-tab-label, .mat-tab-link {
     font: {
-      family: mat-font-family($config);
+      family: mat-font-family($config, button);
       size: mat-font-size($config, button);
       weight: mat-font-weight($config, button);
     }
@@ -3412,7 +3436,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
 @mixin mat-simple-snack-bar-typography($config) {
   .mat-simple-snackbar {
     font: {
-      family: mat-font-family($config);
+      family: mat-font-family($config, body-1);
       size: mat-font-size($config, body-1);
     }
   }

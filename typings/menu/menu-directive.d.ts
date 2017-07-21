@@ -10,6 +10,8 @@ import { AnimationEvent } from '@angular/animations';
 import { MenuPositionX, MenuPositionY } from './menu-positions';
 import { MdMenuItem } from './menu-item';
 import { MdMenuPanel } from './menu-panel';
+import { Observable } from 'rxjs/Observable';
+import { Direction } from '../core';
 export declare class MdMenu implements AfterContentInit, MdMenuPanel, OnDestroy {
     private _elementRef;
     private _keyManager;
@@ -21,6 +23,10 @@ export declare class MdMenu implements AfterContentInit, MdMenuPanel, OnDestroy 
     _classList: any;
     /** Current state of the panel animation. */
     _panelAnimationState: 'void' | 'enter-start' | 'enter';
+    /** Whether the menu is a sub-menu or a top-level menu. */
+    isSubmenu: boolean;
+    /** Layout direction of the menu. */
+    direction: Direction;
     /** Position of the menu in the X axis. */
     xPosition: MenuPositionX;
     /** Position of the menu in the Y axis. */
@@ -38,10 +44,12 @@ export declare class MdMenu implements AfterContentInit, MdMenuPanel, OnDestroy 
      */
     classList: string;
     /** Event emitted when the menu is closed. */
-    close: EventEmitter<void>;
+    close: EventEmitter<void | "click" | "keydown">;
     constructor(_elementRef: ElementRef);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
+    /** Stream that emits whenever the hovered menu item changes. */
+    hover(): Observable<MdMenuItem>;
     /** Handle a keyboard event from the menu, delegating to the appropriate action. */
     _handleKeydown(event: KeyboardEvent): void;
     /**
@@ -49,11 +57,6 @@ export declare class MdMenu implements AfterContentInit, MdMenuPanel, OnDestroy 
      * to focus the first item when the menu is opened by the ENTER key.
      */
     focusFirstItem(): void;
-    /**
-     * This emits a close event to which the trigger is subscribed. When emitted, the
-     * trigger will close the menu.
-     */
-    _emitCloseEvent(): void;
     /**
      * It's necessary to set position-based classes to ensure the menu panel animation
      * folds out from the correct direction.
