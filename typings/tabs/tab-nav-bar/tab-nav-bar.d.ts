@@ -5,16 +5,24 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentInit, ElementRef, NgZone, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { AfterContentInit, ElementRef, NgZone, OnDestroy, Renderer2, ChangeDetectorRef } from '@angular/core';
 import { MdInkBar } from '../ink-bar';
 import { CanDisable } from '../../core/common-behaviors/disabled';
 import { ViewportRuler } from '../../core/overlay/position/viewport-ruler';
 import { Directionality, Platform, RippleGlobalOptions } from '../../core';
+import { CanColor, ThemePalette } from '../../core/common-behaviors/color';
+/** @docs-private */
+export declare class MdTabNavBase {
+    _renderer: Renderer2;
+    _elementRef: ElementRef;
+    constructor(_renderer: Renderer2, _elementRef: ElementRef);
+}
+export declare const _MdTabNavMixinBase: (new (...args: any[]) => CanColor) & typeof MdTabNavBase;
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
  */
-export declare class MdTabNav implements AfterContentInit, OnDestroy {
+export declare class MdTabNav extends _MdTabNavMixinBase implements AfterContentInit, CanColor, OnDestroy {
     private _dir;
     private _ngZone;
     private _changeDetectorRef;
@@ -25,7 +33,10 @@ export declare class MdTabNav implements AfterContentInit, OnDestroy {
     _inkBar: MdInkBar;
     /** Subscription for window.resize event **/
     private _resizeSubscription;
-    constructor(_dir: Directionality, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef);
+    /** Background color of the tab nav. */
+    backgroundColor: ThemePalette;
+    private _backgroundColor;
+    constructor(renderer: Renderer2, elementRef: ElementRef, _dir: Directionality, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef);
     /** Notifies the component that the active link has been changed. */
     updateActiveLink(element: ElementRef): void;
     ngAfterContentInit(): void;
