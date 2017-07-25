@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ElementRef, Renderer2 } from '@angular/core';
-import { CdkCell, CdkColumnDef, CdkHeaderCell } from '@angular/cdk';
+import { CdkCell, CdkColumnDef, CdkHeaderCell } from '@angular/cdk/table';
 /** Workaround for https://github.com/angular/angular/issues/17849 */
 export declare const _MdHeaderCellBase: typeof CdkHeaderCell;
 export declare const _MdCell: typeof CdkCell;

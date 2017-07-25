@@ -5,4 +5,4 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-export { Platform } from '@angular/cdk';
+export { Platform } from '@angular/cdk/platform';

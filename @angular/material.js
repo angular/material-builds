@@ -6,13 +6,20 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, InjectionToken, Injector, Input, LOCALE_ID, NgModule, NgZone, Optional, Output, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
-import { A11yModule, BACKSPACE, BasePortalHost, BidiModule, CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkColumnDef, CdkHeaderCell, CdkHeaderRow, CdkRow, CdkTable, CdkTableModule, ComponentPortal, DELETE, DOWN_ARROW, Dir, Directionality, DomPortalHost, END, ENTER, ESCAPE, FocusTrap, FocusTrapDeprecatedDirective, FocusTrapDirective, FocusTrapFactory, HOME, InteractivityChecker, LEFT_ARROW, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, ListKeyManager, LiveAnnouncer, ObserveContent, ObserveContentModule, PAGE_DOWN, PAGE_UP, Platform, PlatformModule, Portal, PortalHostDirective, PortalModule, RIGHT_ARROW, RxChain, SPACE, TAB, TemplatePortal, TemplatePortalDirective, UP_ARROW, auditTime, catchOperator, coerceBooleanProperty, coerceNumberProperty, doOperator, filter, finallyOperator, first, getSupportedInputTypes, isFakeMousedownFromScreenReader, map, share, startWith, switchMap, takeUntil } from '@angular/cdk';
+import { ObserveContent, ObserveContentModule } from '@angular/cdk/observe-content';
 import { DOCUMENT, DomSanitizer, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
+import { BidiModule, Dir, Directionality } from '@angular/cdk/bidi';
 import { CommonModule, Location } from '@angular/common';
+import { Platform, PlatformModule, getSupportedInputTypes } from '@angular/cdk/platform';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
+import { RxChain, auditTime, catchOperator, doOperator, filter, finallyOperator, first, map, share, startWith, switchMap, takeUntil } from '@angular/cdk/rxjs';
+import { BACKSPACE, DELETE, DOWN_ARROW, END, ENTER, ESCAPE, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, SPACE, TAB, UP_ARROW } from '@angular/cdk/keyboard';
+import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
+import { BasePortalHost, ComponentPortal, DomPortalHost, Portal, PortalHostDirective, PortalModule, TemplatePortal, TemplatePortalDirective } from '@angular/cdk/portal';
+import { A11yModule, FocusTrap, FocusTrapDeprecatedDirective, FocusTrapDirective, FocusTrapFactory, InteractivityChecker, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, ListKeyManager, LiveAnnouncer, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { of } from 'rxjs/observable/of';
 import { FormGroupDirective, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl, NgForm, Validators } from '@angular/forms';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -20,6 +27,7 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { _throw } from 'rxjs/observable/throw';
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkColumnDef, CdkHeaderCell, CdkHeaderRow, CdkRow, CdkTable, CdkTableModule } from '@angular/cdk/table';
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**

@@ -5,4 +5,4 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-export { FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective } from '@angular/cdk';
+export { FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective } from '@angular/cdk/a11y';

@@ -8,7 +8,7 @@
 import { AfterContentInit, QueryList, OnDestroy, ElementRef, Renderer2 } from '@angular/core';
 import { MdChip } from './chip';
 import { FocusKeyManager } from '../core/a11y/focus-key-manager';
-import { Directionality } from '@angular/cdk';
+import { Directionality } from '@angular/cdk/bidi';
 /**
  * A material design chips component (named ChipList for it's similarity to the List component).
  *

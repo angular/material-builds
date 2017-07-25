@@ -1,4 +1,4 @@
-import { CdkHeaderRow, CdkRow } from '@angular/cdk';
+import { CdkHeaderRow, CdkRow } from '@angular/cdk/table';
 /** Workaround for https://github.com/angular/angular/issues/17849 */
 export declare const _MdHeaderRow: typeof CdkHeaderRow;
 export declare const _MdRow: typeof CdkRow;
