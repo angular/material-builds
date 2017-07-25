@@ -21144,6 +21144,10 @@ MdPaginatorIntl.decorators = [
 MdPaginatorIntl.ctorParameters = () => [];
 
 /**
+ * The default page size if there is no page size and there are no provided page size options.
+ */
+const DEFAULT_PAGE_SIZE = 50;
+/**
  * Change event object that is emitted when the user selects a
  * different page size or navigates to another page.
  */
@@ -21157,23 +21161,44 @@ class PageEvent {
 class MdPaginator {
     /**
      * @param {?} _intl
+     * @param {?} _changeDetectorRef
      */
-    constructor(_intl) {
+    constructor(_intl, _changeDetectorRef) {
         this._intl = _intl;
-        /**
-         * The zero-based page index of the displayed list of items. Defaulted to 0.
-         */
-        this.pageIndex = 0;
-        /**
-         * The length of the total number of items that are being paginated. Defaulted to 0.
-         */
-        this.length = 0;
-        this._pageSize = 50;
+        this._changeDetectorRef = _changeDetectorRef;
+        this._pageIndex = 0;
+        this._length = 0;
         this._pageSizeOptions = [];
         /**
          * Event emitted when the paginator changes the page size or page index.
          */
         this.page = new EventEmitter();
+    }
+    /**
+     * The zero-based page index of the displayed list of items. Defaulted to 0.
+     * @return {?}
+     */
+    get pageIndex() { return this._pageIndex; }
+    /**
+     * @param {?} pageIndex
+     * @return {?}
+     */
+    set pageIndex(pageIndex) {
+        this._pageIndex = pageIndex;
+        this._changeDetectorRef.markForCheck();
+    }
+    /**
+     * The length of the total number of items that are being paginated. Defaulted to 0.
+     * @return {?}
+     */
+    get length() { return this._length; }
+    /**
+     * @param {?} length
+     * @return {?}
+     */
+    set length(length) {
+        this._length = length;
+        this._changeDetectorRef.markForCheck();
     }
     /**
      * Number of items to display on a page. By default set to 50.
@@ -21272,12 +21297,19 @@ class MdPaginator {
         if (!this._initialized) {
             return;
         }
+        // If no page size is provided, use the first page size option or the default page size.
+        if (!this.pageSize) {
+            this._pageSize = this.pageSizeOptions.length != 0 ?
+                this.pageSizeOptions[0] :
+                DEFAULT_PAGE_SIZE;
+        }
         this._displayedPageSizeOptions = this.pageSizeOptions.slice();
         if (this._displayedPageSizeOptions.indexOf(this.pageSize) == -1) {
             this._displayedPageSizeOptions.push(this.pageSize);
         }
         // Sort the numbers using a number-specific sort function.
         this._displayedPageSizeOptions.sort((a, b) => a - b);
+        this._changeDetectorRef.markForCheck();
     }
     /**
      * Emits an event notifying that a change of the paginator's properties has been triggered.
@@ -21310,6 +21342,7 @@ MdPaginator.decorators = [
  */
 MdPaginator.ctorParameters = () => [
     { type: MdPaginatorIntl, },
+    { type: ChangeDetectorRef, },
 ];
 MdPaginator.propDecorators = {
     'pageIndex': [{ type: Input },],
