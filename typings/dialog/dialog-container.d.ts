@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ComponentRef, NgZone, ElementRef, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { ComponentRef, NgZone, ElementRef, EventEmitter } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
 import { BasePortalHost, ComponentPortal, PortalHostDirective, TemplatePortal } from '../core';
 import { MdDialogConfig } from './dialog-config';
@@ -25,7 +25,6 @@ export declare class MdDialogContainer extends BasePortalHost {
     private _ngZone;
     private _elementRef;
     private _focusTrapFactory;
-    private _changeDetectorRef;
     /** The portal host inside of this container into which the dialog content will be loaded. */
     _portalHost: PortalHostDirective;
     /** The class that traps and manages focus within the dialog. */
@@ -44,7 +43,7 @@ export declare class MdDialogContainer extends BasePortalHost {
     _ariaLabelledBy: string | null;
     /** Whether the container is currently mid-animation. */
     _isAnimating: boolean;
-    constructor(_ngZone: NgZone, _elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _changeDetectorRef: ChangeDetectorRef, _document: any);
+    constructor(_ngZone: NgZone, _elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _document: any);
     /**
      * Attach a ComponentPortal as content to this dialog container.
      * @param portal Portal to be attached as the dialog content.

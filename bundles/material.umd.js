@@ -10329,12 +10329,6 @@ var MdSidenavContainer = (function () {
             _this._watchSidenavAlign(sidenav);
         });
         this._validateDrawers();
-        // Give the view a chance to render the initial state, then enable transitions. Note that we
-        // don't use data binding, because we're not guaranteed that newer version of Angular will
-        // re-evaluate them after we set the flag here.
-        _angular_cdk_rxjs.first.call(this._ngZone.onMicrotaskEmpty).subscribe(function () {
-            _this._renderer.addClass(_this._element.nativeElement, 'mat-sidenav-transition');
-        });
     };
     /**
      * Calls `open` of both start and end sidenavs
@@ -10364,6 +10358,9 @@ var MdSidenavContainer = (function () {
     MdSidenavContainer.prototype._watchSidenavToggle = function (sidenav) {
         var _this = this;
         rxjs_observable_merge.merge(sidenav.onOpenStart, sidenav.onCloseStart).subscribe(function () {
+            // Set the transition class on the container so that the animations occur. This should not
+            // be set initially because animations should only be triggered via a change in state.
+            _this._renderer.addClass(_this._element.nativeElement, 'mat-sidenav-transition');
             _this._changeDetectorRef.markForCheck();
         });
         if (sidenav.mode !== 'side') {
@@ -18996,15 +18993,13 @@ var MdDialogContainer = (function (_super) {
      * @param {?} _ngZone
      * @param {?} _elementRef
      * @param {?} _focusTrapFactory
-     * @param {?} _changeDetectorRef
      * @param {?} _document
      */
-    function MdDialogContainer(_ngZone, _elementRef, _focusTrapFactory, _changeDetectorRef, _document) {
+    function MdDialogContainer(_ngZone, _elementRef, _focusTrapFactory, _document) {
         var _this = _super.call(this) || this;
         _this._ngZone = _ngZone;
         _this._elementRef = _elementRef;
         _this._focusTrapFactory = _focusTrapFactory;
-        _this._changeDetectorRef = _changeDetectorRef;
         /**
          * Element that was focused before the dialog was opened. Save this to restore upon close.
          */
@@ -19039,10 +19034,7 @@ var MdDialogContainer = (function (_super) {
             throwMdDialogContentAlreadyAttachedError();
         }
         this._savePreviouslyFocusedElement();
-        var /** @type {?} */ componentRef = this._portalHost.attachComponentPortal(portal);
-        // Ensure that the initial view change are picked up.
-        componentRef.changeDetectorRef.markForCheck();
-        return componentRef;
+        return this._portalHost.attachComponentPortal(portal);
     };
     /**
      * Attach a TemplatePortal as content to this dialog container.
@@ -19054,10 +19046,7 @@ var MdDialogContainer = (function (_super) {
             throwMdDialogContentAlreadyAttachedError();
         }
         this._savePreviouslyFocusedElement();
-        var /** @type {?} */ locals = this._portalHost.attachTemplatePortal(portal);
-        // Ensure that the initial view change are picked up.
-        this._changeDetectorRef.markForCheck();
-        return locals;
+        return this._portalHost.attachTemplatePortal(portal);
     };
     /**
      * Moves the focus inside the focus trap.
@@ -19117,7 +19106,6 @@ MdDialogContainer.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-dialog-container, mat-dialog-container',
                 template: "<ng-template cdkPortalHost></ng-template>",
                 styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;max-width:80vw;width:100%;height:100%}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex;flex-wrap:wrap}.mat-dialog-actions:last-child{margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button+.mat-button,.mat-dialog-actions .mat-button+.mat-raised-button,.mat-dialog-actions .mat-raised-button+.mat-button,.mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-button+.mat-raised-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:0;margin-right:8px}"],
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 animations: [
                     _angular_animations.trigger('slideDialog', [
@@ -19149,7 +19137,6 @@ MdDialogContainer.ctorParameters = function () { return [
     { type: _angular_core.NgZone, },
     { type: _angular_core.ElementRef, },
     { type: _angular_cdk_a11y.FocusTrapFactory, },
-    { type: _angular_core.ChangeDetectorRef, },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
 ]; };
 MdDialogContainer.propDecorators = {
