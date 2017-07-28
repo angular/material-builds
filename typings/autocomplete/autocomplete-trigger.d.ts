@@ -160,9 +160,4 @@ export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDe
     private _getHostWidth();
     /** Reset active item to -1 so arrow events will activate the correct options.*/
     private _resetActiveItem();
-    /**
-     * Resets the active item and re-calculates alignment of the panel in case its size
-     * has changed due to fewer or greater number of options.
-     */
-    private _resetPanel();
 }

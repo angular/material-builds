@@ -23,6 +23,8 @@ export declare class MdMenuItem extends _MdMenuItemMixinBase implements Focusabl
     hover: Subject<MdMenuItem>;
     /** Whether the menu item is highlighted. */
     _highlighted: boolean;
+    /** Whether the menu item acts as a trigger for a sub-menu. */
+    _triggersSubmenu: boolean;
     constructor(_elementRef: ElementRef);
     /** Focuses the menu item. */
     focus(): void;

@@ -145,7 +145,7 @@ export declare class MdSlider extends _MdSliderMixinBase implements ControlValue
     _onMouseenter(): void;
     _onClick(event: MouseEvent): void;
     _onSlide(event: HammerInput): void;
-    _onSlideStart(event: HammerInput): void;
+    _onSlideStart(event: HammerInput | null): void;
     _onSlideEnd(): void;
     _onFocus(): void;
     _onBlur(): void;

@@ -8,7 +8,8 @@
 import { AnimationTriggerMetadata } from '@angular/animations';
 /**
  * Below are all the animations for the md-menu component.
- * Animation duration and timing values are based on AngularJS Material.
+ * Animation duration and timing values are based on:
+ * https://material.io/guidelines/components/menus.html#menus-usage
  */
 /**
  * This animation controls the menu panel's entry and exit from the page.

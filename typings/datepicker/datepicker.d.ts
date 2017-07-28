@@ -62,7 +62,10 @@ export declare class MdDatepicker<D> implements OnDestroy {
     /** Whether the datepicker pop-up should be disabled. */
     disabled: any;
     private _disabled;
-    /** Emits new selected date when selected date changes. */
+    /**
+     * Emits new selected date when selected date changes.
+     * @deprecated Switch to the `dateChange` and `dateInput` binding on the input element.
+     */
     selectedChanged: EventEmitter<D>;
     /** Whether the calendar is open. */
     opened: boolean;

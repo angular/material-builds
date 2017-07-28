@@ -7,21 +7,16 @@
  */
 import { ElementRef, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { MdOptgroup } from './optgroup';
-import { CanDisableRipple } from '../common-behaviors/disable-ripple';
 /** Event object emitted by MdOption when selected or deselected. */
 export declare class MdOptionSelectionChange {
     source: MdOption;
     isUserInput: boolean;
     constructor(source: MdOption, isUserInput?: boolean);
 }
-/** @docs-private */
-export declare class MdOptionBase {
-}
-export declare const _MdOptionMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MdOptionBase;
 /**
  * Single option inside of a `<md-select>` element.
  */
-export declare class MdOption extends _MdOptionMixinBase implements CanDisableRipple {
+export declare class MdOption {
     private _element;
     private _changeDetectorRef;
     readonly group: MdOptgroup;
@@ -29,6 +24,7 @@ export declare class MdOption extends _MdOptionMixinBase implements CanDisableRi
     private _selected;
     private _active;
     private _multiple;
+    private _disableRipple;
     /** Whether the option is disabled.  */
     private _disabled;
     private _id;
@@ -42,6 +38,8 @@ export declare class MdOption extends _MdOptionMixinBase implements CanDisableRi
     value: any;
     /** Whether the option is disabled. */
     disabled: any;
+    /** Whether ripples for the option are disabled. */
+    disableRipple: boolean;
     /** Event emitted when the option is selected or deselected. */
     onSelectionChange: EventEmitter<MdOptionSelectionChange>;
     constructor(_element: ElementRef, _changeDetectorRef: ChangeDetectorRef, group: MdOptgroup, _isCompatibilityMode: boolean);

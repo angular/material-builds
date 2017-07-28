@@ -70,6 +70,30 @@ export declare class ConnectedOverlayDirective implements OnDestroy, OnChanges {
     open: boolean;
     /** Whether or not the overlay should attach a backdrop. */
     hasBackdrop: any;
+    /** @deprecated */
+    _deprecatedOrigin: OverlayOrigin;
+    /** @deprecated */
+    _deprecatedPositions: ConnectionPositionPair[];
+    /** @deprecated */
+    _deprecatedOffsetX: number;
+    /** @deprecated */
+    _deprecatedOffsetY: number;
+    /** @deprecated */
+    _deprecatedWidth: number | string;
+    /** @deprecated */
+    _deprecatedHeight: number | string;
+    /** @deprecated */
+    _deprecatedMinWidth: number | string;
+    /** @deprecated */
+    _deprecatedMinHeight: number | string;
+    /** @deprecated */
+    _deprecatedBackdropClass: string;
+    /** @deprecated */
+    _deprecatedScrollStrategy: ScrollStrategy;
+    /** @deprecated */
+    _deprecatedOpen: boolean;
+    /** @deprecated */
+    _deprecatedHasBackdrop: any;
     /** Event emitted when the backdrop is clicked. */
     backdropClick: EventEmitter<void>;
     /** Event emitted when the position has changed. */

@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentInit, ElementRef, QueryList, EventEmitter, Renderer2, NgZone, OnDestroy } from '@angular/core';
+import { AfterContentInit, ElementRef, QueryList, EventEmitter, Renderer2, NgZone, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Directionality } from '../core';
 import { FocusTrapFactory } from '../core/a11y/focus-trap';
 /** Throws an exception when two MdSidenav are matching the same side. */
@@ -122,6 +122,7 @@ export declare class MdSidenavContainer implements AfterContentInit {
     private _element;
     private _renderer;
     private _ngZone;
+    private _changeDetectorRef;
     _sidenavs: QueryList<MdSidenav>;
     /** The sidenav child with the `start` alignment. */
     readonly start: MdSidenav | null;
@@ -140,7 +141,7 @@ export declare class MdSidenavContainer implements AfterContentInit {
      */
     private _left;
     private _right;
-    constructor(_dir: Directionality, _element: ElementRef, _renderer: Renderer2, _ngZone: NgZone);
+    constructor(_dir: Directionality, _element: ElementRef, _renderer: Renderer2, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef);
     ngAfterContentInit(): void;
     /** Calls `open` of both start and end sidenavs */
     open(): Promise<MdSidenavToggleResult[]>;

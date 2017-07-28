@@ -74,6 +74,8 @@ export declare class MdMenuTrigger implements AfterViewInit, OnDestroy {
      * the menu was opened via the keyboard.
      */
     private _initMenu();
+    /** Updates the menu elevation based on the amount of parent menus that it has. */
+    private _setMenuElevation();
     /**
      * This method resets the menu when it's closed, most importantly restoring
      * focus to the menu trigger if the menu was opened via the keyboard.

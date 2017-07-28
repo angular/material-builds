@@ -34,10 +34,10 @@ export declare class MdSnackBarRef<T> {
     constructor(containerInstance: MdSnackBarContainer, _overlayRef: OverlayRef);
     /** Dismisses the snack bar. */
     dismiss(): void;
+    /** Marks the snackbar action clicked. */
+    closeWithAction(): void;
     /** Dismisses the snack bar after some duration */
     _dismissAfter(duration: number): void;
-    /** Marks the snackbar action clicked. */
-    _action(): void;
     /** Marks the snackbar as opened */
     _open(): void;
     /** Cleans up the DOM after closing. */

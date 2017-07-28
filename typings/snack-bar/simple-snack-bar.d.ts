@@ -11,8 +11,8 @@ export declare class SimpleSnackBar {
         action: string;
     };
     constructor(snackBarRef: MdSnackBarRef<SimpleSnackBar>, data: any);
-    /** Dismisses the snack bar. */
-    dismiss(): void;
+    /** Performs the action on the snack bar. */
+    action(): void;
     /** If the action button should be shown. */
     readonly hasAction: boolean;
 }

@@ -50,6 +50,8 @@ export declare class MdRadioGroup extends _MdRadioGroupMixinBase implements Afte
     private _labelPosition;
     /** Whether the radio group is disabled. */
     private _disabled;
+    /** Whether the radio group is required. */
+    private _required;
     /** The method to be called in order to update ngModel */
     _controlValueAccessorChangeFn: (value: any) => void;
     /**
@@ -81,6 +83,8 @@ export declare class MdRadioGroup extends _MdRadioGroupMixinBase implements Afte
     selected: MdRadioButton | null;
     /** Whether the radio group is disabled */
     disabled: boolean;
+    /** Whether the radio group is required */
+    required: boolean;
     constructor(_changeDetector: ChangeDetectorRef);
     /**
      * Initialize properties once content children are available.
@@ -158,6 +162,8 @@ export declare class MdRadioButton extends _MdRadioButtonMixinBase implements On
     labelPosition: 'before' | 'after';
     /** Whether the radio button is disabled. */
     disabled: boolean;
+    /** Whether the radio button is required. */
+    required: boolean;
     /**
      * Event emitted when the checked state of this radio button changes.
      * Change events are only emitted when the value changes due to user interaction with
@@ -172,6 +178,8 @@ export declare class MdRadioButton extends _MdRadioButtonMixinBase implements On
     private _checked;
     /** Whether this radio is disabled. */
     private _disabled;
+    /** Whether this radio is required. */
+    private _required;
     /** Value assigned to this radio.*/
     private _value;
     /** The child ripple instance. */

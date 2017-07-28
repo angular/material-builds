@@ -10,6 +10,7 @@
  * @description
  * Entry point for all public APIs of Angular Material.
  */
+export * from './version';
 export * from './core';
 export * from './module';
 export * from './autocomplete/index';

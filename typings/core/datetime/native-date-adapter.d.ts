@@ -2,6 +2,13 @@ import { DateAdapter } from './date-adapter';
 /** Adapts the native JS Date for use with cdk-based components that work with dates. */
 export declare class NativeDateAdapter extends DateAdapter<Date> {
     constructor(localeId: any);
+    /**
+     * Whether to use `timeZone: 'utc'` with `Intl.DateTimeFormat` when formatting dates.
+     * Without this `Intl.DateTimeFormat` sometimes chooses the wrong timeZone, which can throw off
+     * the result. (e.g. in the en-US locale `new Date(1800, 7, 14).toLocaleDateString()`
+     * will produce `'8/13/1800'`.
+     */
+    useUtcForDisplay: boolean;
     getYear(date: Date): number;
     getMonth(date: Date): number;
     getDate(date: Date): number;

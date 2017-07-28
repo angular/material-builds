@@ -1032,6 +1032,7 @@ $mat-light-theme-foreground: (
   icon:              rgba(black, 0.54),
   icons:             rgba(black, 0.54),
   text:              rgba(black, 0.87),
+  slider-min:        rgba(black, 0.87),
   slider-off:        rgba(black, 0.26),
   slider-off-active: rgba(black, 0.38),
 );
@@ -1049,6 +1050,7 @@ $mat-dark-theme-foreground: (
   icon:              white,
   icons:             white,
   text:              white,
+  slider-min:        white,
   slider-off:        rgba(white, 0.3),
   slider-off-active: rgba(white, 0.3),
 );
@@ -1626,7 +1628,7 @@ $mat-menu-icon-margin: 16px !default;
   $caption:       mat-typography-level(12px, 20px, 400),
   $button:        mat-typography-level(14px, 14px, 500),
   // Line-height must be unit-less fraction of the font-size.
-  $input:         mat-typography-level(inherit, 1.125, 400)
+  $input:         mat-typography-level(16px, 1.125, 400)
 ) {
 
   // Declare an initial map with all of the levels.
@@ -1914,7 +1916,7 @@ $mat-menu-icon-margin: 16px !default;
 
   .mat-button-toggle-checked {
     background-color: mat-color($background, selected-button);
-    color: mat-color($foreground, base);
+    color: mat-color($foreground, secondary-text);
   }
 
   .mat-button-toggle-disabled {
@@ -2322,7 +2324,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
   .mat-expansion-panel {
     background: mat-color($background, card);
-    color: mat-color($foreground, base);
+    color: mat-color($foreground, text);
   }
 
   .mat-action-row {
@@ -2563,10 +2565,13 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   // The padding applied to the input-wrapper to reserve space for the subscript, since it's
   // absolutely positioned. This is a combination of the subscript's margin and line-height, but we
   // need to multiply by the subscript font scale factor since the wrapper has a larger font size.
-  $wrapper-padding-bottom: ($subscript-margin-top + $line-height) * $subscript-font-scale;
+  $wrapper-padding-bottom: 0.5em + ($line-height * $subscript-font-scale);
 
   .mat-input-container {
-    @include mat-typography-level-to-styles($config, input);
+    font-family: mat-font-family($config);
+    font-size: inherit;
+    font-weight: mat-font-weight($config, input);
+    line-height: mat-line-height($config, input);
   }
 
   .mat-input-wrapper {
@@ -2721,12 +2726,11 @@ $mat-calendar-weekday-table-font-size: 11px !default;
     &[disabled] {
       color: mat-color($foreground, 'disabled');
     }
+  }
 
-    .mat-icon {
-      color: mat-color($foreground, 'icon');
-      vertical-align: middle;
-    }
-
+  .mat-menu-item .mat-icon,
+  .mat-menu-item-submenu-trigger::after {
+    color: mat-color($foreground, 'icon');
   }
 
   .mat-menu-item:hover,
@@ -3030,8 +3034,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
     }
   }
 
-  .mat-select:focus:not(.mat-select-disabled).mat-warn,
-  .mat-select:not(:focus).ng-invalid.ng-touched:not(.mat-select-disabled) {
+  .mat-select:focus:not(.mat-select-disabled).mat-warn, .mat-select-invalid {
     @include _mat-select-inner-content-theme($warn);
   }
 }
@@ -3208,7 +3211,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   $mat-slider-off-color: mat-color($foreground, slider-off);
   $mat-slider-off-focused-color: mat-color($foreground, slider-off-active);
   $mat-slider-disabled-color: mat-color($foreground, slider-off);
-  $mat-slider-labeled-min-value-thumb-color: mat-color($foreground, base);
+  $mat-slider-labeled-min-value-thumb-color: mat-color($foreground, slider-min);
   $mat-slider-labeled-min-value-thumb-label-color: mat-color($foreground, slider-off);
   $mat-slider-focus-ring-color: mat-color($accent, default, 0.2);
   $mat-slider-focus-ring-min-value-color: mat-color($foreground, base, 0.12);

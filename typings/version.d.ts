@@ -5,4 +5,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-export * from './typings/index';
+import { Version } from '@angular/core';
+/** Current version of Angular Material. */
+export declare const VERSION: Version;

@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AfterContentInit, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer2, ChangeDetectorRef, OnInit, InjectionToken } from '@angular/core';
+import { NgForm, FormGroupDirective } from '@angular/forms';
 import { MdOption, MdOptionSelectionChange, MdOptgroup } from '../core/option/index';
 import { FocusKeyManager } from '../core/a11y/focus-key-manager';
 import { Directionality } from '../core/bidi/index';
@@ -19,6 +20,7 @@ import { CanColor } from '../core/common-behaviors/color';
 import { CanDisable } from '../core/common-behaviors/disabled';
 import { FloatPlaceholderType, PlaceholderOptions } from '../core/placeholder/placeholder-options';
 import { ScrollStrategy, RepositionScrollStrategy } from '../core/overlay/scroll';
+import { Platform } from '@angular/cdk/platform';
 /**
  * The following style constants are necessary to save here in order
  * to properly calculate the alignment of the selected option over
@@ -88,7 +90,10 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
     private _viewportRuler;
     private _changeDetectorRef;
     private _overlay;
+    private _platform;
     private _dir;
+    private _parentForm;
+    private _parentFormGroup;
     _control: NgControl;
     private _scrollStrategyFactory;
     /** Whether or not the overlay panel is open. */
@@ -180,6 +185,12 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
     private _floatPlaceholder;
     /** Tab index for the select element. */
     tabIndex: number;
+    /** Value of the select control. */
+    value: any;
+    private _value;
+    /** Whether ripples for all options in the select are disabled. */
+    disableRipple: boolean;
+    private _disableRipple;
     /** Aria label of the select. If not specified, the placeholder will be used as label. */
     ariaLabel: string;
     /** Input that can be used to specify the `aria-labelledby` attribute. */
@@ -192,7 +203,13 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
     onClose: EventEmitter<void>;
     /** Event emitted when the selected value has been changed by the user. */
     change: EventEmitter<MdSelectChange>;
-    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _overlay: Overlay, renderer: Renderer2, elementRef: ElementRef, _dir: Directionality, _control: NgControl, tabIndex: string, placeholderOptions: PlaceholderOptions, _scrollStrategyFactory: any);
+    /**
+     * Event that emits whenever the raw value of the select changes. This is here primarily
+     * to facilitate the two-way binding for the `value` input.
+     * @docs-private
+     */
+    valueChange: EventEmitter<any>;
+    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _overlay: Overlay, _platform: Platform, renderer: Renderer2, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _control: NgControl, tabIndex: string, placeholderOptions: PlaceholderOptions, _scrollStrategyFactory: any);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
@@ -270,6 +287,8 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
     _onAttached(): void;
     /** Whether the select has a value. */
     _hasValue(): boolean;
+    /** Whether the select is in an error state. */
+    _isErrorState(): boolean;
     /**
      * Sets the scroll position of the scroll container. This must be called after
      * the overlay pane is attached or the scroll container element will not yet be
@@ -316,6 +335,8 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
      * in order to avoid Angular errors when modifying the property after init.
      */
     private _setOptionMultiple();
+    /** Sets the `disableRipple` property on each option. */
+    private _setOptionDisableRipple();
     /**
      * Must set the width of the selected option's value programmatically
      * because it is absolutely positioned and otherwise will not clip

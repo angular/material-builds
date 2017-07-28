@@ -1,3 +1,11 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { MdExpansionPanel } from './expansion-panel';
 /**
  * <md-expansion-panel-header> component.
@@ -6,9 +14,11 @@ import { MdExpansionPanel } from './expansion-panel';
  *
  * Please refer to README.md for examples on how to use it.
  */
-export declare class MdExpansionPanelHeader {
+export declare class MdExpansionPanelHeader implements OnDestroy {
     panel: MdExpansionPanel;
-    constructor(panel: MdExpansionPanel);
+    private _changeDetectorRef;
+    private _parentChangeSubscription;
+    constructor(panel: MdExpansionPanel, _changeDetectorRef: ChangeDetectorRef);
     /** Toggles the expanded state of the panel. */
     _toggle(): void;
     /** Gets whether the panel is expanded. */
@@ -21,6 +31,7 @@ export declare class MdExpansionPanelHeader {
     _getHideToggle(): boolean;
     /** Handle keyup event calling to toggle() if appropriate. */
     _keyup(event: KeyboardEvent): void;
+    ngOnDestroy(): void;
 }
 /**
  * <md-panel-description> directive.

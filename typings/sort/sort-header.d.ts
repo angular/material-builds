@@ -9,7 +9,6 @@ import { ChangeDetectorRef } from '@angular/core';
 import { MdSort, MdSortable } from './sort';
 import { MdSortHeaderIntl } from './sort-header-intl';
 import { CdkColumnDef } from '@angular/cdk/table';
-import { Subscription } from 'rxjs/Subscription';
 /**
  * Applies sorting behavior (click to change sort) and styles to an element, including an
  * arrow to display the current sort direction.
@@ -21,11 +20,9 @@ import { Subscription } from 'rxjs/Subscription';
  */
 export declare class MdSortHeader implements MdSortable {
     _intl: MdSortHeaderIntl;
-    private _changeDetectorRef;
     _sort: MdSort;
     _cdkColumnDef: CdkColumnDef;
-    /** @docs-private  */
-    sortSubscription: Subscription;
+    private _rerenderSubscription;
     /**
      * ID of this sort header. If used within the context of a CdkColumnDef, this will default to
      * the column's name.
@@ -39,7 +36,7 @@ export declare class MdSortHeader implements MdSortable {
     disableClear: boolean;
     private _disableClear;
     _id: string;
-    constructor(_intl: MdSortHeaderIntl, _changeDetectorRef: ChangeDetectorRef, _sort: MdSort, _cdkColumnDef: CdkColumnDef);
+    constructor(_intl: MdSortHeaderIntl, changeDetectorRef: ChangeDetectorRef, _sort: MdSort, _cdkColumnDef: CdkColumnDef);
     ngOnInit(): void;
     ngOnDestroy(): void;
     /** Whether this MdSortHeader is currently sorted in either ascending or descending order. */
