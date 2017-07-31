@@ -13,7 +13,6 @@ export declare class MdDatepickerToggle<D> implements OnDestroy {
     private _intlChanges;
     /** Datepicker instance that the button will toggle. */
     datepicker: MdDatepicker<D>;
-    _datepicker: MdDatepicker<D>;
     /** Whether the toggle button is disabled. */
     disabled: any;
     private _disabled;

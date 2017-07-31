@@ -2581,9 +2581,9 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   .mat-input-prefix,
   .mat-input-suffix {
     // Allow icons in a prefix or suffix to adapt to the correct size.
-    .mat-icon,
-    .mat-datepicker-toggle {
+    .mat-icon {
       font-size: $prefix-suffix-icon-font-size;
+      line-height: $line-height;
     }
 
     // Allow icon buttons in a prefix or suffix to adapt to the correct size.
@@ -2592,7 +2592,8 @@ $mat-calendar-weekday-table-font-size: 11px !default;
       width: $prefix-suffix-icon-font-scale * 1em;
 
       .mat-icon {
-        line-height: $prefix-suffix-icon-font-scale;
+        height: $line-height * 1em;
+        line-height: $line-height;
       }
     }
   }
