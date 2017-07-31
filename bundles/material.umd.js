@@ -5209,7 +5209,8 @@ MdButtonToggleGroupMultiple.decorators = [
                 inputs: ['disabled'],
                 host: {
                     'class': 'mat-button-toggle-group',
-                    '[class.mat-button-toggle-vertical]': 'vertical'
+                    '[class.mat-button-toggle-vertical]': 'vertical',
+                    'role': 'group'
                 }
             },] },
 ];
