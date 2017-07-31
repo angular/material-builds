@@ -5,11 +5,11 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentInit, AfterContentChecked, AfterViewInit, ChangeDetectorRef, ElementRef, QueryList, Renderer2, OnChanges, OnDestroy, DoCheck } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, DoCheck, ElementRef, OnChanges, OnDestroy, QueryList, Renderer2 } from '@angular/core';
 import { Platform } from '../core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { FloatPlaceholderType, PlaceholderOptions } from '../core/placeholder/placeholder-options';
-import { ErrorStateMatcher, ErrorOptions } from '../core/error/error-options';
+import { ErrorOptions, ErrorStateMatcher } from '../core/error/error-options';
 import { Subject } from 'rxjs/Subject';
 /**
  * The placeholder directive. The content can declare this to implement more
@@ -38,7 +38,6 @@ export declare class MdInputDirective implements OnChanges, OnDestroy, DoCheck {
     private _elementRef;
     private _renderer;
     private _platform;
-    private _changeDetectorRef;
     _ngControl: NgControl;
     private _parentForm;
     private _parentFormGroup;
@@ -82,7 +81,7 @@ export declare class MdInputDirective implements OnChanges, OnDestroy, DoCheck {
     /** Whether the input is empty. */
     readonly empty: boolean;
     private _neverEmptyInputTypes;
-    constructor(_elementRef: ElementRef, _renderer: Renderer2, _platform: Platform, _changeDetectorRef: ChangeDetectorRef, _ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, errorOptions: ErrorOptions);
+    constructor(_elementRef: ElementRef, _renderer: Renderer2, _platform: Platform, _ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, errorOptions: ErrorOptions);
     ngOnChanges(): void;
     ngOnDestroy(): void;
     ngDoCheck(): void;

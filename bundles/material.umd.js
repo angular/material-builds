@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-edcbb24');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -3873,9 +3873,9 @@ var FocusOriginMonitor = (function () {
         }
         // Check if we're already monitoring this element.
         if (this._elementInfo.has(element)) {
-            var /** @type {?} */ info_1 = this._elementInfo.get(element); /** @type {?} */
-            ((info_1)).checkChildren = checkChildren;
-            return ((info_1)).subject.asObservable();
+            var /** @type {?} */ cachedInfo = this._elementInfo.get(element); /** @type {?} */
+            ((cachedInfo)).checkChildren = checkChildren;
+            return ((cachedInfo)).subject.asObservable();
         }
         // Create monitored element info.
         var /** @type {?} */ info = {
@@ -14105,17 +14105,15 @@ var MdInputDirective = (function () {
      * @param {?} _elementRef
      * @param {?} _renderer
      * @param {?} _platform
-     * @param {?} _changeDetectorRef
      * @param {?} _ngControl
      * @param {?} _parentForm
      * @param {?} _parentFormGroup
      * @param {?} errorOptions
      */
-    function MdInputDirective(_elementRef, _renderer, _platform, _changeDetectorRef, _ngControl, _parentForm, _parentFormGroup, errorOptions) {
+    function MdInputDirective(_elementRef, _renderer, _platform, _ngControl, _parentForm, _parentFormGroup, errorOptions) {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this._platform = _platform;
-        this._changeDetectorRef = _changeDetectorRef;
         this._ngControl = _ngControl;
         this._parentForm = _parentForm;
         this._parentFormGroup = _parentFormGroup;
@@ -14158,6 +14156,21 @@ var MdInputDirective = (function () {
         this.id = this.id;
         this._errorOptions = errorOptions ? errorOptions : {};
         this.errorStateMatcher = this._errorOptions.errorStateMatcher || defaultErrorStateMatcher;
+        // On some versions of iOS the caret gets stuck in the wrong place when holding down the delete
+        // key. In order to get around this we need to "jiggle" the caret loose. Since this bug only
+        // exists on iOS, we only bother to install the listener on iOS.
+        if (_platform.IOS) {
+            _renderer.listen(_elementRef.nativeElement, 'keyup', function (event) {
+                var el = event.target;
+                if (!el.value && !el.selectionStart && !el.selectionEnd) {
+                    // Note: Just setting `0, 0` doesn't fix the issue. Setting `1, 1` fixes it for the first
+                    // time that you type text and then hold delete. Toggling to `1, 1` and then back to
+                    // `0, 0` seems to completely fix it.
+                    el.setSelectionRange(1, 1);
+                    el.setSelectionRange(0, 0);
+                }
+            });
+        }
     }
     Object.defineProperty(MdInputDirective.prototype, "disabled", {
         /**
@@ -14424,7 +14437,6 @@ MdInputDirective.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.Renderer2, },
     { type: _angular_cdk_platform.Platform, },
-    { type: _angular_core.ChangeDetectorRef, },
     { type: _angular_forms.NgControl, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Self },] },
     { type: _angular_forms.NgForm, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_forms.FormGroupDirective, decorators: [{ type: _angular_core.Optional },] },
@@ -20480,7 +20492,8 @@ var MdYearView = (function () {
      * @return {?}
      */
     MdYearView.prototype._monthSelected = function (month) {
-        this.selectedChange.emit(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, this._dateAdapter.getDate(this.activeDate)));
+        var /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1));
+        this.selectedChange.emit(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, Math.min(this._dateAdapter.getDate(this.activeDate), daysInMonth)));
     };
     /**
      * Initializes this month view.
