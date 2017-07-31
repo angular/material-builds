@@ -1299,74 +1299,11 @@ MdRippleModule.decorators = [
  */
 MdRippleModule.ctorParameters = function () { return []; };
 /**
- * Mixin to augment a directive with a `color` property.
- * @template T
- * @param {?} base
- * @param {?=} defaultColor
- * @return {?}
- */
-function mixinColor(base, defaultColor) {
-    return (function (_super) {
-        __extends(class_1, _super);
-        /**
-         * @param {...?} args
-         */
-        function class_1() {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments[_i];
-            }
-            var _this = _super.apply(this, args) || this;
-            // Set the default color that can be specified from the mixin.
-            _this.color = defaultColor;
-            return _this;
-        }
-        Object.defineProperty(class_1.prototype, "color", {
-            /**
-             * @return {?}
-             */
-            get: function () { return this._color; },
-            /**
-             * @param {?} value
-             * @return {?}
-             */
-            set: function (value) {
-                var /** @type {?} */ colorPalette = value || defaultColor;
-                if (colorPalette !== this._color) {
-                    if (this._color) {
-                        this._renderer.removeClass(this._elementRef.nativeElement, "mat-" + this._color);
-                    }
-                    if (colorPalette) {
-                        this._renderer.addClass(this._elementRef.nativeElement, "mat-" + colorPalette);
-                    }
-                    this._color = colorPalette;
-                }
-            },
-            enumerable: true,
-            configurable: true
-        });
-        return class_1;
-    }(base));
-}
-/**
- * \@docs-private
- */
-var MdPseudoCheckboxBase = (function () {
-    /**
-     * @param {?} _renderer
-     * @param {?} _elementRef
-     */
-    function MdPseudoCheckboxBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
-        this._elementRef = _elementRef;
-    }
-    return MdPseudoCheckboxBase;
-}());
-var _MdPseudoCheckboxBase = mixinColor(MdPseudoCheckboxBase, 'accent');
-/**
  * Component that shows a simplified checkbox without including any kind of "real" checkbox.
  * Meant to be used when the checkbox is purely decorative and a large number of them will be
  * included, such as for the options in a multi-select. Uses no SVGs or complex animations.
+ * Note that theming is meant to be handled by the parent element, e.g.
+ * `mat-primary .mat-pseudo-checkbox`.
  *
  * Note that this component will be completely invisible to screen-reader users. This is *not*
  * interchangeable with <md-checkbox> and should *not* be used if the user would directly interact
@@ -1374,32 +1311,24 @@ var _MdPseudoCheckboxBase = mixinColor(MdPseudoCheckboxBase, 'accent');
  * more complex components that appropriately handle selected / checked state.
  * \@docs-private
  */
-var MdPseudoCheckbox = (function (_super) {
-    __extends(MdPseudoCheckbox, _super);
-    /**
-     * @param {?} elementRef
-     * @param {?} renderer
-     */
-    function MdPseudoCheckbox(elementRef, renderer) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+var MdPseudoCheckbox = (function () {
+    function MdPseudoCheckbox() {
         /**
          * Display state of the checkbox.
          */
-        _this.state = 'unchecked';
+        this.state = 'unchecked';
         /**
          * Whether the checkbox is disabled.
          */
-        _this.disabled = false;
-        return _this;
+        this.disabled = false;
     }
     return MdPseudoCheckbox;
-}(_MdPseudoCheckboxBase));
+}());
 MdPseudoCheckbox.decorators = [
     { type: _angular_core.Component, args: [{ encapsulation: _angular_core.ViewEncapsulation.None,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                 selector: 'md-pseudo-checkbox, mat-pseudo-checkbox',
                 styles: [".mat-pseudo-checkbox{width:20px;height:20px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;transition:border-color 90ms cubic-bezier(0,0,.2,.1),background-color 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:'';border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:9px;left:2px;width:16px;opacity:1}.mat-pseudo-checkbox-checked::after{top:5px;left:3px;width:12px;height:5px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1}"],
-                inputs: ['color'],
                 template: '',
                 host: {
                     'class': 'mat-pseudo-checkbox',
@@ -1412,10 +1341,7 @@ MdPseudoCheckbox.decorators = [
 /**
  * @nocollapse
  */
-MdPseudoCheckbox.ctorParameters = function () { return [
-    { type: _angular_core.ElementRef, },
-    { type: _angular_core.Renderer2, },
-]; };
+MdPseudoCheckbox.ctorParameters = function () { return []; };
 MdPseudoCheckbox.propDecorators = {
     'state': [{ type: _angular_core.Input },],
     'disabled': [{ type: _angular_core.Input },],
@@ -1443,11 +1369,11 @@ MdSelectionModule.ctorParameters = function () { return []; };
  */
 function mixinDisabled(base) {
     return (function (_super) {
-        __extends(class_2, _super);
+        __extends(class_1, _super);
         /**
          * @param {...?} args
          */
-        function class_2() {
+        function class_1() {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
@@ -1456,7 +1382,7 @@ function mixinDisabled(base) {
             _this._disabled = false;
             return _this;
         }
-        Object.defineProperty(class_2.prototype, "disabled", {
+        Object.defineProperty(class_1.prototype, "disabled", {
             /**
              * @return {?}
              */
@@ -1469,7 +1395,7 @@ function mixinDisabled(base) {
             enumerable: true,
             configurable: true
         });
-        return class_2;
+        return class_1;
     }(base));
 }
 /**
@@ -1781,7 +1707,7 @@ MdOption.decorators = [
                     '(keydown)': '_handleKeydown($event)',
                     'class': 'mat-option',
                 },
-                template: "<span [ngSwitch]=\"_isCompatibilityMode\" *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" *ngSwitchCase=\"true\" [state]=\"selected ? 'checked' : ''\" color=\"primary\"></mat-pseudo-checkbox><md-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" *ngSwitchDefault [state]=\"selected ? 'checked' : ''\" color=\"primary\"></md-pseudo-checkbox></span><ng-content></ng-content><div class=\"mat-option-ripple\" md-ripple [mdRippleTrigger]=\"_getHostElement()\" [mdRippleDisabled]=\"disabled || disableRipple\"></div>",
+                template: "<span [ngSwitch]=\"_isCompatibilityMode\" *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" *ngSwitchCase=\"true\" [state]=\"selected ? 'checked' : ''\"></mat-pseudo-checkbox><md-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" *ngSwitchDefault [state]=\"selected ? 'checked' : ''\"></md-pseudo-checkbox></span><ng-content></ng-content><div class=\"mat-option-ripple\" md-ripple [mdRippleTrigger]=\"_getHostElement()\" [mdRippleDisabled]=\"disabled || disableRipple\"></div>",
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
             },] },
@@ -5513,6 +5439,56 @@ MdButtonToggleModule.decorators = [
  * @nocollapse
  */
 MdButtonToggleModule.ctorParameters = function () { return []; };
+/**
+ * Mixin to augment a directive with a `color` property.
+ * @template T
+ * @param {?} base
+ * @param {?=} defaultColor
+ * @return {?}
+ */
+function mixinColor(base, defaultColor) {
+    return (function (_super) {
+        __extends(class_2, _super);
+        /**
+         * @param {...?} args
+         */
+        function class_2() {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            var _this = _super.apply(this, args) || this;
+            // Set the default color that can be specified from the mixin.
+            _this.color = defaultColor;
+            return _this;
+        }
+        Object.defineProperty(class_2.prototype, "color", {
+            /**
+             * @return {?}
+             */
+            get: function () { return this._color; },
+            /**
+             * @param {?} value
+             * @return {?}
+             */
+            set: function (value) {
+                var /** @type {?} */ colorPalette = value || defaultColor;
+                if (colorPalette !== this._color) {
+                    if (this._color) {
+                        this._renderer.removeClass(this._elementRef.nativeElement, "mat-" + this._color);
+                    }
+                    if (colorPalette) {
+                        this._renderer.addClass(this._elementRef.nativeElement, "mat-" + colorPalette);
+                    }
+                    this._color = colorPalette;
+                }
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return class_2;
+    }(base));
+}
 /**
  * Mixin to augment a directive with a `disableRipple` property.
  * @template T
@@ -23468,8 +23444,6 @@ exports.MdPrefixRejector = MdPrefixRejector;
 exports.AnimationCurves = AnimationCurves;
 exports.AnimationDurations = AnimationDurations;
 exports.MdSelectionModule = MdSelectionModule;
-exports.MdPseudoCheckboxBase = MdPseudoCheckboxBase;
-exports._MdPseudoCheckboxBase = _MdPseudoCheckboxBase;
 exports.MdPseudoCheckbox = MdPseudoCheckbox;
 exports.NativeDateModule = NativeDateModule;
 exports.MdNativeDateModule = MdNativeDateModule;
@@ -23753,9 +23727,9 @@ exports.MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY = MD_TOOLTIP_SCROLL_STRATEGY
 exports.MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER = MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER;
 exports.MdTooltip = MdTooltip;
 exports.TooltipComponent = TooltipComponent;
-exports.ɵbc = mixinColor;
+exports.ɵbd = mixinColor;
 exports.ɵbe = mixinDisableRipple;
-exports.ɵbd = mixinDisabled;
+exports.ɵbc = mixinDisabled;
 exports.ɵk = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
 exports.ɵb = OVERLAY_CONTAINER_PROVIDER;
 exports.ɵa = OVERLAY_CONTAINER_PROVIDER_FACTORY;
