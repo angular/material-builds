@@ -9856,6 +9856,7 @@ function throwMdDuplicatedSidenavError(align) {
 }
 /**
  * Sidenav toggle promise result.
+ * @deprecated
  */
 var MdSidenavToggleResult = /*@__PURE__*/(function () {
     /**
@@ -9877,8 +9878,7 @@ var MdSidenavToggleResult = /*@__PURE__*/(function () {
  */
 var MdSidenav = /*@__PURE__*/(function () {
     /**
-     * @param {?} _elementRef The DOM element reference. Used for transition and width calculation.
-     *     If not available we do not hook on transitions.
+     * @param {?} _elementRef
      * @param {?} _focusTrapFactory
      * @param {?} _doc
      */
@@ -9887,6 +9887,11 @@ var MdSidenav = /*@__PURE__*/(function () {
         this._elementRef = _elementRef;
         this._focusTrapFactory = _focusTrapFactory;
         this._doc = _doc;
+        this._elementFocusedBeforeSidenavWasOpened = null;
+        /**
+         * Whether the sidenav is initialized. Used for disabling the initial animation.
+         */
+        this._enableAnimations = false;
         /**
          * Alignment of the sidenav (direction neutral); whether 'start' or 'end'.
          */
@@ -9901,17 +9906,17 @@ var MdSidenav = /*@__PURE__*/(function () {
          */
         this._opened = false;
         /**
-         * Event emitted when the sidenav is being opened. Use this to synchronize animations.
+         * Emits whenever the sidenav has started animating.
          */
-        this.onOpenStart = new EventEmitter();
+        this._animationStarted = new EventEmitter();
+        /**
+         * Whether the sidenav is animating. Used to prevent overlapping animations.
+         */
+        this._isAnimating = false;
         /**
          * Event emitted when the sidenav is fully opened.
          */
         this.onOpen = new EventEmitter();
-        /**
-         * Event emitted when the sidenav is being closed. Use this to synchronize animations.
-         */
-        this.onCloseStart = new EventEmitter();
         /**
          * Event emitted when the sidenav is fully closed.
          */
@@ -9920,16 +9925,6 @@ var MdSidenav = /*@__PURE__*/(function () {
          * Event emitted when the sidenav alignment changes.
          */
         this.onAlignChanged = new EventEmitter();
-        /**
-         * The current toggle animation promise. `null` if no animation is in progress.
-         */
-        this._toggleAnimationPromise = null;
-        /**
-         * The current toggle animation promise resolution function.
-         * `null` if no animation is in progress.
-         */
-        this._resolveToggleAnimationPromise = null;
-        this._elementFocusedBeforeSidenavWasOpened = null;
         this.onOpen.subscribe(function () {
             if (_this._doc) {
                 _this._elementFocusedBeforeSidenavWasOpened = _this._doc.activeElement;
@@ -9952,7 +9947,7 @@ var MdSidenav = /*@__PURE__*/(function () {
          */
         set: function (value) {
             // Make sure we have a valid value.
-            value = (value == 'end') ? 'end' : 'start';
+            value = value === 'end' ? 'end' : 'start';
             if (value != this._align) {
                 this._align = value;
                 this.onAlignChanged.emit();
@@ -10007,14 +10002,10 @@ var MdSidenav = /*@__PURE__*/(function () {
      * @return {?}
      */
     MdSidenav.prototype.ngAfterContentInit = function () {
+        var _this = this;
         this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
         this._focusTrap.enabled = this.isFocusTrapEnabled;
-        // This can happen when the sidenav is set to opened in
-        // the template and the transition hasn't ended.
-        if (this._toggleAnimationPromise && this._resolveToggleAnimationPromise) {
-            this._resolveToggleAnimationPromise(true);
-            this._toggleAnimationPromise = this._resolveToggleAnimationPromise = null;
-        }
+        Promise.resolve().then(function () { return _this._enableAnimations = true; });
     };
     /**
      * @return {?}
@@ -10042,52 +10033,39 @@ var MdSidenav = /*@__PURE__*/(function () {
         configurable: true
     });
     /**
-     * Open this sidenav, and return a Promise that will resolve when it's fully opened (or get
-     * rejected if it didn't).
+     * Open the sidenav.
      * @return {?}
      */
     MdSidenav.prototype.open = function () {
         return this.toggle(true);
     };
     /**
-     * Close this sidenav, and return a Promise that will resolve when it's fully closed (or get
-     * rejected if it didn't).
+     * Close the sidenav.
      * @return {?}
      */
     MdSidenav.prototype.close = function () {
         return this.toggle(false);
     };
     /**
-     * Toggle this sidenav. This is equivalent to calling open() when it's already opened, or
-     * close() when it's closed.
+     * Toggle this sidenav.
      * @param {?=} isOpen Whether the sidenav should be open.
-     * @return {?} Resolves with the result of whether the sidenav was opened or closed.
+     * @return {?}
      */
     MdSidenav.prototype.toggle = function (isOpen) {
         var _this = this;
         if (isOpen === void 0) { isOpen = !this.opened; }
-        // Shortcut it if we're already opened.
-        if (isOpen === this.opened) {
-            return this._toggleAnimationPromise ||
-                Promise.resolve(new MdSidenavToggleResult(isOpen ? 'open' : 'close', true));
+        if (!this._isAnimating) {
+            this._opened = isOpen;
+            this._currentTogglePromise = new Promise(function (resolve) {
+                first.call(isOpen ? _this.onOpen : _this.onClose).subscribe(resolve);
+            });
+            if (this._focusTrap) {
+                this._focusTrap.enabled = this.isFocusTrapEnabled;
+            }
         }
-        this._opened = isOpen;
-        if (this._focusTrap) {
-            this._focusTrap.enabled = this.isFocusTrapEnabled;
-        }
-        if (isOpen) {
-            this.onOpenStart.emit();
-        }
-        else {
-            this.onCloseStart.emit();
-        }
-        if (this._toggleAnimationPromise && this._resolveToggleAnimationPromise) {
-            this._resolveToggleAnimationPromise(false);
-        }
-        this._toggleAnimationPromise = new Promise(function (resolve) {
-            _this._resolveToggleAnimationPromise = function (animationFinished) { return resolve(new MdSidenavToggleResult(isOpen ? 'open' : 'close', animationFinished)); };
-        });
-        return this._toggleAnimationPromise;
+        // TODO(crisbeto): This promise is here backwards-compatibility.
+        // It should be removed next time we do breaking changes in the sidenav.
+        return ((this._currentTogglePromise));
     };
     /**
      * Handles the keyboard events.
@@ -10102,116 +10080,43 @@ var MdSidenav = /*@__PURE__*/(function () {
         }
     };
     /**
-     * When transition has finished, set the internal state for classes and emit the proper event.
-     * The event passed is actually of type TransitionEvent, but that type is not available in
-     * Android so we use any.
-     * @param {?} transitionEvent
+     * Figures out the state of the sidenav animation.
      * @return {?}
      */
-    MdSidenav.prototype._onTransitionEnd = function (transitionEvent) {
-        if (transitionEvent.target == this._elementRef.nativeElement
-            && transitionEvent.propertyName.endsWith('transform')) {
-            if (this._opened) {
-                this.onOpen.emit();
-            }
-            else {
-                this.onClose.emit();
-            }
-            if (this._toggleAnimationPromise && this._resolveToggleAnimationPromise) {
-                this._resolveToggleAnimationPromise(true);
-                this._toggleAnimationPromise = this._resolveToggleAnimationPromise = null;
-            }
+    MdSidenav.prototype._getAnimationState = function () {
+        if (this.opened) {
+            return this._enableAnimations ? 'open' : 'open-instant';
         }
+        return 'void';
     };
-    Object.defineProperty(MdSidenav.prototype, "_isClosing", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return !this._opened && !!this._toggleAnimationPromise;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdSidenav.prototype, "_isOpening", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this._opened && !!this._toggleAnimationPromise;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdSidenav.prototype, "_isClosed", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return !this._opened && !this._toggleAnimationPromise;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdSidenav.prototype, "_isOpened", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this._opened && !this._toggleAnimationPromise;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdSidenav.prototype, "_isEnd", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this.align == 'end';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdSidenav.prototype, "_modeSide", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this.mode == 'side';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdSidenav.prototype, "_modeOver", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this.mode == 'over';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdSidenav.prototype, "_modePush", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this.mode == 'push';
-        },
-        enumerable: true,
-        configurable: true
-    });
+    /**
+     * @return {?}
+     */
+    MdSidenav.prototype._onAnimationStart = function () {
+        this._isAnimating = true;
+        this._animationStarted.emit();
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MdSidenav.prototype._onAnimationEnd = function (event) {
+        var fromState = event.fromState, toState = event.toState;
+        if (toState === 'open' && fromState === 'void') {
+            this.onOpen.emit(new MdSidenavToggleResult('open', true));
+        }
+        else if (toState === 'void' && fromState === 'open') {
+            this.onClose.emit(new MdSidenavToggleResult('close', true));
+        }
+        this._isAnimating = false;
+        this._currentTogglePromise = null;
+    };
     Object.defineProperty(MdSidenav.prototype, "_width", {
         /**
          * @return {?}
          */
         get: function () {
-            if (this._elementRef.nativeElement) {
-                return this._elementRef.nativeElement.offsetWidth;
-            }
-            return 0;
+            return this._elementRef.nativeElement ? (this._elementRef.nativeElement.offsetWidth || 0) : 0;
         },
         enumerable: true,
         configurable: true
@@ -10221,24 +10126,35 @@ var MdSidenav = /*@__PURE__*/(function () {
 MdSidenav.decorators = [
     { type: Component, args: [{ selector: 'md-sidenav, mat-sidenav',
                 template: "<ng-content></ng-content>",
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
+                animations: [
+                    trigger('transform', [
+                        state('open, open-instant', style({
+                            transform: 'translate3d(0, 0, 0)',
+                            visibility: 'visible',
+                        })),
+                        state('void', style({
+                            visibility: 'hidden',
+                        })),
+                        transition('void => open-instant', animate('0ms')),
+                        transition('void <=> open', animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
+                    ])
+                ],
                 host: {
                     'class': 'mat-sidenav',
-                    '(transitionend)': '_onTransitionEnd($event)',
+                    '[@transform]': '_getAnimationState()',
+                    '(@transform.start)': '_onAnimationStart()',
+                    '(@transform.done)': '_onAnimationEnd($event)',
                     '(keydown)': 'handleKeydown($event)',
                     // must prevent the browser from aligning text based on value
                     '[attr.align]': 'null',
-                    '[class.mat-sidenav-closed]': '_isClosed',
-                    '[class.mat-sidenav-closing]': '_isClosing',
-                    '[class.mat-sidenav-end]': '_isEnd',
-                    '[class.mat-sidenav-opened]': '_isOpened',
-                    '[class.mat-sidenav-opening]': '_isOpening',
-                    '[class.mat-sidenav-over]': '_modeOver',
-                    '[class.mat-sidenav-push]': '_modePush',
-                    '[class.mat-sidenav-side]': '_modeSide',
+                    '[class.mat-sidenav-end]': 'align === "end"',
+                    '[class.mat-sidenav-over]': 'mode === "over"',
+                    '[class.mat-sidenav-push]': 'mode === "push"',
+                    '[class.mat-sidenav-side]': 'mode === "side"',
                     'tabIndex': '-1'
                 },
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
             },] },
 ];
 /**
@@ -10253,9 +10169,7 @@ MdSidenav.propDecorators = {
     'align': [{ type: Input },],
     'mode': [{ type: Input },],
     'disableClose': [{ type: Input },],
-    'onOpenStart': [{ type: Output, args: ['open-start',] },],
     'onOpen': [{ type: Output, args: ['open',] },],
-    'onCloseStart': [{ type: Output, args: ['close-start',] },],
     'onClose': [{ type: Output, args: ['close',] },],
     'onAlignChanged': [{ type: Output, args: ['align-changed',] },],
     'opened': [{ type: Input },],
@@ -10327,18 +10241,14 @@ var MdSidenavContainer = /*@__PURE__*/(function () {
      * @return {?}
      */
     MdSidenavContainer.prototype.open = function () {
-        return Promise.all([this._start, this._end]
-            .filter(function (sidenav) { return sidenav; })
-            .map(function (sidenav) { return ((sidenav)).open(); }));
+        this._sidenavs.forEach(function (sidenav) { return sidenav.open(); });
     };
     /**
      * Calls `close` of both start and end sidenavs
      * @return {?}
      */
     MdSidenavContainer.prototype.close = function () {
-        return Promise.all([this._start, this._end]
-            .filter(function (sidenav) { return sidenav; })
-            .map(function (sidenav) { return ((sidenav)).close(); }));
+        this._sidenavs.forEach(function (sidenav) { return sidenav.close(); });
     };
     /**
      * Subscribes to sidenav events in order to set a class on the main container element when the
@@ -10349,7 +10259,7 @@ var MdSidenavContainer = /*@__PURE__*/(function () {
      */
     MdSidenavContainer.prototype._watchSidenavToggle = function (sidenav) {
         var _this = this;
-        merge(sidenav.onOpenStart, sidenav.onCloseStart).subscribe(function () {
+        sidenav._animationStarted.subscribe(function () {
             // Set the transition class on the container so that the animations occur. This should not
             // be set initially because animations should only be triggered via a change in state.
             _this._renderer.addClass(_this._element.nativeElement, 'mat-sidenav-transition');
@@ -10393,25 +10303,23 @@ var MdSidenavContainer = /*@__PURE__*/(function () {
      * @return {?}
      */
     MdSidenavContainer.prototype._validateDrawers = function () {
+        var _this = this;
         this._start = this._end = null;
         // Ensure that we have at most one start and one end sidenav.
-        // NOTE: We must call toArray on _sidenavs even though it's iterable
-        // (see https://github.com/Microsoft/TypeScript/issues/3164).
-        for (var _i = 0, _a = this._sidenavs.toArray(); _i < _a.length; _i++) {
-            var sidenav = _a[_i];
+        this._sidenavs.forEach(function (sidenav) {
             if (sidenav.align == 'end') {
-                if (this._end != null) {
+                if (_this._end != null) {
                     throwMdDuplicatedSidenavError('end');
                 }
-                this._end = sidenav;
+                _this._end = sidenav;
             }
             else {
-                if (this._start != null) {
+                if (_this._start != null) {
                     throwMdDuplicatedSidenavError('start');
                 }
-                this._start = sidenav;
+                _this._start = sidenav;
             }
-        }
+        });
         this._right = this._left = null;
         // Detect if we're LTR or RTL.
         if (this._dir == null || this._dir.value == 'ltr') {
@@ -10513,7 +10421,7 @@ var MdSidenavContainer = /*@__PURE__*/(function () {
 MdSidenavContainer.decorators = [
     { type: Component, args: [{ selector: 'md-sidenav-container, mat-sidenav-container',
                 template: "<div class=\"mat-sidenav-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-sidenav-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"md-sidenav, mat-sidenav\"></ng-content><div class=\"mat-sidenav-content\" [ngStyle]=\"_getStyles()\" cdk-scrollable><ng-content></ng-content></div>",
-                styles: [".mat-sidenav-container{position:relative;transform:translate3d(0,0,0);box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-sidenav-container[fullscreen]{position:absolute;top:0;left:0;right:0;bottom:0}.mat-sidenav-container[fullscreen].mat-sidenav-opened{overflow:hidden}.mat-sidenav-backdrop{position:absolute;top:0;left:0;right:0;bottom:0;display:block;z-index:2;visibility:hidden}.mat-sidenav-backdrop.mat-sidenav-shown{visibility:visible}@media screen and (-ms-high-contrast:active){.mat-sidenav-backdrop{opacity:.5}}.mat-sidenav-content{position:relative;transform:translate3d(0,0,0);display:block;height:100%;overflow:auto}.mat-sidenav{position:relative;transform:translate3d(0,0,0);display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;height:100%;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-sidenav.mat-sidenav-closed{visibility:hidden}.mat-sidenav.mat-sidenav-opened,.mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-side{z-index:1}.mat-sidenav.mat-sidenav-end{right:0;transform:translate3d(100%,0,0)}.mat-sidenav.mat-sidenav-end.mat-sidenav-closed{visibility:hidden}.mat-sidenav.mat-sidenav-end.mat-sidenav-opened,.mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav{transform:translate3d(100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-closed{visibility:hidden}[dir=rtl] .mat-sidenav.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-opening{transform:translate3d(0,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end{left:0;right:auto;transform:translate3d(-100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-closed{visibility:hidden}[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opened,[dir=rtl] .mat-sidenav.mat-sidenav-end.mat-sidenav-opening{transform:translate3d(0,0,0)}.mat-sidenav.mat-sidenav-opened:not(.mat-sidenav-side),.mat-sidenav.mat-sidenav-opening:not(.mat-sidenav-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)} .mat-sidenav-transition .mat-sidenav{transition:transform .4s cubic-bezier(.25,.8,.25,1)}.mat-sidenav-transition .mat-sidenav-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-sidenav-transition .mat-sidenav-backdrop.mat-sidenav-shown{transition:background-color .4s cubic-bezier(.25,.8,.25,1)}"],
+                styles: [".mat-sidenav-container{position:relative;transform:translate3d(0,0,0);box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-sidenav-container[fullscreen]{position:absolute;top:0;left:0;right:0;bottom:0}.mat-sidenav-container[fullscreen].mat-sidenav-opened{overflow:hidden}.mat-sidenav-backdrop{position:absolute;top:0;left:0;right:0;bottom:0;display:block;z-index:2;visibility:hidden}.mat-sidenav-backdrop.mat-sidenav-shown{visibility:visible}@media screen and (-ms-high-contrast:active){.mat-sidenav-backdrop{opacity:.5}}.mat-sidenav-content{position:relative;transform:translate3d(0,0,0);display:block;height:100%;overflow:auto}.mat-sidenav{position:relative;transform:translate3d(0,0,0);display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;height:100%;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-sidenav.mat-sidenav-side{z-index:1}.mat-sidenav.mat-sidenav-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-sidenav{transform:translate3d(100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-sidenav.mat-sidenav-opened:not(.mat-sidenav-side),.mat-sidenav.mat-sidenav-opening:not(.mat-sidenav-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)} .mat-sidenav-transition .mat-sidenav-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-sidenav-transition .mat-sidenav-backdrop.mat-sidenav-shown{transition:background-color .4s cubic-bezier(.25,.8,.25,1)}"],
                 host: {
                     'class': 'mat-sidenav-container',
                 },

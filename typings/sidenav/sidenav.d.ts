@@ -6,11 +6,15 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AfterContentInit, ElementRef, QueryList, EventEmitter, Renderer2, NgZone, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { AnimationEvent } from '@angular/animations';
 import { Directionality } from '../core';
 import { FocusTrapFactory } from '../core/a11y/focus-trap';
 /** Throws an exception when two MdSidenav are matching the same side. */
 export declare function throwMdDuplicatedSidenavError(align: string): void;
-/** Sidenav toggle promise result. */
+/**
+ * Sidenav toggle promise result.
+ * @deprecated
+ */
 export declare class MdSidenavToggleResult {
     type: 'open' | 'close';
     animationFinished: boolean;
@@ -28,6 +32,9 @@ export declare class MdSidenav implements AfterContentInit, OnDestroy {
     private _focusTrapFactory;
     private _doc;
     private _focusTrap;
+    private _elementFocusedBeforeSidenavWasOpened;
+    /** Whether the sidenav is initialized. Used for disabling the initial animation. */
+    private _enableAnimations;
     /** Alignment of the sidenav (direction neutral); whether 'start' or 'end'. */
     private _align;
     /** Direction which the sidenav is aligned in. */
@@ -38,29 +45,24 @@ export declare class MdSidenav implements AfterContentInit, OnDestroy {
     disableClose: boolean;
     private _disableClose;
     /** Whether the sidenav is opened. */
-    _opened: boolean;
-    /** Event emitted when the sidenav is being opened. Use this to synchronize animations. */
-    onOpenStart: EventEmitter<void>;
+    private _opened;
+    /** Emits whenever the sidenav has started animating. */
+    _animationStarted: EventEmitter<void>;
+    /** Whether the sidenav is animating. Used to prevent overlapping animations. */
+    _isAnimating: boolean;
+    /**
+     * Promise that resolves when the open/close animation completes. It is here for backwards
+     * compatibility and should be removed next time we do sidenav breaking changes.
+     * @deprecated
+     */
+    private _currentTogglePromise;
     /** Event emitted when the sidenav is fully opened. */
-    onOpen: EventEmitter<void>;
-    /** Event emitted when the sidenav is being closed. Use this to synchronize animations. */
-    onCloseStart: EventEmitter<void>;
+    onOpen: EventEmitter<void | MdSidenavToggleResult>;
     /** Event emitted when the sidenav is fully closed. */
-    onClose: EventEmitter<void>;
+    onClose: EventEmitter<void | MdSidenavToggleResult>;
     /** Event emitted when the sidenav alignment changes. */
     onAlignChanged: EventEmitter<void>;
-    /** The current toggle animation promise. `null` if no animation is in progress. */
-    private _toggleAnimationPromise;
-    /**
-     * The current toggle animation promise resolution function.
-     * `null` if no animation is in progress.
-     */
-    private _resolveToggleAnimationPromise;
     readonly isFocusTrapEnabled: boolean;
-    /**
-     * @param _elementRef The DOM element reference. Used for transition and width calculation.
-     *     If not available we do not hook on transitions.
-     */
     constructor(_elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _doc: any);
     /**
      * If focus is currently inside the sidenav, restores it to where it was before the sidenav
@@ -74,19 +76,13 @@ export declare class MdSidenav implements AfterContentInit, OnDestroy {
      * starts or end.
      */
     opened: boolean;
-    /** Open this sidenav, and return a Promise that will resolve when it's fully opened (or get
-     * rejected if it didn't). */
+    /**  Open the sidenav. */
     open(): Promise<MdSidenavToggleResult>;
-    /**
-     * Close this sidenav, and return a Promise that will resolve when it's fully closed (or get
-     * rejected if it didn't).
-     */
+    /** Close the sidenav. */
     close(): Promise<MdSidenavToggleResult>;
     /**
-     * Toggle this sidenav. This is equivalent to calling open() when it's already opened, or
-     * close() when it's closed.
+     * Toggle this sidenav.
      * @param isOpen Whether the sidenav should be open.
-     * @returns Resolves with the result of whether the sidenav was opened or closed.
      */
     toggle(isOpen?: boolean): Promise<MdSidenavToggleResult>;
     /**
@@ -95,21 +91,12 @@ export declare class MdSidenav implements AfterContentInit, OnDestroy {
      */
     handleKeydown(event: KeyboardEvent): void;
     /**
-     * When transition has finished, set the internal state for classes and emit the proper event.
-     * The event passed is actually of type TransitionEvent, but that type is not available in
-     * Android so we use any.
+     * Figures out the state of the sidenav animation.
      */
-    _onTransitionEnd(transitionEvent: TransitionEvent): void;
-    readonly _isClosing: boolean;
-    readonly _isOpening: boolean;
-    readonly _isClosed: boolean;
-    readonly _isOpened: boolean;
-    readonly _isEnd: boolean;
-    readonly _modeSide: boolean;
-    readonly _modeOver: boolean;
-    readonly _modePush: boolean;
+    _getAnimationState(): 'open-instant' | 'open' | 'void';
+    _onAnimationStart(): void;
+    _onAnimationEnd(event: AnimationEvent): void;
     readonly _width: any;
-    private _elementFocusedBeforeSidenavWasOpened;
 }
 /**
  * <md-sidenav-container> component.
@@ -144,9 +131,9 @@ export declare class MdSidenavContainer implements AfterContentInit {
     constructor(_dir: Directionality, _element: ElementRef, _renderer: Renderer2, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef);
     ngAfterContentInit(): void;
     /** Calls `open` of both start and end sidenavs */
-    open(): Promise<MdSidenavToggleResult[]>;
+    open(): void;
     /** Calls `close` of both start and end sidenavs */
-    close(): Promise<MdSidenavToggleResult[]>;
+    close(): void;
     /**
      * Subscribes to sidenav events in order to set a class on the main container element when the
      * sidenav is open and the backdrop is visible. This ensures any overflow on the container element
