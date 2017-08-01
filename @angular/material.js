@@ -32,7 +32,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.8-3c19234');
+const VERSION = new Version('2.0.0-beta.8-21e9768');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -20315,6 +20315,7 @@ class MdDatepickerInput {
                 this._datepicker.selectedChanged.subscribe((selected) => {
                     this.value = selected;
                     this._cvaOnChange(selected);
+                    this._onTouched();
                     this.dateInput.emit(new MdDatepickerInputEvent(this, this._elementRef.nativeElement));
                     this.dateChange.emit(new MdDatepickerInputEvent(this, this._elementRef.nativeElement));
                 });
