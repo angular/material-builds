@@ -32,7 +32,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-var VERSION = new Version('2.0.0-beta.8-f5dc120');
+var VERSION = new Version('2.0.0-beta.8-235f664');
 var MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -13655,7 +13655,7 @@ MdProgressSpinner.decorators = [
                     '[attr.aria-valuemax]': '_ariaValueMax'
                 },
                 inputs: ['color'],
-                template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"><path #path [style.strokeWidth]=\"strokeWidth\"></path></svg>",
+                template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\"><path #path [style.strokeWidth]=\"strokeWidth\"></path></svg>",
                 styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;transition:stroke .3s cubic-bezier(.35,0,.25,1)}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
@@ -13702,7 +13702,7 @@ MdSpinner.decorators = [
                     'class': 'mat-spinner',
                 },
                 inputs: ['color'],
-                template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\"><path #path [style.strokeWidth]=\"strokeWidth\"></path></svg>",
+                template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\"><path #path [style.strokeWidth]=\"strokeWidth\"></path></svg>",
                 styles: [":host{display:block;height:100px;width:100px;overflow:hidden}:host svg{height:100%;width:100%;transform-origin:center}:host path{fill:transparent;transition:stroke .3s cubic-bezier(.35,0,.25,1)}:host[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
