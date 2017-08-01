@@ -32,7 +32,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.8-735ffb5');
+const VERSION = new Version('2.0.0-beta.8-a185581');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -21374,6 +21374,42 @@ class MdSort {
      */
     set disableClear(v) { this._disableClear = coerceBooleanProperty(v); }
     /**
+     * @return {?}
+     */
+    get _matSortActive() { return this.active; }
+    /**
+     * @param {?} v
+     * @return {?}
+     */
+    set _matSortActive(v) { this.active = v; }
+    /**
+     * @return {?}
+     */
+    get _matSortStart() { return this.start; }
+    /**
+     * @param {?} v
+     * @return {?}
+     */
+    set _matSortStart(v) { this.start = v; }
+    /**
+     * @return {?}
+     */
+    get _matSortDirection() { return this.direction; }
+    /**
+     * @param {?} v
+     * @return {?}
+     */
+    set _matSortDirection(v) { this.direction = v; }
+    /**
+     * @return {?}
+     */
+    get _matSortDisableClear() { return this.disableClear; }
+    /**
+     * @param {?} v
+     * @return {?}
+     */
+    set _matSortDisableClear(v) { this.disableClear = v; }
+    /**
      * Register function to be used by the contained MdSortables. Adds the MdSortable to the
      * collection of MdSortables.
      * @param {?} sortable
@@ -21446,6 +21482,10 @@ MdSort.propDecorators = {
     'start': [{ type: Input, args: ['mdSortStart',] },],
     'direction': [{ type: Input, args: ['mdSortDirection',] },],
     'disableClear': [{ type: Input, args: ['mdSortDisableClear',] },],
+    '_matSortActive': [{ type: Input, args: ['matSortActive',] },],
+    '_matSortStart': [{ type: Input, args: ['matSortStart',] },],
+    '_matSortDirection': [{ type: Input, args: ['matSortDirection',] },],
+    '_matSortDisableClear': [{ type: Input, args: ['matSortDisableClear',] },],
     'mdSortChange': [{ type: Output },],
 };
 /**

@@ -35,6 +35,10 @@ export declare class MdSort {
      */
     disableClear: boolean;
     private _disableClear;
+    _matSortActive: string;
+    _matSortStart: "desc" | "asc";
+    _matSortDirection: SortDirection;
+    _matSortDisableClear: boolean;
     /** Event emitted when the user changes either the active sort or sort direction. */
     mdSortChange: EventEmitter<Sort>;
     /**

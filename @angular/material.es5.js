@@ -32,7 +32,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-var VERSION = new Version('2.0.0-beta.8-735ffb5');
+var VERSION = new Version('2.0.0-beta.8-a185581');
 var MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -22720,6 +22720,58 @@ var MdSort = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdSort.prototype, "_matSortActive", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this.active; },
+        /**
+         * @param {?} v
+         * @return {?}
+         */
+        set: function (v) { this.active = v; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdSort.prototype, "_matSortStart", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this.start; },
+        /**
+         * @param {?} v
+         * @return {?}
+         */
+        set: function (v) { this.start = v; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdSort.prototype, "_matSortDirection", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this.direction; },
+        /**
+         * @param {?} v
+         * @return {?}
+         */
+        set: function (v) { this.direction = v; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdSort.prototype, "_matSortDisableClear", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this.disableClear; },
+        /**
+         * @param {?} v
+         * @return {?}
+         */
+        set: function (v) { this.disableClear = v; },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * Register function to be used by the contained MdSortables. Adds the MdSortable to the
      * collection of MdSortables.
@@ -22794,6 +22846,10 @@ MdSort.propDecorators = {
     'start': [{ type: Input, args: ['mdSortStart',] },],
     'direction': [{ type: Input, args: ['mdSortDirection',] },],
     'disableClear': [{ type: Input, args: ['mdSortDisableClear',] },],
+    '_matSortActive': [{ type: Input, args: ['matSortActive',] },],
+    '_matSortStart': [{ type: Input, args: ['matSortStart',] },],
+    '_matSortDirection': [{ type: Input, args: ['matSortDirection',] },],
+    '_matSortDisableClear': [{ type: Input, args: ['matSortDisableClear',] },],
     'mdSortChange': [{ type: Output },],
 };
 /**
