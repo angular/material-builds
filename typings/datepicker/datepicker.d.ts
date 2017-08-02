@@ -50,7 +50,7 @@ export declare class MdDatepicker<D> implements OnDestroy {
     private _dir;
     private _document;
     /** The date to open the calendar to initially. */
-    startAt: D;
+    startAt: D | null;
     private _startAt;
     /** The view that the calendar should start in. */
     startView: 'month' | 'year';
@@ -73,10 +73,11 @@ export declare class MdDatepicker<D> implements OnDestroy {
     id: string;
     /** The currently selected date. */
     _selected: D | null;
+    private _validSelected;
     /** The minimum selectable date. */
-    readonly _minDate: D;
+    readonly _minDate: D | null;
     /** The maximum selectable date. */
-    readonly _maxDate: D;
+    readonly _maxDate: D | null;
     readonly _dateFilter: (date: D | null) => boolean;
     /** A reference to the overlay when the calendar is opened as a popup. */
     private _popupRef;

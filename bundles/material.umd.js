@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8-0d80a77');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-fa3cf12');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -4313,15 +4313,15 @@ var DateAdapter = (function () {
      * @param {?} value The value to parse.
      * @param {?} parseFormat The expected format of the value being parsed
      *     (type is implementation-dependent).
-     * @return {?} The parsed date, or null if date could not be parsed.
+     * @return {?} The parsed date.
      */
     DateAdapter.prototype.parse = function (value, parseFormat) { };
     /**
      * Formats a date as a string.
      * @abstract
-     * @param {?} date The value to parse.
+     * @param {?} date The value to format.
      * @param {?} displayFormat The format to use to display the date as a string.
-     * @return {?} The parsed date, or null if date could not be parsed.
+     * @return {?} The formatted date string.
      */
     DateAdapter.prototype.format = function (date, displayFormat) { };
     /**
@@ -4361,6 +4361,20 @@ var DateAdapter = (function () {
      * @return {?} The ISO date string date string.
      */
     DateAdapter.prototype.getISODateString = function (date) { };
+    /**
+     * Checks whether the given object is considered a date instance by this DateAdapter.
+     * @abstract
+     * @param {?} obj The object to check
+     * @return {?} Whether the object is a date instance.
+     */
+    DateAdapter.prototype.isDateInstance = function (obj) { };
+    /**
+     * Checks whether the given date is valid.
+     * @abstract
+     * @param {?} date The date to check.
+     * @return {?} Whether the date is valid.
+     */
+    DateAdapter.prototype.isValid = function (date) { };
     /**
      * Sets the locale used for all dates.
      * @param {?} locale The new locale.
@@ -4629,8 +4643,10 @@ var NativeDateAdapter = (function (_super) {
     NativeDateAdapter.prototype.parse = function (value) {
         // We have no way using the native JS Date to set the parse format or locale, so we ignore these
         // parameters.
-        var /** @type {?} */ timestamp = typeof value == 'number' ? value : Date.parse(value);
-        return isNaN(timestamp) ? null : new Date(timestamp);
+        if (typeof value == 'number') {
+            return new Date(value);
+        }
+        return value ? new Date(Date.parse(value)) : null;
     };
     /**
      * @param {?} date
@@ -4638,6 +4654,9 @@ var NativeDateAdapter = (function (_super) {
      * @return {?}
      */
     NativeDateAdapter.prototype.format = function (date, displayFormat) {
+        if (!this.isValid(date)) {
+            throw Error('NativeDateAdapter: Cannot format invalid date.');
+        }
         if (SUPPORTS_INTL_API) {
             if (this.useUtcForDisplay) {
                 date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()));
@@ -4690,6 +4709,20 @@ var NativeDateAdapter = (function (_super) {
             this._2digit(date.getUTCMonth() + 1),
             this._2digit(date.getUTCDate())
         ].join('-');
+    };
+    /**
+     * @param {?} obj
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.isDateInstance = function (obj) {
+        return obj instanceof Date;
+    };
+    /**
+     * @param {?} date
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.isValid = function (date) {
+        return !isNaN(date.getTime());
     };
     /**
      * Creates a date but allows the month and date to overflow.
@@ -10819,7 +10852,6 @@ var MdGridTile = (function () {
 MdGridTile.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-grid-tile, mat-grid-tile',
                 host: {
-                    'role': 'listitem',
                     'class': 'mat-grid-tile',
                 },
                 template: "<figure class=\"mat-figure\"><ng-content></ng-content></figure>",
@@ -11506,7 +11538,6 @@ MdGridList.decorators = [
                 template: "<div><ng-content></ng-content></div>",
                 styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-figure{display:flex;position:absolute;align-items:center;justify-content:center;height:100%;top:0;right:0;bottom:0;left:0;padding:0;margin:0}.mat-grid-tile .mat-grid-tile-footer,.mat-grid-tile .mat-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-footer>*,.mat-grid-tile .mat-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-tile-footer.mat-2-line,.mat-grid-tile .mat-grid-tile-header.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none}"],
                 host: {
-                    'role': 'list',
                     'class': 'mat-grid-list',
                 },
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -14895,7 +14926,13 @@ var MdTextareaAutosize = (function () {
         textareaClone.style.padding = '0';
         textareaClone.style.height = '';
         textareaClone.style.minHeight = '';
-        textareaClone.style.maxHeight = ''; /** @type {?} */
+        textareaClone.style.maxHeight = '';
+        // In Firefox it happens that textarea elements are always bigger than the specified amount
+        // of rows. This is because Firefox tries to add extra space for the horizontal scrollbar.
+        // As a workaround that removes the extra space for the scrollbar, we can just set overflow
+        // to hidden. This ensures that there is no invalid calculation of the line height.
+        // See Firefox bug report: https://bugzilla.mozilla.org/show_bug.cgi?id=33654
+        textareaClone.style.overflow = 'hidden'; /** @type {?} */
         ((textarea.parentNode)).appendChild(textareaClone);
         this._cachedLineHeight = textareaClone.clientHeight; /** @type {?} */
         ((textarea.parentNode)).removeChild(textareaClone);
@@ -21116,10 +21153,7 @@ var MdDatepicker = (function () {
          * The id for the datepicker calendar.
          */
         this.id = "md-datepicker-" + datepickerUid++;
-        /**
-         * The currently selected date.
-         */
-        this._selected = null;
+        this._validSelected = null;
         /**
          * The element that was focused before the datepicker was opened.
          */
@@ -21161,6 +21195,20 @@ var MdDatepicker = (function () {
         set: function (value) {
             this._disabled = _angular_cdk_coercion.coerceBooleanProperty(value);
         },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdDatepicker.prototype, "_selected", {
+        /**
+         * The currently selected date.
+         * @return {?}
+         */
+        get: function () { return this._validSelected; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) { this._validSelected = value; },
         enumerable: true,
         configurable: true
     });
@@ -21421,6 +21469,13 @@ var MdDatepickerInput = (function () {
         this._cvaOnChange = function () { };
         this._validatorOnChange = function () { };
         /**
+         * The form control validator for whether the input parses.
+         */
+        this._parseValidator = function () {
+            return _this._lastValueValid ?
+                null : { 'mdDatepickerParse': { 'text': _this._elementRef.nativeElement.value } };
+        };
+        /**
          * The form control validator for the min date.
          */
         this._minValidator = function (control) {
@@ -21446,7 +21501,11 @@ var MdDatepickerInput = (function () {
         /**
          * The combined form control validator for this input.
          */
-        this._validator = _angular_forms.Validators.compose([this._minValidator, this._maxValidator, this._filterValidator]);
+        this._validator = _angular_forms.Validators.compose([this._parseValidator, this._minValidator, this._maxValidator, this._filterValidator]);
+        /**
+         * Whether the last value set on the input was valid.
+         */
+        this._lastValueValid = false;
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -21507,18 +21566,22 @@ var MdDatepickerInput = (function () {
          * @return {?}
          */
         get: function () {
-            return this._dateAdapter.parse(this._elementRef.nativeElement.value, this._dateFormats.parse.dateInput);
+            return this._getValidDateOrNull(this._dateAdapter.parse(this._elementRef.nativeElement.value, this._dateFormats.parse.dateInput));
         },
         /**
          * @param {?} value
          * @return {?}
          */
         set: function (value) {
-            var /** @type {?} */ date = this._dateAdapter.parse(value, this._dateFormats.parse.dateInput);
+            if (value != null && !this._dateAdapter.isDateInstance(value)) {
+                throw Error('Datepicker: value not recognized as a date object by DateAdapter.');
+            }
+            this._lastValueValid = !value || this._dateAdapter.isValid(value);
+            value = this._getValidDateOrNull(value);
             var /** @type {?} */ oldDate = this.value;
-            this._renderer.setProperty(this._elementRef.nativeElement, 'value', date ? this._dateAdapter.format(date, this._dateFormats.display.dateInput) : '');
-            if (!this._dateAdapter.sameDate(oldDate, date)) {
-                this._valueChange.emit(date);
+            this._renderer.setProperty(this._elementRef.nativeElement, 'value', value ? this._dateAdapter.format(value, this._dateFormats.display.dateInput) : '');
+            if (!this._dateAdapter.sameDate(oldDate, value)) {
+                this._valueChange.emit(value);
             }
         },
         enumerable: true,
@@ -21663,6 +21726,8 @@ var MdDatepickerInput = (function () {
      */
     MdDatepickerInput.prototype._onInput = function (value) {
         var /** @type {?} */ date = this._dateAdapter.parse(value, this._dateFormats.parse.dateInput);
+        this._lastValueValid = !date || this._dateAdapter.isValid(date);
+        date = this._getValidDateOrNull(date);
         this._cvaOnChange(date);
         this._valueChange.emit(date);
         this.dateInput.emit(new MdDatepickerInputEvent(this, this._elementRef.nativeElement));
@@ -21672,6 +21737,13 @@ var MdDatepickerInput = (function () {
      */
     MdDatepickerInput.prototype._onChange = function () {
         this.dateChange.emit(new MdDatepickerInputEvent(this, this._elementRef.nativeElement));
+    };
+    /**
+     * @param {?} obj The object to check.
+     * @return {?} The given object if it is both a date instance and valid, otherwise null.
+     */
+    MdDatepickerInput.prototype._getValidDateOrNull = function (obj) {
+        return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     };
     return MdDatepickerInput;
 }());

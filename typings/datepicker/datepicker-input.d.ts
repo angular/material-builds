@@ -42,10 +42,10 @@ export declare class MdDatepickerInput<D> implements AfterContentInit, ControlVa
     /** The value of the input. */
     value: D | null;
     /** The minimum valid date. */
-    min: D;
+    min: D | null;
     private _min;
     /** The maximum valid date. */
-    max: D;
+    max: D | null;
     private _max;
     /** Whether the datepicker-input is disabled. */
     disabled: any;
@@ -60,6 +60,8 @@ export declare class MdDatepickerInput<D> implements AfterContentInit, ControlVa
     private _cvaOnChange;
     private _validatorOnChange;
     private _datepickerSubscription;
+    /** The form control validator for whether the input parses. */
+    private _parseValidator;
     /** The form control validator for the min date. */
     private _minValidator;
     /** The form control validator for the max date. */
@@ -68,6 +70,8 @@ export declare class MdDatepickerInput<D> implements AfterContentInit, ControlVa
     private _filterValidator;
     /** The combined form control validator for this input. */
     private _validator;
+    /** Whether the last value set on the input was valid. */
+    private _lastValueValid;
     constructor(_elementRef: ElementRef, _renderer: Renderer2, _dateAdapter: DateAdapter<D>, _dateFormats: MdDateFormats, _mdInputContainer: MdInputContainer);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
@@ -85,4 +89,9 @@ export declare class MdDatepickerInput<D> implements AfterContentInit, ControlVa
     _onKeydown(event: KeyboardEvent): void;
     _onInput(value: string): void;
     _onChange(): void;
+    /**
+     * @param obj The object to check.
+     * @returns The given object if it is both a date instance and valid, otherwise null.
+     */
+    private _getValidDateOrNull(obj);
 }

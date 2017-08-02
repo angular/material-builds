@@ -26,11 +26,11 @@ export declare class MdCalendar<D> implements AfterContentInit, OnDestroy {
     /** Whether the calendar should be started in month or year view. */
     startView: 'month' | 'year';
     /** The currently selected date. */
-    selected: D;
+    selected: D | null;
     /** The minimum selectable date. */
-    minDate: D;
+    minDate: D | null;
     /** The maximum selectable date. */
-    maxDate: D;
+    maxDate: D | null;
     /** A function used to filter which dates are selectable. */
     dateFilter: (date: D) => boolean;
     /** Emits when the currently selected date changes. */
