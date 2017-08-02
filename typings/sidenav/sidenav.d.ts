@@ -128,6 +128,12 @@ export declare class MdSidenavContainer implements AfterContentInit {
      */
     private _left;
     private _right;
+    /** Inline styles to be applied to the container. */
+    _styles: {
+        marginLeft: string;
+        marginRight: string;
+        transform: string;
+    };
     constructor(_dir: Directionality, _element: ElementRef, _renderer: Renderer2, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef);
     ngAfterContentInit(): void;
     /** Calls `open` of both start and end sidenavs */
@@ -160,23 +166,9 @@ export declare class MdSidenavContainer implements AfterContentInit {
      * @param mode
      */
     private _getSidenavEffectiveWidth(sidenav, mode);
-    _getMarginLeft(): number;
-    _getMarginRight(): number;
-    _getPositionLeft(): number;
-    _getPositionRight(): number;
     /**
-     * Returns the horizontal offset for the content area.  There should never be a value for both
-     * left and right, so by subtracting the right value from the left value, we should always get
-     * the appropriate offset.
+     * Recalculates and updates the inline styles. Note that this
+     * should be used sparingly, because it causes a reflow.
      */
-    _getPositionOffset(): number;
-    /**
-     * This is using [ngStyle] rather than separate [style...] properties because [style.transform]
-     * doesn't seem to work right now.
-     */
-    _getStyles(): {
-        marginLeft: string;
-        marginRight: string;
-        transform: string;
-    };
+    private _updateStyles();
 }

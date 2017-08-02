@@ -21,7 +21,7 @@ import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coerci
 import { BasePortalHost, ComponentPortal, DomPortalHost, Portal, PortalHostDirective, PortalModule, TemplatePortal, TemplatePortalDirective } from '@angular/cdk/portal';
 import { A11yModule, FocusTrap, FocusTrapDeprecatedDirective, FocusTrapDirective, FocusTrapFactory, InteractivityChecker, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, ListKeyManager, LiveAnnouncer, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { of } from 'rxjs/observable/of';
-import { CheckboxRequiredValidator, FormGroupDirective, FormsModule, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl, NgForm, Validators } from '@angular/forms';
+import { CheckboxRequiredValidator, FormGroupDirective, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl, NgForm, Validators } from '@angular/forms';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -32,7 +32,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.8-4168fb3');
+const VERSION = new Version('2.0.0-beta.8-1748397');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -9735,11 +9735,11 @@ class MdSidenavContainer {
      * @return {?}
      */
     _watchSidenavToggle(sidenav) {
-        takeUntil.call(sidenav._animationStarted, this._sidenavs.changes)
-            .subscribe(() => {
+        takeUntil.call(sidenav._animationStarted, this._sidenavs.changes).subscribe(() => {
             // Set the transition class on the container so that the animations occur. This should not
             // be set initially because animations should only be triggered via a change in state.
             this._renderer.addClass(this._element.nativeElement, 'mat-sidenav-transition');
+            this._updateStyles();
             this._changeDetectorRef.markForCheck();
         });
         if (sidenav.mode !== 'side') {
@@ -9846,54 +9846,25 @@ class MdSidenavContainer {
         return (this._isSidenavOpen(sidenav) && sidenav.mode == mode) ? sidenav._width : 0;
     }
     /**
+     * Recalculates and updates the inline styles. Note that this
+     * should be used sparingly, because it causes a reflow.
      * @return {?}
      */
-    _getMarginLeft() {
-        return this._left ? this._getSidenavEffectiveWidth(this._left, 'side') : 0;
-    }
-    /**
-     * @return {?}
-     */
-    _getMarginRight() {
-        return this._right ? this._getSidenavEffectiveWidth(this._right, 'side') : 0;
-    }
-    /**
-     * @return {?}
-     */
-    _getPositionLeft() {
-        return this._left ? this._getSidenavEffectiveWidth(this._left, 'push') : 0;
-    }
-    /**
-     * @return {?}
-     */
-    _getPositionRight() {
-        return this._right ? this._getSidenavEffectiveWidth(this._right, 'push') : 0;
-    }
-    /**
-     * Returns the horizontal offset for the content area.  There should never be a value for both
-     * left and right, so by subtracting the right value from the left value, we should always get
-     * the appropriate offset.
-     * @return {?}
-     */
-    _getPositionOffset() {
-        return this._getPositionLeft() - this._getPositionRight();
-    }
-    /**
-     * This is using [ngStyle] rather than separate [style...] properties because [style.transform]
-     * doesn't seem to work right now.
-     * @return {?}
-     */
-    _getStyles() {
-        return {
-            marginLeft: `${this._getMarginLeft()}px`,
-            marginRight: `${this._getMarginRight()}px`,
-            transform: `translate3d(${this._getPositionOffset()}px, 0, 0)`
+    _updateStyles() {
+        const /** @type {?} */ marginLeft = this._left ? this._getSidenavEffectiveWidth(this._left, 'side') : 0;
+        const /** @type {?} */ marginRight = this._right ? this._getSidenavEffectiveWidth(this._right, 'side') : 0;
+        const /** @type {?} */ leftWidth = this._left ? this._getSidenavEffectiveWidth(this._left, 'push') : 0;
+        const /** @type {?} */ rightWidth = this._right ? this._getSidenavEffectiveWidth(this._right, 'push') : 0;
+        this._styles = {
+            marginLeft: `${marginLeft}px`,
+            marginRight: `${marginRight}px`,
+            transform: `translate3d(${leftWidth - rightWidth}px, 0, 0)`
         };
     }
 }
 MdSidenavContainer.decorators = [
     { type: Component, args: [{selector: 'md-sidenav-container, mat-sidenav-container',
-                template: "<div class=\"mat-sidenav-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-sidenav-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"md-sidenav, mat-sidenav\"></ng-content><div class=\"mat-sidenav-content\" [ngStyle]=\"_getStyles()\" cdk-scrollable><ng-content></ng-content></div>",
+                template: "<div class=\"mat-sidenav-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-sidenav-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"md-sidenav, mat-sidenav\"></ng-content><div class=\"mat-sidenav-content\" [ngStyle]=\"_styles\" cdk-scrollable><ng-content></ng-content></div>",
                 styles: [".mat-sidenav-container{position:relative;transform:translate3d(0,0,0);box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-sidenav-container[fullscreen]{position:absolute;top:0;left:0;right:0;bottom:0}.mat-sidenav-container[fullscreen].mat-sidenav-opened{overflow:hidden}.mat-sidenav-backdrop{position:absolute;top:0;left:0;right:0;bottom:0;display:block;z-index:2;visibility:hidden}.mat-sidenav-backdrop.mat-sidenav-shown{visibility:visible}@media screen and (-ms-high-contrast:active){.mat-sidenav-backdrop{opacity:.5}}.mat-sidenav-content{position:relative;transform:translate3d(0,0,0);display:block;height:100%;overflow:auto}.mat-sidenav{position:relative;transform:translate3d(0,0,0);display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;height:100%;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-sidenav.mat-sidenav-side{z-index:1}.mat-sidenav.mat-sidenav-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-sidenav{transform:translate3d(100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-sidenav.mat-sidenav-opened:not(.mat-sidenav-side),.mat-sidenav.mat-sidenav-opening:not(.mat-sidenav-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)} .mat-sidenav-transition .mat-sidenav-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-sidenav-transition .mat-sidenav-backdrop.mat-sidenav-shown{transition:background-color .4s cubic-bezier(.25,.8,.25,1)}"],
                 host: {
                     'class': 'mat-sidenav-container',
@@ -21232,7 +21203,7 @@ class MdHeaderCell extends _MdHeaderCell {
      */
     constructor(columnDef, elementRef, renderer) {
         super(columnDef, elementRef, renderer);
-        renderer.addClass(elementRef.nativeElement, `mat-column-${columnDef.name}`);
+        renderer.addClass(elementRef.nativeElement, `mat-column-${columnDef.cssClassFriendlyName}`);
     }
 }
 MdHeaderCell.decorators = [
@@ -21263,7 +21234,7 @@ class MdCell extends _MdCell {
      */
     constructor(columnDef, elementRef, renderer) {
         super(columnDef, elementRef, renderer);
-        renderer.addClass(elementRef.nativeElement, `mat-column-${columnDef.name}`);
+        renderer.addClass(elementRef.nativeElement, `mat-column-${columnDef.cssClassFriendlyName}`);
     }
 }
 MdCell.decorators = [
@@ -21961,7 +21932,7 @@ class MdPaginator {
 }
 MdPaginator.decorators = [
     { type: Component, args: [{selector: 'md-paginator, mat-paginator',
-                template: "<div class=\"mat-paginator-page-size\"><div class=\"mat-paginator-page-size-label\">{{_intl.itemsPerPageLabel}}</div><md-select *ngIf=\"_displayedPageSizeOptions.length > 1\" class=\"mat-paginator-page-size-select\" [ngModel]=\"pageSize\" [aria-label]=\"_intl.itemsPerPageLabel\" (change)=\"_changePageSize($event.value)\"><md-option *ngFor=\"let pageSizeOption of _displayedPageSizeOptions\" [value]=\"pageSizeOption\">{{pageSizeOption}}</md-option></md-select><div *ngIf=\"_displayedPageSizeOptions.length <= 1\">{{pageSize}}</div></div><div class=\"mat-paginator-range-label\">{{_intl.getRangeLabel(pageIndex, pageSize, length)}}</div><button md-icon-button class=\"mat-paginator-navigation-previous\" (click)=\"previousPage()\" [attr.aria-label]=\"_intl.previousPageLabel\" [mdTooltip]=\"_intl.previousPageLabel\" [mdTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\"><div class=\"mat-paginator-increment\"></div></button> <button md-icon-button class=\"mat-paginator-navigation-next\" (click)=\"nextPage()\" [attr.aria-label]=\"_intl.nextPageLabel\" [mdTooltip]=\"_intl.nextPageLabel\" [mdTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\"><div class=\"mat-paginator-decrement\"></div></button>",
+                template: "<div class=\"mat-paginator-page-size\"><div class=\"mat-paginator-page-size-label\">{{_intl.itemsPerPageLabel}}</div><md-select *ngIf=\"_displayedPageSizeOptions.length > 1\" class=\"mat-paginator-page-size-select\" [value]=\"pageSize\" [aria-label]=\"_intl.itemsPerPageLabel\" (change)=\"_changePageSize($event.value)\"><md-option *ngFor=\"let pageSizeOption of _displayedPageSizeOptions\" [value]=\"pageSizeOption\">{{pageSizeOption}}</md-option></md-select><div *ngIf=\"_displayedPageSizeOptions.length <= 1\">{{pageSize}}</div></div><div class=\"mat-paginator-range-label\">{{_intl.getRangeLabel(pageIndex, pageSize, length)}}</div><button md-icon-button class=\"mat-paginator-navigation-previous\" (click)=\"previousPage()\" [attr.aria-label]=\"_intl.previousPageLabel\" [mdTooltip]=\"_intl.previousPageLabel\" [mdTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\"><div class=\"mat-paginator-increment\"></div></button> <button md-icon-button class=\"mat-paginator-navigation-next\" (click)=\"nextPage()\" [attr.aria-label]=\"_intl.nextPageLabel\" [mdTooltip]=\"_intl.nextPageLabel\" [mdTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\"><div class=\"mat-paginator-decrement\"></div></button>",
                 styles: [".mat-paginator{display:flex;align-items:center;justify-content:flex-end;min-height:56px;padding:0 8px}.mat-paginator-page-size{display:flex;align-items:center}.mat-paginator-page-size-label{margin:0 4px}.mat-paginator-page-size-select{margin:0 4px}.mat-paginator-page-size-select .mat-select-trigger{min-width:56px}.mat-paginator-range-label{margin:0 32px}.mat-paginator-increment-button+.mat-paginator-increment-button{margin:0 0 0 8px}[dir=rtl] .mat-paginator-increment-button+.mat-paginator-increment-button{margin:0 8px 0 0}.mat-paginator-decrement,.mat-paginator-increment{width:8px;height:8px}.mat-paginator-decrement,[dir=rtl] .mat-paginator-increment{transform:rotate(45deg)}.mat-paginator-increment,[dir=rtl] .mat-paginator-decrement{transform:rotate(225deg)}.mat-paginator-decrement{margin-left:12px}[dir=rtl] .mat-paginator-decrement{margin-right:12px}.mat-paginator-increment{margin-left:16px}[dir=rtl] .mat-paginator-increment{margin-right:16px}"],
                 host: {
                     'class': 'mat-paginator',
@@ -21994,7 +21965,6 @@ MdPaginatorModule.decorators = [
     { type: NgModule, args: [{
                 imports: [
                     CommonModule,
-                    FormsModule,
                     MdButtonModule,
                     MdSelectModule,
                     MdTooltipModule,
