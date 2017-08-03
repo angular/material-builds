@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8-a043bec');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-5967f6e');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -18147,6 +18147,7 @@ var MdMenu = (function () {
         switch (event.keyCode) {
             case _angular_cdk_keyboard.ESCAPE:
                 this.close.emit('keydown');
+                event.stopPropagation();
                 break;
             case _angular_cdk_keyboard.LEFT_ARROW:
                 if (this.parentMenu && this.direction === 'ltr') {
@@ -18805,8 +18806,11 @@ var MdDialogRef = (function () {
          * Subject for notifying the user that the dialog has finished closing.
          */
         this._afterClosed = new rxjs_Subject.Subject();
-        _angular_cdk_rxjs.filter.call(_containerInstance._onAnimationStateChange, function (event) { return event.toState === 'exit'; })
-            .subscribe(function () { return _this._overlayRef.dispose(); }, undefined, function () {
+        _angular_cdk_rxjs.RxChain.from(_containerInstance._animationStateChanged)
+            .call(_angular_cdk_rxjs.filter, function (event) { return event.phaseName === 'done' && event.toState === 'exit'; })
+            .call(_angular_cdk_rxjs.first)
+            .subscribe(function () {
+            _this._overlayRef.dispose();
             _this._afterClosed.next(_this._result);
             _this._afterClosed.complete();
             _this.componentInstance = null;
@@ -18818,9 +18822,14 @@ var MdDialogRef = (function () {
      * @return {?}
      */
     MdDialogRef.prototype.close = function (dialogResult) {
+        var _this = this;
         this._result = dialogResult;
-        this._containerInstance._state = 'exit';
-        this._overlayRef.detachBackdrop(); // Transition the backdrop in parallel with the dialog.
+        // Transition the backdrop in parallel to the dialog.
+        _angular_cdk_rxjs.RxChain.from(this._containerInstance._animationStateChanged)
+            .call(_angular_cdk_rxjs.filter, function (event) { return event.phaseName === 'start'; })
+            .call(_angular_cdk_rxjs.first)
+            .subscribe(function () { return _this._overlayRef.detachBackdrop(); });
+        this._containerInstance._startExitAnimation();
     };
     /**
      * Gets an observable that is notified when the dialog is finished closing.
@@ -18900,13 +18909,16 @@ var MdDialogContainer = (function (_super) {
      * @param {?} _ngZone
      * @param {?} _elementRef
      * @param {?} _focusTrapFactory
+     * @param {?} _changeDetectorRef
      * @param {?} _document
      */
-    function MdDialogContainer(_ngZone, _elementRef, _focusTrapFactory, _document) {
+    function MdDialogContainer(_ngZone, _elementRef, _focusTrapFactory, _changeDetectorRef, _document) {
         var _this = _super.call(this) || this;
         _this._ngZone = _ngZone;
         _this._elementRef = _elementRef;
         _this._focusTrapFactory = _focusTrapFactory;
+        _this._changeDetectorRef = _changeDetectorRef;
+        _this._document = _document;
         /**
          * Element that was focused before the dialog was opened. Save this to restore upon close.
          */
@@ -18916,9 +18928,9 @@ var MdDialogContainer = (function (_super) {
          */
         _this._state = 'enter';
         /**
-         * Emits the current animation state whenever it changes.
+         * Emits when an animation state changes.
          */
-        _this._onAnimationStateChange = new _angular_core.EventEmitter();
+        _this._animationStateChanged = new _angular_core.EventEmitter();
         /**
          * ID of the element that should be considered as the dialog's label.
          */
@@ -18927,7 +18939,6 @@ var MdDialogContainer = (function (_super) {
          * Whether the container is currently mid-animation.
          */
         _this._isAnimating = false;
-        _this._document = _document;
         return _this;
     }
     /**
@@ -18997,15 +19008,33 @@ var MdDialogContainer = (function (_super) {
      * @return {?}
      */
     MdDialogContainer.prototype._onAnimationDone = function (event) {
-        this._onAnimationStateChange.emit(event);
         if (event.toState === 'enter') {
             this._trapFocus();
         }
         else if (event.toState === 'exit') {
             this._restoreFocus();
-            this._onAnimationStateChange.complete();
         }
+        this._animationStateChanged.emit(event);
         this._isAnimating = false;
+    };
+    /**
+     * Callback, invoked when an animation on the host starts.
+     * @param {?} event
+     * @return {?}
+     */
+    MdDialogContainer.prototype._onAnimationStart = function (event) {
+        this._isAnimating = true;
+        this._animationStateChanged.emit(event);
+    };
+    /**
+     * Starts the dialog exit animation.
+     * @return {?}
+     */
+    MdDialogContainer.prototype._startExitAnimation = function () {
+        this._state = 'exit';
+        // Mark the container for check so it can react if the
+        // view container is using OnPush change detection.
+        this._changeDetectorRef.markForCheck();
     };
     return MdDialogContainer;
 }(_angular_cdk_portal.BasePortalHost));
@@ -19032,7 +19061,7 @@ MdDialogContainer.decorators = [
                     '[attr.aria-labelledby]': '_ariaLabelledBy',
                     '[attr.aria-describedby]': '_config?.ariaDescribedBy || null',
                     '[@slideDialog]': '_state',
-                    '(@slideDialog.start)': 'this._isAnimating = true',
+                    '(@slideDialog.start)': '_onAnimationStart($event)',
                     '(@slideDialog.done)': '_onAnimationDone($event)',
                 },
             },] },
@@ -19044,6 +19073,7 @@ MdDialogContainer.ctorParameters = function () { return [
     { type: _angular_core.NgZone, },
     { type: _angular_core.ElementRef, },
     { type: _angular_cdk_a11y.FocusTrapFactory, },
+    { type: _angular_core.ChangeDetectorRef, },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
 ]; };
 MdDialogContainer.propDecorators = {
@@ -19885,6 +19915,7 @@ var MdAutocompleteTrigger = (function () {
         var _this = this;
         if (event.keyCode === _angular_cdk_keyboard.ESCAPE && this.panelOpen) {
             this.closePanel();
+            event.stopPropagation();
         }
         else if (this.activeOption && event.keyCode === _angular_cdk_keyboard.ENTER && this.panelOpen) {
             this.activeOption._selectViaInteraction();
@@ -21065,6 +21096,7 @@ var MdDatepickerContent = (function () {
         if (event.keyCode === _angular_cdk_keyboard.ESCAPE) {
             this.datepicker.close();
             event.preventDefault();
+            event.stopPropagation();
         }
     };
     return MdDatepickerContent;
@@ -21312,7 +21344,8 @@ var MdDatepicker = (function () {
     MdDatepicker.prototype._openAsDialog = function () {
         var _this = this;
         this._dialogRef = this._dialog.open(MdDatepickerContent, {
-            direction: this._dir ? this._dir.value : 'ltr'
+            direction: this._dir ? this._dir.value : 'ltr',
+            viewContainerRef: this._viewContainerRef,
         });
         this._dialogRef.afterClosed().subscribe(function () { return _this.close(); });
         this._dialogRef.componentInstance.datepicker = this;

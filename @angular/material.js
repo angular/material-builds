@@ -32,7 +32,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.8-a043bec');
+const VERSION = new Version('2.0.0-beta.8-5967f6e');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -17079,6 +17079,7 @@ class MdMenu {
         switch (event.keyCode) {
             case ESCAPE:
                 this.close.emit('keydown');
+                event.stopPropagation();
                 break;
             case LEFT_ARROW:
                 if (this.parentMenu && this.direction === 'ltr') {
@@ -17709,8 +17710,11 @@ class MdDialogRef {
          * Subject for notifying the user that the dialog has finished closing.
          */
         this._afterClosed = new Subject();
-        filter.call(_containerInstance._onAnimationStateChange, (event) => event.toState === 'exit')
-            .subscribe(() => this._overlayRef.dispose(), undefined, () => {
+        RxChain.from(_containerInstance._animationStateChanged)
+            .call(filter, event => event.phaseName === 'done' && event.toState === 'exit')
+            .call(first)
+            .subscribe(() => {
+            this._overlayRef.dispose();
             this._afterClosed.next(this._result);
             this._afterClosed.complete();
             this.componentInstance = null;
@@ -17723,8 +17727,12 @@ class MdDialogRef {
      */
     close(dialogResult) {
         this._result = dialogResult;
-        this._containerInstance._state = 'exit';
-        this._overlayRef.detachBackdrop(); // Transition the backdrop in parallel with the dialog.
+        // Transition the backdrop in parallel to the dialog.
+        RxChain.from(this._containerInstance._animationStateChanged)
+            .call(filter, event => event.phaseName === 'start')
+            .call(first)
+            .subscribe(() => this._overlayRef.detachBackdrop());
+        this._containerInstance._startExitAnimation();
     }
     /**
      * Gets an observable that is notified when the dialog is finished closing.
@@ -17801,13 +17809,16 @@ class MdDialogContainer extends BasePortalHost {
      * @param {?} _ngZone
      * @param {?} _elementRef
      * @param {?} _focusTrapFactory
+     * @param {?} _changeDetectorRef
      * @param {?} _document
      */
-    constructor(_ngZone, _elementRef, _focusTrapFactory, _document) {
+    constructor(_ngZone, _elementRef, _focusTrapFactory, _changeDetectorRef, _document) {
         super();
         this._ngZone = _ngZone;
         this._elementRef = _elementRef;
         this._focusTrapFactory = _focusTrapFactory;
+        this._changeDetectorRef = _changeDetectorRef;
+        this._document = _document;
         /**
          * Element that was focused before the dialog was opened. Save this to restore upon close.
          */
@@ -17817,9 +17828,9 @@ class MdDialogContainer extends BasePortalHost {
          */
         this._state = 'enter';
         /**
-         * Emits the current animation state whenever it changes.
+         * Emits when an animation state changes.
          */
-        this._onAnimationStateChange = new EventEmitter();
+        this._animationStateChanged = new EventEmitter();
         /**
          * ID of the element that should be considered as the dialog's label.
          */
@@ -17828,7 +17839,6 @@ class MdDialogContainer extends BasePortalHost {
          * Whether the container is currently mid-animation.
          */
         this._isAnimating = false;
-        this._document = _document;
     }
     /**
      * Attach a ComponentPortal as content to this dialog container.
@@ -17897,15 +17907,33 @@ class MdDialogContainer extends BasePortalHost {
      * @return {?}
      */
     _onAnimationDone(event) {
-        this._onAnimationStateChange.emit(event);
         if (event.toState === 'enter') {
             this._trapFocus();
         }
         else if (event.toState === 'exit') {
             this._restoreFocus();
-            this._onAnimationStateChange.complete();
         }
+        this._animationStateChanged.emit(event);
         this._isAnimating = false;
+    }
+    /**
+     * Callback, invoked when an animation on the host starts.
+     * @param {?} event
+     * @return {?}
+     */
+    _onAnimationStart(event) {
+        this._isAnimating = true;
+        this._animationStateChanged.emit(event);
+    }
+    /**
+     * Starts the dialog exit animation.
+     * @return {?}
+     */
+    _startExitAnimation() {
+        this._state = 'exit';
+        // Mark the container for check so it can react if the
+        // view container is using OnPush change detection.
+        this._changeDetectorRef.markForCheck();
     }
 }
 MdDialogContainer.decorators = [
@@ -17931,7 +17959,7 @@ MdDialogContainer.decorators = [
                     '[attr.aria-labelledby]': '_ariaLabelledBy',
                     '[attr.aria-describedby]': '_config?.ariaDescribedBy || null',
                     '[@slideDialog]': '_state',
-                    '(@slideDialog.start)': 'this._isAnimating = true',
+                    '(@slideDialog.start)': '_onAnimationStart($event)',
                     '(@slideDialog.done)': '_onAnimationDone($event)',
                 },
             },] },
@@ -17943,6 +17971,7 @@ MdDialogContainer.ctorParameters = () => [
     { type: NgZone, },
     { type: ElementRef, },
     { type: FocusTrapFactory, },
+    { type: ChangeDetectorRef, },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
 MdDialogContainer.propDecorators = {
@@ -18724,6 +18753,7 @@ class MdAutocompleteTrigger {
     _handleKeydown(event) {
         if (event.keyCode === ESCAPE && this.panelOpen) {
             this.closePanel();
+            event.stopPropagation();
         }
         else if (this.activeOption && event.keyCode === ENTER && this.panelOpen) {
             this.activeOption._selectViaInteraction();
@@ -19855,6 +19885,7 @@ class MdDatepickerContent {
         if (event.keyCode === ESCAPE) {
             this.datepicker.close();
             event.preventDefault();
+            event.stopPropagation();
         }
     }
 }
@@ -20075,7 +20106,8 @@ class MdDatepicker {
      */
     _openAsDialog() {
         this._dialogRef = this._dialog.open(MdDatepickerContent, {
-            direction: this._dir ? this._dir.value : 'ltr'
+            direction: this._dir ? this._dir.value : 'ltr',
+            viewContainerRef: this._viewContainerRef,
         });
         this._dialogRef.afterClosed().subscribe(() => this.close());
         this._dialogRef.componentInstance.datepicker = this;
