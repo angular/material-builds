@@ -32,7 +32,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-var VERSION = new Version('2.0.0-beta.8-916d1f3');
+var VERSION = new Version('2.0.0-beta.8-a043bec');
 var MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -18139,7 +18139,6 @@ var MdMenu = (function () {
         switch (event.keyCode) {
             case ESCAPE:
                 this.close.emit('keydown');
-                event.stopPropagation();
                 break;
             case LEFT_ARROW:
                 if (this.parentMenu && this.direction === 'ltr') {
@@ -19878,7 +19877,6 @@ var MdAutocompleteTrigger = (function () {
         var _this = this;
         if (event.keyCode === ESCAPE && this.panelOpen) {
             this.closePanel();
-            event.stopPropagation();
         }
         else if (this.activeOption && event.keyCode === ENTER && this.panelOpen) {
             this.activeOption._selectViaInteraction();
@@ -21059,7 +21057,6 @@ var MdDatepickerContent = (function () {
         if (event.keyCode === ESCAPE) {
             this.datepicker.close();
             event.preventDefault();
-            event.stopPropagation();
         }
     };
     return MdDatepickerContent;
