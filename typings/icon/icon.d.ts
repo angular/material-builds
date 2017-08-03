@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, OnChanges, OnInit, Renderer2, SimpleChange } from '@angular/core';
+import { ElementRef, OnChanges, OnInit, Renderer2, SimpleChanges } from '@angular/core';
 import { MdIconRegistry } from './icon-registry';
 import { CanColor } from '../core/common-behaviors/color';
 /** @docs-private */
@@ -17,12 +17,6 @@ export declare class MdIconBase {
 export declare const _MdIconMixinBase: (new (...args: any[]) => CanColor) & typeof MdIconBase;
 /**
  * Component to display an icon. It can be used in the following ways:
- * - Specify the svgSrc input to load an SVG icon from a URL. The SVG content is directly inlined
- *   as a child of the <md-icon> component, so that CSS styles can easily be applied to it.
- *   The URL is loaded via an XMLHttpRequest, so it must be on the same domain as the page or its
- *   server must be configured to allow cross-domain requests.
- *   Example:
- *     <md-icon svgSrc="assets/arrow.svg"></md-icon>
  *
  * - Specify the svgIcon input to load an SVG icon from a URL previously registered with the
  *   addSvgIcon, addSvgIconInNamespace, addSvgIconSet, or addSvgIconSetInNamespace methods of
@@ -73,9 +67,7 @@ export declare class MdIcon extends _MdIconMixinBase implements OnChanges, OnIni
      *   'a:b:c' -> (throws Error)
      */
     private _splitIconName(iconName);
-    ngOnChanges(changes: {
-        [propertyName: string]: SimpleChange;
-    }): void;
+    ngOnChanges(changes: SimpleChanges): void;
     ngOnInit(): void;
     private _usingFontIcon();
     private _setSvgElement(svg);

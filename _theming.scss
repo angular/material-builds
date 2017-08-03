@@ -2336,19 +2336,19 @@ $mat-calendar-weekday-table-font-size: 11px !default;
     border-top-color: mat-color($foreground, divider);
   }
 
-  .mat-expansion-panel-header:focus,
-  .mat-expansion-panel-header:hover {
-    background: mat-color($background, hover);
+  .mat-expansion-panel-header {
+    &.cdk-keyboard-focused,
+    &.cdk-program-focused,
+    &:hover {
+      background: mat-color($background, hover);
+    }
   }
 
   .mat-expansion-panel-header-title {
     color: mat-color($foreground, text);
   }
 
-  .mat-expansion-panel-header-description {
-    color: mat-color($foreground, secondary-text);
-  }
-
+  .mat-expansion-panel-header-description,
   .mat-expansion-indicator::after {
     color: mat-color($foreground, secondary-text);
   }
@@ -2525,12 +2525,12 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
 // Applies a floating placeholder above the input itself.
 @mixin _mat-input-placeholder-floating($font-scale, $infix-padding, $infix-margin-top) {
+  // We use perspecitve to fix the text blurriness as described here:
+  // http://www.useragentman.com/blog/2014/05/04/fixing-typography-inside-of-2-d-css-transforms/
+  // This results in a small jitter after the label floats on Firefox, which the
+  // translateZ fixes.
   transform: translateY(-$infix-margin-top - $infix-padding)
              scale($font-scale)
-             // We use perspecitve to fix the text blurriness as described here:
-             // http://www.useragentman.com/blog/2014/05/04/fixing-typography-inside-of-2-d-css-transforms/
-             // This results in a small jitter after the label floats on Firefox, which the
-             // translateZ fixes.
              perspective(100px) translateZ(0.001px);
   // The tricks above used to smooth out the animation on chrome and firefox actually make things
   // worse on IE, so we don't include them in the IE version.
@@ -2701,7 +2701,9 @@ $mat-calendar-weekday-table-font-size: 11px !default;
     }
 
     .mat-subheader {
-      @include mat-typography-level-to-styles($config, body-2);
+      font-family: mat-font-family($config, body-2);
+      font-size: mat-font-size($config, body-2);
+      font-weight: mat-font-weight($config, body-2);
     }
   }
 
@@ -2713,7 +2715,9 @@ $mat-calendar-weekday-table-font-size: 11px !default;
     }
 
     .mat-subheader {
-      font: mat-font-weight($config, body-2) mat-font-size($config, caption) $font-family;
+      font-family: $font-family;
+      font-size: mat-font-size($config, caption);
+      font-weight: mat-font-weight($config, body-2);
     }
   }
 }
@@ -3052,12 +3056,16 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 }
 
 @mixin mat-select-typography($config) {
+  $trigger-font-size: mat-font-size($config, subheading-2);
+
   .mat-select {
+    // Reserve enough space for the floating placeholder.
+    padding-top: $trigger-font-size;
     font-family: mat-font-family($config);
   }
 
   .mat-select-trigger {
-    font-size: mat-font-size($config, subheading-2);
+    font-size: $trigger-font-size;
   }
 }
 
@@ -3106,8 +3114,8 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
 
 @mixin _mat-slide-toggle-checked($palette, $thumb-checked-hue) {
-  // Do not apply the checked colors if the toggle is disabled, because the specificity would be to high for
-  // the disabled styles.
+  // Do not apply the checked colors if the toggle is disabled, because the
+  // specificity would be to high for the disabled styles.
   &.mat-checked:not(.mat-disabled) {
     .mat-slide-toggle-thumb {
       background-color: mat-color($palette, $thumb-checked-hue);
@@ -3172,9 +3180,9 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
   .mat-disabled {
     .mat-slide-toggle-thumb {
-      // The thumb of the slide-toggle always uses the hue 400 of the grey palette in dark or light themes.
-      // Since this is very specific to the slide-toggle component, we're not providing
-      // it in the background palette.
+      // The thumb of the slide-toggle always uses the hue 400 of the grey palette in dark
+      // or light themes. Since this is very specific to the slide-toggle component, we're not
+      // providing it in the background palette.
       background-color: mat-color($mat-grey, $thumb-disabled-hue);
     }
     .mat-slide-toggle-bar {
