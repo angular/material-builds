@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8-9d3c405');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-3df4d72');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -14058,6 +14058,7 @@ MdErrorDirective.decorators = [
                 selector: 'md-error, mat-error',
                 host: {
                     'class': 'mat-input-error',
+                    'role': 'alert',
                     '[attr.id]': 'id',
                 }
             },] },

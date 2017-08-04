@@ -32,7 +32,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.8-9d3c405');
+const VERSION = new Version('2.0.0-beta.8-3df4d72');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -13260,6 +13260,7 @@ MdErrorDirective.decorators = [
                 selector: 'md-error, mat-error',
                 host: {
                     'class': 'mat-input-error',
+                    'role': 'alert',
                     '[attr.id]': 'id',
                 }
             },] },
