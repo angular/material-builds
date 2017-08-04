@@ -32,7 +32,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-var VERSION = new Version('2.0.0-beta.8-73c6d8d');
+var VERSION = new Version('2.0.0-beta.8-2af284c');
 var MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -14036,6 +14036,7 @@ MdHint.propDecorators = {
  */
 var MdErrorDirective = (function () {
     function MdErrorDirective() {
+        this.id = "md-input-error-" + nextUniqueId$4++;
     }
     return MdErrorDirective;
 }());
@@ -14043,7 +14044,8 @@ MdErrorDirective.decorators = [
     { type: Directive, args: [{
                 selector: 'md-error, mat-error',
                 host: {
-                    'class': 'mat-input-error'
+                    'class': 'mat-input-error',
+                    '[attr.id]': 'id',
                 }
             },] },
 ];
@@ -14051,6 +14053,9 @@ MdErrorDirective.decorators = [
  * @nocollapse
  */
 MdErrorDirective.ctorParameters = function () { return []; };
+MdErrorDirective.propDecorators = {
+    'id': [{ type: Input },],
+};
 /**
  * Prefix to be placed the the front of the input.
  */
@@ -14560,11 +14565,10 @@ var MdInputContainer = (function () {
     MdInputContainer.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._validateInputChild();
-        this._processHints();
-        this._validatePlaceholders();
         // Subscribe to changes in the child input state in order to update the container UI.
-        this._mdInputChild._stateChanges.subscribe(function () {
+        startWith.call(this._mdInputChild._stateChanges, null).subscribe(function () {
             _this._validatePlaceholders();
+            _this._syncAriaDescribedby();
             _this._changeDetectorRef.markForCheck();
         });
         if (this._mdInputChild._ngControl && this._mdInputChild._ngControl.valueChanges) {
@@ -14572,8 +14576,16 @@ var MdInputContainer = (function () {
                 _this._changeDetectorRef.markForCheck();
             });
         }
-        // Re-validate when the amount of hints changes.
-        this._hintChildren.changes.subscribe(function () { return _this._processHints(); });
+        // Re-validate when the number of hints changes.
+        startWith.call(this._hintChildren.changes, null).subscribe(function () {
+            _this._processHints();
+            _this._changeDetectorRef.markForCheck();
+        });
+        // Update the aria-described by when the number of errors changes.
+        startWith.call(this._errorChildren.changes, null).subscribe(function () {
+            _this._syncAriaDescribedby();
+            _this._changeDetectorRef.markForCheck();
+        });
     };
     /**
      * @return {?}
@@ -14618,7 +14630,8 @@ var MdInputContainer = (function () {
      */
     MdInputContainer.prototype._getDisplayedMessages = function () {
         var /** @type {?} */ input = this._mdInputChild;
-        return (this._errorChildren.length > 0 && input._isErrorState) ? 'error' : 'hint';
+        return (this._errorChildren && this._errorChildren.length > 0 && input._isErrorState) ?
+            'error' : 'hint';
     };
     /**
      * Ensure that there is only one placeholder (either `input` attribute or child element with the
@@ -14672,18 +14685,23 @@ var MdInputContainer = (function () {
     MdInputContainer.prototype._syncAriaDescribedby = function () {
         if (this._mdInputChild) {
             var /** @type {?} */ ids = [];
-            var /** @type {?} */ startHint = this._hintChildren ?
-                this._hintChildren.find(function (hint) { return hint.align === 'start'; }) : null;
-            var /** @type {?} */ endHint = this._hintChildren ?
-                this._hintChildren.find(function (hint) { return hint.align === 'end'; }) : null;
-            if (startHint) {
-                ids.push(startHint.id);
+            if (this._getDisplayedMessages() === 'hint') {
+                var /** @type {?} */ startHint = this._hintChildren ?
+                    this._hintChildren.find(function (hint) { return hint.align === 'start'; }) : null;
+                var /** @type {?} */ endHint = this._hintChildren ?
+                    this._hintChildren.find(function (hint) { return hint.align === 'end'; }) : null;
+                if (startHint) {
+                    ids.push(startHint.id);
+                }
+                else if (this._hintLabel) {
+                    ids.push(this._hintLabelId);
+                }
+                if (endHint) {
+                    ids.push(endHint.id);
+                }
             }
-            else if (this._hintLabel) {
-                ids.push(this._hintLabelId);
-            }
-            if (endHint) {
-                ids.push(endHint.id);
+            else if (this._errorChildren) {
+                ids = this._errorChildren.map(function (mdError) { return mdError.id; });
             }
             this._mdInputChild.ariaDescribedby = ids.join(' ');
         }

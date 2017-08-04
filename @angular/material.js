@@ -32,7 +32,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.8-73c6d8d');
+const VERSION = new Version('2.0.0-beta.8-2af284c');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -13246,12 +13246,16 @@ MdHint.propDecorators = {
  * Single error message to be shown underneath the input.
  */
 class MdErrorDirective {
+    constructor() {
+        this.id = `md-input-error-${nextUniqueId$4++}`;
+    }
 }
 MdErrorDirective.decorators = [
     { type: Directive, args: [{
                 selector: 'md-error, mat-error',
                 host: {
-                    'class': 'mat-input-error'
+                    'class': 'mat-input-error',
+                    '[attr.id]': 'id',
                 }
             },] },
 ];
@@ -13259,6 +13263,9 @@ MdErrorDirective.decorators = [
  * @nocollapse
  */
 MdErrorDirective.ctorParameters = () => [];
+MdErrorDirective.propDecorators = {
+    'id': [{ type: Input },],
+};
 /**
  * Prefix to be placed the the front of the input.
  */
@@ -13708,11 +13715,10 @@ class MdInputContainer {
      */
     ngAfterContentInit() {
         this._validateInputChild();
-        this._processHints();
-        this._validatePlaceholders();
         // Subscribe to changes in the child input state in order to update the container UI.
-        this._mdInputChild._stateChanges.subscribe(() => {
+        startWith.call(this._mdInputChild._stateChanges, null).subscribe(() => {
             this._validatePlaceholders();
+            this._syncAriaDescribedby();
             this._changeDetectorRef.markForCheck();
         });
         if (this._mdInputChild._ngControl && this._mdInputChild._ngControl.valueChanges) {
@@ -13720,8 +13726,16 @@ class MdInputContainer {
                 this._changeDetectorRef.markForCheck();
             });
         }
-        // Re-validate when the amount of hints changes.
-        this._hintChildren.changes.subscribe(() => this._processHints());
+        // Re-validate when the number of hints changes.
+        startWith.call(this._hintChildren.changes, null).subscribe(() => {
+            this._processHints();
+            this._changeDetectorRef.markForCheck();
+        });
+        // Update the aria-described by when the number of errors changes.
+        startWith.call(this._errorChildren.changes, null).subscribe(() => {
+            this._syncAriaDescribedby();
+            this._changeDetectorRef.markForCheck();
+        });
     }
     /**
      * @return {?}
@@ -13766,7 +13780,8 @@ class MdInputContainer {
      */
     _getDisplayedMessages() {
         let /** @type {?} */ input = this._mdInputChild;
-        return (this._errorChildren.length > 0 && input._isErrorState) ? 'error' : 'hint';
+        return (this._errorChildren && this._errorChildren.length > 0 && input._isErrorState) ?
+            'error' : 'hint';
     }
     /**
      * Ensure that there is only one placeholder (either `input` attribute or child element with the
@@ -13819,18 +13834,23 @@ class MdInputContainer {
     _syncAriaDescribedby() {
         if (this._mdInputChild) {
             let /** @type {?} */ ids = [];
-            let /** @type {?} */ startHint = this._hintChildren ?
-                this._hintChildren.find(hint => hint.align === 'start') : null;
-            let /** @type {?} */ endHint = this._hintChildren ?
-                this._hintChildren.find(hint => hint.align === 'end') : null;
-            if (startHint) {
-                ids.push(startHint.id);
+            if (this._getDisplayedMessages() === 'hint') {
+                let /** @type {?} */ startHint = this._hintChildren ?
+                    this._hintChildren.find(hint => hint.align === 'start') : null;
+                let /** @type {?} */ endHint = this._hintChildren ?
+                    this._hintChildren.find(hint => hint.align === 'end') : null;
+                if (startHint) {
+                    ids.push(startHint.id);
+                }
+                else if (this._hintLabel) {
+                    ids.push(this._hintLabelId);
+                }
+                if (endHint) {
+                    ids.push(endHint.id);
+                }
             }
-            else if (this._hintLabel) {
-                ids.push(this._hintLabelId);
-            }
-            if (endHint) {
-                ids.push(endHint.id);
+            else if (this._errorChildren) {
+                ids = this._errorChildren.map(mdError => mdError.id);
             }
             this._mdInputChild.ariaDescribedby = ids.join(' ');
         }

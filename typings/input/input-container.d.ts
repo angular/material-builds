@@ -26,6 +26,7 @@ export declare class MdHint {
 }
 /** Single error message to be shown underneath the input. */
 export declare class MdErrorDirective {
+    id: string;
 }
 /** Prefix to be placed the the front of the input. */
 export declare class MdPrefix {
