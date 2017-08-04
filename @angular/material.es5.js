@@ -32,7 +32,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-var VERSION = new Version('2.0.0-beta.8-787a8f0');
+var VERSION = new Version('2.0.0-beta.8-73c6d8d');
 var MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -22349,7 +22349,7 @@ var MdExpansionPanelHeader = (function () {
 }());
 MdExpansionPanelHeader.decorators = [
     { type: Component, args: [{ selector: 'md-expansion-panel-header, mat-expansion-panel-header',
-                styles: [".mat-expansion-panel-header{cursor:pointer;display:flex;flex-direction:row;height:48px;line-height:48px;padding:0 24px}.mat-expansion-panel-header.mat-expanded{height:64px;line-height:64px}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-description,.mat-expansion-panel-header-title{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-description,[dir=rtl] .mat-expansion-panel-header-title{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:'';display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}"],
+                styles: [".mat-expansion-panel-header{cursor:pointer;display:flex;flex-direction:row;align-items:center;padding:0 24px}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-description,.mat-expansion-panel-header-title{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-description,[dir=rtl] .mat-expansion-panel-header-title{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:'';display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}"],
                 template: "<span class=\"mat-content\"><ng-content select=\"md-panel-title, mat-panel-title\"></ng-content><ng-content select=\"md-panel-description, mat-panel-description\"></ng-content><ng-content></ng-content></span><span [@indicatorRotate]=\"_getExpandedState()\" *ngIf=\"!_getHideToggle()\" class=\"mat-expansion-indicator\"></span>",
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22371,8 +22371,8 @@ MdExpansionPanelHeader.decorators = [
                         transition('expanded <=> collapsed', animate(EXPANSION_PANEL_ANIMATION_TIMING)),
                     ]),
                     trigger('expansionHeight', [
-                        state('collapsed', style({ height: '48px', 'line-height': '48px' })),
-                        state('expanded', style({ height: '64px', 'line-height': '64px' })),
+                        state('collapsed', style({ height: '48px' })),
+                        state('expanded', style({ height: '64px' })),
                         transition('expanded <=> collapsed', animate(EXPANSION_PANEL_ANIMATION_TIMING)),
                     ]),
                 ],
