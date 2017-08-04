@@ -127,12 +127,10 @@ export declare class MdSlider extends _MdSliderMixinBase implements ControlValue
     /** The dimensions of the slider. */
     private _sliderDimensions;
     private _controlValueAccessorChangeFn;
-    /** The last value for which a change event was emitted. */
-    private _lastChangeValue;
-    /** The last value for which an input event was emitted. */
-    private _lastInputValue;
     /** Decimal places to round to, based on the step amount. */
     private _roundLabelTo;
+    /** The value of the slider when the slide start event fires. */
+    private _valueOnSlideStart;
     /**
      * Whether mouse events should be converted to a slider position by calculating their distance
      * from the right or bottom edge of the slider as opposed to the top or left.
@@ -156,7 +154,7 @@ export declare class MdSlider extends _MdSliderMixinBase implements ControlValue
     /** Calculate the new value from the new physical location. The value will always be snapped. */
     private _updateValueFromPosition(pos);
     /** Emits a change event if the current value is different from the last emitted value. */
-    private _emitValueIfChanged();
+    private _emitChangeEvent();
     /** Emits an input event when the current value is different from the last emitted value. */
     private _emitInputEvent();
     /** Updates the amount of space between ticks as a percentage of the width of the slider. */

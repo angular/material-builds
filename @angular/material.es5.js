@@ -32,7 +32,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-var VERSION = new Version('2.0.0-beta.8-2af284c');
+var VERSION = new Version('2.0.0-beta.8-9d3c405');
 var MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -9470,12 +9470,15 @@ var MdSlider = (function (_super) {
         if (this.disabled) {
             return;
         }
+        var /** @type {?} */ oldValue = this.value;
         this._isSliding = false;
         this._renderer.addFocus();
         this._updateValueFromPosition({ x: event.clientX, y: event.clientY });
-        /* Emits a change and input event if the value changed. */
-        this._emitInputEvent();
-        this._emitValueIfChanged();
+        /* Emit a change and input event if the value changed. */
+        if (oldValue != this.value) {
+            this._emitInputEvent();
+            this._emitChangeEvent();
+        }
     };
     /**
      * @param {?} event
@@ -9492,9 +9495,12 @@ var MdSlider = (function (_super) {
         }
         // Prevent the slide from selecting anything else.
         event.preventDefault();
+        var /** @type {?} */ oldValue = this.value;
         this._updateValueFromPosition({ x: event.center.x, y: event.center.y });
         // Native range elements always emit `input` events when the value changed while sliding.
-        this._emitInputEvent();
+        if (oldValue != this.value) {
+            this._emitInputEvent();
+        }
     };
     /**
      * @param {?} event
@@ -9508,6 +9514,7 @@ var MdSlider = (function (_super) {
         this._onMouseenter();
         this._isSliding = true;
         this._renderer.addFocus();
+        this._valueOnSlideStart = this.value;
         if (event) {
             this._updateValueFromPosition({ x: event.center.x, y: event.center.y });
             event.preventDefault();
@@ -9518,7 +9525,10 @@ var MdSlider = (function (_super) {
      */
     MdSlider.prototype._onSlideEnd = function () {
         this._isSliding = false;
-        this._emitValueIfChanged();
+        if (this._valueOnSlideStart != this.value) {
+            this._emitChangeEvent();
+        }
+        this._valueOnSlideStart = null;
     };
     /**
      * @return {?}
@@ -9543,6 +9553,7 @@ var MdSlider = (function (_super) {
         if (this.disabled) {
             return;
         }
+        var /** @type {?} */ oldValue = this.value;
         switch (event.keyCode) {
             case PAGE_UP:
                 this._increment(10);
@@ -9581,8 +9592,10 @@ var MdSlider = (function (_super) {
                 // it.
                 return;
         }
-        this._emitInputEvent();
-        this._emitValueIfChanged();
+        if (oldValue != this.value) {
+            this._emitInputEvent();
+            this._emitChangeEvent();
+        }
         this._isSliding = true;
         event.preventDefault();
     };
@@ -9628,24 +9641,16 @@ var MdSlider = (function (_super) {
      * Emits a change event if the current value is different from the last emitted value.
      * @return {?}
      */
-    MdSlider.prototype._emitValueIfChanged = function () {
-        if (this.value != this._lastChangeValue) {
-            var /** @type {?} */ event = this._createChangeEvent();
-            this._lastChangeValue = this.value;
-            this._controlValueAccessorChangeFn(this.value);
-            this.change.emit(event);
-        }
+    MdSlider.prototype._emitChangeEvent = function () {
+        this._controlValueAccessorChangeFn(this.value);
+        this.change.emit(this._createChangeEvent());
     };
     /**
      * Emits an input event when the current value is different from the last emitted value.
      * @return {?}
      */
     MdSlider.prototype._emitInputEvent = function () {
-        if (this.value != this._lastInputValue) {
-            var /** @type {?} */ event = this._createChangeEvent();
-            this._lastInputValue = this.value;
-            this.input.emit(event);
-        }
+        this.input.emit(this._createChangeEvent());
     };
     /**
      * Updates the amount of space between ticks as a percentage of the width of the slider.

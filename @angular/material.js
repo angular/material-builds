@@ -32,7 +32,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.8-2af284c');
+const VERSION = new Version('2.0.0-beta.8-9d3c405');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -8979,12 +8979,15 @@ class MdSlider extends _MdSliderMixinBase {
         if (this.disabled) {
             return;
         }
+        let /** @type {?} */ oldValue = this.value;
         this._isSliding = false;
         this._renderer.addFocus();
         this._updateValueFromPosition({ x: event.clientX, y: event.clientY });
-        /* Emits a change and input event if the value changed. */
-        this._emitInputEvent();
-        this._emitValueIfChanged();
+        /* Emit a change and input event if the value changed. */
+        if (oldValue != this.value) {
+            this._emitInputEvent();
+            this._emitChangeEvent();
+        }
     }
     /**
      * @param {?} event
@@ -9001,9 +9004,12 @@ class MdSlider extends _MdSliderMixinBase {
         }
         // Prevent the slide from selecting anything else.
         event.preventDefault();
+        let /** @type {?} */ oldValue = this.value;
         this._updateValueFromPosition({ x: event.center.x, y: event.center.y });
         // Native range elements always emit `input` events when the value changed while sliding.
-        this._emitInputEvent();
+        if (oldValue != this.value) {
+            this._emitInputEvent();
+        }
     }
     /**
      * @param {?} event
@@ -9017,6 +9023,7 @@ class MdSlider extends _MdSliderMixinBase {
         this._onMouseenter();
         this._isSliding = true;
         this._renderer.addFocus();
+        this._valueOnSlideStart = this.value;
         if (event) {
             this._updateValueFromPosition({ x: event.center.x, y: event.center.y });
             event.preventDefault();
@@ -9027,7 +9034,10 @@ class MdSlider extends _MdSliderMixinBase {
      */
     _onSlideEnd() {
         this._isSliding = false;
-        this._emitValueIfChanged();
+        if (this._valueOnSlideStart != this.value) {
+            this._emitChangeEvent();
+        }
+        this._valueOnSlideStart = null;
     }
     /**
      * @return {?}
@@ -9052,6 +9062,7 @@ class MdSlider extends _MdSliderMixinBase {
         if (this.disabled) {
             return;
         }
+        let /** @type {?} */ oldValue = this.value;
         switch (event.keyCode) {
             case PAGE_UP:
                 this._increment(10);
@@ -9090,8 +9101,10 @@ class MdSlider extends _MdSliderMixinBase {
                 // it.
                 return;
         }
-        this._emitInputEvent();
-        this._emitValueIfChanged();
+        if (oldValue != this.value) {
+            this._emitInputEvent();
+            this._emitChangeEvent();
+        }
         this._isSliding = true;
         event.preventDefault();
     }
@@ -9137,24 +9150,16 @@ class MdSlider extends _MdSliderMixinBase {
      * Emits a change event if the current value is different from the last emitted value.
      * @return {?}
      */
-    _emitValueIfChanged() {
-        if (this.value != this._lastChangeValue) {
-            let /** @type {?} */ event = this._createChangeEvent();
-            this._lastChangeValue = this.value;
-            this._controlValueAccessorChangeFn(this.value);
-            this.change.emit(event);
-        }
+    _emitChangeEvent() {
+        this._controlValueAccessorChangeFn(this.value);
+        this.change.emit(this._createChangeEvent());
     }
     /**
      * Emits an input event when the current value is different from the last emitted value.
      * @return {?}
      */
     _emitInputEvent() {
-        if (this.value != this._lastInputValue) {
-            let /** @type {?} */ event = this._createChangeEvent();
-            this._lastInputValue = this.value;
-            this.input.emit(event);
-        }
+        this.input.emit(this._createChangeEvent());
     }
     /**
      * Updates the amount of space between ticks as a percentage of the width of the slider.
