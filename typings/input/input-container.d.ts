@@ -134,6 +134,7 @@ export declare class MdInputContainer implements AfterViewInit, AfterContentInit
     private _floatPlaceholder;
     /** Reference to the input's underline element. */
     underlineRef: ElementRef;
+    _connectionContainerRef: ElementRef;
     _mdInputChild: MdInputDirective;
     _placeholderChild: MdPlaceholder;
     _errorChildren: QueryList<MdErrorDirective>;

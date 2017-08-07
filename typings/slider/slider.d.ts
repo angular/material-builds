@@ -122,8 +122,6 @@ export declare class MdSlider extends _MdSliderMixinBase implements ControlValue
     };
     /** The size of a tick interval as a percentage of the size of the track. */
     private _tickIntervalPercent;
-    /** A renderer to handle updating the slider's thumb and fill track. */
-    private _renderer;
     /** The dimensions of the slider. */
     private _sliderDimensions;
     private _controlValueAccessorChangeFn;
@@ -131,6 +129,8 @@ export declare class MdSlider extends _MdSliderMixinBase implements ControlValue
     private _roundLabelTo;
     /** The value of the slider when the slide start event fires. */
     private _valueOnSlideStart;
+    /** Reference to the inner slider wrapper element. */
+    private _sliderWrapper;
     /**
      * Whether mouse events should be converted to a slider position by calculating their distance
      * from the right or bottom edge of the slider as opposed to the top or left.
@@ -168,6 +168,17 @@ export declare class MdSlider extends _MdSliderMixinBase implements ControlValue
     /** Return a number between two numbers. */
     private _clamp(value, min?, max?);
     /**
+     * Get the bounding client rect of the slider track element.
+     * The track is used rather than the native element to ignore the extra space that the thumb can
+     * take up.
+     */
+    private _getSliderDimensions();
+    /**
+     * Focuses the native element.
+     * Currently only used to allow a blur event to fire but will be used with keyboard input later.
+     */
+    private _focusHostElement();
+    /**
      * Sets the model value. Implemented as part of ControlValueAccessor.
      * @param value
      */
@@ -190,23 +201,4 @@ export declare class MdSlider extends _MdSliderMixinBase implements ControlValue
      * @param isDisabled
      */
     setDisabledState(isDisabled: boolean): void;
-}
-/**
- * Renderer class in order to keep all dom manipulation in one place and outside of the main class.
- * @docs-private
- */
-export declare class SliderRenderer {
-    private _sliderElement;
-    constructor(elementRef: ElementRef);
-    /**
-     * Get the bounding client rect of the slider track element.
-     * The track is used rather than the native element to ignore the extra space that the thumb can
-     * take up.
-     */
-    getSliderDimensions(): ClientRect | null;
-    /**
-     * Focuses the native element.
-     * Currently only used to allow a blur event to fire but will be used with keyboard input later.
-     */
-    addFocus(): void;
 }

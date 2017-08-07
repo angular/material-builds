@@ -54,8 +54,6 @@ export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDe
     private _overlayRef;
     private _portal;
     private _panelOpen;
-    /** The subscription to positioning changes in the autocomplete panel. */
-    private _panelPositionSubscription;
     /** Strategy that is used to position the panel. */
     private _positionStrategy;
     /** Whether or not the placeholder state is being overridden. */
@@ -151,11 +149,7 @@ export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDe
     private _createOverlay();
     private _getOverlayConfig();
     private _getOverlayPosition();
-    /**
-     * This method subscribes to position changes in the autocomplete panel, so the panel's
-     * y-offset can be adjusted to match the new position.
-     */
-    private _subscribeToPositionChanges(strategy);
+    private _getConnectedElement();
     /** Returns the width of the input element, so the panel width can match it. */
     private _getHostWidth();
     /** Reset active item to -1 so arrow events will activate the correct options.*/

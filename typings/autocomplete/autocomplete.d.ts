@@ -8,13 +8,10 @@
 import { AfterContentInit, ElementRef, QueryList, TemplateRef, ChangeDetectorRef } from '@angular/core';
 import { MdOption } from '../core';
 import { ActiveDescendantKeyManager } from '../core/a11y/activedescendant-key-manager';
-export declare type AutocompletePositionY = 'above' | 'below';
 export declare class MdAutocomplete implements AfterContentInit {
     private _changeDetectorRef;
     /** Manages active item in option list based on key events. */
     _keyManager: ActiveDescendantKeyManager;
-    /** Whether the autocomplete panel displays above or below its trigger. */
-    positionY: AutocompletePositionY;
     /** Whether the autocomplete panel should be visible, depending on option length. */
     showPanel: boolean;
     /** @docs-private */
@@ -38,10 +35,8 @@ export declare class MdAutocomplete implements AfterContentInit {
     _getScrollTop(): number;
     /** Panel should hide itself when the option list is empty. */
     _setVisibility(): void;
-    /** Sets a class on the panel based on its position (used to set y-offset). */
+    /** Sets a class on the panel based on whether it is visible. */
     _getClassList(): {
-        'mat-autocomplete-panel-below': boolean;
-        'mat-autocomplete-panel-above': boolean;
         'mat-autocomplete-visible': boolean;
         'mat-autocomplete-hidden': boolean;
     };
