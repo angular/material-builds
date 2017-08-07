@@ -37,14 +37,14 @@ export declare class MdDialog {
     private _afterOpenAtThisLevel;
     private _boundKeydown;
     /** Keeps track of the currently-open dialogs. */
-    readonly openDialogs: MdDialogRef<any>[];
-    /** Stream that emits when a dialog has been opened. */
-    readonly afterOpen: Subject<MdDialogRef<any>>;
-    readonly _afterAllClosed: any;
-    /**
-     * Stream that emits when all open dialog have finished closing.
-     * Will emit on subscribe if there are no open dialogs to begin with.
-     */
+    readonly _openDialogs: MdDialogRef<any>[];
+    /** Subject for notifying the user that a dialog has opened. */
+    readonly _afterOpen: Subject<MdDialogRef<any>>;
+    /** Subject for notifying the user that all open dialogs have finished closing. */
+    readonly _afterAllClosed: Subject<void>;
+    /** Gets an observable that is notified when a dialog has been opened. */
+    afterOpen: Observable<MdDialogRef<any>>;
+    /** Gets an observable that is notified when all open dialog have finished closing. */
     afterAllClosed: Observable<void>;
     constructor(_overlay: Overlay, _injector: Injector, _scrollStrategy: any, _location: Location, _parentDialog: MdDialog);
     /**
@@ -59,11 +59,6 @@ export declare class MdDialog {
      * Closes all of the currently-open dialogs.
      */
     closeAll(): void;
-    /**
-     * Finds an open dialog by its id.
-     * @param id ID to use when looking up the dialog.
-     */
-    getDialogById(id: string): MdDialogRef<any> | undefined;
     /**
      * Creates the overlay into which the dialog will be loaded.
      * @param config The dialog configuration.

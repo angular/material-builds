@@ -28,12 +28,11 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { _throw } from 'rxjs/observable/throw';
 import { forkJoin } from 'rxjs/observable/forkJoin';
-import { defer } from 'rxjs/observable/defer';
 import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef, CdkHeaderCell, CdkHeaderCellDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTable, CdkTableModule } from '@angular/cdk/table';
 /**
  * Current version of Angular Material.
  */
-var VERSION = new Version('2.0.0-beta.8-faa7601');
+var VERSION = new Version('2.0.0-beta.8-667a4e4');
 var MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -2697,9 +2696,7 @@ var OverlayContainer = (function () {
          */
         set: function (value) {
             if (this._containerElement) {
-                if (this._themeClass) {
-                    this._containerElement.classList.remove(this._themeClass);
-                }
+                this._containerElement.classList.remove(this._themeClass);
                 if (value) {
                     this._containerElement.classList.add(value);
                 }
@@ -18792,10 +18789,6 @@ var MdDialogConfig = (function () {
     }
     return MdDialogConfig;
 }());
-// TODO(jelbourn): resizing
-// TODO(jelbourn): afterOpen and beforeClose
-// Counter for unique dialog ids.
-var uniqueId = 0;
 /**
  * Reference to a dialog opened via the MdDialog service.
  */
@@ -18803,14 +18796,11 @@ var MdDialogRef = (function () {
     /**
      * @param {?} _overlayRef
      * @param {?} _containerInstance
-     * @param {?=} id
      */
-    function MdDialogRef(_overlayRef, _containerInstance, id) {
-        if (id === void 0) { id = "md-dialog-" + uniqueId++; }
+    function MdDialogRef(_overlayRef, _containerInstance) {
         var _this = this;
         this._overlayRef = _overlayRef;
         this._containerInstance = _containerInstance;
-        this.id = id;
         /**
          * Whether the user is allowed to close the dialog.
          */
@@ -19136,12 +19126,13 @@ var MdDialog = (function () {
         this._afterOpenAtThisLevel = new Subject();
         this._boundKeydown = this._handleKeydown.bind(this);
         /**
-         * Stream that emits when all open dialog have finished closing.
-         * Will emit on subscribe if there are no open dialogs to begin with.
+         * Gets an observable that is notified when a dialog has been opened.
          */
-        this.afterAllClosed = defer(function () { return _this.openDialogs.length ?
-            _this._afterAllClosed :
-            startWith.call(_this._afterAllClosed, undefined); });
+        this.afterOpen = this._afterOpen.asObservable();
+        /**
+         * Gets an observable that is notified when all open dialog have finished closing.
+         */
+        this.afterAllClosed = this._afterAllClosed.asObservable();
         // Close all of the dialogs when the user goes forwards/backwards in history or when the
         // location hash changes. Note that this usually doesn't include clicking on links (unless
         // the user is using the `HashLocationStrategy`).
@@ -19149,35 +19140,36 @@ var MdDialog = (function () {
             _location.subscribe(function () { return _this.closeAll(); });
         }
     }
-    Object.defineProperty(MdDialog.prototype, "openDialogs", {
+    Object.defineProperty(MdDialog.prototype, "_openDialogs", {
         /**
          * Keeps track of the currently-open dialogs.
          * @return {?}
          */
         get: function () {
-            return this._parentDialog ? this._parentDialog.openDialogs : this._openDialogsAtThisLevel;
+            return this._parentDialog ? this._parentDialog._openDialogs : this._openDialogsAtThisLevel;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdDialog.prototype, "afterOpen", {
+    Object.defineProperty(MdDialog.prototype, "_afterOpen", {
         /**
-         * Stream that emits when a dialog has been opened.
+         * Subject for notifying the user that a dialog has opened.
          * @return {?}
          */
         get: function () {
-            return this._parentDialog ? this._parentDialog.afterOpen : this._afterOpenAtThisLevel;
+            return this._parentDialog ? this._parentDialog._afterOpen : this._afterOpenAtThisLevel;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdDialog.prototype, "_afterAllClosed", {
         /**
+         * Subject for notifying the user that all open dialogs have finished closing.
          * @return {?}
          */
         get: function () {
-            var /** @type {?} */ parent = this._parentDialog;
-            return parent ? parent._afterAllClosed : this._afterAllClosedAtThisLevel;
+            return this._parentDialog ?
+                this._parentDialog._afterAllClosed : this._afterAllClosedAtThisLevel;
         },
         enumerable: true,
         configurable: true
@@ -19192,24 +19184,21 @@ var MdDialog = (function () {
      */
     MdDialog.prototype.open = function (componentOrTemplateRef, config) {
         var _this = this;
-        var /** @type {?} */ inProgressDialog = this.openDialogs.find(function (dialog) { return dialog._isAnimating(); });
+        var /** @type {?} */ inProgressDialog = this._openDialogs.find(function (dialog) { return dialog._isAnimating(); });
         // If there's a dialog that is in the process of being opened, return it instead.
         if (inProgressDialog) {
             return inProgressDialog;
         }
         config = _applyConfigDefaults$1(config);
-        if (config.id && this.getDialogById(config.id)) {
-            throw Error("Dialog with id \"" + config.id + "\" exists already. The dialog id must be unique.");
-        }
         var /** @type {?} */ overlayRef = this._createOverlay(config);
         var /** @type {?} */ dialogContainer = this._attachDialogContainer(overlayRef, config);
         var /** @type {?} */ dialogRef = this._attachDialogContent(componentOrTemplateRef, dialogContainer, overlayRef, config);
-        if (!this.openDialogs.length) {
+        if (!this._openDialogs.length) {
             document.addEventListener('keydown', this._boundKeydown);
         }
-        this.openDialogs.push(dialogRef);
+        this._openDialogs.push(dialogRef);
         dialogRef.afterClosed().subscribe(function () { return _this._removeOpenDialog(dialogRef); });
-        this.afterOpen.next(dialogRef);
+        this._afterOpen.next(dialogRef);
         return dialogRef;
     };
     /**
@@ -19217,22 +19206,14 @@ var MdDialog = (function () {
      * @return {?}
      */
     MdDialog.prototype.closeAll = function () {
-        var /** @type {?} */ i = this.openDialogs.length;
+        var /** @type {?} */ i = this._openDialogs.length;
         while (i--) {
             // The `_openDialogs` property isn't updated after close until the rxjs subscription
             // runs on the next microtask, in addition to modifying the array as we're going
             // through it. We loop through all of them and call close without assuming that
             // they'll be removed from the list instantaneously.
-            this.openDialogs[i].close();
+            this._openDialogs[i].close();
         }
-    };
-    /**
-     * Finds an open dialog by its id.
-     * @param {?} id ID to use when looking up the dialog.
-     * @return {?}
-     */
-    MdDialog.prototype.getDialogById = function (id) {
-        return this.openDialogs.find(function (dialog) { return dialog.id === id; });
     };
     /**
      * Creates the overlay into which the dialog will be loaded.
@@ -19285,7 +19266,7 @@ var MdDialog = (function () {
     MdDialog.prototype._attachDialogContent = function (componentOrTemplateRef, dialogContainer, overlayRef, config) {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
-        var /** @type {?} */ dialogRef = new MdDialogRef(overlayRef, dialogContainer, config.id);
+        var /** @type {?} */ dialogRef = new MdDialogRef(overlayRef, dialogContainer);
         // When the dialog backdrop is clicked, we want to close it.
         if (config.hasBackdrop) {
             overlayRef.backdropClick().subscribe(function () {
@@ -19330,11 +19311,11 @@ var MdDialog = (function () {
      * @return {?}
      */
     MdDialog.prototype._removeOpenDialog = function (dialogRef) {
-        var /** @type {?} */ index = this.openDialogs.indexOf(dialogRef);
+        var /** @type {?} */ index = this._openDialogs.indexOf(dialogRef);
         if (index > -1) {
-            this.openDialogs.splice(index, 1);
+            this._openDialogs.splice(index, 1);
             // no open dialogs are left, call next on afterAllClosed Subject
-            if (!this.openDialogs.length) {
+            if (!this._openDialogs.length) {
                 this._afterAllClosed.next();
                 document.removeEventListener('keydown', this._boundKeydown);
             }
@@ -19347,7 +19328,7 @@ var MdDialog = (function () {
      * @return {?}
      */
     MdDialog.prototype._handleKeydown = function (event) {
-        var /** @type {?} */ topDialog = this.openDialogs[this.openDialogs.length - 1];
+        var /** @type {?} */ topDialog = this._openDialogs[this._openDialogs.length - 1];
         var /** @type {?} */ canClose = topDialog ? !topDialog.disableClose : false;
         if (event.keyCode === ESCAPE && canClose) {
             topDialog.close();

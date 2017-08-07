@@ -15,7 +15,6 @@ import { MdDialogContainer } from './dialog-container';
 export declare class MdDialogRef<T> {
     private _overlayRef;
     private _containerInstance;
-    readonly id: string;
     /** The instance of component opened into the dialog. */
     componentInstance: T;
     /** Whether the user is allowed to close the dialog. */
@@ -24,7 +23,7 @@ export declare class MdDialogRef<T> {
     private _afterClosed;
     /** Result to be passed to afterClosed. */
     private _result;
-    constructor(_overlayRef: OverlayRef, _containerInstance: MdDialogContainer, id?: string);
+    constructor(_overlayRef: OverlayRef, _containerInstance: MdDialogContainer);
     /**
      * Close the dialog.
      * @param dialogResult Optional result to return to the dialog opener.

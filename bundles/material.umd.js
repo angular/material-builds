@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/observe-content'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/common'), require('@angular/cdk/platform'), require('rxjs/Subject'), require('rxjs/Subscription'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('@angular/cdk/rxjs'), require('@angular/cdk/keyboard'), require('@angular/cdk/coercion'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('rxjs/observable/of'), require('@angular/forms'), require('@angular/animations'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/throw'), require('rxjs/observable/forkJoin'), require('rxjs/observable/defer'), require('@angular/cdk/table')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/observe-content', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/common', '@angular/cdk/platform', 'rxjs/Subject', 'rxjs/Subscription', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', '@angular/cdk/rxjs', '@angular/cdk/keyboard', '@angular/cdk/coercion', '@angular/cdk/portal', '@angular/cdk/a11y', 'rxjs/observable/of', '@angular/forms', '@angular/animations', '@angular/http', 'rxjs/Observable', 'rxjs/observable/throw', 'rxjs/observable/forkJoin', 'rxjs/observable/defer', '@angular/cdk/table'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.observeContent,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.common,global.ng.cdk.platform,global.Rx,global.Rx,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.rxjs,global.ng.cdk.keyboard,global.ng.cdk.coercion,global.ng.cdk.portal,global.ng.cdk.a11y,global.Rx.Observable,global.ng.forms,global.ng.animations,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.table));
-}(this, (function (exports,_angular_core,_angular_cdk_observeContent,_angular_platformBrowser,_angular_cdk_bidi,_angular_common,_angular_cdk_platform,rxjs_Subject,rxjs_Subscription,rxjs_observable_fromEvent,rxjs_observable_merge,_angular_cdk_rxjs,_angular_cdk_keyboard,_angular_cdk_coercion,_angular_cdk_portal,_angular_cdk_a11y,rxjs_observable_of,_angular_forms,_angular_animations,_angular_http,rxjs_Observable,rxjs_observable_throw,rxjs_observable_forkJoin,rxjs_observable_defer,_angular_cdk_table) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/observe-content'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/common'), require('@angular/cdk/platform'), require('rxjs/Subject'), require('rxjs/Subscription'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('@angular/cdk/rxjs'), require('@angular/cdk/keyboard'), require('@angular/cdk/coercion'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('rxjs/observable/of'), require('@angular/forms'), require('@angular/animations'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/throw'), require('rxjs/observable/forkJoin'), require('@angular/cdk/table')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/observe-content', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/common', '@angular/cdk/platform', 'rxjs/Subject', 'rxjs/Subscription', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', '@angular/cdk/rxjs', '@angular/cdk/keyboard', '@angular/cdk/coercion', '@angular/cdk/portal', '@angular/cdk/a11y', 'rxjs/observable/of', '@angular/forms', '@angular/animations', '@angular/http', 'rxjs/Observable', 'rxjs/observable/throw', 'rxjs/observable/forkJoin', '@angular/cdk/table'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.observeContent,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.common,global.ng.cdk.platform,global.Rx,global.Rx,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.rxjs,global.ng.cdk.keyboard,global.ng.cdk.coercion,global.ng.cdk.portal,global.ng.cdk.a11y,global.Rx.Observable,global.ng.forms,global.ng.animations,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.table));
+}(this, (function (exports,_angular_core,_angular_cdk_observeContent,_angular_platformBrowser,_angular_cdk_bidi,_angular_common,_angular_cdk_platform,rxjs_Subject,rxjs_Subscription,rxjs_observable_fromEvent,rxjs_observable_merge,_angular_cdk_rxjs,_angular_cdk_keyboard,_angular_cdk_coercion,_angular_cdk_portal,_angular_cdk_a11y,rxjs_observable_of,_angular_forms,_angular_animations,_angular_http,rxjs_Observable,rxjs_observable_throw,rxjs_observable_forkJoin,_angular_cdk_table) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8-faa7601');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-667a4e4');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -2704,9 +2704,7 @@ var OverlayContainer = (function () {
          */
         set: function (value) {
             if (this._containerElement) {
-                if (this._themeClass) {
-                    this._containerElement.classList.remove(this._themeClass);
-                }
+                this._containerElement.classList.remove(this._themeClass);
                 if (value) {
                     this._containerElement.classList.add(value);
                 }
@@ -18799,10 +18797,6 @@ var MdDialogConfig = (function () {
     }
     return MdDialogConfig;
 }());
-// TODO(jelbourn): resizing
-// TODO(jelbourn): afterOpen and beforeClose
-// Counter for unique dialog ids.
-var uniqueId = 0;
 /**
  * Reference to a dialog opened via the MdDialog service.
  */
@@ -18810,14 +18804,11 @@ var MdDialogRef = (function () {
     /**
      * @param {?} _overlayRef
      * @param {?} _containerInstance
-     * @param {?=} id
      */
-    function MdDialogRef(_overlayRef, _containerInstance, id) {
-        if (id === void 0) { id = "md-dialog-" + uniqueId++; }
+    function MdDialogRef(_overlayRef, _containerInstance) {
         var _this = this;
         this._overlayRef = _overlayRef;
         this._containerInstance = _containerInstance;
-        this.id = id;
         /**
          * Whether the user is allowed to close the dialog.
          */
@@ -19143,12 +19134,13 @@ var MdDialog = (function () {
         this._afterOpenAtThisLevel = new rxjs_Subject.Subject();
         this._boundKeydown = this._handleKeydown.bind(this);
         /**
-         * Stream that emits when all open dialog have finished closing.
-         * Will emit on subscribe if there are no open dialogs to begin with.
+         * Gets an observable that is notified when a dialog has been opened.
          */
-        this.afterAllClosed = rxjs_observable_defer.defer(function () { return _this.openDialogs.length ?
-            _this._afterAllClosed :
-            _angular_cdk_rxjs.startWith.call(_this._afterAllClosed, undefined); });
+        this.afterOpen = this._afterOpen.asObservable();
+        /**
+         * Gets an observable that is notified when all open dialog have finished closing.
+         */
+        this.afterAllClosed = this._afterAllClosed.asObservable();
         // Close all of the dialogs when the user goes forwards/backwards in history or when the
         // location hash changes. Note that this usually doesn't include clicking on links (unless
         // the user is using the `HashLocationStrategy`).
@@ -19156,35 +19148,36 @@ var MdDialog = (function () {
             _location.subscribe(function () { return _this.closeAll(); });
         }
     }
-    Object.defineProperty(MdDialog.prototype, "openDialogs", {
+    Object.defineProperty(MdDialog.prototype, "_openDialogs", {
         /**
          * Keeps track of the currently-open dialogs.
          * @return {?}
          */
         get: function () {
-            return this._parentDialog ? this._parentDialog.openDialogs : this._openDialogsAtThisLevel;
+            return this._parentDialog ? this._parentDialog._openDialogs : this._openDialogsAtThisLevel;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdDialog.prototype, "afterOpen", {
+    Object.defineProperty(MdDialog.prototype, "_afterOpen", {
         /**
-         * Stream that emits when a dialog has been opened.
+         * Subject for notifying the user that a dialog has opened.
          * @return {?}
          */
         get: function () {
-            return this._parentDialog ? this._parentDialog.afterOpen : this._afterOpenAtThisLevel;
+            return this._parentDialog ? this._parentDialog._afterOpen : this._afterOpenAtThisLevel;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdDialog.prototype, "_afterAllClosed", {
         /**
+         * Subject for notifying the user that all open dialogs have finished closing.
          * @return {?}
          */
         get: function () {
-            var /** @type {?} */ parent = this._parentDialog;
-            return parent ? parent._afterAllClosed : this._afterAllClosedAtThisLevel;
+            return this._parentDialog ?
+                this._parentDialog._afterAllClosed : this._afterAllClosedAtThisLevel;
         },
         enumerable: true,
         configurable: true
@@ -19199,24 +19192,21 @@ var MdDialog = (function () {
      */
     MdDialog.prototype.open = function (componentOrTemplateRef, config) {
         var _this = this;
-        var /** @type {?} */ inProgressDialog = this.openDialogs.find(function (dialog) { return dialog._isAnimating(); });
+        var /** @type {?} */ inProgressDialog = this._openDialogs.find(function (dialog) { return dialog._isAnimating(); });
         // If there's a dialog that is in the process of being opened, return it instead.
         if (inProgressDialog) {
             return inProgressDialog;
         }
         config = _applyConfigDefaults$1(config);
-        if (config.id && this.getDialogById(config.id)) {
-            throw Error("Dialog with id \"" + config.id + "\" exists already. The dialog id must be unique.");
-        }
         var /** @type {?} */ overlayRef = this._createOverlay(config);
         var /** @type {?} */ dialogContainer = this._attachDialogContainer(overlayRef, config);
         var /** @type {?} */ dialogRef = this._attachDialogContent(componentOrTemplateRef, dialogContainer, overlayRef, config);
-        if (!this.openDialogs.length) {
+        if (!this._openDialogs.length) {
             document.addEventListener('keydown', this._boundKeydown);
         }
-        this.openDialogs.push(dialogRef);
+        this._openDialogs.push(dialogRef);
         dialogRef.afterClosed().subscribe(function () { return _this._removeOpenDialog(dialogRef); });
-        this.afterOpen.next(dialogRef);
+        this._afterOpen.next(dialogRef);
         return dialogRef;
     };
     /**
@@ -19224,22 +19214,14 @@ var MdDialog = (function () {
      * @return {?}
      */
     MdDialog.prototype.closeAll = function () {
-        var /** @type {?} */ i = this.openDialogs.length;
+        var /** @type {?} */ i = this._openDialogs.length;
         while (i--) {
             // The `_openDialogs` property isn't updated after close until the rxjs subscription
             // runs on the next microtask, in addition to modifying the array as we're going
             // through it. We loop through all of them and call close without assuming that
             // they'll be removed from the list instantaneously.
-            this.openDialogs[i].close();
+            this._openDialogs[i].close();
         }
-    };
-    /**
-     * Finds an open dialog by its id.
-     * @param {?} id ID to use when looking up the dialog.
-     * @return {?}
-     */
-    MdDialog.prototype.getDialogById = function (id) {
-        return this.openDialogs.find(function (dialog) { return dialog.id === id; });
     };
     /**
      * Creates the overlay into which the dialog will be loaded.
@@ -19292,7 +19274,7 @@ var MdDialog = (function () {
     MdDialog.prototype._attachDialogContent = function (componentOrTemplateRef, dialogContainer, overlayRef, config) {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
-        var /** @type {?} */ dialogRef = new MdDialogRef(overlayRef, dialogContainer, config.id);
+        var /** @type {?} */ dialogRef = new MdDialogRef(overlayRef, dialogContainer);
         // When the dialog backdrop is clicked, we want to close it.
         if (config.hasBackdrop) {
             overlayRef.backdropClick().subscribe(function () {
@@ -19337,11 +19319,11 @@ var MdDialog = (function () {
      * @return {?}
      */
     MdDialog.prototype._removeOpenDialog = function (dialogRef) {
-        var /** @type {?} */ index = this.openDialogs.indexOf(dialogRef);
+        var /** @type {?} */ index = this._openDialogs.indexOf(dialogRef);
         if (index > -1) {
-            this.openDialogs.splice(index, 1);
+            this._openDialogs.splice(index, 1);
             // no open dialogs are left, call next on afterAllClosed Subject
-            if (!this.openDialogs.length) {
+            if (!this._openDialogs.length) {
                 this._afterAllClosed.next();
                 document.removeEventListener('keydown', this._boundKeydown);
             }
@@ -19354,7 +19336,7 @@ var MdDialog = (function () {
      * @return {?}
      */
     MdDialog.prototype._handleKeydown = function (event) {
-        var /** @type {?} */ topDialog = this.openDialogs[this.openDialogs.length - 1];
+        var /** @type {?} */ topDialog = this._openDialogs[this._openDialogs.length - 1];
         var /** @type {?} */ canClose = topDialog ? !topDialog.disableClose : false;
         if (event.keyCode === _angular_cdk_keyboard.ESCAPE && canClose) {
             topDialog.close();
