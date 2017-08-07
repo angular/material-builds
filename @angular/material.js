@@ -33,7 +33,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.8-a190de7');
+const VERSION = new Version('2.0.0-beta.8-18c6689');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -1874,13 +1874,7 @@ class OverlayRef {
             this._attachBackdrop();
         }
         if (this._state.panelClass) {
-            // We can't do a spread here, because IE doesn't support setting multiple classes.
-            if (Array.isArray(this._state.panelClass)) {
-                this._state.panelClass.forEach(cls => this._pane.classList.add(cls));
-            }
-            else {
-                this._pane.classList.add(this._state.panelClass);
-            }
+            this._pane.classList.add(this._state.panelClass);
         }
         // Only emit the `attachments` event once all other setup is done.
         this._attachments.next();

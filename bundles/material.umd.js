@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8-a190de7');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-18c6689');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -1814,7 +1814,6 @@ var OverlayRef = (function () {
      * @return {?} The portal attachment result.
      */
     OverlayRef.prototype.attach = function (portal) {
-        var _this = this;
         var /** @type {?} */ attachResult = this._portalHost.attach(portal);
         // Update the pane element with the given state configuration.
         this._updateStackingOrder();
@@ -1828,13 +1827,7 @@ var OverlayRef = (function () {
             this._attachBackdrop();
         }
         if (this._state.panelClass) {
-            // We can't do a spread here, because IE doesn't support setting multiple classes.
-            if (Array.isArray(this._state.panelClass)) {
-                this._state.panelClass.forEach(function (cls) { return _this._pane.classList.add(cls); });
-            }
-            else {
-                this._pane.classList.add(this._state.panelClass);
-            }
+            this._pane.classList.add(this._state.panelClass);
         }
         // Only emit the `attachments` event once all other setup is done.
         this._attachments.next();
