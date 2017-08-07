@@ -27,10 +27,12 @@ export declare class MdDialogConfig {
      * content will be rendered.
      */
     viewContainerRef?: ViewContainerRef;
+    /** ID for the dialog. If omitted, a unique one will be generated. */
+    id?: string;
     /** The ARIA role of the dialog element. */
     role?: DialogRole;
     /** Custom class for the overlay pane. */
-    panelClass?: string;
+    panelClass?: string | string[];
     /** Whether the dialog has a backdrop. */
     hasBackdrop?: boolean;
     /** Custom class for the backdrop, */

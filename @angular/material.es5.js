@@ -6,7 +6,7 @@ import * as tslib_1 from "tslib";
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, HostBinding, Inject, Injectable, InjectionToken, Injector, Input, LOCALE_ID, NgModule, NgZone, Optional, Output, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, Version, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
+import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, Inject, Injectable, InjectionToken, Injector, Input, LOCALE_ID, NgModule, NgZone, Optional, Output, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, Version, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
 import { ObserveContent, ObserveContentModule } from '@angular/cdk/observe-content';
 import { DOCUMENT, DomSanitizer, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
 import { BidiModule, Dir, Directionality } from '@angular/cdk/bidi';
@@ -28,11 +28,12 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { _throw } from 'rxjs/observable/throw';
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import { defer } from 'rxjs/observable/defer';
 import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef, CdkHeaderCell, CdkHeaderCellDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTable, CdkTableModule } from '@angular/cdk/table';
 /**
  * Current version of Angular Material.
  */
-var VERSION = new Version('2.0.0-beta.8-667a4e4');
+var VERSION = new Version('2.0.0-beta.8-a190de7');
 var MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -1806,6 +1807,7 @@ var OverlayRef = (function () {
      * @return {?} The portal attachment result.
      */
     OverlayRef.prototype.attach = function (portal) {
+        var _this = this;
         var /** @type {?} */ attachResult = this._portalHost.attach(portal);
         // Update the pane element with the given state configuration.
         this._updateStackingOrder();
@@ -1819,7 +1821,13 @@ var OverlayRef = (function () {
             this._attachBackdrop();
         }
         if (this._state.panelClass) {
-            this._pane.classList.add(this._state.panelClass);
+            // We can't do a spread here, because IE doesn't support setting multiple classes.
+            if (Array.isArray(this._state.panelClass)) {
+                this._state.panelClass.forEach(function (cls) { return _this._pane.classList.add(cls); });
+            }
+            else {
+                this._pane.classList.add(this._state.panelClass);
+            }
         }
         // Only emit the `attachments` event once all other setup is done.
         this._attachments.next();
@@ -2696,7 +2704,9 @@ var OverlayContainer = (function () {
          */
         set: function (value) {
             if (this._containerElement) {
-                this._containerElement.classList.remove(this._themeClass);
+                if (this._themeClass) {
+                    this._containerElement.classList.remove(this._themeClass);
+                }
                 if (value) {
                     this._containerElement.classList.add(value);
                 }
@@ -5262,9 +5272,7 @@ var MdButtonToggle = (function () {
          * Whether the button is checked.
          * @return {?}
          */
-        get: function () {
-            return this._checked;
-        },
+        get: function () { return this._checked; },
         /**
          * @param {?} newCheckedState
          * @return {?}
@@ -5415,7 +5423,10 @@ MdButtonToggle.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 host: {
                     '[class.mat-button-toggle-standalone]': '!buttonToggleGroup && !buttonToggleGroupMultiple',
-                    'class': 'mat-button-toggle'
+                    '[class.mat-button-toggle-checked]': 'checked',
+                    '[class.mat-button-toggle-disabled]': 'disabled',
+                    'class': 'mat-button-toggle',
+                    '[attr.id]': 'id',
                 }
             },] },
 ];
@@ -5435,11 +5446,11 @@ MdButtonToggle.propDecorators = {
     'ariaLabel': [{ type: Input, args: ['aria-label',] },],
     'ariaLabelledby': [{ type: Input, args: ['aria-labelledby',] },],
     '_inputElement': [{ type: ViewChild, args: ['input',] },],
-    'id': [{ type: HostBinding }, { type: Input },],
+    'id': [{ type: Input },],
     'name': [{ type: Input },],
-    'checked': [{ type: HostBinding, args: ['class.mat-button-toggle-checked',] }, { type: Input },],
+    'checked': [{ type: Input },],
     'value': [{ type: Input },],
-    'disabled': [{ type: HostBinding, args: ['class.mat-button-toggle-disabled',] }, { type: Input },],
+    'disabled': [{ type: Input },],
     'change': [{ type: Output },],
 };
 var MdButtonToggleModule = (function () {
@@ -13523,9 +13534,7 @@ var MdProgressSpinner = (function (_super) {
          * mode is bound to the host as the attribute host.
          * @return {?}
          */
-        get: function () {
-            return this._mode;
-        },
+        get: function () { return this._mode; },
         /**
          * @param {?} mode
          * @return {?}
@@ -13639,7 +13648,9 @@ MdProgressSpinner.decorators = [
                 host: {
                     'role': 'progressbar',
                     '[attr.aria-valuemin]': '_ariaValueMin',
-                    '[attr.aria-valuemax]': '_ariaValueMax'
+                    '[attr.aria-valuemax]': '_ariaValueMax',
+                    '[attr.aria-valuenow]': 'value',
+                    '[attr.mode]': 'mode',
                 },
                 inputs: ['color'],
                 template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\"><path #path [style.strokeWidth]=\"strokeWidth\"></path></svg>",
@@ -13658,8 +13669,8 @@ MdProgressSpinner.ctorParameters = function () { return [
 MdProgressSpinner.propDecorators = {
     '_path': [{ type: ViewChild, args: ['path',] },],
     'strokeWidth': [{ type: Input },],
-    'value': [{ type: Input }, { type: HostBinding, args: ['attr.aria-valuenow',] },],
-    'mode': [{ type: HostBinding, args: ['attr.mode',] }, { type: Input },],
+    'value': [{ type: Input },],
+    'mode': [{ type: Input },],
 };
 /**
  * <md-spinner> component.
@@ -13877,6 +13888,8 @@ MdProgressBar.decorators = [
                     'role': 'progressbar',
                     'aria-valuemin': '0',
                     'aria-valuemax': '100',
+                    '[attr.aria-valuenow]': 'value',
+                    '[attr.mode]': 'mode',
                     '[class.mat-primary]': 'color == "primary"',
                     '[class.mat-accent]': 'color == "accent"',
                     '[class.mat-warn]': 'color == "warn"',
@@ -13893,9 +13906,9 @@ MdProgressBar.decorators = [
 MdProgressBar.ctorParameters = function () { return []; };
 MdProgressBar.propDecorators = {
     'color': [{ type: Input },],
-    'value': [{ type: Input }, { type: HostBinding, args: ['attr.aria-valuenow',] },],
+    'value': [{ type: Input },],
     'bufferValue': [{ type: Input },],
-    'mode': [{ type: Input }, { type: HostBinding, args: ['attr.mode',] },],
+    'mode': [{ type: Input },],
 };
 /**
  * Clamps a value to be between two numbers, by default 0 and 100.
@@ -16381,6 +16394,7 @@ MdTabLink.decorators = [
                 host: {
                     'class': 'mat-tab-link',
                     '[attr.aria-disabled]': 'disabled.toString()',
+                    '[attr.tabindex]': 'tabIndex',
                     '[class.mat-tab-disabled]': 'disabled'
                 }
             },] },
@@ -16398,7 +16412,6 @@ MdTabLink.ctorParameters = function () { return [
 ]; };
 MdTabLink.propDecorators = {
     'active': [{ type: Input },],
-    'tabIndex': [{ type: HostBinding, args: ['tabIndex',] },],
 };
 /**
  * Wrapper for the contents of a tab.
@@ -18789,6 +18802,10 @@ var MdDialogConfig = (function () {
     }
     return MdDialogConfig;
 }());
+// TODO(jelbourn): resizing
+// TODO(jelbourn): afterOpen and beforeClose
+// Counter for unique dialog ids.
+var uniqueId = 0;
 /**
  * Reference to a dialog opened via the MdDialog service.
  */
@@ -18796,11 +18813,14 @@ var MdDialogRef = (function () {
     /**
      * @param {?} _overlayRef
      * @param {?} _containerInstance
+     * @param {?=} id
      */
-    function MdDialogRef(_overlayRef, _containerInstance) {
+    function MdDialogRef(_overlayRef, _containerInstance, id) {
+        if (id === void 0) { id = "md-dialog-" + uniqueId++; }
         var _this = this;
         this._overlayRef = _overlayRef;
         this._containerInstance = _containerInstance;
+        this.id = id;
         /**
          * Whether the user is allowed to close the dialog.
          */
@@ -19126,13 +19146,12 @@ var MdDialog = (function () {
         this._afterOpenAtThisLevel = new Subject();
         this._boundKeydown = this._handleKeydown.bind(this);
         /**
-         * Gets an observable that is notified when a dialog has been opened.
+         * Stream that emits when all open dialog have finished closing.
+         * Will emit on subscribe if there are no open dialogs to begin with.
          */
-        this.afterOpen = this._afterOpen.asObservable();
-        /**
-         * Gets an observable that is notified when all open dialog have finished closing.
-         */
-        this.afterAllClosed = this._afterAllClosed.asObservable();
+        this.afterAllClosed = defer(function () { return _this.openDialogs.length ?
+            _this._afterAllClosed :
+            startWith.call(_this._afterAllClosed, undefined); });
         // Close all of the dialogs when the user goes forwards/backwards in history or when the
         // location hash changes. Note that this usually doesn't include clicking on links (unless
         // the user is using the `HashLocationStrategy`).
@@ -19140,36 +19159,35 @@ var MdDialog = (function () {
             _location.subscribe(function () { return _this.closeAll(); });
         }
     }
-    Object.defineProperty(MdDialog.prototype, "_openDialogs", {
+    Object.defineProperty(MdDialog.prototype, "openDialogs", {
         /**
          * Keeps track of the currently-open dialogs.
          * @return {?}
          */
         get: function () {
-            return this._parentDialog ? this._parentDialog._openDialogs : this._openDialogsAtThisLevel;
+            return this._parentDialog ? this._parentDialog.openDialogs : this._openDialogsAtThisLevel;
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdDialog.prototype, "_afterOpen", {
+    Object.defineProperty(MdDialog.prototype, "afterOpen", {
         /**
-         * Subject for notifying the user that a dialog has opened.
+         * Stream that emits when a dialog has been opened.
          * @return {?}
          */
         get: function () {
-            return this._parentDialog ? this._parentDialog._afterOpen : this._afterOpenAtThisLevel;
+            return this._parentDialog ? this._parentDialog.afterOpen : this._afterOpenAtThisLevel;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MdDialog.prototype, "_afterAllClosed", {
         /**
-         * Subject for notifying the user that all open dialogs have finished closing.
          * @return {?}
          */
         get: function () {
-            return this._parentDialog ?
-                this._parentDialog._afterAllClosed : this._afterAllClosedAtThisLevel;
+            var /** @type {?} */ parent = this._parentDialog;
+            return parent ? parent._afterAllClosed : this._afterAllClosedAtThisLevel;
         },
         enumerable: true,
         configurable: true
@@ -19184,21 +19202,24 @@ var MdDialog = (function () {
      */
     MdDialog.prototype.open = function (componentOrTemplateRef, config) {
         var _this = this;
-        var /** @type {?} */ inProgressDialog = this._openDialogs.find(function (dialog) { return dialog._isAnimating(); });
+        var /** @type {?} */ inProgressDialog = this.openDialogs.find(function (dialog) { return dialog._isAnimating(); });
         // If there's a dialog that is in the process of being opened, return it instead.
         if (inProgressDialog) {
             return inProgressDialog;
         }
         config = _applyConfigDefaults$1(config);
+        if (config.id && this.getDialogById(config.id)) {
+            throw Error("Dialog with id \"" + config.id + "\" exists already. The dialog id must be unique.");
+        }
         var /** @type {?} */ overlayRef = this._createOverlay(config);
         var /** @type {?} */ dialogContainer = this._attachDialogContainer(overlayRef, config);
         var /** @type {?} */ dialogRef = this._attachDialogContent(componentOrTemplateRef, dialogContainer, overlayRef, config);
-        if (!this._openDialogs.length) {
+        if (!this.openDialogs.length) {
             document.addEventListener('keydown', this._boundKeydown);
         }
-        this._openDialogs.push(dialogRef);
+        this.openDialogs.push(dialogRef);
         dialogRef.afterClosed().subscribe(function () { return _this._removeOpenDialog(dialogRef); });
-        this._afterOpen.next(dialogRef);
+        this.afterOpen.next(dialogRef);
         return dialogRef;
     };
     /**
@@ -19206,14 +19227,22 @@ var MdDialog = (function () {
      * @return {?}
      */
     MdDialog.prototype.closeAll = function () {
-        var /** @type {?} */ i = this._openDialogs.length;
+        var /** @type {?} */ i = this.openDialogs.length;
         while (i--) {
             // The `_openDialogs` property isn't updated after close until the rxjs subscription
             // runs on the next microtask, in addition to modifying the array as we're going
             // through it. We loop through all of them and call close without assuming that
             // they'll be removed from the list instantaneously.
-            this._openDialogs[i].close();
+            this.openDialogs[i].close();
         }
+    };
+    /**
+     * Finds an open dialog by its id.
+     * @param {?} id ID to use when looking up the dialog.
+     * @return {?}
+     */
+    MdDialog.prototype.getDialogById = function (id) {
+        return this.openDialogs.find(function (dialog) { return dialog.id === id; });
     };
     /**
      * Creates the overlay into which the dialog will be loaded.
@@ -19266,7 +19295,7 @@ var MdDialog = (function () {
     MdDialog.prototype._attachDialogContent = function (componentOrTemplateRef, dialogContainer, overlayRef, config) {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
-        var /** @type {?} */ dialogRef = new MdDialogRef(overlayRef, dialogContainer);
+        var /** @type {?} */ dialogRef = new MdDialogRef(overlayRef, dialogContainer, config.id);
         // When the dialog backdrop is clicked, we want to close it.
         if (config.hasBackdrop) {
             overlayRef.backdropClick().subscribe(function () {
@@ -19311,11 +19340,11 @@ var MdDialog = (function () {
      * @return {?}
      */
     MdDialog.prototype._removeOpenDialog = function (dialogRef) {
-        var /** @type {?} */ index = this._openDialogs.indexOf(dialogRef);
+        var /** @type {?} */ index = this.openDialogs.indexOf(dialogRef);
         if (index > -1) {
-            this._openDialogs.splice(index, 1);
+            this.openDialogs.splice(index, 1);
             // no open dialogs are left, call next on afterAllClosed Subject
-            if (!this._openDialogs.length) {
+            if (!this.openDialogs.length) {
                 this._afterAllClosed.next();
                 document.removeEventListener('keydown', this._boundKeydown);
             }
@@ -19328,7 +19357,7 @@ var MdDialog = (function () {
      * @return {?}
      */
     MdDialog.prototype._handleKeydown = function (event) {
-        var /** @type {?} */ topDialog = this._openDialogs[this._openDialogs.length - 1];
+        var /** @type {?} */ topDialog = this.openDialogs[this.openDialogs.length - 1];
         var /** @type {?} */ canClose = topDialog ? !topDialog.disableClose : false;
         if (event.keyCode === ESCAPE && canClose) {
             topDialog.close();
