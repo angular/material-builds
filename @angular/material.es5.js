@@ -33,7 +33,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-var VERSION = new Version('2.0.0-beta.8-4ae1b0f');
+var VERSION = new Version('2.0.0-beta.8-7bc648b');
 var MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -19460,16 +19460,17 @@ var MdDialogClose = (function () {
          */
         this.ariaLabel = 'Close dialog';
     }
-    Object.defineProperty(MdDialogClose.prototype, "_matDialogClose", {
-        /**
-         * Dialog close input for compatibility mode.
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) { this.dialogResult = value; },
-        enumerable: true,
-        configurable: true
-    });
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    MdDialogClose.prototype.ngOnChanges = function (changes) {
+        var /** @type {?} */ proxiedChange = changes._matDialogClose || changes._mdDialogClose ||
+            changes._matDialogCloseResult;
+        if (proxiedChange) {
+            this.dialogResult = proxiedChange.currentValue;
+        }
+    };
     return MdDialogClose;
 }());
 MdDialogClose.decorators = [
@@ -19492,7 +19493,9 @@ MdDialogClose.ctorParameters = function () { return [
 MdDialogClose.propDecorators = {
     'ariaLabel': [{ type: Input, args: ['aria-label',] },],
     'dialogResult': [{ type: Input, args: ['md-dialog-close',] },],
-    '_matDialogClose': [{ type: Input, args: ['mat-dialog-close',] },],
+    '_matDialogClose': [{ type: Input, args: ['matDialogClose',] },],
+    '_mdDialogClose': [{ type: Input, args: ['mdDialogClose',] },],
+    '_matDialogCloseResult': [{ type: Input, args: ['mat-dialog-close',] },],
 };
 /**
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
@@ -21956,10 +21959,14 @@ MdDatepickerModule.decorators = [
                     A11yModule,
                 ],
                 exports: [
+                    MdCalendar,
+                    MdCalendarBody,
                     MdDatepicker,
                     MdDatepickerContent,
                     MdDatepickerInput,
                     MdDatepickerToggle,
+                    MdMonthView,
+                    MdYearView,
                 ],
                 declarations: [
                     MdCalendar,

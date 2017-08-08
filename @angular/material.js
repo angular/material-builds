@@ -33,7 +33,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.8-4ae1b0f');
+const VERSION = new Version('2.0.0-beta.8-7bc648b');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -18343,11 +18343,16 @@ class MdDialogClose {
         this.ariaLabel = 'Close dialog';
     }
     /**
-     * Dialog close input for compatibility mode.
-     * @param {?} value
+     * @param {?} changes
      * @return {?}
      */
-    set _matDialogClose(value) { this.dialogResult = value; }
+    ngOnChanges(changes) {
+        const /** @type {?} */ proxiedChange = changes._matDialogClose || changes._mdDialogClose ||
+            changes._matDialogCloseResult;
+        if (proxiedChange) {
+            this.dialogResult = proxiedChange.currentValue;
+        }
+    }
 }
 MdDialogClose.decorators = [
     { type: Directive, args: [{
@@ -18369,7 +18374,9 @@ MdDialogClose.ctorParameters = () => [
 MdDialogClose.propDecorators = {
     'ariaLabel': [{ type: Input, args: ['aria-label',] },],
     'dialogResult': [{ type: Input, args: ['md-dialog-close',] },],
-    '_matDialogClose': [{ type: Input, args: ['mat-dialog-close',] },],
+    '_matDialogClose': [{ type: Input, args: ['matDialogClose',] },],
+    '_mdDialogClose': [{ type: Input, args: ['mdDialogClose',] },],
+    '_matDialogCloseResult': [{ type: Input, args: ['mat-dialog-close',] },],
 };
 /**
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
@@ -20673,10 +20680,14 @@ MdDatepickerModule.decorators = [
                     A11yModule,
                 ],
                 exports: [
+                    MdCalendar,
+                    MdCalendarBody,
                     MdDatepicker,
                     MdDatepickerContent,
                     MdDatepickerInput,
                     MdDatepickerToggle,
+                    MdMonthView,
+                    MdYearView,
                 ],
                 declarations: [
                     MdCalendar,
