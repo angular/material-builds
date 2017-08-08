@@ -32,7 +32,7 @@ export declare class MdDialogConfig {
     /** The ARIA role of the dialog element. */
     role?: DialogRole;
     /** Custom class for the overlay pane. */
-    panelClass?: string;
+    panelClass?: string | string[];
     /** Whether the dialog has a backdrop. */
     hasBackdrop?: boolean;
     /** Custom class for the backdrop, */
