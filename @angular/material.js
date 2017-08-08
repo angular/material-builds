@@ -33,7 +33,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.8-c20bcf9');
+const VERSION = new Version('2.0.0-beta.8-4ae1b0f');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -15257,7 +15257,7 @@ class MdTabNavBase {
         this._elementRef = _elementRef;
     }
 }
-const _MdTabNavMixinBase = mixinColor(MdTabNavBase, 'primary');
+const _MdTabNavMixinBase = mixinDisableRipple(mixinColor(MdTabNavBase, 'primary'));
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
@@ -15279,6 +15279,7 @@ class MdTabNav extends _MdTabNavMixinBase {
          * Subject that emits when the component has been destroyed.
          */
         this._onDestroy = new Subject();
+        this._disableRipple = false;
     }
     /**
      * Background color of the tab nav.
@@ -15296,6 +15297,19 @@ class MdTabNav extends _MdTabNavMixinBase {
             this._renderer.addClass(nativeElement, `mat-background-${value}`);
         }
         this._backgroundColor = value;
+    }
+    /**
+     * Whether ripples should be disabled for all links or not.
+     * @return {?}
+     */
+    get disableRipple() { return this._disableRipple; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set disableRipple(value) {
+        this._disableRipple = coerceBooleanProperty(value);
+        this._setLinkDisableRipple();
     }
     /**
      * Notifies the component that the active link has been changed.
@@ -15321,6 +15335,7 @@ class MdTabNav extends _MdTabNavMixinBase {
             return takeUntil.call(merge(dirChange, resize), this._onDestroy)
                 .subscribe(() => this._alignInkBar());
         });
+        this._setLinkDisableRipple();
     }
     /**
      * Checks if the active link has been changed and, if so, will update the ink bar.
@@ -15350,10 +15365,19 @@ class MdTabNav extends _MdTabNavMixinBase {
             this._inkBar.alignToElement(this._activeLinkElement.nativeElement);
         }
     }
+    /**
+     * Sets the `disableRipple` property on each link of the navigation bar.
+     * @return {?}
+     */
+    _setLinkDisableRipple() {
+        if (this._tabLinks) {
+            this._tabLinks.forEach(link => link.disableRipple = this.disableRipple);
+        }
+    }
 }
 MdTabNav.decorators = [
     { type: Component, args: [{selector: '[md-tab-nav-bar], [mat-tab-nav-bar]',
-                inputs: ['color'],
+                inputs: ['color', 'disableRipple'],
                 template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><md-ink-bar></md-ink-bar></div>",
                 styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative}.mat-tab-link{height:48px;padding:0 12px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0;opacity:1}.mat-tab-link.mat-tab-disabled{cursor:default;pointer-events:none}@media (max-width:600px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}"],
                 host: { 'class': 'mat-tab-nav-bar' },
@@ -15373,6 +15397,7 @@ MdTabNav.ctorParameters = () => [
 ];
 MdTabNav.propDecorators = {
     '_inkBar': [{ type: ViewChild, args: [MdInkBar,] },],
+    '_tabLinks': [{ type: ContentChildren, args: [forwardRef(() => MdTabLink), { descendants: true },] },],
     'backgroundColor': [{ type: Input },],
 };
 class MdTabLinkBase {
@@ -15398,6 +15423,10 @@ class MdTabLink extends _MdTabLinkMixinBase {
          * Whether the tab link is active or not.
          */
         this._isActive = false;
+        /**
+         * Whether the ripples for this tab should be disabled or not.
+         */
+        this._disableRipple = false;
         // Manually create a ripple instance that uses the tab link element as trigger element.
         // Notice that the lifecycle hooks for the ripple config won't be called anymore.
         this._tabLinkRipple = new MdRipple(_elementRef, ngZone, ruler, platform, globalOptions);
@@ -15416,6 +15445,20 @@ class MdTabLink extends _MdTabLinkMixinBase {
         if (value) {
             this._mdTabNavBar.updateActiveLink(this._elementRef);
         }
+    }
+    /**
+     * Whether ripples should be disabled or not.
+     * @return {?}
+     */
+    get disableRipple() { return this._disableRipple; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set disableRipple(value) {
+        this._disableRipple = value;
+        this._tabLinkRipple.disabled = this.disableRipple;
+        this._tabLinkRipple._updateRippleRenderer();
     }
     /**
      * \@docs-private

@@ -62,5 +62,5 @@ export declare class MdRipple implements OnChanges, OnDestroy {
     /** Ripple configuration from the directive's input values. */
     readonly rippleConfig: RippleConfig;
     /** Updates the ripple renderer with the latest ripple configuration. */
-    private _updateRippleRenderer();
+    _updateRippleRenderer(): void;
 }

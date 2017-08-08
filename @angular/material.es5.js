@@ -33,7 +33,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-var VERSION = new Version('2.0.0-beta.8-c20bcf9');
+var VERSION = new Version('2.0.0-beta.8-4ae1b0f');
 var MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -16193,7 +16193,7 @@ var MdTabNavBase = (function () {
     }
     return MdTabNavBase;
 }());
-var _MdTabNavMixinBase = mixinColor(MdTabNavBase, 'primary');
+var _MdTabNavMixinBase = mixinDisableRipple(mixinColor(MdTabNavBase, 'primary'));
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
@@ -16216,6 +16216,7 @@ var MdTabNav = (function (_super) {
          * Subject that emits when the component has been destroyed.
          */
         _this._onDestroy = new Subject();
+        _this._disableRipple = false;
         return _this;
     }
     Object.defineProperty(MdTabNav.prototype, "backgroundColor", {
@@ -16235,6 +16236,23 @@ var MdTabNav = (function (_super) {
                 this._renderer.addClass(nativeElement, "mat-background-" + value);
             }
             this._backgroundColor = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdTabNav.prototype, "disableRipple", {
+        /**
+         * Whether ripples should be disabled for all links or not.
+         * @return {?}
+         */
+        get: function () { return this._disableRipple; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._disableRipple = coerceBooleanProperty(value);
+            this._setLinkDisableRipple();
         },
         enumerable: true,
         configurable: true
@@ -16264,6 +16282,7 @@ var MdTabNav = (function (_super) {
             return takeUntil.call(merge(dirChange, resize), _this._onDestroy)
                 .subscribe(function () { return _this._alignInkBar(); });
         });
+        this._setLinkDisableRipple();
     };
     /**
      * Checks if the active link has been changed and, if so, will update the ink bar.
@@ -16293,11 +16312,21 @@ var MdTabNav = (function (_super) {
             this._inkBar.alignToElement(this._activeLinkElement.nativeElement);
         }
     };
+    /**
+     * Sets the `disableRipple` property on each link of the navigation bar.
+     * @return {?}
+     */
+    MdTabNav.prototype._setLinkDisableRipple = function () {
+        var _this = this;
+        if (this._tabLinks) {
+            this._tabLinks.forEach(function (link) { return link.disableRipple = _this.disableRipple; });
+        }
+    };
     return MdTabNav;
 }(_MdTabNavMixinBase));
 MdTabNav.decorators = [
     { type: Component, args: [{ selector: '[md-tab-nav-bar], [mat-tab-nav-bar]',
-                inputs: ['color'],
+                inputs: ['color', 'disableRipple'],
                 template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><md-ink-bar></md-ink-bar></div>",
                 styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative}.mat-tab-link{height:48px;padding:0 12px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0;opacity:1}.mat-tab-link.mat-tab-disabled{cursor:default;pointer-events:none}@media (max-width:600px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}"],
                 host: { 'class': 'mat-tab-nav-bar' },
@@ -16317,6 +16346,7 @@ MdTabNav.ctorParameters = function () { return [
 ]; };
 MdTabNav.propDecorators = {
     '_inkBar': [{ type: ViewChild, args: [MdInkBar,] },],
+    '_tabLinks': [{ type: ContentChildren, args: [forwardRef(function () { return MdTabLink; }), { descendants: true },] },],
     'backgroundColor': [{ type: Input },],
 };
 var MdTabLinkBase = (function () {
@@ -16346,6 +16376,10 @@ var MdTabLink = (function (_super) {
          * Whether the tab link is active or not.
          */
         _this._isActive = false;
+        /**
+         * Whether the ripples for this tab should be disabled or not.
+         */
+        _this._disableRipple = false;
         // Manually create a ripple instance that uses the tab link element as trigger element.
         // Notice that the lifecycle hooks for the ripple config won't be called anymore.
         _this._tabLinkRipple = new MdRipple(_elementRef, ngZone, ruler, platform, globalOptions);
@@ -16366,6 +16400,24 @@ var MdTabLink = (function (_super) {
             if (value) {
                 this._mdTabNavBar.updateActiveLink(this._elementRef);
             }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdTabLink.prototype, "disableRipple", {
+        /**
+         * Whether ripples should be disabled or not.
+         * @return {?}
+         */
+        get: function () { return this._disableRipple; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._disableRipple = value;
+            this._tabLinkRipple.disabled = this.disableRipple;
+            this._tabLinkRipple._updateRippleRenderer();
         },
         enumerable: true,
         configurable: true
