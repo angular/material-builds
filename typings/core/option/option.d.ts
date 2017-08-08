@@ -73,6 +73,8 @@ export declare class MdOption {
      * events will display the proper options as active on arrow key events.
      */
     setInactiveStyles(): void;
+    /** Gets the label to be used when determining whether the option should be focused. */
+    getLabel(): string;
     /** Ensures the option is selected when activated from the keyboard. */
     _handleKeydown(event: KeyboardEvent): void;
     /**
@@ -82,7 +84,7 @@ export declare class MdOption {
     _selectViaInteraction(): void;
     /** Returns the correct tabindex for the option depending on disabled state. */
     _getTabIndex(): string;
-    /** Fetches the host DOM element. */
+    /** Gets the host DOM element. */
     _getHostElement(): HTMLElement;
     /** Emits the selection change event. */
     private _emitSelectionChangeEvent(isUserInput?);

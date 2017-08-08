@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
-import { Focusable } from '../core/a11y/focus-key-manager';
+import { FocusableOption } from '../core/a11y/focus-key-manager';
 import { CanColor } from '../core/common-behaviors/color';
 import { CanDisable } from '../core/common-behaviors/disabled';
 export interface MdChipEvent {
@@ -28,7 +28,7 @@ export declare class MdBasicChip {
 /**
  * Material design styled Chip component. Used inside the MdChipList component.
  */
-export declare class MdChip extends _MdChipMixinBase implements Focusable, OnDestroy, CanColor, CanDisable {
+export declare class MdChip extends _MdChipMixinBase implements FocusableOption, OnDestroy, CanColor, CanDisable {
     _chipRemove: MdChipRemove;
     /** Whether the chip is selected. */
     selected: boolean;

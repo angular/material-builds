@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8-7626c51');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-c20bcf9');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -1643,6 +1643,13 @@ var MdOption = (function () {
         }
     };
     /**
+     * Gets the label to be used when determining whether the option should be focused.
+     * @return {?}
+     */
+    MdOption.prototype.getLabel = function () {
+        return this.viewValue;
+    };
+    /**
      * Ensures the option is selected when activated from the keyboard.
      * @param {?} event
      * @return {?}
@@ -1674,7 +1681,7 @@ var MdOption = (function () {
         return this.disabled ? '-1' : '0';
     };
     /**
-     * Fetches the host DOM element.
+     * Gets the host DOM element.
      * @return {?}
      */
     MdOption.prototype._getHostElement = function () {
@@ -7164,11 +7171,8 @@ MdRadioModule.decorators = [
 MdRadioModule.ctorParameters = function () { return []; };
 var FocusKeyManager = (function (_super) {
     __extends(FocusKeyManager, _super);
-    /**
-     * @param {?} items
-     */
-    function FocusKeyManager(items) {
-        return _super.call(this, items) || this;
+    function FocusKeyManager() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     /**
      * This method sets the active item to the item at the specified index.
@@ -7982,7 +7986,7 @@ var MdSelect = (function (_super) {
      */
     MdSelect.prototype._initKeyManager = function () {
         var _this = this;
-        this._keyManager = new FocusKeyManager(this.options);
+        this._keyManager = new FocusKeyManager(this.options).withTypeAhead();
         this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this.close(); });
     };
     /**
@@ -20649,7 +20653,7 @@ var MdDatepickerIntl = (function () {
          * Stream that emits whenever the labels here are changed. Use this to notify
          * components if the labels have changed after initialization.
          */
-        this.changes = new _angular_core.EventEmitter();
+        this.changes = new rxjs_Subject.Subject();
         /**
          * A label for the calendar popup (used by screen readers).
          */
@@ -23006,7 +23010,7 @@ var MdSortHeaderIntl = (function () {
          * Stream that emits whenever the labels here are changed. Use this to notify
          * components if the labels have changed after initialization.
          */
-        this.changes = new _angular_core.EventEmitter();
+        this.changes = new rxjs_Subject.Subject();
         /**
          * ARIA label for the sorting button.
          */
@@ -23167,7 +23171,7 @@ var MdPaginatorIntl = (function () {
          * Stream that emits whenever the labels here are changed. Use this to notify
          * components if the labels have changed after initialization.
          */
-        this.changes = new _angular_core.EventEmitter();
+        this.changes = new rxjs_Subject.Subject();
         /**
          * A label for the page size selector.
          */
@@ -23624,6 +23628,8 @@ exports.TAB = _angular_cdk_keyboard.TAB;
 exports.ESCAPE = _angular_cdk_keyboard.ESCAPE;
 exports.BACKSPACE = _angular_cdk_keyboard.BACKSPACE;
 exports.DELETE = _angular_cdk_keyboard.DELETE;
+exports.A = _angular_cdk_keyboard.A;
+exports.Z = _angular_cdk_keyboard.Z;
 exports.MATERIAL_COMPATIBILITY_MODE = MATERIAL_COMPATIBILITY_MODE;
 exports.getMdCompatibilityInvalidPrefixError = getMdCompatibilityInvalidPrefixError;
 exports.MAT_ELEMENTS_SELECTOR = MAT_ELEMENTS_SELECTOR;

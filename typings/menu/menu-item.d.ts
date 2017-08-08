@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ElementRef, OnDestroy } from '@angular/core';
-import { Focusable } from '../core/a11y/focus-key-manager';
+import { FocusableOption } from '../core/a11y/focus-key-manager';
 import { CanDisable } from '../core/common-behaviors/disabled';
 import { Subject } from 'rxjs/Subject';
 /** @docs-private */
@@ -17,7 +17,7 @@ export declare const _MdMenuItemMixinBase: (new (...args: any[]) => CanDisable) 
  * This directive is intended to be used inside an md-menu tag.
  * It exists mostly to set the role attribute.
  */
-export declare class MdMenuItem extends _MdMenuItemMixinBase implements Focusable, CanDisable, OnDestroy {
+export declare class MdMenuItem extends _MdMenuItemMixinBase implements FocusableOption, CanDisable, OnDestroy {
     private _elementRef;
     /** Stream that emits when the menu item is hovered. */
     hover: Subject<MdMenuItem>;
