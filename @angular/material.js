@@ -15,7 +15,7 @@ import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
-import { RxChain, auditTime, catchOperator, doOperator, filter, finallyOperator, first, map, share, startWith, switchMap, takeUntil } from '@angular/cdk/rxjs';
+import { RxChain, auditTime, catchOperator, debounceTime, doOperator, filter, finallyOperator, first, map, share, startWith, switchMap, takeUntil } from '@angular/cdk/rxjs';
 import { A, BACKSPACE, DELETE, DOWN_ARROW, END, ENTER, ESCAPE, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, SPACE, TAB, UP_ARROW, Z } from '@angular/cdk/keycodes';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { BasePortalHost, ComponentPortal, DomPortalHost, Portal, PortalHostDirective, PortalModule, TemplatePortal, TemplatePortalDirective } from '@angular/cdk/portal';
@@ -33,7 +33,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.8-9df292f');
+const VERSION = new Version('2.0.0-beta.8-f96ffeb');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -6806,6 +6806,10 @@ MdRadioButton.decorators = [
                     '[class.mat-radio-checked]': 'checked',
                     '[class.mat-radio-disabled]': 'disabled',
                     '[attr.id]': 'id',
+                    // Note: under normal conditions focus shouldn't land on this element, however it may be
+                    // programmatically set, for example inside of a focus trap, in this case we want to forward
+                    // the focus to the native element.
+                    '(focus)': '_inputElement.nativeElement.focus()',
                 },
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
@@ -15688,8 +15692,9 @@ class MdTabHeader extends _MdTabHeaderMixinBase {
      * @param {?} _renderer
      * @param {?} _changeDetectorRef
      * @param {?} _dir
+     * @param {?} platform
      */
-    constructor(_elementRef, _ngZone, _renderer, _changeDetectorRef, _dir) {
+    constructor(_elementRef, _ngZone, _renderer, _changeDetectorRef, _dir, platform) {
         super();
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
@@ -15733,6 +15738,12 @@ class MdTabHeader extends _MdTabHeaderMixinBase {
          * Event emitted when a label is focused.
          */
         this.indexFocused = new EventEmitter();
+        if (platform.isBrowser) {
+            // TODO: Add library level window listener https://goo.gl/y25X5M
+            this._resizeSubscription = RxChain.from(fromEvent(window, 'resize'))
+                .call(debounceTime, 150)
+                .subscribe(() => this._checkPaginationEnabled());
+        }
     }
     /**
      * The index of the active tab.
@@ -15815,6 +15826,10 @@ class MdTabHeader extends _MdTabHeaderMixinBase {
         if (this._realignInkBar) {
             this._realignInkBar.unsubscribe();
             this._realignInkBar = null;
+        }
+        if (this._resizeSubscription) {
+            this._resizeSubscription.unsubscribe();
+            this._resizeSubscription = null;
         }
     }
     /**
@@ -16084,6 +16099,7 @@ MdTabHeader.ctorParameters = () => [
     { type: Renderer2, },
     { type: ChangeDetectorRef, },
     { type: Directionality, decorators: [{ type: Optional },] },
+    { type: Platform, },
 ];
 MdTabHeader.propDecorators = {
     '_labelWrappers': [{ type: ContentChildren, args: [MdTabLabelWrapper,] },],

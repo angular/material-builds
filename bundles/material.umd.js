@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8-9df292f');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-f96ffeb');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -7122,6 +7122,10 @@ MdRadioButton.decorators = [
                     '[class.mat-radio-checked]': 'checked',
                     '[class.mat-radio-disabled]': 'disabled',
                     '[attr.id]': 'id',
+                    // Note: under normal conditions focus shouldn't land on this element, however it may be
+                    // programmatically set, for example inside of a focus trap, in this case we want to forward
+                    // the focus to the native element.
+                    '(focus)': '_inputElement.nativeElement.focus()',
                 },
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
             },] },
@@ -16673,8 +16677,9 @@ var MdTabHeader = (function (_super) {
      * @param {?} _renderer
      * @param {?} _changeDetectorRef
      * @param {?} _dir
+     * @param {?} platform
      */
-    function MdTabHeader(_elementRef, _ngZone, _renderer, _changeDetectorRef, _dir) {
+    function MdTabHeader(_elementRef, _ngZone, _renderer, _changeDetectorRef, _dir, platform) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._ngZone = _ngZone;
@@ -16718,6 +16723,12 @@ var MdTabHeader = (function (_super) {
          * Event emitted when a label is focused.
          */
         _this.indexFocused = new _angular_core.EventEmitter();
+        if (platform.isBrowser) {
+            // TODO: Add library level window listener https://goo.gl/y25X5M
+            _this._resizeSubscription = _angular_cdk_rxjs.RxChain.from(rxjs_observable_fromEvent.fromEvent(window, 'resize'))
+                .call(_angular_cdk_rxjs.debounceTime, 150)
+                .subscribe(function () { return _this._checkPaginationEnabled(); });
+        }
         return _this;
     }
     Object.defineProperty(MdTabHeader.prototype, "selectedIndex", {
@@ -16806,6 +16817,10 @@ var MdTabHeader = (function (_super) {
         if (this._realignInkBar) {
             this._realignInkBar.unsubscribe();
             this._realignInkBar = null;
+        }
+        if (this._resizeSubscription) {
+            this._resizeSubscription.unsubscribe();
+            this._resizeSubscription = null;
         }
     };
     /**
@@ -17084,6 +17099,7 @@ MdTabHeader.ctorParameters = function () { return [
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ChangeDetectorRef, },
     { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
+    { type: _angular_cdk_platform.Platform, },
 ]; };
 MdTabHeader.propDecorators = {
     '_labelWrappers': [{ type: _angular_core.ContentChildren, args: [MdTabLabelWrapper,] },],

@@ -10,6 +10,7 @@ import { Directionality, Direction } from '../core';
 import { MdTabLabelWrapper } from './tab-label-wrapper';
 import { MdInkBar } from './ink-bar';
 import { CanDisableRipple } from '../core/common-behaviors/disable-ripple';
+import { Platform } from '@angular/cdk/platform';
 /**
  * The directions that scrolling can go in when the header's tabs exceed the header width. 'After'
  * will scroll the header towards the end of the tabs list and 'before' will scroll towards the
@@ -59,13 +60,15 @@ export declare class MdTabHeader extends _MdTabHeaderMixinBase implements AfterC
     /** Whether the scroll distance has changed and should be applied after the view is checked. */
     private _scrollDistanceChanged;
     private _selectedIndex;
+    /** subscription for the window resize handler */
+    private _resizeSubscription;
     /** The index of the active tab. */
     selectedIndex: number;
     /** Event emitted when the option is selected. */
     selectFocusedIndex: EventEmitter<{}>;
     /** Event emitted when a label is focused. */
     indexFocused: EventEmitter<{}>;
-    constructor(_elementRef: ElementRef, _ngZone: NgZone, _renderer: Renderer2, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality);
+    constructor(_elementRef: ElementRef, _ngZone: NgZone, _renderer: Renderer2, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, platform: Platform);
     ngAfterContentChecked(): void;
     _handleKeydown(event: KeyboardEvent): void;
     /**
