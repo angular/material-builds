@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/observe-content'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/common'), require('@angular/cdk/platform'), require('rxjs/Subject'), require('rxjs/Subscription'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('@angular/cdk/rxjs'), require('@angular/cdk/keyboard'), require('@angular/cdk/coercion'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('rxjs/observable/of'), require('@angular/forms'), require('@angular/animations'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/throw'), require('rxjs/observable/forkJoin'), require('rxjs/observable/defer'), require('@angular/cdk/table')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/observe-content', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/common', '@angular/cdk/platform', 'rxjs/Subject', 'rxjs/Subscription', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', '@angular/cdk/rxjs', '@angular/cdk/keyboard', '@angular/cdk/coercion', '@angular/cdk/portal', '@angular/cdk/a11y', 'rxjs/observable/of', '@angular/forms', '@angular/animations', '@angular/http', 'rxjs/Observable', 'rxjs/observable/throw', 'rxjs/observable/forkJoin', 'rxjs/observable/defer', '@angular/cdk/table'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.observeContent,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.common,global.ng.cdk.platform,global.Rx,global.Rx,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.rxjs,global.ng.cdk.keyboard,global.ng.cdk.coercion,global.ng.cdk.portal,global.ng.cdk.a11y,global.Rx.Observable,global.ng.forms,global.ng.animations,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.table));
-}(this, (function (exports,_angular_core,_angular_cdk_observeContent,_angular_platformBrowser,_angular_cdk_bidi,_angular_common,_angular_cdk_platform,rxjs_Subject,rxjs_Subscription,rxjs_observable_fromEvent,rxjs_observable_merge,_angular_cdk_rxjs,_angular_cdk_keyboard,_angular_cdk_coercion,_angular_cdk_portal,_angular_cdk_a11y,rxjs_observable_of,_angular_forms,_angular_animations,_angular_http,rxjs_Observable,rxjs_observable_throw,rxjs_observable_forkJoin,rxjs_observable_defer,_angular_cdk_table) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/observers'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/common'), require('@angular/cdk/platform'), require('rxjs/Subject'), require('rxjs/Subscription'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('@angular/cdk/rxjs'), require('@angular/cdk/keycodes'), require('@angular/cdk/coercion'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('rxjs/observable/of'), require('@angular/forms'), require('@angular/animations'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/throw'), require('rxjs/observable/forkJoin'), require('rxjs/observable/defer'), require('@angular/cdk/table')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/observers', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/common', '@angular/cdk/platform', 'rxjs/Subject', 'rxjs/Subscription', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', '@angular/cdk/rxjs', '@angular/cdk/keycodes', '@angular/cdk/coercion', '@angular/cdk/portal', '@angular/cdk/a11y', 'rxjs/observable/of', '@angular/forms', '@angular/animations', '@angular/http', 'rxjs/Observable', 'rxjs/observable/throw', 'rxjs/observable/forkJoin', 'rxjs/observable/defer', '@angular/cdk/table'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.observers,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.common,global.ng.cdk.platform,global.Rx,global.Rx,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.rxjs,global.ng.cdk.keycodes,global.ng.cdk.coercion,global.ng.cdk.portal,global.ng.cdk.a11y,global.Rx.Observable,global.ng.forms,global.ng.animations,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.table));
+}(this, (function (exports,_angular_core,_angular_cdk_observers,_angular_platformBrowser,_angular_cdk_bidi,_angular_common,_angular_cdk_platform,rxjs_Subject,rxjs_Subscription,rxjs_observable_fromEvent,rxjs_observable_merge,_angular_cdk_rxjs,_angular_cdk_keycodes,_angular_cdk_coercion,_angular_cdk_portal,_angular_cdk_a11y,rxjs_observable_of,_angular_forms,_angular_animations,_angular_http,rxjs_Observable,rxjs_observable_throw,rxjs_observable_forkJoin,rxjs_observable_defer,_angular_cdk_table) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8-333ec80');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-9df292f');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -1655,7 +1655,7 @@ var MdOption = (function () {
      * @return {?}
      */
     MdOption.prototype._handleKeydown = function (event) {
-        if (event.keyCode === _angular_cdk_keyboard.ENTER || event.keyCode === _angular_cdk_keyboard.SPACE) {
+        if (event.keyCode === _angular_cdk_keycodes.ENTER || event.keyCode === _angular_cdk_keycodes.SPACE) {
             this._selectViaInteraction();
             // Prevent the page from scrolling down and form submits.
             event.preventDefault();
@@ -3357,7 +3357,7 @@ var ConnectedOverlayDirective = (function () {
     ConnectedOverlayDirective.prototype._initEscapeListener = function () {
         var _this = this;
         this._escapeListener = this._renderer.listen('document', 'keydown', function (event) {
-            if (event.keyCode === _angular_cdk_keyboard.ESCAPE) {
+            if (event.keyCode === _angular_cdk_keycodes.ESCAPE) {
                 _this._detachOverlay();
             }
         });
@@ -4865,7 +4865,7 @@ MdCoreModule.decorators = [
                     MdLineModule,
                     _angular_cdk_bidi.BidiModule,
                     MdRippleModule,
-                    _angular_cdk_observeContent.ObserveContentModule,
+                    _angular_cdk_observers.ObserversModule,
                     _angular_cdk_portal.PortalModule,
                     OverlayModule,
                     _angular_cdk_a11y.A11yModule,
@@ -4876,7 +4876,7 @@ MdCoreModule.decorators = [
                     MdLineModule,
                     _angular_cdk_bidi.BidiModule,
                     MdRippleModule,
-                    _angular_cdk_observeContent.ObserveContentModule,
+                    _angular_cdk_observers.ObserversModule,
                     _angular_cdk_portal.PortalModule,
                     OverlayModule,
                     _angular_cdk_a11y.A11yModule,
@@ -6406,7 +6406,7 @@ var MdCheckboxModule = (function () {
 }());
 MdCheckboxModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [_angular_common.CommonModule, MdRippleModule, MdCommonModule, _angular_cdk_observeContent.ObserveContentModule],
+                imports: [_angular_common.CommonModule, MdRippleModule, MdCommonModule, _angular_cdk_observers.ObserversModule],
                 exports: [MdCheckbox, MdCheckboxRequiredValidator, MdCommonModule],
                 declarations: [MdCheckbox, MdCheckboxRequiredValidator],
                 providers: [FocusOriginMonitor]
@@ -7817,11 +7817,11 @@ var MdSelect = (function (_super) {
      */
     MdSelect.prototype._handleClosedKeydown = function (event) {
         if (!this.disabled) {
-            if (event.keyCode === _angular_cdk_keyboard.ENTER || event.keyCode === _angular_cdk_keyboard.SPACE) {
+            if (event.keyCode === _angular_cdk_keycodes.ENTER || event.keyCode === _angular_cdk_keycodes.SPACE) {
                 event.preventDefault(); // prevents the page from scrolling down when pressing space
                 this.open();
             }
-            else if (event.keyCode === _angular_cdk_keyboard.UP_ARROW || event.keyCode === _angular_cdk_keyboard.DOWN_ARROW) {
+            else if (event.keyCode === _angular_cdk_keycodes.UP_ARROW || event.keyCode === _angular_cdk_keycodes.DOWN_ARROW) {
                 this._handleArrowKey(event);
             }
         }
@@ -7832,9 +7832,9 @@ var MdSelect = (function (_super) {
      * @return {?}
      */
     MdSelect.prototype._handlePanelKeydown = function (event) {
-        if (event.keyCode === _angular_cdk_keyboard.HOME || event.keyCode === _angular_cdk_keyboard.END) {
+        if (event.keyCode === _angular_cdk_keycodes.HOME || event.keyCode === _angular_cdk_keycodes.END) {
             event.preventDefault();
-            event.keyCode === _angular_cdk_keyboard.HOME ? this._keyManager.setFirstItemActive() :
+            event.keyCode === _angular_cdk_keycodes.HOME ? this._keyManager.setFirstItemActive() :
                 this._keyManager.setLastItemActive();
         }
         else {
@@ -9576,19 +9576,19 @@ var MdSlider = (function (_super) {
         }
         var /** @type {?} */ oldValue = this.value;
         switch (event.keyCode) {
-            case _angular_cdk_keyboard.PAGE_UP:
+            case _angular_cdk_keycodes.PAGE_UP:
                 this._increment(10);
                 break;
-            case _angular_cdk_keyboard.PAGE_DOWN:
+            case _angular_cdk_keycodes.PAGE_DOWN:
                 this._increment(-10);
                 break;
-            case _angular_cdk_keyboard.END:
+            case _angular_cdk_keycodes.END:
                 this.value = this.max;
                 break;
-            case _angular_cdk_keyboard.HOME:
+            case _angular_cdk_keycodes.HOME:
                 this.value = this.min;
                 break;
-            case _angular_cdk_keyboard.LEFT_ARROW:
+            case _angular_cdk_keycodes.LEFT_ARROW:
                 // NOTE: For a sighted user it would make more sense that when they press an arrow key on an
                 // inverted slider the thumb moves in that direction. However for a blind user, nothing
                 // about the slider indicates that it is inverted. They will expect left to be decrement,
@@ -9598,14 +9598,14 @@ var MdSlider = (function (_super) {
                 // sighted users, therefore we do not swap the meaning.
                 this._increment(this._direction == 'rtl' ? 1 : -1);
                 break;
-            case _angular_cdk_keyboard.UP_ARROW:
+            case _angular_cdk_keycodes.UP_ARROW:
                 this._increment(1);
                 break;
-            case _angular_cdk_keyboard.RIGHT_ARROW:
+            case _angular_cdk_keycodes.RIGHT_ARROW:
                 // See comment on LEFT_ARROW about the conditions under which we flip the meaning.
                 this._increment(this._direction == 'rtl' ? -1 : 1);
                 break;
-            case _angular_cdk_keyboard.DOWN_ARROW:
+            case _angular_cdk_keycodes.DOWN_ARROW:
                 this._increment(-1);
                 break;
             default:
@@ -10098,7 +10098,7 @@ var MdSidenav = (function () {
      * @return {?}
      */
     MdSidenav.prototype.handleKeydown = function (event) {
-        if (event.keyCode === _angular_cdk_keyboard.ESCAPE && !this.disableClose) {
+        if (event.keyCode === _angular_cdk_keycodes.ESCAPE && !this.disableClose) {
             this.close();
             event.stopPropagation();
         }
@@ -12097,14 +12097,14 @@ var MdChip = (function (_super) {
             return;
         }
         switch (event.keyCode) {
-            case _angular_cdk_keyboard.DELETE:
-            case _angular_cdk_keyboard.BACKSPACE:
+            case _angular_cdk_keycodes.DELETE:
+            case _angular_cdk_keycodes.BACKSPACE:
                 // If we are removable, remove the focused chip
                 this.remove();
                 // Always prevent so page navigation does not occur
                 event.preventDefault();
                 break;
-            case _angular_cdk_keyboard.SPACE:
+            case _angular_cdk_keycodes.SPACE:
                 // If we are selectable, toggle the focused chip
                 if (this.selectable) {
                     this.toggleSelected();
@@ -12333,9 +12333,9 @@ var MdChipList = (function () {
         var /** @type {?} */ target = (event.target);
         var /** @type {?} */ isInputEmpty = this._isInputEmpty(target);
         var /** @type {?} */ isRtl = this._dir && this._dir.value == 'rtl';
-        var /** @type {?} */ isPrevKey = (code === (isRtl ? _angular_cdk_keyboard.RIGHT_ARROW : _angular_cdk_keyboard.LEFT_ARROW));
-        var /** @type {?} */ isNextKey = (code === (isRtl ? _angular_cdk_keyboard.LEFT_ARROW : _angular_cdk_keyboard.RIGHT_ARROW));
-        var /** @type {?} */ isBackKey = (code === _angular_cdk_keyboard.BACKSPACE || code == _angular_cdk_keyboard.DELETE || code == _angular_cdk_keyboard.UP_ARROW || isPrevKey);
+        var /** @type {?} */ isPrevKey = (code === (isRtl ? _angular_cdk_keycodes.RIGHT_ARROW : _angular_cdk_keycodes.LEFT_ARROW));
+        var /** @type {?} */ isNextKey = (code === (isRtl ? _angular_cdk_keycodes.LEFT_ARROW : _angular_cdk_keycodes.RIGHT_ARROW));
+        var /** @type {?} */ isBackKey = (code === _angular_cdk_keycodes.BACKSPACE || code == _angular_cdk_keycodes.DELETE || code == _angular_cdk_keycodes.UP_ARROW || isPrevKey);
         // If they are on an empty input and hit backspace/delete/left arrow, focus the last chip
         if (isInputEmpty && isBackKey) {
             this._keyManager.setLastItemActive();
@@ -12506,7 +12506,7 @@ var MdChipInput = (function () {
          * Defaults to `[ENTER]`.
          */
         // TODO(tinayuangao): Support Set here
-        this.separatorKeyCodes = [_angular_cdk_keyboard.ENTER];
+        this.separatorKeyCodes = [_angular_cdk_keycodes.ENTER];
         /**
          * Emitted when a chip is to be added.
          */
@@ -16771,13 +16771,13 @@ var MdTabHeader = (function (_super) {
      */
     MdTabHeader.prototype._handleKeydown = function (event) {
         switch (event.keyCode) {
-            case _angular_cdk_keyboard.RIGHT_ARROW:
+            case _angular_cdk_keycodes.RIGHT_ARROW:
                 this._focusNextTab();
                 break;
-            case _angular_cdk_keyboard.LEFT_ARROW:
+            case _angular_cdk_keycodes.LEFT_ARROW:
                 this._focusPreviousTab();
                 break;
-            case _angular_cdk_keyboard.ENTER:
+            case _angular_cdk_keycodes.ENTER:
                 this.selectFocusedIndex.emit(this.focusIndex);
                 break;
         }
@@ -17106,7 +17106,7 @@ MdTabsModule.decorators = [
                     MdCommonModule,
                     _angular_cdk_portal.PortalModule,
                     MdRippleModule,
-                    _angular_cdk_observeContent.ObserveContentModule,
+                    _angular_cdk_observers.ObserversModule,
                     ScrollDispatchModule,
                 ],
                 // Don't export all components because some are only to be used internally.
@@ -18224,16 +18224,16 @@ var MdMenu = (function () {
      */
     MdMenu.prototype._handleKeydown = function (event) {
         switch (event.keyCode) {
-            case _angular_cdk_keyboard.ESCAPE:
+            case _angular_cdk_keycodes.ESCAPE:
                 this.close.emit('keydown');
                 event.stopPropagation();
                 break;
-            case _angular_cdk_keyboard.LEFT_ARROW:
+            case _angular_cdk_keycodes.LEFT_ARROW:
                 if (this.parentMenu && this.direction === 'ltr') {
                     this.close.emit('keydown');
                 }
                 break;
-            case _angular_cdk_keyboard.RIGHT_ARROW:
+            case _angular_cdk_keycodes.RIGHT_ARROW:
                 if (this.parentMenu && this.direction === 'rtl') {
                     this.close.emit('keydown');
                 }
@@ -18730,8 +18730,8 @@ var MdMenuTrigger = (function () {
      */
     MdMenuTrigger.prototype._handleKeydown = function (event) {
         var /** @type {?} */ keyCode = event.keyCode;
-        if (this.triggersSubmenu() && ((keyCode === _angular_cdk_keyboard.RIGHT_ARROW && this.dir === 'ltr') ||
-            (keyCode === _angular_cdk_keyboard.LEFT_ARROW && this.dir === 'rtl'))) {
+        if (this.triggersSubmenu() && ((keyCode === _angular_cdk_keycodes.RIGHT_ARROW && this.dir === 'ltr') ||
+            (keyCode === _angular_cdk_keycodes.LEFT_ARROW && this.dir === 'rtl'))) {
             this.openMenu();
         }
     };
@@ -19422,7 +19422,7 @@ var MdDialog = (function () {
     MdDialog.prototype._handleKeydown = function (event) {
         var /** @type {?} */ topDialog = this.openDialogs[this.openDialogs.length - 1];
         var /** @type {?} */ canClose = topDialog ? !topDialog.disableClose : false;
-        if (event.keyCode === _angular_cdk_keyboard.ESCAPE && canClose) {
+        if (event.keyCode === _angular_cdk_keycodes.ESCAPE && canClose) {
             topDialog.close();
         }
     };
@@ -20002,17 +20002,17 @@ var MdAutocompleteTrigger = (function () {
      */
     MdAutocompleteTrigger.prototype._handleKeydown = function (event) {
         var _this = this;
-        if (event.keyCode === _angular_cdk_keyboard.ESCAPE && this.panelOpen) {
+        if (event.keyCode === _angular_cdk_keycodes.ESCAPE && this.panelOpen) {
             this.closePanel();
             event.stopPropagation();
         }
-        else if (this.activeOption && event.keyCode === _angular_cdk_keyboard.ENTER && this.panelOpen) {
+        else if (this.activeOption && event.keyCode === _angular_cdk_keycodes.ENTER && this.panelOpen) {
             this.activeOption._selectViaInteraction();
             event.preventDefault();
         }
         else {
             var /** @type {?} */ prevActiveItem_1 = this.autocomplete._keyManager.activeItem;
-            var /** @type {?} */ isArrowKey_1 = event.keyCode === _angular_cdk_keyboard.UP_ARROW || event.keyCode === _angular_cdk_keyboard.DOWN_ARROW;
+            var /** @type {?} */ isArrowKey_1 = event.keyCode === _angular_cdk_keycodes.UP_ARROW || event.keyCode === _angular_cdk_keycodes.DOWN_ARROW;
             this.autocomplete._keyManager.onKeydown(event);
             if (isArrowKey_1) {
                 this.openPanel();
@@ -20981,36 +20981,36 @@ var MdCalendar = (function () {
      */
     MdCalendar.prototype._handleCalendarBodyKeydownInMonthView = function (event) {
         switch (event.keyCode) {
-            case _angular_cdk_keyboard.LEFT_ARROW:
+            case _angular_cdk_keycodes.LEFT_ARROW:
                 this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, -1);
                 break;
-            case _angular_cdk_keyboard.RIGHT_ARROW:
+            case _angular_cdk_keycodes.RIGHT_ARROW:
                 this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, 1);
                 break;
-            case _angular_cdk_keyboard.UP_ARROW:
+            case _angular_cdk_keycodes.UP_ARROW:
                 this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, -7);
                 break;
-            case _angular_cdk_keyboard.DOWN_ARROW:
+            case _angular_cdk_keycodes.DOWN_ARROW:
                 this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, 7);
                 break;
-            case _angular_cdk_keyboard.HOME:
+            case _angular_cdk_keycodes.HOME:
                 this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, 1 - this._dateAdapter.getDate(this._activeDate));
                 break;
-            case _angular_cdk_keyboard.END:
+            case _angular_cdk_keycodes.END:
                 this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, (this._dateAdapter.getNumDaysInMonth(this._activeDate) -
                     this._dateAdapter.getDate(this._activeDate)));
                 break;
-            case _angular_cdk_keyboard.PAGE_UP:
+            case _angular_cdk_keycodes.PAGE_UP:
                 this._activeDate = event.altKey ?
                     this._dateAdapter.addCalendarYears(this._activeDate, -1) :
                     this._dateAdapter.addCalendarMonths(this._activeDate, -1);
                 break;
-            case _angular_cdk_keyboard.PAGE_DOWN:
+            case _angular_cdk_keycodes.PAGE_DOWN:
                 this._activeDate = event.altKey ?
                     this._dateAdapter.addCalendarYears(this._activeDate, 1) :
                     this._dateAdapter.addCalendarMonths(this._activeDate, 1);
                 break;
-            case _angular_cdk_keyboard.ENTER:
+            case _angular_cdk_keycodes.ENTER:
                 if (this._dateFilterForViews(this._activeDate)) {
                     this._dateSelected(this._activeDate);
                     // Prevent unexpected default actions such as form submission.
@@ -21032,33 +21032,33 @@ var MdCalendar = (function () {
      */
     MdCalendar.prototype._handleCalendarBodyKeydownInYearView = function (event) {
         switch (event.keyCode) {
-            case _angular_cdk_keyboard.LEFT_ARROW:
+            case _angular_cdk_keycodes.LEFT_ARROW:
                 this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, -1);
                 break;
-            case _angular_cdk_keyboard.RIGHT_ARROW:
+            case _angular_cdk_keycodes.RIGHT_ARROW:
                 this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, 1);
                 break;
-            case _angular_cdk_keyboard.UP_ARROW:
+            case _angular_cdk_keycodes.UP_ARROW:
                 this._activeDate = this._prevMonthInSameCol(this._activeDate);
                 break;
-            case _angular_cdk_keyboard.DOWN_ARROW:
+            case _angular_cdk_keycodes.DOWN_ARROW:
                 this._activeDate = this._nextMonthInSameCol(this._activeDate);
                 break;
-            case _angular_cdk_keyboard.HOME:
+            case _angular_cdk_keycodes.HOME:
                 this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, -this._dateAdapter.getMonth(this._activeDate));
                 break;
-            case _angular_cdk_keyboard.END:
+            case _angular_cdk_keycodes.END:
                 this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, 11 - this._dateAdapter.getMonth(this._activeDate));
                 break;
-            case _angular_cdk_keyboard.PAGE_UP:
+            case _angular_cdk_keycodes.PAGE_UP:
                 this._activeDate =
                     this._dateAdapter.addCalendarYears(this._activeDate, event.altKey ? -10 : -1);
                 break;
-            case _angular_cdk_keyboard.PAGE_DOWN:
+            case _angular_cdk_keycodes.PAGE_DOWN:
                 this._activeDate =
                     this._dateAdapter.addCalendarYears(this._activeDate, event.altKey ? 10 : 1);
                 break;
-            case _angular_cdk_keyboard.ENTER:
+            case _angular_cdk_keycodes.ENTER:
                 this._monthSelected(this._activeDate);
                 break;
             default:
@@ -21175,7 +21175,7 @@ var MdDatepickerContent = (function () {
      * @return {?}
      */
     MdDatepickerContent.prototype._handleKeydown = function (event) {
-        if (event.keyCode === _angular_cdk_keyboard.ESCAPE) {
+        if (event.keyCode === _angular_cdk_keycodes.ESCAPE) {
             this.datepicker.close();
             event.preventDefault();
             event.stopPropagation();
@@ -21811,7 +21811,7 @@ var MdDatepickerInput = (function () {
      * @return {?}
      */
     MdDatepickerInput.prototype._onKeydown = function (event) {
-        if (event.altKey && event.keyCode === _angular_cdk_keyboard.DOWN_ARROW) {
+        if (event.altKey && event.keyCode === _angular_cdk_keycodes.DOWN_ARROW) {
             this._datepicker.open();
             event.preventDefault();
         }
@@ -22420,8 +22420,8 @@ var MdExpansionPanelHeader = (function () {
     MdExpansionPanelHeader.prototype._keyup = function (event) {
         switch (event.keyCode) {
             // Toggle for space and enter keys.
-            case _angular_cdk_keyboard.SPACE:
-            case _angular_cdk_keyboard.ENTER:
+            case _angular_cdk_keycodes.SPACE:
+            case _angular_cdk_keycodes.ENTER:
                 event.preventDefault();
                 this._toggle();
                 break;
@@ -23563,7 +23563,7 @@ var MATERIAL_MODULES = [
     _angular_cdk_a11y.A11yModule,
     _angular_cdk_platform.PlatformModule,
     MdCommonModule,
-    _angular_cdk_observeContent.ObserveContentModule
+    _angular_cdk_observers.ObserversModule
 ];
 /**
  * @deprecated
@@ -23587,8 +23587,8 @@ MaterialModule.ctorParameters = function () { return []; };
 exports.VERSION = VERSION;
 exports.coerceBooleanProperty = _angular_cdk_coercion.coerceBooleanProperty;
 exports.coerceNumberProperty = _angular_cdk_coercion.coerceNumberProperty;
-exports.ObserveContentModule = _angular_cdk_observeContent.ObserveContentModule;
-exports.ObserveContent = _angular_cdk_observeContent.ObserveContent;
+exports.ObserversModule = _angular_cdk_observers.ObserversModule;
+exports.ObserveContent = _angular_cdk_observers.ObserveContent;
 exports.Dir = _angular_cdk_bidi.Dir;
 exports.Directionality = _angular_cdk_bidi.Directionality;
 exports.BidiModule = _angular_cdk_bidi.BidiModule;
@@ -23673,22 +23673,22 @@ exports.CdkMonitorFocus = CdkMonitorFocus;
 exports.FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY = FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY;
 exports.FOCUS_ORIGIN_MONITOR_PROVIDER = FOCUS_ORIGIN_MONITOR_PROVIDER;
 exports.applyCssTransform = applyCssTransform;
-exports.UP_ARROW = _angular_cdk_keyboard.UP_ARROW;
-exports.DOWN_ARROW = _angular_cdk_keyboard.DOWN_ARROW;
-exports.RIGHT_ARROW = _angular_cdk_keyboard.RIGHT_ARROW;
-exports.LEFT_ARROW = _angular_cdk_keyboard.LEFT_ARROW;
-exports.PAGE_UP = _angular_cdk_keyboard.PAGE_UP;
-exports.PAGE_DOWN = _angular_cdk_keyboard.PAGE_DOWN;
-exports.HOME = _angular_cdk_keyboard.HOME;
-exports.END = _angular_cdk_keyboard.END;
-exports.ENTER = _angular_cdk_keyboard.ENTER;
-exports.SPACE = _angular_cdk_keyboard.SPACE;
-exports.TAB = _angular_cdk_keyboard.TAB;
-exports.ESCAPE = _angular_cdk_keyboard.ESCAPE;
-exports.BACKSPACE = _angular_cdk_keyboard.BACKSPACE;
-exports.DELETE = _angular_cdk_keyboard.DELETE;
-exports.A = _angular_cdk_keyboard.A;
-exports.Z = _angular_cdk_keyboard.Z;
+exports.UP_ARROW = _angular_cdk_keycodes.UP_ARROW;
+exports.DOWN_ARROW = _angular_cdk_keycodes.DOWN_ARROW;
+exports.RIGHT_ARROW = _angular_cdk_keycodes.RIGHT_ARROW;
+exports.LEFT_ARROW = _angular_cdk_keycodes.LEFT_ARROW;
+exports.PAGE_UP = _angular_cdk_keycodes.PAGE_UP;
+exports.PAGE_DOWN = _angular_cdk_keycodes.PAGE_DOWN;
+exports.HOME = _angular_cdk_keycodes.HOME;
+exports.END = _angular_cdk_keycodes.END;
+exports.ENTER = _angular_cdk_keycodes.ENTER;
+exports.SPACE = _angular_cdk_keycodes.SPACE;
+exports.TAB = _angular_cdk_keycodes.TAB;
+exports.ESCAPE = _angular_cdk_keycodes.ESCAPE;
+exports.BACKSPACE = _angular_cdk_keycodes.BACKSPACE;
+exports.DELETE = _angular_cdk_keycodes.DELETE;
+exports.A = _angular_cdk_keycodes.A;
+exports.Z = _angular_cdk_keycodes.Z;
 exports.MATERIAL_COMPATIBILITY_MODE = MATERIAL_COMPATIBILITY_MODE;
 exports.getMdCompatibilityInvalidPrefixError = getMdCompatibilityInvalidPrefixError;
 exports.MAT_ELEMENTS_SELECTOR = MAT_ELEMENTS_SELECTOR;
