@@ -86,6 +86,11 @@ export declare class MdSelectBase {
     constructor(_renderer: Renderer2, _elementRef: ElementRef);
 }
 export declare const _MdSelectMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisable) & typeof MdSelectBase;
+/**
+ * Allows the user to customize the trigger that is displayed when the select has a value.
+ */
+export declare class MdSelectTrigger {
+}
 export declare class MdSelect extends _MdSelectMixinBase implements AfterContentInit, OnDestroy, OnInit, ControlValueAccessor, CanColor, CanDisable {
     private _viewportRuler;
     private _changeDetectorRef;
@@ -174,6 +179,8 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
     panelClass: string | string[] | Set<string> | {
         [key: string]: any;
     };
+    /** User-supplied override of the trigger element. */
+    customTrigger: MdSelectTrigger;
     /** Placeholder to be shown if no value has been selected. */
     placeholder: string;
     /** Whether the component is required. */
