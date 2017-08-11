@@ -5,35 +5,35 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ApplicationRef, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, Inject, Injectable, InjectionToken, Injector, Input, LOCALE_ID, NgModule, NgZone, Optional, Output, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, Version, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
-import { ObserveContent, ObserversModule } from '@angular/cdk/observers';
-import { DOCUMENT, DomSanitizer, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, Inject, Injectable, InjectionToken, Injector, Input, LOCALE_ID, NgModule, NgZone, Optional, Output, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, Version, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
+import { A11yModule, FocusKeyManager, FocusTrap, FocusTrapDeprecatedDirective, FocusTrapDirective, FocusTrapFactory, InteractivityChecker, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, ListKeyManager, LiveAnnouncer, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { BidiModule, Dir, Directionality } from '@angular/cdk/bidi';
+import { ObserveContent, ObserversModule } from '@angular/cdk/observers';
+import { BlockScrollStrategy, CloseScrollStrategy, ConnectedOverlayDirective, ConnectedOverlayPositionChange, ConnectedPositionStrategy, ConnectionPositionPair, FullscreenOverlayContainer, GlobalPositionStrategy, NoopScrollStrategy, OVERLAY_PROVIDERS, Overlay, OverlayContainer, OverlayModule, OverlayOrigin, OverlayRef, OverlayState, RepositionScrollStrategy, ScrollDispatchModule, ScrollDispatcher, ScrollStrategyOptions, Scrollable, ScrollableViewProperties, VIEWPORT_RULER_PROVIDER, ViewportRuler } from '@angular/cdk/overlay';
+import { BasePortalHost, ComponentPortal, DomPortalHost, Portal, PortalHostDirective, PortalModule, TemplatePortal, TemplatePortalDirective } from '@angular/cdk/portal';
+import { DOCUMENT, DomSanitizer, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
 import { CommonModule, Location } from '@angular/common';
 import { Platform, PlatformModule, getSupportedInputTypes } from '@angular/cdk/platform';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { merge } from 'rxjs/observable/merge';
-import { RxChain, auditTime, catchOperator, debounceTime, doOperator, filter, finallyOperator, first, map, share, startWith, switchMap, takeUntil } from '@angular/cdk/rxjs';
 import { A, BACKSPACE, DELETE, DOWN_ARROW, END, ENTER, ESCAPE, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, SPACE, TAB, UP_ARROW, Z } from '@angular/cdk/keycodes';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { BasePortalHost, ComponentPortal, DomPortalHost, Portal, PortalHostDirective, PortalModule, TemplatePortal, TemplatePortalDirective } from '@angular/cdk/portal';
-import { A11yModule, FocusTrap, FocusTrapDeprecatedDirective, FocusTrapDirective, FocusTrapFactory, InteractivityChecker, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, ListKeyManager, LiveAnnouncer, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
+import { Subject } from 'rxjs/Subject';
 import { of } from 'rxjs/observable/of';
 import { CheckboxRequiredValidator, FormGroupDirective, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl, NgForm, Validators } from '@angular/forms';
+import { RxChain, auditTime, catchOperator, debounceTime, doOperator, filter, finallyOperator, first, map, share, startWith, switchMap, takeUntil } from '@angular/cdk/rxjs';
+import { merge } from 'rxjs/observable/merge';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { _throw } from 'rxjs/observable/throw';
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import { fromEvent } from 'rxjs/observable/fromEvent';
 import { defer } from 'rxjs/observable/defer';
 import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef, CdkHeaderCell, CdkHeaderCellDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTable, CdkTableModule } from '@angular/cdk/table';
 
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.8-5ccf25d');
+const VERSION = new Version('2.0.0-beta.8-4d82f83');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -105,6 +105,7 @@ const MAT_ELEMENTS_SELECTOR = `
   mat-hint,
   mat-icon,
   mat-input-container,
+  mat-form-field,
   mat-list,
   mat-list-item,
   mat-menu,
@@ -182,6 +183,7 @@ const MD_ELEMENTS_SELECTOR = `
   md-hint,
   md-icon,
   md-input-container,
+  md-form-field,
   md-list,
   md-list-item,
   md-menu,
@@ -699,271 +701,6 @@ function distanceToFurthestCorner(x, y, rect) {
 }
 
 /**
- * Time in ms to throttle the scrolling events by default.
- */
-const DEFAULT_SCROLL_TIME = 20;
-/**
- * Service contained all registered Scrollable references and emits an event when any one of the
- * Scrollable references emit a scrolled event.
- */
-class ScrollDispatcher {
-    /**
-     * @param {?} _ngZone
-     * @param {?} _platform
-     */
-    constructor(_ngZone, _platform) {
-        this._ngZone = _ngZone;
-        this._platform = _platform;
-        /**
-         * Subject for notifying that a registered scrollable reference element has been scrolled.
-         */
-        this._scrolled = new Subject();
-        /**
-         * Keeps track of the global `scroll` and `resize` subscriptions.
-         */
-        this._globalSubscription = null;
-        /**
-         * Keeps track of the amount of subscriptions to `scrolled`. Used for cleaning up afterwards.
-         */
-        this._scrolledCount = 0;
-        /**
-         * Map of all the scrollable references that are registered with the service and their
-         * scroll event subscriptions.
-         */
-        this.scrollableReferences = new Map();
-    }
-    /**
-     * Registers a Scrollable with the service and listens for its scrolled events. When the
-     * scrollable is scrolled, the service emits the event in its scrolled observable.
-     * @param {?} scrollable Scrollable instance to be registered.
-     * @return {?}
-     */
-    register(scrollable) {
-        const /** @type {?} */ scrollSubscription = scrollable.elementScrolled().subscribe(() => this._notify());
-        this.scrollableReferences.set(scrollable, scrollSubscription);
-    }
-    /**
-     * Deregisters a Scrollable reference and unsubscribes from its scroll event observable.
-     * @param {?} scrollable Scrollable instance to be deregistered.
-     * @return {?}
-     */
-    deregister(scrollable) {
-        const /** @type {?} */ scrollableReference = this.scrollableReferences.get(scrollable);
-        if (scrollableReference) {
-            scrollableReference.unsubscribe();
-            this.scrollableReferences.delete(scrollable);
-        }
-    }
-    /**
-     * Subscribes to an observable that emits an event whenever any of the registered Scrollable
-     * references (or window, document, or body) fire a scrolled event. Can provide a time in ms
-     * to override the default "throttle" time.
-     * @param {?=} auditTimeInMs
-     * @param {?=} callback
-     * @return {?}
-     */
-    scrolled(auditTimeInMs = DEFAULT_SCROLL_TIME, callback) {
-        // Scroll events can only happen on the browser, so do nothing if we're not on the browser.
-        if (!this._platform.isBrowser) {
-            return Subscription.EMPTY;
-        }
-        // In the case of a 0ms delay, use an observable without auditTime
-        // since it does add a perceptible delay in processing overhead.
-        let /** @type {?} */ observable = auditTimeInMs > 0 ?
-            auditTime.call(this._scrolled.asObservable(), auditTimeInMs) :
-            this._scrolled.asObservable();
-        this._scrolledCount++;
-        if (!this._globalSubscription) {
-            this._globalSubscription = this._ngZone.runOutsideAngular(() => {
-                return merge(fromEvent(window.document, 'scroll'), fromEvent(window, 'resize')).subscribe(() => this._notify());
-            });
-        }
-        // Note that we need to do the subscribing from here, in order to be able to remove
-        // the global event listeners once there are no more subscriptions.
-        let /** @type {?} */ subscription = observable.subscribe(callback);
-        subscription.add(() => {
-            this._scrolledCount--;
-            if (this._globalSubscription && !this.scrollableReferences.size && !this._scrolledCount) {
-                this._globalSubscription.unsubscribe();
-                this._globalSubscription = null;
-            }
-        });
-        return subscription;
-    }
-    /**
-     * Returns all registered Scrollables that contain the provided element.
-     * @param {?} elementRef
-     * @return {?}
-     */
-    getScrollContainers(elementRef) {
-        const /** @type {?} */ scrollingContainers = [];
-        this.scrollableReferences.forEach((_subscription, scrollable) => {
-            if (this.scrollableContainsElement(scrollable, elementRef)) {
-                scrollingContainers.push(scrollable);
-            }
-        });
-        return scrollingContainers;
-    }
-    /**
-     * Returns true if the element is contained within the provided Scrollable.
-     * @param {?} scrollable
-     * @param {?} elementRef
-     * @return {?}
-     */
-    scrollableContainsElement(scrollable, elementRef) {
-        let /** @type {?} */ element = elementRef.nativeElement;
-        let /** @type {?} */ scrollableElement = scrollable.getElementRef().nativeElement;
-        // Traverse through the element parents until we reach null, checking if any of the elements
-        // are the scrollable's element.
-        do {
-            if (element == scrollableElement) {
-                return true;
-            }
-        } while (element = element.parentElement);
-        return false;
-    }
-    /**
-     * Sends a notification that a scroll event has been fired.
-     * @return {?}
-     */
-    _notify() {
-        this._scrolled.next();
-    }
-}
-ScrollDispatcher.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-ScrollDispatcher.ctorParameters = () => [
-    { type: NgZone, },
-    { type: Platform, },
-];
-/**
- * \@docs-private
- * @param {?} parentDispatcher
- * @param {?} ngZone
- * @param {?} platform
- * @return {?}
- */
-function SCROLL_DISPATCHER_PROVIDER_FACTORY(parentDispatcher, ngZone, platform) {
-    return parentDispatcher || new ScrollDispatcher(ngZone, platform);
-}
-/**
- * \@docs-private
- */
-const SCROLL_DISPATCHER_PROVIDER = {
-    // If there is already a ScrollDispatcher available, use that. Otherwise, provide a new one.
-    provide: ScrollDispatcher,
-    deps: [[new Optional(), new SkipSelf(), ScrollDispatcher], NgZone, Platform],
-    useFactory: SCROLL_DISPATCHER_PROVIDER_FACTORY
-};
-
-/**
- * Simple utility for getting the bounds of the browser viewport.
- * \@docs-private
- */
-class ViewportRuler {
-    /**
-     * @param {?} scrollDispatcher
-     */
-    constructor(scrollDispatcher) {
-        // Subscribe to scroll and resize events and update the document rectangle on changes.
-        scrollDispatcher.scrolled(0, () => this._cacheViewportGeometry());
-    }
-    /**
-     * Gets a ClientRect for the viewport's bounds.
-     * @param {?=} documentRect
-     * @return {?}
-     */
-    getViewportRect(documentRect = this._documentRect) {
-        // Cache the document bounding rect so that we don't recompute it for multiple calls.
-        if (!documentRect) {
-            this._cacheViewportGeometry();
-            documentRect = this._documentRect;
-        }
-        // Use the document element's bounding rect rather than the window scroll properties
-        // (e.g. pageYOffset, scrollY) due to in issue in Chrome and IE where window scroll
-        // properties and client coordinates (boundingClientRect, clientX/Y, etc.) are in different
-        // conceptual viewports. Under most circumstances these viewports are equivalent, but they
-        // can disagree when the page is pinch-zoomed (on devices that support touch).
-        // See https://bugs.chromium.org/p/chromium/issues/detail?id=489206#c4
-        // We use the documentElement instead of the body because, by default (without a css reset)
-        // browsers typically give the document body an 8px margin, which is not included in
-        // getBoundingClientRect().
-        const /** @type {?} */ scrollPosition = this.getViewportScrollPosition(documentRect);
-        const /** @type {?} */ height = window.innerHeight;
-        const /** @type {?} */ width = window.innerWidth;
-        return {
-            top: scrollPosition.top,
-            left: scrollPosition.left,
-            bottom: scrollPosition.top + height,
-            right: scrollPosition.left + width,
-            height,
-            width,
-        };
-    }
-    /**
-     * Gets the (top, left) scroll position of the viewport.
-     * @param {?=} documentRect
-     * @return {?}
-     */
-    getViewportScrollPosition(documentRect = this._documentRect) {
-        // Cache the document bounding rect so that we don't recompute it for multiple calls.
-        if (!documentRect) {
-            this._cacheViewportGeometry();
-            documentRect = this._documentRect;
-        }
-        // The top-left-corner of the viewport is determined by the scroll position of the document
-        // body, normally just (scrollLeft, scrollTop). However, Chrome and Firefox disagree about
-        // whether `document.body` or `document.documentElement` is the scrolled element, so reading
-        // `scrollTop` and `scrollLeft` is inconsistent. However, using the bounding rect of
-        // `document.documentElement` works consistently, where the `top` and `left` values will
-        // equal negative the scroll position.
-        const /** @type {?} */ top = -((documentRect)).top || document.body.scrollTop || window.scrollY ||
-            document.documentElement.scrollTop || 0;
-        const /** @type {?} */ left = -((documentRect)).left || document.body.scrollLeft || window.scrollX ||
-            document.documentElement.scrollLeft || 0;
-        return { top, left };
-    }
-    /**
-     * Caches the latest client rectangle of the document element.
-     * @return {?}
-     */
-    _cacheViewportGeometry() {
-        this._documentRect = document.documentElement.getBoundingClientRect();
-    }
-}
-ViewportRuler.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-ViewportRuler.ctorParameters = () => [
-    { type: ScrollDispatcher, },
-];
-/**
- * \@docs-private
- * @param {?} parentRuler
- * @param {?} scrollDispatcher
- * @return {?}
- */
-function VIEWPORT_RULER_PROVIDER_FACTORY(parentRuler, scrollDispatcher) {
-    return parentRuler || new ViewportRuler(scrollDispatcher);
-}
-/**
- * \@docs-private
- */
-const VIEWPORT_RULER_PROVIDER = {
-    // If there is already a ViewportRuler available, use that. Otherwise, provide a new one.
-    provide: ViewportRuler,
-    deps: [[new Optional(), new SkipSelf(), ViewportRuler], ScrollDispatcher],
-    useFactory: VIEWPORT_RULER_PROVIDER_FACTORY
-};
-
-/**
  * Injection token that can be used to specify the global ripple options.
  */
 const MD_RIPPLE_GLOBAL_OPTIONS = new InjectionToken('md-ripple-global-options');
@@ -1076,313 +813,6 @@ MdRipple.propDecorators = {
     'color': [{ type: Input, args: ['mdRippleColor',] },],
     'unbounded': [{ type: Input, args: ['mdRippleUnbounded',] },],
 };
-
-/**
- * Sends an event when the directive's element is scrolled. Registers itself with the
- * ScrollDispatcher service to include itself as part of its collection of scrolling events that it
- * can be listened to through the service.
- */
-class Scrollable {
-    /**
-     * @param {?} _elementRef
-     * @param {?} _scroll
-     * @param {?} _ngZone
-     * @param {?} _renderer
-     */
-    constructor(_elementRef, _scroll, _ngZone, _renderer) {
-        this._elementRef = _elementRef;
-        this._scroll = _scroll;
-        this._ngZone = _ngZone;
-        this._renderer = _renderer;
-        this._elementScrolled = new Subject();
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        this._scrollListener = this._ngZone.runOutsideAngular(() => {
-            return this._renderer.listen(this.getElementRef().nativeElement, 'scroll', (event) => {
-                this._elementScrolled.next(event);
-            });
-        });
-        this._scroll.register(this);
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this._scroll.deregister(this);
-        if (this._scrollListener) {
-            this._scrollListener();
-            this._scrollListener = null;
-        }
-    }
-    /**
-     * Returns observable that emits when a scroll event is fired on the host element.
-     * @return {?}
-     */
-    elementScrolled() {
-        return this._elementScrolled.asObservable();
-    }
-    /**
-     * @return {?}
-     */
-    getElementRef() {
-        return this._elementRef;
-    }
-}
-Scrollable.decorators = [
-    { type: Directive, args: [{
-                selector: '[cdk-scrollable], [cdkScrollable]'
-            },] },
-];
-/**
- * @nocollapse
- */
-Scrollable.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: ScrollDispatcher, },
-    { type: NgZone, },
-    { type: Renderer2, },
-];
-
-/**
- * Returns an error to be thrown when attempting to attach an already-attached scroll strategy.
- * @return {?}
- */
-function getMdScrollStrategyAlreadyAttachedError() {
-    return Error(`Scroll strategy has already been attached.`);
-}
-
-/**
- * Strategy that will close the overlay as soon as the user starts scrolling.
- */
-class CloseScrollStrategy {
-    /**
-     * @param {?} _scrollDispatcher
-     */
-    constructor(_scrollDispatcher) {
-        this._scrollDispatcher = _scrollDispatcher;
-        this._scrollSubscription = null;
-    }
-    /**
-     * @param {?} overlayRef
-     * @return {?}
-     */
-    attach(overlayRef) {
-        if (this._overlayRef) {
-            throw getMdScrollStrategyAlreadyAttachedError();
-        }
-        this._overlayRef = overlayRef;
-    }
-    /**
-     * @return {?}
-     */
-    enable() {
-        if (!this._scrollSubscription) {
-            this._scrollSubscription = this._scrollDispatcher.scrolled(0, () => {
-                if (this._overlayRef.hasAttached()) {
-                    this._overlayRef.detach();
-                }
-                this.disable();
-            });
-        }
-    }
-    /**
-     * @return {?}
-     */
-    disable() {
-        if (this._scrollSubscription) {
-            this._scrollSubscription.unsubscribe();
-            this._scrollSubscription = null;
-        }
-    }
-}
-
-/**
- * Scroll strategy that doesn't do anything.
- */
-class NoopScrollStrategy {
-    /**
-     * @return {?}
-     */
-    enable() { }
-    /**
-     * @return {?}
-     */
-    disable() { }
-    /**
-     * @return {?}
-     */
-    attach() { }
-}
-
-/**
- * Strategy that will prevent the user from scrolling while the overlay is visible.
- */
-class BlockScrollStrategy {
-    /**
-     * @param {?} _viewportRuler
-     */
-    constructor(_viewportRuler) {
-        this._viewportRuler = _viewportRuler;
-        this._previousHTMLStyles = { top: '', left: '' };
-        this._isEnabled = false;
-    }
-    /**
-     * @return {?}
-     */
-    attach() { }
-    /**
-     * @return {?}
-     */
-    enable() {
-        if (this._canBeEnabled()) {
-            const /** @type {?} */ root = document.documentElement;
-            this._previousScrollPosition = this._viewportRuler.getViewportScrollPosition();
-            // Cache the previous inline styles in case the user had set them.
-            this._previousHTMLStyles.left = root.style.left || '';
-            this._previousHTMLStyles.top = root.style.top || '';
-            // Note: we're using the `html` node, instead of the `body`, because the `body` may
-            // have the user agent margin, whereas the `html` is guaranteed not to have one.
-            root.style.left = `${-this._previousScrollPosition.left}px`;
-            root.style.top = `${-this._previousScrollPosition.top}px`;
-            root.classList.add('cdk-global-scrollblock');
-            this._isEnabled = true;
-        }
-    }
-    /**
-     * @return {?}
-     */
-    disable() {
-        if (this._isEnabled) {
-            this._isEnabled = false;
-            document.documentElement.style.left = this._previousHTMLStyles.left;
-            document.documentElement.style.top = this._previousHTMLStyles.top;
-            document.documentElement.classList.remove('cdk-global-scrollblock');
-            window.scroll(this._previousScrollPosition.left, this._previousScrollPosition.top);
-        }
-    }
-    /**
-     * @return {?}
-     */
-    _canBeEnabled() {
-        // Since the scroll strategies can't be singletons, we have to use a global CSS class
-        // (`cdk-global-scrollblock`) to make sure that we don't try to disable global
-        // scrolling multiple times.
-        if (document.documentElement.classList.contains('cdk-global-scrollblock') || this._isEnabled) {
-            return false;
-        }
-        const /** @type {?} */ body = document.body;
-        const /** @type {?} */ viewport = this._viewportRuler.getViewportRect();
-        return body.scrollHeight > viewport.height || body.scrollWidth > viewport.width;
-    }
-}
-
-/**
- * Strategy that will update the element position as the user is scrolling.
- */
-class RepositionScrollStrategy {
-    /**
-     * @param {?} _scrollDispatcher
-     * @param {?=} _config
-     */
-    constructor(_scrollDispatcher, _config) {
-        this._scrollDispatcher = _scrollDispatcher;
-        this._config = _config;
-        this._scrollSubscription = null;
-    }
-    /**
-     * @param {?} overlayRef
-     * @return {?}
-     */
-    attach(overlayRef) {
-        if (this._overlayRef) {
-            throw getMdScrollStrategyAlreadyAttachedError();
-        }
-        this._overlayRef = overlayRef;
-    }
-    /**
-     * @return {?}
-     */
-    enable() {
-        if (!this._scrollSubscription) {
-            let /** @type {?} */ throttle = this._config ? this._config.scrollThrottle : 0;
-            this._scrollSubscription = this._scrollDispatcher.scrolled(throttle, () => {
-                this._overlayRef.updatePosition();
-            });
-        }
-    }
-    /**
-     * @return {?}
-     */
-    disable() {
-        if (this._scrollSubscription) {
-            this._scrollSubscription.unsubscribe();
-            this._scrollSubscription = null;
-        }
-    }
-}
-
-/**
- * Options for how an overlay will handle scrolling.
- *
- * Users can provide a custom value for `ScrollStrategyOptions` to replace the default
- * behaviors. This class primarily acts as a factory for ScrollStrategy instances.
- */
-class ScrollStrategyOptions {
-    /**
-     * @param {?} _scrollDispatcher
-     * @param {?} _viewportRuler
-     */
-    constructor(_scrollDispatcher, _viewportRuler) {
-        this._scrollDispatcher = _scrollDispatcher;
-        this._viewportRuler = _viewportRuler;
-        /**
-         * Do nothing on scroll.
-         */
-        this.noop = () => new NoopScrollStrategy();
-        /**
-         * Close the overlay as soon as the user scrolls.
-         */
-        this.close = () => new CloseScrollStrategy(this._scrollDispatcher);
-        /**
-         * Block scrolling.
-         */
-        this.block = () => new BlockScrollStrategy(this._viewportRuler);
-        /**
-         * Update the overlay's position on scroll.
-         * @param config Configuration to be used inside the scroll strategy.
-         * Allows debouncing the reposition calls.
-         */
-        this.reposition = (config) => new RepositionScrollStrategy(this._scrollDispatcher, config);
-    }
-}
-ScrollStrategyOptions.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-ScrollStrategyOptions.ctorParameters = () => [
-    { type: ScrollDispatcher, },
-    { type: ViewportRuler, },
-];
-
-class ScrollDispatchModule {
-}
-ScrollDispatchModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [PlatformModule],
-                exports: [Scrollable],
-                declarations: [Scrollable],
-                providers: [SCROLL_DISPATCHER_PROVIDER, ScrollStrategyOptions],
-            },] },
-];
-/**
- * @nocollapse
- */
-ScrollDispatchModule.ctorParameters = () => [];
 
 class MdRippleModule {
 }
@@ -1799,1642 +1229,6 @@ MdOptionModule.decorators = [
  * @nocollapse
  */
 MdOptionModule.ctorParameters = () => [];
-
-/**
- * OverlayState is a bag of values for either the initial configuration or current state of an
- * overlay.
- */
-class OverlayState {
-    constructor() {
-        /**
-         * Strategy to be used when handling scroll events while the overlay is open.
-         */
-        this.scrollStrategy = new NoopScrollStrategy();
-        /**
-         * Custom class to add to the overlay pane.
-         */
-        this.panelClass = '';
-        /**
-         * Whether the overlay has a backdrop.
-         */
-        this.hasBackdrop = false;
-        /**
-         * Custom class to add to the backdrop
-         */
-        this.backdropClass = 'cdk-overlay-dark-backdrop';
-        /**
-         * The direction of the text in the overlay panel.
-         */
-        this.direction = 'ltr';
-        // TODO(jelbourn): configuration still to add
-        // - focus trap
-        // - disable pointer events
-        // - z-index
-    }
-}
-
-/**
- * Reference to an overlay that has been created with the Overlay service.
- * Used to manipulate or dispose of said overlay.
- */
-class OverlayRef {
-    /**
-     * @param {?} _portalHost
-     * @param {?} _pane
-     * @param {?} _state
-     * @param {?} _ngZone
-     */
-    constructor(_portalHost, _pane, _state, _ngZone) {
-        this._portalHost = _portalHost;
-        this._pane = _pane;
-        this._state = _state;
-        this._ngZone = _ngZone;
-        this._backdropElement = null;
-        this._backdropClick = new Subject();
-        this._attachments = new Subject();
-        this._detachments = new Subject();
-        _state.scrollStrategy.attach(this);
-    }
-    /**
-     * The overlay's HTML element
-     * @return {?}
-     */
-    get overlayElement() {
-        return this._pane;
-    }
-    /**
-     * Attaches the overlay to a portal instance and adds the backdrop.
-     * @param {?} portal Portal instance to which to attach the overlay.
-     * @return {?} The portal attachment result.
-     */
-    attach(portal) {
-        let /** @type {?} */ attachResult = this._portalHost.attach(portal);
-        // Update the pane element with the given state configuration.
-        this._updateStackingOrder();
-        this.updateSize();
-        this.updateDirection();
-        this.updatePosition();
-        this._state.scrollStrategy.enable();
-        // Enable pointer events for the overlay pane element.
-        this._togglePointerEvents(true);
-        if (this._state.hasBackdrop) {
-            this._attachBackdrop();
-        }
-        if (this._state.panelClass) {
-            // We can't do a spread here, because IE doesn't support setting multiple classes.
-            if (Array.isArray(this._state.panelClass)) {
-                this._state.panelClass.forEach(cls => this._pane.classList.add(cls));
-            }
-            else {
-                this._pane.classList.add(this._state.panelClass);
-            }
-        }
-        // Only emit the `attachments` event once all other setup is done.
-        this._attachments.next();
-        return attachResult;
-    }
-    /**
-     * Detaches an overlay from a portal.
-     * @return {?} Resolves when the overlay has been detached.
-     */
-    detach() {
-        this.detachBackdrop();
-        // When the overlay is detached, the pane element should disable pointer events.
-        // This is necessary because otherwise the pane element will cover the page and disable
-        // pointer events therefore. Depends on the position strategy and the applied pane boundaries.
-        this._togglePointerEvents(false);
-        this._state.scrollStrategy.disable();
-        let /** @type {?} */ detachmentResult = this._portalHost.detach();
-        // Only emit after everything is detached.
-        this._detachments.next();
-        return detachmentResult;
-    }
-    /**
-     * Cleans up the overlay from the DOM.
-     * @return {?}
-     */
-    dispose() {
-        if (this._state.positionStrategy) {
-            this._state.positionStrategy.dispose();
-        }
-        this._state.scrollStrategy.disable();
-        this.detachBackdrop();
-        this._portalHost.dispose();
-        this._attachments.complete();
-        this._backdropClick.complete();
-        this._detachments.next();
-        this._detachments.complete();
-    }
-    /**
-     * Checks whether the overlay has been attached.
-     * @return {?}
-     */
-    hasAttached() {
-        return this._portalHost.hasAttached();
-    }
-    /**
-     * Returns an observable that emits when the backdrop has been clicked.
-     * @return {?}
-     */
-    backdropClick() {
-        return this._backdropClick.asObservable();
-    }
-    /**
-     * Returns an observable that emits when the overlay has been attached.
-     * @return {?}
-     */
-    attachments() {
-        return this._attachments.asObservable();
-    }
-    /**
-     * Returns an observable that emits when the overlay has been detached.
-     * @return {?}
-     */
-    detachments() {
-        return this._detachments.asObservable();
-    }
-    /**
-     * Gets the current state config of the overlay.
-     * @return {?}
-     */
-    getState() {
-        return this._state;
-    }
-    /**
-     * Updates the position of the overlay based on the position strategy.
-     * @return {?}
-     */
-    updatePosition() {
-        if (this._state.positionStrategy) {
-            this._state.positionStrategy.apply(this._pane);
-        }
-    }
-    /**
-     * Updates the text direction of the overlay panel.
-     * @return {?}
-     */
-    updateDirection() {
-        this._pane.setAttribute('dir', /** @type {?} */ ((this._state.direction)));
-    }
-    /**
-     * Updates the size of the overlay based on the overlay config.
-     * @return {?}
-     */
-    updateSize() {
-        if (this._state.width || this._state.width === 0) {
-            this._pane.style.width = formatCssUnit(this._state.width);
-        }
-        if (this._state.height || this._state.height === 0) {
-            this._pane.style.height = formatCssUnit(this._state.height);
-        }
-        if (this._state.minWidth || this._state.minWidth === 0) {
-            this._pane.style.minWidth = formatCssUnit(this._state.minWidth);
-        }
-        if (this._state.minHeight || this._state.minHeight === 0) {
-            this._pane.style.minHeight = formatCssUnit(this._state.minHeight);
-        }
-    }
-    /**
-     * Toggles the pointer events for the overlay pane element.
-     * @param {?} enablePointer
-     * @return {?}
-     */
-    _togglePointerEvents(enablePointer) {
-        this._pane.style.pointerEvents = enablePointer ? 'auto' : 'none';
-    }
-    /**
-     * Attaches a backdrop for this overlay.
-     * @return {?}
-     */
-    _attachBackdrop() {
-        this._backdropElement = document.createElement('div');
-        this._backdropElement.classList.add('cdk-overlay-backdrop');
-        if (this._state.backdropClass) {
-            this._backdropElement.classList.add(this._state.backdropClass);
-        } /** @type {?} */
-        ((
-        // Insert the backdrop before the pane in the DOM order,
-        // in order to handle stacked overlays properly.
-        this._pane.parentElement)).insertBefore(this._backdropElement, this._pane);
-        // Forward backdrop clicks such that the consumer of the overlay can perform whatever
-        // action desired when such a click occurs (usually closing the overlay).
-        this._backdropElement.addEventListener('click', () => this._backdropClick.next(null));
-        // Add class to fade-in the backdrop after one frame.
-        requestAnimationFrame(() => {
-            if (this._backdropElement) {
-                this._backdropElement.classList.add('cdk-overlay-backdrop-showing');
-            }
-        });
-    }
-    /**
-     * Updates the stacking order of the element, moving it to the top if necessary.
-     * This is required in cases where one overlay was detached, while another one,
-     * that should be behind it, was destroyed. The next time both of them are opened,
-     * the stacking will be wrong, because the detached element's pane will still be
-     * in its original DOM position.
-     * @return {?}
-     */
-    _updateStackingOrder() {
-        if (this._pane.nextSibling) {
-            ((this._pane.parentNode)).appendChild(this._pane);
-        }
-    }
-    /**
-     * Detaches the backdrop (if any) associated with the overlay.
-     * @return {?}
-     */
-    detachBackdrop() {
-        let /** @type {?} */ backdropToDetach = this._backdropElement;
-        if (backdropToDetach) {
-            let /** @type {?} */ finishDetach = () => {
-                // It may not be attached to anything in certain cases (e.g. unit tests).
-                if (backdropToDetach && backdropToDetach.parentNode) {
-                    backdropToDetach.parentNode.removeChild(backdropToDetach);
-                }
-                // It is possible that a new portal has been attached to this overlay since we started
-                // removing the backdrop. If that is the case, only clear the backdrop reference if it
-                // is still the same instance that we started to remove.
-                if (this._backdropElement == backdropToDetach) {
-                    this._backdropElement = null;
-                }
-            };
-            backdropToDetach.classList.remove('cdk-overlay-backdrop-showing');
-            if (this._state.backdropClass) {
-                backdropToDetach.classList.remove(this._state.backdropClass);
-            }
-            backdropToDetach.addEventListener('transitionend', finishDetach);
-            // If the backdrop doesn't have a transition, the `transitionend` event won't fire.
-            // In this case we make it unclickable and we try to remove it after a delay.
-            backdropToDetach.style.pointerEvents = 'none';
-            // Run this outside the Angular zone because there's nothing that Angular cares about.
-            // If it were to run inside the Angular zone, every test that used Overlay would have to be
-            // either async or fakeAsync.
-            this._ngZone.runOutsideAngular(() => {
-                setTimeout(finishDetach, 500);
-            });
-        }
-    }
-}
-/**
- * @param {?} value
- * @return {?}
- */
-function formatCssUnit(value) {
-    return typeof value === 'string' ? (value) : `${value}px`;
-}
-
-/** Horizontal dimension of a connection point on the perimeter of the origin or overlay element. */
-/**
- * The points of the origin element and the overlay element to connect.
- */
-class ConnectionPositionPair {
-    /**
-     * @param {?} origin
-     * @param {?} overlay
-     */
-    constructor(origin, overlay) {
-        this.originX = origin.originX;
-        this.originY = origin.originY;
-        this.overlayX = overlay.overlayX;
-        this.overlayY = overlay.overlayY;
-    }
-}
-/**
- * Set of properties regarding the position of the origin and overlay relative to the viewport
- * with respect to the containing Scrollable elements.
- *
- * The overlay and origin are clipped if any part of their bounding client rectangle exceeds the
- * bounds of any one of the strategy's Scrollable's bounding client rectangle.
- *
- * The overlay and origin are outside view if there is no overlap between their bounding client
- * rectangle and any one of the strategy's Scrollable's bounding client rectangle.
- *
- *       -----------                    -----------
- *       | outside |                    | clipped |
- *       |  view   |              --------------------------
- *       |         |              |     |         |        |
- *       ----------               |     -----------        |
- *  --------------------------    |                        |
- *  |                        |    |      Scrollable        |
- *  |                        |    |                        |
- *  |                        |     --------------------------
- *  |      Scrollable        |
- *  |                        |
- *  --------------------------
- */
-class ScrollableViewProperties {
-}
-/**
- * The change event emitted by the strategy when a fallback position is used.
- */
-class ConnectedOverlayPositionChange {
-    /**
-     * @param {?} connectionPair
-     * @param {?} scrollableViewProperties
-     */
-    constructor(connectionPair, scrollableViewProperties) {
-        this.connectionPair = connectionPair;
-        this.scrollableViewProperties = scrollableViewProperties;
-    }
-}
-/**
- * @nocollapse
- */
-ConnectedOverlayPositionChange.ctorParameters = () => [
-    { type: ConnectionPositionPair, },
-    { type: ScrollableViewProperties, decorators: [{ type: Optional },] },
-];
-
-/**
- * A strategy for positioning overlays. Using this strategy, an overlay is given an
- * implicit position relative some origin element. The relative position is defined in terms of
- * a point on the origin element that is connected to a point on the overlay element. For example,
- * a basic dropdown is connecting the bottom-left corner of the origin to the top-left corner
- * of the overlay.
- */
-class ConnectedPositionStrategy {
-    /**
-     * @param {?} _connectedTo
-     * @param {?} _originPos
-     * @param {?} _overlayPos
-     * @param {?} _viewportRuler
-     */
-    constructor(_connectedTo, _originPos, _overlayPos, _viewportRuler) {
-        this._connectedTo = _connectedTo;
-        this._originPos = _originPos;
-        this._overlayPos = _overlayPos;
-        this._viewportRuler = _viewportRuler;
-        this._dir = 'ltr';
-        /**
-         * The offset in pixels for the overlay connection point on the x-axis
-         */
-        this._offsetX = 0;
-        /**
-         * The offset in pixels for the overlay connection point on the y-axis
-         */
-        this._offsetY = 0;
-        /**
-         * The Scrollable containers used to check scrollable view properties on position change.
-         */
-        this.scrollables = [];
-        /**
-         * Ordered list of preferred positions, from most to least desirable.
-         */
-        this._preferredPositions = [];
-        this._onPositionChange = new Subject();
-        this._origin = this._connectedTo.nativeElement;
-        this.withFallbackPosition(_originPos, _overlayPos);
-    }
-    /**
-     * Whether the we're dealing with an RTL context
-     * @return {?}
-     */
-    get _isRtl() {
-        return this._dir === 'rtl';
-    }
-    /**
-     * Emits an event when the connection point changes.
-     * @return {?}
-     */
-    get onPositionChange() {
-        return this._onPositionChange.asObservable();
-    }
-    /**
-     * Ordered list of preferred positions, from most to least desirable.
-     * @return {?}
-     */
-    get positions() {
-        return this._preferredPositions;
-    }
-    /**
-     * To be used to for any cleanup after the element gets destroyed.
-     * @return {?}
-     */
-    dispose() { }
-    /**
-     * Updates the position of the overlay element, using whichever preferred position relative
-     * to the origin fits on-screen.
-     * \@docs-private
-     *
-     * @param {?} element Element to which to apply the CSS styles.
-     * @return {?} Resolves when the styles have been applied.
-     */
-    apply(element) {
-        // Cache the overlay pane element in case re-calculating position is necessary
-        this._pane = element;
-        // We need the bounding rects for the origin and the overlay to determine how to position
-        // the overlay relative to the origin.
-        const /** @type {?} */ originRect = this._origin.getBoundingClientRect();
-        const /** @type {?} */ overlayRect = element.getBoundingClientRect();
-        // We use the viewport rect to determine whether a position would go off-screen.
-        const /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
-        // Fallback point if none of the fallbacks fit into the viewport.
-        let /** @type {?} */ fallbackPoint;
-        let /** @type {?} */ fallbackPosition;
-        // We want to place the overlay in the first of the preferred positions such that the
-        // overlay fits on-screen.
-        for (let /** @type {?} */ pos of this._preferredPositions) {
-            // Get the (x, y) point of connection on the origin, and then use that to get the
-            // (top, left) coordinate for the overlay at `pos`.
-            let /** @type {?} */ originPoint = this._getOriginConnectionPoint(originRect, pos);
-            let /** @type {?} */ overlayPoint = this._getOverlayPoint(originPoint, overlayRect, viewportRect, pos);
-            // If the overlay in the calculated position fits on-screen, put it there and we're done.
-            if (overlayPoint.fitsInViewport) {
-                this._setElementPosition(element, overlayRect, overlayPoint, pos);
-                // Save the last connected position in case the position needs to be re-calculated.
-                this._lastConnectedPosition = pos;
-                return;
-            }
-            else if (!fallbackPoint || fallbackPoint.visibleArea < overlayPoint.visibleArea) {
-                fallbackPoint = overlayPoint;
-                fallbackPosition = pos;
-            }
-        }
-        // If none of the preferred positions were in the viewport, take the one
-        // with the largest visible area.
-        this._setElementPosition(element, overlayRect, /** @type {?} */ ((fallbackPoint)), /** @type {?} */ ((fallbackPosition)));
-    }
-    /**
-     * This re-aligns the overlay element with the trigger in its last calculated position,
-     * even if a position higher in the "preferred positions" list would now fit. This
-     * allows one to re-align the panel without changing the orientation of the panel.
-     * @return {?}
-     */
-    recalculateLastPosition() {
-        const /** @type {?} */ originRect = this._origin.getBoundingClientRect();
-        const /** @type {?} */ overlayRect = this._pane.getBoundingClientRect();
-        const /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
-        const /** @type {?} */ lastPosition = this._lastConnectedPosition || this._preferredPositions[0];
-        let /** @type {?} */ originPoint = this._getOriginConnectionPoint(originRect, lastPosition);
-        let /** @type {?} */ overlayPoint = this._getOverlayPoint(originPoint, overlayRect, viewportRect, lastPosition);
-        this._setElementPosition(this._pane, overlayRect, overlayPoint, lastPosition);
-    }
-    /**
-     * Sets the list of Scrollable containers that host the origin element so that
-     * on reposition we can evaluate if it or the overlay has been clipped or outside view. Every
-     * Scrollable must be an ancestor element of the strategy's origin element.
-     * @param {?} scrollables
-     * @return {?}
-     */
-    withScrollableContainers(scrollables) {
-        this.scrollables = scrollables;
-    }
-    /**
-     * Adds a new preferred fallback position.
-     * @param {?} originPos
-     * @param {?} overlayPos
-     * @return {?}
-     */
-    withFallbackPosition(originPos, overlayPos) {
-        this._preferredPositions.push(new ConnectionPositionPair(originPos, overlayPos));
-        return this;
-    }
-    /**
-     * Sets the layout direction so the overlay's position can be adjusted to match.
-     * @param {?} dir New layout direction.
-     * @return {?}
-     */
-    withDirection(dir) {
-        this._dir = dir;
-        return this;
-    }
-    /**
-     * Sets an offset for the overlay's connection point on the x-axis
-     * @param {?} offset New offset in the X axis.
-     * @return {?}
-     */
-    withOffsetX(offset) {
-        this._offsetX = offset;
-        return this;
-    }
-    /**
-     * Sets an offset for the overlay's connection point on the y-axis
-     * @param {?} offset New offset in the Y axis.
-     * @return {?}
-     */
-    withOffsetY(offset) {
-        this._offsetY = offset;
-        return this;
-    }
-    /**
-     * Gets the horizontal (x) "start" dimension based on whether the overlay is in an RTL context.
-     * @param {?} rect
-     * @return {?}
-     */
-    _getStartX(rect) {
-        return this._isRtl ? rect.right : rect.left;
-    }
-    /**
-     * Gets the horizontal (x) "end" dimension based on whether the overlay is in an RTL context.
-     * @param {?} rect
-     * @return {?}
-     */
-    _getEndX(rect) {
-        return this._isRtl ? rect.left : rect.right;
-    }
-    /**
-     * Gets the (x, y) coordinate of a connection point on the origin based on a relative position.
-     * @param {?} originRect
-     * @param {?} pos
-     * @return {?}
-     */
-    _getOriginConnectionPoint(originRect, pos) {
-        const /** @type {?} */ originStartX = this._getStartX(originRect);
-        const /** @type {?} */ originEndX = this._getEndX(originRect);
-        let /** @type {?} */ x;
-        if (pos.originX == 'center') {
-            x = originStartX + (originRect.width / 2);
-        }
-        else {
-            x = pos.originX == 'start' ? originStartX : originEndX;
-        }
-        let /** @type {?} */ y;
-        if (pos.originY == 'center') {
-            y = originRect.top + (originRect.height / 2);
-        }
-        else {
-            y = pos.originY == 'top' ? originRect.top : originRect.bottom;
-        }
-        return { x, y };
-    }
-    /**
-     * Gets the (x, y) coordinate of the top-left corner of the overlay given a given position and
-     * origin point to which the overlay should be connected, as well as how much of the element
-     * would be inside the viewport at that position.
-     * @param {?} originPoint
-     * @param {?} overlayRect
-     * @param {?} viewportRect
-     * @param {?} pos
-     * @return {?}
-     */
-    _getOverlayPoint(originPoint, overlayRect, viewportRect, pos) {
-        // Calculate the (overlayStartX, overlayStartY), the start of the potential overlay position
-        // relative to the origin point.
-        let /** @type {?} */ overlayStartX;
-        if (pos.overlayX == 'center') {
-            overlayStartX = -overlayRect.width / 2;
-        }
-        else if (pos.overlayX === 'start') {
-            overlayStartX = this._isRtl ? -overlayRect.width : 0;
-        }
-        else {
-            overlayStartX = this._isRtl ? 0 : -overlayRect.width;
-        }
-        let /** @type {?} */ overlayStartY;
-        if (pos.overlayY == 'center') {
-            overlayStartY = -overlayRect.height / 2;
-        }
-        else {
-            overlayStartY = pos.overlayY == 'top' ? 0 : -overlayRect.height;
-        }
-        // The (x, y) coordinates of the overlay.
-        let /** @type {?} */ x = originPoint.x + overlayStartX + this._offsetX;
-        let /** @type {?} */ y = originPoint.y + overlayStartY + this._offsetY;
-        // How much the overlay would overflow at this position, on each side.
-        let /** @type {?} */ leftOverflow = 0 - x;
-        let /** @type {?} */ rightOverflow = (x + overlayRect.width) - viewportRect.width;
-        let /** @type {?} */ topOverflow = 0 - y;
-        let /** @type {?} */ bottomOverflow = (y + overlayRect.height) - viewportRect.height;
-        // Visible parts of the element on each axis.
-        let /** @type {?} */ visibleWidth = this._subtractOverflows(overlayRect.width, leftOverflow, rightOverflow);
-        let /** @type {?} */ visibleHeight = this._subtractOverflows(overlayRect.height, topOverflow, bottomOverflow);
-        // The area of the element that's within the viewport.
-        let /** @type {?} */ visibleArea = visibleWidth * visibleHeight;
-        let /** @type {?} */ fitsInViewport = (overlayRect.width * overlayRect.height) === visibleArea;
-        return { x, y, fitsInViewport, visibleArea };
-    }
-    /**
-     * Gets the view properties of the trigger and overlay, including whether they are clipped
-     * or completely outside the view of any of the strategy's scrollables.
-     * @param {?} overlay
-     * @return {?}
-     */
-    getScrollableViewProperties(overlay) {
-        const /** @type {?} */ originBounds = this._getElementBounds(this._origin);
-        const /** @type {?} */ overlayBounds = this._getElementBounds(overlay);
-        const /** @type {?} */ scrollContainerBounds = this.scrollables.map((scrollable) => {
-            return this._getElementBounds(scrollable.getElementRef().nativeElement);
-        });
-        return {
-            isOriginClipped: this.isElementClipped(originBounds, scrollContainerBounds),
-            isOriginOutsideView: this.isElementOutsideView(originBounds, scrollContainerBounds),
-            isOverlayClipped: this.isElementClipped(overlayBounds, scrollContainerBounds),
-            isOverlayOutsideView: this.isElementOutsideView(overlayBounds, scrollContainerBounds),
-        };
-    }
-    /**
-     * Whether the element is completely out of the view of any of the containers.
-     * @param {?} elementBounds
-     * @param {?} containersBounds
-     * @return {?}
-     */
-    isElementOutsideView(elementBounds, containersBounds) {
-        return containersBounds.some((containerBounds) => {
-            const /** @type {?} */ outsideAbove = elementBounds.bottom < containerBounds.top;
-            const /** @type {?} */ outsideBelow = elementBounds.top > containerBounds.bottom;
-            const /** @type {?} */ outsideLeft = elementBounds.right < containerBounds.left;
-            const /** @type {?} */ outsideRight = elementBounds.left > containerBounds.right;
-            return outsideAbove || outsideBelow || outsideLeft || outsideRight;
-        });
-    }
-    /**
-     * Whether the element is clipped by any of the containers.
-     * @param {?} elementBounds
-     * @param {?} containersBounds
-     * @return {?}
-     */
-    isElementClipped(elementBounds, containersBounds) {
-        return containersBounds.some((containerBounds) => {
-            const /** @type {?} */ clippedAbove = elementBounds.top < containerBounds.top;
-            const /** @type {?} */ clippedBelow = elementBounds.bottom > containerBounds.bottom;
-            const /** @type {?} */ clippedLeft = elementBounds.left < containerBounds.left;
-            const /** @type {?} */ clippedRight = elementBounds.right > containerBounds.right;
-            return clippedAbove || clippedBelow || clippedLeft || clippedRight;
-        });
-    }
-    /**
-     * Physically positions the overlay element to the given coordinate.
-     * @param {?} element
-     * @param {?} overlayRect
-     * @param {?} overlayPoint
-     * @param {?} pos
-     * @return {?}
-     */
-    _setElementPosition(element, overlayRect, overlayPoint, pos) {
-        // We want to set either `top` or `bottom` based on whether the overlay wants to appear above
-        // or below the origin and the direction in which the element will expand.
-        let /** @type {?} */ verticalStyleProperty = pos.overlayY === 'bottom' ? 'bottom' : 'top';
-        // When using `bottom`, we adjust the y position such that it is the distance
-        // from the bottom of the viewport rather than the top.
-        let /** @type {?} */ y = verticalStyleProperty === 'top' ?
-            overlayPoint.y :
-            document.documentElement.clientHeight - (overlayPoint.y + overlayRect.height);
-        // We want to set either `left` or `right` based on whether the overlay wants to appear "before"
-        // or "after" the origin, which determines the direction in which the element will expand.
-        // For the horizontal axis, the meaning of "before" and "after" change based on whether the
-        // page is in RTL or LTR.
-        let /** @type {?} */ horizontalStyleProperty;
-        if (this._dir === 'rtl') {
-            horizontalStyleProperty = pos.overlayX === 'end' ? 'left' : 'right';
-        }
-        else {
-            horizontalStyleProperty = pos.overlayX === 'end' ? 'right' : 'left';
-        }
-        // When we're setting `right`, we adjust the x position such that it is the distance
-        // from the right edge of the viewport rather than the left edge.
-        let /** @type {?} */ x = horizontalStyleProperty === 'left' ?
-            overlayPoint.x :
-            document.documentElement.clientWidth - (overlayPoint.x + overlayRect.width);
-        // Reset any existing styles. This is necessary in case the preferred position has
-        // changed since the last `apply`.
-        ['top', 'bottom', 'left', 'right'].forEach(p => element.style[p] = null);
-        element.style[verticalStyleProperty] = `${y}px`;
-        element.style[horizontalStyleProperty] = `${x}px`;
-        // Notify that the position has been changed along with its change properties.
-        const /** @type {?} */ scrollableViewProperties = this.getScrollableViewProperties(element);
-        const /** @type {?} */ positionChange = new ConnectedOverlayPositionChange(pos, scrollableViewProperties);
-        this._onPositionChange.next(positionChange);
-    }
-    /**
-     * Returns the bounding positions of the provided element with respect to the viewport.
-     * @param {?} element
-     * @return {?}
-     */
-    _getElementBounds(element) {
-        const /** @type {?} */ boundingClientRect = element.getBoundingClientRect();
-        return {
-            top: boundingClientRect.top,
-            right: boundingClientRect.left + boundingClientRect.width,
-            bottom: boundingClientRect.top + boundingClientRect.height,
-            left: boundingClientRect.left
-        };
-    }
-    /**
-     * Subtracts the amount that an element is overflowing on an axis from it's length.
-     * @param {?} length
-     * @param {...?} overflows
-     * @return {?}
-     */
-    _subtractOverflows(length, ...overflows) {
-        return overflows.reduce((currentValue, currentOverflow) => {
-            return currentValue - Math.max(currentOverflow, 0);
-        }, length);
-    }
-}
-
-/**
- * A strategy for positioning overlays. Using this strategy, an overlay is given an
- * explicit position relative to the browser's viewport. We use flexbox, instead of
- * transforms, in order to avoid issues with subpixel rendering which can cause the
- * element to become blurry.
- */
-class GlobalPositionStrategy {
-    constructor() {
-        this._cssPosition = 'static';
-        this._topOffset = '';
-        this._bottomOffset = '';
-        this._leftOffset = '';
-        this._rightOffset = '';
-        this._alignItems = '';
-        this._justifyContent = '';
-        this._width = '';
-        this._height = '';
-        this._wrapper = null;
-    }
-    /**
-     * Sets the top position of the overlay. Clears any previously set vertical position.
-     * @param {?=} value New top offset.
-     * @return {?}
-     */
-    top(value = '') {
-        this._bottomOffset = '';
-        this._topOffset = value;
-        this._alignItems = 'flex-start';
-        return this;
-    }
-    /**
-     * Sets the left position of the overlay. Clears any previously set horizontal position.
-     * @param {?=} value New left offset.
-     * @return {?}
-     */
-    left(value = '') {
-        this._rightOffset = '';
-        this._leftOffset = value;
-        this._justifyContent = 'flex-start';
-        return this;
-    }
-    /**
-     * Sets the bottom position of the overlay. Clears any previously set vertical position.
-     * @param {?=} value New bottom offset.
-     * @return {?}
-     */
-    bottom(value = '') {
-        this._topOffset = '';
-        this._bottomOffset = value;
-        this._alignItems = 'flex-end';
-        return this;
-    }
-    /**
-     * Sets the right position of the overlay. Clears any previously set horizontal position.
-     * @param {?=} value New right offset.
-     * @return {?}
-     */
-    right(value = '') {
-        this._leftOffset = '';
-        this._rightOffset = value;
-        this._justifyContent = 'flex-end';
-        return this;
-    }
-    /**
-     * Sets the overlay width and clears any previously set width.
-     * @param {?=} value New width for the overlay
-     * @return {?}
-     */
-    width(value = '') {
-        this._width = value;
-        // When the width is 100%, we should reset the `left` and the offset,
-        // in order to ensure that the element is flush against the viewport edge.
-        if (value === '100%') {
-            this.left('0px');
-        }
-        return this;
-    }
-    /**
-     * Sets the overlay height and clears any previously set height.
-     * @param {?=} value New height for the overlay
-     * @return {?}
-     */
-    height(value = '') {
-        this._height = value;
-        // When the height is 100%, we should reset the `top` and the offset,
-        // in order to ensure that the element is flush against the viewport edge.
-        if (value === '100%') {
-            this.top('0px');
-        }
-        return this;
-    }
-    /**
-     * Centers the overlay horizontally with an optional offset.
-     * Clears any previously set horizontal position.
-     *
-     * @param {?=} offset Overlay offset from the horizontal center.
-     * @return {?}
-     */
-    centerHorizontally(offset = '') {
-        this.left(offset);
-        this._justifyContent = 'center';
-        return this;
-    }
-    /**
-     * Centers the overlay vertically with an optional offset.
-     * Clears any previously set vertical position.
-     *
-     * @param {?=} offset Overlay offset from the vertical center.
-     * @return {?}
-     */
-    centerVertically(offset = '') {
-        this.top(offset);
-        this._alignItems = 'center';
-        return this;
-    }
-    /**
-     * Apply the position to the element.
-     * \@docs-private
-     *
-     * @param {?} element Element to which to apply the CSS.
-     * @return {?} Resolved when the styles have been applied.
-     */
-    apply(element) {
-        if (!this._wrapper && element.parentNode) {
-            this._wrapper = document.createElement('div');
-            this._wrapper.classList.add('cdk-global-overlay-wrapper');
-            element.parentNode.insertBefore(this._wrapper, element);
-            this._wrapper.appendChild(element);
-        }
-        let /** @type {?} */ styles = element.style;
-        let /** @type {?} */ parentStyles = ((element.parentNode)).style;
-        styles.position = this._cssPosition;
-        styles.marginTop = this._topOffset;
-        styles.marginLeft = this._leftOffset;
-        styles.marginBottom = this._bottomOffset;
-        styles.marginRight = this._rightOffset;
-        styles.width = this._width;
-        styles.height = this._height;
-        parentStyles.justifyContent = this._justifyContent;
-        parentStyles.alignItems = this._alignItems;
-    }
-    /**
-     * Removes the wrapper element from the DOM.
-     * @return {?}
-     */
-    dispose() {
-        if (this._wrapper && this._wrapper.parentNode) {
-            this._wrapper.parentNode.removeChild(this._wrapper);
-            this._wrapper = null;
-        }
-    }
-}
-
-/**
- * Builder for overlay position strategy.
- */
-class OverlayPositionBuilder {
-    /**
-     * @param {?} _viewportRuler
-     */
-    constructor(_viewportRuler) {
-        this._viewportRuler = _viewportRuler;
-    }
-    /**
-     * Creates a global position strategy.
-     * @return {?}
-     */
-    global() {
-        return new GlobalPositionStrategy();
-    }
-    /**
-     * Creates a relative position strategy.
-     * @param {?} elementRef
-     * @param {?} originPos
-     * @param {?} overlayPos
-     * @return {?}
-     */
-    connectedTo(elementRef, originPos, overlayPos) {
-        return new ConnectedPositionStrategy(elementRef, originPos, overlayPos, this._viewportRuler);
-    }
-}
-OverlayPositionBuilder.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-OverlayPositionBuilder.ctorParameters = () => [
-    { type: ViewportRuler, },
-];
-
-/**
- * The OverlayContainer is the container in which all overlays will load.
- * It should be provided in the root component to ensure it is properly shared.
- */
-class OverlayContainer {
-    /**
-     * Base theme to be applied to all overlay-based components.
-     * @return {?}
-     */
-    get themeClass() { return this._themeClass; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set themeClass(value) {
-        if (this._containerElement) {
-            if (this._themeClass) {
-                this._containerElement.classList.remove(this._themeClass);
-            }
-            if (value) {
-                this._containerElement.classList.add(value);
-            }
-        }
-        this._themeClass = value;
-    }
-    /**
-     * This method returns the overlay container element.  It will lazily
-     * create the element the first time  it is called to facilitate using
-     * the container in non-browser environments.
-     * @return {?} the container element
-     */
-    getContainerElement() {
-        if (!this._containerElement) {
-            this._createContainer();
-        }
-        return this._containerElement;
-    }
-    /**
-     * Create the overlay container element, which is simply a div
-     * with the 'cdk-overlay-container' class on the document body.
-     * @return {?}
-     */
-    _createContainer() {
-        let /** @type {?} */ container = document.createElement('div');
-        container.classList.add('cdk-overlay-container');
-        if (this._themeClass) {
-            container.classList.add(this._themeClass);
-        }
-        document.body.appendChild(container);
-        this._containerElement = container;
-    }
-}
-OverlayContainer.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-OverlayContainer.ctorParameters = () => [];
-/**
- * \@docs-private
- * @param {?} parentContainer
- * @return {?}
- */
-function OVERLAY_CONTAINER_PROVIDER_FACTORY(parentContainer) {
-    return parentContainer || new OverlayContainer();
-}
-/**
- * \@docs-private
- */
-const OVERLAY_CONTAINER_PROVIDER = {
-    // If there is already an OverlayContainer available, use that. Otherwise, provide a new one.
-    provide: OverlayContainer,
-    deps: [[new Optional(), new SkipSelf(), OverlayContainer]],
-    useFactory: OVERLAY_CONTAINER_PROVIDER_FACTORY
-};
-
-/**
- * Next overlay unique ID.
- */
-let nextUniqueId = 0;
-/**
- * The default state for newly created overlays.
- */
-let defaultState = new OverlayState();
-/**
- * Service to create Overlays. Overlays are dynamically added pieces of floating UI, meant to be
- * used as a low-level building building block for other components. Dialogs, tooltips, menus,
- * selects, etc. can all be built using overlays. The service should primarily be used by authors
- * of re-usable components rather than developers building end-user applications.
- *
- * An overlay *is* a PortalHost, so any kind of Portal can be loaded into one.
- */
-class Overlay {
-    /**
-     * @param {?} scrollStrategies
-     * @param {?} _overlayContainer
-     * @param {?} _componentFactoryResolver
-     * @param {?} _positionBuilder
-     * @param {?} _appRef
-     * @param {?} _injector
-     * @param {?} _ngZone
-     */
-    constructor(scrollStrategies, _overlayContainer, _componentFactoryResolver, _positionBuilder, _appRef, _injector, _ngZone) {
-        this.scrollStrategies = scrollStrategies;
-        this._overlayContainer = _overlayContainer;
-        this._componentFactoryResolver = _componentFactoryResolver;
-        this._positionBuilder = _positionBuilder;
-        this._appRef = _appRef;
-        this._injector = _injector;
-        this._ngZone = _ngZone;
-    }
-    /**
-     * Creates an overlay.
-     * @param {?=} state State to apply to the overlay.
-     * @return {?} Reference to the created overlay.
-     */
-    create(state$$1 = defaultState) {
-        const /** @type {?} */ pane = this._createPaneElement();
-        const /** @type {?} */ portalHost = this._createPortalHost(pane);
-        return new OverlayRef(portalHost, pane, state$$1, this._ngZone);
-    }
-    /**
-     * Returns a position builder that can be used, via fluent API,
-     * to construct and configure a position strategy.
-     * @return {?}
-     */
-    position() {
-        return this._positionBuilder;
-    }
-    /**
-     * Creates the DOM element for an overlay and appends it to the overlay container.
-     * @return {?} Newly-created pane element
-     */
-    _createPaneElement() {
-        let /** @type {?} */ pane = document.createElement('div');
-        pane.id = `cdk-overlay-${nextUniqueId++}`;
-        pane.classList.add('cdk-overlay-pane');
-        this._overlayContainer.getContainerElement().appendChild(pane);
-        return pane;
-    }
-    /**
-     * Create a DomPortalHost into which the overlay content can be loaded.
-     * @param {?} pane The DOM element to turn into a portal host.
-     * @return {?} A portal host for the given DOM element.
-     */
-    _createPortalHost(pane) {
-        return new DomPortalHost(pane, this._componentFactoryResolver, this._appRef, this._injector);
-    }
-}
-Overlay.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-Overlay.ctorParameters = () => [
-    { type: ScrollStrategyOptions, },
-    { type: OverlayContainer, },
-    { type: ComponentFactoryResolver, },
-    { type: OverlayPositionBuilder, },
-    { type: ApplicationRef, },
-    { type: Injector, },
-    { type: NgZone, },
-];
-
-/**
- * Default set of positions for the overlay. Follows the behavior of a dropdown.
- */
-const defaultPositionList = [
-    new ConnectionPositionPair({ originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' }),
-    new ConnectionPositionPair({ originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' }),
-];
-/**
- * Injection token that determines the scroll handling while the connected overlay is open.
- */
-const MD_CONNECTED_OVERLAY_SCROLL_STRATEGY = new InjectionToken('md-connected-overlay-scroll-strategy');
-/**
- * \@docs-private
- * @param {?} overlay
- * @return {?}
- */
-function MD_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
-    return () => overlay.scrollStrategies.reposition();
-}
-/**
- * \@docs-private
- */
-const MD_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER = {
-    provide: MD_CONNECTED_OVERLAY_SCROLL_STRATEGY,
-    deps: [Overlay],
-    useFactory: MD_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY,
-};
-/**
- * Directive applied to an element to make it usable as an origin for an Overlay using a
- * ConnectedPositionStrategy.
- */
-class OverlayOrigin {
-    /**
-     * @param {?} elementRef
-     */
-    constructor(elementRef) {
-        this.elementRef = elementRef;
-    }
-}
-OverlayOrigin.decorators = [
-    { type: Directive, args: [{
-                selector: '[cdk-overlay-origin], [overlay-origin], [cdkOverlayOrigin]',
-                exportAs: 'cdkOverlayOrigin',
-            },] },
-];
-/**
- * @nocollapse
- */
-OverlayOrigin.ctorParameters = () => [
-    { type: ElementRef, },
-];
-/**
- * Directive to facilitate declarative creation of an Overlay using a ConnectedPositionStrategy.
- */
-class ConnectedOverlayDirective {
-    /**
-     * @param {?} _overlay
-     * @param {?} _renderer
-     * @param {?} templateRef
-     * @param {?} viewContainerRef
-     * @param {?} _scrollStrategy
-     * @param {?} _dir
-     */
-    constructor(_overlay, _renderer, templateRef, viewContainerRef, _scrollStrategy, _dir) {
-        this._overlay = _overlay;
-        this._renderer = _renderer;
-        this._scrollStrategy = _scrollStrategy;
-        this._dir = _dir;
-        this._hasBackdrop = false;
-        this._offsetX = 0;
-        this._offsetY = 0;
-        /**
-         * Strategy to be used when handling scroll events while the overlay is open.
-         */
-        this.scrollStrategy = this._scrollStrategy();
-        /**
-         * Whether the overlay is open.
-         */
-        this.open = false;
-        /**
-         * Event emitted when the backdrop is clicked.
-         */
-        this.backdropClick = new EventEmitter();
-        /**
-         * Event emitted when the position has changed.
-         */
-        this.positionChange = new EventEmitter();
-        /**
-         * Event emitted when the overlay has been attached.
-         */
-        this.attach = new EventEmitter();
-        /**
-         * Event emitted when the overlay has been detached.
-         */
-        this.detach = new EventEmitter();
-        this._templatePortal = new TemplatePortal(templateRef, viewContainerRef);
-    }
-    /**
-     * The offset in pixels for the overlay connection point on the x-axis
-     * @return {?}
-     */
-    get offsetX() { return this._offsetX; }
-    /**
-     * @param {?} offsetX
-     * @return {?}
-     */
-    set offsetX(offsetX) {
-        this._offsetX = offsetX;
-        if (this._position) {
-            this._position.withOffsetX(offsetX);
-        }
-    }
-    /**
-     * The offset in pixels for the overlay connection point on the y-axis
-     * @return {?}
-     */
-    get offsetY() { return this._offsetY; }
-    /**
-     * @param {?} offsetY
-     * @return {?}
-     */
-    set offsetY(offsetY) {
-        this._offsetY = offsetY;
-        if (this._position) {
-            this._position.withOffsetY(offsetY);
-        }
-    }
-    /**
-     * Whether or not the overlay should attach a backdrop.
-     * @return {?}
-     */
-    get hasBackdrop() { return this._hasBackdrop; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set hasBackdrop(value) { this._hasBackdrop = coerceBooleanProperty(value); }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    get _deprecatedOrigin() { return this.origin; }
-    /**
-     * @param {?} _origin
-     * @return {?}
-     */
-    set _deprecatedOrigin(_origin) { this.origin = _origin; }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    get _deprecatedPositions() { return this.positions; }
-    /**
-     * @param {?} _positions
-     * @return {?}
-     */
-    set _deprecatedPositions(_positions) { this.positions = _positions; }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    get _deprecatedOffsetX() { return this.offsetX; }
-    /**
-     * @param {?} _offsetX
-     * @return {?}
-     */
-    set _deprecatedOffsetX(_offsetX) { this.offsetX = _offsetX; }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    get _deprecatedOffsetY() { return this.offsetY; }
-    /**
-     * @param {?} _offsetY
-     * @return {?}
-     */
-    set _deprecatedOffsetY(_offsetY) { this.offsetY = _offsetY; }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    get _deprecatedWidth() { return this.width; }
-    /**
-     * @param {?} _width
-     * @return {?}
-     */
-    set _deprecatedWidth(_width) { this.width = _width; }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    get _deprecatedHeight() { return this.height; }
-    /**
-     * @param {?} _height
-     * @return {?}
-     */
-    set _deprecatedHeight(_height) { this.height = _height; }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    get _deprecatedMinWidth() { return this.minWidth; }
-    /**
-     * @param {?} _minWidth
-     * @return {?}
-     */
-    set _deprecatedMinWidth(_minWidth) { this.minWidth = _minWidth; }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    get _deprecatedMinHeight() { return this.minHeight; }
-    /**
-     * @param {?} _minHeight
-     * @return {?}
-     */
-    set _deprecatedMinHeight(_minHeight) { this.minHeight = _minHeight; }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    get _deprecatedBackdropClass() { return this.backdropClass; }
-    /**
-     * @param {?} _backdropClass
-     * @return {?}
-     */
-    set _deprecatedBackdropClass(_backdropClass) { this.backdropClass = _backdropClass; }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    get _deprecatedScrollStrategy() { return this.scrollStrategy; }
-    /**
-     * @param {?} _scrollStrategy
-     * @return {?}
-     */
-    set _deprecatedScrollStrategy(_scrollStrategy) {
-        this.scrollStrategy = _scrollStrategy;
-    }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    get _deprecatedOpen() { return this.open; }
-    /**
-     * @param {?} _open
-     * @return {?}
-     */
-    set _deprecatedOpen(_open) { this.open = _open; }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    get _deprecatedHasBackdrop() { return this.hasBackdrop; }
-    /**
-     * @param {?} _hasBackdrop
-     * @return {?}
-     */
-    set _deprecatedHasBackdrop(_hasBackdrop) { this.hasBackdrop = _hasBackdrop; }
-    /**
-     * The associated overlay reference.
-     * @return {?}
-     */
-    get overlayRef() {
-        return this._overlayRef;
-    }
-    /**
-     * The element's layout direction.
-     * @return {?}
-     */
-    get dir() {
-        return this._dir ? this._dir.value : 'ltr';
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this._destroyOverlay();
-    }
-    /**
-     * @param {?} changes
-     * @return {?}
-     */
-    ngOnChanges(changes) {
-        if (changes['open'] || changes['_deprecatedOpen']) {
-            this.open ? this._attachOverlay() : this._detachOverlay();
-        }
-    }
-    /**
-     * Creates an overlay
-     * @return {?}
-     */
-    _createOverlay() {
-        if (!this.positions || !this.positions.length) {
-            this.positions = defaultPositionList;
-        }
-        this._overlayRef = this._overlay.create(this._buildConfig());
-    }
-    /**
-     * Builds the overlay config based on the directive's inputs
-     * @return {?}
-     */
-    _buildConfig() {
-        let /** @type {?} */ overlayConfig = new OverlayState();
-        if (this.width || this.width === 0) {
-            overlayConfig.width = this.width;
-        }
-        if (this.height || this.height === 0) {
-            overlayConfig.height = this.height;
-        }
-        if (this.minWidth || this.minWidth === 0) {
-            overlayConfig.minWidth = this.minWidth;
-        }
-        if (this.minHeight || this.minHeight === 0) {
-            overlayConfig.minHeight = this.minHeight;
-        }
-        overlayConfig.hasBackdrop = this.hasBackdrop;
-        if (this.backdropClass) {
-            overlayConfig.backdropClass = this.backdropClass;
-        }
-        this._position = (this._createPositionStrategy());
-        overlayConfig.positionStrategy = this._position;
-        overlayConfig.scrollStrategy = this.scrollStrategy;
-        return overlayConfig;
-    }
-    /**
-     * Returns the position strategy of the overlay to be set on the overlay config
-     * @return {?}
-     */
-    _createPositionStrategy() {
-        const /** @type {?} */ pos = this.positions[0];
-        const /** @type {?} */ originPoint = { originX: pos.originX, originY: pos.originY };
-        const /** @type {?} */ overlayPoint = { overlayX: pos.overlayX, overlayY: pos.overlayY };
-        const /** @type {?} */ strategy = this._overlay.position()
-            .connectedTo(this.origin.elementRef, originPoint, overlayPoint)
-            .withOffsetX(this.offsetX)
-            .withOffsetY(this.offsetY);
-        this._handlePositionChanges(strategy);
-        return strategy;
-    }
-    /**
-     * @param {?} strategy
-     * @return {?}
-     */
-    _handlePositionChanges(strategy) {
-        for (let /** @type {?} */ i = 1; i < this.positions.length; i++) {
-            strategy.withFallbackPosition({ originX: this.positions[i].originX, originY: this.positions[i].originY }, { overlayX: this.positions[i].overlayX, overlayY: this.positions[i].overlayY });
-        }
-        this._positionSubscription =
-            strategy.onPositionChange.subscribe(pos => this.positionChange.emit(pos));
-    }
-    /**
-     * Attaches the overlay and subscribes to backdrop clicks if backdrop exists
-     * @return {?}
-     */
-    _attachOverlay() {
-        if (!this._overlayRef) {
-            this._createOverlay();
-        }
-        this._position.withDirection(this.dir);
-        this._overlayRef.getState().direction = this.dir;
-        this._initEscapeListener();
-        if (!this._overlayRef.hasAttached()) {
-            this._overlayRef.attach(this._templatePortal);
-            this.attach.emit();
-        }
-        if (this.hasBackdrop) {
-            this._backdropSubscription = this._overlayRef.backdropClick().subscribe(() => {
-                this.backdropClick.emit();
-            });
-        }
-    }
-    /**
-     * Detaches the overlay and unsubscribes to backdrop clicks if backdrop exists
-     * @return {?}
-     */
-    _detachOverlay() {
-        if (this._overlayRef) {
-            this._overlayRef.detach();
-            this.detach.emit();
-        }
-        if (this._backdropSubscription) {
-            this._backdropSubscription.unsubscribe();
-            this._backdropSubscription = null;
-        }
-        if (this._escapeListener) {
-            this._escapeListener();
-        }
-    }
-    /**
-     * Destroys the overlay created by this directive.
-     * @return {?}
-     */
-    _destroyOverlay() {
-        if (this._overlayRef) {
-            this._overlayRef.dispose();
-        }
-        if (this._backdropSubscription) {
-            this._backdropSubscription.unsubscribe();
-        }
-        if (this._positionSubscription) {
-            this._positionSubscription.unsubscribe();
-        }
-        if (this._escapeListener) {
-            this._escapeListener();
-        }
-    }
-    /**
-     * Sets the event listener that closes the overlay when pressing Escape.
-     * @return {?}
-     */
-    _initEscapeListener() {
-        this._escapeListener = this._renderer.listen('document', 'keydown', (event) => {
-            if (event.keyCode === ESCAPE) {
-                this._detachOverlay();
-            }
-        });
-    }
-}
-ConnectedOverlayDirective.decorators = [
-    { type: Directive, args: [{
-                selector: '[cdk-connected-overlay], [connected-overlay], [cdkConnectedOverlay]',
-                exportAs: 'cdkConnectedOverlay'
-            },] },
-];
-/**
- * @nocollapse
- */
-ConnectedOverlayDirective.ctorParameters = () => [
-    { type: Overlay, },
-    { type: Renderer2, },
-    { type: TemplateRef, },
-    { type: ViewContainerRef, },
-    { type: undefined, decorators: [{ type: Inject, args: [MD_CONNECTED_OVERLAY_SCROLL_STRATEGY,] },] },
-    { type: Directionality, decorators: [{ type: Optional },] },
-];
-ConnectedOverlayDirective.propDecorators = {
-    'origin': [{ type: Input, args: ['cdkConnectedOverlayOrigin',] },],
-    'positions': [{ type: Input, args: ['cdkConnectedOverlayPositions',] },],
-    'offsetX': [{ type: Input, args: ['cdkConnectedOverlayOffsetX',] },],
-    'offsetY': [{ type: Input, args: ['cdkConnectedOverlayOffsetY',] },],
-    'width': [{ type: Input, args: ['cdkConnectedOverlayWidth',] },],
-    'height': [{ type: Input, args: ['cdkConnectedOverlayHeight',] },],
-    'minWidth': [{ type: Input, args: ['cdkConnectedOverlayMinWidth',] },],
-    'minHeight': [{ type: Input, args: ['cdkConnectedOverlayMinHeight',] },],
-    'backdropClass': [{ type: Input, args: ['cdkConnectedOverlayBackdropClass',] },],
-    'scrollStrategy': [{ type: Input, args: ['cdkConnectedOverlayScrollStrategy',] },],
-    'open': [{ type: Input, args: ['cdkConnectedOverlayOpen',] },],
-    'hasBackdrop': [{ type: Input, args: ['cdkConnectedOverlayHasBackdrop',] },],
-    '_deprecatedOrigin': [{ type: Input, args: ['origin',] },],
-    '_deprecatedPositions': [{ type: Input, args: ['positions',] },],
-    '_deprecatedOffsetX': [{ type: Input, args: ['offsetX',] },],
-    '_deprecatedOffsetY': [{ type: Input, args: ['offsetY',] },],
-    '_deprecatedWidth': [{ type: Input, args: ['width',] },],
-    '_deprecatedHeight': [{ type: Input, args: ['height',] },],
-    '_deprecatedMinWidth': [{ type: Input, args: ['minWidth',] },],
-    '_deprecatedMinHeight': [{ type: Input, args: ['minHeight',] },],
-    '_deprecatedBackdropClass': [{ type: Input, args: ['backdropClass',] },],
-    '_deprecatedScrollStrategy': [{ type: Input, args: ['scrollStrategy',] },],
-    '_deprecatedOpen': [{ type: Input, args: ['open',] },],
-    '_deprecatedHasBackdrop': [{ type: Input, args: ['hasBackdrop',] },],
-    'backdropClick': [{ type: Output },],
-    'positionChange': [{ type: Output },],
-    'attach': [{ type: Output },],
-    'detach': [{ type: Output },],
-};
-
-/**
- * The FullscreenOverlayContainer is the alternative to OverlayContainer
- * that supports correct displaying of overlay elements in Fullscreen mode
- * https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullScreen
- * It should be provided in the root component that way:
- * providers: [
- *   {provide: OverlayContainer, useClass: FullscreenOverlayContainer}
- * ],
- */
-class FullscreenOverlayContainer extends OverlayContainer {
-    /**
-     * @return {?}
-     */
-    _createContainer() {
-        super._createContainer();
-        this._adjustParentForFullscreenChange();
-        this._addFullscreenChangeListener(() => this._adjustParentForFullscreenChange());
-    }
-    /**
-     * @return {?}
-     */
-    _adjustParentForFullscreenChange() {
-        if (!this._containerElement) {
-            return;
-        }
-        let /** @type {?} */ fullscreenElement = this.getFullscreenElement();
-        let /** @type {?} */ parent = fullscreenElement || document.body;
-        parent.appendChild(this._containerElement);
-    }
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    _addFullscreenChangeListener(fn) {
-        if (document.fullscreenEnabled) {
-            document.addEventListener('fullscreenchange', fn);
-        }
-        else if (document.webkitFullscreenEnabled) {
-            document.addEventListener('webkitfullscreenchange', fn);
-        }
-        else if (((document)).mozFullScreenEnabled) {
-            document.addEventListener('mozfullscreenchange', fn);
-        }
-        else if (((document)).msFullscreenEnabled) {
-            document.addEventListener('MSFullscreenChange', fn);
-        }
-    }
-    /**
-     * When the page is put into fullscreen mode, a specific element is specified.
-     * Only that element and its children are visible when in fullscreen mode.
-     * @return {?}
-     */
-    getFullscreenElement() {
-        return document.fullscreenElement ||
-            document.webkitFullscreenElement ||
-            ((document)).mozFullScreenElement ||
-            ((document)).msFullscreenElement ||
-            null;
-    }
-}
-FullscreenOverlayContainer.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-FullscreenOverlayContainer.ctorParameters = () => [];
-
-const OVERLAY_PROVIDERS = [
-    Overlay,
-    OverlayPositionBuilder,
-    VIEWPORT_RULER_PROVIDER,
-    OVERLAY_CONTAINER_PROVIDER,
-    MD_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER,
-];
-class OverlayModule {
-}
-OverlayModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [PortalModule, ScrollDispatchModule],
-                exports: [ConnectedOverlayDirective, OverlayOrigin, ScrollDispatchModule],
-                declarations: [ConnectedOverlayDirective, OverlayOrigin],
-                providers: [OVERLAY_PROVIDERS],
-            },] },
-];
-/**
- * @nocollapse
- */
-OverlayModule.ctorParameters = () => [];
 
 class GestureConfig extends HammerGestureConfig {
     constructor() {
@@ -5691,7 +3485,7 @@ MdButtonModule.decorators = [
 MdButtonModule.ctorParameters = () => [];
 
 // Increasing integer for generating unique ids for checkbox components.
-let nextUniqueId$1 = 0;
+let nextUniqueId = 0;
 /**
  * Provider Expression that allows md-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -5758,7 +3552,7 @@ class MdCheckbox extends _MdCheckboxMixinBase {
          * Users can specify the `aria-labelledby` attribute which will be forwarded to the input element
          */
         this.ariaLabelledby = null;
-        this._uniqueId = `md-checkbox-${++nextUniqueId$1}`;
+        this._uniqueId = `md-checkbox-${++nextUniqueId}`;
         /**
          * A unique id for the checkbox input. If none is supplied, it will be auto-generated.
          */
@@ -6173,7 +3967,7 @@ MdCheckboxModule.decorators = [
 MdCheckboxModule.ctorParameters = () => [];
 
 // Increasing integer for generating unique ids for radio components.
-let nextUniqueId$2 = 0;
+let nextUniqueId$1 = 0;
 /**
  * Provider Expression that allows md-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
@@ -6215,7 +4009,7 @@ class MdRadioGroup extends _MdRadioGroupMixinBase {
         /**
          * The HTML name attribute applied to radio buttons in this group.
          */
-        this._name = `md-radio-group-${nextUniqueId$2++}`;
+        this._name = `md-radio-group-${nextUniqueId$1++}`;
         /**
          * The currently selected radio button. Should match value.
          */
@@ -6528,7 +4322,7 @@ class MdRadioButton extends _MdRadioButtonMixinBase {
         this._changeDetector = _changeDetector;
         this._focusOriginMonitor = _focusOriginMonitor;
         this._radioDispatcher = _radioDispatcher;
-        this._uniqueId = `md-radio-${++nextUniqueId$2}`;
+        this._uniqueId = `md-radio-${++nextUniqueId$1}`;
         /**
          * The unique ID for the radio button.
          */
@@ -6855,21 +4649,6 @@ MdRadioModule.decorators = [
  * @nocollapse
  */
 MdRadioModule.ctorParameters = () => [];
-
-class FocusKeyManager extends ListKeyManager {
-    /**
-     * This method sets the active item to the item at the specified index.
-     * It also adds focuses the newly active item.
-     * @param {?} index
-     * @return {?}
-     */
-    setActiveItem(index) {
-        super.setActiveItem(index);
-        if (this.activeItem) {
-            this.activeItem.focus();
-        }
-    }
-}
 
 /**
  * This animation shrinks the placeholder text to 75% of its normal size and translates
@@ -8196,7 +5975,7 @@ MdSelectModule.decorators = [
 MdSelectModule.ctorParameters = () => [];
 
 // Increasing integer for generating unique ids for slide-toggle components.
-let nextUniqueId$3 = 0;
+let nextUniqueId$2 = 0;
 const MD_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MdSlideToggle),
@@ -8239,7 +6018,7 @@ class MdSlideToggle extends _MdSlideToggleMixinBase {
         this._changeDetectorRef = _changeDetectorRef;
         this.onChange = (_) => { };
         this.onTouched = () => { };
-        this._uniqueId = `md-slide-toggle-${++nextUniqueId$3}`;
+        this._uniqueId = `md-slide-toggle-${++nextUniqueId$2}`;
         this._required = false;
         this._checked = false;
         /**
@@ -11514,6 +9293,21 @@ MdChipRemove.ctorParameters = () => [
     { type: MdChip, },
 ];
 
+class FocusKeyManager$1 extends ListKeyManager {
+    /**
+     * This method sets the active item to the item at the specified index.
+     * It also adds focuses the newly active item.
+     * @param {?} index
+     * @return {?}
+     */
+    setActiveItem(index) {
+        super.setActiveItem(index);
+        if (this.activeItem) {
+            this.activeItem.focus();
+        }
+    }
+}
+
 /**
  * A material design chips component (named ChipList for it's similarity to the List component).
  *
@@ -11555,7 +9349,7 @@ class MdChipList {
      * @return {?}
      */
     ngAfterContentInit() {
-        this._keyManager = new FocusKeyManager(this.chips).withWrap();
+        this._keyManager = new FocusKeyManager$1(this.chips).withWrap();
         // Prevents the chip list from capturing focus and redirecting
         // it back to the first chip when the user tabs out.
         this._tabOutSubscription = this._keyManager.tabOut.subscribe(() => {
@@ -11784,7 +9578,7 @@ MdChipList.decorators = [
                 queries: {
                     chips: new ContentChildren(MdChip)
                 },
-                styles: [".mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:flex-start}.mat-chip:not(.mat-basic-chip){transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:inline-flex;padding:7px 12px;border-radius:24px;align-items:center;cursor:default}.mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 0 0 8px}[dir=rtl] .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 8px 0 0}.mat-input-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-right:8px}[dir=rtl] .mat-input-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-left:8px}.mat-chip:not(.mat-basic-chip) .mat-chip-remove.mat-icon{width:1em;height:1em}.mat-chip:not(.mat-basic-chip):focus{box-shadow:0 3px 3px -2px rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12);outline:0}@media screen and (-ms-high-contrast:active){.mat-chip:not(.mat-basic-chip){outline:solid 1px}}.mat-chip-list-stacked .mat-chip-list-wrapper{display:block}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){display:block;margin:0;margin-bottom:8px}[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){margin:0;margin-bottom:8px}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child,[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-bottom:0}.mat-input-prefix .mat-chip-list-wrapper{margin-bottom:8px}.mat-chip-remove{margin-right:-4px;margin-left:6px;cursor:pointer}[dir=rtl] .mat-chip-remove{margin-right:6px;margin-left:-4px}"],
+                styles: [".mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:flex-start}.mat-chip:not(.mat-basic-chip){transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:inline-flex;padding:7px 12px;border-radius:24px;align-items:center;cursor:default}.mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 0 0 8px}[dir=rtl] .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 8px 0 0}.mat-form-field-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-right:8px}[dir=rtl] .mat-form-field-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-left:8px}.mat-chip:not(.mat-basic-chip) .mat-chip-remove.mat-icon{width:1em;height:1em}.mat-chip:not(.mat-basic-chip):focus{box-shadow:0 3px 3px -2px rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12);outline:0}@media screen and (-ms-high-contrast:active){.mat-chip:not(.mat-basic-chip){outline:solid 1px}}.mat-chip-list-stacked .mat-chip-list-wrapper{display:block}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){display:block;margin:0;margin-bottom:8px}[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){margin:0;margin-bottom:8px}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child,[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-bottom:0}.mat-form-field-prefix .mat-chip-list-wrapper{margin-bottom:8px}.mat-chip-remove{margin-right:-4px;margin-left:6px;cursor:pointer}[dir=rtl] .mat-chip-remove{margin-right:6px;margin-left:-4px}"],
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush
             },] },
@@ -13174,53 +10968,123 @@ MdProgressBarModule.ctorParameters = () => [];
 
 /**
  * \@docs-private
- * @return {?}
- */
-function getMdInputContainerPlaceholderConflictError() {
-    return Error('Placeholder attribute and child element were both specified.');
-}
-/**
- * \@docs-private
  * @param {?} type
  * @return {?}
  */
-function getMdInputContainerUnsupportedTypeError(type) {
-    return Error(`Input type "${type}" isn't supported by md-input-container.`);
+function getMdInputUnsupportedTypeError(type) {
+    return Error(`Input type "${type}" isn't supported by mdInput.`);
+}
+
+let nextUniqueId$4 = 0;
+/**
+ * Single error message to be shown underneath the form field.
+ */
+class MdError {
+    constructor() {
+        this.id = `mat-error-${nextUniqueId$4++}`;
+    }
+}
+MdError.decorators = [
+    { type: Directive, args: [{
+                selector: 'md-error, mat-error',
+                host: {
+                    'class': 'mat-error',
+                    'role': 'alert',
+                    '[attr.id]': 'id',
+                }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdError.ctorParameters = () => [];
+MdError.propDecorators = {
+    'id': [{ type: Input },],
+};
+
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function getMdFormFieldPlaceholderConflictError() {
+    return Error('Placeholder attribute and child element were both specified.');
 }
 /**
  * \@docs-private
  * @param {?} align
  * @return {?}
  */
-function getMdInputContainerDuplicatedHintError(align) {
+function getMdFormFieldDuplicatedHintError(align) {
     return Error(`A hint was already declared for 'align="${align}"'.`);
 }
 /**
  * \@docs-private
  * @return {?}
  */
-function getMdInputContainerMissingMdInputError() {
-    return Error('md-input-container must contain an mdInput directive. ' +
+function getMdFormFieldMissingControlError() {
+    return Error('md-form-field must contain a MdFormFieldControl. ' +
         'Did you forget to add mdInput to the native input or textarea element?');
 }
 
-// Invalid input type. Using one of these will throw an MdInputContainerUnsupportedTypeError.
-const MD_INPUT_INVALID_TYPES = [
-    'button',
-    'checkbox',
-    'color',
-    'file',
-    'hidden',
-    'image',
-    'radio',
-    'range',
-    'reset',
-    'submit'
-];
-let nextUniqueId$4 = 0;
 /**
- * The placeholder directive. The content can declare this to implement more
- * complex placeholders.
+ * An interface which allows a control to work inside of a `MdFormField`.
+ * @abstract
+ */
+class MdFormFieldControl {
+    /**
+     * Sets the list of element IDs that currently describe this control.
+     * @abstract
+     * @param {?} ids
+     * @return {?}
+     */
+    setDescribedByIds(ids) { }
+    /**
+     * Focuses this control.
+     * @abstract
+     * @return {?}
+     */
+    focus() { }
+}
+
+let nextUniqueId$6 = 0;
+/**
+ * Hint text to be shown underneath the form field control.
+ */
+class MdHint {
+    constructor() {
+        /**
+         * Whether to align the hint label at the start or end of the line.
+         */
+        this.align = 'start';
+        /**
+         * Unique ID for the hint. Used for the aria-describedby on the form field control.
+         */
+        this.id = `mat-hint-${nextUniqueId$6++}`;
+    }
+}
+MdHint.decorators = [
+    { type: Directive, args: [{
+                selector: 'md-hint, mat-hint',
+                host: {
+                    'class': 'mat-hint',
+                    '[class.mat-right]': 'align == "end"',
+                    '[attr.id]': 'id',
+                    // Remove align attribute to prevent it from interfering with layout.
+                    '[attr.align]': 'null',
+                }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdHint.ctorParameters = () => [];
+MdHint.propDecorators = {
+    'align': [{ type: Input },],
+    'id': [{ type: Input },],
+};
+
+/**
+ * The floating placeholder for an `MdFormField`.
  */
 class MdPlaceholder {
 }
@@ -13233,135 +11097,418 @@ MdPlaceholder.decorators = [
  * @nocollapse
  */
 MdPlaceholder.ctorParameters = () => [];
+
 /**
- * Hint text to be shown underneath the input.
- */
-class MdHint {
-    constructor() {
-        /**
-         * Whether to align the hint label at the start or end of the line.
-         */
-        this.align = 'start';
-        /**
-         * Unique ID for the hint. Used for the aria-describedby on the input.
-         */
-        this.id = `md-input-hint-${nextUniqueId$4++}`;
-    }
-}
-MdHint.decorators = [
-    { type: Directive, args: [{
-                selector: 'md-hint, mat-hint',
-                host: {
-                    'class': 'mat-hint',
-                    '[class.mat-right]': 'align == "end"',
-                    '[attr.id]': 'id',
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MdHint.ctorParameters = () => [];
-MdHint.propDecorators = {
-    'align': [{ type: Input },],
-    'id': [{ type: Input },],
-};
-/**
- * Single error message to be shown underneath the input.
- */
-class MdErrorDirective {
-    constructor() {
-        this.id = `md-input-error-${nextUniqueId$4++}`;
-    }
-}
-MdErrorDirective.decorators = [
-    { type: Directive, args: [{
-                selector: 'md-error, mat-error',
-                host: {
-                    'class': 'mat-input-error',
-                    'role': 'alert',
-                    '[attr.id]': 'id',
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MdErrorDirective.ctorParameters = () => [];
-MdErrorDirective.propDecorators = {
-    'id': [{ type: Input },],
-};
-/**
- * Prefix to be placed the the front of the input.
+ * Prefix to be placed the the front of the form field.
  */
 class MdPrefix {
 }
 MdPrefix.decorators = [
     { type: Directive, args: [{
-                selector: '[mdPrefix], [matPrefix]'
+                selector: '[mdPrefix], [matPrefix]',
             },] },
 ];
 /**
  * @nocollapse
  */
 MdPrefix.ctorParameters = () => [];
+
 /**
- * Suffix to be placed at the end of the input.
+ * Suffix to be placed at the end of the form field.
  */
 class MdSuffix {
 }
 MdSuffix.decorators = [
     { type: Directive, args: [{
-                selector: '[mdSuffix], [matSuffix]'
+                selector: '[mdSuffix], [matSuffix]',
             },] },
 ];
 /**
  * @nocollapse
  */
 MdSuffix.ctorParameters = () => [];
+
+let nextUniqueId$5 = 0;
 /**
- * Marker for the input element that `MdInputContainer` is wrapping.
+ * Container for form controls that applies Material Design styling and behavior.
  */
-class MdInputDirective {
+class MdFormField {
+    /**
+     * @param {?} _elementRef
+     * @param {?} _changeDetectorRef
+     * @param {?} placeholderOptions
+     */
+    constructor(_elementRef, _changeDetectorRef, placeholderOptions) {
+        this._elementRef = _elementRef;
+        this._changeDetectorRef = _changeDetectorRef;
+        /**
+         * Color of the form field underline, based on the theme.
+         */
+        this.color = 'primary';
+        /**
+         * State of the md-hint and md-error animations.
+         */
+        this._subscriptAnimationState = '';
+        this._hintLabel = '';
+        // Unique id for the hint label.
+        this._hintLabelId = `md-hint-${nextUniqueId$5++}`;
+        this._placeholderOptions = placeholderOptions ? placeholderOptions : {};
+        this.floatPlaceholder = this._placeholderOptions.float || 'auto';
+    }
+    /**
+     * @deprecated Use `color` instead.
+     * @return {?}
+     */
+    get dividerColor() { return this.color; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set dividerColor(value) { this.color = value; }
+    /**
+     * Whether the required marker should be hidden.
+     * @return {?}
+     */
+    get hideRequiredMarker() { return this._hideRequiredMarker; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set hideRequiredMarker(value) {
+        this._hideRequiredMarker = coerceBooleanProperty(value);
+    }
+    /**
+     * Whether the floating label should always float or not.
+     * @return {?}
+     */
+    get _shouldAlwaysFloat() { return this._floatPlaceholder === 'always'; }
+    /**
+     * Whether the placeholder can float or not.
+     * @return {?}
+     */
+    get _canPlaceholderFloat() { return this._floatPlaceholder !== 'never'; }
+    /**
+     * Text for the form field hint.
+     * @return {?}
+     */
+    get hintLabel() { return this._hintLabel; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set hintLabel(value) {
+        this._hintLabel = value;
+        this._processHints();
+    }
+    /**
+     * Whether the placeholder should always float, never float or float as the user types.
+     * @return {?}
+     */
+    get floatPlaceholder() { return this._floatPlaceholder; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set floatPlaceholder(value) {
+        if (value !== this._floatPlaceholder) {
+            this._floatPlaceholder = value || this._placeholderOptions.float || 'auto';
+            this._changeDetectorRef.markForCheck();
+        }
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterContentInit() {
+        this._validateControlChild();
+        // Subscribe to changes in the child control state in order to update the form field UI.
+        startWith.call(this._control.stateChanges, null).subscribe(() => {
+            this._validatePlaceholders();
+            this._syncDescribedByIds();
+            this._changeDetectorRef.markForCheck();
+        });
+        let /** @type {?} */ ngControl = this._control.ngControl;
+        if (ngControl && ngControl.valueChanges) {
+            ngControl.valueChanges.subscribe(() => {
+                this._changeDetectorRef.markForCheck();
+            });
+        }
+        // Re-validate when the number of hints changes.
+        startWith.call(this._hintChildren.changes, null).subscribe(() => {
+            this._processHints();
+            this._changeDetectorRef.markForCheck();
+        });
+        // Update the aria-described by when the number of errors changes.
+        startWith.call(this._errorChildren.changes, null).subscribe(() => {
+            this._syncDescribedByIds();
+            this._changeDetectorRef.markForCheck();
+        });
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterContentChecked() {
+        this._validateControlChild();
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterViewInit() {
+        // Avoid animations on load.
+        this._subscriptAnimationState = 'enter';
+        this._changeDetectorRef.detectChanges();
+    }
+    /**
+     * Determines whether a class from the NgControl should be forwarded to the host element.
+     * @param {?} prop
+     * @return {?}
+     */
+    _shouldForward(prop) {
+        let /** @type {?} */ ngControl = this._control ? this._control.ngControl : null;
+        return ngControl && ((ngControl))[prop];
+    }
+    /**
+     * Whether the form field has a placeholder.
+     * @return {?}
+     */
+    _hasPlaceholder() {
+        return !!(this._control.placeholder || this._placeholderChild);
+    }
+    /**
+     * Determines whether to display hints or errors.
+     * @return {?}
+     */
+    _getDisplayedMessages() {
+        return (this._errorChildren && this._errorChildren.length > 0 &&
+            this._control.errorState) ? 'error' : 'hint';
+    }
+    /**
+     * Ensure that there is only one placeholder (either `placeholder` attribute on the child control
+     * or child element with the `md-placeholder` directive).
+     * @return {?}
+     */
+    _validatePlaceholders() {
+        if (this._control.placeholder && this._placeholderChild) {
+            throw getMdFormFieldPlaceholderConflictError();
+        }
+    }
+    /**
+     * Does any extra processing that is required when handling the hints.
+     * @return {?}
+     */
+    _processHints() {
+        this._validateHints();
+        this._syncDescribedByIds();
+    }
+    /**
+     * Ensure that there is a maximum of one of each `<md-hint>` alignment specified, with the
+     * attribute being considered as `align="start"`.
+     * @return {?}
+     */
+    _validateHints() {
+        if (this._hintChildren) {
+            let /** @type {?} */ startHint;
+            let /** @type {?} */ endHint;
+            this._hintChildren.forEach((hint) => {
+                if (hint.align == 'start') {
+                    if (startHint || this.hintLabel) {
+                        throw getMdFormFieldDuplicatedHintError('start');
+                    }
+                    startHint = hint;
+                }
+                else if (hint.align == 'end') {
+                    if (endHint) {
+                        throw getMdFormFieldDuplicatedHintError('end');
+                    }
+                    endHint = hint;
+                }
+            });
+        }
+    }
+    /**
+     * Sets the list of element IDs that describe the child control. This allows the control to update
+     * its `aria-describedby` attribute accordingly.
+     * @return {?}
+     */
+    _syncDescribedByIds() {
+        if (this._control) {
+            let /** @type {?} */ ids = [];
+            if (this._getDisplayedMessages() === 'hint') {
+                let /** @type {?} */ startHint = this._hintChildren ?
+                    this._hintChildren.find(hint => hint.align === 'start') : null;
+                let /** @type {?} */ endHint = this._hintChildren ?
+                    this._hintChildren.find(hint => hint.align === 'end') : null;
+                if (startHint) {
+                    ids.push(startHint.id);
+                }
+                else if (this._hintLabel) {
+                    ids.push(this._hintLabelId);
+                }
+                if (endHint) {
+                    ids.push(endHint.id);
+                }
+            }
+            else if (this._errorChildren) {
+                ids = this._errorChildren.map(mdError => mdError.id);
+            }
+            this._control.setDescribedByIds(ids);
+        }
+    }
+    /**
+     * Throws an error if the form field's control is missing.
+     * @return {?}
+     */
+    _validateControlChild() {
+        if (!this._control) {
+            throw getMdFormFieldMissingControlError();
+        }
+    }
+}
+MdFormField.decorators = [
+    { type: Component, args: [{// TODO(mmalerba): the input-container selectors and classes are deprecated and will be removed.
+                selector: 'md-input-container, mat-input-container, md-form-field, mat-form-field',
+                template: "<div class=\"mat-input-wrapper mat-form-field-wrapper\"><div class=\"mat-input-flex mat-form-field-flex\" #connectionContainer><div class=\"mat-input-prefix mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[mdPrefix], [matPrefix]\"></ng-content></div><div class=\"mat-input-infix mat-form-field-infix\"><ng-content></ng-content><span class=\"mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper\"><label class=\"mat-input-placeholder mat-form-field-placeholder\" [attr.for]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-float]=\"_canPlaceholderFloat\" [class.mat-form-field-float]=\"_canPlaceholderFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" *ngIf=\"_hasPlaceholder()\"><ng-content select=\"md-placeholder, mat-placeholder\"></ng-content>{{_control.placeholder}} <span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required\">*</span></label></span></div><div class=\"mat-input-suffix mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[mdSuffix], [matSuffix]\"></ng-content></div></div><div class=\"mat-input-underline mat-form-field-underline\" #underline [class.mat-disabled]=\"_control.disabled\"><span class=\"mat-input-ripple mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-input-subscript-wrapper mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"md-error, mat-error\"></ng-content></div><div class=\"mat-input-hint-wrapper mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"md-hint:not([align='end']), mat-hint:not([align='end'])\"></ng-content><div class=\"mat-input-hint-spacer mat-form-field-hint-spacer\"></div><ng-content select=\"md-hint[align='end'], mat-hint[align='end']\"></ng-content></div></div></div>",
+                // MdInput is a directive and can't have styles, so we need to include its styles here.
+                // The MdInput styles are fairly minimal so it shouldn't be a big deal for people who aren't using
+                // MdInput.
+                styles: [".mat-form-field{display:inline-block;position:relative;width:200px;text-align:left}[dir=rtl] .mat-form-field{text-align:right}.mat-form-field-wrapper{position:relative}.mat-form-field-flex{display:inline-flex;align-items:baseline;width:100%}.mat-form-field-prefix,.mat-form-field-suffix{white-space:nowrap;flex:none}.mat-form-field-prefix .mat-icon,.mat-form-field-suffix .mat-icon{width:1em}.mat-form-field-prefix .mat-icon-button,.mat-form-field-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field-suffix .mat-icon-button .mat-icon{font-size:inherit}.mat-form-field-infix{display:block;position:relative;flex:auto}.mat-form-field-autofill-float:-webkit-autofill+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:none}.mat-form-field-autofill-float:-webkit-autofill+.mat-form-field-placeholder-wrapper .mat-form-field-float{display:block;transition:none}.mat-form-field-placeholder-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}.mat-form-field-placeholder{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:perspective(100px);-ms-transform:none;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}.mat-focused .mat-form-field-placeholder.mat-form-field-float,.mat-form-field-placeholder.mat-form-field-empty,.mat-form-field-placeholder.mat-form-field-float:not(.mat-form-field-empty){display:block}[dir=rtl] .mat-form-field-placeholder{transform-origin:100% 0;left:auto;right:0}.mat-form-field-placeholder:not(.mat-form-field-empty){transition:none}.mat-form-field-underline{position:absolute;height:1px;width:100%}.mat-form-field-underline.mat-disabled{background-position:0;background-color:transparent}.mat-form-field-underline .mat-form-field-ripple{position:absolute;height:1px;top:0;left:0;width:100%;transform-origin:50%;transform:scaleX(.5);visibility:hidden;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-focused .mat-form-field-underline .mat-form-field-ripple{height:2px}.mat-focused .mat-form-field-underline .mat-form-field-ripple,.mat-form-field-invalid .mat-form-field-underline .mat-form-field-ripple{visibility:visible;transform:scaleX(1);transition:transform 150ms linear,background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-form-field-subscript-wrapper{position:absolute;width:100%;overflow:hidden}.mat-form-field-placeholder-wrapper .mat-icon,.mat-form-field-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-form-field-hint-wrapper{display:flex}.mat-form-field-hint-spacer{flex:1 0 1em}.mat-error{display:block} .mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;margin:0;width:100%;max-width:100%;resize:vertical;vertical-align:bottom}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element::placeholder{color:transparent!important}.mat-input-element::-moz-placeholder{color:transparent!important}.mat-input-element::-webkit-input-placeholder{color:transparent!important}.mat-input-element:-ms-input-placeholder{color:transparent!important}textarea.mat-input-element{overflow:auto}"],
+                animations: [
+                    // TODO(mmalerba): Use angular animations for placeholder animation as well.
+                    trigger('transitionMessages', [
+                        state('enter', style({ opacity: 1, transform: 'translateY(0%)' })),
+                        transition('void => enter', [
+                            style({ opacity: 0, transform: 'translateY(-100%)' }),
+                            animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
+                        ]),
+                    ]),
+                ],
+                host: {
+                    'class': 'mat-input-container mat-form-field',
+                    '[class.mat-input-invalid]': '_control.errorState',
+                    '[class.mat-form-field-invalid]': '_control.errorState',
+                    '[class.mat-focused]': '_control.focused',
+                    '[class.ng-untouched]': '_shouldForward("untouched")',
+                    '[class.ng-touched]': '_shouldForward("touched")',
+                    '[class.ng-pristine]': '_shouldForward("pristine")',
+                    '[class.ng-dirty]': '_shouldForward("dirty")',
+                    '[class.ng-valid]': '_shouldForward("valid")',
+                    '[class.ng-invalid]': '_shouldForward("invalid")',
+                    '[class.ng-pending]': '_shouldForward("pending")',
+                    '(click)': '_control.focus()',
+                },
+                encapsulation: ViewEncapsulation.None,
+                changeDetection: ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdFormField.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: ChangeDetectorRef, },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MD_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
+];
+MdFormField.propDecorators = {
+    'color': [{ type: Input },],
+    'dividerColor': [{ type: Input },],
+    'hideRequiredMarker': [{ type: Input },],
+    'hintLabel': [{ type: Input },],
+    'floatPlaceholder': [{ type: Input },],
+    'underlineRef': [{ type: ViewChild, args: ['underline',] },],
+    '_connectionContainerRef': [{ type: ViewChild, args: ['connectionContainer',] },],
+    '_control': [{ type: ContentChild, args: [MdFormFieldControl,] },],
+    '_placeholderChild': [{ type: ContentChild, args: [MdPlaceholder,] },],
+    '_errorChildren': [{ type: ContentChildren, args: [MdError,] },],
+    '_hintChildren': [{ type: ContentChildren, args: [MdHint,] },],
+    '_prefixChildren': [{ type: ContentChildren, args: [MdPrefix,] },],
+    '_suffixChildren': [{ type: ContentChildren, args: [MdSuffix,] },],
+};
+
+class MdFormFieldModule {
+}
+MdFormFieldModule.decorators = [
+    { type: NgModule, args: [{
+                declarations: [
+                    MdError,
+                    MdHint,
+                    MdFormField,
+                    MdPlaceholder,
+                    MdPrefix,
+                    MdSuffix,
+                ],
+                imports: [
+                    CommonModule,
+                    PlatformModule,
+                ],
+                exports: [
+                    MdError,
+                    MdHint,
+                    MdFormField,
+                    MdPlaceholder,
+                    MdPrefix,
+                    MdSuffix,
+                ],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdFormFieldModule.ctorParameters = () => [];
+
+// Invalid input type. Using one of these will throw an MdInputUnsupportedTypeError.
+const MD_INPUT_INVALID_TYPES = [
+    'button',
+    'checkbox',
+    'color',
+    'file',
+    'hidden',
+    'image',
+    'radio',
+    'range',
+    'reset',
+    'submit'
+];
+let nextUniqueId$3 = 0;
+/**
+ * Directive that allows a native input to work inside a `MdFormField`.
+ */
+class MdInput {
     /**
      * @param {?} _elementRef
      * @param {?} _renderer
      * @param {?} _platform
-     * @param {?} _ngControl
+     * @param {?} ngControl
      * @param {?} _parentForm
      * @param {?} _parentFormGroup
      * @param {?} errorOptions
      */
-    constructor(_elementRef, _renderer, _platform, _ngControl, _parentForm, _parentFormGroup, errorOptions) {
+    constructor(_elementRef, _renderer, _platform, ngControl, _parentForm, _parentFormGroup, errorOptions) {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this._platform = _platform;
-        this._ngControl = _ngControl;
+        this.ngControl = ngControl;
         this._parentForm = _parentForm;
         this._parentFormGroup = _parentFormGroup;
         /**
          * Variables used as cache for getters and setters.
          */
         this._type = 'text';
-        this._placeholder = '';
         this._disabled = false;
         this._required = false;
-        this._readonly = false;
-        this._uid = `md-input-${nextUniqueId$4++}`;
+        this._uid = `md-input-${nextUniqueId$3++}`;
         this._previousNativeValue = this.value;
         /**
-         * Whether the input is in an error state.
-         */
-        this._isErrorState = false;
-        /**
-         * Whether the element is focused or not.
+         * Whether the input is focused.
          */
         this.focused = false;
         /**
-         * Stream that emits whenever the state of the input changes. This allows for other components
-         * (mostly `md-input-container`) that depend on the properties of `mdInput` to update their view.
+         * Whether the input is in an error state.
          */
-        this._stateChanges = new Subject();
+        this.errorState = false;
+        /**
+         * Stream that emits whenever the state of the input changes such that the wrapping `MdFormField`
+         * needs to run change detection.
+         */
+        this.stateChanges = new Subject();
         /**
          * Placeholder attribute of the element.
          */
@@ -13398,7 +11545,7 @@ class MdInputDirective {
      * Whether the element is disabled.
      * @return {?}
      */
-    get disabled() { return this._ngControl ? this._ngControl.disabled : this._disabled; }
+    get disabled() { return this.ngControl ? this.ngControl.disabled : this._disabled; }
     /**
      * @param {?} value
      * @return {?}
@@ -13444,16 +11591,6 @@ class MdInputDirective {
         }
     }
     /**
-     * Whether the element is readonly.
-     * @return {?}
-     */
-    get readonly() { return this._readonly; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set readonly(value) { this._readonly = coerceBooleanProperty(value); }
-    /**
      * The input element's value.
      * @return {?}
      */
@@ -13465,38 +11602,26 @@ class MdInputDirective {
     set value(value) {
         if (value !== this.value) {
             this._elementRef.nativeElement.value = value;
-            this._stateChanges.next();
+            this.stateChanges.next();
         }
-    }
-    /**
-     * Whether the input is empty.
-     * @return {?}
-     */
-    get empty() {
-        return !this._isNeverEmpty() &&
-            (this.value == null || this.value === '') &&
-            // Check if the input contains bad input. If so, we know that it only appears empty because
-            // the value failed to parse. From the user's perspective it is not empty.
-            // TODO(mmalerba): Add e2e test for bad input case.
-            !this._isBadInput();
     }
     /**
      * @return {?}
      */
     ngOnChanges() {
-        this._stateChanges.next();
+        this.stateChanges.next();
     }
     /**
      * @return {?}
      */
     ngOnDestroy() {
-        this._stateChanges.complete();
+        this.stateChanges.complete();
     }
     /**
      * @return {?}
      */
     ngDoCheck() {
-        if (this._ngControl) {
+        if (this.ngControl) {
             // We need to re-evaluate this on every change detection cycle, because there are some
             // error triggers that we can't subscribe to (e.g. parent form submissions). This means
             // that whatever logic is in here has to be super lean or we risk destroying the performance.
@@ -13509,21 +11634,6 @@ class MdInputDirective {
         }
     }
     /**
-     * @return {?}
-     */
-    _onFocus() {
-        if (!this._readonly) {
-            this.focused = true;
-        }
-    }
-    /**
-     * Focuses the input element.
-     * @return {?}
-     */
-    focus() {
-        this._elementRef.nativeElement.focus();
-    }
-    /**
      * Callback for the cases where the focused state of the input changes.
      * @param {?} isFocused
      * @return {?}
@@ -13531,7 +11641,7 @@ class MdInputDirective {
     _focusChanged(isFocused) {
         if (isFocused !== this.focused) {
             this.focused = isFocused;
-            this._stateChanges.next();
+            this.stateChanges.next();
         }
     }
     /**
@@ -13551,13 +11661,13 @@ class MdInputDirective {
      * @return {?}
      */
     _updateErrorState() {
-        const /** @type {?} */ oldState = this._isErrorState;
-        const /** @type {?} */ control = this._ngControl;
+        const /** @type {?} */ oldState = this.errorState;
+        const /** @type {?} */ ngControl = this.ngControl;
         const /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
-        const /** @type {?} */ newState = control && this.errorStateMatcher(/** @type {?} */ (control.control), parent);
+        const /** @type {?} */ newState = ngControl && this.errorStateMatcher(/** @type {?} */ (ngControl.control), parent);
         if (newState !== oldState) {
-            this._isErrorState = newState;
-            this._stateChanges.next();
+            this.errorState = newState;
+            this.stateChanges.next();
         }
     }
     /**
@@ -13568,7 +11678,7 @@ class MdInputDirective {
         const /** @type {?} */ newValue = this.value;
         if (this._previousNativeValue !== newValue) {
             this._previousNativeValue = newValue;
-            this._stateChanges.next();
+            this.stateChanges.next();
         }
     }
     /**
@@ -13577,11 +11687,11 @@ class MdInputDirective {
      */
     _validateType() {
         if (MD_INPUT_INVALID_TYPES.indexOf(this._type) > -1) {
-            throw getMdInputContainerUnsupportedTypeError(this._type);
+            throw getMdInputUnsupportedTypeError(this._type);
         }
     }
     /**
-     * Checks whether the input type isn't one of the types that are never empty.
+     * Checks whether the input type is one of the types that are never empty.
      * @return {?}
      */
     _isNeverEmpty() {
@@ -13608,8 +11718,28 @@ class MdInputDirective {
         let /** @type {?} */ nodeName = this._platform.isBrowser ? nativeElement.nodeName : nativeElement.name;
         return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
     }
+    /**
+     * @return {?}
+     */
+    get empty() {
+        return !this._isNeverEmpty() &&
+            (this.value == null || this.value === '') &&
+            // Check if the input contains bad input. If so, we know that it only appears empty because
+            // the value failed to parse. From the user's perspective it is not empty.
+            // TODO(mmalerba): Add e2e test for bad input case.
+            !this._isBadInput();
+    }
+    /**
+     * @param {?} ids
+     * @return {?}
+     */
+    setDescribedByIds(ids) { this._ariaDescribedby = ids.join(' '); }
+    /**
+     * @return {?}
+     */
+    focus() { this._elementRef.nativeElement.focus(); }
 }
-MdInputDirective.decorators = [
+MdInput.decorators = [
     { type: Directive, args: [{
                 selector: `input[mdInput], textarea[mdInput], input[matInput], textarea[matInput]`,
                 host: {
@@ -13620,18 +11750,19 @@ MdInputDirective.decorators = [
                     '[placeholder]': 'placeholder',
                     '[disabled]': 'disabled',
                     '[required]': 'required',
-                    '[attr.aria-describedby]': 'ariaDescribedby || null',
-                    '[attr.aria-invalid]': '_isErrorState',
+                    '[attr.aria-describedby]': '_ariaDescribedby || null',
+                    '[attr.aria-invalid]': 'errorState',
                     '(blur)': '_focusChanged(false)',
                     '(focus)': '_focusChanged(true)',
                     '(input)': '_onInput()',
-                }
+                },
+                providers: [{ provide: MdFormFieldControl, useExisting: MdInput }],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdInputDirective.ctorParameters = () => [
+MdInput.ctorParameters = () => [
     { type: ElementRef, },
     { type: Renderer2, },
     { type: Platform, },
@@ -13640,310 +11771,13 @@ MdInputDirective.ctorParameters = () => [
     { type: FormGroupDirective, decorators: [{ type: Optional },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MD_ERROR_GLOBAL_OPTIONS,] },] },
 ];
-MdInputDirective.propDecorators = {
+MdInput.propDecorators = {
     'disabled': [{ type: Input },],
     'id': [{ type: Input },],
     'placeholder': [{ type: Input },],
     'required': [{ type: Input },],
     'type': [{ type: Input },],
-    'readonly': [{ type: Input },],
     'errorStateMatcher': [{ type: Input },],
-};
-/**
- * Container for text inputs that applies Material Design styling and behavior.
- */
-class MdInputContainer {
-    /**
-     * @param {?} _elementRef
-     * @param {?} _changeDetectorRef
-     * @param {?} placeholderOptions
-     */
-    constructor(_elementRef, _changeDetectorRef, placeholderOptions) {
-        this._elementRef = _elementRef;
-        this._changeDetectorRef = _changeDetectorRef;
-        /**
-         * Color of the input divider, based on the theme.
-         */
-        this.color = 'primary';
-        /**
-         * State of the md-hint and md-error animations.
-         */
-        this._subscriptAnimationState = '';
-        this._hintLabel = '';
-        // Unique id for the hint label.
-        this._hintLabelId = `md-input-hint-${nextUniqueId$4++}`;
-        this._placeholderOptions = placeholderOptions ? placeholderOptions : {};
-        this.floatPlaceholder = this._placeholderOptions.float || 'auto';
-    }
-    /**
-     * @deprecated Use `color` instead.
-     * @return {?}
-     */
-    get dividerColor() { return this.color; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set dividerColor(value) { this.color = value; }
-    /**
-     * Whether the required marker should be hidden.
-     * @return {?}
-     */
-    get hideRequiredMarker() { return this._hideRequiredMarker; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set hideRequiredMarker(value) {
-        this._hideRequiredMarker = coerceBooleanProperty(value);
-    }
-    /**
-     * Whether the floating label should always float or not.
-     * @return {?}
-     */
-    get _shouldAlwaysFloat() { return this._floatPlaceholder === 'always'; }
-    /**
-     * Whether the placeholder can float or not.
-     * @return {?}
-     */
-    get _canPlaceholderFloat() { return this._floatPlaceholder !== 'never'; }
-    /**
-     * Text for the input hint.
-     * @return {?}
-     */
-    get hintLabel() { return this._hintLabel; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set hintLabel(value) {
-        this._hintLabel = value;
-        this._processHints();
-    }
-    /**
-     * Whether the placeholder should always float, never float or float as the user types.
-     * @return {?}
-     */
-    get floatPlaceholder() { return this._floatPlaceholder; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set floatPlaceholder(value) {
-        if (value !== this._floatPlaceholder) {
-            this._floatPlaceholder = value || this._placeholderOptions.float || 'auto';
-            this._changeDetectorRef.markForCheck();
-        }
-    }
-    /**
-     * @return {?}
-     */
-    ngAfterContentInit() {
-        this._validateInputChild();
-        // Subscribe to changes in the child input state in order to update the container UI.
-        startWith.call(this._mdInputChild._stateChanges, null).subscribe(() => {
-            this._validatePlaceholders();
-            this._syncAriaDescribedby();
-            this._changeDetectorRef.markForCheck();
-        });
-        if (this._mdInputChild._ngControl && this._mdInputChild._ngControl.valueChanges) {
-            this._mdInputChild._ngControl.valueChanges.subscribe(() => {
-                this._changeDetectorRef.markForCheck();
-            });
-        }
-        // Re-validate when the number of hints changes.
-        startWith.call(this._hintChildren.changes, null).subscribe(() => {
-            this._processHints();
-            this._changeDetectorRef.markForCheck();
-        });
-        // Update the aria-described by when the number of errors changes.
-        startWith.call(this._errorChildren.changes, null).subscribe(() => {
-            this._syncAriaDescribedby();
-            this._changeDetectorRef.markForCheck();
-        });
-    }
-    /**
-     * @return {?}
-     */
-    ngAfterContentChecked() {
-        this._validateInputChild();
-    }
-    /**
-     * @return {?}
-     */
-    ngAfterViewInit() {
-        // Avoid animations on load.
-        this._subscriptAnimationState = 'enter';
-        this._changeDetectorRef.detectChanges();
-    }
-    /**
-     * Determines whether a class from the NgControl should be forwarded to the host element.
-     * @param {?} prop
-     * @return {?}
-     */
-    _shouldForward(prop) {
-        let /** @type {?} */ control = this._mdInputChild ? this._mdInputChild._ngControl : null;
-        return control && ((control))[prop];
-    }
-    /**
-     * Whether the input has a placeholder.
-     * @return {?}
-     */
-    _hasPlaceholder() {
-        return !!(this._mdInputChild.placeholder || this._placeholderChild);
-    }
-    /**
-     * Focuses the underlying input.
-     * @return {?}
-     */
-    _focusInput() {
-        this._mdInputChild.focus();
-    }
-    /**
-     * Determines whether to display hints or errors.
-     * @return {?}
-     */
-    _getDisplayedMessages() {
-        let /** @type {?} */ input = this._mdInputChild;
-        return (this._errorChildren && this._errorChildren.length > 0 && input._isErrorState) ?
-            'error' : 'hint';
-    }
-    /**
-     * Ensure that there is only one placeholder (either `input` attribute or child element with the
-     * `md-placeholder` attribute.
-     * @return {?}
-     */
-    _validatePlaceholders() {
-        if (this._mdInputChild.placeholder && this._placeholderChild) {
-            throw getMdInputContainerPlaceholderConflictError();
-        }
-    }
-    /**
-     * Does any extra processing that is required when handling the hints.
-     * @return {?}
-     */
-    _processHints() {
-        this._validateHints();
-        this._syncAriaDescribedby();
-    }
-    /**
-     * Ensure that there is a maximum of one of each `<md-hint>` alignment specified, with the
-     * attribute being considered as `align="start"`.
-     * @return {?}
-     */
-    _validateHints() {
-        if (this._hintChildren) {
-            let /** @type {?} */ startHint;
-            let /** @type {?} */ endHint;
-            this._hintChildren.forEach((hint) => {
-                if (hint.align == 'start') {
-                    if (startHint || this.hintLabel) {
-                        throw getMdInputContainerDuplicatedHintError('start');
-                    }
-                    startHint = hint;
-                }
-                else if (hint.align == 'end') {
-                    if (endHint) {
-                        throw getMdInputContainerDuplicatedHintError('end');
-                    }
-                    endHint = hint;
-                }
-            });
-        }
-    }
-    /**
-     * Sets the child input's `aria-describedby` to a space-separated list of the ids
-     * of the currently-specified hints, as well as a generated id for the hint label.
-     * @return {?}
-     */
-    _syncAriaDescribedby() {
-        if (this._mdInputChild) {
-            let /** @type {?} */ ids = [];
-            if (this._getDisplayedMessages() === 'hint') {
-                let /** @type {?} */ startHint = this._hintChildren ?
-                    this._hintChildren.find(hint => hint.align === 'start') : null;
-                let /** @type {?} */ endHint = this._hintChildren ?
-                    this._hintChildren.find(hint => hint.align === 'end') : null;
-                if (startHint) {
-                    ids.push(startHint.id);
-                }
-                else if (this._hintLabel) {
-                    ids.push(this._hintLabelId);
-                }
-                if (endHint) {
-                    ids.push(endHint.id);
-                }
-            }
-            else if (this._errorChildren) {
-                ids = this._errorChildren.map(mdError => mdError.id);
-            }
-            this._mdInputChild.ariaDescribedby = ids.join(' ');
-        }
-    }
-    /**
-     * Throws an error if the container's input child was removed.
-     * @return {?}
-     */
-    _validateInputChild() {
-        if (!this._mdInputChild) {
-            throw getMdInputContainerMissingMdInputError();
-        }
-    }
-}
-MdInputContainer.decorators = [
-    { type: Component, args: [{selector: 'md-input-container, mat-input-container',
-                template: "<div class=\"mat-input-wrapper\"><div class=\"mat-input-flex\" #connectionContainer><div class=\"mat-input-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[mdPrefix], [matPrefix]\"></ng-content></div><div class=\"mat-input-infix\"><ng-content selector=\"input, textarea\"></ng-content><span class=\"mat-input-placeholder-wrapper\"><label class=\"mat-input-placeholder\" [attr.for]=\"_mdInputChild.id\" [class.mat-empty]=\"_mdInputChild.empty && !_shouldAlwaysFloat\" [class.mat-float]=\"_canPlaceholderFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" *ngIf=\"_hasPlaceholder()\"><ng-content select=\"md-placeholder, mat-placeholder\"></ng-content>{{_mdInputChild.placeholder}} <span class=\"mat-placeholder-required\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _mdInputChild.required\">*</span></label></span></div><div class=\"mat-input-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[mdSuffix], [matSuffix]\"></ng-content></div></div><div class=\"mat-input-underline\" #underline [class.mat-disabled]=\"_mdInputChild.disabled\"><span class=\"mat-input-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-input-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"md-error, mat-error\"></ng-content></div><div class=\"mat-input-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"md-hint:not([align='end']), mat-hint:not([align='end'])\"></ng-content><div class=\"mat-input-hint-spacer\"></div><ng-content select=\"md-hint[align='end'], mat-hint[align='end']\"></ng-content></div></div></div>",
-                styles: [".mat-input-container{display:inline-block;position:relative;width:200px;text-align:left}[dir=rtl] .mat-input-container{text-align:right}.mat-input-wrapper{position:relative}.mat-input-flex{display:inline-flex;align-items:baseline;width:100%}.mat-input-prefix,.mat-input-suffix{white-space:nowrap;flex:none}.mat-input-prefix .mat-icon,.mat-input-suffix .mat-icon{width:1em}.mat-input-prefix .mat-icon-button,.mat-input-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-input-prefix .mat-icon-button .mat-icon,.mat-input-suffix .mat-icon-button .mat-icon{font-size:inherit}.mat-input-infix{display:block;position:relative;flex:auto}.mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;margin:0;width:100%;max-width:100%;resize:vertical;vertical-align:bottom}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element:-webkit-autofill+.mat-input-placeholder-wrapper .mat-input-placeholder{display:none}.mat-input-element:-webkit-autofill+.mat-input-placeholder-wrapper .mat-float{display:block;transition:none}.mat-input-element::placeholder{color:transparent!important}.mat-input-element::-moz-placeholder{color:transparent!important}.mat-input-element::-webkit-input-placeholder{color:transparent!important}.mat-input-element:-ms-input-placeholder{color:transparent!important}.mat-input-placeholder-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}textarea.mat-input-element{overflow:auto}.mat-input-placeholder{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:perspective(100px);-ms-transform:none;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}.mat-focused .mat-input-placeholder.mat-float,.mat-input-placeholder.mat-empty,.mat-input-placeholder.mat-float:not(.mat-empty){display:block}[dir=rtl] .mat-input-placeholder{transform-origin:100% 0;left:auto;right:0}.mat-input-placeholder:not(.mat-empty){transition:none}.mat-input-underline{position:absolute;height:1px;width:100%}.mat-input-underline.mat-disabled{background-position:0;background-color:transparent}.mat-input-underline .mat-input-ripple{position:absolute;height:1px;top:0;left:0;width:100%;transform-origin:50%;transform:scaleX(.5);visibility:hidden;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-focused .mat-input-underline .mat-input-ripple{height:2px}.mat-focused .mat-input-underline .mat-input-ripple,.mat-input-invalid .mat-input-underline .mat-input-ripple{visibility:visible;transform:scaleX(1);transition:transform 150ms linear,background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-input-subscript-wrapper{position:absolute;width:100%;overflow:hidden}.mat-input-placeholder-wrapper .mat-icon,.mat-input-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-input-hint-wrapper{display:flex}.mat-input-hint-spacer{flex:1 0 1em}.mat-input-error{display:block}"],
-                animations: [
-                    trigger('transitionMessages', [
-                        state('enter', style({ opacity: 1, transform: 'translateY(0%)' })),
-                        transition('void => enter', [
-                            style({ opacity: 0, transform: 'translateY(-100%)' }),
-                            animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)')
-                        ])
-                    ])
-                ],
-                host: {
-                    // Remove align attribute to prevent it from interfering with layout.
-                    '[attr.align]': 'null',
-                    'class': 'mat-input-container',
-                    '[class.mat-input-invalid]': '_mdInputChild._isErrorState',
-                    '[class.mat-focused]': '_mdInputChild.focused',
-                    '[class.ng-untouched]': '_shouldForward("untouched")',
-                    '[class.ng-touched]': '_shouldForward("touched")',
-                    '[class.ng-pristine]': '_shouldForward("pristine")',
-                    '[class.ng-dirty]': '_shouldForward("dirty")',
-                    '[class.ng-valid]': '_shouldForward("valid")',
-                    '[class.ng-invalid]': '_shouldForward("invalid")',
-                    '[class.ng-pending]': '_shouldForward("pending")',
-                    '(click)': '_focusInput()',
-                },
-                encapsulation: ViewEncapsulation.None,
-                changeDetection: ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MdInputContainer.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: ChangeDetectorRef, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MD_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
-];
-MdInputContainer.propDecorators = {
-    'color': [{ type: Input },],
-    'dividerColor': [{ type: Input },],
-    'hideRequiredMarker': [{ type: Input },],
-    'hintLabel': [{ type: Input },],
-    'floatPlaceholder': [{ type: Input },],
-    'underlineRef': [{ type: ViewChild, args: ['underline',] },],
-    '_connectionContainerRef': [{ type: ViewChild, args: ['connectionContainer',] },],
-    '_mdInputChild': [{ type: ContentChild, args: [MdInputDirective,] },],
-    '_placeholderChild': [{ type: ContentChild, args: [MdPlaceholder,] },],
-    '_errorChildren': [{ type: ContentChildren, args: [MdErrorDirective,] },],
-    '_hintChildren': [{ type: ContentChildren, args: [MdHint,] },],
-    '_prefixChildren': [{ type: ContentChildren, args: [MdPrefix,] },],
-    '_suffixChildren': [{ type: ContentChildren, args: [MdSuffix,] },],
 };
 
 /**
@@ -14133,27 +11967,19 @@ class MdInputModule {
 MdInputModule.decorators = [
     { type: NgModule, args: [{
                 declarations: [
-                    MdErrorDirective,
-                    MdHint,
-                    MdInputContainer,
-                    MdInputDirective,
-                    MdPlaceholder,
-                    MdPrefix,
-                    MdSuffix,
+                    MdInput,
                     MdTextareaAutosize,
                 ],
                 imports: [
                     CommonModule,
+                    MdFormFieldModule,
                     PlatformModule,
                 ],
                 exports: [
-                    MdErrorDirective,
-                    MdHint,
-                    MdInputContainer,
-                    MdInputDirective,
-                    MdPlaceholder,
-                    MdPrefix,
-                    MdSuffix,
+                    // We re-export the `MdFormFieldModule` since `MdInput` will almost always be used together with
+                    // `MdFormField`.
+                    MdFormFieldModule,
+                    MdInput,
                     MdTextareaAutosize,
                 ],
             },] },
@@ -17151,7 +14977,7 @@ class MdMenu {
      * @return {?}
      */
     ngAfterContentInit() {
-        this._keyManager = new FocusKeyManager(this.items).withWrap();
+        this._keyManager = new FocusKeyManager$1(this.items).withWrap();
         this._tabSubscription = this._keyManager.tabOut.subscribe(() => this.close.emit('keydown'));
     }
     /**
@@ -17355,31 +15181,43 @@ class MdMenuTrigger {
      * @deprecated
      * @return {?}
      */
-    get _deprecatedMdMenuTriggerFor() { return this.menu; }
+    get _deprecatedMdMenuTriggerFor() {
+        return this.menu;
+    }
     /**
      * @param {?} v
      * @return {?}
      */
-    set _deprecatedMdMenuTriggerFor(v) { this.menu = v; }
+    set _deprecatedMdMenuTriggerFor(v) {
+        this.menu = v;
+    }
     /**
      * @deprecated
      * @return {?}
      */
-    get _deprecatedMatMenuTriggerFor() { return this.menu; }
+    get _deprecatedMatMenuTriggerFor() {
+        return this.menu;
+    }
     /**
      * @param {?} v
      * @return {?}
      */
-    set _deprecatedMatMenuTriggerFor(v) { this.menu = v; }
+    set _deprecatedMatMenuTriggerFor(v) {
+        this.menu = v;
+    }
     /**
      * @return {?}
      */
-    get _matMenuTriggerFor() { return this.menu; }
+    get _matMenuTriggerFor() {
+        return this.menu;
+    }
     /**
      * @param {?} v
      * @return {?}
      */
-    set _matMenuTriggerFor(v) { this.menu = v; }
+    set _matMenuTriggerFor(v) {
+        this.menu = v;
+    }
     /**
      * @return {?}
      */
@@ -18689,10 +16527,10 @@ class MdAutocompleteTrigger {
      * @param {?} _changeDetectorRef
      * @param {?} _scrollStrategy
      * @param {?} _dir
-     * @param {?} _inputContainer
+     * @param {?} _formField
      * @param {?} _document
      */
-    constructor(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, _scrollStrategy, _dir, _inputContainer, _document) {
+    constructor(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, _scrollStrategy, _dir, _formField, _document) {
         this._element = _element;
         this._overlay = _overlay;
         this._viewContainerRef = _viewContainerRef;
@@ -18700,7 +16538,7 @@ class MdAutocompleteTrigger {
         this._changeDetectorRef = _changeDetectorRef;
         this._scrollStrategy = _scrollStrategy;
         this._dir = _dir;
-        this._inputContainer = _inputContainer;
+        this._formField = _formField;
         this._document = _document;
         this._panelOpen = false;
         /**
@@ -18820,8 +16658,8 @@ class MdAutocompleteTrigger {
         }
         return RxChain.from(merge(fromEvent(this._document, 'click'), fromEvent(this._document, 'touchend'))).call(filter, (event) => {
             const /** @type {?} */ clickTarget = (event.target);
-            const /** @type {?} */ inputContainer = this._inputContainer ?
-                this._inputContainer._elementRef.nativeElement : null;
+            const /** @type {?} */ inputContainer = this._formField ?
+                this._formField._elementRef.nativeElement : null;
             return this._panelOpen &&
                 clickTarget !== this._element.nativeElement &&
                 (!inputContainer || !inputContainer.contains(clickTarget)) &&
@@ -18907,8 +16745,8 @@ class MdAutocompleteTrigger {
      * @return {?}
      */
     _floatPlaceholder() {
-        if (this._inputContainer && this._inputContainer.floatPlaceholder === 'auto') {
-            this._inputContainer.floatPlaceholder = 'always';
+        if (this._formField && this._formField.floatPlaceholder === 'auto') {
+            this._formField.floatPlaceholder = 'always';
             this._manuallyFloatingPlaceholder = true;
         }
     }
@@ -18918,7 +16756,7 @@ class MdAutocompleteTrigger {
      */
     _resetPlaceholder() {
         if (this._manuallyFloatingPlaceholder) {
-            this._inputContainer.floatPlaceholder = 'auto';
+            this._formField.floatPlaceholder = 'auto';
             this._manuallyFloatingPlaceholder = false;
         }
     }
@@ -18984,10 +16822,10 @@ class MdAutocompleteTrigger {
         // Simply falling back to an empty string if the display value is falsy does not work properly.
         // The display value can also be the number zero and shouldn't fall back to an empty string.
         const /** @type {?} */ inputValue = toDisplay != null ? toDisplay : '';
-        // If it's used in a Material container, we should set it through
-        // the property so it can go through the change detection.
-        if (this._inputContainer) {
-            this._inputContainer._mdInputChild.value = inputValue;
+        // If it's used within a `MdFormField`, we should set it through the property so it can go
+        // through change detection.
+        if (this._formField) {
+            this._formField._control.value = inputValue;
         }
         else {
             this._element.nativeElement.value = inputValue;
@@ -19051,7 +16889,7 @@ class MdAutocompleteTrigger {
      * @return {?}
      */
     _getConnectedElement() {
-        return this._inputContainer ? this._inputContainer._connectionContainerRef : this._element;
+        return this._formField ? this._formField._connectionContainerRef : this._element;
     }
     /**
      * Returns the width of the input element, so the panel width can match it.
@@ -19101,7 +16939,7 @@ MdAutocompleteTrigger.ctorParameters = () => [
     { type: ChangeDetectorRef, },
     { type: undefined, decorators: [{ type: Inject, args: [MD_AUTOCOMPLETE_SCROLL_STRATEGY,] },] },
     { type: Directionality, decorators: [{ type: Optional },] },
-    { type: MdInputContainer, decorators: [{ type: Optional }, { type: Host },] },
+    { type: MdFormField, decorators: [{ type: Optional }, { type: Host },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
 MdAutocompleteTrigger.propDecorators = {
@@ -20620,7 +18458,7 @@ MdDatepickerInput.ctorParameters = () => [
     { type: Renderer2, },
     { type: DateAdapter, decorators: [{ type: Optional },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MD_DATE_FORMATS,] },] },
-    { type: MdInputContainer, decorators: [{ type: Optional },] },
+    { type: MdFormField, decorators: [{ type: Optional },] },
 ];
 MdDatepickerInput.propDecorators = {
     'mdDatepicker': [{ type: Input },],
@@ -22155,6 +19993,7 @@ const MATERIAL_MODULES = [
     MdTableModule,
     MdDialogModule,
     MdExpansionModule,
+    MdFormFieldModule,
     MdGridListModule,
     MdIconModule,
     MdInputModule,
@@ -22203,5 +20042,5 @@ MaterialModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { VERSION, coerceBooleanProperty, coerceNumberProperty, ObserversModule, ObserveContent, Dir, Directionality, BidiModule, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, A, Z, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_SCROLL_STRATEGY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdChipRemove, MdChipInput, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, _MdCheckboxRequiredValidator, MD_CHECKBOX_REQUIRED_VALIDATOR, MdCheckboxRequiredValidator, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MD_DATEPICKER_SCROLL_STRATEGY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInputEvent, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MD_DIALOG_SCROLL_STRATEGY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdPlaceholder, MdHint, MdErrorDirective, MdPrefix, MdSuffix, MdInputDirective, MdInputContainer, getMdInputContainerPlaceholderConflictError, getMdInputContainerUnsupportedTypeError, getMdInputContainerDuplicatedHintError, getMdInputContainerMissingMdInputError, MdListModule, MdListBase, _MdListMixinBase, MdListItemBase, _MdListItemMixinBase, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MD_MENU_DEFAULT_OPTIONS, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdPaginatorIntl, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MD_SELECT_SCROLL_STRATEGY, MD_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_SELECT_SCROLL_STRATEGY_PROVIDER, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelectTrigger, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MD_SNACK_BAR_DATA, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort, MdTableModule, _MdCellDef, _MdHeaderCellDef, _MdColumnDef, _MdHeaderCell, _MdCell, MdCellDef, MdHeaderCellDef, MdColumnDef, MdHeaderCell, MdCell, _MdTable, MdTable, _MdHeaderRowDef, _MdCdkRowDef, _MdHeaderRow, _MdRow, MdHeaderRowDef, MdRowDef, MdHeaderRow, MdRow, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroupBase, _MdTabGroupMixinBase, MdTabGroup, MdTabNavBase, _MdTabNavMixinBase, MdTabLinkBase, _MdTabLinkMixinBase, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMdTooltipInvalidPositionError, MD_TOOLTIP_SCROLL_STRATEGY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MdTooltip, TooltipComponent, mixinColor as ɵbd, mixinDisableRipple as ɵbe, mixinDisabled as ɵbc, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵk, OVERLAY_CONTAINER_PROVIDER as ɵb, OVERLAY_CONTAINER_PROVIDER_FACTORY as ɵa, MD_CONNECTED_OVERLAY_SCROLL_STRATEGY as ɵc, MD_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER as ɵe, MD_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵd, OverlayPositionBuilder as ɵbb, VIEWPORT_RULER_PROVIDER as ɵg, VIEWPORT_RULER_PROVIDER_FACTORY as ɵf, SCROLL_DISPATCHER_PROVIDER as ɵi, SCROLL_DISPATCHER_PROVIDER_FACTORY as ɵh, RippleRenderer as ɵj, EXPANSION_PANEL_ANIMATION_TIMING as ɵl, MdGridAvatarCssMatStyler as ɵn, MdGridTileFooterCssMatStyler as ɵp, MdGridTileHeaderCssMatStyler as ɵo, MdGridTileText as ɵm, MdMenuItemBase as ɵq, _MdMenuItemMixinBase as ɵr, MD_MENU_SCROLL_STRATEGY as ɵs, MD_MENU_SCROLL_STRATEGY_PROVIDER as ɵu, MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵt, MdTabBase as ɵz, _MdTabMixinBase as ɵba, MdTabHeaderBase as ɵv, _MdTabHeaderMixinBase as ɵw, MdTabLabelWrapperBase as ɵx, _MdTabLabelWrapperMixinBase as ɵy };
+export { VERSION, coerceBooleanProperty, coerceNumberProperty, ObserversModule, ObserveContent, Dir, Directionality, BidiModule, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, VIEWPORT_RULER_PROVIDER, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, A, Z, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_SCROLL_STRATEGY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdChipRemove, MdChipInput, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, _MdCheckboxRequiredValidator, MD_CHECKBOX_REQUIRED_VALIDATOR, MdCheckboxRequiredValidator, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MD_DATEPICKER_SCROLL_STRATEGY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInputEvent, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MD_DIALOG_SCROLL_STRATEGY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdFormFieldModule, MdError, MdFormField, MdFormFieldControl, getMdFormFieldPlaceholderConflictError, getMdFormFieldDuplicatedHintError, getMdFormFieldMissingControlError, MdHint, MdPlaceholder, MdPrefix, MdSuffix, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdInput, getMdInputUnsupportedTypeError, MdListModule, MdListBase, _MdListMixinBase, MdListItemBase, _MdListItemMixinBase, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdMenuModule, fadeInItems, transformMenu, MdMenu, MD_MENU_DEFAULT_OPTIONS, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdPaginatorIntl, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MD_SELECT_SCROLL_STRATEGY, MD_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_SELECT_SCROLL_STRATEGY_PROVIDER, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelectTrigger, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MD_SNACK_BAR_DATA, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort, MdTableModule, _MdCellDef, _MdHeaderCellDef, _MdColumnDef, _MdHeaderCell, _MdCell, MdCellDef, MdHeaderCellDef, MdColumnDef, MdHeaderCell, MdCell, _MdTable, MdTable, _MdHeaderRowDef, _MdCdkRowDef, _MdHeaderRow, _MdRow, MdHeaderRowDef, MdRowDef, MdHeaderRow, MdRow, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroupBase, _MdTabGroupMixinBase, MdTabGroup, MdTabNavBase, _MdTabNavMixinBase, MdTabLinkBase, _MdTabLinkMixinBase, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMdTooltipInvalidPositionError, MD_TOOLTIP_SCROLL_STRATEGY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MdTooltip, TooltipComponent, mixinColor as ɵt, mixinDisableRipple as ɵu, mixinDisabled as ɵs, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵb, RippleRenderer as ɵa, EXPANSION_PANEL_ANIMATION_TIMING as ɵc, MdGridAvatarCssMatStyler as ɵe, MdGridTileFooterCssMatStyler as ɵg, MdGridTileHeaderCssMatStyler as ɵf, MdGridTileText as ɵd, MdMenuItemBase as ɵh, _MdMenuItemMixinBase as ɵi, MD_MENU_SCROLL_STRATEGY as ɵj, MD_MENU_SCROLL_STRATEGY_PROVIDER as ɵl, MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵk, MdTabBase as ɵq, _MdTabMixinBase as ɵr, MdTabHeaderBase as ɵm, _MdTabHeaderMixinBase as ɵn, MdTabLabelWrapperBase as ɵo, _MdTabLabelWrapperMixinBase as ɵp };
 //# sourceMappingURL=material.js.map

@@ -5,9 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentInit, EventEmitter, OnDestroy, ViewContainerRef, NgZone, InjectionToken } from '@angular/core';
-import { Overlay, RepositionScrollStrategy, ScrollStrategy } from '../core/overlay/index';
-import { Directionality } from '../core/bidi/index';
+import { AfterContentInit, EventEmitter, InjectionToken, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
+import { Overlay, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/overlay';
+import { Directionality } from '@angular/cdk/bidi';
 import { MdDialog } from '../dialog/dialog';
 import { MdDatepickerInput } from './datepicker-input';
 import { DateAdapter } from '../core/datetime/index';

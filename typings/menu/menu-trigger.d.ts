@@ -5,8 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterViewInit, ElementRef, EventEmitter, OnDestroy, ViewContainerRef, InjectionToken } from '@angular/core';
-import { Directionality, Direction, Overlay, RepositionScrollStrategy, ScrollStrategy } from '../core';
+import { AfterViewInit, ElementRef, EventEmitter, InjectionToken, OnDestroy, ViewContainerRef } from '@angular/core';
+import { Direction, Directionality } from '@angular/cdk/bidi';
+import { Overlay, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/overlay';
 import { MdMenu } from './menu-directive';
 import { MdMenuItem } from './menu-item';
 import { MdMenuPanel } from './menu-panel';

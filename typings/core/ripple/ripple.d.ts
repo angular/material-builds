@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ElementRef, NgZone, OnChanges, SimpleChanges, OnDestroy, InjectionToken } from '@angular/core';
+import { ViewportRuler } from '@angular/cdk/overlay';
+import { Platform } from '@angular/cdk/platform';
 import { RippleConfig } from './ripple-renderer';
 import { RippleRef } from './ripple-ref';
-import { ViewportRuler } from '../overlay/position/viewport-ruler';
-import { Platform } from '../platform/platform';
 export interface RippleGlobalOptions {
     disabled?: boolean;
     baseSpeedFactor?: number;

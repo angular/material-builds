@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { QueryList, ElementRef, EventEmitter, AfterContentChecked, AfterContentInit, OnDestroy, NgZone, Renderer2, ChangeDetectorRef } from '@angular/core';
-import { Directionality, Direction } from '../core';
+import { Directionality, Direction } from '@angular/cdk/bidi';
 import { MdTabLabelWrapper } from './tab-label-wrapper';
 import { MdInkBar } from './ink-bar';
 import { CanDisableRipple } from '../core/common-behaviors/disable-ripple';

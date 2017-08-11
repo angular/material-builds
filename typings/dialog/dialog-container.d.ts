@@ -5,11 +5,11 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ComponentRef, NgZone, ElementRef, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { ComponentRef, ElementRef, EventEmitter, NgZone, ChangeDetectorRef } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
-import { BasePortalHost, ComponentPortal, PortalHostDirective, TemplatePortal } from '../core';
+import { BasePortalHost, ComponentPortal, PortalHostDirective, TemplatePortal } from '@angular/cdk/portal';
+import { FocusTrapFactory } from '@angular/cdk/a11y';
 import { MdDialogConfig } from './dialog-config';
-import { FocusTrapFactory } from '../core/a11y/focus-trap';
 /**
  * Throws an exception for the case when a ComponentPortal is
  * attached to a DomPortalHost without an origin.

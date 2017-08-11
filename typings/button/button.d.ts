@@ -6,7 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ElementRef, OnDestroy, Renderer2 } from '@angular/core';
-import { FocusOriginMonitor, Platform } from '../core';
+import { Platform } from '@angular/cdk/platform';
+import { FocusOriginMonitor } from '../core';
 import { CanDisable } from '../core/common-behaviors/disabled';
 import { CanColor } from '../core/common-behaviors/color';
 import { CanDisableRipple } from '../core/common-behaviors/disable-ripple';

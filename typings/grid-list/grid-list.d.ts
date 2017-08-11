@@ -7,7 +7,7 @@
  */
 import { AfterContentChecked, OnInit, QueryList, Renderer2, ElementRef } from '@angular/core';
 import { MdGridTile } from './grid-tile';
-import { Directionality } from '../core';
+import { Directionality } from '@angular/cdk/bidi';
 export declare class MdGridList implements OnInit, AfterContentChecked {
     private _renderer;
     private _element;

@@ -11,7 +11,7 @@ import { MenuPositionX, MenuPositionY } from './menu-positions';
 import { MdMenuItem } from './menu-item';
 import { MdMenuPanel } from './menu-panel';
 import { Observable } from 'rxjs/Observable';
-import { Direction } from '../core';
+import { Direction } from '@angular/cdk/bidi';
 /** Default `md-menu` options that can be overridden. */
 export interface MdMenuDefaultOptions {
     xPosition: MenuPositionX;

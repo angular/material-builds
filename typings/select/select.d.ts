@@ -5,21 +5,17 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentInit, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer2, ChangeDetectorRef, OnInit, InjectionToken } from '@angular/core';
-import { NgForm, FormGroupDirective } from '@angular/forms';
-import { MdOption, MdOptionSelectionChange, MdOptgroup } from '../core/option/index';
-import { FocusKeyManager } from '../core/a11y/focus-key-manager';
-import { Directionality } from '../core/bidi/index';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, OnDestroy, OnInit, QueryList, Renderer2 } from '@angular/core';
+import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { FocusKeyManager } from '@angular/cdk/a11y';
+import { Directionality } from '@angular/cdk/bidi';
+import { ConnectedOverlayDirective, Overlay, RepositionScrollStrategy, ScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
 import { Observable } from 'rxjs/Observable';
-import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { ConnectedOverlayDirective } from '../core/overlay/overlay-directives';
-import { ViewportRuler } from '../core/overlay/position/viewport-ruler';
 import { SelectionModel } from '../core/selection/selection';
-import { Overlay } from '../core/overlay/overlay';
 import { CanColor } from '../core/common-behaviors/color';
 import { CanDisable } from '../core/common-behaviors/disabled';
+import { MdOptgroup, MdOption, MdOptionSelectionChange } from '../core/option/index';
 import { FloatPlaceholderType, PlaceholderOptions } from '../core/placeholder/placeholder-options';
-import { ScrollStrategy, RepositionScrollStrategy } from '../core/overlay/scroll';
 import { Platform } from '@angular/cdk/platform';
 /**
  * The following style constants are necessary to save here in order

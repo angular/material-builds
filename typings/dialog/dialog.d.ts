@@ -5,11 +5,12 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Injector, TemplateRef, InjectionToken } from '@angular/core';
+import { InjectionToken, Injector, TemplateRef } from '@angular/core';
 import { Location } from '@angular/common';
+import { ComponentType } from '@angular/cdk/portal';
+import { BlockScrollStrategy, Overlay, ScrollStrategy } from '@angular/cdk/overlay';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import { Overlay, ComponentType, BlockScrollStrategy, ScrollStrategy } from '../core';
 import { MdDialogConfig } from './dialog-config';
 import { MdDialogRef } from './dialog-ref';
 export declare const MD_DIALOG_DATA: InjectionToken<any>;

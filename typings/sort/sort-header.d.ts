@@ -6,9 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ChangeDetectorRef } from '@angular/core';
+import { CdkColumnDef } from '@angular/cdk/table';
 import { MdSort, MdSortable } from './sort';
 import { MdSortHeaderIntl } from './sort-header-intl';
-import { CdkColumnDef } from '@angular/cdk/table';
 /**
  * Applies sorting behavior (click to change sort) and styles to an element, including an
  * arrow to display the current sort direction.

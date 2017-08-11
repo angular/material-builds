@@ -5,13 +5,12 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, ViewContainerRef, NgZone, OnDestroy, Renderer2, ChangeDetectorRef, InjectionToken } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, Renderer2, ViewContainerRef } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
-import { Overlay, OverlayRef, OverlayConnectionPosition, OriginConnectionPosition, RepositionScrollStrategy, ScrollStrategy } from '../core';
 import { Observable } from 'rxjs/Observable';
-import { Directionality } from '../core/bidi/index';
-import { Platform } from '../core/platform/index';
-import { ScrollDispatcher } from '../core/overlay/scroll/scroll-dispatcher';
+import { Directionality } from '@angular/cdk/bidi';
+import { Platform } from '@angular/cdk/platform';
+import { OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, RepositionScrollStrategy, ScrollDispatcher, ScrollStrategy } from '@angular/cdk/overlay';
 export declare type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'before' | 'after';
 /** Time in ms to delay before changing the tooltip visibility to hidden */
 export declare const TOUCHEND_HIDE_DELAY = 1500;

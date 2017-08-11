@@ -6,7 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
-import { FocusOriginMonitor, HammerInput, MdRipple, Platform } from '../core';
+import { Platform } from '@angular/cdk/platform';
+import { FocusOriginMonitor, HammerInput, MdRipple } from '../core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanDisable } from '../core/common-behaviors/disabled';
 import { CanColor } from '../core/common-behaviors/color';

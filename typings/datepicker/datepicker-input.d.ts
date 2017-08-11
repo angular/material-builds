@@ -8,7 +8,7 @@
 import { AfterContentInit, ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
 import { MdDatepicker } from './datepicker';
 import { AbstractControl, ControlValueAccessor, ValidationErrors, Validator } from '@angular/forms';
-import { MdInputContainer } from '../input/input-container';
+import { MdFormField } from '../form-field/index';
 import { DateAdapter } from '../core/datetime/index';
 import { MdDateFormats } from '../core/datetime/date-formats';
 export declare const MD_DATEPICKER_VALUE_ACCESSOR: any;
@@ -72,7 +72,7 @@ export declare class MdDatepickerInput<D> implements AfterContentInit, ControlVa
     private _validator;
     /** Whether the last value set on the input was valid. */
     private _lastValueValid;
-    constructor(_elementRef: ElementRef, _renderer: Renderer2, _dateAdapter: DateAdapter<D>, _dateFormats: MdDateFormats, _mdInputContainer: MdInputContainer);
+    constructor(_elementRef: ElementRef, _renderer: Renderer2, _dateAdapter: DateAdapter<D>, _dateFormats: MdDateFormats, _mdInputContainer: MdFormField);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     registerOnValidatorChange(fn: () => void): void;

@@ -6,7 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ViewContainerRef, InjectionToken } from '@angular/core';
-import { AriaLivePoliteness, Direction } from '../core';
+import { AriaLivePoliteness } from '@angular/cdk/a11y';
+import { Direction } from '@angular/cdk/bidi';
 export declare const MD_SNACK_BAR_DATA: InjectionToken<any>;
 /**
  * Configuration used when opening a snack-bar.

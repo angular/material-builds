@@ -7,8 +7,8 @@
  */
 import { AfterContentInit, ElementRef, QueryList, EventEmitter, Renderer2, NgZone, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
-import { Directionality } from '../core';
-import { FocusTrapFactory } from '../core/a11y/focus-trap';
+import { Directionality } from '@angular/cdk/bidi';
+import { FocusTrapFactory } from '@angular/cdk/a11y';
 /** Throws an exception when two MdSidenav are matching the same side. */
 export declare function throwMdDuplicatedSidenavError(align: string): void;
 /**

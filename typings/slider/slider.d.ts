@@ -5,10 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, EventEmitter, OnDestroy, Renderer2, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
+import { Directionality } from '@angular/cdk/bidi';
 import { HammerInput } from '../core';
-import { Directionality } from '../core/bidi/index';
 import { FocusOriginMonitor } from '../core/style/focus-origin-monitor';
 import { CanDisable } from '../core/common-behaviors/disabled';
 /**

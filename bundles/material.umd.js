@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/observers'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/common'), require('@angular/cdk/platform'), require('rxjs/Subject'), require('rxjs/Subscription'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('@angular/cdk/rxjs'), require('@angular/cdk/keycodes'), require('@angular/cdk/coercion'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('rxjs/observable/of'), require('@angular/forms'), require('@angular/animations'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/throw'), require('rxjs/observable/forkJoin'), require('rxjs/observable/defer'), require('@angular/cdk/table')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/observers', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/common', '@angular/cdk/platform', 'rxjs/Subject', 'rxjs/Subscription', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', '@angular/cdk/rxjs', '@angular/cdk/keycodes', '@angular/cdk/coercion', '@angular/cdk/portal', '@angular/cdk/a11y', 'rxjs/observable/of', '@angular/forms', '@angular/animations', '@angular/http', 'rxjs/Observable', 'rxjs/observable/throw', 'rxjs/observable/forkJoin', 'rxjs/observable/defer', '@angular/cdk/table'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.observers,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.common,global.ng.cdk.platform,global.Rx,global.Rx,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.rxjs,global.ng.cdk.keycodes,global.ng.cdk.coercion,global.ng.cdk.portal,global.ng.cdk.a11y,global.Rx.Observable,global.ng.forms,global.ng.animations,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.table));
-}(this, (function (exports,_angular_core,_angular_cdk_observers,_angular_platformBrowser,_angular_cdk_bidi,_angular_common,_angular_cdk_platform,rxjs_Subject,rxjs_Subscription,rxjs_observable_fromEvent,rxjs_observable_merge,_angular_cdk_rxjs,_angular_cdk_keycodes,_angular_cdk_coercion,_angular_cdk_portal,_angular_cdk_a11y,rxjs_observable_of,_angular_forms,_angular_animations,_angular_http,rxjs_Observable,rxjs_observable_throw,rxjs_observable_forkJoin,rxjs_observable_defer,_angular_cdk_table) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('rxjs/observable/of'), require('@angular/forms'), require('@angular/cdk/rxjs'), require('rxjs/observable/merge'), require('@angular/animations'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/throw'), require('rxjs/observable/forkJoin'), require('rxjs/observable/fromEvent'), require('rxjs/observable/defer'), require('@angular/cdk/table')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/coercion', 'rxjs/Subject', 'rxjs/observable/of', '@angular/forms', '@angular/cdk/rxjs', 'rxjs/observable/merge', '@angular/animations', '@angular/http', 'rxjs/Observable', 'rxjs/observable/throw', 'rxjs/observable/forkJoin', 'rxjs/observable/fromEvent', 'rxjs/observable/defer', '@angular/cdk/table'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.coercion,global.Rx,global.Rx.Observable,global.ng.forms,global.ng.cdk.rxjs,global.Rx.Observable,global.ng.animations,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.table));
+}(this, (function (exports,_angular_core,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_observers,_angular_cdk_overlay,_angular_cdk_portal,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_coercion,rxjs_Subject,rxjs_observable_of,_angular_forms,_angular_cdk_rxjs,rxjs_observable_merge,_angular_animations,_angular_http,rxjs_Observable,rxjs_observable_throw,rxjs_observable_forkJoin,rxjs_observable_fromEvent,rxjs_observable_defer,_angular_cdk_table) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8-5ccf25d');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-4d82f83');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -57,11 +57,11 @@ function getMdCompatibilityInvalidPrefixError(prefix, nodeName) {
 /**
  * Selector that matches all elements that may have style collisions with AngularJS Material.
  */
-var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [matCardSubtitle],\n  [matCardTitle],\n  [matCellDef],\n  [matColumnDef],\n  [matDialogActions],\n  [matDialogClose],\n  [matDialogContent],\n  [matDialogTitle],\n  [matHeaderCellDef],\n  [matHeaderRowDef],\n  [matLine],\n  [matRowDef],\n  [matTabLabel],\n  [matTabLink],\n  [matTabNav],\n  [matTooltip],\n  [matInput],\n  [matPrefix],\n  [matSuffix],\n  mat-autocomplete,\n  mat-button-toggle,\n  mat-button-toggle,\n  mat-button-toggle-group,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-cell,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-error,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-header-cell,\n  mat-header-row,\n  mat-hint,\n  mat-icon,\n  mat-input-container,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-pseudo-checkbox,\n  mat-radio-button,\n  mat-radio-group,\n  mat-row,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-tab,\n  mat-table,\n  mat-tab-group,\n  mat-toolbar";
+var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [matCardSubtitle],\n  [matCardTitle],\n  [matCellDef],\n  [matColumnDef],\n  [matDialogActions],\n  [matDialogClose],\n  [matDialogContent],\n  [matDialogTitle],\n  [matHeaderCellDef],\n  [matHeaderRowDef],\n  [matLine],\n  [matRowDef],\n  [matTabLabel],\n  [matTabLink],\n  [matTabNav],\n  [matTooltip],\n  [matInput],\n  [matPrefix],\n  [matSuffix],\n  mat-autocomplete,\n  mat-button-toggle,\n  mat-button-toggle,\n  mat-button-toggle-group,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-cell,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-error,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-header-cell,\n  mat-header-row,\n  mat-hint,\n  mat-icon,\n  mat-input-container,\n  mat-form-field,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-pseudo-checkbox,\n  mat-radio-button,\n  mat-radio-group,\n  mat-row,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-tab,\n  mat-table,\n  mat-tab-group,\n  mat-toolbar";
 /**
  * Selector that matches all elements that may have style collisions with AngularJS Material.
  */
-var MD_ELEMENTS_SELECTOR = "\n  [md-button],\n  [md-fab],\n  [md-icon-button],\n  [md-mini-fab],\n  [md-raised-button],\n  [mdCardSubtitle],\n  [mdCardTitle],\n  [mdCellDef],\n  [mdColumnDef],\n  [mdDialogActions],\n  [mdDialogClose],\n  [mdDialogContent],\n  [mdDialogTitle],\n  [mdHeaderCellDef],\n  [mdHeaderRowDef],\n  [mdLine],\n  [mdRowDef],\n  [mdTabLabel],\n  [mdTabLink],\n  [mdTabNav],\n  [mdTooltip],\n  [mdInput],\n  [mdPrefix],\n  [mdSuffix],\n  md-autocomplete,\n  md-button-toggle,\n  md-button-toggle,\n  md-button-toggle-group,\n  md-card,\n  md-card-actions,\n  md-card-content,\n  md-card-footer,\n  md-card-header,\n  md-card-subtitle,\n  md-card-title,\n  md-card-title-group,\n  md-cell,\n  md-checkbox,\n  md-chip,\n  md-dialog-actions,\n  md-dialog-container,\n  md-dialog-content,\n  md-divider,\n  md-error,\n  md-grid-list,\n  md-grid-tile,\n  md-grid-tile-footer,\n  md-grid-tile-header,\n  md-header-cell,\n  md-header-row,\n  md-hint,\n  md-icon,\n  md-input-container,\n  md-list,\n  md-list-item,\n  md-menu,\n  md-nav-list,\n  md-option,\n  md-placeholder,\n  md-progress-bar,\n  md-pseudo-checkbox,\n  md-radio-button,\n  md-radio-group,\n  md-row,\n  md-select,\n  md-sidenav,\n  md-sidenav-container,\n  md-slider,\n  md-spinner,\n  md-tab,\n  md-table,\n  md-tab-group,\n  md-toolbar";
+var MD_ELEMENTS_SELECTOR = "\n  [md-button],\n  [md-fab],\n  [md-icon-button],\n  [md-mini-fab],\n  [md-raised-button],\n  [mdCardSubtitle],\n  [mdCardTitle],\n  [mdCellDef],\n  [mdColumnDef],\n  [mdDialogActions],\n  [mdDialogClose],\n  [mdDialogContent],\n  [mdDialogTitle],\n  [mdHeaderCellDef],\n  [mdHeaderRowDef],\n  [mdLine],\n  [mdRowDef],\n  [mdTabLabel],\n  [mdTabLink],\n  [mdTabNav],\n  [mdTooltip],\n  [mdInput],\n  [mdPrefix],\n  [mdSuffix],\n  md-autocomplete,\n  md-button-toggle,\n  md-button-toggle,\n  md-button-toggle-group,\n  md-card,\n  md-card-actions,\n  md-card-content,\n  md-card-footer,\n  md-card-header,\n  md-card-subtitle,\n  md-card-title,\n  md-card-title-group,\n  md-cell,\n  md-checkbox,\n  md-chip,\n  md-dialog-actions,\n  md-dialog-container,\n  md-dialog-content,\n  md-divider,\n  md-error,\n  md-grid-list,\n  md-grid-tile,\n  md-grid-tile-footer,\n  md-grid-tile-header,\n  md-header-cell,\n  md-header-row,\n  md-hint,\n  md-icon,\n  md-input-container,\n  md-form-field,\n  md-list,\n  md-list-item,\n  md-menu,\n  md-nav-list,\n  md-option,\n  md-placeholder,\n  md-progress-bar,\n  md-pseudo-checkbox,\n  md-radio-button,\n  md-radio-group,\n  md-row,\n  md-select,\n  md-sidenav,\n  md-sidenav-container,\n  md-slider,\n  md-spinner,\n  md-tab,\n  md-table,\n  md-tab-group,\n  md-toolbar";
 /**
  * Directive that enforces that the `mat-` prefix cannot be used.
  */
@@ -577,278 +577,6 @@ function distanceToFurthestCorner(x, y, rect) {
     return Math.sqrt(distX * distX + distY * distY);
 }
 /**
- * Time in ms to throttle the scrolling events by default.
- */
-var DEFAULT_SCROLL_TIME = 20;
-/**
- * Service contained all registered Scrollable references and emits an event when any one of the
- * Scrollable references emit a scrolled event.
- */
-var ScrollDispatcher = (function () {
-    /**
-     * @param {?} _ngZone
-     * @param {?} _platform
-     */
-    function ScrollDispatcher(_ngZone, _platform) {
-        this._ngZone = _ngZone;
-        this._platform = _platform;
-        /**
-         * Subject for notifying that a registered scrollable reference element has been scrolled.
-         */
-        this._scrolled = new rxjs_Subject.Subject();
-        /**
-         * Keeps track of the global `scroll` and `resize` subscriptions.
-         */
-        this._globalSubscription = null;
-        /**
-         * Keeps track of the amount of subscriptions to `scrolled`. Used for cleaning up afterwards.
-         */
-        this._scrolledCount = 0;
-        /**
-         * Map of all the scrollable references that are registered with the service and their
-         * scroll event subscriptions.
-         */
-        this.scrollableReferences = new Map();
-    }
-    /**
-     * Registers a Scrollable with the service and listens for its scrolled events. When the
-     * scrollable is scrolled, the service emits the event in its scrolled observable.
-     * @param {?} scrollable Scrollable instance to be registered.
-     * @return {?}
-     */
-    ScrollDispatcher.prototype.register = function (scrollable) {
-        var _this = this;
-        var /** @type {?} */ scrollSubscription = scrollable.elementScrolled().subscribe(function () { return _this._notify(); });
-        this.scrollableReferences.set(scrollable, scrollSubscription);
-    };
-    /**
-     * Deregisters a Scrollable reference and unsubscribes from its scroll event observable.
-     * @param {?} scrollable Scrollable instance to be deregistered.
-     * @return {?}
-     */
-    ScrollDispatcher.prototype.deregister = function (scrollable) {
-        var /** @type {?} */ scrollableReference = this.scrollableReferences.get(scrollable);
-        if (scrollableReference) {
-            scrollableReference.unsubscribe();
-            this.scrollableReferences.delete(scrollable);
-        }
-    };
-    /**
-     * Subscribes to an observable that emits an event whenever any of the registered Scrollable
-     * references (or window, document, or body) fire a scrolled event. Can provide a time in ms
-     * to override the default "throttle" time.
-     * @param {?=} auditTimeInMs
-     * @param {?=} callback
-     * @return {?}
-     */
-    ScrollDispatcher.prototype.scrolled = function (auditTimeInMs, callback) {
-        var _this = this;
-        if (auditTimeInMs === void 0) { auditTimeInMs = DEFAULT_SCROLL_TIME; }
-        // Scroll events can only happen on the browser, so do nothing if we're not on the browser.
-        if (!this._platform.isBrowser) {
-            return rxjs_Subscription.Subscription.EMPTY;
-        }
-        // In the case of a 0ms delay, use an observable without auditTime
-        // since it does add a perceptible delay in processing overhead.
-        var /** @type {?} */ observable = auditTimeInMs > 0 ?
-            _angular_cdk_rxjs.auditTime.call(this._scrolled.asObservable(), auditTimeInMs) :
-            this._scrolled.asObservable();
-        this._scrolledCount++;
-        if (!this._globalSubscription) {
-            this._globalSubscription = this._ngZone.runOutsideAngular(function () {
-                return rxjs_observable_merge.merge(rxjs_observable_fromEvent.fromEvent(window.document, 'scroll'), rxjs_observable_fromEvent.fromEvent(window, 'resize')).subscribe(function () { return _this._notify(); });
-            });
-        }
-        // Note that we need to do the subscribing from here, in order to be able to remove
-        // the global event listeners once there are no more subscriptions.
-        var /** @type {?} */ subscription = observable.subscribe(callback);
-        subscription.add(function () {
-            _this._scrolledCount--;
-            if (_this._globalSubscription && !_this.scrollableReferences.size && !_this._scrolledCount) {
-                _this._globalSubscription.unsubscribe();
-                _this._globalSubscription = null;
-            }
-        });
-        return subscription;
-    };
-    /**
-     * Returns all registered Scrollables that contain the provided element.
-     * @param {?} elementRef
-     * @return {?}
-     */
-    ScrollDispatcher.prototype.getScrollContainers = function (elementRef) {
-        var _this = this;
-        var /** @type {?} */ scrollingContainers = [];
-        this.scrollableReferences.forEach(function (_subscription, scrollable) {
-            if (_this.scrollableContainsElement(scrollable, elementRef)) {
-                scrollingContainers.push(scrollable);
-            }
-        });
-        return scrollingContainers;
-    };
-    /**
-     * Returns true if the element is contained within the provided Scrollable.
-     * @param {?} scrollable
-     * @param {?} elementRef
-     * @return {?}
-     */
-    ScrollDispatcher.prototype.scrollableContainsElement = function (scrollable, elementRef) {
-        var /** @type {?} */ element = elementRef.nativeElement;
-        var /** @type {?} */ scrollableElement = scrollable.getElementRef().nativeElement;
-        // Traverse through the element parents until we reach null, checking if any of the elements
-        // are the scrollable's element.
-        do {
-            if (element == scrollableElement) {
-                return true;
-            }
-        } while (element = element.parentElement);
-        return false;
-    };
-    /**
-     * Sends a notification that a scroll event has been fired.
-     * @return {?}
-     */
-    ScrollDispatcher.prototype._notify = function () {
-        this._scrolled.next();
-    };
-    return ScrollDispatcher;
-}());
-ScrollDispatcher.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-ScrollDispatcher.ctorParameters = function () { return [
-    { type: _angular_core.NgZone, },
-    { type: _angular_cdk_platform.Platform, },
-]; };
-/**
- * \@docs-private
- * @param {?} parentDispatcher
- * @param {?} ngZone
- * @param {?} platform
- * @return {?}
- */
-function SCROLL_DISPATCHER_PROVIDER_FACTORY(parentDispatcher, ngZone, platform) {
-    return parentDispatcher || new ScrollDispatcher(ngZone, platform);
-}
-/**
- * \@docs-private
- */
-var SCROLL_DISPATCHER_PROVIDER = {
-    // If there is already a ScrollDispatcher available, use that. Otherwise, provide a new one.
-    provide: ScrollDispatcher,
-    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), ScrollDispatcher], _angular_core.NgZone, _angular_cdk_platform.Platform],
-    useFactory: SCROLL_DISPATCHER_PROVIDER_FACTORY
-};
-/**
- * Simple utility for getting the bounds of the browser viewport.
- * \@docs-private
- */
-var ViewportRuler = (function () {
-    /**
-     * @param {?} scrollDispatcher
-     */
-    function ViewportRuler(scrollDispatcher) {
-        var _this = this;
-        // Subscribe to scroll and resize events and update the document rectangle on changes.
-        scrollDispatcher.scrolled(0, function () { return _this._cacheViewportGeometry(); });
-    }
-    /**
-     * Gets a ClientRect for the viewport's bounds.
-     * @param {?=} documentRect
-     * @return {?}
-     */
-    ViewportRuler.prototype.getViewportRect = function (documentRect) {
-        if (documentRect === void 0) { documentRect = this._documentRect; }
-        // Cache the document bounding rect so that we don't recompute it for multiple calls.
-        if (!documentRect) {
-            this._cacheViewportGeometry();
-            documentRect = this._documentRect;
-        }
-        // Use the document element's bounding rect rather than the window scroll properties
-        // (e.g. pageYOffset, scrollY) due to in issue in Chrome and IE where window scroll
-        // properties and client coordinates (boundingClientRect, clientX/Y, etc.) are in different
-        // conceptual viewports. Under most circumstances these viewports are equivalent, but they
-        // can disagree when the page is pinch-zoomed (on devices that support touch).
-        // See https://bugs.chromium.org/p/chromium/issues/detail?id=489206#c4
-        // We use the documentElement instead of the body because, by default (without a css reset)
-        // browsers typically give the document body an 8px margin, which is not included in
-        // getBoundingClientRect().
-        var /** @type {?} */ scrollPosition = this.getViewportScrollPosition(documentRect);
-        var /** @type {?} */ height = window.innerHeight;
-        var /** @type {?} */ width = window.innerWidth;
-        return {
-            top: scrollPosition.top,
-            left: scrollPosition.left,
-            bottom: scrollPosition.top + height,
-            right: scrollPosition.left + width,
-            height: height,
-            width: width,
-        };
-    };
-    /**
-     * Gets the (top, left) scroll position of the viewport.
-     * @param {?=} documentRect
-     * @return {?}
-     */
-    ViewportRuler.prototype.getViewportScrollPosition = function (documentRect) {
-        if (documentRect === void 0) { documentRect = this._documentRect; }
-        // Cache the document bounding rect so that we don't recompute it for multiple calls.
-        if (!documentRect) {
-            this._cacheViewportGeometry();
-            documentRect = this._documentRect;
-        }
-        // The top-left-corner of the viewport is determined by the scroll position of the document
-        // body, normally just (scrollLeft, scrollTop). However, Chrome and Firefox disagree about
-        // whether `document.body` or `document.documentElement` is the scrolled element, so reading
-        // `scrollTop` and `scrollLeft` is inconsistent. However, using the bounding rect of
-        // `document.documentElement` works consistently, where the `top` and `left` values will
-        // equal negative the scroll position.
-        var /** @type {?} */ top = -((documentRect)).top || document.body.scrollTop || window.scrollY ||
-            document.documentElement.scrollTop || 0;
-        var /** @type {?} */ left = -((documentRect)).left || document.body.scrollLeft || window.scrollX ||
-            document.documentElement.scrollLeft || 0;
-        return { top: top, left: left };
-    };
-    /**
-     * Caches the latest client rectangle of the document element.
-     * @return {?}
-     */
-    ViewportRuler.prototype._cacheViewportGeometry = function () {
-        this._documentRect = document.documentElement.getBoundingClientRect();
-    };
-    return ViewportRuler;
-}());
-ViewportRuler.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-ViewportRuler.ctorParameters = function () { return [
-    { type: ScrollDispatcher, },
-]; };
-/**
- * \@docs-private
- * @param {?} parentRuler
- * @param {?} scrollDispatcher
- * @return {?}
- */
-function VIEWPORT_RULER_PROVIDER_FACTORY(parentRuler, scrollDispatcher) {
-    return parentRuler || new ViewportRuler(scrollDispatcher);
-}
-/**
- * \@docs-private
- */
-var VIEWPORT_RULER_PROVIDER = {
-    // If there is already a ViewportRuler available, use that. Otherwise, provide a new one.
-    provide: ViewportRuler,
-    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), ViewportRuler], ScrollDispatcher],
-    useFactory: VIEWPORT_RULER_PROVIDER_FACTORY
-};
-/**
  * Injection token that can be used to specify the global ripple options.
  */
 var MD_RIPPLE_GLOBAL_OPTIONS = new _angular_core.InjectionToken('md-ripple-global-options');
@@ -954,7 +682,7 @@ MdRipple.decorators = [
 MdRipple.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.NgZone, },
-    { type: ViewportRuler, },
+    { type: _angular_cdk_overlay.ViewportRuler, },
     { type: _angular_cdk_platform.Platform, },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_RIPPLE_GLOBAL_OPTIONS,] },] },
 ]; };
@@ -967,320 +695,6 @@ MdRipple.propDecorators = {
     'color': [{ type: _angular_core.Input, args: ['mdRippleColor',] },],
     'unbounded': [{ type: _angular_core.Input, args: ['mdRippleUnbounded',] },],
 };
-/**
- * Sends an event when the directive's element is scrolled. Registers itself with the
- * ScrollDispatcher service to include itself as part of its collection of scrolling events that it
- * can be listened to through the service.
- */
-var Scrollable = (function () {
-    /**
-     * @param {?} _elementRef
-     * @param {?} _scroll
-     * @param {?} _ngZone
-     * @param {?} _renderer
-     */
-    function Scrollable(_elementRef, _scroll, _ngZone, _renderer) {
-        this._elementRef = _elementRef;
-        this._scroll = _scroll;
-        this._ngZone = _ngZone;
-        this._renderer = _renderer;
-        this._elementScrolled = new rxjs_Subject.Subject();
-    }
-    /**
-     * @return {?}
-     */
-    Scrollable.prototype.ngOnInit = function () {
-        var _this = this;
-        this._scrollListener = this._ngZone.runOutsideAngular(function () {
-            return _this._renderer.listen(_this.getElementRef().nativeElement, 'scroll', function (event) {
-                _this._elementScrolled.next(event);
-            });
-        });
-        this._scroll.register(this);
-    };
-    /**
-     * @return {?}
-     */
-    Scrollable.prototype.ngOnDestroy = function () {
-        this._scroll.deregister(this);
-        if (this._scrollListener) {
-            this._scrollListener();
-            this._scrollListener = null;
-        }
-    };
-    /**
-     * Returns observable that emits when a scroll event is fired on the host element.
-     * @return {?}
-     */
-    Scrollable.prototype.elementScrolled = function () {
-        return this._elementScrolled.asObservable();
-    };
-    /**
-     * @return {?}
-     */
-    Scrollable.prototype.getElementRef = function () {
-        return this._elementRef;
-    };
-    return Scrollable;
-}());
-Scrollable.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[cdk-scrollable], [cdkScrollable]'
-            },] },
-];
-/**
- * @nocollapse
- */
-Scrollable.ctorParameters = function () { return [
-    { type: _angular_core.ElementRef, },
-    { type: ScrollDispatcher, },
-    { type: _angular_core.NgZone, },
-    { type: _angular_core.Renderer2, },
-]; };
-/**
- * Returns an error to be thrown when attempting to attach an already-attached scroll strategy.
- * @return {?}
- */
-function getMdScrollStrategyAlreadyAttachedError() {
-    return Error("Scroll strategy has already been attached.");
-}
-/**
- * Strategy that will close the overlay as soon as the user starts scrolling.
- */
-var CloseScrollStrategy = (function () {
-    /**
-     * @param {?} _scrollDispatcher
-     */
-    function CloseScrollStrategy(_scrollDispatcher) {
-        this._scrollDispatcher = _scrollDispatcher;
-        this._scrollSubscription = null;
-    }
-    /**
-     * @param {?} overlayRef
-     * @return {?}
-     */
-    CloseScrollStrategy.prototype.attach = function (overlayRef) {
-        if (this._overlayRef) {
-            throw getMdScrollStrategyAlreadyAttachedError();
-        }
-        this._overlayRef = overlayRef;
-    };
-    /**
-     * @return {?}
-     */
-    CloseScrollStrategy.prototype.enable = function () {
-        var _this = this;
-        if (!this._scrollSubscription) {
-            this._scrollSubscription = this._scrollDispatcher.scrolled(0, function () {
-                if (_this._overlayRef.hasAttached()) {
-                    _this._overlayRef.detach();
-                }
-                _this.disable();
-            });
-        }
-    };
-    /**
-     * @return {?}
-     */
-    CloseScrollStrategy.prototype.disable = function () {
-        if (this._scrollSubscription) {
-            this._scrollSubscription.unsubscribe();
-            this._scrollSubscription = null;
-        }
-    };
-    return CloseScrollStrategy;
-}());
-/**
- * Scroll strategy that doesn't do anything.
- */
-var NoopScrollStrategy = (function () {
-    function NoopScrollStrategy() {
-    }
-    /**
-     * @return {?}
-     */
-    NoopScrollStrategy.prototype.enable = function () { };
-    /**
-     * @return {?}
-     */
-    NoopScrollStrategy.prototype.disable = function () { };
-    /**
-     * @return {?}
-     */
-    NoopScrollStrategy.prototype.attach = function () { };
-    return NoopScrollStrategy;
-}());
-/**
- * Strategy that will prevent the user from scrolling while the overlay is visible.
- */
-var BlockScrollStrategy = (function () {
-    /**
-     * @param {?} _viewportRuler
-     */
-    function BlockScrollStrategy(_viewportRuler) {
-        this._viewportRuler = _viewportRuler;
-        this._previousHTMLStyles = { top: '', left: '' };
-        this._isEnabled = false;
-    }
-    /**
-     * @return {?}
-     */
-    BlockScrollStrategy.prototype.attach = function () { };
-    /**
-     * @return {?}
-     */
-    BlockScrollStrategy.prototype.enable = function () {
-        if (this._canBeEnabled()) {
-            var /** @type {?} */ root = document.documentElement;
-            this._previousScrollPosition = this._viewportRuler.getViewportScrollPosition();
-            // Cache the previous inline styles in case the user had set them.
-            this._previousHTMLStyles.left = root.style.left || '';
-            this._previousHTMLStyles.top = root.style.top || '';
-            // Note: we're using the `html` node, instead of the `body`, because the `body` may
-            // have the user agent margin, whereas the `html` is guaranteed not to have one.
-            root.style.left = -this._previousScrollPosition.left + "px";
-            root.style.top = -this._previousScrollPosition.top + "px";
-            root.classList.add('cdk-global-scrollblock');
-            this._isEnabled = true;
-        }
-    };
-    /**
-     * @return {?}
-     */
-    BlockScrollStrategy.prototype.disable = function () {
-        if (this._isEnabled) {
-            this._isEnabled = false;
-            document.documentElement.style.left = this._previousHTMLStyles.left;
-            document.documentElement.style.top = this._previousHTMLStyles.top;
-            document.documentElement.classList.remove('cdk-global-scrollblock');
-            window.scroll(this._previousScrollPosition.left, this._previousScrollPosition.top);
-        }
-    };
-    /**
-     * @return {?}
-     */
-    BlockScrollStrategy.prototype._canBeEnabled = function () {
-        // Since the scroll strategies can't be singletons, we have to use a global CSS class
-        // (`cdk-global-scrollblock`) to make sure that we don't try to disable global
-        // scrolling multiple times.
-        if (document.documentElement.classList.contains('cdk-global-scrollblock') || this._isEnabled) {
-            return false;
-        }
-        var /** @type {?} */ body = document.body;
-        var /** @type {?} */ viewport = this._viewportRuler.getViewportRect();
-        return body.scrollHeight > viewport.height || body.scrollWidth > viewport.width;
-    };
-    return BlockScrollStrategy;
-}());
-/**
- * Strategy that will update the element position as the user is scrolling.
- */
-var RepositionScrollStrategy = (function () {
-    /**
-     * @param {?} _scrollDispatcher
-     * @param {?=} _config
-     */
-    function RepositionScrollStrategy(_scrollDispatcher, _config) {
-        this._scrollDispatcher = _scrollDispatcher;
-        this._config = _config;
-        this._scrollSubscription = null;
-    }
-    /**
-     * @param {?} overlayRef
-     * @return {?}
-     */
-    RepositionScrollStrategy.prototype.attach = function (overlayRef) {
-        if (this._overlayRef) {
-            throw getMdScrollStrategyAlreadyAttachedError();
-        }
-        this._overlayRef = overlayRef;
-    };
-    /**
-     * @return {?}
-     */
-    RepositionScrollStrategy.prototype.enable = function () {
-        var _this = this;
-        if (!this._scrollSubscription) {
-            var /** @type {?} */ throttle = this._config ? this._config.scrollThrottle : 0;
-            this._scrollSubscription = this._scrollDispatcher.scrolled(throttle, function () {
-                _this._overlayRef.updatePosition();
-            });
-        }
-    };
-    /**
-     * @return {?}
-     */
-    RepositionScrollStrategy.prototype.disable = function () {
-        if (this._scrollSubscription) {
-            this._scrollSubscription.unsubscribe();
-            this._scrollSubscription = null;
-        }
-    };
-    return RepositionScrollStrategy;
-}());
-/**
- * Options for how an overlay will handle scrolling.
- *
- * Users can provide a custom value for `ScrollStrategyOptions` to replace the default
- * behaviors. This class primarily acts as a factory for ScrollStrategy instances.
- */
-var ScrollStrategyOptions = (function () {
-    /**
-     * @param {?} _scrollDispatcher
-     * @param {?} _viewportRuler
-     */
-    function ScrollStrategyOptions(_scrollDispatcher, _viewportRuler) {
-        var _this = this;
-        this._scrollDispatcher = _scrollDispatcher;
-        this._viewportRuler = _viewportRuler;
-        /**
-         * Do nothing on scroll.
-         */
-        this.noop = function () { return new NoopScrollStrategy(); };
-        /**
-         * Close the overlay as soon as the user scrolls.
-         */
-        this.close = function () { return new CloseScrollStrategy(_this._scrollDispatcher); };
-        /**
-         * Block scrolling.
-         */
-        this.block = function () { return new BlockScrollStrategy(_this._viewportRuler); };
-        /**
-         * Update the overlay's position on scroll.
-         * @param config Configuration to be used inside the scroll strategy.
-         * Allows debouncing the reposition calls.
-         */
-        this.reposition = function (config) { return new RepositionScrollStrategy(_this._scrollDispatcher, config); };
-    }
-    return ScrollStrategyOptions;
-}());
-ScrollStrategyOptions.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-ScrollStrategyOptions.ctorParameters = function () { return [
-    { type: ScrollDispatcher, },
-    { type: ViewportRuler, },
-]; };
-var ScrollDispatchModule = (function () {
-    function ScrollDispatchModule() {
-    }
-    return ScrollDispatchModule;
-}());
-ScrollDispatchModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [_angular_cdk_platform.PlatformModule],
-                exports: [Scrollable],
-                declarations: [Scrollable],
-                providers: [SCROLL_DISPATCHER_PROVIDER, ScrollStrategyOptions],
-            },] },
-];
-/**
- * @nocollapse
- */
-ScrollDispatchModule.ctorParameters = function () { return []; };
 var MdRippleModule = (function () {
     function MdRippleModule() {
     }
@@ -1288,10 +702,10 @@ var MdRippleModule = (function () {
 }());
 MdRippleModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdCommonModule, _angular_cdk_platform.PlatformModule, ScrollDispatchModule],
+                imports: [MdCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_overlay.ScrollDispatchModule],
                 exports: [MdRipple, MdCommonModule],
                 declarations: [MdRipple],
-                providers: [VIEWPORT_RULER_PROVIDER],
+                providers: [_angular_cdk_overlay.VIEWPORT_RULER_PROVIDER],
             },] },
 ];
 /**
@@ -1749,1765 +1163,6 @@ MdOptionModule.decorators = [
  * @nocollapse
  */
 MdOptionModule.ctorParameters = function () { return []; };
-/**
- * OverlayState is a bag of values for either the initial configuration or current state of an
- * overlay.
- */
-var OverlayState = (function () {
-    function OverlayState() {
-        /**
-         * Strategy to be used when handling scroll events while the overlay is open.
-         */
-        this.scrollStrategy = new NoopScrollStrategy();
-        /**
-         * Custom class to add to the overlay pane.
-         */
-        this.panelClass = '';
-        /**
-         * Whether the overlay has a backdrop.
-         */
-        this.hasBackdrop = false;
-        /**
-         * Custom class to add to the backdrop
-         */
-        this.backdropClass = 'cdk-overlay-dark-backdrop';
-        /**
-         * The direction of the text in the overlay panel.
-         */
-        this.direction = 'ltr';
-        // TODO(jelbourn): configuration still to add
-        // - focus trap
-        // - disable pointer events
-        // - z-index
-    }
-    return OverlayState;
-}());
-/**
- * Reference to an overlay that has been created with the Overlay service.
- * Used to manipulate or dispose of said overlay.
- */
-var OverlayRef = (function () {
-    /**
-     * @param {?} _portalHost
-     * @param {?} _pane
-     * @param {?} _state
-     * @param {?} _ngZone
-     */
-    function OverlayRef(_portalHost, _pane, _state, _ngZone) {
-        this._portalHost = _portalHost;
-        this._pane = _pane;
-        this._state = _state;
-        this._ngZone = _ngZone;
-        this._backdropElement = null;
-        this._backdropClick = new rxjs_Subject.Subject();
-        this._attachments = new rxjs_Subject.Subject();
-        this._detachments = new rxjs_Subject.Subject();
-        _state.scrollStrategy.attach(this);
-    }
-    Object.defineProperty(OverlayRef.prototype, "overlayElement", {
-        /**
-         * The overlay's HTML element
-         * @return {?}
-         */
-        get: function () {
-            return this._pane;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Attaches the overlay to a portal instance and adds the backdrop.
-     * @param {?} portal Portal instance to which to attach the overlay.
-     * @return {?} The portal attachment result.
-     */
-    OverlayRef.prototype.attach = function (portal) {
-        var _this = this;
-        var /** @type {?} */ attachResult = this._portalHost.attach(portal);
-        // Update the pane element with the given state configuration.
-        this._updateStackingOrder();
-        this.updateSize();
-        this.updateDirection();
-        this.updatePosition();
-        this._state.scrollStrategy.enable();
-        // Enable pointer events for the overlay pane element.
-        this._togglePointerEvents(true);
-        if (this._state.hasBackdrop) {
-            this._attachBackdrop();
-        }
-        if (this._state.panelClass) {
-            // We can't do a spread here, because IE doesn't support setting multiple classes.
-            if (Array.isArray(this._state.panelClass)) {
-                this._state.panelClass.forEach(function (cls) { return _this._pane.classList.add(cls); });
-            }
-            else {
-                this._pane.classList.add(this._state.panelClass);
-            }
-        }
-        // Only emit the `attachments` event once all other setup is done.
-        this._attachments.next();
-        return attachResult;
-    };
-    /**
-     * Detaches an overlay from a portal.
-     * @return {?} Resolves when the overlay has been detached.
-     */
-    OverlayRef.prototype.detach = function () {
-        this.detachBackdrop();
-        // When the overlay is detached, the pane element should disable pointer events.
-        // This is necessary because otherwise the pane element will cover the page and disable
-        // pointer events therefore. Depends on the position strategy and the applied pane boundaries.
-        this._togglePointerEvents(false);
-        this._state.scrollStrategy.disable();
-        var /** @type {?} */ detachmentResult = this._portalHost.detach();
-        // Only emit after everything is detached.
-        this._detachments.next();
-        return detachmentResult;
-    };
-    /**
-     * Cleans up the overlay from the DOM.
-     * @return {?}
-     */
-    OverlayRef.prototype.dispose = function () {
-        if (this._state.positionStrategy) {
-            this._state.positionStrategy.dispose();
-        }
-        this._state.scrollStrategy.disable();
-        this.detachBackdrop();
-        this._portalHost.dispose();
-        this._attachments.complete();
-        this._backdropClick.complete();
-        this._detachments.next();
-        this._detachments.complete();
-    };
-    /**
-     * Checks whether the overlay has been attached.
-     * @return {?}
-     */
-    OverlayRef.prototype.hasAttached = function () {
-        return this._portalHost.hasAttached();
-    };
-    /**
-     * Returns an observable that emits when the backdrop has been clicked.
-     * @return {?}
-     */
-    OverlayRef.prototype.backdropClick = function () {
-        return this._backdropClick.asObservable();
-    };
-    /**
-     * Returns an observable that emits when the overlay has been attached.
-     * @return {?}
-     */
-    OverlayRef.prototype.attachments = function () {
-        return this._attachments.asObservable();
-    };
-    /**
-     * Returns an observable that emits when the overlay has been detached.
-     * @return {?}
-     */
-    OverlayRef.prototype.detachments = function () {
-        return this._detachments.asObservable();
-    };
-    /**
-     * Gets the current state config of the overlay.
-     * @return {?}
-     */
-    OverlayRef.prototype.getState = function () {
-        return this._state;
-    };
-    /**
-     * Updates the position of the overlay based on the position strategy.
-     * @return {?}
-     */
-    OverlayRef.prototype.updatePosition = function () {
-        if (this._state.positionStrategy) {
-            this._state.positionStrategy.apply(this._pane);
-        }
-    };
-    /**
-     * Updates the text direction of the overlay panel.
-     * @return {?}
-     */
-    OverlayRef.prototype.updateDirection = function () {
-        this._pane.setAttribute('dir', /** @type {?} */ ((this._state.direction)));
-    };
-    /**
-     * Updates the size of the overlay based on the overlay config.
-     * @return {?}
-     */
-    OverlayRef.prototype.updateSize = function () {
-        if (this._state.width || this._state.width === 0) {
-            this._pane.style.width = formatCssUnit(this._state.width);
-        }
-        if (this._state.height || this._state.height === 0) {
-            this._pane.style.height = formatCssUnit(this._state.height);
-        }
-        if (this._state.minWidth || this._state.minWidth === 0) {
-            this._pane.style.minWidth = formatCssUnit(this._state.minWidth);
-        }
-        if (this._state.minHeight || this._state.minHeight === 0) {
-            this._pane.style.minHeight = formatCssUnit(this._state.minHeight);
-        }
-    };
-    /**
-     * Toggles the pointer events for the overlay pane element.
-     * @param {?} enablePointer
-     * @return {?}
-     */
-    OverlayRef.prototype._togglePointerEvents = function (enablePointer) {
-        this._pane.style.pointerEvents = enablePointer ? 'auto' : 'none';
-    };
-    /**
-     * Attaches a backdrop for this overlay.
-     * @return {?}
-     */
-    OverlayRef.prototype._attachBackdrop = function () {
-        var _this = this;
-        this._backdropElement = document.createElement('div');
-        this._backdropElement.classList.add('cdk-overlay-backdrop');
-        if (this._state.backdropClass) {
-            this._backdropElement.classList.add(this._state.backdropClass);
-        } /** @type {?} */
-        ((
-        // Insert the backdrop before the pane in the DOM order,
-        // in order to handle stacked overlays properly.
-        this._pane.parentElement)).insertBefore(this._backdropElement, this._pane);
-        // Forward backdrop clicks such that the consumer of the overlay can perform whatever
-        // action desired when such a click occurs (usually closing the overlay).
-        this._backdropElement.addEventListener('click', function () { return _this._backdropClick.next(null); });
-        // Add class to fade-in the backdrop after one frame.
-        requestAnimationFrame(function () {
-            if (_this._backdropElement) {
-                _this._backdropElement.classList.add('cdk-overlay-backdrop-showing');
-            }
-        });
-    };
-    /**
-     * Updates the stacking order of the element, moving it to the top if necessary.
-     * This is required in cases where one overlay was detached, while another one,
-     * that should be behind it, was destroyed. The next time both of them are opened,
-     * the stacking will be wrong, because the detached element's pane will still be
-     * in its original DOM position.
-     * @return {?}
-     */
-    OverlayRef.prototype._updateStackingOrder = function () {
-        if (this._pane.nextSibling) {
-            ((this._pane.parentNode)).appendChild(this._pane);
-        }
-    };
-    /**
-     * Detaches the backdrop (if any) associated with the overlay.
-     * @return {?}
-     */
-    OverlayRef.prototype.detachBackdrop = function () {
-        var _this = this;
-        var /** @type {?} */ backdropToDetach = this._backdropElement;
-        if (backdropToDetach) {
-            var /** @type {?} */ finishDetach_1 = function () {
-                // It may not be attached to anything in certain cases (e.g. unit tests).
-                if (backdropToDetach && backdropToDetach.parentNode) {
-                    backdropToDetach.parentNode.removeChild(backdropToDetach);
-                }
-                // It is possible that a new portal has been attached to this overlay since we started
-                // removing the backdrop. If that is the case, only clear the backdrop reference if it
-                // is still the same instance that we started to remove.
-                if (_this._backdropElement == backdropToDetach) {
-                    _this._backdropElement = null;
-                }
-            };
-            backdropToDetach.classList.remove('cdk-overlay-backdrop-showing');
-            if (this._state.backdropClass) {
-                backdropToDetach.classList.remove(this._state.backdropClass);
-            }
-            backdropToDetach.addEventListener('transitionend', finishDetach_1);
-            // If the backdrop doesn't have a transition, the `transitionend` event won't fire.
-            // In this case we make it unclickable and we try to remove it after a delay.
-            backdropToDetach.style.pointerEvents = 'none';
-            // Run this outside the Angular zone because there's nothing that Angular cares about.
-            // If it were to run inside the Angular zone, every test that used Overlay would have to be
-            // either async or fakeAsync.
-            this._ngZone.runOutsideAngular(function () {
-                setTimeout(finishDetach_1, 500);
-            });
-        }
-    };
-    return OverlayRef;
-}());
-/**
- * @param {?} value
- * @return {?}
- */
-function formatCssUnit(value) {
-    return typeof value === 'string' ? (value) : value + "px";
-}
-/** Horizontal dimension of a connection point on the perimeter of the origin or overlay element. */
-/**
- * The points of the origin element and the overlay element to connect.
- */
-var ConnectionPositionPair = (function () {
-    /**
-     * @param {?} origin
-     * @param {?} overlay
-     */
-    function ConnectionPositionPair(origin, overlay) {
-        this.originX = origin.originX;
-        this.originY = origin.originY;
-        this.overlayX = overlay.overlayX;
-        this.overlayY = overlay.overlayY;
-    }
-    return ConnectionPositionPair;
-}());
-/**
- * Set of properties regarding the position of the origin and overlay relative to the viewport
- * with respect to the containing Scrollable elements.
- *
- * The overlay and origin are clipped if any part of their bounding client rectangle exceeds the
- * bounds of any one of the strategy's Scrollable's bounding client rectangle.
- *
- * The overlay and origin are outside view if there is no overlap between their bounding client
- * rectangle and any one of the strategy's Scrollable's bounding client rectangle.
- *
- *       -----------                    -----------
- *       | outside |                    | clipped |
- *       |  view   |              --------------------------
- *       |         |              |     |         |        |
- *       ----------               |     -----------        |
- *  --------------------------    |                        |
- *  |                        |    |      Scrollable        |
- *  |                        |    |                        |
- *  |                        |     --------------------------
- *  |      Scrollable        |
- *  |                        |
- *  --------------------------
- */
-var ScrollableViewProperties = (function () {
-    function ScrollableViewProperties() {
-    }
-    return ScrollableViewProperties;
-}());
-/**
- * The change event emitted by the strategy when a fallback position is used.
- */
-var ConnectedOverlayPositionChange = (function () {
-    /**
-     * @param {?} connectionPair
-     * @param {?} scrollableViewProperties
-     */
-    function ConnectedOverlayPositionChange(connectionPair, scrollableViewProperties) {
-        this.connectionPair = connectionPair;
-        this.scrollableViewProperties = scrollableViewProperties;
-    }
-    return ConnectedOverlayPositionChange;
-}());
-/**
- * @nocollapse
- */
-ConnectedOverlayPositionChange.ctorParameters = function () { return [
-    { type: ConnectionPositionPair, },
-    { type: ScrollableViewProperties, decorators: [{ type: _angular_core.Optional },] },
-]; };
-/**
- * A strategy for positioning overlays. Using this strategy, an overlay is given an
- * implicit position relative some origin element. The relative position is defined in terms of
- * a point on the origin element that is connected to a point on the overlay element. For example,
- * a basic dropdown is connecting the bottom-left corner of the origin to the top-left corner
- * of the overlay.
- */
-var ConnectedPositionStrategy = (function () {
-    /**
-     * @param {?} _connectedTo
-     * @param {?} _originPos
-     * @param {?} _overlayPos
-     * @param {?} _viewportRuler
-     */
-    function ConnectedPositionStrategy(_connectedTo, _originPos, _overlayPos, _viewportRuler) {
-        this._connectedTo = _connectedTo;
-        this._originPos = _originPos;
-        this._overlayPos = _overlayPos;
-        this._viewportRuler = _viewportRuler;
-        this._dir = 'ltr';
-        /**
-         * The offset in pixels for the overlay connection point on the x-axis
-         */
-        this._offsetX = 0;
-        /**
-         * The offset in pixels for the overlay connection point on the y-axis
-         */
-        this._offsetY = 0;
-        /**
-         * The Scrollable containers used to check scrollable view properties on position change.
-         */
-        this.scrollables = [];
-        /**
-         * Ordered list of preferred positions, from most to least desirable.
-         */
-        this._preferredPositions = [];
-        this._onPositionChange = new rxjs_Subject.Subject();
-        this._origin = this._connectedTo.nativeElement;
-        this.withFallbackPosition(_originPos, _overlayPos);
-    }
-    Object.defineProperty(ConnectedPositionStrategy.prototype, "_isRtl", {
-        /**
-         * Whether the we're dealing with an RTL context
-         * @return {?}
-         */
-        get: function () {
-            return this._dir === 'rtl';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedPositionStrategy.prototype, "onPositionChange", {
-        /**
-         * Emits an event when the connection point changes.
-         * @return {?}
-         */
-        get: function () {
-            return this._onPositionChange.asObservable();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedPositionStrategy.prototype, "positions", {
-        /**
-         * Ordered list of preferred positions, from most to least desirable.
-         * @return {?}
-         */
-        get: function () {
-            return this._preferredPositions;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * To be used to for any cleanup after the element gets destroyed.
-     * @return {?}
-     */
-    ConnectedPositionStrategy.prototype.dispose = function () { };
-    /**
-     * Updates the position of the overlay element, using whichever preferred position relative
-     * to the origin fits on-screen.
-     * \@docs-private
-     *
-     * @param {?} element Element to which to apply the CSS styles.
-     * @return {?} Resolves when the styles have been applied.
-     */
-    ConnectedPositionStrategy.prototype.apply = function (element) {
-        // Cache the overlay pane element in case re-calculating position is necessary
-        this._pane = element;
-        // We need the bounding rects for the origin and the overlay to determine how to position
-        // the overlay relative to the origin.
-        var /** @type {?} */ originRect = this._origin.getBoundingClientRect();
-        var /** @type {?} */ overlayRect = element.getBoundingClientRect();
-        // We use the viewport rect to determine whether a position would go off-screen.
-        var /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
-        // Fallback point if none of the fallbacks fit into the viewport.
-        var /** @type {?} */ fallbackPoint;
-        var /** @type {?} */ fallbackPosition;
-        // We want to place the overlay in the first of the preferred positions such that the
-        // overlay fits on-screen.
-        for (var _i = 0, _a = this._preferredPositions; _i < _a.length; _i++) {
-            var pos = _a[_i];
-            // Get the (x, y) point of connection on the origin, and then use that to get the
-            // (top, left) coordinate for the overlay at `pos`.
-            var /** @type {?} */ originPoint = this._getOriginConnectionPoint(originRect, pos);
-            var /** @type {?} */ overlayPoint = this._getOverlayPoint(originPoint, overlayRect, viewportRect, pos);
-            // If the overlay in the calculated position fits on-screen, put it there and we're done.
-            if (overlayPoint.fitsInViewport) {
-                this._setElementPosition(element, overlayRect, overlayPoint, pos);
-                // Save the last connected position in case the position needs to be re-calculated.
-                this._lastConnectedPosition = pos;
-                return;
-            }
-            else if (!fallbackPoint || fallbackPoint.visibleArea < overlayPoint.visibleArea) {
-                fallbackPoint = overlayPoint;
-                fallbackPosition = pos;
-            }
-        }
-        // If none of the preferred positions were in the viewport, take the one
-        // with the largest visible area.
-        this._setElementPosition(element, overlayRect, /** @type {?} */ ((fallbackPoint)), /** @type {?} */ ((fallbackPosition)));
-    };
-    /**
-     * This re-aligns the overlay element with the trigger in its last calculated position,
-     * even if a position higher in the "preferred positions" list would now fit. This
-     * allows one to re-align the panel without changing the orientation of the panel.
-     * @return {?}
-     */
-    ConnectedPositionStrategy.prototype.recalculateLastPosition = function () {
-        var /** @type {?} */ originRect = this._origin.getBoundingClientRect();
-        var /** @type {?} */ overlayRect = this._pane.getBoundingClientRect();
-        var /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
-        var /** @type {?} */ lastPosition = this._lastConnectedPosition || this._preferredPositions[0];
-        var /** @type {?} */ originPoint = this._getOriginConnectionPoint(originRect, lastPosition);
-        var /** @type {?} */ overlayPoint = this._getOverlayPoint(originPoint, overlayRect, viewportRect, lastPosition);
-        this._setElementPosition(this._pane, overlayRect, overlayPoint, lastPosition);
-    };
-    /**
-     * Sets the list of Scrollable containers that host the origin element so that
-     * on reposition we can evaluate if it or the overlay has been clipped or outside view. Every
-     * Scrollable must be an ancestor element of the strategy's origin element.
-     * @param {?} scrollables
-     * @return {?}
-     */
-    ConnectedPositionStrategy.prototype.withScrollableContainers = function (scrollables) {
-        this.scrollables = scrollables;
-    };
-    /**
-     * Adds a new preferred fallback position.
-     * @param {?} originPos
-     * @param {?} overlayPos
-     * @return {?}
-     */
-    ConnectedPositionStrategy.prototype.withFallbackPosition = function (originPos, overlayPos) {
-        this._preferredPositions.push(new ConnectionPositionPair(originPos, overlayPos));
-        return this;
-    };
-    /**
-     * Sets the layout direction so the overlay's position can be adjusted to match.
-     * @param {?} dir New layout direction.
-     * @return {?}
-     */
-    ConnectedPositionStrategy.prototype.withDirection = function (dir) {
-        this._dir = dir;
-        return this;
-    };
-    /**
-     * Sets an offset for the overlay's connection point on the x-axis
-     * @param {?} offset New offset in the X axis.
-     * @return {?}
-     */
-    ConnectedPositionStrategy.prototype.withOffsetX = function (offset) {
-        this._offsetX = offset;
-        return this;
-    };
-    /**
-     * Sets an offset for the overlay's connection point on the y-axis
-     * @param {?} offset New offset in the Y axis.
-     * @return {?}
-     */
-    ConnectedPositionStrategy.prototype.withOffsetY = function (offset) {
-        this._offsetY = offset;
-        return this;
-    };
-    /**
-     * Gets the horizontal (x) "start" dimension based on whether the overlay is in an RTL context.
-     * @param {?} rect
-     * @return {?}
-     */
-    ConnectedPositionStrategy.prototype._getStartX = function (rect) {
-        return this._isRtl ? rect.right : rect.left;
-    };
-    /**
-     * Gets the horizontal (x) "end" dimension based on whether the overlay is in an RTL context.
-     * @param {?} rect
-     * @return {?}
-     */
-    ConnectedPositionStrategy.prototype._getEndX = function (rect) {
-        return this._isRtl ? rect.left : rect.right;
-    };
-    /**
-     * Gets the (x, y) coordinate of a connection point on the origin based on a relative position.
-     * @param {?} originRect
-     * @param {?} pos
-     * @return {?}
-     */
-    ConnectedPositionStrategy.prototype._getOriginConnectionPoint = function (originRect, pos) {
-        var /** @type {?} */ originStartX = this._getStartX(originRect);
-        var /** @type {?} */ originEndX = this._getEndX(originRect);
-        var /** @type {?} */ x;
-        if (pos.originX == 'center') {
-            x = originStartX + (originRect.width / 2);
-        }
-        else {
-            x = pos.originX == 'start' ? originStartX : originEndX;
-        }
-        var /** @type {?} */ y;
-        if (pos.originY == 'center') {
-            y = originRect.top + (originRect.height / 2);
-        }
-        else {
-            y = pos.originY == 'top' ? originRect.top : originRect.bottom;
-        }
-        return { x: x, y: y };
-    };
-    /**
-     * Gets the (x, y) coordinate of the top-left corner of the overlay given a given position and
-     * origin point to which the overlay should be connected, as well as how much of the element
-     * would be inside the viewport at that position.
-     * @param {?} originPoint
-     * @param {?} overlayRect
-     * @param {?} viewportRect
-     * @param {?} pos
-     * @return {?}
-     */
-    ConnectedPositionStrategy.prototype._getOverlayPoint = function (originPoint, overlayRect, viewportRect, pos) {
-        // Calculate the (overlayStartX, overlayStartY), the start of the potential overlay position
-        // relative to the origin point.
-        var /** @type {?} */ overlayStartX;
-        if (pos.overlayX == 'center') {
-            overlayStartX = -overlayRect.width / 2;
-        }
-        else if (pos.overlayX === 'start') {
-            overlayStartX = this._isRtl ? -overlayRect.width : 0;
-        }
-        else {
-            overlayStartX = this._isRtl ? 0 : -overlayRect.width;
-        }
-        var /** @type {?} */ overlayStartY;
-        if (pos.overlayY == 'center') {
-            overlayStartY = -overlayRect.height / 2;
-        }
-        else {
-            overlayStartY = pos.overlayY == 'top' ? 0 : -overlayRect.height;
-        }
-        // The (x, y) coordinates of the overlay.
-        var /** @type {?} */ x = originPoint.x + overlayStartX + this._offsetX;
-        var /** @type {?} */ y = originPoint.y + overlayStartY + this._offsetY;
-        // How much the overlay would overflow at this position, on each side.
-        var /** @type {?} */ leftOverflow = 0 - x;
-        var /** @type {?} */ rightOverflow = (x + overlayRect.width) - viewportRect.width;
-        var /** @type {?} */ topOverflow = 0 - y;
-        var /** @type {?} */ bottomOverflow = (y + overlayRect.height) - viewportRect.height;
-        // Visible parts of the element on each axis.
-        var /** @type {?} */ visibleWidth = this._subtractOverflows(overlayRect.width, leftOverflow, rightOverflow);
-        var /** @type {?} */ visibleHeight = this._subtractOverflows(overlayRect.height, topOverflow, bottomOverflow);
-        // The area of the element that's within the viewport.
-        var /** @type {?} */ visibleArea = visibleWidth * visibleHeight;
-        var /** @type {?} */ fitsInViewport = (overlayRect.width * overlayRect.height) === visibleArea;
-        return { x: x, y: y, fitsInViewport: fitsInViewport, visibleArea: visibleArea };
-    };
-    /**
-     * Gets the view properties of the trigger and overlay, including whether they are clipped
-     * or completely outside the view of any of the strategy's scrollables.
-     * @param {?} overlay
-     * @return {?}
-     */
-    ConnectedPositionStrategy.prototype.getScrollableViewProperties = function (overlay) {
-        var _this = this;
-        var /** @type {?} */ originBounds = this._getElementBounds(this._origin);
-        var /** @type {?} */ overlayBounds = this._getElementBounds(overlay);
-        var /** @type {?} */ scrollContainerBounds = this.scrollables.map(function (scrollable) {
-            return _this._getElementBounds(scrollable.getElementRef().nativeElement);
-        });
-        return {
-            isOriginClipped: this.isElementClipped(originBounds, scrollContainerBounds),
-            isOriginOutsideView: this.isElementOutsideView(originBounds, scrollContainerBounds),
-            isOverlayClipped: this.isElementClipped(overlayBounds, scrollContainerBounds),
-            isOverlayOutsideView: this.isElementOutsideView(overlayBounds, scrollContainerBounds),
-        };
-    };
-    /**
-     * Whether the element is completely out of the view of any of the containers.
-     * @param {?} elementBounds
-     * @param {?} containersBounds
-     * @return {?}
-     */
-    ConnectedPositionStrategy.prototype.isElementOutsideView = function (elementBounds, containersBounds) {
-        return containersBounds.some(function (containerBounds) {
-            var /** @type {?} */ outsideAbove = elementBounds.bottom < containerBounds.top;
-            var /** @type {?} */ outsideBelow = elementBounds.top > containerBounds.bottom;
-            var /** @type {?} */ outsideLeft = elementBounds.right < containerBounds.left;
-            var /** @type {?} */ outsideRight = elementBounds.left > containerBounds.right;
-            return outsideAbove || outsideBelow || outsideLeft || outsideRight;
-        });
-    };
-    /**
-     * Whether the element is clipped by any of the containers.
-     * @param {?} elementBounds
-     * @param {?} containersBounds
-     * @return {?}
-     */
-    ConnectedPositionStrategy.prototype.isElementClipped = function (elementBounds, containersBounds) {
-        return containersBounds.some(function (containerBounds) {
-            var /** @type {?} */ clippedAbove = elementBounds.top < containerBounds.top;
-            var /** @type {?} */ clippedBelow = elementBounds.bottom > containerBounds.bottom;
-            var /** @type {?} */ clippedLeft = elementBounds.left < containerBounds.left;
-            var /** @type {?} */ clippedRight = elementBounds.right > containerBounds.right;
-            return clippedAbove || clippedBelow || clippedLeft || clippedRight;
-        });
-    };
-    /**
-     * Physically positions the overlay element to the given coordinate.
-     * @param {?} element
-     * @param {?} overlayRect
-     * @param {?} overlayPoint
-     * @param {?} pos
-     * @return {?}
-     */
-    ConnectedPositionStrategy.prototype._setElementPosition = function (element, overlayRect, overlayPoint, pos) {
-        // We want to set either `top` or `bottom` based on whether the overlay wants to appear above
-        // or below the origin and the direction in which the element will expand.
-        var /** @type {?} */ verticalStyleProperty = pos.overlayY === 'bottom' ? 'bottom' : 'top';
-        // When using `bottom`, we adjust the y position such that it is the distance
-        // from the bottom of the viewport rather than the top.
-        var /** @type {?} */ y = verticalStyleProperty === 'top' ?
-            overlayPoint.y :
-            document.documentElement.clientHeight - (overlayPoint.y + overlayRect.height);
-        // We want to set either `left` or `right` based on whether the overlay wants to appear "before"
-        // or "after" the origin, which determines the direction in which the element will expand.
-        // For the horizontal axis, the meaning of "before" and "after" change based on whether the
-        // page is in RTL or LTR.
-        var /** @type {?} */ horizontalStyleProperty;
-        if (this._dir === 'rtl') {
-            horizontalStyleProperty = pos.overlayX === 'end' ? 'left' : 'right';
-        }
-        else {
-            horizontalStyleProperty = pos.overlayX === 'end' ? 'right' : 'left';
-        }
-        // When we're setting `right`, we adjust the x position such that it is the distance
-        // from the right edge of the viewport rather than the left edge.
-        var /** @type {?} */ x = horizontalStyleProperty === 'left' ?
-            overlayPoint.x :
-            document.documentElement.clientWidth - (overlayPoint.x + overlayRect.width);
-        // Reset any existing styles. This is necessary in case the preferred position has
-        // changed since the last `apply`.
-        ['top', 'bottom', 'left', 'right'].forEach(function (p) { return element.style[p] = null; });
-        element.style[verticalStyleProperty] = y + "px";
-        element.style[horizontalStyleProperty] = x + "px";
-        // Notify that the position has been changed along with its change properties.
-        var /** @type {?} */ scrollableViewProperties = this.getScrollableViewProperties(element);
-        var /** @type {?} */ positionChange = new ConnectedOverlayPositionChange(pos, scrollableViewProperties);
-        this._onPositionChange.next(positionChange);
-    };
-    /**
-     * Returns the bounding positions of the provided element with respect to the viewport.
-     * @param {?} element
-     * @return {?}
-     */
-    ConnectedPositionStrategy.prototype._getElementBounds = function (element) {
-        var /** @type {?} */ boundingClientRect = element.getBoundingClientRect();
-        return {
-            top: boundingClientRect.top,
-            right: boundingClientRect.left + boundingClientRect.width,
-            bottom: boundingClientRect.top + boundingClientRect.height,
-            left: boundingClientRect.left
-        };
-    };
-    /**
-     * Subtracts the amount that an element is overflowing on an axis from it's length.
-     * @param {?} length
-     * @param {...?} overflows
-     * @return {?}
-     */
-    ConnectedPositionStrategy.prototype._subtractOverflows = function (length) {
-        var overflows = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            overflows[_i - 1] = arguments[_i];
-        }
-        return overflows.reduce(function (currentValue, currentOverflow) {
-            return currentValue - Math.max(currentOverflow, 0);
-        }, length);
-    };
-    return ConnectedPositionStrategy;
-}());
-/**
- * A strategy for positioning overlays. Using this strategy, an overlay is given an
- * explicit position relative to the browser's viewport. We use flexbox, instead of
- * transforms, in order to avoid issues with subpixel rendering which can cause the
- * element to become blurry.
- */
-var GlobalPositionStrategy = (function () {
-    function GlobalPositionStrategy() {
-        this._cssPosition = 'static';
-        this._topOffset = '';
-        this._bottomOffset = '';
-        this._leftOffset = '';
-        this._rightOffset = '';
-        this._alignItems = '';
-        this._justifyContent = '';
-        this._width = '';
-        this._height = '';
-        this._wrapper = null;
-    }
-    /**
-     * Sets the top position of the overlay. Clears any previously set vertical position.
-     * @param {?=} value New top offset.
-     * @return {?}
-     */
-    GlobalPositionStrategy.prototype.top = function (value) {
-        if (value === void 0) { value = ''; }
-        this._bottomOffset = '';
-        this._topOffset = value;
-        this._alignItems = 'flex-start';
-        return this;
-    };
-    /**
-     * Sets the left position of the overlay. Clears any previously set horizontal position.
-     * @param {?=} value New left offset.
-     * @return {?}
-     */
-    GlobalPositionStrategy.prototype.left = function (value) {
-        if (value === void 0) { value = ''; }
-        this._rightOffset = '';
-        this._leftOffset = value;
-        this._justifyContent = 'flex-start';
-        return this;
-    };
-    /**
-     * Sets the bottom position of the overlay. Clears any previously set vertical position.
-     * @param {?=} value New bottom offset.
-     * @return {?}
-     */
-    GlobalPositionStrategy.prototype.bottom = function (value) {
-        if (value === void 0) { value = ''; }
-        this._topOffset = '';
-        this._bottomOffset = value;
-        this._alignItems = 'flex-end';
-        return this;
-    };
-    /**
-     * Sets the right position of the overlay. Clears any previously set horizontal position.
-     * @param {?=} value New right offset.
-     * @return {?}
-     */
-    GlobalPositionStrategy.prototype.right = function (value) {
-        if (value === void 0) { value = ''; }
-        this._leftOffset = '';
-        this._rightOffset = value;
-        this._justifyContent = 'flex-end';
-        return this;
-    };
-    /**
-     * Sets the overlay width and clears any previously set width.
-     * @param {?=} value New width for the overlay
-     * @return {?}
-     */
-    GlobalPositionStrategy.prototype.width = function (value) {
-        if (value === void 0) { value = ''; }
-        this._width = value;
-        // When the width is 100%, we should reset the `left` and the offset,
-        // in order to ensure that the element is flush against the viewport edge.
-        if (value === '100%') {
-            this.left('0px');
-        }
-        return this;
-    };
-    /**
-     * Sets the overlay height and clears any previously set height.
-     * @param {?=} value New height for the overlay
-     * @return {?}
-     */
-    GlobalPositionStrategy.prototype.height = function (value) {
-        if (value === void 0) { value = ''; }
-        this._height = value;
-        // When the height is 100%, we should reset the `top` and the offset,
-        // in order to ensure that the element is flush against the viewport edge.
-        if (value === '100%') {
-            this.top('0px');
-        }
-        return this;
-    };
-    /**
-     * Centers the overlay horizontally with an optional offset.
-     * Clears any previously set horizontal position.
-     *
-     * @param {?=} offset Overlay offset from the horizontal center.
-     * @return {?}
-     */
-    GlobalPositionStrategy.prototype.centerHorizontally = function (offset) {
-        if (offset === void 0) { offset = ''; }
-        this.left(offset);
-        this._justifyContent = 'center';
-        return this;
-    };
-    /**
-     * Centers the overlay vertically with an optional offset.
-     * Clears any previously set vertical position.
-     *
-     * @param {?=} offset Overlay offset from the vertical center.
-     * @return {?}
-     */
-    GlobalPositionStrategy.prototype.centerVertically = function (offset) {
-        if (offset === void 0) { offset = ''; }
-        this.top(offset);
-        this._alignItems = 'center';
-        return this;
-    };
-    /**
-     * Apply the position to the element.
-     * \@docs-private
-     *
-     * @param {?} element Element to which to apply the CSS.
-     * @return {?} Resolved when the styles have been applied.
-     */
-    GlobalPositionStrategy.prototype.apply = function (element) {
-        if (!this._wrapper && element.parentNode) {
-            this._wrapper = document.createElement('div');
-            this._wrapper.classList.add('cdk-global-overlay-wrapper');
-            element.parentNode.insertBefore(this._wrapper, element);
-            this._wrapper.appendChild(element);
-        }
-        var /** @type {?} */ styles = element.style;
-        var /** @type {?} */ parentStyles = ((element.parentNode)).style;
-        styles.position = this._cssPosition;
-        styles.marginTop = this._topOffset;
-        styles.marginLeft = this._leftOffset;
-        styles.marginBottom = this._bottomOffset;
-        styles.marginRight = this._rightOffset;
-        styles.width = this._width;
-        styles.height = this._height;
-        parentStyles.justifyContent = this._justifyContent;
-        parentStyles.alignItems = this._alignItems;
-    };
-    /**
-     * Removes the wrapper element from the DOM.
-     * @return {?}
-     */
-    GlobalPositionStrategy.prototype.dispose = function () {
-        if (this._wrapper && this._wrapper.parentNode) {
-            this._wrapper.parentNode.removeChild(this._wrapper);
-            this._wrapper = null;
-        }
-    };
-    return GlobalPositionStrategy;
-}());
-/**
- * Builder for overlay position strategy.
- */
-var OverlayPositionBuilder = (function () {
-    /**
-     * @param {?} _viewportRuler
-     */
-    function OverlayPositionBuilder(_viewportRuler) {
-        this._viewportRuler = _viewportRuler;
-    }
-    /**
-     * Creates a global position strategy.
-     * @return {?}
-     */
-    OverlayPositionBuilder.prototype.global = function () {
-        return new GlobalPositionStrategy();
-    };
-    /**
-     * Creates a relative position strategy.
-     * @param {?} elementRef
-     * @param {?} originPos
-     * @param {?} overlayPos
-     * @return {?}
-     */
-    OverlayPositionBuilder.prototype.connectedTo = function (elementRef, originPos, overlayPos) {
-        return new ConnectedPositionStrategy(elementRef, originPos, overlayPos, this._viewportRuler);
-    };
-    return OverlayPositionBuilder;
-}());
-OverlayPositionBuilder.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-OverlayPositionBuilder.ctorParameters = function () { return [
-    { type: ViewportRuler, },
-]; };
-/**
- * The OverlayContainer is the container in which all overlays will load.
- * It should be provided in the root component to ensure it is properly shared.
- */
-var OverlayContainer = (function () {
-    function OverlayContainer() {
-    }
-    Object.defineProperty(OverlayContainer.prototype, "themeClass", {
-        /**
-         * Base theme to be applied to all overlay-based components.
-         * @return {?}
-         */
-        get: function () { return this._themeClass; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            if (this._containerElement) {
-                if (this._themeClass) {
-                    this._containerElement.classList.remove(this._themeClass);
-                }
-                if (value) {
-                    this._containerElement.classList.add(value);
-                }
-            }
-            this._themeClass = value;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * This method returns the overlay container element.  It will lazily
-     * create the element the first time  it is called to facilitate using
-     * the container in non-browser environments.
-     * @return {?} the container element
-     */
-    OverlayContainer.prototype.getContainerElement = function () {
-        if (!this._containerElement) {
-            this._createContainer();
-        }
-        return this._containerElement;
-    };
-    /**
-     * Create the overlay container element, which is simply a div
-     * with the 'cdk-overlay-container' class on the document body.
-     * @return {?}
-     */
-    OverlayContainer.prototype._createContainer = function () {
-        var /** @type {?} */ container = document.createElement('div');
-        container.classList.add('cdk-overlay-container');
-        if (this._themeClass) {
-            container.classList.add(this._themeClass);
-        }
-        document.body.appendChild(container);
-        this._containerElement = container;
-    };
-    return OverlayContainer;
-}());
-OverlayContainer.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-OverlayContainer.ctorParameters = function () { return []; };
-/**
- * \@docs-private
- * @param {?} parentContainer
- * @return {?}
- */
-function OVERLAY_CONTAINER_PROVIDER_FACTORY(parentContainer) {
-    return parentContainer || new OverlayContainer();
-}
-/**
- * \@docs-private
- */
-var OVERLAY_CONTAINER_PROVIDER = {
-    // If there is already an OverlayContainer available, use that. Otherwise, provide a new one.
-    provide: OverlayContainer,
-    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), OverlayContainer]],
-    useFactory: OVERLAY_CONTAINER_PROVIDER_FACTORY
-};
-/**
- * Next overlay unique ID.
- */
-var nextUniqueId = 0;
-/**
- * The default state for newly created overlays.
- */
-var defaultState = new OverlayState();
-/**
- * Service to create Overlays. Overlays are dynamically added pieces of floating UI, meant to be
- * used as a low-level building building block for other components. Dialogs, tooltips, menus,
- * selects, etc. can all be built using overlays. The service should primarily be used by authors
- * of re-usable components rather than developers building end-user applications.
- *
- * An overlay *is* a PortalHost, so any kind of Portal can be loaded into one.
- */
-var Overlay = (function () {
-    /**
-     * @param {?} scrollStrategies
-     * @param {?} _overlayContainer
-     * @param {?} _componentFactoryResolver
-     * @param {?} _positionBuilder
-     * @param {?} _appRef
-     * @param {?} _injector
-     * @param {?} _ngZone
-     */
-    function Overlay(scrollStrategies, _overlayContainer, _componentFactoryResolver, _positionBuilder, _appRef, _injector, _ngZone) {
-        this.scrollStrategies = scrollStrategies;
-        this._overlayContainer = _overlayContainer;
-        this._componentFactoryResolver = _componentFactoryResolver;
-        this._positionBuilder = _positionBuilder;
-        this._appRef = _appRef;
-        this._injector = _injector;
-        this._ngZone = _ngZone;
-    }
-    /**
-     * Creates an overlay.
-     * @param {?=} state State to apply to the overlay.
-     * @return {?} Reference to the created overlay.
-     */
-    Overlay.prototype.create = function (state$$1) {
-        if (state$$1 === void 0) { state$$1 = defaultState; }
-        var /** @type {?} */ pane = this._createPaneElement();
-        var /** @type {?} */ portalHost = this._createPortalHost(pane);
-        return new OverlayRef(portalHost, pane, state$$1, this._ngZone);
-    };
-    /**
-     * Returns a position builder that can be used, via fluent API,
-     * to construct and configure a position strategy.
-     * @return {?}
-     */
-    Overlay.prototype.position = function () {
-        return this._positionBuilder;
-    };
-    /**
-     * Creates the DOM element for an overlay and appends it to the overlay container.
-     * @return {?} Newly-created pane element
-     */
-    Overlay.prototype._createPaneElement = function () {
-        var /** @type {?} */ pane = document.createElement('div');
-        pane.id = "cdk-overlay-" + nextUniqueId++;
-        pane.classList.add('cdk-overlay-pane');
-        this._overlayContainer.getContainerElement().appendChild(pane);
-        return pane;
-    };
-    /**
-     * Create a DomPortalHost into which the overlay content can be loaded.
-     * @param {?} pane The DOM element to turn into a portal host.
-     * @return {?} A portal host for the given DOM element.
-     */
-    Overlay.prototype._createPortalHost = function (pane) {
-        return new _angular_cdk_portal.DomPortalHost(pane, this._componentFactoryResolver, this._appRef, this._injector);
-    };
-    return Overlay;
-}());
-Overlay.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-Overlay.ctorParameters = function () { return [
-    { type: ScrollStrategyOptions, },
-    { type: OverlayContainer, },
-    { type: _angular_core.ComponentFactoryResolver, },
-    { type: OverlayPositionBuilder, },
-    { type: _angular_core.ApplicationRef, },
-    { type: _angular_core.Injector, },
-    { type: _angular_core.NgZone, },
-]; };
-/**
- * Default set of positions for the overlay. Follows the behavior of a dropdown.
- */
-var defaultPositionList = [
-    new ConnectionPositionPair({ originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' }),
-    new ConnectionPositionPair({ originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' }),
-];
-/**
- * Injection token that determines the scroll handling while the connected overlay is open.
- */
-var MD_CONNECTED_OVERLAY_SCROLL_STRATEGY = new _angular_core.InjectionToken('md-connected-overlay-scroll-strategy');
-/**
- * \@docs-private
- * @param {?} overlay
- * @return {?}
- */
-function MD_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
-    return function () { return overlay.scrollStrategies.reposition(); };
-}
-/**
- * \@docs-private
- */
-var MD_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER = {
-    provide: MD_CONNECTED_OVERLAY_SCROLL_STRATEGY,
-    deps: [Overlay],
-    useFactory: MD_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY,
-};
-/**
- * Directive applied to an element to make it usable as an origin for an Overlay using a
- * ConnectedPositionStrategy.
- */
-var OverlayOrigin = (function () {
-    /**
-     * @param {?} elementRef
-     */
-    function OverlayOrigin(elementRef) {
-        this.elementRef = elementRef;
-    }
-    return OverlayOrigin;
-}());
-OverlayOrigin.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[cdk-overlay-origin], [overlay-origin], [cdkOverlayOrigin]',
-                exportAs: 'cdkOverlayOrigin',
-            },] },
-];
-/**
- * @nocollapse
- */
-OverlayOrigin.ctorParameters = function () { return [
-    { type: _angular_core.ElementRef, },
-]; };
-/**
- * Directive to facilitate declarative creation of an Overlay using a ConnectedPositionStrategy.
- */
-var ConnectedOverlayDirective = (function () {
-    /**
-     * @param {?} _overlay
-     * @param {?} _renderer
-     * @param {?} templateRef
-     * @param {?} viewContainerRef
-     * @param {?} _scrollStrategy
-     * @param {?} _dir
-     */
-    function ConnectedOverlayDirective(_overlay, _renderer, templateRef, viewContainerRef, _scrollStrategy, _dir) {
-        this._overlay = _overlay;
-        this._renderer = _renderer;
-        this._scrollStrategy = _scrollStrategy;
-        this._dir = _dir;
-        this._hasBackdrop = false;
-        this._offsetX = 0;
-        this._offsetY = 0;
-        /**
-         * Strategy to be used when handling scroll events while the overlay is open.
-         */
-        this.scrollStrategy = this._scrollStrategy();
-        /**
-         * Whether the overlay is open.
-         */
-        this.open = false;
-        /**
-         * Event emitted when the backdrop is clicked.
-         */
-        this.backdropClick = new _angular_core.EventEmitter();
-        /**
-         * Event emitted when the position has changed.
-         */
-        this.positionChange = new _angular_core.EventEmitter();
-        /**
-         * Event emitted when the overlay has been attached.
-         */
-        this.attach = new _angular_core.EventEmitter();
-        /**
-         * Event emitted when the overlay has been detached.
-         */
-        this.detach = new _angular_core.EventEmitter();
-        this._templatePortal = new _angular_cdk_portal.TemplatePortal(templateRef, viewContainerRef);
-    }
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "offsetX", {
-        /**
-         * The offset in pixels for the overlay connection point on the x-axis
-         * @return {?}
-         */
-        get: function () { return this._offsetX; },
-        /**
-         * @param {?} offsetX
-         * @return {?}
-         */
-        set: function (offsetX) {
-            this._offsetX = offsetX;
-            if (this._position) {
-                this._position.withOffsetX(offsetX);
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "offsetY", {
-        /**
-         * The offset in pixels for the overlay connection point on the y-axis
-         * @return {?}
-         */
-        get: function () { return this._offsetY; },
-        /**
-         * @param {?} offsetY
-         * @return {?}
-         */
-        set: function (offsetY) {
-            this._offsetY = offsetY;
-            if (this._position) {
-                this._position.withOffsetY(offsetY);
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "hasBackdrop", {
-        /**
-         * Whether or not the overlay should attach a backdrop.
-         * @return {?}
-         */
-        get: function () { return this._hasBackdrop; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) { this._hasBackdrop = _angular_cdk_coercion.coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedOrigin", {
-        /**
-         * @deprecated
-         * @return {?}
-         */
-        get: function () { return this.origin; },
-        /**
-         * @param {?} _origin
-         * @return {?}
-         */
-        set: function (_origin) { this.origin = _origin; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedPositions", {
-        /**
-         * @deprecated
-         * @return {?}
-         */
-        get: function () { return this.positions; },
-        /**
-         * @param {?} _positions
-         * @return {?}
-         */
-        set: function (_positions) { this.positions = _positions; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedOffsetX", {
-        /**
-         * @deprecated
-         * @return {?}
-         */
-        get: function () { return this.offsetX; },
-        /**
-         * @param {?} _offsetX
-         * @return {?}
-         */
-        set: function (_offsetX) { this.offsetX = _offsetX; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedOffsetY", {
-        /**
-         * @deprecated
-         * @return {?}
-         */
-        get: function () { return this.offsetY; },
-        /**
-         * @param {?} _offsetY
-         * @return {?}
-         */
-        set: function (_offsetY) { this.offsetY = _offsetY; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedWidth", {
-        /**
-         * @deprecated
-         * @return {?}
-         */
-        get: function () { return this.width; },
-        /**
-         * @param {?} _width
-         * @return {?}
-         */
-        set: function (_width) { this.width = _width; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedHeight", {
-        /**
-         * @deprecated
-         * @return {?}
-         */
-        get: function () { return this.height; },
-        /**
-         * @param {?} _height
-         * @return {?}
-         */
-        set: function (_height) { this.height = _height; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedMinWidth", {
-        /**
-         * @deprecated
-         * @return {?}
-         */
-        get: function () { return this.minWidth; },
-        /**
-         * @param {?} _minWidth
-         * @return {?}
-         */
-        set: function (_minWidth) { this.minWidth = _minWidth; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedMinHeight", {
-        /**
-         * @deprecated
-         * @return {?}
-         */
-        get: function () { return this.minHeight; },
-        /**
-         * @param {?} _minHeight
-         * @return {?}
-         */
-        set: function (_minHeight) { this.minHeight = _minHeight; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedBackdropClass", {
-        /**
-         * @deprecated
-         * @return {?}
-         */
-        get: function () { return this.backdropClass; },
-        /**
-         * @param {?} _backdropClass
-         * @return {?}
-         */
-        set: function (_backdropClass) { this.backdropClass = _backdropClass; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedScrollStrategy", {
-        /**
-         * @deprecated
-         * @return {?}
-         */
-        get: function () { return this.scrollStrategy; },
-        /**
-         * @param {?} _scrollStrategy
-         * @return {?}
-         */
-        set: function (_scrollStrategy) {
-            this.scrollStrategy = _scrollStrategy;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedOpen", {
-        /**
-         * @deprecated
-         * @return {?}
-         */
-        get: function () { return this.open; },
-        /**
-         * @param {?} _open
-         * @return {?}
-         */
-        set: function (_open) { this.open = _open; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "_deprecatedHasBackdrop", {
-        /**
-         * @deprecated
-         * @return {?}
-         */
-        get: function () { return this.hasBackdrop; },
-        /**
-         * @param {?} _hasBackdrop
-         * @return {?}
-         */
-        set: function (_hasBackdrop) { this.hasBackdrop = _hasBackdrop; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "overlayRef", {
-        /**
-         * The associated overlay reference.
-         * @return {?}
-         */
-        get: function () {
-            return this._overlayRef;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(ConnectedOverlayDirective.prototype, "dir", {
-        /**
-         * The element's layout direction.
-         * @return {?}
-         */
-        get: function () {
-            return this._dir ? this._dir.value : 'ltr';
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    ConnectedOverlayDirective.prototype.ngOnDestroy = function () {
-        this._destroyOverlay();
-    };
-    /**
-     * @param {?} changes
-     * @return {?}
-     */
-    ConnectedOverlayDirective.prototype.ngOnChanges = function (changes) {
-        if (changes['open'] || changes['_deprecatedOpen']) {
-            this.open ? this._attachOverlay() : this._detachOverlay();
-        }
-    };
-    /**
-     * Creates an overlay
-     * @return {?}
-     */
-    ConnectedOverlayDirective.prototype._createOverlay = function () {
-        if (!this.positions || !this.positions.length) {
-            this.positions = defaultPositionList;
-        }
-        this._overlayRef = this._overlay.create(this._buildConfig());
-    };
-    /**
-     * Builds the overlay config based on the directive's inputs
-     * @return {?}
-     */
-    ConnectedOverlayDirective.prototype._buildConfig = function () {
-        var /** @type {?} */ overlayConfig = new OverlayState();
-        if (this.width || this.width === 0) {
-            overlayConfig.width = this.width;
-        }
-        if (this.height || this.height === 0) {
-            overlayConfig.height = this.height;
-        }
-        if (this.minWidth || this.minWidth === 0) {
-            overlayConfig.minWidth = this.minWidth;
-        }
-        if (this.minHeight || this.minHeight === 0) {
-            overlayConfig.minHeight = this.minHeight;
-        }
-        overlayConfig.hasBackdrop = this.hasBackdrop;
-        if (this.backdropClass) {
-            overlayConfig.backdropClass = this.backdropClass;
-        }
-        this._position = (this._createPositionStrategy());
-        overlayConfig.positionStrategy = this._position;
-        overlayConfig.scrollStrategy = this.scrollStrategy;
-        return overlayConfig;
-    };
-    /**
-     * Returns the position strategy of the overlay to be set on the overlay config
-     * @return {?}
-     */
-    ConnectedOverlayDirective.prototype._createPositionStrategy = function () {
-        var /** @type {?} */ pos = this.positions[0];
-        var /** @type {?} */ originPoint = { originX: pos.originX, originY: pos.originY };
-        var /** @type {?} */ overlayPoint = { overlayX: pos.overlayX, overlayY: pos.overlayY };
-        var /** @type {?} */ strategy = this._overlay.position()
-            .connectedTo(this.origin.elementRef, originPoint, overlayPoint)
-            .withOffsetX(this.offsetX)
-            .withOffsetY(this.offsetY);
-        this._handlePositionChanges(strategy);
-        return strategy;
-    };
-    /**
-     * @param {?} strategy
-     * @return {?}
-     */
-    ConnectedOverlayDirective.prototype._handlePositionChanges = function (strategy) {
-        var _this = this;
-        for (var /** @type {?} */ i = 1; i < this.positions.length; i++) {
-            strategy.withFallbackPosition({ originX: this.positions[i].originX, originY: this.positions[i].originY }, { overlayX: this.positions[i].overlayX, overlayY: this.positions[i].overlayY });
-        }
-        this._positionSubscription =
-            strategy.onPositionChange.subscribe(function (pos) { return _this.positionChange.emit(pos); });
-    };
-    /**
-     * Attaches the overlay and subscribes to backdrop clicks if backdrop exists
-     * @return {?}
-     */
-    ConnectedOverlayDirective.prototype._attachOverlay = function () {
-        var _this = this;
-        if (!this._overlayRef) {
-            this._createOverlay();
-        }
-        this._position.withDirection(this.dir);
-        this._overlayRef.getState().direction = this.dir;
-        this._initEscapeListener();
-        if (!this._overlayRef.hasAttached()) {
-            this._overlayRef.attach(this._templatePortal);
-            this.attach.emit();
-        }
-        if (this.hasBackdrop) {
-            this._backdropSubscription = this._overlayRef.backdropClick().subscribe(function () {
-                _this.backdropClick.emit();
-            });
-        }
-    };
-    /**
-     * Detaches the overlay and unsubscribes to backdrop clicks if backdrop exists
-     * @return {?}
-     */
-    ConnectedOverlayDirective.prototype._detachOverlay = function () {
-        if (this._overlayRef) {
-            this._overlayRef.detach();
-            this.detach.emit();
-        }
-        if (this._backdropSubscription) {
-            this._backdropSubscription.unsubscribe();
-            this._backdropSubscription = null;
-        }
-        if (this._escapeListener) {
-            this._escapeListener();
-        }
-    };
-    /**
-     * Destroys the overlay created by this directive.
-     * @return {?}
-     */
-    ConnectedOverlayDirective.prototype._destroyOverlay = function () {
-        if (this._overlayRef) {
-            this._overlayRef.dispose();
-        }
-        if (this._backdropSubscription) {
-            this._backdropSubscription.unsubscribe();
-        }
-        if (this._positionSubscription) {
-            this._positionSubscription.unsubscribe();
-        }
-        if (this._escapeListener) {
-            this._escapeListener();
-        }
-    };
-    /**
-     * Sets the event listener that closes the overlay when pressing Escape.
-     * @return {?}
-     */
-    ConnectedOverlayDirective.prototype._initEscapeListener = function () {
-        var _this = this;
-        this._escapeListener = this._renderer.listen('document', 'keydown', function (event) {
-            if (event.keyCode === _angular_cdk_keycodes.ESCAPE) {
-                _this._detachOverlay();
-            }
-        });
-    };
-    return ConnectedOverlayDirective;
-}());
-ConnectedOverlayDirective.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[cdk-connected-overlay], [connected-overlay], [cdkConnectedOverlay]',
-                exportAs: 'cdkConnectedOverlay'
-            },] },
-];
-/**
- * @nocollapse
- */
-ConnectedOverlayDirective.ctorParameters = function () { return [
-    { type: Overlay, },
-    { type: _angular_core.Renderer2, },
-    { type: _angular_core.TemplateRef, },
-    { type: _angular_core.ViewContainerRef, },
-    { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MD_CONNECTED_OVERLAY_SCROLL_STRATEGY,] },] },
-    { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
-]; };
-ConnectedOverlayDirective.propDecorators = {
-    'origin': [{ type: _angular_core.Input, args: ['cdkConnectedOverlayOrigin',] },],
-    'positions': [{ type: _angular_core.Input, args: ['cdkConnectedOverlayPositions',] },],
-    'offsetX': [{ type: _angular_core.Input, args: ['cdkConnectedOverlayOffsetX',] },],
-    'offsetY': [{ type: _angular_core.Input, args: ['cdkConnectedOverlayOffsetY',] },],
-    'width': [{ type: _angular_core.Input, args: ['cdkConnectedOverlayWidth',] },],
-    'height': [{ type: _angular_core.Input, args: ['cdkConnectedOverlayHeight',] },],
-    'minWidth': [{ type: _angular_core.Input, args: ['cdkConnectedOverlayMinWidth',] },],
-    'minHeight': [{ type: _angular_core.Input, args: ['cdkConnectedOverlayMinHeight',] },],
-    'backdropClass': [{ type: _angular_core.Input, args: ['cdkConnectedOverlayBackdropClass',] },],
-    'scrollStrategy': [{ type: _angular_core.Input, args: ['cdkConnectedOverlayScrollStrategy',] },],
-    'open': [{ type: _angular_core.Input, args: ['cdkConnectedOverlayOpen',] },],
-    'hasBackdrop': [{ type: _angular_core.Input, args: ['cdkConnectedOverlayHasBackdrop',] },],
-    '_deprecatedOrigin': [{ type: _angular_core.Input, args: ['origin',] },],
-    '_deprecatedPositions': [{ type: _angular_core.Input, args: ['positions',] },],
-    '_deprecatedOffsetX': [{ type: _angular_core.Input, args: ['offsetX',] },],
-    '_deprecatedOffsetY': [{ type: _angular_core.Input, args: ['offsetY',] },],
-    '_deprecatedWidth': [{ type: _angular_core.Input, args: ['width',] },],
-    '_deprecatedHeight': [{ type: _angular_core.Input, args: ['height',] },],
-    '_deprecatedMinWidth': [{ type: _angular_core.Input, args: ['minWidth',] },],
-    '_deprecatedMinHeight': [{ type: _angular_core.Input, args: ['minHeight',] },],
-    '_deprecatedBackdropClass': [{ type: _angular_core.Input, args: ['backdropClass',] },],
-    '_deprecatedScrollStrategy': [{ type: _angular_core.Input, args: ['scrollStrategy',] },],
-    '_deprecatedOpen': [{ type: _angular_core.Input, args: ['open',] },],
-    '_deprecatedHasBackdrop': [{ type: _angular_core.Input, args: ['hasBackdrop',] },],
-    'backdropClick': [{ type: _angular_core.Output },],
-    'positionChange': [{ type: _angular_core.Output },],
-    'attach': [{ type: _angular_core.Output },],
-    'detach': [{ type: _angular_core.Output },],
-};
-/**
- * The FullscreenOverlayContainer is the alternative to OverlayContainer
- * that supports correct displaying of overlay elements in Fullscreen mode
- * https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullScreen
- * It should be provided in the root component that way:
- * providers: [
- *   {provide: OverlayContainer, useClass: FullscreenOverlayContainer}
- * ],
- */
-var FullscreenOverlayContainer = (function (_super) {
-    __extends(FullscreenOverlayContainer, _super);
-    function FullscreenOverlayContainer() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    /**
-     * @return {?}
-     */
-    FullscreenOverlayContainer.prototype._createContainer = function () {
-        var _this = this;
-        _super.prototype._createContainer.call(this);
-        this._adjustParentForFullscreenChange();
-        this._addFullscreenChangeListener(function () { return _this._adjustParentForFullscreenChange(); });
-    };
-    /**
-     * @return {?}
-     */
-    FullscreenOverlayContainer.prototype._adjustParentForFullscreenChange = function () {
-        if (!this._containerElement) {
-            return;
-        }
-        var /** @type {?} */ fullscreenElement = this.getFullscreenElement();
-        var /** @type {?} */ parent = fullscreenElement || document.body;
-        parent.appendChild(this._containerElement);
-    };
-    /**
-     * @param {?} fn
-     * @return {?}
-     */
-    FullscreenOverlayContainer.prototype._addFullscreenChangeListener = function (fn) {
-        if (document.fullscreenEnabled) {
-            document.addEventListener('fullscreenchange', fn);
-        }
-        else if (document.webkitFullscreenEnabled) {
-            document.addEventListener('webkitfullscreenchange', fn);
-        }
-        else if (((document)).mozFullScreenEnabled) {
-            document.addEventListener('mozfullscreenchange', fn);
-        }
-        else if (((document)).msFullscreenEnabled) {
-            document.addEventListener('MSFullscreenChange', fn);
-        }
-    };
-    /**
-     * When the page is put into fullscreen mode, a specific element is specified.
-     * Only that element and its children are visible when in fullscreen mode.
-     * @return {?}
-     */
-    FullscreenOverlayContainer.prototype.getFullscreenElement = function () {
-        return document.fullscreenElement ||
-            document.webkitFullscreenElement ||
-            ((document)).mozFullScreenElement ||
-            ((document)).msFullscreenElement ||
-            null;
-    };
-    return FullscreenOverlayContainer;
-}(OverlayContainer));
-FullscreenOverlayContainer.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-FullscreenOverlayContainer.ctorParameters = function () { return []; };
-var OVERLAY_PROVIDERS = [
-    Overlay,
-    OverlayPositionBuilder,
-    VIEWPORT_RULER_PROVIDER,
-    OVERLAY_CONTAINER_PROVIDER,
-    MD_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER,
-];
-var OverlayModule = (function () {
-    function OverlayModule() {
-    }
-    return OverlayModule;
-}());
-OverlayModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [_angular_cdk_portal.PortalModule, ScrollDispatchModule],
-                exports: [ConnectedOverlayDirective, OverlayOrigin, ScrollDispatchModule],
-                declarations: [ConnectedOverlayDirective, OverlayOrigin],
-                providers: [OVERLAY_PROVIDERS],
-            },] },
-];
-/**
- * @nocollapse
- */
-OverlayModule.ctorParameters = function () { return []; };
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
@@ -4867,7 +2522,7 @@ MdCoreModule.decorators = [
                     MdRippleModule,
                     _angular_cdk_observers.ObserversModule,
                     _angular_cdk_portal.PortalModule,
-                    OverlayModule,
+                    _angular_cdk_overlay.OverlayModule,
                     _angular_cdk_a11y.A11yModule,
                     MdOptionModule,
                     MdSelectionModule,
@@ -4878,7 +2533,7 @@ MdCoreModule.decorators = [
                     MdRippleModule,
                     _angular_cdk_observers.ObserversModule,
                     _angular_cdk_portal.PortalModule,
-                    OverlayModule,
+                    _angular_cdk_overlay.OverlayModule,
                     _angular_cdk_a11y.A11yModule,
                     MdOptionModule,
                     MdSelectionModule,
@@ -5901,7 +3556,7 @@ MdButtonModule.decorators = [
  */
 MdButtonModule.ctorParameters = function () { return []; };
 // Increasing integer for generating unique ids for checkbox components.
-var nextUniqueId$1 = 0;
+var nextUniqueId = 0;
 /**
  * Provider Expression that allows md-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -5973,7 +3628,7 @@ var MdCheckbox = (function (_super) {
          * Users can specify the `aria-labelledby` attribute which will be forwarded to the input element
          */
         _this.ariaLabelledby = null;
-        _this._uniqueId = "md-checkbox-" + ++nextUniqueId$1;
+        _this._uniqueId = "md-checkbox-" + ++nextUniqueId;
         /**
          * A unique id for the checkbox input. If none is supplied, it will be auto-generated.
          */
@@ -6417,7 +4072,7 @@ MdCheckboxModule.decorators = [
  */
 MdCheckboxModule.ctorParameters = function () { return []; };
 // Increasing integer for generating unique ids for radio components.
-var nextUniqueId$2 = 0;
+var nextUniqueId$1 = 0;
 /**
  * Provider Expression that allows md-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
@@ -6466,7 +4121,7 @@ var MdRadioGroup = (function (_super) {
         /**
          * The HTML name attribute applied to radio buttons in this group.
          */
-        _this._name = "md-radio-group-" + nextUniqueId$2++;
+        _this._name = "md-radio-group-" + nextUniqueId$1++;
         /**
          * The currently selected radio button. Should match value.
          */
@@ -6813,7 +4468,7 @@ var MdRadioButton = (function (_super) {
         _this._changeDetector = _changeDetector;
         _this._focusOriginMonitor = _focusOriginMonitor;
         _this._radioDispatcher = _radioDispatcher;
-        _this._uniqueId = "md-radio-" + ++nextUniqueId$2;
+        _this._uniqueId = "md-radio-" + ++nextUniqueId$1;
         /**
          * The unique ID for the radio button.
          */
@@ -7165,7 +4820,7 @@ MdRadioModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [_angular_common.CommonModule, MdRippleModule, MdCommonModule],
                 exports: [MdRadioGroup, MdRadioButton, MdCommonModule],
-                providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, VIEWPORT_RULER_PROVIDER, FocusOriginMonitor],
+                providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, _angular_cdk_overlay.VIEWPORT_RULER_PROVIDER, FocusOriginMonitor],
                 declarations: [MdRadioGroup, MdRadioButton],
             },] },
 ];
@@ -7173,25 +4828,6 @@ MdRadioModule.decorators = [
  * @nocollapse
  */
 MdRadioModule.ctorParameters = function () { return []; };
-var FocusKeyManager = (function (_super) {
-    __extends(FocusKeyManager, _super);
-    function FocusKeyManager() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    /**
-     * This method sets the active item to the item at the specified index.
-     * It also adds focuses the newly active item.
-     * @param {?} index
-     * @return {?}
-     */
-    FocusKeyManager.prototype.setActiveItem = function (index) {
-        _super.prototype.setActiveItem.call(this, index);
-        if (this.activeItem) {
-            this.activeItem.focus();
-        }
-    };
-    return FocusKeyManager;
-}(_angular_cdk_a11y.ListKeyManager));
 /**
  * This animation shrinks the placeholder text to 75% of its normal size and translates
  * it to either the top left corner (ltr) or top right corner (rtl) of the trigger,
@@ -7345,7 +4981,7 @@ function MD_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
  */
 var MD_SELECT_SCROLL_STRATEGY_PROVIDER = {
     provide: MD_SELECT_SCROLL_STRATEGY,
-    deps: [Overlay],
+    deps: [_angular_cdk_overlay.Overlay],
     useFactory: MD_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY,
 };
 /**
@@ -8007,7 +5643,7 @@ var MdSelect = (function (_super) {
      */
     MdSelect.prototype._initKeyManager = function () {
         var _this = this;
-        this._keyManager = new FocusKeyManager(this.options).withTypeAhead();
+        this._keyManager = new _angular_cdk_a11y.FocusKeyManager(this.options).withTypeAhead();
         this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this.close(); });
     };
     /**
@@ -8514,9 +6150,9 @@ MdSelect.decorators = [
  * @nocollapse
  */
 MdSelect.ctorParameters = function () { return [
-    { type: ViewportRuler, },
+    { type: _angular_cdk_overlay.ViewportRuler, },
     { type: _angular_core.ChangeDetectorRef, },
-    { type: Overlay, },
+    { type: _angular_cdk_overlay.Overlay, },
     { type: _angular_cdk_platform.Platform, },
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ElementRef, },
@@ -8530,7 +6166,7 @@ MdSelect.ctorParameters = function () { return [
 ]; };
 MdSelect.propDecorators = {
     'trigger': [{ type: _angular_core.ViewChild, args: ['trigger',] },],
-    'overlayDir': [{ type: _angular_core.ViewChild, args: [ConnectedOverlayDirective,] },],
+    'overlayDir': [{ type: _angular_core.ViewChild, args: [_angular_cdk_overlay.ConnectedOverlayDirective,] },],
     'options': [{ type: _angular_core.ContentChildren, args: [MdOption, { descendants: true },] },],
     'optionGroups': [{ type: _angular_core.ContentChildren, args: [MdOptgroup,] },],
     'panelClass': [{ type: _angular_core.Input },],
@@ -8568,7 +6204,7 @@ MdSelectModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [
                     _angular_common.CommonModule,
-                    OverlayModule,
+                    _angular_cdk_overlay.OverlayModule,
                     MdOptionModule,
                     MdCommonModule,
                 ],
@@ -8582,7 +6218,7 @@ MdSelectModule.decorators = [
  */
 MdSelectModule.ctorParameters = function () { return []; };
 // Increasing integer for generating unique ids for slide-toggle components.
-var nextUniqueId$3 = 0;
+var nextUniqueId$2 = 0;
 var MD_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: _angular_forms.NG_VALUE_ACCESSOR,
     useExisting: _angular_core.forwardRef(function () { return MdSlideToggle; }),
@@ -8630,7 +6266,7 @@ var MdSlideToggle = (function (_super) {
         _this._changeDetectorRef = _changeDetectorRef;
         _this.onChange = function (_) { };
         _this.onTouched = function () { };
-        _this._uniqueId = "md-slide-toggle-" + ++nextUniqueId$3;
+        _this._uniqueId = "md-slide-toggle-" + ++nextUniqueId$2;
         _this._required = false;
         _this._checked = false;
         /**
@@ -10467,7 +8103,7 @@ var MdSidenavModule = (function () {
 }());
 MdSidenavModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [_angular_common.CommonModule, MdCommonModule, _angular_cdk_a11y.A11yModule, OverlayModule],
+                imports: [_angular_common.CommonModule, MdCommonModule, _angular_cdk_a11y.A11yModule, _angular_cdk_overlay.OverlayModule],
                 exports: [MdSidenavContainer, MdSidenav, MdCommonModule],
                 declarations: [MdSidenavContainer, MdSidenav],
             },] },
@@ -12221,6 +9857,25 @@ MdChipRemove.decorators = [
 MdChipRemove.ctorParameters = function () { return [
     { type: MdChip, },
 ]; };
+var FocusKeyManager$1 = (function (_super) {
+    __extends(FocusKeyManager$1, _super);
+    function FocusKeyManager$1() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * This method sets the active item to the item at the specified index.
+     * It also adds focuses the newly active item.
+     * @param {?} index
+     * @return {?}
+     */
+    FocusKeyManager$1.prototype.setActiveItem = function (index) {
+        _super.prototype.setActiveItem.call(this, index);
+        if (this.activeItem) {
+            this.activeItem.focus();
+        }
+    };
+    return FocusKeyManager$1;
+}(_angular_cdk_a11y.ListKeyManager));
 /**
  * A material design chips component (named ChipList for it's similarity to the List component).
  *
@@ -12263,7 +9918,7 @@ var MdChipList = (function () {
      */
     MdChipList.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this._keyManager = new FocusKeyManager(this.chips).withWrap();
+        this._keyManager = new FocusKeyManager$1(this.chips).withWrap();
         // Prevents the chip list from capturing focus and redirecting
         // it back to the first chip when the user tabs out.
         this._tabOutSubscription = this._keyManager.tabOut.subscribe(function () {
@@ -12499,7 +10154,7 @@ MdChipList.decorators = [
                 queries: {
                     chips: new _angular_core.ContentChildren(MdChip)
                 },
-                styles: [".mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:flex-start}.mat-chip:not(.mat-basic-chip){transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:inline-flex;padding:7px 12px;border-radius:24px;align-items:center;cursor:default}.mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 0 0 8px}[dir=rtl] .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 8px 0 0}.mat-input-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-right:8px}[dir=rtl] .mat-input-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-left:8px}.mat-chip:not(.mat-basic-chip) .mat-chip-remove.mat-icon{width:1em;height:1em}.mat-chip:not(.mat-basic-chip):focus{box-shadow:0 3px 3px -2px rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12);outline:0}@media screen and (-ms-high-contrast:active){.mat-chip:not(.mat-basic-chip){outline:solid 1px}}.mat-chip-list-stacked .mat-chip-list-wrapper{display:block}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){display:block;margin:0;margin-bottom:8px}[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){margin:0;margin-bottom:8px}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child,[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-bottom:0}.mat-input-prefix .mat-chip-list-wrapper{margin-bottom:8px}.mat-chip-remove{margin-right:-4px;margin-left:6px;cursor:pointer}[dir=rtl] .mat-chip-remove{margin-right:6px;margin-left:-4px}"],
+                styles: [".mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:flex-start}.mat-chip:not(.mat-basic-chip){transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:inline-flex;padding:7px 12px;border-radius:24px;align-items:center;cursor:default}.mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 0 0 8px}[dir=rtl] .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 8px 0 0}.mat-form-field-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-right:8px}[dir=rtl] .mat-form-field-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-left:8px}.mat-chip:not(.mat-basic-chip) .mat-chip-remove.mat-icon{width:1em;height:1em}.mat-chip:not(.mat-basic-chip):focus{box-shadow:0 3px 3px -2px rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12);outline:0}@media screen and (-ms-high-contrast:active){.mat-chip:not(.mat-basic-chip){outline:solid 1px}}.mat-chip-list-stacked .mat-chip-list-wrapper{display:block}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){display:block;margin:0;margin-bottom:8px}[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){margin:0;margin-bottom:8px}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child,[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-bottom:0}.mat-form-field-prefix .mat-chip-list-wrapper{margin-bottom:8px}.mat-chip-remove{margin-right:-4px;margin-left:6px;cursor:pointer}[dir=rtl] .mat-chip-remove{margin-right:6px;margin-left:-4px}"],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
             },] },
@@ -13973,52 +11628,123 @@ MdProgressBarModule.decorators = [
 MdProgressBarModule.ctorParameters = function () { return []; };
 /**
  * \@docs-private
- * @return {?}
- */
-function getMdInputContainerPlaceholderConflictError() {
-    return Error('Placeholder attribute and child element were both specified.');
-}
-/**
- * \@docs-private
  * @param {?} type
  * @return {?}
  */
-function getMdInputContainerUnsupportedTypeError(type) {
-    return Error("Input type \"" + type + "\" isn't supported by md-input-container.");
+function getMdInputUnsupportedTypeError(type) {
+    return Error("Input type \"" + type + "\" isn't supported by mdInput.");
+}
+var nextUniqueId$4 = 0;
+/**
+ * Single error message to be shown underneath the form field.
+ */
+var MdError = (function () {
+    function MdError() {
+        this.id = "mat-error-" + nextUniqueId$4++;
+    }
+    return MdError;
+}());
+MdError.decorators = [
+    { type: _angular_core.Directive, args: [{
+                selector: 'md-error, mat-error',
+                host: {
+                    'class': 'mat-error',
+                    'role': 'alert',
+                    '[attr.id]': 'id',
+                }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdError.ctorParameters = function () { return []; };
+MdError.propDecorators = {
+    'id': [{ type: _angular_core.Input },],
+};
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function getMdFormFieldPlaceholderConflictError() {
+    return Error('Placeholder attribute and child element were both specified.');
 }
 /**
  * \@docs-private
  * @param {?} align
  * @return {?}
  */
-function getMdInputContainerDuplicatedHintError(align) {
+function getMdFormFieldDuplicatedHintError(align) {
     return Error("A hint was already declared for 'align=\"" + align + "\"'.");
 }
 /**
  * \@docs-private
  * @return {?}
  */
-function getMdInputContainerMissingMdInputError() {
-    return Error('md-input-container must contain an mdInput directive. ' +
+function getMdFormFieldMissingControlError() {
+    return Error('md-form-field must contain a MdFormFieldControl. ' +
         'Did you forget to add mdInput to the native input or textarea element?');
 }
-// Invalid input type. Using one of these will throw an MdInputContainerUnsupportedTypeError.
-var MD_INPUT_INVALID_TYPES = [
-    'button',
-    'checkbox',
-    'color',
-    'file',
-    'hidden',
-    'image',
-    'radio',
-    'range',
-    'reset',
-    'submit'
-];
-var nextUniqueId$4 = 0;
 /**
- * The placeholder directive. The content can declare this to implement more
- * complex placeholders.
+ * An interface which allows a control to work inside of a `MdFormField`.
+ * @abstract
+ */
+var MdFormFieldControl = (function () {
+    function MdFormFieldControl() {
+    }
+    /**
+     * Sets the list of element IDs that currently describe this control.
+     * @abstract
+     * @param {?} ids
+     * @return {?}
+     */
+    MdFormFieldControl.prototype.setDescribedByIds = function (ids) { };
+    /**
+     * Focuses this control.
+     * @abstract
+     * @return {?}
+     */
+    MdFormFieldControl.prototype.focus = function () { };
+    return MdFormFieldControl;
+}());
+var nextUniqueId$6 = 0;
+/**
+ * Hint text to be shown underneath the form field control.
+ */
+var MdHint = (function () {
+    function MdHint() {
+        /**
+         * Whether to align the hint label at the start or end of the line.
+         */
+        this.align = 'start';
+        /**
+         * Unique ID for the hint. Used for the aria-describedby on the form field control.
+         */
+        this.id = "mat-hint-" + nextUniqueId$6++;
+    }
+    return MdHint;
+}());
+MdHint.decorators = [
+    { type: _angular_core.Directive, args: [{
+                selector: 'md-hint, mat-hint',
+                host: {
+                    'class': 'mat-hint',
+                    '[class.mat-right]': 'align == "end"',
+                    '[attr.id]': 'id',
+                    // Remove align attribute to prevent it from interfering with layout.
+                    '[attr.align]': 'null',
+                }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdHint.ctorParameters = function () { return []; };
+MdHint.propDecorators = {
+    'align': [{ type: _angular_core.Input },],
+    'id': [{ type: _angular_core.Input },],
+};
+/**
+ * The floating placeholder for an `MdFormField`.
  */
 var MdPlaceholder = (function () {
     function MdPlaceholder() {
@@ -14035,67 +11761,7 @@ MdPlaceholder.decorators = [
  */
 MdPlaceholder.ctorParameters = function () { return []; };
 /**
- * Hint text to be shown underneath the input.
- */
-var MdHint = (function () {
-    function MdHint() {
-        /**
-         * Whether to align the hint label at the start or end of the line.
-         */
-        this.align = 'start';
-        /**
-         * Unique ID for the hint. Used for the aria-describedby on the input.
-         */
-        this.id = "md-input-hint-" + nextUniqueId$4++;
-    }
-    return MdHint;
-}());
-MdHint.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: 'md-hint, mat-hint',
-                host: {
-                    'class': 'mat-hint',
-                    '[class.mat-right]': 'align == "end"',
-                    '[attr.id]': 'id',
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MdHint.ctorParameters = function () { return []; };
-MdHint.propDecorators = {
-    'align': [{ type: _angular_core.Input },],
-    'id': [{ type: _angular_core.Input },],
-};
-/**
- * Single error message to be shown underneath the input.
- */
-var MdErrorDirective = (function () {
-    function MdErrorDirective() {
-        this.id = "md-input-error-" + nextUniqueId$4++;
-    }
-    return MdErrorDirective;
-}());
-MdErrorDirective.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: 'md-error, mat-error',
-                host: {
-                    'class': 'mat-input-error',
-                    'role': 'alert',
-                    '[attr.id]': 'id',
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MdErrorDirective.ctorParameters = function () { return []; };
-MdErrorDirective.propDecorators = {
-    'id': [{ type: _angular_core.Input },],
-};
-/**
- * Prefix to be placed the the front of the input.
+ * Prefix to be placed the the front of the form field.
  */
 var MdPrefix = (function () {
     function MdPrefix() {
@@ -14104,7 +11770,7 @@ var MdPrefix = (function () {
 }());
 MdPrefix.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[mdPrefix], [matPrefix]'
+                selector: '[mdPrefix], [matPrefix]',
             },] },
 ];
 /**
@@ -14112,7 +11778,7 @@ MdPrefix.decorators = [
  */
 MdPrefix.ctorParameters = function () { return []; };
 /**
- * Suffix to be placed at the end of the input.
+ * Suffix to be placed at the end of the form field.
  */
 var MdSuffix = (function () {
     function MdSuffix() {
@@ -14121,56 +11787,422 @@ var MdSuffix = (function () {
 }());
 MdSuffix.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[mdSuffix], [matSuffix]'
+                selector: '[mdSuffix], [matSuffix]',
             },] },
 ];
 /**
  * @nocollapse
  */
 MdSuffix.ctorParameters = function () { return []; };
+var nextUniqueId$5 = 0;
 /**
- * Marker for the input element that `MdInputContainer` is wrapping.
+ * Container for form controls that applies Material Design styling and behavior.
  */
-var MdInputDirective = (function () {
+var MdFormField = (function () {
+    /**
+     * @param {?} _elementRef
+     * @param {?} _changeDetectorRef
+     * @param {?} placeholderOptions
+     */
+    function MdFormField(_elementRef, _changeDetectorRef, placeholderOptions) {
+        this._elementRef = _elementRef;
+        this._changeDetectorRef = _changeDetectorRef;
+        /**
+         * Color of the form field underline, based on the theme.
+         */
+        this.color = 'primary';
+        /**
+         * State of the md-hint and md-error animations.
+         */
+        this._subscriptAnimationState = '';
+        this._hintLabel = '';
+        // Unique id for the hint label.
+        this._hintLabelId = "md-hint-" + nextUniqueId$5++;
+        this._placeholderOptions = placeholderOptions ? placeholderOptions : {};
+        this.floatPlaceholder = this._placeholderOptions.float || 'auto';
+    }
+    Object.defineProperty(MdFormField.prototype, "dividerColor", {
+        /**
+         * @deprecated Use `color` instead.
+         * @return {?}
+         */
+        get: function () { return this.color; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) { this.color = value; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdFormField.prototype, "hideRequiredMarker", {
+        /**
+         * Whether the required marker should be hidden.
+         * @return {?}
+         */
+        get: function () { return this._hideRequiredMarker; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._hideRequiredMarker = _angular_cdk_coercion.coerceBooleanProperty(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdFormField.prototype, "_shouldAlwaysFloat", {
+        /**
+         * Whether the floating label should always float or not.
+         * @return {?}
+         */
+        get: function () { return this._floatPlaceholder === 'always'; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdFormField.prototype, "_canPlaceholderFloat", {
+        /**
+         * Whether the placeholder can float or not.
+         * @return {?}
+         */
+        get: function () { return this._floatPlaceholder !== 'never'; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdFormField.prototype, "hintLabel", {
+        /**
+         * Text for the form field hint.
+         * @return {?}
+         */
+        get: function () { return this._hintLabel; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._hintLabel = value;
+            this._processHints();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdFormField.prototype, "floatPlaceholder", {
+        /**
+         * Whether the placeholder should always float, never float or float as the user types.
+         * @return {?}
+         */
+        get: function () { return this._floatPlaceholder; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            if (value !== this._floatPlaceholder) {
+                this._floatPlaceholder = value || this._placeholderOptions.float || 'auto';
+                this._changeDetectorRef.markForCheck();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    MdFormField.prototype.ngAfterContentInit = function () {
+        var _this = this;
+        this._validateControlChild();
+        // Subscribe to changes in the child control state in order to update the form field UI.
+        _angular_cdk_rxjs.startWith.call(this._control.stateChanges, null).subscribe(function () {
+            _this._validatePlaceholders();
+            _this._syncDescribedByIds();
+            _this._changeDetectorRef.markForCheck();
+        });
+        var /** @type {?} */ ngControl = this._control.ngControl;
+        if (ngControl && ngControl.valueChanges) {
+            ngControl.valueChanges.subscribe(function () {
+                _this._changeDetectorRef.markForCheck();
+            });
+        }
+        // Re-validate when the number of hints changes.
+        _angular_cdk_rxjs.startWith.call(this._hintChildren.changes, null).subscribe(function () {
+            _this._processHints();
+            _this._changeDetectorRef.markForCheck();
+        });
+        // Update the aria-described by when the number of errors changes.
+        _angular_cdk_rxjs.startWith.call(this._errorChildren.changes, null).subscribe(function () {
+            _this._syncDescribedByIds();
+            _this._changeDetectorRef.markForCheck();
+        });
+    };
+    /**
+     * @return {?}
+     */
+    MdFormField.prototype.ngAfterContentChecked = function () {
+        this._validateControlChild();
+    };
+    /**
+     * @return {?}
+     */
+    MdFormField.prototype.ngAfterViewInit = function () {
+        // Avoid animations on load.
+        this._subscriptAnimationState = 'enter';
+        this._changeDetectorRef.detectChanges();
+    };
+    /**
+     * Determines whether a class from the NgControl should be forwarded to the host element.
+     * @param {?} prop
+     * @return {?}
+     */
+    MdFormField.prototype._shouldForward = function (prop) {
+        var /** @type {?} */ ngControl = this._control ? this._control.ngControl : null;
+        return ngControl && ((ngControl))[prop];
+    };
+    /**
+     * Whether the form field has a placeholder.
+     * @return {?}
+     */
+    MdFormField.prototype._hasPlaceholder = function () {
+        return !!(this._control.placeholder || this._placeholderChild);
+    };
+    /**
+     * Determines whether to display hints or errors.
+     * @return {?}
+     */
+    MdFormField.prototype._getDisplayedMessages = function () {
+        return (this._errorChildren && this._errorChildren.length > 0 &&
+            this._control.errorState) ? 'error' : 'hint';
+    };
+    /**
+     * Ensure that there is only one placeholder (either `placeholder` attribute on the child control
+     * or child element with the `md-placeholder` directive).
+     * @return {?}
+     */
+    MdFormField.prototype._validatePlaceholders = function () {
+        if (this._control.placeholder && this._placeholderChild) {
+            throw getMdFormFieldPlaceholderConflictError();
+        }
+    };
+    /**
+     * Does any extra processing that is required when handling the hints.
+     * @return {?}
+     */
+    MdFormField.prototype._processHints = function () {
+        this._validateHints();
+        this._syncDescribedByIds();
+    };
+    /**
+     * Ensure that there is a maximum of one of each `<md-hint>` alignment specified, with the
+     * attribute being considered as `align="start"`.
+     * @return {?}
+     */
+    MdFormField.prototype._validateHints = function () {
+        var _this = this;
+        if (this._hintChildren) {
+            var /** @type {?} */ startHint_1;
+            var /** @type {?} */ endHint_1;
+            this._hintChildren.forEach(function (hint) {
+                if (hint.align == 'start') {
+                    if (startHint_1 || _this.hintLabel) {
+                        throw getMdFormFieldDuplicatedHintError('start');
+                    }
+                    startHint_1 = hint;
+                }
+                else if (hint.align == 'end') {
+                    if (endHint_1) {
+                        throw getMdFormFieldDuplicatedHintError('end');
+                    }
+                    endHint_1 = hint;
+                }
+            });
+        }
+    };
+    /**
+     * Sets the list of element IDs that describe the child control. This allows the control to update
+     * its `aria-describedby` attribute accordingly.
+     * @return {?}
+     */
+    MdFormField.prototype._syncDescribedByIds = function () {
+        if (this._control) {
+            var /** @type {?} */ ids = [];
+            if (this._getDisplayedMessages() === 'hint') {
+                var /** @type {?} */ startHint = this._hintChildren ?
+                    this._hintChildren.find(function (hint) { return hint.align === 'start'; }) : null;
+                var /** @type {?} */ endHint = this._hintChildren ?
+                    this._hintChildren.find(function (hint) { return hint.align === 'end'; }) : null;
+                if (startHint) {
+                    ids.push(startHint.id);
+                }
+                else if (this._hintLabel) {
+                    ids.push(this._hintLabelId);
+                }
+                if (endHint) {
+                    ids.push(endHint.id);
+                }
+            }
+            else if (this._errorChildren) {
+                ids = this._errorChildren.map(function (mdError) { return mdError.id; });
+            }
+            this._control.setDescribedByIds(ids);
+        }
+    };
+    /**
+     * Throws an error if the form field's control is missing.
+     * @return {?}
+     */
+    MdFormField.prototype._validateControlChild = function () {
+        if (!this._control) {
+            throw getMdFormFieldMissingControlError();
+        }
+    };
+    return MdFormField;
+}());
+MdFormField.decorators = [
+    { type: _angular_core.Component, args: [{
+                selector: 'md-input-container, mat-input-container, md-form-field, mat-form-field',
+                template: "<div class=\"mat-input-wrapper mat-form-field-wrapper\"><div class=\"mat-input-flex mat-form-field-flex\" #connectionContainer><div class=\"mat-input-prefix mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[mdPrefix], [matPrefix]\"></ng-content></div><div class=\"mat-input-infix mat-form-field-infix\"><ng-content></ng-content><span class=\"mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper\"><label class=\"mat-input-placeholder mat-form-field-placeholder\" [attr.for]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-float]=\"_canPlaceholderFloat\" [class.mat-form-field-float]=\"_canPlaceholderFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" *ngIf=\"_hasPlaceholder()\"><ng-content select=\"md-placeholder, mat-placeholder\"></ng-content>{{_control.placeholder}} <span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required\">*</span></label></span></div><div class=\"mat-input-suffix mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[mdSuffix], [matSuffix]\"></ng-content></div></div><div class=\"mat-input-underline mat-form-field-underline\" #underline [class.mat-disabled]=\"_control.disabled\"><span class=\"mat-input-ripple mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-input-subscript-wrapper mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"md-error, mat-error\"></ng-content></div><div class=\"mat-input-hint-wrapper mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"md-hint:not([align='end']), mat-hint:not([align='end'])\"></ng-content><div class=\"mat-input-hint-spacer mat-form-field-hint-spacer\"></div><ng-content select=\"md-hint[align='end'], mat-hint[align='end']\"></ng-content></div></div></div>",
+                // MdInput is a directive and can't have styles, so we need to include its styles here.
+                // The MdInput styles are fairly minimal so it shouldn't be a big deal for people who aren't using
+                // MdInput.
+                styles: [".mat-form-field{display:inline-block;position:relative;width:200px;text-align:left}[dir=rtl] .mat-form-field{text-align:right}.mat-form-field-wrapper{position:relative}.mat-form-field-flex{display:inline-flex;align-items:baseline;width:100%}.mat-form-field-prefix,.mat-form-field-suffix{white-space:nowrap;flex:none}.mat-form-field-prefix .mat-icon,.mat-form-field-suffix .mat-icon{width:1em}.mat-form-field-prefix .mat-icon-button,.mat-form-field-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field-suffix .mat-icon-button .mat-icon{font-size:inherit}.mat-form-field-infix{display:block;position:relative;flex:auto}.mat-form-field-autofill-float:-webkit-autofill+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:none}.mat-form-field-autofill-float:-webkit-autofill+.mat-form-field-placeholder-wrapper .mat-form-field-float{display:block;transition:none}.mat-form-field-placeholder-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}.mat-form-field-placeholder{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:perspective(100px);-ms-transform:none;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}.mat-focused .mat-form-field-placeholder.mat-form-field-float,.mat-form-field-placeholder.mat-form-field-empty,.mat-form-field-placeholder.mat-form-field-float:not(.mat-form-field-empty){display:block}[dir=rtl] .mat-form-field-placeholder{transform-origin:100% 0;left:auto;right:0}.mat-form-field-placeholder:not(.mat-form-field-empty){transition:none}.mat-form-field-underline{position:absolute;height:1px;width:100%}.mat-form-field-underline.mat-disabled{background-position:0;background-color:transparent}.mat-form-field-underline .mat-form-field-ripple{position:absolute;height:1px;top:0;left:0;width:100%;transform-origin:50%;transform:scaleX(.5);visibility:hidden;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-focused .mat-form-field-underline .mat-form-field-ripple{height:2px}.mat-focused .mat-form-field-underline .mat-form-field-ripple,.mat-form-field-invalid .mat-form-field-underline .mat-form-field-ripple{visibility:visible;transform:scaleX(1);transition:transform 150ms linear,background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-form-field-subscript-wrapper{position:absolute;width:100%;overflow:hidden}.mat-form-field-placeholder-wrapper .mat-icon,.mat-form-field-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-form-field-hint-wrapper{display:flex}.mat-form-field-hint-spacer{flex:1 0 1em}.mat-error{display:block} .mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;margin:0;width:100%;max-width:100%;resize:vertical;vertical-align:bottom}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element::placeholder{color:transparent!important}.mat-input-element::-moz-placeholder{color:transparent!important}.mat-input-element::-webkit-input-placeholder{color:transparent!important}.mat-input-element:-ms-input-placeholder{color:transparent!important}textarea.mat-input-element{overflow:auto}"],
+                animations: [
+                    // TODO(mmalerba): Use angular animations for placeholder animation as well.
+                    _angular_animations.trigger('transitionMessages', [
+                        _angular_animations.state('enter', _angular_animations.style({ opacity: 1, transform: 'translateY(0%)' })),
+                        _angular_animations.transition('void => enter', [
+                            _angular_animations.style({ opacity: 0, transform: 'translateY(-100%)' }),
+                            _angular_animations.animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
+                        ]),
+                    ]),
+                ],
+                host: {
+                    'class': 'mat-input-container mat-form-field',
+                    '[class.mat-input-invalid]': '_control.errorState',
+                    '[class.mat-form-field-invalid]': '_control.errorState',
+                    '[class.mat-focused]': '_control.focused',
+                    '[class.ng-untouched]': '_shouldForward("untouched")',
+                    '[class.ng-touched]': '_shouldForward("touched")',
+                    '[class.ng-pristine]': '_shouldForward("pristine")',
+                    '[class.ng-dirty]': '_shouldForward("dirty")',
+                    '[class.ng-valid]': '_shouldForward("valid")',
+                    '[class.ng-invalid]': '_shouldForward("invalid")',
+                    '[class.ng-pending]': '_shouldForward("pending")',
+                    '(click)': '_control.focus()',
+                },
+                encapsulation: _angular_core.ViewEncapsulation.None,
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdFormField.ctorParameters = function () { return [
+    { type: _angular_core.ElementRef, },
+    { type: _angular_core.ChangeDetectorRef, },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
+]; };
+MdFormField.propDecorators = {
+    'color': [{ type: _angular_core.Input },],
+    'dividerColor': [{ type: _angular_core.Input },],
+    'hideRequiredMarker': [{ type: _angular_core.Input },],
+    'hintLabel': [{ type: _angular_core.Input },],
+    'floatPlaceholder': [{ type: _angular_core.Input },],
+    'underlineRef': [{ type: _angular_core.ViewChild, args: ['underline',] },],
+    '_connectionContainerRef': [{ type: _angular_core.ViewChild, args: ['connectionContainer',] },],
+    '_control': [{ type: _angular_core.ContentChild, args: [MdFormFieldControl,] },],
+    '_placeholderChild': [{ type: _angular_core.ContentChild, args: [MdPlaceholder,] },],
+    '_errorChildren': [{ type: _angular_core.ContentChildren, args: [MdError,] },],
+    '_hintChildren': [{ type: _angular_core.ContentChildren, args: [MdHint,] },],
+    '_prefixChildren': [{ type: _angular_core.ContentChildren, args: [MdPrefix,] },],
+    '_suffixChildren': [{ type: _angular_core.ContentChildren, args: [MdSuffix,] },],
+};
+var MdFormFieldModule = (function () {
+    function MdFormFieldModule() {
+    }
+    return MdFormFieldModule;
+}());
+MdFormFieldModule.decorators = [
+    { type: _angular_core.NgModule, args: [{
+                declarations: [
+                    MdError,
+                    MdHint,
+                    MdFormField,
+                    MdPlaceholder,
+                    MdPrefix,
+                    MdSuffix,
+                ],
+                imports: [
+                    _angular_common.CommonModule,
+                    _angular_cdk_platform.PlatformModule,
+                ],
+                exports: [
+                    MdError,
+                    MdHint,
+                    MdFormField,
+                    MdPlaceholder,
+                    MdPrefix,
+                    MdSuffix,
+                ],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdFormFieldModule.ctorParameters = function () { return []; };
+// Invalid input type. Using one of these will throw an MdInputUnsupportedTypeError.
+var MD_INPUT_INVALID_TYPES = [
+    'button',
+    'checkbox',
+    'color',
+    'file',
+    'hidden',
+    'image',
+    'radio',
+    'range',
+    'reset',
+    'submit'
+];
+var nextUniqueId$3 = 0;
+/**
+ * Directive that allows a native input to work inside a `MdFormField`.
+ */
+var MdInput = (function () {
     /**
      * @param {?} _elementRef
      * @param {?} _renderer
      * @param {?} _platform
-     * @param {?} _ngControl
+     * @param {?} ngControl
      * @param {?} _parentForm
      * @param {?} _parentFormGroup
      * @param {?} errorOptions
      */
-    function MdInputDirective(_elementRef, _renderer, _platform, _ngControl, _parentForm, _parentFormGroup, errorOptions) {
+    function MdInput(_elementRef, _renderer, _platform, ngControl, _parentForm, _parentFormGroup, errorOptions) {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this._platform = _platform;
-        this._ngControl = _ngControl;
+        this.ngControl = ngControl;
         this._parentForm = _parentForm;
         this._parentFormGroup = _parentFormGroup;
         /**
          * Variables used as cache for getters and setters.
          */
         this._type = 'text';
-        this._placeholder = '';
         this._disabled = false;
         this._required = false;
-        this._readonly = false;
-        this._uid = "md-input-" + nextUniqueId$4++;
+        this._uid = "md-input-" + nextUniqueId$3++;
         this._previousNativeValue = this.value;
         /**
-         * Whether the input is in an error state.
-         */
-        this._isErrorState = false;
-        /**
-         * Whether the element is focused or not.
+         * Whether the input is focused.
          */
         this.focused = false;
         /**
-         * Stream that emits whenever the state of the input changes. This allows for other components
-         * (mostly `md-input-container`) that depend on the properties of `mdInput` to update their view.
+         * Whether the input is in an error state.
          */
-        this._stateChanges = new rxjs_Subject.Subject();
+        this.errorState = false;
+        /**
+         * Stream that emits whenever the state of the input changes such that the wrapping `MdFormField`
+         * needs to run change detection.
+         */
+        this.stateChanges = new rxjs_Subject.Subject();
         /**
          * Placeholder attribute of the element.
          */
@@ -14203,12 +12235,12 @@ var MdInputDirective = (function () {
             });
         }
     }
-    Object.defineProperty(MdInputDirective.prototype, "disabled", {
+    Object.defineProperty(MdInput.prototype, "disabled", {
         /**
          * Whether the element is disabled.
          * @return {?}
          */
-        get: function () { return this._ngControl ? this._ngControl.disabled : this._disabled; },
+        get: function () { return this.ngControl ? this.ngControl.disabled : this._disabled; },
         /**
          * @param {?} value
          * @return {?}
@@ -14217,7 +12249,7 @@ var MdInputDirective = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdInputDirective.prototype, "id", {
+    Object.defineProperty(MdInput.prototype, "id", {
         /**
          * Unique id of the element.
          * @return {?}
@@ -14231,7 +12263,7 @@ var MdInputDirective = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdInputDirective.prototype, "required", {
+    Object.defineProperty(MdInput.prototype, "required", {
         /**
          * Whether the element is required.
          * @return {?}
@@ -14245,7 +12277,7 @@ var MdInputDirective = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdInputDirective.prototype, "type", {
+    Object.defineProperty(MdInput.prototype, "type", {
         /**
          * Input type of the element.
          * @return {?}
@@ -14268,21 +12300,7 @@ var MdInputDirective = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdInputDirective.prototype, "readonly", {
-        /**
-         * Whether the element is readonly.
-         * @return {?}
-         */
-        get: function () { return this._readonly; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) { this._readonly = _angular_cdk_coercion.coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdInputDirective.prototype, "value", {
+    Object.defineProperty(MdInput.prototype, "value", {
         /**
          * The input element's value.
          * @return {?}
@@ -14295,15 +12313,127 @@ var MdInputDirective = (function () {
         set: function (value) {
             if (value !== this.value) {
                 this._elementRef.nativeElement.value = value;
-                this._stateChanges.next();
+                this.stateChanges.next();
             }
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdInputDirective.prototype, "empty", {
+    /**
+     * @return {?}
+     */
+    MdInput.prototype.ngOnChanges = function () {
+        this.stateChanges.next();
+    };
+    /**
+     * @return {?}
+     */
+    MdInput.prototype.ngOnDestroy = function () {
+        this.stateChanges.complete();
+    };
+    /**
+     * @return {?}
+     */
+    MdInput.prototype.ngDoCheck = function () {
+        if (this.ngControl) {
+            // We need to re-evaluate this on every change detection cycle, because there are some
+            // error triggers that we can't subscribe to (e.g. parent form submissions). This means
+            // that whatever logic is in here has to be super lean or we risk destroying the performance.
+            this._updateErrorState();
+        }
+        else {
+            // When the input isn't used together with `@angular/forms`, we need to check manually for
+            // changes to the native `value` property in order to update the floating label.
+            this._dirtyCheckNativeValue();
+        }
+    };
+    /**
+     * Callback for the cases where the focused state of the input changes.
+     * @param {?} isFocused
+     * @return {?}
+     */
+    MdInput.prototype._focusChanged = function (isFocused) {
+        if (isFocused !== this.focused) {
+            this.focused = isFocused;
+            this.stateChanges.next();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    MdInput.prototype._onInput = function () {
+        // This is a noop function and is used to let Angular know whenever the value changes.
+        // Angular will run a new change detection each time the `input` event has been dispatched.
+        // It's necessary that Angular recognizes the value change, because when floatingLabel
+        // is set to false and Angular forms aren't used, the placeholder won't recognize the
+        // value changes and will not disappear.
+        // Listening to the input event wouldn't be necessary when the input is using the
+        // FormsModule or ReactiveFormsModule, because Angular forms also listens to input events.
+    };
+    /**
+     * Re-evaluates the error state. This is only relevant with \@angular/forms.
+     * @return {?}
+     */
+    MdInput.prototype._updateErrorState = function () {
+        var /** @type {?} */ oldState = this.errorState;
+        var /** @type {?} */ ngControl = this.ngControl;
+        var /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
+        var /** @type {?} */ newState = ngControl && this.errorStateMatcher(/** @type {?} */ (ngControl.control), parent);
+        if (newState !== oldState) {
+            this.errorState = newState;
+            this.stateChanges.next();
+        }
+    };
+    /**
+     * Does some manual dirty checking on the native input `value` property.
+     * @return {?}
+     */
+    MdInput.prototype._dirtyCheckNativeValue = function () {
+        var /** @type {?} */ newValue = this.value;
+        if (this._previousNativeValue !== newValue) {
+            this._previousNativeValue = newValue;
+            this.stateChanges.next();
+        }
+    };
+    /**
+     * Make sure the input is a supported type.
+     * @return {?}
+     */
+    MdInput.prototype._validateType = function () {
+        if (MD_INPUT_INVALID_TYPES.indexOf(this._type) > -1) {
+            throw getMdInputUnsupportedTypeError(this._type);
+        }
+    };
+    /**
+     * Checks whether the input type is one of the types that are never empty.
+     * @return {?}
+     */
+    MdInput.prototype._isNeverEmpty = function () {
+        return this._neverEmptyInputTypes.indexOf(this._type) > -1;
+    };
+    /**
+     * Checks whether the input is invalid based on the native validation.
+     * @return {?}
+     */
+    MdInput.prototype._isBadInput = function () {
+        // The `validity` property won't be present on platform-server.
+        var /** @type {?} */ validity = ((this._elementRef.nativeElement)).validity;
+        return validity && validity.badInput;
+    };
+    /**
+     * Determines if the component host is a textarea. If not recognizable it returns false.
+     * @return {?}
+     */
+    MdInput.prototype._isTextarea = function () {
+        var /** @type {?} */ nativeElement = this._elementRef.nativeElement;
+        // In Universal, we don't have access to `nodeName`, but the same can be achieved with `name`.
+        // Note that this shouldn't be necessary once Angular switches to an API that resembles the
+        // DOM closer.
+        var /** @type {?} */ nodeName = this._platform.isBrowser ? nativeElement.nodeName : nativeElement.name;
+        return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
+    };
+    Object.defineProperty(MdInput.prototype, "empty", {
         /**
-         * Whether the input is empty.
          * @return {?}
          */
         get: function () {
@@ -14318,136 +12448,17 @@ var MdInputDirective = (function () {
         configurable: true
     });
     /**
+     * @param {?} ids
      * @return {?}
      */
-    MdInputDirective.prototype.ngOnChanges = function () {
-        this._stateChanges.next();
-    };
+    MdInput.prototype.setDescribedByIds = function (ids) { this._ariaDescribedby = ids.join(' '); };
     /**
      * @return {?}
      */
-    MdInputDirective.prototype.ngOnDestroy = function () {
-        this._stateChanges.complete();
-    };
-    /**
-     * @return {?}
-     */
-    MdInputDirective.prototype.ngDoCheck = function () {
-        if (this._ngControl) {
-            // We need to re-evaluate this on every change detection cycle, because there are some
-            // error triggers that we can't subscribe to (e.g. parent form submissions). This means
-            // that whatever logic is in here has to be super lean or we risk destroying the performance.
-            this._updateErrorState();
-        }
-        else {
-            // When the input isn't used together with `@angular/forms`, we need to check manually for
-            // changes to the native `value` property in order to update the floating label.
-            this._dirtyCheckNativeValue();
-        }
-    };
-    /**
-     * @return {?}
-     */
-    MdInputDirective.prototype._onFocus = function () {
-        if (!this._readonly) {
-            this.focused = true;
-        }
-    };
-    /**
-     * Focuses the input element.
-     * @return {?}
-     */
-    MdInputDirective.prototype.focus = function () {
-        this._elementRef.nativeElement.focus();
-    };
-    /**
-     * Callback for the cases where the focused state of the input changes.
-     * @param {?} isFocused
-     * @return {?}
-     */
-    MdInputDirective.prototype._focusChanged = function (isFocused) {
-        if (isFocused !== this.focused) {
-            this.focused = isFocused;
-            this._stateChanges.next();
-        }
-    };
-    /**
-     * @return {?}
-     */
-    MdInputDirective.prototype._onInput = function () {
-        // This is a noop function and is used to let Angular know whenever the value changes.
-        // Angular will run a new change detection each time the `input` event has been dispatched.
-        // It's necessary that Angular recognizes the value change, because when floatingLabel
-        // is set to false and Angular forms aren't used, the placeholder won't recognize the
-        // value changes and will not disappear.
-        // Listening to the input event wouldn't be necessary when the input is using the
-        // FormsModule or ReactiveFormsModule, because Angular forms also listens to input events.
-    };
-    /**
-     * Re-evaluates the error state. This is only relevant with \@angular/forms.
-     * @return {?}
-     */
-    MdInputDirective.prototype._updateErrorState = function () {
-        var /** @type {?} */ oldState = this._isErrorState;
-        var /** @type {?} */ control = this._ngControl;
-        var /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
-        var /** @type {?} */ newState = control && this.errorStateMatcher(/** @type {?} */ (control.control), parent);
-        if (newState !== oldState) {
-            this._isErrorState = newState;
-            this._stateChanges.next();
-        }
-    };
-    /**
-     * Does some manual dirty checking on the native input `value` property.
-     * @return {?}
-     */
-    MdInputDirective.prototype._dirtyCheckNativeValue = function () {
-        var /** @type {?} */ newValue = this.value;
-        if (this._previousNativeValue !== newValue) {
-            this._previousNativeValue = newValue;
-            this._stateChanges.next();
-        }
-    };
-    /**
-     * Make sure the input is a supported type.
-     * @return {?}
-     */
-    MdInputDirective.prototype._validateType = function () {
-        if (MD_INPUT_INVALID_TYPES.indexOf(this._type) > -1) {
-            throw getMdInputContainerUnsupportedTypeError(this._type);
-        }
-    };
-    /**
-     * Checks whether the input type isn't one of the types that are never empty.
-     * @return {?}
-     */
-    MdInputDirective.prototype._isNeverEmpty = function () {
-        return this._neverEmptyInputTypes.indexOf(this._type) > -1;
-    };
-    /**
-     * Checks whether the input is invalid based on the native validation.
-     * @return {?}
-     */
-    MdInputDirective.prototype._isBadInput = function () {
-        // The `validity` property won't be present on platform-server.
-        var /** @type {?} */ validity = ((this._elementRef.nativeElement)).validity;
-        return validity && validity.badInput;
-    };
-    /**
-     * Determines if the component host is a textarea. If not recognizable it returns false.
-     * @return {?}
-     */
-    MdInputDirective.prototype._isTextarea = function () {
-        var /** @type {?} */ nativeElement = this._elementRef.nativeElement;
-        // In Universal, we don't have access to `nodeName`, but the same can be achieved with `name`.
-        // Note that this shouldn't be necessary once Angular switches to an API that resembles the
-        // DOM closer.
-        var /** @type {?} */ nodeName = this._platform.isBrowser ? nativeElement.nodeName : nativeElement.name;
-        return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
-    };
-    return MdInputDirective;
+    MdInput.prototype.focus = function () { this._elementRef.nativeElement.focus(); };
+    return MdInput;
 }());
-MdInputDirective.decorators = [
+MdInput.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: "input[mdInput], textarea[mdInput], input[matInput], textarea[matInput]",
                 host: {
@@ -14458,18 +12469,19 @@ MdInputDirective.decorators = [
                     '[placeholder]': 'placeholder',
                     '[disabled]': 'disabled',
                     '[required]': 'required',
-                    '[attr.aria-describedby]': 'ariaDescribedby || null',
-                    '[attr.aria-invalid]': '_isErrorState',
+                    '[attr.aria-describedby]': '_ariaDescribedby || null',
+                    '[attr.aria-invalid]': 'errorState',
                     '(blur)': '_focusChanged(false)',
                     '(focus)': '_focusChanged(true)',
                     '(input)': '_onInput()',
-                }
+                },
+                providers: [{ provide: MdFormFieldControl, useExisting: MdInput }],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdInputDirective.ctorParameters = function () { return [
+MdInput.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.Renderer2, },
     { type: _angular_cdk_platform.Platform, },
@@ -14478,337 +12490,13 @@ MdInputDirective.ctorParameters = function () { return [
     { type: _angular_forms.FormGroupDirective, decorators: [{ type: _angular_core.Optional },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_ERROR_GLOBAL_OPTIONS,] },] },
 ]; };
-MdInputDirective.propDecorators = {
+MdInput.propDecorators = {
     'disabled': [{ type: _angular_core.Input },],
     'id': [{ type: _angular_core.Input },],
     'placeholder': [{ type: _angular_core.Input },],
     'required': [{ type: _angular_core.Input },],
     'type': [{ type: _angular_core.Input },],
-    'readonly': [{ type: _angular_core.Input },],
     'errorStateMatcher': [{ type: _angular_core.Input },],
-};
-/**
- * Container for text inputs that applies Material Design styling and behavior.
- */
-var MdInputContainer = (function () {
-    /**
-     * @param {?} _elementRef
-     * @param {?} _changeDetectorRef
-     * @param {?} placeholderOptions
-     */
-    function MdInputContainer(_elementRef, _changeDetectorRef, placeholderOptions) {
-        this._elementRef = _elementRef;
-        this._changeDetectorRef = _changeDetectorRef;
-        /**
-         * Color of the input divider, based on the theme.
-         */
-        this.color = 'primary';
-        /**
-         * State of the md-hint and md-error animations.
-         */
-        this._subscriptAnimationState = '';
-        this._hintLabel = '';
-        // Unique id for the hint label.
-        this._hintLabelId = "md-input-hint-" + nextUniqueId$4++;
-        this._placeholderOptions = placeholderOptions ? placeholderOptions : {};
-        this.floatPlaceholder = this._placeholderOptions.float || 'auto';
-    }
-    Object.defineProperty(MdInputContainer.prototype, "dividerColor", {
-        /**
-         * @deprecated Use `color` instead.
-         * @return {?}
-         */
-        get: function () { return this.color; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) { this.color = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdInputContainer.prototype, "hideRequiredMarker", {
-        /**
-         * Whether the required marker should be hidden.
-         * @return {?}
-         */
-        get: function () { return this._hideRequiredMarker; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this._hideRequiredMarker = _angular_cdk_coercion.coerceBooleanProperty(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdInputContainer.prototype, "_shouldAlwaysFloat", {
-        /**
-         * Whether the floating label should always float or not.
-         * @return {?}
-         */
-        get: function () { return this._floatPlaceholder === 'always'; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdInputContainer.prototype, "_canPlaceholderFloat", {
-        /**
-         * Whether the placeholder can float or not.
-         * @return {?}
-         */
-        get: function () { return this._floatPlaceholder !== 'never'; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdInputContainer.prototype, "hintLabel", {
-        /**
-         * Text for the input hint.
-         * @return {?}
-         */
-        get: function () { return this._hintLabel; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this._hintLabel = value;
-            this._processHints();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdInputContainer.prototype, "floatPlaceholder", {
-        /**
-         * Whether the placeholder should always float, never float or float as the user types.
-         * @return {?}
-         */
-        get: function () { return this._floatPlaceholder; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            if (value !== this._floatPlaceholder) {
-                this._floatPlaceholder = value || this._placeholderOptions.float || 'auto';
-                this._changeDetectorRef.markForCheck();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    MdInputContainer.prototype.ngAfterContentInit = function () {
-        var _this = this;
-        this._validateInputChild();
-        // Subscribe to changes in the child input state in order to update the container UI.
-        _angular_cdk_rxjs.startWith.call(this._mdInputChild._stateChanges, null).subscribe(function () {
-            _this._validatePlaceholders();
-            _this._syncAriaDescribedby();
-            _this._changeDetectorRef.markForCheck();
-        });
-        if (this._mdInputChild._ngControl && this._mdInputChild._ngControl.valueChanges) {
-            this._mdInputChild._ngControl.valueChanges.subscribe(function () {
-                _this._changeDetectorRef.markForCheck();
-            });
-        }
-        // Re-validate when the number of hints changes.
-        _angular_cdk_rxjs.startWith.call(this._hintChildren.changes, null).subscribe(function () {
-            _this._processHints();
-            _this._changeDetectorRef.markForCheck();
-        });
-        // Update the aria-described by when the number of errors changes.
-        _angular_cdk_rxjs.startWith.call(this._errorChildren.changes, null).subscribe(function () {
-            _this._syncAriaDescribedby();
-            _this._changeDetectorRef.markForCheck();
-        });
-    };
-    /**
-     * @return {?}
-     */
-    MdInputContainer.prototype.ngAfterContentChecked = function () {
-        this._validateInputChild();
-    };
-    /**
-     * @return {?}
-     */
-    MdInputContainer.prototype.ngAfterViewInit = function () {
-        // Avoid animations on load.
-        this._subscriptAnimationState = 'enter';
-        this._changeDetectorRef.detectChanges();
-    };
-    /**
-     * Determines whether a class from the NgControl should be forwarded to the host element.
-     * @param {?} prop
-     * @return {?}
-     */
-    MdInputContainer.prototype._shouldForward = function (prop) {
-        var /** @type {?} */ control = this._mdInputChild ? this._mdInputChild._ngControl : null;
-        return control && ((control))[prop];
-    };
-    /**
-     * Whether the input has a placeholder.
-     * @return {?}
-     */
-    MdInputContainer.prototype._hasPlaceholder = function () {
-        return !!(this._mdInputChild.placeholder || this._placeholderChild);
-    };
-    /**
-     * Focuses the underlying input.
-     * @return {?}
-     */
-    MdInputContainer.prototype._focusInput = function () {
-        this._mdInputChild.focus();
-    };
-    /**
-     * Determines whether to display hints or errors.
-     * @return {?}
-     */
-    MdInputContainer.prototype._getDisplayedMessages = function () {
-        var /** @type {?} */ input = this._mdInputChild;
-        return (this._errorChildren && this._errorChildren.length > 0 && input._isErrorState) ?
-            'error' : 'hint';
-    };
-    /**
-     * Ensure that there is only one placeholder (either `input` attribute or child element with the
-     * `md-placeholder` attribute.
-     * @return {?}
-     */
-    MdInputContainer.prototype._validatePlaceholders = function () {
-        if (this._mdInputChild.placeholder && this._placeholderChild) {
-            throw getMdInputContainerPlaceholderConflictError();
-        }
-    };
-    /**
-     * Does any extra processing that is required when handling the hints.
-     * @return {?}
-     */
-    MdInputContainer.prototype._processHints = function () {
-        this._validateHints();
-        this._syncAriaDescribedby();
-    };
-    /**
-     * Ensure that there is a maximum of one of each `<md-hint>` alignment specified, with the
-     * attribute being considered as `align="start"`.
-     * @return {?}
-     */
-    MdInputContainer.prototype._validateHints = function () {
-        var _this = this;
-        if (this._hintChildren) {
-            var /** @type {?} */ startHint_1;
-            var /** @type {?} */ endHint_1;
-            this._hintChildren.forEach(function (hint) {
-                if (hint.align == 'start') {
-                    if (startHint_1 || _this.hintLabel) {
-                        throw getMdInputContainerDuplicatedHintError('start');
-                    }
-                    startHint_1 = hint;
-                }
-                else if (hint.align == 'end') {
-                    if (endHint_1) {
-                        throw getMdInputContainerDuplicatedHintError('end');
-                    }
-                    endHint_1 = hint;
-                }
-            });
-        }
-    };
-    /**
-     * Sets the child input's `aria-describedby` to a space-separated list of the ids
-     * of the currently-specified hints, as well as a generated id for the hint label.
-     * @return {?}
-     */
-    MdInputContainer.prototype._syncAriaDescribedby = function () {
-        if (this._mdInputChild) {
-            var /** @type {?} */ ids = [];
-            if (this._getDisplayedMessages() === 'hint') {
-                var /** @type {?} */ startHint = this._hintChildren ?
-                    this._hintChildren.find(function (hint) { return hint.align === 'start'; }) : null;
-                var /** @type {?} */ endHint = this._hintChildren ?
-                    this._hintChildren.find(function (hint) { return hint.align === 'end'; }) : null;
-                if (startHint) {
-                    ids.push(startHint.id);
-                }
-                else if (this._hintLabel) {
-                    ids.push(this._hintLabelId);
-                }
-                if (endHint) {
-                    ids.push(endHint.id);
-                }
-            }
-            else if (this._errorChildren) {
-                ids = this._errorChildren.map(function (mdError) { return mdError.id; });
-            }
-            this._mdInputChild.ariaDescribedby = ids.join(' ');
-        }
-    };
-    /**
-     * Throws an error if the container's input child was removed.
-     * @return {?}
-     */
-    MdInputContainer.prototype._validateInputChild = function () {
-        if (!this._mdInputChild) {
-            throw getMdInputContainerMissingMdInputError();
-        }
-    };
-    return MdInputContainer;
-}());
-MdInputContainer.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-input-container, mat-input-container',
-                template: "<div class=\"mat-input-wrapper\"><div class=\"mat-input-flex\" #connectionContainer><div class=\"mat-input-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[mdPrefix], [matPrefix]\"></ng-content></div><div class=\"mat-input-infix\"><ng-content selector=\"input, textarea\"></ng-content><span class=\"mat-input-placeholder-wrapper\"><label class=\"mat-input-placeholder\" [attr.for]=\"_mdInputChild.id\" [class.mat-empty]=\"_mdInputChild.empty && !_shouldAlwaysFloat\" [class.mat-float]=\"_canPlaceholderFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" *ngIf=\"_hasPlaceholder()\"><ng-content select=\"md-placeholder, mat-placeholder\"></ng-content>{{_mdInputChild.placeholder}} <span class=\"mat-placeholder-required\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _mdInputChild.required\">*</span></label></span></div><div class=\"mat-input-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[mdSuffix], [matSuffix]\"></ng-content></div></div><div class=\"mat-input-underline\" #underline [class.mat-disabled]=\"_mdInputChild.disabled\"><span class=\"mat-input-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-input-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"md-error, mat-error\"></ng-content></div><div class=\"mat-input-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"md-hint:not([align='end']), mat-hint:not([align='end'])\"></ng-content><div class=\"mat-input-hint-spacer\"></div><ng-content select=\"md-hint[align='end'], mat-hint[align='end']\"></ng-content></div></div></div>",
-                styles: [".mat-input-container{display:inline-block;position:relative;width:200px;text-align:left}[dir=rtl] .mat-input-container{text-align:right}.mat-input-wrapper{position:relative}.mat-input-flex{display:inline-flex;align-items:baseline;width:100%}.mat-input-prefix,.mat-input-suffix{white-space:nowrap;flex:none}.mat-input-prefix .mat-icon,.mat-input-suffix .mat-icon{width:1em}.mat-input-prefix .mat-icon-button,.mat-input-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-input-prefix .mat-icon-button .mat-icon,.mat-input-suffix .mat-icon-button .mat-icon{font-size:inherit}.mat-input-infix{display:block;position:relative;flex:auto}.mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;margin:0;width:100%;max-width:100%;resize:vertical;vertical-align:bottom}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element:-webkit-autofill+.mat-input-placeholder-wrapper .mat-input-placeholder{display:none}.mat-input-element:-webkit-autofill+.mat-input-placeholder-wrapper .mat-float{display:block;transition:none}.mat-input-element::placeholder{color:transparent!important}.mat-input-element::-moz-placeholder{color:transparent!important}.mat-input-element::-webkit-input-placeholder{color:transparent!important}.mat-input-element:-ms-input-placeholder{color:transparent!important}.mat-input-placeholder-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}textarea.mat-input-element{overflow:auto}.mat-input-placeholder{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:perspective(100px);-ms-transform:none;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}.mat-focused .mat-input-placeholder.mat-float,.mat-input-placeholder.mat-empty,.mat-input-placeholder.mat-float:not(.mat-empty){display:block}[dir=rtl] .mat-input-placeholder{transform-origin:100% 0;left:auto;right:0}.mat-input-placeholder:not(.mat-empty){transition:none}.mat-input-underline{position:absolute;height:1px;width:100%}.mat-input-underline.mat-disabled{background-position:0;background-color:transparent}.mat-input-underline .mat-input-ripple{position:absolute;height:1px;top:0;left:0;width:100%;transform-origin:50%;transform:scaleX(.5);visibility:hidden;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-focused .mat-input-underline .mat-input-ripple{height:2px}.mat-focused .mat-input-underline .mat-input-ripple,.mat-input-invalid .mat-input-underline .mat-input-ripple{visibility:visible;transform:scaleX(1);transition:transform 150ms linear,background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-input-subscript-wrapper{position:absolute;width:100%;overflow:hidden}.mat-input-placeholder-wrapper .mat-icon,.mat-input-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-input-hint-wrapper{display:flex}.mat-input-hint-spacer{flex:1 0 1em}.mat-input-error{display:block}"],
-                animations: [
-                    _angular_animations.trigger('transitionMessages', [
-                        _angular_animations.state('enter', _angular_animations.style({ opacity: 1, transform: 'translateY(0%)' })),
-                        _angular_animations.transition('void => enter', [
-                            _angular_animations.style({ opacity: 0, transform: 'translateY(-100%)' }),
-                            _angular_animations.animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)')
-                        ])
-                    ])
-                ],
-                host: {
-                    // Remove align attribute to prevent it from interfering with layout.
-                    '[attr.align]': 'null',
-                    'class': 'mat-input-container',
-                    '[class.mat-input-invalid]': '_mdInputChild._isErrorState',
-                    '[class.mat-focused]': '_mdInputChild.focused',
-                    '[class.ng-untouched]': '_shouldForward("untouched")',
-                    '[class.ng-touched]': '_shouldForward("touched")',
-                    '[class.ng-pristine]': '_shouldForward("pristine")',
-                    '[class.ng-dirty]': '_shouldForward("dirty")',
-                    '[class.ng-valid]': '_shouldForward("valid")',
-                    '[class.ng-invalid]': '_shouldForward("invalid")',
-                    '[class.ng-pending]': '_shouldForward("pending")',
-                    '(click)': '_focusInput()',
-                },
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MdInputContainer.ctorParameters = function () { return [
-    { type: _angular_core.ElementRef, },
-    { type: _angular_core.ChangeDetectorRef, },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
-]; };
-MdInputContainer.propDecorators = {
-    'color': [{ type: _angular_core.Input },],
-    'dividerColor': [{ type: _angular_core.Input },],
-    'hideRequiredMarker': [{ type: _angular_core.Input },],
-    'hintLabel': [{ type: _angular_core.Input },],
-    'floatPlaceholder': [{ type: _angular_core.Input },],
-    'underlineRef': [{ type: _angular_core.ViewChild, args: ['underline',] },],
-    '_connectionContainerRef': [{ type: _angular_core.ViewChild, args: ['connectionContainer',] },],
-    '_mdInputChild': [{ type: _angular_core.ContentChild, args: [MdInputDirective,] },],
-    '_placeholderChild': [{ type: _angular_core.ContentChild, args: [MdPlaceholder,] },],
-    '_errorChildren': [{ type: _angular_core.ContentChildren, args: [MdErrorDirective,] },],
-    '_hintChildren': [{ type: _angular_core.ContentChildren, args: [MdHint,] },],
-    '_prefixChildren': [{ type: _angular_core.ContentChildren, args: [MdPrefix,] },],
-    '_suffixChildren': [{ type: _angular_core.ContentChildren, args: [MdSuffix,] },],
 };
 /**
  * Directive to automatically resize a textarea to fit its content.
@@ -15017,27 +12705,19 @@ var MdInputModule = (function () {
 MdInputModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 declarations: [
-                    MdErrorDirective,
-                    MdHint,
-                    MdInputContainer,
-                    MdInputDirective,
-                    MdPlaceholder,
-                    MdPrefix,
-                    MdSuffix,
+                    MdInput,
                     MdTextareaAutosize,
                 ],
                 imports: [
                     _angular_common.CommonModule,
+                    MdFormFieldModule,
                     _angular_cdk_platform.PlatformModule,
                 ],
                 exports: [
-                    MdErrorDirective,
-                    MdHint,
-                    MdInputContainer,
-                    MdInputDirective,
-                    MdPlaceholder,
-                    MdPrefix,
-                    MdSuffix,
+                    // We re-export the `MdFormFieldModule` since `MdInput` will almost always be used together with
+                    // `MdFormField`.
+                    MdFormFieldModule,
+                    MdInput,
                     MdTextareaAutosize,
                 ],
             },] },
@@ -15568,7 +13248,7 @@ var MdSnackBar = (function () {
      * @return {?}
      */
     MdSnackBar.prototype._createOverlay = function (config) {
-        var /** @type {?} */ state$$1 = new OverlayState();
+        var /** @type {?} */ state$$1 = new _angular_cdk_overlay.OverlayState();
         state$$1.direction = config.direction;
         state$$1.positionStrategy = this._overlay.position().global().centerHorizontally().bottom('0');
         return this._overlay.create(state$$1);
@@ -15596,7 +13276,7 @@ MdSnackBar.decorators = [
  * @nocollapse
  */
 MdSnackBar.ctorParameters = function () { return [
-    { type: Overlay, },
+    { type: _angular_cdk_overlay.Overlay, },
     { type: _angular_cdk_a11y.LiveAnnouncer, },
     { type: _angular_core.Injector, },
     { type: MdSnackBar, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
@@ -15617,7 +13297,7 @@ var MdSnackBarModule = (function () {
 MdSnackBarModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [
-                    OverlayModule,
+                    _angular_cdk_overlay.OverlayModule,
                     _angular_cdk_portal.PortalModule,
                     _angular_common.CommonModule,
                     MdCommonModule,
@@ -16491,7 +14171,7 @@ MdTabLink.ctorParameters = function () { return [
     { type: MdTabNav, },
     { type: _angular_core.ElementRef, },
     { type: _angular_core.NgZone, },
-    { type: ViewportRuler, },
+    { type: _angular_cdk_overlay.ViewportRuler, },
     { type: _angular_cdk_platform.Platform, },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_RIPPLE_GLOBAL_OPTIONS,] },] },
 ]; };
@@ -17141,7 +14821,7 @@ MdTabsModule.decorators = [
                     _angular_cdk_portal.PortalModule,
                     MdRippleModule,
                     _angular_cdk_observers.ObserversModule,
-                    ScrollDispatchModule,
+                    _angular_cdk_overlay.ScrollDispatchModule,
                 ],
                 // Don't export all components because some are only to be used internally.
                 exports: [
@@ -17163,7 +14843,7 @@ MdTabsModule.decorators = [
                     MdTabBody,
                     MdTabHeader
                 ],
-                providers: [VIEWPORT_RULER_PROVIDER],
+                providers: [_angular_cdk_overlay.VIEWPORT_RULER_PROVIDER],
             },] },
 ];
 /**
@@ -17284,7 +14964,7 @@ function MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
  */
 var MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
     provide: MD_TOOLTIP_SCROLL_STRATEGY,
-    deps: [Overlay],
+    deps: [_angular_cdk_overlay.Overlay],
     useFactory: MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY
 };
 /**
@@ -17613,7 +15293,7 @@ var MdTooltip = (function () {
                 _this.hide(0);
             }
         });
-        var /** @type {?} */ config = new OverlayState();
+        var /** @type {?} */ config = new _angular_cdk_overlay.OverlayState();
         config.direction = this._dir ? this._dir.value : 'ltr';
         config.positionStrategy = strategy;
         config.panelClass = TOOLTIP_PANEL_CLASS;
@@ -17723,9 +15403,9 @@ MdTooltip.decorators = [
  * @nocollapse
  */
 MdTooltip.ctorParameters = function () { return [
-    { type: Overlay, },
+    { type: _angular_cdk_overlay.Overlay, },
     { type: _angular_core.ElementRef, },
-    { type: ScrollDispatcher, },
+    { type: _angular_cdk_overlay.ScrollDispatcher, },
     { type: _angular_core.ViewContainerRef, },
     { type: _angular_core.NgZone, },
     { type: _angular_core.Renderer2, },
@@ -17937,7 +15617,7 @@ MdTooltipModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [
                     _angular_common.CommonModule,
-                    OverlayModule,
+                    _angular_cdk_overlay.OverlayModule,
                     MdCommonModule,
                     _angular_cdk_platform.PlatformModule
                 ],
@@ -18231,7 +15911,7 @@ var MdMenu = (function () {
      */
     MdMenu.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this._keyManager = new FocusKeyManager(this.items).withWrap();
+        this._keyManager = new FocusKeyManager$1(this.items).withWrap();
         this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this.close.emit('keydown'); });
     };
     /**
@@ -18389,7 +16069,7 @@ function MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
  */
 var MD_MENU_SCROLL_STRATEGY_PROVIDER = {
     provide: MD_MENU_SCROLL_STRATEGY,
-    deps: [Overlay],
+    deps: [_angular_cdk_overlay.Overlay],
     useFactory: MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY,
 };
 /**
@@ -18438,12 +16118,16 @@ var MdMenuTrigger = (function () {
          * @deprecated
          * @return {?}
          */
-        get: function () { return this.menu; },
+        get: function () {
+            return this.menu;
+        },
         /**
          * @param {?} v
          * @return {?}
          */
-        set: function (v) { this.menu = v; },
+        set: function (v) {
+            this.menu = v;
+        },
         enumerable: true,
         configurable: true
     });
@@ -18452,12 +16136,16 @@ var MdMenuTrigger = (function () {
          * @deprecated
          * @return {?}
          */
-        get: function () { return this.menu; },
+        get: function () {
+            return this.menu;
+        },
         /**
          * @param {?} v
          * @return {?}
          */
-        set: function (v) { this.menu = v; },
+        set: function (v) {
+            this.menu = v;
+        },
         enumerable: true,
         configurable: true
     });
@@ -18465,12 +16153,16 @@ var MdMenuTrigger = (function () {
         /**
          * @return {?}
          */
-        get: function () { return this.menu; },
+        get: function () {
+            return this.menu;
+        },
         /**
          * @param {?} v
          * @return {?}
          */
-        set: function (v) { this.menu = v; },
+        set: function (v) {
+            this.menu = v;
+        },
         enumerable: true,
         configurable: true
     });
@@ -18665,7 +16357,7 @@ var MdMenuTrigger = (function () {
      * @return {?} OverlayState
      */
     MdMenuTrigger.prototype._getOverlayConfig = function () {
-        var /** @type {?} */ overlayState = new OverlayState();
+        var /** @type {?} */ overlayState = new _angular_cdk_overlay.OverlayState();
         overlayState.positionStrategy = this._getPosition();
         overlayState.hasBackdrop = !this.triggersSubmenu();
         overlayState.backdropClass = 'cdk-overlay-transparent-backdrop';
@@ -18802,7 +16494,7 @@ MdMenuTrigger.decorators = [
  * @nocollapse
  */
 MdMenuTrigger.ctorParameters = function () { return [
-    { type: Overlay, },
+    { type: _angular_cdk_overlay.Overlay, },
     { type: _angular_core.ElementRef, },
     { type: _angular_core.ViewContainerRef, },
     { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MD_MENU_SCROLL_STRATEGY,] },] },
@@ -18826,7 +16518,7 @@ var MdMenuModule = (function () {
 MdMenuModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [
-                    OverlayModule,
+                    _angular_cdk_overlay.OverlayModule,
                     _angular_common.CommonModule,
                     MdRippleModule,
                     MdCommonModule,
@@ -19217,7 +16909,7 @@ function MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
  */
 var MD_DIALOG_SCROLL_STRATEGY_PROVIDER = {
     provide: MD_DIALOG_SCROLL_STRATEGY,
-    deps: [Overlay],
+    deps: [_angular_cdk_overlay.Overlay],
     useFactory: MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY,
 };
 /**
@@ -19356,7 +17048,7 @@ var MdDialog = (function () {
      * @return {?} The overlay configuration.
      */
     MdDialog.prototype._getOverlayState = function (dialogConfig) {
-        var /** @type {?} */ overlayState = new OverlayState();
+        var /** @type {?} */ overlayState = new _angular_cdk_overlay.OverlayState();
         overlayState.panelClass = dialogConfig.panelClass;
         overlayState.hasBackdrop = dialogConfig.hasBackdrop;
         overlayState.scrollStrategy = this._scrollStrategy();
@@ -19469,7 +17161,7 @@ MdDialog.decorators = [
  * @nocollapse
  */
 MdDialog.ctorParameters = function () { return [
-    { type: Overlay, },
+    { type: _angular_cdk_overlay.Overlay, },
     { type: _angular_core.Injector, },
     { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MD_DIALOG_SCROLL_STRATEGY,] },] },
     { type: _angular_common.Location, decorators: [{ type: _angular_core.Optional },] },
@@ -19626,7 +17318,7 @@ MdDialogModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [
                     _angular_common.CommonModule,
-                    OverlayModule,
+                    _angular_cdk_overlay.OverlayModule,
                     _angular_cdk_portal.PortalModule,
                     _angular_cdk_a11y.A11yModule,
                     MdCommonModule,
@@ -19803,7 +17495,7 @@ function MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
  */
 var MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER = {
     provide: MD_AUTOCOMPLETE_SCROLL_STRATEGY,
-    deps: [Overlay],
+    deps: [_angular_cdk_overlay.Overlay],
     useFactory: MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY,
 };
 /**
@@ -19833,10 +17525,10 @@ var MdAutocompleteTrigger = (function () {
      * @param {?} _changeDetectorRef
      * @param {?} _scrollStrategy
      * @param {?} _dir
-     * @param {?} _inputContainer
+     * @param {?} _formField
      * @param {?} _document
      */
-    function MdAutocompleteTrigger(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, _scrollStrategy, _dir, _inputContainer, _document) {
+    function MdAutocompleteTrigger(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, _scrollStrategy, _dir, _formField, _document) {
         this._element = _element;
         this._overlay = _overlay;
         this._viewContainerRef = _viewContainerRef;
@@ -19844,7 +17536,7 @@ var MdAutocompleteTrigger = (function () {
         this._changeDetectorRef = _changeDetectorRef;
         this._scrollStrategy = _scrollStrategy;
         this._dir = _dir;
-        this._inputContainer = _inputContainer;
+        this._formField = _formField;
         this._document = _document;
         this._panelOpen = false;
         /**
@@ -19986,8 +17678,8 @@ var MdAutocompleteTrigger = (function () {
             }
             return _angular_cdk_rxjs.RxChain.from(rxjs_observable_merge.merge(rxjs_observable_fromEvent.fromEvent(this._document, 'click'), rxjs_observable_fromEvent.fromEvent(this._document, 'touchend'))).call(_angular_cdk_rxjs.filter, function (event) {
                 var /** @type {?} */ clickTarget = (event.target);
-                var /** @type {?} */ inputContainer = _this._inputContainer ?
-                    _this._inputContainer._elementRef.nativeElement : null;
+                var /** @type {?} */ inputContainer = _this._formField ?
+                    _this._formField._elementRef.nativeElement : null;
                 return _this._panelOpen &&
                     clickTarget !== _this._element.nativeElement &&
                     (!inputContainer || !inputContainer.contains(clickTarget)) &&
@@ -20078,8 +17770,8 @@ var MdAutocompleteTrigger = (function () {
      * @return {?}
      */
     MdAutocompleteTrigger.prototype._floatPlaceholder = function () {
-        if (this._inputContainer && this._inputContainer.floatPlaceholder === 'auto') {
-            this._inputContainer.floatPlaceholder = 'always';
+        if (this._formField && this._formField.floatPlaceholder === 'auto') {
+            this._formField.floatPlaceholder = 'always';
             this._manuallyFloatingPlaceholder = true;
         }
     };
@@ -20089,7 +17781,7 @@ var MdAutocompleteTrigger = (function () {
      */
     MdAutocompleteTrigger.prototype._resetPlaceholder = function () {
         if (this._manuallyFloatingPlaceholder) {
-            this._inputContainer.floatPlaceholder = 'auto';
+            this._formField.floatPlaceholder = 'auto';
             this._manuallyFloatingPlaceholder = false;
         }
     };
@@ -20156,10 +17848,10 @@ var MdAutocompleteTrigger = (function () {
         // Simply falling back to an empty string if the display value is falsy does not work properly.
         // The display value can also be the number zero and shouldn't fall back to an empty string.
         var /** @type {?} */ inputValue = toDisplay != null ? toDisplay : '';
-        // If it's used in a Material container, we should set it through
-        // the property so it can go through the change detection.
-        if (this._inputContainer) {
-            this._inputContainer._mdInputChild.value = inputValue;
+        // If it's used within a `MdFormField`, we should set it through the property so it can go
+        // through change detection.
+        if (this._formField) {
+            this._formField._control.value = inputValue;
         }
         else {
             this._element.nativeElement.value = inputValue;
@@ -20204,7 +17896,7 @@ var MdAutocompleteTrigger = (function () {
      * @return {?}
      */
     MdAutocompleteTrigger.prototype._getOverlayConfig = function () {
-        var /** @type {?} */ overlayState = new OverlayState();
+        var /** @type {?} */ overlayState = new _angular_cdk_overlay.OverlayState();
         overlayState.positionStrategy = this._getOverlayPosition();
         overlayState.width = this._getHostWidth();
         overlayState.direction = this._dir ? this._dir.value : 'ltr';
@@ -20223,7 +17915,7 @@ var MdAutocompleteTrigger = (function () {
      * @return {?}
      */
     MdAutocompleteTrigger.prototype._getConnectedElement = function () {
-        return this._inputContainer ? this._inputContainer._connectionContainerRef : this._element;
+        return this._formField ? this._formField._connectionContainerRef : this._element;
     };
     /**
      * Returns the width of the input element, so the panel width can match it.
@@ -20268,13 +17960,13 @@ MdAutocompleteTrigger.decorators = [
  */
 MdAutocompleteTrigger.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
-    { type: Overlay, },
+    { type: _angular_cdk_overlay.Overlay, },
     { type: _angular_core.ViewContainerRef, },
     { type: _angular_core.NgZone, },
     { type: _angular_core.ChangeDetectorRef, },
     { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MD_AUTOCOMPLETE_SCROLL_STRATEGY,] },] },
     { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
-    { type: MdInputContainer, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Host },] },
+    { type: MdFormField, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Host },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
 ]; };
 MdAutocompleteTrigger.propDecorators = {
@@ -20288,7 +17980,7 @@ var MdAutocompleteModule = (function () {
 }());
 MdAutocompleteModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdOptionModule, OverlayModule, MdCommonModule, _angular_common.CommonModule],
+                imports: [MdOptionModule, _angular_cdk_overlay.OverlayModule, MdCommonModule, _angular_common.CommonModule],
                 exports: [MdAutocomplete, MdOptionModule, MdAutocompleteTrigger, MdCommonModule],
                 declarations: [MdAutocomplete, MdAutocompleteTrigger],
                 providers: [MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER],
@@ -21184,7 +18876,7 @@ function MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
  */
 var MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER = {
     provide: MD_DATEPICKER_SCROLL_STRATEGY,
-    deps: [Overlay],
+    deps: [_angular_cdk_overlay.Overlay],
     useFactory: MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY,
 };
 /**
@@ -21491,7 +19183,7 @@ var MdDatepicker = (function () {
      * @return {?}
      */
     MdDatepicker.prototype._createPopup = function () {
-        var /** @type {?} */ overlayState = new OverlayState();
+        var /** @type {?} */ overlayState = new _angular_cdk_overlay.OverlayState();
         overlayState.positionStrategy = this._createPopupPositionStrategy();
         overlayState.hasBackdrop = true;
         overlayState.backdropClass = 'md-overlay-transparent-backdrop';
@@ -21523,7 +19215,7 @@ MdDatepicker.decorators = [
  */
 MdDatepicker.ctorParameters = function () { return [
     { type: MdDialog, },
-    { type: Overlay, },
+    { type: _angular_cdk_overlay.Overlay, },
     { type: _angular_core.NgZone, },
     { type: _angular_core.ViewContainerRef, },
     { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MD_DATEPICKER_SCROLL_STRATEGY,] },] },
@@ -21903,7 +19595,7 @@ MdDatepickerInput.ctorParameters = function () { return [
     { type: _angular_core.Renderer2, },
     { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_DATE_FORMATS,] },] },
-    { type: MdInputContainer, decorators: [{ type: _angular_core.Optional },] },
+    { type: MdFormField, decorators: [{ type: _angular_core.Optional },] },
 ]; };
 MdDatepickerInput.propDecorators = {
     'mdDatepicker': [{ type: _angular_core.Input },],
@@ -21995,7 +19687,7 @@ MdDatepickerModule.decorators = [
                     MdButtonModule,
                     MdDialogModule,
                     MdIconModule,
-                    OverlayModule,
+                    _angular_cdk_overlay.OverlayModule,
                     StyleModule,
                     _angular_cdk_a11y.A11yModule,
                 ],
@@ -23571,6 +21263,7 @@ var MATERIAL_MODULES = [
     MdTableModule,
     MdDialogModule,
     MdExpansionModule,
+    MdFormFieldModule,
     MdGridListModule,
     MdIconModule,
     MdInputModule,
@@ -23590,7 +21283,7 @@ var MATERIAL_MODULES = [
     MdTabsModule,
     MdToolbarModule,
     MdTooltipModule,
-    OverlayModule,
+    _angular_cdk_overlay.OverlayModule,
     _angular_cdk_portal.PortalModule,
     _angular_cdk_bidi.BidiModule,
     StyleModule,
@@ -23639,6 +21332,10 @@ exports.LiveAnnouncer = _angular_cdk_a11y.LiveAnnouncer;
 exports.LIVE_ANNOUNCER_ELEMENT_TOKEN = _angular_cdk_a11y.LIVE_ANNOUNCER_ELEMENT_TOKEN;
 exports.LIVE_ANNOUNCER_PROVIDER = _angular_cdk_a11y.LIVE_ANNOUNCER_PROVIDER;
 exports.InteractivityChecker = _angular_cdk_a11y.InteractivityChecker;
+exports.FocusTrap = _angular_cdk_a11y.FocusTrap;
+exports.FocusTrapFactory = _angular_cdk_a11y.FocusTrapFactory;
+exports.FocusTrapDeprecatedDirective = _angular_cdk_a11y.FocusTrapDeprecatedDirective;
+exports.FocusTrapDirective = _angular_cdk_a11y.FocusTrapDirective;
 exports.isFakeMousedownFromScreenReader = _angular_cdk_a11y.isFakeMousedownFromScreenReader;
 exports.A11yModule = _angular_cdk_a11y.A11yModule;
 exports.UniqueSelectionDispatcher = UniqueSelectionDispatcher;
@@ -23664,29 +21361,30 @@ exports.MdOptgroup = MdOptgroup;
 exports.PlatformModule = _angular_cdk_platform.PlatformModule;
 exports.Platform = _angular_cdk_platform.Platform;
 exports.getSupportedInputTypes = _angular_cdk_platform.getSupportedInputTypes;
-exports.OVERLAY_PROVIDERS = OVERLAY_PROVIDERS;
-exports.OverlayModule = OverlayModule;
-exports.Overlay = Overlay;
-exports.OverlayContainer = OverlayContainer;
-exports.FullscreenOverlayContainer = FullscreenOverlayContainer;
-exports.OverlayRef = OverlayRef;
-exports.OverlayState = OverlayState;
-exports.ConnectedOverlayDirective = ConnectedOverlayDirective;
-exports.OverlayOrigin = OverlayOrigin;
-exports.ViewportRuler = ViewportRuler;
-exports.GlobalPositionStrategy = GlobalPositionStrategy;
-exports.ConnectedPositionStrategy = ConnectedPositionStrategy;
-exports.ConnectionPositionPair = ConnectionPositionPair;
-exports.ScrollableViewProperties = ScrollableViewProperties;
-exports.ConnectedOverlayPositionChange = ConnectedOverlayPositionChange;
-exports.Scrollable = Scrollable;
-exports.ScrollDispatcher = ScrollDispatcher;
-exports.ScrollStrategyOptions = ScrollStrategyOptions;
-exports.RepositionScrollStrategy = RepositionScrollStrategy;
-exports.CloseScrollStrategy = CloseScrollStrategy;
-exports.NoopScrollStrategy = NoopScrollStrategy;
-exports.BlockScrollStrategy = BlockScrollStrategy;
-exports.ScrollDispatchModule = ScrollDispatchModule;
+exports.OVERLAY_PROVIDERS = _angular_cdk_overlay.OVERLAY_PROVIDERS;
+exports.OverlayModule = _angular_cdk_overlay.OverlayModule;
+exports.Overlay = _angular_cdk_overlay.Overlay;
+exports.OverlayContainer = _angular_cdk_overlay.OverlayContainer;
+exports.FullscreenOverlayContainer = _angular_cdk_overlay.FullscreenOverlayContainer;
+exports.OverlayRef = _angular_cdk_overlay.OverlayRef;
+exports.OverlayState = _angular_cdk_overlay.OverlayState;
+exports.ConnectedOverlayDirective = _angular_cdk_overlay.ConnectedOverlayDirective;
+exports.OverlayOrigin = _angular_cdk_overlay.OverlayOrigin;
+exports.ViewportRuler = _angular_cdk_overlay.ViewportRuler;
+exports.GlobalPositionStrategy = _angular_cdk_overlay.GlobalPositionStrategy;
+exports.ConnectedPositionStrategy = _angular_cdk_overlay.ConnectedPositionStrategy;
+exports.VIEWPORT_RULER_PROVIDER = _angular_cdk_overlay.VIEWPORT_RULER_PROVIDER;
+exports.ConnectionPositionPair = _angular_cdk_overlay.ConnectionPositionPair;
+exports.ScrollableViewProperties = _angular_cdk_overlay.ScrollableViewProperties;
+exports.ConnectedOverlayPositionChange = _angular_cdk_overlay.ConnectedOverlayPositionChange;
+exports.Scrollable = _angular_cdk_overlay.Scrollable;
+exports.ScrollDispatcher = _angular_cdk_overlay.ScrollDispatcher;
+exports.ScrollStrategyOptions = _angular_cdk_overlay.ScrollStrategyOptions;
+exports.RepositionScrollStrategy = _angular_cdk_overlay.RepositionScrollStrategy;
+exports.CloseScrollStrategy = _angular_cdk_overlay.CloseScrollStrategy;
+exports.NoopScrollStrategy = _angular_cdk_overlay.NoopScrollStrategy;
+exports.BlockScrollStrategy = _angular_cdk_overlay.BlockScrollStrategy;
+exports.ScrollDispatchModule = _angular_cdk_overlay.ScrollDispatchModule;
 exports.MdRipple = MdRipple;
 exports.MD_RIPPLE_GLOBAL_OPTIONS = MD_RIPPLE_GLOBAL_OPTIONS;
 exports.RippleRef = RippleRef;
@@ -23696,10 +21394,6 @@ exports.RIPPLE_FADE_OUT_DURATION = RIPPLE_FADE_OUT_DURATION;
 exports.MdRippleModule = MdRippleModule;
 exports.SelectionModel = SelectionModel;
 exports.SelectionChange = SelectionChange;
-exports.FocusTrap = _angular_cdk_a11y.FocusTrap;
-exports.FocusTrapFactory = _angular_cdk_a11y.FocusTrapFactory;
-exports.FocusTrapDeprecatedDirective = _angular_cdk_a11y.FocusTrapDeprecatedDirective;
-exports.FocusTrapDirective = _angular_cdk_a11y.FocusTrapDirective;
 exports.StyleModule = StyleModule;
 exports.TOUCH_BUFFER_MS = TOUCH_BUFFER_MS;
 exports.FocusOriginMonitor = FocusOriginMonitor;
@@ -23841,6 +21535,17 @@ exports.MdExpansionPanelActionRow = MdExpansionPanelActionRow;
 exports.MdExpansionPanelHeader = MdExpansionPanelHeader;
 exports.MdExpansionPanelDescription = MdExpansionPanelDescription;
 exports.MdExpansionPanelTitle = MdExpansionPanelTitle;
+exports.MdFormFieldModule = MdFormFieldModule;
+exports.MdError = MdError;
+exports.MdFormField = MdFormField;
+exports.MdFormFieldControl = MdFormFieldControl;
+exports.getMdFormFieldPlaceholderConflictError = getMdFormFieldPlaceholderConflictError;
+exports.getMdFormFieldDuplicatedHintError = getMdFormFieldDuplicatedHintError;
+exports.getMdFormFieldMissingControlError = getMdFormFieldMissingControlError;
+exports.MdHint = MdHint;
+exports.MdPlaceholder = MdPlaceholder;
+exports.MdPrefix = MdPrefix;
+exports.MdSuffix = MdSuffix;
 exports.MdGridListModule = MdGridListModule;
 exports.MdGridTile = MdGridTile;
 exports.MdGridList = MdGridList;
@@ -23856,17 +21561,8 @@ exports.ICON_REGISTRY_PROVIDER_FACTORY = ICON_REGISTRY_PROVIDER_FACTORY;
 exports.ICON_REGISTRY_PROVIDER = ICON_REGISTRY_PROVIDER;
 exports.MdInputModule = MdInputModule;
 exports.MdTextareaAutosize = MdTextareaAutosize;
-exports.MdPlaceholder = MdPlaceholder;
-exports.MdHint = MdHint;
-exports.MdErrorDirective = MdErrorDirective;
-exports.MdPrefix = MdPrefix;
-exports.MdSuffix = MdSuffix;
-exports.MdInputDirective = MdInputDirective;
-exports.MdInputContainer = MdInputContainer;
-exports.getMdInputContainerPlaceholderConflictError = getMdInputContainerPlaceholderConflictError;
-exports.getMdInputContainerUnsupportedTypeError = getMdInputContainerUnsupportedTypeError;
-exports.getMdInputContainerDuplicatedHintError = getMdInputContainerDuplicatedHintError;
-exports.getMdInputContainerMissingMdInputError = getMdInputContainerMissingMdInputError;
+exports.MdInput = MdInput;
+exports.getMdInputUnsupportedTypeError = getMdInputUnsupportedTypeError;
 exports.MdListModule = MdListModule;
 exports.MdListBase = MdListBase;
 exports._MdListMixinBase = _MdListMixinBase;
@@ -24015,37 +21711,27 @@ exports.MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY = MD_TOOLTIP_SCROLL_STRATEGY
 exports.MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER = MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER;
 exports.MdTooltip = MdTooltip;
 exports.TooltipComponent = TooltipComponent;
-exports.ɵbd = mixinColor;
-exports.ɵbe = mixinDisableRipple;
-exports.ɵbc = mixinDisabled;
-exports.ɵk = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
-exports.ɵb = OVERLAY_CONTAINER_PROVIDER;
-exports.ɵa = OVERLAY_CONTAINER_PROVIDER_FACTORY;
-exports.ɵc = MD_CONNECTED_OVERLAY_SCROLL_STRATEGY;
-exports.ɵe = MD_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER;
-exports.ɵd = MD_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY;
-exports.ɵbb = OverlayPositionBuilder;
-exports.ɵg = VIEWPORT_RULER_PROVIDER;
-exports.ɵf = VIEWPORT_RULER_PROVIDER_FACTORY;
-exports.ɵi = SCROLL_DISPATCHER_PROVIDER;
-exports.ɵh = SCROLL_DISPATCHER_PROVIDER_FACTORY;
-exports.ɵj = RippleRenderer;
-exports.ɵl = EXPANSION_PANEL_ANIMATION_TIMING;
-exports.ɵn = MdGridAvatarCssMatStyler;
-exports.ɵp = MdGridTileFooterCssMatStyler;
-exports.ɵo = MdGridTileHeaderCssMatStyler;
-exports.ɵm = MdGridTileText;
-exports.ɵq = MdMenuItemBase;
-exports.ɵr = _MdMenuItemMixinBase;
-exports.ɵs = MD_MENU_SCROLL_STRATEGY;
-exports.ɵu = MD_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵt = MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
-exports.ɵz = MdTabBase;
-exports.ɵba = _MdTabMixinBase;
-exports.ɵv = MdTabHeaderBase;
-exports.ɵw = _MdTabHeaderMixinBase;
-exports.ɵx = MdTabLabelWrapperBase;
-exports.ɵy = _MdTabLabelWrapperMixinBase;
+exports.ɵt = mixinColor;
+exports.ɵu = mixinDisableRipple;
+exports.ɵs = mixinDisabled;
+exports.ɵb = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
+exports.ɵa = RippleRenderer;
+exports.ɵc = EXPANSION_PANEL_ANIMATION_TIMING;
+exports.ɵe = MdGridAvatarCssMatStyler;
+exports.ɵg = MdGridTileFooterCssMatStyler;
+exports.ɵf = MdGridTileHeaderCssMatStyler;
+exports.ɵd = MdGridTileText;
+exports.ɵh = MdMenuItemBase;
+exports.ɵi = _MdMenuItemMixinBase;
+exports.ɵj = MD_MENU_SCROLL_STRATEGY;
+exports.ɵl = MD_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵk = MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵq = MdTabBase;
+exports.ɵr = _MdTabMixinBase;
+exports.ɵm = MdTabHeaderBase;
+exports.ɵn = _MdTabHeaderMixinBase;
+exports.ɵo = MdTabLabelWrapperBase;
+exports.ɵp = _MdTabLabelWrapperMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

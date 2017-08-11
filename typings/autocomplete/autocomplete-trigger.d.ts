@@ -5,14 +5,14 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, NgZone, OnDestroy, ViewContainerRef, ChangeDetectorRef, InjectionToken } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { Overlay, RepositionScrollStrategy, ScrollStrategy } from '../core';
-import { MdAutocomplete } from './autocomplete';
+import { Directionality } from '@angular/cdk/bidi';
+import { Overlay, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/overlay';
 import { Observable } from 'rxjs/Observable';
-import { MdOptionSelectionChange, MdOption } from '../core/option/option';
-import { Directionality } from '../core/bidi/index';
-import { MdInputContainer } from '../input/input-container';
+import { MdFormField } from '../form-field/index';
+import { MdOption, MdOptionSelectionChange } from '../core/option/option';
+import { MdAutocomplete } from './autocomplete';
 /**
  * The following style constants are necessary to save here in order
  * to properly calculate the scrollTop of the panel. Because we are not
@@ -49,7 +49,7 @@ export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDe
     private _changeDetectorRef;
     private _scrollStrategy;
     private _dir;
-    private _inputContainer;
+    private _formField;
     private _document;
     private _overlayRef;
     private _portal;
@@ -67,7 +67,7 @@ export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDe
     autocomplete: MdAutocomplete;
     /** Property with mat- prefix for no-conflict mode. */
     _matAutocomplete: MdAutocomplete;
-    constructor(_element: ElementRef, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, _scrollStrategy: any, _dir: Directionality, _inputContainer: MdInputContainer, _document: any);
+    constructor(_element: ElementRef, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, _scrollStrategy: any, _dir: Directionality, _formField: MdFormField, _document: any);
     ngOnDestroy(): void;
     readonly panelOpen: boolean;
     /** Opens the autocomplete suggestion panel. */

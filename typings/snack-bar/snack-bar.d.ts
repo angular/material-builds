@@ -6,7 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Injector } from '@angular/core';
-import { ComponentType, Overlay, LiveAnnouncer } from '../core';
+import { Overlay } from '@angular/cdk/overlay';
+import { ComponentType } from '@angular/cdk/portal';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MdSnackBarConfig } from './snack-bar-config';
 import { MdSnackBarRef } from './snack-bar-ref';
 import { SimpleSnackBar } from './simple-snack-bar';

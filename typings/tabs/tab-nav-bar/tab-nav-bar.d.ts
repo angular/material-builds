@@ -5,13 +5,15 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentInit, ElementRef, NgZone, OnDestroy, Renderer2, ChangeDetectorRef, QueryList } from '@angular/core';
-import { MdInkBar } from '../ink-bar';
-import { CanDisable } from '../../core/common-behaviors/disabled';
-import { ViewportRuler } from '../../core/overlay/position/viewport-ruler';
-import { Directionality, Platform, RippleGlobalOptions } from '../../core';
-import { CanColor, ThemePalette } from '../../core/common-behaviors/color';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, NgZone, OnDestroy, Renderer2, QueryList } from '@angular/core';
+import { ViewportRuler } from '@angular/cdk/overlay';
+import { Directionality } from '@angular/cdk/bidi';
+import { Platform } from '@angular/cdk/platform';
 import { CanDisableRipple } from '../../core/common-behaviors/disable-ripple';
+import { CanDisable } from '../../core/common-behaviors/disabled';
+import { RippleGlobalOptions } from '../../core';
+import { CanColor, ThemePalette } from '../../core/common-behaviors/color';
+import { MdInkBar } from '../ink-bar';
 /** @docs-private */
 export declare class MdTabNavBase {
     _renderer: Renderer2;
