@@ -1000,6 +1000,7 @@ $mat-light-theme-background: (
   selected-disabled-button: map_get($mat-grey, 400),
   disabled-button-toggle: map_get($mat-grey, 200),
   unselected-chip: map_get($mat-grey, 300),
+  disabled-list-option: map_get($mat-grey, 200),
 );
 
 // Background palette for dark themes.
@@ -1015,8 +1016,9 @@ $mat-dark-theme-background: (
   focused-button: $white-6-opacity,
   selected-button: map_get($mat-grey, 900),
   selected-disabled-button: map_get($mat-grey, 800),
-  disabled-button-toggle: map_get($mat-grey, 1000),
+  disabled-button-toggle: black,
   unselected-chip: map_get($mat-grey, 700),
+  disabled-list-option: black,
 );
 
 // Foreground palette for light themes.
@@ -2467,8 +2469,12 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
 
-  .mat-list, .mat-nav-list {
+  .mat-list, .mat-nav-list, .mat-selection-list {
     .mat-list-item {
+      color: mat-color($foreground, text);
+    }
+
+    .mat-list-option {
       color: mat-color($foreground, text);
     }
 
@@ -2477,11 +2483,23 @@ $mat-calendar-weekday-table-font-size: 11px !default;
     }
   }
 
+  .mat-list-item-disabled {
+    background-color: mat-color($background, disabled-list-option);
+  }
+
   .mat-divider {
     border-top-color: mat-color($foreground, divider);
   }
 
   .mat-nav-list .mat-list-item {
+    outline: none;
+
+    &:hover, &.mat-list-item-focus {
+      background: mat-color($background, 'hover');
+    }
+  }
+
+  .mat-list-option {
     outline: none;
 
     &:hover, &.mat-list-item-focus {
@@ -2497,9 +2515,18 @@ $mat-calendar-weekday-table-font-size: 11px !default;
     font-family: $font-family;
   }
 
+  .mat-list-option {
+    font-family: $font-family;
+  }
+
   // Default list
-  .mat-list, .mat-nav-list {
+  .mat-list, .mat-nav-list, .mat-selection-list {
     .mat-list-item {
+      font-size: mat-font-size($config, subheading-2);
+      @include mat-line-base(mat-font-size($config, body-1));
+    }
+
+    .mat-list-option {
       font-size: mat-font-size($config, subheading-2);
       @include mat-line-base(mat-font-size($config, body-1));
     }
@@ -2512,8 +2539,13 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   }
 
   // Dense list
-  .mat-list[dense], .mat-nav-list[dense] {
+  .mat-list[dense], .mat-nav-list[dense], .mat-selection-list[dense] {
     .mat-list-item {
+      font-size: mat-font-size($config, caption);
+      @include mat-line-base(mat-font-size($config, caption));
+    }
+
+    .mat-list-option {
       font-size: mat-font-size($config, caption);
       @include mat-line-base(mat-font-size($config, caption));
     }
