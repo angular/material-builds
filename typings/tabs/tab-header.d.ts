@@ -5,12 +5,11 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { QueryList, ElementRef, EventEmitter, AfterContentChecked, AfterContentInit, OnDestroy, NgZone, Renderer2, ChangeDetectorRef } from '@angular/core';
+import { QueryList, ElementRef, EventEmitter, AfterContentChecked, AfterContentInit, OnDestroy, Renderer2, ChangeDetectorRef } from '@angular/core';
 import { Directionality, Direction } from '@angular/cdk/bidi';
 import { MdTabLabelWrapper } from './tab-label-wrapper';
 import { MdInkBar } from './ink-bar';
 import { CanDisableRipple } from '../core/common-behaviors/disable-ripple';
-import { Platform } from '@angular/cdk/platform';
 /**
  * The directions that scrolling can go in when the header's tabs exceed the header width. 'After'
  * will scroll the header towards the end of the tabs list and 'before' will scroll towards the
@@ -30,7 +29,6 @@ export declare const _MdTabHeaderMixinBase: (new (...args: any[]) => CanDisableR
  */
 export declare class MdTabHeader extends _MdTabHeaderMixinBase implements AfterContentChecked, AfterContentInit, OnDestroy, CanDisableRipple {
     private _elementRef;
-    private _ngZone;
     private _renderer;
     private _changeDetectorRef;
     private _dir;
@@ -60,15 +58,13 @@ export declare class MdTabHeader extends _MdTabHeaderMixinBase implements AfterC
     /** Whether the scroll distance has changed and should be applied after the view is checked. */
     private _scrollDistanceChanged;
     private _selectedIndex;
-    /** subscription for the window resize handler */
-    private _resizeSubscription;
     /** The index of the active tab. */
     selectedIndex: number;
     /** Event emitted when the option is selected. */
     selectFocusedIndex: EventEmitter<{}>;
     /** Event emitted when a label is focused. */
     indexFocused: EventEmitter<{}>;
-    constructor(_elementRef: ElementRef, _ngZone: NgZone, _renderer: Renderer2, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, platform: Platform);
+    constructor(_elementRef: ElementRef, _renderer: Renderer2, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality);
     ngAfterContentChecked(): void;
     _handleKeydown(event: KeyboardEvent): void;
     /**

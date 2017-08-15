@@ -20,7 +20,7 @@ import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coerci
 import { Subject } from 'rxjs/Subject';
 import { of } from 'rxjs/observable/of';
 import { CheckboxRequiredValidator, FormGroupDirective, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl, NgForm, Validators } from '@angular/forms';
-import { RxChain, auditTime, catchOperator, debounceTime, doOperator, filter, finallyOperator, first, map, share, startWith, switchMap, takeUntil } from '@angular/cdk/rxjs';
+import { RxChain, auditTime, catchOperator, doOperator, filter, finallyOperator, first, map, share, startWith, switchMap, takeUntil } from '@angular/cdk/rxjs';
 import { merge } from 'rxjs/observable/merge';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Http } from '@angular/http';
@@ -33,7 +33,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-var VERSION = new Version('2.0.0-beta.8-5d437ea');
+var VERSION = new Version('2.0.0-beta.8-b5f4caf');
 var MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -14753,16 +14753,13 @@ var MdTabHeader = (function (_super) {
     tslib_1.__extends(MdTabHeader, _super);
     /**
      * @param {?} _elementRef
-     * @param {?} _ngZone
      * @param {?} _renderer
      * @param {?} _changeDetectorRef
      * @param {?} _dir
-     * @param {?} platform
      */
-    function MdTabHeader(_elementRef, _ngZone, _renderer, _changeDetectorRef, _dir, platform) {
+    function MdTabHeader(_elementRef, _renderer, _changeDetectorRef, _dir) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
-        _this._ngZone = _ngZone;
         _this._renderer = _renderer;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._dir = _dir;
@@ -14803,12 +14800,6 @@ var MdTabHeader = (function (_super) {
          * Event emitted when a label is focused.
          */
         _this.indexFocused = new EventEmitter();
-        if (platform.isBrowser) {
-            // TODO: Add library level window listener https://goo.gl/y25X5M
-            _this._resizeSubscription = RxChain.from(fromEvent(window, 'resize'))
-                .call(debounceTime, 150)
-                .subscribe(function () { return _this._checkPaginationEnabled(); });
-        }
         return _this;
     }
     Object.defineProperty(MdTabHeader.prototype, "selectedIndex", {
@@ -14869,7 +14860,9 @@ var MdTabHeader = (function (_super) {
                 this._focusPreviousTab();
                 break;
             case ENTER:
+            case SPACE:
                 this.selectFocusedIndex.emit(this.focusIndex);
+                event.preventDefault();
                 break;
         }
     };
@@ -14879,15 +14872,13 @@ var MdTabHeader = (function (_super) {
      */
     MdTabHeader.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this._realignInkBar = this._ngZone.runOutsideAngular(function () {
-            var /** @type {?} */ dirChange = _this._dir ? _this._dir.change : of(null);
-            var /** @type {?} */ resize = typeof window !== 'undefined' ?
-                auditTime.call(fromEvent(window, 'resize'), 10) :
-                of(null);
-            return startWith.call(merge(dirChange, resize), null).subscribe(function () {
-                _this._updatePagination();
-                _this._alignInkBarToSelectedTab();
-            });
+        var /** @type {?} */ dirChange = this._dir ? this._dir.change : of(null);
+        var /** @type {?} */ resize = typeof window !== 'undefined' ?
+            auditTime.call(fromEvent(window, 'resize'), 150) :
+            of(null);
+        this._realignInkBar = startWith.call(merge(dirChange, resize), null).subscribe(function () {
+            _this._updatePagination();
+            _this._alignInkBarToSelectedTab();
         });
     };
     /**
@@ -14897,10 +14888,6 @@ var MdTabHeader = (function (_super) {
         if (this._realignInkBar) {
             this._realignInkBar.unsubscribe();
             this._realignInkBar = null;
-        }
-        if (this._resizeSubscription) {
-            this._resizeSubscription.unsubscribe();
-            this._resizeSubscription = null;
         }
     };
     /**
@@ -15108,12 +15095,14 @@ var MdTabHeader = (function (_super) {
      * @return {?}
      */
     MdTabHeader.prototype._checkPaginationEnabled = function () {
-        this._showPaginationControls =
-            this._tabList.nativeElement.scrollWidth > this._elementRef.nativeElement.offsetWidth;
-        if (!this._showPaginationControls) {
+        var /** @type {?} */ isEnabled = this._tabList.nativeElement.scrollWidth > this._elementRef.nativeElement.offsetWidth;
+        if (!isEnabled) {
             this.scrollDistance = 0;
         }
-        this._changeDetectorRef.markForCheck();
+        if (isEnabled !== this._showPaginationControls) {
+            this._changeDetectorRef.markForCheck();
+        }
+        this._showPaginationControls = isEnabled;
     };
     /**
      * Evaluate whether the before and after controls should be enabled or disabled.
@@ -15149,9 +15138,9 @@ var MdTabHeader = (function (_super) {
      * @return {?}
      */
     MdTabHeader.prototype._alignInkBarToSelectedTab = function () {
-        var /** @type {?} */ selectedLabelWrapper = this._labelWrappers && this._labelWrappers.length
-            ? this._labelWrappers.toArray()[this.selectedIndex].elementRef.nativeElement
-            : null;
+        var /** @type {?} */ selectedLabelWrapper = this._labelWrappers && this._labelWrappers.length ?
+            this._labelWrappers.toArray()[this.selectedIndex].elementRef.nativeElement :
+            null;
         this._inkBar.alignToElement(selectedLabelWrapper);
     };
     return MdTabHeader;
@@ -15175,11 +15164,9 @@ MdTabHeader.decorators = [
  */
 MdTabHeader.ctorParameters = function () { return [
     { type: ElementRef, },
-    { type: NgZone, },
     { type: Renderer2, },
     { type: ChangeDetectorRef, },
     { type: Directionality, decorators: [{ type: Optional },] },
-    { type: Platform, },
 ]; };
 MdTabHeader.propDecorators = {
     '_labelWrappers': [{ type: ContentChildren, args: [MdTabLabelWrapper,] },],
