@@ -35,6 +35,8 @@ export declare class MdCalendar<D> implements AfterContentInit, OnDestroy {
     dateFilter: (date: D) => boolean;
     /** Emits when the currently selected date changes. */
     selectedChange: EventEmitter<D>;
+    /** Emits when any date is selected. */
+    userSelection: EventEmitter<void>;
     /** Date filter for the month and year views. */
     _dateFilterForViews: (date: D) => boolean;
     /**
@@ -57,6 +59,7 @@ export declare class MdCalendar<D> implements AfterContentInit, OnDestroy {
     ngOnDestroy(): void;
     /** Handles date selection in the month view. */
     _dateSelected(date: D): void;
+    _userSelected(): void;
     /** Handles month selection in the year view. */
     _monthSelected(month: D): void;
     /** Handles user clicks on the period label. */

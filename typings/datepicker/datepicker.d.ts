@@ -92,8 +92,8 @@ export declare class MdDatepicker<D> implements OnDestroy {
     private _inputSubscription;
     constructor(_dialog: MdDialog, _overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, _scrollStrategy: any, _dateAdapter: DateAdapter<D>, _dir: Directionality, _document: any);
     ngOnDestroy(): void;
-    /** Selects the given date and closes the currently open popup or dialog. */
-    _selectAndClose(date: D): void;
+    /** Selects the given date */
+    _select(date: D): void;
     /**
      * Register an input with this datepicker.
      * @param input The datepicker input to register with this datepicker.

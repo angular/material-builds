@@ -28,6 +28,8 @@ export declare class MdMonthView<D> implements AfterContentInit {
     dateFilter: (date: D) => boolean;
     /** Emits when a new date is selected. */
     selectedChange: EventEmitter<D | null>;
+    /** Emits when any date is selected. */
+    userSelection: EventEmitter<void>;
     /** The label for this month (e.g. "January 2017"). */
     _monthLabel: string;
     /** Grid of calendar cells representing the dates of the month. */

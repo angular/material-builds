@@ -32,6 +32,7 @@ export declare class MdHeaderCellDef extends _MdHeaderCellDef {
 export declare class MdColumnDef extends _MdColumnDef {
     /** Unique name for this column. */
     name: string;
+    _matColumnDefName: string;
 }
 /** Header cell template container that adds the right classes and role. */
 export declare class MdHeaderCell extends _MdHeaderCell {

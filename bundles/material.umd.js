@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8-7e11ba8');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-9ba5d84');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -16730,9 +16730,10 @@ var MdMenuTrigger = (function () {
      */
     MdMenuTrigger.prototype.closeMenu = function () {
         if (this._overlayRef && this.menuOpen) {
+            this._resetMenu();
             this._overlayRef.detach();
             this._closeSubscription.unsubscribe();
-            this._resetMenu();
+            this.menu.close.emit();
             if (this.menu instanceof MdMenu) {
                 this.menu._resetAnimation();
             }
@@ -18605,6 +18606,10 @@ var MdMonthView = (function () {
          * Emits when a new date is selected.
          */
         this.selectedChange = new _angular_core.EventEmitter();
+        /**
+         * Emits when any date is selected.
+         */
+        this.userSelection = new _angular_core.EventEmitter();
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -18670,10 +18675,13 @@ var MdMonthView = (function () {
      * @return {?}
      */
     MdMonthView.prototype._dateSelected = function (date) {
-        if (this._selectedDate == date) {
-            return;
+        if (this._selectedDate != date) {
+            var /** @type {?} */ selectedYear = this._dateAdapter.getYear(this.activeDate);
+            var /** @type {?} */ selectedMonth = this._dateAdapter.getMonth(this.activeDate);
+            var /** @type {?} */ selectedDate = this._dateAdapter.createDate(selectedYear, selectedMonth, date);
+            this.selectedChange.emit(selectedDate);
         }
-        this.selectedChange.emit(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), date));
+        this.userSelection.emit();
     };
     /**
      * Initializes this month view.
@@ -18753,6 +18761,7 @@ MdMonthView.propDecorators = {
     'selected': [{ type: _angular_core.Input },],
     'dateFilter': [{ type: _angular_core.Input },],
     'selectedChange': [{ type: _angular_core.Output },],
+    'userSelection': [{ type: _angular_core.Output },],
 };
 /**
  * An internal component used to display a single year in the datepicker.
@@ -18986,6 +18995,10 @@ var MdCalendar = (function () {
          */
         this.selectedChange = new _angular_core.EventEmitter();
         /**
+         * Emits when any date is selected.
+         */
+        this.userSelection = new _angular_core.EventEmitter();
+        /**
          * Date filter for the month and year views.
          */
         this._dateFilterForViews = function (date) {
@@ -19088,6 +19101,12 @@ var MdCalendar = (function () {
         if (!this._dateAdapter.sameDate(date, this.selected)) {
             this.selectedChange.emit(date);
         }
+    };
+    /**
+     * @return {?}
+     */
+    MdCalendar.prototype._userSelected = function () {
+        this.userSelection.emit();
     };
     /**
      * Handles month selection in the year view.
@@ -19303,7 +19322,7 @@ var MdCalendar = (function () {
 }());
 MdCalendar.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-calendar, mat-calendar',
-                template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button *ngIf=\"!_isCompatibilityMode\" md-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div></button> <button *ngIf=\"_isCompatibilityMode\" mat-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div></button><div class=\"mat-calendar-spacer\"></div><button *ngIf=\"!_isCompatibilityMode\" md-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button *ngIf=\"_isCompatibilityMode\" mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button *ngIf=\"!_isCompatibilityMode\" md-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button> <button *ngIf=\"_isCompatibilityMode\" mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button></div></div><div class=\"mat-calendar-content\" (keydown)=\"_handleCalendarBodyKeydown($event)\" [ngSwitch]=\"_monthView\" cdkMonitorSubtreeFocus><md-month-view *ngSwitchCase=\"true\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_dateSelected($event)\"></md-month-view><md-year-view *ngSwitchDefault [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_monthSelected($event)\"></md-year-view></div>",
+                template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button *ngIf=\"!_isCompatibilityMode\" md-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div></button> <button *ngIf=\"_isCompatibilityMode\" mat-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div></button><div class=\"mat-calendar-spacer\"></div><button *ngIf=\"!_isCompatibilityMode\" md-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button *ngIf=\"_isCompatibilityMode\" mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button *ngIf=\"!_isCompatibilityMode\" md-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button> <button *ngIf=\"_isCompatibilityMode\" mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button></div></div><div class=\"mat-calendar-content\" (keydown)=\"_handleCalendarBodyKeydown($event)\" [ngSwitch]=\"_monthView\" cdkMonitorSubtreeFocus><md-month-view *ngSwitchCase=\"true\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_dateSelected($event)\" (userSelection)=\"_userSelected()\"></md-month-view><md-year-view *ngSwitchDefault [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_monthSelected($event)\"></md-year-view></div>",
                 styles: [".mat-calendar{display:block}.mat-calendar-header{padding:8px 8px 0 8px}.mat-calendar-content{padding:0 8px 8px 8px;outline:0}.mat-calendar-controls{display:flex;margin:5% calc(33% / 7 - 16px)}.mat-calendar-spacer{flex:1 1 auto}.mat-calendar-period-button{min-width:0}.mat-calendar-arrow{display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top-width:5px;border-top-style:solid;margin:0 0 0 5px;vertical-align:middle}.mat-calendar-arrow.mat-calendar-invert{transform:rotate(180deg)}[dir=rtl] .mat-calendar-arrow{margin:0 5px 0 0}.mat-calendar-next-button,.mat-calendar-previous-button{position:relative}.mat-calendar-next-button::after,.mat-calendar-previous-button::after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;margin:15.5px;border:0 solid currentColor;border-top-width:2px}[dir=rtl] .mat-calendar-next-button,[dir=rtl] .mat-calendar-previous-button{transform:rotate(180deg)}.mat-calendar-previous-button::after{border-left-width:2px;transform:translateX(2px) rotate(-45deg)}.mat-calendar-next-button::after{border-right-width:2px;transform:translateX(-2px) rotate(45deg)}.mat-calendar-table{border-spacing:0;border-collapse:collapse;width:100%}.mat-calendar-table-header th{text-align:center;padding:0 0 8px 0}.mat-calendar-table-header-divider{position:relative;height:1px}.mat-calendar-table-header-divider::after{content:'';position:absolute;top:0;left:-8px;right:-8px;height:1px}"],
                 host: {
                     'class': 'mat-calendar',
@@ -19332,6 +19351,7 @@ MdCalendar.propDecorators = {
     'maxDate': [{ type: _angular_core.Input },],
     'dateFilter': [{ type: _angular_core.Input },],
     'selectedChange': [{ type: _angular_core.Output },],
+    'userSelection': [{ type: _angular_core.Output },],
 };
 /**
  * Used to generate a unique ID for each datepicker instance.
@@ -19389,7 +19409,7 @@ var MdDatepickerContent = (function () {
 }());
 MdDatepickerContent.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-datepicker-content, mat-datepicker-content',
-                template: "<md-calendar cdkTrapFocus [id]=\"datepicker.id\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" (selectedChange)=\"datepicker._selectAndClose($event)\"></md-calendar>",
+                template: "<md-calendar cdkTrapFocus [id]=\"datepicker.id\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" (selectedChange)=\"datepicker._select($event)\" (userSelection)=\"datepicker.close()\"></md-calendar>",
                 styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block}.mat-calendar{width:296px;height:354px}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation:landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation:portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}"],
                 host: {
                     'class': 'mat-datepicker-content',
@@ -19556,17 +19576,16 @@ var MdDatepicker = (function () {
         }
     };
     /**
-     * Selects the given date and closes the currently open popup or dialog.
+     * Selects the given date
      * @param {?} date
      * @return {?}
      */
-    MdDatepicker.prototype._selectAndClose = function (date) {
+    MdDatepicker.prototype._select = function (date) {
         var /** @type {?} */ oldValue = this._selected;
         this._selected = date;
         if (!this._dateAdapter.sameDate(oldValue, this._selected)) {
             this.selectedChanged.emit(date);
         }
-        this.close();
     };
     /**
      * Register an input with this datepicker.
@@ -20847,6 +20866,19 @@ var MdColumnDef = (function (_super) {
     function MdColumnDef() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    Object.defineProperty(MdColumnDef.prototype, "_matColumnDefName", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this.name; },
+        /**
+         * @param {?} name
+         * @return {?}
+         */
+        set: function (name) { this.name = name; },
+        enumerable: true,
+        configurable: true
+    });
     return MdColumnDef;
 }(_MdColumnDef));
 MdColumnDef.decorators = [
@@ -20861,6 +20893,7 @@ MdColumnDef.decorators = [
 MdColumnDef.ctorParameters = function () { return []; };
 MdColumnDef.propDecorators = {
     'name': [{ type: _angular_core.Input, args: ['mdColumnDef',] },],
+    '_matColumnDefName': [{ type: _angular_core.Input, args: ['matColumnDef',] },],
 };
 /**
  * Header cell template container that adds the right classes and role.
