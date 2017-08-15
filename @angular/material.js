@@ -19,7 +19,7 @@ import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coerci
 import { Subject } from 'rxjs/Subject';
 import { of } from 'rxjs/observable/of';
 import { CheckboxRequiredValidator, FormGroupDirective, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl, NgForm, Validators } from '@angular/forms';
-import { RxChain, auditTime, catchOperator, doOperator, filter, finallyOperator, first, map, share, startWith, switchMap, takeUntil } from '@angular/cdk/rxjs';
+import { RxChain, auditTime, catchOperator, debounceTime, doOperator, filter, finallyOperator, first, map, share, startWith, switchMap, takeUntil } from '@angular/cdk/rxjs';
 import { merge } from 'rxjs/observable/merge';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Http } from '@angular/http';
@@ -33,7 +33,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.8-1df79e9');
+const VERSION = new Version('2.0.0-beta.8-5d437ea');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -13890,13 +13890,16 @@ const _MdTabHeaderMixinBase = mixinDisableRipple(MdTabHeaderBase);
 class MdTabHeader extends _MdTabHeaderMixinBase {
     /**
      * @param {?} _elementRef
+     * @param {?} _ngZone
      * @param {?} _renderer
      * @param {?} _changeDetectorRef
      * @param {?} _dir
+     * @param {?} platform
      */
-    constructor(_elementRef, _renderer, _changeDetectorRef, _dir) {
+    constructor(_elementRef, _ngZone, _renderer, _changeDetectorRef, _dir, platform) {
         super();
         this._elementRef = _elementRef;
+        this._ngZone = _ngZone;
         this._renderer = _renderer;
         this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
@@ -13937,6 +13940,12 @@ class MdTabHeader extends _MdTabHeaderMixinBase {
          * Event emitted when a label is focused.
          */
         this.indexFocused = new EventEmitter();
+        if (platform.isBrowser) {
+            // TODO: Add library level window listener https://goo.gl/y25X5M
+            this._resizeSubscription = RxChain.from(fromEvent(window, 'resize'))
+                .call(debounceTime, 150)
+                .subscribe(() => this._checkPaginationEnabled());
+        }
     }
     /**
      * The index of the active tab.
@@ -14001,13 +14010,15 @@ class MdTabHeader extends _MdTabHeaderMixinBase {
      * @return {?}
      */
     ngAfterContentInit() {
-        const /** @type {?} */ dirChange = this._dir ? this._dir.change : of(null);
-        const /** @type {?} */ resize = typeof window !== 'undefined' ?
-            auditTime.call(fromEvent(window, 'resize'), 150) :
-            of(null);
-        this._realignInkBar = startWith.call(merge(dirChange, resize), null).subscribe(() => {
-            this._updatePagination();
-            this._alignInkBarToSelectedTab();
+        this._realignInkBar = this._ngZone.runOutsideAngular(() => {
+            let /** @type {?} */ dirChange = this._dir ? this._dir.change : of(null);
+            let /** @type {?} */ resize = typeof window !== 'undefined' ?
+                auditTime.call(fromEvent(window, 'resize'), 10) :
+                of(null);
+            return startWith.call(merge(dirChange, resize), null).subscribe(() => {
+                this._updatePagination();
+                this._alignInkBarToSelectedTab();
+            });
         });
     }
     /**
@@ -14017,6 +14028,10 @@ class MdTabHeader extends _MdTabHeaderMixinBase {
         if (this._realignInkBar) {
             this._realignInkBar.unsubscribe();
             this._realignInkBar = null;
+        }
+        if (this._resizeSubscription) {
+            this._resizeSubscription.unsubscribe();
+            this._resizeSubscription = null;
         }
     }
     /**
@@ -14216,14 +14231,12 @@ class MdTabHeader extends _MdTabHeaderMixinBase {
      * @return {?}
      */
     _checkPaginationEnabled() {
-        const /** @type {?} */ isEnabled = this._tabList.nativeElement.scrollWidth > this._elementRef.nativeElement.offsetWidth;
-        if (!isEnabled) {
+        this._showPaginationControls =
+            this._tabList.nativeElement.scrollWidth > this._elementRef.nativeElement.offsetWidth;
+        if (!this._showPaginationControls) {
             this.scrollDistance = 0;
         }
-        if (isEnabled !== this._showPaginationControls) {
-            this._changeDetectorRef.markForCheck();
-        }
-        this._showPaginationControls = isEnabled;
+        this._changeDetectorRef.markForCheck();
     }
     /**
      * Evaluate whether the before and after controls should be enabled or disabled.
@@ -14259,9 +14272,9 @@ class MdTabHeader extends _MdTabHeaderMixinBase {
      * @return {?}
      */
     _alignInkBarToSelectedTab() {
-        const /** @type {?} */ selectedLabelWrapper = this._labelWrappers && this._labelWrappers.length ?
-            this._labelWrappers.toArray()[this.selectedIndex].elementRef.nativeElement :
-            null;
+        const /** @type {?} */ selectedLabelWrapper = this._labelWrappers && this._labelWrappers.length
+            ? this._labelWrappers.toArray()[this.selectedIndex].elementRef.nativeElement
+            : null;
         this._inkBar.alignToElement(selectedLabelWrapper);
     }
 }
@@ -14284,9 +14297,11 @@ MdTabHeader.decorators = [
  */
 MdTabHeader.ctorParameters = () => [
     { type: ElementRef, },
+    { type: NgZone, },
     { type: Renderer2, },
     { type: ChangeDetectorRef, },
     { type: Directionality, decorators: [{ type: Optional },] },
+    { type: Platform, },
 ];
 MdTabHeader.propDecorators = {
     '_labelWrappers': [{ type: ContentChildren, args: [MdTabLabelWrapper,] },],
