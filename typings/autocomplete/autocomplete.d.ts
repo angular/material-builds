@@ -11,7 +11,7 @@ import { ActiveDescendantKeyManager } from '../core/a11y/activedescendant-key-ma
 export declare class MdAutocomplete implements AfterContentInit {
     private _changeDetectorRef;
     /** Manages active item in option list based on key events. */
-    _keyManager: ActiveDescendantKeyManager;
+    _keyManager: ActiveDescendantKeyManager<MdOption>;
     /** Whether the autocomplete panel should be visible, depending on option length. */
     showPanel: boolean;
     /** @docs-private */

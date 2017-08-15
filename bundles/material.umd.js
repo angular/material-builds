@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8-85a6fff');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-1df79e9');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -1028,7 +1028,7 @@ var MdOption = (function () {
      */
     MdOption.prototype.focus = function () {
         var /** @type {?} */ element = this._getHostElement();
-        if ('focus' in element) {
+        if (typeof element.focus === 'function') {
             element.focus();
         }
     };
@@ -10307,7 +10307,7 @@ var MdChipList = (function () {
      */
     MdChipList.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this._keyManager = new FocusKeyManager$1(this.chips).withWrap();
+        this._keyManager = new _angular_cdk_a11y.FocusKeyManager(this.chips).withWrap();
         // Prevents the chip list from capturing focus and redirecting
         // it back to the first chip when the user tabs out.
         this._tabOutSubscription = this._keyManager.tabOut.subscribe(function () {
@@ -14760,16 +14760,13 @@ var MdTabHeader = (function (_super) {
     __extends(MdTabHeader, _super);
     /**
      * @param {?} _elementRef
-     * @param {?} _ngZone
      * @param {?} _renderer
      * @param {?} _changeDetectorRef
      * @param {?} _dir
-     * @param {?} platform
      */
-    function MdTabHeader(_elementRef, _ngZone, _renderer, _changeDetectorRef, _dir, platform) {
+    function MdTabHeader(_elementRef, _renderer, _changeDetectorRef, _dir) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
-        _this._ngZone = _ngZone;
         _this._renderer = _renderer;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._dir = _dir;
@@ -14810,12 +14807,6 @@ var MdTabHeader = (function (_super) {
          * Event emitted when a label is focused.
          */
         _this.indexFocused = new _angular_core.EventEmitter();
-        if (platform.isBrowser) {
-            // TODO: Add library level window listener https://goo.gl/y25X5M
-            _this._resizeSubscription = _angular_cdk_rxjs.RxChain.from(rxjs_observable_fromEvent.fromEvent(window, 'resize'))
-                .call(_angular_cdk_rxjs.debounceTime, 150)
-                .subscribe(function () { return _this._checkPaginationEnabled(); });
-        }
         return _this;
     }
     Object.defineProperty(MdTabHeader.prototype, "selectedIndex", {
@@ -14886,15 +14877,13 @@ var MdTabHeader = (function (_super) {
      */
     MdTabHeader.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this._realignInkBar = this._ngZone.runOutsideAngular(function () {
-            var /** @type {?} */ dirChange = _this._dir ? _this._dir.change : rxjs_observable_of.of(null);
-            var /** @type {?} */ resize = typeof window !== 'undefined' ?
-                _angular_cdk_rxjs.auditTime.call(rxjs_observable_fromEvent.fromEvent(window, 'resize'), 10) :
-                rxjs_observable_of.of(null);
-            return _angular_cdk_rxjs.startWith.call(rxjs_observable_merge.merge(dirChange, resize), null).subscribe(function () {
-                _this._updatePagination();
-                _this._alignInkBarToSelectedTab();
-            });
+        var /** @type {?} */ dirChange = this._dir ? this._dir.change : rxjs_observable_of.of(null);
+        var /** @type {?} */ resize = typeof window !== 'undefined' ?
+            _angular_cdk_rxjs.auditTime.call(rxjs_observable_fromEvent.fromEvent(window, 'resize'), 150) :
+            rxjs_observable_of.of(null);
+        this._realignInkBar = _angular_cdk_rxjs.startWith.call(rxjs_observable_merge.merge(dirChange, resize), null).subscribe(function () {
+            _this._updatePagination();
+            _this._alignInkBarToSelectedTab();
         });
     };
     /**
@@ -14904,10 +14893,6 @@ var MdTabHeader = (function (_super) {
         if (this._realignInkBar) {
             this._realignInkBar.unsubscribe();
             this._realignInkBar = null;
-        }
-        if (this._resizeSubscription) {
-            this._resizeSubscription.unsubscribe();
-            this._resizeSubscription = null;
         }
     };
     /**
@@ -15115,12 +15100,14 @@ var MdTabHeader = (function (_super) {
      * @return {?}
      */
     MdTabHeader.prototype._checkPaginationEnabled = function () {
-        this._showPaginationControls =
-            this._tabList.nativeElement.scrollWidth > this._elementRef.nativeElement.offsetWidth;
-        if (!this._showPaginationControls) {
+        var /** @type {?} */ isEnabled = this._tabList.nativeElement.scrollWidth > this._elementRef.nativeElement.offsetWidth;
+        if (!isEnabled) {
             this.scrollDistance = 0;
         }
-        this._changeDetectorRef.markForCheck();
+        if (isEnabled !== this._showPaginationControls) {
+            this._changeDetectorRef.markForCheck();
+        }
+        this._showPaginationControls = isEnabled;
     };
     /**
      * Evaluate whether the before and after controls should be enabled or disabled.
@@ -15156,9 +15143,9 @@ var MdTabHeader = (function (_super) {
      * @return {?}
      */
     MdTabHeader.prototype._alignInkBarToSelectedTab = function () {
-        var /** @type {?} */ selectedLabelWrapper = this._labelWrappers && this._labelWrappers.length
-            ? this._labelWrappers.toArray()[this.selectedIndex].elementRef.nativeElement
-            : null;
+        var /** @type {?} */ selectedLabelWrapper = this._labelWrappers && this._labelWrappers.length ?
+            this._labelWrappers.toArray()[this.selectedIndex].elementRef.nativeElement :
+            null;
         this._inkBar.alignToElement(selectedLabelWrapper);
     };
     return MdTabHeader;
@@ -15182,11 +15169,9 @@ MdTabHeader.decorators = [
  */
 MdTabHeader.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
-    { type: _angular_core.NgZone, },
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ChangeDetectorRef, },
     { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
-    { type: _angular_cdk_platform.Platform, },
 ]; };
 MdTabHeader.propDecorators = {
     '_labelWrappers': [{ type: _angular_core.ContentChildren, args: [MdTabLabelWrapper,] },],
@@ -16300,7 +16285,7 @@ var MdMenu = (function () {
      */
     MdMenu.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this._keyManager = new FocusKeyManager$1(this.items).withWrap();
+        this._keyManager = new _angular_cdk_a11y.FocusKeyManager(this.items).withWrap();
         this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this.close.emit('keydown'); });
     };
     /**
@@ -17187,7 +17172,7 @@ var MdDialogContainer = (function (_super) {
     MdDialogContainer.prototype._restoreFocus = function () {
         var /** @type {?} */ toFocus = this._elementFocusedBeforeDialogWasOpened;
         // We need the extra check, because IE can set the `activeElement` to null in some cases.
-        if (toFocus && 'focus' in toFocus) {
+        if (toFocus && typeof toFocus.focus === 'function') {
             toFocus.focus();
         }
         if (this._focusTrap) {
@@ -18048,7 +18033,7 @@ var MdAutocompleteTrigger = (function () {
          */
         get: function () {
             if (this.autocomplete && this.autocomplete._keyManager) {
-                return (this.autocomplete._keyManager.activeItem);
+                return this.autocomplete._keyManager.activeItem;
             }
             return null;
         },
@@ -19528,7 +19513,8 @@ var MdDatepicker = (function () {
         if (this._calendarPortal && this._calendarPortal.isAttached) {
             this._calendarPortal.detach();
         }
-        if (this._focusedElementBeforeOpen && 'focus' in this._focusedElementBeforeOpen) {
+        if (this._focusedElementBeforeOpen &&
+            typeof this._focusedElementBeforeOpen.focus === 'function') {
             this._focusedElementBeforeOpen.focus();
             this._focusedElementBeforeOpen = null;
         }
@@ -20376,14 +20362,14 @@ var MdExpansionPanel = (function (_super) {
         return this.hideToggle;
     };
     /**
-     * Gets the panel's display mode.
+     * Determines whether the expansion panel should have spacing between it and its siblings.
      * @return {?}
      */
-    MdExpansionPanel.prototype._getDisplayMode = function () {
+    MdExpansionPanel.prototype._hasSpacing = function () {
         if (this.accordion) {
-            return this.expanded ? this.accordion.displayMode : this._getExpandedState();
+            return (this.expanded ? this.accordion.displayMode : this._getExpandedState()) === 'default';
         }
-        return 'void';
+        return false;
     };
     /**
      * Gets the expanded state string.
@@ -20408,7 +20394,7 @@ var MdExpansionPanel = (function (_super) {
     return MdExpansionPanel;
 }(AccordionItem));
 MdExpansionPanel.decorators = [
-    { type: _angular_core.Component, args: [{ styles: [".mat-expansion-panel{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);box-sizing:content-box;display:block}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-expansion-panel-content{overflow:hidden}.mat-expansion-panel-body{padding:0 24px 16px}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button{margin-left:0;margin-right:8px}"],
+    { type: _angular_core.Component, args: [{ styles: [".mat-expansion-panel{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);box-sizing:content-box;display:block;margin:0;transition:margin 225ms cubic-bezier(.4,0,.2,1)}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-expansion-panel-content{overflow:hidden}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button{margin-left:0;margin-right:8px}"],
                 selector: 'md-expansion-panel, mat-expansion-panel',
                 template: "<ng-content select=\"mat-expansion-panel-header, md-expansion-panel-header\"></ng-content><div [class.mat-expanded]=\"expanded\" class=\"mat-expansion-panel-content\" [@bodyExpansion]=\"_getExpandedState()\" [id]=\"id\"><div class=\"mat-expansion-panel-body\"><ng-content></ng-content></div><ng-content select=\"mat-action-row, md-action-row\"></ng-content></div>",
                 encapsulation: _angular_core.ViewEncapsulation.None,
@@ -20416,7 +20402,7 @@ MdExpansionPanel.decorators = [
                 host: {
                     'class': 'mat-expansion-panel',
                     '[class.mat-expanded]': 'expanded',
-                    '[@displayMode]': '_getDisplayMode()',
+                    '[class.mat-expansion-panel-spacing]': '_hasSpacing()',
                 },
                 providers: [
                     { provide: AccordionItem, useExisting: _angular_core.forwardRef(function () { return MdExpansionPanel; }) }
@@ -20426,11 +20412,6 @@ MdExpansionPanel.decorators = [
                         _angular_animations.state('collapsed', _angular_animations.style({ height: '0px', visibility: 'hidden' })),
                         _angular_animations.state('expanded', _angular_animations.style({ height: '*', visibility: 'visible' })),
                         _angular_animations.transition('expanded <=> collapsed', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
-                    ]),
-                    _angular_animations.trigger('displayMode', [
-                        _angular_animations.state('flat, collapsed', _angular_animations.style({ margin: '0' })),
-                        _angular_animations.state('default', _angular_animations.style({ margin: '16px 0' })),
-                        _angular_animations.transition('flat <=> collapsed, default <=> collapsed, flat <=> default', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
                     ]),
                 ],
             },] },

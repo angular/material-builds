@@ -15,7 +15,7 @@ export interface Highlightable extends ListKeyManagerOption {
     setActiveStyles(): void;
     setInactiveStyles(): void;
 }
-export declare class ActiveDescendantKeyManager extends ListKeyManager<Highlightable> {
+export declare class ActiveDescendantKeyManager<T> extends ListKeyManager<Highlightable & T> {
     /**
      * This method sets the active item to the item at the specified index.
      * It also adds active styles to the newly active item and removes active

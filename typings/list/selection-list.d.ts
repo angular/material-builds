@@ -79,9 +79,9 @@ export declare class MdSelectionList extends _MdSelectionListMixinBase implement
     /** Subscription to all list options' destroy events  */
     private _optionDestroyStream;
     /** The FocusKeyManager which handles focus. */
-    _keyManager: FocusKeyManager;
+    _keyManager: FocusKeyManager<MdListOption>;
     /** The option components contained within this selection-list. */
-    options: any;
+    options: QueryList<MdListOption>;
     /** options which are selected. */
     selectedOptions: SelectionModel<MdListOption>;
     /**

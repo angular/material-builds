@@ -127,7 +127,7 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
      */
     _triggerWidth: number;
     /** Manages keyboard events for options in the panel. */
-    _keyManager: FocusKeyManager;
+    _keyManager: FocusKeyManager<MdOption>;
     /**
      * The width of the selected option's value. Must be set programmatically
      * to ensure its overflow is clipped, as it's absolutely positioned.

@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ChangeDetectorRef, SimpleChanges, OnChanges, OnDestroy } from '@angular/core';
-import { MdAccordion, MdAccordionDisplayMode } from './accordion';
+import { MdAccordion } from './accordion';
 import { AccordionItem } from './accordion-item';
 import { UniqueSelectionDispatcher } from '../core';
 import { Subject } from 'rxjs/Subject';
@@ -30,8 +30,8 @@ export declare class MdExpansionPanel extends AccordionItem implements OnChanges
     constructor(accordion: MdAccordion, _changeDetectorRef: ChangeDetectorRef, _uniqueSelectionDispatcher: UniqueSelectionDispatcher);
     /** Whether the expansion indicator should be hidden. */
     _getHideToggle(): boolean;
-    /** Gets the panel's display mode. */
-    _getDisplayMode(): MdAccordionDisplayMode | MdExpansionPanelState | 'void';
+    /** Determines whether the expansion panel should have spacing between it and its siblings. */
+    _hasSpacing(): boolean;
     /** Gets the expanded state string. */
     _getExpandedState(): MdExpansionPanelState;
     ngOnChanges(changes: SimpleChanges): void;
