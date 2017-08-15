@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8-bf59468');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-7e11ba8');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -605,6 +605,97 @@ var MdRipple = (function () {
         this._globalOptions = globalOptions ? globalOptions : {};
         this._updateRippleRenderer();
     }
+    Object.defineProperty(MdRipple.prototype, "_matRippleTrigger", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this.trigger; },
+        /**
+         * @param {?} v
+         * @return {?}
+         */
+        set: function (v) { this.trigger = v; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdRipple.prototype, "_matRippleCentered", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this.centered; },
+        /**
+         * @param {?} v
+         * @return {?}
+         */
+        set: function (v) { this.centered = v; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdRipple.prototype, "_matRippleDisabled", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this.disabled; },
+        /**
+         * @param {?} v
+         * @return {?}
+         */
+        set: function (v) { this.disabled = v; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdRipple.prototype, "_matRippleRadius", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this.radius; },
+        /**
+         * @param {?} v
+         * @return {?}
+         */
+        set: function (v) { this.radius = v; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdRipple.prototype, "_matRippleSpeedFactor", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this.speedFactor; },
+        /**
+         * @param {?} v
+         * @return {?}
+         */
+        set: function (v) { this.speedFactor = v; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdRipple.prototype, "_matRippleColor", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this.color; },
+        /**
+         * @param {?} v
+         * @return {?}
+         */
+        set: function (v) { this.color = v; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdRipple.prototype, "_matRippleUnbounded", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this.unbounded; },
+        /**
+         * @param {?} v
+         * @return {?}
+         */
+        set: function (v) { this.unbounded = v; },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @param {?} changes
      * @return {?}
@@ -694,6 +785,13 @@ MdRipple.propDecorators = {
     'speedFactor': [{ type: _angular_core.Input, args: ['mdRippleSpeedFactor',] },],
     'color': [{ type: _angular_core.Input, args: ['mdRippleColor',] },],
     'unbounded': [{ type: _angular_core.Input, args: ['mdRippleUnbounded',] },],
+    '_matRippleTrigger': [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
+    '_matRippleCentered': [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
+    '_matRippleDisabled': [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
+    '_matRippleRadius': [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
+    '_matRippleSpeedFactor': [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
+    '_matRippleColor': [{ type: _angular_core.Input, args: ['matRippleColor',] },],
+    '_matRippleUnbounded': [{ type: _angular_core.Input, args: ['matRippleUnbounded',] },],
 };
 var MdRippleModule = (function () {
     function MdRippleModule() {
@@ -18455,7 +18553,7 @@ var MdCalendarBody = (function () {
     return MdCalendarBody;
 }());
 MdCalendarBody.decorators = [
-    { type: _angular_core.Component, args: [{ selector: '[md-calendar-body]',
+    { type: _angular_core.Component, args: [{ selector: '[md-calendar-body], [mat-calendar-body]',
                 template: "<tr *ngIf=\"_firstRowOffset < labelMinRequiredCells\" aria-hidden=\"true\"><td class=\"mat-calendar-body-label\" [attr.colspan]=\"numCols\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\">{{label}}</td></tr><tr *ngFor=\"let row of rows; let rowIndex = index\" role=\"row\"><td *ngIf=\"rowIndex === 0 && _firstRowOffset\" aria-hidden=\"true\" class=\"mat-calendar-body-label\" [attr.colspan]=\"_firstRowOffset\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\">{{_firstRowOffset >= labelMinRequiredCells ? label : ''}}</td><td *ngFor=\"let item of row; let colIndex = index\" role=\"gridcell\" class=\"mat-calendar-body-cell\" [tabindex]=\"_isActiveCell(rowIndex, colIndex) ? 0 : -1\" [class.mat-calendar-body-disabled]=\"!item.enabled\" [class.mat-calendar-body-active]=\"_isActiveCell(rowIndex, colIndex)\" [attr.aria-label]=\"item.ariaLabel\" [attr.aria-disabled]=\"!item.enabled || null\" (click)=\"_cellClicked(item)\" [style.width.%]=\"100 / numCols\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\"><div class=\"mat-calendar-body-cell-content\" [class.mat-calendar-body-selected]=\"selectedValue === item.value\" [class.mat-calendar-body-today]=\"todayValue === item.value\">{{item.displayValue}}</div></td></tr>",
                 styles: [".mat-calendar-body{min-width:224px}.mat-calendar-body-label{height:0;line-height:0;text-align:left;padding-left:4.71429%;padding-right:4.71429%}.mat-calendar-body-cell{position:relative;height:0;line-height:0;text-align:center;outline:0;cursor:pointer}.mat-calendar-body-disabled{cursor:default}.mat-calendar-body-cell-content{position:absolute;top:5%;left:5%;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:90%;height:90%;line-height:1;border-width:1px;border-style:solid;border-radius:999px}[dir=rtl] .mat-calendar-body-label{text-align:right}"],
                 host: {
@@ -18786,7 +18884,7 @@ var MdYearView = (function () {
     return MdYearView;
 }());
 MdYearView.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-year-view',
+    { type: _angular_core.Component, args: [{ selector: 'md-year-view, mat-year-view',
                 template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody md-calendar-body role=\"grid\" allowDisabledSelection=\"true\" [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\"></tbody></table>",
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -19204,7 +19302,7 @@ var MdCalendar = (function () {
     return MdCalendar;
 }());
 MdCalendar.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-calendar',
+    { type: _angular_core.Component, args: [{ selector: 'md-calendar, mat-calendar',
                 template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button *ngIf=\"!_isCompatibilityMode\" md-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div></button> <button *ngIf=\"_isCompatibilityMode\" mat-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div></button><div class=\"mat-calendar-spacer\"></div><button *ngIf=\"!_isCompatibilityMode\" md-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button *ngIf=\"_isCompatibilityMode\" mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button *ngIf=\"!_isCompatibilityMode\" md-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button> <button *ngIf=\"_isCompatibilityMode\" mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button></div></div><div class=\"mat-calendar-content\" (keydown)=\"_handleCalendarBodyKeydown($event)\" [ngSwitch]=\"_monthView\" cdkMonitorSubtreeFocus><md-month-view *ngSwitchCase=\"true\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_dateSelected($event)\"></md-month-view><md-year-view *ngSwitchDefault [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_monthSelected($event)\"></md-year-view></div>",
                 styles: [".mat-calendar{display:block}.mat-calendar-header{padding:8px 8px 0 8px}.mat-calendar-content{padding:0 8px 8px 8px;outline:0}.mat-calendar-controls{display:flex;margin:5% calc(33% / 7 - 16px)}.mat-calendar-spacer{flex:1 1 auto}.mat-calendar-period-button{min-width:0}.mat-calendar-arrow{display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top-width:5px;border-top-style:solid;margin:0 0 0 5px;vertical-align:middle}.mat-calendar-arrow.mat-calendar-invert{transform:rotate(180deg)}[dir=rtl] .mat-calendar-arrow{margin:0 5px 0 0}.mat-calendar-next-button,.mat-calendar-previous-button{position:relative}.mat-calendar-next-button::after,.mat-calendar-previous-button::after{content:'';position:absolute;top:0;left:0;bottom:0;right:0;margin:15.5px;border:0 solid currentColor;border-top-width:2px}[dir=rtl] .mat-calendar-next-button,[dir=rtl] .mat-calendar-previous-button{transform:rotate(180deg)}.mat-calendar-previous-button::after{border-left-width:2px;transform:translateX(2px) rotate(-45deg)}.mat-calendar-next-button::after{border-right-width:2px;transform:translateX(-2px) rotate(45deg)}.mat-calendar-table{border-spacing:0;border-collapse:collapse;width:100%}.mat-calendar-table-header th{text-align:center;padding:0 0 8px 0}.mat-calendar-table-header-divider{position:relative;height:1px}.mat-calendar-table-header-divider::after{content:'';position:absolute;top:0;left:-8px;right:-8px;height:1px}"],
                 host: {
@@ -19290,7 +19388,7 @@ var MdDatepickerContent = (function () {
     return MdDatepickerContent;
 }());
 MdDatepickerContent.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-datepicker-content',
+    { type: _angular_core.Component, args: [{ selector: 'md-datepicker-content, mat-datepicker-content',
                 template: "<md-calendar cdkTrapFocus [id]=\"datepicker.id\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" (selectedChange)=\"datepicker._selectAndClose($event)\"></md-calendar>",
                 styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block}.mat-calendar{width:296px;height:354px}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation:landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation:portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}"],
                 host: {

@@ -48,6 +48,13 @@ export declare class MdRipple implements OnChanges, OnDestroy {
     color: string;
     /** Whether foreground ripples should be visible outside the component's bounds. */
     unbounded: boolean;
+    _matRippleTrigger: HTMLElement;
+    _matRippleCentered: boolean;
+    _matRippleDisabled: boolean;
+    _matRippleRadius: number;
+    _matRippleSpeedFactor: number;
+    _matRippleColor: string;
+    _matRippleUnbounded: boolean;
     /** Renderer for the ripple DOM manipulations. */
     private _rippleRenderer;
     /** Options that are set globally for all ripples. */
