@@ -1498,7 +1498,7 @@ $mat-menu-icon-margin: 16px !default;
 
     // In multiple mode there is a checkbox to show that the option is selected.
     &.mat-selected:not(.mat-option-multiple) {
-      background: mat-color($background, hover, 0.12);
+      background: mat-color($background, hover);
     }
 
     &.mat-active {
@@ -2870,6 +2870,12 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
   .mat-select-value {
     color: mat-color($foreground, text);
+  }
+
+  .mat-select-panel {
+    .mat-option.mat-selected:not(.mat-option-multiple) {
+      background: mat-color($background, hover, 0.12);
+    }
   }
 
   .mat-select:focus:not(.mat-select-disabled) {

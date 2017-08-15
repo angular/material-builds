@@ -31,7 +31,7 @@ export declare class MdDatepickerInput<D> implements AfterContentInit, ControlVa
     private _renderer;
     private _dateAdapter;
     private _dateFormats;
-    private _mdInputContainer;
+    private _mdFormField;
     /** The datepicker that this input is associated with. */
     mdDatepicker: MdDatepicker<D>;
     _datepicker: MdDatepicker<D>;
@@ -72,7 +72,7 @@ export declare class MdDatepickerInput<D> implements AfterContentInit, ControlVa
     private _validator;
     /** Whether the last value set on the input was valid. */
     private _lastValueValid;
-    constructor(_elementRef: ElementRef, _renderer: Renderer2, _dateAdapter: DateAdapter<D>, _dateFormats: MdDateFormats, _mdInputContainer: MdFormField);
+    constructor(_elementRef: ElementRef, _renderer: Renderer2, _dateAdapter: DateAdapter<D>, _dateFormats: MdDateFormats, _mdFormField: MdFormField);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     registerOnValidatorChange(fn: () => void): void;
