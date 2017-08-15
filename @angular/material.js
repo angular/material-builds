@@ -33,7 +33,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.8-ea17d3d');
+const VERSION = new Version('2.0.0-beta.8-bf59468');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -17052,18 +17052,22 @@ class MdAutocompleteTrigger {
      */
     _handleKeydown(event) {
         if (event.keyCode === ESCAPE && this.panelOpen) {
+            this._resetActiveItem();
             this.closePanel();
             event.stopPropagation();
         }
         else if (this.activeOption && event.keyCode === ENTER && this.panelOpen) {
             this.activeOption._selectViaInteraction();
+            this._resetActiveItem();
             event.preventDefault();
         }
         else {
             const /** @type {?} */ prevActiveItem = this.autocomplete._keyManager.activeItem;
             const /** @type {?} */ isArrowKey = event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW;
-            this.autocomplete._keyManager.onKeydown(event);
-            if (isArrowKey) {
+            if (this.panelOpen) {
+                this.autocomplete._keyManager.onKeydown(event);
+            }
+            else if (isArrowKey) {
                 this.openPanel();
             }
             Promise.resolve().then(() => {
