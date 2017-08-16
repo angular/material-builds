@@ -33,7 +33,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.8-9ba5d84');
+const VERSION = new Version('2.0.0-beta.8-1807c5b');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -5430,7 +5430,12 @@ class MdSelect extends _MdSelectMixinBase {
             this._sortValues();
         }
         else {
-            this._selectValue(value, isUserInput);
+            const /** @type {?} */ correspondingOption = this._selectValue(value, isUserInput);
+            // Shift focus to the active item. Note that we shouldn't do this in multiple
+            // mode, because we don't know what option the user interacted with last.
+            if (correspondingOption) {
+                this._keyManager.setActiveItem(this.options.toArray().indexOf(correspondingOption));
+            }
         }
         this._setValueWidth();
         if (this._selectionModel.isEmpty()) {
@@ -5445,14 +5450,12 @@ class MdSelect extends _MdSelectMixinBase {
      * @return {?} Option that has the corresponding value.
      */
     _selectValue(value, isUserInput = false) {
-        let /** @type {?} */ optionsArray = this.options.toArray();
-        let /** @type {?} */ correspondingOption = optionsArray.find(option => {
+        let /** @type {?} */ correspondingOption = this.options.find(option => {
             return option.value != null && option.value === value;
         });
         if (correspondingOption) {
             isUserInput ? correspondingOption._selectViaInteraction() : correspondingOption.select();
             this._selectionModel.select(correspondingOption);
-            this._keyManager.setActiveItem(optionsArray.indexOf(correspondingOption));
         }
         return correspondingOption;
     }

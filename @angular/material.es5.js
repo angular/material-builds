@@ -33,7 +33,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-var VERSION = new Version('2.0.0-beta.8-9ba5d84');
+var VERSION = new Version('2.0.0-beta.8-1807c5b');
 var MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -5682,7 +5682,12 @@ var MdSelect = (function (_super) {
             this._sortValues();
         }
         else {
-            this._selectValue(value, isUserInput);
+            var /** @type {?} */ correspondingOption = this._selectValue(value, isUserInput);
+            // Shift focus to the active item. Note that we shouldn't do this in multiple
+            // mode, because we don't know what option the user interacted with last.
+            if (correspondingOption) {
+                this._keyManager.setActiveItem(this.options.toArray().indexOf(correspondingOption));
+            }
         }
         this._setValueWidth();
         if (this._selectionModel.isEmpty()) {
@@ -5698,14 +5703,12 @@ var MdSelect = (function (_super) {
      */
     MdSelect.prototype._selectValue = function (value, isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
-        var /** @type {?} */ optionsArray = this.options.toArray();
-        var /** @type {?} */ correspondingOption = optionsArray.find(function (option) {
+        var /** @type {?} */ correspondingOption = this.options.find(function (option) {
             return option.value != null && option.value === value;
         });
         if (correspondingOption) {
             isUserInput ? correspondingOption._selectViaInteraction() : correspondingOption.select();
             this._selectionModel.select(correspondingOption);
-            this._keyManager.setActiveItem(optionsArray.indexOf(correspondingOption));
         }
         return correspondingOption;
     };
