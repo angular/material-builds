@@ -50,6 +50,8 @@ export declare class MdSidenav implements AfterContentInit, OnDestroy {
     _animationStarted: EventEmitter<void>;
     /** Whether the sidenav is animating. Used to prevent overlapping animations. */
     _isAnimating: boolean;
+    /** Current state of the sidenav animation. */
+    _animationState: 'open-instant' | 'open' | 'void';
     /**
      * Promise that resolves when the open/close animation completes. It is here for backwards
      * compatibility and should be removed next time we do sidenav breaking changes.
@@ -90,10 +92,6 @@ export declare class MdSidenav implements AfterContentInit, OnDestroy {
      * @docs-private
      */
     handleKeydown(event: KeyboardEvent): void;
-    /**
-     * Figures out the state of the sidenav animation.
-     */
-    _getAnimationState(): 'open-instant' | 'open' | 'void';
     _onAnimationStart(): void;
     _onAnimationEnd(event: AnimationEvent): void;
     readonly _width: any;

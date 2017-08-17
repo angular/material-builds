@@ -7,7 +7,7 @@
  */
 import { AfterContentInit, ElementRef, QueryList, TemplateRef, ChangeDetectorRef } from '@angular/core';
 import { MdOption } from '../core';
-import { ActiveDescendantKeyManager } from '../core/a11y/activedescendant-key-manager';
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 export declare class MdAutocomplete implements AfterContentInit {
     private _changeDetectorRef;
     /** Manages active item in option list based on key events. */

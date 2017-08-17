@@ -37,6 +37,10 @@ export declare class MdTab extends _MdTabMixinBase implements OnInit, CanDisable
      * was already a selected tab. Provides context of what position the tab should originate from.
      */
     origin: number | null;
+    /**
+     * Whether the tab is currently active.
+     */
+    isActive: boolean;
     constructor(_viewContainerRef: ViewContainerRef);
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
