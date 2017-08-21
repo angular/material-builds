@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8-0113c38');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-1179868');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -7624,70 +7624,67 @@ MdSliderModule.decorators = [
  */
 MdSliderModule.ctorParameters = function () { return []; };
 /**
- * Throws an exception when two MdSidenav are matching the same side.
- * @param {?} align
+ * Throws an exception when two MdDrawer are matching the same position.
+ * @param {?} position
  * @return {?}
  */
-function throwMdDuplicatedSidenavError(align) {
-    throw Error("A sidenav was already declared for 'align=\"" + align + "\"'");
+function throwMdDuplicatedDrawerError(position) {
+    throw Error("A drawer was already declared for 'position=\"" + position + "\"'");
 }
 /**
- * Sidenav toggle promise result.
+ * Drawer toggle promise result.
  * @deprecated
  */
-var MdSidenavToggleResult = (function () {
+var MdDrawerToggleResult = (function () {
     /**
      * @param {?} type
      * @param {?} animationFinished
      */
-    function MdSidenavToggleResult(type, animationFinished) {
+    function MdDrawerToggleResult(type, animationFinished) {
         this.type = type;
         this.animationFinished = animationFinished;
     }
-    return MdSidenavToggleResult;
+    return MdDrawerToggleResult;
 }());
 /**
- * <md-sidenav> component.
+ * <md-drawer> component.
  *
- * This component corresponds to the drawer of the sidenav.
+ * This component corresponds to a drawer that can be opened on the drawer container.
  *
  * Please refer to README.md for examples on how to use it.
  */
-var MdSidenav = (function () {
+var MdDrawer = (function () {
     /**
      * @param {?} _elementRef
      * @param {?} _focusTrapFactory
      * @param {?} _doc
      */
-    function MdSidenav(_elementRef, _focusTrapFactory, _doc) {
+    function MdDrawer(_elementRef, _focusTrapFactory, _doc) {
         var _this = this;
         this._elementRef = _elementRef;
         this._focusTrapFactory = _focusTrapFactory;
         this._doc = _doc;
-        this._elementFocusedBeforeSidenavWasOpened = null;
+        this._elementFocusedBeforeDrawerWasOpened = null;
         /**
-         * Whether the sidenav is initialized. Used for disabling the initial animation.
+         * Whether the drawer is initialized. Used for disabling the initial animation.
          */
         this._enableAnimations = false;
+        this._position = 'start';
         /**
-         * Alignment of the sidenav (direction neutral); whether 'start' or 'end'.
-         */
-        this._align = 'start';
-        /**
-         * Mode of the sidenav; one of 'over', 'push' or 'side'.
+         * Mode of the drawer; one of 'over', 'push' or 'side'.
          */
         this.mode = 'over';
         this._disableClose = false;
         /**
-         * Whether the sidenav is opened.
+         * Whether the drawer is opened.
          */
         this._opened = false;
         /**
-         * Emits whenever the sidenav has started animating.
+         * Emits whenever the drawer has started animating.
          */
         this._animationStarted = new _angular_core.EventEmitter();
         /**
-         * Whether the sidenav is animating. Used to prevent overlapping animations.
+         * Whether the drawer is animating. Used to prevent overlapping animations.
          */
         this._isAnimating = false;
         /**
@@ -7695,20 +7692,24 @@ var MdSidenav = (function () {
          */
         this._animationState = 'void';
         /**
-         * Event emitted when the sidenav is fully opened.
+         * Event emitted when the drawer is fully opened.
          */
         this.onOpen = new _angular_core.EventEmitter();
         /**
-         * Event emitted when the sidenav is fully closed.
+         * Event emitted when the drawer is fully closed.
          */
         this.onClose = new _angular_core.EventEmitter();
         /**
-         * Event emitted when the sidenav alignment changes.
+         * Event emitted when the drawer's position changes.
+         */
+        this.onPositionChanged = new _angular_core.EventEmitter();
+        /**
+         * @deprecated
          */
         this.onAlignChanged = new _angular_core.EventEmitter();
         this.onOpen.subscribe(function () {
             if (_this._doc) {
-                _this._elementFocusedBeforeSidenavWasOpened = _this._doc.activeElement;
+                _this._elementFocusedBeforeDrawerWasOpened = _this._doc.activeElement;
             }
             if (_this.isFocusTrapEnabled && _this._focusTrap) {
                 _this._focusTrap.focusInitialElementWhenReady();
@@ -7716,12 +7717,12 @@ var MdSidenav = (function () {
         });
         this.onClose.subscribe(function () { return _this._restoreFocus(); });
     }
-    Object.defineProperty(MdSidenav.prototype, "align", {
+    Object.defineProperty(MdDrawer.prototype, "position", {
         /**
-         * Direction which the sidenav is aligned in.
+         * The side that the drawer is attached to.
          * @return {?}
          */
-        get: function () { return this._align; },
+        get: function () { return this._position; },
         /**
          * @param {?} value
          * @return {?}
@@ -7729,17 +7730,32 @@ var MdSidenav = (function () {
         set: function (value) {
             // Make sure we have a valid value.
             value = value === 'end' ? 'end' : 'start';
-            if (value != this._align) {
-                this._align = value;
+            if (value != this._position) {
+                this._position = value;
                 this.onAlignChanged.emit();
+                this.onPositionChanged.emit();
             }
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSidenav.prototype, "disableClose", {
+    Object.defineProperty(MdDrawer.prototype, "align", {
         /**
-         * Whether the sidenav can be closed with the escape key or not.
+         * @deprecated
+         * @return {?}
+         */
+        get: function () { return this.position; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) { this.position = value; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdDrawer.prototype, "disableClose", {
+        /**
+         * Whether the drawer can be closed with the escape key or not.
          * @return {?}
          */
         get: function () { return this._disableClose; },
@@ -7751,38 +7767,38 @@ var MdSidenav = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSidenav.prototype, "isFocusTrapEnabled", {
+    Object.defineProperty(MdDrawer.prototype, "isFocusTrapEnabled", {
         /**
          * @return {?}
          */
         get: function () {
-            // The focus trap is only enabled when the sidenav is open in any mode other than side.
+            // The focus trap is only enabled when the drawer is open in any mode other than side.
             return this.opened && this.mode !== 'side';
         },
         enumerable: true,
         configurable: true
     });
     /**
-     * If focus is currently inside the sidenav, restores it to where it was before the sidenav
+     * If focus is currently inside the drawer, restores it to where it was before the drawer
      * opened.
      * @return {?}
      */
-    MdSidenav.prototype._restoreFocus = function () {
+    MdDrawer.prototype._restoreFocus = function () {
         var /** @type {?} */ activeEl = this._doc && this._doc.activeElement;
         if (activeEl && this._elementRef.nativeElement.contains(activeEl)) {
-            if (this._elementFocusedBeforeSidenavWasOpened instanceof HTMLElement) {
-                this._elementFocusedBeforeSidenavWasOpened.focus();
+            if (this._elementFocusedBeforeDrawerWasOpened instanceof HTMLElement) {
+                this._elementFocusedBeforeDrawerWasOpened.focus();
             }
             else {
                 this._elementRef.nativeElement.blur();
             }
         }
-        this._elementFocusedBeforeSidenavWasOpened = null;
+        this._elementFocusedBeforeDrawerWasOpened = null;
     };
     /**
      * @return {?}
      */
-    MdSidenav.prototype.ngAfterContentInit = function () {
+    MdDrawer.prototype.ngAfterContentInit = function () {
         this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
         this._focusTrap.enabled = this.isFocusTrapEnabled;
         this._enableAnimations = true;
@@ -7790,14 +7806,14 @@ var MdSidenav = (function () {
     /**
      * @return {?}
      */
-    MdSidenav.prototype.ngOnDestroy = function () {
+    MdDrawer.prototype.ngOnDestroy = function () {
         if (this._focusTrap) {
             this._focusTrap.destroy();
         }
     };
-    Object.defineProperty(MdSidenav.prototype, "opened", {
+    Object.defineProperty(MdDrawer.prototype, "opened", {
         /**
-         * Whether the sidenav is opened. We overload this because we trigger an event when it
+         * Whether the drawer is opened. We overload this because we trigger an event when it
          * starts or end.
          * @return {?}
          */
@@ -7813,25 +7829,25 @@ var MdSidenav = (function () {
         configurable: true
     });
     /**
-     * Open the sidenav.
+     * Open the drawer.
      * @return {?}
      */
-    MdSidenav.prototype.open = function () {
+    MdDrawer.prototype.open = function () {
         return this.toggle(true);
     };
     /**
-     * Close the sidenav.
+     * Close the drawer.
      * @return {?}
      */
-    MdSidenav.prototype.close = function () {
+    MdDrawer.prototype.close = function () {
         return this.toggle(false);
     };
     /**
-     * Toggle this sidenav.
-     * @param {?=} isOpen Whether the sidenav should be open.
+     * Toggle this drawer.
+     * @param {?=} isOpen Whether the drawer should be open.
      * @return {?}
      */
-    MdSidenav.prototype.toggle = function (isOpen) {
+    MdDrawer.prototype.toggle = function (isOpen) {
         var _this = this;
         if (isOpen === void 0) { isOpen = !this.opened; }
         if (!this._isAnimating) {
@@ -7850,7 +7866,7 @@ var MdSidenav = (function () {
             }
         }
         // TODO(crisbeto): This promise is here for backwards-compatibility.
-        // It should be removed next time we do breaking changes in the sidenav.
+        // It should be removed next time we do breaking changes in the drawer.
         return ((this._currentTogglePromise));
     };
     /**
@@ -7859,7 +7875,7 @@ var MdSidenav = (function () {
      * @param {?} event
      * @return {?}
      */
-    MdSidenav.prototype.handleKeydown = function (event) {
+    MdDrawer.prototype.handleKeydown = function (event) {
         if (event.keyCode === _angular_cdk_keycodes.ESCAPE && !this.disableClose) {
             this.close();
             event.stopPropagation();
@@ -7868,7 +7884,7 @@ var MdSidenav = (function () {
     /**
      * @return {?}
      */
-    MdSidenav.prototype._onAnimationStart = function () {
+    MdDrawer.prototype._onAnimationStart = function () {
         this._isAnimating = true;
         this._animationStarted.emit();
     };
@@ -7876,14 +7892,14 @@ var MdSidenav = (function () {
      * @param {?} event
      * @return {?}
      */
-    MdSidenav.prototype._onAnimationEnd = function (event) {
+    MdDrawer.prototype._onAnimationEnd = function (event) {
         var _this = this;
         var fromState = event.fromState, toState = event.toState;
         if (toState === 'open' && fromState === 'void') {
-            this.onOpen.emit(new MdSidenavToggleResult('open', true));
+            this.onOpen.emit(new MdDrawerToggleResult('open', true));
         }
         else if (toState === 'void' && fromState === 'open') {
-            this.onClose.emit(new MdSidenavToggleResult('close', true));
+            this.onClose.emit(new MdDrawerToggleResult('close', true));
         }
         // Note: as of Angular 4.3, the animations module seems to fire the `start` callback before
         // the end if animations are disabled. Make this call async to ensure that it still fires
@@ -7893,7 +7909,7 @@ var MdSidenav = (function () {
             _this._currentTogglePromise = null;
         });
     };
-    Object.defineProperty(MdSidenav.prototype, "_width", {
+    Object.defineProperty(MdDrawer.prototype, "_width", {
         /**
          * @return {?}
          */
@@ -7903,13 +7919,11 @@ var MdSidenav = (function () {
         enumerable: true,
         configurable: true
     });
-    return MdSidenav;
+    return MdDrawer;
 }());
-MdSidenav.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-sidenav, mat-sidenav',
+MdDrawer.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'md-drawer, mat-drawer',
                 template: "<ng-content></ng-content>",
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                encapsulation: _angular_core.ViewEncapsulation.None,
                 animations: [
                     _angular_animations.trigger('transform', [
                         _angular_animations.state('open, open-instant', _angular_animations.style({
@@ -7924,45 +7938,49 @@ MdSidenav.decorators = [
                     ])
                 ],
                 host: {
-                    'class': 'mat-sidenav',
+                    'class': 'mat-drawer',
                     '[@transform]': '_animationState',
                     '(@transform.start)': '_onAnimationStart()',
                     '(@transform.done)': '_onAnimationEnd($event)',
                     '(keydown)': 'handleKeydown($event)',
                     // must prevent the browser from aligning text based on value
                     '[attr.align]': 'null',
-                    '[class.mat-sidenav-end]': 'align === "end"',
-                    '[class.mat-sidenav-over]': 'mode === "over"',
-                    '[class.mat-sidenav-push]': 'mode === "push"',
-                    '[class.mat-sidenav-side]': 'mode === "side"',
-                    'tabIndex': '-1'
+                    '[class.mat-drawer-end]': 'position === "end"',
+                    '[class.mat-drawer-over]': 'mode === "over"',
+                    '[class.mat-drawer-push]': 'mode === "push"',
+                    '[class.mat-drawer-side]': 'mode === "side"',
+                    'tabIndex': '-1',
                 },
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                encapsulation: _angular_core.ViewEncapsulation.None,
             },] },
 ];
 /**
  * @nocollapse
  */
-MdSidenav.ctorParameters = function () { return [
+MdDrawer.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_cdk_a11y.FocusTrapFactory, },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
 ]; };
-MdSidenav.propDecorators = {
+MdDrawer.propDecorators = {
+    'position': [{ type: _angular_core.Input },],
     'align': [{ type: _angular_core.Input },],
     'mode': [{ type: _angular_core.Input },],
     'disableClose': [{ type: _angular_core.Input },],
     'onOpen': [{ type: _angular_core.Output, args: ['open',] },],
     'onClose': [{ type: _angular_core.Output, args: ['close',] },],
+    'onPositionChanged': [{ type: _angular_core.Output, args: ['positionChanged',] },],
     'onAlignChanged': [{ type: _angular_core.Output, args: ['align-changed',] },],
     'opened': [{ type: _angular_core.Input },],
 };
 /**
- * <md-sidenav-container> component.
+ * <md-drawer-container> component.
  *
- * This is the parent component to one or two <md-sidenav>s that validates the state internally
+ * This is the parent component to one or two <md-drawer>s that validates the state internally
  * and coordinates the backdrop and content styling.
  */
-var MdSidenavContainer = (function () {
+var MdDrawerContainer = (function () {
     /**
      * @param {?} _dir
      * @param {?} _element
@@ -7970,7 +7988,7 @@ var MdSidenavContainer = (function () {
      * @param {?} _ngZone
      * @param {?} _changeDetectorRef
      */
-    function MdSidenavContainer(_dir, _element, _renderer, _ngZone, _changeDetectorRef) {
+    function MdDrawerContainer(_dir, _element, _renderer, _ngZone, _changeDetectorRef) {
         var _this = this;
         this._dir = _dir;
         this._element = _element;
@@ -7978,7 +7996,7 @@ var MdSidenavContainer = (function () {
         this._ngZone = _ngZone;
         this._changeDetectorRef = _changeDetectorRef;
         /**
-         * Event emitted when the sidenav backdrop is clicked.
+         * Event emitted when the drawer backdrop is clicked.
          */
         this.backdropClick = new _angular_core.EventEmitter();
         // If a `Dir` directive exists up the tree, listen direction changes and update the left/right
@@ -7987,18 +8005,18 @@ var MdSidenavContainer = (function () {
             _dir.change.subscribe(function () { return _this._validateDrawers(); });
         }
     }
-    Object.defineProperty(MdSidenavContainer.prototype, "start", {
+    Object.defineProperty(MdDrawerContainer.prototype, "start", {
         /**
-         * The sidenav child with the `start` alignment.
+         * The drawer child with the `start` position.
          * @return {?}
          */
         get: function () { return this._start; },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSidenavContainer.prototype, "end", {
+    Object.defineProperty(MdDrawerContainer.prototype, "end", {
         /**
-         * The sidenav child with the `end` alignment.
+         * The drawer child with the `end` position.
          * @return {?}
          */
         get: function () { return this._end; },
@@ -8008,98 +8026,98 @@ var MdSidenavContainer = (function () {
     /**
      * @return {?}
      */
-    MdSidenavContainer.prototype.ngAfterContentInit = function () {
+    MdDrawerContainer.prototype.ngAfterContentInit = function () {
         var _this = this;
-        _angular_cdk_rxjs.startWith.call(this._sidenavs.changes, null).subscribe(function () {
+        _angular_cdk_rxjs.startWith.call(this._drawers.changes, null).subscribe(function () {
             _this._validateDrawers();
-            _this._sidenavs.forEach(function (sidenav) {
-                _this._watchSidenavToggle(sidenav);
-                _this._watchSidenavAlign(sidenav);
+            _this._drawers.forEach(function (drawer) {
+                _this._watchDrawerToggle(drawer);
+                _this._watchDrawerPosition(drawer);
             });
         });
     };
     /**
-     * Calls `open` of both start and end sidenavs
+     * Calls `open` of both start and end drawers
      * @return {?}
      */
-    MdSidenavContainer.prototype.open = function () {
-        this._sidenavs.forEach(function (sidenav) { return sidenav.open(); });
+    MdDrawerContainer.prototype.open = function () {
+        this._drawers.forEach(function (drawer) { return drawer.open(); });
     };
     /**
-     * Calls `close` of both start and end sidenavs
+     * Calls `close` of both start and end drawers
      * @return {?}
      */
-    MdSidenavContainer.prototype.close = function () {
-        this._sidenavs.forEach(function (sidenav) { return sidenav.close(); });
+    MdDrawerContainer.prototype.close = function () {
+        this._drawers.forEach(function (drawer) { return drawer.close(); });
     };
     /**
-     * Subscribes to sidenav events in order to set a class on the main container element when the
-     * sidenav is open and the backdrop is visible. This ensures any overflow on the container element
+     * Subscribes to drawer events in order to set a class on the main container element when the
+     * drawer is open and the backdrop is visible. This ensures any overflow on the container element
      * is properly hidden.
-     * @param {?} sidenav
+     * @param {?} drawer
      * @return {?}
      */
-    MdSidenavContainer.prototype._watchSidenavToggle = function (sidenav) {
+    MdDrawerContainer.prototype._watchDrawerToggle = function (drawer) {
         var _this = this;
-        _angular_cdk_rxjs.takeUntil.call(sidenav._animationStarted, this._sidenavs.changes).subscribe(function () {
+        _angular_cdk_rxjs.takeUntil.call(drawer._animationStarted, this._drawers.changes).subscribe(function () {
             // Set the transition class on the container so that the animations occur. This should not
             // be set initially because animations should only be triggered via a change in state.
-            _this._renderer.addClass(_this._element.nativeElement, 'mat-sidenav-transition');
+            _this._renderer.addClass(_this._element.nativeElement, 'mat-drawer-transition');
             _this._updateStyles();
             _this._changeDetectorRef.markForCheck();
         });
-        if (sidenav.mode !== 'side') {
-            _angular_cdk_rxjs.takeUntil.call(rxjs_observable_merge.merge(sidenav.onOpen, sidenav.onClose), this._sidenavs.changes).subscribe(function () { return _this._setContainerClass(sidenav.opened); });
+        if (drawer.mode !== 'side') {
+            _angular_cdk_rxjs.takeUntil.call(rxjs_observable_merge.merge(drawer.onOpen, drawer.onClose), this._drawers.changes).subscribe(function () { return _this._setContainerClass(drawer.opened); });
         }
     };
     /**
-     * Subscribes to sidenav onAlignChanged event in order to re-validate drawers when the align
+     * Subscribes to drawer onPositionChanged event in order to re-validate drawers when the position
      * changes.
-     * @param {?} sidenav
+     * @param {?} drawer
      * @return {?}
      */
-    MdSidenavContainer.prototype._watchSidenavAlign = function (sidenav) {
+    MdDrawerContainer.prototype._watchDrawerPosition = function (drawer) {
         var _this = this;
-        if (!sidenav) {
+        if (!drawer) {
             return;
         }
         // NOTE: We need to wait for the microtask queue to be empty before validating,
-        // since both drawers may be swapping sides at the same time.
-        _angular_cdk_rxjs.takeUntil.call(sidenav.onAlignChanged, this._sidenavs.changes).subscribe(function () { return _angular_cdk_rxjs.first.call(_this._ngZone.onMicrotaskEmpty).subscribe(function () { return _this._validateDrawers(); }); });
+        // since both drawers may be swapping positions at the same time.
+        _angular_cdk_rxjs.takeUntil.call(drawer.onPositionChanged, this._drawers.changes).subscribe(function () { return _angular_cdk_rxjs.first.call(_this._ngZone.onMicrotaskEmpty).subscribe(function () { return _this._validateDrawers(); }); });
     };
     /**
-     * Toggles the 'mat-sidenav-opened' class on the main 'md-sidenav-container' element.
+     * Toggles the 'mat-drawer-opened' class on the main 'md-drawer-container' element.
      * @param {?} isAdd
      * @return {?}
      */
-    MdSidenavContainer.prototype._setContainerClass = function (isAdd) {
+    MdDrawerContainer.prototype._setContainerClass = function (isAdd) {
         if (isAdd) {
-            this._renderer.addClass(this._element.nativeElement, 'mat-sidenav-opened');
+            this._renderer.addClass(this._element.nativeElement, 'mat-drawer-opened');
         }
         else {
-            this._renderer.removeClass(this._element.nativeElement, 'mat-sidenav-opened');
+            this._renderer.removeClass(this._element.nativeElement, 'mat-drawer-opened');
         }
     };
     /**
-     * Validate the state of the sidenav children components.
+     * Validate the state of the drawer children components.
      * @return {?}
      */
-    MdSidenavContainer.prototype._validateDrawers = function () {
+    MdDrawerContainer.prototype._validateDrawers = function () {
         var _this = this;
         this._start = this._end = null;
-        // Ensure that we have at most one start and one end sidenav.
-        this._sidenavs.forEach(function (sidenav) {
-            if (sidenav.align == 'end') {
+        // Ensure that we have at most one start and one end drawer.
+        this._drawers.forEach(function (drawer) {
+            if (drawer.position == 'end') {
                 if (_this._end != null) {
-                    throwMdDuplicatedSidenavError('end');
+                    throwMdDuplicatedDrawerError('end');
                 }
-                _this._end = sidenav;
+                _this._end = drawer;
             }
             else {
                 if (_this._start != null) {
-                    throwMdDuplicatedSidenavError('start');
+                    throwMdDuplicatedDrawerError('start');
                 }
-                _this._start = sidenav;
+                _this._start = drawer;
             }
         });
         this._right = this._left = null;
@@ -8116,67 +8134,67 @@ var MdSidenavContainer = (function () {
     /**
      * @return {?}
      */
-    MdSidenavContainer.prototype._onBackdropClicked = function () {
+    MdDrawerContainer.prototype._onBackdropClicked = function () {
         this.backdropClick.emit();
-        this._closeModalSidenav();
+        this._closeModalDrawer();
     };
     /**
      * @return {?}
      */
-    MdSidenavContainer.prototype._closeModalSidenav = function () {
-        // Close all open sidenav's where closing is not disabled and the mode is not `side`.
+    MdDrawerContainer.prototype._closeModalDrawer = function () {
+        // Close all open drawers where closing is not disabled and the mode is not `side`.
         [this._start, this._end]
-            .filter(function (sidenav) { return sidenav && !sidenav.disableClose && sidenav.mode !== 'side'; })
-            .forEach(function (sidenav) { return ((sidenav)).close(); });
+            .filter(function (drawer) { return drawer && !drawer.disableClose && drawer.mode !== 'side'; })
+            .forEach(function (drawer) { return ((drawer)).close(); });
     };
     /**
      * @return {?}
      */
-    MdSidenavContainer.prototype._isShowingBackdrop = function () {
-        return (this._isSidenavOpen(this._start) && ((this._start)).mode != 'side')
-            || (this._isSidenavOpen(this._end) && ((this._end)).mode != 'side');
+    MdDrawerContainer.prototype._isShowingBackdrop = function () {
+        return (this._isDrawerOpen(this._start) && ((this._start)).mode != 'side')
+            || (this._isDrawerOpen(this._end) && ((this._end)).mode != 'side');
     };
     /**
-     * @param {?} side
+     * @param {?} drawer
      * @return {?}
      */
-    MdSidenavContainer.prototype._isSidenavOpen = function (side) {
-        return side != null && side.opened;
+    MdDrawerContainer.prototype._isDrawerOpen = function (drawer) {
+        return drawer != null && drawer.opened;
     };
     /**
-     * Return the width of the sidenav, if it's in the proper mode and opened.
+     * Return the width of the drawer, if it's in the proper mode and opened.
      * This may relayout the view, so do not call this often.
-     * @param {?} sidenav
+     * @param {?} drawer
      * @param {?} mode
      * @return {?}
      */
-    MdSidenavContainer.prototype._getSidenavEffectiveWidth = function (sidenav, mode) {
-        return (this._isSidenavOpen(sidenav) && sidenav.mode == mode) ? sidenav._width : 0;
+    MdDrawerContainer.prototype._getDrawerEffectiveWidth = function (drawer, mode) {
+        return (this._isDrawerOpen(drawer) && drawer.mode == mode) ? drawer._width : 0;
     };
     /**
      * Recalculates and updates the inline styles. Note that this
      * should be used sparingly, because it causes a reflow.
      * @return {?}
      */
-    MdSidenavContainer.prototype._updateStyles = function () {
-        var /** @type {?} */ marginLeft = this._left ? this._getSidenavEffectiveWidth(this._left, 'side') : 0;
-        var /** @type {?} */ marginRight = this._right ? this._getSidenavEffectiveWidth(this._right, 'side') : 0;
-        var /** @type {?} */ leftWidth = this._left ? this._getSidenavEffectiveWidth(this._left, 'push') : 0;
-        var /** @type {?} */ rightWidth = this._right ? this._getSidenavEffectiveWidth(this._right, 'push') : 0;
+    MdDrawerContainer.prototype._updateStyles = function () {
+        var /** @type {?} */ marginLeft = this._left ? this._getDrawerEffectiveWidth(this._left, 'side') : 0;
+        var /** @type {?} */ marginRight = this._right ? this._getDrawerEffectiveWidth(this._right, 'side') : 0;
+        var /** @type {?} */ leftWidth = this._left ? this._getDrawerEffectiveWidth(this._left, 'push') : 0;
+        var /** @type {?} */ rightWidth = this._right ? this._getDrawerEffectiveWidth(this._right, 'push') : 0;
         this._styles = {
             marginLeft: marginLeft + "px",
             marginRight: marginRight + "px",
             transform: "translate3d(" + (leftWidth - rightWidth) + "px, 0, 0)"
         };
     };
-    return MdSidenavContainer;
+    return MdDrawerContainer;
 }());
-MdSidenavContainer.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-sidenav-container, mat-sidenav-container',
-                template: "<div class=\"mat-sidenav-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-sidenav-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"md-sidenav, mat-sidenav\"></ng-content><div class=\"mat-sidenav-content\" [ngStyle]=\"_styles\" cdk-scrollable><ng-content></ng-content></div>",
-                styles: [".mat-sidenav-container{position:relative;transform:translate3d(0,0,0);box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-sidenav-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-sidenav-container[fullscreen].mat-sidenav-opened{overflow:hidden}.mat-sidenav-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:2;visibility:hidden}.mat-sidenav-backdrop.mat-sidenav-shown{visibility:visible}@media screen and (-ms-high-contrast:active){.mat-sidenav-backdrop{opacity:.5}}.mat-sidenav-content{position:relative;transform:translate3d(0,0,0);display:block;height:100%;overflow:auto}.mat-sidenav{position:relative;transform:translate3d(0,0,0);display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;height:100%;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-sidenav.mat-sidenav-side{z-index:1}.mat-sidenav.mat-sidenav-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-sidenav{transform:translate3d(100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-sidenav.mat-sidenav-opened:not(.mat-sidenav-side),.mat-sidenav.mat-sidenav-opening:not(.mat-sidenav-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)} .mat-sidenav-transition .mat-sidenav-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-sidenav-transition .mat-sidenav-backdrop.mat-sidenav-shown{transition:background-color .4s cubic-bezier(.25,.8,.25,1)}"],
+MdDrawerContainer.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'md-drawer-container, mat-drawer-container',
+                template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"md-drawer, mat-drawer, md-sidenav, mat-sidenav\"></ng-content><div class=\"mat-drawer-content\" [ngStyle]=\"_styles\" cdk-scrollable><ng-content></ng-content></div>",
+                styles: [".mat-drawer-container{position:relative;transform:translate3d(0,0,0);box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-opened{overflow:hidden}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:2;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}@media screen and (-ms-high-contrast:active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{position:relative;transform:translate3d(0,0,0);display:block;height:100%;overflow:auto}.mat-drawer{position:relative;transform:translate3d(0,0,0);display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;height:100%;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-side{z-index:1}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer{transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-opened:not(.mat-drawer-side),.mat-drawer.mat-drawer-opening:not(.mat-drawer-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)} .mat-drawer-transition .mat-drawer-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-drawer-transition .mat-drawer-backdrop.mat-drawer-shown{transition:background-color .4s cubic-bezier(.25,.8,.25,1)}"],
                 host: {
-                    'class': 'mat-sidenav-container',
+                    'class': 'mat-drawer-container',
                 },
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                 encapsulation: _angular_core.ViewEncapsulation.None,
@@ -8185,16 +8203,86 @@ MdSidenavContainer.decorators = [
 /**
  * @nocollapse
  */
-MdSidenavContainer.ctorParameters = function () { return [
+MdDrawerContainer.ctorParameters = function () { return [
     { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_core.ElementRef, },
     { type: _angular_core.Renderer2, },
     { type: _angular_core.NgZone, },
     { type: _angular_core.ChangeDetectorRef, },
 ]; };
-MdSidenavContainer.propDecorators = {
-    '_sidenavs': [{ type: _angular_core.ContentChildren, args: [MdSidenav,] },],
+MdDrawerContainer.propDecorators = {
+    '_drawers': [{ type: _angular_core.ContentChildren, args: [MdDrawer,] },],
     'backdropClick': [{ type: _angular_core.Output },],
+};
+var MdSidenav = (function (_super) {
+    __extends(MdSidenav, _super);
+    function MdSidenav() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return MdSidenav;
+}(MdDrawer));
+MdSidenav.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'md-sidenav, mat-sidenav',
+                template: "<ng-content></ng-content>",
+                animations: [
+                    _angular_animations.trigger('transform', [
+                        _angular_animations.state('open, open-instant', _angular_animations.style({
+                            transform: 'translate3d(0, 0, 0)',
+                            visibility: 'visible',
+                        })),
+                        _angular_animations.state('void', _angular_animations.style({
+                            visibility: 'hidden',
+                        })),
+                        _angular_animations.transition('void => open-instant', _angular_animations.animate('0ms')),
+                        _angular_animations.transition('void <=> open, open-instant => void', _angular_animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
+                    ])
+                ],
+                host: {
+                    'class': 'mat-drawer mat-sidenav',
+                    '[@transform]': '_animationState',
+                    '(@transform.start)': '_onAnimationStart()',
+                    '(@transform.done)': '_onAnimationEnd($event)',
+                    '(keydown)': 'handleKeydown($event)',
+                    // must prevent the browser from aligning text based on value
+                    '[attr.align]': 'null',
+                    '[class.mat-drawer-end]': 'position === "end"',
+                    '[class.mat-drawer-over]': 'mode === "over"',
+                    '[class.mat-drawer-push]': 'mode === "push"',
+                    '[class.mat-drawer-side]': 'mode === "side"',
+                    'tabIndex': '-1',
+                },
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                encapsulation: _angular_core.ViewEncapsulation.None,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdSidenav.ctorParameters = function () { return []; };
+var MdSidenavContainer = (function (_super) {
+    __extends(MdSidenavContainer, _super);
+    function MdSidenavContainer() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return MdSidenavContainer;
+}(MdDrawerContainer));
+MdSidenavContainer.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'md-sidenav-container, mat-sidenav-container',
+                template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"md-drawer, mat-drawer, md-sidenav, mat-sidenav\"></ng-content><div class=\"mat-drawer-content\" [ngStyle]=\"_styles\" cdk-scrollable><ng-content></ng-content></div>",
+                styles: [".mat-drawer-container{position:relative;transform:translate3d(0,0,0);box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-opened{overflow:hidden}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:2;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}@media screen and (-ms-high-contrast:active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{position:relative;transform:translate3d(0,0,0);display:block;height:100%;overflow:auto}.mat-drawer{position:relative;transform:translate3d(0,0,0);display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;height:100%;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-side{z-index:1}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer{transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-opened:not(.mat-drawer-side),.mat-drawer.mat-drawer-opening:not(.mat-drawer-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)} .mat-drawer-transition .mat-drawer-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-drawer-transition .mat-drawer-backdrop.mat-drawer-shown{transition:background-color .4s cubic-bezier(.25,.8,.25,1)}"],
+                host: {
+                    'class': 'mat-drawer-container mat-sidenav-container',
+                },
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                encapsulation: _angular_core.ViewEncapsulation.None,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdSidenavContainer.ctorParameters = function () { return []; };
+MdSidenavContainer.propDecorators = {
+    '_drawers': [{ type: _angular_core.ContentChildren, args: [MdSidenav,] },],
 };
 var MdSidenavModule = (function () {
     function MdSidenavModule() {
@@ -8204,8 +8292,8 @@ var MdSidenavModule = (function () {
 MdSidenavModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [_angular_common.CommonModule, MdCommonModule, _angular_cdk_a11y.A11yModule, _angular_cdk_overlay.OverlayModule],
-                exports: [MdSidenavContainer, MdSidenav, MdCommonModule],
-                declarations: [MdSidenavContainer, MdSidenav],
+                exports: [MdDrawerContainer, MdDrawer, MdSidenavContainer, MdSidenav, MdCommonModule],
+                declarations: [MdDrawerContainer, MdDrawer, MdSidenavContainer, MdSidenav],
             },] },
 ];
 /**
@@ -17225,10 +17313,7 @@ var MdDialogContainer = (function (_super) {
             throwMdDialogContentAlreadyAttachedError();
         }
         this._savePreviouslyFocusedElement();
-        var /** @type {?} */ componentRef = this._portalHost.attachComponentPortal(portal);
-        // Ensure that the initial view change are picked up.
-        componentRef.changeDetectorRef.markForCheck();
-        return componentRef;
+        return this._portalHost.attachComponentPortal(portal);
     };
     /**
      * Attach a TemplatePortal as content to this dialog container.
@@ -17240,9 +17325,7 @@ var MdDialogContainer = (function (_super) {
             throwMdDialogContentAlreadyAttachedError();
         }
         this._savePreviouslyFocusedElement();
-        var /** @type {?} */ locals = this._portalHost.attachTemplatePortal(portal);
-        this._changeDetectorRef.markForCheck();
-        return locals;
+        return this._portalHost.attachTemplatePortal(portal);
     };
     /**
      * Moves the focus inside the focus trap.
@@ -17321,7 +17404,6 @@ MdDialogContainer.decorators = [
                 template: "<ng-template cdkPortalHost></ng-template>",
                 styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;max-width:80vw;width:100%;height:100%}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex;flex-wrap:wrap}.mat-dialog-actions:last-child{margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button+.mat-button,.mat-dialog-actions .mat-button+.mat-raised-button,.mat-dialog-actions .mat-raised-button+.mat-button,.mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-button+.mat-raised-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:0;margin-right:8px}"],
                 encapsulation: _angular_core.ViewEncapsulation.None,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                 animations: [
                     _angular_animations.trigger('slideDialog', [
                         // Note: The `enter` animation doesn't transition to something like `translate3d(0, 0, 0)
@@ -22102,8 +22184,10 @@ exports._MdSelectMixinBase = _MdSelectMixinBase;
 exports.MdSelectTrigger = MdSelectTrigger;
 exports.MdSelect = MdSelect;
 exports.MdSidenavModule = MdSidenavModule;
-exports.throwMdDuplicatedSidenavError = throwMdDuplicatedSidenavError;
-exports.MdSidenavToggleResult = MdSidenavToggleResult;
+exports.throwMdDuplicatedDrawerError = throwMdDuplicatedDrawerError;
+exports.MdDrawerToggleResult = MdDrawerToggleResult;
+exports.MdDrawer = MdDrawer;
+exports.MdDrawerContainer = MdDrawerContainer;
 exports.MdSidenav = MdSidenav;
 exports.MdSidenavContainer = MdSidenavContainer;
 exports.MdSliderModule = MdSliderModule;

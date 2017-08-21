@@ -33,7 +33,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.8-0113c38');
+const VERSION = new Version('2.0.0-beta.8-1179868');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -7235,18 +7235,18 @@ MdSliderModule.decorators = [
 MdSliderModule.ctorParameters = () => [];
 
 /**
- * Throws an exception when two MdSidenav are matching the same side.
- * @param {?} align
+ * Throws an exception when two MdDrawer are matching the same position.
+ * @param {?} position
  * @return {?}
  */
-function throwMdDuplicatedSidenavError(align) {
-    throw Error(`A sidenav was already declared for 'align="${align}"'`);
+function throwMdDuplicatedDrawerError(position) {
+    throw Error(`A drawer was already declared for 'position="${position}"'`);
 }
 /**
- * Sidenav toggle promise result.
+ * Drawer toggle promise result.
  * @deprecated
  */
-class MdSidenavToggleResult {
+class MdDrawerToggleResult {
     /**
      * @param {?} type
      * @param {?} animationFinished
@@ -7257,13 +7257,13 @@ class MdSidenavToggleResult {
     }
 }
 /**
- * <md-sidenav> component.
+ * <md-drawer> component.
  *
- * This component corresponds to the drawer of the sidenav.
+ * This component corresponds to a drawer that can be opened on the drawer container.
  *
  * Please refer to README.md for examples on how to use it.
  */
-class MdSidenav {
+class MdDrawer {
     /**
      * @param {?} _elementRef
      * @param {?} _focusTrapFactory
@@ -7273,30 +7273,27 @@ class MdSidenav {
         this._elementRef = _elementRef;
         this._focusTrapFactory = _focusTrapFactory;
         this._doc = _doc;
-        this._elementFocusedBeforeSidenavWasOpened = null;
+        this._elementFocusedBeforeDrawerWasOpened = null;
         /**
-         * Whether the sidenav is initialized. Used for disabling the initial animation.
+         * Whether the drawer is initialized. Used for disabling the initial animation.
          */
         this._enableAnimations = false;
+        this._position = 'start';
         /**
-         * Alignment of the sidenav (direction neutral); whether 'start' or 'end'.
-         */
-        this._align = 'start';
-        /**
-         * Mode of the sidenav; one of 'over', 'push' or 'side'.
+         * Mode of the drawer; one of 'over', 'push' or 'side'.
          */
         this.mode = 'over';
         this._disableClose = false;
         /**
-         * Whether the sidenav is opened.
+         * Whether the drawer is opened.
          */
         this._opened = false;
         /**
-         * Emits whenever the sidenav has started animating.
+         * Emits whenever the drawer has started animating.
          */
         this._animationStarted = new EventEmitter();
         /**
-         * Whether the sidenav is animating. Used to prevent overlapping animations.
+         * Whether the drawer is animating. Used to prevent overlapping animations.
          */
         this._isAnimating = false;
         /**
@@ -7304,20 +7301,24 @@ class MdSidenav {
          */
         this._animationState = 'void';
         /**
-         * Event emitted when the sidenav is fully opened.
+         * Event emitted when the drawer is fully opened.
          */
         this.onOpen = new EventEmitter();
         /**
-         * Event emitted when the sidenav is fully closed.
+         * Event emitted when the drawer is fully closed.
          */
         this.onClose = new EventEmitter();
         /**
-         * Event emitted when the sidenav alignment changes.
+         * Event emitted when the drawer's position changes.
+         */
+        this.onPositionChanged = new EventEmitter();
+        /**
+         * @deprecated
          */
         this.onAlignChanged = new EventEmitter();
         this.onOpen.subscribe(() => {
             if (this._doc) {
-                this._elementFocusedBeforeSidenavWasOpened = this._doc.activeElement;
+                this._elementFocusedBeforeDrawerWasOpened = this._doc.activeElement;
             }
             if (this.isFocusTrapEnabled && this._focusTrap) {
                 this._focusTrap.focusInitialElementWhenReady();
@@ -7326,24 +7327,35 @@ class MdSidenav {
         this.onClose.subscribe(() => this._restoreFocus());
     }
     /**
-     * Direction which the sidenav is aligned in.
+     * The side that the drawer is attached to.
      * @return {?}
      */
-    get align() { return this._align; }
+    get position() { return this._position; }
     /**
      * @param {?} value
      * @return {?}
      */
-    set align(value) {
+    set position(value) {
         // Make sure we have a valid value.
         value = value === 'end' ? 'end' : 'start';
-        if (value != this._align) {
-            this._align = value;
+        if (value != this._position) {
+            this._position = value;
             this.onAlignChanged.emit();
+            this.onPositionChanged.emit();
         }
     }
     /**
-     * Whether the sidenav can be closed with the escape key or not.
+     * @deprecated
+     * @return {?}
+     */
+    get align() { return this.position; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set align(value) { this.position = value; }
+    /**
+     * Whether the drawer can be closed with the escape key or not.
      * @return {?}
      */
     get disableClose() { return this._disableClose; }
@@ -7356,25 +7368,25 @@ class MdSidenav {
      * @return {?}
      */
     get isFocusTrapEnabled() {
-        // The focus trap is only enabled when the sidenav is open in any mode other than side.
+        // The focus trap is only enabled when the drawer is open in any mode other than side.
         return this.opened && this.mode !== 'side';
     }
     /**
-     * If focus is currently inside the sidenav, restores it to where it was before the sidenav
+     * If focus is currently inside the drawer, restores it to where it was before the drawer
      * opened.
      * @return {?}
      */
     _restoreFocus() {
         let /** @type {?} */ activeEl = this._doc && this._doc.activeElement;
         if (activeEl && this._elementRef.nativeElement.contains(activeEl)) {
-            if (this._elementFocusedBeforeSidenavWasOpened instanceof HTMLElement) {
-                this._elementFocusedBeforeSidenavWasOpened.focus();
+            if (this._elementFocusedBeforeDrawerWasOpened instanceof HTMLElement) {
+                this._elementFocusedBeforeDrawerWasOpened.focus();
             }
             else {
                 this._elementRef.nativeElement.blur();
             }
         }
-        this._elementFocusedBeforeSidenavWasOpened = null;
+        this._elementFocusedBeforeDrawerWasOpened = null;
     }
     /**
      * @return {?}
@@ -7393,7 +7405,7 @@ class MdSidenav {
         }
     }
     /**
-     * Whether the sidenav is opened. We overload this because we trigger an event when it
+     * Whether the drawer is opened. We overload this because we trigger an event when it
      * starts or end.
      * @return {?}
      */
@@ -7406,22 +7418,22 @@ class MdSidenav {
         this.toggle(coerceBooleanProperty(v));
     }
     /**
-     * Open the sidenav.
+     * Open the drawer.
      * @return {?}
      */
     open() {
         return this.toggle(true);
     }
     /**
-     * Close the sidenav.
+     * Close the drawer.
      * @return {?}
      */
     close() {
         return this.toggle(false);
     }
     /**
-     * Toggle this sidenav.
-     * @param {?=} isOpen Whether the sidenav should be open.
+     * Toggle this drawer.
+     * @param {?=} isOpen Whether the drawer should be open.
      * @return {?}
      */
     toggle(isOpen = !this.opened) {
@@ -7441,7 +7453,7 @@ class MdSidenav {
             }
         }
         // TODO(crisbeto): This promise is here for backwards-compatibility.
-        // It should be removed next time we do breaking changes in the sidenav.
+        // It should be removed next time we do breaking changes in the drawer.
         return ((this._currentTogglePromise));
     }
     /**
@@ -7470,10 +7482,10 @@ class MdSidenav {
     _onAnimationEnd(event) {
         const { fromState, toState } = event;
         if (toState === 'open' && fromState === 'void') {
-            this.onOpen.emit(new MdSidenavToggleResult('open', true));
+            this.onOpen.emit(new MdDrawerToggleResult('open', true));
         }
         else if (toState === 'void' && fromState === 'open') {
-            this.onClose.emit(new MdSidenavToggleResult('close', true));
+            this.onClose.emit(new MdDrawerToggleResult('close', true));
         }
         // Note: as of Angular 4.3, the animations module seems to fire the `start` callback before
         // the end if animations are disabled. Make this call async to ensure that it still fires
@@ -7490,11 +7502,9 @@ class MdSidenav {
         return this._elementRef.nativeElement ? (this._elementRef.nativeElement.offsetWidth || 0) : 0;
     }
 }
-MdSidenav.decorators = [
-    { type: Component, args: [{selector: 'md-sidenav, mat-sidenav',
+MdDrawer.decorators = [
+    { type: Component, args: [{selector: 'md-drawer, mat-drawer',
                 template: "<ng-content></ng-content>",
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
                 animations: [
                     trigger('transform', [
                         state('open, open-instant', style({
@@ -7509,45 +7519,49 @@ MdSidenav.decorators = [
                     ])
                 ],
                 host: {
-                    'class': 'mat-sidenav',
+                    'class': 'mat-drawer',
                     '[@transform]': '_animationState',
                     '(@transform.start)': '_onAnimationStart()',
                     '(@transform.done)': '_onAnimationEnd($event)',
                     '(keydown)': 'handleKeydown($event)',
                     // must prevent the browser from aligning text based on value
                     '[attr.align]': 'null',
-                    '[class.mat-sidenav-end]': 'align === "end"',
-                    '[class.mat-sidenav-over]': 'mode === "over"',
-                    '[class.mat-sidenav-push]': 'mode === "push"',
-                    '[class.mat-sidenav-side]': 'mode === "side"',
-                    'tabIndex': '-1'
+                    '[class.mat-drawer-end]': 'position === "end"',
+                    '[class.mat-drawer-over]': 'mode === "over"',
+                    '[class.mat-drawer-push]': 'mode === "push"',
+                    '[class.mat-drawer-side]': 'mode === "side"',
+                    'tabIndex': '-1',
                 },
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
             },] },
 ];
 /**
  * @nocollapse
  */
-MdSidenav.ctorParameters = () => [
+MdDrawer.ctorParameters = () => [
     { type: ElementRef, },
     { type: FocusTrapFactory, },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
-MdSidenav.propDecorators = {
+MdDrawer.propDecorators = {
+    'position': [{ type: Input },],
     'align': [{ type: Input },],
     'mode': [{ type: Input },],
     'disableClose': [{ type: Input },],
     'onOpen': [{ type: Output, args: ['open',] },],
     'onClose': [{ type: Output, args: ['close',] },],
+    'onPositionChanged': [{ type: Output, args: ['positionChanged',] },],
     'onAlignChanged': [{ type: Output, args: ['align-changed',] },],
     'opened': [{ type: Input },],
 };
 /**
- * <md-sidenav-container> component.
+ * <md-drawer-container> component.
  *
- * This is the parent component to one or two <md-sidenav>s that validates the state internally
+ * This is the parent component to one or two <md-drawer>s that validates the state internally
  * and coordinates the backdrop and content styling.
  */
-class MdSidenavContainer {
+class MdDrawerContainer {
     /**
      * @param {?} _dir
      * @param {?} _element
@@ -7562,7 +7576,7 @@ class MdSidenavContainer {
         this._ngZone = _ngZone;
         this._changeDetectorRef = _changeDetectorRef;
         /**
-         * Event emitted when the sidenav backdrop is clicked.
+         * Event emitted when the drawer backdrop is clicked.
          */
         this.backdropClick = new EventEmitter();
         // If a `Dir` directive exists up the tree, listen direction changes and update the left/right
@@ -7572,12 +7586,12 @@ class MdSidenavContainer {
         }
     }
     /**
-     * The sidenav child with the `start` alignment.
+     * The drawer child with the `start` position.
      * @return {?}
      */
     get start() { return this._start; }
     /**
-     * The sidenav child with the `end` alignment.
+     * The drawer child with the `end` position.
      * @return {?}
      */
     get end() { return this._end; }
@@ -7585,93 +7599,93 @@ class MdSidenavContainer {
      * @return {?}
      */
     ngAfterContentInit() {
-        startWith.call(this._sidenavs.changes, null).subscribe(() => {
+        startWith.call(this._drawers.changes, null).subscribe(() => {
             this._validateDrawers();
-            this._sidenavs.forEach((sidenav) => {
-                this._watchSidenavToggle(sidenav);
-                this._watchSidenavAlign(sidenav);
+            this._drawers.forEach((drawer) => {
+                this._watchDrawerToggle(drawer);
+                this._watchDrawerPosition(drawer);
             });
         });
     }
     /**
-     * Calls `open` of both start and end sidenavs
+     * Calls `open` of both start and end drawers
      * @return {?}
      */
     open() {
-        this._sidenavs.forEach(sidenav => sidenav.open());
+        this._drawers.forEach(drawer => drawer.open());
     }
     /**
-     * Calls `close` of both start and end sidenavs
+     * Calls `close` of both start and end drawers
      * @return {?}
      */
     close() {
-        this._sidenavs.forEach(sidenav => sidenav.close());
+        this._drawers.forEach(drawer => drawer.close());
     }
     /**
-     * Subscribes to sidenav events in order to set a class on the main container element when the
-     * sidenav is open and the backdrop is visible. This ensures any overflow on the container element
+     * Subscribes to drawer events in order to set a class on the main container element when the
+     * drawer is open and the backdrop is visible. This ensures any overflow on the container element
      * is properly hidden.
-     * @param {?} sidenav
+     * @param {?} drawer
      * @return {?}
      */
-    _watchSidenavToggle(sidenav) {
-        takeUntil.call(sidenav._animationStarted, this._sidenavs.changes).subscribe(() => {
+    _watchDrawerToggle(drawer) {
+        takeUntil.call(drawer._animationStarted, this._drawers.changes).subscribe(() => {
             // Set the transition class on the container so that the animations occur. This should not
             // be set initially because animations should only be triggered via a change in state.
-            this._renderer.addClass(this._element.nativeElement, 'mat-sidenav-transition');
+            this._renderer.addClass(this._element.nativeElement, 'mat-drawer-transition');
             this._updateStyles();
             this._changeDetectorRef.markForCheck();
         });
-        if (sidenav.mode !== 'side') {
-            takeUntil.call(merge(sidenav.onOpen, sidenav.onClose), this._sidenavs.changes).subscribe(() => this._setContainerClass(sidenav.opened));
+        if (drawer.mode !== 'side') {
+            takeUntil.call(merge(drawer.onOpen, drawer.onClose), this._drawers.changes).subscribe(() => this._setContainerClass(drawer.opened));
         }
     }
     /**
-     * Subscribes to sidenav onAlignChanged event in order to re-validate drawers when the align
+     * Subscribes to drawer onPositionChanged event in order to re-validate drawers when the position
      * changes.
-     * @param {?} sidenav
+     * @param {?} drawer
      * @return {?}
      */
-    _watchSidenavAlign(sidenav) {
-        if (!sidenav) {
+    _watchDrawerPosition(drawer) {
+        if (!drawer) {
             return;
         }
         // NOTE: We need to wait for the microtask queue to be empty before validating,
-        // since both drawers may be swapping sides at the same time.
-        takeUntil.call(sidenav.onAlignChanged, this._sidenavs.changes).subscribe(() => first.call(this._ngZone.onMicrotaskEmpty).subscribe(() => this._validateDrawers()));
+        // since both drawers may be swapping positions at the same time.
+        takeUntil.call(drawer.onPositionChanged, this._drawers.changes).subscribe(() => first.call(this._ngZone.onMicrotaskEmpty).subscribe(() => this._validateDrawers()));
     }
     /**
-     * Toggles the 'mat-sidenav-opened' class on the main 'md-sidenav-container' element.
+     * Toggles the 'mat-drawer-opened' class on the main 'md-drawer-container' element.
      * @param {?} isAdd
      * @return {?}
      */
     _setContainerClass(isAdd) {
         if (isAdd) {
-            this._renderer.addClass(this._element.nativeElement, 'mat-sidenav-opened');
+            this._renderer.addClass(this._element.nativeElement, 'mat-drawer-opened');
         }
         else {
-            this._renderer.removeClass(this._element.nativeElement, 'mat-sidenav-opened');
+            this._renderer.removeClass(this._element.nativeElement, 'mat-drawer-opened');
         }
     }
     /**
-     * Validate the state of the sidenav children components.
+     * Validate the state of the drawer children components.
      * @return {?}
      */
     _validateDrawers() {
         this._start = this._end = null;
-        // Ensure that we have at most one start and one end sidenav.
-        this._sidenavs.forEach(sidenav => {
-            if (sidenav.align == 'end') {
+        // Ensure that we have at most one start and one end drawer.
+        this._drawers.forEach(drawer => {
+            if (drawer.position == 'end') {
                 if (this._end != null) {
-                    throwMdDuplicatedSidenavError('end');
+                    throwMdDuplicatedDrawerError('end');
                 }
-                this._end = sidenav;
+                this._end = drawer;
             }
             else {
                 if (this._start != null) {
-                    throwMdDuplicatedSidenavError('start');
+                    throwMdDuplicatedDrawerError('start');
                 }
-                this._start = sidenav;
+                this._start = drawer;
             }
         });
         this._right = this._left = null;
@@ -7690,40 +7704,40 @@ class MdSidenavContainer {
      */
     _onBackdropClicked() {
         this.backdropClick.emit();
-        this._closeModalSidenav();
+        this._closeModalDrawer();
     }
     /**
      * @return {?}
      */
-    _closeModalSidenav() {
-        // Close all open sidenav's where closing is not disabled and the mode is not `side`.
+    _closeModalDrawer() {
+        // Close all open drawers where closing is not disabled and the mode is not `side`.
         [this._start, this._end]
-            .filter(sidenav => sidenav && !sidenav.disableClose && sidenav.mode !== 'side')
-            .forEach(sidenav => ((sidenav)).close());
+            .filter(drawer => drawer && !drawer.disableClose && drawer.mode !== 'side')
+            .forEach(drawer => ((drawer)).close());
     }
     /**
      * @return {?}
      */
     _isShowingBackdrop() {
-        return (this._isSidenavOpen(this._start) && ((this._start)).mode != 'side')
-            || (this._isSidenavOpen(this._end) && ((this._end)).mode != 'side');
+        return (this._isDrawerOpen(this._start) && ((this._start)).mode != 'side')
+            || (this._isDrawerOpen(this._end) && ((this._end)).mode != 'side');
     }
     /**
-     * @param {?} side
+     * @param {?} drawer
      * @return {?}
      */
-    _isSidenavOpen(side) {
-        return side != null && side.opened;
+    _isDrawerOpen(drawer) {
+        return drawer != null && drawer.opened;
     }
     /**
-     * Return the width of the sidenav, if it's in the proper mode and opened.
+     * Return the width of the drawer, if it's in the proper mode and opened.
      * This may relayout the view, so do not call this often.
-     * @param {?} sidenav
+     * @param {?} drawer
      * @param {?} mode
      * @return {?}
      */
-    _getSidenavEffectiveWidth(sidenav, mode) {
-        return (this._isSidenavOpen(sidenav) && sidenav.mode == mode) ? sidenav._width : 0;
+    _getDrawerEffectiveWidth(drawer, mode) {
+        return (this._isDrawerOpen(drawer) && drawer.mode == mode) ? drawer._width : 0;
     }
     /**
      * Recalculates and updates the inline styles. Note that this
@@ -7731,10 +7745,10 @@ class MdSidenavContainer {
      * @return {?}
      */
     _updateStyles() {
-        const /** @type {?} */ marginLeft = this._left ? this._getSidenavEffectiveWidth(this._left, 'side') : 0;
-        const /** @type {?} */ marginRight = this._right ? this._getSidenavEffectiveWidth(this._right, 'side') : 0;
-        const /** @type {?} */ leftWidth = this._left ? this._getSidenavEffectiveWidth(this._left, 'push') : 0;
-        const /** @type {?} */ rightWidth = this._right ? this._getSidenavEffectiveWidth(this._right, 'push') : 0;
+        const /** @type {?} */ marginLeft = this._left ? this._getDrawerEffectiveWidth(this._left, 'side') : 0;
+        const /** @type {?} */ marginRight = this._right ? this._getDrawerEffectiveWidth(this._right, 'side') : 0;
+        const /** @type {?} */ leftWidth = this._left ? this._getDrawerEffectiveWidth(this._left, 'push') : 0;
+        const /** @type {?} */ rightWidth = this._right ? this._getDrawerEffectiveWidth(this._right, 'push') : 0;
         this._styles = {
             marginLeft: `${marginLeft}px`,
             marginRight: `${marginRight}px`,
@@ -7742,12 +7756,12 @@ class MdSidenavContainer {
         };
     }
 }
-MdSidenavContainer.decorators = [
-    { type: Component, args: [{selector: 'md-sidenav-container, mat-sidenav-container',
-                template: "<div class=\"mat-sidenav-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-sidenav-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"md-sidenav, mat-sidenav\"></ng-content><div class=\"mat-sidenav-content\" [ngStyle]=\"_styles\" cdk-scrollable><ng-content></ng-content></div>",
-                styles: [".mat-sidenav-container{position:relative;transform:translate3d(0,0,0);box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-sidenav-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-sidenav-container[fullscreen].mat-sidenav-opened{overflow:hidden}.mat-sidenav-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:2;visibility:hidden}.mat-sidenav-backdrop.mat-sidenav-shown{visibility:visible}@media screen and (-ms-high-contrast:active){.mat-sidenav-backdrop{opacity:.5}}.mat-sidenav-content{position:relative;transform:translate3d(0,0,0);display:block;height:100%;overflow:auto}.mat-sidenav{position:relative;transform:translate3d(0,0,0);display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;height:100%;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-sidenav.mat-sidenav-side{z-index:1}.mat-sidenav.mat-sidenav-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-sidenav{transform:translate3d(100%,0,0)}[dir=rtl] .mat-sidenav.mat-sidenav-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-sidenav.mat-sidenav-opened:not(.mat-sidenav-side),.mat-sidenav.mat-sidenav-opening:not(.mat-sidenav-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)} .mat-sidenav-transition .mat-sidenav-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-sidenav-transition .mat-sidenav-backdrop.mat-sidenav-shown{transition:background-color .4s cubic-bezier(.25,.8,.25,1)}"],
+MdDrawerContainer.decorators = [
+    { type: Component, args: [{selector: 'md-drawer-container, mat-drawer-container',
+                template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"md-drawer, mat-drawer, md-sidenav, mat-sidenav\"></ng-content><div class=\"mat-drawer-content\" [ngStyle]=\"_styles\" cdk-scrollable><ng-content></ng-content></div>",
+                styles: [".mat-drawer-container{position:relative;transform:translate3d(0,0,0);box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-opened{overflow:hidden}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:2;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}@media screen and (-ms-high-contrast:active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{position:relative;transform:translate3d(0,0,0);display:block;height:100%;overflow:auto}.mat-drawer{position:relative;transform:translate3d(0,0,0);display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;height:100%;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-side{z-index:1}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer{transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-opened:not(.mat-drawer-side),.mat-drawer.mat-drawer-opening:not(.mat-drawer-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)} .mat-drawer-transition .mat-drawer-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-drawer-transition .mat-drawer-backdrop.mat-drawer-shown{transition:background-color .4s cubic-bezier(.25,.8,.25,1)}"],
                 host: {
-                    'class': 'mat-sidenav-container',
+                    'class': 'mat-drawer-container',
                 },
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
@@ -7756,16 +7770,77 @@ MdSidenavContainer.decorators = [
 /**
  * @nocollapse
  */
-MdSidenavContainer.ctorParameters = () => [
+MdDrawerContainer.ctorParameters = () => [
     { type: Directionality, decorators: [{ type: Optional },] },
     { type: ElementRef, },
     { type: Renderer2, },
     { type: NgZone, },
     { type: ChangeDetectorRef, },
 ];
-MdSidenavContainer.propDecorators = {
-    '_sidenavs': [{ type: ContentChildren, args: [MdSidenav,] },],
+MdDrawerContainer.propDecorators = {
+    '_drawers': [{ type: ContentChildren, args: [MdDrawer,] },],
     'backdropClick': [{ type: Output },],
+};
+
+class MdSidenav extends MdDrawer {
+}
+MdSidenav.decorators = [
+    { type: Component, args: [{selector: 'md-sidenav, mat-sidenav',
+                template: "<ng-content></ng-content>",
+                animations: [
+                    trigger('transform', [
+                        state('open, open-instant', style({
+                            transform: 'translate3d(0, 0, 0)',
+                            visibility: 'visible',
+                        })),
+                        state('void', style({
+                            visibility: 'hidden',
+                        })),
+                        transition('void => open-instant', animate('0ms')),
+                        transition('void <=> open, open-instant => void', animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
+                    ])
+                ],
+                host: {
+                    'class': 'mat-drawer mat-sidenav',
+                    '[@transform]': '_animationState',
+                    '(@transform.start)': '_onAnimationStart()',
+                    '(@transform.done)': '_onAnimationEnd($event)',
+                    '(keydown)': 'handleKeydown($event)',
+                    // must prevent the browser from aligning text based on value
+                    '[attr.align]': 'null',
+                    '[class.mat-drawer-end]': 'position === "end"',
+                    '[class.mat-drawer-over]': 'mode === "over"',
+                    '[class.mat-drawer-push]': 'mode === "push"',
+                    '[class.mat-drawer-side]': 'mode === "side"',
+                    'tabIndex': '-1',
+                },
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdSidenav.ctorParameters = () => [];
+class MdSidenavContainer extends MdDrawerContainer {
+}
+MdSidenavContainer.decorators = [
+    { type: Component, args: [{selector: 'md-sidenav-container, mat-sidenav-container',
+                template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"md-drawer, mat-drawer, md-sidenav, mat-sidenav\"></ng-content><div class=\"mat-drawer-content\" [ngStyle]=\"_styles\" cdk-scrollable><ng-content></ng-content></div>",
+                styles: [".mat-drawer-container{position:relative;transform:translate3d(0,0,0);box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-opened{overflow:hidden}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:2;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}@media screen and (-ms-high-contrast:active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{position:relative;transform:translate3d(0,0,0);display:block;height:100%;overflow:auto}.mat-drawer{position:relative;transform:translate3d(0,0,0);display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;height:100%;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-side{z-index:1}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer{transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-opened:not(.mat-drawer-side),.mat-drawer.mat-drawer-opening:not(.mat-drawer-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)} .mat-drawer-transition .mat-drawer-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-drawer-transition .mat-drawer-backdrop.mat-drawer-shown{transition:background-color .4s cubic-bezier(.25,.8,.25,1)}"],
+                host: {
+                    'class': 'mat-drawer-container mat-sidenav-container',
+                },
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdSidenavContainer.ctorParameters = () => [];
+MdSidenavContainer.propDecorators = {
+    '_drawers': [{ type: ContentChildren, args: [MdSidenav,] },],
 };
 
 class MdSidenavModule {
@@ -7773,8 +7848,8 @@ class MdSidenavModule {
 MdSidenavModule.decorators = [
     { type: NgModule, args: [{
                 imports: [CommonModule, MdCommonModule, A11yModule, OverlayModule],
-                exports: [MdSidenavContainer, MdSidenav, MdCommonModule],
-                declarations: [MdSidenavContainer, MdSidenav],
+                exports: [MdDrawerContainer, MdDrawer, MdSidenavContainer, MdSidenav, MdCommonModule],
+                declarations: [MdDrawerContainer, MdDrawer, MdSidenavContainer, MdSidenav],
             },] },
 ];
 /**
@@ -16214,10 +16289,7 @@ class MdDialogContainer extends BasePortalHost {
             throwMdDialogContentAlreadyAttachedError();
         }
         this._savePreviouslyFocusedElement();
-        const /** @type {?} */ componentRef = this._portalHost.attachComponentPortal(portal);
-        // Ensure that the initial view change are picked up.
-        componentRef.changeDetectorRef.markForCheck();
-        return componentRef;
+        return this._portalHost.attachComponentPortal(portal);
     }
     /**
      * Attach a TemplatePortal as content to this dialog container.
@@ -16229,9 +16301,7 @@ class MdDialogContainer extends BasePortalHost {
             throwMdDialogContentAlreadyAttachedError();
         }
         this._savePreviouslyFocusedElement();
-        const /** @type {?} */ locals = this._portalHost.attachTemplatePortal(portal);
-        this._changeDetectorRef.markForCheck();
-        return locals;
+        return this._portalHost.attachTemplatePortal(portal);
     }
     /**
      * Moves the focus inside the focus trap.
@@ -16309,7 +16379,6 @@ MdDialogContainer.decorators = [
                 template: "<ng-template cdkPortalHost></ng-template>",
                 styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;max-width:80vw;width:100%;height:100%}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex;flex-wrap:wrap}.mat-dialog-actions:last-child{margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button+.mat-button,.mat-dialog-actions .mat-button+.mat-raised-button,.mat-dialog-actions .mat-raised-button+.mat-button,.mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-button+.mat-raised-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:0;margin-right:8px}"],
                 encapsulation: ViewEncapsulation.None,
-                changeDetection: ChangeDetectionStrategy.OnPush,
                 animations: [
                     trigger('slideDialog', [
                         // Note: The `enter` animation doesn't transition to something like `translate3d(0, 0, 0)
@@ -20473,5 +20542,5 @@ MaterialModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { VERSION, coerceBooleanProperty, coerceNumberProperty, ObserversModule, ObserveContent, Dir, Directionality, BidiModule, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, VIEWPORT_RULER_PROVIDER, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, A, Z, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_SCROLL_STRATEGY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdChipRemove, MdChipInput, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, _MdCheckboxRequiredValidator, MD_CHECKBOX_REQUIRED_VALIDATOR, MdCheckboxRequiredValidator, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MD_DATEPICKER_SCROLL_STRATEGY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInputEvent, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MD_DIALOG_SCROLL_STRATEGY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdFormFieldModule, MdError, MdFormField, MdFormFieldControl, getMdFormFieldPlaceholderConflictError, getMdFormFieldDuplicatedHintError, getMdFormFieldMissingControlError, MdHint, MdPlaceholder, MdPrefix, MdSuffix, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdInput, getMdInputUnsupportedTypeError, MdListModule, MdListBase, _MdListMixinBase, MdListItemBase, _MdListItemMixinBase, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdSelectionListBase, _MdSelectionListMixinBase, MdListOption, MdSelectionList, MdMenuModule, fadeInItems, transformMenu, MdMenu, MD_MENU_DEFAULT_OPTIONS, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdPaginatorIntl, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MD_SELECT_SCROLL_STRATEGY, MD_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_SELECT_SCROLL_STRATEGY_PROVIDER, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelectTrigger, MdSelect, MdSidenavModule, throwMdDuplicatedSidenavError, MdSidenavToggleResult, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MD_SNACK_BAR_DATA, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort, MdTableModule, _MdCellDef, _MdHeaderCellDef, _MdColumnDef, _MdHeaderCell, _MdCell, MdCellDef, MdHeaderCellDef, MdColumnDef, MdHeaderCell, MdCell, _MdTable, MdTable, _MdHeaderRowDef, _MdCdkRowDef, _MdHeaderRow, _MdRow, MdHeaderRowDef, MdRowDef, MdHeaderRow, MdRow, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroupBase, _MdTabGroupMixinBase, MdTabGroup, MdTabNavBase, _MdTabNavMixinBase, MdTabLinkBase, _MdTabLinkMixinBase, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMdTooltipInvalidPositionError, MD_TOOLTIP_SCROLL_STRATEGY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MdTooltip, TooltipComponent, mixinColor as ɵt, mixinDisableRipple as ɵu, mixinDisabled as ɵs, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵb, RippleRenderer as ɵa, EXPANSION_PANEL_ANIMATION_TIMING as ɵc, MdGridAvatarCssMatStyler as ɵe, MdGridTileFooterCssMatStyler as ɵg, MdGridTileHeaderCssMatStyler as ɵf, MdGridTileText as ɵd, MdMenuItemBase as ɵh, _MdMenuItemMixinBase as ɵi, MD_MENU_SCROLL_STRATEGY as ɵj, MD_MENU_SCROLL_STRATEGY_PROVIDER as ɵl, MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵk, MdTabBase as ɵq, _MdTabMixinBase as ɵr, MdTabHeaderBase as ɵm, _MdTabHeaderMixinBase as ɵn, MdTabLabelWrapperBase as ɵo, _MdTabLabelWrapperMixinBase as ɵp };
+export { VERSION, coerceBooleanProperty, coerceNumberProperty, ObserversModule, ObserveContent, Dir, Directionality, BidiModule, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, VIEWPORT_RULER_PROVIDER, ConnectionPositionPair, ScrollableViewProperties, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, A, Z, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_SCROLL_STRATEGY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdChipRemove, MdChipInput, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, _MdCheckboxRequiredValidator, MD_CHECKBOX_REQUIRED_VALIDATOR, MdCheckboxRequiredValidator, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MD_DATEPICKER_SCROLL_STRATEGY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInputEvent, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MD_DIALOG_SCROLL_STRATEGY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdFormFieldModule, MdError, MdFormField, MdFormFieldControl, getMdFormFieldPlaceholderConflictError, getMdFormFieldDuplicatedHintError, getMdFormFieldMissingControlError, MdHint, MdPlaceholder, MdPrefix, MdSuffix, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdInput, getMdInputUnsupportedTypeError, MdListModule, MdListBase, _MdListMixinBase, MdListItemBase, _MdListItemMixinBase, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdSelectionListBase, _MdSelectionListMixinBase, MdListOption, MdSelectionList, MdMenuModule, fadeInItems, transformMenu, MdMenu, MD_MENU_DEFAULT_OPTIONS, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdPaginatorIntl, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MD_SELECT_SCROLL_STRATEGY, MD_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_SELECT_SCROLL_STRATEGY_PROVIDER, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelectTrigger, MdSelect, MdSidenavModule, throwMdDuplicatedDrawerError, MdDrawerToggleResult, MdDrawer, MdDrawerContainer, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MD_SNACK_BAR_DATA, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort, MdTableModule, _MdCellDef, _MdHeaderCellDef, _MdColumnDef, _MdHeaderCell, _MdCell, MdCellDef, MdHeaderCellDef, MdColumnDef, MdHeaderCell, MdCell, _MdTable, MdTable, _MdHeaderRowDef, _MdCdkRowDef, _MdHeaderRow, _MdRow, MdHeaderRowDef, MdRowDef, MdHeaderRow, MdRow, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroupBase, _MdTabGroupMixinBase, MdTabGroup, MdTabNavBase, _MdTabNavMixinBase, MdTabLinkBase, _MdTabLinkMixinBase, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMdTooltipInvalidPositionError, MD_TOOLTIP_SCROLL_STRATEGY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MdTooltip, TooltipComponent, mixinColor as ɵt, mixinDisableRipple as ɵu, mixinDisabled as ɵs, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵb, RippleRenderer as ɵa, EXPANSION_PANEL_ANIMATION_TIMING as ɵc, MdGridAvatarCssMatStyler as ɵe, MdGridTileFooterCssMatStyler as ɵg, MdGridTileHeaderCssMatStyler as ɵf, MdGridTileText as ɵd, MdMenuItemBase as ɵh, _MdMenuItemMixinBase as ɵi, MD_MENU_SCROLL_STRATEGY as ɵj, MD_MENU_SCROLL_STRATEGY_PROVIDER as ɵl, MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵk, MdTabBase as ɵq, _MdTabMixinBase as ɵr, MdTabHeaderBase as ɵm, _MdTabHeaderMixinBase as ɵn, MdTabLabelWrapperBase as ɵo, _MdTabLabelWrapperMixinBase as ɵp };
 //# sourceMappingURL=material.js.map
