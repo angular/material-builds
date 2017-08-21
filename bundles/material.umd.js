@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8-054ea4d');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-cdbf305');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -17198,7 +17198,7 @@ var MdDialogConfig = (function () {
     return MdDialogConfig;
 }());
 // TODO(jelbourn): resizing
-// TODO(jelbourn): afterOpen and beforeClose
+// TODO(jelbourn): afterOpen
 // Counter for unique dialog ids.
 var uniqueId = 0;
 /**
@@ -17224,6 +17224,10 @@ var MdDialogRef = (function () {
          * Subject for notifying the user that the dialog has finished closing.
          */
         this._afterClosed = new rxjs_Subject.Subject();
+        /**
+         * Subject for notifying the user that the dialog has started closing.
+         */
+        this._beforeClose = new rxjs_Subject.Subject();
         _angular_cdk_rxjs.RxChain.from(_containerInstance._animationStateChanged)
             .call(_angular_cdk_rxjs.filter, function (event) { return event.phaseName === 'done' && event.toState === 'exit'; })
             .call(_angular_cdk_rxjs.first)
@@ -17246,7 +17250,11 @@ var MdDialogRef = (function () {
         _angular_cdk_rxjs.RxChain.from(this._containerInstance._animationStateChanged)
             .call(_angular_cdk_rxjs.filter, function (event) { return event.phaseName === 'start'; })
             .call(_angular_cdk_rxjs.first)
-            .subscribe(function () { return _this._overlayRef.detachBackdrop(); });
+            .subscribe(function () {
+            _this._beforeClose.next(dialogResult);
+            _this._beforeClose.complete();
+            _this._overlayRef.detachBackdrop();
+        });
         this._containerInstance._startExitAnimation();
     };
     /**
@@ -17255,6 +17263,13 @@ var MdDialogRef = (function () {
      */
     MdDialogRef.prototype.afterClosed = function () {
         return this._afterClosed.asObservable();
+    };
+    /**
+     * Gets an observable that is notified when the dialog has started closing.
+     * @return {?}
+     */
+    MdDialogRef.prototype.beforeClose = function () {
+        return this._beforeClose.asObservable();
     };
     /**
      * Updates the dialog's position.

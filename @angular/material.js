@@ -33,7 +33,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.8-054ea4d');
+const VERSION = new Version('2.0.0-beta.8-cdbf305');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -16175,7 +16175,7 @@ class MdDialogConfig {
 }
 
 // TODO(jelbourn): resizing
-// TODO(jelbourn): afterOpen and beforeClose
+// TODO(jelbourn): afterOpen
 // Counter for unique dialog ids.
 let uniqueId = 0;
 /**
@@ -16199,6 +16199,10 @@ class MdDialogRef {
          * Subject for notifying the user that the dialog has finished closing.
          */
         this._afterClosed = new Subject();
+        /**
+         * Subject for notifying the user that the dialog has started closing.
+         */
+        this._beforeClose = new Subject();
         RxChain.from(_containerInstance._animationStateChanged)
             .call(filter, event => event.phaseName === 'done' && event.toState === 'exit')
             .call(first)
@@ -16220,7 +16224,11 @@ class MdDialogRef {
         RxChain.from(this._containerInstance._animationStateChanged)
             .call(filter, event => event.phaseName === 'start')
             .call(first)
-            .subscribe(() => this._overlayRef.detachBackdrop());
+            .subscribe(() => {
+            this._beforeClose.next(dialogResult);
+            this._beforeClose.complete();
+            this._overlayRef.detachBackdrop();
+        });
         this._containerInstance._startExitAnimation();
     }
     /**
@@ -16229,6 +16237,13 @@ class MdDialogRef {
      */
     afterClosed() {
         return this._afterClosed.asObservable();
+    }
+    /**
+     * Gets an observable that is notified when the dialog has started closing.
+     * @return {?}
+     */
+    beforeClose() {
+        return this._beforeClose.asObservable();
     }
     /**
      * Updates the dialog's position.
