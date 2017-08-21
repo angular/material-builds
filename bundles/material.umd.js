@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8-90a6ac9');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-5e3228f');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -11530,13 +11530,9 @@ var MdIcon = (function (_super) {
         }
         var /** @type {?} */ parts = iconName.split(':');
         switch (parts.length) {
-            case 1:
-                // Use default namespace.
-                return ['', parts[0]];
-            case 2:
-                return (parts);
-            default:
-                throw Error("Invalid icon name: \"" + iconName + "\"");
+            case 1: return ['', parts[0]]; // Use default namespace.
+            case 2: return (parts);
+            default: throw Error("Invalid icon name: \"" + iconName + "\"");
         }
     };
     /**
@@ -11546,9 +11542,14 @@ var MdIcon = (function (_super) {
     MdIcon.prototype.ngOnChanges = function (changes) {
         var _this = this;
         // Only update the inline SVG icon if the inputs changed, to avoid unnecessary DOM operations.
-        if (changes.svgIcon && this.svgIcon) {
-            var _a = this._splitIconName(this.svgIcon), namespace = _a[0], iconName = _a[1];
-            _angular_cdk_rxjs.first.call(this._mdIconRegistry.getNamedSvgIcon(iconName, namespace)).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
+        if (changes.svgIcon) {
+            if (this.svgIcon) {
+                var _a = this._splitIconName(this.svgIcon), namespace = _a[0], iconName = _a[1];
+                _angular_cdk_rxjs.first.call(this._mdIconRegistry.getNamedSvgIcon(iconName, namespace)).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
+            }
+            else {
+                this._clearSvgElement();
+            }
         }
         if (this._usingFontIcon()) {
             this._updateFontIconClasses();
@@ -11575,6 +11576,13 @@ var MdIcon = (function (_super) {
      * @return {?}
      */
     MdIcon.prototype._setSvgElement = function (svg) {
+        this._clearSvgElement();
+        this._renderer.appendChild(this._elementRef.nativeElement, svg);
+    };
+    /**
+     * @return {?}
+     */
+    MdIcon.prototype._clearSvgElement = function () {
         var /** @type {?} */ layoutElement = this._elementRef.nativeElement;
         var /** @type {?} */ childCount = layoutElement.childNodes.length;
         // Remove existing child nodes and add the new SVG element. Note that we can't
@@ -11582,7 +11590,6 @@ var MdIcon = (function (_super) {
         for (var /** @type {?} */ i = 0; i < childCount; i++) {
             this._renderer.removeChild(layoutElement, layoutElement.childNodes[i]);
         }
-        this._renderer.appendChild(layoutElement, svg);
     };
     /**
      * @return {?}
@@ -21999,7 +22006,7 @@ exports.GlobalPositionStrategy = _angular_cdk_overlay.GlobalPositionStrategy;
 exports.ConnectedPositionStrategy = _angular_cdk_overlay.ConnectedPositionStrategy;
 exports.VIEWPORT_RULER_PROVIDER = _angular_cdk_overlay.VIEWPORT_RULER_PROVIDER;
 exports.ConnectionPositionPair = _angular_cdk_overlay.ConnectionPositionPair;
-exports.ScrollableViewProperties = _angular_cdk_overlay.ScrollableViewProperties;
+exports.ScrollingVisibility = _angular_cdk_overlay.ScrollingVisibility;
 exports.ConnectedOverlayPositionChange = _angular_cdk_overlay.ConnectedOverlayPositionChange;
 exports.Scrollable = _angular_cdk_overlay.Scrollable;
 exports.ScrollDispatcher = _angular_cdk_overlay.ScrollDispatcher;

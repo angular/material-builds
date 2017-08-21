@@ -71,5 +71,6 @@ export declare class MdIcon extends _MdIconMixinBase implements OnChanges, OnIni
     ngOnInit(): void;
     private _usingFontIcon();
     private _setSvgElement(svg);
+    private _clearSvgElement();
     private _updateFontIconClasses();
 }
