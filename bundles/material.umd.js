@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8-cdbf305');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-90a6ac9');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -17389,6 +17389,7 @@ var MdDialogContainer = (function (_super) {
     };
     /**
      * Attach a TemplatePortal as content to this dialog container.
+     * @template C
      * @param {?} portal Portal to be attached as the dialog content.
      * @return {?}
      */
@@ -17715,7 +17716,7 @@ var MdDialog = (function () {
             });
         }
         if (componentOrTemplateRef instanceof _angular_core.TemplateRef) {
-            dialogContainer.attachTemplatePortal(new _angular_cdk_portal.TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null))));
+            dialogContainer.attachTemplatePortal(new _angular_cdk_portal.TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({ $implicit: config.data, dialogRef: dialogRef })));
         }
         else {
             var /** @type {?} */ injector = this._createInjector(config, dialogRef, dialogContainer);

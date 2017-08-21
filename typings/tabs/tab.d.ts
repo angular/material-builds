@@ -24,7 +24,7 @@ export declare class MdTab extends _MdTabMixinBase implements OnInit, CanDisable
     textLabel: string;
     /** The portal that will be the hosted content of the tab */
     private _contentPortal;
-    readonly content: TemplatePortal | null;
+    readonly content: TemplatePortal<any> | null;
     /** Emits whenever the label changes. */
     _labelChange: Subject<void>;
     /**

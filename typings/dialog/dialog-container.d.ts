@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ComponentRef, ElementRef, EventEmitter, NgZone, ChangeDetectorRef } from '@angular/core';
+import { ComponentRef, ElementRef, EmbeddedViewRef, EventEmitter, NgZone, ChangeDetectorRef } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
 import { BasePortalHost, ComponentPortal, PortalHostDirective, TemplatePortal } from '@angular/cdk/portal';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
@@ -53,7 +53,7 @@ export declare class MdDialogContainer extends BasePortalHost {
      * Attach a TemplatePortal as content to this dialog container.
      * @param portal Portal to be attached as the dialog content.
      */
-    attachTemplatePortal(portal: TemplatePortal): Map<string, any>;
+    attachTemplatePortal<C>(portal: TemplatePortal<C>): EmbeddedViewRef<C>;
     /** Moves the focus inside the focus trap. */
     private _trapFocus();
     /** Restores focus to the element that was focused before the dialog opened. */
