@@ -113,6 +113,8 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
     private _placeholder;
     /** Whether the component is in multiple selection mode. */
     private _multiple;
+    /** Comparison function to specify which option is displayed. Defaults to object equality. */
+    private _compareWith;
     /** Deals with the selection logic. */
     _selectionModel: SelectionModel<MdOption>;
     /** The animation state of the placeholder. */
@@ -183,6 +185,12 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
     required: any;
     /** Whether the user should be allowed to select multiple options. */
     multiple: boolean;
+    /**
+     * A function to compare the option values with the selected values. The first argument
+     * is a value from an option. The second is a value from the selection. A boolean
+     * should be returned.
+     */
+    compareWith: (o1: any, o2: any) => boolean;
     /** Whether to float the placeholder text. */
     floatPlaceholder: FloatPlaceholderType;
     private _floatPlaceholder;
@@ -298,6 +306,7 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
      * present in the DOM.
      */
     private _setScrollTop();
+    private _initializeSelection();
     /**
      * Sets the selected option based on a value. If no option can be
      * found with the designated value, the select trigger is cleared.

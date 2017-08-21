@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8-c86d13c');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-054ea4d');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -4983,8 +4983,8 @@ var fadeInContent = _angular_animations.trigger('fadeInContent', [
     ])
 ]);
 /**
- * Returns an exception to be thrown when attempting to change a s
- * elect's `multiple` option after initialization.
+ * Returns an exception to be thrown when attempting to change a select's `multiple` option
+ * after initialization.
  * \@docs-private
  * @return {?}
  */
@@ -5000,6 +5000,15 @@ function getMdSelectDynamicMultipleError() {
  */
 function getMdSelectNonArrayValueError() {
     return Error('Cannot assign truthy non-array value to select in `multiple` mode.');
+}
+/**
+ * Returns an exception to be thrown when assigning a non-function value to the comparator
+ * used to determine if a value corresponds to an option. Note that whether the function
+ * actually takes two values and returns a boolean is not checked.
+ * @return {?}
+ */
+function getMdSelectNonFunctionValueError() {
+    return Error('Cannot assign a non-function value to `compareWith`.');
 }
 /**
  * The fixed height of every option element (option, group header etc.).
@@ -5167,6 +5176,10 @@ var MdSelect = (function (_super) {
          */
         _this._multiple = false;
         /**
+         * Comparison function to specify which option is displayed. Defaults to object equality.
+         */
+        _this._compareWith = function (o1, o2) { return o1 === o2; };
+        /**
          * The animation state of the placeholder.
          */
         _this._placeholderState = '';
@@ -5307,6 +5320,31 @@ var MdSelect = (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdSelect.prototype, "compareWith", {
+        /**
+         * A function to compare the option values with the selected values. The first argument
+         * is a value from an option. The second is a value from the selection. A boolean
+         * should be returned.
+         * @return {?}
+         */
+        get: function () { return this._compareWith; },
+        /**
+         * @param {?} fn
+         * @return {?}
+         */
+        set: function (fn) {
+            if (typeof fn !== 'function') {
+                throw getMdSelectNonFunctionValueError();
+            }
+            this._compareWith = fn;
+            if (this._selectionModel) {
+                // A different comparator means the selection could change.
+                this._initializeSelection();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MdSelect.prototype, "floatPlaceholder", {
         /**
          * Whether to float the placeholder text.
@@ -5400,11 +5438,7 @@ var MdSelect = (function (_super) {
         this._initKeyManager();
         this._changeSubscription = _angular_cdk_rxjs.startWith.call(this.options.changes, null).subscribe(function () {
             _this._resetOptions();
-            // Defer setting the value in order to avoid the "Expression
-            // has changed after it was checked" errors from Angular.
-            Promise.resolve().then(function () {
-                _this._setSelectionByValue(_this._control ? _this._control.value : _this._value);
-            });
+            _this._initializeSelection();
         });
     };
     /**
@@ -5664,6 +5698,17 @@ var MdSelect = (function (_super) {
         ((scrollContainer)).scrollTop = this._scrollTop;
     };
     /**
+     * @return {?}
+     */
+    MdSelect.prototype._initializeSelection = function () {
+        var _this = this;
+        // Defer setting the value in order to avoid the "Expression
+        // has changed after it was checked" errors from Angular.
+        Promise.resolve().then(function () {
+            _this._setSelectionByValue(_this._control ? _this._control.value : _this._value);
+        });
+    };
+    /**
      * Sets the selected option based on a value. If no option can be
      * found with the designated value, the select trigger is cleared.
      * @param {?} value
@@ -5703,9 +5748,20 @@ var MdSelect = (function (_super) {
      * @return {?} Option that has the corresponding value.
      */
     MdSelect.prototype._selectValue = function (value, isUserInput) {
+        var _this = this;
         if (isUserInput === void 0) { isUserInput = false; }
         var /** @type {?} */ correspondingOption = this.options.find(function (option) {
-            return option.value != null && option.value === value;
+            try {
+                // Treat null as a special reset value.
+                return option.value != null && _this._compareWith(option.value, value);
+            }
+            catch (error) {
+                if (_angular_core.isDevMode()) {
+                    // Notify developers of errors in their comparator.
+                    console.warn(error);
+                }
+                return false;
+            }
         });
         if (correspondingOption) {
             isUserInput ? correspondingOption._selectViaInteraction() : correspondingOption.select();
@@ -6269,6 +6325,7 @@ MdSelect.propDecorators = {
     'placeholder': [{ type: _angular_core.Input },],
     'required': [{ type: _angular_core.Input },],
     'multiple': [{ type: _angular_core.Input },],
+    'compareWith': [{ type: _angular_core.Input },],
     'floatPlaceholder': [{ type: _angular_core.Input },],
     'tabIndex': [{ type: _angular_core.Input },],
     'value': [{ type: _angular_core.Input },],
