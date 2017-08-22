@@ -31,8 +31,8 @@ export declare class MdExpansionPanelHeader implements OnDestroy {
     _getExpandedState(): string;
     /** Gets the panel id. */
     _getPanelId(): string;
-    /** Gets whether the expand indicator is hidden. */
-    _getHideToggle(): boolean;
+    /** Gets whether the expand indicator should be shown. */
+    _showToggle(): boolean;
     /** Handle keyup event calling to toggle() if appropriate. */
     _keyup(event: KeyboardEvent): void;
     ngOnDestroy(): void;

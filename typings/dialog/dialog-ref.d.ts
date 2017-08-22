@@ -41,6 +41,10 @@ export declare class MdDialogRef<T> {
      */
     beforeClose(): Observable<any>;
     /**
+     * Gets an observable that emits when the overlay's backdrop has been clicked.
+     */
+    backdropClick(): Observable<void>;
+    /**
      * Updates the dialog's position.
      * @param position New dialog position.
      */

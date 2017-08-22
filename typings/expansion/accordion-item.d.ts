@@ -8,11 +8,16 @@
 import { EventEmitter, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { UniqueSelectionDispatcher } from '../core';
 import { CdkAccordion } from './accordion';
+import { CanDisable } from '../core/common-behaviors/disabled';
+/** @docs-private */
+export declare class AccordionItemBase {
+}
+export declare const _AccordionItemMixinBase: (new (...args: any[]) => CanDisable) & typeof AccordionItemBase;
 /**
  * An abstract class to be extended and decorated as a component.  Sets up all
  * events and attributes needed to be managed by a CdkAccordion parent.
  */
-export declare class AccordionItem implements OnDestroy {
+export declare class AccordionItem extends _AccordionItemMixinBase implements OnDestroy, CanDisable {
     accordion: CdkAccordion;
     private _changeDetectorRef;
     protected _expansionDispatcher: UniqueSelectionDispatcher;

@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8-6cdbf36');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-5bd655b');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -10244,9 +10244,9 @@ var MdChip = (function (_super) {
          */
         _this._hasFocus = false;
         /**
-         * Emitted when the chip is focused.
+         * Emits when the chip is focused.
          */
-        _this.onFocus = new _angular_core.EventEmitter();
+        _this._onFocus = new rxjs_Subject.Subject();
         /**
          * Emitted when the chip is selected.
          */
@@ -10349,7 +10349,7 @@ var MdChip = (function (_super) {
      */
     MdChip.prototype.focus = function () {
         this._elementRef.nativeElement.focus();
-        this.onFocus.emit({ chip: this });
+        this._onFocus.next({ chip: this });
     };
     /**
      * Allows for programmatic removal of the chip. Called by the MdChipList when the DELETE or
@@ -10683,7 +10683,7 @@ var MdChipList = (function () {
             return;
         }
         // Watch for focus events outside of the keyboard navigation
-        chip.onFocus.subscribe(function () {
+        chip._onFocus.subscribe(function () {
             var /** @type {?} */ chipIndex = _this.chips.toArray().indexOf(chip);
             if (_this._isValidIndex(chipIndex)) {
                 _this._keyManager.updateActiveItemIndex(chipIndex);
@@ -17279,6 +17279,13 @@ var MdDialogRef = (function () {
         return this._beforeClose.asObservable();
     };
     /**
+     * Gets an observable that emits when the overlay's backdrop has been clicked.
+     * @return {?}
+     */
+    MdDialogRef.prototype.backdropClick = function () {
+        return this._overlayRef.backdropClick();
+    };
+    /**
      * Updates the dialog's position.
      * @param {?=} position New dialog position.
      * @return {?}
@@ -20450,47 +20457,58 @@ MdAccordion.ctorParameters = function () { return []; };
  */
 var nextId$2 = 0;
 /**
+ * \@docs-private
+ */
+var AccordionItemBase = (function () {
+    function AccordionItemBase() {
+    }
+    return AccordionItemBase;
+}());
+var _AccordionItemMixinBase = mixinDisabled(AccordionItemBase);
+/**
  * An abstract class to be extended and decorated as a component.  Sets up all
  * events and attributes needed to be managed by a CdkAccordion parent.
  */
-var AccordionItem = (function () {
+var AccordionItem = (function (_super) {
+    __extends(AccordionItem, _super);
     /**
      * @param {?} accordion
      * @param {?} _changeDetectorRef
      * @param {?} _expansionDispatcher
      */
     function AccordionItem(accordion, _changeDetectorRef, _expansionDispatcher) {
-        var _this = this;
-        this.accordion = accordion;
-        this._changeDetectorRef = _changeDetectorRef;
-        this._expansionDispatcher = _expansionDispatcher;
+        var _this = _super.call(this) || this;
+        _this.accordion = accordion;
+        _this._changeDetectorRef = _changeDetectorRef;
+        _this._expansionDispatcher = _expansionDispatcher;
         /**
          * Event emitted every time the MdAccordionChild is closed.
          */
-        this.closed = new _angular_core.EventEmitter();
+        _this.closed = new _angular_core.EventEmitter();
         /**
          * Event emitted every time the MdAccordionChild is opened.
          */
-        this.opened = new _angular_core.EventEmitter();
+        _this.opened = new _angular_core.EventEmitter();
         /**
          * Event emitted when the MdAccordionChild is destroyed.
          */
-        this.destroyed = new _angular_core.EventEmitter();
+        _this.destroyed = new _angular_core.EventEmitter();
         /**
          * The unique MdAccordionChild id.
          */
-        this.id = "cdk-accordion-child-" + nextId$2++;
+        _this.id = "cdk-accordion-child-" + nextId$2++;
         /**
          * Unregister function for _expansionDispatcher *
          */
-        this._removeUniqueSelectionListener = function () { };
-        this._removeUniqueSelectionListener =
+        _this._removeUniqueSelectionListener = function () { };
+        _this._removeUniqueSelectionListener =
             _expansionDispatcher.listen(function (id, accordionId) {
                 if (_this.accordion && !_this.accordion.multi &&
                     _this.accordion.id === accordionId && _this.id !== id) {
                     _this.expanded = false;
                 }
             });
+        return _this;
     }
     Object.defineProperty(AccordionItem.prototype, "expanded", {
         /**
@@ -20556,7 +20574,7 @@ var AccordionItem = (function () {
         this.expanded = true;
     };
     return AccordionItem;
-}());
+}(_AccordionItemMixinBase));
 AccordionItem.decorators = [
     { type: _angular_core.Injectable },
 ];
@@ -20654,6 +20672,7 @@ MdExpansionPanel.decorators = [
                 template: "<ng-content select=\"mat-expansion-panel-header, md-expansion-panel-header\"></ng-content><div [class.mat-expanded]=\"expanded\" class=\"mat-expansion-panel-content\" [@bodyExpansion]=\"_getExpandedState()\" [id]=\"id\"><div class=\"mat-expansion-panel-body\"><ng-content></ng-content></div><ng-content select=\"mat-action-row, md-action-row\"></ng-content></div>",
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                inputs: ['disabled'],
                 host: {
                     'class': 'mat-expansion-panel',
                     '[class.mat-expanded]': 'expanded',
@@ -20724,7 +20743,7 @@ var MdExpansionPanelHeader = (function () {
         this._parentChangeSubscription = null;
         // Since the toggle state depends on an @Input on the panel, we
         // need to  subscribe and trigger change detection manually.
-        this._parentChangeSubscription = rxjs_observable_merge.merge(panel.opened, panel.closed, _angular_cdk_rxjs.filter.call(panel._inputChanges, function (changes) { return !!changes.hideToggle; }))
+        this._parentChangeSubscription = rxjs_observable_merge.merge(panel.opened, panel.closed, _angular_cdk_rxjs.filter.call(panel._inputChanges, function (changes) { return !!(changes.hideToggle || changes.disabled); }))
             .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
         _focusOriginMonitor.monitor(_element.nativeElement, _renderer, false);
     }
@@ -20733,7 +20752,9 @@ var MdExpansionPanelHeader = (function () {
      * @return {?}
      */
     MdExpansionPanelHeader.prototype._toggle = function () {
-        this.panel.toggle();
+        if (!this.panel.disabled) {
+            this.panel.toggle();
+        }
     };
     /**
      * Gets whether the panel is expanded.
@@ -20757,11 +20778,11 @@ var MdExpansionPanelHeader = (function () {
         return this.panel.id;
     };
     /**
-     * Gets whether the expand indicator is hidden.
+     * Gets whether the expand indicator should be shown.
      * @return {?}
      */
-    MdExpansionPanelHeader.prototype._getHideToggle = function () {
-        return this.panel.hideToggle;
+    MdExpansionPanelHeader.prototype._showToggle = function () {
+        return !this.panel.hideToggle && !this.panel.disabled;
     };
     /**
      * Handle keyup event calling to toggle() if appropriate.
@@ -20794,16 +20815,17 @@ var MdExpansionPanelHeader = (function () {
 }());
 MdExpansionPanelHeader.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-expansion-panel-header, mat-expansion-panel-header',
-                styles: [".mat-expansion-panel-header{cursor:pointer;display:flex;flex-direction:row;align-items:center;padding:0 24px}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-description,.mat-expansion-panel-header-title{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-description,[dir=rtl] .mat-expansion-panel-header-title{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:'';display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}"],
-                template: "<span class=\"mat-content\"><ng-content select=\"md-panel-title, mat-panel-title\"></ng-content><ng-content select=\"md-panel-description, mat-panel-description\"></ng-content><ng-content></ng-content></span><span [@indicatorRotate]=\"_getExpandedState()\" *ngIf=\"!_getHideToggle()\" class=\"mat-expansion-indicator\"></span>",
+                styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-description,.mat-expansion-panel-header-title{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-description,[dir=rtl] .mat-expansion-panel-header-title{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:'';display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}"],
+                template: "<span class=\"mat-content\"><ng-content select=\"md-panel-title, mat-panel-title\"></ng-content><ng-content select=\"md-panel-description, mat-panel-description\"></ng-content><ng-content></ng-content></span><span [@indicatorRotate]=\"_getExpandedState()\" *ngIf=\"_showToggle()\" class=\"mat-expansion-indicator\"></span>",
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                 host: {
                     'class': 'mat-expansion-panel-header',
                     'role': 'button',
-                    'tabindex': '0',
+                    '[attr.tabindex]': 'panel.disabled ? -1 : 0',
                     '[attr.aria-controls]': '_getPanelId()',
                     '[attr.aria-expanded]': '_isExpanded()',
+                    '[attr.aria-disabled]': 'panel.disabled',
                     '[class.mat-expanded]': '_isExpanded()',
                     '(click)': '_toggle()',
                     '(keyup)': '_keyup($event)',
@@ -21843,7 +21865,7 @@ var MdPaginator = (function () {
 }());
 MdPaginator.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-paginator, mat-paginator',
-                template: "<div class=\"mat-paginator-page-size\"><div class=\"mat-paginator-page-size-label\">{{_intl.itemsPerPageLabel}}</div><md-select *ngIf=\"_displayedPageSizeOptions.length > 1\" class=\"mat-paginator-page-size-select\" [value]=\"pageSize\" [aria-label]=\"_intl.itemsPerPageLabel\" (change)=\"_changePageSize($event.value)\"><md-option *ngFor=\"let pageSizeOption of _displayedPageSizeOptions\" [value]=\"pageSizeOption\">{{pageSizeOption}}</md-option></md-select><div *ngIf=\"_displayedPageSizeOptions.length <= 1\">{{pageSize}}</div></div><div class=\"mat-paginator-range-label\">{{_intl.getRangeLabel(pageIndex, pageSize, length)}}</div><button md-icon-button class=\"mat-paginator-navigation-previous\" (click)=\"previousPage()\" [attr.aria-label]=\"_intl.previousPageLabel\" [mdTooltip]=\"_intl.previousPageLabel\" [mdTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\"><div class=\"mat-paginator-increment\"></div></button> <button md-icon-button class=\"mat-paginator-navigation-next\" (click)=\"nextPage()\" [attr.aria-label]=\"_intl.nextPageLabel\" [mdTooltip]=\"_intl.nextPageLabel\" [mdTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\"><div class=\"mat-paginator-decrement\"></div></button>",
+                template: "<div class=\"mat-paginator-page-size\"><div class=\"mat-paginator-page-size-label\">{{_intl.itemsPerPageLabel}}</div><md-select *ngIf=\"_displayedPageSizeOptions.length > 1\" class=\"mat-paginator-page-size-select\" [value]=\"pageSize\" [aria-label]=\"_intl.itemsPerPageLabel\" (change)=\"_changePageSize($event.value)\"><md-option *ngFor=\"let pageSizeOption of _displayedPageSizeOptions\" [value]=\"pageSizeOption\">{{pageSizeOption}}</md-option></md-select><div *ngIf=\"_displayedPageSizeOptions.length <= 1\">{{pageSize}}</div></div><div class=\"mat-paginator-range-label\">{{_intl.getRangeLabel(pageIndex, pageSize, length)}}</div><button md-icon-button type=\"button\" class=\"mat-paginator-navigation-previous\" (click)=\"previousPage()\" [attr.aria-label]=\"_intl.previousPageLabel\" [mdTooltip]=\"_intl.previousPageLabel\" [mdTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\"><div class=\"mat-paginator-increment\"></div></button> <button md-icon-button type=\"button\" class=\"mat-paginator-navigation-next\" (click)=\"nextPage()\" [attr.aria-label]=\"_intl.nextPageLabel\" [mdTooltip]=\"_intl.nextPageLabel\" [mdTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\"><div class=\"mat-paginator-decrement\"></div></button>",
                 styles: [".mat-paginator{display:flex;align-items:center;justify-content:flex-end;min-height:56px;padding:0 8px}.mat-paginator-page-size{display:flex;align-items:center}.mat-paginator-page-size-label{margin:0 4px}.mat-paginator-page-size-select{padding-top:0;margin:0 4px}.mat-paginator-page-size-select .mat-select-trigger{min-width:56px}.mat-paginator-range-label{margin:0 32px}.mat-paginator-increment-button+.mat-paginator-increment-button{margin:0 0 0 8px}[dir=rtl] .mat-paginator-increment-button+.mat-paginator-increment-button{margin:0 8px 0 0}.mat-paginator-decrement,.mat-paginator-increment{width:8px;height:8px}.mat-paginator-decrement,[dir=rtl] .mat-paginator-increment{transform:rotate(45deg)}.mat-paginator-increment,[dir=rtl] .mat-paginator-decrement{transform:rotate(225deg)}.mat-paginator-decrement{margin-left:12px}[dir=rtl] .mat-paginator-decrement{margin-right:12px}.mat-paginator-increment{margin-left:16px}[dir=rtl] .mat-paginator-increment{margin-right:16px}"],
                 host: {
                     'class': 'mat-paginator',
@@ -22356,27 +22378,29 @@ exports.MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY = MD_TOOLTIP_SCROLL_STRATEGY
 exports.MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER = MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER;
 exports.MdTooltip = MdTooltip;
 exports.TooltipComponent = TooltipComponent;
-exports.ɵt = mixinColor;
-exports.ɵu = mixinDisableRipple;
-exports.ɵs = mixinDisabled;
+exports.ɵv = mixinColor;
+exports.ɵw = mixinDisableRipple;
+exports.ɵu = mixinDisabled;
 exports.ɵb = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
 exports.ɵa = RippleRenderer;
-exports.ɵc = EXPANSION_PANEL_ANIMATION_TIMING;
-exports.ɵe = MdGridAvatarCssMatStyler;
-exports.ɵg = MdGridTileFooterCssMatStyler;
-exports.ɵf = MdGridTileHeaderCssMatStyler;
-exports.ɵd = MdGridTileText;
-exports.ɵh = MdMenuItemBase;
-exports.ɵi = _MdMenuItemMixinBase;
-exports.ɵj = MD_MENU_SCROLL_STRATEGY;
-exports.ɵl = MD_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵk = MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
-exports.ɵq = MdTabBase;
-exports.ɵr = _MdTabMixinBase;
-exports.ɵm = MdTabHeaderBase;
-exports.ɵn = _MdTabHeaderMixinBase;
-exports.ɵo = MdTabLabelWrapperBase;
-exports.ɵp = _MdTabLabelWrapperMixinBase;
+exports.ɵc = AccordionItemBase;
+exports.ɵd = _AccordionItemMixinBase;
+exports.ɵe = EXPANSION_PANEL_ANIMATION_TIMING;
+exports.ɵg = MdGridAvatarCssMatStyler;
+exports.ɵi = MdGridTileFooterCssMatStyler;
+exports.ɵh = MdGridTileHeaderCssMatStyler;
+exports.ɵf = MdGridTileText;
+exports.ɵj = MdMenuItemBase;
+exports.ɵk = _MdMenuItemMixinBase;
+exports.ɵl = MD_MENU_SCROLL_STRATEGY;
+exports.ɵn = MD_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵm = MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵs = MdTabBase;
+exports.ɵt = _MdTabMixinBase;
+exports.ɵo = MdTabHeaderBase;
+exports.ɵp = _MdTabHeaderMixinBase;
+exports.ɵq = MdTabLabelWrapperBase;
+exports.ɵr = _MdTabLabelWrapperMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

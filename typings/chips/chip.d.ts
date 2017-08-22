@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 import { FocusableOption } from '../core/a11y/focus-key-manager';
 import { CanColor } from '../core/common-behaviors/color';
 import { CanDisable } from '../core/common-behaviors/disabled';
@@ -46,8 +47,8 @@ export declare class MdChip extends _MdChipMixinBase implements FocusableOption,
     protected _removable: boolean;
     /** Whether the chip has focus. */
     _hasFocus: boolean;
-    /** Emitted when the chip is focused. */
-    onFocus: EventEmitter<MdChipEvent>;
+    /** Emits when the chip is focused. */
+    _onFocus: Subject<MdChipEvent>;
     /** Emitted when the chip is selected. */
     select: EventEmitter<MdChipEvent>;
     /** Emitted when the chip is deselected. */
