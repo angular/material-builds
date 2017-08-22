@@ -55,7 +55,7 @@ export declare class MdChip extends _MdChipMixinBase implements FocusableOption,
     deselect: EventEmitter<MdChipEvent>;
     /** Emitted when the chip is destroyed. */
     destroy: EventEmitter<MdChipEvent>;
-    readonly ariaSelected: string;
+    readonly ariaSelected: string | null;
     constructor(renderer: Renderer2, elementRef: ElementRef);
     /** Emitted when a chip is to be removed. */
     onRemove: EventEmitter<MdChipEvent>;
