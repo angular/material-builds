@@ -33,7 +33,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.8-90fc300');
+const VERSION = new Version('2.0.0-beta.8-9eb9ddf');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -9894,6 +9894,11 @@ class MdChipList {
          * Tab index for the chip list.
          */
         this._tabIndex = 0;
+        /**
+         * User defined tab index.
+         * When it is not null, use user defined tab index. Otherwise use _tabIndex
+         */
+        this._userTabIndex = null;
     }
     /**
      * @return {?}
@@ -9904,7 +9909,7 @@ class MdChipList {
         // it back to the first chip when the user tabs out.
         this._tabOutSubscription = this._keyManager.tabOut.subscribe(() => {
             this._tabIndex = -1;
-            setTimeout(() => this._tabIndex = 0);
+            setTimeout(() => this._tabIndex = this._userTabIndex || 0);
         });
         // Go ahead and subscribe all of the initial chips
         this._subscribeChips(this.chips);
@@ -9945,6 +9950,14 @@ class MdChipList {
      */
     set selectable(value) {
         this._selectable = coerceBooleanProperty(value);
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set tabIndex(value) {
+        this._userTabIndex = value;
+        this._tabIndex = value;
     }
     /**
      * Associates an HTML input element with this chip list.
@@ -10028,7 +10041,7 @@ class MdChipList {
      */
     _updateTabIndex() {
         // If we have 0 chips, we should not allow keyboard focus
-        this._tabIndex = (this.chips.length === 0 ? -1 : 0);
+        this._tabIndex = this._userTabIndex || (this.chips.length === 0 ? -1 : 0);
     }
     /**
      * Add a specific chip to our subscribed list. If the chip has
@@ -10143,6 +10156,7 @@ MdChipList.ctorParameters = () => [
 ];
 MdChipList.propDecorators = {
     'selectable': [{ type: Input },],
+    'tabIndex': [{ type: Input },],
 };
 
 class MdChipInput {
@@ -12832,10 +12846,12 @@ class MdSnackBarContainer extends BasePortalHost {
 MdSnackBarContainer.decorators = [
     { type: Component, args: [{selector: 'snack-bar-container',
                 template: "<ng-template cdkPortalHost></ng-template>",
-                styles: [":host{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);background:#323232;border-radius:2px;box-sizing:content-box;display:block;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%)}@media screen and (-ms-high-contrast:active){:host{border:solid 1px}}"],
+                styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:content-box;display:block;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}"],
                 changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
                 host: {
                     'role': 'alert',
+                    'class': 'mat-snack-bar-container',
                     '[@state]': 'animationState',
                     '(@state.done)': 'onAnimationEnd($event)'
                 },
@@ -12894,7 +12910,7 @@ class SimpleSnackBar {
 SimpleSnackBar.decorators = [
     { type: Component, args: [{selector: 'simple-snack-bar',
                 template: "{{data.message}} <button class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\" (click)=\"action()\">{{data.action}}</button>",
-                styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;color:#fff;line-height:20px}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;background:0 0;color:inherit;flex-shrink:0;margin-left:48px}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0}"],
+                styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;line-height:20px}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;background:0 0;flex-shrink:0;margin-left:48px}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0}"],
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 host: {

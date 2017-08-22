@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8-90fc300');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-9eb9ddf');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -10525,6 +10525,11 @@ var MdChipList = (function () {
          * Tab index for the chip list.
          */
         this._tabIndex = 0;
+        /**
+         * User defined tab index.
+         * When it is not null, use user defined tab index. Otherwise use _tabIndex
+         */
+        this._userTabIndex = null;
     }
     /**
      * @return {?}
@@ -10536,7 +10541,7 @@ var MdChipList = (function () {
         // it back to the first chip when the user tabs out.
         this._tabOutSubscription = this._keyManager.tabOut.subscribe(function () {
             _this._tabIndex = -1;
-            setTimeout(function () { return _this._tabIndex = 0; });
+            setTimeout(function () { return _this._tabIndex = _this._userTabIndex || 0; });
         });
         // Go ahead and subscribe all of the initial chips
         this._subscribeChips(this.chips);
@@ -10578,6 +10583,18 @@ var MdChipList = (function () {
          */
         set: function (value) {
             this._selectable = _angular_cdk_coercion.coerceBooleanProperty(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdChipList.prototype, "tabIndex", {
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._userTabIndex = value;
+            this._tabIndex = value;
         },
         enumerable: true,
         configurable: true
@@ -10665,7 +10682,7 @@ var MdChipList = (function () {
      */
     MdChipList.prototype._updateTabIndex = function () {
         // If we have 0 chips, we should not allow keyboard focus
-        this._tabIndex = (this.chips.length === 0 ? -1 : 0);
+        this._tabIndex = this._userTabIndex || (this.chips.length === 0 ? -1 : 0);
     };
     /**
      * Add a specific chip to our subscribed list. If the chip has
@@ -10782,6 +10799,7 @@ MdChipList.ctorParameters = function () { return [
 ]; };
 MdChipList.propDecorators = {
     'selectable': [{ type: _angular_core.Input },],
+    'tabIndex': [{ type: _angular_core.Input },],
 };
 var MdChipInput = (function () {
     /**
@@ -13637,10 +13655,12 @@ var MdSnackBarContainer = (function (_super) {
 MdSnackBarContainer.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'snack-bar-container',
                 template: "<ng-template cdkPortalHost></ng-template>",
-                styles: [":host{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);background:#323232;border-radius:2px;box-sizing:content-box;display:block;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%)}@media screen and (-ms-high-contrast:active){:host{border:solid 1px}}"],
+                styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:content-box;display:block;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}"],
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                encapsulation: _angular_core.ViewEncapsulation.None,
                 host: {
                     'role': 'alert',
+                    'class': 'mat-snack-bar-container',
                     '[@state]': 'animationState',
                     '(@state.done)': 'onAnimationEnd($event)'
                 },
@@ -13703,7 +13723,7 @@ var SimpleSnackBar = (function () {
 SimpleSnackBar.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'simple-snack-bar',
                 template: "{{data.message}} <button class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\" (click)=\"action()\">{{data.action}}</button>",
-                styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;color:#fff;line-height:20px}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;background:0 0;color:inherit;flex-shrink:0;margin-left:48px}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0}"],
+                styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;line-height:20px}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;background:0 0;flex-shrink:0;margin-left:48px}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0}"],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                 host: {

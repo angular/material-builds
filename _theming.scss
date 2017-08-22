@@ -3405,9 +3405,22 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
 
 
 
-@mixin mat-simple-snack-bar-theme($theme) { }
 
-@mixin mat-simple-snack-bar-typography($config) {
+@mixin mat-snack-bar-theme($theme) {
+  $is-dark-theme: map-get($theme, is-dark);
+  $accent: map-get($theme, accent);
+
+  .mat-snack-bar-container {
+    background: if($is-dark-theme, map-get($mat-grey, 50), #323232);
+    color: if($is-dark-theme, $black-87-opacity, white);
+  }
+
+  .mat-simple-snackbar-action {
+    color: if($is-dark-theme, inherit, mat-color($accent));
+  }
+}
+
+@mixin mat-snack-bar-typography($config) {
   .mat-simple-snackbar {
     font: {
       family: mat-font-family($config, body-1);
@@ -3684,7 +3697,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
   @include mat-list-typography($config);
   @include mat-option-typography($config);
   @include mat-optgroup-typography($config);
-  @include mat-simple-snack-bar-typography($config);
+  @include mat-snack-bar-typography($config);
 }
 
 
@@ -3787,5 +3800,5 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
   @include mat-tabs-theme($theme);
   @include mat-toolbar-theme($theme);
   @include mat-tooltip-theme($theme);
-  @include mat-simple-snack-bar-theme($theme);
+  @include mat-snack-bar-theme($theme);
 }
