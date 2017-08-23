@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8-844a81c');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-2dd5c7c');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -17855,6 +17855,20 @@ MdDialogModule.ctorParameters = function () { return []; };
  * the component definition.
  */
 var _uniqueAutocompleteIdCounter = 0;
+/**
+ * Event object that is emitted when an autocomplete option is selected
+ */
+var MdAutocompleteSelectedEvent = (function () {
+    /**
+     * @param {?} source
+     * @param {?} option
+     */
+    function MdAutocompleteSelectedEvent(source, option) {
+        this.source = source;
+        this.option = option;
+    }
+    return MdAutocompleteSelectedEvent;
+}());
 var MdAutocomplete = (function () {
     /**
      * @param {?} _changeDetectorRef
@@ -17869,6 +17883,10 @@ var MdAutocomplete = (function () {
          * Function that maps an option's control value to its display value in the trigger.
          */
         this.displayWith = null;
+        /**
+         * Event that is emitted whenever an option from the list is selected.
+         */
+        this.optionSelected = new _angular_core.EventEmitter();
         /**
          * Unique ID to be used by autocomplete trigger's "aria-owns" property.
          */
@@ -17910,6 +17928,15 @@ var MdAutocomplete = (function () {
         });
     };
     /**
+     * Emits the `select` event.
+     * @param {?} option
+     * @return {?}
+     */
+    MdAutocomplete.prototype._emitSelectEvent = function (option) {
+        var /** @type {?} */ event = new MdAutocompleteSelectedEvent(this, option);
+        this.optionSelected.emit(event);
+    };
+    /**
      * Sets a class on the panel based on whether it is visible.
      * @return {?}
      */
@@ -17945,6 +17972,7 @@ MdAutocomplete.propDecorators = {
     'options': [{ type: _angular_core.ContentChildren, args: [MdOption, { descendants: true },] },],
     'optionGroups': [{ type: _angular_core.ContentChildren, args: [MdOptgroup,] },],
     'displayWith': [{ type: _angular_core.Input },],
+    'optionSelected': [{ type: _angular_core.Output },],
 };
 /**
  * The height of each autocomplete option.
@@ -18349,6 +18377,7 @@ var MdAutocompleteTrigger = (function () {
             this._setTriggerValue(event.source.value);
             this._onChange(event.source.value);
             this._element.nativeElement.focus();
+            this.autocomplete._emitSelectEvent(event.source);
         }
         this.closePanel();
     };
@@ -21973,6 +22002,7 @@ exports.NativeDateAdapter = NativeDateAdapter;
 exports.MD_NATIVE_DATE_FORMATS = MD_NATIVE_DATE_FORMATS;
 exports.MaterialModule = MaterialModule;
 exports.MdAutocompleteModule = MdAutocompleteModule;
+exports.MdAutocompleteSelectedEvent = MdAutocompleteSelectedEvent;
 exports.MdAutocomplete = MdAutocomplete;
 exports.AUTOCOMPLETE_OPTION_HEIGHT = AUTOCOMPLETE_OPTION_HEIGHT;
 exports.AUTOCOMPLETE_PANEL_HEIGHT = AUTOCOMPLETE_PANEL_HEIGHT;
