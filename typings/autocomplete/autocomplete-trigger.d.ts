@@ -110,12 +110,14 @@ export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDe
     registerOnTouched(fn: () => {}): void;
     _handleKeydown(event: KeyboardEvent): void;
     _handleInput(event: KeyboardEvent): void;
+    _handleFocus(): void;
     /**
      * In "auto" mode, the placeholder will animate down as soon as focus is lost.
      * This causes the value to jump when selecting an option with the mouse.
      * This method manually floats the placeholder until the panel can be closed.
+     * @param shouldAnimate Whether the placeholder should be animated when it is floated.
      */
-    private _floatPlaceholder();
+    private _floatPlaceholder(shouldAnimate?);
     /** If the placeholder has been manually elevated, return it to its normal state. */
     private _resetPlaceholder();
     /**
@@ -146,7 +148,7 @@ export declare class MdAutocompleteTrigger implements ControlValueAccessor, OnDe
      * Clear any previous selected option and emit a selection change event for this option
      */
     private _clearPreviousSelectedOption(skip);
-    private _createOverlay();
+    private _attachOverlay();
     private _getOverlayConfig();
     private _getOverlayPosition();
     private _getConnectedElement();

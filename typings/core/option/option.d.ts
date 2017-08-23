@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { ElementRef, EventEmitter, ChangeDetectorRef, QueryList } from '@angular/core';
 import { MdOptgroup } from './optgroup';
 /** Event object emitted by MdOption when selected or deselected. */
 export declare class MdOptionSelectionChange {
@@ -88,4 +88,11 @@ export declare class MdOption {
     _getHostElement(): HTMLElement;
     /** Emits the selection change event. */
     private _emitSelectionChangeEvent(isUserInput?);
+    /**
+     * Counts the amount of option group labels that precede the specified option.
+     * @param optionIndex Index of the option at which to start counting.
+     * @param options Flat list of all of the options.
+     * @param optionGroups Flat list of all of the option groups.
+     */
+    static countGroupLabelsBeforeOption(optionIndex: number, options: QueryList<MdOption>, optionGroups: QueryList<MdOptgroup>): number;
 }

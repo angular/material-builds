@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AfterContentInit, ElementRef, QueryList, TemplateRef, ChangeDetectorRef } from '@angular/core';
-import { MdOption } from '../core';
+import { MdOption, MdOptgroup } from '../core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 export declare class MdAutocomplete implements AfterContentInit {
     private _changeDetectorRef;
@@ -20,6 +20,8 @@ export declare class MdAutocomplete implements AfterContentInit {
     panel: ElementRef;
     /** @docs-private */
     options: QueryList<MdOption>;
+    /** @docs-private */
+    optionGroups: QueryList<MdOptgroup>;
     /** Function that maps an option's control value to its display value in the trigger. */
     displayWith: ((value: any) => string) | null;
     /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */

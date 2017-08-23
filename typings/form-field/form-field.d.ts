@@ -25,6 +25,8 @@ export declare class MdFormField implements AfterViewInit, AfterContentInit, Aft
     /** Whether the required marker should be hidden. */
     hideRequiredMarker: any;
     private _hideRequiredMarker;
+    /** Override for the logic that disables the placeholder animation in certain cases. */
+    private _showAlwaysAnimate;
     /** Whether the floating label should always float or not. */
     readonly _shouldAlwaysFloat: boolean;
     /** Whether the placeholder can float or not. */
@@ -41,6 +43,7 @@ export declare class MdFormField implements AfterViewInit, AfterContentInit, Aft
     /** Reference to the form field's underline element. */
     underlineRef: ElementRef;
     _connectionContainerRef: ElementRef;
+    private _placeholder;
     _control: MdFormFieldControl<any>;
     _placeholderChild: MdPlaceholder;
     _errorChildren: QueryList<MdError>;
@@ -57,6 +60,8 @@ export declare class MdFormField implements AfterViewInit, AfterContentInit, Aft
     _hasPlaceholder(): boolean;
     /** Determines whether to display hints or errors. */
     _getDisplayedMessages(): 'error' | 'hint';
+    /** Animates the placeholder up and locks it in position. */
+    _animateAndLockPlaceholder(): void;
     /**
      * Ensure that there is only one placeholder (either `placeholder` attribute on the child control
      * or child element with the `md-placeholder` directive).

@@ -417,10 +417,4 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
     private _handleArrowKey(event);
     /** Calculates the amount of items in the select. This includes options and group labels. */
     private _getItemCount();
-    /**
-     * Calculates the amount of option group labels that precede the specified option.
-     * Useful when positioning the panel, because the labels will offset the index of the
-     * currently-selected option.
-     */
-    private _getLabelCountBeforeOption(optionIndex);
 }

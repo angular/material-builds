@@ -33,7 +33,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-var VERSION = new Version('2.0.0-beta.8-7f0e58e');
+var VERSION = new Version('2.0.0-beta.8-0526689');
 var MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -1200,6 +1200,27 @@ var MdOption = (function () {
     MdOption.prototype._emitSelectionChangeEvent = function (isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
         this.onSelectionChange.emit(new MdOptionSelectionChange(this, isUserInput));
+    };
+    /**
+     * Counts the amount of option group labels that precede the specified option.
+     * @param {?} optionIndex Index of the option at which to start counting.
+     * @param {?} options Flat list of all of the options.
+     * @param {?} optionGroups Flat list of all of the option groups.
+     * @return {?}
+     */
+    MdOption.countGroupLabelsBeforeOption = function (optionIndex, options, optionGroups) {
+        if (optionGroups.length) {
+            var /** @type {?} */ optionsArray = options.toArray();
+            var /** @type {?} */ groups = optionGroups.toArray();
+            var /** @type {?} */ groupCounter = 0;
+            for (var /** @type {?} */ i = 0; i < optionIndex + 1; i++) {
+                if (optionsArray[i].group && optionsArray[i].group === groups[groupCounter]) {
+                    groupCounter++;
+                }
+            }
+            return groupCounter;
+        }
+        return 0;
     };
     return MdOption;
 }());
@@ -5556,6 +5577,9 @@ var MdSelect = (function (_super) {
          * @return {?}
          */
         get: function () {
+            if (!this._selectionModel || this._selectionModel.isEmpty()) {
+                return '';
+            }
             if (this._multiple) {
                 var /** @type {?} */ selectedOptions = this._selectionModel.selected.map(function (option) { return option.viewValue; });
                 if (this._isRtl()) {
@@ -5967,7 +5991,7 @@ var MdSelect = (function (_super) {
         var /** @type {?} */ maxScroll = scrollContainerHeight - panelHeight;
         if (this._hasValue()) {
             var /** @type {?} */ selectedOptionOffset = ((this._getOptionIndex(this._selectionModel.selected[0])));
-            selectedOptionOffset += this._getLabelCountBeforeOption(selectedOptionOffset);
+            selectedOptionOffset += MdOption.countGroupLabelsBeforeOption(selectedOptionOffset, this.options, this.optionGroups);
             // We must maintain a scroll buffer so the selected option will be scrolled to the
             // center of the overlay panel rather than the top.
             var /** @type {?} */ scrollBuffer = panelHeight / 2;
@@ -5979,8 +6003,9 @@ var MdSelect = (function (_super) {
             // we must only adjust for the height difference between the option element
             // and the trigger element, then multiply it by -1 to ensure the panel moves
             // in the correct direction up the page.
+            var /** @type {?} */ groupLabels = MdOption.countGroupLabelsBeforeOption(0, this.options, this.optionGroups);
             this._offsetY = (SELECT_ITEM_HEIGHT - SELECT_TRIGGER_HEIGHT) / 2 * -1 -
-                (this._getLabelCountBeforeOption(0) * SELECT_ITEM_HEIGHT);
+                (groupLabels * SELECT_ITEM_HEIGHT);
         }
         this._checkOverlayWithinViewport(maxScroll);
     };
@@ -6234,27 +6259,6 @@ var MdSelect = (function (_super) {
      */
     MdSelect.prototype._getItemCount = function () {
         return this.options.length + this.optionGroups.length;
-    };
-    /**
-     * Calculates the amount of option group labels that precede the specified option.
-     * Useful when positioning the panel, because the labels will offset the index of the
-     * currently-selected option.
-     * @param {?} optionIndex
-     * @return {?}
-     */
-    MdSelect.prototype._getLabelCountBeforeOption = function (optionIndex) {
-        if (this.optionGroups.length) {
-            var /** @type {?} */ options = this.options.toArray();
-            var /** @type {?} */ groups = this.optionGroups.toArray();
-            var /** @type {?} */ groupCounter = 0;
-            for (var /** @type {?} */ i = 0; i < optionIndex + 1; i++) {
-                if (options[i].group && options[i].group === groups[groupCounter]) {
-                    groupCounter++;
-                }
-            }
-            return groupCounter;
-        }
-        return 0;
     };
     return MdSelect;
 }(_MdSelectMixinBase));
@@ -9117,7 +9121,7 @@ MdGridTile.decorators = [
                     'class': 'mat-grid-tile',
                 },
                 template: "<figure class=\"mat-figure\"><ng-content></ng-content></figure>",
-                styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{top:0;left:0;right:0;bottom:0;position:absolute;display:block;overflow:hidden}.mat-grid-tile .mat-figure{display:flex;position:absolute;align-items:center;justify-content:center;height:100%;padding:0;margin:0}.mat-grid-tile .mat-grid-tile-footer,.mat-grid-tile .mat-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-footer>*,.mat-grid-tile .mat-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-tile-footer.mat-2-line,.mat-grid-tile .mat-grid-tile-header.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none}"],
+                styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-figure{top:0;left:0;right:0;bottom:0;position:absolute;display:flex;align-items:center;justify-content:center;height:100%;padding:0;margin:0}.mat-grid-tile .mat-grid-tile-footer,.mat-grid-tile .mat-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-footer>*,.mat-grid-tile .mat-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-tile-footer.mat-2-line,.mat-grid-tile .mat-grid-tile-header.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none}"],
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
@@ -9798,7 +9802,7 @@ var MdGridList = (function () {
 MdGridList.decorators = [
     { type: Component, args: [{ selector: 'md-grid-list, mat-grid-list',
                 template: "<div><ng-content></ng-content></div>",
-                styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{top:0;left:0;right:0;bottom:0;position:absolute;display:block;overflow:hidden}.mat-grid-tile .mat-figure{display:flex;position:absolute;align-items:center;justify-content:center;height:100%;padding:0;margin:0}.mat-grid-tile .mat-grid-tile-footer,.mat-grid-tile .mat-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-footer>*,.mat-grid-tile .mat-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-tile-footer.mat-2-line,.mat-grid-tile .mat-grid-tile-header.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none}"],
+                styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-figure{top:0;left:0;right:0;bottom:0;position:absolute;display:flex;align-items:center;justify-content:center;height:100%;padding:0;margin:0}.mat-grid-tile .mat-grid-tile-footer,.mat-grid-tile .mat-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-footer>*,.mat-grid-tile .mat-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-tile-footer.mat-2-line,.mat-grid-tile .mat-grid-tile-header.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none}"],
                 host: {
                     'class': 'mat-grid-list',
                 },
@@ -12443,6 +12447,10 @@ var MdFormField = (function () {
          */
         this.color = 'primary';
         /**
+         * Override for the logic that disables the placeholder animation in certain cases.
+         */
+        this._showAlwaysAnimate = false;
+        /**
          * State of the md-hint and md-error animations.
          */
         this._subscriptAnimationState = '';
@@ -12487,7 +12495,9 @@ var MdFormField = (function () {
          * Whether the floating label should always float or not.
          * @return {?}
          */
-        get: function () { return this._floatPlaceholder === 'always'; },
+        get: function () {
+            return this._floatPlaceholder === 'always' && !this._showAlwaysAnimate;
+        },
         enumerable: true,
         configurable: true
     });
@@ -12604,6 +12614,21 @@ var MdFormField = (function () {
             this._control.errorState) ? 'error' : 'hint';
     };
     /**
+     * Animates the placeholder up and locks it in position.
+     * @return {?}
+     */
+    MdFormField.prototype._animateAndLockPlaceholder = function () {
+        var _this = this;
+        if (this._placeholder && this._canPlaceholderFloat) {
+            this._showAlwaysAnimate = true;
+            this._floatPlaceholder = 'always';
+            first.call(fromEvent(this._placeholder.nativeElement, 'transitionend')).subscribe(function () {
+                _this._showAlwaysAnimate = false;
+            });
+            this._changeDetectorRef.markForCheck();
+        }
+    };
+    /**
      * Ensure that there is only one placeholder (either `placeholder` attribute on the child control
      * or child element with the `md-placeholder` directive).
      * @return {?}
@@ -12690,7 +12715,7 @@ var MdFormField = (function () {
 MdFormField.decorators = [
     { type: Component, args: [{
                 selector: 'md-input-container, mat-input-container, md-form-field, mat-form-field',
-                template: "<div class=\"mat-input-wrapper mat-form-field-wrapper\"><div class=\"mat-input-flex mat-form-field-flex\" #connectionContainer><div class=\"mat-input-prefix mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[mdPrefix], [matPrefix]\"></ng-content></div><div class=\"mat-input-infix mat-form-field-infix\"><ng-content></ng-content><span class=\"mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper\"><label class=\"mat-input-placeholder mat-form-field-placeholder\" [attr.for]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-float]=\"_canPlaceholderFloat\" [class.mat-form-field-float]=\"_canPlaceholderFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" *ngIf=\"_hasPlaceholder()\"><ng-content select=\"md-placeholder, mat-placeholder\"></ng-content>{{_control.placeholder}} <span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required\">*</span></label></span></div><div class=\"mat-input-suffix mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[mdSuffix], [matSuffix]\"></ng-content></div></div><div class=\"mat-input-underline mat-form-field-underline\" #underline [class.mat-disabled]=\"_control.disabled\"><span class=\"mat-input-ripple mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-input-subscript-wrapper mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"md-error, mat-error\"></ng-content></div><div class=\"mat-input-hint-wrapper mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"md-hint:not([align='end']), mat-hint:not([align='end'])\"></ng-content><div class=\"mat-input-hint-spacer mat-form-field-hint-spacer\"></div><ng-content select=\"md-hint[align='end'], mat-hint[align='end']\"></ng-content></div></div></div>",
+                template: "<div class=\"mat-input-wrapper mat-form-field-wrapper\"><div class=\"mat-input-flex mat-form-field-flex\" #connectionContainer><div class=\"mat-input-prefix mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[mdPrefix], [matPrefix]\"></ng-content></div><div class=\"mat-input-infix mat-form-field-infix\"><ng-content></ng-content><span class=\"mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper\"><label class=\"mat-input-placeholder mat-form-field-placeholder\" [attr.for]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-float]=\"_canPlaceholderFloat\" [class.mat-form-field-float]=\"_canPlaceholderFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #placeholder *ngIf=\"_hasPlaceholder()\"><ng-content select=\"md-placeholder, mat-placeholder\"></ng-content>{{_control.placeholder}} <span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required\">*</span></label></span></div><div class=\"mat-input-suffix mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[mdSuffix], [matSuffix]\"></ng-content></div></div><div class=\"mat-input-underline mat-form-field-underline\" #underline [class.mat-disabled]=\"_control.disabled\"><span class=\"mat-input-ripple mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-input-subscript-wrapper mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"md-error, mat-error\"></ng-content></div><div class=\"mat-input-hint-wrapper mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"md-hint:not([align='end']), mat-hint:not([align='end'])\"></ng-content><div class=\"mat-input-hint-spacer mat-form-field-hint-spacer\"></div><ng-content select=\"md-hint[align='end'], mat-hint[align='end']\"></ng-content></div></div></div>",
                 // MdInput is a directive and can't have styles, so we need to include its styles here.
                 // The MdInput styles are fairly minimal so it shouldn't be a big deal for people who aren't using
                 // MdInput.
@@ -12739,6 +12764,7 @@ MdFormField.propDecorators = {
     'floatPlaceholder': [{ type: Input },],
     'underlineRef': [{ type: ViewChild, args: ['underline',] },],
     '_connectionContainerRef': [{ type: ViewChild, args: ['connectionContainer',] },],
+    '_placeholder': [{ type: ViewChild, args: ['placeholder',] },],
     '_control': [{ type: ContentChild, args: [MdFormFieldControl,] },],
     '_placeholderChild': [{ type: ContentChild, args: [MdPlaceholder,] },],
     '_errorChildren': [{ type: ContentChildren, args: [MdError,] },],
@@ -18095,7 +18121,8 @@ MdAutocomplete.ctorParameters = function () { return [
 MdAutocomplete.propDecorators = {
     'template': [{ type: ViewChild, args: [TemplateRef,] },],
     'panel': [{ type: ViewChild, args: ['panel',] },],
-    'options': [{ type: ContentChildren, args: [MdOption,] },],
+    'options': [{ type: ContentChildren, args: [MdOption, { descendants: true },] },],
+    'optionGroups': [{ type: ContentChildren, args: [MdOptgroup,] },],
     'displayWith': [{ type: Input },],
 };
 /**
@@ -18219,24 +18246,8 @@ var MdAutocompleteTrigger = (function () {
      * @return {?}
      */
     MdAutocompleteTrigger.prototype.openPanel = function () {
-        if (!this.autocomplete) {
-            throw getMdAutocompleteMissingPanelError();
-        }
-        if (!this._overlayRef) {
-            this._createOverlay();
-        }
-        else {
-            /** Update the panel width, in case the host width has changed */
-            this._overlayRef.getState().width = this._getHostWidth();
-            this._overlayRef.updateSize();
-        }
-        if (this._overlayRef && !this._overlayRef.hasAttached()) {
-            this._overlayRef.attach(this._portal);
-            this._closingActionsSubscription = this._subscribeToClosingActions();
-        }
-        this.autocomplete._setVisibility();
+        this._attachOverlay();
         this._floatPlaceholder();
-        this._panelOpen = true;
     };
     /**
      * Closes the autocomplete suggestion panel.
@@ -18396,14 +18407,28 @@ var MdAutocompleteTrigger = (function () {
         }
     };
     /**
+     * @return {?}
+     */
+    MdAutocompleteTrigger.prototype._handleFocus = function () {
+        this._attachOverlay();
+        this._floatPlaceholder(true);
+    };
+    /**
      * In "auto" mode, the placeholder will animate down as soon as focus is lost.
      * This causes the value to jump when selecting an option with the mouse.
      * This method manually floats the placeholder until the panel can be closed.
+     * @param {?=} shouldAnimate Whether the placeholder should be animated when it is floated.
      * @return {?}
      */
-    MdAutocompleteTrigger.prototype._floatPlaceholder = function () {
+    MdAutocompleteTrigger.prototype._floatPlaceholder = function (shouldAnimate) {
+        if (shouldAnimate === void 0) { shouldAnimate = false; }
         if (this._formField && this._formField.floatPlaceholder === 'auto') {
-            this._formField.floatPlaceholder = 'always';
+            if (shouldAnimate) {
+                this._formField._animateAndLockPlaceholder();
+            }
+            else {
+                this._formField.floatPlaceholder = 'always';
+            }
             this._manuallyFloatingPlaceholder = true;
         }
     };
@@ -18428,8 +18453,9 @@ var MdAutocompleteTrigger = (function () {
      * @return {?}
      */
     MdAutocompleteTrigger.prototype._scrollToOption = function () {
-        var /** @type {?} */ optionOffset = this.autocomplete._keyManager.activeItemIndex ?
-            this.autocomplete._keyManager.activeItemIndex * AUTOCOMPLETE_OPTION_HEIGHT : 0;
+        var /** @type {?} */ activeOptionIndex = this.autocomplete._keyManager.activeItemIndex || 0;
+        var /** @type {?} */ labelCount = MdOption.countGroupLabelsBeforeOption(activeOptionIndex, this.autocomplete.options, this.autocomplete.optionGroups);
+        var /** @type {?} */ optionOffset = (activeOptionIndex + labelCount) * AUTOCOMPLETE_OPTION_HEIGHT;
         var /** @type {?} */ panelTop = this.autocomplete._getScrollTop();
         if (optionOffset < panelTop) {
             // Scroll up to reveal selected option scrolled above the panel top
@@ -18520,9 +18546,25 @@ var MdAutocompleteTrigger = (function () {
     /**
      * @return {?}
      */
-    MdAutocompleteTrigger.prototype._createOverlay = function () {
-        this._portal = new TemplatePortal(this.autocomplete.template, this._viewContainerRef);
-        this._overlayRef = this._overlay.create(this._getOverlayConfig());
+    MdAutocompleteTrigger.prototype._attachOverlay = function () {
+        if (!this.autocomplete) {
+            throw getMdAutocompleteMissingPanelError();
+        }
+        if (!this._overlayRef) {
+            this._portal = new TemplatePortal(this.autocomplete.template, this._viewContainerRef);
+            this._overlayRef = this._overlay.create(this._getOverlayConfig());
+        }
+        else {
+            /** Update the panel width, in case the host width has changed */
+            this._overlayRef.getState().width = this._getHostWidth();
+            this._overlayRef.updateSize();
+        }
+        if (this._overlayRef && !this._overlayRef.hasAttached()) {
+            this._overlayRef.attach(this._portal);
+            this._closingActionsSubscription = this._subscribeToClosingActions();
+        }
+        this.autocomplete._setVisibility();
+        this._panelOpen = true;
     };
     /**
      * @return {?}
@@ -18578,9 +18620,9 @@ MdAutocompleteTrigger.decorators = [
                     '[attr.aria-owns]': 'autocomplete?.id',
                     // Note: we use `focusin`, as opposed to `focus`, in order to open the panel
                     // a little earlier. This avoids issues where IE delays the focusing of the input.
-                    '(focusin)': 'openPanel()',
-                    '(input)': '_handleInput($event)',
+                    '(focusin)': '_handleFocus()',
                     '(blur)': '_onTouched()',
+                    '(input)': '_handleInput($event)',
                     '(keydown)': '_handleKeydown($event)',
                 },
                 providers: [MD_AUTOCOMPLETE_VALUE_ACCESSOR]
