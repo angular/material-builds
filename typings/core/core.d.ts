@@ -1,5 +1,6 @@
 export { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 export { ObserversModule, ObserveContent } from '@angular/cdk/observers';
+export { SelectionModel } from '@angular/cdk/collections';
 export { Dir, Direction, Directionality, BidiModule } from './bidi/index';
 export * from './option/index';
 export { Portal, PortalHost, BasePortalHost, ComponentPortal, TemplatePortal } from './portal/portal';
@@ -10,7 +11,6 @@ export * from '@angular/cdk/overlay';
 export { GestureConfig } from './gestures/gesture-config';
 export { HammerInput, HammerManager } from './gestures/gesture-annotations';
 export * from './ripple/index';
-export * from './selection/selection';
 export { AriaLivePoliteness, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, isFakeMousedownFromScreenReader, A11yModule } from '@angular/cdk/a11y';
 export { UniqueSelectionDispatcher, UniqueSelectionDispatcherListener, UNIQUE_SELECTION_DISPATCHER_PROVIDER } from './coordination/unique-selection-dispatcher';
 export { MdLineModule, MdLine, MdLineSetter } from './line/line';

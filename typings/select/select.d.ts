@@ -11,7 +11,7 @@ import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { ConnectedOverlayDirective, Overlay, RepositionScrollStrategy, ScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
 import { Observable } from 'rxjs/Observable';
-import { SelectionModel } from '../core/selection/selection';
+import { SelectionModel } from '@angular/cdk/collections';
 import { CanColor } from '../core/common-behaviors/color';
 import { CanDisable } from '../core/common-behaviors/disabled';
 import { MdOptgroup, MdOption, MdOptionSelectionChange } from '../core/option/index';

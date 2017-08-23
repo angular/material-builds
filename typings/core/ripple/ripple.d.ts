@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ElementRef, NgZone, OnChanges, SimpleChanges, OnDestroy, InjectionToken } from '@angular/core';
-import { ViewportRuler } from '@angular/cdk/overlay';
+import { ViewportRuler } from '@angular/cdk/scrolling';
 import { Platform } from '@angular/cdk/platform';
 import { RippleConfig } from './ripple-renderer';
 import { RippleRef } from './ripple-ref';

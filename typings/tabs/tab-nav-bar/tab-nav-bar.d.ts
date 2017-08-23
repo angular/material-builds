@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AfterContentInit, ChangeDetectorRef, ElementRef, NgZone, OnDestroy, Renderer2, QueryList } from '@angular/core';
-import { ViewportRuler } from '@angular/cdk/overlay';
+import { ViewportRuler } from '@angular/cdk/scrolling';
 import { Directionality } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
 import { CanDisableRipple } from '../../core/common-behaviors/disable-ripple';

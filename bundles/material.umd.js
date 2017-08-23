@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('rxjs/observable/of'), require('@angular/forms'), require('@angular/cdk/rxjs'), require('rxjs/observable/merge'), require('@angular/animations'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/throw'), require('rxjs/observable/forkJoin'), require('rxjs/observable/fromEvent'), require('rxjs/observable/defer'), require('@angular/cdk/table')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/coercion', 'rxjs/Subject', 'rxjs/observable/of', '@angular/forms', '@angular/cdk/rxjs', 'rxjs/observable/merge', '@angular/animations', '@angular/http', 'rxjs/Observable', 'rxjs/observable/throw', 'rxjs/observable/forkJoin', 'rxjs/observable/fromEvent', 'rxjs/observable/defer', '@angular/cdk/table'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.coercion,global.Rx,global.Rx.Observable,global.ng.forms,global.ng.cdk.rxjs,global.Rx.Observable,global.ng.animations,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.table));
-}(this, (function (exports,_angular_core,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_observers,_angular_cdk_overlay,_angular_cdk_portal,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_coercion,rxjs_Subject,rxjs_observable_of,_angular_forms,_angular_cdk_rxjs,rxjs_observable_merge,_angular_animations,_angular_http,rxjs_Observable,rxjs_observable_throw,rxjs_observable_forkJoin,rxjs_observable_fromEvent,rxjs_observable_defer,_angular_cdk_table) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('rxjs/Subject'), require('rxjs/observable/of'), require('@angular/forms'), require('@angular/cdk/rxjs'), require('rxjs/observable/merge'), require('@angular/animations'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/throw'), require('rxjs/observable/forkJoin'), require('rxjs/observable/fromEvent'), require('rxjs/observable/defer'), require('@angular/cdk/table')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/platform-browser', '@angular/common', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/coercion', '@angular/cdk/collections', 'rxjs/Subject', 'rxjs/observable/of', '@angular/forms', '@angular/cdk/rxjs', 'rxjs/observable/merge', '@angular/animations', '@angular/http', 'rxjs/Observable', 'rxjs/observable/throw', 'rxjs/observable/forkJoin', 'rxjs/observable/fromEvent', 'rxjs/observable/defer', '@angular/cdk/table'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.platformBrowser,global.ng.common,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.coercion,global.ng.cdk.collections,global.Rx,global.Rx.Observable,global.ng.forms,global.ng.cdk.rxjs,global.Rx.Observable,global.ng.animations,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.table));
+}(this, (function (exports,_angular_core,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_observers,_angular_cdk_overlay,_angular_cdk_portal,_angular_platformBrowser,_angular_common,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_coercion,_angular_cdk_collections,rxjs_Subject,rxjs_observable_of,_angular_forms,_angular_cdk_rxjs,rxjs_observable_merge,_angular_animations,_angular_http,rxjs_Observable,rxjs_observable_throw,rxjs_observable_forkJoin,rxjs_observable_fromEvent,rxjs_observable_defer,_angular_cdk_table) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8-2fc6a4c');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-0f6a2ec');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -773,7 +773,7 @@ MdRipple.decorators = [
 MdRipple.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.NgZone, },
-    { type: _angular_cdk_overlay.ViewportRuler, },
+    { type: _angular_cdk_scrolling.ViewportRuler, },
     { type: _angular_cdk_platform.Platform, },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_RIPPLE_GLOBAL_OPTIONS,] },] },
 ]; };
@@ -800,10 +800,10 @@ var MdRippleModule = (function () {
 }());
 MdRippleModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_overlay.ScrollDispatchModule],
+                imports: [MdCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
                 exports: [MdRipple, MdCommonModule],
                 declarations: [MdRipple],
-                providers: [_angular_cdk_overlay.VIEWPORT_RULER_PROVIDER],
+                providers: [_angular_cdk_scrolling.VIEWPORT_RULER_PROVIDER],
             },] },
 ];
 /**
@@ -858,12 +858,12 @@ MdPseudoCheckbox.propDecorators = {
     'state': [{ type: _angular_core.Input },],
     'disabled': [{ type: _angular_core.Input },],
 };
-var MdSelectionModule = (function () {
-    function MdSelectionModule() {
+var MdPseudoCheckboxModule = (function () {
+    function MdPseudoCheckboxModule() {
     }
-    return MdSelectionModule;
+    return MdPseudoCheckboxModule;
 }());
-MdSelectionModule.decorators = [
+MdPseudoCheckboxModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 exports: [MdPseudoCheckbox],
                 declarations: [MdPseudoCheckbox]
@@ -872,7 +872,7 @@ MdSelectionModule.decorators = [
 /**
  * @nocollapse
  */
-MdSelectionModule.ctorParameters = function () { return []; };
+MdPseudoCheckboxModule.ctorParameters = function () { return []; };
 /**
  * Mixin to augment a directive with a `disabled` property.
  * @template T
@@ -1273,7 +1273,7 @@ var MdOptionModule = (function () {
 }());
 MdOptionModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdRippleModule, _angular_common.CommonModule, MdSelectionModule],
+                imports: [MdRippleModule, _angular_common.CommonModule, MdPseudoCheckboxModule],
                 exports: [MdOption, MdOptgroup],
                 declarations: [MdOption, MdOptgroup]
             },] },
@@ -1358,200 +1358,6 @@ GestureConfig.decorators = [
  * @nocollapse
  */
 GestureConfig.ctorParameters = function () { return []; };
-/**
- * Class to be used to power selecting one or more options from a list.
- * \@docs-private
- */
-var SelectionModel = (function () {
-    /**
-     * @param {?=} _isMulti
-     * @param {?=} initiallySelectedValues
-     * @param {?=} _emitChanges
-     */
-    function SelectionModel(_isMulti, initiallySelectedValues, _emitChanges) {
-        if (_isMulti === void 0) { _isMulti = false; }
-        if (_emitChanges === void 0) { _emitChanges = true; }
-        var _this = this;
-        this._isMulti = _isMulti;
-        this._emitChanges = _emitChanges;
-        /**
-         * Currently-selected values.
-         */
-        this._selection = new Set();
-        /**
-         * Keeps track of the deselected options that haven't been emitted by the change event.
-         */
-        this._deselectedToEmit = [];
-        /**
-         * Keeps track of the selected option that haven't been emitted by the change event.
-         */
-        this._selectedToEmit = [];
-        /**
-         * Event emitted when the value has changed.
-         */
-        this.onChange = this._emitChanges ? new rxjs_Subject.Subject() : null;
-        if (initiallySelectedValues) {
-            if (_isMulti) {
-                initiallySelectedValues.forEach(function (value) { return _this._markSelected(value); });
-            }
-            else {
-                this._markSelected(initiallySelectedValues[0]);
-            }
-            // Clear the array in order to avoid firing the change event for preselected values.
-            this._selectedToEmit.length = 0;
-        }
-    }
-    Object.defineProperty(SelectionModel.prototype, "selected", {
-        /**
-         * Selected value(s).
-         * @return {?}
-         */
-        get: function () {
-            if (!this._selected) {
-                this._selected = Array.from(this._selection.values());
-            }
-            return this._selected;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Selects a value or an array of values.
-     * @param {?} value
-     * @return {?}
-     */
-    SelectionModel.prototype.select = function (value) {
-        this._markSelected(value);
-        this._emitChangeEvent();
-    };
-    /**
-     * Deselects a value or an array of values.
-     * @param {?} value
-     * @return {?}
-     */
-    SelectionModel.prototype.deselect = function (value) {
-        this._unmarkSelected(value);
-        this._emitChangeEvent();
-    };
-    /**
-     * Toggles a value between selected and deselected.
-     * @param {?} value
-     * @return {?}
-     */
-    SelectionModel.prototype.toggle = function (value) {
-        this.isSelected(value) ? this.deselect(value) : this.select(value);
-    };
-    /**
-     * Clears all of the selected values.
-     * @return {?}
-     */
-    SelectionModel.prototype.clear = function () {
-        this._unmarkAll();
-        this._emitChangeEvent();
-    };
-    /**
-     * Determines whether a value is selected.
-     * @param {?} value
-     * @return {?}
-     */
-    SelectionModel.prototype.isSelected = function (value) {
-        return this._selection.has(value);
-    };
-    /**
-     * Determines whether the model does not have a value.
-     * @return {?}
-     */
-    SelectionModel.prototype.isEmpty = function () {
-        return this._selection.size === 0;
-    };
-    /**
-     * Determines whether the model has a value.
-     * @return {?}
-     */
-    SelectionModel.prototype.hasValue = function () {
-        return !this.isEmpty();
-    };
-    /**
-     * Sorts the selected values based on a predicate function.
-     * @param {?=} predicate
-     * @return {?}
-     */
-    SelectionModel.prototype.sort = function (predicate) {
-        if (this._isMulti && this._selected) {
-            this._selected.sort(predicate);
-        }
-    };
-    /**
-     * Emits a change event and clears the records of selected and deselected values.
-     * @return {?}
-     */
-    SelectionModel.prototype._emitChangeEvent = function () {
-        if (this._selectedToEmit.length || this._deselectedToEmit.length) {
-            var /** @type {?} */ eventData = new SelectionChange(this._selectedToEmit, this._deselectedToEmit);
-            if (this.onChange) {
-                this.onChange.next(eventData);
-            }
-            this._deselectedToEmit = [];
-            this._selectedToEmit = [];
-        }
-        this._selected = null;
-    };
-    /**
-     * Selects a value.
-     * @param {?} value
-     * @return {?}
-     */
-    SelectionModel.prototype._markSelected = function (value) {
-        if (!this.isSelected(value)) {
-            if (!this._isMulti) {
-                this._unmarkAll();
-            }
-            this._selection.add(value);
-            if (this._emitChanges) {
-                this._selectedToEmit.push(value);
-            }
-        }
-    };
-    /**
-     * Deselects a value.
-     * @param {?} value
-     * @return {?}
-     */
-    SelectionModel.prototype._unmarkSelected = function (value) {
-        if (this.isSelected(value)) {
-            this._selection.delete(value);
-            if (this._emitChanges) {
-                this._deselectedToEmit.push(value);
-            }
-        }
-    };
-    /**
-     * Clears out the selected values.
-     * @return {?}
-     */
-    SelectionModel.prototype._unmarkAll = function () {
-        var _this = this;
-        if (!this.isEmpty()) {
-            this._selection.forEach(function (value) { return _this._unmarkSelected(value); });
-        }
-    };
-    return SelectionModel;
-}());
-/**
- * Describes an event emitted when the value of a MdSelectionModel has changed.
- * \@docs-private
- */
-var SelectionChange = (function () {
-    /**
-     * @param {?=} added
-     * @param {?=} removed
-     */
-    function SelectionChange(added, removed) {
-        this.added = added;
-        this.removed = removed;
-    }
-    return SelectionChange;
-}());
 /**
  * Class to coordinate unique selection based on name.
  * Intended to be consumed as an Angular service.
@@ -2644,7 +2450,7 @@ MdCoreModule.decorators = [
                     _angular_cdk_overlay.OverlayModule,
                     _angular_cdk_a11y.A11yModule,
                     MdOptionModule,
-                    MdSelectionModule,
+                    MdPseudoCheckboxModule,
                 ],
                 exports: [
                     MdLineModule,
@@ -2655,7 +2461,7 @@ MdCoreModule.decorators = [
                     _angular_cdk_overlay.OverlayModule,
                     _angular_cdk_a11y.A11yModule,
                     MdOptionModule,
-                    MdSelectionModule,
+                    MdPseudoCheckboxModule,
                 ],
             },] },
 ];
@@ -5449,7 +5255,7 @@ var MdSelect = (function (_super) {
      * @return {?}
      */
     MdSelect.prototype.ngOnInit = function () {
-        this._selectionModel = new SelectionModel(this.multiple, undefined, false);
+        this._selectionModel = new _angular_cdk_collections.SelectionModel(this.multiple, undefined, false);
     };
     /**
      * @return {?}
@@ -8858,7 +8664,7 @@ var MdSelectionList = (function (_super) {
         /**
          * options which are selected.
          */
-        _this.selectedOptions = new SelectionModel(true);
+        _this.selectedOptions = new _angular_cdk_collections.SelectionModel(true);
         return _this;
     }
     Object.defineProperty(MdSelectionList.prototype, "disableRipple", {
@@ -9017,7 +8823,7 @@ var MdListModule = (function () {
 }());
 MdListModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdLineModule, MdRippleModule, MdCommonModule, MdSelectionModule, _angular_common.CommonModule],
+                imports: [MdLineModule, MdRippleModule, MdCommonModule, MdPseudoCheckboxModule, _angular_common.CommonModule],
                 exports: [
                     MdList,
                     MdListItem,
@@ -9030,7 +8836,7 @@ MdListModule.decorators = [
                     MdNavListCssMatStyler,
                     MdDividerCssMatStyler,
                     MdListSubheaderCssMatStyler,
-                    MdSelectionModule,
+                    MdPseudoCheckboxModule,
                     MdSelectionList,
                     MdListOption
                 ],
@@ -14849,7 +14655,7 @@ MdTabLink.ctorParameters = function () { return [
     { type: MdTabNav, },
     { type: _angular_core.ElementRef, },
     { type: _angular_core.NgZone, },
-    { type: _angular_cdk_overlay.ViewportRuler, },
+    { type: _angular_cdk_scrolling.ViewportRuler, },
     { type: _angular_cdk_platform.Platform, },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_RIPPLE_GLOBAL_OPTIONS,] },] },
 ]; };
@@ -15486,7 +15292,7 @@ MdTabsModule.decorators = [
                     _angular_cdk_portal.PortalModule,
                     MdRippleModule,
                     _angular_cdk_observers.ObserversModule,
-                    _angular_cdk_overlay.ScrollDispatchModule,
+                    _angular_cdk_scrolling.ScrollDispatchModule,
                 ],
                 // Don't export all components because some are only to be used internally.
                 exports: [
@@ -15508,7 +15314,7 @@ MdTabsModule.decorators = [
                     MdTabBody,
                     MdTabHeader
                 ],
-                providers: [_angular_cdk_overlay.VIEWPORT_RULER_PROVIDER],
+                providers: [_angular_cdk_scrolling.VIEWPORT_RULER_PROVIDER],
             },] },
 ];
 /**
@@ -16070,7 +15876,7 @@ MdTooltip.decorators = [
 MdTooltip.ctorParameters = function () { return [
     { type: _angular_cdk_overlay.Overlay, },
     { type: _angular_core.ElementRef, },
-    { type: _angular_cdk_overlay.ScrollDispatcher, },
+    { type: _angular_cdk_scrolling.ScrollDispatcher, },
     { type: _angular_core.ViewContainerRef, },
     { type: _angular_core.NgZone, },
     { type: _angular_core.Renderer2, },
@@ -22050,6 +21856,7 @@ exports.coerceBooleanProperty = _angular_cdk_coercion.coerceBooleanProperty;
 exports.coerceNumberProperty = _angular_cdk_coercion.coerceNumberProperty;
 exports.ObserversModule = _angular_cdk_observers.ObserversModule;
 exports.ObserveContent = _angular_cdk_observers.ObserveContent;
+exports.SelectionModel = _angular_cdk_collections.SelectionModel;
 exports.Dir = _angular_cdk_bidi.Dir;
 exports.Directionality = _angular_cdk_bidi.Directionality;
 exports.BidiModule = _angular_cdk_bidi.BidiModule;
@@ -22118,7 +21925,6 @@ exports.RepositionScrollStrategy = _angular_cdk_overlay.RepositionScrollStrategy
 exports.CloseScrollStrategy = _angular_cdk_overlay.CloseScrollStrategy;
 exports.NoopScrollStrategy = _angular_cdk_overlay.NoopScrollStrategy;
 exports.BlockScrollStrategy = _angular_cdk_overlay.BlockScrollStrategy;
-exports.ScrollDispatchModule = _angular_cdk_overlay.ScrollDispatchModule;
 exports.MdRipple = MdRipple;
 exports.MD_RIPPLE_GLOBAL_OPTIONS = MD_RIPPLE_GLOBAL_OPTIONS;
 exports.RippleRef = RippleRef;
@@ -22126,8 +21932,6 @@ exports.RippleState = RippleState;
 exports.RIPPLE_FADE_IN_DURATION = RIPPLE_FADE_IN_DURATION;
 exports.RIPPLE_FADE_OUT_DURATION = RIPPLE_FADE_OUT_DURATION;
 exports.MdRippleModule = MdRippleModule;
-exports.SelectionModel = SelectionModel;
-exports.SelectionChange = SelectionChange;
 exports.StyleModule = StyleModule;
 exports.TOUCH_BUFFER_MS = TOUCH_BUFFER_MS;
 exports.FocusOriginMonitor = FocusOriginMonitor;
@@ -22159,7 +21963,7 @@ exports.MatPrefixRejector = MatPrefixRejector;
 exports.MdPrefixRejector = MdPrefixRejector;
 exports.AnimationCurves = AnimationCurves;
 exports.AnimationDurations = AnimationDurations;
-exports.MdSelectionModule = MdSelectionModule;
+exports.MdPseudoCheckboxModule = MdPseudoCheckboxModule;
 exports.MdPseudoCheckbox = MdPseudoCheckbox;
 exports.NativeDateModule = NativeDateModule;
 exports.MdNativeDateModule = MdNativeDateModule;

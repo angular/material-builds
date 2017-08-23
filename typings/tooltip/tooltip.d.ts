@@ -7,10 +7,11 @@
  */
 import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, Renderer2, ViewContainerRef } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
+import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { Observable } from 'rxjs/Observable';
 import { Directionality } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
-import { OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, RepositionScrollStrategy, ScrollDispatcher, ScrollStrategy } from '@angular/cdk/overlay';
+import { OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/overlay';
 export declare type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'before' | 'after';
 /** Time in ms to delay before changing the tooltip visibility to hidden */
 export declare const TOUCHEND_HIDE_DELAY = 1500;

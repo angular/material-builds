@@ -10,13 +10,15 @@ import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, Conte
 import { A11yModule, ActiveDescendantKeyManager, FocusKeyManager, FocusTrap, FocusTrapDeprecatedDirective, FocusTrapDirective, FocusTrapFactory, InteractivityChecker, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, LiveAnnouncer, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { BidiModule, Dir, Directionality } from '@angular/cdk/bidi';
 import { ObserveContent, ObserversModule } from '@angular/cdk/observers';
-import { BlockScrollStrategy, CloseScrollStrategy, ConnectedOverlayDirective, ConnectedOverlayPositionChange, ConnectedPositionStrategy, ConnectionPositionPair, FullscreenOverlayContainer, GlobalPositionStrategy, NoopScrollStrategy, OVERLAY_PROVIDERS, Overlay, OverlayContainer, OverlayModule, OverlayOrigin, OverlayRef, OverlayState, RepositionScrollStrategy, ScrollDispatchModule, ScrollDispatcher, ScrollStrategyOptions, Scrollable, ScrollingVisibility, VIEWPORT_RULER_PROVIDER, ViewportRuler } from '@angular/cdk/overlay';
+import { BlockScrollStrategy, CloseScrollStrategy, ConnectedOverlayDirective, ConnectedOverlayPositionChange, ConnectedPositionStrategy, ConnectionPositionPair, FullscreenOverlayContainer, GlobalPositionStrategy, NoopScrollStrategy, OVERLAY_PROVIDERS, Overlay, OverlayContainer, OverlayModule, OverlayOrigin, OverlayRef, OverlayState, RepositionScrollStrategy, ScrollDispatcher, ScrollStrategyOptions, Scrollable, ScrollingVisibility, VIEWPORT_RULER_PROVIDER, ViewportRuler } from '@angular/cdk/overlay';
 import { BasePortalHost, ComponentPortal, DomPortalHost, Portal, PortalHostDirective, PortalModule, TemplatePortal, TemplatePortalDirective } from '@angular/cdk/portal';
 import { DOCUMENT, DomSanitizer, HAMMER_GESTURE_CONFIG, HammerGestureConfig } from '@angular/platform-browser';
 import { CommonModule, Location } from '@angular/common';
+import { ScrollDispatchModule, ScrollDispatcher as ScrollDispatcher$1, VIEWPORT_RULER_PROVIDER as VIEWPORT_RULER_PROVIDER$1, ViewportRuler as ViewportRuler$1 } from '@angular/cdk/scrolling';
 import { Platform, PlatformModule, getSupportedInputTypes } from '@angular/cdk/platform';
 import { A, BACKSPACE, DELETE, DOWN_ARROW, END, ENTER, ESCAPE, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, SPACE, TAB, UP_ARROW, Z } from '@angular/cdk/keycodes';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
+import { SelectionModel } from '@angular/cdk/collections';
 import { Subject } from 'rxjs/Subject';
 import { of } from 'rxjs/observable/of';
 import { CheckboxRequiredValidator, FormGroupDirective, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl, NgForm, Validators } from '@angular/forms';
@@ -33,7 +35,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-var VERSION = new Version('2.0.0-beta.8-2fc6a4c');
+var VERSION = new Version('2.0.0-beta.8-0f6a2ec');
 var MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -766,7 +768,7 @@ MdRipple.decorators = [
 MdRipple.ctorParameters = function () { return [
     { type: ElementRef, },
     { type: NgZone, },
-    { type: ViewportRuler, },
+    { type: ViewportRuler$1, },
     { type: Platform, },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MD_RIPPLE_GLOBAL_OPTIONS,] },] },
 ]; };
@@ -796,7 +798,7 @@ MdRippleModule.decorators = [
                 imports: [MdCommonModule, PlatformModule, ScrollDispatchModule],
                 exports: [MdRipple, MdCommonModule],
                 declarations: [MdRipple],
-                providers: [VIEWPORT_RULER_PROVIDER],
+                providers: [VIEWPORT_RULER_PROVIDER$1],
             },] },
 ];
 /**
@@ -851,12 +853,12 @@ MdPseudoCheckbox.propDecorators = {
     'state': [{ type: Input },],
     'disabled': [{ type: Input },],
 };
-var MdSelectionModule = (function () {
-    function MdSelectionModule() {
+var MdPseudoCheckboxModule = (function () {
+    function MdPseudoCheckboxModule() {
     }
-    return MdSelectionModule;
+    return MdPseudoCheckboxModule;
 }());
-MdSelectionModule.decorators = [
+MdPseudoCheckboxModule.decorators = [
     { type: NgModule, args: [{
                 exports: [MdPseudoCheckbox],
                 declarations: [MdPseudoCheckbox]
@@ -865,7 +867,7 @@ MdSelectionModule.decorators = [
 /**
  * @nocollapse
  */
-MdSelectionModule.ctorParameters = function () { return []; };
+MdPseudoCheckboxModule.ctorParameters = function () { return []; };
 /**
  * Mixin to augment a directive with a `disabled` property.
  * @template T
@@ -1266,7 +1268,7 @@ var MdOptionModule = (function () {
 }());
 MdOptionModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MdRippleModule, CommonModule, MdSelectionModule],
+                imports: [MdRippleModule, CommonModule, MdPseudoCheckboxModule],
                 exports: [MdOption, MdOptgroup],
                 declarations: [MdOption, MdOptgroup]
             },] },
@@ -1351,200 +1353,6 @@ GestureConfig.decorators = [
  * @nocollapse
  */
 GestureConfig.ctorParameters = function () { return []; };
-/**
- * Class to be used to power selecting one or more options from a list.
- * \@docs-private
- */
-var SelectionModel = (function () {
-    /**
-     * @param {?=} _isMulti
-     * @param {?=} initiallySelectedValues
-     * @param {?=} _emitChanges
-     */
-    function SelectionModel(_isMulti, initiallySelectedValues, _emitChanges) {
-        if (_isMulti === void 0) { _isMulti = false; }
-        if (_emitChanges === void 0) { _emitChanges = true; }
-        var _this = this;
-        this._isMulti = _isMulti;
-        this._emitChanges = _emitChanges;
-        /**
-         * Currently-selected values.
-         */
-        this._selection = new Set();
-        /**
-         * Keeps track of the deselected options that haven't been emitted by the change event.
-         */
-        this._deselectedToEmit = [];
-        /**
-         * Keeps track of the selected option that haven't been emitted by the change event.
-         */
-        this._selectedToEmit = [];
-        /**
-         * Event emitted when the value has changed.
-         */
-        this.onChange = this._emitChanges ? new Subject() : null;
-        if (initiallySelectedValues) {
-            if (_isMulti) {
-                initiallySelectedValues.forEach(function (value) { return _this._markSelected(value); });
-            }
-            else {
-                this._markSelected(initiallySelectedValues[0]);
-            }
-            // Clear the array in order to avoid firing the change event for preselected values.
-            this._selectedToEmit.length = 0;
-        }
-    }
-    Object.defineProperty(SelectionModel.prototype, "selected", {
-        /**
-         * Selected value(s).
-         * @return {?}
-         */
-        get: function () {
-            if (!this._selected) {
-                this._selected = Array.from(this._selection.values());
-            }
-            return this._selected;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Selects a value or an array of values.
-     * @param {?} value
-     * @return {?}
-     */
-    SelectionModel.prototype.select = function (value) {
-        this._markSelected(value);
-        this._emitChangeEvent();
-    };
-    /**
-     * Deselects a value or an array of values.
-     * @param {?} value
-     * @return {?}
-     */
-    SelectionModel.prototype.deselect = function (value) {
-        this._unmarkSelected(value);
-        this._emitChangeEvent();
-    };
-    /**
-     * Toggles a value between selected and deselected.
-     * @param {?} value
-     * @return {?}
-     */
-    SelectionModel.prototype.toggle = function (value) {
-        this.isSelected(value) ? this.deselect(value) : this.select(value);
-    };
-    /**
-     * Clears all of the selected values.
-     * @return {?}
-     */
-    SelectionModel.prototype.clear = function () {
-        this._unmarkAll();
-        this._emitChangeEvent();
-    };
-    /**
-     * Determines whether a value is selected.
-     * @param {?} value
-     * @return {?}
-     */
-    SelectionModel.prototype.isSelected = function (value) {
-        return this._selection.has(value);
-    };
-    /**
-     * Determines whether the model does not have a value.
-     * @return {?}
-     */
-    SelectionModel.prototype.isEmpty = function () {
-        return this._selection.size === 0;
-    };
-    /**
-     * Determines whether the model has a value.
-     * @return {?}
-     */
-    SelectionModel.prototype.hasValue = function () {
-        return !this.isEmpty();
-    };
-    /**
-     * Sorts the selected values based on a predicate function.
-     * @param {?=} predicate
-     * @return {?}
-     */
-    SelectionModel.prototype.sort = function (predicate) {
-        if (this._isMulti && this._selected) {
-            this._selected.sort(predicate);
-        }
-    };
-    /**
-     * Emits a change event and clears the records of selected and deselected values.
-     * @return {?}
-     */
-    SelectionModel.prototype._emitChangeEvent = function () {
-        if (this._selectedToEmit.length || this._deselectedToEmit.length) {
-            var /** @type {?} */ eventData = new SelectionChange(this._selectedToEmit, this._deselectedToEmit);
-            if (this.onChange) {
-                this.onChange.next(eventData);
-            }
-            this._deselectedToEmit = [];
-            this._selectedToEmit = [];
-        }
-        this._selected = null;
-    };
-    /**
-     * Selects a value.
-     * @param {?} value
-     * @return {?}
-     */
-    SelectionModel.prototype._markSelected = function (value) {
-        if (!this.isSelected(value)) {
-            if (!this._isMulti) {
-                this._unmarkAll();
-            }
-            this._selection.add(value);
-            if (this._emitChanges) {
-                this._selectedToEmit.push(value);
-            }
-        }
-    };
-    /**
-     * Deselects a value.
-     * @param {?} value
-     * @return {?}
-     */
-    SelectionModel.prototype._unmarkSelected = function (value) {
-        if (this.isSelected(value)) {
-            this._selection.delete(value);
-            if (this._emitChanges) {
-                this._deselectedToEmit.push(value);
-            }
-        }
-    };
-    /**
-     * Clears out the selected values.
-     * @return {?}
-     */
-    SelectionModel.prototype._unmarkAll = function () {
-        var _this = this;
-        if (!this.isEmpty()) {
-            this._selection.forEach(function (value) { return _this._unmarkSelected(value); });
-        }
-    };
-    return SelectionModel;
-}());
-/**
- * Describes an event emitted when the value of a MdSelectionModel has changed.
- * \@docs-private
- */
-var SelectionChange = (function () {
-    /**
-     * @param {?=} added
-     * @param {?=} removed
-     */
-    function SelectionChange(added, removed) {
-        this.added = added;
-        this.removed = removed;
-    }
-    return SelectionChange;
-}());
 /**
  * Class to coordinate unique selection based on name.
  * Intended to be consumed as an Angular service.
@@ -2637,7 +2445,7 @@ MdCoreModule.decorators = [
                     OverlayModule,
                     A11yModule,
                     MdOptionModule,
-                    MdSelectionModule,
+                    MdPseudoCheckboxModule,
                 ],
                 exports: [
                     MdLineModule,
@@ -2648,7 +2456,7 @@ MdCoreModule.decorators = [
                     OverlayModule,
                     A11yModule,
                     MdOptionModule,
-                    MdSelectionModule,
+                    MdPseudoCheckboxModule,
                 ],
             },] },
 ];
@@ -9010,7 +8818,7 @@ var MdListModule = (function () {
 }());
 MdListModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MdLineModule, MdRippleModule, MdCommonModule, MdSelectionModule, CommonModule],
+                imports: [MdLineModule, MdRippleModule, MdCommonModule, MdPseudoCheckboxModule, CommonModule],
                 exports: [
                     MdList,
                     MdListItem,
@@ -9023,7 +8831,7 @@ MdListModule.decorators = [
                     MdNavListCssMatStyler,
                     MdDividerCssMatStyler,
                     MdListSubheaderCssMatStyler,
-                    MdSelectionModule,
+                    MdPseudoCheckboxModule,
                     MdSelectionList,
                     MdListOption
                 ],
@@ -14842,7 +14650,7 @@ MdTabLink.ctorParameters = function () { return [
     { type: MdTabNav, },
     { type: ElementRef, },
     { type: NgZone, },
-    { type: ViewportRuler, },
+    { type: ViewportRuler$1, },
     { type: Platform, },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MD_RIPPLE_GLOBAL_OPTIONS,] },] },
 ]; };
@@ -15501,7 +15309,7 @@ MdTabsModule.decorators = [
                     MdTabBody,
                     MdTabHeader
                 ],
-                providers: [VIEWPORT_RULER_PROVIDER],
+                providers: [VIEWPORT_RULER_PROVIDER$1],
             },] },
 ];
 /**
@@ -16063,7 +15871,7 @@ MdTooltip.decorators = [
 MdTooltip.ctorParameters = function () { return [
     { type: Overlay, },
     { type: ElementRef, },
-    { type: ScrollDispatcher, },
+    { type: ScrollDispatcher$1, },
     { type: ViewContainerRef, },
     { type: NgZone, },
     { type: Renderer2, },
@@ -22040,5 +21848,5 @@ MaterialModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { VERSION, coerceBooleanProperty, coerceNumberProperty, ObserversModule, ObserveContent, Dir, Directionality, BidiModule, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, VIEWPORT_RULER_PROVIDER, ConnectionPositionPair, ScrollingVisibility, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, ScrollDispatchModule, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, SelectionModel, SelectionChange, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, A, Z, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdSelectionModule, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_SCROLL_STRATEGY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdChipRemove, MdChipInput, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, _MdCheckboxRequiredValidator, MD_CHECKBOX_REQUIRED_VALIDATOR, MdCheckboxRequiredValidator, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MD_DATEPICKER_SCROLL_STRATEGY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInputEvent, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MD_DIALOG_SCROLL_STRATEGY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdFormFieldModule, MdError, MdFormField, MdFormFieldControl, getMdFormFieldPlaceholderConflictError, getMdFormFieldDuplicatedHintError, getMdFormFieldMissingControlError, MdHint, MdPlaceholder, MdPrefix, MdSuffix, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdInput, getMdInputUnsupportedTypeError, MdListModule, MdListBase, _MdListMixinBase, MdListItemBase, _MdListItemMixinBase, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdSelectionListBase, _MdSelectionListMixinBase, MdListOption, MdSelectionList, MdMenuModule, fadeInItems, transformMenu, MdMenu, MD_MENU_DEFAULT_OPTIONS, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdPaginatorIntl, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MD_SELECT_SCROLL_STRATEGY, MD_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_SELECT_SCROLL_STRATEGY_PROVIDER, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelectTrigger, MdSelect, MdSidenavModule, throwMdDuplicatedDrawerError, MdDrawerToggleResult, MdDrawer, MdDrawerContainer, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MD_SNACK_BAR_DATA, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort, MdTableModule, _MdCellDef, _MdHeaderCellDef, _MdColumnDef, _MdHeaderCell, _MdCell, MdCellDef, MdHeaderCellDef, MdColumnDef, MdHeaderCell, MdCell, _MdTable, MdTable, _MdHeaderRowDef, _MdCdkRowDef, _MdHeaderRow, _MdRow, MdHeaderRowDef, MdRowDef, MdHeaderRow, MdRow, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroupBase, _MdTabGroupMixinBase, MdTabGroup, MdTabNavBase, _MdTabNavMixinBase, MdTabLinkBase, _MdTabLinkMixinBase, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMdTooltipInvalidPositionError, MD_TOOLTIP_SCROLL_STRATEGY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MdTooltip, TooltipComponent, mixinColor as ɵv, mixinDisableRipple as ɵw, mixinDisabled as ɵu, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵb, RippleRenderer as ɵa, AccordionItemBase as ɵc, _AccordionItemMixinBase as ɵd, EXPANSION_PANEL_ANIMATION_TIMING as ɵe, MdGridAvatarCssMatStyler as ɵg, MdGridTileFooterCssMatStyler as ɵi, MdGridTileHeaderCssMatStyler as ɵh, MdGridTileText as ɵf, MdMenuItemBase as ɵj, _MdMenuItemMixinBase as ɵk, MD_MENU_SCROLL_STRATEGY as ɵl, MD_MENU_SCROLL_STRATEGY_PROVIDER as ɵn, MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵm, MdTabBase as ɵs, _MdTabMixinBase as ɵt, MdTabHeaderBase as ɵo, _MdTabHeaderMixinBase as ɵp, MdTabLabelWrapperBase as ɵq, _MdTabLabelWrapperMixinBase as ɵr };
+export { VERSION, coerceBooleanProperty, coerceNumberProperty, ObserversModule, ObserveContent, SelectionModel, Dir, Directionality, BidiModule, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, VIEWPORT_RULER_PROVIDER, ConnectionPositionPair, ScrollingVisibility, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, A, Z, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdPseudoCheckboxModule, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_SCROLL_STRATEGY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdChipRemove, MdChipInput, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, _MdCheckboxRequiredValidator, MD_CHECKBOX_REQUIRED_VALIDATOR, MdCheckboxRequiredValidator, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MD_DATEPICKER_SCROLL_STRATEGY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInputEvent, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MD_DIALOG_SCROLL_STRATEGY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdFormFieldModule, MdError, MdFormField, MdFormFieldControl, getMdFormFieldPlaceholderConflictError, getMdFormFieldDuplicatedHintError, getMdFormFieldMissingControlError, MdHint, MdPlaceholder, MdPrefix, MdSuffix, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdInput, getMdInputUnsupportedTypeError, MdListModule, MdListBase, _MdListMixinBase, MdListItemBase, _MdListItemMixinBase, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdSelectionListBase, _MdSelectionListMixinBase, MdListOption, MdSelectionList, MdMenuModule, fadeInItems, transformMenu, MdMenu, MD_MENU_DEFAULT_OPTIONS, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdPaginatorIntl, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MD_SELECT_SCROLL_STRATEGY, MD_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_SELECT_SCROLL_STRATEGY_PROVIDER, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelectTrigger, MdSelect, MdSidenavModule, throwMdDuplicatedDrawerError, MdDrawerToggleResult, MdDrawer, MdDrawerContainer, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MD_SNACK_BAR_DATA, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort, MdTableModule, _MdCellDef, _MdHeaderCellDef, _MdColumnDef, _MdHeaderCell, _MdCell, MdCellDef, MdHeaderCellDef, MdColumnDef, MdHeaderCell, MdCell, _MdTable, MdTable, _MdHeaderRowDef, _MdCdkRowDef, _MdHeaderRow, _MdRow, MdHeaderRowDef, MdRowDef, MdHeaderRow, MdRow, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroupBase, _MdTabGroupMixinBase, MdTabGroup, MdTabNavBase, _MdTabNavMixinBase, MdTabLinkBase, _MdTabLinkMixinBase, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMdTooltipInvalidPositionError, MD_TOOLTIP_SCROLL_STRATEGY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MdTooltip, TooltipComponent, mixinColor as ɵv, mixinDisableRipple as ɵw, mixinDisabled as ɵu, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵb, RippleRenderer as ɵa, AccordionItemBase as ɵc, _AccordionItemMixinBase as ɵd, EXPANSION_PANEL_ANIMATION_TIMING as ɵe, MdGridAvatarCssMatStyler as ɵg, MdGridTileFooterCssMatStyler as ɵi, MdGridTileHeaderCssMatStyler as ɵh, MdGridTileText as ɵf, MdMenuItemBase as ɵj, _MdMenuItemMixinBase as ɵk, MD_MENU_SCROLL_STRATEGY as ɵl, MD_MENU_SCROLL_STRATEGY_PROVIDER as ɵn, MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵm, MdTabBase as ɵs, _MdTabMixinBase as ɵt, MdTabHeaderBase as ɵo, _MdTabHeaderMixinBase as ɵp, MdTabLabelWrapperBase as ɵq, _MdTabLabelWrapperMixinBase as ɵr };
 //# sourceMappingURL=material.es5.js.map
