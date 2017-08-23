@@ -11,6 +11,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { HammerInput } from '../core';
 import { FocusOriginMonitor } from '../core/style/focus-origin-monitor';
 import { CanDisable } from '../core/common-behaviors/disabled';
+import { CanColor } from '../core/common-behaviors/color';
 /**
  * Provider Expression that allows md-slider to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)] and [formControl].
@@ -25,14 +26,16 @@ export declare class MdSliderChange {
 }
 /** @docs-private */
 export declare class MdSliderBase {
+    _renderer: Renderer2;
+    _elementRef: ElementRef;
+    constructor(_renderer: Renderer2, _elementRef: ElementRef);
 }
-export declare const _MdSliderMixinBase: (new (...args: any[]) => CanDisable) & typeof MdSliderBase;
+export declare const _MdSliderMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisable) & typeof MdSliderBase;
 /**
  * Allows users to select from a range of values by moving the slider thumb. It is similar in
  * behavior to the native `<input type="range">` element.
  */
-export declare class MdSlider extends _MdSliderMixinBase implements ControlValueAccessor, OnDestroy, CanDisable {
-    private _elementRef;
+export declare class MdSlider extends _MdSliderMixinBase implements ControlValueAccessor, OnDestroy, CanDisable, CanColor {
     private _focusOriginMonitor;
     private _changeDetectorRef;
     private _dir;
@@ -67,7 +70,6 @@ export declare class MdSlider extends _MdSliderMixinBase implements ControlValue
     /** Whether the slider is vertical. */
     vertical: any;
     private _vertical;
-    color: 'primary' | 'accent' | 'warn';
     /** Event emitted when the slider value has changed. */
     change: EventEmitter<MdSliderChange>;
     /** Event emitted when the slider thumb moves. */
@@ -138,7 +140,7 @@ export declare class MdSlider extends _MdSliderMixinBase implements ControlValue
     private readonly _invertMouseCoords;
     /** The language direction for this slider element. */
     private readonly _direction;
-    constructor(renderer: Renderer2, _elementRef: ElementRef, _focusOriginMonitor: FocusOriginMonitor, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality);
+    constructor(renderer: Renderer2, elementRef: ElementRef, _focusOriginMonitor: FocusOriginMonitor, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality);
     ngOnDestroy(): void;
     _onMouseenter(): void;
     _onClick(event: MouseEvent): void;
