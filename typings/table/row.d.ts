@@ -10,11 +10,17 @@ export declare const _MdRow: typeof CdkRow;
  */
 export declare class MdHeaderRowDef extends _MdHeaderRowDef {
 }
+/** Mat-compatible version of MdHeaderRowDef */
+export declare class MatHeaderRowDef extends _MdHeaderRowDef {
+}
 /**
  * Data row definition for the md-table.
  * Captures the header row's template and other row properties such as the columns to display.
  */
 export declare class MdRowDef extends _MdCdkRowDef {
+}
+/** Mat-compatible version of MdRowDef */
+export declare class MatRowDef extends _MdCdkRowDef {
 }
 /** Header template container that contains the cell outlet. Adds the right class and role. */
 export declare class MdHeaderRow extends _MdHeaderRow {

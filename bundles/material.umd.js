@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.8-c4a5d7a');
+var VERSION = new _angular_core.Version('2.0.0-beta.8-32f42d6');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -21043,7 +21043,7 @@ var MdHeaderRowDef = (function (_super) {
 }(_MdHeaderRowDef));
 MdHeaderRowDef.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[mdHeaderRowDef], [matHeaderRowDef]',
+                selector: '[mdHeaderRowDef]',
                 providers: [{ provide: _angular_cdk_table.CdkHeaderRowDef, useExisting: MdHeaderRowDef }],
                 inputs: ['columns: mdHeaderRowDef'],
             },] },
@@ -21052,6 +21052,27 @@ MdHeaderRowDef.decorators = [
  * @nocollapse
  */
 MdHeaderRowDef.ctorParameters = function () { return []; };
+/**
+ * Mat-compatible version of MdHeaderRowDef
+ */
+var MatHeaderRowDef = (function (_super) {
+    __extends(MatHeaderRowDef, _super);
+    function MatHeaderRowDef() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return MatHeaderRowDef;
+}(_MdHeaderRowDef));
+MatHeaderRowDef.decorators = [
+    { type: _angular_core.Directive, args: [{
+                selector: '[matHeaderRowDef]',
+                providers: [{ provide: _angular_cdk_table.CdkHeaderRowDef, useExisting: MatHeaderRowDef }],
+                inputs: ['columns: matHeaderRowDef'],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MatHeaderRowDef.ctorParameters = function () { return []; };
 /**
  * Data row definition for the md-table.
  * Captures the header row's template and other row properties such as the columns to display.
@@ -21065,7 +21086,7 @@ var MdRowDef = (function (_super) {
 }(_MdCdkRowDef));
 MdRowDef.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[mdRowDef], [matRowDef]',
+                selector: '[mdRowDef]',
                 providers: [{ provide: _angular_cdk_table.CdkRowDef, useExisting: MdRowDef }],
                 inputs: ['columns: mdRowDefColumns'],
             },] },
@@ -21074,6 +21095,27 @@ MdRowDef.decorators = [
  * @nocollapse
  */
 MdRowDef.ctorParameters = function () { return []; };
+/**
+ * Mat-compatible version of MdRowDef
+ */
+var MatRowDef = (function (_super) {
+    __extends(MatRowDef, _super);
+    function MatRowDef() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return MatRowDef;
+}(_MdCdkRowDef));
+MatRowDef.decorators = [
+    { type: _angular_core.Directive, args: [{
+                selector: '[matRowDef]',
+                providers: [{ provide: _angular_cdk_table.CdkRowDef, useExisting: MatRowDef }],
+                inputs: ['columns: matRowDefColumns'],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MatRowDef.ctorParameters = function () { return []; };
 /**
  * Header template container that contains the cell outlet. Adds the right class and role.
  */
@@ -21136,10 +21178,12 @@ MdTableModule.decorators = [
                 imports: [_angular_cdk_table.CdkTableModule, _angular_common.CommonModule, MdCommonModule],
                 exports: [MdTable, MdCellDef, MdHeaderCellDef, MdColumnDef,
                     MdHeaderRowDef, MdRowDef,
-                    MdHeaderCell, MdCell, MdHeaderRow, MdRow],
+                    MdHeaderCell, MdCell, MdHeaderRow, MdRow,
+                    MatHeaderRowDef, MatRowDef],
                 declarations: [MdTable, MdCellDef, MdHeaderCellDef, MdColumnDef,
                     MdHeaderRowDef, MdRowDef,
-                    MdHeaderCell, MdCell, MdHeaderRow, MdRow],
+                    MdHeaderCell, MdCell, MdHeaderRow, MdRow,
+                    MatHeaderRowDef, MatRowDef],
             },] },
 ];
 /**
@@ -22250,7 +22294,9 @@ exports._MdCdkRowDef = _MdCdkRowDef;
 exports._MdHeaderRow = _MdHeaderRow;
 exports._MdRow = _MdRow;
 exports.MdHeaderRowDef = MdHeaderRowDef;
+exports.MatHeaderRowDef = MatHeaderRowDef;
 exports.MdRowDef = MdRowDef;
+exports.MatRowDef = MatRowDef;
 exports.MdHeaderRow = MdHeaderRow;
 exports.MdRow = MdRow;
 exports.MdTabsModule = MdTabsModule;
