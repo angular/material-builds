@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { TemplatePortal } from '../core/portal/portal';
-import { ViewContainerRef, TemplateRef, OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
+import { OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { CanDisable } from '../core/common-behaviors/disabled';
 import { MdTabLabel } from './tab-label';
 import { Subject } from 'rxjs/Subject';
