@@ -35,7 +35,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.8-eef28c0');
+const VERSION = new Version('2.0.0-beta.8-dde6e19');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
