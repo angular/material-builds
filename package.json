@@ -1,6 +1,6 @@
 {
   "name": "@angular/material",
-  "version": "2.0.0-beta.8-412c9fc",
+  "version": "2.0.0-beta.8-6df8144",
   "description": "Angular Material",
   "main": "./bundles/material.umd.js",
   "module": "./@angular/material.es5.js",
@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/angular/material2#readme",
   "peerDependencies": {
-    "@angular/cdk": "2.0.0-beta.8-412c9fc",
+    "@angular/cdk": "2.0.0-beta.8-6df8144",
     "@angular/core": "^4.3.0",
     "@angular/common": "^4.3.0"
   },
