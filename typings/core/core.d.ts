@@ -24,5 +24,6 @@ export { MdCommonModule, MATERIAL_SANITY_CHECKS } from './common-behaviors/commo
 export * from './datetime/index';
 export { FloatPlaceholderType, PlaceholderOptions, MD_PLACEHOLDER_GLOBAL_OPTIONS } from './placeholder/placeholder-options';
 export { ErrorStateMatcher, ErrorOptions, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher } from './error/error-options';
+/** @deprecated */
 export declare class MdCoreModule {
 }

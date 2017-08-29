@@ -35,7 +35,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.8-deca032');
+const VERSION = new Version('2.0.0-beta.8-377a3bb');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -2443,6 +2443,9 @@ function showOnDirtyErrorStateMatcher(control, form) {
     return !!(control.invalid && (control.dirty || isSubmitted));
 }
 
+/**
+ * @deprecated
+ */
 class MdCoreModule {
 }
 MdCoreModule.decorators = [
