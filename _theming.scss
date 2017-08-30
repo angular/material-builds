@@ -3461,6 +3461,12 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
   $underline-color-warn: mat-color($warn);
   $underline-focused-color: mat-color($primary);
 
+  // Define the width here so that it is easier for users to override with one css class worth
+  // of specificity.
+  .mat-form-field {
+    width: 200px;
+  }
+
   .mat-form-field-placeholder {
     color: $placeholder-color;
   }
