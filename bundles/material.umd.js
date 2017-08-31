@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('rxjs/Subject'), require('rxjs/observable/of'), require('@angular/forms'), require('@angular/cdk/rxjs'), require('rxjs/observable/merge'), require('@angular/animations'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/throw'), require('rxjs/observable/forkJoin'), require('rxjs/observable/fromEvent'), require('rxjs/observable/defer'), require('@angular/cdk/table')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/platform-browser', '@angular/common', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/coercion', '@angular/cdk/collections', 'rxjs/Subject', 'rxjs/observable/of', '@angular/forms', '@angular/cdk/rxjs', 'rxjs/observable/merge', '@angular/animations', '@angular/http', 'rxjs/Observable', 'rxjs/observable/throw', 'rxjs/observable/forkJoin', 'rxjs/observable/fromEvent', 'rxjs/observable/defer', '@angular/cdk/table'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.platformBrowser,global.ng.common,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.coercion,global.ng.cdk.collections,global.Rx,global.Rx.Observable,global.ng.forms,global.ng.cdk.rxjs,global.Rx.Observable,global.ng.animations,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.table));
-}(this, (function (exports,_angular_core,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_observers,_angular_cdk_overlay,_angular_cdk_portal,_angular_platformBrowser,_angular_common,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_coercion,_angular_cdk_collections,rxjs_Subject,rxjs_observable_of,_angular_forms,_angular_cdk_rxjs,rxjs_observable_merge,_angular_animations,_angular_http,rxjs_Observable,rxjs_observable_throw,rxjs_observable_forkJoin,rxjs_observable_fromEvent,rxjs_observable_defer,_angular_cdk_table) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('rxjs/Subject'), require('rxjs/observable/of'), require('@angular/forms'), require('@angular/cdk/rxjs'), require('rxjs/observable/merge'), require('@angular/animations'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/throw'), require('rxjs/observable/forkJoin'), require('rxjs/observable/fromEvent'), require('rxjs/observable/defer'), require('@angular/cdk/table'), require('@angular/cdk/stepper')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/platform-browser', '@angular/common', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/coercion', '@angular/cdk/collections', 'rxjs/Subject', 'rxjs/observable/of', '@angular/forms', '@angular/cdk/rxjs', 'rxjs/observable/merge', '@angular/animations', '@angular/http', 'rxjs/Observable', 'rxjs/observable/throw', 'rxjs/observable/forkJoin', 'rxjs/observable/fromEvent', 'rxjs/observable/defer', '@angular/cdk/table', '@angular/cdk/stepper'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.platformBrowser,global.ng.common,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.coercion,global.ng.cdk.collections,global.Rx,global.Rx.Observable,global.ng.forms,global.ng.cdk.rxjs,global.Rx.Observable,global.ng.animations,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.table,global.ng.cdk.stepper));
+}(this, (function (exports,_angular_core,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_observers,_angular_cdk_overlay,_angular_cdk_portal,_angular_platformBrowser,_angular_common,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_coercion,_angular_cdk_collections,rxjs_Subject,rxjs_observable_of,_angular_forms,_angular_cdk_rxjs,rxjs_observable_merge,_angular_animations,_angular_http,rxjs_Observable,rxjs_observable_throw,rxjs_observable_forkJoin,rxjs_observable_fromEvent,rxjs_observable_defer,_angular_cdk_table,_angular_cdk_stepper) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.10-70bd5fc');
+var VERSION = new _angular_core.Version('2.0.0-beta.10-87318bc');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -57,11 +57,11 @@ function getMdCompatibilityInvalidPrefixError(prefix, nodeName) {
 /**
  * Selector that matches all elements that may have style collisions with AngularJS Material.
  */
-var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [matCardSubtitle],\n  [matCardTitle],\n  [matCellDef],\n  [matColumnDef],\n  [matDialogActions],\n  [matDialogClose],\n  [matDialogContent],\n  [matDialogTitle],\n  [matHeaderCellDef],\n  [matHeaderRowDef],\n  [matLine],\n  [matRowDef],\n  [matTabLabel],\n  [matTabLink],\n  [matTabNav],\n  [matTooltip],\n  [matInput],\n  [matPrefix],\n  [matSuffix],\n  mat-autocomplete,\n  mat-button-toggle,\n  mat-button-toggle,\n  mat-button-toggle-group,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-cell,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-error,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-header-cell,\n  mat-header-row,\n  mat-hint,\n  mat-icon,\n  mat-input-container,\n  mat-form-field,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-pseudo-checkbox,\n  mat-radio-button,\n  mat-radio-group,\n  mat-row,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-tab,\n  mat-table,\n  mat-tab-group,\n  mat-toolbar";
+var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [matCardSubtitle],\n  [matCardTitle],\n  [matCellDef],\n  [matColumnDef],\n  [matDialogActions],\n  [matDialogClose],\n  [matDialogContent],\n  [matDialogTitle],\n  [matHeaderCellDef],\n  [matHeaderRowDef],\n  [matLine],\n  [matRowDef],\n  [matStepLabel],\n  [matStepperNext],\n  [matStepperPrevious],\n  [matTabLabel],\n  [matTabLink],\n  [matTabNav],\n  [matTooltip],\n  [matInput],\n  [matPrefix],\n  [matSuffix],\n  mat-autocomplete,\n  mat-button-toggle,\n  mat-button-toggle,\n  mat-button-toggle-group,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-cell,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-error,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-header-cell,\n  mat-header-row,\n  mat-hint,\n  mat-horizontal-stepper,\n  mat-icon,\n  mat-input-container,\n  mat-form-field,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-pseudo-checkbox,\n  mat-radio-button,\n  mat-radio-group,\n  mat-row,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-step,\n  mat-tab,\n  mat-table,\n  mat-tab-group,\n  mat-toolbar,\n  mat-vertical-stepper";
 /**
  * Selector that matches all elements that may have style collisions with AngularJS Material.
  */
-var MD_ELEMENTS_SELECTOR = "\n  [md-button],\n  [md-fab],\n  [md-icon-button],\n  [md-mini-fab],\n  [md-raised-button],\n  [mdCardSubtitle],\n  [mdCardTitle],\n  [mdCellDef],\n  [mdColumnDef],\n  [mdDialogActions],\n  [mdDialogClose],\n  [mdDialogContent],\n  [mdDialogTitle],\n  [mdHeaderCellDef],\n  [mdHeaderRowDef],\n  [mdLine],\n  [mdRowDef],\n  [mdTabLabel],\n  [mdTabLink],\n  [mdTabNav],\n  [mdTooltip],\n  [mdInput],\n  [mdPrefix],\n  [mdSuffix],\n  md-autocomplete,\n  md-button-toggle,\n  md-button-toggle,\n  md-button-toggle-group,\n  md-card,\n  md-card-actions,\n  md-card-content,\n  md-card-footer,\n  md-card-header,\n  md-card-subtitle,\n  md-card-title,\n  md-card-title-group,\n  md-cell,\n  md-checkbox,\n  md-chip,\n  md-dialog-actions,\n  md-dialog-container,\n  md-dialog-content,\n  md-divider,\n  md-error,\n  md-grid-list,\n  md-grid-tile,\n  md-grid-tile-footer,\n  md-grid-tile-header,\n  md-header-cell,\n  md-header-row,\n  md-hint,\n  md-icon,\n  md-input-container,\n  md-form-field,\n  md-list,\n  md-list-item,\n  md-menu,\n  md-nav-list,\n  md-option,\n  md-placeholder,\n  md-progress-bar,\n  md-pseudo-checkbox,\n  md-radio-button,\n  md-radio-group,\n  md-row,\n  md-select,\n  md-sidenav,\n  md-sidenav-container,\n  md-slider,\n  md-spinner,\n  md-tab,\n  md-table,\n  md-tab-group,\n  md-toolbar";
+var MD_ELEMENTS_SELECTOR = "\n  [md-button],\n  [md-fab],\n  [md-icon-button],\n  [md-mini-fab],\n  [md-raised-button],\n  [mdCardSubtitle],\n  [mdCardTitle],\n  [mdCellDef],\n  [mdColumnDef],\n  [mdDialogActions],\n  [mdDialogClose],\n  [mdDialogContent],\n  [mdDialogTitle],\n  [mdHeaderCellDef],\n  [mdHeaderRowDef],\n  [mdLine],\n  [mdRowDef],\n  [mdStepLabel],\n  [mdStepperNext],\n  [mdStepperPrevious],\n  [mdTabLabel],\n  [mdTabLink],\n  [mdTabNav],\n  [mdTooltip],\n  [mdInput],\n  [mdPrefix],\n  [mdSuffix],\n  md-autocomplete,\n  md-button-toggle,\n  md-button-toggle,\n  md-button-toggle-group,\n  md-card,\n  md-card-actions,\n  md-card-content,\n  md-card-footer,\n  md-card-header,\n  md-card-subtitle,\n  md-card-title,\n  md-card-title-group,\n  md-cell,\n  md-checkbox,\n  md-chip,\n  md-dialog-actions,\n  md-dialog-container,\n  md-dialog-content,\n  md-divider,\n  md-error,\n  md-grid-list,\n  md-grid-tile,\n  md-grid-tile-footer,\n  md-grid-tile-header,\n  md-header-cell,\n  md-header-row,\n  md-hint,\n  md-horizontal-stepper,\n  md-icon,\n  md-input-container,\n  md-form-field,\n  md-list,\n  md-list-item,\n  md-menu,\n  md-nav-list,\n  md-option,\n  md-placeholder,\n  md-progress-bar,\n  md-pseudo-checkbox,\n  md-radio-button,\n  md-radio-group,\n  md-row,\n  md-select,\n  md-sidenav,\n  md-sidenav-container,\n  md-slider,\n  md-spinner,\n  md-step,\n  md-tab,\n  md-table,\n  md-tab-group,\n  md-toolbar,\n  md-vertical-stepper";
 /**
  * Directive that enforces that the `mat-` prefix cannot be used.
  */
@@ -21875,6 +21875,350 @@ MdPaginatorModule.decorators = [
  * @nocollapse
  */
 MdPaginatorModule.ctorParameters = function () { return []; };
+/**
+ * Workaround for https://github.com/angular/angular/issues/17849
+ */
+var _MdStepLabel = _angular_cdk_stepper.CdkStepLabel;
+var MdStepLabel = (function (_super) {
+    __extends(MdStepLabel, _super);
+    /**
+     * @param {?} template
+     */
+    function MdStepLabel(template) {
+        return _super.call(this, template) || this;
+    }
+    return MdStepLabel;
+}(_MdStepLabel));
+MdStepLabel.decorators = [
+    { type: _angular_core.Directive, args: [{
+                selector: '[mdStepLabel], [matStepLabel]',
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdStepLabel.ctorParameters = function () { return [
+    { type: _angular_core.TemplateRef, },
+]; };
+var MdStepHeader = (function () {
+    function MdStepHeader() {
+    }
+    Object.defineProperty(MdStepHeader.prototype, "index", {
+        /**
+         * Index of the given step.
+         * @return {?}
+         */
+        get: function () { return this._index; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._index = _angular_cdk_coercion.coerceNumberProperty(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdStepHeader.prototype, "selected", {
+        /**
+         * Whether the given step is selected.
+         * @return {?}
+         */
+        get: function () { return this._selected; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._selected = _angular_cdk_coercion.coerceBooleanProperty(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdStepHeader.prototype, "active", {
+        /**
+         * Whether the given step label is active.
+         * @return {?}
+         */
+        get: function () { return this._active; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._active = _angular_cdk_coercion.coerceBooleanProperty(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdStepHeader.prototype, "optional", {
+        /**
+         * Whether the given step is optional.
+         * @return {?}
+         */
+        get: function () { return this._optional; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._optional = _angular_cdk_coercion.coerceBooleanProperty(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdStepHeader.prototype, "_stringLabel", {
+        /**
+         * Returns string label of given step if it is a text label.
+         * @return {?}
+         */
+        get: function () {
+            return this.label instanceof MdStepLabel ? null : this.label;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdStepHeader.prototype, "_templateLabel", {
+        /**
+         * Returns MdStepLabel if the label of given step is a template label.
+         * @return {?}
+         */
+        get: function () {
+            return this.label instanceof MdStepLabel ? this.label : null;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return MdStepHeader;
+}());
+MdStepHeader.decorators = [
+    { type: _angular_core.Component, args: [{
+                selector: 'md-step-header, mat-step-header',
+                template: "<div [class.mat-step-icon]=\"icon != 'number' || selected\" [class.mat-step-icon-not-touched]=\"icon == 'number' && !selected\"><span *ngIf=\"icon == 'number'\">{{index + 1}}</span><md-icon *ngIf=\"icon == 'edit'\">create</md-icon><md-icon *ngIf=\"icon == 'done'\">done</md-icon></div><div [class.mat-step-label-active]=\"active\" [class.mat-step-label-inactive]=\"!active\"><ng-container *ngIf=\"_templateLabel\" [ngTemplateOutlet]=\"label.template\"></ng-container><div class=\"mat-step-text-label\" *ngIf=\"_stringLabel\">{{label}}</div><div class=\"mat-step-optional\" *ngIf=\"optional\">Optional</div></div>",
+                styles: [".mat-step-optional{font-size:12px}.mat-step-icon,.mat-step-icon-not-touched{border-radius:50%;height:24px;width:24px;align-items:center;justify-content:center;display:flex}.mat-step-icon .mat-icon{font-size:16px;height:16px;width:16px}.mat-step-label-active,.mat-step-label-inactive{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle}.mat-step-text-label{text-overflow:ellipsis;overflow:hidden}"],
+                host: {
+                    'class': 'mat-step-header',
+                    'role': 'tab',
+                },
+                encapsulation: _angular_core.ViewEncapsulation.None
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdStepHeader.ctorParameters = function () { return []; };
+MdStepHeader.propDecorators = {
+    'icon': [{ type: _angular_core.Input },],
+    'label': [{ type: _angular_core.Input },],
+    'index': [{ type: _angular_core.Input },],
+    'selected': [{ type: _angular_core.Input },],
+    'active': [{ type: _angular_core.Input },],
+    'optional': [{ type: _angular_core.Input },],
+};
+/**
+ * Workaround for https://github.com/angular/angular/issues/17849
+ */
+var _MdStep = _angular_cdk_stepper.CdkStep;
+var _MdStepper = _angular_cdk_stepper.CdkStepper;
+var MdStep = (function (_super) {
+    __extends(MdStep, _super);
+    /**
+     * @param {?} mdStepper
+     * @param {?} errorOptions
+     */
+    function MdStep(mdStepper, errorOptions) {
+        var _this = _super.call(this, mdStepper) || this;
+        /**
+         * Custom error state matcher that additionally checks for validity of interacted form.
+         */
+        _this.errorStateMatcher = function (control, form) {
+            var originalErrorState = _this._originalErrorStateMatcher(control, form);
+            // Custom error state checks for the validity of form that is not submitted or touched
+            // since user can trigger a form change by calling for another step without directly
+            // interacting with the current form.
+            var customErrorState = control.invalid && _this.interacted;
+            return originalErrorState || customErrorState;
+        };
+        _this._originalErrorStateMatcher =
+            errorOptions ? errorOptions.errorStateMatcher || defaultErrorStateMatcher
+                : defaultErrorStateMatcher;
+        return _this;
+    }
+    return MdStep;
+}(_MdStep));
+MdStep.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'md-step, mat-step',
+                template: "<ng-template><ng-content></ng-content></ng-template>",
+                providers: [{ provide: MD_ERROR_GLOBAL_OPTIONS, useExisting: MdStep }],
+                encapsulation: _angular_core.ViewEncapsulation.None
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdStep.ctorParameters = function () { return [
+    { type: MdStepper, decorators: [{ type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MdStepper; }),] },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf }, { type: _angular_core.Inject, args: [MD_ERROR_GLOBAL_OPTIONS,] },] },
+]; };
+MdStep.propDecorators = {
+    'stepLabel': [{ type: _angular_core.ContentChild, args: [MdStepLabel,] },],
+};
+var MdStepper = (function (_super) {
+    __extends(MdStepper, _super);
+    function MdStepper() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return MdStepper;
+}(_MdStepper));
+MdStepper.decorators = [
+    { type: _angular_core.Directive, args: [{
+                selector: '[mdStepper]'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdStepper.ctorParameters = function () { return []; };
+MdStepper.propDecorators = {
+    '_stepHeader': [{ type: _angular_core.ViewChildren, args: [MdStepHeader, { read: _angular_core.ElementRef },] },],
+    '_steps': [{ type: _angular_core.ContentChildren, args: [MdStep,] },],
+};
+var MdHorizontalStepper = (function (_super) {
+    __extends(MdHorizontalStepper, _super);
+    function MdHorizontalStepper() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return MdHorizontalStepper;
+}(MdStepper));
+MdHorizontalStepper.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'md-horizontal-stepper, mat-horizontal-stepper',
+                template: "<div class=\"mat-horizontal-stepper-header-container\"><ng-container *ngFor=\"let step of _steps; let i = index; let isLast = last\"><md-step-header class=\"mat-horizontal-stepper-header\" (click)=\"step.select()\" (keydown)=\"_onKeydown($event)\" [tabIndex]=\"_focusIndex == i ? 0 : -1\" [id]=\"_getStepLabelId(i)\" [attr.aria-controls]=\"_getStepContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [index]=\"i\" [icon]=\"_getIndicatorType(i)\" [label]=\"step.stepLabel || step.label\" [selected]=\"selectedIndex == i\" [active]=\"step.completed || selectedIndex == i\" [optional]=\"step.optional\"></md-step-header><div *ngIf=\"!isLast\" class=\"mat-stepper-horizontal-line\"></div></ng-container></div><div class=\"mat-horizontal-content-container\"><div *ngFor=\"let step of _steps; let i = index\" class=\"mat-horizontal-stepper-content\" role=\"tabpanel\" [@stepTransition]=\"_getAnimationDirection(i)\" [id]=\"_getStepContentId(i)\" [attr.aria-labelledby]=\"_getStepLabelId(i)\" [attr.aria-expanded]=\"selectedIndex == i\"><ng-container [ngTemplateOutlet]=\"step.content\"></ng-container></div></div>",
+                styles: [".mat-stepper-horizontal,.mat-stepper-vertical{display:block}.mat-step-header{overflow:hidden;outline:0}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon,.mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon,[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:8px}.mat-vertical-stepper-header{display:flex;align-items:center;padding:24px;max-height:24px}.mat-vertical-stepper-header .mat-step-icon,.mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon,[dir=rtl] .mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content{overflow:hidden}.mat-horizontal-stepper-content[aria-expanded=false]{height:0}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:'';position:absolute;top:-16px;bottom:-16px;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}"],
+                inputs: ['selectedIndex'],
+                host: {
+                    'class': 'mat-stepper-horizontal',
+                    'role': 'tablist',
+                },
+                animations: [
+                    _angular_animations.trigger('stepTransition', [
+                        _angular_animations.state('previous', _angular_animations.style({ transform: 'translate3d(-100%, 0, 0)', visibility: 'hidden' })),
+                        _angular_animations.state('current', _angular_animations.style({ transform: 'translate3d(0%, 0, 0)', visibility: 'visible' })),
+                        _angular_animations.state('next', _angular_animations.style({ transform: 'translate3d(100%, 0, 0)', visibility: 'hidden' })),
+                        _angular_animations.transition('* => *', _angular_animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)'))
+                    ])
+                ],
+                providers: [{ provide: MdStepper, useExisting: MdHorizontalStepper }],
+                encapsulation: _angular_core.ViewEncapsulation.None
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdHorizontalStepper.ctorParameters = function () { return []; };
+var MdVerticalStepper = (function (_super) {
+    __extends(MdVerticalStepper, _super);
+    function MdVerticalStepper() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return MdVerticalStepper;
+}(MdStepper));
+MdVerticalStepper.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'md-vertical-stepper, mat-vertical-stepper',
+                template: "<div class=\"mat-step\" *ngFor=\"let step of _steps; let i = index; let isLast = last\"><md-step-header class=\"mat-vertical-stepper-header\" (click)=\"step.select()\" (keydown)=\"_onKeydown($event)\" [tabIndex]=\"_focusIndex == i ? 0 : -1\" [id]=\"_getStepLabelId(i)\" [attr.aria-controls]=\"_getStepContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [index]=\"i\" [icon]=\"_getIndicatorType(i)\" [label]=\"step.stepLabel || step.label\" [selected]=\"selectedIndex == i\" [active]=\"step.completed || selectedIndex == i\" [optional]=\"step.optional\"></md-step-header><div class=\"mat-vertical-content-container\" [class.mat-stepper-vertical-line]=\"!isLast\"><div class=\"mat-vertical-stepper-content\" role=\"tabpanel\" [@stepTransition]=\"_getAnimationDirection(i)\" [id]=\"_getStepContentId(i)\" [attr.aria-labelledby]=\"_getStepLabelId(i)\" [attr.aria-expanded]=\"selectedIndex == i\"><div class=\"mat-vertical-content\"><ng-container [ngTemplateOutlet]=\"step.content\"></ng-container></div></div></div></div>",
+                styles: [".mat-stepper-horizontal,.mat-stepper-vertical{display:block}.mat-step-header{overflow:hidden;outline:0}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon,.mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon,[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:8px}.mat-vertical-stepper-header{display:flex;align-items:center;padding:24px;max-height:24px}.mat-vertical-stepper-header .mat-step-icon,.mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon,[dir=rtl] .mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content{overflow:hidden}.mat-horizontal-stepper-content[aria-expanded=false]{height:0}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:'';position:absolute;top:-16px;bottom:-16px;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}"],
+                inputs: ['selectedIndex'],
+                host: {
+                    'class': 'mat-stepper-vertical',
+                    'role': 'tablist',
+                },
+                animations: [
+                    _angular_animations.trigger('stepTransition', [
+                        _angular_animations.state('previous', _angular_animations.style({ height: '0px', visibility: 'hidden' })),
+                        _angular_animations.state('next', _angular_animations.style({ height: '0px', visibility: 'hidden' })),
+                        _angular_animations.state('current', _angular_animations.style({ height: '*', visibility: 'visible' })),
+                        _angular_animations.transition('* <=> current', _angular_animations.animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
+                    ])
+                ],
+                providers: [{ provide: MdStepper, useExisting: MdVerticalStepper }],
+                encapsulation: _angular_core.ViewEncapsulation.None
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdVerticalStepper.ctorParameters = function () { return []; };
+/**
+ * Workaround for https://github.com/angular/angular/issues/17849
+ */
+var _MdStepperNext = _angular_cdk_stepper.CdkStepperNext;
+var _MdStepperPrevious = _angular_cdk_stepper.CdkStepperPrevious;
+/**
+ * Button that moves to the next step in a stepper workflow.
+ */
+var MdStepperNext = (function (_super) {
+    __extends(MdStepperNext, _super);
+    function MdStepperNext() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return MdStepperNext;
+}(_MdStepperNext));
+MdStepperNext.decorators = [
+    { type: _angular_core.Directive, args: [{
+                selector: 'button[mdStepperNext], button[matStepperNext]',
+                host: { '(click)': '_stepper.next()' },
+                providers: [{ provide: _angular_cdk_stepper.CdkStepper, useExisting: MdStepper }]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdStepperNext.ctorParameters = function () { return []; };
+/**
+ * Button that moves to the previous step in a stepper workflow.
+ */
+var MdStepperPrevious = (function (_super) {
+    __extends(MdStepperPrevious, _super);
+    function MdStepperPrevious() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    return MdStepperPrevious;
+}(_MdStepperPrevious));
+MdStepperPrevious.decorators = [
+    { type: _angular_core.Directive, args: [{
+                selector: 'button[mdStepperPrevious], button[matStepperPrevious]',
+                host: { '(click)': '_stepper.previous()' },
+                providers: [{ provide: _angular_cdk_stepper.CdkStepper, useExisting: MdStepper }]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdStepperPrevious.ctorParameters = function () { return []; };
+var MdStepperModule = (function () {
+    function MdStepperModule() {
+    }
+    return MdStepperModule;
+}());
+MdStepperModule.decorators = [
+    { type: _angular_core.NgModule, args: [{
+                imports: [
+                    MdCommonModule,
+                    _angular_common.CommonModule,
+                    _angular_cdk_portal.PortalModule,
+                    MdButtonModule,
+                    _angular_cdk_stepper.CdkStepperModule,
+                    MdIconModule
+                ],
+                exports: [MdCommonModule, MdHorizontalStepper, MdVerticalStepper, MdStep, MdStepLabel, MdStepper,
+                    MdStepperNext, MdStepperPrevious, MdStepHeader],
+                declarations: [MdHorizontalStepper, MdVerticalStepper, MdStep, MdStepLabel, MdStepper,
+                    MdStepperNext, MdStepperPrevious, MdStepHeader],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdStepperModule.ctorParameters = function () { return []; };
 var MATERIAL_MODULES = [
     MdAutocompleteModule,
     MdButtonModule,
@@ -21903,6 +22247,7 @@ var MATERIAL_MODULES = [
     MdSlideToggleModule,
     MdSnackBarModule,
     MdSortModule,
+    MdStepperModule,
     MdTabsModule,
     MdToolbarModule,
     MdTooltipModule,
@@ -21913,7 +22258,7 @@ var MATERIAL_MODULES = [
     _angular_cdk_a11y.A11yModule,
     _angular_cdk_platform.PlatformModule,
     MdCommonModule,
-    _angular_cdk_observers.ObserversModule
+    _angular_cdk_observers.ObserversModule,
 ];
 /**
  * @deprecated
@@ -22341,6 +22686,20 @@ exports.MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY = MD_TOOLTIP_SCROLL_STRATEGY
 exports.MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER = MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER;
 exports.MdTooltip = MdTooltip;
 exports.TooltipComponent = TooltipComponent;
+exports.MdStepperModule = MdStepperModule;
+exports._MdStepLabel = _MdStepLabel;
+exports.MdStepLabel = MdStepLabel;
+exports._MdStep = _MdStep;
+exports._MdStepper = _MdStepper;
+exports.MdStep = MdStep;
+exports.MdStepper = MdStepper;
+exports.MdHorizontalStepper = MdHorizontalStepper;
+exports.MdVerticalStepper = MdVerticalStepper;
+exports._MdStepperNext = _MdStepperNext;
+exports._MdStepperPrevious = _MdStepperPrevious;
+exports.MdStepperNext = MdStepperNext;
+exports.MdStepperPrevious = MdStepperPrevious;
+exports.MdStepHeader = MdStepHeader;
 exports.ɵv = mixinColor;
 exports.ɵw = mixinDisableRipple;
 exports.ɵu = mixinDisabled;

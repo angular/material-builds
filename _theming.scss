@@ -3201,6 +3201,60 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
 
 
+@mixin mat-stepper-theme($theme) {
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+  $primary: map-get($theme, primary);
+
+  .mat-step-header {
+    &:focus,
+    &:hover {
+      background-color: mat-color($background, hover);
+    }
+
+    .mat-step-label-active {
+      color: mat-color($foreground, text);
+    }
+
+    .mat-step-label-inactive,
+    .mat-step-optional {
+      color: mat-color($foreground, disabled-text);
+    }
+
+    .mat-step-icon {
+      background-color: mat-color($primary);
+      color: mat-color($primary, default-contrast);
+    }
+
+    .mat-step-icon-not-touched {
+      background-color: mat-color($foreground, disabled-text);
+      color: mat-color($primary, default-contrast);
+    }
+  }
+
+  .mat-stepper-horizontal, .mat-stepper-vertical {
+    background-color: mat-color($background, card);
+  }
+
+  .mat-stepper-vertical-line::before {
+    border-left-color: mat-color($foreground, divider);
+  }
+
+  .mat-stepper-horizontal-line {
+    border-top-color: mat-color($foreground, divider);
+  }
+}
+
+@mixin mat-stepper-typography($config) {
+  .mat-stepper-vertical, .mat-stepper-horizontal {
+    font-family: mat-font-family($config);
+  }
+}
+
+
+
+
+
 @mixin mat-tabs-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
@@ -3693,6 +3747,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
   @include mat-sidenav-typography($config);
   @include mat-slide-toggle-typography($config);
   @include mat-slider-typography($config);
+  @include mat-stepper-typography($config);
   @include mat-tabs-typography($config);
   @include mat-toolbar-typography($config);
   @include mat-tooltip-typography($config);
@@ -3772,6 +3827,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
 
 
 
+
 // Create a theme.
 @mixin angular-material-theme($theme) {
   @include mat-core-theme($theme);
@@ -3799,6 +3855,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
   @include mat-sidenav-theme($theme);
   @include mat-slide-toggle-theme($theme);
   @include mat-slider-theme($theme);
+  @include mat-stepper-theme($theme);
   @include mat-tabs-theme($theme);
   @include mat-toolbar-theme($theme);
   @include mat-tooltip-theme($theme);

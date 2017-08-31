@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, Inject, Injectable, InjectionToken, Injector, Input, LOCALE_ID, NgModule, NgZone, Optional, Output, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, Version, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, Inject, Injectable, InjectionToken, Injector, Input, LOCALE_ID, NgModule, NgZone, Optional, Output, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, Version, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
 import { A11yModule, ActiveDescendantKeyManager, FocusKeyManager, FocusTrap, FocusTrapDeprecatedDirective, FocusTrapDirective, FocusTrapFactory, InteractivityChecker, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, LiveAnnouncer, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { BidiModule, Dir, Directionality } from '@angular/cdk/bidi';
 import { ObserveContent, ObserversModule } from '@angular/cdk/observers';
@@ -31,11 +31,12 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { defer } from 'rxjs/observable/defer';
 import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef, CdkHeaderCell, CdkHeaderCellDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTable, CdkTableModule } from '@angular/cdk/table';
+import { CdkStep, CdkStepLabel, CdkStepper, CdkStepperModule, CdkStepperNext, CdkStepperPrevious } from '@angular/cdk/stepper';
 
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.10-70bd5fc');
+const VERSION = new Version('2.0.0-beta.10-87318bc');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -71,6 +72,9 @@ const MAT_ELEMENTS_SELECTOR = `
   [matHeaderRowDef],
   [matLine],
   [matRowDef],
+  [matStepLabel],
+  [matStepperNext],
+  [matStepperPrevious],
   [matTabLabel],
   [matTabLink],
   [matTabNav],
@@ -105,6 +109,7 @@ const MAT_ELEMENTS_SELECTOR = `
   mat-header-cell,
   mat-header-row,
   mat-hint,
+  mat-horizontal-stepper,
   mat-icon,
   mat-input-container,
   mat-form-field,
@@ -124,10 +129,12 @@ const MAT_ELEMENTS_SELECTOR = `
   mat-sidenav-container,
   mat-slider,
   mat-spinner,
+  mat-step,
   mat-tab,
   mat-table,
   mat-tab-group,
-  mat-toolbar`;
+  mat-toolbar,
+  mat-vertical-stepper`;
 /**
  * Selector that matches all elements that may have style collisions with AngularJS Material.
  */
@@ -149,6 +156,9 @@ const MD_ELEMENTS_SELECTOR = `
   [mdHeaderRowDef],
   [mdLine],
   [mdRowDef],
+  [mdStepLabel],
+  [mdStepperNext],
+  [mdStepperPrevious],
   [mdTabLabel],
   [mdTabLink],
   [mdTabNav],
@@ -183,6 +193,7 @@ const MD_ELEMENTS_SELECTOR = `
   md-header-cell,
   md-header-row,
   md-hint,
+  md-horizontal-stepper,
   md-icon,
   md-input-container,
   md-form-field,
@@ -202,10 +213,12 @@ const MD_ELEMENTS_SELECTOR = `
   md-sidenav-container,
   md-slider,
   md-spinner,
+  md-step,
   md-tab,
   md-table,
   md-tab-group,
-  md-toolbar`;
+  md-toolbar,
+  md-vertical-stepper`;
 /**
  * Directive that enforces that the `mat-` prefix cannot be used.
  */
@@ -20539,6 +20552,295 @@ MdPaginatorModule.decorators = [
  */
 MdPaginatorModule.ctorParameters = () => [];
 
+/**
+ * Workaround for https://github.com/angular/angular/issues/17849
+ */
+const _MdStepLabel = CdkStepLabel;
+class MdStepLabel extends _MdStepLabel {
+    /**
+     * @param {?} template
+     */
+    constructor(template) {
+        super(template);
+    }
+}
+MdStepLabel.decorators = [
+    { type: Directive, args: [{
+                selector: '[mdStepLabel], [matStepLabel]',
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdStepLabel.ctorParameters = () => [
+    { type: TemplateRef, },
+];
+
+class MdStepHeader {
+    /**
+     * Index of the given step.
+     * @return {?}
+     */
+    get index() { return this._index; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set index(value) {
+        this._index = coerceNumberProperty(value);
+    }
+    /**
+     * Whether the given step is selected.
+     * @return {?}
+     */
+    get selected() { return this._selected; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set selected(value) {
+        this._selected = coerceBooleanProperty(value);
+    }
+    /**
+     * Whether the given step label is active.
+     * @return {?}
+     */
+    get active() { return this._active; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set active(value) {
+        this._active = coerceBooleanProperty(value);
+    }
+    /**
+     * Whether the given step is optional.
+     * @return {?}
+     */
+    get optional() { return this._optional; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set optional(value) {
+        this._optional = coerceBooleanProperty(value);
+    }
+    /**
+     * Returns string label of given step if it is a text label.
+     * @return {?}
+     */
+    get _stringLabel() {
+        return this.label instanceof MdStepLabel ? null : this.label;
+    }
+    /**
+     * Returns MdStepLabel if the label of given step is a template label.
+     * @return {?}
+     */
+    get _templateLabel() {
+        return this.label instanceof MdStepLabel ? this.label : null;
+    }
+}
+MdStepHeader.decorators = [
+    { type: Component, args: [{
+                selector: 'md-step-header, mat-step-header',
+                template: "<div [class.mat-step-icon]=\"icon != 'number' || selected\" [class.mat-step-icon-not-touched]=\"icon == 'number' && !selected\"><span *ngIf=\"icon == 'number'\">{{index + 1}}</span><md-icon *ngIf=\"icon == 'edit'\">create</md-icon><md-icon *ngIf=\"icon == 'done'\">done</md-icon></div><div [class.mat-step-label-active]=\"active\" [class.mat-step-label-inactive]=\"!active\"><ng-container *ngIf=\"_templateLabel\" [ngTemplateOutlet]=\"label.template\"></ng-container><div class=\"mat-step-text-label\" *ngIf=\"_stringLabel\">{{label}}</div><div class=\"mat-step-optional\" *ngIf=\"optional\">Optional</div></div>",
+                styles: [".mat-step-optional{font-size:12px}.mat-step-icon,.mat-step-icon-not-touched{border-radius:50%;height:24px;width:24px;align-items:center;justify-content:center;display:flex}.mat-step-icon .mat-icon{font-size:16px;height:16px;width:16px}.mat-step-label-active,.mat-step-label-inactive{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle}.mat-step-text-label{text-overflow:ellipsis;overflow:hidden}"],
+                host: {
+                    'class': 'mat-step-header',
+                    'role': 'tab',
+                },
+                encapsulation: ViewEncapsulation.None
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdStepHeader.ctorParameters = () => [];
+MdStepHeader.propDecorators = {
+    'icon': [{ type: Input },],
+    'label': [{ type: Input },],
+    'index': [{ type: Input },],
+    'selected': [{ type: Input },],
+    'active': [{ type: Input },],
+    'optional': [{ type: Input },],
+};
+
+/**
+ * Workaround for https://github.com/angular/angular/issues/17849
+ */
+const _MdStep = CdkStep;
+const _MdStepper = CdkStepper;
+class MdStep extends _MdStep {
+    /**
+     * @param {?} mdStepper
+     * @param {?} errorOptions
+     */
+    constructor(mdStepper, errorOptions) {
+        super(mdStepper);
+        /**
+         * Custom error state matcher that additionally checks for validity of interacted form.
+         */
+        this.errorStateMatcher = (control, form) => {
+            let originalErrorState = this._originalErrorStateMatcher(control, form);
+            // Custom error state checks for the validity of form that is not submitted or touched
+            // since user can trigger a form change by calling for another step without directly
+            // interacting with the current form.
+            let customErrorState = control.invalid && this.interacted;
+            return originalErrorState || customErrorState;
+        };
+        this._originalErrorStateMatcher =
+            errorOptions ? errorOptions.errorStateMatcher || defaultErrorStateMatcher
+                : defaultErrorStateMatcher;
+    }
+}
+MdStep.decorators = [
+    { type: Component, args: [{selector: 'md-step, mat-step',
+                template: "<ng-template><ng-content></ng-content></ng-template>",
+                providers: [{ provide: MD_ERROR_GLOBAL_OPTIONS, useExisting: MdStep }],
+                encapsulation: ViewEncapsulation.None
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdStep.ctorParameters = () => [
+    { type: MdStepper, decorators: [{ type: Inject, args: [forwardRef(() => MdStepper),] },] },
+    { type: undefined, decorators: [{ type: Optional }, { type: SkipSelf }, { type: Inject, args: [MD_ERROR_GLOBAL_OPTIONS,] },] },
+];
+MdStep.propDecorators = {
+    'stepLabel': [{ type: ContentChild, args: [MdStepLabel,] },],
+};
+class MdStepper extends _MdStepper {
+}
+MdStepper.decorators = [
+    { type: Directive, args: [{
+                selector: '[mdStepper]'
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdStepper.ctorParameters = () => [];
+MdStepper.propDecorators = {
+    '_stepHeader': [{ type: ViewChildren, args: [MdStepHeader, { read: ElementRef },] },],
+    '_steps': [{ type: ContentChildren, args: [MdStep,] },],
+};
+class MdHorizontalStepper extends MdStepper {
+}
+MdHorizontalStepper.decorators = [
+    { type: Component, args: [{selector: 'md-horizontal-stepper, mat-horizontal-stepper',
+                template: "<div class=\"mat-horizontal-stepper-header-container\"><ng-container *ngFor=\"let step of _steps; let i = index; let isLast = last\"><md-step-header class=\"mat-horizontal-stepper-header\" (click)=\"step.select()\" (keydown)=\"_onKeydown($event)\" [tabIndex]=\"_focusIndex == i ? 0 : -1\" [id]=\"_getStepLabelId(i)\" [attr.aria-controls]=\"_getStepContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [index]=\"i\" [icon]=\"_getIndicatorType(i)\" [label]=\"step.stepLabel || step.label\" [selected]=\"selectedIndex == i\" [active]=\"step.completed || selectedIndex == i\" [optional]=\"step.optional\"></md-step-header><div *ngIf=\"!isLast\" class=\"mat-stepper-horizontal-line\"></div></ng-container></div><div class=\"mat-horizontal-content-container\"><div *ngFor=\"let step of _steps; let i = index\" class=\"mat-horizontal-stepper-content\" role=\"tabpanel\" [@stepTransition]=\"_getAnimationDirection(i)\" [id]=\"_getStepContentId(i)\" [attr.aria-labelledby]=\"_getStepLabelId(i)\" [attr.aria-expanded]=\"selectedIndex == i\"><ng-container [ngTemplateOutlet]=\"step.content\"></ng-container></div></div>",
+                styles: [".mat-stepper-horizontal,.mat-stepper-vertical{display:block}.mat-step-header{overflow:hidden;outline:0}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon,.mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon,[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:8px}.mat-vertical-stepper-header{display:flex;align-items:center;padding:24px;max-height:24px}.mat-vertical-stepper-header .mat-step-icon,.mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon,[dir=rtl] .mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content{overflow:hidden}.mat-horizontal-stepper-content[aria-expanded=false]{height:0}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:'';position:absolute;top:-16px;bottom:-16px;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}"],
+                inputs: ['selectedIndex'],
+                host: {
+                    'class': 'mat-stepper-horizontal',
+                    'role': 'tablist',
+                },
+                animations: [
+                    trigger('stepTransition', [
+                        state('previous', style({ transform: 'translate3d(-100%, 0, 0)', visibility: 'hidden' })),
+                        state('current', style({ transform: 'translate3d(0%, 0, 0)', visibility: 'visible' })),
+                        state('next', style({ transform: 'translate3d(100%, 0, 0)', visibility: 'hidden' })),
+                        transition('* => *', animate('500ms cubic-bezier(0.35, 0, 0.25, 1)'))
+                    ])
+                ],
+                providers: [{ provide: MdStepper, useExisting: MdHorizontalStepper }],
+                encapsulation: ViewEncapsulation.None
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdHorizontalStepper.ctorParameters = () => [];
+class MdVerticalStepper extends MdStepper {
+}
+MdVerticalStepper.decorators = [
+    { type: Component, args: [{selector: 'md-vertical-stepper, mat-vertical-stepper',
+                template: "<div class=\"mat-step\" *ngFor=\"let step of _steps; let i = index; let isLast = last\"><md-step-header class=\"mat-vertical-stepper-header\" (click)=\"step.select()\" (keydown)=\"_onKeydown($event)\" [tabIndex]=\"_focusIndex == i ? 0 : -1\" [id]=\"_getStepLabelId(i)\" [attr.aria-controls]=\"_getStepContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [index]=\"i\" [icon]=\"_getIndicatorType(i)\" [label]=\"step.stepLabel || step.label\" [selected]=\"selectedIndex == i\" [active]=\"step.completed || selectedIndex == i\" [optional]=\"step.optional\"></md-step-header><div class=\"mat-vertical-content-container\" [class.mat-stepper-vertical-line]=\"!isLast\"><div class=\"mat-vertical-stepper-content\" role=\"tabpanel\" [@stepTransition]=\"_getAnimationDirection(i)\" [id]=\"_getStepContentId(i)\" [attr.aria-labelledby]=\"_getStepLabelId(i)\" [attr.aria-expanded]=\"selectedIndex == i\"><div class=\"mat-vertical-content\"><ng-container [ngTemplateOutlet]=\"step.content\"></ng-container></div></div></div></div>",
+                styles: [".mat-stepper-horizontal,.mat-stepper-vertical{display:block}.mat-step-header{overflow:hidden;outline:0}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon,.mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon,[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:8px}.mat-vertical-stepper-header{display:flex;align-items:center;padding:24px;max-height:24px}.mat-vertical-stepper-header .mat-step-icon,.mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon,[dir=rtl] .mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content{overflow:hidden}.mat-horizontal-stepper-content[aria-expanded=false]{height:0}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:'';position:absolute;top:-16px;bottom:-16px;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}"],
+                inputs: ['selectedIndex'],
+                host: {
+                    'class': 'mat-stepper-vertical',
+                    'role': 'tablist',
+                },
+                animations: [
+                    trigger('stepTransition', [
+                        state('previous', style({ height: '0px', visibility: 'hidden' })),
+                        state('next', style({ height: '0px', visibility: 'hidden' })),
+                        state('current', style({ height: '*', visibility: 'visible' })),
+                        transition('* <=> current', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
+                    ])
+                ],
+                providers: [{ provide: MdStepper, useExisting: MdVerticalStepper }],
+                encapsulation: ViewEncapsulation.None
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdVerticalStepper.ctorParameters = () => [];
+
+/**
+ * Workaround for https://github.com/angular/angular/issues/17849
+ */
+const _MdStepperNext = CdkStepperNext;
+const _MdStepperPrevious = CdkStepperPrevious;
+/**
+ * Button that moves to the next step in a stepper workflow.
+ */
+class MdStepperNext extends _MdStepperNext {
+}
+MdStepperNext.decorators = [
+    { type: Directive, args: [{
+                selector: 'button[mdStepperNext], button[matStepperNext]',
+                host: { '(click)': '_stepper.next()' },
+                providers: [{ provide: CdkStepper, useExisting: MdStepper }]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdStepperNext.ctorParameters = () => [];
+/**
+ * Button that moves to the previous step in a stepper workflow.
+ */
+class MdStepperPrevious extends _MdStepperPrevious {
+}
+MdStepperPrevious.decorators = [
+    { type: Directive, args: [{
+                selector: 'button[mdStepperPrevious], button[matStepperPrevious]',
+                host: { '(click)': '_stepper.previous()' },
+                providers: [{ provide: CdkStepper, useExisting: MdStepper }]
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdStepperPrevious.ctorParameters = () => [];
+
+class MdStepperModule {
+}
+MdStepperModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [
+                    MdCommonModule,
+                    CommonModule,
+                    PortalModule,
+                    MdButtonModule,
+                    CdkStepperModule,
+                    MdIconModule
+                ],
+                exports: [MdCommonModule, MdHorizontalStepper, MdVerticalStepper, MdStep, MdStepLabel, MdStepper,
+                    MdStepperNext, MdStepperPrevious, MdStepHeader],
+                declarations: [MdHorizontalStepper, MdVerticalStepper, MdStep, MdStepLabel, MdStepper,
+                    MdStepperNext, MdStepperPrevious, MdStepHeader],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MdStepperModule.ctorParameters = () => [];
+
 const MATERIAL_MODULES = [
     MdAutocompleteModule,
     MdButtonModule,
@@ -20567,6 +20869,7 @@ const MATERIAL_MODULES = [
     MdSlideToggleModule,
     MdSnackBarModule,
     MdSortModule,
+    MdStepperModule,
     MdTabsModule,
     MdToolbarModule,
     MdTooltipModule,
@@ -20577,7 +20880,7 @@ const MATERIAL_MODULES = [
     A11yModule,
     PlatformModule,
     MdCommonModule,
-    ObserversModule
+    ObserversModule,
 ];
 /**
  * @deprecated
@@ -20599,5 +20902,5 @@ MaterialModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { VERSION, coerceBooleanProperty, coerceNumberProperty, ObserversModule, ObserveContent, SelectionModel, Dir, Directionality, BidiModule, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, VIEWPORT_RULER_PROVIDER, ConnectionPositionPair, ScrollingVisibility, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, A, Z, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdPseudoCheckboxModule, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocompleteSelectedEvent, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_SCROLL_STRATEGY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdChipRemove, MdChipInput, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, _MdCheckboxRequiredValidator, MD_CHECKBOX_REQUIRED_VALIDATOR, MdCheckboxRequiredValidator, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MD_DATEPICKER_SCROLL_STRATEGY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInputEvent, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MD_DIALOG_SCROLL_STRATEGY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdFormFieldModule, MdError, MdFormField, MdFormFieldControl, getMdFormFieldPlaceholderConflictError, getMdFormFieldDuplicatedHintError, getMdFormFieldMissingControlError, MdHint, MdPlaceholder, MdPrefix, MdSuffix, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdInput, getMdInputUnsupportedTypeError, MdListModule, MdListBase, _MdListMixinBase, MdListItemBase, _MdListItemMixinBase, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdSelectionListBase, _MdSelectionListMixinBase, MdListOption, MdSelectionList, MdMenuModule, fadeInItems, transformMenu, MdMenu, MD_MENU_DEFAULT_OPTIONS, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdPaginatorIntl, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MD_SELECT_SCROLL_STRATEGY, MD_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_SELECT_SCROLL_STRATEGY_PROVIDER, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelectTrigger, MdSelect, MdSidenavModule, throwMdDuplicatedDrawerError, MdDrawerToggleResult, MdDrawer, MdDrawerContainer, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MD_SNACK_BAR_DATA, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort, MdTableModule, _MdCellDef, _MdHeaderCellDef, _MdColumnDef, _MdHeaderCell, _MdCell, MdCellDef, MdHeaderCellDef, MdColumnDef, MdHeaderCell, MdCell, _MdTable, MdTable, _MdHeaderRowDef, _MdCdkRowDef, _MdHeaderRow, _MdRow, MdHeaderRowDef, MatHeaderRowDef, MdRowDef, MatRowDef, MdHeaderRow, MdRow, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroupBase, _MdTabGroupMixinBase, MdTabGroup, MdTabNavBase, _MdTabNavMixinBase, MdTabLinkBase, _MdTabLinkMixinBase, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMdTooltipInvalidPositionError, MD_TOOLTIP_SCROLL_STRATEGY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MdTooltip, TooltipComponent, mixinColor as ɵv, mixinDisableRipple as ɵw, mixinDisabled as ɵu, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵb, RippleRenderer as ɵa, AccordionItemBase as ɵc, _AccordionItemMixinBase as ɵd, EXPANSION_PANEL_ANIMATION_TIMING as ɵe, MdGridAvatarCssMatStyler as ɵg, MdGridTileFooterCssMatStyler as ɵi, MdGridTileHeaderCssMatStyler as ɵh, MdGridTileText as ɵf, MdMenuItemBase as ɵj, _MdMenuItemMixinBase as ɵk, MD_MENU_SCROLL_STRATEGY as ɵl, MD_MENU_SCROLL_STRATEGY_PROVIDER as ɵn, MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵm, MdTabBase as ɵs, _MdTabMixinBase as ɵt, MdTabHeaderBase as ɵo, _MdTabHeaderMixinBase as ɵp, MdTabLabelWrapperBase as ɵq, _MdTabLabelWrapperMixinBase as ɵr };
+export { VERSION, coerceBooleanProperty, coerceNumberProperty, ObserversModule, ObserveContent, SelectionModel, Dir, Directionality, BidiModule, Portal, BasePortalHost, ComponentPortal, TemplatePortal, PortalHostDirective, TemplatePortalDirective, PortalModule, DomPortalHost, GestureConfig, LiveAnnouncer, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, InteractivityChecker, FocusTrap, FocusTrapFactory, FocusTrapDeprecatedDirective, FocusTrapDirective, isFakeMousedownFromScreenReader, A11yModule, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER, MdLineModule, MdLine, MdLineSetter, CompatibilityModule, NoConflictStyleCompatibilityMode, MdCommonModule, MATERIAL_SANITY_CHECKS, MD_PLACEHOLDER_GLOBAL_OPTIONS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, MdCoreModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, PlatformModule, Platform, getSupportedInputTypes, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, VIEWPORT_RULER_PROVIDER, ConnectionPositionPair, ScrollingVisibility, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, A, Z, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, AnimationCurves, AnimationDurations, MdPseudoCheckboxModule, MdPseudoCheckbox, NativeDateModule, MdNativeDateModule, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MaterialModule, MdAutocompleteModule, MdAutocompleteSelectedEvent, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_SCROLL_STRATEGY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdChipsModule, MdChipList, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdChipRemove, MdChipInput, MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, _MdCheckboxRequiredValidator, MD_CHECKBOX_REQUIRED_VALIDATOR, MdCheckboxRequiredValidator, MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MD_DATEPICKER_SCROLL_STRATEGY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInputEvent, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MdDialogModule, MD_DIALOG_DATA, MD_DIALOG_SCROLL_STRATEGY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdFormFieldModule, MdError, MdFormField, MdFormFieldControl, getMdFormFieldPlaceholderConflictError, getMdFormFieldDuplicatedHintError, getMdFormFieldMissingControlError, MdHint, MdPlaceholder, MdPrefix, MdSuffix, MdGridListModule, MdGridTile, MdGridList, MdIconModule, MdIconBase, _MdIconMixinBase, MdIcon, getMdIconNameNotFoundError, getMdIconNoHttpProviderError, getMdIconFailedToSanitizeError, MdIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER, MdInputModule, MdTextareaAutosize, MdInput, getMdInputUnsupportedTypeError, MdListModule, MdListBase, _MdListMixinBase, MdListItemBase, _MdListItemMixinBase, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdSelectionListBase, _MdSelectionListMixinBase, MdListOption, MdSelectionList, MdMenuModule, fadeInItems, transformMenu, MdMenu, MD_MENU_DEFAULT_OPTIONS, MdMenuItem, MdMenuTrigger, MdPaginatorModule, PageEvent, MdPaginator, MdPaginatorIntl, MdProgressBarModule, MdProgressBar, MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MdSelectModule, fadeInContent, transformPanel, transformPlaceholder, SELECT_ITEM_HEIGHT, SELECT_PANEL_MAX_HEIGHT, SELECT_MAX_OPTIONS_DISPLAYED, SELECT_TRIGGER_HEIGHT, SELECT_OPTION_HEIGHT_ADJUSTMENT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_PADDING_Y, SELECT_PANEL_VIEWPORT_PADDING, MD_SELECT_SCROLL_STRATEGY, MD_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_SELECT_SCROLL_STRATEGY_PROVIDER, MdSelectChange, MdSelectBase, _MdSelectMixinBase, MdSelectTrigger, MdSelect, MdSidenavModule, throwMdDuplicatedDrawerError, MdDrawerToggleResult, MdDrawer, MdDrawerContainer, MdSidenav, MdSidenavContainer, MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MD_SNACK_BAR_DATA, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort, MdTableModule, _MdCellDef, _MdHeaderCellDef, _MdColumnDef, _MdHeaderCell, _MdCell, MdCellDef, MdHeaderCellDef, MdColumnDef, MdHeaderCell, MdCell, _MdTable, MdTable, _MdHeaderRowDef, _MdCdkRowDef, _MdHeaderRow, _MdRow, MdHeaderRowDef, MatHeaderRowDef, MdRowDef, MatRowDef, MdHeaderRow, MdRow, MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroupBase, _MdTabGroupMixinBase, MdTabGroup, MdTabNavBase, _MdTabNavMixinBase, MdTabLinkBase, _MdTabLinkMixinBase, MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMdTooltipInvalidPositionError, MD_TOOLTIP_SCROLL_STRATEGY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MdTooltip, TooltipComponent, MdStepperModule, _MdStepLabel, MdStepLabel, _MdStep, _MdStepper, MdStep, MdStepper, MdHorizontalStepper, MdVerticalStepper, _MdStepperNext, _MdStepperPrevious, MdStepperNext, MdStepperPrevious, MdStepHeader, mixinColor as ɵv, mixinDisableRipple as ɵw, mixinDisabled as ɵu, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵb, RippleRenderer as ɵa, AccordionItemBase as ɵc, _AccordionItemMixinBase as ɵd, EXPANSION_PANEL_ANIMATION_TIMING as ɵe, MdGridAvatarCssMatStyler as ɵg, MdGridTileFooterCssMatStyler as ɵi, MdGridTileHeaderCssMatStyler as ɵh, MdGridTileText as ɵf, MdMenuItemBase as ɵj, _MdMenuItemMixinBase as ɵk, MD_MENU_SCROLL_STRATEGY as ɵl, MD_MENU_SCROLL_STRATEGY_PROVIDER as ɵn, MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵm, MdTabBase as ɵs, _MdTabMixinBase as ɵt, MdTabHeaderBase as ɵo, _MdTabHeaderMixinBase as ɵp, MdTabLabelWrapperBase as ɵq, _MdTabLabelWrapperMixinBase as ɵr };
 //# sourceMappingURL=material.js.map
