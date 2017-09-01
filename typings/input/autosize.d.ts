@@ -5,13 +5,12 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, AfterViewInit } from '@angular/core';
-import { NgControl } from '@angular/forms';
+import { ElementRef, AfterViewInit, DoCheck } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 /**
  * Directive to automatically resize a textarea to fit its content.
  */
-export declare class MdTextareaAutosize implements AfterViewInit {
+export declare class MdTextareaAutosize implements AfterViewInit, DoCheck {
     private _elementRef;
     private _platform;
     /** Keep track of the previous textarea value to avoid resizing when the value hasn't changed. */
@@ -24,7 +23,7 @@ export declare class MdTextareaAutosize implements AfterViewInit {
     _matAutosizeMaxRows: number;
     /** Cached height of a textarea with a single row. */
     private _cachedLineHeight;
-    constructor(_elementRef: ElementRef, _platform: Platform, formControl: NgControl);
+    constructor(_elementRef: ElementRef, _platform: Platform);
     /** Sets the minimum height of the textarea as determined by minRows. */
     _setMinHeight(): void;
     /** Sets the maximum height of the textarea as determined by maxRows. */
@@ -40,6 +39,7 @@ export declare class MdTextareaAutosize implements AfterViewInit {
      * textarea does not ever change.
      */
     private _cacheTextareaLineHeight();
+    ngDoCheck(): void;
     /** Resize the textarea to fit its content. */
     resizeToFitContent(): void;
 }

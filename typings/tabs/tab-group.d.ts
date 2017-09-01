@@ -6,7 +6,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { EventEmitter, QueryList, ElementRef, Renderer2, ChangeDetectorRef, AfterViewChecked, AfterContentInit, AfterContentChecked, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { MdTab } from './tab';
 import { CanDisableRipple } from '../core/common-behaviors/disable-ripple';
 import { CanColor, ThemePalette } from '../core/common-behaviors/color';
@@ -57,7 +56,7 @@ export declare class MdTabGroup extends _MdTabGroupMixinBase implements AfterCon
     backgroundColor: ThemePalette;
     private _backgroundColor;
     /** Output to enable support for two-way binding on `[(selectedIndex)]` */
-    readonly selectedIndexChange: Observable<number>;
+    selectedIndexChange: EventEmitter<number>;
     /** Event emitted when focus has changed within a tab group. */
     focusChange: EventEmitter<MdTabChangeEvent>;
     /** Event emitted when the tab selection has changed. */
