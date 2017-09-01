@@ -10,9 +10,13 @@ import { SelectionModel, MdLine } from '../core';
 import { FocusKeyManager } from '../core/a11y/focus-key-manager';
 import { FocusableOption } from '../core/a11y/focus-key-manager';
 import { CanDisable } from '../core/common-behaviors/disabled';
+import { CanDisableRipple } from '../core/common-behaviors/disable-ripple';
 export declare class MdSelectionListBase {
 }
-export declare const _MdSelectionListMixinBase: (new (...args: any[]) => CanDisable) & typeof MdSelectionListBase;
+export declare const _MdSelectionListMixinBase: (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MdSelectionListBase;
+export declare class MdListOptionBase {
+}
+export declare const _MdListOptionMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MdListOptionBase;
 export interface MdSelectionListOptionEvent {
     option: MdListOption;
 }
@@ -21,25 +25,18 @@ export interface MdSelectionListOptionEvent {
  * generate a checkbox and can put current item into the selectionModel of selection-list
  * if the current item is checked.
  */
-export declare class MdListOption implements AfterContentInit, OnDestroy, FocusableOption {
+export declare class MdListOption extends _MdListOptionMixinBase implements AfterContentInit, OnDestroy, FocusableOption, CanDisableRipple {
     private _renderer;
     private _element;
     private _changeDetector;
     selectionList: MdSelectionList;
     private _lineSetter;
-    private _disableRipple;
     private _selected;
     /** Whether the checkbox is disabled. */
     private _disabled;
     private _value;
     /** Whether the option has focus. */
     _hasFocus: boolean;
-    /**
-     * Whether the ripple effect on click should be disabled. This applies only to list items that are
-     * part of a selection list. The value of `disableRipple` on the `md-selection-list` overrides
-     * this flag
-     */
-    disableRipple: boolean;
     _lines: QueryList<MdLine>;
     /** Whether the label should appear before or after the checkbox. Defaults to 'after' */
     checkboxPosition: 'before' | 'after';
@@ -62,16 +59,15 @@ export declare class MdListOption implements AfterContentInit, OnDestroy, Focusa
     /** Allows for programmatic focusing of the option. */
     focus(): void;
     /** Whether this list item should show a ripple effect when clicked.  */
-    isRippleEnabled(): boolean;
+    _isRippleDisabled(): boolean;
     _handleClick(): void;
     _handleFocus(): void;
     _handleBlur(): void;
     /** Retrieves the DOM element of the component host. */
     _getHostElement(): HTMLElement;
 }
-export declare class MdSelectionList extends _MdSelectionListMixinBase implements FocusableOption, CanDisable, AfterContentInit, OnDestroy {
+export declare class MdSelectionList extends _MdSelectionListMixinBase implements FocusableOption, CanDisable, CanDisableRipple, AfterContentInit, OnDestroy {
     private _element;
-    private _disableRipple;
     /** Tab index for the selection-list. */
     _tabIndex: number;
     /** Subscription to all list options' onFocus events */
@@ -84,11 +80,6 @@ export declare class MdSelectionList extends _MdSelectionListMixinBase implement
     options: QueryList<MdListOption>;
     /** options which are selected. */
     selectedOptions: SelectionModel<MdListOption>;
-    /**
-     * Whether the ripple effect should be disabled on the list-items or not.
-     * This flag only has an effect for `mat-selection-list` components.
-     */
-    disableRipple: boolean;
     constructor(_element: ElementRef);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

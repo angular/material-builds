@@ -67,7 +67,7 @@ export declare class MdListItem extends _MdListItemMixinBase implements AfterCon
     constructor(_renderer: Renderer2, _element: ElementRef, _list: MdList, navList: MdNavListCssMatStyler);
     ngAfterContentInit(): void;
     /** Whether this list item should show a ripple effect when clicked.  */
-    isRippleEnabled(): boolean;
+    _isRippleDisabled(): boolean;
     _handleFocus(): void;
     _handleBlur(): void;
     /** Retrieves the DOM element of the component host. */

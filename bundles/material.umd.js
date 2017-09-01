@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.10-8c49422');
+var VERSION = new _angular_core.Version('2.0.0-beta.10-fbce67d');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -3026,7 +3026,7 @@ var MdButtonToggle = (function () {
 MdButtonToggle.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-button-toggle, mat-button-toggle',
                 template: "<label [attr.for]=\"inputId\" class=\"mat-button-toggle-label\"><input #input class=\"mat-button-toggle-input cdk-visually-hidden\" [type]=\"_type\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled || null\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-button-toggle-label-content\"><ng-content></ng-content></div></label><div class=\"mat-button-toggle-focus-overlay\"></div>",
-                styles: [".mat-button-toggle-group,.mat-button-toggle-standalone{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle-disabled .mat-button-toggle-label-content{cursor:default}.mat-button-toggle{white-space:nowrap;position:relative}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:1}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px;cursor:pointer}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;top:0;left:0;right:0;bottom:0;position:absolute}"],
+                styles: [".mat-button-toggle-group,.mat-button-toggle-standalone{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap;overflow:hidden}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle-disabled .mat-button-toggle-label-content{cursor:default}.mat-button-toggle{white-space:nowrap;position:relative}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:1}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px;cursor:pointer}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;top:0;left:0;right:0;bottom:0;position:absolute}"],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                 host: {
@@ -8415,8 +8415,8 @@ var MdListItem = (function (_super) {
      * Whether this list item should show a ripple effect when clicked.
      * @return {?}
      */
-    MdListItem.prototype.isRippleEnabled = function () {
-        return !this.disableRipple && this._isNavList && !this._list.disableRipple;
+    MdListItem.prototype._isRippleDisabled = function () {
+        return !this._isNavList || this.disableRipple || this._list.disableRipple;
     };
     /**
      * @return {?}
@@ -8448,7 +8448,7 @@ MdListItem.decorators = [
                     '(blur)': '_handleBlur()',
                 },
                 inputs: ['disableRipple'],
-                template: "<div class=\"mat-list-item-content\"><div class=\"mat-list-item-ripple\" md-ripple [mdRippleTrigger]=\"_getHostElement()\" [mdRippleDisabled]=\"!isRippleEnabled()\"></div><ng-content select=\"[md-list-avatar], [md-list-icon], [mat-list-avatar], [mat-list-icon], [mdListAvatar], [mdListIcon], [matListAvatar], [matListIcon]\"></ng-content><div class=\"mat-list-text\"><ng-content select=\"[md-line], [mat-line], [mdLine], [matLine]\"></ng-content></div><ng-content></ng-content></div>",
+                template: "<div class=\"mat-list-item-content\"><div class=\"mat-list-item-ripple\" md-ripple [mdRippleTrigger]=\"_getHostElement()\" [mdRippleDisabled]=\"_isRippleDisabled()\"></div><ng-content select=\"[md-list-avatar], [md-list-icon], [mat-list-avatar], [mat-list-icon], [mdListAvatar], [mdListIcon], [matListAvatar], [matListIcon]\"></ng-content><div class=\"mat-list-text\"><ng-content select=\"[md-line], [mat-line], [mdLine], [matLine]\"></ng-content></div><ng-content></ng-content></div>",
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
             },] },
@@ -8471,14 +8471,21 @@ var MdSelectionListBase = (function () {
     }
     return MdSelectionListBase;
 }());
-var _MdSelectionListMixinBase = mixinDisabled(MdSelectionListBase);
+var _MdSelectionListMixinBase = mixinDisableRipple(mixinDisabled(MdSelectionListBase));
+var MdListOptionBase = (function () {
+    function MdListOptionBase() {
+    }
+    return MdListOptionBase;
+}());
+var _MdListOptionMixinBase = mixinDisableRipple(MdListOptionBase);
 var FOCUSED_STYLE = 'mat-list-item-focus';
 /**
  * Component for list-options of selection-list. Each list-option can automatically
  * generate a checkbox and can put current item into the selectionModel of selection-list
  * if the current item is checked.
  */
-var MdListOption = (function () {
+var MdListOption = (function (_super) {
+    __extends(MdListOption, _super);
     /**
      * @param {?} _renderer
      * @param {?} _element
@@ -8486,57 +8493,42 @@ var MdListOption = (function () {
      * @param {?} selectionList
      */
     function MdListOption(_renderer, _element, _changeDetector, selectionList) {
-        this._renderer = _renderer;
-        this._element = _element;
-        this._changeDetector = _changeDetector;
-        this.selectionList = selectionList;
-        this._disableRipple = false;
-        this._selected = false;
+        var _this = _super.call(this) || this;
+        _this._renderer = _renderer;
+        _this._element = _element;
+        _this._changeDetector = _changeDetector;
+        _this.selectionList = selectionList;
+        _this._selected = false;
         /**
          * Whether the checkbox is disabled.
          */
-        this._disabled = false;
+        _this._disabled = false;
         /**
          * Whether the option has focus.
          */
-        this._hasFocus = false;
+        _this._hasFocus = false;
         /**
          * Whether the label should appear before or after the checkbox. Defaults to 'after'
          */
-        this.checkboxPosition = 'after';
+        _this.checkboxPosition = 'after';
         /**
          * Emitted when the option is focused.
          */
-        this.onFocus = new _angular_core.EventEmitter();
+        _this.onFocus = new _angular_core.EventEmitter();
         /**
          * Emitted when the option is selected.
          */
-        this.selectChange = new _angular_core.EventEmitter();
+        _this.selectChange = new _angular_core.EventEmitter();
         /**
          * Emitted when the option is deselected.
          */
-        this.deselected = new _angular_core.EventEmitter();
+        _this.deselected = new _angular_core.EventEmitter();
         /**
          * Emitted when the option is destroyed.
          */
-        this.destroyed = new _angular_core.EventEmitter();
+        _this.destroyed = new _angular_core.EventEmitter();
+        return _this;
     }
-    Object.defineProperty(MdListOption.prototype, "disableRipple", {
-        /**
-         * Whether the ripple effect on click should be disabled. This applies only to list items that are
-         * part of a selection list. The value of `disableRipple` on the `md-selection-list` overrides
-         * this flag
-         * @return {?}
-         */
-        get: function () { return this._disableRipple; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) { this._disableRipple = _angular_cdk_coercion.coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(MdListOption.prototype, "disabled", {
         /**
          * Whether the option is disabled.
@@ -8612,8 +8604,8 @@ var MdListOption = (function () {
      * Whether this list item should show a ripple effect when clicked.
      * @return {?}
      */
-    MdListOption.prototype.isRippleEnabled = function () {
-        return !this.disableRipple && !this.selectionList.disableRipple;
+    MdListOption.prototype._isRippleDisabled = function () {
+        return this.disableRipple || this.selectionList.disableRipple;
     };
     /**
      * @return {?}
@@ -8644,9 +8636,10 @@ var MdListOption = (function () {
         return this._element.nativeElement;
     };
     return MdListOption;
-}());
+}(_MdListOptionMixinBase));
 MdListOption.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-list-option, mat-list-option',
+                inputs: ['disableRipple'],
                 host: {
                     'role': 'option',
                     'class': 'mat-list-item mat-list-option',
@@ -8657,7 +8650,7 @@ MdListOption.decorators = [
                     '[attr.aria-selected]': 'selected.toString()',
                     '[attr.aria-disabled]': 'disabled.toString()',
                 },
-                template: "<div class=\"mat-list-item-content\" [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\" [class.mat-list-item-disabled]=\"disabled\"><div class=\"mat-list-item-ripple\" md-ripple [mdRippleTrigger]=\"_getHostElement()\" [mdRippleDisabled]=\"!isRippleEnabled()\"></div><md-pseudo-checkbox [state]=\"selected ? 'checked' : 'unchecked'\" #autocheckbox [disabled]=\"disabled\"></md-pseudo-checkbox><div class=\"mat-list-text\"><ng-content></ng-content></div></div>",
+                template: "<div class=\"mat-list-item-content\" [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\" [class.mat-list-item-disabled]=\"disabled\"><div class=\"mat-list-item-ripple\" md-ripple [mdRippleTrigger]=\"_getHostElement()\" [mdRippleDisabled]=\"_isRippleDisabled()\"></div><md-pseudo-checkbox [state]=\"selected ? 'checked' : 'unchecked'\" #autocheckbox [disabled]=\"disabled\"></md-pseudo-checkbox><div class=\"mat-list-text\"><ng-content></ng-content></div></div>",
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
             },] },
@@ -8672,7 +8665,6 @@ MdListOption.ctorParameters = function () { return [
     { type: MdSelectionList, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MdSelectionList; }),] },] },
 ]; };
 MdListOption.propDecorators = {
-    'disableRipple': [{ type: _angular_core.Input },],
     '_lines': [{ type: _angular_core.ContentChildren, args: [MdLine,] },],
     'checkboxPosition': [{ type: _angular_core.Input },],
     'disabled': [{ type: _angular_core.Input },],
@@ -8690,7 +8682,6 @@ var MdSelectionList = (function (_super) {
     function MdSelectionList(_element) {
         var _this = _super.call(this) || this;
         _this._element = _element;
-        _this._disableRipple = false;
         /**
          * Tab index for the selection-list.
          */
@@ -8709,21 +8700,6 @@ var MdSelectionList = (function (_super) {
         _this.selectedOptions = new _angular_cdk_collections.SelectionModel(true);
         return _this;
     }
-    Object.defineProperty(MdSelectionList.prototype, "disableRipple", {
-        /**
-         * Whether the ripple effect should be disabled on the list-items or not.
-         * This flag only has an effect for `mat-selection-list` components.
-         * @return {?}
-         */
-        get: function () { return this._disableRipple; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) { this._disableRipple = _angular_cdk_coercion.coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */
@@ -8829,7 +8805,7 @@ var MdSelectionList = (function (_super) {
 }(_MdSelectionListMixinBase));
 MdSelectionList.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-selection-list, mat-selection-list',
-                inputs: ['disabled'],
+                inputs: ['disabled', 'disableRipple'],
                 host: {
                     'role': 'listbox',
                     '[attr.tabindex]': '_tabIndex',
@@ -8852,7 +8828,6 @@ MdSelectionList.ctorParameters = function () { return [
 ]; };
 MdSelectionList.propDecorators = {
     'options': [{ type: _angular_core.ContentChildren, args: [MdListOption,] },],
-    'disableRipple': [{ type: _angular_core.Input },],
 };
 var MdListModule = (function () {
     function MdListModule() {
@@ -22578,6 +22553,8 @@ exports.MdListSubheaderCssMatStyler = MdListSubheaderCssMatStyler;
 exports.MdListItem = MdListItem;
 exports.MdSelectionListBase = MdSelectionListBase;
 exports._MdSelectionListMixinBase = _MdSelectionListMixinBase;
+exports.MdListOptionBase = MdListOptionBase;
+exports._MdListOptionMixinBase = _MdListOptionMixinBase;
 exports.MdListOption = MdListOption;
 exports.MdSelectionList = MdSelectionList;
 exports.MdMenuModule = MdMenuModule;
