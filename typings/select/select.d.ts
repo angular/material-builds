@@ -17,6 +17,7 @@ import { CanDisable } from '../core/common-behaviors/disabled';
 import { MdOptgroup, MdOption, MdOptionSelectionChange } from '../core/option/index';
 import { FloatPlaceholderType, PlaceholderOptions } from '../core/placeholder/placeholder-options';
 import { Platform } from '@angular/cdk/platform';
+import { HasTabIndex } from '../core/common-behaviors/tabindex';
 /**
  * The following style constants are necessary to save here in order
  * to properly calculate the alignment of the selected option over
@@ -81,16 +82,15 @@ export declare class MdSelectBase {
     _elementRef: ElementRef;
     constructor(_renderer: Renderer2, _elementRef: ElementRef);
 }
-export declare const _MdSelectMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisable) & typeof MdSelectBase;
+export declare const _MdSelectMixinBase: (new (...args: any[]) => HasTabIndex) & (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisable) & typeof MdSelectBase;
 /**
  * Allows the user to customize the trigger that is displayed when the select has a value.
  */
 export declare class MdSelectTrigger {
 }
-export declare class MdSelect extends _MdSelectMixinBase implements AfterContentInit, OnDestroy, OnInit, ControlValueAccessor, CanColor, CanDisable {
+export declare class MdSelect extends _MdSelectMixinBase implements AfterContentInit, OnDestroy, OnInit, ControlValueAccessor, CanColor, CanDisable, HasTabIndex {
     private _viewportRuler;
     private _changeDetectorRef;
-    private _overlay;
     private _platform;
     private _dir;
     private _parentForm;
@@ -119,8 +119,6 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
     _selectionModel: SelectionModel<MdOption>;
     /** The animation state of the placeholder. */
     private _placeholderState;
-    /** Tab index for the element. */
-    private _tabIndex;
     /** Deals with configuring placeholder options */
     private _placeholderOptions;
     /**
@@ -194,8 +192,6 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
     /** Whether to float the placeholder text. */
     floatPlaceholder: FloatPlaceholderType;
     private _floatPlaceholder;
-    /** Tab index for the select element. */
-    tabIndex: number;
     /** Value of the select control. */
     value: any;
     private _value;
@@ -220,7 +216,7 @@ export declare class MdSelect extends _MdSelectMixinBase implements AfterContent
      * @docs-private
      */
     valueChange: EventEmitter<any>;
-    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _overlay: Overlay, _platform: Platform, renderer: Renderer2, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _control: NgControl, tabIndex: string, placeholderOptions: PlaceholderOptions, _scrollStrategyFactory: any);
+    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _platform: Platform, renderer: Renderer2, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _control: NgControl, tabIndex: string, placeholderOptions: PlaceholderOptions, _scrollStrategyFactory: any);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

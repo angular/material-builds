@@ -5,6 +5,7 @@ export * from './public_api';
 export { mixinColor as ɵv } from './core/common-behaviors/color';
 export { mixinDisableRipple as ɵw } from './core/common-behaviors/disable-ripple';
 export { mixinDisabled as ɵu } from './core/common-behaviors/disabled';
+export { mixinTabIndex as ɵy } from './core/common-behaviors/tabindex';
 export { UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY as ɵb } from './core/coordination/unique-selection-dispatcher';
 export { MdDateFormats as ɵx } from './core/datetime/date-formats';
 export { RippleRenderer as ɵa } from './core/ripple/ripple-renderer';

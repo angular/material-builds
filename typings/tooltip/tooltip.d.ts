@@ -43,7 +43,6 @@ export declare class MdTooltip implements OnDestroy {
     private _scrollDispatcher;
     private _viewContainerRef;
     private _ngZone;
-    private _renderer;
     private _platform;
     private _scrollStrategy;
     private _dir;
@@ -81,7 +80,7 @@ export declare class MdTooltip implements OnDestroy {
     };
     private _enterListener;
     private _leaveListener;
-    constructor(_overlay: Overlay, _elementRef: ElementRef, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _renderer: Renderer2, _platform: Platform, _scrollStrategy: any, _dir: Directionality);
+    constructor(renderer: Renderer2, _overlay: Overlay, _elementRef: ElementRef, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _scrollStrategy: any, _dir: Directionality);
     /**
      * Dispose the tooltip when destroyed.
      */

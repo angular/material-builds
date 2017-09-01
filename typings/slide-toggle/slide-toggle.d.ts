@@ -12,6 +12,7 @@ import { ControlValueAccessor } from '@angular/forms';
 import { CanDisable } from '../core/common-behaviors/disabled';
 import { CanColor } from '../core/common-behaviors/color';
 import { CanDisableRipple } from '../core/common-behaviors/disable-ripple';
+import { HasTabIndex } from '../core/common-behaviors/tabindex';
 export declare const MD_SLIDE_TOGGLE_VALUE_ACCESSOR: any;
 /** Change event object emitted by a MdSlideToggle. */
 export declare class MdSlideToggleChange {
@@ -24,9 +25,9 @@ export declare class MdSlideToggleBase {
     _elementRef: ElementRef;
     constructor(_renderer: Renderer2, _elementRef: ElementRef);
 }
-export declare const _MdSlideToggleMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MdSlideToggleBase;
+export declare const _MdSlideToggleMixinBase: (new (...args: any[]) => HasTabIndex) & (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MdSlideToggleBase;
 /** Represents a slidable "switch" toggle that can be moved between on and off. */
-export declare class MdSlideToggle extends _MdSlideToggleMixinBase implements OnDestroy, AfterContentInit, ControlValueAccessor, CanDisable, CanColor, CanDisableRipple {
+export declare class MdSlideToggle extends _MdSlideToggleMixinBase implements OnDestroy, AfterContentInit, ControlValueAccessor, CanDisable, CanColor, HasTabIndex, CanDisableRipple {
     private _platform;
     private _focusOriginMonitor;
     private _changeDetectorRef;
@@ -42,8 +43,6 @@ export declare class MdSlideToggle extends _MdSlideToggleMixinBase implements On
     name: string | null;
     /** A unique id for the slide-toggle input. If none is supplied, it will be auto-generated. */
     id: string;
-    /** Used to specify the tabIndex value for the underlying input element. */
-    tabIndex: number;
     /** Whether the label should appear after or before the slide-toggle. Defaults to 'after' */
     labelPosition: 'before' | 'after';
     /** Whether the slide-toggle element is checked or not */
@@ -63,7 +62,7 @@ export declare class MdSlideToggle extends _MdSlideToggleMixinBase implements On
     _inputElement: ElementRef;
     /** Reference to the ripple directive on the thumb container. */
     _ripple: MdRipple;
-    constructor(elementRef: ElementRef, renderer: Renderer2, _platform: Platform, _focusOriginMonitor: FocusOriginMonitor, _changeDetectorRef: ChangeDetectorRef);
+    constructor(elementRef: ElementRef, renderer: Renderer2, _platform: Platform, _focusOriginMonitor: FocusOriginMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /**

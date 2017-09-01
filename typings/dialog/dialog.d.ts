@@ -31,7 +31,6 @@ export declare class MdDialog {
     private _overlay;
     private _injector;
     private _scrollStrategy;
-    private _location;
     private _parentDialog;
     private _openDialogsAtThisLevel;
     private _afterAllClosedAtThisLevel;
@@ -47,7 +46,7 @@ export declare class MdDialog {
      * Will emit on subscribe if there are no open dialogs to begin with.
      */
     afterAllClosed: Observable<void>;
-    constructor(_overlay: Overlay, _injector: Injector, _scrollStrategy: any, _location: Location, _parentDialog: MdDialog);
+    constructor(_overlay: Overlay, _injector: Injector, location: Location, _scrollStrategy: any, _parentDialog: MdDialog);
     /**
      * Opens a modal dialog containing the given component.
      * @param componentOrTemplateRef Type of the component to load into the dialog,

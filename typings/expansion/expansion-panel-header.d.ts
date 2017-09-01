@@ -17,12 +17,11 @@ import { FocusOriginMonitor } from '../core/style/index';
  */
 export declare class MdExpansionPanelHeader implements OnDestroy {
     panel: MdExpansionPanel;
-    private _renderer;
     private _element;
     private _focusOriginMonitor;
     private _changeDetectorRef;
     private _parentChangeSubscription;
-    constructor(panel: MdExpansionPanel, _renderer: Renderer2, _element: ElementRef, _focusOriginMonitor: FocusOriginMonitor, _changeDetectorRef: ChangeDetectorRef);
+    constructor(renderer: Renderer2, panel: MdExpansionPanel, _element: ElementRef, _focusOriginMonitor: FocusOriginMonitor, _changeDetectorRef: ChangeDetectorRef);
     /** Height of the header while the panel is expanded. */
     expandedHeight: string;
     /** Height of the header while the panel is collapsed. */

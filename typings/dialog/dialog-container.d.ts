@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ComponentRef, ElementRef, EmbeddedViewRef, EventEmitter, NgZone, ChangeDetectorRef } from '@angular/core';
+import { ComponentRef, ElementRef, EmbeddedViewRef, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
 import { BasePortalHost, ComponentPortal, PortalHostDirective, TemplatePortal } from '@angular/cdk/portal';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
@@ -22,7 +22,6 @@ export declare function throwMdDialogContentAlreadyAttachedError(): void;
  * @docs-private
  */
 export declare class MdDialogContainer extends BasePortalHost {
-    private _ngZone;
     private _elementRef;
     private _focusTrapFactory;
     private _changeDetectorRef;
@@ -43,7 +42,7 @@ export declare class MdDialogContainer extends BasePortalHost {
     _ariaLabelledBy: string | null;
     /** Whether the container is currently mid-animation. */
     _isAnimating: boolean;
-    constructor(_ngZone: NgZone, _elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _changeDetectorRef: ChangeDetectorRef, _document: any);
+    constructor(_elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _changeDetectorRef: ChangeDetectorRef, _document: any);
     /**
      * Attach a ComponentPortal as content to this dialog container.
      * @param portal Portal to be attached as the dialog content.
