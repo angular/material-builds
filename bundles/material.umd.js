@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.10-87318bc');
+var VERSION = new _angular_core.Version('2.0.0-beta.10-f375f92');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -21992,8 +21992,7 @@ var MdStepHeader = (function () {
     return MdStepHeader;
 }());
 MdStepHeader.decorators = [
-    { type: _angular_core.Component, args: [{
-                selector: 'md-step-header, mat-step-header',
+    { type: _angular_core.Component, args: [{ selector: 'md-step-header, mat-step-header',
                 template: "<div [class.mat-step-icon]=\"icon != 'number' || selected\" [class.mat-step-icon-not-touched]=\"icon == 'number' && !selected\"><span *ngIf=\"icon == 'number'\">{{index + 1}}</span><md-icon *ngIf=\"icon == 'edit'\">create</md-icon><md-icon *ngIf=\"icon == 'done'\">done</md-icon></div><div [class.mat-step-label-active]=\"active\" [class.mat-step-label-inactive]=\"!active\"><ng-container *ngIf=\"_templateLabel\" [ngTemplateOutlet]=\"label.template\"></ng-container><div class=\"mat-step-text-label\" *ngIf=\"_stringLabel\">{{label}}</div><div class=\"mat-step-optional\" *ngIf=\"optional\">Optional</div></div>",
                 styles: [".mat-step-optional{font-size:12px}.mat-step-icon,.mat-step-icon-not-touched{border-radius:50%;height:24px;width:24px;align-items:center;justify-content:center;display:flex}.mat-step-icon .mat-icon{font-size:16px;height:16px;width:16px}.mat-step-label-active,.mat-step-label-inactive{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle}.mat-step-text-label{text-overflow:ellipsis;overflow:hidden}"],
                 host: {
