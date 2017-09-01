@@ -36,8 +36,6 @@ export declare class MdTabNav extends _MdTabNavMixinBase implements AfterContent
     _inkBar: MdInkBar;
     /** Query list of all tab links of the tab navigation. */
     _tabLinks: QueryList<MdTabLink>;
-    /** Subscription for window.resize event **/
-    private _resizeSubscription;
     /** Background color of the tab nav. */
     backgroundColor: ThemePalette;
     private _backgroundColor;
