@@ -23,6 +23,10 @@ export declare class MdExpansionPanelHeader implements OnDestroy {
     private _changeDetectorRef;
     private _parentChangeSubscription;
     constructor(panel: MdExpansionPanel, _renderer: Renderer2, _element: ElementRef, _focusOriginMonitor: FocusOriginMonitor, _changeDetectorRef: ChangeDetectorRef);
+    /** Height of the header while the panel is expanded. */
+    expandedHeight: string;
+    /** Height of the header while the panel is collapsed. */
+    collapsedHeight: string;
     /** Toggles the expanded state of the panel. */
     _toggle(): void;
     /** Gets whether the panel is expanded. */

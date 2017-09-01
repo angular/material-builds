@@ -5,10 +5,11 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ComponentRef, EmbeddedViewRef, NgZone, OnDestroy, Renderer2, ElementRef } from '@angular/core';
+import { ComponentRef, EmbeddedViewRef, NgZone, OnDestroy, Renderer2, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
 import { BasePortalHost, ComponentPortal, PortalHostDirective } from '@angular/cdk/portal';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import { MdSnackBarConfig } from './snack-bar-config';
 export declare type SnackBarState = 'initial' | 'visible' | 'complete' | 'void';
 export declare const SHOW_ANIMATION = "225ms cubic-bezier(0.4,0.0,1,1)";
@@ -21,17 +22,20 @@ export declare class MdSnackBarContainer extends BasePortalHost implements OnDes
     private _ngZone;
     private _renderer;
     private _elementRef;
+    private _changeDetectorRef;
+    /** Whether the component has been destroyed. */
+    private _destroyed;
     /** The portal host inside of this container into which the snack bar content will be loaded. */
     _portalHost: PortalHostDirective;
     /** Subject for notifying that the snack bar has exited from view. */
-    private onExit;
+    _onExit: Subject<any>;
     /** Subject for notifying that the snack bar has finished entering the view. */
-    private onEnter;
+    _onEnter: Subject<any>;
     /** The state of the snack bar animations. */
     animationState: SnackBarState;
     /** The snack bar configuration. */
     snackBarConfig: MdSnackBarConfig;
-    constructor(_ngZone: NgZone, _renderer: Renderer2, _elementRef: ElementRef);
+    constructor(_ngZone: NgZone, _renderer: Renderer2, _elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef);
     /** Attach a component portal as content to this snack bar container. */
     attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T>;
     /** Attach a template portal as content to this snack bar container. */
@@ -40,15 +44,9 @@ export declare class MdSnackBarContainer extends BasePortalHost implements OnDes
     onAnimationEnd(event: AnimationEvent): void;
     /** Begin animation of snack bar entrance into view. */
     enter(): void;
-    /** Returns an observable resolving when the enter animation completes.  */
-    _onEnter(): Observable<void>;
     /** Begin animation of the snack bar exiting from view. */
     exit(): Observable<void>;
-    /** Returns an observable that completes after the closing animation is done. */
-    _onExit(): Observable<void>;
-    /**
-     * Makes sure the exit callbacks have been invoked when the element is destroyed.
-     */
+    /** Makes sure the exit callbacks have been invoked when the element is destroyed. */
     ngOnDestroy(): void;
     /**
      * Waits for the zone to settle before removing the element. Helps prevent

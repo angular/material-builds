@@ -37,7 +37,7 @@ import { CdkStep, CdkStepLabel, CdkStepper, CdkStepperModule, CdkStepperNext, Cd
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.10-89fea50');
+const VERSION = new Version('2.0.0-beta.10-11e2239');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -12524,7 +12524,7 @@ class MdSnackBarRef {
         this.containerInstance = containerInstance;
         // Dismiss snackbar on action.
         this.onAction().subscribe(() => this.dismiss());
-        containerInstance._onExit().subscribe(() => this._finishDismiss());
+        containerInstance._onExit.subscribe(() => this._finishDismiss());
     }
     /**
      * Dismisses the snack bar.
@@ -12585,7 +12585,7 @@ class MdSnackBarRef {
      * @return {?}
      */
     afterOpened() {
-        return this.containerInstance._onEnter();
+        return this.containerInstance._onEnter;
     }
     /**
      * Gets an observable that is notified when the snack bar action is called.
@@ -12609,20 +12609,26 @@ class MdSnackBarContainer extends BasePortalHost {
      * @param {?} _ngZone
      * @param {?} _renderer
      * @param {?} _elementRef
+     * @param {?} _changeDetectorRef
      */
-    constructor(_ngZone, _renderer, _elementRef) {
+    constructor(_ngZone, _renderer, _elementRef, _changeDetectorRef) {
         super();
         this._ngZone = _ngZone;
         this._renderer = _renderer;
         this._elementRef = _elementRef;
+        this._changeDetectorRef = _changeDetectorRef;
+        /**
+         * Whether the component has been destroyed.
+         */
+        this._destroyed = false;
         /**
          * Subject for notifying that the snack bar has exited from view.
          */
-        this.onExit = new Subject();
+        this._onExit = new Subject();
         /**
          * Subject for notifying that the snack bar has finished entering the view.
          */
-        this.onEnter = new Subject();
+        this._onEnter = new Subject();
         /**
          * The state of the snack bar animations.
          */
@@ -12666,7 +12672,7 @@ class MdSnackBarContainer extends BasePortalHost {
         if (event.toState === 'visible') {
             // Note: we shouldn't use `this` inside the zone callback,
             // because it can cause a memory leak.
-            const /** @type {?} */ onEnter = this.onEnter;
+            const /** @type {?} */ onEnter = this._onEnter;
             this._ngZone.run(() => {
                 onEnter.next();
                 onEnter.complete();
@@ -12678,15 +12684,10 @@ class MdSnackBarContainer extends BasePortalHost {
      * @return {?}
      */
     enter() {
-        this.animationState = 'visible';
-    }
-    /**
-     * Returns an observable resolving when the enter animation completes.
-     * @return {?}
-     */
-    _onEnter() {
-        this.animationState = 'visible';
-        return this.onEnter.asObservable();
+        if (!this._destroyed) {
+            this.animationState = 'visible';
+            this._changeDetectorRef.detectChanges();
+        }
     }
     /**
      * Begin animation of the snack bar exiting from view.
@@ -12694,20 +12695,14 @@ class MdSnackBarContainer extends BasePortalHost {
      */
     exit() {
         this.animationState = 'complete';
-        return this._onExit();
-    }
-    /**
-     * Returns an observable that completes after the closing animation is done.
-     * @return {?}
-     */
-    _onExit() {
-        return this.onExit.asObservable();
+        return this._onExit;
     }
     /**
      * Makes sure the exit callbacks have been invoked when the element is destroyed.
      * @return {?}
      */
     ngOnDestroy() {
+        this._destroyed = true;
         this._completeExit();
     }
     /**
@@ -12718,7 +12713,7 @@ class MdSnackBarContainer extends BasePortalHost {
     _completeExit() {
         // Note: we shouldn't use `this` inside the zone callback,
         // because it can cause a memory leak.
-        const /** @type {?} */ onExit = this.onExit;
+        const /** @type {?} */ onExit = this._onExit;
         first.call(this._ngZone.onMicrotaskEmpty).subscribe(() => {
             onExit.next();
             onExit.complete();
@@ -12739,10 +12734,8 @@ MdSnackBarContainer.decorators = [
                 },
                 animations: [
                     trigger('state', [
-                        state('void', style({ transform: 'translateY(100%)' })),
-                        state('initial', style({ transform: 'translateY(100%)' })),
+                        state('void, initial, complete', style({ transform: 'translateY(100%)' })),
                         state('visible', style({ transform: 'translateY(0%)' })),
-                        state('complete', style({ transform: 'translateY(100%)' })),
                         transition('visible => complete', animate(HIDE_ANIMATION)),
                         transition('initial => visible, void => visible', animate(SHOW_ANIMATION)),
                     ])
@@ -12756,6 +12749,7 @@ MdSnackBarContainer.ctorParameters = () => [
     { type: NgZone, },
     { type: Renderer2, },
     { type: ElementRef, },
+    { type: ChangeDetectorRef, },
 ];
 MdSnackBarContainer.propDecorators = {
     '_portalHost': [{ type: ViewChild, args: [PortalHostDirective,] },],
@@ -19544,7 +19538,13 @@ MdExpansionPanelHeader.decorators = [
                     '[class.mat-expanded]': '_isExpanded()',
                     '(click)': '_toggle()',
                     '(keyup)': '_keyup($event)',
-                    '[@expansionHeight]': '_getExpandedState()',
+                    '[@expansionHeight]': `{
+        value: _getExpandedState(),
+        params: {
+          collapsedHeight: collapsedHeight,
+          expandedHeight: expandedHeight
+        }
+    }`,
                 },
                 animations: [
                     trigger('indicatorRotate', [
@@ -19553,8 +19553,16 @@ MdExpansionPanelHeader.decorators = [
                         transition('expanded <=> collapsed', animate(EXPANSION_PANEL_ANIMATION_TIMING)),
                     ]),
                     trigger('expansionHeight', [
-                        state('collapsed', style({ height: '48px' })),
-                        state('expanded', style({ height: '64px' })),
+                        state('collapsed', style({
+                            height: '{{collapsedHeight}}',
+                        }), {
+                            params: { collapsedHeight: '48px' },
+                        }),
+                        state('expanded', style({
+                            height: '{{expandedHeight}}'
+                        }), {
+                            params: { expandedHeight: '64px' }
+                        }),
                         transition('expanded <=> collapsed', animate(EXPANSION_PANEL_ANIMATION_TIMING)),
                     ]),
                 ],
@@ -19570,6 +19578,10 @@ MdExpansionPanelHeader.ctorParameters = () => [
     { type: FocusOriginMonitor, },
     { type: ChangeDetectorRef, },
 ];
+MdExpansionPanelHeader.propDecorators = {
+    'expandedHeight': [{ type: Input },],
+    'collapsedHeight': [{ type: Input },],
+};
 /**
  * <md-panel-description> directive.
  *
