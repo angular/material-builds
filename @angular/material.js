@@ -37,7 +37,7 @@ import { CdkStep, CdkStepLabel, CdkStepper, CdkStepperModule, CdkStepperNext, Cd
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.10-2635cad');
+const VERSION = new Version('2.0.0-beta.10-8c49422');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -6453,9 +6453,6 @@ class MdSlider extends _MdSliderMixinBase {
          */
         this._sliderDimensions = null;
         this._controlValueAccessorChangeFn = () => { };
-        this._focusOriginMonitor
-            .monitor(this._elementRef.nativeElement, renderer, true)
-            .subscribe((origin) => this._isActive = !!origin && origin !== 'keyboard');
     }
     /**
      * Whether the slider is inverted.
@@ -6748,8 +6745,25 @@ class MdSlider extends _MdSliderMixinBase {
     /**
      * @return {?}
      */
+    ngOnInit() {
+        this._focusOriginMonitor
+            .monitor(this._elementRef.nativeElement, this._renderer, true)
+            .subscribe((origin) => {
+            this._isActive = !!origin && origin !== 'keyboard';
+            this._changeDetectorRef.detectChanges();
+        });
+        if (this._dir) {
+            this._dir.change.subscribe(() => this._changeDetectorRef.markForCheck());
+        }
+    }
+    /**
+     * @return {?}
+     */
     ngOnDestroy() {
         this._focusOriginMonitor.stopMonitoring(this._elementRef.nativeElement);
+        if (this._dir) {
+            this._dir.change.unsubscribe();
+        }
     }
     /**
      * @return {?}

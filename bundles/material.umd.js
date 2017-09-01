@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.10-2635cad');
+var VERSION = new _angular_core.Version('2.0.0-beta.10-8c49422');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -6727,9 +6727,6 @@ var MdSlider = (function (_super) {
          */
         _this._sliderDimensions = null;
         _this._controlValueAccessorChangeFn = function () { };
-        _this._focusOriginMonitor
-            .monitor(_this._elementRef.nativeElement, renderer, true)
-            .subscribe(function (origin) { return _this._isActive = !!origin && origin !== 'keyboard'; });
         return _this;
     }
     Object.defineProperty(MdSlider.prototype, "invert", {
@@ -7111,8 +7108,26 @@ var MdSlider = (function (_super) {
     /**
      * @return {?}
      */
+    MdSlider.prototype.ngOnInit = function () {
+        var _this = this;
+        this._focusOriginMonitor
+            .monitor(this._elementRef.nativeElement, this._renderer, true)
+            .subscribe(function (origin) {
+            _this._isActive = !!origin && origin !== 'keyboard';
+            _this._changeDetectorRef.detectChanges();
+        });
+        if (this._dir) {
+            this._dir.change.subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        }
+    };
+    /**
+     * @return {?}
+     */
     MdSlider.prototype.ngOnDestroy = function () {
         this._focusOriginMonitor.stopMonitoring(this._elementRef.nativeElement);
+        if (this._dir) {
+            this._dir.change.unsubscribe();
+        }
     };
     /**
      * @return {?}

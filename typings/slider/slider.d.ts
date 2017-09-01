@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, Renderer2, OnInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { Directionality } from '@angular/cdk/bidi';
 import { HammerInput } from '../core';
@@ -35,7 +35,7 @@ export declare const _MdSliderMixinBase: (new (...args: any[]) => CanColor) & (n
  * Allows users to select from a range of values by moving the slider thumb. It is similar in
  * behavior to the native `<input type="range">` element.
  */
-export declare class MdSlider extends _MdSliderMixinBase implements ControlValueAccessor, OnDestroy, CanDisable, CanColor {
+export declare class MdSlider extends _MdSliderMixinBase implements ControlValueAccessor, OnDestroy, CanDisable, CanColor, OnInit {
     private _focusOriginMonitor;
     private _changeDetectorRef;
     private _dir;
@@ -141,6 +141,7 @@ export declare class MdSlider extends _MdSliderMixinBase implements ControlValue
     /** The language direction for this slider element. */
     private readonly _direction;
     constructor(renderer: Renderer2, elementRef: ElementRef, _focusOriginMonitor: FocusOriginMonitor, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality);
+    ngOnInit(): void;
     ngOnDestroy(): void;
     _onMouseenter(): void;
     _onClick(event: MouseEvent): void;
