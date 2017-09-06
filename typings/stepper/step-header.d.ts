@@ -17,7 +17,7 @@ export declare class MdStepHeader {
     optional: any;
     private _optional;
     /** Returns string label of given step if it is a text label. */
-    readonly _stringLabel: string | null;
+    _stringLabel(): string | null;
     /** Returns MdStepLabel if the label of given step is a template label. */
-    readonly _templateLabel: MdStepLabel | null;
+    _templateLabel(): MdStepLabel | null;
 }
