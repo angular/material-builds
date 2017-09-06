@@ -12,6 +12,7 @@
  */
 export * from './version';
 export * from './core';
+export * from './module';
 export * from './autocomplete/index';
 export * from './button/index';
 export * from './button-toggle/index';
