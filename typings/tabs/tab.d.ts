@@ -27,6 +27,8 @@ export declare class MdTab extends _MdTabMixinBase implements OnInit, CanDisable
     readonly content: TemplatePortal<any> | null;
     /** Emits whenever the label changes. */
     _labelChange: Subject<void>;
+    /** Emits whenevfer the disable changes */
+    _disableChange: Subject<void>;
     /**
      * The relatively indexed position where 0 represents the center, negative is left, and positive
      * represents the right.

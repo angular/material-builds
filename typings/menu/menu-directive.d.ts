@@ -71,7 +71,7 @@ export declare class MdMenu implements AfterContentInit, MdMenuPanel, OnDestroy 
      * It's necessary to set position-based classes to ensure the menu panel animation
      * folds out from the correct direction.
      */
-    setPositionClasses(posX?: "before" | "after", posY?: "above" | "below"): void;
+    setPositionClasses(posX?: "before" | "after", posY?: MenuPositionY): void;
     /**
      * Sets the menu panel elevation.
      * @param depth Number of parent menus that come before the menu.

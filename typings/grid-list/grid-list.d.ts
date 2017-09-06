@@ -45,9 +45,9 @@ export declare class MdGridList implements OnInit, AfterContentChecked {
     /** Default to equal width:height if rowHeight property is missing */
     private _checkRowHeight();
     /** Creates correct Tile Styler subtype based on rowHeight passed in by user */
-    private _setTileStyler();
+    private _setTileStyler(rowHeight);
     /** Computes and applies the size and position for all children grid tiles. */
     private _layoutTiles();
     /** Sets style on the main grid-list element, given the style name and value. */
-    _setListStyle(style: [string, string] | null): void;
+    _setListStyle(style: [string, string | null] | null): void;
 }

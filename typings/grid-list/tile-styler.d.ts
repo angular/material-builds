@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { MdGridList } from './grid-list';
 import { MdGridTile } from './grid-tile';
 import { TileCoordinator } from './tile-coordinator';
 /**
@@ -80,6 +81,12 @@ export declare abstract class TileStyler {
      * @docs-private
      */
     getComputedHeight(): [string, string] | null;
+    /**
+     * Called when the tile styler is swapped out with a different one. To be used for cleanup.
+     * @param list Grid list that the styler was attached to.
+     * @docs-private
+     */
+    abstract reset(list: MdGridList): any;
 }
 /**
  * This type of styler is instantiated when the user passes in a fixed row height.
@@ -92,6 +99,7 @@ export declare class FixedTileStyler extends TileStyler {
     init(gutterSize: string, tracker: TileCoordinator, cols: number, direction: string): void;
     setRowStyles(tile: MdGridTile, rowIndex: number): void;
     getComputedHeight(): [string, string];
+    reset(list: MdGridList): void;
 }
 /**
  * This type of styler is instantiated when the user passes in a width:height ratio
@@ -105,6 +113,7 @@ export declare class RatioTileStyler extends TileStyler {
     constructor(value: string);
     setRowStyles(tile: MdGridTile, rowIndex: number, percentWidth: number, gutterWidth: number): void;
     getComputedHeight(): [string, string];
+    reset(list: MdGridList): void;
     private _parseRatio(value);
 }
 /**
@@ -116,4 +125,5 @@ export declare class RatioTileStyler extends TileStyler {
  */
 export declare class FitTileStyler extends TileStyler {
     setRowStyles(tile: MdGridTile, rowIndex: number): void;
+    reset(list: MdGridList): void;
 }

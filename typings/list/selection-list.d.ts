@@ -32,7 +32,6 @@ export declare class MdListOption extends _MdListOptionMixinBase implements Afte
     selectionList: MdSelectionList;
     private _lineSetter;
     private _selected;
-    /** Whether the checkbox is disabled. */
     private _disabled;
     private _value;
     /** Whether the option has focus. */
