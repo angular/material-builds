@@ -37,7 +37,7 @@ import { CdkStep, CdkStepLabel, CdkStepper, CdkStepperModule, CdkStepperNext, Cd
 /**
  * Current version of Angular Material.
  */
-var VERSION = new Version('2.0.0-beta.10-6b5100b');
+var VERSION = new Version('2.0.0-beta.10-a7ce31e');
 var MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -12065,7 +12065,7 @@ var MdListOption = (function (_super) {
      * @return {?}
      */
     MdListOption.prototype._isRippleDisabled = function () {
-        return this.disableRipple || this.selectionList.disableRipple;
+        return this.disabled || this.disableRipple || this.selectionList.disableRipple;
     };
     /**
      * @return {?}
@@ -12107,6 +12107,7 @@ MdListOption.decorators = [
                     '(blur)': '_handleBlur()',
                     '(click)': '_handleClick()',
                     'tabindex': '-1',
+                    '[class.mat-list-item-disabled]': 'disabled',
                     '[attr.aria-selected]': 'selected.toString()',
                     '[attr.aria-disabled]': 'disabled.toString()',
                 },
@@ -17433,10 +17434,14 @@ var MdDrawerContainer = (function () {
          * Event emitted when the drawer backdrop is clicked.
          */
         this.backdropClick = new EventEmitter();
+        /**
+         * Subscription to the Directionality change EventEmitter.
+         */
+        this._dirChangeSubscription = Subscription.EMPTY;
         // If a `Dir` directive exists up the tree, listen direction changes and update the left/right
         // properties to point to the proper start/end.
         if (_dir != null) {
-            _dir.change.subscribe(function () { return _this._validateDrawers(); });
+            this._dirChangeSubscription = _dir.change.subscribe(function () { return _this._validateDrawers(); });
         }
     }
     Object.defineProperty(MdDrawerContainer.prototype, "start", {
@@ -17469,6 +17474,12 @@ var MdDrawerContainer = (function () {
                 _this._watchDrawerPosition(drawer);
             });
         });
+    };
+    /**
+     * @return {?}
+     */
+    MdDrawerContainer.prototype.ngOnDestroy = function () {
+        this._dirChangeSubscription.unsubscribe();
     };
     /**
      * Calls `open` of both start and end drawers
@@ -17841,6 +17852,10 @@ var MdSlider = (function (_super) {
          */
         _this._sliderDimensions = null;
         _this._controlValueAccessorChangeFn = function () { };
+        /**
+         * Subscription to the Directionality change EventEmitter.
+         */
+        _this._dirChangeSubscription = Subscription.EMPTY;
         return _this;
     }
     Object.defineProperty(MdSlider.prototype, "invert", {
@@ -18231,7 +18246,9 @@ var MdSlider = (function (_super) {
             _this._changeDetectorRef.detectChanges();
         });
         if (this._dir) {
-            this._dir.change.subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+            this._dirChangeSubscription = this._dir.change.subscribe(function () {
+                _this._changeDetectorRef.markForCheck();
+            });
         }
     };
     /**
@@ -18239,9 +18256,7 @@ var MdSlider = (function (_super) {
      */
     MdSlider.prototype.ngOnDestroy = function () {
         this._focusOriginMonitor.stopMonitoring(this._elementRef.nativeElement);
-        if (this._dir) {
-            this._dir.change.unsubscribe();
-        }
+        this._dirChangeSubscription.unsubscribe();
     };
     /**
      * @return {?}
@@ -20277,8 +20292,7 @@ var MdHeaderRow = (function (_super) {
     return MdHeaderRow;
 }(_MdHeaderRow));
 MdHeaderRow.decorators = [
-    { type: Component, args: [{
-                selector: 'md-header-row, mat-header-row',
+    { type: Component, args: [{ selector: 'md-header-row, mat-header-row',
                 template: CDK_ROW_TEMPLATE,
                 host: {
                     'class': 'mat-header-row',
@@ -20303,8 +20317,7 @@ var MdRow = (function (_super) {
     return MdRow;
 }(_MdRow));
 MdRow.decorators = [
-    { type: Component, args: [{
-                selector: 'md-row, mat-row',
+    { type: Component, args: [{ selector: 'md-row, mat-row',
                 template: CDK_ROW_TEMPLATE,
                 host: {
                     'class': 'mat-row',

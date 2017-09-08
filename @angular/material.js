@@ -37,7 +37,7 @@ import { CdkStep, CdkStepLabel, CdkStepper, CdkStepperModule, CdkStepperNext, Cd
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.10-6b5100b');
+const VERSION = new Version('2.0.0-beta.10-a7ce31e');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -11466,7 +11466,7 @@ class MdListOption extends _MdListOptionMixinBase {
      * @return {?}
      */
     _isRippleDisabled() {
-        return this.disableRipple || this.selectionList.disableRipple;
+        return this.disabled || this.disableRipple || this.selectionList.disableRipple;
     }
     /**
      * @return {?}
@@ -11507,6 +11507,7 @@ MdListOption.decorators = [
                     '(blur)': '_handleBlur()',
                     '(click)': '_handleClick()',
                     'tabindex': '-1',
+                    '[class.mat-list-item-disabled]': 'disabled',
                     '[attr.aria-selected]': 'selected.toString()',
                     '[attr.aria-disabled]': 'disabled.toString()',
                 },
@@ -16478,10 +16479,14 @@ class MdDrawerContainer {
          * Event emitted when the drawer backdrop is clicked.
          */
         this.backdropClick = new EventEmitter();
+        /**
+         * Subscription to the Directionality change EventEmitter.
+         */
+        this._dirChangeSubscription = Subscription.EMPTY;
         // If a `Dir` directive exists up the tree, listen direction changes and update the left/right
         // properties to point to the proper start/end.
         if (_dir != null) {
-            _dir.change.subscribe(() => this._validateDrawers());
+            this._dirChangeSubscription = _dir.change.subscribe(() => this._validateDrawers());
         }
     }
     /**
@@ -16505,6 +16510,12 @@ class MdDrawerContainer {
                 this._watchDrawerPosition(drawer);
             });
         });
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._dirChangeSubscription.unsubscribe();
     }
     /**
      * Calls `open` of both start and end drawers
@@ -16858,6 +16869,10 @@ class MdSlider extends _MdSliderMixinBase {
          */
         this._sliderDimensions = null;
         this._controlValueAccessorChangeFn = () => { };
+        /**
+         * Subscription to the Directionality change EventEmitter.
+         */
+        this._dirChangeSubscription = Subscription.EMPTY;
     }
     /**
      * Whether the slider is inverted.
@@ -17158,7 +17173,9 @@ class MdSlider extends _MdSliderMixinBase {
             this._changeDetectorRef.detectChanges();
         });
         if (this._dir) {
-            this._dir.change.subscribe(() => this._changeDetectorRef.markForCheck());
+            this._dirChangeSubscription = this._dir.change.subscribe(() => {
+                this._changeDetectorRef.markForCheck();
+            });
         }
     }
     /**
@@ -17166,9 +17183,7 @@ class MdSlider extends _MdSliderMixinBase {
      */
     ngOnDestroy() {
         this._focusOriginMonitor.stopMonitoring(this._elementRef.nativeElement);
-        if (this._dir) {
-            this._dir.change.unsubscribe();
-        }
+        this._dirChangeSubscription.unsubscribe();
     }
     /**
      * @return {?}
@@ -19077,8 +19092,7 @@ MatRowDef.ctorParameters = () => [];
 class MdHeaderRow extends _MdHeaderRow {
 }
 MdHeaderRow.decorators = [
-    { type: Component, args: [{
-                selector: 'md-header-row, mat-header-row',
+    { type: Component, args: [{selector: 'md-header-row, mat-header-row',
                 template: CDK_ROW_TEMPLATE,
                 host: {
                     'class': 'mat-header-row',
@@ -19098,8 +19112,7 @@ MdHeaderRow.ctorParameters = () => [];
 class MdRow extends _MdRow {
 }
 MdRow.decorators = [
-    { type: Component, args: [{
-                selector: 'md-row, mat-row',
+    { type: Component, args: [{selector: 'md-row, mat-row',
                 template: CDK_ROW_TEMPLATE,
                 host: {
                     'class': 'mat-row',

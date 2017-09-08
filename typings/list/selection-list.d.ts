@@ -58,7 +58,7 @@ export declare class MdListOption extends _MdListOptionMixinBase implements Afte
     /** Allows for programmatic focusing of the option. */
     focus(): void;
     /** Whether this list item should show a ripple effect when clicked.  */
-    _isRippleDisabled(): boolean;
+    _isRippleDisabled(): any;
     _handleClick(): void;
     _handleFocus(): void;
     _handleBlur(): void;

@@ -129,6 +129,8 @@ export declare class MdSlider extends _MdSliderMixinBase implements ControlValue
     private _controlValueAccessorChangeFn;
     /** Decimal places to round to, based on the step amount. */
     private _roundLabelTo;
+    /** Subscription to the Directionality change EventEmitter. */
+    private _dirChangeSubscription;
     /** The value of the slider when the slide start event fires. */
     private _valueOnSlideStart;
     /** Reference to the inner slider wrapper element. */

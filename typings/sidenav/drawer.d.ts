@@ -105,7 +105,7 @@ export declare class MdDrawer implements AfterContentInit, OnDestroy {
  * This is the parent component to one or two <md-drawer>s that validates the state internally
  * and coordinates the backdrop and content styling.
  */
-export declare class MdDrawerContainer implements AfterContentInit {
+export declare class MdDrawerContainer implements AfterContentInit, OnDestroy {
     private _dir;
     private _element;
     private _renderer;
@@ -129,6 +129,8 @@ export declare class MdDrawerContainer implements AfterContentInit {
      */
     private _left;
     private _right;
+    /** Subscription to the Directionality change EventEmitter. */
+    private _dirChangeSubscription;
     /** Inline styles to be applied to the container. */
     _styles: {
         marginLeft: string;
@@ -137,6 +139,7 @@ export declare class MdDrawerContainer implements AfterContentInit {
     };
     constructor(_dir: Directionality, _element: ElementRef, _renderer: Renderer2, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef);
     ngAfterContentInit(): void;
+    ngOnDestroy(): void;
     /** Calls `open` of both start and end drawers */
     open(): void;
     /** Calls `close` of both start and end drawers */
