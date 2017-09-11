@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.11-a37aa6a');
+var VERSION = new _angular_core.Version('2.0.0-beta.10-3be4da6');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -5365,10 +5365,6 @@ var MdChipList = (function () {
          * When it is not null, use user defined tab index. Otherwise use _tabIndex
          */
         this._userTabIndex = null;
-        /**
-         * Orientation of the chip list.
-         */
-        this.ariaOrientation = 'horizontal';
     }
     /**
      * @return {?}
@@ -5614,7 +5610,6 @@ MdChipList.decorators = [
                 host: {
                     '[attr.tabindex]': '_tabIndex',
                     'role': 'listbox',
-                    '[attr.aria-orientation]': 'ariaOrientation',
                     'class': 'mat-chip-list',
                     '(focus)': 'focus()',
                     '(keydown)': '_keydown($event)'
@@ -5636,7 +5631,6 @@ MdChipList.ctorParameters = function () { return [
     { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
 ]; };
 MdChipList.propDecorators = {
-    'ariaOrientation': [{ type: _angular_core.Input, args: ['aria-orientation',] },],
     'selectable': [{ type: _angular_core.Input },],
     'tabIndex': [{ type: _angular_core.Input },],
 };

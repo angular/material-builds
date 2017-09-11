@@ -43,8 +43,6 @@ export declare class MdChipList implements AfterContentInit, OnDestroy {
     _keyManager: FocusKeyManager<MdChip>;
     /** The chip components contained within this chip list. */
     chips: QueryList<MdChip>;
-    /** Orientation of the chip list. */
-    ariaOrientation: 'horizontal' | 'vertical';
     constructor(_renderer: Renderer2, _elementRef: ElementRef, _dir: Directionality);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
