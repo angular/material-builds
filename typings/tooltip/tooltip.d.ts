@@ -12,6 +12,7 @@ import { Observable } from 'rxjs/Observable';
 import { Directionality } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
 import { OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/overlay';
+import { AriaDescriber } from '@angular/cdk/a11y';
 export declare type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'before' | 'after';
 /** Time in ms to delay before changing the tooltip visibility to hidden */
 export declare const TOUCHEND_HIDE_DELAY = 1500;
@@ -44,6 +45,7 @@ export declare class MdTooltip implements OnDestroy {
     private _viewContainerRef;
     private _ngZone;
     private _platform;
+    private _ariaDescriber;
     private _scrollStrategy;
     private _dir;
     _overlayRef: OverlayRef | null;
@@ -80,7 +82,7 @@ export declare class MdTooltip implements OnDestroy {
     };
     private _enterListener;
     private _leaveListener;
-    constructor(renderer: Renderer2, _overlay: Overlay, _elementRef: ElementRef, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _scrollStrategy: any, _dir: Directionality);
+    constructor(renderer: Renderer2, _overlay: Overlay, _elementRef: ElementRef, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _scrollStrategy: any, _dir: Directionality);
     /**
      * Dispose the tooltip when destroyed.
      */
@@ -93,6 +95,8 @@ export declare class MdTooltip implements OnDestroy {
     toggle(): void;
     /** Returns true if the tooltip is currently visible to the user */
     _isTooltipVisible(): boolean;
+    /** Handles the keydown events on the host element. */
+    _handleKeydown(e: KeyboardEvent): void;
     /** Create the tooltip to display */
     private _createTooltip();
     /** Create the overlay config and position strategy */
@@ -104,7 +108,7 @@ export declare class MdTooltip implements OnDestroy {
     /** Returns the overlay position based on the user's preference */
     _getOverlayPosition(): OverlayConnectionPosition;
     /** Updates the tooltip message and repositions the overlay according to the new message length */
-    private _setTooltipMessage(message);
+    private _updateTooltipMessage();
     /** Updates the tooltip class */
     private _setTooltipClass(tooltipClass);
 }

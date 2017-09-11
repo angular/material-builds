@@ -9,6 +9,10 @@ import { ViewContainerRef, InjectionToken } from '@angular/core';
 import { AriaLivePoliteness } from '@angular/cdk/a11y';
 import { Direction } from '@angular/cdk/bidi';
 export declare const MD_SNACK_BAR_DATA: InjectionToken<any>;
+/** Possible values for horizontalPosition on MdSnackBarConfig. */
+export declare type MdSnackBarHorizontalPosition = 'start' | 'center' | 'end' | 'left' | 'right';
+/** Possible values for verticalPosition on MdSnackBarConfig. */
+export declare type MdSnackBarVerticalPosition = 'top' | 'bottom';
 /**
  * Configuration used when opening a snack-bar.
  */
@@ -27,4 +31,8 @@ export declare class MdSnackBarConfig {
     direction?: Direction;
     /** Data being injected into the child component. */
     data?: any;
+    /** The horizontal position to place the snack bar. */
+    horizontalPosition?: MdSnackBarHorizontalPosition;
+    /** The vertical position to place the snack bar. */
+    verticalPosition?: MdSnackBarVerticalPosition;
 }

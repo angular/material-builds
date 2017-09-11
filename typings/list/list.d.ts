@@ -16,8 +16,10 @@ export declare const _MdListMixinBase: (new (...args: any[]) => CanDisableRipple
 export declare class MdListItemBase {
 }
 export declare const _MdListItemMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MdListItemBase;
+/** Divider between items within a list. */
 export declare class MdListDivider {
 }
+/** A Material Design list component. */
 export declare class MdList extends _MdListMixinBase implements CanDisableRipple {
 }
 /**
@@ -56,6 +58,7 @@ export declare class MdListIconCssMatStyler {
  */
 export declare class MdListSubheaderCssMatStyler {
 }
+/** An item within a Material Design list. */
 export declare class MdListItem extends _MdListItemMixinBase implements AfterContentInit, CanDisableRipple {
     private _renderer;
     private _element;

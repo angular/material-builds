@@ -42,7 +42,7 @@ export declare class MdDrawer implements AfterContentInit, OnDestroy {
     align: "start" | "end";
     /** Mode of the drawer; one of 'over', 'push' or 'side'. */
     mode: 'over' | 'push' | 'side';
-    /** Whether the drawer can be closed with the escape key or not. */
+    /** Whether the drawer can be closed with the escape key or by clicking on the backdrop. */
     disableClose: boolean;
     private _disableClose;
     /** Whether the drawer is opened. */

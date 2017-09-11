@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Host, Inject, Injectable, InjectionToken, Injector, Input, LOCALE_ID, NgModule, NgZone, Optional, Output, Renderer2, SecurityContext, Self, SkipSelf, TemplateRef, Version, ViewChild, ViewChildren, ViewContainerRef, ViewEncapsulation, forwardRef, isDevMode } from '@angular/core';
-import { A11yModule, ActiveDescendantKeyManager, FocusKeyManager, FocusTrap, FocusTrapDeprecatedDirective, FocusTrapDirective, FocusTrapFactory, InteractivityChecker, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, LiveAnnouncer, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
+import { A11yModule, ARIA_DESCRIBER_PROVIDER, ActiveDescendantKeyManager, AriaDescriber, FocusKeyManager, FocusTrap, FocusTrapDeprecatedDirective, FocusTrapDirective, FocusTrapFactory, InteractivityChecker, LIVE_ANNOUNCER_ELEMENT_TOKEN, LIVE_ANNOUNCER_PROVIDER, LiveAnnouncer, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { BidiModule, Dir, Directionality } from '@angular/cdk/bidi';
 import { ObserveContent, ObserversModule } from '@angular/cdk/observers';
 import { BlockScrollStrategy, CloseScrollStrategy, ConnectedOverlayDirective, ConnectedOverlayPositionChange, ConnectedPositionStrategy, ConnectionPositionPair, FullscreenOverlayContainer, GlobalPositionStrategy, NoopScrollStrategy, OVERLAY_PROVIDERS, Overlay, OverlayContainer, OverlayModule, OverlayOrigin, OverlayRef, OverlayState, RepositionScrollStrategy, ScrollDispatcher, ScrollStrategyOptions, Scrollable, ScrollingVisibility, VIEWPORT_RULER_PROVIDER, ViewportRuler } from '@angular/cdk/overlay';
@@ -37,7 +37,7 @@ import { CdkStep, CdkStepLabel, CdkStepper, CdkStepperModule, CdkStepperNext, Cd
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.10-a7ce31e');
+const VERSION = new Version('2.0.0-beta.11-a37aa6a');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -5165,6 +5165,10 @@ class MdChipList {
          * When it is not null, use user defined tab index. Otherwise use _tabIndex
          */
         this._userTabIndex = null;
+        /**
+         * Orientation of the chip list.
+         */
+        this.ariaOrientation = 'horizontal';
     }
     /**
      * @return {?}
@@ -5398,6 +5402,7 @@ MdChipList.decorators = [
                 host: {
                     '[attr.tabindex]': '_tabIndex',
                     'role': 'listbox',
+                    '[attr.aria-orientation]': 'ariaOrientation',
                     'class': 'mat-chip-list',
                     '(focus)': 'focus()',
                     '(keydown)': '_keydown($event)'
@@ -5419,6 +5424,7 @@ MdChipList.ctorParameters = () => [
     { type: Directionality, decorators: [{ type: Optional },] },
 ];
 MdChipList.propDecorators = {
+    'ariaOrientation': [{ type: Input, args: ['aria-orientation',] },],
     'selectable': [{ type: Input },],
     'tabIndex': [{ type: Input },],
 };
@@ -11135,6 +11141,9 @@ const _MdListMixinBase = mixinDisableRipple(MdListBase);
 class MdListItemBase {
 }
 const _MdListItemMixinBase = mixinDisableRipple(MdListItemBase);
+/**
+ * Divider between items within a list.
+ */
 class MdListDivider {
 }
 MdListDivider.decorators = [
@@ -11150,6 +11159,9 @@ MdListDivider.decorators = [
  * @nocollapse
  */
 MdListDivider.ctorParameters = () => [];
+/**
+ * A Material Design list component.
+ */
 class MdList extends _MdListMixinBase {
 }
 MdList.decorators = [
@@ -11262,6 +11274,9 @@ MdListSubheaderCssMatStyler.decorators = [
  * @nocollapse
  */
 MdListSubheaderCssMatStyler.ctorParameters = () => [];
+/**
+ * An item within a Material Design list.
+ */
 class MdListItem extends _MdListItemMixinBase {
     /**
      * @param {?} _renderer
@@ -11350,9 +11365,15 @@ MdListItem.propDecorators = {
     '_hasAvatar': [{ type: ContentChild, args: [MdListAvatarCssMatStyler,] },],
 };
 
+/**
+ * \@docs-private
+ */
 class MdSelectionListBase {
 }
 const _MdSelectionListMixinBase = mixinDisableRipple(mixinDisabled(MdSelectionListBase));
+/**
+ * \@docs-private
+ */
 class MdListOptionBase {
 }
 const _MdListOptionMixinBase = mixinDisableRipple(MdListOptionBase);
@@ -11413,6 +11434,7 @@ class MdListOption extends _MdListOptionMixinBase {
      */
     set disabled(value) { this._disabled = coerceBooleanProperty(value); }
     /**
+     * Value of the option
      * @return {?}
      */
     get value() { return this._value; }
@@ -11422,6 +11444,7 @@ class MdListOption extends _MdListOptionMixinBase {
      */
     set value(val) { this._value = coerceBooleanProperty(val); }
     /**
+     * Whether the option is selected.
      * @return {?}
      */
     get selected() { return this._selected; }
@@ -11446,6 +11469,7 @@ class MdListOption extends _MdListOptionMixinBase {
         this.destroyed.emit({ option: this });
     }
     /**
+     * Toggles the selection state of the option.
      * @return {?}
      */
     toggle() {
@@ -11536,6 +11560,9 @@ MdListOption.propDecorators = {
     'deselected': [{ type: Output },],
     'destroyed': [{ type: Output },],
 };
+/**
+ * Material Design list component where each item is a selectable option. Behaves as a listbox.
+ */
 class MdSelectionList extends _MdSelectionListMixinBase {
     /**
      * @param {?} _element
@@ -11556,7 +11583,7 @@ class MdSelectionList extends _MdSelectionListMixinBase {
          */
         this._optionDestroyStream = Subscription.EMPTY;
         /**
-         * options which are selected.
+         * The currently selected options.
          */
         this.selectedOptions = new SelectionModel(true);
     }
@@ -11579,6 +11606,7 @@ class MdSelectionList extends _MdSelectionListMixinBase {
         this._optionFocusSubscription.unsubscribe();
     }
     /**
+     * Focus the selection-list.
      * @return {?}
      */
     focus() {
@@ -14306,16 +14334,18 @@ class MdTooltip {
      * @param {?} _viewContainerRef
      * @param {?} _ngZone
      * @param {?} _platform
+     * @param {?} _ariaDescriber
      * @param {?} _scrollStrategy
      * @param {?} _dir
      */
-    constructor(renderer, _overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _scrollStrategy, _dir) {
+    constructor(renderer, _overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _scrollStrategy, _dir) {
         this._overlay = _overlay;
         this._elementRef = _elementRef;
         this._scrollDispatcher = _scrollDispatcher;
         this._viewContainerRef = _viewContainerRef;
         this._ngZone = _ngZone;
         this._platform = _platform;
+        this._ariaDescriber = _ariaDescriber;
         this._scrollStrategy = _scrollStrategy;
         this._dir = _dir;
         this._position = 'below';
@@ -14392,8 +14422,13 @@ class MdTooltip {
      * @return {?}
      */
     set message(value) {
-        this._message = value;
-        this._setTooltipMessage(this._message);
+        if (this._message) {
+            this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this._message);
+        }
+        // If the message is not a string (e.g. number), convert it to a string and trim it.
+        this._message = value ? `${value}`.trim() : '';
+        this._updateTooltipMessage();
+        this._ariaDescriber.describe(this._elementRef.nativeElement, this.message);
     }
     /**
      * Classes to be passed to the tooltip. Supports the same syntax as `ngClass`.
@@ -14487,6 +14522,7 @@ class MdTooltip {
             this._enterListener();
             this._leaveListener();
         }
+        this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this.message);
     }
     /**
      * Shows the tooltip after the delay in ms, defaults to tooltip-delay-show or 0ms if no input
@@ -14494,14 +14530,14 @@ class MdTooltip {
      * @return {?}
      */
     show(delay = this.showDelay) {
-        if (this.disabled || !this._message || !this._message.trim()) {
+        if (this.disabled || !this.message) {
             return;
         }
         if (!this._tooltipInstance) {
             this._createTooltip();
         }
         this._setTooltipClass(this._tooltipClass);
-        this._setTooltipMessage(this._message); /** @type {?} */
+        this._updateTooltipMessage(); /** @type {?} */
         ((this._tooltipInstance)).show(this._position, delay);
     }
     /**
@@ -14527,6 +14563,17 @@ class MdTooltip {
      */
     _isTooltipVisible() {
         return !!this._tooltipInstance && this._tooltipInstance.isVisible();
+    }
+    /**
+     * Handles the keydown events on the host element.
+     * @param {?} e
+     * @return {?}
+     */
+    _handleKeydown(e) {
+        if (((this._tooltipInstance)).isVisible() && e.keyCode === ESCAPE) {
+            e.stopPropagation();
+            this.hide(0);
+        }
     }
     /**
      * Create the tooltip to display
@@ -14630,14 +14677,13 @@ class MdTooltip {
     }
     /**
      * Updates the tooltip message and repositions the overlay according to the new message length
-     * @param {?} message
      * @return {?}
      */
-    _setTooltipMessage(message) {
+    _updateTooltipMessage() {
         // Must wait for the message to be painted to the tooltip so that the overlay can properly
         // calculate the correct positioning based on the size of the text.
         if (this._tooltipInstance) {
-            this._tooltipInstance.message = message;
+            this._tooltipInstance.message = this.message;
             this._tooltipInstance._markForCheck();
             first.call(this._ngZone.onMicrotaskEmpty).subscribe(() => {
                 if (this._tooltipInstance) {
@@ -14663,6 +14709,9 @@ MdTooltip.decorators = [
                 selector: '[md-tooltip], [mdTooltip], [mat-tooltip], [matTooltip]',
                 host: {
                     '(longpress)': 'show()',
+                    '(focus)': 'show()',
+                    '(blur)': 'hide(0)',
+                    '(keydown)': '_handleKeydown($event)',
                     '(touchend)': 'hide(' + TOUCHEND_HIDE_DELAY + ')',
                 },
                 exportAs: 'mdTooltip',
@@ -14679,6 +14728,7 @@ MdTooltip.ctorParameters = () => [
     { type: ViewContainerRef, },
     { type: NgZone, },
     { type: Platform, },
+    { type: AriaDescriber, },
     { type: undefined, decorators: [{ type: Inject, args: [MD_TOOLTIP_SCROLL_STRATEGY,] },] },
     { type: Directionality, decorators: [{ type: Optional },] },
 ];
@@ -14863,7 +14913,8 @@ TooltipComponent.decorators = [
                     // Forces the element to have a layout in IE and Edge. This fixes issues where the element
                     // won't be rendered if the animations are disabled or there is no web animations polyfill.
                     '[style.zoom]': '_visibility === "visible" ? 1 : null',
-                    '(body:click)': 'this._handleBodyInteraction()'
+                    '(body:click)': 'this._handleBodyInteraction()',
+                    'aria-hidden': 'true',
                 }
             },] },
 ];
@@ -14883,12 +14934,13 @@ MdTooltipModule.decorators = [
                     CommonModule,
                     OverlayModule,
                     MdCommonModule,
-                    PlatformModule
+                    PlatformModule,
+                    A11yModule,
                 ],
                 exports: [MdTooltip, TooltipComponent, MdCommonModule],
                 declarations: [MdTooltip, TooltipComponent],
                 entryComponents: [TooltipComponent],
-                providers: [MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER],
+                providers: [MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER, ARIA_DESCRIBER_PROVIDER],
             },] },
 ];
 /**
@@ -16255,7 +16307,7 @@ class MdDrawer {
      */
     set align(value) { this.position = value; }
     /**
-     * Whether the drawer can be closed with the escape key or not.
+     * Whether the drawer can be closed with the escape key or by clicking on the backdrop.
      * @return {?}
      */
     get disableClose() { return this._disableClose; }
@@ -17997,6 +18049,14 @@ class MdSnackBarConfig {
          * Data being injected into the child component.
          */
         this.data = null;
+        /**
+         * The horizontal position to place the snack bar.
+         */
+        this.horizontalPosition = 'center';
+        /**
+         * The vertical position to place the snack bar.
+         */
+        this.verticalPosition = 'bottom';
     }
 }
 
@@ -18130,10 +18190,14 @@ class MdSnackBarContainer extends BasePortalHost {
          * Subject for notifying that the snack bar has finished entering the view.
          */
         this._onEnter = new Subject();
-        /**
-         * The state of the snack bar animations.
-         */
-        this.animationState = 'initial';
+    }
+    /**
+     * Gets the current animation state both combining one of the possibilities from
+     * SnackBarState and the vertical location.
+     * @return {?}
+     */
+    getAnimationState() {
+        return `${this._animationState}-${this.snackBarConfig.verticalPosition}`;
     }
     /**
      * Attach a component portal as content to this snack bar container.
@@ -18152,6 +18216,12 @@ class MdSnackBarContainer extends BasePortalHost {
                 this._renderer.addClass(this._elementRef.nativeElement, cssClass);
             }
         }
+        if (this.snackBarConfig.horizontalPosition === 'center') {
+            this._renderer.addClass(this._elementRef.nativeElement, 'mat-snack-bar-center');
+        }
+        if (this.snackBarConfig.verticalPosition === 'top') {
+            this._renderer.addClass(this._elementRef.nativeElement, 'mat-snack-bar-top');
+        }
         return this._portalHost.attachComponentPortal(portal);
     }
     /**
@@ -18167,10 +18237,10 @@ class MdSnackBarContainer extends BasePortalHost {
      * @return {?}
      */
     onAnimationEnd(event) {
-        if (event.toState === 'void' || event.toState === 'complete') {
+        if (event.toState === 'void' || event.toState.startsWith('hidden')) {
             this._completeExit();
         }
-        if (event.toState === 'visible') {
+        if (event.toState.startsWith('visible')) {
             // Note: we shouldn't use `this` inside the zone callback,
             // because it can cause a memory leak.
             const /** @type {?} */ onEnter = this._onEnter;
@@ -18186,7 +18256,7 @@ class MdSnackBarContainer extends BasePortalHost {
      */
     enter() {
         if (!this._destroyed) {
-            this.animationState = 'visible';
+            this._animationState = 'visible';
             this._changeDetectorRef.detectChanges();
         }
     }
@@ -18195,7 +18265,7 @@ class MdSnackBarContainer extends BasePortalHost {
      * @return {?}
      */
     exit() {
-        this.animationState = 'complete';
+        this._animationState = 'hidden';
         return this._onExit;
     }
     /**
@@ -18224,21 +18294,27 @@ class MdSnackBarContainer extends BasePortalHost {
 MdSnackBarContainer.decorators = [
     { type: Component, args: [{selector: 'snack-bar-container',
                 template: "<ng-template cdkPortalHost></ng-template>",
-                styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:content-box;display:block;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}"],
+                styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:content-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-center{margin:0}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}"],
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
                 host: {
                     'role': 'alert',
                     'class': 'mat-snack-bar-container',
-                    '[@state]': 'animationState',
+                    '[@state]': 'getAnimationState()',
                     '(@state.done)': 'onAnimationEnd($event)'
                 },
                 animations: [
                     trigger('state', [
-                        state('void, initial, complete', style({ transform: 'translateY(100%)' })),
-                        state('visible', style({ transform: 'translateY(0%)' })),
-                        transition('visible => complete', animate(HIDE_ANIMATION)),
-                        transition('initial => visible, void => visible', animate(SHOW_ANIMATION)),
+                        // Animation from top.
+                        state('visible-top', style({ transform: 'translateY(0%)' })),
+                        state('hidden-top', style({ transform: 'translateY(-100%)' })),
+                        transition('visible-top => hidden-top', animate(HIDE_ANIMATION)),
+                        transition('void => visible-top', animate(SHOW_ANIMATION)),
+                        // Animation from bottom.
+                        state('visible-bottom', style({ transform: 'translateY(0%)' })),
+                        state('hidden-bottom', style({ transform: 'translateY(100%)' })),
+                        transition('visible-bottom => hidden-bottom', animate(HIDE_ANIMATION)),
+                        transition('void => visible-bottom', animate(SHOW_ANIMATION)),
                     ])
                 ],
             },] },
@@ -18446,10 +18522,32 @@ class MdSnackBar {
      * @return {?}
      */
     _createOverlay(config) {
-        const /** @type {?} */ state$$1 = new OverlayState({
-            direction: config.direction,
-            positionStrategy: this._overlay.position().global().centerHorizontally().bottom('0')
-        });
+        const /** @type {?} */ state$$1 = new OverlayState();
+        state$$1.direction = config.direction;
+        let /** @type {?} */ positionStrategy = this._overlay.position().global();
+        // Set horizontal position.
+        const /** @type {?} */ isRtl = config.direction === 'rtl';
+        const /** @type {?} */ isLeft = (config.horizontalPosition === 'left' ||
+            (config.horizontalPosition === 'start' && !isRtl) ||
+            (config.horizontalPosition === 'end' && isRtl));
+        const /** @type {?} */ isRight = !isLeft && config.horizontalPosition !== 'center';
+        if (isLeft) {
+            positionStrategy.left('0');
+        }
+        else if (isRight) {
+            positionStrategy.right('0');
+        }
+        else {
+            positionStrategy.centerHorizontally();
+        }
+        // Set horizontal position.
+        if (config.verticalPosition === 'top') {
+            positionStrategy.top('0');
+        }
+        else {
+            positionStrategy.bottom('0');
+        }
+        state$$1.positionStrategy = positionStrategy;
         return this._overlay.create(state$$1);
     }
     /**
