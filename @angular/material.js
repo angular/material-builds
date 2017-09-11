@@ -37,7 +37,7 @@ import { CdkStep, CdkStepLabel, CdkStepper, CdkStepperModule, CdkStepperNext, Cd
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.10-3be4da6');
+const VERSION = new Version('2.0.0-beta.11-a727f97');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -5165,6 +5165,10 @@ class MdChipList {
          * When it is not null, use user defined tab index. Otherwise use _tabIndex
          */
         this._userTabIndex = null;
+        /**
+         * Orientation of the chip list.
+         */
+        this.ariaOrientation = 'horizontal';
     }
     /**
      * @return {?}
@@ -5398,6 +5402,7 @@ MdChipList.decorators = [
                 host: {
                     '[attr.tabindex]': '_tabIndex',
                     'role': 'listbox',
+                    '[attr.aria-orientation]': 'ariaOrientation',
                     'class': 'mat-chip-list',
                     '(focus)': 'focus()',
                     '(keydown)': '_keydown($event)'
@@ -5419,6 +5424,7 @@ MdChipList.ctorParameters = () => [
     { type: Directionality, decorators: [{ type: Optional },] },
 ];
 MdChipList.propDecorators = {
+    'ariaOrientation': [{ type: Input, args: ['aria-orientation',] },],
     'selectable': [{ type: Input },],
     'tabIndex': [{ type: Input },],
 };
