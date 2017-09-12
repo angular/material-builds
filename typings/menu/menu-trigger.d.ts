@@ -70,6 +70,8 @@ export declare class MdMenuTrigger implements AfterViewInit, OnDestroy {
     closeMenu(): void;
     /** Focuses the menu trigger. */
     focus(): void;
+    /** Closes the menu and does the necessary cleanup. */
+    private _destroyMenu();
     /**
      * This method sets the menu state to open and focuses the first item if
      * the menu was opened via the keyboard.

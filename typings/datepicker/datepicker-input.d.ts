@@ -63,6 +63,7 @@ export declare class MdDatepickerInput<D> implements AfterContentInit, ControlVa
     private _cvaOnChange;
     private _validatorOnChange;
     private _datepickerSubscription;
+    private _localeSubscription;
     /** The form control validator for whether the input parses. */
     private _parseValidator;
     /** The form control validator for the min date. */

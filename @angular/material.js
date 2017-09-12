@@ -37,7 +37,7 @@ import { CdkStep, CdkStepLabel, CdkStepper, CdkStepperModule, CdkStepperNext, Cd
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.11-04bf3d1');
+const VERSION = new Version('2.0.0-beta.11-9545427');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -1853,6 +1853,14 @@ const MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: LOCALE
  * @abstract
  */
 class DateAdapter {
+    constructor() {
+        this._localeChanges = new Subject();
+    }
+    /**
+     * A stream that emits when the locale changes.
+     * @return {?}
+     */
+    get localeChanges() { return this._localeChanges; }
     /**
      * Gets the year component of the given date.
      * @abstract
@@ -2019,6 +2027,7 @@ class DateAdapter {
      */
     setLocale(locale) {
         this.locale = locale;
+        this._localeChanges.next();
     }
     /**
      * Compares two dates.
@@ -7998,6 +8007,7 @@ class MdDatepickerInput {
         this._cvaOnChange = () => { };
         this._validatorOnChange = () => { };
         this._datepickerSubscription = Subscription.EMPTY;
+        this._localeSubscription = Subscription.EMPTY;
         /**
          * The form control validator for whether the input parses.
          */
@@ -8042,6 +8052,10 @@ class MdDatepickerInput {
         if (!this._dateFormats) {
             throw createMissingDateImplError('MD_DATE_FORMATS');
         }
+        // Update the displayed date when the locale changes.
+        this._localeSubscription = _dateAdapter.localeChanges.subscribe(() => {
+            this.value = this.value;
+        });
     }
     /**
      * The datepicker that this input is associated with.
@@ -8160,6 +8174,7 @@ class MdDatepickerInput {
      */
     ngOnDestroy() {
         this._datepickerSubscription.unsubscribe();
+        this._localeSubscription.unsubscribe();
         this._valueChange.complete();
         this._disabledChange.complete();
     }
@@ -12362,7 +12377,7 @@ class MdMenuTrigger {
     ngAfterViewInit() {
         this._checkMenu();
         this.menu.close.subscribe(reason => {
-            this.closeMenu();
+            this._destroyMenu();
             // If a click closed the menu, we should close the entire chain of nested menus.
             if (reason === 'click' && this._parentMenu) {
                 this._parentMenu.close.emit(reason);
@@ -12423,7 +12438,9 @@ class MdMenuTrigger {
     openMenu() {
         if (!this._menuOpen) {
             this._createOverlay().attach(this._portal);
-            this._closeSubscription = this._menuClosingActions().subscribe(() => this.menu.close.emit());
+            this._closeSubscription = this._menuClosingActions().subscribe(() => {
+                this.menu.close.emit();
+            });
             this._initMenu();
             if (this.menu instanceof MdMenu) {
                 this.menu._startAnimation();
@@ -12435,15 +12452,7 @@ class MdMenuTrigger {
      * @return {?}
      */
     closeMenu() {
-        if (this._overlayRef && this.menuOpen) {
-            this._resetMenu();
-            this._overlayRef.detach();
-            this._closeSubscription.unsubscribe();
-            this.menu.close.emit();
-            if (this.menu instanceof MdMenu) {
-                this.menu._resetAnimation();
-            }
-        }
+        this.menu.close.emit();
     }
     /**
      * Focuses the menu trigger.
@@ -12451,6 +12460,20 @@ class MdMenuTrigger {
      */
     focus() {
         this._element.nativeElement.focus();
+    }
+    /**
+     * Closes the menu and does the necessary cleanup.
+     * @return {?}
+     */
+    _destroyMenu() {
+        if (this._overlayRef && this.menuOpen) {
+            this._resetMenu();
+            this._overlayRef.detach();
+            this._closeSubscription.unsubscribe();
+            if (this.menu instanceof MdMenu) {
+                this.menu._resetAnimation();
+            }
+        }
     }
     /**
      * This method sets the menu state to open and focuses the first item if
@@ -12607,11 +12630,11 @@ class MdMenuTrigger {
      */
     _menuClosingActions() {
         const /** @type {?} */ backdrop = ((this._overlayRef)).backdropClick();
-        const /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : of(null);
+        const /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : of();
         const /** @type {?} */ hover = this._parentMenu ? RxChain.from(this._parentMenu.hover())
             .call(filter, active => active !== this._menuItemInstance)
             .call(filter, () => this._menuOpen)
-            .result() : of(null);
+            .result() : of();
         return merge(backdrop, parentClose, hover);
     }
     /**

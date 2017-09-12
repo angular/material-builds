@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.11-04bf3d1');
+var VERSION = new _angular_core.Version('2.0.0-beta.11-9545427');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -1819,7 +1819,17 @@ var MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: _angular
  */
 var DateAdapter = (function () {
     function DateAdapter() {
+        this._localeChanges = new rxjs_Subject.Subject();
     }
+    Object.defineProperty(DateAdapter.prototype, "localeChanges", {
+        /**
+         * A stream that emits when the locale changes.
+         * @return {?}
+         */
+        get: function () { return this._localeChanges; },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * Gets the year component of the given date.
      * @abstract
@@ -1986,6 +1996,7 @@ var DateAdapter = (function () {
      */
     DateAdapter.prototype.setLocale = function (locale) {
         this.locale = locale;
+        this._localeChanges.next();
     };
     /**
      * Compares two dates.
@@ -8359,6 +8370,7 @@ var MdDatepickerInput = (function () {
         this._cvaOnChange = function () { };
         this._validatorOnChange = function () { };
         this._datepickerSubscription = rxjs_Subscription.Subscription.EMPTY;
+        this._localeSubscription = rxjs_Subscription.Subscription.EMPTY;
         /**
          * The form control validator for whether the input parses.
          */
@@ -8403,6 +8415,10 @@ var MdDatepickerInput = (function () {
         if (!this._dateFormats) {
             throw createMissingDateImplError('MD_DATE_FORMATS');
         }
+        // Update the displayed date when the locale changes.
+        this._localeSubscription = _dateAdapter.localeChanges.subscribe(function () {
+            _this.value = _this.value;
+        });
     }
     Object.defineProperty(MdDatepickerInput.prototype, "mdDatepicker", {
         /**
@@ -8554,6 +8570,7 @@ var MdDatepickerInput = (function () {
      */
     MdDatepickerInput.prototype.ngOnDestroy = function () {
         this._datepickerSubscription.unsubscribe();
+        this._localeSubscription.unsubscribe();
         this._valueChange.complete();
         this._disabledChange.complete();
     };
@@ -12991,7 +13008,7 @@ var MdMenuTrigger = (function () {
         var _this = this;
         this._checkMenu();
         this.menu.close.subscribe(function (reason) {
-            _this.closeMenu();
+            _this._destroyMenu();
             // If a click closed the menu, we should close the entire chain of nested menus.
             if (reason === 'click' && _this._parentMenu) {
                 _this._parentMenu.close.emit(reason);
@@ -13061,7 +13078,9 @@ var MdMenuTrigger = (function () {
         var _this = this;
         if (!this._menuOpen) {
             this._createOverlay().attach(this._portal);
-            this._closeSubscription = this._menuClosingActions().subscribe(function () { return _this.menu.close.emit(); });
+            this._closeSubscription = this._menuClosingActions().subscribe(function () {
+                _this.menu.close.emit();
+            });
             this._initMenu();
             if (this.menu instanceof MdMenu) {
                 this.menu._startAnimation();
@@ -13073,15 +13092,7 @@ var MdMenuTrigger = (function () {
      * @return {?}
      */
     MdMenuTrigger.prototype.closeMenu = function () {
-        if (this._overlayRef && this.menuOpen) {
-            this._resetMenu();
-            this._overlayRef.detach();
-            this._closeSubscription.unsubscribe();
-            this.menu.close.emit();
-            if (this.menu instanceof MdMenu) {
-                this.menu._resetAnimation();
-            }
-        }
+        this.menu.close.emit();
     };
     /**
      * Focuses the menu trigger.
@@ -13089,6 +13100,20 @@ var MdMenuTrigger = (function () {
      */
     MdMenuTrigger.prototype.focus = function () {
         this._element.nativeElement.focus();
+    };
+    /**
+     * Closes the menu and does the necessary cleanup.
+     * @return {?}
+     */
+    MdMenuTrigger.prototype._destroyMenu = function () {
+        if (this._overlayRef && this.menuOpen) {
+            this._resetMenu();
+            this._overlayRef.detach();
+            this._closeSubscription.unsubscribe();
+            if (this.menu instanceof MdMenu) {
+                this.menu._resetAnimation();
+            }
+        }
     };
     /**
      * This method sets the menu state to open and focuses the first item if
@@ -13247,11 +13272,11 @@ var MdMenuTrigger = (function () {
     MdMenuTrigger.prototype._menuClosingActions = function () {
         var _this = this;
         var /** @type {?} */ backdrop = ((this._overlayRef)).backdropClick();
-        var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : rxjs_observable_of.of(null);
+        var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : rxjs_observable_of.of();
         var /** @type {?} */ hover = this._parentMenu ? _angular_cdk_rxjs.RxChain.from(this._parentMenu.hover())
             .call(_angular_cdk_rxjs.filter, function (active) { return active !== _this._menuItemInstance; })
             .call(_angular_cdk_rxjs.filter, function () { return _this._menuOpen; })
-            .result() : rxjs_observable_of.of(null);
+            .result() : rxjs_observable_of.of();
         return rxjs_observable_merge.merge(backdrop, parentClose, hover);
     };
     /**

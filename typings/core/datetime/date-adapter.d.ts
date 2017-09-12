@@ -6,6 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { InjectionToken } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 /** InjectionToken for datepicker that can be used to override default locale code. */
 export declare const MAT_DATE_LOCALE: InjectionToken<string>;
 /** Provider for MAT_DATE_LOCALE injection token. */
@@ -17,6 +19,9 @@ export declare const MAT_DATE_LOCALE_PROVIDER: {
 export declare abstract class DateAdapter<D> {
     /** The locale to use for all dates. */
     protected locale: any;
+    /** A stream that emits when the locale changes. */
+    readonly localeChanges: Observable<void>;
+    protected _localeChanges: Subject<void>;
     /**
      * Gets the year component of the given date.
      * @param date The date to extract the year from.
