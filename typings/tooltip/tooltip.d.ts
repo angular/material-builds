@@ -133,7 +133,7 @@ export declare class TooltipComponent {
     /** Property watched by the animation framework to show or hide the tooltip */
     _visibility: TooltipVisibility;
     /** Whether interactions on the page should close the tooltip */
-    _closeOnInteraction: boolean;
+    private _closeOnInteraction;
     /** The transform origin used in the animation for showing and hiding the tooltip */
     _transformOrigin: string;
     /** Subject for notifying that the tooltip has been hidden from the view */
@@ -160,7 +160,8 @@ export declare class TooltipComponent {
     isVisible(): boolean;
     /** Sets the tooltip transform origin according to the tooltip position */
     _setTransformOrigin(value: TooltipPosition): void;
-    _afterVisibilityAnimation(e: AnimationEvent): void;
+    _animationStart(): void;
+    _animationDone(event: AnimationEvent): void;
     /**
      * Interactions on the HTML body should close the tooltip immediately as defined in the
      * material design spec.

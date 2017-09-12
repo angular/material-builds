@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.11-acbb1d4');
+var VERSION = new _angular_core.Version('2.0.0-beta.11-bcd026f');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -15258,7 +15258,7 @@ var MdTooltip = (function () {
         set: function (value) {
             this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this._message);
             // If the message is not a string (e.g. number), convert it to a string and trim it.
-            this._message = value ? value.trim() : '';
+            this._message = value != null ? ("" + value).trim() : '';
             this._updateTooltipMessage();
             this._ariaDescriber.describe(this._elementRef.nativeElement, this.message);
         },
@@ -15662,18 +15662,12 @@ var TooltipComponent = (function () {
         if (this._hideTimeoutId) {
             clearTimeout(this._hideTimeoutId);
         }
-        // Body interactions should cancel the tooltip if there is a delay in showing.
-        this._closeOnInteraction = true;
         this._setTransformOrigin(position);
         this._showTimeoutId = setTimeout(function () {
             _this._visibility = 'visible';
-            // If this was set to true immediately, then a body click that triggers show() would
-            // trigger interaction and close the tooltip right after it was displayed.
-            _this._closeOnInteraction = false;
             // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
             _this._markForCheck();
-            setTimeout(function () { return _this._closeOnInteraction = true; }, 0);
         }, delay);
     };
     /**
@@ -15689,7 +15683,6 @@ var TooltipComponent = (function () {
         }
         this._hideTimeoutId = setTimeout(function () {
             _this._visibility = 'hidden';
-            _this._closeOnInteraction = false;
             // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
             _this._markForCheck();
@@ -15739,12 +15732,26 @@ var TooltipComponent = (function () {
         }
     };
     /**
-     * @param {?} e
      * @return {?}
      */
-    TooltipComponent.prototype._afterVisibilityAnimation = function (e) {
-        if (e.toState === 'hidden' && !this.isVisible()) {
+    TooltipComponent.prototype._animationStart = function () {
+        this._closeOnInteraction = false;
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    TooltipComponent.prototype._animationDone = function (event) {
+        var _this = this;
+        var /** @type {?} */ toState = (event.toState);
+        if (toState === 'hidden' && !this.isVisible()) {
             this._onHide.next();
+        }
+        if (toState === 'visible' || toState === 'hidden') {
+            // Note: as of Angular 4.3, the animations module seems to fire the `start` callback before
+            // the end if animations are disabled. Make this call async to ensure that it still fires
+            // at the appropriate time.
+            Promise.resolve().then(function () { return _this._closeOnInteraction = true; });
         }
     };
     /**
@@ -15771,16 +15778,14 @@ var TooltipComponent = (function () {
 }());
 TooltipComponent.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-tooltip-component, mat-tooltip-component',
-                template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.done)=\"_afterVisibilityAnimation($event)\">{{message}}</div>",
+                template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.start)=\"_animationStart()\" (@state.done)=\"_animationDone($event)\">{{message}}</div>",
                 styles: [".mat-tooltip-panel{pointer-events:none!important}.mat-tooltip{color:#fff;border-radius:2px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}"],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                 animations: [
                     _angular_animations.trigger('state', [
-                        _angular_animations.state('void', _angular_animations.style({ transform: 'scale(0)' })),
-                        _angular_animations.state('initial', _angular_animations.style({ transform: 'scale(0)' })),
+                        _angular_animations.state('initial, void, hidden', _angular_animations.style({ transform: 'scale(0)' })),
                         _angular_animations.state('visible', _angular_animations.style({ transform: 'scale(1)' })),
-                        _angular_animations.state('hidden', _angular_animations.style({ transform: 'scale(0)' })),
                         _angular_animations.transition('* => visible', _angular_animations.animate('150ms cubic-bezier(0.0, 0.0, 0.2, 1)')),
                         _angular_animations.transition('* => hidden', _angular_animations.animate('150ms cubic-bezier(0.4, 0.0, 1, 1)')),
                     ])
