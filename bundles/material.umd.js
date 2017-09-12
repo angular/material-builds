@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.11-a727f97');
+var VERSION = new _angular_core.Version('2.0.0-beta.11-29399b8');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -8421,7 +8421,7 @@ var MdDatepickerInput = (function () {
          * @return {?}
          */
         get: function () {
-            return this._getValidDateOrNull(this._dateAdapter.parse(this._elementRef.nativeElement.value, this._dateFormats.parse.dateInput));
+            return this._value;
         },
         /**
          * @param {?} value
@@ -8434,6 +8434,7 @@ var MdDatepickerInput = (function () {
             this._lastValueValid = !value || this._dateAdapter.isValid(value);
             value = this._getValidDateOrNull(value);
             var /** @type {?} */ oldDate = this.value;
+            this._value = value;
             this._renderer.setProperty(this._elementRef.nativeElement, 'value', value ? this._dateAdapter.format(value, this._dateFormats.display.dateInput) : '');
             if (!this._dateAdapter.sameDate(oldDate, value)) {
                 this._valueChange.emit(value);
@@ -8581,6 +8582,7 @@ var MdDatepickerInput = (function () {
         var /** @type {?} */ date = this._dateAdapter.parse(value, this._dateFormats.parse.dateInput);
         this._lastValueValid = !date || this._dateAdapter.isValid(date);
         date = this._getValidDateOrNull(date);
+        this._value = date;
         this._cvaOnChange(date);
         this._valueChange.emit(date);
         this.dateInput.emit(new MdDatepickerInputEvent(this, this._elementRef.nativeElement));

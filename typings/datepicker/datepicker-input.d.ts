@@ -41,6 +41,7 @@ export declare class MdDatepickerInput<D> implements AfterContentInit, ControlVa
     matDatepickerFilter: (date: D | null) => boolean;
     /** The value of the input. */
     value: D | null;
+    private _value;
     /** The minimum valid date. */
     min: D | null;
     private _min;
