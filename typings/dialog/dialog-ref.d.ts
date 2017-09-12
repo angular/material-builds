@@ -20,6 +20,8 @@ export declare class MdDialogRef<T> {
     componentInstance: T;
     /** Whether the user is allowed to close the dialog. */
     disableClose: boolean | undefined;
+    /** Subject for notifying the user that the dialog has finished opening. */
+    private _afterOpen;
     /** Subject for notifying the user that the dialog has finished closing. */
     private _afterClosed;
     /** Subject for notifying the user that the dialog has started closing. */
@@ -32,6 +34,10 @@ export declare class MdDialogRef<T> {
      * @param dialogResult Optional result to return to the dialog opener.
      */
     close(dialogResult?: any): void;
+    /**
+     * Gets an observable that is notified when the dialog is finished opening.
+     */
+    afterOpen(): Observable<void>;
     /**
      * Gets an observable that is notified when the dialog is finished closing.
      */

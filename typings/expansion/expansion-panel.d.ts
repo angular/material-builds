@@ -9,7 +9,13 @@ import { ChangeDetectorRef, SimpleChanges, OnChanges, OnDestroy } from '@angular
 import { MdAccordion } from './accordion';
 import { AccordionItem } from './accordion-item';
 import { UniqueSelectionDispatcher } from '../core';
+import { CanDisable } from '../core/common-behaviors/disabled';
 import { Subject } from 'rxjs/Subject';
+/** @docs-private */
+export declare class MdExpansionPanelBase extends AccordionItem {
+    constructor(accordion: MdAccordion, _changeDetectorRef: ChangeDetectorRef, _uniqueSelectionDispatcher: UniqueSelectionDispatcher);
+}
+export declare const _MdExpansionPanelMixinBase: (new (...args: any[]) => CanDisable) & typeof MdExpansionPanelBase;
 /** MdExpansionPanel's states. */
 export declare type MdExpansionPanelState = 'expanded' | 'collapsed';
 /** Time and timing curve for expansion panel animations. */
@@ -22,7 +28,7 @@ export declare const EXPANSION_PANEL_ANIMATION_TIMING = "225ms cubic-bezier(0.4,
  *
  * Please refer to README.md for examples on how to use it.
  */
-export declare class MdExpansionPanel extends AccordionItem implements OnChanges, OnDestroy {
+export declare class MdExpansionPanel extends _MdExpansionPanelMixinBase implements CanDisable, OnChanges, OnDestroy {
     /** Whether the toggle indicator should be hidden. */
     hideToggle: boolean;
     /** Stream that emits for changes in `@Input` properties. */

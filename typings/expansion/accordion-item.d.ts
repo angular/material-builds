@@ -8,28 +8,23 @@
 import { EventEmitter, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { UniqueSelectionDispatcher } from '../core';
 import { CdkAccordion } from './accordion';
-import { CanDisable } from '../core/common-behaviors/disabled';
-/** @docs-private */
-export declare class AccordionItemBase {
-}
-export declare const _AccordionItemMixinBase: (new (...args: any[]) => CanDisable) & typeof AccordionItemBase;
 /**
  * An abstract class to be extended and decorated as a component.  Sets up all
  * events and attributes needed to be managed by a CdkAccordion parent.
  */
-export declare class AccordionItem extends _AccordionItemMixinBase implements OnDestroy, CanDisable {
+export declare class AccordionItem implements OnDestroy {
     accordion: CdkAccordion;
     private _changeDetectorRef;
     protected _expansionDispatcher: UniqueSelectionDispatcher;
-    /** Event emitted every time the MdAccordionChild is closed. */
+    /** Event emitted every time the AccordionItem is closed. */
     closed: EventEmitter<void>;
-    /** Event emitted every time the MdAccordionChild is opened. */
+    /** Event emitted every time the AccordionItem is opened. */
     opened: EventEmitter<void>;
-    /** Event emitted when the MdAccordionChild is destroyed. */
+    /** Event emitted when the AccordionItem is destroyed. */
     destroyed: EventEmitter<void>;
-    /** The unique MdAccordionChild id. */
+    /** The unique AccordionItem id. */
     readonly id: string;
-    /** Whether the MdAccordionChild is expanded. */
+    /** Whether the AccordionItem is expanded. */
     expanded: boolean;
     private _expanded;
     /** Unregister function for _expansionDispatcher **/
