@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.11-bcd026f');
+var VERSION = new _angular_core.Version('2.0.0-beta.11-881630f');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -21165,12 +21165,14 @@ var MdTabNav = (function (_super) {
      * @param {?} _dir
      * @param {?} _ngZone
      * @param {?} _changeDetectorRef
+     * @param {?} _viewportRuler
      */
-    function MdTabNav(renderer, elementRef, _dir, _ngZone, _changeDetectorRef) {
+    function MdTabNav(renderer, elementRef, _dir, _ngZone, _changeDetectorRef, _viewportRuler) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._dir = _dir;
         _this._ngZone = _ngZone;
         _this._changeDetectorRef = _changeDetectorRef;
+        _this._viewportRuler = _viewportRuler;
         /**
          * Subject that emits when the component has been destroyed.
          */
@@ -21235,12 +21237,8 @@ var MdTabNav = (function (_super) {
         var _this = this;
         this._ngZone.runOutsideAngular(function () {
             var /** @type {?} */ dirChange = _this._dir ? _this._dir.change : rxjs_observable_of.of(null);
-            var /** @type {?} */ resize = typeof window !== 'undefined' ?
-                _angular_cdk_rxjs.auditTime.call(rxjs_observable_fromEvent.fromEvent(window, 'resize'), 10) :
-                rxjs_observable_of.of(null);
-            return _angular_cdk_rxjs.takeUntil.call(rxjs_observable_merge.merge(dirChange, resize), _this._onDestroy).subscribe(function () {
-                _this._alignInkBar();
-            });
+            return _angular_cdk_rxjs.takeUntil.call(rxjs_observable_merge.merge(dirChange, _this._viewportRuler.change(10)), _this._onDestroy)
+                .subscribe(function () { return _this._alignInkBar(); });
         });
         this._setLinkDisableRipple();
     };
@@ -21301,6 +21299,7 @@ MdTabNav.ctorParameters = function () { return [
     { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_core.NgZone, },
     { type: _angular_core.ChangeDetectorRef, },
+    { type: _angular_cdk_scrolling.ViewportRuler, },
 ]; };
 MdTabNav.propDecorators = {
     '_inkBar': [{ type: _angular_core.ViewChild, args: [MdInkBar,] },],
@@ -21622,13 +21621,15 @@ var MdTabHeader = (function (_super) {
      * @param {?} _elementRef
      * @param {?} _renderer
      * @param {?} _changeDetectorRef
+     * @param {?} _viewportRuler
      * @param {?} _dir
      */
-    function MdTabHeader(_elementRef, _renderer, _changeDetectorRef, _dir) {
+    function MdTabHeader(_elementRef, _renderer, _changeDetectorRef, _viewportRuler, _dir) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._renderer = _renderer;
         _this._changeDetectorRef = _changeDetectorRef;
+        _this._viewportRuler = _viewportRuler;
         _this._dir = _dir;
         /**
          * The tab index that is focused.
@@ -21740,9 +21741,7 @@ var MdTabHeader = (function (_super) {
     MdTabHeader.prototype.ngAfterContentInit = function () {
         var _this = this;
         var /** @type {?} */ dirChange = this._dir ? this._dir.change : rxjs_observable_of.of(null);
-        var /** @type {?} */ resize = typeof window !== 'undefined' ?
-            _angular_cdk_rxjs.auditTime.call(rxjs_observable_fromEvent.fromEvent(window, 'resize'), 150) :
-            rxjs_observable_of.of(null);
+        var /** @type {?} */ resize = this._viewportRuler.change(150);
         this._realignInkBar = _angular_cdk_rxjs.startWith.call(rxjs_observable_merge.merge(dirChange, resize), null).subscribe(function () {
             _this._updatePagination();
             _this._alignInkBarToSelectedTab();
@@ -22030,6 +22029,7 @@ MdTabHeader.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ChangeDetectorRef, },
+    { type: _angular_cdk_scrolling.ViewportRuler, },
     { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
 ]; };
 MdTabHeader.propDecorators = {
