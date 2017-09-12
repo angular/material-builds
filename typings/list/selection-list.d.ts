@@ -93,10 +93,6 @@ export declare class MdSelectionList extends _MdSelectionListMixinBase implement
     ngOnDestroy(): void;
     /** Focus the selection-list. */
     focus(): void;
-    /** Selects all of the options. */
-    selectAll(): void;
-    /** Deselects all of the options. */
-    deselectAll(): void;
     /** Map all the options' destroy event subscriptions and merge them into one stream. */
     private _onDestroySubscription();
     /** Map all the options' onFocus event subscriptions and merge them into one stream. */
