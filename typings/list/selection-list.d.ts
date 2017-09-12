@@ -36,16 +36,15 @@ export declare class MdListOption extends _MdListOptionMixinBase implements Afte
     private _lineSetter;
     private _selected;
     private _disabled;
-    private _value;
     /** Whether the option has focus. */
     _hasFocus: boolean;
     _lines: QueryList<MdLine>;
     /** Whether the label should appear before or after the checkbox. Defaults to 'after' */
     checkboxPosition: 'before' | 'after';
-    /** Whether the option is disabled. */
-    disabled: any;
     /** Value of the option */
     value: any;
+    /** Whether the option is disabled. */
+    disabled: any;
     /** Whether the option is selected. */
     selected: boolean;
     /** Emitted when the option is focused. */
@@ -93,6 +92,10 @@ export declare class MdSelectionList extends _MdSelectionListMixinBase implement
     ngOnDestroy(): void;
     /** Focus the selection-list. */
     focus(): void;
+    /** Selects all of the options. */
+    selectAll(): void;
+    /** Deselects all of the options. */
+    deselectAll(): void;
     /** Map all the options' destroy event subscriptions and merge them into one stream. */
     private _onDestroySubscription();
     /** Map all the options' onFocus event subscriptions and merge them into one stream. */
