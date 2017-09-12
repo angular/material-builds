@@ -10,6 +10,7 @@ import { Overlay, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/
 import { Directionality } from '@angular/cdk/bidi';
 import { MdDialog } from '../dialog/dialog';
 import { MdDatepickerInput } from './datepicker-input';
+import { Subject } from 'rxjs/Subject';
 import { DateAdapter } from '../core/datetime/index';
 import { MdCalendar } from './calendar';
 /** Injection token that determines the scroll handling while the calendar is open. */
@@ -85,11 +86,13 @@ export declare class MdDatepicker<D> implements OnDestroy {
     private _dialogRef;
     /** A portal containing the calendar for this datepicker. */
     private _calendarPortal;
-    /** The input element this datepicker is associated with. */
-    private _datepickerInput;
     /** The element that was focused before the datepicker was opened. */
     private _focusedElementBeforeOpen;
     private _inputSubscription;
+    /** The input element this datepicker is associated with. */
+    _datepickerInput: MdDatepickerInput<D>;
+    /** Emits when the datepicker is disabled. */
+    _disabledChange: Subject<boolean>;
     constructor(_dialog: MdDialog, _overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, _scrollStrategy: any, _dateAdapter: DateAdapter<D>, _dir: Directionality, _document: any);
     ngOnDestroy(): void;
     /** Selects the given date */

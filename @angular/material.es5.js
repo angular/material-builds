@@ -37,7 +37,7 @@ import { CdkStep, CdkStepLabel, CdkStepper, CdkStepperModule, CdkStepperNext, Cd
 /**
  * Current version of Angular Material.
  */
-var VERSION = new Version('2.0.0-beta.11-9fe6386');
+var VERSION = new Version('2.0.0-beta.11-2cefe67');
 var MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -8027,6 +8027,10 @@ var MdDatepicker = (function () {
          */
         this._focusedElementBeforeOpen = null;
         this._inputSubscription = Subscription.EMPTY;
+        /**
+         * Emits when the datepicker is disabled.
+         */
+        this._disabledChange = new Subject();
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -8062,7 +8066,11 @@ var MdDatepicker = (function () {
          * @return {?}
          */
         set: function (value) {
-            this._disabled = coerceBooleanProperty(value);
+            var /** @type {?} */ newValue = coerceBooleanProperty(value);
+            if (newValue !== this._disabled) {
+                this._disabled = newValue;
+                this._disabledChange.next(newValue);
+            }
         },
         enumerable: true,
         configurable: true
@@ -8119,6 +8127,7 @@ var MdDatepicker = (function () {
     MdDatepicker.prototype.ngOnDestroy = function () {
         this.close();
         this._inputSubscription.unsubscribe();
+        this._disabledChange.complete();
         if (this._popupRef) {
             this._popupRef.dispose();
         }
@@ -8335,6 +8344,10 @@ var MdDatepickerInput = (function () {
          * Emits when the value changes (either due to user input or programmatic change).
          */
         this._valueChange = new EventEmitter();
+        /**
+         * Emits when the disabled state has changed
+         */
+        this._disabledChange = new EventEmitter();
         this._onTouched = function () { };
         this._cvaOnChange = function () { };
         this._validatorOnChange = function () { };
@@ -8504,7 +8517,11 @@ var MdDatepickerInput = (function () {
          * @return {?}
          */
         set: function (value) {
-            this._disabled = coerceBooleanProperty(value);
+            var /** @type {?} */ newValue = coerceBooleanProperty(value);
+            if (this._disabled !== newValue) {
+                this._disabled = newValue;
+                this._disabledChange.emit(newValue);
+            }
         },
         enumerable: true,
         configurable: true
@@ -8530,6 +8547,8 @@ var MdDatepickerInput = (function () {
      */
     MdDatepickerInput.prototype.ngOnDestroy = function () {
         this._datepickerSubscription.unsubscribe();
+        this._valueChange.complete();
+        this._disabledChange.complete();
     };
     /**
      * @param {?} fn
@@ -8832,11 +8851,12 @@ MdDialogModule.ctorParameters = function () { return []; };
 var MdDatepickerToggle = (function () {
     /**
      * @param {?} _intl
-     * @param {?} changeDetectorRef
+     * @param {?} _changeDetectorRef
      */
-    function MdDatepickerToggle(_intl, changeDetectorRef) {
+    function MdDatepickerToggle(_intl, _changeDetectorRef) {
         this._intl = _intl;
-        this._intlChanges = _intl.changes.subscribe(function () { return changeDetectorRef.markForCheck(); });
+        this._changeDetectorRef = _changeDetectorRef;
+        this._stateChanges = Subscription.EMPTY;
     }
     Object.defineProperty(MdDatepickerToggle.prototype, "disabled", {
         /**
@@ -8857,10 +8877,27 @@ var MdDatepickerToggle = (function () {
         configurable: true
     });
     /**
+     * @param {?} changes
+     * @return {?}
+     */
+    MdDatepickerToggle.prototype.ngOnChanges = function (changes) {
+        var _this = this;
+        if (changes.datepicker) {
+            var /** @type {?} */ datepicker = changes.datepicker.currentValue;
+            var /** @type {?} */ datepickerDisabled = datepicker ? datepicker._disabledChange : of();
+            var /** @type {?} */ inputDisabled = datepicker && datepicker._datepickerInput ?
+                datepicker._datepickerInput._disabledChange :
+                of();
+            this._stateChanges.unsubscribe();
+            this._stateChanges = merge(this._intl.changes, datepickerDisabled, inputDisabled)
+                .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        }
+    };
+    /**
      * @return {?}
      */
     MdDatepickerToggle.prototype.ngOnDestroy = function () {
-        this._intlChanges.unsubscribe();
+        this._stateChanges.unsubscribe();
     };
     /**
      * @param {?} event

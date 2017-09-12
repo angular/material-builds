@@ -37,7 +37,7 @@ import { CdkStep, CdkStepLabel, CdkStepper, CdkStepperModule, CdkStepperNext, Cd
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.11-9fe6386');
+const VERSION = new Version('2.0.0-beta.11-2cefe67');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -7698,6 +7698,10 @@ class MdDatepicker {
          */
         this._focusedElementBeforeOpen = null;
         this._inputSubscription = Subscription.EMPTY;
+        /**
+         * Emits when the datepicker is disabled.
+         */
+        this._disabledChange = new Subject();
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -7728,7 +7732,11 @@ class MdDatepicker {
      * @return {?}
      */
     set disabled(value) {
-        this._disabled = coerceBooleanProperty(value);
+        const /** @type {?} */ newValue = coerceBooleanProperty(value);
+        if (newValue !== this._disabled) {
+            this._disabled = newValue;
+            this._disabledChange.next(newValue);
+        }
     }
     /**
      * The currently selected date.
@@ -7766,6 +7774,7 @@ class MdDatepicker {
     ngOnDestroy() {
         this.close();
         this._inputSubscription.unsubscribe();
+        this._disabledChange.complete();
         if (this._popupRef) {
             this._popupRef.dispose();
         }
@@ -7977,6 +7986,10 @@ class MdDatepickerInput {
          * Emits when the value changes (either due to user input or programmatic change).
          */
         this._valueChange = new EventEmitter();
+        /**
+         * Emits when the disabled state has changed
+         */
+        this._disabledChange = new EventEmitter();
         this._onTouched = () => { };
         this._cvaOnChange = () => { };
         this._validatorOnChange = () => { };
@@ -8117,7 +8130,11 @@ class MdDatepickerInput {
      * @return {?}
      */
     set disabled(value) {
-        this._disabled = coerceBooleanProperty(value);
+        const /** @type {?} */ newValue = coerceBooleanProperty(value);
+        if (this._disabled !== newValue) {
+            this._disabled = newValue;
+            this._disabledChange.emit(newValue);
+        }
     }
     /**
      * @return {?}
@@ -8139,6 +8156,8 @@ class MdDatepickerInput {
      */
     ngOnDestroy() {
         this._datepickerSubscription.unsubscribe();
+        this._valueChange.complete();
+        this._disabledChange.complete();
     }
     /**
      * @param {?} fn
@@ -8434,11 +8453,12 @@ MdDialogModule.ctorParameters = () => [];
 class MdDatepickerToggle {
     /**
      * @param {?} _intl
-     * @param {?} changeDetectorRef
+     * @param {?} _changeDetectorRef
      */
-    constructor(_intl, changeDetectorRef) {
+    constructor(_intl, _changeDetectorRef) {
         this._intl = _intl;
-        this._intlChanges = _intl.changes.subscribe(() => changeDetectorRef.markForCheck());
+        this._changeDetectorRef = _changeDetectorRef;
+        this._stateChanges = Subscription.EMPTY;
     }
     /**
      * Whether the toggle button is disabled.
@@ -8455,10 +8475,26 @@ class MdDatepickerToggle {
         this._disabled = coerceBooleanProperty(value);
     }
     /**
+     * @param {?} changes
+     * @return {?}
+     */
+    ngOnChanges(changes) {
+        if (changes.datepicker) {
+            const /** @type {?} */ datepicker = changes.datepicker.currentValue;
+            const /** @type {?} */ datepickerDisabled = datepicker ? datepicker._disabledChange : of();
+            const /** @type {?} */ inputDisabled = datepicker && datepicker._datepickerInput ?
+                datepicker._datepickerInput._disabledChange :
+                of();
+            this._stateChanges.unsubscribe();
+            this._stateChanges = merge(this._intl.changes, datepickerDisabled, inputDisabled)
+                .subscribe(() => this._changeDetectorRef.markForCheck());
+        }
+    }
+    /**
      * @return {?}
      */
     ngOnDestroy() {
-        this._intlChanges.unsubscribe();
+        this._stateChanges.unsubscribe();
     }
     /**
      * @param {?} event

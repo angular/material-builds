@@ -57,6 +57,8 @@ export declare class MdDatepickerInput<D> implements AfterContentInit, ControlVa
     dateInput: EventEmitter<MdDatepickerInputEvent<D>>;
     /** Emits when the value changes (either due to user input or programmatic change). */
     _valueChange: EventEmitter<D | null>;
+    /** Emits when the disabled state has changed */
+    _disabledChange: EventEmitter<boolean>;
     _onTouched: () => void;
     private _cvaOnChange;
     private _validatorOnChange;
