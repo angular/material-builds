@@ -37,7 +37,7 @@ import { CdkStep, CdkStepLabel, CdkStepper, CdkStepperModule, CdkStepperNext, Cd
 /**
  * Current version of Angular Material.
  */
-var VERSION = new Version('2.0.0-beta.11-50a6bb7');
+var VERSION = new Version('2.0.0-beta.11-acbb1d4');
 var MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -15175,6 +15175,7 @@ var MdTooltip = (function () {
          * The default delay in ms before hiding the tooltip after hide is called
          */
         this.hideDelay = 0;
+        this._message = '';
         // The mouse events shouldn't be bound on iOS devices, because
         // they can prevent the first tap from firing its click event.
         if (!_platform.IOS) {
@@ -15252,11 +15253,9 @@ var MdTooltip = (function () {
          * @return {?}
          */
         set: function (value) {
-            if (this._message) {
-                this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this._message);
-            }
+            this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this._message);
             // If the message is not a string (e.g. number), convert it to a string and trim it.
-            this._message = value ? ("" + value).trim() : '';
+            this._message = value ? value.trim() : '';
             this._updateTooltipMessage();
             this._ariaDescriber.describe(this._elementRef.nativeElement, this.message);
         },
