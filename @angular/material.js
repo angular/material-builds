@@ -37,7 +37,7 @@ import { CdkStep, CdkStepLabel, CdkStepper, CdkStepperModule, CdkStepperNext, Cd
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.11-dfe01f2');
+const VERSION = new Version('2.0.0-beta.11-50a6bb7');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
