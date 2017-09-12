@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.11-85993d3');
+var VERSION = new _angular_core.Version('2.0.0-beta.11-2239e7d');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -22248,7 +22248,8 @@ MdStepHeader.decorators = [
                     'class': 'mat-step-header',
                     'role': 'tab',
                 },
-                encapsulation: _angular_core.ViewEncapsulation.None
+                encapsulation: _angular_core.ViewEncapsulation.None,
+                providers: [{ provide: MATERIAL_COMPATIBILITY_MODE, useValue: false }],
             },] },
 ];
 /**

@@ -37,7 +37,7 @@ import { CdkStep, CdkStepLabel, CdkStepper, CdkStepperModule, CdkStepperNext, Cd
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.11-85993d3');
+const VERSION = new Version('2.0.0-beta.11-2239e7d');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -20913,7 +20913,8 @@ MdStepHeader.decorators = [
                     'class': 'mat-step-header',
                     'role': 'tab',
                 },
-                encapsulation: ViewEncapsulation.None
+                encapsulation: ViewEncapsulation.None,
+                providers: [{ provide: MATERIAL_COMPATIBILITY_MODE, useValue: false }],
             },] },
 ];
 /**
