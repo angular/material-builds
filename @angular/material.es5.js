@@ -37,7 +37,7 @@ import { CdkStep, CdkStepLabel, CdkStepper, CdkStepperModule, CdkStepperNext, Cd
 /**
  * Current version of Angular Material.
  */
-var VERSION = new Version('2.0.0-beta.11-881630f');
+var VERSION = new Version('2.0.0-beta.11-04bf3d1');
 var MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -13259,6 +13259,12 @@ var MdMenuTrigger = (function () {
     MdMenuTrigger.prototype._handleMousedown = function (event) {
         if (!isFakeMousedownFromScreenReader(event)) {
             this._openedByMouse = true;
+            // Since clicking on the trigger won't close the menu if it opens a sub-menu,
+            // we should prevent focus from moving onto it via click to avoid the
+            // highlight from lingering on the menu item.
+            if (this.triggersSubmenu) {
+                event.preventDefault();
+            }
         }
     };
     /**
