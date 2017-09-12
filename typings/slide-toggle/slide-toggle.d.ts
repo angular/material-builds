@@ -91,4 +91,6 @@ export declare class MdSlideToggle extends _MdSlideToggleMixinBase implements On
     _onDragStart(): void;
     _onDrag(event: HammerInput): void;
     _onDragEnd(): void;
+    /** Method being called whenever the label text changes. */
+    _onLabelTextChange(): void;
 }
