@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.11-259cc75');
+var VERSION = new _angular_core.Version('2.0.0-beta.11-e4d48d7');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -8427,20 +8427,31 @@ var MdDatepickerInput = (function () {
          * @return {?}
          */
         set: function (value) {
-            if (value) {
-                this._datepicker = value;
-                this._datepicker._registerInput(this);
-            }
+            this.registerDatepicker(value);
         },
         enumerable: true,
         configurable: true
     });
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    MdDatepickerInput.prototype.registerDatepicker = function (value) {
+        if (value) {
+            this._datepicker = value;
+            this._datepicker._registerInput(this);
+        }
+    };
     Object.defineProperty(MdDatepickerInput.prototype, "matDatepicker", {
         /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this.mdDatepicker = value; },
+        set: function (value) {
+            // Note that we don't set `this.mdDatepicker = value` here,
+            // because that line gets stripped by the JS compiler.
+            this.registerDatepicker(value);
+        },
         enumerable: true,
         configurable: true
     });

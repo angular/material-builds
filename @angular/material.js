@@ -37,7 +37,7 @@ import { CdkStep, CdkStepLabel, CdkStepper, CdkStepperModule, CdkStepperNext, Cd
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.11-259cc75');
+const VERSION = new Version('2.0.0-beta.11-e4d48d7');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -8063,6 +8063,13 @@ class MdDatepickerInput {
      * @return {?}
      */
     set mdDatepicker(value) {
+        this.registerDatepicker(value);
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    registerDatepicker(value) {
         if (value) {
             this._datepicker = value;
             this._datepicker._registerInput(this);
@@ -8072,7 +8079,11 @@ class MdDatepickerInput {
      * @param {?} value
      * @return {?}
      */
-    set matDatepicker(value) { this.mdDatepicker = value; }
+    set matDatepicker(value) {
+        // Note that we don't set `this.mdDatepicker = value` here,
+        // because that line gets stripped by the JS compiler.
+        this.registerDatepicker(value);
+    }
     /**
      * @param {?} filter
      * @return {?}

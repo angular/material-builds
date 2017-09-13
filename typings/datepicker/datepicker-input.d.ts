@@ -35,6 +35,7 @@ export declare class MdDatepickerInput<D> implements AfterContentInit, ControlVa
     /** The datepicker that this input is associated with. */
     mdDatepicker: MdDatepicker<D>;
     _datepicker: MdDatepicker<D>;
+    private registerDatepicker(value);
     matDatepicker: MdDatepicker<D>;
     mdDatepickerFilter: (date: D | null) => boolean;
     _dateFilter: (date: D | null) => boolean;
