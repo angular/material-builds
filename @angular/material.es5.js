@@ -22,7 +22,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Subject } from 'rxjs/Subject';
 import { of } from 'rxjs/observable/of';
 import { CheckboxRequiredValidator, FormGroupDirective, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl, NgForm, Validators } from '@angular/forms';
-import { RxChain, catchOperator, doOperator, filter, finallyOperator, first, map, share, startWith, switchMap, takeUntil } from '@angular/cdk/rxjs';
+import { RxChain, auditTime, catchOperator, doOperator, filter, finallyOperator, first, map, share, startWith, switchMap, takeUntil } from '@angular/cdk/rxjs';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
@@ -37,7 +37,7 @@ import { CdkStep, CdkStepLabel, CdkStepper, CdkStepperModule, CdkStepperNext, Cd
 /**
  * Current version of Angular Material.
  */
-var VERSION = new Version('2.0.0-beta.11-dcfe515');
+var VERSION = new Version('2.0.0-beta.11-259cc75');
 var MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -21185,14 +21185,12 @@ var MdTabNav = (function (_super) {
      * @param {?} _dir
      * @param {?} _ngZone
      * @param {?} _changeDetectorRef
-     * @param {?} _viewportRuler
      */
-    function MdTabNav(renderer, elementRef, _dir, _ngZone, _changeDetectorRef, _viewportRuler) {
+    function MdTabNav(renderer, elementRef, _dir, _ngZone, _changeDetectorRef) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._dir = _dir;
         _this._ngZone = _ngZone;
         _this._changeDetectorRef = _changeDetectorRef;
-        _this._viewportRuler = _viewportRuler;
         /**
          * Subject that emits when the component has been destroyed.
          */
@@ -21257,8 +21255,12 @@ var MdTabNav = (function (_super) {
         var _this = this;
         this._ngZone.runOutsideAngular(function () {
             var /** @type {?} */ dirChange = _this._dir ? _this._dir.change : of(null);
-            return takeUntil.call(merge(dirChange, _this._viewportRuler.change(10)), _this._onDestroy)
-                .subscribe(function () { return _this._alignInkBar(); });
+            var /** @type {?} */ resize = typeof window !== 'undefined' ?
+                auditTime.call(fromEvent(window, 'resize'), 10) :
+                of(null);
+            return takeUntil.call(merge(dirChange, resize), _this._onDestroy).subscribe(function () {
+                _this._alignInkBar();
+            });
         });
         this._setLinkDisableRipple();
     };
@@ -21319,7 +21321,6 @@ MdTabNav.ctorParameters = function () { return [
     { type: Directionality, decorators: [{ type: Optional },] },
     { type: NgZone, },
     { type: ChangeDetectorRef, },
-    { type: ViewportRuler$1, },
 ]; };
 MdTabNav.propDecorators = {
     '_inkBar': [{ type: ViewChild, args: [MdInkBar,] },],
@@ -21641,15 +21642,13 @@ var MdTabHeader = (function (_super) {
      * @param {?} _elementRef
      * @param {?} _renderer
      * @param {?} _changeDetectorRef
-     * @param {?} _viewportRuler
      * @param {?} _dir
      */
-    function MdTabHeader(_elementRef, _renderer, _changeDetectorRef, _viewportRuler, _dir) {
+    function MdTabHeader(_elementRef, _renderer, _changeDetectorRef, _dir) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._renderer = _renderer;
         _this._changeDetectorRef = _changeDetectorRef;
-        _this._viewportRuler = _viewportRuler;
         _this._dir = _dir;
         /**
          * The tab index that is focused.
@@ -21761,7 +21760,9 @@ var MdTabHeader = (function (_super) {
     MdTabHeader.prototype.ngAfterContentInit = function () {
         var _this = this;
         var /** @type {?} */ dirChange = this._dir ? this._dir.change : of(null);
-        var /** @type {?} */ resize = this._viewportRuler.change(150);
+        var /** @type {?} */ resize = typeof window !== 'undefined' ?
+            auditTime.call(fromEvent(window, 'resize'), 150) :
+            of(null);
         this._realignInkBar = startWith.call(merge(dirChange, resize), null).subscribe(function () {
             _this._updatePagination();
             _this._alignInkBarToSelectedTab();
@@ -22049,7 +22050,6 @@ MdTabHeader.ctorParameters = function () { return [
     { type: ElementRef, },
     { type: Renderer2, },
     { type: ChangeDetectorRef, },
-    { type: ViewportRuler$1, },
     { type: Directionality, decorators: [{ type: Optional },] },
 ]; };
 MdTabHeader.propDecorators = {

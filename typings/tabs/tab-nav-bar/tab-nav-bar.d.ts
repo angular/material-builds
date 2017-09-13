@@ -29,7 +29,6 @@ export declare class MdTabNav extends _MdTabNavMixinBase implements AfterContent
     private _dir;
     private _ngZone;
     private _changeDetectorRef;
-    private _viewportRuler;
     /** Subject that emits when the component has been destroyed. */
     private _onDestroy;
     _activeLinkChanged: boolean;
@@ -43,7 +42,7 @@ export declare class MdTabNav extends _MdTabNavMixinBase implements AfterContent
     /** Whether ripples should be disabled for all links or not. */
     disableRipple: boolean;
     private _disableRipple;
-    constructor(renderer: Renderer2, elementRef: ElementRef, _dir: Directionality, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, _viewportRuler: ViewportRuler);
+    constructor(renderer: Renderer2, elementRef: ElementRef, _dir: Directionality, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef);
     /** Notifies the component that the active link has been changed. */
     updateActiveLink(element: ElementRef): void;
     ngAfterContentInit(): void;

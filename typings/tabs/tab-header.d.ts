@@ -10,7 +10,6 @@ import { Directionality, Direction } from '@angular/cdk/bidi';
 import { MdTabLabelWrapper } from './tab-label-wrapper';
 import { MdInkBar } from './ink-bar';
 import { CanDisableRipple } from '../core/common-behaviors/disable-ripple';
-import { ViewportRuler } from '@angular/cdk/scrolling';
 /**
  * The directions that scrolling can go in when the header's tabs exceed the header width. 'After'
  * will scroll the header towards the end of the tabs list and 'before' will scroll towards the
@@ -32,7 +31,6 @@ export declare class MdTabHeader extends _MdTabHeaderMixinBase implements AfterC
     private _elementRef;
     private _renderer;
     private _changeDetectorRef;
-    private _viewportRuler;
     private _dir;
     _labelWrappers: QueryList<MdTabLabelWrapper>;
     _inkBar: MdInkBar;
@@ -66,7 +64,7 @@ export declare class MdTabHeader extends _MdTabHeaderMixinBase implements AfterC
     selectFocusedIndex: EventEmitter<{}>;
     /** Event emitted when a label is focused. */
     indexFocused: EventEmitter<{}>;
-    constructor(_elementRef: ElementRef, _renderer: Renderer2, _changeDetectorRef: ChangeDetectorRef, _viewportRuler: ViewportRuler, _dir: Directionality);
+    constructor(_elementRef: ElementRef, _renderer: Renderer2, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality);
     ngAfterContentChecked(): void;
     _handleKeydown(event: KeyboardEvent): void;
     /**
