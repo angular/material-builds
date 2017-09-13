@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.11-9545427');
+var VERSION = new _angular_core.Version('2.0.0-beta.11-dcfe515');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -13008,7 +13008,7 @@ var MdMenuTrigger = (function () {
         var _this = this;
         this._checkMenu();
         this.menu.close.subscribe(function (reason) {
-            _this._destroyMenu();
+            _this.closeMenu();
             // If a click closed the menu, we should close the entire chain of nested menus.
             if (reason === 'click' && _this._parentMenu) {
                 _this._parentMenu.close.emit(reason);
@@ -13078,9 +13078,7 @@ var MdMenuTrigger = (function () {
         var _this = this;
         if (!this._menuOpen) {
             this._createOverlay().attach(this._portal);
-            this._closeSubscription = this._menuClosingActions().subscribe(function () {
-                _this.menu.close.emit();
-            });
+            this._closeSubscription = this._menuClosingActions().subscribe(function () { return _this.menu.close.emit(); });
             this._initMenu();
             if (this.menu instanceof MdMenu) {
                 this.menu._startAnimation();
@@ -13092,7 +13090,15 @@ var MdMenuTrigger = (function () {
      * @return {?}
      */
     MdMenuTrigger.prototype.closeMenu = function () {
-        this.menu.close.emit();
+        if (this._overlayRef && this.menuOpen) {
+            this._resetMenu();
+            this._overlayRef.detach();
+            this._closeSubscription.unsubscribe();
+            this.menu.close.emit();
+            if (this.menu instanceof MdMenu) {
+                this.menu._resetAnimation();
+            }
+        }
     };
     /**
      * Focuses the menu trigger.
@@ -13100,20 +13106,6 @@ var MdMenuTrigger = (function () {
      */
     MdMenuTrigger.prototype.focus = function () {
         this._element.nativeElement.focus();
-    };
-    /**
-     * Closes the menu and does the necessary cleanup.
-     * @return {?}
-     */
-    MdMenuTrigger.prototype._destroyMenu = function () {
-        if (this._overlayRef && this.menuOpen) {
-            this._resetMenu();
-            this._overlayRef.detach();
-            this._closeSubscription.unsubscribe();
-            if (this.menu instanceof MdMenu) {
-                this.menu._resetAnimation();
-            }
-        }
     };
     /**
      * This method sets the menu state to open and focuses the first item if
@@ -13272,11 +13264,11 @@ var MdMenuTrigger = (function () {
     MdMenuTrigger.prototype._menuClosingActions = function () {
         var _this = this;
         var /** @type {?} */ backdrop = ((this._overlayRef)).backdropClick();
-        var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : rxjs_observable_of.of();
+        var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : rxjs_observable_of.of(null);
         var /** @type {?} */ hover = this._parentMenu ? _angular_cdk_rxjs.RxChain.from(this._parentMenu.hover())
             .call(_angular_cdk_rxjs.filter, function (active) { return active !== _this._menuItemInstance; })
             .call(_angular_cdk_rxjs.filter, function () { return _this._menuOpen; })
-            .result() : rxjs_observable_of.of();
+            .result() : rxjs_observable_of.of(null);
         return rxjs_observable_merge.merge(backdrop, parentClose, hover);
     };
     /**
