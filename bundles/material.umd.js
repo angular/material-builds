@@ -40,7 +40,7 @@ function __extends(d, b) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.11-e4d48d7');
+var VERSION = new _angular_core.Version('2.0.0-beta.11-2f1f0fd');
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Returns an exception to be thrown if the consumer has used
@@ -13293,7 +13293,7 @@ var MdMenuTrigger = (function () {
             // Since clicking on the trigger won't close the menu if it opens a sub-menu,
             // we should prevent focus from moving onto it via click to avoid the
             // highlight from lingering on the menu item.
-            if (this.triggersSubmenu) {
+            if (this.triggersSubmenu()) {
                 event.preventDefault();
             }
         }

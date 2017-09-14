@@ -37,7 +37,7 @@ import { CdkStep, CdkStepLabel, CdkStepper, CdkStepperModule, CdkStepperNext, Cd
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.11-e4d48d7');
+const VERSION = new Version('2.0.0-beta.11-2f1f0fd');
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
 /**
@@ -12651,7 +12651,7 @@ class MdMenuTrigger {
             // Since clicking on the trigger won't close the menu if it opens a sub-menu,
             // we should prevent focus from moving onto it via click to avoid the
             // highlight from lingering on the menu item.
-            if (this.triggersSubmenu) {
+            if (this.triggersSubmenu()) {
                 event.preventDefault();
             }
         }
