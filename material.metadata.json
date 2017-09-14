@@ -4,7 +4,97 @@
   "metadata": {},
   "exports": [
     {
-      "from": "./typings/index"
+      "from": "./core"
+    },
+    {
+      "from": "./form-field"
+    },
+    {
+      "from": "./autocomplete"
+    },
+    {
+      "from": "./button"
+    },
+    {
+      "from": "./button-toggle"
+    },
+    {
+      "from": "./card"
+    },
+    {
+      "from": "./checkbox"
+    },
+    {
+      "from": "./chips"
+    },
+    {
+      "from": "./dialog"
+    },
+    {
+      "from": "./icon"
+    },
+    {
+      "from": "./datepicker"
+    },
+    {
+      "from": "./expansion"
+    },
+    {
+      "from": "./grid-list"
+    },
+    {
+      "from": "./input"
+    },
+    {
+      "from": "./list"
+    },
+    {
+      "from": "./menu"
+    },
+    {
+      "from": "./select"
+    },
+    {
+      "from": "./tooltip"
+    },
+    {
+      "from": "./paginator"
+    },
+    {
+      "from": "./progress-bar"
+    },
+    {
+      "from": "./progress-spinner"
+    },
+    {
+      "from": "./radio"
+    },
+    {
+      "from": "./sidenav"
+    },
+    {
+      "from": "./slide-toggle"
+    },
+    {
+      "from": "./slider"
+    },
+    {
+      "from": "./snack-bar"
+    },
+    {
+      "from": "./sort"
+    },
+    {
+      "from": "./stepper"
+    },
+    {
+      "from": "./table"
+    },
+    {
+      "from": "./tabs"
+    },
+    {
+      "from": "./toolbar"
     }
   ],
   "flatModuleIndexRedirect": true

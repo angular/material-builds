@@ -1,10 +1,10 @@
 {
   "name": "@angular/material",
-  "version": "2.0.0-beta.11-2f1f0fd",
+  "version": "2.0.0-beta.11-1cb8907",
   "description": "Angular Material",
   "main": "./bundles/material.umd.js",
-  "module": "./@angular/material.es5.js",
-  "es2015": "./@angular/material.js",
+  "module": "./esm5/material.es5.js",
+  "es2015": "./esm2015/material.js",
   "typings": "./material.d.ts",
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/angular/material2#readme",
   "peerDependencies": {
-    "@angular/cdk": "2.0.0-beta.11-2f1f0fd",
+    "@angular/cdk": "2.0.0-beta.11-1cb8907",
     "@angular/core": "^4.3.0",
     "@angular/common": "^4.3.0"
   },
