@@ -511,7 +511,7 @@ MdTextareaAutosize.decorators = [
     { type: Directive, args: [{
                 selector: `textarea[md-autosize], textarea[mdTextareaAutosize],
              textarea[mat-autosize], textarea[matTextareaAutosize]`,
-                exportAs: 'mdTextareaAutosize',
+                exportAs: 'mdTextareaAutosize, matTextareaAutosize',
                 host: {
                     // Textarea elements that have the directive applied should have a single row by default.
                     // Browsers normally show two rows by default and therefore this limits the minRows binding.

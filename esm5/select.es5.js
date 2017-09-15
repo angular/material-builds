@@ -1363,7 +1363,7 @@ MdSelect.decorators = [
                     transformPanel,
                     fadeInContent
                 ],
-                exportAs: 'mdSelect',
+                exportAs: 'mdSelect, matSelect',
             },] },
 ];
 /**

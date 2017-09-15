@@ -1617,7 +1617,7 @@ var MdRipple = (function () {
 MdRipple.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: '[md-ripple], [mat-ripple], [mdRipple], [matRipple]',
-                exportAs: 'mdRipple',
+                exportAs: 'mdRipple, matRipple',
                 host: {
                     'class': 'mat-ripple',
                     '[class.mat-ripple-unbounded]': 'unbounded'
@@ -2648,7 +2648,7 @@ MdTab.decorators = [
                 inputs: ['disabled'],
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                 encapsulation: _angular_core.ViewEncapsulation.None,
-                exportAs: 'mdTab',
+                exportAs: 'mdTab, matTab',
             },] },
 ];
 /**
@@ -4004,16 +4004,16 @@ exports.MdTabChangeEvent = MdTabChangeEvent;
 exports.MdTabGroupBase = MdTabGroupBase;
 exports._MdTabGroupMixinBase = _MdTabGroupMixinBase;
 exports.MdTabGroup = MdTabGroup;
-exports.ɵe23 = MdTabBase;
-exports.ɵf23 = _MdTabMixinBase;
-exports.ɵa23 = MdTabHeaderBase;
-exports.ɵb23 = _MdTabHeaderMixinBase;
-exports.ɵc23 = MdTabLabelWrapperBase;
-exports.ɵd23 = _MdTabLabelWrapperMixinBase;
-exports.ɵi23 = MdTabLinkBase;
-exports.ɵg23 = MdTabNavBase;
-exports.ɵj23 = _MdTabLinkMixinBase;
-exports.ɵh23 = _MdTabNavMixinBase;
+exports.ɵe22 = MdTabBase;
+exports.ɵf22 = _MdTabMixinBase;
+exports.ɵa22 = MdTabHeaderBase;
+exports.ɵb22 = _MdTabHeaderMixinBase;
+exports.ɵc22 = MdTabLabelWrapperBase;
+exports.ɵd22 = _MdTabLabelWrapperMixinBase;
+exports.ɵi22 = MdTabLinkBase;
+exports.ɵg22 = MdTabNavBase;
+exports.ɵj22 = _MdTabLinkMixinBase;
+exports.ɵh22 = _MdTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

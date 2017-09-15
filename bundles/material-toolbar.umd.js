@@ -1579,7 +1579,7 @@ var MdRipple = (function () {
 MdRipple.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: '[md-ripple], [mat-ripple], [mdRipple], [matRipple]',
-                exportAs: 'mdRipple',
+                exportAs: 'mdRipple, matRipple',
                 host: {
                     'class': 'mat-ripple',
                     '[class.mat-ripple-unbounded]': 'unbounded'

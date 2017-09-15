@@ -1579,7 +1579,7 @@ var MdRipple = (function () {
 MdRipple.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: '[md-ripple], [mat-ripple], [mdRipple], [matRipple]',
-                exportAs: 'mdRipple',
+                exportAs: 'mdRipple, matRipple',
                 host: {
                     'class': 'mat-ripple',
                     '[class.mat-ripple-unbounded]': 'unbounded'
@@ -2633,7 +2633,7 @@ MdChip.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: "md-basic-chip, [md-basic-chip], md-chip, [md-chip],\n             mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
                 inputs: ['color', 'disabled'],
-                exportAs: 'mdChip',
+                exportAs: 'mdChip, matChip',
                 host: {
                     'class': 'mat-chip',
                     'tabindex': '-1',
@@ -2995,7 +2995,7 @@ var MdChipList = (function () {
 MdChipList.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-chip-list, mat-chip-list',
                 template: "<div class=\"mat-chip-list-wrapper\"><ng-content></ng-content></div>",
-                exportAs: 'mdChipList',
+                exportAs: 'mdChipList, matChipList',
                 host: {
                     '[attr.tabindex]': '_tabIndex',
                     'role': 'listbox',

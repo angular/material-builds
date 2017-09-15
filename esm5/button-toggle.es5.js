@@ -248,7 +248,7 @@ MdButtonToggleGroup.decorators = [
                     'class': 'mat-button-toggle-group',
                     '[class.mat-button-toggle-vertical]': 'vertical'
                 },
-                exportAs: 'mdButtonToggleGroup',
+                exportAs: 'mdButtonToggleGroup, matButtonToggleGroup',
             },] },
 ];
 /**
@@ -301,7 +301,7 @@ var MdButtonToggleGroupMultiple = (function (_super) {
 MdButtonToggleGroupMultiple.decorators = [
     { type: Directive, args: [{
                 selector: 'md-button-toggle-group[multiple], mat-button-toggle-group[multiple]',
-                exportAs: 'mdButtonToggleGroup',
+                exportAs: 'mdButtonToggleGroup, matButtonToggleGroup',
                 inputs: ['disabled'],
                 host: {
                     'class': 'mat-button-toggle-group',

@@ -1735,7 +1735,7 @@ var MdRipple = (function () {
 MdRipple.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: '[md-ripple], [mat-ripple], [mdRipple], [matRipple]',
-                exportAs: 'mdRipple',
+                exportAs: 'mdRipple, matRipple',
                 host: {
                     'class': 'mat-ripple',
                     '[class.mat-ripple-unbounded]': 'unbounded'
@@ -3268,7 +3268,7 @@ MdAutocomplete.decorators = [
                 styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative}.mat-autocomplete-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}"],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                exportAs: 'mdAutocomplete',
+                exportAs: 'mdAutocomplete, matAutocomplete',
                 host: {
                     'class': 'mat-autocomplete'
                 }
@@ -4387,7 +4387,7 @@ MdButtonToggleGroup.decorators = [
                     'class': 'mat-button-toggle-group',
                     '[class.mat-button-toggle-vertical]': 'vertical'
                 },
-                exportAs: 'mdButtonToggleGroup',
+                exportAs: 'mdButtonToggleGroup, matButtonToggleGroup',
             },] },
 ];
 /**
@@ -4440,7 +4440,7 @@ var MdButtonToggleGroupMultiple = (function (_super) {
 MdButtonToggleGroupMultiple.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: 'md-button-toggle-group[multiple], mat-button-toggle-group[multiple]',
-                exportAs: 'mdButtonToggleGroup',
+                exportAs: 'mdButtonToggleGroup, matButtonToggleGroup',
                 inputs: ['disabled'],
                 host: {
                     'class': 'mat-button-toggle-group',
@@ -5816,7 +5816,7 @@ MdChip.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: "md-basic-chip, [md-basic-chip], md-chip, [md-chip],\n             mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
                 inputs: ['color', 'disabled'],
-                exportAs: 'mdChip',
+                exportAs: 'mdChip, matChip',
                 host: {
                     'class': 'mat-chip',
                     'tabindex': '-1',
@@ -6178,7 +6178,7 @@ var MdChipList = (function () {
 MdChipList.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'md-chip-list, mat-chip-list',
                 template: "<div class=\"mat-chip-list-wrapper\"><ng-content></ng-content></div>",
-                exportAs: 'mdChipList',
+                exportAs: 'mdChipList, matChipList',
                 host: {
                     '[attr.tabindex]': '_tabIndex',
                     'role': 'listbox',
@@ -9278,7 +9278,7 @@ MdDatepickerInput.decorators = [
                     '(blur)': '_onTouched()',
                     '(keydown)': '_onKeydown($event)',
                 },
-                exportAs: 'mdDatepickerInput',
+                exportAs: 'mdDatepickerInput, matDatepickerInput',
             },] },
 ];
 /**
@@ -11740,7 +11740,7 @@ var MdTextareaAutosize = (function () {
 MdTextareaAutosize.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: "textarea[md-autosize], textarea[mdTextareaAutosize],\n             textarea[mat-autosize], textarea[matTextareaAutosize]",
-                exportAs: 'mdTextareaAutosize',
+                exportAs: 'mdTextareaAutosize, matTextareaAutosize',
                 host: {
                     // Textarea elements that have the directive applied should have a single row by default.
                     // Browsers normally show two rows by default and therefore this limits the minRows binding.
@@ -12619,7 +12619,7 @@ MdMenuItem.decorators = [
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 template: "<ng-content></ng-content><div class=\"mat-menu-ripple\" *ngIf=\"!disabled\" md-ripple [mdRippleTrigger]=\"_getHostElement()\"></div>",
-                exportAs: 'mdMenuItem',
+                exportAs: 'mdMenuItem, matMenuItem',
             },] },
 ];
 /**
@@ -14758,7 +14758,7 @@ MdSelect.decorators = [
                     transformPanel,
                     fadeInContent
                 ],
-                exportAs: 'mdSelect',
+                exportAs: 'mdSelect, matSelect',
             },] },
 ];
 /**
@@ -15321,7 +15321,7 @@ MdTooltip.decorators = [
                     '(keydown)': '_handleKeydown($event)',
                     '(touchend)': 'hide(' + TOUCHEND_HIDE_DELAY + ')',
                 },
-                exportAs: 'mdTooltip',
+                exportAs: 'mdTooltip, matTooltip',
             },] },
 ];
 /**
@@ -21119,7 +21119,7 @@ MdTab.decorators = [
                 inputs: ['disabled'],
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                 encapsulation: _angular_core.ViewEncapsulation.None,
-                exportAs: 'mdTab',
+                exportAs: 'mdTab, matTab',
             },] },
 ];
 /**
@@ -22543,7 +22543,7 @@ MdToolbarModule.ctorParameters = function () { return []; };
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.11-b296e2b');
+var VERSION = new _angular_core.Version('2.0.0-beta.11-a96b545');
 
 exports.VERSION = VERSION;
 exports.MdAutocompleteModule = MdAutocompleteModule;
@@ -22997,6 +22997,234 @@ exports.MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY = MD_TOOLTIP_SCROLL_STRATEGY
 exports.MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER = MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER;
 exports.MdTooltip = MdTooltip;
 exports.TooltipComponent = TooltipComponent;
+exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY = MD_AUTOCOMPLETE_SCROLL_STRATEGY;
+exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER = MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER;
+exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY = MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MD_AUTOCOMPLETE_VALUE_ACCESSOR;
+exports.MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR;
+exports.MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = MD_CHECKBOX_CONTROL_VALUE_ACCESSOR;
+exports.MAT_CHECKBOX_REQUIRED_VALIDATOR = MD_CHECKBOX_REQUIRED_VALIDATOR;
+exports.MAT_DATE_FORMATS = MD_DATE_FORMATS;
+exports.MAT_DATEPICKER_SCROLL_STRATEGY = MD_DATEPICKER_SCROLL_STRATEGY;
+exports.MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER = MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER;
+exports.MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY = MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.MAT_DATEPICKER_VALIDATORS = MD_DATEPICKER_VALIDATORS;
+exports.MAT_DATEPICKER_VALUE_ACCESSOR = MD_DATEPICKER_VALUE_ACCESSOR;
+exports.MAT_DIALOG_DATA = MD_DIALOG_DATA;
+exports.MAT_DIALOG_SCROLL_STRATEGY = MD_DIALOG_SCROLL_STRATEGY;
+exports.MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = MD_DIALOG_SCROLL_STRATEGY_PROVIDER;
+exports.MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY = MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.MAT_ERROR_GLOBAL_OPTIONS = MD_ERROR_GLOBAL_OPTIONS;
+exports.MAT_MENU_DEFAULT_OPTIONS = MD_MENU_DEFAULT_OPTIONS;
+exports.MAT_NATIVE_DATE_FORMATS = MD_NATIVE_DATE_FORMATS;
+exports.MAT_PLACEHOLDER_GLOBAL_OPTIONS = MD_PLACEHOLDER_GLOBAL_OPTIONS;
+exports.MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR;
+exports.MAT_RIPPLE_GLOBAL_OPTIONS = MD_RIPPLE_GLOBAL_OPTIONS;
+exports.MAT_SELECT_SCROLL_STRATEGY = MD_SELECT_SCROLL_STRATEGY;
+exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER = MD_SELECT_SCROLL_STRATEGY_PROVIDER;
+exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY = MD_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = MD_SLIDE_TOGGLE_VALUE_ACCESSOR;
+exports.MAT_SLIDER_VALUE_ACCESSOR = MD_SLIDER_VALUE_ACCESSOR;
+exports.MAT_SNACK_BAR_DATA = MD_SNACK_BAR_DATA;
+exports.MAT_TOOLTIP_SCROLL_STRATEGY = MD_TOOLTIP_SCROLL_STRATEGY;
+exports.MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER;
+exports.MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY = MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.MatAccordion = MdAccordion;
+exports.MatAnchor = MdAnchor;
+exports.MatAutocomplete = MdAutocomplete;
+exports.MatAutocompleteModule = MdAutocompleteModule;
+exports.MatAutocompleteTrigger = MdAutocompleteTrigger;
+exports.MatBasicChip = MdBasicChip;
+exports.MatButton = MdButton;
+exports.MatButtonBase = MdButtonBase;
+exports.MatButtonCssMatStyler = MdButtonCssMatStyler;
+exports.MatButtonModule = MdButtonModule;
+exports.MatButtonToggle = MdButtonToggle;
+exports.MatButtonToggleChange = MdButtonToggleChange;
+exports.MatButtonToggleGroup = MdButtonToggleGroup;
+exports.MatButtonToggleGroupBase = MdButtonToggleGroupBase;
+exports.MatButtonToggleGroupMultiple = MdButtonToggleGroupMultiple;
+exports.MatButtonToggleModule = MdButtonToggleModule;
+exports.MatCalendar = MdCalendar;
+exports.MatCalendarBody = MdCalendarBody;
+exports.MatCalendarCell = MdCalendarCell;
+exports.MatCard = MdCard;
+exports.MatCardActions = MdCardActions;
+exports.MatCardAvatar = MdCardAvatar;
+exports.MatCardContent = MdCardContent;
+exports.MatCardFooter = MdCardFooter;
+exports.MatCardHeader = MdCardHeader;
+exports.MatCardImage = MdCardImage;
+exports.MatCardLgImage = MdCardLgImage;
+exports.MatCardMatImage = MdCardMdImage;
+exports.MatCardModule = MdCardModule;
+exports.MatCardSmImage = MdCardSmImage;
+exports.MatCardSubtitle = MdCardSubtitle;
+exports.MatCardTitle = MdCardTitle;
+exports.MatCardTitleGroup = MdCardTitleGroup;
+exports.MatCardXlImage = MdCardXlImage;
+exports.MatCell = MdCell;
+exports.MatCellDef = MdCellDef;
+exports.MatCheckbox = MdCheckbox;
+exports.MatCheckboxBase = MdCheckboxBase;
+exports.MatCheckboxChange = MdCheckboxChange;
+exports.MatCheckboxModule = MdCheckboxModule;
+exports.MatCheckboxRequiredValidator = MdCheckboxRequiredValidator;
+exports.MatChip = MdChip;
+exports.MatChipBase = MdChipBase;
+exports.MatChipInput = MdChipInput;
+exports.MatChipList = MdChipList;
+exports.MatChipRemove = MdChipRemove;
+exports.MatChipsModule = MdChipsModule;
+exports.MatColumnDef = MdColumnDef;
+exports.MatCommonModule = MdCommonModule;
+exports.MatDatepicker = MdDatepicker;
+exports.MatDatepickerContent = MdDatepickerContent;
+exports.MatDatepickerInput = MdDatepickerInput;
+exports.MatDatepickerInputEvent = MdDatepickerInputEvent;
+exports.MatDatepickerIntl = MdDatepickerIntl;
+exports.MatDatepickerModule = MdDatepickerModule;
+exports.MatDatepickerToggle = MdDatepickerToggle;
+exports.MatDialog = MdDialog;
+exports.MatDialogActions = MdDialogActions;
+exports.MatDialogClose = MdDialogClose;
+exports.MatDialogConfig = MdDialogConfig;
+exports.MatDialogContainer = MdDialogContainer;
+exports.MatDialogContent = MdDialogContent;
+exports.MatDialogModule = MdDialogModule;
+exports.MatDialogRef = MdDialogRef;
+exports.MatDialogTitle = MdDialogTitle;
+exports.MatDividerCssMatStyler = MdDividerCssMatStyler;
+exports.MatDrawerToggleResult = MdDrawerToggleResult;
+exports.MatDrawer = MdDrawer;
+exports.MatDrawerContainer = MdDrawerContainer;
+exports.MatExpansionModule = MdExpansionModule;
+exports.MatExpansionPanel = MdExpansionPanel;
+exports.MatExpansionPanelActionRow = MdExpansionPanelActionRow;
+exports.MatExpansionPanelDescription = MdExpansionPanelDescription;
+exports.MatExpansionPanelHeader = MdExpansionPanelHeader;
+exports.MatExpansionPanelTitle = MdExpansionPanelTitle;
+exports.MatFab = MdFab;
+exports.MatGridList = MdGridList;
+exports.MatGridListModule = MdGridListModule;
+exports.MatGridTile = MdGridTile;
+exports.MatHeaderCell = MdHeaderCell;
+exports.MatHeaderCellDef = MdHeaderCellDef;
+exports.MatHeaderRow = MdHeaderRow;
+exports.MatIcon = MdIcon;
+exports.MatIconBase = MdIconBase;
+exports.MatIconButtonCssMatStyler = MdIconButtonCssMatStyler;
+exports.MatIconModule = MdIconModule;
+exports.MatIconRegistry = MdIconRegistry;
+exports.MatInkBar = MdInkBar;
+exports.MatInput = MdInput;
+exports.MatInputModule = MdInputModule;
+exports.MatLine = MdLine;
+exports.MatLineModule = MdLineModule;
+exports.MatLineSetter = MdLineSetter;
+exports.MatList = MdList;
+exports.MatListAvatarCssMatStyler = MdListAvatarCssMatStyler;
+exports.MatListBase = MdListBase;
+exports.MatListCssMatStyler = MdListCssMatStyler;
+exports.MatListDivider = MdListDivider;
+exports.MatListIconCssMatStyler = MdListIconCssMatStyler;
+exports.MatListItem = MdListItem;
+exports.MatListItemBase = MdListItemBase;
+exports.MatListModule = MdListModule;
+exports.MatListOption = MdListOption;
+exports.MatListOptionBase = MdListOptionBase;
+exports.MatListSubheaderCssMatStyler = MdListSubheaderCssMatStyler;
+exports.MatMenu = MdMenu;
+exports.MatMenuItem = MdMenuItem;
+exports.MatMenuModule = MdMenuModule;
+exports.MatMenuTrigger = MdMenuTrigger;
+exports.MatMiniFab = MdMiniFab;
+exports.MatMonthView = MdMonthView;
+exports.MatNativeDateModule = MdNativeDateModule;
+exports.MatNavListCssMatStyler = MdNavListCssMatStyler;
+exports.MatOptgroup = MdOptgroup;
+exports.MatOptgroupBase = MdOptgroupBase;
+exports.MatOption = MdOption;
+exports.MatOptionModule = MdOptionModule;
+exports.MatOptionSelectionChange = MdOptionSelectionChange;
+exports.MatPaginator = MdPaginator;
+exports.MatPaginatorIntl = MdPaginatorIntl;
+exports.MatPaginatorModule = MdPaginatorModule;
+exports.MatProgressBar = MdProgressBar;
+exports.MatProgressBarModule = MdProgressBarModule;
+exports.MatProgressSpinner = MdProgressSpinner;
+exports.MatProgressSpinnerBase = MdProgressSpinnerBase;
+exports.MatProgressSpinnerCssMatStyler = MdProgressSpinnerCssMatStyler;
+exports.MatProgressSpinnerModule = MdProgressSpinnerModule;
+exports.MatPseudoCheckbox = MdPseudoCheckbox;
+exports.MatPseudoCheckboxModule = MdPseudoCheckboxModule;
+exports.MatRadioButton = MdRadioButton;
+exports.MatRadioButtonBase = MdRadioButtonBase;
+exports.MatRadioChange = MdRadioChange;
+exports.MatRadioGroup = MdRadioGroup;
+exports.MatRadioGroupBase = MdRadioGroupBase;
+exports.MatRadioModule = MdRadioModule;
+exports.MatRaisedButtonCssMatStyler = MdRaisedButtonCssMatStyler;
+exports.MatRipple = MdRipple;
+exports.MatRippleModule = MdRippleModule;
+exports.MatRow = MdRow;
+exports.MatSelect = MdSelect;
+exports.MatSelectBase = MdSelectBase;
+exports.MatSelectChange = MdSelectChange;
+exports.MatSelectionList = MdSelectionList;
+exports.MatSelectionListBase = MdSelectionListBase;
+exports.MatSelectModule = MdSelectModule;
+exports.MatSelectTrigger = MdSelectTrigger;
+exports.MatSidenav = MdSidenav;
+exports.MatSidenavContainer = MdSidenavContainer;
+exports.MatSidenavModule = MdSidenavModule;
+exports.MatSlider = MdSlider;
+exports.MatSliderBase = MdSliderBase;
+exports.MatSliderChange = MdSliderChange;
+exports.MatSliderModule = MdSliderModule;
+exports.MatSlideToggle = MdSlideToggle;
+exports.MatSlideToggleBase = MdSlideToggleBase;
+exports.MatSlideToggleChange = MdSlideToggleChange;
+exports.MatSlideToggleModule = MdSlideToggleModule;
+exports.MatSnackBar = MdSnackBar;
+exports.MatSnackBarConfig = MdSnackBarConfig;
+exports.MatSnackBarContainer = MdSnackBarContainer;
+exports.MatSnackBarModule = MdSnackBarModule;
+exports.MatSnackBarRef = MdSnackBarRef;
+exports.MatSort = MdSort;
+exports.MatSortHeader = MdSortHeader;
+exports.MatSortHeaderIntl = MdSortHeaderIntl;
+exports.MatSortModule = MdSortModule;
+exports.MatSpinner = MdSpinner;
+exports.MatTab = MdTab;
+exports.MatTabBody = MdTabBody;
+exports.MatTabChangeEvent = MdTabChangeEvent;
+exports.MatTabGroup = MdTabGroup;
+exports.MatTabGroupBase = MdTabGroupBase;
+exports.MatTabHeader = MdTabHeader;
+exports.MatTabLabel = MdTabLabel;
+exports.MatTabLabelWrapper = MdTabLabelWrapper;
+exports.MatTable = MdTable;
+exports.MatTableModule = MdTableModule;
+exports.MatTabLink = MdTabLink;
+exports.MatTabNav = MdTabNav;
+exports.MatTabsModule = MdTabsModule;
+exports.MatTextareaAutosize = MdTextareaAutosize;
+exports.MatToolbar = MdToolbar;
+exports.MatToolbarBase = MdToolbarBase;
+exports.MatToolbarModule = MdToolbarModule;
+exports.MatToolbarRow = MdToolbarRow;
+exports.MatTooltip = MdTooltip;
+exports.MatTooltipModule = MdTooltipModule;
+exports.MatYearView = MdYearView;
+exports.MatFormFieldModule = MdFormFieldModule;
+exports.MatError = MdError;
+exports.MatFormField = MdFormField;
+exports.MatFormFieldControl = MdFormFieldControl;
+exports.MatHint = MdHint;
+exports.MatPlaceholder = MdPlaceholder;
+exports.MatPrefix = MdPrefix;
+exports.MatSuffix = MdSuffix;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

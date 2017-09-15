@@ -210,7 +210,7 @@ MdChip.decorators = [
                 selector: `md-basic-chip, [md-basic-chip], md-chip, [md-chip],
              mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]`,
                 inputs: ['color', 'disabled'],
-                exportAs: 'mdChip',
+                exportAs: 'mdChip, matChip',
                 host: {
                     'class': 'mat-chip',
                     'tabindex': '-1',
@@ -560,7 +560,7 @@ class MdChipList {
 MdChipList.decorators = [
     { type: Component, args: [{selector: 'md-chip-list, mat-chip-list',
                 template: `<div class="mat-chip-list-wrapper"><ng-content></ng-content></div>`,
-                exportAs: 'mdChipList',
+                exportAs: 'mdChipList, matChipList',
                 host: {
                     '[attr.tabindex]': '_tabIndex',
                     'role': 'listbox',

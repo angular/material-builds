@@ -1267,7 +1267,7 @@ MdDatepickerInput.decorators = [
                     '(blur)': '_onTouched()',
                     '(keydown)': '_onKeydown($event)',
                 },
-                exportAs: 'mdDatepickerInput',
+                exportAs: 'mdDatepickerInput, matDatepickerInput',
             },] },
 ];
 /**

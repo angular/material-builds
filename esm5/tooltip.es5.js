@@ -508,7 +508,7 @@ MdTooltip.decorators = [
                     '(keydown)': '_handleKeydown($event)',
                     '(touchend)': 'hide(' + TOUCHEND_HIDE_DELAY + ')',
                 },
-                exportAs: 'mdTooltip',
+                exportAs: 'mdTooltip, matTooltip',
             },] },
 ];
 /**
