@@ -2772,7 +2772,7 @@ MdMenu.decorators = [
                     transformMenu,
                     fadeInItems
                 ],
-                exportAs: 'mdMenu'
+                exportAs: 'mdMenu, matMenu'
             },] },
 ];
 /**
@@ -3232,7 +3232,7 @@ MdMenuTrigger.decorators = [
                     '(keydown)': '_handleKeydown($event)',
                     '(click)': '_handleClick($event)',
                 },
-                exportAs: 'mdMenuTrigger'
+                exportAs: 'mdMenuTrigger, matMenuTrigger'
             },] },
 ];
 /**
@@ -3296,10 +3296,10 @@ exports.MdMenu = MdMenu;
 exports.MD_MENU_DEFAULT_OPTIONS = MD_MENU_DEFAULT_OPTIONS;
 exports.MdMenuItem = MdMenuItem;
 exports.MdMenuTrigger = MdMenuTrigger;
-exports.ɵa24 = MdMenuItemBase;
-exports.ɵb24 = _MdMenuItemMixinBase;
-exports.ɵd24 = MD_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc24 = MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa22 = MdMenuItemBase;
+exports.ɵb22 = _MdMenuItemMixinBase;
+exports.ɵd22 = MD_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc22 = MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -415,7 +415,7 @@ MdMenu.decorators = [
                     transformMenu,
                     fadeInItems
                 ],
-                exportAs: 'mdMenu'
+                exportAs: 'mdMenu, matMenu'
             },] },
 ];
 /**
@@ -852,7 +852,7 @@ MdMenuTrigger.decorators = [
                     '(keydown)': '_handleKeydown($event)',
                     '(click)': '_handleClick($event)',
                 },
-                exportAs: 'mdMenuTrigger'
+                exportAs: 'mdMenuTrigger, matMenuTrigger'
             },] },
 ];
 /**
@@ -910,5 +910,5 @@ MdMenuModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MdMenuModule, MD_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MdMenu, MD_MENU_DEFAULT_OPTIONS, MdMenuItem, MdMenuTrigger, MdMenuItemBase as ɵa24, _MdMenuItemMixinBase as ɵb24, MD_MENU_SCROLL_STRATEGY_PROVIDER as ɵd24, MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc24 };
+export { MdMenuModule, MD_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MdMenu, MD_MENU_DEFAULT_OPTIONS, MdMenuItem, MdMenuTrigger, MdMenuItemBase as ɵa22, _MdMenuItemMixinBase as ɵb22, MD_MENU_SCROLL_STRATEGY_PROVIDER as ɵd22, MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc22 };
 //# sourceMappingURL=menu.js.map

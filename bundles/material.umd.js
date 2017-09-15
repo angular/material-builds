@@ -12900,7 +12900,7 @@ MdMenu.decorators = [
                     transformMenu,
                     fadeInItems
                 ],
-                exportAs: 'mdMenu'
+                exportAs: 'mdMenu, matMenu'
             },] },
 ];
 /**
@@ -13360,7 +13360,7 @@ MdMenuTrigger.decorators = [
                     '(keydown)': '_handleKeydown($event)',
                     '(click)': '_handleClick($event)',
                 },
-                exportAs: 'mdMenuTrigger'
+                exportAs: 'mdMenuTrigger, matMenuTrigger'
             },] },
 ];
 /**
@@ -22543,7 +22543,7 @@ MdToolbarModule.ctorParameters = function () { return []; };
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.11-a96b545');
+var VERSION = new _angular_core.Version('2.0.0-beta.11-548eca0');
 
 exports.VERSION = VERSION;
 exports.MdAutocompleteModule = MdAutocompleteModule;
