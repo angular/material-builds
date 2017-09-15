@@ -11,13 +11,6 @@ import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 /**
  * A material design chips component (named ChipList for it's similarity to the List component).
- *
- * Example:
- *
- *     <md-chip-list>
- *       <md-chip>Chip 1<md-chip>
- *       <md-chip>Chip 2<md-chip>
- *     </md-chip-list>
  */
 export declare class MdChipList implements AfterContentInit, OnDestroy {
     protected _renderer: Renderer2;

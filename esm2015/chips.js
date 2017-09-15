@@ -291,13 +291,6 @@ MdChipRemove.ctorParameters = () => [
 
 /**
  * A material design chips component (named ChipList for it's similarity to the List component).
- *
- * Example:
- *
- *     <md-chip-list>
- *       <md-chip>Chip 1<md-chip>
- *       <md-chip>Chip 2<md-chip>
- *     </md-chip-list>
  */
 class MdChipList {
     /**
