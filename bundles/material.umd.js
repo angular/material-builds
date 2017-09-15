@@ -13056,7 +13056,7 @@ MdTabsModule.ctorParameters = function () { return []; };
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.11-5daf7ff');
+var VERSION = new _angular_core.Version('2.0.0-beta.11-ed74da7');
 
 exports.VERSION = VERSION;
 exports.MdAutocompleteModule = MdAutocompleteModule;
