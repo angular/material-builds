@@ -3282,10 +3282,10 @@ MdGridListModule.ctorParameters = function () { return []; };
 exports.MdGridListModule = MdGridListModule;
 exports.MdGridTile = MdGridTile;
 exports.MdGridList = MdGridList;
-exports.ɵb12 = MdGridAvatarCssMatStyler;
-exports.ɵd12 = MdGridTileFooterCssMatStyler;
-exports.ɵc12 = MdGridTileHeaderCssMatStyler;
-exports.ɵa12 = MdGridTileText;
+exports.ɵb13 = MdGridAvatarCssMatStyler;
+exports.ɵd13 = MdGridTileFooterCssMatStyler;
+exports.ɵc13 = MdGridTileHeaderCssMatStyler;
+exports.ɵa13 = MdGridTileText;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -910,5 +910,5 @@ MdMenuModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MdMenuModule, MD_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MdMenu, MD_MENU_DEFAULT_OPTIONS, MdMenuItem, MdMenuTrigger, MdMenuItemBase as ɵa15, _MdMenuItemMixinBase as ɵb15, MD_MENU_SCROLL_STRATEGY_PROVIDER as ɵd15, MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc15 };
+export { MdMenuModule, MD_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MdMenu, MD_MENU_DEFAULT_OPTIONS, MdMenuItem, MdMenuTrigger, MdMenuItemBase as ɵa24, _MdMenuItemMixinBase as ɵb24, MD_MENU_SCROLL_STRATEGY_PROVIDER as ɵd24, MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc24 };
 //# sourceMappingURL=menu.js.map

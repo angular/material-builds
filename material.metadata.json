@@ -7,10 +7,10 @@
       "from": "./core"
     },
     {
-      "from": "./form-field"
+      "from": "./toolbar"
     },
     {
-      "from": "./autocomplete"
+      "from": "./tabs"
     },
     {
       "from": "./button"
@@ -25,7 +25,7 @@
       "from": "./checkbox"
     },
     {
-      "from": "./chips"
+      "from": "./table"
     },
     {
       "from": "./dialog"
@@ -34,7 +34,7 @@
       "from": "./icon"
     },
     {
-      "from": "./datepicker"
+      "from": "./sort"
     },
     {
       "from": "./expansion"
@@ -43,13 +43,13 @@
       "from": "./grid-list"
     },
     {
-      "from": "./input"
+      "from": "./snack-bar"
     },
     {
       "from": "./list"
     },
     {
-      "from": "./menu"
+      "from": "./form-field"
     },
     {
       "from": "./select"
@@ -58,7 +58,7 @@
       "from": "./tooltip"
     },
     {
-      "from": "./paginator"
+      "from": "./slider"
     },
     {
       "from": "./progress-bar"
@@ -76,25 +76,25 @@
       "from": "./slide-toggle"
     },
     {
-      "from": "./slider"
+      "from": "./menu"
     },
     {
-      "from": "./snack-bar"
+      "from": "./paginator"
     },
     {
-      "from": "./sort"
+      "from": "./input"
+    },
+    {
+      "from": "./datepicker"
     },
     {
       "from": "./stepper"
     },
     {
-      "from": "./table"
+      "from": "./chips"
     },
     {
-      "from": "./tabs"
-    },
-    {
-      "from": "./toolbar"
+      "from": "./autocomplete"
     }
   ],
   "flatModuleIndexRedirect": true

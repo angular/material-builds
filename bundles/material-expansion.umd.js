@@ -2958,9 +2958,9 @@ exports.MdExpansionPanelActionRow = MdExpansionPanelActionRow;
 exports.MdExpansionPanelHeader = MdExpansionPanelHeader;
 exports.MdExpansionPanelDescription = MdExpansionPanelDescription;
 exports.MdExpansionPanelTitle = MdExpansionPanelTitle;
-exports.ɵc11 = EXPANSION_PANEL_ANIMATION_TIMING;
-exports.ɵa11 = MdExpansionPanelBase;
-exports.ɵb11 = _MdExpansionPanelMixinBase;
+exports.ɵc12 = EXPANSION_PANEL_ANIMATION_TIMING;
+exports.ɵa12 = MdExpansionPanelBase;
+exports.ɵb12 = _MdExpansionPanelMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

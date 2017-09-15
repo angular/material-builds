@@ -3296,10 +3296,10 @@ exports.MdMenu = MdMenu;
 exports.MD_MENU_DEFAULT_OPTIONS = MD_MENU_DEFAULT_OPTIONS;
 exports.MdMenuItem = MdMenuItem;
 exports.MdMenuTrigger = MdMenuTrigger;
-exports.ɵa15 = MdMenuItemBase;
-exports.ɵb15 = _MdMenuItemMixinBase;
-exports.ɵd15 = MD_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc15 = MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa24 = MdMenuItemBase;
+exports.ɵb24 = _MdMenuItemMixinBase;
+exports.ɵd24 = MD_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc24 = MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

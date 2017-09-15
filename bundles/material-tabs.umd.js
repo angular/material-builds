@@ -4004,16 +4004,16 @@ exports.MdTabChangeEvent = MdTabChangeEvent;
 exports.MdTabGroupBase = MdTabGroupBase;
 exports._MdTabGroupMixinBase = _MdTabGroupMixinBase;
 exports.MdTabGroup = MdTabGroup;
-exports.ɵe29 = MdTabBase;
-exports.ɵf29 = _MdTabMixinBase;
-exports.ɵa29 = MdTabHeaderBase;
-exports.ɵb29 = _MdTabHeaderMixinBase;
-exports.ɵc29 = MdTabLabelWrapperBase;
-exports.ɵd29 = _MdTabLabelWrapperMixinBase;
-exports.ɵi29 = MdTabLinkBase;
-exports.ɵg29 = MdTabNavBase;
-exports.ɵj29 = _MdTabLinkMixinBase;
-exports.ɵh29 = _MdTabNavMixinBase;
+exports.ɵe23 = MdTabBase;
+exports.ɵf23 = _MdTabMixinBase;
+exports.ɵa23 = MdTabHeaderBase;
+exports.ɵb23 = _MdTabHeaderMixinBase;
+exports.ɵc23 = MdTabLabelWrapperBase;
+exports.ɵd23 = _MdTabLabelWrapperMixinBase;
+exports.ɵi23 = MdTabLinkBase;
+exports.ɵg23 = MdTabNavBase;
+exports.ɵj23 = _MdTabLinkMixinBase;
+exports.ɵh23 = _MdTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
