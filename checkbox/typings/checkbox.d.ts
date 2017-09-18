@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanColor, CanDisable, CanDisableRipple, FocusOriginMonitor, MdRipple } from '@angular/material/core';
+import { CanColor, CanDisable, CanDisableRipple, MdRipple } from '@angular/material/core';
+import { FocusMonitor } from '@angular/cdk/a11y';
 /**
  * Provider Expression that allows md-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -45,7 +46,7 @@ export declare const _MdCheckboxMixinBase: (new (...args: any[]) => CanColor) & 
  */
 export declare class MdCheckbox extends _MdCheckboxMixinBase implements ControlValueAccessor, AfterViewInit, OnDestroy, CanColor, CanDisable, CanDisableRipple {
     private _changeDetectorRef;
-    private _focusOriginMonitor;
+    private _focusMonitor;
     /**
      * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
      * take precedence so this may be omitted.
@@ -96,7 +97,7 @@ export declare class MdCheckbox extends _MdCheckboxMixinBase implements ControlV
     private _controlValueAccessorChangeFn;
     /** Reference to the focused state ripple. */
     private _focusRipple;
-    constructor(renderer: Renderer2, elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _focusOriginMonitor: FocusOriginMonitor);
+    constructor(renderer: Renderer2, elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _focusMonitor: FocusMonitor);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /**

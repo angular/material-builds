@@ -8,7 +8,8 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanColor, CanDisable, FocusOriginMonitor, HammerInput } from '@angular/material/core';
+import { CanColor, CanDisable, HammerInput } from '@angular/material/core';
+import { FocusMonitor } from '@angular/cdk/a11y';
 /**
  * Provider Expression that allows md-slider to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)] and [formControl].
@@ -33,7 +34,7 @@ export declare const _MdSliderMixinBase: (new (...args: any[]) => CanColor) & (n
  * behavior to the native `<input type="range">` element.
  */
 export declare class MdSlider extends _MdSliderMixinBase implements ControlValueAccessor, OnDestroy, CanDisable, CanColor, OnInit {
-    private _focusOriginMonitor;
+    private _focusMonitor;
     private _changeDetectorRef;
     private _dir;
     /** Whether the slider is inverted. */
@@ -139,7 +140,7 @@ export declare class MdSlider extends _MdSliderMixinBase implements ControlValue
     private readonly _invertMouseCoords;
     /** The language direction for this slider element. */
     private readonly _direction;
-    constructor(renderer: Renderer2, elementRef: ElementRef, _focusOriginMonitor: FocusOriginMonitor, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality);
+    constructor(renderer: Renderer2, elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality);
     ngOnInit(): void;
     ngOnDestroy(): void;
     _onMouseenter(): void;

@@ -9,8 +9,9 @@ import * as tslib_1 from "tslib";
 import { ObserversModule } from '@angular/cdk/observers';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
-import { FOCUS_ORIGIN_MONITOR_PROVIDER, FocusOriginMonitor, GestureConfig, MdCommonModule, MdRipple, MdRippleModule, applyCssTransform, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
+import { GestureConfig, MdCommonModule, MdRipple, MdRippleModule, applyCssTransform, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 // Increasing integer for generating unique ids for slide-toggle components.
@@ -52,14 +53,14 @@ var MdSlideToggle = (function (_super) {
      * @param {?} elementRef
      * @param {?} renderer
      * @param {?} _platform
-     * @param {?} _focusOriginMonitor
+     * @param {?} _focusMonitor
      * @param {?} _changeDetectorRef
      * @param {?} tabIndex
      */
-    function MdSlideToggle(elementRef, renderer, _platform, _focusOriginMonitor, _changeDetectorRef, tabIndex) {
+    function MdSlideToggle(elementRef, renderer, _platform, _focusMonitor, _changeDetectorRef, tabIndex) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._platform = _platform;
-        _this._focusOriginMonitor = _focusOriginMonitor;
+        _this._focusMonitor = _focusMonitor;
         _this._changeDetectorRef = _changeDetectorRef;
         _this.onChange = function (_) { };
         _this.onTouched = function () { };
@@ -139,7 +140,7 @@ var MdSlideToggle = (function (_super) {
     MdSlideToggle.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._slideRenderer = new SlideToggleRenderer(this._elementRef, this._platform);
-        this._focusOriginMonitor
+        this._focusMonitor
             .monitor(this._inputElement.nativeElement, this._renderer, false)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
@@ -147,7 +148,7 @@ var MdSlideToggle = (function (_super) {
      * @return {?}
      */
     MdSlideToggle.prototype.ngOnDestroy = function () {
-        this._focusOriginMonitor.stopMonitoring(this._inputElement.nativeElement);
+        this._focusMonitor.stopMonitoring(this._inputElement.nativeElement);
     };
     /**
      * This function will called if the underlying input changed its value through user interaction.
@@ -224,7 +225,7 @@ var MdSlideToggle = (function (_super) {
      * @return {?}
      */
     MdSlideToggle.prototype.focus = function () {
-        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
+        this._focusMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
     };
     /**
      * Toggles the checked state of the slide-toggle.
@@ -332,7 +333,7 @@ MdSlideToggle.ctorParameters = function () { return [
     { type: ElementRef, },
     { type: Renderer2, },
     { type: Platform, },
-    { type: FocusOriginMonitor, },
+    { type: FocusMonitor, },
     { type: ChangeDetectorRef, },
     { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
 ]; };
@@ -429,11 +430,10 @@ var MdSlideToggleModule = (function () {
 }());
 MdSlideToggleModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MdRippleModule, MdCommonModule, PlatformModule, ObserversModule],
+                imports: [MdRippleModule, MdCommonModule, PlatformModule, ObserversModule, A11yModule],
                 exports: [MdSlideToggle, MdCommonModule],
                 declarations: [MdSlideToggle],
                 providers: [
-                    FOCUS_ORIGIN_MONITOR_PROVIDER,
                     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
                 ],
             },] },

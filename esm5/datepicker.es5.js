@@ -10,10 +10,10 @@ import { Overlay, OverlayModule, OverlayState } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Input, NgModule, NgZone, Optional, Output, Renderer2, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MdButtonModule } from '@angular/material/button';
-import { DateAdapter, MATERIAL_COMPATIBILITY_MODE, MD_DATE_FORMATS, StyleModule } from '@angular/material/core';
 import { MdDialog, MdDialogModule } from '@angular/material/dialog';
 import { MdIconModule } from '@angular/material/icon';
 import { DOWN_ARROW, END, ENTER, ESCAPE, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
+import { DateAdapter, MATERIAL_COMPATIBILITY_MODE, MD_DATE_FORMATS } from '@angular/material/core';
 import { first } from 'rxjs/operator/first';
 import { Subject } from 'rxjs/Subject';
 import { Directionality } from '@angular/cdk/bidi';
@@ -1803,7 +1803,6 @@ MdDatepickerModule.decorators = [
                     MdDialogModule,
                     MdIconModule,
                     OverlayModule,
-                    StyleModule,
                     A11yModule,
                 ],
                 exports: [

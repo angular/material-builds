@@ -7,8 +7,9 @@
  */
 import { ElementRef, Renderer2, EventEmitter, OnInit, OnDestroy, QueryList, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { UniqueSelectionDispatcher, FocusOriginMonitor } from '@angular/material/core';
+import { UniqueSelectionDispatcher } from '@angular/material/core';
 import { CanDisable } from '@angular/material/core';
+import { FocusMonitor } from '@angular/cdk/a11y';
 /** Acceptable types for a button toggle. */
 export declare type ToggleType = 'checkbox' | 'radio';
 /** @docs-private */
@@ -99,7 +100,7 @@ export declare class MdButtonToggle implements OnInit, OnDestroy {
     private _buttonToggleDispatcher;
     private _renderer;
     private _elementRef;
-    private _focusOriginMonitor;
+    private _focusMonitor;
     /**
      * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
      * take precedence so this may be omitted.
@@ -140,7 +141,7 @@ export declare class MdButtonToggle implements OnInit, OnDestroy {
     disabled: boolean;
     /** Event emitted when the group value changes. */
     change: EventEmitter<MdButtonToggleChange>;
-    constructor(toggleGroup: MdButtonToggleGroup, toggleGroupMultiple: MdButtonToggleGroupMultiple, _changeDetectorRef: ChangeDetectorRef, _buttonToggleDispatcher: UniqueSelectionDispatcher, _renderer: Renderer2, _elementRef: ElementRef, _focusOriginMonitor: FocusOriginMonitor);
+    constructor(toggleGroup: MdButtonToggleGroup, toggleGroupMultiple: MdButtonToggleGroupMultiple, _changeDetectorRef: ChangeDetectorRef, _buttonToggleDispatcher: UniqueSelectionDispatcher, _renderer: Renderer2, _elementRef: ElementRef, _focusMonitor: FocusMonitor);
     ngOnInit(): void;
     /** Focuses the button. */
     focus(): void;

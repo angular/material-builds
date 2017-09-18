@@ -7,12 +7,13 @@
  */
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
-import { FocusOriginMonitor, HammerInput, MdRipple } from '@angular/material/core';
+import { HammerInput, MdRipple } from '@angular/material/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanDisable } from '@angular/material/core';
 import { CanColor } from '@angular/material/core';
 import { CanDisableRipple } from '@angular/material/core';
 import { HasTabIndex } from '@angular/material/core';
+import { FocusMonitor } from '@angular/cdk/a11y';
 export declare const MD_SLIDE_TOGGLE_VALUE_ACCESSOR: any;
 /** Change event object emitted by a MdSlideToggle. */
 export declare class MdSlideToggleChange {
@@ -29,7 +30,7 @@ export declare const _MdSlideToggleMixinBase: (new (...args: any[]) => HasTabInd
 /** Represents a slidable "switch" toggle that can be moved between on and off. */
 export declare class MdSlideToggle extends _MdSlideToggleMixinBase implements OnDestroy, AfterContentInit, ControlValueAccessor, CanDisable, CanColor, HasTabIndex, CanDisableRipple {
     private _platform;
-    private _focusOriginMonitor;
+    private _focusMonitor;
     private _changeDetectorRef;
     private onChange;
     private onTouched;
@@ -62,7 +63,7 @@ export declare class MdSlideToggle extends _MdSlideToggleMixinBase implements On
     _inputElement: ElementRef;
     /** Reference to the ripple directive on the thumb container. */
     _ripple: MdRipple;
-    constructor(elementRef: ElementRef, renderer: Renderer2, _platform: Platform, _focusOriginMonitor: FocusOriginMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string);
+    constructor(elementRef: ElementRef, renderer: Renderer2, _platform: Platform, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /**

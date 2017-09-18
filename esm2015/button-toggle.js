@@ -8,7 +8,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { FocusOriginMonitor, MdCommonModule, StyleModule, UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher, mixinDisabled } from '@angular/material/core';
+import { MdCommonModule, UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher, mixinDisabled } from '@angular/material/core';
+import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 
 /**
  * \@docs-private
@@ -294,14 +295,14 @@ class MdButtonToggle {
      * @param {?} _buttonToggleDispatcher
      * @param {?} _renderer
      * @param {?} _elementRef
-     * @param {?} _focusOriginMonitor
+     * @param {?} _focusMonitor
      */
-    constructor(toggleGroup, toggleGroupMultiple, _changeDetectorRef, _buttonToggleDispatcher, _renderer, _elementRef, _focusOriginMonitor) {
+    constructor(toggleGroup, toggleGroupMultiple, _changeDetectorRef, _buttonToggleDispatcher, _renderer, _elementRef, _focusMonitor) {
         this._changeDetectorRef = _changeDetectorRef;
         this._buttonToggleDispatcher = _buttonToggleDispatcher;
         this._renderer = _renderer;
         this._elementRef = _elementRef;
-        this._focusOriginMonitor = _focusOriginMonitor;
+        this._focusMonitor = _focusMonitor;
         /**
          * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
          * take precedence so this may be omitted.
@@ -427,7 +428,7 @@ class MdButtonToggle {
         if (this.buttonToggleGroup && this._value == this.buttonToggleGroup.value) {
             this._checked = true;
         }
-        this._focusOriginMonitor.monitor(this._elementRef.nativeElement, this._renderer, true);
+        this._focusMonitor.monitor(this._elementRef.nativeElement, this._renderer, true);
     }
     /**
      * Focuses the button.
@@ -523,7 +524,7 @@ MdButtonToggle.ctorParameters = () => [
     { type: UniqueSelectionDispatcher, },
     { type: Renderer2, },
     { type: ElementRef, },
-    { type: FocusOriginMonitor, },
+    { type: FocusMonitor, },
 ];
 MdButtonToggle.propDecorators = {
     'ariaLabel': [{ type: Input, args: ['aria-label',] },],
@@ -541,7 +542,7 @@ class MdButtonToggleModule {
 }
 MdButtonToggleModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MdCommonModule, StyleModule],
+                imports: [MdCommonModule, A11yModule],
                 exports: [
                     MdButtonToggleGroup,
                     MdButtonToggleGroupMultiple,

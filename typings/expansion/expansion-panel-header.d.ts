@@ -7,7 +7,7 @@
  */
 import { ChangeDetectorRef, OnDestroy, Renderer2, ElementRef } from '@angular/core';
 import { MdExpansionPanel } from './expansion-panel';
-import { FocusOriginMonitor } from '@angular/material/core';
+import { FocusMonitor } from '@angular/cdk/a11y';
 /**
  * <md-expansion-panel-header> component.
  *
@@ -18,10 +18,10 @@ import { FocusOriginMonitor } from '@angular/material/core';
 export declare class MdExpansionPanelHeader implements OnDestroy {
     panel: MdExpansionPanel;
     private _element;
-    private _focusOriginMonitor;
+    private _focusMonitor;
     private _changeDetectorRef;
     private _parentChangeSubscription;
-    constructor(renderer: Renderer2, panel: MdExpansionPanel, _element: ElementRef, _focusOriginMonitor: FocusOriginMonitor, _changeDetectorRef: ChangeDetectorRef);
+    constructor(renderer: Renderer2, panel: MdExpansionPanel, _element: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef);
     /** Height of the header while the panel is expanded. */
     expandedHeight: string;
     /** Height of the header while the panel is collapsed. */

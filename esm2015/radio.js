@@ -8,9 +8,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VIEWPORT_RULER_PROVIDER } from '@angular/cdk/overlay';
-import { FocusOriginMonitor, MdCommonModule, MdRipple, MdRippleModule, UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
+import { MdCommonModule, MdRipple, MdRippleModule, UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 
 // Increasing integer for generating unique ids for radio components.
 let nextUniqueId = 0;
@@ -360,13 +361,13 @@ class MdRadioButton extends _MdRadioButtonMixinBase {
      * @param {?} elementRef
      * @param {?} renderer
      * @param {?} _changeDetector
-     * @param {?} _focusOriginMonitor
+     * @param {?} _focusMonitor
      * @param {?} _radioDispatcher
      */
-    constructor(radioGroup, elementRef, renderer, _changeDetector, _focusOriginMonitor, _radioDispatcher) {
+    constructor(radioGroup, elementRef, renderer, _changeDetector, _focusMonitor, _radioDispatcher) {
         super(renderer, elementRef);
         this._changeDetector = _changeDetector;
-        this._focusOriginMonitor = _focusOriginMonitor;
+        this._focusMonitor = _focusMonitor;
         this._radioDispatcher = _radioDispatcher;
         this._uniqueId = `md-radio-${++nextUniqueId}`;
         /**
@@ -524,7 +525,7 @@ class MdRadioButton extends _MdRadioButtonMixinBase {
      * @return {?}
      */
     focus() {
-        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
+        this._focusMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
     }
     /**
      * Marks the radio button as needing checking for change detection.
@@ -552,7 +553,7 @@ class MdRadioButton extends _MdRadioButtonMixinBase {
      * @return {?}
      */
     ngAfterViewInit() {
-        this._focusOriginMonitor
+        this._focusMonitor
             .monitor(this._inputElement.nativeElement, this._renderer, false)
             .subscribe(focusOrigin => this._onInputFocusChange(focusOrigin));
     }
@@ -560,7 +561,7 @@ class MdRadioButton extends _MdRadioButtonMixinBase {
      * @return {?}
      */
     ngOnDestroy() {
-        this._focusOriginMonitor.stopMonitoring(this._inputElement.nativeElement);
+        this._focusMonitor.stopMonitoring(this._inputElement.nativeElement);
         this._removeUniqueSelectionListener();
     }
     /**
@@ -662,7 +663,7 @@ MdRadioButton.ctorParameters = () => [
     { type: ElementRef, },
     { type: Renderer2, },
     { type: ChangeDetectorRef, },
-    { type: FocusOriginMonitor, },
+    { type: FocusMonitor, },
     { type: UniqueSelectionDispatcher, },
 ];
 MdRadioButton.propDecorators = {
@@ -685,9 +686,9 @@ class MdRadioModule {
 }
 MdRadioModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CommonModule, MdRippleModule, MdCommonModule],
+                imports: [CommonModule, MdRippleModule, MdCommonModule, A11yModule],
                 exports: [MdRadioGroup, MdRadioButton, MdCommonModule],
-                providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, VIEWPORT_RULER_PROVIDER, FocusOriginMonitor],
+                providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, VIEWPORT_RULER_PROVIDER],
                 declarations: [MdRadioGroup, MdRadioButton],
             },] },
 ];

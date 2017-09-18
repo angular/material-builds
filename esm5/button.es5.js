@@ -8,7 +8,8 @@ import * as tslib_1 from "tslib";
  */
 import { ChangeDetectionStrategy, Component, Directive, ElementRef, Inject, NgModule, Optional, Renderer2, Self, ViewEncapsulation, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FocusOriginMonitor, MdCommonModule, MdRippleModule, StyleModule, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
+import { MdCommonModule, MdRippleModule, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
+import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
 /**
  * Default color palette for round buttons (md-fab and md-mini-fab)
@@ -153,12 +154,12 @@ var MdButton = (function (_super) {
      * @param {?} renderer
      * @param {?} elementRef
      * @param {?} _platform
-     * @param {?} _focusOriginMonitor
+     * @param {?} _focusMonitor
      */
-    function MdButton(renderer, elementRef, _platform, _focusOriginMonitor) {
+    function MdButton(renderer, elementRef, _platform, _focusMonitor) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._platform = _platform;
-        _this._focusOriginMonitor = _focusOriginMonitor;
+        _this._focusMonitor = _focusMonitor;
         /**
          * Whether the button is round.
          */
@@ -167,14 +168,14 @@ var MdButton = (function (_super) {
          * Whether the button is icon button.
          */
         _this._isIconButton = _this._hasAttributeWithPrefix('icon-button');
-        _this._focusOriginMonitor.monitor(_this._elementRef.nativeElement, _this._renderer, true);
+        _this._focusMonitor.monitor(_this._elementRef.nativeElement, _this._renderer, true);
         return _this;
     }
     /**
      * @return {?}
      */
     MdButton.prototype.ngOnDestroy = function () {
-        this._focusOriginMonitor.stopMonitoring(this._elementRef.nativeElement);
+        this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
     };
     /**
      * Focuses the button.
@@ -239,7 +240,7 @@ MdButton.ctorParameters = function () { return [
     { type: Renderer2, },
     { type: ElementRef, },
     { type: Platform, },
-    { type: FocusOriginMonitor, },
+    { type: FocusMonitor, },
 ]; };
 /**
  * Raised Material design button.
@@ -248,12 +249,12 @@ var MdAnchor = (function (_super) {
     tslib_1.__extends(MdAnchor, _super);
     /**
      * @param {?} platform
-     * @param {?} focusOriginMonitor
+     * @param {?} focusMonitor
      * @param {?} elementRef
      * @param {?} renderer
      */
-    function MdAnchor(platform, focusOriginMonitor, elementRef, renderer) {
-        return _super.call(this, renderer, elementRef, platform, focusOriginMonitor) || this;
+    function MdAnchor(platform, focusMonitor, elementRef, renderer) {
+        return _super.call(this, renderer, elementRef, platform, focusMonitor) || this;
     }
     /**
      * @param {?} event
@@ -288,7 +289,7 @@ MdAnchor.decorators = [
  */
 MdAnchor.ctorParameters = function () { return [
     { type: Platform, },
-    { type: FocusOriginMonitor, },
+    { type: FocusMonitor, },
     { type: ElementRef, },
     { type: Renderer2, },
 ]; };
@@ -303,7 +304,7 @@ MdButtonModule.decorators = [
                     CommonModule,
                     MdRippleModule,
                     MdCommonModule,
-                    StyleModule,
+                    A11yModule,
                 ],
                 exports: [
                     MdButton,

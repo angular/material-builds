@@ -7,7 +7,8 @@
  */
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Host, Injectable, Input, NgModule, Optional, Output, Renderer2, ViewEncapsulation, forwardRef } from '@angular/core';
-import { CompatibilityModule, ENTER, FocusOriginMonitor, SPACE, StyleModule, UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher, filter, mixinDisabled } from '@angular/material/core';
+import { CompatibilityModule, ENTER, SPACE, UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher, filter, mixinDisabled } from '@angular/material/core';
+import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Subject } from 'rxjs/Subject';
@@ -363,20 +364,20 @@ class MdExpansionPanelHeader {
      * @param {?} renderer
      * @param {?} panel
      * @param {?} _element
-     * @param {?} _focusOriginMonitor
+     * @param {?} _focusMonitor
      * @param {?} _changeDetectorRef
      */
-    constructor(renderer, panel, _element, _focusOriginMonitor, _changeDetectorRef) {
+    constructor(renderer, panel, _element, _focusMonitor, _changeDetectorRef) {
         this.panel = panel;
         this._element = _element;
-        this._focusOriginMonitor = _focusOriginMonitor;
+        this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
         this._parentChangeSubscription = Subscription.EMPTY;
         // Since the toggle state depends on an @Input on the panel, we
         // need to  subscribe and trigger change detection manually.
         this._parentChangeSubscription = merge(panel.opened, panel.closed, filter.call(panel._inputChanges, changes => !!(changes.hideToggle || changes.disabled)))
             .subscribe(() => this._changeDetectorRef.markForCheck());
-        _focusOriginMonitor.monitor(_element.nativeElement, renderer, false);
+        _focusMonitor.monitor(_element.nativeElement, renderer, false);
     }
     /**
      * Toggles the expanded state of the panel.
@@ -437,7 +438,7 @@ class MdExpansionPanelHeader {
      */
     ngOnDestroy() {
         this._parentChangeSubscription.unsubscribe();
-        this._focusOriginMonitor.stopMonitoring(this._element.nativeElement);
+        this._focusMonitor.stopMonitoring(this._element.nativeElement);
     }
 }
 MdExpansionPanelHeader.decorators = [
@@ -493,7 +494,7 @@ MdExpansionPanelHeader.ctorParameters = () => [
     { type: Renderer2, },
     { type: MdExpansionPanel, decorators: [{ type: Host },] },
     { type: ElementRef, },
-    { type: FocusOriginMonitor, },
+    { type: FocusMonitor, },
     { type: ChangeDetectorRef, },
 ];
 MdExpansionPanelHeader.propDecorators = {
@@ -543,7 +544,7 @@ class MdExpansionModule {
 }
 MdExpansionModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CompatibilityModule, CommonModule, StyleModule],
+                imports: [CompatibilityModule, CommonModule, A11yModule],
                 exports: [
                     CdkAccordion,
                     MdAccordion,
@@ -574,5 +575,5 @@ MdExpansionModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, EXPANSION_PANEL_ANIMATION_TIMING as ɵc8, MdExpansionPanelBase as ɵa8, _MdExpansionPanelMixinBase as ɵb8 };
+export { MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, EXPANSION_PANEL_ANIMATION_TIMING as ɵc10, MdExpansionPanelBase as ɵa10, _MdExpansionPanelMixinBase as ɵb10 };
 //# sourceMappingURL=expansion.js.map

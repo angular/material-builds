@@ -8,11 +8,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { BidiModule, FocusOriginMonitor, GestureConfig, MdCommonModule, StyleModule, mixinColor, mixinDisabled } from '@angular/material/core';
+import { BidiModule, GestureConfig, MdCommonModule, mixinColor, mixinDisabled } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW, END, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { Subscription } from 'rxjs/Subscription';
 
 /**
@@ -68,13 +69,13 @@ class MdSlider extends _MdSliderMixinBase {
     /**
      * @param {?} renderer
      * @param {?} elementRef
-     * @param {?} _focusOriginMonitor
+     * @param {?} _focusMonitor
      * @param {?} _changeDetectorRef
      * @param {?} _dir
      */
-    constructor(renderer, elementRef, _focusOriginMonitor, _changeDetectorRef, _dir) {
+    constructor(renderer, elementRef, _focusMonitor, _changeDetectorRef, _dir) {
         super(renderer, elementRef);
-        this._focusOriginMonitor = _focusOriginMonitor;
+        this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
         this._invert = false;
@@ -414,7 +415,7 @@ class MdSlider extends _MdSliderMixinBase {
      * @return {?}
      */
     ngOnInit() {
-        this._focusOriginMonitor
+        this._focusMonitor
             .monitor(this._elementRef.nativeElement, this._renderer, true)
             .subscribe((origin) => {
             this._isActive = !!origin && origin !== 'keyboard';
@@ -430,7 +431,7 @@ class MdSlider extends _MdSliderMixinBase {
      * @return {?}
      */
     ngOnDestroy() {
-        this._focusOriginMonitor.stopMonitoring(this._elementRef.nativeElement);
+        this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
         this._dirChangeSubscription.unsubscribe();
     }
     /**
@@ -788,7 +789,7 @@ MdSlider.decorators = [
 MdSlider.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
-    { type: FocusOriginMonitor, },
+    { type: FocusMonitor, },
     { type: ChangeDetectorRef, },
     { type: Directionality, decorators: [{ type: Optional },] },
 ];
@@ -812,7 +813,7 @@ class MdSliderModule {
 }
 MdSliderModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CommonModule, MdCommonModule, StyleModule, BidiModule],
+                imports: [CommonModule, MdCommonModule, BidiModule, A11yModule],
                 exports: [MdSlider, MdCommonModule],
                 declarations: [MdSlider],
                 providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]

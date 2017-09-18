@@ -11,6 +11,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { CdkColumnDef } from '@angular/cdk/table';
 import { merge } from 'rxjs/observable/merge';
 import { Subject } from 'rxjs/Subject';
+import { AnimationCurves, AnimationDurations } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 /**
  * \@docs-private
@@ -55,7 +56,7 @@ var MdSort = (function () {
         /**
          * Event emitted when the user changes either the active sort or sort direction.
          */
-        this.mdSortChange = new EventEmitter();
+        this.sortChange = new EventEmitter();
     }
     Object.defineProperty(MdSort.prototype, "disableClear", {
         /**
@@ -124,6 +125,14 @@ var MdSort = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdSort.prototype, "_matSortChange", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this.sortChange; },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * Register function to be used by the contained MdSortables. Adds the MdSortable to the
      * collection of MdSortables.
@@ -161,7 +170,7 @@ var MdSort = (function () {
         else {
             this.direction = this.getNextSortDirection(sortable);
         }
-        this.mdSortChange.next({ active: this.active, direction: this.direction });
+        this.sortChange.next({ active: this.active, direction: this.direction });
     };
     /**
      * Returns the next sort direction of the active sortable, checking for potential overrides.
@@ -202,7 +211,8 @@ MdSort.propDecorators = {
     '_matSortStart': [{ type: Input, args: ['matSortStart',] },],
     '_matSortDirection': [{ type: Input, args: ['matSortDirection',] },],
     '_matSortDisableClear': [{ type: Input, args: ['matSortDisableClear',] },],
-    'mdSortChange': [{ type: Output },],
+    'sortChange': [{ type: Output, args: ['mdSortChange',] },],
+    '_matSortChange': [{ type: Output, args: ['matSortChange',] },],
 };
 /**
  * Returns the sort direction cycle to use given the provided parameters of order and clear.
@@ -253,6 +263,7 @@ MdSortHeaderIntl.decorators = [
  * @nocollapse
  */
 MdSortHeaderIntl.ctorParameters = function () { return []; };
+var SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' + AnimationCurves.STANDARD_CURVE;
 /**
  * Applies sorting behavior (click to change sort) and styles to an element, including an
  * arrow to display the current sort direction.
@@ -280,7 +291,7 @@ var MdSortHeader = (function () {
         if (!_sort) {
             throw getMdSortHeaderNotContainedWithinMdSortError();
         }
-        this._rerenderSubscription = merge(_sort.mdSortChange, _intl.changes).subscribe(function () {
+        this._rerenderSubscription = merge(_sort.sortChange, _intl.changes).subscribe(function () {
             changeDetectorRef.markForCheck();
         });
     }
@@ -338,8 +349,8 @@ var MdSortHeader = (function () {
 }());
 MdSortHeader.decorators = [
     { type: Component, args: [{ selector: '[md-sort-header], [mat-sort-header]',
-                template: "<div class=\"mat-sort-header-container\" [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\"><button class=\"mat-sort-header-button\" type=\"button\" [attr.aria-label]=\"_intl.sortButtonLabel(id)\"><ng-content></ng-content></button><div *ngIf=\"_isSorted()\" class=\"mat-sort-header-arrow\" [@indicatorRotate]=\"_sort.direction\"><div class=\"mat-sort-header-stem\"></div><div class=\"mat-sort-header-pointer-left\"></div><div class=\"mat-sort-header-pointer-right\"></div></div></div><span class=\"cdk-visually-hidden\" *ngIf=\"_isSorted()\">{{_intl.sortDescriptionLabel(id, _sort.direction)}}</span>",
-                styles: [".mat-sort-header-container{display:flex;cursor:pointer}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:pointer;outline:0;font:inherit;color:currentColor}.mat-sort-header-arrow{height:10px;width:10px;position:relative;margin:0 0 0 6px;transform:rotate(45deg)}.mat-sort-header-position-before .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;transform:rotate(135deg);height:10px;width:2px;margin:auto}.mat-sort-header-pointer-left{background:currentColor;width:2px;height:8px;position:absolute;bottom:0;right:0}.mat-sort-header-pointer-right{background:currentColor;width:8px;height:2px;position:absolute;bottom:0;right:0}"],
+                template: "<div class=\"mat-sort-header-container\" [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\"><button class=\"mat-sort-header-button\" type=\"button\" [attr.aria-label]=\"_intl.sortButtonLabel(id)\"><ng-content></ng-content></button><div *ngIf=\"_isSorted()\" class=\"mat-sort-header-arrow\"><div class=\"mat-sort-header-stem\"></div><div class=\"mat-sort-header-indicator\" [@indicator]=\"_sort.direction\"><div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_sort.direction\"></div><div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_sort.direction\"></div><div class=\"mat-sort-header-pointer-middle\"></div></div></div></div><span class=\"cdk-visually-hidden\" *ngIf=\"_isSorted()\">{{_intl.sortDescriptionLabel(id, _sort.direction)}}</span>",
+                styles: [".mat-sort-header-container{display:flex;cursor:pointer}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:pointer;outline:0;font:inherit;color:currentColor}.mat-sort-header-arrow{height:12px;width:12px;margin:0 0 0 6px;position:relative;display:flex}.mat-sort-header-position-before .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;height:10px;width:2px;margin:auto;display:flex;align-items:center}.mat-sort-header-indicator{width:100%;height:2px;display:flex;align-items:center;position:absolute;top:0;transition:225ms cubic-bezier(.4,0,.2,1)}.mat-sort-header-pointer-middle{margin:auto;height:2px;width:2px;background:currentColor;transform:rotate(45deg)}.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{background:currentColor;width:6px;height:2px;transition:225ms cubic-bezier(.4,0,.2,1);position:absolute}.mat-sort-header-pointer-left{transform-origin:right;left:0}.mat-sort-header-pointer-right{transform-origin:left;right:0}"],
                 host: {
                     '(click)': '_sort.sort(this)',
                     '[class.mat-sort-header-sorted]': '_isSorted()',
@@ -347,10 +358,21 @@ MdSortHeader.decorators = [
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 animations: [
-                    trigger('indicatorRotate', [
+                    trigger('indicator', [
+                        state('asc', style({ transform: 'translateY(0px)' })),
+                        // 10px is the height of the sort indicator, minus the width of the pointers
+                        state('desc', style({ transform: 'translateY(10px)' })),
+                        transition('asc <=> desc', animate(SORT_ANIMATION_TRANSITION))
+                    ]),
+                    trigger('leftPointer', [
+                        state('asc', style({ transform: 'rotate(-45deg)' })),
+                        state('desc', style({ transform: 'rotate(45deg)' })),
+                        transition('asc <=> desc', animate(SORT_ANIMATION_TRANSITION))
+                    ]),
+                    trigger('rightPointer', [
                         state('asc', style({ transform: 'rotate(45deg)' })),
-                        state('desc', style({ transform: 'rotate(225deg)' })),
-                        transition('asc <=> desc', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
+                        state('desc', style({ transform: 'rotate(-45deg)' })),
+                        transition('asc <=> desc', animate(SORT_ANIMATION_TRANSITION))
                     ])
                 ]
             },] },

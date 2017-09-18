@@ -40,7 +40,8 @@ export declare class MdSort {
     _matSortDirection: SortDirection;
     _matSortDisableClear: boolean;
     /** Event emitted when the user changes either the active sort or sort direction. */
-    mdSortChange: EventEmitter<Sort>;
+    readonly sortChange: EventEmitter<Sort>;
+    readonly _matSortChange: EventEmitter<Sort>;
     /**
      * Register function to be used by the contained MdSortables. Adds the MdSortable to the
      * collection of MdSortables.

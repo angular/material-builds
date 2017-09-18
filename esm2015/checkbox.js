@@ -8,9 +8,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Input, NgModule, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ObserversModule } from '@angular/cdk/observers';
-import { FocusOriginMonitor, MdCommonModule, MdRipple, MdRippleModule, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
+import { MdCommonModule, MdRipple, MdRippleModule, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { CheckboxRequiredValidator, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 
 // Increasing integer for generating unique ids for checkbox components.
 let nextUniqueId = 0;
@@ -65,12 +66,12 @@ class MdCheckbox extends _MdCheckboxMixinBase {
      * @param {?} renderer
      * @param {?} elementRef
      * @param {?} _changeDetectorRef
-     * @param {?} _focusOriginMonitor
+     * @param {?} _focusMonitor
      */
-    constructor(renderer, elementRef, _changeDetectorRef, _focusOriginMonitor) {
+    constructor(renderer, elementRef, _changeDetectorRef, _focusMonitor) {
         super(renderer, elementRef);
         this._changeDetectorRef = _changeDetectorRef;
-        this._focusOriginMonitor = _focusOriginMonitor;
+        this._focusMonitor = _focusMonitor;
         /**
          * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
          * take precedence so this may be omitted.
@@ -152,7 +153,7 @@ class MdCheckbox extends _MdCheckboxMixinBase {
      * @return {?}
      */
     ngAfterViewInit() {
-        this._focusOriginMonitor
+        this._focusMonitor
             .monitor(this._inputElement.nativeElement, this._renderer, false)
             .subscribe(focusOrigin => this._onInputFocusChange(focusOrigin));
     }
@@ -160,7 +161,7 @@ class MdCheckbox extends _MdCheckboxMixinBase {
      * @return {?}
      */
     ngOnDestroy() {
-        this._focusOriginMonitor.stopMonitoring(this._inputElement.nativeElement);
+        this._focusMonitor.stopMonitoring(this._inputElement.nativeElement);
     }
     /**
      * Whether the checkbox is checked.
@@ -347,7 +348,7 @@ class MdCheckbox extends _MdCheckboxMixinBase {
      * @return {?}
      */
     focus() {
-        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
+        this._focusMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
     }
     /**
      * @param {?} event
@@ -431,7 +432,7 @@ MdCheckbox.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
     { type: ChangeDetectorRef, },
-    { type: FocusOriginMonitor, },
+    { type: FocusMonitor, },
 ];
 MdCheckbox.propDecorators = {
     'ariaLabel': [{ type: Input, args: ['aria-label',] },],
@@ -483,10 +484,9 @@ class MdCheckboxModule {
 }
 MdCheckboxModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CommonModule, MdRippleModule, MdCommonModule, ObserversModule],
+                imports: [CommonModule, MdRippleModule, MdCommonModule, ObserversModule, A11yModule],
                 exports: [MdCheckbox, MdCheckboxRequiredValidator, MdCommonModule],
                 declarations: [MdCheckbox, MdCheckboxRequiredValidator],
-                providers: [FocusOriginMonitor]
             },] },
 ];
 /**

@@ -7,10 +7,11 @@
  */
 import { AfterContentInit, ChangeDetectorRef, ElementRef, Renderer2, EventEmitter, OnInit, QueryList, OnDestroy, AfterViewInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { UniqueSelectionDispatcher, MdRipple, FocusOriginMonitor } from '@angular/material/core';
+import { UniqueSelectionDispatcher, MdRipple } from '@angular/material/core';
 import { CanDisable } from '@angular/material/core';
 import { CanColor } from '@angular/material/core';
 import { CanDisableRipple } from '@angular/material/core';
+import { FocusMonitor } from '@angular/cdk/a11y';
 /**
  * Provider Expression that allows md-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
@@ -137,7 +138,7 @@ export declare const _MdRadioButtonMixinBase: (new (...args: any[]) => CanColor)
  */
 export declare class MdRadioButton extends _MdRadioButtonMixinBase implements OnInit, AfterViewInit, OnDestroy, CanColor, CanDisableRipple {
     private _changeDetector;
-    private _focusOriginMonitor;
+    private _focusMonitor;
     private _radioDispatcher;
     private _uniqueId;
     /** The unique ID for the radio button. */
@@ -190,7 +191,7 @@ export declare class MdRadioButton extends _MdRadioButtonMixinBase implements On
     private _removeUniqueSelectionListener;
     /** The native `<input type=radio>` element */
     _inputElement: ElementRef;
-    constructor(radioGroup: MdRadioGroup, elementRef: ElementRef, renderer: Renderer2, _changeDetector: ChangeDetectorRef, _focusOriginMonitor: FocusOriginMonitor, _radioDispatcher: UniqueSelectionDispatcher);
+    constructor(radioGroup: MdRadioGroup, elementRef: ElementRef, renderer: Renderer2, _changeDetector: ChangeDetectorRef, _focusMonitor: FocusMonitor, _radioDispatcher: UniqueSelectionDispatcher);
     /** Focuses the radio button. */
     focus(): void;
     /**

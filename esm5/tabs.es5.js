@@ -1564,5 +1564,5 @@ MdTabsModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroupBase, _MdTabGroupMixinBase, MdTabGroup, MdTabBase as ɵe23, _MdTabMixinBase as ɵf23, MdTabHeaderBase as ɵa23, _MdTabHeaderMixinBase as ɵb23, MdTabLabelWrapperBase as ɵc23, _MdTabLabelWrapperMixinBase as ɵd23, MdTabLinkBase as ɵi23, MdTabNavBase as ɵg23, _MdTabLinkMixinBase as ɵj23, _MdTabNavMixinBase as ɵh23 };
+export { MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroupBase, _MdTabGroupMixinBase, MdTabGroup, MdTabBase as ɵe22, _MdTabMixinBase as ɵf22, MdTabHeaderBase as ɵa22, _MdTabHeaderMixinBase as ɵb22, MdTabLabelWrapperBase as ɵc22, _MdTabLabelWrapperMixinBase as ɵd22, MdTabLinkBase as ɵi22, MdTabNavBase as ɵg22, _MdTabLinkMixinBase as ɵj22, _MdTabNavMixinBase as ɵh22 };
 //# sourceMappingURL=tabs.es5.js.map

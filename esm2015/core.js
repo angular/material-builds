@@ -5,9 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { A11yModule } from '@angular/cdk/a11y';
+import { A11yModule, CdkMonitorFocus, FOCUS_MONITOR_PROVIDER, FocusMonitor } from '@angular/cdk/a11y';
 import { BidiModule, DIRECTIONALITY_PROVIDER, DIR_DOCUMENT, Dir, Directionality } from '@angular/cdk/bidi';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Input, LOCALE_ID, NgModule, NgZone, Optional, Output, Renderer2, SkipSelf, ViewEncapsulation, isDevMode } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Input, LOCALE_ID, NgModule, NgZone, Optional, Output, SkipSelf, ViewEncapsulation, isDevMode } from '@angular/core';
 import { DOCUMENT, HammerGestureConfig } from '@angular/platform-browser';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs/Subject';
@@ -18,7 +18,6 @@ import { Platform, PlatformModule, getSupportedInputTypes } from '@angular/cdk/p
 import { BlockScrollStrategy, CloseScrollStrategy, ConnectedOverlayDirective, ConnectedOverlayPositionChange, ConnectedPositionStrategy, ConnectionPositionPair, FullscreenOverlayContainer, GlobalPositionStrategy, NoopScrollStrategy, OVERLAY_PROVIDERS, Overlay, OverlayContainer, OverlayModule, OverlayOrigin, OverlayRef, OverlayState, RepositionScrollStrategy, ScrollDispatcher, ScrollStrategyOptions, Scrollable, ScrollingVisibility, VIEWPORT_RULER_PROVIDER as VIEWPORT_RULER_PROVIDER$1, ViewportRuler as ViewportRuler$1 } from '@angular/cdk/overlay';
 import { BasePortalHost, ComponentPortal, DomPortalHost, Portal, PortalHostDirective, PortalModule, TemplatePortal, TemplatePortalDirective } from '@angular/cdk/portal';
 import { AuditTimeBrand, CatchBrand, DebounceTimeBrand, DoBrand, FilterBrand, FinallyBrand, FirstBrand, MapBrand, RxChain, ShareBrand, StartWithBrand, SwitchMapBrand, TakeUntilBrand, auditTime, catchOperator, debounceTime, doOperator, filter, finallyOperator, first, map, share, startWith, switchMap, takeUntil } from '@angular/cdk/rxjs';
-import { of } from 'rxjs/observable/of';
 
 /**
  * \@docs-private
@@ -2234,328 +2233,6 @@ class PortalInjector {
     }
 }
 
-// This is the value used by AngularJS Material. Through trial and error (on iPhone 6S) they found
-// that a value of around 650ms seems appropriate.
-const TOUCH_BUFFER_MS = 650;
-/**
- * Monitors mouse and keyboard events to determine the cause of focus events.
- */
-class FocusOriginMonitor {
-    /**
-     * @param {?} _ngZone
-     * @param {?} _platform
-     */
-    constructor(_ngZone, _platform) {
-        this._ngZone = _ngZone;
-        this._platform = _platform;
-        /**
-         * The focus origin that the next focus event is a result of.
-         */
-        this._origin = null;
-        /**
-         * Whether the window has just been focused.
-         */
-        this._windowFocused = false;
-        /**
-         * Weak map of elements being monitored to their info.
-         */
-        this._elementInfo = new WeakMap();
-        this._ngZone.runOutsideAngular(() => this._registerDocumentEvents());
-    }
-    /**
-     * Monitors focus on an element and applies appropriate CSS classes.
-     * @param {?} element The element to monitor
-     * @param {?} renderer The renderer to use to apply CSS classes to the element.
-     * @param {?} checkChildren Whether to count the element as focused when its children are focused.
-     * @return {?} An observable that emits when the focus state of the element changes.
-     *     When the element is blurred, null will be emitted.
-     */
-    monitor(element, renderer, checkChildren) {
-        // Do nothing if we're not on the browser platform.
-        if (!this._platform.isBrowser) {
-            return of(null);
-        }
-        // Check if we're already monitoring this element.
-        if (this._elementInfo.has(element)) {
-            let /** @type {?} */ cachedInfo = this._elementInfo.get(element); /** @type {?} */
-            ((cachedInfo)).checkChildren = checkChildren;
-            return ((cachedInfo)).subject.asObservable();
-        }
-        // Create monitored element info.
-        let /** @type {?} */ info = {
-            unlisten: () => { },
-            checkChildren: checkChildren,
-            renderer: renderer,
-            subject: new Subject()
-        };
-        this._elementInfo.set(element, info);
-        // Start listening. We need to listen in capture phase since focus events don't bubble.
-        let /** @type {?} */ focusListener = (event) => this._onFocus(event, element);
-        let /** @type {?} */ blurListener = (event) => this._onBlur(event, element);
-        this._ngZone.runOutsideAngular(() => {
-            element.addEventListener('focus', focusListener, true);
-            element.addEventListener('blur', blurListener, true);
-        });
-        // Create an unlisten function for later.
-        info.unlisten = () => {
-            element.removeEventListener('focus', focusListener, true);
-            element.removeEventListener('blur', blurListener, true);
-        };
-        return info.subject.asObservable();
-    }
-    /**
-     * Stops monitoring an element and removes all focus classes.
-     * @param {?} element The element to stop monitoring.
-     * @return {?}
-     */
-    stopMonitoring(element) {
-        let /** @type {?} */ elementInfo = this._elementInfo.get(element);
-        if (elementInfo) {
-            elementInfo.unlisten();
-            elementInfo.subject.complete();
-            this._setClasses(element);
-            this._elementInfo.delete(element);
-        }
-    }
-    /**
-     * Focuses the element via the specified focus origin.
-     * @param {?} element The element to focus.
-     * @param {?} origin The focus origin.
-     * @return {?}
-     */
-    focusVia(element, origin) {
-        this._setOriginForCurrentEventQueue(origin);
-        element.focus();
-    }
-    /**
-     * Register necessary event listeners on the document and window.
-     * @return {?}
-     */
-    _registerDocumentEvents() {
-        // Do nothing if we're not on the browser platform.
-        if (!this._platform.isBrowser) {
-            return;
-        }
-        // Note: we listen to events in the capture phase so we can detect them even if the user stops
-        // propagation.
-        // On keydown record the origin and clear any touch event that may be in progress.
-        document.addEventListener('keydown', () => {
-            this._lastTouchTarget = null;
-            this._setOriginForCurrentEventQueue('keyboard');
-        }, true);
-        // On mousedown record the origin only if there is not touch target, since a mousedown can
-        // happen as a result of a touch event.
-        document.addEventListener('mousedown', () => {
-            if (!this._lastTouchTarget) {
-                this._setOriginForCurrentEventQueue('mouse');
-            }
-        }, true);
-        // When the touchstart event fires the focus event is not yet in the event queue. This means
-        // we can't rely on the trick used above (setting timeout of 0ms). Instead we wait 650ms to
-        // see if a focus happens.
-        document.addEventListener('touchstart', (event) => {
-            if (this._touchTimeout != null) {
-                clearTimeout(this._touchTimeout);
-            }
-            this._lastTouchTarget = event.target;
-            this._touchTimeout = setTimeout(() => this._lastTouchTarget = null, TOUCH_BUFFER_MS);
-        }, true);
-        // Make a note of when the window regains focus, so we can restore the origin info for the
-        // focused element.
-        window.addEventListener('focus', () => {
-            this._windowFocused = true;
-            setTimeout(() => this._windowFocused = false, 0);
-        });
-    }
-    /**
-     * Sets the focus classes on the element based on the given focus origin.
-     * @param {?} element The element to update the classes on.
-     * @param {?=} origin The focus origin.
-     * @return {?}
-     */
-    _setClasses(element, origin) {
-        const /** @type {?} */ elementInfo = this._elementInfo.get(element);
-        if (elementInfo) {
-            const /** @type {?} */ toggleClass = (className, shouldSet) => {
-                shouldSet ? elementInfo.renderer.addClass(element, className) :
-                    elementInfo.renderer.removeClass(element, className);
-            };
-            toggleClass('cdk-focused', !!origin);
-            toggleClass('cdk-touch-focused', origin === 'touch');
-            toggleClass('cdk-keyboard-focused', origin === 'keyboard');
-            toggleClass('cdk-mouse-focused', origin === 'mouse');
-            toggleClass('cdk-program-focused', origin === 'program');
-        }
-    }
-    /**
-     * Sets the origin and schedules an async function to clear it at the end of the event queue.
-     * @param {?} origin The origin to set.
-     * @return {?}
-     */
-    _setOriginForCurrentEventQueue(origin) {
-        this._origin = origin;
-        setTimeout(() => this._origin = null, 0);
-    }
-    /**
-     * Checks whether the given focus event was caused by a touchstart event.
-     * @param {?} event The focus event to check.
-     * @return {?} Whether the event was caused by a touch.
-     */
-    _wasCausedByTouch(event) {
-        // Note(mmalerba): This implementation is not quite perfect, there is a small edge case.
-        // Consider the following dom structure:
-        //
-        // <div #parent tabindex="0" cdkFocusClasses>
-        //   <div #child (click)="#parent.focus()"></div>
-        // </div>
-        //
-        // If the user touches the #child element and the #parent is programmatically focused as a
-        // result, this code will still consider it to have been caused by the touch event and will
-        // apply the cdk-touch-focused class rather than the cdk-program-focused class. This is a
-        // relatively small edge-case that can be worked around by using
-        // focusVia(parentEl, renderer,  'program') to focus the parent element.
-        //
-        // If we decide that we absolutely must handle this case correctly, we can do so by listening
-        // for the first focus event after the touchstart, and then the first blur event after that
-        // focus event. When that blur event fires we know that whatever follows is not a result of the
-        // touchstart.
-        let /** @type {?} */ focusTarget = event.target;
-        return this._lastTouchTarget instanceof Node && focusTarget instanceof Node &&
-            (focusTarget === this._lastTouchTarget || focusTarget.contains(this._lastTouchTarget));
-    }
-    /**
-     * Handles focus events on a registered element.
-     * @param {?} event The focus event.
-     * @param {?} element The monitored element.
-     * @return {?}
-     */
-    _onFocus(event, element) {
-        // NOTE(mmalerba): We currently set the classes based on the focus origin of the most recent
-        // focus event affecting the monitored element. If we want to use the origin of the first event
-        // instead we should check for the cdk-focused class here and return if the element already has
-        // it. (This only matters for elements that have includesChildren = true).
-        // If we are not counting child-element-focus as focused, make sure that the event target is the
-        // monitored element itself.
-        const /** @type {?} */ elementInfo = this._elementInfo.get(element);
-        if (!elementInfo || (!elementInfo.checkChildren && element !== event.target)) {
-            return;
-        }
-        // If we couldn't detect a cause for the focus event, it's due to one of three reasons:
-        // 1) The window has just regained focus, in which case we want to restore the focused state of
-        //    the element from before the window blurred.
-        // 2) It was caused by a touch event, in which case we mark the origin as 'touch'.
-        // 3) The element was programmatically focused, in which case we should mark the origin as
-        //    'program'.
-        if (!this._origin) {
-            if (this._windowFocused && this._lastFocusOrigin) {
-                this._origin = this._lastFocusOrigin;
-            }
-            else if (this._wasCausedByTouch(event)) {
-                this._origin = 'touch';
-            }
-            else {
-                this._origin = 'program';
-            }
-        }
-        this._setClasses(element, this._origin);
-        elementInfo.subject.next(this._origin);
-        this._lastFocusOrigin = this._origin;
-        this._origin = null;
-    }
-    /**
-     * Handles blur events on a registered element.
-     * @param {?} event The blur event.
-     * @param {?} element The monitored element.
-     * @return {?}
-     */
-    _onBlur(event, element) {
-        // If we are counting child-element-focus as focused, make sure that we aren't just blurring in
-        // order to focus another child of the monitored element.
-        const /** @type {?} */ elementInfo = this._elementInfo.get(element);
-        if (!elementInfo || (elementInfo.checkChildren && event.relatedTarget instanceof Node &&
-            element.contains(event.relatedTarget))) {
-            return;
-        }
-        this._setClasses(element);
-        elementInfo.subject.next(null);
-    }
-}
-FocusOriginMonitor.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-FocusOriginMonitor.ctorParameters = () => [
-    { type: NgZone, },
-    { type: Platform, },
-];
-/**
- * Directive that determines how a particular element was focused (via keyboard, mouse, touch, or
- * programmatically) and adds corresponding classes to the element.
- *
- * There are two variants of this directive:
- * 1) cdkMonitorElementFocus: does not consider an element to be focused if one of its children is
- *    focused.
- * 2) cdkMonitorSubtreeFocus: considers an element focused if it or any of its children are focused.
- */
-class CdkMonitorFocus {
-    /**
-     * @param {?} _elementRef
-     * @param {?} _focusOriginMonitor
-     * @param {?} renderer
-     */
-    constructor(_elementRef, _focusOriginMonitor, renderer) {
-        this._elementRef = _elementRef;
-        this._focusOriginMonitor = _focusOriginMonitor;
-        this.cdkFocusChange = new EventEmitter();
-        this._monitorSubscription = this._focusOriginMonitor.monitor(this._elementRef.nativeElement, renderer, this._elementRef.nativeElement.hasAttribute('cdkMonitorSubtreeFocus'))
-            .subscribe(origin => this.cdkFocusChange.emit(origin));
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this._focusOriginMonitor.stopMonitoring(this._elementRef.nativeElement);
-        this._monitorSubscription.unsubscribe();
-    }
-}
-CdkMonitorFocus.decorators = [
-    { type: Directive, args: [{
-                selector: '[cdkMonitorElementFocus], [cdkMonitorSubtreeFocus]',
-            },] },
-];
-/**
- * @nocollapse
- */
-CdkMonitorFocus.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: FocusOriginMonitor, },
-    { type: Renderer2, },
-];
-CdkMonitorFocus.propDecorators = {
-    'cdkFocusChange': [{ type: Output },],
-};
-/**
- * \@docs-private
- * @param {?} parentDispatcher
- * @param {?} ngZone
- * @param {?} platform
- * @return {?}
- */
-function FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY(parentDispatcher, ngZone, platform) {
-    return parentDispatcher || new FocusOriginMonitor(ngZone, platform);
-}
-/**
- * \@docs-private
- */
-const FOCUS_ORIGIN_MONITOR_PROVIDER = {
-    // If there is already a FocusOriginMonitor available, use that. Otherwise, provide a new one.
-    provide: FocusOriginMonitor,
-    deps: [[new Optional(), new SkipSelf(), FocusOriginMonitor], NgZone, Platform],
-    useFactory: FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY
-};
-
 /**
  * Applies a CSS transform to an element, including browser-prefixed properties.
  * @param {?} element
@@ -2570,14 +2247,15 @@ function applyCssTransform(element, transformValue) {
     element.style.webkitTransform = value;
 }
 
+/**
+ * @deprecated
+ */
 class StyleModule {
 }
 StyleModule.decorators = [
     { type: NgModule, args: [{
-                imports: [PlatformModule],
-                declarations: [CdkMonitorFocus],
-                exports: [CdkMonitorFocus],
-                providers: [FOCUS_ORIGIN_MONITOR_PROVIDER],
+                imports: [A11yModule],
+                exports: [A11yModule],
             },] },
 ];
 /**
@@ -2606,5 +2284,5 @@ const DEC = 11;
  * Generated bundle index. Do not edit.
  */
 
-export { A11yModule, AnimationCurves, AnimationDurations, Directionality, DIRECTIONALITY_PROVIDER, DIR_DOCUMENT, Dir, BidiModule, MdCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, CompatibilityModule, NoConflictStyleCompatibilityMode, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY, UNIQUE_SELECTION_DISPATCHER_PROVIDER, NativeDateModule, MdNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, GestureConfig, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, A, Z, MdLine, MdLineSetter, MdLineModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler$1 as ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, VIEWPORT_RULER_PROVIDER$1 as VIEWPORT_RULER_PROVIDER, ConnectionPositionPair, ScrollingVisibility, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, MD_PLACEHOLDER_GLOBAL_OPTIONS, PlatformModule, Platform, getSupportedInputTypes, Portal, BasePortalHost, ComponentPortal, TemplatePortal, DomPortalHost, TemplatePortalDirective, PortalHostDirective, PortalModule, PortalInjector, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, RxChain, FinallyBrand, CatchBrand, DoBrand, MapBrand, FilterBrand, ShareBrand, FirstBrand, SwitchMapBrand, StartWithBrand, DebounceTimeBrand, AuditTimeBrand, TakeUntilBrand, finallyOperator, catchOperator, doOperator, map, filter, share, first, switchMap, startWith, debounceTime, auditTime, takeUntil, MdPseudoCheckboxModule, MdPseudoCheckbox, StyleModule, TOUCH_BUFFER_MS, FocusOriginMonitor, CdkMonitorFocus, FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY, FOCUS_ORIGIN_MONITOR_PROVIDER, applyCssTransform, extendObject, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, RippleRenderer as ɵa0 };
+export { A11yModule, AnimationCurves, AnimationDurations, Directionality, DIRECTIONALITY_PROVIDER, DIR_DOCUMENT, Dir, BidiModule, MdCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, CompatibilityModule, NoConflictStyleCompatibilityMode, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY, UNIQUE_SELECTION_DISPATCHER_PROVIDER, NativeDateModule, MdNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, GestureConfig, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, A, Z, MdLine, MdLineSetter, MdLineModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, OverlayState, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler$1 as ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, VIEWPORT_RULER_PROVIDER$1 as VIEWPORT_RULER_PROVIDER, ConnectionPositionPair, ScrollingVisibility, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, MD_PLACEHOLDER_GLOBAL_OPTIONS, PlatformModule, Platform, getSupportedInputTypes, Portal, BasePortalHost, ComponentPortal, TemplatePortal, DomPortalHost, TemplatePortalDirective, PortalHostDirective, PortalModule, PortalInjector, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, RxChain, FinallyBrand, CatchBrand, DoBrand, MapBrand, FilterBrand, ShareBrand, FirstBrand, SwitchMapBrand, StartWithBrand, DebounceTimeBrand, AuditTimeBrand, TakeUntilBrand, finallyOperator, catchOperator, doOperator, map, filter, share, first, switchMap, startWith, debounceTime, auditTime, takeUntil, MdPseudoCheckboxModule, MdPseudoCheckbox, StyleModule, CdkMonitorFocus, FocusMonitor, FOCUS_MONITOR_PROVIDER, applyCssTransform, extendObject, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, RippleRenderer as ɵa0 };
 //# sourceMappingURL=core.js.map

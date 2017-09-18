@@ -12,6 +12,12 @@ import { Subject } from 'rxjs/Subject';
 export interface MdChipEvent {
     chip: MdChip;
 }
+/** Event object emitted by MdChip when selected or deselected. */
+export declare class MdChipSelectionChange {
+    source: MdChip;
+    isUserInput: boolean;
+    constructor(source: MdChip, isUserInput?: boolean);
+}
 /** @docs-private */
 export declare class MdChipBase {
     _renderer: Renderer2;
@@ -29,38 +35,47 @@ export declare class MdBasicChip {
  * Material design styled Chip component. Used inside the MdChipList component.
  */
 export declare class MdChip extends _MdChipMixinBase implements FocusableOption, OnDestroy, CanColor, CanDisable {
-    _chipRemove: MdChipRemove;
+    _elementRef: ElementRef;
+    protected _value: any;
+    protected _selected: boolean;
+    protected _selectable: boolean;
+    protected _removable: boolean;
+    /** Whether the chip has focus. */
+    _hasFocus: boolean;
     /** Whether the chip is selected. */
     selected: boolean;
-    protected _selected: boolean;
+    /** The value of the chip. Defaults to the content inside <md-chip> tags. */
+    value: any;
     /**
      * Whether or not the chips are selectable. When a chip is not selectable,
      * changes to it's selected state are always ignored.
      */
     selectable: boolean;
-    protected _selectable: boolean;
     /**
      * Determines whether or not the chip displays the remove styling and emits (remove) events.
      */
     removable: boolean;
-    protected _removable: boolean;
-    /** Whether the chip has focus. */
-    _hasFocus: boolean;
     /** Emits when the chip is focused. */
     _onFocus: Subject<MdChipEvent>;
-    /** Emitted when the chip is selected. */
-    select: EventEmitter<MdChipEvent>;
-    /** Emitted when the chip is deselected. */
-    deselect: EventEmitter<MdChipEvent>;
+    /** Emits when the chip is blured. */
+    _onBlur: Subject<MdChipEvent>;
+    /** Emitted when the chip is selected or deselected. */
+    onSelectionChange: EventEmitter<MdChipSelectionChange>;
     /** Emitted when the chip is destroyed. */
     destroy: EventEmitter<MdChipEvent>;
-    readonly ariaSelected: string | null;
-    constructor(renderer: Renderer2, elementRef: ElementRef);
     /** Emitted when a chip is to be removed. */
     onRemove: EventEmitter<MdChipEvent>;
+    readonly ariaSelected: string | null;
+    constructor(renderer: Renderer2, _elementRef: ElementRef);
     ngOnDestroy(): void;
+    /** Selects the chip. */
+    select(): void;
+    /** Deselects the chip. */
+    deselect(): void;
+    /** Select this chip and emit selected event */
+    selectViaInteraction(): void;
     /** Toggles the current selected state of this chip. */
-    toggleSelected(): boolean;
+    toggleSelected(isUserInput?: boolean): boolean;
     /** Allows for programmatic focusing of the chip. */
     focus(): void;
     /**
@@ -74,6 +89,7 @@ export declare class MdChip extends _MdChipMixinBase implements FocusableOption,
     _handleClick(event: Event): void;
     /** Handle custom key presses. */
     _handleKeydown(event: KeyboardEvent): void;
+    _blur(): void;
 }
 /**
  * Applies proper (click) support and adds styling for use with the Material Design "cancel" icon

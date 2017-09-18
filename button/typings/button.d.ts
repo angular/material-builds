@@ -7,7 +7,8 @@
  */
 import { ElementRef, OnDestroy, Renderer2 } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
-import { CanColor, CanDisable, CanDisableRipple, FocusOriginMonitor } from '@angular/material/core';
+import { CanColor, CanDisable, CanDisableRipple } from '@angular/material/core';
+import { FocusMonitor } from '@angular/cdk/a11y';
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * @docs-private
@@ -53,12 +54,12 @@ export declare const _MdButtonMixinBase: (new (...args: any[]) => CanColor) & (n
  */
 export declare class MdButton extends _MdButtonMixinBase implements OnDestroy, CanDisable, CanColor, CanDisableRipple {
     private _platform;
-    private _focusOriginMonitor;
+    private _focusMonitor;
     /** Whether the button is round. */
     _isRoundButton: boolean;
     /** Whether the button is icon button. */
     _isIconButton: boolean;
-    constructor(renderer: Renderer2, elementRef: ElementRef, _platform: Platform, _focusOriginMonitor: FocusOriginMonitor);
+    constructor(renderer: Renderer2, elementRef: ElementRef, _platform: Platform, _focusMonitor: FocusMonitor);
     ngOnDestroy(): void;
     /** Focuses the button. */
     focus(): void;
@@ -74,6 +75,6 @@ export declare class MdButton extends _MdButtonMixinBase implements OnDestroy, C
  * Raised Material design button.
  */
 export declare class MdAnchor extends MdButton {
-    constructor(platform: Platform, focusOriginMonitor: FocusOriginMonitor, elementRef: ElementRef, renderer: Renderer2);
+    constructor(platform: Platform, focusMonitor: FocusMonitor, elementRef: ElementRef, renderer: Renderer2);
     _haltDisabledEvents(event: Event): void;
 }

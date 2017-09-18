@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/platform-browser'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/cdk/keycodes'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('rxjs/observable/of'), require('@angular/forms'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/observable/defer'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operator/first'), require('@angular/cdk/collections'), require('@angular/cdk/table'), require('@angular/cdk/stepper')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/platform-browser', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/cdk/keycodes', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/portal', '@angular/cdk/rxjs', 'rxjs/observable/of', '@angular/forms', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/observable/defer', '@angular/http', 'rxjs/Observable', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operator/first', '@angular/cdk/collections', '@angular/cdk/table', '@angular/cdk/stepper'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.platformBrowser,global.ng.cdk.coercion,global.Rx,global.ng.cdk.keycodes,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.portal,global.ng.cdk.rxjs,global.Rx.Observable,global.ng.forms,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.observers,global.Rx,global.Rx.Observable,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.ng.cdk.collections,global.ng.cdk.table,global.ng.cdk.stepper));
-}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_overlay,_angular_cdk_a11y,_angular_cdk_bidi,_angular_platformBrowser,_angular_cdk_coercion,rxjs_Subject,_angular_cdk_keycodes,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_portal,_angular_cdk_rxjs,rxjs_observable_of,_angular_forms,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,_angular_cdk_observers,rxjs_Subscription,rxjs_observable_defer,_angular_http,rxjs_Observable,rxjs_observable_forkJoin,rxjs_observable_throw,rxjs_operator_first,_angular_cdk_collections,_angular_cdk_table,_angular_cdk_stepper) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/platform-browser'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/cdk/keycodes'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/observers'), require('@angular/cdk/collections'), require('rxjs/Subscription'), require('rxjs/observable/defer'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operator/first'), require('@angular/cdk/table'), require('@angular/cdk/stepper')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/platform-browser', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/cdk/keycodes', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/portal', '@angular/cdk/rxjs', '@angular/forms', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/observers', '@angular/cdk/collections', 'rxjs/Subscription', 'rxjs/observable/defer', '@angular/http', 'rxjs/Observable', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operator/first', '@angular/cdk/table', '@angular/cdk/stepper'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.platformBrowser,global.ng.cdk.coercion,global.Rx,global.ng.cdk.keycodes,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.portal,global.ng.cdk.rxjs,global.ng.forms,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.observers,global.ng.cdk.collections,global.Rx,global.Rx.Observable,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.ng.cdk.table,global.ng.cdk.stepper));
+}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_overlay,_angular_cdk_a11y,_angular_cdk_bidi,_angular_platformBrowser,_angular_cdk_coercion,rxjs_Subject,_angular_cdk_keycodes,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_portal,_angular_cdk_rxjs,_angular_forms,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_observers,_angular_cdk_collections,rxjs_Subscription,rxjs_observable_defer,_angular_http,rxjs_Observable,rxjs_observable_forkJoin,rxjs_observable_throw,rxjs_operator_first,_angular_cdk_table,_angular_cdk_stepper) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -2252,334 +2252,6 @@ var PortalInjector = (function () {
     };
     return PortalInjector;
 }());
-// This is the value used by AngularJS Material. Through trial and error (on iPhone 6S) they found
-// that a value of around 650ms seems appropriate.
-var TOUCH_BUFFER_MS = 650;
-/**
- * Monitors mouse and keyboard events to determine the cause of focus events.
- */
-var FocusOriginMonitor = (function () {
-    /**
-     * @param {?} _ngZone
-     * @param {?} _platform
-     */
-    function FocusOriginMonitor(_ngZone, _platform) {
-        var _this = this;
-        this._ngZone = _ngZone;
-        this._platform = _platform;
-        /**
-         * The focus origin that the next focus event is a result of.
-         */
-        this._origin = null;
-        /**
-         * Whether the window has just been focused.
-         */
-        this._windowFocused = false;
-        /**
-         * Weak map of elements being monitored to their info.
-         */
-        this._elementInfo = new WeakMap();
-        this._ngZone.runOutsideAngular(function () { return _this._registerDocumentEvents(); });
-    }
-    /**
-     * Monitors focus on an element and applies appropriate CSS classes.
-     * @param {?} element The element to monitor
-     * @param {?} renderer The renderer to use to apply CSS classes to the element.
-     * @param {?} checkChildren Whether to count the element as focused when its children are focused.
-     * @return {?} An observable that emits when the focus state of the element changes.
-     *     When the element is blurred, null will be emitted.
-     */
-    FocusOriginMonitor.prototype.monitor = function (element, renderer, checkChildren) {
-        var _this = this;
-        // Do nothing if we're not on the browser platform.
-        if (!this._platform.isBrowser) {
-            return rxjs_observable_of.of(null);
-        }
-        // Check if we're already monitoring this element.
-        if (this._elementInfo.has(element)) {
-            var /** @type {?} */ cachedInfo = this._elementInfo.get(element); /** @type {?} */
-            ((cachedInfo)).checkChildren = checkChildren;
-            return ((cachedInfo)).subject.asObservable();
-        }
-        // Create monitored element info.
-        var /** @type {?} */ info = {
-            unlisten: function () { },
-            checkChildren: checkChildren,
-            renderer: renderer,
-            subject: new rxjs_Subject.Subject()
-        };
-        this._elementInfo.set(element, info);
-        // Start listening. We need to listen in capture phase since focus events don't bubble.
-        var /** @type {?} */ focusListener = function (event) { return _this._onFocus(event, element); };
-        var /** @type {?} */ blurListener = function (event) { return _this._onBlur(event, element); };
-        this._ngZone.runOutsideAngular(function () {
-            element.addEventListener('focus', focusListener, true);
-            element.addEventListener('blur', blurListener, true);
-        });
-        // Create an unlisten function for later.
-        info.unlisten = function () {
-            element.removeEventListener('focus', focusListener, true);
-            element.removeEventListener('blur', blurListener, true);
-        };
-        return info.subject.asObservable();
-    };
-    /**
-     * Stops monitoring an element and removes all focus classes.
-     * @param {?} element The element to stop monitoring.
-     * @return {?}
-     */
-    FocusOriginMonitor.prototype.stopMonitoring = function (element) {
-        var /** @type {?} */ elementInfo = this._elementInfo.get(element);
-        if (elementInfo) {
-            elementInfo.unlisten();
-            elementInfo.subject.complete();
-            this._setClasses(element);
-            this._elementInfo.delete(element);
-        }
-    };
-    /**
-     * Focuses the element via the specified focus origin.
-     * @param {?} element The element to focus.
-     * @param {?} origin The focus origin.
-     * @return {?}
-     */
-    FocusOriginMonitor.prototype.focusVia = function (element, origin) {
-        this._setOriginForCurrentEventQueue(origin);
-        element.focus();
-    };
-    /**
-     * Register necessary event listeners on the document and window.
-     * @return {?}
-     */
-    FocusOriginMonitor.prototype._registerDocumentEvents = function () {
-        var _this = this;
-        // Do nothing if we're not on the browser platform.
-        if (!this._platform.isBrowser) {
-            return;
-        }
-        // Note: we listen to events in the capture phase so we can detect them even if the user stops
-        // propagation.
-        // On keydown record the origin and clear any touch event that may be in progress.
-        document.addEventListener('keydown', function () {
-            _this._lastTouchTarget = null;
-            _this._setOriginForCurrentEventQueue('keyboard');
-        }, true);
-        // On mousedown record the origin only if there is not touch target, since a mousedown can
-        // happen as a result of a touch event.
-        document.addEventListener('mousedown', function () {
-            if (!_this._lastTouchTarget) {
-                _this._setOriginForCurrentEventQueue('mouse');
-            }
-        }, true);
-        // When the touchstart event fires the focus event is not yet in the event queue. This means
-        // we can't rely on the trick used above (setting timeout of 0ms). Instead we wait 650ms to
-        // see if a focus happens.
-        document.addEventListener('touchstart', function (event) {
-            if (_this._touchTimeout != null) {
-                clearTimeout(_this._touchTimeout);
-            }
-            _this._lastTouchTarget = event.target;
-            _this._touchTimeout = setTimeout(function () { return _this._lastTouchTarget = null; }, TOUCH_BUFFER_MS);
-        }, true);
-        // Make a note of when the window regains focus, so we can restore the origin info for the
-        // focused element.
-        window.addEventListener('focus', function () {
-            _this._windowFocused = true;
-            setTimeout(function () { return _this._windowFocused = false; }, 0);
-        });
-    };
-    /**
-     * Sets the focus classes on the element based on the given focus origin.
-     * @param {?} element The element to update the classes on.
-     * @param {?=} origin The focus origin.
-     * @return {?}
-     */
-    FocusOriginMonitor.prototype._setClasses = function (element, origin) {
-        var /** @type {?} */ elementInfo = this._elementInfo.get(element);
-        if (elementInfo) {
-            var /** @type {?} */ toggleClass = function (className, shouldSet) {
-                shouldSet ? elementInfo.renderer.addClass(element, className) :
-                    elementInfo.renderer.removeClass(element, className);
-            };
-            toggleClass('cdk-focused', !!origin);
-            toggleClass('cdk-touch-focused', origin === 'touch');
-            toggleClass('cdk-keyboard-focused', origin === 'keyboard');
-            toggleClass('cdk-mouse-focused', origin === 'mouse');
-            toggleClass('cdk-program-focused', origin === 'program');
-        }
-    };
-    /**
-     * Sets the origin and schedules an async function to clear it at the end of the event queue.
-     * @param {?} origin The origin to set.
-     * @return {?}
-     */
-    FocusOriginMonitor.prototype._setOriginForCurrentEventQueue = function (origin) {
-        var _this = this;
-        this._origin = origin;
-        setTimeout(function () { return _this._origin = null; }, 0);
-    };
-    /**
-     * Checks whether the given focus event was caused by a touchstart event.
-     * @param {?} event The focus event to check.
-     * @return {?} Whether the event was caused by a touch.
-     */
-    FocusOriginMonitor.prototype._wasCausedByTouch = function (event) {
-        // Note(mmalerba): This implementation is not quite perfect, there is a small edge case.
-        // Consider the following dom structure:
-        //
-        // <div #parent tabindex="0" cdkFocusClasses>
-        //   <div #child (click)="#parent.focus()"></div>
-        // </div>
-        //
-        // If the user touches the #child element and the #parent is programmatically focused as a
-        // result, this code will still consider it to have been caused by the touch event and will
-        // apply the cdk-touch-focused class rather than the cdk-program-focused class. This is a
-        // relatively small edge-case that can be worked around by using
-        // focusVia(parentEl, renderer,  'program') to focus the parent element.
-        //
-        // If we decide that we absolutely must handle this case correctly, we can do so by listening
-        // for the first focus event after the touchstart, and then the first blur event after that
-        // focus event. When that blur event fires we know that whatever follows is not a result of the
-        // touchstart.
-        var /** @type {?} */ focusTarget = event.target;
-        return this._lastTouchTarget instanceof Node && focusTarget instanceof Node &&
-            (focusTarget === this._lastTouchTarget || focusTarget.contains(this._lastTouchTarget));
-    };
-    /**
-     * Handles focus events on a registered element.
-     * @param {?} event The focus event.
-     * @param {?} element The monitored element.
-     * @return {?}
-     */
-    FocusOriginMonitor.prototype._onFocus = function (event, element) {
-        // NOTE(mmalerba): We currently set the classes based on the focus origin of the most recent
-        // focus event affecting the monitored element. If we want to use the origin of the first event
-        // instead we should check for the cdk-focused class here and return if the element already has
-        // it. (This only matters for elements that have includesChildren = true).
-        // If we are not counting child-element-focus as focused, make sure that the event target is the
-        // monitored element itself.
-        var /** @type {?} */ elementInfo = this._elementInfo.get(element);
-        if (!elementInfo || (!elementInfo.checkChildren && element !== event.target)) {
-            return;
-        }
-        // If we couldn't detect a cause for the focus event, it's due to one of three reasons:
-        // 1) The window has just regained focus, in which case we want to restore the focused state of
-        //    the element from before the window blurred.
-        // 2) It was caused by a touch event, in which case we mark the origin as 'touch'.
-        // 3) The element was programmatically focused, in which case we should mark the origin as
-        //    'program'.
-        if (!this._origin) {
-            if (this._windowFocused && this._lastFocusOrigin) {
-                this._origin = this._lastFocusOrigin;
-            }
-            else if (this._wasCausedByTouch(event)) {
-                this._origin = 'touch';
-            }
-            else {
-                this._origin = 'program';
-            }
-        }
-        this._setClasses(element, this._origin);
-        elementInfo.subject.next(this._origin);
-        this._lastFocusOrigin = this._origin;
-        this._origin = null;
-    };
-    /**
-     * Handles blur events on a registered element.
-     * @param {?} event The blur event.
-     * @param {?} element The monitored element.
-     * @return {?}
-     */
-    FocusOriginMonitor.prototype._onBlur = function (event, element) {
-        // If we are counting child-element-focus as focused, make sure that we aren't just blurring in
-        // order to focus another child of the monitored element.
-        var /** @type {?} */ elementInfo = this._elementInfo.get(element);
-        if (!elementInfo || (elementInfo.checkChildren && event.relatedTarget instanceof Node &&
-            element.contains(event.relatedTarget))) {
-            return;
-        }
-        this._setClasses(element);
-        elementInfo.subject.next(null);
-    };
-    return FocusOriginMonitor;
-}());
-FocusOriginMonitor.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-FocusOriginMonitor.ctorParameters = function () { return [
-    { type: _angular_core.NgZone, },
-    { type: _angular_cdk_platform.Platform, },
-]; };
-/**
- * Directive that determines how a particular element was focused (via keyboard, mouse, touch, or
- * programmatically) and adds corresponding classes to the element.
- *
- * There are two variants of this directive:
- * 1) cdkMonitorElementFocus: does not consider an element to be focused if one of its children is
- *    focused.
- * 2) cdkMonitorSubtreeFocus: considers an element focused if it or any of its children are focused.
- */
-var CdkMonitorFocus = (function () {
-    /**
-     * @param {?} _elementRef
-     * @param {?} _focusOriginMonitor
-     * @param {?} renderer
-     */
-    function CdkMonitorFocus(_elementRef, _focusOriginMonitor, renderer) {
-        var _this = this;
-        this._elementRef = _elementRef;
-        this._focusOriginMonitor = _focusOriginMonitor;
-        this.cdkFocusChange = new _angular_core.EventEmitter();
-        this._monitorSubscription = this._focusOriginMonitor.monitor(this._elementRef.nativeElement, renderer, this._elementRef.nativeElement.hasAttribute('cdkMonitorSubtreeFocus'))
-            .subscribe(function (origin) { return _this.cdkFocusChange.emit(origin); });
-    }
-    /**
-     * @return {?}
-     */
-    CdkMonitorFocus.prototype.ngOnDestroy = function () {
-        this._focusOriginMonitor.stopMonitoring(this._elementRef.nativeElement);
-        this._monitorSubscription.unsubscribe();
-    };
-    return CdkMonitorFocus;
-}());
-CdkMonitorFocus.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[cdkMonitorElementFocus], [cdkMonitorSubtreeFocus]',
-            },] },
-];
-/**
- * @nocollapse
- */
-CdkMonitorFocus.ctorParameters = function () { return [
-    { type: _angular_core.ElementRef, },
-    { type: FocusOriginMonitor, },
-    { type: _angular_core.Renderer2, },
-]; };
-CdkMonitorFocus.propDecorators = {
-    'cdkFocusChange': [{ type: _angular_core.Output },],
-};
-/**
- * \@docs-private
- * @param {?} parentDispatcher
- * @param {?} ngZone
- * @param {?} platform
- * @return {?}
- */
-function FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY(parentDispatcher, ngZone, platform) {
-    return parentDispatcher || new FocusOriginMonitor(ngZone, platform);
-}
-/**
- * \@docs-private
- */
-var FOCUS_ORIGIN_MONITOR_PROVIDER = {
-    // If there is already a FocusOriginMonitor available, use that. Otherwise, provide a new one.
-    provide: FocusOriginMonitor,
-    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), FocusOriginMonitor], _angular_core.NgZone, _angular_cdk_platform.Platform],
-    useFactory: FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY
-};
 /**
  * Applies a CSS transform to an element, including browser-prefixed properties.
  * @param {?} element
@@ -2593,6 +2265,9 @@ function applyCssTransform(element, transformValue) {
     element.style.transform = value;
     element.style.webkitTransform = value;
 }
+/**
+ * @deprecated
+ */
 var StyleModule = (function () {
     function StyleModule() {
     }
@@ -2600,10 +2275,8 @@ var StyleModule = (function () {
 }());
 StyleModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [_angular_cdk_platform.PlatformModule],
-                declarations: [CdkMonitorFocus],
-                exports: [CdkMonitorFocus],
-                providers: [FOCUS_ORIGIN_MONITOR_PROVIDER],
+                imports: [_angular_cdk_a11y.A11yModule],
+                exports: [_angular_cdk_a11y.A11yModule],
             },] },
 ];
 /**
@@ -3971,12 +3644,12 @@ var MdButton = (function (_super) {
      * @param {?} renderer
      * @param {?} elementRef
      * @param {?} _platform
-     * @param {?} _focusOriginMonitor
+     * @param {?} _focusMonitor
      */
-    function MdButton(renderer, elementRef, _platform, _focusOriginMonitor) {
+    function MdButton(renderer, elementRef, _platform, _focusMonitor) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._platform = _platform;
-        _this._focusOriginMonitor = _focusOriginMonitor;
+        _this._focusMonitor = _focusMonitor;
         /**
          * Whether the button is round.
          */
@@ -3985,14 +3658,14 @@ var MdButton = (function (_super) {
          * Whether the button is icon button.
          */
         _this._isIconButton = _this._hasAttributeWithPrefix('icon-button');
-        _this._focusOriginMonitor.monitor(_this._elementRef.nativeElement, _this._renderer, true);
+        _this._focusMonitor.monitor(_this._elementRef.nativeElement, _this._renderer, true);
         return _this;
     }
     /**
      * @return {?}
      */
     MdButton.prototype.ngOnDestroy = function () {
-        this._focusOriginMonitor.stopMonitoring(this._elementRef.nativeElement);
+        this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
     };
     /**
      * Focuses the button.
@@ -4057,7 +3730,7 @@ MdButton.ctorParameters = function () { return [
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ElementRef, },
     { type: _angular_cdk_platform.Platform, },
-    { type: FocusOriginMonitor, },
+    { type: _angular_cdk_a11y.FocusMonitor, },
 ]; };
 /**
  * Raised Material design button.
@@ -4066,12 +3739,12 @@ var MdAnchor = (function (_super) {
     __extends(MdAnchor, _super);
     /**
      * @param {?} platform
-     * @param {?} focusOriginMonitor
+     * @param {?} focusMonitor
      * @param {?} elementRef
      * @param {?} renderer
      */
-    function MdAnchor(platform, focusOriginMonitor, elementRef, renderer) {
-        return _super.call(this, renderer, elementRef, platform, focusOriginMonitor) || this;
+    function MdAnchor(platform, focusMonitor, elementRef, renderer) {
+        return _super.call(this, renderer, elementRef, platform, focusMonitor) || this;
     }
     /**
      * @param {?} event
@@ -4106,7 +3779,7 @@ MdAnchor.decorators = [
  */
 MdAnchor.ctorParameters = function () { return [
     { type: _angular_cdk_platform.Platform, },
-    { type: FocusOriginMonitor, },
+    { type: _angular_cdk_a11y.FocusMonitor, },
     { type: _angular_core.ElementRef, },
     { type: _angular_core.Renderer2, },
 ]; };
@@ -4121,7 +3794,7 @@ MdButtonModule.decorators = [
                     _angular_common.CommonModule,
                     MdRippleModule,
                     MdCommonModule,
-                    StyleModule,
+                    _angular_cdk_a11y.A11yModule,
                 ],
                 exports: [
                     MdButton,
@@ -4467,15 +4140,15 @@ var MdButtonToggle = (function () {
      * @param {?} _buttonToggleDispatcher
      * @param {?} _renderer
      * @param {?} _elementRef
-     * @param {?} _focusOriginMonitor
+     * @param {?} _focusMonitor
      */
-    function MdButtonToggle(toggleGroup, toggleGroupMultiple, _changeDetectorRef, _buttonToggleDispatcher, _renderer, _elementRef, _focusOriginMonitor) {
+    function MdButtonToggle(toggleGroup, toggleGroupMultiple, _changeDetectorRef, _buttonToggleDispatcher, _renderer, _elementRef, _focusMonitor) {
         var _this = this;
         this._changeDetectorRef = _changeDetectorRef;
         this._buttonToggleDispatcher = _buttonToggleDispatcher;
         this._renderer = _renderer;
         this._elementRef = _elementRef;
-        this._focusOriginMonitor = _focusOriginMonitor;
+        this._focusMonitor = _focusMonitor;
         /**
          * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
          * take precedence so this may be omitted.
@@ -4617,7 +4290,7 @@ var MdButtonToggle = (function () {
         if (this.buttonToggleGroup && this._value == this.buttonToggleGroup.value) {
             this._checked = true;
         }
-        this._focusOriginMonitor.monitor(this._elementRef.nativeElement, this._renderer, true);
+        this._focusMonitor.monitor(this._elementRef.nativeElement, this._renderer, true);
     };
     /**
      * Focuses the button.
@@ -4714,7 +4387,7 @@ MdButtonToggle.ctorParameters = function () { return [
     { type: UniqueSelectionDispatcher, },
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ElementRef, },
-    { type: FocusOriginMonitor, },
+    { type: _angular_cdk_a11y.FocusMonitor, },
 ]; };
 MdButtonToggle.propDecorators = {
     'ariaLabel': [{ type: _angular_core.Input, args: ['aria-label',] },],
@@ -4734,7 +4407,7 @@ var MdButtonToggleModule = (function () {
 }());
 MdButtonToggleModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdCommonModule, StyleModule],
+                imports: [MdCommonModule, _angular_cdk_a11y.A11yModule],
                 exports: [
                     MdButtonToggleGroup,
                     MdButtonToggleGroupMultiple,
@@ -5141,12 +4814,12 @@ var MdCheckbox = (function (_super) {
      * @param {?} renderer
      * @param {?} elementRef
      * @param {?} _changeDetectorRef
-     * @param {?} _focusOriginMonitor
+     * @param {?} _focusMonitor
      */
-    function MdCheckbox(renderer, elementRef, _changeDetectorRef, _focusOriginMonitor) {
+    function MdCheckbox(renderer, elementRef, _changeDetectorRef, _focusMonitor) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._changeDetectorRef = _changeDetectorRef;
-        _this._focusOriginMonitor = _focusOriginMonitor;
+        _this._focusMonitor = _focusMonitor;
         /**
          * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
          * take precedence so this may be omitted.
@@ -5242,7 +4915,7 @@ var MdCheckbox = (function (_super) {
      */
     MdCheckbox.prototype.ngAfterViewInit = function () {
         var _this = this;
-        this._focusOriginMonitor
+        this._focusMonitor
             .monitor(this._inputElement.nativeElement, this._renderer, false)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
@@ -5250,7 +4923,7 @@ var MdCheckbox = (function (_super) {
      * @return {?}
      */
     MdCheckbox.prototype.ngOnDestroy = function () {
-        this._focusOriginMonitor.stopMonitoring(this._inputElement.nativeElement);
+        this._focusMonitor.stopMonitoring(this._inputElement.nativeElement);
     };
     Object.defineProperty(MdCheckbox.prototype, "checked", {
         /**
@@ -5446,7 +5119,7 @@ var MdCheckbox = (function (_super) {
      * @return {?}
      */
     MdCheckbox.prototype.focus = function () {
-        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
+        this._focusMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
     };
     /**
      * @param {?} event
@@ -5531,7 +5204,7 @@ MdCheckbox.ctorParameters = function () { return [
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ElementRef, },
     { type: _angular_core.ChangeDetectorRef, },
-    { type: FocusOriginMonitor, },
+    { type: _angular_cdk_a11y.FocusMonitor, },
 ]; };
 MdCheckbox.propDecorators = {
     'ariaLabel': [{ type: _angular_core.Input, args: ['aria-label',] },],
@@ -5586,10 +5259,9 @@ var MdCheckboxModule = (function () {
 }());
 MdCheckboxModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [_angular_common.CommonModule, MdRippleModule, MdCommonModule, _angular_cdk_observers.ObserversModule],
+                imports: [_angular_common.CommonModule, MdRippleModule, MdCommonModule, _angular_cdk_observers.ObserversModule, _angular_cdk_a11y.A11yModule],
                 exports: [MdCheckbox, MdCheckboxRequiredValidator, MdCommonModule],
                 declarations: [MdCheckbox, MdCheckboxRequiredValidator],
-                providers: [FocusOriginMonitor]
             },] },
 ];
 /**
@@ -5597,6 +5269,21 @@ MdCheckboxModule.decorators = [
  */
 MdCheckboxModule.ctorParameters = function () { return []; };
 
+/**
+ * Event object emitted by MdChip when selected or deselected.
+ */
+var MdChipSelectionChange = (function () {
+    /**
+     * @param {?} source
+     * @param {?=} isUserInput
+     */
+    function MdChipSelectionChange(source, isUserInput) {
+        if (isUserInput === void 0) { isUserInput = false; }
+        this.source = source;
+        this.isUserInput = isUserInput;
+    }
+    return MdChipSelectionChange;
+}());
 /**
  * \@docs-private
  */
@@ -5638,10 +5325,11 @@ var MdChip = (function (_super) {
     __extends(MdChip, _super);
     /**
      * @param {?} renderer
-     * @param {?} elementRef
+     * @param {?} _elementRef
      */
-    function MdChip(renderer, elementRef) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MdChip(renderer, _elementRef) {
+        var _this = _super.call(this, renderer, _elementRef) || this;
+        _this._elementRef = _elementRef;
         _this._selected = false;
         _this._selectable = true;
         _this._removable = true;
@@ -5654,13 +5342,13 @@ var MdChip = (function (_super) {
          */
         _this._onFocus = new rxjs_Subject.Subject();
         /**
-         * Emitted when the chip is selected.
+         * Emits when the chip is blured.
          */
-        _this.select = new _angular_core.EventEmitter();
+        _this._onBlur = new rxjs_Subject.Subject();
         /**
-         * Emitted when the chip is deselected.
+         * Emitted when the chip is selected or deselected.
          */
-        _this.deselect = new _angular_core.EventEmitter();
+        _this.onSelectionChange = new _angular_core.EventEmitter();
         /**
          * Emitted when the chip is destroyed.
          */
@@ -5683,8 +5371,26 @@ var MdChip = (function (_super) {
          */
         set: function (value) {
             this._selected = _angular_cdk_coercion.coerceBooleanProperty(value);
-            (this.selected ? this.select : this.deselect).emit({ chip: this });
+            this.onSelectionChange.emit({ source: this, isUserInput: false });
         },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdChip.prototype, "value", {
+        /**
+         * The value of the chip. Defaults to the content inside <md-chip> tags.
+         * @return {?}
+         */
+        get: function () {
+            return this._value != undefined
+                ? this._value
+                : this._elementRef.nativeElement.textContent;
+        },
+        /**
+         * @param {?} newValue
+         * @return {?}
+         */
+        set: function (newValue) { this._value = newValue; },
         enumerable: true,
         configurable: true
     });
@@ -5694,16 +5400,12 @@ var MdChip = (function (_super) {
          * changes to it's selected state are always ignored.
          * @return {?}
          */
-        get: function () {
-            return this._selectable;
-        },
+        get: function () { return this._selectable; },
         /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
-            this._selectable = _angular_cdk_coercion.coerceBooleanProperty(value);
-        },
+        set: function (value) { this._selectable = _angular_cdk_coercion.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -5712,16 +5414,12 @@ var MdChip = (function (_super) {
          * Determines whether or not the chip displays the remove styling and emits (remove) events.
          * @return {?}
          */
-        get: function () {
-            return this._removable;
-        },
+        get: function () { return this._removable; },
         /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
-            this._removable = _angular_cdk_coercion.coerceBooleanProperty(value);
-        },
+        set: function (value) { this._removable = _angular_cdk_coercion.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -5742,11 +5440,39 @@ var MdChip = (function (_super) {
         this.destroy.emit({ chip: this });
     };
     /**
-     * Toggles the current selected state of this chip.
+     * Selects the chip.
      * @return {?}
      */
-    MdChip.prototype.toggleSelected = function () {
-        this.selected = !this.selected;
+    MdChip.prototype.select = function () {
+        this._selected = true;
+        this.onSelectionChange.emit({ source: this, isUserInput: false });
+    };
+    /**
+     * Deselects the chip.
+     * @return {?}
+     */
+    MdChip.prototype.deselect = function () {
+        this._selected = false;
+        this.onSelectionChange.emit({ source: this, isUserInput: false });
+    };
+    /**
+     * Select this chip and emit selected event
+     * @return {?}
+     */
+    MdChip.prototype.selectViaInteraction = function () {
+        this._selected = true;
+        // Emit select event when selected changes.
+        this.onSelectionChange.emit({ source: this, isUserInput: true });
+    };
+    /**
+     * Toggles the current selected state of this chip.
+     * @param {?=} isUserInput
+     * @return {?}
+     */
+    MdChip.prototype.toggleSelected = function (isUserInput) {
+        if (isUserInput === void 0) { isUserInput = false; }
+        this._selected = !this.selected;
+        this.onSelectionChange.emit({ source: this, isUserInput: isUserInput });
         return this.selected;
     };
     /**
@@ -5803,12 +5529,19 @@ var MdChip = (function (_super) {
             case _angular_cdk_keycodes.SPACE:
                 // If we are selectable, toggle the focused chip
                 if (this.selectable) {
-                    this.toggleSelected();
+                    this.toggleSelected(true);
                 }
                 // Always prevent space from scrolling the page since the list has focus
                 event.preventDefault();
                 break;
         }
+    };
+    /**
+     * @return {?}
+     */
+    MdChip.prototype._blur = function () {
+        this._hasFocus = false;
+        this._onBlur.next({ chip: this });
     };
     return MdChip;
 }(_MdChipMixinBase));
@@ -5828,8 +5561,8 @@ MdChip.decorators = [
                     '(click)': '_handleClick($event)',
                     '(keydown)': '_handleKeydown($event)',
                     '(focus)': '_hasFocus = true',
-                    '(blur)': '_hasFocus = false',
-                }
+                    '(blur)': '_blur()',
+                },
             },] },
 ];
 /**
@@ -5840,12 +5573,11 @@ MdChip.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
 ]; };
 MdChip.propDecorators = {
-    '_chipRemove': [{ type: _angular_core.ContentChild, args: [_angular_core.forwardRef(function () { return MdChipRemove; }),] },],
     'selected': [{ type: _angular_core.Input },],
+    'value': [{ type: _angular_core.Input },],
     'selectable': [{ type: _angular_core.Input },],
     'removable': [{ type: _angular_core.Input },],
-    'select': [{ type: _angular_core.Output },],
-    'deselect': [{ type: _angular_core.Output },],
+    'onSelectionChange': [{ type: _angular_core.Output },],
     'destroy': [{ type: _angular_core.Output },],
     'onRemove': [{ type: _angular_core.Output, args: ['remove',] },],
 };
@@ -5895,6 +5627,22 @@ MdChipRemove.decorators = [
 MdChipRemove.ctorParameters = function () { return [
     { type: MdChip, },
 ]; };
+// Increasing integer for generating unique ids for chip-list components.
+var nextUniqueId$2$1 = 0;
+/**
+ * Change event object that is emitted when the chip list value has changed.
+ */
+var MdChipListChange = (function () {
+    /**
+     * @param {?} source
+     * @param {?} value
+     */
+    function MdChipListChange(source, value) {
+        this.source = source;
+        this.value = value;
+    }
+    return MdChipListChange;
+}());
 /**
  * A material design chips component (named ChipList for it's similarity to the List component).
  */
@@ -5902,12 +5650,25 @@ var MdChipList = (function () {
     /**
      * @param {?} _renderer
      * @param {?} _elementRef
+     * @param {?} _changeDetectorRef
      * @param {?} _dir
+     * @param {?} _parentForm
+     * @param {?} _parentFormGroup
+     * @param {?} ngControl
      */
-    function MdChipList(_renderer, _elementRef, _dir) {
+    function MdChipList(_renderer, _elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, ngControl) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
+        this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
+        this._parentForm = _parentForm;
+        this._parentFormGroup = _parentFormGroup;
+        this.ngControl = ngControl;
+        /**
+         * Stream that emits whenever the state of the input changes such that the wrapping `MdFormField`
+         * needs to run change detection.
+         */
+        this.stateChanges = new rxjs_Subject.Subject();
         /**
          * When a chip is destroyed, we track the index so we can focus the appropriate next chip.
          */
@@ -5925,6 +5686,22 @@ var MdChipList = (function () {
          */
         this._selectable = true;
         /**
+         * Whether the component is in multiple selection mode.
+         */
+        this._multiple = false;
+        /**
+         * Uid of the chip list
+         */
+        this._uid = "md-chip-list-" + nextUniqueId$2$1++;
+        /**
+         * Whether this is required
+         */
+        this._required = false;
+        /**
+         * Whether this is disabled
+         */
+        this._disabled = false;
+        /**
          * Tab index for the chip list.
          */
         this._tabIndex = 0;
@@ -5934,61 +5711,220 @@ var MdChipList = (function () {
          */
         this._userTabIndex = null;
         /**
+         * Function when touched
+         */
+        this._onTouched = function () { };
+        /**
+         * Function when changed
+         */
+        this._onChange = function () { };
+        /**
+         * Comparison function to specify which option is displayed. Defaults to object equality.
+         */
+        this._compareWith = function (o1, o2) { return o1 === o2; };
+        /**
          * Orientation of the chip list.
          */
         this.ariaOrientation = 'horizontal';
-    }
-    /**
-     * @return {?}
-     */
-    MdChipList.prototype.ngAfterContentInit = function () {
-        var _this = this;
-        this._keyManager = new _angular_cdk_a11y.FocusKeyManager(this.chips).withWrap();
-        // Prevents the chip list from capturing focus and redirecting
-        // it back to the first chip when the user tabs out.
-        this._tabOutSubscription = this._keyManager.tabOut.subscribe(function () {
-            _this._tabIndex = -1;
-            setTimeout(function () { return _this._tabIndex = _this._userTabIndex || 0; });
-        });
-        // Go ahead and subscribe all of the initial chips
-        this._subscribeChips(this.chips);
-        // Make sure we set our tab index at the start
-        this._updateTabIndex();
-        // When the list changes, re-subscribe
-        this.chips.changes.subscribe(function (chips) {
-            _this._subscribeChips(chips);
-            // If we have 0 chips, attempt to focus an input (if available)
-            if (chips.length === 0) {
-                _this._focusInput();
-            }
-            // Check to see if we need to update our tab index
-            _this._updateTabIndex();
-            // Check to see if we have a destroyed chip and need to refocus
-            _this._updateFocusForDestroyedChips();
-        });
-    };
-    /**
-     * @return {?}
-     */
-    MdChipList.prototype.ngOnDestroy = function () {
-        this._tabOutSubscription.unsubscribe();
-    };
-    Object.defineProperty(MdChipList.prototype, "selectable", {
         /**
-         * Whether or not this chip is selectable. When a chip is not selectable,
-         * it's selected state is always ignored.
+         * Event emitted when the selected chip list value has been changed by the user.
+         */
+        this.change = new _angular_core.EventEmitter();
+        /**
+         * Event that emits whenever the raw value of the chip-list changes. This is here primarily
+         * to facilitate the two-way binding for the `value` input.
+         * \@docs-private
+         */
+        this.valueChange = new _angular_core.EventEmitter();
+        if (this.ngControl) {
+            this.ngControl.valueAccessor = this;
+        }
+    }
+    Object.defineProperty(MdChipList.prototype, "selected", {
+        /**
+         * The array of selected chips inside chip list.
          * @return {?}
          */
         get: function () {
-            return this._selectable;
+            return this.multiple ? this._selectionModel.selected : this._selectionModel.selected[0];
         },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdChipList.prototype, "multiple", {
+        /**
+         * Whether the user should be allowed to select multiple chips.
+         * @return {?}
+         */
+        get: function () { return this._multiple; },
         /**
          * @param {?} value
          * @return {?}
          */
         set: function (value) {
-            this._selectable = _angular_cdk_coercion.coerceBooleanProperty(value);
+            this._multiple = _angular_cdk_coercion.coerceBooleanProperty(value);
         },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdChipList.prototype, "compareWith", {
+        /**
+         * A function to compare the option values with the selected values. The first argument
+         * is a value from an option. The second is a value from the selection. A boolean
+         * should be returned.
+         * @return {?}
+         */
+        get: function () { return this._compareWith; },
+        /**
+         * @param {?} fn
+         * @return {?}
+         */
+        set: function (fn) {
+            this._compareWith = fn;
+            if (this._selectionModel) {
+                // A different comparator means the selection could change.
+                this._initializeSelection();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdChipList.prototype, "value", {
+        /**
+         * Required for FormFieldControl
+         * @return {?}
+         */
+        get: function () { return this._value; },
+        /**
+         * @param {?} newValue
+         * @return {?}
+         */
+        set: function (newValue) {
+            this.writeValue(newValue);
+            this._value = newValue;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdChipList.prototype, "id", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this._id || this._uid; },
+        /**
+         * Required for FormFieldControl. The ID of the chip list
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._id = value;
+            this.stateChanges.next();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdChipList.prototype, "required", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._required;
+        },
+        /**
+         * Required for FormFieldControl. Whether the chip list is required.
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._required = _angular_cdk_coercion.coerceBooleanProperty(value);
+            this.stateChanges.next();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdChipList.prototype, "placeholder", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this._chipInput ? this._chipInput.placeholder : this._placeholder;
+        },
+        /**
+         * For FormFieldControl. Use chip input's placholder if there's a chip input
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._placeholder = value;
+            this.stateChanges.next();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdChipList.prototype, "focused", {
+        /**
+         * Whether any chips or the mdChipInput inside of this chip-list has focus.
+         * @return {?}
+         */
+        get: function () {
+            return this.chips.some(function (chip) { return chip._hasFocus; }) ||
+                (this._chipInput && this._chipInput.focused);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdChipList.prototype, "empty", {
+        /**
+         * Whether this chip-list contains no chips and no mdChipInput.
+         * @return {?}
+         */
+        get: function () {
+            return (!this._chipInput || this._chipInput.empty) && this.chips.length === 0;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdChipList.prototype, "disabled", {
+        /**
+         * Whether this chip-list is disabled.
+         * @return {?}
+         */
+        get: function () { return this.ngControl ? this.ngControl.disabled : this._disabled; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) { this._disabled = _angular_cdk_coercion.coerceBooleanProperty(value); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdChipList.prototype, "errorState", {
+        /**
+         * Whether the chip list is in an error state.
+         * @return {?}
+         */
+        get: function () {
+            var /** @type {?} */ isInvalid = this.ngControl && this.ngControl.invalid;
+            var /** @type {?} */ isTouched = this.ngControl && this.ngControl.touched;
+            var /** @type {?} */ isSubmitted = (this._parentFormGroup && this._parentFormGroup.submitted) ||
+                (this._parentForm && this._parentForm.submitted);
+            return !!(isInvalid && (isTouched || isSubmitted));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdChipList.prototype, "selectable", {
+        /**
+         * Whether or not this chip is selectable. When a chip is not selectable,
+         * its selected state is always ignored.
+         * @return {?}
+         */
+        get: function () { return this._selectable; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) { this._selectable = _angular_cdk_coercion.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -6004,13 +5940,134 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdChipList.prototype, "chipSelectionChanges", {
+        /**
+         * Combined stream of all of the child chips' selection change events.
+         * @return {?}
+         */
+        get: function () {
+            return rxjs_observable_merge.merge.apply(void 0, this.chips.map(function (chip) { return chip.onSelectionChange; }));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdChipList.prototype, "chipFocusChanges", {
+        /**
+         * Combined stream of all of the child chips' focus change events.
+         * @return {?}
+         */
+        get: function () {
+            return rxjs_observable_merge.merge.apply(void 0, this.chips.map(function (chip) { return chip._onFocus; }));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdChipList.prototype, "chipBlurChanges", {
+        /**
+         * Combined stream of all of the child chips' blur change events.
+         * @return {?}
+         */
+        get: function () {
+            return rxjs_observable_merge.merge.apply(void 0, this.chips.map(function (chip) { return chip._onBlur; }));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdChipList.prototype, "chipRemoveChanges", {
+        /**
+         * Combined stream of all of the child chips' remove change events.
+         * @return {?}
+         */
+        get: function () {
+            return rxjs_observable_merge.merge.apply(void 0, this.chips.map(function (chip) { return chip.destroy; }));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    MdChipList.prototype.ngAfterContentInit = function () {
+        var _this = this;
+        this._keyManager = new _angular_cdk_a11y.FocusKeyManager(this.chips).withWrap();
+        // Prevents the chip list from capturing focus and redirecting
+        // it back to the first chip when the user tabs out.
+        this._tabOutSubscription = this._keyManager.tabOut.subscribe(function () {
+            _this._tabIndex = -1;
+            setTimeout(function () { return _this._tabIndex = _this._userTabIndex || 0; });
+        });
+        // When the list changes, re-subscribe
+        this._changeSubscription = _angular_cdk_rxjs.startWith.call(this.chips.changes, null).subscribe(function () {
+            _this._resetChips();
+            // Reset chips selected/deselected status
+            _this._initializeSelection();
+            // Check to see if we need to update our tab index
+            _this._updateTabIndex();
+            // Check to see if we have a destroyed chip and need to refocus
+            _this._updateFocusForDestroyedChips();
+        });
+    };
+    /**
+     * @return {?}
+     */
+    MdChipList.prototype.ngOnInit = function () {
+        this._selectionModel = new _angular_cdk_collections.SelectionModel(this.multiple, undefined, false);
+        this.stateChanges.next();
+    };
+    /**
+     * @return {?}
+     */
+    MdChipList.prototype.ngOnDestroy = function () {
+        this._tabOutSubscription.unsubscribe();
+        if (this._changeSubscription) {
+            this._changeSubscription.unsubscribe();
+        }
+        this._dropSubscriptions();
+    };
     /**
      * Associates an HTML input element with this chip list.
      * @param {?} inputElement
      * @return {?}
      */
     MdChipList.prototype.registerInput = function (inputElement) {
-        this._inputElement = inputElement;
+        this._chipInput = inputElement;
+    };
+    /**
+     * @param {?} ids
+     * @return {?}
+     */
+    MdChipList.prototype.setDescribedByIds = function (ids) { this._ariaDescribedby = ids.join(' '); };
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    MdChipList.prototype.writeValue = function (value) {
+        if (this.chips) {
+            this._setSelectionByValue(value, false);
+        }
+    };
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    MdChipList.prototype.registerOnChange = function (fn) {
+        this._onChange = fn;
+    };
+    /**
+     * @param {?} fn
+     * @return {?}
+     */
+    MdChipList.prototype.registerOnTouched = function (fn) {
+        this._onTouched = fn;
+    };
+    /**
+     * @param {?} disabled
+     * @return {?}
+     */
+    MdChipList.prototype.setDisabledState = function (disabled) {
+        this.disabled = disabled;
+        this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', disabled);
+        this.stateChanges.next();
     };
     /**
      * Focuses the the first non-disabled chip in this chip list, or the associated input when there
@@ -6019,11 +6076,17 @@ var MdChipList = (function () {
      */
     MdChipList.prototype.focus = function () {
         // TODO: ARIA says this should focus the first `selected` chip if any are selected.
-        if (this.chips.length > 0) {
+        // Focus on first element if there's no chipInput inside chip-list
+        if (this._chipInput && this._chipInput.focused) {
+            // do nothing
+        }
+        else if (this.chips.length > 0) {
             this._keyManager.setFirstItemActive();
+            this.stateChanges.next();
         }
         else {
             this._focusInput();
+            this.stateChanges.next();
         }
     };
     /**
@@ -6031,8 +6094,8 @@ var MdChipList = (function () {
      * @return {?}
      */
     MdChipList.prototype._focusInput = function () {
-        if (this._inputElement) {
-            this._inputElement.focus();
+        if (this._chipInput) {
+            this._chipInput.focus();
         }
     };
     /**
@@ -6069,17 +6132,7 @@ var MdChipList = (function () {
                 this._keyManager.onKeydown(event);
             }
         }
-    };
-    /**
-     * Iterate through the list of chips and add them to our list of
-     * subscribed chips.
-     *
-     * @param {?} chips The list of chips to be subscribed.
-     * @return {?}
-     */
-    MdChipList.prototype._subscribeChips = function (chips) {
-        var _this = this;
-        chips.forEach(function (chip) { return _this._addChip(chip); });
+        this.stateChanges.next();
     };
     /**
      * Check the tab index as you should not be allowed to focus an empty list.
@@ -6090,48 +6143,29 @@ var MdChipList = (function () {
         this._tabIndex = this._userTabIndex || (this.chips.length === 0 ? -1 : 0);
     };
     /**
-     * Add a specific chip to our subscribed list. If the chip has
-     * already been subscribed, this ensures it is only subscribed
-     * once.
-     *
-     * @param {?} chip The chip to be subscribed (or checked for existing
-     * subscription).
+     * Update key manager's active item when chip is deleted.
+     * If the deleted chip is the last chip in chip list, focus the new last chip.
+     * Otherwise focus the next chip in the list.
+     * Save `_lastDestroyedIndex` so we can set the correct focus.
+     * @param {?} chip
      * @return {?}
      */
-    MdChipList.prototype._addChip = function (chip) {
-        var _this = this;
-        // If we've already been subscribed to a parent, do nothing
-        if (this._chipSet.has(chip)) {
-            return;
+    MdChipList.prototype._updateKeyManager = function (chip) {
+        var /** @type {?} */ chipIndex = this.chips.toArray().indexOf(chip);
+        if (this._isValidIndex(chipIndex)) {
+            if (chip._hasFocus) {
+                // Check whether the chip is not the last item
+                if (chipIndex < this.chips.length - 1) {
+                    this._keyManager.setActiveItem(chipIndex);
+                }
+                else if (chipIndex - 1 >= 0) {
+                    this._keyManager.setActiveItem(chipIndex - 1);
+                }
+            }
+            if (this._keyManager.activeItemIndex === chipIndex) {
+                this._lastDestroyedIndex = chipIndex;
+            }
         }
-        // Watch for focus events outside of the keyboard navigation
-        chip._onFocus.subscribe(function () {
-            var /** @type {?} */ chipIndex = _this.chips.toArray().indexOf(chip);
-            if (_this._isValidIndex(chipIndex)) {
-                _this._keyManager.updateActiveItemIndex(chipIndex);
-            }
-        });
-        // On destroy, remove the item from our list, and setup our destroyed focus check
-        chip.destroy.subscribe(function () {
-            var /** @type {?} */ chipIndex = _this.chips.toArray().indexOf(chip);
-            if (_this._isValidIndex(chipIndex)) {
-                if (chip._hasFocus) {
-                    // Check whether the chip is the last item
-                    if (chipIndex < _this.chips.length - 1) {
-                        _this._keyManager.setActiveItem(chipIndex);
-                    }
-                    else if (chipIndex - 1 >= 0) {
-                        _this._keyManager.setActiveItem(chipIndex - 1);
-                    }
-                }
-                if (_this._keyManager.activeItemIndex === chipIndex) {
-                    _this._lastDestroyedIndex = chipIndex;
-                }
-            }
-            _this._chipSet.delete(chip);
-            chip.destroy.unsubscribe();
-        });
-        this._chipSet.set(chip, true);
     };
     /**
      * Checks to see if a focus chip was recently destroyed so that we can refocus the next closest
@@ -6149,6 +6183,9 @@ var MdChipList = (function () {
             if (focusChip) {
                 focusChip.focus();
             }
+        }
+        else if (chipsArray.length === 0) {
+            this._focusInput();
         }
         // Reset our destroyed index
         this._lastDestroyedIndex = null;
@@ -6173,6 +6210,218 @@ var MdChipList = (function () {
         }
         return false;
     };
+    /**
+     * @param {?} value
+     * @param {?=} isUserInput
+     * @return {?}
+     */
+    MdChipList.prototype._setSelectionByValue = function (value, isUserInput) {
+        var _this = this;
+        if (isUserInput === void 0) { isUserInput = true; }
+        this._clearSelection();
+        this.chips.forEach(function (chip) { return chip.deselect(); });
+        if (Array.isArray(value)) {
+            value.forEach(function (currentValue) { return _this._selectValue(currentValue, isUserInput); });
+            this._sortValues();
+        }
+        else {
+            var /** @type {?} */ correspondingChip = this._selectValue(value, isUserInput);
+            // Shift focus to the active item. Note that we shouldn't do this in multiple
+            // mode, because we don't know what chip the user interacted with last.
+            if (correspondingChip) {
+                this._keyManager.setActiveItem(this.chips.toArray().indexOf(correspondingChip));
+            }
+        }
+    };
+    /**
+     * Finds and selects the chip based on its value.
+     * @param {?} value
+     * @param {?=} isUserInput
+     * @return {?} Chip that has the corresponding value.
+     */
+    MdChipList.prototype._selectValue = function (value, isUserInput) {
+        var _this = this;
+        if (isUserInput === void 0) { isUserInput = true; }
+        var /** @type {?} */ correspondingChip = this.chips.find(function (chip) {
+            return chip.value != null && _this._compareWith(chip.value, value);
+        });
+        if (correspondingChip) {
+            isUserInput ? correspondingChip.selectViaInteraction() : correspondingChip.select();
+            this._selectionModel.select(correspondingChip);
+        }
+        return correspondingChip;
+    };
+    /**
+     * @return {?}
+     */
+    MdChipList.prototype._initializeSelection = function () {
+        var _this = this;
+        // Defer setting the value in order to avoid the "Expression
+        // has changed after it was checked" errors from Angular.
+        Promise.resolve().then(function () {
+            _this._setSelectionByValue(_this.ngControl ? _this.ngControl.value : _this._value, false);
+            _this.stateChanges.next();
+        });
+    };
+    /**
+     * Deselects every chip in the list.
+     * @param {?=} skip Chip that should not be deselected.
+     * @return {?}
+     */
+    MdChipList.prototype._clearSelection = function (skip) {
+        this._selectionModel.clear();
+        this.chips.forEach(function (chip) {
+            if (chip !== skip) {
+                chip.deselect();
+            }
+        });
+        this.stateChanges.next();
+    };
+    /**
+     * Sorts the model values, ensuring that they keep the same
+     * order that they have in the panel.
+     * @return {?}
+     */
+    MdChipList.prototype._sortValues = function () {
+        var _this = this;
+        if (this._multiple) {
+            this._selectionModel.clear();
+            this.chips.forEach(function (chip) {
+                if (chip.selected) {
+                    _this._selectionModel.select(chip);
+                }
+            });
+            this.stateChanges.next();
+        }
+    };
+    /**
+     * Emits change event to set the model value.
+     * @param {?=} fallbackValue
+     * @return {?}
+     */
+    MdChipList.prototype._propagateChanges = function (fallbackValue) {
+        var /** @type {?} */ valueToEmit = null;
+        if (Array.isArray(this.selected)) {
+            valueToEmit = this.selected.map(function (chip) { return chip.value; });
+        }
+        else {
+            valueToEmit = this.selected ? this.selected.value : fallbackValue;
+        }
+        this._value = valueToEmit;
+        this.change.emit(new MdChipListChange(this, valueToEmit));
+        this.valueChange.emit(valueToEmit);
+        this._onChange(valueToEmit);
+        this._changeDetectorRef.markForCheck();
+    };
+    /**
+     * When blurred, mark the field as touched when focus moved outside the chip list.
+     * @return {?}
+     */
+    MdChipList.prototype._blur = function () {
+        var _this = this;
+        if (!this.disabled) {
+            if (this._chipInput) {
+                // If there's a chip input, we should check whether the focus moved to chip input.
+                // If the focus is not moved to chip input, mark the field as touched. If the focus moved
+                // to chip input, do nothing.
+                // Timeout is needed to wait for the focus() event trigger on chip input.
+                setTimeout(function () {
+                    if (!_this.focused) {
+                        _this._markAsTouched();
+                    }
+                });
+            }
+            else {
+                // If there's no chip input, then mark the field as touched.
+                this._markAsTouched();
+            }
+        }
+    };
+    /**
+     * Mark the field as touched
+     * @return {?}
+     */
+    MdChipList.prototype._markAsTouched = function () {
+        this._onTouched();
+        this._changeDetectorRef.markForCheck();
+        this.stateChanges.next();
+    };
+    /**
+     * @return {?}
+     */
+    MdChipList.prototype._resetChips = function () {
+        this._dropSubscriptions();
+        this._listenToChipsFocus();
+        this._listenToChipsSelection();
+        this._listenToChipsRemoved();
+    };
+    /**
+     * @return {?}
+     */
+    MdChipList.prototype._dropSubscriptions = function () {
+        if (this._chipFocusSubscription) {
+            this._chipFocusSubscription.unsubscribe();
+            this._chipFocusSubscription = null;
+        }
+        if (this._chipBlurSubscription) {
+            this._chipBlurSubscription.unsubscribe();
+            this._chipBlurSubscription = null;
+        }
+        if (this._chipSelectionSubscription) {
+            this._chipSelectionSubscription.unsubscribe();
+            this._chipSelectionSubscription = null;
+        }
+    };
+    /**
+     * Listens to user-generated selection events on each chip.
+     * @return {?}
+     */
+    MdChipList.prototype._listenToChipsSelection = function () {
+        var _this = this;
+        this._chipSelectionSubscription = this.chipSelectionChanges.subscribe(function (event) {
+            event.source.selected
+                ? _this._selectionModel.select(event.source)
+                : _this._selectionModel.deselect(event.source);
+            // For single selection chip list, make sure the deselected value is unselected.
+            if (!_this.multiple) {
+                _this.chips.forEach(function (chip) {
+                    if (!_this._selectionModel.isSelected(chip) && chip.selected) {
+                        chip.deselect();
+                    }
+                });
+            }
+            if (event.isUserInput) {
+                _this._propagateChanges();
+            }
+        });
+    };
+    /**
+     * Listens to user-generated selection events on each chip.
+     * @return {?}
+     */
+    MdChipList.prototype._listenToChipsFocus = function () {
+        var _this = this;
+        this._chipFocusSubscription = this.chipFocusChanges.subscribe(function (event) {
+            var /** @type {?} */ chipIndex = _this.chips.toArray().indexOf(event.chip);
+            if (_this._isValidIndex(chipIndex)) {
+                _this._keyManager.updateActiveItemIndex(chipIndex);
+            }
+            _this.stateChanges.next();
+        });
+        this._chipBlurSubscription = this.chipBlurChanges.subscribe(function (_) {
+            _this._blur();
+            _this.stateChanges.next();
+        });
+    };
+    /**
+     * @return {?}
+     */
+    MdChipList.prototype._listenToChipsRemoved = function () {
+        var _this = this;
+        this._chipRemoveSubscription = this.chipRemoveChanges.subscribe(function (event) {
+            _this._updateKeyManager(event.chip);
+        });
+    };
     return MdChipList;
 }());
 MdChipList.decorators = [
@@ -6181,16 +6430,23 @@ MdChipList.decorators = [
                 exportAs: 'mdChipList, matChipList',
                 host: {
                     '[attr.tabindex]': '_tabIndex',
+                    '[attr.aria-describedby]': '_ariaDescribedby || null',
+                    '[attr.aria-required]': 'required.toString()',
+                    '[attr.aria-disabled]': 'disabled.toString()',
+                    '[attr.aria-invalid]': 'errorState',
+                    '[attr.aria-multiselectable]': 'multiple',
+                    '[class.mat-chip-list-disabled]': 'disabled',
+                    '[class.mat-chip-list-invalid]': 'errorState',
+                    '[class.mat-chip-list-required]': 'required',
                     'role': 'listbox',
                     '[attr.aria-orientation]': 'ariaOrientation',
                     'class': 'mat-chip-list',
                     '(focus)': 'focus()',
+                    '(blur)': '_blur()',
                     '(keydown)': '_keydown($event)'
                 },
-                queries: {
-                    chips: new _angular_core.ContentChildren(MdChip)
-                },
-                styles: [".mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:flex-start}.mat-chip:not(.mat-basic-chip){transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:inline-flex;padding:7px 12px;border-radius:24px;align-items:center;cursor:default}.mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 0 0 8px}[dir=rtl] .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 8px 0 0}.mat-form-field-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-right:8px}[dir=rtl] .mat-form-field-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-left:8px}.mat-chip:not(.mat-basic-chip) .mat-chip-remove.mat-icon{width:1em;height:1em}.mat-chip:not(.mat-basic-chip):focus{box-shadow:0 3px 3px -2px rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12);outline:0}@media screen and (-ms-high-contrast:active){.mat-chip:not(.mat-basic-chip){outline:solid 1px}}.mat-chip-list-stacked .mat-chip-list-wrapper{display:block}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){display:block;margin:0;margin-bottom:8px}[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){margin:0;margin-bottom:8px}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child,[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-bottom:0}.mat-form-field-prefix .mat-chip-list-wrapper{margin-bottom:8px}.mat-chip-remove{margin-right:-4px;margin-left:6px;cursor:pointer}[dir=rtl] .mat-chip-remove{margin-right:6px;margin-left:-4px}"],
+                providers: [{ provide: MdFormFieldControl, useExisting: MdChipList }],
+                styles: [".mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:baseline}.mat-chip:not(.mat-basic-chip){transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:inline-flex;padding:7px 12px;border-radius:24px;align-items:center;cursor:default}.mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 0 3px 8px}[dir=rtl] .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 8px 3px 0}.mat-form-field-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-right:8px}[dir=rtl] .mat-form-field-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-left:8px}.mat-chip:not(.mat-basic-chip) .mat-chip-remove.mat-icon{width:1em;height:1em}.mat-chip:not(.mat-basic-chip):focus{box-shadow:0 3px 3px -2px rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12);outline:0}@media screen and (-ms-high-contrast:active){.mat-chip:not(.mat-basic-chip){outline:solid 1px}}.mat-chip-list-stacked .mat-chip-list-wrapper{display:block}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){display:block;margin:0;margin-bottom:8px}[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){margin:0;margin-bottom:8px}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child,[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-bottom:0}.mat-form-field-prefix .mat-chip-list-wrapper{margin-bottom:8px}.mat-chip-remove{margin-right:-4px;margin-left:6px;cursor:pointer}[dir=rtl] .mat-chip-remove{margin-right:6px;margin-left:-4px}input.mat-chip-input{width:150px;margin:3px}"],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
             },] },
@@ -6201,19 +6457,38 @@ MdChipList.decorators = [
 MdChipList.ctorParameters = function () { return [
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ElementRef, },
+    { type: _angular_core.ChangeDetectorRef, },
     { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
+    { type: _angular_forms.NgForm, decorators: [{ type: _angular_core.Optional },] },
+    { type: _angular_forms.FormGroupDirective, decorators: [{ type: _angular_core.Optional },] },
+    { type: _angular_forms.NgControl, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Self },] },
 ]; };
 MdChipList.propDecorators = {
+    'multiple': [{ type: _angular_core.Input },],
+    'compareWith': [{ type: _angular_core.Input },],
+    'value': [{ type: _angular_core.Input },],
+    'id': [{ type: _angular_core.Input },],
+    'required': [{ type: _angular_core.Input },],
+    'placeholder': [{ type: _angular_core.Input },],
+    'disabled': [{ type: _angular_core.Input },],
     'ariaOrientation': [{ type: _angular_core.Input, args: ['aria-orientation',] },],
     'selectable': [{ type: _angular_core.Input },],
     'tabIndex': [{ type: _angular_core.Input },],
+    'change': [{ type: _angular_core.Output },],
+    'valueChange': [{ type: _angular_core.Output },],
+    'chips': [{ type: _angular_core.ContentChildren, args: [MdChip,] },],
 };
+/**
+ * Directive that adds chip-specific behaviors to an input element inside <md-form-field>.
+ * May be placed inside or outside of an <md-chip-list>.
+ */
 var MdChipInput = (function () {
     /**
      * @param {?} _elementRef
      */
     function MdChipInput(_elementRef) {
         this._elementRef = _elementRef;
+        this.focused = false;
         this._addOnBlur = false;
         /**
          * The list of key codes that will trigger a chipEnd event.
@@ -6226,6 +6501,7 @@ var MdChipInput = (function () {
          * Emitted when a chip is to be added.
          */
         this.chipEnd = new _angular_core.EventEmitter();
+        this.placeholder = '';
         this._inputElement = this._elementRef.nativeElement;
     }
     Object.defineProperty(MdChipInput.prototype, "chipList", {
@@ -6237,7 +6513,7 @@ var MdChipInput = (function () {
         set: function (value) {
             if (value) {
                 this._chipList = value;
-                this._chipList.registerInput(this._inputElement);
+                this._chipList.registerInput(this);
             }
         },
         enumerable: true,
@@ -6292,6 +6568,17 @@ var MdChipInput = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdChipInput.prototype, "empty", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            var /** @type {?} */ value = this._inputElement.value;
+            return value == null || value === '';
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * Utility method to make host definition/tests more clear.
      * @param {?=} event
@@ -6308,6 +6595,19 @@ var MdChipInput = (function () {
         if (this.addOnBlur) {
             this._emitChipEnd();
         }
+        this.focused = false;
+        // Blur the chip list if it is not focused
+        if (!this._chipList.focused) {
+            this._chipList._blur();
+        }
+        this._chipList.stateChanges.next();
+    };
+    /**
+     * @return {?}
+     */
+    MdChipInput.prototype._focus = function () {
+        this.focused = true;
+        this._chipList.stateChanges.next();
     };
     /**
      * Checks to see if the (chipEnd) event needs to be emitted.
@@ -6325,15 +6625,20 @@ var MdChipInput = (function () {
             }
         }
     };
+    /**
+     * @return {?}
+     */
+    MdChipInput.prototype.focus = function () { this._inputElement.focus(); };
     return MdChipInput;
 }());
 MdChipInput.decorators = [
     { type: _angular_core.Directive, args: [{
                 selector: 'input[mdChipInputFor], input[matChipInputFor]',
                 host: {
-                    'class': 'mat-chip-input',
+                    'class': 'mat-chip-input mat-input-element',
                     '(keydown)': '_keydown($event)',
-                    '(blur)': '_blur()'
+                    '(blur)': '_blur()',
+                    '(focus)': '_focus()',
                 }
             },] },
 ];
@@ -6351,6 +6656,7 @@ MdChipInput.propDecorators = {
     'matChipList': [{ type: _angular_core.Input, args: ['matChipInputFor',] },],
     'matAddOnBlur': [{ type: _angular_core.Input, args: ['matChipInputAddOnBlur',] },],
     'matSeparatorKeyCodes': [{ type: _angular_core.Input, args: ['matChipInputSeparatorKeyCodes',] },],
+    'placeholder': [{ type: _angular_core.Input },],
 };
 var MdChipsModule = (function () {
     function MdChipsModule() {
@@ -9723,7 +10029,6 @@ MdDatepickerModule.decorators = [
                     MdDialogModule,
                     MdIconModule,
                     _angular_cdk_overlay.OverlayModule,
-                    StyleModule,
                     _angular_cdk_a11y.A11yModule,
                 ],
                 exports: [
@@ -10134,21 +10439,21 @@ var MdExpansionPanelHeader = (function () {
      * @param {?} renderer
      * @param {?} panel
      * @param {?} _element
-     * @param {?} _focusOriginMonitor
+     * @param {?} _focusMonitor
      * @param {?} _changeDetectorRef
      */
-    function MdExpansionPanelHeader(renderer, panel, _element, _focusOriginMonitor, _changeDetectorRef) {
+    function MdExpansionPanelHeader(renderer, panel, _element, _focusMonitor, _changeDetectorRef) {
         var _this = this;
         this.panel = panel;
         this._element = _element;
-        this._focusOriginMonitor = _focusOriginMonitor;
+        this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
         this._parentChangeSubscription = rxjs_Subscription.Subscription.EMPTY;
         // Since the toggle state depends on an @Input on the panel, we
         // need to  subscribe and trigger change detection manually.
         this._parentChangeSubscription = rxjs_observable_merge.merge(panel.opened, panel.closed, _angular_cdk_rxjs.filter.call(panel._inputChanges, function (changes) { return !!(changes.hideToggle || changes.disabled); }))
             .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
-        _focusOriginMonitor.monitor(_element.nativeElement, renderer, false);
+        _focusMonitor.monitor(_element.nativeElement, renderer, false);
     }
     /**
      * Toggles the expanded state of the panel.
@@ -10209,7 +10514,7 @@ var MdExpansionPanelHeader = (function () {
      */
     MdExpansionPanelHeader.prototype.ngOnDestroy = function () {
         this._parentChangeSubscription.unsubscribe();
-        this._focusOriginMonitor.stopMonitoring(this._element.nativeElement);
+        this._focusMonitor.stopMonitoring(this._element.nativeElement);
     };
     return MdExpansionPanelHeader;
 }());
@@ -10260,7 +10565,7 @@ MdExpansionPanelHeader.ctorParameters = function () { return [
     { type: _angular_core.Renderer2, },
     { type: MdExpansionPanel, decorators: [{ type: _angular_core.Host },] },
     { type: _angular_core.ElementRef, },
-    { type: FocusOriginMonitor, },
+    { type: _angular_cdk_a11y.FocusMonitor, },
     { type: _angular_core.ChangeDetectorRef, },
 ]; };
 MdExpansionPanelHeader.propDecorators = {
@@ -10318,7 +10623,7 @@ var MdExpansionModule = (function () {
 }());
 MdExpansionModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [CompatibilityModule, _angular_common.CommonModule, StyleModule],
+                imports: [CompatibilityModule, _angular_common.CommonModule, _angular_cdk_a11y.A11yModule],
                 exports: [
                     CdkAccordion,
                     MdAccordion,
@@ -11225,7 +11530,7 @@ var MD_INPUT_INVALID_TYPES = [
     'reset',
     'submit'
 ];
-var nextUniqueId$2$1 = 0;
+var nextUniqueId$3 = 0;
 /**
  * Directive that allows a native input to work inside a `MdFormField`.
  */
@@ -11252,7 +11557,7 @@ var MdInput = (function () {
         this._type = 'text';
         this._disabled = false;
         this._required = false;
-        this._uid = "md-input-" + nextUniqueId$2$1++;
+        this._uid = "md-input-" + nextUniqueId$3++;
         this._previousNativeValue = this.value;
         /**
          * Whether the input is focused.
@@ -16458,7 +16763,7 @@ MdProgressSpinnerModule.decorators = [
 MdProgressSpinnerModule.ctorParameters = function () { return []; };
 
 // Increasing integer for generating unique ids for radio components.
-var nextUniqueId$3 = 0;
+var nextUniqueId$4 = 0;
 /**
  * Provider Expression that allows md-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
@@ -16507,7 +16812,7 @@ var MdRadioGroup = (function (_super) {
         /**
          * The HTML name attribute applied to radio buttons in this group.
          */
-        _this._name = "md-radio-group-" + nextUniqueId$3++;
+        _this._name = "md-radio-group-" + nextUniqueId$4++;
         /**
          * The currently selected radio button. Should match value.
          */
@@ -16846,15 +17151,15 @@ var MdRadioButton = (function (_super) {
      * @param {?} elementRef
      * @param {?} renderer
      * @param {?} _changeDetector
-     * @param {?} _focusOriginMonitor
+     * @param {?} _focusMonitor
      * @param {?} _radioDispatcher
      */
-    function MdRadioButton(radioGroup, elementRef, renderer, _changeDetector, _focusOriginMonitor, _radioDispatcher) {
+    function MdRadioButton(radioGroup, elementRef, renderer, _changeDetector, _focusMonitor, _radioDispatcher) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._changeDetector = _changeDetector;
-        _this._focusOriginMonitor = _focusOriginMonitor;
+        _this._focusMonitor = _focusMonitor;
         _this._radioDispatcher = _radioDispatcher;
-        _this._uniqueId = "md-radio-" + ++nextUniqueId$3;
+        _this._uniqueId = "md-radio-" + ++nextUniqueId$4;
         /**
          * The unique ID for the radio button.
          */
@@ -17039,7 +17344,7 @@ var MdRadioButton = (function (_super) {
      * @return {?}
      */
     MdRadioButton.prototype.focus = function () {
-        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
+        this._focusMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
     };
     /**
      * Marks the radio button as needing checking for change detection.
@@ -17068,7 +17373,7 @@ var MdRadioButton = (function (_super) {
      */
     MdRadioButton.prototype.ngAfterViewInit = function () {
         var _this = this;
-        this._focusOriginMonitor
+        this._focusMonitor
             .monitor(this._inputElement.nativeElement, this._renderer, false)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
@@ -17076,7 +17381,7 @@ var MdRadioButton = (function (_super) {
      * @return {?}
      */
     MdRadioButton.prototype.ngOnDestroy = function () {
-        this._focusOriginMonitor.stopMonitoring(this._inputElement.nativeElement);
+        this._focusMonitor.stopMonitoring(this._inputElement.nativeElement);
         this._removeUniqueSelectionListener();
     };
     /**
@@ -17179,7 +17484,7 @@ MdRadioButton.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ChangeDetectorRef, },
-    { type: FocusOriginMonitor, },
+    { type: _angular_cdk_a11y.FocusMonitor, },
     { type: UniqueSelectionDispatcher, },
 ]; };
 MdRadioButton.propDecorators = {
@@ -17204,9 +17509,9 @@ var MdRadioModule = (function () {
 }());
 MdRadioModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [_angular_common.CommonModule, MdRippleModule, MdCommonModule],
+                imports: [_angular_common.CommonModule, MdRippleModule, MdCommonModule, _angular_cdk_a11y.A11yModule],
                 exports: [MdRadioGroup, MdRadioButton, MdCommonModule],
-                providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, _angular_cdk_overlay.VIEWPORT_RULER_PROVIDER, FocusOriginMonitor],
+                providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, _angular_cdk_overlay.VIEWPORT_RULER_PROVIDER],
                 declarations: [MdRadioGroup, MdRadioButton],
             },] },
 ];
@@ -17908,7 +18213,7 @@ MdSidenavModule.decorators = [
 MdSidenavModule.ctorParameters = function () { return []; };
 
 // Increasing integer for generating unique ids for slide-toggle components.
-var nextUniqueId$4 = 0;
+var nextUniqueId$5 = 0;
 var MD_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: _angular_forms.NG_VALUE_ACCESSOR,
     useExisting: _angular_core.forwardRef(function () { return MdSlideToggle; }),
@@ -17946,18 +18251,18 @@ var MdSlideToggle = (function (_super) {
      * @param {?} elementRef
      * @param {?} renderer
      * @param {?} _platform
-     * @param {?} _focusOriginMonitor
+     * @param {?} _focusMonitor
      * @param {?} _changeDetectorRef
      * @param {?} tabIndex
      */
-    function MdSlideToggle(elementRef, renderer, _platform, _focusOriginMonitor, _changeDetectorRef, tabIndex) {
+    function MdSlideToggle(elementRef, renderer, _platform, _focusMonitor, _changeDetectorRef, tabIndex) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._platform = _platform;
-        _this._focusOriginMonitor = _focusOriginMonitor;
+        _this._focusMonitor = _focusMonitor;
         _this._changeDetectorRef = _changeDetectorRef;
         _this.onChange = function (_) { };
         _this.onTouched = function () { };
-        _this._uniqueId = "md-slide-toggle-" + ++nextUniqueId$4;
+        _this._uniqueId = "md-slide-toggle-" + ++nextUniqueId$5;
         _this._required = false;
         _this._checked = false;
         /**
@@ -18033,7 +18338,7 @@ var MdSlideToggle = (function (_super) {
     MdSlideToggle.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._slideRenderer = new SlideToggleRenderer(this._elementRef, this._platform);
-        this._focusOriginMonitor
+        this._focusMonitor
             .monitor(this._inputElement.nativeElement, this._renderer, false)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
@@ -18041,7 +18346,7 @@ var MdSlideToggle = (function (_super) {
      * @return {?}
      */
     MdSlideToggle.prototype.ngOnDestroy = function () {
-        this._focusOriginMonitor.stopMonitoring(this._inputElement.nativeElement);
+        this._focusMonitor.stopMonitoring(this._inputElement.nativeElement);
     };
     /**
      * This function will called if the underlying input changed its value through user interaction.
@@ -18118,7 +18423,7 @@ var MdSlideToggle = (function (_super) {
      * @return {?}
      */
     MdSlideToggle.prototype.focus = function () {
-        this._focusOriginMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
+        this._focusMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
     };
     /**
      * Toggles the checked state of the slide-toggle.
@@ -18226,7 +18531,7 @@ MdSlideToggle.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.Renderer2, },
     { type: _angular_cdk_platform.Platform, },
-    { type: FocusOriginMonitor, },
+    { type: _angular_cdk_a11y.FocusMonitor, },
     { type: _angular_core.ChangeDetectorRef, },
     { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['tabindex',] },] },
 ]; };
@@ -18323,11 +18628,10 @@ var MdSlideToggleModule = (function () {
 }());
 MdSlideToggleModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdRippleModule, MdCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_observers.ObserversModule],
+                imports: [MdRippleModule, MdCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_observers.ObserversModule, _angular_cdk_a11y.A11yModule],
                 exports: [MdSlideToggle, MdCommonModule],
                 declarations: [MdSlideToggle],
                 providers: [
-                    FOCUS_ORIGIN_MONITOR_PROVIDER,
                     { provide: _angular_platformBrowser.HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
                 ],
             },] },
@@ -18395,13 +18699,13 @@ var MdSlider = (function (_super) {
     /**
      * @param {?} renderer
      * @param {?} elementRef
-     * @param {?} _focusOriginMonitor
+     * @param {?} _focusMonitor
      * @param {?} _changeDetectorRef
      * @param {?} _dir
      */
-    function MdSlider(renderer, elementRef, _focusOriginMonitor, _changeDetectorRef, _dir) {
+    function MdSlider(renderer, elementRef, _focusMonitor, _changeDetectorRef, _dir) {
         var _this = _super.call(this, renderer, elementRef) || this;
-        _this._focusOriginMonitor = _focusOriginMonitor;
+        _this._focusMonitor = _focusMonitor;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._dir = _dir;
         _this._invert = false;
@@ -18831,7 +19135,7 @@ var MdSlider = (function (_super) {
      */
     MdSlider.prototype.ngOnInit = function () {
         var _this = this;
-        this._focusOriginMonitor
+        this._focusMonitor
             .monitor(this._elementRef.nativeElement, this._renderer, true)
             .subscribe(function (origin) {
             _this._isActive = !!origin && origin !== 'keyboard';
@@ -18847,7 +19151,7 @@ var MdSlider = (function (_super) {
      * @return {?}
      */
     MdSlider.prototype.ngOnDestroy = function () {
-        this._focusOriginMonitor.stopMonitoring(this._elementRef.nativeElement);
+        this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
         this._dirChangeSubscription.unsubscribe();
     };
     /**
@@ -19209,7 +19513,7 @@ MdSlider.decorators = [
 MdSlider.ctorParameters = function () { return [
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ElementRef, },
-    { type: FocusOriginMonitor, },
+    { type: _angular_cdk_a11y.FocusMonitor, },
     { type: _angular_core.ChangeDetectorRef, },
     { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
 ]; };
@@ -19235,7 +19539,7 @@ var MdSliderModule = (function () {
 }());
 MdSliderModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [_angular_common.CommonModule, MdCommonModule, StyleModule, _angular_cdk_bidi.BidiModule],
+                imports: [_angular_common.CommonModule, MdCommonModule, _angular_cdk_bidi.BidiModule, _angular_cdk_a11y.A11yModule],
                 exports: [MdSlider, MdCommonModule],
                 declarations: [MdSlider],
                 providers: [{ provide: _angular_platformBrowser.HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
@@ -19889,7 +20193,7 @@ var MdSort = (function () {
         /**
          * Event emitted when the user changes either the active sort or sort direction.
          */
-        this.mdSortChange = new _angular_core.EventEmitter();
+        this.sortChange = new _angular_core.EventEmitter();
     }
     Object.defineProperty(MdSort.prototype, "disableClear", {
         /**
@@ -19958,6 +20262,14 @@ var MdSort = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MdSort.prototype, "_matSortChange", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this.sortChange; },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * Register function to be used by the contained MdSortables. Adds the MdSortable to the
      * collection of MdSortables.
@@ -19995,7 +20307,7 @@ var MdSort = (function () {
         else {
             this.direction = this.getNextSortDirection(sortable);
         }
-        this.mdSortChange.next({ active: this.active, direction: this.direction });
+        this.sortChange.next({ active: this.active, direction: this.direction });
     };
     /**
      * Returns the next sort direction of the active sortable, checking for potential overrides.
@@ -20036,7 +20348,8 @@ MdSort.propDecorators = {
     '_matSortStart': [{ type: _angular_core.Input, args: ['matSortStart',] },],
     '_matSortDirection': [{ type: _angular_core.Input, args: ['matSortDirection',] },],
     '_matSortDisableClear': [{ type: _angular_core.Input, args: ['matSortDisableClear',] },],
-    'mdSortChange': [{ type: _angular_core.Output },],
+    'sortChange': [{ type: _angular_core.Output, args: ['mdSortChange',] },],
+    '_matSortChange': [{ type: _angular_core.Output, args: ['matSortChange',] },],
 };
 /**
  * Returns the sort direction cycle to use given the provided parameters of order and clear.
@@ -20087,6 +20400,7 @@ MdSortHeaderIntl.decorators = [
  * @nocollapse
  */
 MdSortHeaderIntl.ctorParameters = function () { return []; };
+var SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' + AnimationCurves.STANDARD_CURVE;
 /**
  * Applies sorting behavior (click to change sort) and styles to an element, including an
  * arrow to display the current sort direction.
@@ -20114,7 +20428,7 @@ var MdSortHeader = (function () {
         if (!_sort) {
             throw getMdSortHeaderNotContainedWithinMdSortError();
         }
-        this._rerenderSubscription = rxjs_observable_merge.merge(_sort.mdSortChange, _intl.changes).subscribe(function () {
+        this._rerenderSubscription = rxjs_observable_merge.merge(_sort.sortChange, _intl.changes).subscribe(function () {
             changeDetectorRef.markForCheck();
         });
     }
@@ -20172,8 +20486,8 @@ var MdSortHeader = (function () {
 }());
 MdSortHeader.decorators = [
     { type: _angular_core.Component, args: [{ selector: '[md-sort-header], [mat-sort-header]',
-                template: "<div class=\"mat-sort-header-container\" [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\"><button class=\"mat-sort-header-button\" type=\"button\" [attr.aria-label]=\"_intl.sortButtonLabel(id)\"><ng-content></ng-content></button><div *ngIf=\"_isSorted()\" class=\"mat-sort-header-arrow\" [@indicatorRotate]=\"_sort.direction\"><div class=\"mat-sort-header-stem\"></div><div class=\"mat-sort-header-pointer-left\"></div><div class=\"mat-sort-header-pointer-right\"></div></div></div><span class=\"cdk-visually-hidden\" *ngIf=\"_isSorted()\">{{_intl.sortDescriptionLabel(id, _sort.direction)}}</span>",
-                styles: [".mat-sort-header-container{display:flex;cursor:pointer}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:pointer;outline:0;font:inherit;color:currentColor}.mat-sort-header-arrow{height:10px;width:10px;position:relative;margin:0 0 0 6px;transform:rotate(45deg)}.mat-sort-header-position-before .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;transform:rotate(135deg);height:10px;width:2px;margin:auto}.mat-sort-header-pointer-left{background:currentColor;width:2px;height:8px;position:absolute;bottom:0;right:0}.mat-sort-header-pointer-right{background:currentColor;width:8px;height:2px;position:absolute;bottom:0;right:0}"],
+                template: "<div class=\"mat-sort-header-container\" [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\"><button class=\"mat-sort-header-button\" type=\"button\" [attr.aria-label]=\"_intl.sortButtonLabel(id)\"><ng-content></ng-content></button><div *ngIf=\"_isSorted()\" class=\"mat-sort-header-arrow\"><div class=\"mat-sort-header-stem\"></div><div class=\"mat-sort-header-indicator\" [@indicator]=\"_sort.direction\"><div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_sort.direction\"></div><div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_sort.direction\"></div><div class=\"mat-sort-header-pointer-middle\"></div></div></div></div><span class=\"cdk-visually-hidden\" *ngIf=\"_isSorted()\">{{_intl.sortDescriptionLabel(id, _sort.direction)}}</span>",
+                styles: [".mat-sort-header-container{display:flex;cursor:pointer}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:pointer;outline:0;font:inherit;color:currentColor}.mat-sort-header-arrow{height:12px;width:12px;margin:0 0 0 6px;position:relative;display:flex}.mat-sort-header-position-before .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;height:10px;width:2px;margin:auto;display:flex;align-items:center}.mat-sort-header-indicator{width:100%;height:2px;display:flex;align-items:center;position:absolute;top:0;transition:225ms cubic-bezier(.4,0,.2,1)}.mat-sort-header-pointer-middle{margin:auto;height:2px;width:2px;background:currentColor;transform:rotate(45deg)}.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{background:currentColor;width:6px;height:2px;transition:225ms cubic-bezier(.4,0,.2,1);position:absolute}.mat-sort-header-pointer-left{transform-origin:right;left:0}.mat-sort-header-pointer-right{transform-origin:left;right:0}"],
                 host: {
                     '(click)': '_sort.sort(this)',
                     '[class.mat-sort-header-sorted]': '_isSorted()',
@@ -20181,10 +20495,21 @@ MdSortHeader.decorators = [
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                 animations: [
-                    _angular_animations.trigger('indicatorRotate', [
+                    _angular_animations.trigger('indicator', [
+                        _angular_animations.state('asc', _angular_animations.style({ transform: 'translateY(0px)' })),
+                        // 10px is the height of the sort indicator, minus the width of the pointers
+                        _angular_animations.state('desc', _angular_animations.style({ transform: 'translateY(10px)' })),
+                        _angular_animations.transition('asc <=> desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION))
+                    ]),
+                    _angular_animations.trigger('leftPointer', [
+                        _angular_animations.state('asc', _angular_animations.style({ transform: 'rotate(-45deg)' })),
+                        _angular_animations.state('desc', _angular_animations.style({ transform: 'rotate(45deg)' })),
+                        _angular_animations.transition('asc <=> desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION))
+                    ]),
+                    _angular_animations.trigger('rightPointer', [
                         _angular_animations.state('asc', _angular_animations.style({ transform: 'rotate(45deg)' })),
-                        _angular_animations.state('desc', _angular_animations.style({ transform: 'rotate(225deg)' })),
-                        _angular_animations.transition('asc <=> desc', _angular_animations.animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
+                        _angular_animations.state('desc', _angular_animations.style({ transform: 'rotate(-45deg)' })),
+                        _angular_animations.transition('asc <=> desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION))
                     ])
                 ]
             },] },
@@ -22543,7 +22868,7 @@ MdToolbarModule.ctorParameters = function () { return []; };
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.11-b5d2e0b');
+var VERSION = new _angular_core.Version('2.0.0-beta.11-244c906');
 
 exports.VERSION = VERSION;
 exports.MdAutocompleteModule = MdAutocompleteModule;
@@ -22601,7 +22926,9 @@ exports._MdCheckboxRequiredValidator = _MdCheckboxRequiredValidator;
 exports.MD_CHECKBOX_REQUIRED_VALIDATOR = MD_CHECKBOX_REQUIRED_VALIDATOR;
 exports.MdCheckboxRequiredValidator = MdCheckboxRequiredValidator;
 exports.MdChipsModule = MdChipsModule;
+exports.MdChipListChange = MdChipListChange;
 exports.MdChipList = MdChipList;
+exports.MdChipSelectionChange = MdChipSelectionChange;
 exports.MdChipBase = MdChipBase;
 exports._MdChipMixinBase = _MdChipMixinBase;
 exports.MdBasicChip = MdBasicChip;
@@ -22741,11 +23068,9 @@ exports.takeUntil = _angular_cdk_rxjs.takeUntil;
 exports.MdPseudoCheckboxModule = MdPseudoCheckboxModule;
 exports.MdPseudoCheckbox = MdPseudoCheckbox;
 exports.StyleModule = StyleModule;
-exports.TOUCH_BUFFER_MS = TOUCH_BUFFER_MS;
-exports.FocusOriginMonitor = FocusOriginMonitor;
-exports.CdkMonitorFocus = CdkMonitorFocus;
-exports.FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY = FOCUS_ORIGIN_MONITOR_PROVIDER_FACTORY;
-exports.FOCUS_ORIGIN_MONITOR_PROVIDER = FOCUS_ORIGIN_MONITOR_PROVIDER;
+exports.CdkMonitorFocus = _angular_cdk_a11y.CdkMonitorFocus;
+exports.FocusMonitor = _angular_cdk_a11y.FocusMonitor;
+exports.FOCUS_MONITOR_PROVIDER = _angular_cdk_a11y.FOCUS_MONITOR_PROVIDER;
 exports.applyCssTransform = applyCssTransform;
 exports.extendObject = extendObject;
 exports.JAN = JAN;

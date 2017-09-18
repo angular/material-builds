@@ -13,20 +13,20 @@ import { Subject } from 'rxjs/Subject';
 import { MdFormFieldControl } from '@angular/material/form-field';
 /** Directive that allows a native input to work inside a `MdFormField`. */
 export declare class MdInput implements MdFormFieldControl<any>, OnChanges, OnDestroy, DoCheck {
-    private _elementRef;
-    private _renderer;
-    private _platform;
+    protected _elementRef: ElementRef;
+    protected _renderer: Renderer2;
+    protected _platform: Platform;
     ngControl: NgControl;
-    private _parentForm;
-    private _parentFormGroup;
+    protected _parentForm: NgForm;
+    protected _parentFormGroup: FormGroupDirective;
     /** Variables used as cache for getters and setters. */
-    private _type;
-    private _disabled;
-    private _required;
-    private _id;
-    private _uid;
-    private _errorOptions;
-    private _previousNativeValue;
+    protected _type: string;
+    protected _disabled: boolean;
+    protected _required: boolean;
+    protected _id: string;
+    protected _uid: string;
+    protected _errorOptions: ErrorOptions;
+    protected _previousNativeValue: string;
     /** Whether the input is focused. */
     focused: boolean;
     /** Whether the input is in an error state. */
@@ -52,7 +52,7 @@ export declare class MdInput implements MdFormFieldControl<any>, OnChanges, OnDe
     errorStateMatcher: ErrorStateMatcher;
     /** The input element's value. */
     value: string;
-    private _neverEmptyInputTypes;
+    protected _neverEmptyInputTypes: string[];
     constructor(_elementRef: ElementRef, _renderer: Renderer2, _platform: Platform, ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, errorOptions: ErrorOptions);
     ngOnChanges(): void;
     ngOnDestroy(): void;
@@ -61,17 +61,17 @@ export declare class MdInput implements MdFormFieldControl<any>, OnChanges, OnDe
     _focusChanged(isFocused: boolean): void;
     _onInput(): void;
     /** Re-evaluates the error state. This is only relevant with @angular/forms. */
-    private _updateErrorState();
+    protected _updateErrorState(): void;
     /** Does some manual dirty checking on the native input `value` property. */
-    private _dirtyCheckNativeValue();
+    protected _dirtyCheckNativeValue(): void;
     /** Make sure the input is a supported type. */
-    private _validateType();
+    protected _validateType(): void;
     /** Checks whether the input type is one of the types that are never empty. */
-    private _isNeverEmpty();
+    protected _isNeverEmpty(): boolean;
     /** Checks whether the input is invalid based on the native validation. */
-    private _isBadInput();
+    protected _isBadInput(): boolean;
     /** Determines if the component host is a textarea. If not recognizable it returns false. */
-    private _isTextarea();
+    protected _isTextarea(): boolean;
     readonly empty: boolean;
     setDescribedByIds(ids: string[]): void;
     focus(): void;
