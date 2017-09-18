@@ -601,5 +601,5 @@ MdExpansionModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, EXPANSION_PANEL_ANIMATION_TIMING as ɵc9, MdExpansionPanelBase as ɵa9, _MdExpansionPanelMixinBase as ɵb9 };
+export { MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, EXPANSION_PANEL_ANIMATION_TIMING as ɵc8, MdExpansionPanelBase as ɵa8, _MdExpansionPanelMixinBase as ɵb8 };
 //# sourceMappingURL=expansion.es5.js.map
