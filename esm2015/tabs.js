@@ -1465,5 +1465,5 @@ MdTabsModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroupBase, _MdTabGroupMixinBase, MdTabGroup, MdTabBase as ɵe23, _MdTabMixinBase as ɵf23, MdTabHeaderBase as ɵa23, _MdTabHeaderMixinBase as ɵb23, MdTabLabelWrapperBase as ɵc23, _MdTabLabelWrapperMixinBase as ɵd23, MdTabLinkBase as ɵi23, MdTabNavBase as ɵg23, _MdTabLinkMixinBase as ɵj23, _MdTabNavMixinBase as ɵh23 };
+export { MdTabsModule, MdInkBar, MdTabBody, MdTabHeader, MdTabLabelWrapper, MdTab, MdTabLabel, MdTabNav, MdTabLink, MdTabChangeEvent, MdTabGroupBase, _MdTabGroupMixinBase, MdTabGroup, MdTabBase as ɵe21, _MdTabMixinBase as ɵf21, MdTabHeaderBase as ɵa21, _MdTabHeaderMixinBase as ɵb21, MdTabLabelWrapperBase as ɵc21, _MdTabLabelWrapperMixinBase as ɵd21, MdTabLinkBase as ɵi21, MdTabNavBase as ɵg21, _MdTabLinkMixinBase as ɵj21, _MdTabNavMixinBase as ɵh21 };
 //# sourceMappingURL=tabs.js.map

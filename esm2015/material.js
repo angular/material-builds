@@ -41,7 +41,7 @@ import { MD_TOOLTIP_SCROLL_STRATEGY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MD_TOO
 /**
  * Current version of Angular Material.
  */
-const VERSION = new Version('2.0.0-beta.11-df808b8');
+const VERSION = new Version('2.0.0-beta.11-a611d36');
 
 /**
  * Generated bundle index. Do not edit.
