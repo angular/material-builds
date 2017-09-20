@@ -132,6 +132,7 @@ MdStepHeader.decorators = [
                     'role': 'tab',
                 },
                 encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
                 providers: [{ provide: MATERIAL_COMPATIBILITY_MODE, useValue: false }],
             },] },
 ];
@@ -185,7 +186,8 @@ MdStep.decorators = [
     { type: Component, args: [{ selector: 'md-step, mat-step',
                 template: "<ng-template><ng-content></ng-content></ng-template>",
                 providers: [{ provide: MD_ERROR_GLOBAL_OPTIONS, useExisting: MdStep }],
-                encapsulation: ViewEncapsulation.None
+                encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
             },] },
 ];
 /**
@@ -243,7 +245,8 @@ MdHorizontalStepper.decorators = [
                     ])
                 ],
                 providers: [{ provide: MdStepper, useExisting: MdHorizontalStepper }],
-                encapsulation: ViewEncapsulation.None
+                encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
             },] },
 ];
 /**
@@ -275,7 +278,8 @@ MdVerticalStepper.decorators = [
                     ])
                 ],
                 providers: [{ provide: MdStepper, useExisting: MdVerticalStepper }],
-                encapsulation: ViewEncapsulation.None
+                encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
             },] },
 ];
 /**

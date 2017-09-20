@@ -451,6 +451,7 @@ MdCheckbox.decorators = [
                 providers: [MD_CHECKBOX_CONTROL_VALUE_ACCESSOR],
                 inputs: ['disabled', 'disableRipple', 'color'],
                 encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush
             },] },
 ];

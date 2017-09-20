@@ -317,6 +317,7 @@ MdDrawer.decorators = [
                 },
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
             },] },
 ];
 /**
@@ -562,6 +563,7 @@ MdDrawerContainer.decorators = [
                 },
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
             },] },
 ];
 /**
@@ -613,6 +615,7 @@ MdSidenav.decorators = [
                 },
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
             },] },
 ];
 /**
@@ -630,6 +633,7 @@ MdSidenavContainer.decorators = [
                 },
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
             },] },
 ];
 /**

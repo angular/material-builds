@@ -454,6 +454,7 @@ MdFormField.decorators = [
                     '(click)': '_control.focus()',
                 },
                 encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];

@@ -356,6 +356,7 @@ MdSortHeader.decorators = [
                     '[class.mat-sort-header-sorted]': '_isSorted()',
                 },
                 encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 animations: [
                     trigger('indicator', [

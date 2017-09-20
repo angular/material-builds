@@ -307,6 +307,7 @@ MdExpansionPanel.decorators = [
                 selector: 'md-expansion-panel, mat-expansion-panel',
                 template: "<ng-content select=\"mat-expansion-panel-header, md-expansion-panel-header\"></ng-content><div [class.mat-expanded]=\"expanded\" class=\"mat-expansion-panel-content\" [@bodyExpansion]=\"_getExpandedState()\" [id]=\"id\"><div class=\"mat-expansion-panel-body\"><ng-content></ng-content></div><ng-content select=\"mat-action-row, md-action-row\"></ng-content></div>",
                 encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 inputs: ['disabled', 'expanded'],
                 host: {
@@ -446,6 +447,7 @@ MdExpansionPanelHeader.decorators = [
                 styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-description,.mat-expansion-panel-header-title{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-description,[dir=rtl] .mat-expansion-panel-header-title{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:'';display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}"],
                 template: "<span class=\"mat-content\"><ng-content select=\"md-panel-title, mat-panel-title\"></ng-content><ng-content select=\"md-panel-description, mat-panel-description\"></ng-content><ng-content></ng-content></span><span [@indicatorRotate]=\"_getExpandedState()\" *ngIf=\"_showToggle()\" class=\"mat-expansion-indicator\"></span>",
                 encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 host: {
                     'class': 'mat-expansion-panel-header',
@@ -575,5 +577,5 @@ MdExpansionModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdExpansionModule, MdAccordion as MatAccordion, MdExpansionModule as MatExpansionModule, MdExpansionPanel as MatExpansionPanel, MdExpansionPanelActionRow as MatExpansionPanelActionRow, MdExpansionPanelDescription as MatExpansionPanelDescription, MdExpansionPanelHeader as MatExpansionPanelHeader, MdExpansionPanelTitle as MatExpansionPanelTitle, EXPANSION_PANEL_ANIMATION_TIMING as ɵc14, MdExpansionPanelBase as ɵa14, _MdExpansionPanelMixinBase as ɵb14 };
+export { CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdExpansionModule, MdAccordion as MatAccordion, MdExpansionModule as MatExpansionModule, MdExpansionPanel as MatExpansionPanel, MdExpansionPanelActionRow as MatExpansionPanelActionRow, MdExpansionPanelDescription as MatExpansionPanelDescription, MdExpansionPanelHeader as MatExpansionPanelHeader, MdExpansionPanelTitle as MatExpansionPanelTitle, EXPANSION_PANEL_ANIMATION_TIMING as ɵc5, MdExpansionPanelBase as ɵa5, _MdExpansionPanelMixinBase as ɵb5 };
 //# sourceMappingURL=expansion.js.map

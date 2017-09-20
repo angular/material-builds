@@ -691,6 +691,7 @@ MdIcon.decorators = [
                     'class': 'mat-icon',
                 },
                 encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];

@@ -59,7 +59,8 @@ MdToolbar.decorators = [
                     'role': 'toolbar'
                 },
                 changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None
+                encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
             },] },
 ];
 /**
