@@ -1249,6 +1249,7 @@ var MdChipInput = (function () {
          * Emitted when a chip is to be added.
          */
         this.chipEnd = new EventEmitter();
+        this._matChipInputTokenEnd = this.chipEnd;
         this.placeholder = '';
         this._inputElement = this._elementRef.nativeElement;
     }
@@ -1401,6 +1402,7 @@ MdChipInput.propDecorators = {
     'addOnBlur': [{ type: Input, args: ['mdChipInputAddOnBlur',] },],
     'separatorKeyCodes': [{ type: Input, args: ['mdChipInputSeparatorKeyCodes',] },],
     'chipEnd': [{ type: Output, args: ['mdChipInputTokenEnd',] },],
+    '_matChipInputTokenEnd': [{ type: Output, args: ['matChipInputTokenEnd',] },],
     'matChipList': [{ type: Input, args: ['matChipInputFor',] },],
     'matAddOnBlur': [{ type: Input, args: ['matChipInputAddOnBlur',] },],
     'matSeparatorKeyCodes': [{ type: Input, args: ['matChipInputSeparatorKeyCodes',] },],

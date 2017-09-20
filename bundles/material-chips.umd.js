@@ -3856,6 +3856,7 @@ var MdChipInput = (function () {
          * Emitted when a chip is to be added.
          */
         this.chipEnd = new _angular_core.EventEmitter();
+        this._matChipInputTokenEnd = this.chipEnd;
         this.placeholder = '';
         this._inputElement = this._elementRef.nativeElement;
     }
@@ -4008,6 +4009,7 @@ MdChipInput.propDecorators = {
     'addOnBlur': [{ type: _angular_core.Input, args: ['mdChipInputAddOnBlur',] },],
     'separatorKeyCodes': [{ type: _angular_core.Input, args: ['mdChipInputSeparatorKeyCodes',] },],
     'chipEnd': [{ type: _angular_core.Output, args: ['mdChipInputTokenEnd',] },],
+    '_matChipInputTokenEnd': [{ type: _angular_core.Output, args: ['matChipInputTokenEnd',] },],
     'matChipList': [{ type: _angular_core.Input, args: ['matChipInputFor',] },],
     'matAddOnBlur': [{ type: _angular_core.Input, args: ['matChipInputAddOnBlur',] },],
     'matSeparatorKeyCodes': [{ type: _angular_core.Input, args: ['matChipInputSeparatorKeyCodes',] },],

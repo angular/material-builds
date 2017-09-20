@@ -2958,10 +2958,10 @@ exports.MdGridList = MdGridList;
 exports.MatGridList = MdGridList;
 exports.MatGridListModule = MdGridListModule;
 exports.MatGridTile = MdGridTile;
-exports.ɵb5 = MdGridAvatarCssMatStyler;
-exports.ɵd5 = MdGridTileFooterCssMatStyler;
-exports.ɵc5 = MdGridTileHeaderCssMatStyler;
-exports.ɵa5 = MdGridTileText;
+exports.ɵb18 = MdGridAvatarCssMatStyler;
+exports.ɵd18 = MdGridTileFooterCssMatStyler;
+exports.ɵc18 = MdGridTileHeaderCssMatStyler;
+exports.ɵa18 = MdGridTileText;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

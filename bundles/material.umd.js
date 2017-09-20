@@ -6501,6 +6501,7 @@ var MdChipInput = (function () {
          * Emitted when a chip is to be added.
          */
         this.chipEnd = new _angular_core.EventEmitter();
+        this._matChipInputTokenEnd = this.chipEnd;
         this.placeholder = '';
         this._inputElement = this._elementRef.nativeElement;
     }
@@ -6653,6 +6654,7 @@ MdChipInput.propDecorators = {
     'addOnBlur': [{ type: _angular_core.Input, args: ['mdChipInputAddOnBlur',] },],
     'separatorKeyCodes': [{ type: _angular_core.Input, args: ['mdChipInputSeparatorKeyCodes',] },],
     'chipEnd': [{ type: _angular_core.Output, args: ['mdChipInputTokenEnd',] },],
+    '_matChipInputTokenEnd': [{ type: _angular_core.Output, args: ['matChipInputTokenEnd',] },],
     'matChipList': [{ type: _angular_core.Input, args: ['matChipInputFor',] },],
     'matAddOnBlur': [{ type: _angular_core.Input, args: ['matChipInputAddOnBlur',] },],
     'matSeparatorKeyCodes': [{ type: _angular_core.Input, args: ['matChipInputSeparatorKeyCodes',] },],
@@ -22868,7 +22870,7 @@ MdToolbarModule.ctorParameters = function () { return []; };
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.11-0e4806b');
+var VERSION = new _angular_core.Version('2.0.0-beta.11-3293a6d');
 
 exports.VERSION = VERSION;
 exports.MdAutocompleteSelectedEvent = MdAutocompleteSelectedEvent;

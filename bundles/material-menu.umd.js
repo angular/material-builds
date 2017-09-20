@@ -2974,10 +2974,10 @@ exports.MatMenu = MdMenu;
 exports.MatMenuItem = MdMenuItem;
 exports.MatMenuModule = MdMenuModule;
 exports.MatMenuTrigger = MdMenuTrigger;
-exports.ɵa24 = MdMenuItemBase;
-exports.ɵb24 = _MdMenuItemMixinBase;
-exports.ɵd24 = MD_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc24 = MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa21 = MdMenuItemBase;
+exports.ɵb21 = _MdMenuItemMixinBase;
+exports.ɵd21 = MD_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc21 = MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -34,6 +34,7 @@ export declare class MdChipInput {
     separatorKeyCodes: number[];
     /** Emitted when a chip is to be added. */
     chipEnd: EventEmitter<MdChipInputEvent>;
+    _matChipInputTokenEnd: EventEmitter<MdChipInputEvent>;
     matChipList: MdChipList;
     matAddOnBlur: boolean;
     matSeparatorKeyCodes: number[];
