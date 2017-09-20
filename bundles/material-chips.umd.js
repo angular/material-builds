@@ -4040,6 +4040,14 @@ exports.MdBasicChip = MdBasicChip;
 exports.MdChip = MdChip;
 exports.MdChipRemove = MdChipRemove;
 exports.MdChipInput = MdChipInput;
+exports.MatBasicChip = MdBasicChip;
+exports.MatChip = MdChip;
+exports.MatChipBase = MdChipBase;
+exports.MatChipInput = MdChipInput;
+exports.MatChipListChange = MdChipListChange;
+exports.MatChipList = MdChipList;
+exports.MatChipRemove = MdChipRemove;
+exports.MatChipsModule = MdChipsModule;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -321,5 +321,5 @@ MdPaginatorModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdPaginatorModule, PageEvent, MdPaginator, MdPaginatorIntl };
+export { MdPaginatorModule, PageEvent, MdPaginator, MdPaginatorIntl, MdPaginator as MatPaginator, MdPaginatorIntl as MatPaginatorIntl, MdPaginatorModule as MatPaginatorModule };
 //# sourceMappingURL=paginator.es5.js.map

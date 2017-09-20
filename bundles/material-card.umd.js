@@ -2370,7 +2370,6 @@ MdCardModule.decorators = [
  */
 MdCardModule.ctorParameters = function () { return []; };
 
-exports.MdCardModule = MdCardModule;
 exports.MdCardContent = MdCardContent;
 exports.MdCardTitle = MdCardTitle;
 exports.MdCardSubtitle = MdCardSubtitle;
@@ -2385,6 +2384,22 @@ exports.MdCardAvatar = MdCardAvatar;
 exports.MdCard = MdCard;
 exports.MdCardHeader = MdCardHeader;
 exports.MdCardTitleGroup = MdCardTitleGroup;
+exports.MdCardModule = MdCardModule;
+exports.MatCard = MdCard;
+exports.MatCardActions = MdCardActions;
+exports.MatCardAvatar = MdCardAvatar;
+exports.MatCardContent = MdCardContent;
+exports.MatCardFooter = MdCardFooter;
+exports.MatCardHeader = MdCardHeader;
+exports.MatCardImage = MdCardImage;
+exports.MatCardLgImage = MdCardLgImage;
+exports.MatCardMatImage = MdCardMdImage;
+exports.MatCardModule = MdCardModule;
+exports.MatCardSmImage = MdCardSmImage;
+exports.MatCardSubtitle = MdCardSubtitle;
+exports.MatCardTitle = MdCardTitle;
+exports.MatCardTitleGroup = MdCardTitleGroup;
+exports.MatCardXlImage = MdCardXlImage;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

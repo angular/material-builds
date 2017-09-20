@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Host, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Overlay, OverlayModule, OverlayState } from '@angular/cdk/overlay';
 import { MdCommonModule, MdOptgroup, MdOption, MdOptionModule } from '@angular/material/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { CommonModule } from '@angular/common';
+import { Overlay, OverlayModule, OverlayState } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
 import { DOWN_ARROW, ENTER, ESCAPE, UP_ARROW } from '@angular/cdk/keycodes';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -656,5 +656,5 @@ MdAutocompleteModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MdAutocompleteModule, MdAutocompleteSelectedEvent, MdAutocomplete, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_SCROLL_STRATEGY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger };
+export { MdAutocompleteSelectedEvent, MdAutocomplete, MdAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_SCROLL_STRATEGY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MD_AUTOCOMPLETE_SCROLL_STRATEGY as MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER as MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY as MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_AUTOCOMPLETE_VALUE_ACCESSOR as MAT_AUTOCOMPLETE_VALUE_ACCESSOR, MdAutocomplete as MatAutocomplete, MdAutocompleteModule as MatAutocompleteModule, MdAutocompleteTrigger as MatAutocompleteTrigger };
 //# sourceMappingURL=autocomplete.js.map

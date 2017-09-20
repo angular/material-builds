@@ -2166,6 +2166,8 @@ MdProgressBarModule.ctorParameters = function () { return []; };
 
 exports.MdProgressBarModule = MdProgressBarModule;
 exports.MdProgressBar = MdProgressBar;
+exports.MatProgressBar = MdProgressBar;
+exports.MatProgressBarModule = MdProgressBarModule;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

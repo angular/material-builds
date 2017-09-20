@@ -872,5 +872,5 @@ MdDialogModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdDialogModule, MD_DIALOG_DATA, MD_DIALOG_SCROLL_STRATEGY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef };
+export { MdDialogModule, MD_DIALOG_DATA, MD_DIALOG_SCROLL_STRATEGY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MD_DIALOG_DATA as MAT_DIALOG_DATA, MD_DIALOG_SCROLL_STRATEGY as MAT_DIALOG_SCROLL_STRATEGY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER as MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY as MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MdDialog as MatDialog, MdDialogActions as MatDialogActions, MdDialogClose as MatDialogClose, MdDialogConfig as MatDialogConfig, MdDialogContainer as MatDialogContainer, MdDialogContent as MatDialogContent, MdDialogModule as MatDialogModule, MdDialogRef as MatDialogRef, MdDialogTitle as MatDialogTitle };
 //# sourceMappingURL=dialog.es5.js.map

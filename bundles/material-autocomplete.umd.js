@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/platform-browser'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/cdk/keycodes'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/platform-browser', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/cdk/keycodes', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/portal', '@angular/cdk/rxjs', '@angular/forms', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = global.ng.material.autocomplete || {}),global.ng.core,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.platformBrowser,global.ng.cdk.coercion,global.Rx,global.ng.cdk.keycodes,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.portal,global.ng.cdk.rxjs,global.ng.forms,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_overlay,_angular_cdk_a11y,_angular_cdk_bidi,_angular_platformBrowser,_angular_cdk_coercion,rxjs_Subject,_angular_cdk_keycodes,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_portal,_angular_cdk_rxjs,_angular_forms,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/platform-browser'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/platform-browser', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/cdk/keycodes', '@angular/common', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/rxjs', '@angular/forms', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = global.ng.material.autocomplete || {}),global.ng.core,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.platformBrowser,global.ng.cdk.coercion,global.Rx,global.ng.cdk.keycodes,global.ng.common,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.rxjs,global.ng.forms,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_cdk_a11y,_angular_cdk_bidi,_angular_platformBrowser,_angular_cdk_coercion,rxjs_Subject,_angular_cdk_keycodes,_angular_common,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_rxjs,_angular_forms,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -3238,9 +3238,9 @@ MdAutocompleteModule.decorators = [
  */
 MdAutocompleteModule.ctorParameters = function () { return []; };
 
-exports.MdAutocompleteModule = MdAutocompleteModule;
 exports.MdAutocompleteSelectedEvent = MdAutocompleteSelectedEvent;
 exports.MdAutocomplete = MdAutocomplete;
+exports.MdAutocompleteModule = MdAutocompleteModule;
 exports.AUTOCOMPLETE_OPTION_HEIGHT = AUTOCOMPLETE_OPTION_HEIGHT;
 exports.AUTOCOMPLETE_PANEL_HEIGHT = AUTOCOMPLETE_PANEL_HEIGHT;
 exports.MD_AUTOCOMPLETE_SCROLL_STRATEGY = MD_AUTOCOMPLETE_SCROLL_STRATEGY;
@@ -3249,6 +3249,13 @@ exports.MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER = MD_AUTOCOMPLETE_SCROLL_STRATE
 exports.MD_AUTOCOMPLETE_VALUE_ACCESSOR = MD_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.getMdAutocompleteMissingPanelError = getMdAutocompleteMissingPanelError;
 exports.MdAutocompleteTrigger = MdAutocompleteTrigger;
+exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY = MD_AUTOCOMPLETE_SCROLL_STRATEGY;
+exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER = MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER;
+exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY = MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MD_AUTOCOMPLETE_VALUE_ACCESSOR;
+exports.MatAutocomplete = MdAutocomplete;
+exports.MatAutocompleteModule = MdAutocompleteModule;
+exports.MatAutocompleteTrigger = MdAutocompleteTrigger;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

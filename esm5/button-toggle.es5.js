@@ -614,5 +614,5 @@ MdButtonToggleModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdButtonToggleModule, MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle };
+export { MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdButtonToggleModule, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR as MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggle as MatButtonToggle, MdButtonToggleChange as MatButtonToggleChange, MdButtonToggleGroup as MatButtonToggleGroup, MdButtonToggleGroupBase as MatButtonToggleGroupBase, MdButtonToggleGroupMultiple as MatButtonToggleGroupMultiple, MdButtonToggleModule as MatButtonToggleModule };
 //# sourceMappingURL=button-toggle.es5.js.map

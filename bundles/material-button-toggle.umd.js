@@ -2638,7 +2638,6 @@ MdButtonToggleModule.decorators = [
  */
 MdButtonToggleModule.ctorParameters = function () { return []; };
 
-exports.MdButtonToggleModule = MdButtonToggleModule;
 exports.MdButtonToggleGroupBase = MdButtonToggleGroupBase;
 exports._MdButtonToggleGroupMixinBase = _MdButtonToggleGroupMixinBase;
 exports.MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR;
@@ -2646,6 +2645,14 @@ exports.MdButtonToggleChange = MdButtonToggleChange;
 exports.MdButtonToggleGroup = MdButtonToggleGroup;
 exports.MdButtonToggleGroupMultiple = MdButtonToggleGroupMultiple;
 exports.MdButtonToggle = MdButtonToggle;
+exports.MdButtonToggleModule = MdButtonToggleModule;
+exports.MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR;
+exports.MatButtonToggle = MdButtonToggle;
+exports.MatButtonToggleChange = MdButtonToggleChange;
+exports.MatButtonToggleGroup = MdButtonToggleGroup;
+exports.MatButtonToggleGroupBase = MdButtonToggleGroupBase;
+exports.MatButtonToggleGroupMultiple = MdButtonToggleGroupMultiple;
+exports.MatButtonToggleModule = MdButtonToggleModule;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

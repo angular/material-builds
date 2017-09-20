@@ -927,5 +927,5 @@ MdSliderModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider };
+export { MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, MD_SLIDER_VALUE_ACCESSOR as MAT_SLIDER_VALUE_ACCESSOR, MdSlider as MatSlider, MdSliderBase as MatSliderBase, MdSliderChange as MatSliderChange, MdSliderModule as MatSliderModule };
 //# sourceMappingURL=slider.es5.js.map

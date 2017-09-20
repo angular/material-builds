@@ -2952,13 +2952,16 @@ MdGridListModule.decorators = [
  */
 MdGridListModule.ctorParameters = function () { return []; };
 
-exports.MdGridListModule = MdGridListModule;
 exports.MdGridTile = MdGridTile;
+exports.MdGridListModule = MdGridListModule;
 exports.MdGridList = MdGridList;
-exports.ɵb14 = MdGridAvatarCssMatStyler;
-exports.ɵd14 = MdGridTileFooterCssMatStyler;
-exports.ɵc14 = MdGridTileHeaderCssMatStyler;
-exports.ɵa14 = MdGridTileText;
+exports.MatGridList = MdGridList;
+exports.MatGridListModule = MdGridListModule;
+exports.MatGridTile = MdGridTile;
+exports.ɵb5 = MdGridAvatarCssMatStyler;
+exports.ɵd5 = MdGridTileFooterCssMatStyler;
+exports.ɵc5 = MdGridTileHeaderCssMatStyler;
+exports.ɵa5 = MdGridTileText;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

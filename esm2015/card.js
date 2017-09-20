@@ -305,5 +305,5 @@ MdCardModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MdCardModule, MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup };
+export { MdCardContent, MdCardTitle, MdCardSubtitle, MdCardActions, MdCardFooter, MdCardImage, MdCardSmImage, MdCardMdImage, MdCardLgImage, MdCardXlImage, MdCardAvatar, MdCard, MdCardHeader, MdCardTitleGroup, MdCardModule, MdCard as MatCard, MdCardActions as MatCardActions, MdCardAvatar as MatCardAvatar, MdCardContent as MatCardContent, MdCardFooter as MatCardFooter, MdCardHeader as MatCardHeader, MdCardImage as MatCardImage, MdCardLgImage as MatCardLgImage, MdCardMdImage as MatCardMatImage, MdCardModule as MatCardModule, MdCardSmImage as MatCardSmImage, MdCardSubtitle as MatCardSubtitle, MdCardTitle as MatCardTitle, MdCardTitleGroup as MatCardTitleGroup, MdCardXlImage as MatCardXlImage };
 //# sourceMappingURL=card.js.map

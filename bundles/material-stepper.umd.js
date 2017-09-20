@@ -3544,6 +3544,15 @@ exports._MdStepperPrevious = _MdStepperPrevious;
 exports.MdStepperNext = MdStepperNext;
 exports.MdStepperPrevious = MdStepperPrevious;
 exports.MdStepHeader = MdStepHeader;
+exports.MatStep = MdStep;
+exports.MatStepHeader = MdStepHeader;
+exports.MatStepLabel = MdStepLabel;
+exports.MatStepper = MdStepper;
+exports.MatHorizontalStepper = MdHorizontalStepper;
+exports.MatStepperModule = MdStepperModule;
+exports.MatVerticalStepper = MdVerticalStepper;
+exports.MatStepperPrevious = MdStepperPrevious;
+exports.MatStepperNext = MdStepperNext;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -88,5 +88,5 @@ MdToolbarModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar };
+export { MdToolbarModule, MdToolbarRow, MdToolbarBase, _MdToolbarMixinBase, MdToolbar, MdToolbar as MatToolbar, MdToolbarBase as MatToolbarBase, MdToolbarModule as MatToolbarModule, MdToolbarRow as MatToolbarRow };
 //# sourceMappingURL=toolbar.es5.js.map

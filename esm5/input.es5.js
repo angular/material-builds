@@ -602,5 +602,5 @@ MdInputModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdInputModule, MdTextareaAutosize, MdInput, getMdInputUnsupportedTypeError };
+export { MdInputModule, MdTextareaAutosize, MdInput, getMdInputUnsupportedTypeError, MdInput as MatInput, MdInputModule as MatInputModule, MdTextareaAutosize as MatTextareaAutosize };
 //# sourceMappingURL=input.es5.js.map

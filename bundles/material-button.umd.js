@@ -2456,6 +2456,15 @@ exports.MdButtonBase = MdButtonBase;
 exports._MdButtonMixinBase = _MdButtonMixinBase;
 exports.MdButton = MdButton;
 exports.MdAnchor = MdAnchor;
+exports.MatButton = MdButton;
+exports.MatButtonBase = MdButtonBase;
+exports.MatButtonCssMatStyler = MdButtonCssMatStyler;
+exports.MatButtonModule = MdButtonModule;
+exports.MatAnchor = MdAnchor;
+exports.MatIconButtonCssMatStyler = MdIconButtonCssMatStyler;
+exports.MatFab = MdFab;
+exports.MatMiniFab = MdMiniFab;
+exports.MatRaisedButtonCssMatStyler = MdRaisedButtonCssMatStyler;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

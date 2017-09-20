@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/observers'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/platform-browser'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/cdk/keycodes'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('@angular/forms')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/observers', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/platform-browser', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/cdk/keycodes', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/rxjs', '@angular/forms'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.checkbox = global.ng.material.checkbox || {}),global.ng.core,global.ng.common,global.ng.cdk.observers,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.platformBrowser,global.ng.cdk.coercion,global.Rx,global.ng.cdk.keycodes,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.rxjs,global.ng.forms));
-}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_observers,_angular_cdk_a11y,_angular_cdk_bidi,_angular_platformBrowser,_angular_cdk_coercion,rxjs_Subject,_angular_cdk_keycodes,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_rxjs,_angular_forms) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/coercion'), require('@angular/core'), require('@angular/forms'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/platform-browser'), require('rxjs/Subject'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('@angular/cdk/observers')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/coercion', '@angular/core', '@angular/forms', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/platform-browser', 'rxjs/Subject', '@angular/cdk/keycodes', '@angular/common', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/rxjs', '@angular/cdk/observers'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.checkbox = global.ng.material.checkbox || {}),global.ng.cdk.coercion,global.ng.core,global.ng.forms,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.platformBrowser,global.Rx,global.ng.cdk.keycodes,global.ng.common,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.rxjs,global.ng.cdk.observers));
+}(this, (function (exports,_angular_cdk_coercion,_angular_core,_angular_forms,_angular_cdk_a11y,_angular_cdk_bidi,_angular_platformBrowser,rxjs_Subject,_angular_cdk_keycodes,_angular_common,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_rxjs,_angular_cdk_observers) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -2638,16 +2638,23 @@ MdCheckboxModule.decorators = [
  */
 MdCheckboxModule.ctorParameters = function () { return []; };
 
-exports.MdCheckboxModule = MdCheckboxModule;
 exports.MD_CHECKBOX_CONTROL_VALUE_ACCESSOR = MD_CHECKBOX_CONTROL_VALUE_ACCESSOR;
 exports.TransitionCheckState = TransitionCheckState;
 exports.MdCheckboxChange = MdCheckboxChange;
 exports.MdCheckboxBase = MdCheckboxBase;
 exports._MdCheckboxMixinBase = _MdCheckboxMixinBase;
 exports.MdCheckbox = MdCheckbox;
+exports.MdCheckboxModule = MdCheckboxModule;
 exports._MdCheckboxRequiredValidator = _MdCheckboxRequiredValidator;
 exports.MD_CHECKBOX_REQUIRED_VALIDATOR = MD_CHECKBOX_REQUIRED_VALIDATOR;
 exports.MdCheckboxRequiredValidator = MdCheckboxRequiredValidator;
+exports.MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = MD_CHECKBOX_CONTROL_VALUE_ACCESSOR;
+exports.MAT_CHECKBOX_REQUIRED_VALIDATOR = MD_CHECKBOX_REQUIRED_VALIDATOR;
+exports.MatCheckbox = MdCheckbox;
+exports.MatCheckboxBase = MdCheckboxBase;
+exports.MatCheckboxChange = MdCheckboxChange;
+exports.MatCheckboxModule = MdCheckboxModule;
+exports.MatCheckboxRequiredValidator = MdCheckboxRequiredValidator;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

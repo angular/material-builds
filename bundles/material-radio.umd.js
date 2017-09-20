@@ -2892,6 +2892,13 @@ exports.MdRadioGroup = MdRadioGroup;
 exports.MdRadioButtonBase = MdRadioButtonBase;
 exports._MdRadioButtonMixinBase = _MdRadioButtonMixinBase;
 exports.MdRadioButton = MdRadioButton;
+exports.MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR;
+exports.MatRadioButton = MdRadioButton;
+exports.MatRadioButtonBase = MdRadioButtonBase;
+exports.MatRadioChange = MdRadioChange;
+exports.MatRadioGroup = MdRadioGroup;
+exports.MatRadioGroupBase = MdRadioGroupBase;
+exports.MatRadioModule = MdRadioModule;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

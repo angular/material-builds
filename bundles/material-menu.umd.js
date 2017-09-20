@@ -2961,18 +2961,23 @@ MdMenuModule.decorators = [
  */
 MdMenuModule.ctorParameters = function () { return []; };
 
-exports.MdMenuModule = MdMenuModule;
 exports.MD_MENU_SCROLL_STRATEGY = MD_MENU_SCROLL_STRATEGY;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
+exports.MdMenuModule = MdMenuModule;
 exports.MdMenu = MdMenu;
 exports.MD_MENU_DEFAULT_OPTIONS = MD_MENU_DEFAULT_OPTIONS;
 exports.MdMenuItem = MdMenuItem;
 exports.MdMenuTrigger = MdMenuTrigger;
-exports.ɵa23 = MdMenuItemBase;
-exports.ɵb23 = _MdMenuItemMixinBase;
-exports.ɵd23 = MD_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc23 = MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.MAT_MENU_DEFAULT_OPTIONS = MD_MENU_DEFAULT_OPTIONS;
+exports.MatMenu = MdMenu;
+exports.MatMenuItem = MdMenuItem;
+exports.MatMenuModule = MdMenuModule;
+exports.MatMenuTrigger = MdMenuTrigger;
+exports.ɵa24 = MdMenuItemBase;
+exports.ɵb24 = _MdMenuItemMixinBase;
+exports.ɵd24 = MD_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc24 = MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

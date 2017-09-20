@@ -711,5 +711,5 @@ MdSidenavModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdSidenavModule, throwMdDuplicatedDrawerError, MdDrawerToggleResult, MdDrawer, MdDrawerContainer, MdSidenav, MdSidenavContainer };
+export { MdSidenavModule, throwMdDuplicatedDrawerError, MdDrawerToggleResult, MdDrawer, MdDrawerContainer, MdSidenav, MdSidenavContainer, MdDrawerToggleResult as MatDrawerToggleResult, MdDrawer as MatDrawer, MdDrawerContainer as MatDrawerContainer, MdSidenav as MatSidenav, MdSidenavContainer as MatSidenavContainer, MdSidenavModule as MatSidenavModule };
 //# sourceMappingURL=sidenav.es5.js.map

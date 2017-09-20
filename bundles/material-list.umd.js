@@ -2852,6 +2852,22 @@ exports.MdListOptionBase = MdListOptionBase;
 exports._MdListOptionMixinBase = _MdListOptionMixinBase;
 exports.MdListOption = MdListOption;
 exports.MdSelectionList = MdSelectionList;
+exports.MatDividerCssMatStyler = MdDividerCssMatStyler;
+exports.MatList = MdList;
+exports.MatListAvatarCssMatStyler = MdListAvatarCssMatStyler;
+exports.MatListBase = MdListBase;
+exports.MatListCssMatStyler = MdListCssMatStyler;
+exports.MatListDivider = MdListDivider;
+exports.MatListIconCssMatStyler = MdListIconCssMatStyler;
+exports.MatListItem = MdListItem;
+exports.MatListItemBase = MdListItemBase;
+exports.MatListModule = MdListModule;
+exports.MatListOption = MdListOption;
+exports.MatListOptionBase = MdListOptionBase;
+exports.MatListSubheaderCssMatStyler = MdListSubheaderCssMatStyler;
+exports.MatNavListCssMatStyler = MdNavListCssMatStyler;
+exports.MatSelectionList = MdSelectionList;
+exports.MatSelectionListBase = MdSelectionListBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

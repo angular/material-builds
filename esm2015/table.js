@@ -305,5 +305,5 @@ MdTableModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MdTableModule, _MdCellDef, _MdHeaderCellDef, _MdColumnDef, _MdHeaderCell, _MdCell, MdCellDef, MdHeaderCellDef, MdColumnDef, MdHeaderCell, MdCell, _MdTable, MdTable, _MdHeaderRowDef, _MdCdkRowDef, _MdHeaderRow, _MdRow, MdHeaderRowDef, MatHeaderRowDef, MdRowDef, MatRowDef, MdHeaderRow, MdRow };
+export { MdTableModule, _MdCellDef, _MdHeaderCellDef, _MdColumnDef, _MdHeaderCell, _MdCell, MdCellDef, MdHeaderCellDef, MdColumnDef, MdHeaderCell, MdCell, _MdTable, MdTable, _MdHeaderRowDef, _MdCdkRowDef, _MdHeaderRow, _MdRow, MdHeaderRowDef, MatHeaderRowDef, MdRowDef, MatRowDef, MdHeaderRow, MdRow, MdCell as MatCell, MdCellDef as MatCellDef, MdColumnDef as MatColumnDef, MdHeaderCell as MatHeaderCell, MdHeaderCellDef as MatHeaderCellDef, MdHeaderRow as MatHeaderRow, MdRow as MatRow, MdTable as MatTable, MdTableModule as MatTableModule };
 //# sourceMappingURL=table.js.map

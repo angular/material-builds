@@ -3002,6 +3002,11 @@ exports.MdSliderChange = MdSliderChange;
 exports.MdSliderBase = MdSliderBase;
 exports._MdSliderMixinBase = _MdSliderMixinBase;
 exports.MdSlider = MdSlider;
+exports.MAT_SLIDER_VALUE_ACCESSOR = MD_SLIDER_VALUE_ACCESSOR;
+exports.MatSlider = MdSlider;
+exports.MatSliderBase = MdSliderBase;
+exports.MatSliderChange = MdSliderChange;
+exports.MatSliderModule = MdSliderModule;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

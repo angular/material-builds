@@ -2822,6 +2822,10 @@ exports.getMdIconFailedToSanitizeError = getMdIconFailedToSanitizeError;
 exports.MdIconRegistry = MdIconRegistry;
 exports.ICON_REGISTRY_PROVIDER_FACTORY = ICON_REGISTRY_PROVIDER_FACTORY;
 exports.ICON_REGISTRY_PROVIDER = ICON_REGISTRY_PROVIDER;
+exports.MatIcon = MdIcon;
+exports.MatIconBase = MdIconBase;
+exports.MatIconModule = MdIconModule;
+exports.MatIconRegistry = MdIconRegistry;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

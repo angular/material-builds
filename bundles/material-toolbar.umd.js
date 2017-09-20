@@ -2170,6 +2170,10 @@ exports.MdToolbarRow = MdToolbarRow;
 exports.MdToolbarBase = MdToolbarBase;
 exports._MdToolbarMixinBase = _MdToolbarMixinBase;
 exports.MdToolbar = MdToolbar;
+exports.MatToolbar = MdToolbar;
+exports.MatToolbarBase = MdToolbarBase;
+exports.MatToolbarModule = MdToolbarModule;
+exports.MatToolbarRow = MdToolbarRow;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

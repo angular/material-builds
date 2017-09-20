@@ -445,5 +445,5 @@ MdSlideToggleModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle };
+export { MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MD_SLIDE_TOGGLE_VALUE_ACCESSOR as MAT_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggle as MatSlideToggle, MdSlideToggleBase as MatSlideToggleBase, MdSlideToggleChange as MatSlideToggleChange, MdSlideToggleModule as MatSlideToggleModule };
 //# sourceMappingURL=slide-toggle.es5.js.map

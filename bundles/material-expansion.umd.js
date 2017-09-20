@@ -2622,7 +2622,6 @@ MdExpansionModule.decorators = [
  */
 MdExpansionModule.ctorParameters = function () { return []; };
 
-exports.MdExpansionModule = MdExpansionModule;
 exports.CdkAccordion = CdkAccordion;
 exports.MdAccordion = MdAccordion;
 exports.AccordionItem = AccordionItem;
@@ -2631,9 +2630,17 @@ exports.MdExpansionPanelActionRow = MdExpansionPanelActionRow;
 exports.MdExpansionPanelHeader = MdExpansionPanelHeader;
 exports.MdExpansionPanelDescription = MdExpansionPanelDescription;
 exports.MdExpansionPanelTitle = MdExpansionPanelTitle;
-exports.ɵc10 = EXPANSION_PANEL_ANIMATION_TIMING;
-exports.ɵa10 = MdExpansionPanelBase;
-exports.ɵb10 = _MdExpansionPanelMixinBase;
+exports.MdExpansionModule = MdExpansionModule;
+exports.MatAccordion = MdAccordion;
+exports.MatExpansionModule = MdExpansionModule;
+exports.MatExpansionPanel = MdExpansionPanel;
+exports.MatExpansionPanelActionRow = MdExpansionPanelActionRow;
+exports.MatExpansionPanelDescription = MdExpansionPanelDescription;
+exports.MatExpansionPanelHeader = MdExpansionPanelHeader;
+exports.MatExpansionPanelTitle = MdExpansionPanelTitle;
+exports.ɵc12 = EXPANSION_PANEL_ANIMATION_TIMING;
+exports.ɵa12 = MdExpansionPanelBase;
+exports.ɵb12 = _MdExpansionPanelMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

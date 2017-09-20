@@ -517,5 +517,5 @@ MdFormFieldModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MdFormFieldModule, MdError, MdFormField, MdFormFieldControl, getMdFormFieldPlaceholderConflictError, getMdFormFieldDuplicatedHintError, getMdFormFieldMissingControlError, MdHint, MdPlaceholder, MdPrefix, MdSuffix };
+export { MdFormFieldModule, MdError, MdFormField, MdFormFieldControl, getMdFormFieldPlaceholderConflictError, getMdFormFieldDuplicatedHintError, getMdFormFieldMissingControlError, MdHint, MdPlaceholder, MdPrefix, MdSuffix, MdFormFieldModule as MatFormFieldModule, MdError as MatError, MdFormField as MatFormField, MdFormFieldControl as MatFormFieldControl, MdHint as MatHint, MdPlaceholder as MatPlaceholder, MdPrefix as MatPrefix, MdSuffix as MatSuffix };
 //# sourceMappingURL=form-field.js.map

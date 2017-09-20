@@ -701,5 +701,5 @@ MdRadioModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton };
+export { MdRadioModule, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioChange, MdRadioGroupBase, _MdRadioGroupMixinBase, MdRadioGroup, MdRadioButtonBase, _MdRadioButtonMixinBase, MdRadioButton, MD_RADIO_GROUP_CONTROL_VALUE_ACCESSOR as MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MdRadioButton as MatRadioButton, MdRadioButtonBase as MatRadioButtonBase, MdRadioChange as MatRadioChange, MdRadioGroup as MatRadioGroup, MdRadioGroupBase as MatRadioGroupBase, MdRadioModule as MatRadioModule };
 //# sourceMappingURL=radio.js.map

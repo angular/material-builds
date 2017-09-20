@@ -3175,6 +3175,9 @@ exports.MdInputModule = MdInputModule;
 exports.MdTextareaAutosize = MdTextareaAutosize;
 exports.MdInput = MdInput;
 exports.getMdInputUnsupportedTypeError = getMdInputUnsupportedTypeError;
+exports.MatInput = MdInput;
+exports.MatInputModule = MdInputModule;
+exports.MatTextareaAutosize = MdTextareaAutosize;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

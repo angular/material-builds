@@ -2439,6 +2439,10 @@ exports.MdSortModule = MdSortModule;
 exports.MdSortHeader = MdSortHeader;
 exports.MdSortHeaderIntl = MdSortHeaderIntl;
 exports.MdSort = MdSort;
+exports.MatSort = MdSort;
+exports.MatSortHeader = MdSortHeader;
+exports.MatSortHeaderIntl = MdSortHeaderIntl;
+exports.MatSortModule = MdSortModule;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -2674,6 +2674,12 @@ exports.MD_SNACK_BAR_DATA = MD_SNACK_BAR_DATA;
 exports.MdSnackBarConfig = MdSnackBarConfig;
 exports.MdSnackBarRef = MdSnackBarRef;
 exports.SimpleSnackBar = SimpleSnackBar;
+exports.MAT_SNACK_BAR_DATA = MD_SNACK_BAR_DATA;
+exports.MatSnackBar = MdSnackBar;
+exports.MatSnackBarConfig = MdSnackBarConfig;
+exports.MatSnackBarContainer = MdSnackBarContainer;
+exports.MatSnackBarModule = MdSnackBarModule;
+exports.MatSnackBarRef = MdSnackBarRef;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -413,5 +413,5 @@ MdSortModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort };
+export { MdSortModule, MdSortHeader, MdSortHeaderIntl, MdSort, MdSort as MatSort, MdSortHeader as MatSortHeader, MdSortHeaderIntl as MatSortHeaderIntl, MdSortModule as MatSortModule };
 //# sourceMappingURL=sort.es5.js.map

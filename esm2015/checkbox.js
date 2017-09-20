@@ -5,13 +5,13 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Input, NgModule, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { CheckboxRequiredValidator, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MdCommonModule, MdRipple, MdRippleModule, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
+import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { ObserversModule } from '@angular/cdk/observers';
-import { MdCommonModule, MdRipple, MdRippleModule, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { CheckboxRequiredValidator, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 
 // Increasing integer for generating unique ids for checkbox components.
 let nextUniqueId = 0;
@@ -498,5 +498,5 @@ MdCheckboxModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MdCheckboxModule, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, _MdCheckboxRequiredValidator, MD_CHECKBOX_REQUIRED_VALIDATOR, MdCheckboxRequiredValidator };
+export { MD_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MdCheckboxChange, MdCheckboxBase, _MdCheckboxMixinBase, MdCheckbox, MdCheckboxModule, _MdCheckboxRequiredValidator, MD_CHECKBOX_REQUIRED_VALIDATOR, MdCheckboxRequiredValidator, MD_CHECKBOX_CONTROL_VALUE_ACCESSOR as MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, MD_CHECKBOX_REQUIRED_VALIDATOR as MAT_CHECKBOX_REQUIRED_VALIDATOR, MdCheckbox as MatCheckbox, MdCheckboxBase as MatCheckboxBase, MdCheckboxChange as MatCheckboxChange, MdCheckboxModule as MatCheckboxModule, MdCheckboxRequiredValidator as MatCheckboxRequiredValidator };
 //# sourceMappingURL=checkbox.js.map

@@ -432,5 +432,5 @@ MdProgressSpinnerModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner };
+export { MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdProgressSpinner as MatProgressSpinner, MdProgressSpinnerBase as MatProgressSpinnerBase, MdProgressSpinnerCssMatStyler as MatProgressSpinnerCssMatStyler, MdProgressSpinnerModule as MatProgressSpinnerModule, MdSpinner as MatSpinner };
 //# sourceMappingURL=progress-spinner.js.map

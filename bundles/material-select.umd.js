@@ -3545,10 +3545,10 @@ MdSelectModule.decorators = [
  */
 MdSelectModule.ctorParameters = function () { return []; };
 
-exports.MdSelectModule = MdSelectModule;
 exports.fadeInContent = fadeInContent;
 exports.transformPanel = transformPanel;
 exports.transformPlaceholder = transformPlaceholder;
+exports.MdSelectModule = MdSelectModule;
 exports.SELECT_ITEM_HEIGHT = SELECT_ITEM_HEIGHT;
 exports.SELECT_PANEL_MAX_HEIGHT = SELECT_PANEL_MAX_HEIGHT;
 exports.SELECT_MAX_OPTIONS_DISPLAYED = SELECT_MAX_OPTIONS_DISPLAYED;
@@ -3567,6 +3567,14 @@ exports.MdSelectBase = MdSelectBase;
 exports._MdSelectMixinBase = _MdSelectMixinBase;
 exports.MdSelectTrigger = MdSelectTrigger;
 exports.MdSelect = MdSelect;
+exports.MAT_SELECT_SCROLL_STRATEGY = MD_SELECT_SCROLL_STRATEGY;
+exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER = MD_SELECT_SCROLL_STRATEGY_PROVIDER;
+exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY = MD_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.MatSelect = MdSelect;
+exports.MatSelectBase = MdSelectBase;
+exports.MatSelectChange = MdSelectChange;
+exports.MatSelectModule = MdSelectModule;
+exports.MatSelectTrigger = MdSelectTrigger;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

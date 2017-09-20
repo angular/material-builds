@@ -5,11 +5,6 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-/**
- * @module
- * @description
- * Entry point for all public APIs of Angular Material.
- */
 export * from './version';
 export * from '@angular/material/autocomplete';
 export * from '@angular/material/button';
@@ -42,4 +37,3 @@ export * from '@angular/material/table';
 export * from '@angular/material/tabs';
 export * from '@angular/material/toolbar';
 export * from '@angular/material/tooltip';
-export * from './mat-exports';

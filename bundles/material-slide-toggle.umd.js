@@ -2615,6 +2615,11 @@ exports.MdSlideToggleChange = MdSlideToggleChange;
 exports.MdSlideToggleBase = MdSlideToggleBase;
 exports._MdSlideToggleMixinBase = _MdSlideToggleMixinBase;
 exports.MdSlideToggle = MdSlideToggle;
+exports.MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = MD_SLIDE_TOGGLE_VALUE_ACCESSOR;
+exports.MatSlideToggle = MdSlideToggle;
+exports.MatSlideToggleBase = MdSlideToggleBase;
+exports.MatSlideToggleChange = MdSlideToggleChange;
+exports.MatSlideToggleModule = MdSlideToggleModule;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

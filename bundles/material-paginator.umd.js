@@ -4245,7 +4245,7 @@ var MdTooltip = (function () {
      * @return {?}
      */
     MdTooltip.prototype._handleKeydown = function (e) {
-        if (((this._tooltipInstance)).isVisible() && e.keyCode === _angular_cdk_keycodes.ESCAPE) {
+        if (this._isTooltipVisible() && e.keyCode === _angular_cdk_keycodes.ESCAPE) {
             e.stopPropagation();
             this.hide(0);
         }
@@ -4948,6 +4948,9 @@ exports.MdPaginatorModule = MdPaginatorModule;
 exports.PageEvent = PageEvent;
 exports.MdPaginator = MdPaginator;
 exports.MdPaginatorIntl = MdPaginatorIntl;
+exports.MatPaginator = MdPaginator;
+exports.MatPaginatorIntl = MdPaginatorIntl;
+exports.MatPaginatorModule = MdPaginatorModule;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

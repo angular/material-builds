@@ -575,5 +575,5 @@ MdExpansionModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MdExpansionModule, CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, EXPANSION_PANEL_ANIMATION_TIMING as ɵc10, MdExpansionPanelBase as ɵa10, _MdExpansionPanelMixinBase as ɵb10 };
+export { CdkAccordion, MdAccordion, AccordionItem, MdExpansionPanel, MdExpansionPanelActionRow, MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle, MdExpansionModule, MdAccordion as MatAccordion, MdExpansionModule as MatExpansionModule, MdExpansionPanel as MatExpansionPanel, MdExpansionPanelActionRow as MatExpansionPanelActionRow, MdExpansionPanelDescription as MatExpansionPanelDescription, MdExpansionPanelHeader as MatExpansionPanelHeader, MdExpansionPanelTitle as MatExpansionPanelTitle, EXPANSION_PANEL_ANIMATION_TIMING as ɵc12, MdExpansionPanelBase as ɵa12, _MdExpansionPanelMixinBase as ɵb12 };
 //# sourceMappingURL=expansion.js.map

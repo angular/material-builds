@@ -2552,6 +2552,11 @@ exports.MdProgressSpinnerBase = MdProgressSpinnerBase;
 exports._MdProgressSpinnerMixinBase = _MdProgressSpinnerMixinBase;
 exports.MdProgressSpinner = MdProgressSpinner;
 exports.MdSpinner = MdSpinner;
+exports.MatProgressSpinner = MdProgressSpinner;
+exports.MatProgressSpinnerBase = MdProgressSpinnerBase;
+exports.MatProgressSpinnerCssMatStyler = MdProgressSpinnerCssMatStyler;
+exports.MatProgressSpinnerModule = MdProgressSpinnerModule;
+exports.MatSpinner = MdSpinner;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

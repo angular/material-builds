@@ -2931,6 +2931,19 @@ exports.MdDialogContent = MdDialogContent;
 exports.MdDialogActions = MdDialogActions;
 exports.MdDialogConfig = MdDialogConfig;
 exports.MdDialogRef = MdDialogRef;
+exports.MAT_DIALOG_DATA = MD_DIALOG_DATA;
+exports.MAT_DIALOG_SCROLL_STRATEGY = MD_DIALOG_SCROLL_STRATEGY;
+exports.MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = MD_DIALOG_SCROLL_STRATEGY_PROVIDER;
+exports.MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY = MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.MatDialog = MdDialog;
+exports.MatDialogActions = MdDialogActions;
+exports.MatDialogClose = MdDialogClose;
+exports.MatDialogConfig = MdDialogConfig;
+exports.MatDialogContainer = MdDialogContainer;
+exports.MatDialogContent = MdDialogContent;
+exports.MatDialogModule = MdDialogModule;
+exports.MatDialogRef = MdDialogRef;
+exports.MatDialogTitle = MdDialogTitle;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

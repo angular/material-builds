@@ -1425,5 +1425,5 @@ MdChipsModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdChipsModule, MdChipListChange, MdChipList, MdChipSelectionChange, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdChipRemove, MdChipInput };
+export { MdChipsModule, MdChipListChange, MdChipList, MdChipSelectionChange, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdChipRemove, MdChipInput, MdBasicChip as MatBasicChip, MdChip as MatChip, MdChipBase as MatChipBase, MdChipInput as MatChipInput, MdChipListChange as MatChipListChange, MdChipList as MatChipList, MdChipRemove as MatChipRemove, MdChipsModule as MatChipsModule };
 //# sourceMappingURL=chips.es5.js.map

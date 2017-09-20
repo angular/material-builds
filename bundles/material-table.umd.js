@@ -2411,6 +2411,15 @@ exports.MdRowDef = MdRowDef;
 exports.MatRowDef = MatRowDef;
 exports.MdHeaderRow = MdHeaderRow;
 exports.MdRow = MdRow;
+exports.MatCell = MdCell;
+exports.MatCellDef = MdCellDef;
+exports.MatColumnDef = MdColumnDef;
+exports.MatHeaderCell = MdHeaderCell;
+exports.MatHeaderCellDef = MdHeaderCellDef;
+exports.MatHeaderRow = MdHeaderRow;
+exports.MatRow = MdRow;
+exports.MatTable = MdTable;
+exports.MatTableModule = MdTableModule;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

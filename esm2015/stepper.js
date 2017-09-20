@@ -320,5 +320,5 @@ MdStepperModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MdStepperModule, _MdStepLabel, MdStepLabel, _MdStep, _MdStepper, MdStep, MdStepper, MdHorizontalStepper, MdVerticalStepper, _MdStepperNext, _MdStepperPrevious, MdStepperNext, MdStepperPrevious, MdStepHeader };
+export { MdStepperModule, _MdStepLabel, MdStepLabel, _MdStep, _MdStepper, MdStep, MdStepper, MdHorizontalStepper, MdVerticalStepper, _MdStepperNext, _MdStepperPrevious, MdStepperNext, MdStepperPrevious, MdStepHeader, MdStep as MatStep, MdStepHeader as MatStepHeader, MdStepLabel as MatStepLabel, MdStepper as MatStepper, MdHorizontalStepper as MatHorizontalStepper, MdStepperModule as MatStepperModule, MdVerticalStepper as MatVerticalStepper, MdStepperPrevious as MatStepperPrevious, MdStepperNext as MatStepperNext };
 //# sourceMappingURL=stepper.js.map

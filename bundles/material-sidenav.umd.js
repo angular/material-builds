@@ -2736,6 +2736,12 @@ exports.MdDrawer = MdDrawer;
 exports.MdDrawerContainer = MdDrawerContainer;
 exports.MdSidenav = MdSidenav;
 exports.MdSidenavContainer = MdSidenavContainer;
+exports.MatDrawerToggleResult = MdDrawerToggleResult;
+exports.MatDrawer = MdDrawer;
+exports.MatDrawerContainer = MdDrawerContainer;
+exports.MatSidenav = MdSidenav;
+exports.MatSidenavContainer = MdSidenavContainer;
+exports.MatSidenavModule = MdSidenavModule;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

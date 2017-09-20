@@ -617,5 +617,5 @@ MdSnackBarModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MD_SNACK_BAR_DATA, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar };
+export { MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MD_SNACK_BAR_DATA, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MD_SNACK_BAR_DATA as MAT_SNACK_BAR_DATA, MdSnackBar as MatSnackBar, MdSnackBarConfig as MatSnackBarConfig, MdSnackBarContainer as MatSnackBarContainer, MdSnackBarModule as MatSnackBarModule, MdSnackBarRef as MatSnackBarRef };
 //# sourceMappingURL=snack-bar.es5.js.map

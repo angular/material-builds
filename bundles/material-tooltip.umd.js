@@ -2378,7 +2378,7 @@ var MdTooltip = (function () {
      * @return {?}
      */
     MdTooltip.prototype._handleKeydown = function (e) {
-        if (((this._tooltipInstance)).isVisible() && e.keyCode === _angular_cdk_keycodes.ESCAPE) {
+        if (this._isTooltipVisible() && e.keyCode === _angular_cdk_keycodes.ESCAPE) {
             e.stopPropagation();
             this.hide(0);
         }
@@ -2780,6 +2780,11 @@ exports.MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY = MD_TOOLTIP_SCROLL_STRATEGY
 exports.MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER = MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER;
 exports.MdTooltip = MdTooltip;
 exports.TooltipComponent = TooltipComponent;
+exports.MatTooltip = MdTooltip;
+exports.MatTooltipModule = MdTooltipModule;
+exports.MAT_TOOLTIP_SCROLL_STRATEGY = MD_TOOLTIP_SCROLL_STRATEGY;
+exports.MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER;
+exports.MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY = MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

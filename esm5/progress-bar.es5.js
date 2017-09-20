@@ -137,5 +137,5 @@ MdProgressBarModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdProgressBarModule, MdProgressBar };
+export { MdProgressBarModule, MdProgressBar, MdProgressBar as MatProgressBar, MdProgressBarModule as MatProgressBarModule };
 //# sourceMappingURL=progress-bar.es5.js.map

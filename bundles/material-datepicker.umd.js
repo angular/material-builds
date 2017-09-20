@@ -6418,6 +6418,23 @@ exports.MdDatepickerIntl = MdDatepickerIntl;
 exports.MdDatepickerToggle = MdDatepickerToggle;
 exports.MdMonthView = MdMonthView;
 exports.MdYearView = MdYearView;
+exports.MAT_DATEPICKER_SCROLL_STRATEGY = MD_DATEPICKER_SCROLL_STRATEGY;
+exports.MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER = MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER;
+exports.MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY = MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.MAT_DATEPICKER_VALIDATORS = MD_DATEPICKER_VALIDATORS;
+exports.MAT_DATEPICKER_VALUE_ACCESSOR = MD_DATEPICKER_VALUE_ACCESSOR;
+exports.MatCalendar = MdCalendar;
+exports.MatCalendarBody = MdCalendarBody;
+exports.MatCalendarCell = MdCalendarCell;
+exports.MatDatepicker = MdDatepicker;
+exports.MatDatepickerContent = MdDatepickerContent;
+exports.MatDatepickerInput = MdDatepickerInput;
+exports.MatDatepickerInputEvent = MdDatepickerInputEvent;
+exports.MatDatepickerIntl = MdDatepickerIntl;
+exports.MatDatepickerModule = MdDatepickerModule;
+exports.MatDatepickerToggle = MdDatepickerToggle;
+exports.MatMonthView = MdMonthView;
+exports.MatYearView = MdYearView;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

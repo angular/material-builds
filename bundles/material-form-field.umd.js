@@ -2585,6 +2585,14 @@ exports.MdHint = MdHint;
 exports.MdPlaceholder = MdPlaceholder;
 exports.MdPrefix = MdPrefix;
 exports.MdSuffix = MdSuffix;
+exports.MatFormFieldModule = MdFormFieldModule;
+exports.MatError = MdError;
+exports.MatFormField = MdFormField;
+exports.MatFormFieldControl = MdFormFieldControl;
+exports.MatHint = MdHint;
+exports.MatPlaceholder = MdPlaceholder;
+exports.MatPrefix = MdPrefix;
+exports.MatSuffix = MdSuffix;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

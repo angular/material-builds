@@ -310,7 +310,7 @@ class MdTooltip {
      * @return {?}
      */
     _handleKeydown(e) {
-        if (((this._tooltipInstance)).isVisible() && e.keyCode === ESCAPE) {
+        if (this._isTooltipVisible() && e.keyCode === ESCAPE) {
             e.stopPropagation();
             this.hide(0);
         }
@@ -696,5 +696,5 @@ MdTooltipModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMdTooltipInvalidPositionError, MD_TOOLTIP_SCROLL_STRATEGY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MdTooltip, TooltipComponent };
+export { MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMdTooltipInvalidPositionError, MD_TOOLTIP_SCROLL_STRATEGY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MdTooltip, TooltipComponent, MdTooltip as MatTooltip, MdTooltipModule as MatTooltipModule, MD_TOOLTIP_SCROLL_STRATEGY as MAT_TOOLTIP_SCROLL_STRATEGY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER as MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY as MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY };
 //# sourceMappingURL=tooltip.js.map

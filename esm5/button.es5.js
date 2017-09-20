@@ -334,5 +334,5 @@ MdButtonModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor };
+export { MdButtonModule, MdButtonCssMatStyler, MdRaisedButtonCssMatStyler, MdIconButtonCssMatStyler, MdFab, MdMiniFab, MdButtonBase, _MdButtonMixinBase, MdButton, MdAnchor, MdButton as MatButton, MdButtonBase as MatButtonBase, MdButtonCssMatStyler as MatButtonCssMatStyler, MdButtonModule as MatButtonModule, MdAnchor as MatAnchor, MdIconButtonCssMatStyler as MatIconButtonCssMatStyler, MdFab as MatFab, MdMiniFab as MatMiniFab, MdRaisedButtonCssMatStyler as MatRaisedButtonCssMatStyler };
 //# sourceMappingURL=button.es5.js.map
