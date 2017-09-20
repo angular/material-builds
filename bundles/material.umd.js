@@ -9285,7 +9285,7 @@ var MdDatepicker = (function () {
         var /** @type {?} */ overlayState = new _angular_cdk_overlay.OverlayConfig({
             positionStrategy: this._createPopupPositionStrategy(),
             hasBackdrop: true,
-            backdropClass: 'md-overlay-transparent-backdrop',
+            backdropClass: 'mat-overlay-transparent-backdrop',
             direction: this._dir ? this._dir.value : 'ltr',
             scrollStrategy: this._scrollStrategy()
         });
@@ -23042,7 +23042,7 @@ MdToolbarModule.ctorParameters = function () { return []; };
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.11-d2ceb2c');
+var VERSION = new _angular_core.Version('2.0.0-beta.11-2b61eb6');
 
 exports.VERSION = VERSION;
 exports.MdAutocompleteSelectedEvent = MdAutocompleteSelectedEvent;
