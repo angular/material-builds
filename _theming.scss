@@ -3550,7 +3550,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
     }
   }
 
-  .mat-form-field-autofill-float:-webkit-autofill + .mat-form-field-placeholder,
+  .mat-form-field-autofill-control:-webkit-autofill + .mat-form-field-placeholder,
   .mat-focused .mat-form-field-placeholder.mat-form-field-float {
     .mat-form-field-required-marker {
       color: $required-placeholder-color;
@@ -3685,7 +3685,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
     border-top: $infix-margin-top solid transparent;
   }
 
-  .mat-form-field-autofill-float {
+  .mat-form-field-autofill-control {
     &:-webkit-autofill + .mat-form-field-placeholder-wrapper .mat-form-field-float {
       @include _mat-form-field-placeholder-floating(
           $subscript-font-scale, $infix-padding, $infix-margin-top);
