@@ -23,10 +23,12 @@ import { Subscription } from 'rxjs/Subscription';
 class MdChipSelectionChange {
     /**
      * @param {?} source
+     * @param {?} selected
      * @param {?=} isUserInput
      */
-    constructor(source, isUserInput = false) {
+    constructor(source, selected, isUserInput = false) {
         this.source = source;
+        this.selected = selected;
         this.isUserInput = isUserInput;
     }
 }
@@ -89,15 +91,25 @@ class MdChip extends _MdChipMixinBase {
         /**
          * Emitted when the chip is selected or deselected.
          */
-        this.onSelectionChange = new EventEmitter();
+        this.selectionChange = new EventEmitter();
         /**
          * Emitted when the chip is destroyed.
          */
-        this.destroy = new EventEmitter();
+        this.destroyed = new EventEmitter();
+        /**
+         * Emitted when the chip is destroyed.
+         * @deprecated Use 'destroyed' instead.
+         */
+        this.destroy = this.destroyed;
         /**
          * Emitted when a chip is to be removed.
          */
-        this.onRemove = new EventEmitter();
+        this.removed = new EventEmitter();
+        /**
+         * Emitted when a chip is to be removed.
+         * @deprecated Use `removed` instead.
+         */
+        this.onRemove = this.removed;
     }
     /**
      * Whether the chip is selected.
@@ -110,7 +122,11 @@ class MdChip extends _MdChipMixinBase {
      */
     set selected(value) {
         this._selected = coerceBooleanProperty(value);
-        this.onSelectionChange.emit({ source: this, isUserInput: false });
+        this.selectionChange.emit({
+            source: this,
+            isUserInput: false,
+            selected: value
+        });
     }
     /**
      * The value of the chip. Defaults to the content inside <md-chip> tags.
@@ -157,7 +173,7 @@ class MdChip extends _MdChipMixinBase {
      * @return {?}
      */
     ngOnDestroy() {
-        this.destroy.emit({ chip: this });
+        this.destroyed.emit({ chip: this });
     }
     /**
      * Selects the chip.
@@ -165,7 +181,11 @@ class MdChip extends _MdChipMixinBase {
      */
     select() {
         this._selected = true;
-        this.onSelectionChange.emit({ source: this, isUserInput: false });
+        this.selectionChange.emit({
+            source: this,
+            isUserInput: false,
+            selected: true
+        });
     }
     /**
      * Deselects the chip.
@@ -173,7 +193,11 @@ class MdChip extends _MdChipMixinBase {
      */
     deselect() {
         this._selected = false;
-        this.onSelectionChange.emit({ source: this, isUserInput: false });
+        this.selectionChange.emit({
+            source: this,
+            isUserInput: false,
+            selected: false
+        });
     }
     /**
      * Select this chip and emit selected event
@@ -182,7 +206,11 @@ class MdChip extends _MdChipMixinBase {
     selectViaInteraction() {
         this._selected = true;
         // Emit select event when selected changes.
-        this.onSelectionChange.emit({ source: this, isUserInput: true });
+        this.selectionChange.emit({
+            source: this,
+            isUserInput: true,
+            selected: true
+        });
     }
     /**
      * Toggles the current selected state of this chip.
@@ -191,7 +219,11 @@ class MdChip extends _MdChipMixinBase {
      */
     toggleSelected(isUserInput = false) {
         this._selected = !this.selected;
-        this.onSelectionChange.emit({ source: this, isUserInput });
+        this.selectionChange.emit({
+            source: this,
+            isUserInput,
+            selected: this._selected
+        });
         return this.selected;
     }
     /**
@@ -211,7 +243,7 @@ class MdChip extends _MdChipMixinBase {
      */
     remove() {
         if (this.removable) {
-            this.onRemove.emit({ chip: this });
+            this.removed.emit({ chip: this });
         }
     }
     /**
@@ -296,8 +328,10 @@ MdChip.propDecorators = {
     'value': [{ type: Input },],
     'selectable': [{ type: Input },],
     'removable': [{ type: Input },],
-    'onSelectionChange': [{ type: Output },],
+    'selectionChange': [{ type: Output },],
+    'destroyed': [{ type: Output },],
     'destroy': [{ type: Output },],
+    'removed': [{ type: Output },],
     'onRemove': [{ type: Output, args: ['remove',] },],
 };
 /**
@@ -611,7 +645,7 @@ class MdChipList {
      * @return {?}
      */
     get chipSelectionChanges() {
-        return merge(...this.chips.map(chip => chip.onSelectionChange));
+        return merge(...this.chips.map(chip => chip.selectionChange));
     }
     /**
      * Combined stream of all of the child chips' focus change events.

@@ -15,8 +15,9 @@ export interface MdChipEvent {
 /** Event object emitted by MdChip when selected or deselected. */
 export declare class MdChipSelectionChange {
     source: MdChip;
+    selected: boolean;
     isUserInput: boolean;
-    constructor(source: MdChip, isUserInput?: boolean);
+    constructor(source: MdChip, selected: boolean, isUserInput?: boolean);
 }
 /** @docs-private */
 export declare class MdChipBase {
@@ -60,10 +61,20 @@ export declare class MdChip extends _MdChipMixinBase implements FocusableOption,
     /** Emits when the chip is blured. */
     _onBlur: Subject<MdChipEvent>;
     /** Emitted when the chip is selected or deselected. */
-    onSelectionChange: EventEmitter<MdChipSelectionChange>;
+    selectionChange: EventEmitter<MdChipSelectionChange>;
     /** Emitted when the chip is destroyed. */
+    destroyed: EventEmitter<MdChipEvent>;
+    /**
+     * Emitted when the chip is destroyed.
+     * @deprecated Use 'destroyed' instead.
+     */
     destroy: EventEmitter<MdChipEvent>;
     /** Emitted when a chip is to be removed. */
+    removed: EventEmitter<MdChipEvent>;
+    /**
+     * Emitted when a chip is to be removed.
+     * @deprecated Use `removed` instead.
+     */
     onRemove: EventEmitter<MdChipEvent>;
     readonly ariaSelected: string | null;
     constructor(renderer: Renderer2, _elementRef: ElementRef);

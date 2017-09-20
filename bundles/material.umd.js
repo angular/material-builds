@@ -5314,11 +5314,13 @@ MdCheckboxModule.ctorParameters = function () { return []; };
 var MdChipSelectionChange = (function () {
     /**
      * @param {?} source
+     * @param {?} selected
      * @param {?=} isUserInput
      */
-    function MdChipSelectionChange(source, isUserInput) {
+    function MdChipSelectionChange(source, selected, isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
         this.source = source;
+        this.selected = selected;
         this.isUserInput = isUserInput;
     }
     return MdChipSelectionChange;
@@ -5387,15 +5389,25 @@ var MdChip = (function (_super) {
         /**
          * Emitted when the chip is selected or deselected.
          */
-        _this.onSelectionChange = new _angular_core.EventEmitter();
+        _this.selectionChange = new _angular_core.EventEmitter();
         /**
          * Emitted when the chip is destroyed.
          */
-        _this.destroy = new _angular_core.EventEmitter();
+        _this.destroyed = new _angular_core.EventEmitter();
+        /**
+         * Emitted when the chip is destroyed.
+         * @deprecated Use 'destroyed' instead.
+         */
+        _this.destroy = _this.destroyed;
         /**
          * Emitted when a chip is to be removed.
          */
-        _this.onRemove = new _angular_core.EventEmitter();
+        _this.removed = new _angular_core.EventEmitter();
+        /**
+         * Emitted when a chip is to be removed.
+         * @deprecated Use `removed` instead.
+         */
+        _this.onRemove = _this.removed;
         return _this;
     }
     Object.defineProperty(MdChip.prototype, "selected", {
@@ -5410,7 +5422,11 @@ var MdChip = (function (_super) {
          */
         set: function (value) {
             this._selected = _angular_cdk_coercion.coerceBooleanProperty(value);
-            this.onSelectionChange.emit({ source: this, isUserInput: false });
+            this.selectionChange.emit({
+                source: this,
+                isUserInput: false,
+                selected: value
+            });
         },
         enumerable: true,
         configurable: true
@@ -5476,7 +5492,7 @@ var MdChip = (function (_super) {
      * @return {?}
      */
     MdChip.prototype.ngOnDestroy = function () {
-        this.destroy.emit({ chip: this });
+        this.destroyed.emit({ chip: this });
     };
     /**
      * Selects the chip.
@@ -5484,7 +5500,11 @@ var MdChip = (function (_super) {
      */
     MdChip.prototype.select = function () {
         this._selected = true;
-        this.onSelectionChange.emit({ source: this, isUserInput: false });
+        this.selectionChange.emit({
+            source: this,
+            isUserInput: false,
+            selected: true
+        });
     };
     /**
      * Deselects the chip.
@@ -5492,7 +5512,11 @@ var MdChip = (function (_super) {
      */
     MdChip.prototype.deselect = function () {
         this._selected = false;
-        this.onSelectionChange.emit({ source: this, isUserInput: false });
+        this.selectionChange.emit({
+            source: this,
+            isUserInput: false,
+            selected: false
+        });
     };
     /**
      * Select this chip and emit selected event
@@ -5501,7 +5525,11 @@ var MdChip = (function (_super) {
     MdChip.prototype.selectViaInteraction = function () {
         this._selected = true;
         // Emit select event when selected changes.
-        this.onSelectionChange.emit({ source: this, isUserInput: true });
+        this.selectionChange.emit({
+            source: this,
+            isUserInput: true,
+            selected: true
+        });
     };
     /**
      * Toggles the current selected state of this chip.
@@ -5511,7 +5539,11 @@ var MdChip = (function (_super) {
     MdChip.prototype.toggleSelected = function (isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
         this._selected = !this.selected;
-        this.onSelectionChange.emit({ source: this, isUserInput: isUserInput });
+        this.selectionChange.emit({
+            source: this,
+            isUserInput: isUserInput,
+            selected: this._selected
+        });
         return this.selected;
     };
     /**
@@ -5531,7 +5563,7 @@ var MdChip = (function (_super) {
      */
     MdChip.prototype.remove = function () {
         if (this.removable) {
-            this.onRemove.emit({ chip: this });
+            this.removed.emit({ chip: this });
         }
     };
     /**
@@ -5616,8 +5648,10 @@ MdChip.propDecorators = {
     'value': [{ type: _angular_core.Input },],
     'selectable': [{ type: _angular_core.Input },],
     'removable': [{ type: _angular_core.Input },],
-    'onSelectionChange': [{ type: _angular_core.Output },],
+    'selectionChange': [{ type: _angular_core.Output },],
+    'destroyed': [{ type: _angular_core.Output },],
     'destroy': [{ type: _angular_core.Output },],
+    'removed': [{ type: _angular_core.Output },],
     'onRemove': [{ type: _angular_core.Output, args: ['remove',] },],
 };
 /**
@@ -5985,7 +6019,7 @@ var MdChipList = (function () {
          * @return {?}
          */
         get: function () {
-            return rxjs_observable_merge.merge.apply(void 0, this.chips.map(function (chip) { return chip.onSelectionChange; }));
+            return rxjs_observable_merge.merge.apply(void 0, this.chips.map(function (chip) { return chip.selectionChange; }));
         },
         enumerable: true,
         configurable: true
@@ -23042,7 +23076,7 @@ MdToolbarModule.ctorParameters = function () { return []; };
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.11-2b61eb6');
+var VERSION = new _angular_core.Version('2.0.0-beta.11-fdf68ba');
 
 exports.VERSION = VERSION;
 exports.MdAutocompleteSelectedEvent = MdAutocompleteSelectedEvent;
