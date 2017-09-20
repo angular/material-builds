@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { A11yModule, ARIA_DESCRIBER_PROVIDER, AriaDescriber } from '@angular/cdk/a11y';
-import { Overlay, OverlayModule, OverlayState } from '@angular/cdk/overlay';
+import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Renderer2, ViewContainerRef, ViewEncapsulation } from '@angular/core';
@@ -402,7 +402,7 @@ var MdTooltip = (function () {
                 _this.hide(0);
             }
         });
-        var /** @type {?} */ config = new OverlayState({
+        var /** @type {?} */ config = new OverlayConfig({
             direction: this._dir ? this._dir.value : 'ltr',
             positionStrategy: strategy,
             panelClass: TOOLTIP_PANEL_CLASS,

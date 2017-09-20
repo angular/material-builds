@@ -9,7 +9,7 @@ import * as tslib_1 from "tslib";
 import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, Optional, Output, Self, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ESCAPE, LEFT_ARROW, MdCommonModule, MdRippleModule, RIGHT_ARROW, mixinDisabled } from '@angular/material/core';
-import { Overlay, OverlayModule, OverlayState } from '@angular/cdk/overlay';
+import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { Subject } from 'rxjs/Subject';
 import { FocusKeyManager, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { Subscription } from 'rxjs/Subscription';
@@ -755,10 +755,10 @@ var MdMenuTrigger = (function () {
     };
     /**
      * This method builds the configuration object needed to create the overlay, the OverlayState.
-     * @return {?} OverlayState
+     * @return {?} OverlayConfig
      */
     MdMenuTrigger.prototype._getOverlayConfig = function () {
-        return new OverlayState({
+        return new OverlayConfig({
             positionStrategy: this._getPosition(),
             hasBackdrop: !this.triggersSubmenu(),
             backdropClass: 'cdk-overlay-transparent-backdrop',
@@ -948,5 +948,5 @@ MdMenuModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MD_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MdMenuModule, MdMenu, MD_MENU_DEFAULT_OPTIONS, MdMenuItem, MdMenuTrigger, MD_MENU_DEFAULT_OPTIONS as MAT_MENU_DEFAULT_OPTIONS, MdMenu as MatMenu, MdMenuItem as MatMenuItem, MdMenuModule as MatMenuModule, MdMenuTrigger as MatMenuTrigger, MdMenuItemBase as ɵa22, _MdMenuItemMixinBase as ɵb22, MD_MENU_SCROLL_STRATEGY_PROVIDER as ɵd22, MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc22 };
+export { MD_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MdMenuModule, MdMenu, MD_MENU_DEFAULT_OPTIONS, MdMenuItem, MdMenuTrigger, MD_MENU_DEFAULT_OPTIONS as MAT_MENU_DEFAULT_OPTIONS, MdMenu as MatMenu, MdMenuItem as MatMenuItem, MdMenuModule as MatMenuModule, MdMenuTrigger as MatMenuTrigger, MdMenuItemBase as ɵa23, _MdMenuItemMixinBase as ɵb23, MD_MENU_SCROLL_STRATEGY_PROVIDER as ɵd23, MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc23 };
 //# sourceMappingURL=menu.es5.js.map

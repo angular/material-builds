@@ -2621,7 +2621,7 @@ var MdDialog = (function () {
      * @return {?} The overlay configuration.
      */
     MdDialog.prototype._getOverlayState = function (dialogConfig) {
-        var /** @type {?} */ state$$1 = new _angular_cdk_overlay.OverlayState({
+        var /** @type {?} */ state$$1 = new _angular_cdk_overlay.OverlayConfig({
             positionStrategy: this._overlay.position().global(),
             scrollStrategy: this._scrollStrategy(),
             panelClass: dialogConfig.panelClass,

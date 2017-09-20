@@ -2582,7 +2582,7 @@ var MdSnackBar = (function () {
      * @return {?}
      */
     MdSnackBar.prototype._createOverlay = function (config) {
-        var /** @type {?} */ state$$1 = new _angular_cdk_overlay.OverlayState();
+        var /** @type {?} */ state$$1 = new _angular_cdk_overlay.OverlayConfig();
         state$$1.direction = config.direction;
         var /** @type {?} */ positionStrategy = this._overlay.position().global();
         // Set horizontal position.

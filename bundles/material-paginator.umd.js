@@ -4293,7 +4293,7 @@ var MdTooltip = (function () {
                 _this.hide(0);
             }
         });
-        var /** @type {?} */ config = new _angular_cdk_overlay.OverlayState({
+        var /** @type {?} */ config = new _angular_cdk_overlay.OverlayConfig({
             direction: this._dir ? this._dir.value : 'ltr',
             positionStrategy: strategy,
             panelClass: TOOLTIP_PANEL_CLASS,

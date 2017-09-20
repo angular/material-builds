@@ -3032,7 +3032,7 @@ var MdDialog = (function () {
      * @return {?} The overlay configuration.
      */
     MdDialog.prototype._getOverlayState = function (dialogConfig) {
-        var /** @type {?} */ state$$1 = new _angular_cdk_overlay.OverlayState({
+        var /** @type {?} */ state$$1 = new _angular_cdk_overlay.OverlayConfig({
             positionStrategy: this._overlay.position().global(),
             scrollStrategy: this._scrollStrategy(),
             panelClass: dialogConfig.panelClass,
@@ -5500,7 +5500,7 @@ var MdDatepicker = (function () {
      * @return {?}
      */
     MdDatepicker.prototype._createPopup = function () {
-        var /** @type {?} */ overlayState = new _angular_cdk_overlay.OverlayState({
+        var /** @type {?} */ overlayState = new _angular_cdk_overlay.OverlayConfig({
             positionStrategy: this._createPopupPositionStrategy(),
             hasBackdrop: true,
             backdropClass: 'md-overlay-transparent-backdrop',

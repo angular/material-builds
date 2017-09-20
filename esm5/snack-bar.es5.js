@@ -8,7 +8,7 @@ import * as tslib_1 from "tslib";
  */
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, Renderer2, SkipSelf, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Overlay, OverlayModule, OverlayState } from '@angular/cdk/overlay';
+import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { BasePortalHost, ComponentPortal, PortalHostDirective, PortalModule } from '@angular/cdk/portal';
 import { LIVE_ANNOUNCER_PROVIDER, LiveAnnouncer } from '@angular/cdk/a11y';
 import { MdCommonModule, PortalInjector, extendObject } from '@angular/material/core';
@@ -529,7 +529,7 @@ var MdSnackBar = (function () {
      * @return {?}
      */
     MdSnackBar.prototype._createOverlay = function (config) {
-        var /** @type {?} */ state$$1 = new OverlayState();
+        var /** @type {?} */ state$$1 = new OverlayConfig();
         state$$1.direction = config.direction;
         var /** @type {?} */ positionStrategy = this._overlay.position().global();
         // Set horizontal position.

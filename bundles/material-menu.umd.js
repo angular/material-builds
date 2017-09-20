@@ -2775,10 +2775,10 @@ var MdMenuTrigger = (function () {
     };
     /**
      * This method builds the configuration object needed to create the overlay, the OverlayState.
-     * @return {?} OverlayState
+     * @return {?} OverlayConfig
      */
     MdMenuTrigger.prototype._getOverlayConfig = function () {
-        return new _angular_cdk_overlay.OverlayState({
+        return new _angular_cdk_overlay.OverlayConfig({
             positionStrategy: this._getPosition(),
             hasBackdrop: !this.triggersSubmenu(),
             backdropClass: 'cdk-overlay-transparent-backdrop',
@@ -2979,10 +2979,10 @@ exports.MatMenu = MdMenu;
 exports.MatMenuItem = MdMenuItem;
 exports.MatMenuModule = MdMenuModule;
 exports.MatMenuTrigger = MdMenuTrigger;
-exports.ɵa22 = MdMenuItemBase;
-exports.ɵb22 = _MdMenuItemMixinBase;
-exports.ɵd22 = MD_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc22 = MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa23 = MdMenuItemBase;
+exports.ɵb23 = _MdMenuItemMixinBase;
+exports.ɵd23 = MD_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc23 = MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

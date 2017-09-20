@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { A11yModule } from '@angular/cdk/a11y';
-import { Overlay, OverlayModule, OverlayState } from '@angular/cdk/overlay';
+import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Input, NgModule, NgZone, Optional, Output, Renderer2, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MdButtonModule } from '@angular/material/button';
@@ -875,7 +875,7 @@ class MdDatepicker {
      * @return {?}
      */
     _createPopup() {
-        const /** @type {?} */ overlayState = new OverlayState({
+        const /** @type {?} */ overlayState = new OverlayConfig({
             positionStrategy: this._createPopupPositionStrategy(),
             hasBackdrop: true,
             backdropClass: 'md-overlay-transparent-backdrop',

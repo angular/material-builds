@@ -7,7 +7,7 @@
  */
 import { ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Injector, Input, NgModule, Optional, SkipSelf, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
-import { Overlay, OverlayModule, OverlayState } from '@angular/cdk/overlay';
+import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { BasePortalHost, ComponentPortal, PortalHostDirective, PortalModule, TemplatePortal } from '@angular/cdk/portal';
 import { A11yModule, FocusTrapFactory } from '@angular/cdk/a11y';
 import { MdCommonModule, PortalInjector, extendObject } from '@angular/material/core';
@@ -549,7 +549,7 @@ class MdDialog {
      * @return {?} The overlay configuration.
      */
     _getOverlayState(dialogConfig) {
-        const /** @type {?} */ state$$1 = new OverlayState({
+        const /** @type {?} */ state$$1 = new OverlayConfig({
             positionStrategy: this._overlay.position().global(),
             scrollStrategy: this._scrollStrategy(),
             panelClass: dialogConfig.panelClass,

@@ -88,7 +88,7 @@ export declare class MdMenuTrigger implements AfterViewInit, OnDestroy {
     private _createOverlay();
     /**
      * This method builds the configuration object needed to create the overlay, the OverlayState.
-     * @returns OverlayState
+     * @returns OverlayConfig
      */
     private _getOverlayConfig();
     /**

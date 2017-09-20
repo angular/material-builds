@@ -3149,7 +3149,7 @@ var MdAutocompleteTrigger = (function () {
      * @return {?}
      */
     MdAutocompleteTrigger.prototype._getOverlayConfig = function () {
-        return new _angular_cdk_overlay.OverlayState({
+        return new _angular_cdk_overlay.OverlayConfig({
             positionStrategy: this._getOverlayPosition(),
             scrollStrategy: this._scrollStrategy(),
             width: this._getHostWidth(),

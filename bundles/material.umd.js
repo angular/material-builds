@@ -3412,7 +3412,7 @@ var MdAutocompleteTrigger = (function () {
      * @return {?}
      */
     MdAutocompleteTrigger.prototype._getOverlayConfig = function () {
-        return new _angular_cdk_overlay.OverlayState({
+        return new _angular_cdk_overlay.OverlayConfig({
             positionStrategy: this._getOverlayPosition(),
             scrollStrategy: this._scrollStrategy(),
             width: this._getHostWidth(),
@@ -7243,7 +7243,7 @@ var MdDialog = (function () {
      * @return {?} The overlay configuration.
      */
     MdDialog.prototype._getOverlayState = function (dialogConfig) {
-        var /** @type {?} */ state$$1 = new _angular_cdk_overlay.OverlayState({
+        var /** @type {?} */ state$$1 = new _angular_cdk_overlay.OverlayConfig({
             positionStrategy: this._overlay.position().global(),
             scrollStrategy: this._scrollStrategy(),
             panelClass: dialogConfig.panelClass,
@@ -9173,7 +9173,7 @@ var MdDatepicker = (function () {
      * @return {?}
      */
     MdDatepicker.prototype._createPopup = function () {
-        var /** @type {?} */ overlayState = new _angular_cdk_overlay.OverlayState({
+        var /** @type {?} */ overlayState = new _angular_cdk_overlay.OverlayConfig({
             positionStrategy: this._createPopupPositionStrategy(),
             hasBackdrop: true,
             backdropClass: 'md-overlay-transparent-backdrop',
@@ -13565,10 +13565,10 @@ var MdMenuTrigger = (function () {
     };
     /**
      * This method builds the configuration object needed to create the overlay, the OverlayState.
-     * @return {?} OverlayState
+     * @return {?} OverlayConfig
      */
     MdMenuTrigger.prototype._getOverlayConfig = function () {
-        return new _angular_cdk_overlay.OverlayState({
+        return new _angular_cdk_overlay.OverlayConfig({
             positionStrategy: this._getPosition(),
             hasBackdrop: !this.triggersSubmenu(),
             backdropClass: 'cdk-overlay-transparent-backdrop',
@@ -15556,7 +15556,7 @@ var MdTooltip = (function () {
                 _this.hide(0);
             }
         });
-        var /** @type {?} */ config = new _angular_cdk_overlay.OverlayState({
+        var /** @type {?} */ config = new _angular_cdk_overlay.OverlayConfig({
             direction: this._dir ? this._dir.value : 'ltr',
             positionStrategy: strategy,
             panelClass: TOOLTIP_PANEL_CLASS,
@@ -20112,7 +20112,7 @@ var MdSnackBar = (function () {
      * @return {?}
      */
     MdSnackBar.prototype._createOverlay = function (config) {
-        var /** @type {?} */ state$$1 = new _angular_cdk_overlay.OverlayState();
+        var /** @type {?} */ state$$1 = new _angular_cdk_overlay.OverlayConfig();
         state$$1.direction = config.direction;
         var /** @type {?} */ positionStrategy = this._overlay.position().global();
         // Set horizontal position.
@@ -22932,7 +22932,7 @@ MdToolbarModule.ctorParameters = function () { return []; };
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.11-a944f6e');
+var VERSION = new _angular_core.Version('2.0.0-beta.11-3ddf65b');
 
 exports.VERSION = VERSION;
 exports.MdAutocompleteSelectedEvent = MdAutocompleteSelectedEvent;
@@ -23120,7 +23120,7 @@ exports.Overlay = _angular_cdk_overlay.Overlay;
 exports.OverlayContainer = _angular_cdk_overlay.OverlayContainer;
 exports.FullscreenOverlayContainer = _angular_cdk_overlay.FullscreenOverlayContainer;
 exports.OverlayRef = _angular_cdk_overlay.OverlayRef;
-exports.OverlayState = _angular_cdk_overlay.OverlayState;
+exports.OverlayConfig = _angular_cdk_overlay.OverlayConfig;
 exports.ConnectedOverlayDirective = _angular_cdk_overlay.ConnectedOverlayDirective;
 exports.OverlayOrigin = _angular_cdk_overlay.OverlayOrigin;
 exports.ViewportRuler = _angular_cdk_overlay.ViewportRuler;
