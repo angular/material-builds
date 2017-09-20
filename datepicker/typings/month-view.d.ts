@@ -21,7 +21,7 @@ export declare class MdMonthView<D> implements AfterContentInit {
     activeDate: D;
     private _activeDate;
     /** The currently selected date. */
-    selected: D;
+    selected: D | null;
     private _selected;
     /** A function used to filter which dates are selectable. */
     dateFilter: (date: D) => boolean;

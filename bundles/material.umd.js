@@ -637,13 +637,19 @@ var DateAdapter = (function () {
      */
     DateAdapter.prototype.addCalendarDays = function (date, days) { };
     /**
-     * Gets the RFC 3339 compatible date string (https://tools.ietf.org/html/rfc3339)  for the given
-     * date.
+     * Gets the RFC 3339 compatible string (https://tools.ietf.org/html/rfc3339) for the given date.
      * @abstract
      * @param {?} date The date to get the ISO date string for.
      * @return {?} The ISO date string date string.
      */
-    DateAdapter.prototype.getISODateString = function (date) { };
+    DateAdapter.prototype.toIso8601 = function (date) { };
+    /**
+     * Creates a date from an RFC 3339 compatible string (https://tools.ietf.org/html/rfc3339).
+     * @abstract
+     * @param {?} iso8601String The ISO date string to create a date from
+     * @return {?} The date created from the ISO date string.
+     */
+    DateAdapter.prototype.fromIso8601 = function (iso8601String) { };
     /**
      * Checks whether the given object is considered a date instance by this DateAdapter.
      * @abstract
@@ -763,6 +769,12 @@ var DEFAULT_DAY_OF_WEEK_NAMES = {
     'short': ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     'narrow': ['S', 'M', 'T', 'W', 'T', 'F', 'S']
 };
+/**
+ * Matches strings that have the form of a valid RFC 3339 string
+ * (https://tools.ietf.org/html/rfc3339). Note that the string may not actually be a valid date
+ * because the regex will match strings an with out of bounds month, date, etc.
+ */
+var ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))$/;
 /**
  * Creates an array and fills it with values.
  * @template T
@@ -987,12 +999,27 @@ var NativeDateAdapter = (function (_super) {
      * @param {?} date
      * @return {?}
      */
-    NativeDateAdapter.prototype.getISODateString = function (date) {
+    NativeDateAdapter.prototype.toIso8601 = function (date) {
         return [
             date.getUTCFullYear(),
             this._2digit(date.getUTCMonth() + 1),
             this._2digit(date.getUTCDate())
         ].join('-');
+    };
+    /**
+     * @param {?} iso8601String
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.fromIso8601 = function (iso8601String) {
+        // The `Date` constructor accepts formats other than ISO 8601, so we need to make sure the
+        // string is the right format first.
+        if (ISO_8601_REGEX.test(iso8601String)) {
+            var /** @type {?} */ d = new Date(iso8601String);
+            if (this.isValid(d)) {
+                return d;
+            }
+        }
+        return null;
     };
     /**
      * @param {?} obj
@@ -8270,6 +8297,32 @@ MdIconModule.decorators = [
 MdIconModule.ctorParameters = function () { return []; };
 
 /**
+ * Function that attempts to coerce a value to a date using a DateAdapter. Date instances, null,
+ * and undefined will be passed through. Empty strings will be coerced to null. Valid ISO 8601
+ * strings (https://www.ietf.org/rfc/rfc3339.txt) will be coerced to dates. All other values will
+ * result in an error being thrown.
+ * @throws Throws when the value cannot be coerced.
+ * @template D
+ * @param {?} adapter The date adapter to use for coercion
+ * @param {?} value The value to coerce.
+ * @return {?} A date object coerced from the value.
+ */
+function coerceDateProperty(adapter, value) {
+    if (typeof value === 'string') {
+        if (value == '') {
+            value = null;
+        }
+        else {
+            value = adapter.fromIso8601(value) || value;
+        }
+    }
+    if (value == null || adapter.isDateInstance(value)) {
+        return value;
+    }
+    throw Error("Datepicker: Value must be either a date object recognized by the DateAdapter or " +
+        ("an ISO 8601 string. Instead got: " + value));
+}
+/**
  * \@docs-private
  * @param {?} provider
  * @return {?}
@@ -8381,6 +8434,62 @@ var MdCalendar = (function () {
         }
         this._intlChanges = _intl.changes.subscribe(function () { return changeDetectorRef.markForCheck(); });
     }
+    Object.defineProperty(MdCalendar.prototype, "startAt", {
+        /**
+         * A date representing the period (month or year) to start the calendar in.
+         * @return {?}
+         */
+        get: function () { return this._startAt; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) { this._startAt = coerceDateProperty(this._dateAdapter, value); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdCalendar.prototype, "selected", {
+        /**
+         * The currently selected date.
+         * @return {?}
+         */
+        get: function () { return this._selected; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) { this._selected = coerceDateProperty(this._dateAdapter, value); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdCalendar.prototype, "minDate", {
+        /**
+         * The minimum selectable date.
+         * @return {?}
+         */
+        get: function () { return this._minDate; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) { this._minDate = coerceDateProperty(this._dateAdapter, value); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MdCalendar.prototype, "maxDate", {
+        /**
+         * The maximum selectable date.
+         * @return {?}
+         */
+        get: function () { return this._maxDate; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) { this._maxDate = coerceDateProperty(this._dateAdapter, value); },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MdCalendar.prototype, "_activeDate", {
         /**
          * The current active date. This determines which time period is shown and which date is
@@ -8982,7 +9091,7 @@ var MdDatepicker = (function () {
          * @param {?} date
          * @return {?}
          */
-        set: function (date) { this._startAt = date; },
+        set: function (date) { this._startAt = coerceDateProperty(this._dateAdapter, date); },
         enumerable: true,
         configurable: true
     });
@@ -9300,23 +9409,26 @@ var MdDatepickerInput = (function () {
          * The form control validator for the min date.
          */
         this._minValidator = function (control) {
-            return (!_this.min || !control.value ||
-                _this._dateAdapter.compareDate(_this.min, control.value) <= 0) ?
-                null : { 'mdDatepickerMin': { 'min': _this.min, 'actual': control.value } };
+            var controlValue = coerceDateProperty(_this._dateAdapter, control.value);
+            return (!_this.min || !controlValue ||
+                _this._dateAdapter.compareDate(_this.min, controlValue) <= 0) ?
+                null : { 'mdDatepickerMin': { 'min': _this.min, 'actual': controlValue } };
         };
         /**
          * The form control validator for the max date.
          */
         this._maxValidator = function (control) {
-            return (!_this.max || !control.value ||
-                _this._dateAdapter.compareDate(_this.max, control.value) >= 0) ?
-                null : { 'mdDatepickerMax': { 'max': _this.max, 'actual': control.value } };
+            var controlValue = coerceDateProperty(_this._dateAdapter, control.value);
+            return (!_this.max || !controlValue ||
+                _this._dateAdapter.compareDate(_this.max, controlValue) >= 0) ?
+                null : { 'mdDatepickerMax': { 'max': _this.max, 'actual': controlValue } };
         };
         /**
          * The form control validator for the date filter.
          */
         this._filterValidator = function (control) {
-            return !_this._dateFilter || !control.value || _this._dateFilter(control.value) ?
+            var controlValue = coerceDateProperty(_this._dateAdapter, control.value);
+            return !_this._dateFilter || !controlValue || _this._dateFilter(controlValue) ?
                 null : { 'mdDatepickerFilter': true };
         };
         /**
@@ -9409,9 +9521,7 @@ var MdDatepickerInput = (function () {
          * @return {?}
          */
         set: function (value) {
-            if (value != null && !this._dateAdapter.isDateInstance(value)) {
-                throw Error('Datepicker: value not recognized as a date object by DateAdapter.');
-            }
+            value = coerceDateProperty(this._dateAdapter, value);
             this._lastValueValid = !value || this._dateAdapter.isValid(value);
             value = this._getValidDateOrNull(value);
             var /** @type {?} */ oldDate = this.value;
@@ -9435,7 +9545,7 @@ var MdDatepickerInput = (function () {
          * @return {?}
          */
         set: function (value) {
-            this._min = value;
+            this._min = coerceDateProperty(this._dateAdapter, value);
             this._validatorOnChange();
         },
         enumerable: true,
@@ -9452,7 +9562,7 @@ var MdDatepickerInput = (function () {
          * @return {?}
          */
         set: function (value) {
-            this._max = value;
+            this._max = coerceDateProperty(this._dateAdapter, value);
             this._validatorOnChange();
         },
         enumerable: true,
@@ -9597,8 +9707,8 @@ MdDatepickerInput.decorators = [
                 host: {
                     '[attr.aria-haspopup]': 'true',
                     '[attr.aria-owns]': '(_datepicker?.opened && _datepicker.id) || null',
-                    '[attr.min]': 'min ? _dateAdapter.getISODateString(min) : null',
-                    '[attr.max]': 'max ? _dateAdapter.getISODateString(max) : null',
+                    '[attr.min]': 'min ? _dateAdapter.toIso8601(min) : null',
+                    '[attr.max]': 'max ? _dateAdapter.toIso8601(max) : null',
                     '[disabled]': 'disabled',
                     '(input)': '_onInput($event.target.value)',
                     '(change)': '_onChange()',
@@ -9764,7 +9874,7 @@ var MdMonthView = (function () {
          */
         set: function (value) {
             var /** @type {?} */ oldActiveDate = this._activeDate;
-            this._activeDate = value || this._dateAdapter.today();
+            this._activeDate = coerceDateProperty(this._dateAdapter, value) || this._dateAdapter.today();
             if (!this._hasSameMonthAndYear(oldActiveDate, this._activeDate)) {
                 this._init();
             }
@@ -9783,8 +9893,8 @@ var MdMonthView = (function () {
          * @return {?}
          */
         set: function (value) {
-            this._selected = value;
-            this._selectedDate = this._getDateInCurrentMonth(this.selected);
+            this._selected = coerceDateProperty(this._dateAdapter, value);
+            this._selectedDate = this._getDateInCurrentMonth(this._selected);
         },
         enumerable: true,
         configurable: true
@@ -9853,7 +9963,7 @@ var MdMonthView = (function () {
      * @return {?}
      */
     MdMonthView.prototype._getDateInCurrentMonth = function (date) {
-        return this._hasSameMonthAndYear(date, this.activeDate) ?
+        return date && this._hasSameMonthAndYear(date, this.activeDate) ?
             this._dateAdapter.getDate(date) : null;
     };
     /**
@@ -9926,7 +10036,7 @@ var MdYearView = (function () {
          */
         set: function (value) {
             var /** @type {?} */ oldActiveDate = this._activeDate;
-            this._activeDate = value || this._dateAdapter.today();
+            this._activeDate = coerceDateProperty(this._dateAdapter, value) || this._dateAdapter.today();
             if (this._dateAdapter.getYear(oldActiveDate) != this._dateAdapter.getYear(this._activeDate)) {
                 this._init();
             }
@@ -9945,8 +10055,8 @@ var MdYearView = (function () {
          * @return {?}
          */
         set: function (value) {
-            this._selected = value;
-            this._selectedMonth = this._getMonthInCurrentYear(this.selected);
+            this._selected = coerceDateProperty(this._dateAdapter, value);
+            this._selectedMonth = this._getMonthInCurrentYear(this._selected);
         },
         enumerable: true,
         configurable: true
@@ -22932,7 +23042,7 @@ MdToolbarModule.ctorParameters = function () { return []; };
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.11-602a861');
+var VERSION = new _angular_core.Version('2.0.0-beta.11-d2ceb2c');
 
 exports.VERSION = VERSION;
 exports.MdAutocompleteSelectedEvent = MdAutocompleteSelectedEvent;
@@ -23225,6 +23335,7 @@ exports.MdDatepickerModule = MdDatepickerModule;
 exports.MdCalendar = MdCalendar;
 exports.MdCalendarCell = MdCalendarCell;
 exports.MdCalendarBody = MdCalendarBody;
+exports.coerceDateProperty = coerceDateProperty;
 exports.MD_DATEPICKER_SCROLL_STRATEGY = MD_DATEPICKER_SCROLL_STRATEGY;
 exports.MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY = MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER = MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER;

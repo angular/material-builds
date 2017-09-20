@@ -27,7 +27,8 @@ export declare class NativeDateAdapter extends DateAdapter<Date> {
     addCalendarYears(date: Date, years: number): Date;
     addCalendarMonths(date: Date, months: number): Date;
     addCalendarDays(date: Date, days: number): Date;
-    getISODateString(date: Date): string;
+    toIso8601(date: Date): string;
+    fromIso8601(iso8601String: string): Date | null;
     isDateInstance(obj: any): boolean;
     isValid(date: Date): boolean;
     /** Creates a date but allows the month and date to overflow. */

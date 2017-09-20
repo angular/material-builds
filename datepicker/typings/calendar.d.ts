@@ -14,15 +14,19 @@ export declare class MdCalendar<D> implements AfterContentInit, OnDestroy {
     private _dateFormats;
     private _intlChanges;
     /** A date representing the period (month or year) to start the calendar in. */
-    startAt: D;
+    startAt: D | null;
+    private _startAt;
     /** Whether the calendar should be started in month or year view. */
     startView: 'month' | 'year';
     /** The currently selected date. */
     selected: D | null;
+    private _selected;
     /** The minimum selectable date. */
     minDate: D | null;
+    private _minDate;
     /** The maximum selectable date. */
     maxDate: D | null;
+    private _maxDate;
     /** A function used to filter which dates are selectable. */
     dateFilter: (date: D) => boolean;
     /** Emits when the currently selected date changes. */

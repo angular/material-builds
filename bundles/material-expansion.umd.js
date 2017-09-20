@@ -507,13 +507,19 @@ var DateAdapter = (function () {
      */
     DateAdapter.prototype.addCalendarDays = function (date, days) { };
     /**
-     * Gets the RFC 3339 compatible date string (https://tools.ietf.org/html/rfc3339)  for the given
-     * date.
+     * Gets the RFC 3339 compatible string (https://tools.ietf.org/html/rfc3339) for the given date.
      * @abstract
      * @param {?} date The date to get the ISO date string for.
      * @return {?} The ISO date string date string.
      */
-    DateAdapter.prototype.getISODateString = function (date) { };
+    DateAdapter.prototype.toIso8601 = function (date) { };
+    /**
+     * Creates a date from an RFC 3339 compatible string (https://tools.ietf.org/html/rfc3339).
+     * @abstract
+     * @param {?} iso8601String The ISO date string to create a date from
+     * @return {?} The date created from the ISO date string.
+     */
+    DateAdapter.prototype.fromIso8601 = function (iso8601String) { };
     /**
      * Checks whether the given object is considered a date instance by this DateAdapter.
      * @abstract
@@ -633,6 +639,12 @@ var DEFAULT_DAY_OF_WEEK_NAMES = {
     'short': ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     'narrow': ['S', 'M', 'T', 'W', 'T', 'F', 'S']
 };
+/**
+ * Matches strings that have the form of a valid RFC 3339 string
+ * (https://tools.ietf.org/html/rfc3339). Note that the string may not actually be a valid date
+ * because the regex will match strings an with out of bounds month, date, etc.
+ */
+var ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))$/;
 /**
  * Creates an array and fills it with values.
  * @template T
@@ -857,12 +869,27 @@ var NativeDateAdapter = (function (_super) {
      * @param {?} date
      * @return {?}
      */
-    NativeDateAdapter.prototype.getISODateString = function (date) {
+    NativeDateAdapter.prototype.toIso8601 = function (date) {
         return [
             date.getUTCFullYear(),
             this._2digit(date.getUTCMonth() + 1),
             this._2digit(date.getUTCDate())
         ].join('-');
+    };
+    /**
+     * @param {?} iso8601String
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.fromIso8601 = function (iso8601String) {
+        // The `Date` constructor accepts formats other than ISO 8601, so we need to make sure the
+        // string is the right format first.
+        if (ISO_8601_REGEX.test(iso8601String)) {
+            var /** @type {?} */ d = new Date(iso8601String);
+            if (this.isValid(d)) {
+                return d;
+            }
+        }
+        return null;
     };
     /**
      * @param {?} obj
@@ -2643,9 +2670,9 @@ exports.MatExpansionPanelActionRow = MdExpansionPanelActionRow;
 exports.MatExpansionPanelDescription = MdExpansionPanelDescription;
 exports.MatExpansionPanelHeader = MdExpansionPanelHeader;
 exports.MatExpansionPanelTitle = MdExpansionPanelTitle;
-exports.ɵc7 = EXPANSION_PANEL_ANIMATION_TIMING;
-exports.ɵa7 = MdExpansionPanelBase;
-exports.ɵb7 = _MdExpansionPanelMixinBase;
+exports.ɵc13 = EXPANSION_PANEL_ANIMATION_TIMING;
+exports.ɵa13 = MdExpansionPanelBase;
+exports.ɵb13 = _MdExpansionPanelMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

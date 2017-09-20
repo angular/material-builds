@@ -28,6 +28,33 @@ import { merge } from 'rxjs/observable/merge';
 import { of } from 'rxjs/observable/of';
 
 /**
+ * Function that attempts to coerce a value to a date using a DateAdapter. Date instances, null,
+ * and undefined will be passed through. Empty strings will be coerced to null. Valid ISO 8601
+ * strings (https://www.ietf.org/rfc/rfc3339.txt) will be coerced to dates. All other values will
+ * result in an error being thrown.
+ * @throws Throws when the value cannot be coerced.
+ * @template D
+ * @param {?} adapter The date adapter to use for coercion
+ * @param {?} value The value to coerce.
+ * @return {?} A date object coerced from the value.
+ */
+function coerceDateProperty(adapter, value) {
+    if (typeof value === 'string') {
+        if (value == '') {
+            value = null;
+        }
+        else {
+            value = adapter.fromIso8601(value) || value;
+        }
+    }
+    if (value == null || adapter.isDateInstance(value)) {
+        return value;
+    }
+    throw Error(`Datepicker: Value must be either a date object recognized by the DateAdapter or ` +
+        `an ISO 8601 string. Instead got: ${value}`);
+}
+
+/**
  * \@docs-private
  * @param {?} provider
  * @return {?}
@@ -139,6 +166,46 @@ class MdCalendar {
         }
         this._intlChanges = _intl.changes.subscribe(() => changeDetectorRef.markForCheck());
     }
+    /**
+     * A date representing the period (month or year) to start the calendar in.
+     * @return {?}
+     */
+    get startAt() { return this._startAt; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set startAt(value) { this._startAt = coerceDateProperty(this._dateAdapter, value); }
+    /**
+     * The currently selected date.
+     * @return {?}
+     */
+    get selected() { return this._selected; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set selected(value) { this._selected = coerceDateProperty(this._dateAdapter, value); }
+    /**
+     * The minimum selectable date.
+     * @return {?}
+     */
+    get minDate() { return this._minDate; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set minDate(value) { this._minDate = coerceDateProperty(this._dateAdapter, value); }
+    /**
+     * The maximum selectable date.
+     * @return {?}
+     */
+    get maxDate() { return this._maxDate; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set maxDate(value) { this._maxDate = coerceDateProperty(this._dateAdapter, value); }
     /**
      * The current active date. This determines which time period is shown and which date is
      * highlighted when using keyboard navigation.
@@ -710,7 +777,7 @@ class MdDatepicker {
      * @param {?} date
      * @return {?}
      */
-    set startAt(date) { this._startAt = date; }
+    set startAt(date) { this._startAt = coerceDateProperty(this._dateAdapter, date); }
     /**
      * Whether the datepicker pop-up should be disabled.
      * @return {?}
@@ -1000,23 +1067,26 @@ class MdDatepickerInput {
          * The form control validator for the min date.
          */
         this._minValidator = (control) => {
-            return (!this.min || !control.value ||
-                this._dateAdapter.compareDate(this.min, control.value) <= 0) ?
-                null : { 'mdDatepickerMin': { 'min': this.min, 'actual': control.value } };
+            const controlValue = coerceDateProperty(this._dateAdapter, control.value);
+            return (!this.min || !controlValue ||
+                this._dateAdapter.compareDate(this.min, controlValue) <= 0) ?
+                null : { 'mdDatepickerMin': { 'min': this.min, 'actual': controlValue } };
         };
         /**
          * The form control validator for the max date.
          */
         this._maxValidator = (control) => {
-            return (!this.max || !control.value ||
-                this._dateAdapter.compareDate(this.max, control.value) >= 0) ?
-                null : { 'mdDatepickerMax': { 'max': this.max, 'actual': control.value } };
+            const controlValue = coerceDateProperty(this._dateAdapter, control.value);
+            return (!this.max || !controlValue ||
+                this._dateAdapter.compareDate(this.max, controlValue) >= 0) ?
+                null : { 'mdDatepickerMax': { 'max': this.max, 'actual': controlValue } };
         };
         /**
          * The form control validator for the date filter.
          */
         this._filterValidator = (control) => {
-            return !this._dateFilter || !control.value || this._dateFilter(control.value) ?
+            const controlValue = coerceDateProperty(this._dateAdapter, control.value);
+            return !this._dateFilter || !controlValue || this._dateFilter(controlValue) ?
                 null : { 'mdDatepickerFilter': true };
         };
         /**
@@ -1092,9 +1162,7 @@ class MdDatepickerInput {
      * @return {?}
      */
     set value(value) {
-        if (value != null && !this._dateAdapter.isDateInstance(value)) {
-            throw Error('Datepicker: value not recognized as a date object by DateAdapter.');
-        }
+        value = coerceDateProperty(this._dateAdapter, value);
         this._lastValueValid = !value || this._dateAdapter.isValid(value);
         value = this._getValidDateOrNull(value);
         let /** @type {?} */ oldDate = this.value;
@@ -1114,7 +1182,7 @@ class MdDatepickerInput {
      * @return {?}
      */
     set min(value) {
-        this._min = value;
+        this._min = coerceDateProperty(this._dateAdapter, value);
         this._validatorOnChange();
     }
     /**
@@ -1127,7 +1195,7 @@ class MdDatepickerInput {
      * @return {?}
      */
     set max(value) {
-        this._max = value;
+        this._max = coerceDateProperty(this._dateAdapter, value);
         this._validatorOnChange();
     }
     /**
@@ -1263,8 +1331,8 @@ MdDatepickerInput.decorators = [
                 host: {
                     '[attr.aria-haspopup]': 'true',
                     '[attr.aria-owns]': '(_datepicker?.opened && _datepicker.id) || null',
-                    '[attr.min]': 'min ? _dateAdapter.getISODateString(min) : null',
-                    '[attr.max]': 'max ? _dateAdapter.getISODateString(max) : null',
+                    '[attr.min]': 'min ? _dateAdapter.toIso8601(min) : null',
+                    '[attr.max]': 'max ? _dateAdapter.toIso8601(max) : null',
                     '[disabled]': 'disabled',
                     '(input)': '_onInput($event.target.value)',
                     '(change)': '_onChange()',
@@ -1425,7 +1493,7 @@ class MdMonthView {
      */
     set activeDate(value) {
         let /** @type {?} */ oldActiveDate = this._activeDate;
-        this._activeDate = value || this._dateAdapter.today();
+        this._activeDate = coerceDateProperty(this._dateAdapter, value) || this._dateAdapter.today();
         if (!this._hasSameMonthAndYear(oldActiveDate, this._activeDate)) {
             this._init();
         }
@@ -1440,8 +1508,8 @@ class MdMonthView {
      * @return {?}
      */
     set selected(value) {
-        this._selected = value;
-        this._selectedDate = this._getDateInCurrentMonth(this.selected);
+        this._selected = coerceDateProperty(this._dateAdapter, value);
+        this._selectedDate = this._getDateInCurrentMonth(this._selected);
     }
     /**
      * @return {?}
@@ -1507,7 +1575,7 @@ class MdMonthView {
      * @return {?}
      */
     _getDateInCurrentMonth(date) {
-        return this._hasSameMonthAndYear(date, this.activeDate) ?
+        return date && this._hasSameMonthAndYear(date, this.activeDate) ?
             this._dateAdapter.getDate(date) : null;
     }
     /**
@@ -1579,7 +1647,7 @@ class MdYearView {
      */
     set activeDate(value) {
         let /** @type {?} */ oldActiveDate = this._activeDate;
-        this._activeDate = value || this._dateAdapter.today();
+        this._activeDate = coerceDateProperty(this._dateAdapter, value) || this._dateAdapter.today();
         if (this._dateAdapter.getYear(oldActiveDate) != this._dateAdapter.getYear(this._activeDate)) {
             this._init();
         }
@@ -1594,8 +1662,8 @@ class MdYearView {
      * @return {?}
      */
     set selected(value) {
-        this._selected = value;
-        this._selectedMonth = this._getMonthInCurrentYear(this.selected);
+        this._selected = coerceDateProperty(this._dateAdapter, value);
+        this._selectedMonth = this._getMonthInCurrentYear(this._selected);
     }
     /**
      * @return {?}
@@ -1735,5 +1803,5 @@ MdDatepickerModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, MD_DATEPICKER_SCROLL_STRATEGY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInputEvent, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MD_DATEPICKER_SCROLL_STRATEGY as MAT_DATEPICKER_SCROLL_STRATEGY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER as MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY as MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DATEPICKER_VALIDATORS as MAT_DATEPICKER_VALIDATORS, MD_DATEPICKER_VALUE_ACCESSOR as MAT_DATEPICKER_VALUE_ACCESSOR, MdCalendar as MatCalendar, MdCalendarBody as MatCalendarBody, MdCalendarCell as MatCalendarCell, MdDatepicker as MatDatepicker, MdDatepickerContent as MatDatepickerContent, MdDatepickerInput as MatDatepickerInput, MdDatepickerInputEvent as MatDatepickerInputEvent, MdDatepickerIntl as MatDatepickerIntl, MdDatepickerModule as MatDatepickerModule, MdDatepickerToggle as MatDatepickerToggle, MdMonthView as MatMonthView, MdYearView as MatYearView };
+export { MdDatepickerModule, MdCalendar, MdCalendarCell, MdCalendarBody, coerceDateProperty, MD_DATEPICKER_SCROLL_STRATEGY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER, MdDatepickerContent, MdDatepicker, MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS, MdDatepickerInputEvent, MdDatepickerInput, MdDatepickerIntl, MdDatepickerToggle, MdMonthView, MdYearView, MD_DATEPICKER_SCROLL_STRATEGY as MAT_DATEPICKER_SCROLL_STRATEGY, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER as MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER, MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY as MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DATEPICKER_VALIDATORS as MAT_DATEPICKER_VALIDATORS, MD_DATEPICKER_VALUE_ACCESSOR as MAT_DATEPICKER_VALUE_ACCESSOR, MdCalendar as MatCalendar, MdCalendarBody as MatCalendarBody, MdCalendarCell as MatCalendarCell, MdDatepicker as MatDatepicker, MdDatepickerContent as MatDatepickerContent, MdDatepickerInput as MatDatepickerInput, MdDatepickerInputEvent as MatDatepickerInputEvent, MdDatepickerIntl as MatDatepickerIntl, MdDatepickerModule as MatDatepickerModule, MdDatepickerToggle as MatDatepickerToggle, MdMonthView as MatMonthView, MdYearView as MatYearView };
 //# sourceMappingURL=datepicker.js.map
