@@ -644,7 +644,7 @@ var DEFAULT_DAY_OF_WEEK_NAMES = {
  * (https://tools.ietf.org/html/rfc3339). Note that the string may not actually be a valid date
  * because the regex will match strings an with out of bounds month, date, etc.
  */
-var ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))$/;
+var ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))?)?$/;
 /**
  * Creates an array and fills it with values.
  * @template T
@@ -2670,9 +2670,9 @@ exports.MatExpansionPanelActionRow = MdExpansionPanelActionRow;
 exports.MatExpansionPanelDescription = MdExpansionPanelDescription;
 exports.MatExpansionPanelHeader = MdExpansionPanelHeader;
 exports.MatExpansionPanelTitle = MdExpansionPanelTitle;
-exports.ɵc15 = EXPANSION_PANEL_ANIMATION_TIMING;
-exports.ɵa15 = MdExpansionPanelBase;
-exports.ɵb15 = _MdExpansionPanelMixinBase;
+exports.ɵc16 = EXPANSION_PANEL_ANIMATION_TIMING;
+exports.ɵa16 = MdExpansionPanelBase;
+exports.ɵb16 = _MdExpansionPanelMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

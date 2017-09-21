@@ -732,7 +732,7 @@ var DEFAULT_DAY_OF_WEEK_NAMES = {
  * (https://tools.ietf.org/html/rfc3339). Note that the string may not actually be a valid date
  * because the regex will match strings an with out of bounds month, date, etc.
  */
-var ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))$/;
+var ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))?)?$/;
 /**
  * Creates an array and fills it with values.
  * @template T
@@ -3724,16 +3724,16 @@ exports.MatTabLabelWrapper = MdTabLabelWrapper;
 exports.MatTabLink = MdTabLink;
 exports.MatTabNav = MdTabNav;
 exports.MatTabsModule = MdTabsModule;
-exports.ɵe13 = MdTabBase;
-exports.ɵf13 = _MdTabMixinBase;
-exports.ɵa13 = MdTabHeaderBase;
-exports.ɵb13 = _MdTabHeaderMixinBase;
-exports.ɵc13 = MdTabLabelWrapperBase;
-exports.ɵd13 = _MdTabLabelWrapperMixinBase;
-exports.ɵi13 = MdTabLinkBase;
-exports.ɵg13 = MdTabNavBase;
-exports.ɵj13 = _MdTabLinkMixinBase;
-exports.ɵh13 = _MdTabNavMixinBase;
+exports.ɵe23 = MdTabBase;
+exports.ɵf23 = _MdTabMixinBase;
+exports.ɵa23 = MdTabHeaderBase;
+exports.ɵb23 = _MdTabHeaderMixinBase;
+exports.ɵc23 = MdTabLabelWrapperBase;
+exports.ɵd23 = _MdTabLabelWrapperMixinBase;
+exports.ɵi23 = MdTabLinkBase;
+exports.ɵg23 = MdTabNavBase;
+exports.ɵj23 = _MdTabLinkMixinBase;
+exports.ɵh23 = _MdTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
