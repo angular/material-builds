@@ -873,5 +873,5 @@ MdGridListModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdGridTile, MdGridListModule, MdGridList, MdGridList as MatGridList, MdGridListModule as MatGridListModule, MdGridTile as MatGridTile, MdGridAvatarCssMatStyler as ɵb10, MdGridTileFooterCssMatStyler as ɵd10, MdGridTileHeaderCssMatStyler as ɵc10, MdGridTileText as ɵa10 };
+export { MdGridTile, MdGridListModule, MdGridList, MdGridList as MatGridList, MdGridListModule as MatGridListModule, MdGridTile as MatGridTile, MdGridAvatarCssMatStyler as ɵb4, MdGridTileFooterCssMatStyler as ɵd4, MdGridTileHeaderCssMatStyler as ɵc4, MdGridTileText as ɵa4 };
 //# sourceMappingURL=grid-list.es5.js.map

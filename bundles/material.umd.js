@@ -23076,7 +23076,7 @@ MdToolbarModule.ctorParameters = function () { return []; };
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.11-8436f8c');
+var VERSION = new _angular_core.Version('2.0.0-beta.11-f2419bf');
 
 exports.VERSION = VERSION;
 exports.MdAutocompleteSelectedEvent = MdAutocompleteSelectedEvent;
