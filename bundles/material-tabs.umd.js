@@ -3724,16 +3724,16 @@ exports.MatTabLabelWrapper = MdTabLabelWrapper;
 exports.MatTabLink = MdTabLink;
 exports.MatTabNav = MdTabNav;
 exports.MatTabsModule = MdTabsModule;
-exports.ɵe19 = MdTabBase;
-exports.ɵf19 = _MdTabMixinBase;
-exports.ɵa19 = MdTabHeaderBase;
-exports.ɵb19 = _MdTabHeaderMixinBase;
-exports.ɵc19 = MdTabLabelWrapperBase;
-exports.ɵd19 = _MdTabLabelWrapperMixinBase;
-exports.ɵi19 = MdTabLinkBase;
-exports.ɵg19 = MdTabNavBase;
-exports.ɵj19 = _MdTabLinkMixinBase;
-exports.ɵh19 = _MdTabNavMixinBase;
+exports.ɵe13 = MdTabBase;
+exports.ɵf13 = _MdTabMixinBase;
+exports.ɵa13 = MdTabHeaderBase;
+exports.ɵb13 = _MdTabHeaderMixinBase;
+exports.ɵc13 = MdTabLabelWrapperBase;
+exports.ɵd13 = _MdTabLabelWrapperMixinBase;
+exports.ɵi13 = MdTabLinkBase;
+exports.ɵg13 = MdTabNavBase;
+exports.ɵj13 = _MdTabLinkMixinBase;
+exports.ɵh13 = _MdTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

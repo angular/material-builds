@@ -23076,7 +23076,7 @@ MdToolbarModule.ctorParameters = function () { return []; };
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.11-fdf68ba');
+var VERSION = new _angular_core.Version('2.0.0-beta.11-3025b30');
 
 exports.VERSION = VERSION;
 exports.MdAutocompleteSelectedEvent = MdAutocompleteSelectedEvent;
@@ -23264,13 +23264,13 @@ exports.Overlay = _angular_cdk_overlay.Overlay;
 exports.OverlayContainer = _angular_cdk_overlay.OverlayContainer;
 exports.FullscreenOverlayContainer = _angular_cdk_overlay.FullscreenOverlayContainer;
 exports.OverlayRef = _angular_cdk_overlay.OverlayRef;
-exports.OverlayConfig = _angular_cdk_overlay.OverlayConfig;
 exports.ConnectedOverlayDirective = _angular_cdk_overlay.ConnectedOverlayDirective;
 exports.OverlayOrigin = _angular_cdk_overlay.OverlayOrigin;
 exports.ViewportRuler = _angular_cdk_overlay.ViewportRuler;
 exports.GlobalPositionStrategy = _angular_cdk_overlay.GlobalPositionStrategy;
 exports.ConnectedPositionStrategy = _angular_cdk_overlay.ConnectedPositionStrategy;
 exports.VIEWPORT_RULER_PROVIDER = _angular_cdk_overlay.VIEWPORT_RULER_PROVIDER;
+exports.OverlayConfig = _angular_cdk_overlay.OverlayConfig;
 exports.ConnectionPositionPair = _angular_cdk_overlay.ConnectionPositionPair;
 exports.ScrollingVisibility = _angular_cdk_overlay.ScrollingVisibility;
 exports.ConnectedOverlayPositionChange = _angular_cdk_overlay.ConnectedOverlayPositionChange;
