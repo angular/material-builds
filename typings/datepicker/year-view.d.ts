@@ -6,13 +6,13 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AfterContentInit, EventEmitter } from '@angular/core';
-import { DateAdapter, MdDateFormats } from '@angular/material/core';
-import { MdCalendarCell } from './calendar-body';
+import { DateAdapter, MatDateFormats } from '@angular/material/core';
+import { MatCalendarCell } from './calendar-body';
 /**
  * An internal component used to display a single year in the datepicker.
  * @docs-private
  */
-export declare class MdYearView<D> implements AfterContentInit {
+export declare class MatYearView<D> implements AfterContentInit {
     _dateAdapter: DateAdapter<D>;
     private _dateFormats;
     /** The date to display in this year view (everything other than the year is ignored). */
@@ -26,7 +26,7 @@ export declare class MdYearView<D> implements AfterContentInit {
     /** Emits when a new month is selected. */
     selectedChange: EventEmitter<D>;
     /** Grid of calendar cells representing the months of the year. */
-    _months: MdCalendarCell[][];
+    _months: MatCalendarCell[][];
     /** The label for this year (e.g. "2017"). */
     _yearLabel: string;
     /** The month in this year that today falls on. Null if today is in a different year. */
@@ -36,7 +36,7 @@ export declare class MdYearView<D> implements AfterContentInit {
      * Null if the selected Date is in a different year.
      */
     _selectedMonth: number | null;
-    constructor(_dateAdapter: DateAdapter<D>, _dateFormats: MdDateFormats);
+    constructor(_dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats);
     ngAfterContentInit(): void;
     /** Handles when a new month is selected. */
     _monthSelected(month: number): void;
@@ -47,7 +47,7 @@ export declare class MdYearView<D> implements AfterContentInit {
      * Returns null if the given Date is in another year.
      */
     private _getMonthInCurrentYear(date);
-    /** Creates an MdCalendarCell for the given month. */
+    /** Creates an MatCalendarCell for the given month. */
     private _createCellForMonth(month, monthName);
     /** Whether the given month is enabled. */
     private _isMonthEnabled(month);

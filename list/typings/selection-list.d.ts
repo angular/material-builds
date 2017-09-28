@@ -8,35 +8,35 @@
 import { FocusableOption, FocusKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer2 } from '@angular/core';
-import { CanDisable, CanDisableRipple, MdLine } from '@angular/material/core';
+import { CanDisable, CanDisableRipple, MatLine } from '@angular/material/core';
 /** @docs-private */
-export declare class MdSelectionListBase {
+export declare class MatSelectionListBase {
 }
-export declare const _MdSelectionListMixinBase: (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MdSelectionListBase;
+export declare const _MatSelectionListMixinBase: (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MatSelectionListBase;
 /** @docs-private */
-export declare class MdListOptionBase {
+export declare class MatListOptionBase {
 }
-export declare const _MdListOptionMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MdListOptionBase;
+export declare const _MatListOptionMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MatListOptionBase;
 /** Event emitted by a selection-list whenever the state of an option is changed. */
-export interface MdSelectionListOptionEvent {
-    option: MdListOption;
+export interface MatSelectionListOptionEvent {
+    option: MatListOption;
 }
 /**
  * Component for list-options of selection-list. Each list-option can automatically
  * generate a checkbox and can put current item into the selectionModel of selection-list
  * if the current item is checked.
  */
-export declare class MdListOption extends _MdListOptionMixinBase implements AfterContentInit, OnDestroy, FocusableOption, CanDisableRipple {
+export declare class MatListOption extends _MatListOptionMixinBase implements AfterContentInit, OnDestroy, FocusableOption, CanDisableRipple {
     private _renderer;
     private _element;
     private _changeDetector;
-    selectionList: MdSelectionList;
+    selectionList: MatSelectionList;
     private _lineSetter;
     private _selected;
     private _disabled;
     /** Whether the option has focus. */
     _hasFocus: boolean;
-    _lines: QueryList<MdLine>;
+    _lines: QueryList<MatLine>;
     /** Whether the label should appear before or after the checkbox. Defaults to 'after' */
     checkboxPosition: 'before' | 'after';
     /** Value of the option */
@@ -46,14 +46,14 @@ export declare class MdListOption extends _MdListOptionMixinBase implements Afte
     /** Whether the option is selected. */
     selected: boolean;
     /** Emitted when the option is focused. */
-    onFocus: EventEmitter<MdSelectionListOptionEvent>;
+    onFocus: EventEmitter<MatSelectionListOptionEvent>;
     /** Emitted when the option is selected. */
-    selectChange: EventEmitter<MdSelectionListOptionEvent>;
+    selectChange: EventEmitter<MatSelectionListOptionEvent>;
     /** Emitted when the option is deselected. */
-    deselected: EventEmitter<MdSelectionListOptionEvent>;
+    deselected: EventEmitter<MatSelectionListOptionEvent>;
     /** Emitted when the option is destroyed. */
-    destroyed: EventEmitter<MdSelectionListOptionEvent>;
-    constructor(_renderer: Renderer2, _element: ElementRef, _changeDetector: ChangeDetectorRef, selectionList: MdSelectionList);
+    destroyed: EventEmitter<MatSelectionListOptionEvent>;
+    constructor(_renderer: Renderer2, _element: ElementRef, _changeDetector: ChangeDetectorRef, selectionList: MatSelectionList);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Toggles the selection state of the option. */
@@ -71,7 +71,7 @@ export declare class MdListOption extends _MdListOptionMixinBase implements Afte
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
  */
-export declare class MdSelectionList extends _MdSelectionListMixinBase implements FocusableOption, CanDisable, CanDisableRipple, AfterContentInit, OnDestroy {
+export declare class MatSelectionList extends _MatSelectionListMixinBase implements FocusableOption, CanDisable, CanDisableRipple, AfterContentInit, OnDestroy {
     private _element;
     /** Tab index for the selection-list. */
     _tabIndex: number;
@@ -80,11 +80,11 @@ export declare class MdSelectionList extends _MdSelectionListMixinBase implement
     /** Subscription to all list options' destroy events  */
     private _optionDestroyStream;
     /** The FocusKeyManager which handles focus. */
-    _keyManager: FocusKeyManager<MdListOption>;
+    _keyManager: FocusKeyManager<MatListOption>;
     /** The option components contained within this selection-list. */
-    options: QueryList<MdListOption>;
+    options: QueryList<MatListOption>;
     /** The currently selected options. */
-    selectedOptions: SelectionModel<MdListOption>;
+    selectedOptions: SelectionModel<MatListOption>;
     constructor(_element: ElementRef);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

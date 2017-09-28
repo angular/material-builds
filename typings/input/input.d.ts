@@ -10,9 +10,9 @@ import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { Platform } from '@angular/cdk/platform';
 import { ErrorOptions, ErrorStateMatcher } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
-import { MdFormFieldControl } from '@angular/material/form-field';
-/** Directive that allows a native input to work inside a `MdFormField`. */
-export declare class MdInput implements MdFormFieldControl<any>, OnChanges, OnDestroy, DoCheck {
+import { MatFormFieldControl } from '@angular/material/form-field';
+/** Directive that allows a native input to work inside a `MatFormField`. */
+export declare class MatInput implements MatFormFieldControl<any>, OnChanges, OnDestroy, DoCheck {
     protected _elementRef: ElementRef;
     protected _renderer: Renderer2;
     protected _platform: Platform;
@@ -34,10 +34,12 @@ export declare class MdInput implements MdFormFieldControl<any>, OnChanges, OnDe
     /** The aria-describedby attribute on the input for improved a11y. */
     _ariaDescribedby: string;
     /**
-     * Stream that emits whenever the state of the input changes such that the wrapping `MdFormField`
+     * Stream that emits whenever the state of the input changes such that the wrapping `MatFormField`
      * needs to run change detection.
      */
     stateChanges: Subject<void>;
+    /** A name for this control that can be used by `mat-form-field`. */
+    controlType: string;
     /** Whether the element is disabled. */
     disabled: any;
     /** Unique id of the element. */
@@ -57,6 +59,7 @@ export declare class MdInput implements MdFormFieldControl<any>, OnChanges, OnDe
     ngOnChanges(): void;
     ngOnDestroy(): void;
     ngDoCheck(): void;
+    focus(): void;
     /** Callback for the cases where the focused state of the input changes. */
     _focusChanged(isFocused: boolean): void;
     _onInput(): void;
@@ -73,6 +76,7 @@ export declare class MdInput implements MdFormFieldControl<any>, OnChanges, OnDe
     /** Determines if the component host is a textarea. If not recognizable it returns false. */
     protected _isTextarea(): boolean;
     readonly empty: boolean;
+    readonly shouldPlaceholderFloat: boolean;
     setDescribedByIds(ids: string[]): void;
-    focus(): void;
+    onContainerClick(): void;
 }

@@ -14,4 +14,3 @@ export * from './hint';
 export * from './placeholder';
 export * from './prefix';
 export * from './suffix';
-export * from './mat-exports';

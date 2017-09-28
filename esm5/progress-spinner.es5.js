@@ -7,7 +7,7 @@ import * as tslib_1 from "tslib";
  * found in the LICENSE file at https://angular.io/license
  */
 import { ChangeDetectionStrategy, Component, Directive, ElementRef, Input, NgModule, NgZone, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
-import { MdCommonModule, mixinColor } from '@angular/material/core';
+import { MatCommonModule, mixinColor } from '@angular/material/core';
 /**
  * A single degree in radians.
  */
@@ -44,47 +44,47 @@ var PROGRESS_SPINNER_STROKE_WIDTH = 10;
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdProgressSpinnerCssMatStyler = (function () {
-    function MdProgressSpinnerCssMatStyler() {
+var MatProgressSpinnerCssMatStyler = (function () {
+    function MatProgressSpinnerCssMatStyler() {
     }
-    return MdProgressSpinnerCssMatStyler;
+    return MatProgressSpinnerCssMatStyler;
 }());
-MdProgressSpinnerCssMatStyler.decorators = [
+MatProgressSpinnerCssMatStyler.decorators = [
     { type: Directive, args: [{
-                selector: 'md-progress-spinner, mat-progress-spinner',
+                selector: 'mat-progress-spinner',
                 host: { 'class': 'mat-progress-spinner' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdProgressSpinnerCssMatStyler.ctorParameters = function () { return []; };
+MatProgressSpinnerCssMatStyler.ctorParameters = function () { return []; };
 /**
  * \@docs-private
  */
-var MdProgressSpinnerBase = (function () {
+var MatProgressSpinnerBase = (function () {
     /**
      * @param {?} _renderer
      * @param {?} _elementRef
      */
-    function MdProgressSpinnerBase(_renderer, _elementRef) {
+    function MatProgressSpinnerBase(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
     }
-    return MdProgressSpinnerBase;
+    return MatProgressSpinnerBase;
 }());
-var _MdProgressSpinnerMixinBase = mixinColor(MdProgressSpinnerBase, 'primary');
+var _MatProgressSpinnerMixinBase = mixinColor(MatProgressSpinnerBase, 'primary');
 /**
- * <md-progress-spinner> component.
+ * <mat-progress-spinner> component.
  */
-var MdProgressSpinner = (function (_super) {
-    tslib_1.__extends(MdProgressSpinner, _super);
+var MatProgressSpinner = (function (_super) {
+    tslib_1.__extends(MatProgressSpinner, _super);
     /**
      * @param {?} renderer
      * @param {?} elementRef
      * @param {?} _ngZone
      */
-    function MdProgressSpinner(renderer, elementRef, _ngZone) {
+    function MatProgressSpinner(renderer, elementRef, _ngZone) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._ngZone = _ngZone;
         /**
@@ -98,7 +98,7 @@ var MdProgressSpinner = (function (_super) {
         _this.strokeWidth = PROGRESS_SPINNER_STROKE_WIDTH;
         return _this;
     }
-    Object.defineProperty(MdProgressSpinner.prototype, "_ariaValueMin", {
+    Object.defineProperty(MatProgressSpinner.prototype, "_ariaValueMin", {
         /**
          * Values for aria max and min are only defined as numbers when in a determinate mode.  We do this
          * because voiceover does not report the progress indicator as indeterminate if the aria min
@@ -111,7 +111,7 @@ var MdProgressSpinner = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdProgressSpinner.prototype, "_ariaValueMax", {
+    Object.defineProperty(MatProgressSpinner.prototype, "_ariaValueMax", {
         /**
          * @return {?}
          */
@@ -121,7 +121,7 @@ var MdProgressSpinner = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdProgressSpinner.prototype, "interdeterminateInterval", {
+    Object.defineProperty(MatProgressSpinner.prototype, "interdeterminateInterval", {
         /**
          * \@docs-private
          * @return {?}
@@ -147,10 +147,10 @@ var MdProgressSpinner = (function (_super) {
      * Clean up any animations that were running.
      * @return {?}
      */
-    MdProgressSpinner.prototype.ngOnDestroy = function () {
+    MatProgressSpinner.prototype.ngOnDestroy = function () {
         this._cleanupIndeterminateAnimation();
     };
-    Object.defineProperty(MdProgressSpinner.prototype, "value", {
+    Object.defineProperty(MatProgressSpinner.prototype, "value", {
         /**
          * Value of the progress circle. It is bound to the host as the attribute aria-valuenow.
          * @return {?}
@@ -175,7 +175,7 @@ var MdProgressSpinner = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdProgressSpinner.prototype, "mode", {
+    Object.defineProperty(MatProgressSpinner.prototype, "mode", {
         /**
          * Mode of the progress circle
          *
@@ -214,7 +214,7 @@ var MdProgressSpinner = (function (_super) {
      *    of the circle.
      * @return {?}
      */
-    MdProgressSpinner.prototype._animateCircle = function (animateFrom, animateTo, ease, duration, rotation) {
+    MatProgressSpinner.prototype._animateCircle = function (animateFrom, animateTo, ease, duration, rotation) {
         var _this = this;
         if (ease === void 0) { ease = linearEase; }
         if (duration === void 0) { duration = DURATION_DETERMINATE; }
@@ -248,7 +248,7 @@ var MdProgressSpinner = (function (_super) {
      * Starts the indeterminate animation interval, if it is not already running.
      * @return {?}
      */
-    MdProgressSpinner.prototype._startIndeterminateAnimation = function () {
+    MatProgressSpinner.prototype._startIndeterminateAnimation = function () {
         var _this = this;
         var /** @type {?} */ rotationStartPoint = 0;
         var /** @type {?} */ start = startIndeterminate;
@@ -273,7 +273,7 @@ var MdProgressSpinner = (function (_super) {
      * Removes interval, ending the animation.
      * @return {?}
      */
-    MdProgressSpinner.prototype._cleanupIndeterminateAnimation = function () {
+    MatProgressSpinner.prototype._cleanupIndeterminateAnimation = function () {
         this.interdeterminateInterval = null;
     };
     /**
@@ -283,17 +283,17 @@ var MdProgressSpinner = (function (_super) {
      * @param {?=} rotation
      * @return {?}
      */
-    MdProgressSpinner.prototype._renderArc = function (currentValue, rotation) {
+    MatProgressSpinner.prototype._renderArc = function (currentValue, rotation) {
         if (rotation === void 0) { rotation = 0; }
         if (this._path) {
             var /** @type {?} */ svgArc = getSvgArc(currentValue, rotation, this.strokeWidth);
             this._renderer.setAttribute(this._path.nativeElement, 'd', svgArc);
         }
     };
-    return MdProgressSpinner;
-}(_MdProgressSpinnerMixinBase));
-MdProgressSpinner.decorators = [
-    { type: Component, args: [{ selector: 'md-progress-spinner, mat-progress-spinner',
+    return MatProgressSpinner;
+}(_MatProgressSpinnerMixinBase));
+MatProgressSpinner.decorators = [
+    { type: Component, args: [{ selector: 'mat-progress-spinner',
                 host: {
                     'role': 'progressbar',
                     'class': 'mat-progress-spinner',
@@ -313,39 +313,39 @@ MdProgressSpinner.decorators = [
 /**
  * @nocollapse
  */
-MdProgressSpinner.ctorParameters = function () { return [
+MatProgressSpinner.ctorParameters = function () { return [
     { type: Renderer2, },
     { type: ElementRef, },
     { type: NgZone, },
 ]; };
-MdProgressSpinner.propDecorators = {
+MatProgressSpinner.propDecorators = {
     '_path': [{ type: ViewChild, args: ['path',] },],
     'strokeWidth': [{ type: Input },],
     'value': [{ type: Input },],
     'mode': [{ type: Input },],
 };
 /**
- * <md-spinner> component.
+ * <mat-spinner> component.
  *
  * This is a component definition to be used as a convenience reference to create an
- * indeterminate <md-progress-spinner> instance.
+ * indeterminate <mat-progress-spinner> instance.
  */
-var MdSpinner = (function (_super) {
-    tslib_1.__extends(MdSpinner, _super);
+var MatSpinner = (function (_super) {
+    tslib_1.__extends(MatSpinner, _super);
     /**
      * @param {?} elementRef
      * @param {?} ngZone
      * @param {?} renderer
      */
-    function MdSpinner(elementRef, ngZone, renderer) {
+    function MatSpinner(elementRef, ngZone, renderer) {
         var _this = _super.call(this, renderer, elementRef, ngZone) || this;
         _this.mode = 'indeterminate';
         return _this;
     }
-    return MdSpinner;
-}(MdProgressSpinner));
-MdSpinner.decorators = [
-    { type: Component, args: [{ selector: 'md-spinner, mat-spinner',
+    return MatSpinner;
+}(MatProgressSpinner));
+MatSpinner.decorators = [
+    { type: Component, args: [{ selector: 'mat-spinner',
                 host: {
                     'role': 'progressbar',
                     'mode': 'indeterminate',
@@ -362,7 +362,7 @@ MdSpinner.decorators = [
 /**
  * @nocollapse
  */
-MdSpinner.ctorParameters = function () { return [
+MatSpinner.ctorParameters = function () { return [
     { type: ElementRef, },
     { type: NgZone, },
     { type: Renderer2, },
@@ -442,33 +442,33 @@ function getSvgArc(currentValue, rotation, strokeWidth) {
     }
     return "M" + start + "A" + pathRadius + "," + pathRadius + " 0 " + largeArcFlag + "," + arcSweep + " " + end;
 }
-var MdProgressSpinnerModule = (function () {
-    function MdProgressSpinnerModule() {
+var MatProgressSpinnerModule = (function () {
+    function MatProgressSpinnerModule() {
     }
-    return MdProgressSpinnerModule;
+    return MatProgressSpinnerModule;
 }());
-MdProgressSpinnerModule.decorators = [
+MatProgressSpinnerModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MdCommonModule],
+                imports: [MatCommonModule],
                 exports: [
-                    MdProgressSpinner,
-                    MdSpinner,
-                    MdCommonModule,
-                    MdProgressSpinnerCssMatStyler
+                    MatProgressSpinner,
+                    MatSpinner,
+                    MatCommonModule,
+                    MatProgressSpinnerCssMatStyler
                 ],
                 declarations: [
-                    MdProgressSpinner,
-                    MdSpinner,
-                    MdProgressSpinnerCssMatStyler
+                    MatProgressSpinner,
+                    MatSpinner,
+                    MatProgressSpinnerCssMatStyler
                 ],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdProgressSpinnerModule.ctorParameters = function () { return []; };
+MatProgressSpinnerModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdProgressSpinner as MatProgressSpinner, MdProgressSpinnerBase as MatProgressSpinnerBase, MdProgressSpinnerCssMatStyler as MatProgressSpinnerCssMatStyler, MdProgressSpinnerModule as MatProgressSpinnerModule, MdSpinner as MatSpinner };
+export { MatProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MatProgressSpinnerCssMatStyler, MatProgressSpinnerBase, _MatProgressSpinnerMixinBase, MatProgressSpinner, MatSpinner };
 //# sourceMappingURL=progress-spinner.es5.js.map

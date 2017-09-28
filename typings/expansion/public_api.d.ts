@@ -6,8 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 export * from './expansion-module';
-export { CdkAccordion, MdAccordion, MdAccordionDisplayMode } from './accordion';
+export { CdkAccordion, MatAccordion, MatAccordionDisplayMode } from './accordion';
 export { AccordionItem } from './accordion-item';
-export { MdExpansionPanel, MdExpansionPanelState, MdExpansionPanelActionRow } from './expansion-panel';
-export { MdExpansionPanelHeader, MdExpansionPanelDescription, MdExpansionPanelTitle } from './expansion-panel-header';
-export * from './mat-exports';
+export { MatExpansionPanel, MatExpansionPanelState, MatExpansionPanelActionRow } from './expansion-panel';
+export { MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle } from './expansion-panel-header';

@@ -5,26 +5,189 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { Platform, PlatformModule, getSupportedInputTypes } from '@angular/cdk/platform';
+import { CommonModule } from '@angular/common';
 import { Directive, ElementRef, Inject, Input, NgModule, Optional, Renderer2, Self } from '@angular/core';
+import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { Platform, getSupportedInputTypes } from '@angular/cdk/platform';
-import { MD_ERROR_GLOBAL_OPTIONS, PlatformModule, defaultErrorStateMatcher } from '@angular/material/core';
+import { MAT_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
-import { MdFormFieldControl, MdFormFieldModule } from '@angular/material/form-field';
-import { CommonModule } from '@angular/common';
+
+/**
+ * Directive to automatically resize a textarea to fit its content.
+ */
+class MatTextareaAutosize {
+    /**
+     * @param {?} _elementRef
+     * @param {?} _platform
+     */
+    constructor(_elementRef, _platform) {
+        this._elementRef = _elementRef;
+        this._platform = _platform;
+    }
+    /**
+     * @return {?}
+     */
+    get minRows() { return this._minRows; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set minRows(value) {
+        this._minRows = value;
+        this._setMinHeight();
+    }
+    /**
+     * @return {?}
+     */
+    get maxRows() { return this._maxRows; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set maxRows(value) {
+        this._maxRows = value;
+        this._setMaxHeight();
+    }
+    /**
+     * Sets the minimum height of the textarea as determined by minRows.
+     * @return {?}
+     */
+    _setMinHeight() {
+        const /** @type {?} */ minHeight = this.minRows && this._cachedLineHeight ?
+            `${this.minRows * this._cachedLineHeight}px` : null;
+        if (minHeight) {
+            this._setTextareaStyle('minHeight', minHeight);
+        }
+    }
+    /**
+     * Sets the maximum height of the textarea as determined by maxRows.
+     * @return {?}
+     */
+    _setMaxHeight() {
+        const /** @type {?} */ maxHeight = this.maxRows && this._cachedLineHeight ?
+            `${this.maxRows * this._cachedLineHeight}px` : null;
+        if (maxHeight) {
+            this._setTextareaStyle('maxHeight', maxHeight);
+        }
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterViewInit() {
+        if (this._platform.isBrowser) {
+            this._cacheTextareaLineHeight();
+            this.resizeToFitContent();
+        }
+    }
+    /**
+     * Sets a style property on the textarea element.
+     * @param {?} property
+     * @param {?} value
+     * @return {?}
+     */
+    _setTextareaStyle(property, value) {
+        const /** @type {?} */ textarea = (this._elementRef.nativeElement);
+        textarea.style[property] = value;
+    }
+    /**
+     * Cache the height of a single-row textarea.
+     *
+     * We need to know how large a single "row" of a textarea is in order to apply minRows and
+     * maxRows. For the initial version, we will assume that the height of a single line in the
+     * textarea does not ever change.
+     * @return {?}
+     */
+    _cacheTextareaLineHeight() {
+        let /** @type {?} */ textarea = (this._elementRef.nativeElement);
+        // Use a clone element because we have to override some styles.
+        let /** @type {?} */ textareaClone = (textarea.cloneNode(false));
+        textareaClone.rows = 1;
+        // Use `position: absolute` so that this doesn't cause a browser layout and use
+        // `visibility: hidden` so that nothing is rendered. Clear any other styles that
+        // would affect the height.
+        textareaClone.style.position = 'absolute';
+        textareaClone.style.visibility = 'hidden';
+        textareaClone.style.border = 'none';
+        textareaClone.style.padding = '0';
+        textareaClone.style.height = '';
+        textareaClone.style.minHeight = '';
+        textareaClone.style.maxHeight = '';
+        // In Firefox it happens that textarea elements are always bigger than the specified amount
+        // of rows. This is because Firefox tries to add extra space for the horizontal scrollbar.
+        // As a workaround that removes the extra space for the scrollbar, we can just set overflow
+        // to hidden. This ensures that there is no invalid calculation of the line height.
+        // See Firefox bug report: https://bugzilla.mozilla.org/show_bug.cgi?id=33654
+        textareaClone.style.overflow = 'hidden'; /** @type {?} */
+        ((textarea.parentNode)).appendChild(textareaClone);
+        this._cachedLineHeight = textareaClone.clientHeight; /** @type {?} */
+        ((textarea.parentNode)).removeChild(textareaClone);
+        // Min and max heights have to be re-calculated if the cached line height changes
+        this._setMinHeight();
+        this._setMaxHeight();
+    }
+    /**
+     * @return {?}
+     */
+    ngDoCheck() {
+        this.resizeToFitContent();
+    }
+    /**
+     * Resize the textarea to fit its content.
+     * @return {?}
+     */
+    resizeToFitContent() {
+        const /** @type {?} */ textarea = (this._elementRef.nativeElement);
+        const /** @type {?} */ value = textarea.value;
+        // Only resize of the value changed since these calculations can be expensive.
+        if (value === this._previousValue) {
+            return;
+        }
+        // Reset the textarea height to auto in order to shrink back to its default size.
+        // Also temporarily force overflow:hidden, so scroll bars do not interfere with calculations.
+        textarea.style.height = 'auto';
+        textarea.style.overflow = 'hidden';
+        // Use the scrollHeight to know how large the textarea *would* be if fit its entire value.
+        textarea.style.height = `${textarea.scrollHeight}px`;
+        textarea.style.overflow = '';
+        this._previousValue = value;
+    }
+}
+MatTextareaAutosize.decorators = [
+    { type: Directive, args: [{
+                selector: `textarea[mat-autosize], textarea[matTextareaAutosize]`,
+                exportAs: 'matTextareaAutosize',
+                host: {
+                    // Textarea elements that have the directive applied should have a single row by default.
+                    // Browsers normally show two rows by default and therefore this limits the minRows binding.
+                    'rows': '1',
+                },
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MatTextareaAutosize.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Platform, },
+];
+MatTextareaAutosize.propDecorators = {
+    'minRows': [{ type: Input, args: ['matAutosizeMinRows',] },],
+    'maxRows': [{ type: Input, args: ['matAutosizeMaxRows',] },],
+};
 
 /**
  * \@docs-private
  * @param {?} type
  * @return {?}
  */
-function getMdInputUnsupportedTypeError(type) {
-    return Error(`Input type "${type}" isn't supported by mdInput.`);
+function getMatInputUnsupportedTypeError(type) {
+    return Error(`Input type "${type}" isn't supported by matInput.`);
 }
 
-// Invalid input type. Using one of these will throw an MdInputUnsupportedTypeError.
-const MD_INPUT_INVALID_TYPES = [
+// Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
+const MAT_INPUT_INVALID_TYPES = [
     'button',
     'checkbox',
     'color',
@@ -38,9 +201,9 @@ const MD_INPUT_INVALID_TYPES = [
 ];
 let nextUniqueId = 0;
 /**
- * Directive that allows a native input to work inside a `MdFormField`.
+ * Directive that allows a native input to work inside a `MatFormField`.
  */
-class MdInput {
+class MatInput {
     /**
      * @param {?} _elementRef
      * @param {?} _renderer
@@ -63,7 +226,7 @@ class MdInput {
         this._type = 'text';
         this._disabled = false;
         this._required = false;
-        this._uid = `md-input-${nextUniqueId++}`;
+        this._uid = `mat-input-${nextUniqueId++}`;
         this._previousNativeValue = this.value;
         /**
          * Whether the input is focused.
@@ -74,10 +237,14 @@ class MdInput {
          */
         this.errorState = false;
         /**
-         * Stream that emits whenever the state of the input changes such that the wrapping `MdFormField`
+         * Stream that emits whenever the state of the input changes such that the wrapping `MatFormField`
          * needs to run change detection.
          */
         this.stateChanges = new Subject();
+        /**
+         * A name for this control that can be used by `mat-form-field`.
+         */
+        this.controlType = 'mat-input';
         /**
          * Placeholder attribute of the element.
          */
@@ -203,6 +370,10 @@ class MdInput {
         }
     }
     /**
+     * @return {?}
+     */
+    focus() { this._elementRef.nativeElement.focus(); }
+    /**
      * Callback for the cases where the focused state of the input changes.
      * @param {?} isFocused
      * @return {?}
@@ -255,8 +426,8 @@ class MdInput {
      * @return {?}
      */
     _validateType() {
-        if (MD_INPUT_INVALID_TYPES.indexOf(this._type) > -1) {
-            throw getMdInputUnsupportedTypeError(this._type);
+        if (MAT_INPUT_INVALID_TYPES.indexOf(this._type) > -1) {
+            throw getMatInputUnsupportedTypeError(this._type);
         }
     }
     /**
@@ -299,6 +470,10 @@ class MdInput {
             !this._isBadInput();
     }
     /**
+     * @return {?}
+     */
+    get shouldPlaceholderFloat() { return this.focused || !this.empty; }
+    /**
      * @param {?} ids
      * @return {?}
      */
@@ -306,16 +481,16 @@ class MdInput {
     /**
      * @return {?}
      */
-    focus() { this._elementRef.nativeElement.focus(); }
+    onContainerClick() { this.focus(); }
 }
-MdInput.decorators = [
+MatInput.decorators = [
     { type: Directive, args: [{
-                selector: `input[mdInput], textarea[mdInput], input[matInput], textarea[matInput]`,
+                selector: `input[matInput], textarea[matInput]`,
                 host: {
                     'class': 'mat-input-element mat-form-field-autofill-control',
                     // Native input properties that are overwritten by Angular inputs need to be synced with
                     // the native input element. Otherwise property bindings for those don't work.
-                    '[id]': 'id',
+                    '[attr.id]': 'id',
                     '[placeholder]': 'placeholder',
                     '[disabled]': 'disabled',
                     '[required]': 'required',
@@ -325,244 +500,61 @@ MdInput.decorators = [
                     '(focus)': '_focusChanged(true)',
                     '(input)': '_onInput()',
                 },
-                providers: [{ provide: MdFormFieldControl, useExisting: MdInput }],
+                providers: [{ provide: MatFormFieldControl, useExisting: MatInput }],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdInput.ctorParameters = () => [
+MatInput.ctorParameters = () => [
     { type: ElementRef, },
     { type: Renderer2, },
     { type: Platform, },
     { type: NgControl, decorators: [{ type: Optional }, { type: Self },] },
     { type: NgForm, decorators: [{ type: Optional },] },
     { type: FormGroupDirective, decorators: [{ type: Optional },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MD_ERROR_GLOBAL_OPTIONS,] },] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_ERROR_GLOBAL_OPTIONS,] },] },
 ];
-MdInput.propDecorators = {
+MatInput.propDecorators = {
     'disabled': [{ type: Input },],
     'id': [{ type: Input },],
     'placeholder': [{ type: Input },],
     'required': [{ type: Input },],
     'type': [{ type: Input },],
     'errorStateMatcher': [{ type: Input },],
+    'value': [{ type: Input },],
 };
 
-/**
- * Directive to automatically resize a textarea to fit its content.
- */
-class MdTextareaAutosize {
-    /**
-     * @param {?} _elementRef
-     * @param {?} _platform
-     */
-    constructor(_elementRef, _platform) {
-        this._elementRef = _elementRef;
-        this._platform = _platform;
-    }
-    /**
-     * @return {?}
-     */
-    get minRows() { return this._minRows; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set minRows(value) {
-        this._minRows = value;
-        this._setMinHeight();
-    }
-    /**
-     * @return {?}
-     */
-    get maxRows() { return this._maxRows; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set maxRows(value) {
-        this._maxRows = value;
-        this._setMaxHeight();
-    }
-    /**
-     * @return {?}
-     */
-    get _matAutosizeMinRows() { return this.minRows; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set _matAutosizeMinRows(v) { this.minRows = v; }
-    /**
-     * @return {?}
-     */
-    get _matAutosizeMaxRows() { return this.maxRows; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set _matAutosizeMaxRows(v) { this.maxRows = v; }
-    /**
-     * Sets the minimum height of the textarea as determined by minRows.
-     * @return {?}
-     */
-    _setMinHeight() {
-        const /** @type {?} */ minHeight = this.minRows && this._cachedLineHeight ?
-            `${this.minRows * this._cachedLineHeight}px` : null;
-        if (minHeight) {
-            this._setTextareaStyle('minHeight', minHeight);
-        }
-    }
-    /**
-     * Sets the maximum height of the textarea as determined by maxRows.
-     * @return {?}
-     */
-    _setMaxHeight() {
-        const /** @type {?} */ maxHeight = this.maxRows && this._cachedLineHeight ?
-            `${this.maxRows * this._cachedLineHeight}px` : null;
-        if (maxHeight) {
-            this._setTextareaStyle('maxHeight', maxHeight);
-        }
-    }
-    /**
-     * @return {?}
-     */
-    ngAfterViewInit() {
-        if (this._platform.isBrowser) {
-            this._cacheTextareaLineHeight();
-            this.resizeToFitContent();
-        }
-    }
-    /**
-     * Sets a style property on the textarea element.
-     * @param {?} property
-     * @param {?} value
-     * @return {?}
-     */
-    _setTextareaStyle(property, value) {
-        const /** @type {?} */ textarea = (this._elementRef.nativeElement);
-        textarea.style[property] = value;
-    }
-    /**
-     * Cache the height of a single-row textarea.
-     *
-     * We need to know how large a single "row" of a textarea is in order to apply minRows and
-     * maxRows. For the initial version, we will assume that the height of a single line in the
-     * textarea does not ever change.
-     * @return {?}
-     */
-    _cacheTextareaLineHeight() {
-        let /** @type {?} */ textarea = (this._elementRef.nativeElement);
-        // Use a clone element because we have to override some styles.
-        let /** @type {?} */ textareaClone = (textarea.cloneNode(false));
-        textareaClone.rows = 1;
-        // Use `position: absolute` so that this doesn't cause a browser layout and use
-        // `visibility: hidden` so that nothing is rendered. Clear any other styles that
-        // would affect the height.
-        textareaClone.style.position = 'absolute';
-        textareaClone.style.visibility = 'hidden';
-        textareaClone.style.border = 'none';
-        textareaClone.style.padding = '0';
-        textareaClone.style.height = '';
-        textareaClone.style.minHeight = '';
-        textareaClone.style.maxHeight = '';
-        // In Firefox it happens that textarea elements are always bigger than the specified amount
-        // of rows. This is because Firefox tries to add extra space for the horizontal scrollbar.
-        // As a workaround that removes the extra space for the scrollbar, we can just set overflow
-        // to hidden. This ensures that there is no invalid calculation of the line height.
-        // See Firefox bug report: https://bugzilla.mozilla.org/show_bug.cgi?id=33654
-        textareaClone.style.overflow = 'hidden'; /** @type {?} */
-        ((textarea.parentNode)).appendChild(textareaClone);
-        this._cachedLineHeight = textareaClone.clientHeight; /** @type {?} */
-        ((textarea.parentNode)).removeChild(textareaClone);
-        // Min and max heights have to be re-calculated if the cached line height changes
-        this._setMinHeight();
-        this._setMaxHeight();
-    }
-    /**
-     * @return {?}
-     */
-    ngDoCheck() {
-        this.resizeToFitContent();
-    }
-    /**
-     * Resize the textarea to fit its content.
-     * @return {?}
-     */
-    resizeToFitContent() {
-        const /** @type {?} */ textarea = (this._elementRef.nativeElement);
-        const /** @type {?} */ value = textarea.value;
-        // Only resize of the value changed since these calculations can be expensive.
-        if (value === this._previousValue) {
-            return;
-        }
-        // Reset the textarea height to auto in order to shrink back to its default size.
-        // Also temporarily force overflow:hidden, so scroll bars do not interfere with calculations.
-        textarea.style.height = 'auto';
-        textarea.style.overflow = 'hidden';
-        // Use the scrollHeight to know how large the textarea *would* be if fit its entire value.
-        textarea.style.height = `${textarea.scrollHeight}px`;
-        textarea.style.overflow = '';
-        this._previousValue = value;
-    }
+class MatInputModule {
 }
-MdTextareaAutosize.decorators = [
-    { type: Directive, args: [{
-                selector: `textarea[md-autosize], textarea[mdTextareaAutosize],
-             textarea[mat-autosize], textarea[matTextareaAutosize]`,
-                exportAs: 'mdTextareaAutosize, matTextareaAutosize',
-                host: {
-                    // Textarea elements that have the directive applied should have a single row by default.
-                    // Browsers normally show two rows by default and therefore this limits the minRows binding.
-                    'rows': '1',
-                },
-            },] },
-];
-/**
- * @nocollapse
- */
-MdTextareaAutosize.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: Platform, },
-];
-MdTextareaAutosize.propDecorators = {
-    'minRows': [{ type: Input, args: ['mdAutosizeMinRows',] },],
-    'maxRows': [{ type: Input, args: ['mdAutosizeMaxRows',] },],
-    '_matAutosizeMinRows': [{ type: Input, args: ['matAutosizeMinRows',] },],
-    '_matAutosizeMaxRows': [{ type: Input, args: ['matAutosizeMaxRows',] },],
-};
-
-class MdInputModule {
-}
-MdInputModule.decorators = [
+MatInputModule.decorators = [
     { type: NgModule, args: [{
                 declarations: [
-                    MdInput,
-                    MdTextareaAutosize,
+                    MatInput,
+                    MatTextareaAutosize,
                 ],
                 imports: [
                     CommonModule,
-                    MdFormFieldModule,
+                    MatFormFieldModule,
                     PlatformModule,
                 ],
                 exports: [
-                    // We re-export the `MdFormFieldModule` since `MdInput` will almost always be used together with
-                    // `MdFormField`.
-                    MdFormFieldModule,
-                    MdInput,
-                    MdTextareaAutosize,
+                    // We re-export the `MatFormFieldModule` since `MatInput` will almost always
+                    // be used together with `MatFormField`.
+                    MatFormFieldModule,
+                    MatInput,
+                    MatTextareaAutosize,
                 ],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdInputModule.ctorParameters = () => [];
+MatInputModule.ctorParameters = () => [];
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { MdInputModule, MdTextareaAutosize, MdInput, getMdInputUnsupportedTypeError, MdInput as MatInput, MdInputModule as MatInputModule, MdTextareaAutosize as MatTextareaAutosize };
+export { MatInputModule, MatTextareaAutosize, MatInput, getMatInputUnsupportedTypeError };
 //# sourceMappingURL=input.js.map

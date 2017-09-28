@@ -1,15 +1,14 @@
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy } from '@angular/core';
-import { DateAdapter, MdDateFormats } from '@angular/material/core';
-import { MdDatepickerIntl } from './datepicker-intl';
+import { DateAdapter, MatDateFormats } from '@angular/material/core';
+import { MatDatepickerIntl } from './datepicker-intl';
 /**
  * A calendar that is used as part of the datepicker.
  * @docs-private
  */
-export declare class MdCalendar<D> implements AfterContentInit, OnDestroy {
+export declare class MatCalendar<D> implements AfterContentInit, OnDestroy {
     private _elementRef;
     private _intl;
     private _ngZone;
-    _isCompatibilityMode: boolean;
     private _dateAdapter;
     private _dateFormats;
     private _intlChanges;
@@ -50,7 +49,7 @@ export declare class MdCalendar<D> implements AfterContentInit, OnDestroy {
     readonly _prevButtonLabel: string;
     /** The label for the the next button. */
     readonly _nextButtonLabel: string;
-    constructor(_elementRef: ElementRef, _intl: MdDatepickerIntl, _ngZone: NgZone, _isCompatibilityMode: boolean, _dateAdapter: DateAdapter<D>, _dateFormats: MdDateFormats, changeDetectorRef: ChangeDetectorRef);
+    constructor(_elementRef: ElementRef, _intl: MatDatepickerIntl, _ngZone: NgZone, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, changeDetectorRef: ChangeDetectorRef);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Handles date selection in the month view. */

@@ -1,26 +1,19 @@
-/**
- * @license
- * Copyright Google Inc. All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 import { ElementRef, EventEmitter } from '@angular/core';
-import { MdChipList } from './chip-list';
-export interface MdChipInputEvent {
+import { MatChipList } from './chip-list';
+export interface MatChipInputEvent {
     input: HTMLInputElement;
     value: string;
 }
 /**
- * Directive that adds chip-specific behaviors to an input element inside <md-form-field>.
- * May be placed inside or outside of an <md-chip-list>.
+ * Directive that adds chip-specific behaviors to an input element inside <mat-form-field>.
+ * May be placed inside or outside of an <mat-chip-list>.
  */
-export declare class MdChipInput {
+export declare class MatChipInput {
     protected _elementRef: ElementRef;
     focused: boolean;
-    _chipList: MdChipList;
+    _chipList: MatChipList;
     /** Register input for chip list */
-    chipList: MdChipList;
+    chipList: MatChipList;
     /**
      * Whether or not the chipEnd event will be emitted when the input is blurred.
      */
@@ -33,9 +26,8 @@ export declare class MdChipInput {
      */
     separatorKeyCodes: number[];
     /** Emitted when a chip is to be added. */
-    chipEnd: EventEmitter<MdChipInputEvent>;
-    _matChipInputTokenEnd: EventEmitter<MdChipInputEvent>;
-    matChipList: MdChipList;
+    chipEnd: EventEmitter<MatChipInputEvent>;
+    matChipList: MatChipList;
     matAddOnBlur: boolean;
     matSeparatorKeyCodes: number[];
     placeholder: string;

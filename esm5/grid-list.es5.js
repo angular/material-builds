@@ -7,7 +7,7 @@ import * as tslib_1 from "tslib";
  * found in the LICENSE file at https://angular.io/license
  */
 import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, Input, NgModule, Optional, Renderer2, ViewEncapsulation } from '@angular/core';
-import { MdCommonModule, MdLine, MdLineModule, MdLineSetter } from '@angular/material/core';
+import { MatCommonModule, MatLine, MatLineModule, MatLineSetter } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 /**
  * Converts values into strings. Falsy values become empty strings.
@@ -27,18 +27,18 @@ function coerceToString(value) {
 function coerceToNumber(value) {
     return typeof value === 'string' ? parseInt(value, 10) : value;
 }
-var MdGridTile = (function () {
+var MatGridTile = (function () {
     /**
      * @param {?} _renderer
      * @param {?} _element
      */
-    function MdGridTile(_renderer, _element) {
+    function MatGridTile(_renderer, _element) {
         this._renderer = _renderer;
         this._element = _element;
         this._rowspan = 1;
         this._colspan = 1;
     }
-    Object.defineProperty(MdGridTile.prototype, "rowspan", {
+    Object.defineProperty(MatGridTile.prototype, "rowspan", {
         /**
          * Amount of rows that the grid tile takes up.
          * @return {?}
@@ -52,7 +52,7 @@ var MdGridTile = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdGridTile.prototype, "colspan", {
+    Object.defineProperty(MatGridTile.prototype, "colspan", {
         /**
          * Amount of columns that the grid tile takes up.
          * @return {?}
@@ -73,13 +73,13 @@ var MdGridTile = (function () {
      * @param {?} value
      * @return {?}
      */
-    MdGridTile.prototype._setStyle = function (property, value) {
+    MatGridTile.prototype._setStyle = function (property, value) {
         this._renderer.setStyle(this._element.nativeElement, property, value);
     };
-    return MdGridTile;
+    return MatGridTile;
 }());
-MdGridTile.decorators = [
-    { type: Component, args: [{ selector: 'md-grid-tile, mat-grid-tile',
+MatGridTile.decorators = [
+    { type: Component, args: [{ selector: 'mat-grid-tile',
                 host: {
                     'class': 'mat-grid-tile',
                 },
@@ -93,34 +93,34 @@ MdGridTile.decorators = [
 /**
  * @nocollapse
  */
-MdGridTile.ctorParameters = function () { return [
+MatGridTile.ctorParameters = function () { return [
     { type: Renderer2, },
     { type: ElementRef, },
 ]; };
-MdGridTile.propDecorators = {
+MatGridTile.propDecorators = {
     'rowspan': [{ type: Input },],
     'colspan': [{ type: Input },],
 };
-var MdGridTileText = (function () {
+var MatGridTileText = (function () {
     /**
      * @param {?} _renderer
      * @param {?} _element
      */
-    function MdGridTileText(_renderer, _element) {
+    function MatGridTileText(_renderer, _element) {
         this._renderer = _renderer;
         this._element = _element;
     }
     /**
      * @return {?}
      */
-    MdGridTileText.prototype.ngAfterContentInit = function () {
-        this._lineSetter = new MdLineSetter(this._lines, this._renderer, this._element);
+    MatGridTileText.prototype.ngAfterContentInit = function () {
+        this._lineSetter = new MatLineSetter(this._lines, this._renderer, this._element);
     };
-    return MdGridTileText;
+    return MatGridTileText;
 }());
-MdGridTileText.decorators = [
-    { type: Component, args: [{ selector: 'md-grid-tile-header, mat-grid-tile-header, md-grid-tile-footer, mat-grid-tile-footer',
-                template: "<ng-content select=\"[md-grid-avatar], [mat-grid-avatar], [mdGridAvatar], [matGridAvatar]\"></ng-content><div class=\"mat-grid-list-text\"><ng-content select=\"[md-line], [mat-line], [mdLine], [matLine]\"></ng-content></div><ng-content></ng-content>",
+MatGridTileText.decorators = [
+    { type: Component, args: [{ selector: 'mat-grid-tile-header, mat-grid-tile-footer',
+                template: "<ng-content select=\"[mat-grid-avatar], [matGridAvatar]\"></ng-content><div class=\"mat-grid-list-text\"><ng-content select=\"[mat-line], [matLine]\"></ng-content></div><ng-content></ng-content>",
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
@@ -129,70 +129,70 @@ MdGridTileText.decorators = [
 /**
  * @nocollapse
  */
-MdGridTileText.ctorParameters = function () { return [
+MatGridTileText.ctorParameters = function () { return [
     { type: Renderer2, },
     { type: ElementRef, },
 ]; };
-MdGridTileText.propDecorators = {
-    '_lines': [{ type: ContentChildren, args: [MdLine,] },],
+MatGridTileText.propDecorators = {
+    '_lines': [{ type: ContentChildren, args: [MatLine,] },],
 };
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdGridAvatarCssMatStyler = (function () {
-    function MdGridAvatarCssMatStyler() {
+var MatGridAvatarCssMatStyler = (function () {
+    function MatGridAvatarCssMatStyler() {
     }
-    return MdGridAvatarCssMatStyler;
+    return MatGridAvatarCssMatStyler;
 }());
-MdGridAvatarCssMatStyler.decorators = [
+MatGridAvatarCssMatStyler.decorators = [
     { type: Directive, args: [{
-                selector: '[md-grid-avatar], [mat-grid-avatar], [mdGridAvatar], [matGridAvatar]',
+                selector: '[mat-grid-avatar], [matGridAvatar]',
                 host: { 'class': 'mat-grid-avatar' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdGridAvatarCssMatStyler.ctorParameters = function () { return []; };
+MatGridAvatarCssMatStyler.ctorParameters = function () { return []; };
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdGridTileHeaderCssMatStyler = (function () {
-    function MdGridTileHeaderCssMatStyler() {
+var MatGridTileHeaderCssMatStyler = (function () {
+    function MatGridTileHeaderCssMatStyler() {
     }
-    return MdGridTileHeaderCssMatStyler;
+    return MatGridTileHeaderCssMatStyler;
 }());
-MdGridTileHeaderCssMatStyler.decorators = [
+MatGridTileHeaderCssMatStyler.decorators = [
     { type: Directive, args: [{
-                selector: 'md-grid-tile-header, mat-grid-tile-header',
+                selector: 'mat-grid-tile-header',
                 host: { 'class': 'mat-grid-tile-header' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdGridTileHeaderCssMatStyler.ctorParameters = function () { return []; };
+MatGridTileHeaderCssMatStyler.ctorParameters = function () { return []; };
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdGridTileFooterCssMatStyler = (function () {
-    function MdGridTileFooterCssMatStyler() {
+var MatGridTileFooterCssMatStyler = (function () {
+    function MatGridTileFooterCssMatStyler() {
     }
-    return MdGridTileFooterCssMatStyler;
+    return MatGridTileFooterCssMatStyler;
 }());
-MdGridTileFooterCssMatStyler.decorators = [
+MatGridTileFooterCssMatStyler.decorators = [
     { type: Directive, args: [{
-                selector: 'md-grid-tile-footer, mat-grid-tile-footer',
+                selector: 'mat-grid-tile-footer',
                 host: { 'class': 'mat-grid-tile-footer' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdGridTileFooterCssMatStyler.ctorParameters = function () { return []; };
+MatGridTileFooterCssMatStyler.ctorParameters = function () { return []; };
 /**
  * Class for determining, from a list of tiles, the (row, col) position of each of those tiles
  * in the grid. This is necessary (rather than just rendering the tiles in normal document flow)
@@ -275,7 +275,7 @@ var TileCoordinator = (function () {
      */
     TileCoordinator.prototype._findMatchingGap = function (tileCols) {
         if (tileCols > this.tracker.length) {
-            throw Error("md-grid-list: tile with colspan " + tileCols + " is wider than " +
+            throw Error("mat-grid-list: tile with colspan " + tileCols + " is wider than " +
                 ("grid with cols=\"" + this.tracker.length + "\"."));
         }
         // Start index is inclusive, end index is exclusive.
@@ -499,7 +499,7 @@ var TileStyler = (function () {
 }());
 /**
  * This type of styler is instantiated when the user passes in a fixed row height.
- * Example <md-grid-list cols="3" rowHeight="100px">
+ * Example <mat-grid-list cols="3" rowHeight="100px">
  * \@docs-private
  */
 var FixedTileStyler = (function (_super) {
@@ -555,7 +555,7 @@ var FixedTileStyler = (function (_super) {
 }(TileStyler));
 /**
  * This type of styler is instantiated when the user passes in a width:height ratio
- * for the row height.  Example <md-grid-list cols="3" rowHeight="3:1">
+ * for the row height.  Example <mat-grid-list cols="3" rowHeight="3:1">
  * \@docs-private
  */
 var RatioTileStyler = (function (_super) {
@@ -610,7 +610,7 @@ var RatioTileStyler = (function (_super) {
     RatioTileStyler.prototype._parseRatio = function (value) {
         var /** @type {?} */ ratioParts = value.split(':');
         if (ratioParts.length !== 2) {
-            throw Error("md-grid-list: invalid ratio given for row-height: \"" + value + "\"");
+            throw Error("mat-grid-list: invalid ratio given for row-height: \"" + value + "\"");
         }
         this.rowHeightRatio = parseFloat(ratioParts[0]) / parseFloat(ratioParts[1]);
     };
@@ -619,7 +619,7 @@ var RatioTileStyler = (function (_super) {
 /**
  * This type of styler is instantiated when the user selects a "fit" row height mode.
  * In other words, the row height will reflect the total height of the container divided
- * by the number of rows.  Example <md-grid-list cols="3" rowHeight="fit">
+ * by the number of rows.  Example <mat-grid-list cols="3" rowHeight="fit">
  *
  * \@docs-private
  */
@@ -672,14 +672,14 @@ function normalizeUnits(value) {
 // TODO(kara): Conditional (responsive) column count / row size.
 // TODO(kara): Re-layout on window resize / media change (debounced).
 // TODO(kara): gridTileHeader and gridTileFooter.
-var MD_FIT_MODE = 'fit';
-var MdGridList = (function () {
+var MAT_FIT_MODE = 'fit';
+var MatGridList = (function () {
     /**
      * @param {?} _renderer
      * @param {?} _element
      * @param {?} _dir
      */
-    function MdGridList(_renderer, _element, _dir) {
+    function MatGridList(_renderer, _element, _dir) {
         this._renderer = _renderer;
         this._element = _element;
         this._dir = _dir;
@@ -688,7 +688,7 @@ var MdGridList = (function () {
          */
         this._gutter = '1px';
     }
-    Object.defineProperty(MdGridList.prototype, "cols", {
+    Object.defineProperty(MatGridList.prototype, "cols", {
         /**
          * Amount of columns in the grid list.
          * @return {?}
@@ -702,7 +702,7 @@ var MdGridList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdGridList.prototype, "gutterSize", {
+    Object.defineProperty(MatGridList.prototype, "gutterSize", {
         /**
          * Size of the grid list's gutter in pixels.
          * @return {?}
@@ -716,7 +716,7 @@ var MdGridList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdGridList.prototype, "rowHeight", {
+    Object.defineProperty(MatGridList.prototype, "rowHeight", {
         /**
          * Set internal representation of row height from the user-provided value.
          * @param {?} value
@@ -735,7 +735,7 @@ var MdGridList = (function () {
     /**
      * @return {?}
      */
-    MdGridList.prototype.ngOnInit = function () {
+    MatGridList.prototype.ngOnInit = function () {
         this._checkCols();
         this._checkRowHeight();
     };
@@ -744,24 +744,24 @@ var MdGridList = (function () {
      * to run it frequently.
      * @return {?}
      */
-    MdGridList.prototype.ngAfterContentChecked = function () {
+    MatGridList.prototype.ngAfterContentChecked = function () {
         this._layoutTiles();
     };
     /**
      * Throw a friendly error if cols property is missing
      * @return {?}
      */
-    MdGridList.prototype._checkCols = function () {
+    MatGridList.prototype._checkCols = function () {
         if (!this.cols) {
-            throw Error("md-grid-list: must pass in number of columns. " +
-                "Example: <md-grid-list cols=\"3\">");
+            throw Error("mat-grid-list: must pass in number of columns. " +
+                "Example: <mat-grid-list cols=\"3\">");
         }
     };
     /**
      * Default to equal width:height if rowHeight property is missing
      * @return {?}
      */
-    MdGridList.prototype._checkRowHeight = function () {
+    MatGridList.prototype._checkRowHeight = function () {
         if (!this._rowHeight) {
             this._setTileStyler('1:1');
         }
@@ -771,11 +771,11 @@ var MdGridList = (function () {
      * @param {?} rowHeight
      * @return {?}
      */
-    MdGridList.prototype._setTileStyler = function (rowHeight) {
+    MatGridList.prototype._setTileStyler = function (rowHeight) {
         if (this._tileStyler) {
             this._tileStyler.reset(this);
         }
-        if (rowHeight === MD_FIT_MODE) {
+        if (rowHeight === MAT_FIT_MODE) {
             this._tileStyler = new FitTileStyler();
         }
         else if (rowHeight && rowHeight.indexOf(':') > -1) {
@@ -789,7 +789,7 @@ var MdGridList = (function () {
      * Computes and applies the size and position for all children grid tiles.
      * @return {?}
      */
-    MdGridList.prototype._layoutTiles = function () {
+    MatGridList.prototype._layoutTiles = function () {
         var _this = this;
         var /** @type {?} */ tracker = new TileCoordinator(this.cols, this._tiles);
         var /** @type {?} */ direction = this._dir ? this._dir.value : 'ltr';
@@ -805,15 +805,15 @@ var MdGridList = (function () {
      * @param {?} style
      * @return {?}
      */
-    MdGridList.prototype._setListStyle = function (style) {
+    MatGridList.prototype._setListStyle = function (style) {
         if (style) {
             this._renderer.setStyle(this._element.nativeElement, style[0], style[1]);
         }
     };
-    return MdGridList;
+    return MatGridList;
 }());
-MdGridList.decorators = [
-    { type: Component, args: [{ selector: 'md-grid-list, mat-grid-list',
+MatGridList.decorators = [
+    { type: Component, args: [{ selector: 'mat-grid-list',
                 template: "<div><ng-content></ng-content></div>",
                 styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-figure{top:0;left:0;right:0;bottom:0;position:absolute;display:flex;align-items:center;justify-content:center;height:100%;padding:0;margin:0}.mat-grid-tile .mat-grid-tile-footer,.mat-grid-tile .mat-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-footer>*,.mat-grid-tile .mat-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-tile-footer.mat-2-line,.mat-grid-tile .mat-grid-tile-header.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none}"],
                 host: {
@@ -827,51 +827,51 @@ MdGridList.decorators = [
 /**
  * @nocollapse
  */
-MdGridList.ctorParameters = function () { return [
+MatGridList.ctorParameters = function () { return [
     { type: Renderer2, },
     { type: ElementRef, },
     { type: Directionality, decorators: [{ type: Optional },] },
 ]; };
-MdGridList.propDecorators = {
-    '_tiles': [{ type: ContentChildren, args: [MdGridTile,] },],
+MatGridList.propDecorators = {
+    '_tiles': [{ type: ContentChildren, args: [MatGridTile,] },],
     'cols': [{ type: Input },],
     'gutterSize': [{ type: Input },],
     'rowHeight': [{ type: Input },],
 };
-var MdGridListModule = (function () {
-    function MdGridListModule() {
+var MatGridListModule = (function () {
+    function MatGridListModule() {
     }
-    return MdGridListModule;
+    return MatGridListModule;
 }());
-MdGridListModule.decorators = [
+MatGridListModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MdLineModule, MdCommonModule],
+                imports: [MatLineModule, MatCommonModule],
                 exports: [
-                    MdGridList,
-                    MdGridTile,
-                    MdGridTileText,
-                    MdLineModule,
-                    MdCommonModule,
-                    MdGridTileHeaderCssMatStyler,
-                    MdGridTileFooterCssMatStyler,
-                    MdGridAvatarCssMatStyler
+                    MatGridList,
+                    MatGridTile,
+                    MatGridTileText,
+                    MatLineModule,
+                    MatCommonModule,
+                    MatGridTileHeaderCssMatStyler,
+                    MatGridTileFooterCssMatStyler,
+                    MatGridAvatarCssMatStyler
                 ],
                 declarations: [
-                    MdGridList,
-                    MdGridTile,
-                    MdGridTileText,
-                    MdGridTileHeaderCssMatStyler,
-                    MdGridTileFooterCssMatStyler,
-                    MdGridAvatarCssMatStyler
+                    MatGridList,
+                    MatGridTile,
+                    MatGridTileText,
+                    MatGridTileHeaderCssMatStyler,
+                    MatGridTileFooterCssMatStyler,
+                    MatGridAvatarCssMatStyler
                 ],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdGridListModule.ctorParameters = function () { return []; };
+MatGridListModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdGridTile, MdGridListModule, MdGridList, MdGridList as MatGridList, MdGridListModule as MatGridListModule, MdGridTile as MatGridTile, MdGridAvatarCssMatStyler as ɵb4, MdGridTileFooterCssMatStyler as ɵd4, MdGridTileHeaderCssMatStyler as ɵc4, MdGridTileText as ɵa4 };
+export { MatGridTile, MatGridListModule, MatGridList, MatGridAvatarCssMatStyler as ɵb9, MatGridTileFooterCssMatStyler as ɵd9, MatGridTileHeaderCssMatStyler as ɵc9, MatGridTileText as ɵa9 };
 //# sourceMappingURL=grid-list.es5.js.map

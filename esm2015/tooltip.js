@@ -10,7 +10,7 @@ import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Renderer2, ViewContainerRef, ViewEncapsulation } from '@angular/core';
-import { MdCommonModule } from '@angular/material/core';
+import { MatCommonModule } from '@angular/material/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -37,28 +37,28 @@ const TOOLTIP_PANEL_CLASS = 'mat-tooltip-panel';
  * @param {?} position
  * @return {?}
  */
-function getMdTooltipInvalidPositionError(position) {
+function getMatTooltipInvalidPositionError(position) {
     return Error(`Tooltip position "${position}" is invalid.`);
 }
 /**
  * Injection token that determines the scroll handling while a tooltip is visible.
  */
-const MD_TOOLTIP_SCROLL_STRATEGY = new InjectionToken('md-tooltip-scroll-strategy');
+const MAT_TOOLTIP_SCROLL_STRATEGY = new InjectionToken('mat-tooltip-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
  * @return {?}
  */
-function MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
+function MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
     return () => overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS });
 }
 /**
  * \@docs-private
  */
-const MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
-    provide: MD_TOOLTIP_SCROLL_STRATEGY,
+const MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
+    provide: MAT_TOOLTIP_SCROLL_STRATEGY,
     deps: [Overlay],
-    useFactory: MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY
+    useFactory: MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY
 };
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
@@ -66,7 +66,7 @@ const MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
  *
  * https://material.google.com/components/tooltips.html
  */
-class MdTooltip {
+class MatTooltip {
     /**
      * @param {?} renderer
      * @param {?} _overlay
@@ -185,70 +185,6 @@ class MdTooltip {
             this._setTooltipClass(this._tooltipClass);
         }
     }
-    /**
-     * @deprecated
-     * @return {?}
-     */
-    get _deprecatedMessage() { return this.message; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set _deprecatedMessage(v) { this.message = v; }
-    /**
-     * @return {?}
-     */
-    get _matMessage() { return this.message; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set _matMessage(v) { this.message = v; }
-    /**
-     * @return {?}
-     */
-    get _matPosition() { return this.position; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set _matPosition(v) { this.position = v; }
-    /**
-     * @return {?}
-     */
-    get _matDisabled() { return this.disabled; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set _matDisabled(v) { this.disabled = v; }
-    /**
-     * @return {?}
-     */
-    get _matHideDelay() { return this.hideDelay; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set _matHideDelay(v) { this.hideDelay = v; }
-    /**
-     * @return {?}
-     */
-    get _matShowDelay() { return this.showDelay; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set _matShowDelay(v) { this.showDelay = v; }
-    /**
-     * @return {?}
-     */
-    get _matClass() { return this.tooltipClass; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set _matClass(v) { this.tooltipClass = v; }
     /**
      * Dispose the tooltip when destroyed.
      * @return {?}
@@ -389,7 +325,7 @@ class MdTooltip {
             this.position == 'before' && !isDirectionLtr) {
             return { originX: 'end', originY: 'center' };
         }
-        throw getMdTooltipInvalidPositionError(this.position);
+        throw getMatTooltipInvalidPositionError(this.position);
     }
     /**
      * Returns the overlay position based on the user's preference
@@ -413,7 +349,7 @@ class MdTooltip {
             this.position == 'before' && !isLtr) {
             return { overlayX: 'start', overlayY: 'center' };
         }
-        throw getMdTooltipInvalidPositionError(this.position);
+        throw getMatTooltipInvalidPositionError(this.position);
     }
     /**
      * Updates the tooltip message and repositions the overlay according to the new message length
@@ -444,9 +380,9 @@ class MdTooltip {
         }
     }
 }
-MdTooltip.decorators = [
+MatTooltip.decorators = [
     { type: Directive, args: [{
-                selector: '[md-tooltip], [mdTooltip], [mat-tooltip], [matTooltip]',
+                selector: '[mat-tooltip], [matTooltip]',
                 host: {
                     '(longpress)': 'show()',
                     '(focus)': 'show()',
@@ -454,13 +390,13 @@ MdTooltip.decorators = [
                     '(keydown)': '_handleKeydown($event)',
                     '(touchend)': 'hide(' + TOUCHEND_HIDE_DELAY + ')',
                 },
-                exportAs: 'mdTooltip, matTooltip',
+                exportAs: 'matTooltip',
             },] },
 ];
 /**
  * @nocollapse
  */
-MdTooltip.ctorParameters = () => [
+MatTooltip.ctorParameters = () => [
     { type: Renderer2, },
     { type: Overlay, },
     { type: ElementRef, },
@@ -469,24 +405,17 @@ MdTooltip.ctorParameters = () => [
     { type: NgZone, },
     { type: Platform, },
     { type: AriaDescriber, },
-    { type: undefined, decorators: [{ type: Inject, args: [MD_TOOLTIP_SCROLL_STRATEGY,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_TOOLTIP_SCROLL_STRATEGY,] },] },
     { type: Directionality, decorators: [{ type: Optional },] },
 ];
-MdTooltip.propDecorators = {
-    'position': [{ type: Input, args: ['mdTooltipPosition',] },],
-    'disabled': [{ type: Input, args: ['mdTooltipDisabled',] },],
+MatTooltip.propDecorators = {
+    'position': [{ type: Input, args: ['matTooltipPosition',] },],
+    'disabled': [{ type: Input, args: ['matTooltipDisabled',] },],
     '_positionDeprecated': [{ type: Input, args: ['tooltip-position',] },],
-    'showDelay': [{ type: Input, args: ['mdTooltipShowDelay',] },],
-    'hideDelay': [{ type: Input, args: ['mdTooltipHideDelay',] },],
-    'message': [{ type: Input, args: ['mdTooltip',] },],
-    'tooltipClass': [{ type: Input, args: ['mdTooltipClass',] },],
-    '_deprecatedMessage': [{ type: Input, args: ['md-tooltip',] },],
-    '_matMessage': [{ type: Input, args: ['matTooltip',] },],
-    '_matPosition': [{ type: Input, args: ['matTooltipPosition',] },],
-    '_matDisabled': [{ type: Input, args: ['matTooltipDisabled',] },],
-    '_matHideDelay': [{ type: Input, args: ['matTooltipHideDelay',] },],
-    '_matShowDelay': [{ type: Input, args: ['matTooltipShowDelay',] },],
-    '_matClass': [{ type: Input, args: ['matTooltipClass',] },],
+    'showDelay': [{ type: Input, args: ['matTooltipShowDelay',] },],
+    'hideDelay': [{ type: Input, args: ['matTooltipHideDelay',] },],
+    'message': [{ type: Input, args: ['matTooltip',] },],
+    'tooltipClass': [{ type: Input, args: ['matTooltipClass',] },],
 };
 /**
  * Internal component that wraps the tooltip's content.
@@ -593,7 +522,7 @@ class TooltipComponent {
             case 'below':
                 this._transformOrigin = 'top';
                 break;
-            default: throw getMdTooltipInvalidPositionError(value);
+            default: throw getMatTooltipInvalidPositionError(value);
         }
     }
     /**
@@ -640,7 +569,7 @@ class TooltipComponent {
     }
 }
 TooltipComponent.decorators = [
-    { type: Component, args: [{selector: 'md-tooltip-component, mat-tooltip-component',
+    { type: Component, args: [{selector: 'mat-tooltip-component',
                 template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.start)=\"_animationStart()\" (@state.done)=\"_animationDone($event)\">{{message}}</div>",
                 styles: [".mat-tooltip-panel{pointer-events:none!important}.mat-tooltip{color:#fff;border-radius:2px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}"],
                 encapsulation: ViewEncapsulation.None,
@@ -671,31 +600,31 @@ TooltipComponent.ctorParameters = () => [
     { type: ChangeDetectorRef, },
 ];
 
-class MdTooltipModule {
+class MatTooltipModule {
 }
-MdTooltipModule.decorators = [
+MatTooltipModule.decorators = [
     { type: NgModule, args: [{
                 imports: [
                     CommonModule,
                     OverlayModule,
-                    MdCommonModule,
+                    MatCommonModule,
                     PlatformModule,
                     A11yModule,
                 ],
-                exports: [MdTooltip, TooltipComponent, MdCommonModule],
-                declarations: [MdTooltip, TooltipComponent],
+                exports: [MatTooltip, TooltipComponent, MatCommonModule],
+                declarations: [MatTooltip, TooltipComponent],
                 entryComponents: [TooltipComponent],
-                providers: [MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER, ARIA_DESCRIBER_PROVIDER],
+                providers: [MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER, ARIA_DESCRIBER_PROVIDER],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdTooltipModule.ctorParameters = () => [];
+MatTooltipModule.ctorParameters = () => [];
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMdTooltipInvalidPositionError, MD_TOOLTIP_SCROLL_STRATEGY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MdTooltip, TooltipComponent, MdTooltip as MatTooltip, MdTooltipModule as MatTooltipModule, MD_TOOLTIP_SCROLL_STRATEGY as MAT_TOOLTIP_SCROLL_STRATEGY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER as MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY as MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY };
+export { MatTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMatTooltipInvalidPositionError, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MatTooltip, TooltipComponent };
 //# sourceMappingURL=tooltip.js.map

@@ -9,45 +9,45 @@ import * as tslib_1 from "tslib";
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { MdCommonModule, UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher, mixinDisabled } from '@angular/material/core';
+import { MatCommonModule, UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher, mixinDisabled } from '@angular/material/core';
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 /**
  * \@docs-private
  */
-var MdButtonToggleGroupBase = (function () {
-    function MdButtonToggleGroupBase() {
+var MatButtonToggleGroupBase = (function () {
+    function MatButtonToggleGroupBase() {
     }
-    return MdButtonToggleGroupBase;
+    return MatButtonToggleGroupBase;
 }());
-var _MdButtonToggleGroupMixinBase = mixinDisabled(MdButtonToggleGroupBase);
+var _MatButtonToggleGroupMixinBase = mixinDisabled(MatButtonToggleGroupBase);
 /**
- * Provider Expression that allows md-button-toggle-group to register as a ControlValueAccessor.
+ * Provider Expression that allows mat-button-toggle-group to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  * \@docs-private
  */
-var MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
+var MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(function () { return MdButtonToggleGroup; }),
+    useExisting: forwardRef(function () { return MatButtonToggleGroup; }),
     multi: true
 };
 var _uniqueIdCounter = 0;
 /**
- * Change event object emitted by MdButtonToggle.
+ * Change event object emitted by MatButtonToggle.
  */
-var MdButtonToggleChange = (function () {
-    function MdButtonToggleChange() {
+var MatButtonToggleChange = (function () {
+    function MatButtonToggleChange() {
     }
-    return MdButtonToggleChange;
+    return MatButtonToggleChange;
 }());
 /**
  * Exclusive selection button toggle group that behaves like a radio-button group.
  */
-var MdButtonToggleGroup = (function (_super) {
-    tslib_1.__extends(MdButtonToggleGroup, _super);
+var MatButtonToggleGroup = (function (_super) {
+    tslib_1.__extends(MatButtonToggleGroup, _super);
     /**
      * @param {?} _changeDetector
      */
-    function MdButtonToggleGroup(_changeDetector) {
+    function MatButtonToggleGroup(_changeDetector) {
         var _this = _super.call(this) || this;
         _this._changeDetector = _changeDetector;
         /**
@@ -57,7 +57,7 @@ var MdButtonToggleGroup = (function (_super) {
         /**
          * The HTML name attribute applied to toggles in this group.
          */
-        _this._name = "md-button-toggle-group-" + _uniqueIdCounter++;
+        _this._name = "mat-button-toggle-group-" + _uniqueIdCounter++;
         /**
          * Whether the button toggle group should be vertical.
          */
@@ -81,7 +81,7 @@ var MdButtonToggleGroup = (function (_super) {
         _this.change = new EventEmitter();
         return _this;
     }
-    Object.defineProperty(MdButtonToggleGroup.prototype, "name", {
+    Object.defineProperty(MatButtonToggleGroup.prototype, "name", {
         /**
          * `name` attribute for the underlying `input` element.
          * @return {?}
@@ -100,7 +100,7 @@ var MdButtonToggleGroup = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdButtonToggleGroup.prototype, "vertical", {
+    Object.defineProperty(MatButtonToggleGroup.prototype, "vertical", {
         /**
          * Whether the toggle group is vertical.
          * @return {?}
@@ -118,7 +118,7 @@ var MdButtonToggleGroup = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdButtonToggleGroup.prototype, "value", {
+    Object.defineProperty(MatButtonToggleGroup.prototype, "value", {
         /**
          * Value of the toggle group.
          * @return {?}
@@ -139,7 +139,7 @@ var MdButtonToggleGroup = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdButtonToggleGroup.prototype, "selected", {
+    Object.defineProperty(MatButtonToggleGroup.prototype, "selected", {
         /**
          * Whether the toggle group is selected.
          * @return {?}
@@ -164,7 +164,7 @@ var MdButtonToggleGroup = (function (_super) {
     /**
      * @return {?}
      */
-    MdButtonToggleGroup.prototype._updateButtonToggleNames = function () {
+    MatButtonToggleGroup.prototype._updateButtonToggleNames = function () {
         var _this = this;
         if (this._buttonToggles) {
             this._buttonToggles.forEach(function (toggle) {
@@ -175,7 +175,7 @@ var MdButtonToggleGroup = (function (_super) {
     /**
      * @return {?}
      */
-    MdButtonToggleGroup.prototype._updateSelectedButtonToggleFromValue = function () {
+    MatButtonToggleGroup.prototype._updateSelectedButtonToggleFromValue = function () {
         var _this = this;
         var /** @type {?} */ isAlreadySelected = this._selected != null && this._selected.value == this._value;
         if (this._buttonToggles != null && !isAlreadySelected) {
@@ -195,8 +195,8 @@ var MdButtonToggleGroup = (function (_super) {
      * Dispatch change event with current selection and group value.
      * @return {?}
      */
-    MdButtonToggleGroup.prototype._emitChangeEvent = function () {
-        var /** @type {?} */ event = new MdButtonToggleChange();
+    MatButtonToggleGroup.prototype._emitChangeEvent = function () {
+        var /** @type {?} */ event = new MatButtonToggleChange();
         event.source = this._selected;
         event.value = this._value;
         this._controlValueAccessorChangeFn(event.value);
@@ -207,7 +207,7 @@ var MdButtonToggleGroup = (function (_super) {
      * @param {?} value Value to be set to the model.
      * @return {?}
      */
-    MdButtonToggleGroup.prototype.writeValue = function (value) {
+    MatButtonToggleGroup.prototype.writeValue = function (value) {
         this.value = value;
         this._changeDetector.markForCheck();
     };
@@ -217,7 +217,7 @@ var MdButtonToggleGroup = (function (_super) {
      * @param {?} fn On change callback function.
      * @return {?}
      */
-    MdButtonToggleGroup.prototype.registerOnChange = function (fn) {
+    MatButtonToggleGroup.prototype.registerOnChange = function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
     /**
@@ -226,7 +226,7 @@ var MdButtonToggleGroup = (function (_super) {
      * @param {?} fn On touch callback function.
      * @return {?}
      */
-    MdButtonToggleGroup.prototype.registerOnTouched = function (fn) {
+    MatButtonToggleGroup.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
     /**
@@ -234,32 +234,32 @@ var MdButtonToggleGroup = (function (_super) {
      * @param {?} isDisabled Whether the component should be disabled.
      * @return {?}
      */
-    MdButtonToggleGroup.prototype.setDisabledState = function (isDisabled) {
+    MatButtonToggleGroup.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };
-    return MdButtonToggleGroup;
-}(_MdButtonToggleGroupMixinBase));
-MdButtonToggleGroup.decorators = [
+    return MatButtonToggleGroup;
+}(_MatButtonToggleGroupMixinBase));
+MatButtonToggleGroup.decorators = [
     { type: Directive, args: [{
-                selector: 'md-button-toggle-group:not([multiple]), mat-button-toggle-group:not([multiple])',
-                providers: [MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR],
+                selector: 'mat-button-toggle-group:not([multiple])',
+                providers: [MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR],
                 inputs: ['disabled'],
                 host: {
                     'role': 'radiogroup',
                     'class': 'mat-button-toggle-group',
                     '[class.mat-button-toggle-vertical]': 'vertical'
                 },
-                exportAs: 'mdButtonToggleGroup, matButtonToggleGroup',
+                exportAs: 'matButtonToggleGroup',
             },] },
 ];
 /**
  * @nocollapse
  */
-MdButtonToggleGroup.ctorParameters = function () { return [
+MatButtonToggleGroup.ctorParameters = function () { return [
     { type: ChangeDetectorRef, },
 ]; };
-MdButtonToggleGroup.propDecorators = {
-    '_buttonToggles': [{ type: ContentChildren, args: [forwardRef(function () { return MdButtonToggle; }),] },],
+MatButtonToggleGroup.propDecorators = {
+    '_buttonToggles': [{ type: ContentChildren, args: [forwardRef(function () { return MatButtonToggle; }),] },],
     'name': [{ type: Input },],
     'vertical': [{ type: Input },],
     'value': [{ type: Input },],
@@ -269,9 +269,9 @@ MdButtonToggleGroup.propDecorators = {
 /**
  * Multiple selection button-toggle group. `ngModel` is not supported in this mode.
  */
-var MdButtonToggleGroupMultiple = (function (_super) {
-    tslib_1.__extends(MdButtonToggleGroupMultiple, _super);
-    function MdButtonToggleGroupMultiple() {
+var MatButtonToggleGroupMultiple = (function (_super) {
+    tslib_1.__extends(MatButtonToggleGroupMultiple, _super);
+    function MatButtonToggleGroupMultiple() {
         var _this = _super.apply(this, arguments) || this;
         /**
          * Whether the button toggle group should be vertical.
@@ -279,7 +279,7 @@ var MdButtonToggleGroupMultiple = (function (_super) {
         _this._vertical = false;
         return _this;
     }
-    Object.defineProperty(MdButtonToggleGroupMultiple.prototype, "vertical", {
+    Object.defineProperty(MatButtonToggleGroupMultiple.prototype, "vertical", {
         /**
          * Whether the toggle group is vertical.
          * @return {?}
@@ -297,12 +297,12 @@ var MdButtonToggleGroupMultiple = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    return MdButtonToggleGroupMultiple;
-}(_MdButtonToggleGroupMixinBase));
-MdButtonToggleGroupMultiple.decorators = [
+    return MatButtonToggleGroupMultiple;
+}(_MatButtonToggleGroupMixinBase));
+MatButtonToggleGroupMultiple.decorators = [
     { type: Directive, args: [{
-                selector: 'md-button-toggle-group[multiple], mat-button-toggle-group[multiple]',
-                exportAs: 'mdButtonToggleGroup, matButtonToggleGroup',
+                selector: 'mat-button-toggle-group[multiple]',
+                exportAs: 'matButtonToggleGroup',
                 inputs: ['disabled'],
                 host: {
                     'class': 'mat-button-toggle-group',
@@ -314,14 +314,14 @@ MdButtonToggleGroupMultiple.decorators = [
 /**
  * @nocollapse
  */
-MdButtonToggleGroupMultiple.ctorParameters = function () { return []; };
-MdButtonToggleGroupMultiple.propDecorators = {
+MatButtonToggleGroupMultiple.ctorParameters = function () { return []; };
+MatButtonToggleGroupMultiple.propDecorators = {
     'vertical': [{ type: Input },],
 };
 /**
  * Single button inside of a toggle group.
  */
-var MdButtonToggle = (function () {
+var MatButtonToggle = (function () {
     /**
      * @param {?} toggleGroup
      * @param {?} toggleGroupMultiple
@@ -331,7 +331,7 @@ var MdButtonToggle = (function () {
      * @param {?} _elementRef
      * @param {?} _focusMonitor
      */
-    function MdButtonToggle(toggleGroup, toggleGroupMultiple, _changeDetectorRef, _buttonToggleDispatcher, _renderer, _elementRef, _focusMonitor) {
+    function MatButtonToggle(toggleGroup, toggleGroupMultiple, _changeDetectorRef, _buttonToggleDispatcher, _renderer, _elementRef, _focusMonitor) {
         var _this = this;
         this._changeDetectorRef = _changeDetectorRef;
         this._buttonToggleDispatcher = _buttonToggleDispatcher;
@@ -392,7 +392,7 @@ var MdButtonToggle = (function () {
             this._isSingleSelector = false;
         }
     }
-    Object.defineProperty(MdButtonToggle.prototype, "inputId", {
+    Object.defineProperty(MatButtonToggle.prototype, "inputId", {
         /**
          * Unique ID for the underlying `input` element.
          * @return {?}
@@ -403,7 +403,7 @@ var MdButtonToggle = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdButtonToggle.prototype, "checked", {
+    Object.defineProperty(MatButtonToggle.prototype, "checked", {
         /**
          * Whether the button is checked.
          * @return {?}
@@ -427,9 +427,9 @@ var MdButtonToggle = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdButtonToggle.prototype, "value", {
+    Object.defineProperty(MatButtonToggle.prototype, "value", {
         /**
-         * MdButtonToggleGroup reads this to assign its own value.
+         * MatButtonToggleGroup reads this to assign its own value.
          * @return {?}
          */
         get: function () {
@@ -450,7 +450,7 @@ var MdButtonToggle = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdButtonToggle.prototype, "disabled", {
+    Object.defineProperty(MatButtonToggle.prototype, "disabled", {
         /**
          * Whether the button is disabled.
          * @return {?}
@@ -472,9 +472,9 @@ var MdButtonToggle = (function () {
     /**
      * @return {?}
      */
-    MdButtonToggle.prototype.ngOnInit = function () {
+    MatButtonToggle.prototype.ngOnInit = function () {
         if (this.id == null) {
-            this.id = "md-button-toggle-" + _uniqueIdCounter++;
+            this.id = "mat-button-toggle-" + _uniqueIdCounter++;
         }
         if (this.buttonToggleGroup && this._value == this.buttonToggleGroup.value) {
             this._checked = true;
@@ -485,14 +485,14 @@ var MdButtonToggle = (function () {
      * Focuses the button.
      * @return {?}
      */
-    MdButtonToggle.prototype.focus = function () {
+    MatButtonToggle.prototype.focus = function () {
         this._inputElement.nativeElement.focus();
     };
     /**
      * Toggle the state of the current button toggle.
      * @return {?}
      */
-    MdButtonToggle.prototype._toggle = function () {
+    MatButtonToggle.prototype._toggle = function () {
         this.checked = !this.checked;
     };
     /**
@@ -500,7 +500,7 @@ var MdButtonToggle = (function () {
      * @param {?} event
      * @return {?}
      */
-    MdButtonToggle.prototype._onInputChange = function (event) {
+    MatButtonToggle.prototype._onInputChange = function (event) {
         event.stopPropagation();
         if (this._isSingleSelector) {
             // Propagate the change one-way via the group, which will in turn mark this
@@ -523,7 +523,7 @@ var MdButtonToggle = (function () {
      * @param {?} event
      * @return {?}
      */
-    MdButtonToggle.prototype._onInputClick = function (event) {
+    MatButtonToggle.prototype._onInputClick = function (event) {
         // We have to stop propagation for click events on the visual hidden input element.
         // By default, when a user clicks on a label element, a generated click event will be
         // dispatched on the associated input element. Since we are using a label element as our
@@ -537,8 +537,8 @@ var MdButtonToggle = (function () {
      * Dispatch change event with current value.
      * @return {?}
      */
-    MdButtonToggle.prototype._emitChangeEvent = function () {
-        var /** @type {?} */ event = new MdButtonToggleChange();
+    MatButtonToggle.prototype._emitChangeEvent = function () {
+        var /** @type {?} */ event = new MatButtonToggleChange();
         event.source = this;
         event.value = this._value;
         this.change.emit(event);
@@ -546,13 +546,13 @@ var MdButtonToggle = (function () {
     /**
      * @return {?}
      */
-    MdButtonToggle.prototype.ngOnDestroy = function () {
+    MatButtonToggle.prototype.ngOnDestroy = function () {
         this._removeUniqueSelectionListener();
     };
-    return MdButtonToggle;
+    return MatButtonToggle;
 }());
-MdButtonToggle.decorators = [
-    { type: Component, args: [{ selector: 'md-button-toggle, mat-button-toggle',
+MatButtonToggle.decorators = [
+    { type: Component, args: [{ selector: 'mat-button-toggle',
                 template: "<label [attr.for]=\"inputId\" class=\"mat-button-toggle-label\"><input #input class=\"mat-button-toggle-input cdk-visually-hidden\" [type]=\"_type\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled || null\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-button-toggle-label-content\"><ng-content></ng-content></div></label><div class=\"mat-button-toggle-focus-overlay\"></div>",
                 styles: [".mat-button-toggle-group,.mat-button-toggle-standalone{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap;overflow:hidden}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle-disabled .mat-button-toggle-label-content{cursor:default}.mat-button-toggle{white-space:nowrap;position:relative}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:1}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px;cursor:pointer}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;top:0;left:0;right:0;bottom:0;position:absolute}"],
                 encapsulation: ViewEncapsulation.None,
@@ -570,16 +570,16 @@ MdButtonToggle.decorators = [
 /**
  * @nocollapse
  */
-MdButtonToggle.ctorParameters = function () { return [
-    { type: MdButtonToggleGroup, decorators: [{ type: Optional },] },
-    { type: MdButtonToggleGroupMultiple, decorators: [{ type: Optional },] },
+MatButtonToggle.ctorParameters = function () { return [
+    { type: MatButtonToggleGroup, decorators: [{ type: Optional },] },
+    { type: MatButtonToggleGroupMultiple, decorators: [{ type: Optional },] },
     { type: ChangeDetectorRef, },
     { type: UniqueSelectionDispatcher, },
     { type: Renderer2, },
     { type: ElementRef, },
     { type: FocusMonitor, },
 ]; };
-MdButtonToggle.propDecorators = {
+MatButtonToggle.propDecorators = {
     'ariaLabel': [{ type: Input, args: ['aria-label',] },],
     'ariaLabelledby': [{ type: Input, args: ['aria-labelledby',] },],
     '_inputElement': [{ type: ViewChild, args: ['input',] },],
@@ -590,30 +590,30 @@ MdButtonToggle.propDecorators = {
     'disabled': [{ type: Input },],
     'change': [{ type: Output },],
 };
-var MdButtonToggleModule = (function () {
-    function MdButtonToggleModule() {
+var MatButtonToggleModule = (function () {
+    function MatButtonToggleModule() {
     }
-    return MdButtonToggleModule;
+    return MatButtonToggleModule;
 }());
-MdButtonToggleModule.decorators = [
+MatButtonToggleModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MdCommonModule, A11yModule],
+                imports: [MatCommonModule, A11yModule],
                 exports: [
-                    MdButtonToggleGroup,
-                    MdButtonToggleGroupMultiple,
-                    MdButtonToggle,
-                    MdCommonModule,
+                    MatButtonToggleGroup,
+                    MatButtonToggleGroupMultiple,
+                    MatButtonToggle,
+                    MatCommonModule,
                 ],
-                declarations: [MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle],
+                declarations: [MatButtonToggleGroup, MatButtonToggleGroupMultiple, MatButtonToggle],
                 providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER]
             },] },
 ];
 /**
  * @nocollapse
  */
-MdButtonToggleModule.ctorParameters = function () { return []; };
+MatButtonToggleModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdButtonToggleGroupBase, _MdButtonToggleGroupMixinBase, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggleChange, MdButtonToggleGroup, MdButtonToggleGroupMultiple, MdButtonToggle, MdButtonToggleModule, MD_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR as MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MdButtonToggle as MatButtonToggle, MdButtonToggleChange as MatButtonToggleChange, MdButtonToggleGroup as MatButtonToggleGroup, MdButtonToggleGroupBase as MatButtonToggleGroupBase, MdButtonToggleGroupMultiple as MatButtonToggleGroupMultiple, MdButtonToggleModule as MatButtonToggleModule };
+export { MatButtonToggleGroupBase, _MatButtonToggleGroupMixinBase, MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MatButtonToggleChange, MatButtonToggleGroup, MatButtonToggleGroupMultiple, MatButtonToggle, MatButtonToggleModule };
 //# sourceMappingURL=button-toggle.es5.js.map

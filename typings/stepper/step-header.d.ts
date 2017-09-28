@@ -1,9 +1,9 @@
-import { MdStepLabel } from './step-label';
-export declare class MdStepHeader {
+import { MatStepLabel } from './step-label';
+export declare class MatStepHeader {
     /** Icon for the given step. */
     icon: string;
     /** Label of the given step. */
-    label: MdStepLabel | string;
+    label: MatStepLabel | string;
     /** Index of the given step. */
     index: any;
     private _index;
@@ -18,6 +18,6 @@ export declare class MdStepHeader {
     private _optional;
     /** Returns string label of given step if it is a text label. */
     _stringLabel(): string | null;
-    /** Returns MdStepLabel if the label of given step is a template label. */
-    _templateLabel(): MdStepLabel | null;
+    /** Returns MatStepLabel if the label of given step is a template label. */
+    _templateLabel(): MatStepLabel | null;
 }

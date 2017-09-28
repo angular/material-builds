@@ -52,13 +52,13 @@
       "from": "./form-field"
     },
     {
-      "from": "./select"
+      "from": "./slider"
     },
     {
       "from": "./tooltip"
     },
     {
-      "from": "./slider"
+      "from": "./slide-toggle"
     },
     {
       "from": "./progress-bar"
@@ -73,13 +73,10 @@
       "from": "./sidenav"
     },
     {
-      "from": "./slide-toggle"
-    },
-    {
       "from": "./menu"
     },
     {
-      "from": "./paginator"
+      "from": "./select"
     },
     {
       "from": "./input"
@@ -95,6 +92,9 @@
     },
     {
       "from": "./autocomplete"
+    },
+    {
+      "from": "./paginator"
     }
   ],
   "flatModuleIndexRedirect": true

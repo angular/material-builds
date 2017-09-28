@@ -9,9 +9,9 @@ import * as tslib_1 from "tslib";
 import { ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Injector, Input, NgModule, Optional, SkipSelf, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { BasePortalHost, ComponentPortal, PortalHostDirective, PortalModule, TemplatePortal } from '@angular/cdk/portal';
+import { BasePortalHost, ComponentPortal, PortalHostDirective, PortalInjector, PortalModule, TemplatePortal } from '@angular/cdk/portal';
 import { A11yModule, FocusTrapFactory } from '@angular/cdk/a11y';
-import { MdCommonModule, PortalInjector, extendObject } from '@angular/material/core';
+import { MatCommonModule, extendObject } from '@angular/material/core';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { RxChain, filter, first, startWith } from '@angular/cdk/rxjs';
 import { defer } from 'rxjs/observable/defer';
@@ -19,10 +19,10 @@ import { Subject } from 'rxjs/Subject';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { DOCUMENT } from '@angular/platform-browser';
 /**
- * Configuration for opening a modal dialog with the MdDialog service.
+ * Configuration for opening a modal dialog with the MatDialog service.
  */
-var MdDialogConfig = (function () {
-    function MdDialogConfig() {
+var MatDialogConfig = (function () {
+    function MatDialogConfig() {
         /**
          * The ARIA role of the dialog element.
          */
@@ -65,7 +65,7 @@ var MdDialogConfig = (function () {
         this.ariaDescribedBy = null;
         // TODO(jelbourn): add configuration for lifecycle hooks, ARIA labelling.
     }
-    return MdDialogConfig;
+    return MatDialogConfig;
 }());
 /**
  * Throws an exception for the case when a ComponentPortal is
@@ -73,7 +73,7 @@ var MdDialogConfig = (function () {
  * \@docs-private
  * @return {?}
  */
-function throwMdDialogContentAlreadyAttachedError() {
+function throwMatDialogContentAlreadyAttachedError() {
     throw Error('Attempting to attach dialog content after content is already attached');
 }
 /**
@@ -81,15 +81,15 @@ function throwMdDialogContentAlreadyAttachedError() {
  * Animation is based on https://material.io/guidelines/motion/choreography.html.
  * \@docs-private
  */
-var MdDialogContainer = (function (_super) {
-    tslib_1.__extends(MdDialogContainer, _super);
+var MatDialogContainer = (function (_super) {
+    tslib_1.__extends(MatDialogContainer, _super);
     /**
      * @param {?} _elementRef
      * @param {?} _focusTrapFactory
      * @param {?} _changeDetectorRef
      * @param {?} _document
      */
-    function MdDialogContainer(_elementRef, _focusTrapFactory, _changeDetectorRef, _document) {
+    function MatDialogContainer(_elementRef, _focusTrapFactory, _changeDetectorRef, _document) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._focusTrapFactory = _focusTrapFactory;
@@ -123,9 +123,9 @@ var MdDialogContainer = (function (_super) {
      * @param {?} portal Portal to be attached as the dialog content.
      * @return {?}
      */
-    MdDialogContainer.prototype.attachComponentPortal = function (portal) {
+    MatDialogContainer.prototype.attachComponentPortal = function (portal) {
         if (this._portalHost.hasAttached()) {
-            throwMdDialogContentAlreadyAttachedError();
+            throwMatDialogContentAlreadyAttachedError();
         }
         this._savePreviouslyFocusedElement();
         return this._portalHost.attachComponentPortal(portal);
@@ -136,9 +136,9 @@ var MdDialogContainer = (function (_super) {
      * @param {?} portal Portal to be attached as the dialog content.
      * @return {?}
      */
-    MdDialogContainer.prototype.attachTemplatePortal = function (portal) {
+    MatDialogContainer.prototype.attachTemplatePortal = function (portal) {
         if (this._portalHost.hasAttached()) {
-            throwMdDialogContentAlreadyAttachedError();
+            throwMatDialogContentAlreadyAttachedError();
         }
         this._savePreviouslyFocusedElement();
         return this._portalHost.attachTemplatePortal(portal);
@@ -147,7 +147,7 @@ var MdDialogContainer = (function (_super) {
      * Moves the focus inside the focus trap.
      * @return {?}
      */
-    MdDialogContainer.prototype._trapFocus = function () {
+    MatDialogContainer.prototype._trapFocus = function () {
         var _this = this;
         if (!this._focusTrap) {
             this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
@@ -167,7 +167,7 @@ var MdDialogContainer = (function (_super) {
      * Restores focus to the element that was focused before the dialog opened.
      * @return {?}
      */
-    MdDialogContainer.prototype._restoreFocus = function () {
+    MatDialogContainer.prototype._restoreFocus = function () {
         var /** @type {?} */ toFocus = this._elementFocusedBeforeDialogWasOpened;
         // We need the extra check, because IE can set the `activeElement` to null in some cases.
         if (toFocus && typeof toFocus.focus === 'function') {
@@ -181,7 +181,7 @@ var MdDialogContainer = (function (_super) {
      * Saves a reference to the element that was focused before the dialog was opened.
      * @return {?}
      */
-    MdDialogContainer.prototype._savePreviouslyFocusedElement = function () {
+    MatDialogContainer.prototype._savePreviouslyFocusedElement = function () {
         if (this._document) {
             this._elementFocusedBeforeDialogWasOpened = (this._document.activeElement);
         }
@@ -191,7 +191,7 @@ var MdDialogContainer = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MdDialogContainer.prototype._onAnimationDone = function (event) {
+    MatDialogContainer.prototype._onAnimationDone = function (event) {
         if (event.toState === 'enter') {
             this._trapFocus();
         }
@@ -206,7 +206,7 @@ var MdDialogContainer = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MdDialogContainer.prototype._onAnimationStart = function (event) {
+    MatDialogContainer.prototype._onAnimationStart = function (event) {
         this._isAnimating = true;
         this._animationStateChanged.emit(event);
     };
@@ -214,16 +214,16 @@ var MdDialogContainer = (function (_super) {
      * Starts the dialog exit animation.
      * @return {?}
      */
-    MdDialogContainer.prototype._startExitAnimation = function () {
+    MatDialogContainer.prototype._startExitAnimation = function () {
         this._state = 'exit';
         // Mark the container for check so it can react if the
         // view container is using OnPush change detection.
         this._changeDetectorRef.markForCheck();
     };
-    return MdDialogContainer;
+    return MatDialogContainer;
 }(BasePortalHost));
-MdDialogContainer.decorators = [
-    { type: Component, args: [{ selector: 'md-dialog-container, mat-dialog-container',
+MatDialogContainer.decorators = [
+    { type: Component, args: [{ selector: 'mat-dialog-container',
                 template: "<ng-template cdkPortalHost></ng-template>",
                 styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;max-width:80vw;outline:0;width:100%;height:100%}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch;-webkit-backface-visibility:hidden;backface-visibility:hidden}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex;flex-wrap:wrap}.mat-dialog-actions:last-child{margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button+.mat-button,.mat-dialog-actions .mat-button+.mat-raised-button,.mat-dialog-actions .mat-raised-button+.mat-button,.mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-button+.mat-raised-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:0;margin-right:8px}"],
                 encapsulation: ViewEncapsulation.None,
@@ -255,29 +255,29 @@ MdDialogContainer.decorators = [
 /**
  * @nocollapse
  */
-MdDialogContainer.ctorParameters = function () { return [
+MatDialogContainer.ctorParameters = function () { return [
     { type: ElementRef, },
     { type: FocusTrapFactory, },
     { type: ChangeDetectorRef, },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ]; };
-MdDialogContainer.propDecorators = {
+MatDialogContainer.propDecorators = {
     '_portalHost': [{ type: ViewChild, args: [PortalHostDirective,] },],
 };
 // TODO(jelbourn): resizing
 // Counter for unique dialog ids.
 var uniqueId = 0;
 /**
- * Reference to a dialog opened via the MdDialog service.
+ * Reference to a dialog opened via the MatDialog service.
  */
-var MdDialogRef = (function () {
+var MatDialogRef = (function () {
     /**
      * @param {?} _overlayRef
      * @param {?} _containerInstance
      * @param {?=} id
      */
-    function MdDialogRef(_overlayRef, _containerInstance, id) {
-        if (id === void 0) { id = "md-dialog-" + uniqueId++; }
+    function MatDialogRef(_overlayRef, _containerInstance, id) {
+        if (id === void 0) { id = "mat-dialog-" + uniqueId++; }
         var _this = this;
         this._overlayRef = _overlayRef;
         this._containerInstance = _containerInstance;
@@ -322,7 +322,7 @@ var MdDialogRef = (function () {
      * @param {?=} dialogResult Optional result to return to the dialog opener.
      * @return {?}
      */
-    MdDialogRef.prototype.close = function (dialogResult) {
+    MatDialogRef.prototype.close = function (dialogResult) {
         var _this = this;
         this._result = dialogResult;
         // Transition the backdrop in parallel to the dialog.
@@ -340,28 +340,28 @@ var MdDialogRef = (function () {
      * Gets an observable that is notified when the dialog is finished opening.
      * @return {?}
      */
-    MdDialogRef.prototype.afterOpen = function () {
+    MatDialogRef.prototype.afterOpen = function () {
         return this._afterOpen.asObservable();
     };
     /**
      * Gets an observable that is notified when the dialog is finished closing.
      * @return {?}
      */
-    MdDialogRef.prototype.afterClosed = function () {
+    MatDialogRef.prototype.afterClosed = function () {
         return this._afterClosed.asObservable();
     };
     /**
      * Gets an observable that is notified when the dialog has started closing.
      * @return {?}
      */
-    MdDialogRef.prototype.beforeClose = function () {
+    MatDialogRef.prototype.beforeClose = function () {
         return this._beforeClose.asObservable();
     };
     /**
      * Gets an observable that emits when the overlay's backdrop has been clicked.
      * @return {?}
      */
-    MdDialogRef.prototype.backdropClick = function () {
+    MatDialogRef.prototype.backdropClick = function () {
         return this._overlayRef.backdropClick();
     };
     /**
@@ -369,7 +369,7 @@ var MdDialogRef = (function () {
      * @param {?=} position New dialog position.
      * @return {?}
      */
-    MdDialogRef.prototype.updatePosition = function (position) {
+    MatDialogRef.prototype.updatePosition = function (position) {
         var /** @type {?} */ strategy = this._getPositionStrategy();
         if (position && (position.left || position.right)) {
             position.left ? strategy.left(position.left) : strategy.right(position.right);
@@ -392,7 +392,7 @@ var MdDialogRef = (function () {
      * @param {?=} height New height of the dialog.
      * @return {?}
      */
-    MdDialogRef.prototype.updateSize = function (width, height) {
+    MatDialogRef.prototype.updateSize = function (width, height) {
         if (width === void 0) { width = 'auto'; }
         if (height === void 0) { height = 'auto'; }
         this._getPositionStrategy().width(width).height(height);
@@ -403,43 +403,43 @@ var MdDialogRef = (function () {
      * Returns whether the dialog is animating.
      * @return {?}
      */
-    MdDialogRef.prototype._isAnimating = function () {
+    MatDialogRef.prototype._isAnimating = function () {
         return this._containerInstance._isAnimating;
     };
     /**
      * Fetches the position strategy object from the overlay ref.
      * @return {?}
      */
-    MdDialogRef.prototype._getPositionStrategy = function () {
+    MatDialogRef.prototype._getPositionStrategy = function () {
         return (this._overlayRef.getState().positionStrategy);
     };
-    return MdDialogRef;
+    return MatDialogRef;
 }());
-var MD_DIALOG_DATA = new InjectionToken('MdDialogData');
+var MAT_DIALOG_DATA = new InjectionToken('MatDialogData');
 /**
  * Injection token that determines the scroll handling while the dialog is open.
  */
-var MD_DIALOG_SCROLL_STRATEGY = new InjectionToken('md-dialog-scroll-strategy');
+var MAT_DIALOG_SCROLL_STRATEGY = new InjectionToken('mat-dialog-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
  * @return {?}
  */
-function MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
+function MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
     return function () { return overlay.scrollStrategies.block(); };
 }
 /**
  * \@docs-private
  */
-var MD_DIALOG_SCROLL_STRATEGY_PROVIDER = {
-    provide: MD_DIALOG_SCROLL_STRATEGY,
+var MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
+    provide: MAT_DIALOG_SCROLL_STRATEGY,
     deps: [Overlay],
-    useFactory: MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY,
+    useFactory: MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY,
 };
 /**
  * Service to open Material Design modal dialogs.
  */
-var MdDialog = (function () {
+var MatDialog = (function () {
     /**
      * @param {?} _overlay
      * @param {?} _injector
@@ -447,7 +447,7 @@ var MdDialog = (function () {
      * @param {?} _scrollStrategy
      * @param {?} _parentDialog
      */
-    function MdDialog(_overlay, _injector, location, _scrollStrategy, _parentDialog) {
+    function MatDialog(_overlay, _injector, location, _scrollStrategy, _parentDialog) {
         var _this = this;
         this._overlay = _overlay;
         this._injector = _injector;
@@ -471,7 +471,7 @@ var MdDialog = (function () {
             location.subscribe(function () { return _this.closeAll(); });
         }
     }
-    Object.defineProperty(MdDialog.prototype, "openDialogs", {
+    Object.defineProperty(MatDialog.prototype, "openDialogs", {
         /**
          * Keeps track of the currently-open dialogs.
          * @return {?}
@@ -482,7 +482,7 @@ var MdDialog = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdDialog.prototype, "afterOpen", {
+    Object.defineProperty(MatDialog.prototype, "afterOpen", {
         /**
          * Stream that emits when a dialog has been opened.
          * @return {?}
@@ -493,7 +493,7 @@ var MdDialog = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdDialog.prototype, "_afterAllClosed", {
+    Object.defineProperty(MatDialog.prototype, "_afterAllClosed", {
         /**
          * @return {?}
          */
@@ -512,7 +512,7 @@ var MdDialog = (function () {
      * @param {?=} config Extra configuration options.
      * @return {?} Reference to the newly-opened dialog.
      */
-    MdDialog.prototype.open = function (componentOrTemplateRef, config) {
+    MatDialog.prototype.open = function (componentOrTemplateRef, config) {
         var _this = this;
         var /** @type {?} */ inProgressDialog = this.openDialogs.find(function (dialog) { return dialog._isAnimating(); });
         // If there's a dialog that is in the process of being opened, return it instead.
@@ -538,7 +538,7 @@ var MdDialog = (function () {
      * Closes all of the currently-open dialogs.
      * @return {?}
      */
-    MdDialog.prototype.closeAll = function () {
+    MatDialog.prototype.closeAll = function () {
         var /** @type {?} */ i = this.openDialogs.length;
         while (i--) {
             // The `_openDialogs` property isn't updated after close until the rxjs subscription
@@ -553,7 +553,7 @@ var MdDialog = (function () {
      * @param {?} id ID to use when looking up the dialog.
      * @return {?}
      */
-    MdDialog.prototype.getDialogById = function (id) {
+    MatDialog.prototype.getDialogById = function (id) {
         return this.openDialogs.find(function (dialog) { return dialog.id === id; });
     };
     /**
@@ -561,7 +561,7 @@ var MdDialog = (function () {
      * @param {?} config The dialog configuration.
      * @return {?} A promise resolving to the OverlayRef for the created overlay.
      */
-    MdDialog.prototype._createOverlay = function (config) {
+    MatDialog.prototype._createOverlay = function (config) {
         var /** @type {?} */ overlayState = this._getOverlayState(config);
         return this._overlay.create(overlayState);
     };
@@ -570,7 +570,7 @@ var MdDialog = (function () {
      * @param {?} dialogConfig The dialog configuration.
      * @return {?} The overlay configuration.
      */
-    MdDialog.prototype._getOverlayState = function (dialogConfig) {
+    MatDialog.prototype._getOverlayState = function (dialogConfig) {
         var /** @type {?} */ state$$1 = new OverlayConfig({
             positionStrategy: this._overlay.position().global(),
             scrollStrategy: this._scrollStrategy(),
@@ -584,31 +584,31 @@ var MdDialog = (function () {
         return state$$1;
     };
     /**
-     * Attaches an MdDialogContainer to a dialog's already-created overlay.
+     * Attaches an MatDialogContainer to a dialog's already-created overlay.
      * @param {?} overlay Reference to the dialog's underlying overlay.
      * @param {?} config The dialog configuration.
      * @return {?} A promise resolving to a ComponentRef for the attached container.
      */
-    MdDialog.prototype._attachDialogContainer = function (overlay, config) {
-        var /** @type {?} */ containerPortal = new ComponentPortal(MdDialogContainer, config.viewContainerRef);
+    MatDialog.prototype._attachDialogContainer = function (overlay, config) {
+        var /** @type {?} */ containerPortal = new ComponentPortal(MatDialogContainer, config.viewContainerRef);
         var /** @type {?} */ containerRef = overlay.attach(containerPortal);
         containerRef.instance._config = config;
         return containerRef.instance;
     };
     /**
-     * Attaches the user-provided component to the already-created MdDialogContainer.
+     * Attaches the user-provided component to the already-created MatDialogContainer.
      * @template T
      * @param {?} componentOrTemplateRef The type of component being loaded into the dialog,
      *     or a TemplateRef to instantiate as the content.
-     * @param {?} dialogContainer Reference to the wrapping MdDialogContainer.
+     * @param {?} dialogContainer Reference to the wrapping MatDialogContainer.
      * @param {?} overlayRef Reference to the overlay in which the dialog resides.
      * @param {?} config The dialog configuration.
-     * @return {?} A promise resolving to the MdDialogRef that should be returned to the user.
+     * @return {?} A promise resolving to the MatDialogRef that should be returned to the user.
      */
-    MdDialog.prototype._attachDialogContent = function (componentOrTemplateRef, dialogContainer, overlayRef, config) {
+    MatDialog.prototype._attachDialogContent = function (componentOrTemplateRef, dialogContainer, overlayRef, config) {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
-        var /** @type {?} */ dialogRef = new MdDialogRef(overlayRef, dialogContainer, config.id);
+        var /** @type {?} */ dialogRef = new MatDialogRef(overlayRef, dialogContainer, config.id);
         // When the dialog backdrop is clicked, we want to close it.
         if (config.hasBackdrop) {
             overlayRef.backdropClick().subscribe(function () {
@@ -639,12 +639,12 @@ var MdDialog = (function () {
      * @param {?} dialogContainer
      * @return {?} The custom injector that can be used inside the dialog.
      */
-    MdDialog.prototype._createInjector = function (config, dialogRef, dialogContainer) {
+    MatDialog.prototype._createInjector = function (config, dialogRef, dialogContainer) {
         var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         var /** @type {?} */ injectionTokens = new WeakMap();
-        injectionTokens.set(MdDialogRef, dialogRef);
-        injectionTokens.set(MdDialogContainer, dialogContainer);
-        injectionTokens.set(MD_DIALOG_DATA, config.data);
+        injectionTokens.set(MatDialogRef, dialogRef);
+        injectionTokens.set(MatDialogContainer, dialogContainer);
+        injectionTokens.set(MAT_DIALOG_DATA, config.data);
         return new PortalInjector(userInjector || this._injector, injectionTokens);
     };
     /**
@@ -652,7 +652,7 @@ var MdDialog = (function () {
      * @param {?} dialogRef Dialog to be removed.
      * @return {?}
      */
-    MdDialog.prototype._removeOpenDialog = function (dialogRef) {
+    MatDialog.prototype._removeOpenDialog = function (dialogRef) {
         var /** @type {?} */ index = this.openDialogs.indexOf(dialogRef);
         if (index > -1) {
             this.openDialogs.splice(index, 1);
@@ -669,27 +669,27 @@ var MdDialog = (function () {
      * @param {?} event
      * @return {?}
      */
-    MdDialog.prototype._handleKeydown = function (event) {
+    MatDialog.prototype._handleKeydown = function (event) {
         var /** @type {?} */ topDialog = this.openDialogs[this.openDialogs.length - 1];
         var /** @type {?} */ canClose = topDialog ? !topDialog.disableClose : false;
         if (event.keyCode === ESCAPE && canClose) {
             topDialog.close();
         }
     };
-    return MdDialog;
+    return MatDialog;
 }());
-MdDialog.decorators = [
+MatDialog.decorators = [
     { type: Injectable },
 ];
 /**
  * @nocollapse
  */
-MdDialog.ctorParameters = function () { return [
+MatDialog.ctorParameters = function () { return [
     { type: Overlay, },
     { type: Injector, },
     { type: Location, decorators: [{ type: Optional },] },
-    { type: undefined, decorators: [{ type: Inject, args: [MD_DIALOG_SCROLL_STRATEGY,] },] },
-    { type: MdDialog, decorators: [{ type: Optional }, { type: SkipSelf },] },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_DIALOG_SCROLL_STRATEGY,] },] },
+    { type: MatDialog, decorators: [{ type: Optional }, { type: SkipSelf },] },
 ]; };
 /**
  * Applies default options to the dialog config.
@@ -697,7 +697,7 @@ MdDialog.ctorParameters = function () { return [
  * @return {?} The new configuration object.
  */
 function _applyConfigDefaults(config) {
-    return extendObject(new MdDialogConfig(), config);
+    return extendObject(new MatDialogConfig(), config);
 }
 /**
  * Counter used to generate unique IDs for dialog elements.
@@ -706,11 +706,11 @@ var dialogElementUid = 0;
 /**
  * Button that will close the current dialog.
  */
-var MdDialogClose = (function () {
+var MatDialogClose = (function () {
     /**
      * @param {?} dialogRef
      */
-    function MdDialogClose(dialogRef) {
+    function MatDialogClose(dialogRef) {
         this.dialogRef = dialogRef;
         /**
          * Screenreader label for the button.
@@ -721,18 +721,17 @@ var MdDialogClose = (function () {
      * @param {?} changes
      * @return {?}
      */
-    MdDialogClose.prototype.ngOnChanges = function (changes) {
-        var /** @type {?} */ proxiedChange = changes._matDialogClose || changes._mdDialogClose ||
-            changes._matDialogCloseResult;
+    MatDialogClose.prototype.ngOnChanges = function (changes) {
+        var /** @type {?} */ proxiedChange = changes._matDialogClose || changes._matDialogCloseResult;
         if (proxiedChange) {
             this.dialogResult = proxiedChange.currentValue;
         }
     };
-    return MdDialogClose;
+    return MatDialogClose;
 }());
-MdDialogClose.decorators = [
+MatDialogClose.decorators = [
     { type: Directive, args: [{
-                selector: "button[md-dialog-close], button[mat-dialog-close],\n             button[mdDialogClose], button[matDialogClose]",
+                selector: "button[mat-dialog-close], button[matDialogClose]",
                 host: {
                     '(click)': 'dialogRef.close(dialogResult)',
                     '[attr.aria-label]': 'ariaLabel',
@@ -743,41 +742,39 @@ MdDialogClose.decorators = [
 /**
  * @nocollapse
  */
-MdDialogClose.ctorParameters = function () { return [
-    { type: MdDialogRef, },
+MatDialogClose.ctorParameters = function () { return [
+    { type: MatDialogRef, },
 ]; };
-MdDialogClose.propDecorators = {
+MatDialogClose.propDecorators = {
     'ariaLabel': [{ type: Input, args: ['aria-label',] },],
-    'dialogResult': [{ type: Input, args: ['md-dialog-close',] },],
+    'dialogResult': [{ type: Input, args: ['mat-dialog-close',] },],
     '_matDialogClose': [{ type: Input, args: ['matDialogClose',] },],
-    '_mdDialogClose': [{ type: Input, args: ['mdDialogClose',] },],
-    '_matDialogCloseResult': [{ type: Input, args: ['mat-dialog-close',] },],
 };
 /**
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
  */
-var MdDialogTitle = (function () {
+var MatDialogTitle = (function () {
     /**
      * @param {?} _container
      */
-    function MdDialogTitle(_container) {
+    function MatDialogTitle(_container) {
         this._container = _container;
-        this.id = "md-dialog-title-" + dialogElementUid++;
+        this.id = "mat-dialog-title-" + dialogElementUid++;
     }
     /**
      * @return {?}
      */
-    MdDialogTitle.prototype.ngOnInit = function () {
+    MatDialogTitle.prototype.ngOnInit = function () {
         var _this = this;
         if (this._container && !this._container._ariaLabelledBy) {
             Promise.resolve().then(function () { return _this._container._ariaLabelledBy = _this.id; });
         }
     };
-    return MdDialogTitle;
+    return MatDialogTitle;
 }());
-MdDialogTitle.decorators = [
+MatDialogTitle.decorators = [
     { type: Directive, args: [{
-                selector: '[md-dialog-title], [mat-dialog-title], [mdDialogTitle], [matDialogTitle]',
+                selector: '[mat-dialog-title], [matDialogTitle]',
                 host: {
                     'class': 'mat-dialog-title',
                     '[id]': 'id',
@@ -787,91 +784,91 @@ MdDialogTitle.decorators = [
 /**
  * @nocollapse
  */
-MdDialogTitle.ctorParameters = function () { return [
-    { type: MdDialogContainer, decorators: [{ type: Optional },] },
+MatDialogTitle.ctorParameters = function () { return [
+    { type: MatDialogContainer, decorators: [{ type: Optional },] },
 ]; };
-MdDialogTitle.propDecorators = {
+MatDialogTitle.propDecorators = {
     'id': [{ type: Input },],
 };
 /**
  * Scrollable content container of a dialog.
  */
-var MdDialogContent = (function () {
-    function MdDialogContent() {
+var MatDialogContent = (function () {
+    function MatDialogContent() {
     }
-    return MdDialogContent;
+    return MatDialogContent;
 }());
-MdDialogContent.decorators = [
+MatDialogContent.decorators = [
     { type: Directive, args: [{
-                selector: "[md-dialog-content], md-dialog-content, [mat-dialog-content], mat-dialog-content,\n             [mdDialogContent], [matDialogContent]",
+                selector: "[mat-dialog-content], mat-dialog-content, [matDialogContent]",
                 host: { 'class': 'mat-dialog-content' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdDialogContent.ctorParameters = function () { return []; };
+MatDialogContent.ctorParameters = function () { return []; };
 /**
  * Container for the bottom action buttons in a dialog.
  * Stays fixed to the bottom when scrolling.
  */
-var MdDialogActions = (function () {
-    function MdDialogActions() {
+var MatDialogActions = (function () {
+    function MatDialogActions() {
     }
-    return MdDialogActions;
+    return MatDialogActions;
 }());
-MdDialogActions.decorators = [
+MatDialogActions.decorators = [
     { type: Directive, args: [{
-                selector: "[md-dialog-actions], md-dialog-actions, [mat-dialog-actions], mat-dialog-actions,\n             [mdDialogActions], [matDialogActions]",
+                selector: "[mat-dialog-actions], mat-dialog-actions, [matDialogActions]",
                 host: { 'class': 'mat-dialog-actions' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdDialogActions.ctorParameters = function () { return []; };
-var MdDialogModule = (function () {
-    function MdDialogModule() {
+MatDialogActions.ctorParameters = function () { return []; };
+var MatDialogModule = (function () {
+    function MatDialogModule() {
     }
-    return MdDialogModule;
+    return MatDialogModule;
 }());
-MdDialogModule.decorators = [
+MatDialogModule.decorators = [
     { type: NgModule, args: [{
                 imports: [
                     CommonModule,
                     OverlayModule,
                     PortalModule,
                     A11yModule,
-                    MdCommonModule,
+                    MatCommonModule,
                 ],
                 exports: [
-                    MdDialogContainer,
-                    MdDialogClose,
-                    MdDialogTitle,
-                    MdDialogContent,
-                    MdDialogActions,
-                    MdCommonModule,
+                    MatDialogContainer,
+                    MatDialogClose,
+                    MatDialogTitle,
+                    MatDialogContent,
+                    MatDialogActions,
+                    MatCommonModule,
                 ],
                 declarations: [
-                    MdDialogContainer,
-                    MdDialogClose,
-                    MdDialogTitle,
-                    MdDialogActions,
-                    MdDialogContent,
+                    MatDialogContainer,
+                    MatDialogClose,
+                    MatDialogTitle,
+                    MatDialogActions,
+                    MatDialogContent,
                 ],
                 providers: [
-                    MdDialog,
-                    MD_DIALOG_SCROLL_STRATEGY_PROVIDER,
+                    MatDialog,
+                    MAT_DIALOG_SCROLL_STRATEGY_PROVIDER,
                 ],
-                entryComponents: [MdDialogContainer],
+                entryComponents: [MatDialogContainer],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdDialogModule.ctorParameters = function () { return []; };
+MatDialogModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdDialogModule, MD_DIALOG_DATA, MD_DIALOG_SCROLL_STRATEGY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER, MdDialog, throwMdDialogContentAlreadyAttachedError, MdDialogContainer, MdDialogClose, MdDialogTitle, MdDialogContent, MdDialogActions, MdDialogConfig, MdDialogRef, MD_DIALOG_DATA as MAT_DIALOG_DATA, MD_DIALOG_SCROLL_STRATEGY as MAT_DIALOG_SCROLL_STRATEGY, MD_DIALOG_SCROLL_STRATEGY_PROVIDER as MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY as MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MdDialog as MatDialog, MdDialogActions as MatDialogActions, MdDialogClose as MatDialogClose, MdDialogConfig as MatDialogConfig, MdDialogContainer as MatDialogContainer, MdDialogContent as MatDialogContent, MdDialogModule as MatDialogModule, MdDialogRef as MatDialogRef, MdDialogTitle as MatDialogTitle };
+export { MatDialogModule, MAT_DIALOG_DATA, MAT_DIALOG_SCROLL_STRATEGY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MatDialog, throwMatDialogContentAlreadyAttachedError, MatDialogContainer, MatDialogClose, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogConfig, MatDialogRef };
 //# sourceMappingURL=dialog.es5.js.map

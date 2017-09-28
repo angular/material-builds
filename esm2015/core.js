@@ -5,19 +5,15 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { A11yModule, CdkMonitorFocus, FOCUS_MONITOR_PROVIDER, FocusMonitor } from '@angular/cdk/a11y';
-import { BidiModule, DIRECTIONALITY_PROVIDER, DIR_DOCUMENT, Dir, Directionality } from '@angular/cdk/bidi';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Input, LOCALE_ID, NgModule, NgZone, Optional, Output, SkipSelf, ViewEncapsulation, isDevMode } from '@angular/core';
 import { DOCUMENT, HammerGestureConfig } from '@angular/platform-browser';
+import { BidiModule } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs/Subject';
-import { A, BACKSPACE, DELETE, DOWN_ARROW, END, ENTER, ESCAPE, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, SPACE, TAB, UP_ARROW, Z } from '@angular/cdk/keycodes';
 import { CommonModule } from '@angular/common';
 import { ScrollDispatchModule, VIEWPORT_RULER_PROVIDER, ViewportRuler } from '@angular/cdk/scrolling';
-import { Platform, PlatformModule, getSupportedInputTypes } from '@angular/cdk/platform';
-import { BlockScrollStrategy, CloseScrollStrategy, ConnectedOverlayDirective, ConnectedOverlayPositionChange, ConnectedPositionStrategy, ConnectionPositionPair, FullscreenOverlayContainer, GlobalPositionStrategy, NoopScrollStrategy, OVERLAY_PROVIDERS, Overlay, OverlayConfig, OverlayContainer, OverlayModule, OverlayOrigin, OverlayRef, RepositionScrollStrategy, ScrollDispatcher, ScrollStrategyOptions, Scrollable, ScrollingVisibility, VIEWPORT_RULER_PROVIDER as VIEWPORT_RULER_PROVIDER$1, ViewportRuler as ViewportRuler$1 } from '@angular/cdk/overlay';
-import { BasePortalHost, ComponentPortal, DomPortalHost, Portal, PortalHostDirective, PortalModule, TemplatePortal, TemplatePortalDirective } from '@angular/cdk/portal';
-import { AuditTimeBrand, CatchBrand, DebounceTimeBrand, DoBrand, FilterBrand, FinallyBrand, FirstBrand, MapBrand, RxChain, ShareBrand, StartWithBrand, SwitchMapBrand, TakeUntilBrand, auditTime, catchOperator, debounceTime, doOperator, filter, finallyOperator, first, map, share, startWith, switchMap, takeUntil } from '@angular/cdk/rxjs';
+import { Platform, PlatformModule } from '@angular/cdk/platform';
+import { ENTER, SPACE } from '@angular/cdk/keycodes';
 
 /**
  * \@docs-private
@@ -38,18 +34,6 @@ AnimationDurations.ENTERING = '225ms';
 AnimationDurations.EXITING = '195ms';
 
 const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
-/**
- * Returns an exception to be thrown if the consumer has used
- * an invalid Material prefix on a component.
- * \@docs-private
- * @param {?} prefix
- * @param {?} nodeName
- * @return {?}
- */
-function getMdCompatibilityInvalidPrefixError(prefix, nodeName) {
-    return Error(`The "${prefix}-" prefix cannot be used in ng-material v1 compatibility mode. ` +
-        `It was used on an "${nodeName.toLowerCase()}" element.`);
-}
 /**
  * Selector that matches all elements that may have style collisions with AngularJS Material.
  */
@@ -222,15 +206,6 @@ const MD_ELEMENTS_SELECTOR = `
  * Directive that enforces that the `mat-` prefix cannot be used.
  */
 class MatPrefixRejector {
-    /**
-     * @param {?} isCompatibilityMode
-     * @param {?} elementRef
-     */
-    constructor(isCompatibilityMode, elementRef) {
-        if (!isCompatibilityMode) {
-            throw getMdCompatibilityInvalidPrefixError('mat', elementRef.nativeElement.nodeName);
-        }
-    }
 }
 MatPrefixRejector.decorators = [
     { type: Directive, args: [{ selector: MAT_ELEMENTS_SELECTOR },] },
@@ -238,23 +213,11 @@ MatPrefixRejector.decorators = [
 /**
  * @nocollapse
  */
-MatPrefixRejector.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
-    { type: ElementRef, },
-];
+MatPrefixRejector.ctorParameters = () => [];
 /**
  * Directive that enforces that the `md-` prefix cannot be used.
  */
 class MdPrefixRejector {
-    /**
-     * @param {?} isCompatibilityMode
-     * @param {?} elementRef
-     */
-    constructor(isCompatibilityMode, elementRef) {
-        if (isCompatibilityMode) {
-            throw getMdCompatibilityInvalidPrefixError('md', elementRef.nativeElement.nodeName);
-        }
-    }
 }
 MdPrefixRejector.decorators = [
     { type: Directive, args: [{ selector: MD_ELEMENTS_SELECTOR },] },
@@ -262,10 +225,7 @@ MdPrefixRejector.decorators = [
 /**
  * @nocollapse
  */
-MdPrefixRejector.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
-    { type: ElementRef, },
-];
+MdPrefixRejector.ctorParameters = () => [];
 /**
  * Module that enforces the default compatibility mode settings. When this module is loaded
  * without NoConflictStyleCompatibilityMode also being imported, it will throw an error if
@@ -290,11 +250,7 @@ CompatibilityModule.ctorParameters = () => [];
 class NoConflictStyleCompatibilityMode {
 }
 NoConflictStyleCompatibilityMode.decorators = [
-    { type: NgModule, args: [{
-                providers: [{
-                        provide: MATERIAL_COMPATIBILITY_MODE, useValue: true,
-                    }],
-            },] },
+    { type: NgModule },
 ];
 /**
  * @nocollapse
@@ -304,14 +260,14 @@ NoConflictStyleCompatibilityMode.ctorParameters = () => [];
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
-const MATERIAL_SANITY_CHECKS = new InjectionToken('md-sanity-checks');
+const MATERIAL_SANITY_CHECKS = new InjectionToken('mat-sanity-checks');
 /**
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
  * components. This includes Bidi, compatibility mode, etc.
  *
- * This module should be imported to each top-level component module (e.g., MdTabsModule).
+ * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
-class MdCommonModule {
+class MatCommonModule {
     /**
      * @param {?} _document
      * @param {?} _sanityChecksEnabled
@@ -354,7 +310,7 @@ class MdCommonModule {
         }
     }
 }
-MdCommonModule.decorators = [
+MatCommonModule.decorators = [
     { type: NgModule, args: [{
                 imports: [CompatibilityModule, BidiModule],
                 exports: [CompatibilityModule, BidiModule],
@@ -366,7 +322,7 @@ MdCommonModule.decorators = [
 /**
  * @nocollapse
  */
-MdCommonModule.ctorParameters = () => [
+MatCommonModule.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
 ];
@@ -763,10 +719,10 @@ class DateAdapter {
      * @return {?} 0 if the dates are equal, a number less than 0 if the first date is earlier,
      *     a number greater than 0 if the first date is later.
      */
-    compareDate(first$$1, second) {
-        return this.getYear(first$$1) - this.getYear(second) ||
-            this.getMonth(first$$1) - this.getMonth(second) ||
-            this.getDate(first$$1) - this.getDate(second);
+    compareDate(first, second) {
+        return this.getYear(first) - this.getYear(second) ||
+            this.getMonth(first) - this.getMonth(second) ||
+            this.getDate(first) - this.getDate(second);
     }
     /**
      * Checks if two dates are equal.
@@ -775,8 +731,8 @@ class DateAdapter {
      *     Null dates are considered equal to other null dates.
      * @return {?}
      */
-    sameDate(first$$1, second) {
-        return first$$1 && second ? !this.compareDate(first$$1, second) : first$$1 == second;
+    sameDate(first, second) {
+        return first && second ? !this.compareDate(first, second) : first == second;
     }
     /**
      * Clamp the given date between min and max dates.
@@ -1154,9 +1110,9 @@ NativeDateAdapter.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_LOCALE,] },] },
 ];
 
-const MD_DATE_FORMATS = new InjectionToken('md-date-formats');
+const MAT_DATE_FORMATS = new InjectionToken('mat-date-formats');
 
-const MD_NATIVE_DATE_FORMATS = {
+const MAT_NATIVE_DATE_FORMATS = {
     parse: {
         dateInput: null,
     },
@@ -1182,23 +1138,23 @@ NativeDateModule.decorators = [
  * @nocollapse
  */
 NativeDateModule.ctorParameters = () => [];
-class MdNativeDateModule {
+class MatNativeDateModule {
 }
-MdNativeDateModule.decorators = [
+MatNativeDateModule.decorators = [
     { type: NgModule, args: [{
                 imports: [NativeDateModule],
-                providers: [{ provide: MD_DATE_FORMATS, useValue: MD_NATIVE_DATE_FORMATS }],
+                providers: [{ provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS }],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdNativeDateModule.ctorParameters = () => [];
+MatNativeDateModule.ctorParameters = () => [];
 
 /**
  * Injection token that can be used to specify the global error options.
  */
-const MD_ERROR_GLOBAL_OPTIONS = new InjectionToken('md-error-global-options');
+const MAT_ERROR_GLOBAL_OPTIONS = new InjectionToken('mat-error-global-options');
 /**
  * Returns whether control is invalid and is either touched or is a part of a submitted form.
  * @param {?} control
@@ -1292,26 +1248,26 @@ GestureConfig.ctorParameters = () => [];
 
 /**
  * Shared directive to count lines inside a text area, such as a list item.
- * Line elements can be extracted with a \@ContentChildren(MdLine) query, then
+ * Line elements can be extracted with a \@ContentChildren(MatLine) query, then
  * counted by checking the query list's length.
  */
-class MdLine {
+class MatLine {
 }
-MdLine.decorators = [
+MatLine.decorators = [
     { type: Directive, args: [{
-                selector: '[md-line], [mat-line], [mdLine], [matLine]',
+                selector: '[mat-line], [matLine]',
                 host: { 'class': 'mat-line' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdLine.ctorParameters = () => [];
+MatLine.ctorParameters = () => [];
 /**
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
  */
-class MdLineSetter {
+class MatLineSetter {
     /**
      * @param {?} _lines
      * @param {?} _renderer
@@ -1361,19 +1317,19 @@ class MdLineSetter {
         }
     }
 }
-class MdLineModule {
+class MatLineModule {
 }
-MdLineModule.decorators = [
+MatLineModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MdCommonModule],
-                exports: [MdLine, MdCommonModule],
-                declarations: [MdLine],
+                imports: [MatCommonModule],
+                exports: [MatLine, MatCommonModule],
+                declarations: [MatLine],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdLineModule.ctorParameters = () => [];
+MatLineModule.ctorParameters = () => [];
 
 let RippleState = {};
 RippleState.FADING_IN = 0;
@@ -1636,8 +1592,8 @@ function distanceToFurthestCorner(x, y, rect) {
 /**
  * Injection token that can be used to specify the global ripple options.
  */
-const MD_RIPPLE_GLOBAL_OPTIONS = new InjectionToken('md-ripple-global-options');
-class MdRipple {
+const MAT_RIPPLE_GLOBAL_OPTIONS = new InjectionToken('mat-ripple-global-options');
+class MatRipple {
     /**
      * @param {?} elementRef
      * @param {?} ngZone
@@ -1663,74 +1619,11 @@ class MdRipple {
         this._updateRippleRenderer();
     }
     /**
-     * @return {?}
-     */
-    get _matRippleTrigger() { return this.trigger; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set _matRippleTrigger(v) { this.trigger = v; }
-    /**
-     * @return {?}
-     */
-    get _matRippleCentered() { return this.centered; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set _matRippleCentered(v) { this.centered = v; }
-    /**
-     * @return {?}
-     */
-    get _matRippleDisabled() { return this.disabled; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set _matRippleDisabled(v) { this.disabled = v; }
-    /**
-     * @return {?}
-     */
-    get _matRippleRadius() { return this.radius; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set _matRippleRadius(v) { this.radius = v; }
-    /**
-     * @return {?}
-     */
-    get _matRippleSpeedFactor() { return this.speedFactor; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set _matRippleSpeedFactor(v) { this.speedFactor = v; }
-    /**
-     * @return {?}
-     */
-    get _matRippleColor() { return this.color; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set _matRippleColor(v) { this.color = v; }
-    /**
-     * @return {?}
-     */
-    get _matRippleUnbounded() { return this.unbounded; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set _matRippleUnbounded(v) { this.unbounded = v; }
-    /**
      * @param {?} changes
      * @return {?}
      */
     ngOnChanges(changes) {
-        if (changes['trigger'] && this.trigger) {
+        if ((changes['trigger'] || changes['_matRippleTrigger']) && this.trigger) {
             this._rippleRenderer.setTriggerElement(this.trigger);
         }
         this._updateRippleRenderer();
@@ -1780,10 +1673,10 @@ class MdRipple {
         this._rippleRenderer.rippleConfig = this.rippleConfig;
     }
 }
-MdRipple.decorators = [
+MatRipple.decorators = [
     { type: Directive, args: [{
-                selector: '[md-ripple], [mat-ripple], [mdRipple], [matRipple]',
-                exportAs: 'mdRipple, matRipple',
+                selector: '[mat-ripple], [matRipple]',
+                exportAs: 'matRipple',
                 host: {
                     'class': 'mat-ripple',
                     '[class.mat-ripple-unbounded]': 'unbounded'
@@ -1793,44 +1686,37 @@ MdRipple.decorators = [
 /**
  * @nocollapse
  */
-MdRipple.ctorParameters = () => [
+MatRipple.ctorParameters = () => [
     { type: ElementRef, },
     { type: NgZone, },
     { type: ViewportRuler, },
     { type: Platform, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MD_RIPPLE_GLOBAL_OPTIONS,] },] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
 ];
-MdRipple.propDecorators = {
-    'trigger': [{ type: Input, args: ['mdRippleTrigger',] },],
-    'centered': [{ type: Input, args: ['mdRippleCentered',] },],
-    'disabled': [{ type: Input, args: ['mdRippleDisabled',] },],
-    'radius': [{ type: Input, args: ['mdRippleRadius',] },],
-    'speedFactor': [{ type: Input, args: ['mdRippleSpeedFactor',] },],
-    'color': [{ type: Input, args: ['mdRippleColor',] },],
-    'unbounded': [{ type: Input, args: ['mdRippleUnbounded',] },],
-    '_matRippleTrigger': [{ type: Input, args: ['matRippleTrigger',] },],
-    '_matRippleCentered': [{ type: Input, args: ['matRippleCentered',] },],
-    '_matRippleDisabled': [{ type: Input, args: ['matRippleDisabled',] },],
-    '_matRippleRadius': [{ type: Input, args: ['matRippleRadius',] },],
-    '_matRippleSpeedFactor': [{ type: Input, args: ['matRippleSpeedFactor',] },],
-    '_matRippleColor': [{ type: Input, args: ['matRippleColor',] },],
-    '_matRippleUnbounded': [{ type: Input, args: ['matRippleUnbounded',] },],
+MatRipple.propDecorators = {
+    'trigger': [{ type: Input, args: ['matRippleTrigger',] },],
+    'centered': [{ type: Input, args: ['matRippleCentered',] },],
+    'disabled': [{ type: Input, args: ['matRippleDisabled',] },],
+    'radius': [{ type: Input, args: ['matRippleRadius',] },],
+    'speedFactor': [{ type: Input, args: ['matRippleSpeedFactor',] },],
+    'color': [{ type: Input, args: ['matRippleColor',] },],
+    'unbounded': [{ type: Input, args: ['matRippleUnbounded',] },],
 };
 
-class MdRippleModule {
+class MatRippleModule {
 }
-MdRippleModule.decorators = [
+MatRippleModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MdCommonModule, PlatformModule, ScrollDispatchModule],
-                exports: [MdRipple, MdCommonModule],
-                declarations: [MdRipple],
+                imports: [MatCommonModule, PlatformModule, ScrollDispatchModule],
+                exports: [MatRipple, MatCommonModule],
+                declarations: [MatRipple],
                 providers: [VIEWPORT_RULER_PROVIDER],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdRippleModule.ctorParameters = () => [];
+MatRippleModule.ctorParameters = () => [];
 
 /**
  * Component that shows a simplified checkbox without including any kind of "real" checkbox.
@@ -1840,12 +1726,12 @@ MdRippleModule.ctorParameters = () => [];
  * `mat-primary .mat-pseudo-checkbox`.
  *
  * Note that this component will be completely invisible to screen-reader users. This is *not*
- * interchangeable with <md-checkbox> and should *not* be used if the user would directly interact
+ * interchangeable with <mat-checkbox> and should *not* be used if the user would directly interact
  * with the checkbox. The pseudo-checkbox should only be used as an implementation detail of
  * more complex components that appropriately handle selected / checked state.
  * \@docs-private
  */
-class MdPseudoCheckbox {
+class MatPseudoCheckbox {
     constructor() {
         /**
          * Display state of the checkbox.
@@ -1857,11 +1743,11 @@ class MdPseudoCheckbox {
         this.disabled = false;
     }
 }
-MdPseudoCheckbox.decorators = [
+MatPseudoCheckbox.decorators = [
     { type: Component, args: [{encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
-                selector: 'md-pseudo-checkbox, mat-pseudo-checkbox',
+                selector: 'mat-pseudo-checkbox',
                 styles: [".mat-pseudo-checkbox{width:20px;height:20px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0,0,.2,.1),background-color 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:'';border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:9px;left:2px;width:16px;opacity:1}.mat-pseudo-checkbox-checked::after{top:5px;left:3px;width:12px;height:5px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1}"],
                 template: '',
                 host: {
@@ -1875,37 +1761,37 @@ MdPseudoCheckbox.decorators = [
 /**
  * @nocollapse
  */
-MdPseudoCheckbox.ctorParameters = () => [];
-MdPseudoCheckbox.propDecorators = {
+MatPseudoCheckbox.ctorParameters = () => [];
+MatPseudoCheckbox.propDecorators = {
     'state': [{ type: Input },],
     'disabled': [{ type: Input },],
 };
 
-class MdPseudoCheckboxModule {
+class MatPseudoCheckboxModule {
 }
-MdPseudoCheckboxModule.decorators = [
+MatPseudoCheckboxModule.decorators = [
     { type: NgModule, args: [{
-                exports: [MdPseudoCheckbox],
-                declarations: [MdPseudoCheckbox]
+                exports: [MatPseudoCheckbox],
+                declarations: [MatPseudoCheckbox]
             },] },
 ];
 /**
  * @nocollapse
  */
-MdPseudoCheckboxModule.ctorParameters = () => [];
+MatPseudoCheckboxModule.ctorParameters = () => [];
 
 /**
  * \@docs-private
  */
-class MdOptgroupBase {
+class MatOptgroupBase {
 }
-const _MdOptgroupMixinBase = mixinDisabled(MdOptgroupBase);
+const _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
 // Counter for unique group ids.
 let _uniqueOptgroupIdCounter = 0;
 /**
- * Component that is used to group instances of `md-option`.
+ * Component that is used to group instances of `mat-option`.
  */
-class MdOptgroup extends _MdOptgroupMixinBase {
+class MatOptgroup extends _MatOptgroupMixinBase {
     constructor() {
         super(...arguments);
         /**
@@ -1914,9 +1800,9 @@ class MdOptgroup extends _MdOptgroupMixinBase {
         this._labelId = `mat-optgroup-label-${_uniqueOptgroupIdCounter++}`;
     }
 }
-MdOptgroup.decorators = [
-    { type: Component, args: [{selector: 'md-optgroup, mat-optgroup',
-                template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"md-option, mat-option\"></ng-content>",
+MatOptgroup.decorators = [
+    { type: Component, args: [{selector: 'mat-optgroup',
+                template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
@@ -1933,8 +1819,8 @@ MdOptgroup.decorators = [
 /**
  * @nocollapse
  */
-MdOptgroup.ctorParameters = () => [];
-MdOptgroup.propDecorators = {
+MatOptgroup.ctorParameters = () => [];
+MatOptgroup.propDecorators = {
     'label': [{ type: Input },],
 };
 
@@ -1944,9 +1830,9 @@ MdOptgroup.propDecorators = {
  */
 let _uniqueIdCounter = 0;
 /**
- * Event object emitted by MdOption when selected or deselected.
+ * Event object emitted by MatOption when selected or deselected.
  */
-class MdOptionSelectionChange {
+class MatOptionSelectionChange {
     /**
      * @param {?} source
      * @param {?=} isUserInput
@@ -1957,20 +1843,18 @@ class MdOptionSelectionChange {
     }
 }
 /**
- * Single option inside of a `<md-select>` element.
+ * Single option inside of a `<mat-select>` element.
  */
-class MdOption {
+class MatOption {
     /**
      * @param {?} _element
      * @param {?} _changeDetectorRef
      * @param {?} group
-     * @param {?} _isCompatibilityMode
      */
-    constructor(_element, _changeDetectorRef, group, _isCompatibilityMode) {
+    constructor(_element, _changeDetectorRef, group) {
         this._element = _element;
         this._changeDetectorRef = _changeDetectorRef;
         this.group = group;
-        this._isCompatibilityMode = _isCompatibilityMode;
         this._selected = false;
         this._active = false;
         this._multiple = false;
@@ -1979,7 +1863,7 @@ class MdOption {
          * Whether the option is disabled.
          */
         this._disabled = false;
-        this._id = `md-option-${_uniqueIdCounter++}`;
+        this._id = `mat-option-${_uniqueIdCounter++}`;
         /**
          * Event emitted when the option is selected or deselected.
          */
@@ -2155,7 +2039,7 @@ class MdOption {
      * @return {?}
      */
     _emitSelectionChangeEvent(isUserInput = false) {
-        this.onSelectionChange.emit(new MdOptionSelectionChange(this, isUserInput));
+        this.onSelectionChange.emit(new MatOptionSelectionChange(this, isUserInput));
     }
     /**
      * Counts the amount of option group labels that precede the specified option.
@@ -2179,8 +2063,8 @@ class MdOption {
         return 0;
     }
 }
-MdOption.decorators = [
-    { type: Component, args: [{selector: 'md-option, mat-option',
+MatOption.decorators = [
+    { type: Component, args: [{selector: 'mat-option',
                 host: {
                     'role': 'option',
                     '[attr.tabindex]': '_getTabIndex()',
@@ -2195,7 +2079,7 @@ MdOption.decorators = [
                     '(keydown)': '_handleKeydown($event)',
                     'class': 'mat-option',
                 },
-                template: "<span [ngSwitch]=\"_isCompatibilityMode\" *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" *ngSwitchCase=\"true\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox><md-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" *ngSwitchDefault [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></md-pseudo-checkbox></span><ng-content></ng-content><div class=\"mat-option-ripple\" md-ripple [mdRippleTrigger]=\"_getHostElement()\" [mdRippleDisabled]=\"disabled || disableRipple\"></div>",
+                template: "<span *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox></span><span class=\"mat-option-text\"><ng-content></ng-content></span><div class=\"mat-option-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"disabled || disableRipple\"></div>",
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
@@ -2204,64 +2088,35 @@ MdOption.decorators = [
 /**
  * @nocollapse
  */
-MdOption.ctorParameters = () => [
+MatOption.ctorParameters = () => [
     { type: ElementRef, },
     { type: ChangeDetectorRef, },
-    { type: MdOptgroup, decorators: [{ type: Optional },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
+    { type: MatOptgroup, decorators: [{ type: Optional },] },
 ];
-MdOption.propDecorators = {
+MatOption.propDecorators = {
     'value': [{ type: Input },],
     'disabled': [{ type: Input },],
     'onSelectionChange': [{ type: Output },],
 };
 
-class MdOptionModule {
+class MatOptionModule {
 }
-MdOptionModule.decorators = [
+MatOptionModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MdRippleModule, CommonModule, MdPseudoCheckboxModule],
-                exports: [MdOption, MdOptgroup],
-                declarations: [MdOption, MdOptgroup]
+                imports: [MatRippleModule, CommonModule, MatPseudoCheckboxModule],
+                exports: [MatOption, MatOptgroup],
+                declarations: [MatOption, MatOptgroup]
             },] },
 ];
 /**
  * @nocollapse
  */
-MdOptionModule.ctorParameters = () => [];
+MatOptionModule.ctorParameters = () => [];
 
 /**
  * InjectionToken that can be used to specify the global placeholder options.
  */
-const MD_PLACEHOLDER_GLOBAL_OPTIONS = new InjectionToken('md-placeholder-global-options');
-
-/**
- * Custom injector to be used when providing custom
- * injection tokens to components inside a portal.
- * \@docs-private
- */
-class PortalInjector {
-    /**
-     * @param {?} _parentInjector
-     * @param {?} _customTokens
-     */
-    constructor(_parentInjector, _customTokens) {
-        this._parentInjector = _parentInjector;
-        this._customTokens = _customTokens;
-    }
-    /**
-     * @param {?} token
-     * @param {?=} notFoundValue
-     * @return {?}
-     */
-    get(token, notFoundValue) {
-        const /** @type {?} */ value = this._customTokens.get(token);
-        if (typeof value !== 'undefined') {
-            return value;
-        }
-        return this._parentInjector.get(token, notFoundValue);
-    }
-}
+const MAT_PLACEHOLDER_GLOBAL_OPTIONS = new InjectionToken('mat-placeholder-global-options');
 
 /**
  * Applies a CSS transform to an element, including browser-prefixed properties.
@@ -2276,22 +2131,6 @@ function applyCssTransform(element, transformValue) {
     element.style.transform = value;
     element.style.webkitTransform = value;
 }
-
-/**
- * @deprecated
- */
-class StyleModule {
-}
-StyleModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [A11yModule],
-                exports: [A11yModule],
-            },] },
-];
-/**
- * @nocollapse
- */
-StyleModule.ctorParameters = () => [];
 
 /**
  * When constructing a Date, the month is zero-based. This can be confusing, since people are
@@ -2314,5 +2153,5 @@ const DEC = 11;
  * Generated bundle index. Do not edit.
  */
 
-export { A11yModule, AnimationCurves, AnimationDurations, Directionality, DIRECTIONALITY_PROVIDER, DIR_DOCUMENT, Dir, BidiModule, MdCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, MATERIAL_COMPATIBILITY_MODE, getMdCompatibilityInvalidPrefixError, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, CompatibilityModule, NoConflictStyleCompatibilityMode, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY, UNIQUE_SELECTION_DISPATCHER_PROVIDER, NativeDateModule, MdNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MD_DATE_FORMATS, NativeDateAdapter, MD_NATIVE_DATE_FORMATS, MD_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, GestureConfig, UP_ARROW, DOWN_ARROW, RIGHT_ARROW, LEFT_ARROW, PAGE_UP, PAGE_DOWN, HOME, END, ENTER, SPACE, TAB, ESCAPE, BACKSPACE, DELETE, A, Z, MdLine, MdLineSetter, MdLineModule, MdOptionModule, MdOptionSelectionChange, MdOption, MdOptgroupBase, _MdOptgroupMixinBase, MdOptgroup, OVERLAY_PROVIDERS, OverlayModule, Overlay, OverlayContainer, FullscreenOverlayContainer, OverlayRef, ConnectedOverlayDirective, OverlayOrigin, ViewportRuler$1 as ViewportRuler, GlobalPositionStrategy, ConnectedPositionStrategy, VIEWPORT_RULER_PROVIDER$1 as VIEWPORT_RULER_PROVIDER, OverlayConfig, ConnectionPositionPair, ScrollingVisibility, ConnectedOverlayPositionChange, Scrollable, ScrollDispatcher, ScrollStrategyOptions, RepositionScrollStrategy, CloseScrollStrategy, NoopScrollStrategy, BlockScrollStrategy, MD_PLACEHOLDER_GLOBAL_OPTIONS, PlatformModule, Platform, getSupportedInputTypes, Portal, BasePortalHost, ComponentPortal, TemplatePortal, DomPortalHost, TemplatePortalDirective, PortalHostDirective, PortalModule, PortalInjector, MdRipple, MD_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MdRippleModule, RxChain, FinallyBrand, CatchBrand, DoBrand, MapBrand, FilterBrand, ShareBrand, FirstBrand, SwitchMapBrand, StartWithBrand, DebounceTimeBrand, AuditTimeBrand, TakeUntilBrand, finallyOperator, catchOperator, doOperator, map, filter, share, first, switchMap, startWith, debounceTime, auditTime, takeUntil, MdPseudoCheckboxModule, MdPseudoCheckbox, StyleModule, CdkMonitorFocus, FocusMonitor, FOCUS_MONITOR_PROVIDER, applyCssTransform, extendObject, MD_DATE_FORMATS as MAT_DATE_FORMATS, MD_RIPPLE_GLOBAL_OPTIONS as MAT_RIPPLE_GLOBAL_OPTIONS, MD_NATIVE_DATE_FORMATS as MAT_NATIVE_DATE_FORMATS, MD_PLACEHOLDER_GLOBAL_OPTIONS as MAT_PLACEHOLDER_GLOBAL_OPTIONS, MD_ERROR_GLOBAL_OPTIONS as MAT_ERROR_GLOBAL_OPTIONS, MdCommonModule as MatCommonModule, MdLine as MatLine, MdLineModule as MatLineModule, MdLineSetter as MatLineSetter, MdOptgroup as MatOptgroup, MdOptgroupBase as MatOptgroupBase, MdOption as MatOption, MdOptionModule as MatOptionModule, MdOptionSelectionChange as MatOptionSelectionChange, MdNativeDateModule as MatNativeDateModule, MdPseudoCheckbox as MatPseudoCheckbox, MdPseudoCheckboxModule as MatPseudoCheckboxModule, MdRipple as MatRipple, MdRippleModule as MatRippleModule, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, RippleRenderer as ɵa0 };
+export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, MATERIAL_COMPATIBILITY_MODE, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, CompatibilityModule, NoConflictStyleCompatibilityMode, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY, UNIQUE_SELECTION_DISPATCHER_PROVIDER, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, MAT_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_PLACEHOLDER_GLOBAL_OPTIONS, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MatRippleModule, MatPseudoCheckboxModule, MatPseudoCheckbox, applyCssTransform, extendObject, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, RippleRenderer as ɵa0 };
 //# sourceMappingURL=core.js.map

@@ -8,41 +8,43 @@ import * as tslib_1 from "tslib";
  */
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, Optional, Output, Renderer2, ViewEncapsulation, forwardRef } from '@angular/core';
-import { MATERIAL_COMPATIBILITY_MODE, MdCommonModule, MdLine, MdLineModule, MdLineSetter, MdPseudoCheckboxModule, MdRippleModule, RxChain, SPACE, mixinDisableRipple, mixinDisabled, startWith, switchMap } from '@angular/material/core';
+import { MatCommonModule, MatLine, MatLineModule, MatLineSetter, MatPseudoCheckboxModule, MatRippleModule, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
+import { SPACE } from '@angular/cdk/keycodes';
+import { RxChain, startWith, switchMap } from '@angular/cdk/rxjs';
 import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
 /**
  * \@docs-private
  */
-var MdListBase = (function () {
-    function MdListBase() {
+var MatListBase = (function () {
+    function MatListBase() {
     }
-    return MdListBase;
+    return MatListBase;
 }());
-var _MdListMixinBase = mixinDisableRipple(MdListBase);
+var _MatListMixinBase = mixinDisableRipple(MatListBase);
 /**
  * \@docs-private
  */
-var MdListItemBase = (function () {
-    function MdListItemBase() {
+var MatListItemBase = (function () {
+    function MatListItemBase() {
     }
-    return MdListItemBase;
+    return MatListItemBase;
 }());
-var _MdListItemMixinBase = mixinDisableRipple(MdListItemBase);
+var _MatListItemMixinBase = mixinDisableRipple(MatListItemBase);
 /**
  * Divider between items within a list.
  */
-var MdListDivider = (function () {
-    function MdListDivider() {
+var MatListDivider = (function () {
+    function MatListDivider() {
     }
-    return MdListDivider;
+    return MatListDivider;
 }());
-MdListDivider.decorators = [
+MatListDivider.decorators = [
     { type: Directive, args: [{
-                selector: 'md-divider, mat-divider',
+                selector: 'mat-divider',
                 host: {
                     'role': 'separator',
                     'aria-orientation': 'horizontal'
@@ -52,19 +54,19 @@ MdListDivider.decorators = [
 /**
  * @nocollapse
  */
-MdListDivider.ctorParameters = function () { return []; };
+MatListDivider.ctorParameters = function () { return []; };
 /**
  * A Material Design list component.
  */
-var MdList = (function (_super) {
-    tslib_1.__extends(MdList, _super);
-    function MdList() {
+var MatList = (function (_super) {
+    tslib_1.__extends(MatList, _super);
+    function MatList() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    return MdList;
-}(_MdListMixinBase));
-MdList.decorators = [
-    { type: Component, args: [{ selector: 'md-list, mat-list, md-nav-list, mat-nav-list',
+    return MatList;
+}(_MatListMixinBase));
+MatList.decorators = [
+    { type: Component, args: [{ selector: 'mat-list, mat-nav-list',
                 host: { 'role': 'list' },
                 template: '<ng-content></ng-content>',
                 styles: [".mat-subheader{display:block;box-sizing:border-box;padding:16px}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{margin:0}.mat-list,.mat-nav-list,.mat-selection-list{padding-top:8px;display:block}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{height:48px;line-height:16px}.mat-list .mat-subheader:first-child,.mat-nav-list .mat-subheader:first-child,.mat-selection-list .mat-subheader:first-child{margin-top:-8px}.mat-list .mat-list-item,.mat-nav-list .mat-list-item,.mat-selection-list .mat-list-item{display:block}.mat-list .mat-list-item .mat-list-item-content,.mat-nav-list .mat-list-item .mat-list-item-content,.mat-selection-list .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:48px;padding:0 16px;position:relative}.mat-list .mat-list-item .mat-list-item-content-reverse,.mat-nav-list .mat-list-item .mat-list-item-content-reverse,.mat-selection-list .mat-list-item .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list .mat-list-item .mat-list-item-ripple,.mat-nav-list .mat-list-item .mat-list-item-ripple,.mat-selection-list .mat-list-item .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-selection-list .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:56px}.mat-list .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-2-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-2-line .mat-list-item-content{height:72px}.mat-list .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-3-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-3-line .mat-list-item-content{height:88px}.mat-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list .mat-list-item .mat-list-text,.mat-nav-list .mat-list-item .mat-list-text,.mat-selection-list .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-item .mat-list-text>*,.mat-nav-list .mat-list-item .mat-list-text>*,.mat-selection-list .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-item .mat-list-text:empty,.mat-nav-list .mat-list-item .mat-list-text:empty,.mat-selection-list .mat-list-item .mat-list-text:empty{display:none}.mat-list .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list .mat-list-item .mat-list-text:nth-child(2),.mat-selection-list .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list .mat-list-item .mat-list-avatar,.mat-nav-list .mat-list-item .mat-list-avatar,.mat-selection-list .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-item .mat-list-icon,.mat-nav-list .mat-list-item .mat-list-icon,.mat-selection-list .mat-list-item .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list .mat-list-option,.mat-nav-list .mat-list-option,.mat-selection-list .mat-list-option{display:block}.mat-list .mat-list-option .mat-list-item-content,.mat-nav-list .mat-list-option .mat-list-item-content,.mat-selection-list .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:48px;padding:0 16px;position:relative}.mat-list .mat-list-option .mat-list-item-content-reverse,.mat-nav-list .mat-list-option .mat-list-item-content-reverse,.mat-selection-list .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list .mat-list-option .mat-list-item-ripple,.mat-nav-list .mat-list-option .mat-list-item-ripple,.mat-selection-list .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-nav-list .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-selection-list .mat-list-option.mat-list-item-avatar .mat-list-item-content{height:56px}.mat-list .mat-list-option.mat-2-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-2-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-2-line .mat-list-item-content{height:72px}.mat-list .mat-list-option.mat-3-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-3-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-3-line .mat-list-item-content{height:88px}.mat-list .mat-list-option.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-multi-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list .mat-list-option .mat-list-text,.mat-nav-list .mat-list-option .mat-list-text,.mat-selection-list .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-option .mat-list-text>*,.mat-nav-list .mat-list-option .mat-list-text>*,.mat-selection-list .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-option .mat-list-text:empty,.mat-nav-list .mat-list-option .mat-list-text:empty,.mat-selection-list .mat-list-option .mat-list-text:empty{display:none}.mat-list .mat-list-option .mat-list-text:nth-child(2),.mat-nav-list .mat-list-option .mat-list-text:nth-child(2),.mat-selection-list .mat-list-option .mat-list-text:nth-child(2){padding:0}.mat-list .mat-list-option .mat-list-avatar,.mat-nav-list .mat-list-option .mat-list-avatar,.mat-selection-list .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-option .mat-list-icon,.mat-nav-list .mat-list-option .mat-list-icon,.mat-selection-list .mat-list-option .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense],.mat-nav-list[dense],.mat-selection-list[dense]{padding-top:4px;display:block}.mat-list[dense] .mat-subheader,.mat-nav-list[dense] .mat-subheader,.mat-selection-list[dense] .mat-subheader{height:40px;line-height:8px}.mat-list[dense] .mat-subheader:first-child,.mat-nav-list[dense] .mat-subheader:first-child,.mat-selection-list[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list[dense] .mat-list-item,.mat-nav-list[dense] .mat-list-item,.mat-selection-list[dense] .mat-list-item{display:block}.mat-list[dense] .mat-list-item .mat-list-item-content,.mat-nav-list[dense] .mat-list-item .mat-list-item-content,.mat-selection-list[dense] .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:40px;padding:0 16px;position:relative}.mat-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-item .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list[dense] .mat-list-item .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-item .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-item .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:48px}.mat-list[dense] .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-2-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-2-line .mat-list-item-content{height:60px}.mat-list[dense] .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-3-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-3-line .mat-list-item-content{height:76px}.mat-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-item .mat-list-text,.mat-nav-list[dense] .mat-list-item .mat-list-text,.mat-selection-list[dense] .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-item .mat-list-text>*,.mat-nav-list[dense] .mat-list-item .mat-list-text>*,.mat-selection-list[dense] .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-item .mat-list-text:empty,.mat-nav-list[dense] .mat-list-item .mat-list-text:empty,.mat-selection-list[dense] .mat-list-item .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-selection-list[dense] .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list[dense] .mat-list-item .mat-list-avatar,.mat-nav-list[dense] .mat-list-item .mat-list-avatar,.mat-selection-list[dense] .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-item .mat-list-icon,.mat-nav-list[dense] .mat-list-item .mat-list-icon,.mat-selection-list[dense] .mat-list-item .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense] .mat-list-option,.mat-nav-list[dense] .mat-list-option,.mat-selection-list[dense] .mat-list-option{display:block}.mat-list[dense] .mat-list-option .mat-list-item-content,.mat-nav-list[dense] .mat-list-option .mat-list-item-content,.mat-selection-list[dense] .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:40px;padding:0 16px;position:relative}.mat-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list[dense] .mat-list-option .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-option .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list[dense] .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-list-item-avatar .mat-list-item-content{height:48px}.mat-list[dense] .mat-list-option.mat-2-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-2-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-2-line .mat-list-item-content{height:60px}.mat-list[dense] .mat-list-option.mat-3-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-3-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-3-line .mat-list-item-content{height:76px}.mat-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-option .mat-list-text,.mat-nav-list[dense] .mat-list-option .mat-list-text,.mat-selection-list[dense] .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-option .mat-list-text>*,.mat-nav-list[dense] .mat-list-option .mat-list-text>*,.mat-selection-list[dense] .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-option .mat-list-text:empty,.mat-nav-list[dense] .mat-list-option .mat-list-text:empty,.mat-selection-list[dense] .mat-list-option .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-option .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-option .mat-list-text:nth-child(2),.mat-selection-list[dense] .mat-list-option .mat-list-text:nth-child(2){padding:0}.mat-list[dense] .mat-list-option .mat-list-avatar,.mat-nav-list[dense] .mat-list-option .mat-list-avatar,.mat-selection-list[dense] .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-option .mat-list-icon,.mat-nav-list[dense] .mat-list-option .mat-list-icon,.mat-selection-list[dense] .mat-list-option .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-divider{display:block;border-top-style:solid;border-top-width:1px;margin:0}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item-content{cursor:pointer}.mat-nav-list .mat-list-item-content.mat-list-item-focus,.mat-nav-list .mat-list-item-content:hover{outline:0}.mat-list-option:not([disabled]){cursor:pointer}"],
@@ -77,133 +79,133 @@ MdList.decorators = [
 /**
  * @nocollapse
  */
-MdList.ctorParameters = function () { return []; };
+MatList.ctorParameters = function () { return []; };
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdListCssMatStyler = (function () {
-    function MdListCssMatStyler() {
+var MatListCssMatStyler = (function () {
+    function MatListCssMatStyler() {
     }
-    return MdListCssMatStyler;
+    return MatListCssMatStyler;
 }());
-MdListCssMatStyler.decorators = [
+MatListCssMatStyler.decorators = [
     { type: Directive, args: [{
-                selector: 'md-list, mat-list',
+                selector: 'mat-list',
                 host: { 'class': 'mat-list' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdListCssMatStyler.ctorParameters = function () { return []; };
+MatListCssMatStyler.ctorParameters = function () { return []; };
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdNavListCssMatStyler = (function () {
-    function MdNavListCssMatStyler() {
+var MatNavListCssMatStyler = (function () {
+    function MatNavListCssMatStyler() {
     }
-    return MdNavListCssMatStyler;
+    return MatNavListCssMatStyler;
 }());
-MdNavListCssMatStyler.decorators = [
+MatNavListCssMatStyler.decorators = [
     { type: Directive, args: [{
-                selector: 'md-nav-list, mat-nav-list',
+                selector: 'mat-nav-list',
                 host: { 'class': 'mat-nav-list' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdNavListCssMatStyler.ctorParameters = function () { return []; };
+MatNavListCssMatStyler.ctorParameters = function () { return []; };
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdDividerCssMatStyler = (function () {
-    function MdDividerCssMatStyler() {
+var MatDividerCssMatStyler = (function () {
+    function MatDividerCssMatStyler() {
     }
-    return MdDividerCssMatStyler;
+    return MatDividerCssMatStyler;
 }());
-MdDividerCssMatStyler.decorators = [
+MatDividerCssMatStyler.decorators = [
     { type: Directive, args: [{
-                selector: 'md-divider, mat-divider',
+                selector: 'mat-divider',
                 host: { 'class': 'mat-divider' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdDividerCssMatStyler.ctorParameters = function () { return []; };
+MatDividerCssMatStyler.ctorParameters = function () { return []; };
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdListAvatarCssMatStyler = (function () {
-    function MdListAvatarCssMatStyler() {
+var MatListAvatarCssMatStyler = (function () {
+    function MatListAvatarCssMatStyler() {
     }
-    return MdListAvatarCssMatStyler;
+    return MatListAvatarCssMatStyler;
 }());
-MdListAvatarCssMatStyler.decorators = [
+MatListAvatarCssMatStyler.decorators = [
     { type: Directive, args: [{
-                selector: '[md-list-avatar], [mat-list-avatar], [mdListAvatar], [matListAvatar]',
+                selector: '[mat-list-avatar], [matListAvatar]',
                 host: { 'class': 'mat-list-avatar' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdListAvatarCssMatStyler.ctorParameters = function () { return []; };
+MatListAvatarCssMatStyler.ctorParameters = function () { return []; };
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdListIconCssMatStyler = (function () {
-    function MdListIconCssMatStyler() {
+var MatListIconCssMatStyler = (function () {
+    function MatListIconCssMatStyler() {
     }
-    return MdListIconCssMatStyler;
+    return MatListIconCssMatStyler;
 }());
-MdListIconCssMatStyler.decorators = [
+MatListIconCssMatStyler.decorators = [
     { type: Directive, args: [{
-                selector: '[md-list-icon], [mat-list-icon], [mdListIcon], [matListIcon]',
+                selector: '[mat-list-icon], [matListIcon]',
                 host: { 'class': 'mat-list-icon' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdListIconCssMatStyler.ctorParameters = function () { return []; };
+MatListIconCssMatStyler.ctorParameters = function () { return []; };
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdListSubheaderCssMatStyler = (function () {
-    function MdListSubheaderCssMatStyler() {
+var MatListSubheaderCssMatStyler = (function () {
+    function MatListSubheaderCssMatStyler() {
     }
-    return MdListSubheaderCssMatStyler;
+    return MatListSubheaderCssMatStyler;
 }());
-MdListSubheaderCssMatStyler.decorators = [
+MatListSubheaderCssMatStyler.decorators = [
     { type: Directive, args: [{
-                selector: '[md-subheader], [mat-subheader], [mdSubheader], [matSubheader]',
+                selector: '[mat-subheader], [matSubheader]',
                 host: { 'class': 'mat-subheader' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdListSubheaderCssMatStyler.ctorParameters = function () { return []; };
+MatListSubheaderCssMatStyler.ctorParameters = function () { return []; };
 /**
  * An item within a Material Design list.
  */
-var MdListItem = (function (_super) {
-    tslib_1.__extends(MdListItem, _super);
+var MatListItem = (function (_super) {
+    tslib_1.__extends(MatListItem, _super);
     /**
      * @param {?} _renderer
      * @param {?} _element
      * @param {?} _list
      * @param {?} navList
      */
-    function MdListItem(_renderer, _element, _list, navList) {
+    function MatListItem(_renderer, _element, _list, navList) {
         var _this = _super.call(this) || this;
         _this._renderer = _renderer;
         _this._element = _element;
@@ -212,7 +214,7 @@ var MdListItem = (function (_super) {
         _this._isNavList = !!navList;
         return _this;
     }
-    Object.defineProperty(MdListItem.prototype, "_hasAvatar", {
+    Object.defineProperty(MatListItem.prototype, "_hasAvatar", {
         /**
          * @param {?} avatar
          * @return {?}
@@ -231,39 +233,39 @@ var MdListItem = (function (_super) {
     /**
      * @return {?}
      */
-    MdListItem.prototype.ngAfterContentInit = function () {
-        this._lineSetter = new MdLineSetter(this._lines, this._renderer, this._element);
+    MatListItem.prototype.ngAfterContentInit = function () {
+        this._lineSetter = new MatLineSetter(this._lines, this._renderer, this._element);
     };
     /**
      * Whether this list item should show a ripple effect when clicked.
      * @return {?}
      */
-    MdListItem.prototype._isRippleDisabled = function () {
+    MatListItem.prototype._isRippleDisabled = function () {
         return !this._isNavList || this.disableRipple || this._list.disableRipple;
     };
     /**
      * @return {?}
      */
-    MdListItem.prototype._handleFocus = function () {
+    MatListItem.prototype._handleFocus = function () {
         this._renderer.addClass(this._element.nativeElement, 'mat-list-item-focus');
     };
     /**
      * @return {?}
      */
-    MdListItem.prototype._handleBlur = function () {
+    MatListItem.prototype._handleBlur = function () {
         this._renderer.removeClass(this._element.nativeElement, 'mat-list-item-focus');
     };
     /**
      * Retrieves the DOM element of the component host.
      * @return {?}
      */
-    MdListItem.prototype._getHostElement = function () {
+    MatListItem.prototype._getHostElement = function () {
         return this._element.nativeElement;
     };
-    return MdListItem;
-}(_MdListItemMixinBase));
-MdListItem.decorators = [
-    { type: Component, args: [{ selector: 'md-list-item, mat-list-item, a[md-list-item], a[mat-list-item]',
+    return MatListItem;
+}(_MatListItemMixinBase));
+MatListItem.decorators = [
+    { type: Component, args: [{ selector: 'mat-list-item, a[mat-list-item]',
                 host: {
                     'role': 'listitem',
                     'class': 'mat-list-item',
@@ -271,7 +273,7 @@ MdListItem.decorators = [
                     '(blur)': '_handleBlur()',
                 },
                 inputs: ['disableRipple'],
-                template: "<div class=\"mat-list-item-content\"><div class=\"mat-list-item-ripple\" md-ripple [mdRippleTrigger]=\"_getHostElement()\" [mdRippleDisabled]=\"_isRippleDisabled()\"></div><ng-content select=\"[md-list-avatar], [md-list-icon], [mat-list-avatar], [mat-list-icon], [mdListAvatar], [mdListIcon], [matListAvatar], [matListIcon]\"></ng-content><div class=\"mat-list-text\"><ng-content select=\"[md-line], [mat-line], [mdLine], [matLine]\"></ng-content></div><ng-content></ng-content></div>",
+                template: "<div class=\"mat-list-item-content\"><div class=\"mat-list-item-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"_isRippleDisabled()\"></div><ng-content select=\"[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]\"></ng-content><div class=\"mat-list-text\"><ng-content select=\"[mat-line], [matLine]\"></ng-content></div><ng-content></ng-content></div>",
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
@@ -280,49 +282,49 @@ MdListItem.decorators = [
 /**
  * @nocollapse
  */
-MdListItem.ctorParameters = function () { return [
+MatListItem.ctorParameters = function () { return [
     { type: Renderer2, },
     { type: ElementRef, },
-    { type: MdList, decorators: [{ type: Optional },] },
-    { type: MdNavListCssMatStyler, decorators: [{ type: Optional },] },
+    { type: MatList, decorators: [{ type: Optional },] },
+    { type: MatNavListCssMatStyler, decorators: [{ type: Optional },] },
 ]; };
-MdListItem.propDecorators = {
-    '_lines': [{ type: ContentChildren, args: [MdLine,] },],
-    '_hasAvatar': [{ type: ContentChild, args: [MdListAvatarCssMatStyler,] },],
+MatListItem.propDecorators = {
+    '_lines': [{ type: ContentChildren, args: [MatLine,] },],
+    '_hasAvatar': [{ type: ContentChild, args: [MatListAvatarCssMatStyler,] },],
 };
 /**
  * \@docs-private
  */
-var MdSelectionListBase = (function () {
-    function MdSelectionListBase() {
+var MatSelectionListBase = (function () {
+    function MatSelectionListBase() {
     }
-    return MdSelectionListBase;
+    return MatSelectionListBase;
 }());
-var _MdSelectionListMixinBase = mixinDisableRipple(mixinDisabled(MdSelectionListBase));
+var _MatSelectionListMixinBase = mixinDisableRipple(mixinDisabled(MatSelectionListBase));
 /**
  * \@docs-private
  */
-var MdListOptionBase = (function () {
-    function MdListOptionBase() {
+var MatListOptionBase = (function () {
+    function MatListOptionBase() {
     }
-    return MdListOptionBase;
+    return MatListOptionBase;
 }());
-var _MdListOptionMixinBase = mixinDisableRipple(MdListOptionBase);
+var _MatListOptionMixinBase = mixinDisableRipple(MatListOptionBase);
 var FOCUSED_STYLE = 'mat-list-item-focus';
 /**
  * Component for list-options of selection-list. Each list-option can automatically
  * generate a checkbox and can put current item into the selectionModel of selection-list
  * if the current item is checked.
  */
-var MdListOption = (function (_super) {
-    tslib_1.__extends(MdListOption, _super);
+var MatListOption = (function (_super) {
+    tslib_1.__extends(MatListOption, _super);
     /**
      * @param {?} _renderer
      * @param {?} _element
      * @param {?} _changeDetector
      * @param {?} selectionList
      */
-    function MdListOption(_renderer, _element, _changeDetector, selectionList) {
+    function MatListOption(_renderer, _element, _changeDetector, selectionList) {
         var _this = _super.call(this) || this;
         _this._renderer = _renderer;
         _this._element = _element;
@@ -356,7 +358,7 @@ var MdListOption = (function (_super) {
         _this.destroyed = new EventEmitter();
         return _this;
     }
-    Object.defineProperty(MdListOption.prototype, "disabled", {
+    Object.defineProperty(MatListOption.prototype, "disabled", {
         /**
          * Whether the option is disabled.
          * @return {?}
@@ -370,7 +372,7 @@ var MdListOption = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdListOption.prototype, "selected", {
+    Object.defineProperty(MatListOption.prototype, "selected", {
         /**
          * Whether the option is selected.
          * @return {?}
@@ -387,8 +389,8 @@ var MdListOption = (function (_super) {
     /**
      * @return {?}
      */
-    MdListOption.prototype.ngAfterContentInit = function () {
-        this._lineSetter = new MdLineSetter(this._lines, this._renderer, this._element);
+    MatListOption.prototype.ngAfterContentInit = function () {
+        this._lineSetter = new MatLineSetter(this._lines, this._renderer, this._element);
         if (this.selectionList.disabled) {
             this.disabled = true;
         }
@@ -396,14 +398,14 @@ var MdListOption = (function (_super) {
     /**
      * @return {?}
      */
-    MdListOption.prototype.ngOnDestroy = function () {
+    MatListOption.prototype.ngOnDestroy = function () {
         this.destroyed.emit({ option: this });
     };
     /**
      * Toggles the selection state of the option.
      * @return {?}
      */
-    MdListOption.prototype.toggle = function () {
+    MatListOption.prototype.toggle = function () {
         this.selected = !this.selected;
         this.selectionList.selectedOptions.toggle(this);
         this._changeDetector.markForCheck();
@@ -412,7 +414,7 @@ var MdListOption = (function (_super) {
      * Allows for programmatic focusing of the option.
      * @return {?}
      */
-    MdListOption.prototype.focus = function () {
+    MatListOption.prototype.focus = function () {
         this._element.nativeElement.focus();
         this.onFocus.emit({ option: this });
     };
@@ -420,13 +422,13 @@ var MdListOption = (function (_super) {
      * Whether this list item should show a ripple effect when clicked.
      * @return {?}
      */
-    MdListOption.prototype._isRippleDisabled = function () {
+    MatListOption.prototype._isRippleDisabled = function () {
         return this.disabled || this.disableRipple || this.selectionList.disableRipple;
     };
     /**
      * @return {?}
      */
-    MdListOption.prototype._handleClick = function () {
+    MatListOption.prototype._handleClick = function () {
         if (!this.disabled) {
             this.toggle();
         }
@@ -434,27 +436,27 @@ var MdListOption = (function (_super) {
     /**
      * @return {?}
      */
-    MdListOption.prototype._handleFocus = function () {
+    MatListOption.prototype._handleFocus = function () {
         this._hasFocus = true;
         this._renderer.addClass(this._element.nativeElement, FOCUSED_STYLE);
     };
     /**
      * @return {?}
      */
-    MdListOption.prototype._handleBlur = function () {
+    MatListOption.prototype._handleBlur = function () {
         this._renderer.removeClass(this._element.nativeElement, FOCUSED_STYLE);
     };
     /**
      * Retrieves the DOM element of the component host.
      * @return {?}
      */
-    MdListOption.prototype._getHostElement = function () {
+    MatListOption.prototype._getHostElement = function () {
         return this._element.nativeElement;
     };
-    return MdListOption;
-}(_MdListOptionMixinBase));
-MdListOption.decorators = [
-    { type: Component, args: [{ selector: 'md-list-option, mat-list-option',
+    return MatListOption;
+}(_MatListOptionMixinBase));
+MatListOption.decorators = [
+    { type: Component, args: [{ selector: 'mat-list-option',
                 inputs: ['disableRipple'],
                 host: {
                     'role': 'option',
@@ -467,24 +469,23 @@ MdListOption.decorators = [
                     '[attr.aria-selected]': 'selected.toString()',
                     '[attr.aria-disabled]': 'disabled.toString()',
                 },
-                template: "<div class=\"mat-list-item-content\" [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\" [class.mat-list-item-disabled]=\"disabled\"><div md-ripple class=\"mat-list-item-ripple\" [mdRippleTrigger]=\"_getHostElement()\" [mdRippleDisabled]=\"_isRippleDisabled()\"></div><md-pseudo-checkbox #autocheckbox [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></md-pseudo-checkbox><div class=\"mat-list-text\"><ng-content></ng-content></div></div>",
+                template: "<div class=\"mat-list-item-content\" [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\" [class.mat-list-item-disabled]=\"disabled\"><div mat-ripple class=\"mat-list-item-ripple\" [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"_isRippleDisabled()\"></div><mat-pseudo-checkbox #autocheckbox [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox><div class=\"mat-list-text\"><ng-content></ng-content></div></div>",
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
-                providers: [{ provide: MATERIAL_COMPATIBILITY_MODE, useValue: false }],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdListOption.ctorParameters = function () { return [
+MatListOption.ctorParameters = function () { return [
     { type: Renderer2, },
     { type: ElementRef, },
     { type: ChangeDetectorRef, },
-    { type: MdSelectionList, decorators: [{ type: Optional }, { type: Inject, args: [forwardRef(function () { return MdSelectionList; }),] },] },
+    { type: MatSelectionList, decorators: [{ type: Optional }, { type: Inject, args: [forwardRef(function () { return MatSelectionList; }),] },] },
 ]; };
-MdListOption.propDecorators = {
-    '_lines': [{ type: ContentChildren, args: [MdLine,] },],
+MatListOption.propDecorators = {
+    '_lines': [{ type: ContentChildren, args: [MatLine,] },],
     'checkboxPosition': [{ type: Input },],
     'value': [{ type: Input },],
     'disabled': [{ type: Input },],
@@ -496,12 +497,12 @@ MdListOption.propDecorators = {
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
  */
-var MdSelectionList = (function (_super) {
-    tslib_1.__extends(MdSelectionList, _super);
+var MatSelectionList = (function (_super) {
+    tslib_1.__extends(MatSelectionList, _super);
     /**
      * @param {?} _element
      */
-    function MdSelectionList(_element) {
+    function MatSelectionList(_element) {
         var _this = _super.call(this) || this;
         _this._element = _element;
         /**
@@ -525,7 +526,7 @@ var MdSelectionList = (function (_super) {
     /**
      * @return {?}
      */
-    MdSelectionList.prototype.ngAfterContentInit = function () {
+    MatSelectionList.prototype.ngAfterContentInit = function () {
         this._keyManager = new FocusKeyManager(this.options).withWrap();
         if (this.disabled) {
             this._tabIndex = -1;
@@ -536,7 +537,7 @@ var MdSelectionList = (function (_super) {
     /**
      * @return {?}
      */
-    MdSelectionList.prototype.ngOnDestroy = function () {
+    MatSelectionList.prototype.ngOnDestroy = function () {
         this._optionDestroyStream.unsubscribe();
         this._optionFocusSubscription.unsubscribe();
     };
@@ -544,14 +545,14 @@ var MdSelectionList = (function (_super) {
      * Focus the selection-list.
      * @return {?}
      */
-    MdSelectionList.prototype.focus = function () {
+    MatSelectionList.prototype.focus = function () {
         this._element.nativeElement.focus();
     };
     /**
      * Selects all of the options.
      * @return {?}
      */
-    MdSelectionList.prototype.selectAll = function () {
+    MatSelectionList.prototype.selectAll = function () {
         this.options.forEach(function (option) {
             if (!option.selected) {
                 option.toggle();
@@ -562,7 +563,7 @@ var MdSelectionList = (function (_super) {
      * Deselects all of the options.
      * @return {?}
      */
-    MdSelectionList.prototype.deselectAll = function () {
+    MatSelectionList.prototype.deselectAll = function () {
         this.options.forEach(function (option) {
             if (option.selected) {
                 option.toggle();
@@ -573,7 +574,7 @@ var MdSelectionList = (function (_super) {
      * Map all the options' destroy event subscriptions and merge them into one stream.
      * @return {?}
      */
-    MdSelectionList.prototype._onDestroySubscription = function () {
+    MatSelectionList.prototype._onDestroySubscription = function () {
         var _this = this;
         return RxChain.from(this.options.changes)
             .call(startWith, this.options)
@@ -597,7 +598,7 @@ var MdSelectionList = (function (_super) {
      * Map all the options' onFocus event subscriptions and merge them into one stream.
      * @return {?}
      */
-    MdSelectionList.prototype._onFocusSubscription = function () {
+    MatSelectionList.prototype._onFocusSubscription = function () {
         var _this = this;
         return RxChain.from(this.options.changes)
             .call(startWith, this.options)
@@ -613,7 +614,7 @@ var MdSelectionList = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MdSelectionList.prototype._keydown = function (event) {
+    MatSelectionList.prototype._keydown = function (event) {
         switch (event.keyCode) {
             case SPACE:
                 this._toggleSelectOnFocusedOption();
@@ -628,7 +629,7 @@ var MdSelectionList = (function (_super) {
      * Toggles the selected state of the currently focused option.
      * @return {?}
      */
-    MdSelectionList.prototype._toggleSelectOnFocusedOption = function () {
+    MatSelectionList.prototype._toggleSelectOnFocusedOption = function () {
         var /** @type {?} */ focusedIndex = this._keyManager.activeItemIndex;
         if (focusedIndex != null && this._isValidIndex(focusedIndex)) {
             var /** @type {?} */ focusedOption = this.options.toArray()[focusedIndex];
@@ -643,13 +644,13 @@ var MdSelectionList = (function (_super) {
      * @param {?} index The index to be checked.
      * @return {?} True if the index is valid for our list of options.
      */
-    MdSelectionList.prototype._isValidIndex = function (index) {
+    MatSelectionList.prototype._isValidIndex = function (index) {
         return index >= 0 && index < this.options.length;
     };
-    return MdSelectionList;
-}(_MdSelectionListMixinBase));
-MdSelectionList.decorators = [
-    { type: Component, args: [{ selector: 'md-selection-list, mat-selection-list',
+    return MatSelectionList;
+}(_MatSelectionListMixinBase));
+MatSelectionList.decorators = [
+    { type: Component, args: [{ selector: 'mat-selection-list',
                 inputs: ['disabled', 'disableRipple'],
                 host: {
                     'role': 'listbox',
@@ -669,57 +670,57 @@ MdSelectionList.decorators = [
 /**
  * @nocollapse
  */
-MdSelectionList.ctorParameters = function () { return [
+MatSelectionList.ctorParameters = function () { return [
     { type: ElementRef, },
 ]; };
-MdSelectionList.propDecorators = {
-    'options': [{ type: ContentChildren, args: [MdListOption,] },],
+MatSelectionList.propDecorators = {
+    'options': [{ type: ContentChildren, args: [MatListOption,] },],
 };
-var MdListModule = (function () {
-    function MdListModule() {
+var MatListModule = (function () {
+    function MatListModule() {
     }
-    return MdListModule;
+    return MatListModule;
 }());
-MdListModule.decorators = [
+MatListModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MdLineModule, MdRippleModule, MdCommonModule, MdPseudoCheckboxModule, CommonModule],
+                imports: [MatLineModule, MatRippleModule, MatCommonModule, MatPseudoCheckboxModule, CommonModule],
                 exports: [
-                    MdList,
-                    MdListItem,
-                    MdListDivider,
-                    MdListAvatarCssMatStyler,
-                    MdLineModule,
-                    MdCommonModule,
-                    MdListIconCssMatStyler,
-                    MdListCssMatStyler,
-                    MdNavListCssMatStyler,
-                    MdDividerCssMatStyler,
-                    MdListSubheaderCssMatStyler,
-                    MdPseudoCheckboxModule,
-                    MdSelectionList,
-                    MdListOption
+                    MatList,
+                    MatListItem,
+                    MatListDivider,
+                    MatListAvatarCssMatStyler,
+                    MatLineModule,
+                    MatCommonModule,
+                    MatListIconCssMatStyler,
+                    MatListCssMatStyler,
+                    MatNavListCssMatStyler,
+                    MatDividerCssMatStyler,
+                    MatListSubheaderCssMatStyler,
+                    MatPseudoCheckboxModule,
+                    MatSelectionList,
+                    MatListOption
                 ],
                 declarations: [
-                    MdList,
-                    MdListItem,
-                    MdListDivider,
-                    MdListAvatarCssMatStyler,
-                    MdListIconCssMatStyler,
-                    MdListCssMatStyler,
-                    MdNavListCssMatStyler,
-                    MdDividerCssMatStyler,
-                    MdListSubheaderCssMatStyler,
-                    MdSelectionList,
-                    MdListOption
+                    MatList,
+                    MatListItem,
+                    MatListDivider,
+                    MatListAvatarCssMatStyler,
+                    MatListIconCssMatStyler,
+                    MatListCssMatStyler,
+                    MatNavListCssMatStyler,
+                    MatDividerCssMatStyler,
+                    MatListSubheaderCssMatStyler,
+                    MatSelectionList,
+                    MatListOption
                 ],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdListModule.ctorParameters = function () { return []; };
+MatListModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdListModule, MdListBase, _MdListMixinBase, MdListItemBase, _MdListItemMixinBase, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdSelectionListBase, _MdSelectionListMixinBase, MdListOptionBase, _MdListOptionMixinBase, MdListOption, MdSelectionList, MdDividerCssMatStyler as MatDividerCssMatStyler, MdList as MatList, MdListAvatarCssMatStyler as MatListAvatarCssMatStyler, MdListBase as MatListBase, MdListCssMatStyler as MatListCssMatStyler, MdListDivider as MatListDivider, MdListIconCssMatStyler as MatListIconCssMatStyler, MdListItem as MatListItem, MdListItemBase as MatListItemBase, MdListModule as MatListModule, MdListOption as MatListOption, MdListOptionBase as MatListOptionBase, MdListSubheaderCssMatStyler as MatListSubheaderCssMatStyler, MdNavListCssMatStyler as MatNavListCssMatStyler, MdSelectionList as MatSelectionList, MdSelectionListBase as MatSelectionListBase };
+export { MatListModule, MatListBase, _MatListMixinBase, MatListItemBase, _MatListItemMixinBase, MatListDivider, MatList, MatListCssMatStyler, MatNavListCssMatStyler, MatDividerCssMatStyler, MatListAvatarCssMatStyler, MatListIconCssMatStyler, MatListSubheaderCssMatStyler, MatListItem, MatSelectionListBase, _MatSelectionListMixinBase, MatListOptionBase, _MatListOptionMixinBase, MatListOption, MatSelectionList };
 //# sourceMappingURL=list.es5.js.map

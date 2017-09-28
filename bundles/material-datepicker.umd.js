@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/platform-browser'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/cdk/keycodes'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('rxjs/observable/defer'), require('@angular/animations'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/forkJoin'), require('rxjs/observable/of'), require('rxjs/observable/throw'), require('rxjs/operator/first'), require('rxjs/Subscription'), require('@angular/forms'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/cdk/bidi', '@angular/platform-browser', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/cdk/keycodes', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/portal', '@angular/cdk/rxjs', 'rxjs/observable/defer', '@angular/animations', '@angular/http', 'rxjs/Observable', 'rxjs/observable/forkJoin', 'rxjs/observable/of', 'rxjs/observable/throw', 'rxjs/operator/first', 'rxjs/Subscription', '@angular/forms', 'rxjs/observable/fromEvent', 'rxjs/observable/merge'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = global.ng.material.datepicker || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.common,global.ng.core,global.ng.cdk.bidi,global.ng.platformBrowser,global.ng.cdk.coercion,global.Rx,global.ng.cdk.keycodes,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.portal,global.ng.cdk.rxjs,global.Rx.Observable,global.ng.animations,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx,global.ng.forms,global.Rx.Observable,global.Rx.Observable));
-}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_cdk_bidi,_angular_platformBrowser,_angular_cdk_coercion,rxjs_Subject,_angular_cdk_keycodes,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_portal,_angular_cdk_rxjs,rxjs_observable_defer,_angular_animations,_angular_http,rxjs_Observable,rxjs_observable_forkJoin,rxjs_observable_of,rxjs_observable_throw,rxjs_operator_first,rxjs_Subscription,_angular_forms,rxjs_observable_fromEvent,rxjs_observable_merge) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('rxjs/observable/defer'), require('@angular/animations'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/forkJoin'), require('rxjs/observable/of'), require('rxjs/observable/throw'), require('rxjs/operator/first'), require('rxjs/Subscription'), require('@angular/forms'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/portal', '@angular/cdk/rxjs', 'rxjs/observable/defer', '@angular/animations', '@angular/http', 'rxjs/Observable', 'rxjs/observable/forkJoin', 'rxjs/observable/of', 'rxjs/observable/throw', 'rxjs/operator/first', 'rxjs/Subscription', '@angular/forms', 'rxjs/observable/fromEvent', 'rxjs/observable/merge'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = global.ng.material.datepicker || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.common,global.ng.core,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.portal,global.ng.cdk.rxjs,global.Rx.Observable,global.ng.animations,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx,global.ng.forms,global.Rx.Observable,global.Rx.Observable));
+}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_platformBrowser,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_portal,_angular_cdk_rxjs,rxjs_observable_defer,_angular_animations,_angular_http,rxjs_Observable,rxjs_observable_forkJoin,rxjs_observable_of,rxjs_observable_throw,rxjs_operator_first,rxjs_Subscription,_angular_forms,rxjs_observable_fromEvent,rxjs_observable_merge) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -62,18 +62,6 @@ AnimationDurations.ENTERING = '225ms';
 AnimationDurations.EXITING = '195ms';
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
- * Returns an exception to be thrown if the consumer has used
- * an invalid Material prefix on a component.
- * \@docs-private
- * @param {?} prefix
- * @param {?} nodeName
- * @return {?}
- */
-function getMdCompatibilityInvalidPrefixError(prefix, nodeName) {
-    return Error("The \"" + prefix + "-\" prefix cannot be used in ng-material v1 compatibility mode. " +
-        ("It was used on an \"" + nodeName.toLowerCase() + "\" element."));
-}
-/**
  * Selector that matches all elements that may have style collisions with AngularJS Material.
  */
 var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [matCardSubtitle],\n  [matCardTitle],\n  [matCellDef],\n  [matColumnDef],\n  [matDialogActions],\n  [matDialogClose],\n  [matDialogContent],\n  [matDialogTitle],\n  [matHeaderCellDef],\n  [matHeaderRowDef],\n  [matLine],\n  [matRowDef],\n  [matStepLabel],\n  [matStepperNext],\n  [matStepperPrevious],\n  [matTabLabel],\n  [matTabLink],\n  [matTabNav],\n  [matTooltip],\n  [matInput],\n  [matPrefix],\n  [matSuffix],\n  mat-autocomplete,\n  mat-button-toggle,\n  mat-button-toggle,\n  mat-button-toggle-group,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-cell,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-error,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-header-cell,\n  mat-header-row,\n  mat-hint,\n  mat-horizontal-stepper,\n  mat-icon,\n  mat-input-container,\n  mat-form-field,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-pseudo-checkbox,\n  mat-radio-button,\n  mat-radio-group,\n  mat-row,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-step,\n  mat-tab,\n  mat-table,\n  mat-tab-group,\n  mat-toolbar,\n  mat-vertical-stepper";
@@ -85,14 +73,7 @@ var MD_ELEMENTS_SELECTOR = "\n  [md-button],\n  [md-fab],\n  [md-icon-button],\n
  * Directive that enforces that the `mat-` prefix cannot be used.
  */
 var MatPrefixRejector = (function () {
-    /**
-     * @param {?} isCompatibilityMode
-     * @param {?} elementRef
-     */
-    function MatPrefixRejector(isCompatibilityMode, elementRef) {
-        if (!isCompatibilityMode) {
-            throw getMdCompatibilityInvalidPrefixError('mat', elementRef.nativeElement.nodeName);
-        }
+    function MatPrefixRejector() {
     }
     return MatPrefixRejector;
 }());
@@ -102,22 +83,12 @@ MatPrefixRejector.decorators = [
 /**
  * @nocollapse
  */
-MatPrefixRejector.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
-    { type: _angular_core.ElementRef, },
-]; };
+MatPrefixRejector.ctorParameters = function () { return []; };
 /**
  * Directive that enforces that the `md-` prefix cannot be used.
  */
 var MdPrefixRejector = (function () {
-    /**
-     * @param {?} isCompatibilityMode
-     * @param {?} elementRef
-     */
-    function MdPrefixRejector(isCompatibilityMode, elementRef) {
-        if (isCompatibilityMode) {
-            throw getMdCompatibilityInvalidPrefixError('md', elementRef.nativeElement.nodeName);
-        }
+    function MdPrefixRejector() {
     }
     return MdPrefixRejector;
 }());
@@ -127,10 +98,7 @@ MdPrefixRejector.decorators = [
 /**
  * @nocollapse
  */
-MdPrefixRejector.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
-    { type: _angular_core.ElementRef, },
-]; };
+MdPrefixRejector.ctorParameters = function () { return []; };
 /**
  * Module that enforces the default compatibility mode settings. When this module is loaded
  * without NoConflictStyleCompatibilityMode also being imported, it will throw an error if
@@ -161,11 +129,7 @@ var NoConflictStyleCompatibilityMode = (function () {
     return NoConflictStyleCompatibilityMode;
 }());
 NoConflictStyleCompatibilityMode.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                providers: [{
-                        provide: MATERIAL_COMPATIBILITY_MODE, useValue: true,
-                    }],
-            },] },
+    { type: _angular_core.NgModule },
 ];
 /**
  * @nocollapse
@@ -174,19 +138,19 @@ NoConflictStyleCompatibilityMode.ctorParameters = function () { return []; };
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
-var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('md-sanity-checks');
+var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('mat-sanity-checks');
 /**
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
  * components. This includes Bidi, compatibility mode, etc.
  *
- * This module should be imported to each top-level component module (e.g., MdTabsModule).
+ * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
-var MdCommonModule = (function () {
+var MatCommonModule = (function () {
     /**
      * @param {?} _document
      * @param {?} _sanityChecksEnabled
      */
-    function MdCommonModule(_document, _sanityChecksEnabled) {
+    function MatCommonModule(_document, _sanityChecksEnabled) {
         this._document = _document;
         /**
          * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
@@ -201,7 +165,7 @@ var MdCommonModule = (function () {
     /**
      * @return {?}
      */
-    MdCommonModule.prototype._checkDoctype = function () {
+    MatCommonModule.prototype._checkDoctype = function () {
         if (!this._document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
                 'some Angular Material components not to behave as expected.');
@@ -210,7 +174,7 @@ var MdCommonModule = (function () {
     /**
      * @return {?}
      */
-    MdCommonModule.prototype._checkTheme = function () {
+    MatCommonModule.prototype._checkTheme = function () {
         if (typeof getComputedStyle === 'function') {
             var /** @type {?} */ testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
@@ -223,9 +187,9 @@ var MdCommonModule = (function () {
             this._document.body.removeChild(testElement);
         }
     };
-    return MdCommonModule;
+    return MatCommonModule;
 }());
-MdCommonModule.decorators = [
+MatCommonModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
                 exports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
@@ -237,7 +201,7 @@ MdCommonModule.decorators = [
 /**
  * @nocollapse
  */
-MdCommonModule.ctorParameters = function () { return [
+MatCommonModule.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
 ]; };
@@ -1038,8 +1002,8 @@ NativeDateAdapter.decorators = [
 NativeDateAdapter.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_LOCALE,] },] },
 ]; };
-var MD_DATE_FORMATS = new _angular_core.InjectionToken('md-date-formats');
-var MD_NATIVE_DATE_FORMATS = {
+var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
+var MAT_NATIVE_DATE_FORMATS = {
     parse: {
         dateInput: null,
     },
@@ -1067,25 +1031,25 @@ NativeDateModule.decorators = [
  * @nocollapse
  */
 NativeDateModule.ctorParameters = function () { return []; };
-var MdNativeDateModule = (function () {
-    function MdNativeDateModule() {
+var MatNativeDateModule = (function () {
+    function MatNativeDateModule() {
     }
-    return MdNativeDateModule;
+    return MatNativeDateModule;
 }());
-MdNativeDateModule.decorators = [
+MatNativeDateModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [NativeDateModule],
-                providers: [{ provide: MD_DATE_FORMATS, useValue: MD_NATIVE_DATE_FORMATS }],
+                providers: [{ provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS }],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdNativeDateModule.ctorParameters = function () { return []; };
+MatNativeDateModule.ctorParameters = function () { return []; };
 /**
  * Injection token that can be used to specify the global error options.
  */
-var MD_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('md-error-global-options');
+var MAT_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-error-global-options');
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
@@ -1164,40 +1128,40 @@ GestureConfig.decorators = [
 GestureConfig.ctorParameters = function () { return []; };
 /**
  * Shared directive to count lines inside a text area, such as a list item.
- * Line elements can be extracted with a \@ContentChildren(MdLine) query, then
+ * Line elements can be extracted with a \@ContentChildren(MatLine) query, then
  * counted by checking the query list's length.
  */
-var MdLine = (function () {
-    function MdLine() {
+var MatLine = (function () {
+    function MatLine() {
     }
-    return MdLine;
+    return MatLine;
 }());
-MdLine.decorators = [
+MatLine.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[md-line], [mat-line], [mdLine], [matLine]',
+                selector: '[mat-line], [matLine]',
                 host: { 'class': 'mat-line' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdLine.ctorParameters = function () { return []; };
-var MdLineModule = (function () {
-    function MdLineModule() {
+MatLine.ctorParameters = function () { return []; };
+var MatLineModule = (function () {
+    function MatLineModule() {
     }
-    return MdLineModule;
+    return MatLineModule;
 }());
-MdLineModule.decorators = [
+MatLineModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdCommonModule],
-                exports: [MdLine, MdCommonModule],
-                declarations: [MdLine],
+                imports: [MatCommonModule],
+                exports: [MatLine, MatCommonModule],
+                declarations: [MatLine],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdLineModule.ctorParameters = function () { return []; };
+MatLineModule.ctorParameters = function () { return []; };
 var RippleState = {};
 RippleState.FADING_IN = 0;
 RippleState.VISIBLE = 1;
@@ -1463,8 +1427,8 @@ function distanceToFurthestCorner(x, y, rect) {
 /**
  * Injection token that can be used to specify the global ripple options.
  */
-var MD_RIPPLE_GLOBAL_OPTIONS = new _angular_core.InjectionToken('md-ripple-global-options');
-var MdRipple = (function () {
+var MAT_RIPPLE_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-ripple-global-options');
+var MatRipple = (function () {
     /**
      * @param {?} elementRef
      * @param {?} ngZone
@@ -1472,7 +1436,7 @@ var MdRipple = (function () {
      * @param {?} platform
      * @param {?} globalOptions
      */
-    function MdRipple(elementRef, ngZone, ruler, platform, globalOptions) {
+    function MatRipple(elementRef, ngZone, ruler, platform, globalOptions) {
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -1489,103 +1453,12 @@ var MdRipple = (function () {
         this._globalOptions = globalOptions ? globalOptions : {};
         this._updateRippleRenderer();
     }
-    Object.defineProperty(MdRipple.prototype, "_matRippleTrigger", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.trigger; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.trigger = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleCentered", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.centered; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.centered = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleDisabled", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.disabled; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.disabled = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleRadius", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.radius; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.radius = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleSpeedFactor", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.speedFactor; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.speedFactor = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleColor", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.color; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.color = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleUnbounded", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.unbounded; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.unbounded = v; },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @param {?} changes
      * @return {?}
      */
-    MdRipple.prototype.ngOnChanges = function (changes) {
-        if (changes['trigger'] && this.trigger) {
+    MatRipple.prototype.ngOnChanges = function (changes) {
+        if ((changes['trigger'] || changes['_matRippleTrigger']) && this.trigger) {
             this._rippleRenderer.setTriggerElement(this.trigger);
         }
         this._updateRippleRenderer();
@@ -1593,7 +1466,7 @@ var MdRipple = (function () {
     /**
      * @return {?}
      */
-    MdRipple.prototype.ngOnDestroy = function () {
+    MatRipple.prototype.ngOnDestroy = function () {
         // Set the trigger element to null to cleanup all listeners.
         this._rippleRenderer.setTriggerElement(null);
     };
@@ -1604,7 +1477,7 @@ var MdRipple = (function () {
      * @param {?=} config
      * @return {?}
      */
-    MdRipple.prototype.launch = function (pageX, pageY, config) {
+    MatRipple.prototype.launch = function (pageX, pageY, config) {
         if (config === void 0) { config = this.rippleConfig; }
         return this._rippleRenderer.fadeInRipple(pageX, pageY, config);
     };
@@ -1612,10 +1485,10 @@ var MdRipple = (function () {
      * Fades out all currently showing ripple elements.
      * @return {?}
      */
-    MdRipple.prototype.fadeOutAll = function () {
+    MatRipple.prototype.fadeOutAll = function () {
         this._rippleRenderer.fadeOutAll();
     };
-    Object.defineProperty(MdRipple.prototype, "rippleConfig", {
+    Object.defineProperty(MatRipple.prototype, "rippleConfig", {
         /**
          * Ripple configuration from the directive's input values.
          * @return {?}
@@ -1635,16 +1508,16 @@ var MdRipple = (function () {
      * Updates the ripple renderer with the latest ripple configuration.
      * @return {?}
      */
-    MdRipple.prototype._updateRippleRenderer = function () {
+    MatRipple.prototype._updateRippleRenderer = function () {
         this._rippleRenderer.rippleDisabled = this._globalOptions.disabled || this.disabled;
         this._rippleRenderer.rippleConfig = this.rippleConfig;
     };
-    return MdRipple;
+    return MatRipple;
 }());
-MdRipple.decorators = [
+MatRipple.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[md-ripple], [mat-ripple], [mdRipple], [matRipple]',
-                exportAs: 'mdRipple, matRipple',
+                selector: '[mat-ripple], [matRipple]',
+                exportAs: 'matRipple',
                 host: {
                     'class': 'mat-ripple',
                     '[class.mat-ripple-unbounded]': 'unbounded'
@@ -1654,46 +1527,39 @@ MdRipple.decorators = [
 /**
  * @nocollapse
  */
-MdRipple.ctorParameters = function () { return [
+MatRipple.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.NgZone, },
     { type: _angular_cdk_scrolling.ViewportRuler, },
     { type: _angular_cdk_platform.Platform, },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_RIPPLE_GLOBAL_OPTIONS,] },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
 ]; };
-MdRipple.propDecorators = {
-    'trigger': [{ type: _angular_core.Input, args: ['mdRippleTrigger',] },],
-    'centered': [{ type: _angular_core.Input, args: ['mdRippleCentered',] },],
-    'disabled': [{ type: _angular_core.Input, args: ['mdRippleDisabled',] },],
-    'radius': [{ type: _angular_core.Input, args: ['mdRippleRadius',] },],
-    'speedFactor': [{ type: _angular_core.Input, args: ['mdRippleSpeedFactor',] },],
-    'color': [{ type: _angular_core.Input, args: ['mdRippleColor',] },],
-    'unbounded': [{ type: _angular_core.Input, args: ['mdRippleUnbounded',] },],
-    '_matRippleTrigger': [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
-    '_matRippleCentered': [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
-    '_matRippleDisabled': [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
-    '_matRippleRadius': [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
-    '_matRippleSpeedFactor': [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
-    '_matRippleColor': [{ type: _angular_core.Input, args: ['matRippleColor',] },],
-    '_matRippleUnbounded': [{ type: _angular_core.Input, args: ['matRippleUnbounded',] },],
+MatRipple.propDecorators = {
+    'trigger': [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
+    'centered': [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
+    'disabled': [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
+    'radius': [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
+    'speedFactor': [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
+    'color': [{ type: _angular_core.Input, args: ['matRippleColor',] },],
+    'unbounded': [{ type: _angular_core.Input, args: ['matRippleUnbounded',] },],
 };
-var MdRippleModule = (function () {
-    function MdRippleModule() {
+var MatRippleModule = (function () {
+    function MatRippleModule() {
     }
-    return MdRippleModule;
+    return MatRippleModule;
 }());
-MdRippleModule.decorators = [
+MatRippleModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
-                exports: [MdRipple, MdCommonModule],
-                declarations: [MdRipple],
+                imports: [MatCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
+                exports: [MatRipple, MatCommonModule],
+                declarations: [MatRipple],
                 providers: [_angular_cdk_scrolling.VIEWPORT_RULER_PROVIDER],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdRippleModule.ctorParameters = function () { return []; };
+MatRippleModule.ctorParameters = function () { return []; };
 /**
  * Component that shows a simplified checkbox without including any kind of "real" checkbox.
  * Meant to be used when the checkbox is purely decorative and a large number of them will be
@@ -1702,13 +1568,13 @@ MdRippleModule.ctorParameters = function () { return []; };
  * `mat-primary .mat-pseudo-checkbox`.
  *
  * Note that this component will be completely invisible to screen-reader users. This is *not*
- * interchangeable with <md-checkbox> and should *not* be used if the user would directly interact
+ * interchangeable with <mat-checkbox> and should *not* be used if the user would directly interact
  * with the checkbox. The pseudo-checkbox should only be used as an implementation detail of
  * more complex components that appropriately handle selected / checked state.
  * \@docs-private
  */
-var MdPseudoCheckbox = (function () {
-    function MdPseudoCheckbox() {
+var MatPseudoCheckbox = (function () {
+    function MatPseudoCheckbox() {
         /**
          * Display state of the checkbox.
          */
@@ -1718,13 +1584,13 @@ var MdPseudoCheckbox = (function () {
          */
         this.disabled = false;
     }
-    return MdPseudoCheckbox;
+    return MatPseudoCheckbox;
 }());
-MdPseudoCheckbox.decorators = [
+MatPseudoCheckbox.decorators = [
     { type: _angular_core.Component, args: [{ encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                selector: 'md-pseudo-checkbox, mat-pseudo-checkbox',
+                selector: 'mat-pseudo-checkbox',
                 styles: [".mat-pseudo-checkbox{width:20px;height:20px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0,0,.2,.1),background-color 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:'';border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:9px;left:2px;width:16px;opacity:1}.mat-pseudo-checkbox-checked::after{top:5px;left:3px;width:12px;height:5px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1}"],
                 template: '',
                 host: {
@@ -1738,43 +1604,43 @@ MdPseudoCheckbox.decorators = [
 /**
  * @nocollapse
  */
-MdPseudoCheckbox.ctorParameters = function () { return []; };
-MdPseudoCheckbox.propDecorators = {
+MatPseudoCheckbox.ctorParameters = function () { return []; };
+MatPseudoCheckbox.propDecorators = {
     'state': [{ type: _angular_core.Input },],
     'disabled': [{ type: _angular_core.Input },],
 };
-var MdPseudoCheckboxModule = (function () {
-    function MdPseudoCheckboxModule() {
+var MatPseudoCheckboxModule = (function () {
+    function MatPseudoCheckboxModule() {
     }
-    return MdPseudoCheckboxModule;
+    return MatPseudoCheckboxModule;
 }());
-MdPseudoCheckboxModule.decorators = [
+MatPseudoCheckboxModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                exports: [MdPseudoCheckbox],
-                declarations: [MdPseudoCheckbox]
+                exports: [MatPseudoCheckbox],
+                declarations: [MatPseudoCheckbox]
             },] },
 ];
 /**
  * @nocollapse
  */
-MdPseudoCheckboxModule.ctorParameters = function () { return []; };
+MatPseudoCheckboxModule.ctorParameters = function () { return []; };
 /**
  * \@docs-private
  */
-var MdOptgroupBase = (function () {
-    function MdOptgroupBase() {
+var MatOptgroupBase = (function () {
+    function MatOptgroupBase() {
     }
-    return MdOptgroupBase;
+    return MatOptgroupBase;
 }());
-var _MdOptgroupMixinBase = mixinDisabled(MdOptgroupBase);
+var _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
 // Counter for unique group ids.
 var _uniqueOptgroupIdCounter = 0;
 /**
- * Component that is used to group instances of `md-option`.
+ * Component that is used to group instances of `mat-option`.
  */
-var MdOptgroup = (function (_super) {
-    __extends(MdOptgroup, _super);
-    function MdOptgroup() {
+var MatOptgroup = (function (_super) {
+    __extends(MatOptgroup, _super);
+    function MatOptgroup() {
         var _this = _super.apply(this, arguments) || this;
         /**
          * Unique id for the underlying label.
@@ -1782,11 +1648,11 @@ var MdOptgroup = (function (_super) {
         _this._labelId = "mat-optgroup-label-" + _uniqueOptgroupIdCounter++;
         return _this;
     }
-    return MdOptgroup;
-}(_MdOptgroupMixinBase));
-MdOptgroup.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-optgroup, mat-optgroup',
-                template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"md-option, mat-option\"></ng-content>",
+    return MatOptgroup;
+}(_MatOptgroupMixinBase));
+MatOptgroup.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-optgroup',
+                template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -1803,8 +1669,8 @@ MdOptgroup.decorators = [
 /**
  * @nocollapse
  */
-MdOptgroup.ctorParameters = function () { return []; };
-MdOptgroup.propDecorators = {
+MatOptgroup.ctorParameters = function () { return []; };
+MatOptgroup.propDecorators = {
     'label': [{ type: _angular_core.Input },],
 };
 /**
@@ -1813,35 +1679,33 @@ MdOptgroup.propDecorators = {
  */
 var _uniqueIdCounter = 0;
 /**
- * Event object emitted by MdOption when selected or deselected.
+ * Event object emitted by MatOption when selected or deselected.
  */
-var MdOptionSelectionChange = (function () {
+var MatOptionSelectionChange = (function () {
     /**
      * @param {?} source
      * @param {?=} isUserInput
      */
-    function MdOptionSelectionChange(source, isUserInput) {
+    function MatOptionSelectionChange(source, isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
         this.source = source;
         this.isUserInput = isUserInput;
     }
-    return MdOptionSelectionChange;
+    return MatOptionSelectionChange;
 }());
 /**
- * Single option inside of a `<md-select>` element.
+ * Single option inside of a `<mat-select>` element.
  */
-var MdOption = (function () {
+var MatOption = (function () {
     /**
      * @param {?} _element
      * @param {?} _changeDetectorRef
      * @param {?} group
-     * @param {?} _isCompatibilityMode
      */
-    function MdOption(_element, _changeDetectorRef, group, _isCompatibilityMode) {
+    function MatOption(_element, _changeDetectorRef, group) {
         this._element = _element;
         this._changeDetectorRef = _changeDetectorRef;
         this.group = group;
-        this._isCompatibilityMode = _isCompatibilityMode;
         this._selected = false;
         this._active = false;
         this._multiple = false;
@@ -1850,13 +1714,13 @@ var MdOption = (function () {
          * Whether the option is disabled.
          */
         this._disabled = false;
-        this._id = "md-option-" + _uniqueIdCounter++;
+        this._id = "mat-option-" + _uniqueIdCounter++;
         /**
          * Event emitted when the option is selected or deselected.
          */
         this.onSelectionChange = new _angular_core.EventEmitter();
     }
-    Object.defineProperty(MdOption.prototype, "multiple", {
+    Object.defineProperty(MatOption.prototype, "multiple", {
         /**
          * Whether the wrapping component is in multiple selection mode.
          * @return {?}
@@ -1875,7 +1739,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "id", {
+    Object.defineProperty(MatOption.prototype, "id", {
         /**
          * The unique ID of the option.
          * @return {?}
@@ -1884,7 +1748,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "selected", {
+    Object.defineProperty(MatOption.prototype, "selected", {
         /**
          * Whether or not the option is currently selected.
          * @return {?}
@@ -1893,7 +1757,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "disabled", {
+    Object.defineProperty(MatOption.prototype, "disabled", {
         /**
          * Whether the option is disabled.
          * @return {?}
@@ -1907,7 +1771,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "disableRipple", {
+    Object.defineProperty(MatOption.prototype, "disableRipple", {
         /**
          * Whether ripples for the option are disabled.
          * @return {?}
@@ -1924,7 +1788,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "active", {
+    Object.defineProperty(MatOption.prototype, "active", {
         /**
          * Whether or not the option is currently active and ready to be selected.
          * An active option displays styles as if it is focused, but the
@@ -1938,7 +1802,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "viewValue", {
+    Object.defineProperty(MatOption.prototype, "viewValue", {
         /**
          * The displayed value of the option. It is necessary to show the selected option in the
          * select's trigger.
@@ -1955,7 +1819,7 @@ var MdOption = (function () {
      * Selects the option.
      * @return {?}
      */
-    MdOption.prototype.select = function () {
+    MatOption.prototype.select = function () {
         this._selected = true;
         this._changeDetectorRef.markForCheck();
         this._emitSelectionChangeEvent();
@@ -1964,7 +1828,7 @@ var MdOption = (function () {
      * Deselects the option.
      * @return {?}
      */
-    MdOption.prototype.deselect = function () {
+    MatOption.prototype.deselect = function () {
         this._selected = false;
         this._changeDetectorRef.markForCheck();
         this._emitSelectionChangeEvent();
@@ -1973,7 +1837,7 @@ var MdOption = (function () {
      * Sets focus onto this option.
      * @return {?}
      */
-    MdOption.prototype.focus = function () {
+    MatOption.prototype.focus = function () {
         var /** @type {?} */ element = this._getHostElement();
         if (typeof element.focus === 'function') {
             element.focus();
@@ -1985,7 +1849,7 @@ var MdOption = (function () {
      * events will display the proper options as active on arrow key events.
      * @return {?}
      */
-    MdOption.prototype.setActiveStyles = function () {
+    MatOption.prototype.setActiveStyles = function () {
         if (!this._active) {
             this._active = true;
             this._changeDetectorRef.markForCheck();
@@ -1997,7 +1861,7 @@ var MdOption = (function () {
      * events will display the proper options as active on arrow key events.
      * @return {?}
      */
-    MdOption.prototype.setInactiveStyles = function () {
+    MatOption.prototype.setInactiveStyles = function () {
         if (this._active) {
             this._active = false;
             this._changeDetectorRef.markForCheck();
@@ -2007,7 +1871,7 @@ var MdOption = (function () {
      * Gets the label to be used when determining whether the option should be focused.
      * @return {?}
      */
-    MdOption.prototype.getLabel = function () {
+    MatOption.prototype.getLabel = function () {
         return this.viewValue;
     };
     /**
@@ -2015,7 +1879,7 @@ var MdOption = (function () {
      * @param {?} event
      * @return {?}
      */
-    MdOption.prototype._handleKeydown = function (event) {
+    MatOption.prototype._handleKeydown = function (event) {
         if (event.keyCode === _angular_cdk_keycodes.ENTER || event.keyCode === _angular_cdk_keycodes.SPACE) {
             this._selectViaInteraction();
             // Prevent the page from scrolling down and form submits.
@@ -2027,7 +1891,7 @@ var MdOption = (function () {
      * determine if the select's view -> model callback should be invoked.
      * @return {?}
      */
-    MdOption.prototype._selectViaInteraction = function () {
+    MatOption.prototype._selectViaInteraction = function () {
         if (!this.disabled) {
             this._selected = this.multiple ? !this._selected : true;
             this._changeDetectorRef.markForCheck();
@@ -2038,14 +1902,14 @@ var MdOption = (function () {
      * Returns the correct tabindex for the option depending on disabled state.
      * @return {?}
      */
-    MdOption.prototype._getTabIndex = function () {
+    MatOption.prototype._getTabIndex = function () {
         return this.disabled ? '-1' : '0';
     };
     /**
      * Gets the host DOM element.
      * @return {?}
      */
-    MdOption.prototype._getHostElement = function () {
+    MatOption.prototype._getHostElement = function () {
         return this._element.nativeElement;
     };
     /**
@@ -2053,9 +1917,9 @@ var MdOption = (function () {
      * @param {?=} isUserInput
      * @return {?}
      */
-    MdOption.prototype._emitSelectionChangeEvent = function (isUserInput) {
+    MatOption.prototype._emitSelectionChangeEvent = function (isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
-        this.onSelectionChange.emit(new MdOptionSelectionChange(this, isUserInput));
+        this.onSelectionChange.emit(new MatOptionSelectionChange(this, isUserInput));
     };
     /**
      * Counts the amount of option group labels that precede the specified option.
@@ -2064,7 +1928,7 @@ var MdOption = (function () {
      * @param {?} optionGroups Flat list of all of the option groups.
      * @return {?}
      */
-    MdOption.countGroupLabelsBeforeOption = function (optionIndex, options, optionGroups) {
+    MatOption.countGroupLabelsBeforeOption = function (optionIndex, options, optionGroups) {
         if (optionGroups.length) {
             var /** @type {?} */ optionsArray = options.toArray();
             var /** @type {?} */ groups = optionGroups.toArray();
@@ -2078,10 +1942,10 @@ var MdOption = (function () {
         }
         return 0;
     };
-    return MdOption;
+    return MatOption;
 }());
-MdOption.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-option, mat-option',
+MatOption.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-option',
                 host: {
                     'role': 'option',
                     '[attr.tabindex]': '_getTabIndex()',
@@ -2096,7 +1960,7 @@ MdOption.decorators = [
                     '(keydown)': '_handleKeydown($event)',
                     'class': 'mat-option',
                 },
-                template: "<span [ngSwitch]=\"_isCompatibilityMode\" *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" *ngSwitchCase=\"true\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox><md-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" *ngSwitchDefault [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></md-pseudo-checkbox></span><ng-content></ng-content><div class=\"mat-option-ripple\" md-ripple [mdRippleTrigger]=\"_getHostElement()\" [mdRippleDisabled]=\"disabled || disableRipple\"></div>",
+                template: "<span *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox></span><span class=\"mat-option-text\"><ng-content></ng-content></span><div class=\"mat-option-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"disabled || disableRipple\"></div>",
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -2105,230 +1969,182 @@ MdOption.decorators = [
 /**
  * @nocollapse
  */
-MdOption.ctorParameters = function () { return [
+MatOption.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.ChangeDetectorRef, },
-    { type: MdOptgroup, decorators: [{ type: _angular_core.Optional },] },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
+    { type: MatOptgroup, decorators: [{ type: _angular_core.Optional },] },
 ]; };
-MdOption.propDecorators = {
+MatOption.propDecorators = {
     'value': [{ type: _angular_core.Input },],
     'disabled': [{ type: _angular_core.Input },],
     'onSelectionChange': [{ type: _angular_core.Output },],
 };
-var MdOptionModule = (function () {
-    function MdOptionModule() {
+var MatOptionModule = (function () {
+    function MatOptionModule() {
     }
-    return MdOptionModule;
+    return MatOptionModule;
 }());
-MdOptionModule.decorators = [
+MatOptionModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdRippleModule, _angular_common.CommonModule, MdPseudoCheckboxModule],
-                exports: [MdOption, MdOptgroup],
-                declarations: [MdOption, MdOptgroup]
+                imports: [MatRippleModule, _angular_common.CommonModule, MatPseudoCheckboxModule],
+                exports: [MatOption, MatOptgroup],
+                declarations: [MatOption, MatOptgroup]
             },] },
 ];
 /**
  * @nocollapse
  */
-MdOptionModule.ctorParameters = function () { return []; };
+MatOptionModule.ctorParameters = function () { return []; };
 /**
  * InjectionToken that can be used to specify the global placeholder options.
  */
-var MD_PLACEHOLDER_GLOBAL_OPTIONS = new _angular_core.InjectionToken('md-placeholder-global-options');
-/**
- * Custom injector to be used when providing custom
- * injection tokens to components inside a portal.
- * \@docs-private
- */
-var PortalInjector = (function () {
-    /**
-     * @param {?} _parentInjector
-     * @param {?} _customTokens
-     */
-    function PortalInjector(_parentInjector, _customTokens) {
-        this._parentInjector = _parentInjector;
-        this._customTokens = _customTokens;
-    }
-    /**
-     * @param {?} token
-     * @param {?=} notFoundValue
-     * @return {?}
-     */
-    PortalInjector.prototype.get = function (token, notFoundValue) {
-        var /** @type {?} */ value = this._customTokens.get(token);
-        if (typeof value !== 'undefined') {
-            return value;
-        }
-        return this._parentInjector.get(token, notFoundValue);
-    };
-    return PortalInjector;
-}());
-/**
- * @deprecated
- */
-var StyleModule = (function () {
-    function StyleModule() {
-    }
-    return StyleModule;
-}());
-StyleModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [_angular_cdk_a11y.A11yModule],
-                exports: [_angular_cdk_a11y.A11yModule],
-            },] },
-];
-/**
- * @nocollapse
- */
-StyleModule.ctorParameters = function () { return []; };
+var MAT_PLACEHOLDER_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-placeholder-global-options');
 
 /**
- * Default color palette for round buttons (md-fab and md-mini-fab)
+ * Default color palette for round buttons (mat-fab and mat-mini-fab)
  */
 var DEFAULT_ROUND_BUTTON_COLOR = 'accent';
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdButtonCssMatStyler = (function () {
-    function MdButtonCssMatStyler() {
+var MatButtonCssMatStyler = (function () {
+    function MatButtonCssMatStyler() {
     }
-    return MdButtonCssMatStyler;
+    return MatButtonCssMatStyler;
 }());
-MdButtonCssMatStyler.decorators = [
+MatButtonCssMatStyler.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: 'button[md-button], button[mat-button], a[md-button], a[mat-button]',
+                selector: 'button[mat-button], a[mat-button]',
                 host: { 'class': 'mat-button' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdButtonCssMatStyler.ctorParameters = function () { return []; };
+MatButtonCssMatStyler.ctorParameters = function () { return []; };
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdRaisedButtonCssMatStyler = (function () {
-    function MdRaisedButtonCssMatStyler() {
+var MatRaisedButtonCssMatStyler = (function () {
+    function MatRaisedButtonCssMatStyler() {
     }
-    return MdRaisedButtonCssMatStyler;
+    return MatRaisedButtonCssMatStyler;
 }());
-MdRaisedButtonCssMatStyler.decorators = [
+MatRaisedButtonCssMatStyler.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: 'button[md-raised-button], button[mat-raised-button], ' +
-                    'a[md-raised-button], a[mat-raised-button]',
+                selector: 'button[mat-raised-button], a[mat-raised-button]',
                 host: { 'class': 'mat-raised-button' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdRaisedButtonCssMatStyler.ctorParameters = function () { return []; };
+MatRaisedButtonCssMatStyler.ctorParameters = function () { return []; };
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdIconButtonCssMatStyler = (function () {
-    function MdIconButtonCssMatStyler() {
+var MatIconButtonCssMatStyler = (function () {
+    function MatIconButtonCssMatStyler() {
     }
-    return MdIconButtonCssMatStyler;
+    return MatIconButtonCssMatStyler;
 }());
-MdIconButtonCssMatStyler.decorators = [
+MatIconButtonCssMatStyler.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: 'button[md-icon-button], button[mat-icon-button], a[md-icon-button], a[mat-icon-button]',
+                selector: 'button[mat-icon-button], a[mat-icon-button]',
                 host: { 'class': 'mat-icon-button' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdIconButtonCssMatStyler.ctorParameters = function () { return []; };
+MatIconButtonCssMatStyler.ctorParameters = function () { return []; };
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdFab = (function () {
+var MatFab = (function () {
     /**
      * @param {?} button
      * @param {?} anchor
      */
-    function MdFab(button, anchor) {
-        // Set the default color palette for the md-fab components.
+    function MatFab(button, anchor) {
+        // Set the default color palette for the mat-fab components.
         (button || anchor).color = DEFAULT_ROUND_BUTTON_COLOR;
     }
-    return MdFab;
+    return MatFab;
 }());
-MdFab.decorators = [
+MatFab.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: 'button[md-fab], button[mat-fab], a[md-fab], a[mat-fab]',
+                selector: 'button[mat-fab], a[mat-fab]',
                 host: { 'class': 'mat-fab' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdFab.ctorParameters = function () { return [
-    { type: MdButton, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MdButton; }),] },] },
-    { type: MdAnchor, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MdAnchor; }),] },] },
+MatFab.ctorParameters = function () { return [
+    { type: MatButton, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatButton; }),] },] },
+    { type: MatAnchor, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatAnchor; }),] },] },
 ]; };
 /**
  * Directive that targets mini-fab buttons and anchors. It's used to apply the `mat-` class
  * to all mini-fab buttons and also is responsible for setting the default color palette.
  * \@docs-private
  */
-var MdMiniFab = (function () {
+var MatMiniFab = (function () {
     /**
      * @param {?} button
      * @param {?} anchor
      */
-    function MdMiniFab(button, anchor) {
-        // Set the default color palette for the md-mini-fab components.
+    function MatMiniFab(button, anchor) {
+        // Set the default color palette for the mat-mini-fab components.
         (button || anchor).color = DEFAULT_ROUND_BUTTON_COLOR;
     }
-    return MdMiniFab;
+    return MatMiniFab;
 }());
-MdMiniFab.decorators = [
+MatMiniFab.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: 'button[md-mini-fab], button[mat-mini-fab], a[md-mini-fab], a[mat-mini-fab]',
+                selector: 'button[mat-mini-fab], a[mat-mini-fab]',
                 host: { 'class': 'mat-mini-fab' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdMiniFab.ctorParameters = function () { return [
-    { type: MdButton, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MdButton; }),] },] },
-    { type: MdAnchor, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MdAnchor; }),] },] },
+MatMiniFab.ctorParameters = function () { return [
+    { type: MatButton, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatButton; }),] },] },
+    { type: MatAnchor, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatAnchor; }),] },] },
 ]; };
 /**
  * \@docs-private
  */
-var MdButtonBase = (function () {
+var MatButtonBase = (function () {
     /**
      * @param {?} _renderer
      * @param {?} _elementRef
      */
-    function MdButtonBase(_renderer, _elementRef) {
+    function MatButtonBase(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
     }
-    return MdButtonBase;
+    return MatButtonBase;
 }());
-var _MdButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MdButtonBase)));
+var _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButtonBase)));
 /**
  * Material design button.
  */
-var MdButton = (function (_super) {
-    __extends(MdButton, _super);
+var MatButton = (function (_super) {
+    __extends(MatButton, _super);
     /**
      * @param {?} renderer
      * @param {?} elementRef
      * @param {?} _platform
      * @param {?} _focusMonitor
      */
-    function MdButton(renderer, elementRef, _platform, _focusMonitor) {
+    function MatButton(renderer, elementRef, _platform, _focusMonitor) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._platform = _platform;
         _this._focusMonitor = _focusMonitor;
@@ -2346,35 +2162,34 @@ var MdButton = (function (_super) {
     /**
      * @return {?}
      */
-    MdButton.prototype.ngOnDestroy = function () {
+    MatButton.prototype.ngOnDestroy = function () {
         this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
     };
     /**
      * Focuses the button.
      * @return {?}
      */
-    MdButton.prototype.focus = function () {
+    MatButton.prototype.focus = function () {
         this._getHostElement().focus();
     };
     /**
      * @return {?}
      */
-    MdButton.prototype._getHostElement = function () {
+    MatButton.prototype._getHostElement = function () {
         return this._elementRef.nativeElement;
     };
     /**
      * @return {?}
      */
-    MdButton.prototype._isRippleDisabled = function () {
+    MatButton.prototype._isRippleDisabled = function () {
         return this.disableRipple || this.disabled;
     };
     /**
-     * Gets whether the button has one of the given attributes
-     * with either an 'md-' or 'mat-' prefix.
+     * Gets whether the button has one of the given attributes with a 'mat-' prefix.
      * @param {...?} unprefixedAttributeNames
      * @return {?}
      */
-    MdButton.prototype._hasAttributeWithPrefix = function () {
+    MatButton.prototype._hasAttributeWithPrefix = function () {
         var _this = this;
         var unprefixedAttributeNames = [];
         for (var _i = 0; _i < arguments.length; _i++) {
@@ -2387,18 +2202,17 @@ var MdButton = (function (_super) {
             return false;
         }
         return unprefixedAttributeNames.some(function (suffix) {
-            var /** @type {?} */ el = _this._getHostElement();
-            return el.hasAttribute('md-' + suffix) || el.hasAttribute('mat-' + suffix);
+            return _this._getHostElement().hasAttribute('mat-' + suffix);
         });
     };
-    return MdButton;
-}(_MdButtonMixinBase));
-MdButton.decorators = [
-    { type: _angular_core.Component, args: [{ selector: "button[md-button], button[md-raised-button], button[md-icon-button],\n             button[md-fab], button[md-mini-fab],\n             button[mat-button], button[mat-raised-button], button[mat-icon-button],\n             button[mat-fab], button[mat-mini-fab]",
+    return MatButton;
+}(_MatButtonMixinBase));
+MatButton.decorators = [
+    { type: _angular_core.Component, args: [{ selector: "button[mat-button], button[mat-raised-button], button[mat-icon-button],\n             button[mat-fab], button[mat-mini-fab]",
                 host: {
                     '[disabled]': 'disabled || null',
                 },
-                template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div md-ripple class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton || _isIconButton\" [mdRippleDisabled]=\"_isRippleDisabled()\" [mdRippleCentered]=\"_isIconButton\" [mdRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\"></div>",
+                template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div matRipple class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton || _isIconButton\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"_isIconButton\" [matRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\"></div>",
                 styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([disabled]):active,.mat-mini-fab:not([disabled]):active,.mat-raised-button:not([disabled]):active{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-button-wrapper{padding:16px 0;display:inline-block;line-height:24px}.mat-mini-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-button-wrapper{padding:8px 0;display:inline-block;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
                 inputs: ['disabled', 'disableRipple', 'color'],
                 encapsulation: _angular_core.ViewEncapsulation.None,
@@ -2409,7 +2223,7 @@ MdButton.decorators = [
 /**
  * @nocollapse
  */
-MdButton.ctorParameters = function () { return [
+MatButton.ctorParameters = function () { return [
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ElementRef, },
     { type: _angular_cdk_platform.Platform, },
@@ -2418,32 +2232,32 @@ MdButton.ctorParameters = function () { return [
 /**
  * Raised Material design button.
  */
-var MdAnchor = (function (_super) {
-    __extends(MdAnchor, _super);
+var MatAnchor = (function (_super) {
+    __extends(MatAnchor, _super);
     /**
      * @param {?} platform
      * @param {?} focusMonitor
      * @param {?} elementRef
      * @param {?} renderer
      */
-    function MdAnchor(platform, focusMonitor, elementRef, renderer) {
+    function MatAnchor(platform, focusMonitor, elementRef, renderer) {
         return _super.call(this, renderer, elementRef, platform, focusMonitor) || this;
     }
     /**
      * @param {?} event
      * @return {?}
      */
-    MdAnchor.prototype._haltDisabledEvents = function (event) {
+    MatAnchor.prototype._haltDisabledEvents = function (event) {
         // A disabled button shouldn't apply any actions
         if (this.disabled) {
             event.preventDefault();
             event.stopImmediatePropagation();
         }
     };
-    return MdAnchor;
-}(MdButton));
-MdAnchor.decorators = [
-    { type: _angular_core.Component, args: [{ selector: "a[md-button], a[md-raised-button], a[md-icon-button], a[md-fab], a[md-mini-fab],\n             a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab], a[mat-mini-fab]",
+    return MatAnchor;
+}(MatButton));
+MatAnchor.decorators = [
+    { type: _angular_core.Component, args: [{ selector: "a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab], a[mat-mini-fab]",
                 host: {
                     '[attr.tabindex]': 'disabled ? -1 : 0',
                     '[attr.disabled]': 'disabled || null',
@@ -2451,7 +2265,7 @@ MdAnchor.decorators = [
                     '(click)': '_haltDisabledEvents($event)',
                 },
                 inputs: ['disabled', 'disableRipple', 'color'],
-                template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div md-ripple class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton || _isIconButton\" [mdRippleDisabled]=\"_isRippleDisabled()\" [mdRippleCentered]=\"_isIconButton\" [mdRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\"></div>",
+                template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div matRipple class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton || _isIconButton\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"_isIconButton\" [matRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\"></div>",
                 styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([disabled]):active,.mat-mini-fab:not([disabled]):active,.mat-raised-button:not([disabled]):active{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-button-wrapper{padding:16px 0;display:inline-block;line-height:24px}.mat-mini-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-button-wrapper{padding:8px 0;display:inline-block;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
@@ -2461,56 +2275,56 @@ MdAnchor.decorators = [
 /**
  * @nocollapse
  */
-MdAnchor.ctorParameters = function () { return [
+MatAnchor.ctorParameters = function () { return [
     { type: _angular_cdk_platform.Platform, },
     { type: _angular_cdk_a11y.FocusMonitor, },
     { type: _angular_core.ElementRef, },
     { type: _angular_core.Renderer2, },
 ]; };
-var MdButtonModule = (function () {
-    function MdButtonModule() {
+var MatButtonModule = (function () {
+    function MatButtonModule() {
     }
-    return MdButtonModule;
+    return MatButtonModule;
 }());
-MdButtonModule.decorators = [
+MatButtonModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [
                     _angular_common.CommonModule,
-                    MdRippleModule,
-                    MdCommonModule,
+                    MatRippleModule,
+                    MatCommonModule,
                     _angular_cdk_a11y.A11yModule,
                 ],
                 exports: [
-                    MdButton,
-                    MdAnchor,
-                    MdMiniFab,
-                    MdFab,
-                    MdCommonModule,
-                    MdButtonCssMatStyler,
-                    MdRaisedButtonCssMatStyler,
-                    MdIconButtonCssMatStyler,
+                    MatButton,
+                    MatAnchor,
+                    MatMiniFab,
+                    MatFab,
+                    MatCommonModule,
+                    MatButtonCssMatStyler,
+                    MatRaisedButtonCssMatStyler,
+                    MatIconButtonCssMatStyler,
                 ],
                 declarations: [
-                    MdButton,
-                    MdAnchor,
-                    MdMiniFab,
-                    MdFab,
-                    MdButtonCssMatStyler,
-                    MdRaisedButtonCssMatStyler,
-                    MdIconButtonCssMatStyler,
+                    MatButton,
+                    MatAnchor,
+                    MatMiniFab,
+                    MatFab,
+                    MatButtonCssMatStyler,
+                    MatRaisedButtonCssMatStyler,
+                    MatIconButtonCssMatStyler,
                 ],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdButtonModule.ctorParameters = function () { return []; };
+MatButtonModule.ctorParameters = function () { return []; };
 
 /**
- * Configuration for opening a modal dialog with the MdDialog service.
+ * Configuration for opening a modal dialog with the MatDialog service.
  */
-var MdDialogConfig = (function () {
-    function MdDialogConfig() {
+var MatDialogConfig = (function () {
+    function MatDialogConfig() {
         /**
          * The ARIA role of the dialog element.
          */
@@ -2553,7 +2367,7 @@ var MdDialogConfig = (function () {
         this.ariaDescribedBy = null;
         // TODO(jelbourn): add configuration for lifecycle hooks, ARIA labelling.
     }
-    return MdDialogConfig;
+    return MatDialogConfig;
 }());
 /**
  * Throws an exception for the case when a ComponentPortal is
@@ -2561,7 +2375,7 @@ var MdDialogConfig = (function () {
  * \@docs-private
  * @return {?}
  */
-function throwMdDialogContentAlreadyAttachedError() {
+function throwMatDialogContentAlreadyAttachedError() {
     throw Error('Attempting to attach dialog content after content is already attached');
 }
 /**
@@ -2569,15 +2383,15 @@ function throwMdDialogContentAlreadyAttachedError() {
  * Animation is based on https://material.io/guidelines/motion/choreography.html.
  * \@docs-private
  */
-var MdDialogContainer = (function (_super) {
-    __extends(MdDialogContainer, _super);
+var MatDialogContainer = (function (_super) {
+    __extends(MatDialogContainer, _super);
     /**
      * @param {?} _elementRef
      * @param {?} _focusTrapFactory
      * @param {?} _changeDetectorRef
      * @param {?} _document
      */
-    function MdDialogContainer(_elementRef, _focusTrapFactory, _changeDetectorRef, _document) {
+    function MatDialogContainer(_elementRef, _focusTrapFactory, _changeDetectorRef, _document) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._focusTrapFactory = _focusTrapFactory;
@@ -2611,9 +2425,9 @@ var MdDialogContainer = (function (_super) {
      * @param {?} portal Portal to be attached as the dialog content.
      * @return {?}
      */
-    MdDialogContainer.prototype.attachComponentPortal = function (portal) {
+    MatDialogContainer.prototype.attachComponentPortal = function (portal) {
         if (this._portalHost.hasAttached()) {
-            throwMdDialogContentAlreadyAttachedError();
+            throwMatDialogContentAlreadyAttachedError();
         }
         this._savePreviouslyFocusedElement();
         return this._portalHost.attachComponentPortal(portal);
@@ -2624,9 +2438,9 @@ var MdDialogContainer = (function (_super) {
      * @param {?} portal Portal to be attached as the dialog content.
      * @return {?}
      */
-    MdDialogContainer.prototype.attachTemplatePortal = function (portal) {
+    MatDialogContainer.prototype.attachTemplatePortal = function (portal) {
         if (this._portalHost.hasAttached()) {
-            throwMdDialogContentAlreadyAttachedError();
+            throwMatDialogContentAlreadyAttachedError();
         }
         this._savePreviouslyFocusedElement();
         return this._portalHost.attachTemplatePortal(portal);
@@ -2635,7 +2449,7 @@ var MdDialogContainer = (function (_super) {
      * Moves the focus inside the focus trap.
      * @return {?}
      */
-    MdDialogContainer.prototype._trapFocus = function () {
+    MatDialogContainer.prototype._trapFocus = function () {
         var _this = this;
         if (!this._focusTrap) {
             this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
@@ -2655,7 +2469,7 @@ var MdDialogContainer = (function (_super) {
      * Restores focus to the element that was focused before the dialog opened.
      * @return {?}
      */
-    MdDialogContainer.prototype._restoreFocus = function () {
+    MatDialogContainer.prototype._restoreFocus = function () {
         var /** @type {?} */ toFocus = this._elementFocusedBeforeDialogWasOpened;
         // We need the extra check, because IE can set the `activeElement` to null in some cases.
         if (toFocus && typeof toFocus.focus === 'function') {
@@ -2669,7 +2483,7 @@ var MdDialogContainer = (function (_super) {
      * Saves a reference to the element that was focused before the dialog was opened.
      * @return {?}
      */
-    MdDialogContainer.prototype._savePreviouslyFocusedElement = function () {
+    MatDialogContainer.prototype._savePreviouslyFocusedElement = function () {
         if (this._document) {
             this._elementFocusedBeforeDialogWasOpened = (this._document.activeElement);
         }
@@ -2679,7 +2493,7 @@ var MdDialogContainer = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MdDialogContainer.prototype._onAnimationDone = function (event) {
+    MatDialogContainer.prototype._onAnimationDone = function (event) {
         if (event.toState === 'enter') {
             this._trapFocus();
         }
@@ -2694,7 +2508,7 @@ var MdDialogContainer = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MdDialogContainer.prototype._onAnimationStart = function (event) {
+    MatDialogContainer.prototype._onAnimationStart = function (event) {
         this._isAnimating = true;
         this._animationStateChanged.emit(event);
     };
@@ -2702,16 +2516,16 @@ var MdDialogContainer = (function (_super) {
      * Starts the dialog exit animation.
      * @return {?}
      */
-    MdDialogContainer.prototype._startExitAnimation = function () {
+    MatDialogContainer.prototype._startExitAnimation = function () {
         this._state = 'exit';
         // Mark the container for check so it can react if the
         // view container is using OnPush change detection.
         this._changeDetectorRef.markForCheck();
     };
-    return MdDialogContainer;
+    return MatDialogContainer;
 }(_angular_cdk_portal.BasePortalHost));
-MdDialogContainer.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-dialog-container, mat-dialog-container',
+MatDialogContainer.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-dialog-container',
                 template: "<ng-template cdkPortalHost></ng-template>",
                 styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;max-width:80vw;outline:0;width:100%;height:100%}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch;-webkit-backface-visibility:hidden;backface-visibility:hidden}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex;flex-wrap:wrap}.mat-dialog-actions:last-child{margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button+.mat-button,.mat-dialog-actions .mat-button+.mat-raised-button,.mat-dialog-actions .mat-raised-button+.mat-button,.mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-button+.mat-raised-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:0;margin-right:8px}"],
                 encapsulation: _angular_core.ViewEncapsulation.None,
@@ -2743,29 +2557,29 @@ MdDialogContainer.decorators = [
 /**
  * @nocollapse
  */
-MdDialogContainer.ctorParameters = function () { return [
+MatDialogContainer.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_cdk_a11y.FocusTrapFactory, },
     { type: _angular_core.ChangeDetectorRef, },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
 ]; };
-MdDialogContainer.propDecorators = {
+MatDialogContainer.propDecorators = {
     '_portalHost': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.PortalHostDirective,] },],
 };
 // TODO(jelbourn): resizing
 // Counter for unique dialog ids.
 var uniqueId = 0;
 /**
- * Reference to a dialog opened via the MdDialog service.
+ * Reference to a dialog opened via the MatDialog service.
  */
-var MdDialogRef = (function () {
+var MatDialogRef = (function () {
     /**
      * @param {?} _overlayRef
      * @param {?} _containerInstance
      * @param {?=} id
      */
-    function MdDialogRef(_overlayRef, _containerInstance, id) {
-        if (id === void 0) { id = "md-dialog-" + uniqueId++; }
+    function MatDialogRef(_overlayRef, _containerInstance, id) {
+        if (id === void 0) { id = "mat-dialog-" + uniqueId++; }
         var _this = this;
         this._overlayRef = _overlayRef;
         this._containerInstance = _containerInstance;
@@ -2810,7 +2624,7 @@ var MdDialogRef = (function () {
      * @param {?=} dialogResult Optional result to return to the dialog opener.
      * @return {?}
      */
-    MdDialogRef.prototype.close = function (dialogResult) {
+    MatDialogRef.prototype.close = function (dialogResult) {
         var _this = this;
         this._result = dialogResult;
         // Transition the backdrop in parallel to the dialog.
@@ -2828,28 +2642,28 @@ var MdDialogRef = (function () {
      * Gets an observable that is notified when the dialog is finished opening.
      * @return {?}
      */
-    MdDialogRef.prototype.afterOpen = function () {
+    MatDialogRef.prototype.afterOpen = function () {
         return this._afterOpen.asObservable();
     };
     /**
      * Gets an observable that is notified when the dialog is finished closing.
      * @return {?}
      */
-    MdDialogRef.prototype.afterClosed = function () {
+    MatDialogRef.prototype.afterClosed = function () {
         return this._afterClosed.asObservable();
     };
     /**
      * Gets an observable that is notified when the dialog has started closing.
      * @return {?}
      */
-    MdDialogRef.prototype.beforeClose = function () {
+    MatDialogRef.prototype.beforeClose = function () {
         return this._beforeClose.asObservable();
     };
     /**
      * Gets an observable that emits when the overlay's backdrop has been clicked.
      * @return {?}
      */
-    MdDialogRef.prototype.backdropClick = function () {
+    MatDialogRef.prototype.backdropClick = function () {
         return this._overlayRef.backdropClick();
     };
     /**
@@ -2857,7 +2671,7 @@ var MdDialogRef = (function () {
      * @param {?=} position New dialog position.
      * @return {?}
      */
-    MdDialogRef.prototype.updatePosition = function (position) {
+    MatDialogRef.prototype.updatePosition = function (position) {
         var /** @type {?} */ strategy = this._getPositionStrategy();
         if (position && (position.left || position.right)) {
             position.left ? strategy.left(position.left) : strategy.right(position.right);
@@ -2880,7 +2694,7 @@ var MdDialogRef = (function () {
      * @param {?=} height New height of the dialog.
      * @return {?}
      */
-    MdDialogRef.prototype.updateSize = function (width, height) {
+    MatDialogRef.prototype.updateSize = function (width, height) {
         if (width === void 0) { width = 'auto'; }
         if (height === void 0) { height = 'auto'; }
         this._getPositionStrategy().width(width).height(height);
@@ -2891,43 +2705,43 @@ var MdDialogRef = (function () {
      * Returns whether the dialog is animating.
      * @return {?}
      */
-    MdDialogRef.prototype._isAnimating = function () {
+    MatDialogRef.prototype._isAnimating = function () {
         return this._containerInstance._isAnimating;
     };
     /**
      * Fetches the position strategy object from the overlay ref.
      * @return {?}
      */
-    MdDialogRef.prototype._getPositionStrategy = function () {
+    MatDialogRef.prototype._getPositionStrategy = function () {
         return (this._overlayRef.getState().positionStrategy);
     };
-    return MdDialogRef;
+    return MatDialogRef;
 }());
-var MD_DIALOG_DATA = new _angular_core.InjectionToken('MdDialogData');
+var MAT_DIALOG_DATA = new _angular_core.InjectionToken('MatDialogData');
 /**
  * Injection token that determines the scroll handling while the dialog is open.
  */
-var MD_DIALOG_SCROLL_STRATEGY = new _angular_core.InjectionToken('md-dialog-scroll-strategy');
+var MAT_DIALOG_SCROLL_STRATEGY = new _angular_core.InjectionToken('mat-dialog-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
  * @return {?}
  */
-function MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
+function MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
     return function () { return overlay.scrollStrategies.block(); };
 }
 /**
  * \@docs-private
  */
-var MD_DIALOG_SCROLL_STRATEGY_PROVIDER = {
-    provide: MD_DIALOG_SCROLL_STRATEGY,
+var MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
+    provide: MAT_DIALOG_SCROLL_STRATEGY,
     deps: [_angular_cdk_overlay.Overlay],
-    useFactory: MD_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY,
+    useFactory: MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY,
 };
 /**
  * Service to open Material Design modal dialogs.
  */
-var MdDialog = (function () {
+var MatDialog = (function () {
     /**
      * @param {?} _overlay
      * @param {?} _injector
@@ -2935,7 +2749,7 @@ var MdDialog = (function () {
      * @param {?} _scrollStrategy
      * @param {?} _parentDialog
      */
-    function MdDialog(_overlay, _injector, location, _scrollStrategy, _parentDialog) {
+    function MatDialog(_overlay, _injector, location, _scrollStrategy, _parentDialog) {
         var _this = this;
         this._overlay = _overlay;
         this._injector = _injector;
@@ -2959,7 +2773,7 @@ var MdDialog = (function () {
             location.subscribe(function () { return _this.closeAll(); });
         }
     }
-    Object.defineProperty(MdDialog.prototype, "openDialogs", {
+    Object.defineProperty(MatDialog.prototype, "openDialogs", {
         /**
          * Keeps track of the currently-open dialogs.
          * @return {?}
@@ -2970,7 +2784,7 @@ var MdDialog = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdDialog.prototype, "afterOpen", {
+    Object.defineProperty(MatDialog.prototype, "afterOpen", {
         /**
          * Stream that emits when a dialog has been opened.
          * @return {?}
@@ -2981,7 +2795,7 @@ var MdDialog = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdDialog.prototype, "_afterAllClosed", {
+    Object.defineProperty(MatDialog.prototype, "_afterAllClosed", {
         /**
          * @return {?}
          */
@@ -3000,7 +2814,7 @@ var MdDialog = (function () {
      * @param {?=} config Extra configuration options.
      * @return {?} Reference to the newly-opened dialog.
      */
-    MdDialog.prototype.open = function (componentOrTemplateRef, config) {
+    MatDialog.prototype.open = function (componentOrTemplateRef, config) {
         var _this = this;
         var /** @type {?} */ inProgressDialog = this.openDialogs.find(function (dialog) { return dialog._isAnimating(); });
         // If there's a dialog that is in the process of being opened, return it instead.
@@ -3026,7 +2840,7 @@ var MdDialog = (function () {
      * Closes all of the currently-open dialogs.
      * @return {?}
      */
-    MdDialog.prototype.closeAll = function () {
+    MatDialog.prototype.closeAll = function () {
         var /** @type {?} */ i = this.openDialogs.length;
         while (i--) {
             // The `_openDialogs` property isn't updated after close until the rxjs subscription
@@ -3041,7 +2855,7 @@ var MdDialog = (function () {
      * @param {?} id ID to use when looking up the dialog.
      * @return {?}
      */
-    MdDialog.prototype.getDialogById = function (id) {
+    MatDialog.prototype.getDialogById = function (id) {
         return this.openDialogs.find(function (dialog) { return dialog.id === id; });
     };
     /**
@@ -3049,7 +2863,7 @@ var MdDialog = (function () {
      * @param {?} config The dialog configuration.
      * @return {?} A promise resolving to the OverlayRef for the created overlay.
      */
-    MdDialog.prototype._createOverlay = function (config) {
+    MatDialog.prototype._createOverlay = function (config) {
         var /** @type {?} */ overlayState = this._getOverlayState(config);
         return this._overlay.create(overlayState);
     };
@@ -3058,7 +2872,7 @@ var MdDialog = (function () {
      * @param {?} dialogConfig The dialog configuration.
      * @return {?} The overlay configuration.
      */
-    MdDialog.prototype._getOverlayState = function (dialogConfig) {
+    MatDialog.prototype._getOverlayState = function (dialogConfig) {
         var /** @type {?} */ state$$1 = new _angular_cdk_overlay.OverlayConfig({
             positionStrategy: this._overlay.position().global(),
             scrollStrategy: this._scrollStrategy(),
@@ -3072,31 +2886,31 @@ var MdDialog = (function () {
         return state$$1;
     };
     /**
-     * Attaches an MdDialogContainer to a dialog's already-created overlay.
+     * Attaches an MatDialogContainer to a dialog's already-created overlay.
      * @param {?} overlay Reference to the dialog's underlying overlay.
      * @param {?} config The dialog configuration.
      * @return {?} A promise resolving to a ComponentRef for the attached container.
      */
-    MdDialog.prototype._attachDialogContainer = function (overlay, config) {
-        var /** @type {?} */ containerPortal = new _angular_cdk_portal.ComponentPortal(MdDialogContainer, config.viewContainerRef);
+    MatDialog.prototype._attachDialogContainer = function (overlay, config) {
+        var /** @type {?} */ containerPortal = new _angular_cdk_portal.ComponentPortal(MatDialogContainer, config.viewContainerRef);
         var /** @type {?} */ containerRef = overlay.attach(containerPortal);
         containerRef.instance._config = config;
         return containerRef.instance;
     };
     /**
-     * Attaches the user-provided component to the already-created MdDialogContainer.
+     * Attaches the user-provided component to the already-created MatDialogContainer.
      * @template T
      * @param {?} componentOrTemplateRef The type of component being loaded into the dialog,
      *     or a TemplateRef to instantiate as the content.
-     * @param {?} dialogContainer Reference to the wrapping MdDialogContainer.
+     * @param {?} dialogContainer Reference to the wrapping MatDialogContainer.
      * @param {?} overlayRef Reference to the overlay in which the dialog resides.
      * @param {?} config The dialog configuration.
-     * @return {?} A promise resolving to the MdDialogRef that should be returned to the user.
+     * @return {?} A promise resolving to the MatDialogRef that should be returned to the user.
      */
-    MdDialog.prototype._attachDialogContent = function (componentOrTemplateRef, dialogContainer, overlayRef, config) {
+    MatDialog.prototype._attachDialogContent = function (componentOrTemplateRef, dialogContainer, overlayRef, config) {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
-        var /** @type {?} */ dialogRef = new MdDialogRef(overlayRef, dialogContainer, config.id);
+        var /** @type {?} */ dialogRef = new MatDialogRef(overlayRef, dialogContainer, config.id);
         // When the dialog backdrop is clicked, we want to close it.
         if (config.hasBackdrop) {
             overlayRef.backdropClick().subscribe(function () {
@@ -3127,20 +2941,20 @@ var MdDialog = (function () {
      * @param {?} dialogContainer
      * @return {?} The custom injector that can be used inside the dialog.
      */
-    MdDialog.prototype._createInjector = function (config, dialogRef, dialogContainer) {
+    MatDialog.prototype._createInjector = function (config, dialogRef, dialogContainer) {
         var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         var /** @type {?} */ injectionTokens = new WeakMap();
-        injectionTokens.set(MdDialogRef, dialogRef);
-        injectionTokens.set(MdDialogContainer, dialogContainer);
-        injectionTokens.set(MD_DIALOG_DATA, config.data);
-        return new PortalInjector(userInjector || this._injector, injectionTokens);
+        injectionTokens.set(MatDialogRef, dialogRef);
+        injectionTokens.set(MatDialogContainer, dialogContainer);
+        injectionTokens.set(MAT_DIALOG_DATA, config.data);
+        return new _angular_cdk_portal.PortalInjector(userInjector || this._injector, injectionTokens);
     };
     /**
      * Removes a dialog from the array of open dialogs.
      * @param {?} dialogRef Dialog to be removed.
      * @return {?}
      */
-    MdDialog.prototype._removeOpenDialog = function (dialogRef) {
+    MatDialog.prototype._removeOpenDialog = function (dialogRef) {
         var /** @type {?} */ index = this.openDialogs.indexOf(dialogRef);
         if (index > -1) {
             this.openDialogs.splice(index, 1);
@@ -3157,27 +2971,27 @@ var MdDialog = (function () {
      * @param {?} event
      * @return {?}
      */
-    MdDialog.prototype._handleKeydown = function (event) {
+    MatDialog.prototype._handleKeydown = function (event) {
         var /** @type {?} */ topDialog = this.openDialogs[this.openDialogs.length - 1];
         var /** @type {?} */ canClose = topDialog ? !topDialog.disableClose : false;
         if (event.keyCode === _angular_cdk_keycodes.ESCAPE && canClose) {
             topDialog.close();
         }
     };
-    return MdDialog;
+    return MatDialog;
 }());
-MdDialog.decorators = [
+MatDialog.decorators = [
     { type: _angular_core.Injectable },
 ];
 /**
  * @nocollapse
  */
-MdDialog.ctorParameters = function () { return [
+MatDialog.ctorParameters = function () { return [
     { type: _angular_cdk_overlay.Overlay, },
     { type: _angular_core.Injector, },
     { type: _angular_common.Location, decorators: [{ type: _angular_core.Optional },] },
-    { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MD_DIALOG_SCROLL_STRATEGY,] },] },
-    { type: MdDialog, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
+    { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_DIALOG_SCROLL_STRATEGY,] },] },
+    { type: MatDialog, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
 ]; };
 /**
  * Applies default options to the dialog config.
@@ -3185,7 +2999,7 @@ MdDialog.ctorParameters = function () { return [
  * @return {?} The new configuration object.
  */
 function _applyConfigDefaults(config) {
-    return extendObject(new MdDialogConfig(), config);
+    return extendObject(new MatDialogConfig(), config);
 }
 /**
  * Counter used to generate unique IDs for dialog elements.
@@ -3194,11 +3008,11 @@ var dialogElementUid = 0;
 /**
  * Button that will close the current dialog.
  */
-var MdDialogClose = (function () {
+var MatDialogClose = (function () {
     /**
      * @param {?} dialogRef
      */
-    function MdDialogClose(dialogRef) {
+    function MatDialogClose(dialogRef) {
         this.dialogRef = dialogRef;
         /**
          * Screenreader label for the button.
@@ -3209,18 +3023,17 @@ var MdDialogClose = (function () {
      * @param {?} changes
      * @return {?}
      */
-    MdDialogClose.prototype.ngOnChanges = function (changes) {
-        var /** @type {?} */ proxiedChange = changes._matDialogClose || changes._mdDialogClose ||
-            changes._matDialogCloseResult;
+    MatDialogClose.prototype.ngOnChanges = function (changes) {
+        var /** @type {?} */ proxiedChange = changes._matDialogClose || changes._matDialogCloseResult;
         if (proxiedChange) {
             this.dialogResult = proxiedChange.currentValue;
         }
     };
-    return MdDialogClose;
+    return MatDialogClose;
 }());
-MdDialogClose.decorators = [
+MatDialogClose.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: "button[md-dialog-close], button[mat-dialog-close],\n             button[mdDialogClose], button[matDialogClose]",
+                selector: "button[mat-dialog-close], button[matDialogClose]",
                 host: {
                     '(click)': 'dialogRef.close(dialogResult)',
                     '[attr.aria-label]': 'ariaLabel',
@@ -3231,41 +3044,39 @@ MdDialogClose.decorators = [
 /**
  * @nocollapse
  */
-MdDialogClose.ctorParameters = function () { return [
-    { type: MdDialogRef, },
+MatDialogClose.ctorParameters = function () { return [
+    { type: MatDialogRef, },
 ]; };
-MdDialogClose.propDecorators = {
+MatDialogClose.propDecorators = {
     'ariaLabel': [{ type: _angular_core.Input, args: ['aria-label',] },],
-    'dialogResult': [{ type: _angular_core.Input, args: ['md-dialog-close',] },],
+    'dialogResult': [{ type: _angular_core.Input, args: ['mat-dialog-close',] },],
     '_matDialogClose': [{ type: _angular_core.Input, args: ['matDialogClose',] },],
-    '_mdDialogClose': [{ type: _angular_core.Input, args: ['mdDialogClose',] },],
-    '_matDialogCloseResult': [{ type: _angular_core.Input, args: ['mat-dialog-close',] },],
 };
 /**
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
  */
-var MdDialogTitle = (function () {
+var MatDialogTitle = (function () {
     /**
      * @param {?} _container
      */
-    function MdDialogTitle(_container) {
+    function MatDialogTitle(_container) {
         this._container = _container;
-        this.id = "md-dialog-title-" + dialogElementUid++;
+        this.id = "mat-dialog-title-" + dialogElementUid++;
     }
     /**
      * @return {?}
      */
-    MdDialogTitle.prototype.ngOnInit = function () {
+    MatDialogTitle.prototype.ngOnInit = function () {
         var _this = this;
         if (this._container && !this._container._ariaLabelledBy) {
             Promise.resolve().then(function () { return _this._container._ariaLabelledBy = _this.id; });
         }
     };
-    return MdDialogTitle;
+    return MatDialogTitle;
 }());
-MdDialogTitle.decorators = [
+MatDialogTitle.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[md-dialog-title], [mat-dialog-title], [mdDialogTitle], [matDialogTitle]',
+                selector: '[mat-dialog-title], [matDialogTitle]',
                 host: {
                     'class': 'mat-dialog-title',
                     '[id]': 'id',
@@ -3275,89 +3086,89 @@ MdDialogTitle.decorators = [
 /**
  * @nocollapse
  */
-MdDialogTitle.ctorParameters = function () { return [
-    { type: MdDialogContainer, decorators: [{ type: _angular_core.Optional },] },
+MatDialogTitle.ctorParameters = function () { return [
+    { type: MatDialogContainer, decorators: [{ type: _angular_core.Optional },] },
 ]; };
-MdDialogTitle.propDecorators = {
+MatDialogTitle.propDecorators = {
     'id': [{ type: _angular_core.Input },],
 };
 /**
  * Scrollable content container of a dialog.
  */
-var MdDialogContent = (function () {
-    function MdDialogContent() {
+var MatDialogContent = (function () {
+    function MatDialogContent() {
     }
-    return MdDialogContent;
+    return MatDialogContent;
 }());
-MdDialogContent.decorators = [
+MatDialogContent.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: "[md-dialog-content], md-dialog-content, [mat-dialog-content], mat-dialog-content,\n             [mdDialogContent], [matDialogContent]",
+                selector: "[mat-dialog-content], mat-dialog-content, [matDialogContent]",
                 host: { 'class': 'mat-dialog-content' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdDialogContent.ctorParameters = function () { return []; };
+MatDialogContent.ctorParameters = function () { return []; };
 /**
  * Container for the bottom action buttons in a dialog.
  * Stays fixed to the bottom when scrolling.
  */
-var MdDialogActions = (function () {
-    function MdDialogActions() {
+var MatDialogActions = (function () {
+    function MatDialogActions() {
     }
-    return MdDialogActions;
+    return MatDialogActions;
 }());
-MdDialogActions.decorators = [
+MatDialogActions.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: "[md-dialog-actions], md-dialog-actions, [mat-dialog-actions], mat-dialog-actions,\n             [mdDialogActions], [matDialogActions]",
+                selector: "[mat-dialog-actions], mat-dialog-actions, [matDialogActions]",
                 host: { 'class': 'mat-dialog-actions' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdDialogActions.ctorParameters = function () { return []; };
-var MdDialogModule = (function () {
-    function MdDialogModule() {
+MatDialogActions.ctorParameters = function () { return []; };
+var MatDialogModule = (function () {
+    function MatDialogModule() {
     }
-    return MdDialogModule;
+    return MatDialogModule;
 }());
-MdDialogModule.decorators = [
+MatDialogModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [
                     _angular_common.CommonModule,
                     _angular_cdk_overlay.OverlayModule,
                     _angular_cdk_portal.PortalModule,
                     _angular_cdk_a11y.A11yModule,
-                    MdCommonModule,
+                    MatCommonModule,
                 ],
                 exports: [
-                    MdDialogContainer,
-                    MdDialogClose,
-                    MdDialogTitle,
-                    MdDialogContent,
-                    MdDialogActions,
-                    MdCommonModule,
+                    MatDialogContainer,
+                    MatDialogClose,
+                    MatDialogTitle,
+                    MatDialogContent,
+                    MatDialogActions,
+                    MatCommonModule,
                 ],
                 declarations: [
-                    MdDialogContainer,
-                    MdDialogClose,
-                    MdDialogTitle,
-                    MdDialogActions,
-                    MdDialogContent,
+                    MatDialogContainer,
+                    MatDialogClose,
+                    MatDialogTitle,
+                    MatDialogActions,
+                    MatDialogContent,
                 ],
                 providers: [
-                    MdDialog,
-                    MD_DIALOG_SCROLL_STRATEGY_PROVIDER,
+                    MatDialog,
+                    MAT_DIALOG_SCROLL_STRATEGY_PROVIDER,
                 ],
-                entryComponents: [MdDialogContainer],
+                entryComponents: [MatDialogContainer],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdDialogModule.ctorParameters = function () { return []; };
+MatDialogModule.ctorParameters = function () { return []; };
 
 /**
  * Returns an exception to be thrown in the case when attempting to
@@ -3366,16 +3177,16 @@ MdDialogModule.ctorParameters = function () { return []; };
  * @param {?} iconName
  * @return {?}
  */
-function getMdIconNameNotFoundError(iconName) {
+function getMatIconNameNotFoundError(iconName) {
     return Error("Unable to find icon with the name \"" + iconName + "\"");
 }
 /**
  * Returns an exception to be thrown when the consumer attempts to use
- * `<md-icon>` without including \@angular/http.
+ * `<mat-icon>` without including \@angular/http.
  * \@docs-private
  * @return {?}
  */
-function getMdIconNoHttpProviderError() {
+function getMatIconNoHttpProviderError() {
     return Error('Could not find Http provider for use with Angular Material icons. ' +
         'Please include the HttpModule from @angular/http in your app imports.');
 }
@@ -3385,8 +3196,8 @@ function getMdIconNoHttpProviderError() {
  * @param {?} url URL that was attempted to be sanitized.
  * @return {?}
  */
-function getMdIconFailedToSanitizeError(url) {
-    return Error("The URL provided to MdIconRegistry was not trusted as a resource URL " +
+function getMatIconFailedToSanitizeError(url) {
+    return Error("The URL provided to MatIconRegistry was not trusted as a resource URL " +
         ("via Angular's DomSanitizer. Attempted URL was \"" + url + "\"."));
 }
 /**
@@ -3404,18 +3215,18 @@ var SvgIconConfig = (function () {
     return SvgIconConfig;
 }());
 /**
- * Service to register and display icons used by the <md-icon> component.
+ * Service to register and display icons used by the <mat-icon> component.
  * - Registers icon URLs by namespace and name.
  * - Registers icon set URLs by namespace.
  * - Registers aliases for CSS classes, for use with icon fonts.
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
-var MdIconRegistry = (function () {
+var MatIconRegistry = (function () {
     /**
      * @param {?} _http
      * @param {?} _sanitizer
      */
-    function MdIconRegistry(_http, _sanitizer) {
+    function MatIconRegistry(_http, _sanitizer) {
         this._http = _http;
         this._sanitizer = _sanitizer;
         /**
@@ -3440,7 +3251,7 @@ var MdIconRegistry = (function () {
          */
         this._fontCssClassesByAlias = new Map();
         /**
-         * The CSS class to apply when an <md-icon> component has no icon name, url, or font specified.
+         * The CSS class to apply when an <mat-icon> component has no icon name, url, or font specified.
          * The default 'material-icons' value assumes that the material icon font has been loaded as
          * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
          */
@@ -3452,7 +3263,7 @@ var MdIconRegistry = (function () {
      * @param {?} url
      * @return {?}
      */
-    MdIconRegistry.prototype.addSvgIcon = function (iconName, url) {
+    MatIconRegistry.prototype.addSvgIcon = function (iconName, url) {
         return this.addSvgIconInNamespace('', iconName, url);
     };
     /**
@@ -3462,7 +3273,7 @@ var MdIconRegistry = (function () {
      * @param {?} url
      * @return {?}
      */
-    MdIconRegistry.prototype.addSvgIconInNamespace = function (namespace, iconName, url) {
+    MatIconRegistry.prototype.addSvgIconInNamespace = function (namespace, iconName, url) {
         var /** @type {?} */ key = iconKey(namespace, iconName);
         this._svgIconConfigs.set(key, new SvgIconConfig(url));
         return this;
@@ -3472,7 +3283,7 @@ var MdIconRegistry = (function () {
      * @param {?} url
      * @return {?}
      */
-    MdIconRegistry.prototype.addSvgIconSet = function (url) {
+    MatIconRegistry.prototype.addSvgIconSet = function (url) {
         return this.addSvgIconSetInNamespace('', url);
     };
     /**
@@ -3481,7 +3292,7 @@ var MdIconRegistry = (function () {
      * @param {?} url
      * @return {?}
      */
-    MdIconRegistry.prototype.addSvgIconSetInNamespace = function (namespace, url) {
+    MatIconRegistry.prototype.addSvgIconSetInNamespace = function (namespace, url) {
         var /** @type {?} */ config = new SvgIconConfig(url);
         var /** @type {?} */ configNamespace = this._iconSetConfigs.get(namespace);
         if (configNamespace) {
@@ -3493,15 +3304,15 @@ var MdIconRegistry = (function () {
         return this;
     };
     /**
-     * Defines an alias for a CSS class name to be used for icon fonts. Creating an mdIcon
+     * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
      * component with the alias as the fontSet input will cause the class name to be applied
-     * to the <md-icon> element.
+     * to the <mat-icon> element.
      *
      * @param {?} alias Alias for the font.
      * @param {?=} className Class name override to be used instead of the alias.
      * @return {?}
      */
-    MdIconRegistry.prototype.registerFontClassAlias = function (alias, className) {
+    MatIconRegistry.prototype.registerFontClassAlias = function (alias, className) {
         if (className === void 0) { className = alias; }
         this._fontCssClassesByAlias.set(alias, className);
         return this;
@@ -3512,26 +3323,26 @@ var MdIconRegistry = (function () {
      * @param {?} alias
      * @return {?}
      */
-    MdIconRegistry.prototype.classNameForFontAlias = function (alias) {
+    MatIconRegistry.prototype.classNameForFontAlias = function (alias) {
         return this._fontCssClassesByAlias.get(alias) || alias;
     };
     /**
-     * Sets the CSS class name to be used for icon fonts when an <md-icon> component does not
+     * Sets the CSS class name to be used for icon fonts when an <mat-icon> component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
      *
      * @param {?} className
      * @return {?}
      */
-    MdIconRegistry.prototype.setDefaultFontSetClass = function (className) {
+    MatIconRegistry.prototype.setDefaultFontSetClass = function (className) {
         this._defaultFontSetClass = className;
         return this;
     };
     /**
-     * Returns the CSS class name to be used for icon fonts when an <md-icon> component does not
+     * Returns the CSS class name to be used for icon fonts when an <mat-icon> component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
      * @return {?}
      */
-    MdIconRegistry.prototype.getDefaultFontSetClass = function () {
+    MatIconRegistry.prototype.getDefaultFontSetClass = function () {
         return this._defaultFontSetClass;
     };
     /**
@@ -3543,11 +3354,11 @@ var MdIconRegistry = (function () {
      * @param {?} safeUrl URL from which to fetch the SVG icon.
      * @return {?}
      */
-    MdIconRegistry.prototype.getSvgIconFromUrl = function (safeUrl) {
+    MatIconRegistry.prototype.getSvgIconFromUrl = function (safeUrl) {
         var _this = this;
         var /** @type {?} */ url = this._sanitizer.sanitize(_angular_core.SecurityContext.RESOURCE_URL, safeUrl);
         if (!url) {
-            throw getMdIconFailedToSanitizeError(safeUrl);
+            throw getMatIconFailedToSanitizeError(safeUrl);
         }
         var /** @type {?} */ cachedIcon = this._cachedIconsByUrl.get(url);
         if (cachedIcon) {
@@ -3567,7 +3378,7 @@ var MdIconRegistry = (function () {
      * @param {?=} namespace Namespace in which to look for the icon.
      * @return {?}
      */
-    MdIconRegistry.prototype.getNamedSvgIcon = function (name, namespace) {
+    MatIconRegistry.prototype.getNamedSvgIcon = function (name, namespace) {
         if (namespace === void 0) { namespace = ''; }
         // Return (copy of) cached icon if possible.
         var /** @type {?} */ key = iconKey(namespace, name);
@@ -3580,14 +3391,14 @@ var MdIconRegistry = (function () {
         if (iconSetConfigs) {
             return this._getSvgFromIconSetConfigs(name, iconSetConfigs);
         }
-        return rxjs_observable_throw._throw(getMdIconNameNotFoundError(key));
+        return rxjs_observable_throw._throw(getMatIconNameNotFoundError(key));
     };
     /**
      * Returns the cached icon for a SvgIconConfig if available, or fetches it from its URL if not.
      * @param {?} config
      * @return {?}
      */
-    MdIconRegistry.prototype._getSvgFromConfig = function (config) {
+    MatIconRegistry.prototype._getSvgFromConfig = function (config) {
         if (config.svgElement) {
             // We already have the SVG element for this icon, return a copy.
             return rxjs_observable_of.of(cloneSvg(config.svgElement));
@@ -3611,7 +3422,7 @@ var MdIconRegistry = (function () {
      * @param {?} iconSetConfigs
      * @return {?}
      */
-    MdIconRegistry.prototype._getSvgFromIconSetConfigs = function (name, iconSetConfigs) {
+    MatIconRegistry.prototype._getSvgFromIconSetConfigs = function (name, iconSetConfigs) {
         var _this = this;
         // For all the icon set SVG elements we've fetched, see if any contain an icon with the
         // requested name.
@@ -3648,7 +3459,7 @@ var MdIconRegistry = (function () {
         return _angular_cdk_rxjs.map.call(rxjs_observable_forkJoin.forkJoin.call(rxjs_Observable.Observable, iconSetFetchRequests), function () {
             var /** @type {?} */ foundIcon = _this._extractIconWithNameFromAnySet(name, iconSetConfigs);
             if (!foundIcon) {
-                throw getMdIconNameNotFoundError(name);
+                throw getMatIconNameNotFoundError(name);
             }
             return foundIcon;
         });
@@ -3661,7 +3472,7 @@ var MdIconRegistry = (function () {
      * @param {?} iconSetConfigs
      * @return {?}
      */
-    MdIconRegistry.prototype._extractIconWithNameFromAnySet = function (iconName, iconSetConfigs) {
+    MatIconRegistry.prototype._extractIconWithNameFromAnySet = function (iconName, iconSetConfigs) {
         // Iterate backwards, so icon sets added later have precedence.
         for (var /** @type {?} */ i = iconSetConfigs.length - 1; i >= 0; i--) {
             var /** @type {?} */ config = iconSetConfigs[i];
@@ -3680,7 +3491,7 @@ var MdIconRegistry = (function () {
      * @param {?} config
      * @return {?}
      */
-    MdIconRegistry.prototype._loadSvgIconFromConfig = function (config) {
+    MatIconRegistry.prototype._loadSvgIconFromConfig = function (config) {
         var _this = this;
         return _angular_cdk_rxjs.map.call(this._fetchUrl(config.url), function (svgText) { return _this._createSvgElementForSingleIcon(svgText); });
     };
@@ -3690,7 +3501,7 @@ var MdIconRegistry = (function () {
      * @param {?} config
      * @return {?}
      */
-    MdIconRegistry.prototype._loadSvgIconSetFromConfig = function (config) {
+    MatIconRegistry.prototype._loadSvgIconSetFromConfig = function (config) {
         var _this = this;
         // TODO: Document that icons should only be loaded from trusted sources.
         return _angular_cdk_rxjs.map.call(this._fetchUrl(config.url), function (svgText) { return _this._svgElementFromString(svgText); });
@@ -3700,7 +3511,7 @@ var MdIconRegistry = (function () {
      * @param {?} responseText
      * @return {?}
      */
-    MdIconRegistry.prototype._createSvgElementForSingleIcon = function (responseText) {
+    MatIconRegistry.prototype._createSvgElementForSingleIcon = function (responseText) {
         var /** @type {?} */ svg = this._svgElementFromString(responseText);
         this._setSvgAttributes(svg);
         return svg;
@@ -3713,7 +3524,7 @@ var MdIconRegistry = (function () {
      * @param {?} iconName
      * @return {?}
      */
-    MdIconRegistry.prototype._extractSvgIconFromSet = function (iconSet, iconName) {
+    MatIconRegistry.prototype._extractSvgIconFromSet = function (iconSet, iconName) {
         var /** @type {?} */ iconNode = iconSet.querySelector('#' + iconName);
         if (!iconNode) {
             return null;
@@ -3744,7 +3555,7 @@ var MdIconRegistry = (function () {
      * @param {?} str
      * @return {?}
      */
-    MdIconRegistry.prototype._svgElementFromString = function (str) {
+    MatIconRegistry.prototype._svgElementFromString = function (str) {
         // TODO: Is there a better way than innerHTML? Renderer doesn't appear to have a method for
         // creating an element from an HTML string.
         var /** @type {?} */ div = document.createElement('DIV');
@@ -3760,7 +3571,7 @@ var MdIconRegistry = (function () {
      * @param {?} element
      * @return {?}
      */
-    MdIconRegistry.prototype._toSvgElement = function (element) {
+    MatIconRegistry.prototype._toSvgElement = function (element) {
         var /** @type {?} */ svg = this._svgElementFromString('<svg></svg>');
         for (var /** @type {?} */ i = 0; i < element.childNodes.length; i++) {
             if (element.childNodes[i].nodeType === Node.ELEMENT_NODE) {
@@ -3774,7 +3585,7 @@ var MdIconRegistry = (function () {
      * @param {?} svg
      * @return {?}
      */
-    MdIconRegistry.prototype._setSvgAttributes = function (svg) {
+    MatIconRegistry.prototype._setSvgAttributes = function (svg) {
         if (!svg.getAttribute('xmlns')) {
             svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
         }
@@ -3791,14 +3602,14 @@ var MdIconRegistry = (function () {
      * @param {?} safeUrl
      * @return {?}
      */
-    MdIconRegistry.prototype._fetchUrl = function (safeUrl) {
+    MatIconRegistry.prototype._fetchUrl = function (safeUrl) {
         var _this = this;
         if (!this._http) {
-            throw getMdIconNoHttpProviderError();
+            throw getMatIconNoHttpProviderError();
         }
         var /** @type {?} */ url = this._sanitizer.sanitize(_angular_core.SecurityContext.RESOURCE_URL, safeUrl);
         if (!url) {
-            throw getMdIconFailedToSanitizeError(safeUrl);
+            throw getMatIconFailedToSanitizeError(safeUrl);
         }
         // Store in-progress fetches to avoid sending a duplicate request for a URL when there is
         // already a request in progress for that URL. It's necessary to call share() on the
@@ -3817,15 +3628,15 @@ var MdIconRegistry = (function () {
         this._inProgressUrlFetches.set(url, req);
         return req;
     };
-    return MdIconRegistry;
+    return MatIconRegistry;
 }());
-MdIconRegistry.decorators = [
+MatIconRegistry.decorators = [
     { type: _angular_core.Injectable },
 ];
 /**
  * @nocollapse
  */
-MdIconRegistry.ctorParameters = function () { return [
+MatIconRegistry.ctorParameters = function () { return [
     { type: _angular_http.Http, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_platformBrowser.DomSanitizer, },
 ]; };
@@ -3837,15 +3648,15 @@ MdIconRegistry.ctorParameters = function () { return [
  * @return {?}
  */
 function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, http, sanitizer) {
-    return parentRegistry || new MdIconRegistry(http, sanitizer);
+    return parentRegistry || new MatIconRegistry(http, sanitizer);
 }
 /**
  * \@docs-private
  */
 var ICON_REGISTRY_PROVIDER = {
-    // If there is already an MdIconRegistry available, use that. Otherwise, provide a new one.
-    provide: MdIconRegistry,
-    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), MdIconRegistry], [new _angular_core.Optional(), _angular_http.Http], _angular_platformBrowser.DomSanitizer],
+    // If there is already an MatIconRegistry available, use that. Otherwise, provide a new one.
+    provide: MatIconRegistry,
+    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), MatIconRegistry], [new _angular_core.Optional(), _angular_http.Http], _angular_platformBrowser.DomSanitizer],
     useFactory: ICON_REGISTRY_PROVIDER_FACTORY
 };
 /**
@@ -3868,56 +3679,56 @@ function iconKey(namespace, name) {
 /**
  * \@docs-private
  */
-var MdIconBase = (function () {
+var MatIconBase = (function () {
     /**
      * @param {?} _renderer
      * @param {?} _elementRef
      */
-    function MdIconBase(_renderer, _elementRef) {
+    function MatIconBase(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
     }
-    return MdIconBase;
+    return MatIconBase;
 }());
-var _MdIconMixinBase = mixinColor(MdIconBase);
+var _MatIconMixinBase = mixinColor(MatIconBase);
 /**
  * Component to display an icon. It can be used in the following ways:
  *
  * - Specify the svgIcon input to load an SVG icon from a URL previously registered with the
  *   addSvgIcon, addSvgIconInNamespace, addSvgIconSet, or addSvgIconSetInNamespace methods of
- *   MdIconRegistry. If the svgIcon value contains a colon it is assumed to be in the format
+ *   MatIconRegistry. If the svgIcon value contains a colon it is assumed to be in the format
  *   "[namespace]:[name]", if not the value will be the name of an icon in the default namespace.
  *   Examples:
- *     <md-icon svgIcon="left-arrow"></md-icon>
- *     <md-icon svgIcon="animals:cat"></md-icon>
+ *     <mat-icon svgIcon="left-arrow"></mat-icon>
+ *     <mat-icon svgIcon="animals:cat"></mat-icon>
  *
- * - Use a font ligature as an icon by putting the ligature text in the content of the <md-icon>
+ * - Use a font ligature as an icon by putting the ligature text in the content of the <mat-icon>
  *   component. By default the Material icons font is used as described at
  *   http://google.github.io/material-design-icons/#icon-font-for-the-web. You can specify an
  *   alternate font by setting the fontSet input to either the CSS class to apply to use the
- *   desired font, or to an alias previously registered with MdIconRegistry.registerFontClassAlias.
+ *   desired font, or to an alias previously registered with MatIconRegistry.registerFontClassAlias.
  *   Examples:
- *     <md-icon>home</md-icon>
- *     <md-icon fontSet="myfont">sun</md-icon>
+ *     <mat-icon>home</mat-icon>
+ *     <mat-icon fontSet="myfont">sun</mat-icon>
  *
  * - Specify a font glyph to be included via CSS rules by setting the fontSet input to specify the
  *   font, and the fontIcon input to specify the icon. Typically the fontIcon will specify a
  *   CSS class which causes the glyph to be displayed via a :before selector, as in
  *   https://fortawesome.github.io/Font-Awesome/examples/
  *   Example:
- *     <md-icon fontSet="fa" fontIcon="alarm"></md-icon>
+ *     <mat-icon fontSet="fa" fontIcon="alarm"></mat-icon>
  */
-var MdIcon = (function (_super) {
-    __extends(MdIcon, _super);
+var MatIcon = (function (_super) {
+    __extends(MatIcon, _super);
     /**
      * @param {?} renderer
      * @param {?} elementRef
-     * @param {?} _mdIconRegistry
+     * @param {?} _iconRegistry
      * @param {?} ariaHidden
      */
-    function MdIcon(renderer, elementRef, _mdIconRegistry, ariaHidden) {
+    function MatIcon(renderer, elementRef, _iconRegistry, ariaHidden) {
         var _this = _super.call(this, renderer, elementRef) || this;
-        _this._mdIconRegistry = _mdIconRegistry;
+        _this._iconRegistry = _iconRegistry;
         // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
         // the right thing to do for the majority of icon use-cases.
         if (!ariaHidden) {
@@ -3940,7 +3751,7 @@ var MdIcon = (function (_super) {
      * @param {?} iconName
      * @return {?}
      */
-    MdIcon.prototype._splitIconName = function (iconName) {
+    MatIcon.prototype._splitIconName = function (iconName) {
         if (!iconName) {
             return ['', ''];
         }
@@ -3955,13 +3766,13 @@ var MdIcon = (function (_super) {
      * @param {?} changes
      * @return {?}
      */
-    MdIcon.prototype.ngOnChanges = function (changes) {
+    MatIcon.prototype.ngOnChanges = function (changes) {
         var _this = this;
         // Only update the inline SVG icon if the inputs changed, to avoid unnecessary DOM operations.
         if (changes.svgIcon) {
             if (this.svgIcon) {
                 var _a = this._splitIconName(this.svgIcon), namespace = _a[0], iconName = _a[1];
-                _angular_cdk_rxjs.first.call(this._mdIconRegistry.getNamedSvgIcon(iconName, namespace)).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
+                _angular_cdk_rxjs.first.call(this._iconRegistry.getNamedSvgIcon(iconName, namespace)).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
             }
             else {
                 this._clearSvgElement();
@@ -3974,9 +3785,9 @@ var MdIcon = (function (_super) {
     /**
      * @return {?}
      */
-    MdIcon.prototype.ngOnInit = function () {
+    MatIcon.prototype.ngOnInit = function () {
         // Update font classes because ngOnChanges won't be called if none of the inputs are present,
-        // e.g. <md-icon>arrow</md-icon>. In this case we need to add a CSS class for the default font.
+        // e.g. <mat-icon>arrow</mat-icon> In this case we need to add a CSS class for the default font.
         if (this._usingFontIcon()) {
             this._updateFontIconClasses();
         }
@@ -3984,21 +3795,21 @@ var MdIcon = (function (_super) {
     /**
      * @return {?}
      */
-    MdIcon.prototype._usingFontIcon = function () {
+    MatIcon.prototype._usingFontIcon = function () {
         return !this.svgIcon;
     };
     /**
      * @param {?} svg
      * @return {?}
      */
-    MdIcon.prototype._setSvgElement = function (svg) {
+    MatIcon.prototype._setSvgElement = function (svg) {
         this._clearSvgElement();
         this._renderer.appendChild(this._elementRef.nativeElement, svg);
     };
     /**
      * @return {?}
      */
-    MdIcon.prototype._clearSvgElement = function () {
+    MatIcon.prototype._clearSvgElement = function () {
         var /** @type {?} */ layoutElement = this._elementRef.nativeElement;
         var /** @type {?} */ childCount = layoutElement.childNodes.length;
         // Remove existing child nodes and add the new SVG element. Note that we can't
@@ -4010,14 +3821,14 @@ var MdIcon = (function (_super) {
     /**
      * @return {?}
      */
-    MdIcon.prototype._updateFontIconClasses = function () {
+    MatIcon.prototype._updateFontIconClasses = function () {
         if (!this._usingFontIcon()) {
             return;
         }
         var /** @type {?} */ elem = this._elementRef.nativeElement;
         var /** @type {?} */ fontSetClass = this.fontSet ?
-            this._mdIconRegistry.classNameForFontAlias(this.fontSet) :
-            this._mdIconRegistry.getDefaultFontSetClass();
+            this._iconRegistry.classNameForFontAlias(this.fontSet) :
+            this._iconRegistry.getDefaultFontSetClass();
         if (fontSetClass != this._previousFontSetClass) {
             if (this._previousFontSetClass) {
                 this._renderer.removeClass(elem, this._previousFontSetClass);
@@ -4037,11 +3848,11 @@ var MdIcon = (function (_super) {
             this._previousFontIconClass = this.fontIcon;
         }
     };
-    return MdIcon;
-}(_MdIconMixinBase));
-MdIcon.decorators = [
+    return MatIcon;
+}(_MatIconMixinBase));
+MatIcon.decorators = [
     { type: _angular_core.Component, args: [{ template: '<ng-content></ng-content>',
-                selector: 'md-icon, mat-icon',
+                selector: 'mat-icon',
                 styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px}"],
                 inputs: ['color'],
                 host: {
@@ -4056,48 +3867,48 @@ MdIcon.decorators = [
 /**
  * @nocollapse
  */
-MdIcon.ctorParameters = function () { return [
+MatIcon.ctorParameters = function () { return [
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ElementRef, },
-    { type: MdIconRegistry, },
+    { type: MatIconRegistry, },
     { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['aria-hidden',] },] },
 ]; };
-MdIcon.propDecorators = {
+MatIcon.propDecorators = {
     'svgIcon': [{ type: _angular_core.Input },],
     'fontSet': [{ type: _angular_core.Input },],
     'fontIcon': [{ type: _angular_core.Input },],
 };
-var MdIconModule = (function () {
-    function MdIconModule() {
+var MatIconModule = (function () {
+    function MatIconModule() {
     }
-    return MdIconModule;
+    return MatIconModule;
 }());
-MdIconModule.decorators = [
+MatIconModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdCommonModule],
-                exports: [MdIcon, MdCommonModule],
-                declarations: [MdIcon],
+                imports: [MatCommonModule],
+                exports: [MatIcon, MatCommonModule],
+                declarations: [MatIcon],
                 providers: [ICON_REGISTRY_PROVIDER],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdIconModule.ctorParameters = function () { return []; };
+MatIconModule.ctorParameters = function () { return []; };
 
 var nextUniqueId = 0;
 /**
  * Single error message to be shown underneath the form field.
  */
-var MdError = (function () {
-    function MdError() {
+var MatError = (function () {
+    function MatError() {
         this.id = "mat-error-" + nextUniqueId++;
     }
-    return MdError;
+    return MatError;
 }());
-MdError.decorators = [
+MatError.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: 'md-error, mat-error',
+                selector: 'mat-error',
                 host: {
                     'class': 'mat-error',
                     'role': 'alert',
@@ -4108,16 +3919,16 @@ MdError.decorators = [
 /**
  * @nocollapse
  */
-MdError.ctorParameters = function () { return []; };
-MdError.propDecorators = {
+MatError.ctorParameters = function () { return []; };
+MatError.propDecorators = {
     'id': [{ type: _angular_core.Input },],
 };
 /**
- * An interface which allows a control to work inside of a `MdFormField`.
+ * An interface which allows a control to work inside of a `MatFormField`.
  * @abstract
  */
-var MdFormFieldControl = (function () {
-    function MdFormFieldControl() {
+var MatFormFieldControl = (function () {
+    function MatFormFieldControl() {
     }
     /**
      * Sets the list of element IDs that currently describe this control.
@@ -4125,20 +3936,21 @@ var MdFormFieldControl = (function () {
      * @param {?} ids
      * @return {?}
      */
-    MdFormFieldControl.prototype.setDescribedByIds = function (ids) { };
+    MatFormFieldControl.prototype.setDescribedByIds = function (ids) { };
     /**
-     * Focuses this control.
+     * Handles a click on the control's container.
      * @abstract
+     * @param {?} event
      * @return {?}
      */
-    MdFormFieldControl.prototype.focus = function () { };
-    return MdFormFieldControl;
+    MatFormFieldControl.prototype.onContainerClick = function (event) { };
+    return MatFormFieldControl;
 }());
 /**
  * \@docs-private
  * @return {?}
  */
-function getMdFormFieldPlaceholderConflictError() {
+function getMatFormFieldPlaceholderConflictError() {
     return Error('Placeholder attribute and child element were both specified.');
 }
 /**
@@ -4146,23 +3958,23 @@ function getMdFormFieldPlaceholderConflictError() {
  * @param {?} align
  * @return {?}
  */
-function getMdFormFieldDuplicatedHintError(align) {
+function getMatFormFieldDuplicatedHintError(align) {
     return Error("A hint was already declared for 'align=\"" + align + "\"'.");
 }
 /**
  * \@docs-private
  * @return {?}
  */
-function getMdFormFieldMissingControlError() {
-    return Error('md-form-field must contain a MdFormFieldControl. ' +
-        'Did you forget to add mdInput to the native input or textarea element?');
+function getMatFormFieldMissingControlError() {
+    return Error('mat-form-field must contain a MatFormFieldControl. ' +
+        'Did you forget to add matInput to the native input or textarea element?');
 }
 var nextUniqueId$2 = 0;
 /**
  * Hint text to be shown underneath the form field control.
  */
-var MdHint = (function () {
-    function MdHint() {
+var MatHint = (function () {
+    function MatHint() {
         /**
          * Whether to align the hint label at the start or end of the line.
          */
@@ -4172,11 +3984,11 @@ var MdHint = (function () {
          */
         this.id = "mat-hint-" + nextUniqueId$2++;
     }
-    return MdHint;
+    return MatHint;
 }());
-MdHint.decorators = [
+MatHint.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: 'md-hint, mat-hint',
+                selector: 'mat-hint',
                 host: {
                     'class': 'mat-hint',
                     '[class.mat-right]': 'align == "end"',
@@ -4189,74 +4001,76 @@ MdHint.decorators = [
 /**
  * @nocollapse
  */
-MdHint.ctorParameters = function () { return []; };
-MdHint.propDecorators = {
+MatHint.ctorParameters = function () { return []; };
+MatHint.propDecorators = {
     'align': [{ type: _angular_core.Input },],
     'id': [{ type: _angular_core.Input },],
 };
 /**
- * The floating placeholder for an `MdFormField`.
+ * The floating placeholder for an `MatFormField`.
  */
-var MdPlaceholder = (function () {
-    function MdPlaceholder() {
+var MatPlaceholder = (function () {
+    function MatPlaceholder() {
     }
-    return MdPlaceholder;
+    return MatPlaceholder;
 }());
-MdPlaceholder.decorators = [
+MatPlaceholder.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: 'md-placeholder, mat-placeholder'
+                selector: 'mat-placeholder'
             },] },
 ];
 /**
  * @nocollapse
  */
-MdPlaceholder.ctorParameters = function () { return []; };
+MatPlaceholder.ctorParameters = function () { return []; };
 /**
  * Prefix to be placed the the front of the form field.
  */
-var MdPrefix = (function () {
-    function MdPrefix() {
+var MatPrefix = (function () {
+    function MatPrefix() {
     }
-    return MdPrefix;
+    return MatPrefix;
 }());
-MdPrefix.decorators = [
+MatPrefix.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[mdPrefix], [matPrefix]',
+                selector: '[matPrefix]',
             },] },
 ];
 /**
  * @nocollapse
  */
-MdPrefix.ctorParameters = function () { return []; };
+MatPrefix.ctorParameters = function () { return []; };
 /**
  * Suffix to be placed at the end of the form field.
  */
-var MdSuffix = (function () {
-    function MdSuffix() {
+var MatSuffix = (function () {
+    function MatSuffix() {
     }
-    return MdSuffix;
+    return MatSuffix;
 }());
-MdSuffix.decorators = [
+MatSuffix.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[mdSuffix], [matSuffix]',
+                selector: '[matSuffix]',
             },] },
 ];
 /**
  * @nocollapse
  */
-MdSuffix.ctorParameters = function () { return []; };
+MatSuffix.ctorParameters = function () { return []; };
 var nextUniqueId$1 = 0;
 /**
  * Container for form controls that applies Material Design styling and behavior.
  */
-var MdFormField = (function () {
+var MatFormField = (function () {
     /**
      * @param {?} _elementRef
+     * @param {?} _renderer
      * @param {?} _changeDetectorRef
      * @param {?} placeholderOptions
      */
-    function MdFormField(_elementRef, _changeDetectorRef, placeholderOptions) {
+    function MatFormField(_elementRef, _renderer, _changeDetectorRef, placeholderOptions) {
         this._elementRef = _elementRef;
+        this._renderer = _renderer;
         this._changeDetectorRef = _changeDetectorRef;
         /**
          * Color of the form field underline, based on the theme.
@@ -4267,16 +4081,16 @@ var MdFormField = (function () {
          */
         this._showAlwaysAnimate = false;
         /**
-         * State of the md-hint and md-error animations.
+         * State of the mat-hint and mat-error animations.
          */
         this._subscriptAnimationState = '';
         this._hintLabel = '';
         // Unique id for the hint label.
-        this._hintLabelId = "md-hint-" + nextUniqueId$1++;
+        this._hintLabelId = "mat-hint-" + nextUniqueId$1++;
         this._placeholderOptions = placeholderOptions ? placeholderOptions : {};
         this.floatPlaceholder = this._placeholderOptions.float || 'auto';
     }
-    Object.defineProperty(MdFormField.prototype, "dividerColor", {
+    Object.defineProperty(MatFormField.prototype, "dividerColor", {
         /**
          * @deprecated Use `color` instead.
          * @return {?}
@@ -4290,7 +4104,7 @@ var MdFormField = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdFormField.prototype, "hideRequiredMarker", {
+    Object.defineProperty(MatFormField.prototype, "hideRequiredMarker", {
         /**
          * Whether the required marker should be hidden.
          * @return {?}
@@ -4306,7 +4120,7 @@ var MdFormField = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdFormField.prototype, "_shouldAlwaysFloat", {
+    Object.defineProperty(MatFormField.prototype, "_shouldAlwaysFloat", {
         /**
          * Whether the floating label should always float or not.
          * @return {?}
@@ -4317,7 +4131,7 @@ var MdFormField = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdFormField.prototype, "_canPlaceholderFloat", {
+    Object.defineProperty(MatFormField.prototype, "_canPlaceholderFloat", {
         /**
          * Whether the placeholder can float or not.
          * @return {?}
@@ -4326,7 +4140,7 @@ var MdFormField = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdFormField.prototype, "hintLabel", {
+    Object.defineProperty(MatFormField.prototype, "hintLabel", {
         /**
          * Text for the form field hint.
          * @return {?}
@@ -4343,7 +4157,7 @@ var MdFormField = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdFormField.prototype, "floatPlaceholder", {
+    Object.defineProperty(MatFormField.prototype, "floatPlaceholder", {
         /**
          * Whether the placeholder should always float, never float or float as the user types.
          * @return {?}
@@ -4365,9 +4179,12 @@ var MdFormField = (function () {
     /**
      * @return {?}
      */
-    MdFormField.prototype.ngAfterContentInit = function () {
+    MatFormField.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._validateControlChild();
+        if (this._control.controlType) {
+            this._renderer.addClass(this._elementRef.nativeElement, "mat-form-field-type-" + this._control.controlType);
+        }
         // Subscribe to changes in the child control state in order to update the form field UI.
         _angular_cdk_rxjs.startWith.call(this._control.stateChanges, null).subscribe(function () {
             _this._validatePlaceholders();
@@ -4394,13 +4211,13 @@ var MdFormField = (function () {
     /**
      * @return {?}
      */
-    MdFormField.prototype.ngAfterContentChecked = function () {
+    MatFormField.prototype.ngAfterContentChecked = function () {
         this._validateControlChild();
     };
     /**
      * @return {?}
      */
-    MdFormField.prototype.ngAfterViewInit = function () {
+    MatFormField.prototype.ngAfterViewInit = function () {
         // Avoid animations on load.
         this._subscriptAnimationState = 'enter';
         this._changeDetectorRef.detectChanges();
@@ -4410,7 +4227,7 @@ var MdFormField = (function () {
      * @param {?} prop
      * @return {?}
      */
-    MdFormField.prototype._shouldForward = function (prop) {
+    MatFormField.prototype._shouldForward = function (prop) {
         var /** @type {?} */ ngControl = this._control ? this._control.ngControl : null;
         return ngControl && ((ngControl))[prop];
     };
@@ -4418,14 +4235,14 @@ var MdFormField = (function () {
      * Whether the form field has a placeholder.
      * @return {?}
      */
-    MdFormField.prototype._hasPlaceholder = function () {
+    MatFormField.prototype._hasPlaceholder = function () {
         return !!(this._control.placeholder || this._placeholderChild);
     };
     /**
      * Determines whether to display hints or errors.
      * @return {?}
      */
-    MdFormField.prototype._getDisplayedMessages = function () {
+    MatFormField.prototype._getDisplayedMessages = function () {
         return (this._errorChildren && this._errorChildren.length > 0 &&
             this._control.errorState) ? 'error' : 'hint';
     };
@@ -4433,7 +4250,7 @@ var MdFormField = (function () {
      * Animates the placeholder up and locks it in position.
      * @return {?}
      */
-    MdFormField.prototype._animateAndLockPlaceholder = function () {
+    MatFormField.prototype._animateAndLockPlaceholder = function () {
         var _this = this;
         if (this._placeholder && this._canPlaceholderFloat) {
             this._showAlwaysAnimate = true;
@@ -4446,28 +4263,28 @@ var MdFormField = (function () {
     };
     /**
      * Ensure that there is only one placeholder (either `placeholder` attribute on the child control
-     * or child element with the `md-placeholder` directive).
+     * or child element with the `mat-placeholder` directive).
      * @return {?}
      */
-    MdFormField.prototype._validatePlaceholders = function () {
+    MatFormField.prototype._validatePlaceholders = function () {
         if (this._control.placeholder && this._placeholderChild) {
-            throw getMdFormFieldPlaceholderConflictError();
+            throw getMatFormFieldPlaceholderConflictError();
         }
     };
     /**
      * Does any extra processing that is required when handling the hints.
      * @return {?}
      */
-    MdFormField.prototype._processHints = function () {
+    MatFormField.prototype._processHints = function () {
         this._validateHints();
         this._syncDescribedByIds();
     };
     /**
-     * Ensure that there is a maximum of one of each `<md-hint>` alignment specified, with the
+     * Ensure that there is a maximum of one of each `<mat-hint>` alignment specified, with the
      * attribute being considered as `align="start"`.
      * @return {?}
      */
-    MdFormField.prototype._validateHints = function () {
+    MatFormField.prototype._validateHints = function () {
         var _this = this;
         if (this._hintChildren) {
             var /** @type {?} */ startHint_1;
@@ -4475,13 +4292,13 @@ var MdFormField = (function () {
             this._hintChildren.forEach(function (hint) {
                 if (hint.align == 'start') {
                     if (startHint_1 || _this.hintLabel) {
-                        throw getMdFormFieldDuplicatedHintError('start');
+                        throw getMatFormFieldDuplicatedHintError('start');
                     }
                     startHint_1 = hint;
                 }
                 else if (hint.align == 'end') {
                     if (endHint_1) {
-                        throw getMdFormFieldDuplicatedHintError('end');
+                        throw getMatFormFieldDuplicatedHintError('end');
                     }
                     endHint_1 = hint;
                 }
@@ -4493,7 +4310,7 @@ var MdFormField = (function () {
      * its `aria-describedby` attribute accordingly.
      * @return {?}
      */
-    MdFormField.prototype._syncDescribedByIds = function () {
+    MatFormField.prototype._syncDescribedByIds = function () {
         if (this._control) {
             var /** @type {?} */ ids = [];
             if (this._getDisplayedMessages() === 'hint') {
@@ -4512,7 +4329,7 @@ var MdFormField = (function () {
                 }
             }
             else if (this._errorChildren) {
-                ids = this._errorChildren.map(function (mdError) { return mdError.id; });
+                ids = this._errorChildren.map(function (error) { return error.id; });
             }
             this._control.setDescribedByIds(ids);
         }
@@ -4521,21 +4338,21 @@ var MdFormField = (function () {
      * Throws an error if the form field's control is missing.
      * @return {?}
      */
-    MdFormField.prototype._validateControlChild = function () {
+    MatFormField.prototype._validateControlChild = function () {
         if (!this._control) {
-            throw getMdFormFieldMissingControlError();
+            throw getMatFormFieldMissingControlError();
         }
     };
-    return MdFormField;
+    return MatFormField;
 }());
-MdFormField.decorators = [
+MatFormField.decorators = [
     { type: _angular_core.Component, args: [{
-                selector: 'md-input-container, mat-input-container, md-form-field, mat-form-field',
-                template: "<div class=\"mat-input-wrapper mat-form-field-wrapper\"><div class=\"mat-input-flex mat-form-field-flex\" #connectionContainer><div class=\"mat-input-prefix mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[mdPrefix], [matPrefix]\"></ng-content></div><div class=\"mat-input-infix mat-form-field-infix\"><ng-content></ng-content><span class=\"mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper\"><label class=\"mat-input-placeholder mat-form-field-placeholder\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-float]=\"_canPlaceholderFloat\" [class.mat-form-field-float]=\"_canPlaceholderFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #placeholder *ngIf=\"_hasPlaceholder()\"><ng-content select=\"md-placeholder, mat-placeholder\"></ng-content>{{_control.placeholder}} <span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required\">*</span></label></span></div><div class=\"mat-input-suffix mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[mdSuffix], [matSuffix]\"></ng-content></div></div><div class=\"mat-input-underline mat-form-field-underline\" #underline [class.mat-disabled]=\"_control.disabled\"><span class=\"mat-input-ripple mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-input-subscript-wrapper mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"md-error, mat-error\"></ng-content></div><div class=\"mat-input-hint-wrapper mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"md-hint:not([align='end']), mat-hint:not([align='end'])\"></ng-content><div class=\"mat-input-hint-spacer mat-form-field-hint-spacer\"></div><ng-content select=\"md-hint[align='end'], mat-hint[align='end']\"></ng-content></div></div></div>",
-                // MdInput is a directive and can't have styles, so we need to include its styles here.
-                // The MdInput styles are fairly minimal so it shouldn't be a big deal for people who aren't using
-                // MdInput.
-                styles: [".mat-form-field{display:inline-block;position:relative;text-align:left}[dir=rtl] .mat-form-field{text-align:right}.mat-form-field-wrapper{position:relative}.mat-form-field-flex{display:inline-flex;align-items:baseline;width:100%}.mat-form-field-prefix,.mat-form-field-suffix{white-space:nowrap;flex:none}.mat-form-field-prefix .mat-icon,.mat-form-field-suffix .mat-icon{width:1em}.mat-form-field-prefix .mat-icon-button,.mat-form-field-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field-suffix .mat-icon-button .mat-icon{font-size:inherit}.mat-form-field-infix{display:block;position:relative;flex:auto}.mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:none}.mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-placeholder-wrapper .mat-form-field-float{display:block;transition:none}.mat-form-field-placeholder-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}.mat-form-field-placeholder{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:perspective(100px);-ms-transform:none;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}.mat-focused .mat-form-field-placeholder.mat-form-field-float,.mat-form-field-placeholder.mat-form-field-empty,.mat-form-field-placeholder.mat-form-field-float:not(.mat-form-field-empty){display:block}[dir=rtl] .mat-form-field-placeholder{transform-origin:100% 0;left:auto;right:0}.mat-form-field-placeholder:not(.mat-form-field-empty){transition:none}.mat-form-field-underline{position:absolute;height:1px;width:100%}.mat-form-field-underline.mat-disabled{background-position:0;background-color:transparent}.mat-form-field-underline .mat-form-field-ripple{position:absolute;height:1px;top:0;left:0;width:100%;transform-origin:50%;transform:scaleX(.5);visibility:hidden;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-focused .mat-form-field-underline .mat-form-field-ripple{height:2px}.mat-focused .mat-form-field-underline .mat-form-field-ripple,.mat-form-field-invalid .mat-form-field-underline .mat-form-field-ripple{visibility:visible;transform:scaleX(1);transition:transform 150ms linear,background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-form-field-subscript-wrapper{position:absolute;width:100%;overflow:hidden}.mat-form-field-placeholder-wrapper .mat-icon,.mat-form-field-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-form-field-hint-wrapper{display:flex}.mat-form-field-hint-spacer{flex:1 0 1em}.mat-error{display:block} .mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;margin:0;width:100%;max-width:100%;vertical-align:bottom}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element::placeholder{color:transparent!important}.mat-input-element::-moz-placeholder{color:transparent!important}.mat-input-element::-webkit-input-placeholder{color:transparent!important}.mat-input-element:-ms-input-placeholder{color:transparent!important}textarea.mat-input-element{resize:vertical;overflow:auto}"],
+                selector: 'mat-input-container, mat-form-field',
+                template: "<div class=\"mat-input-wrapper mat-form-field-wrapper\"><div class=\"mat-input-flex mat-form-field-flex\" #connectionContainer (click)=\"_control.onContainerClick && _control.onContainerClick($event)\"><div class=\"mat-input-prefix mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[matPrefix]\"></ng-content></div><div class=\"mat-input-infix mat-form-field-infix\"><ng-content></ng-content><span class=\"mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper\"><label class=\"mat-input-placeholder mat-form-field-placeholder\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #placeholder *ngIf=\"_hasPlaceholder()\"><ng-content select=\"mat-placeholder\"></ng-content>{{_control.placeholder}} <span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required\">*</span></label></span></div><div class=\"mat-input-suffix mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[matSuffix]\"></ng-content></div></div><div class=\"mat-input-underline mat-form-field-underline\" #underline [class.mat-disabled]=\"_control.disabled\"><span class=\"mat-input-ripple mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-input-subscript-wrapper mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"mat-error\"></ng-content></div><div class=\"mat-input-hint-wrapper mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"mat-hint:not([align='end'])\"></ng-content><div class=\"mat-input-hint-spacer mat-form-field-hint-spacer\"></div><ng-content select=\"mat-hint[align='end']\"></ng-content></div></div></div>",
+                // MatInput is a directive and can't have styles, so we need to include its styles here.
+                // The MatInput styles are fairly minimal so it shouldn't be a big deal for people who
+                // aren't using MatInput.
+                styles: [".mat-form-field{display:inline-block;position:relative;text-align:left}[dir=rtl] .mat-form-field{text-align:right}.mat-form-field-wrapper{position:relative}.mat-form-field-flex{display:inline-flex;align-items:baseline;width:100%}.mat-form-field-prefix,.mat-form-field-suffix{white-space:nowrap;flex:none}.mat-form-field-prefix .mat-icon,.mat-form-field-suffix .mat-icon{width:1em}.mat-form-field-prefix .mat-icon-button,.mat-form-field-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field-suffix .mat-icon-button .mat-icon{font-size:inherit}.mat-form-field-infix{display:block;position:relative;flex:auto;min-width:0}.mat-form-field-placeholder-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}.mat-form-field-placeholder{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:perspective(100px);-ms-transform:none;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}[dir=rtl] .mat-form-field-placeholder{transform-origin:100% 0;left:auto;right:0}.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-placeholder,.mat-form-field-empty.mat-form-field-placeholder{display:block}.mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:none}.mat-form-field-can-float .mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:block;transition:none}.mat-form-field-placeholder:not(.mat-form-field-empty){transition:none}.mat-form-field-underline{position:absolute;height:1px;width:100%}.mat-form-field-underline.mat-disabled{background-position:0;background-color:transparent}.mat-form-field-underline .mat-form-field-ripple{position:absolute;height:1px;top:0;left:0;width:100%;transform-origin:50%;transform:scaleX(.5);visibility:hidden;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-focused .mat-form-field-underline .mat-form-field-ripple{height:2px}.mat-focused .mat-form-field-underline .mat-form-field-ripple,.mat-form-field-invalid .mat-form-field-underline .mat-form-field-ripple{visibility:visible;transform:scaleX(1);transition:transform 150ms linear,background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-form-field-subscript-wrapper{position:absolute;width:100%;overflow:hidden}.mat-form-field-placeholder-wrapper .mat-icon,.mat-form-field-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-form-field-hint-wrapper{display:flex}.mat-form-field-hint-spacer{flex:1 0 1em}.mat-error{display:block} .mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;margin:0;width:100%;max-width:100%;vertical-align:bottom}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element::placeholder{color:transparent!important}.mat-input-element::-moz-placeholder{color:transparent!important}.mat-input-element::-webkit-input-placeholder{color:transparent!important}.mat-input-element:-ms-input-placeholder{color:transparent!important}textarea.mat-input-element{resize:vertical;overflow:auto}"],
                 animations: [
                     // TODO(mmalerba): Use angular animations for placeholder animation as well.
                     _angular_animations.trigger('transitionMessages', [
@@ -4550,7 +4367,12 @@ MdFormField.decorators = [
                     'class': 'mat-input-container mat-form-field',
                     '[class.mat-input-invalid]': '_control.errorState',
                     '[class.mat-form-field-invalid]': '_control.errorState',
+                    '[class.mat-form-field-can-float]': '_canPlaceholderFloat',
+                    '[class.mat-form-field-should-float]': '_control.shouldPlaceholderFloat || _shouldAlwaysFloat',
                     '[class.mat-focused]': '_control.focused',
+                    '[class.mat-primary]': 'color == "primary"',
+                    '[class.mat-accent]': 'color == "accent"',
+                    '[class.mat-warn]': 'color == "warn"',
                     '[class.ng-untouched]': '_shouldForward("untouched")',
                     '[class.ng-touched]': '_shouldForward("touched")',
                     '[class.ng-pristine]': '_shouldForward("pristine")',
@@ -4558,7 +4380,6 @@ MdFormField.decorators = [
                     '[class.ng-valid]': '_shouldForward("valid")',
                     '[class.ng-invalid]': '_shouldForward("invalid")',
                     '[class.ng-pending]': '_shouldForward("pending")',
-                    '(click)': '_control.focus()',
                 },
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
@@ -4568,12 +4389,13 @@ MdFormField.decorators = [
 /**
  * @nocollapse
  */
-MdFormField.ctorParameters = function () { return [
+MatFormField.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
+    { type: _angular_core.Renderer2, },
     { type: _angular_core.ChangeDetectorRef, },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
 ]; };
-MdFormField.propDecorators = {
+MatFormField.propDecorators = {
     'color': [{ type: _angular_core.Input },],
     'dividerColor': [{ type: _angular_core.Input },],
     'hideRequiredMarker': [{ type: _angular_core.Input },],
@@ -4582,46 +4404,46 @@ MdFormField.propDecorators = {
     'underlineRef': [{ type: _angular_core.ViewChild, args: ['underline',] },],
     '_connectionContainerRef': [{ type: _angular_core.ViewChild, args: ['connectionContainer',] },],
     '_placeholder': [{ type: _angular_core.ViewChild, args: ['placeholder',] },],
-    '_control': [{ type: _angular_core.ContentChild, args: [MdFormFieldControl,] },],
-    '_placeholderChild': [{ type: _angular_core.ContentChild, args: [MdPlaceholder,] },],
-    '_errorChildren': [{ type: _angular_core.ContentChildren, args: [MdError,] },],
-    '_hintChildren': [{ type: _angular_core.ContentChildren, args: [MdHint,] },],
-    '_prefixChildren': [{ type: _angular_core.ContentChildren, args: [MdPrefix,] },],
-    '_suffixChildren': [{ type: _angular_core.ContentChildren, args: [MdSuffix,] },],
+    '_control': [{ type: _angular_core.ContentChild, args: [MatFormFieldControl,] },],
+    '_placeholderChild': [{ type: _angular_core.ContentChild, args: [MatPlaceholder,] },],
+    '_errorChildren': [{ type: _angular_core.ContentChildren, args: [MatError,] },],
+    '_hintChildren': [{ type: _angular_core.ContentChildren, args: [MatHint,] },],
+    '_prefixChildren': [{ type: _angular_core.ContentChildren, args: [MatPrefix,] },],
+    '_suffixChildren': [{ type: _angular_core.ContentChildren, args: [MatSuffix,] },],
 };
-var MdFormFieldModule = (function () {
-    function MdFormFieldModule() {
+var MatFormFieldModule = (function () {
+    function MatFormFieldModule() {
     }
-    return MdFormFieldModule;
+    return MatFormFieldModule;
 }());
-MdFormFieldModule.decorators = [
+MatFormFieldModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 declarations: [
-                    MdError,
-                    MdHint,
-                    MdFormField,
-                    MdPlaceholder,
-                    MdPrefix,
-                    MdSuffix,
+                    MatError,
+                    MatHint,
+                    MatFormField,
+                    MatPlaceholder,
+                    MatPrefix,
+                    MatSuffix,
                 ],
                 imports: [
                     _angular_common.CommonModule,
                     _angular_cdk_platform.PlatformModule,
                 ],
                 exports: [
-                    MdError,
-                    MdHint,
-                    MdFormField,
-                    MdPlaceholder,
-                    MdPrefix,
-                    MdSuffix,
+                    MatError,
+                    MatHint,
+                    MatFormField,
+                    MatPlaceholder,
+                    MatPrefix,
+                    MatSuffix,
                 ],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdFormFieldModule.ctorParameters = function () { return []; };
+MatFormFieldModule.ctorParameters = function () { return []; };
 
 /**
  * Function that attempts to coerce a value to a date using a DateAdapter. Date instances, null,
@@ -4655,14 +4477,14 @@ function coerceDateProperty(adapter, value) {
  * @return {?}
  */
 function createMissingDateImplError(provider) {
-    return Error("MdDatepicker: No provider found for " + provider + ". You must import one of the following " +
-        "modules at your application root: MdNativeDateModule, or provide a custom implementation.");
+    return Error("MatDatepicker: No provider found for " + provider + ". You must import one of the following " +
+        "modules at your application root: MatNativeDateModule, or provide a custom implementation.");
 }
 /**
  * Datepicker data that requires internationalization.
  */
-var MdDatepickerIntl = (function () {
-    function MdDatepickerIntl() {
+var MatDatepickerIntl = (function () {
+    function MatDatepickerIntl() {
         /**
          * Stream that emits whenever the labels here are changed. Use this to notify
          * components if the labels have changed after initialization.
@@ -4701,35 +4523,33 @@ var MdDatepickerIntl = (function () {
          */
         this.switchToYearViewLabel = 'Change to year view';
     }
-    return MdDatepickerIntl;
+    return MatDatepickerIntl;
 }());
-MdDatepickerIntl.decorators = [
+MatDatepickerIntl.decorators = [
     { type: _angular_core.Injectable },
 ];
 /**
  * @nocollapse
  */
-MdDatepickerIntl.ctorParameters = function () { return []; };
+MatDatepickerIntl.ctorParameters = function () { return []; };
 /**
  * A calendar that is used as part of the datepicker.
  * \@docs-private
  */
-var MdCalendar = (function () {
+var MatCalendar = (function () {
     /**
      * @param {?} _elementRef
      * @param {?} _intl
      * @param {?} _ngZone
-     * @param {?} _isCompatibilityMode
      * @param {?} _dateAdapter
      * @param {?} _dateFormats
      * @param {?} changeDetectorRef
      */
-    function MdCalendar(_elementRef, _intl, _ngZone, _isCompatibilityMode, _dateAdapter, _dateFormats, changeDetectorRef) {
+    function MatCalendar(_elementRef, _intl, _ngZone, _dateAdapter, _dateFormats, changeDetectorRef) {
         var _this = this;
         this._elementRef = _elementRef;
         this._intl = _intl;
         this._ngZone = _ngZone;
-        this._isCompatibilityMode = _isCompatibilityMode;
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
         /**
@@ -4757,11 +4577,11 @@ var MdCalendar = (function () {
             throw createMissingDateImplError('DateAdapter');
         }
         if (!this._dateFormats) {
-            throw createMissingDateImplError('MD_DATE_FORMATS');
+            throw createMissingDateImplError('MAT_DATE_FORMATS');
         }
         this._intlChanges = _intl.changes.subscribe(function () { return changeDetectorRef.markForCheck(); });
     }
-    Object.defineProperty(MdCalendar.prototype, "startAt", {
+    Object.defineProperty(MatCalendar.prototype, "startAt", {
         /**
          * A date representing the period (month or year) to start the calendar in.
          * @return {?}
@@ -4775,7 +4595,7 @@ var MdCalendar = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdCalendar.prototype, "selected", {
+    Object.defineProperty(MatCalendar.prototype, "selected", {
         /**
          * The currently selected date.
          * @return {?}
@@ -4789,7 +4609,7 @@ var MdCalendar = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdCalendar.prototype, "minDate", {
+    Object.defineProperty(MatCalendar.prototype, "minDate", {
         /**
          * The minimum selectable date.
          * @return {?}
@@ -4803,7 +4623,7 @@ var MdCalendar = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdCalendar.prototype, "maxDate", {
+    Object.defineProperty(MatCalendar.prototype, "maxDate", {
         /**
          * The maximum selectable date.
          * @return {?}
@@ -4817,7 +4637,7 @@ var MdCalendar = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdCalendar.prototype, "_activeDate", {
+    Object.defineProperty(MatCalendar.prototype, "_activeDate", {
         /**
          * The current active date. This determines which time period is shown and which date is
          * highlighted when using keyboard navigation.
@@ -4834,7 +4654,7 @@ var MdCalendar = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdCalendar.prototype, "_periodButtonText", {
+    Object.defineProperty(MatCalendar.prototype, "_periodButtonText", {
         /**
          * The label for the current calendar view.
          * @return {?}
@@ -4848,7 +4668,7 @@ var MdCalendar = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdCalendar.prototype, "_periodButtonLabel", {
+    Object.defineProperty(MatCalendar.prototype, "_periodButtonLabel", {
         /**
          * @return {?}
          */
@@ -4858,7 +4678,7 @@ var MdCalendar = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdCalendar.prototype, "_prevButtonLabel", {
+    Object.defineProperty(MatCalendar.prototype, "_prevButtonLabel", {
         /**
          * The label for the the previous button.
          * @return {?}
@@ -4869,7 +4689,7 @@ var MdCalendar = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdCalendar.prototype, "_nextButtonLabel", {
+    Object.defineProperty(MatCalendar.prototype, "_nextButtonLabel", {
         /**
          * The label for the the next button.
          * @return {?}
@@ -4883,7 +4703,7 @@ var MdCalendar = (function () {
     /**
      * @return {?}
      */
-    MdCalendar.prototype.ngAfterContentInit = function () {
+    MatCalendar.prototype.ngAfterContentInit = function () {
         this._activeDate = this.startAt || this._dateAdapter.today();
         this._focusActiveCell();
         this._monthView = this.startView != 'year';
@@ -4891,7 +4711,7 @@ var MdCalendar = (function () {
     /**
      * @return {?}
      */
-    MdCalendar.prototype.ngOnDestroy = function () {
+    MatCalendar.prototype.ngOnDestroy = function () {
         this._intlChanges.unsubscribe();
     };
     /**
@@ -4899,7 +4719,7 @@ var MdCalendar = (function () {
      * @param {?} date
      * @return {?}
      */
-    MdCalendar.prototype._dateSelected = function (date) {
+    MatCalendar.prototype._dateSelected = function (date) {
         if (!this._dateAdapter.sameDate(date, this.selected)) {
             this.selectedChange.emit(date);
         }
@@ -4907,7 +4727,7 @@ var MdCalendar = (function () {
     /**
      * @return {?}
      */
-    MdCalendar.prototype._userSelected = function () {
+    MatCalendar.prototype._userSelected = function () {
         this.userSelection.emit();
     };
     /**
@@ -4915,7 +4735,7 @@ var MdCalendar = (function () {
      * @param {?} month
      * @return {?}
      */
-    MdCalendar.prototype._monthSelected = function (month) {
+    MatCalendar.prototype._monthSelected = function (month) {
         this._activeDate = month;
         this._monthView = true;
     };
@@ -4923,14 +4743,14 @@ var MdCalendar = (function () {
      * Handles user clicks on the period label.
      * @return {?}
      */
-    MdCalendar.prototype._currentPeriodClicked = function () {
+    MatCalendar.prototype._currentPeriodClicked = function () {
         this._monthView = !this._monthView;
     };
     /**
      * Handles user clicks on the previous button.
      * @return {?}
      */
-    MdCalendar.prototype._previousClicked = function () {
+    MatCalendar.prototype._previousClicked = function () {
         this._activeDate = this._monthView ?
             this._dateAdapter.addCalendarMonths(this._activeDate, -1) :
             this._dateAdapter.addCalendarYears(this._activeDate, -1);
@@ -4939,7 +4759,7 @@ var MdCalendar = (function () {
      * Handles user clicks on the next button.
      * @return {?}
      */
-    MdCalendar.prototype._nextClicked = function () {
+    MatCalendar.prototype._nextClicked = function () {
         this._activeDate = this._monthView ?
             this._dateAdapter.addCalendarMonths(this._activeDate, 1) :
             this._dateAdapter.addCalendarYears(this._activeDate, 1);
@@ -4948,7 +4768,7 @@ var MdCalendar = (function () {
      * Whether the previous period button is enabled.
      * @return {?}
      */
-    MdCalendar.prototype._previousEnabled = function () {
+    MatCalendar.prototype._previousEnabled = function () {
         if (!this.minDate) {
             return true;
         }
@@ -4958,7 +4778,7 @@ var MdCalendar = (function () {
      * Whether the next period button is enabled.
      * @return {?}
      */
-    MdCalendar.prototype._nextEnabled = function () {
+    MatCalendar.prototype._nextEnabled = function () {
         return !this.maxDate || !this._isSameView(this._activeDate, this.maxDate);
     };
     /**
@@ -4966,7 +4786,7 @@ var MdCalendar = (function () {
      * @param {?} event
      * @return {?}
      */
-    MdCalendar.prototype._handleCalendarBodyKeydown = function (event) {
+    MatCalendar.prototype._handleCalendarBodyKeydown = function (event) {
         // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
         // disabled ones from being selected. This may not be ideal, we should look into whether
         // navigation should skip over disabled dates, and if so, how to implement that efficiently.
@@ -4981,7 +4801,7 @@ var MdCalendar = (function () {
      * Focuses the active cell after the microtask queue is empty.
      * @return {?}
      */
-    MdCalendar.prototype._focusActiveCell = function () {
+    MatCalendar.prototype._focusActiveCell = function () {
         var _this = this;
         this._ngZone.runOutsideAngular(function () {
             rxjs_operator_first.first.call(_this._ngZone.onStable.asObservable()).subscribe(function () {
@@ -4995,7 +4815,7 @@ var MdCalendar = (function () {
      * @param {?} date2
      * @return {?}
      */
-    MdCalendar.prototype._isSameView = function (date1, date2) {
+    MatCalendar.prototype._isSameView = function (date1, date2) {
         return this._monthView ?
             this._dateAdapter.getYear(date1) == this._dateAdapter.getYear(date2) &&
                 this._dateAdapter.getMonth(date1) == this._dateAdapter.getMonth(date2) :
@@ -5006,7 +4826,7 @@ var MdCalendar = (function () {
      * @param {?} event
      * @return {?}
      */
-    MdCalendar.prototype._handleCalendarBodyKeydownInMonthView = function (event) {
+    MatCalendar.prototype._handleCalendarBodyKeydownInMonthView = function (event) {
         switch (event.keyCode) {
             case _angular_cdk_keycodes.LEFT_ARROW:
                 this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, -1);
@@ -5057,7 +4877,7 @@ var MdCalendar = (function () {
      * @param {?} event
      * @return {?}
      */
-    MdCalendar.prototype._handleCalendarBodyKeydownInYearView = function (event) {
+    MatCalendar.prototype._handleCalendarBodyKeydownInYearView = function (event) {
         switch (event.keyCode) {
             case _angular_cdk_keycodes.LEFT_ARROW:
                 this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, -1);
@@ -5102,7 +4922,7 @@ var MdCalendar = (function () {
      * @param {?} date
      * @return {?}
      */
-    MdCalendar.prototype._prevMonthInSameCol = function (date) {
+    MatCalendar.prototype._prevMonthInSameCol = function (date) {
         // Determine how many months to jump forward given that there are 2 empty slots at the beginning
         // of each year.
         var /** @type {?} */ increment = this._dateAdapter.getMonth(date) <= 4 ? -5 :
@@ -5115,18 +4935,18 @@ var MdCalendar = (function () {
      * @param {?} date
      * @return {?}
      */
-    MdCalendar.prototype._nextMonthInSameCol = function (date) {
+    MatCalendar.prototype._nextMonthInSameCol = function (date) {
         // Determine how many months to jump forward given that there are 2 empty slots at the beginning
         // of each year.
         var /** @type {?} */ increment = this._dateAdapter.getMonth(date) <= 4 ? 7 :
             (this._dateAdapter.getMonth(date) >= 7 ? 5 : 12);
         return this._dateAdapter.addCalendarMonths(date, increment);
     };
-    return MdCalendar;
+    return MatCalendar;
 }());
-MdCalendar.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-calendar, mat-calendar',
-                template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button *ngIf=\"!_isCompatibilityMode\" md-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div></button> <button *ngIf=\"_isCompatibilityMode\" mat-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div></button><div class=\"mat-calendar-spacer\"></div><button *ngIf=\"!_isCompatibilityMode\" md-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button *ngIf=\"_isCompatibilityMode\" mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button *ngIf=\"!_isCompatibilityMode\" md-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button> <button *ngIf=\"_isCompatibilityMode\" mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button></div></div><div class=\"mat-calendar-content\" (keydown)=\"_handleCalendarBodyKeydown($event)\" [ngSwitch]=\"_monthView\" cdkMonitorSubtreeFocus><md-month-view *ngSwitchCase=\"true\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_dateSelected($event)\" (userSelection)=\"_userSelected()\"></md-month-view><md-year-view *ngSwitchDefault [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_monthSelected($event)\"></md-year-view></div>",
+MatCalendar.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-calendar',
+                template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div></button><div class=\"mat-calendar-spacer\"></div><button mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button></div></div><div class=\"mat-calendar-content\" (keydown)=\"_handleCalendarBodyKeydown($event)\" [ngSwitch]=\"_monthView\" cdkMonitorSubtreeFocus><mat-month-view *ngSwitchCase=\"true\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_dateSelected($event)\" (userSelection)=\"_userSelected()\"></mat-month-view><mat-year-view *ngSwitchDefault [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_monthSelected($event)\"></mat-year-view></div>",
                 styles: [".mat-calendar{display:block}.mat-calendar-header{padding:8px 8px 0 8px}.mat-calendar-content{padding:0 8px 8px 8px;outline:0}.mat-calendar-controls{display:flex;margin:5% calc(33% / 7 - 16px)}.mat-calendar-spacer{flex:1 1 auto}.mat-calendar-period-button{min-width:0}.mat-calendar-arrow{display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top-width:5px;border-top-style:solid;margin:0 0 0 5px;vertical-align:middle}.mat-calendar-arrow.mat-calendar-invert{transform:rotate(180deg)}[dir=rtl] .mat-calendar-arrow{margin:0 5px 0 0}.mat-calendar-next-button,.mat-calendar-previous-button{position:relative}.mat-calendar-next-button::after,.mat-calendar-previous-button::after{top:0;left:0;right:0;bottom:0;position:absolute;content:'';margin:15.5px;border:0 solid currentColor;border-top-width:2px}[dir=rtl] .mat-calendar-next-button,[dir=rtl] .mat-calendar-previous-button{transform:rotate(180deg)}.mat-calendar-previous-button::after{border-left-width:2px;transform:translateX(2px) rotate(-45deg)}.mat-calendar-next-button::after{border-right-width:2px;transform:translateX(-2px) rotate(45deg)}.mat-calendar-table{border-spacing:0;border-collapse:collapse;width:100%}.mat-calendar-table-header th{text-align:center;padding:0 0 8px 0}.mat-calendar-table-header-divider{position:relative;height:1px}.mat-calendar-table-header-divider::after{content:'';position:absolute;top:0;left:-8px;right:-8px;height:1px}"],
                 host: {
                     'class': 'mat-calendar',
@@ -5139,16 +4959,15 @@ MdCalendar.decorators = [
 /**
  * @nocollapse
  */
-MdCalendar.ctorParameters = function () { return [
+MatCalendar.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
-    { type: MdDatepickerIntl, },
+    { type: MatDatepickerIntl, },
     { type: _angular_core.NgZone, },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
     { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_DATE_FORMATS,] },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
     { type: _angular_core.ChangeDetectorRef, },
 ]; };
-MdCalendar.propDecorators = {
+MatCalendar.propDecorators = {
     'startAt': [{ type: _angular_core.Input },],
     'startView': [{ type: _angular_core.Input },],
     'selected': [{ type: _angular_core.Input },],
@@ -5162,27 +4981,27 @@ MdCalendar.propDecorators = {
  * An internal class that represents the data corresponding to a single calendar cell.
  * \@docs-private
  */
-var MdCalendarCell = (function () {
+var MatCalendarCell = (function () {
     /**
      * @param {?} value
      * @param {?} displayValue
      * @param {?} ariaLabel
      * @param {?} enabled
      */
-    function MdCalendarCell(value, displayValue, ariaLabel, enabled) {
+    function MatCalendarCell(value, displayValue, ariaLabel, enabled) {
         this.value = value;
         this.displayValue = displayValue;
         this.ariaLabel = ariaLabel;
         this.enabled = enabled;
     }
-    return MdCalendarCell;
+    return MatCalendarCell;
 }());
 /**
  * An internal component used to display calendar data in a table.
  * \@docs-private
  */
-var MdCalendarBody = (function () {
-    function MdCalendarBody() {
+var MatCalendarBody = (function () {
+    function MatCalendarBody() {
         /**
          * The number of columns in the table.
          */
@@ -5209,13 +5028,13 @@ var MdCalendarBody = (function () {
      * @param {?} cell
      * @return {?}
      */
-    MdCalendarBody.prototype._cellClicked = function (cell) {
+    MatCalendarBody.prototype._cellClicked = function (cell) {
         if (!this.allowDisabledSelection && !cell.enabled) {
             return;
         }
         this.selectedValueChange.emit(cell.value);
     };
-    Object.defineProperty(MdCalendarBody.prototype, "_firstRowOffset", {
+    Object.defineProperty(MatCalendarBody.prototype, "_firstRowOffset", {
         /**
          * The number of blank cells to put at the beginning for the first row.
          * @return {?}
@@ -5232,7 +5051,7 @@ var MdCalendarBody = (function () {
      * @param {?} colIndex
      * @return {?}
      */
-    MdCalendarBody.prototype._isActiveCell = function (rowIndex, colIndex) {
+    MatCalendarBody.prototype._isActiveCell = function (rowIndex, colIndex) {
         var /** @type {?} */ cellNumber = rowIndex * this.numCols + colIndex;
         // Account for the fact that the first row may not have as many cells.
         if (rowIndex) {
@@ -5240,10 +5059,10 @@ var MdCalendarBody = (function () {
         }
         return cellNumber == this.activeCell;
     };
-    return MdCalendarBody;
+    return MatCalendarBody;
 }());
-MdCalendarBody.decorators = [
-    { type: _angular_core.Component, args: [{ selector: '[md-calendar-body], [mat-calendar-body]',
+MatCalendarBody.decorators = [
+    { type: _angular_core.Component, args: [{ selector: '[mat-calendar-body]',
                 template: "<tr *ngIf=\"_firstRowOffset < labelMinRequiredCells\" aria-hidden=\"true\"><td class=\"mat-calendar-body-label\" [attr.colspan]=\"numCols\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\">{{label}}</td></tr><tr *ngFor=\"let row of rows; let rowIndex = index\" role=\"row\"><td *ngIf=\"rowIndex === 0 && _firstRowOffset\" aria-hidden=\"true\" class=\"mat-calendar-body-label\" [attr.colspan]=\"_firstRowOffset\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\">{{_firstRowOffset >= labelMinRequiredCells ? label : ''}}</td><td *ngFor=\"let item of row; let colIndex = index\" role=\"gridcell\" class=\"mat-calendar-body-cell\" [tabindex]=\"_isActiveCell(rowIndex, colIndex) ? 0 : -1\" [class.mat-calendar-body-disabled]=\"!item.enabled\" [class.mat-calendar-body-active]=\"_isActiveCell(rowIndex, colIndex)\" [attr.aria-label]=\"item.ariaLabel\" [attr.aria-disabled]=\"!item.enabled || null\" (click)=\"_cellClicked(item)\" [style.width.%]=\"100 / numCols\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\"><div class=\"mat-calendar-body-cell-content\" [class.mat-calendar-body-selected]=\"selectedValue === item.value\" [class.mat-calendar-body-today]=\"todayValue === item.value\">{{item.displayValue}}</div></td></tr>",
                 styles: [".mat-calendar-body{min-width:224px}.mat-calendar-body-label{height:0;line-height:0;text-align:left;padding-left:4.71429%;padding-right:4.71429%}.mat-calendar-body-cell{position:relative;height:0;line-height:0;text-align:center;outline:0;cursor:pointer}.mat-calendar-body-disabled{cursor:default}.mat-calendar-body-cell-content{position:absolute;top:5%;left:5%;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:90%;height:90%;line-height:1;border-width:1px;border-style:solid;border-radius:999px}[dir=rtl] .mat-calendar-body-label{text-align:right}"],
                 host: {
@@ -5257,8 +5076,8 @@ MdCalendarBody.decorators = [
 /**
  * @nocollapse
  */
-MdCalendarBody.ctorParameters = function () { return []; };
-MdCalendarBody.propDecorators = {
+MatCalendarBody.ctorParameters = function () { return []; };
+MatCalendarBody.propDecorators = {
     'label': [{ type: _angular_core.Input },],
     'rows': [{ type: _angular_core.Input },],
     'todayValue': [{ type: _angular_core.Input },],
@@ -5277,37 +5096,37 @@ var datepickerUid = 0;
 /**
  * Injection token that determines the scroll handling while the calendar is open.
  */
-var MD_DATEPICKER_SCROLL_STRATEGY = new _angular_core.InjectionToken('md-datepicker-scroll-strategy');
+var MAT_DATEPICKER_SCROLL_STRATEGY = new _angular_core.InjectionToken('mat-datepicker-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
  * @return {?}
  */
-function MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
+function MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
     return function () { return overlay.scrollStrategies.reposition(); };
 }
 /**
  * \@docs-private
  */
-var MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER = {
-    provide: MD_DATEPICKER_SCROLL_STRATEGY,
+var MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER = {
+    provide: MAT_DATEPICKER_SCROLL_STRATEGY,
     deps: [_angular_cdk_overlay.Overlay],
-    useFactory: MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY,
+    useFactory: MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY,
 };
 /**
  * Component used as the content for the datepicker dialog and popup. We use this instead of using
- * MdCalendar directly as the content so we can control the initial focus. This also gives us a
+ * MatCalendar directly as the content so we can control the initial focus. This also gives us a
  * place to put additional features of the popup that are not part of the calendar itself in the
  * future. (e.g. confirmation buttons).
  * \@docs-private
  */
-var MdDatepickerContent = (function () {
-    function MdDatepickerContent() {
+var MatDatepickerContent = (function () {
+    function MatDatepickerContent() {
     }
     /**
      * @return {?}
      */
-    MdDatepickerContent.prototype.ngAfterContentInit = function () {
+    MatDatepickerContent.prototype.ngAfterContentInit = function () {
         this._calendar._focusActiveCell();
     };
     /**
@@ -5315,18 +5134,18 @@ var MdDatepickerContent = (function () {
      * @param {?} event The event.
      * @return {?}
      */
-    MdDatepickerContent.prototype._handleKeydown = function (event) {
+    MatDatepickerContent.prototype._handleKeydown = function (event) {
         if (event.keyCode === _angular_cdk_keycodes.ESCAPE) {
             this.datepicker.close();
             event.preventDefault();
             event.stopPropagation();
         }
     };
-    return MdDatepickerContent;
+    return MatDatepickerContent;
 }());
-MdDatepickerContent.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-datepicker-content, mat-datepicker-content',
-                template: "<md-calendar cdkTrapFocus [id]=\"datepicker.id\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" (selectedChange)=\"datepicker._select($event)\" (userSelection)=\"datepicker.close()\"></md-calendar>",
+MatDatepickerContent.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-datepicker-content',
+                template: "<mat-calendar cdkTrapFocus [id]=\"datepicker.id\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" (selectedChange)=\"datepicker._select($event)\" (userSelection)=\"datepicker.close()\"></mat-calendar>",
                 styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block}.mat-calendar{width:296px;height:354px}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation:landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation:portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}"],
                 host: {
                     'class': 'mat-datepicker-content',
@@ -5341,14 +5160,14 @@ MdDatepickerContent.decorators = [
 /**
  * @nocollapse
  */
-MdDatepickerContent.ctorParameters = function () { return []; };
-MdDatepickerContent.propDecorators = {
-    '_calendar': [{ type: _angular_core.ViewChild, args: [MdCalendar,] },],
+MatDatepickerContent.ctorParameters = function () { return []; };
+MatDatepickerContent.propDecorators = {
+    '_calendar': [{ type: _angular_core.ViewChild, args: [MatCalendar,] },],
 };
 /**
  * Component responsible for managing the datepicker popup/dialog.
  */
-var MdDatepicker = (function () {
+var MatDatepicker = (function () {
     /**
      * @param {?} _dialog
      * @param {?} _overlay
@@ -5359,7 +5178,7 @@ var MdDatepicker = (function () {
      * @param {?} _dir
      * @param {?} _document
      */
-    function MdDatepicker(_dialog, _overlay, _ngZone, _viewContainerRef, _scrollStrategy, _dateAdapter, _dir, _document) {
+    function MatDatepicker(_dialog, _overlay, _ngZone, _viewContainerRef, _scrollStrategy, _dateAdapter, _dir, _document) {
         this._dialog = _dialog;
         this._overlay = _overlay;
         this._ngZone = _ngZone;
@@ -5389,7 +5208,7 @@ var MdDatepicker = (function () {
         /**
          * The id for the datepicker calendar.
          */
-        this.id = "md-datepicker-" + datepickerUid++;
+        this.id = "mat-datepicker-" + datepickerUid++;
         this._validSelected = null;
         /**
          * The element that was focused before the datepicker was opened.
@@ -5404,7 +5223,7 @@ var MdDatepicker = (function () {
             throw createMissingDateImplError('DateAdapter');
         }
     }
-    Object.defineProperty(MdDatepicker.prototype, "startAt", {
+    Object.defineProperty(MatDatepicker.prototype, "startAt", {
         /**
          * The date to open the calendar to initially.
          * @return {?}
@@ -5422,7 +5241,7 @@ var MdDatepicker = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdDatepicker.prototype, "disabled", {
+    Object.defineProperty(MatDatepicker.prototype, "disabled", {
         /**
          * Whether the datepicker pop-up should be disabled.
          * @return {?}
@@ -5444,7 +5263,7 @@ var MdDatepicker = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdDatepicker.prototype, "_selected", {
+    Object.defineProperty(MatDatepicker.prototype, "_selected", {
         /**
          * The currently selected date.
          * @return {?}
@@ -5458,7 +5277,7 @@ var MdDatepicker = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdDatepicker.prototype, "_minDate", {
+    Object.defineProperty(MatDatepicker.prototype, "_minDate", {
         /**
          * The minimum selectable date.
          * @return {?}
@@ -5469,7 +5288,7 @@ var MdDatepicker = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdDatepicker.prototype, "_maxDate", {
+    Object.defineProperty(MatDatepicker.prototype, "_maxDate", {
         /**
          * The maximum selectable date.
          * @return {?}
@@ -5480,7 +5299,7 @@ var MdDatepicker = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdDatepicker.prototype, "_dateFilter", {
+    Object.defineProperty(MatDatepicker.prototype, "_dateFilter", {
         /**
          * @return {?}
          */
@@ -5493,7 +5312,7 @@ var MdDatepicker = (function () {
     /**
      * @return {?}
      */
-    MdDatepicker.prototype.ngOnDestroy = function () {
+    MatDatepicker.prototype.ngOnDestroy = function () {
         this.close();
         this._inputSubscription.unsubscribe();
         this._disabledChange.complete();
@@ -5506,7 +5325,7 @@ var MdDatepicker = (function () {
      * @param {?} date
      * @return {?}
      */
-    MdDatepicker.prototype._select = function (date) {
+    MatDatepicker.prototype._select = function (date) {
         var /** @type {?} */ oldValue = this._selected;
         this._selected = date;
         if (!this._dateAdapter.sameDate(oldValue, this._selected)) {
@@ -5518,10 +5337,10 @@ var MdDatepicker = (function () {
      * @param {?} input The datepicker input to register with this datepicker.
      * @return {?}
      */
-    MdDatepicker.prototype._registerInput = function (input) {
+    MatDatepicker.prototype._registerInput = function (input) {
         var _this = this;
         if (this._datepickerInput) {
-            throw Error('An MdDatepicker can only be associated with a single input.');
+            throw Error('An MatDatepicker can only be associated with a single input.');
         }
         this._datepickerInput = input;
         this._inputSubscription =
@@ -5531,12 +5350,12 @@ var MdDatepicker = (function () {
      * Open the calendar.
      * @return {?}
      */
-    MdDatepicker.prototype.open = function () {
+    MatDatepicker.prototype.open = function () {
         if (this.opened || this.disabled) {
             return;
         }
         if (!this._datepickerInput) {
-            throw Error('Attempted to open an MdDatepicker with no associated input.');
+            throw Error('Attempted to open an MatDatepicker with no associated input.');
         }
         if (this._document) {
             this._focusedElementBeforeOpen = this._document.activeElement;
@@ -5548,7 +5367,7 @@ var MdDatepicker = (function () {
      * Close the calendar.
      * @return {?}
      */
-    MdDatepicker.prototype.close = function () {
+    MatDatepicker.prototype.close = function () {
         if (!this.opened) {
             return;
         }
@@ -5573,9 +5392,9 @@ var MdDatepicker = (function () {
      * Open the calendar as a dialog.
      * @return {?}
      */
-    MdDatepicker.prototype._openAsDialog = function () {
+    MatDatepicker.prototype._openAsDialog = function () {
         var _this = this;
-        this._dialogRef = this._dialog.open(MdDatepickerContent, {
+        this._dialogRef = this._dialog.open(MatDatepickerContent, {
             direction: this._dir ? this._dir.value : 'ltr',
             viewContainerRef: this._viewContainerRef,
         });
@@ -5586,10 +5405,10 @@ var MdDatepicker = (function () {
      * Open the calendar as a popup.
      * @return {?}
      */
-    MdDatepicker.prototype._openAsPopup = function () {
+    MatDatepicker.prototype._openAsPopup = function () {
         var _this = this;
         if (!this._calendarPortal) {
-            this._calendarPortal = new _angular_cdk_portal.ComponentPortal(MdDatepickerContent, this._viewContainerRef);
+            this._calendarPortal = new _angular_cdk_portal.ComponentPortal(MatDatepickerContent, this._viewContainerRef);
         }
         if (!this._popupRef) {
             this._createPopup();
@@ -5608,7 +5427,7 @@ var MdDatepicker = (function () {
      * Create the popup.
      * @return {?}
      */
-    MdDatepicker.prototype._createPopup = function () {
+    MatDatepicker.prototype._createPopup = function () {
         var /** @type {?} */ overlayState = new _angular_cdk_overlay.OverlayConfig({
             positionStrategy: this._createPopupPositionStrategy(),
             hasBackdrop: true,
@@ -5622,17 +5441,17 @@ var MdDatepicker = (function () {
      * Create the popup PositionStrategy.
      * @return {?}
      */
-    MdDatepicker.prototype._createPopupPositionStrategy = function () {
+    MatDatepicker.prototype._createPopupPositionStrategy = function () {
         return this._overlay.position()
             .connectedTo(this._datepickerInput.getPopupConnectionElementRef(), { originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' })
             .withFallbackPosition({ originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' })
             .withFallbackPosition({ originX: 'end', originY: 'bottom' }, { overlayX: 'end', overlayY: 'top' })
             .withFallbackPosition({ originX: 'end', originY: 'top' }, { overlayX: 'end', overlayY: 'bottom' });
     };
-    return MdDatepicker;
+    return MatDatepicker;
 }());
-MdDatepicker.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-datepicker, mat-datepicker',
+MatDatepicker.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-datepicker',
                 template: '',
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                 encapsulation: _angular_core.ViewEncapsulation.None,
@@ -5642,68 +5461,68 @@ MdDatepicker.decorators = [
 /**
  * @nocollapse
  */
-MdDatepicker.ctorParameters = function () { return [
-    { type: MdDialog, },
+MatDatepicker.ctorParameters = function () { return [
+    { type: MatDialog, },
     { type: _angular_cdk_overlay.Overlay, },
     { type: _angular_core.NgZone, },
     { type: _angular_core.ViewContainerRef, },
-    { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MD_DATEPICKER_SCROLL_STRATEGY,] },] },
+    { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_DATEPICKER_SCROLL_STRATEGY,] },] },
     { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
 ]; };
-MdDatepicker.propDecorators = {
+MatDatepicker.propDecorators = {
     'startAt': [{ type: _angular_core.Input },],
     'startView': [{ type: _angular_core.Input },],
     'touchUi': [{ type: _angular_core.Input },],
     'disabled': [{ type: _angular_core.Input },],
     'selectedChanged': [{ type: _angular_core.Output },],
 };
-var MD_DATEPICKER_VALUE_ACCESSOR = {
+var MAT_DATEPICKER_VALUE_ACCESSOR = {
     provide: _angular_forms.NG_VALUE_ACCESSOR,
-    useExisting: _angular_core.forwardRef(function () { return MdDatepickerInput; }),
+    useExisting: _angular_core.forwardRef(function () { return MatDatepickerInput; }),
     multi: true
 };
-var MD_DATEPICKER_VALIDATORS = {
+var MAT_DATEPICKER_VALIDATORS = {
     provide: _angular_forms.NG_VALIDATORS,
-    useExisting: _angular_core.forwardRef(function () { return MdDatepickerInput; }),
+    useExisting: _angular_core.forwardRef(function () { return MatDatepickerInput; }),
     multi: true
 };
 /**
  * An event used for datepicker input and change events. We don't always have access to a native
  * input or change event because the event may have been triggered by the user clicking on the
- * calendar popup. For consistency, we always use MdDatepickerInputEvent instead.
+ * calendar popup. For consistency, we always use MatDatepickerInputEvent instead.
  */
-var MdDatepickerInputEvent = (function () {
+var MatDatepickerInputEvent = (function () {
     /**
      * @param {?} target
      * @param {?} targetElement
      */
-    function MdDatepickerInputEvent(target, targetElement) {
+    function MatDatepickerInputEvent(target, targetElement) {
         this.target = target;
         this.targetElement = targetElement;
         this.value = this.target.value;
     }
-    return MdDatepickerInputEvent;
+    return MatDatepickerInputEvent;
 }());
 /**
- * Directive used to connect an input to a MdDatepicker.
+ * Directive used to connect an input to a MatDatepicker.
  */
-var MdDatepickerInput = (function () {
+var MatDatepickerInput = (function () {
     /**
      * @param {?} _elementRef
      * @param {?} _renderer
      * @param {?} _dateAdapter
      * @param {?} _dateFormats
-     * @param {?} _mdFormField
+     * @param {?} _formField
      */
-    function MdDatepickerInput(_elementRef, _renderer, _dateAdapter, _dateFormats, _mdFormField) {
+    function MatDatepickerInput(_elementRef, _renderer, _dateAdapter, _dateFormats, _formField) {
         var _this = this;
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
-        this._mdFormField = _mdFormField;
+        this._formField = _formField;
         /**
          * Emits when a `change` event is fired on this `<input>`.
          */
@@ -5730,7 +5549,7 @@ var MdDatepickerInput = (function () {
          */
         this._parseValidator = function () {
             return _this._lastValueValid ?
-                null : { 'mdDatepickerParse': { 'text': _this._elementRef.nativeElement.value } };
+                null : { 'matDatepickerParse': { 'text': _this._elementRef.nativeElement.value } };
         };
         /**
          * The form control validator for the min date.
@@ -5739,7 +5558,7 @@ var MdDatepickerInput = (function () {
             var controlValue = coerceDateProperty(_this._dateAdapter, control.value);
             return (!_this.min || !controlValue ||
                 _this._dateAdapter.compareDate(_this.min, controlValue) <= 0) ?
-                null : { 'mdDatepickerMin': { 'min': _this.min, 'actual': controlValue } };
+                null : { 'matDatepickerMin': { 'min': _this.min, 'actual': controlValue } };
         };
         /**
          * The form control validator for the max date.
@@ -5748,7 +5567,7 @@ var MdDatepickerInput = (function () {
             var controlValue = coerceDateProperty(_this._dateAdapter, control.value);
             return (!_this.max || !controlValue ||
                 _this._dateAdapter.compareDate(_this.max, controlValue) >= 0) ?
-                null : { 'mdDatepickerMax': { 'max': _this.max, 'actual': controlValue } };
+                null : { 'matDatepickerMax': { 'max': _this.max, 'actual': controlValue } };
         };
         /**
          * The form control validator for the date filter.
@@ -5756,7 +5575,7 @@ var MdDatepickerInput = (function () {
         this._filterValidator = function (control) {
             var controlValue = coerceDateProperty(_this._dateAdapter, control.value);
             return !_this._dateFilter || !controlValue || _this._dateFilter(controlValue) ?
-                null : { 'mdDatepickerFilter': true };
+                null : { 'matDatepickerFilter': true };
         };
         /**
          * The combined form control validator for this input.
@@ -5770,14 +5589,14 @@ var MdDatepickerInput = (function () {
             throw createMissingDateImplError('DateAdapter');
         }
         if (!this._dateFormats) {
-            throw createMissingDateImplError('MD_DATE_FORMATS');
+            throw createMissingDateImplError('MAT_DATE_FORMATS');
         }
         // Update the displayed date when the locale changes.
         this._localeSubscription = _dateAdapter.localeChanges.subscribe(function () {
             _this.value = _this.value;
         });
     }
-    Object.defineProperty(MdDatepickerInput.prototype, "mdDatepicker", {
+    Object.defineProperty(MatDatepickerInput.prototype, "matDatepicker", {
         /**
          * The datepicker that this input is associated with.
          * @param {?} value
@@ -5793,26 +5612,13 @@ var MdDatepickerInput = (function () {
      * @param {?} value
      * @return {?}
      */
-    MdDatepickerInput.prototype.registerDatepicker = function (value) {
+    MatDatepickerInput.prototype.registerDatepicker = function (value) {
         if (value) {
             this._datepicker = value;
             this._datepicker._registerInput(this);
         }
     };
-    Object.defineProperty(MdDatepickerInput.prototype, "matDatepicker", {
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            // Note that we don't set `this.mdDatepicker = value` here,
-            // because that line gets stripped by the JS compiler.
-            this.registerDatepicker(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdDatepickerInput.prototype, "mdDatepickerFilter", {
+    Object.defineProperty(MatDatepickerInput.prototype, "matDatepickerFilter", {
         /**
          * @param {?} filter
          * @return {?}
@@ -5824,18 +5630,7 @@ var MdDatepickerInput = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdDatepickerInput.prototype, "matDatepickerFilter", {
-        /**
-         * @param {?} filter
-         * @return {?}
-         */
-        set: function (filter$$1) {
-            this.mdDatepickerFilter = filter$$1;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdDatepickerInput.prototype, "value", {
+    Object.defineProperty(MatDatepickerInput.prototype, "value", {
         /**
          * The value of the input.
          * @return {?}
@@ -5861,7 +5656,7 @@ var MdDatepickerInput = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdDatepickerInput.prototype, "min", {
+    Object.defineProperty(MatDatepickerInput.prototype, "min", {
         /**
          * The minimum valid date.
          * @return {?}
@@ -5878,7 +5673,7 @@ var MdDatepickerInput = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdDatepickerInput.prototype, "max", {
+    Object.defineProperty(MatDatepickerInput.prototype, "max", {
         /**
          * The maximum valid date.
          * @return {?}
@@ -5895,7 +5690,7 @@ var MdDatepickerInput = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdDatepickerInput.prototype, "disabled", {
+    Object.defineProperty(MatDatepickerInput.prototype, "disabled", {
         /**
          * Whether the datepicker-input is disabled.
          * @return {?}
@@ -5918,7 +5713,7 @@ var MdDatepickerInput = (function () {
     /**
      * @return {?}
      */
-    MdDatepickerInput.prototype.ngAfterContentInit = function () {
+    MatDatepickerInput.prototype.ngAfterContentInit = function () {
         var _this = this;
         if (this._datepicker) {
             this._datepickerSubscription =
@@ -5926,15 +5721,15 @@ var MdDatepickerInput = (function () {
                     _this.value = selected;
                     _this._cvaOnChange(selected);
                     _this._onTouched();
-                    _this.dateInput.emit(new MdDatepickerInputEvent(_this, _this._elementRef.nativeElement));
-                    _this.dateChange.emit(new MdDatepickerInputEvent(_this, _this._elementRef.nativeElement));
+                    _this.dateInput.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
+                    _this.dateChange.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
                 });
         }
     };
     /**
      * @return {?}
      */
-    MdDatepickerInput.prototype.ngOnDestroy = function () {
+    MatDatepickerInput.prototype.ngOnDestroy = function () {
         this._datepickerSubscription.unsubscribe();
         this._localeSubscription.unsubscribe();
         this._valueChange.complete();
@@ -5944,56 +5739,56 @@ var MdDatepickerInput = (function () {
      * @param {?} fn
      * @return {?}
      */
-    MdDatepickerInput.prototype.registerOnValidatorChange = function (fn) {
+    MatDatepickerInput.prototype.registerOnValidatorChange = function (fn) {
         this._validatorOnChange = fn;
     };
     /**
      * @param {?} c
      * @return {?}
      */
-    MdDatepickerInput.prototype.validate = function (c) {
+    MatDatepickerInput.prototype.validate = function (c) {
         return this._validator ? this._validator(c) : null;
     };
     /**
      * Gets the element that the datepicker popup should be connected to.
      * @return {?} The element to connect the popup to.
      */
-    MdDatepickerInput.prototype.getPopupConnectionElementRef = function () {
-        return this._mdFormField ? this._mdFormField.underlineRef : this._elementRef;
+    MatDatepickerInput.prototype.getPopupConnectionElementRef = function () {
+        return this._formField ? this._formField.underlineRef : this._elementRef;
     };
     /**
      * @param {?} value
      * @return {?}
      */
-    MdDatepickerInput.prototype.writeValue = function (value) {
+    MatDatepickerInput.prototype.writeValue = function (value) {
         this.value = value;
     };
     /**
      * @param {?} fn
      * @return {?}
      */
-    MdDatepickerInput.prototype.registerOnChange = function (fn) {
+    MatDatepickerInput.prototype.registerOnChange = function (fn) {
         this._cvaOnChange = fn;
     };
     /**
      * @param {?} fn
      * @return {?}
      */
-    MdDatepickerInput.prototype.registerOnTouched = function (fn) {
+    MatDatepickerInput.prototype.registerOnTouched = function (fn) {
         this._onTouched = fn;
     };
     /**
      * @param {?} disabled
      * @return {?}
      */
-    MdDatepickerInput.prototype.setDisabledState = function (disabled) {
+    MatDatepickerInput.prototype.setDisabledState = function (disabled) {
         this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', disabled);
     };
     /**
      * @param {?} event
      * @return {?}
      */
-    MdDatepickerInput.prototype._onKeydown = function (event) {
+    MatDatepickerInput.prototype._onKeydown = function (event) {
         if (event.altKey && event.keyCode === _angular_cdk_keycodes.DOWN_ARROW) {
             this._datepicker.open();
             event.preventDefault();
@@ -6003,34 +5798,34 @@ var MdDatepickerInput = (function () {
      * @param {?} value
      * @return {?}
      */
-    MdDatepickerInput.prototype._onInput = function (value) {
+    MatDatepickerInput.prototype._onInput = function (value) {
         var /** @type {?} */ date = this._dateAdapter.parse(value, this._dateFormats.parse.dateInput);
         this._lastValueValid = !date || this._dateAdapter.isValid(date);
         date = this._getValidDateOrNull(date);
         this._value = date;
         this._cvaOnChange(date);
         this._valueChange.emit(date);
-        this.dateInput.emit(new MdDatepickerInputEvent(this, this._elementRef.nativeElement));
+        this.dateInput.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
     };
     /**
      * @return {?}
      */
-    MdDatepickerInput.prototype._onChange = function () {
-        this.dateChange.emit(new MdDatepickerInputEvent(this, this._elementRef.nativeElement));
+    MatDatepickerInput.prototype._onChange = function () {
+        this.dateChange.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
     };
     /**
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
-    MdDatepickerInput.prototype._getValidDateOrNull = function (obj) {
+    MatDatepickerInput.prototype._getValidDateOrNull = function (obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     };
-    return MdDatepickerInput;
+    return MatDatepickerInput;
 }());
-MdDatepickerInput.decorators = [
+MatDatepickerInput.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: 'input[mdDatepicker], input[matDatepicker]',
-                providers: [MD_DATEPICKER_VALUE_ACCESSOR, MD_DATEPICKER_VALIDATORS],
+                selector: 'input[matDatepicker]',
+                providers: [MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS],
                 host: {
                     '[attr.aria-haspopup]': 'true',
                     '[attr.aria-owns]': '(_datepicker?.opened && _datepicker.id) || null',
@@ -6042,23 +5837,21 @@ MdDatepickerInput.decorators = [
                     '(blur)': '_onTouched()',
                     '(keydown)': '_onKeydown($event)',
                 },
-                exportAs: 'mdDatepickerInput, matDatepickerInput',
+                exportAs: 'matDatepickerInput',
             },] },
 ];
 /**
  * @nocollapse
  */
-MdDatepickerInput.ctorParameters = function () { return [
+MatDatepickerInput.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.Renderer2, },
     { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_DATE_FORMATS,] },] },
-    { type: MdFormField, decorators: [{ type: _angular_core.Optional },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
+    { type: MatFormField, decorators: [{ type: _angular_core.Optional },] },
 ]; };
-MdDatepickerInput.propDecorators = {
-    'mdDatepicker': [{ type: _angular_core.Input },],
+MatDatepickerInput.propDecorators = {
     'matDatepicker': [{ type: _angular_core.Input },],
-    'mdDatepickerFilter': [{ type: _angular_core.Input },],
     'matDatepickerFilter': [{ type: _angular_core.Input },],
     'value': [{ type: _angular_core.Input },],
     'min': [{ type: _angular_core.Input },],
@@ -6067,17 +5860,17 @@ MdDatepickerInput.propDecorators = {
     'dateChange': [{ type: _angular_core.Output },],
     'dateInput': [{ type: _angular_core.Output },],
 };
-var MdDatepickerToggle = (function () {
+var MatDatepickerToggle = (function () {
     /**
      * @param {?} _intl
      * @param {?} _changeDetectorRef
      */
-    function MdDatepickerToggle(_intl, _changeDetectorRef) {
+    function MatDatepickerToggle(_intl, _changeDetectorRef) {
         this._intl = _intl;
         this._changeDetectorRef = _changeDetectorRef;
         this._stateChanges = rxjs_Subscription.Subscription.EMPTY;
     }
-    Object.defineProperty(MdDatepickerToggle.prototype, "disabled", {
+    Object.defineProperty(MatDatepickerToggle.prototype, "disabled", {
         /**
          * Whether the toggle button is disabled.
          * @return {?}
@@ -6099,7 +5892,7 @@ var MdDatepickerToggle = (function () {
      * @param {?} changes
      * @return {?}
      */
-    MdDatepickerToggle.prototype.ngOnChanges = function (changes) {
+    MatDatepickerToggle.prototype.ngOnChanges = function (changes) {
         var _this = this;
         if (changes.datepicker) {
             var /** @type {?} */ datepicker = changes.datepicker.currentValue;
@@ -6115,24 +5908,24 @@ var MdDatepickerToggle = (function () {
     /**
      * @return {?}
      */
-    MdDatepickerToggle.prototype.ngOnDestroy = function () {
+    MatDatepickerToggle.prototype.ngOnDestroy = function () {
         this._stateChanges.unsubscribe();
     };
     /**
      * @param {?} event
      * @return {?}
      */
-    MdDatepickerToggle.prototype._open = function (event) {
+    MatDatepickerToggle.prototype._open = function (event) {
         if (this.datepicker && !this.disabled) {
             this.datepicker.open();
             event.stopPropagation();
         }
     };
-    return MdDatepickerToggle;
+    return MatDatepickerToggle;
 }());
-MdDatepickerToggle.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-datepicker-toggle, mat-datepicker-toggle',
-                template: "<button md-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><md-icon><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></md-icon></button>",
+MatDatepickerToggle.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-datepicker-toggle',
+                template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon></button>",
                 host: {
                     'class': 'mat-datepicker-toggle',
                 },
@@ -6144,11 +5937,11 @@ MdDatepickerToggle.decorators = [
 /**
  * @nocollapse
  */
-MdDatepickerToggle.ctorParameters = function () { return [
-    { type: MdDatepickerIntl, },
+MatDatepickerToggle.ctorParameters = function () { return [
+    { type: MatDatepickerIntl, },
     { type: _angular_core.ChangeDetectorRef, },
 ]; };
-MdDatepickerToggle.propDecorators = {
+MatDatepickerToggle.propDecorators = {
     'datepicker': [{ type: _angular_core.Input, args: ['for',] },],
     'disabled': [{ type: _angular_core.Input },],
 };
@@ -6157,12 +5950,12 @@ var DAYS_PER_WEEK = 7;
  * An internal component used to display a single month in the datepicker.
  * \@docs-private
  */
-var MdMonthView = (function () {
+var MatMonthView = (function () {
     /**
      * @param {?} _dateAdapter
      * @param {?} _dateFormats
      */
-    function MdMonthView(_dateAdapter, _dateFormats) {
+    function MatMonthView(_dateAdapter, _dateFormats) {
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
         /**
@@ -6177,7 +5970,7 @@ var MdMonthView = (function () {
             throw createMissingDateImplError('DateAdapter');
         }
         if (!this._dateFormats) {
-            throw createMissingDateImplError('MD_DATE_FORMATS');
+            throw createMissingDateImplError('MAT_DATE_FORMATS');
         }
         var firstDayOfWeek = this._dateAdapter.getFirstDayOfWeek();
         var narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
@@ -6189,7 +5982,7 @@ var MdMonthView = (function () {
         this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
         this._activeDate = this._dateAdapter.today();
     }
-    Object.defineProperty(MdMonthView.prototype, "activeDate", {
+    Object.defineProperty(MatMonthView.prototype, "activeDate", {
         /**
          * The date to display in this month view (everything other than the month and year is ignored).
          * @return {?}
@@ -6209,7 +6002,7 @@ var MdMonthView = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdMonthView.prototype, "selected", {
+    Object.defineProperty(MatMonthView.prototype, "selected", {
         /**
          * The currently selected date.
          * @return {?}
@@ -6229,7 +6022,7 @@ var MdMonthView = (function () {
     /**
      * @return {?}
      */
-    MdMonthView.prototype.ngAfterContentInit = function () {
+    MatMonthView.prototype.ngAfterContentInit = function () {
         this._init();
     };
     /**
@@ -6237,7 +6030,7 @@ var MdMonthView = (function () {
      * @param {?} date
      * @return {?}
      */
-    MdMonthView.prototype._dateSelected = function (date) {
+    MatMonthView.prototype._dateSelected = function (date) {
         if (this._selectedDate != date) {
             var /** @type {?} */ selectedYear = this._dateAdapter.getYear(this.activeDate);
             var /** @type {?} */ selectedMonth = this._dateAdapter.getMonth(this.activeDate);
@@ -6250,7 +6043,7 @@ var MdMonthView = (function () {
      * Initializes this month view.
      * @return {?}
      */
-    MdMonthView.prototype._init = function () {
+    MatMonthView.prototype._init = function () {
         this._selectedDate = this._getDateInCurrentMonth(this.selected);
         this._todayDate = this._getDateInCurrentMonth(this._dateAdapter.today());
         this._monthLabel =
@@ -6263,10 +6056,10 @@ var MdMonthView = (function () {
         this._createWeekCells();
     };
     /**
-     * Creates MdCalendarCells for the dates in this month.
+     * Creates MatCalendarCells for the dates in this month.
      * @return {?}
      */
-    MdMonthView.prototype._createWeekCells = function () {
+    MatMonthView.prototype._createWeekCells = function () {
         var /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(this.activeDate);
         var /** @type {?} */ dateNames = this._dateAdapter.getDateNames();
         this._weeks = [[]];
@@ -6280,7 +6073,7 @@ var MdMonthView = (function () {
                 this.dateFilter(date);
             var /** @type {?} */ ariaLabel = this._dateAdapter.format(date, this._dateFormats.display.dateA11yLabel);
             this._weeks[this._weeks.length - 1]
-                .push(new MdCalendarCell(i + 1, dateNames[i], ariaLabel, enabled));
+                .push(new MatCalendarCell(i + 1, dateNames[i], ariaLabel, enabled));
         }
     };
     /**
@@ -6289,7 +6082,7 @@ var MdMonthView = (function () {
      * @param {?} date
      * @return {?}
      */
-    MdMonthView.prototype._getDateInCurrentMonth = function (date) {
+    MatMonthView.prototype._getDateInCurrentMonth = function (date) {
         return date && this._hasSameMonthAndYear(date, this.activeDate) ?
             this._dateAdapter.getDate(date) : null;
     };
@@ -6299,15 +6092,15 @@ var MdMonthView = (function () {
      * @param {?} d2
      * @return {?}
      */
-    MdMonthView.prototype._hasSameMonthAndYear = function (d1, d2) {
+    MatMonthView.prototype._hasSameMonthAndYear = function (d1, d2) {
         return !!(d1 && d2 && this._dateAdapter.getMonth(d1) == this._dateAdapter.getMonth(d2) &&
             this._dateAdapter.getYear(d1) == this._dateAdapter.getYear(d2));
     };
-    return MdMonthView;
+    return MatMonthView;
 }());
-MdMonthView.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-month-view',
-                template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr></thead><tbody md-calendar-body role=\"grid\" [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\"></tbody></table>",
+MatMonthView.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-month-view',
+                template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr></thead><tbody mat-calendar-body role=\"grid\" [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\"></tbody></table>",
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -6316,11 +6109,11 @@ MdMonthView.decorators = [
 /**
  * @nocollapse
  */
-MdMonthView.ctorParameters = function () { return [
+MatMonthView.ctorParameters = function () { return [
     { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_DATE_FORMATS,] },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
 ]; };
-MdMonthView.propDecorators = {
+MatMonthView.propDecorators = {
     'activeDate': [{ type: _angular_core.Input },],
     'selected': [{ type: _angular_core.Input },],
     'dateFilter': [{ type: _angular_core.Input },],
@@ -6331,12 +6124,12 @@ MdMonthView.propDecorators = {
  * An internal component used to display a single year in the datepicker.
  * \@docs-private
  */
-var MdYearView = (function () {
+var MatYearView = (function () {
     /**
      * @param {?} _dateAdapter
      * @param {?} _dateFormats
      */
-    function MdYearView(_dateAdapter, _dateFormats) {
+    function MatYearView(_dateAdapter, _dateFormats) {
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
         /**
@@ -6347,11 +6140,11 @@ var MdYearView = (function () {
             throw createMissingDateImplError('DateAdapter');
         }
         if (!this._dateFormats) {
-            throw createMissingDateImplError('MD_DATE_FORMATS');
+            throw createMissingDateImplError('MAT_DATE_FORMATS');
         }
         this._activeDate = this._dateAdapter.today();
     }
-    Object.defineProperty(MdYearView.prototype, "activeDate", {
+    Object.defineProperty(MatYearView.prototype, "activeDate", {
         /**
          * The date to display in this year view (everything other than the year is ignored).
          * @return {?}
@@ -6371,7 +6164,7 @@ var MdYearView = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdYearView.prototype, "selected", {
+    Object.defineProperty(MatYearView.prototype, "selected", {
         /**
          * The currently selected date.
          * @return {?}
@@ -6391,7 +6184,7 @@ var MdYearView = (function () {
     /**
      * @return {?}
      */
-    MdYearView.prototype.ngAfterContentInit = function () {
+    MatYearView.prototype.ngAfterContentInit = function () {
         this._init();
     };
     /**
@@ -6399,7 +6192,7 @@ var MdYearView = (function () {
      * @param {?} month
      * @return {?}
      */
-    MdYearView.prototype._monthSelected = function (month) {
+    MatYearView.prototype._monthSelected = function (month) {
         var /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1));
         this.selectedChange.emit(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, Math.min(this._dateAdapter.getDate(this.activeDate), daysInMonth)));
     };
@@ -6407,7 +6200,7 @@ var MdYearView = (function () {
      * Initializes this month view.
      * @return {?}
      */
-    MdYearView.prototype._init = function () {
+    MatYearView.prototype._init = function () {
         var _this = this;
         this._selectedMonth = this._getMonthInCurrentYear(this.selected);
         this._todayMonth = this._getMonthInCurrentYear(this._dateAdapter.today());
@@ -6422,26 +6215,26 @@ var MdYearView = (function () {
      * @param {?} date
      * @return {?}
      */
-    MdYearView.prototype._getMonthInCurrentYear = function (date) {
+    MatYearView.prototype._getMonthInCurrentYear = function (date) {
         return date && this._dateAdapter.getYear(date) == this._dateAdapter.getYear(this.activeDate) ?
             this._dateAdapter.getMonth(date) : null;
     };
     /**
-     * Creates an MdCalendarCell for the given month.
+     * Creates an MatCalendarCell for the given month.
      * @param {?} month
      * @param {?} monthName
      * @return {?}
      */
-    MdYearView.prototype._createCellForMonth = function (month, monthName) {
+    MatYearView.prototype._createCellForMonth = function (month, monthName) {
         var /** @type {?} */ ariaLabel = this._dateAdapter.format(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1), this._dateFormats.display.monthYearA11yLabel);
-        return new MdCalendarCell(month, monthName.toLocaleUpperCase(), ariaLabel, this._isMonthEnabled(month));
+        return new MatCalendarCell(month, monthName.toLocaleUpperCase(), ariaLabel, this._isMonthEnabled(month));
     };
     /**
      * Whether the given month is enabled.
      * @param {?} month
      * @return {?}
      */
-    MdYearView.prototype._isMonthEnabled = function (month) {
+    MatYearView.prototype._isMonthEnabled = function (month) {
         if (!this.dateFilter) {
             return true;
         }
@@ -6454,11 +6247,11 @@ var MdYearView = (function () {
         }
         return false;
     };
-    return MdYearView;
+    return MatYearView;
 }());
-MdYearView.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-year-view, mat-year-view',
-                template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody md-calendar-body role=\"grid\" allowDisabledSelection=\"true\" [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\"></tbody></table>",
+MatYearView.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-year-view',
+                template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body role=\"grid\" allowDisabledSelection=\"true\" [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\"></tbody></table>",
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -6467,100 +6260,83 @@ MdYearView.decorators = [
 /**
  * @nocollapse
  */
-MdYearView.ctorParameters = function () { return [
+MatYearView.ctorParameters = function () { return [
     { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_DATE_FORMATS,] },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
 ]; };
-MdYearView.propDecorators = {
+MatYearView.propDecorators = {
     'activeDate': [{ type: _angular_core.Input },],
     'selected': [{ type: _angular_core.Input },],
     'dateFilter': [{ type: _angular_core.Input },],
     'selectedChange': [{ type: _angular_core.Output },],
 };
-var MdDatepickerModule = (function () {
-    function MdDatepickerModule() {
+var MatDatepickerModule = (function () {
+    function MatDatepickerModule() {
     }
-    return MdDatepickerModule;
+    return MatDatepickerModule;
 }());
-MdDatepickerModule.decorators = [
+MatDatepickerModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [
                     _angular_common.CommonModule,
-                    MdButtonModule,
-                    MdDialogModule,
-                    MdIconModule,
+                    MatButtonModule,
+                    MatDialogModule,
+                    MatIconModule,
                     _angular_cdk_overlay.OverlayModule,
                     _angular_cdk_a11y.A11yModule,
                 ],
                 exports: [
-                    MdCalendar,
-                    MdCalendarBody,
-                    MdDatepicker,
-                    MdDatepickerContent,
-                    MdDatepickerInput,
-                    MdDatepickerToggle,
-                    MdMonthView,
-                    MdYearView,
+                    MatCalendar,
+                    MatCalendarBody,
+                    MatDatepicker,
+                    MatDatepickerContent,
+                    MatDatepickerInput,
+                    MatDatepickerToggle,
+                    MatMonthView,
+                    MatYearView,
                 ],
                 declarations: [
-                    MdCalendar,
-                    MdCalendarBody,
-                    MdDatepicker,
-                    MdDatepickerContent,
-                    MdDatepickerInput,
-                    MdDatepickerToggle,
-                    MdMonthView,
-                    MdYearView,
+                    MatCalendar,
+                    MatCalendarBody,
+                    MatDatepicker,
+                    MatDatepickerContent,
+                    MatDatepickerInput,
+                    MatDatepickerToggle,
+                    MatMonthView,
+                    MatYearView,
                 ],
                 providers: [
-                    MdDatepickerIntl,
-                    MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER,
+                    MatDatepickerIntl,
+                    MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER,
                 ],
                 entryComponents: [
-                    MdDatepickerContent,
+                    MatDatepickerContent,
                 ]
             },] },
 ];
 /**
  * @nocollapse
  */
-MdDatepickerModule.ctorParameters = function () { return []; };
+MatDatepickerModule.ctorParameters = function () { return []; };
 
-exports.MdDatepickerModule = MdDatepickerModule;
-exports.MdCalendar = MdCalendar;
-exports.MdCalendarCell = MdCalendarCell;
-exports.MdCalendarBody = MdCalendarBody;
+exports.MatDatepickerModule = MatDatepickerModule;
+exports.MatCalendar = MatCalendar;
+exports.MatCalendarCell = MatCalendarCell;
+exports.MatCalendarBody = MatCalendarBody;
 exports.coerceDateProperty = coerceDateProperty;
-exports.MD_DATEPICKER_SCROLL_STRATEGY = MD_DATEPICKER_SCROLL_STRATEGY;
-exports.MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY = MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY;
-exports.MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER = MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER;
-exports.MdDatepickerContent = MdDatepickerContent;
-exports.MdDatepicker = MdDatepicker;
-exports.MD_DATEPICKER_VALUE_ACCESSOR = MD_DATEPICKER_VALUE_ACCESSOR;
-exports.MD_DATEPICKER_VALIDATORS = MD_DATEPICKER_VALIDATORS;
-exports.MdDatepickerInputEvent = MdDatepickerInputEvent;
-exports.MdDatepickerInput = MdDatepickerInput;
-exports.MdDatepickerIntl = MdDatepickerIntl;
-exports.MdDatepickerToggle = MdDatepickerToggle;
-exports.MdMonthView = MdMonthView;
-exports.MdYearView = MdYearView;
-exports.MAT_DATEPICKER_SCROLL_STRATEGY = MD_DATEPICKER_SCROLL_STRATEGY;
-exports.MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER = MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER;
-exports.MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY = MD_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY;
-exports.MAT_DATEPICKER_VALIDATORS = MD_DATEPICKER_VALIDATORS;
-exports.MAT_DATEPICKER_VALUE_ACCESSOR = MD_DATEPICKER_VALUE_ACCESSOR;
-exports.MatCalendar = MdCalendar;
-exports.MatCalendarBody = MdCalendarBody;
-exports.MatCalendarCell = MdCalendarCell;
-exports.MatDatepicker = MdDatepicker;
-exports.MatDatepickerContent = MdDatepickerContent;
-exports.MatDatepickerInput = MdDatepickerInput;
-exports.MatDatepickerInputEvent = MdDatepickerInputEvent;
-exports.MatDatepickerIntl = MdDatepickerIntl;
-exports.MatDatepickerModule = MdDatepickerModule;
-exports.MatDatepickerToggle = MdDatepickerToggle;
-exports.MatMonthView = MdMonthView;
-exports.MatYearView = MdYearView;
+exports.MAT_DATEPICKER_SCROLL_STRATEGY = MAT_DATEPICKER_SCROLL_STRATEGY;
+exports.MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER = MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER;
+exports.MatDatepickerContent = MatDatepickerContent;
+exports.MatDatepicker = MatDatepicker;
+exports.MAT_DATEPICKER_VALUE_ACCESSOR = MAT_DATEPICKER_VALUE_ACCESSOR;
+exports.MAT_DATEPICKER_VALIDATORS = MAT_DATEPICKER_VALIDATORS;
+exports.MatDatepickerInputEvent = MatDatepickerInputEvent;
+exports.MatDatepickerInput = MatDatepickerInput;
+exports.MatDatepickerIntl = MatDatepickerIntl;
+exports.MatDatepickerToggle = MatDatepickerToggle;
+exports.MatMonthView = MatMonthView;
+exports.MatYearView = MatYearView;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

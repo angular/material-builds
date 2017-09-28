@@ -8,54 +8,17 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, Renderer2, SkipSelf, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { BasePortalHost, ComponentPortal, PortalHostDirective, PortalModule } from '@angular/cdk/portal';
+import { BasePortalHost, ComponentPortal, PortalHostDirective, PortalInjector, PortalModule } from '@angular/cdk/portal';
 import { LIVE_ANNOUNCER_PROVIDER, LiveAnnouncer } from '@angular/cdk/a11y';
-import { MdCommonModule, PortalInjector, extendObject } from '@angular/material/core';
+import { MatCommonModule, extendObject } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { first } from '@angular/cdk/rxjs';
 
-const MD_SNACK_BAR_DATA = new InjectionToken('MdSnackBarData');
-/**
- * Configuration used when opening a snack-bar.
- */
-class MdSnackBarConfig {
-    constructor() {
-        /**
-         * The politeness level for the MdAriaLiveAnnouncer announcement.
-         */
-        this.politeness = 'assertive';
-        /**
-         * Message to be announced by the MdAriaLiveAnnouncer
-         */
-        this.announcementMessage = '';
-        /**
-         * The length of time in milliseconds to wait before automatically dismissing the snack bar.
-         */
-        this.duration = 0;
-        /**
-         * Text layout direction for the snack bar.
-         */
-        this.direction = 'ltr';
-        /**
-         * Data being injected into the child component.
-         */
-        this.data = null;
-        /**
-         * The horizontal position to place the snack bar.
-         */
-        this.horizontalPosition = 'center';
-        /**
-         * The vertical position to place the snack bar.
-         */
-        this.verticalPosition = 'bottom';
-    }
-}
-
 /**
  * Reference to a snack bar dispatched from the snack bar service.
  */
-class MdSnackBarRef {
+class MatSnackBarRef {
     /**
      * @param {?} containerInstance
      * @param {?} _overlayRef
@@ -149,6 +112,91 @@ class MdSnackBarRef {
     }
 }
 
+const MAT_SNACK_BAR_DATA = new InjectionToken('MatSnackBarData');
+/**
+ * Configuration used when opening a snack-bar.
+ */
+class MatSnackBarConfig {
+    constructor() {
+        /**
+         * The politeness level for the MatAriaLiveAnnouncer announcement.
+         */
+        this.politeness = 'assertive';
+        /**
+         * Message to be announced by the MatAriaLiveAnnouncer
+         */
+        this.announcementMessage = '';
+        /**
+         * The length of time in milliseconds to wait before automatically dismissing the snack bar.
+         */
+        this.duration = 0;
+        /**
+         * Text layout direction for the snack bar.
+         */
+        this.direction = 'ltr';
+        /**
+         * Data being injected into the child component.
+         */
+        this.data = null;
+        /**
+         * The horizontal position to place the snack bar.
+         */
+        this.horizontalPosition = 'center';
+        /**
+         * The vertical position to place the snack bar.
+         */
+        this.verticalPosition = 'bottom';
+    }
+}
+
+/**
+ * A component used to open as the default snack bar, matching material spec.
+ * This should only be used internally by the snack bar service.
+ */
+class SimpleSnackBar {
+    /**
+     * @param {?} snackBarRef
+     * @param {?} data
+     */
+    constructor(snackBarRef, data) {
+        this.snackBarRef = snackBarRef;
+        this.data = data;
+    }
+    /**
+     * Performs the action on the snack bar.
+     * @return {?}
+     */
+    action() {
+        this.snackBarRef.closeWithAction();
+    }
+    /**
+     * If the action button should be shown.
+     * @return {?}
+     */
+    get hasAction() {
+        return !!this.data.action;
+    }
+}
+SimpleSnackBar.decorators = [
+    { type: Component, args: [{selector: 'simple-snack-bar',
+                template: "{{data.message}} <button class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\" (click)=\"action()\">{{data.action}}</button>",
+                styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;line-height:20px}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;background:0 0;flex-shrink:0;margin-left:48px}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0}"],
+                encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                host: {
+                    'class': 'mat-simple-snackbar',
+                }
+            },] },
+];
+/**
+ * @nocollapse
+ */
+SimpleSnackBar.ctorParameters = () => [
+    { type: MatSnackBarRef, },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_SNACK_BAR_DATA,] },] },
+];
+
 // TODO(jelbourn): we can't use constants from animation.ts here because you can't use
 // a text interpolation in anything that is analyzed statically with ngc (for AoT compile).
 const SHOW_ANIMATION = '225ms cubic-bezier(0.4,0.0,1,1)';
@@ -157,7 +205,7 @@ const HIDE_ANIMATION = '195ms cubic-bezier(0.0,0.0,0.2,1)';
  * Internal component that wraps user-provided snack bar content.
  * \@docs-private
  */
-class MdSnackBarContainer extends BasePortalHost {
+class MatSnackBarContainer extends BasePortalHost {
     /**
      * @param {?} _ngZone
      * @param {?} _renderer
@@ -280,7 +328,7 @@ class MdSnackBarContainer extends BasePortalHost {
         });
     }
 }
-MdSnackBarContainer.decorators = [
+MatSnackBarContainer.decorators = [
     { type: Component, args: [{selector: 'snack-bar-container',
                 template: "<ng-template cdkPortalHost></ng-template>",
                 styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:content-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-center{margin:0}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}"],
@@ -312,68 +360,20 @@ MdSnackBarContainer.decorators = [
 /**
  * @nocollapse
  */
-MdSnackBarContainer.ctorParameters = () => [
+MatSnackBarContainer.ctorParameters = () => [
     { type: NgZone, },
     { type: Renderer2, },
     { type: ElementRef, },
     { type: ChangeDetectorRef, },
 ];
-MdSnackBarContainer.propDecorators = {
+MatSnackBarContainer.propDecorators = {
     '_portalHost': [{ type: ViewChild, args: [PortalHostDirective,] },],
 };
 
 /**
- * A component used to open as the default snack bar, matching material spec.
- * This should only be used internally by the snack bar service.
- */
-class SimpleSnackBar {
-    /**
-     * @param {?} snackBarRef
-     * @param {?} data
-     */
-    constructor(snackBarRef, data) {
-        this.snackBarRef = snackBarRef;
-        this.data = data;
-    }
-    /**
-     * Performs the action on the snack bar.
-     * @return {?}
-     */
-    action() {
-        this.snackBarRef.closeWithAction();
-    }
-    /**
-     * If the action button should be shown.
-     * @return {?}
-     */
-    get hasAction() {
-        return !!this.data.action;
-    }
-}
-SimpleSnackBar.decorators = [
-    { type: Component, args: [{selector: 'simple-snack-bar',
-                template: "{{data.message}} <button class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\" (click)=\"action()\">{{data.action}}</button>",
-                styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;line-height:20px}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;background:0 0;flex-shrink:0;margin-left:48px}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0}"],
-                encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                host: {
-                    'class': 'mat-simple-snackbar',
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-SimpleSnackBar.ctorParameters = () => [
-    { type: MdSnackBarRef, },
-    { type: undefined, decorators: [{ type: Inject, args: [MD_SNACK_BAR_DATA,] },] },
-];
-
-/**
  * Service to dispatch Material Design snack bar messages.
  */
-class MdSnackBar {
+class MatSnackBar {
     /**
      * @param {?} _overlay
      * @param {?} _live
@@ -484,7 +484,7 @@ class MdSnackBar {
      * @return {?}
      */
     _attachSnackBarContainer(overlayRef, config) {
-        const /** @type {?} */ containerPortal = new ComponentPortal(MdSnackBarContainer, config.viewContainerRef);
+        const /** @type {?} */ containerPortal = new ComponentPortal(MatSnackBarContainer, config.viewContainerRef);
         const /** @type {?} */ containerRef = overlayRef.attach(containerPortal);
         containerRef.instance.snackBarConfig = config;
         return containerRef.instance;
@@ -499,7 +499,7 @@ class MdSnackBar {
     _attach(component, config) {
         const /** @type {?} */ overlayRef = this._createOverlay(config);
         const /** @type {?} */ container = this._attachSnackBarContainer(overlayRef, config);
-        const /** @type {?} */ snackBarRef = new MdSnackBarRef(container, overlayRef);
+        const /** @type {?} */ snackBarRef = new MatSnackBarRef(container, overlayRef);
         const /** @type {?} */ injector = this._createInjector(config, snackBarRef);
         const /** @type {?} */ portal = new ComponentPortal(component, undefined, injector);
         const /** @type {?} */ contentRef = container.attachComponentPortal(portal);
@@ -551,22 +551,22 @@ class MdSnackBar {
     _createInjector(config, snackBarRef) {
         const /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const /** @type {?} */ injectionTokens = new WeakMap();
-        injectionTokens.set(MdSnackBarRef, snackBarRef);
-        injectionTokens.set(MD_SNACK_BAR_DATA, config.data);
+        injectionTokens.set(MatSnackBarRef, snackBarRef);
+        injectionTokens.set(MAT_SNACK_BAR_DATA, config.data);
         return new PortalInjector(userInjector || this._injector, injectionTokens);
     }
 }
-MdSnackBar.decorators = [
+MatSnackBar.decorators = [
     { type: Injectable },
 ];
 /**
  * @nocollapse
  */
-MdSnackBar.ctorParameters = () => [
+MatSnackBar.ctorParameters = () => [
     { type: Overlay, },
     { type: LiveAnnouncer, },
     { type: Injector, },
-    { type: MdSnackBar, decorators: [{ type: Optional }, { type: SkipSelf },] },
+    { type: MatSnackBar, decorators: [{ type: Optional }, { type: SkipSelf },] },
 ];
 /**
  * Applies default options to the snackbar config.
@@ -574,33 +574,33 @@ MdSnackBar.ctorParameters = () => [
  * @return {?} The new configuration object with defaults applied.
  */
 function _applyConfigDefaults(config) {
-    return extendObject(new MdSnackBarConfig(), config);
+    return extendObject(new MatSnackBarConfig(), config);
 }
 
-class MdSnackBarModule {
+class MatSnackBarModule {
 }
-MdSnackBarModule.decorators = [
+MatSnackBarModule.decorators = [
     { type: NgModule, args: [{
                 imports: [
                     OverlayModule,
                     PortalModule,
                     CommonModule,
-                    MdCommonModule,
+                    MatCommonModule,
                 ],
-                exports: [MdSnackBarContainer, MdCommonModule],
-                declarations: [MdSnackBarContainer, SimpleSnackBar],
-                entryComponents: [MdSnackBarContainer, SimpleSnackBar],
-                providers: [MdSnackBar, LIVE_ANNOUNCER_PROVIDER]
+                exports: [MatSnackBarContainer, MatCommonModule],
+                declarations: [MatSnackBarContainer, SimpleSnackBar],
+                entryComponents: [MatSnackBarContainer, SimpleSnackBar],
+                providers: [MatSnackBar, LIVE_ANNOUNCER_PROVIDER]
             },] },
 ];
 /**
  * @nocollapse
  */
-MdSnackBarModule.ctorParameters = () => [];
+MatSnackBarModule.ctorParameters = () => [];
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { MdSnackBarModule, MdSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MdSnackBarContainer, MD_SNACK_BAR_DATA, MdSnackBarConfig, MdSnackBarRef, SimpleSnackBar, MD_SNACK_BAR_DATA as MAT_SNACK_BAR_DATA, MdSnackBar as MatSnackBar, MdSnackBarConfig as MatSnackBarConfig, MdSnackBarContainer as MatSnackBarContainer, MdSnackBarModule as MatSnackBarModule, MdSnackBarRef as MatSnackBarRef };
+export { MatSnackBarModule, MatSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MatSnackBarContainer, MAT_SNACK_BAR_DATA, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar };
 //# sourceMappingURL=snack-bar.js.map

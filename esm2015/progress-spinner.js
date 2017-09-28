@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ChangeDetectionStrategy, Component, Directive, ElementRef, Input, NgModule, NgZone, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
-import { MdCommonModule, mixinColor } from '@angular/material/core';
+import { MatCommonModule, mixinColor } from '@angular/material/core';
 
 /**
  * A single degree in radians.
@@ -44,22 +44,22 @@ const PROGRESS_SPINNER_STROKE_WIDTH = 10;
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-class MdProgressSpinnerCssMatStyler {
+class MatProgressSpinnerCssMatStyler {
 }
-MdProgressSpinnerCssMatStyler.decorators = [
+MatProgressSpinnerCssMatStyler.decorators = [
     { type: Directive, args: [{
-                selector: 'md-progress-spinner, mat-progress-spinner',
+                selector: 'mat-progress-spinner',
                 host: { 'class': 'mat-progress-spinner' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdProgressSpinnerCssMatStyler.ctorParameters = () => [];
+MatProgressSpinnerCssMatStyler.ctorParameters = () => [];
 /**
  * \@docs-private
  */
-class MdProgressSpinnerBase {
+class MatProgressSpinnerBase {
     /**
      * @param {?} _renderer
      * @param {?} _elementRef
@@ -69,11 +69,11 @@ class MdProgressSpinnerBase {
         this._elementRef = _elementRef;
     }
 }
-const _MdProgressSpinnerMixinBase = mixinColor(MdProgressSpinnerBase, 'primary');
+const _MatProgressSpinnerMixinBase = mixinColor(MatProgressSpinnerBase, 'primary');
 /**
- * <md-progress-spinner> component.
+ * <mat-progress-spinner> component.
  */
-class MdProgressSpinner extends _MdProgressSpinnerMixinBase {
+class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
     /**
      * @param {?} renderer
      * @param {?} elementRef
@@ -259,8 +259,8 @@ class MdProgressSpinner extends _MdProgressSpinnerMixinBase {
         }
     }
 }
-MdProgressSpinner.decorators = [
-    { type: Component, args: [{selector: 'md-progress-spinner, mat-progress-spinner',
+MatProgressSpinner.decorators = [
+    { type: Component, args: [{selector: 'mat-progress-spinner',
                 host: {
                     'role': 'progressbar',
                     'class': 'mat-progress-spinner',
@@ -280,24 +280,24 @@ MdProgressSpinner.decorators = [
 /**
  * @nocollapse
  */
-MdProgressSpinner.ctorParameters = () => [
+MatProgressSpinner.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
     { type: NgZone, },
 ];
-MdProgressSpinner.propDecorators = {
+MatProgressSpinner.propDecorators = {
     '_path': [{ type: ViewChild, args: ['path',] },],
     'strokeWidth': [{ type: Input },],
     'value': [{ type: Input },],
     'mode': [{ type: Input },],
 };
 /**
- * <md-spinner> component.
+ * <mat-spinner> component.
  *
  * This is a component definition to be used as a convenience reference to create an
- * indeterminate <md-progress-spinner> instance.
+ * indeterminate <mat-progress-spinner> instance.
  */
-class MdSpinner extends MdProgressSpinner {
+class MatSpinner extends MatProgressSpinner {
     /**
      * @param {?} elementRef
      * @param {?} ngZone
@@ -308,8 +308,8 @@ class MdSpinner extends MdProgressSpinner {
         this.mode = 'indeterminate';
     }
 }
-MdSpinner.decorators = [
-    { type: Component, args: [{selector: 'md-spinner, mat-spinner',
+MatSpinner.decorators = [
+    { type: Component, args: [{selector: 'mat-spinner',
                 host: {
                     'role': 'progressbar',
                     'mode': 'indeterminate',
@@ -326,7 +326,7 @@ MdSpinner.decorators = [
 /**
  * @nocollapse
  */
-MdSpinner.ctorParameters = () => [
+MatSpinner.ctorParameters = () => [
     { type: ElementRef, },
     { type: NgZone, },
     { type: Renderer2, },
@@ -407,32 +407,32 @@ function getSvgArc(currentValue, rotation, strokeWidth) {
     return `M${start}A${pathRadius},${pathRadius} 0 ${largeArcFlag},${arcSweep} ${end}`;
 }
 
-class MdProgressSpinnerModule {
+class MatProgressSpinnerModule {
 }
-MdProgressSpinnerModule.decorators = [
+MatProgressSpinnerModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MdCommonModule],
+                imports: [MatCommonModule],
                 exports: [
-                    MdProgressSpinner,
-                    MdSpinner,
-                    MdCommonModule,
-                    MdProgressSpinnerCssMatStyler
+                    MatProgressSpinner,
+                    MatSpinner,
+                    MatCommonModule,
+                    MatProgressSpinnerCssMatStyler
                 ],
                 declarations: [
-                    MdProgressSpinner,
-                    MdSpinner,
-                    MdProgressSpinnerCssMatStyler
+                    MatProgressSpinner,
+                    MatSpinner,
+                    MatProgressSpinnerCssMatStyler
                 ],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdProgressSpinnerModule.ctorParameters = () => [];
+MatProgressSpinnerModule.ctorParameters = () => [];
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { MdProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MdProgressSpinnerCssMatStyler, MdProgressSpinnerBase, _MdProgressSpinnerMixinBase, MdProgressSpinner, MdSpinner, MdProgressSpinner as MatProgressSpinner, MdProgressSpinnerBase as MatProgressSpinnerBase, MdProgressSpinnerCssMatStyler as MatProgressSpinnerCssMatStyler, MdProgressSpinnerModule as MatProgressSpinnerModule, MdSpinner as MatSpinner };
+export { MatProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MatProgressSpinnerCssMatStyler, MatProgressSpinnerBase, _MatProgressSpinnerMixinBase, MatProgressSpinner, MatSpinner };
 //# sourceMappingURL=progress-spinner.js.map

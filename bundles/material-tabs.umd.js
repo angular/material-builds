@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/observers'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('@angular/common'), require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/platform-browser'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/cdk/keycodes'), require('@angular/cdk/platform'), require('@angular/cdk/overlay'), require('@angular/cdk/rxjs'), require('@angular/animations'), require('rxjs/Subscription'), require('rxjs/observable/merge'), require('rxjs/observable/fromEvent'), require('rxjs/observable/of')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/observers', '@angular/cdk/portal', '@angular/cdk/scrolling', '@angular/common', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/platform-browser', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/cdk/keycodes', '@angular/cdk/platform', '@angular/cdk/overlay', '@angular/cdk/rxjs', '@angular/animations', 'rxjs/Subscription', 'rxjs/observable/merge', 'rxjs/observable/fromEvent', 'rxjs/observable/of'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tabs = global.ng.material.tabs || {}),global.ng.cdk.observers,global.ng.cdk.portal,global.ng.cdk.scrolling,global.ng.common,global.ng.core,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.platformBrowser,global.ng.cdk.coercion,global.Rx,global.ng.cdk.keycodes,global.ng.cdk.platform,global.ng.cdk.overlay,global.ng.cdk.rxjs,global.ng.animations,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable));
-}(this, (function (exports,_angular_cdk_observers,_angular_cdk_portal,_angular_cdk_scrolling,_angular_common,_angular_core,_angular_cdk_a11y,_angular_cdk_bidi,_angular_platformBrowser,_angular_cdk_coercion,rxjs_Subject,_angular_cdk_keycodes,_angular_cdk_platform,_angular_cdk_overlay,_angular_cdk_rxjs,_angular_animations,rxjs_Subscription,rxjs_observable_merge,rxjs_observable_fromEvent,rxjs_observable_of) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/observers'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('@angular/common'), require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/animations'), require('rxjs/Subscription'), require('rxjs/observable/merge'), require('@angular/cdk/rxjs'), require('rxjs/observable/fromEvent'), require('rxjs/observable/of')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/observers', '@angular/cdk/portal', '@angular/cdk/scrolling', '@angular/common', '@angular/core', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/animations', 'rxjs/Subscription', 'rxjs/observable/merge', '@angular/cdk/rxjs', 'rxjs/observable/fromEvent', 'rxjs/observable/of'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tabs = global.ng.material.tabs || {}),global.ng.cdk.observers,global.ng.cdk.portal,global.ng.cdk.scrolling,global.ng.common,global.ng.core,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.animations,global.Rx,global.Rx.Observable,global.ng.cdk.rxjs,global.Rx.Observable,global.Rx.Observable));
+}(this, (function (exports,_angular_cdk_observers,_angular_cdk_portal,_angular_cdk_scrolling,_angular_common,_angular_core,_angular_platformBrowser,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_cdk_platform,_angular_cdk_keycodes,_angular_animations,rxjs_Subscription,rxjs_observable_merge,_angular_cdk_rxjs,rxjs_observable_fromEvent,rxjs_observable_of) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -62,18 +62,6 @@ AnimationDurations.ENTERING = '225ms';
 AnimationDurations.EXITING = '195ms';
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
- * Returns an exception to be thrown if the consumer has used
- * an invalid Material prefix on a component.
- * \@docs-private
- * @param {?} prefix
- * @param {?} nodeName
- * @return {?}
- */
-function getMdCompatibilityInvalidPrefixError(prefix, nodeName) {
-    return Error("The \"" + prefix + "-\" prefix cannot be used in ng-material v1 compatibility mode. " +
-        ("It was used on an \"" + nodeName.toLowerCase() + "\" element."));
-}
-/**
  * Selector that matches all elements that may have style collisions with AngularJS Material.
  */
 var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [matCardSubtitle],\n  [matCardTitle],\n  [matCellDef],\n  [matColumnDef],\n  [matDialogActions],\n  [matDialogClose],\n  [matDialogContent],\n  [matDialogTitle],\n  [matHeaderCellDef],\n  [matHeaderRowDef],\n  [matLine],\n  [matRowDef],\n  [matStepLabel],\n  [matStepperNext],\n  [matStepperPrevious],\n  [matTabLabel],\n  [matTabLink],\n  [matTabNav],\n  [matTooltip],\n  [matInput],\n  [matPrefix],\n  [matSuffix],\n  mat-autocomplete,\n  mat-button-toggle,\n  mat-button-toggle,\n  mat-button-toggle-group,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-cell,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-error,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-header-cell,\n  mat-header-row,\n  mat-hint,\n  mat-horizontal-stepper,\n  mat-icon,\n  mat-input-container,\n  mat-form-field,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-pseudo-checkbox,\n  mat-radio-button,\n  mat-radio-group,\n  mat-row,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-step,\n  mat-tab,\n  mat-table,\n  mat-tab-group,\n  mat-toolbar,\n  mat-vertical-stepper";
@@ -85,14 +73,7 @@ var MD_ELEMENTS_SELECTOR = "\n  [md-button],\n  [md-fab],\n  [md-icon-button],\n
  * Directive that enforces that the `mat-` prefix cannot be used.
  */
 var MatPrefixRejector = (function () {
-    /**
-     * @param {?} isCompatibilityMode
-     * @param {?} elementRef
-     */
-    function MatPrefixRejector(isCompatibilityMode, elementRef) {
-        if (!isCompatibilityMode) {
-            throw getMdCompatibilityInvalidPrefixError('mat', elementRef.nativeElement.nodeName);
-        }
+    function MatPrefixRejector() {
     }
     return MatPrefixRejector;
 }());
@@ -102,22 +83,12 @@ MatPrefixRejector.decorators = [
 /**
  * @nocollapse
  */
-MatPrefixRejector.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
-    { type: _angular_core.ElementRef, },
-]; };
+MatPrefixRejector.ctorParameters = function () { return []; };
 /**
  * Directive that enforces that the `md-` prefix cannot be used.
  */
 var MdPrefixRejector = (function () {
-    /**
-     * @param {?} isCompatibilityMode
-     * @param {?} elementRef
-     */
-    function MdPrefixRejector(isCompatibilityMode, elementRef) {
-        if (isCompatibilityMode) {
-            throw getMdCompatibilityInvalidPrefixError('md', elementRef.nativeElement.nodeName);
-        }
+    function MdPrefixRejector() {
     }
     return MdPrefixRejector;
 }());
@@ -127,10 +98,7 @@ MdPrefixRejector.decorators = [
 /**
  * @nocollapse
  */
-MdPrefixRejector.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
-    { type: _angular_core.ElementRef, },
-]; };
+MdPrefixRejector.ctorParameters = function () { return []; };
 /**
  * Module that enforces the default compatibility mode settings. When this module is loaded
  * without NoConflictStyleCompatibilityMode also being imported, it will throw an error if
@@ -161,11 +129,7 @@ var NoConflictStyleCompatibilityMode = (function () {
     return NoConflictStyleCompatibilityMode;
 }());
 NoConflictStyleCompatibilityMode.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                providers: [{
-                        provide: MATERIAL_COMPATIBILITY_MODE, useValue: true,
-                    }],
-            },] },
+    { type: _angular_core.NgModule },
 ];
 /**
  * @nocollapse
@@ -174,19 +138,19 @@ NoConflictStyleCompatibilityMode.ctorParameters = function () { return []; };
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
-var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('md-sanity-checks');
+var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('mat-sanity-checks');
 /**
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
  * components. This includes Bidi, compatibility mode, etc.
  *
- * This module should be imported to each top-level component module (e.g., MdTabsModule).
+ * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
-var MdCommonModule = (function () {
+var MatCommonModule = (function () {
     /**
      * @param {?} _document
      * @param {?} _sanityChecksEnabled
      */
-    function MdCommonModule(_document, _sanityChecksEnabled) {
+    function MatCommonModule(_document, _sanityChecksEnabled) {
         this._document = _document;
         /**
          * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
@@ -201,7 +165,7 @@ var MdCommonModule = (function () {
     /**
      * @return {?}
      */
-    MdCommonModule.prototype._checkDoctype = function () {
+    MatCommonModule.prototype._checkDoctype = function () {
         if (!this._document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
                 'some Angular Material components not to behave as expected.');
@@ -210,7 +174,7 @@ var MdCommonModule = (function () {
     /**
      * @return {?}
      */
-    MdCommonModule.prototype._checkTheme = function () {
+    MatCommonModule.prototype._checkTheme = function () {
         if (typeof getComputedStyle === 'function') {
             var /** @type {?} */ testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
@@ -223,9 +187,9 @@ var MdCommonModule = (function () {
             this._document.body.removeChild(testElement);
         }
     };
-    return MdCommonModule;
+    return MatCommonModule;
 }());
-MdCommonModule.decorators = [
+MatCommonModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
                 exports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
@@ -237,7 +201,7 @@ MdCommonModule.decorators = [
 /**
  * @nocollapse
  */
-MdCommonModule.ctorParameters = function () { return [
+MatCommonModule.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
 ]; };
@@ -638,10 +602,10 @@ var DateAdapter = (function () {
      * @return {?} 0 if the dates are equal, a number less than 0 if the first date is earlier,
      *     a number greater than 0 if the first date is later.
      */
-    DateAdapter.prototype.compareDate = function (first$$1, second) {
-        return this.getYear(first$$1) - this.getYear(second) ||
-            this.getMonth(first$$1) - this.getMonth(second) ||
-            this.getDate(first$$1) - this.getDate(second);
+    DateAdapter.prototype.compareDate = function (first, second) {
+        return this.getYear(first) - this.getYear(second) ||
+            this.getMonth(first) - this.getMonth(second) ||
+            this.getDate(first) - this.getDate(second);
     };
     /**
      * Checks if two dates are equal.
@@ -650,8 +614,8 @@ var DateAdapter = (function () {
      *     Null dates are considered equal to other null dates.
      * @return {?}
      */
-    DateAdapter.prototype.sameDate = function (first$$1, second) {
-        return first$$1 && second ? !this.compareDate(first$$1, second) : first$$1 == second;
+    DateAdapter.prototype.sameDate = function (first, second) {
+        return first && second ? !this.compareDate(first, second) : first == second;
     };
     /**
      * Clamp the given date between min and max dates.
@@ -1038,8 +1002,8 @@ NativeDateAdapter.decorators = [
 NativeDateAdapter.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_LOCALE,] },] },
 ]; };
-var MD_DATE_FORMATS = new _angular_core.InjectionToken('md-date-formats');
-var MD_NATIVE_DATE_FORMATS = {
+var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
+var MAT_NATIVE_DATE_FORMATS = {
     parse: {
         dateInput: null,
     },
@@ -1067,25 +1031,25 @@ NativeDateModule.decorators = [
  * @nocollapse
  */
 NativeDateModule.ctorParameters = function () { return []; };
-var MdNativeDateModule = (function () {
-    function MdNativeDateModule() {
+var MatNativeDateModule = (function () {
+    function MatNativeDateModule() {
     }
-    return MdNativeDateModule;
+    return MatNativeDateModule;
 }());
-MdNativeDateModule.decorators = [
+MatNativeDateModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [NativeDateModule],
-                providers: [{ provide: MD_DATE_FORMATS, useValue: MD_NATIVE_DATE_FORMATS }],
+                providers: [{ provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS }],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdNativeDateModule.ctorParameters = function () { return []; };
+MatNativeDateModule.ctorParameters = function () { return []; };
 /**
  * Injection token that can be used to specify the global error options.
  */
-var MD_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('md-error-global-options');
+var MAT_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-error-global-options');
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
@@ -1164,40 +1128,40 @@ GestureConfig.decorators = [
 GestureConfig.ctorParameters = function () { return []; };
 /**
  * Shared directive to count lines inside a text area, such as a list item.
- * Line elements can be extracted with a \@ContentChildren(MdLine) query, then
+ * Line elements can be extracted with a \@ContentChildren(MatLine) query, then
  * counted by checking the query list's length.
  */
-var MdLine = (function () {
-    function MdLine() {
+var MatLine = (function () {
+    function MatLine() {
     }
-    return MdLine;
+    return MatLine;
 }());
-MdLine.decorators = [
+MatLine.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[md-line], [mat-line], [mdLine], [matLine]',
+                selector: '[mat-line], [matLine]',
                 host: { 'class': 'mat-line' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdLine.ctorParameters = function () { return []; };
-var MdLineModule = (function () {
-    function MdLineModule() {
+MatLine.ctorParameters = function () { return []; };
+var MatLineModule = (function () {
+    function MatLineModule() {
     }
-    return MdLineModule;
+    return MatLineModule;
 }());
-MdLineModule.decorators = [
+MatLineModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdCommonModule],
-                exports: [MdLine, MdCommonModule],
-                declarations: [MdLine],
+                imports: [MatCommonModule],
+                exports: [MatLine, MatCommonModule],
+                declarations: [MatLine],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdLineModule.ctorParameters = function () { return []; };
+MatLineModule.ctorParameters = function () { return []; };
 var RippleState = {};
 RippleState.FADING_IN = 0;
 RippleState.VISIBLE = 1;
@@ -1463,8 +1427,8 @@ function distanceToFurthestCorner(x, y, rect) {
 /**
  * Injection token that can be used to specify the global ripple options.
  */
-var MD_RIPPLE_GLOBAL_OPTIONS = new _angular_core.InjectionToken('md-ripple-global-options');
-var MdRipple = (function () {
+var MAT_RIPPLE_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-ripple-global-options');
+var MatRipple = (function () {
     /**
      * @param {?} elementRef
      * @param {?} ngZone
@@ -1472,7 +1436,7 @@ var MdRipple = (function () {
      * @param {?} platform
      * @param {?} globalOptions
      */
-    function MdRipple(elementRef, ngZone, ruler, platform, globalOptions) {
+    function MatRipple(elementRef, ngZone, ruler, platform, globalOptions) {
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -1489,103 +1453,12 @@ var MdRipple = (function () {
         this._globalOptions = globalOptions ? globalOptions : {};
         this._updateRippleRenderer();
     }
-    Object.defineProperty(MdRipple.prototype, "_matRippleTrigger", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.trigger; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.trigger = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleCentered", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.centered; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.centered = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleDisabled", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.disabled; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.disabled = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleRadius", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.radius; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.radius = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleSpeedFactor", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.speedFactor; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.speedFactor = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleColor", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.color; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.color = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleUnbounded", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.unbounded; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.unbounded = v; },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @param {?} changes
      * @return {?}
      */
-    MdRipple.prototype.ngOnChanges = function (changes) {
-        if (changes['trigger'] && this.trigger) {
+    MatRipple.prototype.ngOnChanges = function (changes) {
+        if ((changes['trigger'] || changes['_matRippleTrigger']) && this.trigger) {
             this._rippleRenderer.setTriggerElement(this.trigger);
         }
         this._updateRippleRenderer();
@@ -1593,7 +1466,7 @@ var MdRipple = (function () {
     /**
      * @return {?}
      */
-    MdRipple.prototype.ngOnDestroy = function () {
+    MatRipple.prototype.ngOnDestroy = function () {
         // Set the trigger element to null to cleanup all listeners.
         this._rippleRenderer.setTriggerElement(null);
     };
@@ -1604,7 +1477,7 @@ var MdRipple = (function () {
      * @param {?=} config
      * @return {?}
      */
-    MdRipple.prototype.launch = function (pageX, pageY, config) {
+    MatRipple.prototype.launch = function (pageX, pageY, config) {
         if (config === void 0) { config = this.rippleConfig; }
         return this._rippleRenderer.fadeInRipple(pageX, pageY, config);
     };
@@ -1612,10 +1485,10 @@ var MdRipple = (function () {
      * Fades out all currently showing ripple elements.
      * @return {?}
      */
-    MdRipple.prototype.fadeOutAll = function () {
+    MatRipple.prototype.fadeOutAll = function () {
         this._rippleRenderer.fadeOutAll();
     };
-    Object.defineProperty(MdRipple.prototype, "rippleConfig", {
+    Object.defineProperty(MatRipple.prototype, "rippleConfig", {
         /**
          * Ripple configuration from the directive's input values.
          * @return {?}
@@ -1635,16 +1508,16 @@ var MdRipple = (function () {
      * Updates the ripple renderer with the latest ripple configuration.
      * @return {?}
      */
-    MdRipple.prototype._updateRippleRenderer = function () {
+    MatRipple.prototype._updateRippleRenderer = function () {
         this._rippleRenderer.rippleDisabled = this._globalOptions.disabled || this.disabled;
         this._rippleRenderer.rippleConfig = this.rippleConfig;
     };
-    return MdRipple;
+    return MatRipple;
 }());
-MdRipple.decorators = [
+MatRipple.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[md-ripple], [mat-ripple], [mdRipple], [matRipple]',
-                exportAs: 'mdRipple, matRipple',
+                selector: '[mat-ripple], [matRipple]',
+                exportAs: 'matRipple',
                 host: {
                     'class': 'mat-ripple',
                     '[class.mat-ripple-unbounded]': 'unbounded'
@@ -1654,46 +1527,39 @@ MdRipple.decorators = [
 /**
  * @nocollapse
  */
-MdRipple.ctorParameters = function () { return [
+MatRipple.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.NgZone, },
     { type: _angular_cdk_scrolling.ViewportRuler, },
     { type: _angular_cdk_platform.Platform, },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_RIPPLE_GLOBAL_OPTIONS,] },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
 ]; };
-MdRipple.propDecorators = {
-    'trigger': [{ type: _angular_core.Input, args: ['mdRippleTrigger',] },],
-    'centered': [{ type: _angular_core.Input, args: ['mdRippleCentered',] },],
-    'disabled': [{ type: _angular_core.Input, args: ['mdRippleDisabled',] },],
-    'radius': [{ type: _angular_core.Input, args: ['mdRippleRadius',] },],
-    'speedFactor': [{ type: _angular_core.Input, args: ['mdRippleSpeedFactor',] },],
-    'color': [{ type: _angular_core.Input, args: ['mdRippleColor',] },],
-    'unbounded': [{ type: _angular_core.Input, args: ['mdRippleUnbounded',] },],
-    '_matRippleTrigger': [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
-    '_matRippleCentered': [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
-    '_matRippleDisabled': [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
-    '_matRippleRadius': [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
-    '_matRippleSpeedFactor': [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
-    '_matRippleColor': [{ type: _angular_core.Input, args: ['matRippleColor',] },],
-    '_matRippleUnbounded': [{ type: _angular_core.Input, args: ['matRippleUnbounded',] },],
+MatRipple.propDecorators = {
+    'trigger': [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
+    'centered': [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
+    'disabled': [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
+    'radius': [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
+    'speedFactor': [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
+    'color': [{ type: _angular_core.Input, args: ['matRippleColor',] },],
+    'unbounded': [{ type: _angular_core.Input, args: ['matRippleUnbounded',] },],
 };
-var MdRippleModule = (function () {
-    function MdRippleModule() {
+var MatRippleModule = (function () {
+    function MatRippleModule() {
     }
-    return MdRippleModule;
+    return MatRippleModule;
 }());
-MdRippleModule.decorators = [
+MatRippleModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
-                exports: [MdRipple, MdCommonModule],
-                declarations: [MdRipple],
+                imports: [MatCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
+                exports: [MatRipple, MatCommonModule],
+                declarations: [MatRipple],
                 providers: [_angular_cdk_scrolling.VIEWPORT_RULER_PROVIDER],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdRippleModule.ctorParameters = function () { return []; };
+MatRippleModule.ctorParameters = function () { return []; };
 /**
  * Component that shows a simplified checkbox without including any kind of "real" checkbox.
  * Meant to be used when the checkbox is purely decorative and a large number of them will be
@@ -1702,13 +1568,13 @@ MdRippleModule.ctorParameters = function () { return []; };
  * `mat-primary .mat-pseudo-checkbox`.
  *
  * Note that this component will be completely invisible to screen-reader users. This is *not*
- * interchangeable with <md-checkbox> and should *not* be used if the user would directly interact
+ * interchangeable with <mat-checkbox> and should *not* be used if the user would directly interact
  * with the checkbox. The pseudo-checkbox should only be used as an implementation detail of
  * more complex components that appropriately handle selected / checked state.
  * \@docs-private
  */
-var MdPseudoCheckbox = (function () {
-    function MdPseudoCheckbox() {
+var MatPseudoCheckbox = (function () {
+    function MatPseudoCheckbox() {
         /**
          * Display state of the checkbox.
          */
@@ -1718,13 +1584,13 @@ var MdPseudoCheckbox = (function () {
          */
         this.disabled = false;
     }
-    return MdPseudoCheckbox;
+    return MatPseudoCheckbox;
 }());
-MdPseudoCheckbox.decorators = [
+MatPseudoCheckbox.decorators = [
     { type: _angular_core.Component, args: [{ encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                selector: 'md-pseudo-checkbox, mat-pseudo-checkbox',
+                selector: 'mat-pseudo-checkbox',
                 styles: [".mat-pseudo-checkbox{width:20px;height:20px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0,0,.2,.1),background-color 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:'';border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:9px;left:2px;width:16px;opacity:1}.mat-pseudo-checkbox-checked::after{top:5px;left:3px;width:12px;height:5px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1}"],
                 template: '',
                 host: {
@@ -1738,43 +1604,43 @@ MdPseudoCheckbox.decorators = [
 /**
  * @nocollapse
  */
-MdPseudoCheckbox.ctorParameters = function () { return []; };
-MdPseudoCheckbox.propDecorators = {
+MatPseudoCheckbox.ctorParameters = function () { return []; };
+MatPseudoCheckbox.propDecorators = {
     'state': [{ type: _angular_core.Input },],
     'disabled': [{ type: _angular_core.Input },],
 };
-var MdPseudoCheckboxModule = (function () {
-    function MdPseudoCheckboxModule() {
+var MatPseudoCheckboxModule = (function () {
+    function MatPseudoCheckboxModule() {
     }
-    return MdPseudoCheckboxModule;
+    return MatPseudoCheckboxModule;
 }());
-MdPseudoCheckboxModule.decorators = [
+MatPseudoCheckboxModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                exports: [MdPseudoCheckbox],
-                declarations: [MdPseudoCheckbox]
+                exports: [MatPseudoCheckbox],
+                declarations: [MatPseudoCheckbox]
             },] },
 ];
 /**
  * @nocollapse
  */
-MdPseudoCheckboxModule.ctorParameters = function () { return []; };
+MatPseudoCheckboxModule.ctorParameters = function () { return []; };
 /**
  * \@docs-private
  */
-var MdOptgroupBase = (function () {
-    function MdOptgroupBase() {
+var MatOptgroupBase = (function () {
+    function MatOptgroupBase() {
     }
-    return MdOptgroupBase;
+    return MatOptgroupBase;
 }());
-var _MdOptgroupMixinBase = mixinDisabled(MdOptgroupBase);
+var _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
 // Counter for unique group ids.
 var _uniqueOptgroupIdCounter = 0;
 /**
- * Component that is used to group instances of `md-option`.
+ * Component that is used to group instances of `mat-option`.
  */
-var MdOptgroup = (function (_super) {
-    __extends(MdOptgroup, _super);
-    function MdOptgroup() {
+var MatOptgroup = (function (_super) {
+    __extends(MatOptgroup, _super);
+    function MatOptgroup() {
         var _this = _super.apply(this, arguments) || this;
         /**
          * Unique id for the underlying label.
@@ -1782,11 +1648,11 @@ var MdOptgroup = (function (_super) {
         _this._labelId = "mat-optgroup-label-" + _uniqueOptgroupIdCounter++;
         return _this;
     }
-    return MdOptgroup;
-}(_MdOptgroupMixinBase));
-MdOptgroup.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-optgroup, mat-optgroup',
-                template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"md-option, mat-option\"></ng-content>",
+    return MatOptgroup;
+}(_MatOptgroupMixinBase));
+MatOptgroup.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-optgroup',
+                template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -1803,8 +1669,8 @@ MdOptgroup.decorators = [
 /**
  * @nocollapse
  */
-MdOptgroup.ctorParameters = function () { return []; };
-MdOptgroup.propDecorators = {
+MatOptgroup.ctorParameters = function () { return []; };
+MatOptgroup.propDecorators = {
     'label': [{ type: _angular_core.Input },],
 };
 /**
@@ -1813,35 +1679,33 @@ MdOptgroup.propDecorators = {
  */
 var _uniqueIdCounter = 0;
 /**
- * Event object emitted by MdOption when selected or deselected.
+ * Event object emitted by MatOption when selected or deselected.
  */
-var MdOptionSelectionChange = (function () {
+var MatOptionSelectionChange = (function () {
     /**
      * @param {?} source
      * @param {?=} isUserInput
      */
-    function MdOptionSelectionChange(source, isUserInput) {
+    function MatOptionSelectionChange(source, isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
         this.source = source;
         this.isUserInput = isUserInput;
     }
-    return MdOptionSelectionChange;
+    return MatOptionSelectionChange;
 }());
 /**
- * Single option inside of a `<md-select>` element.
+ * Single option inside of a `<mat-select>` element.
  */
-var MdOption = (function () {
+var MatOption = (function () {
     /**
      * @param {?} _element
      * @param {?} _changeDetectorRef
      * @param {?} group
-     * @param {?} _isCompatibilityMode
      */
-    function MdOption(_element, _changeDetectorRef, group, _isCompatibilityMode) {
+    function MatOption(_element, _changeDetectorRef, group) {
         this._element = _element;
         this._changeDetectorRef = _changeDetectorRef;
         this.group = group;
-        this._isCompatibilityMode = _isCompatibilityMode;
         this._selected = false;
         this._active = false;
         this._multiple = false;
@@ -1850,13 +1714,13 @@ var MdOption = (function () {
          * Whether the option is disabled.
          */
         this._disabled = false;
-        this._id = "md-option-" + _uniqueIdCounter++;
+        this._id = "mat-option-" + _uniqueIdCounter++;
         /**
          * Event emitted when the option is selected or deselected.
          */
         this.onSelectionChange = new _angular_core.EventEmitter();
     }
-    Object.defineProperty(MdOption.prototype, "multiple", {
+    Object.defineProperty(MatOption.prototype, "multiple", {
         /**
          * Whether the wrapping component is in multiple selection mode.
          * @return {?}
@@ -1875,7 +1739,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "id", {
+    Object.defineProperty(MatOption.prototype, "id", {
         /**
          * The unique ID of the option.
          * @return {?}
@@ -1884,7 +1748,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "selected", {
+    Object.defineProperty(MatOption.prototype, "selected", {
         /**
          * Whether or not the option is currently selected.
          * @return {?}
@@ -1893,7 +1757,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "disabled", {
+    Object.defineProperty(MatOption.prototype, "disabled", {
         /**
          * Whether the option is disabled.
          * @return {?}
@@ -1907,7 +1771,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "disableRipple", {
+    Object.defineProperty(MatOption.prototype, "disableRipple", {
         /**
          * Whether ripples for the option are disabled.
          * @return {?}
@@ -1924,7 +1788,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "active", {
+    Object.defineProperty(MatOption.prototype, "active", {
         /**
          * Whether or not the option is currently active and ready to be selected.
          * An active option displays styles as if it is focused, but the
@@ -1938,7 +1802,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "viewValue", {
+    Object.defineProperty(MatOption.prototype, "viewValue", {
         /**
          * The displayed value of the option. It is necessary to show the selected option in the
          * select's trigger.
@@ -1955,7 +1819,7 @@ var MdOption = (function () {
      * Selects the option.
      * @return {?}
      */
-    MdOption.prototype.select = function () {
+    MatOption.prototype.select = function () {
         this._selected = true;
         this._changeDetectorRef.markForCheck();
         this._emitSelectionChangeEvent();
@@ -1964,7 +1828,7 @@ var MdOption = (function () {
      * Deselects the option.
      * @return {?}
      */
-    MdOption.prototype.deselect = function () {
+    MatOption.prototype.deselect = function () {
         this._selected = false;
         this._changeDetectorRef.markForCheck();
         this._emitSelectionChangeEvent();
@@ -1973,7 +1837,7 @@ var MdOption = (function () {
      * Sets focus onto this option.
      * @return {?}
      */
-    MdOption.prototype.focus = function () {
+    MatOption.prototype.focus = function () {
         var /** @type {?} */ element = this._getHostElement();
         if (typeof element.focus === 'function') {
             element.focus();
@@ -1985,7 +1849,7 @@ var MdOption = (function () {
      * events will display the proper options as active on arrow key events.
      * @return {?}
      */
-    MdOption.prototype.setActiveStyles = function () {
+    MatOption.prototype.setActiveStyles = function () {
         if (!this._active) {
             this._active = true;
             this._changeDetectorRef.markForCheck();
@@ -1997,7 +1861,7 @@ var MdOption = (function () {
      * events will display the proper options as active on arrow key events.
      * @return {?}
      */
-    MdOption.prototype.setInactiveStyles = function () {
+    MatOption.prototype.setInactiveStyles = function () {
         if (this._active) {
             this._active = false;
             this._changeDetectorRef.markForCheck();
@@ -2007,7 +1871,7 @@ var MdOption = (function () {
      * Gets the label to be used when determining whether the option should be focused.
      * @return {?}
      */
-    MdOption.prototype.getLabel = function () {
+    MatOption.prototype.getLabel = function () {
         return this.viewValue;
     };
     /**
@@ -2015,7 +1879,7 @@ var MdOption = (function () {
      * @param {?} event
      * @return {?}
      */
-    MdOption.prototype._handleKeydown = function (event) {
+    MatOption.prototype._handleKeydown = function (event) {
         if (event.keyCode === _angular_cdk_keycodes.ENTER || event.keyCode === _angular_cdk_keycodes.SPACE) {
             this._selectViaInteraction();
             // Prevent the page from scrolling down and form submits.
@@ -2027,7 +1891,7 @@ var MdOption = (function () {
      * determine if the select's view -> model callback should be invoked.
      * @return {?}
      */
-    MdOption.prototype._selectViaInteraction = function () {
+    MatOption.prototype._selectViaInteraction = function () {
         if (!this.disabled) {
             this._selected = this.multiple ? !this._selected : true;
             this._changeDetectorRef.markForCheck();
@@ -2038,14 +1902,14 @@ var MdOption = (function () {
      * Returns the correct tabindex for the option depending on disabled state.
      * @return {?}
      */
-    MdOption.prototype._getTabIndex = function () {
+    MatOption.prototype._getTabIndex = function () {
         return this.disabled ? '-1' : '0';
     };
     /**
      * Gets the host DOM element.
      * @return {?}
      */
-    MdOption.prototype._getHostElement = function () {
+    MatOption.prototype._getHostElement = function () {
         return this._element.nativeElement;
     };
     /**
@@ -2053,9 +1917,9 @@ var MdOption = (function () {
      * @param {?=} isUserInput
      * @return {?}
      */
-    MdOption.prototype._emitSelectionChangeEvent = function (isUserInput) {
+    MatOption.prototype._emitSelectionChangeEvent = function (isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
-        this.onSelectionChange.emit(new MdOptionSelectionChange(this, isUserInput));
+        this.onSelectionChange.emit(new MatOptionSelectionChange(this, isUserInput));
     };
     /**
      * Counts the amount of option group labels that precede the specified option.
@@ -2064,7 +1928,7 @@ var MdOption = (function () {
      * @param {?} optionGroups Flat list of all of the option groups.
      * @return {?}
      */
-    MdOption.countGroupLabelsBeforeOption = function (optionIndex, options, optionGroups) {
+    MatOption.countGroupLabelsBeforeOption = function (optionIndex, options, optionGroups) {
         if (optionGroups.length) {
             var /** @type {?} */ optionsArray = options.toArray();
             var /** @type {?} */ groups = optionGroups.toArray();
@@ -2078,10 +1942,10 @@ var MdOption = (function () {
         }
         return 0;
     };
-    return MdOption;
+    return MatOption;
 }());
-MdOption.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-option, mat-option',
+MatOption.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-option',
                 host: {
                     'role': 'option',
                     '[attr.tabindex]': '_getTabIndex()',
@@ -2096,7 +1960,7 @@ MdOption.decorators = [
                     '(keydown)': '_handleKeydown($event)',
                     'class': 'mat-option',
                 },
-                template: "<span [ngSwitch]=\"_isCompatibilityMode\" *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" *ngSwitchCase=\"true\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox><md-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" *ngSwitchDefault [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></md-pseudo-checkbox></span><ng-content></ng-content><div class=\"mat-option-ripple\" md-ripple [mdRippleTrigger]=\"_getHostElement()\" [mdRippleDisabled]=\"disabled || disableRipple\"></div>",
+                template: "<span *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox></span><span class=\"mat-option-text\"><ng-content></ng-content></span><div class=\"mat-option-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"disabled || disableRipple\"></div>",
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -2105,67 +1969,48 @@ MdOption.decorators = [
 /**
  * @nocollapse
  */
-MdOption.ctorParameters = function () { return [
+MatOption.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.ChangeDetectorRef, },
-    { type: MdOptgroup, decorators: [{ type: _angular_core.Optional },] },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
+    { type: MatOptgroup, decorators: [{ type: _angular_core.Optional },] },
 ]; };
-MdOption.propDecorators = {
+MatOption.propDecorators = {
     'value': [{ type: _angular_core.Input },],
     'disabled': [{ type: _angular_core.Input },],
     'onSelectionChange': [{ type: _angular_core.Output },],
 };
-var MdOptionModule = (function () {
-    function MdOptionModule() {
+var MatOptionModule = (function () {
+    function MatOptionModule() {
     }
-    return MdOptionModule;
+    return MatOptionModule;
 }());
-MdOptionModule.decorators = [
+MatOptionModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdRippleModule, _angular_common.CommonModule, MdPseudoCheckboxModule],
-                exports: [MdOption, MdOptgroup],
-                declarations: [MdOption, MdOptgroup]
+                imports: [MatRippleModule, _angular_common.CommonModule, MatPseudoCheckboxModule],
+                exports: [MatOption, MatOptgroup],
+                declarations: [MatOption, MatOptgroup]
             },] },
 ];
 /**
  * @nocollapse
  */
-MdOptionModule.ctorParameters = function () { return []; };
+MatOptionModule.ctorParameters = function () { return []; };
 /**
  * InjectionToken that can be used to specify the global placeholder options.
  */
-var MD_PLACEHOLDER_GLOBAL_OPTIONS = new _angular_core.InjectionToken('md-placeholder-global-options');
-/**
- * @deprecated
- */
-var StyleModule = (function () {
-    function StyleModule() {
-    }
-    return StyleModule;
-}());
-StyleModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [_angular_cdk_a11y.A11yModule],
-                exports: [_angular_cdk_a11y.A11yModule],
-            },] },
-];
-/**
- * @nocollapse
- */
-StyleModule.ctorParameters = function () { return []; };
+var MAT_PLACEHOLDER_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-placeholder-global-options');
 
 /**
  * The ink-bar is used to display and animate the line underneath the current active tab label.
  * \@docs-private
  */
-var MdInkBar = (function () {
+var MatInkBar = (function () {
     /**
      * @param {?} _renderer
      * @param {?} _elementRef
      * @param {?} _ngZone
      */
-    function MdInkBar(_renderer, _elementRef, _ngZone) {
+    function MatInkBar(_renderer, _elementRef, _ngZone) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
@@ -2176,7 +2021,7 @@ var MdInkBar = (function () {
      * @param {?} element
      * @return {?}
      */
-    MdInkBar.prototype.alignToElement = function (element) {
+    MatInkBar.prototype.alignToElement = function (element) {
         var _this = this;
         this.show();
         if (typeof requestAnimationFrame !== 'undefined') {
@@ -2192,14 +2037,14 @@ var MdInkBar = (function () {
      * Shows the ink bar.
      * @return {?}
      */
-    MdInkBar.prototype.show = function () {
+    MatInkBar.prototype.show = function () {
         this._renderer.setStyle(this._elementRef.nativeElement, 'visibility', 'visible');
     };
     /**
      * Hides the ink bar.
      * @return {?}
      */
-    MdInkBar.prototype.hide = function () {
+    MatInkBar.prototype.hide = function () {
         this._renderer.setStyle(this._elementRef.nativeElement, 'visibility', 'hidden');
     };
     /**
@@ -2207,17 +2052,17 @@ var MdInkBar = (function () {
      * @param {?} element
      * @return {?}
      */
-    MdInkBar.prototype._setStyles = function (element) {
+    MatInkBar.prototype._setStyles = function (element) {
         var /** @type {?} */ left = element ? (element.offsetLeft || 0) + 'px' : '0';
         var /** @type {?} */ width = element ? (element.offsetWidth || 0) + 'px' : '0';
         this._renderer.setStyle(this._elementRef.nativeElement, 'left', left);
         this._renderer.setStyle(this._elementRef.nativeElement, 'width', width);
     };
-    return MdInkBar;
+    return MatInkBar;
 }());
-MdInkBar.decorators = [
+MatInkBar.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: 'md-ink-bar, mat-ink-bar',
+                selector: 'mat-ink-bar',
                 host: {
                     'class': 'mat-ink-bar',
                 },
@@ -2226,7 +2071,7 @@ MdInkBar.decorators = [
 /**
  * @nocollapse
  */
-MdInkBar.ctorParameters = function () { return [
+MatInkBar.ctorParameters = function () { return [
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ElementRef, },
     { type: _angular_core.NgZone, },
@@ -2234,48 +2079,48 @@ MdInkBar.ctorParameters = function () { return [
 /**
  * Workaround for https://github.com/angular/angular/issues/17849
  */
-var _MdTabLabelBaseClass = _angular_cdk_portal.TemplatePortalDirective;
+var _MatTabLabelBaseClass = _angular_cdk_portal.TemplatePortalDirective;
 /**
  * Used to flag tab labels for use with the portal directive
  */
-var MdTabLabel = (function (_super) {
-    __extends(MdTabLabel, _super);
+var MatTabLabel = (function (_super) {
+    __extends(MatTabLabel, _super);
     /**
      * @param {?} templateRef
      * @param {?} viewContainerRef
      */
-    function MdTabLabel(templateRef, viewContainerRef) {
+    function MatTabLabel(templateRef, viewContainerRef) {
         return _super.call(this, templateRef, viewContainerRef) || this;
     }
-    return MdTabLabel;
-}(_MdTabLabelBaseClass));
-MdTabLabel.decorators = [
+    return MatTabLabel;
+}(_MatTabLabelBaseClass));
+MatTabLabel.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[md-tab-label], [mat-tab-label], [mdTabLabel], [matTabLabel]',
+                selector: '[mat-tab-label], [matTabLabel]',
             },] },
 ];
 /**
  * @nocollapse
  */
-MdTabLabel.ctorParameters = function () { return [
+MatTabLabel.ctorParameters = function () { return [
     { type: _angular_core.TemplateRef, },
     { type: _angular_core.ViewContainerRef, },
 ]; };
 /**
  * \@docs-private
  */
-var MdTabBase = (function () {
-    function MdTabBase() {
+var MatTabBase = (function () {
+    function MatTabBase() {
     }
-    return MdTabBase;
+    return MatTabBase;
 }());
-var _MdTabMixinBase = mixinDisabled(MdTabBase);
-var MdTab = (function (_super) {
-    __extends(MdTab, _super);
+var _MatTabMixinBase = mixinDisabled(MatTabBase);
+var MatTab = (function (_super) {
+    __extends(MatTab, _super);
     /**
      * @param {?} _viewContainerRef
      */
-    function MdTab(_viewContainerRef) {
+    function MatTab(_viewContainerRef) {
         var _this = _super.call(this) || this;
         _this._viewContainerRef = _viewContainerRef;
         /**
@@ -2310,7 +2155,7 @@ var MdTab = (function (_super) {
         _this.isActive = false;
         return _this;
     }
-    Object.defineProperty(MdTab.prototype, "content", {
+    Object.defineProperty(MatTab.prototype, "content", {
         /**
          * @return {?}
          */
@@ -2322,7 +2167,7 @@ var MdTab = (function (_super) {
      * @param {?} changes
      * @return {?}
      */
-    MdTab.prototype.ngOnChanges = function (changes) {
+    MatTab.prototype.ngOnChanges = function (changes) {
         if (changes.hasOwnProperty('textLabel')) {
             this._labelChange.next();
         }
@@ -2333,36 +2178,36 @@ var MdTab = (function (_super) {
     /**
      * @return {?}
      */
-    MdTab.prototype.ngOnDestroy = function () {
+    MatTab.prototype.ngOnDestroy = function () {
         this._disableChange.complete();
         this._labelChange.complete();
     };
     /**
      * @return {?}
      */
-    MdTab.prototype.ngOnInit = function () {
+    MatTab.prototype.ngOnInit = function () {
         this._contentPortal = new _angular_cdk_portal.TemplatePortal(this._content, this._viewContainerRef);
     };
-    return MdTab;
-}(_MdTabMixinBase));
-MdTab.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-tab, mat-tab',
+    return MatTab;
+}(_MatTabMixinBase));
+MatTab.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-tab',
                 template: "<ng-template><ng-content></ng-content></ng-template>",
                 inputs: ['disabled'],
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
-                exportAs: 'mdTab, matTab',
+                exportAs: 'matTab',
             },] },
 ];
 /**
  * @nocollapse
  */
-MdTab.ctorParameters = function () { return [
+MatTab.ctorParameters = function () { return [
     { type: _angular_core.ViewContainerRef, },
 ]; };
-MdTab.propDecorators = {
-    'templateLabel': [{ type: _angular_core.ContentChild, args: [MdTabLabel,] },],
+MatTab.propDecorators = {
+    'templateLabel': [{ type: _angular_core.ContentChild, args: [MatTabLabel,] },],
     '_content': [{ type: _angular_core.ViewChild, args: [_angular_core.TemplateRef,] },],
     'textLabel': [{ type: _angular_core.Input, args: ['label',] },],
 };
@@ -2370,12 +2215,12 @@ MdTab.propDecorators = {
  * Wrapper for the contents of a tab.
  * \@docs-private
  */
-var MdTabBody = (function () {
+var MatTabBody = (function () {
     /**
      * @param {?} _elementRef
      * @param {?} _dir
      */
-    function MdTabBody(_elementRef, _dir) {
+    function MatTabBody(_elementRef, _dir) {
         this._elementRef = _elementRef;
         this._dir = _dir;
         /**
@@ -2387,7 +2232,7 @@ var MdTabBody = (function () {
          */
         this.onCentered = new _angular_core.EventEmitter(true);
     }
-    Object.defineProperty(MdTabBody.prototype, "position", {
+    Object.defineProperty(MatTabBody.prototype, "position", {
         /**
          * @param {?} position
          * @return {?}
@@ -2406,7 +2251,7 @@ var MdTabBody = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdTabBody.prototype, "origin", {
+    Object.defineProperty(MatTabBody.prototype, "origin", {
         /**
          * The origin position from which this tab should appear when it is centered into view.
          * @param {?} origin
@@ -2432,7 +2277,7 @@ var MdTabBody = (function () {
      * special position states that transition the tab from the left or right before centering.
      * @return {?}
      */
-    MdTabBody.prototype.ngOnInit = function () {
+    MatTabBody.prototype.ngOnInit = function () {
         if (this._position == 'center' && this._origin) {
             this._position = this._origin == 'left' ? 'left-origin-center' : 'right-origin-center';
         }
@@ -2442,7 +2287,7 @@ var MdTabBody = (function () {
      * content if it is not already attached.
      * @return {?}
      */
-    MdTabBody.prototype.ngAfterViewChecked = function () {
+    MatTabBody.prototype.ngAfterViewChecked = function () {
         if (this._isCenterPosition(this._position) && !this._portalHost.hasAttached()) {
             this._portalHost.attach(this._content);
         }
@@ -2451,7 +2296,7 @@ var MdTabBody = (function () {
      * @param {?} e
      * @return {?}
      */
-    MdTabBody.prototype._onTranslateTabStarted = function (e) {
+    MatTabBody.prototype._onTranslateTabStarted = function (e) {
         if (this._isCenterPosition(e.toState)) {
             this.onCentering.emit(this._elementRef.nativeElement.clientHeight);
         }
@@ -2460,7 +2305,7 @@ var MdTabBody = (function () {
      * @param {?} e
      * @return {?}
      */
-    MdTabBody.prototype._onTranslateTabComplete = function (e) {
+    MatTabBody.prototype._onTranslateTabComplete = function (e) {
         // If the end state is that the tab is not centered, then detach the content.
         if (!this._isCenterPosition(e.toState) && !this._isCenterPosition(this._position)) {
             this._portalHost.detach();
@@ -2474,7 +2319,7 @@ var MdTabBody = (function () {
      * The text direction of the containing app.
      * @return {?}
      */
-    MdTabBody.prototype._getLayoutDirection = function () {
+    MatTabBody.prototype._getLayoutDirection = function () {
         return this._dir && this._dir.value === 'rtl' ? 'rtl' : 'ltr';
     };
     /**
@@ -2482,15 +2327,15 @@ var MdTabBody = (function () {
      * @param {?} position
      * @return {?}
      */
-    MdTabBody.prototype._isCenterPosition = function (position) {
+    MatTabBody.prototype._isCenterPosition = function (position) {
         return position == 'center' ||
             position == 'left-origin-center' ||
             position == 'right-origin-center';
     };
-    return MdTabBody;
+    return MatTabBody;
 }());
-MdTabBody.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-tab-body, mat-tab-body',
+MatTabBody.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-tab-body',
                 template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_position\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><ng-template cdkPortalHost></ng-template></div>",
                 styles: [".mat-tab-body-content{height:100%;overflow:auto}.mat-tab-group-dynamic-height .mat-tab-body-content{overflow:hidden}"],
                 encapsulation: _angular_core.ViewEncapsulation.None,
@@ -2523,11 +2368,11 @@ MdTabBody.decorators = [
 /**
  * @nocollapse
  */
-MdTabBody.ctorParameters = function () { return [
+MatTabBody.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
 ]; };
-MdTabBody.propDecorators = {
+MatTabBody.propDecorators = {
     '_portalHost': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.PortalHostDirective,] },],
     'onCentering': [{ type: _angular_core.Output },],
     'onCentered': [{ type: _angular_core.Output },],
@@ -2542,39 +2387,39 @@ var nextId = 0;
 /**
  * A simple change event emitted on focus or selection changes.
  */
-var MdTabChangeEvent = (function () {
-    function MdTabChangeEvent() {
+var MatTabChangeEvent = (function () {
+    function MatTabChangeEvent() {
     }
-    return MdTabChangeEvent;
+    return MatTabChangeEvent;
 }());
 /**
  * \@docs-private
  */
-var MdTabGroupBase = (function () {
+var MatTabGroupBase = (function () {
     /**
      * @param {?} _renderer
      * @param {?} _elementRef
      */
-    function MdTabGroupBase(_renderer, _elementRef) {
+    function MatTabGroupBase(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
     }
-    return MdTabGroupBase;
+    return MatTabGroupBase;
 }());
-var _MdTabGroupMixinBase = mixinColor(mixinDisableRipple(MdTabGroupBase), 'primary');
+var _MatTabGroupMixinBase = mixinColor(mixinDisableRipple(MatTabGroupBase), 'primary');
 /**
  * Material design tab-group component.  Supports basic tab pairs (label + content) and includes
  * animated ink-bar, keyboard navigation, and screen reader.
  * See: https://www.google.com/design/spec/components/tabs.html
  */
-var MdTabGroup = (function (_super) {
-    __extends(MdTabGroup, _super);
+var MatTabGroup = (function (_super) {
+    __extends(MatTabGroup, _super);
     /**
      * @param {?} _renderer
      * @param {?} elementRef
      * @param {?} _changeDetectorRef
      */
-    function MdTabGroup(_renderer, elementRef, _changeDetectorRef) {
+    function MatTabGroup(_renderer, elementRef, _changeDetectorRef) {
         var _this = _super.call(this, _renderer, elementRef) || this;
         _this._changeDetectorRef = _changeDetectorRef;
         /**
@@ -2618,7 +2463,7 @@ var MdTabGroup = (function (_super) {
         _this._groupId = nextId++;
         return _this;
     }
-    Object.defineProperty(MdTabGroup.prototype, "dynamicHeight", {
+    Object.defineProperty(MatTabGroup.prototype, "dynamicHeight", {
         /**
          * Whether the tab group should grow to the size of the active tab.
          * @return {?}
@@ -2632,7 +2477,7 @@ var MdTabGroup = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdTabGroup.prototype, "_dynamicHeightDeprecated", {
+    Object.defineProperty(MatTabGroup.prototype, "_dynamicHeightDeprecated", {
         /**
          * @deprecated
          * @return {?}
@@ -2646,7 +2491,7 @@ var MdTabGroup = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdTabGroup.prototype, "selectedIndex", {
+    Object.defineProperty(MatTabGroup.prototype, "selectedIndex", {
         /**
          * @return {?}
          */
@@ -2660,7 +2505,7 @@ var MdTabGroup = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdTabGroup.prototype, "backgroundColor", {
+    Object.defineProperty(MatTabGroup.prototype, "backgroundColor", {
         /**
          * Background color of the tab group.
          * @return {?}
@@ -2688,7 +2533,7 @@ var MdTabGroup = (function (_super) {
      * a new selected tab should transition in (from the left or right).
      * @return {?}
      */
-    MdTabGroup.prototype.ngAfterContentChecked = function () {
+    MatTabGroup.prototype.ngAfterContentChecked = function () {
         var _this = this;
         // Clamp the next selected index to the boundsof 0 and the tabs length.
         // Note the `|| 0`, which ensures that values like NaN can't get through
@@ -2722,7 +2567,7 @@ var MdTabGroup = (function (_super) {
     /**
      * @return {?}
      */
-    MdTabGroup.prototype.ngAfterContentInit = function () {
+    MatTabGroup.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._subscribeToTabLabels();
         // Subscribe to changes in the amount of tabs, in order to be
@@ -2735,7 +2580,7 @@ var MdTabGroup = (function (_super) {
     /**
      * @return {?}
      */
-    MdTabGroup.prototype.ngOnDestroy = function () {
+    MatTabGroup.prototype.ngOnDestroy = function () {
         this._tabsSubscription.unsubscribe();
         this._tabLabelSubscription.unsubscribe();
     };
@@ -2744,22 +2589,22 @@ var MdTabGroup = (function (_super) {
      * Note: This must be run outside of the zone or it will create an infinite change detection loop.
      * @return {?}
      */
-    MdTabGroup.prototype.ngAfterViewChecked = function () {
+    MatTabGroup.prototype.ngAfterViewChecked = function () {
         this._isInitialized = true;
     };
     /**
      * @param {?} index
      * @return {?}
      */
-    MdTabGroup.prototype._focusChanged = function (index) {
+    MatTabGroup.prototype._focusChanged = function (index) {
         this.focusChange.emit(this._createChangeEvent(index));
     };
     /**
      * @param {?} index
      * @return {?}
      */
-    MdTabGroup.prototype._createChangeEvent = function (index) {
-        var /** @type {?} */ event = new MdTabChangeEvent;
+    MatTabGroup.prototype._createChangeEvent = function (index) {
+        var /** @type {?} */ event = new MatTabChangeEvent;
         event.index = index;
         if (this._tabs && this._tabs.length) {
             event.tab = this._tabs.toArray()[index];
@@ -2768,12 +2613,12 @@ var MdTabGroup = (function (_super) {
     };
     /**
      * Subscribes to changes in the tab labels. This is needed, because the \@Input for the label is
-     * on the MdTab component, whereas the data binding is inside the MdTabGroup. In order for the
+     * on the MatTab component, whereas the data binding is inside the MatTabGroup. In order for the
      * binding to be updated, we need to subscribe to changes in it and trigger change detection
      * manually.
      * @return {?}
      */
-    MdTabGroup.prototype._subscribeToTabLabels = function () {
+    MatTabGroup.prototype._subscribeToTabLabels = function () {
         var _this = this;
         if (this._tabLabelSubscription) {
             this._tabLabelSubscription.unsubscribe();
@@ -2787,16 +2632,16 @@ var MdTabGroup = (function (_super) {
      * @param {?} i
      * @return {?}
      */
-    MdTabGroup.prototype._getTabLabelId = function (i) {
-        return "md-tab-label-" + this._groupId + "-" + i;
+    MatTabGroup.prototype._getTabLabelId = function (i) {
+        return "mat-tab-label-" + this._groupId + "-" + i;
     };
     /**
      * Returns a unique id for each tab content element
      * @param {?} i
      * @return {?}
      */
-    MdTabGroup.prototype._getTabContentId = function (i) {
-        return "md-tab-content-" + this._groupId + "-" + i;
+    MatTabGroup.prototype._getTabContentId = function (i) {
+        return "mat-tab-content-" + this._groupId + "-" + i;
     };
     /**
      * Sets the height of the body wrapper to the height of the activating tab if dynamic
@@ -2804,7 +2649,7 @@ var MdTabGroup = (function (_super) {
      * @param {?} tabHeight
      * @return {?}
      */
-    MdTabGroup.prototype._setTabBodyWrapperHeight = function (tabHeight) {
+    MatTabGroup.prototype._setTabBodyWrapperHeight = function (tabHeight) {
         if (!this._dynamicHeight || !this._tabBodyWrapperHeight) {
             return;
         }
@@ -2819,16 +2664,16 @@ var MdTabGroup = (function (_super) {
      * Removes the height of the tab body wrapper.
      * @return {?}
      */
-    MdTabGroup.prototype._removeTabBodyWrapperHeight = function () {
+    MatTabGroup.prototype._removeTabBodyWrapperHeight = function () {
         this._tabBodyWrapperHeight = this._tabBodyWrapper.nativeElement.clientHeight;
         this._renderer.setStyle(this._tabBodyWrapper.nativeElement, 'height', '');
     };
-    return MdTabGroup;
-}(_MdTabGroupMixinBase));
-MdTabGroup.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-tab-group, mat-tab-group',
-                template: "<md-tab-header #tabHeader [selectedIndex]=\"selectedIndex\" [disableRipple]=\"disableRipple\" (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" mdTabLabelWrapper md-ripple *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [tabIndex]=\"selectedIndex == i ? 0 : -1\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" [mdRippleDisabled]=\"disableRipple\" (click)=\"tabHeader.focusIndex = selectedIndex = i\"><ng-template [ngIf]=\"tab.templateLabel\"><ng-template [cdkPortalHost]=\"tab.templateLabel\"></ng-template></ng-template><ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template></div></md-tab-header><div class=\"mat-tab-body-wrapper\" #tabBodyWrapper><md-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (onCentered)=\"_removeTabBodyWrapperHeight()\" (onCentering)=\"_setTabBodyWrapperHeight($event)\"></md-tab-body></div>",
-                styles: [".mat-tab-group{display:flex;flex-direction:column}.mat-tab-group.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0;opacity:1}.mat-tab-label.mat-tab-disabled{cursor:default;pointer-events:none}@media (max-width:600px){.mat-tab-label{padding:0 12px}}@media (max-width:960px){.mat-tab-label{padding:0 12px}}.mat-tab-group[mat-stretch-tabs] .mat-tab-label,.mat-tab-group[md-stretch-tabs] .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height .5s cubic-bezier(.35,0,.25,1)}.mat-tab-body{top:0;left:0;right:0;bottom:0;position:absolute;display:block;overflow:hidden}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}.mat-tab-group.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}"],
+    return MatTabGroup;
+}(_MatTabGroupMixinBase));
+MatTabGroup.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-tab-group',
+                template: "<mat-tab-header #tabHeader [selectedIndex]=\"selectedIndex\" [disableRipple]=\"disableRipple\" (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" matTabLabelWrapper mat-ripple *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [tabIndex]=\"selectedIndex == i ? 0 : -1\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" [matRippleDisabled]=\"disableRipple\" (click)=\"tabHeader.focusIndex = selectedIndex = i\"><ng-template [ngIf]=\"tab.templateLabel\"><ng-template [cdkPortalHost]=\"tab.templateLabel\"></ng-template></ng-template><ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template></div></mat-tab-header><div class=\"mat-tab-body-wrapper\" #tabBodyWrapper><mat-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (onCentered)=\"_removeTabBodyWrapperHeight()\" (onCentering)=\"_setTabBodyWrapperHeight($event)\"></mat-tab-body></div>",
+                styles: [".mat-tab-group{display:flex;flex-direction:column}.mat-tab-group.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0;opacity:1}.mat-tab-label.mat-tab-disabled{cursor:default;pointer-events:none}@media (max-width:600px){.mat-tab-label{padding:0 12px}}@media (max-width:960px){.mat-tab-label{padding:0 12px}}.mat-tab-group[mat-stretch-tabs] .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height .5s cubic-bezier(.35,0,.25,1)}.mat-tab-body{top:0;left:0;right:0;bottom:0;position:absolute;display:block;overflow:hidden}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}.mat-tab-group.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}"],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -2837,22 +2682,22 @@ MdTabGroup.decorators = [
                     'class': 'mat-tab-group',
                     '[class.mat-tab-group-dynamic-height]': 'dynamicHeight',
                     '[class.mat-tab-group-inverted-header]': 'headerPosition === "below"',
-                }
+                },
             },] },
 ];
 /**
  * @nocollapse
  */
-MdTabGroup.ctorParameters = function () { return [
+MatTabGroup.ctorParameters = function () { return [
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ElementRef, },
     { type: _angular_core.ChangeDetectorRef, },
 ]; };
-MdTabGroup.propDecorators = {
-    '_tabs': [{ type: _angular_core.ContentChildren, args: [MdTab,] },],
+MatTabGroup.propDecorators = {
+    '_tabs': [{ type: _angular_core.ContentChildren, args: [MatTab,] },],
     '_tabBodyWrapper': [{ type: _angular_core.ViewChild, args: ['tabBodyWrapper',] },],
     'dynamicHeight': [{ type: _angular_core.Input },],
-    '_dynamicHeightDeprecated': [{ type: _angular_core.Input, args: ['md-dynamic-height',] },],
+    '_dynamicHeightDeprecated': [{ type: _angular_core.Input, args: ['mat-dynamic-height',] },],
     'selectedIndex': [{ type: _angular_core.Input },],
     'headerPosition': [{ type: _angular_core.Input },],
     'backgroundColor': [{ type: _angular_core.Input },],
@@ -2863,22 +2708,22 @@ MdTabGroup.propDecorators = {
 /**
  * \@docs-private
  */
-var MdTabLabelWrapperBase = (function () {
-    function MdTabLabelWrapperBase() {
+var MatTabLabelWrapperBase = (function () {
+    function MatTabLabelWrapperBase() {
     }
-    return MdTabLabelWrapperBase;
+    return MatTabLabelWrapperBase;
 }());
-var _MdTabLabelWrapperMixinBase = mixinDisabled(MdTabLabelWrapperBase);
+var _MatTabLabelWrapperMixinBase = mixinDisabled(MatTabLabelWrapperBase);
 /**
- * Used in the `md-tab-group` view to display tab labels.
+ * Used in the `mat-tab-group` view to display tab labels.
  * \@docs-private
  */
-var MdTabLabelWrapper = (function (_super) {
-    __extends(MdTabLabelWrapper, _super);
+var MatTabLabelWrapper = (function (_super) {
+    __extends(MatTabLabelWrapper, _super);
     /**
      * @param {?} elementRef
      */
-    function MdTabLabelWrapper(elementRef) {
+    function MatTabLabelWrapper(elementRef) {
         var _this = _super.call(this) || this;
         _this.elementRef = elementRef;
         return _this;
@@ -2887,26 +2732,26 @@ var MdTabLabelWrapper = (function (_super) {
      * Sets focus on the wrapper element
      * @return {?}
      */
-    MdTabLabelWrapper.prototype.focus = function () {
+    MatTabLabelWrapper.prototype.focus = function () {
         this.elementRef.nativeElement.focus();
     };
     /**
      * @return {?}
      */
-    MdTabLabelWrapper.prototype.getOffsetLeft = function () {
+    MatTabLabelWrapper.prototype.getOffsetLeft = function () {
         return this.elementRef.nativeElement.offsetLeft;
     };
     /**
      * @return {?}
      */
-    MdTabLabelWrapper.prototype.getOffsetWidth = function () {
+    MatTabLabelWrapper.prototype.getOffsetWidth = function () {
         return this.elementRef.nativeElement.offsetWidth;
     };
-    return MdTabLabelWrapper;
-}(_MdTabLabelWrapperMixinBase));
-MdTabLabelWrapper.decorators = [
+    return MatTabLabelWrapper;
+}(_MatTabLabelWrapperMixinBase));
+MatTabLabelWrapper.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[mdTabLabelWrapper], [matTabLabelWrapper]',
+                selector: '[matTabLabelWrapper]',
                 inputs: ['disabled'],
                 host: {
                     '[class.mat-tab-disabled]': 'disabled'
@@ -2916,7 +2761,7 @@ MdTabLabelWrapper.decorators = [
 /**
  * @nocollapse
  */
-MdTabLabelWrapper.ctorParameters = function () { return [
+MatTabLabelWrapper.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
 ]; };
 /**
@@ -2927,12 +2772,12 @@ var EXAGGERATED_OVERSCROLL = 60;
 /**
  * \@docs-private
  */
-var MdTabHeaderBase = (function () {
-    function MdTabHeaderBase() {
+var MatTabHeaderBase = (function () {
+    function MatTabHeaderBase() {
     }
-    return MdTabHeaderBase;
+    return MatTabHeaderBase;
 }());
-var _MdTabHeaderMixinBase = mixinDisableRipple(MdTabHeaderBase);
+var _MatTabHeaderMixinBase = mixinDisableRipple(MatTabHeaderBase);
 /**
  * The header of the tab group which displays a list of all the tabs in the tab group. Includes
  * an ink bar that follows the currently selected tab. When the tabs list's width exceeds the
@@ -2940,15 +2785,15 @@ var _MdTabHeaderMixinBase = mixinDisableRipple(MdTabHeaderBase);
  * left and right across the header.
  * \@docs-private
  */
-var MdTabHeader = (function (_super) {
-    __extends(MdTabHeader, _super);
+var MatTabHeader = (function (_super) {
+    __extends(MatTabHeader, _super);
     /**
      * @param {?} _elementRef
      * @param {?} _renderer
      * @param {?} _changeDetectorRef
      * @param {?} _dir
      */
-    function MdTabHeader(_elementRef, _renderer, _changeDetectorRef, _dir) {
+    function MatTabHeader(_elementRef, _renderer, _changeDetectorRef, _dir) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._renderer = _renderer;
@@ -2993,7 +2838,7 @@ var MdTabHeader = (function (_super) {
         _this.indexFocused = new _angular_core.EventEmitter();
         return _this;
     }
-    Object.defineProperty(MdTabHeader.prototype, "selectedIndex", {
+    Object.defineProperty(MatTabHeader.prototype, "selectedIndex", {
         /**
          * The index of the active tab.
          * @return {?}
@@ -3014,7 +2859,7 @@ var MdTabHeader = (function (_super) {
     /**
      * @return {?}
      */
-    MdTabHeader.prototype.ngAfterContentChecked = function () {
+    MatTabHeader.prototype.ngAfterContentChecked = function () {
         // If the number of tab labels have changed, check if scrolling should be enabled
         if (this._tabLabelCount != this._labelWrappers.length) {
             this._updatePagination();
@@ -3042,7 +2887,7 @@ var MdTabHeader = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MdTabHeader.prototype._handleKeydown = function (event) {
+    MatTabHeader.prototype._handleKeydown = function (event) {
         switch (event.keyCode) {
             case _angular_cdk_keycodes.RIGHT_ARROW:
                 this._focusNextTab();
@@ -3061,7 +2906,7 @@ var MdTabHeader = (function (_super) {
      * Aligns the ink bar to the selected tab on load.
      * @return {?}
      */
-    MdTabHeader.prototype.ngAfterContentInit = function () {
+    MatTabHeader.prototype.ngAfterContentInit = function () {
         var _this = this;
         var /** @type {?} */ dirChange = this._dir ? this._dir.change : rxjs_observable_of.of(null);
         var /** @type {?} */ resize = typeof window !== 'undefined' ?
@@ -3075,14 +2920,14 @@ var MdTabHeader = (function (_super) {
     /**
      * @return {?}
      */
-    MdTabHeader.prototype.ngOnDestroy = function () {
+    MatTabHeader.prototype.ngOnDestroy = function () {
         this._realignInkBar.unsubscribe();
     };
     /**
      * Callback for when the MutationObserver detects that the content has changed.
      * @return {?}
      */
-    MdTabHeader.prototype._onContentChanges = function () {
+    MatTabHeader.prototype._onContentChanges = function () {
         this._updatePagination();
         this._alignInkBarToSelectedTab();
         this._changeDetectorRef.markForCheck();
@@ -3091,12 +2936,12 @@ var MdTabHeader = (function (_super) {
      * Updating the view whether pagination should be enabled or not
      * @return {?}
      */
-    MdTabHeader.prototype._updatePagination = function () {
+    MatTabHeader.prototype._updatePagination = function () {
         this._checkPaginationEnabled();
         this._checkScrollingControls();
         this._updateTabScrollPosition();
     };
-    Object.defineProperty(MdTabHeader.prototype, "focusIndex", {
+    Object.defineProperty(MatTabHeader.prototype, "focusIndex", {
         /**
          * Tracks which element has focus; used for keyboard navigation
          * @return {?}
@@ -3124,7 +2969,7 @@ var MdTabHeader = (function (_super) {
      * @param {?} index
      * @return {?}
      */
-    MdTabHeader.prototype._isValidIndex = function (index) {
+    MatTabHeader.prototype._isValidIndex = function (index) {
         if (!this._labelWrappers) {
             return true;
         }
@@ -3137,7 +2982,7 @@ var MdTabHeader = (function (_super) {
      * @param {?} tabIndex
      * @return {?}
      */
-    MdTabHeader.prototype._setTabFocus = function (tabIndex) {
+    MatTabHeader.prototype._setTabFocus = function (tabIndex) {
         if (this._showPaginationControls) {
             this._scrollToLabel(tabIndex);
         }
@@ -3162,7 +3007,7 @@ var MdTabHeader = (function (_super) {
      * @param {?} offset
      * @return {?}
      */
-    MdTabHeader.prototype._moveFocus = function (offset) {
+    MatTabHeader.prototype._moveFocus = function (offset) {
         if (this._labelWrappers) {
             var /** @type {?} */ tabs = this._labelWrappers.toArray();
             for (var /** @type {?} */ i = this.focusIndex + offset; i < tabs.length && i >= 0; i += offset) {
@@ -3177,33 +3022,33 @@ var MdTabHeader = (function (_super) {
      * Increment the focus index by 1 until a valid tab is found.
      * @return {?}
      */
-    MdTabHeader.prototype._focusNextTab = function () {
+    MatTabHeader.prototype._focusNextTab = function () {
         this._moveFocus(this._getLayoutDirection() == 'ltr' ? 1 : -1);
     };
     /**
      * Decrement the focus index by 1 until a valid tab is found.
      * @return {?}
      */
-    MdTabHeader.prototype._focusPreviousTab = function () {
+    MatTabHeader.prototype._focusPreviousTab = function () {
         this._moveFocus(this._getLayoutDirection() == 'ltr' ? -1 : 1);
     };
     /**
      * The layout direction of the containing app.
      * @return {?}
      */
-    MdTabHeader.prototype._getLayoutDirection = function () {
+    MatTabHeader.prototype._getLayoutDirection = function () {
         return this._dir && this._dir.value === 'rtl' ? 'rtl' : 'ltr';
     };
     /**
      * Performs the CSS transformation on the tab list that will cause the list to scroll.
      * @return {?}
      */
-    MdTabHeader.prototype._updateTabScrollPosition = function () {
+    MatTabHeader.prototype._updateTabScrollPosition = function () {
         var /** @type {?} */ scrollDistance = this.scrollDistance;
         var /** @type {?} */ translateX = this._getLayoutDirection() === 'ltr' ? -scrollDistance : scrollDistance;
         this._renderer.setStyle(this._tabList.nativeElement, 'transform', "translate3d(" + translateX + "px, 0, 0)");
     };
-    Object.defineProperty(MdTabHeader.prototype, "scrollDistance", {
+    Object.defineProperty(MatTabHeader.prototype, "scrollDistance", {
         /**
          * @return {?}
          */
@@ -3233,7 +3078,7 @@ var MdTabHeader = (function (_super) {
      * @param {?} scrollDir
      * @return {?}
      */
-    MdTabHeader.prototype._scrollHeader = function (scrollDir) {
+    MatTabHeader.prototype._scrollHeader = function (scrollDir) {
         var /** @type {?} */ viewLength = this._tabListContainer.nativeElement.offsetWidth;
         // Move the scroll distance one-third the length of the tab list's viewport.
         this.scrollDistance += (scrollDir == 'before' ? -1 : 1) * viewLength / 3;
@@ -3246,7 +3091,7 @@ var MdTabHeader = (function (_super) {
      * @param {?} labelIndex
      * @return {?}
      */
-    MdTabHeader.prototype._scrollToLabel = function (labelIndex) {
+    MatTabHeader.prototype._scrollToLabel = function (labelIndex) {
         var /** @type {?} */ selectedLabel = this._labelWrappers ? this._labelWrappers.toArray()[labelIndex] : null;
         if (!selectedLabel) {
             return;
@@ -3282,7 +3127,7 @@ var MdTabHeader = (function (_super) {
      * should be called sparingly.
      * @return {?}
      */
-    MdTabHeader.prototype._checkPaginationEnabled = function () {
+    MatTabHeader.prototype._checkPaginationEnabled = function () {
         var /** @type {?} */ isEnabled = this._tabList.nativeElement.scrollWidth > this._elementRef.nativeElement.offsetWidth;
         if (!isEnabled) {
             this.scrollDistance = 0;
@@ -3302,7 +3147,7 @@ var MdTabHeader = (function (_super) {
      * should be called sparingly.
      * @return {?}
      */
-    MdTabHeader.prototype._checkScrollingControls = function () {
+    MatTabHeader.prototype._checkScrollingControls = function () {
         // Check if the pagination arrows should be activated.
         this._disableScrollBefore = this.scrollDistance == 0;
         this._disableScrollAfter = this.scrollDistance == this._getMaxScrollDistance();
@@ -3316,7 +3161,7 @@ var MdTabHeader = (function (_super) {
      * should be called sparingly.
      * @return {?}
      */
-    MdTabHeader.prototype._getMaxScrollDistance = function () {
+    MatTabHeader.prototype._getMaxScrollDistance = function () {
         var /** @type {?} */ lengthOfTabList = this._tabList.nativeElement.scrollWidth;
         var /** @type {?} */ viewLength = this._tabListContainer.nativeElement.offsetWidth;
         return (lengthOfTabList - viewLength) || 0;
@@ -3325,17 +3170,17 @@ var MdTabHeader = (function (_super) {
      * Tells the ink-bar to align itself to the current label wrapper
      * @return {?}
      */
-    MdTabHeader.prototype._alignInkBarToSelectedTab = function () {
+    MatTabHeader.prototype._alignInkBarToSelectedTab = function () {
         var /** @type {?} */ selectedLabelWrapper = this._labelWrappers && this._labelWrappers.length ?
             this._labelWrappers.toArray()[this.selectedIndex].elementRef.nativeElement :
             null;
         this._inkBar.alignToElement(selectedLabelWrapper);
     };
-    return MdTabHeader;
-}(_MdTabHeaderMixinBase));
-MdTabHeader.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-tab-header, mat-tab-header',
-                template: "<div class=\"mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4\" aria-hidden=\"true\" md-ripple [mdRippleDisabled]=\"_disableScrollBefore || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollBefore\" (click)=\"_scrollHeader('before')\"><div class=\"mat-tab-header-pagination-chevron\"></div></div><div class=\"mat-tab-label-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\"><div class=\"mat-tab-list\" #tabList role=\"tablist\" (cdkObserveContent)=\"_onContentChanges()\"><div class=\"mat-tab-labels\"><ng-content></ng-content></div><md-ink-bar></md-ink-bar></div></div><div class=\"mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4\" aria-hidden=\"true\" md-ripple [mdRippleDisabled]=\"_disableScrollAfter || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollAfter\" (click)=\"_scrollHeader('after')\"><div class=\"mat-tab-header-pagination-chevron\"></div></div>",
+    return MatTabHeader;
+}(_MatTabHeaderMixinBase));
+MatTabHeader.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-tab-header',
+                template: "<div class=\"mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4\" aria-hidden=\"true\" mat-ripple [matRippleDisabled]=\"_disableScrollBefore || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollBefore\" (click)=\"_scrollHeader('before')\"><div class=\"mat-tab-header-pagination-chevron\"></div></div><div class=\"mat-tab-label-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\"><div class=\"mat-tab-list\" #tabList role=\"tablist\" (cdkObserveContent)=\"_onContentChanges()\"><div class=\"mat-tab-labels\"><ng-content></ng-content></div><mat-ink-bar></mat-ink-bar></div></div><div class=\"mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4\" aria-hidden=\"true\" mat-ripple [matRippleDisabled]=\"_disableScrollAfter || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollAfter\" (click)=\"_scrollHeader('after')\"><div class=\"mat-tab-header-pagination-chevron\"></div></div>",
                 styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0;opacity:1}.mat-tab-label.mat-tab-disabled{cursor:default;pointer-events:none}@media (max-width:600px){.mat-tab-label{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}.mat-tab-header-pagination{position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-pagination-after,.mat-tab-header-rtl .mat-tab-header-pagination-before{padding-right:4px}.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:'';height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-label-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}.mat-tab-list{flex-grow:1;position:relative;transition:transform .5s cubic-bezier(.35,0,.25,1)}.mat-tab-labels{display:flex}"],
                 inputs: ['disableRipple'],
                 encapsulation: _angular_core.ViewEncapsulation.None,
@@ -3345,21 +3190,21 @@ MdTabHeader.decorators = [
                     'class': 'mat-tab-header',
                     '[class.mat-tab-header-pagination-controls-enabled]': '_showPaginationControls',
                     '[class.mat-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
-                }
+                },
             },] },
 ];
 /**
  * @nocollapse
  */
-MdTabHeader.ctorParameters = function () { return [
+MatTabHeader.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ChangeDetectorRef, },
     { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
 ]; };
-MdTabHeader.propDecorators = {
-    '_labelWrappers': [{ type: _angular_core.ContentChildren, args: [MdTabLabelWrapper,] },],
-    '_inkBar': [{ type: _angular_core.ViewChild, args: [MdInkBar,] },],
+MatTabHeader.propDecorators = {
+    '_labelWrappers': [{ type: _angular_core.ContentChildren, args: [MatTabLabelWrapper,] },],
+    '_inkBar': [{ type: _angular_core.ViewChild, args: [MatInkBar,] },],
     '_tabListContainer': [{ type: _angular_core.ViewChild, args: ['tabListContainer',] },],
     '_tabList': [{ type: _angular_core.ViewChild, args: ['tabList',] },],
     'selectedIndex': [{ type: _angular_core.Input },],
@@ -3369,24 +3214,24 @@ MdTabHeader.propDecorators = {
 /**
  * \@docs-private
  */
-var MdTabNavBase = (function () {
+var MatTabNavBase = (function () {
     /**
      * @param {?} _renderer
      * @param {?} _elementRef
      */
-    function MdTabNavBase(_renderer, _elementRef) {
+    function MatTabNavBase(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
     }
-    return MdTabNavBase;
+    return MatTabNavBase;
 }());
-var _MdTabNavMixinBase = mixinDisableRipple(mixinColor(MdTabNavBase, 'primary'));
+var _MatTabNavMixinBase = mixinDisableRipple(mixinColor(MatTabNavBase, 'primary'));
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
  */
-var MdTabNav = (function (_super) {
-    __extends(MdTabNav, _super);
+var MatTabNav = (function (_super) {
+    __extends(MatTabNav, _super);
     /**
      * @param {?} renderer
      * @param {?} elementRef
@@ -3394,7 +3239,7 @@ var MdTabNav = (function (_super) {
      * @param {?} _ngZone
      * @param {?} _changeDetectorRef
      */
-    function MdTabNav(renderer, elementRef, _dir, _ngZone, _changeDetectorRef) {
+    function MatTabNav(renderer, elementRef, _dir, _ngZone, _changeDetectorRef) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._dir = _dir;
         _this._ngZone = _ngZone;
@@ -3406,7 +3251,7 @@ var MdTabNav = (function (_super) {
         _this._disableRipple = false;
         return _this;
     }
-    Object.defineProperty(MdTabNav.prototype, "backgroundColor", {
+    Object.defineProperty(MatTabNav.prototype, "backgroundColor", {
         /**
          * Background color of the tab nav.
          * @return {?}
@@ -3427,7 +3272,7 @@ var MdTabNav = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdTabNav.prototype, "disableRipple", {
+    Object.defineProperty(MatTabNav.prototype, "disableRipple", {
         /**
          * Whether ripples should be disabled for all links or not.
          * @return {?}
@@ -3449,7 +3294,7 @@ var MdTabNav = (function (_super) {
      * @param {?} element
      * @return {?}
      */
-    MdTabNav.prototype.updateActiveLink = function (element) {
+    MatTabNav.prototype.updateActiveLink = function (element) {
         this._activeLinkChanged = this._activeLinkElement != element;
         this._activeLinkElement = element;
         if (this._activeLinkChanged) {
@@ -3459,7 +3304,7 @@ var MdTabNav = (function (_super) {
     /**
      * @return {?}
      */
-    MdTabNav.prototype.ngAfterContentInit = function () {
+    MatTabNav.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._ngZone.runOutsideAngular(function () {
             var /** @type {?} */ dirChange = _this._dir ? _this._dir.change : rxjs_observable_of.of(null);
@@ -3476,7 +3321,7 @@ var MdTabNav = (function (_super) {
      * Checks if the active link has been changed and, if so, will update the ink bar.
      * @return {?}
      */
-    MdTabNav.prototype.ngAfterContentChecked = function () {
+    MatTabNav.prototype.ngAfterContentChecked = function () {
         if (this._activeLinkChanged) {
             this._alignInkBar();
             this._activeLinkChanged = false;
@@ -3485,7 +3330,7 @@ var MdTabNav = (function (_super) {
     /**
      * @return {?}
      */
-    MdTabNav.prototype.ngOnDestroy = function () {
+    MatTabNav.prototype.ngOnDestroy = function () {
         this._onDestroy.next();
         this._onDestroy.complete();
     };
@@ -3493,7 +3338,7 @@ var MdTabNav = (function (_super) {
      * Aligns the ink bar to the active link.
      * @return {?}
      */
-    MdTabNav.prototype._alignInkBar = function () {
+    MatTabNav.prototype._alignInkBar = function () {
         if (this._activeLinkElement) {
             this._inkBar.alignToElement(this._activeLinkElement.nativeElement);
         }
@@ -3502,18 +3347,18 @@ var MdTabNav = (function (_super) {
      * Sets the `disableRipple` property on each link of the navigation bar.
      * @return {?}
      */
-    MdTabNav.prototype._setLinkDisableRipple = function () {
+    MatTabNav.prototype._setLinkDisableRipple = function () {
         var _this = this;
         if (this._tabLinks) {
             this._tabLinks.forEach(function (link) { return link.disableRipple = _this.disableRipple; });
         }
     };
-    return MdTabNav;
-}(_MdTabNavMixinBase));
-MdTabNav.decorators = [
-    { type: _angular_core.Component, args: [{ selector: '[md-tab-nav-bar], [mat-tab-nav-bar]',
+    return MatTabNav;
+}(_MatTabNavMixinBase));
+MatTabNav.decorators = [
+    { type: _angular_core.Component, args: [{ selector: '[mat-tab-nav-bar]',
                 inputs: ['color', 'disableRipple'],
-                template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><md-ink-bar></md-ink-bar></div>",
+                template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><mat-ink-bar></mat-ink-bar></div>",
                 styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0;opacity:1}.mat-tab-link.mat-tab-disabled{cursor:default;pointer-events:none}@media (max-width:600px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}"],
                 host: { 'class': 'mat-tab-nav-bar' },
                 encapsulation: _angular_core.ViewEncapsulation.None,
@@ -3524,40 +3369,40 @@ MdTabNav.decorators = [
 /**
  * @nocollapse
  */
-MdTabNav.ctorParameters = function () { return [
+MatTabNav.ctorParameters = function () { return [
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ElementRef, },
     { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_core.NgZone, },
     { type: _angular_core.ChangeDetectorRef, },
 ]; };
-MdTabNav.propDecorators = {
-    '_inkBar': [{ type: _angular_core.ViewChild, args: [MdInkBar,] },],
-    '_tabLinks': [{ type: _angular_core.ContentChildren, args: [_angular_core.forwardRef(function () { return MdTabLink; }), { descendants: true },] },],
+MatTabNav.propDecorators = {
+    '_inkBar': [{ type: _angular_core.ViewChild, args: [MatInkBar,] },],
+    '_tabLinks': [{ type: _angular_core.ContentChildren, args: [_angular_core.forwardRef(function () { return MatTabLink; }), { descendants: true },] },],
     'backgroundColor': [{ type: _angular_core.Input },],
 };
-var MdTabLinkBase = (function () {
-    function MdTabLinkBase() {
+var MatTabLinkBase = (function () {
+    function MatTabLinkBase() {
     }
-    return MdTabLinkBase;
+    return MatTabLinkBase;
 }());
-var _MdTabLinkMixinBase = mixinDisabled(MdTabLinkBase);
+var _MatTabLinkMixinBase = mixinDisabled(MatTabLinkBase);
 /**
- * Link inside of a `md-tab-nav-bar`.
+ * Link inside of a `mat-tab-nav-bar`.
  */
-var MdTabLink = (function (_super) {
-    __extends(MdTabLink, _super);
+var MatTabLink = (function (_super) {
+    __extends(MatTabLink, _super);
     /**
-     * @param {?} _mdTabNavBar
+     * @param {?} _tabNavBar
      * @param {?} _elementRef
      * @param {?} ngZone
      * @param {?} ruler
      * @param {?} platform
      * @param {?} globalOptions
      */
-    function MdTabLink(_mdTabNavBar, _elementRef, ngZone, ruler, platform, globalOptions) {
+    function MatTabLink(_tabNavBar, _elementRef, ngZone, ruler, platform, globalOptions) {
         var _this = _super.call(this) || this;
-        _this._mdTabNavBar = _mdTabNavBar;
+        _this._tabNavBar = _tabNavBar;
         _this._elementRef = _elementRef;
         /**
          * Whether the tab link is active or not.
@@ -3569,10 +3414,10 @@ var MdTabLink = (function (_super) {
         _this._disableRipple = false;
         // Manually create a ripple instance that uses the tab link element as trigger element.
         // Notice that the lifecycle hooks for the ripple config won't be called anymore.
-        _this._tabLinkRipple = new MdRipple(_elementRef, ngZone, ruler, platform, globalOptions);
+        _this._tabLinkRipple = new MatRipple(_elementRef, ngZone, ruler, platform, globalOptions);
         return _this;
     }
-    Object.defineProperty(MdTabLink.prototype, "active", {
+    Object.defineProperty(MatTabLink.prototype, "active", {
         /**
          * Whether the link is active.
          * @return {?}
@@ -3585,13 +3430,13 @@ var MdTabLink = (function (_super) {
         set: function (value) {
             this._isActive = value;
             if (value) {
-                this._mdTabNavBar.updateActiveLink(this._elementRef);
+                this._tabNavBar.updateActiveLink(this._elementRef);
             }
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdTabLink.prototype, "disableRipple", {
+    Object.defineProperty(MatTabLink.prototype, "disableRipple", {
         /**
          * Whether ripples should be disabled or not.
          * @return {?}
@@ -3609,7 +3454,7 @@ var MdTabLink = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdTabLink.prototype, "tabIndex", {
+    Object.defineProperty(MatTabLink.prototype, "tabIndex", {
         /**
          * \@docs-private
          * @return {?}
@@ -3623,16 +3468,16 @@ var MdTabLink = (function (_super) {
     /**
      * @return {?}
      */
-    MdTabLink.prototype.ngOnDestroy = function () {
+    MatTabLink.prototype.ngOnDestroy = function () {
         // Manually call the ngOnDestroy lifecycle hook of the ripple instance because it won't be
         // called automatically since its instance is not created by Angular.
         this._tabLinkRipple.ngOnDestroy();
     };
-    return MdTabLink;
-}(_MdTabLinkMixinBase));
-MdTabLink.decorators = [
+    return MatTabLink;
+}(_MatTabLinkMixinBase));
+MatTabLink.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[md-tab-link], [mat-tab-link], [mdTabLink], [matTabLink]',
+                selector: '[mat-tab-link], [matTabLink]',
                 inputs: ['disabled'],
                 host: {
                     'class': 'mat-tab-link',
@@ -3645,51 +3490,51 @@ MdTabLink.decorators = [
 /**
  * @nocollapse
  */
-MdTabLink.ctorParameters = function () { return [
-    { type: MdTabNav, },
+MatTabLink.ctorParameters = function () { return [
+    { type: MatTabNav, },
     { type: _angular_core.ElementRef, },
     { type: _angular_core.NgZone, },
     { type: _angular_cdk_scrolling.ViewportRuler, },
     { type: _angular_cdk_platform.Platform, },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_RIPPLE_GLOBAL_OPTIONS,] },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
 ]; };
-MdTabLink.propDecorators = {
+MatTabLink.propDecorators = {
     'active': [{ type: _angular_core.Input },],
 };
-var MdTabsModule = (function () {
-    function MdTabsModule() {
+var MatTabsModule = (function () {
+    function MatTabsModule() {
     }
-    return MdTabsModule;
+    return MatTabsModule;
 }());
-MdTabsModule.decorators = [
+MatTabsModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [
                     _angular_common.CommonModule,
-                    MdCommonModule,
+                    MatCommonModule,
                     _angular_cdk_portal.PortalModule,
-                    MdRippleModule,
+                    MatRippleModule,
                     _angular_cdk_observers.ObserversModule,
                     _angular_cdk_scrolling.ScrollDispatchModule,
                 ],
                 // Don't export all components because some are only to be used internally.
                 exports: [
-                    MdCommonModule,
-                    MdTabGroup,
-                    MdTabLabel,
-                    MdTab,
-                    MdTabNav,
-                    MdTabLink,
+                    MatCommonModule,
+                    MatTabGroup,
+                    MatTabLabel,
+                    MatTab,
+                    MatTabNav,
+                    MatTabLink,
                 ],
                 declarations: [
-                    MdTabGroup,
-                    MdTabLabel,
-                    MdTab,
-                    MdInkBar,
-                    MdTabLabelWrapper,
-                    MdTabNav,
-                    MdTabLink,
-                    MdTabBody,
-                    MdTabHeader
+                    MatTabGroup,
+                    MatTabLabel,
+                    MatTab,
+                    MatInkBar,
+                    MatTabLabelWrapper,
+                    MatTabNav,
+                    MatTabLink,
+                    MatTabBody,
+                    MatTabHeader
                 ],
                 providers: [_angular_cdk_scrolling.VIEWPORT_RULER_PROVIDER],
             },] },
@@ -3697,43 +3542,31 @@ MdTabsModule.decorators = [
 /**
  * @nocollapse
  */
-MdTabsModule.ctorParameters = function () { return []; };
+MatTabsModule.ctorParameters = function () { return []; };
 
-exports.MdInkBar = MdInkBar;
-exports.MdTabBody = MdTabBody;
-exports.MdTabHeader = MdTabHeader;
-exports.MdTabLabelWrapper = MdTabLabelWrapper;
-exports.MdTab = MdTab;
-exports.MdTabLabel = MdTabLabel;
-exports.MdTabNav = MdTabNav;
-exports.MdTabLink = MdTabLink;
-exports.MdTabsModule = MdTabsModule;
-exports.MdTabChangeEvent = MdTabChangeEvent;
-exports.MdTabGroupBase = MdTabGroupBase;
-exports._MdTabGroupMixinBase = _MdTabGroupMixinBase;
-exports.MdTabGroup = MdTabGroup;
-exports.MatInkBar = MdInkBar;
-exports.MatTab = MdTab;
-exports.MatTabBody = MdTabBody;
-exports.MatTabChangeEvent = MdTabChangeEvent;
-exports.MatTabGroup = MdTabGroup;
-exports.MatTabGroupBase = MdTabGroupBase;
-exports.MatTabHeader = MdTabHeader;
-exports.MatTabLabel = MdTabLabel;
-exports.MatTabLabelWrapper = MdTabLabelWrapper;
-exports.MatTabLink = MdTabLink;
-exports.MatTabNav = MdTabNav;
-exports.MatTabsModule = MdTabsModule;
-exports.ɵe23 = MdTabBase;
-exports.ɵf23 = _MdTabMixinBase;
-exports.ɵa23 = MdTabHeaderBase;
-exports.ɵb23 = _MdTabHeaderMixinBase;
-exports.ɵc23 = MdTabLabelWrapperBase;
-exports.ɵd23 = _MdTabLabelWrapperMixinBase;
-exports.ɵi23 = MdTabLinkBase;
-exports.ɵg23 = MdTabNavBase;
-exports.ɵj23 = _MdTabLinkMixinBase;
-exports.ɵh23 = _MdTabNavMixinBase;
+exports.MatInkBar = MatInkBar;
+exports.MatTabBody = MatTabBody;
+exports.MatTabHeader = MatTabHeader;
+exports.MatTabLabelWrapper = MatTabLabelWrapper;
+exports.MatTab = MatTab;
+exports.MatTabLabel = MatTabLabel;
+exports.MatTabNav = MatTabNav;
+exports.MatTabLink = MatTabLink;
+exports.MatTabsModule = MatTabsModule;
+exports.MatTabChangeEvent = MatTabChangeEvent;
+exports.MatTabGroupBase = MatTabGroupBase;
+exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
+exports.MatTabGroup = MatTabGroup;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

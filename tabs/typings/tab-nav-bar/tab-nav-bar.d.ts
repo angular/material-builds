@@ -10,19 +10,19 @@ import { Platform } from '@angular/cdk/platform';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, NgZone, OnDestroy, QueryList, Renderer2 } from '@angular/core';
 import { CanColor, CanDisable, CanDisableRipple, RippleGlobalOptions, ThemePalette } from '@angular/material/core';
-import { MdInkBar } from '../ink-bar';
+import { MatInkBar } from '../ink-bar';
 /** @docs-private */
-export declare class MdTabNavBase {
+export declare class MatTabNavBase {
     _renderer: Renderer2;
     _elementRef: ElementRef;
     constructor(_renderer: Renderer2, _elementRef: ElementRef);
 }
-export declare const _MdTabNavMixinBase: (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanColor) & typeof MdTabNavBase;
+export declare const _MatTabNavMixinBase: (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanColor) & typeof MatTabNavBase;
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
  */
-export declare class MdTabNav extends _MdTabNavMixinBase implements AfterContentInit, CanColor, CanDisableRipple, OnDestroy {
+export declare class MatTabNav extends _MatTabNavMixinBase implements AfterContentInit, CanColor, CanDisableRipple, OnDestroy {
     private _dir;
     private _ngZone;
     private _changeDetectorRef;
@@ -30,9 +30,9 @@ export declare class MdTabNav extends _MdTabNavMixinBase implements AfterContent
     private _onDestroy;
     _activeLinkChanged: boolean;
     _activeLinkElement: ElementRef;
-    _inkBar: MdInkBar;
+    _inkBar: MatInkBar;
     /** Query list of all tab links of the tab navigation. */
-    _tabLinks: QueryList<MdTabLink>;
+    _tabLinks: QueryList<MatTabLink>;
     /** Background color of the tab nav. */
     backgroundColor: ThemePalette;
     private _backgroundColor;
@@ -51,14 +51,14 @@ export declare class MdTabNav extends _MdTabNavMixinBase implements AfterContent
     /** Sets the `disableRipple` property on each link of the navigation bar. */
     private _setLinkDisableRipple();
 }
-export declare class MdTabLinkBase {
+export declare class MatTabLinkBase {
 }
-export declare const _MdTabLinkMixinBase: (new (...args: any[]) => CanDisable) & typeof MdTabLinkBase;
+export declare const _MatTabLinkMixinBase: (new (...args: any[]) => CanDisable) & typeof MatTabLinkBase;
 /**
- * Link inside of a `md-tab-nav-bar`.
+ * Link inside of a `mat-tab-nav-bar`.
  */
-export declare class MdTabLink extends _MdTabLinkMixinBase implements OnDestroy, CanDisable {
-    private _mdTabNavBar;
+export declare class MatTabLink extends _MatTabLinkMixinBase implements OnDestroy, CanDisable {
+    private _tabNavBar;
     private _elementRef;
     /** Whether the tab link is active or not. */
     private _isActive;
@@ -72,6 +72,6 @@ export declare class MdTabLink extends _MdTabLinkMixinBase implements OnDestroy,
     disableRipple: boolean;
     /** @docs-private */
     readonly tabIndex: number;
-    constructor(_mdTabNavBar: MdTabNav, _elementRef: ElementRef, ngZone: NgZone, ruler: ViewportRuler, platform: Platform, globalOptions: RippleGlobalOptions);
+    constructor(_tabNavBar: MatTabNav, _elementRef: ElementRef, ngZone: NgZone, ruler: ViewportRuler, platform: Platform, globalOptions: RippleGlobalOptions);
     ngOnDestroy(): void;
 }

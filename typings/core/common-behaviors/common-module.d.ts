@@ -12,9 +12,9 @@ export declare const MATERIAL_SANITY_CHECKS: InjectionToken<boolean>;
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
  * components. This includes Bidi, compatibility mode, etc.
  *
- * This module should be imported to each top-level component module (e.g., MdTabsModule).
+ * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
-export declare class MdCommonModule {
+export declare class MatCommonModule {
     private _document;
     /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
     private _hasDoneGlobalChecks;

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/animations'), require('@angular/cdk/table'), require('rxjs/observable/merge'), require('rxjs/Subject'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/platform-browser'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/coercion', '@angular/animations', '@angular/cdk/table', 'rxjs/observable/merge', 'rxjs/Subject', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/platform-browser', '@angular/cdk/keycodes', '@angular/common', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/rxjs'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sort = global.ng.material.sort || {}),global.ng.core,global.ng.cdk.coercion,global.ng.animations,global.ng.cdk.table,global.Rx.Observable,global.Rx,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.platformBrowser,global.ng.cdk.keycodes,global.ng.common,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.rxjs));
-}(this, (function (exports,_angular_core,_angular_cdk_coercion,_angular_animations,_angular_cdk_table,rxjs_observable_merge,rxjs_Subject,_angular_cdk_a11y,_angular_cdk_bidi,_angular_platformBrowser,_angular_cdk_keycodes,_angular_common,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_rxjs) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/animations'), require('@angular/cdk/table'), require('rxjs/observable/merge'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/common'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/coercion', '@angular/animations', '@angular/cdk/table', 'rxjs/observable/merge', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/common', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sort = global.ng.material.sort || {}),global.ng.core,global.ng.cdk.coercion,global.ng.animations,global.ng.cdk.table,global.Rx.Observable,global.Rx,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.common,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes));
+}(this, (function (exports,_angular_core,_angular_cdk_coercion,_angular_animations,_angular_cdk_table,rxjs_observable_merge,rxjs_Subject,_angular_platformBrowser,_angular_cdk_bidi,_angular_common,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -62,18 +62,6 @@ AnimationDurations.ENTERING = '225ms';
 AnimationDurations.EXITING = '195ms';
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
- * Returns an exception to be thrown if the consumer has used
- * an invalid Material prefix on a component.
- * \@docs-private
- * @param {?} prefix
- * @param {?} nodeName
- * @return {?}
- */
-function getMdCompatibilityInvalidPrefixError(prefix, nodeName) {
-    return Error("The \"" + prefix + "-\" prefix cannot be used in ng-material v1 compatibility mode. " +
-        ("It was used on an \"" + nodeName.toLowerCase() + "\" element."));
-}
-/**
  * Selector that matches all elements that may have style collisions with AngularJS Material.
  */
 var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [matCardSubtitle],\n  [matCardTitle],\n  [matCellDef],\n  [matColumnDef],\n  [matDialogActions],\n  [matDialogClose],\n  [matDialogContent],\n  [matDialogTitle],\n  [matHeaderCellDef],\n  [matHeaderRowDef],\n  [matLine],\n  [matRowDef],\n  [matStepLabel],\n  [matStepperNext],\n  [matStepperPrevious],\n  [matTabLabel],\n  [matTabLink],\n  [matTabNav],\n  [matTooltip],\n  [matInput],\n  [matPrefix],\n  [matSuffix],\n  mat-autocomplete,\n  mat-button-toggle,\n  mat-button-toggle,\n  mat-button-toggle-group,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-cell,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-error,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-header-cell,\n  mat-header-row,\n  mat-hint,\n  mat-horizontal-stepper,\n  mat-icon,\n  mat-input-container,\n  mat-form-field,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-pseudo-checkbox,\n  mat-radio-button,\n  mat-radio-group,\n  mat-row,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-step,\n  mat-tab,\n  mat-table,\n  mat-tab-group,\n  mat-toolbar,\n  mat-vertical-stepper";
@@ -85,14 +73,7 @@ var MD_ELEMENTS_SELECTOR = "\n  [md-button],\n  [md-fab],\n  [md-icon-button],\n
  * Directive that enforces that the `mat-` prefix cannot be used.
  */
 var MatPrefixRejector = (function () {
-    /**
-     * @param {?} isCompatibilityMode
-     * @param {?} elementRef
-     */
-    function MatPrefixRejector(isCompatibilityMode, elementRef) {
-        if (!isCompatibilityMode) {
-            throw getMdCompatibilityInvalidPrefixError('mat', elementRef.nativeElement.nodeName);
-        }
+    function MatPrefixRejector() {
     }
     return MatPrefixRejector;
 }());
@@ -102,22 +83,12 @@ MatPrefixRejector.decorators = [
 /**
  * @nocollapse
  */
-MatPrefixRejector.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
-    { type: _angular_core.ElementRef, },
-]; };
+MatPrefixRejector.ctorParameters = function () { return []; };
 /**
  * Directive that enforces that the `md-` prefix cannot be used.
  */
 var MdPrefixRejector = (function () {
-    /**
-     * @param {?} isCompatibilityMode
-     * @param {?} elementRef
-     */
-    function MdPrefixRejector(isCompatibilityMode, elementRef) {
-        if (isCompatibilityMode) {
-            throw getMdCompatibilityInvalidPrefixError('md', elementRef.nativeElement.nodeName);
-        }
+    function MdPrefixRejector() {
     }
     return MdPrefixRejector;
 }());
@@ -127,10 +98,7 @@ MdPrefixRejector.decorators = [
 /**
  * @nocollapse
  */
-MdPrefixRejector.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
-    { type: _angular_core.ElementRef, },
-]; };
+MdPrefixRejector.ctorParameters = function () { return []; };
 /**
  * Module that enforces the default compatibility mode settings. When this module is loaded
  * without NoConflictStyleCompatibilityMode also being imported, it will throw an error if
@@ -161,11 +129,7 @@ var NoConflictStyleCompatibilityMode = (function () {
     return NoConflictStyleCompatibilityMode;
 }());
 NoConflictStyleCompatibilityMode.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                providers: [{
-                        provide: MATERIAL_COMPATIBILITY_MODE, useValue: true,
-                    }],
-            },] },
+    { type: _angular_core.NgModule },
 ];
 /**
  * @nocollapse
@@ -174,19 +138,19 @@ NoConflictStyleCompatibilityMode.ctorParameters = function () { return []; };
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
-var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('md-sanity-checks');
+var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('mat-sanity-checks');
 /**
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
  * components. This includes Bidi, compatibility mode, etc.
  *
- * This module should be imported to each top-level component module (e.g., MdTabsModule).
+ * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
-var MdCommonModule = (function () {
+var MatCommonModule = (function () {
     /**
      * @param {?} _document
      * @param {?} _sanityChecksEnabled
      */
-    function MdCommonModule(_document, _sanityChecksEnabled) {
+    function MatCommonModule(_document, _sanityChecksEnabled) {
         this._document = _document;
         /**
          * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
@@ -201,7 +165,7 @@ var MdCommonModule = (function () {
     /**
      * @return {?}
      */
-    MdCommonModule.prototype._checkDoctype = function () {
+    MatCommonModule.prototype._checkDoctype = function () {
         if (!this._document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
                 'some Angular Material components not to behave as expected.');
@@ -210,7 +174,7 @@ var MdCommonModule = (function () {
     /**
      * @return {?}
      */
-    MdCommonModule.prototype._checkTheme = function () {
+    MatCommonModule.prototype._checkTheme = function () {
         if (typeof getComputedStyle === 'function') {
             var /** @type {?} */ testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
@@ -223,9 +187,9 @@ var MdCommonModule = (function () {
             this._document.body.removeChild(testElement);
         }
     };
-    return MdCommonModule;
+    return MatCommonModule;
 }());
-MdCommonModule.decorators = [
+MatCommonModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
                 exports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
@@ -237,7 +201,7 @@ MdCommonModule.decorators = [
 /**
  * @nocollapse
  */
-MdCommonModule.ctorParameters = function () { return [
+MatCommonModule.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
 ]; };
@@ -550,10 +514,10 @@ var DateAdapter = (function () {
      * @return {?} 0 if the dates are equal, a number less than 0 if the first date is earlier,
      *     a number greater than 0 if the first date is later.
      */
-    DateAdapter.prototype.compareDate = function (first$$1, second) {
-        return this.getYear(first$$1) - this.getYear(second) ||
-            this.getMonth(first$$1) - this.getMonth(second) ||
-            this.getDate(first$$1) - this.getDate(second);
+    DateAdapter.prototype.compareDate = function (first, second) {
+        return this.getYear(first) - this.getYear(second) ||
+            this.getMonth(first) - this.getMonth(second) ||
+            this.getDate(first) - this.getDate(second);
     };
     /**
      * Checks if two dates are equal.
@@ -562,8 +526,8 @@ var DateAdapter = (function () {
      *     Null dates are considered equal to other null dates.
      * @return {?}
      */
-    DateAdapter.prototype.sameDate = function (first$$1, second) {
-        return first$$1 && second ? !this.compareDate(first$$1, second) : first$$1 == second;
+    DateAdapter.prototype.sameDate = function (first, second) {
+        return first && second ? !this.compareDate(first, second) : first == second;
     };
     /**
      * Clamp the given date between min and max dates.
@@ -950,8 +914,8 @@ NativeDateAdapter.decorators = [
 NativeDateAdapter.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_LOCALE,] },] },
 ]; };
-var MD_DATE_FORMATS = new _angular_core.InjectionToken('md-date-formats');
-var MD_NATIVE_DATE_FORMATS = {
+var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
+var MAT_NATIVE_DATE_FORMATS = {
     parse: {
         dateInput: null,
     },
@@ -979,25 +943,25 @@ NativeDateModule.decorators = [
  * @nocollapse
  */
 NativeDateModule.ctorParameters = function () { return []; };
-var MdNativeDateModule = (function () {
-    function MdNativeDateModule() {
+var MatNativeDateModule = (function () {
+    function MatNativeDateModule() {
     }
-    return MdNativeDateModule;
+    return MatNativeDateModule;
 }());
-MdNativeDateModule.decorators = [
+MatNativeDateModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [NativeDateModule],
-                providers: [{ provide: MD_DATE_FORMATS, useValue: MD_NATIVE_DATE_FORMATS }],
+                providers: [{ provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS }],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdNativeDateModule.ctorParameters = function () { return []; };
+MatNativeDateModule.ctorParameters = function () { return []; };
 /**
  * Injection token that can be used to specify the global error options.
  */
-var MD_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('md-error-global-options');
+var MAT_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-error-global-options');
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
@@ -1076,40 +1040,40 @@ GestureConfig.decorators = [
 GestureConfig.ctorParameters = function () { return []; };
 /**
  * Shared directive to count lines inside a text area, such as a list item.
- * Line elements can be extracted with a \@ContentChildren(MdLine) query, then
+ * Line elements can be extracted with a \@ContentChildren(MatLine) query, then
  * counted by checking the query list's length.
  */
-var MdLine = (function () {
-    function MdLine() {
+var MatLine = (function () {
+    function MatLine() {
     }
-    return MdLine;
+    return MatLine;
 }());
-MdLine.decorators = [
+MatLine.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[md-line], [mat-line], [mdLine], [matLine]',
+                selector: '[mat-line], [matLine]',
                 host: { 'class': 'mat-line' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdLine.ctorParameters = function () { return []; };
-var MdLineModule = (function () {
-    function MdLineModule() {
+MatLine.ctorParameters = function () { return []; };
+var MatLineModule = (function () {
+    function MatLineModule() {
     }
-    return MdLineModule;
+    return MatLineModule;
 }());
-MdLineModule.decorators = [
+MatLineModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdCommonModule],
-                exports: [MdLine, MdCommonModule],
-                declarations: [MdLine],
+                imports: [MatCommonModule],
+                exports: [MatLine, MatCommonModule],
+                declarations: [MatLine],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdLineModule.ctorParameters = function () { return []; };
+MatLineModule.ctorParameters = function () { return []; };
 var RippleState = {};
 RippleState.FADING_IN = 0;
 RippleState.VISIBLE = 1;
@@ -1375,8 +1339,8 @@ function distanceToFurthestCorner(x, y, rect) {
 /**
  * Injection token that can be used to specify the global ripple options.
  */
-var MD_RIPPLE_GLOBAL_OPTIONS = new _angular_core.InjectionToken('md-ripple-global-options');
-var MdRipple = (function () {
+var MAT_RIPPLE_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-ripple-global-options');
+var MatRipple = (function () {
     /**
      * @param {?} elementRef
      * @param {?} ngZone
@@ -1384,7 +1348,7 @@ var MdRipple = (function () {
      * @param {?} platform
      * @param {?} globalOptions
      */
-    function MdRipple(elementRef, ngZone, ruler, platform, globalOptions) {
+    function MatRipple(elementRef, ngZone, ruler, platform, globalOptions) {
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -1401,103 +1365,12 @@ var MdRipple = (function () {
         this._globalOptions = globalOptions ? globalOptions : {};
         this._updateRippleRenderer();
     }
-    Object.defineProperty(MdRipple.prototype, "_matRippleTrigger", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.trigger; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.trigger = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleCentered", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.centered; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.centered = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleDisabled", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.disabled; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.disabled = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleRadius", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.radius; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.radius = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleSpeedFactor", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.speedFactor; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.speedFactor = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleColor", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.color; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.color = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleUnbounded", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.unbounded; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.unbounded = v; },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @param {?} changes
      * @return {?}
      */
-    MdRipple.prototype.ngOnChanges = function (changes) {
-        if (changes['trigger'] && this.trigger) {
+    MatRipple.prototype.ngOnChanges = function (changes) {
+        if ((changes['trigger'] || changes['_matRippleTrigger']) && this.trigger) {
             this._rippleRenderer.setTriggerElement(this.trigger);
         }
         this._updateRippleRenderer();
@@ -1505,7 +1378,7 @@ var MdRipple = (function () {
     /**
      * @return {?}
      */
-    MdRipple.prototype.ngOnDestroy = function () {
+    MatRipple.prototype.ngOnDestroy = function () {
         // Set the trigger element to null to cleanup all listeners.
         this._rippleRenderer.setTriggerElement(null);
     };
@@ -1516,7 +1389,7 @@ var MdRipple = (function () {
      * @param {?=} config
      * @return {?}
      */
-    MdRipple.prototype.launch = function (pageX, pageY, config) {
+    MatRipple.prototype.launch = function (pageX, pageY, config) {
         if (config === void 0) { config = this.rippleConfig; }
         return this._rippleRenderer.fadeInRipple(pageX, pageY, config);
     };
@@ -1524,10 +1397,10 @@ var MdRipple = (function () {
      * Fades out all currently showing ripple elements.
      * @return {?}
      */
-    MdRipple.prototype.fadeOutAll = function () {
+    MatRipple.prototype.fadeOutAll = function () {
         this._rippleRenderer.fadeOutAll();
     };
-    Object.defineProperty(MdRipple.prototype, "rippleConfig", {
+    Object.defineProperty(MatRipple.prototype, "rippleConfig", {
         /**
          * Ripple configuration from the directive's input values.
          * @return {?}
@@ -1547,16 +1420,16 @@ var MdRipple = (function () {
      * Updates the ripple renderer with the latest ripple configuration.
      * @return {?}
      */
-    MdRipple.prototype._updateRippleRenderer = function () {
+    MatRipple.prototype._updateRippleRenderer = function () {
         this._rippleRenderer.rippleDisabled = this._globalOptions.disabled || this.disabled;
         this._rippleRenderer.rippleConfig = this.rippleConfig;
     };
-    return MdRipple;
+    return MatRipple;
 }());
-MdRipple.decorators = [
+MatRipple.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[md-ripple], [mat-ripple], [mdRipple], [matRipple]',
-                exportAs: 'mdRipple, matRipple',
+                selector: '[mat-ripple], [matRipple]',
+                exportAs: 'matRipple',
                 host: {
                     'class': 'mat-ripple',
                     '[class.mat-ripple-unbounded]': 'unbounded'
@@ -1566,46 +1439,39 @@ MdRipple.decorators = [
 /**
  * @nocollapse
  */
-MdRipple.ctorParameters = function () { return [
+MatRipple.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.NgZone, },
     { type: _angular_cdk_scrolling.ViewportRuler, },
     { type: _angular_cdk_platform.Platform, },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_RIPPLE_GLOBAL_OPTIONS,] },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
 ]; };
-MdRipple.propDecorators = {
-    'trigger': [{ type: _angular_core.Input, args: ['mdRippleTrigger',] },],
-    'centered': [{ type: _angular_core.Input, args: ['mdRippleCentered',] },],
-    'disabled': [{ type: _angular_core.Input, args: ['mdRippleDisabled',] },],
-    'radius': [{ type: _angular_core.Input, args: ['mdRippleRadius',] },],
-    'speedFactor': [{ type: _angular_core.Input, args: ['mdRippleSpeedFactor',] },],
-    'color': [{ type: _angular_core.Input, args: ['mdRippleColor',] },],
-    'unbounded': [{ type: _angular_core.Input, args: ['mdRippleUnbounded',] },],
-    '_matRippleTrigger': [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
-    '_matRippleCentered': [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
-    '_matRippleDisabled': [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
-    '_matRippleRadius': [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
-    '_matRippleSpeedFactor': [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
-    '_matRippleColor': [{ type: _angular_core.Input, args: ['matRippleColor',] },],
-    '_matRippleUnbounded': [{ type: _angular_core.Input, args: ['matRippleUnbounded',] },],
+MatRipple.propDecorators = {
+    'trigger': [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
+    'centered': [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
+    'disabled': [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
+    'radius': [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
+    'speedFactor': [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
+    'color': [{ type: _angular_core.Input, args: ['matRippleColor',] },],
+    'unbounded': [{ type: _angular_core.Input, args: ['matRippleUnbounded',] },],
 };
-var MdRippleModule = (function () {
-    function MdRippleModule() {
+var MatRippleModule = (function () {
+    function MatRippleModule() {
     }
-    return MdRippleModule;
+    return MatRippleModule;
 }());
-MdRippleModule.decorators = [
+MatRippleModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
-                exports: [MdRipple, MdCommonModule],
-                declarations: [MdRipple],
+                imports: [MatCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
+                exports: [MatRipple, MatCommonModule],
+                declarations: [MatRipple],
                 providers: [_angular_cdk_scrolling.VIEWPORT_RULER_PROVIDER],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdRippleModule.ctorParameters = function () { return []; };
+MatRippleModule.ctorParameters = function () { return []; };
 /**
  * Component that shows a simplified checkbox without including any kind of "real" checkbox.
  * Meant to be used when the checkbox is purely decorative and a large number of them will be
@@ -1614,13 +1480,13 @@ MdRippleModule.ctorParameters = function () { return []; };
  * `mat-primary .mat-pseudo-checkbox`.
  *
  * Note that this component will be completely invisible to screen-reader users. This is *not*
- * interchangeable with <md-checkbox> and should *not* be used if the user would directly interact
+ * interchangeable with <mat-checkbox> and should *not* be used if the user would directly interact
  * with the checkbox. The pseudo-checkbox should only be used as an implementation detail of
  * more complex components that appropriately handle selected / checked state.
  * \@docs-private
  */
-var MdPseudoCheckbox = (function () {
-    function MdPseudoCheckbox() {
+var MatPseudoCheckbox = (function () {
+    function MatPseudoCheckbox() {
         /**
          * Display state of the checkbox.
          */
@@ -1630,13 +1496,13 @@ var MdPseudoCheckbox = (function () {
          */
         this.disabled = false;
     }
-    return MdPseudoCheckbox;
+    return MatPseudoCheckbox;
 }());
-MdPseudoCheckbox.decorators = [
+MatPseudoCheckbox.decorators = [
     { type: _angular_core.Component, args: [{ encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                selector: 'md-pseudo-checkbox, mat-pseudo-checkbox',
+                selector: 'mat-pseudo-checkbox',
                 styles: [".mat-pseudo-checkbox{width:20px;height:20px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0,0,.2,.1),background-color 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:'';border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:9px;left:2px;width:16px;opacity:1}.mat-pseudo-checkbox-checked::after{top:5px;left:3px;width:12px;height:5px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1}"],
                 template: '',
                 host: {
@@ -1650,43 +1516,43 @@ MdPseudoCheckbox.decorators = [
 /**
  * @nocollapse
  */
-MdPseudoCheckbox.ctorParameters = function () { return []; };
-MdPseudoCheckbox.propDecorators = {
+MatPseudoCheckbox.ctorParameters = function () { return []; };
+MatPseudoCheckbox.propDecorators = {
     'state': [{ type: _angular_core.Input },],
     'disabled': [{ type: _angular_core.Input },],
 };
-var MdPseudoCheckboxModule = (function () {
-    function MdPseudoCheckboxModule() {
+var MatPseudoCheckboxModule = (function () {
+    function MatPseudoCheckboxModule() {
     }
-    return MdPseudoCheckboxModule;
+    return MatPseudoCheckboxModule;
 }());
-MdPseudoCheckboxModule.decorators = [
+MatPseudoCheckboxModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                exports: [MdPseudoCheckbox],
-                declarations: [MdPseudoCheckbox]
+                exports: [MatPseudoCheckbox],
+                declarations: [MatPseudoCheckbox]
             },] },
 ];
 /**
  * @nocollapse
  */
-MdPseudoCheckboxModule.ctorParameters = function () { return []; };
+MatPseudoCheckboxModule.ctorParameters = function () { return []; };
 /**
  * \@docs-private
  */
-var MdOptgroupBase = (function () {
-    function MdOptgroupBase() {
+var MatOptgroupBase = (function () {
+    function MatOptgroupBase() {
     }
-    return MdOptgroupBase;
+    return MatOptgroupBase;
 }());
-var _MdOptgroupMixinBase = mixinDisabled(MdOptgroupBase);
+var _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
 // Counter for unique group ids.
 var _uniqueOptgroupIdCounter = 0;
 /**
- * Component that is used to group instances of `md-option`.
+ * Component that is used to group instances of `mat-option`.
  */
-var MdOptgroup = (function (_super) {
-    __extends(MdOptgroup, _super);
-    function MdOptgroup() {
+var MatOptgroup = (function (_super) {
+    __extends(MatOptgroup, _super);
+    function MatOptgroup() {
         var _this = _super.apply(this, arguments) || this;
         /**
          * Unique id for the underlying label.
@@ -1694,11 +1560,11 @@ var MdOptgroup = (function (_super) {
         _this._labelId = "mat-optgroup-label-" + _uniqueOptgroupIdCounter++;
         return _this;
     }
-    return MdOptgroup;
-}(_MdOptgroupMixinBase));
-MdOptgroup.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-optgroup, mat-optgroup',
-                template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"md-option, mat-option\"></ng-content>",
+    return MatOptgroup;
+}(_MatOptgroupMixinBase));
+MatOptgroup.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-optgroup',
+                template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -1715,8 +1581,8 @@ MdOptgroup.decorators = [
 /**
  * @nocollapse
  */
-MdOptgroup.ctorParameters = function () { return []; };
-MdOptgroup.propDecorators = {
+MatOptgroup.ctorParameters = function () { return []; };
+MatOptgroup.propDecorators = {
     'label': [{ type: _angular_core.Input },],
 };
 /**
@@ -1725,35 +1591,33 @@ MdOptgroup.propDecorators = {
  */
 var _uniqueIdCounter = 0;
 /**
- * Event object emitted by MdOption when selected or deselected.
+ * Event object emitted by MatOption when selected or deselected.
  */
-var MdOptionSelectionChange = (function () {
+var MatOptionSelectionChange = (function () {
     /**
      * @param {?} source
      * @param {?=} isUserInput
      */
-    function MdOptionSelectionChange(source, isUserInput) {
+    function MatOptionSelectionChange(source, isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
         this.source = source;
         this.isUserInput = isUserInput;
     }
-    return MdOptionSelectionChange;
+    return MatOptionSelectionChange;
 }());
 /**
- * Single option inside of a `<md-select>` element.
+ * Single option inside of a `<mat-select>` element.
  */
-var MdOption = (function () {
+var MatOption = (function () {
     /**
      * @param {?} _element
      * @param {?} _changeDetectorRef
      * @param {?} group
-     * @param {?} _isCompatibilityMode
      */
-    function MdOption(_element, _changeDetectorRef, group, _isCompatibilityMode) {
+    function MatOption(_element, _changeDetectorRef, group) {
         this._element = _element;
         this._changeDetectorRef = _changeDetectorRef;
         this.group = group;
-        this._isCompatibilityMode = _isCompatibilityMode;
         this._selected = false;
         this._active = false;
         this._multiple = false;
@@ -1762,13 +1626,13 @@ var MdOption = (function () {
          * Whether the option is disabled.
          */
         this._disabled = false;
-        this._id = "md-option-" + _uniqueIdCounter++;
+        this._id = "mat-option-" + _uniqueIdCounter++;
         /**
          * Event emitted when the option is selected or deselected.
          */
         this.onSelectionChange = new _angular_core.EventEmitter();
     }
-    Object.defineProperty(MdOption.prototype, "multiple", {
+    Object.defineProperty(MatOption.prototype, "multiple", {
         /**
          * Whether the wrapping component is in multiple selection mode.
          * @return {?}
@@ -1787,7 +1651,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "id", {
+    Object.defineProperty(MatOption.prototype, "id", {
         /**
          * The unique ID of the option.
          * @return {?}
@@ -1796,7 +1660,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "selected", {
+    Object.defineProperty(MatOption.prototype, "selected", {
         /**
          * Whether or not the option is currently selected.
          * @return {?}
@@ -1805,7 +1669,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "disabled", {
+    Object.defineProperty(MatOption.prototype, "disabled", {
         /**
          * Whether the option is disabled.
          * @return {?}
@@ -1819,7 +1683,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "disableRipple", {
+    Object.defineProperty(MatOption.prototype, "disableRipple", {
         /**
          * Whether ripples for the option are disabled.
          * @return {?}
@@ -1836,7 +1700,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "active", {
+    Object.defineProperty(MatOption.prototype, "active", {
         /**
          * Whether or not the option is currently active and ready to be selected.
          * An active option displays styles as if it is focused, but the
@@ -1850,7 +1714,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "viewValue", {
+    Object.defineProperty(MatOption.prototype, "viewValue", {
         /**
          * The displayed value of the option. It is necessary to show the selected option in the
          * select's trigger.
@@ -1867,7 +1731,7 @@ var MdOption = (function () {
      * Selects the option.
      * @return {?}
      */
-    MdOption.prototype.select = function () {
+    MatOption.prototype.select = function () {
         this._selected = true;
         this._changeDetectorRef.markForCheck();
         this._emitSelectionChangeEvent();
@@ -1876,7 +1740,7 @@ var MdOption = (function () {
      * Deselects the option.
      * @return {?}
      */
-    MdOption.prototype.deselect = function () {
+    MatOption.prototype.deselect = function () {
         this._selected = false;
         this._changeDetectorRef.markForCheck();
         this._emitSelectionChangeEvent();
@@ -1885,7 +1749,7 @@ var MdOption = (function () {
      * Sets focus onto this option.
      * @return {?}
      */
-    MdOption.prototype.focus = function () {
+    MatOption.prototype.focus = function () {
         var /** @type {?} */ element = this._getHostElement();
         if (typeof element.focus === 'function') {
             element.focus();
@@ -1897,7 +1761,7 @@ var MdOption = (function () {
      * events will display the proper options as active on arrow key events.
      * @return {?}
      */
-    MdOption.prototype.setActiveStyles = function () {
+    MatOption.prototype.setActiveStyles = function () {
         if (!this._active) {
             this._active = true;
             this._changeDetectorRef.markForCheck();
@@ -1909,7 +1773,7 @@ var MdOption = (function () {
      * events will display the proper options as active on arrow key events.
      * @return {?}
      */
-    MdOption.prototype.setInactiveStyles = function () {
+    MatOption.prototype.setInactiveStyles = function () {
         if (this._active) {
             this._active = false;
             this._changeDetectorRef.markForCheck();
@@ -1919,7 +1783,7 @@ var MdOption = (function () {
      * Gets the label to be used when determining whether the option should be focused.
      * @return {?}
      */
-    MdOption.prototype.getLabel = function () {
+    MatOption.prototype.getLabel = function () {
         return this.viewValue;
     };
     /**
@@ -1927,7 +1791,7 @@ var MdOption = (function () {
      * @param {?} event
      * @return {?}
      */
-    MdOption.prototype._handleKeydown = function (event) {
+    MatOption.prototype._handleKeydown = function (event) {
         if (event.keyCode === _angular_cdk_keycodes.ENTER || event.keyCode === _angular_cdk_keycodes.SPACE) {
             this._selectViaInteraction();
             // Prevent the page from scrolling down and form submits.
@@ -1939,7 +1803,7 @@ var MdOption = (function () {
      * determine if the select's view -> model callback should be invoked.
      * @return {?}
      */
-    MdOption.prototype._selectViaInteraction = function () {
+    MatOption.prototype._selectViaInteraction = function () {
         if (!this.disabled) {
             this._selected = this.multiple ? !this._selected : true;
             this._changeDetectorRef.markForCheck();
@@ -1950,14 +1814,14 @@ var MdOption = (function () {
      * Returns the correct tabindex for the option depending on disabled state.
      * @return {?}
      */
-    MdOption.prototype._getTabIndex = function () {
+    MatOption.prototype._getTabIndex = function () {
         return this.disabled ? '-1' : '0';
     };
     /**
      * Gets the host DOM element.
      * @return {?}
      */
-    MdOption.prototype._getHostElement = function () {
+    MatOption.prototype._getHostElement = function () {
         return this._element.nativeElement;
     };
     /**
@@ -1965,9 +1829,9 @@ var MdOption = (function () {
      * @param {?=} isUserInput
      * @return {?}
      */
-    MdOption.prototype._emitSelectionChangeEvent = function (isUserInput) {
+    MatOption.prototype._emitSelectionChangeEvent = function (isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
-        this.onSelectionChange.emit(new MdOptionSelectionChange(this, isUserInput));
+        this.onSelectionChange.emit(new MatOptionSelectionChange(this, isUserInput));
     };
     /**
      * Counts the amount of option group labels that precede the specified option.
@@ -1976,7 +1840,7 @@ var MdOption = (function () {
      * @param {?} optionGroups Flat list of all of the option groups.
      * @return {?}
      */
-    MdOption.countGroupLabelsBeforeOption = function (optionIndex, options, optionGroups) {
+    MatOption.countGroupLabelsBeforeOption = function (optionIndex, options, optionGroups) {
         if (optionGroups.length) {
             var /** @type {?} */ optionsArray = options.toArray();
             var /** @type {?} */ groups = optionGroups.toArray();
@@ -1990,10 +1854,10 @@ var MdOption = (function () {
         }
         return 0;
     };
-    return MdOption;
+    return MatOption;
 }());
-MdOption.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-option, mat-option',
+MatOption.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-option',
                 host: {
                     'role': 'option',
                     '[attr.tabindex]': '_getTabIndex()',
@@ -2008,7 +1872,7 @@ MdOption.decorators = [
                     '(keydown)': '_handleKeydown($event)',
                     'class': 'mat-option',
                 },
-                template: "<span [ngSwitch]=\"_isCompatibilityMode\" *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" *ngSwitchCase=\"true\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox><md-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" *ngSwitchDefault [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></md-pseudo-checkbox></span><ng-content></ng-content><div class=\"mat-option-ripple\" md-ripple [mdRippleTrigger]=\"_getHostElement()\" [mdRippleDisabled]=\"disabled || disableRipple\"></div>",
+                template: "<span *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox></span><span class=\"mat-option-text\"><ng-content></ng-content></span><div class=\"mat-option-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"disabled || disableRipple\"></div>",
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -2017,94 +1881,75 @@ MdOption.decorators = [
 /**
  * @nocollapse
  */
-MdOption.ctorParameters = function () { return [
+MatOption.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.ChangeDetectorRef, },
-    { type: MdOptgroup, decorators: [{ type: _angular_core.Optional },] },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
+    { type: MatOptgroup, decorators: [{ type: _angular_core.Optional },] },
 ]; };
-MdOption.propDecorators = {
+MatOption.propDecorators = {
     'value': [{ type: _angular_core.Input },],
     'disabled': [{ type: _angular_core.Input },],
     'onSelectionChange': [{ type: _angular_core.Output },],
 };
-var MdOptionModule = (function () {
-    function MdOptionModule() {
+var MatOptionModule = (function () {
+    function MatOptionModule() {
     }
-    return MdOptionModule;
+    return MatOptionModule;
 }());
-MdOptionModule.decorators = [
+MatOptionModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdRippleModule, _angular_common.CommonModule, MdPseudoCheckboxModule],
-                exports: [MdOption, MdOptgroup],
-                declarations: [MdOption, MdOptgroup]
+                imports: [MatRippleModule, _angular_common.CommonModule, MatPseudoCheckboxModule],
+                exports: [MatOption, MatOptgroup],
+                declarations: [MatOption, MatOptgroup]
             },] },
 ];
 /**
  * @nocollapse
  */
-MdOptionModule.ctorParameters = function () { return []; };
+MatOptionModule.ctorParameters = function () { return []; };
 /**
  * InjectionToken that can be used to specify the global placeholder options.
  */
-var MD_PLACEHOLDER_GLOBAL_OPTIONS = new _angular_core.InjectionToken('md-placeholder-global-options');
-/**
- * @deprecated
- */
-var StyleModule = (function () {
-    function StyleModule() {
-    }
-    return StyleModule;
-}());
-StyleModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [_angular_cdk_a11y.A11yModule],
-                exports: [_angular_cdk_a11y.A11yModule],
-            },] },
-];
-/**
- * @nocollapse
- */
-StyleModule.ctorParameters = function () { return []; };
+var MAT_PLACEHOLDER_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-placeholder-global-options');
 
 /**
  * \@docs-private
  * @param {?} id
  * @return {?}
  */
-function getMdSortDuplicateMdSortableIdError(id) {
-    return Error("Cannot have two MdSortables with the same id (" + id + ").");
+function getSortDuplicateSortableIdError(id) {
+    return Error("Cannot have two MatSortables with the same id (" + id + ").");
 }
 /**
  * \@docs-private
  * @return {?}
  */
-function getMdSortHeaderNotContainedWithinMdSortError() {
-    return Error("MdSortHeader must be placed within a parent element with the MdSort directive.");
+function getSortHeaderNotContainedWithinSortError() {
+    return Error("MatSortHeader must be placed within a parent element with the MatSort directive.");
 }
 /**
  * \@docs-private
  * @return {?}
  */
-function getMdSortHeaderMissingIdError() {
-    return Error("MdSortHeader must be provided with a unique id.");
+function getSortHeaderMissingIdError() {
+    return Error("MatSortHeader must be provided with a unique id.");
 }
 /**
- * Container for MdSortables to manage the sort state and provide default sort parameters.
+ * Container for MatSortables to manage the sort state and provide default sort parameters.
  */
-var MdSort = (function () {
-    function MdSort() {
+var MatSort = (function () {
+    function MatSort() {
         /**
          * Collection of all registered sortables that this directive manages.
          */
         this.sortables = new Map();
         /**
-         * The direction to set when an MdSortable is initially sorted.
-         * May be overriden by the MdSortable's sort start.
+         * The direction to set when an MatSortable is initially sorted.
+         * May be overriden by the MatSortable's sort start.
          */
         this.start = 'asc';
         /**
-         * The sort direction of the currently active MdSortable.
+         * The sort direction of the currently active MatSortable.
          */
         this.direction = '';
         /**
@@ -2112,10 +1957,10 @@ var MdSort = (function () {
          */
         this.sortChange = new _angular_core.EventEmitter();
     }
-    Object.defineProperty(MdSort.prototype, "disableClear", {
+    Object.defineProperty(MatSort.prototype, "disableClear", {
         /**
          * Whether to disable the user from clearing the sort by finishing the sort direction cycle.
-         * May be overriden by the MdSortable's disable clear input.
+         * May be overriden by the MatSortable's disable clear input.
          * @return {?}
          */
         get: function () { return this._disableClear; },
@@ -2127,88 +1972,28 @@ var MdSort = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSort.prototype, "_matSortActive", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.active; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.active = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdSort.prototype, "_matSortStart", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.start; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.start = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdSort.prototype, "_matSortDirection", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.direction; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.direction = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdSort.prototype, "_matSortDisableClear", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.disableClear; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.disableClear = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdSort.prototype, "_matSortChange", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.sortChange; },
-        enumerable: true,
-        configurable: true
-    });
     /**
-     * Register function to be used by the contained MdSortables. Adds the MdSortable to the
-     * collection of MdSortables.
+     * Register function to be used by the contained MatSortables. Adds the MatSortable to the
+     * collection of MatSortables.
      * @param {?} sortable
      * @return {?}
      */
-    MdSort.prototype.register = function (sortable) {
+    MatSort.prototype.register = function (sortable) {
         if (!sortable.id) {
-            throw getMdSortHeaderMissingIdError();
+            throw getSortHeaderMissingIdError();
         }
         if (this.sortables.has(sortable.id)) {
-            throw getMdSortDuplicateMdSortableIdError(sortable.id);
+            throw getSortDuplicateSortableIdError(sortable.id);
         }
         this.sortables.set(sortable.id, sortable);
     };
     /**
-     * Unregister function to be used by the contained MdSortables. Removes the MdSortable from the
-     * collection of contained MdSortables.
+     * Unregister function to be used by the contained MatSortables. Removes the MatSortable from the
+     * collection of contained MatSortables.
      * @param {?} sortable
      * @return {?}
      */
-    MdSort.prototype.deregister = function (sortable) {
+    MatSort.prototype.deregister = function (sortable) {
         this.sortables.delete(sortable.id);
     };
     /**
@@ -2216,7 +2001,7 @@ var MdSort = (function () {
      * @param {?} sortable
      * @return {?}
      */
-    MdSort.prototype.sort = function (sortable) {
+    MatSort.prototype.sort = function (sortable) {
         if (this.active != sortable.id) {
             this.active = sortable.id;
             this.direction = sortable.start ? sortable.start : this.start;
@@ -2231,7 +2016,7 @@ var MdSort = (function () {
      * @param {?} sortable
      * @return {?}
      */
-    MdSort.prototype.getNextSortDirection = function (sortable) {
+    MatSort.prototype.getNextSortDirection = function (sortable) {
         if (!sortable) {
             return '';
         }
@@ -2245,28 +2030,23 @@ var MdSort = (function () {
         }
         return sortDirectionCycle[nextDirectionIndex];
     };
-    return MdSort;
+    return MatSort;
 }());
-MdSort.decorators = [
+MatSort.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[mdSort], [matSort]',
+                selector: '[matSort]',
             },] },
 ];
 /**
  * @nocollapse
  */
-MdSort.ctorParameters = function () { return []; };
-MdSort.propDecorators = {
-    'active': [{ type: _angular_core.Input, args: ['mdSortActive',] },],
-    'start': [{ type: _angular_core.Input, args: ['mdSortStart',] },],
-    'direction': [{ type: _angular_core.Input, args: ['mdSortDirection',] },],
-    'disableClear': [{ type: _angular_core.Input, args: ['mdSortDisableClear',] },],
-    '_matSortActive': [{ type: _angular_core.Input, args: ['matSortActive',] },],
-    '_matSortStart': [{ type: _angular_core.Input, args: ['matSortStart',] },],
-    '_matSortDirection': [{ type: _angular_core.Input, args: ['matSortDirection',] },],
-    '_matSortDisableClear': [{ type: _angular_core.Input, args: ['matSortDisableClear',] },],
-    'sortChange': [{ type: _angular_core.Output, args: ['mdSortChange',] },],
-    '_matSortChange': [{ type: _angular_core.Output, args: ['matSortChange',] },],
+MatSort.ctorParameters = function () { return []; };
+MatSort.propDecorators = {
+    'active': [{ type: _angular_core.Input, args: ['matSortActive',] },],
+    'start': [{ type: _angular_core.Input, args: ['matSortStart',] },],
+    'direction': [{ type: _angular_core.Input, args: ['matSortDirection',] },],
+    'disableClear': [{ type: _angular_core.Input, args: ['matSortDisableClear',] },],
+    'sortChange': [{ type: _angular_core.Output, args: ['matSortChange',] },],
 };
 /**
  * Returns the sort direction cycle to use given the provided parameters of order and clear.
@@ -2285,11 +2065,11 @@ function getSortDirectionCycle(start, disableClear) {
     return sortOrder;
 }
 /**
- * To modify the labels and text displayed, create a new instance of MdSortHeaderIntl and
+ * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
  * include it in a custom provider.
  */
-var MdSortHeaderIntl = (function () {
-    function MdSortHeaderIntl() {
+var MatSortHeaderIntl = (function () {
+    function MatSortHeaderIntl() {
         /**
          * Stream that emits whenever the labels here are changed. Use this to notify
          * components if the labels have changed after initialization.
@@ -2308,33 +2088,33 @@ var MdSortHeaderIntl = (function () {
             return "Sorted by " + id + " " + (direction == 'asc' ? 'ascending' : 'descending');
         };
     }
-    return MdSortHeaderIntl;
+    return MatSortHeaderIntl;
 }());
-MdSortHeaderIntl.decorators = [
+MatSortHeaderIntl.decorators = [
     { type: _angular_core.Injectable },
 ];
 /**
  * @nocollapse
  */
-MdSortHeaderIntl.ctorParameters = function () { return []; };
+MatSortHeaderIntl.ctorParameters = function () { return []; };
 var SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' + AnimationCurves.STANDARD_CURVE;
 /**
  * Applies sorting behavior (click to change sort) and styles to an element, including an
  * arrow to display the current sort direction.
  *
- * Must be provided with an id and contained within a parent MdSort directive.
+ * Must be provided with an id and contained within a parent MatSort directive.
  *
  * If used on header cells in a CdkTable, it will automatically default its id from its containing
  * column definition.
  */
-var MdSortHeader = (function () {
+var MatSortHeader = (function () {
     /**
      * @param {?} _intl
      * @param {?} changeDetectorRef
      * @param {?} _sort
      * @param {?} _cdkColumnDef
      */
-    function MdSortHeader(_intl, changeDetectorRef, _sort, _cdkColumnDef) {
+    function MatSortHeader(_intl, changeDetectorRef, _sort, _cdkColumnDef) {
         this._intl = _intl;
         this._sort = _sort;
         this._cdkColumnDef = _cdkColumnDef;
@@ -2343,15 +2123,15 @@ var MdSortHeader = (function () {
          */
         this.arrowPosition = 'after';
         if (!_sort) {
-            throw getMdSortHeaderNotContainedWithinMdSortError();
+            throw getSortHeaderNotContainedWithinSortError();
         }
         this._rerenderSubscription = rxjs_observable_merge.merge(_sort.sortChange, _intl.changes).subscribe(function () {
             changeDetectorRef.markForCheck();
         });
     }
-    Object.defineProperty(MdSortHeader.prototype, "disableClear", {
+    Object.defineProperty(MatSortHeader.prototype, "disableClear", {
         /**
-         * Overrides the disable clear value of the containing MdSort for this MdSortable.
+         * Overrides the disable clear value of the containing MatSort for this MatSortable.
          * @return {?}
          */
         get: function () { return this._disableClear; },
@@ -2363,7 +2143,7 @@ var MdSortHeader = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSortHeader.prototype, "_id", {
+    Object.defineProperty(MatSortHeader.prototype, "_id", {
         /**
          * @return {?}
          */
@@ -2379,7 +2159,7 @@ var MdSortHeader = (function () {
     /**
      * @return {?}
      */
-    MdSortHeader.prototype.ngOnInit = function () {
+    MatSortHeader.prototype.ngOnInit = function () {
         if (!this.id && this._cdkColumnDef) {
             this.id = this._cdkColumnDef.name;
         }
@@ -2388,21 +2168,21 @@ var MdSortHeader = (function () {
     /**
      * @return {?}
      */
-    MdSortHeader.prototype.ngOnDestroy = function () {
+    MatSortHeader.prototype.ngOnDestroy = function () {
         this._sort.deregister(this);
         this._rerenderSubscription.unsubscribe();
     };
     /**
-     * Whether this MdSortHeader is currently sorted in either ascending or descending order.
+     * Whether this MatSortHeader is currently sorted in either ascending or descending order.
      * @return {?}
      */
-    MdSortHeader.prototype._isSorted = function () {
+    MatSortHeader.prototype._isSorted = function () {
         return this._sort.active == this.id && this._sort.direction;
     };
-    return MdSortHeader;
+    return MatSortHeader;
 }());
-MdSortHeader.decorators = [
-    { type: _angular_core.Component, args: [{ selector: '[md-sort-header], [mat-sort-header]',
+MatSortHeader.decorators = [
+    { type: _angular_core.Component, args: [{ selector: '[mat-sort-header]',
                 template: "<div class=\"mat-sort-header-container\" [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\"><button class=\"mat-sort-header-button\" type=\"button\" [attr.aria-label]=\"_intl.sortButtonLabel(id)\"><ng-content></ng-content></button><div *ngIf=\"_isSorted()\" class=\"mat-sort-header-arrow\"><div class=\"mat-sort-header-stem\"></div><div class=\"mat-sort-header-indicator\" [@indicator]=\"_sort.direction\"><div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_sort.direction\"></div><div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_sort.direction\"></div><div class=\"mat-sort-header-pointer-middle\"></div></div></div></div><span class=\"cdk-visually-hidden\" *ngIf=\"_isSorted()\">{{_intl.sortDescriptionLabel(id, _sort.direction)}}</span>",
                 styles: [".mat-sort-header-container{display:flex;cursor:pointer}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:pointer;outline:0;font:inherit;color:currentColor}.mat-sort-header-arrow{height:12px;width:12px;margin:0 0 0 6px;position:relative;display:flex}.mat-sort-header-position-before .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;height:10px;width:2px;margin:auto;display:flex;align-items:center}.mat-sort-header-indicator{width:100%;height:2px;display:flex;align-items:center;position:absolute;top:0;transition:225ms cubic-bezier(.4,0,.2,1)}.mat-sort-header-pointer-middle{margin:auto;height:2px;width:2px;background:currentColor;transform:rotate(45deg)}.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{background:currentColor;width:6px;height:2px;transition:225ms cubic-bezier(.4,0,.2,1);position:absolute}.mat-sort-header-pointer-left{transform-origin:right;left:0}.mat-sort-header-pointer-right{transform-origin:left;right:0}"],
                 host: {
@@ -2435,45 +2215,41 @@ MdSortHeader.decorators = [
 /**
  * @nocollapse
  */
-MdSortHeader.ctorParameters = function () { return [
-    { type: MdSortHeaderIntl, },
+MatSortHeader.ctorParameters = function () { return [
+    { type: MatSortHeaderIntl, },
     { type: _angular_core.ChangeDetectorRef, },
-    { type: MdSort, decorators: [{ type: _angular_core.Optional },] },
+    { type: MatSort, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_cdk_table.CdkColumnDef, decorators: [{ type: _angular_core.Optional },] },
 ]; };
-MdSortHeader.propDecorators = {
-    'id': [{ type: _angular_core.Input, args: ['md-sort-header',] },],
+MatSortHeader.propDecorators = {
+    'id': [{ type: _angular_core.Input, args: ['mat-sort-header',] },],
     'arrowPosition': [{ type: _angular_core.Input },],
     'start': [{ type: _angular_core.Input, args: ['start',] },],
     'disableClear': [{ type: _angular_core.Input },],
     '_id': [{ type: _angular_core.Input, args: ['mat-sort-header',] },],
 };
-var MdSortModule = (function () {
-    function MdSortModule() {
+var MatSortModule = (function () {
+    function MatSortModule() {
     }
-    return MdSortModule;
+    return MatSortModule;
 }());
-MdSortModule.decorators = [
+MatSortModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [_angular_common.CommonModule],
-                exports: [MdSort, MdSortHeader],
-                declarations: [MdSort, MdSortHeader],
-                providers: [MdSortHeaderIntl]
+                exports: [MatSort, MatSortHeader],
+                declarations: [MatSort, MatSortHeader],
+                providers: [MatSortHeaderIntl]
             },] },
 ];
 /**
  * @nocollapse
  */
-MdSortModule.ctorParameters = function () { return []; };
+MatSortModule.ctorParameters = function () { return []; };
 
-exports.MdSortModule = MdSortModule;
-exports.MdSortHeader = MdSortHeader;
-exports.MdSortHeaderIntl = MdSortHeaderIntl;
-exports.MdSort = MdSort;
-exports.MatSort = MdSort;
-exports.MatSortHeader = MdSortHeader;
-exports.MatSortHeaderIntl = MdSortHeaderIntl;
-exports.MatSortModule = MdSortModule;
+exports.MatSortModule = MatSortModule;
+exports.MatSortHeader = MatSortHeader;
+exports.MatSortHeaderIntl = MatSortHeaderIntl;
+exports.MatSort = MatSort;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

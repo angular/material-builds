@@ -8,8 +8,8 @@
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer2 } from '@angular/core';
 import { CanDisableRipple } from '@angular/material/core';
-import { MdInkBar } from './ink-bar';
-import { MdTabLabelWrapper } from './tab-label-wrapper';
+import { MatInkBar } from './ink-bar';
+import { MatTabLabelWrapper } from './tab-label-wrapper';
 /**
  * The directions that scrolling can go in when the header's tabs exceed the header width. 'After'
  * will scroll the header towards the end of the tabs list and 'before' will scroll towards the
@@ -17,9 +17,9 @@ import { MdTabLabelWrapper } from './tab-label-wrapper';
  */
 export declare type ScrollDirection = 'after' | 'before';
 /** @docs-private */
-export declare class MdTabHeaderBase {
+export declare class MatTabHeaderBase {
 }
-export declare const _MdTabHeaderMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MdTabHeaderBase;
+export declare const _MatTabHeaderMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MatTabHeaderBase;
 /**
  * The header of the tab group which displays a list of all the tabs in the tab group. Includes
  * an ink bar that follows the currently selected tab. When the tabs list's width exceeds the
@@ -27,13 +27,13 @@ export declare const _MdTabHeaderMixinBase: (new (...args: any[]) => CanDisableR
  * left and right across the header.
  * @docs-private
  */
-export declare class MdTabHeader extends _MdTabHeaderMixinBase implements AfterContentChecked, AfterContentInit, OnDestroy, CanDisableRipple {
+export declare class MatTabHeader extends _MatTabHeaderMixinBase implements AfterContentChecked, AfterContentInit, OnDestroy, CanDisableRipple {
     private _elementRef;
     private _renderer;
     private _changeDetectorRef;
     private _dir;
-    _labelWrappers: QueryList<MdTabLabelWrapper>;
-    _inkBar: MdInkBar;
+    _labelWrappers: QueryList<MatTabLabelWrapper>;
+    _inkBar: MatInkBar;
     _tabListContainer: ElementRef;
     _tabList: ElementRef;
     /** The tab index that is focused. */

@@ -10,7 +10,7 @@ import { AnimationEvent } from '@angular/animations';
 import { BasePortalHost, ComponentPortal, PortalHostDirective } from '@angular/cdk/portal';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
-import { MdSnackBarConfig } from './snack-bar-config';
+import { MatSnackBarConfig } from './snack-bar-config';
 export declare type SnackBarState = 'visible' | 'hidden' | 'void';
 export declare const SHOW_ANIMATION = "225ms cubic-bezier(0.4,0.0,1,1)";
 export declare const HIDE_ANIMATION = "195ms cubic-bezier(0.0,0.0,0.2,1)";
@@ -18,7 +18,7 @@ export declare const HIDE_ANIMATION = "195ms cubic-bezier(0.0,0.0,0.2,1)";
  * Internal component that wraps user-provided snack bar content.
  * @docs-private
  */
-export declare class MdSnackBarContainer extends BasePortalHost implements OnDestroy {
+export declare class MatSnackBarContainer extends BasePortalHost implements OnDestroy {
     private _ngZone;
     private _renderer;
     private _elementRef;
@@ -34,7 +34,7 @@ export declare class MdSnackBarContainer extends BasePortalHost implements OnDes
     /** The state of the snack bar animations. */
     private _animationState;
     /** The snack bar configuration. */
-    snackBarConfig: MdSnackBarConfig;
+    snackBarConfig: MatSnackBarConfig;
     constructor(_ngZone: NgZone, _renderer: Renderer2, _elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef);
     /**
      * Gets the current animation state both combining one of the possibilities from

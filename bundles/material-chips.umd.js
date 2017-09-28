@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/cdk/bidi'), require('@angular/platform-browser'), require('rxjs/Subject'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/Subscription')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/rxjs', '@angular/forms', '@angular/cdk/bidi', '@angular/platform-browser', 'rxjs/Subject', '@angular/cdk/keycodes', '@angular/common', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/Subscription'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.chips = global.ng.material.chips || {}),global.ng.core,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.rxjs,global.ng.forms,global.ng.cdk.bidi,global.ng.platformBrowser,global.Rx,global.ng.cdk.keycodes,global.ng.common,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx));
-}(this, (function (exports,_angular_core,_angular_cdk_a11y,_angular_cdk_coercion,_angular_cdk_collections,_angular_cdk_rxjs,_angular_forms,_angular_cdk_bidi,_angular_platformBrowser,rxjs_Subject,_angular_cdk_keycodes,_angular_common,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_overlay,_angular_cdk_portal,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_Subscription) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/animations'), require('@angular/platform-browser'), require('rxjs/Subject'), require('@angular/cdk/scrolling'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/Subscription')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/cdk/rxjs', '@angular/forms', '@angular/common', '@angular/cdk/platform', '@angular/animations', '@angular/platform-browser', 'rxjs/Subject', '@angular/cdk/scrolling', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/Subscription'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.chips = global.ng.material.chips || {}),global.ng.core,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.ng.cdk.rxjs,global.ng.forms,global.ng.common,global.ng.cdk.platform,global.ng.animations,global.ng.platformBrowser,global.Rx,global.ng.cdk.scrolling,global.Rx.Observable,global.Rx.Observable,global.Rx));
+}(this, (function (exports,_angular_core,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_collections,_angular_cdk_keycodes,_angular_cdk_rxjs,_angular_forms,_angular_common,_angular_cdk_platform,_angular_animations,_angular_platformBrowser,rxjs_Subject,_angular_cdk_scrolling,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_Subscription) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -62,18 +62,6 @@ AnimationDurations.ENTERING = '225ms';
 AnimationDurations.EXITING = '195ms';
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
- * Returns an exception to be thrown if the consumer has used
- * an invalid Material prefix on a component.
- * \@docs-private
- * @param {?} prefix
- * @param {?} nodeName
- * @return {?}
- */
-function getMdCompatibilityInvalidPrefixError(prefix, nodeName) {
-    return Error("The \"" + prefix + "-\" prefix cannot be used in ng-material v1 compatibility mode. " +
-        ("It was used on an \"" + nodeName.toLowerCase() + "\" element."));
-}
-/**
  * Selector that matches all elements that may have style collisions with AngularJS Material.
  */
 var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [matCardSubtitle],\n  [matCardTitle],\n  [matCellDef],\n  [matColumnDef],\n  [matDialogActions],\n  [matDialogClose],\n  [matDialogContent],\n  [matDialogTitle],\n  [matHeaderCellDef],\n  [matHeaderRowDef],\n  [matLine],\n  [matRowDef],\n  [matStepLabel],\n  [matStepperNext],\n  [matStepperPrevious],\n  [matTabLabel],\n  [matTabLink],\n  [matTabNav],\n  [matTooltip],\n  [matInput],\n  [matPrefix],\n  [matSuffix],\n  mat-autocomplete,\n  mat-button-toggle,\n  mat-button-toggle,\n  mat-button-toggle-group,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-cell,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-error,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-header-cell,\n  mat-header-row,\n  mat-hint,\n  mat-horizontal-stepper,\n  mat-icon,\n  mat-input-container,\n  mat-form-field,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-pseudo-checkbox,\n  mat-radio-button,\n  mat-radio-group,\n  mat-row,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-step,\n  mat-tab,\n  mat-table,\n  mat-tab-group,\n  mat-toolbar,\n  mat-vertical-stepper";
@@ -85,14 +73,7 @@ var MD_ELEMENTS_SELECTOR = "\n  [md-button],\n  [md-fab],\n  [md-icon-button],\n
  * Directive that enforces that the `mat-` prefix cannot be used.
  */
 var MatPrefixRejector = (function () {
-    /**
-     * @param {?} isCompatibilityMode
-     * @param {?} elementRef
-     */
-    function MatPrefixRejector(isCompatibilityMode, elementRef) {
-        if (!isCompatibilityMode) {
-            throw getMdCompatibilityInvalidPrefixError('mat', elementRef.nativeElement.nodeName);
-        }
+    function MatPrefixRejector() {
     }
     return MatPrefixRejector;
 }());
@@ -102,22 +83,12 @@ MatPrefixRejector.decorators = [
 /**
  * @nocollapse
  */
-MatPrefixRejector.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
-    { type: _angular_core.ElementRef, },
-]; };
+MatPrefixRejector.ctorParameters = function () { return []; };
 /**
  * Directive that enforces that the `md-` prefix cannot be used.
  */
 var MdPrefixRejector = (function () {
-    /**
-     * @param {?} isCompatibilityMode
-     * @param {?} elementRef
-     */
-    function MdPrefixRejector(isCompatibilityMode, elementRef) {
-        if (isCompatibilityMode) {
-            throw getMdCompatibilityInvalidPrefixError('md', elementRef.nativeElement.nodeName);
-        }
+    function MdPrefixRejector() {
     }
     return MdPrefixRejector;
 }());
@@ -127,10 +98,7 @@ MdPrefixRejector.decorators = [
 /**
  * @nocollapse
  */
-MdPrefixRejector.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
-    { type: _angular_core.ElementRef, },
-]; };
+MdPrefixRejector.ctorParameters = function () { return []; };
 /**
  * Module that enforces the default compatibility mode settings. When this module is loaded
  * without NoConflictStyleCompatibilityMode also being imported, it will throw an error if
@@ -161,11 +129,7 @@ var NoConflictStyleCompatibilityMode = (function () {
     return NoConflictStyleCompatibilityMode;
 }());
 NoConflictStyleCompatibilityMode.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                providers: [{
-                        provide: MATERIAL_COMPATIBILITY_MODE, useValue: true,
-                    }],
-            },] },
+    { type: _angular_core.NgModule },
 ];
 /**
  * @nocollapse
@@ -174,19 +138,19 @@ NoConflictStyleCompatibilityMode.ctorParameters = function () { return []; };
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
-var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('md-sanity-checks');
+var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('mat-sanity-checks');
 /**
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
  * components. This includes Bidi, compatibility mode, etc.
  *
- * This module should be imported to each top-level component module (e.g., MdTabsModule).
+ * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
-var MdCommonModule = (function () {
+var MatCommonModule = (function () {
     /**
      * @param {?} _document
      * @param {?} _sanityChecksEnabled
      */
-    function MdCommonModule(_document, _sanityChecksEnabled) {
+    function MatCommonModule(_document, _sanityChecksEnabled) {
         this._document = _document;
         /**
          * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
@@ -201,7 +165,7 @@ var MdCommonModule = (function () {
     /**
      * @return {?}
      */
-    MdCommonModule.prototype._checkDoctype = function () {
+    MatCommonModule.prototype._checkDoctype = function () {
         if (!this._document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
                 'some Angular Material components not to behave as expected.');
@@ -210,7 +174,7 @@ var MdCommonModule = (function () {
     /**
      * @return {?}
      */
-    MdCommonModule.prototype._checkTheme = function () {
+    MatCommonModule.prototype._checkTheme = function () {
         if (typeof getComputedStyle === 'function') {
             var /** @type {?} */ testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
@@ -223,9 +187,9 @@ var MdCommonModule = (function () {
             this._document.body.removeChild(testElement);
         }
     };
-    return MdCommonModule;
+    return MatCommonModule;
 }());
-MdCommonModule.decorators = [
+MatCommonModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
                 exports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
@@ -237,7 +201,7 @@ MdCommonModule.decorators = [
 /**
  * @nocollapse
  */
-MdCommonModule.ctorParameters = function () { return [
+MatCommonModule.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
 ]; };
@@ -1000,8 +964,8 @@ NativeDateAdapter.decorators = [
 NativeDateAdapter.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_LOCALE,] },] },
 ]; };
-var MD_DATE_FORMATS = new _angular_core.InjectionToken('md-date-formats');
-var MD_NATIVE_DATE_FORMATS = {
+var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
+var MAT_NATIVE_DATE_FORMATS = {
     parse: {
         dateInput: null,
     },
@@ -1029,25 +993,25 @@ NativeDateModule.decorators = [
  * @nocollapse
  */
 NativeDateModule.ctorParameters = function () { return []; };
-var MdNativeDateModule = (function () {
-    function MdNativeDateModule() {
+var MatNativeDateModule = (function () {
+    function MatNativeDateModule() {
     }
-    return MdNativeDateModule;
+    return MatNativeDateModule;
 }());
-MdNativeDateModule.decorators = [
+MatNativeDateModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [NativeDateModule],
-                providers: [{ provide: MD_DATE_FORMATS, useValue: MD_NATIVE_DATE_FORMATS }],
+                providers: [{ provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS }],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdNativeDateModule.ctorParameters = function () { return []; };
+MatNativeDateModule.ctorParameters = function () { return []; };
 /**
  * Injection token that can be used to specify the global error options.
  */
-var MD_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('md-error-global-options');
+var MAT_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-error-global-options');
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
@@ -1126,40 +1090,40 @@ GestureConfig.decorators = [
 GestureConfig.ctorParameters = function () { return []; };
 /**
  * Shared directive to count lines inside a text area, such as a list item.
- * Line elements can be extracted with a \@ContentChildren(MdLine) query, then
+ * Line elements can be extracted with a \@ContentChildren(MatLine) query, then
  * counted by checking the query list's length.
  */
-var MdLine = (function () {
-    function MdLine() {
+var MatLine = (function () {
+    function MatLine() {
     }
-    return MdLine;
+    return MatLine;
 }());
-MdLine.decorators = [
+MatLine.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[md-line], [mat-line], [mdLine], [matLine]',
+                selector: '[mat-line], [matLine]',
                 host: { 'class': 'mat-line' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdLine.ctorParameters = function () { return []; };
-var MdLineModule = (function () {
-    function MdLineModule() {
+MatLine.ctorParameters = function () { return []; };
+var MatLineModule = (function () {
+    function MatLineModule() {
     }
-    return MdLineModule;
+    return MatLineModule;
 }());
-MdLineModule.decorators = [
+MatLineModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdCommonModule],
-                exports: [MdLine, MdCommonModule],
-                declarations: [MdLine],
+                imports: [MatCommonModule],
+                exports: [MatLine, MatCommonModule],
+                declarations: [MatLine],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdLineModule.ctorParameters = function () { return []; };
+MatLineModule.ctorParameters = function () { return []; };
 var RippleState = {};
 RippleState.FADING_IN = 0;
 RippleState.VISIBLE = 1;
@@ -1425,8 +1389,8 @@ function distanceToFurthestCorner(x, y, rect) {
 /**
  * Injection token that can be used to specify the global ripple options.
  */
-var MD_RIPPLE_GLOBAL_OPTIONS = new _angular_core.InjectionToken('md-ripple-global-options');
-var MdRipple = (function () {
+var MAT_RIPPLE_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-ripple-global-options');
+var MatRipple = (function () {
     /**
      * @param {?} elementRef
      * @param {?} ngZone
@@ -1434,7 +1398,7 @@ var MdRipple = (function () {
      * @param {?} platform
      * @param {?} globalOptions
      */
-    function MdRipple(elementRef, ngZone, ruler, platform, globalOptions) {
+    function MatRipple(elementRef, ngZone, ruler, platform, globalOptions) {
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -1451,103 +1415,12 @@ var MdRipple = (function () {
         this._globalOptions = globalOptions ? globalOptions : {};
         this._updateRippleRenderer();
     }
-    Object.defineProperty(MdRipple.prototype, "_matRippleTrigger", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.trigger; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.trigger = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleCentered", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.centered; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.centered = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleDisabled", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.disabled; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.disabled = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleRadius", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.radius; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.radius = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleSpeedFactor", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.speedFactor; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.speedFactor = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleColor", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.color; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.color = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleUnbounded", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.unbounded; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.unbounded = v; },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @param {?} changes
      * @return {?}
      */
-    MdRipple.prototype.ngOnChanges = function (changes) {
-        if (changes['trigger'] && this.trigger) {
+    MatRipple.prototype.ngOnChanges = function (changes) {
+        if ((changes['trigger'] || changes['_matRippleTrigger']) && this.trigger) {
             this._rippleRenderer.setTriggerElement(this.trigger);
         }
         this._updateRippleRenderer();
@@ -1555,7 +1428,7 @@ var MdRipple = (function () {
     /**
      * @return {?}
      */
-    MdRipple.prototype.ngOnDestroy = function () {
+    MatRipple.prototype.ngOnDestroy = function () {
         // Set the trigger element to null to cleanup all listeners.
         this._rippleRenderer.setTriggerElement(null);
     };
@@ -1566,7 +1439,7 @@ var MdRipple = (function () {
      * @param {?=} config
      * @return {?}
      */
-    MdRipple.prototype.launch = function (pageX, pageY, config) {
+    MatRipple.prototype.launch = function (pageX, pageY, config) {
         if (config === void 0) { config = this.rippleConfig; }
         return this._rippleRenderer.fadeInRipple(pageX, pageY, config);
     };
@@ -1574,10 +1447,10 @@ var MdRipple = (function () {
      * Fades out all currently showing ripple elements.
      * @return {?}
      */
-    MdRipple.prototype.fadeOutAll = function () {
+    MatRipple.prototype.fadeOutAll = function () {
         this._rippleRenderer.fadeOutAll();
     };
-    Object.defineProperty(MdRipple.prototype, "rippleConfig", {
+    Object.defineProperty(MatRipple.prototype, "rippleConfig", {
         /**
          * Ripple configuration from the directive's input values.
          * @return {?}
@@ -1597,16 +1470,16 @@ var MdRipple = (function () {
      * Updates the ripple renderer with the latest ripple configuration.
      * @return {?}
      */
-    MdRipple.prototype._updateRippleRenderer = function () {
+    MatRipple.prototype._updateRippleRenderer = function () {
         this._rippleRenderer.rippleDisabled = this._globalOptions.disabled || this.disabled;
         this._rippleRenderer.rippleConfig = this.rippleConfig;
     };
-    return MdRipple;
+    return MatRipple;
 }());
-MdRipple.decorators = [
+MatRipple.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[md-ripple], [mat-ripple], [mdRipple], [matRipple]',
-                exportAs: 'mdRipple, matRipple',
+                selector: '[mat-ripple], [matRipple]',
+                exportAs: 'matRipple',
                 host: {
                     'class': 'mat-ripple',
                     '[class.mat-ripple-unbounded]': 'unbounded'
@@ -1616,46 +1489,39 @@ MdRipple.decorators = [
 /**
  * @nocollapse
  */
-MdRipple.ctorParameters = function () { return [
+MatRipple.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.NgZone, },
     { type: _angular_cdk_scrolling.ViewportRuler, },
     { type: _angular_cdk_platform.Platform, },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_RIPPLE_GLOBAL_OPTIONS,] },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
 ]; };
-MdRipple.propDecorators = {
-    'trigger': [{ type: _angular_core.Input, args: ['mdRippleTrigger',] },],
-    'centered': [{ type: _angular_core.Input, args: ['mdRippleCentered',] },],
-    'disabled': [{ type: _angular_core.Input, args: ['mdRippleDisabled',] },],
-    'radius': [{ type: _angular_core.Input, args: ['mdRippleRadius',] },],
-    'speedFactor': [{ type: _angular_core.Input, args: ['mdRippleSpeedFactor',] },],
-    'color': [{ type: _angular_core.Input, args: ['mdRippleColor',] },],
-    'unbounded': [{ type: _angular_core.Input, args: ['mdRippleUnbounded',] },],
-    '_matRippleTrigger': [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
-    '_matRippleCentered': [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
-    '_matRippleDisabled': [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
-    '_matRippleRadius': [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
-    '_matRippleSpeedFactor': [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
-    '_matRippleColor': [{ type: _angular_core.Input, args: ['matRippleColor',] },],
-    '_matRippleUnbounded': [{ type: _angular_core.Input, args: ['matRippleUnbounded',] },],
+MatRipple.propDecorators = {
+    'trigger': [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
+    'centered': [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
+    'disabled': [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
+    'radius': [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
+    'speedFactor': [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
+    'color': [{ type: _angular_core.Input, args: ['matRippleColor',] },],
+    'unbounded': [{ type: _angular_core.Input, args: ['matRippleUnbounded',] },],
 };
-var MdRippleModule = (function () {
-    function MdRippleModule() {
+var MatRippleModule = (function () {
+    function MatRippleModule() {
     }
-    return MdRippleModule;
+    return MatRippleModule;
 }());
-MdRippleModule.decorators = [
+MatRippleModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
-                exports: [MdRipple, MdCommonModule],
-                declarations: [MdRipple],
+                imports: [MatCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
+                exports: [MatRipple, MatCommonModule],
+                declarations: [MatRipple],
                 providers: [_angular_cdk_scrolling.VIEWPORT_RULER_PROVIDER],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdRippleModule.ctorParameters = function () { return []; };
+MatRippleModule.ctorParameters = function () { return []; };
 /**
  * Component that shows a simplified checkbox without including any kind of "real" checkbox.
  * Meant to be used when the checkbox is purely decorative and a large number of them will be
@@ -1664,13 +1530,13 @@ MdRippleModule.ctorParameters = function () { return []; };
  * `mat-primary .mat-pseudo-checkbox`.
  *
  * Note that this component will be completely invisible to screen-reader users. This is *not*
- * interchangeable with <md-checkbox> and should *not* be used if the user would directly interact
+ * interchangeable with <mat-checkbox> and should *not* be used if the user would directly interact
  * with the checkbox. The pseudo-checkbox should only be used as an implementation detail of
  * more complex components that appropriately handle selected / checked state.
  * \@docs-private
  */
-var MdPseudoCheckbox = (function () {
-    function MdPseudoCheckbox() {
+var MatPseudoCheckbox = (function () {
+    function MatPseudoCheckbox() {
         /**
          * Display state of the checkbox.
          */
@@ -1680,13 +1546,13 @@ var MdPseudoCheckbox = (function () {
          */
         this.disabled = false;
     }
-    return MdPseudoCheckbox;
+    return MatPseudoCheckbox;
 }());
-MdPseudoCheckbox.decorators = [
+MatPseudoCheckbox.decorators = [
     { type: _angular_core.Component, args: [{ encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                selector: 'md-pseudo-checkbox, mat-pseudo-checkbox',
+                selector: 'mat-pseudo-checkbox',
                 styles: [".mat-pseudo-checkbox{width:20px;height:20px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0,0,.2,.1),background-color 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:'';border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:9px;left:2px;width:16px;opacity:1}.mat-pseudo-checkbox-checked::after{top:5px;left:3px;width:12px;height:5px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1}"],
                 template: '',
                 host: {
@@ -1700,43 +1566,43 @@ MdPseudoCheckbox.decorators = [
 /**
  * @nocollapse
  */
-MdPseudoCheckbox.ctorParameters = function () { return []; };
-MdPseudoCheckbox.propDecorators = {
+MatPseudoCheckbox.ctorParameters = function () { return []; };
+MatPseudoCheckbox.propDecorators = {
     'state': [{ type: _angular_core.Input },],
     'disabled': [{ type: _angular_core.Input },],
 };
-var MdPseudoCheckboxModule = (function () {
-    function MdPseudoCheckboxModule() {
+var MatPseudoCheckboxModule = (function () {
+    function MatPseudoCheckboxModule() {
     }
-    return MdPseudoCheckboxModule;
+    return MatPseudoCheckboxModule;
 }());
-MdPseudoCheckboxModule.decorators = [
+MatPseudoCheckboxModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                exports: [MdPseudoCheckbox],
-                declarations: [MdPseudoCheckbox]
+                exports: [MatPseudoCheckbox],
+                declarations: [MatPseudoCheckbox]
             },] },
 ];
 /**
  * @nocollapse
  */
-MdPseudoCheckboxModule.ctorParameters = function () { return []; };
+MatPseudoCheckboxModule.ctorParameters = function () { return []; };
 /**
  * \@docs-private
  */
-var MdOptgroupBase = (function () {
-    function MdOptgroupBase() {
+var MatOptgroupBase = (function () {
+    function MatOptgroupBase() {
     }
-    return MdOptgroupBase;
+    return MatOptgroupBase;
 }());
-var _MdOptgroupMixinBase = mixinDisabled(MdOptgroupBase);
+var _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
 // Counter for unique group ids.
 var _uniqueOptgroupIdCounter = 0;
 /**
- * Component that is used to group instances of `md-option`.
+ * Component that is used to group instances of `mat-option`.
  */
-var MdOptgroup = (function (_super) {
-    __extends(MdOptgroup, _super);
-    function MdOptgroup() {
+var MatOptgroup = (function (_super) {
+    __extends(MatOptgroup, _super);
+    function MatOptgroup() {
         var _this = _super.apply(this, arguments) || this;
         /**
          * Unique id for the underlying label.
@@ -1744,11 +1610,11 @@ var MdOptgroup = (function (_super) {
         _this._labelId = "mat-optgroup-label-" + _uniqueOptgroupIdCounter++;
         return _this;
     }
-    return MdOptgroup;
-}(_MdOptgroupMixinBase));
-MdOptgroup.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-optgroup, mat-optgroup',
-                template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"md-option, mat-option\"></ng-content>",
+    return MatOptgroup;
+}(_MatOptgroupMixinBase));
+MatOptgroup.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-optgroup',
+                template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -1765,8 +1631,8 @@ MdOptgroup.decorators = [
 /**
  * @nocollapse
  */
-MdOptgroup.ctorParameters = function () { return []; };
-MdOptgroup.propDecorators = {
+MatOptgroup.ctorParameters = function () { return []; };
+MatOptgroup.propDecorators = {
     'label': [{ type: _angular_core.Input },],
 };
 /**
@@ -1775,35 +1641,33 @@ MdOptgroup.propDecorators = {
  */
 var _uniqueIdCounter = 0;
 /**
- * Event object emitted by MdOption when selected or deselected.
+ * Event object emitted by MatOption when selected or deselected.
  */
-var MdOptionSelectionChange = (function () {
+var MatOptionSelectionChange = (function () {
     /**
      * @param {?} source
      * @param {?=} isUserInput
      */
-    function MdOptionSelectionChange(source, isUserInput) {
+    function MatOptionSelectionChange(source, isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
         this.source = source;
         this.isUserInput = isUserInput;
     }
-    return MdOptionSelectionChange;
+    return MatOptionSelectionChange;
 }());
 /**
- * Single option inside of a `<md-select>` element.
+ * Single option inside of a `<mat-select>` element.
  */
-var MdOption = (function () {
+var MatOption = (function () {
     /**
      * @param {?} _element
      * @param {?} _changeDetectorRef
      * @param {?} group
-     * @param {?} _isCompatibilityMode
      */
-    function MdOption(_element, _changeDetectorRef, group, _isCompatibilityMode) {
+    function MatOption(_element, _changeDetectorRef, group) {
         this._element = _element;
         this._changeDetectorRef = _changeDetectorRef;
         this.group = group;
-        this._isCompatibilityMode = _isCompatibilityMode;
         this._selected = false;
         this._active = false;
         this._multiple = false;
@@ -1812,13 +1676,13 @@ var MdOption = (function () {
          * Whether the option is disabled.
          */
         this._disabled = false;
-        this._id = "md-option-" + _uniqueIdCounter++;
+        this._id = "mat-option-" + _uniqueIdCounter++;
         /**
          * Event emitted when the option is selected or deselected.
          */
         this.onSelectionChange = new _angular_core.EventEmitter();
     }
-    Object.defineProperty(MdOption.prototype, "multiple", {
+    Object.defineProperty(MatOption.prototype, "multiple", {
         /**
          * Whether the wrapping component is in multiple selection mode.
          * @return {?}
@@ -1837,7 +1701,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "id", {
+    Object.defineProperty(MatOption.prototype, "id", {
         /**
          * The unique ID of the option.
          * @return {?}
@@ -1846,7 +1710,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "selected", {
+    Object.defineProperty(MatOption.prototype, "selected", {
         /**
          * Whether or not the option is currently selected.
          * @return {?}
@@ -1855,7 +1719,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "disabled", {
+    Object.defineProperty(MatOption.prototype, "disabled", {
         /**
          * Whether the option is disabled.
          * @return {?}
@@ -1869,7 +1733,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "disableRipple", {
+    Object.defineProperty(MatOption.prototype, "disableRipple", {
         /**
          * Whether ripples for the option are disabled.
          * @return {?}
@@ -1886,7 +1750,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "active", {
+    Object.defineProperty(MatOption.prototype, "active", {
         /**
          * Whether or not the option is currently active and ready to be selected.
          * An active option displays styles as if it is focused, but the
@@ -1900,7 +1764,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "viewValue", {
+    Object.defineProperty(MatOption.prototype, "viewValue", {
         /**
          * The displayed value of the option. It is necessary to show the selected option in the
          * select's trigger.
@@ -1917,7 +1781,7 @@ var MdOption = (function () {
      * Selects the option.
      * @return {?}
      */
-    MdOption.prototype.select = function () {
+    MatOption.prototype.select = function () {
         this._selected = true;
         this._changeDetectorRef.markForCheck();
         this._emitSelectionChangeEvent();
@@ -1926,7 +1790,7 @@ var MdOption = (function () {
      * Deselects the option.
      * @return {?}
      */
-    MdOption.prototype.deselect = function () {
+    MatOption.prototype.deselect = function () {
         this._selected = false;
         this._changeDetectorRef.markForCheck();
         this._emitSelectionChangeEvent();
@@ -1935,7 +1799,7 @@ var MdOption = (function () {
      * Sets focus onto this option.
      * @return {?}
      */
-    MdOption.prototype.focus = function () {
+    MatOption.prototype.focus = function () {
         var /** @type {?} */ element = this._getHostElement();
         if (typeof element.focus === 'function') {
             element.focus();
@@ -1947,7 +1811,7 @@ var MdOption = (function () {
      * events will display the proper options as active on arrow key events.
      * @return {?}
      */
-    MdOption.prototype.setActiveStyles = function () {
+    MatOption.prototype.setActiveStyles = function () {
         if (!this._active) {
             this._active = true;
             this._changeDetectorRef.markForCheck();
@@ -1959,7 +1823,7 @@ var MdOption = (function () {
      * events will display the proper options as active on arrow key events.
      * @return {?}
      */
-    MdOption.prototype.setInactiveStyles = function () {
+    MatOption.prototype.setInactiveStyles = function () {
         if (this._active) {
             this._active = false;
             this._changeDetectorRef.markForCheck();
@@ -1969,7 +1833,7 @@ var MdOption = (function () {
      * Gets the label to be used when determining whether the option should be focused.
      * @return {?}
      */
-    MdOption.prototype.getLabel = function () {
+    MatOption.prototype.getLabel = function () {
         return this.viewValue;
     };
     /**
@@ -1977,7 +1841,7 @@ var MdOption = (function () {
      * @param {?} event
      * @return {?}
      */
-    MdOption.prototype._handleKeydown = function (event) {
+    MatOption.prototype._handleKeydown = function (event) {
         if (event.keyCode === _angular_cdk_keycodes.ENTER || event.keyCode === _angular_cdk_keycodes.SPACE) {
             this._selectViaInteraction();
             // Prevent the page from scrolling down and form submits.
@@ -1989,7 +1853,7 @@ var MdOption = (function () {
      * determine if the select's view -> model callback should be invoked.
      * @return {?}
      */
-    MdOption.prototype._selectViaInteraction = function () {
+    MatOption.prototype._selectViaInteraction = function () {
         if (!this.disabled) {
             this._selected = this.multiple ? !this._selected : true;
             this._changeDetectorRef.markForCheck();
@@ -2000,14 +1864,14 @@ var MdOption = (function () {
      * Returns the correct tabindex for the option depending on disabled state.
      * @return {?}
      */
-    MdOption.prototype._getTabIndex = function () {
+    MatOption.prototype._getTabIndex = function () {
         return this.disabled ? '-1' : '0';
     };
     /**
      * Gets the host DOM element.
      * @return {?}
      */
-    MdOption.prototype._getHostElement = function () {
+    MatOption.prototype._getHostElement = function () {
         return this._element.nativeElement;
     };
     /**
@@ -2015,9 +1879,9 @@ var MdOption = (function () {
      * @param {?=} isUserInput
      * @return {?}
      */
-    MdOption.prototype._emitSelectionChangeEvent = function (isUserInput) {
+    MatOption.prototype._emitSelectionChangeEvent = function (isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
-        this.onSelectionChange.emit(new MdOptionSelectionChange(this, isUserInput));
+        this.onSelectionChange.emit(new MatOptionSelectionChange(this, isUserInput));
     };
     /**
      * Counts the amount of option group labels that precede the specified option.
@@ -2026,7 +1890,7 @@ var MdOption = (function () {
      * @param {?} optionGroups Flat list of all of the option groups.
      * @return {?}
      */
-    MdOption.countGroupLabelsBeforeOption = function (optionIndex, options, optionGroups) {
+    MatOption.countGroupLabelsBeforeOption = function (optionIndex, options, optionGroups) {
         if (optionGroups.length) {
             var /** @type {?} */ optionsArray = options.toArray();
             var /** @type {?} */ groups = optionGroups.toArray();
@@ -2040,10 +1904,10 @@ var MdOption = (function () {
         }
         return 0;
     };
-    return MdOption;
+    return MatOption;
 }());
-MdOption.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-option, mat-option',
+MatOption.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-option',
                 host: {
                     'role': 'option',
                     '[attr.tabindex]': '_getTabIndex()',
@@ -2058,7 +1922,7 @@ MdOption.decorators = [
                     '(keydown)': '_handleKeydown($event)',
                     'class': 'mat-option',
                 },
-                template: "<span [ngSwitch]=\"_isCompatibilityMode\" *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" *ngSwitchCase=\"true\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox><md-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" *ngSwitchDefault [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></md-pseudo-checkbox></span><ng-content></ng-content><div class=\"mat-option-ripple\" md-ripple [mdRippleTrigger]=\"_getHostElement()\" [mdRippleDisabled]=\"disabled || disableRipple\"></div>",
+                template: "<span *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox></span><span class=\"mat-option-text\"><ng-content></ng-content></span><div class=\"mat-option-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"disabled || disableRipple\"></div>",
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -2067,69 +1931,50 @@ MdOption.decorators = [
 /**
  * @nocollapse
  */
-MdOption.ctorParameters = function () { return [
+MatOption.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.ChangeDetectorRef, },
-    { type: MdOptgroup, decorators: [{ type: _angular_core.Optional },] },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
+    { type: MatOptgroup, decorators: [{ type: _angular_core.Optional },] },
 ]; };
-MdOption.propDecorators = {
+MatOption.propDecorators = {
     'value': [{ type: _angular_core.Input },],
     'disabled': [{ type: _angular_core.Input },],
     'onSelectionChange': [{ type: _angular_core.Output },],
 };
-var MdOptionModule = (function () {
-    function MdOptionModule() {
+var MatOptionModule = (function () {
+    function MatOptionModule() {
     }
-    return MdOptionModule;
+    return MatOptionModule;
 }());
-MdOptionModule.decorators = [
+MatOptionModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdRippleModule, _angular_common.CommonModule, MdPseudoCheckboxModule],
-                exports: [MdOption, MdOptgroup],
-                declarations: [MdOption, MdOptgroup]
+                imports: [MatRippleModule, _angular_common.CommonModule, MatPseudoCheckboxModule],
+                exports: [MatOption, MatOptgroup],
+                declarations: [MatOption, MatOptgroup]
             },] },
 ];
 /**
  * @nocollapse
  */
-MdOptionModule.ctorParameters = function () { return []; };
+MatOptionModule.ctorParameters = function () { return []; };
 /**
  * InjectionToken that can be used to specify the global placeholder options.
  */
-var MD_PLACEHOLDER_GLOBAL_OPTIONS = new _angular_core.InjectionToken('md-placeholder-global-options');
-/**
- * @deprecated
- */
-var StyleModule = (function () {
-    function StyleModule() {
-    }
-    return StyleModule;
-}());
-StyleModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [_angular_cdk_a11y.A11yModule],
-                exports: [_angular_cdk_a11y.A11yModule],
-            },] },
-];
-/**
- * @nocollapse
- */
-StyleModule.ctorParameters = function () { return []; };
+var MAT_PLACEHOLDER_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-placeholder-global-options');
 
 var nextUniqueId$1 = 0;
 /**
  * Single error message to be shown underneath the form field.
  */
-var MdError = (function () {
-    function MdError() {
+var MatError = (function () {
+    function MatError() {
         this.id = "mat-error-" + nextUniqueId$1++;
     }
-    return MdError;
+    return MatError;
 }());
-MdError.decorators = [
+MatError.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: 'md-error, mat-error',
+                selector: 'mat-error',
                 host: {
                     'class': 'mat-error',
                     'role': 'alert',
@@ -2140,16 +1985,16 @@ MdError.decorators = [
 /**
  * @nocollapse
  */
-MdError.ctorParameters = function () { return []; };
-MdError.propDecorators = {
+MatError.ctorParameters = function () { return []; };
+MatError.propDecorators = {
     'id': [{ type: _angular_core.Input },],
 };
 /**
- * An interface which allows a control to work inside of a `MdFormField`.
+ * An interface which allows a control to work inside of a `MatFormField`.
  * @abstract
  */
-var MdFormFieldControl = (function () {
-    function MdFormFieldControl() {
+var MatFormFieldControl = (function () {
+    function MatFormFieldControl() {
     }
     /**
      * Sets the list of element IDs that currently describe this control.
@@ -2157,20 +2002,21 @@ var MdFormFieldControl = (function () {
      * @param {?} ids
      * @return {?}
      */
-    MdFormFieldControl.prototype.setDescribedByIds = function (ids) { };
+    MatFormFieldControl.prototype.setDescribedByIds = function (ids) { };
     /**
-     * Focuses this control.
+     * Handles a click on the control's container.
      * @abstract
+     * @param {?} event
      * @return {?}
      */
-    MdFormFieldControl.prototype.focus = function () { };
-    return MdFormFieldControl;
+    MatFormFieldControl.prototype.onContainerClick = function (event) { };
+    return MatFormFieldControl;
 }());
 /**
  * \@docs-private
  * @return {?}
  */
-function getMdFormFieldPlaceholderConflictError() {
+function getMatFormFieldPlaceholderConflictError() {
     return Error('Placeholder attribute and child element were both specified.');
 }
 /**
@@ -2178,23 +2024,23 @@ function getMdFormFieldPlaceholderConflictError() {
  * @param {?} align
  * @return {?}
  */
-function getMdFormFieldDuplicatedHintError(align) {
+function getMatFormFieldDuplicatedHintError(align) {
     return Error("A hint was already declared for 'align=\"" + align + "\"'.");
 }
 /**
  * \@docs-private
  * @return {?}
  */
-function getMdFormFieldMissingControlError() {
-    return Error('md-form-field must contain a MdFormFieldControl. ' +
-        'Did you forget to add mdInput to the native input or textarea element?');
+function getMatFormFieldMissingControlError() {
+    return Error('mat-form-field must contain a MatFormFieldControl. ' +
+        'Did you forget to add matInput to the native input or textarea element?');
 }
 var nextUniqueId$2 = 0;
 /**
  * Hint text to be shown underneath the form field control.
  */
-var MdHint = (function () {
-    function MdHint() {
+var MatHint = (function () {
+    function MatHint() {
         /**
          * Whether to align the hint label at the start or end of the line.
          */
@@ -2204,11 +2050,11 @@ var MdHint = (function () {
          */
         this.id = "mat-hint-" + nextUniqueId$2++;
     }
-    return MdHint;
+    return MatHint;
 }());
-MdHint.decorators = [
+MatHint.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: 'md-hint, mat-hint',
+                selector: 'mat-hint',
                 host: {
                     'class': 'mat-hint',
                     '[class.mat-right]': 'align == "end"',
@@ -2221,74 +2067,76 @@ MdHint.decorators = [
 /**
  * @nocollapse
  */
-MdHint.ctorParameters = function () { return []; };
-MdHint.propDecorators = {
+MatHint.ctorParameters = function () { return []; };
+MatHint.propDecorators = {
     'align': [{ type: _angular_core.Input },],
     'id': [{ type: _angular_core.Input },],
 };
 /**
- * The floating placeholder for an `MdFormField`.
+ * The floating placeholder for an `MatFormField`.
  */
-var MdPlaceholder = (function () {
-    function MdPlaceholder() {
+var MatPlaceholder = (function () {
+    function MatPlaceholder() {
     }
-    return MdPlaceholder;
+    return MatPlaceholder;
 }());
-MdPlaceholder.decorators = [
+MatPlaceholder.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: 'md-placeholder, mat-placeholder'
+                selector: 'mat-placeholder'
             },] },
 ];
 /**
  * @nocollapse
  */
-MdPlaceholder.ctorParameters = function () { return []; };
+MatPlaceholder.ctorParameters = function () { return []; };
 /**
  * Prefix to be placed the the front of the form field.
  */
-var MdPrefix = (function () {
-    function MdPrefix() {
+var MatPrefix = (function () {
+    function MatPrefix() {
     }
-    return MdPrefix;
+    return MatPrefix;
 }());
-MdPrefix.decorators = [
+MatPrefix.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[mdPrefix], [matPrefix]',
+                selector: '[matPrefix]',
             },] },
 ];
 /**
  * @nocollapse
  */
-MdPrefix.ctorParameters = function () { return []; };
+MatPrefix.ctorParameters = function () { return []; };
 /**
  * Suffix to be placed at the end of the form field.
  */
-var MdSuffix = (function () {
-    function MdSuffix() {
+var MatSuffix = (function () {
+    function MatSuffix() {
     }
-    return MdSuffix;
+    return MatSuffix;
 }());
-MdSuffix.decorators = [
+MatSuffix.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[mdSuffix], [matSuffix]',
+                selector: '[matSuffix]',
             },] },
 ];
 /**
  * @nocollapse
  */
-MdSuffix.ctorParameters = function () { return []; };
+MatSuffix.ctorParameters = function () { return []; };
 var nextUniqueId$1$1 = 0;
 /**
  * Container for form controls that applies Material Design styling and behavior.
  */
-var MdFormField = (function () {
+var MatFormField = (function () {
     /**
      * @param {?} _elementRef
+     * @param {?} _renderer
      * @param {?} _changeDetectorRef
      * @param {?} placeholderOptions
      */
-    function MdFormField(_elementRef, _changeDetectorRef, placeholderOptions) {
+    function MatFormField(_elementRef, _renderer, _changeDetectorRef, placeholderOptions) {
         this._elementRef = _elementRef;
+        this._renderer = _renderer;
         this._changeDetectorRef = _changeDetectorRef;
         /**
          * Color of the form field underline, based on the theme.
@@ -2299,16 +2147,16 @@ var MdFormField = (function () {
          */
         this._showAlwaysAnimate = false;
         /**
-         * State of the md-hint and md-error animations.
+         * State of the mat-hint and mat-error animations.
          */
         this._subscriptAnimationState = '';
         this._hintLabel = '';
         // Unique id for the hint label.
-        this._hintLabelId = "md-hint-" + nextUniqueId$1$1++;
+        this._hintLabelId = "mat-hint-" + nextUniqueId$1$1++;
         this._placeholderOptions = placeholderOptions ? placeholderOptions : {};
         this.floatPlaceholder = this._placeholderOptions.float || 'auto';
     }
-    Object.defineProperty(MdFormField.prototype, "dividerColor", {
+    Object.defineProperty(MatFormField.prototype, "dividerColor", {
         /**
          * @deprecated Use `color` instead.
          * @return {?}
@@ -2322,7 +2170,7 @@ var MdFormField = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdFormField.prototype, "hideRequiredMarker", {
+    Object.defineProperty(MatFormField.prototype, "hideRequiredMarker", {
         /**
          * Whether the required marker should be hidden.
          * @return {?}
@@ -2338,7 +2186,7 @@ var MdFormField = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdFormField.prototype, "_shouldAlwaysFloat", {
+    Object.defineProperty(MatFormField.prototype, "_shouldAlwaysFloat", {
         /**
          * Whether the floating label should always float or not.
          * @return {?}
@@ -2349,7 +2197,7 @@ var MdFormField = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdFormField.prototype, "_canPlaceholderFloat", {
+    Object.defineProperty(MatFormField.prototype, "_canPlaceholderFloat", {
         /**
          * Whether the placeholder can float or not.
          * @return {?}
@@ -2358,7 +2206,7 @@ var MdFormField = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdFormField.prototype, "hintLabel", {
+    Object.defineProperty(MatFormField.prototype, "hintLabel", {
         /**
          * Text for the form field hint.
          * @return {?}
@@ -2375,7 +2223,7 @@ var MdFormField = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdFormField.prototype, "floatPlaceholder", {
+    Object.defineProperty(MatFormField.prototype, "floatPlaceholder", {
         /**
          * Whether the placeholder should always float, never float or float as the user types.
          * @return {?}
@@ -2397,9 +2245,12 @@ var MdFormField = (function () {
     /**
      * @return {?}
      */
-    MdFormField.prototype.ngAfterContentInit = function () {
+    MatFormField.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._validateControlChild();
+        if (this._control.controlType) {
+            this._renderer.addClass(this._elementRef.nativeElement, "mat-form-field-type-" + this._control.controlType);
+        }
         // Subscribe to changes in the child control state in order to update the form field UI.
         _angular_cdk_rxjs.startWith.call(this._control.stateChanges, null).subscribe(function () {
             _this._validatePlaceholders();
@@ -2426,13 +2277,13 @@ var MdFormField = (function () {
     /**
      * @return {?}
      */
-    MdFormField.prototype.ngAfterContentChecked = function () {
+    MatFormField.prototype.ngAfterContentChecked = function () {
         this._validateControlChild();
     };
     /**
      * @return {?}
      */
-    MdFormField.prototype.ngAfterViewInit = function () {
+    MatFormField.prototype.ngAfterViewInit = function () {
         // Avoid animations on load.
         this._subscriptAnimationState = 'enter';
         this._changeDetectorRef.detectChanges();
@@ -2442,7 +2293,7 @@ var MdFormField = (function () {
      * @param {?} prop
      * @return {?}
      */
-    MdFormField.prototype._shouldForward = function (prop) {
+    MatFormField.prototype._shouldForward = function (prop) {
         var /** @type {?} */ ngControl = this._control ? this._control.ngControl : null;
         return ngControl && ((ngControl))[prop];
     };
@@ -2450,14 +2301,14 @@ var MdFormField = (function () {
      * Whether the form field has a placeholder.
      * @return {?}
      */
-    MdFormField.prototype._hasPlaceholder = function () {
+    MatFormField.prototype._hasPlaceholder = function () {
         return !!(this._control.placeholder || this._placeholderChild);
     };
     /**
      * Determines whether to display hints or errors.
      * @return {?}
      */
-    MdFormField.prototype._getDisplayedMessages = function () {
+    MatFormField.prototype._getDisplayedMessages = function () {
         return (this._errorChildren && this._errorChildren.length > 0 &&
             this._control.errorState) ? 'error' : 'hint';
     };
@@ -2465,7 +2316,7 @@ var MdFormField = (function () {
      * Animates the placeholder up and locks it in position.
      * @return {?}
      */
-    MdFormField.prototype._animateAndLockPlaceholder = function () {
+    MatFormField.prototype._animateAndLockPlaceholder = function () {
         var _this = this;
         if (this._placeholder && this._canPlaceholderFloat) {
             this._showAlwaysAnimate = true;
@@ -2478,28 +2329,28 @@ var MdFormField = (function () {
     };
     /**
      * Ensure that there is only one placeholder (either `placeholder` attribute on the child control
-     * or child element with the `md-placeholder` directive).
+     * or child element with the `mat-placeholder` directive).
      * @return {?}
      */
-    MdFormField.prototype._validatePlaceholders = function () {
+    MatFormField.prototype._validatePlaceholders = function () {
         if (this._control.placeholder && this._placeholderChild) {
-            throw getMdFormFieldPlaceholderConflictError();
+            throw getMatFormFieldPlaceholderConflictError();
         }
     };
     /**
      * Does any extra processing that is required when handling the hints.
      * @return {?}
      */
-    MdFormField.prototype._processHints = function () {
+    MatFormField.prototype._processHints = function () {
         this._validateHints();
         this._syncDescribedByIds();
     };
     /**
-     * Ensure that there is a maximum of one of each `<md-hint>` alignment specified, with the
+     * Ensure that there is a maximum of one of each `<mat-hint>` alignment specified, with the
      * attribute being considered as `align="start"`.
      * @return {?}
      */
-    MdFormField.prototype._validateHints = function () {
+    MatFormField.prototype._validateHints = function () {
         var _this = this;
         if (this._hintChildren) {
             var /** @type {?} */ startHint_1;
@@ -2507,13 +2358,13 @@ var MdFormField = (function () {
             this._hintChildren.forEach(function (hint) {
                 if (hint.align == 'start') {
                     if (startHint_1 || _this.hintLabel) {
-                        throw getMdFormFieldDuplicatedHintError('start');
+                        throw getMatFormFieldDuplicatedHintError('start');
                     }
                     startHint_1 = hint;
                 }
                 else if (hint.align == 'end') {
                     if (endHint_1) {
-                        throw getMdFormFieldDuplicatedHintError('end');
+                        throw getMatFormFieldDuplicatedHintError('end');
                     }
                     endHint_1 = hint;
                 }
@@ -2525,7 +2376,7 @@ var MdFormField = (function () {
      * its `aria-describedby` attribute accordingly.
      * @return {?}
      */
-    MdFormField.prototype._syncDescribedByIds = function () {
+    MatFormField.prototype._syncDescribedByIds = function () {
         if (this._control) {
             var /** @type {?} */ ids = [];
             if (this._getDisplayedMessages() === 'hint') {
@@ -2544,7 +2395,7 @@ var MdFormField = (function () {
                 }
             }
             else if (this._errorChildren) {
-                ids = this._errorChildren.map(function (mdError) { return mdError.id; });
+                ids = this._errorChildren.map(function (error) { return error.id; });
             }
             this._control.setDescribedByIds(ids);
         }
@@ -2553,21 +2404,21 @@ var MdFormField = (function () {
      * Throws an error if the form field's control is missing.
      * @return {?}
      */
-    MdFormField.prototype._validateControlChild = function () {
+    MatFormField.prototype._validateControlChild = function () {
         if (!this._control) {
-            throw getMdFormFieldMissingControlError();
+            throw getMatFormFieldMissingControlError();
         }
     };
-    return MdFormField;
+    return MatFormField;
 }());
-MdFormField.decorators = [
+MatFormField.decorators = [
     { type: _angular_core.Component, args: [{
-                selector: 'md-input-container, mat-input-container, md-form-field, mat-form-field',
-                template: "<div class=\"mat-input-wrapper mat-form-field-wrapper\"><div class=\"mat-input-flex mat-form-field-flex\" #connectionContainer><div class=\"mat-input-prefix mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[mdPrefix], [matPrefix]\"></ng-content></div><div class=\"mat-input-infix mat-form-field-infix\"><ng-content></ng-content><span class=\"mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper\"><label class=\"mat-input-placeholder mat-form-field-placeholder\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-float]=\"_canPlaceholderFloat\" [class.mat-form-field-float]=\"_canPlaceholderFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #placeholder *ngIf=\"_hasPlaceholder()\"><ng-content select=\"md-placeholder, mat-placeholder\"></ng-content>{{_control.placeholder}} <span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required\">*</span></label></span></div><div class=\"mat-input-suffix mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[mdSuffix], [matSuffix]\"></ng-content></div></div><div class=\"mat-input-underline mat-form-field-underline\" #underline [class.mat-disabled]=\"_control.disabled\"><span class=\"mat-input-ripple mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-input-subscript-wrapper mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"md-error, mat-error\"></ng-content></div><div class=\"mat-input-hint-wrapper mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"md-hint:not([align='end']), mat-hint:not([align='end'])\"></ng-content><div class=\"mat-input-hint-spacer mat-form-field-hint-spacer\"></div><ng-content select=\"md-hint[align='end'], mat-hint[align='end']\"></ng-content></div></div></div>",
-                // MdInput is a directive and can't have styles, so we need to include its styles here.
-                // The MdInput styles are fairly minimal so it shouldn't be a big deal for people who aren't using
-                // MdInput.
-                styles: [".mat-form-field{display:inline-block;position:relative;text-align:left}[dir=rtl] .mat-form-field{text-align:right}.mat-form-field-wrapper{position:relative}.mat-form-field-flex{display:inline-flex;align-items:baseline;width:100%}.mat-form-field-prefix,.mat-form-field-suffix{white-space:nowrap;flex:none}.mat-form-field-prefix .mat-icon,.mat-form-field-suffix .mat-icon{width:1em}.mat-form-field-prefix .mat-icon-button,.mat-form-field-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field-suffix .mat-icon-button .mat-icon{font-size:inherit}.mat-form-field-infix{display:block;position:relative;flex:auto}.mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:none}.mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-placeholder-wrapper .mat-form-field-float{display:block;transition:none}.mat-form-field-placeholder-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}.mat-form-field-placeholder{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:perspective(100px);-ms-transform:none;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}.mat-focused .mat-form-field-placeholder.mat-form-field-float,.mat-form-field-placeholder.mat-form-field-empty,.mat-form-field-placeholder.mat-form-field-float:not(.mat-form-field-empty){display:block}[dir=rtl] .mat-form-field-placeholder{transform-origin:100% 0;left:auto;right:0}.mat-form-field-placeholder:not(.mat-form-field-empty){transition:none}.mat-form-field-underline{position:absolute;height:1px;width:100%}.mat-form-field-underline.mat-disabled{background-position:0;background-color:transparent}.mat-form-field-underline .mat-form-field-ripple{position:absolute;height:1px;top:0;left:0;width:100%;transform-origin:50%;transform:scaleX(.5);visibility:hidden;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-focused .mat-form-field-underline .mat-form-field-ripple{height:2px}.mat-focused .mat-form-field-underline .mat-form-field-ripple,.mat-form-field-invalid .mat-form-field-underline .mat-form-field-ripple{visibility:visible;transform:scaleX(1);transition:transform 150ms linear,background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-form-field-subscript-wrapper{position:absolute;width:100%;overflow:hidden}.mat-form-field-placeholder-wrapper .mat-icon,.mat-form-field-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-form-field-hint-wrapper{display:flex}.mat-form-field-hint-spacer{flex:1 0 1em}.mat-error{display:block} .mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;margin:0;width:100%;max-width:100%;vertical-align:bottom}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element::placeholder{color:transparent!important}.mat-input-element::-moz-placeholder{color:transparent!important}.mat-input-element::-webkit-input-placeholder{color:transparent!important}.mat-input-element:-ms-input-placeholder{color:transparent!important}textarea.mat-input-element{resize:vertical;overflow:auto}"],
+                selector: 'mat-input-container, mat-form-field',
+                template: "<div class=\"mat-input-wrapper mat-form-field-wrapper\"><div class=\"mat-input-flex mat-form-field-flex\" #connectionContainer (click)=\"_control.onContainerClick && _control.onContainerClick($event)\"><div class=\"mat-input-prefix mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[matPrefix]\"></ng-content></div><div class=\"mat-input-infix mat-form-field-infix\"><ng-content></ng-content><span class=\"mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper\"><label class=\"mat-input-placeholder mat-form-field-placeholder\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #placeholder *ngIf=\"_hasPlaceholder()\"><ng-content select=\"mat-placeholder\"></ng-content>{{_control.placeholder}} <span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required\">*</span></label></span></div><div class=\"mat-input-suffix mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[matSuffix]\"></ng-content></div></div><div class=\"mat-input-underline mat-form-field-underline\" #underline [class.mat-disabled]=\"_control.disabled\"><span class=\"mat-input-ripple mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-input-subscript-wrapper mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"mat-error\"></ng-content></div><div class=\"mat-input-hint-wrapper mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"mat-hint:not([align='end'])\"></ng-content><div class=\"mat-input-hint-spacer mat-form-field-hint-spacer\"></div><ng-content select=\"mat-hint[align='end']\"></ng-content></div></div></div>",
+                // MatInput is a directive and can't have styles, so we need to include its styles here.
+                // The MatInput styles are fairly minimal so it shouldn't be a big deal for people who
+                // aren't using MatInput.
+                styles: [".mat-form-field{display:inline-block;position:relative;text-align:left}[dir=rtl] .mat-form-field{text-align:right}.mat-form-field-wrapper{position:relative}.mat-form-field-flex{display:inline-flex;align-items:baseline;width:100%}.mat-form-field-prefix,.mat-form-field-suffix{white-space:nowrap;flex:none}.mat-form-field-prefix .mat-icon,.mat-form-field-suffix .mat-icon{width:1em}.mat-form-field-prefix .mat-icon-button,.mat-form-field-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field-suffix .mat-icon-button .mat-icon{font-size:inherit}.mat-form-field-infix{display:block;position:relative;flex:auto;min-width:0}.mat-form-field-placeholder-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}.mat-form-field-placeholder{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:perspective(100px);-ms-transform:none;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}[dir=rtl] .mat-form-field-placeholder{transform-origin:100% 0;left:auto;right:0}.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-placeholder,.mat-form-field-empty.mat-form-field-placeholder{display:block}.mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:none}.mat-form-field-can-float .mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:block;transition:none}.mat-form-field-placeholder:not(.mat-form-field-empty){transition:none}.mat-form-field-underline{position:absolute;height:1px;width:100%}.mat-form-field-underline.mat-disabled{background-position:0;background-color:transparent}.mat-form-field-underline .mat-form-field-ripple{position:absolute;height:1px;top:0;left:0;width:100%;transform-origin:50%;transform:scaleX(.5);visibility:hidden;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-focused .mat-form-field-underline .mat-form-field-ripple{height:2px}.mat-focused .mat-form-field-underline .mat-form-field-ripple,.mat-form-field-invalid .mat-form-field-underline .mat-form-field-ripple{visibility:visible;transform:scaleX(1);transition:transform 150ms linear,background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-form-field-subscript-wrapper{position:absolute;width:100%;overflow:hidden}.mat-form-field-placeholder-wrapper .mat-icon,.mat-form-field-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-form-field-hint-wrapper{display:flex}.mat-form-field-hint-spacer{flex:1 0 1em}.mat-error{display:block} .mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;margin:0;width:100%;max-width:100%;vertical-align:bottom}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element::placeholder{color:transparent!important}.mat-input-element::-moz-placeholder{color:transparent!important}.mat-input-element::-webkit-input-placeholder{color:transparent!important}.mat-input-element:-ms-input-placeholder{color:transparent!important}textarea.mat-input-element{resize:vertical;overflow:auto}"],
                 animations: [
                     // TODO(mmalerba): Use angular animations for placeholder animation as well.
                     _angular_animations.trigger('transitionMessages', [
@@ -2582,7 +2433,12 @@ MdFormField.decorators = [
                     'class': 'mat-input-container mat-form-field',
                     '[class.mat-input-invalid]': '_control.errorState',
                     '[class.mat-form-field-invalid]': '_control.errorState',
+                    '[class.mat-form-field-can-float]': '_canPlaceholderFloat',
+                    '[class.mat-form-field-should-float]': '_control.shouldPlaceholderFloat || _shouldAlwaysFloat',
                     '[class.mat-focused]': '_control.focused',
+                    '[class.mat-primary]': 'color == "primary"',
+                    '[class.mat-accent]': 'color == "accent"',
+                    '[class.mat-warn]': 'color == "warn"',
                     '[class.ng-untouched]': '_shouldForward("untouched")',
                     '[class.ng-touched]': '_shouldForward("touched")',
                     '[class.ng-pristine]': '_shouldForward("pristine")',
@@ -2590,7 +2446,6 @@ MdFormField.decorators = [
                     '[class.ng-valid]': '_shouldForward("valid")',
                     '[class.ng-invalid]': '_shouldForward("invalid")',
                     '[class.ng-pending]': '_shouldForward("pending")',
-                    '(click)': '_control.focus()',
                 },
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
@@ -2600,12 +2455,13 @@ MdFormField.decorators = [
 /**
  * @nocollapse
  */
-MdFormField.ctorParameters = function () { return [
+MatFormField.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
+    { type: _angular_core.Renderer2, },
     { type: _angular_core.ChangeDetectorRef, },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
 ]; };
-MdFormField.propDecorators = {
+MatFormField.propDecorators = {
     'color': [{ type: _angular_core.Input },],
     'dividerColor': [{ type: _angular_core.Input },],
     'hideRequiredMarker': [{ type: _angular_core.Input },],
@@ -2614,108 +2470,108 @@ MdFormField.propDecorators = {
     'underlineRef': [{ type: _angular_core.ViewChild, args: ['underline',] },],
     '_connectionContainerRef': [{ type: _angular_core.ViewChild, args: ['connectionContainer',] },],
     '_placeholder': [{ type: _angular_core.ViewChild, args: ['placeholder',] },],
-    '_control': [{ type: _angular_core.ContentChild, args: [MdFormFieldControl,] },],
-    '_placeholderChild': [{ type: _angular_core.ContentChild, args: [MdPlaceholder,] },],
-    '_errorChildren': [{ type: _angular_core.ContentChildren, args: [MdError,] },],
-    '_hintChildren': [{ type: _angular_core.ContentChildren, args: [MdHint,] },],
-    '_prefixChildren': [{ type: _angular_core.ContentChildren, args: [MdPrefix,] },],
-    '_suffixChildren': [{ type: _angular_core.ContentChildren, args: [MdSuffix,] },],
+    '_control': [{ type: _angular_core.ContentChild, args: [MatFormFieldControl,] },],
+    '_placeholderChild': [{ type: _angular_core.ContentChild, args: [MatPlaceholder,] },],
+    '_errorChildren': [{ type: _angular_core.ContentChildren, args: [MatError,] },],
+    '_hintChildren': [{ type: _angular_core.ContentChildren, args: [MatHint,] },],
+    '_prefixChildren': [{ type: _angular_core.ContentChildren, args: [MatPrefix,] },],
+    '_suffixChildren': [{ type: _angular_core.ContentChildren, args: [MatSuffix,] },],
 };
-var MdFormFieldModule = (function () {
-    function MdFormFieldModule() {
+var MatFormFieldModule = (function () {
+    function MatFormFieldModule() {
     }
-    return MdFormFieldModule;
+    return MatFormFieldModule;
 }());
-MdFormFieldModule.decorators = [
+MatFormFieldModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 declarations: [
-                    MdError,
-                    MdHint,
-                    MdFormField,
-                    MdPlaceholder,
-                    MdPrefix,
-                    MdSuffix,
+                    MatError,
+                    MatHint,
+                    MatFormField,
+                    MatPlaceholder,
+                    MatPrefix,
+                    MatSuffix,
                 ],
                 imports: [
                     _angular_common.CommonModule,
                     _angular_cdk_platform.PlatformModule,
                 ],
                 exports: [
-                    MdError,
-                    MdHint,
-                    MdFormField,
-                    MdPlaceholder,
-                    MdPrefix,
-                    MdSuffix,
+                    MatError,
+                    MatHint,
+                    MatFormField,
+                    MatPlaceholder,
+                    MatPrefix,
+                    MatSuffix,
                 ],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdFormFieldModule.ctorParameters = function () { return []; };
+MatFormFieldModule.ctorParameters = function () { return []; };
 
 /**
- * Event object emitted by MdChip when selected or deselected.
+ * Event object emitted by MatChip when selected or deselected.
  */
-var MdChipSelectionChange = (function () {
+var MatChipSelectionChange = (function () {
     /**
      * @param {?} source
      * @param {?} selected
      * @param {?=} isUserInput
      */
-    function MdChipSelectionChange(source, selected, isUserInput) {
+    function MatChipSelectionChange(source, selected, isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
         this.source = source;
         this.selected = selected;
         this.isUserInput = isUserInput;
     }
-    return MdChipSelectionChange;
+    return MatChipSelectionChange;
 }());
 /**
  * \@docs-private
  */
-var MdChipBase = (function () {
+var MatChipBase = (function () {
     /**
      * @param {?} _renderer
      * @param {?} _elementRef
      */
-    function MdChipBase(_renderer, _elementRef) {
+    function MatChipBase(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
     }
-    return MdChipBase;
+    return MatChipBase;
 }());
-var _MdChipMixinBase = mixinColor(mixinDisabled(MdChipBase), 'primary');
+var _MatChipMixinBase = mixinColor(mixinDisabled(MatChipBase), 'primary');
 /**
  * Dummy directive to add CSS class to basic chips.
  * \@docs-private
  */
-var MdBasicChip = (function () {
-    function MdBasicChip() {
+var MatBasicChip = (function () {
+    function MatBasicChip() {
     }
-    return MdBasicChip;
+    return MatBasicChip;
 }());
-MdBasicChip.decorators = [
+MatBasicChip.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: "md-basic-chip, [md-basic-chip], mat-basic-chip, [mat-basic-chip]",
-                host: { 'class': 'mat-basic-chip' }
+                selector: "mat-basic-chip, [mat-basic-chip]",
+                host: { 'class': 'mat-basic-chip' },
             },] },
 ];
 /**
  * @nocollapse
  */
-MdBasicChip.ctorParameters = function () { return []; };
+MatBasicChip.ctorParameters = function () { return []; };
 /**
- * Material design styled Chip component. Used inside the MdChipList component.
+ * Material design styled Chip component. Used inside the MatChipList component.
  */
-var MdChip = (function (_super) {
-    __extends(MdChip, _super);
+var MatChip = (function (_super) {
+    __extends(MatChip, _super);
     /**
      * @param {?} renderer
      * @param {?} _elementRef
      */
-    function MdChip(renderer, _elementRef) {
+    function MatChip(renderer, _elementRef) {
         var _this = _super.call(this, renderer, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._selected = false;
@@ -2757,12 +2613,14 @@ var MdChip = (function (_super) {
         _this.onRemove = _this.removed;
         return _this;
     }
-    Object.defineProperty(MdChip.prototype, "selected", {
+    Object.defineProperty(MatChip.prototype, "selected", {
         /**
          * Whether the chip is selected.
          * @return {?}
          */
-        get: function () { return this._selected; },
+        get: function () {
+            return this._selected;
+        },
         /**
          * @param {?} value
          * @return {?}
@@ -2778,9 +2636,9 @@ var MdChip = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChip.prototype, "value", {
+    Object.defineProperty(MatChip.prototype, "value", {
         /**
-         * The value of the chip. Defaults to the content inside <md-chip> tags.
+         * The value of the chip. Defaults to the content inside <mat-chip> tags.
          * @return {?}
          */
         get: function () {
@@ -2792,40 +2650,50 @@ var MdChip = (function (_super) {
          * @param {?} newValue
          * @return {?}
          */
-        set: function (newValue) { this._value = newValue; },
+        set: function (newValue) {
+            this._value = newValue;
+        },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChip.prototype, "selectable", {
+    Object.defineProperty(MatChip.prototype, "selectable", {
         /**
          * Whether or not the chips are selectable. When a chip is not selectable,
          * changes to it's selected state are always ignored.
          * @return {?}
          */
-        get: function () { return this._selectable; },
+        get: function () {
+            return this._selectable;
+        },
         /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._selectable = _angular_cdk_coercion.coerceBooleanProperty(value); },
+        set: function (value) {
+            this._selectable = _angular_cdk_coercion.coerceBooleanProperty(value);
+        },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChip.prototype, "removable", {
+    Object.defineProperty(MatChip.prototype, "removable", {
         /**
          * Determines whether or not the chip displays the remove styling and emits (remove) events.
          * @return {?}
          */
-        get: function () { return this._removable; },
+        get: function () {
+            return this._removable;
+        },
         /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._removable = _angular_cdk_coercion.coerceBooleanProperty(value); },
+        set: function (value) {
+            this._removable = _angular_cdk_coercion.coerceBooleanProperty(value);
+        },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChip.prototype, "ariaSelected", {
+    Object.defineProperty(MatChip.prototype, "ariaSelected", {
         /**
          * @return {?}
          */
@@ -2838,14 +2706,14 @@ var MdChip = (function (_super) {
     /**
      * @return {?}
      */
-    MdChip.prototype.ngOnDestroy = function () {
+    MatChip.prototype.ngOnDestroy = function () {
         this.destroyed.emit({ chip: this });
     };
     /**
      * Selects the chip.
      * @return {?}
      */
-    MdChip.prototype.select = function () {
+    MatChip.prototype.select = function () {
         this._selected = true;
         this.selectionChange.emit({
             source: this,
@@ -2857,7 +2725,7 @@ var MdChip = (function (_super) {
      * Deselects the chip.
      * @return {?}
      */
-    MdChip.prototype.deselect = function () {
+    MatChip.prototype.deselect = function () {
         this._selected = false;
         this.selectionChange.emit({
             source: this,
@@ -2869,7 +2737,7 @@ var MdChip = (function (_super) {
      * Select this chip and emit selected event
      * @return {?}
      */
-    MdChip.prototype.selectViaInteraction = function () {
+    MatChip.prototype.selectViaInteraction = function () {
         this._selected = true;
         // Emit select event when selected changes.
         this.selectionChange.emit({
@@ -2883,7 +2751,7 @@ var MdChip = (function (_super) {
      * @param {?=} isUserInput
      * @return {?}
      */
-    MdChip.prototype.toggleSelected = function (isUserInput) {
+    MatChip.prototype.toggleSelected = function (isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
         this._selected = !this.selected;
         this.selectionChange.emit({
@@ -2897,18 +2765,18 @@ var MdChip = (function (_super) {
      * Allows for programmatic focusing of the chip.
      * @return {?}
      */
-    MdChip.prototype.focus = function () {
+    MatChip.prototype.focus = function () {
         this._elementRef.nativeElement.focus();
         this._onFocus.next({ chip: this });
     };
     /**
-     * Allows for programmatic removal of the chip. Called by the MdChipList when the DELETE or
+     * Allows for programmatic removal of the chip. Called by the MatChipList when the DELETE or
      * BACKSPACE keys are pressed.
      *
      * Informs any listeners of the removal request. Does not remove the chip from the DOM.
      * @return {?}
      */
-    MdChip.prototype.remove = function () {
+    MatChip.prototype.remove = function () {
         if (this.removable) {
             this.removed.emit({ chip: this });
         }
@@ -2918,7 +2786,7 @@ var MdChip = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MdChip.prototype._handleClick = function (event) {
+    MatChip.prototype._handleClick = function (event) {
         // Check disabled
         if (this.disabled) {
             return;
@@ -2932,7 +2800,7 @@ var MdChip = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MdChip.prototype._handleKeydown = function (event) {
+    MatChip.prototype._handleKeydown = function (event) {
         if (this.disabled) {
             return;
         }
@@ -2957,17 +2825,17 @@ var MdChip = (function (_super) {
     /**
      * @return {?}
      */
-    MdChip.prototype._blur = function () {
+    MatChip.prototype._blur = function () {
         this._hasFocus = false;
         this._onBlur.next({ chip: this });
     };
-    return MdChip;
-}(_MdChipMixinBase));
-MdChip.decorators = [
+    return MatChip;
+}(_MatChipMixinBase));
+MatChip.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: "md-basic-chip, [md-basic-chip], md-chip, [md-chip],\n             mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
+                selector: "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
                 inputs: ['color', 'disabled'],
-                exportAs: 'mdChip, matChip',
+                exportAs: 'matChip',
                 host: {
                     'class': 'mat-chip',
                     'tabindex': '-1',
@@ -2986,11 +2854,11 @@ MdChip.decorators = [
 /**
  * @nocollapse
  */
-MdChip.ctorParameters = function () { return [
+MatChip.ctorParameters = function () { return [
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ElementRef, },
 ]; };
-MdChip.propDecorators = {
+MatChip.propDecorators = {
     'selected': [{ type: _angular_core.Input },],
     'value': [{ type: _angular_core.Input },],
     'selectable': [{ type: _angular_core.Input },],
@@ -3007,66 +2875,66 @@ MdChip.propDecorators = {
  *
  * Example:
  *
- *     <md-chip>
- *       <md-icon mdChipRemove>cancel</md-icon>
- *     </md-chip>
+ *     <mat-chip>
+ *       <mat-icon matChipRemove>cancel</mat-icon>
+ *     </mat-chip>
  *
- * You *may* use a custom icon, but you may need to override the `md-chip-remove` positioning styles
- * to properly center the icon within the chip.
+ * You *may* use a custom icon, but you may need to override the `mat-chip-remove` positioning
+ * styles to properly center the icon within the chip.
  */
-var MdChipRemove = (function () {
+var MatChipRemove = (function () {
     /**
      * @param {?} _parentChip
      */
-    function MdChipRemove(_parentChip) {
+    function MatChipRemove(_parentChip) {
         this._parentChip = _parentChip;
     }
     /**
      * Calls the parent chip's public `remove()` method if applicable.
      * @return {?}
      */
-    MdChipRemove.prototype._handleClick = function () {
+    MatChipRemove.prototype._handleClick = function () {
         if (this._parentChip.removable) {
             this._parentChip.remove();
         }
     };
-    return MdChipRemove;
+    return MatChipRemove;
 }());
-MdChipRemove.decorators = [
+MatChipRemove.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[mdChipRemove], [matChipRemove]',
+                selector: '[matChipRemove]',
                 host: {
                     'class': 'mat-chip-remove',
-                    '(click)': '_handleClick($event)'
-                }
+                    '(click)': '_handleClick($event)',
+                },
             },] },
 ];
 /**
  * @nocollapse
  */
-MdChipRemove.ctorParameters = function () { return [
-    { type: MdChip, },
+MatChipRemove.ctorParameters = function () { return [
+    { type: MatChip, },
 ]; };
 // Increasing integer for generating unique ids for chip-list components.
 var nextUniqueId = 0;
 /**
  * Change event object that is emitted when the chip list value has changed.
  */
-var MdChipListChange = (function () {
+var MatChipListChange = (function () {
     /**
      * @param {?} source
      * @param {?} value
      */
-    function MdChipListChange(source, value) {
+    function MatChipListChange(source, value) {
         this.source = source;
         this.value = value;
     }
-    return MdChipListChange;
+    return MatChipListChange;
 }());
 /**
  * A material design chips component (named ChipList for it's similarity to the List component).
  */
-var MdChipList = (function () {
+var MatChipList = (function () {
     /**
      * @param {?} _renderer
      * @param {?} _elementRef
@@ -3076,7 +2944,7 @@ var MdChipList = (function () {
      * @param {?} _parentFormGroup
      * @param {?} ngControl
      */
-    function MdChipList(_renderer, _elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, ngControl) {
+    function MatChipList(_renderer, _elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, ngControl) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
@@ -3084,8 +2952,9 @@ var MdChipList = (function () {
         this._parentForm = _parentForm;
         this._parentFormGroup = _parentFormGroup;
         this.ngControl = ngControl;
+        this.controlType = 'mat-chip-list';
         /**
-         * Stream that emits whenever the state of the input changes such that the wrapping `MdFormField`
+         * Stream that emits whenever the state of the input changes such that the wrapping `MatFormField`
          * needs to run change detection.
          */
         this.stateChanges = new rxjs_Subject.Subject();
@@ -3112,7 +2981,7 @@ var MdChipList = (function () {
         /**
          * Uid of the chip list
          */
-        this._uid = "md-chip-list-" + nextUniqueId++;
+        this._uid = "mat-chip-list-" + nextUniqueId++;
         /**
          * Whether this is required
          */
@@ -3160,7 +3029,7 @@ var MdChipList = (function () {
             this.ngControl.valueAccessor = this;
         }
     }
-    Object.defineProperty(MdChipList.prototype, "selected", {
+    Object.defineProperty(MatChipList.prototype, "selected", {
         /**
          * The array of selected chips inside chip list.
          * @return {?}
@@ -3171,7 +3040,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "multiple", {
+    Object.defineProperty(MatChipList.prototype, "multiple", {
         /**
          * Whether the user should be allowed to select multiple chips.
          * @return {?}
@@ -3187,7 +3056,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "compareWith", {
+    Object.defineProperty(MatChipList.prototype, "compareWith", {
         /**
          * A function to compare the option values with the selected values. The first argument
          * is a value from an option. The second is a value from the selection. A boolean
@@ -3209,7 +3078,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "value", {
+    Object.defineProperty(MatChipList.prototype, "value", {
         /**
          * Required for FormFieldControl
          * @return {?}
@@ -3226,7 +3095,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "id", {
+    Object.defineProperty(MatChipList.prototype, "id", {
         /**
          * @return {?}
          */
@@ -3243,7 +3112,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "required", {
+    Object.defineProperty(MatChipList.prototype, "required", {
         /**
          * @return {?}
          */
@@ -3262,7 +3131,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "placeholder", {
+    Object.defineProperty(MatChipList.prototype, "placeholder", {
         /**
          * @return {?}
          */
@@ -3281,9 +3150,9 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "focused", {
+    Object.defineProperty(MatChipList.prototype, "focused", {
         /**
-         * Whether any chips or the mdChipInput inside of this chip-list has focus.
+         * Whether any chips or the matChipInput inside of this chip-list has focus.
          * @return {?}
          */
         get: function () {
@@ -3293,9 +3162,9 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "empty", {
+    Object.defineProperty(MatChipList.prototype, "empty", {
         /**
-         * Whether this chip-list contains no chips and no mdChipInput.
+         * Whether this chip-list contains no chips and no matChipInput.
          * @return {?}
          */
         get: function () {
@@ -3304,7 +3173,17 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "disabled", {
+    Object.defineProperty(MatChipList.prototype, "shouldPlaceholderFloat", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.empty;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatChipList.prototype, "disabled", {
         /**
          * Whether this chip-list is disabled.
          * @return {?}
@@ -3318,7 +3197,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "errorState", {
+    Object.defineProperty(MatChipList.prototype, "errorState", {
         /**
          * Whether the chip list is in an error state.
          * @return {?}
@@ -3333,7 +3212,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "selectable", {
+    Object.defineProperty(MatChipList.prototype, "selectable", {
         /**
          * Whether or not this chip is selectable. When a chip is not selectable,
          * its selected state is always ignored.
@@ -3348,7 +3227,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "tabIndex", {
+    Object.defineProperty(MatChipList.prototype, "tabIndex", {
         /**
          * @param {?} value
          * @return {?}
@@ -3360,7 +3239,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "chipSelectionChanges", {
+    Object.defineProperty(MatChipList.prototype, "chipSelectionChanges", {
         /**
          * Combined stream of all of the child chips' selection change events.
          * @return {?}
@@ -3371,7 +3250,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "chipFocusChanges", {
+    Object.defineProperty(MatChipList.prototype, "chipFocusChanges", {
         /**
          * Combined stream of all of the child chips' focus change events.
          * @return {?}
@@ -3382,7 +3261,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "chipBlurChanges", {
+    Object.defineProperty(MatChipList.prototype, "chipBlurChanges", {
         /**
          * Combined stream of all of the child chips' blur change events.
          * @return {?}
@@ -3393,7 +3272,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "chipRemoveChanges", {
+    Object.defineProperty(MatChipList.prototype, "chipRemoveChanges", {
         /**
          * Combined stream of all of the child chips' remove change events.
          * @return {?}
@@ -3407,7 +3286,7 @@ var MdChipList = (function () {
     /**
      * @return {?}
      */
-    MdChipList.prototype.ngAfterContentInit = function () {
+    MatChipList.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._keyManager = new _angular_cdk_a11y.FocusKeyManager(this.chips).withWrap();
         // Prevents the chip list from capturing focus and redirecting
@@ -3430,14 +3309,14 @@ var MdChipList = (function () {
     /**
      * @return {?}
      */
-    MdChipList.prototype.ngOnInit = function () {
+    MatChipList.prototype.ngOnInit = function () {
         this._selectionModel = new _angular_cdk_collections.SelectionModel(this.multiple, undefined, false);
         this.stateChanges.next();
     };
     /**
      * @return {?}
      */
-    MdChipList.prototype.ngOnDestroy = function () {
+    MatChipList.prototype.ngOnDestroy = function () {
         this._tabOutSubscription.unsubscribe();
         if (this._changeSubscription) {
             this._changeSubscription.unsubscribe();
@@ -3449,19 +3328,19 @@ var MdChipList = (function () {
      * @param {?} inputElement
      * @return {?}
      */
-    MdChipList.prototype.registerInput = function (inputElement) {
+    MatChipList.prototype.registerInput = function (inputElement) {
         this._chipInput = inputElement;
     };
     /**
      * @param {?} ids
      * @return {?}
      */
-    MdChipList.prototype.setDescribedByIds = function (ids) { this._ariaDescribedby = ids.join(' '); };
+    MatChipList.prototype.setDescribedByIds = function (ids) { this._ariaDescribedby = ids.join(' '); };
     /**
      * @param {?} value
      * @return {?}
      */
-    MdChipList.prototype.writeValue = function (value) {
+    MatChipList.prototype.writeValue = function (value) {
         if (this.chips) {
             this._setSelectionByValue(value, false);
         }
@@ -3470,31 +3349,37 @@ var MdChipList = (function () {
      * @param {?} fn
      * @return {?}
      */
-    MdChipList.prototype.registerOnChange = function (fn) {
+    MatChipList.prototype.registerOnChange = function (fn) {
         this._onChange = fn;
     };
     /**
      * @param {?} fn
      * @return {?}
      */
-    MdChipList.prototype.registerOnTouched = function (fn) {
+    MatChipList.prototype.registerOnTouched = function (fn) {
         this._onTouched = fn;
     };
     /**
      * @param {?} disabled
      * @return {?}
      */
-    MdChipList.prototype.setDisabledState = function (disabled) {
+    MatChipList.prototype.setDisabledState = function (disabled) {
         this.disabled = disabled;
         this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', disabled);
         this.stateChanges.next();
+    };
+    /**
+     * @return {?}
+     */
+    MatChipList.prototype.onContainerClick = function () {
+        this.focus();
     };
     /**
      * Focuses the the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
      * @return {?}
      */
-    MdChipList.prototype.focus = function () {
+    MatChipList.prototype.focus = function () {
         // TODO: ARIA says this should focus the first `selected` chip if any are selected.
         // Focus on first element if there's no chipInput inside chip-list
         if (this._chipInput && this._chipInput.focused) {
@@ -3513,7 +3398,7 @@ var MdChipList = (function () {
      * Attempt to focus an input if we have one.
      * @return {?}
      */
-    MdChipList.prototype._focusInput = function () {
+    MatChipList.prototype._focusInput = function () {
         if (this._chipInput) {
             this._chipInput.focus();
         }
@@ -3523,7 +3408,7 @@ var MdChipList = (function () {
      * @param {?} event
      * @return {?}
      */
-    MdChipList.prototype._keydown = function (event) {
+    MatChipList.prototype._keydown = function (event) {
         var /** @type {?} */ code = event.keyCode;
         var /** @type {?} */ target = (event.target);
         var /** @type {?} */ isInputEmpty = this._isInputEmpty(target);
@@ -3558,7 +3443,7 @@ var MdChipList = (function () {
      * Check the tab index as you should not be allowed to focus an empty list.
      * @return {?}
      */
-    MdChipList.prototype._updateTabIndex = function () {
+    MatChipList.prototype._updateTabIndex = function () {
         // If we have 0 chips, we should not allow keyboard focus
         this._tabIndex = this._userTabIndex || (this.chips.length === 0 ? -1 : 0);
     };
@@ -3570,7 +3455,7 @@ var MdChipList = (function () {
      * @param {?} chip
      * @return {?}
      */
-    MdChipList.prototype._updateKeyManager = function (chip) {
+    MatChipList.prototype._updateKeyManager = function (chip) {
         var /** @type {?} */ chipIndex = this.chips.toArray().indexOf(chip);
         if (this._isValidIndex(chipIndex)) {
             if (chip._hasFocus) {
@@ -3592,7 +3477,7 @@ var MdChipList = (function () {
      * one.
      * @return {?}
      */
-    MdChipList.prototype._updateFocusForDestroyedChips = function () {
+    MatChipList.prototype._updateFocusForDestroyedChips = function () {
         var /** @type {?} */ chipsArray = this.chips;
         if (this._lastDestroyedIndex != null && chipsArray.length > 0) {
             // Check whether the destroyed chip was the last item
@@ -3616,14 +3501,14 @@ var MdChipList = (function () {
      * @param {?} index The index to be checked.
      * @return {?} True if the index is valid for our list of chips.
      */
-    MdChipList.prototype._isValidIndex = function (index) {
+    MatChipList.prototype._isValidIndex = function (index) {
         return index >= 0 && index < this.chips.length;
     };
     /**
      * @param {?} element
      * @return {?}
      */
-    MdChipList.prototype._isInputEmpty = function (element) {
+    MatChipList.prototype._isInputEmpty = function (element) {
         if (element && element.nodeName.toLowerCase() === 'input') {
             var /** @type {?} */ input = (element);
             return !input.value;
@@ -3635,7 +3520,7 @@ var MdChipList = (function () {
      * @param {?=} isUserInput
      * @return {?}
      */
-    MdChipList.prototype._setSelectionByValue = function (value, isUserInput) {
+    MatChipList.prototype._setSelectionByValue = function (value, isUserInput) {
         var _this = this;
         if (isUserInput === void 0) { isUserInput = true; }
         this._clearSelection();
@@ -3659,7 +3544,7 @@ var MdChipList = (function () {
      * @param {?=} isUserInput
      * @return {?} Chip that has the corresponding value.
      */
-    MdChipList.prototype._selectValue = function (value, isUserInput) {
+    MatChipList.prototype._selectValue = function (value, isUserInput) {
         var _this = this;
         if (isUserInput === void 0) { isUserInput = true; }
         var /** @type {?} */ correspondingChip = this.chips.find(function (chip) {
@@ -3674,7 +3559,7 @@ var MdChipList = (function () {
     /**
      * @return {?}
      */
-    MdChipList.prototype._initializeSelection = function () {
+    MatChipList.prototype._initializeSelection = function () {
         var _this = this;
         // Defer setting the value in order to avoid the "Expression
         // has changed after it was checked" errors from Angular.
@@ -3688,7 +3573,7 @@ var MdChipList = (function () {
      * @param {?=} skip Chip that should not be deselected.
      * @return {?}
      */
-    MdChipList.prototype._clearSelection = function (skip) {
+    MatChipList.prototype._clearSelection = function (skip) {
         this._selectionModel.clear();
         this.chips.forEach(function (chip) {
             if (chip !== skip) {
@@ -3702,7 +3587,7 @@ var MdChipList = (function () {
      * order that they have in the panel.
      * @return {?}
      */
-    MdChipList.prototype._sortValues = function () {
+    MatChipList.prototype._sortValues = function () {
         var _this = this;
         if (this._multiple) {
             this._selectionModel.clear();
@@ -3719,7 +3604,7 @@ var MdChipList = (function () {
      * @param {?=} fallbackValue
      * @return {?}
      */
-    MdChipList.prototype._propagateChanges = function (fallbackValue) {
+    MatChipList.prototype._propagateChanges = function (fallbackValue) {
         var /** @type {?} */ valueToEmit = null;
         if (Array.isArray(this.selected)) {
             valueToEmit = this.selected.map(function (chip) { return chip.value; });
@@ -3728,7 +3613,7 @@ var MdChipList = (function () {
             valueToEmit = this.selected ? this.selected.value : fallbackValue;
         }
         this._value = valueToEmit;
-        this.change.emit(new MdChipListChange(this, valueToEmit));
+        this.change.emit(new MatChipListChange(this, valueToEmit));
         this.valueChange.emit(valueToEmit);
         this._onChange(valueToEmit);
         this._changeDetectorRef.markForCheck();
@@ -3737,7 +3622,7 @@ var MdChipList = (function () {
      * When blurred, mark the field as touched when focus moved outside the chip list.
      * @return {?}
      */
-    MdChipList.prototype._blur = function () {
+    MatChipList.prototype._blur = function () {
         var _this = this;
         if (!this.disabled) {
             if (this._chipInput) {
@@ -3761,7 +3646,7 @@ var MdChipList = (function () {
      * Mark the field as touched
      * @return {?}
      */
-    MdChipList.prototype._markAsTouched = function () {
+    MatChipList.prototype._markAsTouched = function () {
         this._onTouched();
         this._changeDetectorRef.markForCheck();
         this.stateChanges.next();
@@ -3769,7 +3654,7 @@ var MdChipList = (function () {
     /**
      * @return {?}
      */
-    MdChipList.prototype._resetChips = function () {
+    MatChipList.prototype._resetChips = function () {
         this._dropSubscriptions();
         this._listenToChipsFocus();
         this._listenToChipsSelection();
@@ -3778,7 +3663,7 @@ var MdChipList = (function () {
     /**
      * @return {?}
      */
-    MdChipList.prototype._dropSubscriptions = function () {
+    MatChipList.prototype._dropSubscriptions = function () {
         if (this._chipFocusSubscription) {
             this._chipFocusSubscription.unsubscribe();
             this._chipFocusSubscription = null;
@@ -3796,7 +3681,7 @@ var MdChipList = (function () {
      * Listens to user-generated selection events on each chip.
      * @return {?}
      */
-    MdChipList.prototype._listenToChipsSelection = function () {
+    MatChipList.prototype._listenToChipsSelection = function () {
         var _this = this;
         this._chipSelectionSubscription = this.chipSelectionChanges.subscribe(function (event) {
             event.source.selected
@@ -3819,7 +3704,7 @@ var MdChipList = (function () {
      * Listens to user-generated selection events on each chip.
      * @return {?}
      */
-    MdChipList.prototype._listenToChipsFocus = function () {
+    MatChipList.prototype._listenToChipsFocus = function () {
         var _this = this;
         this._chipFocusSubscription = this.chipFocusChanges.subscribe(function (event) {
             var /** @type {?} */ chipIndex = _this.chips.toArray().indexOf(event.chip);
@@ -3836,18 +3721,18 @@ var MdChipList = (function () {
     /**
      * @return {?}
      */
-    MdChipList.prototype._listenToChipsRemoved = function () {
+    MatChipList.prototype._listenToChipsRemoved = function () {
         var _this = this;
         this._chipRemoveSubscription = this.chipRemoveChanges.subscribe(function (event) {
             _this._updateKeyManager(event.chip);
         });
     };
-    return MdChipList;
+    return MatChipList;
 }());
-MdChipList.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-chip-list, mat-chip-list',
+MatChipList.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-chip-list',
                 template: "<div class=\"mat-chip-list-wrapper\"><ng-content></ng-content></div>",
-                exportAs: 'mdChipList, matChipList',
+                exportAs: 'matChipList',
                 host: {
                     '[attr.tabindex]': '_tabIndex',
                     '[attr.aria-describedby]': '_ariaDescribedby || null',
@@ -3865,7 +3750,7 @@ MdChipList.decorators = [
                     '(blur)': '_blur()',
                     '(keydown)': '_keydown($event)'
                 },
-                providers: [{ provide: MdFormFieldControl, useExisting: MdChipList }],
+                providers: [{ provide: MatFormFieldControl, useExisting: MatChipList }],
                 styles: [".mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:baseline}.mat-chip:not(.mat-basic-chip){transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:inline-flex;padding:7px 12px;border-radius:24px;align-items:center;cursor:default}.mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 0 3px 8px}[dir=rtl] .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 8px 3px 0}.mat-form-field-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-right:8px}[dir=rtl] .mat-form-field-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-left:8px}.mat-chip:not(.mat-basic-chip) .mat-chip-remove.mat-icon{width:1em;height:1em}.mat-chip:not(.mat-basic-chip):focus{box-shadow:0 3px 3px -2px rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12);outline:0}@media screen and (-ms-high-contrast:active){.mat-chip:not(.mat-basic-chip){outline:solid 1px}}.mat-chip-list-stacked .mat-chip-list-wrapper{display:block}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){display:block;margin:0;margin-bottom:8px}[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){margin:0;margin-bottom:8px}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child,[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-bottom:0}.mat-form-field-prefix .mat-chip-list-wrapper{margin-bottom:8px}.mat-chip-remove{margin-right:-4px;margin-left:6px;cursor:pointer}[dir=rtl] .mat-chip-remove{margin-right:6px;margin-left:-4px}input.mat-chip-input{width:150px;margin:3px}"],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
@@ -3875,7 +3760,7 @@ MdChipList.decorators = [
 /**
  * @nocollapse
  */
-MdChipList.ctorParameters = function () { return [
+MatChipList.ctorParameters = function () { return [
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ElementRef, },
     { type: _angular_core.ChangeDetectorRef, },
@@ -3884,7 +3769,7 @@ MdChipList.ctorParameters = function () { return [
     { type: _angular_forms.FormGroupDirective, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_forms.NgControl, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Self },] },
 ]; };
-MdChipList.propDecorators = {
+MatChipList.propDecorators = {
     'multiple': [{ type: _angular_core.Input },],
     'compareWith': [{ type: _angular_core.Input },],
     'value': [{ type: _angular_core.Input },],
@@ -3897,17 +3782,17 @@ MdChipList.propDecorators = {
     'tabIndex': [{ type: _angular_core.Input },],
     'change': [{ type: _angular_core.Output },],
     'valueChange': [{ type: _angular_core.Output },],
-    'chips': [{ type: _angular_core.ContentChildren, args: [MdChip,] },],
+    'chips': [{ type: _angular_core.ContentChildren, args: [MatChip,] },],
 };
 /**
- * Directive that adds chip-specific behaviors to an input element inside <md-form-field>.
- * May be placed inside or outside of an <md-chip-list>.
+ * Directive that adds chip-specific behaviors to an input element inside <mat-form-field>.
+ * May be placed inside or outside of an <mat-chip-list>.
  */
-var MdChipInput = (function () {
+var MatChipInput = (function () {
     /**
      * @param {?} _elementRef
      */
-    function MdChipInput(_elementRef) {
+    function MatChipInput(_elementRef) {
         this._elementRef = _elementRef;
         this.focused = false;
         this._addOnBlur = false;
@@ -3922,11 +3807,10 @@ var MdChipInput = (function () {
          * Emitted when a chip is to be added.
          */
         this.chipEnd = new _angular_core.EventEmitter();
-        this._matChipInputTokenEnd = this.chipEnd;
         this.placeholder = '';
         this._inputElement = this._elementRef.nativeElement;
     }
-    Object.defineProperty(MdChipInput.prototype, "chipList", {
+    Object.defineProperty(MatChipInput.prototype, "chipList", {
         /**
          * Register input for chip list
          * @param {?} value
@@ -3941,7 +3825,7 @@ var MdChipInput = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipInput.prototype, "addOnBlur", {
+    Object.defineProperty(MatChipInput.prototype, "addOnBlur", {
         /**
          * Whether or not the chipEnd event will be emitted when the input is blurred.
          * @return {?}
@@ -3955,7 +3839,7 @@ var MdChipInput = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipInput.prototype, "matChipList", {
+    Object.defineProperty(MatChipInput.prototype, "matChipList", {
         /**
          * @param {?} value
          * @return {?}
@@ -3964,7 +3848,7 @@ var MdChipInput = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipInput.prototype, "matAddOnBlur", {
+    Object.defineProperty(MatChipInput.prototype, "matAddOnBlur", {
         /**
          * @return {?}
          */
@@ -3977,7 +3861,7 @@ var MdChipInput = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipInput.prototype, "matSeparatorKeyCodes", {
+    Object.defineProperty(MatChipInput.prototype, "matSeparatorKeyCodes", {
         /**
          * @return {?}
          */
@@ -3990,7 +3874,7 @@ var MdChipInput = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipInput.prototype, "empty", {
+    Object.defineProperty(MatChipInput.prototype, "empty", {
         /**
          * @return {?}
          */
@@ -4006,14 +3890,14 @@ var MdChipInput = (function () {
      * @param {?=} event
      * @return {?}
      */
-    MdChipInput.prototype._keydown = function (event) {
+    MatChipInput.prototype._keydown = function (event) {
         this._emitChipEnd(event);
     };
     /**
      * Checks to see if the blur should emit the (chipEnd) event.
      * @return {?}
      */
-    MdChipInput.prototype._blur = function () {
+    MatChipInput.prototype._blur = function () {
         if (this.addOnBlur) {
             this._emitChipEnd();
         }
@@ -4027,7 +3911,7 @@ var MdChipInput = (function () {
     /**
      * @return {?}
      */
-    MdChipInput.prototype._focus = function () {
+    MatChipInput.prototype._focus = function () {
         this.focused = true;
         this._chipList.stateChanges.next();
     };
@@ -4036,7 +3920,7 @@ var MdChipInput = (function () {
      * @param {?=} event
      * @return {?}
      */
-    MdChipInput.prototype._emitChipEnd = function (event) {
+    MatChipInput.prototype._emitChipEnd = function (event) {
         if (!this._inputElement.value && !!event) {
             this._chipList._keydown(event);
         }
@@ -4050,12 +3934,12 @@ var MdChipInput = (function () {
     /**
      * @return {?}
      */
-    MdChipInput.prototype.focus = function () { this._inputElement.focus(); };
-    return MdChipInput;
+    MatChipInput.prototype.focus = function () { this._inputElement.focus(); };
+    return MatChipInput;
 }());
-MdChipInput.decorators = [
+MatChipInput.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: 'input[mdChipInputFor], input[matChipInputFor]',
+                selector: 'input[matChipInputFor]',
                 host: {
                     'class': 'mat-chip-input mat-input-element',
                     '(keydown)': '_keydown($event)',
@@ -4067,55 +3951,46 @@ MdChipInput.decorators = [
 /**
  * @nocollapse
  */
-MdChipInput.ctorParameters = function () { return [
+MatChipInput.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
 ]; };
-MdChipInput.propDecorators = {
-    'chipList': [{ type: _angular_core.Input, args: ['mdChipInputFor',] },],
-    'addOnBlur': [{ type: _angular_core.Input, args: ['mdChipInputAddOnBlur',] },],
-    'separatorKeyCodes': [{ type: _angular_core.Input, args: ['mdChipInputSeparatorKeyCodes',] },],
-    'chipEnd': [{ type: _angular_core.Output, args: ['mdChipInputTokenEnd',] },],
-    '_matChipInputTokenEnd': [{ type: _angular_core.Output, args: ['matChipInputTokenEnd',] },],
+MatChipInput.propDecorators = {
+    'chipList': [{ type: _angular_core.Input, args: ['matChipInputFor',] },],
+    'addOnBlur': [{ type: _angular_core.Input, args: ['matChipInputAddOnBlur',] },],
+    'separatorKeyCodes': [{ type: _angular_core.Input, args: ['matChipInputSeparatorKeyCodes',] },],
+    'chipEnd': [{ type: _angular_core.Output, args: ['matChipInputTokenEnd',] },],
     'matChipList': [{ type: _angular_core.Input, args: ['matChipInputFor',] },],
     'matAddOnBlur': [{ type: _angular_core.Input, args: ['matChipInputAddOnBlur',] },],
     'matSeparatorKeyCodes': [{ type: _angular_core.Input, args: ['matChipInputSeparatorKeyCodes',] },],
     'placeholder': [{ type: _angular_core.Input },],
 };
-var MdChipsModule = (function () {
-    function MdChipsModule() {
+var MatChipsModule = (function () {
+    function MatChipsModule() {
     }
-    return MdChipsModule;
+    return MatChipsModule;
 }());
-MdChipsModule.decorators = [
+MatChipsModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [],
-                exports: [MdChipList, MdChip, MdChipInput, MdChipRemove, MdChipRemove, MdBasicChip],
-                declarations: [MdChipList, MdChip, MdChipInput, MdChipRemove, MdChipRemove, MdBasicChip]
+                exports: [MatChipList, MatChip, MatChipInput, MatChipRemove, MatChipRemove, MatBasicChip],
+                declarations: [MatChipList, MatChip, MatChipInput, MatChipRemove, MatChipRemove, MatBasicChip]
             },] },
 ];
 /**
  * @nocollapse
  */
-MdChipsModule.ctorParameters = function () { return []; };
+MatChipsModule.ctorParameters = function () { return []; };
 
-exports.MdChipsModule = MdChipsModule;
-exports.MdChipListChange = MdChipListChange;
-exports.MdChipList = MdChipList;
-exports.MdChipSelectionChange = MdChipSelectionChange;
-exports.MdChipBase = MdChipBase;
-exports._MdChipMixinBase = _MdChipMixinBase;
-exports.MdBasicChip = MdBasicChip;
-exports.MdChip = MdChip;
-exports.MdChipRemove = MdChipRemove;
-exports.MdChipInput = MdChipInput;
-exports.MatBasicChip = MdBasicChip;
-exports.MatChip = MdChip;
-exports.MatChipBase = MdChipBase;
-exports.MatChipInput = MdChipInput;
-exports.MatChipListChange = MdChipListChange;
-exports.MatChipList = MdChipList;
-exports.MatChipRemove = MdChipRemove;
-exports.MatChipsModule = MdChipsModule;
+exports.MatChipsModule = MatChipsModule;
+exports.MatChipListChange = MatChipListChange;
+exports.MatChipList = MatChipList;
+exports.MatChipSelectionChange = MatChipSelectionChange;
+exports.MatChipBase = MatChipBase;
+exports._MatChipMixinBase = _MatChipMixinBase;
+exports.MatBasicChip = MatBasicChip;
+exports.MatChip = MatChip;
+exports.MatChipRemove = MatChipRemove;
+exports.MatChipInput = MatChipInput;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

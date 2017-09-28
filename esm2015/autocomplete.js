@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Host, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
-import { MdCommonModule, MdOptgroup, MdOption, MdOptionModule } from '@angular/material/core';
+import { MatCommonModule, MatOptgroup, MatOption, MatOptionModule } from '@angular/material/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
@@ -15,7 +15,7 @@ import { DOWN_ARROW, ENTER, ESCAPE, UP_ARROW } from '@angular/cdk/keycodes';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { RxChain, filter, first, map, switchMap } from '@angular/cdk/rxjs';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MdFormField } from '@angular/material/form-field';
+import { MatFormField } from '@angular/material/form-field';
 import { DOCUMENT } from '@angular/platform-browser';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
@@ -29,7 +29,7 @@ let _uniqueAutocompleteIdCounter = 0;
 /**
  * Event object that is emitted when an autocomplete option is selected
  */
-class MdAutocompleteSelectedEvent {
+class MatAutocompleteSelectedEvent {
     /**
      * @param {?} source
      * @param {?} option
@@ -39,7 +39,7 @@ class MdAutocompleteSelectedEvent {
         this.option = option;
     }
 }
-class MdAutocomplete {
+class MatAutocomplete {
     /**
      * @param {?} _changeDetectorRef
      */
@@ -60,7 +60,7 @@ class MdAutocomplete {
         /**
          * Unique ID to be used by autocomplete trigger's "aria-owns" property.
          */
-        this.id = `md-autocomplete-${_uniqueAutocompleteIdCounter++}`;
+        this.id = `mat-autocomplete-${_uniqueAutocompleteIdCounter++}`;
     }
     /**
      * @return {?}
@@ -102,7 +102,7 @@ class MdAutocomplete {
      * @return {?}
      */
     _emitSelectEvent(option) {
-        const /** @type {?} */ event = new MdAutocompleteSelectedEvent(this, option);
+        const /** @type {?} */ event = new MatAutocompleteSelectedEvent(this, option);
         this.optionSelected.emit(event);
     }
     /**
@@ -116,14 +116,14 @@ class MdAutocomplete {
         };
     }
 }
-MdAutocomplete.decorators = [
-    { type: Component, args: [{selector: 'md-autocomplete, mat-autocomplete',
+MatAutocomplete.decorators = [
+    { type: Component, args: [{selector: 'mat-autocomplete',
                 template: "<ng-template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_getClassList()\" #panel><ng-content></ng-content></div></ng-template>",
                 styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative}.mat-autocomplete-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}"],
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
-                exportAs: 'mdAutocomplete, matAutocomplete',
+                exportAs: 'matAutocomplete',
                 host: {
                     'class': 'mat-autocomplete'
                 }
@@ -132,14 +132,14 @@ MdAutocomplete.decorators = [
 /**
  * @nocollapse
  */
-MdAutocomplete.ctorParameters = () => [
+MatAutocomplete.ctorParameters = () => [
     { type: ChangeDetectorRef, },
 ];
-MdAutocomplete.propDecorators = {
+MatAutocomplete.propDecorators = {
     'template': [{ type: ViewChild, args: [TemplateRef,] },],
     'panel': [{ type: ViewChild, args: ['panel',] },],
-    'options': [{ type: ContentChildren, args: [MdOption, { descendants: true },] },],
-    'optionGroups': [{ type: ContentChildren, args: [MdOptgroup,] },],
+    'options': [{ type: ContentChildren, args: [MatOption, { descendants: true },] },],
+    'optionGroups': [{ type: ContentChildren, args: [MatOptgroup,] },],
     'displayWith': [{ type: Input },],
     'optionSelected': [{ type: Output },],
 };
@@ -155,42 +155,42 @@ const AUTOCOMPLETE_PANEL_HEIGHT = 256;
 /**
  * Injection token that determines the scroll handling while the autocomplete panel is open.
  */
-const MD_AUTOCOMPLETE_SCROLL_STRATEGY = new InjectionToken('md-autocomplete-scroll-strategy');
+const MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new InjectionToken('mat-autocomplete-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
  * @return {?}
  */
-function MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
+function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
     return () => overlay.scrollStrategies.reposition();
 }
 /**
  * \@docs-private
  */
-const MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER = {
-    provide: MD_AUTOCOMPLETE_SCROLL_STRATEGY,
+const MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER = {
+    provide: MAT_AUTOCOMPLETE_SCROLL_STRATEGY,
     deps: [Overlay],
-    useFactory: MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY,
+    useFactory: MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY,
 };
 /**
  * Provider that allows the autocomplete to register as a ControlValueAccessor.
  * \@docs-private
  */
-const MD_AUTOCOMPLETE_VALUE_ACCESSOR = {
+const MAT_AUTOCOMPLETE_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => MdAutocompleteTrigger),
+    useExisting: forwardRef(() => MatAutocompleteTrigger),
     multi: true
 };
 /**
  * Creates an error to be thrown when attempting to use an autocomplete trigger without a panel.
  * @return {?}
  */
-function getMdAutocompleteMissingPanelError() {
-    return Error('Attempting to open an undefined instance of `md-autocomplete`. ' +
-        'Make sure that the id passed to the `mdAutocomplete` is correct and that ' +
+function getMatAutocompleteMissingPanelError() {
+    return Error('Attempting to open an undefined instance of `mat-autocomplete`. ' +
+        'Make sure that the id passed to the `matAutocomplete` is correct and that ' +
         'you\'re attempting to open it after the ngAfterContentInit hook.');
 }
-class MdAutocompleteTrigger {
+class MatAutocompleteTrigger {
     /**
      * @param {?} _element
      * @param {?} _overlay
@@ -225,20 +225,6 @@ class MdAutocompleteTrigger {
          * View -> model callback called when autocomplete has been touched
          */
         this._onTouched = () => { };
-    }
-    /**
-     * Property with mat- prefix for no-conflict mode.
-     * @return {?}
-     */
-    get _matAutocomplete() {
-        return this.autocomplete;
-    }
-    /**
-     * @param {?} autocomplete
-     * @return {?}
-     */
-    set _matAutocomplete(autocomplete) {
-        this.autocomplete = autocomplete;
     }
     /**
      * @return {?}
@@ -295,7 +281,7 @@ class MdAutocompleteTrigger {
         return merge(...this.autocomplete.options.map(option => option.onSelectionChange));
     }
     /**
-     * The currently active option, coerced to MdOption type.
+     * The currently active option, coerced to MatOption type.
      * @return {?}
      */
     get activeOption() {
@@ -445,7 +431,7 @@ class MdAutocompleteTrigger {
      */
     _scrollToOption() {
         const /** @type {?} */ activeOptionIndex = this.autocomplete._keyManager.activeItemIndex || 0;
-        const /** @type {?} */ labelCount = MdOption.countGroupLabelsBeforeOption(activeOptionIndex, this.autocomplete.options, this.autocomplete.optionGroups);
+        const /** @type {?} */ labelCount = MatOption.countGroupLabelsBeforeOption(activeOptionIndex, this.autocomplete.options, this.autocomplete.optionGroups);
         const /** @type {?} */ optionOffset = (activeOptionIndex + labelCount) * AUTOCOMPLETE_OPTION_HEIGHT;
         const /** @type {?} */ panelTop = this.autocomplete._getScrollTop();
         if (optionOffset < panelTop) {
@@ -496,7 +482,7 @@ class MdAutocompleteTrigger {
         // Simply falling back to an empty string if the display value is falsy does not work properly.
         // The display value can also be the number zero and shouldn't fall back to an empty string.
         const /** @type {?} */ inputValue = toDisplay != null ? toDisplay : '';
-        // If it's used within a `MdFormField`, we should set it through the property so it can go
+        // If it's used within a `MatFormField`, we should set it through the property so it can go
         // through change detection.
         if (this._formField) {
             this._formField._control.value = inputValue;
@@ -539,7 +525,7 @@ class MdAutocompleteTrigger {
      */
     _attachOverlay() {
         if (!this.autocomplete) {
-            throw getMdAutocompleteMissingPanelError();
+            throw getMatAutocompleteMissingPanelError();
         }
         if (!this._overlayRef) {
             this._portal = new TemplatePortal(this.autocomplete.template, this._viewContainerRef);
@@ -597,10 +583,9 @@ class MdAutocompleteTrigger {
         this.autocomplete._keyManager.setActiveItem(-1);
     }
 }
-MdAutocompleteTrigger.decorators = [
+MatAutocompleteTrigger.decorators = [
     { type: Directive, args: [{
-                selector: `input[mdAutocomplete], input[matAutocomplete],
-             textarea[mdAutocomplete], textarea[matAutocomplete]`,
+                selector: `input[matAutocomplete], textarea[matAutocomplete]`,
                 host: {
                     'role': 'combobox',
                     'autocomplete': 'off',
@@ -616,46 +601,45 @@ MdAutocompleteTrigger.decorators = [
                     '(input)': '_handleInput($event)',
                     '(keydown)': '_handleKeydown($event)',
                 },
-                providers: [MD_AUTOCOMPLETE_VALUE_ACCESSOR]
+                providers: [MAT_AUTOCOMPLETE_VALUE_ACCESSOR]
             },] },
 ];
 /**
  * @nocollapse
  */
-MdAutocompleteTrigger.ctorParameters = () => [
+MatAutocompleteTrigger.ctorParameters = () => [
     { type: ElementRef, },
     { type: Overlay, },
     { type: ViewContainerRef, },
     { type: NgZone, },
     { type: ChangeDetectorRef, },
-    { type: undefined, decorators: [{ type: Inject, args: [MD_AUTOCOMPLETE_SCROLL_STRATEGY,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] },] },
     { type: Directionality, decorators: [{ type: Optional },] },
-    { type: MdFormField, decorators: [{ type: Optional }, { type: Host },] },
+    { type: MatFormField, decorators: [{ type: Optional }, { type: Host },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
-MdAutocompleteTrigger.propDecorators = {
-    'autocomplete': [{ type: Input, args: ['mdAutocomplete',] },],
-    '_matAutocomplete': [{ type: Input, args: ['matAutocomplete',] },],
+MatAutocompleteTrigger.propDecorators = {
+    'autocomplete': [{ type: Input, args: ['matAutocomplete',] },],
 };
 
-class MdAutocompleteModule {
+class MatAutocompleteModule {
 }
-MdAutocompleteModule.decorators = [
+MatAutocompleteModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MdOptionModule, OverlayModule, MdCommonModule, CommonModule],
-                exports: [MdAutocomplete, MdOptionModule, MdAutocompleteTrigger, MdCommonModule],
-                declarations: [MdAutocomplete, MdAutocompleteTrigger],
-                providers: [MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER],
+                imports: [MatOptionModule, OverlayModule, MatCommonModule, CommonModule],
+                exports: [MatAutocomplete, MatOptionModule, MatAutocompleteTrigger, MatCommonModule],
+                declarations: [MatAutocomplete, MatAutocompleteTrigger],
+                providers: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdAutocompleteModule.ctorParameters = () => [];
+MatAutocompleteModule.ctorParameters = () => [];
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { MdAutocompleteSelectedEvent, MdAutocomplete, MdAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MD_AUTOCOMPLETE_SCROLL_STRATEGY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MD_AUTOCOMPLETE_VALUE_ACCESSOR, getMdAutocompleteMissingPanelError, MdAutocompleteTrigger, MD_AUTOCOMPLETE_SCROLL_STRATEGY as MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER as MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MD_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY as MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_AUTOCOMPLETE_VALUE_ACCESSOR as MAT_AUTOCOMPLETE_VALUE_ACCESSOR, MdAutocomplete as MatAutocomplete, MdAutocompleteModule as MatAutocompleteModule, MdAutocompleteTrigger as MatAutocompleteTrigger };
+export { MatAutocompleteSelectedEvent, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger };
 //# sourceMappingURL=autocomplete.js.map

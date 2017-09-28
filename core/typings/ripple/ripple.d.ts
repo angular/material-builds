@@ -15,8 +15,8 @@ export interface RippleGlobalOptions {
     baseSpeedFactor?: number;
 }
 /** Injection token that can be used to specify the global ripple options. */
-export declare const MD_RIPPLE_GLOBAL_OPTIONS: InjectionToken<RippleGlobalOptions>;
-export declare class MdRipple implements OnChanges, OnDestroy {
+export declare const MAT_RIPPLE_GLOBAL_OPTIONS: InjectionToken<RippleGlobalOptions>;
+export declare class MatRipple implements OnChanges, OnDestroy {
     /**
      * The element that triggers the ripple when click events are received. Defaults to the
      * directive's host element.
@@ -48,13 +48,6 @@ export declare class MdRipple implements OnChanges, OnDestroy {
     color: string;
     /** Whether foreground ripples should be visible outside the component's bounds. */
     unbounded: boolean;
-    _matRippleTrigger: HTMLElement;
-    _matRippleCentered: boolean;
-    _matRippleDisabled: boolean;
-    _matRippleRadius: number;
-    _matRippleSpeedFactor: number;
-    _matRippleColor: string;
-    _matRippleUnbounded: boolean;
     /** Renderer for the ripple DOM manipulations. */
     private _rippleRenderer;
     /** Options that are set globally for all ripples. */

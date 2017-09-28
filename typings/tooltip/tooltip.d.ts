@@ -21,13 +21,13 @@ export declare const SCROLL_THROTTLE_MS = 20;
 /** CSS class that will be attached to the overlay panel. */
 export declare const TOOLTIP_PANEL_CLASS = "mat-tooltip-panel";
 /** Creates an error to be thrown if the user supplied an invalid tooltip position. */
-export declare function getMdTooltipInvalidPositionError(position: string): Error;
+export declare function getMatTooltipInvalidPositionError(position: string): Error;
 /** Injection token that determines the scroll handling while a tooltip is visible. */
-export declare const MD_TOOLTIP_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
+export declare const MAT_TOOLTIP_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /** @docs-private */
-export declare function MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => RepositionScrollStrategy;
+export declare function MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => RepositionScrollStrategy;
 /** @docs-private */
-export declare const MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER: {
+export declare const MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
     deps: typeof Overlay[];
     useFactory: (overlay: Overlay) => () => RepositionScrollStrategy;
@@ -38,7 +38,7 @@ export declare const MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER: {
  *
  * https://material.google.com/components/tooltips.html
  */
-export declare class MdTooltip implements OnDestroy {
+export declare class MatTooltip implements OnDestroy {
     private _overlay;
     private _elementRef;
     private _scrollDispatcher;
@@ -68,16 +68,6 @@ export declare class MdTooltip implements OnDestroy {
     message: string;
     /** Classes to be passed to the tooltip. Supports the same syntax as `ngClass`. */
     tooltipClass: string | string[] | Set<string> | {
-        [key: string]: any;
-    };
-    /** @deprecated */
-    _deprecatedMessage: string;
-    _matMessage: string;
-    _matPosition: TooltipPosition;
-    _matDisabled: boolean;
-    _matHideDelay: number;
-    _matShowDelay: number;
-    _matClass: string | Set<string> | string[] | {
         [key: string]: any;
     };
     private _enterListener;

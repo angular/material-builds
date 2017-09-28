@@ -6,15 +6,15 @@ import * as tslib_1 from "tslib";
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
-import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
+import { BidiModule, Directionality } from '@angular/cdk/bidi';
 import { CommonModule } from '@angular/common';
-import { BidiModule, GestureConfig, MdCommonModule, mixinColor, mixinDisabled } from '@angular/material/core';
-import { Directionality } from '@angular/cdk/bidi';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { GestureConfig, MatCommonModule, mixinColor, mixinDisabled } from '@angular/material/core';
+import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW, END, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { Subscription } from 'rxjs/Subscription';
 /**
  * Visually, a 30px separation between tick marks looks best. This is very subjective but it is
@@ -34,43 +34,43 @@ var MIN_VALUE_NONACTIVE_THUMB_GAP = 7;
  */
 var MIN_VALUE_ACTIVE_THUMB_GAP = 10;
 /**
- * Provider Expression that allows md-slider to register as a ControlValueAccessor.
+ * Provider Expression that allows mat-slider to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)] and [formControl].
  */
-var MD_SLIDER_VALUE_ACCESSOR = {
+var MAT_SLIDER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(function () { return MdSlider; }),
+    useExisting: forwardRef(function () { return MatSlider; }),
     multi: true
 };
 /**
- * A simple change event emitted by the MdSlider component.
+ * A simple change event emitted by the MatSlider component.
  */
-var MdSliderChange = (function () {
-    function MdSliderChange() {
+var MatSliderChange = (function () {
+    function MatSliderChange() {
     }
-    return MdSliderChange;
+    return MatSliderChange;
 }());
 /**
  * \@docs-private
  */
-var MdSliderBase = (function () {
+var MatSliderBase = (function () {
     /**
      * @param {?} _renderer
      * @param {?} _elementRef
      */
-    function MdSliderBase(_renderer, _elementRef) {
+    function MatSliderBase(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
     }
-    return MdSliderBase;
+    return MatSliderBase;
 }());
-var _MdSliderMixinBase = mixinColor(mixinDisabled(MdSliderBase), 'accent');
+var _MatSliderMixinBase = mixinColor(mixinDisabled(MatSliderBase), 'accent');
 /**
  * Allows users to select from a range of values by moving the slider thumb. It is similar in
  * behavior to the native `<input type="range">` element.
  */
-var MdSlider = (function (_super) {
-    tslib_1.__extends(MdSlider, _super);
+var MatSlider = (function (_super) {
+    tslib_1.__extends(MatSlider, _super);
     /**
      * @param {?} renderer
      * @param {?} elementRef
@@ -78,7 +78,7 @@ var MdSlider = (function (_super) {
      * @param {?} _changeDetectorRef
      * @param {?} _dir
      */
-    function MdSlider(renderer, elementRef, _focusMonitor, _changeDetectorRef, _dir) {
+    function MatSlider(renderer, elementRef, _focusMonitor, _changeDetectorRef, _dir) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._focusMonitor = _focusMonitor;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -129,7 +129,7 @@ var MdSlider = (function (_super) {
         _this._dirChangeSubscription = Subscription.EMPTY;
         return _this;
     }
-    Object.defineProperty(MdSlider.prototype, "invert", {
+    Object.defineProperty(MatSlider.prototype, "invert", {
         /**
          * Whether the slider is inverted.
          * @return {?}
@@ -145,7 +145,7 @@ var MdSlider = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlider.prototype, "max", {
+    Object.defineProperty(MatSlider.prototype, "max", {
         /**
          * The maximum value that the slider can have.
          * @return {?}
@@ -164,7 +164,7 @@ var MdSlider = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlider.prototype, "min", {
+    Object.defineProperty(MatSlider.prototype, "min", {
         /**
          * The minimum value that the slider can have.
          * @return {?}
@@ -187,7 +187,7 @@ var MdSlider = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlider.prototype, "step", {
+    Object.defineProperty(MatSlider.prototype, "step", {
         /**
          * The values at which the thumb will snap.
          * @return {?}
@@ -208,7 +208,7 @@ var MdSlider = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlider.prototype, "thumbLabel", {
+    Object.defineProperty(MatSlider.prototype, "thumbLabel", {
         /**
          * Whether or not to show the thumb label.
          * @return {?}
@@ -222,7 +222,7 @@ var MdSlider = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlider.prototype, "_thumbLabelDeprecated", {
+    Object.defineProperty(MatSlider.prototype, "_thumbLabelDeprecated", {
         /**
          * @deprecated
          * @return {?}
@@ -236,7 +236,7 @@ var MdSlider = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlider.prototype, "tickInterval", {
+    Object.defineProperty(MatSlider.prototype, "tickInterval", {
         /**
          * How often to show ticks. Relative to the step so that a tick always appears on a step.
          * Ex: Tick interval of 4 with a step of 3 will draw a tick every 4 steps (every 12 values).
@@ -261,7 +261,7 @@ var MdSlider = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlider.prototype, "_tickIntervalDeprecated", {
+    Object.defineProperty(MatSlider.prototype, "_tickIntervalDeprecated", {
         /**
          * @deprecated
          * @return {?}
@@ -275,7 +275,7 @@ var MdSlider = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlider.prototype, "value", {
+    Object.defineProperty(MatSlider.prototype, "value", {
         /**
          * Value of the slider.
          * @return {?}
@@ -302,7 +302,7 @@ var MdSlider = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlider.prototype, "vertical", {
+    Object.defineProperty(MatSlider.prototype, "vertical", {
         /**
          * Whether the slider is vertical.
          * @return {?}
@@ -318,7 +318,7 @@ var MdSlider = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlider.prototype, "displayValue", {
+    Object.defineProperty(MatSlider.prototype, "displayValue", {
         /**
          * The value to be used for display purposes.
          * @return {?}
@@ -335,7 +335,7 @@ var MdSlider = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlider.prototype, "percent", {
+    Object.defineProperty(MatSlider.prototype, "percent", {
         /**
          * The percentage of the slider that coincides with the value.
          * @return {?}
@@ -344,7 +344,7 @@ var MdSlider = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlider.prototype, "_invertAxis", {
+    Object.defineProperty(MatSlider.prototype, "_invertAxis", {
         /**
          * Whether the axis of the slider is inverted.
          * (i.e. whether moving the thumb in the positive x or y direction decreases the slider's value).
@@ -358,7 +358,7 @@ var MdSlider = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlider.prototype, "_isMinValue", {
+    Object.defineProperty(MatSlider.prototype, "_isMinValue", {
         /**
          * Whether the slider is at its minimum value.
          * @return {?}
@@ -369,7 +369,7 @@ var MdSlider = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlider.prototype, "_thumbGap", {
+    Object.defineProperty(MatSlider.prototype, "_thumbGap", {
         /**
          * The amount of space to leave between the slider thumb and the track fill & track background
          * elements.
@@ -387,7 +387,7 @@ var MdSlider = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlider.prototype, "_trackBackgroundStyles", {
+    Object.defineProperty(MatSlider.prototype, "_trackBackgroundStyles", {
         /**
          * CSS styles for the track background element.
          * @return {?}
@@ -402,7 +402,7 @@ var MdSlider = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlider.prototype, "_trackFillStyles", {
+    Object.defineProperty(MatSlider.prototype, "_trackFillStyles", {
         /**
          * CSS styles for the track fill element.
          * @return {?}
@@ -417,7 +417,7 @@ var MdSlider = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlider.prototype, "_ticksContainerStyles", {
+    Object.defineProperty(MatSlider.prototype, "_ticksContainerStyles", {
         /**
          * CSS styles for the ticks container element.
          * @return {?}
@@ -435,7 +435,7 @@ var MdSlider = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlider.prototype, "_ticksStyles", {
+    Object.defineProperty(MatSlider.prototype, "_ticksStyles", {
         /**
          * CSS styles for the ticks element.
          * @return {?}
@@ -465,7 +465,7 @@ var MdSlider = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlider.prototype, "_thumbContainerStyles", {
+    Object.defineProperty(MatSlider.prototype, "_thumbContainerStyles", {
         /**
          * @return {?}
          */
@@ -482,7 +482,7 @@ var MdSlider = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlider.prototype, "_invertMouseCoords", {
+    Object.defineProperty(MatSlider.prototype, "_invertMouseCoords", {
         /**
          * Whether mouse events should be converted to a slider position by calculating their distance
          * from the right or bottom edge of the slider as opposed to the top or left.
@@ -494,7 +494,7 @@ var MdSlider = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlider.prototype, "_direction", {
+    Object.defineProperty(MatSlider.prototype, "_direction", {
         /**
          * The language direction for this slider element.
          * @return {?}
@@ -508,7 +508,7 @@ var MdSlider = (function (_super) {
     /**
      * @return {?}
      */
-    MdSlider.prototype.ngOnInit = function () {
+    MatSlider.prototype.ngOnInit = function () {
         var _this = this;
         this._focusMonitor
             .monitor(this._elementRef.nativeElement, this._renderer, true)
@@ -525,14 +525,14 @@ var MdSlider = (function (_super) {
     /**
      * @return {?}
      */
-    MdSlider.prototype.ngOnDestroy = function () {
+    MatSlider.prototype.ngOnDestroy = function () {
         this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
         this._dirChangeSubscription.unsubscribe();
     };
     /**
      * @return {?}
      */
-    MdSlider.prototype._onMouseenter = function () {
+    MatSlider.prototype._onMouseenter = function () {
         if (this.disabled) {
             return;
         }
@@ -545,7 +545,7 @@ var MdSlider = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MdSlider.prototype._onClick = function (event) {
+    MatSlider.prototype._onClick = function (event) {
         if (this.disabled) {
             return;
         }
@@ -563,7 +563,7 @@ var MdSlider = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MdSlider.prototype._onSlide = function (event) {
+    MatSlider.prototype._onSlide = function (event) {
         if (this.disabled) {
             return;
         }
@@ -585,7 +585,7 @@ var MdSlider = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MdSlider.prototype._onSlideStart = function (event) {
+    MatSlider.prototype._onSlideStart = function (event) {
         if (this.disabled) {
             return;
         }
@@ -602,7 +602,7 @@ var MdSlider = (function (_super) {
     /**
      * @return {?}
      */
-    MdSlider.prototype._onSlideEnd = function () {
+    MatSlider.prototype._onSlideEnd = function () {
         this._isSliding = false;
         if (this._valueOnSlideStart != this.value) {
             this._emitChangeEvent();
@@ -612,7 +612,7 @@ var MdSlider = (function (_super) {
     /**
      * @return {?}
      */
-    MdSlider.prototype._onFocus = function () {
+    MatSlider.prototype._onFocus = function () {
         // We save the dimensions of the slider here so we can use them to update the spacing of the
         // ticks and determine where on the slider click and slide events happen.
         this._sliderDimensions = this._getSliderDimensions();
@@ -621,14 +621,14 @@ var MdSlider = (function (_super) {
     /**
      * @return {?}
      */
-    MdSlider.prototype._onBlur = function () {
+    MatSlider.prototype._onBlur = function () {
         this.onTouched();
     };
     /**
      * @param {?} event
      * @return {?}
      */
-    MdSlider.prototype._onKeydown = function (event) {
+    MatSlider.prototype._onKeydown = function (event) {
         if (this.disabled) {
             return;
         }
@@ -681,7 +681,7 @@ var MdSlider = (function (_super) {
     /**
      * @return {?}
      */
-    MdSlider.prototype._onKeyup = function () {
+    MatSlider.prototype._onKeyup = function () {
         this._isSliding = false;
     };
     /**
@@ -689,7 +689,7 @@ var MdSlider = (function (_super) {
      * @param {?} numSteps
      * @return {?}
      */
-    MdSlider.prototype._increment = function (numSteps) {
+    MatSlider.prototype._increment = function (numSteps) {
         this.value = this._clamp((this.value || 0) + this.step * numSteps, this.min, this.max);
     };
     /**
@@ -697,7 +697,7 @@ var MdSlider = (function (_super) {
      * @param {?} pos
      * @return {?}
      */
-    MdSlider.prototype._updateValueFromPosition = function (pos) {
+    MatSlider.prototype._updateValueFromPosition = function (pos) {
         if (!this._sliderDimensions) {
             return;
         }
@@ -720,7 +720,7 @@ var MdSlider = (function (_super) {
      * Emits a change event if the current value is different from the last emitted value.
      * @return {?}
      */
-    MdSlider.prototype._emitChangeEvent = function () {
+    MatSlider.prototype._emitChangeEvent = function () {
         this._controlValueAccessorChangeFn(this.value);
         this.change.emit(this._createChangeEvent());
     };
@@ -728,14 +728,14 @@ var MdSlider = (function (_super) {
      * Emits an input event when the current value is different from the last emitted value.
      * @return {?}
      */
-    MdSlider.prototype._emitInputEvent = function () {
+    MatSlider.prototype._emitInputEvent = function () {
         this.input.emit(this._createChangeEvent());
     };
     /**
      * Updates the amount of space between ticks as a percentage of the width of the slider.
      * @return {?}
      */
-    MdSlider.prototype._updateTickIntervalPercent = function () {
+    MatSlider.prototype._updateTickIntervalPercent = function () {
         if (!this.tickInterval || !this._sliderDimensions) {
             return;
         }
@@ -755,9 +755,9 @@ var MdSlider = (function (_super) {
      * @param {?=} value
      * @return {?}
      */
-    MdSlider.prototype._createChangeEvent = function (value) {
+    MatSlider.prototype._createChangeEvent = function (value) {
         if (value === void 0) { value = this.value; }
-        var /** @type {?} */ event = new MdSliderChange();
+        var /** @type {?} */ event = new MatSliderChange();
         event.source = this;
         event.value = value;
         return event;
@@ -767,7 +767,7 @@ var MdSlider = (function (_super) {
      * @param {?} value
      * @return {?}
      */
-    MdSlider.prototype._calculatePercentage = function (value) {
+    MatSlider.prototype._calculatePercentage = function (value) {
         return ((value || 0) - this.min) / (this.max - this.min);
     };
     /**
@@ -775,7 +775,7 @@ var MdSlider = (function (_super) {
      * @param {?} percentage
      * @return {?}
      */
-    MdSlider.prototype._calculateValue = function (percentage) {
+    MatSlider.prototype._calculateValue = function (percentage) {
         return this.min + percentage * (this.max - this.min);
     };
     /**
@@ -785,7 +785,7 @@ var MdSlider = (function (_super) {
      * @param {?=} max
      * @return {?}
      */
-    MdSlider.prototype._clamp = function (value, min, max) {
+    MatSlider.prototype._clamp = function (value, min, max) {
         if (min === void 0) { min = 0; }
         if (max === void 0) { max = 1; }
         return Math.max(min, Math.min(value, max));
@@ -796,7 +796,7 @@ var MdSlider = (function (_super) {
      * take up.
      * @return {?}
      */
-    MdSlider.prototype._getSliderDimensions = function () {
+    MatSlider.prototype._getSliderDimensions = function () {
         return this._sliderWrapper ? this._sliderWrapper.nativeElement.getBoundingClientRect() : null;
     };
     /**
@@ -804,7 +804,7 @@ var MdSlider = (function (_super) {
      * Currently only used to allow a blur event to fire but will be used with keyboard input later.
      * @return {?}
      */
-    MdSlider.prototype._focusHostElement = function () {
+    MatSlider.prototype._focusHostElement = function () {
         this._elementRef.nativeElement.focus();
     };
     /**
@@ -812,7 +812,7 @@ var MdSlider = (function (_super) {
      * @param {?} value
      * @return {?}
      */
-    MdSlider.prototype.writeValue = function (value) {
+    MatSlider.prototype.writeValue = function (value) {
         this.value = value;
     };
     /**
@@ -821,7 +821,7 @@ var MdSlider = (function (_super) {
      * @param {?} fn Callback to be registered.
      * @return {?}
      */
-    MdSlider.prototype.registerOnChange = function (fn) {
+    MatSlider.prototype.registerOnChange = function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
     /**
@@ -830,7 +830,7 @@ var MdSlider = (function (_super) {
      * @param {?} fn Callback to be registered.
      * @return {?}
      */
-    MdSlider.prototype.registerOnTouched = function (fn) {
+    MatSlider.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
     /**
@@ -839,14 +839,14 @@ var MdSlider = (function (_super) {
      * @param {?} isDisabled
      * @return {?}
      */
-    MdSlider.prototype.setDisabledState = function (isDisabled) {
+    MatSlider.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
     };
-    return MdSlider;
-}(_MdSliderMixinBase));
-MdSlider.decorators = [
-    { type: Component, args: [{ selector: 'md-slider, mat-slider',
-                providers: [MD_SLIDER_VALUE_ACCESSOR],
+    return MatSlider;
+}(_MatSliderMixinBase));
+MatSlider.decorators = [
+    { type: Component, args: [{ selector: 'mat-slider',
+                providers: [MAT_SLIDER_VALUE_ACCESSOR],
                 host: {
                     '(focus)': '_onFocus()',
                     '(blur)': '_onBlur()',
@@ -886,14 +886,14 @@ MdSlider.decorators = [
 /**
  * @nocollapse
  */
-MdSlider.ctorParameters = function () { return [
+MatSlider.ctorParameters = function () { return [
     { type: Renderer2, },
     { type: ElementRef, },
     { type: FocusMonitor, },
     { type: ChangeDetectorRef, },
     { type: Directionality, decorators: [{ type: Optional },] },
 ]; };
-MdSlider.propDecorators = {
+MatSlider.propDecorators = {
     'invert': [{ type: Input },],
     'max': [{ type: Input },],
     'min': [{ type: Input },],
@@ -908,25 +908,25 @@ MdSlider.propDecorators = {
     'input': [{ type: Output },],
     '_sliderWrapper': [{ type: ViewChild, args: ['sliderWrapper',] },],
 };
-var MdSliderModule = (function () {
-    function MdSliderModule() {
+var MatSliderModule = (function () {
+    function MatSliderModule() {
     }
-    return MdSliderModule;
+    return MatSliderModule;
 }());
-MdSliderModule.decorators = [
+MatSliderModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CommonModule, MdCommonModule, BidiModule, A11yModule],
-                exports: [MdSlider, MdCommonModule],
-                declarations: [MdSlider],
+                imports: [CommonModule, MatCommonModule, BidiModule, A11yModule],
+                exports: [MatSlider, MatCommonModule],
+                declarations: [MatSlider],
                 providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
             },] },
 ];
 /**
  * @nocollapse
  */
-MdSliderModule.ctorParameters = function () { return []; };
+MatSliderModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdSliderModule, MD_SLIDER_VALUE_ACCESSOR, MdSliderChange, MdSliderBase, _MdSliderMixinBase, MdSlider, MD_SLIDER_VALUE_ACCESSOR as MAT_SLIDER_VALUE_ACCESSOR, MdSlider as MatSlider, MdSliderBase as MatSliderBase, MdSliderChange as MatSliderChange, MdSliderModule as MatSliderModule };
+export { MatSliderModule, MAT_SLIDER_VALUE_ACCESSOR, MatSliderChange, MatSliderBase, _MatSliderMixinBase, MatSlider };
 //# sourceMappingURL=slider.es5.js.map

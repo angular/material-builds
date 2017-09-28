@@ -8,76 +8,78 @@ import * as tslib_1 from "tslib";
  */
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Renderer2, Self, ViewEncapsulation } from '@angular/core';
 import { FocusKeyManager } from '@angular/cdk/a11y';
+import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
+import { BACKSPACE, DELETE, ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
 import { startWith } from '@angular/cdk/rxjs';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { BACKSPACE, DELETE, Directionality, ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE, UP_ARROW, mixinColor, mixinDisabled } from '@angular/material/core';
-import { MdFormFieldControl } from '@angular/material/form-field';
+import { MatFormFieldControl } from '@angular/material/form-field';
 import { merge } from 'rxjs/observable/merge';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
+import { mixinColor, mixinDisabled } from '@angular/material/core';
 /**
- * Event object emitted by MdChip when selected or deselected.
+ * Event object emitted by MatChip when selected or deselected.
  */
-var MdChipSelectionChange = (function () {
+var MatChipSelectionChange = (function () {
     /**
      * @param {?} source
      * @param {?} selected
      * @param {?=} isUserInput
      */
-    function MdChipSelectionChange(source, selected, isUserInput) {
+    function MatChipSelectionChange(source, selected, isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
         this.source = source;
         this.selected = selected;
         this.isUserInput = isUserInput;
     }
-    return MdChipSelectionChange;
+    return MatChipSelectionChange;
 }());
 /**
  * \@docs-private
  */
-var MdChipBase = (function () {
+var MatChipBase = (function () {
     /**
      * @param {?} _renderer
      * @param {?} _elementRef
      */
-    function MdChipBase(_renderer, _elementRef) {
+    function MatChipBase(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
     }
-    return MdChipBase;
+    return MatChipBase;
 }());
-var _MdChipMixinBase = mixinColor(mixinDisabled(MdChipBase), 'primary');
+var _MatChipMixinBase = mixinColor(mixinDisabled(MatChipBase), 'primary');
 /**
  * Dummy directive to add CSS class to basic chips.
  * \@docs-private
  */
-var MdBasicChip = (function () {
-    function MdBasicChip() {
+var MatBasicChip = (function () {
+    function MatBasicChip() {
     }
-    return MdBasicChip;
+    return MatBasicChip;
 }());
-MdBasicChip.decorators = [
+MatBasicChip.decorators = [
     { type: Directive, args: [{
-                selector: "md-basic-chip, [md-basic-chip], mat-basic-chip, [mat-basic-chip]",
-                host: { 'class': 'mat-basic-chip' }
+                selector: "mat-basic-chip, [mat-basic-chip]",
+                host: { 'class': 'mat-basic-chip' },
             },] },
 ];
 /**
  * @nocollapse
  */
-MdBasicChip.ctorParameters = function () { return []; };
+MatBasicChip.ctorParameters = function () { return []; };
 /**
- * Material design styled Chip component. Used inside the MdChipList component.
+ * Material design styled Chip component. Used inside the MatChipList component.
  */
-var MdChip = (function (_super) {
-    tslib_1.__extends(MdChip, _super);
+var MatChip = (function (_super) {
+    tslib_1.__extends(MatChip, _super);
     /**
      * @param {?} renderer
      * @param {?} _elementRef
      */
-    function MdChip(renderer, _elementRef) {
+    function MatChip(renderer, _elementRef) {
         var _this = _super.call(this, renderer, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._selected = false;
@@ -119,12 +121,14 @@ var MdChip = (function (_super) {
         _this.onRemove = _this.removed;
         return _this;
     }
-    Object.defineProperty(MdChip.prototype, "selected", {
+    Object.defineProperty(MatChip.prototype, "selected", {
         /**
          * Whether the chip is selected.
          * @return {?}
          */
-        get: function () { return this._selected; },
+        get: function () {
+            return this._selected;
+        },
         /**
          * @param {?} value
          * @return {?}
@@ -140,9 +144,9 @@ var MdChip = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChip.prototype, "value", {
+    Object.defineProperty(MatChip.prototype, "value", {
         /**
-         * The value of the chip. Defaults to the content inside <md-chip> tags.
+         * The value of the chip. Defaults to the content inside <mat-chip> tags.
          * @return {?}
          */
         get: function () {
@@ -154,40 +158,50 @@ var MdChip = (function (_super) {
          * @param {?} newValue
          * @return {?}
          */
-        set: function (newValue) { this._value = newValue; },
+        set: function (newValue) {
+            this._value = newValue;
+        },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChip.prototype, "selectable", {
+    Object.defineProperty(MatChip.prototype, "selectable", {
         /**
          * Whether or not the chips are selectable. When a chip is not selectable,
          * changes to it's selected state are always ignored.
          * @return {?}
          */
-        get: function () { return this._selectable; },
+        get: function () {
+            return this._selectable;
+        },
         /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._selectable = coerceBooleanProperty(value); },
+        set: function (value) {
+            this._selectable = coerceBooleanProperty(value);
+        },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChip.prototype, "removable", {
+    Object.defineProperty(MatChip.prototype, "removable", {
         /**
          * Determines whether or not the chip displays the remove styling and emits (remove) events.
          * @return {?}
          */
-        get: function () { return this._removable; },
+        get: function () {
+            return this._removable;
+        },
         /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._removable = coerceBooleanProperty(value); },
+        set: function (value) {
+            this._removable = coerceBooleanProperty(value);
+        },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChip.prototype, "ariaSelected", {
+    Object.defineProperty(MatChip.prototype, "ariaSelected", {
         /**
          * @return {?}
          */
@@ -200,14 +214,14 @@ var MdChip = (function (_super) {
     /**
      * @return {?}
      */
-    MdChip.prototype.ngOnDestroy = function () {
+    MatChip.prototype.ngOnDestroy = function () {
         this.destroyed.emit({ chip: this });
     };
     /**
      * Selects the chip.
      * @return {?}
      */
-    MdChip.prototype.select = function () {
+    MatChip.prototype.select = function () {
         this._selected = true;
         this.selectionChange.emit({
             source: this,
@@ -219,7 +233,7 @@ var MdChip = (function (_super) {
      * Deselects the chip.
      * @return {?}
      */
-    MdChip.prototype.deselect = function () {
+    MatChip.prototype.deselect = function () {
         this._selected = false;
         this.selectionChange.emit({
             source: this,
@@ -231,7 +245,7 @@ var MdChip = (function (_super) {
      * Select this chip and emit selected event
      * @return {?}
      */
-    MdChip.prototype.selectViaInteraction = function () {
+    MatChip.prototype.selectViaInteraction = function () {
         this._selected = true;
         // Emit select event when selected changes.
         this.selectionChange.emit({
@@ -245,7 +259,7 @@ var MdChip = (function (_super) {
      * @param {?=} isUserInput
      * @return {?}
      */
-    MdChip.prototype.toggleSelected = function (isUserInput) {
+    MatChip.prototype.toggleSelected = function (isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
         this._selected = !this.selected;
         this.selectionChange.emit({
@@ -259,18 +273,18 @@ var MdChip = (function (_super) {
      * Allows for programmatic focusing of the chip.
      * @return {?}
      */
-    MdChip.prototype.focus = function () {
+    MatChip.prototype.focus = function () {
         this._elementRef.nativeElement.focus();
         this._onFocus.next({ chip: this });
     };
     /**
-     * Allows for programmatic removal of the chip. Called by the MdChipList when the DELETE or
+     * Allows for programmatic removal of the chip. Called by the MatChipList when the DELETE or
      * BACKSPACE keys are pressed.
      *
      * Informs any listeners of the removal request. Does not remove the chip from the DOM.
      * @return {?}
      */
-    MdChip.prototype.remove = function () {
+    MatChip.prototype.remove = function () {
         if (this.removable) {
             this.removed.emit({ chip: this });
         }
@@ -280,7 +294,7 @@ var MdChip = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MdChip.prototype._handleClick = function (event) {
+    MatChip.prototype._handleClick = function (event) {
         // Check disabled
         if (this.disabled) {
             return;
@@ -294,7 +308,7 @@ var MdChip = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MdChip.prototype._handleKeydown = function (event) {
+    MatChip.prototype._handleKeydown = function (event) {
         if (this.disabled) {
             return;
         }
@@ -319,17 +333,17 @@ var MdChip = (function (_super) {
     /**
      * @return {?}
      */
-    MdChip.prototype._blur = function () {
+    MatChip.prototype._blur = function () {
         this._hasFocus = false;
         this._onBlur.next({ chip: this });
     };
-    return MdChip;
-}(_MdChipMixinBase));
-MdChip.decorators = [
+    return MatChip;
+}(_MatChipMixinBase));
+MatChip.decorators = [
     { type: Directive, args: [{
-                selector: "md-basic-chip, [md-basic-chip], md-chip, [md-chip],\n             mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
+                selector: "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
                 inputs: ['color', 'disabled'],
-                exportAs: 'mdChip, matChip',
+                exportAs: 'matChip',
                 host: {
                     'class': 'mat-chip',
                     'tabindex': '-1',
@@ -348,11 +362,11 @@ MdChip.decorators = [
 /**
  * @nocollapse
  */
-MdChip.ctorParameters = function () { return [
+MatChip.ctorParameters = function () { return [
     { type: Renderer2, },
     { type: ElementRef, },
 ]; };
-MdChip.propDecorators = {
+MatChip.propDecorators = {
     'selected': [{ type: Input },],
     'value': [{ type: Input },],
     'selectable': [{ type: Input },],
@@ -369,66 +383,66 @@ MdChip.propDecorators = {
  *
  * Example:
  *
- *     <md-chip>
- *       <md-icon mdChipRemove>cancel</md-icon>
- *     </md-chip>
+ *     <mat-chip>
+ *       <mat-icon matChipRemove>cancel</mat-icon>
+ *     </mat-chip>
  *
- * You *may* use a custom icon, but you may need to override the `md-chip-remove` positioning styles
- * to properly center the icon within the chip.
+ * You *may* use a custom icon, but you may need to override the `mat-chip-remove` positioning
+ * styles to properly center the icon within the chip.
  */
-var MdChipRemove = (function () {
+var MatChipRemove = (function () {
     /**
      * @param {?} _parentChip
      */
-    function MdChipRemove(_parentChip) {
+    function MatChipRemove(_parentChip) {
         this._parentChip = _parentChip;
     }
     /**
      * Calls the parent chip's public `remove()` method if applicable.
      * @return {?}
      */
-    MdChipRemove.prototype._handleClick = function () {
+    MatChipRemove.prototype._handleClick = function () {
         if (this._parentChip.removable) {
             this._parentChip.remove();
         }
     };
-    return MdChipRemove;
+    return MatChipRemove;
 }());
-MdChipRemove.decorators = [
+MatChipRemove.decorators = [
     { type: Directive, args: [{
-                selector: '[mdChipRemove], [matChipRemove]',
+                selector: '[matChipRemove]',
                 host: {
                     'class': 'mat-chip-remove',
-                    '(click)': '_handleClick($event)'
-                }
+                    '(click)': '_handleClick($event)',
+                },
             },] },
 ];
 /**
  * @nocollapse
  */
-MdChipRemove.ctorParameters = function () { return [
-    { type: MdChip, },
+MatChipRemove.ctorParameters = function () { return [
+    { type: MatChip, },
 ]; };
 // Increasing integer for generating unique ids for chip-list components.
 var nextUniqueId = 0;
 /**
  * Change event object that is emitted when the chip list value has changed.
  */
-var MdChipListChange = (function () {
+var MatChipListChange = (function () {
     /**
      * @param {?} source
      * @param {?} value
      */
-    function MdChipListChange(source, value) {
+    function MatChipListChange(source, value) {
         this.source = source;
         this.value = value;
     }
-    return MdChipListChange;
+    return MatChipListChange;
 }());
 /**
  * A material design chips component (named ChipList for it's similarity to the List component).
  */
-var MdChipList = (function () {
+var MatChipList = (function () {
     /**
      * @param {?} _renderer
      * @param {?} _elementRef
@@ -438,7 +452,7 @@ var MdChipList = (function () {
      * @param {?} _parentFormGroup
      * @param {?} ngControl
      */
-    function MdChipList(_renderer, _elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, ngControl) {
+    function MatChipList(_renderer, _elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, ngControl) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
@@ -446,8 +460,9 @@ var MdChipList = (function () {
         this._parentForm = _parentForm;
         this._parentFormGroup = _parentFormGroup;
         this.ngControl = ngControl;
+        this.controlType = 'mat-chip-list';
         /**
-         * Stream that emits whenever the state of the input changes such that the wrapping `MdFormField`
+         * Stream that emits whenever the state of the input changes such that the wrapping `MatFormField`
          * needs to run change detection.
          */
         this.stateChanges = new Subject();
@@ -474,7 +489,7 @@ var MdChipList = (function () {
         /**
          * Uid of the chip list
          */
-        this._uid = "md-chip-list-" + nextUniqueId++;
+        this._uid = "mat-chip-list-" + nextUniqueId++;
         /**
          * Whether this is required
          */
@@ -522,7 +537,7 @@ var MdChipList = (function () {
             this.ngControl.valueAccessor = this;
         }
     }
-    Object.defineProperty(MdChipList.prototype, "selected", {
+    Object.defineProperty(MatChipList.prototype, "selected", {
         /**
          * The array of selected chips inside chip list.
          * @return {?}
@@ -533,7 +548,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "multiple", {
+    Object.defineProperty(MatChipList.prototype, "multiple", {
         /**
          * Whether the user should be allowed to select multiple chips.
          * @return {?}
@@ -549,7 +564,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "compareWith", {
+    Object.defineProperty(MatChipList.prototype, "compareWith", {
         /**
          * A function to compare the option values with the selected values. The first argument
          * is a value from an option. The second is a value from the selection. A boolean
@@ -571,7 +586,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "value", {
+    Object.defineProperty(MatChipList.prototype, "value", {
         /**
          * Required for FormFieldControl
          * @return {?}
@@ -588,7 +603,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "id", {
+    Object.defineProperty(MatChipList.prototype, "id", {
         /**
          * @return {?}
          */
@@ -605,7 +620,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "required", {
+    Object.defineProperty(MatChipList.prototype, "required", {
         /**
          * @return {?}
          */
@@ -624,7 +639,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "placeholder", {
+    Object.defineProperty(MatChipList.prototype, "placeholder", {
         /**
          * @return {?}
          */
@@ -643,9 +658,9 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "focused", {
+    Object.defineProperty(MatChipList.prototype, "focused", {
         /**
-         * Whether any chips or the mdChipInput inside of this chip-list has focus.
+         * Whether any chips or the matChipInput inside of this chip-list has focus.
          * @return {?}
          */
         get: function () {
@@ -655,9 +670,9 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "empty", {
+    Object.defineProperty(MatChipList.prototype, "empty", {
         /**
-         * Whether this chip-list contains no chips and no mdChipInput.
+         * Whether this chip-list contains no chips and no matChipInput.
          * @return {?}
          */
         get: function () {
@@ -666,7 +681,17 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "disabled", {
+    Object.defineProperty(MatChipList.prototype, "shouldPlaceholderFloat", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.empty;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatChipList.prototype, "disabled", {
         /**
          * Whether this chip-list is disabled.
          * @return {?}
@@ -680,7 +705,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "errorState", {
+    Object.defineProperty(MatChipList.prototype, "errorState", {
         /**
          * Whether the chip list is in an error state.
          * @return {?}
@@ -695,7 +720,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "selectable", {
+    Object.defineProperty(MatChipList.prototype, "selectable", {
         /**
          * Whether or not this chip is selectable. When a chip is not selectable,
          * its selected state is always ignored.
@@ -710,7 +735,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "tabIndex", {
+    Object.defineProperty(MatChipList.prototype, "tabIndex", {
         /**
          * @param {?} value
          * @return {?}
@@ -722,7 +747,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "chipSelectionChanges", {
+    Object.defineProperty(MatChipList.prototype, "chipSelectionChanges", {
         /**
          * Combined stream of all of the child chips' selection change events.
          * @return {?}
@@ -733,7 +758,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "chipFocusChanges", {
+    Object.defineProperty(MatChipList.prototype, "chipFocusChanges", {
         /**
          * Combined stream of all of the child chips' focus change events.
          * @return {?}
@@ -744,7 +769,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "chipBlurChanges", {
+    Object.defineProperty(MatChipList.prototype, "chipBlurChanges", {
         /**
          * Combined stream of all of the child chips' blur change events.
          * @return {?}
@@ -755,7 +780,7 @@ var MdChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipList.prototype, "chipRemoveChanges", {
+    Object.defineProperty(MatChipList.prototype, "chipRemoveChanges", {
         /**
          * Combined stream of all of the child chips' remove change events.
          * @return {?}
@@ -769,7 +794,7 @@ var MdChipList = (function () {
     /**
      * @return {?}
      */
-    MdChipList.prototype.ngAfterContentInit = function () {
+    MatChipList.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._keyManager = new FocusKeyManager(this.chips).withWrap();
         // Prevents the chip list from capturing focus and redirecting
@@ -792,14 +817,14 @@ var MdChipList = (function () {
     /**
      * @return {?}
      */
-    MdChipList.prototype.ngOnInit = function () {
+    MatChipList.prototype.ngOnInit = function () {
         this._selectionModel = new SelectionModel(this.multiple, undefined, false);
         this.stateChanges.next();
     };
     /**
      * @return {?}
      */
-    MdChipList.prototype.ngOnDestroy = function () {
+    MatChipList.prototype.ngOnDestroy = function () {
         this._tabOutSubscription.unsubscribe();
         if (this._changeSubscription) {
             this._changeSubscription.unsubscribe();
@@ -811,19 +836,19 @@ var MdChipList = (function () {
      * @param {?} inputElement
      * @return {?}
      */
-    MdChipList.prototype.registerInput = function (inputElement) {
+    MatChipList.prototype.registerInput = function (inputElement) {
         this._chipInput = inputElement;
     };
     /**
      * @param {?} ids
      * @return {?}
      */
-    MdChipList.prototype.setDescribedByIds = function (ids) { this._ariaDescribedby = ids.join(' '); };
+    MatChipList.prototype.setDescribedByIds = function (ids) { this._ariaDescribedby = ids.join(' '); };
     /**
      * @param {?} value
      * @return {?}
      */
-    MdChipList.prototype.writeValue = function (value) {
+    MatChipList.prototype.writeValue = function (value) {
         if (this.chips) {
             this._setSelectionByValue(value, false);
         }
@@ -832,31 +857,37 @@ var MdChipList = (function () {
      * @param {?} fn
      * @return {?}
      */
-    MdChipList.prototype.registerOnChange = function (fn) {
+    MatChipList.prototype.registerOnChange = function (fn) {
         this._onChange = fn;
     };
     /**
      * @param {?} fn
      * @return {?}
      */
-    MdChipList.prototype.registerOnTouched = function (fn) {
+    MatChipList.prototype.registerOnTouched = function (fn) {
         this._onTouched = fn;
     };
     /**
      * @param {?} disabled
      * @return {?}
      */
-    MdChipList.prototype.setDisabledState = function (disabled) {
+    MatChipList.prototype.setDisabledState = function (disabled) {
         this.disabled = disabled;
         this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', disabled);
         this.stateChanges.next();
+    };
+    /**
+     * @return {?}
+     */
+    MatChipList.prototype.onContainerClick = function () {
+        this.focus();
     };
     /**
      * Focuses the the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
      * @return {?}
      */
-    MdChipList.prototype.focus = function () {
+    MatChipList.prototype.focus = function () {
         // TODO: ARIA says this should focus the first `selected` chip if any are selected.
         // Focus on first element if there's no chipInput inside chip-list
         if (this._chipInput && this._chipInput.focused) {
@@ -875,7 +906,7 @@ var MdChipList = (function () {
      * Attempt to focus an input if we have one.
      * @return {?}
      */
-    MdChipList.prototype._focusInput = function () {
+    MatChipList.prototype._focusInput = function () {
         if (this._chipInput) {
             this._chipInput.focus();
         }
@@ -885,7 +916,7 @@ var MdChipList = (function () {
      * @param {?} event
      * @return {?}
      */
-    MdChipList.prototype._keydown = function (event) {
+    MatChipList.prototype._keydown = function (event) {
         var /** @type {?} */ code = event.keyCode;
         var /** @type {?} */ target = (event.target);
         var /** @type {?} */ isInputEmpty = this._isInputEmpty(target);
@@ -920,7 +951,7 @@ var MdChipList = (function () {
      * Check the tab index as you should not be allowed to focus an empty list.
      * @return {?}
      */
-    MdChipList.prototype._updateTabIndex = function () {
+    MatChipList.prototype._updateTabIndex = function () {
         // If we have 0 chips, we should not allow keyboard focus
         this._tabIndex = this._userTabIndex || (this.chips.length === 0 ? -1 : 0);
     };
@@ -932,7 +963,7 @@ var MdChipList = (function () {
      * @param {?} chip
      * @return {?}
      */
-    MdChipList.prototype._updateKeyManager = function (chip) {
+    MatChipList.prototype._updateKeyManager = function (chip) {
         var /** @type {?} */ chipIndex = this.chips.toArray().indexOf(chip);
         if (this._isValidIndex(chipIndex)) {
             if (chip._hasFocus) {
@@ -954,7 +985,7 @@ var MdChipList = (function () {
      * one.
      * @return {?}
      */
-    MdChipList.prototype._updateFocusForDestroyedChips = function () {
+    MatChipList.prototype._updateFocusForDestroyedChips = function () {
         var /** @type {?} */ chipsArray = this.chips;
         if (this._lastDestroyedIndex != null && chipsArray.length > 0) {
             // Check whether the destroyed chip was the last item
@@ -978,14 +1009,14 @@ var MdChipList = (function () {
      * @param {?} index The index to be checked.
      * @return {?} True if the index is valid for our list of chips.
      */
-    MdChipList.prototype._isValidIndex = function (index) {
+    MatChipList.prototype._isValidIndex = function (index) {
         return index >= 0 && index < this.chips.length;
     };
     /**
      * @param {?} element
      * @return {?}
      */
-    MdChipList.prototype._isInputEmpty = function (element) {
+    MatChipList.prototype._isInputEmpty = function (element) {
         if (element && element.nodeName.toLowerCase() === 'input') {
             var /** @type {?} */ input = (element);
             return !input.value;
@@ -997,7 +1028,7 @@ var MdChipList = (function () {
      * @param {?=} isUserInput
      * @return {?}
      */
-    MdChipList.prototype._setSelectionByValue = function (value, isUserInput) {
+    MatChipList.prototype._setSelectionByValue = function (value, isUserInput) {
         var _this = this;
         if (isUserInput === void 0) { isUserInput = true; }
         this._clearSelection();
@@ -1021,7 +1052,7 @@ var MdChipList = (function () {
      * @param {?=} isUserInput
      * @return {?} Chip that has the corresponding value.
      */
-    MdChipList.prototype._selectValue = function (value, isUserInput) {
+    MatChipList.prototype._selectValue = function (value, isUserInput) {
         var _this = this;
         if (isUserInput === void 0) { isUserInput = true; }
         var /** @type {?} */ correspondingChip = this.chips.find(function (chip) {
@@ -1036,7 +1067,7 @@ var MdChipList = (function () {
     /**
      * @return {?}
      */
-    MdChipList.prototype._initializeSelection = function () {
+    MatChipList.prototype._initializeSelection = function () {
         var _this = this;
         // Defer setting the value in order to avoid the "Expression
         // has changed after it was checked" errors from Angular.
@@ -1050,7 +1081,7 @@ var MdChipList = (function () {
      * @param {?=} skip Chip that should not be deselected.
      * @return {?}
      */
-    MdChipList.prototype._clearSelection = function (skip) {
+    MatChipList.prototype._clearSelection = function (skip) {
         this._selectionModel.clear();
         this.chips.forEach(function (chip) {
             if (chip !== skip) {
@@ -1064,7 +1095,7 @@ var MdChipList = (function () {
      * order that they have in the panel.
      * @return {?}
      */
-    MdChipList.prototype._sortValues = function () {
+    MatChipList.prototype._sortValues = function () {
         var _this = this;
         if (this._multiple) {
             this._selectionModel.clear();
@@ -1081,7 +1112,7 @@ var MdChipList = (function () {
      * @param {?=} fallbackValue
      * @return {?}
      */
-    MdChipList.prototype._propagateChanges = function (fallbackValue) {
+    MatChipList.prototype._propagateChanges = function (fallbackValue) {
         var /** @type {?} */ valueToEmit = null;
         if (Array.isArray(this.selected)) {
             valueToEmit = this.selected.map(function (chip) { return chip.value; });
@@ -1090,7 +1121,7 @@ var MdChipList = (function () {
             valueToEmit = this.selected ? this.selected.value : fallbackValue;
         }
         this._value = valueToEmit;
-        this.change.emit(new MdChipListChange(this, valueToEmit));
+        this.change.emit(new MatChipListChange(this, valueToEmit));
         this.valueChange.emit(valueToEmit);
         this._onChange(valueToEmit);
         this._changeDetectorRef.markForCheck();
@@ -1099,7 +1130,7 @@ var MdChipList = (function () {
      * When blurred, mark the field as touched when focus moved outside the chip list.
      * @return {?}
      */
-    MdChipList.prototype._blur = function () {
+    MatChipList.prototype._blur = function () {
         var _this = this;
         if (!this.disabled) {
             if (this._chipInput) {
@@ -1123,7 +1154,7 @@ var MdChipList = (function () {
      * Mark the field as touched
      * @return {?}
      */
-    MdChipList.prototype._markAsTouched = function () {
+    MatChipList.prototype._markAsTouched = function () {
         this._onTouched();
         this._changeDetectorRef.markForCheck();
         this.stateChanges.next();
@@ -1131,7 +1162,7 @@ var MdChipList = (function () {
     /**
      * @return {?}
      */
-    MdChipList.prototype._resetChips = function () {
+    MatChipList.prototype._resetChips = function () {
         this._dropSubscriptions();
         this._listenToChipsFocus();
         this._listenToChipsSelection();
@@ -1140,7 +1171,7 @@ var MdChipList = (function () {
     /**
      * @return {?}
      */
-    MdChipList.prototype._dropSubscriptions = function () {
+    MatChipList.prototype._dropSubscriptions = function () {
         if (this._chipFocusSubscription) {
             this._chipFocusSubscription.unsubscribe();
             this._chipFocusSubscription = null;
@@ -1158,7 +1189,7 @@ var MdChipList = (function () {
      * Listens to user-generated selection events on each chip.
      * @return {?}
      */
-    MdChipList.prototype._listenToChipsSelection = function () {
+    MatChipList.prototype._listenToChipsSelection = function () {
         var _this = this;
         this._chipSelectionSubscription = this.chipSelectionChanges.subscribe(function (event) {
             event.source.selected
@@ -1181,7 +1212,7 @@ var MdChipList = (function () {
      * Listens to user-generated selection events on each chip.
      * @return {?}
      */
-    MdChipList.prototype._listenToChipsFocus = function () {
+    MatChipList.prototype._listenToChipsFocus = function () {
         var _this = this;
         this._chipFocusSubscription = this.chipFocusChanges.subscribe(function (event) {
             var /** @type {?} */ chipIndex = _this.chips.toArray().indexOf(event.chip);
@@ -1198,18 +1229,18 @@ var MdChipList = (function () {
     /**
      * @return {?}
      */
-    MdChipList.prototype._listenToChipsRemoved = function () {
+    MatChipList.prototype._listenToChipsRemoved = function () {
         var _this = this;
         this._chipRemoveSubscription = this.chipRemoveChanges.subscribe(function (event) {
             _this._updateKeyManager(event.chip);
         });
     };
-    return MdChipList;
+    return MatChipList;
 }());
-MdChipList.decorators = [
-    { type: Component, args: [{ selector: 'md-chip-list, mat-chip-list',
+MatChipList.decorators = [
+    { type: Component, args: [{ selector: 'mat-chip-list',
                 template: "<div class=\"mat-chip-list-wrapper\"><ng-content></ng-content></div>",
-                exportAs: 'mdChipList, matChipList',
+                exportAs: 'matChipList',
                 host: {
                     '[attr.tabindex]': '_tabIndex',
                     '[attr.aria-describedby]': '_ariaDescribedby || null',
@@ -1227,7 +1258,7 @@ MdChipList.decorators = [
                     '(blur)': '_blur()',
                     '(keydown)': '_keydown($event)'
                 },
-                providers: [{ provide: MdFormFieldControl, useExisting: MdChipList }],
+                providers: [{ provide: MatFormFieldControl, useExisting: MatChipList }],
                 styles: [".mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:baseline}.mat-chip:not(.mat-basic-chip){transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:inline-flex;padding:7px 12px;border-radius:24px;align-items:center;cursor:default}.mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 0 3px 8px}[dir=rtl] .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 8px 3px 0}.mat-form-field-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-right:8px}[dir=rtl] .mat-form-field-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-left:8px}.mat-chip:not(.mat-basic-chip) .mat-chip-remove.mat-icon{width:1em;height:1em}.mat-chip:not(.mat-basic-chip):focus{box-shadow:0 3px 3px -2px rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12);outline:0}@media screen and (-ms-high-contrast:active){.mat-chip:not(.mat-basic-chip){outline:solid 1px}}.mat-chip-list-stacked .mat-chip-list-wrapper{display:block}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){display:block;margin:0;margin-bottom:8px}[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){margin:0;margin-bottom:8px}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child,[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-bottom:0}.mat-form-field-prefix .mat-chip-list-wrapper{margin-bottom:8px}.mat-chip-remove{margin-right:-4px;margin-left:6px;cursor:pointer}[dir=rtl] .mat-chip-remove{margin-right:6px;margin-left:-4px}input.mat-chip-input{width:150px;margin:3px}"],
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
@@ -1237,7 +1268,7 @@ MdChipList.decorators = [
 /**
  * @nocollapse
  */
-MdChipList.ctorParameters = function () { return [
+MatChipList.ctorParameters = function () { return [
     { type: Renderer2, },
     { type: ElementRef, },
     { type: ChangeDetectorRef, },
@@ -1246,7 +1277,7 @@ MdChipList.ctorParameters = function () { return [
     { type: FormGroupDirective, decorators: [{ type: Optional },] },
     { type: NgControl, decorators: [{ type: Optional }, { type: Self },] },
 ]; };
-MdChipList.propDecorators = {
+MatChipList.propDecorators = {
     'multiple': [{ type: Input },],
     'compareWith': [{ type: Input },],
     'value': [{ type: Input },],
@@ -1259,17 +1290,17 @@ MdChipList.propDecorators = {
     'tabIndex': [{ type: Input },],
     'change': [{ type: Output },],
     'valueChange': [{ type: Output },],
-    'chips': [{ type: ContentChildren, args: [MdChip,] },],
+    'chips': [{ type: ContentChildren, args: [MatChip,] },],
 };
 /**
- * Directive that adds chip-specific behaviors to an input element inside <md-form-field>.
- * May be placed inside or outside of an <md-chip-list>.
+ * Directive that adds chip-specific behaviors to an input element inside <mat-form-field>.
+ * May be placed inside or outside of an <mat-chip-list>.
  */
-var MdChipInput = (function () {
+var MatChipInput = (function () {
     /**
      * @param {?} _elementRef
      */
-    function MdChipInput(_elementRef) {
+    function MatChipInput(_elementRef) {
         this._elementRef = _elementRef;
         this.focused = false;
         this._addOnBlur = false;
@@ -1284,11 +1315,10 @@ var MdChipInput = (function () {
          * Emitted when a chip is to be added.
          */
         this.chipEnd = new EventEmitter();
-        this._matChipInputTokenEnd = this.chipEnd;
         this.placeholder = '';
         this._inputElement = this._elementRef.nativeElement;
     }
-    Object.defineProperty(MdChipInput.prototype, "chipList", {
+    Object.defineProperty(MatChipInput.prototype, "chipList", {
         /**
          * Register input for chip list
          * @param {?} value
@@ -1303,7 +1333,7 @@ var MdChipInput = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipInput.prototype, "addOnBlur", {
+    Object.defineProperty(MatChipInput.prototype, "addOnBlur", {
         /**
          * Whether or not the chipEnd event will be emitted when the input is blurred.
          * @return {?}
@@ -1317,7 +1347,7 @@ var MdChipInput = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipInput.prototype, "matChipList", {
+    Object.defineProperty(MatChipInput.prototype, "matChipList", {
         /**
          * @param {?} value
          * @return {?}
@@ -1326,7 +1356,7 @@ var MdChipInput = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipInput.prototype, "matAddOnBlur", {
+    Object.defineProperty(MatChipInput.prototype, "matAddOnBlur", {
         /**
          * @return {?}
          */
@@ -1339,7 +1369,7 @@ var MdChipInput = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipInput.prototype, "matSeparatorKeyCodes", {
+    Object.defineProperty(MatChipInput.prototype, "matSeparatorKeyCodes", {
         /**
          * @return {?}
          */
@@ -1352,7 +1382,7 @@ var MdChipInput = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdChipInput.prototype, "empty", {
+    Object.defineProperty(MatChipInput.prototype, "empty", {
         /**
          * @return {?}
          */
@@ -1368,14 +1398,14 @@ var MdChipInput = (function () {
      * @param {?=} event
      * @return {?}
      */
-    MdChipInput.prototype._keydown = function (event) {
+    MatChipInput.prototype._keydown = function (event) {
         this._emitChipEnd(event);
     };
     /**
      * Checks to see if the blur should emit the (chipEnd) event.
      * @return {?}
      */
-    MdChipInput.prototype._blur = function () {
+    MatChipInput.prototype._blur = function () {
         if (this.addOnBlur) {
             this._emitChipEnd();
         }
@@ -1389,7 +1419,7 @@ var MdChipInput = (function () {
     /**
      * @return {?}
      */
-    MdChipInput.prototype._focus = function () {
+    MatChipInput.prototype._focus = function () {
         this.focused = true;
         this._chipList.stateChanges.next();
     };
@@ -1398,7 +1428,7 @@ var MdChipInput = (function () {
      * @param {?=} event
      * @return {?}
      */
-    MdChipInput.prototype._emitChipEnd = function (event) {
+    MatChipInput.prototype._emitChipEnd = function (event) {
         if (!this._inputElement.value && !!event) {
             this._chipList._keydown(event);
         }
@@ -1412,12 +1442,12 @@ var MdChipInput = (function () {
     /**
      * @return {?}
      */
-    MdChipInput.prototype.focus = function () { this._inputElement.focus(); };
-    return MdChipInput;
+    MatChipInput.prototype.focus = function () { this._inputElement.focus(); };
+    return MatChipInput;
 }());
-MdChipInput.decorators = [
+MatChipInput.decorators = [
     { type: Directive, args: [{
-                selector: 'input[mdChipInputFor], input[matChipInputFor]',
+                selector: 'input[matChipInputFor]',
                 host: {
                     'class': 'mat-chip-input mat-input-element',
                     '(keydown)': '_keydown($event)',
@@ -1429,38 +1459,37 @@ MdChipInput.decorators = [
 /**
  * @nocollapse
  */
-MdChipInput.ctorParameters = function () { return [
+MatChipInput.ctorParameters = function () { return [
     { type: ElementRef, },
 ]; };
-MdChipInput.propDecorators = {
-    'chipList': [{ type: Input, args: ['mdChipInputFor',] },],
-    'addOnBlur': [{ type: Input, args: ['mdChipInputAddOnBlur',] },],
-    'separatorKeyCodes': [{ type: Input, args: ['mdChipInputSeparatorKeyCodes',] },],
-    'chipEnd': [{ type: Output, args: ['mdChipInputTokenEnd',] },],
-    '_matChipInputTokenEnd': [{ type: Output, args: ['matChipInputTokenEnd',] },],
+MatChipInput.propDecorators = {
+    'chipList': [{ type: Input, args: ['matChipInputFor',] },],
+    'addOnBlur': [{ type: Input, args: ['matChipInputAddOnBlur',] },],
+    'separatorKeyCodes': [{ type: Input, args: ['matChipInputSeparatorKeyCodes',] },],
+    'chipEnd': [{ type: Output, args: ['matChipInputTokenEnd',] },],
     'matChipList': [{ type: Input, args: ['matChipInputFor',] },],
     'matAddOnBlur': [{ type: Input, args: ['matChipInputAddOnBlur',] },],
     'matSeparatorKeyCodes': [{ type: Input, args: ['matChipInputSeparatorKeyCodes',] },],
     'placeholder': [{ type: Input },],
 };
-var MdChipsModule = (function () {
-    function MdChipsModule() {
+var MatChipsModule = (function () {
+    function MatChipsModule() {
     }
-    return MdChipsModule;
+    return MatChipsModule;
 }());
-MdChipsModule.decorators = [
+MatChipsModule.decorators = [
     { type: NgModule, args: [{
                 imports: [],
-                exports: [MdChipList, MdChip, MdChipInput, MdChipRemove, MdChipRemove, MdBasicChip],
-                declarations: [MdChipList, MdChip, MdChipInput, MdChipRemove, MdChipRemove, MdBasicChip]
+                exports: [MatChipList, MatChip, MatChipInput, MatChipRemove, MatChipRemove, MatBasicChip],
+                declarations: [MatChipList, MatChip, MatChipInput, MatChipRemove, MatChipRemove, MatBasicChip]
             },] },
 ];
 /**
  * @nocollapse
  */
-MdChipsModule.ctorParameters = function () { return []; };
+MatChipsModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdChipsModule, MdChipListChange, MdChipList, MdChipSelectionChange, MdChipBase, _MdChipMixinBase, MdBasicChip, MdChip, MdChipRemove, MdChipInput, MdBasicChip as MatBasicChip, MdChip as MatChip, MdChipBase as MatChipBase, MdChipInput as MatChipInput, MdChipListChange as MatChipListChange, MdChipList as MatChipList, MdChipRemove as MatChipRemove, MdChipsModule as MatChipsModule };
+export { MatChipsModule, MatChipListChange, MatChipList, MatChipSelectionChange, MatChipBase, _MatChipMixinBase, MatBasicChip, MatChip, MatChipRemove, MatChipInput };
 //# sourceMappingURL=chips.es5.js.map

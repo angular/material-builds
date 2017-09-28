@@ -6,18 +6,18 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AfterContentInit, ElementRef, QueryList, TemplateRef, ChangeDetectorRef, EventEmitter } from '@angular/core';
-import { MdOption, MdOptgroup } from '@angular/material/core';
+import { MatOption, MatOptgroup } from '@angular/material/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 /** Event object that is emitted when an autocomplete option is selected */
-export declare class MdAutocompleteSelectedEvent {
-    source: MdAutocomplete;
-    option: MdOption;
-    constructor(source: MdAutocomplete, option: MdOption);
+export declare class MatAutocompleteSelectedEvent {
+    source: MatAutocomplete;
+    option: MatOption;
+    constructor(source: MatAutocomplete, option: MatOption);
 }
-export declare class MdAutocomplete implements AfterContentInit {
+export declare class MatAutocomplete implements AfterContentInit {
     private _changeDetectorRef;
     /** Manages active item in option list based on key events. */
-    _keyManager: ActiveDescendantKeyManager<MdOption>;
+    _keyManager: ActiveDescendantKeyManager<MatOption>;
     /** Whether the autocomplete panel should be visible, depending on option length. */
     showPanel: boolean;
     /** @docs-private */
@@ -25,13 +25,13 @@ export declare class MdAutocomplete implements AfterContentInit {
     /** Element for the panel containing the autocomplete options. */
     panel: ElementRef;
     /** @docs-private */
-    options: QueryList<MdOption>;
+    options: QueryList<MatOption>;
     /** @docs-private */
-    optionGroups: QueryList<MdOptgroup>;
+    optionGroups: QueryList<MatOptgroup>;
     /** Function that maps an option's control value to its display value in the trigger. */
     displayWith: ((value: any) => string) | null;
     /** Event that is emitted whenever an option from the list is selected. */
-    optionSelected: EventEmitter<MdAutocompleteSelectedEvent>;
+    optionSelected: EventEmitter<MatAutocompleteSelectedEvent>;
     /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
     id: string;
     constructor(_changeDetectorRef: ChangeDetectorRef);
@@ -46,7 +46,7 @@ export declare class MdAutocomplete implements AfterContentInit {
     /** Panel should hide itself when the option list is empty. */
     _setVisibility(): void;
     /** Emits the `select` event. */
-    _emitSelectEvent(option: MdOption): void;
+    _emitSelectEvent(option: MatOption): void;
     /** Sets a class on the panel based on whether it is visible. */
     _getClassList(): {
         'mat-autocomplete-visible': boolean;

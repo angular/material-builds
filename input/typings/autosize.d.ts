@@ -10,7 +10,7 @@ import { Platform } from '@angular/cdk/platform';
 /**
  * Directive to automatically resize a textarea to fit its content.
  */
-export declare class MdTextareaAutosize implements AfterViewInit, DoCheck {
+export declare class MatTextareaAutosize implements AfterViewInit, DoCheck {
     private _elementRef;
     private _platform;
     /** Keep track of the previous textarea value to avoid resizing when the value hasn't changed. */
@@ -19,8 +19,6 @@ export declare class MdTextareaAutosize implements AfterViewInit, DoCheck {
     private _maxRows;
     minRows: number;
     maxRows: number;
-    _matAutosizeMinRows: number;
-    _matAutosizeMaxRows: number;
     /** Cached height of a textarea with a single row. */
     private _cachedLineHeight;
     constructor(_elementRef: ElementRef, _platform: Platform);

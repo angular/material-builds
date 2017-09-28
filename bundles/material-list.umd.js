@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/platform-browser'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/cdk/keycodes'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('@angular/cdk/collections'), require('rxjs/observable/merge'), require('rxjs/Subscription')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/platform-browser', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/cdk/keycodes', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/rxjs', '@angular/cdk/collections', 'rxjs/observable/merge', 'rxjs/Subscription'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.list = global.ng.material.list || {}),global.ng.common,global.ng.core,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.platformBrowser,global.ng.cdk.coercion,global.Rx,global.ng.cdk.keycodes,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.rxjs,global.ng.cdk.collections,global.Rx.Observable,global.Rx));
-}(this, (function (exports,_angular_common,_angular_core,_angular_cdk_a11y,_angular_cdk_bidi,_angular_platformBrowser,_angular_cdk_coercion,rxjs_Subject,_angular_cdk_keycodes,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_rxjs,_angular_cdk_collections,rxjs_observable_merge,rxjs_Subscription) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/collections'), require('@angular/cdk/rxjs'), require('rxjs/observable/merge'), require('rxjs/Subscription')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/collections', '@angular/cdk/rxjs', 'rxjs/observable/merge', 'rxjs/Subscription'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.list = global.ng.material.list || {}),global.ng.common,global.ng.core,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.collections,global.ng.cdk.rxjs,global.Rx.Observable,global.Rx));
+}(this, (function (exports,_angular_common,_angular_core,_angular_platformBrowser,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_collections,_angular_cdk_rxjs,rxjs_observable_merge,rxjs_Subscription) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -62,18 +62,6 @@ AnimationDurations.ENTERING = '225ms';
 AnimationDurations.EXITING = '195ms';
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
- * Returns an exception to be thrown if the consumer has used
- * an invalid Material prefix on a component.
- * \@docs-private
- * @param {?} prefix
- * @param {?} nodeName
- * @return {?}
- */
-function getMdCompatibilityInvalidPrefixError(prefix, nodeName) {
-    return Error("The \"" + prefix + "-\" prefix cannot be used in ng-material v1 compatibility mode. " +
-        ("It was used on an \"" + nodeName.toLowerCase() + "\" element."));
-}
-/**
  * Selector that matches all elements that may have style collisions with AngularJS Material.
  */
 var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [matCardSubtitle],\n  [matCardTitle],\n  [matCellDef],\n  [matColumnDef],\n  [matDialogActions],\n  [matDialogClose],\n  [matDialogContent],\n  [matDialogTitle],\n  [matHeaderCellDef],\n  [matHeaderRowDef],\n  [matLine],\n  [matRowDef],\n  [matStepLabel],\n  [matStepperNext],\n  [matStepperPrevious],\n  [matTabLabel],\n  [matTabLink],\n  [matTabNav],\n  [matTooltip],\n  [matInput],\n  [matPrefix],\n  [matSuffix],\n  mat-autocomplete,\n  mat-button-toggle,\n  mat-button-toggle,\n  mat-button-toggle-group,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-cell,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-error,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-header-cell,\n  mat-header-row,\n  mat-hint,\n  mat-horizontal-stepper,\n  mat-icon,\n  mat-input-container,\n  mat-form-field,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-pseudo-checkbox,\n  mat-radio-button,\n  mat-radio-group,\n  mat-row,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-step,\n  mat-tab,\n  mat-table,\n  mat-tab-group,\n  mat-toolbar,\n  mat-vertical-stepper";
@@ -85,14 +73,7 @@ var MD_ELEMENTS_SELECTOR = "\n  [md-button],\n  [md-fab],\n  [md-icon-button],\n
  * Directive that enforces that the `mat-` prefix cannot be used.
  */
 var MatPrefixRejector = (function () {
-    /**
-     * @param {?} isCompatibilityMode
-     * @param {?} elementRef
-     */
-    function MatPrefixRejector(isCompatibilityMode, elementRef) {
-        if (!isCompatibilityMode) {
-            throw getMdCompatibilityInvalidPrefixError('mat', elementRef.nativeElement.nodeName);
-        }
+    function MatPrefixRejector() {
     }
     return MatPrefixRejector;
 }());
@@ -102,22 +83,12 @@ MatPrefixRejector.decorators = [
 /**
  * @nocollapse
  */
-MatPrefixRejector.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
-    { type: _angular_core.ElementRef, },
-]; };
+MatPrefixRejector.ctorParameters = function () { return []; };
 /**
  * Directive that enforces that the `md-` prefix cannot be used.
  */
 var MdPrefixRejector = (function () {
-    /**
-     * @param {?} isCompatibilityMode
-     * @param {?} elementRef
-     */
-    function MdPrefixRejector(isCompatibilityMode, elementRef) {
-        if (isCompatibilityMode) {
-            throw getMdCompatibilityInvalidPrefixError('md', elementRef.nativeElement.nodeName);
-        }
+    function MdPrefixRejector() {
     }
     return MdPrefixRejector;
 }());
@@ -127,10 +98,7 @@ MdPrefixRejector.decorators = [
 /**
  * @nocollapse
  */
-MdPrefixRejector.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
-    { type: _angular_core.ElementRef, },
-]; };
+MdPrefixRejector.ctorParameters = function () { return []; };
 /**
  * Module that enforces the default compatibility mode settings. When this module is loaded
  * without NoConflictStyleCompatibilityMode also being imported, it will throw an error if
@@ -161,11 +129,7 @@ var NoConflictStyleCompatibilityMode = (function () {
     return NoConflictStyleCompatibilityMode;
 }());
 NoConflictStyleCompatibilityMode.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                providers: [{
-                        provide: MATERIAL_COMPATIBILITY_MODE, useValue: true,
-                    }],
-            },] },
+    { type: _angular_core.NgModule },
 ];
 /**
  * @nocollapse
@@ -174,19 +138,19 @@ NoConflictStyleCompatibilityMode.ctorParameters = function () { return []; };
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
-var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('md-sanity-checks');
+var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('mat-sanity-checks');
 /**
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
  * components. This includes Bidi, compatibility mode, etc.
  *
- * This module should be imported to each top-level component module (e.g., MdTabsModule).
+ * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
-var MdCommonModule = (function () {
+var MatCommonModule = (function () {
     /**
      * @param {?} _document
      * @param {?} _sanityChecksEnabled
      */
-    function MdCommonModule(_document, _sanityChecksEnabled) {
+    function MatCommonModule(_document, _sanityChecksEnabled) {
         this._document = _document;
         /**
          * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
@@ -201,7 +165,7 @@ var MdCommonModule = (function () {
     /**
      * @return {?}
      */
-    MdCommonModule.prototype._checkDoctype = function () {
+    MatCommonModule.prototype._checkDoctype = function () {
         if (!this._document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
                 'some Angular Material components not to behave as expected.');
@@ -210,7 +174,7 @@ var MdCommonModule = (function () {
     /**
      * @return {?}
      */
-    MdCommonModule.prototype._checkTheme = function () {
+    MatCommonModule.prototype._checkTheme = function () {
         if (typeof getComputedStyle === 'function') {
             var /** @type {?} */ testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
@@ -223,9 +187,9 @@ var MdCommonModule = (function () {
             this._document.body.removeChild(testElement);
         }
     };
-    return MdCommonModule;
+    return MatCommonModule;
 }());
-MdCommonModule.decorators = [
+MatCommonModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
                 exports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
@@ -237,7 +201,7 @@ MdCommonModule.decorators = [
 /**
  * @nocollapse
  */
-MdCommonModule.ctorParameters = function () { return [
+MatCommonModule.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
 ]; };
@@ -588,10 +552,10 @@ var DateAdapter = (function () {
      * @return {?} 0 if the dates are equal, a number less than 0 if the first date is earlier,
      *     a number greater than 0 if the first date is later.
      */
-    DateAdapter.prototype.compareDate = function (first$$1, second) {
-        return this.getYear(first$$1) - this.getYear(second) ||
-            this.getMonth(first$$1) - this.getMonth(second) ||
-            this.getDate(first$$1) - this.getDate(second);
+    DateAdapter.prototype.compareDate = function (first, second) {
+        return this.getYear(first) - this.getYear(second) ||
+            this.getMonth(first) - this.getMonth(second) ||
+            this.getDate(first) - this.getDate(second);
     };
     /**
      * Checks if two dates are equal.
@@ -600,8 +564,8 @@ var DateAdapter = (function () {
      *     Null dates are considered equal to other null dates.
      * @return {?}
      */
-    DateAdapter.prototype.sameDate = function (first$$1, second) {
-        return first$$1 && second ? !this.compareDate(first$$1, second) : first$$1 == second;
+    DateAdapter.prototype.sameDate = function (first, second) {
+        return first && second ? !this.compareDate(first, second) : first == second;
     };
     /**
      * Clamp the given date between min and max dates.
@@ -988,8 +952,8 @@ NativeDateAdapter.decorators = [
 NativeDateAdapter.ctorParameters = function () { return [
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_LOCALE,] },] },
 ]; };
-var MD_DATE_FORMATS = new _angular_core.InjectionToken('md-date-formats');
-var MD_NATIVE_DATE_FORMATS = {
+var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
+var MAT_NATIVE_DATE_FORMATS = {
     parse: {
         dateInput: null,
     },
@@ -1017,25 +981,25 @@ NativeDateModule.decorators = [
  * @nocollapse
  */
 NativeDateModule.ctorParameters = function () { return []; };
-var MdNativeDateModule = (function () {
-    function MdNativeDateModule() {
+var MatNativeDateModule = (function () {
+    function MatNativeDateModule() {
     }
-    return MdNativeDateModule;
+    return MatNativeDateModule;
 }());
-MdNativeDateModule.decorators = [
+MatNativeDateModule.decorators = [
     { type: _angular_core.NgModule, args: [{
                 imports: [NativeDateModule],
-                providers: [{ provide: MD_DATE_FORMATS, useValue: MD_NATIVE_DATE_FORMATS }],
+                providers: [{ provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS }],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdNativeDateModule.ctorParameters = function () { return []; };
+MatNativeDateModule.ctorParameters = function () { return []; };
 /**
  * Injection token that can be used to specify the global error options.
  */
-var MD_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('md-error-global-options');
+var MAT_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-error-global-options');
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
@@ -1114,35 +1078,35 @@ GestureConfig.decorators = [
 GestureConfig.ctorParameters = function () { return []; };
 /**
  * Shared directive to count lines inside a text area, such as a list item.
- * Line elements can be extracted with a \@ContentChildren(MdLine) query, then
+ * Line elements can be extracted with a \@ContentChildren(MatLine) query, then
  * counted by checking the query list's length.
  */
-var MdLine = (function () {
-    function MdLine() {
+var MatLine = (function () {
+    function MatLine() {
     }
-    return MdLine;
+    return MatLine;
 }());
-MdLine.decorators = [
+MatLine.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[md-line], [mat-line], [mdLine], [matLine]',
+                selector: '[mat-line], [matLine]',
                 host: { 'class': 'mat-line' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdLine.ctorParameters = function () { return []; };
+MatLine.ctorParameters = function () { return []; };
 /**
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
  */
-var MdLineSetter = (function () {
+var MatLineSetter = (function () {
     /**
      * @param {?} _lines
      * @param {?} _renderer
      * @param {?} _element
      */
-    function MdLineSetter(_lines, _renderer, _element) {
+    function MatLineSetter(_lines, _renderer, _element) {
         var _this = this;
         this._lines = _lines;
         this._renderer = _renderer;
@@ -1156,7 +1120,7 @@ var MdLineSetter = (function () {
      * @param {?} count
      * @return {?}
      */
-    MdLineSetter.prototype._setLineClass = function (count) {
+    MatLineSetter.prototype._setLineClass = function (count) {
         this._resetClasses();
         if (count === 2 || count === 3) {
             this._setClass("mat-" + count + "-line", true);
@@ -1168,7 +1132,7 @@ var MdLineSetter = (function () {
     /**
      * @return {?}
      */
-    MdLineSetter.prototype._resetClasses = function () {
+    MatLineSetter.prototype._resetClasses = function () {
         this._setClass('mat-2-line', false);
         this._setClass('mat-3-line', false);
         this._setClass('mat-multi-line', false);
@@ -1178,7 +1142,7 @@ var MdLineSetter = (function () {
      * @param {?} isAdd
      * @return {?}
      */
-    MdLineSetter.prototype._setClass = function (className, isAdd) {
+    MatLineSetter.prototype._setClass = function (className, isAdd) {
         if (isAdd) {
             this._renderer.addClass(this._element.nativeElement, className);
         }
@@ -1186,24 +1150,24 @@ var MdLineSetter = (function () {
             this._renderer.removeClass(this._element.nativeElement, className);
         }
     };
-    return MdLineSetter;
+    return MatLineSetter;
 }());
-var MdLineModule = (function () {
-    function MdLineModule() {
+var MatLineModule = (function () {
+    function MatLineModule() {
     }
-    return MdLineModule;
+    return MatLineModule;
 }());
-MdLineModule.decorators = [
+MatLineModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdCommonModule],
-                exports: [MdLine, MdCommonModule],
-                declarations: [MdLine],
+                imports: [MatCommonModule],
+                exports: [MatLine, MatCommonModule],
+                declarations: [MatLine],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdLineModule.ctorParameters = function () { return []; };
+MatLineModule.ctorParameters = function () { return []; };
 var RippleState = {};
 RippleState.FADING_IN = 0;
 RippleState.VISIBLE = 1;
@@ -1469,8 +1433,8 @@ function distanceToFurthestCorner(x, y, rect) {
 /**
  * Injection token that can be used to specify the global ripple options.
  */
-var MD_RIPPLE_GLOBAL_OPTIONS = new _angular_core.InjectionToken('md-ripple-global-options');
-var MdRipple = (function () {
+var MAT_RIPPLE_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-ripple-global-options');
+var MatRipple = (function () {
     /**
      * @param {?} elementRef
      * @param {?} ngZone
@@ -1478,7 +1442,7 @@ var MdRipple = (function () {
      * @param {?} platform
      * @param {?} globalOptions
      */
-    function MdRipple(elementRef, ngZone, ruler, platform, globalOptions) {
+    function MatRipple(elementRef, ngZone, ruler, platform, globalOptions) {
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -1495,103 +1459,12 @@ var MdRipple = (function () {
         this._globalOptions = globalOptions ? globalOptions : {};
         this._updateRippleRenderer();
     }
-    Object.defineProperty(MdRipple.prototype, "_matRippleTrigger", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.trigger; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.trigger = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleCentered", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.centered; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.centered = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleDisabled", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.disabled; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.disabled = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleRadius", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.radius; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.radius = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleSpeedFactor", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.speedFactor; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.speedFactor = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleColor", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.color; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.color = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdRipple.prototype, "_matRippleUnbounded", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.unbounded; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.unbounded = v; },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @param {?} changes
      * @return {?}
      */
-    MdRipple.prototype.ngOnChanges = function (changes) {
-        if (changes['trigger'] && this.trigger) {
+    MatRipple.prototype.ngOnChanges = function (changes) {
+        if ((changes['trigger'] || changes['_matRippleTrigger']) && this.trigger) {
             this._rippleRenderer.setTriggerElement(this.trigger);
         }
         this._updateRippleRenderer();
@@ -1599,7 +1472,7 @@ var MdRipple = (function () {
     /**
      * @return {?}
      */
-    MdRipple.prototype.ngOnDestroy = function () {
+    MatRipple.prototype.ngOnDestroy = function () {
         // Set the trigger element to null to cleanup all listeners.
         this._rippleRenderer.setTriggerElement(null);
     };
@@ -1610,7 +1483,7 @@ var MdRipple = (function () {
      * @param {?=} config
      * @return {?}
      */
-    MdRipple.prototype.launch = function (pageX, pageY, config) {
+    MatRipple.prototype.launch = function (pageX, pageY, config) {
         if (config === void 0) { config = this.rippleConfig; }
         return this._rippleRenderer.fadeInRipple(pageX, pageY, config);
     };
@@ -1618,10 +1491,10 @@ var MdRipple = (function () {
      * Fades out all currently showing ripple elements.
      * @return {?}
      */
-    MdRipple.prototype.fadeOutAll = function () {
+    MatRipple.prototype.fadeOutAll = function () {
         this._rippleRenderer.fadeOutAll();
     };
-    Object.defineProperty(MdRipple.prototype, "rippleConfig", {
+    Object.defineProperty(MatRipple.prototype, "rippleConfig", {
         /**
          * Ripple configuration from the directive's input values.
          * @return {?}
@@ -1641,16 +1514,16 @@ var MdRipple = (function () {
      * Updates the ripple renderer with the latest ripple configuration.
      * @return {?}
      */
-    MdRipple.prototype._updateRippleRenderer = function () {
+    MatRipple.prototype._updateRippleRenderer = function () {
         this._rippleRenderer.rippleDisabled = this._globalOptions.disabled || this.disabled;
         this._rippleRenderer.rippleConfig = this.rippleConfig;
     };
-    return MdRipple;
+    return MatRipple;
 }());
-MdRipple.decorators = [
+MatRipple.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[md-ripple], [mat-ripple], [mdRipple], [matRipple]',
-                exportAs: 'mdRipple, matRipple',
+                selector: '[mat-ripple], [matRipple]',
+                exportAs: 'matRipple',
                 host: {
                     'class': 'mat-ripple',
                     '[class.mat-ripple-unbounded]': 'unbounded'
@@ -1660,46 +1533,39 @@ MdRipple.decorators = [
 /**
  * @nocollapse
  */
-MdRipple.ctorParameters = function () { return [
+MatRipple.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.NgZone, },
     { type: _angular_cdk_scrolling.ViewportRuler, },
     { type: _angular_cdk_platform.Platform, },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MD_RIPPLE_GLOBAL_OPTIONS,] },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
 ]; };
-MdRipple.propDecorators = {
-    'trigger': [{ type: _angular_core.Input, args: ['mdRippleTrigger',] },],
-    'centered': [{ type: _angular_core.Input, args: ['mdRippleCentered',] },],
-    'disabled': [{ type: _angular_core.Input, args: ['mdRippleDisabled',] },],
-    'radius': [{ type: _angular_core.Input, args: ['mdRippleRadius',] },],
-    'speedFactor': [{ type: _angular_core.Input, args: ['mdRippleSpeedFactor',] },],
-    'color': [{ type: _angular_core.Input, args: ['mdRippleColor',] },],
-    'unbounded': [{ type: _angular_core.Input, args: ['mdRippleUnbounded',] },],
-    '_matRippleTrigger': [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
-    '_matRippleCentered': [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
-    '_matRippleDisabled': [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
-    '_matRippleRadius': [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
-    '_matRippleSpeedFactor': [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
-    '_matRippleColor': [{ type: _angular_core.Input, args: ['matRippleColor',] },],
-    '_matRippleUnbounded': [{ type: _angular_core.Input, args: ['matRippleUnbounded',] },],
+MatRipple.propDecorators = {
+    'trigger': [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
+    'centered': [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
+    'disabled': [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
+    'radius': [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
+    'speedFactor': [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
+    'color': [{ type: _angular_core.Input, args: ['matRippleColor',] },],
+    'unbounded': [{ type: _angular_core.Input, args: ['matRippleUnbounded',] },],
 };
-var MdRippleModule = (function () {
-    function MdRippleModule() {
+var MatRippleModule = (function () {
+    function MatRippleModule() {
     }
-    return MdRippleModule;
+    return MatRippleModule;
 }());
-MdRippleModule.decorators = [
+MatRippleModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
-                exports: [MdRipple, MdCommonModule],
-                declarations: [MdRipple],
+                imports: [MatCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
+                exports: [MatRipple, MatCommonModule],
+                declarations: [MatRipple],
                 providers: [_angular_cdk_scrolling.VIEWPORT_RULER_PROVIDER],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdRippleModule.ctorParameters = function () { return []; };
+MatRippleModule.ctorParameters = function () { return []; };
 /**
  * Component that shows a simplified checkbox without including any kind of "real" checkbox.
  * Meant to be used when the checkbox is purely decorative and a large number of them will be
@@ -1708,13 +1574,13 @@ MdRippleModule.ctorParameters = function () { return []; };
  * `mat-primary .mat-pseudo-checkbox`.
  *
  * Note that this component will be completely invisible to screen-reader users. This is *not*
- * interchangeable with <md-checkbox> and should *not* be used if the user would directly interact
+ * interchangeable with <mat-checkbox> and should *not* be used if the user would directly interact
  * with the checkbox. The pseudo-checkbox should only be used as an implementation detail of
  * more complex components that appropriately handle selected / checked state.
  * \@docs-private
  */
-var MdPseudoCheckbox = (function () {
-    function MdPseudoCheckbox() {
+var MatPseudoCheckbox = (function () {
+    function MatPseudoCheckbox() {
         /**
          * Display state of the checkbox.
          */
@@ -1724,13 +1590,13 @@ var MdPseudoCheckbox = (function () {
          */
         this.disabled = false;
     }
-    return MdPseudoCheckbox;
+    return MatPseudoCheckbox;
 }());
-MdPseudoCheckbox.decorators = [
+MatPseudoCheckbox.decorators = [
     { type: _angular_core.Component, args: [{ encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                selector: 'md-pseudo-checkbox, mat-pseudo-checkbox',
+                selector: 'mat-pseudo-checkbox',
                 styles: [".mat-pseudo-checkbox{width:20px;height:20px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0,0,.2,.1),background-color 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:'';border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:9px;left:2px;width:16px;opacity:1}.mat-pseudo-checkbox-checked::after{top:5px;left:3px;width:12px;height:5px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1}"],
                 template: '',
                 host: {
@@ -1744,43 +1610,43 @@ MdPseudoCheckbox.decorators = [
 /**
  * @nocollapse
  */
-MdPseudoCheckbox.ctorParameters = function () { return []; };
-MdPseudoCheckbox.propDecorators = {
+MatPseudoCheckbox.ctorParameters = function () { return []; };
+MatPseudoCheckbox.propDecorators = {
     'state': [{ type: _angular_core.Input },],
     'disabled': [{ type: _angular_core.Input },],
 };
-var MdPseudoCheckboxModule = (function () {
-    function MdPseudoCheckboxModule() {
+var MatPseudoCheckboxModule = (function () {
+    function MatPseudoCheckboxModule() {
     }
-    return MdPseudoCheckboxModule;
+    return MatPseudoCheckboxModule;
 }());
-MdPseudoCheckboxModule.decorators = [
+MatPseudoCheckboxModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                exports: [MdPseudoCheckbox],
-                declarations: [MdPseudoCheckbox]
+                exports: [MatPseudoCheckbox],
+                declarations: [MatPseudoCheckbox]
             },] },
 ];
 /**
  * @nocollapse
  */
-MdPseudoCheckboxModule.ctorParameters = function () { return []; };
+MatPseudoCheckboxModule.ctorParameters = function () { return []; };
 /**
  * \@docs-private
  */
-var MdOptgroupBase = (function () {
-    function MdOptgroupBase() {
+var MatOptgroupBase = (function () {
+    function MatOptgroupBase() {
     }
-    return MdOptgroupBase;
+    return MatOptgroupBase;
 }());
-var _MdOptgroupMixinBase = mixinDisabled(MdOptgroupBase);
+var _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
 // Counter for unique group ids.
 var _uniqueOptgroupIdCounter = 0;
 /**
- * Component that is used to group instances of `md-option`.
+ * Component that is used to group instances of `mat-option`.
  */
-var MdOptgroup = (function (_super) {
-    __extends(MdOptgroup, _super);
-    function MdOptgroup() {
+var MatOptgroup = (function (_super) {
+    __extends(MatOptgroup, _super);
+    function MatOptgroup() {
         var _this = _super.apply(this, arguments) || this;
         /**
          * Unique id for the underlying label.
@@ -1788,11 +1654,11 @@ var MdOptgroup = (function (_super) {
         _this._labelId = "mat-optgroup-label-" + _uniqueOptgroupIdCounter++;
         return _this;
     }
-    return MdOptgroup;
-}(_MdOptgroupMixinBase));
-MdOptgroup.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-optgroup, mat-optgroup',
-                template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"md-option, mat-option\"></ng-content>",
+    return MatOptgroup;
+}(_MatOptgroupMixinBase));
+MatOptgroup.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-optgroup',
+                template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -1809,8 +1675,8 @@ MdOptgroup.decorators = [
 /**
  * @nocollapse
  */
-MdOptgroup.ctorParameters = function () { return []; };
-MdOptgroup.propDecorators = {
+MatOptgroup.ctorParameters = function () { return []; };
+MatOptgroup.propDecorators = {
     'label': [{ type: _angular_core.Input },],
 };
 /**
@@ -1819,35 +1685,33 @@ MdOptgroup.propDecorators = {
  */
 var _uniqueIdCounter = 0;
 /**
- * Event object emitted by MdOption when selected or deselected.
+ * Event object emitted by MatOption when selected or deselected.
  */
-var MdOptionSelectionChange = (function () {
+var MatOptionSelectionChange = (function () {
     /**
      * @param {?} source
      * @param {?=} isUserInput
      */
-    function MdOptionSelectionChange(source, isUserInput) {
+    function MatOptionSelectionChange(source, isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
         this.source = source;
         this.isUserInput = isUserInput;
     }
-    return MdOptionSelectionChange;
+    return MatOptionSelectionChange;
 }());
 /**
- * Single option inside of a `<md-select>` element.
+ * Single option inside of a `<mat-select>` element.
  */
-var MdOption = (function () {
+var MatOption = (function () {
     /**
      * @param {?} _element
      * @param {?} _changeDetectorRef
      * @param {?} group
-     * @param {?} _isCompatibilityMode
      */
-    function MdOption(_element, _changeDetectorRef, group, _isCompatibilityMode) {
+    function MatOption(_element, _changeDetectorRef, group) {
         this._element = _element;
         this._changeDetectorRef = _changeDetectorRef;
         this.group = group;
-        this._isCompatibilityMode = _isCompatibilityMode;
         this._selected = false;
         this._active = false;
         this._multiple = false;
@@ -1856,13 +1720,13 @@ var MdOption = (function () {
          * Whether the option is disabled.
          */
         this._disabled = false;
-        this._id = "md-option-" + _uniqueIdCounter++;
+        this._id = "mat-option-" + _uniqueIdCounter++;
         /**
          * Event emitted when the option is selected or deselected.
          */
         this.onSelectionChange = new _angular_core.EventEmitter();
     }
-    Object.defineProperty(MdOption.prototype, "multiple", {
+    Object.defineProperty(MatOption.prototype, "multiple", {
         /**
          * Whether the wrapping component is in multiple selection mode.
          * @return {?}
@@ -1881,7 +1745,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "id", {
+    Object.defineProperty(MatOption.prototype, "id", {
         /**
          * The unique ID of the option.
          * @return {?}
@@ -1890,7 +1754,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "selected", {
+    Object.defineProperty(MatOption.prototype, "selected", {
         /**
          * Whether or not the option is currently selected.
          * @return {?}
@@ -1899,7 +1763,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "disabled", {
+    Object.defineProperty(MatOption.prototype, "disabled", {
         /**
          * Whether the option is disabled.
          * @return {?}
@@ -1913,7 +1777,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "disableRipple", {
+    Object.defineProperty(MatOption.prototype, "disableRipple", {
         /**
          * Whether ripples for the option are disabled.
          * @return {?}
@@ -1930,7 +1794,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "active", {
+    Object.defineProperty(MatOption.prototype, "active", {
         /**
          * Whether or not the option is currently active and ready to be selected.
          * An active option displays styles as if it is focused, but the
@@ -1944,7 +1808,7 @@ var MdOption = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdOption.prototype, "viewValue", {
+    Object.defineProperty(MatOption.prototype, "viewValue", {
         /**
          * The displayed value of the option. It is necessary to show the selected option in the
          * select's trigger.
@@ -1961,7 +1825,7 @@ var MdOption = (function () {
      * Selects the option.
      * @return {?}
      */
-    MdOption.prototype.select = function () {
+    MatOption.prototype.select = function () {
         this._selected = true;
         this._changeDetectorRef.markForCheck();
         this._emitSelectionChangeEvent();
@@ -1970,7 +1834,7 @@ var MdOption = (function () {
      * Deselects the option.
      * @return {?}
      */
-    MdOption.prototype.deselect = function () {
+    MatOption.prototype.deselect = function () {
         this._selected = false;
         this._changeDetectorRef.markForCheck();
         this._emitSelectionChangeEvent();
@@ -1979,7 +1843,7 @@ var MdOption = (function () {
      * Sets focus onto this option.
      * @return {?}
      */
-    MdOption.prototype.focus = function () {
+    MatOption.prototype.focus = function () {
         var /** @type {?} */ element = this._getHostElement();
         if (typeof element.focus === 'function') {
             element.focus();
@@ -1991,7 +1855,7 @@ var MdOption = (function () {
      * events will display the proper options as active on arrow key events.
      * @return {?}
      */
-    MdOption.prototype.setActiveStyles = function () {
+    MatOption.prototype.setActiveStyles = function () {
         if (!this._active) {
             this._active = true;
             this._changeDetectorRef.markForCheck();
@@ -2003,7 +1867,7 @@ var MdOption = (function () {
      * events will display the proper options as active on arrow key events.
      * @return {?}
      */
-    MdOption.prototype.setInactiveStyles = function () {
+    MatOption.prototype.setInactiveStyles = function () {
         if (this._active) {
             this._active = false;
             this._changeDetectorRef.markForCheck();
@@ -2013,7 +1877,7 @@ var MdOption = (function () {
      * Gets the label to be used when determining whether the option should be focused.
      * @return {?}
      */
-    MdOption.prototype.getLabel = function () {
+    MatOption.prototype.getLabel = function () {
         return this.viewValue;
     };
     /**
@@ -2021,7 +1885,7 @@ var MdOption = (function () {
      * @param {?} event
      * @return {?}
      */
-    MdOption.prototype._handleKeydown = function (event) {
+    MatOption.prototype._handleKeydown = function (event) {
         if (event.keyCode === _angular_cdk_keycodes.ENTER || event.keyCode === _angular_cdk_keycodes.SPACE) {
             this._selectViaInteraction();
             // Prevent the page from scrolling down and form submits.
@@ -2033,7 +1897,7 @@ var MdOption = (function () {
      * determine if the select's view -> model callback should be invoked.
      * @return {?}
      */
-    MdOption.prototype._selectViaInteraction = function () {
+    MatOption.prototype._selectViaInteraction = function () {
         if (!this.disabled) {
             this._selected = this.multiple ? !this._selected : true;
             this._changeDetectorRef.markForCheck();
@@ -2044,14 +1908,14 @@ var MdOption = (function () {
      * Returns the correct tabindex for the option depending on disabled state.
      * @return {?}
      */
-    MdOption.prototype._getTabIndex = function () {
+    MatOption.prototype._getTabIndex = function () {
         return this.disabled ? '-1' : '0';
     };
     /**
      * Gets the host DOM element.
      * @return {?}
      */
-    MdOption.prototype._getHostElement = function () {
+    MatOption.prototype._getHostElement = function () {
         return this._element.nativeElement;
     };
     /**
@@ -2059,9 +1923,9 @@ var MdOption = (function () {
      * @param {?=} isUserInput
      * @return {?}
      */
-    MdOption.prototype._emitSelectionChangeEvent = function (isUserInput) {
+    MatOption.prototype._emitSelectionChangeEvent = function (isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
-        this.onSelectionChange.emit(new MdOptionSelectionChange(this, isUserInput));
+        this.onSelectionChange.emit(new MatOptionSelectionChange(this, isUserInput));
     };
     /**
      * Counts the amount of option group labels that precede the specified option.
@@ -2070,7 +1934,7 @@ var MdOption = (function () {
      * @param {?} optionGroups Flat list of all of the option groups.
      * @return {?}
      */
-    MdOption.countGroupLabelsBeforeOption = function (optionIndex, options, optionGroups) {
+    MatOption.countGroupLabelsBeforeOption = function (optionIndex, options, optionGroups) {
         if (optionGroups.length) {
             var /** @type {?} */ optionsArray = options.toArray();
             var /** @type {?} */ groups = optionGroups.toArray();
@@ -2084,10 +1948,10 @@ var MdOption = (function () {
         }
         return 0;
     };
-    return MdOption;
+    return MatOption;
 }());
-MdOption.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-option, mat-option',
+MatOption.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-option',
                 host: {
                     'role': 'option',
                     '[attr.tabindex]': '_getTabIndex()',
@@ -2102,7 +1966,7 @@ MdOption.decorators = [
                     '(keydown)': '_handleKeydown($event)',
                     'class': 'mat-option',
                 },
-                template: "<span [ngSwitch]=\"_isCompatibilityMode\" *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" *ngSwitchCase=\"true\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox><md-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" *ngSwitchDefault [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></md-pseudo-checkbox></span><ng-content></ng-content><div class=\"mat-option-ripple\" md-ripple [mdRippleTrigger]=\"_getHostElement()\" [mdRippleDisabled]=\"disabled || disableRipple\"></div>",
+                template: "<span *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox></span><span class=\"mat-option-text\"><ng-content></ng-content></span><div class=\"mat-option-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"disabled || disableRipple\"></div>",
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -2111,85 +1975,66 @@ MdOption.decorators = [
 /**
  * @nocollapse
  */
-MdOption.ctorParameters = function () { return [
+MatOption.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.ChangeDetectorRef, },
-    { type: MdOptgroup, decorators: [{ type: _angular_core.Optional },] },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_COMPATIBILITY_MODE,] },] },
+    { type: MatOptgroup, decorators: [{ type: _angular_core.Optional },] },
 ]; };
-MdOption.propDecorators = {
+MatOption.propDecorators = {
     'value': [{ type: _angular_core.Input },],
     'disabled': [{ type: _angular_core.Input },],
     'onSelectionChange': [{ type: _angular_core.Output },],
 };
-var MdOptionModule = (function () {
-    function MdOptionModule() {
+var MatOptionModule = (function () {
+    function MatOptionModule() {
     }
-    return MdOptionModule;
+    return MatOptionModule;
 }());
-MdOptionModule.decorators = [
+MatOptionModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdRippleModule, _angular_common.CommonModule, MdPseudoCheckboxModule],
-                exports: [MdOption, MdOptgroup],
-                declarations: [MdOption, MdOptgroup]
+                imports: [MatRippleModule, _angular_common.CommonModule, MatPseudoCheckboxModule],
+                exports: [MatOption, MatOptgroup],
+                declarations: [MatOption, MatOptgroup]
             },] },
 ];
 /**
  * @nocollapse
  */
-MdOptionModule.ctorParameters = function () { return []; };
+MatOptionModule.ctorParameters = function () { return []; };
 /**
  * InjectionToken that can be used to specify the global placeholder options.
  */
-var MD_PLACEHOLDER_GLOBAL_OPTIONS = new _angular_core.InjectionToken('md-placeholder-global-options');
-/**
- * @deprecated
- */
-var StyleModule = (function () {
-    function StyleModule() {
-    }
-    return StyleModule;
-}());
-StyleModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [_angular_cdk_a11y.A11yModule],
-                exports: [_angular_cdk_a11y.A11yModule],
-            },] },
-];
-/**
- * @nocollapse
- */
-StyleModule.ctorParameters = function () { return []; };
+var MAT_PLACEHOLDER_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-placeholder-global-options');
 
 /**
  * \@docs-private
  */
-var MdListBase = (function () {
-    function MdListBase() {
+var MatListBase = (function () {
+    function MatListBase() {
     }
-    return MdListBase;
+    return MatListBase;
 }());
-var _MdListMixinBase = mixinDisableRipple(MdListBase);
+var _MatListMixinBase = mixinDisableRipple(MatListBase);
 /**
  * \@docs-private
  */
-var MdListItemBase = (function () {
-    function MdListItemBase() {
+var MatListItemBase = (function () {
+    function MatListItemBase() {
     }
-    return MdListItemBase;
+    return MatListItemBase;
 }());
-var _MdListItemMixinBase = mixinDisableRipple(MdListItemBase);
+var _MatListItemMixinBase = mixinDisableRipple(MatListItemBase);
 /**
  * Divider between items within a list.
  */
-var MdListDivider = (function () {
-    function MdListDivider() {
+var MatListDivider = (function () {
+    function MatListDivider() {
     }
-    return MdListDivider;
+    return MatListDivider;
 }());
-MdListDivider.decorators = [
+MatListDivider.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: 'md-divider, mat-divider',
+                selector: 'mat-divider',
                 host: {
                     'role': 'separator',
                     'aria-orientation': 'horizontal'
@@ -2199,19 +2044,19 @@ MdListDivider.decorators = [
 /**
  * @nocollapse
  */
-MdListDivider.ctorParameters = function () { return []; };
+MatListDivider.ctorParameters = function () { return []; };
 /**
  * A Material Design list component.
  */
-var MdList = (function (_super) {
-    __extends(MdList, _super);
-    function MdList() {
+var MatList = (function (_super) {
+    __extends(MatList, _super);
+    function MatList() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    return MdList;
-}(_MdListMixinBase));
-MdList.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-list, mat-list, md-nav-list, mat-nav-list',
+    return MatList;
+}(_MatListMixinBase));
+MatList.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-list, mat-nav-list',
                 host: { 'role': 'list' },
                 template: '<ng-content></ng-content>',
                 styles: [".mat-subheader{display:block;box-sizing:border-box;padding:16px}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{margin:0}.mat-list,.mat-nav-list,.mat-selection-list{padding-top:8px;display:block}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{height:48px;line-height:16px}.mat-list .mat-subheader:first-child,.mat-nav-list .mat-subheader:first-child,.mat-selection-list .mat-subheader:first-child{margin-top:-8px}.mat-list .mat-list-item,.mat-nav-list .mat-list-item,.mat-selection-list .mat-list-item{display:block}.mat-list .mat-list-item .mat-list-item-content,.mat-nav-list .mat-list-item .mat-list-item-content,.mat-selection-list .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:48px;padding:0 16px;position:relative}.mat-list .mat-list-item .mat-list-item-content-reverse,.mat-nav-list .mat-list-item .mat-list-item-content-reverse,.mat-selection-list .mat-list-item .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list .mat-list-item .mat-list-item-ripple,.mat-nav-list .mat-list-item .mat-list-item-ripple,.mat-selection-list .mat-list-item .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-selection-list .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:56px}.mat-list .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-2-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-2-line .mat-list-item-content{height:72px}.mat-list .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-3-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-3-line .mat-list-item-content{height:88px}.mat-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list .mat-list-item .mat-list-text,.mat-nav-list .mat-list-item .mat-list-text,.mat-selection-list .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-item .mat-list-text>*,.mat-nav-list .mat-list-item .mat-list-text>*,.mat-selection-list .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-item .mat-list-text:empty,.mat-nav-list .mat-list-item .mat-list-text:empty,.mat-selection-list .mat-list-item .mat-list-text:empty{display:none}.mat-list .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list .mat-list-item .mat-list-text:nth-child(2),.mat-selection-list .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list .mat-list-item .mat-list-avatar,.mat-nav-list .mat-list-item .mat-list-avatar,.mat-selection-list .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-item .mat-list-icon,.mat-nav-list .mat-list-item .mat-list-icon,.mat-selection-list .mat-list-item .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list .mat-list-option,.mat-nav-list .mat-list-option,.mat-selection-list .mat-list-option{display:block}.mat-list .mat-list-option .mat-list-item-content,.mat-nav-list .mat-list-option .mat-list-item-content,.mat-selection-list .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:48px;padding:0 16px;position:relative}.mat-list .mat-list-option .mat-list-item-content-reverse,.mat-nav-list .mat-list-option .mat-list-item-content-reverse,.mat-selection-list .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list .mat-list-option .mat-list-item-ripple,.mat-nav-list .mat-list-option .mat-list-item-ripple,.mat-selection-list .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-nav-list .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-selection-list .mat-list-option.mat-list-item-avatar .mat-list-item-content{height:56px}.mat-list .mat-list-option.mat-2-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-2-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-2-line .mat-list-item-content{height:72px}.mat-list .mat-list-option.mat-3-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-3-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-3-line .mat-list-item-content{height:88px}.mat-list .mat-list-option.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-multi-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list .mat-list-option .mat-list-text,.mat-nav-list .mat-list-option .mat-list-text,.mat-selection-list .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-option .mat-list-text>*,.mat-nav-list .mat-list-option .mat-list-text>*,.mat-selection-list .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-option .mat-list-text:empty,.mat-nav-list .mat-list-option .mat-list-text:empty,.mat-selection-list .mat-list-option .mat-list-text:empty{display:none}.mat-list .mat-list-option .mat-list-text:nth-child(2),.mat-nav-list .mat-list-option .mat-list-text:nth-child(2),.mat-selection-list .mat-list-option .mat-list-text:nth-child(2){padding:0}.mat-list .mat-list-option .mat-list-avatar,.mat-nav-list .mat-list-option .mat-list-avatar,.mat-selection-list .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-option .mat-list-icon,.mat-nav-list .mat-list-option .mat-list-icon,.mat-selection-list .mat-list-option .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense],.mat-nav-list[dense],.mat-selection-list[dense]{padding-top:4px;display:block}.mat-list[dense] .mat-subheader,.mat-nav-list[dense] .mat-subheader,.mat-selection-list[dense] .mat-subheader{height:40px;line-height:8px}.mat-list[dense] .mat-subheader:first-child,.mat-nav-list[dense] .mat-subheader:first-child,.mat-selection-list[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list[dense] .mat-list-item,.mat-nav-list[dense] .mat-list-item,.mat-selection-list[dense] .mat-list-item{display:block}.mat-list[dense] .mat-list-item .mat-list-item-content,.mat-nav-list[dense] .mat-list-item .mat-list-item-content,.mat-selection-list[dense] .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:40px;padding:0 16px;position:relative}.mat-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-item .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list[dense] .mat-list-item .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-item .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-item .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:48px}.mat-list[dense] .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-2-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-2-line .mat-list-item-content{height:60px}.mat-list[dense] .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-3-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-3-line .mat-list-item-content{height:76px}.mat-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-item .mat-list-text,.mat-nav-list[dense] .mat-list-item .mat-list-text,.mat-selection-list[dense] .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-item .mat-list-text>*,.mat-nav-list[dense] .mat-list-item .mat-list-text>*,.mat-selection-list[dense] .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-item .mat-list-text:empty,.mat-nav-list[dense] .mat-list-item .mat-list-text:empty,.mat-selection-list[dense] .mat-list-item .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-selection-list[dense] .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list[dense] .mat-list-item .mat-list-avatar,.mat-nav-list[dense] .mat-list-item .mat-list-avatar,.mat-selection-list[dense] .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-item .mat-list-icon,.mat-nav-list[dense] .mat-list-item .mat-list-icon,.mat-selection-list[dense] .mat-list-item .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense] .mat-list-option,.mat-nav-list[dense] .mat-list-option,.mat-selection-list[dense] .mat-list-option{display:block}.mat-list[dense] .mat-list-option .mat-list-item-content,.mat-nav-list[dense] .mat-list-option .mat-list-item-content,.mat-selection-list[dense] .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:40px;padding:0 16px;position:relative}.mat-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list[dense] .mat-list-option .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-option .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list[dense] .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-list-item-avatar .mat-list-item-content{height:48px}.mat-list[dense] .mat-list-option.mat-2-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-2-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-2-line .mat-list-item-content{height:60px}.mat-list[dense] .mat-list-option.mat-3-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-3-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-3-line .mat-list-item-content{height:76px}.mat-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-option .mat-list-text,.mat-nav-list[dense] .mat-list-option .mat-list-text,.mat-selection-list[dense] .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-option .mat-list-text>*,.mat-nav-list[dense] .mat-list-option .mat-list-text>*,.mat-selection-list[dense] .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-option .mat-list-text:empty,.mat-nav-list[dense] .mat-list-option .mat-list-text:empty,.mat-selection-list[dense] .mat-list-option .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-option .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-option .mat-list-text:nth-child(2),.mat-selection-list[dense] .mat-list-option .mat-list-text:nth-child(2){padding:0}.mat-list[dense] .mat-list-option .mat-list-avatar,.mat-nav-list[dense] .mat-list-option .mat-list-avatar,.mat-selection-list[dense] .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-option .mat-list-icon,.mat-nav-list[dense] .mat-list-option .mat-list-icon,.mat-selection-list[dense] .mat-list-option .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-divider{display:block;border-top-style:solid;border-top-width:1px;margin:0}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item-content{cursor:pointer}.mat-nav-list .mat-list-item-content.mat-list-item-focus,.mat-nav-list .mat-list-item-content:hover{outline:0}.mat-list-option:not([disabled]){cursor:pointer}"],
@@ -2224,133 +2069,133 @@ MdList.decorators = [
 /**
  * @nocollapse
  */
-MdList.ctorParameters = function () { return []; };
+MatList.ctorParameters = function () { return []; };
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdListCssMatStyler = (function () {
-    function MdListCssMatStyler() {
+var MatListCssMatStyler = (function () {
+    function MatListCssMatStyler() {
     }
-    return MdListCssMatStyler;
+    return MatListCssMatStyler;
 }());
-MdListCssMatStyler.decorators = [
+MatListCssMatStyler.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: 'md-list, mat-list',
+                selector: 'mat-list',
                 host: { 'class': 'mat-list' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdListCssMatStyler.ctorParameters = function () { return []; };
+MatListCssMatStyler.ctorParameters = function () { return []; };
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdNavListCssMatStyler = (function () {
-    function MdNavListCssMatStyler() {
+var MatNavListCssMatStyler = (function () {
+    function MatNavListCssMatStyler() {
     }
-    return MdNavListCssMatStyler;
+    return MatNavListCssMatStyler;
 }());
-MdNavListCssMatStyler.decorators = [
+MatNavListCssMatStyler.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: 'md-nav-list, mat-nav-list',
+                selector: 'mat-nav-list',
                 host: { 'class': 'mat-nav-list' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdNavListCssMatStyler.ctorParameters = function () { return []; };
+MatNavListCssMatStyler.ctorParameters = function () { return []; };
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdDividerCssMatStyler = (function () {
-    function MdDividerCssMatStyler() {
+var MatDividerCssMatStyler = (function () {
+    function MatDividerCssMatStyler() {
     }
-    return MdDividerCssMatStyler;
+    return MatDividerCssMatStyler;
 }());
-MdDividerCssMatStyler.decorators = [
+MatDividerCssMatStyler.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: 'md-divider, mat-divider',
+                selector: 'mat-divider',
                 host: { 'class': 'mat-divider' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdDividerCssMatStyler.ctorParameters = function () { return []; };
+MatDividerCssMatStyler.ctorParameters = function () { return []; };
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdListAvatarCssMatStyler = (function () {
-    function MdListAvatarCssMatStyler() {
+var MatListAvatarCssMatStyler = (function () {
+    function MatListAvatarCssMatStyler() {
     }
-    return MdListAvatarCssMatStyler;
+    return MatListAvatarCssMatStyler;
 }());
-MdListAvatarCssMatStyler.decorators = [
+MatListAvatarCssMatStyler.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[md-list-avatar], [mat-list-avatar], [mdListAvatar], [matListAvatar]',
+                selector: '[mat-list-avatar], [matListAvatar]',
                 host: { 'class': 'mat-list-avatar' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdListAvatarCssMatStyler.ctorParameters = function () { return []; };
+MatListAvatarCssMatStyler.ctorParameters = function () { return []; };
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdListIconCssMatStyler = (function () {
-    function MdListIconCssMatStyler() {
+var MatListIconCssMatStyler = (function () {
+    function MatListIconCssMatStyler() {
     }
-    return MdListIconCssMatStyler;
+    return MatListIconCssMatStyler;
 }());
-MdListIconCssMatStyler.decorators = [
+MatListIconCssMatStyler.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[md-list-icon], [mat-list-icon], [mdListIcon], [matListIcon]',
+                selector: '[mat-list-icon], [matListIcon]',
                 host: { 'class': 'mat-list-icon' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdListIconCssMatStyler.ctorParameters = function () { return []; };
+MatListIconCssMatStyler.ctorParameters = function () { return []; };
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MdListSubheaderCssMatStyler = (function () {
-    function MdListSubheaderCssMatStyler() {
+var MatListSubheaderCssMatStyler = (function () {
+    function MatListSubheaderCssMatStyler() {
     }
-    return MdListSubheaderCssMatStyler;
+    return MatListSubheaderCssMatStyler;
 }());
-MdListSubheaderCssMatStyler.decorators = [
+MatListSubheaderCssMatStyler.decorators = [
     { type: _angular_core.Directive, args: [{
-                selector: '[md-subheader], [mat-subheader], [mdSubheader], [matSubheader]',
+                selector: '[mat-subheader], [matSubheader]',
                 host: { 'class': 'mat-subheader' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdListSubheaderCssMatStyler.ctorParameters = function () { return []; };
+MatListSubheaderCssMatStyler.ctorParameters = function () { return []; };
 /**
  * An item within a Material Design list.
  */
-var MdListItem = (function (_super) {
-    __extends(MdListItem, _super);
+var MatListItem = (function (_super) {
+    __extends(MatListItem, _super);
     /**
      * @param {?} _renderer
      * @param {?} _element
      * @param {?} _list
      * @param {?} navList
      */
-    function MdListItem(_renderer, _element, _list, navList) {
+    function MatListItem(_renderer, _element, _list, navList) {
         var _this = _super.call(this) || this;
         _this._renderer = _renderer;
         _this._element = _element;
@@ -2359,7 +2204,7 @@ var MdListItem = (function (_super) {
         _this._isNavList = !!navList;
         return _this;
     }
-    Object.defineProperty(MdListItem.prototype, "_hasAvatar", {
+    Object.defineProperty(MatListItem.prototype, "_hasAvatar", {
         /**
          * @param {?} avatar
          * @return {?}
@@ -2378,39 +2223,39 @@ var MdListItem = (function (_super) {
     /**
      * @return {?}
      */
-    MdListItem.prototype.ngAfterContentInit = function () {
-        this._lineSetter = new MdLineSetter(this._lines, this._renderer, this._element);
+    MatListItem.prototype.ngAfterContentInit = function () {
+        this._lineSetter = new MatLineSetter(this._lines, this._renderer, this._element);
     };
     /**
      * Whether this list item should show a ripple effect when clicked.
      * @return {?}
      */
-    MdListItem.prototype._isRippleDisabled = function () {
+    MatListItem.prototype._isRippleDisabled = function () {
         return !this._isNavList || this.disableRipple || this._list.disableRipple;
     };
     /**
      * @return {?}
      */
-    MdListItem.prototype._handleFocus = function () {
+    MatListItem.prototype._handleFocus = function () {
         this._renderer.addClass(this._element.nativeElement, 'mat-list-item-focus');
     };
     /**
      * @return {?}
      */
-    MdListItem.prototype._handleBlur = function () {
+    MatListItem.prototype._handleBlur = function () {
         this._renderer.removeClass(this._element.nativeElement, 'mat-list-item-focus');
     };
     /**
      * Retrieves the DOM element of the component host.
      * @return {?}
      */
-    MdListItem.prototype._getHostElement = function () {
+    MatListItem.prototype._getHostElement = function () {
         return this._element.nativeElement;
     };
-    return MdListItem;
-}(_MdListItemMixinBase));
-MdListItem.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-list-item, mat-list-item, a[md-list-item], a[mat-list-item]',
+    return MatListItem;
+}(_MatListItemMixinBase));
+MatListItem.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-list-item, a[mat-list-item]',
                 host: {
                     'role': 'listitem',
                     'class': 'mat-list-item',
@@ -2418,7 +2263,7 @@ MdListItem.decorators = [
                     '(blur)': '_handleBlur()',
                 },
                 inputs: ['disableRipple'],
-                template: "<div class=\"mat-list-item-content\"><div class=\"mat-list-item-ripple\" md-ripple [mdRippleTrigger]=\"_getHostElement()\" [mdRippleDisabled]=\"_isRippleDisabled()\"></div><ng-content select=\"[md-list-avatar], [md-list-icon], [mat-list-avatar], [mat-list-icon], [mdListAvatar], [mdListIcon], [matListAvatar], [matListIcon]\"></ng-content><div class=\"mat-list-text\"><ng-content select=\"[md-line], [mat-line], [mdLine], [matLine]\"></ng-content></div><ng-content></ng-content></div>",
+                template: "<div class=\"mat-list-item-content\"><div class=\"mat-list-item-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"_isRippleDisabled()\"></div><ng-content select=\"[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]\"></ng-content><div class=\"mat-list-text\"><ng-content select=\"[mat-line], [matLine]\"></ng-content></div><ng-content></ng-content></div>",
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -2427,49 +2272,49 @@ MdListItem.decorators = [
 /**
  * @nocollapse
  */
-MdListItem.ctorParameters = function () { return [
+MatListItem.ctorParameters = function () { return [
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ElementRef, },
-    { type: MdList, decorators: [{ type: _angular_core.Optional },] },
-    { type: MdNavListCssMatStyler, decorators: [{ type: _angular_core.Optional },] },
+    { type: MatList, decorators: [{ type: _angular_core.Optional },] },
+    { type: MatNavListCssMatStyler, decorators: [{ type: _angular_core.Optional },] },
 ]; };
-MdListItem.propDecorators = {
-    '_lines': [{ type: _angular_core.ContentChildren, args: [MdLine,] },],
-    '_hasAvatar': [{ type: _angular_core.ContentChild, args: [MdListAvatarCssMatStyler,] },],
+MatListItem.propDecorators = {
+    '_lines': [{ type: _angular_core.ContentChildren, args: [MatLine,] },],
+    '_hasAvatar': [{ type: _angular_core.ContentChild, args: [MatListAvatarCssMatStyler,] },],
 };
 /**
  * \@docs-private
  */
-var MdSelectionListBase = (function () {
-    function MdSelectionListBase() {
+var MatSelectionListBase = (function () {
+    function MatSelectionListBase() {
     }
-    return MdSelectionListBase;
+    return MatSelectionListBase;
 }());
-var _MdSelectionListMixinBase = mixinDisableRipple(mixinDisabled(MdSelectionListBase));
+var _MatSelectionListMixinBase = mixinDisableRipple(mixinDisabled(MatSelectionListBase));
 /**
  * \@docs-private
  */
-var MdListOptionBase = (function () {
-    function MdListOptionBase() {
+var MatListOptionBase = (function () {
+    function MatListOptionBase() {
     }
-    return MdListOptionBase;
+    return MatListOptionBase;
 }());
-var _MdListOptionMixinBase = mixinDisableRipple(MdListOptionBase);
+var _MatListOptionMixinBase = mixinDisableRipple(MatListOptionBase);
 var FOCUSED_STYLE = 'mat-list-item-focus';
 /**
  * Component for list-options of selection-list. Each list-option can automatically
  * generate a checkbox and can put current item into the selectionModel of selection-list
  * if the current item is checked.
  */
-var MdListOption = (function (_super) {
-    __extends(MdListOption, _super);
+var MatListOption = (function (_super) {
+    __extends(MatListOption, _super);
     /**
      * @param {?} _renderer
      * @param {?} _element
      * @param {?} _changeDetector
      * @param {?} selectionList
      */
-    function MdListOption(_renderer, _element, _changeDetector, selectionList) {
+    function MatListOption(_renderer, _element, _changeDetector, selectionList) {
         var _this = _super.call(this) || this;
         _this._renderer = _renderer;
         _this._element = _element;
@@ -2503,7 +2348,7 @@ var MdListOption = (function (_super) {
         _this.destroyed = new _angular_core.EventEmitter();
         return _this;
     }
-    Object.defineProperty(MdListOption.prototype, "disabled", {
+    Object.defineProperty(MatListOption.prototype, "disabled", {
         /**
          * Whether the option is disabled.
          * @return {?}
@@ -2517,7 +2362,7 @@ var MdListOption = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdListOption.prototype, "selected", {
+    Object.defineProperty(MatListOption.prototype, "selected", {
         /**
          * Whether the option is selected.
          * @return {?}
@@ -2534,8 +2379,8 @@ var MdListOption = (function (_super) {
     /**
      * @return {?}
      */
-    MdListOption.prototype.ngAfterContentInit = function () {
-        this._lineSetter = new MdLineSetter(this._lines, this._renderer, this._element);
+    MatListOption.prototype.ngAfterContentInit = function () {
+        this._lineSetter = new MatLineSetter(this._lines, this._renderer, this._element);
         if (this.selectionList.disabled) {
             this.disabled = true;
         }
@@ -2543,14 +2388,14 @@ var MdListOption = (function (_super) {
     /**
      * @return {?}
      */
-    MdListOption.prototype.ngOnDestroy = function () {
+    MatListOption.prototype.ngOnDestroy = function () {
         this.destroyed.emit({ option: this });
     };
     /**
      * Toggles the selection state of the option.
      * @return {?}
      */
-    MdListOption.prototype.toggle = function () {
+    MatListOption.prototype.toggle = function () {
         this.selected = !this.selected;
         this.selectionList.selectedOptions.toggle(this);
         this._changeDetector.markForCheck();
@@ -2559,7 +2404,7 @@ var MdListOption = (function (_super) {
      * Allows for programmatic focusing of the option.
      * @return {?}
      */
-    MdListOption.prototype.focus = function () {
+    MatListOption.prototype.focus = function () {
         this._element.nativeElement.focus();
         this.onFocus.emit({ option: this });
     };
@@ -2567,13 +2412,13 @@ var MdListOption = (function (_super) {
      * Whether this list item should show a ripple effect when clicked.
      * @return {?}
      */
-    MdListOption.prototype._isRippleDisabled = function () {
+    MatListOption.prototype._isRippleDisabled = function () {
         return this.disabled || this.disableRipple || this.selectionList.disableRipple;
     };
     /**
      * @return {?}
      */
-    MdListOption.prototype._handleClick = function () {
+    MatListOption.prototype._handleClick = function () {
         if (!this.disabled) {
             this.toggle();
         }
@@ -2581,27 +2426,27 @@ var MdListOption = (function (_super) {
     /**
      * @return {?}
      */
-    MdListOption.prototype._handleFocus = function () {
+    MatListOption.prototype._handleFocus = function () {
         this._hasFocus = true;
         this._renderer.addClass(this._element.nativeElement, FOCUSED_STYLE);
     };
     /**
      * @return {?}
      */
-    MdListOption.prototype._handleBlur = function () {
+    MatListOption.prototype._handleBlur = function () {
         this._renderer.removeClass(this._element.nativeElement, FOCUSED_STYLE);
     };
     /**
      * Retrieves the DOM element of the component host.
      * @return {?}
      */
-    MdListOption.prototype._getHostElement = function () {
+    MatListOption.prototype._getHostElement = function () {
         return this._element.nativeElement;
     };
-    return MdListOption;
-}(_MdListOptionMixinBase));
-MdListOption.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-list-option, mat-list-option',
+    return MatListOption;
+}(_MatListOptionMixinBase));
+MatListOption.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-list-option',
                 inputs: ['disableRipple'],
                 host: {
                     'role': 'option',
@@ -2614,24 +2459,23 @@ MdListOption.decorators = [
                     '[attr.aria-selected]': 'selected.toString()',
                     '[attr.aria-disabled]': 'disabled.toString()',
                 },
-                template: "<div class=\"mat-list-item-content\" [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\" [class.mat-list-item-disabled]=\"disabled\"><div md-ripple class=\"mat-list-item-ripple\" [mdRippleTrigger]=\"_getHostElement()\" [mdRippleDisabled]=\"_isRippleDisabled()\"></div><md-pseudo-checkbox #autocheckbox [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></md-pseudo-checkbox><div class=\"mat-list-text\"><ng-content></ng-content></div></div>",
+                template: "<div class=\"mat-list-item-content\" [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\" [class.mat-list-item-disabled]=\"disabled\"><div mat-ripple class=\"mat-list-item-ripple\" [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"_isRippleDisabled()\"></div><mat-pseudo-checkbox #autocheckbox [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox><div class=\"mat-list-text\"><ng-content></ng-content></div></div>",
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                providers: [{ provide: MATERIAL_COMPATIBILITY_MODE, useValue: false }],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdListOption.ctorParameters = function () { return [
+MatListOption.ctorParameters = function () { return [
     { type: _angular_core.Renderer2, },
     { type: _angular_core.ElementRef, },
     { type: _angular_core.ChangeDetectorRef, },
-    { type: MdSelectionList, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MdSelectionList; }),] },] },
+    { type: MatSelectionList, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatSelectionList; }),] },] },
 ]; };
-MdListOption.propDecorators = {
-    '_lines': [{ type: _angular_core.ContentChildren, args: [MdLine,] },],
+MatListOption.propDecorators = {
+    '_lines': [{ type: _angular_core.ContentChildren, args: [MatLine,] },],
     'checkboxPosition': [{ type: _angular_core.Input },],
     'value': [{ type: _angular_core.Input },],
     'disabled': [{ type: _angular_core.Input },],
@@ -2643,12 +2487,12 @@ MdListOption.propDecorators = {
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
  */
-var MdSelectionList = (function (_super) {
-    __extends(MdSelectionList, _super);
+var MatSelectionList = (function (_super) {
+    __extends(MatSelectionList, _super);
     /**
      * @param {?} _element
      */
-    function MdSelectionList(_element) {
+    function MatSelectionList(_element) {
         var _this = _super.call(this) || this;
         _this._element = _element;
         /**
@@ -2672,7 +2516,7 @@ var MdSelectionList = (function (_super) {
     /**
      * @return {?}
      */
-    MdSelectionList.prototype.ngAfterContentInit = function () {
+    MatSelectionList.prototype.ngAfterContentInit = function () {
         this._keyManager = new _angular_cdk_a11y.FocusKeyManager(this.options).withWrap();
         if (this.disabled) {
             this._tabIndex = -1;
@@ -2683,7 +2527,7 @@ var MdSelectionList = (function (_super) {
     /**
      * @return {?}
      */
-    MdSelectionList.prototype.ngOnDestroy = function () {
+    MatSelectionList.prototype.ngOnDestroy = function () {
         this._optionDestroyStream.unsubscribe();
         this._optionFocusSubscription.unsubscribe();
     };
@@ -2691,14 +2535,14 @@ var MdSelectionList = (function (_super) {
      * Focus the selection-list.
      * @return {?}
      */
-    MdSelectionList.prototype.focus = function () {
+    MatSelectionList.prototype.focus = function () {
         this._element.nativeElement.focus();
     };
     /**
      * Selects all of the options.
      * @return {?}
      */
-    MdSelectionList.prototype.selectAll = function () {
+    MatSelectionList.prototype.selectAll = function () {
         this.options.forEach(function (option) {
             if (!option.selected) {
                 option.toggle();
@@ -2709,7 +2553,7 @@ var MdSelectionList = (function (_super) {
      * Deselects all of the options.
      * @return {?}
      */
-    MdSelectionList.prototype.deselectAll = function () {
+    MatSelectionList.prototype.deselectAll = function () {
         this.options.forEach(function (option) {
             if (option.selected) {
                 option.toggle();
@@ -2720,7 +2564,7 @@ var MdSelectionList = (function (_super) {
      * Map all the options' destroy event subscriptions and merge them into one stream.
      * @return {?}
      */
-    MdSelectionList.prototype._onDestroySubscription = function () {
+    MatSelectionList.prototype._onDestroySubscription = function () {
         var _this = this;
         return _angular_cdk_rxjs.RxChain.from(this.options.changes)
             .call(_angular_cdk_rxjs.startWith, this.options)
@@ -2744,7 +2588,7 @@ var MdSelectionList = (function (_super) {
      * Map all the options' onFocus event subscriptions and merge them into one stream.
      * @return {?}
      */
-    MdSelectionList.prototype._onFocusSubscription = function () {
+    MatSelectionList.prototype._onFocusSubscription = function () {
         var _this = this;
         return _angular_cdk_rxjs.RxChain.from(this.options.changes)
             .call(_angular_cdk_rxjs.startWith, this.options)
@@ -2760,7 +2604,7 @@ var MdSelectionList = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MdSelectionList.prototype._keydown = function (event) {
+    MatSelectionList.prototype._keydown = function (event) {
         switch (event.keyCode) {
             case _angular_cdk_keycodes.SPACE:
                 this._toggleSelectOnFocusedOption();
@@ -2775,7 +2619,7 @@ var MdSelectionList = (function (_super) {
      * Toggles the selected state of the currently focused option.
      * @return {?}
      */
-    MdSelectionList.prototype._toggleSelectOnFocusedOption = function () {
+    MatSelectionList.prototype._toggleSelectOnFocusedOption = function () {
         var /** @type {?} */ focusedIndex = this._keyManager.activeItemIndex;
         if (focusedIndex != null && this._isValidIndex(focusedIndex)) {
             var /** @type {?} */ focusedOption = this.options.toArray()[focusedIndex];
@@ -2790,13 +2634,13 @@ var MdSelectionList = (function (_super) {
      * @param {?} index The index to be checked.
      * @return {?} True if the index is valid for our list of options.
      */
-    MdSelectionList.prototype._isValidIndex = function (index) {
+    MatSelectionList.prototype._isValidIndex = function (index) {
         return index >= 0 && index < this.options.length;
     };
-    return MdSelectionList;
-}(_MdSelectionListMixinBase));
-MdSelectionList.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'md-selection-list, mat-selection-list',
+    return MatSelectionList;
+}(_MatSelectionListMixinBase));
+MatSelectionList.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-selection-list',
                 inputs: ['disabled', 'disableRipple'],
                 host: {
                     'role': 'listbox',
@@ -2816,92 +2660,76 @@ MdSelectionList.decorators = [
 /**
  * @nocollapse
  */
-MdSelectionList.ctorParameters = function () { return [
+MatSelectionList.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
 ]; };
-MdSelectionList.propDecorators = {
-    'options': [{ type: _angular_core.ContentChildren, args: [MdListOption,] },],
+MatSelectionList.propDecorators = {
+    'options': [{ type: _angular_core.ContentChildren, args: [MatListOption,] },],
 };
-var MdListModule = (function () {
-    function MdListModule() {
+var MatListModule = (function () {
+    function MatListModule() {
     }
-    return MdListModule;
+    return MatListModule;
 }());
-MdListModule.decorators = [
+MatListModule.decorators = [
     { type: _angular_core.NgModule, args: [{
-                imports: [MdLineModule, MdRippleModule, MdCommonModule, MdPseudoCheckboxModule, _angular_common.CommonModule],
+                imports: [MatLineModule, MatRippleModule, MatCommonModule, MatPseudoCheckboxModule, _angular_common.CommonModule],
                 exports: [
-                    MdList,
-                    MdListItem,
-                    MdListDivider,
-                    MdListAvatarCssMatStyler,
-                    MdLineModule,
-                    MdCommonModule,
-                    MdListIconCssMatStyler,
-                    MdListCssMatStyler,
-                    MdNavListCssMatStyler,
-                    MdDividerCssMatStyler,
-                    MdListSubheaderCssMatStyler,
-                    MdPseudoCheckboxModule,
-                    MdSelectionList,
-                    MdListOption
+                    MatList,
+                    MatListItem,
+                    MatListDivider,
+                    MatListAvatarCssMatStyler,
+                    MatLineModule,
+                    MatCommonModule,
+                    MatListIconCssMatStyler,
+                    MatListCssMatStyler,
+                    MatNavListCssMatStyler,
+                    MatDividerCssMatStyler,
+                    MatListSubheaderCssMatStyler,
+                    MatPseudoCheckboxModule,
+                    MatSelectionList,
+                    MatListOption
                 ],
                 declarations: [
-                    MdList,
-                    MdListItem,
-                    MdListDivider,
-                    MdListAvatarCssMatStyler,
-                    MdListIconCssMatStyler,
-                    MdListCssMatStyler,
-                    MdNavListCssMatStyler,
-                    MdDividerCssMatStyler,
-                    MdListSubheaderCssMatStyler,
-                    MdSelectionList,
-                    MdListOption
+                    MatList,
+                    MatListItem,
+                    MatListDivider,
+                    MatListAvatarCssMatStyler,
+                    MatListIconCssMatStyler,
+                    MatListCssMatStyler,
+                    MatNavListCssMatStyler,
+                    MatDividerCssMatStyler,
+                    MatListSubheaderCssMatStyler,
+                    MatSelectionList,
+                    MatListOption
                 ],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdListModule.ctorParameters = function () { return []; };
+MatListModule.ctorParameters = function () { return []; };
 
-exports.MdListModule = MdListModule;
-exports.MdListBase = MdListBase;
-exports._MdListMixinBase = _MdListMixinBase;
-exports.MdListItemBase = MdListItemBase;
-exports._MdListItemMixinBase = _MdListItemMixinBase;
-exports.MdListDivider = MdListDivider;
-exports.MdList = MdList;
-exports.MdListCssMatStyler = MdListCssMatStyler;
-exports.MdNavListCssMatStyler = MdNavListCssMatStyler;
-exports.MdDividerCssMatStyler = MdDividerCssMatStyler;
-exports.MdListAvatarCssMatStyler = MdListAvatarCssMatStyler;
-exports.MdListIconCssMatStyler = MdListIconCssMatStyler;
-exports.MdListSubheaderCssMatStyler = MdListSubheaderCssMatStyler;
-exports.MdListItem = MdListItem;
-exports.MdSelectionListBase = MdSelectionListBase;
-exports._MdSelectionListMixinBase = _MdSelectionListMixinBase;
-exports.MdListOptionBase = MdListOptionBase;
-exports._MdListOptionMixinBase = _MdListOptionMixinBase;
-exports.MdListOption = MdListOption;
-exports.MdSelectionList = MdSelectionList;
-exports.MatDividerCssMatStyler = MdDividerCssMatStyler;
-exports.MatList = MdList;
-exports.MatListAvatarCssMatStyler = MdListAvatarCssMatStyler;
-exports.MatListBase = MdListBase;
-exports.MatListCssMatStyler = MdListCssMatStyler;
-exports.MatListDivider = MdListDivider;
-exports.MatListIconCssMatStyler = MdListIconCssMatStyler;
-exports.MatListItem = MdListItem;
-exports.MatListItemBase = MdListItemBase;
-exports.MatListModule = MdListModule;
-exports.MatListOption = MdListOption;
-exports.MatListOptionBase = MdListOptionBase;
-exports.MatListSubheaderCssMatStyler = MdListSubheaderCssMatStyler;
-exports.MatNavListCssMatStyler = MdNavListCssMatStyler;
-exports.MatSelectionList = MdSelectionList;
-exports.MatSelectionListBase = MdSelectionListBase;
+exports.MatListModule = MatListModule;
+exports.MatListBase = MatListBase;
+exports._MatListMixinBase = _MatListMixinBase;
+exports.MatListItemBase = MatListItemBase;
+exports._MatListItemMixinBase = _MatListItemMixinBase;
+exports.MatListDivider = MatListDivider;
+exports.MatList = MatList;
+exports.MatListCssMatStyler = MatListCssMatStyler;
+exports.MatNavListCssMatStyler = MatNavListCssMatStyler;
+exports.MatDividerCssMatStyler = MatDividerCssMatStyler;
+exports.MatListAvatarCssMatStyler = MatListAvatarCssMatStyler;
+exports.MatListIconCssMatStyler = MatListIconCssMatStyler;
+exports.MatListSubheaderCssMatStyler = MatListSubheaderCssMatStyler;
+exports.MatListItem = MatListItem;
+exports.MatSelectionListBase = MatSelectionListBase;
+exports._MatSelectionListMixinBase = _MatSelectionListMixinBase;
+exports.MatListOptionBase = MatListOptionBase;
+exports._MatListOptionMixinBase = _MatListOptionMixinBase;
+exports.MatListOption = MatListOption;
+exports.MatSelectionList = MatSelectionList;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -7,30 +7,74 @@
  */
 import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, Optional, Output, Self, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ESCAPE, LEFT_ARROW, MdCommonModule, MdRippleModule, RIGHT_ARROW, mixinDisabled } from '@angular/material/core';
+import { MatCommonModule, MatRippleModule, mixinDisabled } from '@angular/material/core';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { Subject } from 'rxjs/Subject';
 import { FocusKeyManager, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
+import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
+import { RxChain, filter, startWith, switchMap } from '@angular/cdk/rxjs';
+import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { merge } from 'rxjs/observable/merge';
-import { RxChain, filter, startWith, switchMap } from '@angular/cdk/rxjs';
+import { Subject } from 'rxjs/Subject';
 import { Directionality } from '@angular/cdk/bidi';
-import { LEFT_ARROW as LEFT_ARROW$1, RIGHT_ARROW as RIGHT_ARROW$1 } from '@angular/cdk/keycodes';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { of } from 'rxjs/observable/of';
 
 /**
- * Throws an exception for the case when menu trigger doesn't have a valid md-menu instance
+ * Below are all the animations for the mat-menu component.
+ * Animation duration and timing values are based on:
+ * https://material.io/guidelines/components/menus.html#menus-usage
+ */
+/**
+ * This animation controls the menu panel's entry and exit from the page.
+ *
+ * When the menu panel is added to the DOM, it scales in and fades in its border.
+ *
+ * When the menu panel is removed from the DOM, it simply fades out after a brief
+ * delay to display the ripple.
+ */
+// TODO(kara): switch to :enter and :leave once Mobile Safari is sorted out.
+const transformMenu = trigger('transformMenu', [
+    state('void', style({
+        opacity: 0,
+        // This starts off from 0.01, instead of 0, because there's an issue in the Angular animations
+        // as of 4.2, which causes the animation to be skipped if it starts from 0.
+        transform: 'scale(0.01, 0.01)'
+    })),
+    state('enter-start', style({
+        opacity: 1,
+        transform: 'scale(1, 0.5)'
+    })),
+    state('enter', style({
+        transform: 'scale(1, 1)'
+    })),
+    transition('void => enter-start', animate('100ms linear')),
+    transition('enter-start => enter', animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
+    transition('* => void', animate('150ms 50ms linear', style({ opacity: 0 })))
+]);
+/**
+ * This animation fades in the background color and content of the menu panel
+ * after its containing element is scaled in.
+ */
+const fadeInItems = trigger('fadeInItems', [
+    state('showing', style({ opacity: 1 })),
+    transition('void => *', [
+        style({ opacity: 0 }),
+        animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
+    ])
+]);
+
+/**
+ * Throws an exception for the case when menu trigger doesn't have a valid mat-menu instance
  * \@docs-private
  * @return {?}
  */
-function throwMdMenuMissingError() {
-    throw Error(`md-menu-trigger: must pass in an md-menu instance.
+function throwMatMenuMissingError() {
+    throw Error(`mat-menu-trigger: must pass in an mat-menu instance.
 
     Example:
-      <md-menu #menu="mdMenu"></md-menu>
-      <button [mdMenuTriggerFor]="menu"></button>`);
+      <mat-menu #menu="matMenu"></mat-menu>
+      <button [matMenuTriggerFor]="menu"></button>`);
 }
 /**
  * Throws an exception for the case when menu's x-position value isn't valid.
@@ -38,9 +82,9 @@ function throwMdMenuMissingError() {
  * \@docs-private
  * @return {?}
  */
-function throwMdMenuInvalidPositionX() {
+function throwMatMenuInvalidPositionX() {
     throw Error(`x-position value must be either 'before' or after'.
-      Example: <md-menu x-position="before" #menu="mdMenu"></md-menu>`);
+      Example: <mat-menu x-position="before" #menu="matMenu"></mat-menu>`);
 }
 /**
  * Throws an exception for the case when menu's y-position value isn't valid.
@@ -48,22 +92,22 @@ function throwMdMenuInvalidPositionX() {
  * \@docs-private
  * @return {?}
  */
-function throwMdMenuInvalidPositionY() {
+function throwMatMenuInvalidPositionY() {
     throw Error(`y-position value must be either 'above' or below'.
-      Example: <md-menu y-position="above" #menu="mdMenu"></md-menu>`);
+      Example: <mat-menu y-position="above" #menu="matMenu"></mat-menu>`);
 }
 
 /**
  * \@docs-private
  */
-class MdMenuItemBase {
+class MatMenuItemBase {
 }
-const _MdMenuItemMixinBase = mixinDisabled(MdMenuItemBase);
+const _MatMenuItemMixinBase = mixinDisabled(MatMenuItemBase);
 /**
- * This directive is intended to be used inside an md-menu tag.
+ * This directive is intended to be used inside an mat-menu tag.
  * It exists mostly to set the role attribute.
  */
-class MdMenuItem extends _MdMenuItemMixinBase {
+class MatMenuItem extends _MatMenuItemMixinBase {
     /**
      * @param {?} _elementRef
      */
@@ -131,8 +175,8 @@ class MdMenuItem extends _MdMenuItemMixinBase {
         }
     }
 }
-MdMenuItem.decorators = [
-    { type: Component, args: [{selector: '[md-menu-item], [mat-menu-item]',
+MatMenuItem.decorators = [
+    { type: Component, args: [{selector: '[mat-menu-item]',
                 inputs: ['disabled'],
                 host: {
                     'role': 'menuitem',
@@ -148,71 +192,27 @@ MdMenuItem.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
-                template: "<ng-content></ng-content><div class=\"mat-menu-ripple\" *ngIf=\"!disabled\" md-ripple [mdRippleTrigger]=\"_getHostElement()\"></div>",
-                exportAs: 'mdMenuItem, matMenuItem',
+                template: "<ng-content></ng-content><div class=\"mat-menu-ripple\" *ngIf=\"!disabled\" mat-ripple [matRippleTrigger]=\"_getHostElement()\"></div>",
+                exportAs: 'matMenuItem',
             },] },
 ];
 /**
  * @nocollapse
  */
-MdMenuItem.ctorParameters = () => [
+MatMenuItem.ctorParameters = () => [
     { type: ElementRef, },
 ];
 
 /**
- * Below are all the animations for the md-menu component.
- * Animation duration and timing values are based on:
- * https://material.io/guidelines/components/menus.html#menus-usage
+ * Injection token to be used to override the default options for `mat-menu`.
  */
-/**
- * This animation controls the menu panel's entry and exit from the page.
- *
- * When the menu panel is added to the DOM, it scales in and fades in its border.
- *
- * When the menu panel is removed from the DOM, it simply fades out after a brief
- * delay to display the ripple.
- */
-// TODO(kara): switch to :enter and :leave once Mobile Safari is sorted out.
-const transformMenu = trigger('transformMenu', [
-    state('void', style({
-        opacity: 0,
-        // This starts off from 0.01, instead of 0, because there's an issue in the Angular animations
-        // as of 4.2, which causes the animation to be skipped if it starts from 0.
-        transform: 'scale(0.01, 0.01)'
-    })),
-    state('enter-start', style({
-        opacity: 1,
-        transform: 'scale(1, 0.5)'
-    })),
-    state('enter', style({
-        transform: 'scale(1, 1)'
-    })),
-    transition('void => enter-start', animate('100ms linear')),
-    transition('enter-start => enter', animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
-    transition('* => void', animate('150ms 50ms linear', style({ opacity: 0 })))
-]);
-/**
- * This animation fades in the background color and content of the menu panel
- * after its containing element is scaled in.
- */
-const fadeInItems = trigger('fadeInItems', [
-    state('showing', style({ opacity: 1 })),
-    transition('void => *', [
-        style({ opacity: 0 }),
-        animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
-    ])
-]);
-
-/**
- * Injection token to be used to override the default options for `md-menu`.
- */
-const MD_MENU_DEFAULT_OPTIONS = new InjectionToken('md-menu-default-options');
+const MAT_MENU_DEFAULT_OPTIONS = new InjectionToken('mat-menu-default-options');
 /**
  * Start elevation for the menu panel.
  * \@docs-private
  */
-const MD_MENU_BASE_ELEVATION = 2;
-class MdMenu {
+const MAT_MENU_BASE_ELEVATION = 2;
+class MatMenu {
     /**
      * @param {?} _elementRef
      * @param {?} _defaultOptions
@@ -254,7 +254,7 @@ class MdMenu {
      */
     set xPosition(value) {
         if (value !== 'before' && value !== 'after') {
-            throwMdMenuInvalidPositionX();
+            throwMatMenuInvalidPositionX();
         }
         this._xPosition = value;
         this.setPositionClasses();
@@ -270,13 +270,13 @@ class MdMenu {
      */
     set yPosition(value) {
         if (value !== 'above' && value !== 'below') {
-            throwMdMenuInvalidPositionY();
+            throwMatMenuInvalidPositionY();
         }
         this._yPosition = value;
         this.setPositionClasses();
     }
     /**
-     * This method takes classes set on the host md-menu element and applies them on the
+     * This method takes classes set on the host mat-menu element and applies them on the
      * menu template that displays in the overlay container.  Otherwise, it's difficult
      * to style the containing menu from outside the component.
      * @param {?} classes list of class names
@@ -370,7 +370,7 @@ class MdMenu {
      */
     setElevation(depth) {
         // The elevation starts at the base and increases by one for each level.
-        const /** @type {?} */ newElevation = `mat-elevation-z${MD_MENU_BASE_ELEVATION + depth}`;
+        const /** @type {?} */ newElevation = `mat-elevation-z${MAT_MENU_BASE_ELEVATION + depth}`;
         const /** @type {?} */ customElevation = Object.keys(this._classList).find(c => c.startsWith('mat-elevation-z'));
         if (!customElevation || customElevation === this._previousElevation) {
             if (this._previousElevation) {
@@ -406,8 +406,8 @@ class MdMenu {
         }
     }
 }
-MdMenu.decorators = [
-    { type: Component, args: [{selector: 'md-menu, mat-menu',
+MatMenu.decorators = [
+    { type: Component, args: [{selector: 'mat-menu',
                 template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"close.emit('click')\" [@transformMenu]=\"_panelAnimationState\" (@transformMenu.done)=\"_onAnimationDone($event)\" role=\"menu\"><div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></ng-template>",
                 styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.ng-animating{pointer-events:none}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item .mat-icon{vertical-align:middle}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:8px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute}"],
                 changeDetection: ChangeDetectionStrategy.OnPush,
@@ -417,21 +417,21 @@ MdMenu.decorators = [
                     transformMenu,
                     fadeInItems
                 ],
-                exportAs: 'mdMenu, matMenu'
+                exportAs: 'matMenu'
             },] },
 ];
 /**
  * @nocollapse
  */
-MdMenu.ctorParameters = () => [
+MatMenu.ctorParameters = () => [
     { type: ElementRef, },
-    { type: undefined, decorators: [{ type: Inject, args: [MD_MENU_DEFAULT_OPTIONS,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] },] },
 ];
-MdMenu.propDecorators = {
+MatMenu.propDecorators = {
     'xPosition': [{ type: Input },],
     'yPosition': [{ type: Input },],
     'templateRef': [{ type: ViewChild, args: [TemplateRef,] },],
-    'items': [{ type: ContentChildren, args: [MdMenuItem,] },],
+    'items': [{ type: ContentChildren, args: [MatMenuItem,] },],
     'overlapTrigger': [{ type: Input },],
     'classList': [{ type: Input, args: ['class',] },],
     'close': [{ type: Output },],
@@ -440,32 +440,32 @@ MdMenu.propDecorators = {
 /**
  * Injection token that determines the scroll handling while the menu is open.
  */
-const MD_MENU_SCROLL_STRATEGY = new InjectionToken('md-menu-scroll-strategy');
+const MAT_MENU_SCROLL_STRATEGY = new InjectionToken('mat-menu-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
  * @return {?}
  */
-function MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
+function MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
     return () => overlay.scrollStrategies.reposition();
 }
 /**
  * \@docs-private
  */
-const MD_MENU_SCROLL_STRATEGY_PROVIDER = {
-    provide: MD_MENU_SCROLL_STRATEGY,
+const MAT_MENU_SCROLL_STRATEGY_PROVIDER = {
+    provide: MAT_MENU_SCROLL_STRATEGY,
     deps: [Overlay],
-    useFactory: MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY,
+    useFactory: MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY,
 };
 /**
  * Default top padding of the menu panel.
  */
 const MENU_PANEL_TOP_PADDING = 8;
 /**
- * This directive is intended to be used in conjunction with an md-menu tag.  It is
+ * This directive is intended to be used in conjunction with an mat-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
  */
-class MdMenuTrigger {
+class MatMenuTrigger {
     /**
      * @param {?} _overlay
      * @param {?} _element
@@ -505,20 +505,6 @@ class MdMenuTrigger {
      * @deprecated
      * @return {?}
      */
-    get _deprecatedMdMenuTriggerFor() {
-        return this.menu;
-    }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set _deprecatedMdMenuTriggerFor(v) {
-        this.menu = v;
-    }
-    /**
-     * @deprecated
-     * @return {?}
-     */
     get _deprecatedMatMenuTriggerFor() {
         return this.menu;
     }
@@ -527,19 +513,6 @@ class MdMenuTrigger {
      * @return {?}
      */
     set _deprecatedMatMenuTriggerFor(v) {
-        this.menu = v;
-    }
-    /**
-     * @return {?}
-     */
-    get _matMenuTriggerFor() {
-        return this.menu;
-    }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set _matMenuTriggerFor(v) {
         this.menu = v;
     }
     /**
@@ -611,7 +584,7 @@ class MdMenuTrigger {
             this._createOverlay().attach(this._portal);
             this._closeSubscription = this._menuClosingActions().subscribe(() => this.menu.close.emit());
             this._initMenu();
-            if (this.menu instanceof MdMenu) {
+            if (this.menu instanceof MatMenu) {
                 this.menu._startAnimation();
             }
         }
@@ -626,7 +599,7 @@ class MdMenuTrigger {
             this._overlayRef.detach();
             this._closeSubscription.unsubscribe();
             this.menu.close.emit();
-            if (this.menu instanceof MdMenu) {
+            if (this.menu instanceof MatMenu) {
                 this.menu._resetAnimation();
             }
         }
@@ -696,13 +669,13 @@ class MdMenuTrigger {
         }
     }
     /**
-     * This method checks that a valid instance of MdMenu has been passed into
-     * mdMenuTriggerFor. If not, an exception is thrown.
+     * This method checks that a valid instance of MatMenu has been passed into
+     * matMenuTriggerFor. If not, an exception is thrown.
      * @return {?}
      */
     _checkMenu() {
         if (!this.menu) {
-            throwMdMenuMissingError();
+            throwMatMenuMissingError();
         }
     }
     /**
@@ -823,8 +796,8 @@ class MdMenuTrigger {
      */
     _handleKeydown(event) {
         const /** @type {?} */ keyCode = event.keyCode;
-        if (this.triggersSubmenu() && ((keyCode === RIGHT_ARROW$1 && this.dir === 'ltr') ||
-            (keyCode === LEFT_ARROW$1 && this.dir === 'rtl'))) {
+        if (this.triggersSubmenu() && ((keyCode === RIGHT_ARROW && this.dir === 'ltr') ||
+            (keyCode === LEFT_ARROW && this.dir === 'rtl'))) {
             this.openMenu();
         }
     }
@@ -844,56 +817,53 @@ class MdMenuTrigger {
         }
     }
 }
-MdMenuTrigger.decorators = [
+MatMenuTrigger.decorators = [
     { type: Directive, args: [{
-                selector: `[md-menu-trigger-for], [mat-menu-trigger-for],
-             [mdMenuTriggerFor], [matMenuTriggerFor]`,
+                selector: `[mat-menu-trigger-for], [matMenuTriggerFor]`,
                 host: {
                     'aria-haspopup': 'true',
                     '(mousedown)': '_handleMousedown($event)',
                     '(keydown)': '_handleKeydown($event)',
                     '(click)': '_handleClick($event)',
                 },
-                exportAs: 'mdMenuTrigger, matMenuTrigger'
+                exportAs: 'matMenuTrigger'
             },] },
 ];
 /**
  * @nocollapse
  */
-MdMenuTrigger.ctorParameters = () => [
+MatMenuTrigger.ctorParameters = () => [
     { type: Overlay, },
     { type: ElementRef, },
     { type: ViewContainerRef, },
-    { type: undefined, decorators: [{ type: Inject, args: [MD_MENU_SCROLL_STRATEGY,] },] },
-    { type: MdMenu, decorators: [{ type: Optional },] },
-    { type: MdMenuItem, decorators: [{ type: Optional }, { type: Self },] },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_SCROLL_STRATEGY,] },] },
+    { type: MatMenu, decorators: [{ type: Optional },] },
+    { type: MatMenuItem, decorators: [{ type: Optional }, { type: Self },] },
     { type: Directionality, decorators: [{ type: Optional },] },
 ];
-MdMenuTrigger.propDecorators = {
-    '_deprecatedMdMenuTriggerFor': [{ type: Input, args: ['md-menu-trigger-for',] },],
+MatMenuTrigger.propDecorators = {
     '_deprecatedMatMenuTriggerFor': [{ type: Input, args: ['mat-menu-trigger-for',] },],
-    '_matMenuTriggerFor': [{ type: Input, args: ['matMenuTriggerFor',] },],
-    'menu': [{ type: Input, args: ['mdMenuTriggerFor',] },],
+    'menu': [{ type: Input, args: ['matMenuTriggerFor',] },],
     'onMenuOpen': [{ type: Output },],
     'onMenuClose': [{ type: Output },],
 };
 
-class MdMenuModule {
+class MatMenuModule {
 }
-MdMenuModule.decorators = [
+MatMenuModule.decorators = [
     { type: NgModule, args: [{
                 imports: [
                     OverlayModule,
                     CommonModule,
-                    MdRippleModule,
-                    MdCommonModule,
+                    MatRippleModule,
+                    MatCommonModule,
                 ],
-                exports: [MdMenu, MdMenuItem, MdMenuTrigger, MdCommonModule],
-                declarations: [MdMenu, MdMenuItem, MdMenuTrigger],
+                exports: [MatMenu, MatMenuItem, MatMenuTrigger, MatCommonModule],
+                declarations: [MatMenu, MatMenuItem, MatMenuTrigger],
                 providers: [
-                    MD_MENU_SCROLL_STRATEGY_PROVIDER,
+                    MAT_MENU_SCROLL_STRATEGY_PROVIDER,
                     {
-                        provide: MD_MENU_DEFAULT_OPTIONS,
+                        provide: MAT_MENU_DEFAULT_OPTIONS,
                         useValue: {
                             overlapTrigger: true,
                             xPosition: 'after',
@@ -906,11 +876,11 @@ MdMenuModule.decorators = [
 /**
  * @nocollapse
  */
-MdMenuModule.ctorParameters = () => [];
+MatMenuModule.ctorParameters = () => [];
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { MD_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MdMenuModule, MdMenu, MD_MENU_DEFAULT_OPTIONS, MdMenuItem, MdMenuTrigger, MD_MENU_DEFAULT_OPTIONS as MAT_MENU_DEFAULT_OPTIONS, MdMenu as MatMenu, MdMenuItem as MatMenuItem, MdMenuModule as MatMenuModule, MdMenuTrigger as MatMenuTrigger, MdMenuItemBase as ɵa24, _MdMenuItemMixinBase as ɵb24, MD_MENU_SCROLL_STRATEGY_PROVIDER as ɵd24, MD_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc24 };
+export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa23, _MatMenuItemMixinBase as ɵb23, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd23, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc23 };
 //# sourceMappingURL=menu.js.map

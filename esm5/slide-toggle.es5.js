@@ -9,46 +9,46 @@ import * as tslib_1 from "tslib";
 import { ObserversModule } from '@angular/cdk/observers';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
-import { GestureConfig, MdCommonModule, MdRipple, MdRippleModule, applyCssTransform, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
+import { GestureConfig, MatCommonModule, MatRipple, MatRippleModule, applyCssTransform, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 // Increasing integer for generating unique ids for slide-toggle components.
 var nextUniqueId = 0;
-var MD_SLIDE_TOGGLE_VALUE_ACCESSOR = {
+var MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(function () { return MdSlideToggle; }),
+    useExisting: forwardRef(function () { return MatSlideToggle; }),
     multi: true
 };
 /**
- * Change event object emitted by a MdSlideToggle.
+ * Change event object emitted by a MatSlideToggle.
  */
-var MdSlideToggleChange = (function () {
-    function MdSlideToggleChange() {
+var MatSlideToggleChange = (function () {
+    function MatSlideToggleChange() {
     }
-    return MdSlideToggleChange;
+    return MatSlideToggleChange;
 }());
 /**
  * \@docs-private
  */
-var MdSlideToggleBase = (function () {
+var MatSlideToggleBase = (function () {
     /**
      * @param {?} _renderer
      * @param {?} _elementRef
      */
-    function MdSlideToggleBase(_renderer, _elementRef) {
+    function MatSlideToggleBase(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
     }
-    return MdSlideToggleBase;
+    return MatSlideToggleBase;
 }());
-var _MdSlideToggleMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MdSlideToggleBase)), 'accent'));
+var _MatSlideToggleMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatSlideToggleBase)), 'accent'));
 /**
  * Represents a slidable "switch" toggle that can be moved between on and off.
  */
-var MdSlideToggle = (function (_super) {
-    tslib_1.__extends(MdSlideToggle, _super);
+var MatSlideToggle = (function (_super) {
+    tslib_1.__extends(MatSlideToggle, _super);
     /**
      * @param {?} elementRef
      * @param {?} renderer
@@ -57,14 +57,14 @@ var MdSlideToggle = (function (_super) {
      * @param {?} _changeDetectorRef
      * @param {?} tabIndex
      */
-    function MdSlideToggle(elementRef, renderer, _platform, _focusMonitor, _changeDetectorRef, tabIndex) {
+    function MatSlideToggle(elementRef, renderer, _platform, _focusMonitor, _changeDetectorRef, tabIndex) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._platform = _platform;
         _this._focusMonitor = _focusMonitor;
         _this._changeDetectorRef = _changeDetectorRef;
         _this.onChange = function (_) { };
         _this.onTouched = function () { };
-        _this._uniqueId = "md-slide-toggle-" + ++nextUniqueId;
+        _this._uniqueId = "mat-slide-toggle-" + ++nextUniqueId;
         _this._required = false;
         _this._checked = false;
         /**
@@ -94,7 +94,7 @@ var MdSlideToggle = (function (_super) {
         _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
-    Object.defineProperty(MdSlideToggle.prototype, "required", {
+    Object.defineProperty(MatSlideToggle.prototype, "required", {
         /**
          * Whether the slide-toggle is required.
          * @return {?}
@@ -108,7 +108,7 @@ var MdSlideToggle = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlideToggle.prototype, "checked", {
+    Object.defineProperty(MatSlideToggle.prototype, "checked", {
         /**
          * Whether the slide-toggle element is checked or not
          * @return {?}
@@ -125,7 +125,7 @@ var MdSlideToggle = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdSlideToggle.prototype, "inputId", {
+    Object.defineProperty(MatSlideToggle.prototype, "inputId", {
         /**
          * Returns the unique id for the visual hidden input.
          * @return {?}
@@ -137,7 +137,7 @@ var MdSlideToggle = (function (_super) {
     /**
      * @return {?}
      */
-    MdSlideToggle.prototype.ngAfterContentInit = function () {
+    MatSlideToggle.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._slideRenderer = new SlideToggleRenderer(this._elementRef, this._platform);
         this._focusMonitor
@@ -147,7 +147,7 @@ var MdSlideToggle = (function (_super) {
     /**
      * @return {?}
      */
-    MdSlideToggle.prototype.ngOnDestroy = function () {
+    MatSlideToggle.prototype.ngOnDestroy = function () {
         this._focusMonitor.stopMonitoring(this._inputElement.nativeElement);
     };
     /**
@@ -155,7 +155,7 @@ var MdSlideToggle = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MdSlideToggle.prototype._onChangeEvent = function (event) {
+    MatSlideToggle.prototype._onChangeEvent = function (event) {
         // We always have to stop propagation on the change event.
         // Otherwise the change event, from the input element, will bubble up and
         // emit its event object to the component's `change` output.
@@ -171,7 +171,7 @@ var MdSlideToggle = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MdSlideToggle.prototype._onInputClick = function (event) {
+    MatSlideToggle.prototype._onInputClick = function (event) {
         // In some situations the user will release the mouse on the label element. The label element
         // redirects the click to the underlying input element and will result in a value change.
         // Prevent the default behavior if dragging, because the value will be set after drag.
@@ -192,7 +192,7 @@ var MdSlideToggle = (function (_super) {
      * @param {?} value
      * @return {?}
      */
-    MdSlideToggle.prototype.writeValue = function (value) {
+    MatSlideToggle.prototype.writeValue = function (value) {
         this.checked = !!value;
     };
     /**
@@ -200,7 +200,7 @@ var MdSlideToggle = (function (_super) {
      * @param {?} fn
      * @return {?}
      */
-    MdSlideToggle.prototype.registerOnChange = function (fn) {
+    MatSlideToggle.prototype.registerOnChange = function (fn) {
         this.onChange = fn;
     };
     /**
@@ -208,7 +208,7 @@ var MdSlideToggle = (function (_super) {
      * @param {?} fn
      * @return {?}
      */
-    MdSlideToggle.prototype.registerOnTouched = function (fn) {
+    MatSlideToggle.prototype.registerOnTouched = function (fn) {
         this.onTouched = fn;
     };
     /**
@@ -216,7 +216,7 @@ var MdSlideToggle = (function (_super) {
      * @param {?} isDisabled
      * @return {?}
      */
-    MdSlideToggle.prototype.setDisabledState = function (isDisabled) {
+    MatSlideToggle.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
         this._changeDetectorRef.markForCheck();
     };
@@ -224,14 +224,14 @@ var MdSlideToggle = (function (_super) {
      * Focuses the slide-toggle.
      * @return {?}
      */
-    MdSlideToggle.prototype.focus = function () {
+    MatSlideToggle.prototype.focus = function () {
         this._focusMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
     };
     /**
      * Toggles the checked state of the slide-toggle.
      * @return {?}
      */
-    MdSlideToggle.prototype.toggle = function () {
+    MatSlideToggle.prototype.toggle = function () {
         this.checked = !this.checked;
     };
     /**
@@ -239,7 +239,7 @@ var MdSlideToggle = (function (_super) {
      * @param {?} focusOrigin
      * @return {?}
      */
-    MdSlideToggle.prototype._onInputFocusChange = function (focusOrigin) {
+    MatSlideToggle.prototype._onInputFocusChange = function (focusOrigin) {
         if (!this._focusRipple && focusOrigin === 'keyboard') {
             // For keyboard focus show a persistent ripple as focus indicator.
             this._focusRipple = this._ripple.launch(0, 0, { persistent: true, centered: true });
@@ -257,8 +257,8 @@ var MdSlideToggle = (function (_super) {
      * Emits a change event on the `change` output. Also notifies the FormControl about the change.
      * @return {?}
      */
-    MdSlideToggle.prototype._emitChangeEvent = function () {
-        var /** @type {?} */ event = new MdSlideToggleChange();
+    MatSlideToggle.prototype._emitChangeEvent = function () {
+        var /** @type {?} */ event = new MatSlideToggleChange();
         event.source = this;
         event.checked = this.checked;
         this.change.emit(event);
@@ -267,7 +267,7 @@ var MdSlideToggle = (function (_super) {
     /**
      * @return {?}
      */
-    MdSlideToggle.prototype._onDragStart = function () {
+    MatSlideToggle.prototype._onDragStart = function () {
         if (!this.disabled) {
             this._slideRenderer.startThumbDrag(this.checked);
         }
@@ -276,7 +276,7 @@ var MdSlideToggle = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MdSlideToggle.prototype._onDrag = function (event) {
+    MatSlideToggle.prototype._onDrag = function (event) {
         if (this._slideRenderer.dragging) {
             this._slideRenderer.updateThumbPosition(event.deltaX);
         }
@@ -284,7 +284,7 @@ var MdSlideToggle = (function (_super) {
     /**
      * @return {?}
      */
-    MdSlideToggle.prototype._onDragEnd = function () {
+    MatSlideToggle.prototype._onDragEnd = function () {
         var _this = this;
         if (this._slideRenderer.dragging) {
             var /** @type {?} */ _previousChecked = this.checked;
@@ -301,16 +301,16 @@ var MdSlideToggle = (function (_super) {
      * Method being called whenever the label text changes.
      * @return {?}
      */
-    MdSlideToggle.prototype._onLabelTextChange = function () {
+    MatSlideToggle.prototype._onLabelTextChange = function () {
         // This method is getting called whenever the label of the slide-toggle changes.
         // Since the slide-toggle uses the OnPush strategy we need to notify it about the change
         // that has been recognized by the cdkObserveContent directive.
         this._changeDetectorRef.markForCheck();
     };
-    return MdSlideToggle;
-}(_MdSlideToggleMixinBase));
-MdSlideToggle.decorators = [
-    { type: Component, args: [{ selector: 'md-slide-toggle, mat-slide-toggle',
+    return MatSlideToggle;
+}(_MatSlideToggleMixinBase));
+MatSlideToggle.decorators = [
+    { type: Component, args: [{ selector: 'mat-slide-toggle',
                 host: {
                     'class': 'mat-slide-toggle',
                     '[id]': 'id',
@@ -318,19 +318,19 @@ MdSlideToggle.decorators = [
                     '[class.mat-disabled]': 'disabled',
                     '[class.mat-slide-toggle-label-before]': 'labelPosition == "before"',
                 },
-                template: "<label class=\"mat-slide-toggle-label\" #label><div class=\"mat-slide-toggle-bar\" [class.mat-slide-toggle-bar-no-side-margin]=\"!labelContent.textContent || !labelContent.textContent.trim()\"><input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-slide-toggle-thumb-container\" (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"><div class=\"mat-slide-toggle-thumb\"></div><div class=\"mat-slide-toggle-ripple\" md-ripple [mdRippleTrigger]=\"label\" [mdRippleCentered]=\"true\" [mdRippleDisabled]=\"disableRipple || disabled\"></div></div></div><span class=\"mat-slide-toggle-content\" #labelContent (cdkObserveContent)=\"_onLabelTextChange()\"><ng-content></ng-content></span></label>",
+                template: "<label class=\"mat-slide-toggle-label\" #label><div class=\"mat-slide-toggle-bar\" [class.mat-slide-toggle-bar-no-side-margin]=\"!labelContent.textContent || !labelContent.textContent.trim()\"><input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-slide-toggle-thumb-container\" (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"><div class=\"mat-slide-toggle-thumb\"></div><div class=\"mat-slide-toggle-ripple\" mat-ripple [matRippleTrigger]=\"label\" [matRippleCentered]=\"true\" [matRippleDisabled]=\"disableRipple || disabled\"></div></div></div><span class=\"mat-slide-toggle-content\" #labelContent (cdkObserveContent)=\"_onLabelTextChange()\"><ng-content></ng-content></span></label>",
                 styles: [".mat-slide-toggle{display:inline-block;height:24px;line-height:24px;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(16px,0,0)}.mat-slide-toggle.mat-disabled .mat-slide-toggle-label,.mat-slide-toggle.mat-disabled .mat-slide-toggle-thumb-container{cursor:default}.mat-slide-toggle-label{display:flex;flex:1;flex-direction:row;align-items:center;cursor:pointer}.mat-slide-toggle-label-before .mat-slide-toggle-label{order:1}.mat-slide-toggle-label-before .mat-slide-toggle-bar{order:2}.mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar{margin-right:8px;margin-left:0}.mat-slide-toggle-label-before .mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-bar{margin-left:8px;margin-right:0}.mat-slide-toggle-bar-no-side-margin{margin-left:0;margin-right:0}.mat-slide-toggle-thumb-container{position:absolute;z-index:1;width:20px;height:20px;top:-3px;left:0;transform:translate3d(0,0,0);transition:all 80ms linear;transition-property:transform;cursor:-webkit-grab;cursor:grab}.mat-slide-toggle-thumb-container.mat-dragging,.mat-slide-toggle-thumb-container:active{cursor:-webkit-grabbing;cursor:grabbing;transition-duration:0s}.mat-slide-toggle-thumb{height:20px;width:20px;border-radius:50%;box-shadow:0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-thumb{background:#fff;border:solid 1px #000}}.mat-slide-toggle-bar{position:relative;width:36px;height:14px;border-radius:8px}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-bar{background:#fff}}.mat-slide-toggle-input{bottom:0;left:10px}.mat-slide-toggle-bar,.mat-slide-toggle-thumb{transition:all 80ms linear;transition-property:background-color;transition-delay:50ms}.mat-slide-toggle-ripple{position:absolute;top:-13px;left:-13px;height:46px;width:46px;border-radius:50%;z-index:1;pointer-events:none}"],
-                providers: [MD_SLIDE_TOGGLE_VALUE_ACCESSOR],
+                providers: [MAT_SLIDE_TOGGLE_VALUE_ACCESSOR],
                 inputs: ['disabled', 'disableRipple', 'color', 'tabIndex'],
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
-                changeDetection: ChangeDetectionStrategy.OnPush
+                changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
 /**
  * @nocollapse
  */
-MdSlideToggle.ctorParameters = function () { return [
+MatSlideToggle.ctorParameters = function () { return [
     { type: ElementRef, },
     { type: Renderer2, },
     { type: Platform, },
@@ -338,7 +338,7 @@ MdSlideToggle.ctorParameters = function () { return [
     { type: ChangeDetectorRef, },
     { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
 ]; };
-MdSlideToggle.propDecorators = {
+MatSlideToggle.propDecorators = {
     'name': [{ type: Input },],
     'id': [{ type: Input },],
     'labelPosition': [{ type: Input },],
@@ -348,7 +348,7 @@ MdSlideToggle.propDecorators = {
     'checked': [{ type: Input },],
     'change': [{ type: Output },],
     '_inputElement': [{ type: ViewChild, args: ['input',] },],
-    '_ripple': [{ type: ViewChild, args: [MdRipple,] },],
+    '_ripple': [{ type: ViewChild, args: [MatRipple,] },],
 };
 /**
  * Renderer for the Slide Toggle component, which separates DOM modification in its own class
@@ -424,16 +424,16 @@ var SlideToggleRenderer = (function () {
     };
     return SlideToggleRenderer;
 }());
-var MdSlideToggleModule = (function () {
-    function MdSlideToggleModule() {
+var MatSlideToggleModule = (function () {
+    function MatSlideToggleModule() {
     }
-    return MdSlideToggleModule;
+    return MatSlideToggleModule;
 }());
-MdSlideToggleModule.decorators = [
+MatSlideToggleModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MdRippleModule, MdCommonModule, PlatformModule, ObserversModule, A11yModule],
-                exports: [MdSlideToggle, MdCommonModule],
-                declarations: [MdSlideToggle],
+                imports: [MatRippleModule, MatCommonModule, PlatformModule, ObserversModule, A11yModule],
+                exports: [MatSlideToggle, MatCommonModule],
+                declarations: [MatSlideToggle],
                 providers: [
                     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
                 ],
@@ -442,9 +442,9 @@ MdSlideToggleModule.decorators = [
 /**
  * @nocollapse
  */
-MdSlideToggleModule.ctorParameters = function () { return []; };
+MatSlideToggleModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdSlideToggleModule, MD_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggleChange, MdSlideToggleBase, _MdSlideToggleMixinBase, MdSlideToggle, MD_SLIDE_TOGGLE_VALUE_ACCESSOR as MAT_SLIDE_TOGGLE_VALUE_ACCESSOR, MdSlideToggle as MatSlideToggle, MdSlideToggleBase as MatSlideToggleBase, MdSlideToggleChange as MatSlideToggleChange, MdSlideToggleModule as MatSlideToggleModule };
+export { MatSlideToggleModule, MAT_SLIDE_TOGGLE_VALUE_ACCESSOR, MatSlideToggleChange, MatSlideToggleBase, _MatSlideToggleMixinBase, MatSlideToggle };
 //# sourceMappingURL=slide-toggle.es5.js.map

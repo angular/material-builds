@@ -6,13 +6,13 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AfterContentInit, EventEmitter } from '@angular/core';
-import { DateAdapter, MdDateFormats } from '@angular/material/core';
-import { MdCalendarCell } from './calendar-body';
+import { DateAdapter, MatDateFormats } from '@angular/material/core';
+import { MatCalendarCell } from './calendar-body';
 /**
  * An internal component used to display a single month in the datepicker.
  * @docs-private
  */
-export declare class MdMonthView<D> implements AfterContentInit {
+export declare class MatMonthView<D> implements AfterContentInit {
     _dateAdapter: DateAdapter<D>;
     private _dateFormats;
     /**
@@ -32,7 +32,7 @@ export declare class MdMonthView<D> implements AfterContentInit {
     /** The label for this month (e.g. "January 2017"). */
     _monthLabel: string;
     /** Grid of calendar cells representing the dates of the month. */
-    _weeks: MdCalendarCell[][];
+    _weeks: MatCalendarCell[][];
     /** The number of blank cells in the first row before the 1st of the month. */
     _firstWeekOffset: number;
     /**
@@ -47,13 +47,13 @@ export declare class MdMonthView<D> implements AfterContentInit {
         long: string;
         narrow: string;
     }[];
-    constructor(_dateAdapter: DateAdapter<D>, _dateFormats: MdDateFormats);
+    constructor(_dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats);
     ngAfterContentInit(): void;
     /** Handles when a new date is selected. */
     _dateSelected(date: number): void;
     /** Initializes this month view. */
     private _init();
-    /** Creates MdCalendarCells for the dates in this month. */
+    /** Creates MatCalendarCells for the dates in this month. */
     private _createWeekCells();
     /**
      * Gets the date in this month that the given Date falls on.

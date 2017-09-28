@@ -10,7 +10,7 @@ import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Renderer2, ViewContainerRef, ViewEncapsulation } from '@angular/core';
-import { MdCommonModule } from '@angular/material/core';
+import { MatCommonModule } from '@angular/material/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -36,28 +36,28 @@ var TOOLTIP_PANEL_CLASS = 'mat-tooltip-panel';
  * @param {?} position
  * @return {?}
  */
-function getMdTooltipInvalidPositionError(position) {
+function getMatTooltipInvalidPositionError(position) {
     return Error("Tooltip position \"" + position + "\" is invalid.");
 }
 /**
  * Injection token that determines the scroll handling while a tooltip is visible.
  */
-var MD_TOOLTIP_SCROLL_STRATEGY = new InjectionToken('md-tooltip-scroll-strategy');
+var MAT_TOOLTIP_SCROLL_STRATEGY = new InjectionToken('mat-tooltip-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
  * @return {?}
  */
-function MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
+function MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
     return function () { return overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }); };
 }
 /**
  * \@docs-private
  */
-var MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
-    provide: MD_TOOLTIP_SCROLL_STRATEGY,
+var MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
+    provide: MAT_TOOLTIP_SCROLL_STRATEGY,
     deps: [Overlay],
-    useFactory: MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY
+    useFactory: MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY
 };
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
@@ -65,7 +65,7 @@ var MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
  *
  * https://material.google.com/components/tooltips.html
  */
-var MdTooltip = (function () {
+var MatTooltip = (function () {
     /**
      * @param {?} renderer
      * @param {?} _overlay
@@ -78,7 +78,7 @@ var MdTooltip = (function () {
      * @param {?} _scrollStrategy
      * @param {?} _dir
      */
-    function MdTooltip(renderer, _overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _scrollStrategy, _dir) {
+    function MatTooltip(renderer, _overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _scrollStrategy, _dir) {
         var _this = this;
         this._overlay = _overlay;
         this._elementRef = _elementRef;
@@ -109,7 +109,7 @@ var MdTooltip = (function () {
                 renderer.listen(_elementRef.nativeElement, 'mouseleave', function () { return _this.hide(); });
         }
     }
-    Object.defineProperty(MdTooltip.prototype, "position", {
+    Object.defineProperty(MatTooltip.prototype, "position", {
         /**
          * Allows the user to define the position of the tooltip relative to the parent element
          * @return {?}
@@ -132,7 +132,7 @@ var MdTooltip = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdTooltip.prototype, "disabled", {
+    Object.defineProperty(MatTooltip.prototype, "disabled", {
         /**
          * Disables the display of the tooltip.
          * @return {?}
@@ -152,7 +152,7 @@ var MdTooltip = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdTooltip.prototype, "_positionDeprecated", {
+    Object.defineProperty(MatTooltip.prototype, "_positionDeprecated", {
         /**
          * @deprecated
          * @return {?}
@@ -166,7 +166,7 @@ var MdTooltip = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdTooltip.prototype, "message", {
+    Object.defineProperty(MatTooltip.prototype, "message", {
         /**
          * The message to be displayed in the tooltip
          * @return {?}
@@ -186,7 +186,7 @@ var MdTooltip = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdTooltip.prototype, "tooltipClass", {
+    Object.defineProperty(MatTooltip.prototype, "tooltipClass", {
         /**
          * Classes to be passed to the tooltip. Supports the same syntax as `ngClass`.
          * @return {?}
@@ -205,103 +205,11 @@ var MdTooltip = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdTooltip.prototype, "_deprecatedMessage", {
-        /**
-         * @deprecated
-         * @return {?}
-         */
-        get: function () { return this.message; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.message = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdTooltip.prototype, "_matMessage", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.message; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.message = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdTooltip.prototype, "_matPosition", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.position; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.position = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdTooltip.prototype, "_matDisabled", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.disabled; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.disabled = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdTooltip.prototype, "_matHideDelay", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.hideDelay; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.hideDelay = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdTooltip.prototype, "_matShowDelay", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.showDelay; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.showDelay = v; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MdTooltip.prototype, "_matClass", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.tooltipClass; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.tooltipClass = v; },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * Dispose the tooltip when destroyed.
      * @return {?}
      */
-    MdTooltip.prototype.ngOnDestroy = function () {
+    MatTooltip.prototype.ngOnDestroy = function () {
         if (this._tooltipInstance) {
             this._disposeTooltip();
         }
@@ -317,7 +225,7 @@ var MdTooltip = (function () {
      * @param {?=} delay
      * @return {?}
      */
-    MdTooltip.prototype.show = function (delay) {
+    MatTooltip.prototype.show = function (delay) {
         if (delay === void 0) { delay = this.showDelay; }
         if (this.disabled || !this.message) {
             return;
@@ -334,7 +242,7 @@ var MdTooltip = (function () {
      * @param {?=} delay
      * @return {?}
      */
-    MdTooltip.prototype.hide = function (delay) {
+    MatTooltip.prototype.hide = function (delay) {
         if (delay === void 0) { delay = this.hideDelay; }
         if (this._tooltipInstance) {
             this._tooltipInstance.hide(delay);
@@ -344,14 +252,14 @@ var MdTooltip = (function () {
      * Shows/hides the tooltip
      * @return {?}
      */
-    MdTooltip.prototype.toggle = function () {
+    MatTooltip.prototype.toggle = function () {
         this._isTooltipVisible() ? this.hide() : this.show();
     };
     /**
      * Returns true if the tooltip is currently visible to the user
      * @return {?}
      */
-    MdTooltip.prototype._isTooltipVisible = function () {
+    MatTooltip.prototype._isTooltipVisible = function () {
         return !!this._tooltipInstance && this._tooltipInstance.isVisible();
     };
     /**
@@ -359,7 +267,7 @@ var MdTooltip = (function () {
      * @param {?} e
      * @return {?}
      */
-    MdTooltip.prototype._handleKeydown = function (e) {
+    MatTooltip.prototype._handleKeydown = function (e) {
         if (this._isTooltipVisible() && e.keyCode === ESCAPE) {
             e.stopPropagation();
             this.hide(0);
@@ -369,7 +277,7 @@ var MdTooltip = (function () {
      * Create the tooltip to display
      * @return {?}
      */
-    MdTooltip.prototype._createTooltip = function () {
+    MatTooltip.prototype._createTooltip = function () {
         var _this = this;
         var /** @type {?} */ overlayRef = this._createOverlay();
         var /** @type {?} */ portal = new ComponentPortal(TooltipComponent, this._viewContainerRef);
@@ -387,7 +295,7 @@ var MdTooltip = (function () {
      * Create the overlay config and position strategy
      * @return {?}
      */
-    MdTooltip.prototype._createOverlay = function () {
+    MatTooltip.prototype._createOverlay = function () {
         var _this = this;
         var /** @type {?} */ origin = this._getOrigin();
         var /** @type {?} */ position = this._getOverlayPosition();
@@ -415,7 +323,7 @@ var MdTooltip = (function () {
      * Disposes the current tooltip and the overlay it is attached to
      * @return {?}
      */
-    MdTooltip.prototype._disposeTooltip = function () {
+    MatTooltip.prototype._disposeTooltip = function () {
         if (this._overlayRef) {
             this._overlayRef.dispose();
             this._overlayRef = null;
@@ -426,7 +334,7 @@ var MdTooltip = (function () {
      * Returns the origin position based on the user's position preference
      * @return {?}
      */
-    MdTooltip.prototype._getOrigin = function () {
+    MatTooltip.prototype._getOrigin = function () {
         if (this.position == 'above' || this.position == 'below') {
             return { originX: 'center', originY: this.position == 'above' ? 'top' : 'bottom' };
         }
@@ -441,13 +349,13 @@ var MdTooltip = (function () {
             this.position == 'before' && !isDirectionLtr) {
             return { originX: 'end', originY: 'center' };
         }
-        throw getMdTooltipInvalidPositionError(this.position);
+        throw getMatTooltipInvalidPositionError(this.position);
     };
     /**
      * Returns the overlay position based on the user's preference
      * @return {?}
      */
-    MdTooltip.prototype._getOverlayPosition = function () {
+    MatTooltip.prototype._getOverlayPosition = function () {
         if (this.position == 'above') {
             return { overlayX: 'center', overlayY: 'bottom' };
         }
@@ -465,13 +373,13 @@ var MdTooltip = (function () {
             this.position == 'before' && !isLtr) {
             return { overlayX: 'start', overlayY: 'center' };
         }
-        throw getMdTooltipInvalidPositionError(this.position);
+        throw getMatTooltipInvalidPositionError(this.position);
     };
     /**
      * Updates the tooltip message and repositions the overlay according to the new message length
      * @return {?}
      */
-    MdTooltip.prototype._updateTooltipMessage = function () {
+    MatTooltip.prototype._updateTooltipMessage = function () {
         var _this = this;
         // Must wait for the message to be painted to the tooltip so that the overlay can properly
         // calculate the correct positioning based on the size of the text.
@@ -490,17 +398,17 @@ var MdTooltip = (function () {
      * @param {?} tooltipClass
      * @return {?}
      */
-    MdTooltip.prototype._setTooltipClass = function (tooltipClass) {
+    MatTooltip.prototype._setTooltipClass = function (tooltipClass) {
         if (this._tooltipInstance) {
             this._tooltipInstance.tooltipClass = tooltipClass;
             this._tooltipInstance._markForCheck();
         }
     };
-    return MdTooltip;
+    return MatTooltip;
 }());
-MdTooltip.decorators = [
+MatTooltip.decorators = [
     { type: Directive, args: [{
-                selector: '[md-tooltip], [mdTooltip], [mat-tooltip], [matTooltip]',
+                selector: '[mat-tooltip], [matTooltip]',
                 host: {
                     '(longpress)': 'show()',
                     '(focus)': 'show()',
@@ -508,13 +416,13 @@ MdTooltip.decorators = [
                     '(keydown)': '_handleKeydown($event)',
                     '(touchend)': 'hide(' + TOUCHEND_HIDE_DELAY + ')',
                 },
-                exportAs: 'mdTooltip, matTooltip',
+                exportAs: 'matTooltip',
             },] },
 ];
 /**
  * @nocollapse
  */
-MdTooltip.ctorParameters = function () { return [
+MatTooltip.ctorParameters = function () { return [
     { type: Renderer2, },
     { type: Overlay, },
     { type: ElementRef, },
@@ -523,24 +431,17 @@ MdTooltip.ctorParameters = function () { return [
     { type: NgZone, },
     { type: Platform, },
     { type: AriaDescriber, },
-    { type: undefined, decorators: [{ type: Inject, args: [MD_TOOLTIP_SCROLL_STRATEGY,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_TOOLTIP_SCROLL_STRATEGY,] },] },
     { type: Directionality, decorators: [{ type: Optional },] },
 ]; };
-MdTooltip.propDecorators = {
-    'position': [{ type: Input, args: ['mdTooltipPosition',] },],
-    'disabled': [{ type: Input, args: ['mdTooltipDisabled',] },],
+MatTooltip.propDecorators = {
+    'position': [{ type: Input, args: ['matTooltipPosition',] },],
+    'disabled': [{ type: Input, args: ['matTooltipDisabled',] },],
     '_positionDeprecated': [{ type: Input, args: ['tooltip-position',] },],
-    'showDelay': [{ type: Input, args: ['mdTooltipShowDelay',] },],
-    'hideDelay': [{ type: Input, args: ['mdTooltipHideDelay',] },],
-    'message': [{ type: Input, args: ['mdTooltip',] },],
-    'tooltipClass': [{ type: Input, args: ['mdTooltipClass',] },],
-    '_deprecatedMessage': [{ type: Input, args: ['md-tooltip',] },],
-    '_matMessage': [{ type: Input, args: ['matTooltip',] },],
-    '_matPosition': [{ type: Input, args: ['matTooltipPosition',] },],
-    '_matDisabled': [{ type: Input, args: ['matTooltipDisabled',] },],
-    '_matHideDelay': [{ type: Input, args: ['matTooltipHideDelay',] },],
-    '_matShowDelay': [{ type: Input, args: ['matTooltipShowDelay',] },],
-    '_matClass': [{ type: Input, args: ['matTooltipClass',] },],
+    'showDelay': [{ type: Input, args: ['matTooltipShowDelay',] },],
+    'hideDelay': [{ type: Input, args: ['matTooltipHideDelay',] },],
+    'message': [{ type: Input, args: ['matTooltip',] },],
+    'tooltipClass': [{ type: Input, args: ['matTooltipClass',] },],
 };
 /**
  * Internal component that wraps the tooltip's content.
@@ -649,7 +550,7 @@ var TooltipComponent = (function () {
             case 'below':
                 this._transformOrigin = 'top';
                 break;
-            default: throw getMdTooltipInvalidPositionError(value);
+            default: throw getMatTooltipInvalidPositionError(value);
         }
     };
     /**
@@ -698,7 +599,7 @@ var TooltipComponent = (function () {
     return TooltipComponent;
 }());
 TooltipComponent.decorators = [
-    { type: Component, args: [{ selector: 'md-tooltip-component, mat-tooltip-component',
+    { type: Component, args: [{ selector: 'mat-tooltip-component',
                 template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.start)=\"_animationStart()\" (@state.done)=\"_animationDone($event)\">{{message}}</div>",
                 styles: [".mat-tooltip-panel{pointer-events:none!important}.mat-tooltip{color:#fff;border-radius:2px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}"],
                 encapsulation: ViewEncapsulation.None,
@@ -728,32 +629,32 @@ TooltipComponent.ctorParameters = function () { return [
     { type: Directionality, decorators: [{ type: Optional },] },
     { type: ChangeDetectorRef, },
 ]; };
-var MdTooltipModule = (function () {
-    function MdTooltipModule() {
+var MatTooltipModule = (function () {
+    function MatTooltipModule() {
     }
-    return MdTooltipModule;
+    return MatTooltipModule;
 }());
-MdTooltipModule.decorators = [
+MatTooltipModule.decorators = [
     { type: NgModule, args: [{
                 imports: [
                     CommonModule,
                     OverlayModule,
-                    MdCommonModule,
+                    MatCommonModule,
                     PlatformModule,
                     A11yModule,
                 ],
-                exports: [MdTooltip, TooltipComponent, MdCommonModule],
-                declarations: [MdTooltip, TooltipComponent],
+                exports: [MatTooltip, TooltipComponent, MatCommonModule],
+                declarations: [MatTooltip, TooltipComponent],
                 entryComponents: [TooltipComponent],
-                providers: [MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER, ARIA_DESCRIBER_PROVIDER],
+                providers: [MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER, ARIA_DESCRIBER_PROVIDER],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdTooltipModule.ctorParameters = function () { return []; };
+MatTooltipModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMdTooltipInvalidPositionError, MD_TOOLTIP_SCROLL_STRATEGY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MdTooltip, TooltipComponent, MdTooltip as MatTooltip, MdTooltipModule as MatTooltipModule, MD_TOOLTIP_SCROLL_STRATEGY as MAT_TOOLTIP_SCROLL_STRATEGY, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER as MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MD_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY as MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY };
+export { MatTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMatTooltipInvalidPositionError, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MatTooltip, TooltipComponent };
 //# sourceMappingURL=tooltip.es5.js.map

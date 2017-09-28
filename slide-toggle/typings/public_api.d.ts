@@ -7,4 +7,3 @@
  */
 export * from './slide-toggle-module';
 export * from './slide-toggle';
-export * from './mat-exports';

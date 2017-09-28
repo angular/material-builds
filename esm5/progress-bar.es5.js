@@ -7,12 +7,12 @@
  */
 import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MdCommonModule } from '@angular/material/core';
+import { MatCommonModule } from '@angular/material/core';
 /**
- * <md-progress-bar> component.
+ * <mat-progress-bar> component.
  */
-var MdProgressBar = (function () {
-    function MdProgressBar() {
+var MatProgressBar = (function () {
+    function MatProgressBar() {
         /**
          * Color of the progress bar.
          */
@@ -28,7 +28,7 @@ var MdProgressBar = (function () {
          */
         this.mode = 'determinate';
     }
-    Object.defineProperty(MdProgressBar.prototype, "value", {
+    Object.defineProperty(MatProgressBar.prototype, "value", {
         /**
          * Value of the progressbar. Defaults to zero. Mirrored to aria-valuenow.
          * @return {?}
@@ -42,7 +42,7 @@ var MdProgressBar = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MdProgressBar.prototype, "bufferValue", {
+    Object.defineProperty(MatProgressBar.prototype, "bufferValue", {
         /**
          * Buffer value of the progress bar. Defaults to zero.
          * @return {?}
@@ -60,7 +60,7 @@ var MdProgressBar = (function () {
      * Gets the current transform value for the progress bar's primary indicator.
      * @return {?}
      */
-    MdProgressBar.prototype._primaryTransform = function () {
+    MatProgressBar.prototype._primaryTransform = function () {
         var /** @type {?} */ scale = this.value / 100;
         return { transform: "scaleX(" + scale + ")" };
     };
@@ -69,16 +69,16 @@ var MdProgressBar = (function () {
      * progress mode is set to buffer, otherwise returns an undefined, causing no transformation.
      * @return {?}
      */
-    MdProgressBar.prototype._bufferTransform = function () {
+    MatProgressBar.prototype._bufferTransform = function () {
         if (this.mode == 'buffer') {
             var /** @type {?} */ scale = this.bufferValue / 100;
             return { transform: "scaleX(" + scale + ")" };
         }
     };
-    return MdProgressBar;
+    return MatProgressBar;
 }());
-MdProgressBar.decorators = [
-    { type: Component, args: [{ selector: 'md-progress-bar, mat-progress-bar',
+MatProgressBar.decorators = [
+    { type: Component, args: [{ selector: 'mat-progress-bar',
                 host: {
                     'role': 'progressbar',
                     'aria-valuemin': '0',
@@ -100,8 +100,8 @@ MdProgressBar.decorators = [
 /**
  * @nocollapse
  */
-MdProgressBar.ctorParameters = function () { return []; };
-MdProgressBar.propDecorators = {
+MatProgressBar.ctorParameters = function () { return []; };
+MatProgressBar.propDecorators = {
     'color': [{ type: Input },],
     'value': [{ type: Input },],
     'bufferValue': [{ type: Input },],
@@ -119,24 +119,24 @@ function clamp(v, min, max) {
     if (max === void 0) { max = 100; }
     return Math.max(min, Math.min(max, v));
 }
-var MdProgressBarModule = (function () {
-    function MdProgressBarModule() {
+var MatProgressBarModule = (function () {
+    function MatProgressBarModule() {
     }
-    return MdProgressBarModule;
+    return MatProgressBarModule;
 }());
-MdProgressBarModule.decorators = [
+MatProgressBarModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CommonModule, MdCommonModule],
-                exports: [MdProgressBar, MdCommonModule],
-                declarations: [MdProgressBar],
+                imports: [CommonModule, MatCommonModule],
+                exports: [MatProgressBar, MatCommonModule],
+                declarations: [MatProgressBar],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdProgressBarModule.ctorParameters = function () { return []; };
+MatProgressBarModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { MdProgressBarModule, MdProgressBar, MdProgressBar as MatProgressBar, MdProgressBarModule as MatProgressBarModule };
+export { MatProgressBarModule, MatProgressBar };
 //# sourceMappingURL=progress-bar.es5.js.map

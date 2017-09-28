@@ -7,33 +7,35 @@
  */
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, Optional, Output, Renderer2, ViewEncapsulation, forwardRef } from '@angular/core';
-import { MATERIAL_COMPATIBILITY_MODE, MdCommonModule, MdLine, MdLineModule, MdLineSetter, MdPseudoCheckboxModule, MdRippleModule, RxChain, SPACE, mixinDisableRipple, mixinDisabled, startWith, switchMap } from '@angular/material/core';
+import { MatCommonModule, MatLine, MatLineModule, MatLineSetter, MatPseudoCheckboxModule, MatRippleModule, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
+import { SPACE } from '@angular/cdk/keycodes';
+import { RxChain, startWith, switchMap } from '@angular/cdk/rxjs';
 import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
 
 /**
  * \@docs-private
  */
-class MdListBase {
+class MatListBase {
 }
-const _MdListMixinBase = mixinDisableRipple(MdListBase);
+const _MatListMixinBase = mixinDisableRipple(MatListBase);
 /**
  * \@docs-private
  */
-class MdListItemBase {
+class MatListItemBase {
 }
-const _MdListItemMixinBase = mixinDisableRipple(MdListItemBase);
+const _MatListItemMixinBase = mixinDisableRipple(MatListItemBase);
 /**
  * Divider between items within a list.
  */
-class MdListDivider {
+class MatListDivider {
 }
-MdListDivider.decorators = [
+MatListDivider.decorators = [
     { type: Directive, args: [{
-                selector: 'md-divider, mat-divider',
+                selector: 'mat-divider',
                 host: {
                     'role': 'separator',
                     'aria-orientation': 'horizontal'
@@ -43,14 +45,14 @@ MdListDivider.decorators = [
 /**
  * @nocollapse
  */
-MdListDivider.ctorParameters = () => [];
+MatListDivider.ctorParameters = () => [];
 /**
  * A Material Design list component.
  */
-class MdList extends _MdListMixinBase {
+class MatList extends _MatListMixinBase {
 }
-MdList.decorators = [
-    { type: Component, args: [{selector: 'md-list, mat-list, md-nav-list, mat-nav-list',
+MatList.decorators = [
+    { type: Component, args: [{selector: 'mat-list, mat-nav-list',
                 host: { 'role': 'list' },
                 template: '<ng-content></ng-content>',
                 styles: [".mat-subheader{display:block;box-sizing:border-box;padding:16px}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{margin:0}.mat-list,.mat-nav-list,.mat-selection-list{padding-top:8px;display:block}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{height:48px;line-height:16px}.mat-list .mat-subheader:first-child,.mat-nav-list .mat-subheader:first-child,.mat-selection-list .mat-subheader:first-child{margin-top:-8px}.mat-list .mat-list-item,.mat-nav-list .mat-list-item,.mat-selection-list .mat-list-item{display:block}.mat-list .mat-list-item .mat-list-item-content,.mat-nav-list .mat-list-item .mat-list-item-content,.mat-selection-list .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:48px;padding:0 16px;position:relative}.mat-list .mat-list-item .mat-list-item-content-reverse,.mat-nav-list .mat-list-item .mat-list-item-content-reverse,.mat-selection-list .mat-list-item .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list .mat-list-item .mat-list-item-ripple,.mat-nav-list .mat-list-item .mat-list-item-ripple,.mat-selection-list .mat-list-item .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-selection-list .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:56px}.mat-list .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-2-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-2-line .mat-list-item-content{height:72px}.mat-list .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-3-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-3-line .mat-list-item-content{height:88px}.mat-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list .mat-list-item .mat-list-text,.mat-nav-list .mat-list-item .mat-list-text,.mat-selection-list .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-item .mat-list-text>*,.mat-nav-list .mat-list-item .mat-list-text>*,.mat-selection-list .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-item .mat-list-text:empty,.mat-nav-list .mat-list-item .mat-list-text:empty,.mat-selection-list .mat-list-item .mat-list-text:empty{display:none}.mat-list .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list .mat-list-item .mat-list-text:nth-child(2),.mat-selection-list .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list .mat-list-item .mat-list-avatar,.mat-nav-list .mat-list-item .mat-list-avatar,.mat-selection-list .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-item .mat-list-icon,.mat-nav-list .mat-list-item .mat-list-icon,.mat-selection-list .mat-list-item .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list .mat-list-option,.mat-nav-list .mat-list-option,.mat-selection-list .mat-list-option{display:block}.mat-list .mat-list-option .mat-list-item-content,.mat-nav-list .mat-list-option .mat-list-item-content,.mat-selection-list .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:48px;padding:0 16px;position:relative}.mat-list .mat-list-option .mat-list-item-content-reverse,.mat-nav-list .mat-list-option .mat-list-item-content-reverse,.mat-selection-list .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list .mat-list-option .mat-list-item-ripple,.mat-nav-list .mat-list-option .mat-list-item-ripple,.mat-selection-list .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-nav-list .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-selection-list .mat-list-option.mat-list-item-avatar .mat-list-item-content{height:56px}.mat-list .mat-list-option.mat-2-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-2-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-2-line .mat-list-item-content{height:72px}.mat-list .mat-list-option.mat-3-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-3-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-3-line .mat-list-item-content{height:88px}.mat-list .mat-list-option.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-multi-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list .mat-list-option .mat-list-text,.mat-nav-list .mat-list-option .mat-list-text,.mat-selection-list .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-option .mat-list-text>*,.mat-nav-list .mat-list-option .mat-list-text>*,.mat-selection-list .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-option .mat-list-text:empty,.mat-nav-list .mat-list-option .mat-list-text:empty,.mat-selection-list .mat-list-option .mat-list-text:empty{display:none}.mat-list .mat-list-option .mat-list-text:nth-child(2),.mat-nav-list .mat-list-option .mat-list-text:nth-child(2),.mat-selection-list .mat-list-option .mat-list-text:nth-child(2){padding:0}.mat-list .mat-list-option .mat-list-avatar,.mat-nav-list .mat-list-option .mat-list-avatar,.mat-selection-list .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-option .mat-list-icon,.mat-nav-list .mat-list-option .mat-list-icon,.mat-selection-list .mat-list-option .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense],.mat-nav-list[dense],.mat-selection-list[dense]{padding-top:4px;display:block}.mat-list[dense] .mat-subheader,.mat-nav-list[dense] .mat-subheader,.mat-selection-list[dense] .mat-subheader{height:40px;line-height:8px}.mat-list[dense] .mat-subheader:first-child,.mat-nav-list[dense] .mat-subheader:first-child,.mat-selection-list[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list[dense] .mat-list-item,.mat-nav-list[dense] .mat-list-item,.mat-selection-list[dense] .mat-list-item{display:block}.mat-list[dense] .mat-list-item .mat-list-item-content,.mat-nav-list[dense] .mat-list-item .mat-list-item-content,.mat-selection-list[dense] .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:40px;padding:0 16px;position:relative}.mat-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-item .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list[dense] .mat-list-item .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-item .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-item .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:48px}.mat-list[dense] .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-2-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-2-line .mat-list-item-content{height:60px}.mat-list[dense] .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-3-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-3-line .mat-list-item-content{height:76px}.mat-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-item .mat-list-text,.mat-nav-list[dense] .mat-list-item .mat-list-text,.mat-selection-list[dense] .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-item .mat-list-text>*,.mat-nav-list[dense] .mat-list-item .mat-list-text>*,.mat-selection-list[dense] .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-item .mat-list-text:empty,.mat-nav-list[dense] .mat-list-item .mat-list-text:empty,.mat-selection-list[dense] .mat-list-item .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-selection-list[dense] .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list[dense] .mat-list-item .mat-list-avatar,.mat-nav-list[dense] .mat-list-item .mat-list-avatar,.mat-selection-list[dense] .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-item .mat-list-icon,.mat-nav-list[dense] .mat-list-item .mat-list-icon,.mat-selection-list[dense] .mat-list-item .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense] .mat-list-option,.mat-nav-list[dense] .mat-list-option,.mat-selection-list[dense] .mat-list-option{display:block}.mat-list[dense] .mat-list-option .mat-list-item-content,.mat-nav-list[dense] .mat-list-option .mat-list-item-content,.mat-selection-list[dense] .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:40px;padding:0 16px;position:relative}.mat-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list[dense] .mat-list-option .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-option .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list[dense] .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-list-item-avatar .mat-list-item-content{height:48px}.mat-list[dense] .mat-list-option.mat-2-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-2-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-2-line .mat-list-item-content{height:60px}.mat-list[dense] .mat-list-option.mat-3-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-3-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-3-line .mat-list-item-content{height:76px}.mat-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-option .mat-list-text,.mat-nav-list[dense] .mat-list-option .mat-list-text,.mat-selection-list[dense] .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-option .mat-list-text>*,.mat-nav-list[dense] .mat-list-option .mat-list-text>*,.mat-selection-list[dense] .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-option .mat-list-text:empty,.mat-nav-list[dense] .mat-list-option .mat-list-text:empty,.mat-selection-list[dense] .mat-list-option .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-option .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-option .mat-list-text:nth-child(2),.mat-selection-list[dense] .mat-list-option .mat-list-text:nth-child(2){padding:0}.mat-list[dense] .mat-list-option .mat-list-avatar,.mat-nav-list[dense] .mat-list-option .mat-list-avatar,.mat-selection-list[dense] .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-option .mat-list-icon,.mat-nav-list[dense] .mat-list-option .mat-list-icon,.mat-selection-list[dense] .mat-list-option .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-divider{display:block;border-top-style:solid;border-top-width:1px;margin:0}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item-content{cursor:pointer}.mat-nav-list .mat-list-item-content.mat-list-item-focus,.mat-nav-list .mat-list-item-content:hover{outline:0}.mat-list-option:not([disabled]){cursor:pointer}"],
@@ -63,107 +65,107 @@ MdList.decorators = [
 /**
  * @nocollapse
  */
-MdList.ctorParameters = () => [];
+MatList.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-class MdListCssMatStyler {
+class MatListCssMatStyler {
 }
-MdListCssMatStyler.decorators = [
+MatListCssMatStyler.decorators = [
     { type: Directive, args: [{
-                selector: 'md-list, mat-list',
+                selector: 'mat-list',
                 host: { 'class': 'mat-list' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdListCssMatStyler.ctorParameters = () => [];
+MatListCssMatStyler.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-class MdNavListCssMatStyler {
+class MatNavListCssMatStyler {
 }
-MdNavListCssMatStyler.decorators = [
+MatNavListCssMatStyler.decorators = [
     { type: Directive, args: [{
-                selector: 'md-nav-list, mat-nav-list',
+                selector: 'mat-nav-list',
                 host: { 'class': 'mat-nav-list' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdNavListCssMatStyler.ctorParameters = () => [];
+MatNavListCssMatStyler.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-class MdDividerCssMatStyler {
+class MatDividerCssMatStyler {
 }
-MdDividerCssMatStyler.decorators = [
+MatDividerCssMatStyler.decorators = [
     { type: Directive, args: [{
-                selector: 'md-divider, mat-divider',
+                selector: 'mat-divider',
                 host: { 'class': 'mat-divider' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdDividerCssMatStyler.ctorParameters = () => [];
+MatDividerCssMatStyler.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-class MdListAvatarCssMatStyler {
+class MatListAvatarCssMatStyler {
 }
-MdListAvatarCssMatStyler.decorators = [
+MatListAvatarCssMatStyler.decorators = [
     { type: Directive, args: [{
-                selector: '[md-list-avatar], [mat-list-avatar], [mdListAvatar], [matListAvatar]',
+                selector: '[mat-list-avatar], [matListAvatar]',
                 host: { 'class': 'mat-list-avatar' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdListAvatarCssMatStyler.ctorParameters = () => [];
+MatListAvatarCssMatStyler.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-class MdListIconCssMatStyler {
+class MatListIconCssMatStyler {
 }
-MdListIconCssMatStyler.decorators = [
+MatListIconCssMatStyler.decorators = [
     { type: Directive, args: [{
-                selector: '[md-list-icon], [mat-list-icon], [mdListIcon], [matListIcon]',
+                selector: '[mat-list-icon], [matListIcon]',
                 host: { 'class': 'mat-list-icon' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdListIconCssMatStyler.ctorParameters = () => [];
+MatListIconCssMatStyler.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-class MdListSubheaderCssMatStyler {
+class MatListSubheaderCssMatStyler {
 }
-MdListSubheaderCssMatStyler.decorators = [
+MatListSubheaderCssMatStyler.decorators = [
     { type: Directive, args: [{
-                selector: '[md-subheader], [mat-subheader], [mdSubheader], [matSubheader]',
+                selector: '[mat-subheader], [matSubheader]',
                 host: { 'class': 'mat-subheader' }
             },] },
 ];
 /**
  * @nocollapse
  */
-MdListSubheaderCssMatStyler.ctorParameters = () => [];
+MatListSubheaderCssMatStyler.ctorParameters = () => [];
 /**
  * An item within a Material Design list.
  */
-class MdListItem extends _MdListItemMixinBase {
+class MatListItem extends _MatListItemMixinBase {
     /**
      * @param {?} _renderer
      * @param {?} _element
@@ -194,7 +196,7 @@ class MdListItem extends _MdListItemMixinBase {
      * @return {?}
      */
     ngAfterContentInit() {
-        this._lineSetter = new MdLineSetter(this._lines, this._renderer, this._element);
+        this._lineSetter = new MatLineSetter(this._lines, this._renderer, this._element);
     }
     /**
      * Whether this list item should show a ripple effect when clicked.
@@ -223,8 +225,8 @@ class MdListItem extends _MdListItemMixinBase {
         return this._element.nativeElement;
     }
 }
-MdListItem.decorators = [
-    { type: Component, args: [{selector: 'md-list-item, mat-list-item, a[md-list-item], a[mat-list-item]',
+MatListItem.decorators = [
+    { type: Component, args: [{selector: 'mat-list-item, a[mat-list-item]',
                 host: {
                     'role': 'listitem',
                     'class': 'mat-list-item',
@@ -232,7 +234,7 @@ MdListItem.decorators = [
                     '(blur)': '_handleBlur()',
                 },
                 inputs: ['disableRipple'],
-                template: "<div class=\"mat-list-item-content\"><div class=\"mat-list-item-ripple\" md-ripple [mdRippleTrigger]=\"_getHostElement()\" [mdRippleDisabled]=\"_isRippleDisabled()\"></div><ng-content select=\"[md-list-avatar], [md-list-icon], [mat-list-avatar], [mat-list-icon], [mdListAvatar], [mdListIcon], [matListAvatar], [matListIcon]\"></ng-content><div class=\"mat-list-text\"><ng-content select=\"[md-line], [mat-line], [mdLine], [matLine]\"></ng-content></div><ng-content></ng-content></div>",
+                template: "<div class=\"mat-list-item-content\"><div class=\"mat-list-item-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"_isRippleDisabled()\"></div><ng-content select=\"[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]\"></ng-content><div class=\"mat-list-text\"><ng-content select=\"[mat-line], [matLine]\"></ng-content></div><ng-content></ng-content></div>",
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
@@ -241,36 +243,36 @@ MdListItem.decorators = [
 /**
  * @nocollapse
  */
-MdListItem.ctorParameters = () => [
+MatListItem.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
-    { type: MdList, decorators: [{ type: Optional },] },
-    { type: MdNavListCssMatStyler, decorators: [{ type: Optional },] },
+    { type: MatList, decorators: [{ type: Optional },] },
+    { type: MatNavListCssMatStyler, decorators: [{ type: Optional },] },
 ];
-MdListItem.propDecorators = {
-    '_lines': [{ type: ContentChildren, args: [MdLine,] },],
-    '_hasAvatar': [{ type: ContentChild, args: [MdListAvatarCssMatStyler,] },],
+MatListItem.propDecorators = {
+    '_lines': [{ type: ContentChildren, args: [MatLine,] },],
+    '_hasAvatar': [{ type: ContentChild, args: [MatListAvatarCssMatStyler,] },],
 };
 
 /**
  * \@docs-private
  */
-class MdSelectionListBase {
+class MatSelectionListBase {
 }
-const _MdSelectionListMixinBase = mixinDisableRipple(mixinDisabled(MdSelectionListBase));
+const _MatSelectionListMixinBase = mixinDisableRipple(mixinDisabled(MatSelectionListBase));
 /**
  * \@docs-private
  */
-class MdListOptionBase {
+class MatListOptionBase {
 }
-const _MdListOptionMixinBase = mixinDisableRipple(MdListOptionBase);
+const _MatListOptionMixinBase = mixinDisableRipple(MatListOptionBase);
 const FOCUSED_STYLE = 'mat-list-item-focus';
 /**
  * Component for list-options of selection-list. Each list-option can automatically
  * generate a checkbox and can put current item into the selectionModel of selection-list
  * if the current item is checked.
  */
-class MdListOption extends _MdListOptionMixinBase {
+class MatListOption extends _MatListOptionMixinBase {
     /**
      * @param {?} _renderer
      * @param {?} _element
@@ -334,7 +336,7 @@ class MdListOption extends _MdListOptionMixinBase {
      * @return {?}
      */
     ngAfterContentInit() {
-        this._lineSetter = new MdLineSetter(this._lines, this._renderer, this._element);
+        this._lineSetter = new MatLineSetter(this._lines, this._renderer, this._element);
         if (this.selectionList.disabled) {
             this.disabled = true;
         }
@@ -398,8 +400,8 @@ class MdListOption extends _MdListOptionMixinBase {
         return this._element.nativeElement;
     }
 }
-MdListOption.decorators = [
-    { type: Component, args: [{selector: 'md-list-option, mat-list-option',
+MatListOption.decorators = [
+    { type: Component, args: [{selector: 'mat-list-option',
                 inputs: ['disableRipple'],
                 host: {
                     'role': 'option',
@@ -412,24 +414,23 @@ MdListOption.decorators = [
                     '[attr.aria-selected]': 'selected.toString()',
                     '[attr.aria-disabled]': 'disabled.toString()',
                 },
-                template: "<div class=\"mat-list-item-content\" [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\" [class.mat-list-item-disabled]=\"disabled\"><div md-ripple class=\"mat-list-item-ripple\" [mdRippleTrigger]=\"_getHostElement()\" [mdRippleDisabled]=\"_isRippleDisabled()\"></div><md-pseudo-checkbox #autocheckbox [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></md-pseudo-checkbox><div class=\"mat-list-text\"><ng-content></ng-content></div></div>",
+                template: "<div class=\"mat-list-item-content\" [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\" [class.mat-list-item-disabled]=\"disabled\"><div mat-ripple class=\"mat-list-item-ripple\" [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"_isRippleDisabled()\"></div><mat-pseudo-checkbox #autocheckbox [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox><div class=\"mat-list-text\"><ng-content></ng-content></div></div>",
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
-                providers: [{ provide: MATERIAL_COMPATIBILITY_MODE, useValue: false }],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdListOption.ctorParameters = () => [
+MatListOption.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
     { type: ChangeDetectorRef, },
-    { type: MdSelectionList, decorators: [{ type: Optional }, { type: Inject, args: [forwardRef(() => MdSelectionList),] },] },
+    { type: MatSelectionList, decorators: [{ type: Optional }, { type: Inject, args: [forwardRef(() => MatSelectionList),] },] },
 ];
-MdListOption.propDecorators = {
-    '_lines': [{ type: ContentChildren, args: [MdLine,] },],
+MatListOption.propDecorators = {
+    '_lines': [{ type: ContentChildren, args: [MatLine,] },],
     'checkboxPosition': [{ type: Input },],
     'value': [{ type: Input },],
     'disabled': [{ type: Input },],
@@ -441,7 +442,7 @@ MdListOption.propDecorators = {
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
  */
-class MdSelectionList extends _MdSelectionListMixinBase {
+class MatSelectionList extends _MatSelectionListMixinBase {
     /**
      * @param {?} _element
      */
@@ -588,8 +589,8 @@ class MdSelectionList extends _MdSelectionListMixinBase {
         return index >= 0 && index < this.options.length;
     }
 }
-MdSelectionList.decorators = [
-    { type: Component, args: [{selector: 'md-selection-list, mat-selection-list',
+MatSelectionList.decorators = [
+    { type: Component, args: [{selector: 'mat-selection-list',
                 inputs: ['disabled', 'disableRipple'],
                 host: {
                     'role': 'listbox',
@@ -609,57 +610,57 @@ MdSelectionList.decorators = [
 /**
  * @nocollapse
  */
-MdSelectionList.ctorParameters = () => [
+MatSelectionList.ctorParameters = () => [
     { type: ElementRef, },
 ];
-MdSelectionList.propDecorators = {
-    'options': [{ type: ContentChildren, args: [MdListOption,] },],
+MatSelectionList.propDecorators = {
+    'options': [{ type: ContentChildren, args: [MatListOption,] },],
 };
 
-class MdListModule {
+class MatListModule {
 }
-MdListModule.decorators = [
+MatListModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MdLineModule, MdRippleModule, MdCommonModule, MdPseudoCheckboxModule, CommonModule],
+                imports: [MatLineModule, MatRippleModule, MatCommonModule, MatPseudoCheckboxModule, CommonModule],
                 exports: [
-                    MdList,
-                    MdListItem,
-                    MdListDivider,
-                    MdListAvatarCssMatStyler,
-                    MdLineModule,
-                    MdCommonModule,
-                    MdListIconCssMatStyler,
-                    MdListCssMatStyler,
-                    MdNavListCssMatStyler,
-                    MdDividerCssMatStyler,
-                    MdListSubheaderCssMatStyler,
-                    MdPseudoCheckboxModule,
-                    MdSelectionList,
-                    MdListOption
+                    MatList,
+                    MatListItem,
+                    MatListDivider,
+                    MatListAvatarCssMatStyler,
+                    MatLineModule,
+                    MatCommonModule,
+                    MatListIconCssMatStyler,
+                    MatListCssMatStyler,
+                    MatNavListCssMatStyler,
+                    MatDividerCssMatStyler,
+                    MatListSubheaderCssMatStyler,
+                    MatPseudoCheckboxModule,
+                    MatSelectionList,
+                    MatListOption
                 ],
                 declarations: [
-                    MdList,
-                    MdListItem,
-                    MdListDivider,
-                    MdListAvatarCssMatStyler,
-                    MdListIconCssMatStyler,
-                    MdListCssMatStyler,
-                    MdNavListCssMatStyler,
-                    MdDividerCssMatStyler,
-                    MdListSubheaderCssMatStyler,
-                    MdSelectionList,
-                    MdListOption
+                    MatList,
+                    MatListItem,
+                    MatListDivider,
+                    MatListAvatarCssMatStyler,
+                    MatListIconCssMatStyler,
+                    MatListCssMatStyler,
+                    MatNavListCssMatStyler,
+                    MatDividerCssMatStyler,
+                    MatListSubheaderCssMatStyler,
+                    MatSelectionList,
+                    MatListOption
                 ],
             },] },
 ];
 /**
  * @nocollapse
  */
-MdListModule.ctorParameters = () => [];
+MatListModule.ctorParameters = () => [];
 
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { MdListModule, MdListBase, _MdListMixinBase, MdListItemBase, _MdListItemMixinBase, MdListDivider, MdList, MdListCssMatStyler, MdNavListCssMatStyler, MdDividerCssMatStyler, MdListAvatarCssMatStyler, MdListIconCssMatStyler, MdListSubheaderCssMatStyler, MdListItem, MdSelectionListBase, _MdSelectionListMixinBase, MdListOptionBase, _MdListOptionMixinBase, MdListOption, MdSelectionList, MdDividerCssMatStyler as MatDividerCssMatStyler, MdList as MatList, MdListAvatarCssMatStyler as MatListAvatarCssMatStyler, MdListBase as MatListBase, MdListCssMatStyler as MatListCssMatStyler, MdListDivider as MatListDivider, MdListIconCssMatStyler as MatListIconCssMatStyler, MdListItem as MatListItem, MdListItemBase as MatListItemBase, MdListModule as MatListModule, MdListOption as MatListOption, MdListOptionBase as MatListOptionBase, MdListSubheaderCssMatStyler as MatListSubheaderCssMatStyler, MdNavListCssMatStyler as MatNavListCssMatStyler, MdSelectionList as MatSelectionList, MdSelectionListBase as MatSelectionListBase };
+export { MatListModule, MatListBase, _MatListMixinBase, MatListItemBase, _MatListItemMixinBase, MatListDivider, MatList, MatListCssMatStyler, MatNavListCssMatStyler, MatDividerCssMatStyler, MatListAvatarCssMatStyler, MatListIconCssMatStyler, MatListSubheaderCssMatStyler, MatListItem, MatSelectionListBase, _MatSelectionListMixinBase, MatListOptionBase, _MatListOptionMixinBase, MatListOption, MatSelectionList };
 //# sourceMappingURL=list.js.map

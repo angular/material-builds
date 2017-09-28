@@ -14,19 +14,19 @@ export declare type ProgressSpinnerMode = 'determinate' | 'indeterminate';
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * @docs-private
  */
-export declare class MdProgressSpinnerCssMatStyler {
+export declare class MatProgressSpinnerCssMatStyler {
 }
 /** @docs-private */
-export declare class MdProgressSpinnerBase {
+export declare class MatProgressSpinnerBase {
     _renderer: Renderer2;
     _elementRef: ElementRef;
     constructor(_renderer: Renderer2, _elementRef: ElementRef);
 }
-export declare const _MdProgressSpinnerMixinBase: (new (...args: any[]) => CanColor) & typeof MdProgressSpinnerBase;
+export declare const _MatProgressSpinnerMixinBase: (new (...args: any[]) => CanColor) & typeof MatProgressSpinnerBase;
 /**
- * <md-progress-spinner> component.
+ * <mat-progress-spinner> component.
  */
-export declare class MdProgressSpinner extends _MdProgressSpinnerMixinBase implements OnDestroy, CanColor {
+export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase implements OnDestroy, CanColor {
     private _ngZone;
     /** The id of the last requested animation. */
     private _lastAnimationId;
@@ -88,11 +88,11 @@ export declare class MdProgressSpinner extends _MdProgressSpinnerMixinBase imple
     private _renderArc(currentValue, rotation?);
 }
 /**
- * <md-spinner> component.
+ * <mat-spinner> component.
  *
  * This is a component definition to be used as a convenience reference to create an
- * indeterminate <md-progress-spinner> instance.
+ * indeterminate <mat-progress-spinner> instance.
  */
-export declare class MdSpinner extends MdProgressSpinner {
+export declare class MatSpinner extends MatProgressSpinner {
     constructor(elementRef: ElementRef, ngZone: NgZone, renderer: Renderer2);
 }

@@ -1,2 +1,2 @@
-export declare class MdProgressSpinnerModule {
+export declare class MatProgressSpinnerModule {
 }
