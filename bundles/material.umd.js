@@ -22771,7 +22771,7 @@ MatToolbarModule.ctorParameters = function () { return []; };
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.11-128442d');
+var VERSION = new _angular_core.Version('0.0.0-PLACEHOLDER');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
