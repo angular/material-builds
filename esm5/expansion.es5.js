@@ -606,5 +606,5 @@ MatExpansionModule.ctorParameters = function () { return []; };
 /**
  * Generated bundle index. Do not edit.
  */
-export { CdkAccordion, MatAccordion, AccordionItem, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionModule, EXPANSION_PANEL_ANIMATION_TIMING as ɵc10, MatExpansionPanelBase as ɵa10, _MatExpansionPanelMixinBase as ɵb10 };
+export { CdkAccordion, MatAccordion, AccordionItem, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionModule, EXPANSION_PANEL_ANIMATION_TIMING as ɵc12, MatExpansionPanelBase as ɵa12, _MatExpansionPanelMixinBase as ɵb12 };
 //# sourceMappingURL=expansion.es5.js.map
