@@ -1136,29 +1136,6 @@ $mat-dark-theme-foreground: (
   );
 }
 
-@mixin cdk-a11y {
-  .cdk-visually-hidden {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-  }
-}
-
-/**
- * Applies styles for users in high contrast mode. Note that this only applies
- * to Microsoft browsers. Chrome can be included by checking for the `html[hc]`
- * attribute, however Chrome handles high contrast differently.
- */
-@mixin cdk-high-contrast {
-  @media screen and (-ms-high-contrast: active) {
-    @content;
-  }
-}
 
 
 $mat-ripple-color-opacity: 0.1;
@@ -1388,30 +1365,6 @@ $mat-menu-icon-margin: 16px !default;
 }
 /* stylelint-enable */
 
-@mixin cdk-a11y {
-  .cdk-visually-hidden {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-  }
-}
-
-/**
- * Applies styles for users in high contrast mode. Note that this only applies
- * to Microsoft browsers. Chrome can be included by checking for the `html[hc]`
- * attribute, however Chrome handles high contrast differently.
- */
-@mixin cdk-high-contrast {
-  @media screen and (-ms-high-contrast: active) {
-    @content;
-  }
-}
-
 // This mixin ensures an element spans to fill the nearest ancestor with defined positioning.
 @mixin mat-fill {
   top: 0;
@@ -1420,6 +1373,7 @@ $mat-menu-icon-margin: 16px !default;
   bottom: 0;
   position: absolute;
 }
+
 
 
 /**
