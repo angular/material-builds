@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, EventEmitter, Injectable, Input, NgModule, Optional, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, EventEmitter, Injectable, Input, NgModule, Optional, Output, ViewEncapsulation, isDevMode } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CdkColumnDef } from '@angular/cdk/table';
@@ -36,6 +36,14 @@ function getSortHeaderMissingIdError() {
     return Error("MatSortHeader must be provided with a unique id.");
 }
 /**
+ * \@docs-private
+ * @param {?} direction
+ * @return {?}
+ */
+function getSortInvalidDirectionError(direction) {
+    return Error(direction + " is not a valid sort direction ('asc' or 'desc').");
+}
+/**
  * Container for MatSortables to manage the sort state and provide default sort parameters.
  */
 var MatSort = (function () {
@@ -49,15 +57,31 @@ var MatSort = (function () {
          * May be overriden by the MatSortable's sort start.
          */
         this.start = 'asc';
-        /**
-         * The sort direction of the currently active MatSortable.
-         */
-        this.direction = '';
+        this._direction = '';
         /**
          * Event emitted when the user changes either the active sort or sort direction.
          */
         this.sortChange = new EventEmitter();
     }
+    Object.defineProperty(MatSort.prototype, "direction", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this._direction; },
+        /**
+         * The sort direction of the currently active MatSortable.
+         * @param {?} direction
+         * @return {?}
+         */
+        set: function (direction) {
+            if (isDevMode() && direction && direction !== 'asc' && direction !== 'desc') {
+                throw getSortInvalidDirectionError(direction);
+            }
+            this._direction = direction;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatSort.prototype, "disableClear", {
         /**
          * Whether to disable the user from clearing the sort by finishing the sort direction cycle.
@@ -278,14 +302,15 @@ var MatSortHeader = (function () {
      * @return {?}
      */
     MatSortHeader.prototype._isSorted = function () {
-        return this._sort.active == this.id && this._sort.direction;
+        return this._sort.active == this.id &&
+            this._sort.direction === 'asc' || this._sort.direction === 'desc';
     };
     return MatSortHeader;
 }());
 MatSortHeader.decorators = [
     { type: Component, args: [{ selector: '[mat-sort-header]',
                 template: "<div class=\"mat-sort-header-container\" [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\"><button class=\"mat-sort-header-button\" type=\"button\" [attr.aria-label]=\"_intl.sortButtonLabel(id)\"><ng-content></ng-content></button><div *ngIf=\"_isSorted()\" class=\"mat-sort-header-arrow\"><div class=\"mat-sort-header-stem\"></div><div class=\"mat-sort-header-indicator\" [@indicator]=\"_sort.direction\"><div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_sort.direction\"></div><div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_sort.direction\"></div><div class=\"mat-sort-header-pointer-middle\"></div></div></div></div><span class=\"cdk-visually-hidden\" *ngIf=\"_isSorted()\">{{_intl.sortDescriptionLabel(id, _sort.direction)}}</span>",
-                styles: [".mat-sort-header-container{display:flex;cursor:pointer}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:pointer;outline:0;font:inherit;color:currentColor}.mat-sort-header-arrow{height:12px;width:12px;margin:0 0 0 6px;position:relative;display:flex}.mat-sort-header-position-before .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;height:10px;width:2px;margin:auto;display:flex;align-items:center}.mat-sort-header-indicator{width:100%;height:2px;display:flex;align-items:center;position:absolute;top:0;transition:225ms cubic-bezier(.4,0,.2,1)}.mat-sort-header-pointer-middle{margin:auto;height:2px;width:2px;background:currentColor;transform:rotate(45deg)}.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{background:currentColor;width:6px;height:2px;transition:225ms cubic-bezier(.4,0,.2,1);position:absolute}.mat-sort-header-pointer-left{transform-origin:right;left:0}.mat-sort-header-pointer-right{transform-origin:left;right:0}"],
+                styles: [".mat-sort-header-container{display:flex;cursor:pointer}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:pointer;outline:0;font:inherit;color:currentColor}.mat-sort-header-arrow{height:12px;width:12px;margin:0 0 0 6px;position:relative;display:flex}.mat-sort-header-position-before .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;height:10px;width:2px;margin:auto;display:flex;align-items:center}.mat-sort-header-indicator{width:100%;height:2px;display:flex;align-items:center;position:absolute;top:0;left:0;transition:225ms cubic-bezier(.4,0,.2,1)}.mat-sort-header-pointer-middle{margin:auto;height:2px;width:2px;background:currentColor;transform:rotate(45deg)}.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{background:currentColor;width:6px;height:2px;transition:225ms cubic-bezier(.4,0,.2,1);position:absolute;top:0}.mat-sort-header-pointer-left{transform-origin:right;left:0}.mat-sort-header-pointer-right{transform-origin:left;right:0}"],
                 host: {
                     '(click)': '_sort.sort(this)',
                     '[class.mat-sort-header-sorted]': '_isSorted()',

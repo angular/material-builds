@@ -40,5 +40,5 @@ export declare class MatSortHeader implements MatSortable {
     ngOnInit(): void;
     ngOnDestroy(): void;
     /** Whether this MatSortHeader is currently sorted in either ascending or descending order. */
-    _isSorted(): false | "" | "asc" | "desc";
+    _isSorted(): boolean;
 }

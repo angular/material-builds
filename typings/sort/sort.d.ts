@@ -29,6 +29,7 @@ export declare class MatSort {
     start: 'asc' | 'desc';
     /** The sort direction of the currently active MatSortable. */
     direction: SortDirection;
+    private _direction;
     /**
      * Whether to disable the user from clearing the sort by finishing the sort direction cycle.
      * May be overriden by the MatSortable's disable clear input.
