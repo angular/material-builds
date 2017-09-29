@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, EventEmitter, Injectable, Input, NgModule, Optional, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, EventEmitter, Injectable, Input, NgModule, Optional, Output, ViewEncapsulation, isDevMode } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CdkColumnDef } from '@angular/cdk/table';
@@ -36,6 +36,14 @@ function getSortHeaderNotContainedWithinSortError() {
 function getSortHeaderMissingIdError() {
     return Error(`MatSortHeader must be provided with a unique id.`);
 }
+/**
+ * \@docs-private
+ * @param {?} direction
+ * @return {?}
+ */
+function getSortInvalidDirectionError(direction) {
+    return Error(`${direction} is not a valid sort direction ('asc' or 'desc').`);
+}
 
 /**
  * Container for MatSortables to manage the sort state and provide default sort parameters.
@@ -51,15 +59,27 @@ class MatSort {
          * May be overriden by the MatSortable's sort start.
          */
         this.start = 'asc';
-        /**
-         * The sort direction of the currently active MatSortable.
-         */
-        this.direction = '';
+        this._direction = '';
         /**
          * Event emitted when the user changes either the active sort or sort direction.
          */
         this.sortChange = new EventEmitter();
     }
+    /**
+     * The sort direction of the currently active MatSortable.
+     * @param {?} direction
+     * @return {?}
+     */
+    set direction(direction) {
+        if (isDevMode() && direction && direction !== 'asc' && direction !== 'desc') {
+            throw getSortInvalidDirectionError(direction);
+        }
+        this._direction = direction;
+    }
+    /**
+     * @return {?}
+     */
+    get direction() { return this._direction; }
     /**
      * Whether to disable the user from clearing the sort by finishing the sort direction cycle.
      * May be overriden by the MatSortable's disable clear input.
@@ -268,7 +288,8 @@ class MatSortHeader {
      * @return {?}
      */
     _isSorted() {
-        return this._sort.active == this.id && this._sort.direction;
+        return this._sort.active == this.id &&
+            this._sort.direction === 'asc' || this._sort.direction === 'desc';
     }
 }
 MatSortHeader.decorators = [

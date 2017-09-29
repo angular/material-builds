@@ -2833,10 +2833,10 @@ MatGridListModule.ctorParameters = function () { return []; };
 exports.MatGridTile = MatGridTile;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
-exports.ɵb8 = MatGridAvatarCssMatStyler;
-exports.ɵd8 = MatGridTileFooterCssMatStyler;
-exports.ɵc8 = MatGridTileHeaderCssMatStyler;
-exports.ɵa8 = MatGridTileText;
+exports.ɵb12 = MatGridAvatarCssMatStyler;
+exports.ɵd12 = MatGridTileFooterCssMatStyler;
+exports.ɵc12 = MatGridTileHeaderCssMatStyler;
+exports.ɵa12 = MatGridTileText;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

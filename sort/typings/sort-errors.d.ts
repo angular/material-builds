@@ -11,3 +11,5 @@ export declare function getSortDuplicateSortableIdError(id: string): Error;
 export declare function getSortHeaderNotContainedWithinSortError(): Error;
 /** @docs-private */
 export declare function getSortHeaderMissingIdError(): Error;
+/** @docs-private */
+export declare function getSortInvalidDirectionError(direction: string): Error;
