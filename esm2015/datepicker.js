@@ -939,14 +939,14 @@ class MatDatepicker {
      * @return {?}
      */
     _createPopup() {
-        const /** @type {?} */ overlayState = new OverlayConfig({
+        const /** @type {?} */ overlayConfig = new OverlayConfig({
             positionStrategy: this._createPopupPositionStrategy(),
             hasBackdrop: true,
             backdropClass: 'mat-overlay-transparent-backdrop',
             direction: this._dir ? this._dir.value : 'ltr',
             scrollStrategy: this._scrollStrategy()
         });
-        this._popupRef = this._overlay.create(overlayState);
+        this._popupRef = this._overlay.create(overlayConfig);
     }
     /**
      * Create the popup PositionStrategy.

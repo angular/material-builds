@@ -513,8 +513,8 @@ class MatSnackBar {
      * @return {?}
      */
     _createOverlay(config) {
-        const /** @type {?} */ state$$1 = new OverlayConfig();
-        state$$1.direction = config.direction;
+        const /** @type {?} */ overlayConfig = new OverlayConfig();
+        overlayConfig.direction = config.direction;
         let /** @type {?} */ positionStrategy = this._overlay.position().global();
         // Set horizontal position.
         const /** @type {?} */ isRtl = config.direction === 'rtl';
@@ -538,8 +538,8 @@ class MatSnackBar {
         else {
             positionStrategy.bottom('0');
         }
-        state$$1.positionStrategy = positionStrategy;
-        return this._overlay.create(state$$1);
+        overlayConfig.positionStrategy = positionStrategy;
+        return this._overlay.create(overlayConfig);
     }
     /**
      * Creates an injector to be used inside of a snack bar component.

@@ -64,11 +64,11 @@ export declare class MatDialog {
      */
     private _createOverlay(config);
     /**
-     * Creates an overlay state from a dialog config.
+     * Creates an overlay config from a dialog config.
      * @param dialogConfig The dialog configuration.
      * @returns The overlay configuration.
      */
-    private _getOverlayState(dialogConfig);
+    private _getOverlayConfig(dialogConfig);
     /**
      * Attaches an MatDialogContainer to a dialog's already-created overlay.
      * @param overlay Reference to the dialog's underlying overlay.

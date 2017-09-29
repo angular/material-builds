@@ -403,7 +403,7 @@ class MatDialogRef {
      * @return {?}
      */
     _getPositionStrategy() {
-        return (this._overlayRef.getState().positionStrategy);
+        return (this._overlayRef.getConfig().positionStrategy);
     }
 }
 
@@ -540,15 +540,15 @@ class MatDialog {
      * @return {?} A promise resolving to the OverlayRef for the created overlay.
      */
     _createOverlay(config) {
-        const /** @type {?} */ overlayState = this._getOverlayState(config);
-        return this._overlay.create(overlayState);
+        const /** @type {?} */ overlayConfig = this._getOverlayConfig(config);
+        return this._overlay.create(overlayConfig);
     }
     /**
-     * Creates an overlay state from a dialog config.
+     * Creates an overlay config from a dialog config.
      * @param {?} dialogConfig The dialog configuration.
      * @return {?} The overlay configuration.
      */
-    _getOverlayState(dialogConfig) {
+    _getOverlayConfig(dialogConfig) {
         const /** @type {?} */ state$$1 = new OverlayConfig({
             positionStrategy: this._overlay.position().global(),
             scrollStrategy: this._scrollStrategy(),

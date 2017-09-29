@@ -2713,7 +2713,7 @@ var MatDialogRef = (function () {
      * @return {?}
      */
     MatDialogRef.prototype._getPositionStrategy = function () {
-        return (this._overlayRef.getState().positionStrategy);
+        return (this._overlayRef.getConfig().positionStrategy);
     };
     return MatDialogRef;
 }());
@@ -2864,15 +2864,15 @@ var MatDialog = (function () {
      * @return {?} A promise resolving to the OverlayRef for the created overlay.
      */
     MatDialog.prototype._createOverlay = function (config) {
-        var /** @type {?} */ overlayState = this._getOverlayState(config);
-        return this._overlay.create(overlayState);
+        var /** @type {?} */ overlayConfig = this._getOverlayConfig(config);
+        return this._overlay.create(overlayConfig);
     };
     /**
-     * Creates an overlay state from a dialog config.
+     * Creates an overlay config from a dialog config.
      * @param {?} dialogConfig The dialog configuration.
      * @return {?} The overlay configuration.
      */
-    MatDialog.prototype._getOverlayState = function (dialogConfig) {
+    MatDialog.prototype._getOverlayConfig = function (dialogConfig) {
         var /** @type {?} */ state$$1 = new _angular_cdk_overlay.OverlayConfig({
             positionStrategy: this._overlay.position().global(),
             scrollStrategy: this._scrollStrategy(),
@@ -5428,14 +5428,14 @@ var MatDatepicker = (function () {
      * @return {?}
      */
     MatDatepicker.prototype._createPopup = function () {
-        var /** @type {?} */ overlayState = new _angular_cdk_overlay.OverlayConfig({
+        var /** @type {?} */ overlayConfig = new _angular_cdk_overlay.OverlayConfig({
             positionStrategy: this._createPopupPositionStrategy(),
             hasBackdrop: true,
             backdropClass: 'mat-overlay-transparent-backdrop',
             direction: this._dir ? this._dir.value : 'ltr',
             scrollStrategy: this._scrollStrategy()
         });
-        this._popupRef = this._overlay.create(overlayState);
+        this._popupRef = this._overlay.create(overlayConfig);
     };
     /**
      * Create the popup PositionStrategy.

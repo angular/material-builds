@@ -2426,8 +2426,8 @@ var MatSnackBar = (function () {
      * @return {?}
      */
     MatSnackBar.prototype._createOverlay = function (config) {
-        var /** @type {?} */ state$$1 = new _angular_cdk_overlay.OverlayConfig();
-        state$$1.direction = config.direction;
+        var /** @type {?} */ overlayConfig = new _angular_cdk_overlay.OverlayConfig();
+        overlayConfig.direction = config.direction;
         var /** @type {?} */ positionStrategy = this._overlay.position().global();
         // Set horizontal position.
         var /** @type {?} */ isRtl = config.direction === 'rtl';
@@ -2451,8 +2451,8 @@ var MatSnackBar = (function () {
         else {
             positionStrategy.bottom('0');
         }
-        state$$1.positionStrategy = positionStrategy;
-        return this._overlay.create(state$$1);
+        overlayConfig.positionStrategy = positionStrategy;
+        return this._overlay.create(overlayConfig);
     };
     /**
      * Creates an injector to be used inside of a snack bar component.
