@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentInit, EventEmitter } from '@angular/core';
+import { AfterContentInit, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { MatCalendarCell } from './calendar-body';
 /**
@@ -15,6 +15,7 @@ import { MatCalendarCell } from './calendar-body';
 export declare class MatYearView<D> implements AfterContentInit {
     _dateAdapter: DateAdapter<D>;
     private _dateFormats;
+    private _changeDetectorRef;
     /** The date to display in this year view (everything other than the year is ignored). */
     activeDate: D;
     private _activeDate;
@@ -36,12 +37,12 @@ export declare class MatYearView<D> implements AfterContentInit {
      * Null if the selected Date is in a different year.
      */
     _selectedMonth: number | null;
-    constructor(_dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats);
+    constructor(_dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, _changeDetectorRef: ChangeDetectorRef);
     ngAfterContentInit(): void;
     /** Handles when a new month is selected. */
     _monthSelected(month: number): void;
     /** Initializes this month view. */
-    private _init();
+    _init(): void;
     /**
      * Gets the month in this year that the given Date falls on.
      * Returns null if the given Date is in another year.

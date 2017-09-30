@@ -237,16 +237,12 @@ var MatSnackBarContainer = (function (_super) {
          * Subject for notifying that the snack bar has finished entering the view.
          */
         _this._onEnter = new Subject();
+        /**
+         * The state of the snack bar animations.
+         */
+        _this._animationState = 'void';
         return _this;
     }
-    /**
-     * Gets the current animation state both combining one of the possibilities from
-     * SnackBarState and the vertical location.
-     * @return {?}
-     */
-    MatSnackBarContainer.prototype.getAnimationState = function () {
-        return this._animationState + "-" + this.snackBarConfig.verticalPosition;
-    };
     /**
      * Attach a component portal as content to this snack bar container.
      * @template T
@@ -286,10 +282,11 @@ var MatSnackBarContainer = (function (_super) {
      * @return {?}
      */
     MatSnackBarContainer.prototype.onAnimationEnd = function (event) {
-        if (event.toState === 'void' || event.toState.startsWith('hidden')) {
+        var fromState = event.fromState, toState = event.toState;
+        if ((toState === 'void' && fromState !== 'void') || toState.startsWith('hidden')) {
             this._completeExit();
         }
-        if (event.toState.startsWith('visible')) {
+        if (toState.startsWith('visible')) {
             // Note: we shouldn't use `this` inside the zone callback,
             // because it can cause a memory leak.
             var /** @type {?} */ onEnter_1 = this._onEnter;
@@ -305,7 +302,7 @@ var MatSnackBarContainer = (function (_super) {
      */
     MatSnackBarContainer.prototype.enter = function () {
         if (!this._destroyed) {
-            this._animationState = 'visible';
+            this._animationState = "visible-" + this.snackBarConfig.verticalPosition;
             this._changeDetectorRef.detectChanges();
         }
     };
@@ -314,7 +311,7 @@ var MatSnackBarContainer = (function (_super) {
      * @return {?}
      */
     MatSnackBarContainer.prototype.exit = function () {
-        this._animationState = 'hidden';
+        this._animationState = "hidden-" + this.snackBarConfig.verticalPosition;
         return this._onExit;
     };
     /**
@@ -349,7 +346,7 @@ MatSnackBarContainer.decorators = [
                 host: {
                     'role': 'alert',
                     'class': 'mat-snack-bar-container',
-                    '[@state]': 'getAnimationState()',
+                    '[@state]': '_animationState',
                     '(@state.done)': 'onAnimationEnd($event)'
                 },
                 animations: [

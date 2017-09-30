@@ -5,13 +5,13 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, Optional, Output, Self, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, Self, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule, MatRippleModule, mixinDisabled } from '@angular/material/core';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { FocusKeyManager, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
-import { RxChain, filter, startWith, switchMap } from '@angular/cdk/rxjs';
+import { RxChain, filter, first, startWith, switchMap } from '@angular/cdk/rxjs';
 import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -215,10 +215,12 @@ const MAT_MENU_BASE_ELEVATION = 2;
 class MatMenu {
     /**
      * @param {?} _elementRef
+     * @param {?} _ngZone
      * @param {?} _defaultOptions
      */
-    constructor(_elementRef, _defaultOptions) {
+    constructor(_elementRef, _ngZone, _defaultOptions) {
         this._elementRef = _elementRef;
+        this._ngZone = _ngZone;
         this._defaultOptions = _defaultOptions;
         this._xPosition = this._defaultOptions.xPosition;
         this._yPosition = this._defaultOptions.yPosition;
@@ -312,9 +314,15 @@ class MatMenu {
      * @return {?}
      */
     hover() {
-        return RxChain.from(this.items.changes)
-            .call(startWith, this.items)
-            .call(switchMap, (items) => merge(...items.map(item => item.hover)))
+        if (this.items) {
+            return RxChain.from(this.items.changes)
+                .call(startWith, this.items)
+                .call(switchMap, (items) => merge(...items.map(item => item.hover)))
+                .result();
+        }
+        return RxChain.from(this._ngZone.onStable.asObservable())
+            .call(first)
+            .call(switchMap, () => this.hover())
             .result();
     }
     /**
@@ -425,6 +433,7 @@ MatMenu.decorators = [
  */
 MatMenu.ctorParameters = () => [
     { type: ElementRef, },
+    { type: NgZone, },
     { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] },] },
 ];
 MatMenu.propDecorators = {
@@ -518,10 +527,10 @@ class MatMenuTrigger {
     /**
      * @return {?}
      */
-    ngAfterViewInit() {
+    ngAfterContentInit() {
         this._checkMenu();
         this.menu.close.subscribe(reason => {
-            this.closeMenu();
+            this._destroyMenu();
             // If a click closed the menu, we should close the entire chain of nested menus.
             if (reason === 'click' && this._parentMenu) {
                 this._parentMenu.close.emit(reason);
@@ -582,7 +591,9 @@ class MatMenuTrigger {
     openMenu() {
         if (!this._menuOpen) {
             this._createOverlay().attach(this._portal);
-            this._closeSubscription = this._menuClosingActions().subscribe(() => this.menu.close.emit());
+            this._closeSubscription = this._menuClosingActions().subscribe(() => {
+                this.menu.close.emit();
+            });
             this._initMenu();
             if (this.menu instanceof MatMenu) {
                 this.menu._startAnimation();
@@ -594,15 +605,7 @@ class MatMenuTrigger {
      * @return {?}
      */
     closeMenu() {
-        if (this._overlayRef && this.menuOpen) {
-            this._resetMenu();
-            this._overlayRef.detach();
-            this._closeSubscription.unsubscribe();
-            this.menu.close.emit();
-            if (this.menu instanceof MatMenu) {
-                this.menu._resetAnimation();
-            }
-        }
+        this.menu.close.emit();
     }
     /**
      * Focuses the menu trigger.
@@ -610,6 +613,20 @@ class MatMenuTrigger {
      */
     focus() {
         this._element.nativeElement.focus();
+    }
+    /**
+     * Closes the menu and does the necessary cleanup.
+     * @return {?}
+     */
+    _destroyMenu() {
+        if (this._overlayRef && this.menuOpen) {
+            this._resetMenu();
+            this._overlayRef.detach();
+            this._closeSubscription.unsubscribe();
+            if (this.menu instanceof MatMenu) {
+                this.menu._resetAnimation();
+            }
+        }
     }
     /**
      * This method sets the menu state to open and focuses the first item if
@@ -766,11 +783,11 @@ class MatMenuTrigger {
      */
     _menuClosingActions() {
         const /** @type {?} */ backdrop = ((this._overlayRef)).backdropClick();
-        const /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : of(null);
+        const /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : of();
         const /** @type {?} */ hover = this._parentMenu ? RxChain.from(this._parentMenu.hover())
             .call(filter, active => active !== this._menuItemInstance)
             .call(filter, () => this._menuOpen)
-            .result() : of(null);
+            .result() : of();
         return merge(backdrop, parentClose, hover);
     }
     /**

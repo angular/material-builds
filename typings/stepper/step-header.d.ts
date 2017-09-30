@@ -1,5 +1,16 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { ElementRef, OnDestroy, Renderer2 } from '@angular/core';
 import { MatStepLabel } from './step-label';
-export declare class MatStepHeader {
+export declare class MatStepHeader implements OnDestroy {
+    private _focusMonitor;
+    private _element;
     /** Icon for the given step. */
     icon: string;
     /** Label of the given step. */
@@ -16,8 +27,12 @@ export declare class MatStepHeader {
     /** Whether the given step is optional. */
     optional: any;
     private _optional;
+    constructor(_focusMonitor: FocusMonitor, _element: ElementRef, renderer: Renderer2);
+    ngOnDestroy(): void;
     /** Returns string label of given step if it is a text label. */
     _stringLabel(): string | null;
     /** Returns MatStepLabel if the label of given step is a template label. */
     _templateLabel(): MatStepLabel | null;
+    /** Returns the host HTML element. */
+    _getHostElement(): any;
 }

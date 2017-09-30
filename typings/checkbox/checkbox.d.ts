@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanColor, CanDisable, CanDisableRipple, MatRipple } from '@angular/material/core';
+import { CanColor, CanDisable, CanDisableRipple, HasTabIndex, MatRipple } from '@angular/material/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 /**
  * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
@@ -35,7 +35,7 @@ export declare class MatCheckboxBase {
     _elementRef: ElementRef;
     constructor(_renderer: Renderer2, _elementRef: ElementRef);
 }
-export declare const _MatCheckboxMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MatCheckboxBase;
+export declare const _MatCheckboxMixinBase: (new (...args: any[]) => HasTabIndex) & (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MatCheckboxBase;
 /**
  * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
  * and exposes a similar API. A MatCheckbox can be either checked, unchecked, indeterminate, or
@@ -44,7 +44,7 @@ export declare const _MatCheckboxMixinBase: (new (...args: any[]) => CanColor) &
  * have the checkbox be accessible, you may supply an [aria-label] input.
  * See: https://www.google.com/design/spec/components/selection-controls.html
  */
-export declare class MatCheckbox extends _MatCheckboxMixinBase implements ControlValueAccessor, AfterViewInit, OnDestroy, CanColor, CanDisable, CanDisableRipple {
+export declare class MatCheckbox extends _MatCheckboxMixinBase implements ControlValueAccessor, AfterViewInit, OnDestroy, CanColor, CanDisable, HasTabIndex, CanDisableRipple {
     private _changeDetectorRef;
     private _focusMonitor;
     /**
@@ -71,8 +71,6 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     align: 'start' | 'end';
     /** Whether the label should appear after or before the checkbox. Defaults to 'after' */
     labelPosition: 'before' | 'after';
-    /** Tabindex value that is passed to the underlying input element. */
-    tabIndex: number;
     /** Name value will be applied to the input element if present */
     name: string | null;
     /** Event emitted when the checkbox's `checked` value changes. */
@@ -97,7 +95,7 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     private _controlValueAccessorChangeFn;
     /** Reference to the focused state ripple. */
     private _focusRipple;
-    constructor(renderer: Renderer2, elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _focusMonitor: FocusMonitor);
+    constructor(renderer: Renderer2, elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _focusMonitor: FocusMonitor, tabIndex: string);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /**

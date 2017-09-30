@@ -236,6 +236,15 @@ var MatButtonToggleGroup = (function (_super) {
      */
     MatButtonToggleGroup.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
+        this._markButtonTogglesForCheck();
+    };
+    /**
+     * @return {?}
+     */
+    MatButtonToggleGroup.prototype._markButtonTogglesForCheck = function () {
+        if (this._buttonToggles) {
+            this._buttonToggles.forEach(function (toggle) { return toggle._markForCheck(); });
+        }
     };
     return MatButtonToggleGroup;
 }(_MatButtonToggleGroupMixinBase));
@@ -548,6 +557,17 @@ var MatButtonToggle = (function () {
      */
     MatButtonToggle.prototype.ngOnDestroy = function () {
         this._removeUniqueSelectionListener();
+    };
+    /**
+     * Marks the button toggle as needing checking for change detection.
+     * This method is exposed because the parent button toggle group will directly
+     * update bound properties of the radio button.
+     * @return {?}
+     */
+    MatButtonToggle.prototype._markForCheck = function () {
+        // When group value changes, the button will not be notified. Use `markForCheck` to explicit
+        // update button toggle's status
+        this._changeDetectorRef.markForCheck();
     };
     return MatButtonToggle;
 }());

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/collections'), require('@angular/cdk/overlay'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/Subscription'), require('@angular/cdk/portal')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/collections', '@angular/cdk/overlay', '@angular/cdk/rxjs', '@angular/forms', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/Subscription', '@angular/cdk/portal'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.paginator = global.ng.material.paginator || {}),global.ng.common,global.ng.core,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.collections,global.ng.cdk.overlay,global.ng.cdk.rxjs,global.ng.forms,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx,global.ng.cdk.portal));
-}(this, (function (exports,_angular_common,_angular_core,_angular_platformBrowser,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_collections,_angular_cdk_overlay,_angular_cdk_rxjs,_angular_forms,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_Subscription,_angular_cdk_portal) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/collections'), require('@angular/cdk/overlay'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/Subscription'), require('@angular/cdk/portal')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/collections', '@angular/cdk/overlay', '@angular/cdk/rxjs', '@angular/forms', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/Subscription', '@angular/cdk/portal'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.paginator = global.ng.material.paginator || {}),global.ng.common,global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.collections,global.ng.cdk.overlay,global.ng.cdk.rxjs,global.ng.forms,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx,global.ng.cdk.portal));
+}(this, (function (exports,_angular_common,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_collections,_angular_cdk_overlay,_angular_cdk_rxjs,_angular_forms,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_Subscription,_angular_cdk_portal) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -147,16 +147,18 @@ var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('mat-sanity-checks
  */
 var MatCommonModule = (function () {
     /**
-     * @param {?} _document
-     * @param {?} _sanityChecksEnabled
+     * @param {?} sanityChecksEnabled
      */
-    function MatCommonModule(_document, _sanityChecksEnabled) {
-        this._document = _document;
+    function MatCommonModule(sanityChecksEnabled) {
         /**
          * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
          */
         this._hasDoneGlobalChecks = false;
-        if (_sanityChecksEnabled && !this._hasDoneGlobalChecks && _document && _angular_core.isDevMode()) {
+        /**
+         * Reference to the global `document` object.
+         */
+        this._document = typeof document === 'object' && document ? document : null;
+        if (sanityChecksEnabled && !this._hasDoneGlobalChecks && _angular_core.isDevMode()) {
             this._checkDoctype();
             this._checkTheme();
             this._hasDoneGlobalChecks = true;
@@ -166,7 +168,7 @@ var MatCommonModule = (function () {
      * @return {?}
      */
     MatCommonModule.prototype._checkDoctype = function () {
-        if (!this._document.doctype) {
+        if (this._document && !this._document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
                 'some Angular Material components not to behave as expected.');
         }
@@ -175,11 +177,15 @@ var MatCommonModule = (function () {
      * @return {?}
      */
     MatCommonModule.prototype._checkTheme = function () {
-        if (typeof getComputedStyle === 'function') {
+        if (this._document && typeof getComputedStyle === 'function') {
             var /** @type {?} */ testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
             this._document.body.appendChild(testElement);
-            if (getComputedStyle(testElement).display !== 'none') {
+            var /** @type {?} */ computedStyle = getComputedStyle(testElement);
+            // In some situations, the computed style of the test element can be null. For example in
+            // Firefox, the computed style is null if an application is running inside of a hidden iframe.
+            // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+            if (computedStyle && computedStyle.display !== 'none') {
                 console.warn('Could not find Angular Material core theme. Most Material ' +
                     'components may not work as expected. For more info refer ' +
                     'to the theming guide: https://material.angular.io/guide/theming');
@@ -202,7 +208,6 @@ MatCommonModule.decorators = [
  * @nocollapse
  */
 MatCommonModule.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
 ]; };
 /**
@@ -1266,9 +1271,9 @@ var RippleRenderer = (function () {
         this._ngZone = _ngZone;
         this._ruler = _ruler;
         /**
-         * Whether the mouse is currently down or not.
+         * Whether the pointer is currently being held on the trigger or not.
          */
-        this._isMousedown = false;
+        this._isPointerDown = false;
         /**
          * Events to be registered on the trigger element.
          */
@@ -1290,8 +1295,10 @@ var RippleRenderer = (function () {
             this._containerElement = elementRef.nativeElement;
             // Specify events which need to be registered on the trigger.
             this._triggerEvents.set('mousedown', this.onMousedown.bind(this));
-            this._triggerEvents.set('mouseup', this.onMouseup.bind(this));
-            this._triggerEvents.set('mouseleave', this.onMouseLeave.bind(this));
+            this._triggerEvents.set('touchstart', this.onTouchstart.bind(this));
+            this._triggerEvents.set('mouseup', this.onPointerUp.bind(this));
+            this._triggerEvents.set('touchend', this.onPointerUp.bind(this));
+            this._triggerEvents.set('mouseleave', this.onPointerLeave.bind(this));
             // By default use the host element as trigger element.
             this.setTriggerElement(this._containerElement);
         }
@@ -1345,7 +1352,7 @@ var RippleRenderer = (function () {
         // Once it's faded in, the ripple can be hidden immediately if the mouse is released.
         this.runTimeoutOutsideZone(function () {
             rippleRef.state = RippleState.VISIBLE;
-            if (!config.persistent && !_this._isMousedown) {
+            if (!config.persistent && !_this._isPointerDown) {
                 rippleRef.fadeOut();
             }
         }, duration);
@@ -1400,22 +1407,22 @@ var RippleRenderer = (function () {
         this._triggerElement = element;
     };
     /**
-     * Listener being called on mousedown event.
+     * Function being called whenever the trigger is being pressed.
      * @param {?} event
      * @return {?}
      */
     RippleRenderer.prototype.onMousedown = function (event) {
         if (!this.rippleDisabled) {
-            this._isMousedown = true;
+            this._isPointerDown = true;
             this.fadeInRipple(event.pageX, event.pageY, this.rippleConfig);
         }
     };
     /**
-     * Listener being called on mouseup event.
+     * Function being called whenever the pointer is being released.
      * @return {?}
      */
-    RippleRenderer.prototype.onMouseup = function () {
-        this._isMousedown = false;
+    RippleRenderer.prototype.onPointerUp = function () {
+        this._isPointerDown = false;
         // Fade-out all ripples that are completely visible and not persistent.
         this._activeRipples.forEach(function (ripple) {
             if (!ripple.config.persistent && ripple.state === RippleState.VISIBLE) {
@@ -1424,12 +1431,24 @@ var RippleRenderer = (function () {
         });
     };
     /**
-     * Listener being called on mouseleave event.
+     * Function being called whenever the pointer leaves the trigger.
      * @return {?}
      */
-    RippleRenderer.prototype.onMouseLeave = function () {
-        if (this._isMousedown) {
-            this.onMouseup();
+    RippleRenderer.prototype.onPointerLeave = function () {
+        if (this._isPointerDown) {
+            this.onPointerUp();
+        }
+    };
+    /**
+     * Function being called whenever the trigger is being touched.
+     * @param {?} event
+     * @return {?}
+     */
+    RippleRenderer.prototype.onTouchstart = function (event) {
+        if (!this.rippleDisabled) {
+            var _a = event.touches[0], pageX = _a.pageX, pageY = _a.pageY;
+            this._isPointerDown = true;
+            this.fadeInRipple(pageX, pageY, this.rippleConfig);
         }
     };
     /**
@@ -2255,7 +2274,7 @@ MatButton.decorators = [
                     '[disabled]': 'disabled || null',
                 },
                 template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div matRipple class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton || _isIconButton\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"_isIconButton\" [matRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\"></div>",
-                styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([disabled]):active,.mat-mini-fab:not([disabled]):active,.mat-raised-button:not([disabled]):active{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-button-wrapper{padding:16px 0;display:inline-block;line-height:24px}.mat-mini-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-button-wrapper{padding:8px 0;display:inline-block;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
+                styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([class*=mat-elevation-z]),.mat-mini-fab:not([class*=mat-elevation-z]),.mat-raised-button:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]),.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]),.mat-raised-button:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-button-wrapper{padding:16px 0;display:inline-block;line-height:24px}.mat-mini-fab{min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-button-wrapper{padding:8px 0;display:inline-block;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
                 inputs: ['disabled', 'disableRipple', 'color'],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
@@ -2308,7 +2327,7 @@ MatAnchor.decorators = [
                 },
                 inputs: ['disabled', 'disableRipple', 'color'],
                 template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div matRipple class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton || _isIconButton\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"_isIconButton\" [matRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\"></div>",
-                styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([disabled]):active,.mat-mini-fab:not([disabled]):active,.mat-raised-button:not([disabled]):active{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-button-wrapper{padding:16px 0;display:inline-block;line-height:24px}.mat-mini-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-button-wrapper{padding:8px 0;display:inline-block;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
+                styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([class*=mat-elevation-z]),.mat-mini-fab:not([class*=mat-elevation-z]),.mat-raised-button:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]),.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]),.mat-raised-button:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-button-wrapper{padding:16px 0;display:inline-block;line-height:24px}.mat-mini-fab{min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-button-wrapper{padding:8px 0;display:inline-block;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -3091,11 +3110,12 @@ var MatSelect = (function (_super) {
      * @param {?} _dir
      * @param {?} _parentForm
      * @param {?} _parentFormGroup
+     * @param {?} _parentFormField
      * @param {?} ngControl
      * @param {?} tabIndex
      * @param {?} _scrollStrategyFactory
      */
-    function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, renderer, elementRef, _dir, _parentForm, _parentFormGroup, ngControl, tabIndex, _scrollStrategyFactory) {
+    function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, renderer, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, _scrollStrategyFactory) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._viewportRuler = _viewportRuler;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -3103,6 +3123,7 @@ var MatSelect = (function (_super) {
         _this._dir = _dir;
         _this._parentForm = _parentForm;
         _this._parentFormGroup = _parentFormGroup;
+        _this._parentFormField = _parentFormField;
         _this.ngControl = ngControl;
         _this._scrollStrategyFactory = _scrollStrategyFactory;
         /**
@@ -3213,10 +3234,6 @@ var MatSelect = (function (_super) {
          * Aria label of the select. If not specified, the placeholder will be used as label.
          */
         _this.ariaLabel = '';
-        /**
-         * Input that can be used to specify the `aria-labelledby` attribute.
-         */
-        _this.ariaLabelledby = '';
         /**
          * Event emitted when the select has been opened.
          */
@@ -3332,8 +3349,10 @@ var MatSelect = (function (_super) {
          * @return {?}
          */
         set: function (newValue) {
-            this.writeValue(newValue);
-            this._value = newValue;
+            if (newValue !== this._value) {
+                this.writeValue(newValue);
+                this._value = newValue;
+            }
         },
         enumerable: true,
         configurable: true
@@ -3634,6 +3653,13 @@ var MatSelect = (function (_super) {
     MatSelect.prototype._onAttached = function () {
         this._calculateOverlayOffsetX();
         this._setScrollTop();
+    };
+    /**
+     * Returns the theme to be used on the panel.
+     * @return {?}
+     */
+    MatSelect.prototype._getPanelTheme = function () {
+        return this._parentFormField ? "mat-" + this._parentFormField.color : '';
     };
     Object.defineProperty(MatSelect.prototype, "empty", {
         /**
@@ -4162,7 +4188,6 @@ var MatSelect = (function (_super) {
             if (currentActiveItem !== prevActiveItem) {
                 this._clearSelection();
                 this._setSelectionByValue(currentActiveItem.value, true);
-                this._propagateChanges();
             }
         }
     };
@@ -4197,7 +4222,7 @@ var MatSelect = (function (_super) {
 }(_MatSelectMixinBase));
 MatSelect.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'mat-select',
-                template: "<div cdk-overlay-origin class=\"mat-select-trigger\" aria-hidden=\"true\" (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><div class=\"mat-select-value\"><ng-container *ngIf=\"empty\">{{'\u00A0'}}</ng-container><span class=\"mat-select-value-text\" *ngIf=\"!empty\" [ngSwitch]=\"!!customTrigger\"><span *ngSwitchDefault>{{ triggerValue }}</span><ng-content select=\"mat-select-trigger\" *ngSwitchCase=\"true\"></ng-content></span></div><div class=\"mat-select-arrow-wrapper\"><div class=\"mat-select-arrow\"></div></div></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [scrollStrategy]=\"_scrollStrategy\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerRect?.width\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div class=\"mat-select-panel {{ 'mat-' + color }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_handlePanelKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [style.font-size.px]=\"_triggerFontSize\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
+                template: "<div cdk-overlay-origin class=\"mat-select-trigger\" aria-hidden=\"true\" (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><div class=\"mat-select-value\"><ng-container *ngIf=\"empty\">{{'\u00A0'}}</ng-container><span class=\"mat-select-value-text\" *ngIf=\"!empty\" [ngSwitch]=\"!!customTrigger\"><span *ngSwitchDefault>{{ triggerValue }}</span><ng-content select=\"mat-select-trigger\" *ngSwitchCase=\"true\"></ng-content></span></div><div class=\"mat-select-arrow-wrapper\"><div class=\"mat-select-arrow\"></div></div></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [scrollStrategy]=\"_scrollStrategy\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerRect?.width\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div class=\"mat-select-panel {{ _getPanelTheme() }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_handlePanelKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [style.font-size.px]=\"_triggerFontSize\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
                 styles: [".mat-select{display:inline-block;width:100%;outline:0}.mat-select-trigger{display:inline-table;cursor:pointer;position:relative;box-sizing:border-box}.mat-select-disabled .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-value{display:table-cell;max-width:0;width:100%;overflow:hidden;text-overflow:ellipsis}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-select-arrow-wrapper{display:table-cell;vertical-align:middle}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}.mat-select-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}}.mat-select-panel .mat-optgroup-label,.mat-select-panel .mat-option{font-size:inherit;line-height:3em;height:3em}.mat-form-field-type-mat-select .mat-form-field-flex{cursor:pointer}.mat-form-field-type-mat-select .mat-form-field-placeholder{width:calc(100% - 18px)}"],
                 inputs: ['disabled', 'tabIndex'],
                 encapsulation: _angular_core.ViewEncapsulation.None,
@@ -4243,6 +4268,7 @@ MatSelect.ctorParameters = function () { return [
     { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_forms.NgForm, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_forms.FormGroupDirective, decorators: [{ type: _angular_core.Optional },] },
+    { type: MatFormField, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_forms.NgControl, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional },] },
     { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['tabindex',] },] },
     { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_SELECT_SCROLL_STRATEGY,] },] },
@@ -4580,16 +4606,24 @@ var MatTooltip = (function () {
     MatTooltip.prototype._createOverlay = function () {
         var _this = this;
         var /** @type {?} */ origin = this._getOrigin();
-        var /** @type {?} */ position = this._getOverlayPosition();
+        var /** @type {?} */ overlay = this._getOverlayPosition();
         // Create connected position strategy that listens for scroll events to reposition.
-        // After position changes occur and the overlay is clipped by a parent scrollable then
-        // close the tooltip.
-        var /** @type {?} */ strategy = this._overlay.position().connectedTo(this._elementRef, origin, position);
+        var /** @type {?} */ strategy = this._overlay
+            .position()
+            .connectedTo(this._elementRef, origin.main, overlay.main)
+            .withFallbackPosition(origin.fallback, overlay.fallback);
         strategy.withScrollableContainers(this._scrollDispatcher.getScrollContainers(this._elementRef));
         strategy.onPositionChange.subscribe(function (change) {
-            if (change.scrollableViewProperties.isOverlayClipped &&
-                _this._tooltipInstance && _this._tooltipInstance.isVisible()) {
-                _this.hide(0);
+            if (_this._tooltipInstance) {
+                if (change.scrollableViewProperties.isOverlayClipped && _this._tooltipInstance.isVisible()) {
+                    // After position changes occur and the overlay is clipped by
+                    // a parent scrollable then close the tooltip.
+                    _this.hide(0);
+                }
+                else {
+                    // Otherwise recalculate the origin based on the new position.
+                    _this._tooltipInstance._setTransformOrigin(change.connectionPair);
+                }
             }
         });
         var /** @type {?} */ config = new _angular_cdk_overlay.OverlayConfig({
@@ -4613,49 +4647,66 @@ var MatTooltip = (function () {
         this._tooltipInstance = null;
     };
     /**
-     * Returns the origin position based on the user's position preference
+     * Returns the origin position and a fallback position based on the user's position preference.
+     * The fallback position is the inverse of the origin (e.g. 'below' -> 'above').
      * @return {?}
      */
     MatTooltip.prototype._getOrigin = function () {
-        if (this.position == 'above' || this.position == 'below') {
-            return { originX: 'center', originY: this.position == 'above' ? 'top' : 'bottom' };
-        }
         var /** @type {?} */ isDirectionLtr = !this._dir || this._dir.value == 'ltr';
-        if (this.position == 'left' ||
+        var /** @type {?} */ position;
+        if (this.position == 'above' || this.position == 'below') {
+            position = { originX: 'center', originY: this.position == 'above' ? 'top' : 'bottom' };
+        }
+        else if (this.position == 'left' ||
             this.position == 'before' && isDirectionLtr ||
             this.position == 'after' && !isDirectionLtr) {
-            return { originX: 'start', originY: 'center' };
+            position = { originX: 'start', originY: 'center' };
         }
-        if (this.position == 'right' ||
+        else if (this.position == 'right' ||
             this.position == 'after' && isDirectionLtr ||
             this.position == 'before' && !isDirectionLtr) {
-            return { originX: 'end', originY: 'center' };
+            position = { originX: 'end', originY: 'center' };
         }
-        throw getMatTooltipInvalidPositionError(this.position);
+        else {
+            throw getMatTooltipInvalidPositionError(this.position);
+        }
+        var _a = this._invertPosition(position.originX, position.originY), x = _a.x, y = _a.y;
+        return {
+            main: position,
+            fallback: { originX: x, originY: y }
+        };
     };
     /**
-     * Returns the overlay position based on the user's preference
+     * Returns the overlay position and a fallback position based on the user's preference
      * @return {?}
      */
     MatTooltip.prototype._getOverlayPosition = function () {
-        if (this.position == 'above') {
-            return { overlayX: 'center', overlayY: 'bottom' };
-        }
-        if (this.position == 'below') {
-            return { overlayX: 'center', overlayY: 'top' };
-        }
         var /** @type {?} */ isLtr = !this._dir || this._dir.value == 'ltr';
-        if (this.position == 'left' ||
+        var /** @type {?} */ position;
+        if (this.position == 'above') {
+            position = { overlayX: 'center', overlayY: 'bottom' };
+        }
+        else if (this.position == 'below') {
+            position = { overlayX: 'center', overlayY: 'top' };
+        }
+        else if (this.position == 'left' ||
             this.position == 'before' && isLtr ||
             this.position == 'after' && !isLtr) {
-            return { overlayX: 'end', overlayY: 'center' };
+            position = { overlayX: 'end', overlayY: 'center' };
         }
-        if (this.position == 'right' ||
+        else if (this.position == 'right' ||
             this.position == 'after' && isLtr ||
             this.position == 'before' && !isLtr) {
-            return { overlayX: 'start', overlayY: 'center' };
+            position = { overlayX: 'start', overlayY: 'center' };
         }
-        throw getMatTooltipInvalidPositionError(this.position);
+        else {
+            throw getMatTooltipInvalidPositionError(this.position);
+        }
+        var _a = this._invertPosition(position.overlayX, position.overlayY), x = _a.x, y = _a.y;
+        return {
+            main: position,
+            fallback: { overlayX: x, overlayY: y }
+        };
     };
     /**
      * Updates the tooltip message and repositions the overlay according to the new message length
@@ -4685,6 +4736,31 @@ var MatTooltip = (function () {
             this._tooltipInstance.tooltipClass = tooltipClass;
             this._tooltipInstance._markForCheck();
         }
+    };
+    /**
+     * Inverts an overlay position.
+     * @param {?} x
+     * @param {?} y
+     * @return {?}
+     */
+    MatTooltip.prototype._invertPosition = function (x, y) {
+        if (this.position === 'above' || this.position === 'below') {
+            if (y === 'top') {
+                y = 'bottom';
+            }
+            else if (y === 'bottom') {
+                y = 'top';
+            }
+        }
+        else {
+            if (x === 'end') {
+                x = 'start';
+            }
+            else if (x === 'start') {
+                x = 'end';
+            }
+        }
+        return { x: x, y: y };
     };
     return MatTooltip;
 }());
@@ -4731,11 +4807,9 @@ MatTooltip.propDecorators = {
  */
 var TooltipComponent = (function () {
     /**
-     * @param {?} _dir
      * @param {?} _changeDetectorRef
      */
-    function TooltipComponent(_dir, _changeDetectorRef) {
-        this._dir = _dir;
+    function TooltipComponent(_changeDetectorRef) {
         this._changeDetectorRef = _changeDetectorRef;
         /**
          * Property watched by the animation framework to show or hide the tooltip
@@ -4766,7 +4840,9 @@ var TooltipComponent = (function () {
         if (this._hideTimeoutId) {
             clearTimeout(this._hideTimeoutId);
         }
-        this._setTransformOrigin(position);
+        // Body interactions should cancel the tooltip if there is a delay in showing.
+        this._closeOnInteraction = true;
+        this._position = position;
         this._showTimeoutId = setTimeout(function () {
             _this._visibility = 'visible';
             // Mark for check so if any parent component has set the
@@ -4793,46 +4869,38 @@ var TooltipComponent = (function () {
         }, delay);
     };
     /**
-     * Returns an observable that notifies when the tooltip has been hidden from view
+     * Returns an observable that notifies when the tooltip has been hidden from view.
      * @return {?}
      */
     TooltipComponent.prototype.afterHidden = function () {
         return this._onHide.asObservable();
     };
     /**
-     * Whether the tooltip is being displayed
+     * Whether the tooltip is being displayed.
      * @return {?}
      */
     TooltipComponent.prototype.isVisible = function () {
         return this._visibility === 'visible';
     };
     /**
-     * Sets the tooltip transform origin according to the tooltip position
-     * @param {?} value
+     * Sets the tooltip transform origin according to the position of the tooltip overlay.
+     * @param {?} overlayPosition
      * @return {?}
      */
-    TooltipComponent.prototype._setTransformOrigin = function (value) {
-        var /** @type {?} */ isLtr = !this._dir || this._dir.value == 'ltr';
-        switch (value) {
-            case 'before':
-                this._transformOrigin = isLtr ? 'right' : 'left';
-                break;
-            case 'after':
-                this._transformOrigin = isLtr ? 'left' : 'right';
-                break;
-            case 'left':
-                this._transformOrigin = 'right';
-                break;
-            case 'right':
-                this._transformOrigin = 'left';
-                break;
-            case 'above':
-                this._transformOrigin = 'bottom';
-                break;
-            case 'below':
-                this._transformOrigin = 'top';
-                break;
-            default: throw getMatTooltipInvalidPositionError(value);
+    TooltipComponent.prototype._setTransformOrigin = function (overlayPosition) {
+        var /** @type {?} */ axis = (this._position === 'above' || this._position === 'below') ? 'Y' : 'X';
+        var /** @type {?} */ position = axis == 'X' ? overlayPosition.overlayX : overlayPosition.overlayY;
+        if (position === 'top' || position === 'bottom') {
+            this._transformOrigin = position;
+        }
+        else if (position === 'start') {
+            this._transformOrigin = 'left';
+        }
+        else if (position === 'end') {
+            this._transformOrigin = 'right';
+        }
+        else {
+            throw getMatTooltipInvalidPositionError(this._position);
         }
     };
     /**
@@ -4908,7 +4976,6 @@ TooltipComponent.decorators = [
  * @nocollapse
  */
 TooltipComponent.ctorParameters = function () { return [
-    { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_core.ChangeDetectorRef, },
 ]; };
 var MatTooltipModule = (function () {

@@ -586,7 +586,7 @@ var MatSlider = (function (_super) {
      * @return {?}
      */
     MatSlider.prototype._onSlideStart = function (event) {
-        if (this.disabled) {
+        if (this.disabled || this._isSliding) {
             return;
         }
         // Simulate mouseenter in case this is a mobile device.

@@ -7,7 +7,7 @@
  */
 import { AnimationEvent } from '@angular/animations';
 import { Direction } from '@angular/cdk/bidi';
-import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, OnDestroy, QueryList, TemplateRef } from '@angular/core';
+import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, OnDestroy, QueryList, TemplateRef, NgZone } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { MatMenuItem } from './menu-item';
 import { MatMenuPanel } from './menu-panel';
@@ -22,6 +22,7 @@ export interface MatMenuDefaultOptions {
 export declare const MAT_MENU_DEFAULT_OPTIONS: InjectionToken<MatMenuDefaultOptions>;
 export declare class MatMenu implements AfterContentInit, MatMenuPanel, OnDestroy {
     private _elementRef;
+    private _ngZone;
     private _defaultOptions;
     private _keyManager;
     private _xPosition;
@@ -30,7 +31,9 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel, OnDestro
     /** Subscription to tab events on the menu panel */
     private _tabSubscription;
     /** Config object to be passed into the menu's ngClass */
-    _classList: any;
+    _classList: {
+        [key: string]: boolean;
+    };
     /** Current state of the panel animation. */
     _panelAnimationState: 'void' | 'enter-start' | 'enter';
     /** Parent menu of the current menu panel. */
@@ -55,7 +58,7 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel, OnDestro
     classList: string;
     /** Event emitted when the menu is closed. */
     close: EventEmitter<void | "click" | "keydown">;
-    constructor(_elementRef: ElementRef, _defaultOptions: MatMenuDefaultOptions);
+    constructor(_elementRef: ElementRef, _ngZone: NgZone, _defaultOptions: MatMenuDefaultOptions);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Stream that emits whenever the hovered menu item changes. */

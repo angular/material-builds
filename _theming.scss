@@ -297,6 +297,9 @@ $mat-elevation-transition-duration: 280ms !default;
 // The default easing value for elevation transitions.
 $mat-elevation-transition-timing-function: $mat-fast-out-slow-in-timing-function;
 
+// Prefix for elevation-related selectors.
+$_mat-elevation-prefix: 'mat-elevation-z';
+
 // Applies the correct css rules to an element to give it the elevation specified by $zValue.
 // The $zValue must be between 0 and 24.
 @mixin mat-elevation($zValue) {
@@ -310,6 +313,14 @@ $mat-elevation-transition-timing-function: $mat-fast-out-slow-in-timing-function
   box-shadow: #{map-get($_umbra-elevation-map, $zValue)},
               #{map-get($_penumbra-elevation-map, $zValue)},
               #{map-get($_ambient-elevation-map, $zValue)};
+}
+
+// Applies the elevation to an element in a manner that allows
+// consumers to override it via the Material elevation classes.
+@mixin mat-overridable-elevation($zValue) {
+  &:not([class*='#{$_mat-elevation-prefix}']) {
+    @include mat-elevation($zValue);
+  }
 }
 
 // Returns a string that can be used as the value for a transition property for elevation.
@@ -1241,14 +1252,9 @@ $mat-menu-icon-margin: 16px !default;
 
 
 @mixin mat-menu-base($default-elevation) {
+  @include mat-overridable-elevation($default-elevation);
   min-width: $mat-menu-overlay-min-width;
   max-width: $mat-menu-overlay-max-width;
-
-  // Allow elevation to be overwritten.
-  &:not([class*='mat-elevation-z']) {
-    @include mat-elevation($default-elevation);
-  }
-
   overflow: auto;
   -webkit-overflow-scrolling: touch;   // for momentum scroll on mobile
 }
@@ -3206,7 +3212,8 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   $primary: map-get($theme, primary);
 
   .mat-step-header {
-    &:focus,
+    &.cdk-keyboard-focused,
+    &.cdk-program-focused,
     &:hover {
       background-color: mat-color($background, hover);
     }
@@ -3247,6 +3254,20 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 @mixin mat-stepper-typography($config) {
   .mat-stepper-vertical, .mat-stepper-horizontal {
     font-family: mat-font-family($config);
+  }
+
+  .mat-step-label {
+    font: {
+      size: mat-font-size($config, body-1);
+      weight: mat-font-weight($config, body-1);
+    };
+  }
+
+  .mat-step-label-selected {
+    font: {
+      size: mat-font-size($config, body-2);
+      weight: mat-font-weight($config, body-2);
+    };
   }
 }
 
@@ -3758,7 +3779,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
   // `mat-elevation-z$zValue` where `$zValue` corresponds to the z-space to which the element is
   // elevated.
   @for $zValue from 0 through 24 {
-    .mat-elevation-z#{$zValue} {
+    .#{$_mat-elevation-prefix}#{$zValue} {
       @include mat-elevation($zValue);
     }
   }

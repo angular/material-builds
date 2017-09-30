@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/platform-browser'), require('rxjs/Subject'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/Subscription')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/cdk/overlay', '@angular/cdk/rxjs', '@angular/forms', '@angular/platform-browser', 'rxjs/Subject', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/Subscription'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.select = global.ng.material.select || {}),global.ng.core,global.ng.common,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.ng.cdk.rxjs,global.ng.forms,global.ng.platformBrowser,global.Rx,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx));
-}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_collections,_angular_cdk_keycodes,_angular_cdk_overlay,_angular_cdk_rxjs,_angular_forms,_angular_platformBrowser,rxjs_Subject,_angular_cdk_scrolling,_angular_cdk_platform,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_Subscription) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/Subscription')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/cdk/overlay', '@angular/cdk/rxjs', '@angular/forms', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/Subscription'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.select = global.ng.material.select || {}),global.ng.core,global.ng.common,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.ng.cdk.rxjs,global.ng.forms,global.Rx,global.ng.platformBrowser,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx));
+}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_collections,_angular_cdk_keycodes,_angular_cdk_overlay,_angular_cdk_rxjs,_angular_forms,rxjs_Subject,_angular_platformBrowser,_angular_cdk_scrolling,_angular_cdk_platform,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_Subscription) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -147,16 +147,18 @@ var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('mat-sanity-checks
  */
 var MatCommonModule = (function () {
     /**
-     * @param {?} _document
-     * @param {?} _sanityChecksEnabled
+     * @param {?} sanityChecksEnabled
      */
-    function MatCommonModule(_document, _sanityChecksEnabled) {
-        this._document = _document;
+    function MatCommonModule(sanityChecksEnabled) {
         /**
          * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
          */
         this._hasDoneGlobalChecks = false;
-        if (_sanityChecksEnabled && !this._hasDoneGlobalChecks && _document && _angular_core.isDevMode()) {
+        /**
+         * Reference to the global `document` object.
+         */
+        this._document = typeof document === 'object' && document ? document : null;
+        if (sanityChecksEnabled && !this._hasDoneGlobalChecks && _angular_core.isDevMode()) {
             this._checkDoctype();
             this._checkTheme();
             this._hasDoneGlobalChecks = true;
@@ -166,7 +168,7 @@ var MatCommonModule = (function () {
      * @return {?}
      */
     MatCommonModule.prototype._checkDoctype = function () {
-        if (!this._document.doctype) {
+        if (this._document && !this._document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
                 'some Angular Material components not to behave as expected.');
         }
@@ -175,11 +177,15 @@ var MatCommonModule = (function () {
      * @return {?}
      */
     MatCommonModule.prototype._checkTheme = function () {
-        if (typeof getComputedStyle === 'function') {
+        if (this._document && typeof getComputedStyle === 'function') {
             var /** @type {?} */ testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
             this._document.body.appendChild(testElement);
-            if (getComputedStyle(testElement).display !== 'none') {
+            var /** @type {?} */ computedStyle = getComputedStyle(testElement);
+            // In some situations, the computed style of the test element can be null. For example in
+            // Firefox, the computed style is null if an application is running inside of a hidden iframe.
+            // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+            if (computedStyle && computedStyle.display !== 'none') {
                 console.warn('Could not find Angular Material core theme. Most Material ' +
                     'components may not work as expected. For more info refer ' +
                     'to the theming guide: https://material.angular.io/guide/theming');
@@ -202,7 +208,6 @@ MatCommonModule.decorators = [
  * @nocollapse
  */
 MatCommonModule.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
 ]; };
 /**
@@ -1178,9 +1183,9 @@ var RippleRenderer = (function () {
         this._ngZone = _ngZone;
         this._ruler = _ruler;
         /**
-         * Whether the mouse is currently down or not.
+         * Whether the pointer is currently being held on the trigger or not.
          */
-        this._isMousedown = false;
+        this._isPointerDown = false;
         /**
          * Events to be registered on the trigger element.
          */
@@ -1202,8 +1207,10 @@ var RippleRenderer = (function () {
             this._containerElement = elementRef.nativeElement;
             // Specify events which need to be registered on the trigger.
             this._triggerEvents.set('mousedown', this.onMousedown.bind(this));
-            this._triggerEvents.set('mouseup', this.onMouseup.bind(this));
-            this._triggerEvents.set('mouseleave', this.onMouseLeave.bind(this));
+            this._triggerEvents.set('touchstart', this.onTouchstart.bind(this));
+            this._triggerEvents.set('mouseup', this.onPointerUp.bind(this));
+            this._triggerEvents.set('touchend', this.onPointerUp.bind(this));
+            this._triggerEvents.set('mouseleave', this.onPointerLeave.bind(this));
             // By default use the host element as trigger element.
             this.setTriggerElement(this._containerElement);
         }
@@ -1257,7 +1264,7 @@ var RippleRenderer = (function () {
         // Once it's faded in, the ripple can be hidden immediately if the mouse is released.
         this.runTimeoutOutsideZone(function () {
             rippleRef.state = RippleState.VISIBLE;
-            if (!config.persistent && !_this._isMousedown) {
+            if (!config.persistent && !_this._isPointerDown) {
                 rippleRef.fadeOut();
             }
         }, duration);
@@ -1312,22 +1319,22 @@ var RippleRenderer = (function () {
         this._triggerElement = element;
     };
     /**
-     * Listener being called on mousedown event.
+     * Function being called whenever the trigger is being pressed.
      * @param {?} event
      * @return {?}
      */
     RippleRenderer.prototype.onMousedown = function (event) {
         if (!this.rippleDisabled) {
-            this._isMousedown = true;
+            this._isPointerDown = true;
             this.fadeInRipple(event.pageX, event.pageY, this.rippleConfig);
         }
     };
     /**
-     * Listener being called on mouseup event.
+     * Function being called whenever the pointer is being released.
      * @return {?}
      */
-    RippleRenderer.prototype.onMouseup = function () {
-        this._isMousedown = false;
+    RippleRenderer.prototype.onPointerUp = function () {
+        this._isPointerDown = false;
         // Fade-out all ripples that are completely visible and not persistent.
         this._activeRipples.forEach(function (ripple) {
             if (!ripple.config.persistent && ripple.state === RippleState.VISIBLE) {
@@ -1336,12 +1343,24 @@ var RippleRenderer = (function () {
         });
     };
     /**
-     * Listener being called on mouseleave event.
+     * Function being called whenever the pointer leaves the trigger.
      * @return {?}
      */
-    RippleRenderer.prototype.onMouseLeave = function () {
-        if (this._isMousedown) {
-            this.onMouseup();
+    RippleRenderer.prototype.onPointerLeave = function () {
+        if (this._isPointerDown) {
+            this.onPointerUp();
+        }
+    };
+    /**
+     * Function being called whenever the trigger is being touched.
+     * @param {?} event
+     * @return {?}
+     */
+    RippleRenderer.prototype.onTouchstart = function (event) {
+        if (!this.rippleDisabled) {
+            var _a = event.touches[0], pageX = _a.pageX, pageY = _a.pageY;
+            this._isPointerDown = true;
+            this.fadeInRipple(pageX, pageY, this.rippleConfig);
         }
     };
     /**
@@ -2683,11 +2702,12 @@ var MatSelect = (function (_super) {
      * @param {?} _dir
      * @param {?} _parentForm
      * @param {?} _parentFormGroup
+     * @param {?} _parentFormField
      * @param {?} ngControl
      * @param {?} tabIndex
      * @param {?} _scrollStrategyFactory
      */
-    function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, renderer, elementRef, _dir, _parentForm, _parentFormGroup, ngControl, tabIndex, _scrollStrategyFactory) {
+    function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, renderer, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, _scrollStrategyFactory) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._viewportRuler = _viewportRuler;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -2695,6 +2715,7 @@ var MatSelect = (function (_super) {
         _this._dir = _dir;
         _this._parentForm = _parentForm;
         _this._parentFormGroup = _parentFormGroup;
+        _this._parentFormField = _parentFormField;
         _this.ngControl = ngControl;
         _this._scrollStrategyFactory = _scrollStrategyFactory;
         /**
@@ -2805,10 +2826,6 @@ var MatSelect = (function (_super) {
          * Aria label of the select. If not specified, the placeholder will be used as label.
          */
         _this.ariaLabel = '';
-        /**
-         * Input that can be used to specify the `aria-labelledby` attribute.
-         */
-        _this.ariaLabelledby = '';
         /**
          * Event emitted when the select has been opened.
          */
@@ -2924,8 +2941,10 @@ var MatSelect = (function (_super) {
          * @return {?}
          */
         set: function (newValue) {
-            this.writeValue(newValue);
-            this._value = newValue;
+            if (newValue !== this._value) {
+                this.writeValue(newValue);
+                this._value = newValue;
+            }
         },
         enumerable: true,
         configurable: true
@@ -3226,6 +3245,13 @@ var MatSelect = (function (_super) {
     MatSelect.prototype._onAttached = function () {
         this._calculateOverlayOffsetX();
         this._setScrollTop();
+    };
+    /**
+     * Returns the theme to be used on the panel.
+     * @return {?}
+     */
+    MatSelect.prototype._getPanelTheme = function () {
+        return this._parentFormField ? "mat-" + this._parentFormField.color : '';
     };
     Object.defineProperty(MatSelect.prototype, "empty", {
         /**
@@ -3754,7 +3780,6 @@ var MatSelect = (function (_super) {
             if (currentActiveItem !== prevActiveItem) {
                 this._clearSelection();
                 this._setSelectionByValue(currentActiveItem.value, true);
-                this._propagateChanges();
             }
         }
     };
@@ -3789,7 +3814,7 @@ var MatSelect = (function (_super) {
 }(_MatSelectMixinBase));
 MatSelect.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'mat-select',
-                template: "<div cdk-overlay-origin class=\"mat-select-trigger\" aria-hidden=\"true\" (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><div class=\"mat-select-value\"><ng-container *ngIf=\"empty\">{{'\u00A0'}}</ng-container><span class=\"mat-select-value-text\" *ngIf=\"!empty\" [ngSwitch]=\"!!customTrigger\"><span *ngSwitchDefault>{{ triggerValue }}</span><ng-content select=\"mat-select-trigger\" *ngSwitchCase=\"true\"></ng-content></span></div><div class=\"mat-select-arrow-wrapper\"><div class=\"mat-select-arrow\"></div></div></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [scrollStrategy]=\"_scrollStrategy\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerRect?.width\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div class=\"mat-select-panel {{ 'mat-' + color }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_handlePanelKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [style.font-size.px]=\"_triggerFontSize\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
+                template: "<div cdk-overlay-origin class=\"mat-select-trigger\" aria-hidden=\"true\" (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><div class=\"mat-select-value\"><ng-container *ngIf=\"empty\">{{'\u00A0'}}</ng-container><span class=\"mat-select-value-text\" *ngIf=\"!empty\" [ngSwitch]=\"!!customTrigger\"><span *ngSwitchDefault>{{ triggerValue }}</span><ng-content select=\"mat-select-trigger\" *ngSwitchCase=\"true\"></ng-content></span></div><div class=\"mat-select-arrow-wrapper\"><div class=\"mat-select-arrow\"></div></div></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [scrollStrategy]=\"_scrollStrategy\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerRect?.width\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div class=\"mat-select-panel {{ _getPanelTheme() }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_handlePanelKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [style.font-size.px]=\"_triggerFontSize\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
                 styles: [".mat-select{display:inline-block;width:100%;outline:0}.mat-select-trigger{display:inline-table;cursor:pointer;position:relative;box-sizing:border-box}.mat-select-disabled .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-value{display:table-cell;max-width:0;width:100%;overflow:hidden;text-overflow:ellipsis}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-select-arrow-wrapper{display:table-cell;vertical-align:middle}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}.mat-select-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}}.mat-select-panel .mat-optgroup-label,.mat-select-panel .mat-option{font-size:inherit;line-height:3em;height:3em}.mat-form-field-type-mat-select .mat-form-field-flex{cursor:pointer}.mat-form-field-type-mat-select .mat-form-field-placeholder{width:calc(100% - 18px)}"],
                 inputs: ['disabled', 'tabIndex'],
                 encapsulation: _angular_core.ViewEncapsulation.None,
@@ -3835,6 +3860,7 @@ MatSelect.ctorParameters = function () { return [
     { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_forms.NgForm, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_forms.FormGroupDirective, decorators: [{ type: _angular_core.Optional },] },
+    { type: MatFormField, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_forms.NgControl, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional },] },
     { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['tabindex',] },] },
     { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_SELECT_SCROLL_STRATEGY,] },] },

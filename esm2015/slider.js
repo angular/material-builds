@@ -491,7 +491,7 @@ class MatSlider extends _MatSliderMixinBase {
      * @return {?}
      */
     _onSlideStart(event) {
-        if (this.disabled) {
+        if (this.disabled || this._isSliding) {
             return;
         }
         // Simulate mouseenter in case this is a mobile device.

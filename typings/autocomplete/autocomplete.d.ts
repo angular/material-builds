@@ -16,10 +16,14 @@ export declare class MatAutocompleteSelectedEvent {
 }
 export declare class MatAutocomplete implements AfterContentInit {
     private _changeDetectorRef;
+    private _elementRef;
     /** Manages active item in option list based on key events. */
     _keyManager: ActiveDescendantKeyManager<MatOption>;
     /** Whether the autocomplete panel should be visible, depending on option length. */
     showPanel: boolean;
+    /** Whether the autocomplete panel is open. */
+    readonly isOpen: boolean;
+    _isOpen: boolean;
     /** @docs-private */
     template: TemplateRef<any>;
     /** Element for the panel containing the autocomplete options. */
@@ -32,9 +36,17 @@ export declare class MatAutocomplete implements AfterContentInit {
     displayWith: ((value: any) => string) | null;
     /** Event that is emitted whenever an option from the list is selected. */
     optionSelected: EventEmitter<MatAutocompleteSelectedEvent>;
+    /**
+     * Takes classes set on the host md-autocomplete element and applies them to the panel
+     * inside the overlay container to allow for easy styling.
+     */
+    classList: string;
+    _classList: {
+        [key: string]: boolean;
+    };
     /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
     id: string;
-    constructor(_changeDetectorRef: ChangeDetectorRef);
+    constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef);
     ngAfterContentInit(): void;
     /**
      * Sets the panel scrollTop. This allows us to manually scroll to display options
@@ -47,9 +59,4 @@ export declare class MatAutocomplete implements AfterContentInit {
     _setVisibility(): void;
     /** Emits the `select` event. */
     _emitSelectEvent(option: MatOption): void;
-    /** Sets a class on the panel based on whether it is visible. */
-    _getClassList(): {
-        'mat-autocomplete-visible': boolean;
-        'mat-autocomplete-hidden': boolean;
-    };
 }

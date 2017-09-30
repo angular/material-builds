@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/platform'), require('@angular/common'), require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/cdk/scrolling'), require('@angular/cdk/keycodes'), require('@angular/animations'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/platform', '@angular/common', '@angular/core', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/cdk/scrolling', '@angular/cdk/keycodes', '@angular/animations', '@angular/cdk/portal', '@angular/cdk/rxjs'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = global.ng.material.tooltip || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.platform,global.ng.common,global.ng.core,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.cdk.scrolling,global.ng.cdk.keycodes,global.ng.animations,global.ng.cdk.portal,global.ng.cdk.rxjs));
-}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_platform,_angular_common,_angular_core,_angular_platformBrowser,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_cdk_scrolling,_angular_cdk_keycodes,_angular_animations,_angular_cdk_portal,_angular_cdk_rxjs) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/platform'), require('@angular/common'), require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/scrolling'), require('@angular/cdk/keycodes'), require('@angular/animations'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/platform', '@angular/common', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/scrolling', '@angular/cdk/keycodes', '@angular/animations', '@angular/cdk/portal', '@angular/cdk/rxjs'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = global.ng.material.tooltip || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.platform,global.ng.common,global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.cdk.scrolling,global.ng.cdk.keycodes,global.ng.animations,global.ng.cdk.portal,global.ng.cdk.rxjs));
+}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_platform,_angular_common,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_cdk_scrolling,_angular_cdk_keycodes,_angular_animations,_angular_cdk_portal,_angular_cdk_rxjs) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -147,16 +147,18 @@ var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('mat-sanity-checks
  */
 var MatCommonModule = (function () {
     /**
-     * @param {?} _document
-     * @param {?} _sanityChecksEnabled
+     * @param {?} sanityChecksEnabled
      */
-    function MatCommonModule(_document, _sanityChecksEnabled) {
-        this._document = _document;
+    function MatCommonModule(sanityChecksEnabled) {
         /**
          * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
          */
         this._hasDoneGlobalChecks = false;
-        if (_sanityChecksEnabled && !this._hasDoneGlobalChecks && _document && _angular_core.isDevMode()) {
+        /**
+         * Reference to the global `document` object.
+         */
+        this._document = typeof document === 'object' && document ? document : null;
+        if (sanityChecksEnabled && !this._hasDoneGlobalChecks && _angular_core.isDevMode()) {
             this._checkDoctype();
             this._checkTheme();
             this._hasDoneGlobalChecks = true;
@@ -166,7 +168,7 @@ var MatCommonModule = (function () {
      * @return {?}
      */
     MatCommonModule.prototype._checkDoctype = function () {
-        if (!this._document.doctype) {
+        if (this._document && !this._document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
                 'some Angular Material components not to behave as expected.');
         }
@@ -175,11 +177,15 @@ var MatCommonModule = (function () {
      * @return {?}
      */
     MatCommonModule.prototype._checkTheme = function () {
-        if (typeof getComputedStyle === 'function') {
+        if (this._document && typeof getComputedStyle === 'function') {
             var /** @type {?} */ testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
             this._document.body.appendChild(testElement);
-            if (getComputedStyle(testElement).display !== 'none') {
+            var /** @type {?} */ computedStyle = getComputedStyle(testElement);
+            // In some situations, the computed style of the test element can be null. For example in
+            // Firefox, the computed style is null if an application is running inside of a hidden iframe.
+            // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+            if (computedStyle && computedStyle.display !== 'none') {
                 console.warn('Could not find Angular Material core theme. Most Material ' +
                     'components may not work as expected. For more info refer ' +
                     'to the theming guide: https://material.angular.io/guide/theming');
@@ -202,7 +208,6 @@ MatCommonModule.decorators = [
  * @nocollapse
  */
 MatCommonModule.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
 ]; };
 /**
@@ -1136,9 +1141,9 @@ var RippleRenderer = (function () {
         this._ngZone = _ngZone;
         this._ruler = _ruler;
         /**
-         * Whether the mouse is currently down or not.
+         * Whether the pointer is currently being held on the trigger or not.
          */
-        this._isMousedown = false;
+        this._isPointerDown = false;
         /**
          * Events to be registered on the trigger element.
          */
@@ -1160,8 +1165,10 @@ var RippleRenderer = (function () {
             this._containerElement = elementRef.nativeElement;
             // Specify events which need to be registered on the trigger.
             this._triggerEvents.set('mousedown', this.onMousedown.bind(this));
-            this._triggerEvents.set('mouseup', this.onMouseup.bind(this));
-            this._triggerEvents.set('mouseleave', this.onMouseLeave.bind(this));
+            this._triggerEvents.set('touchstart', this.onTouchstart.bind(this));
+            this._triggerEvents.set('mouseup', this.onPointerUp.bind(this));
+            this._triggerEvents.set('touchend', this.onPointerUp.bind(this));
+            this._triggerEvents.set('mouseleave', this.onPointerLeave.bind(this));
             // By default use the host element as trigger element.
             this.setTriggerElement(this._containerElement);
         }
@@ -1215,7 +1222,7 @@ var RippleRenderer = (function () {
         // Once it's faded in, the ripple can be hidden immediately if the mouse is released.
         this.runTimeoutOutsideZone(function () {
             rippleRef.state = RippleState.VISIBLE;
-            if (!config.persistent && !_this._isMousedown) {
+            if (!config.persistent && !_this._isPointerDown) {
                 rippleRef.fadeOut();
             }
         }, duration);
@@ -1270,22 +1277,22 @@ var RippleRenderer = (function () {
         this._triggerElement = element;
     };
     /**
-     * Listener being called on mousedown event.
+     * Function being called whenever the trigger is being pressed.
      * @param {?} event
      * @return {?}
      */
     RippleRenderer.prototype.onMousedown = function (event) {
         if (!this.rippleDisabled) {
-            this._isMousedown = true;
+            this._isPointerDown = true;
             this.fadeInRipple(event.pageX, event.pageY, this.rippleConfig);
         }
     };
     /**
-     * Listener being called on mouseup event.
+     * Function being called whenever the pointer is being released.
      * @return {?}
      */
-    RippleRenderer.prototype.onMouseup = function () {
-        this._isMousedown = false;
+    RippleRenderer.prototype.onPointerUp = function () {
+        this._isPointerDown = false;
         // Fade-out all ripples that are completely visible and not persistent.
         this._activeRipples.forEach(function (ripple) {
             if (!ripple.config.persistent && ripple.state === RippleState.VISIBLE) {
@@ -1294,12 +1301,24 @@ var RippleRenderer = (function () {
         });
     };
     /**
-     * Listener being called on mouseleave event.
+     * Function being called whenever the pointer leaves the trigger.
      * @return {?}
      */
-    RippleRenderer.prototype.onMouseLeave = function () {
-        if (this._isMousedown) {
-            this.onMouseup();
+    RippleRenderer.prototype.onPointerLeave = function () {
+        if (this._isPointerDown) {
+            this.onPointerUp();
+        }
+    };
+    /**
+     * Function being called whenever the trigger is being touched.
+     * @param {?} event
+     * @return {?}
+     */
+    RippleRenderer.prototype.onTouchstart = function (event) {
+        if (!this.rippleDisabled) {
+            var _a = event.touches[0], pageX = _a.pageX, pageY = _a.pageY;
+            this._isPointerDown = true;
+            this.fadeInRipple(pageX, pageY, this.rippleConfig);
         }
     };
     /**
@@ -2191,16 +2210,24 @@ var MatTooltip = (function () {
     MatTooltip.prototype._createOverlay = function () {
         var _this = this;
         var /** @type {?} */ origin = this._getOrigin();
-        var /** @type {?} */ position = this._getOverlayPosition();
+        var /** @type {?} */ overlay = this._getOverlayPosition();
         // Create connected position strategy that listens for scroll events to reposition.
-        // After position changes occur and the overlay is clipped by a parent scrollable then
-        // close the tooltip.
-        var /** @type {?} */ strategy = this._overlay.position().connectedTo(this._elementRef, origin, position);
+        var /** @type {?} */ strategy = this._overlay
+            .position()
+            .connectedTo(this._elementRef, origin.main, overlay.main)
+            .withFallbackPosition(origin.fallback, overlay.fallback);
         strategy.withScrollableContainers(this._scrollDispatcher.getScrollContainers(this._elementRef));
         strategy.onPositionChange.subscribe(function (change) {
-            if (change.scrollableViewProperties.isOverlayClipped &&
-                _this._tooltipInstance && _this._tooltipInstance.isVisible()) {
-                _this.hide(0);
+            if (_this._tooltipInstance) {
+                if (change.scrollableViewProperties.isOverlayClipped && _this._tooltipInstance.isVisible()) {
+                    // After position changes occur and the overlay is clipped by
+                    // a parent scrollable then close the tooltip.
+                    _this.hide(0);
+                }
+                else {
+                    // Otherwise recalculate the origin based on the new position.
+                    _this._tooltipInstance._setTransformOrigin(change.connectionPair);
+                }
             }
         });
         var /** @type {?} */ config = new _angular_cdk_overlay.OverlayConfig({
@@ -2224,49 +2251,66 @@ var MatTooltip = (function () {
         this._tooltipInstance = null;
     };
     /**
-     * Returns the origin position based on the user's position preference
+     * Returns the origin position and a fallback position based on the user's position preference.
+     * The fallback position is the inverse of the origin (e.g. 'below' -> 'above').
      * @return {?}
      */
     MatTooltip.prototype._getOrigin = function () {
-        if (this.position == 'above' || this.position == 'below') {
-            return { originX: 'center', originY: this.position == 'above' ? 'top' : 'bottom' };
-        }
         var /** @type {?} */ isDirectionLtr = !this._dir || this._dir.value == 'ltr';
-        if (this.position == 'left' ||
+        var /** @type {?} */ position;
+        if (this.position == 'above' || this.position == 'below') {
+            position = { originX: 'center', originY: this.position == 'above' ? 'top' : 'bottom' };
+        }
+        else if (this.position == 'left' ||
             this.position == 'before' && isDirectionLtr ||
             this.position == 'after' && !isDirectionLtr) {
-            return { originX: 'start', originY: 'center' };
+            position = { originX: 'start', originY: 'center' };
         }
-        if (this.position == 'right' ||
+        else if (this.position == 'right' ||
             this.position == 'after' && isDirectionLtr ||
             this.position == 'before' && !isDirectionLtr) {
-            return { originX: 'end', originY: 'center' };
+            position = { originX: 'end', originY: 'center' };
         }
-        throw getMatTooltipInvalidPositionError(this.position);
+        else {
+            throw getMatTooltipInvalidPositionError(this.position);
+        }
+        var _a = this._invertPosition(position.originX, position.originY), x = _a.x, y = _a.y;
+        return {
+            main: position,
+            fallback: { originX: x, originY: y }
+        };
     };
     /**
-     * Returns the overlay position based on the user's preference
+     * Returns the overlay position and a fallback position based on the user's preference
      * @return {?}
      */
     MatTooltip.prototype._getOverlayPosition = function () {
-        if (this.position == 'above') {
-            return { overlayX: 'center', overlayY: 'bottom' };
-        }
-        if (this.position == 'below') {
-            return { overlayX: 'center', overlayY: 'top' };
-        }
         var /** @type {?} */ isLtr = !this._dir || this._dir.value == 'ltr';
-        if (this.position == 'left' ||
+        var /** @type {?} */ position;
+        if (this.position == 'above') {
+            position = { overlayX: 'center', overlayY: 'bottom' };
+        }
+        else if (this.position == 'below') {
+            position = { overlayX: 'center', overlayY: 'top' };
+        }
+        else if (this.position == 'left' ||
             this.position == 'before' && isLtr ||
             this.position == 'after' && !isLtr) {
-            return { overlayX: 'end', overlayY: 'center' };
+            position = { overlayX: 'end', overlayY: 'center' };
         }
-        if (this.position == 'right' ||
+        else if (this.position == 'right' ||
             this.position == 'after' && isLtr ||
             this.position == 'before' && !isLtr) {
-            return { overlayX: 'start', overlayY: 'center' };
+            position = { overlayX: 'start', overlayY: 'center' };
         }
-        throw getMatTooltipInvalidPositionError(this.position);
+        else {
+            throw getMatTooltipInvalidPositionError(this.position);
+        }
+        var _a = this._invertPosition(position.overlayX, position.overlayY), x = _a.x, y = _a.y;
+        return {
+            main: position,
+            fallback: { overlayX: x, overlayY: y }
+        };
     };
     /**
      * Updates the tooltip message and repositions the overlay according to the new message length
@@ -2296,6 +2340,31 @@ var MatTooltip = (function () {
             this._tooltipInstance.tooltipClass = tooltipClass;
             this._tooltipInstance._markForCheck();
         }
+    };
+    /**
+     * Inverts an overlay position.
+     * @param {?} x
+     * @param {?} y
+     * @return {?}
+     */
+    MatTooltip.prototype._invertPosition = function (x, y) {
+        if (this.position === 'above' || this.position === 'below') {
+            if (y === 'top') {
+                y = 'bottom';
+            }
+            else if (y === 'bottom') {
+                y = 'top';
+            }
+        }
+        else {
+            if (x === 'end') {
+                x = 'start';
+            }
+            else if (x === 'start') {
+                x = 'end';
+            }
+        }
+        return { x: x, y: y };
     };
     return MatTooltip;
 }());
@@ -2342,11 +2411,9 @@ MatTooltip.propDecorators = {
  */
 var TooltipComponent = (function () {
     /**
-     * @param {?} _dir
      * @param {?} _changeDetectorRef
      */
-    function TooltipComponent(_dir, _changeDetectorRef) {
-        this._dir = _dir;
+    function TooltipComponent(_changeDetectorRef) {
         this._changeDetectorRef = _changeDetectorRef;
         /**
          * Property watched by the animation framework to show or hide the tooltip
@@ -2377,7 +2444,9 @@ var TooltipComponent = (function () {
         if (this._hideTimeoutId) {
             clearTimeout(this._hideTimeoutId);
         }
-        this._setTransformOrigin(position);
+        // Body interactions should cancel the tooltip if there is a delay in showing.
+        this._closeOnInteraction = true;
+        this._position = position;
         this._showTimeoutId = setTimeout(function () {
             _this._visibility = 'visible';
             // Mark for check so if any parent component has set the
@@ -2404,46 +2473,38 @@ var TooltipComponent = (function () {
         }, delay);
     };
     /**
-     * Returns an observable that notifies when the tooltip has been hidden from view
+     * Returns an observable that notifies when the tooltip has been hidden from view.
      * @return {?}
      */
     TooltipComponent.prototype.afterHidden = function () {
         return this._onHide.asObservable();
     };
     /**
-     * Whether the tooltip is being displayed
+     * Whether the tooltip is being displayed.
      * @return {?}
      */
     TooltipComponent.prototype.isVisible = function () {
         return this._visibility === 'visible';
     };
     /**
-     * Sets the tooltip transform origin according to the tooltip position
-     * @param {?} value
+     * Sets the tooltip transform origin according to the position of the tooltip overlay.
+     * @param {?} overlayPosition
      * @return {?}
      */
-    TooltipComponent.prototype._setTransformOrigin = function (value) {
-        var /** @type {?} */ isLtr = !this._dir || this._dir.value == 'ltr';
-        switch (value) {
-            case 'before':
-                this._transformOrigin = isLtr ? 'right' : 'left';
-                break;
-            case 'after':
-                this._transformOrigin = isLtr ? 'left' : 'right';
-                break;
-            case 'left':
-                this._transformOrigin = 'right';
-                break;
-            case 'right':
-                this._transformOrigin = 'left';
-                break;
-            case 'above':
-                this._transformOrigin = 'bottom';
-                break;
-            case 'below':
-                this._transformOrigin = 'top';
-                break;
-            default: throw getMatTooltipInvalidPositionError(value);
+    TooltipComponent.prototype._setTransformOrigin = function (overlayPosition) {
+        var /** @type {?} */ axis = (this._position === 'above' || this._position === 'below') ? 'Y' : 'X';
+        var /** @type {?} */ position = axis == 'X' ? overlayPosition.overlayX : overlayPosition.overlayY;
+        if (position === 'top' || position === 'bottom') {
+            this._transformOrigin = position;
+        }
+        else if (position === 'start') {
+            this._transformOrigin = 'left';
+        }
+        else if (position === 'end') {
+            this._transformOrigin = 'right';
+        }
+        else {
+            throw getMatTooltipInvalidPositionError(this._position);
         }
     };
     /**
@@ -2519,7 +2580,6 @@ TooltipComponent.decorators = [
  * @nocollapse
  */
 TooltipComponent.ctorParameters = function () { return [
-    { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_core.ChangeDetectorRef, },
 ]; };
 var MatTooltipModule = (function () {

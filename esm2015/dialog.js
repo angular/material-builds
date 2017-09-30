@@ -13,10 +13,12 @@ import { A11yModule, FocusTrapFactory } from '@angular/cdk/a11y';
 import { MatCommonModule, extendObject } from '@angular/material/core';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { RxChain, filter, first, startWith } from '@angular/cdk/rxjs';
+import { Directionality } from '@angular/cdk/bidi';
 import { defer } from 'rxjs/observable/defer';
 import { Subject } from 'rxjs/Subject';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { DOCUMENT } from '@angular/platform-browser';
+import { of } from 'rxjs/observable/of';
 
 /**
  * Configuration for opening a modal dialog with the MatDialog service.
@@ -623,6 +625,10 @@ class MatDialog {
         injectionTokens.set(MatDialogRef, dialogRef);
         injectionTokens.set(MatDialogContainer, dialogContainer);
         injectionTokens.set(MAT_DIALOG_DATA, config.data);
+        injectionTokens.set(Directionality, {
+            value: config.direction,
+            change: of()
+        });
         return new PortalInjector(userInjector || this._injector, injectionTokens);
     }
     /**

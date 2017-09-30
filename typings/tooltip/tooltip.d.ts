@@ -8,7 +8,7 @@
 import { AnimationEvent } from '@angular/animations';
 import { AriaDescriber } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
-import { OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/overlay';
+import { OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, RepositionScrollStrategy, ScrollStrategy, ConnectionPositionPair } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, Renderer2, ViewContainerRef } from '@angular/core';
@@ -93,14 +93,25 @@ export declare class MatTooltip implements OnDestroy {
     private _createOverlay();
     /** Disposes the current tooltip and the overlay it is attached to */
     private _disposeTooltip();
-    /** Returns the origin position based on the user's position preference */
-    _getOrigin(): OriginConnectionPosition;
-    /** Returns the overlay position based on the user's preference */
-    _getOverlayPosition(): OverlayConnectionPosition;
+    /**
+     * Returns the origin position and a fallback position based on the user's position preference.
+     * The fallback position is the inverse of the origin (e.g. 'below' -> 'above').
+     */
+    _getOrigin(): {
+        main: OriginConnectionPosition;
+        fallback: OriginConnectionPosition;
+    };
+    /** Returns the overlay position and a fallback position based on the user's preference */
+    _getOverlayPosition(): {
+        main: OverlayConnectionPosition;
+        fallback: OverlayConnectionPosition;
+    };
     /** Updates the tooltip message and repositions the overlay according to the new message length */
     private _updateTooltipMessage();
     /** Updates the tooltip class */
     private _setTooltipClass(tooltipClass);
+    /** Inverts an overlay position. */
+    private _invertPosition(x, y);
 }
 export declare type TooltipVisibility = 'initial' | 'visible' | 'hidden';
 /**
@@ -108,7 +119,6 @@ export declare type TooltipVisibility = 'initial' | 'visible' | 'hidden';
  * @docs-private
  */
 export declare class TooltipComponent {
-    private _dir;
     private _changeDetectorRef;
     /** Message to display in the tooltip */
     message: string;
@@ -125,10 +135,12 @@ export declare class TooltipComponent {
     /** Whether interactions on the page should close the tooltip */
     private _closeOnInteraction;
     /** The transform origin used in the animation for showing and hiding the tooltip */
-    _transformOrigin: string;
+    _transformOrigin: 'top' | 'bottom' | 'left' | 'right';
+    /** Current position of the tooltip. */
+    private _position;
     /** Subject for notifying that the tooltip has been hidden from the view */
     private _onHide;
-    constructor(_dir: Directionality, _changeDetectorRef: ChangeDetectorRef);
+    constructor(_changeDetectorRef: ChangeDetectorRef);
     /**
      * Shows the tooltip with an animation originating from the provided origin
      * @param position Position of the tooltip.
@@ -140,16 +152,12 @@ export declare class TooltipComponent {
      * @param delay Amount of milliseconds to delay showing the tooltip.
      */
     hide(delay: number): void;
-    /**
-     * Returns an observable that notifies when the tooltip has been hidden from view
-     */
+    /** Returns an observable that notifies when the tooltip has been hidden from view. */
     afterHidden(): Observable<void>;
-    /**
-     * Whether the tooltip is being displayed
-     */
+    /** Whether the tooltip is being displayed. */
     isVisible(): boolean;
-    /** Sets the tooltip transform origin according to the tooltip position */
-    _setTransformOrigin(value: TooltipPosition): void;
+    /** Sets the tooltip transform origin according to the position of the tooltip overlay. */
+    _setTransformOrigin(overlayPosition: ConnectionPositionPair): void;
     _animationStart(): void;
     _animationDone(event: AnimationEvent): void;
     /**

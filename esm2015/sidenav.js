@@ -20,7 +20,6 @@ import { first } from 'rxjs/operator/first';
 import { startWith } from 'rxjs/operator/startWith';
 import { takeUntil } from 'rxjs/operator/takeUntil';
 import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
 
 /**
  * Throws an exception when two MatDrawer are matching the same position.
@@ -155,7 +154,7 @@ class MatDrawer {
             if (this._doc) {
                 this._elementFocusedBeforeDrawerWasOpened = this._doc.activeElement;
             }
-            if (this.isFocusTrapEnabled && this._focusTrap) {
+            if (this._isFocusTrapEnabled && this._focusTrap) {
                 this._focusTrap.focusInitialElementWhenReady();
             }
         });
@@ -215,7 +214,7 @@ class MatDrawer {
     /**
      * @return {?}
      */
-    get isFocusTrapEnabled() {
+    get _isFocusTrapEnabled() {
         // The focus trap is only enabled when the drawer is open in any mode other than side.
         return this.opened && this.mode !== 'side';
     }
@@ -241,7 +240,7 @@ class MatDrawer {
      */
     ngAfterContentInit() {
         this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
-        this._focusTrap.enabled = this.isFocusTrapEnabled;
+        this._focusTrap.enabled = this._isFocusTrapEnabled;
         this._enableAnimations = true;
     }
     /**
@@ -297,7 +296,7 @@ class MatDrawer {
                 first.call(isOpen ? this.onOpen : this.onClose).subscribe(resolve);
             });
             if (this._focusTrap) {
-                this._focusTrap.enabled = this.isFocusTrapEnabled;
+                this._focusTrap.enabled = this._isFocusTrapEnabled;
             }
         }
         // TODO(crisbeto): This promise is here for backwards-compatibility.
@@ -329,10 +328,10 @@ class MatDrawer {
      */
     _onAnimationEnd(event) {
         const { fromState, toState } = event;
-        if (toState === 'open' && fromState === 'void') {
+        if (toState.indexOf('open') === 0 && fromState === 'void') {
             this.onOpen.emit(new MatDrawerToggleResult('open', true));
         }
-        else if (toState === 'void' && fromState === 'open') {
+        else if (toState === 'void' && fromState.indexOf('open') === 0) {
             this.onClose.emit(new MatDrawerToggleResult('close', true));
         }
         // Note: as of Angular 4.3, the animations module seems to fire the `start` callback before
@@ -429,14 +428,14 @@ class MatDrawerContainer {
          */
         this.backdropClick = new EventEmitter();
         /**
-         * Subscription to the Directionality change EventEmitter.
+         * Emits when the component is destroyed.
          */
-        this._dirChangeSubscription = Subscription.EMPTY;
+        this._destroyed = new Subject();
         this._contentMargins = new Subject();
         // If a `Dir` directive exists up the tree, listen direction changes and update the left/right
         // properties to point to the proper start/end.
         if (_dir != null) {
-            this._dirChangeSubscription = _dir.change.subscribe(() => this._validateDrawers());
+            takeUntil.call(_dir.change, this._destroyed).subscribe(() => this._validateDrawers());
         }
     }
     /**
@@ -460,13 +459,20 @@ class MatDrawerContainer {
                 this._watchDrawerPosition(drawer);
                 this._watchDrawerMode(drawer);
             });
+            if (!this._drawers.length ||
+                this._isDrawerOpen(this._start) ||
+                this._isDrawerOpen(this._end)) {
+                this._updateContentMargins();
+            }
+            this._changeDetectorRef.markForCheck();
         });
     }
     /**
      * @return {?}
      */
     ngOnDestroy() {
-        this._dirChangeSubscription.unsubscribe();
+        this._destroyed.next();
+        this._destroyed.complete();
     }
     /**
      * Calls `open` of both start and end drawers
@@ -526,7 +532,8 @@ class MatDrawerContainer {
      */
     _watchDrawerMode(drawer) {
         if (drawer) {
-            takeUntil.call(drawer._modeChanged, this._drawers.changes).subscribe(() => {
+            takeUntil.call(drawer._modeChanged, merge(this._drawers.changes, this._destroyed))
+                .subscribe(() => {
                 this._updateContentMargins();
                 this._changeDetectorRef.markForCheck();
             });

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/animations'), require('rxjs/observable/merge'), require('rxjs/operator/first'), require('rxjs/operator/startWith'), require('rxjs/operator/takeUntil'), require('rxjs/Subscription')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/animations', 'rxjs/observable/merge', 'rxjs/operator/first', 'rxjs/operator/startWith', 'rxjs/operator/takeUntil', 'rxjs/Subscription'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sidenav = global.ng.material.sidenav || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.common,global.ng.core,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.animations,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx));
-}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_platformBrowser,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_animations,rxjs_observable_merge,rxjs_operator_first,rxjs_operator_startWith,rxjs_operator_takeUntil,rxjs_Subscription) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/animations'), require('rxjs/observable/merge'), require('rxjs/operator/first'), require('rxjs/operator/startWith'), require('rxjs/operator/takeUntil')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/animations', 'rxjs/observable/merge', 'rxjs/operator/first', 'rxjs/operator/startWith', 'rxjs/operator/takeUntil'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sidenav = global.ng.material.sidenav || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.common,global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.animations,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype));
+}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_animations,rxjs_observable_merge,rxjs_operator_first,rxjs_operator_startWith,rxjs_operator_takeUntil) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -147,16 +147,18 @@ var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('mat-sanity-checks
  */
 var MatCommonModule = (function () {
     /**
-     * @param {?} _document
-     * @param {?} _sanityChecksEnabled
+     * @param {?} sanityChecksEnabled
      */
-    function MatCommonModule(_document, _sanityChecksEnabled) {
-        this._document = _document;
+    function MatCommonModule(sanityChecksEnabled) {
         /**
          * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
          */
         this._hasDoneGlobalChecks = false;
-        if (_sanityChecksEnabled && !this._hasDoneGlobalChecks && _document && _angular_core.isDevMode()) {
+        /**
+         * Reference to the global `document` object.
+         */
+        this._document = typeof document === 'object' && document ? document : null;
+        if (sanityChecksEnabled && !this._hasDoneGlobalChecks && _angular_core.isDevMode()) {
             this._checkDoctype();
             this._checkTheme();
             this._hasDoneGlobalChecks = true;
@@ -166,7 +168,7 @@ var MatCommonModule = (function () {
      * @return {?}
      */
     MatCommonModule.prototype._checkDoctype = function () {
-        if (!this._document.doctype) {
+        if (this._document && !this._document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
                 'some Angular Material components not to behave as expected.');
         }
@@ -175,11 +177,15 @@ var MatCommonModule = (function () {
      * @return {?}
      */
     MatCommonModule.prototype._checkTheme = function () {
-        if (typeof getComputedStyle === 'function') {
+        if (this._document && typeof getComputedStyle === 'function') {
             var /** @type {?} */ testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
             this._document.body.appendChild(testElement);
-            if (getComputedStyle(testElement).display !== 'none') {
+            var /** @type {?} */ computedStyle = getComputedStyle(testElement);
+            // In some situations, the computed style of the test element can be null. For example in
+            // Firefox, the computed style is null if an application is running inside of a hidden iframe.
+            // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+            if (computedStyle && computedStyle.display !== 'none') {
                 console.warn('Could not find Angular Material core theme. Most Material ' +
                     'components may not work as expected. For more info refer ' +
                     'to the theming guide: https://material.angular.io/guide/theming');
@@ -202,7 +208,6 @@ MatCommonModule.decorators = [
  * @nocollapse
  */
 MatCommonModule.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
 ]; };
 /**
@@ -1136,9 +1141,9 @@ var RippleRenderer = (function () {
         this._ngZone = _ngZone;
         this._ruler = _ruler;
         /**
-         * Whether the mouse is currently down or not.
+         * Whether the pointer is currently being held on the trigger or not.
          */
-        this._isMousedown = false;
+        this._isPointerDown = false;
         /**
          * Events to be registered on the trigger element.
          */
@@ -1160,8 +1165,10 @@ var RippleRenderer = (function () {
             this._containerElement = elementRef.nativeElement;
             // Specify events which need to be registered on the trigger.
             this._triggerEvents.set('mousedown', this.onMousedown.bind(this));
-            this._triggerEvents.set('mouseup', this.onMouseup.bind(this));
-            this._triggerEvents.set('mouseleave', this.onMouseLeave.bind(this));
+            this._triggerEvents.set('touchstart', this.onTouchstart.bind(this));
+            this._triggerEvents.set('mouseup', this.onPointerUp.bind(this));
+            this._triggerEvents.set('touchend', this.onPointerUp.bind(this));
+            this._triggerEvents.set('mouseleave', this.onPointerLeave.bind(this));
             // By default use the host element as trigger element.
             this.setTriggerElement(this._containerElement);
         }
@@ -1215,7 +1222,7 @@ var RippleRenderer = (function () {
         // Once it's faded in, the ripple can be hidden immediately if the mouse is released.
         this.runTimeoutOutsideZone(function () {
             rippleRef.state = RippleState.VISIBLE;
-            if (!config.persistent && !_this._isMousedown) {
+            if (!config.persistent && !_this._isPointerDown) {
                 rippleRef.fadeOut();
             }
         }, duration);
@@ -1270,22 +1277,22 @@ var RippleRenderer = (function () {
         this._triggerElement = element;
     };
     /**
-     * Listener being called on mousedown event.
+     * Function being called whenever the trigger is being pressed.
      * @param {?} event
      * @return {?}
      */
     RippleRenderer.prototype.onMousedown = function (event) {
         if (!this.rippleDisabled) {
-            this._isMousedown = true;
+            this._isPointerDown = true;
             this.fadeInRipple(event.pageX, event.pageY, this.rippleConfig);
         }
     };
     /**
-     * Listener being called on mouseup event.
+     * Function being called whenever the pointer is being released.
      * @return {?}
      */
-    RippleRenderer.prototype.onMouseup = function () {
-        this._isMousedown = false;
+    RippleRenderer.prototype.onPointerUp = function () {
+        this._isPointerDown = false;
         // Fade-out all ripples that are completely visible and not persistent.
         this._activeRipples.forEach(function (ripple) {
             if (!ripple.config.persistent && ripple.state === RippleState.VISIBLE) {
@@ -1294,12 +1301,24 @@ var RippleRenderer = (function () {
         });
     };
     /**
-     * Listener being called on mouseleave event.
+     * Function being called whenever the pointer leaves the trigger.
      * @return {?}
      */
-    RippleRenderer.prototype.onMouseLeave = function () {
-        if (this._isMousedown) {
-            this.onMouseup();
+    RippleRenderer.prototype.onPointerLeave = function () {
+        if (this._isPointerDown) {
+            this.onPointerUp();
+        }
+    };
+    /**
+     * Function being called whenever the trigger is being touched.
+     * @param {?} event
+     * @return {?}
+     */
+    RippleRenderer.prototype.onTouchstart = function (event) {
+        if (!this.rippleDisabled) {
+            var _a = event.touches[0], pageX = _a.pageX, pageY = _a.pageY;
+            this._isPointerDown = true;
+            this.fadeInRipple(pageX, pageY, this.rippleConfig);
         }
     };
     /**
@@ -2049,7 +2068,7 @@ var MatDrawer = (function () {
             if (_this._doc) {
                 _this._elementFocusedBeforeDrawerWasOpened = _this._doc.activeElement;
             }
-            if (_this.isFocusTrapEnabled && _this._focusTrap) {
+            if (_this._isFocusTrapEnabled && _this._focusTrap) {
                 _this._focusTrap.focusInitialElementWhenReady();
             }
         });
@@ -2122,7 +2141,7 @@ var MatDrawer = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatDrawer.prototype, "isFocusTrapEnabled", {
+    Object.defineProperty(MatDrawer.prototype, "_isFocusTrapEnabled", {
         /**
          * @return {?}
          */
@@ -2155,7 +2174,7 @@ var MatDrawer = (function () {
      */
     MatDrawer.prototype.ngAfterContentInit = function () {
         this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
-        this._focusTrap.enabled = this.isFocusTrapEnabled;
+        this._focusTrap.enabled = this._isFocusTrapEnabled;
         this._enableAnimations = true;
     };
     /**
@@ -2217,7 +2236,7 @@ var MatDrawer = (function () {
                 rxjs_operator_first.first.call(isOpen ? _this.onOpen : _this.onClose).subscribe(resolve);
             });
             if (this._focusTrap) {
-                this._focusTrap.enabled = this.isFocusTrapEnabled;
+                this._focusTrap.enabled = this._isFocusTrapEnabled;
             }
         }
         // TODO(crisbeto): This promise is here for backwards-compatibility.
@@ -2250,10 +2269,10 @@ var MatDrawer = (function () {
     MatDrawer.prototype._onAnimationEnd = function (event) {
         var _this = this;
         var fromState = event.fromState, toState = event.toState;
-        if (toState === 'open' && fromState === 'void') {
+        if (toState.indexOf('open') === 0 && fromState === 'void') {
             this.onOpen.emit(new MatDrawerToggleResult('open', true));
         }
-        else if (toState === 'void' && fromState === 'open') {
+        else if (toState === 'void' && fromState.indexOf('open') === 0) {
             this.onClose.emit(new MatDrawerToggleResult('close', true));
         }
         // Note: as of Angular 4.3, the animations module seems to fire the `start` callback before
@@ -2356,14 +2375,14 @@ var MatDrawerContainer = (function () {
          */
         this.backdropClick = new _angular_core.EventEmitter();
         /**
-         * Subscription to the Directionality change EventEmitter.
+         * Emits when the component is destroyed.
          */
-        this._dirChangeSubscription = rxjs_Subscription.Subscription.EMPTY;
+        this._destroyed = new rxjs_Subject.Subject();
         this._contentMargins = new rxjs_Subject.Subject();
         // If a `Dir` directive exists up the tree, listen direction changes and update the left/right
         // properties to point to the proper start/end.
         if (_dir != null) {
-            this._dirChangeSubscription = _dir.change.subscribe(function () { return _this._validateDrawers(); });
+            rxjs_operator_takeUntil.takeUntil.call(_dir.change, this._destroyed).subscribe(function () { return _this._validateDrawers(); });
         }
     }
     Object.defineProperty(MatDrawerContainer.prototype, "start", {
@@ -2396,13 +2415,20 @@ var MatDrawerContainer = (function () {
                 _this._watchDrawerPosition(drawer);
                 _this._watchDrawerMode(drawer);
             });
+            if (!_this._drawers.length ||
+                _this._isDrawerOpen(_this._start) ||
+                _this._isDrawerOpen(_this._end)) {
+                _this._updateContentMargins();
+            }
+            _this._changeDetectorRef.markForCheck();
         });
     };
     /**
      * @return {?}
      */
     MatDrawerContainer.prototype.ngOnDestroy = function () {
-        this._dirChangeSubscription.unsubscribe();
+        this._destroyed.next();
+        this._destroyed.complete();
     };
     /**
      * Calls `open` of both start and end drawers
@@ -2465,7 +2491,8 @@ var MatDrawerContainer = (function () {
     MatDrawerContainer.prototype._watchDrawerMode = function (drawer) {
         var _this = this;
         if (drawer) {
-            rxjs_operator_takeUntil.takeUntil.call(drawer._modeChanged, this._drawers.changes).subscribe(function () {
+            rxjs_operator_takeUntil.takeUntil.call(drawer._modeChanged, rxjs_observable_merge.merge(this._drawers.changes, this._destroyed))
+                .subscribe(function () {
                 _this._updateContentMargins();
                 _this._changeDetectorRef.markForCheck();
             });

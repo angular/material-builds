@@ -12,7 +12,7 @@ import { ConnectedOverlayDirective, Overlay, RepositionScrollStrategy, ScrollStr
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, OnInit, QueryList, Renderer2 } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { CanDisable, HasTabIndex, MatOptgroup, MatOption, MatOptionSelectionChange } from '@angular/material/core';
-import { MatFormFieldControl } from '@angular/material/form-field';
+import { MatFormField, MatFormFieldControl } from '@angular/material/form-field';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 /**
@@ -77,6 +77,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _dir;
     private _parentForm;
     private _parentFormGroup;
+    private _parentFormField;
     ngControl: NgControl;
     private _scrollStrategyFactory;
     /** Whether or not the overlay panel is open. */
@@ -201,7 +202,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      * @docs-private
      */
     valueChange: EventEmitter<any>;
-    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, renderer: Renderer2, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl, tabIndex: string, _scrollStrategyFactory: any);
+    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, renderer: Renderer2, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, _scrollStrategyFactory: any);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
@@ -273,6 +274,8 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      * Callback that is invoked when the overlay panel has been attached.
      */
     _onAttached(): void;
+    /** Returns the theme to be used on the panel. */
+    _getPanelTheme(): string;
     /** Whether the select has a value. */
     readonly empty: boolean;
     /** Whether the select is in an error state. */

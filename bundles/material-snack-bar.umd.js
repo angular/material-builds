@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/animations'), require('@angular/cdk/rxjs')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/a11y', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/animations', '@angular/cdk/rxjs'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material['snack-bar'] = global.ng.material['snack-bar'] || {}),global.ng.core,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.a11y,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.animations,global.ng.cdk.rxjs));
-}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_a11y,_angular_platformBrowser,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_animations,_angular_cdk_rxjs) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/animations'), require('@angular/cdk/rxjs')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/animations', '@angular/cdk/rxjs'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material['snack-bar'] = global.ng.material['snack-bar'] || {}),global.ng.core,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.animations,global.ng.cdk.rxjs));
+}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_animations,_angular_cdk_rxjs) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -147,16 +147,18 @@ var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('mat-sanity-checks
  */
 var MatCommonModule = (function () {
     /**
-     * @param {?} _document
-     * @param {?} _sanityChecksEnabled
+     * @param {?} sanityChecksEnabled
      */
-    function MatCommonModule(_document, _sanityChecksEnabled) {
-        this._document = _document;
+    function MatCommonModule(sanityChecksEnabled) {
         /**
          * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
          */
         this._hasDoneGlobalChecks = false;
-        if (_sanityChecksEnabled && !this._hasDoneGlobalChecks && _document && _angular_core.isDevMode()) {
+        /**
+         * Reference to the global `document` object.
+         */
+        this._document = typeof document === 'object' && document ? document : null;
+        if (sanityChecksEnabled && !this._hasDoneGlobalChecks && _angular_core.isDevMode()) {
             this._checkDoctype();
             this._checkTheme();
             this._hasDoneGlobalChecks = true;
@@ -166,7 +168,7 @@ var MatCommonModule = (function () {
      * @return {?}
      */
     MatCommonModule.prototype._checkDoctype = function () {
-        if (!this._document.doctype) {
+        if (this._document && !this._document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
                 'some Angular Material components not to behave as expected.');
         }
@@ -175,11 +177,15 @@ var MatCommonModule = (function () {
      * @return {?}
      */
     MatCommonModule.prototype._checkTheme = function () {
-        if (typeof getComputedStyle === 'function') {
+        if (this._document && typeof getComputedStyle === 'function') {
             var /** @type {?} */ testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
             this._document.body.appendChild(testElement);
-            if (getComputedStyle(testElement).display !== 'none') {
+            var /** @type {?} */ computedStyle = getComputedStyle(testElement);
+            // In some situations, the computed style of the test element can be null. For example in
+            // Firefox, the computed style is null if an application is running inside of a hidden iframe.
+            // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+            if (computedStyle && computedStyle.display !== 'none') {
                 console.warn('Could not find Angular Material core theme. Most Material ' +
                     'components may not work as expected. For more info refer ' +
                     'to the theming guide: https://material.angular.io/guide/theming');
@@ -202,7 +208,6 @@ MatCommonModule.decorators = [
  * @nocollapse
  */
 MatCommonModule.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
 ]; };
 /**
@@ -1136,9 +1141,9 @@ var RippleRenderer = (function () {
         this._ngZone = _ngZone;
         this._ruler = _ruler;
         /**
-         * Whether the mouse is currently down or not.
+         * Whether the pointer is currently being held on the trigger or not.
          */
-        this._isMousedown = false;
+        this._isPointerDown = false;
         /**
          * Events to be registered on the trigger element.
          */
@@ -1160,8 +1165,10 @@ var RippleRenderer = (function () {
             this._containerElement = elementRef.nativeElement;
             // Specify events which need to be registered on the trigger.
             this._triggerEvents.set('mousedown', this.onMousedown.bind(this));
-            this._triggerEvents.set('mouseup', this.onMouseup.bind(this));
-            this._triggerEvents.set('mouseleave', this.onMouseLeave.bind(this));
+            this._triggerEvents.set('touchstart', this.onTouchstart.bind(this));
+            this._triggerEvents.set('mouseup', this.onPointerUp.bind(this));
+            this._triggerEvents.set('touchend', this.onPointerUp.bind(this));
+            this._triggerEvents.set('mouseleave', this.onPointerLeave.bind(this));
             // By default use the host element as trigger element.
             this.setTriggerElement(this._containerElement);
         }
@@ -1215,7 +1222,7 @@ var RippleRenderer = (function () {
         // Once it's faded in, the ripple can be hidden immediately if the mouse is released.
         this.runTimeoutOutsideZone(function () {
             rippleRef.state = RippleState.VISIBLE;
-            if (!config.persistent && !_this._isMousedown) {
+            if (!config.persistent && !_this._isPointerDown) {
                 rippleRef.fadeOut();
             }
         }, duration);
@@ -1270,22 +1277,22 @@ var RippleRenderer = (function () {
         this._triggerElement = element;
     };
     /**
-     * Listener being called on mousedown event.
+     * Function being called whenever the trigger is being pressed.
      * @param {?} event
      * @return {?}
      */
     RippleRenderer.prototype.onMousedown = function (event) {
         if (!this.rippleDisabled) {
-            this._isMousedown = true;
+            this._isPointerDown = true;
             this.fadeInRipple(event.pageX, event.pageY, this.rippleConfig);
         }
     };
     /**
-     * Listener being called on mouseup event.
+     * Function being called whenever the pointer is being released.
      * @return {?}
      */
-    RippleRenderer.prototype.onMouseup = function () {
-        this._isMousedown = false;
+    RippleRenderer.prototype.onPointerUp = function () {
+        this._isPointerDown = false;
         // Fade-out all ripples that are completely visible and not persistent.
         this._activeRipples.forEach(function (ripple) {
             if (!ripple.config.persistent && ripple.state === RippleState.VISIBLE) {
@@ -1294,12 +1301,24 @@ var RippleRenderer = (function () {
         });
     };
     /**
-     * Listener being called on mouseleave event.
+     * Function being called whenever the pointer leaves the trigger.
      * @return {?}
      */
-    RippleRenderer.prototype.onMouseLeave = function () {
-        if (this._isMousedown) {
-            this.onMouseup();
+    RippleRenderer.prototype.onPointerLeave = function () {
+        if (this._isPointerDown) {
+            this.onPointerUp();
+        }
+    };
+    /**
+     * Function being called whenever the trigger is being touched.
+     * @param {?} event
+     * @return {?}
+     */
+    RippleRenderer.prototype.onTouchstart = function (event) {
+        if (!this.rippleDisabled) {
+            var _a = event.touches[0], pageX = _a.pageX, pageY = _a.pageY;
+            this._isPointerDown = true;
+            this.fadeInRipple(pageX, pageY, this.rippleConfig);
         }
     };
     /**
@@ -2134,16 +2153,12 @@ var MatSnackBarContainer = (function (_super) {
          * Subject for notifying that the snack bar has finished entering the view.
          */
         _this._onEnter = new rxjs_Subject.Subject();
+        /**
+         * The state of the snack bar animations.
+         */
+        _this._animationState = 'void';
         return _this;
     }
-    /**
-     * Gets the current animation state both combining one of the possibilities from
-     * SnackBarState and the vertical location.
-     * @return {?}
-     */
-    MatSnackBarContainer.prototype.getAnimationState = function () {
-        return this._animationState + "-" + this.snackBarConfig.verticalPosition;
-    };
     /**
      * Attach a component portal as content to this snack bar container.
      * @template T
@@ -2183,10 +2198,11 @@ var MatSnackBarContainer = (function (_super) {
      * @return {?}
      */
     MatSnackBarContainer.prototype.onAnimationEnd = function (event) {
-        if (event.toState === 'void' || event.toState.startsWith('hidden')) {
+        var fromState = event.fromState, toState = event.toState;
+        if ((toState === 'void' && fromState !== 'void') || toState.startsWith('hidden')) {
             this._completeExit();
         }
-        if (event.toState.startsWith('visible')) {
+        if (toState.startsWith('visible')) {
             // Note: we shouldn't use `this` inside the zone callback,
             // because it can cause a memory leak.
             var /** @type {?} */ onEnter_1 = this._onEnter;
@@ -2202,7 +2218,7 @@ var MatSnackBarContainer = (function (_super) {
      */
     MatSnackBarContainer.prototype.enter = function () {
         if (!this._destroyed) {
-            this._animationState = 'visible';
+            this._animationState = "visible-" + this.snackBarConfig.verticalPosition;
             this._changeDetectorRef.detectChanges();
         }
     };
@@ -2211,7 +2227,7 @@ var MatSnackBarContainer = (function (_super) {
      * @return {?}
      */
     MatSnackBarContainer.prototype.exit = function () {
-        this._animationState = 'hidden';
+        this._animationState = "hidden-" + this.snackBarConfig.verticalPosition;
         return this._onExit;
     };
     /**
@@ -2246,7 +2262,7 @@ MatSnackBarContainer.decorators = [
                 host: {
                     'role': 'alert',
                     'class': 'mat-snack-bar-container',
-                    '[@state]': 'getAnimationState()',
+                    '[@state]': '_animationState',
                     '(@state.done)': 'onAnimationEnd($event)'
                 },
                 animations: [

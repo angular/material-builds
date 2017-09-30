@@ -11,7 +11,6 @@ import { BasePortalHost, ComponentPortal, PortalHostDirective } from '@angular/c
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { MatSnackBarConfig } from './snack-bar-config';
-export declare type SnackBarState = 'visible' | 'hidden' | 'void';
 export declare const SHOW_ANIMATION = "225ms cubic-bezier(0.4,0.0,1,1)";
 export declare const HIDE_ANIMATION = "195ms cubic-bezier(0.0,0.0,0.2,1)";
 /**
@@ -32,15 +31,10 @@ export declare class MatSnackBarContainer extends BasePortalHost implements OnDe
     /** Subject for notifying that the snack bar has finished entering the view. */
     _onEnter: Subject<any>;
     /** The state of the snack bar animations. */
-    private _animationState;
+    _animationState: string;
     /** The snack bar configuration. */
     snackBarConfig: MatSnackBarConfig;
     constructor(_ngZone: NgZone, _renderer: Renderer2, _elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef);
-    /**
-     * Gets the current animation state both combining one of the possibilities from
-     * SnackBarState and the vertical location.
-     */
-    getAnimationState(): string;
     /** Attach a component portal as content to this snack bar container. */
     attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T>;
     /** Attach a template portal as content to this snack bar container. */

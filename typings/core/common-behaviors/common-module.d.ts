@@ -15,10 +15,11 @@ export declare const MATERIAL_SANITY_CHECKS: InjectionToken<boolean>;
  * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
 export declare class MatCommonModule {
-    private _document;
     /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
     private _hasDoneGlobalChecks;
-    constructor(_document: any, _sanityChecksEnabled: boolean);
+    /** Reference to the global `document` object. */
+    private _document;
+    constructor(sanityChecksEnabled: boolean);
     private _checkDoctype();
     private _checkTheme();
 }

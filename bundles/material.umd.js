@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/common'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/observers'), require('@angular/cdk/collections'), require('rxjs/Subscription'), require('rxjs/observable/defer'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operator/first'), require('rxjs/operator/startWith'), require('rxjs/operator/takeUntil'), require('@angular/cdk/table'), require('@angular/cdk/stepper')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/common', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/rxjs', '@angular/forms', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/observers', '@angular/cdk/collections', 'rxjs/Subscription', 'rxjs/observable/defer', '@angular/http', 'rxjs/Observable', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operator/first', 'rxjs/operator/startWith', 'rxjs/operator/takeUntil', '@angular/cdk/table', '@angular/cdk/stepper'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.common,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.rxjs,global.ng.forms,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.observers,global.ng.cdk.collections,global.Rx,global.Rx.Observable,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.ng.cdk.table,global.ng.cdk.stepper));
-}(this, (function (exports,_angular_core,_angular_platformBrowser,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_common,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_rxjs,_angular_forms,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_observers,_angular_cdk_collections,rxjs_Subscription,rxjs_observable_defer,_angular_http,rxjs_Observable,rxjs_observable_forkJoin,rxjs_observable_throw,rxjs_operator_first,rxjs_operator_startWith,rxjs_operator_takeUntil,_angular_cdk_table,_angular_cdk_stepper) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/observers'), require('@angular/cdk/collections'), require('rxjs/Subscription'), require('rxjs/observable/defer'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operator/first'), require('rxjs/operator/startWith'), require('rxjs/operator/takeUntil'), require('@angular/cdk/table'), require('@angular/cdk/stepper')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/rxjs', '@angular/forms', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/observers', '@angular/cdk/collections', 'rxjs/Subscription', 'rxjs/observable/defer', '@angular/http', 'rxjs/Observable', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operator/first', 'rxjs/operator/startWith', 'rxjs/operator/takeUntil', '@angular/cdk/table', '@angular/cdk/stepper'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.rxjs,global.ng.forms,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.observers,global.ng.cdk.collections,global.Rx,global.Rx.Observable,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.ng.cdk.table,global.ng.cdk.stepper));
+}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_rxjs,_angular_forms,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_observers,_angular_cdk_collections,rxjs_Subscription,rxjs_observable_defer,_angular_http,rxjs_Observable,rxjs_observable_forkJoin,rxjs_observable_throw,rxjs_operator_first,rxjs_operator_startWith,rxjs_operator_takeUntil,_angular_cdk_table,_angular_cdk_stepper) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -147,16 +147,18 @@ var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('mat-sanity-checks
  */
 var MatCommonModule = (function () {
     /**
-     * @param {?} _document
-     * @param {?} _sanityChecksEnabled
+     * @param {?} sanityChecksEnabled
      */
-    function MatCommonModule(_document, _sanityChecksEnabled) {
-        this._document = _document;
+    function MatCommonModule(sanityChecksEnabled) {
         /**
          * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
          */
         this._hasDoneGlobalChecks = false;
-        if (_sanityChecksEnabled && !this._hasDoneGlobalChecks && _document && _angular_core.isDevMode()) {
+        /**
+         * Reference to the global `document` object.
+         */
+        this._document = typeof document === 'object' && document ? document : null;
+        if (sanityChecksEnabled && !this._hasDoneGlobalChecks && _angular_core.isDevMode()) {
             this._checkDoctype();
             this._checkTheme();
             this._hasDoneGlobalChecks = true;
@@ -166,7 +168,7 @@ var MatCommonModule = (function () {
      * @return {?}
      */
     MatCommonModule.prototype._checkDoctype = function () {
-        if (!this._document.doctype) {
+        if (this._document && !this._document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
                 'some Angular Material components not to behave as expected.');
         }
@@ -175,11 +177,15 @@ var MatCommonModule = (function () {
      * @return {?}
      */
     MatCommonModule.prototype._checkTheme = function () {
-        if (typeof getComputedStyle === 'function') {
+        if (this._document && typeof getComputedStyle === 'function') {
             var /** @type {?} */ testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
             this._document.body.appendChild(testElement);
-            if (getComputedStyle(testElement).display !== 'none') {
+            var /** @type {?} */ computedStyle = getComputedStyle(testElement);
+            // In some situations, the computed style of the test element can be null. For example in
+            // Firefox, the computed style is null if an application is running inside of a hidden iframe.
+            // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+            if (computedStyle && computedStyle.display !== 'none') {
                 console.warn('Could not find Angular Material core theme. Most Material ' +
                     'components may not work as expected. For more info refer ' +
                     'to the theming guide: https://material.angular.io/guide/theming');
@@ -202,7 +208,6 @@ MatCommonModule.decorators = [
  * @nocollapse
  */
 MatCommonModule.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
 ]; };
 /**
@@ -1342,9 +1347,9 @@ var RippleRenderer = (function () {
         this._ngZone = _ngZone;
         this._ruler = _ruler;
         /**
-         * Whether the mouse is currently down or not.
+         * Whether the pointer is currently being held on the trigger or not.
          */
-        this._isMousedown = false;
+        this._isPointerDown = false;
         /**
          * Events to be registered on the trigger element.
          */
@@ -1366,8 +1371,10 @@ var RippleRenderer = (function () {
             this._containerElement = elementRef.nativeElement;
             // Specify events which need to be registered on the trigger.
             this._triggerEvents.set('mousedown', this.onMousedown.bind(this));
-            this._triggerEvents.set('mouseup', this.onMouseup.bind(this));
-            this._triggerEvents.set('mouseleave', this.onMouseLeave.bind(this));
+            this._triggerEvents.set('touchstart', this.onTouchstart.bind(this));
+            this._triggerEvents.set('mouseup', this.onPointerUp.bind(this));
+            this._triggerEvents.set('touchend', this.onPointerUp.bind(this));
+            this._triggerEvents.set('mouseleave', this.onPointerLeave.bind(this));
             // By default use the host element as trigger element.
             this.setTriggerElement(this._containerElement);
         }
@@ -1421,7 +1428,7 @@ var RippleRenderer = (function () {
         // Once it's faded in, the ripple can be hidden immediately if the mouse is released.
         this.runTimeoutOutsideZone(function () {
             rippleRef.state = RippleState.VISIBLE;
-            if (!config.persistent && !_this._isMousedown) {
+            if (!config.persistent && !_this._isPointerDown) {
                 rippleRef.fadeOut();
             }
         }, duration);
@@ -1476,22 +1483,22 @@ var RippleRenderer = (function () {
         this._triggerElement = element;
     };
     /**
-     * Listener being called on mousedown event.
+     * Function being called whenever the trigger is being pressed.
      * @param {?} event
      * @return {?}
      */
     RippleRenderer.prototype.onMousedown = function (event) {
         if (!this.rippleDisabled) {
-            this._isMousedown = true;
+            this._isPointerDown = true;
             this.fadeInRipple(event.pageX, event.pageY, this.rippleConfig);
         }
     };
     /**
-     * Listener being called on mouseup event.
+     * Function being called whenever the pointer is being released.
      * @return {?}
      */
-    RippleRenderer.prototype.onMouseup = function () {
-        this._isMousedown = false;
+    RippleRenderer.prototype.onPointerUp = function () {
+        this._isPointerDown = false;
         // Fade-out all ripples that are completely visible and not persistent.
         this._activeRipples.forEach(function (ripple) {
             if (!ripple.config.persistent && ripple.state === RippleState.VISIBLE) {
@@ -1500,12 +1507,24 @@ var RippleRenderer = (function () {
         });
     };
     /**
-     * Listener being called on mouseleave event.
+     * Function being called whenever the pointer leaves the trigger.
      * @return {?}
      */
-    RippleRenderer.prototype.onMouseLeave = function () {
-        if (this._isMousedown) {
-            this.onMouseup();
+    RippleRenderer.prototype.onPointerLeave = function () {
+        if (this._isPointerDown) {
+            this.onPointerUp();
+        }
+    };
+    /**
+     * Function being called whenever the trigger is being touched.
+     * @param {?} event
+     * @return {?}
+     */
+    RippleRenderer.prototype.onTouchstart = function (event) {
+        if (!this.rippleDisabled) {
+            var _a = event.touches[0], pageX = _a.pageX, pageY = _a.pageY;
+            this._isPointerDown = true;
+            this.fadeInRipple(pageX, pageY, this.rippleConfig);
         }
     };
     /**
@@ -2718,13 +2737,16 @@ var MatAutocompleteSelectedEvent = (function () {
 var MatAutocomplete = (function () {
     /**
      * @param {?} _changeDetectorRef
+     * @param {?} _elementRef
      */
-    function MatAutocomplete(_changeDetectorRef) {
+    function MatAutocomplete(_changeDetectorRef, _elementRef) {
         this._changeDetectorRef = _changeDetectorRef;
+        this._elementRef = _elementRef;
         /**
          * Whether the autocomplete panel should be visible, depending on option length.
          */
         this.showPanel = false;
+        this._isOpen = false;
         /**
          * Function that maps an option's control value to its display value in the trigger.
          */
@@ -2733,16 +2755,47 @@ var MatAutocomplete = (function () {
          * Event that is emitted whenever an option from the list is selected.
          */
         this.optionSelected = new _angular_core.EventEmitter();
+        this._classList = {};
         /**
          * Unique ID to be used by autocomplete trigger's "aria-owns" property.
          */
         this.id = "mat-autocomplete-" + _uniqueAutocompleteIdCounter++;
     }
+    Object.defineProperty(MatAutocomplete.prototype, "isOpen", {
+        /**
+         * Whether the autocomplete panel is open.
+         * @return {?}
+         */
+        get: function () {
+            return this._isOpen && this.showPanel;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatAutocomplete.prototype, "classList", {
+        /**
+         * Takes classes set on the host md-autocomplete element and applies them to the panel
+         * inside the overlay container to allow for easy styling.
+         * @param {?} classList
+         * @return {?}
+         */
+        set: function (classList) {
+            var _this = this;
+            if (classList && classList.length) {
+                classList.split(' ').forEach(function (className) { return _this._classList[className.trim()] = true; });
+                this._elementRef.nativeElement.className = '';
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @return {?}
      */
     MatAutocomplete.prototype.ngAfterContentInit = function () {
         this._keyManager = new _angular_cdk_a11y.ActiveDescendantKeyManager(this.options).withWrap();
+        // Set the initial visibiity state.
+        this._setVisibility();
     };
     /**
      * Sets the panel scrollTop. This allows us to manually scroll to display options
@@ -2770,6 +2823,8 @@ var MatAutocomplete = (function () {
         var _this = this;
         Promise.resolve().then(function () {
             _this.showPanel = !!_this.options.length;
+            _this._classList['mat-autocomplete-visible'] = _this.showPanel;
+            _this._classList['mat-autocomplete-hidden'] = !_this.showPanel;
             _this._changeDetectorRef.markForCheck();
         });
     };
@@ -2782,21 +2837,11 @@ var MatAutocomplete = (function () {
         var /** @type {?} */ event = new MatAutocompleteSelectedEvent(this, option);
         this.optionSelected.emit(event);
     };
-    /**
-     * Sets a class on the panel based on whether it is visible.
-     * @return {?}
-     */
-    MatAutocomplete.prototype._getClassList = function () {
-        return {
-            'mat-autocomplete-visible': this.showPanel,
-            'mat-autocomplete-hidden': !this.showPanel
-        };
-    };
     return MatAutocomplete;
 }());
 MatAutocomplete.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'mat-autocomplete',
-                template: "<ng-template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_getClassList()\" #panel><ng-content></ng-content></div></ng-template>",
+                template: "<ng-template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_classList\" #panel><ng-content></ng-content></div></ng-template>",
                 styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative}.mat-autocomplete-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}"],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
@@ -2812,6 +2857,7 @@ MatAutocomplete.decorators = [
  */
 MatAutocomplete.ctorParameters = function () { return [
     { type: _angular_core.ChangeDetectorRef, },
+    { type: _angular_core.ElementRef, },
 ]; };
 MatAutocomplete.propDecorators = {
     'template': [{ type: _angular_core.ViewChild, args: [_angular_core.TemplateRef,] },],
@@ -2820,6 +2866,7 @@ MatAutocomplete.propDecorators = {
     'optionGroups': [{ type: _angular_core.ContentChildren, args: [MatOptgroup,] },],
     'displayWith': [{ type: _angular_core.Input },],
     'optionSelected': [{ type: _angular_core.Output },],
+    'classList': [{ type: _angular_core.Input, args: ['class',] },],
 };
 /**
  * The height of each autocomplete option.
@@ -2938,7 +2985,7 @@ var MatAutocompleteTrigger = (function () {
         }
         this._resetPlaceholder();
         if (this._panelOpen) {
-            this._panelOpen = false;
+            this.autocomplete._isOpen = this._panelOpen = false;
             // We need to trigger change detection manually, because
             // `fromEvent` doesn't seem to do it at the proper time.
             // This ensures that the placeholder is reset when the
@@ -3045,20 +3092,21 @@ var MatAutocompleteTrigger = (function () {
      */
     MatAutocompleteTrigger.prototype._handleKeydown = function (event) {
         var _this = this;
-        if (event.keyCode === _angular_cdk_keycodes.ESCAPE && this.panelOpen) {
+        var /** @type {?} */ keyCode = event.keyCode;
+        if (keyCode === _angular_cdk_keycodes.ESCAPE && this.panelOpen) {
             this._resetActiveItem();
             this.closePanel();
             event.stopPropagation();
         }
-        else if (this.activeOption && event.keyCode === _angular_cdk_keycodes.ENTER && this.panelOpen) {
+        else if (this.activeOption && keyCode === _angular_cdk_keycodes.ENTER && this.panelOpen) {
             this.activeOption._selectViaInteraction();
             this._resetActiveItem();
             event.preventDefault();
         }
         else {
             var /** @type {?} */ prevActiveItem_1 = this.autocomplete._keyManager.activeItem;
-            var /** @type {?} */ isArrowKey_1 = event.keyCode === _angular_cdk_keycodes.UP_ARROW || event.keyCode === _angular_cdk_keycodes.DOWN_ARROW;
-            if (this.panelOpen) {
+            var /** @type {?} */ isArrowKey_1 = keyCode === _angular_cdk_keycodes.UP_ARROW || keyCode === _angular_cdk_keycodes.DOWN_ARROW;
+            if (this.panelOpen || keyCode === _angular_cdk_keycodes.TAB) {
                 this.autocomplete._keyManager.onKeydown(event);
             }
             else if (isArrowKey_1) {
@@ -3088,8 +3136,10 @@ var MatAutocompleteTrigger = (function () {
      * @return {?}
      */
     MatAutocompleteTrigger.prototype._handleFocus = function () {
-        this._attachOverlay();
-        this._floatPlaceholder(true);
+        if (!this._element.nativeElement.readOnly) {
+            this._attachOverlay();
+            this._floatPlaceholder(true);
+        }
     };
     /**
      * In "auto" mode, the placeholder will animate down as soon as focus is lost.
@@ -3180,7 +3230,9 @@ var MatAutocompleteTrigger = (function () {
      * @return {?}
      */
     MatAutocompleteTrigger.prototype._setTriggerValue = function (value) {
-        var /** @type {?} */ toDisplay = this.autocomplete.displayWith ? this.autocomplete.displayWith(value) : value;
+        var /** @type {?} */ toDisplay = this.autocomplete && this.autocomplete.displayWith ?
+            this.autocomplete.displayWith(value) :
+            value;
         // Simply falling back to an empty string if the display value is falsy does not work properly.
         // The display value can also be the number zero and shouldn't fall back to an empty string.
         var /** @type {?} */ inputValue = toDisplay != null ? toDisplay : '';
@@ -3243,7 +3295,7 @@ var MatAutocompleteTrigger = (function () {
             this._closingActionsSubscription = this._subscribeToClosingActions();
         }
         this.autocomplete._setVisibility();
-        this._panelOpen = true;
+        this.autocomplete._isOpen = this._panelOpen = true;
     };
     /**
      * @return {?}
@@ -3293,7 +3345,6 @@ MatAutocompleteTrigger.decorators = [
                     'role': 'combobox',
                     'autocomplete': 'off',
                     'aria-autocomplete': 'list',
-                    'aria-multiline': 'false',
                     '[attr.aria-activedescendant]': 'activeOption?.id',
                     '[attr.aria-expanded]': 'panelOpen.toString()',
                     '[attr.aria-owns]': 'autocomplete?.id',
@@ -3555,7 +3606,7 @@ MatButton.decorators = [
                     '[disabled]': 'disabled || null',
                 },
                 template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div matRipple class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton || _isIconButton\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"_isIconButton\" [matRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\"></div>",
-                styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([disabled]):active,.mat-mini-fab:not([disabled]):active,.mat-raised-button:not([disabled]):active{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-button-wrapper{padding:16px 0;display:inline-block;line-height:24px}.mat-mini-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-button-wrapper{padding:8px 0;display:inline-block;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
+                styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([class*=mat-elevation-z]),.mat-mini-fab:not([class*=mat-elevation-z]),.mat-raised-button:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]),.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]),.mat-raised-button:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-button-wrapper{padding:16px 0;display:inline-block;line-height:24px}.mat-mini-fab{min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-button-wrapper{padding:8px 0;display:inline-block;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
                 inputs: ['disabled', 'disableRipple', 'color'],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
@@ -3608,7 +3659,7 @@ MatAnchor.decorators = [
                 },
                 inputs: ['disabled', 'disableRipple', 'color'],
                 template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div matRipple class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton || _isIconButton\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"_isIconButton\" [matRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\"></div>",
-                styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([disabled]):active,.mat-mini-fab:not([disabled]):active,.mat-raised-button:not([disabled]):active{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-button-wrapper{padding:16px 0;display:inline-block;line-height:24px}.mat-mini-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-button-wrapper{padding:8px 0;display:inline-block;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
+                styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([class*=mat-elevation-z]),.mat-mini-fab:not([class*=mat-elevation-z]),.mat-raised-button:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]),.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]),.mat-raised-button:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-button-wrapper{padding:16px 0;display:inline-block;line-height:24px}.mat-mini-fab{min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-button-wrapper{padding:8px 0;display:inline-block;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -3887,6 +3938,15 @@ var MatButtonToggleGroup = (function (_super) {
      */
     MatButtonToggleGroup.prototype.setDisabledState = function (isDisabled) {
         this.disabled = isDisabled;
+        this._markButtonTogglesForCheck();
+    };
+    /**
+     * @return {?}
+     */
+    MatButtonToggleGroup.prototype._markButtonTogglesForCheck = function () {
+        if (this._buttonToggles) {
+            this._buttonToggles.forEach(function (toggle) { return toggle._markForCheck(); });
+        }
     };
     return MatButtonToggleGroup;
 }(_MatButtonToggleGroupMixinBase));
@@ -4199,6 +4259,17 @@ var MatButtonToggle = (function () {
      */
     MatButtonToggle.prototype.ngOnDestroy = function () {
         this._removeUniqueSelectionListener();
+    };
+    /**
+     * Marks the button toggle as needing checking for change detection.
+     * This method is exposed because the parent button toggle group will directly
+     * update bound properties of the radio button.
+     * @return {?}
+     */
+    MatButtonToggle.prototype._markForCheck = function () {
+        // When group value changes, the button will not be notified. Use `markForCheck` to explicit
+        // update button toggle's status
+        this._changeDetectorRef.markForCheck();
     };
     return MatButtonToggle;
 }());
@@ -4643,7 +4714,7 @@ var MatCheckboxBase = (function () {
     }
     return MatCheckboxBase;
 }());
-var _MatCheckboxMixinBase = mixinColor(mixinDisableRipple(mixinDisabled(MatCheckboxBase)), 'accent');
+var _MatCheckboxMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatCheckboxBase)), 'accent'));
 /**
  * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
  * and exposes a similar API. A MatCheckbox can be either checked, unchecked, indeterminate, or
@@ -4659,8 +4730,9 @@ var MatCheckbox = (function (_super) {
      * @param {?} elementRef
      * @param {?} _changeDetectorRef
      * @param {?} _focusMonitor
+     * @param {?} tabIndex
      */
-    function MatCheckbox(renderer, elementRef, _changeDetectorRef, _focusMonitor) {
+    function MatCheckbox(renderer, elementRef, _changeDetectorRef, _focusMonitor, tabIndex) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._focusMonitor = _focusMonitor;
@@ -4683,10 +4755,6 @@ var MatCheckbox = (function (_super) {
          */
         _this.labelPosition = 'after';
         /**
-         * Tabindex value that is passed to the underlying input element.
-         */
-        _this.tabIndex = 0;
-        /**
          * Name value will be applied to the input element if present
          */
         _this.name = null;
@@ -4708,6 +4776,7 @@ var MatCheckbox = (function (_super) {
         _this._checked = false;
         _this._indeterminate = false;
         _this._controlValueAccessorChangeFn = function () { };
+        _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
     Object.defineProperty(MatCheckbox.prototype, "inputId", {
@@ -5025,7 +5094,7 @@ var MatCheckbox = (function (_super) {
 }(_MatCheckboxMixinBase));
 MatCheckbox.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'mat-checkbox',
-                template: "<label [attr.for]=\"inputId\" class=\"mat-checkbox-layout\" #label><div class=\"mat-checkbox-inner-container\" [class.mat-checkbox-inner-container-no-side-margin]=\"!checkboxLabel.textContent || !checkboxLabel.textContent.trim()\"><input #input class=\"mat-checkbox-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [value]=\"value\" [disabled]=\"disabled\" [name]=\"name\" [tabIndex]=\"tabIndex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"><div matRipple class=\"mat-checkbox-ripple\" [matRippleTrigger]=\"label\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"true\"></div><div class=\"mat-checkbox-frame\"></div><div class=\"mat-checkbox-background\"><svg version=\"1.1\" focusable=\"false\" class=\"mat-checkbox-checkmark\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"><path class=\"mat-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/></svg><div class=\"mat-checkbox-mixedmark\"></div></div></div><span class=\"mat-checkbox-label\" #checkboxLabel (cdkObserveContent)=\"_onLabelTextChange()\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></span></label>",
+                template: "<label [attr.for]=\"inputId\" class=\"mat-checkbox-layout\" #label><div class=\"mat-checkbox-inner-container\" [class.mat-checkbox-inner-container-no-side-margin]=\"!checkboxLabel.textContent || !checkboxLabel.textContent.trim()\"><input #input class=\"mat-checkbox-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [attr.value]=\"value\" [disabled]=\"disabled\" [attr.name]=\"name\" [tabIndex]=\"tabIndex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"><div matRipple class=\"mat-checkbox-ripple\" [matRippleTrigger]=\"label\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"true\"></div><div class=\"mat-checkbox-frame\"></div><div class=\"mat-checkbox-background\"><svg version=\"1.1\" focusable=\"false\" class=\"mat-checkbox-checkmark\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"><path class=\"mat-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/></svg><div class=\"mat-checkbox-mixedmark\"></div></div></div><span class=\"mat-checkbox-label\" #checkboxLabel (cdkObserveContent)=\"_onLabelTextChange()\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></span></label>",
                 styles: ["@keyframes mat-checkbox-fade-in-background{0%{opacity:0}50%{opacity:1}}@keyframes mat-checkbox-fade-out-background{0%,50%{opacity:1}100%{opacity:0}}@keyframes mat-checkbox-unchecked-checked-checkmark-path{0%,50%{stroke-dashoffset:22.91026}50%{animation-timing-function:cubic-bezier(0,0,.2,.1)}100%{stroke-dashoffset:0}}@keyframes mat-checkbox-unchecked-indeterminate-mixedmark{0%,68.2%{transform:scaleX(0)}68.2%{animation-timing-function:cubic-bezier(0,0,0,1)}100%{transform:scaleX(1)}}@keyframes mat-checkbox-checked-unchecked-checkmark-path{from{animation-timing-function:cubic-bezier(.4,0,1,1);stroke-dashoffset:0}to{stroke-dashoffset:-22.91026}}@keyframes mat-checkbox-checked-indeterminate-checkmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(45deg)}}@keyframes mat-checkbox-indeterminate-checked-checkmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:0;transform:rotate(45deg)}to{opacity:1;transform:rotate(360deg)}}@keyframes mat-checkbox-checked-indeterminate-mixedmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:0;transform:rotate(-45deg)}to{opacity:1;transform:rotate(0)}}@keyframes mat-checkbox-indeterminate-checked-mixedmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(315deg)}}@keyframes mat-checkbox-indeterminate-unchecked-mixedmark{0%{animation-timing-function:linear;opacity:1;transform:scaleX(1)}100%,32.8%{opacity:0;transform:scaleX(0)}}.mat-checkbox-checkmark,.mat-checkbox-mixedmark{width:calc(100% - 4px)}.mat-checkbox-background,.mat-checkbox-frame{top:0;left:0;right:0;bottom:0;position:absolute;border-radius:2px;box-sizing:border-box;pointer-events:none}.mat-checkbox{transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);cursor:pointer}.mat-checkbox-layout{cursor:inherit;align-items:baseline;vertical-align:middle;display:inline-flex;white-space:nowrap}.mat-checkbox-inner-container{display:inline-block;height:20px;line-height:0;margin:auto;margin-right:8px;order:0;position:relative;vertical-align:middle;white-space:nowrap;width:20px;flex-shrink:0}[dir=rtl] .mat-checkbox-inner-container{margin-left:8px;margin-right:auto}.mat-checkbox-inner-container-no-side-margin{margin-left:0;margin-right:0}.mat-checkbox-frame{background-color:transparent;transition:border-color 90ms cubic-bezier(0,0,.2,.1);border-width:2px;border-style:solid}.mat-checkbox-background{align-items:center;display:inline-flex;justify-content:center;transition:background-color 90ms cubic-bezier(0,0,.2,.1),opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-checkbox-checkmark{top:0;left:0;right:0;bottom:0;position:absolute;width:100%}.mat-checkbox-checkmark-path{stroke-dashoffset:22.91026;stroke-dasharray:22.91026;stroke-width:2.66667px}.mat-checkbox-mixedmark{height:2px;opacity:0;transform:scaleX(0) rotate(0)}.mat-checkbox-label-before .mat-checkbox-inner-container{order:1;margin-left:8px;margin-right:auto}[dir=rtl] .mat-checkbox-label-before .mat-checkbox-inner-container{margin-left:auto;margin-right:8px}.mat-checkbox-checked .mat-checkbox-checkmark{opacity:1}.mat-checkbox-checked .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-checked .mat-checkbox-mixedmark{transform:scaleX(1) rotate(-45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark{opacity:0;transform:rotate(45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-indeterminate .mat-checkbox-mixedmark{opacity:1;transform:scaleX(1) rotate(0)}.mat-checkbox-unchecked .mat-checkbox-background{background-color:transparent}.mat-checkbox-disabled{cursor:default}.mat-checkbox-anim-unchecked-checked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-checked .mat-checkbox-checkmark-path{animation:180ms linear 0s mat-checkbox-unchecked-checked-checkmark-path}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-unchecked-indeterminate-mixedmark}.mat-checkbox-anim-checked-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-checked-unchecked .mat-checkbox-checkmark-path{animation:90ms linear 0s mat-checkbox-checked-unchecked-checkmark-path}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-checkmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-checkmark}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-mixedmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-checkmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-checkmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-mixedmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-mixedmark}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-mixedmark{animation:.3s linear 0s mat-checkbox-indeterminate-unchecked-mixedmark}.mat-checkbox-input{bottom:0;left:50%}.mat-checkbox-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none}"],
                 host: {
                     'class': 'mat-checkbox',
@@ -5036,7 +5105,7 @@ MatCheckbox.decorators = [
                     '[class.mat-checkbox-label-before]': 'labelPosition == "before"',
                 },
                 providers: [MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR],
-                inputs: ['disabled', 'disableRipple', 'color'],
+                inputs: ['disabled', 'disableRipple', 'color', 'tabIndex'],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
@@ -5050,6 +5119,7 @@ MatCheckbox.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
     { type: _angular_core.ChangeDetectorRef, },
     { type: _angular_cdk_a11y.FocusMonitor, },
+    { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['tabindex',] },] },
 ]; };
 MatCheckbox.propDecorators = {
     'ariaLabel': [{ type: _angular_core.Input, args: ['aria-label',] },],
@@ -5058,7 +5128,6 @@ MatCheckbox.propDecorators = {
     'required': [{ type: _angular_core.Input },],
     'align': [{ type: _angular_core.Input },],
     'labelPosition': [{ type: _angular_core.Input },],
-    'tabIndex': [{ type: _angular_core.Input },],
     'name': [{ type: _angular_core.Input },],
     'change': [{ type: _angular_core.Output },],
     'indeterminateChange': [{ type: _angular_core.Output },],
@@ -6018,8 +6087,8 @@ var MatChipList = (function () {
         var /** @type {?} */ isRtl = this._dir && this._dir.value == 'rtl';
         var /** @type {?} */ isPrevKey = (code === (isRtl ? _angular_cdk_keycodes.RIGHT_ARROW : _angular_cdk_keycodes.LEFT_ARROW));
         var /** @type {?} */ isNextKey = (code === (isRtl ? _angular_cdk_keycodes.LEFT_ARROW : _angular_cdk_keycodes.RIGHT_ARROW));
-        var /** @type {?} */ isBackKey = (code === _angular_cdk_keycodes.BACKSPACE || code == _angular_cdk_keycodes.DELETE || code == _angular_cdk_keycodes.UP_ARROW || isPrevKey);
-        // If they are on an empty input and hit backspace/delete/left arrow, focus the last chip
+        var /** @type {?} */ isBackKey = code === _angular_cdk_keycodes.BACKSPACE;
+        // If they are on an empty input and hit backspace, focus the last chip
         if (isInputEmpty && isBackKey) {
             this._keyManager.setLastItemActive();
             event.preventDefault();
@@ -6091,9 +6160,6 @@ var MatChipList = (function () {
             if (focusChip) {
                 focusChip.focus();
             }
-        }
-        else if (chipsArray.length === 0) {
-            this._focusInput();
         }
         // Reset our destroyed index
         this._lastDestroyedIndex = null;
@@ -6167,8 +6233,10 @@ var MatChipList = (function () {
         // Defer setting the value in order to avoid the "Expression
         // has changed after it was checked" errors from Angular.
         Promise.resolve().then(function () {
-            _this._setSelectionByValue(_this.ngControl ? _this.ngControl.value : _this._value, false);
-            _this.stateChanges.next();
+            if (_this.ngControl || _this._value) {
+                _this._setSelectionByValue(_this.ngControl ? _this.ngControl.value : _this._value, false);
+                _this.stateChanges.next();
+            }
         });
     };
     /**
@@ -7211,6 +7279,10 @@ var MatDialog = (function () {
         injectionTokens.set(MatDialogRef, dialogRef);
         injectionTokens.set(MatDialogContainer, dialogContainer);
         injectionTokens.set(MAT_DIALOG_DATA, config.data);
+        injectionTokens.set(_angular_cdk_bidi.Directionality, {
+            value: config.direction,
+            change: rxjs_observable_of.of()
+        });
         return new _angular_cdk_portal.PortalInjector(userInjector || this._injector, injectionTokens);
     };
     /**
@@ -8248,6 +8320,451 @@ MatDatepickerIntl.decorators = [
  */
 MatDatepickerIntl.ctorParameters = function () { return []; };
 /**
+ * An internal class that represents the data corresponding to a single calendar cell.
+ * \@docs-private
+ */
+var MatCalendarCell = (function () {
+    /**
+     * @param {?} value
+     * @param {?} displayValue
+     * @param {?} ariaLabel
+     * @param {?} enabled
+     */
+    function MatCalendarCell(value, displayValue, ariaLabel, enabled) {
+        this.value = value;
+        this.displayValue = displayValue;
+        this.ariaLabel = ariaLabel;
+        this.enabled = enabled;
+    }
+    return MatCalendarCell;
+}());
+/**
+ * An internal component used to display calendar data in a table.
+ * \@docs-private
+ */
+var MatCalendarBody = (function () {
+    function MatCalendarBody() {
+        /**
+         * The number of columns in the table.
+         */
+        this.numCols = 7;
+        /**
+         * Whether to allow selection of disabled cells.
+         */
+        this.allowDisabledSelection = false;
+        /**
+         * The cell number of the active cell in the table.
+         */
+        this.activeCell = 0;
+        /**
+         * The aspect ratio (width / height) to use for the cells in the table. This aspect ratio will be
+         * maintained even as the table resizes.
+         */
+        this.cellAspectRatio = 1;
+        /**
+         * Emits when a new value is selected.
+         */
+        this.selectedValueChange = new _angular_core.EventEmitter();
+    }
+    /**
+     * @param {?} cell
+     * @return {?}
+     */
+    MatCalendarBody.prototype._cellClicked = function (cell) {
+        if (!this.allowDisabledSelection && !cell.enabled) {
+            return;
+        }
+        this.selectedValueChange.emit(cell.value);
+    };
+    Object.defineProperty(MatCalendarBody.prototype, "_firstRowOffset", {
+        /**
+         * The number of blank cells to put at the beginning for the first row.
+         * @return {?}
+         */
+        get: function () {
+            return this.rows && this.rows.length && this.rows[0].length ?
+                this.numCols - this.rows[0].length : 0;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param {?} rowIndex
+     * @param {?} colIndex
+     * @return {?}
+     */
+    MatCalendarBody.prototype._isActiveCell = function (rowIndex, colIndex) {
+        var /** @type {?} */ cellNumber = rowIndex * this.numCols + colIndex;
+        // Account for the fact that the first row may not have as many cells.
+        if (rowIndex) {
+            cellNumber -= this._firstRowOffset;
+        }
+        return cellNumber == this.activeCell;
+    };
+    return MatCalendarBody;
+}());
+MatCalendarBody.decorators = [
+    { type: _angular_core.Component, args: [{ selector: '[mat-calendar-body]',
+                template: "<tr *ngIf=\"_firstRowOffset < labelMinRequiredCells\" aria-hidden=\"true\"><td class=\"mat-calendar-body-label\" [attr.colspan]=\"numCols\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\">{{label}}</td></tr><tr *ngFor=\"let row of rows; let rowIndex = index\" role=\"row\"><td *ngIf=\"rowIndex === 0 && _firstRowOffset\" aria-hidden=\"true\" class=\"mat-calendar-body-label\" [attr.colspan]=\"_firstRowOffset\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\">{{_firstRowOffset >= labelMinRequiredCells ? label : ''}}</td><td *ngFor=\"let item of row; let colIndex = index\" role=\"gridcell\" class=\"mat-calendar-body-cell\" [tabindex]=\"_isActiveCell(rowIndex, colIndex) ? 0 : -1\" [class.mat-calendar-body-disabled]=\"!item.enabled\" [class.mat-calendar-body-active]=\"_isActiveCell(rowIndex, colIndex)\" [attr.aria-label]=\"item.ariaLabel\" [attr.aria-disabled]=\"!item.enabled || null\" (click)=\"_cellClicked(item)\" [style.width.%]=\"100 / numCols\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\"><div class=\"mat-calendar-body-cell-content\" [class.mat-calendar-body-selected]=\"selectedValue === item.value\" [class.mat-calendar-body-today]=\"todayValue === item.value\">{{item.displayValue}}</div></td></tr>",
+                styles: [".mat-calendar-body{min-width:224px}.mat-calendar-body-label{height:0;line-height:0;text-align:left;padding-left:4.71429%;padding-right:4.71429%}.mat-calendar-body-cell{position:relative;height:0;line-height:0;text-align:center;outline:0;cursor:pointer}.mat-calendar-body-disabled{cursor:default}.mat-calendar-body-cell-content{position:absolute;top:5%;left:5%;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:90%;height:90%;line-height:1;border-width:1px;border-style:solid;border-radius:999px}[dir=rtl] .mat-calendar-body-label{text-align:right}"],
+                host: {
+                    'class': 'mat-calendar-body',
+                },
+                encapsulation: _angular_core.ViewEncapsulation.None,
+                preserveWhitespaces: false,
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MatCalendarBody.ctorParameters = function () { return []; };
+MatCalendarBody.propDecorators = {
+    'label': [{ type: _angular_core.Input },],
+    'rows': [{ type: _angular_core.Input },],
+    'todayValue': [{ type: _angular_core.Input },],
+    'selectedValue': [{ type: _angular_core.Input },],
+    'labelMinRequiredCells': [{ type: _angular_core.Input },],
+    'numCols': [{ type: _angular_core.Input },],
+    'allowDisabledSelection': [{ type: _angular_core.Input },],
+    'activeCell': [{ type: _angular_core.Input },],
+    'cellAspectRatio': [{ type: _angular_core.Input },],
+    'selectedValueChange': [{ type: _angular_core.Output },],
+};
+var DAYS_PER_WEEK = 7;
+/**
+ * An internal component used to display a single month in the datepicker.
+ * \@docs-private
+ */
+var MatMonthView = (function () {
+    /**
+     * @param {?} _dateAdapter
+     * @param {?} _dateFormats
+     * @param {?} _changeDetectorRef
+     */
+    function MatMonthView(_dateAdapter, _dateFormats, _changeDetectorRef) {
+        this._dateAdapter = _dateAdapter;
+        this._dateFormats = _dateFormats;
+        this._changeDetectorRef = _changeDetectorRef;
+        /**
+         * Emits when a new date is selected.
+         */
+        this.selectedChange = new _angular_core.EventEmitter();
+        /**
+         * Emits when any date is selected.
+         */
+        this.userSelection = new _angular_core.EventEmitter();
+        if (!this._dateAdapter) {
+            throw createMissingDateImplError('DateAdapter');
+        }
+        if (!this._dateFormats) {
+            throw createMissingDateImplError('MAT_DATE_FORMATS');
+        }
+        var firstDayOfWeek = this._dateAdapter.getFirstDayOfWeek();
+        var narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
+        var longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
+        // Rotate the labels for days of the week based on the configured first day of the week.
+        var weekdays = longWeekdays.map(function (long, i) {
+            return { long: long, narrow: narrowWeekdays[i] };
+        });
+        this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
+        this._activeDate = this._dateAdapter.today();
+    }
+    Object.defineProperty(MatMonthView.prototype, "activeDate", {
+        /**
+         * The date to display in this month view (everything other than the month and year is ignored).
+         * @return {?}
+         */
+        get: function () { return this._activeDate; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            var /** @type {?} */ oldActiveDate = this._activeDate;
+            this._activeDate = coerceDateProperty(this._dateAdapter, value) || this._dateAdapter.today();
+            if (!this._hasSameMonthAndYear(oldActiveDate, this._activeDate)) {
+                this._init();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatMonthView.prototype, "selected", {
+        /**
+         * The currently selected date.
+         * @return {?}
+         */
+        get: function () { return this._selected; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._selected = coerceDateProperty(this._dateAdapter, value);
+            this._selectedDate = this._getDateInCurrentMonth(this._selected);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    MatMonthView.prototype.ngAfterContentInit = function () {
+        this._init();
+    };
+    /**
+     * Handles when a new date is selected.
+     * @param {?} date
+     * @return {?}
+     */
+    MatMonthView.prototype._dateSelected = function (date) {
+        if (this._selectedDate != date) {
+            var /** @type {?} */ selectedYear = this._dateAdapter.getYear(this.activeDate);
+            var /** @type {?} */ selectedMonth = this._dateAdapter.getMonth(this.activeDate);
+            var /** @type {?} */ selectedDate = this._dateAdapter.createDate(selectedYear, selectedMonth, date);
+            this.selectedChange.emit(selectedDate);
+        }
+        this.userSelection.emit();
+    };
+    /**
+     * Initializes this month view.
+     * @return {?}
+     */
+    MatMonthView.prototype._init = function () {
+        this._selectedDate = this._getDateInCurrentMonth(this.selected);
+        this._todayDate = this._getDateInCurrentMonth(this._dateAdapter.today());
+        this._monthLabel =
+            this._dateAdapter.getMonthNames('short')[this._dateAdapter.getMonth(this.activeDate)]
+                .toLocaleUpperCase();
+        var /** @type {?} */ firstOfMonth = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), 1);
+        this._firstWeekOffset =
+            (DAYS_PER_WEEK + this._dateAdapter.getDayOfWeek(firstOfMonth) -
+                this._dateAdapter.getFirstDayOfWeek()) % DAYS_PER_WEEK;
+        this._createWeekCells();
+        this._changeDetectorRef.markForCheck();
+    };
+    /**
+     * Creates MatCalendarCells for the dates in this month.
+     * @return {?}
+     */
+    MatMonthView.prototype._createWeekCells = function () {
+        var /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(this.activeDate);
+        var /** @type {?} */ dateNames = this._dateAdapter.getDateNames();
+        this._weeks = [[]];
+        for (var /** @type {?} */ i = 0, /** @type {?} */ cell = this._firstWeekOffset; i < daysInMonth; i++, cell++) {
+            if (cell == DAYS_PER_WEEK) {
+                this._weeks.push([]);
+                cell = 0;
+            }
+            var /** @type {?} */ date = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), i + 1);
+            var /** @type {?} */ enabled = !this.dateFilter ||
+                this.dateFilter(date);
+            var /** @type {?} */ ariaLabel = this._dateAdapter.format(date, this._dateFormats.display.dateA11yLabel);
+            this._weeks[this._weeks.length - 1]
+                .push(new MatCalendarCell(i + 1, dateNames[i], ariaLabel, enabled));
+        }
+    };
+    /**
+     * Gets the date in this month that the given Date falls on.
+     * Returns null if the given Date is in another month.
+     * @param {?} date
+     * @return {?}
+     */
+    MatMonthView.prototype._getDateInCurrentMonth = function (date) {
+        return date && this._hasSameMonthAndYear(date, this.activeDate) ?
+            this._dateAdapter.getDate(date) : null;
+    };
+    /**
+     * Checks whether the 2 dates are non-null and fall within the same month of the same year.
+     * @param {?} d1
+     * @param {?} d2
+     * @return {?}
+     */
+    MatMonthView.prototype._hasSameMonthAndYear = function (d1, d2) {
+        return !!(d1 && d2 && this._dateAdapter.getMonth(d1) == this._dateAdapter.getMonth(d2) &&
+            this._dateAdapter.getYear(d1) == this._dateAdapter.getYear(d2));
+    };
+    return MatMonthView;
+}());
+MatMonthView.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-month-view',
+                template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr></thead><tbody mat-calendar-body role=\"grid\" [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\"></tbody></table>",
+                encapsulation: _angular_core.ViewEncapsulation.None,
+                preserveWhitespaces: false,
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MatMonthView.ctorParameters = function () { return [
+    { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
+    { type: _angular_core.ChangeDetectorRef, },
+]; };
+MatMonthView.propDecorators = {
+    'activeDate': [{ type: _angular_core.Input },],
+    'selected': [{ type: _angular_core.Input },],
+    'dateFilter': [{ type: _angular_core.Input },],
+    'selectedChange': [{ type: _angular_core.Output },],
+    'userSelection': [{ type: _angular_core.Output },],
+};
+/**
+ * An internal component used to display a single year in the datepicker.
+ * \@docs-private
+ */
+var MatYearView = (function () {
+    /**
+     * @param {?} _dateAdapter
+     * @param {?} _dateFormats
+     * @param {?} _changeDetectorRef
+     */
+    function MatYearView(_dateAdapter, _dateFormats, _changeDetectorRef) {
+        this._dateAdapter = _dateAdapter;
+        this._dateFormats = _dateFormats;
+        this._changeDetectorRef = _changeDetectorRef;
+        /**
+         * Emits when a new month is selected.
+         */
+        this.selectedChange = new _angular_core.EventEmitter();
+        if (!this._dateAdapter) {
+            throw createMissingDateImplError('DateAdapter');
+        }
+        if (!this._dateFormats) {
+            throw createMissingDateImplError('MAT_DATE_FORMATS');
+        }
+        this._activeDate = this._dateAdapter.today();
+    }
+    Object.defineProperty(MatYearView.prototype, "activeDate", {
+        /**
+         * The date to display in this year view (everything other than the year is ignored).
+         * @return {?}
+         */
+        get: function () { return this._activeDate; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            var /** @type {?} */ oldActiveDate = this._activeDate;
+            this._activeDate = coerceDateProperty(this._dateAdapter, value) || this._dateAdapter.today();
+            if (this._dateAdapter.getYear(oldActiveDate) != this._dateAdapter.getYear(this._activeDate)) {
+                this._init();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatYearView.prototype, "selected", {
+        /**
+         * The currently selected date.
+         * @return {?}
+         */
+        get: function () { return this._selected; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._selected = coerceDateProperty(this._dateAdapter, value);
+            this._selectedMonth = this._getMonthInCurrentYear(this._selected);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    MatYearView.prototype.ngAfterContentInit = function () {
+        this._init();
+    };
+    /**
+     * Handles when a new month is selected.
+     * @param {?} month
+     * @return {?}
+     */
+    MatYearView.prototype._monthSelected = function (month) {
+        var /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1));
+        this.selectedChange.emit(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, Math.min(this._dateAdapter.getDate(this.activeDate), daysInMonth)));
+    };
+    /**
+     * Initializes this month view.
+     * @return {?}
+     */
+    MatYearView.prototype._init = function () {
+        var _this = this;
+        this._selectedMonth = this._getMonthInCurrentYear(this.selected);
+        this._todayMonth = this._getMonthInCurrentYear(this._dateAdapter.today());
+        this._yearLabel = this._dateAdapter.getYearName(this.activeDate);
+        var /** @type {?} */ monthNames = this._dateAdapter.getMonthNames('short');
+        // First row of months only contains 5 elements so we can fit the year label on the same row.
+        this._months = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]].map(function (row) { return row.map(function (month) { return _this._createCellForMonth(month, monthNames[month]); }); });
+        this._changeDetectorRef.markForCheck();
+    };
+    /**
+     * Gets the month in this year that the given Date falls on.
+     * Returns null if the given Date is in another year.
+     * @param {?} date
+     * @return {?}
+     */
+    MatYearView.prototype._getMonthInCurrentYear = function (date) {
+        return date && this._dateAdapter.getYear(date) == this._dateAdapter.getYear(this.activeDate) ?
+            this._dateAdapter.getMonth(date) : null;
+    };
+    /**
+     * Creates an MatCalendarCell for the given month.
+     * @param {?} month
+     * @param {?} monthName
+     * @return {?}
+     */
+    MatYearView.prototype._createCellForMonth = function (month, monthName) {
+        var /** @type {?} */ ariaLabel = this._dateAdapter.format(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1), this._dateFormats.display.monthYearA11yLabel);
+        return new MatCalendarCell(month, monthName.toLocaleUpperCase(), ariaLabel, this._isMonthEnabled(month));
+    };
+    /**
+     * Whether the given month is enabled.
+     * @param {?} month
+     * @return {?}
+     */
+    MatYearView.prototype._isMonthEnabled = function (month) {
+        if (!this.dateFilter) {
+            return true;
+        }
+        var /** @type {?} */ firstOfMonth = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1);
+        // If any date in the month is enabled count the month as enabled.
+        for (var /** @type {?} */ date = firstOfMonth; this._dateAdapter.getMonth(date) == month; date = this._dateAdapter.addCalendarDays(date, 1)) {
+            if (this.dateFilter(date)) {
+                return true;
+            }
+        }
+        return false;
+    };
+    return MatYearView;
+}());
+MatYearView.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-year-view',
+                template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body role=\"grid\" allowDisabledSelection=\"true\" [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\"></tbody></table>",
+                encapsulation: _angular_core.ViewEncapsulation.None,
+                preserveWhitespaces: false,
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MatYearView.ctorParameters = function () { return [
+    { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
+    { type: _angular_core.ChangeDetectorRef, },
+]; };
+MatYearView.propDecorators = {
+    'activeDate': [{ type: _angular_core.Input },],
+    'selected': [{ type: _angular_core.Input },],
+    'dateFilter': [{ type: _angular_core.Input },],
+    'selectedChange': [{ type: _angular_core.Output },],
+};
+/**
  * A calendar that is used as part of the datepicker.
  * \@docs-private
  */
@@ -8428,6 +8945,19 @@ var MatCalendar = (function () {
      */
     MatCalendar.prototype.ngOnDestroy = function () {
         this._intlChanges.unsubscribe();
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    MatCalendar.prototype.ngOnChanges = function (changes) {
+        var /** @type {?} */ change = changes.minDate || changes.maxDate || changes.dateFilter;
+        if (change && !change.firstChange) {
+            var /** @type {?} */ view = this.monthView || this.yearView;
+            if (view) {
+                view._init();
+            }
+        }
     };
     /**
      * Handles date selection in the month view.
@@ -8691,118 +9221,8 @@ MatCalendar.propDecorators = {
     'dateFilter': [{ type: _angular_core.Input },],
     'selectedChange': [{ type: _angular_core.Output },],
     'userSelection': [{ type: _angular_core.Output },],
-};
-/**
- * An internal class that represents the data corresponding to a single calendar cell.
- * \@docs-private
- */
-var MatCalendarCell = (function () {
-    /**
-     * @param {?} value
-     * @param {?} displayValue
-     * @param {?} ariaLabel
-     * @param {?} enabled
-     */
-    function MatCalendarCell(value, displayValue, ariaLabel, enabled) {
-        this.value = value;
-        this.displayValue = displayValue;
-        this.ariaLabel = ariaLabel;
-        this.enabled = enabled;
-    }
-    return MatCalendarCell;
-}());
-/**
- * An internal component used to display calendar data in a table.
- * \@docs-private
- */
-var MatCalendarBody = (function () {
-    function MatCalendarBody() {
-        /**
-         * The number of columns in the table.
-         */
-        this.numCols = 7;
-        /**
-         * Whether to allow selection of disabled cells.
-         */
-        this.allowDisabledSelection = false;
-        /**
-         * The cell number of the active cell in the table.
-         */
-        this.activeCell = 0;
-        /**
-         * The aspect ratio (width / height) to use for the cells in the table. This aspect ratio will be
-         * maintained even as the table resizes.
-         */
-        this.cellAspectRatio = 1;
-        /**
-         * Emits when a new value is selected.
-         */
-        this.selectedValueChange = new _angular_core.EventEmitter();
-    }
-    /**
-     * @param {?} cell
-     * @return {?}
-     */
-    MatCalendarBody.prototype._cellClicked = function (cell) {
-        if (!this.allowDisabledSelection && !cell.enabled) {
-            return;
-        }
-        this.selectedValueChange.emit(cell.value);
-    };
-    Object.defineProperty(MatCalendarBody.prototype, "_firstRowOffset", {
-        /**
-         * The number of blank cells to put at the beginning for the first row.
-         * @return {?}
-         */
-        get: function () {
-            return this.rows && this.rows.length && this.rows[0].length ?
-                this.numCols - this.rows[0].length : 0;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @param {?} rowIndex
-     * @param {?} colIndex
-     * @return {?}
-     */
-    MatCalendarBody.prototype._isActiveCell = function (rowIndex, colIndex) {
-        var /** @type {?} */ cellNumber = rowIndex * this.numCols + colIndex;
-        // Account for the fact that the first row may not have as many cells.
-        if (rowIndex) {
-            cellNumber -= this._firstRowOffset;
-        }
-        return cellNumber == this.activeCell;
-    };
-    return MatCalendarBody;
-}());
-MatCalendarBody.decorators = [
-    { type: _angular_core.Component, args: [{ selector: '[mat-calendar-body]',
-                template: "<tr *ngIf=\"_firstRowOffset < labelMinRequiredCells\" aria-hidden=\"true\"><td class=\"mat-calendar-body-label\" [attr.colspan]=\"numCols\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\">{{label}}</td></tr><tr *ngFor=\"let row of rows; let rowIndex = index\" role=\"row\"><td *ngIf=\"rowIndex === 0 && _firstRowOffset\" aria-hidden=\"true\" class=\"mat-calendar-body-label\" [attr.colspan]=\"_firstRowOffset\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\">{{_firstRowOffset >= labelMinRequiredCells ? label : ''}}</td><td *ngFor=\"let item of row; let colIndex = index\" role=\"gridcell\" class=\"mat-calendar-body-cell\" [tabindex]=\"_isActiveCell(rowIndex, colIndex) ? 0 : -1\" [class.mat-calendar-body-disabled]=\"!item.enabled\" [class.mat-calendar-body-active]=\"_isActiveCell(rowIndex, colIndex)\" [attr.aria-label]=\"item.ariaLabel\" [attr.aria-disabled]=\"!item.enabled || null\" (click)=\"_cellClicked(item)\" [style.width.%]=\"100 / numCols\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\"><div class=\"mat-calendar-body-cell-content\" [class.mat-calendar-body-selected]=\"selectedValue === item.value\" [class.mat-calendar-body-today]=\"todayValue === item.value\">{{item.displayValue}}</div></td></tr>",
-                styles: [".mat-calendar-body{min-width:224px}.mat-calendar-body-label{height:0;line-height:0;text-align:left;padding-left:4.71429%;padding-right:4.71429%}.mat-calendar-body-cell{position:relative;height:0;line-height:0;text-align:center;outline:0;cursor:pointer}.mat-calendar-body-disabled{cursor:default}.mat-calendar-body-cell-content{position:absolute;top:5%;left:5%;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:90%;height:90%;line-height:1;border-width:1px;border-style:solid;border-radius:999px}[dir=rtl] .mat-calendar-body-label{text-align:right}"],
-                host: {
-                    'class': 'mat-calendar-body',
-                },
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCalendarBody.ctorParameters = function () { return []; };
-MatCalendarBody.propDecorators = {
-    'label': [{ type: _angular_core.Input },],
-    'rows': [{ type: _angular_core.Input },],
-    'todayValue': [{ type: _angular_core.Input },],
-    'selectedValue': [{ type: _angular_core.Input },],
-    'labelMinRequiredCells': [{ type: _angular_core.Input },],
-    'numCols': [{ type: _angular_core.Input },],
-    'allowDisabledSelection': [{ type: _angular_core.Input },],
-    'activeCell': [{ type: _angular_core.Input },],
-    'cellAspectRatio': [{ type: _angular_core.Input },],
-    'selectedValueChange': [{ type: _angular_core.Output },],
+    'monthView': [{ type: _angular_core.ViewChild, args: [MatMonthView,] },],
+    'yearView': [{ type: _angular_core.ViewChild, args: [MatYearView,] },],
 };
 /**
  * Used to generate a unique ID for each datepicker instance.
@@ -8962,7 +9382,8 @@ var MatDatepicker = (function () {
          * @return {?}
          */
         get: function () {
-            return this._disabled === undefined ? this._datepickerInput.disabled : this._disabled;
+            return this._disabled === undefined && this._datepickerInput ?
+                this._datepickerInput.disabled : this._disabled;
         },
         /**
          * @param {?} value
@@ -9660,331 +10081,6 @@ MatDatepickerToggle.propDecorators = {
     'datepicker': [{ type: _angular_core.Input, args: ['for',] },],
     'disabled': [{ type: _angular_core.Input },],
 };
-var DAYS_PER_WEEK = 7;
-/**
- * An internal component used to display a single month in the datepicker.
- * \@docs-private
- */
-var MatMonthView = (function () {
-    /**
-     * @param {?} _dateAdapter
-     * @param {?} _dateFormats
-     */
-    function MatMonthView(_dateAdapter, _dateFormats) {
-        this._dateAdapter = _dateAdapter;
-        this._dateFormats = _dateFormats;
-        /**
-         * Emits when a new date is selected.
-         */
-        this.selectedChange = new _angular_core.EventEmitter();
-        /**
-         * Emits when any date is selected.
-         */
-        this.userSelection = new _angular_core.EventEmitter();
-        if (!this._dateAdapter) {
-            throw createMissingDateImplError('DateAdapter');
-        }
-        if (!this._dateFormats) {
-            throw createMissingDateImplError('MAT_DATE_FORMATS');
-        }
-        var firstDayOfWeek = this._dateAdapter.getFirstDayOfWeek();
-        var narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
-        var longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
-        // Rotate the labels for days of the week based on the configured first day of the week.
-        var weekdays = longWeekdays.map(function (long, i) {
-            return { long: long, narrow: narrowWeekdays[i] };
-        });
-        this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
-        this._activeDate = this._dateAdapter.today();
-    }
-    Object.defineProperty(MatMonthView.prototype, "activeDate", {
-        /**
-         * The date to display in this month view (everything other than the month and year is ignored).
-         * @return {?}
-         */
-        get: function () { return this._activeDate; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            var /** @type {?} */ oldActiveDate = this._activeDate;
-            this._activeDate = coerceDateProperty(this._dateAdapter, value) || this._dateAdapter.today();
-            if (!this._hasSameMonthAndYear(oldActiveDate, this._activeDate)) {
-                this._init();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatMonthView.prototype, "selected", {
-        /**
-         * The currently selected date.
-         * @return {?}
-         */
-        get: function () { return this._selected; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this._selected = coerceDateProperty(this._dateAdapter, value);
-            this._selectedDate = this._getDateInCurrentMonth(this._selected);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    MatMonthView.prototype.ngAfterContentInit = function () {
-        this._init();
-    };
-    /**
-     * Handles when a new date is selected.
-     * @param {?} date
-     * @return {?}
-     */
-    MatMonthView.prototype._dateSelected = function (date) {
-        if (this._selectedDate != date) {
-            var /** @type {?} */ selectedYear = this._dateAdapter.getYear(this.activeDate);
-            var /** @type {?} */ selectedMonth = this._dateAdapter.getMonth(this.activeDate);
-            var /** @type {?} */ selectedDate = this._dateAdapter.createDate(selectedYear, selectedMonth, date);
-            this.selectedChange.emit(selectedDate);
-        }
-        this.userSelection.emit();
-    };
-    /**
-     * Initializes this month view.
-     * @return {?}
-     */
-    MatMonthView.prototype._init = function () {
-        this._selectedDate = this._getDateInCurrentMonth(this.selected);
-        this._todayDate = this._getDateInCurrentMonth(this._dateAdapter.today());
-        this._monthLabel =
-            this._dateAdapter.getMonthNames('short')[this._dateAdapter.getMonth(this.activeDate)]
-                .toLocaleUpperCase();
-        var /** @type {?} */ firstOfMonth = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), 1);
-        this._firstWeekOffset =
-            (DAYS_PER_WEEK + this._dateAdapter.getDayOfWeek(firstOfMonth) -
-                this._dateAdapter.getFirstDayOfWeek()) % DAYS_PER_WEEK;
-        this._createWeekCells();
-    };
-    /**
-     * Creates MatCalendarCells for the dates in this month.
-     * @return {?}
-     */
-    MatMonthView.prototype._createWeekCells = function () {
-        var /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(this.activeDate);
-        var /** @type {?} */ dateNames = this._dateAdapter.getDateNames();
-        this._weeks = [[]];
-        for (var /** @type {?} */ i = 0, /** @type {?} */ cell = this._firstWeekOffset; i < daysInMonth; i++, cell++) {
-            if (cell == DAYS_PER_WEEK) {
-                this._weeks.push([]);
-                cell = 0;
-            }
-            var /** @type {?} */ date = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), i + 1);
-            var /** @type {?} */ enabled = !this.dateFilter ||
-                this.dateFilter(date);
-            var /** @type {?} */ ariaLabel = this._dateAdapter.format(date, this._dateFormats.display.dateA11yLabel);
-            this._weeks[this._weeks.length - 1]
-                .push(new MatCalendarCell(i + 1, dateNames[i], ariaLabel, enabled));
-        }
-    };
-    /**
-     * Gets the date in this month that the given Date falls on.
-     * Returns null if the given Date is in another month.
-     * @param {?} date
-     * @return {?}
-     */
-    MatMonthView.prototype._getDateInCurrentMonth = function (date) {
-        return date && this._hasSameMonthAndYear(date, this.activeDate) ?
-            this._dateAdapter.getDate(date) : null;
-    };
-    /**
-     * Checks whether the 2 dates are non-null and fall within the same month of the same year.
-     * @param {?} d1
-     * @param {?} d2
-     * @return {?}
-     */
-    MatMonthView.prototype._hasSameMonthAndYear = function (d1, d2) {
-        return !!(d1 && d2 && this._dateAdapter.getMonth(d1) == this._dateAdapter.getMonth(d2) &&
-            this._dateAdapter.getYear(d1) == this._dateAdapter.getYear(d2));
-    };
-    return MatMonthView;
-}());
-MatMonthView.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-month-view',
-                template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr></thead><tbody mat-calendar-body role=\"grid\" [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\"></tbody></table>",
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatMonthView.ctorParameters = function () { return [
-    { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
-]; };
-MatMonthView.propDecorators = {
-    'activeDate': [{ type: _angular_core.Input },],
-    'selected': [{ type: _angular_core.Input },],
-    'dateFilter': [{ type: _angular_core.Input },],
-    'selectedChange': [{ type: _angular_core.Output },],
-    'userSelection': [{ type: _angular_core.Output },],
-};
-/**
- * An internal component used to display a single year in the datepicker.
- * \@docs-private
- */
-var MatYearView = (function () {
-    /**
-     * @param {?} _dateAdapter
-     * @param {?} _dateFormats
-     */
-    function MatYearView(_dateAdapter, _dateFormats) {
-        this._dateAdapter = _dateAdapter;
-        this._dateFormats = _dateFormats;
-        /**
-         * Emits when a new month is selected.
-         */
-        this.selectedChange = new _angular_core.EventEmitter();
-        if (!this._dateAdapter) {
-            throw createMissingDateImplError('DateAdapter');
-        }
-        if (!this._dateFormats) {
-            throw createMissingDateImplError('MAT_DATE_FORMATS');
-        }
-        this._activeDate = this._dateAdapter.today();
-    }
-    Object.defineProperty(MatYearView.prototype, "activeDate", {
-        /**
-         * The date to display in this year view (everything other than the year is ignored).
-         * @return {?}
-         */
-        get: function () { return this._activeDate; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            var /** @type {?} */ oldActiveDate = this._activeDate;
-            this._activeDate = coerceDateProperty(this._dateAdapter, value) || this._dateAdapter.today();
-            if (this._dateAdapter.getYear(oldActiveDate) != this._dateAdapter.getYear(this._activeDate)) {
-                this._init();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatYearView.prototype, "selected", {
-        /**
-         * The currently selected date.
-         * @return {?}
-         */
-        get: function () { return this._selected; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this._selected = coerceDateProperty(this._dateAdapter, value);
-            this._selectedMonth = this._getMonthInCurrentYear(this._selected);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    MatYearView.prototype.ngAfterContentInit = function () {
-        this._init();
-    };
-    /**
-     * Handles when a new month is selected.
-     * @param {?} month
-     * @return {?}
-     */
-    MatYearView.prototype._monthSelected = function (month) {
-        var /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1));
-        this.selectedChange.emit(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, Math.min(this._dateAdapter.getDate(this.activeDate), daysInMonth)));
-    };
-    /**
-     * Initializes this month view.
-     * @return {?}
-     */
-    MatYearView.prototype._init = function () {
-        var _this = this;
-        this._selectedMonth = this._getMonthInCurrentYear(this.selected);
-        this._todayMonth = this._getMonthInCurrentYear(this._dateAdapter.today());
-        this._yearLabel = this._dateAdapter.getYearName(this.activeDate);
-        var /** @type {?} */ monthNames = this._dateAdapter.getMonthNames('short');
-        // First row of months only contains 5 elements so we can fit the year label on the same row.
-        this._months = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]].map(function (row) { return row.map(function (month) { return _this._createCellForMonth(month, monthNames[month]); }); });
-    };
-    /**
-     * Gets the month in this year that the given Date falls on.
-     * Returns null if the given Date is in another year.
-     * @param {?} date
-     * @return {?}
-     */
-    MatYearView.prototype._getMonthInCurrentYear = function (date) {
-        return date && this._dateAdapter.getYear(date) == this._dateAdapter.getYear(this.activeDate) ?
-            this._dateAdapter.getMonth(date) : null;
-    };
-    /**
-     * Creates an MatCalendarCell for the given month.
-     * @param {?} month
-     * @param {?} monthName
-     * @return {?}
-     */
-    MatYearView.prototype._createCellForMonth = function (month, monthName) {
-        var /** @type {?} */ ariaLabel = this._dateAdapter.format(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1), this._dateFormats.display.monthYearA11yLabel);
-        return new MatCalendarCell(month, monthName.toLocaleUpperCase(), ariaLabel, this._isMonthEnabled(month));
-    };
-    /**
-     * Whether the given month is enabled.
-     * @param {?} month
-     * @return {?}
-     */
-    MatYearView.prototype._isMonthEnabled = function (month) {
-        if (!this.dateFilter) {
-            return true;
-        }
-        var /** @type {?} */ firstOfMonth = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1);
-        // If any date in the month is enabled count the month as enabled.
-        for (var /** @type {?} */ date = firstOfMonth; this._dateAdapter.getMonth(date) == month; date = this._dateAdapter.addCalendarDays(date, 1)) {
-            if (this.dateFilter(date)) {
-                return true;
-            }
-        }
-        return false;
-    };
-    return MatYearView;
-}());
-MatYearView.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-year-view',
-                template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body role=\"grid\" allowDisabledSelection=\"true\" [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\"></tbody></table>",
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatYearView.ctorParameters = function () { return [
-    { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
-]; };
-MatYearView.propDecorators = {
-    'activeDate': [{ type: _angular_core.Input },],
-    'selected': [{ type: _angular_core.Input },],
-    'dateFilter': [{ type: _angular_core.Input },],
-    'selectedChange': [{ type: _angular_core.Output },],
-};
 var MatDatepickerModule = (function () {
     function MatDatepickerModule() {
     }
@@ -10345,7 +10441,7 @@ var MatExpansionPanel = (function (_super) {
     return MatExpansionPanel;
 }(_MatExpansionPanelMixinBase));
 MatExpansionPanel.decorators = [
-    { type: _angular_core.Component, args: [{ styles: [".mat-expansion-panel{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);box-sizing:content-box;display:block;margin:0;transition:margin 225ms cubic-bezier(.4,0,.2,1)}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-expansion-panel-content{overflow:hidden}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion .mat-expansion-panel-spacing:first-child{margin-top:0}.mat-accordion .mat-expansion-panel-spacing:last-child{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button{margin-left:0;margin-right:8px}"],
+    { type: _angular_core.Component, args: [{ styles: [".mat-expansion-panel{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);box-sizing:content-box;display:block;margin:0;transition:margin 225ms cubic-bezier(.4,0,.2,1)}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-expansion-panel-content{overflow:hidden}.mat-expansion-panel-body{margin:0 24px 16px;overflow:auto}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion .mat-expansion-panel-spacing:first-child{margin-top:0}.mat-accordion .mat-expansion-panel-spacing:last-child{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button{margin-left:0;margin-right:8px}"],
                 selector: 'mat-expansion-panel',
                 template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content><div [class.mat-expanded]=\"expanded\" class=\"mat-expansion-panel-content\" [@bodyExpansion]=\"_getExpandedState()\" [id]=\"id\"><div class=\"mat-expansion-panel-body\"><ng-content></ng-content></div><ng-content select=\"mat-action-row\"></ng-content></div>",
                 encapsulation: _angular_core.ViewEncapsulation.None,
@@ -11704,6 +11800,7 @@ var MatInput = (function () {
         this._required = false;
         this._uid = "mat-input-" + nextUniqueId$3++;
         this._previousNativeValue = this.value;
+        this._readonly = false;
         /**
          * Whether the input is focused.
          */
@@ -11837,6 +11934,20 @@ var MatInput = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatInput.prototype, "readonly", {
+        /**
+         * Whether the element is readonly.
+         * @return {?}
+         */
+        get: function () { return this._readonly; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) { this._readonly = _angular_cdk_coercion.coerceBooleanProperty(value); },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @return {?}
      */
@@ -11875,7 +11986,7 @@ var MatInput = (function () {
      * @return {?}
      */
     MatInput.prototype._focusChanged = function (isFocused) {
-        if (isFocused !== this.focused) {
+        if (isFocused !== this.focused && !this.readonly) {
             this.focused = isFocused;
             this.stateChanges.next();
         }
@@ -12028,6 +12139,7 @@ MatInput.propDecorators = {
     'type': [{ type: _angular_core.Input },],
     'errorStateMatcher': [{ type: _angular_core.Input },],
     'value': [{ type: _angular_core.Input },],
+    'readonly': [{ type: _angular_core.Input },],
 };
 var MatInputModule = (function () {
     function MatInputModule() {
@@ -12112,7 +12224,7 @@ MatList.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'mat-list, mat-nav-list',
                 host: { 'role': 'list' },
                 template: '<ng-content></ng-content>',
-                styles: [".mat-subheader{display:block;box-sizing:border-box;padding:16px}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{margin:0}.mat-list,.mat-nav-list,.mat-selection-list{padding-top:8px;display:block}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{height:48px;line-height:16px}.mat-list .mat-subheader:first-child,.mat-nav-list .mat-subheader:first-child,.mat-selection-list .mat-subheader:first-child{margin-top:-8px}.mat-list .mat-list-item,.mat-nav-list .mat-list-item,.mat-selection-list .mat-list-item{display:block}.mat-list .mat-list-item .mat-list-item-content,.mat-nav-list .mat-list-item .mat-list-item-content,.mat-selection-list .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:48px;padding:0 16px;position:relative}.mat-list .mat-list-item .mat-list-item-content-reverse,.mat-nav-list .mat-list-item .mat-list-item-content-reverse,.mat-selection-list .mat-list-item .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list .mat-list-item .mat-list-item-ripple,.mat-nav-list .mat-list-item .mat-list-item-ripple,.mat-selection-list .mat-list-item .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-selection-list .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:56px}.mat-list .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-2-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-2-line .mat-list-item-content{height:72px}.mat-list .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-3-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-3-line .mat-list-item-content{height:88px}.mat-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list .mat-list-item .mat-list-text,.mat-nav-list .mat-list-item .mat-list-text,.mat-selection-list .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-item .mat-list-text>*,.mat-nav-list .mat-list-item .mat-list-text>*,.mat-selection-list .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-item .mat-list-text:empty,.mat-nav-list .mat-list-item .mat-list-text:empty,.mat-selection-list .mat-list-item .mat-list-text:empty{display:none}.mat-list .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list .mat-list-item .mat-list-text:nth-child(2),.mat-selection-list .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list .mat-list-item .mat-list-avatar,.mat-nav-list .mat-list-item .mat-list-avatar,.mat-selection-list .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-item .mat-list-icon,.mat-nav-list .mat-list-item .mat-list-icon,.mat-selection-list .mat-list-item .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list .mat-list-option,.mat-nav-list .mat-list-option,.mat-selection-list .mat-list-option{display:block}.mat-list .mat-list-option .mat-list-item-content,.mat-nav-list .mat-list-option .mat-list-item-content,.mat-selection-list .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:48px;padding:0 16px;position:relative}.mat-list .mat-list-option .mat-list-item-content-reverse,.mat-nav-list .mat-list-option .mat-list-item-content-reverse,.mat-selection-list .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list .mat-list-option .mat-list-item-ripple,.mat-nav-list .mat-list-option .mat-list-item-ripple,.mat-selection-list .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-nav-list .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-selection-list .mat-list-option.mat-list-item-avatar .mat-list-item-content{height:56px}.mat-list .mat-list-option.mat-2-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-2-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-2-line .mat-list-item-content{height:72px}.mat-list .mat-list-option.mat-3-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-3-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-3-line .mat-list-item-content{height:88px}.mat-list .mat-list-option.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-multi-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list .mat-list-option .mat-list-text,.mat-nav-list .mat-list-option .mat-list-text,.mat-selection-list .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-option .mat-list-text>*,.mat-nav-list .mat-list-option .mat-list-text>*,.mat-selection-list .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-option .mat-list-text:empty,.mat-nav-list .mat-list-option .mat-list-text:empty,.mat-selection-list .mat-list-option .mat-list-text:empty{display:none}.mat-list .mat-list-option .mat-list-text:nth-child(2),.mat-nav-list .mat-list-option .mat-list-text:nth-child(2),.mat-selection-list .mat-list-option .mat-list-text:nth-child(2){padding:0}.mat-list .mat-list-option .mat-list-avatar,.mat-nav-list .mat-list-option .mat-list-avatar,.mat-selection-list .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-option .mat-list-icon,.mat-nav-list .mat-list-option .mat-list-icon,.mat-selection-list .mat-list-option .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense],.mat-nav-list[dense],.mat-selection-list[dense]{padding-top:4px;display:block}.mat-list[dense] .mat-subheader,.mat-nav-list[dense] .mat-subheader,.mat-selection-list[dense] .mat-subheader{height:40px;line-height:8px}.mat-list[dense] .mat-subheader:first-child,.mat-nav-list[dense] .mat-subheader:first-child,.mat-selection-list[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list[dense] .mat-list-item,.mat-nav-list[dense] .mat-list-item,.mat-selection-list[dense] .mat-list-item{display:block}.mat-list[dense] .mat-list-item .mat-list-item-content,.mat-nav-list[dense] .mat-list-item .mat-list-item-content,.mat-selection-list[dense] .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:40px;padding:0 16px;position:relative}.mat-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-item .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list[dense] .mat-list-item .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-item .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-item .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:48px}.mat-list[dense] .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-2-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-2-line .mat-list-item-content{height:60px}.mat-list[dense] .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-3-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-3-line .mat-list-item-content{height:76px}.mat-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-item .mat-list-text,.mat-nav-list[dense] .mat-list-item .mat-list-text,.mat-selection-list[dense] .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-item .mat-list-text>*,.mat-nav-list[dense] .mat-list-item .mat-list-text>*,.mat-selection-list[dense] .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-item .mat-list-text:empty,.mat-nav-list[dense] .mat-list-item .mat-list-text:empty,.mat-selection-list[dense] .mat-list-item .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-selection-list[dense] .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list[dense] .mat-list-item .mat-list-avatar,.mat-nav-list[dense] .mat-list-item .mat-list-avatar,.mat-selection-list[dense] .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-item .mat-list-icon,.mat-nav-list[dense] .mat-list-item .mat-list-icon,.mat-selection-list[dense] .mat-list-item .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense] .mat-list-option,.mat-nav-list[dense] .mat-list-option,.mat-selection-list[dense] .mat-list-option{display:block}.mat-list[dense] .mat-list-option .mat-list-item-content,.mat-nav-list[dense] .mat-list-option .mat-list-item-content,.mat-selection-list[dense] .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:40px;padding:0 16px;position:relative}.mat-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list[dense] .mat-list-option .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-option .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list[dense] .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-list-item-avatar .mat-list-item-content{height:48px}.mat-list[dense] .mat-list-option.mat-2-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-2-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-2-line .mat-list-item-content{height:60px}.mat-list[dense] .mat-list-option.mat-3-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-3-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-3-line .mat-list-item-content{height:76px}.mat-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-option .mat-list-text,.mat-nav-list[dense] .mat-list-option .mat-list-text,.mat-selection-list[dense] .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-option .mat-list-text>*,.mat-nav-list[dense] .mat-list-option .mat-list-text>*,.mat-selection-list[dense] .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-option .mat-list-text:empty,.mat-nav-list[dense] .mat-list-option .mat-list-text:empty,.mat-selection-list[dense] .mat-list-option .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-option .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-option .mat-list-text:nth-child(2),.mat-selection-list[dense] .mat-list-option .mat-list-text:nth-child(2){padding:0}.mat-list[dense] .mat-list-option .mat-list-avatar,.mat-nav-list[dense] .mat-list-option .mat-list-avatar,.mat-selection-list[dense] .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-option .mat-list-icon,.mat-nav-list[dense] .mat-list-option .mat-list-icon,.mat-selection-list[dense] .mat-list-option .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-divider{display:block;border-top-style:solid;border-top-width:1px;margin:0}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item-content{cursor:pointer}.mat-nav-list .mat-list-item-content.mat-list-item-focus,.mat-nav-list .mat-list-item-content:hover{outline:0}.mat-list-option:not([disabled]){cursor:pointer}"],
+                styles: [".mat-subheader{display:flex;box-sizing:border-box;padding:16px;align-items:center}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{margin:0}.mat-list,.mat-nav-list,.mat-selection-list{padding-top:8px;display:block}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{height:48px;line-height:16px}.mat-list .mat-subheader:first-child,.mat-nav-list .mat-subheader:first-child,.mat-selection-list .mat-subheader:first-child{margin-top:-8px}.mat-list .mat-list-item,.mat-nav-list .mat-list-item,.mat-selection-list .mat-list-item{display:block}.mat-list .mat-list-item .mat-list-item-content,.mat-nav-list .mat-list-item .mat-list-item-content,.mat-selection-list .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:48px;padding:0 16px;position:relative}.mat-list .mat-list-item .mat-list-item-content-reverse,.mat-nav-list .mat-list-item .mat-list-item-content-reverse,.mat-selection-list .mat-list-item .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list .mat-list-item .mat-list-item-ripple,.mat-nav-list .mat-list-item .mat-list-item-ripple,.mat-selection-list .mat-list-item .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-selection-list .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:56px}.mat-list .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-2-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-2-line .mat-list-item-content{height:72px}.mat-list .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-3-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-3-line .mat-list-item-content{height:88px}.mat-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list .mat-list-item .mat-list-text,.mat-nav-list .mat-list-item .mat-list-text,.mat-selection-list .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-item .mat-list-text>*,.mat-nav-list .mat-list-item .mat-list-text>*,.mat-selection-list .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-item .mat-list-text:empty,.mat-nav-list .mat-list-item .mat-list-text:empty,.mat-selection-list .mat-list-item .mat-list-text:empty{display:none}.mat-list .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list .mat-list-item .mat-list-text:nth-child(2),.mat-selection-list .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list .mat-list-item .mat-list-avatar,.mat-nav-list .mat-list-item .mat-list-avatar,.mat-selection-list .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-item .mat-list-icon,.mat-nav-list .mat-list-item .mat-list-icon,.mat-selection-list .mat-list-item .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list .mat-list-option,.mat-nav-list .mat-list-option,.mat-selection-list .mat-list-option{display:block}.mat-list .mat-list-option .mat-list-item-content,.mat-nav-list .mat-list-option .mat-list-item-content,.mat-selection-list .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:48px;padding:0 16px;position:relative}.mat-list .mat-list-option .mat-list-item-content-reverse,.mat-nav-list .mat-list-option .mat-list-item-content-reverse,.mat-selection-list .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list .mat-list-option .mat-list-item-ripple,.mat-nav-list .mat-list-option .mat-list-item-ripple,.mat-selection-list .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-nav-list .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-selection-list .mat-list-option.mat-list-item-avatar .mat-list-item-content{height:56px}.mat-list .mat-list-option.mat-2-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-2-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-2-line .mat-list-item-content{height:72px}.mat-list .mat-list-option.mat-3-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-3-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-3-line .mat-list-item-content{height:88px}.mat-list .mat-list-option.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-multi-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list .mat-list-option .mat-list-text,.mat-nav-list .mat-list-option .mat-list-text,.mat-selection-list .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-option .mat-list-text>*,.mat-nav-list .mat-list-option .mat-list-text>*,.mat-selection-list .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-option .mat-list-text:empty,.mat-nav-list .mat-list-option .mat-list-text:empty,.mat-selection-list .mat-list-option .mat-list-text:empty{display:none}.mat-list .mat-list-option .mat-list-text:nth-child(2),.mat-nav-list .mat-list-option .mat-list-text:nth-child(2),.mat-selection-list .mat-list-option .mat-list-text:nth-child(2){padding:0}.mat-list .mat-list-option .mat-list-avatar,.mat-nav-list .mat-list-option .mat-list-avatar,.mat-selection-list .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-option .mat-list-icon,.mat-nav-list .mat-list-option .mat-list-icon,.mat-selection-list .mat-list-option .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense],.mat-nav-list[dense],.mat-selection-list[dense]{padding-top:4px;display:block}.mat-list[dense] .mat-subheader,.mat-nav-list[dense] .mat-subheader,.mat-selection-list[dense] .mat-subheader{height:40px;line-height:8px}.mat-list[dense] .mat-subheader:first-child,.mat-nav-list[dense] .mat-subheader:first-child,.mat-selection-list[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list[dense] .mat-list-item,.mat-nav-list[dense] .mat-list-item,.mat-selection-list[dense] .mat-list-item{display:block}.mat-list[dense] .mat-list-item .mat-list-item-content,.mat-nav-list[dense] .mat-list-item .mat-list-item-content,.mat-selection-list[dense] .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:40px;padding:0 16px;position:relative}.mat-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-item .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list[dense] .mat-list-item .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-item .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-item .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:48px}.mat-list[dense] .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-2-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-2-line .mat-list-item-content{height:60px}.mat-list[dense] .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-3-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-3-line .mat-list-item-content{height:76px}.mat-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-item .mat-list-text,.mat-nav-list[dense] .mat-list-item .mat-list-text,.mat-selection-list[dense] .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-item .mat-list-text>*,.mat-nav-list[dense] .mat-list-item .mat-list-text>*,.mat-selection-list[dense] .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-item .mat-list-text:empty,.mat-nav-list[dense] .mat-list-item .mat-list-text:empty,.mat-selection-list[dense] .mat-list-item .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-selection-list[dense] .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list[dense] .mat-list-item .mat-list-avatar,.mat-nav-list[dense] .mat-list-item .mat-list-avatar,.mat-selection-list[dense] .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-item .mat-list-icon,.mat-nav-list[dense] .mat-list-item .mat-list-icon,.mat-selection-list[dense] .mat-list-item .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense] .mat-list-option,.mat-nav-list[dense] .mat-list-option,.mat-selection-list[dense] .mat-list-option{display:block}.mat-list[dense] .mat-list-option .mat-list-item-content,.mat-nav-list[dense] .mat-list-option .mat-list-item-content,.mat-selection-list[dense] .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:40px;padding:0 16px;position:relative}.mat-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list[dense] .mat-list-option .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-option .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list[dense] .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-list-item-avatar .mat-list-item-content{height:48px}.mat-list[dense] .mat-list-option.mat-2-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-2-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-2-line .mat-list-item-content{height:60px}.mat-list[dense] .mat-list-option.mat-3-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-3-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-3-line .mat-list-item-content{height:76px}.mat-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-option .mat-list-text,.mat-nav-list[dense] .mat-list-option .mat-list-text,.mat-selection-list[dense] .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-option .mat-list-text>*,.mat-nav-list[dense] .mat-list-option .mat-list-text>*,.mat-selection-list[dense] .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-option .mat-list-text:empty,.mat-nav-list[dense] .mat-list-option .mat-list-text:empty,.mat-selection-list[dense] .mat-list-option .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-option .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-option .mat-list-text:nth-child(2),.mat-selection-list[dense] .mat-list-option .mat-list-text:nth-child(2){padding:0}.mat-list[dense] .mat-list-option .mat-list-avatar,.mat-nav-list[dense] .mat-list-option .mat-list-avatar,.mat-selection-list[dense] .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-option .mat-list-icon,.mat-nav-list[dense] .mat-list-option .mat-list-icon,.mat-selection-list[dense] .mat-list-option .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-divider{display:block;border-top-style:solid;border-top-width:1px;margin:0}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item-content{cursor:pointer}.mat-nav-list .mat-list-item-content.mat-list-item-focus,.mat-nav-list .mat-list-item-content:hover{outline:0}.mat-list-option:not([disabled]){cursor:pointer}"],
                 inputs: ['disableRipple'],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
@@ -12353,7 +12465,6 @@ var MatListOptionBase = (function () {
     return MatListOptionBase;
 }());
 var _MatListOptionMixinBase = mixinDisableRipple(MatListOptionBase);
-var FOCUSED_STYLE = 'mat-list-item-focus';
 /**
  * Component for list-options of selection-list. Each list-option can automatically
  * generate a checkbox and can put current item into the selectionModel of selection-list
@@ -12384,10 +12495,6 @@ var MatListOption = (function (_super) {
          */
         _this.checkboxPosition = 'after';
         /**
-         * Emitted when the option is focused.
-         */
-        _this.onFocus = new _angular_core.EventEmitter();
-        /**
          * Emitted when the option is selected.
          */
         _this.selectChange = new _angular_core.EventEmitter();
@@ -12395,10 +12502,6 @@ var MatListOption = (function (_super) {
          * Emitted when the option is deselected.
          */
         _this.deselected = new _angular_core.EventEmitter();
-        /**
-         * Emitted when the option is destroyed.
-         */
-        _this.destroyed = new _angular_core.EventEmitter();
         return _this;
     }
     Object.defineProperty(MatListOption.prototype, "disabled", {
@@ -12432,6 +12535,14 @@ var MatListOption = (function (_super) {
     /**
      * @return {?}
      */
+    MatListOption.prototype.ngOnInit = function () {
+        if (this.selected) {
+            this.selectionList.selectedOptions.select(this);
+        }
+    };
+    /**
+     * @return {?}
+     */
     MatListOption.prototype.ngAfterContentInit = function () {
         this._lineSetter = new MatLineSetter(this._lines, this._renderer, this._element);
         if (this.selectionList.disabled) {
@@ -12442,7 +12553,7 @@ var MatListOption = (function (_super) {
      * @return {?}
      */
     MatListOption.prototype.ngOnDestroy = function () {
-        this.destroyed.emit({ option: this });
+        this.selectionList._removeOptionFromList(this);
     };
     /**
      * Toggles the selection state of the option.
@@ -12459,7 +12570,6 @@ var MatListOption = (function (_super) {
      */
     MatListOption.prototype.focus = function () {
         this._element.nativeElement.focus();
-        this.onFocus.emit({ option: this });
     };
     /**
      * Whether this list item should show a ripple effect when clicked.
@@ -12481,13 +12591,7 @@ var MatListOption = (function (_super) {
      */
     MatListOption.prototype._handleFocus = function () {
         this._hasFocus = true;
-        this._renderer.addClass(this._element.nativeElement, FOCUSED_STYLE);
-    };
-    /**
-     * @return {?}
-     */
-    MatListOption.prototype._handleBlur = function () {
-        this._renderer.removeClass(this._element.nativeElement, FOCUSED_STYLE);
+        this.selectionList._setFocusedOption(this);
     };
     /**
      * Retrieves the DOM element of the component host.
@@ -12505,10 +12609,11 @@ MatListOption.decorators = [
                     'role': 'option',
                     'class': 'mat-list-item mat-list-option',
                     '(focus)': '_handleFocus()',
-                    '(blur)': '_handleBlur()',
+                    '(blur)': '_hasFocus = false',
                     '(click)': '_handleClick()',
                     'tabindex': '-1',
                     '[class.mat-list-item-disabled]': 'disabled',
+                    '[class.mat-list-item-focus]': '_hasFocus',
                     '[attr.aria-selected]': 'selected.toString()',
                     '[attr.aria-disabled]': 'disabled.toString()',
                 },
@@ -12535,7 +12640,6 @@ MatListOption.propDecorators = {
     'selected': [{ type: _angular_core.Input },],
     'selectChange': [{ type: _angular_core.Output },],
     'deselected': [{ type: _angular_core.Output },],
-    'destroyed': [{ type: _angular_core.Output },],
 };
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
@@ -12553,14 +12657,6 @@ var MatSelectionList = (function (_super) {
          */
         _this._tabIndex = 0;
         /**
-         * Subscription to all list options' onFocus events
-         */
-        _this._optionFocusSubscription = rxjs_Subscription.Subscription.EMPTY;
-        /**
-         * Subscription to all list options' destroy events
-         */
-        _this._optionDestroyStream = rxjs_Subscription.Subscription.EMPTY;
-        /**
          * The currently selected options.
          */
         _this.selectedOptions = new _angular_cdk_collections.SelectionModel(true);
@@ -12574,15 +12670,6 @@ var MatSelectionList = (function (_super) {
         if (this.disabled) {
             this._tabIndex = -1;
         }
-        this._optionFocusSubscription = this._onFocusSubscription();
-        this._optionDestroyStream = this._onDestroySubscription();
-    };
-    /**
-     * @return {?}
-     */
-    MatSelectionList.prototype.ngOnDestroy = function () {
-        this._optionDestroyStream.unsubscribe();
-        this._optionFocusSubscription.unsubscribe();
     };
     /**
      * Focus the selection-list.
@@ -12614,43 +12701,29 @@ var MatSelectionList = (function (_super) {
         });
     };
     /**
-     * Map all the options' destroy event subscriptions and merge them into one stream.
+     * Sets the focused option of the selection-list.
+     * @param {?} option
      * @return {?}
      */
-    MatSelectionList.prototype._onDestroySubscription = function () {
-        var _this = this;
-        return _angular_cdk_rxjs.RxChain.from(this.options.changes)
-            .call(_angular_cdk_rxjs.startWith, this.options)
-            .call(_angular_cdk_rxjs.switchMap, function (options) {
-            return rxjs_observable_merge.merge.apply(void 0, options.map(function (option) { return option.destroyed; }));
-        }).subscribe(function (e) {
-            var /** @type {?} */ optionIndex = _this.options.toArray().indexOf(e.option);
-            if (e.option._hasFocus) {
-                // Check whether the option is the last item
-                if (optionIndex < _this.options.length - 1) {
-                    _this._keyManager.setActiveItem(optionIndex);
-                }
-                else if (optionIndex - 1 >= 0) {
-                    _this._keyManager.setActiveItem(optionIndex - 1);
-                }
-            }
-            e.option.destroyed.unsubscribe();
-        });
+    MatSelectionList.prototype._setFocusedOption = function (option) {
+        this._keyManager.updateActiveItemIndex(this._getOptionIndex(option));
     };
     /**
-     * Map all the options' onFocus event subscriptions and merge them into one stream.
+     * Removes an option from the selection list and updates the active item.
+     * @param {?} option
      * @return {?}
      */
-    MatSelectionList.prototype._onFocusSubscription = function () {
-        var _this = this;
-        return _angular_cdk_rxjs.RxChain.from(this.options.changes)
-            .call(_angular_cdk_rxjs.startWith, this.options)
-            .call(_angular_cdk_rxjs.switchMap, function (options) {
-            return rxjs_observable_merge.merge.apply(void 0, options.map(function (option) { return option.onFocus; }));
-        }).subscribe(function (e) {
-            var /** @type {?} */ optionIndex = _this.options.toArray().indexOf(e.option);
-            _this._keyManager.updateActiveItemIndex(optionIndex);
-        });
+    MatSelectionList.prototype._removeOptionFromList = function (option) {
+        if (option._hasFocus) {
+            var /** @type {?} */ optionIndex = this._getOptionIndex(option);
+            // Check whether the option is the last item
+            if (optionIndex > 0) {
+                this._keyManager.setPreviousItemActive();
+            }
+            else if (optionIndex === 0 && this.options.length > 1) {
+                this._keyManager.setNextItemActive();
+            }
+        }
     };
     /**
      * Passes relevant key presses to our key manager.
@@ -12690,6 +12763,14 @@ var MatSelectionList = (function (_super) {
     MatSelectionList.prototype._isValidIndex = function (index) {
         return index >= 0 && index < this.options.length;
     };
+    /**
+     * Returns the index of the specified list option.
+     * @param {?} option
+     * @return {?}
+     */
+    MatSelectionList.prototype._getOptionIndex = function (option) {
+        return this.options.toArray().indexOf(option);
+    };
     return MatSelectionList;
 }(_MatSelectionListMixinBase));
 MatSelectionList.decorators = [
@@ -12704,7 +12785,7 @@ MatSelectionList.decorators = [
                     '[attr.aria-disabled]': 'disabled.toString()'
                 },
                 template: '<ng-content></ng-content>',
-                styles: [".mat-subheader{display:block;box-sizing:border-box;padding:16px}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{margin:0}.mat-list,.mat-nav-list,.mat-selection-list{padding-top:8px;display:block}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{height:48px;line-height:16px}.mat-list .mat-subheader:first-child,.mat-nav-list .mat-subheader:first-child,.mat-selection-list .mat-subheader:first-child{margin-top:-8px}.mat-list .mat-list-item,.mat-nav-list .mat-list-item,.mat-selection-list .mat-list-item{display:block}.mat-list .mat-list-item .mat-list-item-content,.mat-nav-list .mat-list-item .mat-list-item-content,.mat-selection-list .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:48px;padding:0 16px;position:relative}.mat-list .mat-list-item .mat-list-item-content-reverse,.mat-nav-list .mat-list-item .mat-list-item-content-reverse,.mat-selection-list .mat-list-item .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list .mat-list-item .mat-list-item-ripple,.mat-nav-list .mat-list-item .mat-list-item-ripple,.mat-selection-list .mat-list-item .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-selection-list .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:56px}.mat-list .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-2-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-2-line .mat-list-item-content{height:72px}.mat-list .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-3-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-3-line .mat-list-item-content{height:88px}.mat-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list .mat-list-item .mat-list-text,.mat-nav-list .mat-list-item .mat-list-text,.mat-selection-list .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-item .mat-list-text>*,.mat-nav-list .mat-list-item .mat-list-text>*,.mat-selection-list .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-item .mat-list-text:empty,.mat-nav-list .mat-list-item .mat-list-text:empty,.mat-selection-list .mat-list-item .mat-list-text:empty{display:none}.mat-list .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list .mat-list-item .mat-list-text:nth-child(2),.mat-selection-list .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list .mat-list-item .mat-list-avatar,.mat-nav-list .mat-list-item .mat-list-avatar,.mat-selection-list .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-item .mat-list-icon,.mat-nav-list .mat-list-item .mat-list-icon,.mat-selection-list .mat-list-item .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list .mat-list-option,.mat-nav-list .mat-list-option,.mat-selection-list .mat-list-option{display:block}.mat-list .mat-list-option .mat-list-item-content,.mat-nav-list .mat-list-option .mat-list-item-content,.mat-selection-list .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:48px;padding:0 16px;position:relative}.mat-list .mat-list-option .mat-list-item-content-reverse,.mat-nav-list .mat-list-option .mat-list-item-content-reverse,.mat-selection-list .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list .mat-list-option .mat-list-item-ripple,.mat-nav-list .mat-list-option .mat-list-item-ripple,.mat-selection-list .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-nav-list .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-selection-list .mat-list-option.mat-list-item-avatar .mat-list-item-content{height:56px}.mat-list .mat-list-option.mat-2-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-2-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-2-line .mat-list-item-content{height:72px}.mat-list .mat-list-option.mat-3-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-3-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-3-line .mat-list-item-content{height:88px}.mat-list .mat-list-option.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-multi-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list .mat-list-option .mat-list-text,.mat-nav-list .mat-list-option .mat-list-text,.mat-selection-list .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-option .mat-list-text>*,.mat-nav-list .mat-list-option .mat-list-text>*,.mat-selection-list .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-option .mat-list-text:empty,.mat-nav-list .mat-list-option .mat-list-text:empty,.mat-selection-list .mat-list-option .mat-list-text:empty{display:none}.mat-list .mat-list-option .mat-list-text:nth-child(2),.mat-nav-list .mat-list-option .mat-list-text:nth-child(2),.mat-selection-list .mat-list-option .mat-list-text:nth-child(2){padding:0}.mat-list .mat-list-option .mat-list-avatar,.mat-nav-list .mat-list-option .mat-list-avatar,.mat-selection-list .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-option .mat-list-icon,.mat-nav-list .mat-list-option .mat-list-icon,.mat-selection-list .mat-list-option .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense],.mat-nav-list[dense],.mat-selection-list[dense]{padding-top:4px;display:block}.mat-list[dense] .mat-subheader,.mat-nav-list[dense] .mat-subheader,.mat-selection-list[dense] .mat-subheader{height:40px;line-height:8px}.mat-list[dense] .mat-subheader:first-child,.mat-nav-list[dense] .mat-subheader:first-child,.mat-selection-list[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list[dense] .mat-list-item,.mat-nav-list[dense] .mat-list-item,.mat-selection-list[dense] .mat-list-item{display:block}.mat-list[dense] .mat-list-item .mat-list-item-content,.mat-nav-list[dense] .mat-list-item .mat-list-item-content,.mat-selection-list[dense] .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:40px;padding:0 16px;position:relative}.mat-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-item .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list[dense] .mat-list-item .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-item .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-item .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:48px}.mat-list[dense] .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-2-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-2-line .mat-list-item-content{height:60px}.mat-list[dense] .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-3-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-3-line .mat-list-item-content{height:76px}.mat-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-item .mat-list-text,.mat-nav-list[dense] .mat-list-item .mat-list-text,.mat-selection-list[dense] .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-item .mat-list-text>*,.mat-nav-list[dense] .mat-list-item .mat-list-text>*,.mat-selection-list[dense] .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-item .mat-list-text:empty,.mat-nav-list[dense] .mat-list-item .mat-list-text:empty,.mat-selection-list[dense] .mat-list-item .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-selection-list[dense] .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list[dense] .mat-list-item .mat-list-avatar,.mat-nav-list[dense] .mat-list-item .mat-list-avatar,.mat-selection-list[dense] .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-item .mat-list-icon,.mat-nav-list[dense] .mat-list-item .mat-list-icon,.mat-selection-list[dense] .mat-list-item .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense] .mat-list-option,.mat-nav-list[dense] .mat-list-option,.mat-selection-list[dense] .mat-list-option{display:block}.mat-list[dense] .mat-list-option .mat-list-item-content,.mat-nav-list[dense] .mat-list-option .mat-list-item-content,.mat-selection-list[dense] .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:40px;padding:0 16px;position:relative}.mat-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list[dense] .mat-list-option .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-option .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list[dense] .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-list-item-avatar .mat-list-item-content{height:48px}.mat-list[dense] .mat-list-option.mat-2-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-2-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-2-line .mat-list-item-content{height:60px}.mat-list[dense] .mat-list-option.mat-3-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-3-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-3-line .mat-list-item-content{height:76px}.mat-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-option .mat-list-text,.mat-nav-list[dense] .mat-list-option .mat-list-text,.mat-selection-list[dense] .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-option .mat-list-text>*,.mat-nav-list[dense] .mat-list-option .mat-list-text>*,.mat-selection-list[dense] .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-option .mat-list-text:empty,.mat-nav-list[dense] .mat-list-option .mat-list-text:empty,.mat-selection-list[dense] .mat-list-option .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-option .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-option .mat-list-text:nth-child(2),.mat-selection-list[dense] .mat-list-option .mat-list-text:nth-child(2){padding:0}.mat-list[dense] .mat-list-option .mat-list-avatar,.mat-nav-list[dense] .mat-list-option .mat-list-avatar,.mat-selection-list[dense] .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-option .mat-list-icon,.mat-nav-list[dense] .mat-list-option .mat-list-icon,.mat-selection-list[dense] .mat-list-option .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-divider{display:block;border-top-style:solid;border-top-width:1px;margin:0}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item-content{cursor:pointer}.mat-nav-list .mat-list-item-content.mat-list-item-focus,.mat-nav-list .mat-list-item-content:hover{outline:0}.mat-list-option:not([disabled]){cursor:pointer}"],
+                styles: [".mat-subheader{display:flex;box-sizing:border-box;padding:16px;align-items:center}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{margin:0}.mat-list,.mat-nav-list,.mat-selection-list{padding-top:8px;display:block}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{height:48px;line-height:16px}.mat-list .mat-subheader:first-child,.mat-nav-list .mat-subheader:first-child,.mat-selection-list .mat-subheader:first-child{margin-top:-8px}.mat-list .mat-list-item,.mat-nav-list .mat-list-item,.mat-selection-list .mat-list-item{display:block}.mat-list .mat-list-item .mat-list-item-content,.mat-nav-list .mat-list-item .mat-list-item-content,.mat-selection-list .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:48px;padding:0 16px;position:relative}.mat-list .mat-list-item .mat-list-item-content-reverse,.mat-nav-list .mat-list-item .mat-list-item-content-reverse,.mat-selection-list .mat-list-item .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list .mat-list-item .mat-list-item-ripple,.mat-nav-list .mat-list-item .mat-list-item-ripple,.mat-selection-list .mat-list-item .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-selection-list .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:56px}.mat-list .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-2-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-2-line .mat-list-item-content{height:72px}.mat-list .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-3-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-3-line .mat-list-item-content{height:88px}.mat-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list .mat-list-item .mat-list-text,.mat-nav-list .mat-list-item .mat-list-text,.mat-selection-list .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-item .mat-list-text>*,.mat-nav-list .mat-list-item .mat-list-text>*,.mat-selection-list .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-item .mat-list-text:empty,.mat-nav-list .mat-list-item .mat-list-text:empty,.mat-selection-list .mat-list-item .mat-list-text:empty{display:none}.mat-list .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list .mat-list-item .mat-list-text:nth-child(2),.mat-selection-list .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list .mat-list-item .mat-list-avatar,.mat-nav-list .mat-list-item .mat-list-avatar,.mat-selection-list .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-item .mat-list-icon,.mat-nav-list .mat-list-item .mat-list-icon,.mat-selection-list .mat-list-item .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list .mat-list-option,.mat-nav-list .mat-list-option,.mat-selection-list .mat-list-option{display:block}.mat-list .mat-list-option .mat-list-item-content,.mat-nav-list .mat-list-option .mat-list-item-content,.mat-selection-list .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:48px;padding:0 16px;position:relative}.mat-list .mat-list-option .mat-list-item-content-reverse,.mat-nav-list .mat-list-option .mat-list-item-content-reverse,.mat-selection-list .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list .mat-list-option .mat-list-item-ripple,.mat-nav-list .mat-list-option .mat-list-item-ripple,.mat-selection-list .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-nav-list .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-selection-list .mat-list-option.mat-list-item-avatar .mat-list-item-content{height:56px}.mat-list .mat-list-option.mat-2-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-2-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-2-line .mat-list-item-content{height:72px}.mat-list .mat-list-option.mat-3-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-3-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-3-line .mat-list-item-content{height:88px}.mat-list .mat-list-option.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-multi-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list .mat-list-option .mat-list-text,.mat-nav-list .mat-list-option .mat-list-text,.mat-selection-list .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-option .mat-list-text>*,.mat-nav-list .mat-list-option .mat-list-text>*,.mat-selection-list .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-option .mat-list-text:empty,.mat-nav-list .mat-list-option .mat-list-text:empty,.mat-selection-list .mat-list-option .mat-list-text:empty{display:none}.mat-list .mat-list-option .mat-list-text:nth-child(2),.mat-nav-list .mat-list-option .mat-list-text:nth-child(2),.mat-selection-list .mat-list-option .mat-list-text:nth-child(2){padding:0}.mat-list .mat-list-option .mat-list-avatar,.mat-nav-list .mat-list-option .mat-list-avatar,.mat-selection-list .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-option .mat-list-icon,.mat-nav-list .mat-list-option .mat-list-icon,.mat-selection-list .mat-list-option .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense],.mat-nav-list[dense],.mat-selection-list[dense]{padding-top:4px;display:block}.mat-list[dense] .mat-subheader,.mat-nav-list[dense] .mat-subheader,.mat-selection-list[dense] .mat-subheader{height:40px;line-height:8px}.mat-list[dense] .mat-subheader:first-child,.mat-nav-list[dense] .mat-subheader:first-child,.mat-selection-list[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list[dense] .mat-list-item,.mat-nav-list[dense] .mat-list-item,.mat-selection-list[dense] .mat-list-item{display:block}.mat-list[dense] .mat-list-item .mat-list-item-content,.mat-nav-list[dense] .mat-list-item .mat-list-item-content,.mat-selection-list[dense] .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:40px;padding:0 16px;position:relative}.mat-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-item .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list[dense] .mat-list-item .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-item .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-item .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-list-item-avatar .mat-list-item-content{height:48px}.mat-list[dense] .mat-list-item.mat-2-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-2-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-2-line .mat-list-item-content{height:60px}.mat-list[dense] .mat-list-item.mat-3-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-3-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-3-line .mat-list-item-content{height:76px}.mat-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-item .mat-list-text,.mat-nav-list[dense] .mat-list-item .mat-list-text,.mat-selection-list[dense] .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-item .mat-list-text>*,.mat-nav-list[dense] .mat-list-item .mat-list-text>*,.mat-selection-list[dense] .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-item .mat-list-text:empty,.mat-nav-list[dense] .mat-list-item .mat-list-text:empty,.mat-selection-list[dense] .mat-list-item .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-selection-list[dense] .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list[dense] .mat-list-item .mat-list-avatar,.mat-nav-list[dense] .mat-list-item .mat-list-avatar,.mat-selection-list[dense] .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-item .mat-list-icon,.mat-nav-list[dense] .mat-list-item .mat-list-icon,.mat-selection-list[dense] .mat-list-item .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense] .mat-list-option,.mat-nav-list[dense] .mat-list-option,.mat-selection-list[dense] .mat-list-option{display:block}.mat-list[dense] .mat-list-option .mat-list-item-content,.mat-nav-list[dense] .mat-list-option .mat-list-item-content,.mat-selection-list[dense] .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;height:40px;padding:0 16px;position:relative}.mat-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list[dense] .mat-list-option .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-option .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list[dense] .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-list-item-avatar .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-list-item-avatar .mat-list-item-content{height:48px}.mat-list[dense] .mat-list-option.mat-2-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-2-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-2-line .mat-list-item-content{height:60px}.mat-list[dense] .mat-list-option.mat-3-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-3-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-3-line .mat-list-item-content{height:76px}.mat-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-option .mat-list-text,.mat-nav-list[dense] .mat-list-option .mat-list-text,.mat-selection-list[dense] .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-option .mat-list-text>*,.mat-nav-list[dense] .mat-list-option .mat-list-text>*,.mat-selection-list[dense] .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-option .mat-list-text:empty,.mat-nav-list[dense] .mat-list-option .mat-list-text:empty,.mat-selection-list[dense] .mat-list-option .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-option .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-option .mat-list-text:nth-child(2),.mat-selection-list[dense] .mat-list-option .mat-list-text:nth-child(2){padding:0}.mat-list[dense] .mat-list-option .mat-list-avatar,.mat-nav-list[dense] .mat-list-option .mat-list-avatar,.mat-selection-list[dense] .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-option .mat-list-icon,.mat-nav-list[dense] .mat-list-option .mat-list-icon,.mat-selection-list[dense] .mat-list-option .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-divider{display:block;border-top-style:solid;border-top-width:1px;margin:0}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item-content{cursor:pointer}.mat-nav-list .mat-list-item-content.mat-list-item-focus,.mat-nav-list .mat-list-item-content:hover{outline:0}.mat-list-option:not([disabled]){cursor:pointer}"],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
@@ -12955,10 +13036,12 @@ var MAT_MENU_BASE_ELEVATION = 2;
 var MatMenu = (function () {
     /**
      * @param {?} _elementRef
+     * @param {?} _ngZone
      * @param {?} _defaultOptions
      */
-    function MatMenu(_elementRef, _defaultOptions) {
+    function MatMenu(_elementRef, _ngZone, _defaultOptions) {
         this._elementRef = _elementRef;
+        this._ngZone = _ngZone;
         this._defaultOptions = _defaultOptions;
         this._xPosition = this._defaultOptions.xPosition;
         this._yPosition = this._defaultOptions.yPosition;
@@ -13065,9 +13148,16 @@ var MatMenu = (function () {
      * @return {?}
      */
     MatMenu.prototype.hover = function () {
-        return _angular_cdk_rxjs.RxChain.from(this.items.changes)
-            .call(_angular_cdk_rxjs.startWith, this.items)
-            .call(_angular_cdk_rxjs.switchMap, function (items) { return rxjs_observable_merge.merge.apply(void 0, items.map(function (item) { return item.hover; })); })
+        var _this = this;
+        if (this.items) {
+            return _angular_cdk_rxjs.RxChain.from(this.items.changes)
+                .call(_angular_cdk_rxjs.startWith, this.items)
+                .call(_angular_cdk_rxjs.switchMap, function (items) { return rxjs_observable_merge.merge.apply(void 0, items.map(function (item) { return item.hover; })); })
+                .result();
+        }
+        return _angular_cdk_rxjs.RxChain.from(this._ngZone.onStable.asObservable())
+            .call(_angular_cdk_rxjs.first)
+            .call(_angular_cdk_rxjs.switchMap, function () { return _this.hover(); })
             .result();
     };
     /**
@@ -13181,6 +13271,7 @@ MatMenu.decorators = [
  */
 MatMenu.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
+    { type: _angular_core.NgZone, },
     { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] },] },
 ]; };
 MatMenu.propDecorators = {
@@ -13277,11 +13368,11 @@ var MatMenuTrigger = (function () {
     /**
      * @return {?}
      */
-    MatMenuTrigger.prototype.ngAfterViewInit = function () {
+    MatMenuTrigger.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._checkMenu();
         this.menu.close.subscribe(function (reason) {
-            _this.closeMenu();
+            _this._destroyMenu();
             // If a click closed the menu, we should close the entire chain of nested menus.
             if (reason === 'click' && _this._parentMenu) {
                 _this._parentMenu.close.emit(reason);
@@ -13351,7 +13442,9 @@ var MatMenuTrigger = (function () {
         var _this = this;
         if (!this._menuOpen) {
             this._createOverlay().attach(this._portal);
-            this._closeSubscription = this._menuClosingActions().subscribe(function () { return _this.menu.close.emit(); });
+            this._closeSubscription = this._menuClosingActions().subscribe(function () {
+                _this.menu.close.emit();
+            });
             this._initMenu();
             if (this.menu instanceof MatMenu) {
                 this.menu._startAnimation();
@@ -13363,15 +13456,7 @@ var MatMenuTrigger = (function () {
      * @return {?}
      */
     MatMenuTrigger.prototype.closeMenu = function () {
-        if (this._overlayRef && this.menuOpen) {
-            this._resetMenu();
-            this._overlayRef.detach();
-            this._closeSubscription.unsubscribe();
-            this.menu.close.emit();
-            if (this.menu instanceof MatMenu) {
-                this.menu._resetAnimation();
-            }
-        }
+        this.menu.close.emit();
     };
     /**
      * Focuses the menu trigger.
@@ -13379,6 +13464,20 @@ var MatMenuTrigger = (function () {
      */
     MatMenuTrigger.prototype.focus = function () {
         this._element.nativeElement.focus();
+    };
+    /**
+     * Closes the menu and does the necessary cleanup.
+     * @return {?}
+     */
+    MatMenuTrigger.prototype._destroyMenu = function () {
+        if (this._overlayRef && this.menuOpen) {
+            this._resetMenu();
+            this._overlayRef.detach();
+            this._closeSubscription.unsubscribe();
+            if (this.menu instanceof MatMenu) {
+                this.menu._resetAnimation();
+            }
+        }
     };
     /**
      * This method sets the menu state to open and focuses the first item if
@@ -13537,11 +13636,11 @@ var MatMenuTrigger = (function () {
     MatMenuTrigger.prototype._menuClosingActions = function () {
         var _this = this;
         var /** @type {?} */ backdrop = ((this._overlayRef)).backdropClick();
-        var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : rxjs_observable_of.of(null);
+        var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : rxjs_observable_of.of();
         var /** @type {?} */ hover = this._parentMenu ? _angular_cdk_rxjs.RxChain.from(this._parentMenu.hover())
             .call(_angular_cdk_rxjs.filter, function (active) { return active !== _this._menuItemInstance; })
             .call(_angular_cdk_rxjs.filter, function () { return _this._menuOpen; })
-            .result() : rxjs_observable_of.of(null);
+            .result() : rxjs_observable_of.of();
         return rxjs_observable_merge.merge(backdrop, parentClose, hover);
     };
     /**
@@ -13832,11 +13931,12 @@ var MatSelect = (function (_super) {
      * @param {?} _dir
      * @param {?} _parentForm
      * @param {?} _parentFormGroup
+     * @param {?} _parentFormField
      * @param {?} ngControl
      * @param {?} tabIndex
      * @param {?} _scrollStrategyFactory
      */
-    function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, renderer, elementRef, _dir, _parentForm, _parentFormGroup, ngControl, tabIndex, _scrollStrategyFactory) {
+    function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, renderer, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, _scrollStrategyFactory) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._viewportRuler = _viewportRuler;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -13844,6 +13944,7 @@ var MatSelect = (function (_super) {
         _this._dir = _dir;
         _this._parentForm = _parentForm;
         _this._parentFormGroup = _parentFormGroup;
+        _this._parentFormField = _parentFormField;
         _this.ngControl = ngControl;
         _this._scrollStrategyFactory = _scrollStrategyFactory;
         /**
@@ -13954,10 +14055,6 @@ var MatSelect = (function (_super) {
          * Aria label of the select. If not specified, the placeholder will be used as label.
          */
         _this.ariaLabel = '';
-        /**
-         * Input that can be used to specify the `aria-labelledby` attribute.
-         */
-        _this.ariaLabelledby = '';
         /**
          * Event emitted when the select has been opened.
          */
@@ -14073,8 +14170,10 @@ var MatSelect = (function (_super) {
          * @return {?}
          */
         set: function (newValue) {
-            this.writeValue(newValue);
-            this._value = newValue;
+            if (newValue !== this._value) {
+                this.writeValue(newValue);
+                this._value = newValue;
+            }
         },
         enumerable: true,
         configurable: true
@@ -14375,6 +14474,13 @@ var MatSelect = (function (_super) {
     MatSelect.prototype._onAttached = function () {
         this._calculateOverlayOffsetX();
         this._setScrollTop();
+    };
+    /**
+     * Returns the theme to be used on the panel.
+     * @return {?}
+     */
+    MatSelect.prototype._getPanelTheme = function () {
+        return this._parentFormField ? "mat-" + this._parentFormField.color : '';
     };
     Object.defineProperty(MatSelect.prototype, "empty", {
         /**
@@ -14903,7 +15009,6 @@ var MatSelect = (function (_super) {
             if (currentActiveItem !== prevActiveItem) {
                 this._clearSelection();
                 this._setSelectionByValue(currentActiveItem.value, true);
-                this._propagateChanges();
             }
         }
     };
@@ -14938,7 +15043,7 @@ var MatSelect = (function (_super) {
 }(_MatSelectMixinBase));
 MatSelect.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'mat-select',
-                template: "<div cdk-overlay-origin class=\"mat-select-trigger\" aria-hidden=\"true\" (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><div class=\"mat-select-value\"><ng-container *ngIf=\"empty\">{{'\u00A0'}}</ng-container><span class=\"mat-select-value-text\" *ngIf=\"!empty\" [ngSwitch]=\"!!customTrigger\"><span *ngSwitchDefault>{{ triggerValue }}</span><ng-content select=\"mat-select-trigger\" *ngSwitchCase=\"true\"></ng-content></span></div><div class=\"mat-select-arrow-wrapper\"><div class=\"mat-select-arrow\"></div></div></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [scrollStrategy]=\"_scrollStrategy\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerRect?.width\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div class=\"mat-select-panel {{ 'mat-' + color }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_handlePanelKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [style.font-size.px]=\"_triggerFontSize\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
+                template: "<div cdk-overlay-origin class=\"mat-select-trigger\" aria-hidden=\"true\" (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><div class=\"mat-select-value\"><ng-container *ngIf=\"empty\">{{'\u00A0'}}</ng-container><span class=\"mat-select-value-text\" *ngIf=\"!empty\" [ngSwitch]=\"!!customTrigger\"><span *ngSwitchDefault>{{ triggerValue }}</span><ng-content select=\"mat-select-trigger\" *ngSwitchCase=\"true\"></ng-content></span></div><div class=\"mat-select-arrow-wrapper\"><div class=\"mat-select-arrow\"></div></div></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [scrollStrategy]=\"_scrollStrategy\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerRect?.width\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div class=\"mat-select-panel {{ _getPanelTheme() }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_handlePanelKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [style.font-size.px]=\"_triggerFontSize\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
                 styles: [".mat-select{display:inline-block;width:100%;outline:0}.mat-select-trigger{display:inline-table;cursor:pointer;position:relative;box-sizing:border-box}.mat-select-disabled .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-value{display:table-cell;max-width:0;width:100%;overflow:hidden;text-overflow:ellipsis}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-select-arrow-wrapper{display:table-cell;vertical-align:middle}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}.mat-select-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}}.mat-select-panel .mat-optgroup-label,.mat-select-panel .mat-option{font-size:inherit;line-height:3em;height:3em}.mat-form-field-type-mat-select .mat-form-field-flex{cursor:pointer}.mat-form-field-type-mat-select .mat-form-field-placeholder{width:calc(100% - 18px)}"],
                 inputs: ['disabled', 'tabIndex'],
                 encapsulation: _angular_core.ViewEncapsulation.None,
@@ -14984,6 +15089,7 @@ MatSelect.ctorParameters = function () { return [
     { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_forms.NgForm, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_forms.FormGroupDirective, decorators: [{ type: _angular_core.Optional },] },
+    { type: MatFormField, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_forms.NgControl, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional },] },
     { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['tabindex',] },] },
     { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_SELECT_SCROLL_STRATEGY,] },] },
@@ -15321,16 +15427,24 @@ var MatTooltip = (function () {
     MatTooltip.prototype._createOverlay = function () {
         var _this = this;
         var /** @type {?} */ origin = this._getOrigin();
-        var /** @type {?} */ position = this._getOverlayPosition();
+        var /** @type {?} */ overlay = this._getOverlayPosition();
         // Create connected position strategy that listens for scroll events to reposition.
-        // After position changes occur and the overlay is clipped by a parent scrollable then
-        // close the tooltip.
-        var /** @type {?} */ strategy = this._overlay.position().connectedTo(this._elementRef, origin, position);
+        var /** @type {?} */ strategy = this._overlay
+            .position()
+            .connectedTo(this._elementRef, origin.main, overlay.main)
+            .withFallbackPosition(origin.fallback, overlay.fallback);
         strategy.withScrollableContainers(this._scrollDispatcher.getScrollContainers(this._elementRef));
         strategy.onPositionChange.subscribe(function (change) {
-            if (change.scrollableViewProperties.isOverlayClipped &&
-                _this._tooltipInstance && _this._tooltipInstance.isVisible()) {
-                _this.hide(0);
+            if (_this._tooltipInstance) {
+                if (change.scrollableViewProperties.isOverlayClipped && _this._tooltipInstance.isVisible()) {
+                    // After position changes occur and the overlay is clipped by
+                    // a parent scrollable then close the tooltip.
+                    _this.hide(0);
+                }
+                else {
+                    // Otherwise recalculate the origin based on the new position.
+                    _this._tooltipInstance._setTransformOrigin(change.connectionPair);
+                }
             }
         });
         var /** @type {?} */ config = new _angular_cdk_overlay.OverlayConfig({
@@ -15354,49 +15468,66 @@ var MatTooltip = (function () {
         this._tooltipInstance = null;
     };
     /**
-     * Returns the origin position based on the user's position preference
+     * Returns the origin position and a fallback position based on the user's position preference.
+     * The fallback position is the inverse of the origin (e.g. 'below' -> 'above').
      * @return {?}
      */
     MatTooltip.prototype._getOrigin = function () {
-        if (this.position == 'above' || this.position == 'below') {
-            return { originX: 'center', originY: this.position == 'above' ? 'top' : 'bottom' };
-        }
         var /** @type {?} */ isDirectionLtr = !this._dir || this._dir.value == 'ltr';
-        if (this.position == 'left' ||
+        var /** @type {?} */ position;
+        if (this.position == 'above' || this.position == 'below') {
+            position = { originX: 'center', originY: this.position == 'above' ? 'top' : 'bottom' };
+        }
+        else if (this.position == 'left' ||
             this.position == 'before' && isDirectionLtr ||
             this.position == 'after' && !isDirectionLtr) {
-            return { originX: 'start', originY: 'center' };
+            position = { originX: 'start', originY: 'center' };
         }
-        if (this.position == 'right' ||
+        else if (this.position == 'right' ||
             this.position == 'after' && isDirectionLtr ||
             this.position == 'before' && !isDirectionLtr) {
-            return { originX: 'end', originY: 'center' };
+            position = { originX: 'end', originY: 'center' };
         }
-        throw getMatTooltipInvalidPositionError(this.position);
+        else {
+            throw getMatTooltipInvalidPositionError(this.position);
+        }
+        var _a = this._invertPosition(position.originX, position.originY), x = _a.x, y = _a.y;
+        return {
+            main: position,
+            fallback: { originX: x, originY: y }
+        };
     };
     /**
-     * Returns the overlay position based on the user's preference
+     * Returns the overlay position and a fallback position based on the user's preference
      * @return {?}
      */
     MatTooltip.prototype._getOverlayPosition = function () {
-        if (this.position == 'above') {
-            return { overlayX: 'center', overlayY: 'bottom' };
-        }
-        if (this.position == 'below') {
-            return { overlayX: 'center', overlayY: 'top' };
-        }
         var /** @type {?} */ isLtr = !this._dir || this._dir.value == 'ltr';
-        if (this.position == 'left' ||
+        var /** @type {?} */ position;
+        if (this.position == 'above') {
+            position = { overlayX: 'center', overlayY: 'bottom' };
+        }
+        else if (this.position == 'below') {
+            position = { overlayX: 'center', overlayY: 'top' };
+        }
+        else if (this.position == 'left' ||
             this.position == 'before' && isLtr ||
             this.position == 'after' && !isLtr) {
-            return { overlayX: 'end', overlayY: 'center' };
+            position = { overlayX: 'end', overlayY: 'center' };
         }
-        if (this.position == 'right' ||
+        else if (this.position == 'right' ||
             this.position == 'after' && isLtr ||
             this.position == 'before' && !isLtr) {
-            return { overlayX: 'start', overlayY: 'center' };
+            position = { overlayX: 'start', overlayY: 'center' };
         }
-        throw getMatTooltipInvalidPositionError(this.position);
+        else {
+            throw getMatTooltipInvalidPositionError(this.position);
+        }
+        var _a = this._invertPosition(position.overlayX, position.overlayY), x = _a.x, y = _a.y;
+        return {
+            main: position,
+            fallback: { overlayX: x, overlayY: y }
+        };
     };
     /**
      * Updates the tooltip message and repositions the overlay according to the new message length
@@ -15426,6 +15557,31 @@ var MatTooltip = (function () {
             this._tooltipInstance.tooltipClass = tooltipClass;
             this._tooltipInstance._markForCheck();
         }
+    };
+    /**
+     * Inverts an overlay position.
+     * @param {?} x
+     * @param {?} y
+     * @return {?}
+     */
+    MatTooltip.prototype._invertPosition = function (x, y) {
+        if (this.position === 'above' || this.position === 'below') {
+            if (y === 'top') {
+                y = 'bottom';
+            }
+            else if (y === 'bottom') {
+                y = 'top';
+            }
+        }
+        else {
+            if (x === 'end') {
+                x = 'start';
+            }
+            else if (x === 'start') {
+                x = 'end';
+            }
+        }
+        return { x: x, y: y };
     };
     return MatTooltip;
 }());
@@ -15472,11 +15628,9 @@ MatTooltip.propDecorators = {
  */
 var TooltipComponent = (function () {
     /**
-     * @param {?} _dir
      * @param {?} _changeDetectorRef
      */
-    function TooltipComponent(_dir, _changeDetectorRef) {
-        this._dir = _dir;
+    function TooltipComponent(_changeDetectorRef) {
         this._changeDetectorRef = _changeDetectorRef;
         /**
          * Property watched by the animation framework to show or hide the tooltip
@@ -15507,7 +15661,9 @@ var TooltipComponent = (function () {
         if (this._hideTimeoutId) {
             clearTimeout(this._hideTimeoutId);
         }
-        this._setTransformOrigin(position);
+        // Body interactions should cancel the tooltip if there is a delay in showing.
+        this._closeOnInteraction = true;
+        this._position = position;
         this._showTimeoutId = setTimeout(function () {
             _this._visibility = 'visible';
             // Mark for check so if any parent component has set the
@@ -15534,46 +15690,38 @@ var TooltipComponent = (function () {
         }, delay);
     };
     /**
-     * Returns an observable that notifies when the tooltip has been hidden from view
+     * Returns an observable that notifies when the tooltip has been hidden from view.
      * @return {?}
      */
     TooltipComponent.prototype.afterHidden = function () {
         return this._onHide.asObservable();
     };
     /**
-     * Whether the tooltip is being displayed
+     * Whether the tooltip is being displayed.
      * @return {?}
      */
     TooltipComponent.prototype.isVisible = function () {
         return this._visibility === 'visible';
     };
     /**
-     * Sets the tooltip transform origin according to the tooltip position
-     * @param {?} value
+     * Sets the tooltip transform origin according to the position of the tooltip overlay.
+     * @param {?} overlayPosition
      * @return {?}
      */
-    TooltipComponent.prototype._setTransformOrigin = function (value) {
-        var /** @type {?} */ isLtr = !this._dir || this._dir.value == 'ltr';
-        switch (value) {
-            case 'before':
-                this._transformOrigin = isLtr ? 'right' : 'left';
-                break;
-            case 'after':
-                this._transformOrigin = isLtr ? 'left' : 'right';
-                break;
-            case 'left':
-                this._transformOrigin = 'right';
-                break;
-            case 'right':
-                this._transformOrigin = 'left';
-                break;
-            case 'above':
-                this._transformOrigin = 'bottom';
-                break;
-            case 'below':
-                this._transformOrigin = 'top';
-                break;
-            default: throw getMatTooltipInvalidPositionError(value);
+    TooltipComponent.prototype._setTransformOrigin = function (overlayPosition) {
+        var /** @type {?} */ axis = (this._position === 'above' || this._position === 'below') ? 'Y' : 'X';
+        var /** @type {?} */ position = axis == 'X' ? overlayPosition.overlayX : overlayPosition.overlayY;
+        if (position === 'top' || position === 'bottom') {
+            this._transformOrigin = position;
+        }
+        else if (position === 'start') {
+            this._transformOrigin = 'left';
+        }
+        else if (position === 'end') {
+            this._transformOrigin = 'right';
+        }
+        else {
+            throw getMatTooltipInvalidPositionError(this._position);
         }
     };
     /**
@@ -15649,7 +15797,6 @@ TooltipComponent.decorators = [
  * @nocollapse
  */
 TooltipComponent.ctorParameters = function () { return [
-    { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     { type: _angular_core.ChangeDetectorRef, },
 ]; };
 var MatTooltipModule = (function () {
@@ -17267,7 +17414,7 @@ var MatRadioButton = (function (_super) {
 }(_MatRadioButtonMixinBase));
 MatRadioButton.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'mat-radio-button',
-                template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div mat-ripple class=\"mat-radio-ripple\" [matRippleTrigger]=\"label\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"true\"></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [name]=\"name\" [required]=\"required\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></div></label>",
+                template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div mat-ripple class=\"mat-radio-ripple\" [matRippleTrigger]=\"label\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"true\"></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [required]=\"required\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></div></label>",
                 styles: [".mat-radio-button{display:inline-block}.mat-radio-label{cursor:pointer;display:inline-flex;align-items:center;white-space:nowrap;vertical-align:middle}.mat-radio-container{box-sizing:border-box;display:inline-block;position:relative;width:20px;height:20px;flex-shrink:0}.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:border-color ease 280ms;width:20px;border-width:2px;border-style:solid;border-radius:50%}.mat-radio-inner-circle{border-radius:50%;box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:transform ease 280ms,background-color ease 280ms;width:20px;transform:scale(.001)}.mat-radio-checked .mat-radio-inner-circle{transform:scale(.5)}.mat-radio-label-content{display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none}"],
                 inputs: ['color', 'disableRipple'],
                 encapsulation: _angular_core.ViewEncapsulation.None,
@@ -17466,7 +17613,7 @@ var MatDrawer = (function () {
             if (_this._doc) {
                 _this._elementFocusedBeforeDrawerWasOpened = _this._doc.activeElement;
             }
-            if (_this.isFocusTrapEnabled && _this._focusTrap) {
+            if (_this._isFocusTrapEnabled && _this._focusTrap) {
                 _this._focusTrap.focusInitialElementWhenReady();
             }
         });
@@ -17539,7 +17686,7 @@ var MatDrawer = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatDrawer.prototype, "isFocusTrapEnabled", {
+    Object.defineProperty(MatDrawer.prototype, "_isFocusTrapEnabled", {
         /**
          * @return {?}
          */
@@ -17572,7 +17719,7 @@ var MatDrawer = (function () {
      */
     MatDrawer.prototype.ngAfterContentInit = function () {
         this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
-        this._focusTrap.enabled = this.isFocusTrapEnabled;
+        this._focusTrap.enabled = this._isFocusTrapEnabled;
         this._enableAnimations = true;
     };
     /**
@@ -17634,7 +17781,7 @@ var MatDrawer = (function () {
                 rxjs_operator_first.first.call(isOpen ? _this.onOpen : _this.onClose).subscribe(resolve);
             });
             if (this._focusTrap) {
-                this._focusTrap.enabled = this.isFocusTrapEnabled;
+                this._focusTrap.enabled = this._isFocusTrapEnabled;
             }
         }
         // TODO(crisbeto): This promise is here for backwards-compatibility.
@@ -17667,10 +17814,10 @@ var MatDrawer = (function () {
     MatDrawer.prototype._onAnimationEnd = function (event) {
         var _this = this;
         var fromState = event.fromState, toState = event.toState;
-        if (toState === 'open' && fromState === 'void') {
+        if (toState.indexOf('open') === 0 && fromState === 'void') {
             this.onOpen.emit(new MatDrawerToggleResult('open', true));
         }
-        else if (toState === 'void' && fromState === 'open') {
+        else if (toState === 'void' && fromState.indexOf('open') === 0) {
             this.onClose.emit(new MatDrawerToggleResult('close', true));
         }
         // Note: as of Angular 4.3, the animations module seems to fire the `start` callback before
@@ -17773,14 +17920,14 @@ var MatDrawerContainer = (function () {
          */
         this.backdropClick = new _angular_core.EventEmitter();
         /**
-         * Subscription to the Directionality change EventEmitter.
+         * Emits when the component is destroyed.
          */
-        this._dirChangeSubscription = rxjs_Subscription.Subscription.EMPTY;
+        this._destroyed = new rxjs_Subject.Subject();
         this._contentMargins = new rxjs_Subject.Subject();
         // If a `Dir` directive exists up the tree, listen direction changes and update the left/right
         // properties to point to the proper start/end.
         if (_dir != null) {
-            this._dirChangeSubscription = _dir.change.subscribe(function () { return _this._validateDrawers(); });
+            rxjs_operator_takeUntil.takeUntil.call(_dir.change, this._destroyed).subscribe(function () { return _this._validateDrawers(); });
         }
     }
     Object.defineProperty(MatDrawerContainer.prototype, "start", {
@@ -17813,13 +17960,20 @@ var MatDrawerContainer = (function () {
                 _this._watchDrawerPosition(drawer);
                 _this._watchDrawerMode(drawer);
             });
+            if (!_this._drawers.length ||
+                _this._isDrawerOpen(_this._start) ||
+                _this._isDrawerOpen(_this._end)) {
+                _this._updateContentMargins();
+            }
+            _this._changeDetectorRef.markForCheck();
         });
     };
     /**
      * @return {?}
      */
     MatDrawerContainer.prototype.ngOnDestroy = function () {
-        this._dirChangeSubscription.unsubscribe();
+        this._destroyed.next();
+        this._destroyed.complete();
     };
     /**
      * Calls `open` of both start and end drawers
@@ -17882,7 +18036,8 @@ var MatDrawerContainer = (function () {
     MatDrawerContainer.prototype._watchDrawerMode = function (drawer) {
         var _this = this;
         if (drawer) {
-            rxjs_operator_takeUntil.takeUntil.call(drawer._modeChanged, this._drawers.changes).subscribe(function () {
+            rxjs_operator_takeUntil.takeUntil.call(drawer._modeChanged, rxjs_observable_merge.merge(this._drawers.changes, this._destroyed))
+                .subscribe(function () {
                 _this._updateContentMargins();
                 _this._changeDetectorRef.markForCheck();
             });
@@ -18468,8 +18623,8 @@ var MatSlideToggle = (function (_super) {
         var /** @type {?} */ event = new MatSlideToggleChange();
         event.source = this;
         event.checked = this.checked;
-        this.change.emit(event);
         this.onChange(this.checked);
+        this.change.emit(event);
     };
     /**
      * @return {?}
@@ -19221,7 +19376,7 @@ var MatSlider = (function (_super) {
      * @return {?}
      */
     MatSlider.prototype._onSlideStart = function (event) {
-        if (this.disabled) {
+        if (this.disabled || this._isSliding) {
             return;
         }
         // Simulate mouseenter in case this is a mobile device.
@@ -19783,16 +19938,12 @@ var MatSnackBarContainer = (function (_super) {
          * Subject for notifying that the snack bar has finished entering the view.
          */
         _this._onEnter = new rxjs_Subject.Subject();
+        /**
+         * The state of the snack bar animations.
+         */
+        _this._animationState = 'void';
         return _this;
     }
-    /**
-     * Gets the current animation state both combining one of the possibilities from
-     * SnackBarState and the vertical location.
-     * @return {?}
-     */
-    MatSnackBarContainer.prototype.getAnimationState = function () {
-        return this._animationState + "-" + this.snackBarConfig.verticalPosition;
-    };
     /**
      * Attach a component portal as content to this snack bar container.
      * @template T
@@ -19832,10 +19983,11 @@ var MatSnackBarContainer = (function (_super) {
      * @return {?}
      */
     MatSnackBarContainer.prototype.onAnimationEnd = function (event) {
-        if (event.toState === 'void' || event.toState.startsWith('hidden')) {
+        var fromState = event.fromState, toState = event.toState;
+        if ((toState === 'void' && fromState !== 'void') || toState.startsWith('hidden')) {
             this._completeExit();
         }
-        if (event.toState.startsWith('visible')) {
+        if (toState.startsWith('visible')) {
             // Note: we shouldn't use `this` inside the zone callback,
             // because it can cause a memory leak.
             var /** @type {?} */ onEnter_1 = this._onEnter;
@@ -19851,7 +20003,7 @@ var MatSnackBarContainer = (function (_super) {
      */
     MatSnackBarContainer.prototype.enter = function () {
         if (!this._destroyed) {
-            this._animationState = 'visible';
+            this._animationState = "visible-" + this.snackBarConfig.verticalPosition;
             this._changeDetectorRef.detectChanges();
         }
     };
@@ -19860,7 +20012,7 @@ var MatSnackBarContainer = (function (_super) {
      * @return {?}
      */
     MatSnackBarContainer.prototype.exit = function () {
-        this._animationState = 'hidden';
+        this._animationState = "hidden-" + this.snackBarConfig.verticalPosition;
         return this._onExit;
     };
     /**
@@ -19895,7 +20047,7 @@ MatSnackBarContainer.decorators = [
                 host: {
                     'role': 'alert',
                     'class': 'mat-snack-bar-container',
-                    '[@state]': 'getAnimationState()',
+                    '[@state]': '_animationState',
                     '(@state.done)': 'onAnimationEnd($event)'
                 },
                 animations: [
@@ -20453,13 +20605,13 @@ var MatSortHeader = (function () {
      */
     MatSortHeader.prototype._isSorted = function () {
         return this._sort.active == this.id &&
-            this._sort.direction === 'asc' || this._sort.direction === 'desc';
+            (this._sort.direction === 'asc' || this._sort.direction === 'desc');
     };
     return MatSortHeader;
 }());
 MatSortHeader.decorators = [
     { type: _angular_core.Component, args: [{ selector: '[mat-sort-header]',
-                template: "<div class=\"mat-sort-header-container\" [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\"><button class=\"mat-sort-header-button\" type=\"button\" [attr.aria-label]=\"_intl.sortButtonLabel(id)\"><ng-content></ng-content></button><div *ngIf=\"_isSorted()\" class=\"mat-sort-header-arrow\"><div class=\"mat-sort-header-stem\"></div><div class=\"mat-sort-header-indicator\" [@indicator]=\"_sort.direction\"><div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_sort.direction\"></div><div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_sort.direction\"></div><div class=\"mat-sort-header-pointer-middle\"></div></div></div></div><span class=\"cdk-visually-hidden\" *ngIf=\"_isSorted()\">{{_intl.sortDescriptionLabel(id, _sort.direction)}}</span>",
+                template: "<div class=\"mat-sort-header-container\" [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\"><button class=\"mat-sort-header-button\" type=\"button\" [attr.aria-label]=\"_intl.sortButtonLabel(id)\"><ng-content></ng-content></button><div *ngIf=\"_isSorted()\" class=\"mat-sort-header-arrow\" [@indicatorToggle]=\"_sort.direction\"><div class=\"mat-sort-header-stem\"></div><div class=\"mat-sort-header-indicator\" [@indicator]=\"_sort.direction\"><div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_sort.direction\"></div><div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_sort.direction\"></div><div class=\"mat-sort-header-pointer-middle\"></div></div></div></div><span class=\"cdk-visually-hidden\" *ngIf=\"_isSorted()\">{{_intl.sortDescriptionLabel(id, _sort.direction)}}</span>",
                 styles: [".mat-sort-header-container{display:flex;cursor:pointer}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:pointer;outline:0;font:inherit;color:currentColor}.mat-sort-header-arrow{height:12px;width:12px;margin:0 0 0 6px;position:relative;display:flex}.mat-sort-header-position-before .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;height:10px;width:2px;margin:auto;display:flex;align-items:center}.mat-sort-header-indicator{width:100%;height:2px;display:flex;align-items:center;position:absolute;top:0;left:0;transition:225ms cubic-bezier(.4,0,.2,1)}.mat-sort-header-pointer-middle{margin:auto;height:2px;width:2px;background:currentColor;transform:rotate(45deg)}.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{background:currentColor;width:6px;height:2px;transition:225ms cubic-bezier(.4,0,.2,1);position:absolute;top:0}.mat-sort-header-pointer-left{transform-origin:right;left:0}.mat-sort-header-pointer-right{transform-origin:left;right:0}"],
                 host: {
                     '(click)': '_sort.sort(this)',
@@ -20484,6 +20636,24 @@ MatSortHeader.decorators = [
                         _angular_animations.state('asc', _angular_animations.style({ transform: 'rotate(45deg)' })),
                         _angular_animations.state('desc', _angular_animations.style({ transform: 'rotate(-45deg)' })),
                         _angular_animations.transition('asc <=> desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION))
+                    ]),
+                    _angular_animations.trigger('indicatorToggle', [
+                        _angular_animations.transition('void => asc', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
+                            _angular_animations.style({ transform: 'translateY(25%)', opacity: 0 }),
+                            _angular_animations.style({ transform: 'none', opacity: 1 })
+                        ]))),
+                        _angular_animations.transition('asc => void', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
+                            _angular_animations.style({ transform: 'none', opacity: 1 }),
+                            _angular_animations.style({ transform: 'translateY(-25%)', opacity: 0 })
+                        ]))),
+                        _angular_animations.transition('void => desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
+                            _angular_animations.style({ transform: 'translateY(-25%)', opacity: 0 }),
+                            _angular_animations.style({ transform: 'none', opacity: 1 })
+                        ]))),
+                        _angular_animations.transition('desc => void', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
+                            _angular_animations.style({ transform: 'none', opacity: 1 }),
+                            _angular_animations.style({ transform: 'translateY(25%)', opacity: 0 })
+                        ]))),
                     ])
                 ]
             },] },
@@ -20548,7 +20718,15 @@ MatStepLabel.ctorParameters = function () { return [
     { type: _angular_core.TemplateRef, },
 ]; };
 var MatStepHeader = (function () {
-    function MatStepHeader() {
+    /**
+     * @param {?} _focusMonitor
+     * @param {?} _element
+     * @param {?} renderer
+     */
+    function MatStepHeader(_focusMonitor, _element, renderer) {
+        this._focusMonitor = _focusMonitor;
+        this._element = _element;
+        _focusMonitor.monitor(_element.nativeElement, renderer, true);
     }
     Object.defineProperty(MatStepHeader.prototype, "index", {
         /**
@@ -20615,6 +20793,12 @@ var MatStepHeader = (function () {
         configurable: true
     });
     /**
+     * @return {?}
+     */
+    MatStepHeader.prototype.ngOnDestroy = function () {
+        this._focusMonitor.stopMonitoring(this._element.nativeElement);
+    };
+    /**
      * Returns string label of given step if it is a text label.
      * @return {?}
      */
@@ -20628,12 +20812,19 @@ var MatStepHeader = (function () {
     MatStepHeader.prototype._templateLabel = function () {
         return this.label instanceof MatStepLabel ? this.label : null;
     };
+    /**
+     * Returns the host HTML element.
+     * @return {?}
+     */
+    MatStepHeader.prototype._getHostElement = function () {
+        return this._element.nativeElement;
+    };
     return MatStepHeader;
 }());
 MatStepHeader.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'mat-step-header',
-                template: "<div [class.mat-step-icon]=\"icon !== 'number' || selected\" [class.mat-step-icon-not-touched]=\"icon == 'number' && !selected\" [ngSwitch]=\"icon\"><span *ngSwitchCase=\"'number'\">{{index + 1}}</span><mat-icon *ngSwitchCase=\"'edit'\">create</mat-icon><mat-icon *ngSwitchCase=\"'done'\">done</mat-icon></div><div class=\"mat-step-label\" [class.mat-step-label-active]=\"active\"><ng-container *ngIf=\"_templateLabel()\" [ngTemplateOutlet]=\"label.template\"></ng-container><div class=\"mat-step-text-label\" *ngIf=\"_stringLabel()\">{{label}}</div><div class=\"mat-step-optional\" *ngIf=\"optional\">Optional</div></div>",
-                styles: [".mat-step-optional{font-size:12px}.mat-step-icon,.mat-step-icon-not-touched{border-radius:50%;height:24px;width:24px;align-items:center;justify-content:center;display:flex}.mat-step-icon .mat-icon{font-size:16px;height:16px;width:16px}.mat-step-label{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle}.mat-step-text-label{text-overflow:ellipsis;overflow:hidden}"],
+                template: "<div class=\"mat-step-header-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\"></div><div [class.mat-step-icon]=\"icon !== 'number' || selected\" [class.mat-step-icon-not-touched]=\"icon == 'number' && !selected\" [ngSwitch]=\"icon\"><span *ngSwitchCase=\"'number'\">{{index + 1}}</span><mat-icon *ngSwitchCase=\"'edit'\">create</mat-icon><mat-icon *ngSwitchCase=\"'done'\">done</mat-icon></div><div class=\"mat-step-label\" [class.mat-step-label-active]=\"active\" [class.mat-step-label-selected]=\"selected\"><ng-container *ngIf=\"_templateLabel()\" [ngTemplateOutlet]=\"label.template\"></ng-container><div class=\"mat-step-text-label\" *ngIf=\"_stringLabel()\">{{label}}</div><div class=\"mat-step-optional\" *ngIf=\"optional\">Optional</div></div>",
+                styles: [".mat-step-header{overflow:hidden;outline:0;cursor:pointer;position:relative}.mat-step-optional{font-size:12px}.mat-step-icon,.mat-step-icon-not-touched{border-radius:50%;height:24px;width:24px;align-items:center;justify-content:center;display:flex}.mat-step-icon .mat-icon{font-size:16px;height:16px;width:16px}.mat-step-label{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle}.mat-step-text-label{text-overflow:ellipsis;overflow:hidden}.mat-step-header-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
                 host: {
                     'class': 'mat-step-header',
                     'role': 'tab',
@@ -20645,7 +20836,11 @@ MatStepHeader.decorators = [
 /**
  * @nocollapse
  */
-MatStepHeader.ctorParameters = function () { return []; };
+MatStepHeader.ctorParameters = function () { return [
+    { type: _angular_cdk_a11y.FocusMonitor, },
+    { type: _angular_core.ElementRef, },
+    { type: _angular_core.Renderer2, },
+]; };
 MatStepHeader.propDecorators = {
     'icon': [{ type: _angular_core.Input },],
     'label': [{ type: _angular_core.Input },],
@@ -20736,7 +20931,7 @@ var MatHorizontalStepper = (function (_super) {
 MatHorizontalStepper.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'mat-horizontal-stepper',
                 template: "<div class=\"mat-horizontal-stepper-header-container\"><ng-container *ngFor=\"let step of _steps; let i = index; let isLast = last\"><mat-step-header class=\"mat-horizontal-stepper-header\" (click)=\"step.select()\" (keydown)=\"_onKeydown($event)\" [tabIndex]=\"_focusIndex === i ? 0 : -1\" [id]=\"_getStepLabelId(i)\" [attr.aria-controls]=\"_getStepContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [index]=\"i\" [icon]=\"_getIndicatorType(i)\" [label]=\"step.stepLabel || step.label\" [selected]=\"selectedIndex === i\" [active]=\"step.completed || selectedIndex === i\" [optional]=\"step.optional\"></mat-step-header><div *ngIf=\"!isLast\" class=\"mat-stepper-horizontal-line\"></div></ng-container></div><div class=\"mat-horizontal-content-container\"><div *ngFor=\"let step of _steps; let i = index\" class=\"mat-horizontal-stepper-content\" role=\"tabpanel\" [@stepTransition]=\"_getAnimationDirection(i)\" [id]=\"_getStepContentId(i)\" [attr.aria-labelledby]=\"_getStepLabelId(i)\" [attr.aria-expanded]=\"selectedIndex === i\"><ng-container [ngTemplateOutlet]=\"step.content\"></ng-container></div></div>",
-                styles: [".mat-stepper-horizontal,.mat-stepper-vertical{display:block}.mat-step-header{overflow:hidden;outline:0}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon,.mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon,[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:8px}.mat-vertical-stepper-header{display:flex;align-items:center;padding:24px;max-height:24px}.mat-vertical-stepper-header .mat-step-icon,.mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon,[dir=rtl] .mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content{overflow:hidden}.mat-horizontal-stepper-content[aria-expanded=false]{height:0}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:'';position:absolute;top:-16px;bottom:-16px;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}"],
+                styles: [".mat-stepper-horizontal,.mat-stepper-vertical{display:block}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon,.mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon,[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:8px}.mat-vertical-stepper-header{display:flex;align-items:center;padding:24px;max-height:24px}.mat-vertical-stepper-header .mat-step-icon,.mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon,[dir=rtl] .mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content{overflow:hidden}.mat-horizontal-stepper-content[aria-expanded=false]{height:0}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:'';position:absolute;top:-16px;bottom:-16px;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}"],
                 inputs: ['selectedIndex'],
                 host: {
                     'class': 'mat-stepper-horizontal',
@@ -20745,7 +20940,7 @@ MatHorizontalStepper.decorators = [
                 animations: [
                     _angular_animations.trigger('stepTransition', [
                         _angular_animations.state('previous', _angular_animations.style({ transform: 'translate3d(-100%, 0, 0)', visibility: 'hidden' })),
-                        _angular_animations.state('current', _angular_animations.style({ transform: 'translate3d(0%, 0, 0)', visibility: 'visible' })),
+                        _angular_animations.state('current', _angular_animations.style({ transform: 'none', visibility: 'visible' })),
                         _angular_animations.state('next', _angular_animations.style({ transform: 'translate3d(100%, 0, 0)', visibility: 'hidden' })),
                         _angular_animations.transition('* => *', _angular_animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)'))
                     ])
@@ -20769,7 +20964,7 @@ var MatVerticalStepper = (function (_super) {
 MatVerticalStepper.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'mat-vertical-stepper',
                 template: "<div class=\"mat-step\" *ngFor=\"let step of _steps; let i = index; let isLast = last\"><mat-step-header class=\"mat-vertical-stepper-header\" (click)=\"step.select()\" (keydown)=\"_onKeydown($event)\" [tabIndex]=\"_focusIndex == i ? 0 : -1\" [id]=\"_getStepLabelId(i)\" [attr.aria-controls]=\"_getStepContentId(i)\" [attr.aria-selected]=\"selectedIndex === i\" [index]=\"i\" [icon]=\"_getIndicatorType(i)\" [label]=\"step.stepLabel || step.label\" [selected]=\"selectedIndex === i\" [active]=\"step.completed || selectedIndex === i\" [optional]=\"step.optional\"></mat-step-header><div class=\"mat-vertical-content-container\" [class.mat-stepper-vertical-line]=\"!isLast\"><div class=\"mat-vertical-stepper-content\" role=\"tabpanel\" [@stepTransition]=\"_getAnimationDirection(i)\" [id]=\"_getStepContentId(i)\" [attr.aria-labelledby]=\"_getStepLabelId(i)\" [attr.aria-expanded]=\"selectedIndex === i\"><div class=\"mat-vertical-content\"><ng-container [ngTemplateOutlet]=\"step.content\"></ng-container></div></div></div></div>",
-                styles: [".mat-stepper-horizontal,.mat-stepper-vertical{display:block}.mat-step-header{overflow:hidden;outline:0}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon,.mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon,[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:8px}.mat-vertical-stepper-header{display:flex;align-items:center;padding:24px;max-height:24px}.mat-vertical-stepper-header .mat-step-icon,.mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon,[dir=rtl] .mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content{overflow:hidden}.mat-horizontal-stepper-content[aria-expanded=false]{height:0}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:'';position:absolute;top:-16px;bottom:-16px;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}"],
+                styles: [".mat-stepper-horizontal,.mat-stepper-vertical{display:block}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon,.mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon,[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:8px}.mat-vertical-stepper-header{display:flex;align-items:center;padding:24px;max-height:24px}.mat-vertical-stepper-header .mat-step-icon,.mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon,[dir=rtl] .mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content{overflow:hidden}.mat-horizontal-stepper-content[aria-expanded=false]{height:0}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:'';position:absolute;top:-16px;bottom:-16px;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}"],
                 inputs: ['selectedIndex'],
                 host: {
                     'class': 'mat-stepper-vertical',
@@ -20852,7 +21047,9 @@ MatStepperModule.decorators = [
                     _angular_cdk_portal.PortalModule,
                     MatButtonModule,
                     _angular_cdk_stepper.CdkStepperModule,
-                    MatIconModule
+                    MatIconModule,
+                    _angular_cdk_a11y.A11yModule,
+                    MatRippleModule,
                 ],
                 exports: [
                     MatCommonModule,
@@ -21516,11 +21713,9 @@ MatTabBody.decorators = [
                 },
                 animations: [
                     _angular_animations.trigger('translateTab', [
-                        _angular_animations.state('void', _angular_animations.style({ transform: 'translate3d(0%, 0, 0)' })),
+                        // Note: transitions to `none` instead of 0, because some browsers might blur the content.
+                        _angular_animations.state('center, void, left-origin-center, right-origin-center', _angular_animations.style({ transform: 'none' })),
                         _angular_animations.state('left', _angular_animations.style({ transform: 'translate3d(-100%, 0, 0)' })),
-                        _angular_animations.state('left-origin-center', _angular_animations.style({ transform: 'translate3d(0%, 0, 0)' })),
-                        _angular_animations.state('right-origin-center', _angular_animations.style({ transform: 'translate3d(0%, 0, 0)' })),
-                        _angular_animations.state('center', _angular_animations.style({ transform: 'translate3d(0%, 0, 0)' })),
                         _angular_animations.state('right', _angular_animations.style({ transform: 'translate3d(100%, 0, 0)' })),
                         _angular_animations.transition('* => left, * => right, left => center, right => center', _angular_animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')),
                         _angular_animations.transition('void => left-origin-center', [

@@ -261,8 +261,8 @@ var MatSlideToggle = (function (_super) {
         var /** @type {?} */ event = new MatSlideToggleChange();
         event.source = this;
         event.checked = this.checked;
-        this.change.emit(event);
         this.onChange(this.checked);
+        this.change.emit(event);
     };
     /**
      * @return {?}

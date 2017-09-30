@@ -89,7 +89,7 @@ export declare class MatDrawer implements AfterContentInit, OnDestroy {
      * to know when to when the mode changes so it can adapt the margins on the content.
      */
     _modeChanged: Subject<{}>;
-    readonly isFocusTrapEnabled: boolean;
+    readonly _isFocusTrapEnabled: boolean;
     constructor(_elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _doc: any);
     /**
      * If focus is currently inside the drawer, restores it to where it was before the drawer
@@ -152,8 +152,8 @@ export declare class MatDrawerContainer implements AfterContentInit, OnDestroy {
      */
     private _left;
     private _right;
-    /** Subscription to the Directionality change EventEmitter. */
-    private _dirChangeSubscription;
+    /** Emits when the component is destroyed. */
+    private _destroyed;
     _contentMargins: Subject<{
         left: number;
         right: number;

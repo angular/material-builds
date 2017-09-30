@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('rxjs/observable/defer'), require('@angular/animations'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/forkJoin'), require('rxjs/observable/of'), require('rxjs/observable/throw'), require('rxjs/operator/first'), require('rxjs/Subscription'), require('@angular/forms'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/portal', '@angular/cdk/rxjs', 'rxjs/observable/defer', '@angular/animations', '@angular/http', 'rxjs/Observable', 'rxjs/observable/forkJoin', 'rxjs/observable/of', 'rxjs/observable/throw', 'rxjs/operator/first', 'rxjs/Subscription', '@angular/forms', 'rxjs/observable/fromEvent', 'rxjs/observable/merge'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = global.ng.material.datepicker || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.common,global.ng.core,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.portal,global.ng.cdk.rxjs,global.Rx.Observable,global.ng.animations,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx,global.ng.forms,global.Rx.Observable,global.Rx.Observable));
-}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_platformBrowser,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_portal,_angular_cdk_rxjs,rxjs_observable_defer,_angular_animations,_angular_http,rxjs_Observable,rxjs_observable_forkJoin,rxjs_observable_of,rxjs_observable_throw,rxjs_operator_first,rxjs_Subscription,_angular_forms,rxjs_observable_fromEvent,rxjs_observable_merge) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('rxjs/observable/defer'), require('@angular/animations'), require('rxjs/observable/of'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operator/first'), require('rxjs/Subscription'), require('@angular/forms'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/portal', '@angular/cdk/rxjs', 'rxjs/observable/defer', '@angular/animations', 'rxjs/observable/of', '@angular/http', 'rxjs/Observable', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operator/first', 'rxjs/Subscription', '@angular/forms', 'rxjs/observable/fromEvent', 'rxjs/observable/merge'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = global.ng.material.datepicker || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.common,global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.portal,global.ng.cdk.rxjs,global.Rx.Observable,global.ng.animations,global.Rx.Observable,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx,global.ng.forms,global.Rx.Observable,global.Rx.Observable));
+}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_portal,_angular_cdk_rxjs,rxjs_observable_defer,_angular_animations,rxjs_observable_of,_angular_http,rxjs_Observable,rxjs_observable_forkJoin,rxjs_observable_throw,rxjs_operator_first,rxjs_Subscription,_angular_forms,rxjs_observable_fromEvent,rxjs_observable_merge) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -147,16 +147,18 @@ var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('mat-sanity-checks
  */
 var MatCommonModule = (function () {
     /**
-     * @param {?} _document
-     * @param {?} _sanityChecksEnabled
+     * @param {?} sanityChecksEnabled
      */
-    function MatCommonModule(_document, _sanityChecksEnabled) {
-        this._document = _document;
+    function MatCommonModule(sanityChecksEnabled) {
         /**
          * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
          */
         this._hasDoneGlobalChecks = false;
-        if (_sanityChecksEnabled && !this._hasDoneGlobalChecks && _document && _angular_core.isDevMode()) {
+        /**
+         * Reference to the global `document` object.
+         */
+        this._document = typeof document === 'object' && document ? document : null;
+        if (sanityChecksEnabled && !this._hasDoneGlobalChecks && _angular_core.isDevMode()) {
             this._checkDoctype();
             this._checkTheme();
             this._hasDoneGlobalChecks = true;
@@ -166,7 +168,7 @@ var MatCommonModule = (function () {
      * @return {?}
      */
     MatCommonModule.prototype._checkDoctype = function () {
-        if (!this._document.doctype) {
+        if (this._document && !this._document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
                 'some Angular Material components not to behave as expected.');
         }
@@ -175,11 +177,15 @@ var MatCommonModule = (function () {
      * @return {?}
      */
     MatCommonModule.prototype._checkTheme = function () {
-        if (typeof getComputedStyle === 'function') {
+        if (this._document && typeof getComputedStyle === 'function') {
             var /** @type {?} */ testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
             this._document.body.appendChild(testElement);
-            if (getComputedStyle(testElement).display !== 'none') {
+            var /** @type {?} */ computedStyle = getComputedStyle(testElement);
+            // In some situations, the computed style of the test element can be null. For example in
+            // Firefox, the computed style is null if an application is running inside of a hidden iframe.
+            // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+            if (computedStyle && computedStyle.display !== 'none') {
                 console.warn('Could not find Angular Material core theme. Most Material ' +
                     'components may not work as expected. For more info refer ' +
                     'to the theming guide: https://material.angular.io/guide/theming');
@@ -202,7 +208,6 @@ MatCommonModule.decorators = [
  * @nocollapse
  */
 MatCommonModule.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
 ]; };
 /**
@@ -1224,9 +1229,9 @@ var RippleRenderer = (function () {
         this._ngZone = _ngZone;
         this._ruler = _ruler;
         /**
-         * Whether the mouse is currently down or not.
+         * Whether the pointer is currently being held on the trigger or not.
          */
-        this._isMousedown = false;
+        this._isPointerDown = false;
         /**
          * Events to be registered on the trigger element.
          */
@@ -1248,8 +1253,10 @@ var RippleRenderer = (function () {
             this._containerElement = elementRef.nativeElement;
             // Specify events which need to be registered on the trigger.
             this._triggerEvents.set('mousedown', this.onMousedown.bind(this));
-            this._triggerEvents.set('mouseup', this.onMouseup.bind(this));
-            this._triggerEvents.set('mouseleave', this.onMouseLeave.bind(this));
+            this._triggerEvents.set('touchstart', this.onTouchstart.bind(this));
+            this._triggerEvents.set('mouseup', this.onPointerUp.bind(this));
+            this._triggerEvents.set('touchend', this.onPointerUp.bind(this));
+            this._triggerEvents.set('mouseleave', this.onPointerLeave.bind(this));
             // By default use the host element as trigger element.
             this.setTriggerElement(this._containerElement);
         }
@@ -1303,7 +1310,7 @@ var RippleRenderer = (function () {
         // Once it's faded in, the ripple can be hidden immediately if the mouse is released.
         this.runTimeoutOutsideZone(function () {
             rippleRef.state = RippleState.VISIBLE;
-            if (!config.persistent && !_this._isMousedown) {
+            if (!config.persistent && !_this._isPointerDown) {
                 rippleRef.fadeOut();
             }
         }, duration);
@@ -1358,22 +1365,22 @@ var RippleRenderer = (function () {
         this._triggerElement = element;
     };
     /**
-     * Listener being called on mousedown event.
+     * Function being called whenever the trigger is being pressed.
      * @param {?} event
      * @return {?}
      */
     RippleRenderer.prototype.onMousedown = function (event) {
         if (!this.rippleDisabled) {
-            this._isMousedown = true;
+            this._isPointerDown = true;
             this.fadeInRipple(event.pageX, event.pageY, this.rippleConfig);
         }
     };
     /**
-     * Listener being called on mouseup event.
+     * Function being called whenever the pointer is being released.
      * @return {?}
      */
-    RippleRenderer.prototype.onMouseup = function () {
-        this._isMousedown = false;
+    RippleRenderer.prototype.onPointerUp = function () {
+        this._isPointerDown = false;
         // Fade-out all ripples that are completely visible and not persistent.
         this._activeRipples.forEach(function (ripple) {
             if (!ripple.config.persistent && ripple.state === RippleState.VISIBLE) {
@@ -1382,12 +1389,24 @@ var RippleRenderer = (function () {
         });
     };
     /**
-     * Listener being called on mouseleave event.
+     * Function being called whenever the pointer leaves the trigger.
      * @return {?}
      */
-    RippleRenderer.prototype.onMouseLeave = function () {
-        if (this._isMousedown) {
-            this.onMouseup();
+    RippleRenderer.prototype.onPointerLeave = function () {
+        if (this._isPointerDown) {
+            this.onPointerUp();
+        }
+    };
+    /**
+     * Function being called whenever the trigger is being touched.
+     * @param {?} event
+     * @return {?}
+     */
+    RippleRenderer.prototype.onTouchstart = function (event) {
+        if (!this.rippleDisabled) {
+            var _a = event.touches[0], pageX = _a.pageX, pageY = _a.pageY;
+            this._isPointerDown = true;
+            this.fadeInRipple(pageX, pageY, this.rippleConfig);
         }
     };
     /**
@@ -2213,7 +2232,7 @@ MatButton.decorators = [
                     '[disabled]': 'disabled || null',
                 },
                 template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div matRipple class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton || _isIconButton\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"_isIconButton\" [matRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\"></div>",
-                styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([disabled]):active,.mat-mini-fab:not([disabled]):active,.mat-raised-button:not([disabled]):active{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-button-wrapper{padding:16px 0;display:inline-block;line-height:24px}.mat-mini-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-button-wrapper{padding:8px 0;display:inline-block;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
+                styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([class*=mat-elevation-z]),.mat-mini-fab:not([class*=mat-elevation-z]),.mat-raised-button:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]),.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]),.mat-raised-button:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-button-wrapper{padding:16px 0;display:inline-block;line-height:24px}.mat-mini-fab{min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-button-wrapper{padding:8px 0;display:inline-block;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
                 inputs: ['disabled', 'disableRipple', 'color'],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
@@ -2266,7 +2285,7 @@ MatAnchor.decorators = [
                 },
                 inputs: ['disabled', 'disableRipple', 'color'],
                 template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div matRipple class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton || _isIconButton\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"_isIconButton\" [matRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\"></div>",
-                styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([disabled]):active,.mat-mini-fab:not([disabled]):active,.mat-raised-button:not([disabled]):active{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-button-wrapper{padding:16px 0;display:inline-block;line-height:24px}.mat-mini-fab{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([disabled]):active{box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-button-wrapper{padding:8px 0;display:inline-block;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
+                styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([class*=mat-elevation-z]),.mat-mini-fab:not([class*=mat-elevation-z]),.mat-raised-button:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]),.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]),.mat-raised-button:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-button-wrapper{padding:16px 0;display:inline-block;line-height:24px}.mat-mini-fab{min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-button-wrapper{padding:8px 0;display:inline-block;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -2947,6 +2966,10 @@ var MatDialog = (function () {
         injectionTokens.set(MatDialogRef, dialogRef);
         injectionTokens.set(MatDialogContainer, dialogContainer);
         injectionTokens.set(MAT_DIALOG_DATA, config.data);
+        injectionTokens.set(_angular_cdk_bidi.Directionality, {
+            value: config.direction,
+            change: rxjs_observable_of.of()
+        });
         return new _angular_cdk_portal.PortalInjector(userInjector || this._injector, injectionTokens);
     };
     /**
@@ -4533,6 +4556,451 @@ MatDatepickerIntl.decorators = [
  */
 MatDatepickerIntl.ctorParameters = function () { return []; };
 /**
+ * An internal class that represents the data corresponding to a single calendar cell.
+ * \@docs-private
+ */
+var MatCalendarCell = (function () {
+    /**
+     * @param {?} value
+     * @param {?} displayValue
+     * @param {?} ariaLabel
+     * @param {?} enabled
+     */
+    function MatCalendarCell(value, displayValue, ariaLabel, enabled) {
+        this.value = value;
+        this.displayValue = displayValue;
+        this.ariaLabel = ariaLabel;
+        this.enabled = enabled;
+    }
+    return MatCalendarCell;
+}());
+/**
+ * An internal component used to display calendar data in a table.
+ * \@docs-private
+ */
+var MatCalendarBody = (function () {
+    function MatCalendarBody() {
+        /**
+         * The number of columns in the table.
+         */
+        this.numCols = 7;
+        /**
+         * Whether to allow selection of disabled cells.
+         */
+        this.allowDisabledSelection = false;
+        /**
+         * The cell number of the active cell in the table.
+         */
+        this.activeCell = 0;
+        /**
+         * The aspect ratio (width / height) to use for the cells in the table. This aspect ratio will be
+         * maintained even as the table resizes.
+         */
+        this.cellAspectRatio = 1;
+        /**
+         * Emits when a new value is selected.
+         */
+        this.selectedValueChange = new _angular_core.EventEmitter();
+    }
+    /**
+     * @param {?} cell
+     * @return {?}
+     */
+    MatCalendarBody.prototype._cellClicked = function (cell) {
+        if (!this.allowDisabledSelection && !cell.enabled) {
+            return;
+        }
+        this.selectedValueChange.emit(cell.value);
+    };
+    Object.defineProperty(MatCalendarBody.prototype, "_firstRowOffset", {
+        /**
+         * The number of blank cells to put at the beginning for the first row.
+         * @return {?}
+         */
+        get: function () {
+            return this.rows && this.rows.length && this.rows[0].length ?
+                this.numCols - this.rows[0].length : 0;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @param {?} rowIndex
+     * @param {?} colIndex
+     * @return {?}
+     */
+    MatCalendarBody.prototype._isActiveCell = function (rowIndex, colIndex) {
+        var /** @type {?} */ cellNumber = rowIndex * this.numCols + colIndex;
+        // Account for the fact that the first row may not have as many cells.
+        if (rowIndex) {
+            cellNumber -= this._firstRowOffset;
+        }
+        return cellNumber == this.activeCell;
+    };
+    return MatCalendarBody;
+}());
+MatCalendarBody.decorators = [
+    { type: _angular_core.Component, args: [{ selector: '[mat-calendar-body]',
+                template: "<tr *ngIf=\"_firstRowOffset < labelMinRequiredCells\" aria-hidden=\"true\"><td class=\"mat-calendar-body-label\" [attr.colspan]=\"numCols\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\">{{label}}</td></tr><tr *ngFor=\"let row of rows; let rowIndex = index\" role=\"row\"><td *ngIf=\"rowIndex === 0 && _firstRowOffset\" aria-hidden=\"true\" class=\"mat-calendar-body-label\" [attr.colspan]=\"_firstRowOffset\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\">{{_firstRowOffset >= labelMinRequiredCells ? label : ''}}</td><td *ngFor=\"let item of row; let colIndex = index\" role=\"gridcell\" class=\"mat-calendar-body-cell\" [tabindex]=\"_isActiveCell(rowIndex, colIndex) ? 0 : -1\" [class.mat-calendar-body-disabled]=\"!item.enabled\" [class.mat-calendar-body-active]=\"_isActiveCell(rowIndex, colIndex)\" [attr.aria-label]=\"item.ariaLabel\" [attr.aria-disabled]=\"!item.enabled || null\" (click)=\"_cellClicked(item)\" [style.width.%]=\"100 / numCols\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\"><div class=\"mat-calendar-body-cell-content\" [class.mat-calendar-body-selected]=\"selectedValue === item.value\" [class.mat-calendar-body-today]=\"todayValue === item.value\">{{item.displayValue}}</div></td></tr>",
+                styles: [".mat-calendar-body{min-width:224px}.mat-calendar-body-label{height:0;line-height:0;text-align:left;padding-left:4.71429%;padding-right:4.71429%}.mat-calendar-body-cell{position:relative;height:0;line-height:0;text-align:center;outline:0;cursor:pointer}.mat-calendar-body-disabled{cursor:default}.mat-calendar-body-cell-content{position:absolute;top:5%;left:5%;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:90%;height:90%;line-height:1;border-width:1px;border-style:solid;border-radius:999px}[dir=rtl] .mat-calendar-body-label{text-align:right}"],
+                host: {
+                    'class': 'mat-calendar-body',
+                },
+                encapsulation: _angular_core.ViewEncapsulation.None,
+                preserveWhitespaces: false,
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MatCalendarBody.ctorParameters = function () { return []; };
+MatCalendarBody.propDecorators = {
+    'label': [{ type: _angular_core.Input },],
+    'rows': [{ type: _angular_core.Input },],
+    'todayValue': [{ type: _angular_core.Input },],
+    'selectedValue': [{ type: _angular_core.Input },],
+    'labelMinRequiredCells': [{ type: _angular_core.Input },],
+    'numCols': [{ type: _angular_core.Input },],
+    'allowDisabledSelection': [{ type: _angular_core.Input },],
+    'activeCell': [{ type: _angular_core.Input },],
+    'cellAspectRatio': [{ type: _angular_core.Input },],
+    'selectedValueChange': [{ type: _angular_core.Output },],
+};
+var DAYS_PER_WEEK = 7;
+/**
+ * An internal component used to display a single month in the datepicker.
+ * \@docs-private
+ */
+var MatMonthView = (function () {
+    /**
+     * @param {?} _dateAdapter
+     * @param {?} _dateFormats
+     * @param {?} _changeDetectorRef
+     */
+    function MatMonthView(_dateAdapter, _dateFormats, _changeDetectorRef) {
+        this._dateAdapter = _dateAdapter;
+        this._dateFormats = _dateFormats;
+        this._changeDetectorRef = _changeDetectorRef;
+        /**
+         * Emits when a new date is selected.
+         */
+        this.selectedChange = new _angular_core.EventEmitter();
+        /**
+         * Emits when any date is selected.
+         */
+        this.userSelection = new _angular_core.EventEmitter();
+        if (!this._dateAdapter) {
+            throw createMissingDateImplError('DateAdapter');
+        }
+        if (!this._dateFormats) {
+            throw createMissingDateImplError('MAT_DATE_FORMATS');
+        }
+        var firstDayOfWeek = this._dateAdapter.getFirstDayOfWeek();
+        var narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
+        var longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
+        // Rotate the labels for days of the week based on the configured first day of the week.
+        var weekdays = longWeekdays.map(function (long, i) {
+            return { long: long, narrow: narrowWeekdays[i] };
+        });
+        this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
+        this._activeDate = this._dateAdapter.today();
+    }
+    Object.defineProperty(MatMonthView.prototype, "activeDate", {
+        /**
+         * The date to display in this month view (everything other than the month and year is ignored).
+         * @return {?}
+         */
+        get: function () { return this._activeDate; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            var /** @type {?} */ oldActiveDate = this._activeDate;
+            this._activeDate = coerceDateProperty(this._dateAdapter, value) || this._dateAdapter.today();
+            if (!this._hasSameMonthAndYear(oldActiveDate, this._activeDate)) {
+                this._init();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatMonthView.prototype, "selected", {
+        /**
+         * The currently selected date.
+         * @return {?}
+         */
+        get: function () { return this._selected; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._selected = coerceDateProperty(this._dateAdapter, value);
+            this._selectedDate = this._getDateInCurrentMonth(this._selected);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    MatMonthView.prototype.ngAfterContentInit = function () {
+        this._init();
+    };
+    /**
+     * Handles when a new date is selected.
+     * @param {?} date
+     * @return {?}
+     */
+    MatMonthView.prototype._dateSelected = function (date) {
+        if (this._selectedDate != date) {
+            var /** @type {?} */ selectedYear = this._dateAdapter.getYear(this.activeDate);
+            var /** @type {?} */ selectedMonth = this._dateAdapter.getMonth(this.activeDate);
+            var /** @type {?} */ selectedDate = this._dateAdapter.createDate(selectedYear, selectedMonth, date);
+            this.selectedChange.emit(selectedDate);
+        }
+        this.userSelection.emit();
+    };
+    /**
+     * Initializes this month view.
+     * @return {?}
+     */
+    MatMonthView.prototype._init = function () {
+        this._selectedDate = this._getDateInCurrentMonth(this.selected);
+        this._todayDate = this._getDateInCurrentMonth(this._dateAdapter.today());
+        this._monthLabel =
+            this._dateAdapter.getMonthNames('short')[this._dateAdapter.getMonth(this.activeDate)]
+                .toLocaleUpperCase();
+        var /** @type {?} */ firstOfMonth = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), 1);
+        this._firstWeekOffset =
+            (DAYS_PER_WEEK + this._dateAdapter.getDayOfWeek(firstOfMonth) -
+                this._dateAdapter.getFirstDayOfWeek()) % DAYS_PER_WEEK;
+        this._createWeekCells();
+        this._changeDetectorRef.markForCheck();
+    };
+    /**
+     * Creates MatCalendarCells for the dates in this month.
+     * @return {?}
+     */
+    MatMonthView.prototype._createWeekCells = function () {
+        var /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(this.activeDate);
+        var /** @type {?} */ dateNames = this._dateAdapter.getDateNames();
+        this._weeks = [[]];
+        for (var /** @type {?} */ i = 0, /** @type {?} */ cell = this._firstWeekOffset; i < daysInMonth; i++, cell++) {
+            if (cell == DAYS_PER_WEEK) {
+                this._weeks.push([]);
+                cell = 0;
+            }
+            var /** @type {?} */ date = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), i + 1);
+            var /** @type {?} */ enabled = !this.dateFilter ||
+                this.dateFilter(date);
+            var /** @type {?} */ ariaLabel = this._dateAdapter.format(date, this._dateFormats.display.dateA11yLabel);
+            this._weeks[this._weeks.length - 1]
+                .push(new MatCalendarCell(i + 1, dateNames[i], ariaLabel, enabled));
+        }
+    };
+    /**
+     * Gets the date in this month that the given Date falls on.
+     * Returns null if the given Date is in another month.
+     * @param {?} date
+     * @return {?}
+     */
+    MatMonthView.prototype._getDateInCurrentMonth = function (date) {
+        return date && this._hasSameMonthAndYear(date, this.activeDate) ?
+            this._dateAdapter.getDate(date) : null;
+    };
+    /**
+     * Checks whether the 2 dates are non-null and fall within the same month of the same year.
+     * @param {?} d1
+     * @param {?} d2
+     * @return {?}
+     */
+    MatMonthView.prototype._hasSameMonthAndYear = function (d1, d2) {
+        return !!(d1 && d2 && this._dateAdapter.getMonth(d1) == this._dateAdapter.getMonth(d2) &&
+            this._dateAdapter.getYear(d1) == this._dateAdapter.getYear(d2));
+    };
+    return MatMonthView;
+}());
+MatMonthView.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-month-view',
+                template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr></thead><tbody mat-calendar-body role=\"grid\" [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\"></tbody></table>",
+                encapsulation: _angular_core.ViewEncapsulation.None,
+                preserveWhitespaces: false,
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MatMonthView.ctorParameters = function () { return [
+    { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
+    { type: _angular_core.ChangeDetectorRef, },
+]; };
+MatMonthView.propDecorators = {
+    'activeDate': [{ type: _angular_core.Input },],
+    'selected': [{ type: _angular_core.Input },],
+    'dateFilter': [{ type: _angular_core.Input },],
+    'selectedChange': [{ type: _angular_core.Output },],
+    'userSelection': [{ type: _angular_core.Output },],
+};
+/**
+ * An internal component used to display a single year in the datepicker.
+ * \@docs-private
+ */
+var MatYearView = (function () {
+    /**
+     * @param {?} _dateAdapter
+     * @param {?} _dateFormats
+     * @param {?} _changeDetectorRef
+     */
+    function MatYearView(_dateAdapter, _dateFormats, _changeDetectorRef) {
+        this._dateAdapter = _dateAdapter;
+        this._dateFormats = _dateFormats;
+        this._changeDetectorRef = _changeDetectorRef;
+        /**
+         * Emits when a new month is selected.
+         */
+        this.selectedChange = new _angular_core.EventEmitter();
+        if (!this._dateAdapter) {
+            throw createMissingDateImplError('DateAdapter');
+        }
+        if (!this._dateFormats) {
+            throw createMissingDateImplError('MAT_DATE_FORMATS');
+        }
+        this._activeDate = this._dateAdapter.today();
+    }
+    Object.defineProperty(MatYearView.prototype, "activeDate", {
+        /**
+         * The date to display in this year view (everything other than the year is ignored).
+         * @return {?}
+         */
+        get: function () { return this._activeDate; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            var /** @type {?} */ oldActiveDate = this._activeDate;
+            this._activeDate = coerceDateProperty(this._dateAdapter, value) || this._dateAdapter.today();
+            if (this._dateAdapter.getYear(oldActiveDate) != this._dateAdapter.getYear(this._activeDate)) {
+                this._init();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatYearView.prototype, "selected", {
+        /**
+         * The currently selected date.
+         * @return {?}
+         */
+        get: function () { return this._selected; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) {
+            this._selected = coerceDateProperty(this._dateAdapter, value);
+            this._selectedMonth = this._getMonthInCurrentYear(this._selected);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    MatYearView.prototype.ngAfterContentInit = function () {
+        this._init();
+    };
+    /**
+     * Handles when a new month is selected.
+     * @param {?} month
+     * @return {?}
+     */
+    MatYearView.prototype._monthSelected = function (month) {
+        var /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1));
+        this.selectedChange.emit(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, Math.min(this._dateAdapter.getDate(this.activeDate), daysInMonth)));
+    };
+    /**
+     * Initializes this month view.
+     * @return {?}
+     */
+    MatYearView.prototype._init = function () {
+        var _this = this;
+        this._selectedMonth = this._getMonthInCurrentYear(this.selected);
+        this._todayMonth = this._getMonthInCurrentYear(this._dateAdapter.today());
+        this._yearLabel = this._dateAdapter.getYearName(this.activeDate);
+        var /** @type {?} */ monthNames = this._dateAdapter.getMonthNames('short');
+        // First row of months only contains 5 elements so we can fit the year label on the same row.
+        this._months = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]].map(function (row) { return row.map(function (month) { return _this._createCellForMonth(month, monthNames[month]); }); });
+        this._changeDetectorRef.markForCheck();
+    };
+    /**
+     * Gets the month in this year that the given Date falls on.
+     * Returns null if the given Date is in another year.
+     * @param {?} date
+     * @return {?}
+     */
+    MatYearView.prototype._getMonthInCurrentYear = function (date) {
+        return date && this._dateAdapter.getYear(date) == this._dateAdapter.getYear(this.activeDate) ?
+            this._dateAdapter.getMonth(date) : null;
+    };
+    /**
+     * Creates an MatCalendarCell for the given month.
+     * @param {?} month
+     * @param {?} monthName
+     * @return {?}
+     */
+    MatYearView.prototype._createCellForMonth = function (month, monthName) {
+        var /** @type {?} */ ariaLabel = this._dateAdapter.format(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1), this._dateFormats.display.monthYearA11yLabel);
+        return new MatCalendarCell(month, monthName.toLocaleUpperCase(), ariaLabel, this._isMonthEnabled(month));
+    };
+    /**
+     * Whether the given month is enabled.
+     * @param {?} month
+     * @return {?}
+     */
+    MatYearView.prototype._isMonthEnabled = function (month) {
+        if (!this.dateFilter) {
+            return true;
+        }
+        var /** @type {?} */ firstOfMonth = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1);
+        // If any date in the month is enabled count the month as enabled.
+        for (var /** @type {?} */ date = firstOfMonth; this._dateAdapter.getMonth(date) == month; date = this._dateAdapter.addCalendarDays(date, 1)) {
+            if (this.dateFilter(date)) {
+                return true;
+            }
+        }
+        return false;
+    };
+    return MatYearView;
+}());
+MatYearView.decorators = [
+    { type: _angular_core.Component, args: [{ selector: 'mat-year-view',
+                template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body role=\"grid\" allowDisabledSelection=\"true\" [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\"></tbody></table>",
+                encapsulation: _angular_core.ViewEncapsulation.None,
+                preserveWhitespaces: false,
+                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MatYearView.ctorParameters = function () { return [
+    { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
+    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
+    { type: _angular_core.ChangeDetectorRef, },
+]; };
+MatYearView.propDecorators = {
+    'activeDate': [{ type: _angular_core.Input },],
+    'selected': [{ type: _angular_core.Input },],
+    'dateFilter': [{ type: _angular_core.Input },],
+    'selectedChange': [{ type: _angular_core.Output },],
+};
+/**
  * A calendar that is used as part of the datepicker.
  * \@docs-private
  */
@@ -4713,6 +5181,19 @@ var MatCalendar = (function () {
      */
     MatCalendar.prototype.ngOnDestroy = function () {
         this._intlChanges.unsubscribe();
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    MatCalendar.prototype.ngOnChanges = function (changes) {
+        var /** @type {?} */ change = changes.minDate || changes.maxDate || changes.dateFilter;
+        if (change && !change.firstChange) {
+            var /** @type {?} */ view = this.monthView || this.yearView;
+            if (view) {
+                view._init();
+            }
+        }
     };
     /**
      * Handles date selection in the month view.
@@ -4976,118 +5457,8 @@ MatCalendar.propDecorators = {
     'dateFilter': [{ type: _angular_core.Input },],
     'selectedChange': [{ type: _angular_core.Output },],
     'userSelection': [{ type: _angular_core.Output },],
-};
-/**
- * An internal class that represents the data corresponding to a single calendar cell.
- * \@docs-private
- */
-var MatCalendarCell = (function () {
-    /**
-     * @param {?} value
-     * @param {?} displayValue
-     * @param {?} ariaLabel
-     * @param {?} enabled
-     */
-    function MatCalendarCell(value, displayValue, ariaLabel, enabled) {
-        this.value = value;
-        this.displayValue = displayValue;
-        this.ariaLabel = ariaLabel;
-        this.enabled = enabled;
-    }
-    return MatCalendarCell;
-}());
-/**
- * An internal component used to display calendar data in a table.
- * \@docs-private
- */
-var MatCalendarBody = (function () {
-    function MatCalendarBody() {
-        /**
-         * The number of columns in the table.
-         */
-        this.numCols = 7;
-        /**
-         * Whether to allow selection of disabled cells.
-         */
-        this.allowDisabledSelection = false;
-        /**
-         * The cell number of the active cell in the table.
-         */
-        this.activeCell = 0;
-        /**
-         * The aspect ratio (width / height) to use for the cells in the table. This aspect ratio will be
-         * maintained even as the table resizes.
-         */
-        this.cellAspectRatio = 1;
-        /**
-         * Emits when a new value is selected.
-         */
-        this.selectedValueChange = new _angular_core.EventEmitter();
-    }
-    /**
-     * @param {?} cell
-     * @return {?}
-     */
-    MatCalendarBody.prototype._cellClicked = function (cell) {
-        if (!this.allowDisabledSelection && !cell.enabled) {
-            return;
-        }
-        this.selectedValueChange.emit(cell.value);
-    };
-    Object.defineProperty(MatCalendarBody.prototype, "_firstRowOffset", {
-        /**
-         * The number of blank cells to put at the beginning for the first row.
-         * @return {?}
-         */
-        get: function () {
-            return this.rows && this.rows.length && this.rows[0].length ?
-                this.numCols - this.rows[0].length : 0;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @param {?} rowIndex
-     * @param {?} colIndex
-     * @return {?}
-     */
-    MatCalendarBody.prototype._isActiveCell = function (rowIndex, colIndex) {
-        var /** @type {?} */ cellNumber = rowIndex * this.numCols + colIndex;
-        // Account for the fact that the first row may not have as many cells.
-        if (rowIndex) {
-            cellNumber -= this._firstRowOffset;
-        }
-        return cellNumber == this.activeCell;
-    };
-    return MatCalendarBody;
-}());
-MatCalendarBody.decorators = [
-    { type: _angular_core.Component, args: [{ selector: '[mat-calendar-body]',
-                template: "<tr *ngIf=\"_firstRowOffset < labelMinRequiredCells\" aria-hidden=\"true\"><td class=\"mat-calendar-body-label\" [attr.colspan]=\"numCols\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\">{{label}}</td></tr><tr *ngFor=\"let row of rows; let rowIndex = index\" role=\"row\"><td *ngIf=\"rowIndex === 0 && _firstRowOffset\" aria-hidden=\"true\" class=\"mat-calendar-body-label\" [attr.colspan]=\"_firstRowOffset\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\">{{_firstRowOffset >= labelMinRequiredCells ? label : ''}}</td><td *ngFor=\"let item of row; let colIndex = index\" role=\"gridcell\" class=\"mat-calendar-body-cell\" [tabindex]=\"_isActiveCell(rowIndex, colIndex) ? 0 : -1\" [class.mat-calendar-body-disabled]=\"!item.enabled\" [class.mat-calendar-body-active]=\"_isActiveCell(rowIndex, colIndex)\" [attr.aria-label]=\"item.ariaLabel\" [attr.aria-disabled]=\"!item.enabled || null\" (click)=\"_cellClicked(item)\" [style.width.%]=\"100 / numCols\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\"><div class=\"mat-calendar-body-cell-content\" [class.mat-calendar-body-selected]=\"selectedValue === item.value\" [class.mat-calendar-body-today]=\"todayValue === item.value\">{{item.displayValue}}</div></td></tr>",
-                styles: [".mat-calendar-body{min-width:224px}.mat-calendar-body-label{height:0;line-height:0;text-align:left;padding-left:4.71429%;padding-right:4.71429%}.mat-calendar-body-cell{position:relative;height:0;line-height:0;text-align:center;outline:0;cursor:pointer}.mat-calendar-body-disabled{cursor:default}.mat-calendar-body-cell-content{position:absolute;top:5%;left:5%;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:90%;height:90%;line-height:1;border-width:1px;border-style:solid;border-radius:999px}[dir=rtl] .mat-calendar-body-label{text-align:right}"],
-                host: {
-                    'class': 'mat-calendar-body',
-                },
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCalendarBody.ctorParameters = function () { return []; };
-MatCalendarBody.propDecorators = {
-    'label': [{ type: _angular_core.Input },],
-    'rows': [{ type: _angular_core.Input },],
-    'todayValue': [{ type: _angular_core.Input },],
-    'selectedValue': [{ type: _angular_core.Input },],
-    'labelMinRequiredCells': [{ type: _angular_core.Input },],
-    'numCols': [{ type: _angular_core.Input },],
-    'allowDisabledSelection': [{ type: _angular_core.Input },],
-    'activeCell': [{ type: _angular_core.Input },],
-    'cellAspectRatio': [{ type: _angular_core.Input },],
-    'selectedValueChange': [{ type: _angular_core.Output },],
+    'monthView': [{ type: _angular_core.ViewChild, args: [MatMonthView,] },],
+    'yearView': [{ type: _angular_core.ViewChild, args: [MatYearView,] },],
 };
 /**
  * Used to generate a unique ID for each datepicker instance.
@@ -5247,7 +5618,8 @@ var MatDatepicker = (function () {
          * @return {?}
          */
         get: function () {
-            return this._disabled === undefined ? this._datepickerInput.disabled : this._disabled;
+            return this._disabled === undefined && this._datepickerInput ?
+                this._datepickerInput.disabled : this._disabled;
         },
         /**
          * @param {?} value
@@ -5944,331 +6316,6 @@ MatDatepickerToggle.ctorParameters = function () { return [
 MatDatepickerToggle.propDecorators = {
     'datepicker': [{ type: _angular_core.Input, args: ['for',] },],
     'disabled': [{ type: _angular_core.Input },],
-};
-var DAYS_PER_WEEK = 7;
-/**
- * An internal component used to display a single month in the datepicker.
- * \@docs-private
- */
-var MatMonthView = (function () {
-    /**
-     * @param {?} _dateAdapter
-     * @param {?} _dateFormats
-     */
-    function MatMonthView(_dateAdapter, _dateFormats) {
-        this._dateAdapter = _dateAdapter;
-        this._dateFormats = _dateFormats;
-        /**
-         * Emits when a new date is selected.
-         */
-        this.selectedChange = new _angular_core.EventEmitter();
-        /**
-         * Emits when any date is selected.
-         */
-        this.userSelection = new _angular_core.EventEmitter();
-        if (!this._dateAdapter) {
-            throw createMissingDateImplError('DateAdapter');
-        }
-        if (!this._dateFormats) {
-            throw createMissingDateImplError('MAT_DATE_FORMATS');
-        }
-        var firstDayOfWeek = this._dateAdapter.getFirstDayOfWeek();
-        var narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
-        var longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
-        // Rotate the labels for days of the week based on the configured first day of the week.
-        var weekdays = longWeekdays.map(function (long, i) {
-            return { long: long, narrow: narrowWeekdays[i] };
-        });
-        this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
-        this._activeDate = this._dateAdapter.today();
-    }
-    Object.defineProperty(MatMonthView.prototype, "activeDate", {
-        /**
-         * The date to display in this month view (everything other than the month and year is ignored).
-         * @return {?}
-         */
-        get: function () { return this._activeDate; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            var /** @type {?} */ oldActiveDate = this._activeDate;
-            this._activeDate = coerceDateProperty(this._dateAdapter, value) || this._dateAdapter.today();
-            if (!this._hasSameMonthAndYear(oldActiveDate, this._activeDate)) {
-                this._init();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatMonthView.prototype, "selected", {
-        /**
-         * The currently selected date.
-         * @return {?}
-         */
-        get: function () { return this._selected; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this._selected = coerceDateProperty(this._dateAdapter, value);
-            this._selectedDate = this._getDateInCurrentMonth(this._selected);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    MatMonthView.prototype.ngAfterContentInit = function () {
-        this._init();
-    };
-    /**
-     * Handles when a new date is selected.
-     * @param {?} date
-     * @return {?}
-     */
-    MatMonthView.prototype._dateSelected = function (date) {
-        if (this._selectedDate != date) {
-            var /** @type {?} */ selectedYear = this._dateAdapter.getYear(this.activeDate);
-            var /** @type {?} */ selectedMonth = this._dateAdapter.getMonth(this.activeDate);
-            var /** @type {?} */ selectedDate = this._dateAdapter.createDate(selectedYear, selectedMonth, date);
-            this.selectedChange.emit(selectedDate);
-        }
-        this.userSelection.emit();
-    };
-    /**
-     * Initializes this month view.
-     * @return {?}
-     */
-    MatMonthView.prototype._init = function () {
-        this._selectedDate = this._getDateInCurrentMonth(this.selected);
-        this._todayDate = this._getDateInCurrentMonth(this._dateAdapter.today());
-        this._monthLabel =
-            this._dateAdapter.getMonthNames('short')[this._dateAdapter.getMonth(this.activeDate)]
-                .toLocaleUpperCase();
-        var /** @type {?} */ firstOfMonth = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), 1);
-        this._firstWeekOffset =
-            (DAYS_PER_WEEK + this._dateAdapter.getDayOfWeek(firstOfMonth) -
-                this._dateAdapter.getFirstDayOfWeek()) % DAYS_PER_WEEK;
-        this._createWeekCells();
-    };
-    /**
-     * Creates MatCalendarCells for the dates in this month.
-     * @return {?}
-     */
-    MatMonthView.prototype._createWeekCells = function () {
-        var /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(this.activeDate);
-        var /** @type {?} */ dateNames = this._dateAdapter.getDateNames();
-        this._weeks = [[]];
-        for (var /** @type {?} */ i = 0, /** @type {?} */ cell = this._firstWeekOffset; i < daysInMonth; i++, cell++) {
-            if (cell == DAYS_PER_WEEK) {
-                this._weeks.push([]);
-                cell = 0;
-            }
-            var /** @type {?} */ date = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), i + 1);
-            var /** @type {?} */ enabled = !this.dateFilter ||
-                this.dateFilter(date);
-            var /** @type {?} */ ariaLabel = this._dateAdapter.format(date, this._dateFormats.display.dateA11yLabel);
-            this._weeks[this._weeks.length - 1]
-                .push(new MatCalendarCell(i + 1, dateNames[i], ariaLabel, enabled));
-        }
-    };
-    /**
-     * Gets the date in this month that the given Date falls on.
-     * Returns null if the given Date is in another month.
-     * @param {?} date
-     * @return {?}
-     */
-    MatMonthView.prototype._getDateInCurrentMonth = function (date) {
-        return date && this._hasSameMonthAndYear(date, this.activeDate) ?
-            this._dateAdapter.getDate(date) : null;
-    };
-    /**
-     * Checks whether the 2 dates are non-null and fall within the same month of the same year.
-     * @param {?} d1
-     * @param {?} d2
-     * @return {?}
-     */
-    MatMonthView.prototype._hasSameMonthAndYear = function (d1, d2) {
-        return !!(d1 && d2 && this._dateAdapter.getMonth(d1) == this._dateAdapter.getMonth(d2) &&
-            this._dateAdapter.getYear(d1) == this._dateAdapter.getYear(d2));
-    };
-    return MatMonthView;
-}());
-MatMonthView.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-month-view',
-                template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr></thead><tbody mat-calendar-body role=\"grid\" [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\"></tbody></table>",
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatMonthView.ctorParameters = function () { return [
-    { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
-]; };
-MatMonthView.propDecorators = {
-    'activeDate': [{ type: _angular_core.Input },],
-    'selected': [{ type: _angular_core.Input },],
-    'dateFilter': [{ type: _angular_core.Input },],
-    'selectedChange': [{ type: _angular_core.Output },],
-    'userSelection': [{ type: _angular_core.Output },],
-};
-/**
- * An internal component used to display a single year in the datepicker.
- * \@docs-private
- */
-var MatYearView = (function () {
-    /**
-     * @param {?} _dateAdapter
-     * @param {?} _dateFormats
-     */
-    function MatYearView(_dateAdapter, _dateFormats) {
-        this._dateAdapter = _dateAdapter;
-        this._dateFormats = _dateFormats;
-        /**
-         * Emits when a new month is selected.
-         */
-        this.selectedChange = new _angular_core.EventEmitter();
-        if (!this._dateAdapter) {
-            throw createMissingDateImplError('DateAdapter');
-        }
-        if (!this._dateFormats) {
-            throw createMissingDateImplError('MAT_DATE_FORMATS');
-        }
-        this._activeDate = this._dateAdapter.today();
-    }
-    Object.defineProperty(MatYearView.prototype, "activeDate", {
-        /**
-         * The date to display in this year view (everything other than the year is ignored).
-         * @return {?}
-         */
-        get: function () { return this._activeDate; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            var /** @type {?} */ oldActiveDate = this._activeDate;
-            this._activeDate = coerceDateProperty(this._dateAdapter, value) || this._dateAdapter.today();
-            if (this._dateAdapter.getYear(oldActiveDate) != this._dateAdapter.getYear(this._activeDate)) {
-                this._init();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatYearView.prototype, "selected", {
-        /**
-         * The currently selected date.
-         * @return {?}
-         */
-        get: function () { return this._selected; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this._selected = coerceDateProperty(this._dateAdapter, value);
-            this._selectedMonth = this._getMonthInCurrentYear(this._selected);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    MatYearView.prototype.ngAfterContentInit = function () {
-        this._init();
-    };
-    /**
-     * Handles when a new month is selected.
-     * @param {?} month
-     * @return {?}
-     */
-    MatYearView.prototype._monthSelected = function (month) {
-        var /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1));
-        this.selectedChange.emit(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, Math.min(this._dateAdapter.getDate(this.activeDate), daysInMonth)));
-    };
-    /**
-     * Initializes this month view.
-     * @return {?}
-     */
-    MatYearView.prototype._init = function () {
-        var _this = this;
-        this._selectedMonth = this._getMonthInCurrentYear(this.selected);
-        this._todayMonth = this._getMonthInCurrentYear(this._dateAdapter.today());
-        this._yearLabel = this._dateAdapter.getYearName(this.activeDate);
-        var /** @type {?} */ monthNames = this._dateAdapter.getMonthNames('short');
-        // First row of months only contains 5 elements so we can fit the year label on the same row.
-        this._months = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]].map(function (row) { return row.map(function (month) { return _this._createCellForMonth(month, monthNames[month]); }); });
-    };
-    /**
-     * Gets the month in this year that the given Date falls on.
-     * Returns null if the given Date is in another year.
-     * @param {?} date
-     * @return {?}
-     */
-    MatYearView.prototype._getMonthInCurrentYear = function (date) {
-        return date && this._dateAdapter.getYear(date) == this._dateAdapter.getYear(this.activeDate) ?
-            this._dateAdapter.getMonth(date) : null;
-    };
-    /**
-     * Creates an MatCalendarCell for the given month.
-     * @param {?} month
-     * @param {?} monthName
-     * @return {?}
-     */
-    MatYearView.prototype._createCellForMonth = function (month, monthName) {
-        var /** @type {?} */ ariaLabel = this._dateAdapter.format(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1), this._dateFormats.display.monthYearA11yLabel);
-        return new MatCalendarCell(month, monthName.toLocaleUpperCase(), ariaLabel, this._isMonthEnabled(month));
-    };
-    /**
-     * Whether the given month is enabled.
-     * @param {?} month
-     * @return {?}
-     */
-    MatYearView.prototype._isMonthEnabled = function (month) {
-        if (!this.dateFilter) {
-            return true;
-        }
-        var /** @type {?} */ firstOfMonth = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1);
-        // If any date in the month is enabled count the month as enabled.
-        for (var /** @type {?} */ date = firstOfMonth; this._dateAdapter.getMonth(date) == month; date = this._dateAdapter.addCalendarDays(date, 1)) {
-            if (this.dateFilter(date)) {
-                return true;
-            }
-        }
-        return false;
-    };
-    return MatYearView;
-}());
-MatYearView.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-year-view',
-                template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body role=\"grid\" allowDisabledSelection=\"true\" [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\"></tbody></table>",
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatYearView.ctorParameters = function () { return [
-    { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
-]; };
-MatYearView.propDecorators = {
-    'activeDate': [{ type: _angular_core.Input },],
-    'selected': [{ type: _angular_core.Input },],
-    'dateFilter': [{ type: _angular_core.Input },],
-    'selectedChange': [{ type: _angular_core.Output },],
 };
 var MatDatepickerModule = (function () {
     function MatDatepickerModule() {

@@ -6,13 +6,13 @@ import * as tslib_1 from "tslib";
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, Optional, Output, Self, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, Self, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule, MatRippleModule, mixinDisabled } from '@angular/material/core';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { FocusKeyManager, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
-import { RxChain, filter, startWith, switchMap } from '@angular/cdk/rxjs';
+import { RxChain, filter, first, startWith, switchMap } from '@angular/cdk/rxjs';
 import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -212,10 +212,12 @@ var MAT_MENU_BASE_ELEVATION = 2;
 var MatMenu = (function () {
     /**
      * @param {?} _elementRef
+     * @param {?} _ngZone
      * @param {?} _defaultOptions
      */
-    function MatMenu(_elementRef, _defaultOptions) {
+    function MatMenu(_elementRef, _ngZone, _defaultOptions) {
         this._elementRef = _elementRef;
+        this._ngZone = _ngZone;
         this._defaultOptions = _defaultOptions;
         this._xPosition = this._defaultOptions.xPosition;
         this._yPosition = this._defaultOptions.yPosition;
@@ -322,9 +324,16 @@ var MatMenu = (function () {
      * @return {?}
      */
     MatMenu.prototype.hover = function () {
-        return RxChain.from(this.items.changes)
-            .call(startWith, this.items)
-            .call(switchMap, function (items) { return merge.apply(void 0, items.map(function (item) { return item.hover; })); })
+        var _this = this;
+        if (this.items) {
+            return RxChain.from(this.items.changes)
+                .call(startWith, this.items)
+                .call(switchMap, function (items) { return merge.apply(void 0, items.map(function (item) { return item.hover; })); })
+                .result();
+        }
+        return RxChain.from(this._ngZone.onStable.asObservable())
+            .call(first)
+            .call(switchMap, function () { return _this.hover(); })
             .result();
     };
     /**
@@ -438,6 +447,7 @@ MatMenu.decorators = [
  */
 MatMenu.ctorParameters = function () { return [
     { type: ElementRef, },
+    { type: NgZone, },
     { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] },] },
 ]; };
 MatMenu.propDecorators = {
@@ -534,11 +544,11 @@ var MatMenuTrigger = (function () {
     /**
      * @return {?}
      */
-    MatMenuTrigger.prototype.ngAfterViewInit = function () {
+    MatMenuTrigger.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._checkMenu();
         this.menu.close.subscribe(function (reason) {
-            _this.closeMenu();
+            _this._destroyMenu();
             // If a click closed the menu, we should close the entire chain of nested menus.
             if (reason === 'click' && _this._parentMenu) {
                 _this._parentMenu.close.emit(reason);
@@ -608,7 +618,9 @@ var MatMenuTrigger = (function () {
         var _this = this;
         if (!this._menuOpen) {
             this._createOverlay().attach(this._portal);
-            this._closeSubscription = this._menuClosingActions().subscribe(function () { return _this.menu.close.emit(); });
+            this._closeSubscription = this._menuClosingActions().subscribe(function () {
+                _this.menu.close.emit();
+            });
             this._initMenu();
             if (this.menu instanceof MatMenu) {
                 this.menu._startAnimation();
@@ -620,15 +632,7 @@ var MatMenuTrigger = (function () {
      * @return {?}
      */
     MatMenuTrigger.prototype.closeMenu = function () {
-        if (this._overlayRef && this.menuOpen) {
-            this._resetMenu();
-            this._overlayRef.detach();
-            this._closeSubscription.unsubscribe();
-            this.menu.close.emit();
-            if (this.menu instanceof MatMenu) {
-                this.menu._resetAnimation();
-            }
-        }
+        this.menu.close.emit();
     };
     /**
      * Focuses the menu trigger.
@@ -636,6 +640,20 @@ var MatMenuTrigger = (function () {
      */
     MatMenuTrigger.prototype.focus = function () {
         this._element.nativeElement.focus();
+    };
+    /**
+     * Closes the menu and does the necessary cleanup.
+     * @return {?}
+     */
+    MatMenuTrigger.prototype._destroyMenu = function () {
+        if (this._overlayRef && this.menuOpen) {
+            this._resetMenu();
+            this._overlayRef.detach();
+            this._closeSubscription.unsubscribe();
+            if (this.menu instanceof MatMenu) {
+                this.menu._resetAnimation();
+            }
+        }
     };
     /**
      * This method sets the menu state to open and focuses the first item if
@@ -794,11 +812,11 @@ var MatMenuTrigger = (function () {
     MatMenuTrigger.prototype._menuClosingActions = function () {
         var _this = this;
         var /** @type {?} */ backdrop = ((this._overlayRef)).backdropClick();
-        var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : of(null);
+        var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : of();
         var /** @type {?} */ hover = this._parentMenu ? RxChain.from(this._parentMenu.hover())
             .call(filter, function (active) { return active !== _this._menuItemInstance; })
             .call(filter, function () { return _this._menuOpen; })
-            .result() : of(null);
+            .result() : of();
         return merge(backdrop, parentClose, hover);
     };
     /**

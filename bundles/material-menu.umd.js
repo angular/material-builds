@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('@angular/cdk/a11y'), require('@angular/cdk/rxjs'), require('rxjs/observable/merge'), require('rxjs/Subscription'), require('@angular/animations'), require('@angular/cdk/portal'), require('rxjs/observable/of')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/overlay', '@angular/cdk/a11y', '@angular/cdk/rxjs', 'rxjs/observable/merge', 'rxjs/Subscription', '@angular/animations', '@angular/cdk/portal', 'rxjs/observable/of'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = global.ng.material.menu || {}),global.ng.core,global.ng.common,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.ng.cdk.a11y,global.ng.cdk.rxjs,global.Rx.Observable,global.Rx,global.ng.animations,global.ng.cdk.portal,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_common,_angular_platformBrowser,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_overlay,_angular_cdk_a11y,_angular_cdk_rxjs,rxjs_observable_merge,rxjs_Subscription,_angular_animations,_angular_cdk_portal,rxjs_observable_of) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('@angular/cdk/a11y'), require('@angular/cdk/rxjs'), require('rxjs/observable/merge'), require('rxjs/Subscription'), require('@angular/animations'), require('@angular/cdk/portal'), require('rxjs/observable/of')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/overlay', '@angular/cdk/a11y', '@angular/cdk/rxjs', 'rxjs/observable/merge', 'rxjs/Subscription', '@angular/animations', '@angular/cdk/portal', 'rxjs/observable/of'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = global.ng.material.menu || {}),global.ng.core,global.ng.common,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.ng.cdk.a11y,global.ng.cdk.rxjs,global.Rx.Observable,global.Rx,global.ng.animations,global.ng.cdk.portal,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_overlay,_angular_cdk_a11y,_angular_cdk_rxjs,rxjs_observable_merge,rxjs_Subscription,_angular_animations,_angular_cdk_portal,rxjs_observable_of) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -147,16 +147,18 @@ var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('mat-sanity-checks
  */
 var MatCommonModule = (function () {
     /**
-     * @param {?} _document
-     * @param {?} _sanityChecksEnabled
+     * @param {?} sanityChecksEnabled
      */
-    function MatCommonModule(_document, _sanityChecksEnabled) {
-        this._document = _document;
+    function MatCommonModule(sanityChecksEnabled) {
         /**
          * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
          */
         this._hasDoneGlobalChecks = false;
-        if (_sanityChecksEnabled && !this._hasDoneGlobalChecks && _document && _angular_core.isDevMode()) {
+        /**
+         * Reference to the global `document` object.
+         */
+        this._document = typeof document === 'object' && document ? document : null;
+        if (sanityChecksEnabled && !this._hasDoneGlobalChecks && _angular_core.isDevMode()) {
             this._checkDoctype();
             this._checkTheme();
             this._hasDoneGlobalChecks = true;
@@ -166,7 +168,7 @@ var MatCommonModule = (function () {
      * @return {?}
      */
     MatCommonModule.prototype._checkDoctype = function () {
-        if (!this._document.doctype) {
+        if (this._document && !this._document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
                 'some Angular Material components not to behave as expected.');
         }
@@ -175,11 +177,15 @@ var MatCommonModule = (function () {
      * @return {?}
      */
     MatCommonModule.prototype._checkTheme = function () {
-        if (typeof getComputedStyle === 'function') {
+        if (this._document && typeof getComputedStyle === 'function') {
             var /** @type {?} */ testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
             this._document.body.appendChild(testElement);
-            if (getComputedStyle(testElement).display !== 'none') {
+            var /** @type {?} */ computedStyle = getComputedStyle(testElement);
+            // In some situations, the computed style of the test element can be null. For example in
+            // Firefox, the computed style is null if an application is running inside of a hidden iframe.
+            // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+            if (computedStyle && computedStyle.display !== 'none') {
                 console.warn('Could not find Angular Material core theme. Most Material ' +
                     'components may not work as expected. For more info refer ' +
                     'to the theming guide: https://material.angular.io/guide/theming');
@@ -202,7 +208,6 @@ MatCommonModule.decorators = [
  * @nocollapse
  */
 MatCommonModule.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
 ]; };
 /**
@@ -514,10 +519,10 @@ var DateAdapter = (function () {
      * @return {?} 0 if the dates are equal, a number less than 0 if the first date is earlier,
      *     a number greater than 0 if the first date is later.
      */
-    DateAdapter.prototype.compareDate = function (first, second) {
-        return this.getYear(first) - this.getYear(second) ||
-            this.getMonth(first) - this.getMonth(second) ||
-            this.getDate(first) - this.getDate(second);
+    DateAdapter.prototype.compareDate = function (first$$1, second) {
+        return this.getYear(first$$1) - this.getYear(second) ||
+            this.getMonth(first$$1) - this.getMonth(second) ||
+            this.getDate(first$$1) - this.getDate(second);
     };
     /**
      * Checks if two dates are equal.
@@ -526,8 +531,8 @@ var DateAdapter = (function () {
      *     Null dates are considered equal to other null dates.
      * @return {?}
      */
-    DateAdapter.prototype.sameDate = function (first, second) {
-        return first && second ? !this.compareDate(first, second) : first == second;
+    DateAdapter.prototype.sameDate = function (first$$1, second) {
+        return first$$1 && second ? !this.compareDate(first$$1, second) : first$$1 == second;
     };
     /**
      * Clamp the given date between min and max dates.
@@ -1136,9 +1141,9 @@ var RippleRenderer = (function () {
         this._ngZone = _ngZone;
         this._ruler = _ruler;
         /**
-         * Whether the mouse is currently down or not.
+         * Whether the pointer is currently being held on the trigger or not.
          */
-        this._isMousedown = false;
+        this._isPointerDown = false;
         /**
          * Events to be registered on the trigger element.
          */
@@ -1160,8 +1165,10 @@ var RippleRenderer = (function () {
             this._containerElement = elementRef.nativeElement;
             // Specify events which need to be registered on the trigger.
             this._triggerEvents.set('mousedown', this.onMousedown.bind(this));
-            this._triggerEvents.set('mouseup', this.onMouseup.bind(this));
-            this._triggerEvents.set('mouseleave', this.onMouseLeave.bind(this));
+            this._triggerEvents.set('touchstart', this.onTouchstart.bind(this));
+            this._triggerEvents.set('mouseup', this.onPointerUp.bind(this));
+            this._triggerEvents.set('touchend', this.onPointerUp.bind(this));
+            this._triggerEvents.set('mouseleave', this.onPointerLeave.bind(this));
             // By default use the host element as trigger element.
             this.setTriggerElement(this._containerElement);
         }
@@ -1215,7 +1222,7 @@ var RippleRenderer = (function () {
         // Once it's faded in, the ripple can be hidden immediately if the mouse is released.
         this.runTimeoutOutsideZone(function () {
             rippleRef.state = RippleState.VISIBLE;
-            if (!config.persistent && !_this._isMousedown) {
+            if (!config.persistent && !_this._isPointerDown) {
                 rippleRef.fadeOut();
             }
         }, duration);
@@ -1270,22 +1277,22 @@ var RippleRenderer = (function () {
         this._triggerElement = element;
     };
     /**
-     * Listener being called on mousedown event.
+     * Function being called whenever the trigger is being pressed.
      * @param {?} event
      * @return {?}
      */
     RippleRenderer.prototype.onMousedown = function (event) {
         if (!this.rippleDisabled) {
-            this._isMousedown = true;
+            this._isPointerDown = true;
             this.fadeInRipple(event.pageX, event.pageY, this.rippleConfig);
         }
     };
     /**
-     * Listener being called on mouseup event.
+     * Function being called whenever the pointer is being released.
      * @return {?}
      */
-    RippleRenderer.prototype.onMouseup = function () {
-        this._isMousedown = false;
+    RippleRenderer.prototype.onPointerUp = function () {
+        this._isPointerDown = false;
         // Fade-out all ripples that are completely visible and not persistent.
         this._activeRipples.forEach(function (ripple) {
             if (!ripple.config.persistent && ripple.state === RippleState.VISIBLE) {
@@ -1294,12 +1301,24 @@ var RippleRenderer = (function () {
         });
     };
     /**
-     * Listener being called on mouseleave event.
+     * Function being called whenever the pointer leaves the trigger.
      * @return {?}
      */
-    RippleRenderer.prototype.onMouseLeave = function () {
-        if (this._isMousedown) {
-            this.onMouseup();
+    RippleRenderer.prototype.onPointerLeave = function () {
+        if (this._isPointerDown) {
+            this.onPointerUp();
+        }
+    };
+    /**
+     * Function being called whenever the trigger is being touched.
+     * @param {?} event
+     * @return {?}
+     */
+    RippleRenderer.prototype.onTouchstart = function (event) {
+        if (!this.rippleDisabled) {
+            var _a = event.touches[0], pageX = _a.pageX, pageY = _a.pageY;
+            this._isPointerDown = true;
+            this.fadeInRipple(pageX, pageY, this.rippleConfig);
         }
     };
     /**
@@ -2104,10 +2123,12 @@ var MAT_MENU_BASE_ELEVATION = 2;
 var MatMenu = (function () {
     /**
      * @param {?} _elementRef
+     * @param {?} _ngZone
      * @param {?} _defaultOptions
      */
-    function MatMenu(_elementRef, _defaultOptions) {
+    function MatMenu(_elementRef, _ngZone, _defaultOptions) {
         this._elementRef = _elementRef;
+        this._ngZone = _ngZone;
         this._defaultOptions = _defaultOptions;
         this._xPosition = this._defaultOptions.xPosition;
         this._yPosition = this._defaultOptions.yPosition;
@@ -2214,9 +2235,16 @@ var MatMenu = (function () {
      * @return {?}
      */
     MatMenu.prototype.hover = function () {
-        return _angular_cdk_rxjs.RxChain.from(this.items.changes)
-            .call(_angular_cdk_rxjs.startWith, this.items)
-            .call(_angular_cdk_rxjs.switchMap, function (items) { return rxjs_observable_merge.merge.apply(void 0, items.map(function (item) { return item.hover; })); })
+        var _this = this;
+        if (this.items) {
+            return _angular_cdk_rxjs.RxChain.from(this.items.changes)
+                .call(_angular_cdk_rxjs.startWith, this.items)
+                .call(_angular_cdk_rxjs.switchMap, function (items) { return rxjs_observable_merge.merge.apply(void 0, items.map(function (item) { return item.hover; })); })
+                .result();
+        }
+        return _angular_cdk_rxjs.RxChain.from(this._ngZone.onStable.asObservable())
+            .call(_angular_cdk_rxjs.first)
+            .call(_angular_cdk_rxjs.switchMap, function () { return _this.hover(); })
             .result();
     };
     /**
@@ -2330,6 +2358,7 @@ MatMenu.decorators = [
  */
 MatMenu.ctorParameters = function () { return [
     { type: _angular_core.ElementRef, },
+    { type: _angular_core.NgZone, },
     { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] },] },
 ]; };
 MatMenu.propDecorators = {
@@ -2426,11 +2455,11 @@ var MatMenuTrigger = (function () {
     /**
      * @return {?}
      */
-    MatMenuTrigger.prototype.ngAfterViewInit = function () {
+    MatMenuTrigger.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._checkMenu();
         this.menu.close.subscribe(function (reason) {
-            _this.closeMenu();
+            _this._destroyMenu();
             // If a click closed the menu, we should close the entire chain of nested menus.
             if (reason === 'click' && _this._parentMenu) {
                 _this._parentMenu.close.emit(reason);
@@ -2500,7 +2529,9 @@ var MatMenuTrigger = (function () {
         var _this = this;
         if (!this._menuOpen) {
             this._createOverlay().attach(this._portal);
-            this._closeSubscription = this._menuClosingActions().subscribe(function () { return _this.menu.close.emit(); });
+            this._closeSubscription = this._menuClosingActions().subscribe(function () {
+                _this.menu.close.emit();
+            });
             this._initMenu();
             if (this.menu instanceof MatMenu) {
                 this.menu._startAnimation();
@@ -2512,15 +2543,7 @@ var MatMenuTrigger = (function () {
      * @return {?}
      */
     MatMenuTrigger.prototype.closeMenu = function () {
-        if (this._overlayRef && this.menuOpen) {
-            this._resetMenu();
-            this._overlayRef.detach();
-            this._closeSubscription.unsubscribe();
-            this.menu.close.emit();
-            if (this.menu instanceof MatMenu) {
-                this.menu._resetAnimation();
-            }
-        }
+        this.menu.close.emit();
     };
     /**
      * Focuses the menu trigger.
@@ -2528,6 +2551,20 @@ var MatMenuTrigger = (function () {
      */
     MatMenuTrigger.prototype.focus = function () {
         this._element.nativeElement.focus();
+    };
+    /**
+     * Closes the menu and does the necessary cleanup.
+     * @return {?}
+     */
+    MatMenuTrigger.prototype._destroyMenu = function () {
+        if (this._overlayRef && this.menuOpen) {
+            this._resetMenu();
+            this._overlayRef.detach();
+            this._closeSubscription.unsubscribe();
+            if (this.menu instanceof MatMenu) {
+                this.menu._resetAnimation();
+            }
+        }
     };
     /**
      * This method sets the menu state to open and focuses the first item if
@@ -2686,11 +2723,11 @@ var MatMenuTrigger = (function () {
     MatMenuTrigger.prototype._menuClosingActions = function () {
         var _this = this;
         var /** @type {?} */ backdrop = ((this._overlayRef)).backdropClick();
-        var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : rxjs_observable_of.of(null);
+        var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : rxjs_observable_of.of();
         var /** @type {?} */ hover = this._parentMenu ? _angular_cdk_rxjs.RxChain.from(this._parentMenu.hover())
             .call(_angular_cdk_rxjs.filter, function (active) { return active !== _this._menuItemInstance; })
             .call(_angular_cdk_rxjs.filter, function () { return _this._menuOpen; })
-            .result() : rxjs_observable_of.of(null);
+            .result() : rxjs_observable_of.of();
         return rxjs_observable_merge.merge(backdrop, parentClose, hover);
     };
     /**

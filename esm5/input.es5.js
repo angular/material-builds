@@ -234,6 +234,7 @@ var MatInput = (function () {
         this._required = false;
         this._uid = "mat-input-" + nextUniqueId++;
         this._previousNativeValue = this.value;
+        this._readonly = false;
         /**
          * Whether the input is focused.
          */
@@ -367,6 +368,20 @@ var MatInput = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatInput.prototype, "readonly", {
+        /**
+         * Whether the element is readonly.
+         * @return {?}
+         */
+        get: function () { return this._readonly; },
+        /**
+         * @param {?} value
+         * @return {?}
+         */
+        set: function (value) { this._readonly = coerceBooleanProperty(value); },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @return {?}
      */
@@ -405,7 +420,7 @@ var MatInput = (function () {
      * @return {?}
      */
     MatInput.prototype._focusChanged = function (isFocused) {
-        if (isFocused !== this.focused) {
+        if (isFocused !== this.focused && !this.readonly) {
             this.focused = isFocused;
             this.stateChanges.next();
         }
@@ -558,6 +573,7 @@ MatInput.propDecorators = {
     'type': [{ type: Input },],
     'errorStateMatcher': [{ type: Input },],
     'value': [{ type: Input },],
+    'readonly': [{ type: Input },],
 };
 var MatInputModule = (function () {
     function MatInputModule() {

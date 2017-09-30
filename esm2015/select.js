@@ -16,7 +16,7 @@ import { ConnectedOverlayDirective, Overlay, OverlayModule, ViewportRuler } from
 import { filter, first, startWith } from '@angular/cdk/rxjs';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { MatCommonModule, MatOptgroup, MatOption, MatOptionModule, mixinDisabled, mixinTabIndex } from '@angular/material/core';
-import { MatFormFieldControl } from '@angular/material/form-field';
+import { MatFormField, MatFormFieldControl } from '@angular/material/form-field';
 import { merge } from 'rxjs/observable/merge';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
@@ -198,11 +198,12 @@ class MatSelect extends _MatSelectMixinBase {
      * @param {?} _dir
      * @param {?} _parentForm
      * @param {?} _parentFormGroup
+     * @param {?} _parentFormField
      * @param {?} ngControl
      * @param {?} tabIndex
      * @param {?} _scrollStrategyFactory
      */
-    constructor(_viewportRuler, _changeDetectorRef, _ngZone, renderer, elementRef, _dir, _parentForm, _parentFormGroup, ngControl, tabIndex, _scrollStrategyFactory) {
+    constructor(_viewportRuler, _changeDetectorRef, _ngZone, renderer, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, _scrollStrategyFactory) {
         super(renderer, elementRef);
         this._viewportRuler = _viewportRuler;
         this._changeDetectorRef = _changeDetectorRef;
@@ -210,6 +211,7 @@ class MatSelect extends _MatSelectMixinBase {
         this._dir = _dir;
         this._parentForm = _parentForm;
         this._parentFormGroup = _parentFormGroup;
+        this._parentFormField = _parentFormField;
         this.ngControl = ngControl;
         this._scrollStrategyFactory = _scrollStrategyFactory;
         /**
@@ -321,10 +323,6 @@ class MatSelect extends _MatSelectMixinBase {
          */
         this.ariaLabel = '';
         /**
-         * Input that can be used to specify the `aria-labelledby` attribute.
-         */
-        this.ariaLabelledby = '';
-        /**
          * Event emitted when the select has been opened.
          */
         this.onOpen = new EventEmitter();
@@ -421,8 +419,10 @@ class MatSelect extends _MatSelectMixinBase {
      * @return {?}
      */
     set value(newValue) {
-        this.writeValue(newValue);
-        this._value = newValue;
+        if (newValue !== this._value) {
+            this.writeValue(newValue);
+            this._value = newValue;
+        }
     }
     /**
      * Whether ripples for all options in the select are disabled.
@@ -694,6 +694,13 @@ class MatSelect extends _MatSelectMixinBase {
     _onAttached() {
         this._calculateOverlayOffsetX();
         this._setScrollTop();
+    }
+    /**
+     * Returns the theme to be used on the panel.
+     * @return {?}
+     */
+    _getPanelTheme() {
+        return this._parentFormField ? `mat-${this._parentFormField.color}` : '';
     }
     /**
      * Whether the select has a value.
@@ -1200,7 +1207,6 @@ class MatSelect extends _MatSelectMixinBase {
             if (currentActiveItem !== prevActiveItem) {
                 this._clearSelection();
                 this._setSelectionByValue(currentActiveItem.value, true);
-                this._propagateChanges();
             }
         }
     }
@@ -1230,7 +1236,7 @@ class MatSelect extends _MatSelectMixinBase {
 }
 MatSelect.decorators = [
     { type: Component, args: [{selector: 'mat-select',
-                template: "<div cdk-overlay-origin class=\"mat-select-trigger\" aria-hidden=\"true\" (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><div class=\"mat-select-value\"><ng-container *ngIf=\"empty\">{{'\u00A0'}}</ng-container><span class=\"mat-select-value-text\" *ngIf=\"!empty\" [ngSwitch]=\"!!customTrigger\"><span *ngSwitchDefault>{{ triggerValue }}</span><ng-content select=\"mat-select-trigger\" *ngSwitchCase=\"true\"></ng-content></span></div><div class=\"mat-select-arrow-wrapper\"><div class=\"mat-select-arrow\"></div></div></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [scrollStrategy]=\"_scrollStrategy\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerRect?.width\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div class=\"mat-select-panel {{ 'mat-' + color }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_handlePanelKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [style.font-size.px]=\"_triggerFontSize\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
+                template: "<div cdk-overlay-origin class=\"mat-select-trigger\" aria-hidden=\"true\" (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><div class=\"mat-select-value\"><ng-container *ngIf=\"empty\">{{'\u00A0'}}</ng-container><span class=\"mat-select-value-text\" *ngIf=\"!empty\" [ngSwitch]=\"!!customTrigger\"><span *ngSwitchDefault>{{ triggerValue }}</span><ng-content select=\"mat-select-trigger\" *ngSwitchCase=\"true\"></ng-content></span></div><div class=\"mat-select-arrow-wrapper\"><div class=\"mat-select-arrow\"></div></div></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [scrollStrategy]=\"_scrollStrategy\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerRect?.width\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div class=\"mat-select-panel {{ _getPanelTheme() }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_handlePanelKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [style.font-size.px]=\"_triggerFontSize\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
                 styles: [".mat-select{display:inline-block;width:100%;outline:0}.mat-select-trigger{display:inline-table;cursor:pointer;position:relative;box-sizing:border-box}.mat-select-disabled .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-value{display:table-cell;max-width:0;width:100%;overflow:hidden;text-overflow:ellipsis}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-select-arrow-wrapper{display:table-cell;vertical-align:middle}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}.mat-select-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}}.mat-select-panel .mat-optgroup-label,.mat-select-panel .mat-option{font-size:inherit;line-height:3em;height:3em}.mat-form-field-type-mat-select .mat-form-field-flex{cursor:pointer}.mat-form-field-type-mat-select .mat-form-field-placeholder{width:calc(100% - 18px)}"],
                 inputs: ['disabled', 'tabIndex'],
                 encapsulation: ViewEncapsulation.None,
@@ -1276,6 +1282,7 @@ MatSelect.ctorParameters = () => [
     { type: Directionality, decorators: [{ type: Optional },] },
     { type: NgForm, decorators: [{ type: Optional },] },
     { type: FormGroupDirective, decorators: [{ type: Optional },] },
+    { type: MatFormField, decorators: [{ type: Optional },] },
     { type: NgControl, decorators: [{ type: Self }, { type: Optional },] },
     { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
     { type: undefined, decorators: [{ type: Inject, args: [MAT_SELECT_SCROLL_STRATEGY,] },] },

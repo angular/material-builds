@@ -1,6 +1,6 @@
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import { Overlay, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/overlay';
-import { AfterViewInit, ElementRef, EventEmitter, InjectionToken, OnDestroy, ViewContainerRef } from '@angular/core';
+import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, OnDestroy, ViewContainerRef } from '@angular/core';
 import { MatMenu } from './menu-directive';
 import { MatMenuItem } from './menu-item';
 import { MatMenuPanel } from './menu-panel';
@@ -20,7 +20,7 @@ export declare const MENU_PANEL_TOP_PADDING = 8;
  * This directive is intended to be used in conjunction with an mat-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
  */
-export declare class MatMenuTrigger implements AfterViewInit, OnDestroy {
+export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _overlay;
     private _element;
     private _viewContainerRef;
@@ -44,7 +44,7 @@ export declare class MatMenuTrigger implements AfterViewInit, OnDestroy {
     /** Event emitted when the associated menu is closed. */
     onMenuClose: EventEmitter<void>;
     constructor(_overlay: Overlay, _element: ElementRef, _viewContainerRef: ViewContainerRef, _scrollStrategy: any, _parentMenu: MatMenu, _menuItemInstance: MatMenuItem, _dir: Directionality);
-    ngAfterViewInit(): void;
+    ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Whether the menu is open. */
     readonly menuOpen: boolean;
@@ -60,6 +60,8 @@ export declare class MatMenuTrigger implements AfterViewInit, OnDestroy {
     closeMenu(): void;
     /** Focuses the menu trigger. */
     focus(): void;
+    /** Closes the menu and does the necessary cleanup. */
+    private _destroyMenu();
     /**
      * This method sets the menu state to open and focuses the first item if
      * the menu was opened via the keyboard.

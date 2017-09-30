@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentInit, EventEmitter } from '@angular/core';
+import { AfterContentInit, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { MatCalendarCell } from './calendar-body';
 /**
@@ -15,6 +15,7 @@ import { MatCalendarCell } from './calendar-body';
 export declare class MatMonthView<D> implements AfterContentInit {
     _dateAdapter: DateAdapter<D>;
     private _dateFormats;
+    private _changeDetectorRef;
     /**
      * The date to display in this month view (everything other than the month and year is ignored).
      */
@@ -47,12 +48,12 @@ export declare class MatMonthView<D> implements AfterContentInit {
         long: string;
         narrow: string;
     }[];
-    constructor(_dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats);
+    constructor(_dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, _changeDetectorRef: ChangeDetectorRef);
     ngAfterContentInit(): void;
     /** Handles when a new date is selected. */
     _dateSelected(date: number): void;
     /** Initializes this month view. */
-    private _init();
+    _init(): void;
     /** Creates MatCalendarCells for the dates in this month. */
     private _createWeekCells();
     /**

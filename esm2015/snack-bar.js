@@ -230,14 +230,10 @@ class MatSnackBarContainer extends BasePortalHost {
          * Subject for notifying that the snack bar has finished entering the view.
          */
         this._onEnter = new Subject();
-    }
-    /**
-     * Gets the current animation state both combining one of the possibilities from
-     * SnackBarState and the vertical location.
-     * @return {?}
-     */
-    getAnimationState() {
-        return `${this._animationState}-${this.snackBarConfig.verticalPosition}`;
+        /**
+         * The state of the snack bar animations.
+         */
+        this._animationState = 'void';
     }
     /**
      * Attach a component portal as content to this snack bar container.
@@ -277,10 +273,11 @@ class MatSnackBarContainer extends BasePortalHost {
      * @return {?}
      */
     onAnimationEnd(event) {
-        if (event.toState === 'void' || event.toState.startsWith('hidden')) {
+        const { fromState, toState } = event;
+        if ((toState === 'void' && fromState !== 'void') || toState.startsWith('hidden')) {
             this._completeExit();
         }
-        if (event.toState.startsWith('visible')) {
+        if (toState.startsWith('visible')) {
             // Note: we shouldn't use `this` inside the zone callback,
             // because it can cause a memory leak.
             const /** @type {?} */ onEnter = this._onEnter;
@@ -296,7 +293,7 @@ class MatSnackBarContainer extends BasePortalHost {
      */
     enter() {
         if (!this._destroyed) {
-            this._animationState = 'visible';
+            this._animationState = `visible-${this.snackBarConfig.verticalPosition}`;
             this._changeDetectorRef.detectChanges();
         }
     }
@@ -305,7 +302,7 @@ class MatSnackBarContainer extends BasePortalHost {
      * @return {?}
      */
     exit() {
-        this._animationState = 'hidden';
+        this._animationState = `hidden-${this.snackBarConfig.verticalPosition}`;
         return this._onExit;
     }
     /**
@@ -338,7 +335,7 @@ MatSnackBarContainer.decorators = [
                 host: {
                     'role': 'alert',
                     'class': 'mat-snack-bar-container',
-                    '[@state]': 'getAnimationState()',
+                    '[@state]': '_animationState',
                     '(@state.done)': 'onAnimationEnd($event)'
                 },
                 animations: [

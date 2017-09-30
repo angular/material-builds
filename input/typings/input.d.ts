@@ -27,6 +27,7 @@ export declare class MatInput implements MatFormFieldControl<any>, OnChanges, On
     protected _uid: string;
     protected _errorOptions: ErrorOptions;
     protected _previousNativeValue: string;
+    private _readonly;
     /** Whether the input is focused. */
     focused: boolean;
     /** Whether the input is in an error state. */
@@ -54,6 +55,8 @@ export declare class MatInput implements MatFormFieldControl<any>, OnChanges, On
     errorStateMatcher: ErrorStateMatcher;
     /** The input element's value. */
     value: string;
+    /** Whether the element is readonly. */
+    readonly: any;
     protected _neverEmptyInputTypes: string[];
     constructor(_elementRef: ElementRef, _renderer: Renderer2, _platform: Platform, ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, errorOptions: ErrorOptions);
     ngOnChanges(): void;

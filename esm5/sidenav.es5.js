@@ -21,7 +21,6 @@ import { first } from 'rxjs/operator/first';
 import { startWith } from 'rxjs/operator/startWith';
 import { takeUntil } from 'rxjs/operator/takeUntil';
 import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
 /**
  * Throws an exception when two MatDrawer are matching the same position.
  * @param {?} position
@@ -159,7 +158,7 @@ var MatDrawer = (function () {
             if (_this._doc) {
                 _this._elementFocusedBeforeDrawerWasOpened = _this._doc.activeElement;
             }
-            if (_this.isFocusTrapEnabled && _this._focusTrap) {
+            if (_this._isFocusTrapEnabled && _this._focusTrap) {
                 _this._focusTrap.focusInitialElementWhenReady();
             }
         });
@@ -232,7 +231,7 @@ var MatDrawer = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatDrawer.prototype, "isFocusTrapEnabled", {
+    Object.defineProperty(MatDrawer.prototype, "_isFocusTrapEnabled", {
         /**
          * @return {?}
          */
@@ -265,7 +264,7 @@ var MatDrawer = (function () {
      */
     MatDrawer.prototype.ngAfterContentInit = function () {
         this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
-        this._focusTrap.enabled = this.isFocusTrapEnabled;
+        this._focusTrap.enabled = this._isFocusTrapEnabled;
         this._enableAnimations = true;
     };
     /**
@@ -327,7 +326,7 @@ var MatDrawer = (function () {
                 first.call(isOpen ? _this.onOpen : _this.onClose).subscribe(resolve);
             });
             if (this._focusTrap) {
-                this._focusTrap.enabled = this.isFocusTrapEnabled;
+                this._focusTrap.enabled = this._isFocusTrapEnabled;
             }
         }
         // TODO(crisbeto): This promise is here for backwards-compatibility.
@@ -360,10 +359,10 @@ var MatDrawer = (function () {
     MatDrawer.prototype._onAnimationEnd = function (event) {
         var _this = this;
         var fromState = event.fromState, toState = event.toState;
-        if (toState === 'open' && fromState === 'void') {
+        if (toState.indexOf('open') === 0 && fromState === 'void') {
             this.onOpen.emit(new MatDrawerToggleResult('open', true));
         }
-        else if (toState === 'void' && fromState === 'open') {
+        else if (toState === 'void' && fromState.indexOf('open') === 0) {
             this.onClose.emit(new MatDrawerToggleResult('close', true));
         }
         // Note: as of Angular 4.3, the animations module seems to fire the `start` callback before
@@ -466,14 +465,14 @@ var MatDrawerContainer = (function () {
          */
         this.backdropClick = new EventEmitter();
         /**
-         * Subscription to the Directionality change EventEmitter.
+         * Emits when the component is destroyed.
          */
-        this._dirChangeSubscription = Subscription.EMPTY;
+        this._destroyed = new Subject();
         this._contentMargins = new Subject();
         // If a `Dir` directive exists up the tree, listen direction changes and update the left/right
         // properties to point to the proper start/end.
         if (_dir != null) {
-            this._dirChangeSubscription = _dir.change.subscribe(function () { return _this._validateDrawers(); });
+            takeUntil.call(_dir.change, this._destroyed).subscribe(function () { return _this._validateDrawers(); });
         }
     }
     Object.defineProperty(MatDrawerContainer.prototype, "start", {
@@ -506,13 +505,20 @@ var MatDrawerContainer = (function () {
                 _this._watchDrawerPosition(drawer);
                 _this._watchDrawerMode(drawer);
             });
+            if (!_this._drawers.length ||
+                _this._isDrawerOpen(_this._start) ||
+                _this._isDrawerOpen(_this._end)) {
+                _this._updateContentMargins();
+            }
+            _this._changeDetectorRef.markForCheck();
         });
     };
     /**
      * @return {?}
      */
     MatDrawerContainer.prototype.ngOnDestroy = function () {
-        this._dirChangeSubscription.unsubscribe();
+        this._destroyed.next();
+        this._destroyed.complete();
     };
     /**
      * Calls `open` of both start and end drawers
@@ -575,7 +581,8 @@ var MatDrawerContainer = (function () {
     MatDrawerContainer.prototype._watchDrawerMode = function (drawer) {
         var _this = this;
         if (drawer) {
-            takeUntil.call(drawer._modeChanged, this._drawers.changes).subscribe(function () {
+            takeUntil.call(drawer._modeChanged, merge(this._drawers.changes, this._destroyed))
+                .subscribe(function () {
                 _this._updateContentMargins();
                 _this._changeDetectorRef.markForCheck();
             });

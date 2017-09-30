@@ -10,7 +10,7 @@ import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
-import { BACKSPACE, DELETE, ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
+import { BACKSPACE, DELETE, ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
 import { startWith } from '@angular/cdk/rxjs';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
@@ -819,8 +819,8 @@ class MatChipList {
         let /** @type {?} */ isRtl = this._dir && this._dir.value == 'rtl';
         let /** @type {?} */ isPrevKey = (code === (isRtl ? RIGHT_ARROW : LEFT_ARROW));
         let /** @type {?} */ isNextKey = (code === (isRtl ? LEFT_ARROW : RIGHT_ARROW));
-        let /** @type {?} */ isBackKey = (code === BACKSPACE || code == DELETE || code == UP_ARROW || isPrevKey);
-        // If they are on an empty input and hit backspace/delete/left arrow, focus the last chip
+        let /** @type {?} */ isBackKey = code === BACKSPACE;
+        // If they are on an empty input and hit backspace, focus the last chip
         if (isInputEmpty && isBackKey) {
             this._keyManager.setLastItemActive();
             event.preventDefault();
@@ -893,9 +893,6 @@ class MatChipList {
                 focusChip.focus();
             }
         }
-        else if (chipsArray.length === 0) {
-            this._focusInput();
-        }
         // Reset our destroyed index
         this._lastDestroyedIndex = null;
     }
@@ -963,8 +960,10 @@ class MatChipList {
         // Defer setting the value in order to avoid the "Expression
         // has changed after it was checked" errors from Angular.
         Promise.resolve().then(() => {
-            this._setSelectionByValue(this.ngControl ? this.ngControl.value : this._value, false);
-            this.stateChanges.next();
+            if (this.ngControl || this._value) {
+                this._setSelectionByValue(this.ngControl ? this.ngControl.value : this._value, false);
+                this.stateChanges.next();
+            }
         });
     }
     /**

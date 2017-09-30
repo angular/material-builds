@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/common'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/platform-browser', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/common', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/rxjs', '@angular/forms', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = global.ng.material.autocomplete || {}),global.ng.core,global.ng.platformBrowser,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.common,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.rxjs,global.ng.forms,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_platformBrowser,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_common,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_rxjs,_angular_forms,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/rxjs', '@angular/forms', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = global.ng.material.autocomplete || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.rxjs,global.ng.forms,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_rxjs,_angular_forms,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -147,16 +147,18 @@ var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('mat-sanity-checks
  */
 var MatCommonModule = (function () {
     /**
-     * @param {?} _document
-     * @param {?} _sanityChecksEnabled
+     * @param {?} sanityChecksEnabled
      */
-    function MatCommonModule(_document, _sanityChecksEnabled) {
-        this._document = _document;
+    function MatCommonModule(sanityChecksEnabled) {
         /**
          * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
          */
         this._hasDoneGlobalChecks = false;
-        if (_sanityChecksEnabled && !this._hasDoneGlobalChecks && _document && _angular_core.isDevMode()) {
+        /**
+         * Reference to the global `document` object.
+         */
+        this._document = typeof document === 'object' && document ? document : null;
+        if (sanityChecksEnabled && !this._hasDoneGlobalChecks && _angular_core.isDevMode()) {
             this._checkDoctype();
             this._checkTheme();
             this._hasDoneGlobalChecks = true;
@@ -166,7 +168,7 @@ var MatCommonModule = (function () {
      * @return {?}
      */
     MatCommonModule.prototype._checkDoctype = function () {
-        if (!this._document.doctype) {
+        if (this._document && !this._document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
                 'some Angular Material components not to behave as expected.');
         }
@@ -175,11 +177,15 @@ var MatCommonModule = (function () {
      * @return {?}
      */
     MatCommonModule.prototype._checkTheme = function () {
-        if (typeof getComputedStyle === 'function') {
+        if (this._document && typeof getComputedStyle === 'function') {
             var /** @type {?} */ testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
             this._document.body.appendChild(testElement);
-            if (getComputedStyle(testElement).display !== 'none') {
+            var /** @type {?} */ computedStyle = getComputedStyle(testElement);
+            // In some situations, the computed style of the test element can be null. For example in
+            // Firefox, the computed style is null if an application is running inside of a hidden iframe.
+            // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+            if (computedStyle && computedStyle.display !== 'none') {
                 console.warn('Could not find Angular Material core theme. Most Material ' +
                     'components may not work as expected. For more info refer ' +
                     'to the theming guide: https://material.angular.io/guide/theming');
@@ -202,7 +208,6 @@ MatCommonModule.decorators = [
  * @nocollapse
  */
 MatCommonModule.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
 ]; };
 /**
@@ -1136,9 +1141,9 @@ var RippleRenderer = (function () {
         this._ngZone = _ngZone;
         this._ruler = _ruler;
         /**
-         * Whether the mouse is currently down or not.
+         * Whether the pointer is currently being held on the trigger or not.
          */
-        this._isMousedown = false;
+        this._isPointerDown = false;
         /**
          * Events to be registered on the trigger element.
          */
@@ -1160,8 +1165,10 @@ var RippleRenderer = (function () {
             this._containerElement = elementRef.nativeElement;
             // Specify events which need to be registered on the trigger.
             this._triggerEvents.set('mousedown', this.onMousedown.bind(this));
-            this._triggerEvents.set('mouseup', this.onMouseup.bind(this));
-            this._triggerEvents.set('mouseleave', this.onMouseLeave.bind(this));
+            this._triggerEvents.set('touchstart', this.onTouchstart.bind(this));
+            this._triggerEvents.set('mouseup', this.onPointerUp.bind(this));
+            this._triggerEvents.set('touchend', this.onPointerUp.bind(this));
+            this._triggerEvents.set('mouseleave', this.onPointerLeave.bind(this));
             // By default use the host element as trigger element.
             this.setTriggerElement(this._containerElement);
         }
@@ -1215,7 +1222,7 @@ var RippleRenderer = (function () {
         // Once it's faded in, the ripple can be hidden immediately if the mouse is released.
         this.runTimeoutOutsideZone(function () {
             rippleRef.state = RippleState.VISIBLE;
-            if (!config.persistent && !_this._isMousedown) {
+            if (!config.persistent && !_this._isPointerDown) {
                 rippleRef.fadeOut();
             }
         }, duration);
@@ -1270,22 +1277,22 @@ var RippleRenderer = (function () {
         this._triggerElement = element;
     };
     /**
-     * Listener being called on mousedown event.
+     * Function being called whenever the trigger is being pressed.
      * @param {?} event
      * @return {?}
      */
     RippleRenderer.prototype.onMousedown = function (event) {
         if (!this.rippleDisabled) {
-            this._isMousedown = true;
+            this._isPointerDown = true;
             this.fadeInRipple(event.pageX, event.pageY, this.rippleConfig);
         }
     };
     /**
-     * Listener being called on mouseup event.
+     * Function being called whenever the pointer is being released.
      * @return {?}
      */
-    RippleRenderer.prototype.onMouseup = function () {
-        this._isMousedown = false;
+    RippleRenderer.prototype.onPointerUp = function () {
+        this._isPointerDown = false;
         // Fade-out all ripples that are completely visible and not persistent.
         this._activeRipples.forEach(function (ripple) {
             if (!ripple.config.persistent && ripple.state === RippleState.VISIBLE) {
@@ -1294,12 +1301,24 @@ var RippleRenderer = (function () {
         });
     };
     /**
-     * Listener being called on mouseleave event.
+     * Function being called whenever the pointer leaves the trigger.
      * @return {?}
      */
-    RippleRenderer.prototype.onMouseLeave = function () {
-        if (this._isMousedown) {
-            this.onMouseup();
+    RippleRenderer.prototype.onPointerLeave = function () {
+        if (this._isPointerDown) {
+            this.onPointerUp();
+        }
+    };
+    /**
+     * Function being called whenever the trigger is being touched.
+     * @param {?} event
+     * @return {?}
+     */
+    RippleRenderer.prototype.onTouchstart = function (event) {
+        if (!this.rippleDisabled) {
+            var _a = event.touches[0], pageX = _a.pageX, pageY = _a.pageY;
+            this._isPointerDown = true;
+            this.fadeInRipple(pageX, pageY, this.rippleConfig);
         }
     };
     /**
@@ -2483,13 +2502,16 @@ var MatAutocompleteSelectedEvent = (function () {
 var MatAutocomplete = (function () {
     /**
      * @param {?} _changeDetectorRef
+     * @param {?} _elementRef
      */
-    function MatAutocomplete(_changeDetectorRef) {
+    function MatAutocomplete(_changeDetectorRef, _elementRef) {
         this._changeDetectorRef = _changeDetectorRef;
+        this._elementRef = _elementRef;
         /**
          * Whether the autocomplete panel should be visible, depending on option length.
          */
         this.showPanel = false;
+        this._isOpen = false;
         /**
          * Function that maps an option's control value to its display value in the trigger.
          */
@@ -2498,16 +2520,47 @@ var MatAutocomplete = (function () {
          * Event that is emitted whenever an option from the list is selected.
          */
         this.optionSelected = new _angular_core.EventEmitter();
+        this._classList = {};
         /**
          * Unique ID to be used by autocomplete trigger's "aria-owns" property.
          */
         this.id = "mat-autocomplete-" + _uniqueAutocompleteIdCounter++;
     }
+    Object.defineProperty(MatAutocomplete.prototype, "isOpen", {
+        /**
+         * Whether the autocomplete panel is open.
+         * @return {?}
+         */
+        get: function () {
+            return this._isOpen && this.showPanel;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatAutocomplete.prototype, "classList", {
+        /**
+         * Takes classes set on the host md-autocomplete element and applies them to the panel
+         * inside the overlay container to allow for easy styling.
+         * @param {?} classList
+         * @return {?}
+         */
+        set: function (classList) {
+            var _this = this;
+            if (classList && classList.length) {
+                classList.split(' ').forEach(function (className) { return _this._classList[className.trim()] = true; });
+                this._elementRef.nativeElement.className = '';
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @return {?}
      */
     MatAutocomplete.prototype.ngAfterContentInit = function () {
         this._keyManager = new _angular_cdk_a11y.ActiveDescendantKeyManager(this.options).withWrap();
+        // Set the initial visibiity state.
+        this._setVisibility();
     };
     /**
      * Sets the panel scrollTop. This allows us to manually scroll to display options
@@ -2535,6 +2588,8 @@ var MatAutocomplete = (function () {
         var _this = this;
         Promise.resolve().then(function () {
             _this.showPanel = !!_this.options.length;
+            _this._classList['mat-autocomplete-visible'] = _this.showPanel;
+            _this._classList['mat-autocomplete-hidden'] = !_this.showPanel;
             _this._changeDetectorRef.markForCheck();
         });
     };
@@ -2547,21 +2602,11 @@ var MatAutocomplete = (function () {
         var /** @type {?} */ event = new MatAutocompleteSelectedEvent(this, option);
         this.optionSelected.emit(event);
     };
-    /**
-     * Sets a class on the panel based on whether it is visible.
-     * @return {?}
-     */
-    MatAutocomplete.prototype._getClassList = function () {
-        return {
-            'mat-autocomplete-visible': this.showPanel,
-            'mat-autocomplete-hidden': !this.showPanel
-        };
-    };
     return MatAutocomplete;
 }());
 MatAutocomplete.decorators = [
     { type: _angular_core.Component, args: [{ selector: 'mat-autocomplete',
-                template: "<ng-template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_getClassList()\" #panel><ng-content></ng-content></div></ng-template>",
+                template: "<ng-template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_classList\" #panel><ng-content></ng-content></div></ng-template>",
                 styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative}.mat-autocomplete-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}"],
                 encapsulation: _angular_core.ViewEncapsulation.None,
                 preserveWhitespaces: false,
@@ -2577,6 +2622,7 @@ MatAutocomplete.decorators = [
  */
 MatAutocomplete.ctorParameters = function () { return [
     { type: _angular_core.ChangeDetectorRef, },
+    { type: _angular_core.ElementRef, },
 ]; };
 MatAutocomplete.propDecorators = {
     'template': [{ type: _angular_core.ViewChild, args: [_angular_core.TemplateRef,] },],
@@ -2585,6 +2631,7 @@ MatAutocomplete.propDecorators = {
     'optionGroups': [{ type: _angular_core.ContentChildren, args: [MatOptgroup,] },],
     'displayWith': [{ type: _angular_core.Input },],
     'optionSelected': [{ type: _angular_core.Output },],
+    'classList': [{ type: _angular_core.Input, args: ['class',] },],
 };
 /**
  * The height of each autocomplete option.
@@ -2703,7 +2750,7 @@ var MatAutocompleteTrigger = (function () {
         }
         this._resetPlaceholder();
         if (this._panelOpen) {
-            this._panelOpen = false;
+            this.autocomplete._isOpen = this._panelOpen = false;
             // We need to trigger change detection manually, because
             // `fromEvent` doesn't seem to do it at the proper time.
             // This ensures that the placeholder is reset when the
@@ -2810,20 +2857,21 @@ var MatAutocompleteTrigger = (function () {
      */
     MatAutocompleteTrigger.prototype._handleKeydown = function (event) {
         var _this = this;
-        if (event.keyCode === _angular_cdk_keycodes.ESCAPE && this.panelOpen) {
+        var /** @type {?} */ keyCode = event.keyCode;
+        if (keyCode === _angular_cdk_keycodes.ESCAPE && this.panelOpen) {
             this._resetActiveItem();
             this.closePanel();
             event.stopPropagation();
         }
-        else if (this.activeOption && event.keyCode === _angular_cdk_keycodes.ENTER && this.panelOpen) {
+        else if (this.activeOption && keyCode === _angular_cdk_keycodes.ENTER && this.panelOpen) {
             this.activeOption._selectViaInteraction();
             this._resetActiveItem();
             event.preventDefault();
         }
         else {
             var /** @type {?} */ prevActiveItem_1 = this.autocomplete._keyManager.activeItem;
-            var /** @type {?} */ isArrowKey_1 = event.keyCode === _angular_cdk_keycodes.UP_ARROW || event.keyCode === _angular_cdk_keycodes.DOWN_ARROW;
-            if (this.panelOpen) {
+            var /** @type {?} */ isArrowKey_1 = keyCode === _angular_cdk_keycodes.UP_ARROW || keyCode === _angular_cdk_keycodes.DOWN_ARROW;
+            if (this.panelOpen || keyCode === _angular_cdk_keycodes.TAB) {
                 this.autocomplete._keyManager.onKeydown(event);
             }
             else if (isArrowKey_1) {
@@ -2853,8 +2901,10 @@ var MatAutocompleteTrigger = (function () {
      * @return {?}
      */
     MatAutocompleteTrigger.prototype._handleFocus = function () {
-        this._attachOverlay();
-        this._floatPlaceholder(true);
+        if (!this._element.nativeElement.readOnly) {
+            this._attachOverlay();
+            this._floatPlaceholder(true);
+        }
     };
     /**
      * In "auto" mode, the placeholder will animate down as soon as focus is lost.
@@ -2945,7 +2995,9 @@ var MatAutocompleteTrigger = (function () {
      * @return {?}
      */
     MatAutocompleteTrigger.prototype._setTriggerValue = function (value) {
-        var /** @type {?} */ toDisplay = this.autocomplete.displayWith ? this.autocomplete.displayWith(value) : value;
+        var /** @type {?} */ toDisplay = this.autocomplete && this.autocomplete.displayWith ?
+            this.autocomplete.displayWith(value) :
+            value;
         // Simply falling back to an empty string if the display value is falsy does not work properly.
         // The display value can also be the number zero and shouldn't fall back to an empty string.
         var /** @type {?} */ inputValue = toDisplay != null ? toDisplay : '';
@@ -3008,7 +3060,7 @@ var MatAutocompleteTrigger = (function () {
             this._closingActionsSubscription = this._subscribeToClosingActions();
         }
         this.autocomplete._setVisibility();
-        this._panelOpen = true;
+        this.autocomplete._isOpen = this._panelOpen = true;
     };
     /**
      * @return {?}
@@ -3058,7 +3110,6 @@ MatAutocompleteTrigger.decorators = [
                     'role': 'combobox',
                     'autocomplete': 'off',
                     'aria-autocomplete': 'list',
-                    'aria-multiline': 'false',
                     '[attr.aria-activedescendant]': 'activeOption?.id',
                     '[attr.aria-expanded]': 'panelOpen.toString()',
                     '[attr.aria-owns]': 'autocomplete?.id',

@@ -228,6 +228,7 @@ class MatInput {
         this._required = false;
         this._uid = `mat-input-${nextUniqueId++}`;
         this._previousNativeValue = this.value;
+        this._readonly = false;
         /**
          * Whether the input is focused.
          */
@@ -342,6 +343,16 @@ class MatInput {
         }
     }
     /**
+     * Whether the element is readonly.
+     * @return {?}
+     */
+    get readonly() { return this._readonly; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set readonly(value) { this._readonly = coerceBooleanProperty(value); }
+    /**
      * @return {?}
      */
     ngOnChanges() {
@@ -379,7 +390,7 @@ class MatInput {
      * @return {?}
      */
     _focusChanged(isFocused) {
-        if (isFocused !== this.focused) {
+        if (isFocused !== this.focused && !this.readonly) {
             this.focused = isFocused;
             this.stateChanges.next();
         }
@@ -523,6 +534,7 @@ MatInput.propDecorators = {
     'type': [{ type: Input },],
     'errorStateMatcher': [{ type: Input },],
     'value': [{ type: Input },],
+    'readonly': [{ type: Input },],
 };
 
 class MatInputModule {

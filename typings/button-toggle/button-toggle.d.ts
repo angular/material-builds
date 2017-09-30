@@ -86,6 +86,7 @@ export declare class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase
      * @param isDisabled Whether the component should be disabled.
      */
     setDisabledState(isDisabled: boolean): void;
+    private _markButtonTogglesForCheck();
 }
 /** Multiple selection button-toggle group. `ngModel` is not supported in this mode. */
 export declare class MatButtonToggleGroupMultiple extends _MatButtonToggleGroupMixinBase implements CanDisable {
@@ -153,4 +154,10 @@ export declare class MatButtonToggle implements OnInit, OnDestroy {
     /** Dispatch change event with current value. */
     private _emitChangeEvent();
     ngOnDestroy(): void;
+    /**
+     * Marks the button toggle as needing checking for change detection.
+     * This method is exposed because the parent button toggle group will directly
+     * update bound properties of the radio button.
+     */
+    _markForCheck(): void;
 }

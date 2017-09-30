@@ -11,7 +11,7 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
-import { DOWN_ARROW, ENTER, ESCAPE, UP_ARROW } from '@angular/cdk/keycodes';
+import { DOWN_ARROW, ENTER, ESCAPE, TAB, UP_ARROW } from '@angular/cdk/keycodes';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { RxChain, filter, first, map, switchMap } from '@angular/cdk/rxjs';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -42,13 +42,16 @@ class MatAutocompleteSelectedEvent {
 class MatAutocomplete {
     /**
      * @param {?} _changeDetectorRef
+     * @param {?} _elementRef
      */
-    constructor(_changeDetectorRef) {
+    constructor(_changeDetectorRef, _elementRef) {
         this._changeDetectorRef = _changeDetectorRef;
+        this._elementRef = _elementRef;
         /**
          * Whether the autocomplete panel should be visible, depending on option length.
          */
         this.showPanel = false;
+        this._isOpen = false;
         /**
          * Function that maps an option's control value to its display value in the trigger.
          */
@@ -57,16 +60,38 @@ class MatAutocomplete {
          * Event that is emitted whenever an option from the list is selected.
          */
         this.optionSelected = new EventEmitter();
+        this._classList = {};
         /**
          * Unique ID to be used by autocomplete trigger's "aria-owns" property.
          */
         this.id = `mat-autocomplete-${_uniqueAutocompleteIdCounter++}`;
     }
     /**
+     * Whether the autocomplete panel is open.
+     * @return {?}
+     */
+    get isOpen() {
+        return this._isOpen && this.showPanel;
+    }
+    /**
+     * Takes classes set on the host md-autocomplete element and applies them to the panel
+     * inside the overlay container to allow for easy styling.
+     * @param {?} classList
+     * @return {?}
+     */
+    set classList(classList) {
+        if (classList && classList.length) {
+            classList.split(' ').forEach(className => this._classList[className.trim()] = true);
+            this._elementRef.nativeElement.className = '';
+        }
+    }
+    /**
      * @return {?}
      */
     ngAfterContentInit() {
         this._keyManager = new ActiveDescendantKeyManager(this.options).withWrap();
+        // Set the initial visibiity state.
+        this._setVisibility();
     }
     /**
      * Sets the panel scrollTop. This allows us to manually scroll to display options
@@ -93,6 +118,8 @@ class MatAutocomplete {
     _setVisibility() {
         Promise.resolve().then(() => {
             this.showPanel = !!this.options.length;
+            this._classList['mat-autocomplete-visible'] = this.showPanel;
+            this._classList['mat-autocomplete-hidden'] = !this.showPanel;
             this._changeDetectorRef.markForCheck();
         });
     }
@@ -105,20 +132,10 @@ class MatAutocomplete {
         const /** @type {?} */ event = new MatAutocompleteSelectedEvent(this, option);
         this.optionSelected.emit(event);
     }
-    /**
-     * Sets a class on the panel based on whether it is visible.
-     * @return {?}
-     */
-    _getClassList() {
-        return {
-            'mat-autocomplete-visible': this.showPanel,
-            'mat-autocomplete-hidden': !this.showPanel
-        };
-    }
 }
 MatAutocomplete.decorators = [
     { type: Component, args: [{selector: 'mat-autocomplete',
-                template: "<ng-template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_getClassList()\" #panel><ng-content></ng-content></div></ng-template>",
+                template: "<ng-template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_classList\" #panel><ng-content></ng-content></div></ng-template>",
                 styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative}.mat-autocomplete-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}"],
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
@@ -134,6 +151,7 @@ MatAutocomplete.decorators = [
  */
 MatAutocomplete.ctorParameters = () => [
     { type: ChangeDetectorRef, },
+    { type: ElementRef, },
 ];
 MatAutocomplete.propDecorators = {
     'template': [{ type: ViewChild, args: [TemplateRef,] },],
@@ -142,6 +160,7 @@ MatAutocomplete.propDecorators = {
     'optionGroups': [{ type: ContentChildren, args: [MatOptgroup,] },],
     'displayWith': [{ type: Input },],
     'optionSelected': [{ type: Output },],
+    'classList': [{ type: Input, args: ['class',] },],
 };
 
 /**
@@ -257,7 +276,7 @@ class MatAutocompleteTrigger {
         }
         this._resetPlaceholder();
         if (this._panelOpen) {
-            this._panelOpen = false;
+            this.autocomplete._isOpen = this._panelOpen = false;
             // We need to trigger change detection manually, because
             // `fromEvent` doesn't seem to do it at the proper time.
             // This ensures that the placeholder is reset when the
@@ -345,20 +364,21 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     _handleKeydown(event) {
-        if (event.keyCode === ESCAPE && this.panelOpen) {
+        const /** @type {?} */ keyCode = event.keyCode;
+        if (keyCode === ESCAPE && this.panelOpen) {
             this._resetActiveItem();
             this.closePanel();
             event.stopPropagation();
         }
-        else if (this.activeOption && event.keyCode === ENTER && this.panelOpen) {
+        else if (this.activeOption && keyCode === ENTER && this.panelOpen) {
             this.activeOption._selectViaInteraction();
             this._resetActiveItem();
             event.preventDefault();
         }
         else {
             const /** @type {?} */ prevActiveItem = this.autocomplete._keyManager.activeItem;
-            const /** @type {?} */ isArrowKey = event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW;
-            if (this.panelOpen) {
+            const /** @type {?} */ isArrowKey = keyCode === UP_ARROW || keyCode === DOWN_ARROW;
+            if (this.panelOpen || keyCode === TAB) {
                 this.autocomplete._keyManager.onKeydown(event);
             }
             else if (isArrowKey) {
@@ -388,8 +408,10 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     _handleFocus() {
-        this._attachOverlay();
-        this._floatPlaceholder(true);
+        if (!this._element.nativeElement.readOnly) {
+            this._attachOverlay();
+            this._floatPlaceholder(true);
+        }
     }
     /**
      * In "auto" mode, the placeholder will animate down as soon as focus is lost.
@@ -478,7 +500,9 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     _setTriggerValue(value) {
-        const /** @type {?} */ toDisplay = this.autocomplete.displayWith ? this.autocomplete.displayWith(value) : value;
+        const /** @type {?} */ toDisplay = this.autocomplete && this.autocomplete.displayWith ?
+            this.autocomplete.displayWith(value) :
+            value;
         // Simply falling back to an empty string if the display value is falsy does not work properly.
         // The display value can also be the number zero and shouldn't fall back to an empty string.
         const /** @type {?} */ inputValue = toDisplay != null ? toDisplay : '';
@@ -541,7 +565,7 @@ class MatAutocompleteTrigger {
             this._closingActionsSubscription = this._subscribeToClosingActions();
         }
         this.autocomplete._setVisibility();
-        this._panelOpen = true;
+        this.autocomplete._isOpen = this._panelOpen = true;
     }
     /**
      * @return {?}
@@ -590,7 +614,6 @@ MatAutocompleteTrigger.decorators = [
                     'role': 'combobox',
                     'autocomplete': 'off',
                     'aria-autocomplete': 'list',
-                    'aria-multiline': 'false',
                     '[attr.aria-activedescendant]': 'activeOption?.id',
                     '[attr.aria-expanded]': 'panelOpen.toString()',
                     '[attr.aria-owns]': 'autocomplete?.id',

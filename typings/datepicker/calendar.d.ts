@@ -1,11 +1,13 @@
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { MatDatepickerIntl } from './datepicker-intl';
+import { MatMonthView } from './month-view';
+import { MatYearView } from './year-view';
 /**
  * A calendar that is used as part of the datepicker.
  * @docs-private
  */
-export declare class MatCalendar<D> implements AfterContentInit, OnDestroy {
+export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnChanges {
     private _elementRef;
     private _intl;
     private _ngZone;
@@ -32,6 +34,10 @@ export declare class MatCalendar<D> implements AfterContentInit, OnDestroy {
     selectedChange: EventEmitter<D>;
     /** Emits when any date is selected. */
     userSelection: EventEmitter<void>;
+    /** Reference to the current month view component. */
+    monthView: MatMonthView<D>;
+    /** Reference to the current year view component. */
+    yearView: MatYearView<D>;
     /** Date filter for the month and year views. */
     _dateFilterForViews: (date: D) => boolean;
     /**
@@ -52,6 +58,7 @@ export declare class MatCalendar<D> implements AfterContentInit, OnDestroy {
     constructor(_elementRef: ElementRef, _intl: MatDatepickerIntl, _ngZone: NgZone, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, changeDetectorRef: ChangeDetectorRef);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
+    ngOnChanges(changes: SimpleChanges): void;
     /** Handles date selection in the month view. */
     _dateSelected(date: D): void;
     _userSelected(): void;

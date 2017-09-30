@@ -7,7 +7,7 @@
  */
 import { FocusableOption, FocusKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer2 } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList, Renderer2 } from '@angular/core';
 import { CanDisable, CanDisableRipple, MatLine } from '@angular/material/core';
 /** @docs-private */
 export declare class MatSelectionListBase {
@@ -26,7 +26,7 @@ export interface MatSelectionListOptionEvent {
  * generate a checkbox and can put current item into the selectionModel of selection-list
  * if the current item is checked.
  */
-export declare class MatListOption extends _MatListOptionMixinBase implements AfterContentInit, OnDestroy, FocusableOption, CanDisableRipple {
+export declare class MatListOption extends _MatListOptionMixinBase implements AfterContentInit, OnInit, OnDestroy, FocusableOption, CanDisableRipple {
     private _renderer;
     private _element;
     private _changeDetector;
@@ -45,15 +45,12 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
     disabled: any;
     /** Whether the option is selected. */
     selected: boolean;
-    /** Emitted when the option is focused. */
-    onFocus: EventEmitter<MatSelectionListOptionEvent>;
     /** Emitted when the option is selected. */
     selectChange: EventEmitter<MatSelectionListOptionEvent>;
     /** Emitted when the option is deselected. */
     deselected: EventEmitter<MatSelectionListOptionEvent>;
-    /** Emitted when the option is destroyed. */
-    destroyed: EventEmitter<MatSelectionListOptionEvent>;
     constructor(_renderer: Renderer2, _element: ElementRef, _changeDetector: ChangeDetectorRef, selectionList: MatSelectionList);
+    ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Toggles the selection state of the option. */
@@ -64,21 +61,16 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
     _isRippleDisabled(): any;
     _handleClick(): void;
     _handleFocus(): void;
-    _handleBlur(): void;
     /** Retrieves the DOM element of the component host. */
     _getHostElement(): HTMLElement;
 }
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
  */
-export declare class MatSelectionList extends _MatSelectionListMixinBase implements FocusableOption, CanDisable, CanDisableRipple, AfterContentInit, OnDestroy {
+export declare class MatSelectionList extends _MatSelectionListMixinBase implements FocusableOption, CanDisable, CanDisableRipple, AfterContentInit {
     private _element;
     /** Tab index for the selection-list. */
     _tabIndex: number;
-    /** Subscription to all list options' onFocus events */
-    private _optionFocusSubscription;
-    /** Subscription to all list options' destroy events  */
-    private _optionDestroyStream;
     /** The FocusKeyManager which handles focus. */
     _keyManager: FocusKeyManager<MatListOption>;
     /** The option components contained within this selection-list. */
@@ -87,17 +79,16 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     selectedOptions: SelectionModel<MatListOption>;
     constructor(_element: ElementRef);
     ngAfterContentInit(): void;
-    ngOnDestroy(): void;
     /** Focus the selection-list. */
     focus(): void;
     /** Selects all of the options. */
     selectAll(): void;
     /** Deselects all of the options. */
     deselectAll(): void;
-    /** Map all the options' destroy event subscriptions and merge them into one stream. */
-    private _onDestroySubscription();
-    /** Map all the options' onFocus event subscriptions and merge them into one stream. */
-    private _onFocusSubscription();
+    /** Sets the focused option of the selection-list. */
+    _setFocusedOption(option: MatListOption): void;
+    /** Removes an option from the selection list and updates the active item. */
+    _removeOptionFromList(option: MatListOption): void;
     /** Passes relevant key presses to our key manager. */
     _keydown(event: KeyboardEvent): void;
     /** Toggles the selected state of the currently focused option. */
@@ -109,4 +100,6 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
      * @returns True if the index is valid for our list of options.
      */
     private _isValidIndex(index);
+    /** Returns the index of the specified list option. */
+    private _getOptionIndex(option);
 }
