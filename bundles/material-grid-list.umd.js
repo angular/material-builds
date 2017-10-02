@@ -2852,10 +2852,10 @@ MatGridListModule.ctorParameters = function () { return []; };
 exports.MatGridTile = MatGridTile;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
-exports.ɵb11 = MatGridAvatarCssMatStyler;
-exports.ɵd11 = MatGridTileFooterCssMatStyler;
-exports.ɵc11 = MatGridTileHeaderCssMatStyler;
-exports.ɵa11 = MatGridTileText;
+exports.ɵb13 = MatGridAvatarCssMatStyler;
+exports.ɵd13 = MatGridTileFooterCssMatStyler;
+exports.ɵc13 = MatGridTileHeaderCssMatStyler;
+exports.ɵa13 = MatGridTileText;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
