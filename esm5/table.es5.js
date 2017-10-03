@@ -217,7 +217,8 @@ var MatHeaderRowDef = (function (_super) {
 }(_MatHeaderRowDef));
 /**
  * Data row definition for the mat-table.
- * Captures the header row's template and other row properties such as the columns to display.
+ * Captures the header row's template and other row properties such as the columns to display and
+ * a when predicate that describes when this row should be used.
  */
 var MatRowDef = (function (_super) {
     __extends(MatRowDef, _super);
@@ -228,7 +229,7 @@ var MatRowDef = (function (_super) {
         { type: Directive, args: [{
                     selector: '[matRowDef]',
                     providers: [{ provide: CdkRowDef, useExisting: MatRowDef }],
-                    inputs: ['columns: matRowDefColumns'],
+                    inputs: ['columns: matRowDefColumns', 'when: matRowDefWhen'],
                 },] },
     ];
     /**

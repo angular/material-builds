@@ -13,7 +13,7 @@ import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
 import { DOWN_ARROW, ENTER, ESCAPE, TAB, UP_ARROW } from '@angular/cdk/keycodes';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { RxChain, filter, first, map, switchMap } from '@angular/cdk/rxjs';
+import { RxChain, delay, doOperator, filter, first, switchMap } from '@angular/cdk/rxjs';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
 import { DOCUMENT } from '@angular/platform-browser';
@@ -117,12 +117,10 @@ class MatAutocomplete {
      * @return {?}
      */
     _setVisibility() {
-        Promise.resolve().then(() => {
-            this.showPanel = !!this.options.length;
-            this._classList['mat-autocomplete-visible'] = this.showPanel;
-            this._classList['mat-autocomplete-hidden'] = !this.showPanel;
-            this._changeDetectorRef.markForCheck();
-        });
+        this.showPanel = !!this.options.length;
+        this._classList['mat-autocomplete-visible'] = this.showPanel;
+        this._classList['mat-autocomplete-hidden'] = !this.showPanel;
+        this._changeDetectorRef.markForCheck();
     }
     /**
      * Emits the `select` event.
@@ -390,11 +388,9 @@ class MatAutocompleteTrigger {
             else if (isArrowKey) {
                 this.openPanel();
             }
-            Promise.resolve().then(() => {
-                if (isArrowKey || this.autocomplete._keyManager.activeItem !== prevActiveItem) {
-                    this._scrollToOption();
-                }
-            });
+            if (isArrowKey || this.autocomplete._keyManager.activeItem !== prevActiveItem) {
+                this._scrollToOption();
+            }
         }
     }
     /**
@@ -468,8 +464,8 @@ class MatAutocompleteTrigger {
         }
         else if (optionOffset + AUTOCOMPLETE_OPTION_HEIGHT > panelTop + AUTOCOMPLETE_PANEL_HEIGHT) {
             // Scroll down to reveal selected option scrolled below the panel bottom
-            const /** @type {?} */ newScrollTop = Math.max(0, optionOffset - AUTOCOMPLETE_PANEL_HEIGHT + AUTOCOMPLETE_OPTION_HEIGHT);
-            this.autocomplete._setScrollTop(newScrollTop);
+            const /** @type {?} */ newScrollTop = optionOffset - AUTOCOMPLETE_PANEL_HEIGHT + AUTOCOMPLETE_OPTION_HEIGHT;
+            this.autocomplete._setScrollTop(Math.max(0, newScrollTop));
         }
     }
     /**
@@ -479,7 +475,10 @@ class MatAutocompleteTrigger {
      */
     _subscribeToClosingActions() {
         const /** @type {?} */ firstStable = first.call(this._zone.onStable.asObservable());
-        const /** @type {?} */ optionChanges = map.call(this.autocomplete.options.changes, () => this._positionStrategy.recalculateLastPosition());
+        const /** @type {?} */ optionChanges = RxChain.from(this.autocomplete.options.changes)
+            .call(doOperator, () => this._positionStrategy.recalculateLastPosition())
+            .call(delay, 0)
+            .result();
         // When the zone is stable initially, and when the option list changes...
         return RxChain.from(merge(firstStable, optionChanges))
             .call(switchMap, () => {

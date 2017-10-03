@@ -13,7 +13,7 @@ import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
 import { DOWN_ARROW, ENTER, ESCAPE, TAB, UP_ARROW } from '@angular/cdk/keycodes';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { RxChain, filter, first, map, switchMap } from '@angular/cdk/rxjs';
+import { RxChain, delay, doOperator, filter, first, switchMap } from '@angular/cdk/rxjs';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
 import { DOCUMENT } from '@angular/platform-browser';
@@ -127,13 +127,10 @@ var MatAutocomplete = (function () {
      * @return {?}
      */
     MatAutocomplete.prototype._setVisibility = function () {
-        var _this = this;
-        Promise.resolve().then(function () {
-            _this.showPanel = !!_this.options.length;
-            _this._classList['mat-autocomplete-visible'] = _this.showPanel;
-            _this._classList['mat-autocomplete-hidden'] = !_this.showPanel;
-            _this._changeDetectorRef.markForCheck();
-        });
+        this.showPanel = !!this.options.length;
+        this._classList['mat-autocomplete-visible'] = this.showPanel;
+        this._classList['mat-autocomplete-hidden'] = !this.showPanel;
+        this._changeDetectorRef.markForCheck();
     };
     /**
      * Emits the `select` event.
@@ -404,7 +401,6 @@ var MatAutocompleteTrigger = (function () {
      * @return {?}
      */
     MatAutocompleteTrigger.prototype._handleKeydown = function (event) {
-        var _this = this;
         var /** @type {?} */ keyCode = event.keyCode;
         if (keyCode === ESCAPE && this.panelOpen) {
             this._resetActiveItem();
@@ -417,19 +413,17 @@ var MatAutocompleteTrigger = (function () {
             event.preventDefault();
         }
         else {
-            var /** @type {?} */ prevActiveItem_1 = this.autocomplete._keyManager.activeItem;
-            var /** @type {?} */ isArrowKey_1 = keyCode === UP_ARROW || keyCode === DOWN_ARROW;
+            var /** @type {?} */ prevActiveItem = this.autocomplete._keyManager.activeItem;
+            var /** @type {?} */ isArrowKey = keyCode === UP_ARROW || keyCode === DOWN_ARROW;
             if (this.panelOpen || keyCode === TAB) {
                 this.autocomplete._keyManager.onKeydown(event);
             }
-            else if (isArrowKey_1) {
+            else if (isArrowKey) {
                 this.openPanel();
             }
-            Promise.resolve().then(function () {
-                if (isArrowKey_1 || _this.autocomplete._keyManager.activeItem !== prevActiveItem_1) {
-                    _this._scrollToOption();
-                }
-            });
+            if (isArrowKey || this.autocomplete._keyManager.activeItem !== prevActiveItem) {
+                this._scrollToOption();
+            }
         }
     };
     /**
@@ -504,8 +498,8 @@ var MatAutocompleteTrigger = (function () {
         }
         else if (optionOffset + AUTOCOMPLETE_OPTION_HEIGHT > panelTop + AUTOCOMPLETE_PANEL_HEIGHT) {
             // Scroll down to reveal selected option scrolled below the panel bottom
-            var /** @type {?} */ newScrollTop = Math.max(0, optionOffset - AUTOCOMPLETE_PANEL_HEIGHT + AUTOCOMPLETE_OPTION_HEIGHT);
-            this.autocomplete._setScrollTop(newScrollTop);
+            var /** @type {?} */ newScrollTop = optionOffset - AUTOCOMPLETE_PANEL_HEIGHT + AUTOCOMPLETE_OPTION_HEIGHT;
+            this.autocomplete._setScrollTop(Math.max(0, newScrollTop));
         }
     };
     /**
@@ -516,9 +510,10 @@ var MatAutocompleteTrigger = (function () {
     MatAutocompleteTrigger.prototype._subscribeToClosingActions = function () {
         var _this = this;
         var /** @type {?} */ firstStable = first.call(this._zone.onStable.asObservable());
-        var /** @type {?} */ optionChanges = map.call(this.autocomplete.options.changes, function () {
-            return _this._positionStrategy.recalculateLastPosition();
-        });
+        var /** @type {?} */ optionChanges = RxChain.from(this.autocomplete.options.changes)
+            .call(doOperator, function () { return _this._positionStrategy.recalculateLastPosition(); })
+            .call(delay, 0)
+            .result();
         // When the zone is stable initially, and when the option list changes...
         return RxChain.from(merge(firstStable, optionChanges))
             .call(switchMap, function () {

@@ -1551,9 +1551,9 @@ var RippleRenderer = (function () {
      * @param {?=} delay
      * @return {?}
      */
-    RippleRenderer.prototype.runTimeoutOutsideZone = function (fn, delay) {
-        if (delay === void 0) { delay = 0; }
-        this._ngZone.runOutsideAngular(function () { return setTimeout(fn, delay); });
+    RippleRenderer.prototype.runTimeoutOutsideZone = function (fn, delay$$1) {
+        if (delay$$1 === void 0) { delay$$1 = 0; }
+        this._ngZone.runOutsideAngular(function () { return setTimeout(fn, delay$$1); });
     };
     return RippleRenderer;
 }());
@@ -2856,13 +2856,10 @@ var MatAutocomplete = (function () {
      * @return {?}
      */
     MatAutocomplete.prototype._setVisibility = function () {
-        var _this = this;
-        Promise.resolve().then(function () {
-            _this.showPanel = !!_this.options.length;
-            _this._classList['mat-autocomplete-visible'] = _this.showPanel;
-            _this._classList['mat-autocomplete-hidden'] = !_this.showPanel;
-            _this._changeDetectorRef.markForCheck();
-        });
+        this.showPanel = !!this.options.length;
+        this._classList['mat-autocomplete-visible'] = this.showPanel;
+        this._classList['mat-autocomplete-hidden'] = !this.showPanel;
+        this._changeDetectorRef.markForCheck();
     };
     /**
      * Emits the `select` event.
@@ -3133,7 +3130,6 @@ var MatAutocompleteTrigger = (function () {
      * @return {?}
      */
     MatAutocompleteTrigger.prototype._handleKeydown = function (event) {
-        var _this = this;
         var /** @type {?} */ keyCode = event.keyCode;
         if (keyCode === _angular_cdk_keycodes.ESCAPE && this.panelOpen) {
             this._resetActiveItem();
@@ -3146,19 +3142,17 @@ var MatAutocompleteTrigger = (function () {
             event.preventDefault();
         }
         else {
-            var /** @type {?} */ prevActiveItem_1 = this.autocomplete._keyManager.activeItem;
-            var /** @type {?} */ isArrowKey_1 = keyCode === _angular_cdk_keycodes.UP_ARROW || keyCode === _angular_cdk_keycodes.DOWN_ARROW;
+            var /** @type {?} */ prevActiveItem = this.autocomplete._keyManager.activeItem;
+            var /** @type {?} */ isArrowKey = keyCode === _angular_cdk_keycodes.UP_ARROW || keyCode === _angular_cdk_keycodes.DOWN_ARROW;
             if (this.panelOpen || keyCode === _angular_cdk_keycodes.TAB) {
                 this.autocomplete._keyManager.onKeydown(event);
             }
-            else if (isArrowKey_1) {
+            else if (isArrowKey) {
                 this.openPanel();
             }
-            Promise.resolve().then(function () {
-                if (isArrowKey_1 || _this.autocomplete._keyManager.activeItem !== prevActiveItem_1) {
-                    _this._scrollToOption();
-                }
-            });
+            if (isArrowKey || this.autocomplete._keyManager.activeItem !== prevActiveItem) {
+                this._scrollToOption();
+            }
         }
     };
     /**
@@ -3233,8 +3227,8 @@ var MatAutocompleteTrigger = (function () {
         }
         else if (optionOffset + AUTOCOMPLETE_OPTION_HEIGHT > panelTop + AUTOCOMPLETE_PANEL_HEIGHT) {
             // Scroll down to reveal selected option scrolled below the panel bottom
-            var /** @type {?} */ newScrollTop = Math.max(0, optionOffset - AUTOCOMPLETE_PANEL_HEIGHT + AUTOCOMPLETE_OPTION_HEIGHT);
-            this.autocomplete._setScrollTop(newScrollTop);
+            var /** @type {?} */ newScrollTop = optionOffset - AUTOCOMPLETE_PANEL_HEIGHT + AUTOCOMPLETE_OPTION_HEIGHT;
+            this.autocomplete._setScrollTop(Math.max(0, newScrollTop));
         }
     };
     /**
@@ -3245,9 +3239,10 @@ var MatAutocompleteTrigger = (function () {
     MatAutocompleteTrigger.prototype._subscribeToClosingActions = function () {
         var _this = this;
         var /** @type {?} */ firstStable = _angular_cdk_rxjs.first.call(this._zone.onStable.asObservable());
-        var /** @type {?} */ optionChanges = _angular_cdk_rxjs.map.call(this.autocomplete.options.changes, function () {
-            return _this._positionStrategy.recalculateLastPosition();
-        });
+        var /** @type {?} */ optionChanges = _angular_cdk_rxjs.RxChain.from(this.autocomplete.options.changes)
+            .call(_angular_cdk_rxjs.doOperator, function () { return _this._positionStrategy.recalculateLastPosition(); })
+            .call(_angular_cdk_rxjs.delay, 0)
+            .result();
         // When the zone is stable initially, and when the option list changes...
         return _angular_cdk_rxjs.RxChain.from(rxjs_observable_merge.merge(firstStable, optionChanges))
             .call(_angular_cdk_rxjs.switchMap, function () {
@@ -15455,8 +15450,8 @@ var MatTooltip = (function () {
      * @param {?=} delay
      * @return {?}
      */
-    MatTooltip.prototype.show = function (delay) {
-        if (delay === void 0) { delay = this.showDelay; }
+    MatTooltip.prototype.show = function (delay$$1) {
+        if (delay$$1 === void 0) { delay$$1 = this.showDelay; }
         if (this.disabled || !this.message) {
             return;
         }
@@ -15465,17 +15460,17 @@ var MatTooltip = (function () {
         }
         this._setTooltipClass(this._tooltipClass);
         this._updateTooltipMessage(); /** @type {?} */
-        ((this._tooltipInstance)).show(this._position, delay);
+        ((this._tooltipInstance)).show(this._position, delay$$1);
     };
     /**
      * Hides the tooltip after the delay in ms, defaults to tooltip-delay-hide or 0ms if no input
      * @param {?=} delay
      * @return {?}
      */
-    MatTooltip.prototype.hide = function (delay) {
-        if (delay === void 0) { delay = this.hideDelay; }
+    MatTooltip.prototype.hide = function (delay$$1) {
+        if (delay$$1 === void 0) { delay$$1 = this.hideDelay; }
         if (this._tooltipInstance) {
-            this._tooltipInstance.hide(delay);
+            this._tooltipInstance.hide(delay$$1);
         }
     };
     /**
@@ -15756,7 +15751,7 @@ var TooltipComponent = (function () {
      * @param {?} delay Amount of milliseconds to the delay showing the tooltip.
      * @return {?}
      */
-    TooltipComponent.prototype.show = function (position, delay) {
+    TooltipComponent.prototype.show = function (position, delay$$1) {
         var _this = this;
         // Cancel the delayed hide if it is scheduled
         if (this._hideTimeoutId) {
@@ -15770,14 +15765,14 @@ var TooltipComponent = (function () {
             // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
             _this._markForCheck();
-        }, delay);
+        }, delay$$1);
     };
     /**
      * Begins the animation to hide the tooltip after the provided delay in ms.
      * @param {?} delay Amount of milliseconds to delay showing the tooltip.
      * @return {?}
      */
-    TooltipComponent.prototype.hide = function (delay) {
+    TooltipComponent.prototype.hide = function (delay$$1) {
         var _this = this;
         // Cancel the delayed show if it is scheduled
         if (this._showTimeoutId) {
@@ -15788,7 +15783,7 @@ var TooltipComponent = (function () {
             // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
             _this._markForCheck();
-        }, delay);
+        }, delay$$1);
     };
     /**
      * Returns an observable that notifies when the tooltip has been hidden from view.
@@ -18263,7 +18258,7 @@ var MatDrawerContainer = (function () {
     MatDrawerContainer.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-drawer-container',
                     template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"mat-drawer\"></ng-content><ng-content select=\"mat-drawer-content\"></ng-content><mat-drawer-content *ngIf=\"!_content\"><ng-content></ng-content></mat-drawer-content>",
-                    styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-opened{overflow:hidden}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}@media screen and (-ms-high-contrast:active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer{transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-opened:not(.mat-drawer-side),.mat-drawer.mat-drawer-opening:not(.mat-drawer-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-fixed{position:fixed} .mat-drawer-transition .mat-drawer-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:margin-left,margin-right}.mat-drawer-transition .mat-drawer-backdrop.mat-drawer-shown{transition:background-color .4s cubic-bezier(.25,.8,.25,1)}"],
+                    styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-opened{overflow:hidden}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}.mat-drawer-transition .mat-drawer-backdrop{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:background-color,visibility}@media screen and (-ms-high-contrast:active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer-transition .mat-drawer-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer{transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-opened:not(.mat-drawer-side),.mat-drawer.mat-drawer-opening:not(.mat-drawer-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-fixed{position:fixed}"],
                     host: {
                         'class': 'mat-drawer-container',
                     },
@@ -18431,7 +18426,7 @@ var MatSidenavContainer = (function (_super) {
     MatSidenavContainer.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-sidenav-container',
                     template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"mat-sidenav\"></ng-content><ng-content select=\"mat-sidenav-content\"></ng-content><mat-sidenav-content *ngIf=\"!_content\"><ng-content></ng-content></mat-sidenav-content>",
-                    styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-opened{overflow:hidden}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}@media screen and (-ms-high-contrast:active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer{transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-opened:not(.mat-drawer-side),.mat-drawer.mat-drawer-opening:not(.mat-drawer-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-fixed{position:fixed} .mat-drawer-transition .mat-drawer-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:margin-left,margin-right}.mat-drawer-transition .mat-drawer-backdrop.mat-drawer-shown{transition:background-color .4s cubic-bezier(.25,.8,.25,1)}"],
+                    styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-opened{overflow:hidden}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}.mat-drawer-transition .mat-drawer-backdrop{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:background-color,visibility}@media screen and (-ms-high-contrast:active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer-transition .mat-drawer-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer{transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-opened:not(.mat-drawer-side),.mat-drawer.mat-drawer-opening:not(.mat-drawer-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-fixed{position:fixed}"],
                     host: {
                         'class': 'mat-drawer-container mat-sidenav-container',
                     },
@@ -21417,7 +21412,8 @@ var MatHeaderRowDef = (function (_super) {
 }(_MatHeaderRowDef));
 /**
  * Data row definition for the mat-table.
- * Captures the header row's template and other row properties such as the columns to display.
+ * Captures the header row's template and other row properties such as the columns to display and
+ * a when predicate that describes when this row should be used.
  */
 var MatRowDef = (function (_super) {
     __extends(MatRowDef, _super);
@@ -21428,7 +21424,7 @@ var MatRowDef = (function (_super) {
         { type: _angular_core.Directive, args: [{
                     selector: '[matRowDef]',
                     providers: [{ provide: _angular_cdk_table.CdkRowDef, useExisting: MatRowDef }],
-                    inputs: ['columns: matRowDefColumns'],
+                    inputs: ['columns: matRowDefColumns', 'when: matRowDefWhen'],
                 },] },
     ];
     /**
