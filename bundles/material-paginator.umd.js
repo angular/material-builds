@@ -1087,12 +1087,10 @@ var RippleRenderer = (function () {
     /**
      * @param {?} elementRef
      * @param {?} _ngZone
-     * @param {?} _ruler
      * @param {?} platform
      */
-    function RippleRenderer(elementRef, _ngZone, _ruler, platform) {
+    function RippleRenderer(elementRef, _ngZone, platform) {
         this._ngZone = _ngZone;
-        this._ruler = _ruler;
         /**
          * Whether the pointer is currently being held on the trigger or not.
          */
@@ -1128,30 +1126,23 @@ var RippleRenderer = (function () {
     }
     /**
      * Fades in a ripple at the given coordinates.
-     * @param {?} pageX
-     * @param {?} pageY
-     * @param {?=} config
+     * @param {?} x Coordinate within the element, along the X axis at which to start the ripple.
+     * @param {?} y
+     * @param {?=} config Extra ripple options.
      * @return {?}
      */
-    RippleRenderer.prototype.fadeInRipple = function (pageX, pageY, config) {
+    RippleRenderer.prototype.fadeInRipple = function (x, y, config) {
         var _this = this;
         if (config === void 0) { config = {}; }
         var /** @type {?} */ containerRect = this._containerElement.getBoundingClientRect();
         if (config.centered) {
-            pageX = containerRect.left + containerRect.width / 2;
-            pageY = containerRect.top + containerRect.height / 2;
+            x = containerRect.left + containerRect.width / 2;
+            y = containerRect.top + containerRect.height / 2;
         }
-        else {
-            // Subtract scroll values from the coordinates because calculations below
-            // are always relative to the viewport rectangle.
-            var /** @type {?} */ scrollPosition = this._ruler.getViewportScrollPosition();
-            pageX -= scrollPosition.left;
-            pageY -= scrollPosition.top;
-        }
-        var /** @type {?} */ radius = config.radius || distanceToFurthestCorner(pageX, pageY, containerRect);
+        var /** @type {?} */ radius = config.radius || distanceToFurthestCorner(x, y, containerRect);
         var /** @type {?} */ duration = RIPPLE_FADE_IN_DURATION * (1 / (config.speedFactor || 1));
-        var /** @type {?} */ offsetX = pageX - containerRect.left;
-        var /** @type {?} */ offsetY = pageY - containerRect.top;
+        var /** @type {?} */ offsetX = x - containerRect.left;
+        var /** @type {?} */ offsetY = y - containerRect.top;
         var /** @type {?} */ ripple = document.createElement('div');
         ripple.classList.add('mat-ripple-element');
         ripple.style.left = offsetX - radius + "px";
@@ -1237,7 +1228,7 @@ var RippleRenderer = (function () {
     RippleRenderer.prototype.onMousedown = function (event) {
         if (!this.rippleDisabled) {
             this._isPointerDown = true;
-            this.fadeInRipple(event.pageX, event.pageY, this.rippleConfig);
+            this.fadeInRipple(event.clientX, event.clientY, this.rippleConfig);
         }
     };
     /**
@@ -1269,9 +1260,9 @@ var RippleRenderer = (function () {
      */
     RippleRenderer.prototype.onTouchstart = function (event) {
         if (!this.rippleDisabled) {
-            var _a = event.touches[0], pageX = _a.pageX, pageY = _a.pageY;
+            var _a = event.touches[0], clientX = _a.clientX, clientY = _a.clientY;
             this._isPointerDown = true;
-            this.fadeInRipple(pageX, pageY, this.rippleConfig);
+            this.fadeInRipple(clientX, clientY, this.rippleConfig);
         }
     };
     /**
@@ -1317,11 +1308,10 @@ var MatRipple = (function () {
     /**
      * @param {?} elementRef
      * @param {?} ngZone
-     * @param {?} ruler
      * @param {?} platform
      * @param {?} globalOptions
      */
-    function MatRipple(elementRef, ngZone, ruler, platform, globalOptions) {
+    function MatRipple(elementRef, ngZone, platform, globalOptions) {
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -1334,7 +1324,7 @@ var MatRipple = (function () {
          * A changed speedFactor will not modify the fade-out duration of the ripples.
          */
         this.speedFactor = 1;
-        this._rippleRenderer = new RippleRenderer(elementRef, ngZone, ruler, platform);
+        this._rippleRenderer = new RippleRenderer(elementRef, ngZone, platform);
         this._globalOptions = globalOptions ? globalOptions : {};
         this._updateRippleRenderer();
     }
@@ -1357,14 +1347,14 @@ var MatRipple = (function () {
     };
     /**
      * Launches a manual ripple at the specified position.
-     * @param {?} pageX
-     * @param {?} pageY
+     * @param {?} x
+     * @param {?} y
      * @param {?=} config
      * @return {?}
      */
-    MatRipple.prototype.launch = function (pageX, pageY, config) {
+    MatRipple.prototype.launch = function (x, y, config) {
         if (config === void 0) { config = this.rippleConfig; }
-        return this._rippleRenderer.fadeInRipple(pageX, pageY, config);
+        return this._rippleRenderer.fadeInRipple(x, y, config);
     };
     /**
      * Fades out all currently showing ripple elements.
@@ -1413,7 +1403,6 @@ var MatRipple = (function () {
     MatRipple.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
         { type: _angular_core.NgZone, },
-        { type: _angular_cdk_scrolling.ViewportRuler, },
         { type: _angular_cdk_platform.Platform, },
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
     ]; };
@@ -1437,7 +1426,6 @@ var MatRippleModule = (function () {
                     imports: [MatCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
                     exports: [MatRipple, MatCommonModule],
                     declarations: [MatRipple],
-                    providers: [_angular_cdk_scrolling.VIEWPORT_RULER_PROVIDER],
                 },] },
     ];
     /**

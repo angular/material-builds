@@ -373,7 +373,15 @@ var MatListOption = (function (_super) {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._selected = coerceBooleanProperty(value); },
+        set: function (value) {
+            var /** @type {?} */ isSelected = coerceBooleanProperty(value);
+            if (isSelected !== this._selected) {
+                var /** @type {?} */ selectionModel = this.selectionList.selectedOptions;
+                this._selected = isSelected;
+                isSelected ? selectionModel.select(this) : selectionModel.deselect(this);
+                this._changeDetector.markForCheck();
+            }
+        },
         enumerable: true,
         configurable: true
     });
@@ -406,8 +414,6 @@ var MatListOption = (function (_super) {
      */
     MatListOption.prototype.toggle = function () {
         this.selected = !this.selected;
-        this.selectionList.selectedOptions.toggle(this);
-        this._changeDetector.markForCheck();
     };
     /**
      * Allows for programmatic focusing of the option.

@@ -11,7 +11,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs/Subject';
 import { HammerGestureConfig } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { ScrollDispatchModule, VIEWPORT_RULER_PROVIDER, ViewportRuler } from '@angular/cdk/scrolling';
+import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 
@@ -1327,12 +1327,10 @@ class RippleRenderer {
     /**
      * @param {?} elementRef
      * @param {?} _ngZone
-     * @param {?} _ruler
      * @param {?} platform
      */
-    constructor(elementRef, _ngZone, _ruler, platform) {
+    constructor(elementRef, _ngZone, platform) {
         this._ngZone = _ngZone;
-        this._ruler = _ruler;
         /**
          * Whether the pointer is currently being held on the trigger or not.
          */
@@ -1368,29 +1366,22 @@ class RippleRenderer {
     }
     /**
      * Fades in a ripple at the given coordinates.
-     * @param {?} pageX
-     * @param {?} pageY
-     * @param {?=} config
+     * @param {?} x Coordinate within the element, along the X axis at which to start the ripple.
+     * @param {?} y
+     * @param {?=} config Extra ripple options.
      * @return {?}
      */
-    fadeInRipple(pageX, pageY, config = {}) {
-        let /** @type {?} */ containerRect = this._containerElement.getBoundingClientRect();
+    fadeInRipple(x, y, config = {}) {
+        const /** @type {?} */ containerRect = this._containerElement.getBoundingClientRect();
         if (config.centered) {
-            pageX = containerRect.left + containerRect.width / 2;
-            pageY = containerRect.top + containerRect.height / 2;
+            x = containerRect.left + containerRect.width / 2;
+            y = containerRect.top + containerRect.height / 2;
         }
-        else {
-            // Subtract scroll values from the coordinates because calculations below
-            // are always relative to the viewport rectangle.
-            let /** @type {?} */ scrollPosition = this._ruler.getViewportScrollPosition();
-            pageX -= scrollPosition.left;
-            pageY -= scrollPosition.top;
-        }
-        let /** @type {?} */ radius = config.radius || distanceToFurthestCorner(pageX, pageY, containerRect);
-        let /** @type {?} */ duration = RIPPLE_FADE_IN_DURATION * (1 / (config.speedFactor || 1));
-        let /** @type {?} */ offsetX = pageX - containerRect.left;
-        let /** @type {?} */ offsetY = pageY - containerRect.top;
-        let /** @type {?} */ ripple = document.createElement('div');
+        const /** @type {?} */ radius = config.radius || distanceToFurthestCorner(x, y, containerRect);
+        const /** @type {?} */ duration = RIPPLE_FADE_IN_DURATION * (1 / (config.speedFactor || 1));
+        const /** @type {?} */ offsetX = x - containerRect.left;
+        const /** @type {?} */ offsetY = y - containerRect.top;
+        const /** @type {?} */ ripple = document.createElement('div');
         ripple.classList.add('mat-ripple-element');
         ripple.style.left = `${offsetX - radius}px`;
         ripple.style.top = `${offsetY - radius}px`;
@@ -1474,7 +1465,7 @@ class RippleRenderer {
     onMousedown(event) {
         if (!this.rippleDisabled) {
             this._isPointerDown = true;
-            this.fadeInRipple(event.pageX, event.pageY, this.rippleConfig);
+            this.fadeInRipple(event.clientX, event.clientY, this.rippleConfig);
         }
     }
     /**
@@ -1506,9 +1497,9 @@ class RippleRenderer {
      */
     onTouchstart(event) {
         if (!this.rippleDisabled) {
-            const { pageX, pageY } = event.touches[0];
+            const { clientX, clientY } = event.touches[0];
             this._isPointerDown = true;
-            this.fadeInRipple(pageX, pageY, this.rippleConfig);
+            this.fadeInRipple(clientX, clientY, this.rippleConfig);
         }
     }
     /**
@@ -1552,11 +1543,10 @@ class MatRipple {
     /**
      * @param {?} elementRef
      * @param {?} ngZone
-     * @param {?} ruler
      * @param {?} platform
      * @param {?} globalOptions
      */
-    constructor(elementRef, ngZone, ruler, platform, globalOptions) {
+    constructor(elementRef, ngZone, platform, globalOptions) {
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -1569,7 +1559,7 @@ class MatRipple {
          * A changed speedFactor will not modify the fade-out duration of the ripples.
          */
         this.speedFactor = 1;
-        this._rippleRenderer = new RippleRenderer(elementRef, ngZone, ruler, platform);
+        this._rippleRenderer = new RippleRenderer(elementRef, ngZone, platform);
         this._globalOptions = globalOptions ? globalOptions : {};
         this._updateRippleRenderer();
     }
@@ -1592,13 +1582,13 @@ class MatRipple {
     }
     /**
      * Launches a manual ripple at the specified position.
-     * @param {?} pageX
-     * @param {?} pageY
+     * @param {?} x
+     * @param {?} y
      * @param {?=} config
      * @return {?}
      */
-    launch(pageX, pageY, config = this.rippleConfig) {
-        return this._rippleRenderer.fadeInRipple(pageX, pageY, config);
+    launch(x, y, config = this.rippleConfig) {
+        return this._rippleRenderer.fadeInRipple(x, y, config);
     }
     /**
      * Fades out all currently showing ripple elements.
@@ -1644,7 +1634,6 @@ MatRipple.decorators = [
 MatRipple.ctorParameters = () => [
     { type: ElementRef, },
     { type: NgZone, },
-    { type: ViewportRuler, },
     { type: Platform, },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
 ];
@@ -1665,7 +1654,6 @@ MatRippleModule.decorators = [
                 imports: [MatCommonModule, PlatformModule, ScrollDispatchModule],
                 exports: [MatRipple, MatCommonModule],
                 declarations: [MatRipple],
-                providers: [VIEWPORT_RULER_PROVIDER],
             },] },
 ];
 /**

@@ -7,7 +7,6 @@
  */
 import { Directionality } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
-import { ViewportRuler } from '@angular/cdk/scrolling';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, NgZone, OnDestroy, QueryList, Renderer2 } from '@angular/core';
 import { CanColor, CanDisable, CanDisableRipple, RippleGlobalOptions, ThemePalette } from '@angular/material/core';
 import { MatInkBar } from '../ink-bar';
@@ -72,6 +71,6 @@ export declare class MatTabLink extends _MatTabLinkMixinBase implements OnDestro
     disableRipple: boolean;
     /** @docs-private */
     readonly tabIndex: number;
-    constructor(_tabNavBar: MatTabNav, _elementRef: ElementRef, ngZone: NgZone, ruler: ViewportRuler, platform: Platform, globalOptions: RippleGlobalOptions);
+    constructor(_tabNavBar: MatTabNav, _elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalOptions: RippleGlobalOptions);
     ngOnDestroy(): void;
 }

@@ -319,7 +319,15 @@ class MatListOption extends _MatListOptionMixinBase {
      * @param {?} value
      * @return {?}
      */
-    set selected(value) { this._selected = coerceBooleanProperty(value); }
+    set selected(value) {
+        const /** @type {?} */ isSelected = coerceBooleanProperty(value);
+        if (isSelected !== this._selected) {
+            const /** @type {?} */ selectionModel = this.selectionList.selectedOptions;
+            this._selected = isSelected;
+            isSelected ? selectionModel.select(this) : selectionModel.deselect(this);
+            this._changeDetector.markForCheck();
+        }
+    }
     /**
      * @return {?}
      */
@@ -349,8 +357,6 @@ class MatListOption extends _MatListOptionMixinBase {
      */
     toggle() {
         this.selected = !this.selected;
-        this.selectionList.selectedOptions.toggle(this);
-        this._changeDetector.markForCheck();
     }
     /**
      * Allows for programmatic focusing of the option.

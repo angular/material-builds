@@ -6,7 +6,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ElementRef, NgZone, OnChanges, SimpleChanges, OnDestroy, InjectionToken } from '@angular/core';
-import { ViewportRuler } from '@angular/cdk/scrolling';
 import { Platform } from '@angular/cdk/platform';
 import { RippleConfig } from './ripple-renderer';
 import { RippleRef } from './ripple-ref';
@@ -52,11 +51,11 @@ export declare class MatRipple implements OnChanges, OnDestroy {
     private _rippleRenderer;
     /** Options that are set globally for all ripples. */
     private _globalOptions;
-    constructor(elementRef: ElementRef, ngZone: NgZone, ruler: ViewportRuler, platform: Platform, globalOptions: RippleGlobalOptions);
+    constructor(elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalOptions: RippleGlobalOptions);
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     /** Launches a manual ripple at the specified position. */
-    launch(pageX: number, pageY: number, config?: RippleConfig): RippleRef;
+    launch(x: number, y: number, config?: RippleConfig): RippleRef;
     /** Fades out all currently showing ripple elements. */
     fadeOutAll(): void;
     /** Ripple configuration from the directive's input values. */

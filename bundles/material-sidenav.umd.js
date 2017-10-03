@@ -954,12 +954,10 @@ var RippleRenderer = (function () {
     /**
      * @param {?} elementRef
      * @param {?} _ngZone
-     * @param {?} _ruler
      * @param {?} platform
      */
-    function RippleRenderer(elementRef, _ngZone, _ruler, platform) {
+    function RippleRenderer(elementRef, _ngZone, platform) {
         this._ngZone = _ngZone;
-        this._ruler = _ruler;
         /**
          * Whether the pointer is currently being held on the trigger or not.
          */
@@ -995,30 +993,23 @@ var RippleRenderer = (function () {
     }
     /**
      * Fades in a ripple at the given coordinates.
-     * @param {?} pageX
-     * @param {?} pageY
-     * @param {?=} config
+     * @param {?} x Coordinate within the element, along the X axis at which to start the ripple.
+     * @param {?} y
+     * @param {?=} config Extra ripple options.
      * @return {?}
      */
-    RippleRenderer.prototype.fadeInRipple = function (pageX, pageY, config) {
+    RippleRenderer.prototype.fadeInRipple = function (x, y, config) {
         var _this = this;
         if (config === void 0) { config = {}; }
         var /** @type {?} */ containerRect = this._containerElement.getBoundingClientRect();
         if (config.centered) {
-            pageX = containerRect.left + containerRect.width / 2;
-            pageY = containerRect.top + containerRect.height / 2;
+            x = containerRect.left + containerRect.width / 2;
+            y = containerRect.top + containerRect.height / 2;
         }
-        else {
-            // Subtract scroll values from the coordinates because calculations below
-            // are always relative to the viewport rectangle.
-            var /** @type {?} */ scrollPosition = this._ruler.getViewportScrollPosition();
-            pageX -= scrollPosition.left;
-            pageY -= scrollPosition.top;
-        }
-        var /** @type {?} */ radius = config.radius || distanceToFurthestCorner(pageX, pageY, containerRect);
+        var /** @type {?} */ radius = config.radius || distanceToFurthestCorner(x, y, containerRect);
         var /** @type {?} */ duration = RIPPLE_FADE_IN_DURATION * (1 / (config.speedFactor || 1));
-        var /** @type {?} */ offsetX = pageX - containerRect.left;
-        var /** @type {?} */ offsetY = pageY - containerRect.top;
+        var /** @type {?} */ offsetX = x - containerRect.left;
+        var /** @type {?} */ offsetY = y - containerRect.top;
         var /** @type {?} */ ripple = document.createElement('div');
         ripple.classList.add('mat-ripple-element');
         ripple.style.left = offsetX - radius + "px";
@@ -1104,7 +1095,7 @@ var RippleRenderer = (function () {
     RippleRenderer.prototype.onMousedown = function (event) {
         if (!this.rippleDisabled) {
             this._isPointerDown = true;
-            this.fadeInRipple(event.pageX, event.pageY, this.rippleConfig);
+            this.fadeInRipple(event.clientX, event.clientY, this.rippleConfig);
         }
     };
     /**
@@ -1136,9 +1127,9 @@ var RippleRenderer = (function () {
      */
     RippleRenderer.prototype.onTouchstart = function (event) {
         if (!this.rippleDisabled) {
-            var _a = event.touches[0], pageX = _a.pageX, pageY = _a.pageY;
+            var _a = event.touches[0], clientX = _a.clientX, clientY = _a.clientY;
             this._isPointerDown = true;
-            this.fadeInRipple(pageX, pageY, this.rippleConfig);
+            this.fadeInRipple(clientX, clientY, this.rippleConfig);
         }
     };
     /**
@@ -1184,11 +1175,10 @@ var MatRipple = (function () {
     /**
      * @param {?} elementRef
      * @param {?} ngZone
-     * @param {?} ruler
      * @param {?} platform
      * @param {?} globalOptions
      */
-    function MatRipple(elementRef, ngZone, ruler, platform, globalOptions) {
+    function MatRipple(elementRef, ngZone, platform, globalOptions) {
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -1201,7 +1191,7 @@ var MatRipple = (function () {
          * A changed speedFactor will not modify the fade-out duration of the ripples.
          */
         this.speedFactor = 1;
-        this._rippleRenderer = new RippleRenderer(elementRef, ngZone, ruler, platform);
+        this._rippleRenderer = new RippleRenderer(elementRef, ngZone, platform);
         this._globalOptions = globalOptions ? globalOptions : {};
         this._updateRippleRenderer();
     }
@@ -1224,14 +1214,14 @@ var MatRipple = (function () {
     };
     /**
      * Launches a manual ripple at the specified position.
-     * @param {?} pageX
-     * @param {?} pageY
+     * @param {?} x
+     * @param {?} y
      * @param {?=} config
      * @return {?}
      */
-    MatRipple.prototype.launch = function (pageX, pageY, config) {
+    MatRipple.prototype.launch = function (x, y, config) {
         if (config === void 0) { config = this.rippleConfig; }
-        return this._rippleRenderer.fadeInRipple(pageX, pageY, config);
+        return this._rippleRenderer.fadeInRipple(x, y, config);
     };
     /**
      * Fades out all currently showing ripple elements.
@@ -1280,7 +1270,6 @@ var MatRipple = (function () {
     MatRipple.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
         { type: _angular_core.NgZone, },
-        { type: _angular_cdk_scrolling.ViewportRuler, },
         { type: _angular_cdk_platform.Platform, },
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
     ]; };
@@ -2337,7 +2326,7 @@ var MatDrawerContainer = (function () {
     };
     MatDrawerContainer.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-drawer-container',
-                    template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"mat-drawer\"></ng-content><ng-content select=\"mat-drawer-content\"></ng-content><mat-drawer-content *ngIf=\"!_content\"><ng-content></ng-content></mat-drawer-content>",
+                    template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"mat-drawer\"></ng-content><ng-content select=\"mat-drawer-content\"></ng-content><mat-drawer-content *ngIf=\"!_content\" cdkScrollable><ng-content></ng-content></mat-drawer-content>",
                     styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-opened{overflow:hidden}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}.mat-drawer-transition .mat-drawer-backdrop{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:background-color,visibility}@media screen and (-ms-high-contrast:active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer-transition .mat-drawer-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer{transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-opened:not(.mat-drawer-side),.mat-drawer.mat-drawer-opening:not(.mat-drawer-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-fixed{position:fixed}"],
                     host: {
                         'class': 'mat-drawer-container',
@@ -2505,7 +2494,7 @@ var MatSidenavContainer = (function (_super) {
     }
     MatSidenavContainer.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-sidenav-container',
-                    template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"mat-sidenav\"></ng-content><ng-content select=\"mat-sidenav-content\"></ng-content><mat-sidenav-content *ngIf=\"!_content\"><ng-content></ng-content></mat-sidenav-content>",
+                    template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"mat-sidenav\"></ng-content><ng-content select=\"mat-sidenav-content\"></ng-content><mat-sidenav-content *ngIf=\"!_content\" cdkScrollable><ng-content></ng-content></mat-sidenav-content>",
                     styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-opened{overflow:hidden}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}.mat-drawer-transition .mat-drawer-backdrop{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:background-color,visibility}@media screen and (-ms-high-contrast:active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer-transition .mat-drawer-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer{transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-opened:not(.mat-drawer-side),.mat-drawer.mat-drawer-opening:not(.mat-drawer-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-fixed{position:fixed}"],
                     host: {
                         'class': 'mat-drawer-container mat-sidenav-container',
@@ -2531,7 +2520,13 @@ var MatSidenavModule = (function () {
     }
     MatSidenavModule.decorators = [
         { type: _angular_core.NgModule, args: [{
-                    imports: [_angular_common.CommonModule, MatCommonModule, _angular_cdk_a11y.A11yModule, _angular_cdk_overlay.OverlayModule],
+                    imports: [
+                        _angular_common.CommonModule,
+                        MatCommonModule,
+                        _angular_cdk_a11y.A11yModule,
+                        _angular_cdk_overlay.OverlayModule,
+                        _angular_cdk_scrolling.ScrollDispatchModule,
+                    ],
                     exports: [
                         MatCommonModule,
                         MatDrawer,

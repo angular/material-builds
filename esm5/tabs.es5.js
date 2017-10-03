@@ -7,7 +7,7 @@
  */
 import { ObserversModule } from '@angular/cdk/observers';
 import { PortalHostDirective, PortalModule, TemplatePortal, TemplatePortalDirective } from '@angular/cdk/portal';
-import { ScrollDispatchModule, VIEWPORT_RULER_PROVIDER, ViewportRuler } from '@angular/cdk/scrolling';
+import { ScrollDispatchModule, VIEWPORT_RULER_PROVIDER } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, Renderer2, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
@@ -1433,11 +1433,10 @@ var MatTabLink = (function (_super) {
      * @param {?} _tabNavBar
      * @param {?} _elementRef
      * @param {?} ngZone
-     * @param {?} ruler
      * @param {?} platform
      * @param {?} globalOptions
      */
-    function MatTabLink(_tabNavBar, _elementRef, ngZone, ruler, platform, globalOptions) {
+    function MatTabLink(_tabNavBar, _elementRef, ngZone, platform, globalOptions) {
         var _this = _super.call(this) || this;
         _this._tabNavBar = _tabNavBar;
         _this._elementRef = _elementRef;
@@ -1451,7 +1450,7 @@ var MatTabLink = (function (_super) {
         _this._disableRipple = false;
         // Manually create a ripple instance that uses the tab link element as trigger element.
         // Notice that the lifecycle hooks for the ripple config won't be called anymore.
-        _this._tabLinkRipple = new MatRipple(_elementRef, ngZone, ruler, platform, globalOptions);
+        _this._tabLinkRipple = new MatRipple(_elementRef, ngZone, platform, globalOptions);
         return _this;
     }
     Object.defineProperty(MatTabLink.prototype, "active", {
@@ -1529,7 +1528,6 @@ var MatTabLink = (function (_super) {
         { type: MatTabNav, },
         { type: ElementRef, },
         { type: NgZone, },
-        { type: ViewportRuler, },
         { type: Platform, },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
     ]; };

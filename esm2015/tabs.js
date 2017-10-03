@@ -7,7 +7,7 @@
  */
 import { ObserversModule } from '@angular/cdk/observers';
 import { PortalHostDirective, PortalModule, TemplatePortal, TemplatePortalDirective } from '@angular/cdk/portal';
-import { ScrollDispatchModule, VIEWPORT_RULER_PROVIDER, ViewportRuler } from '@angular/cdk/scrolling';
+import { ScrollDispatchModule, VIEWPORT_RULER_PROVIDER } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, Renderer2, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
@@ -1339,11 +1339,10 @@ class MatTabLink extends _MatTabLinkMixinBase {
      * @param {?} _tabNavBar
      * @param {?} _elementRef
      * @param {?} ngZone
-     * @param {?} ruler
      * @param {?} platform
      * @param {?} globalOptions
      */
-    constructor(_tabNavBar, _elementRef, ngZone, ruler, platform, globalOptions) {
+    constructor(_tabNavBar, _elementRef, ngZone, platform, globalOptions) {
         super();
         this._tabNavBar = _tabNavBar;
         this._elementRef = _elementRef;
@@ -1357,7 +1356,7 @@ class MatTabLink extends _MatTabLinkMixinBase {
         this._disableRipple = false;
         // Manually create a ripple instance that uses the tab link element as trigger element.
         // Notice that the lifecycle hooks for the ripple config won't be called anymore.
-        this._tabLinkRipple = new MatRipple(_elementRef, ngZone, ruler, platform, globalOptions);
+        this._tabLinkRipple = new MatRipple(_elementRef, ngZone, platform, globalOptions);
     }
     /**
      * Whether the link is active.
@@ -1423,7 +1422,6 @@ MatTabLink.ctorParameters = () => [
     { type: MatTabNav, },
     { type: ElementRef, },
     { type: NgZone, },
-    { type: ViewportRuler, },
     { type: Platform, },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
 ];
