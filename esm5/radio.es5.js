@@ -1,4 +1,3 @@
-import * as tslib_1 from "tslib";
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -10,9 +9,12 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren,
 import { CommonModule } from '@angular/common';
 import { VIEWPORT_RULER_PROVIDER } from '@angular/cdk/overlay';
 import { MatCommonModule, MatRipple, MatRippleModule, UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
+import { __extends } from 'tslib';
+import * as tslib_1 from 'tslib';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
+
 // Increasing integer for generating unique ids for radio components.
 var nextUniqueId = 0;
 /**
@@ -46,7 +48,7 @@ var _MatRadioGroupMixinBase = mixinDisabled(MatRadioGroupBase);
  * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
  */
 var MatRadioGroup = (function (_super) {
-    tslib_1.__extends(MatRadioGroup, _super);
+    __extends(MatRadioGroup, _super);
     /**
      * @param {?} _changeDetector
      */
@@ -295,10 +297,10 @@ var MatRadioGroup = (function (_super) {
      */
     MatRadioGroup.prototype._emitChangeEvent = function () {
         if (this._isInitialized) {
-            var /** @type {?} */ event = new MatRadioChange();
-            event.source = this._selected;
-            event.value = this._value;
-            this.change.emit(event);
+            var /** @type {?} */ event_1 = new MatRadioChange();
+            event_1.source = this._selected;
+            event_1.value = this._value;
+            this.change.emit(event_1);
         }
     };
     /**
@@ -345,36 +347,36 @@ var MatRadioGroup = (function (_super) {
         this.disabled = isDisabled;
         this._changeDetector.markForCheck();
     };
+    MatRadioGroup.decorators = [
+        { type: Directive, args: [{
+                    selector: 'mat-radio-group',
+                    providers: [MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
+                    host: {
+                        'role': 'radiogroup',
+                        'class': 'mat-radio-group',
+                    },
+                    inputs: ['disabled'],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatRadioGroup.ctorParameters = function () { return [
+        { type: ChangeDetectorRef, },
+    ]; };
+    MatRadioGroup.propDecorators = {
+        'change': [{ type: Output },],
+        '_radios': [{ type: ContentChildren, args: [forwardRef(function () { return MatRadioButton; }),] },],
+        'name': [{ type: Input },],
+        'align': [{ type: Input },],
+        'labelPosition': [{ type: Input },],
+        'value': [{ type: Input },],
+        'selected': [{ type: Input },],
+        'disabled': [{ type: Input },],
+        'required': [{ type: Input },],
+    };
     return MatRadioGroup;
 }(_MatRadioGroupMixinBase));
-MatRadioGroup.decorators = [
-    { type: Directive, args: [{
-                selector: 'mat-radio-group',
-                providers: [MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
-                host: {
-                    'role': 'radiogroup',
-                    'class': 'mat-radio-group',
-                },
-                inputs: ['disabled'],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatRadioGroup.ctorParameters = function () { return [
-    { type: ChangeDetectorRef, },
-]; };
-MatRadioGroup.propDecorators = {
-    'change': [{ type: Output },],
-    '_radios': [{ type: ContentChildren, args: [forwardRef(function () { return MatRadioButton; }),] },],
-    'name': [{ type: Input },],
-    'align': [{ type: Input },],
-    'labelPosition': [{ type: Input },],
-    'value': [{ type: Input },],
-    'selected': [{ type: Input },],
-    'disabled': [{ type: Input },],
-    'required': [{ type: Input },],
-};
 /**
  * \@docs-private
  */
@@ -396,7 +398,7 @@ var _MatRadioButtonMixinBase = mixinColor(mixinDisableRipple(MatRadioButtonBase)
  * A radio-button. May be inside of
  */
 var MatRadioButton = (function (_super) {
-    tslib_1.__extends(MatRadioButton, _super);
+    __extends(MatRadioButton, _super);
     /**
      * @param {?} radioGroup
      * @param {?} elementRef
@@ -706,73 +708,76 @@ var MatRadioButton = (function (_super) {
             }
         }
     };
+    MatRadioButton.decorators = [
+        { type: Component, args: [{selector: 'mat-radio-button',
+                    template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div mat-ripple class=\"mat-radio-ripple\" [matRippleTrigger]=\"label\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"true\"></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [required]=\"required\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></div></label>",
+                    styles: [".mat-radio-button{display:inline-block}.mat-radio-label{cursor:pointer;display:inline-flex;align-items:center;white-space:nowrap;vertical-align:middle}.mat-radio-container{box-sizing:border-box;display:inline-block;position:relative;width:20px;height:20px;flex-shrink:0}.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:border-color ease 280ms;width:20px;border-width:2px;border-style:solid;border-radius:50%}.mat-radio-inner-circle{border-radius:50%;box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:transform ease 280ms,background-color ease 280ms;width:20px;transform:scale(.001)}.mat-radio-checked .mat-radio-inner-circle{transform:scale(.5)}.mat-radio-label-content{display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none}"],
+                    inputs: ['color', 'disableRipple'],
+                    encapsulation: ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    host: {
+                        'class': 'mat-radio-button',
+                        '[class.mat-radio-checked]': 'checked',
+                        '[class.mat-radio-disabled]': 'disabled',
+                        '[attr.id]': 'id',
+                        // Note: under normal conditions focus shouldn't land on this element, however it may be
+                        // programmatically set, for example inside of a focus trap, in this case we want to forward
+                        // the focus to the native element.
+                        '(focus)': '_inputElement.nativeElement.focus()',
+                    },
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatRadioButton.ctorParameters = function () { return [
+        { type: MatRadioGroup, decorators: [{ type: Optional },] },
+        { type: ElementRef, },
+        { type: Renderer2, },
+        { type: ChangeDetectorRef, },
+        { type: FocusMonitor, },
+        { type: UniqueSelectionDispatcher, },
+    ]; };
+    MatRadioButton.propDecorators = {
+        'id': [{ type: Input },],
+        'name': [{ type: Input },],
+        'ariaLabel': [{ type: Input, args: ['aria-label',] },],
+        'ariaLabelledby': [{ type: Input, args: ['aria-labelledby',] },],
+        'checked': [{ type: Input },],
+        'value': [{ type: Input },],
+        'align': [{ type: Input },],
+        'labelPosition': [{ type: Input },],
+        'disabled': [{ type: Input },],
+        'required': [{ type: Input },],
+        'change': [{ type: Output },],
+        '_ripple': [{ type: ViewChild, args: [MatRipple,] },],
+        '_inputElement': [{ type: ViewChild, args: ['input',] },],
+    };
     return MatRadioButton;
 }(_MatRadioButtonMixinBase));
-MatRadioButton.decorators = [
-    { type: Component, args: [{ selector: 'mat-radio-button',
-                template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div mat-ripple class=\"mat-radio-ripple\" [matRippleTrigger]=\"label\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"true\"></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [required]=\"required\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></div></label>",
-                styles: [".mat-radio-button{display:inline-block}.mat-radio-label{cursor:pointer;display:inline-flex;align-items:center;white-space:nowrap;vertical-align:middle}.mat-radio-container{box-sizing:border-box;display:inline-block;position:relative;width:20px;height:20px;flex-shrink:0}.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:border-color ease 280ms;width:20px;border-width:2px;border-style:solid;border-radius:50%}.mat-radio-inner-circle{border-radius:50%;box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:transform ease 280ms,background-color ease 280ms;width:20px;transform:scale(.001)}.mat-radio-checked .mat-radio-inner-circle{transform:scale(.5)}.mat-radio-label-content{display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none}"],
-                inputs: ['color', 'disableRipple'],
-                encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                host: {
-                    'class': 'mat-radio-button',
-                    '[class.mat-radio-checked]': 'checked',
-                    '[class.mat-radio-disabled]': 'disabled',
-                    '[attr.id]': 'id',
-                    // Note: under normal conditions focus shouldn't land on this element, however it may be
-                    // programmatically set, for example inside of a focus trap, in this case we want to forward
-                    // the focus to the native element.
-                    '(focus)': '_inputElement.nativeElement.focus()',
-                },
-                changeDetection: ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatRadioButton.ctorParameters = function () { return [
-    { type: MatRadioGroup, decorators: [{ type: Optional },] },
-    { type: ElementRef, },
-    { type: Renderer2, },
-    { type: ChangeDetectorRef, },
-    { type: FocusMonitor, },
-    { type: UniqueSelectionDispatcher, },
-]; };
-MatRadioButton.propDecorators = {
-    'id': [{ type: Input },],
-    'name': [{ type: Input },],
-    'ariaLabel': [{ type: Input, args: ['aria-label',] },],
-    'ariaLabelledby': [{ type: Input, args: ['aria-labelledby',] },],
-    'checked': [{ type: Input },],
-    'value': [{ type: Input },],
-    'align': [{ type: Input },],
-    'labelPosition': [{ type: Input },],
-    'disabled': [{ type: Input },],
-    'required': [{ type: Input },],
-    'change': [{ type: Output },],
-    '_ripple': [{ type: ViewChild, args: [MatRipple,] },],
-    '_inputElement': [{ type: ViewChild, args: ['input',] },],
-};
+
 var MatRadioModule = (function () {
     function MatRadioModule() {
     }
+    MatRadioModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [CommonModule, MatRippleModule, MatCommonModule, A11yModule],
+                    exports: [MatRadioGroup, MatRadioButton, MatCommonModule],
+                    providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, VIEWPORT_RULER_PROVIDER],
+                    declarations: [MatRadioGroup, MatRadioButton],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatRadioModule.ctorParameters = function () { return []; };
     return MatRadioModule;
 }());
-MatRadioModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [CommonModule, MatRippleModule, MatCommonModule, A11yModule],
-                exports: [MatRadioGroup, MatRadioButton, MatCommonModule],
-                providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, VIEWPORT_RULER_PROVIDER],
-                declarations: [MatRadioGroup, MatRadioButton],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatRadioModule.ctorParameters = function () { return []; };
+
 /**
  * Generated bundle index. Do not edit.
  */
+
 export { MatRadioModule, MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MatRadioChange, MatRadioGroupBase, _MatRadioGroupMixinBase, MatRadioGroup, MatRadioButtonBase, _MatRadioButtonMixinBase, MatRadioButton };
 //# sourceMappingURL=radio.es5.js.map

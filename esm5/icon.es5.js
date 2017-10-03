@@ -1,4 +1,3 @@
-import * as tslib_1 from "tslib";
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -8,6 +7,8 @@ import * as tslib_1 from "tslib";
  */
 import { Attribute, ChangeDetectionStrategy, Component, ElementRef, Injectable, Input, NgModule, Optional, Renderer2, SecurityContext, SkipSelf, ViewEncapsulation } from '@angular/core';
 import { MatCommonModule, mixinColor } from '@angular/material/core';
+import { __extends } from 'tslib';
+import * as tslib_1 from 'tslib';
 import { RxChain, catchOperator, doOperator, finallyOperator, first, map, share } from '@angular/cdk/rxjs';
 import { Http } from '@angular/http';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -15,6 +16,7 @@ import { Observable } from 'rxjs/Observable';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { of } from 'rxjs/observable/of';
 import { _throw } from 'rxjs/observable/throw';
+
 /**
  * Returns an exception to be thrown in the case when attempting to
  * load an icon with a name that cannot be found.
@@ -473,18 +475,18 @@ var MatIconRegistry = (function () {
         this._inProgressUrlFetches.set(url, req);
         return req;
     };
+    MatIconRegistry.decorators = [
+        { type: Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatIconRegistry.ctorParameters = function () { return [
+        { type: Http, decorators: [{ type: Optional },] },
+        { type: DomSanitizer, },
+    ]; };
     return MatIconRegistry;
 }());
-MatIconRegistry.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-MatIconRegistry.ctorParameters = function () { return [
-    { type: Http, decorators: [{ type: Optional },] },
-    { type: DomSanitizer, },
-]; };
 /**
  * \@docs-private
  * @param {?} parentRegistry
@@ -521,6 +523,7 @@ function cloneSvg(svg) {
 function iconKey(namespace, name) {
     return namespace + ':' + name;
 }
+
 /**
  * \@docs-private
  */
@@ -564,7 +567,7 @@ var _MatIconMixinBase = mixinColor(MatIconBase);
  *     <mat-icon fontSet="fa" fontIcon="alarm"></mat-icon>
  */
 var MatIcon = (function (_super) {
-    tslib_1.__extends(MatIcon, _super);
+    __extends(MatIcon, _super);
     /**
      * @param {?} renderer
      * @param {?} elementRef
@@ -693,55 +696,58 @@ var MatIcon = (function (_super) {
             this._previousFontIconClass = this.fontIcon;
         }
     };
+    MatIcon.decorators = [
+        { type: Component, args: [{template: '<ng-content></ng-content>',
+                    selector: 'mat-icon',
+                    styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px}"],
+                    inputs: ['color'],
+                    host: {
+                        'role': 'img',
+                        'class': 'mat-icon',
+                    },
+                    encapsulation: ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatIcon.ctorParameters = function () { return [
+        { type: Renderer2, },
+        { type: ElementRef, },
+        { type: MatIconRegistry, },
+        { type: undefined, decorators: [{ type: Attribute, args: ['aria-hidden',] },] },
+    ]; };
+    MatIcon.propDecorators = {
+        'svgIcon': [{ type: Input },],
+        'fontSet': [{ type: Input },],
+        'fontIcon': [{ type: Input },],
+    };
     return MatIcon;
 }(_MatIconMixinBase));
-MatIcon.decorators = [
-    { type: Component, args: [{ template: '<ng-content></ng-content>',
-                selector: 'mat-icon',
-                styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px}"],
-                inputs: ['color'],
-                host: {
-                    'role': 'img',
-                    'class': 'mat-icon',
-                },
-                encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatIcon.ctorParameters = function () { return [
-    { type: Renderer2, },
-    { type: ElementRef, },
-    { type: MatIconRegistry, },
-    { type: undefined, decorators: [{ type: Attribute, args: ['aria-hidden',] },] },
-]; };
-MatIcon.propDecorators = {
-    'svgIcon': [{ type: Input },],
-    'fontSet': [{ type: Input },],
-    'fontIcon': [{ type: Input },],
-};
+
 var MatIconModule = (function () {
     function MatIconModule() {
     }
+    MatIconModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [MatCommonModule],
+                    exports: [MatIcon, MatCommonModule],
+                    declarations: [MatIcon],
+                    providers: [ICON_REGISTRY_PROVIDER],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatIconModule.ctorParameters = function () { return []; };
     return MatIconModule;
 }());
-MatIconModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [MatCommonModule],
-                exports: [MatIcon, MatCommonModule],
-                declarations: [MatIcon],
-                providers: [ICON_REGISTRY_PROVIDER],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatIconModule.ctorParameters = function () { return []; };
+
 /**
  * Generated bundle index. Do not edit.
  */
+
 export { MatIconModule, MatIconBase, _MatIconMixinBase, MatIcon, getMatIconNameNotFoundError, getMatIconNoHttpProviderError, getMatIconFailedToSanitizeError, MatIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER };
 //# sourceMappingURL=icon.es5.js.map

@@ -37,29 +37,6 @@ function __extends(d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
-/**
- * \@docs-private
- */
-var AnimationCurves = (function () {
-    function AnimationCurves() {
-    }
-    return AnimationCurves;
-}());
-AnimationCurves.STANDARD_CURVE = 'cubic-bezier(0.4,0.0,0.2,1)';
-AnimationCurves.DECELERATION_CURVE = 'cubic-bezier(0.0,0.0,0.2,1)';
-AnimationCurves.ACCELERATION_CURVE = 'cubic-bezier(0.4,0.0,1,1)';
-AnimationCurves.SHARP_CURVE = 'cubic-bezier(0.4,0.0,0.6,1)';
-/**
- * \@docs-private
- */
-var AnimationDurations = (function () {
-    function AnimationDurations() {
-    }
-    return AnimationDurations;
-}());
-AnimationDurations.COMPLEX = '375ms';
-AnimationDurations.ENTERING = '225ms';
-AnimationDurations.EXITING = '195ms';
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Selector that matches all elements that may have style collisions with AngularJS Material.
@@ -75,30 +52,30 @@ var MD_ELEMENTS_SELECTOR = "\n  [md-button],\n  [md-fab],\n  [md-icon-button],\n
 var MatPrefixRejector = (function () {
     function MatPrefixRejector() {
     }
+    MatPrefixRejector.decorators = [
+        { type: _angular_core.Directive, args: [{ selector: MAT_ELEMENTS_SELECTOR },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatPrefixRejector.ctorParameters = function () { return []; };
     return MatPrefixRejector;
 }());
-MatPrefixRejector.decorators = [
-    { type: _angular_core.Directive, args: [{ selector: MAT_ELEMENTS_SELECTOR },] },
-];
-/**
- * @nocollapse
- */
-MatPrefixRejector.ctorParameters = function () { return []; };
 /**
  * Directive that enforces that the `md-` prefix cannot be used.
  */
 var MdPrefixRejector = (function () {
     function MdPrefixRejector() {
     }
+    MdPrefixRejector.decorators = [
+        { type: _angular_core.Directive, args: [{ selector: MD_ELEMENTS_SELECTOR },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MdPrefixRejector.ctorParameters = function () { return []; };
     return MdPrefixRejector;
 }());
-MdPrefixRejector.decorators = [
-    { type: _angular_core.Directive, args: [{ selector: MD_ELEMENTS_SELECTOR },] },
-];
-/**
- * @nocollapse
- */
-MdPrefixRejector.ctorParameters = function () { return []; };
 /**
  * Module that enforces the default compatibility mode settings. When this module is loaded
  * without NoConflictStyleCompatibilityMode also being imported, it will throw an error if
@@ -107,34 +84,18 @@ MdPrefixRejector.ctorParameters = function () { return []; };
 var CompatibilityModule = (function () {
     function CompatibilityModule() {
     }
+    CompatibilityModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    declarations: [MatPrefixRejector, MdPrefixRejector],
+                    exports: [MatPrefixRejector, MdPrefixRejector],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    CompatibilityModule.ctorParameters = function () { return []; };
     return CompatibilityModule;
 }());
-CompatibilityModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                declarations: [MatPrefixRejector, MdPrefixRejector],
-                exports: [MatPrefixRejector, MdPrefixRejector],
-            },] },
-];
-/**
- * @nocollapse
- */
-CompatibilityModule.ctorParameters = function () { return []; };
-/**
- * Module that enforces "no-conflict" compatibility mode settings. When this module is loaded,
- * it will throw an error if there are any uses of the `md-` prefix.
- */
-var NoConflictStyleCompatibilityMode = (function () {
-    function NoConflictStyleCompatibilityMode() {
-    }
-    return NoConflictStyleCompatibilityMode;
-}());
-NoConflictStyleCompatibilityMode.decorators = [
-    { type: _angular_core.NgModule },
-];
-/**
- * @nocollapse
- */
-NoConflictStyleCompatibilityMode.ctorParameters = function () { return []; };
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
@@ -193,23 +154,24 @@ var MatCommonModule = (function () {
             this._document.body.removeChild(testElement);
         }
     };
+    MatCommonModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    imports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
+                    exports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
+                    providers: [{
+                            provide: MATERIAL_SANITY_CHECKS, useValue: true,
+                        }],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatCommonModule.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
+    ]; };
     return MatCommonModule;
 }());
-MatCommonModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
-                exports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
-                providers: [{
-                        provide: MATERIAL_SANITY_CHECKS, useValue: true,
-                    }],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCommonModule.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
-]; };
+
 /**
  * Mixin to augment a directive with a `disabled` property.
  * @template T
@@ -247,6 +209,7 @@ function mixinDisabled(base) {
         return class_1;
     }(base));
 }
+
 /**
  * Class to coordinate unique selection based on name.
  * Intended to be consumed as an Angular service.
@@ -287,15 +250,15 @@ var UniqueSelectionDispatcher = (function () {
             });
         };
     };
+    UniqueSelectionDispatcher.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    UniqueSelectionDispatcher.ctorParameters = function () { return []; };
     return UniqueSelectionDispatcher;
 }());
-UniqueSelectionDispatcher.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-UniqueSelectionDispatcher.ctorParameters = function () { return []; };
 /**
  * \@docs-private
  * @param {?} parentDispatcher
@@ -313,14 +276,11 @@ var UNIQUE_SELECTION_DISPATCHER_PROVIDER = {
     deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), UniqueSelectionDispatcher]],
     useFactory: UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY
 };
+
 /**
  * InjectionToken for datepicker that can be used to override default locale code.
  */
 var MAT_DATE_LOCALE = new _angular_core.InjectionToken('MAT_DATE_LOCALE');
-/**
- * Provider for MAT_DATE_LOCALE injection token.
- */
-var MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: _angular_core.LOCALE_ID };
 /**
  * Adapts type `D` to be usable as a date by cdk-based components that work with dates.
  * @abstract
@@ -553,6 +513,7 @@ var DateAdapter = (function () {
     };
     return DateAdapter;
 }());
+
 /**
  * Extends an object with the *enumerable* and *own* properties of one or more source objects,
  * similar to Object.assign.
@@ -581,6 +542,7 @@ function extendObject(dest) {
     }
     return dest;
 }
+
 /**
  * Whether the browser supports the Intl API.
  */
@@ -908,61 +870,20 @@ var NativeDateAdapter = (function (_super) {
     NativeDateAdapter.prototype._stripDirectionalityCharacters = function (str) {
         return str.replace(/[\u200e\u200f]/g, '');
     };
+    NativeDateAdapter.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    NativeDateAdapter.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_LOCALE,] },] },
+    ]; };
     return NativeDateAdapter;
 }(DateAdapter));
-NativeDateAdapter.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-NativeDateAdapter.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_LOCALE,] },] },
-]; };
+
 var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
-var MAT_NATIVE_DATE_FORMATS = {
-    parse: {
-        dateInput: null,
-    },
-    display: {
-        dateInput: { year: 'numeric', month: 'numeric', day: 'numeric' },
-        monthYearLabel: { year: 'numeric', month: 'short' },
-        dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
-        monthYearA11yLabel: { year: 'numeric', month: 'long' },
-    }
-};
-var NativeDateModule = (function () {
-    function NativeDateModule() {
-    }
-    return NativeDateModule;
-}());
-NativeDateModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                providers: [
-                    { provide: DateAdapter, useClass: NativeDateAdapter },
-                    MAT_DATE_LOCALE_PROVIDER
-                ],
-            },] },
-];
-/**
- * @nocollapse
- */
-NativeDateModule.ctorParameters = function () { return []; };
-var MatNativeDateModule = (function () {
-    function MatNativeDateModule() {
-    }
-    return MatNativeDateModule;
-}());
-MatNativeDateModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [NativeDateModule],
-                providers: [{ provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS }],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatNativeDateModule.ctorParameters = function () { return []; };
+
 /**
  * Injection token that can be used to specify the global error options.
  */
@@ -1034,51 +955,16 @@ var GestureConfig = (function (_super) {
         inheritances.forEach(function (item) { return recognizer.recognizeWith(item); });
         return recognizer;
     };
+    GestureConfig.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    GestureConfig.ctorParameters = function () { return []; };
     return GestureConfig;
 }(_angular_platformBrowser.HammerGestureConfig));
-GestureConfig.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-GestureConfig.ctorParameters = function () { return []; };
-/**
- * Shared directive to count lines inside a text area, such as a list item.
- * Line elements can be extracted with a \@ContentChildren(MatLine) query, then
- * counted by checking the query list's length.
- */
-var MatLine = (function () {
-    function MatLine() {
-    }
-    return MatLine;
-}());
-MatLine.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[mat-line], [matLine]',
-                host: { 'class': 'mat-line' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatLine.ctorParameters = function () { return []; };
-var MatLineModule = (function () {
-    function MatLineModule() {
-    }
-    return MatLineModule;
-}());
-MatLineModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [MatCommonModule],
-                exports: [MatLine, MatCommonModule],
-                declarations: [MatLine],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatLineModule.ctorParameters = function () { return []; };
+
 var RippleState = {};
 RippleState.FADING_IN = 0;
 RippleState.VISIBLE = 1;
@@ -1115,6 +1001,7 @@ var RippleRef = (function () {
     };
     return RippleRef;
 }());
+
 /**
  * Fade-in duration for the ripples. Can be modified with the speedFactor option.
  */
@@ -1355,6 +1242,7 @@ function distanceToFurthestCorner(x, y, rect) {
     var /** @type {?} */ distY = Math.max(Math.abs(y - rect.top), Math.abs(y - rect.bottom));
     return Math.sqrt(distX * distX + distY * distY);
 }
+
 /**
  * Injection token that can be used to specify the global ripple options.
  */
@@ -1443,54 +1331,56 @@ var MatRipple = (function () {
         this._rippleRenderer.rippleDisabled = this._globalOptions.disabled || this.disabled;
         this._rippleRenderer.rippleConfig = this.rippleConfig;
     };
+    MatRipple.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: '[mat-ripple], [matRipple]',
+                    exportAs: 'matRipple',
+                    host: {
+                        'class': 'mat-ripple',
+                        '[class.mat-ripple-unbounded]': 'unbounded'
+                    }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatRipple.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+        { type: _angular_core.NgZone, },
+        { type: _angular_cdk_scrolling.ViewportRuler, },
+        { type: _angular_cdk_platform.Platform, },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
+    ]; };
+    MatRipple.propDecorators = {
+        'trigger': [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
+        'centered': [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
+        'disabled': [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
+        'radius': [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
+        'speedFactor': [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
+        'color': [{ type: _angular_core.Input, args: ['matRippleColor',] },],
+        'unbounded': [{ type: _angular_core.Input, args: ['matRippleUnbounded',] },],
+    };
     return MatRipple;
 }());
-MatRipple.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[mat-ripple], [matRipple]',
-                exportAs: 'matRipple',
-                host: {
-                    'class': 'mat-ripple',
-                    '[class.mat-ripple-unbounded]': 'unbounded'
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatRipple.ctorParameters = function () { return [
-    { type: _angular_core.ElementRef, },
-    { type: _angular_core.NgZone, },
-    { type: _angular_cdk_scrolling.ViewportRuler, },
-    { type: _angular_cdk_platform.Platform, },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
-]; };
-MatRipple.propDecorators = {
-    'trigger': [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
-    'centered': [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
-    'disabled': [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
-    'radius': [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
-    'speedFactor': [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
-    'color': [{ type: _angular_core.Input, args: ['matRippleColor',] },],
-    'unbounded': [{ type: _angular_core.Input, args: ['matRippleUnbounded',] },],
-};
+
 var MatRippleModule = (function () {
     function MatRippleModule() {
     }
+    MatRippleModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    imports: [MatCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
+                    exports: [MatRipple, MatCommonModule],
+                    declarations: [MatRipple],
+                    providers: [_angular_cdk_scrolling.VIEWPORT_RULER_PROVIDER],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatRippleModule.ctorParameters = function () { return []; };
     return MatRippleModule;
 }());
-MatRippleModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [MatCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
-                exports: [MatRipple, MatCommonModule],
-                declarations: [MatRipple],
-                providers: [_angular_cdk_scrolling.VIEWPORT_RULER_PROVIDER],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatRippleModule.ctorParameters = function () { return []; };
+
 /**
  * Component that shows a simplified checkbox without including any kind of "real" checkbox.
  * Meant to be used when the checkbox is purely decorative and a large number of them will be
@@ -1515,46 +1405,48 @@ var MatPseudoCheckbox = (function () {
          */
         this.disabled = false;
     }
+    MatPseudoCheckbox.decorators = [
+        { type: _angular_core.Component, args: [{encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    selector: 'mat-pseudo-checkbox',
+                    styles: [".mat-pseudo-checkbox{width:20px;height:20px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0,0,.2,.1),background-color 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:'';border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:9px;left:2px;width:16px;opacity:1}.mat-pseudo-checkbox-checked::after{top:5px;left:3px;width:12px;height:5px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1}"],
+                    template: '',
+                    host: {
+                        'class': 'mat-pseudo-checkbox',
+                        '[class.mat-pseudo-checkbox-indeterminate]': 'state === "indeterminate"',
+                        '[class.mat-pseudo-checkbox-checked]': 'state === "checked"',
+                        '[class.mat-pseudo-checkbox-disabled]': 'disabled',
+                    },
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatPseudoCheckbox.ctorParameters = function () { return []; };
+    MatPseudoCheckbox.propDecorators = {
+        'state': [{ type: _angular_core.Input },],
+        'disabled': [{ type: _angular_core.Input },],
+    };
     return MatPseudoCheckbox;
 }());
-MatPseudoCheckbox.decorators = [
-    { type: _angular_core.Component, args: [{ encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                selector: 'mat-pseudo-checkbox',
-                styles: [".mat-pseudo-checkbox{width:20px;height:20px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0,0,.2,.1),background-color 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:'';border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:9px;left:2px;width:16px;opacity:1}.mat-pseudo-checkbox-checked::after{top:5px;left:3px;width:12px;height:5px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1}"],
-                template: '',
-                host: {
-                    'class': 'mat-pseudo-checkbox',
-                    '[class.mat-pseudo-checkbox-indeterminate]': 'state === "indeterminate"',
-                    '[class.mat-pseudo-checkbox-checked]': 'state === "checked"',
-                    '[class.mat-pseudo-checkbox-disabled]': 'disabled',
-                },
-            },] },
-];
-/**
- * @nocollapse
- */
-MatPseudoCheckbox.ctorParameters = function () { return []; };
-MatPseudoCheckbox.propDecorators = {
-    'state': [{ type: _angular_core.Input },],
-    'disabled': [{ type: _angular_core.Input },],
-};
+
 var MatPseudoCheckboxModule = (function () {
     function MatPseudoCheckboxModule() {
     }
+    MatPseudoCheckboxModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    exports: [MatPseudoCheckbox],
+                    declarations: [MatPseudoCheckbox]
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatPseudoCheckboxModule.ctorParameters = function () { return []; };
     return MatPseudoCheckboxModule;
 }());
-MatPseudoCheckboxModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                exports: [MatPseudoCheckbox],
-                declarations: [MatPseudoCheckbox]
-            },] },
-];
-/**
- * @nocollapse
- */
-MatPseudoCheckboxModule.ctorParameters = function () { return []; };
+
 /**
  * \@docs-private
  */
@@ -1572,38 +1464,39 @@ var _uniqueOptgroupIdCounter = 0;
 var MatOptgroup = (function (_super) {
     __extends(MatOptgroup, _super);
     function MatOptgroup() {
-        var _this = _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
         /**
          * Unique id for the underlying label.
          */
         _this._labelId = "mat-optgroup-label-" + _uniqueOptgroupIdCounter++;
         return _this;
     }
+    MatOptgroup.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-optgroup',
+                    template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    inputs: ['disabled'],
+                    host: {
+                        'class': 'mat-optgroup',
+                        'role': 'group',
+                        '[class.mat-optgroup-disabled]': 'disabled',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[attr.aria-labelledby]': '_labelId',
+                    }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatOptgroup.ctorParameters = function () { return []; };
+    MatOptgroup.propDecorators = {
+        'label': [{ type: _angular_core.Input },],
+    };
     return MatOptgroup;
 }(_MatOptgroupMixinBase));
-MatOptgroup.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-optgroup',
-                template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                inputs: ['disabled'],
-                host: {
-                    'class': 'mat-optgroup',
-                    'role': 'group',
-                    '[class.mat-optgroup-disabled]': 'disabled',
-                    '[attr.aria-disabled]': 'disabled.toString()',
-                    '[attr.aria-labelledby]': '_labelId',
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatOptgroup.ctorParameters = function () { return []; };
-MatOptgroup.propDecorators = {
-    'label': [{ type: _angular_core.Input },],
-};
+
 /**
  * Option IDs need to be unique across components, so this counter exists outside of
  * the component definition.
@@ -1873,59 +1766,61 @@ var MatOption = (function () {
         }
         return 0;
     };
+    MatOption.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-option',
+                    host: {
+                        'role': 'option',
+                        '[attr.tabindex]': '_getTabIndex()',
+                        '[class.mat-selected]': 'selected',
+                        '[class.mat-option-multiple]': 'multiple',
+                        '[class.mat-active]': 'active',
+                        '[id]': 'id',
+                        '[attr.aria-selected]': 'selected.toString()',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[class.mat-option-disabled]': 'disabled',
+                        '(click)': '_selectViaInteraction()',
+                        '(keydown)': '_handleKeydown($event)',
+                        'class': 'mat-option',
+                    },
+                    template: "<span *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox></span><span class=\"mat-option-text\"><ng-content></ng-content></span><div class=\"mat-option-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"disabled || disableRipple\"></div>",
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatOption.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+        { type: _angular_core.ChangeDetectorRef, },
+        { type: MatOptgroup, decorators: [{ type: _angular_core.Optional },] },
+    ]; };
+    MatOption.propDecorators = {
+        'value': [{ type: _angular_core.Input },],
+        'disabled': [{ type: _angular_core.Input },],
+        'onSelectionChange': [{ type: _angular_core.Output },],
+    };
     return MatOption;
 }());
-MatOption.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-option',
-                host: {
-                    'role': 'option',
-                    '[attr.tabindex]': '_getTabIndex()',
-                    '[class.mat-selected]': 'selected',
-                    '[class.mat-option-multiple]': 'multiple',
-                    '[class.mat-active]': 'active',
-                    '[id]': 'id',
-                    '[attr.aria-selected]': 'selected.toString()',
-                    '[attr.aria-disabled]': 'disabled.toString()',
-                    '[class.mat-option-disabled]': 'disabled',
-                    '(click)': '_selectViaInteraction()',
-                    '(keydown)': '_handleKeydown($event)',
-                    'class': 'mat-option',
-                },
-                template: "<span *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox></span><span class=\"mat-option-text\"><ng-content></ng-content></span><div class=\"mat-option-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"disabled || disableRipple\"></div>",
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatOption.ctorParameters = function () { return [
-    { type: _angular_core.ElementRef, },
-    { type: _angular_core.ChangeDetectorRef, },
-    { type: MatOptgroup, decorators: [{ type: _angular_core.Optional },] },
-]; };
-MatOption.propDecorators = {
-    'value': [{ type: _angular_core.Input },],
-    'disabled': [{ type: _angular_core.Input },],
-    'onSelectionChange': [{ type: _angular_core.Output },],
-};
+
 var MatOptionModule = (function () {
     function MatOptionModule() {
     }
+    MatOptionModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    imports: [MatRippleModule, _angular_common.CommonModule, MatPseudoCheckboxModule],
+                    exports: [MatOption, MatOptgroup],
+                    declarations: [MatOption, MatOptgroup]
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatOptionModule.ctorParameters = function () { return []; };
     return MatOptionModule;
 }());
-MatOptionModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [MatRippleModule, _angular_common.CommonModule, MatPseudoCheckboxModule],
-                exports: [MatOption, MatOptgroup],
-                declarations: [MatOption, MatOptgroup]
-            },] },
-];
-/**
- * @nocollapse
- */
-MatOptionModule.ctorParameters = function () { return []; };
+
 /**
  * InjectionToken that can be used to specify the global placeholder options.
  */
@@ -1939,25 +1834,26 @@ var MatError = (function () {
     function MatError() {
         this.id = "mat-error-" + nextUniqueId++;
     }
+    MatError.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'mat-error',
+                    host: {
+                        'class': 'mat-error',
+                        'role': 'alert',
+                        '[attr.id]': 'id',
+                    }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatError.ctorParameters = function () { return []; };
+    MatError.propDecorators = {
+        'id': [{ type: _angular_core.Input },],
+    };
     return MatError;
 }());
-MatError.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: 'mat-error',
-                host: {
-                    'class': 'mat-error',
-                    'role': 'alert',
-                    '[attr.id]': 'id',
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatError.ctorParameters = function () { return []; };
-MatError.propDecorators = {
-    'id': [{ type: _angular_core.Input },],
-};
+
 /**
  * An interface which allows a control to work inside of a `MatFormField`.
  * @abstract
@@ -1981,6 +1877,7 @@ var MatFormFieldControl = (function () {
     MatFormFieldControl.prototype.onContainerClick = function (event) { };
     return MatFormFieldControl;
 }());
+
 /**
  * \@docs-private
  * @return {?}
@@ -2004,6 +1901,7 @@ function getMatFormFieldMissingControlError() {
     return Error('mat-form-field must contain a MatFormFieldControl. ' +
         'Did you forget to add matInput to the native input or textarea element?');
 }
+
 var nextUniqueId$2 = 0;
 /**
  * Hint text to be shown underneath the form field control.
@@ -2019,79 +1917,83 @@ var MatHint = (function () {
          */
         this.id = "mat-hint-" + nextUniqueId$2++;
     }
+    MatHint.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'mat-hint',
+                    host: {
+                        'class': 'mat-hint',
+                        '[class.mat-right]': 'align == "end"',
+                        '[attr.id]': 'id',
+                        // Remove align attribute to prevent it from interfering with layout.
+                        '[attr.align]': 'null',
+                    }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatHint.ctorParameters = function () { return []; };
+    MatHint.propDecorators = {
+        'align': [{ type: _angular_core.Input },],
+        'id': [{ type: _angular_core.Input },],
+    };
     return MatHint;
 }());
-MatHint.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: 'mat-hint',
-                host: {
-                    'class': 'mat-hint',
-                    '[class.mat-right]': 'align == "end"',
-                    '[attr.id]': 'id',
-                    // Remove align attribute to prevent it from interfering with layout.
-                    '[attr.align]': 'null',
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatHint.ctorParameters = function () { return []; };
-MatHint.propDecorators = {
-    'align': [{ type: _angular_core.Input },],
-    'id': [{ type: _angular_core.Input },],
-};
+
 /**
  * The floating placeholder for an `MatFormField`.
  */
 var MatPlaceholder = (function () {
     function MatPlaceholder() {
     }
+    MatPlaceholder.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'mat-placeholder'
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatPlaceholder.ctorParameters = function () { return []; };
     return MatPlaceholder;
 }());
-MatPlaceholder.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: 'mat-placeholder'
-            },] },
-];
-/**
- * @nocollapse
- */
-MatPlaceholder.ctorParameters = function () { return []; };
+
 /**
  * Prefix to be placed the the front of the form field.
  */
 var MatPrefix = (function () {
     function MatPrefix() {
     }
+    MatPrefix.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: '[matPrefix]',
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatPrefix.ctorParameters = function () { return []; };
     return MatPrefix;
 }());
-MatPrefix.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[matPrefix]',
-            },] },
-];
-/**
- * @nocollapse
- */
-MatPrefix.ctorParameters = function () { return []; };
+
 /**
  * Suffix to be placed at the end of the form field.
  */
 var MatSuffix = (function () {
     function MatSuffix() {
     }
+    MatSuffix.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: '[matSuffix]',
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatSuffix.ctorParameters = function () { return []; };
     return MatSuffix;
 }());
-MatSuffix.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[matSuffix]',
-            },] },
-];
-/**
- * @nocollapse
- */
-MatSuffix.ctorParameters = function () { return []; };
+
 var nextUniqueId$1 = 0;
 /**
  * Container for form controls that applies Material Design styling and behavior.
@@ -2378,107 +2280,74 @@ var MatFormField = (function () {
             throw getMatFormFieldMissingControlError();
         }
     };
+    MatFormField.decorators = [
+        { type: _angular_core.Component, args: [{// TODO(mmalerba): the input-container selectors and classes are deprecated and will be removed.
+                    selector: 'mat-input-container, mat-form-field',
+                    template: "<div class=\"mat-input-wrapper mat-form-field-wrapper\"><div class=\"mat-input-flex mat-form-field-flex\" #connectionContainer (click)=\"_control.onContainerClick && _control.onContainerClick($event)\"><div class=\"mat-input-prefix mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[matPrefix]\"></ng-content></div><div class=\"mat-input-infix mat-form-field-infix\"><ng-content></ng-content><span class=\"mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper\"><label class=\"mat-input-placeholder mat-form-field-placeholder\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #placeholder *ngIf=\"_hasPlaceholder()\"><ng-content select=\"mat-placeholder\"></ng-content>{{_control.placeholder}} <span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required\">*</span></label></span></div><div class=\"mat-input-suffix mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[matSuffix]\"></ng-content></div></div><div class=\"mat-input-underline mat-form-field-underline\" #underline [class.mat-disabled]=\"_control.disabled\"><span class=\"mat-input-ripple mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-input-subscript-wrapper mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"mat-error\"></ng-content></div><div class=\"mat-input-hint-wrapper mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"mat-hint:not([align='end'])\"></ng-content><div class=\"mat-input-hint-spacer mat-form-field-hint-spacer\"></div><ng-content select=\"mat-hint[align='end']\"></ng-content></div></div></div>",
+                    // MatInput is a directive and can't have styles, so we need to include its styles here.
+                    // The MatInput styles are fairly minimal so it shouldn't be a big deal for people who
+                    // aren't using MatInput.
+                    styles: [".mat-form-field{display:inline-block;position:relative;text-align:left}[dir=rtl] .mat-form-field{text-align:right}.mat-form-field-wrapper{position:relative}.mat-form-field-flex{display:inline-flex;align-items:baseline;width:100%}.mat-form-field-prefix,.mat-form-field-suffix{white-space:nowrap;flex:none}.mat-form-field-prefix .mat-icon,.mat-form-field-suffix .mat-icon{width:1em}.mat-form-field-prefix .mat-icon-button,.mat-form-field-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field-suffix .mat-icon-button .mat-icon{font-size:inherit}.mat-form-field-infix{display:block;position:relative;flex:auto;min-width:0}.mat-form-field-placeholder-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}.mat-form-field-placeholder{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:perspective(100px);-ms-transform:none;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}[dir=rtl] .mat-form-field-placeholder{transform-origin:100% 0;left:auto;right:0}.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-placeholder,.mat-form-field-empty.mat-form-field-placeholder{display:block}.mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:none}.mat-form-field-can-float .mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:block;transition:none}.mat-form-field-placeholder:not(.mat-form-field-empty){transition:none}.mat-form-field-underline{position:absolute;height:1px;width:100%}.mat-form-field-underline.mat-disabled{background-position:0;background-color:transparent}.mat-form-field-underline .mat-form-field-ripple{position:absolute;height:1px;top:0;left:0;width:100%;transform-origin:50%;transform:scaleX(.5);visibility:hidden;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-focused .mat-form-field-underline .mat-form-field-ripple{height:2px}.mat-focused .mat-form-field-underline .mat-form-field-ripple,.mat-form-field-invalid .mat-form-field-underline .mat-form-field-ripple{visibility:visible;transform:scaleX(1);transition:transform 150ms linear,background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-form-field-subscript-wrapper{position:absolute;width:100%;overflow:hidden}.mat-form-field-placeholder-wrapper .mat-icon,.mat-form-field-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-form-field-hint-wrapper{display:flex}.mat-form-field-hint-spacer{flex:1 0 1em}.mat-error{display:block} .mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;margin:0;width:100%;max-width:100%;vertical-align:bottom}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element::placeholder{color:transparent!important}.mat-input-element::-moz-placeholder{color:transparent!important}.mat-input-element::-webkit-input-placeholder{color:transparent!important}.mat-input-element:-ms-input-placeholder{color:transparent!important}textarea.mat-input-element{resize:vertical;overflow:auto}"],
+                    animations: [
+                        // TODO(mmalerba): Use angular animations for placeholder animation as well.
+                        _angular_animations.trigger('transitionMessages', [
+                            _angular_animations.state('enter', _angular_animations.style({ opacity: 1, transform: 'translateY(0%)' })),
+                            _angular_animations.transition('void => enter', [
+                                _angular_animations.style({ opacity: 0, transform: 'translateY(-100%)' }),
+                                _angular_animations.animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
+                            ]),
+                        ]),
+                    ],
+                    host: {
+                        'class': 'mat-input-container mat-form-field',
+                        '[class.mat-input-invalid]': '_control.errorState',
+                        '[class.mat-form-field-invalid]': '_control.errorState',
+                        '[class.mat-form-field-can-float]': '_canPlaceholderFloat',
+                        '[class.mat-form-field-should-float]': '_control.shouldPlaceholderFloat || _shouldAlwaysFloat',
+                        '[class.mat-focused]': '_control.focused',
+                        '[class.mat-primary]': 'color == "primary"',
+                        '[class.mat-accent]': 'color == "accent"',
+                        '[class.mat-warn]': 'color == "warn"',
+                        '[class.ng-untouched]': '_shouldForward("untouched")',
+                        '[class.ng-touched]': '_shouldForward("touched")',
+                        '[class.ng-pristine]': '_shouldForward("pristine")',
+                        '[class.ng-dirty]': '_shouldForward("dirty")',
+                        '[class.ng-valid]': '_shouldForward("valid")',
+                        '[class.ng-invalid]': '_shouldForward("invalid")',
+                        '[class.ng-pending]': '_shouldForward("pending")',
+                    },
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatFormField.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+        { type: _angular_core.Renderer2, },
+        { type: _angular_core.ChangeDetectorRef, },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
+    ]; };
+    MatFormField.propDecorators = {
+        'color': [{ type: _angular_core.Input },],
+        'dividerColor': [{ type: _angular_core.Input },],
+        'hideRequiredMarker': [{ type: _angular_core.Input },],
+        'hintLabel': [{ type: _angular_core.Input },],
+        'floatPlaceholder': [{ type: _angular_core.Input },],
+        'underlineRef': [{ type: _angular_core.ViewChild, args: ['underline',] },],
+        '_connectionContainerRef': [{ type: _angular_core.ViewChild, args: ['connectionContainer',] },],
+        '_placeholder': [{ type: _angular_core.ViewChild, args: ['placeholder',] },],
+        '_control': [{ type: _angular_core.ContentChild, args: [MatFormFieldControl,] },],
+        '_placeholderChild': [{ type: _angular_core.ContentChild, args: [MatPlaceholder,] },],
+        '_errorChildren': [{ type: _angular_core.ContentChildren, args: [MatError,] },],
+        '_hintChildren': [{ type: _angular_core.ContentChildren, args: [MatHint,] },],
+        '_prefixChildren': [{ type: _angular_core.ContentChildren, args: [MatPrefix,] },],
+        '_suffixChildren': [{ type: _angular_core.ContentChildren, args: [MatSuffix,] },],
+    };
     return MatFormField;
 }());
-MatFormField.decorators = [
-    { type: _angular_core.Component, args: [{
-                selector: 'mat-input-container, mat-form-field',
-                template: "<div class=\"mat-input-wrapper mat-form-field-wrapper\"><div class=\"mat-input-flex mat-form-field-flex\" #connectionContainer (click)=\"_control.onContainerClick && _control.onContainerClick($event)\"><div class=\"mat-input-prefix mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[matPrefix]\"></ng-content></div><div class=\"mat-input-infix mat-form-field-infix\"><ng-content></ng-content><span class=\"mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper\"><label class=\"mat-input-placeholder mat-form-field-placeholder\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #placeholder *ngIf=\"_hasPlaceholder()\"><ng-content select=\"mat-placeholder\"></ng-content>{{_control.placeholder}} <span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required\">*</span></label></span></div><div class=\"mat-input-suffix mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[matSuffix]\"></ng-content></div></div><div class=\"mat-input-underline mat-form-field-underline\" #underline [class.mat-disabled]=\"_control.disabled\"><span class=\"mat-input-ripple mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-input-subscript-wrapper mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"mat-error\"></ng-content></div><div class=\"mat-input-hint-wrapper mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"mat-hint:not([align='end'])\"></ng-content><div class=\"mat-input-hint-spacer mat-form-field-hint-spacer\"></div><ng-content select=\"mat-hint[align='end']\"></ng-content></div></div></div>",
-                // MatInput is a directive and can't have styles, so we need to include its styles here.
-                // The MatInput styles are fairly minimal so it shouldn't be a big deal for people who
-                // aren't using MatInput.
-                styles: [".mat-form-field{display:inline-block;position:relative;text-align:left}[dir=rtl] .mat-form-field{text-align:right}.mat-form-field-wrapper{position:relative}.mat-form-field-flex{display:inline-flex;align-items:baseline;width:100%}.mat-form-field-prefix,.mat-form-field-suffix{white-space:nowrap;flex:none}.mat-form-field-prefix .mat-icon,.mat-form-field-suffix .mat-icon{width:1em}.mat-form-field-prefix .mat-icon-button,.mat-form-field-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field-suffix .mat-icon-button .mat-icon{font-size:inherit}.mat-form-field-infix{display:block;position:relative;flex:auto;min-width:0}.mat-form-field-placeholder-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}.mat-form-field-placeholder{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:perspective(100px);-ms-transform:none;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}[dir=rtl] .mat-form-field-placeholder{transform-origin:100% 0;left:auto;right:0}.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-placeholder,.mat-form-field-empty.mat-form-field-placeholder{display:block}.mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:none}.mat-form-field-can-float .mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:block;transition:none}.mat-form-field-placeholder:not(.mat-form-field-empty){transition:none}.mat-form-field-underline{position:absolute;height:1px;width:100%}.mat-form-field-underline.mat-disabled{background-position:0;background-color:transparent}.mat-form-field-underline .mat-form-field-ripple{position:absolute;height:1px;top:0;left:0;width:100%;transform-origin:50%;transform:scaleX(.5);visibility:hidden;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-focused .mat-form-field-underline .mat-form-field-ripple{height:2px}.mat-focused .mat-form-field-underline .mat-form-field-ripple,.mat-form-field-invalid .mat-form-field-underline .mat-form-field-ripple{visibility:visible;transform:scaleX(1);transition:transform 150ms linear,background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-form-field-subscript-wrapper{position:absolute;width:100%;overflow:hidden}.mat-form-field-placeholder-wrapper .mat-icon,.mat-form-field-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-form-field-hint-wrapper{display:flex}.mat-form-field-hint-spacer{flex:1 0 1em}.mat-error{display:block} .mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;margin:0;width:100%;max-width:100%;vertical-align:bottom}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element::placeholder{color:transparent!important}.mat-input-element::-moz-placeholder{color:transparent!important}.mat-input-element::-webkit-input-placeholder{color:transparent!important}.mat-input-element:-ms-input-placeholder{color:transparent!important}textarea.mat-input-element{resize:vertical;overflow:auto}"],
-                animations: [
-                    // TODO(mmalerba): Use angular animations for placeholder animation as well.
-                    _angular_animations.trigger('transitionMessages', [
-                        _angular_animations.state('enter', _angular_animations.style({ opacity: 1, transform: 'translateY(0%)' })),
-                        _angular_animations.transition('void => enter', [
-                            _angular_animations.style({ opacity: 0, transform: 'translateY(-100%)' }),
-                            _angular_animations.animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
-                        ]),
-                    ]),
-                ],
-                host: {
-                    'class': 'mat-input-container mat-form-field',
-                    '[class.mat-input-invalid]': '_control.errorState',
-                    '[class.mat-form-field-invalid]': '_control.errorState',
-                    '[class.mat-form-field-can-float]': '_canPlaceholderFloat',
-                    '[class.mat-form-field-should-float]': '_control.shouldPlaceholderFloat || _shouldAlwaysFloat',
-                    '[class.mat-focused]': '_control.focused',
-                    '[class.mat-primary]': 'color == "primary"',
-                    '[class.mat-accent]': 'color == "accent"',
-                    '[class.mat-warn]': 'color == "warn"',
-                    '[class.ng-untouched]': '_shouldForward("untouched")',
-                    '[class.ng-touched]': '_shouldForward("touched")',
-                    '[class.ng-pristine]': '_shouldForward("pristine")',
-                    '[class.ng-dirty]': '_shouldForward("dirty")',
-                    '[class.ng-valid]': '_shouldForward("valid")',
-                    '[class.ng-invalid]': '_shouldForward("invalid")',
-                    '[class.ng-pending]': '_shouldForward("pending")',
-                },
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatFormField.ctorParameters = function () { return [
-    { type: _angular_core.ElementRef, },
-    { type: _angular_core.Renderer2, },
-    { type: _angular_core.ChangeDetectorRef, },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
-]; };
-MatFormField.propDecorators = {
-    'color': [{ type: _angular_core.Input },],
-    'dividerColor': [{ type: _angular_core.Input },],
-    'hideRequiredMarker': [{ type: _angular_core.Input },],
-    'hintLabel': [{ type: _angular_core.Input },],
-    'floatPlaceholder': [{ type: _angular_core.Input },],
-    'underlineRef': [{ type: _angular_core.ViewChild, args: ['underline',] },],
-    '_connectionContainerRef': [{ type: _angular_core.ViewChild, args: ['connectionContainer',] },],
-    '_placeholder': [{ type: _angular_core.ViewChild, args: ['placeholder',] },],
-    '_control': [{ type: _angular_core.ContentChild, args: [MatFormFieldControl,] },],
-    '_placeholderChild': [{ type: _angular_core.ContentChild, args: [MatPlaceholder,] },],
-    '_errorChildren': [{ type: _angular_core.ContentChildren, args: [MatError,] },],
-    '_hintChildren': [{ type: _angular_core.ContentChildren, args: [MatHint,] },],
-    '_prefixChildren': [{ type: _angular_core.ContentChildren, args: [MatPrefix,] },],
-    '_suffixChildren': [{ type: _angular_core.ContentChildren, args: [MatSuffix,] },],
-};
-var MatFormFieldModule = (function () {
-    function MatFormFieldModule() {
-    }
-    return MatFormFieldModule;
-}());
-MatFormFieldModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                declarations: [
-                    MatError,
-                    MatHint,
-                    MatFormField,
-                    MatPlaceholder,
-                    MatPrefix,
-                    MatSuffix,
-                ],
-                imports: [
-                    _angular_common.CommonModule,
-                    _angular_cdk_platform.PlatformModule,
-                ],
-                exports: [
-                    MatError,
-                    MatHint,
-                    MatFormField,
-                    MatPlaceholder,
-                    MatPrefix,
-                    MatSuffix,
-                ],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatFormFieldModule.ctorParameters = function () { return []; };
 
 /**
  * Autocomplete IDs need to be unique across components, so this counter exists outside of
@@ -2602,37 +2471,38 @@ var MatAutocomplete = (function () {
         var /** @type {?} */ event = new MatAutocompleteSelectedEvent(this, option);
         this.optionSelected.emit(event);
     };
+    MatAutocomplete.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-autocomplete',
+                    template: "<ng-template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_classList\" #panel><ng-content></ng-content></div></ng-template>",
+                    styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative}.mat-autocomplete-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}"],
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    exportAs: 'matAutocomplete',
+                    host: {
+                        'class': 'mat-autocomplete'
+                    }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatAutocomplete.ctorParameters = function () { return [
+        { type: _angular_core.ChangeDetectorRef, },
+        { type: _angular_core.ElementRef, },
+    ]; };
+    MatAutocomplete.propDecorators = {
+        'template': [{ type: _angular_core.ViewChild, args: [_angular_core.TemplateRef,] },],
+        'panel': [{ type: _angular_core.ViewChild, args: ['panel',] },],
+        'options': [{ type: _angular_core.ContentChildren, args: [MatOption, { descendants: true },] },],
+        'optionGroups': [{ type: _angular_core.ContentChildren, args: [MatOptgroup,] },],
+        'displayWith': [{ type: _angular_core.Input },],
+        'optionSelected': [{ type: _angular_core.Output },],
+        'classList': [{ type: _angular_core.Input, args: ['class',] },],
+    };
     return MatAutocomplete;
 }());
-MatAutocomplete.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-autocomplete',
-                template: "<ng-template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_classList\" #panel><ng-content></ng-content></div></ng-template>",
-                styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative}.mat-autocomplete-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}"],
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                exportAs: 'matAutocomplete',
-                host: {
-                    'class': 'mat-autocomplete'
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatAutocomplete.ctorParameters = function () { return [
-    { type: _angular_core.ChangeDetectorRef, },
-    { type: _angular_core.ElementRef, },
-]; };
-MatAutocomplete.propDecorators = {
-    'template': [{ type: _angular_core.ViewChild, args: [_angular_core.TemplateRef,] },],
-    'panel': [{ type: _angular_core.ViewChild, args: ['panel',] },],
-    'options': [{ type: _angular_core.ContentChildren, args: [MatOption, { descendants: true },] },],
-    'optionGroups': [{ type: _angular_core.ContentChildren, args: [MatOptgroup,] },],
-    'displayWith': [{ type: _angular_core.Input },],
-    'optionSelected': [{ type: _angular_core.Output },],
-    'classList': [{ type: _angular_core.Input, args: ['class',] },],
-};
+
 /**
  * The height of each autocomplete option.
  */
@@ -2707,6 +2577,10 @@ var MatAutocompleteTrigger = (function () {
          */
         this._manuallyFloatingPlaceholder = false;
         /**
+         * Stream of escape keyboard events.
+         */
+        this._escapeEventStream = new rxjs_Subject.Subject();
+        /**
          * View -> model callback called when value changes
          */
         this._onChange = function () { };
@@ -2720,6 +2594,7 @@ var MatAutocompleteTrigger = (function () {
      */
     MatAutocompleteTrigger.prototype.ngOnDestroy = function () {
         this._destroyPanel();
+        this._escapeEventStream.complete();
     };
     Object.defineProperty(MatAutocompleteTrigger.prototype, "panelOpen", {
         /**
@@ -2765,7 +2640,7 @@ var MatAutocompleteTrigger = (function () {
          * @return {?}
          */
         get: function () {
-            return rxjs_observable_merge.merge(this.optionSelections, this.autocomplete._keyManager.tabOut, this._outsideClickStream);
+            return rxjs_observable_merge.merge(this.optionSelections, this.autocomplete._keyManager.tabOut, this._escapeEventStream, this._outsideClickStream);
         },
         enumerable: true,
         configurable: true
@@ -2860,7 +2735,7 @@ var MatAutocompleteTrigger = (function () {
         var /** @type {?} */ keyCode = event.keyCode;
         if (keyCode === _angular_cdk_keycodes.ESCAPE && this.panelOpen) {
             this._resetActiveItem();
-            this.closePanel();
+            this._escapeEventStream.next();
             event.stopPropagation();
         }
         else if (this.activeOption && keyCode === _angular_cdk_keycodes.ENTER && this.panelOpen) {
@@ -2968,7 +2843,9 @@ var MatAutocompleteTrigger = (function () {
     MatAutocompleteTrigger.prototype._subscribeToClosingActions = function () {
         var _this = this;
         var /** @type {?} */ firstStable = _angular_cdk_rxjs.first.call(this._zone.onStable.asObservable());
-        var /** @type {?} */ optionChanges = _angular_cdk_rxjs.map.call(this.autocomplete.options.changes, function () { return _this._positionStrategy.recalculateLastPosition(); });
+        var /** @type {?} */ optionChanges = _angular_cdk_rxjs.map.call(this.autocomplete.options.changes, function () {
+            return _this._positionStrategy.recalculateLastPosition();
+        });
         // When the zone is stable initially, and when the option list changes...
         return _angular_cdk_rxjs.RxChain.from(rxjs_observable_merge.merge(firstStable, optionChanges))
             .call(_angular_cdk_rxjs.switchMap, function () {
@@ -3101,62 +2978,63 @@ var MatAutocompleteTrigger = (function () {
     MatAutocompleteTrigger.prototype._resetActiveItem = function () {
         this.autocomplete._keyManager.setActiveItem(-1);
     };
+    MatAutocompleteTrigger.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: "input[matAutocomplete], textarea[matAutocomplete]",
+                    host: {
+                        'role': 'combobox',
+                        'autocomplete': 'off',
+                        'aria-autocomplete': 'list',
+                        '[attr.aria-activedescendant]': 'activeOption?.id',
+                        '[attr.aria-expanded]': 'panelOpen.toString()',
+                        '[attr.aria-owns]': 'autocomplete?.id',
+                        // Note: we use `focusin`, as opposed to `focus`, in order to open the panel
+                        // a little earlier. This avoids issues where IE delays the focusing of the input.
+                        '(focusin)': '_handleFocus()',
+                        '(blur)': '_onTouched()',
+                        '(input)': '_handleInput($event)',
+                        '(keydown)': '_handleKeydown($event)',
+                    },
+                    providers: [MAT_AUTOCOMPLETE_VALUE_ACCESSOR]
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatAutocompleteTrigger.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+        { type: _angular_cdk_overlay.Overlay, },
+        { type: _angular_core.ViewContainerRef, },
+        { type: _angular_core.NgZone, },
+        { type: _angular_core.ChangeDetectorRef, },
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] },] },
+        { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
+        { type: MatFormField, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Host },] },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
+    ]; };
+    MatAutocompleteTrigger.propDecorators = {
+        'autocomplete': [{ type: _angular_core.Input, args: ['matAutocomplete',] },],
+    };
     return MatAutocompleteTrigger;
 }());
-MatAutocompleteTrigger.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: "input[matAutocomplete], textarea[matAutocomplete]",
-                host: {
-                    'role': 'combobox',
-                    'autocomplete': 'off',
-                    'aria-autocomplete': 'list',
-                    '[attr.aria-activedescendant]': 'activeOption?.id',
-                    '[attr.aria-expanded]': 'panelOpen.toString()',
-                    '[attr.aria-owns]': 'autocomplete?.id',
-                    // Note: we use `focusin`, as opposed to `focus`, in order to open the panel
-                    // a little earlier. This avoids issues where IE delays the focusing of the input.
-                    '(focusin)': '_handleFocus()',
-                    '(blur)': '_onTouched()',
-                    '(input)': '_handleInput($event)',
-                    '(keydown)': '_handleKeydown($event)',
-                },
-                providers: [MAT_AUTOCOMPLETE_VALUE_ACCESSOR]
-            },] },
-];
-/**
- * @nocollapse
- */
-MatAutocompleteTrigger.ctorParameters = function () { return [
-    { type: _angular_core.ElementRef, },
-    { type: _angular_cdk_overlay.Overlay, },
-    { type: _angular_core.ViewContainerRef, },
-    { type: _angular_core.NgZone, },
-    { type: _angular_core.ChangeDetectorRef, },
-    { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] },] },
-    { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
-    { type: MatFormField, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Host },] },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
-]; };
-MatAutocompleteTrigger.propDecorators = {
-    'autocomplete': [{ type: _angular_core.Input, args: ['matAutocomplete',] },],
-};
+
 var MatAutocompleteModule = (function () {
     function MatAutocompleteModule() {
     }
+    MatAutocompleteModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    imports: [MatOptionModule, _angular_cdk_overlay.OverlayModule, MatCommonModule, _angular_common.CommonModule],
+                    exports: [MatAutocomplete, MatOptionModule, MatAutocompleteTrigger, MatCommonModule],
+                    declarations: [MatAutocomplete, MatAutocompleteTrigger],
+                    providers: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatAutocompleteModule.ctorParameters = function () { return []; };
     return MatAutocompleteModule;
 }());
-MatAutocompleteModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [MatOptionModule, _angular_cdk_overlay.OverlayModule, MatCommonModule, _angular_common.CommonModule],
-                exports: [MatAutocomplete, MatOptionModule, MatAutocompleteTrigger, MatCommonModule],
-                declarations: [MatAutocomplete, MatAutocompleteTrigger],
-                providers: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatAutocompleteModule.ctorParameters = function () { return []; };
 
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocomplete = MatAutocomplete;

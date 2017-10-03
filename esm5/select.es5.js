@@ -1,4 +1,3 @@
-import * as tslib_1 from "tslib";
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -8,7 +7,9 @@ import * as tslib_1 from "tslib";
  */
 import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, Renderer2, Self, ViewChild, ViewEncapsulation, isDevMode } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FocusKeyManager } from '@angular/cdk/a11y';
+import { __extends } from 'tslib';
+import * as tslib_1 from 'tslib';
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -22,6 +23,7 @@ import { merge } from 'rxjs/observable/merge';
 import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+
 /**
  * This animation transforms the select's overlay panel on and off the page.
  *
@@ -66,6 +68,7 @@ var fadeInContent = trigger('fadeInContent', [
         animate('150ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
     ])
 ]);
+
 /**
  * Returns an exception to be thrown when attempting to change a select's `multiple` option
  * after initialization.
@@ -94,6 +97,7 @@ function getMatSelectNonArrayValueError() {
 function getMatSelectNonFunctionValueError() {
     return Error('Cannot assign a non-function value to `compareWith`.');
 }
+
 var nextUniqueId = 0;
 /**
  * The max height of the select's overlay panel
@@ -180,19 +184,19 @@ var _MatSelectMixinBase = mixinTabIndex(mixinDisabled(MatSelectBase));
 var MatSelectTrigger = (function () {
     function MatSelectTrigger() {
     }
+    MatSelectTrigger.decorators = [
+        { type: Directive, args: [{
+                    selector: 'mat-select-trigger'
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatSelectTrigger.ctorParameters = function () { return []; };
     return MatSelectTrigger;
 }());
-MatSelectTrigger.decorators = [
-    { type: Directive, args: [{
-                selector: 'mat-select-trigger'
-            },] },
-];
-/**
- * @nocollapse
- */
-MatSelectTrigger.ctorParameters = function () { return []; };
 var MatSelect = (function (_super) {
-    tslib_1.__extends(MatSelect, _super);
+    __extends(MatSelect, _super);
     /**
      * @param {?} _viewportRuler
      * @param {?} _changeDetectorRef
@@ -541,6 +545,7 @@ var MatSelect = (function (_super) {
         // `parseInt` ignores the trailing 'px' and converts this to a number.
         this._triggerFontSize = parseInt(getComputedStyle(this.trigger.nativeElement)['font-size']);
         this._calculateOverlayPosition();
+        this._highlightCorrectOption();
         this._panelOpen = true;
         this._changeDetectorRef.markForCheck();
         // Set the font size on the panel element once it exists.
@@ -660,34 +665,54 @@ var MatSelect = (function (_super) {
         return this._dir ? this._dir.value === 'rtl' : false;
     };
     /**
-     * Handles the keyboard interactions of a closed select.
+     * Handles all keydown events on the select.
+     * @param {?} event
+     * @return {?}
+     */
+    MatSelect.prototype._handleKeydown = function (event) {
+        if (!this.disabled) {
+            this.panelOpen ? this._handleOpenKeydown(event) : this._handleClosedKeydown(event);
+        }
+    };
+    /**
+     * Handles keyboard events while the select is closed.
      * @param {?} event
      * @return {?}
      */
     MatSelect.prototype._handleClosedKeydown = function (event) {
-        if (!this.disabled) {
-            if (event.keyCode === ENTER || event.keyCode === SPACE) {
-                event.preventDefault(); // prevents the page from scrolling down when pressing space
-                this.open();
-            }
-            else if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
-                this._handleArrowKey(event);
-            }
+        if (event.keyCode === ENTER || event.keyCode === SPACE) {
+            event.preventDefault(); // prevents the page from scrolling down when pressing space
+            this.open();
+        }
+        else if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
+            this._handleClosedArrowKey(event);
         }
     };
     /**
-     * Handles keypresses inside the panel.
+     * Handles keyboard events when the selected is open.
      * @param {?} event
      * @return {?}
      */
-    MatSelect.prototype._handlePanelKeydown = function (event) {
-        if (event.keyCode === HOME || event.keyCode === END) {
+    MatSelect.prototype._handleOpenKeydown = function (event) {
+        var _this = this;
+        var /** @type {?} */ keyCode = event.keyCode;
+        if (keyCode === HOME || keyCode === END) {
             event.preventDefault();
-            event.keyCode === HOME ? this._keyManager.setFirstItemActive() :
+            keyCode === HOME ? this._keyManager.setFirstItemActive() :
                 this._keyManager.setLastItemActive();
+        }
+        else if ((keyCode === ENTER || keyCode === SPACE) && this._keyManager.activeItem) {
+            event.preventDefault();
+            this._keyManager.activeItem._selectViaInteraction();
         }
         else {
             this._keyManager.onKeydown(event);
+            // TODO(crisbeto): get rid of the Promise.resolve when #6441 gets in.
+            Promise.resolve().then(function () {
+                if (_this.panelOpen) {
+                    _this._scrollActiveOptionIntoView();
+                }
+            });
         }
     };
     /**
@@ -697,7 +722,7 @@ var MatSelect = (function (_super) {
      */
     MatSelect.prototype._onPanelDone = function () {
         if (this.panelOpen) {
-            this._focusCorrectOption();
+            this._scrollTop = 0;
             this.onOpen.emit();
         }
         else {
@@ -714,6 +739,7 @@ var MatSelect = (function (_super) {
      */
     MatSelect.prototype._onFadeInDone = function () {
         this._panelDoneAnimating = this.panelOpen;
+        this.panel.nativeElement.focus();
         this._changeDetectorRef.markForCheck();
     };
     /**
@@ -743,8 +769,9 @@ var MatSelect = (function (_super) {
      * @return {?}
      */
     MatSelect.prototype._onAttached = function () {
+        this._changeDetectorRef.detectChanges();
         this._calculateOverlayOffsetX();
-        this._setScrollTop();
+        this.panel.nativeElement.scrollTop = this._scrollTop;
     };
     /**
      * Returns the theme to be used on the panel.
@@ -779,16 +806,6 @@ var MatSelect = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    /**
-     * Sets the scroll position of the scroll container. This must be called after
-     * the overlay pane is attached or the scroll container element will not yet be
-     * present in the DOM.
-     * @return {?}
-     */
-    MatSelect.prototype._setScrollTop = function () {
-        var /** @type {?} */ scrollContainer = this.overlayDir.overlayRef.overlayElement.querySelector('.mat-select-panel'); /** @type {?} */
-        ((scrollContainer)).scrollTop = this._scrollTop;
-    };
     /**
      * @return {?}
      */
@@ -878,7 +895,7 @@ var MatSelect = (function (_super) {
      */
     MatSelect.prototype._initKeyManager = function () {
         var _this = this;
-        this._keyManager = new FocusKeyManager(this.options).withTypeAhead();
+        this._keyManager = new ActiveDescendantKeyManager(this.options).withTypeAhead();
         this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this.close(); });
     };
     /**
@@ -1007,16 +1024,34 @@ var MatSelect = (function (_super) {
         }
     };
     /**
-     * Focuses the selected item. If no option is selected, it will focus
+     * Highlights the selected item. If no option is selected, it will highlight
      * the first item instead.
      * @return {?}
      */
-    MatSelect.prototype._focusCorrectOption = function () {
+    MatSelect.prototype._highlightCorrectOption = function () {
         if (this._selectionModel.isEmpty()) {
             this._keyManager.setFirstItemActive();
         }
         else {
             this._keyManager.setActiveItem(/** @type {?} */ ((this._getOptionIndex(this._selectionModel.selected[0]))));
+        }
+    };
+    /**
+     * Scrolls the active option into view.
+     * @return {?}
+     */
+    MatSelect.prototype._scrollActiveOptionIntoView = function () {
+        var /** @type {?} */ itemHeight = this._getItemHeight();
+        var /** @type {?} */ activeOptionIndex = this._keyManager.activeItemIndex || 0;
+        var /** @type {?} */ labelCount = MatOption.countGroupLabelsBeforeOption(activeOptionIndex, this.options, this.optionGroups);
+        var /** @type {?} */ scrollOffset = (activeOptionIndex + labelCount) * itemHeight;
+        var /** @type {?} */ panelTop = this.panel.nativeElement.scrollTop;
+        if (scrollOffset < panelTop) {
+            this.panel.nativeElement.scrollTop = scrollOffset;
+        }
+        else if (scrollOffset + itemHeight > panelTop + SELECT_PANEL_MAX_HEIGHT) {
+            this.panel.nativeElement.scrollTop =
+                Math.max(0, scrollOffset - SELECT_PANEL_MAX_HEIGHT + itemHeight);
         }
     };
     /**
@@ -1041,7 +1076,7 @@ var MatSelect = (function (_super) {
      * @return {?}
      */
     MatSelect.prototype._calculateOverlayPosition = function () {
-        var /** @type {?} */ itemHeight = this._triggerFontSize * SELECT_ITEM_HEIGHT_EM;
+        var /** @type {?} */ itemHeight = this._getItemHeight();
         var /** @type {?} */ items = this._getItemCount();
         var /** @type {?} */ panelHeight = Math.min(items * itemHeight, SELECT_PANEL_MAX_HEIGHT);
         var /** @type {?} */ scrollContainerHeight = items * itemHeight;
@@ -1069,7 +1104,7 @@ var MatSelect = (function (_super) {
      * @return {?}
      */
     MatSelect.prototype._calculateOverlayScroll = function (selectedIndex, scrollBuffer, maxScroll) {
-        var /** @type {?} */ itemHeight = this._triggerFontSize * SELECT_ITEM_HEIGHT_EM;
+        var /** @type {?} */ itemHeight = this._getItemHeight();
         var /** @type {?} */ optionOffsetFromScrollTop = itemHeight * selectedIndex;
         var /** @type {?} */ halfOptionHeight = itemHeight / 2;
         // Starts at the optionOffsetFromScrollTop, which scrolls the option to the top of the
@@ -1077,7 +1112,7 @@ var MatSelect = (function (_super) {
         // the center of the overlay panel. Half the option height must be re-added to the
         // scrollTop so the option is centered based on its middle, not its top edge.
         var /** @type {?} */ optimalScrollPosition = optionOffsetFromScrollTop - scrollBuffer + halfOptionHeight;
-        return clampValue(0, optimalScrollPosition, maxScroll);
+        return Math.min(Math.max(0, optimalScrollPosition), maxScroll);
     };
     Object.defineProperty(MatSelect.prototype, "_ariaLabel", {
         /**
@@ -1092,6 +1127,16 @@ var MatSelect = (function (_super) {
         enumerable: true,
         configurable: true
     });
+    /**
+     * Determines the `aria-activedescendant` to be set on the host.
+     * @return {?}
+     */
+    MatSelect.prototype._getAriaActiveDescendant = function () {
+        if (this.panelOpen && this._keyManager && this._keyManager.activeItem) {
+            return this._keyManager.activeItem.id;
+        }
+        return null;
+    };
     /**
      * Sets the x-offset of the overlay panel in relation to the trigger's top start corner.
      * This must be adjusted to align the selected option text over the trigger text when
@@ -1145,7 +1190,7 @@ var MatSelect = (function (_super) {
      * @return {?}
      */
     MatSelect.prototype._calculateOverlayOffsetY = function (selectedIndex, scrollBuffer, maxScroll) {
-        var /** @type {?} */ itemHeight = this._triggerFontSize * SELECT_ITEM_HEIGHT_EM;
+        var /** @type {?} */ itemHeight = this._getItemHeight();
         var /** @type {?} */ optionHeightAdjustment = (itemHeight - this._triggerRect.height) / 2;
         var /** @type {?} */ maxOptionsDisplayed = Math.floor(SELECT_PANEL_MAX_HEIGHT / itemHeight);
         var /** @type {?} */ optionOffsetFromPanelTop;
@@ -1184,7 +1229,7 @@ var MatSelect = (function (_super) {
      * @return {?}
      */
     MatSelect.prototype._checkOverlayWithinViewport = function (maxScroll) {
-        var /** @type {?} */ itemHeight = this._triggerFontSize * SELECT_ITEM_HEIGHT_EM;
+        var /** @type {?} */ itemHeight = this._getItemHeight();
         var /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
         var /** @type {?} */ topSpaceAvailable = this._triggerRect.top - SELECT_PANEL_VIEWPORT_PADDING;
         var /** @type {?} */ bottomSpaceAvailable = viewportRect.height - this._triggerRect.bottom - SELECT_PANEL_VIEWPORT_PADDING;
@@ -1254,7 +1299,7 @@ var MatSelect = (function (_super) {
      * @return {?}
      */
     MatSelect.prototype._getOriginBasedOnOption = function () {
-        var /** @type {?} */ itemHeight = this._triggerFontSize * SELECT_ITEM_HEIGHT_EM;
+        var /** @type {?} */ itemHeight = this._getItemHeight();
         var /** @type {?} */ optionHeightAdjustment = (itemHeight - this._triggerRect.height) / 2;
         var /** @type {?} */ originY = Math.abs(this._offsetY) - optionHeightAdjustment + itemHeight / 2;
         return "50% " + originY + "px 0px";
@@ -1264,23 +1309,27 @@ var MatSelect = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MatSelect.prototype._handleArrowKey = function (event) {
+    MatSelect.prototype._handleClosedArrowKey = function (event) {
+        var _this = this;
         if (this._multiple) {
             event.preventDefault();
             this.open();
         }
         else {
-            var /** @type {?} */ prevActiveItem = this._keyManager.activeItem;
+            var /** @type {?} */ prevActiveItem_1 = this._keyManager.activeItem;
             // Cycle though the select options even when the select is closed,
             // matching the behavior of the native select element.
             // TODO(crisbeto): native selects also cycle through the options with left/right arrows,
             // however the key manager only supports up/down at the moment.
             this._keyManager.onKeydown(event);
-            var /** @type {?} */ currentActiveItem = (this._keyManager.activeItem);
-            if (currentActiveItem !== prevActiveItem) {
-                this._clearSelection();
-                this._setSelectionByValue(currentActiveItem.value, true);
-            }
+            // TODO(crisbeto): get rid of the Promise.resolve when #6441 gets in.
+            Promise.resolve().then(function () {
+                var /** @type {?} */ currentActiveItem = _this._keyManager.activeItem;
+                if (currentActiveItem && currentActiveItem !== prevActiveItem_1) {
+                    _this._clearSelection();
+                    _this._setSelectionByValue(currentActiveItem.value, true);
+                }
+            });
         }
     };
     /**
@@ -1291,10 +1340,19 @@ var MatSelect = (function (_super) {
         return this.options.length + this.optionGroups.length;
     };
     /**
+     * Calculates the height of the select's options.
+     * @return {?}
+     */
+    MatSelect.prototype._getItemHeight = function () {
+        return this._triggerFontSize * SELECT_ITEM_HEIGHT_EM;
+    };
+    /**
      * @param {?} ids
      * @return {?}
      */
-    MatSelect.prototype.setDescribedByIds = function (ids) { this._ariaDescribedby = ids.join(' '); };
+    MatSelect.prototype.setDescribedByIds = function (ids) {
+        this._ariaDescribedby = ids.join(' ');
+    };
     /**
      * @return {?}
      */
@@ -1310,116 +1368,111 @@ var MatSelect = (function (_super) {
         enumerable: true,
         configurable: true
     });
+    MatSelect.decorators = [
+        { type: Component, args: [{selector: 'mat-select',
+                    template: "<div cdk-overlay-origin class=\"mat-select-trigger\" aria-hidden=\"true\" (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><div class=\"mat-select-value\"><ng-container *ngIf=\"empty\">{{'\u00A0'}}</ng-container><span class=\"mat-select-value-text\" *ngIf=\"!empty\" [ngSwitch]=\"!!customTrigger\"><span *ngSwitchDefault>{{ triggerValue }}</span><ng-content select=\"mat-select-trigger\" *ngSwitchCase=\"true\"></ng-content></span></div><div class=\"mat-select-arrow-wrapper\"><div class=\"mat-select-arrow\"></div></div></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [scrollStrategy]=\"_scrollStrategy\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerRect?.width\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div #panel class=\"mat-select-panel {{ _getPanelTheme() }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [style.font-size.px]=\"_triggerFontSize\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
+                    styles: [".mat-select{display:inline-block;width:100%;outline:0}.mat-select-trigger{display:inline-table;cursor:pointer;position:relative;box-sizing:border-box}.mat-select-disabled .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-value{display:table-cell;max-width:0;width:100%;overflow:hidden;text-overflow:ellipsis}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-select-arrow-wrapper{display:table-cell;vertical-align:middle}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}.mat-select-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}}.mat-select-panel .mat-optgroup-label,.mat-select-panel .mat-option{font-size:inherit;line-height:3em;height:3em}.mat-form-field-type-mat-select .mat-form-field-flex{cursor:pointer}.mat-form-field-type-mat-select .mat-form-field-placeholder{width:calc(100% - 18px)}"],
+                    inputs: ['disabled', 'tabIndex'],
+                    encapsulation: ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    host: {
+                        'role': 'listbox',
+                        '[attr.id]': 'id',
+                        '[attr.tabindex]': 'tabIndex',
+                        '[attr.aria-label]': '_ariaLabel',
+                        '[attr.aria-labelledby]': 'ariaLabelledby',
+                        '[attr.aria-required]': 'required.toString()',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[attr.aria-invalid]': 'errorState',
+                        '[attr.aria-owns]': '_optionIds',
+                        '[attr.aria-multiselectable]': 'multiple',
+                        '[attr.aria-describedby]': '_ariaDescribedby || null',
+                        '[attr.aria-activedescendant]': '_getAriaActiveDescendant()',
+                        '[class.mat-select-disabled]': 'disabled',
+                        '[class.mat-select-invalid]': 'errorState',
+                        '[class.mat-select-required]': 'required',
+                        'class': 'mat-select',
+                        '(keydown)': '_handleKeydown($event)',
+                        '(focus)': '_onFocus()',
+                        '(blur)': '_onBlur()',
+                    },
+                    animations: [
+                        transformPanel,
+                        fadeInContent
+                    ],
+                    providers: [{ provide: MatFormFieldControl, useExisting: MatSelect }],
+                    exportAs: 'matSelect',
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatSelect.ctorParameters = function () { return [
+        { type: ViewportRuler, },
+        { type: ChangeDetectorRef, },
+        { type: NgZone, },
+        { type: Renderer2, },
+        { type: ElementRef, },
+        { type: Directionality, decorators: [{ type: Optional },] },
+        { type: NgForm, decorators: [{ type: Optional },] },
+        { type: FormGroupDirective, decorators: [{ type: Optional },] },
+        { type: MatFormField, decorators: [{ type: Optional },] },
+        { type: NgControl, decorators: [{ type: Self }, { type: Optional },] },
+        { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_SELECT_SCROLL_STRATEGY,] },] },
+    ]; };
+    MatSelect.propDecorators = {
+        'trigger': [{ type: ViewChild, args: ['trigger',] },],
+        'panel': [{ type: ViewChild, args: ['panel',] },],
+        'overlayDir': [{ type: ViewChild, args: [ConnectedOverlayDirective,] },],
+        'options': [{ type: ContentChildren, args: [MatOption, { descendants: true },] },],
+        'optionGroups': [{ type: ContentChildren, args: [MatOptgroup,] },],
+        'panelClass': [{ type: Input },],
+        'customTrigger': [{ type: ContentChild, args: [MatSelectTrigger,] },],
+        'placeholder': [{ type: Input },],
+        'required': [{ type: Input },],
+        'multiple': [{ type: Input },],
+        'compareWith': [{ type: Input },],
+        'value': [{ type: Input },],
+        'disableRipple': [{ type: Input },],
+        'ariaLabel': [{ type: Input, args: ['aria-label',] },],
+        'ariaLabelledby': [{ type: Input, args: ['aria-labelledby',] },],
+        'id': [{ type: Input },],
+        'onOpen': [{ type: Output },],
+        'onClose': [{ type: Output },],
+        'change': [{ type: Output },],
+        'valueChange': [{ type: Output },],
+    };
     return MatSelect;
 }(_MatSelectMixinBase));
-MatSelect.decorators = [
-    { type: Component, args: [{ selector: 'mat-select',
-                template: "<div cdk-overlay-origin class=\"mat-select-trigger\" aria-hidden=\"true\" (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><div class=\"mat-select-value\"><ng-container *ngIf=\"empty\">{{'\u00A0'}}</ng-container><span class=\"mat-select-value-text\" *ngIf=\"!empty\" [ngSwitch]=\"!!customTrigger\"><span *ngSwitchDefault>{{ triggerValue }}</span><ng-content select=\"mat-select-trigger\" *ngSwitchCase=\"true\"></ng-content></span></div><div class=\"mat-select-arrow-wrapper\"><div class=\"mat-select-arrow\"></div></div></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [scrollStrategy]=\"_scrollStrategy\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerRect?.width\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div class=\"mat-select-panel {{ _getPanelTheme() }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_handlePanelKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [style.font-size.px]=\"_triggerFontSize\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
-                styles: [".mat-select{display:inline-block;width:100%;outline:0}.mat-select-trigger{display:inline-table;cursor:pointer;position:relative;box-sizing:border-box}.mat-select-disabled .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-value{display:table-cell;max-width:0;width:100%;overflow:hidden;text-overflow:ellipsis}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-select-arrow-wrapper{display:table-cell;vertical-align:middle}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}.mat-select-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}}.mat-select-panel .mat-optgroup-label,.mat-select-panel .mat-option{font-size:inherit;line-height:3em;height:3em}.mat-form-field-type-mat-select .mat-form-field-flex{cursor:pointer}.mat-form-field-type-mat-select .mat-form-field-placeholder{width:calc(100% - 18px)}"],
-                inputs: ['disabled', 'tabIndex'],
-                encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                host: {
-                    'role': 'listbox',
-                    '[attr.id]': 'id',
-                    '[attr.tabindex]': 'tabIndex',
-                    '[attr.aria-label]': '_ariaLabel',
-                    '[attr.aria-labelledby]': 'ariaLabelledby',
-                    '[attr.aria-required]': 'required.toString()',
-                    '[attr.aria-disabled]': 'disabled.toString()',
-                    '[attr.aria-invalid]': 'errorState',
-                    '[attr.aria-owns]': '_optionIds',
-                    '[attr.aria-multiselectable]': 'multiple',
-                    '[attr.aria-describedby]': '_ariaDescribedby || null',
-                    '[class.mat-select-disabled]': 'disabled',
-                    '[class.mat-select-invalid]': 'errorState',
-                    '[class.mat-select-required]': 'required',
-                    'class': 'mat-select',
-                    '(keydown)': '_handleClosedKeydown($event)',
-                    '(focus)': '_onFocus()',
-                    '(blur)': '_onBlur()',
-                },
-                animations: [
-                    transformPanel,
-                    fadeInContent
-                ],
-                providers: [{ provide: MatFormFieldControl, useExisting: MatSelect }],
-                exportAs: 'matSelect',
-            },] },
-];
-/**
- * @nocollapse
- */
-MatSelect.ctorParameters = function () { return [
-    { type: ViewportRuler, },
-    { type: ChangeDetectorRef, },
-    { type: NgZone, },
-    { type: Renderer2, },
-    { type: ElementRef, },
-    { type: Directionality, decorators: [{ type: Optional },] },
-    { type: NgForm, decorators: [{ type: Optional },] },
-    { type: FormGroupDirective, decorators: [{ type: Optional },] },
-    { type: MatFormField, decorators: [{ type: Optional },] },
-    { type: NgControl, decorators: [{ type: Self }, { type: Optional },] },
-    { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
-    { type: undefined, decorators: [{ type: Inject, args: [MAT_SELECT_SCROLL_STRATEGY,] },] },
-]; };
-MatSelect.propDecorators = {
-    'trigger': [{ type: ViewChild, args: ['trigger',] },],
-    'overlayDir': [{ type: ViewChild, args: [ConnectedOverlayDirective,] },],
-    'options': [{ type: ContentChildren, args: [MatOption, { descendants: true },] },],
-    'optionGroups': [{ type: ContentChildren, args: [MatOptgroup,] },],
-    'panelClass': [{ type: Input },],
-    'customTrigger': [{ type: ContentChild, args: [MatSelectTrigger,] },],
-    'placeholder': [{ type: Input },],
-    'required': [{ type: Input },],
-    'multiple': [{ type: Input },],
-    'compareWith': [{ type: Input },],
-    'value': [{ type: Input },],
-    'disableRipple': [{ type: Input },],
-    'ariaLabel': [{ type: Input, args: ['aria-label',] },],
-    'ariaLabelledby': [{ type: Input, args: ['aria-labelledby',] },],
-    'id': [{ type: Input },],
-    'onOpen': [{ type: Output },],
-    'onClose': [{ type: Output },],
-    'change': [{ type: Output },],
-    'valueChange': [{ type: Output },],
-};
-/**
- * Clamps a value n between min and max values.
- * @param {?} min
- * @param {?} n
- * @param {?} max
- * @return {?}
- */
-function clampValue(min, n, max) {
-    return Math.min(Math.max(min, n), max);
-}
+
 var MatSelectModule = (function () {
     function MatSelectModule() {
     }
+    MatSelectModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [
+                        CommonModule,
+                        OverlayModule,
+                        MatOptionModule,
+                        MatCommonModule,
+                    ],
+                    exports: [MatSelect, MatSelectTrigger, MatOptionModule, MatCommonModule],
+                    declarations: [MatSelect, MatSelectTrigger],
+                    providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER]
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatSelectModule.ctorParameters = function () { return []; };
     return MatSelectModule;
 }());
-MatSelectModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [
-                    CommonModule,
-                    OverlayModule,
-                    MatOptionModule,
-                    MatCommonModule,
-                ],
-                exports: [MatSelect, MatSelectTrigger, MatOptionModule, MatCommonModule],
-                declarations: [MatSelect, MatSelectTrigger],
-                providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER]
-            },] },
-];
-/**
- * @nocollapse
- */
-MatSelectModule.ctorParameters = function () { return []; };
+
 /**
  * Generated bundle index. Do not edit.
  */
+
 export { MatSelectModule, SELECT_PANEL_MAX_HEIGHT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_ITEM_HEIGHT_EM, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_VIEWPORT_PADDING, MAT_SELECT_SCROLL_STRATEGY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MatSelectChange, MatSelectBase, _MatSelectMixinBase, MatSelectTrigger, MatSelect, transformPanel, fadeInContent };
 //# sourceMappingURL=select.es5.js.map

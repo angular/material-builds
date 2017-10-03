@@ -37,29 +37,6 @@ function __extends(d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
-/**
- * \@docs-private
- */
-var AnimationCurves = (function () {
-    function AnimationCurves() {
-    }
-    return AnimationCurves;
-}());
-AnimationCurves.STANDARD_CURVE = 'cubic-bezier(0.4,0.0,0.2,1)';
-AnimationCurves.DECELERATION_CURVE = 'cubic-bezier(0.0,0.0,0.2,1)';
-AnimationCurves.ACCELERATION_CURVE = 'cubic-bezier(0.4,0.0,1,1)';
-AnimationCurves.SHARP_CURVE = 'cubic-bezier(0.4,0.0,0.6,1)';
-/**
- * \@docs-private
- */
-var AnimationDurations = (function () {
-    function AnimationDurations() {
-    }
-    return AnimationDurations;
-}());
-AnimationDurations.COMPLEX = '375ms';
-AnimationDurations.ENTERING = '225ms';
-AnimationDurations.EXITING = '195ms';
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Selector that matches all elements that may have style collisions with AngularJS Material.
@@ -75,30 +52,30 @@ var MD_ELEMENTS_SELECTOR = "\n  [md-button],\n  [md-fab],\n  [md-icon-button],\n
 var MatPrefixRejector = (function () {
     function MatPrefixRejector() {
     }
+    MatPrefixRejector.decorators = [
+        { type: _angular_core.Directive, args: [{ selector: MAT_ELEMENTS_SELECTOR },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatPrefixRejector.ctorParameters = function () { return []; };
     return MatPrefixRejector;
 }());
-MatPrefixRejector.decorators = [
-    { type: _angular_core.Directive, args: [{ selector: MAT_ELEMENTS_SELECTOR },] },
-];
-/**
- * @nocollapse
- */
-MatPrefixRejector.ctorParameters = function () { return []; };
 /**
  * Directive that enforces that the `md-` prefix cannot be used.
  */
 var MdPrefixRejector = (function () {
     function MdPrefixRejector() {
     }
+    MdPrefixRejector.decorators = [
+        { type: _angular_core.Directive, args: [{ selector: MD_ELEMENTS_SELECTOR },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MdPrefixRejector.ctorParameters = function () { return []; };
     return MdPrefixRejector;
 }());
-MdPrefixRejector.decorators = [
-    { type: _angular_core.Directive, args: [{ selector: MD_ELEMENTS_SELECTOR },] },
-];
-/**
- * @nocollapse
- */
-MdPrefixRejector.ctorParameters = function () { return []; };
 /**
  * Module that enforces the default compatibility mode settings. When this module is loaded
  * without NoConflictStyleCompatibilityMode also being imported, it will throw an error if
@@ -107,34 +84,18 @@ MdPrefixRejector.ctorParameters = function () { return []; };
 var CompatibilityModule = (function () {
     function CompatibilityModule() {
     }
+    CompatibilityModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    declarations: [MatPrefixRejector, MdPrefixRejector],
+                    exports: [MatPrefixRejector, MdPrefixRejector],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    CompatibilityModule.ctorParameters = function () { return []; };
     return CompatibilityModule;
 }());
-CompatibilityModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                declarations: [MatPrefixRejector, MdPrefixRejector],
-                exports: [MatPrefixRejector, MdPrefixRejector],
-            },] },
-];
-/**
- * @nocollapse
- */
-CompatibilityModule.ctorParameters = function () { return []; };
-/**
- * Module that enforces "no-conflict" compatibility mode settings. When this module is loaded,
- * it will throw an error if there are any uses of the `md-` prefix.
- */
-var NoConflictStyleCompatibilityMode = (function () {
-    function NoConflictStyleCompatibilityMode() {
-    }
-    return NoConflictStyleCompatibilityMode;
-}());
-NoConflictStyleCompatibilityMode.decorators = [
-    { type: _angular_core.NgModule },
-];
-/**
- * @nocollapse
- */
-NoConflictStyleCompatibilityMode.ctorParameters = function () { return []; };
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
@@ -193,23 +154,24 @@ var MatCommonModule = (function () {
             this._document.body.removeChild(testElement);
         }
     };
+    MatCommonModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    imports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
+                    exports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
+                    providers: [{
+                            provide: MATERIAL_SANITY_CHECKS, useValue: true,
+                        }],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatCommonModule.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
+    ]; };
     return MatCommonModule;
 }());
-MatCommonModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
-                exports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
-                providers: [{
-                        provide: MATERIAL_SANITY_CHECKS, useValue: true,
-                    }],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCommonModule.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
-]; };
+
 /**
  * Mixin to augment a directive with a `disabled` property.
  * @template T
@@ -247,6 +209,7 @@ function mixinDisabled(base) {
         return class_1;
     }(base));
 }
+
 /**
  * Mixin to augment a directive with a `color` property.
  * @template T
@@ -256,11 +219,11 @@ function mixinDisabled(base) {
  */
 function mixinColor(base, defaultColor) {
     return (function (_super) {
-        __extends(class_2, _super);
+        __extends(class_1, _super);
         /**
          * @param {...?} args
          */
-        function class_2() {
+        function class_1() {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
@@ -270,7 +233,7 @@ function mixinColor(base, defaultColor) {
             _this.color = defaultColor;
             return _this;
         }
-        Object.defineProperty(class_2.prototype, "color", {
+        Object.defineProperty(class_1.prototype, "color", {
             /**
              * @return {?}
              */
@@ -294,9 +257,10 @@ function mixinColor(base, defaultColor) {
             enumerable: true,
             configurable: true
         });
-        return class_2;
+        return class_1;
     }(base));
 }
+
 /**
  * Class to coordinate unique selection based on name.
  * Intended to be consumed as an Angular service.
@@ -337,15 +301,15 @@ var UniqueSelectionDispatcher = (function () {
             });
         };
     };
+    UniqueSelectionDispatcher.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    UniqueSelectionDispatcher.ctorParameters = function () { return []; };
     return UniqueSelectionDispatcher;
 }());
-UniqueSelectionDispatcher.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-UniqueSelectionDispatcher.ctorParameters = function () { return []; };
 /**
  * \@docs-private
  * @param {?} parentDispatcher
@@ -363,14 +327,11 @@ var UNIQUE_SELECTION_DISPATCHER_PROVIDER = {
     deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), UniqueSelectionDispatcher]],
     useFactory: UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY
 };
+
 /**
  * InjectionToken for datepicker that can be used to override default locale code.
  */
 var MAT_DATE_LOCALE = new _angular_core.InjectionToken('MAT_DATE_LOCALE');
-/**
- * Provider for MAT_DATE_LOCALE injection token.
- */
-var MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: _angular_core.LOCALE_ID };
 /**
  * Adapts type `D` to be usable as a date by cdk-based components that work with dates.
  * @abstract
@@ -603,6 +564,7 @@ var DateAdapter = (function () {
     };
     return DateAdapter;
 }());
+
 /**
  * Extends an object with the *enumerable* and *own* properties of one or more source objects,
  * similar to Object.assign.
@@ -631,6 +593,7 @@ function extendObject(dest) {
     }
     return dest;
 }
+
 /**
  * Whether the browser supports the Intl API.
  */
@@ -958,61 +921,20 @@ var NativeDateAdapter = (function (_super) {
     NativeDateAdapter.prototype._stripDirectionalityCharacters = function (str) {
         return str.replace(/[\u200e\u200f]/g, '');
     };
+    NativeDateAdapter.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    NativeDateAdapter.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_LOCALE,] },] },
+    ]; };
     return NativeDateAdapter;
 }(DateAdapter));
-NativeDateAdapter.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-NativeDateAdapter.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_LOCALE,] },] },
-]; };
+
 var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
-var MAT_NATIVE_DATE_FORMATS = {
-    parse: {
-        dateInput: null,
-    },
-    display: {
-        dateInput: { year: 'numeric', month: 'numeric', day: 'numeric' },
-        monthYearLabel: { year: 'numeric', month: 'short' },
-        dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
-        monthYearA11yLabel: { year: 'numeric', month: 'long' },
-    }
-};
-var NativeDateModule = (function () {
-    function NativeDateModule() {
-    }
-    return NativeDateModule;
-}());
-NativeDateModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                providers: [
-                    { provide: DateAdapter, useClass: NativeDateAdapter },
-                    MAT_DATE_LOCALE_PROVIDER
-                ],
-            },] },
-];
-/**
- * @nocollapse
- */
-NativeDateModule.ctorParameters = function () { return []; };
-var MatNativeDateModule = (function () {
-    function MatNativeDateModule() {
-    }
-    return MatNativeDateModule;
-}());
-MatNativeDateModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [NativeDateModule],
-                providers: [{ provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS }],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatNativeDateModule.ctorParameters = function () { return []; };
+
 /**
  * Injection token that can be used to specify the global error options.
  */
@@ -1084,51 +1006,16 @@ var GestureConfig = (function (_super) {
         inheritances.forEach(function (item) { return recognizer.recognizeWith(item); });
         return recognizer;
     };
+    GestureConfig.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    GestureConfig.ctorParameters = function () { return []; };
     return GestureConfig;
 }(_angular_platformBrowser.HammerGestureConfig));
-GestureConfig.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-GestureConfig.ctorParameters = function () { return []; };
-/**
- * Shared directive to count lines inside a text area, such as a list item.
- * Line elements can be extracted with a \@ContentChildren(MatLine) query, then
- * counted by checking the query list's length.
- */
-var MatLine = (function () {
-    function MatLine() {
-    }
-    return MatLine;
-}());
-MatLine.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[mat-line], [matLine]',
-                host: { 'class': 'mat-line' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatLine.ctorParameters = function () { return []; };
-var MatLineModule = (function () {
-    function MatLineModule() {
-    }
-    return MatLineModule;
-}());
-MatLineModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [MatCommonModule],
-                exports: [MatLine, MatCommonModule],
-                declarations: [MatLine],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatLineModule.ctorParameters = function () { return []; };
+
 var RippleState = {};
 RippleState.FADING_IN = 0;
 RippleState.VISIBLE = 1;
@@ -1165,6 +1052,7 @@ var RippleRef = (function () {
     };
     return RippleRef;
 }());
+
 /**
  * Fade-in duration for the ripples. Can be modified with the speedFactor option.
  */
@@ -1405,6 +1293,7 @@ function distanceToFurthestCorner(x, y, rect) {
     var /** @type {?} */ distY = Math.max(Math.abs(y - rect.top), Math.abs(y - rect.bottom));
     return Math.sqrt(distX * distX + distY * distY);
 }
+
 /**
  * Injection token that can be used to specify the global ripple options.
  */
@@ -1493,118 +1382,38 @@ var MatRipple = (function () {
         this._rippleRenderer.rippleDisabled = this._globalOptions.disabled || this.disabled;
         this._rippleRenderer.rippleConfig = this.rippleConfig;
     };
+    MatRipple.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: '[mat-ripple], [matRipple]',
+                    exportAs: 'matRipple',
+                    host: {
+                        'class': 'mat-ripple',
+                        '[class.mat-ripple-unbounded]': 'unbounded'
+                    }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatRipple.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+        { type: _angular_core.NgZone, },
+        { type: _angular_cdk_scrolling.ViewportRuler, },
+        { type: _angular_cdk_platform.Platform, },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
+    ]; };
+    MatRipple.propDecorators = {
+        'trigger': [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
+        'centered': [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
+        'disabled': [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
+        'radius': [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
+        'speedFactor': [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
+        'color': [{ type: _angular_core.Input, args: ['matRippleColor',] },],
+        'unbounded': [{ type: _angular_core.Input, args: ['matRippleUnbounded',] },],
+    };
     return MatRipple;
 }());
-MatRipple.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[mat-ripple], [matRipple]',
-                exportAs: 'matRipple',
-                host: {
-                    'class': 'mat-ripple',
-                    '[class.mat-ripple-unbounded]': 'unbounded'
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatRipple.ctorParameters = function () { return [
-    { type: _angular_core.ElementRef, },
-    { type: _angular_core.NgZone, },
-    { type: _angular_cdk_scrolling.ViewportRuler, },
-    { type: _angular_cdk_platform.Platform, },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
-]; };
-MatRipple.propDecorators = {
-    'trigger': [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
-    'centered': [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
-    'disabled': [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
-    'radius': [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
-    'speedFactor': [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
-    'color': [{ type: _angular_core.Input, args: ['matRippleColor',] },],
-    'unbounded': [{ type: _angular_core.Input, args: ['matRippleUnbounded',] },],
-};
-var MatRippleModule = (function () {
-    function MatRippleModule() {
-    }
-    return MatRippleModule;
-}());
-MatRippleModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [MatCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
-                exports: [MatRipple, MatCommonModule],
-                declarations: [MatRipple],
-                providers: [_angular_cdk_scrolling.VIEWPORT_RULER_PROVIDER],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatRippleModule.ctorParameters = function () { return []; };
-/**
- * Component that shows a simplified checkbox without including any kind of "real" checkbox.
- * Meant to be used when the checkbox is purely decorative and a large number of them will be
- * included, such as for the options in a multi-select. Uses no SVGs or complex animations.
- * Note that theming is meant to be handled by the parent element, e.g.
- * `mat-primary .mat-pseudo-checkbox`.
- *
- * Note that this component will be completely invisible to screen-reader users. This is *not*
- * interchangeable with <mat-checkbox> and should *not* be used if the user would directly interact
- * with the checkbox. The pseudo-checkbox should only be used as an implementation detail of
- * more complex components that appropriately handle selected / checked state.
- * \@docs-private
- */
-var MatPseudoCheckbox = (function () {
-    function MatPseudoCheckbox() {
-        /**
-         * Display state of the checkbox.
-         */
-        this.state = 'unchecked';
-        /**
-         * Whether the checkbox is disabled.
-         */
-        this.disabled = false;
-    }
-    return MatPseudoCheckbox;
-}());
-MatPseudoCheckbox.decorators = [
-    { type: _angular_core.Component, args: [{ encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                selector: 'mat-pseudo-checkbox',
-                styles: [".mat-pseudo-checkbox{width:20px;height:20px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0,0,.2,.1),background-color 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:'';border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:9px;left:2px;width:16px;opacity:1}.mat-pseudo-checkbox-checked::after{top:5px;left:3px;width:12px;height:5px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1}"],
-                template: '',
-                host: {
-                    'class': 'mat-pseudo-checkbox',
-                    '[class.mat-pseudo-checkbox-indeterminate]': 'state === "indeterminate"',
-                    '[class.mat-pseudo-checkbox-checked]': 'state === "checked"',
-                    '[class.mat-pseudo-checkbox-disabled]': 'disabled',
-                },
-            },] },
-];
-/**
- * @nocollapse
- */
-MatPseudoCheckbox.ctorParameters = function () { return []; };
-MatPseudoCheckbox.propDecorators = {
-    'state': [{ type: _angular_core.Input },],
-    'disabled': [{ type: _angular_core.Input },],
-};
-var MatPseudoCheckboxModule = (function () {
-    function MatPseudoCheckboxModule() {
-    }
-    return MatPseudoCheckboxModule;
-}());
-MatPseudoCheckboxModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                exports: [MatPseudoCheckbox],
-                declarations: [MatPseudoCheckbox]
-            },] },
-];
-/**
- * @nocollapse
- */
-MatPseudoCheckboxModule.ctorParameters = function () { return []; };
+
 /**
  * \@docs-private
  */
@@ -1622,38 +1431,39 @@ var _uniqueOptgroupIdCounter = 0;
 var MatOptgroup = (function (_super) {
     __extends(MatOptgroup, _super);
     function MatOptgroup() {
-        var _this = _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
         /**
          * Unique id for the underlying label.
          */
         _this._labelId = "mat-optgroup-label-" + _uniqueOptgroupIdCounter++;
         return _this;
     }
+    MatOptgroup.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-optgroup',
+                    template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    inputs: ['disabled'],
+                    host: {
+                        'class': 'mat-optgroup',
+                        'role': 'group',
+                        '[class.mat-optgroup-disabled]': 'disabled',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[attr.aria-labelledby]': '_labelId',
+                    }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatOptgroup.ctorParameters = function () { return []; };
+    MatOptgroup.propDecorators = {
+        'label': [{ type: _angular_core.Input },],
+    };
     return MatOptgroup;
 }(_MatOptgroupMixinBase));
-MatOptgroup.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-optgroup',
-                template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                inputs: ['disabled'],
-                host: {
-                    'class': 'mat-optgroup',
-                    'role': 'group',
-                    '[class.mat-optgroup-disabled]': 'disabled',
-                    '[attr.aria-disabled]': 'disabled.toString()',
-                    '[attr.aria-labelledby]': '_labelId',
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatOptgroup.ctorParameters = function () { return []; };
-MatOptgroup.propDecorators = {
-    'label': [{ type: _angular_core.Input },],
-};
+
 /**
  * Option IDs need to be unique across components, so this counter exists outside of
  * the component definition.
@@ -1923,59 +1733,44 @@ var MatOption = (function () {
         }
         return 0;
     };
+    MatOption.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-option',
+                    host: {
+                        'role': 'option',
+                        '[attr.tabindex]': '_getTabIndex()',
+                        '[class.mat-selected]': 'selected',
+                        '[class.mat-option-multiple]': 'multiple',
+                        '[class.mat-active]': 'active',
+                        '[id]': 'id',
+                        '[attr.aria-selected]': 'selected.toString()',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[class.mat-option-disabled]': 'disabled',
+                        '(click)': '_selectViaInteraction()',
+                        '(keydown)': '_handleKeydown($event)',
+                        'class': 'mat-option',
+                    },
+                    template: "<span *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox></span><span class=\"mat-option-text\"><ng-content></ng-content></span><div class=\"mat-option-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"disabled || disableRipple\"></div>",
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatOption.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+        { type: _angular_core.ChangeDetectorRef, },
+        { type: MatOptgroup, decorators: [{ type: _angular_core.Optional },] },
+    ]; };
+    MatOption.propDecorators = {
+        'value': [{ type: _angular_core.Input },],
+        'disabled': [{ type: _angular_core.Input },],
+        'onSelectionChange': [{ type: _angular_core.Output },],
+    };
     return MatOption;
 }());
-MatOption.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-option',
-                host: {
-                    'role': 'option',
-                    '[attr.tabindex]': '_getTabIndex()',
-                    '[class.mat-selected]': 'selected',
-                    '[class.mat-option-multiple]': 'multiple',
-                    '[class.mat-active]': 'active',
-                    '[id]': 'id',
-                    '[attr.aria-selected]': 'selected.toString()',
-                    '[attr.aria-disabled]': 'disabled.toString()',
-                    '[class.mat-option-disabled]': 'disabled',
-                    '(click)': '_selectViaInteraction()',
-                    '(keydown)': '_handleKeydown($event)',
-                    'class': 'mat-option',
-                },
-                template: "<span *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox></span><span class=\"mat-option-text\"><ng-content></ng-content></span><div class=\"mat-option-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"disabled || disableRipple\"></div>",
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatOption.ctorParameters = function () { return [
-    { type: _angular_core.ElementRef, },
-    { type: _angular_core.ChangeDetectorRef, },
-    { type: MatOptgroup, decorators: [{ type: _angular_core.Optional },] },
-]; };
-MatOption.propDecorators = {
-    'value': [{ type: _angular_core.Input },],
-    'disabled': [{ type: _angular_core.Input },],
-    'onSelectionChange': [{ type: _angular_core.Output },],
-};
-var MatOptionModule = (function () {
-    function MatOptionModule() {
-    }
-    return MatOptionModule;
-}());
-MatOptionModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [MatRippleModule, _angular_common.CommonModule, MatPseudoCheckboxModule],
-                exports: [MatOption, MatOptgroup],
-                declarations: [MatOption, MatOptgroup]
-            },] },
-];
-/**
- * @nocollapse
- */
-MatOptionModule.ctorParameters = function () { return []; };
+
 /**
  * InjectionToken that can be used to specify the global placeholder options.
  */
@@ -2020,18 +1815,18 @@ var PROGRESS_SPINNER_STROKE_WIDTH = 10;
 var MatProgressSpinnerCssMatStyler = (function () {
     function MatProgressSpinnerCssMatStyler() {
     }
+    MatProgressSpinnerCssMatStyler.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'mat-progress-spinner',
+                    host: { 'class': 'mat-progress-spinner' }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatProgressSpinnerCssMatStyler.ctorParameters = function () { return []; };
     return MatProgressSpinnerCssMatStyler;
 }());
-MatProgressSpinnerCssMatStyler.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: 'mat-progress-spinner',
-                host: { 'class': 'mat-progress-spinner' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatProgressSpinnerCssMatStyler.ctorParameters = function () { return []; };
 /**
  * \@docs-private
  */
@@ -2263,40 +2058,40 @@ var MatProgressSpinner = (function (_super) {
             this._renderer.setAttribute(this._path.nativeElement, 'd', svgArc);
         }
     };
+    MatProgressSpinner.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-progress-spinner',
+                    host: {
+                        'role': 'progressbar',
+                        'class': 'mat-progress-spinner',
+                        '[attr.aria-valuemin]': '_ariaValueMin',
+                        '[attr.aria-valuemax]': '_ariaValueMax',
+                        '[attr.aria-valuenow]': 'value',
+                        '[attr.mode]': 'mode',
+                    },
+                    inputs: ['color'],
+                    template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\"><path #path [style.strokeWidth]=\"strokeWidth\"></path></svg>",
+                    styles: [".mat-progress-spinner{display:block;height:100px;width:100px;overflow:hidden}.mat-progress-spinner svg{height:100%;width:100%;transform-origin:center}.mat-progress-spinner path{fill:transparent;transition:stroke .3s cubic-bezier(.35,0,.25,1)}.mat-progress-spinner[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatProgressSpinner.ctorParameters = function () { return [
+        { type: _angular_core.Renderer2, },
+        { type: _angular_core.ElementRef, },
+        { type: _angular_core.NgZone, },
+    ]; };
+    MatProgressSpinner.propDecorators = {
+        '_path': [{ type: _angular_core.ViewChild, args: ['path',] },],
+        'strokeWidth': [{ type: _angular_core.Input },],
+        'value': [{ type: _angular_core.Input },],
+        'mode': [{ type: _angular_core.Input },],
+    };
     return MatProgressSpinner;
 }(_MatProgressSpinnerMixinBase));
-MatProgressSpinner.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-progress-spinner',
-                host: {
-                    'role': 'progressbar',
-                    'class': 'mat-progress-spinner',
-                    '[attr.aria-valuemin]': '_ariaValueMin',
-                    '[attr.aria-valuemax]': '_ariaValueMax',
-                    '[attr.aria-valuenow]': 'value',
-                    '[attr.mode]': 'mode',
-                },
-                inputs: ['color'],
-                template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\"><path #path [style.strokeWidth]=\"strokeWidth\"></path></svg>",
-                styles: [".mat-progress-spinner{display:block;height:100px;width:100px;overflow:hidden}.mat-progress-spinner svg{height:100%;width:100%;transform-origin:center}.mat-progress-spinner path{fill:transparent;transition:stroke .3s cubic-bezier(.35,0,.25,1)}.mat-progress-spinner[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatProgressSpinner.ctorParameters = function () { return [
-    { type: _angular_core.Renderer2, },
-    { type: _angular_core.ElementRef, },
-    { type: _angular_core.NgZone, },
-]; };
-MatProgressSpinner.propDecorators = {
-    '_path': [{ type: _angular_core.ViewChild, args: ['path',] },],
-    'strokeWidth': [{ type: _angular_core.Input },],
-    'value': [{ type: _angular_core.Input },],
-    'mode': [{ type: _angular_core.Input },],
-};
 /**
  * <mat-spinner> component.
  *
@@ -2315,31 +2110,31 @@ var MatSpinner = (function (_super) {
         _this.mode = 'indeterminate';
         return _this;
     }
+    MatSpinner.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-spinner',
+                    host: {
+                        'role': 'progressbar',
+                        'mode': 'indeterminate',
+                        'class': 'mat-spinner mat-progress-spinner',
+                    },
+                    inputs: ['color'],
+                    template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\"><path #path [style.strokeWidth]=\"strokeWidth\"></path></svg>",
+                    styles: [".mat-progress-spinner{display:block;height:100px;width:100px;overflow:hidden}.mat-progress-spinner svg{height:100%;width:100%;transform-origin:center}.mat-progress-spinner path{fill:transparent;transition:stroke .3s cubic-bezier(.35,0,.25,1)}.mat-progress-spinner[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatSpinner.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+        { type: _angular_core.NgZone, },
+        { type: _angular_core.Renderer2, },
+    ]; };
     return MatSpinner;
 }(MatProgressSpinner));
-MatSpinner.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-spinner',
-                host: {
-                    'role': 'progressbar',
-                    'mode': 'indeterminate',
-                    'class': 'mat-spinner mat-progress-spinner',
-                },
-                inputs: ['color'],
-                template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\"><path #path [style.strokeWidth]=\"strokeWidth\"></path></svg>",
-                styles: [".mat-progress-spinner{display:block;height:100px;width:100px;overflow:hidden}.mat-progress-spinner svg{height:100%;width:100%;transform-origin:center}.mat-progress-spinner path{fill:transparent;transition:stroke .3s cubic-bezier(.35,0,.25,1)}.mat-progress-spinner[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatSpinner.ctorParameters = function () { return [
-    { type: _angular_core.ElementRef, },
-    { type: _angular_core.NgZone, },
-    { type: _angular_core.Renderer2, },
-]; };
 /**
  * Clamps a value to be between 0 and 100.
  * @param {?} v
@@ -2415,31 +2210,32 @@ function getSvgArc(currentValue, rotation, strokeWidth) {
     }
     return "M" + start + "A" + pathRadius + "," + pathRadius + " 0 " + largeArcFlag + "," + arcSweep + " " + end;
 }
+
 var MatProgressSpinnerModule = (function () {
     function MatProgressSpinnerModule() {
     }
+    MatProgressSpinnerModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    imports: [MatCommonModule],
+                    exports: [
+                        MatProgressSpinner,
+                        MatSpinner,
+                        MatCommonModule,
+                        MatProgressSpinnerCssMatStyler
+                    ],
+                    declarations: [
+                        MatProgressSpinner,
+                        MatSpinner,
+                        MatProgressSpinnerCssMatStyler
+                    ],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatProgressSpinnerModule.ctorParameters = function () { return []; };
     return MatProgressSpinnerModule;
 }());
-MatProgressSpinnerModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [MatCommonModule],
-                exports: [
-                    MatProgressSpinner,
-                    MatSpinner,
-                    MatCommonModule,
-                    MatProgressSpinnerCssMatStyler
-                ],
-                declarations: [
-                    MatProgressSpinner,
-                    MatSpinner,
-                    MatProgressSpinnerCssMatStyler
-                ],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatProgressSpinnerModule.ctorParameters = function () { return []; };
 
 exports.MatProgressSpinnerModule = MatProgressSpinnerModule;
 exports.PROGRESS_SPINNER_STROKE_WIDTH = PROGRESS_SPINNER_STROKE_WIDTH;

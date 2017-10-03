@@ -37,29 +37,6 @@ function __extends(d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
-/**
- * \@docs-private
- */
-var AnimationCurves = (function () {
-    function AnimationCurves() {
-    }
-    return AnimationCurves;
-}());
-AnimationCurves.STANDARD_CURVE = 'cubic-bezier(0.4,0.0,0.2,1)';
-AnimationCurves.DECELERATION_CURVE = 'cubic-bezier(0.0,0.0,0.2,1)';
-AnimationCurves.ACCELERATION_CURVE = 'cubic-bezier(0.4,0.0,1,1)';
-AnimationCurves.SHARP_CURVE = 'cubic-bezier(0.4,0.0,0.6,1)';
-/**
- * \@docs-private
- */
-var AnimationDurations = (function () {
-    function AnimationDurations() {
-    }
-    return AnimationDurations;
-}());
-AnimationDurations.COMPLEX = '375ms';
-AnimationDurations.ENTERING = '225ms';
-AnimationDurations.EXITING = '195ms';
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Selector that matches all elements that may have style collisions with AngularJS Material.
@@ -75,30 +52,30 @@ var MD_ELEMENTS_SELECTOR = "\n  [md-button],\n  [md-fab],\n  [md-icon-button],\n
 var MatPrefixRejector = (function () {
     function MatPrefixRejector() {
     }
+    MatPrefixRejector.decorators = [
+        { type: _angular_core.Directive, args: [{ selector: MAT_ELEMENTS_SELECTOR },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatPrefixRejector.ctorParameters = function () { return []; };
     return MatPrefixRejector;
 }());
-MatPrefixRejector.decorators = [
-    { type: _angular_core.Directive, args: [{ selector: MAT_ELEMENTS_SELECTOR },] },
-];
-/**
- * @nocollapse
- */
-MatPrefixRejector.ctorParameters = function () { return []; };
 /**
  * Directive that enforces that the `md-` prefix cannot be used.
  */
 var MdPrefixRejector = (function () {
     function MdPrefixRejector() {
     }
+    MdPrefixRejector.decorators = [
+        { type: _angular_core.Directive, args: [{ selector: MD_ELEMENTS_SELECTOR },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MdPrefixRejector.ctorParameters = function () { return []; };
     return MdPrefixRejector;
 }());
-MdPrefixRejector.decorators = [
-    { type: _angular_core.Directive, args: [{ selector: MD_ELEMENTS_SELECTOR },] },
-];
-/**
- * @nocollapse
- */
-MdPrefixRejector.ctorParameters = function () { return []; };
 /**
  * Module that enforces the default compatibility mode settings. When this module is loaded
  * without NoConflictStyleCompatibilityMode also being imported, it will throw an error if
@@ -107,34 +84,18 @@ MdPrefixRejector.ctorParameters = function () { return []; };
 var CompatibilityModule = (function () {
     function CompatibilityModule() {
     }
+    CompatibilityModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    declarations: [MatPrefixRejector, MdPrefixRejector],
+                    exports: [MatPrefixRejector, MdPrefixRejector],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    CompatibilityModule.ctorParameters = function () { return []; };
     return CompatibilityModule;
 }());
-CompatibilityModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                declarations: [MatPrefixRejector, MdPrefixRejector],
-                exports: [MatPrefixRejector, MdPrefixRejector],
-            },] },
-];
-/**
- * @nocollapse
- */
-CompatibilityModule.ctorParameters = function () { return []; };
-/**
- * Module that enforces "no-conflict" compatibility mode settings. When this module is loaded,
- * it will throw an error if there are any uses of the `md-` prefix.
- */
-var NoConflictStyleCompatibilityMode = (function () {
-    function NoConflictStyleCompatibilityMode() {
-    }
-    return NoConflictStyleCompatibilityMode;
-}());
-NoConflictStyleCompatibilityMode.decorators = [
-    { type: _angular_core.NgModule },
-];
-/**
- * @nocollapse
- */
-NoConflictStyleCompatibilityMode.ctorParameters = function () { return []; };
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
@@ -193,23 +154,24 @@ var MatCommonModule = (function () {
             this._document.body.removeChild(testElement);
         }
     };
+    MatCommonModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    imports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
+                    exports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
+                    providers: [{
+                            provide: MATERIAL_SANITY_CHECKS, useValue: true,
+                        }],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatCommonModule.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
+    ]; };
     return MatCommonModule;
 }());
-MatCommonModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
-                exports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
-                providers: [{
-                        provide: MATERIAL_SANITY_CHECKS, useValue: true,
-                    }],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCommonModule.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
-]; };
+
 /**
  * Mixin to augment a directive with a `disabled` property.
  * @template T
@@ -247,6 +209,7 @@ function mixinDisabled(base) {
         return class_1;
     }(base));
 }
+
 /**
  * Class to coordinate unique selection based on name.
  * Intended to be consumed as an Angular service.
@@ -287,15 +250,15 @@ var UniqueSelectionDispatcher = (function () {
             });
         };
     };
+    UniqueSelectionDispatcher.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    UniqueSelectionDispatcher.ctorParameters = function () { return []; };
     return UniqueSelectionDispatcher;
 }());
-UniqueSelectionDispatcher.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-UniqueSelectionDispatcher.ctorParameters = function () { return []; };
 /**
  * \@docs-private
  * @param {?} parentDispatcher
@@ -313,14 +276,11 @@ var UNIQUE_SELECTION_DISPATCHER_PROVIDER = {
     deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), UniqueSelectionDispatcher]],
     useFactory: UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY
 };
+
 /**
  * InjectionToken for datepicker that can be used to override default locale code.
  */
 var MAT_DATE_LOCALE = new _angular_core.InjectionToken('MAT_DATE_LOCALE');
-/**
- * Provider for MAT_DATE_LOCALE injection token.
- */
-var MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: _angular_core.LOCALE_ID };
 /**
  * Adapts type `D` to be usable as a date by cdk-based components that work with dates.
  * @abstract
@@ -553,6 +513,7 @@ var DateAdapter = (function () {
     };
     return DateAdapter;
 }());
+
 /**
  * Extends an object with the *enumerable* and *own* properties of one or more source objects,
  * similar to Object.assign.
@@ -581,6 +542,7 @@ function extendObject(dest) {
     }
     return dest;
 }
+
 /**
  * Whether the browser supports the Intl API.
  */
@@ -908,61 +870,20 @@ var NativeDateAdapter = (function (_super) {
     NativeDateAdapter.prototype._stripDirectionalityCharacters = function (str) {
         return str.replace(/[\u200e\u200f]/g, '');
     };
+    NativeDateAdapter.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    NativeDateAdapter.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_LOCALE,] },] },
+    ]; };
     return NativeDateAdapter;
 }(DateAdapter));
-NativeDateAdapter.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-NativeDateAdapter.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_LOCALE,] },] },
-]; };
+
 var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
-var MAT_NATIVE_DATE_FORMATS = {
-    parse: {
-        dateInput: null,
-    },
-    display: {
-        dateInput: { year: 'numeric', month: 'numeric', day: 'numeric' },
-        monthYearLabel: { year: 'numeric', month: 'short' },
-        dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
-        monthYearA11yLabel: { year: 'numeric', month: 'long' },
-    }
-};
-var NativeDateModule = (function () {
-    function NativeDateModule() {
-    }
-    return NativeDateModule;
-}());
-NativeDateModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                providers: [
-                    { provide: DateAdapter, useClass: NativeDateAdapter },
-                    MAT_DATE_LOCALE_PROVIDER
-                ],
-            },] },
-];
-/**
- * @nocollapse
- */
-NativeDateModule.ctorParameters = function () { return []; };
-var MatNativeDateModule = (function () {
-    function MatNativeDateModule() {
-    }
-    return MatNativeDateModule;
-}());
-MatNativeDateModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [NativeDateModule],
-                providers: [{ provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS }],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatNativeDateModule.ctorParameters = function () { return []; };
+
 /**
  * Injection token that can be used to specify the global error options.
  */
@@ -1034,51 +955,16 @@ var GestureConfig = (function (_super) {
         inheritances.forEach(function (item) { return recognizer.recognizeWith(item); });
         return recognizer;
     };
+    GestureConfig.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    GestureConfig.ctorParameters = function () { return []; };
     return GestureConfig;
 }(_angular_platformBrowser.HammerGestureConfig));
-GestureConfig.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-GestureConfig.ctorParameters = function () { return []; };
-/**
- * Shared directive to count lines inside a text area, such as a list item.
- * Line elements can be extracted with a \@ContentChildren(MatLine) query, then
- * counted by checking the query list's length.
- */
-var MatLine = (function () {
-    function MatLine() {
-    }
-    return MatLine;
-}());
-MatLine.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[mat-line], [matLine]',
-                host: { 'class': 'mat-line' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatLine.ctorParameters = function () { return []; };
-var MatLineModule = (function () {
-    function MatLineModule() {
-    }
-    return MatLineModule;
-}());
-MatLineModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [MatCommonModule],
-                exports: [MatLine, MatCommonModule],
-                declarations: [MatLine],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatLineModule.ctorParameters = function () { return []; };
+
 var RippleState = {};
 RippleState.FADING_IN = 0;
 RippleState.VISIBLE = 1;
@@ -1115,6 +1001,7 @@ var RippleRef = (function () {
     };
     return RippleRef;
 }());
+
 /**
  * Fade-in duration for the ripples. Can be modified with the speedFactor option.
  */
@@ -1355,6 +1242,7 @@ function distanceToFurthestCorner(x, y, rect) {
     var /** @type {?} */ distY = Math.max(Math.abs(y - rect.top), Math.abs(y - rect.bottom));
     return Math.sqrt(distX * distX + distY * distY);
 }
+
 /**
  * Injection token that can be used to specify the global ripple options.
  */
@@ -1443,118 +1331,38 @@ var MatRipple = (function () {
         this._rippleRenderer.rippleDisabled = this._globalOptions.disabled || this.disabled;
         this._rippleRenderer.rippleConfig = this.rippleConfig;
     };
+    MatRipple.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: '[mat-ripple], [matRipple]',
+                    exportAs: 'matRipple',
+                    host: {
+                        'class': 'mat-ripple',
+                        '[class.mat-ripple-unbounded]': 'unbounded'
+                    }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatRipple.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+        { type: _angular_core.NgZone, },
+        { type: _angular_cdk_scrolling.ViewportRuler, },
+        { type: _angular_cdk_platform.Platform, },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
+    ]; };
+    MatRipple.propDecorators = {
+        'trigger': [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
+        'centered': [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
+        'disabled': [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
+        'radius': [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
+        'speedFactor': [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
+        'color': [{ type: _angular_core.Input, args: ['matRippleColor',] },],
+        'unbounded': [{ type: _angular_core.Input, args: ['matRippleUnbounded',] },],
+    };
     return MatRipple;
 }());
-MatRipple.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[mat-ripple], [matRipple]',
-                exportAs: 'matRipple',
-                host: {
-                    'class': 'mat-ripple',
-                    '[class.mat-ripple-unbounded]': 'unbounded'
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatRipple.ctorParameters = function () { return [
-    { type: _angular_core.ElementRef, },
-    { type: _angular_core.NgZone, },
-    { type: _angular_cdk_scrolling.ViewportRuler, },
-    { type: _angular_cdk_platform.Platform, },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
-]; };
-MatRipple.propDecorators = {
-    'trigger': [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
-    'centered': [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
-    'disabled': [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
-    'radius': [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
-    'speedFactor': [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
-    'color': [{ type: _angular_core.Input, args: ['matRippleColor',] },],
-    'unbounded': [{ type: _angular_core.Input, args: ['matRippleUnbounded',] },],
-};
-var MatRippleModule = (function () {
-    function MatRippleModule() {
-    }
-    return MatRippleModule;
-}());
-MatRippleModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [MatCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
-                exports: [MatRipple, MatCommonModule],
-                declarations: [MatRipple],
-                providers: [_angular_cdk_scrolling.VIEWPORT_RULER_PROVIDER],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatRippleModule.ctorParameters = function () { return []; };
-/**
- * Component that shows a simplified checkbox without including any kind of "real" checkbox.
- * Meant to be used when the checkbox is purely decorative and a large number of them will be
- * included, such as for the options in a multi-select. Uses no SVGs or complex animations.
- * Note that theming is meant to be handled by the parent element, e.g.
- * `mat-primary .mat-pseudo-checkbox`.
- *
- * Note that this component will be completely invisible to screen-reader users. This is *not*
- * interchangeable with <mat-checkbox> and should *not* be used if the user would directly interact
- * with the checkbox. The pseudo-checkbox should only be used as an implementation detail of
- * more complex components that appropriately handle selected / checked state.
- * \@docs-private
- */
-var MatPseudoCheckbox = (function () {
-    function MatPseudoCheckbox() {
-        /**
-         * Display state of the checkbox.
-         */
-        this.state = 'unchecked';
-        /**
-         * Whether the checkbox is disabled.
-         */
-        this.disabled = false;
-    }
-    return MatPseudoCheckbox;
-}());
-MatPseudoCheckbox.decorators = [
-    { type: _angular_core.Component, args: [{ encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                selector: 'mat-pseudo-checkbox',
-                styles: [".mat-pseudo-checkbox{width:20px;height:20px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0,0,.2,.1),background-color 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:'';border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:9px;left:2px;width:16px;opacity:1}.mat-pseudo-checkbox-checked::after{top:5px;left:3px;width:12px;height:5px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1}"],
-                template: '',
-                host: {
-                    'class': 'mat-pseudo-checkbox',
-                    '[class.mat-pseudo-checkbox-indeterminate]': 'state === "indeterminate"',
-                    '[class.mat-pseudo-checkbox-checked]': 'state === "checked"',
-                    '[class.mat-pseudo-checkbox-disabled]': 'disabled',
-                },
-            },] },
-];
-/**
- * @nocollapse
- */
-MatPseudoCheckbox.ctorParameters = function () { return []; };
-MatPseudoCheckbox.propDecorators = {
-    'state': [{ type: _angular_core.Input },],
-    'disabled': [{ type: _angular_core.Input },],
-};
-var MatPseudoCheckboxModule = (function () {
-    function MatPseudoCheckboxModule() {
-    }
-    return MatPseudoCheckboxModule;
-}());
-MatPseudoCheckboxModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                exports: [MatPseudoCheckbox],
-                declarations: [MatPseudoCheckbox]
-            },] },
-];
-/**
- * @nocollapse
- */
-MatPseudoCheckboxModule.ctorParameters = function () { return []; };
+
 /**
  * \@docs-private
  */
@@ -1572,38 +1380,39 @@ var _uniqueOptgroupIdCounter = 0;
 var MatOptgroup = (function (_super) {
     __extends(MatOptgroup, _super);
     function MatOptgroup() {
-        var _this = _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
         /**
          * Unique id for the underlying label.
          */
         _this._labelId = "mat-optgroup-label-" + _uniqueOptgroupIdCounter++;
         return _this;
     }
+    MatOptgroup.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-optgroup',
+                    template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    inputs: ['disabled'],
+                    host: {
+                        'class': 'mat-optgroup',
+                        'role': 'group',
+                        '[class.mat-optgroup-disabled]': 'disabled',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[attr.aria-labelledby]': '_labelId',
+                    }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatOptgroup.ctorParameters = function () { return []; };
+    MatOptgroup.propDecorators = {
+        'label': [{ type: _angular_core.Input },],
+    };
     return MatOptgroup;
 }(_MatOptgroupMixinBase));
-MatOptgroup.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-optgroup',
-                template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                inputs: ['disabled'],
-                host: {
-                    'class': 'mat-optgroup',
-                    'role': 'group',
-                    '[class.mat-optgroup-disabled]': 'disabled',
-                    '[attr.aria-disabled]': 'disabled.toString()',
-                    '[attr.aria-labelledby]': '_labelId',
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatOptgroup.ctorParameters = function () { return []; };
-MatOptgroup.propDecorators = {
-    'label': [{ type: _angular_core.Input },],
-};
+
 /**
  * Option IDs need to be unique across components, so this counter exists outside of
  * the component definition.
@@ -1873,59 +1682,44 @@ var MatOption = (function () {
         }
         return 0;
     };
+    MatOption.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-option',
+                    host: {
+                        'role': 'option',
+                        '[attr.tabindex]': '_getTabIndex()',
+                        '[class.mat-selected]': 'selected',
+                        '[class.mat-option-multiple]': 'multiple',
+                        '[class.mat-active]': 'active',
+                        '[id]': 'id',
+                        '[attr.aria-selected]': 'selected.toString()',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[class.mat-option-disabled]': 'disabled',
+                        '(click)': '_selectViaInteraction()',
+                        '(keydown)': '_handleKeydown($event)',
+                        'class': 'mat-option',
+                    },
+                    template: "<span *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox></span><span class=\"mat-option-text\"><ng-content></ng-content></span><div class=\"mat-option-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"disabled || disableRipple\"></div>",
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatOption.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+        { type: _angular_core.ChangeDetectorRef, },
+        { type: MatOptgroup, decorators: [{ type: _angular_core.Optional },] },
+    ]; };
+    MatOption.propDecorators = {
+        'value': [{ type: _angular_core.Input },],
+        'disabled': [{ type: _angular_core.Input },],
+        'onSelectionChange': [{ type: _angular_core.Output },],
+    };
     return MatOption;
 }());
-MatOption.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-option',
-                host: {
-                    'role': 'option',
-                    '[attr.tabindex]': '_getTabIndex()',
-                    '[class.mat-selected]': 'selected',
-                    '[class.mat-option-multiple]': 'multiple',
-                    '[class.mat-active]': 'active',
-                    '[id]': 'id',
-                    '[attr.aria-selected]': 'selected.toString()',
-                    '[attr.aria-disabled]': 'disabled.toString()',
-                    '[class.mat-option-disabled]': 'disabled',
-                    '(click)': '_selectViaInteraction()',
-                    '(keydown)': '_handleKeydown($event)',
-                    'class': 'mat-option',
-                },
-                template: "<span *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox></span><span class=\"mat-option-text\"><ng-content></ng-content></span><div class=\"mat-option-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"disabled || disableRipple\"></div>",
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatOption.ctorParameters = function () { return [
-    { type: _angular_core.ElementRef, },
-    { type: _angular_core.ChangeDetectorRef, },
-    { type: MatOptgroup, decorators: [{ type: _angular_core.Optional },] },
-]; };
-MatOption.propDecorators = {
-    'value': [{ type: _angular_core.Input },],
-    'disabled': [{ type: _angular_core.Input },],
-    'onSelectionChange': [{ type: _angular_core.Output },],
-};
-var MatOptionModule = (function () {
-    function MatOptionModule() {
-    }
-    return MatOptionModule;
-}());
-MatOptionModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [MatRippleModule, _angular_common.CommonModule, MatPseudoCheckboxModule],
-                exports: [MatOption, MatOptgroup],
-                declarations: [MatOption, MatOptgroup]
-            },] },
-];
-/**
- * @nocollapse
- */
-MatOptionModule.ctorParameters = function () { return []; };
+
 /**
  * InjectionToken that can be used to specify the global placeholder options.
  */
@@ -1938,18 +1732,18 @@ var MAT_PLACEHOLDER_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-place
 var MatCardContent = (function () {
     function MatCardContent() {
     }
+    MatCardContent.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'mat-card-content',
+                    host: { 'class': 'mat-card-content' }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatCardContent.ctorParameters = function () { return []; };
     return MatCardContent;
 }());
-MatCardContent.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: 'mat-card-content',
-                host: { 'class': 'mat-card-content' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCardContent.ctorParameters = function () { return []; };
 /**
  * Title of a card, needed as it's used as a selector in the API.
  * \@docs-private
@@ -1957,20 +1751,20 @@ MatCardContent.ctorParameters = function () { return []; };
 var MatCardTitle = (function () {
     function MatCardTitle() {
     }
+    MatCardTitle.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: "mat-card-title, [mat-card-title], [matCardTitle]",
+                    host: {
+                        'class': 'mat-card-title'
+                    }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatCardTitle.ctorParameters = function () { return []; };
     return MatCardTitle;
 }());
-MatCardTitle.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: "mat-card-title, [mat-card-title], [matCardTitle]",
-                host: {
-                    'class': 'mat-card-title'
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCardTitle.ctorParameters = function () { return []; };
 /**
  * Sub-title of a card, needed as it's used as a selector in the API.
  * \@docs-private
@@ -1978,20 +1772,20 @@ MatCardTitle.ctorParameters = function () { return []; };
 var MatCardSubtitle = (function () {
     function MatCardSubtitle() {
     }
+    MatCardSubtitle.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: "mat-card-subtitle, [mat-card-subtitle], [matCardSubtitle]",
+                    host: {
+                        'class': 'mat-card-subtitle'
+                    }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatCardSubtitle.ctorParameters = function () { return []; };
     return MatCardSubtitle;
 }());
-MatCardSubtitle.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: "mat-card-subtitle, [mat-card-subtitle], [matCardSubtitle]",
-                host: {
-                    'class': 'mat-card-subtitle'
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCardSubtitle.ctorParameters = function () { return []; };
 /**
  * Action section of a card, needed as it's used as a selector in the API.
  * \@docs-private
@@ -2003,24 +1797,24 @@ var MatCardActions = (function () {
          */
         this.align = 'start';
     }
+    MatCardActions.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'mat-card-actions',
+                    host: {
+                        'class': 'mat-card-actions',
+                        '[class.mat-card-actions-align-end]': 'align === "end"',
+                    }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatCardActions.ctorParameters = function () { return []; };
+    MatCardActions.propDecorators = {
+        'align': [{ type: _angular_core.Input },],
+    };
     return MatCardActions;
 }());
-MatCardActions.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: 'mat-card-actions',
-                host: {
-                    'class': 'mat-card-actions',
-                    '[class.mat-card-actions-align-end]': 'align === "end"',
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCardActions.ctorParameters = function () { return []; };
-MatCardActions.propDecorators = {
-    'align': [{ type: _angular_core.Input },],
-};
 /**
  * Footer of a card, needed as it's used as a selector in the API.
  * \@docs-private
@@ -2028,18 +1822,18 @@ MatCardActions.propDecorators = {
 var MatCardFooter = (function () {
     function MatCardFooter() {
     }
+    MatCardFooter.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'mat-card-footer',
+                    host: { 'class': 'mat-card-footer' }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatCardFooter.ctorParameters = function () { return []; };
     return MatCardFooter;
 }());
-MatCardFooter.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: 'mat-card-footer',
-                host: { 'class': 'mat-card-footer' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCardFooter.ctorParameters = function () { return []; };
 /**
  * Image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
@@ -2047,18 +1841,18 @@ MatCardFooter.ctorParameters = function () { return []; };
 var MatCardImage = (function () {
     function MatCardImage() {
     }
+    MatCardImage.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: '[mat-card-image], [matCardImage]',
+                    host: { 'class': 'mat-card-image' }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatCardImage.ctorParameters = function () { return []; };
     return MatCardImage;
 }());
-MatCardImage.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[mat-card-image], [matCardImage]',
-                host: { 'class': 'mat-card-image' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCardImage.ctorParameters = function () { return []; };
 /**
  * Image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
@@ -2066,18 +1860,18 @@ MatCardImage.ctorParameters = function () { return []; };
 var MatCardSmImage = (function () {
     function MatCardSmImage() {
     }
+    MatCardSmImage.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: '[mat-card-sm-image], [matCardImageSmall]',
+                    host: { 'class': 'mat-card-sm-image' }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatCardSmImage.ctorParameters = function () { return []; };
     return MatCardSmImage;
 }());
-MatCardSmImage.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[mat-card-sm-image], [matCardImageSmall]',
-                host: { 'class': 'mat-card-sm-image' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCardSmImage.ctorParameters = function () { return []; };
 /**
  * Image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
@@ -2085,18 +1879,18 @@ MatCardSmImage.ctorParameters = function () { return []; };
 var MatCardMdImage = (function () {
     function MatCardMdImage() {
     }
+    MatCardMdImage.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: '[mat-card-md-image], [matCardImageMedium]',
+                    host: { 'class': 'mat-card-md-image' }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatCardMdImage.ctorParameters = function () { return []; };
     return MatCardMdImage;
 }());
-MatCardMdImage.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[mat-card-md-image], [matCardImageMedium]',
-                host: { 'class': 'mat-card-md-image' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCardMdImage.ctorParameters = function () { return []; };
 /**
  * Image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
@@ -2104,18 +1898,18 @@ MatCardMdImage.ctorParameters = function () { return []; };
 var MatCardLgImage = (function () {
     function MatCardLgImage() {
     }
+    MatCardLgImage.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: '[mat-card-lg-image], [matCardImageLarge]',
+                    host: { 'class': 'mat-card-lg-image' }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatCardLgImage.ctorParameters = function () { return []; };
     return MatCardLgImage;
 }());
-MatCardLgImage.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[mat-card-lg-image], [matCardImageLarge]',
-                host: { 'class': 'mat-card-lg-image' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCardLgImage.ctorParameters = function () { return []; };
 /**
  * Large image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
@@ -2123,18 +1917,18 @@ MatCardLgImage.ctorParameters = function () { return []; };
 var MatCardXlImage = (function () {
     function MatCardXlImage() {
     }
+    MatCardXlImage.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: '[mat-card-xl-image], [matCardImageXLarge]',
+                    host: { 'class': 'mat-card-xl-image' }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatCardXlImage.ctorParameters = function () { return []; };
     return MatCardXlImage;
 }());
-MatCardXlImage.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[mat-card-xl-image], [matCardImageXLarge]',
-                host: { 'class': 'mat-card-xl-image' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCardXlImage.ctorParameters = function () { return []; };
 /**
  * Avatar image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
@@ -2142,18 +1936,18 @@ MatCardXlImage.ctorParameters = function () { return []; };
 var MatCardAvatar = (function () {
     function MatCardAvatar() {
     }
+    MatCardAvatar.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: '[mat-card-avatar], [matCardAvatar]',
+                    host: { 'class': 'mat-card-avatar' }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatCardAvatar.ctorParameters = function () { return []; };
     return MatCardAvatar;
 }());
-MatCardAvatar.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[mat-card-avatar], [matCardAvatar]',
-                host: { 'class': 'mat-card-avatar' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCardAvatar.ctorParameters = function () { return []; };
 /**
  * A basic content container component that adds the styles of a Material design card.
  *
@@ -2168,22 +1962,22 @@ MatCardAvatar.ctorParameters = function () { return []; };
 var MatCard = (function () {
     function MatCard() {
     }
+    MatCard.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-card',
+                    template: "<ng-content></ng-content><ng-content select=\"mat-card-footer\"></ng-content>",
+                    styles: [".mat-card{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:block;position:relative;padding:24px;border-radius:2px}.mat-card:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-card{outline:solid 1px}}.mat-card-flat{box-shadow:none}.mat-card-actions,.mat-card-content,.mat-card-subtitle,.mat-card-title{display:block;margin-bottom:16px}.mat-card-actions{margin-left:-16px;margin-right:-16px;padding:8px 0}.mat-card-actions-align-end{display:flex;justify-content:flex-end}.mat-card-image{width:calc(100% + 48px);margin:0 -24px 16px -24px}.mat-card-xl-image{width:240px;height:240px;margin:-8px}.mat-card-footer{display:block;margin:0 -24px -24px -24px}.mat-card-actions .mat-button,.mat-card-actions .mat-raised-button{margin:0 4px}.mat-card-header{display:flex;flex-direction:row}.mat-card-header-text{margin:0 8px}.mat-card-avatar{height:40px;width:40px;border-radius:50%;flex-shrink:0}.mat-card-lg-image,.mat-card-md-image,.mat-card-sm-image{margin:-8px 0}.mat-card-title-group{display:flex;justify-content:space-between;margin:0 -8px}.mat-card-sm-image{width:80px;height:80px}.mat-card-md-image{width:112px;height:112px}.mat-card-lg-image{width:152px;height:152px}@media (max-width:600px){.mat-card{padding:24px 16px}.mat-card-actions{margin-left:-8px;margin-right:-8px}.mat-card-image{width:calc(100% + 32px);margin:16px -16px}.mat-card-title-group{margin:0}.mat-card-xl-image{margin-left:0;margin-right:0}.mat-card-header{margin:-8px 0 0 0}.mat-card-footer{margin-left:-16px;margin-right:-16px}}.mat-card-content>:first-child,.mat-card>:first-child{margin-top:0}.mat-card-content>:last-child:not(.mat-card-footer),.mat-card>:last-child:not(.mat-card-footer){margin-bottom:0}.mat-card-image:first-child{margin-top:-24px}.mat-card>.mat-card-actions:last-child{margin-bottom:-16px;padding-bottom:0}.mat-card-actions .mat-button:first-child,.mat-card-actions .mat-raised-button:first-child{margin-left:0;margin-right:0}.mat-card-subtitle:not(:first-child),.mat-card-title:not(:first-child){margin-top:-4px}.mat-card-header .mat-card-subtitle:not(:first-child){margin-top:-8px}.mat-card>.mat-card-xl-image:first-child{margin-top:-8px}.mat-card>.mat-card-xl-image:last-child{margin-bottom:-8px}"],
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    host: { 'class': 'mat-card' }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatCard.ctorParameters = function () { return []; };
     return MatCard;
 }());
-MatCard.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-card',
-                template: "<ng-content></ng-content><ng-content select=\"mat-card-footer\"></ng-content>",
-                styles: [".mat-card{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:block;position:relative;padding:24px;border-radius:2px}.mat-card:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-card{outline:solid 1px}}.mat-card-flat{box-shadow:none}.mat-card-actions,.mat-card-content,.mat-card-subtitle,.mat-card-title{display:block;margin-bottom:16px}.mat-card-actions{margin-left:-16px;margin-right:-16px;padding:8px 0}.mat-card-actions-align-end{display:flex;justify-content:flex-end}.mat-card-image{width:calc(100% + 48px);margin:0 -24px 16px -24px}.mat-card-xl-image{width:240px;height:240px;margin:-8px}.mat-card-footer{display:block;margin:0 -24px -24px -24px}.mat-card-actions .mat-button,.mat-card-actions .mat-raised-button{margin:0 4px}.mat-card-header{display:flex;flex-direction:row}.mat-card-header-text{margin:0 8px}.mat-card-avatar{height:40px;width:40px;border-radius:50%;flex-shrink:0}.mat-card-lg-image,.mat-card-md-image,.mat-card-sm-image{margin:-8px 0}.mat-card-title-group{display:flex;justify-content:space-between;margin:0 -8px}.mat-card-sm-image{width:80px;height:80px}.mat-card-md-image{width:112px;height:112px}.mat-card-lg-image{width:152px;height:152px}@media (max-width:600px){.mat-card{padding:24px 16px}.mat-card-actions{margin-left:-8px;margin-right:-8px}.mat-card-image{width:calc(100% + 32px);margin:16px -16px}.mat-card-title-group{margin:0}.mat-card-xl-image{margin-left:0;margin-right:0}.mat-card-header{margin:-8px 0 0 0}.mat-card-footer{margin-left:-16px;margin-right:-16px}}.mat-card-content>:first-child,.mat-card>:first-child{margin-top:0}.mat-card-content>:last-child:not(.mat-card-footer),.mat-card>:last-child:not(.mat-card-footer){margin-bottom:0}.mat-card-image:first-child{margin-top:-24px}.mat-card>.mat-card-actions:last-child{margin-bottom:-16px;padding-bottom:0}.mat-card-actions .mat-button:first-child,.mat-card-actions .mat-raised-button:first-child{margin-left:0;margin-right:0}.mat-card-subtitle:not(:first-child),.mat-card-title:not(:first-child){margin-top:-4px}.mat-card-header .mat-card-subtitle:not(:first-child){margin-top:-8px}.mat-card>.mat-card-xl-image:first-child{margin-top:-8px}.mat-card>.mat-card-xl-image:last-child{margin-bottom:-8px}"],
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                host: { 'class': 'mat-card' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCard.ctorParameters = function () { return []; };
 /**
  * Component intended to be used within the `<mat-card>` component. It adds styles for a
  * preset header section (i.e. a title, subtitle, and avatar layout).
@@ -2192,21 +1986,21 @@ MatCard.ctorParameters = function () { return []; };
 var MatCardHeader = (function () {
     function MatCardHeader() {
     }
+    MatCardHeader.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-card-header',
+                    template: "<ng-content select=\"[mat-card-avatar], [matCardAvatar]\"></ng-content><div class=\"mat-card-header-text\"><ng-content select=\"mat-card-title, mat-card-subtitle, [mat-card-title], [mat-card-subtitle]\"></ng-content></div><ng-content></ng-content>",
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    host: { 'class': 'mat-card-header' }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatCardHeader.ctorParameters = function () { return []; };
     return MatCardHeader;
 }());
-MatCardHeader.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-card-header',
-                template: "<ng-content select=\"[mat-card-avatar], [matCardAvatar]\"></ng-content><div class=\"mat-card-header-text\"><ng-content select=\"mat-card-title, mat-card-subtitle, [mat-card-title], [mat-card-subtitle]\"></ng-content></div><ng-content></ng-content>",
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                host: { 'class': 'mat-card-header' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCardHeader.ctorParameters = function () { return []; };
 /**
  * Component intended to be used within the <mat-card> component. It adds styles for a preset
  * layout that groups an image with a title section.
@@ -2215,57 +2009,58 @@ MatCardHeader.ctorParameters = function () { return []; };
 var MatCardTitleGroup = (function () {
     function MatCardTitleGroup() {
     }
+    MatCardTitleGroup.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-card-title-group',
+                    template: "<div><ng-content select=\"mat-card-title, mat-card-subtitle, [mat-card-title], [mat-card-subtitle]\"></ng-content></div><ng-content select=\"img\"></ng-content><ng-content></ng-content>",
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    host: { 'class': 'mat-card-title-group' }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatCardTitleGroup.ctorParameters = function () { return []; };
     return MatCardTitleGroup;
 }());
-MatCardTitleGroup.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-card-title-group',
-                template: "<div><ng-content select=\"mat-card-title, mat-card-subtitle, [mat-card-title], [mat-card-subtitle]\"></ng-content></div><ng-content select=\"img\"></ng-content><ng-content></ng-content>",
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                host: { 'class': 'mat-card-title-group' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCardTitleGroup.ctorParameters = function () { return []; };
+
 var MatCardModule = (function () {
     function MatCardModule() {
     }
+    MatCardModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    imports: [MatCommonModule],
+                    exports: [
+                        MatCard,
+                        MatCardHeader,
+                        MatCardTitleGroup,
+                        MatCardContent,
+                        MatCardTitle,
+                        MatCardSubtitle,
+                        MatCardActions,
+                        MatCardFooter,
+                        MatCardSmImage,
+                        MatCardMdImage,
+                        MatCardLgImage,
+                        MatCardImage,
+                        MatCardXlImage,
+                        MatCardAvatar,
+                        MatCommonModule,
+                    ],
+                    declarations: [
+                        MatCard, MatCardHeader, MatCardTitleGroup, MatCardContent, MatCardTitle, MatCardSubtitle,
+                        MatCardActions, MatCardFooter, MatCardSmImage, MatCardMdImage, MatCardLgImage, MatCardImage,
+                        MatCardXlImage, MatCardAvatar,
+                    ],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatCardModule.ctorParameters = function () { return []; };
     return MatCardModule;
 }());
-MatCardModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [MatCommonModule],
-                exports: [
-                    MatCard,
-                    MatCardHeader,
-                    MatCardTitleGroup,
-                    MatCardContent,
-                    MatCardTitle,
-                    MatCardSubtitle,
-                    MatCardActions,
-                    MatCardFooter,
-                    MatCardSmImage,
-                    MatCardMdImage,
-                    MatCardLgImage,
-                    MatCardImage,
-                    MatCardXlImage,
-                    MatCardAvatar,
-                    MatCommonModule,
-                ],
-                declarations: [
-                    MatCard, MatCardHeader, MatCardTitleGroup, MatCardContent, MatCardTitle, MatCardSubtitle,
-                    MatCardActions, MatCardFooter, MatCardSmImage, MatCardMdImage, MatCardLgImage, MatCardImage,
-                    MatCardXlImage, MatCardAvatar,
-                ],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCardModule.ctorParameters = function () { return []; };
 
 exports.MatCardContent = MatCardContent;
 exports.MatCardTitle = MatCardTitle;

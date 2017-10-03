@@ -37,29 +37,6 @@ function __extends(d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
-/**
- * \@docs-private
- */
-var AnimationCurves = (function () {
-    function AnimationCurves() {
-    }
-    return AnimationCurves;
-}());
-AnimationCurves.STANDARD_CURVE = 'cubic-bezier(0.4,0.0,0.2,1)';
-AnimationCurves.DECELERATION_CURVE = 'cubic-bezier(0.0,0.0,0.2,1)';
-AnimationCurves.ACCELERATION_CURVE = 'cubic-bezier(0.4,0.0,1,1)';
-AnimationCurves.SHARP_CURVE = 'cubic-bezier(0.4,0.0,0.6,1)';
-/**
- * \@docs-private
- */
-var AnimationDurations = (function () {
-    function AnimationDurations() {
-    }
-    return AnimationDurations;
-}());
-AnimationDurations.COMPLEX = '375ms';
-AnimationDurations.ENTERING = '225ms';
-AnimationDurations.EXITING = '195ms';
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
  * Selector that matches all elements that may have style collisions with AngularJS Material.
@@ -75,30 +52,30 @@ var MD_ELEMENTS_SELECTOR = "\n  [md-button],\n  [md-fab],\n  [md-icon-button],\n
 var MatPrefixRejector = (function () {
     function MatPrefixRejector() {
     }
+    MatPrefixRejector.decorators = [
+        { type: _angular_core.Directive, args: [{ selector: MAT_ELEMENTS_SELECTOR },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatPrefixRejector.ctorParameters = function () { return []; };
     return MatPrefixRejector;
 }());
-MatPrefixRejector.decorators = [
-    { type: _angular_core.Directive, args: [{ selector: MAT_ELEMENTS_SELECTOR },] },
-];
-/**
- * @nocollapse
- */
-MatPrefixRejector.ctorParameters = function () { return []; };
 /**
  * Directive that enforces that the `md-` prefix cannot be used.
  */
 var MdPrefixRejector = (function () {
     function MdPrefixRejector() {
     }
+    MdPrefixRejector.decorators = [
+        { type: _angular_core.Directive, args: [{ selector: MD_ELEMENTS_SELECTOR },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MdPrefixRejector.ctorParameters = function () { return []; };
     return MdPrefixRejector;
 }());
-MdPrefixRejector.decorators = [
-    { type: _angular_core.Directive, args: [{ selector: MD_ELEMENTS_SELECTOR },] },
-];
-/**
- * @nocollapse
- */
-MdPrefixRejector.ctorParameters = function () { return []; };
 /**
  * Module that enforces the default compatibility mode settings. When this module is loaded
  * without NoConflictStyleCompatibilityMode also being imported, it will throw an error if
@@ -107,34 +84,18 @@ MdPrefixRejector.ctorParameters = function () { return []; };
 var CompatibilityModule = (function () {
     function CompatibilityModule() {
     }
+    CompatibilityModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    declarations: [MatPrefixRejector, MdPrefixRejector],
+                    exports: [MatPrefixRejector, MdPrefixRejector],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    CompatibilityModule.ctorParameters = function () { return []; };
     return CompatibilityModule;
 }());
-CompatibilityModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                declarations: [MatPrefixRejector, MdPrefixRejector],
-                exports: [MatPrefixRejector, MdPrefixRejector],
-            },] },
-];
-/**
- * @nocollapse
- */
-CompatibilityModule.ctorParameters = function () { return []; };
-/**
- * Module that enforces "no-conflict" compatibility mode settings. When this module is loaded,
- * it will throw an error if there are any uses of the `md-` prefix.
- */
-var NoConflictStyleCompatibilityMode = (function () {
-    function NoConflictStyleCompatibilityMode() {
-    }
-    return NoConflictStyleCompatibilityMode;
-}());
-NoConflictStyleCompatibilityMode.decorators = [
-    { type: _angular_core.NgModule },
-];
-/**
- * @nocollapse
- */
-NoConflictStyleCompatibilityMode.ctorParameters = function () { return []; };
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
@@ -193,23 +154,24 @@ var MatCommonModule = (function () {
             this._document.body.removeChild(testElement);
         }
     };
+    MatCommonModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    imports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
+                    exports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
+                    providers: [{
+                            provide: MATERIAL_SANITY_CHECKS, useValue: true,
+                        }],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatCommonModule.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
+    ]; };
     return MatCommonModule;
 }());
-MatCommonModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
-                exports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
-                providers: [{
-                        provide: MATERIAL_SANITY_CHECKS, useValue: true,
-                    }],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCommonModule.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
-]; };
+
 /**
  * Mixin to augment a directive with a `disabled` property.
  * @template T
@@ -247,6 +209,7 @@ function mixinDisabled(base) {
         return class_1;
     }(base));
 }
+
 /**
  * Mixin to augment a directive with a `color` property.
  * @template T
@@ -256,11 +219,11 @@ function mixinDisabled(base) {
  */
 function mixinColor(base, defaultColor) {
     return (function (_super) {
-        __extends(class_2, _super);
+        __extends(class_1, _super);
         /**
          * @param {...?} args
          */
-        function class_2() {
+        function class_1() {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
@@ -270,7 +233,7 @@ function mixinColor(base, defaultColor) {
             _this.color = defaultColor;
             return _this;
         }
-        Object.defineProperty(class_2.prototype, "color", {
+        Object.defineProperty(class_1.prototype, "color", {
             /**
              * @return {?}
              */
@@ -294,9 +257,10 @@ function mixinColor(base, defaultColor) {
             enumerable: true,
             configurable: true
         });
-        return class_2;
+        return class_1;
     }(base));
 }
+
 /**
  * Mixin to augment a directive with a `disableRipple` property.
  * @template T
@@ -305,11 +269,11 @@ function mixinColor(base, defaultColor) {
  */
 function mixinDisableRipple(base) {
     return (function (_super) {
-        __extends(class_3, _super);
+        __extends(class_1, _super);
         /**
          * @param {...?} args
          */
-        function class_3() {
+        function class_1() {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
@@ -318,7 +282,7 @@ function mixinDisableRipple(base) {
             _this._disableRipple = false;
             return _this;
         }
-        Object.defineProperty(class_3.prototype, "disableRipple", {
+        Object.defineProperty(class_1.prototype, "disableRipple", {
             /**
              * Whether the ripple effect is disabled or not.
              * @return {?}
@@ -332,9 +296,10 @@ function mixinDisableRipple(base) {
             enumerable: true,
             configurable: true
         });
-        return class_3;
+        return class_1;
     }(base));
 }
+
 /**
  * Class to coordinate unique selection based on name.
  * Intended to be consumed as an Angular service.
@@ -375,15 +340,15 @@ var UniqueSelectionDispatcher = (function () {
             });
         };
     };
+    UniqueSelectionDispatcher.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    UniqueSelectionDispatcher.ctorParameters = function () { return []; };
     return UniqueSelectionDispatcher;
 }());
-UniqueSelectionDispatcher.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-UniqueSelectionDispatcher.ctorParameters = function () { return []; };
 /**
  * \@docs-private
  * @param {?} parentDispatcher
@@ -401,14 +366,11 @@ var UNIQUE_SELECTION_DISPATCHER_PROVIDER = {
     deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), UniqueSelectionDispatcher]],
     useFactory: UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY
 };
+
 /**
  * InjectionToken for datepicker that can be used to override default locale code.
  */
 var MAT_DATE_LOCALE = new _angular_core.InjectionToken('MAT_DATE_LOCALE');
-/**
- * Provider for MAT_DATE_LOCALE injection token.
- */
-var MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: _angular_core.LOCALE_ID };
 /**
  * Adapts type `D` to be usable as a date by cdk-based components that work with dates.
  * @abstract
@@ -641,6 +603,7 @@ var DateAdapter = (function () {
     };
     return DateAdapter;
 }());
+
 /**
  * Extends an object with the *enumerable* and *own* properties of one or more source objects,
  * similar to Object.assign.
@@ -669,6 +632,7 @@ function extendObject(dest) {
     }
     return dest;
 }
+
 /**
  * Whether the browser supports the Intl API.
  */
@@ -996,61 +960,20 @@ var NativeDateAdapter = (function (_super) {
     NativeDateAdapter.prototype._stripDirectionalityCharacters = function (str) {
         return str.replace(/[\u200e\u200f]/g, '');
     };
+    NativeDateAdapter.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    NativeDateAdapter.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_LOCALE,] },] },
+    ]; };
     return NativeDateAdapter;
 }(DateAdapter));
-NativeDateAdapter.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-NativeDateAdapter.ctorParameters = function () { return [
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_LOCALE,] },] },
-]; };
+
 var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
-var MAT_NATIVE_DATE_FORMATS = {
-    parse: {
-        dateInput: null,
-    },
-    display: {
-        dateInput: { year: 'numeric', month: 'numeric', day: 'numeric' },
-        monthYearLabel: { year: 'numeric', month: 'short' },
-        dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
-        monthYearA11yLabel: { year: 'numeric', month: 'long' },
-    }
-};
-var NativeDateModule = (function () {
-    function NativeDateModule() {
-    }
-    return NativeDateModule;
-}());
-NativeDateModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                providers: [
-                    { provide: DateAdapter, useClass: NativeDateAdapter },
-                    MAT_DATE_LOCALE_PROVIDER
-                ],
-            },] },
-];
-/**
- * @nocollapse
- */
-NativeDateModule.ctorParameters = function () { return []; };
-var MatNativeDateModule = (function () {
-    function MatNativeDateModule() {
-    }
-    return MatNativeDateModule;
-}());
-MatNativeDateModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [NativeDateModule],
-                providers: [{ provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS }],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatNativeDateModule.ctorParameters = function () { return []; };
+
 /**
  * Injection token that can be used to specify the global error options.
  */
@@ -1122,51 +1045,16 @@ var GestureConfig = (function (_super) {
         inheritances.forEach(function (item) { return recognizer.recognizeWith(item); });
         return recognizer;
     };
+    GestureConfig.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    GestureConfig.ctorParameters = function () { return []; };
     return GestureConfig;
 }(_angular_platformBrowser.HammerGestureConfig));
-GestureConfig.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-GestureConfig.ctorParameters = function () { return []; };
-/**
- * Shared directive to count lines inside a text area, such as a list item.
- * Line elements can be extracted with a \@ContentChildren(MatLine) query, then
- * counted by checking the query list's length.
- */
-var MatLine = (function () {
-    function MatLine() {
-    }
-    return MatLine;
-}());
-MatLine.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[mat-line], [matLine]',
-                host: { 'class': 'mat-line' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatLine.ctorParameters = function () { return []; };
-var MatLineModule = (function () {
-    function MatLineModule() {
-    }
-    return MatLineModule;
-}());
-MatLineModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [MatCommonModule],
-                exports: [MatLine, MatCommonModule],
-                declarations: [MatLine],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatLineModule.ctorParameters = function () { return []; };
+
 var RippleState = {};
 RippleState.FADING_IN = 0;
 RippleState.VISIBLE = 1;
@@ -1203,6 +1091,7 @@ var RippleRef = (function () {
     };
     return RippleRef;
 }());
+
 /**
  * Fade-in duration for the ripples. Can be modified with the speedFactor option.
  */
@@ -1443,6 +1332,7 @@ function distanceToFurthestCorner(x, y, rect) {
     var /** @type {?} */ distY = Math.max(Math.abs(y - rect.top), Math.abs(y - rect.bottom));
     return Math.sqrt(distX * distX + distY * distY);
 }
+
 /**
  * Injection token that can be used to specify the global ripple options.
  */
@@ -1531,118 +1421,56 @@ var MatRipple = (function () {
         this._rippleRenderer.rippleDisabled = this._globalOptions.disabled || this.disabled;
         this._rippleRenderer.rippleConfig = this.rippleConfig;
     };
+    MatRipple.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: '[mat-ripple], [matRipple]',
+                    exportAs: 'matRipple',
+                    host: {
+                        'class': 'mat-ripple',
+                        '[class.mat-ripple-unbounded]': 'unbounded'
+                    }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatRipple.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+        { type: _angular_core.NgZone, },
+        { type: _angular_cdk_scrolling.ViewportRuler, },
+        { type: _angular_cdk_platform.Platform, },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
+    ]; };
+    MatRipple.propDecorators = {
+        'trigger': [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
+        'centered': [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
+        'disabled': [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
+        'radius': [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
+        'speedFactor': [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
+        'color': [{ type: _angular_core.Input, args: ['matRippleColor',] },],
+        'unbounded': [{ type: _angular_core.Input, args: ['matRippleUnbounded',] },],
+    };
     return MatRipple;
 }());
-MatRipple.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[mat-ripple], [matRipple]',
-                exportAs: 'matRipple',
-                host: {
-                    'class': 'mat-ripple',
-                    '[class.mat-ripple-unbounded]': 'unbounded'
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatRipple.ctorParameters = function () { return [
-    { type: _angular_core.ElementRef, },
-    { type: _angular_core.NgZone, },
-    { type: _angular_cdk_scrolling.ViewportRuler, },
-    { type: _angular_cdk_platform.Platform, },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
-]; };
-MatRipple.propDecorators = {
-    'trigger': [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
-    'centered': [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
-    'disabled': [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
-    'radius': [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
-    'speedFactor': [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
-    'color': [{ type: _angular_core.Input, args: ['matRippleColor',] },],
-    'unbounded': [{ type: _angular_core.Input, args: ['matRippleUnbounded',] },],
-};
+
 var MatRippleModule = (function () {
     function MatRippleModule() {
     }
+    MatRippleModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    imports: [MatCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
+                    exports: [MatRipple, MatCommonModule],
+                    declarations: [MatRipple],
+                    providers: [_angular_cdk_scrolling.VIEWPORT_RULER_PROVIDER],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatRippleModule.ctorParameters = function () { return []; };
     return MatRippleModule;
 }());
-MatRippleModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [MatCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
-                exports: [MatRipple, MatCommonModule],
-                declarations: [MatRipple],
-                providers: [_angular_cdk_scrolling.VIEWPORT_RULER_PROVIDER],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatRippleModule.ctorParameters = function () { return []; };
-/**
- * Component that shows a simplified checkbox without including any kind of "real" checkbox.
- * Meant to be used when the checkbox is purely decorative and a large number of them will be
- * included, such as for the options in a multi-select. Uses no SVGs or complex animations.
- * Note that theming is meant to be handled by the parent element, e.g.
- * `mat-primary .mat-pseudo-checkbox`.
- *
- * Note that this component will be completely invisible to screen-reader users. This is *not*
- * interchangeable with <mat-checkbox> and should *not* be used if the user would directly interact
- * with the checkbox. The pseudo-checkbox should only be used as an implementation detail of
- * more complex components that appropriately handle selected / checked state.
- * \@docs-private
- */
-var MatPseudoCheckbox = (function () {
-    function MatPseudoCheckbox() {
-        /**
-         * Display state of the checkbox.
-         */
-        this.state = 'unchecked';
-        /**
-         * Whether the checkbox is disabled.
-         */
-        this.disabled = false;
-    }
-    return MatPseudoCheckbox;
-}());
-MatPseudoCheckbox.decorators = [
-    { type: _angular_core.Component, args: [{ encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                selector: 'mat-pseudo-checkbox',
-                styles: [".mat-pseudo-checkbox{width:20px;height:20px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0,0,.2,.1),background-color 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:'';border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:9px;left:2px;width:16px;opacity:1}.mat-pseudo-checkbox-checked::after{top:5px;left:3px;width:12px;height:5px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1}"],
-                template: '',
-                host: {
-                    'class': 'mat-pseudo-checkbox',
-                    '[class.mat-pseudo-checkbox-indeterminate]': 'state === "indeterminate"',
-                    '[class.mat-pseudo-checkbox-checked]': 'state === "checked"',
-                    '[class.mat-pseudo-checkbox-disabled]': 'disabled',
-                },
-            },] },
-];
-/**
- * @nocollapse
- */
-MatPseudoCheckbox.ctorParameters = function () { return []; };
-MatPseudoCheckbox.propDecorators = {
-    'state': [{ type: _angular_core.Input },],
-    'disabled': [{ type: _angular_core.Input },],
-};
-var MatPseudoCheckboxModule = (function () {
-    function MatPseudoCheckboxModule() {
-    }
-    return MatPseudoCheckboxModule;
-}());
-MatPseudoCheckboxModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                exports: [MatPseudoCheckbox],
-                declarations: [MatPseudoCheckbox]
-            },] },
-];
-/**
- * @nocollapse
- */
-MatPseudoCheckboxModule.ctorParameters = function () { return []; };
+
 /**
  * \@docs-private
  */
@@ -1660,38 +1488,39 @@ var _uniqueOptgroupIdCounter = 0;
 var MatOptgroup = (function (_super) {
     __extends(MatOptgroup, _super);
     function MatOptgroup() {
-        var _this = _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
         /**
          * Unique id for the underlying label.
          */
         _this._labelId = "mat-optgroup-label-" + _uniqueOptgroupIdCounter++;
         return _this;
     }
+    MatOptgroup.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-optgroup',
+                    template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    inputs: ['disabled'],
+                    host: {
+                        'class': 'mat-optgroup',
+                        'role': 'group',
+                        '[class.mat-optgroup-disabled]': 'disabled',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[attr.aria-labelledby]': '_labelId',
+                    }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatOptgroup.ctorParameters = function () { return []; };
+    MatOptgroup.propDecorators = {
+        'label': [{ type: _angular_core.Input },],
+    };
     return MatOptgroup;
 }(_MatOptgroupMixinBase));
-MatOptgroup.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-optgroup',
-                template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                inputs: ['disabled'],
-                host: {
-                    'class': 'mat-optgroup',
-                    'role': 'group',
-                    '[class.mat-optgroup-disabled]': 'disabled',
-                    '[attr.aria-disabled]': 'disabled.toString()',
-                    '[attr.aria-labelledby]': '_labelId',
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatOptgroup.ctorParameters = function () { return []; };
-MatOptgroup.propDecorators = {
-    'label': [{ type: _angular_core.Input },],
-};
+
 /**
  * Option IDs need to be unique across components, so this counter exists outside of
  * the component definition.
@@ -1961,59 +1790,44 @@ var MatOption = (function () {
         }
         return 0;
     };
+    MatOption.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-option',
+                    host: {
+                        'role': 'option',
+                        '[attr.tabindex]': '_getTabIndex()',
+                        '[class.mat-selected]': 'selected',
+                        '[class.mat-option-multiple]': 'multiple',
+                        '[class.mat-active]': 'active',
+                        '[id]': 'id',
+                        '[attr.aria-selected]': 'selected.toString()',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[class.mat-option-disabled]': 'disabled',
+                        '(click)': '_selectViaInteraction()',
+                        '(keydown)': '_handleKeydown($event)',
+                        'class': 'mat-option',
+                    },
+                    template: "<span *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox></span><span class=\"mat-option-text\"><ng-content></ng-content></span><div class=\"mat-option-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"disabled || disableRipple\"></div>",
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatOption.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+        { type: _angular_core.ChangeDetectorRef, },
+        { type: MatOptgroup, decorators: [{ type: _angular_core.Optional },] },
+    ]; };
+    MatOption.propDecorators = {
+        'value': [{ type: _angular_core.Input },],
+        'disabled': [{ type: _angular_core.Input },],
+        'onSelectionChange': [{ type: _angular_core.Output },],
+    };
     return MatOption;
 }());
-MatOption.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-option',
-                host: {
-                    'role': 'option',
-                    '[attr.tabindex]': '_getTabIndex()',
-                    '[class.mat-selected]': 'selected',
-                    '[class.mat-option-multiple]': 'multiple',
-                    '[class.mat-active]': 'active',
-                    '[id]': 'id',
-                    '[attr.aria-selected]': 'selected.toString()',
-                    '[attr.aria-disabled]': 'disabled.toString()',
-                    '[class.mat-option-disabled]': 'disabled',
-                    '(click)': '_selectViaInteraction()',
-                    '(keydown)': '_handleKeydown($event)',
-                    'class': 'mat-option',
-                },
-                template: "<span *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox></span><span class=\"mat-option-text\"><ng-content></ng-content></span><div class=\"mat-option-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"disabled || disableRipple\"></div>",
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatOption.ctorParameters = function () { return [
-    { type: _angular_core.ElementRef, },
-    { type: _angular_core.ChangeDetectorRef, },
-    { type: MatOptgroup, decorators: [{ type: _angular_core.Optional },] },
-]; };
-MatOption.propDecorators = {
-    'value': [{ type: _angular_core.Input },],
-    'disabled': [{ type: _angular_core.Input },],
-    'onSelectionChange': [{ type: _angular_core.Output },],
-};
-var MatOptionModule = (function () {
-    function MatOptionModule() {
-    }
-    return MatOptionModule;
-}());
-MatOptionModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [MatRippleModule, _angular_common.CommonModule, MatPseudoCheckboxModule],
-                exports: [MatOption, MatOptgroup],
-                declarations: [MatOption, MatOptgroup]
-            },] },
-];
-/**
- * @nocollapse
- */
-MatOptionModule.ctorParameters = function () { return []; };
+
 /**
  * InjectionToken that can be used to specify the global placeholder options.
  */
@@ -2030,18 +1844,18 @@ var DEFAULT_ROUND_BUTTON_COLOR = 'accent';
 var MatButtonCssMatStyler = (function () {
     function MatButtonCssMatStyler() {
     }
+    MatButtonCssMatStyler.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'button[mat-button], a[mat-button]',
+                    host: { 'class': 'mat-button' }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatButtonCssMatStyler.ctorParameters = function () { return []; };
     return MatButtonCssMatStyler;
 }());
-MatButtonCssMatStyler.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: 'button[mat-button], a[mat-button]',
-                host: { 'class': 'mat-button' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatButtonCssMatStyler.ctorParameters = function () { return []; };
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
@@ -2049,18 +1863,18 @@ MatButtonCssMatStyler.ctorParameters = function () { return []; };
 var MatRaisedButtonCssMatStyler = (function () {
     function MatRaisedButtonCssMatStyler() {
     }
+    MatRaisedButtonCssMatStyler.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'button[mat-raised-button], a[mat-raised-button]',
+                    host: { 'class': 'mat-raised-button' }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatRaisedButtonCssMatStyler.ctorParameters = function () { return []; };
     return MatRaisedButtonCssMatStyler;
 }());
-MatRaisedButtonCssMatStyler.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: 'button[mat-raised-button], a[mat-raised-button]',
-                host: { 'class': 'mat-raised-button' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatRaisedButtonCssMatStyler.ctorParameters = function () { return []; };
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
@@ -2068,18 +1882,18 @@ MatRaisedButtonCssMatStyler.ctorParameters = function () { return []; };
 var MatIconButtonCssMatStyler = (function () {
     function MatIconButtonCssMatStyler() {
     }
+    MatIconButtonCssMatStyler.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'button[mat-icon-button], a[mat-icon-button]',
+                    host: { 'class': 'mat-icon-button' }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatIconButtonCssMatStyler.ctorParameters = function () { return []; };
     return MatIconButtonCssMatStyler;
 }());
-MatIconButtonCssMatStyler.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: 'button[mat-icon-button], a[mat-icon-button]',
-                host: { 'class': 'mat-icon-button' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatIconButtonCssMatStyler.ctorParameters = function () { return []; };
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
@@ -2093,21 +1907,21 @@ var MatFab = (function () {
         // Set the default color palette for the mat-fab components.
         (button || anchor).color = DEFAULT_ROUND_BUTTON_COLOR;
     }
+    MatFab.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'button[mat-fab], a[mat-fab]',
+                    host: { 'class': 'mat-fab' }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatFab.ctorParameters = function () { return [
+        { type: MatButton, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatButton; }),] },] },
+        { type: MatAnchor, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatAnchor; }),] },] },
+    ]; };
     return MatFab;
 }());
-MatFab.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: 'button[mat-fab], a[mat-fab]',
-                host: { 'class': 'mat-fab' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatFab.ctorParameters = function () { return [
-    { type: MatButton, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatButton; }),] },] },
-    { type: MatAnchor, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatAnchor; }),] },] },
-]; };
 /**
  * Directive that targets mini-fab buttons and anchors. It's used to apply the `mat-` class
  * to all mini-fab buttons and also is responsible for setting the default color palette.
@@ -2122,21 +1936,21 @@ var MatMiniFab = (function () {
         // Set the default color palette for the mat-mini-fab components.
         (button || anchor).color = DEFAULT_ROUND_BUTTON_COLOR;
     }
+    MatMiniFab.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'button[mat-mini-fab], a[mat-mini-fab]',
+                    host: { 'class': 'mat-mini-fab' }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatMiniFab.ctorParameters = function () { return [
+        { type: MatButton, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatButton; }),] },] },
+        { type: MatAnchor, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatAnchor; }),] },] },
+    ]; };
     return MatMiniFab;
 }());
-MatMiniFab.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: 'button[mat-mini-fab], a[mat-mini-fab]',
-                host: { 'class': 'mat-mini-fab' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatMiniFab.ctorParameters = function () { return [
-    { type: MatButton, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatButton; }),] },] },
-    { type: MatAnchor, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatAnchor; }),] },] },
-]; };
 /**
  * \@docs-private
  */
@@ -2224,30 +2038,30 @@ var MatButton = (function (_super) {
             return _this._getHostElement().hasAttribute('mat-' + suffix);
         });
     };
+    MatButton.decorators = [
+        { type: _angular_core.Component, args: [{selector: "button[mat-button], button[mat-raised-button], button[mat-icon-button],\n             button[mat-fab], button[mat-mini-fab]",
+                    host: {
+                        '[disabled]': 'disabled || null',
+                    },
+                    template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div matRipple class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton || _isIconButton\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"_isIconButton\" [matRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\"></div>",
+                    styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([class*=mat-elevation-z]),.mat-mini-fab:not([class*=mat-elevation-z]),.mat-raised-button:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]),.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]),.mat-raised-button:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-button-wrapper{padding:16px 0;display:inline-block;line-height:24px}.mat-mini-fab{min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-button-wrapper{padding:8px 0;display:inline-block;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
+                    inputs: ['disabled', 'disableRipple', 'color'],
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatButton.ctorParameters = function () { return [
+        { type: _angular_core.Renderer2, },
+        { type: _angular_core.ElementRef, },
+        { type: _angular_cdk_platform.Platform, },
+        { type: _angular_cdk_a11y.FocusMonitor, },
+    ]; };
     return MatButton;
 }(_MatButtonMixinBase));
-MatButton.decorators = [
-    { type: _angular_core.Component, args: [{ selector: "button[mat-button], button[mat-raised-button], button[mat-icon-button],\n             button[mat-fab], button[mat-mini-fab]",
-                host: {
-                    '[disabled]': 'disabled || null',
-                },
-                template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div matRipple class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton || _isIconButton\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"_isIconButton\" [matRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\"></div>",
-                styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([class*=mat-elevation-z]),.mat-mini-fab:not([class*=mat-elevation-z]),.mat-raised-button:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]),.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]),.mat-raised-button:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-button-wrapper{padding:16px 0;display:inline-block;line-height:24px}.mat-mini-fab{min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-button-wrapper{padding:8px 0;display:inline-block;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
-                inputs: ['disabled', 'disableRipple', 'color'],
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatButton.ctorParameters = function () { return [
-    { type: _angular_core.Renderer2, },
-    { type: _angular_core.ElementRef, },
-    { type: _angular_cdk_platform.Platform, },
-    { type: _angular_cdk_a11y.FocusMonitor, },
-]; };
 /**
  * Raised Material design button.
  */
@@ -2273,71 +2087,72 @@ var MatAnchor = (function (_super) {
             event.stopImmediatePropagation();
         }
     };
+    MatAnchor.decorators = [
+        { type: _angular_core.Component, args: [{selector: "a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab], a[mat-mini-fab]",
+                    host: {
+                        '[attr.tabindex]': 'disabled ? -1 : 0',
+                        '[attr.disabled]': 'disabled || null',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '(click)': '_haltDisabledEvents($event)',
+                    },
+                    inputs: ['disabled', 'disableRipple', 'color'],
+                    template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div matRipple class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton || _isIconButton\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"_isIconButton\" [matRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\"></div>",
+                    styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([class*=mat-elevation-z]),.mat-mini-fab:not([class*=mat-elevation-z]),.mat-raised-button:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]),.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]),.mat-raised-button:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-button-wrapper{padding:16px 0;display:inline-block;line-height:24px}.mat-mini-fab{min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-button-wrapper{padding:8px 0;display:inline-block;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatAnchor.ctorParameters = function () { return [
+        { type: _angular_cdk_platform.Platform, },
+        { type: _angular_cdk_a11y.FocusMonitor, },
+        { type: _angular_core.ElementRef, },
+        { type: _angular_core.Renderer2, },
+    ]; };
     return MatAnchor;
 }(MatButton));
-MatAnchor.decorators = [
-    { type: _angular_core.Component, args: [{ selector: "a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab], a[mat-mini-fab]",
-                host: {
-                    '[attr.tabindex]': 'disabled ? -1 : 0',
-                    '[attr.disabled]': 'disabled || null',
-                    '[attr.aria-disabled]': 'disabled.toString()',
-                    '(click)': '_haltDisabledEvents($event)',
-                },
-                inputs: ['disabled', 'disableRipple', 'color'],
-                template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div matRipple class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton || _isIconButton\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"_isIconButton\" [matRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\"></div>",
-                styles: [".mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px}[disabled].mat-button,[disabled].mat-fab,[disabled].mat-icon-button,[disabled].mat-mini-fab,[disabled].mat-raised-button{cursor:default}.cdk-keyboard-focused.mat-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-icon-button .mat-button-focus-overlay,.cdk-keyboard-focused.mat-mini-fab .mat-button-focus-overlay,.cdk-keyboard-focused.mat-raised-button .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-fab::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-mini-fab::-moz-focus-inner,.mat-raised-button::-moz-focus-inner{border:0}.mat-fab,.mat-mini-fab,.mat-raised-button{transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-fab:not([class*=mat-elevation-z]),.mat-mini-fab:not([class*=mat-elevation-z]),.mat-raised-button:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]),.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]),.mat-raised-button:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}[disabled].mat-fab,[disabled].mat-mini-fab,[disabled].mat-raised-button{box-shadow:none}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay{opacity:1}.mat-fab{min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-button-wrapper{padding:16px 0;display:inline-block;line-height:24px}.mat-mini-fab{min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-button-wrapper{padding:8px 0;display:inline-block;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button,.mat-icon-button,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatAnchor.ctorParameters = function () { return [
-    { type: _angular_cdk_platform.Platform, },
-    { type: _angular_cdk_a11y.FocusMonitor, },
-    { type: _angular_core.ElementRef, },
-    { type: _angular_core.Renderer2, },
-]; };
+
 var MatButtonModule = (function () {
     function MatButtonModule() {
     }
+    MatButtonModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    imports: [
+                        _angular_common.CommonModule,
+                        MatRippleModule,
+                        MatCommonModule,
+                        _angular_cdk_a11y.A11yModule,
+                    ],
+                    exports: [
+                        MatButton,
+                        MatAnchor,
+                        MatMiniFab,
+                        MatFab,
+                        MatCommonModule,
+                        MatButtonCssMatStyler,
+                        MatRaisedButtonCssMatStyler,
+                        MatIconButtonCssMatStyler,
+                    ],
+                    declarations: [
+                        MatButton,
+                        MatAnchor,
+                        MatMiniFab,
+                        MatFab,
+                        MatButtonCssMatStyler,
+                        MatRaisedButtonCssMatStyler,
+                        MatIconButtonCssMatStyler,
+                    ],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatButtonModule.ctorParameters = function () { return []; };
     return MatButtonModule;
 }());
-MatButtonModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [
-                    _angular_common.CommonModule,
-                    MatRippleModule,
-                    MatCommonModule,
-                    _angular_cdk_a11y.A11yModule,
-                ],
-                exports: [
-                    MatButton,
-                    MatAnchor,
-                    MatMiniFab,
-                    MatFab,
-                    MatCommonModule,
-                    MatButtonCssMatStyler,
-                    MatRaisedButtonCssMatStyler,
-                    MatIconButtonCssMatStyler,
-                ],
-                declarations: [
-                    MatButton,
-                    MatAnchor,
-                    MatMiniFab,
-                    MatFab,
-                    MatButtonCssMatStyler,
-                    MatRaisedButtonCssMatStyler,
-                    MatIconButtonCssMatStyler,
-                ],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatButtonModule.ctorParameters = function () { return []; };
 
 /**
  * Configuration for opening a modal dialog with the MatDialog service.
@@ -2388,6 +2203,7 @@ var MatDialogConfig = (function () {
     }
     return MatDialogConfig;
 }());
+
 /**
  * Throws an exception for the case when a ComponentPortal is
  * attached to a DomPortalHost without an origin.
@@ -2541,50 +2357,51 @@ var MatDialogContainer = (function (_super) {
         // view container is using OnPush change detection.
         this._changeDetectorRef.markForCheck();
     };
+    MatDialogContainer.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-dialog-container',
+                    template: "<ng-template cdkPortalHost></ng-template>",
+                    styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;max-width:80vw;outline:0;width:100%;height:100%}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch;-webkit-backface-visibility:hidden;backface-visibility:hidden}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex;flex-wrap:wrap}.mat-dialog-actions:last-child{margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button+.mat-button,.mat-dialog-actions .mat-button+.mat-raised-button,.mat-dialog-actions .mat-raised-button+.mat-button,.mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-button+.mat-raised-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:0;margin-right:8px}"],
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    animations: [
+                        _angular_animations.trigger('slideDialog', [
+                            // Note: The `enter` animation doesn't transition to something like `translate3d(0, 0, 0)
+                            // scale(1)`, because for some reason specifying the transform explicitly, causes IE both
+                            // to blur the dialog content and decimate the animation performance. Leaving it as `none`
+                            // solves both issues.
+                            _angular_animations.state('enter', _angular_animations.style({ transform: 'none', opacity: 1 })),
+                            _angular_animations.state('void', _angular_animations.style({ transform: 'translate3d(0, 25%, 0) scale(0.9)', opacity: 0 })),
+                            _angular_animations.state('exit', _angular_animations.style({ transform: 'translate3d(0, 25%, 0)', opacity: 0 })),
+                            _angular_animations.transition('* => *', _angular_animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
+                        ])
+                    ],
+                    host: {
+                        'class': 'mat-dialog-container',
+                        'tabindex': '-1',
+                        '[attr.role]': '_config?.role',
+                        '[attr.aria-labelledby]': '_ariaLabelledBy',
+                        '[attr.aria-describedby]': '_config?.ariaDescribedBy || null',
+                        '[@slideDialog]': '_state',
+                        '(@slideDialog.start)': '_onAnimationStart($event)',
+                        '(@slideDialog.done)': '_onAnimationDone($event)',
+                    },
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatDialogContainer.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+        { type: _angular_cdk_a11y.FocusTrapFactory, },
+        { type: _angular_core.ChangeDetectorRef, },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
+    ]; };
+    MatDialogContainer.propDecorators = {
+        '_portalHost': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.PortalHostDirective,] },],
+    };
     return MatDialogContainer;
 }(_angular_cdk_portal.BasePortalHost));
-MatDialogContainer.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-dialog-container',
-                template: "<ng-template cdkPortalHost></ng-template>",
-                styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;max-width:80vw;outline:0;width:100%;height:100%}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch;-webkit-backface-visibility:hidden;backface-visibility:hidden}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex;flex-wrap:wrap}.mat-dialog-actions:last-child{margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button+.mat-button,.mat-dialog-actions .mat-button+.mat-raised-button,.mat-dialog-actions .mat-raised-button+.mat-button,.mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-button+.mat-raised-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:0;margin-right:8px}"],
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                animations: [
-                    _angular_animations.trigger('slideDialog', [
-                        // Note: The `enter` animation doesn't transition to something like `translate3d(0, 0, 0)
-                        // scale(1)`, because for some reason specifying the transform explicitly, causes IE both
-                        // to blur the dialog content and decimate the animation performance. Leaving it as `none`
-                        // solves both issues.
-                        _angular_animations.state('enter', _angular_animations.style({ transform: 'none', opacity: 1 })),
-                        _angular_animations.state('void', _angular_animations.style({ transform: 'translate3d(0, 25%, 0) scale(0.9)', opacity: 0 })),
-                        _angular_animations.state('exit', _angular_animations.style({ transform: 'translate3d(0, 25%, 0)', opacity: 0 })),
-                        _angular_animations.transition('* => *', _angular_animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
-                    ])
-                ],
-                host: {
-                    'class': 'mat-dialog-container',
-                    'tabindex': '-1',
-                    '[attr.role]': '_config?.role',
-                    '[attr.aria-labelledby]': '_ariaLabelledBy',
-                    '[attr.aria-describedby]': '_config?.ariaDescribedBy || null',
-                    '[@slideDialog]': '_state',
-                    '(@slideDialog.start)': '_onAnimationStart($event)',
-                    '(@slideDialog.done)': '_onAnimationDone($event)',
-                },
-            },] },
-];
-/**
- * @nocollapse
- */
-MatDialogContainer.ctorParameters = function () { return [
-    { type: _angular_core.ElementRef, },
-    { type: _angular_cdk_a11y.FocusTrapFactory, },
-    { type: _angular_core.ChangeDetectorRef, },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
-]; };
-MatDialogContainer.propDecorators = {
-    '_portalHost': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.PortalHostDirective,] },],
-};
+
 // TODO(jelbourn): resizing
 // Counter for unique dialog ids.
 var uniqueId = 0;
@@ -2736,6 +2553,7 @@ var MatDialogRef = (function () {
     };
     return MatDialogRef;
 }());
+
 var MAT_DIALOG_DATA = new _angular_core.InjectionToken('MatDialogData');
 /**
  * Injection token that determines the scroll handling while the dialog is open.
@@ -3001,21 +2819,21 @@ var MatDialog = (function () {
             topDialog.close();
         }
     };
+    MatDialog.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatDialog.ctorParameters = function () { return [
+        { type: _angular_cdk_overlay.Overlay, },
+        { type: _angular_core.Injector, },
+        { type: _angular_common.Location, decorators: [{ type: _angular_core.Optional },] },
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_DIALOG_SCROLL_STRATEGY,] },] },
+        { type: MatDialog, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
+    ]; };
     return MatDialog;
 }());
-MatDialog.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-MatDialog.ctorParameters = function () { return [
-    { type: _angular_cdk_overlay.Overlay, },
-    { type: _angular_core.Injector, },
-    { type: _angular_common.Location, decorators: [{ type: _angular_core.Optional },] },
-    { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_DIALOG_SCROLL_STRATEGY,] },] },
-    { type: MatDialog, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
-]; };
 /**
  * Applies default options to the dialog config.
  * @param {?=} config Config to be modified.
@@ -3024,6 +2842,7 @@ MatDialog.ctorParameters = function () { return [
 function _applyConfigDefaults(config) {
     return extendObject(new MatDialogConfig(), config);
 }
+
 /**
  * Counter used to generate unique IDs for dialog elements.
  */
@@ -3052,29 +2871,29 @@ var MatDialogClose = (function () {
             this.dialogResult = proxiedChange.currentValue;
         }
     };
+    MatDialogClose.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: "button[mat-dialog-close], button[matDialogClose]",
+                    host: {
+                        '(click)': 'dialogRef.close(dialogResult)',
+                        '[attr.aria-label]': 'ariaLabel',
+                        'type': 'button',
+                    }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatDialogClose.ctorParameters = function () { return [
+        { type: MatDialogRef, },
+    ]; };
+    MatDialogClose.propDecorators = {
+        'ariaLabel': [{ type: _angular_core.Input, args: ['aria-label',] },],
+        'dialogResult': [{ type: _angular_core.Input, args: ['mat-dialog-close',] },],
+        '_matDialogClose': [{ type: _angular_core.Input, args: ['matDialogClose',] },],
+    };
     return MatDialogClose;
 }());
-MatDialogClose.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: "button[mat-dialog-close], button[matDialogClose]",
-                host: {
-                    '(click)': 'dialogRef.close(dialogResult)',
-                    '[attr.aria-label]': 'ariaLabel',
-                    'type': 'button',
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatDialogClose.ctorParameters = function () { return [
-    { type: MatDialogRef, },
-]; };
-MatDialogClose.propDecorators = {
-    'ariaLabel': [{ type: _angular_core.Input, args: ['aria-label',] },],
-    'dialogResult': [{ type: _angular_core.Input, args: ['mat-dialog-close',] },],
-    '_matDialogClose': [{ type: _angular_core.Input, args: ['matDialogClose',] },],
-};
 /**
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
  */
@@ -3095,44 +2914,44 @@ var MatDialogTitle = (function () {
             Promise.resolve().then(function () { return _this._container._ariaLabelledBy = _this.id; });
         }
     };
+    MatDialogTitle.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: '[mat-dialog-title], [matDialogTitle]',
+                    host: {
+                        'class': 'mat-dialog-title',
+                        '[id]': 'id',
+                    },
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatDialogTitle.ctorParameters = function () { return [
+        { type: MatDialogContainer, decorators: [{ type: _angular_core.Optional },] },
+    ]; };
+    MatDialogTitle.propDecorators = {
+        'id': [{ type: _angular_core.Input },],
+    };
     return MatDialogTitle;
 }());
-MatDialogTitle.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[mat-dialog-title], [matDialogTitle]',
-                host: {
-                    'class': 'mat-dialog-title',
-                    '[id]': 'id',
-                },
-            },] },
-];
-/**
- * @nocollapse
- */
-MatDialogTitle.ctorParameters = function () { return [
-    { type: MatDialogContainer, decorators: [{ type: _angular_core.Optional },] },
-]; };
-MatDialogTitle.propDecorators = {
-    'id': [{ type: _angular_core.Input },],
-};
 /**
  * Scrollable content container of a dialog.
  */
 var MatDialogContent = (function () {
     function MatDialogContent() {
     }
+    MatDialogContent.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: "[mat-dialog-content], mat-dialog-content, [matDialogContent]",
+                    host: { 'class': 'mat-dialog-content' }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatDialogContent.ctorParameters = function () { return []; };
     return MatDialogContent;
 }());
-MatDialogContent.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: "[mat-dialog-content], mat-dialog-content, [matDialogContent]",
-                host: { 'class': 'mat-dialog-content' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatDialogContent.ctorParameters = function () { return []; };
 /**
  * Container for the bottom action buttons in a dialog.
  * Stays fixed to the bottom when scrolling.
@@ -3140,58 +2959,59 @@ MatDialogContent.ctorParameters = function () { return []; };
 var MatDialogActions = (function () {
     function MatDialogActions() {
     }
+    MatDialogActions.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: "[mat-dialog-actions], mat-dialog-actions, [matDialogActions]",
+                    host: { 'class': 'mat-dialog-actions' }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatDialogActions.ctorParameters = function () { return []; };
     return MatDialogActions;
 }());
-MatDialogActions.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: "[mat-dialog-actions], mat-dialog-actions, [matDialogActions]",
-                host: { 'class': 'mat-dialog-actions' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatDialogActions.ctorParameters = function () { return []; };
+
 var MatDialogModule = (function () {
     function MatDialogModule() {
     }
+    MatDialogModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    imports: [
+                        _angular_common.CommonModule,
+                        _angular_cdk_overlay.OverlayModule,
+                        _angular_cdk_portal.PortalModule,
+                        _angular_cdk_a11y.A11yModule,
+                        MatCommonModule,
+                    ],
+                    exports: [
+                        MatDialogContainer,
+                        MatDialogClose,
+                        MatDialogTitle,
+                        MatDialogContent,
+                        MatDialogActions,
+                        MatCommonModule,
+                    ],
+                    declarations: [
+                        MatDialogContainer,
+                        MatDialogClose,
+                        MatDialogTitle,
+                        MatDialogActions,
+                        MatDialogContent,
+                    ],
+                    providers: [
+                        MatDialog,
+                        MAT_DIALOG_SCROLL_STRATEGY_PROVIDER,
+                    ],
+                    entryComponents: [MatDialogContainer],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatDialogModule.ctorParameters = function () { return []; };
     return MatDialogModule;
 }());
-MatDialogModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [
-                    _angular_common.CommonModule,
-                    _angular_cdk_overlay.OverlayModule,
-                    _angular_cdk_portal.PortalModule,
-                    _angular_cdk_a11y.A11yModule,
-                    MatCommonModule,
-                ],
-                exports: [
-                    MatDialogContainer,
-                    MatDialogClose,
-                    MatDialogTitle,
-                    MatDialogContent,
-                    MatDialogActions,
-                    MatCommonModule,
-                ],
-                declarations: [
-                    MatDialogContainer,
-                    MatDialogClose,
-                    MatDialogTitle,
-                    MatDialogActions,
-                    MatDialogContent,
-                ],
-                providers: [
-                    MatDialog,
-                    MAT_DIALOG_SCROLL_STRATEGY_PROVIDER,
-                ],
-                entryComponents: [MatDialogContainer],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatDialogModule.ctorParameters = function () { return []; };
 
 /**
  * Returns an exception to be thrown in the case when attempting to
@@ -3651,18 +3471,18 @@ var MatIconRegistry = (function () {
         this._inProgressUrlFetches.set(url, req);
         return req;
     };
+    MatIconRegistry.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatIconRegistry.ctorParameters = function () { return [
+        { type: _angular_http.Http, decorators: [{ type: _angular_core.Optional },] },
+        { type: _angular_platformBrowser.DomSanitizer, },
+    ]; };
     return MatIconRegistry;
 }());
-MatIconRegistry.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-MatIconRegistry.ctorParameters = function () { return [
-    { type: _angular_http.Http, decorators: [{ type: _angular_core.Optional },] },
-    { type: _angular_platformBrowser.DomSanitizer, },
-]; };
 /**
  * \@docs-private
  * @param {?} parentRegistry
@@ -3699,6 +3519,7 @@ function cloneSvg(svg) {
 function iconKey(namespace, name) {
     return namespace + ':' + name;
 }
+
 /**
  * \@docs-private
  */
@@ -3871,53 +3692,54 @@ var MatIcon = (function (_super) {
             this._previousFontIconClass = this.fontIcon;
         }
     };
+    MatIcon.decorators = [
+        { type: _angular_core.Component, args: [{template: '<ng-content></ng-content>',
+                    selector: 'mat-icon',
+                    styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px}"],
+                    inputs: ['color'],
+                    host: {
+                        'role': 'img',
+                        'class': 'mat-icon',
+                    },
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatIcon.ctorParameters = function () { return [
+        { type: _angular_core.Renderer2, },
+        { type: _angular_core.ElementRef, },
+        { type: MatIconRegistry, },
+        { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['aria-hidden',] },] },
+    ]; };
+    MatIcon.propDecorators = {
+        'svgIcon': [{ type: _angular_core.Input },],
+        'fontSet': [{ type: _angular_core.Input },],
+        'fontIcon': [{ type: _angular_core.Input },],
+    };
     return MatIcon;
 }(_MatIconMixinBase));
-MatIcon.decorators = [
-    { type: _angular_core.Component, args: [{ template: '<ng-content></ng-content>',
-                selector: 'mat-icon',
-                styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px}"],
-                inputs: ['color'],
-                host: {
-                    'role': 'img',
-                    'class': 'mat-icon',
-                },
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatIcon.ctorParameters = function () { return [
-    { type: _angular_core.Renderer2, },
-    { type: _angular_core.ElementRef, },
-    { type: MatIconRegistry, },
-    { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['aria-hidden',] },] },
-]; };
-MatIcon.propDecorators = {
-    'svgIcon': [{ type: _angular_core.Input },],
-    'fontSet': [{ type: _angular_core.Input },],
-    'fontIcon': [{ type: _angular_core.Input },],
-};
+
 var MatIconModule = (function () {
     function MatIconModule() {
     }
+    MatIconModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    imports: [MatCommonModule],
+                    exports: [MatIcon, MatCommonModule],
+                    declarations: [MatIcon],
+                    providers: [ICON_REGISTRY_PROVIDER],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatIconModule.ctorParameters = function () { return []; };
     return MatIconModule;
 }());
-MatIconModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [MatCommonModule],
-                exports: [MatIcon, MatCommonModule],
-                declarations: [MatIcon],
-                providers: [ICON_REGISTRY_PROVIDER],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatIconModule.ctorParameters = function () { return []; };
 
 var nextUniqueId = 0;
 /**
@@ -3927,25 +3749,26 @@ var MatError = (function () {
     function MatError() {
         this.id = "mat-error-" + nextUniqueId++;
     }
+    MatError.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'mat-error',
+                    host: {
+                        'class': 'mat-error',
+                        'role': 'alert',
+                        '[attr.id]': 'id',
+                    }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatError.ctorParameters = function () { return []; };
+    MatError.propDecorators = {
+        'id': [{ type: _angular_core.Input },],
+    };
     return MatError;
 }());
-MatError.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: 'mat-error',
-                host: {
-                    'class': 'mat-error',
-                    'role': 'alert',
-                    '[attr.id]': 'id',
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatError.ctorParameters = function () { return []; };
-MatError.propDecorators = {
-    'id': [{ type: _angular_core.Input },],
-};
+
 /**
  * An interface which allows a control to work inside of a `MatFormField`.
  * @abstract
@@ -3969,6 +3792,7 @@ var MatFormFieldControl = (function () {
     MatFormFieldControl.prototype.onContainerClick = function (event) { };
     return MatFormFieldControl;
 }());
+
 /**
  * \@docs-private
  * @return {?}
@@ -3992,6 +3816,7 @@ function getMatFormFieldMissingControlError() {
     return Error('mat-form-field must contain a MatFormFieldControl. ' +
         'Did you forget to add matInput to the native input or textarea element?');
 }
+
 var nextUniqueId$2 = 0;
 /**
  * Hint text to be shown underneath the form field control.
@@ -4007,79 +3832,83 @@ var MatHint = (function () {
          */
         this.id = "mat-hint-" + nextUniqueId$2++;
     }
+    MatHint.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'mat-hint',
+                    host: {
+                        'class': 'mat-hint',
+                        '[class.mat-right]': 'align == "end"',
+                        '[attr.id]': 'id',
+                        // Remove align attribute to prevent it from interfering with layout.
+                        '[attr.align]': 'null',
+                    }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatHint.ctorParameters = function () { return []; };
+    MatHint.propDecorators = {
+        'align': [{ type: _angular_core.Input },],
+        'id': [{ type: _angular_core.Input },],
+    };
     return MatHint;
 }());
-MatHint.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: 'mat-hint',
-                host: {
-                    'class': 'mat-hint',
-                    '[class.mat-right]': 'align == "end"',
-                    '[attr.id]': 'id',
-                    // Remove align attribute to prevent it from interfering with layout.
-                    '[attr.align]': 'null',
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatHint.ctorParameters = function () { return []; };
-MatHint.propDecorators = {
-    'align': [{ type: _angular_core.Input },],
-    'id': [{ type: _angular_core.Input },],
-};
+
 /**
  * The floating placeholder for an `MatFormField`.
  */
 var MatPlaceholder = (function () {
     function MatPlaceholder() {
     }
+    MatPlaceholder.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'mat-placeholder'
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatPlaceholder.ctorParameters = function () { return []; };
     return MatPlaceholder;
 }());
-MatPlaceholder.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: 'mat-placeholder'
-            },] },
-];
-/**
- * @nocollapse
- */
-MatPlaceholder.ctorParameters = function () { return []; };
+
 /**
  * Prefix to be placed the the front of the form field.
  */
 var MatPrefix = (function () {
     function MatPrefix() {
     }
+    MatPrefix.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: '[matPrefix]',
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatPrefix.ctorParameters = function () { return []; };
     return MatPrefix;
 }());
-MatPrefix.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[matPrefix]',
-            },] },
-];
-/**
- * @nocollapse
- */
-MatPrefix.ctorParameters = function () { return []; };
+
 /**
  * Suffix to be placed at the end of the form field.
  */
 var MatSuffix = (function () {
     function MatSuffix() {
     }
+    MatSuffix.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: '[matSuffix]',
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatSuffix.ctorParameters = function () { return []; };
     return MatSuffix;
 }());
-MatSuffix.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: '[matSuffix]',
-            },] },
-];
-/**
- * @nocollapse
- */
-MatSuffix.ctorParameters = function () { return []; };
+
 var nextUniqueId$1 = 0;
 /**
  * Container for form controls that applies Material Design styling and behavior.
@@ -4366,107 +4195,74 @@ var MatFormField = (function () {
             throw getMatFormFieldMissingControlError();
         }
     };
+    MatFormField.decorators = [
+        { type: _angular_core.Component, args: [{// TODO(mmalerba): the input-container selectors and classes are deprecated and will be removed.
+                    selector: 'mat-input-container, mat-form-field',
+                    template: "<div class=\"mat-input-wrapper mat-form-field-wrapper\"><div class=\"mat-input-flex mat-form-field-flex\" #connectionContainer (click)=\"_control.onContainerClick && _control.onContainerClick($event)\"><div class=\"mat-input-prefix mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[matPrefix]\"></ng-content></div><div class=\"mat-input-infix mat-form-field-infix\"><ng-content></ng-content><span class=\"mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper\"><label class=\"mat-input-placeholder mat-form-field-placeholder\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #placeholder *ngIf=\"_hasPlaceholder()\"><ng-content select=\"mat-placeholder\"></ng-content>{{_control.placeholder}} <span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required\">*</span></label></span></div><div class=\"mat-input-suffix mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[matSuffix]\"></ng-content></div></div><div class=\"mat-input-underline mat-form-field-underline\" #underline [class.mat-disabled]=\"_control.disabled\"><span class=\"mat-input-ripple mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-input-subscript-wrapper mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"mat-error\"></ng-content></div><div class=\"mat-input-hint-wrapper mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"mat-hint:not([align='end'])\"></ng-content><div class=\"mat-input-hint-spacer mat-form-field-hint-spacer\"></div><ng-content select=\"mat-hint[align='end']\"></ng-content></div></div></div>",
+                    // MatInput is a directive and can't have styles, so we need to include its styles here.
+                    // The MatInput styles are fairly minimal so it shouldn't be a big deal for people who
+                    // aren't using MatInput.
+                    styles: [".mat-form-field{display:inline-block;position:relative;text-align:left}[dir=rtl] .mat-form-field{text-align:right}.mat-form-field-wrapper{position:relative}.mat-form-field-flex{display:inline-flex;align-items:baseline;width:100%}.mat-form-field-prefix,.mat-form-field-suffix{white-space:nowrap;flex:none}.mat-form-field-prefix .mat-icon,.mat-form-field-suffix .mat-icon{width:1em}.mat-form-field-prefix .mat-icon-button,.mat-form-field-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field-suffix .mat-icon-button .mat-icon{font-size:inherit}.mat-form-field-infix{display:block;position:relative;flex:auto;min-width:0}.mat-form-field-placeholder-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}.mat-form-field-placeholder{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:perspective(100px);-ms-transform:none;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}[dir=rtl] .mat-form-field-placeholder{transform-origin:100% 0;left:auto;right:0}.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-placeholder,.mat-form-field-empty.mat-form-field-placeholder{display:block}.mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:none}.mat-form-field-can-float .mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:block;transition:none}.mat-form-field-placeholder:not(.mat-form-field-empty){transition:none}.mat-form-field-underline{position:absolute;height:1px;width:100%}.mat-form-field-underline.mat-disabled{background-position:0;background-color:transparent}.mat-form-field-underline .mat-form-field-ripple{position:absolute;height:1px;top:0;left:0;width:100%;transform-origin:50%;transform:scaleX(.5);visibility:hidden;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-focused .mat-form-field-underline .mat-form-field-ripple{height:2px}.mat-focused .mat-form-field-underline .mat-form-field-ripple,.mat-form-field-invalid .mat-form-field-underline .mat-form-field-ripple{visibility:visible;transform:scaleX(1);transition:transform 150ms linear,background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-form-field-subscript-wrapper{position:absolute;width:100%;overflow:hidden}.mat-form-field-placeholder-wrapper .mat-icon,.mat-form-field-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-form-field-hint-wrapper{display:flex}.mat-form-field-hint-spacer{flex:1 0 1em}.mat-error{display:block} .mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;margin:0;width:100%;max-width:100%;vertical-align:bottom}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element::placeholder{color:transparent!important}.mat-input-element::-moz-placeholder{color:transparent!important}.mat-input-element::-webkit-input-placeholder{color:transparent!important}.mat-input-element:-ms-input-placeholder{color:transparent!important}textarea.mat-input-element{resize:vertical;overflow:auto}"],
+                    animations: [
+                        // TODO(mmalerba): Use angular animations for placeholder animation as well.
+                        _angular_animations.trigger('transitionMessages', [
+                            _angular_animations.state('enter', _angular_animations.style({ opacity: 1, transform: 'translateY(0%)' })),
+                            _angular_animations.transition('void => enter', [
+                                _angular_animations.style({ opacity: 0, transform: 'translateY(-100%)' }),
+                                _angular_animations.animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
+                            ]),
+                        ]),
+                    ],
+                    host: {
+                        'class': 'mat-input-container mat-form-field',
+                        '[class.mat-input-invalid]': '_control.errorState',
+                        '[class.mat-form-field-invalid]': '_control.errorState',
+                        '[class.mat-form-field-can-float]': '_canPlaceholderFloat',
+                        '[class.mat-form-field-should-float]': '_control.shouldPlaceholderFloat || _shouldAlwaysFloat',
+                        '[class.mat-focused]': '_control.focused',
+                        '[class.mat-primary]': 'color == "primary"',
+                        '[class.mat-accent]': 'color == "accent"',
+                        '[class.mat-warn]': 'color == "warn"',
+                        '[class.ng-untouched]': '_shouldForward("untouched")',
+                        '[class.ng-touched]': '_shouldForward("touched")',
+                        '[class.ng-pristine]': '_shouldForward("pristine")',
+                        '[class.ng-dirty]': '_shouldForward("dirty")',
+                        '[class.ng-valid]': '_shouldForward("valid")',
+                        '[class.ng-invalid]': '_shouldForward("invalid")',
+                        '[class.ng-pending]': '_shouldForward("pending")',
+                    },
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatFormField.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+        { type: _angular_core.Renderer2, },
+        { type: _angular_core.ChangeDetectorRef, },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
+    ]; };
+    MatFormField.propDecorators = {
+        'color': [{ type: _angular_core.Input },],
+        'dividerColor': [{ type: _angular_core.Input },],
+        'hideRequiredMarker': [{ type: _angular_core.Input },],
+        'hintLabel': [{ type: _angular_core.Input },],
+        'floatPlaceholder': [{ type: _angular_core.Input },],
+        'underlineRef': [{ type: _angular_core.ViewChild, args: ['underline',] },],
+        '_connectionContainerRef': [{ type: _angular_core.ViewChild, args: ['connectionContainer',] },],
+        '_placeholder': [{ type: _angular_core.ViewChild, args: ['placeholder',] },],
+        '_control': [{ type: _angular_core.ContentChild, args: [MatFormFieldControl,] },],
+        '_placeholderChild': [{ type: _angular_core.ContentChild, args: [MatPlaceholder,] },],
+        '_errorChildren': [{ type: _angular_core.ContentChildren, args: [MatError,] },],
+        '_hintChildren': [{ type: _angular_core.ContentChildren, args: [MatHint,] },],
+        '_prefixChildren': [{ type: _angular_core.ContentChildren, args: [MatPrefix,] },],
+        '_suffixChildren': [{ type: _angular_core.ContentChildren, args: [MatSuffix,] },],
+    };
     return MatFormField;
 }());
-MatFormField.decorators = [
-    { type: _angular_core.Component, args: [{
-                selector: 'mat-input-container, mat-form-field',
-                template: "<div class=\"mat-input-wrapper mat-form-field-wrapper\"><div class=\"mat-input-flex mat-form-field-flex\" #connectionContainer (click)=\"_control.onContainerClick && _control.onContainerClick($event)\"><div class=\"mat-input-prefix mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[matPrefix]\"></ng-content></div><div class=\"mat-input-infix mat-form-field-infix\"><ng-content></ng-content><span class=\"mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper\"><label class=\"mat-input-placeholder mat-form-field-placeholder\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #placeholder *ngIf=\"_hasPlaceholder()\"><ng-content select=\"mat-placeholder\"></ng-content>{{_control.placeholder}} <span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required\">*</span></label></span></div><div class=\"mat-input-suffix mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[matSuffix]\"></ng-content></div></div><div class=\"mat-input-underline mat-form-field-underline\" #underline [class.mat-disabled]=\"_control.disabled\"><span class=\"mat-input-ripple mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-input-subscript-wrapper mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"mat-error\"></ng-content></div><div class=\"mat-input-hint-wrapper mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"mat-hint:not([align='end'])\"></ng-content><div class=\"mat-input-hint-spacer mat-form-field-hint-spacer\"></div><ng-content select=\"mat-hint[align='end']\"></ng-content></div></div></div>",
-                // MatInput is a directive and can't have styles, so we need to include its styles here.
-                // The MatInput styles are fairly minimal so it shouldn't be a big deal for people who
-                // aren't using MatInput.
-                styles: [".mat-form-field{display:inline-block;position:relative;text-align:left}[dir=rtl] .mat-form-field{text-align:right}.mat-form-field-wrapper{position:relative}.mat-form-field-flex{display:inline-flex;align-items:baseline;width:100%}.mat-form-field-prefix,.mat-form-field-suffix{white-space:nowrap;flex:none}.mat-form-field-prefix .mat-icon,.mat-form-field-suffix .mat-icon{width:1em}.mat-form-field-prefix .mat-icon-button,.mat-form-field-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field-suffix .mat-icon-button .mat-icon{font-size:inherit}.mat-form-field-infix{display:block;position:relative;flex:auto;min-width:0}.mat-form-field-placeholder-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}.mat-form-field-placeholder{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:perspective(100px);-ms-transform:none;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}[dir=rtl] .mat-form-field-placeholder{transform-origin:100% 0;left:auto;right:0}.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-placeholder,.mat-form-field-empty.mat-form-field-placeholder{display:block}.mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:none}.mat-form-field-can-float .mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:block;transition:none}.mat-form-field-placeholder:not(.mat-form-field-empty){transition:none}.mat-form-field-underline{position:absolute;height:1px;width:100%}.mat-form-field-underline.mat-disabled{background-position:0;background-color:transparent}.mat-form-field-underline .mat-form-field-ripple{position:absolute;height:1px;top:0;left:0;width:100%;transform-origin:50%;transform:scaleX(.5);visibility:hidden;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-focused .mat-form-field-underline .mat-form-field-ripple{height:2px}.mat-focused .mat-form-field-underline .mat-form-field-ripple,.mat-form-field-invalid .mat-form-field-underline .mat-form-field-ripple{visibility:visible;transform:scaleX(1);transition:transform 150ms linear,background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-form-field-subscript-wrapper{position:absolute;width:100%;overflow:hidden}.mat-form-field-placeholder-wrapper .mat-icon,.mat-form-field-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-form-field-hint-wrapper{display:flex}.mat-form-field-hint-spacer{flex:1 0 1em}.mat-error{display:block} .mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;margin:0;width:100%;max-width:100%;vertical-align:bottom}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element::placeholder{color:transparent!important}.mat-input-element::-moz-placeholder{color:transparent!important}.mat-input-element::-webkit-input-placeholder{color:transparent!important}.mat-input-element:-ms-input-placeholder{color:transparent!important}textarea.mat-input-element{resize:vertical;overflow:auto}"],
-                animations: [
-                    // TODO(mmalerba): Use angular animations for placeholder animation as well.
-                    _angular_animations.trigger('transitionMessages', [
-                        _angular_animations.state('enter', _angular_animations.style({ opacity: 1, transform: 'translateY(0%)' })),
-                        _angular_animations.transition('void => enter', [
-                            _angular_animations.style({ opacity: 0, transform: 'translateY(-100%)' }),
-                            _angular_animations.animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
-                        ]),
-                    ]),
-                ],
-                host: {
-                    'class': 'mat-input-container mat-form-field',
-                    '[class.mat-input-invalid]': '_control.errorState',
-                    '[class.mat-form-field-invalid]': '_control.errorState',
-                    '[class.mat-form-field-can-float]': '_canPlaceholderFloat',
-                    '[class.mat-form-field-should-float]': '_control.shouldPlaceholderFloat || _shouldAlwaysFloat',
-                    '[class.mat-focused]': '_control.focused',
-                    '[class.mat-primary]': 'color == "primary"',
-                    '[class.mat-accent]': 'color == "accent"',
-                    '[class.mat-warn]': 'color == "warn"',
-                    '[class.ng-untouched]': '_shouldForward("untouched")',
-                    '[class.ng-touched]': '_shouldForward("touched")',
-                    '[class.ng-pristine]': '_shouldForward("pristine")',
-                    '[class.ng-dirty]': '_shouldForward("dirty")',
-                    '[class.ng-valid]': '_shouldForward("valid")',
-                    '[class.ng-invalid]': '_shouldForward("invalid")',
-                    '[class.ng-pending]': '_shouldForward("pending")',
-                },
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatFormField.ctorParameters = function () { return [
-    { type: _angular_core.ElementRef, },
-    { type: _angular_core.Renderer2, },
-    { type: _angular_core.ChangeDetectorRef, },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
-]; };
-MatFormField.propDecorators = {
-    'color': [{ type: _angular_core.Input },],
-    'dividerColor': [{ type: _angular_core.Input },],
-    'hideRequiredMarker': [{ type: _angular_core.Input },],
-    'hintLabel': [{ type: _angular_core.Input },],
-    'floatPlaceholder': [{ type: _angular_core.Input },],
-    'underlineRef': [{ type: _angular_core.ViewChild, args: ['underline',] },],
-    '_connectionContainerRef': [{ type: _angular_core.ViewChild, args: ['connectionContainer',] },],
-    '_placeholder': [{ type: _angular_core.ViewChild, args: ['placeholder',] },],
-    '_control': [{ type: _angular_core.ContentChild, args: [MatFormFieldControl,] },],
-    '_placeholderChild': [{ type: _angular_core.ContentChild, args: [MatPlaceholder,] },],
-    '_errorChildren': [{ type: _angular_core.ContentChildren, args: [MatError,] },],
-    '_hintChildren': [{ type: _angular_core.ContentChildren, args: [MatHint,] },],
-    '_prefixChildren': [{ type: _angular_core.ContentChildren, args: [MatPrefix,] },],
-    '_suffixChildren': [{ type: _angular_core.ContentChildren, args: [MatSuffix,] },],
-};
-var MatFormFieldModule = (function () {
-    function MatFormFieldModule() {
-    }
-    return MatFormFieldModule;
-}());
-MatFormFieldModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                declarations: [
-                    MatError,
-                    MatHint,
-                    MatFormField,
-                    MatPlaceholder,
-                    MatPrefix,
-                    MatSuffix,
-                ],
-                imports: [
-                    _angular_common.CommonModule,
-                    _angular_cdk_platform.PlatformModule,
-                ],
-                exports: [
-                    MatError,
-                    MatHint,
-                    MatFormField,
-                    MatPlaceholder,
-                    MatPrefix,
-                    MatSuffix,
-                ],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatFormFieldModule.ctorParameters = function () { return []; };
 
 /**
  * Function that attempts to coerce a value to a date using a DateAdapter. Date instances, null,
@@ -4494,6 +4290,7 @@ function coerceDateProperty(adapter, value) {
     throw Error("Datepicker: Value must be either a date object recognized by the DateAdapter or " +
         ("an ISO 8601 string. Instead got: " + value));
 }
+
 /**
  * \@docs-private
  * @param {?} provider
@@ -4503,6 +4300,7 @@ function createMissingDateImplError(provider) {
     return Error("MatDatepicker: No provider found for " + provider + ". You must import one of the following " +
         "modules at your application root: MatNativeDateModule, or provide a custom implementation.");
 }
+
 /**
  * Datepicker data that requires internationalization.
  */
@@ -4546,15 +4344,16 @@ var MatDatepickerIntl = (function () {
          */
         this.switchToYearViewLabel = 'Change to year view';
     }
+    MatDatepickerIntl.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatDatepickerIntl.ctorParameters = function () { return []; };
     return MatDatepickerIntl;
 }());
-MatDatepickerIntl.decorators = [
-    { type: _angular_core.Injectable },
-];
-/**
- * @nocollapse
- */
-MatDatepickerIntl.ctorParameters = function () { return []; };
+
 /**
  * An internal class that represents the data corresponding to a single calendar cell.
  * \@docs-private
@@ -4637,36 +4436,37 @@ var MatCalendarBody = (function () {
         }
         return cellNumber == this.activeCell;
     };
+    MatCalendarBody.decorators = [
+        { type: _angular_core.Component, args: [{selector: '[mat-calendar-body]',
+                    template: "<tr *ngIf=\"_firstRowOffset < labelMinRequiredCells\" aria-hidden=\"true\"><td class=\"mat-calendar-body-label\" [attr.colspan]=\"numCols\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\">{{label}}</td></tr><tr *ngFor=\"let row of rows; let rowIndex = index\" role=\"row\"><td *ngIf=\"rowIndex === 0 && _firstRowOffset\" aria-hidden=\"true\" class=\"mat-calendar-body-label\" [attr.colspan]=\"_firstRowOffset\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\">{{_firstRowOffset >= labelMinRequiredCells ? label : ''}}</td><td *ngFor=\"let item of row; let colIndex = index\" role=\"gridcell\" class=\"mat-calendar-body-cell\" [tabindex]=\"_isActiveCell(rowIndex, colIndex) ? 0 : -1\" [class.mat-calendar-body-disabled]=\"!item.enabled\" [class.mat-calendar-body-active]=\"_isActiveCell(rowIndex, colIndex)\" [attr.aria-label]=\"item.ariaLabel\" [attr.aria-disabled]=\"!item.enabled || null\" (click)=\"_cellClicked(item)\" [style.width.%]=\"100 / numCols\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\"><div class=\"mat-calendar-body-cell-content\" [class.mat-calendar-body-selected]=\"selectedValue === item.value\" [class.mat-calendar-body-today]=\"todayValue === item.value\">{{item.displayValue}}</div></td></tr>",
+                    styles: [".mat-calendar-body{min-width:224px}.mat-calendar-body-label{height:0;line-height:0;text-align:left;padding-left:4.71429%;padding-right:4.71429%}.mat-calendar-body-cell{position:relative;height:0;line-height:0;text-align:center;outline:0;cursor:pointer}.mat-calendar-body-disabled{cursor:default}.mat-calendar-body-cell-content{position:absolute;top:5%;left:5%;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:90%;height:90%;line-height:1;border-width:1px;border-style:solid;border-radius:999px}[dir=rtl] .mat-calendar-body-label{text-align:right}"],
+                    host: {
+                        'class': 'mat-calendar-body',
+                    },
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatCalendarBody.ctorParameters = function () { return []; };
+    MatCalendarBody.propDecorators = {
+        'label': [{ type: _angular_core.Input },],
+        'rows': [{ type: _angular_core.Input },],
+        'todayValue': [{ type: _angular_core.Input },],
+        'selectedValue': [{ type: _angular_core.Input },],
+        'labelMinRequiredCells': [{ type: _angular_core.Input },],
+        'numCols': [{ type: _angular_core.Input },],
+        'allowDisabledSelection': [{ type: _angular_core.Input },],
+        'activeCell': [{ type: _angular_core.Input },],
+        'cellAspectRatio': [{ type: _angular_core.Input },],
+        'selectedValueChange': [{ type: _angular_core.Output },],
+    };
     return MatCalendarBody;
 }());
-MatCalendarBody.decorators = [
-    { type: _angular_core.Component, args: [{ selector: '[mat-calendar-body]',
-                template: "<tr *ngIf=\"_firstRowOffset < labelMinRequiredCells\" aria-hidden=\"true\"><td class=\"mat-calendar-body-label\" [attr.colspan]=\"numCols\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\">{{label}}</td></tr><tr *ngFor=\"let row of rows; let rowIndex = index\" role=\"row\"><td *ngIf=\"rowIndex === 0 && _firstRowOffset\" aria-hidden=\"true\" class=\"mat-calendar-body-label\" [attr.colspan]=\"_firstRowOffset\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\">{{_firstRowOffset >= labelMinRequiredCells ? label : ''}}</td><td *ngFor=\"let item of row; let colIndex = index\" role=\"gridcell\" class=\"mat-calendar-body-cell\" [tabindex]=\"_isActiveCell(rowIndex, colIndex) ? 0 : -1\" [class.mat-calendar-body-disabled]=\"!item.enabled\" [class.mat-calendar-body-active]=\"_isActiveCell(rowIndex, colIndex)\" [attr.aria-label]=\"item.ariaLabel\" [attr.aria-disabled]=\"!item.enabled || null\" (click)=\"_cellClicked(item)\" [style.width.%]=\"100 / numCols\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\"><div class=\"mat-calendar-body-cell-content\" [class.mat-calendar-body-selected]=\"selectedValue === item.value\" [class.mat-calendar-body-today]=\"todayValue === item.value\">{{item.displayValue}}</div></td></tr>",
-                styles: [".mat-calendar-body{min-width:224px}.mat-calendar-body-label{height:0;line-height:0;text-align:left;padding-left:4.71429%;padding-right:4.71429%}.mat-calendar-body-cell{position:relative;height:0;line-height:0;text-align:center;outline:0;cursor:pointer}.mat-calendar-body-disabled{cursor:default}.mat-calendar-body-cell-content{position:absolute;top:5%;left:5%;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:90%;height:90%;line-height:1;border-width:1px;border-style:solid;border-radius:999px}[dir=rtl] .mat-calendar-body-label{text-align:right}"],
-                host: {
-                    'class': 'mat-calendar-body',
-                },
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCalendarBody.ctorParameters = function () { return []; };
-MatCalendarBody.propDecorators = {
-    'label': [{ type: _angular_core.Input },],
-    'rows': [{ type: _angular_core.Input },],
-    'todayValue': [{ type: _angular_core.Input },],
-    'selectedValue': [{ type: _angular_core.Input },],
-    'labelMinRequiredCells': [{ type: _angular_core.Input },],
-    'numCols': [{ type: _angular_core.Input },],
-    'allowDisabledSelection': [{ type: _angular_core.Input },],
-    'activeCell': [{ type: _angular_core.Input },],
-    'cellAspectRatio': [{ type: _angular_core.Input },],
-    'selectedValueChange': [{ type: _angular_core.Output },],
-};
+
 var DAYS_PER_WEEK = 7;
 /**
  * An internal component used to display a single month in the datepicker.
@@ -4821,31 +4621,32 @@ var MatMonthView = (function () {
         return !!(d1 && d2 && this._dateAdapter.getMonth(d1) == this._dateAdapter.getMonth(d2) &&
             this._dateAdapter.getYear(d1) == this._dateAdapter.getYear(d2));
     };
+    MatMonthView.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-month-view',
+                    template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr></thead><tbody mat-calendar-body role=\"grid\" [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\"></tbody></table>",
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatMonthView.ctorParameters = function () { return [
+        { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
+        { type: _angular_core.ChangeDetectorRef, },
+    ]; };
+    MatMonthView.propDecorators = {
+        'activeDate': [{ type: _angular_core.Input },],
+        'selected': [{ type: _angular_core.Input },],
+        'dateFilter': [{ type: _angular_core.Input },],
+        'selectedChange': [{ type: _angular_core.Output },],
+        'userSelection': [{ type: _angular_core.Output },],
+    };
     return MatMonthView;
 }());
-MatMonthView.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-month-view',
-                template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr></thead><tbody mat-calendar-body role=\"grid\" [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\"></tbody></table>",
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatMonthView.ctorParameters = function () { return [
-    { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
-    { type: _angular_core.ChangeDetectorRef, },
-]; };
-MatMonthView.propDecorators = {
-    'activeDate': [{ type: _angular_core.Input },],
-    'selected': [{ type: _angular_core.Input },],
-    'dateFilter': [{ type: _angular_core.Input },],
-    'selectedChange': [{ type: _angular_core.Output },],
-    'userSelection': [{ type: _angular_core.Output },],
-};
+
 /**
  * An internal component used to display a single year in the datepicker.
  * \@docs-private
@@ -4976,30 +4777,31 @@ var MatYearView = (function () {
         }
         return false;
     };
+    MatYearView.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-year-view',
+                    template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body role=\"grid\" allowDisabledSelection=\"true\" [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\"></tbody></table>",
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatYearView.ctorParameters = function () { return [
+        { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
+        { type: _angular_core.ChangeDetectorRef, },
+    ]; };
+    MatYearView.propDecorators = {
+        'activeDate': [{ type: _angular_core.Input },],
+        'selected': [{ type: _angular_core.Input },],
+        'dateFilter': [{ type: _angular_core.Input },],
+        'selectedChange': [{ type: _angular_core.Output },],
+    };
     return MatYearView;
 }());
-MatYearView.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-year-view',
-                template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body role=\"grid\" allowDisabledSelection=\"true\" [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\"></tbody></table>",
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatYearView.ctorParameters = function () { return [
-    { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
-    { type: _angular_core.ChangeDetectorRef, },
-]; };
-MatYearView.propDecorators = {
-    'activeDate': [{ type: _angular_core.Input },],
-    'selected': [{ type: _angular_core.Input },],
-    'dateFilter': [{ type: _angular_core.Input },],
-    'selectedChange': [{ type: _angular_core.Output },],
-};
+
 /**
  * A calendar that is used as part of the datepicker.
  * \@docs-private
@@ -5423,43 +5225,44 @@ var MatCalendar = (function () {
             (this._dateAdapter.getMonth(date) >= 7 ? 5 : 12);
         return this._dateAdapter.addCalendarMonths(date, increment);
     };
+    MatCalendar.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-calendar',
+                    template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div></button><div class=\"mat-calendar-spacer\"></div><button mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button></div></div><div class=\"mat-calendar-content\" (keydown)=\"_handleCalendarBodyKeydown($event)\" [ngSwitch]=\"_monthView\" cdkMonitorSubtreeFocus><mat-month-view *ngSwitchCase=\"true\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_dateSelected($event)\" (userSelection)=\"_userSelected()\"></mat-month-view><mat-year-view *ngSwitchDefault [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_monthSelected($event)\"></mat-year-view></div>",
+                    styles: [".mat-calendar{display:block}.mat-calendar-header{padding:8px 8px 0 8px}.mat-calendar-content{padding:0 8px 8px 8px;outline:0}.mat-calendar-controls{display:flex;margin:5% calc(33% / 7 - 16px)}.mat-calendar-spacer{flex:1 1 auto}.mat-calendar-period-button{min-width:0}.mat-calendar-arrow{display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top-width:5px;border-top-style:solid;margin:0 0 0 5px;vertical-align:middle}.mat-calendar-arrow.mat-calendar-invert{transform:rotate(180deg)}[dir=rtl] .mat-calendar-arrow{margin:0 5px 0 0}.mat-calendar-next-button,.mat-calendar-previous-button{position:relative}.mat-calendar-next-button::after,.mat-calendar-previous-button::after{top:0;left:0;right:0;bottom:0;position:absolute;content:'';margin:15.5px;border:0 solid currentColor;border-top-width:2px}[dir=rtl] .mat-calendar-next-button,[dir=rtl] .mat-calendar-previous-button{transform:rotate(180deg)}.mat-calendar-previous-button::after{border-left-width:2px;transform:translateX(2px) rotate(-45deg)}.mat-calendar-next-button::after{border-right-width:2px;transform:translateX(-2px) rotate(45deg)}.mat-calendar-table{border-spacing:0;border-collapse:collapse;width:100%}.mat-calendar-table-header th{text-align:center;padding:0 0 8px 0}.mat-calendar-table-header-divider{position:relative;height:1px}.mat-calendar-table-header-divider::after{content:'';position:absolute;top:0;left:-8px;right:-8px;height:1px}"],
+                    host: {
+                        'class': 'mat-calendar',
+                    },
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatCalendar.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+        { type: MatDatepickerIntl, },
+        { type: _angular_core.NgZone, },
+        { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
+        { type: _angular_core.ChangeDetectorRef, },
+    ]; };
+    MatCalendar.propDecorators = {
+        'startAt': [{ type: _angular_core.Input },],
+        'startView': [{ type: _angular_core.Input },],
+        'selected': [{ type: _angular_core.Input },],
+        'minDate': [{ type: _angular_core.Input },],
+        'maxDate': [{ type: _angular_core.Input },],
+        'dateFilter': [{ type: _angular_core.Input },],
+        'selectedChange': [{ type: _angular_core.Output },],
+        'userSelection': [{ type: _angular_core.Output },],
+        'monthView': [{ type: _angular_core.ViewChild, args: [MatMonthView,] },],
+        'yearView': [{ type: _angular_core.ViewChild, args: [MatYearView,] },],
+    };
     return MatCalendar;
 }());
-MatCalendar.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-calendar',
-                template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div></button><div class=\"mat-calendar-spacer\"></div><button mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button></div></div><div class=\"mat-calendar-content\" (keydown)=\"_handleCalendarBodyKeydown($event)\" [ngSwitch]=\"_monthView\" cdkMonitorSubtreeFocus><mat-month-view *ngSwitchCase=\"true\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_dateSelected($event)\" (userSelection)=\"_userSelected()\"></mat-month-view><mat-year-view *ngSwitchDefault [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_monthSelected($event)\"></mat-year-view></div>",
-                styles: [".mat-calendar{display:block}.mat-calendar-header{padding:8px 8px 0 8px}.mat-calendar-content{padding:0 8px 8px 8px;outline:0}.mat-calendar-controls{display:flex;margin:5% calc(33% / 7 - 16px)}.mat-calendar-spacer{flex:1 1 auto}.mat-calendar-period-button{min-width:0}.mat-calendar-arrow{display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top-width:5px;border-top-style:solid;margin:0 0 0 5px;vertical-align:middle}.mat-calendar-arrow.mat-calendar-invert{transform:rotate(180deg)}[dir=rtl] .mat-calendar-arrow{margin:0 5px 0 0}.mat-calendar-next-button,.mat-calendar-previous-button{position:relative}.mat-calendar-next-button::after,.mat-calendar-previous-button::after{top:0;left:0;right:0;bottom:0;position:absolute;content:'';margin:15.5px;border:0 solid currentColor;border-top-width:2px}[dir=rtl] .mat-calendar-next-button,[dir=rtl] .mat-calendar-previous-button{transform:rotate(180deg)}.mat-calendar-previous-button::after{border-left-width:2px;transform:translateX(2px) rotate(-45deg)}.mat-calendar-next-button::after{border-right-width:2px;transform:translateX(-2px) rotate(45deg)}.mat-calendar-table{border-spacing:0;border-collapse:collapse;width:100%}.mat-calendar-table-header th{text-align:center;padding:0 0 8px 0}.mat-calendar-table-header-divider{position:relative;height:1px}.mat-calendar-table-header-divider::after{content:'';position:absolute;top:0;left:-8px;right:-8px;height:1px}"],
-                host: {
-                    'class': 'mat-calendar',
-                },
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatCalendar.ctorParameters = function () { return [
-    { type: _angular_core.ElementRef, },
-    { type: MatDatepickerIntl, },
-    { type: _angular_core.NgZone, },
-    { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
-    { type: _angular_core.ChangeDetectorRef, },
-]; };
-MatCalendar.propDecorators = {
-    'startAt': [{ type: _angular_core.Input },],
-    'startView': [{ type: _angular_core.Input },],
-    'selected': [{ type: _angular_core.Input },],
-    'minDate': [{ type: _angular_core.Input },],
-    'maxDate': [{ type: _angular_core.Input },],
-    'dateFilter': [{ type: _angular_core.Input },],
-    'selectedChange': [{ type: _angular_core.Output },],
-    'userSelection': [{ type: _angular_core.Output },],
-    'monthView': [{ type: _angular_core.ViewChild, args: [MatMonthView,] },],
-    'yearView': [{ type: _angular_core.ViewChild, args: [MatYearView,] },],
-};
+
 /**
  * Used to generate a unique ID for each datepicker instance.
  */
@@ -5512,29 +5315,29 @@ var MatDatepickerContent = (function () {
             event.stopPropagation();
         }
     };
+    MatDatepickerContent.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-datepicker-content',
+                    template: "<mat-calendar cdkTrapFocus [id]=\"datepicker.id\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" (selectedChange)=\"datepicker._select($event)\" (userSelection)=\"datepicker.close()\"></mat-calendar>",
+                    styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block}.mat-calendar{width:296px;height:354px}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation:landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation:portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}"],
+                    host: {
+                        'class': 'mat-datepicker-content',
+                        '[class.mat-datepicker-content-touch]': 'datepicker.touchUi',
+                        '(keydown)': '_handleKeydown($event)',
+                    },
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatDatepickerContent.ctorParameters = function () { return []; };
+    MatDatepickerContent.propDecorators = {
+        '_calendar': [{ type: _angular_core.ViewChild, args: [MatCalendar,] },],
+    };
     return MatDatepickerContent;
 }());
-MatDatepickerContent.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-datepicker-content',
-                template: "<mat-calendar cdkTrapFocus [id]=\"datepicker.id\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" (selectedChange)=\"datepicker._select($event)\" (userSelection)=\"datepicker.close()\"></mat-calendar>",
-                styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block}.mat-calendar{width:296px;height:354px}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation:landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation:portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}"],
-                host: {
-                    'class': 'mat-datepicker-content',
-                    '[class.mat-datepicker-content-touch]': 'datepicker.touchUi',
-                    '(keydown)': '_handleKeydown($event)',
-                },
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatDatepickerContent.ctorParameters = function () { return []; };
-MatDatepickerContent.propDecorators = {
-    '_calendar': [{ type: _angular_core.ViewChild, args: [MatCalendar,] },],
-};
 /**
  * Component responsible for managing the datepicker popup/dialog.
  */
@@ -5820,36 +5623,37 @@ var MatDatepicker = (function () {
             .withFallbackPosition({ originX: 'end', originY: 'bottom' }, { overlayX: 'end', overlayY: 'top' })
             .withFallbackPosition({ originX: 'end', originY: 'top' }, { overlayX: 'end', overlayY: 'bottom' });
     };
+    MatDatepicker.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-datepicker',
+                    template: '',
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatDatepicker.ctorParameters = function () { return [
+        { type: MatDialog, },
+        { type: _angular_cdk_overlay.Overlay, },
+        { type: _angular_core.NgZone, },
+        { type: _angular_core.ViewContainerRef, },
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_DATEPICKER_SCROLL_STRATEGY,] },] },
+        { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
+        { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
+    ]; };
+    MatDatepicker.propDecorators = {
+        'startAt': [{ type: _angular_core.Input },],
+        'startView': [{ type: _angular_core.Input },],
+        'touchUi': [{ type: _angular_core.Input },],
+        'disabled': [{ type: _angular_core.Input },],
+        'selectedChanged': [{ type: _angular_core.Output },],
+    };
     return MatDatepicker;
 }());
-MatDatepicker.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-datepicker',
-                template: '',
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatDatepicker.ctorParameters = function () { return [
-    { type: MatDialog, },
-    { type: _angular_cdk_overlay.Overlay, },
-    { type: _angular_core.NgZone, },
-    { type: _angular_core.ViewContainerRef, },
-    { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_DATEPICKER_SCROLL_STRATEGY,] },] },
-    { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
-    { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
-]; };
-MatDatepicker.propDecorators = {
-    'startAt': [{ type: _angular_core.Input },],
-    'startView': [{ type: _angular_core.Input },],
-    'touchUi': [{ type: _angular_core.Input },],
-    'disabled': [{ type: _angular_core.Input },],
-    'selectedChanged': [{ type: _angular_core.Output },],
-};
+
 var MAT_DATEPICKER_VALUE_ACCESSOR = {
     provide: _angular_forms.NG_VALUE_ACCESSOR,
     useExisting: _angular_core.forwardRef(function () { return MatDatepickerInput; }),
@@ -6192,46 +5996,47 @@ var MatDatepickerInput = (function () {
     MatDatepickerInput.prototype._getValidDateOrNull = function (obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     };
+    MatDatepickerInput.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'input[matDatepicker]',
+                    providers: [MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS],
+                    host: {
+                        '[attr.aria-haspopup]': 'true',
+                        '[attr.aria-owns]': '(_datepicker?.opened && _datepicker.id) || null',
+                        '[attr.min]': 'min ? _dateAdapter.toIso8601(min) : null',
+                        '[attr.max]': 'max ? _dateAdapter.toIso8601(max) : null',
+                        '[disabled]': 'disabled',
+                        '(input)': '_onInput($event.target.value)',
+                        '(change)': '_onChange()',
+                        '(blur)': '_onTouched()',
+                        '(keydown)': '_onKeydown($event)',
+                    },
+                    exportAs: 'matDatepickerInput',
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatDatepickerInput.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+        { type: _angular_core.Renderer2, },
+        { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
+        { type: MatFormField, decorators: [{ type: _angular_core.Optional },] },
+    ]; };
+    MatDatepickerInput.propDecorators = {
+        'matDatepicker': [{ type: _angular_core.Input },],
+        'matDatepickerFilter': [{ type: _angular_core.Input },],
+        'value': [{ type: _angular_core.Input },],
+        'min': [{ type: _angular_core.Input },],
+        'max': [{ type: _angular_core.Input },],
+        'disabled': [{ type: _angular_core.Input },],
+        'dateChange': [{ type: _angular_core.Output },],
+        'dateInput': [{ type: _angular_core.Output },],
+    };
     return MatDatepickerInput;
 }());
-MatDatepickerInput.decorators = [
-    { type: _angular_core.Directive, args: [{
-                selector: 'input[matDatepicker]',
-                providers: [MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS],
-                host: {
-                    '[attr.aria-haspopup]': 'true',
-                    '[attr.aria-owns]': '(_datepicker?.opened && _datepicker.id) || null',
-                    '[attr.min]': 'min ? _dateAdapter.toIso8601(min) : null',
-                    '[attr.max]': 'max ? _dateAdapter.toIso8601(max) : null',
-                    '[disabled]': 'disabled',
-                    '(input)': '_onInput($event.target.value)',
-                    '(change)': '_onChange()',
-                    '(blur)': '_onTouched()',
-                    '(keydown)': '_onKeydown($event)',
-                },
-                exportAs: 'matDatepickerInput',
-            },] },
-];
-/**
- * @nocollapse
- */
-MatDatepickerInput.ctorParameters = function () { return [
-    { type: _angular_core.ElementRef, },
-    { type: _angular_core.Renderer2, },
-    { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
-    { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
-    { type: MatFormField, decorators: [{ type: _angular_core.Optional },] },
-]; };
-MatDatepickerInput.propDecorators = {
-    'matDatepicker': [{ type: _angular_core.Input },],
-    'matDatepickerFilter': [{ type: _angular_core.Input },],
-    'value': [{ type: _angular_core.Input },],
-    'min': [{ type: _angular_core.Input },],
-    'max': [{ type: _angular_core.Input },],
-    'disabled': [{ type: _angular_core.Input },],
-    'dateChange': [{ type: _angular_core.Output },],
-    'dateInput': [{ type: _angular_core.Output },],
-};
+
 var MatDatepickerToggle = (function () {
     /**
      * @param {?} _intl
@@ -6293,78 +6098,79 @@ var MatDatepickerToggle = (function () {
             event.stopPropagation();
         }
     };
+    MatDatepickerToggle.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-datepicker-toggle',
+                    template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon></button>",
+                    host: {
+                        'class': 'mat-datepicker-toggle',
+                    },
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatDatepickerToggle.ctorParameters = function () { return [
+        { type: MatDatepickerIntl, },
+        { type: _angular_core.ChangeDetectorRef, },
+    ]; };
+    MatDatepickerToggle.propDecorators = {
+        'datepicker': [{ type: _angular_core.Input, args: ['for',] },],
+        'disabled': [{ type: _angular_core.Input },],
+    };
     return MatDatepickerToggle;
 }());
-MatDatepickerToggle.decorators = [
-    { type: _angular_core.Component, args: [{ selector: 'mat-datepicker-toggle',
-                template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon></button>",
-                host: {
-                    'class': 'mat-datepicker-toggle',
-                },
-                encapsulation: _angular_core.ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatDatepickerToggle.ctorParameters = function () { return [
-    { type: MatDatepickerIntl, },
-    { type: _angular_core.ChangeDetectorRef, },
-]; };
-MatDatepickerToggle.propDecorators = {
-    'datepicker': [{ type: _angular_core.Input, args: ['for',] },],
-    'disabled': [{ type: _angular_core.Input },],
-};
+
 var MatDatepickerModule = (function () {
     function MatDatepickerModule() {
     }
+    MatDatepickerModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    imports: [
+                        _angular_common.CommonModule,
+                        MatButtonModule,
+                        MatDialogModule,
+                        MatIconModule,
+                        _angular_cdk_overlay.OverlayModule,
+                        _angular_cdk_a11y.A11yModule,
+                    ],
+                    exports: [
+                        MatCalendar,
+                        MatCalendarBody,
+                        MatDatepicker,
+                        MatDatepickerContent,
+                        MatDatepickerInput,
+                        MatDatepickerToggle,
+                        MatMonthView,
+                        MatYearView,
+                    ],
+                    declarations: [
+                        MatCalendar,
+                        MatCalendarBody,
+                        MatDatepicker,
+                        MatDatepickerContent,
+                        MatDatepickerInput,
+                        MatDatepickerToggle,
+                        MatMonthView,
+                        MatYearView,
+                    ],
+                    providers: [
+                        MatDatepickerIntl,
+                        MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER,
+                    ],
+                    entryComponents: [
+                        MatDatepickerContent,
+                    ]
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatDatepickerModule.ctorParameters = function () { return []; };
     return MatDatepickerModule;
 }());
-MatDatepickerModule.decorators = [
-    { type: _angular_core.NgModule, args: [{
-                imports: [
-                    _angular_common.CommonModule,
-                    MatButtonModule,
-                    MatDialogModule,
-                    MatIconModule,
-                    _angular_cdk_overlay.OverlayModule,
-                    _angular_cdk_a11y.A11yModule,
-                ],
-                exports: [
-                    MatCalendar,
-                    MatCalendarBody,
-                    MatDatepicker,
-                    MatDatepickerContent,
-                    MatDatepickerInput,
-                    MatDatepickerToggle,
-                    MatMonthView,
-                    MatYearView,
-                ],
-                declarations: [
-                    MatCalendar,
-                    MatCalendarBody,
-                    MatDatepicker,
-                    MatDatepickerContent,
-                    MatDatepickerInput,
-                    MatDatepickerToggle,
-                    MatMonthView,
-                    MatYearView,
-                ],
-                providers: [
-                    MatDatepickerIntl,
-                    MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER,
-                ],
-                entryComponents: [
-                    MatDatepickerContent,
-                ]
-            },] },
-];
-/**
- * @nocollapse
- */
-MatDatepickerModule.ctorParameters = function () { return []; };
 
 exports.MatDatepickerModule = MatDatepickerModule;
 exports.MatCalendar = MatCalendar;

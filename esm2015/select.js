@@ -7,7 +7,7 @@
  */
 import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, Renderer2, Self, ViewChild, ViewEncapsulation, isDevMode } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FocusKeyManager } from '@angular/cdk/a11y';
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -502,6 +502,7 @@ class MatSelect extends _MatSelectMixinBase {
         // `parseInt` ignores the trailing 'px' and converts this to a number.
         this._triggerFontSize = parseInt(getComputedStyle(this.trigger.nativeElement)['font-size']);
         this._calculateOverlayPosition();
+        this._highlightCorrectOption();
         this._panelOpen = true;
         this._changeDetectorRef.markForCheck();
         // Set the font size on the panel element once it exists.
@@ -609,34 +610,53 @@ class MatSelect extends _MatSelectMixinBase {
         return this._dir ? this._dir.value === 'rtl' : false;
     }
     /**
-     * Handles the keyboard interactions of a closed select.
+     * Handles all keydown events on the select.
+     * @param {?} event
+     * @return {?}
+     */
+    _handleKeydown(event) {
+        if (!this.disabled) {
+            this.panelOpen ? this._handleOpenKeydown(event) : this._handleClosedKeydown(event);
+        }
+    }
+    /**
+     * Handles keyboard events while the select is closed.
      * @param {?} event
      * @return {?}
      */
     _handleClosedKeydown(event) {
-        if (!this.disabled) {
-            if (event.keyCode === ENTER || event.keyCode === SPACE) {
-                event.preventDefault(); // prevents the page from scrolling down when pressing space
-                this.open();
-            }
-            else if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
-                this._handleArrowKey(event);
-            }
+        if (event.keyCode === ENTER || event.keyCode === SPACE) {
+            event.preventDefault(); // prevents the page from scrolling down when pressing space
+            this.open();
+        }
+        else if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
+            this._handleClosedArrowKey(event);
         }
     }
     /**
-     * Handles keypresses inside the panel.
+     * Handles keyboard events when the selected is open.
      * @param {?} event
      * @return {?}
      */
-    _handlePanelKeydown(event) {
-        if (event.keyCode === HOME || event.keyCode === END) {
+    _handleOpenKeydown(event) {
+        const /** @type {?} */ keyCode = event.keyCode;
+        if (keyCode === HOME || keyCode === END) {
             event.preventDefault();
-            event.keyCode === HOME ? this._keyManager.setFirstItemActive() :
+            keyCode === HOME ? this._keyManager.setFirstItemActive() :
                 this._keyManager.setLastItemActive();
+        }
+        else if ((keyCode === ENTER || keyCode === SPACE) && this._keyManager.activeItem) {
+            event.preventDefault();
+            this._keyManager.activeItem._selectViaInteraction();
         }
         else {
             this._keyManager.onKeydown(event);
+            // TODO(crisbeto): get rid of the Promise.resolve when #6441 gets in.
+            Promise.resolve().then(() => {
+                if (this.panelOpen) {
+                    this._scrollActiveOptionIntoView();
+                }
+            });
         }
     }
     /**
@@ -646,7 +666,7 @@ class MatSelect extends _MatSelectMixinBase {
      */
     _onPanelDone() {
         if (this.panelOpen) {
-            this._focusCorrectOption();
+            this._scrollTop = 0;
             this.onOpen.emit();
         }
         else {
@@ -663,6 +683,7 @@ class MatSelect extends _MatSelectMixinBase {
      */
     _onFadeInDone() {
         this._panelDoneAnimating = this.panelOpen;
+        this.panel.nativeElement.focus();
         this._changeDetectorRef.markForCheck();
     }
     /**
@@ -692,8 +713,9 @@ class MatSelect extends _MatSelectMixinBase {
      * @return {?}
      */
     _onAttached() {
+        this._changeDetectorRef.detectChanges();
         this._calculateOverlayOffsetX();
-        this._setScrollTop();
+        this.panel.nativeElement.scrollTop = this._scrollTop;
     }
     /**
      * Returns the theme to be used on the panel.
@@ -719,16 +741,6 @@ class MatSelect extends _MatSelectMixinBase {
         const /** @type {?} */ isSubmitted = (this._parentFormGroup && this._parentFormGroup.submitted) ||
             (this._parentForm && this._parentForm.submitted);
         return !!(isInvalid && (isTouched || isSubmitted));
-    }
-    /**
-     * Sets the scroll position of the scroll container. This must be called after
-     * the overlay pane is attached or the scroll container element will not yet be
-     * present in the DOM.
-     * @return {?}
-     */
-    _setScrollTop() {
-        const /** @type {?} */ scrollContainer = this.overlayDir.overlayRef.overlayElement.querySelector('.mat-select-panel'); /** @type {?} */
-        ((scrollContainer)).scrollTop = this._scrollTop;
     }
     /**
      * @return {?}
@@ -813,7 +825,7 @@ class MatSelect extends _MatSelectMixinBase {
      * @return {?}
      */
     _initKeyManager() {
-        this._keyManager = new FocusKeyManager(this.options).withTypeAhead();
+        this._keyManager = new ActiveDescendantKeyManager(this.options).withTypeAhead();
         this._tabSubscription = this._keyManager.tabOut.subscribe(() => this.close());
     }
     /**
@@ -938,16 +950,34 @@ class MatSelect extends _MatSelectMixinBase {
         }
     }
     /**
-     * Focuses the selected item. If no option is selected, it will focus
+     * Highlights the selected item. If no option is selected, it will highlight
      * the first item instead.
      * @return {?}
      */
-    _focusCorrectOption() {
+    _highlightCorrectOption() {
         if (this._selectionModel.isEmpty()) {
             this._keyManager.setFirstItemActive();
         }
         else {
             this._keyManager.setActiveItem(/** @type {?} */ ((this._getOptionIndex(this._selectionModel.selected[0]))));
+        }
+    }
+    /**
+     * Scrolls the active option into view.
+     * @return {?}
+     */
+    _scrollActiveOptionIntoView() {
+        const /** @type {?} */ itemHeight = this._getItemHeight();
+        const /** @type {?} */ activeOptionIndex = this._keyManager.activeItemIndex || 0;
+        const /** @type {?} */ labelCount = MatOption.countGroupLabelsBeforeOption(activeOptionIndex, this.options, this.optionGroups);
+        const /** @type {?} */ scrollOffset = (activeOptionIndex + labelCount) * itemHeight;
+        const /** @type {?} */ panelTop = this.panel.nativeElement.scrollTop;
+        if (scrollOffset < panelTop) {
+            this.panel.nativeElement.scrollTop = scrollOffset;
+        }
+        else if (scrollOffset + itemHeight > panelTop + SELECT_PANEL_MAX_HEIGHT) {
+            this.panel.nativeElement.scrollTop =
+                Math.max(0, scrollOffset - SELECT_PANEL_MAX_HEIGHT + itemHeight);
         }
     }
     /**
@@ -972,7 +1002,7 @@ class MatSelect extends _MatSelectMixinBase {
      * @return {?}
      */
     _calculateOverlayPosition() {
-        const /** @type {?} */ itemHeight = this._triggerFontSize * SELECT_ITEM_HEIGHT_EM;
+        const /** @type {?} */ itemHeight = this._getItemHeight();
         const /** @type {?} */ items = this._getItemCount();
         const /** @type {?} */ panelHeight = Math.min(items * itemHeight, SELECT_PANEL_MAX_HEIGHT);
         const /** @type {?} */ scrollContainerHeight = items * itemHeight;
@@ -1000,7 +1030,7 @@ class MatSelect extends _MatSelectMixinBase {
      * @return {?}
      */
     _calculateOverlayScroll(selectedIndex, scrollBuffer, maxScroll) {
-        const /** @type {?} */ itemHeight = this._triggerFontSize * SELECT_ITEM_HEIGHT_EM;
+        const /** @type {?} */ itemHeight = this._getItemHeight();
         const /** @type {?} */ optionOffsetFromScrollTop = itemHeight * selectedIndex;
         const /** @type {?} */ halfOptionHeight = itemHeight / 2;
         // Starts at the optionOffsetFromScrollTop, which scrolls the option to the top of the
@@ -1008,7 +1038,7 @@ class MatSelect extends _MatSelectMixinBase {
         // the center of the overlay panel. Half the option height must be re-added to the
         // scrollTop so the option is centered based on its middle, not its top edge.
         const /** @type {?} */ optimalScrollPosition = optionOffsetFromScrollTop - scrollBuffer + halfOptionHeight;
-        return clampValue(0, optimalScrollPosition, maxScroll);
+        return Math.min(Math.max(0, optimalScrollPosition), maxScroll);
     }
     /**
      * Returns the aria-label of the select component.
@@ -1018,6 +1048,16 @@ class MatSelect extends _MatSelectMixinBase {
         // If an ariaLabelledby value has been set, the select should not overwrite the
         // `aria-labelledby` value by setting the ariaLabel to the placeholder.
         return this.ariaLabelledby ? null : this.ariaLabel || this.placeholder;
+    }
+    /**
+     * Determines the `aria-activedescendant` to be set on the host.
+     * @return {?}
+     */
+    _getAriaActiveDescendant() {
+        if (this.panelOpen && this._keyManager && this._keyManager.activeItem) {
+            return this._keyManager.activeItem.id;
+        }
+        return null;
     }
     /**
      * Sets the x-offset of the overlay panel in relation to the trigger's top start corner.
@@ -1072,7 +1112,7 @@ class MatSelect extends _MatSelectMixinBase {
      * @return {?}
      */
     _calculateOverlayOffsetY(selectedIndex, scrollBuffer, maxScroll) {
-        const /** @type {?} */ itemHeight = this._triggerFontSize * SELECT_ITEM_HEIGHT_EM;
+        const /** @type {?} */ itemHeight = this._getItemHeight();
         const /** @type {?} */ optionHeightAdjustment = (itemHeight - this._triggerRect.height) / 2;
         const /** @type {?} */ maxOptionsDisplayed = Math.floor(SELECT_PANEL_MAX_HEIGHT / itemHeight);
         let /** @type {?} */ optionOffsetFromPanelTop;
@@ -1111,7 +1151,7 @@ class MatSelect extends _MatSelectMixinBase {
      * @return {?}
      */
     _checkOverlayWithinViewport(maxScroll) {
-        const /** @type {?} */ itemHeight = this._triggerFontSize * SELECT_ITEM_HEIGHT_EM;
+        const /** @type {?} */ itemHeight = this._getItemHeight();
         const /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
         const /** @type {?} */ topSpaceAvailable = this._triggerRect.top - SELECT_PANEL_VIEWPORT_PADDING;
         const /** @type {?} */ bottomSpaceAvailable = viewportRect.height - this._triggerRect.bottom - SELECT_PANEL_VIEWPORT_PADDING;
@@ -1181,7 +1221,7 @@ class MatSelect extends _MatSelectMixinBase {
      * @return {?}
      */
     _getOriginBasedOnOption() {
-        const /** @type {?} */ itemHeight = this._triggerFontSize * SELECT_ITEM_HEIGHT_EM;
+        const /** @type {?} */ itemHeight = this._getItemHeight();
         const /** @type {?} */ optionHeightAdjustment = (itemHeight - this._triggerRect.height) / 2;
         const /** @type {?} */ originY = Math.abs(this._offsetY) - optionHeightAdjustment + itemHeight / 2;
         return `50% ${originY}px 0px`;
@@ -1191,7 +1231,7 @@ class MatSelect extends _MatSelectMixinBase {
      * @param {?} event
      * @return {?}
      */
-    _handleArrowKey(event) {
+    _handleClosedArrowKey(event) {
         if (this._multiple) {
             event.preventDefault();
             this.open();
@@ -1203,11 +1243,14 @@ class MatSelect extends _MatSelectMixinBase {
             // TODO(crisbeto): native selects also cycle through the options with left/right arrows,
             // however the key manager only supports up/down at the moment.
             this._keyManager.onKeydown(event);
-            const /** @type {?} */ currentActiveItem = (this._keyManager.activeItem);
-            if (currentActiveItem !== prevActiveItem) {
-                this._clearSelection();
-                this._setSelectionByValue(currentActiveItem.value, true);
-            }
+            // TODO(crisbeto): get rid of the Promise.resolve when #6441 gets in.
+            Promise.resolve().then(() => {
+                const /** @type {?} */ currentActiveItem = this._keyManager.activeItem;
+                if (currentActiveItem && currentActiveItem !== prevActiveItem) {
+                    this._clearSelection();
+                    this._setSelectionByValue(currentActiveItem.value, true);
+                }
+            });
         }
     }
     /**
@@ -1218,10 +1261,19 @@ class MatSelect extends _MatSelectMixinBase {
         return this.options.length + this.optionGroups.length;
     }
     /**
+     * Calculates the height of the select's options.
+     * @return {?}
+     */
+    _getItemHeight() {
+        return this._triggerFontSize * SELECT_ITEM_HEIGHT_EM;
+    }
+    /**
      * @param {?} ids
      * @return {?}
      */
-    setDescribedByIds(ids) { this._ariaDescribedby = ids.join(' '); }
+    setDescribedByIds(ids) {
+        this._ariaDescribedby = ids.join(' ');
+    }
     /**
      * @return {?}
      */
@@ -1236,7 +1288,7 @@ class MatSelect extends _MatSelectMixinBase {
 }
 MatSelect.decorators = [
     { type: Component, args: [{selector: 'mat-select',
-                template: "<div cdk-overlay-origin class=\"mat-select-trigger\" aria-hidden=\"true\" (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><div class=\"mat-select-value\"><ng-container *ngIf=\"empty\">{{'\u00A0'}}</ng-container><span class=\"mat-select-value-text\" *ngIf=\"!empty\" [ngSwitch]=\"!!customTrigger\"><span *ngSwitchDefault>{{ triggerValue }}</span><ng-content select=\"mat-select-trigger\" *ngSwitchCase=\"true\"></ng-content></span></div><div class=\"mat-select-arrow-wrapper\"><div class=\"mat-select-arrow\"></div></div></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [scrollStrategy]=\"_scrollStrategy\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerRect?.width\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div class=\"mat-select-panel {{ _getPanelTheme() }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" (keydown)=\"_handlePanelKeydown($event)\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [style.font-size.px]=\"_triggerFontSize\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
+                template: "<div cdk-overlay-origin class=\"mat-select-trigger\" aria-hidden=\"true\" (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><div class=\"mat-select-value\"><ng-container *ngIf=\"empty\">{{'\u00A0'}}</ng-container><span class=\"mat-select-value-text\" *ngIf=\"!empty\" [ngSwitch]=\"!!customTrigger\"><span *ngSwitchDefault>{{ triggerValue }}</span><ng-content select=\"mat-select-trigger\" *ngSwitchCase=\"true\"></ng-content></span></div><div class=\"mat-select-arrow-wrapper\"><div class=\"mat-select-arrow\"></div></div></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [scrollStrategy]=\"_scrollStrategy\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerRect?.width\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div #panel class=\"mat-select-panel {{ _getPanelTheme() }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [style.font-size.px]=\"_triggerFontSize\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
                 styles: [".mat-select{display:inline-block;width:100%;outline:0}.mat-select-trigger{display:inline-table;cursor:pointer;position:relative;box-sizing:border-box}.mat-select-disabled .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-value{display:table-cell;max-width:0;width:100%;overflow:hidden;text-overflow:ellipsis}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-select-arrow-wrapper{display:table-cell;vertical-align:middle}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}.mat-select-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}}.mat-select-panel .mat-optgroup-label,.mat-select-panel .mat-option{font-size:inherit;line-height:3em;height:3em}.mat-form-field-type-mat-select .mat-form-field-flex{cursor:pointer}.mat-form-field-type-mat-select .mat-form-field-placeholder{width:calc(100% - 18px)}"],
                 inputs: ['disabled', 'tabIndex'],
                 encapsulation: ViewEncapsulation.None,
@@ -1254,11 +1306,12 @@ MatSelect.decorators = [
                     '[attr.aria-owns]': '_optionIds',
                     '[attr.aria-multiselectable]': 'multiple',
                     '[attr.aria-describedby]': '_ariaDescribedby || null',
+                    '[attr.aria-activedescendant]': '_getAriaActiveDescendant()',
                     '[class.mat-select-disabled]': 'disabled',
                     '[class.mat-select-invalid]': 'errorState',
                     '[class.mat-select-required]': 'required',
                     'class': 'mat-select',
-                    '(keydown)': '_handleClosedKeydown($event)',
+                    '(keydown)': '_handleKeydown($event)',
                     '(focus)': '_onFocus()',
                     '(blur)': '_onBlur()',
                 },
@@ -1289,6 +1342,7 @@ MatSelect.ctorParameters = () => [
 ];
 MatSelect.propDecorators = {
     'trigger': [{ type: ViewChild, args: ['trigger',] },],
+    'panel': [{ type: ViewChild, args: ['panel',] },],
     'overlayDir': [{ type: ViewChild, args: [ConnectedOverlayDirective,] },],
     'options': [{ type: ContentChildren, args: [MatOption, { descendants: true },] },],
     'optionGroups': [{ type: ContentChildren, args: [MatOptgroup,] },],
@@ -1308,16 +1362,6 @@ MatSelect.propDecorators = {
     'change': [{ type: Output },],
     'valueChange': [{ type: Output },],
 };
-/**
- * Clamps a value n between min and max values.
- * @param {?} min
- * @param {?} n
- * @param {?} max
- * @return {?}
- */
-function clampValue(min, n, max) {
-    return Math.min(Math.max(min, n), max);
-}
 
 class MatSelectModule {
 }

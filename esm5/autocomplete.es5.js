@@ -17,9 +17,11 @@ import { RxChain, filter, first, map, switchMap } from '@angular/cdk/rxjs';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
 import { DOCUMENT } from '@angular/platform-browser';
+import { Subject } from 'rxjs/Subject';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
 import { of } from 'rxjs/observable/of';
+
 /**
  * Autocomplete IDs need to be unique across components, so this counter exists outside of
  * the component definition.
@@ -142,37 +144,38 @@ var MatAutocomplete = (function () {
         var /** @type {?} */ event = new MatAutocompleteSelectedEvent(this, option);
         this.optionSelected.emit(event);
     };
+    MatAutocomplete.decorators = [
+        { type: Component, args: [{selector: 'mat-autocomplete',
+                    template: "<ng-template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_classList\" #panel><ng-content></ng-content></div></ng-template>",
+                    styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative}.mat-autocomplete-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}"],
+                    encapsulation: ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    exportAs: 'matAutocomplete',
+                    host: {
+                        'class': 'mat-autocomplete'
+                    }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatAutocomplete.ctorParameters = function () { return [
+        { type: ChangeDetectorRef, },
+        { type: ElementRef, },
+    ]; };
+    MatAutocomplete.propDecorators = {
+        'template': [{ type: ViewChild, args: [TemplateRef,] },],
+        'panel': [{ type: ViewChild, args: ['panel',] },],
+        'options': [{ type: ContentChildren, args: [MatOption, { descendants: true },] },],
+        'optionGroups': [{ type: ContentChildren, args: [MatOptgroup,] },],
+        'displayWith': [{ type: Input },],
+        'optionSelected': [{ type: Output },],
+        'classList': [{ type: Input, args: ['class',] },],
+    };
     return MatAutocomplete;
 }());
-MatAutocomplete.decorators = [
-    { type: Component, args: [{ selector: 'mat-autocomplete',
-                template: "<ng-template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_classList\" #panel><ng-content></ng-content></div></ng-template>",
-                styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative}.mat-autocomplete-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}"],
-                encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                exportAs: 'matAutocomplete',
-                host: {
-                    'class': 'mat-autocomplete'
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatAutocomplete.ctorParameters = function () { return [
-    { type: ChangeDetectorRef, },
-    { type: ElementRef, },
-]; };
-MatAutocomplete.propDecorators = {
-    'template': [{ type: ViewChild, args: [TemplateRef,] },],
-    'panel': [{ type: ViewChild, args: ['panel',] },],
-    'options': [{ type: ContentChildren, args: [MatOption, { descendants: true },] },],
-    'optionGroups': [{ type: ContentChildren, args: [MatOptgroup,] },],
-    'displayWith': [{ type: Input },],
-    'optionSelected': [{ type: Output },],
-    'classList': [{ type: Input, args: ['class',] },],
-};
+
 /**
  * The height of each autocomplete option.
  */
@@ -247,6 +250,10 @@ var MatAutocompleteTrigger = (function () {
          */
         this._manuallyFloatingPlaceholder = false;
         /**
+         * Stream of escape keyboard events.
+         */
+        this._escapeEventStream = new Subject();
+        /**
          * View -> model callback called when value changes
          */
         this._onChange = function () { };
@@ -260,6 +267,7 @@ var MatAutocompleteTrigger = (function () {
      */
     MatAutocompleteTrigger.prototype.ngOnDestroy = function () {
         this._destroyPanel();
+        this._escapeEventStream.complete();
     };
     Object.defineProperty(MatAutocompleteTrigger.prototype, "panelOpen", {
         /**
@@ -305,7 +313,7 @@ var MatAutocompleteTrigger = (function () {
          * @return {?}
          */
         get: function () {
-            return merge(this.optionSelections, this.autocomplete._keyManager.tabOut, this._outsideClickStream);
+            return merge(this.optionSelections, this.autocomplete._keyManager.tabOut, this._escapeEventStream, this._outsideClickStream);
         },
         enumerable: true,
         configurable: true
@@ -400,7 +408,7 @@ var MatAutocompleteTrigger = (function () {
         var /** @type {?} */ keyCode = event.keyCode;
         if (keyCode === ESCAPE && this.panelOpen) {
             this._resetActiveItem();
-            this.closePanel();
+            this._escapeEventStream.next();
             event.stopPropagation();
         }
         else if (this.activeOption && keyCode === ENTER && this.panelOpen) {
@@ -508,7 +516,9 @@ var MatAutocompleteTrigger = (function () {
     MatAutocompleteTrigger.prototype._subscribeToClosingActions = function () {
         var _this = this;
         var /** @type {?} */ firstStable = first.call(this._zone.onStable.asObservable());
-        var /** @type {?} */ optionChanges = map.call(this.autocomplete.options.changes, function () { return _this._positionStrategy.recalculateLastPosition(); });
+        var /** @type {?} */ optionChanges = map.call(this.autocomplete.options.changes, function () {
+            return _this._positionStrategy.recalculateLastPosition();
+        });
         // When the zone is stable initially, and when the option list changes...
         return RxChain.from(merge(firstStable, optionChanges))
             .call(switchMap, function () {
@@ -641,64 +651,67 @@ var MatAutocompleteTrigger = (function () {
     MatAutocompleteTrigger.prototype._resetActiveItem = function () {
         this.autocomplete._keyManager.setActiveItem(-1);
     };
+    MatAutocompleteTrigger.decorators = [
+        { type: Directive, args: [{
+                    selector: "input[matAutocomplete], textarea[matAutocomplete]",
+                    host: {
+                        'role': 'combobox',
+                        'autocomplete': 'off',
+                        'aria-autocomplete': 'list',
+                        '[attr.aria-activedescendant]': 'activeOption?.id',
+                        '[attr.aria-expanded]': 'panelOpen.toString()',
+                        '[attr.aria-owns]': 'autocomplete?.id',
+                        // Note: we use `focusin`, as opposed to `focus`, in order to open the panel
+                        // a little earlier. This avoids issues where IE delays the focusing of the input.
+                        '(focusin)': '_handleFocus()',
+                        '(blur)': '_onTouched()',
+                        '(input)': '_handleInput($event)',
+                        '(keydown)': '_handleKeydown($event)',
+                    },
+                    providers: [MAT_AUTOCOMPLETE_VALUE_ACCESSOR]
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatAutocompleteTrigger.ctorParameters = function () { return [
+        { type: ElementRef, },
+        { type: Overlay, },
+        { type: ViewContainerRef, },
+        { type: NgZone, },
+        { type: ChangeDetectorRef, },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] },] },
+        { type: Directionality, decorators: [{ type: Optional },] },
+        { type: MatFormField, decorators: [{ type: Optional }, { type: Host },] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
+    ]; };
+    MatAutocompleteTrigger.propDecorators = {
+        'autocomplete': [{ type: Input, args: ['matAutocomplete',] },],
+    };
     return MatAutocompleteTrigger;
 }());
-MatAutocompleteTrigger.decorators = [
-    { type: Directive, args: [{
-                selector: "input[matAutocomplete], textarea[matAutocomplete]",
-                host: {
-                    'role': 'combobox',
-                    'autocomplete': 'off',
-                    'aria-autocomplete': 'list',
-                    '[attr.aria-activedescendant]': 'activeOption?.id',
-                    '[attr.aria-expanded]': 'panelOpen.toString()',
-                    '[attr.aria-owns]': 'autocomplete?.id',
-                    // Note: we use `focusin`, as opposed to `focus`, in order to open the panel
-                    // a little earlier. This avoids issues where IE delays the focusing of the input.
-                    '(focusin)': '_handleFocus()',
-                    '(blur)': '_onTouched()',
-                    '(input)': '_handleInput($event)',
-                    '(keydown)': '_handleKeydown($event)',
-                },
-                providers: [MAT_AUTOCOMPLETE_VALUE_ACCESSOR]
-            },] },
-];
-/**
- * @nocollapse
- */
-MatAutocompleteTrigger.ctorParameters = function () { return [
-    { type: ElementRef, },
-    { type: Overlay, },
-    { type: ViewContainerRef, },
-    { type: NgZone, },
-    { type: ChangeDetectorRef, },
-    { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] },] },
-    { type: Directionality, decorators: [{ type: Optional },] },
-    { type: MatFormField, decorators: [{ type: Optional }, { type: Host },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
-]; };
-MatAutocompleteTrigger.propDecorators = {
-    'autocomplete': [{ type: Input, args: ['matAutocomplete',] },],
-};
+
 var MatAutocompleteModule = (function () {
     function MatAutocompleteModule() {
     }
+    MatAutocompleteModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [MatOptionModule, OverlayModule, MatCommonModule, CommonModule],
+                    exports: [MatAutocomplete, MatOptionModule, MatAutocompleteTrigger, MatCommonModule],
+                    declarations: [MatAutocomplete, MatAutocompleteTrigger],
+                    providers: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatAutocompleteModule.ctorParameters = function () { return []; };
     return MatAutocompleteModule;
 }());
-MatAutocompleteModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [MatOptionModule, OverlayModule, MatCommonModule, CommonModule],
-                exports: [MatAutocomplete, MatOptionModule, MatAutocompleteTrigger, MatCommonModule],
-                declarations: [MatAutocomplete, MatAutocompleteTrigger],
-                providers: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatAutocompleteModule.ctorParameters = function () { return []; };
+
 /**
  * Generated bundle index. Do not edit.
  */
+
 export { MatAutocompleteSelectedEvent, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger };
 //# sourceMappingURL=autocomplete.es5.js.map

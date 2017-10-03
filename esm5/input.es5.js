@@ -13,6 +13,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { MAT_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
+
 /**
  * Directive to automatically resize a textarea to fit its content.
  */
@@ -160,30 +161,31 @@ var MatTextareaAutosize = (function () {
         textarea.style.overflow = '';
         this._previousValue = value;
     };
+    MatTextareaAutosize.decorators = [
+        { type: Directive, args: [{
+                    selector: "textarea[mat-autosize], textarea[matTextareaAutosize]",
+                    exportAs: 'matTextareaAutosize',
+                    host: {
+                        // Textarea elements that have the directive applied should have a single row by default.
+                        // Browsers normally show two rows by default and therefore this limits the minRows binding.
+                        'rows': '1',
+                    },
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatTextareaAutosize.ctorParameters = function () { return [
+        { type: ElementRef, },
+        { type: Platform, },
+    ]; };
+    MatTextareaAutosize.propDecorators = {
+        'minRows': [{ type: Input, args: ['matAutosizeMinRows',] },],
+        'maxRows': [{ type: Input, args: ['matAutosizeMaxRows',] },],
+    };
     return MatTextareaAutosize;
 }());
-MatTextareaAutosize.decorators = [
-    { type: Directive, args: [{
-                selector: "textarea[mat-autosize], textarea[matTextareaAutosize]",
-                exportAs: 'matTextareaAutosize',
-                host: {
-                    // Textarea elements that have the directive applied should have a single row by default.
-                    // Browsers normally show two rows by default and therefore this limits the minRows binding.
-                    'rows': '1',
-                },
-            },] },
-];
-/**
- * @nocollapse
- */
-MatTextareaAutosize.ctorParameters = function () { return [
-    { type: ElementRef, },
-    { type: Platform, },
-]; };
-MatTextareaAutosize.propDecorators = {
-    'minRows': [{ type: Input, args: ['matAutosizeMinRows',] },],
-    'maxRows': [{ type: Input, args: ['matAutosizeMaxRows',] },],
-};
+
 /**
  * \@docs-private
  * @param {?} type
@@ -192,6 +194,7 @@ MatTextareaAutosize.propDecorators = {
 function getMatInputUnsupportedTypeError(type) {
     return Error("Input type \"" + type + "\" isn't supported by matInput.");
 }
+
 // Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
 var MAT_INPUT_INVALID_TYPES = [
     'button',
@@ -531,82 +534,85 @@ var MatInput = (function () {
      * @return {?}
      */
     MatInput.prototype.onContainerClick = function () { this.focus(); };
+    MatInput.decorators = [
+        { type: Directive, args: [{
+                    selector: "input[matInput], textarea[matInput]",
+                    host: {
+                        'class': 'mat-input-element mat-form-field-autofill-control',
+                        // Native input properties that are overwritten by Angular inputs need to be synced with
+                        // the native input element. Otherwise property bindings for those don't work.
+                        '[attr.id]': 'id',
+                        '[placeholder]': 'placeholder',
+                        '[disabled]': 'disabled',
+                        '[required]': 'required',
+                        '[readonly]': 'readonly',
+                        '[attr.aria-describedby]': '_ariaDescribedby || null',
+                        '[attr.aria-invalid]': 'errorState',
+                        '(blur)': '_focusChanged(false)',
+                        '(focus)': '_focusChanged(true)',
+                        '(input)': '_onInput()',
+                    },
+                    providers: [{ provide: MatFormFieldControl, useExisting: MatInput }],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatInput.ctorParameters = function () { return [
+        { type: ElementRef, },
+        { type: Renderer2, },
+        { type: Platform, },
+        { type: NgControl, decorators: [{ type: Optional }, { type: Self },] },
+        { type: NgForm, decorators: [{ type: Optional },] },
+        { type: FormGroupDirective, decorators: [{ type: Optional },] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_ERROR_GLOBAL_OPTIONS,] },] },
+    ]; };
+    MatInput.propDecorators = {
+        'disabled': [{ type: Input },],
+        'id': [{ type: Input },],
+        'placeholder': [{ type: Input },],
+        'required': [{ type: Input },],
+        'type': [{ type: Input },],
+        'errorStateMatcher': [{ type: Input },],
+        'value': [{ type: Input },],
+        'readonly': [{ type: Input },],
+    };
     return MatInput;
 }());
-MatInput.decorators = [
-    { type: Directive, args: [{
-                selector: "input[matInput], textarea[matInput]",
-                host: {
-                    'class': 'mat-input-element mat-form-field-autofill-control',
-                    // Native input properties that are overwritten by Angular inputs need to be synced with
-                    // the native input element. Otherwise property bindings for those don't work.
-                    '[attr.id]': 'id',
-                    '[placeholder]': 'placeholder',
-                    '[disabled]': 'disabled',
-                    '[required]': 'required',
-                    '[readonly]': 'readonly',
-                    '[attr.aria-describedby]': '_ariaDescribedby || null',
-                    '[attr.aria-invalid]': 'errorState',
-                    '(blur)': '_focusChanged(false)',
-                    '(focus)': '_focusChanged(true)',
-                    '(input)': '_onInput()',
-                },
-                providers: [{ provide: MatFormFieldControl, useExisting: MatInput }],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatInput.ctorParameters = function () { return [
-    { type: ElementRef, },
-    { type: Renderer2, },
-    { type: Platform, },
-    { type: NgControl, decorators: [{ type: Optional }, { type: Self },] },
-    { type: NgForm, decorators: [{ type: Optional },] },
-    { type: FormGroupDirective, decorators: [{ type: Optional },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_ERROR_GLOBAL_OPTIONS,] },] },
-]; };
-MatInput.propDecorators = {
-    'disabled': [{ type: Input },],
-    'id': [{ type: Input },],
-    'placeholder': [{ type: Input },],
-    'required': [{ type: Input },],
-    'type': [{ type: Input },],
-    'errorStateMatcher': [{ type: Input },],
-    'value': [{ type: Input },],
-    'readonly': [{ type: Input },],
-};
+
 var MatInputModule = (function () {
     function MatInputModule() {
     }
+    MatInputModule.decorators = [
+        { type: NgModule, args: [{
+                    declarations: [
+                        MatInput,
+                        MatTextareaAutosize,
+                    ],
+                    imports: [
+                        CommonModule,
+                        MatFormFieldModule,
+                        PlatformModule,
+                    ],
+                    exports: [
+                        // We re-export the `MatFormFieldModule` since `MatInput` will almost always
+                        // be used together with `MatFormField`.
+                        MatFormFieldModule,
+                        MatInput,
+                        MatTextareaAutosize,
+                    ],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatInputModule.ctorParameters = function () { return []; };
     return MatInputModule;
 }());
-MatInputModule.decorators = [
-    { type: NgModule, args: [{
-                declarations: [
-                    MatInput,
-                    MatTextareaAutosize,
-                ],
-                imports: [
-                    CommonModule,
-                    MatFormFieldModule,
-                    PlatformModule,
-                ],
-                exports: [
-                    // We re-export the `MatFormFieldModule` since `MatInput` will almost always
-                    // be used together with `MatFormField`.
-                    MatFormFieldModule,
-                    MatInput,
-                    MatTextareaAutosize,
-                ],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatInputModule.ctorParameters = function () { return []; };
+
 /**
  * Generated bundle index. Do not edit.
  */
+
 export { MatInputModule, MatTextareaAutosize, MatInput, getMatInputUnsupportedTypeError };
 //# sourceMappingURL=input.es5.js.map

@@ -1,4 +1,3 @@
-import * as tslib_1 from "tslib";
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -16,10 +15,13 @@ import { RxChain, filter, first, startWith, switchMap } from '@angular/cdk/rxjs'
 import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { __extends } from 'tslib';
+import * as tslib_1 from 'tslib';
 import { Subject } from 'rxjs/Subject';
 import { Directionality } from '@angular/cdk/bidi';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { of } from 'rxjs/observable/of';
+
 /**
  * Below are all the animations for the mat-menu component.
  * Animation duration and timing values are based on:
@@ -63,6 +65,7 @@ var fadeInItems = trigger('fadeInItems', [
         animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
     ])
 ]);
+
 /**
  * Throws an exception for the case when menu trigger doesn't have a valid mat-menu instance
  * \@docs-private
@@ -89,6 +92,7 @@ function throwMatMenuInvalidPositionX() {
 function throwMatMenuInvalidPositionY() {
     throw Error("y-position value must be either 'above' or below'.\n      Example: <mat-menu y-position=\"above\" #menu=\"matMenu\"></mat-menu>");
 }
+
 /**
  * \@docs-private
  */
@@ -103,7 +107,7 @@ var _MatMenuItemMixinBase = mixinDisabled(MatMenuItemBase);
  * It exists mostly to set the role attribute.
  */
 var MatMenuItem = (function (_super) {
-    tslib_1.__extends(MatMenuItem, _super);
+    __extends(MatMenuItem, _super);
     /**
      * @param {?} _elementRef
      */
@@ -171,35 +175,36 @@ var MatMenuItem = (function (_super) {
             this.hover.next(this);
         }
     };
+    MatMenuItem.decorators = [
+        { type: Component, args: [{selector: '[mat-menu-item]',
+                    inputs: ['disabled'],
+                    host: {
+                        'role': 'menuitem',
+                        'class': 'mat-menu-item',
+                        '[class.mat-menu-item-highlighted]': '_highlighted',
+                        '[class.mat-menu-item-submenu-trigger]': '_triggersSubmenu',
+                        '[attr.tabindex]': '_getTabIndex()',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[attr.disabled]': 'disabled || null',
+                        '(click)': '_checkDisabled($event)',
+                        '(mouseenter)': '_emitHoverEvent()',
+                    },
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    template: "<ng-content></ng-content><div class=\"mat-menu-ripple\" *ngIf=\"!disabled\" mat-ripple [matRippleTrigger]=\"_getHostElement()\"></div>",
+                    exportAs: 'matMenuItem',
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatMenuItem.ctorParameters = function () { return [
+        { type: ElementRef, },
+    ]; };
     return MatMenuItem;
 }(_MatMenuItemMixinBase));
-MatMenuItem.decorators = [
-    { type: Component, args: [{ selector: '[mat-menu-item]',
-                inputs: ['disabled'],
-                host: {
-                    'role': 'menuitem',
-                    'class': 'mat-menu-item',
-                    '[class.mat-menu-item-highlighted]': '_highlighted',
-                    '[class.mat-menu-item-submenu-trigger]': '_triggersSubmenu',
-                    '[attr.tabindex]': '_getTabIndex()',
-                    '[attr.aria-disabled]': 'disabled.toString()',
-                    '[attr.disabled]': 'disabled || null',
-                    '(click)': '_checkDisabled($event)',
-                    '(mouseenter)': '_emitHoverEvent()',
-                },
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                template: "<ng-content></ng-content><div class=\"mat-menu-ripple\" *ngIf=\"!disabled\" mat-ripple [matRippleTrigger]=\"_getHostElement()\"></div>",
-                exportAs: 'matMenuItem',
-            },] },
-];
-/**
- * @nocollapse
- */
-MatMenuItem.ctorParameters = function () { return [
-    { type: ElementRef, },
-]; };
+
 /**
  * Injection token to be used to override the default options for `mat-menu`.
  */
@@ -426,39 +431,40 @@ var MatMenu = (function () {
             this._panelAnimationState = 'enter';
         }
     };
+    MatMenu.decorators = [
+        { type: Component, args: [{selector: 'mat-menu',
+                    template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"close.emit('click')\" [@transformMenu]=\"_panelAnimationState\" (@transformMenu.done)=\"_onAnimationDone($event)\" role=\"menu\"><div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></ng-template>",
+                    styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.ng-animating{pointer-events:none}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item .mat-icon{vertical-align:middle}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:8px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute}"],
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    animations: [
+                        transformMenu,
+                        fadeInItems
+                    ],
+                    exportAs: 'matMenu'
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatMenu.ctorParameters = function () { return [
+        { type: ElementRef, },
+        { type: NgZone, },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] },] },
+    ]; };
+    MatMenu.propDecorators = {
+        'xPosition': [{ type: Input },],
+        'yPosition': [{ type: Input },],
+        'templateRef': [{ type: ViewChild, args: [TemplateRef,] },],
+        'items': [{ type: ContentChildren, args: [MatMenuItem,] },],
+        'overlapTrigger': [{ type: Input },],
+        'classList': [{ type: Input, args: ['class',] },],
+        'close': [{ type: Output },],
+    };
     return MatMenu;
 }());
-MatMenu.decorators = [
-    { type: Component, args: [{ selector: 'mat-menu',
-                template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"close.emit('click')\" [@transformMenu]=\"_panelAnimationState\" (@transformMenu.done)=\"_onAnimationDone($event)\" role=\"menu\"><div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></ng-template>",
-                styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.ng-animating{pointer-events:none}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item .mat-icon{vertical-align:middle}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:8px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute}"],
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                animations: [
-                    transformMenu,
-                    fadeInItems
-                ],
-                exportAs: 'matMenu'
-            },] },
-];
-/**
- * @nocollapse
- */
-MatMenu.ctorParameters = function () { return [
-    { type: ElementRef, },
-    { type: NgZone, },
-    { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] },] },
-]; };
-MatMenu.propDecorators = {
-    'xPosition': [{ type: Input },],
-    'yPosition': [{ type: Input },],
-    'templateRef': [{ type: ViewChild, args: [TemplateRef,] },],
-    'items': [{ type: ContentChildren, args: [MatMenuItem,] },],
-    'overlapTrigger': [{ type: Input },],
-    'classList': [{ type: Input, args: ['class',] },],
-    'close': [{ type: Output },],
-};
+
 /**
  * Injection token that determines the scroll handling while the menu is open.
  */
@@ -862,72 +868,75 @@ var MatMenuTrigger = (function () {
             this.toggleMenu();
         }
     };
+    MatMenuTrigger.decorators = [
+        { type: Directive, args: [{
+                    selector: "[mat-menu-trigger-for], [matMenuTriggerFor]",
+                    host: {
+                        'aria-haspopup': 'true',
+                        '(mousedown)': '_handleMousedown($event)',
+                        '(keydown)': '_handleKeydown($event)',
+                        '(click)': '_handleClick($event)',
+                    },
+                    exportAs: 'matMenuTrigger'
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatMenuTrigger.ctorParameters = function () { return [
+        { type: Overlay, },
+        { type: ElementRef, },
+        { type: ViewContainerRef, },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_SCROLL_STRATEGY,] },] },
+        { type: MatMenu, decorators: [{ type: Optional },] },
+        { type: MatMenuItem, decorators: [{ type: Optional }, { type: Self },] },
+        { type: Directionality, decorators: [{ type: Optional },] },
+    ]; };
+    MatMenuTrigger.propDecorators = {
+        '_deprecatedMatMenuTriggerFor': [{ type: Input, args: ['mat-menu-trigger-for',] },],
+        'menu': [{ type: Input, args: ['matMenuTriggerFor',] },],
+        'onMenuOpen': [{ type: Output },],
+        'onMenuClose': [{ type: Output },],
+    };
     return MatMenuTrigger;
 }());
-MatMenuTrigger.decorators = [
-    { type: Directive, args: [{
-                selector: "[mat-menu-trigger-for], [matMenuTriggerFor]",
-                host: {
-                    'aria-haspopup': 'true',
-                    '(mousedown)': '_handleMousedown($event)',
-                    '(keydown)': '_handleKeydown($event)',
-                    '(click)': '_handleClick($event)',
-                },
-                exportAs: 'matMenuTrigger'
-            },] },
-];
-/**
- * @nocollapse
- */
-MatMenuTrigger.ctorParameters = function () { return [
-    { type: Overlay, },
-    { type: ElementRef, },
-    { type: ViewContainerRef, },
-    { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_SCROLL_STRATEGY,] },] },
-    { type: MatMenu, decorators: [{ type: Optional },] },
-    { type: MatMenuItem, decorators: [{ type: Optional }, { type: Self },] },
-    { type: Directionality, decorators: [{ type: Optional },] },
-]; };
-MatMenuTrigger.propDecorators = {
-    '_deprecatedMatMenuTriggerFor': [{ type: Input, args: ['mat-menu-trigger-for',] },],
-    'menu': [{ type: Input, args: ['matMenuTriggerFor',] },],
-    'onMenuOpen': [{ type: Output },],
-    'onMenuClose': [{ type: Output },],
-};
+
 var MatMenuModule = (function () {
     function MatMenuModule() {
     }
+    MatMenuModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [
+                        OverlayModule,
+                        CommonModule,
+                        MatRippleModule,
+                        MatCommonModule,
+                    ],
+                    exports: [MatMenu, MatMenuItem, MatMenuTrigger, MatCommonModule],
+                    declarations: [MatMenu, MatMenuItem, MatMenuTrigger],
+                    providers: [
+                        MAT_MENU_SCROLL_STRATEGY_PROVIDER,
+                        {
+                            provide: MAT_MENU_DEFAULT_OPTIONS,
+                            useValue: {
+                                overlapTrigger: true,
+                                xPosition: 'after',
+                                yPosition: 'below',
+                            },
+                        }
+                    ],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatMenuModule.ctorParameters = function () { return []; };
     return MatMenuModule;
 }());
-MatMenuModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [
-                    OverlayModule,
-                    CommonModule,
-                    MatRippleModule,
-                    MatCommonModule,
-                ],
-                exports: [MatMenu, MatMenuItem, MatMenuTrigger, MatCommonModule],
-                declarations: [MatMenu, MatMenuItem, MatMenuTrigger],
-                providers: [
-                    MAT_MENU_SCROLL_STRATEGY_PROVIDER,
-                    {
-                        provide: MAT_MENU_DEFAULT_OPTIONS,
-                        useValue: {
-                            overlapTrigger: true,
-                            xPosition: 'after',
-                            yPosition: 'below',
-                        },
-                    }
-                ],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatMenuModule.ctorParameters = function () { return []; };
+
 /**
  * Generated bundle index. Do not edit.
  */
-export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa23, _MatMenuItemMixinBase as ɵb23, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd23, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc23 };
+
+export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa16, _MatMenuItemMixinBase as ɵb16, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd16, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc16 };
 //# sourceMappingURL=menu.es5.js.map

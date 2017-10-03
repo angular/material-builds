@@ -1,5 +1,5 @@
 /**
  * Generated bundle index. Do not edit.
  */
-export * from './public_api';
-export { MatGridAvatarCssMatStyler as ɵb18, MatGridTileFooterCssMatStyler as ɵd18, MatGridTileHeaderCssMatStyler as ɵc18, MatGridTileText as ɵa18 } from './grid-tile';
+export * from './public-api';
+export { MatGridAvatarCssMatStyler as ɵb9, MatGridTileFooterCssMatStyler as ɵd9, MatGridTileHeaderCssMatStyler as ɵc9, MatGridTileText as ɵa9 } from './grid-tile';

@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Subject } from 'rxjs/Subject';
+
 /**
  * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and
  * include it in a custom provider
@@ -50,15 +51,16 @@ var MatPaginatorIntl = (function () {
             return startIndex + 1 + " - " + endIndex + " of " + length;
         };
     }
+    MatPaginatorIntl.decorators = [
+        { type: Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatPaginatorIntl.ctorParameters = function () { return []; };
     return MatPaginatorIntl;
 }());
-MatPaginatorIntl.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-MatPaginatorIntl.ctorParameters = function () { return []; };
+
 /**
  * The default page size if there is no page size and there are no provided page size options.
  */
@@ -265,58 +267,61 @@ var MatPaginator = (function () {
             length: this.length
         });
     };
+    MatPaginator.decorators = [
+        { type: Component, args: [{selector: 'mat-paginator',
+                    template: "<div class=\"mat-paginator-page-size\"><div class=\"mat-paginator-page-size-label\">{{_intl.itemsPerPageLabel}}</div><mat-form-field *ngIf=\"_displayedPageSizeOptions.length > 1\"><mat-select class=\"mat-paginator-page-size-select\" [value]=\"pageSize\" [aria-label]=\"_intl.itemsPerPageLabel\" (change)=\"_changePageSize($event.value)\"><mat-option *ngFor=\"let pageSizeOption of _displayedPageSizeOptions\" [value]=\"pageSizeOption\">{{pageSizeOption}}</mat-option></mat-select></mat-form-field><div *ngIf=\"_displayedPageSizeOptions.length <= 1\">{{pageSize}}</div></div><div class=\"mat-paginator-range-label\">{{_intl.getRangeLabel(pageIndex, pageSize, length)}}</div><button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-previous\" (click)=\"previousPage()\" [attr.aria-label]=\"_intl.previousPageLabel\" [matTooltip]=\"_intl.previousPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\"><div class=\"mat-paginator-increment\"></div></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-next\" (click)=\"nextPage()\" [attr.aria-label]=\"_intl.nextPageLabel\" [matTooltip]=\"_intl.nextPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\"><div class=\"mat-paginator-decrement\"></div></button>",
+                    styles: [".mat-paginator{display:flex;align-items:center;justify-content:flex-end;min-height:56px;padding:0 8px}.mat-paginator-page-size{display:flex;align-items:center}.mat-paginator-page-size-label{margin:0 4px}.mat-paginator-page-size-select{padding-top:0;margin:0 4px}.mat-paginator-page-size-select .mat-select-trigger{min-width:56px}.mat-paginator-range-label{margin:0 32px}.mat-paginator-increment-button+.mat-paginator-increment-button{margin:0 0 0 8px}[dir=rtl] .mat-paginator-increment-button+.mat-paginator-increment-button{margin:0 8px 0 0}.mat-paginator-decrement,.mat-paginator-increment{width:8px;height:8px}.mat-paginator-decrement,[dir=rtl] .mat-paginator-increment{transform:rotate(45deg)}.mat-paginator-increment,[dir=rtl] .mat-paginator-decrement{transform:rotate(225deg)}.mat-paginator-decrement{margin-left:12px}[dir=rtl] .mat-paginator-decrement{margin-right:12px}.mat-paginator-increment{margin-left:16px}[dir=rtl] .mat-paginator-increment{margin-right:16px}"],
+                    host: {
+                        'class': 'mat-paginator',
+                    },
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatPaginator.ctorParameters = function () { return [
+        { type: MatPaginatorIntl, },
+        { type: ChangeDetectorRef, },
+    ]; };
+    MatPaginator.propDecorators = {
+        'pageIndex': [{ type: Input },],
+        'length': [{ type: Input },],
+        'pageSize': [{ type: Input },],
+        'pageSizeOptions': [{ type: Input },],
+        'page': [{ type: Output },],
+    };
     return MatPaginator;
 }());
-MatPaginator.decorators = [
-    { type: Component, args: [{ selector: 'mat-paginator',
-                template: "<div class=\"mat-paginator-page-size\"><div class=\"mat-paginator-page-size-label\">{{_intl.itemsPerPageLabel}}</div><mat-form-field *ngIf=\"_displayedPageSizeOptions.length > 1\"><mat-select class=\"mat-paginator-page-size-select\" [value]=\"pageSize\" [aria-label]=\"_intl.itemsPerPageLabel\" (change)=\"_changePageSize($event.value)\"><mat-option *ngFor=\"let pageSizeOption of _displayedPageSizeOptions\" [value]=\"pageSizeOption\">{{pageSizeOption}}</mat-option></mat-select></mat-form-field><div *ngIf=\"_displayedPageSizeOptions.length <= 1\">{{pageSize}}</div></div><div class=\"mat-paginator-range-label\">{{_intl.getRangeLabel(pageIndex, pageSize, length)}}</div><button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-previous\" (click)=\"previousPage()\" [attr.aria-label]=\"_intl.previousPageLabel\" [matTooltip]=\"_intl.previousPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\"><div class=\"mat-paginator-increment\"></div></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-next\" (click)=\"nextPage()\" [attr.aria-label]=\"_intl.nextPageLabel\" [matTooltip]=\"_intl.nextPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\"><div class=\"mat-paginator-decrement\"></div></button>",
-                styles: [".mat-paginator{display:flex;align-items:center;justify-content:flex-end;min-height:56px;padding:0 8px}.mat-paginator-page-size{display:flex;align-items:center}.mat-paginator-page-size-label{margin:0 4px}.mat-paginator-page-size-select{padding-top:0;margin:0 4px}.mat-paginator-page-size-select .mat-select-trigger{min-width:56px}.mat-paginator-range-label{margin:0 32px}.mat-paginator-increment-button+.mat-paginator-increment-button{margin:0 0 0 8px}[dir=rtl] .mat-paginator-increment-button+.mat-paginator-increment-button{margin:0 8px 0 0}.mat-paginator-decrement,.mat-paginator-increment{width:8px;height:8px}.mat-paginator-decrement,[dir=rtl] .mat-paginator-increment{transform:rotate(45deg)}.mat-paginator-increment,[dir=rtl] .mat-paginator-decrement{transform:rotate(225deg)}.mat-paginator-decrement{margin-left:12px}[dir=rtl] .mat-paginator-decrement{margin-right:12px}.mat-paginator-increment{margin-left:16px}[dir=rtl] .mat-paginator-increment{margin-right:16px}"],
-                host: {
-                    'class': 'mat-paginator',
-                },
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatPaginator.ctorParameters = function () { return [
-    { type: MatPaginatorIntl, },
-    { type: ChangeDetectorRef, },
-]; };
-MatPaginator.propDecorators = {
-    'pageIndex': [{ type: Input },],
-    'length': [{ type: Input },],
-    'pageSize': [{ type: Input },],
-    'pageSizeOptions': [{ type: Input },],
-    'page': [{ type: Output },],
-};
+
 var MatPaginatorModule = (function () {
     function MatPaginatorModule() {
     }
+    MatPaginatorModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [
+                        CommonModule,
+                        MatButtonModule,
+                        MatSelectModule,
+                        MatTooltipModule,
+                    ],
+                    exports: [MatPaginator],
+                    declarations: [MatPaginator],
+                    providers: [MatPaginatorIntl],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatPaginatorModule.ctorParameters = function () { return []; };
     return MatPaginatorModule;
 }());
-MatPaginatorModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [
-                    CommonModule,
-                    MatButtonModule,
-                    MatSelectModule,
-                    MatTooltipModule,
-                ],
-                exports: [MatPaginator],
-                declarations: [MatPaginator],
-                providers: [MatPaginatorIntl],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatPaginatorModule.ctorParameters = function () { return []; };
+
 /**
  * Generated bundle index. Do not edit.
  */
+
 export { MatPaginatorModule, PageEvent, MatPaginator, MatPaginatorIntl };
 //# sourceMappingURL=paginator.es5.js.map

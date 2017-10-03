@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { FocusKeyManager } from '@angular/cdk/a11y';
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ConnectedOverlayDirective, Overlay, RepositionScrollStrategy, ScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
@@ -109,7 +109,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Deals with the selection logic. */
     _selectionModel: SelectionModel<MatOption>;
     /** Manages keyboard events for options in the panel. */
-    _keyManager: FocusKeyManager<MatOption>;
+    _keyManager: ActiveDescendantKeyManager<MatOption>;
     /** View -> model callback called when value changes */
     _onChange: (value: any) => void;
     /** View -> model callback called when select has been touched */
@@ -151,6 +151,8 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     controlType: string;
     /** Trigger that opens the select. */
     trigger: ElementRef;
+    /** Panel containing the select options. */
+    panel: ElementRef;
     /** Overlay pane containing the options. */
     overlayDir: ConnectedOverlayDirective;
     /** All of the defined select options. */
@@ -250,10 +252,12 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     readonly triggerValue: string;
     /** Whether the element is in RTL mode. */
     _isRtl(): boolean;
-    /** Handles the keyboard interactions of a closed select. */
-    _handleClosedKeydown(event: KeyboardEvent): void;
-    /** Handles keypresses inside the panel. */
-    _handlePanelKeydown(event: KeyboardEvent): void;
+    /** Handles all keydown events on the select. */
+    _handleKeydown(event: KeyboardEvent): void;
+    /** Handles keyboard events while the select is closed. */
+    private _handleClosedKeydown(event);
+    /** Handles keyboard events when the selected is open. */
+    private _handleOpenKeydown(event);
     /**
      * When the panel element is finished transforming in (though not fading in), it
      * emits an event and focuses an option if the panel is open.
@@ -280,12 +284,6 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     readonly empty: boolean;
     /** Whether the select is in an error state. */
     readonly errorState: boolean;
-    /**
-     * Sets the scroll position of the scroll container. This must be called after
-     * the overlay pane is attached or the scroll container element will not yet be
-     * present in the DOM.
-     */
-    private _setScrollTop();
     private _initializeSelection();
     /**
      * Sets the selected option based on a value. If no option can be
@@ -329,10 +327,12 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Sets the `disableRipple` property on each option. */
     private _setOptionDisableRipple();
     /**
-     * Focuses the selected item. If no option is selected, it will focus
+     * Highlights the selected item. If no option is selected, it will highlight
      * the first item instead.
      */
-    private _focusCorrectOption();
+    private _highlightCorrectOption();
+    /** Scrolls the active option into view. */
+    private _scrollActiveOptionIntoView();
     /** Focuses the select element. */
     focus(): void;
     /** Gets the index of the provided option in the option list. */
@@ -349,6 +349,8 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     _calculateOverlayScroll(selectedIndex: number, scrollBuffer: number, maxScroll: number): number;
     /** Returns the aria-label of the select component. */
     readonly _ariaLabel: string | null;
+    /** Determines the `aria-activedescendant` to be set on the host. */
+    _getAriaActiveDescendant(): string | null;
     /**
      * Sets the x-offset of the overlay panel in relation to the trigger's top start corner.
      * This must be adjusted to align the selected option text over the trigger text when
@@ -377,9 +379,11 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Sets the transform origin point based on the selected option. */
     private _getOriginBasedOnOption();
     /** Handles the user pressing the arrow keys on a closed select.  */
-    private _handleArrowKey(event);
+    private _handleClosedArrowKey(event);
     /** Calculates the amount of items in the select. This includes options and group labels. */
     private _getItemCount();
+    /** Calculates the height of the select's options. */
+    private _getItemHeight();
     setDescribedByIds(ids: string[]): void;
     onContainerClick(): void;
     readonly shouldPlaceholderFloat: boolean;

@@ -1,4 +1,3 @@
-import * as tslib_1 from "tslib";
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -13,8 +12,11 @@ import { BasePortalHost, ComponentPortal, PortalHostDirective, PortalInjector, P
 import { LIVE_ANNOUNCER_PROVIDER, LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatCommonModule, extendObject } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
+import { __extends } from 'tslib';
+import * as tslib_1 from 'tslib';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { first } from '@angular/cdk/rxjs';
+
 /**
  * Reference to a snack bar dispatched from the snack bar service.
  */
@@ -114,6 +116,7 @@ var MatSnackBarRef = (function () {
     };
     return MatSnackBarRef;
 }());
+
 var MAT_SNACK_BAR_DATA = new InjectionToken('MatSnackBarData');
 /**
  * Configuration used when opening a snack-bar.
@@ -151,6 +154,7 @@ var MatSnackBarConfig = (function () {
     }
     return MatSnackBarConfig;
 }());
+
 /**
  * A component used to open as the default snack bar, matching material spec.
  * This should only be used internally by the snack bar service.
@@ -182,27 +186,28 @@ var SimpleSnackBar = (function () {
         enumerable: true,
         configurable: true
     });
+    SimpleSnackBar.decorators = [
+        { type: Component, args: [{selector: 'simple-snack-bar',
+                    template: "{{data.message}} <button class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\" (click)=\"action()\">{{data.action}}</button>",
+                    styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;line-height:20px}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;background:0 0;flex-shrink:0;margin-left:48px}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0}"],
+                    encapsulation: ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    host: {
+                        'class': 'mat-simple-snackbar',
+                    }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    SimpleSnackBar.ctorParameters = function () { return [
+        { type: MatSnackBarRef, },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_SNACK_BAR_DATA,] },] },
+    ]; };
     return SimpleSnackBar;
 }());
-SimpleSnackBar.decorators = [
-    { type: Component, args: [{ selector: 'simple-snack-bar',
-                template: "{{data.message}} <button class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\" (click)=\"action()\">{{data.action}}</button>",
-                styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;line-height:20px}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;background:0 0;flex-shrink:0;margin-left:48px}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0}"],
-                encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                host: {
-                    'class': 'mat-simple-snackbar',
-                }
-            },] },
-];
-/**
- * @nocollapse
- */
-SimpleSnackBar.ctorParameters = function () { return [
-    { type: MatSnackBarRef, },
-    { type: undefined, decorators: [{ type: Inject, args: [MAT_SNACK_BAR_DATA,] },] },
-]; };
+
 // TODO(jelbourn): we can't use constants from animation.ts here because you can't use
 // a text interpolation in anything that is analyzed statically with ngc (for AoT compile).
 var SHOW_ANIMATION = '225ms cubic-bezier(0.4,0.0,1,1)';
@@ -212,7 +217,7 @@ var HIDE_ANIMATION = '195ms cubic-bezier(0.0,0.0,0.2,1)';
  * \@docs-private
  */
 var MatSnackBarContainer = (function (_super) {
-    tslib_1.__extends(MatSnackBarContainer, _super);
+    __extends(MatSnackBarContainer, _super);
     /**
      * @param {?} _ngZone
      * @param {?} _renderer
@@ -334,49 +339,50 @@ var MatSnackBarContainer = (function (_super) {
             _this._onExit.complete();
         });
     };
+    MatSnackBarContainer.decorators = [
+        { type: Component, args: [{selector: 'snack-bar-container',
+                    template: "<ng-template cdkPortalHost></ng-template>",
+                    styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:content-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-center{margin:0}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}"],
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    host: {
+                        'role': 'alert',
+                        'class': 'mat-snack-bar-container',
+                        '[@state]': '_animationState',
+                        '(@state.done)': 'onAnimationEnd($event)'
+                    },
+                    animations: [
+                        trigger('state', [
+                            // Animation from top.
+                            state('visible-top', style({ transform: 'translateY(0%)' })),
+                            state('hidden-top', style({ transform: 'translateY(-100%)' })),
+                            transition('visible-top => hidden-top', animate(HIDE_ANIMATION)),
+                            transition('void => visible-top', animate(SHOW_ANIMATION)),
+                            // Animation from bottom.
+                            state('visible-bottom', style({ transform: 'translateY(0%)' })),
+                            state('hidden-bottom', style({ transform: 'translateY(100%)' })),
+                            transition('visible-bottom => hidden-bottom', animate(HIDE_ANIMATION)),
+                            transition('void => visible-bottom', animate(SHOW_ANIMATION)),
+                        ])
+                    ],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatSnackBarContainer.ctorParameters = function () { return [
+        { type: NgZone, },
+        { type: Renderer2, },
+        { type: ElementRef, },
+        { type: ChangeDetectorRef, },
+    ]; };
+    MatSnackBarContainer.propDecorators = {
+        '_portalHost': [{ type: ViewChild, args: [PortalHostDirective,] },],
+    };
     return MatSnackBarContainer;
 }(BasePortalHost));
-MatSnackBarContainer.decorators = [
-    { type: Component, args: [{ selector: 'snack-bar-container',
-                template: "<ng-template cdkPortalHost></ng-template>",
-                styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:content-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-center{margin:0}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}"],
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                host: {
-                    'role': 'alert',
-                    'class': 'mat-snack-bar-container',
-                    '[@state]': '_animationState',
-                    '(@state.done)': 'onAnimationEnd($event)'
-                },
-                animations: [
-                    trigger('state', [
-                        // Animation from top.
-                        state('visible-top', style({ transform: 'translateY(0%)' })),
-                        state('hidden-top', style({ transform: 'translateY(-100%)' })),
-                        transition('visible-top => hidden-top', animate(HIDE_ANIMATION)),
-                        transition('void => visible-top', animate(SHOW_ANIMATION)),
-                        // Animation from bottom.
-                        state('visible-bottom', style({ transform: 'translateY(0%)' })),
-                        state('hidden-bottom', style({ transform: 'translateY(100%)' })),
-                        transition('visible-bottom => hidden-bottom', animate(HIDE_ANIMATION)),
-                        transition('void => visible-bottom', animate(SHOW_ANIMATION)),
-                    ])
-                ],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatSnackBarContainer.ctorParameters = function () { return [
-    { type: NgZone, },
-    { type: Renderer2, },
-    { type: ElementRef, },
-    { type: ChangeDetectorRef, },
-]; };
-MatSnackBarContainer.propDecorators = {
-    '_portalHost': [{ type: ViewChild, args: [PortalHostDirective,] },],
-};
+
 /**
  * Service to dispatch Material Design snack bar messages.
  */
@@ -568,20 +574,20 @@ var MatSnackBar = (function () {
         injectionTokens.set(MAT_SNACK_BAR_DATA, config.data);
         return new PortalInjector(userInjector || this._injector, injectionTokens);
     };
+    MatSnackBar.decorators = [
+        { type: Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatSnackBar.ctorParameters = function () { return [
+        { type: Overlay, },
+        { type: LiveAnnouncer, },
+        { type: Injector, },
+        { type: MatSnackBar, decorators: [{ type: Optional }, { type: SkipSelf },] },
+    ]; };
     return MatSnackBar;
 }());
-MatSnackBar.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-MatSnackBar.ctorParameters = function () { return [
-    { type: Overlay, },
-    { type: LiveAnnouncer, },
-    { type: Injector, },
-    { type: MatSnackBar, decorators: [{ type: Optional }, { type: SkipSelf },] },
-]; };
 /**
  * Applies default options to the snackbar config.
  * @param {?=} config The configuration to which the defaults will be applied.
@@ -590,31 +596,34 @@ MatSnackBar.ctorParameters = function () { return [
 function _applyConfigDefaults(config) {
     return extendObject(new MatSnackBarConfig(), config);
 }
+
 var MatSnackBarModule = (function () {
     function MatSnackBarModule() {
     }
+    MatSnackBarModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [
+                        OverlayModule,
+                        PortalModule,
+                        CommonModule,
+                        MatCommonModule,
+                    ],
+                    exports: [MatSnackBarContainer, MatCommonModule],
+                    declarations: [MatSnackBarContainer, SimpleSnackBar],
+                    entryComponents: [MatSnackBarContainer, SimpleSnackBar],
+                    providers: [MatSnackBar, LIVE_ANNOUNCER_PROVIDER]
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatSnackBarModule.ctorParameters = function () { return []; };
     return MatSnackBarModule;
 }());
-MatSnackBarModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [
-                    OverlayModule,
-                    PortalModule,
-                    CommonModule,
-                    MatCommonModule,
-                ],
-                exports: [MatSnackBarContainer, MatCommonModule],
-                declarations: [MatSnackBarContainer, SimpleSnackBar],
-                entryComponents: [MatSnackBarContainer, SimpleSnackBar],
-                providers: [MatSnackBar, LIVE_ANNOUNCER_PROVIDER]
-            },] },
-];
-/**
- * @nocollapse
- */
-MatSnackBarModule.ctorParameters = function () { return []; };
+
 /**
  * Generated bundle index. Do not edit.
  */
+
 export { MatSnackBarModule, MatSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MatSnackBarContainer, MAT_SNACK_BAR_DATA, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar };
 //# sourceMappingURL=snack-bar.es5.js.map

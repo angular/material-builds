@@ -1,4 +1,3 @@
-import * as tslib_1 from "tslib";
 /**
  * @license
  * Copyright Google Inc. All Rights Reserved.
@@ -8,6 +7,9 @@ import * as tslib_1 from "tslib";
  */
 import { ChangeDetectionStrategy, Component, Directive, ElementRef, Input, NgModule, NgZone, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatCommonModule, mixinColor } from '@angular/material/core';
+import { __extends } from 'tslib';
+import * as tslib_1 from 'tslib';
+
 /**
  * A single degree in radians.
  */
@@ -47,18 +49,18 @@ var PROGRESS_SPINNER_STROKE_WIDTH = 10;
 var MatProgressSpinnerCssMatStyler = (function () {
     function MatProgressSpinnerCssMatStyler() {
     }
+    MatProgressSpinnerCssMatStyler.decorators = [
+        { type: Directive, args: [{
+                    selector: 'mat-progress-spinner',
+                    host: { 'class': 'mat-progress-spinner' }
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatProgressSpinnerCssMatStyler.ctorParameters = function () { return []; };
     return MatProgressSpinnerCssMatStyler;
 }());
-MatProgressSpinnerCssMatStyler.decorators = [
-    { type: Directive, args: [{
-                selector: 'mat-progress-spinner',
-                host: { 'class': 'mat-progress-spinner' }
-            },] },
-];
-/**
- * @nocollapse
- */
-MatProgressSpinnerCssMatStyler.ctorParameters = function () { return []; };
 /**
  * \@docs-private
  */
@@ -78,7 +80,7 @@ var _MatProgressSpinnerMixinBase = mixinColor(MatProgressSpinnerBase, 'primary')
  * <mat-progress-spinner> component.
  */
 var MatProgressSpinner = (function (_super) {
-    tslib_1.__extends(MatProgressSpinner, _super);
+    __extends(MatProgressSpinner, _super);
     /**
      * @param {?} renderer
      * @param {?} elementRef
@@ -290,40 +292,40 @@ var MatProgressSpinner = (function (_super) {
             this._renderer.setAttribute(this._path.nativeElement, 'd', svgArc);
         }
     };
+    MatProgressSpinner.decorators = [
+        { type: Component, args: [{selector: 'mat-progress-spinner',
+                    host: {
+                        'role': 'progressbar',
+                        'class': 'mat-progress-spinner',
+                        '[attr.aria-valuemin]': '_ariaValueMin',
+                        '[attr.aria-valuemax]': '_ariaValueMax',
+                        '[attr.aria-valuenow]': 'value',
+                        '[attr.mode]': 'mode',
+                    },
+                    inputs: ['color'],
+                    template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\"><path #path [style.strokeWidth]=\"strokeWidth\"></path></svg>",
+                    styles: [".mat-progress-spinner{display:block;height:100px;width:100px;overflow:hidden}.mat-progress-spinner svg{height:100%;width:100%;transform-origin:center}.mat-progress-spinner path{fill:transparent;transition:stroke .3s cubic-bezier(.35,0,.25,1)}.mat-progress-spinner[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatProgressSpinner.ctorParameters = function () { return [
+        { type: Renderer2, },
+        { type: ElementRef, },
+        { type: NgZone, },
+    ]; };
+    MatProgressSpinner.propDecorators = {
+        '_path': [{ type: ViewChild, args: ['path',] },],
+        'strokeWidth': [{ type: Input },],
+        'value': [{ type: Input },],
+        'mode': [{ type: Input },],
+    };
     return MatProgressSpinner;
 }(_MatProgressSpinnerMixinBase));
-MatProgressSpinner.decorators = [
-    { type: Component, args: [{ selector: 'mat-progress-spinner',
-                host: {
-                    'role': 'progressbar',
-                    'class': 'mat-progress-spinner',
-                    '[attr.aria-valuemin]': '_ariaValueMin',
-                    '[attr.aria-valuemax]': '_ariaValueMax',
-                    '[attr.aria-valuenow]': 'value',
-                    '[attr.mode]': 'mode',
-                },
-                inputs: ['color'],
-                template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\"><path #path [style.strokeWidth]=\"strokeWidth\"></path></svg>",
-                styles: [".mat-progress-spinner{display:block;height:100px;width:100px;overflow:hidden}.mat-progress-spinner svg{height:100%;width:100%;transform-origin:center}.mat-progress-spinner path{fill:transparent;transition:stroke .3s cubic-bezier(.35,0,.25,1)}.mat-progress-spinner[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatProgressSpinner.ctorParameters = function () { return [
-    { type: Renderer2, },
-    { type: ElementRef, },
-    { type: NgZone, },
-]; };
-MatProgressSpinner.propDecorators = {
-    '_path': [{ type: ViewChild, args: ['path',] },],
-    'strokeWidth': [{ type: Input },],
-    'value': [{ type: Input },],
-    'mode': [{ type: Input },],
-};
 /**
  * <mat-spinner> component.
  *
@@ -331,7 +333,7 @@ MatProgressSpinner.propDecorators = {
  * indeterminate <mat-progress-spinner> instance.
  */
 var MatSpinner = (function (_super) {
-    tslib_1.__extends(MatSpinner, _super);
+    __extends(MatSpinner, _super);
     /**
      * @param {?} elementRef
      * @param {?} ngZone
@@ -342,31 +344,31 @@ var MatSpinner = (function (_super) {
         _this.mode = 'indeterminate';
         return _this;
     }
+    MatSpinner.decorators = [
+        { type: Component, args: [{selector: 'mat-spinner',
+                    host: {
+                        'role': 'progressbar',
+                        'mode': 'indeterminate',
+                        'class': 'mat-spinner mat-progress-spinner',
+                    },
+                    inputs: ['color'],
+                    template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\"><path #path [style.strokeWidth]=\"strokeWidth\"></path></svg>",
+                    styles: [".mat-progress-spinner{display:block;height:100px;width:100px;overflow:hidden}.mat-progress-spinner svg{height:100%;width:100%;transform-origin:center}.mat-progress-spinner path{fill:transparent;transition:stroke .3s cubic-bezier(.35,0,.25,1)}.mat-progress-spinner[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatSpinner.ctorParameters = function () { return [
+        { type: ElementRef, },
+        { type: NgZone, },
+        { type: Renderer2, },
+    ]; };
     return MatSpinner;
 }(MatProgressSpinner));
-MatSpinner.decorators = [
-    { type: Component, args: [{ selector: 'mat-spinner',
-                host: {
-                    'role': 'progressbar',
-                    'mode': 'indeterminate',
-                    'class': 'mat-spinner mat-progress-spinner',
-                },
-                inputs: ['color'],
-                template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\"><path #path [style.strokeWidth]=\"strokeWidth\"></path></svg>",
-                styles: [".mat-progress-spinner{display:block;height:100px;width:100px;overflow:hidden}.mat-progress-spinner svg{height:100%;width:100%;transform-origin:center}.mat-progress-spinner path{fill:transparent;transition:stroke .3s cubic-bezier(.35,0,.25,1)}.mat-progress-spinner[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-            },] },
-];
-/**
- * @nocollapse
- */
-MatSpinner.ctorParameters = function () { return [
-    { type: ElementRef, },
-    { type: NgZone, },
-    { type: Renderer2, },
-]; };
 /**
  * Clamps a value to be between 0 and 100.
  * @param {?} v
@@ -442,33 +444,36 @@ function getSvgArc(currentValue, rotation, strokeWidth) {
     }
     return "M" + start + "A" + pathRadius + "," + pathRadius + " 0 " + largeArcFlag + "," + arcSweep + " " + end;
 }
+
 var MatProgressSpinnerModule = (function () {
     function MatProgressSpinnerModule() {
     }
+    MatProgressSpinnerModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [MatCommonModule],
+                    exports: [
+                        MatProgressSpinner,
+                        MatSpinner,
+                        MatCommonModule,
+                        MatProgressSpinnerCssMatStyler
+                    ],
+                    declarations: [
+                        MatProgressSpinner,
+                        MatSpinner,
+                        MatProgressSpinnerCssMatStyler
+                    ],
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatProgressSpinnerModule.ctorParameters = function () { return []; };
     return MatProgressSpinnerModule;
 }());
-MatProgressSpinnerModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [MatCommonModule],
-                exports: [
-                    MatProgressSpinner,
-                    MatSpinner,
-                    MatCommonModule,
-                    MatProgressSpinnerCssMatStyler
-                ],
-                declarations: [
-                    MatProgressSpinner,
-                    MatSpinner,
-                    MatProgressSpinnerCssMatStyler
-                ],
-            },] },
-];
-/**
- * @nocollapse
- */
-MatProgressSpinnerModule.ctorParameters = function () { return []; };
+
 /**
  * Generated bundle index. Do not edit.
  */
+
 export { MatProgressSpinnerModule, PROGRESS_SPINNER_STROKE_WIDTH, MatProgressSpinnerCssMatStyler, MatProgressSpinnerBase, _MatProgressSpinnerMixinBase, MatProgressSpinner, MatSpinner };
 //# sourceMappingURL=progress-spinner.es5.js.map
