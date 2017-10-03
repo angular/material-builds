@@ -1241,6 +1241,7 @@ class MatDatepicker {
         this._dialogRef = this._dialog.open(MatDatepickerContent, {
             direction: this._dir ? this._dir.value : 'ltr',
             viewContainerRef: this._viewContainerRef,
+            panelClass: 'mat-datepicker-dialog',
         });
         this._dialogRef.afterClosed().subscribe(() => this.close());
         this._dialogRef.componentInstance.datepicker = this;
@@ -1276,7 +1277,8 @@ class MatDatepicker {
             hasBackdrop: true,
             backdropClass: 'mat-overlay-transparent-backdrop',
             direction: this._dir ? this._dir.value : 'ltr',
-            scrollStrategy: this._scrollStrategy()
+            scrollStrategy: this._scrollStrategy(),
+            panelClass: 'mat-datepicker-popup',
         });
         this._popupRef = this._overlay.create(overlayConfig);
     }
