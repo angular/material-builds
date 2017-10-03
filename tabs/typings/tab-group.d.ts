@@ -59,6 +59,11 @@ export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterC
     /** Event emitted when focus has changed within a tab group. */
     focusChange: EventEmitter<MatTabChangeEvent>;
     /** Event emitted when the tab selection has changed. */
+    selectedTabChange: EventEmitter<MatTabChangeEvent>;
+    /**
+     * Event emitted when the tab selection has changed.
+     * @deprecated Use `selectedTabChange` instead.
+     */
     selectChange: EventEmitter<MatTabChangeEvent>;
     private _groupId;
     constructor(_renderer: Renderer2, elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef);

@@ -10,8 +10,9 @@ import * as tslib_1 from 'tslib';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { MatCommonModule, UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher, mixinDisabled } from '@angular/material/core';
+import { MatCommonModule, mixinDisabled } from '@angular/material/core';
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
+import { UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher } from '@angular/cdk/collections';
 
 /**
  * \@docs-private

@@ -7,9 +7,9 @@
  */
 import { ElementRef, Renderer2, EventEmitter, OnInit, OnDestroy, QueryList, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { UniqueSelectionDispatcher } from '@angular/material/core';
 import { CanDisable } from '@angular/material/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 /** Acceptable types for a button toggle. */
 export declare type ToggleType = 'checkbox' | 'radio';
 /** @docs-private */

@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
-import { CanDisable, UniqueSelectionDispatcher } from '@angular/material/core';
+import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
+import { CanDisable } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
 import { MatAccordion } from './accordion';
 import { AccordionItem } from './accordion-item';

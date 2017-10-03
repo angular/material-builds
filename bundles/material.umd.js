@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/observers'), require('@angular/cdk/collections'), require('rxjs/Subscription'), require('rxjs/observable/defer'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operator/first'), require('rxjs/operator/startWith'), require('rxjs/operator/takeUntil'), require('@angular/cdk/table'), require('@angular/cdk/stepper')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/rxjs', '@angular/forms', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/observers', '@angular/cdk/collections', 'rxjs/Subscription', 'rxjs/observable/defer', '@angular/http', 'rxjs/Observable', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operator/first', 'rxjs/operator/startWith', 'rxjs/operator/takeUntil', '@angular/cdk/table', '@angular/cdk/stepper'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.rxjs,global.ng.forms,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.observers,global.ng.cdk.collections,global.Rx,global.Rx.Observable,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.ng.cdk.table,global.ng.cdk.stepper));
-}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_rxjs,_angular_forms,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_observers,_angular_cdk_collections,rxjs_Subscription,rxjs_observable_defer,_angular_http,rxjs_Observable,rxjs_observable_forkJoin,rxjs_observable_throw,rxjs_operator_first,rxjs_operator_startWith,rxjs_operator_takeUntil,_angular_cdk_table,_angular_cdk_stepper) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/observable/defer'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operator/first'), require('rxjs/operator/startWith'), require('rxjs/operator/takeUntil'), require('@angular/cdk/table'), require('@angular/cdk/stepper')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/rxjs', '@angular/forms', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/observable/defer', '@angular/http', 'rxjs/Observable', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operator/first', 'rxjs/operator/startWith', 'rxjs/operator/takeUntil', '@angular/cdk/table', '@angular/cdk/stepper'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.rxjs,global.ng.forms,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.Rx.Observable,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.ng.cdk.table,global.ng.cdk.stepper));
+}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_rxjs,_angular_forms,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_collections,_angular_cdk_observers,rxjs_Subscription,rxjs_observable_defer,_angular_http,rxjs_Observable,rxjs_observable_forkJoin,rxjs_observable_throw,rxjs_operator_first,rxjs_operator_startWith,rxjs_operator_takeUntil,_angular_cdk_table,_angular_cdk_stepper) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -383,73 +383,6 @@ function mixinTabIndex(base, defaultTabIndex) {
         return class_1;
     }(base));
 }
-
-/**
- * Class to coordinate unique selection based on name.
- * Intended to be consumed as an Angular service.
- * This service is needed because native radio change events are only fired on the item currently
- * being selected, and we still need to uncheck the previous selection.
- *
- * This service does not *store* any IDs and names because they may change at any time, so it is
- * less error-prone if they are simply passed through when the events occur.
- */
-var UniqueSelectionDispatcher = (function () {
-    function UniqueSelectionDispatcher() {
-        this._listeners = [];
-    }
-    /**
-     * Notify other items that selection for the given name has been set.
-     * @param {?} id ID of the item.
-     * @param {?} name Name of the item.
-     * @return {?}
-     */
-    UniqueSelectionDispatcher.prototype.notify = function (id, name) {
-        for (var _i = 0, _a = this._listeners; _i < _a.length; _i++) {
-            var listener = _a[_i];
-            listener(id, name);
-        }
-    };
-    /**
-     * Listen for future changes to item selection.
-     * @param {?} listener
-     * @return {?} Function used to deregister listener
-     *
-     */
-    UniqueSelectionDispatcher.prototype.listen = function (listener) {
-        var _this = this;
-        this._listeners.push(listener);
-        return function () {
-            _this._listeners = _this._listeners.filter(function (registered) {
-                return listener !== registered;
-            });
-        };
-    };
-    UniqueSelectionDispatcher.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /**
-     * @nocollapse
-     */
-    UniqueSelectionDispatcher.ctorParameters = function () { return []; };
-    return UniqueSelectionDispatcher;
-}());
-/**
- * \@docs-private
- * @param {?} parentDispatcher
- * @return {?}
- */
-function UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY(parentDispatcher) {
-    return parentDispatcher || new UniqueSelectionDispatcher();
-}
-/**
- * \@docs-private
- */
-var UNIQUE_SELECTION_DISPATCHER_PROVIDER = {
-    // If there is already a dispatcher available, use that. Otherwise, provide a new one.
-    provide: UniqueSelectionDispatcher,
-    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), UniqueSelectionDispatcher]],
-    useFactory: UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY
-};
 
 /**
  * InjectionToken for datepicker that can be used to override default locale code.
@@ -4335,7 +4268,7 @@ var MatButtonToggle = (function () {
         { type: MatButtonToggleGroup, decorators: [{ type: _angular_core.Optional },] },
         { type: MatButtonToggleGroupMultiple, decorators: [{ type: _angular_core.Optional },] },
         { type: _angular_core.ChangeDetectorRef, },
-        { type: UniqueSelectionDispatcher, },
+        { type: _angular_cdk_collections.UniqueSelectionDispatcher, },
         { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_a11y.FocusMonitor, },
@@ -4367,7 +4300,7 @@ var MatButtonToggleModule = (function () {
                         MatCommonModule,
                     ],
                     declarations: [MatButtonToggleGroup, MatButtonToggleGroupMultiple, MatButtonToggle],
-                    providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER]
+                    providers: [_angular_cdk_collections.UNIQUE_SELECTION_DISPATCHER_PROVIDER]
                 },] },
     ];
     /**
@@ -10368,7 +10301,7 @@ var AccordionItem = (function () {
     AccordionItem.ctorParameters = function () { return [
         { type: CdkAccordion, decorators: [{ type: _angular_core.Optional },] },
         { type: _angular_core.ChangeDetectorRef, },
-        { type: UniqueSelectionDispatcher, },
+        { type: _angular_cdk_collections.UniqueSelectionDispatcher, },
     ]; };
     AccordionItem.propDecorators = {
         'closed': [{ type: _angular_core.Output },],
@@ -10498,7 +10431,7 @@ var MatExpansionPanel = (function (_super) {
     MatExpansionPanel.ctorParameters = function () { return [
         { type: MatAccordion, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Host },] },
         { type: _angular_core.ChangeDetectorRef, },
-        { type: UniqueSelectionDispatcher, },
+        { type: _angular_cdk_collections.UniqueSelectionDispatcher, },
     ]; };
     MatExpansionPanel.propDecorators = {
         'hideToggle': [{ type: _angular_core.Input },],
@@ -10738,7 +10671,7 @@ var MatExpansionModule = (function () {
                         MatExpansionPanelTitle,
                         MatExpansionPanelDescription
                     ],
-                    providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER]
+                    providers: [_angular_cdk_collections.UNIQUE_SELECTION_DISPATCHER_PROVIDER]
                 },] },
     ];
     /**
@@ -17540,7 +17473,7 @@ var MatRadioButton = (function (_super) {
         { type: _angular_core.Renderer2, },
         { type: _angular_core.ChangeDetectorRef, },
         { type: _angular_cdk_a11y.FocusMonitor, },
-        { type: UniqueSelectionDispatcher, },
+        { type: _angular_cdk_collections.UniqueSelectionDispatcher, },
     ]; };
     MatRadioButton.propDecorators = {
         'id': [{ type: _angular_core.Input },],
@@ -17567,7 +17500,7 @@ var MatRadioModule = (function () {
         { type: _angular_core.NgModule, args: [{
                     imports: [_angular_common.CommonModule, MatRippleModule, MatCommonModule, _angular_cdk_a11y.A11yModule],
                     exports: [MatRadioGroup, MatRadioButton, MatCommonModule],
-                    providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, _angular_cdk_overlay.VIEWPORT_RULER_PROVIDER],
+                    providers: [_angular_cdk_collections.UNIQUE_SELECTION_DISPATCHER_PROVIDER, _angular_cdk_overlay.VIEWPORT_RULER_PROVIDER],
                     declarations: [MatRadioGroup, MatRadioButton],
                 },] },
     ];
@@ -21736,11 +21669,11 @@ var MatTabBody = (function () {
         /**
          * Event emitted when the tab begins to animate towards the center as the active tab.
          */
-        this.onCentering = new _angular_core.EventEmitter();
+        this._onCentering = new _angular_core.EventEmitter();
         /**
          * Event emitted when the tab completes its animation towards the center.
          */
-        this.onCentered = new _angular_core.EventEmitter(true);
+        this._onCentered = new _angular_core.EventEmitter(true);
     }
     Object.defineProperty(MatTabBody.prototype, "position", {
         /**
@@ -21808,7 +21741,7 @@ var MatTabBody = (function () {
      */
     MatTabBody.prototype._onTranslateTabStarted = function (e) {
         if (this._isCenterPosition(e.toState)) {
-            this.onCentering.emit(this._elementRef.nativeElement.clientHeight);
+            this._onCentering.emit(this._elementRef.nativeElement.clientHeight);
         }
     };
     /**
@@ -21822,7 +21755,7 @@ var MatTabBody = (function () {
         }
         // If the transition to the center is complete, emit an event.
         if (this._isCenterPosition(e.toState) && this._isCenterPosition(this._position)) {
-            this.onCentered.emit();
+            this._onCentered.emit();
         }
     };
     /**
@@ -21880,8 +21813,8 @@ var MatTabBody = (function () {
     ]; };
     MatTabBody.propDecorators = {
         '_portalHost': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.PortalHostDirective,] },],
-        'onCentering': [{ type: _angular_core.Output },],
-        'onCentered': [{ type: _angular_core.Output },],
+        '_onCentering': [{ type: _angular_core.Output },],
+        '_onCentered': [{ type: _angular_core.Output },],
         '_content': [{ type: _angular_core.Input, args: ['content',] },],
         'position': [{ type: _angular_core.Input, args: ['position',] },],
         'origin': [{ type: _angular_core.Input, args: ['origin',] },],
@@ -21968,7 +21901,12 @@ var MatTabGroup = (function (_super) {
         /**
          * Event emitted when the tab selection has changed.
          */
-        _this.selectChange = new _angular_core.EventEmitter(true);
+        _this.selectedTabChange = new _angular_core.EventEmitter(true);
+        /**
+         * Event emitted when the tab selection has changed.
+         * @deprecated Use `selectedTabChange` instead.
+         */
+        _this.selectChange = _this.selectedTabChange;
         _this._groupId = nextId$1$1++;
         return _this;
     }
@@ -22053,7 +21991,8 @@ var MatTabGroup = (function (_super) {
         // If there is a change in selected index, emit a change event. Should not trigger if
         // the selected index has not yet been initialized.
         if (this._selectedIndex != indexToSelect && this._selectedIndex != null) {
-            this.selectChange.emit(this._createChangeEvent(indexToSelect));
+            var /** @type {?} */ tabChangeEvent = this._createChangeEvent(indexToSelect);
+            this.selectedTabChange.emit(tabChangeEvent);
             // Emitting this value after change detection has run
             // since the checked content may contain this variable'
             Promise.resolve().then(function () { return _this.selectedIndexChange.emit(indexToSelect); });
@@ -22179,7 +22118,7 @@ var MatTabGroup = (function (_super) {
     };
     MatTabGroup.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-tab-group',
-                    template: "<mat-tab-header #tabHeader [selectedIndex]=\"selectedIndex\" [disableRipple]=\"disableRipple\" (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" matTabLabelWrapper mat-ripple *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [tabIndex]=\"selectedIndex == i ? 0 : -1\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" [matRippleDisabled]=\"disableRipple\" (click)=\"tabHeader.focusIndex = selectedIndex = i\"><ng-template [ngIf]=\"tab.templateLabel\"><ng-template [cdkPortalHost]=\"tab.templateLabel\"></ng-template></ng-template><ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template></div></mat-tab-header><div class=\"mat-tab-body-wrapper\" #tabBodyWrapper><mat-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (onCentered)=\"_removeTabBodyWrapperHeight()\" (onCentering)=\"_setTabBodyWrapperHeight($event)\"></mat-tab-body></div>",
+                    template: "<mat-tab-header #tabHeader [selectedIndex]=\"selectedIndex\" [disableRipple]=\"disableRipple\" (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" matTabLabelWrapper mat-ripple *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [tabIndex]=\"selectedIndex == i ? 0 : -1\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" [matRippleDisabled]=\"disableRipple\" (click)=\"tabHeader.focusIndex = selectedIndex = i\"><ng-template [ngIf]=\"tab.templateLabel\"><ng-template [cdkPortalHost]=\"tab.templateLabel\"></ng-template></ng-template><ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template></div></mat-tab-header><div class=\"mat-tab-body-wrapper\" #tabBodyWrapper><mat-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (_onCentered)=\"_removeTabBodyWrapperHeight()\" (_onCentering)=\"_setTabBodyWrapperHeight($event)\"></mat-tab-body></div>",
                     styles: [".mat-tab-group{display:flex;flex-direction:column}.mat-tab-group.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0;opacity:1}.mat-tab-label.mat-tab-disabled{cursor:default;pointer-events:none}@media (max-width:600px){.mat-tab-label{padding:0 12px}}@media (max-width:960px){.mat-tab-label{padding:0 12px}}.mat-tab-group[mat-stretch-tabs] .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height .5s cubic-bezier(.35,0,.25,1)}.mat-tab-body{top:0;left:0;right:0;bottom:0;position:absolute;display:block;overflow:hidden}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}.mat-tab-group.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}"],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -22210,6 +22149,7 @@ var MatTabGroup = (function (_super) {
         'backgroundColor': [{ type: _angular_core.Input },],
         'selectedIndexChange': [{ type: _angular_core.Output },],
         'focusChange': [{ type: _angular_core.Output },],
+        'selectedTabChange': [{ type: _angular_core.Output },],
         'selectChange': [{ type: _angular_core.Output },],
     };
     return MatTabGroup;
@@ -23222,9 +23162,6 @@ exports.MatPrefixRejector = MatPrefixRejector;
 exports.MdPrefixRejector = MdPrefixRejector;
 exports.CompatibilityModule = CompatibilityModule;
 exports.NoConflictStyleCompatibilityMode = NoConflictStyleCompatibilityMode;
-exports.UniqueSelectionDispatcher = UniqueSelectionDispatcher;
-exports.UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY = UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY;
-exports.UNIQUE_SELECTION_DISPATCHER_PROVIDER = UNIQUE_SELECTION_DISPATCHER_PROVIDER;
 exports.NativeDateModule = NativeDateModule;
 exports.MatNativeDateModule = MatNativeDateModule;
 exports.MAT_DATE_LOCALE = MAT_DATE_LOCALE;

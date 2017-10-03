@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('@angular/cdk/coercion'), require('@angular/cdk/bidi'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/forms', '@angular/cdk/coercion', '@angular/cdk/bidi', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material['button-toggle'] = global.ng.material['button-toggle'] || {}),global.ng.core,global.ng.forms,global.ng.cdk.coercion,global.ng.cdk.bidi,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y));
-}(this, (function (exports,_angular_core,_angular_forms,_angular_cdk_coercion,_angular_cdk_bidi,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('@angular/cdk/coercion'), require('@angular/cdk/bidi'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/collections')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/forms', '@angular/cdk/coercion', '@angular/cdk/bidi', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/collections'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material['button-toggle'] = global.ng.material['button-toggle'] || {}),global.ng.core,global.ng.forms,global.ng.cdk.coercion,global.ng.cdk.bidi,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.collections));
+}(this, (function (exports,_angular_core,_angular_forms,_angular_cdk_coercion,_angular_cdk_bidi,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_collections) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -209,73 +209,6 @@ function mixinDisabled(base) {
         return class_1;
     }(base));
 }
-
-/**
- * Class to coordinate unique selection based on name.
- * Intended to be consumed as an Angular service.
- * This service is needed because native radio change events are only fired on the item currently
- * being selected, and we still need to uncheck the previous selection.
- *
- * This service does not *store* any IDs and names because they may change at any time, so it is
- * less error-prone if they are simply passed through when the events occur.
- */
-var UniqueSelectionDispatcher = (function () {
-    function UniqueSelectionDispatcher() {
-        this._listeners = [];
-    }
-    /**
-     * Notify other items that selection for the given name has been set.
-     * @param {?} id ID of the item.
-     * @param {?} name Name of the item.
-     * @return {?}
-     */
-    UniqueSelectionDispatcher.prototype.notify = function (id, name) {
-        for (var _i = 0, _a = this._listeners; _i < _a.length; _i++) {
-            var listener = _a[_i];
-            listener(id, name);
-        }
-    };
-    /**
-     * Listen for future changes to item selection.
-     * @param {?} listener
-     * @return {?} Function used to deregister listener
-     *
-     */
-    UniqueSelectionDispatcher.prototype.listen = function (listener) {
-        var _this = this;
-        this._listeners.push(listener);
-        return function () {
-            _this._listeners = _this._listeners.filter(function (registered) {
-                return listener !== registered;
-            });
-        };
-    };
-    UniqueSelectionDispatcher.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /**
-     * @nocollapse
-     */
-    UniqueSelectionDispatcher.ctorParameters = function () { return []; };
-    return UniqueSelectionDispatcher;
-}());
-/**
- * \@docs-private
- * @param {?} parentDispatcher
- * @return {?}
- */
-function UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY(parentDispatcher) {
-    return parentDispatcher || new UniqueSelectionDispatcher();
-}
-/**
- * \@docs-private
- */
-var UNIQUE_SELECTION_DISPATCHER_PROVIDER = {
-    // If there is already a dispatcher available, use that. Otherwise, provide a new one.
-    provide: UniqueSelectionDispatcher,
-    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), UniqueSelectionDispatcher]],
-    useFactory: UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY
-};
 
 /**
  * InjectionToken for datepicker that can be used to override default locale code.
@@ -2306,7 +2239,7 @@ var MatButtonToggle = (function () {
         { type: MatButtonToggleGroup, decorators: [{ type: _angular_core.Optional },] },
         { type: MatButtonToggleGroupMultiple, decorators: [{ type: _angular_core.Optional },] },
         { type: _angular_core.ChangeDetectorRef, },
-        { type: UniqueSelectionDispatcher, },
+        { type: _angular_cdk_collections.UniqueSelectionDispatcher, },
         { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_a11y.FocusMonitor, },
@@ -2338,7 +2271,7 @@ var MatButtonToggleModule = (function () {
                         MatCommonModule,
                     ],
                     declarations: [MatButtonToggleGroup, MatButtonToggleGroupMultiple, MatButtonToggle],
-                    providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER]
+                    providers: [_angular_cdk_collections.UNIQUE_SELECTION_DISPATCHER_PROVIDER]
                 },] },
     ];
     /**

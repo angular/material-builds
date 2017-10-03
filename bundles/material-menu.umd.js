@@ -211,73 +211,6 @@ function mixinDisabled(base) {
 }
 
 /**
- * Class to coordinate unique selection based on name.
- * Intended to be consumed as an Angular service.
- * This service is needed because native radio change events are only fired on the item currently
- * being selected, and we still need to uncheck the previous selection.
- *
- * This service does not *store* any IDs and names because they may change at any time, so it is
- * less error-prone if they are simply passed through when the events occur.
- */
-var UniqueSelectionDispatcher = (function () {
-    function UniqueSelectionDispatcher() {
-        this._listeners = [];
-    }
-    /**
-     * Notify other items that selection for the given name has been set.
-     * @param {?} id ID of the item.
-     * @param {?} name Name of the item.
-     * @return {?}
-     */
-    UniqueSelectionDispatcher.prototype.notify = function (id, name) {
-        for (var _i = 0, _a = this._listeners; _i < _a.length; _i++) {
-            var listener = _a[_i];
-            listener(id, name);
-        }
-    };
-    /**
-     * Listen for future changes to item selection.
-     * @param {?} listener
-     * @return {?} Function used to deregister listener
-     *
-     */
-    UniqueSelectionDispatcher.prototype.listen = function (listener) {
-        var _this = this;
-        this._listeners.push(listener);
-        return function () {
-            _this._listeners = _this._listeners.filter(function (registered) {
-                return listener !== registered;
-            });
-        };
-    };
-    UniqueSelectionDispatcher.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /**
-     * @nocollapse
-     */
-    UniqueSelectionDispatcher.ctorParameters = function () { return []; };
-    return UniqueSelectionDispatcher;
-}());
-/**
- * \@docs-private
- * @param {?} parentDispatcher
- * @return {?}
- */
-function UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY(parentDispatcher) {
-    return parentDispatcher || new UniqueSelectionDispatcher();
-}
-/**
- * \@docs-private
- */
-var UNIQUE_SELECTION_DISPATCHER_PROVIDER = {
-    // If there is already a dispatcher available, use that. Otherwise, provide a new one.
-    provide: UniqueSelectionDispatcher,
-    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), UniqueSelectionDispatcher]],
-    useFactory: UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY
-};
-
-/**
  * InjectionToken for datepicker that can be used to override default locale code.
  */
 var MAT_DATE_LOCALE = new _angular_core.InjectionToken('MAT_DATE_LOCALE');
@@ -2663,10 +2596,10 @@ exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports.MatMenuItem = MatMenuItem;
 exports.MatMenuTrigger = MatMenuTrigger;
-exports.ɵa23 = MatMenuItemBase;
-exports.ɵb23 = _MatMenuItemMixinBase;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa22 = MatMenuItemBase;
+exports.ɵb22 = _MatMenuItemMixinBase;
+exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -7,12 +7,13 @@
  */
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Host, Injectable, Input, NgModule, Optional, Output, Renderer2, ViewEncapsulation, forwardRef } from '@angular/core';
-import { UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher, mixinDisabled } from '@angular/material/core';
+import { UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { mixinDisabled } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { filter } from '@angular/cdk/rxjs';
@@ -614,5 +615,5 @@ var MatExpansionModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { CdkAccordion, MatAccordion, AccordionItem, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionModule, EXPANSION_PANEL_ANIMATION_TIMING as ɵc17, MatExpansionPanelBase as ɵa17, _MatExpansionPanelMixinBase as ɵb17 };
+export { CdkAccordion, MatAccordion, AccordionItem, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionModule, EXPANSION_PANEL_ANIMATION_TIMING as ɵc15, MatExpansionPanelBase as ɵa15, _MatExpansionPanelMixinBase as ɵb15 };
 //# sourceMappingURL=expansion.es5.js.map

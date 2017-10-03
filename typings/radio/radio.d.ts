@@ -7,7 +7,8 @@
  */
 import { AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList, Renderer2 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanColor, CanDisable, CanDisableRipple, MatRipple, UniqueSelectionDispatcher } from '@angular/material/core';
+import { CanColor, CanDisable, CanDisableRipple, MatRipple } from '@angular/material/core';
+import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { FocusMonitor } from '@angular/cdk/a11y';
 /**
  * Provider Expression that allows mat-radio-group to register as a ControlValueAccessor. This

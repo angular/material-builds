@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Input, LOCALE_ID, NgModule, NgZone, Optional, Output, SkipSelf, ViewEncapsulation, isDevMode } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Input, LOCALE_ID, NgModule, NgZone, Optional, Output, ViewEncapsulation, isDevMode } from '@angular/core';
 import { BidiModule } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs/Subject';
@@ -457,70 +457,6 @@ function mixinTabIndex(base, defaultTabIndex = 0) {
         }
     };
 }
-
-/**
- * Class to coordinate unique selection based on name.
- * Intended to be consumed as an Angular service.
- * This service is needed because native radio change events are only fired on the item currently
- * being selected, and we still need to uncheck the previous selection.
- *
- * This service does not *store* any IDs and names because they may change at any time, so it is
- * less error-prone if they are simply passed through when the events occur.
- */
-class UniqueSelectionDispatcher {
-    constructor() {
-        this._listeners = [];
-    }
-    /**
-     * Notify other items that selection for the given name has been set.
-     * @param {?} id ID of the item.
-     * @param {?} name Name of the item.
-     * @return {?}
-     */
-    notify(id, name) {
-        for (let /** @type {?} */ listener of this._listeners) {
-            listener(id, name);
-        }
-    }
-    /**
-     * Listen for future changes to item selection.
-     * @param {?} listener
-     * @return {?} Function used to deregister listener
-     *
-     */
-    listen(listener) {
-        this._listeners.push(listener);
-        return () => {
-            this._listeners = this._listeners.filter((registered) => {
-                return listener !== registered;
-            });
-        };
-    }
-}
-UniqueSelectionDispatcher.decorators = [
-    { type: Injectable },
-];
-/**
- * @nocollapse
- */
-UniqueSelectionDispatcher.ctorParameters = () => [];
-/**
- * \@docs-private
- * @param {?} parentDispatcher
- * @return {?}
- */
-function UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY(parentDispatcher) {
-    return parentDispatcher || new UniqueSelectionDispatcher();
-}
-/**
- * \@docs-private
- */
-const UNIQUE_SELECTION_DISPATCHER_PROVIDER = {
-    // If there is already a dispatcher available, use that. Otherwise, provide a new one.
-    provide: UniqueSelectionDispatcher,
-    deps: [[new Optional(), new SkipSelf(), UniqueSelectionDispatcher]],
-    useFactory: UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY
-};
 
 /**
  * InjectionToken for datepicker that can be used to override default locale code.
@@ -2172,5 +2108,5 @@ const DEC = 11;
  * Generated bundle index. Do not edit.
  */
 
-export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, MATERIAL_COMPATIBILITY_MODE, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, CompatibilityModule, NoConflictStyleCompatibilityMode, UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER_FACTORY, UNIQUE_SELECTION_DISPATCHER_PROVIDER, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, MAT_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_PLACEHOLDER_GLOBAL_OPTIONS, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MatRippleModule, MatPseudoCheckboxModule, MatPseudoCheckbox, applyCssTransform, extendObject, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, RippleRenderer as ɵa0 };
+export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, MATERIAL_COMPATIBILITY_MODE, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, CompatibilityModule, NoConflictStyleCompatibilityMode, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, MAT_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_PLACEHOLDER_GLOBAL_OPTIONS, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MatRippleModule, MatPseudoCheckboxModule, MatPseudoCheckbox, applyCssTransform, extendObject, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, RippleRenderer as ɵa0 };
 //# sourceMappingURL=core.js.map

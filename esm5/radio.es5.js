@@ -8,11 +8,12 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VIEWPORT_RULER_PROVIDER } from '@angular/cdk/overlay';
-import { MatCommonModule, MatRipple, MatRippleModule, UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
+import { MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 
 // Increasing integer for generating unique ids for radio components.
