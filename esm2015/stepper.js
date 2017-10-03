@@ -9,11 +9,12 @@ import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { PortalModule } from '@angular/cdk/portal';
 import { CdkStep, CdkStepLabel, CdkStepper, CdkStepperModule, CdkStepperNext, CdkStepperPrevious } from '@angular/cdk/stepper';
 import { CommonModule } from '@angular/common';
-import { Component, ContentChild, ContentChildren, Directive, ElementRef, Inject, Input, NgModule, Optional, Renderer2, SkipSelf, TemplateRef, ViewChildren, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, Inject, Injectable, Input, NgModule, Optional, Renderer2, SkipSelf, TemplateRef, ViewChildren, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_ERROR_GLOBAL_OPTIONS, MatCommonModule, MatRippleModule, defaultErrorStateMatcher } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
+import { Subject } from 'rxjs/Subject';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 /**
@@ -40,16 +41,44 @@ MatStepLabel.ctorParameters = () => [
     { type: TemplateRef, },
 ];
 
+/**
+ * Stepper data that is required for internationalization.
+ */
+class MatStepperIntl {
+    constructor() {
+        /**
+         * Stream that emits whenever the labels here are changed. Use this to notify
+         * components if the labels have changed after initialization.
+         */
+        this.changes = new Subject();
+        /**
+         * Label that is rendered below optional steps.
+         */
+        this.optionalLabel = 'Optional';
+    }
+}
+MatStepperIntl.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+MatStepperIntl.ctorParameters = () => [];
+
 class MatStepHeader {
     /**
+     * @param {?} _intl
      * @param {?} _focusMonitor
      * @param {?} _element
      * @param {?} renderer
+     * @param {?} changeDetectorRef
      */
-    constructor(_focusMonitor, _element, renderer) {
+    constructor(_intl, _focusMonitor, _element, renderer, changeDetectorRef) {
+        this._intl = _intl;
         this._focusMonitor = _focusMonitor;
         this._element = _element;
         _focusMonitor.monitor(_element.nativeElement, renderer, true);
+        this._intlSubscription = _intl.changes.subscribe(() => changeDetectorRef.markForCheck());
     }
     /**
      * Index of the given step.
@@ -103,6 +132,7 @@ class MatStepHeader {
      * @return {?}
      */
     ngOnDestroy() {
+        this._intlSubscription.unsubscribe();
         this._focusMonitor.stopMonitoring(this._element.nativeElement);
     }
     /**
@@ -129,7 +159,7 @@ class MatStepHeader {
 }
 MatStepHeader.decorators = [
     { type: Component, args: [{selector: 'mat-step-header',
-                template: "<div class=\"mat-step-header-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\"></div><div [class.mat-step-icon]=\"icon !== 'number' || selected\" [class.mat-step-icon-not-touched]=\"icon == 'number' && !selected\" [ngSwitch]=\"icon\"><span *ngSwitchCase=\"'number'\">{{index + 1}}</span><mat-icon *ngSwitchCase=\"'edit'\">create</mat-icon><mat-icon *ngSwitchCase=\"'done'\">done</mat-icon></div><div class=\"mat-step-label\" [class.mat-step-label-active]=\"active\" [class.mat-step-label-selected]=\"selected\"><ng-container *ngIf=\"_templateLabel()\" [ngTemplateOutlet]=\"label.template\"></ng-container><div class=\"mat-step-text-label\" *ngIf=\"_stringLabel()\">{{label}}</div><div class=\"mat-step-optional\" *ngIf=\"optional\">Optional</div></div>",
+                template: "<div class=\"mat-step-header-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\"></div><div [class.mat-step-icon]=\"icon !== 'number' || selected\" [class.mat-step-icon-not-touched]=\"icon == 'number' && !selected\" [ngSwitch]=\"icon\"><span *ngSwitchCase=\"'number'\">{{index + 1}}</span><mat-icon *ngSwitchCase=\"'edit'\">create</mat-icon><mat-icon *ngSwitchCase=\"'done'\">done</mat-icon></div><div class=\"mat-step-label\" [class.mat-step-label-active]=\"active\" [class.mat-step-label-selected]=\"selected\"><ng-container *ngIf=\"_templateLabel()\" [ngTemplateOutlet]=\"label.template\"></ng-container><div class=\"mat-step-text-label\" *ngIf=\"_stringLabel()\">{{label}}</div><div class=\"mat-step-optional\" *ngIf=\"optional\">{{_intl.optionalLabel}}</div></div>",
                 styles: [".mat-step-header{overflow:hidden;outline:0;cursor:pointer;position:relative}.mat-step-optional{font-size:12px}.mat-step-icon,.mat-step-icon-not-touched{border-radius:50%;height:24px;width:24px;align-items:center;justify-content:center;display:flex}.mat-step-icon .mat-icon{font-size:16px;height:16px;width:16px}.mat-step-label{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle}.mat-step-text-label{text-overflow:ellipsis;overflow:hidden}.mat-step-header-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
                 host: {
                     'class': 'mat-step-header',
@@ -143,9 +173,11 @@ MatStepHeader.decorators = [
  * @nocollapse
  */
 MatStepHeader.ctorParameters = () => [
+    { type: MatStepperIntl, },
     { type: FocusMonitor, },
     { type: ElementRef, },
     { type: Renderer2, },
+    { type: ChangeDetectorRef, },
 ];
 MatStepHeader.propDecorators = {
     'icon': [{ type: Input },],
@@ -342,6 +374,7 @@ MatStepperModule.decorators = [
                 ],
                 declarations: [MatHorizontalStepper, MatVerticalStepper, MatStep, MatStepLabel, MatStepper,
                     MatStepperNext, MatStepperPrevious, MatStepHeader],
+                providers: [MatStepperIntl],
             },] },
 ];
 /**
@@ -353,5 +386,5 @@ MatStepperModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatStepperModule, _MatStepLabel, MatStepLabel, _MatStep, _MatStepper, MatStep, MatStepper, MatHorizontalStepper, MatVerticalStepper, _MatStepperNext, _MatStepperPrevious, MatStepperNext, MatStepperPrevious, MatStepHeader };
+export { MatStepperModule, _MatStepLabel, MatStepLabel, _MatStep, _MatStepper, MatStep, MatStepper, MatHorizontalStepper, MatVerticalStepper, _MatStepperNext, _MatStepperPrevious, MatStepperNext, MatStepperPrevious, MatStepHeader, MatStepperIntl };
 //# sourceMappingURL=stepper.js.map

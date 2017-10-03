@@ -1579,5 +1579,5 @@ var MatTabsModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatInkBar, MatTabBody, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, MatTabBase as ɵe1, _MatTabMixinBase as ɵf1, MatTabHeaderBase as ɵa1, _MatTabHeaderMixinBase as ɵb1, MatTabLabelWrapperBase as ɵc1, _MatTabLabelWrapperMixinBase as ɵd1, MatTabLinkBase as ɵi1, MatTabNavBase as ɵg1, _MatTabLinkMixinBase as ɵj1, _MatTabNavMixinBase as ɵh1 };
+export { MatInkBar, MatTabBody, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, MatTabBase as ɵe23, _MatTabMixinBase as ɵf23, MatTabHeaderBase as ɵa23, _MatTabHeaderMixinBase as ɵb23, MatTabLabelWrapperBase as ɵc23, _MatTabLabelWrapperMixinBase as ɵd23, MatTabLinkBase as ɵi23, MatTabNavBase as ɵg23, _MatTabLinkMixinBase as ɵj23, _MatTabNavMixinBase as ɵh23 };
 //# sourceMappingURL=tabs.es5.js.map

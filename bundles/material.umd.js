@@ -20822,16 +20822,45 @@ var MatStepLabel = (function (_super) {
     return MatStepLabel;
 }(_MatStepLabel));
 
+/**
+ * Stepper data that is required for internationalization.
+ */
+var MatStepperIntl = (function () {
+    function MatStepperIntl() {
+        /**
+         * Stream that emits whenever the labels here are changed. Use this to notify
+         * components if the labels have changed after initialization.
+         */
+        this.changes = new rxjs_Subject.Subject();
+        /**
+         * Label that is rendered below optional steps.
+         */
+        this.optionalLabel = 'Optional';
+    }
+    MatStepperIntl.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatStepperIntl.ctorParameters = function () { return []; };
+    return MatStepperIntl;
+}());
+
 var MatStepHeader = (function () {
     /**
+     * @param {?} _intl
      * @param {?} _focusMonitor
      * @param {?} _element
      * @param {?} renderer
+     * @param {?} changeDetectorRef
      */
-    function MatStepHeader(_focusMonitor, _element, renderer) {
+    function MatStepHeader(_intl, _focusMonitor, _element, renderer, changeDetectorRef) {
+        this._intl = _intl;
         this._focusMonitor = _focusMonitor;
         this._element = _element;
         _focusMonitor.monitor(_element.nativeElement, renderer, true);
+        this._intlSubscription = _intl.changes.subscribe(function () { return changeDetectorRef.markForCheck(); });
     }
     Object.defineProperty(MatStepHeader.prototype, "index", {
         /**
@@ -20901,6 +20930,7 @@ var MatStepHeader = (function () {
      * @return {?}
      */
     MatStepHeader.prototype.ngOnDestroy = function () {
+        this._intlSubscription.unsubscribe();
         this._focusMonitor.stopMonitoring(this._element.nativeElement);
     };
     /**
@@ -20926,7 +20956,7 @@ var MatStepHeader = (function () {
     };
     MatStepHeader.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-step-header',
-                    template: "<div class=\"mat-step-header-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\"></div><div [class.mat-step-icon]=\"icon !== 'number' || selected\" [class.mat-step-icon-not-touched]=\"icon == 'number' && !selected\" [ngSwitch]=\"icon\"><span *ngSwitchCase=\"'number'\">{{index + 1}}</span><mat-icon *ngSwitchCase=\"'edit'\">create</mat-icon><mat-icon *ngSwitchCase=\"'done'\">done</mat-icon></div><div class=\"mat-step-label\" [class.mat-step-label-active]=\"active\" [class.mat-step-label-selected]=\"selected\"><ng-container *ngIf=\"_templateLabel()\" [ngTemplateOutlet]=\"label.template\"></ng-container><div class=\"mat-step-text-label\" *ngIf=\"_stringLabel()\">{{label}}</div><div class=\"mat-step-optional\" *ngIf=\"optional\">Optional</div></div>",
+                    template: "<div class=\"mat-step-header-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\"></div><div [class.mat-step-icon]=\"icon !== 'number' || selected\" [class.mat-step-icon-not-touched]=\"icon == 'number' && !selected\" [ngSwitch]=\"icon\"><span *ngSwitchCase=\"'number'\">{{index + 1}}</span><mat-icon *ngSwitchCase=\"'edit'\">create</mat-icon><mat-icon *ngSwitchCase=\"'done'\">done</mat-icon></div><div class=\"mat-step-label\" [class.mat-step-label-active]=\"active\" [class.mat-step-label-selected]=\"selected\"><ng-container *ngIf=\"_templateLabel()\" [ngTemplateOutlet]=\"label.template\"></ng-container><div class=\"mat-step-text-label\" *ngIf=\"_stringLabel()\">{{label}}</div><div class=\"mat-step-optional\" *ngIf=\"optional\">{{_intl.optionalLabel}}</div></div>",
                     styles: [".mat-step-header{overflow:hidden;outline:0;cursor:pointer;position:relative}.mat-step-optional{font-size:12px}.mat-step-icon,.mat-step-icon-not-touched{border-radius:50%;height:24px;width:24px;align-items:center;justify-content:center;display:flex}.mat-step-icon .mat-icon{font-size:16px;height:16px;width:16px}.mat-step-label{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle}.mat-step-text-label{text-overflow:ellipsis;overflow:hidden}.mat-step-header-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
                     host: {
                         'class': 'mat-step-header',
@@ -20940,9 +20970,11 @@ var MatStepHeader = (function () {
      * @nocollapse
      */
     MatStepHeader.ctorParameters = function () { return [
+        { type: MatStepperIntl, },
         { type: _angular_cdk_a11y.FocusMonitor, },
         { type: _angular_core.ElementRef, },
         { type: _angular_core.Renderer2, },
+        { type: _angular_core.ChangeDetectorRef, },
     ]; };
     MatStepHeader.propDecorators = {
         'icon': [{ type: _angular_core.Input },],
@@ -21170,6 +21202,7 @@ var MatStepperModule = (function () {
                     ],
                     declarations: [MatHorizontalStepper, MatVerticalStepper, MatStep, MatStepLabel, MatStepper,
                         MatStepperNext, MatStepperPrevious, MatStepHeader],
+                    providers: [MatStepperIntl],
                 },] },
     ];
     /**
@@ -23425,6 +23458,7 @@ exports._MatStepperPrevious = _MatStepperPrevious;
 exports.MatStepperNext = MatStepperNext;
 exports.MatStepperPrevious = MatStepperPrevious;
 exports.MatStepHeader = MatStepHeader;
+exports.MatStepperIntl = MatStepperIntl;
 exports.MatTableModule = MatTableModule;
 exports._MatCellDef = _MatCellDef;
 exports._MatHeaderCellDef = _MatHeaderCellDef;
