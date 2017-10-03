@@ -2621,10 +2621,10 @@ var MatGridListModule = (function () {
 exports.MatGridTile = MatGridTile;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
-exports.ɵb9 = MatGridAvatarCssMatStyler;
-exports.ɵd9 = MatGridTileFooterCssMatStyler;
-exports.ɵc9 = MatGridTileHeaderCssMatStyler;
-exports.ɵa9 = MatGridTileText;
+exports.ɵb12 = MatGridAvatarCssMatStyler;
+exports.ɵd12 = MatGridTileFooterCssMatStyler;
+exports.ɵc12 = MatGridTileHeaderCssMatStyler;
+exports.ɵa12 = MatGridTileText;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
