@@ -2195,9 +2195,9 @@ exports.MatExpansionPanelHeader = MatExpansionPanelHeader;
 exports.MatExpansionPanelDescription = MatExpansionPanelDescription;
 exports.MatExpansionPanelTitle = MatExpansionPanelTitle;
 exports.MatExpansionModule = MatExpansionModule;
-exports.ɵc15 = EXPANSION_PANEL_ANIMATION_TIMING;
-exports.ɵa15 = MatExpansionPanelBase;
-exports.ɵb15 = _MatExpansionPanelMixinBase;
+exports.ɵc16 = EXPANSION_PANEL_ANIMATION_TIMING;
+exports.ɵa16 = MatExpansionPanelBase;
+exports.ɵb16 = _MatExpansionPanelMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
