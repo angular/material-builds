@@ -1225,29 +1225,6 @@ class MatChipInput {
      */
     set addOnBlur(value) { this._addOnBlur = coerceBooleanProperty(value); }
     /**
-     * @param {?} value
-     * @return {?}
-     */
-    set matChipList(value) { this.chipList = value; }
-    /**
-     * @return {?}
-     */
-    get matAddOnBlur() { return this._addOnBlur; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set matAddOnBlur(value) { this.addOnBlur = value; }
-    /**
-     * @return {?}
-     */
-    get matSeparatorKeyCodes() { return this.separatorKeyCodes; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set matSeparatorKeyCodes(v) { this.separatorKeyCodes = v; }
-    /**
      * @return {?}
      */
     get empty() {
@@ -1327,9 +1304,6 @@ MatChipInput.propDecorators = {
     'addOnBlur': [{ type: Input, args: ['matChipInputAddOnBlur',] },],
     'separatorKeyCodes': [{ type: Input, args: ['matChipInputSeparatorKeyCodes',] },],
     'chipEnd': [{ type: Output, args: ['matChipInputTokenEnd',] },],
-    'matChipList': [{ type: Input, args: ['matChipInputFor',] },],
-    'matAddOnBlur': [{ type: Input, args: ['matChipInputAddOnBlur',] },],
-    'matSeparatorKeyCodes': [{ type: Input, args: ['matChipInputSeparatorKeyCodes',] },],
     'placeholder': [{ type: Input },],
 };
 

@@ -35,7 +35,6 @@ export declare class MatSortHeader implements MatSortable {
     /** Overrides the disable clear value of the containing MatSort for this MatSortable. */
     disableClear: boolean;
     private _disableClear;
-    _id: string;
     constructor(_intl: MatSortHeaderIntl, changeDetectorRef: ChangeDetectorRef, _sort: MatSort, _cdkColumnDef: CdkColumnDef);
     ngOnInit(): void;
     ngOnDestroy(): void;

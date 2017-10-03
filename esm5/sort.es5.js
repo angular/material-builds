@@ -272,19 +272,6 @@ var MatSortHeader = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatSortHeader.prototype, "_id", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.id; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.id = v; },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */
@@ -372,7 +359,6 @@ var MatSortHeader = (function () {
         'arrowPosition': [{ type: Input },],
         'start': [{ type: Input, args: ['start',] },],
         'disableClear': [{ type: Input },],
-        '_id': [{ type: Input, args: ['mat-sort-header',] },],
     };
     return MatSortHeader;
 }());

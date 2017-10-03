@@ -1350,41 +1350,6 @@ var MatChipInput = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatChipInput.prototype, "matChipList", {
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) { this.chipList = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatChipInput.prototype, "matAddOnBlur", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this._addOnBlur; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) { this.addOnBlur = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatChipInput.prototype, "matSeparatorKeyCodes", {
-        /**
-         * @return {?}
-         */
-        get: function () { return this.separatorKeyCodes; },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) { this.separatorKeyCodes = v; },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(MatChipInput.prototype, "empty", {
         /**
          * @return {?}
@@ -1468,9 +1433,6 @@ var MatChipInput = (function () {
         'addOnBlur': [{ type: Input, args: ['matChipInputAddOnBlur',] },],
         'separatorKeyCodes': [{ type: Input, args: ['matChipInputSeparatorKeyCodes',] },],
         'chipEnd': [{ type: Output, args: ['matChipInputTokenEnd',] },],
-        'matChipList': [{ type: Input, args: ['matChipInputFor',] },],
-        'matAddOnBlur': [{ type: Input, args: ['matChipInputAddOnBlur',] },],
-        'matSeparatorKeyCodes': [{ type: Input, args: ['matChipInputSeparatorKeyCodes',] },],
         'placeholder': [{ type: Input },],
     };
     return MatChipInput;

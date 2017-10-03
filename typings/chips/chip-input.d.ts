@@ -27,9 +27,6 @@ export declare class MatChipInput {
     separatorKeyCodes: number[];
     /** Emitted when a chip is to be added. */
     chipEnd: EventEmitter<MatChipInputEvent>;
-    matChipList: MatChipList;
-    matAddOnBlur: boolean;
-    matSeparatorKeyCodes: number[];
     placeholder: string;
     readonly empty: boolean;
     /** The native input element to which this directive is attached. */

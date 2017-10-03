@@ -261,15 +261,6 @@ class MatSortHeader {
     /**
      * @return {?}
      */
-    get _id() { return this.id; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set _id(v) { this.id = v; }
-    /**
-     * @return {?}
-     */
     ngOnInit() {
         if (!this.id && this._cdkColumnDef) {
             this.id = this._cdkColumnDef.name;
@@ -355,7 +346,6 @@ MatSortHeader.propDecorators = {
     'arrowPosition': [{ type: Input },],
     'start': [{ type: Input, args: ['start',] },],
     'disableClear': [{ type: Input },],
-    '_id': [{ type: Input, args: ['mat-sort-header',] },],
 };
 
 class MatSortModule {
