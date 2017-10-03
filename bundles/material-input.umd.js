@@ -2166,7 +2166,6 @@ var MatTextareaAutosize = (function () {
      */
     MatTextareaAutosize.prototype.ngAfterViewInit = function () {
         if (this._platform.isBrowser) {
-            this._cacheTextareaLineHeight();
             this.resizeToFitContent();
         }
     };
@@ -2181,7 +2180,7 @@ var MatTextareaAutosize = (function () {
         textarea.style[property] = value;
     };
     /**
-     * Cache the height of a single-row textarea.
+     * Cache the height of a single-row textarea if it has not already been cached.
      *
      * We need to know how large a single "row" of a textarea is in order to apply minRows and
      * maxRows. For the initial version, we will assume that the height of a single line in the
@@ -2189,6 +2188,9 @@ var MatTextareaAutosize = (function () {
      * @return {?}
      */
     MatTextareaAutosize.prototype._cacheTextareaLineHeight = function () {
+        if (this._cachedLineHeight) {
+            return;
+        }
         var /** @type {?} */ textarea = (this._elementRef.nativeElement);
         // Use a clone element because we have to override some styles.
         var /** @type {?} */ textareaClone = (textarea.cloneNode(false));
@@ -2220,13 +2222,21 @@ var MatTextareaAutosize = (function () {
      * @return {?}
      */
     MatTextareaAutosize.prototype.ngDoCheck = function () {
-        this.resizeToFitContent();
+        if (this._platform.isBrowser) {
+            this.resizeToFitContent();
+        }
     };
     /**
      * Resize the textarea to fit its content.
      * @return {?}
      */
     MatTextareaAutosize.prototype.resizeToFitContent = function () {
+        this._cacheTextareaLineHeight();
+        // If we haven't determined the line-height yet, we know we're still hidden and there's no point
+        // in checking the height of the textarea.
+        if (!this._cachedLineHeight) {
+            return;
+        }
         var /** @type {?} */ textarea = (this._elementRef.nativeElement);
         var /** @type {?} */ value = textarea.value;
         // Only resize of the value changed since these calculations can be expensive.

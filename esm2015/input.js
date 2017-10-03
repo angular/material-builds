@@ -77,7 +77,6 @@ class MatTextareaAutosize {
      */
     ngAfterViewInit() {
         if (this._platform.isBrowser) {
-            this._cacheTextareaLineHeight();
             this.resizeToFitContent();
         }
     }
@@ -92,7 +91,7 @@ class MatTextareaAutosize {
         textarea.style[property] = value;
     }
     /**
-     * Cache the height of a single-row textarea.
+     * Cache the height of a single-row textarea if it has not already been cached.
      *
      * We need to know how large a single "row" of a textarea is in order to apply minRows and
      * maxRows. For the initial version, we will assume that the height of a single line in the
@@ -100,6 +99,9 @@ class MatTextareaAutosize {
      * @return {?}
      */
     _cacheTextareaLineHeight() {
+        if (this._cachedLineHeight) {
+            return;
+        }
         let /** @type {?} */ textarea = (this._elementRef.nativeElement);
         // Use a clone element because we have to override some styles.
         let /** @type {?} */ textareaClone = (textarea.cloneNode(false));
@@ -131,13 +133,21 @@ class MatTextareaAutosize {
      * @return {?}
      */
     ngDoCheck() {
-        this.resizeToFitContent();
+        if (this._platform.isBrowser) {
+            this.resizeToFitContent();
+        }
     }
     /**
      * Resize the textarea to fit its content.
      * @return {?}
      */
     resizeToFitContent() {
+        this._cacheTextareaLineHeight();
+        // If we haven't determined the line-height yet, we know we're still hidden and there's no point
+        // in checking the height of the textarea.
+        if (!this._cachedLineHeight) {
+            return;
+        }
         const /** @type {?} */ textarea = (this._elementRef.nativeElement);
         const /** @type {?} */ value = textarea.value;
         // Only resize of the value changed since these calculations can be expensive.

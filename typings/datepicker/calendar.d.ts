@@ -33,7 +33,7 @@ export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnCh
     /** Emits when the currently selected date changes. */
     selectedChange: EventEmitter<D>;
     /** Emits when any date is selected. */
-    userSelection: EventEmitter<void>;
+    _userSelection: EventEmitter<void>;
     /** Reference to the current month view component. */
     monthView: MatMonthView<D>;
     /** Reference to the current year view component. */

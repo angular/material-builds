@@ -37,9 +37,9 @@ export declare class MatTabBody implements OnInit, AfterViewChecked {
     /** The portal host inside of this container into which the tab body content will be loaded. */
     _portalHost: PortalHostDirective;
     /** Event emitted when the tab begins to animate towards the center as the active tab. */
-    onCentering: EventEmitter<number>;
+    _onCentering: EventEmitter<number>;
     /** Event emitted when the tab completes its animation towards the center. */
-    onCentered: EventEmitter<void>;
+    _onCentered: EventEmitter<void>;
     /** The tab body content to display. */
     _content: TemplatePortal<any>;
     /** The shifted index position of the tab body, where zero represents the active center tab. */

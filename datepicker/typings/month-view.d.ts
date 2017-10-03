@@ -29,7 +29,7 @@ export declare class MatMonthView<D> implements AfterContentInit {
     /** Emits when a new date is selected. */
     selectedChange: EventEmitter<D | null>;
     /** Emits when any date is selected. */
-    userSelection: EventEmitter<void>;
+    _userSelection: EventEmitter<void>;
     /** The label for this month (e.g. "January 2017"). */
     _monthLabel: string;
     /** Grid of calendar cells representing the dates of the month. */

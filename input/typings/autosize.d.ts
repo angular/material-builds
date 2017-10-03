@@ -30,7 +30,7 @@ export declare class MatTextareaAutosize implements AfterViewInit, DoCheck {
     /** Sets a style property on the textarea element. */
     private _setTextareaStyle(property, value);
     /**
-     * Cache the height of a single-row textarea.
+     * Cache the height of a single-row textarea if it has not already been cached.
      *
      * We need to know how large a single "row" of a textarea is in order to apply minRows and
      * maxRows. For the initial version, we will assume that the height of a single line in the

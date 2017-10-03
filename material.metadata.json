@@ -10,7 +10,7 @@
       "from": "./toolbar"
     },
     {
-      "from": "./tabs"
+      "from": "./table"
     },
     {
       "from": "./button"
@@ -25,7 +25,7 @@
       "from": "./checkbox"
     },
     {
-      "from": "./table"
+      "from": "./sort"
     },
     {
       "from": "./dialog"
@@ -34,7 +34,7 @@
       "from": "./icon"
     },
     {
-      "from": "./sort"
+      "from": "./snack-bar"
     },
     {
       "from": "./expansion"
@@ -43,22 +43,28 @@
       "from": "./grid-list"
     },
     {
-      "from": "./snack-bar"
+      "from": "./slider"
     },
     {
-      "from": "./list"
+      "from": "./tabs"
     },
     {
       "from": "./form-field"
     },
     {
-      "from": "./slider"
+      "from": "./list"
+    },
+    {
+      "from": "./menu"
+    },
+    {
+      "from": "./slide-toggle"
     },
     {
       "from": "./tooltip"
     },
     {
-      "from": "./slide-toggle"
+      "from": "./sidenav"
     },
     {
       "from": "./progress-bar"
@@ -70,22 +76,13 @@
       "from": "./radio"
     },
     {
-      "from": "./sidenav"
-    },
-    {
-      "from": "./menu"
-    },
-    {
       "from": "./select"
     },
     {
-      "from": "./input"
+      "from": "./stepper"
     },
     {
       "from": "./datepicker"
-    },
-    {
-      "from": "./stepper"
     },
     {
       "from": "./chips"
@@ -95,6 +92,9 @@
     },
     {
       "from": "./paginator"
+    },
+    {
+      "from": "./input"
     },
     {
       "from": "./typings/index"
