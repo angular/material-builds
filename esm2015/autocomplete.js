@@ -17,7 +17,6 @@ import { RxChain, filter, first, map, switchMap } from '@angular/cdk/rxjs';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
 import { DOCUMENT } from '@angular/platform-browser';
-import { Subject } from 'rxjs/Subject';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
 import { of } from 'rxjs/observable/of';
@@ -238,10 +237,6 @@ class MatAutocompleteTrigger {
          */
         this._manuallyFloatingPlaceholder = false;
         /**
-         * Stream of escape keyboard events.
-         */
-        this._escapeEventStream = new Subject();
-        /**
          * View -> model callback called when value changes
          */
         this._onChange = () => { };
@@ -255,7 +250,6 @@ class MatAutocompleteTrigger {
      */
     ngOnDestroy() {
         this._destroyPanel();
-        this._escapeEventStream.complete();
     }
     /**
      * @return {?}
@@ -296,7 +290,7 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     get panelClosingActions() {
-        return merge(this.optionSelections, this.autocomplete._keyManager.tabOut, this._escapeEventStream, this._outsideClickStream);
+        return merge(this.optionSelections, this.autocomplete._keyManager.tabOut, this._outsideClickStream);
     }
     /**
      * Stream of autocomplete option selections.
@@ -373,7 +367,7 @@ class MatAutocompleteTrigger {
         const /** @type {?} */ keyCode = event.keyCode;
         if (keyCode === ESCAPE && this.panelOpen) {
             this._resetActiveItem();
-            this._escapeEventStream.next();
+            this.closePanel();
             event.stopPropagation();
         }
         else if (this.activeOption && keyCode === ENTER && this.panelOpen) {
