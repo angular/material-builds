@@ -2577,6 +2577,10 @@ var MatAutocompleteTrigger = (function () {
          */
         this._manuallyFloatingPlaceholder = false;
         /**
+         * Stream of escape keyboard events.
+         */
+        this._escapeEventStream = new rxjs_Subject.Subject();
+        /**
          * View -> model callback called when value changes
          */
         this._onChange = function () { };
@@ -2590,6 +2594,7 @@ var MatAutocompleteTrigger = (function () {
      */
     MatAutocompleteTrigger.prototype.ngOnDestroy = function () {
         this._destroyPanel();
+        this._escapeEventStream.complete();
     };
     Object.defineProperty(MatAutocompleteTrigger.prototype, "panelOpen", {
         /**
@@ -2635,7 +2640,7 @@ var MatAutocompleteTrigger = (function () {
          * @return {?}
          */
         get: function () {
-            return rxjs_observable_merge.merge(this.optionSelections, this.autocomplete._keyManager.tabOut, this._outsideClickStream);
+            return rxjs_observable_merge.merge(this.optionSelections, this.autocomplete._keyManager.tabOut, this._escapeEventStream, this._outsideClickStream);
         },
         enumerable: true,
         configurable: true
@@ -2730,7 +2735,7 @@ var MatAutocompleteTrigger = (function () {
         var /** @type {?} */ keyCode = event.keyCode;
         if (keyCode === _angular_cdk_keycodes.ESCAPE && this.panelOpen) {
             this._resetActiveItem();
-            this.closePanel();
+            this._escapeEventStream.next();
             event.stopPropagation();
         }
         else if (this.activeOption && keyCode === _angular_cdk_keycodes.ENTER && this.panelOpen) {

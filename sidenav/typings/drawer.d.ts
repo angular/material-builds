@@ -37,11 +37,7 @@ export declare class MatDrawerContent implements AfterContentInit {
     ngAfterContentInit(): void;
 }
 /**
- * <mat-drawer> component.
- *
  * This component corresponds to a drawer that can be opened on the drawer container.
- *
- * Please refer to README.md for examples on how to use it.
  */
 export declare class MatDrawer implements AfterContentInit, OnDestroy {
     private _elementRef;
