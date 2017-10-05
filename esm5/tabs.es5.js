@@ -1519,7 +1519,8 @@ var MatTabLink = (function (_super) {
                         'class': 'mat-tab-link',
                         '[attr.aria-disabled]': 'disabled.toString()',
                         '[attr.tabindex]': 'tabIndex',
-                        '[class.mat-tab-disabled]': 'disabled'
+                        '[class.mat-tab-disabled]': 'disabled',
+                        '[class.mat-tab-label-active]': 'active',
                     }
                 },] },
     ];
@@ -1586,5 +1587,5 @@ var MatTabsModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatInkBar, MatTabBody, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, MatTabBase as ɵe23, _MatTabMixinBase as ɵf23, MatTabHeaderBase as ɵa23, _MatTabHeaderMixinBase as ɵb23, MatTabLabelWrapperBase as ɵc23, _MatTabLabelWrapperMixinBase as ɵd23, MatTabLinkBase as ɵi23, MatTabNavBase as ɵg23, _MatTabLinkMixinBase as ɵj23, _MatTabNavMixinBase as ɵh23 };
+export { MatInkBar, MatTabBody, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, MatTabBase as ɵe16, _MatTabMixinBase as ɵf16, MatTabHeaderBase as ɵa16, _MatTabHeaderMixinBase as ɵb16, MatTabLabelWrapperBase as ɵc16, _MatTabLabelWrapperMixinBase as ɵd16, MatTabLinkBase as ɵi16, MatTabNavBase as ɵg16, _MatTabLinkMixinBase as ɵj16, _MatTabNavMixinBase as ɵh16 };
 //# sourceMappingURL=tabs.es5.js.map

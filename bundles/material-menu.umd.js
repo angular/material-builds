@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('@angular/cdk/a11y'), require('@angular/cdk/rxjs'), require('rxjs/observable/merge'), require('rxjs/Subscription'), require('@angular/animations'), require('@angular/cdk/portal'), require('rxjs/observable/of')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/overlay', '@angular/cdk/a11y', '@angular/cdk/rxjs', 'rxjs/observable/merge', 'rxjs/Subscription', '@angular/animations', '@angular/cdk/portal', 'rxjs/observable/of'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = global.ng.material.menu || {}),global.ng.core,global.ng.common,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.ng.cdk.a11y,global.ng.cdk.rxjs,global.Rx.Observable,global.Rx,global.ng.animations,global.ng.cdk.portal,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_overlay,_angular_cdk_a11y,_angular_cdk_rxjs,rxjs_observable_merge,rxjs_Subscription,_angular_animations,_angular_cdk_portal,rxjs_observable_of) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('@angular/cdk/a11y'), require('@angular/cdk/rxjs'), require('rxjs/observable/merge'), require('rxjs/Subscription'), require('@angular/animations'), require('@angular/cdk/portal'), require('rxjs/observable/of')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/overlay', '@angular/cdk/a11y', '@angular/cdk/rxjs', 'rxjs/observable/merge', 'rxjs/Subscription', '@angular/animations', '@angular/cdk/portal', 'rxjs/observable/of'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = global.ng.material.menu || {}),global.ng.core,global.ng.common,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.ng.cdk.a11y,global.ng.cdk.rxjs,global.Rx.Observable,global.Rx,global.ng.animations,global.ng.cdk.portal,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_overlay,_angular_cdk_a11y,_angular_cdk_rxjs,rxjs_observable_merge,rxjs_Subscription,_angular_animations,_angular_cdk_portal,rxjs_observable_of) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1286,7 +1286,7 @@ var MatRippleModule = (function () {
     }
     MatRippleModule.decorators = [
         { type: _angular_core.NgModule, args: [{
-                    imports: [MatCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
+                    imports: [MatCommonModule, _angular_cdk_platform.PlatformModule],
                     exports: [MatRipple, MatCommonModule],
                     declarations: [MatRipple],
                 },] },
@@ -2602,10 +2602,10 @@ exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports.MatMenuItem = MatMenuItem;
 exports.MatMenuTrigger = MatMenuTrigger;
-exports.ɵa22 = MatMenuItemBase;
-exports.ɵb22 = _MatMenuItemMixinBase;
-exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa13 = MatMenuItemBase;
+exports.ɵb13 = _MatMenuItemMixinBase;
+exports.ɵd13 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc13 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/rxjs', '@angular/forms', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = global.ng.material.autocomplete || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.rxjs,global.ng.forms,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_rxjs,_angular_forms,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/rxjs', '@angular/forms', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = global.ng.material.autocomplete || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.rxjs,global.ng.forms,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_rxjs,_angular_forms,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1286,7 +1286,7 @@ var MatRippleModule = (function () {
     }
     MatRippleModule.decorators = [
         { type: _angular_core.NgModule, args: [{
-                    imports: [MatCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
+                    imports: [MatCommonModule, _angular_cdk_platform.PlatformModule],
                     exports: [MatRipple, MatCommonModule],
                     declarations: [MatRipple],
                 },] },

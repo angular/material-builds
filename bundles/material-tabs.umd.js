@@ -1376,7 +1376,7 @@ var MatRippleModule = (function () {
     }
     MatRippleModule.decorators = [
         { type: _angular_core.NgModule, args: [{
-                    imports: [MatCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
+                    imports: [MatCommonModule, _angular_cdk_platform.PlatformModule],
                     exports: [MatRipple, MatCommonModule],
                     declarations: [MatRipple],
                 },] },
@@ -3247,7 +3247,8 @@ var MatTabLink = (function (_super) {
                         'class': 'mat-tab-link',
                         '[attr.aria-disabled]': 'disabled.toString()',
                         '[attr.tabindex]': 'tabIndex',
-                        '[class.mat-tab-disabled]': 'disabled'
+                        '[class.mat-tab-disabled]': 'disabled',
+                        '[class.mat-tab-label-active]': 'active',
                     }
                 },] },
     ];
@@ -3323,16 +3324,16 @@ exports.MatTabChangeEvent = MatTabChangeEvent;
 exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
-exports.ɵe23 = MatTabBase;
-exports.ɵf23 = _MatTabMixinBase;
-exports.ɵa23 = MatTabHeaderBase;
-exports.ɵb23 = _MatTabHeaderMixinBase;
-exports.ɵc23 = MatTabLabelWrapperBase;
-exports.ɵd23 = _MatTabLabelWrapperMixinBase;
-exports.ɵi23 = MatTabLinkBase;
-exports.ɵg23 = MatTabNavBase;
-exports.ɵj23 = _MatTabLinkMixinBase;
-exports.ɵh23 = _MatTabNavMixinBase;
+exports.ɵe16 = MatTabBase;
+exports.ɵf16 = _MatTabMixinBase;
+exports.ɵa16 = MatTabHeaderBase;
+exports.ɵb16 = _MatTabHeaderMixinBase;
+exports.ɵc16 = MatTabLabelWrapperBase;
+exports.ɵd16 = _MatTabLabelWrapperMixinBase;
+exports.ɵi16 = MatTabLinkBase;
+exports.ɵg16 = MatTabNavBase;
+exports.ɵj16 = _MatTabLinkMixinBase;
+exports.ɵh16 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

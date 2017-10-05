@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/cdk/collections'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/animations'), require('@angular/cdk/bidi'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/rxjs'), require('rxjs/observable/merge'), require('rxjs/Subscription')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/cdk/collections', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/animations', '@angular/cdk/bidi', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/rxjs', 'rxjs/observable/merge', 'rxjs/Subscription'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.expansion = global.ng.material.expansion || {}),global.ng.common,global.ng.core,global.ng.cdk.collections,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.animations,global.ng.cdk.bidi,global.Rx,global.ng.platformBrowser,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.rxjs,global.Rx.Observable,global.Rx));
-}(this, (function (exports,_angular_common,_angular_core,_angular_cdk_collections,_angular_cdk_a11y,_angular_cdk_coercion,_angular_animations,_angular_cdk_bidi,rxjs_Subject,_angular_platformBrowser,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_rxjs,rxjs_observable_merge,rxjs_Subscription) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/cdk/collections'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/animations'), require('@angular/cdk/bidi'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/rxjs'), require('rxjs/observable/merge'), require('rxjs/Subscription')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/cdk/collections', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/animations', '@angular/cdk/bidi', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/rxjs', 'rxjs/observable/merge', 'rxjs/Subscription'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.expansion = global.ng.material.expansion || {}),global.ng.common,global.ng.core,global.ng.cdk.collections,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.animations,global.ng.cdk.bidi,global.Rx,global.ng.platformBrowser,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.rxjs,global.Rx.Observable,global.Rx));
+}(this, (function (exports,_angular_common,_angular_core,_angular_cdk_collections,_angular_cdk_a11y,_angular_cdk_coercion,_angular_animations,_angular_cdk_bidi,rxjs_Subject,_angular_platformBrowser,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_rxjs,rxjs_observable_merge,rxjs_Subscription) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -2118,9 +2118,9 @@ exports.MatExpansionPanelHeader = MatExpansionPanelHeader;
 exports.MatExpansionPanelDescription = MatExpansionPanelDescription;
 exports.MatExpansionPanelTitle = MatExpansionPanelTitle;
 exports.MatExpansionModule = MatExpansionModule;
-exports.ɵc15 = EXPANSION_PANEL_ANIMATION_TIMING;
-exports.ɵa15 = MatExpansionPanelBase;
-exports.ɵb15 = _MatExpansionPanelMixinBase;
+exports.ɵc6 = EXPANSION_PANEL_ANIMATION_TIMING;
+exports.ɵa6 = MatExpansionPanelBase;
+exports.ɵb6 = _MatExpansionPanelMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

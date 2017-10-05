@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/coercion'), require('@angular/core'), require('@angular/forms'), require('@angular/cdk/bidi'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/observers')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/coercion', '@angular/core', '@angular/forms', '@angular/cdk/bidi', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/observers'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.checkbox = global.ng.material.checkbox || {}),global.ng.cdk.coercion,global.ng.core,global.ng.forms,global.ng.cdk.bidi,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.observers));
-}(this, (function (exports,_angular_cdk_coercion,_angular_core,_angular_forms,_angular_cdk_bidi,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_observers) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/coercion'), require('@angular/core'), require('@angular/forms'), require('@angular/cdk/bidi'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/observers')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/coercion', '@angular/core', '@angular/forms', '@angular/cdk/bidi', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/observers'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.checkbox = global.ng.material.checkbox || {}),global.ng.cdk.coercion,global.ng.core,global.ng.forms,global.ng.cdk.bidi,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.observers));
+}(this, (function (exports,_angular_cdk_coercion,_angular_core,_angular_forms,_angular_cdk_bidi,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_observers) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1419,7 +1419,7 @@ var MatRippleModule = (function () {
     }
     MatRippleModule.decorators = [
         { type: _angular_core.NgModule, args: [{
-                    imports: [MatCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
+                    imports: [MatCommonModule, _angular_cdk_platform.PlatformModule],
                     exports: [MatRipple, MatCommonModule],
                     declarations: [MatRipple],
                 },] },

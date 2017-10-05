@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.toolbar = global.ng.material.toolbar || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes));
-}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.toolbar = global.ng.material.toolbar || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes));
+}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.

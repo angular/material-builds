@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/observable/defer'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operator/first'), require('@angular/cdk/table'), require('@angular/cdk/stepper')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/rxjs', '@angular/forms', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/observable/defer', '@angular/http', 'rxjs/Observable', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operator/first', '@angular/cdk/table', '@angular/cdk/stepper'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.rxjs,global.ng.forms,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.Rx.Observable,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.ng.cdk.table,global.ng.cdk.stepper));
-}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_rxjs,_angular_forms,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_collections,_angular_cdk_observers,rxjs_Subscription,rxjs_observable_defer,_angular_http,rxjs_Observable,rxjs_observable_forkJoin,rxjs_observable_throw,rxjs_operator_first,_angular_cdk_table,_angular_cdk_stepper) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/observable/defer'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operator/first'), require('@angular/cdk/scrolling'), require('@angular/cdk/table'), require('@angular/cdk/stepper')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/rxjs', '@angular/forms', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/observable/defer', '@angular/http', 'rxjs/Observable', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operator/first', '@angular/cdk/scrolling', '@angular/cdk/table', '@angular/cdk/stepper'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.rxjs,global.ng.forms,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.Rx.Observable,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.ng.cdk.scrolling,global.ng.cdk.table,global.ng.cdk.stepper));
+}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_rxjs,_angular_forms,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_collections,_angular_cdk_observers,rxjs_Subscription,rxjs_observable_defer,_angular_http,rxjs_Observable,rxjs_observable_forkJoin,rxjs_observable_throw,rxjs_operator_first,_angular_cdk_scrolling,_angular_cdk_table,_angular_cdk_stepper) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1649,7 +1649,7 @@ var MatRippleModule = (function () {
     }
     MatRippleModule.decorators = [
         { type: _angular_core.NgModule, args: [{
-                    imports: [MatCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
+                    imports: [MatCommonModule, _angular_cdk_platform.PlatformModule],
                     exports: [MatRipple, MatCommonModule],
                     declarations: [MatRipple],
                 },] },
@@ -20177,7 +20177,7 @@ var MatSnackBarContainer = (function (_super) {
     MatSnackBarContainer.decorators = [
         { type: _angular_core.Component, args: [{selector: 'snack-bar-container',
                     template: "<ng-template cdkPortalHost></ng-template>",
-                    styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:content-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-center{margin:0}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}"],
+                    styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:content-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%) translateY(24px)}.mat-snack-bar-container.mat-snack-bar-center{margin:0;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%) translateY(-24px)}.mat-snack-bar-container.mat-snack-bar-top.mat-snack-bar-center{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}"],
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -20189,16 +20189,9 @@ var MatSnackBarContainer = (function (_super) {
                     },
                     animations: [
                         _angular_animations.trigger('state', [
-                            // Animation from top.
-                            _angular_animations.state('visible-top', _angular_animations.style({ transform: 'translateY(0%)' })),
-                            _angular_animations.state('hidden-top', _angular_animations.style({ transform: 'translateY(-100%)' })),
-                            _angular_animations.transition('visible-top => hidden-top', _angular_animations.animate(HIDE_ANIMATION)),
-                            _angular_animations.transition('void => visible-top', _angular_animations.animate(SHOW_ANIMATION)),
-                            // Animation from bottom.
-                            _angular_animations.state('visible-bottom', _angular_animations.style({ transform: 'translateY(0%)' })),
-                            _angular_animations.state('hidden-bottom', _angular_animations.style({ transform: 'translateY(100%)' })),
-                            _angular_animations.transition('visible-bottom => hidden-bottom', _angular_animations.animate(HIDE_ANIMATION)),
-                            _angular_animations.transition('void => visible-bottom', _angular_animations.animate(SHOW_ANIMATION)),
+                            _angular_animations.state('visible-top, visible-bottom', _angular_animations.style({ transform: 'translateY(0%)' })),
+                            _angular_animations.transition('visible-top => hidden-top, visible-bottom => hidden-bottom', _angular_animations.animate(HIDE_ANIMATION)),
+                            _angular_animations.transition('void => visible-top, void => visible-bottom', _angular_animations.animate(SHOW_ANIMATION)),
                         ])
                     ],
                 },] },
@@ -23042,7 +23035,8 @@ var MatTabLink = (function (_super) {
                         'class': 'mat-tab-link',
                         '[attr.aria-disabled]': 'disabled.toString()',
                         '[attr.tabindex]': 'tabIndex',
-                        '[class.mat-tab-disabled]': 'disabled'
+                        '[class.mat-tab-disabled]': 'disabled',
+                        '[class.mat-tab-label-active]': 'active',
                     }
                 },] },
     ];

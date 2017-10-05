@@ -328,7 +328,7 @@ class MatSnackBarContainer extends BasePortalHost {
 MatSnackBarContainer.decorators = [
     { type: Component, args: [{selector: 'snack-bar-container',
                 template: "<ng-template cdkPortalHost></ng-template>",
-                styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:content-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-center{margin:0}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}"],
+                styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:content-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%) translateY(24px)}.mat-snack-bar-container.mat-snack-bar-center{margin:0;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%) translateY(-24px)}.mat-snack-bar-container.mat-snack-bar-top.mat-snack-bar-center{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}"],
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
@@ -340,16 +340,9 @@ MatSnackBarContainer.decorators = [
                 },
                 animations: [
                     trigger('state', [
-                        // Animation from top.
-                        state('visible-top', style({ transform: 'translateY(0%)' })),
-                        state('hidden-top', style({ transform: 'translateY(-100%)' })),
-                        transition('visible-top => hidden-top', animate(HIDE_ANIMATION)),
-                        transition('void => visible-top', animate(SHOW_ANIMATION)),
-                        // Animation from bottom.
-                        state('visible-bottom', style({ transform: 'translateY(0%)' })),
-                        state('hidden-bottom', style({ transform: 'translateY(100%)' })),
-                        transition('visible-bottom => hidden-bottom', animate(HIDE_ANIMATION)),
-                        transition('void => visible-bottom', animate(SHOW_ANIMATION)),
+                        state('visible-top, visible-bottom', style({ transform: 'translateY(0%)' })),
+                        transition('visible-top => hidden-top, visible-bottom => hidden-bottom', animate(HIDE_ANIMATION)),
+                        transition('void => visible-top, void => visible-bottom', animate(SHOW_ANIMATION)),
                     ])
                 ],
             },] },

@@ -583,5 +583,5 @@ MatExpansionModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { CdkAccordion, MatAccordion, AccordionItem, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionModule, EXPANSION_PANEL_ANIMATION_TIMING as ɵc15, MatExpansionPanelBase as ɵa15, _MatExpansionPanelMixinBase as ɵb15 };
+export { CdkAccordion, MatAccordion, AccordionItem, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionModule, EXPANSION_PANEL_ANIMATION_TIMING as ɵc6, MatExpansionPanelBase as ɵa6, _MatExpansionPanelMixinBase as ɵb6 };
 //# sourceMappingURL=expansion.js.map

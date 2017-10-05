@@ -13,7 +13,6 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs/Subject';
 import { HammerGestureConfig } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 
@@ -1629,7 +1628,7 @@ var MatRippleModule = (function () {
     }
     MatRippleModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [MatCommonModule, PlatformModule, ScrollDispatchModule],
+                    imports: [MatCommonModule, PlatformModule],
                     exports: [MatRipple, MatCommonModule],
                     declarations: [MatRipple],
                 },] },

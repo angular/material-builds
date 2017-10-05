@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/Subscription')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/cdk/overlay', '@angular/cdk/rxjs', '@angular/forms', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/Subscription'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.select = global.ng.material.select || {}),global.ng.core,global.ng.common,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.ng.cdk.rxjs,global.ng.forms,global.Rx,global.ng.platformBrowser,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx));
-}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_collections,_angular_cdk_keycodes,_angular_cdk_overlay,_angular_cdk_rxjs,_angular_forms,rxjs_Subject,_angular_platformBrowser,_angular_cdk_scrolling,_angular_cdk_platform,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_Subscription) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/platform'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/Subscription')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/cdk/overlay', '@angular/cdk/rxjs', '@angular/forms', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/platform', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/Subscription'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.select = global.ng.material.select || {}),global.ng.core,global.ng.common,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.ng.cdk.rxjs,global.ng.forms,global.Rx,global.ng.platformBrowser,global.ng.cdk.platform,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx));
+}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_collections,_angular_cdk_keycodes,_angular_cdk_overlay,_angular_cdk_rxjs,_angular_forms,rxjs_Subject,_angular_platformBrowser,_angular_cdk_platform,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_Subscription) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1353,7 +1353,7 @@ var MatRippleModule = (function () {
     }
     MatRippleModule.decorators = [
         { type: _angular_core.NgModule, args: [{
-                    imports: [MatCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_scrolling.ScrollDispatchModule],
+                    imports: [MatCommonModule, _angular_cdk_platform.PlatformModule],
                     exports: [MatRipple, MatCommonModule],
                     declarations: [MatRipple],
                 },] },
