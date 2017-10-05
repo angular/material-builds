@@ -2540,7 +2540,8 @@ var MatInput = (function () {
         var /** @type {?} */ oldState = this.errorState;
         var /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
         var /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
-        var /** @type {?} */ newState = matcher.isErrorState(this.ngControl, parent);
+        var /** @type {?} */ control = this.ngControl ? (this.ngControl.control) : null;
+        var /** @type {?} */ newState = matcher.isErrorState(control, parent);
         if (newState !== oldState) {
             this.errorState = newState;
             this.stateChanges.next();

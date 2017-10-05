@@ -740,7 +740,8 @@ class MatSelect extends _MatSelectMixinBase {
     get errorState() {
         const /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
         const /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
-        return matcher.isErrorState(this.ngControl, parent);
+        const /** @type {?} */ control = this.ngControl ? (this.ngControl.control) : null;
+        return matcher.isErrorState(control, parent);
     }
     /**
      * @return {?}

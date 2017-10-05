@@ -801,7 +801,8 @@ var MatSelect = (function (_super) {
         get: function () {
             var /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
             var /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
-            return matcher.isErrorState(this.ngControl, parent);
+            var /** @type {?} */ control = this.ngControl ? (this.ngControl.control) : null;
+            return matcher.isErrorState(control, parent);
         },
         enumerable: true,
         configurable: true

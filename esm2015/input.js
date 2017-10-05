@@ -424,7 +424,8 @@ class MatInput {
         const /** @type {?} */ oldState = this.errorState;
         const /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
         const /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
-        const /** @type {?} */ newState = matcher.isErrorState(this.ngControl, parent);
+        const /** @type {?} */ control = this.ngControl ? (this.ngControl.control) : null;
+        const /** @type {?} */ newState = matcher.isErrorState(control, parent);
         if (newState !== oldState) {
             this.errorState = newState;
             this.stateChanges.next();
