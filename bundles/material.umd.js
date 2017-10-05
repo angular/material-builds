@@ -12476,7 +12476,7 @@ var MatSelectionListBase = (function () {
     }
     return MatSelectionListBase;
 }());
-var _MatSelectionListMixinBase = mixinDisableRipple(mixinDisabled(MatSelectionListBase));
+var _MatSelectionListMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(MatSelectionListBase)));
 /**
  * \@docs-private
  */
@@ -12676,18 +12676,16 @@ var MatSelectionList = (function (_super) {
     __extends(MatSelectionList, _super);
     /**
      * @param {?} _element
+     * @param {?} tabIndex
      */
-    function MatSelectionList(_element) {
+    function MatSelectionList(_element, tabIndex) {
         var _this = _super.call(this) || this;
         _this._element = _element;
-        /**
-         * Tab index for the selection-list.
-         */
-        _this._tabIndex = 0;
         /**
          * The currently selected options.
          */
         _this.selectedOptions = new _angular_cdk_collections.SelectionModel(true);
+        _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
     /**
@@ -12695,9 +12693,6 @@ var MatSelectionList = (function (_super) {
      */
     MatSelectionList.prototype.ngAfterContentInit = function () {
         this._keyManager = new _angular_cdk_a11y.FocusKeyManager(this.options).withWrap();
-        if (this.disabled) {
-            this._tabIndex = -1;
-        }
     };
     /**
      * Focus the selection-list.
@@ -12802,10 +12797,10 @@ var MatSelectionList = (function (_super) {
     MatSelectionList.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-selection-list',
                     exportAs: 'matSelectionList',
-                    inputs: ['disabled', 'disableRipple'],
+                    inputs: ['disabled', 'disableRipple', 'tabIndex'],
                     host: {
                         'role': 'listbox',
-                        '[attr.tabindex]': '_tabIndex',
+                        '[tabIndex]': 'tabIndex',
                         'class': 'mat-selection-list',
                         '(focus)': 'focus()',
                         '(keydown)': '_keydown($event)',
@@ -12823,6 +12818,7 @@ var MatSelectionList = (function (_super) {
      */
     MatSelectionList.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
+        { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['tabindex',] },] },
     ]; };
     MatSelectionList.propDecorators = {
         'options': [{ type: _angular_core.ContentChildren, args: [MatListOption,] },],
@@ -16370,57 +16366,6 @@ var MatProgressBarModule = (function () {
 }());
 
 /**
- * A single degree in radians.
- */
-var DEGREE_IN_RADIANS = Math.PI / 180;
-/**
- * Duration of the indeterminate animation.
- */
-var DURATION_INDETERMINATE = 667;
-/**
- * Duration of the indeterminate animation.
- */
-var DURATION_DETERMINATE = 225;
-/**
- * Start animation value of the indeterminate animation
- */
-var startIndeterminate = 3;
-/**
- * End animation value of the indeterminate animation
- */
-var endIndeterminate = 80;
-/**
- * Maximum angle for the arc. The angle can't be exactly 360, because the arc becomes hidden.
- */
-var MAX_ANGLE = 359.99 / 100;
-/**
- * Whether the user's browser supports requestAnimationFrame.
- */
-var HAS_RAF = typeof requestAnimationFrame !== 'undefined';
-/**
- * Default stroke width as a percentage of the viewBox.
- */
-var PROGRESS_SPINNER_STROKE_WIDTH = 10;
-/**
- * Directive whose purpose is to add the mat- CSS styling to this selector.
- * \@docs-private
- */
-var MatProgressSpinnerCssMatStyler = (function () {
-    function MatProgressSpinnerCssMatStyler() {
-    }
-    MatProgressSpinnerCssMatStyler.decorators = [
-        { type: _angular_core.Directive, args: [{
-                    selector: 'mat-progress-spinner',
-                    host: { 'class': 'mat-progress-spinner' }
-                },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    MatProgressSpinnerCssMatStyler.ctorParameters = function () { return []; };
-    return MatProgressSpinnerCssMatStyler;
-}());
-/**
  * \@docs-private
  */
 var MatProgressSpinnerBase = (function () {
@@ -16435,236 +16380,194 @@ var MatProgressSpinnerBase = (function () {
     return MatProgressSpinnerBase;
 }());
 var _MatProgressSpinnerMixinBase = mixinColor(MatProgressSpinnerBase, 'primary');
+var INDETERMINATE_ANIMATION_TEMPLATE = "\n @keyframes mat-progress-spinner-stroke-rotate-DIAMETER {\n    0%      { stroke-dashoffset: START_VALUE;  transform: rotate(0); }\n    12.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(0); }\n    12.51%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(72.5deg); }\n    25%     { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(72.5deg); }\n\n    25.1%   { stroke-dashoffset: START_VALUE;  transform: rotate(270deg); }\n    37.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(270deg); }\n    37.51%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(161.5deg); }\n    50%     { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(161.5deg); }\n\n    50.01%  { stroke-dashoffset: START_VALUE;  transform: rotate(180deg); }\n    62.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(180deg); }\n    62.51%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(251.5deg); }\n    75%     { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(251.5deg); }\n\n    75.01%  { stroke-dashoffset: START_VALUE;  transform: rotate(90deg); }\n    87.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(90deg); }\n    87.51%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(341.5deg); }\n    100%    { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(341.5deg); }\n  }\n";
 /**
  * <mat-progress-spinner> component.
  */
 var MatProgressSpinner = (function (_super) {
     __extends(MatProgressSpinner, _super);
     /**
-     * @param {?} renderer
-     * @param {?} elementRef
-     * @param {?} _ngZone
+     * @param {?} _renderer
+     * @param {?} _elementRef
+     * @param {?} platform
+     * @param {?} _document
      */
-    function MatProgressSpinner(renderer, elementRef, _ngZone) {
-        var _this = _super.call(this, renderer, elementRef) || this;
-        _this._ngZone = _ngZone;
+    function MatProgressSpinner(_renderer, _elementRef, platform, _document) {
+        var _this = _super.call(this, _renderer, _elementRef) || this;
+        _this._renderer = _renderer;
+        _this._elementRef = _elementRef;
+        _this._document = _document;
+        _this._baseSize = 100;
+        _this._baseStrokeWidth = 10;
+        _this._fallbackAnimation = false;
         /**
-         * The id of the last requested animation.
+         * The width and height of the host element. Will grow with stroke width. *
          */
-        _this._lastAnimationId = 0;
-        _this._mode = 'determinate';
+        _this._elementSize = _this._baseSize;
+        _this._diameter = _this._baseSize;
         /**
-         * Stroke width of the progress spinner. By default uses 10px as stroke width.
+         * Stroke width of the progress spinner.
          */
-        _this.strokeWidth = PROGRESS_SPINNER_STROKE_WIDTH;
-        return _this;
-    }
-    Object.defineProperty(MatProgressSpinner.prototype, "_ariaValueMin", {
-        /**
-         * Values for aria max and min are only defined as numbers when in a determinate mode.  We do this
-         * because voiceover does not report the progress indicator as indeterminate if the aria min
-         * and/or max value are number values.
-         * @return {?}
-         */
-        get: function () {
-            return this.mode == 'determinate' ? 0 : null;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatProgressSpinner.prototype, "_ariaValueMax", {
-        /**
-         * @return {?}
-         */
-        get: function () {
-            return this.mode == 'determinate' ? 100 : null;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatProgressSpinner.prototype, "interdeterminateInterval", {
-        /**
-         * \@docs-private
-         * @return {?}
-         */
-        get: function () {
-            return this._interdeterminateInterval;
-        },
-        /**
-         * \@docs-private
-         * @param {?} interval
-         * @return {?}
-         */
-        set: function (interval) {
-            if (this._interdeterminateInterval) {
-                clearInterval(this._interdeterminateInterval);
-            }
-            this._interdeterminateInterval = interval;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Clean up any animations that were running.
-     * @return {?}
-     */
-    MatProgressSpinner.prototype.ngOnDestroy = function () {
-        this._cleanupIndeterminateAnimation();
-    };
-    Object.defineProperty(MatProgressSpinner.prototype, "value", {
-        /**
-         * Value of the progress circle. It is bound to the host as the attribute aria-valuenow.
-         * @return {?}
-         */
-        get: function () {
-            if (this.mode == 'determinate') {
-                return this._value;
-            }
-            return 0;
-        },
-        /**
-         * @param {?} v
-         * @return {?}
-         */
-        set: function (v) {
-            if (v != null && this.mode == 'determinate') {
-                var /** @type {?} */ newValue = clamp$1(v);
-                this._animateCircle(this.value || 0, newValue);
-                this._value = newValue;
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatProgressSpinner.prototype, "mode", {
+        _this.strokeWidth = 10;
         /**
          * Mode of the progress circle
-         *
-         * Input must be one of the values from ProgressMode, defaults to 'determinate'.
-         * mode is bound to the host as the attribute host.
-         * @return {?}
          */
-        get: function () { return this._mode; },
+        _this.mode = 'determinate';
+        _this._fallbackAnimation = platform.EDGE || platform.TRIDENT;
+        // On IE and Edge, we can't animate the `stroke-dashoffset`
+        // reliably so we fall back to a non-spec animation.
+        var animationClass = _this._fallbackAnimation ?
+            'mat-progress-spinner-indeterminate-fallback-animation' :
+            'mat-progress-spinner-indeterminate-animation';
+        _renderer.addClass(_elementRef.nativeElement, animationClass);
+        return _this;
+    }
+    Object.defineProperty(MatProgressSpinner.prototype, "diameter", {
         /**
-         * @param {?} mode
+         * The diameter of the progress spinner (will set width and height of svg).
          * @return {?}
          */
-        set: function (mode) {
-            if (mode !== this._mode) {
-                if (mode === 'indeterminate') {
-                    this._startIndeterminateAnimation();
-                }
-                else {
-                    this._cleanupIndeterminateAnimation();
-                    this._animateCircle(0, this._value);
-                }
-                this._mode = mode;
+        get: function () {
+            return this._diameter;
+        },
+        /**
+         * @param {?} size
+         * @return {?}
+         */
+        set: function (size) {
+            this._setDiameterAndInitStyles(size);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatProgressSpinner.prototype, "value", {
+        /**
+         * Value of the progress circle.
+         * @return {?}
+         */
+        get: function () {
+            return this.mode === 'determinate' ? this._value : 0;
+        },
+        /**
+         * @param {?} newValue
+         * @return {?}
+         */
+        set: function (newValue) {
+            if (newValue != null && this.mode === 'determinate') {
+                this._value = Math.max(0, Math.min(100, newValue));
             }
         },
         enumerable: true,
         configurable: true
     });
     /**
-     * Animates the circle from one percentage value to another.
-     *
-     * @param {?} animateFrom The percentage of the circle filled starting the animation.
-     * @param {?} animateTo The percentage of the circle filled ending the animation.
-     * @param {?=} ease The easing function to manage the pace of change in the animation.
-     * @param {?=} duration The length of time to show the animation, in milliseconds.
-     * @param {?=} rotation The starting angle of the circle fill, with 0° represented at the top center
-     *    of the circle.
+     * @param {?} changes
      * @return {?}
      */
-    MatProgressSpinner.prototype._animateCircle = function (animateFrom, animateTo, ease, duration, rotation) {
-        var _this = this;
-        if (ease === void 0) { ease = linearEase; }
-        if (duration === void 0) { duration = DURATION_DETERMINATE; }
-        if (rotation === void 0) { rotation = 0; }
-        var /** @type {?} */ id = ++this._lastAnimationId;
-        var /** @type {?} */ startTime = Date.now();
-        var /** @type {?} */ changeInValue = animateTo - animateFrom;
-        // No need to animate it if the values are the same
-        if (animateTo === animateFrom) {
-            this._renderArc(animateTo, rotation);
+    MatProgressSpinner.prototype.ngOnChanges = function (changes) {
+        if (changes.strokeWidth || changes.diameter) {
+            this._elementSize =
+                this._diameter + Math.max(this.strokeWidth - this._baseStrokeWidth, 0);
         }
-        else {
-            var /** @type {?} */ animation_1 = function () {
-                // If there is no requestAnimationFrame, skip ahead to the end of the animation.
-                var /** @type {?} */ elapsedTime = HAS_RAF ?
-                    Math.max(0, Math.min(Date.now() - startTime, duration)) :
-                    duration;
-                _this._renderArc(ease(elapsedTime, animateFrom, changeInValue, duration), rotation);
-                // Prevent overlapping animations by checking if a new animation has been called for and
-                // if the animation has lasted longer than the animation duration.
-                if (id === _this._lastAnimationId && elapsedTime < duration) {
-                    requestAnimationFrame(animation_1);
-                }
-            };
-            // Run the animation outside of Angular's zone, in order to avoid
-            // hitting ZoneJS and change detection on each frame.
-            this._ngZone.runOutsideAngular(animation_1);
+    };
+    Object.defineProperty(MatProgressSpinner.prototype, "_circleRadius", {
+        /**
+         * The radius of the spinner, adjusted for stroke width.
+         * @return {?}
+         */
+        get: function () {
+            return (this.diameter - this._baseStrokeWidth) / 2;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatProgressSpinner.prototype, "_viewBox", {
+        /**
+         * The view box of the spinner's svg element.
+         * @return {?}
+         */
+        get: function () {
+            return "0 0 " + this._elementSize + " " + this._elementSize;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatProgressSpinner.prototype, "_strokeCircumference", {
+        /**
+         * The stroke circumference of the svg circle.
+         * @return {?}
+         */
+        get: function () {
+            return 2 * Math.PI * this._circleRadius;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatProgressSpinner.prototype, "_strokeDashOffset", {
+        /**
+         * The dash offset of the svg circle.
+         * @return {?}
+         */
+        get: function () {
+            if (this.mode === 'determinate') {
+                return this._strokeCircumference * (100 - this._value) / 100;
+            }
+            return null;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Sets the diameter and adds diameter-specific styles if necessary.
+     * @param {?} size
+     * @return {?}
+     */
+    MatProgressSpinner.prototype._setDiameterAndInitStyles = function (size) {
+        this._diameter = size;
+        if (!MatProgressSpinner.diameters.has(this.diameter) && !this._fallbackAnimation) {
+            this._attachStyleNode();
         }
     };
     /**
-     * Starts the indeterminate animation interval, if it is not already running.
+     * Dynamically generates a style tag containing the correct animation for this diameter.
      * @return {?}
      */
-    MatProgressSpinner.prototype._startIndeterminateAnimation = function () {
-        var _this = this;
-        var /** @type {?} */ rotationStartPoint = 0;
-        var /** @type {?} */ start = startIndeterminate;
-        var /** @type {?} */ end = endIndeterminate;
-        var /** @type {?} */ duration = DURATION_INDETERMINATE;
-        var /** @type {?} */ animate$$1 = function () {
-            _this._animateCircle(start, end, materialEase, duration, rotationStartPoint);
-            // Prevent rotation from reaching Number.MAX_SAFE_INTEGER.
-            rotationStartPoint = (rotationStartPoint + end) % 100;
-            var /** @type {?} */ temp = start;
-            start = -end;
-            end = -temp;
-        };
-        if (!this.interdeterminateInterval) {
-            this._ngZone.runOutsideAngular(function () {
-                _this.interdeterminateInterval = setInterval(animate$$1, duration + 50, 0, false);
-                animate$$1();
-            });
-        }
+    MatProgressSpinner.prototype._attachStyleNode = function () {
+        var /** @type {?} */ styleTag = this._renderer.createElement('style');
+        styleTag.textContent = this._getAnimationText();
+        this._renderer.appendChild(this._document.head, styleTag);
+        MatProgressSpinner.diameters.add(this.diameter);
     };
     /**
-     * Removes interval, ending the animation.
+     * Generates animation styles adjusted for the spinner's diameter.
      * @return {?}
      */
-    MatProgressSpinner.prototype._cleanupIndeterminateAnimation = function () {
-        this.interdeterminateInterval = null;
+    MatProgressSpinner.prototype._getAnimationText = function () {
+        return INDETERMINATE_ANIMATION_TEMPLATE
+            .replace(/START_VALUE/g, "" + 0.95 * this._strokeCircumference)
+            .replace(/END_VALUE/g, "" + 0.2 * this._strokeCircumference)
+            .replace(/DIAMETER/g, "" + this.diameter);
     };
     /**
-     * Renders the arc onto the SVG element. Proxies `getArc` while setting the proper
-     * DOM attribute on the `<path>`.
-     * @param {?} currentValue
-     * @param {?=} rotation
-     * @return {?}
+     * Tracks diameters of existing instances to de-dupe generated styles (default d = 100)
      */
-    MatProgressSpinner.prototype._renderArc = function (currentValue, rotation) {
-        if (rotation === void 0) { rotation = 0; }
-        if (this._path) {
-            var /** @type {?} */ svgArc = getSvgArc(currentValue, rotation, this.strokeWidth);
-            this._renderer.setAttribute(this._path.nativeElement, 'd', svgArc);
-        }
-    };
+    MatProgressSpinner.diameters = new Set([100]);
     MatProgressSpinner.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-progress-spinner',
                     exportAs: 'matProgressSpinner',
                     host: {
                         'role': 'progressbar',
                         'class': 'mat-progress-spinner',
-                        '[attr.aria-valuemin]': '_ariaValueMin',
-                        '[attr.aria-valuemax]': '_ariaValueMax',
+                        '[style.width.px]': '_elementSize',
+                        '[style.height.px]': '_elementSize',
+                        '[attr.aria-valuemin]': 'mode === "determinate" ? 0 : null',
+                        '[attr.aria-valuemax]': 'mode === "determinate" ? 100 : null',
                         '[attr.aria-valuenow]': 'value',
                         '[attr.mode]': 'mode',
                     },
                     inputs: ['color'],
-                    template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\"><path #path [style.strokeWidth]=\"strokeWidth\"></path></svg>",
-                    styles: [".mat-progress-spinner{display:block;height:100px;width:100px;overflow:hidden}.mat-progress-spinner svg{height:100%;width:100%;transform-origin:center}.mat-progress-spinner path{fill:transparent;transition:stroke .3s cubic-bezier(.35,0,.25,1)}.mat-progress-spinner[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
+                    template: "<svg [style.width.px]=\"_elementSize\" [style.height.px]=\"_elementSize\" [attr.viewBox]=\"_viewBox\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\"><circle cx=\"50%\" cy=\"50%\" [attr.r]=\"_circleRadius\" [style.animation-name]=\"'mat-progress-spinner-stroke-rotate-' + diameter\" [style.stroke-dashoffset.px]=\"_strokeDashOffset\" [style.stroke-dasharray.px]=\"_strokeCircumference\" [style.transform.rotate]=\"'360deg'\" [style.stroke-width.px]=\"strokeWidth\"></circle></svg>",
+                    styles: [".mat-progress-spinner{display:block;position:relative}.mat-progress-spinner svg{position:absolute;transform:translate(-50%,-50%) rotate(-90deg);top:50%;left:50%;transform-origin:center;overflow:visible}.mat-progress-spinner circle{fill:transparent;transform-origin:center;transition:stroke-dashoffset 225ms linear}.mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate]{animation:mat-progress-spinner-linear-rotate 2s linear infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate] circle{transition-property:stroke;animation-duration:4s;animation-timing-function:cubic-bezier(.35,0,.25,1);animation-iteration-count:infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-fallback-animation[mode=indeterminate]{animation:mat-progress-spinner-stroke-rotate-fallback 10s cubic-bezier(.87,.03,.33,1) infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-fallback-animation[mode=indeterminate] circle{transition-property:stroke}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-stroke-rotate-100{0%{stroke-dashoffset:268.60617px;transform:rotate(0)}12.5%{stroke-dashoffset:56.54867px;transform:rotate(0)}12.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(72.5deg)}25%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(72.5deg)}25.1%{stroke-dashoffset:268.60617px;transform:rotate(270deg)}37.5%{stroke-dashoffset:56.54867px;transform:rotate(270deg)}37.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(161.5deg)}50%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(161.5deg)}50.01%{stroke-dashoffset:268.60617px;transform:rotate(180deg)}62.5%{stroke-dashoffset:56.54867px;transform:rotate(180deg)}62.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(251.5deg)}75%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(251.5deg)}75.01%{stroke-dashoffset:268.60617px;transform:rotate(90deg)}87.5%{stroke-dashoffset:56.54867px;transform:rotate(90deg)}87.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(341.5deg)}100%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(341.5deg)}}@keyframes mat-progress-spinner-stroke-rotate-fallback{0%{transform:rotate(0)}25%{transform:rotate(1170deg)}50%{transform:rotate(2340deg)}75%{transform:rotate(3510deg)}100%{transform:rotate(4680deg)}}"],
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -16676,13 +16579,14 @@ var MatProgressSpinner = (function (_super) {
     MatProgressSpinner.ctorParameters = function () { return [
         { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
-        { type: _angular_core.NgZone, },
+        { type: _angular_cdk_platform.Platform, },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
     ]; };
     MatProgressSpinner.propDecorators = {
-        '_path': [{ type: _angular_core.ViewChild, args: ['path',] },],
+        'diameter': [{ type: _angular_core.Input },],
         'strokeWidth': [{ type: _angular_core.Input },],
-        'value': [{ type: _angular_core.Input },],
         'mode': [{ type: _angular_core.Input },],
+        'value': [{ type: _angular_core.Input },],
     };
     return MatProgressSpinner;
 }(_MatProgressSpinnerMixinBase));
@@ -16695,12 +16599,13 @@ var MatProgressSpinner = (function (_super) {
 var MatSpinner = (function (_super) {
     __extends(MatSpinner, _super);
     /**
-     * @param {?} elementRef
-     * @param {?} ngZone
      * @param {?} renderer
+     * @param {?} elementRef
+     * @param {?} platform
+     * @param {?} document
      */
-    function MatSpinner(elementRef, ngZone, renderer) {
-        var _this = _super.call(this, renderer, elementRef, ngZone) || this;
+    function MatSpinner(renderer, elementRef, platform, document) {
+        var _this = _super.call(this, renderer, elementRef, platform, document) || this;
         _this.mode = 'indeterminate';
         return _this;
     }
@@ -16710,10 +16615,12 @@ var MatSpinner = (function (_super) {
                         'role': 'progressbar',
                         'mode': 'indeterminate',
                         'class': 'mat-spinner mat-progress-spinner',
+                        '[style.width.px]': '_elementSize',
+                        '[style.height.px]': '_elementSize',
                     },
                     inputs: ['color'],
-                    template: "<svg viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\"><path #path [style.strokeWidth]=\"strokeWidth\"></path></svg>",
-                    styles: [".mat-progress-spinner{display:block;height:100px;width:100px;overflow:hidden}.mat-progress-spinner svg{height:100%;width:100%;transform-origin:center}.mat-progress-spinner path{fill:transparent;transition:stroke .3s cubic-bezier(.35,0,.25,1)}.mat-progress-spinner[mode=indeterminate] svg{animation-duration:5.25s,2.887s;animation-name:mat-progress-spinner-sporadic-rotate,mat-progress-spinner-linear-rotate;animation-timing-function:cubic-bezier(.35,0,.25,1),linear;animation-iteration-count:infinite;transition:none}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-sporadic-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}"],
+                    template: "<svg [style.width.px]=\"_elementSize\" [style.height.px]=\"_elementSize\" [attr.viewBox]=\"_viewBox\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\"><circle cx=\"50%\" cy=\"50%\" [attr.r]=\"_circleRadius\" [style.animation-name]=\"'mat-progress-spinner-stroke-rotate-' + diameter\" [style.stroke-dashoffset.px]=\"_strokeDashOffset\" [style.stroke-dasharray.px]=\"_strokeCircumference\" [style.transform.rotate]=\"'360deg'\" [style.stroke-width.px]=\"strokeWidth\"></circle></svg>",
+                    styles: [".mat-progress-spinner{display:block;position:relative}.mat-progress-spinner svg{position:absolute;transform:translate(-50%,-50%) rotate(-90deg);top:50%;left:50%;transform-origin:center;overflow:visible}.mat-progress-spinner circle{fill:transparent;transform-origin:center;transition:stroke-dashoffset 225ms linear}.mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate]{animation:mat-progress-spinner-linear-rotate 2s linear infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate] circle{transition-property:stroke;animation-duration:4s;animation-timing-function:cubic-bezier(.35,0,.25,1);animation-iteration-count:infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-fallback-animation[mode=indeterminate]{animation:mat-progress-spinner-stroke-rotate-fallback 10s cubic-bezier(.87,.03,.33,1) infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-fallback-animation[mode=indeterminate] circle{transition-property:stroke}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-stroke-rotate-100{0%{stroke-dashoffset:268.60617px;transform:rotate(0)}12.5%{stroke-dashoffset:56.54867px;transform:rotate(0)}12.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(72.5deg)}25%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(72.5deg)}25.1%{stroke-dashoffset:268.60617px;transform:rotate(270deg)}37.5%{stroke-dashoffset:56.54867px;transform:rotate(270deg)}37.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(161.5deg)}50%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(161.5deg)}50.01%{stroke-dashoffset:268.60617px;transform:rotate(180deg)}62.5%{stroke-dashoffset:56.54867px;transform:rotate(180deg)}62.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(251.5deg)}75%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(251.5deg)}75.01%{stroke-dashoffset:268.60617px;transform:rotate(90deg)}87.5%{stroke-dashoffset:56.54867px;transform:rotate(90deg)}87.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(341.5deg)}100%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(341.5deg)}}@keyframes mat-progress-spinner-stroke-rotate-fallback{0%{transform:rotate(0)}25%{transform:rotate(1170deg)}50%{transform:rotate(2340deg)}75%{transform:rotate(3510deg)}100%{transform:rotate(4680deg)}}"],
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -16723,104 +16630,28 @@ var MatSpinner = (function (_super) {
      * @nocollapse
      */
     MatSpinner.ctorParameters = function () { return [
-        { type: _angular_core.ElementRef, },
-        { type: _angular_core.NgZone, },
         { type: _angular_core.Renderer2, },
+        { type: _angular_core.ElementRef, },
+        { type: _angular_cdk_platform.Platform, },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
     ]; };
     return MatSpinner;
 }(MatProgressSpinner));
-/**
- * Clamps a value to be between 0 and 100.
- * @param {?} v
- * @return {?}
- */
-function clamp$1(v) {
-    return Math.max(0, Math.min(100, v));
-}
-/**
- * Converts Polar coordinates to Cartesian.
- * @param {?} radius
- * @param {?} pathRadius
- * @param {?} angleInDegrees
- * @return {?}
- */
-function polarToCartesian(radius, pathRadius, angleInDegrees) {
-    var /** @type {?} */ angleInRadians = (angleInDegrees - 90) * DEGREE_IN_RADIANS;
-    return (radius + (pathRadius * Math.cos(angleInRadians))) +
-        ',' + (radius + (pathRadius * Math.sin(angleInRadians)));
-}
-/**
- * Easing function for linear animation.
- * @param {?} currentTime
- * @param {?} startValue
- * @param {?} changeInValue
- * @param {?} duration
- * @return {?}
- */
-function linearEase(currentTime, startValue, changeInValue, duration) {
-    return changeInValue * currentTime / duration + startValue;
-}
-/**
- * Easing function to match material design indeterminate animation.
- * @param {?} currentTime
- * @param {?} startValue
- * @param {?} changeInValue
- * @param {?} duration
- * @return {?}
- */
-function materialEase(currentTime, startValue, changeInValue, duration) {
-    var /** @type {?} */ time = currentTime / duration;
-    var /** @type {?} */ timeCubed = Math.pow(time, 3);
-    var /** @type {?} */ timeQuad = Math.pow(time, 4);
-    var /** @type {?} */ timeQuint = Math.pow(time, 5);
-    return startValue + changeInValue * ((6 * timeQuint) + (-15 * timeQuad) + (10 * timeCubed));
-}
-/**
- * Determines the path value to define the arc.  Converting percentage values to to polar
- * coordinates on the circle, and then to cartesian coordinates in the viewport.
- *
- * @param {?} currentValue The current percentage value of the progress circle, the percentage of the
- *    circle to fill.
- * @param {?} rotation The starting point of the circle with 0 being the 0 degree point.
- * @param {?} strokeWidth Stroke width of the progress spinner arc.
- * @return {?} A string for an SVG path representing a circle filled from the starting point to the
- *    percentage value provided.
- */
-function getSvgArc(currentValue, rotation, strokeWidth) {
-    var /** @type {?} */ startPoint = rotation || 0;
-    var /** @type {?} */ radius = 50;
-    var /** @type {?} */ pathRadius = radius - strokeWidth;
-    var /** @type {?} */ startAngle = startPoint * MAX_ANGLE;
-    var /** @type {?} */ endAngle = currentValue * MAX_ANGLE;
-    var /** @type {?} */ start = polarToCartesian(radius, pathRadius, startAngle);
-    var /** @type {?} */ end = polarToCartesian(radius, pathRadius, endAngle + startAngle);
-    var /** @type {?} */ arcSweep = endAngle < 0 ? 0 : 1;
-    var /** @type {?} */ largeArcFlag;
-    if (endAngle < 0) {
-        largeArcFlag = endAngle >= -180 ? 0 : 1;
-    }
-    else {
-        largeArcFlag = endAngle <= 180 ? 0 : 1;
-    }
-    return "M" + start + "A" + pathRadius + "," + pathRadius + " 0 " + largeArcFlag + "," + arcSweep + " " + end;
-}
 
 var MatProgressSpinnerModule = (function () {
     function MatProgressSpinnerModule() {
     }
     MatProgressSpinnerModule.decorators = [
         { type: _angular_core.NgModule, args: [{
-                    imports: [MatCommonModule],
+                    imports: [MatCommonModule, _angular_cdk_platform.PlatformModule],
                     exports: [
                         MatProgressSpinner,
                         MatSpinner,
-                        MatCommonModule,
-                        MatProgressSpinnerCssMatStyler
+                        MatCommonModule
                     ],
                     declarations: [
                         MatProgressSpinner,
-                        MatSpinner,
-                        MatProgressSpinnerCssMatStyler
+                        MatSpinner
                     ],
                 },] },
     ];
@@ -23414,8 +23245,6 @@ exports.MatPaginatorIntl = MatPaginatorIntl;
 exports.MatProgressBarModule = MatProgressBarModule;
 exports.MatProgressBar = MatProgressBar;
 exports.MatProgressSpinnerModule = MatProgressSpinnerModule;
-exports.PROGRESS_SPINNER_STROKE_WIDTH = PROGRESS_SPINNER_STROKE_WIDTH;
-exports.MatProgressSpinnerCssMatStyler = MatProgressSpinnerCssMatStyler;
 exports.MatProgressSpinnerBase = MatProgressSpinnerBase;
 exports._MatProgressSpinnerMixinBase = _MatProgressSpinnerMixinBase;
 exports.MatProgressSpinner = MatProgressSpinner;

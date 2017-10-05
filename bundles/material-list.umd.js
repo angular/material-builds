@@ -250,6 +250,49 @@ function mixinDisableRipple(base) {
 }
 
 /**
+ * Mixin to augment a directive with a `tabIndex` property.
+ * @template T
+ * @param {?} base
+ * @param {?=} defaultTabIndex
+ * @return {?}
+ */
+function mixinTabIndex(base, defaultTabIndex) {
+    if (defaultTabIndex === void 0) { defaultTabIndex = 0; }
+    return (function (_super) {
+        __extends(class_1, _super);
+        /**
+         * @param {...?} args
+         */
+        function class_1() {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            var _this = _super.apply(this, args) || this;
+            _this._tabIndex = defaultTabIndex;
+            return _this;
+        }
+        Object.defineProperty(class_1.prototype, "tabIndex", {
+            /**
+             * @return {?}
+             */
+            get: function () { return this.disabled ? -1 : this._tabIndex; },
+            /**
+             * @param {?} value
+             * @return {?}
+             */
+            set: function (value) {
+                // If the specified tabIndex value is null or undefined, fall back to the default value.
+                this._tabIndex = value != null ? value : defaultTabIndex;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return class_1;
+    }(base));
+}
+
+/**
  * InjectionToken for datepicker that can be used to override default locale code.
  */
 var MAT_DATE_LOCALE = new _angular_core.InjectionToken('MAT_DATE_LOCALE');
@@ -2147,7 +2190,7 @@ var MatSelectionListBase = (function () {
     }
     return MatSelectionListBase;
 }());
-var _MatSelectionListMixinBase = mixinDisableRipple(mixinDisabled(MatSelectionListBase));
+var _MatSelectionListMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(MatSelectionListBase)));
 /**
  * \@docs-private
  */
@@ -2347,18 +2390,16 @@ var MatSelectionList = (function (_super) {
     __extends(MatSelectionList, _super);
     /**
      * @param {?} _element
+     * @param {?} tabIndex
      */
-    function MatSelectionList(_element) {
+    function MatSelectionList(_element, tabIndex) {
         var _this = _super.call(this) || this;
         _this._element = _element;
-        /**
-         * Tab index for the selection-list.
-         */
-        _this._tabIndex = 0;
         /**
          * The currently selected options.
          */
         _this.selectedOptions = new _angular_cdk_collections.SelectionModel(true);
+        _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
     /**
@@ -2366,9 +2407,6 @@ var MatSelectionList = (function (_super) {
      */
     MatSelectionList.prototype.ngAfterContentInit = function () {
         this._keyManager = new _angular_cdk_a11y.FocusKeyManager(this.options).withWrap();
-        if (this.disabled) {
-            this._tabIndex = -1;
-        }
     };
     /**
      * Focus the selection-list.
@@ -2473,10 +2511,10 @@ var MatSelectionList = (function (_super) {
     MatSelectionList.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-selection-list',
                     exportAs: 'matSelectionList',
-                    inputs: ['disabled', 'disableRipple'],
+                    inputs: ['disabled', 'disableRipple', 'tabIndex'],
                     host: {
                         'role': 'listbox',
-                        '[attr.tabindex]': '_tabIndex',
+                        '[tabIndex]': 'tabIndex',
                         'class': 'mat-selection-list',
                         '(focus)': 'focus()',
                         '(keydown)': '_keydown($event)',
@@ -2494,6 +2532,7 @@ var MatSelectionList = (function (_super) {
      */
     MatSelectionList.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
+        { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['tabindex',] },] },
     ]; };
     MatSelectionList.propDecorators = {
         'options': [{ type: _angular_core.ContentChildren, args: [MatListOption,] },],

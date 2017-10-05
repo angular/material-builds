@@ -8,11 +8,11 @@
 import { FocusableOption, FocusKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList, Renderer2 } from '@angular/core';
-import { CanDisable, CanDisableRipple, MatLine } from '@angular/material/core';
+import { CanDisable, CanDisableRipple, HasTabIndex, MatLine } from '@angular/material/core';
 /** @docs-private */
 export declare class MatSelectionListBase {
 }
-export declare const _MatSelectionListMixinBase: (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MatSelectionListBase;
+export declare const _MatSelectionListMixinBase: (new (...args: any[]) => HasTabIndex) & (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MatSelectionListBase;
 /** @docs-private */
 export declare class MatListOptionBase {
 }
@@ -67,17 +67,15 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
  */
-export declare class MatSelectionList extends _MatSelectionListMixinBase implements FocusableOption, CanDisable, CanDisableRipple, AfterContentInit {
+export declare class MatSelectionList extends _MatSelectionListMixinBase implements FocusableOption, CanDisable, CanDisableRipple, HasTabIndex, AfterContentInit {
     private _element;
-    /** Tab index for the selection-list. */
-    _tabIndex: number;
     /** The FocusKeyManager which handles focus. */
     _keyManager: FocusKeyManager<MatListOption>;
     /** The option components contained within this selection-list. */
     options: QueryList<MatListOption>;
     /** The currently selected options. */
     selectedOptions: SelectionModel<MatListOption>;
-    constructor(_element: ElementRef);
+    constructor(_element: ElementRef, tabIndex: string);
     ngAfterContentInit(): void;
     /** Focus the selection-list. */
     focus(): void;

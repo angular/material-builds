@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, Optional, Output, Renderer2, ViewEncapsulation, forwardRef } from '@angular/core';
-import { MatCommonModule, MatLine, MatLineModule, MatLineSetter, MatPseudoCheckboxModule, MatRippleModule, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, Optional, Output, Renderer2, ViewEncapsulation, forwardRef } from '@angular/core';
+import { MatCommonModule, MatLine, MatLineModule, MatLineSetter, MatPseudoCheckboxModule, MatRippleModule, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { FocusKeyManager } from '@angular/cdk/a11y';
@@ -302,7 +302,7 @@ var MatSelectionListBase = (function () {
     }
     return MatSelectionListBase;
 }());
-var _MatSelectionListMixinBase = mixinDisableRipple(mixinDisabled(MatSelectionListBase));
+var _MatSelectionListMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(MatSelectionListBase)));
 /**
  * \@docs-private
  */
@@ -502,18 +502,16 @@ var MatSelectionList = (function (_super) {
     __extends(MatSelectionList, _super);
     /**
      * @param {?} _element
+     * @param {?} tabIndex
      */
-    function MatSelectionList(_element) {
+    function MatSelectionList(_element, tabIndex) {
         var _this = _super.call(this) || this;
         _this._element = _element;
-        /**
-         * Tab index for the selection-list.
-         */
-        _this._tabIndex = 0;
         /**
          * The currently selected options.
          */
         _this.selectedOptions = new SelectionModel(true);
+        _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
     /**
@@ -521,9 +519,6 @@ var MatSelectionList = (function (_super) {
      */
     MatSelectionList.prototype.ngAfterContentInit = function () {
         this._keyManager = new FocusKeyManager(this.options).withWrap();
-        if (this.disabled) {
-            this._tabIndex = -1;
-        }
     };
     /**
      * Focus the selection-list.
@@ -628,10 +623,10 @@ var MatSelectionList = (function (_super) {
     MatSelectionList.decorators = [
         { type: Component, args: [{selector: 'mat-selection-list',
                     exportAs: 'matSelectionList',
-                    inputs: ['disabled', 'disableRipple'],
+                    inputs: ['disabled', 'disableRipple', 'tabIndex'],
                     host: {
                         'role': 'listbox',
-                        '[attr.tabindex]': '_tabIndex',
+                        '[tabIndex]': 'tabIndex',
                         'class': 'mat-selection-list',
                         '(focus)': 'focus()',
                         '(keydown)': '_keydown($event)',
@@ -649,6 +644,7 @@ var MatSelectionList = (function (_super) {
      */
     MatSelectionList.ctorParameters = function () { return [
         { type: ElementRef, },
+        { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
     ]; };
     MatSelectionList.propDecorators = {
         'options': [{ type: ContentChildren, args: [MatListOption,] },],
