@@ -11,7 +11,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { ConnectedOverlayDirective, Overlay, RepositionScrollStrategy, ScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, OnInit, QueryList, Renderer2 } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { CanDisable, HasTabIndex, MatOptgroup, MatOption, MatOptionSelectionChange } from '@angular/material/core';
+import { CanDisable, HasTabIndex, MatOptgroup, MatOption, MatOptionSelectionChange, ErrorStateMatcher } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl } from '@angular/material/form-field';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -74,6 +74,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _viewportRuler;
     private _changeDetectorRef;
     private _ngZone;
+    private _defaultErrorStateMatcher;
     private _dir;
     private _parentForm;
     private _parentFormGroup;
@@ -187,6 +188,8 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     ariaLabel: string;
     /** Input that can be used to specify the `aria-labelledby` attribute. */
     ariaLabelledby: string;
+    /** An object used to control when error messages are shown. */
+    errorStateMatcher: ErrorStateMatcher;
     /** Unique id of the element. */
     id: string;
     private _id;
@@ -204,7 +207,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      * @docs-private
      */
     valueChange: EventEmitter<any>;
-    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, renderer: Renderer2, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, _scrollStrategyFactory: any);
+    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _defaultErrorStateMatcher: ErrorStateMatcher, renderer: Renderer2, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, _scrollStrategyFactory: any);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

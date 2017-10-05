@@ -78,6 +78,7 @@ var MatProgressBar = (function () {
     };
     MatProgressBar.decorators = [
         { type: Component, args: [{selector: 'mat-progress-bar',
+                    exportAs: 'matProgressBar',
                     host: {
                         'role': 'progressbar',
                         'aria-valuemin': '0',

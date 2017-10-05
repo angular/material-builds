@@ -685,6 +685,7 @@ class MatIcon extends _MatIconMixinBase {
 MatIcon.decorators = [
     { type: Component, args: [{template: '<ng-content></ng-content>',
                 selector: 'mat-icon',
+                exportAs: 'matIcon',
                 styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px}"],
                 inputs: ['color'],
                 host: {

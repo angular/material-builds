@@ -846,6 +846,7 @@ var MatSlider = (function (_super) {
     };
     MatSlider.decorators = [
         { type: Component, args: [{selector: 'mat-slider',
+                    exportAs: 'matSlider',
                     providers: [MAT_SLIDER_VALUE_ACCESSOR],
                     host: {
                         '(focus)': '_onFocus()',

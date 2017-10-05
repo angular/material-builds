@@ -908,19 +908,29 @@ var NativeDateAdapter = (function (_super) {
 var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
 
 /**
- * Injection token that can be used to specify the global error options.
+ * Provider that defines how form controls behave with regards to displaying error messages.
  */
-var MAT_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-error-global-options');
-/**
- * Returns whether control is invalid and is either touched or is a part of a submitted form.
- * @param {?} control
- * @param {?} form
- * @return {?}
- */
-function defaultErrorStateMatcher(control, form) {
-    var /** @type {?} */ isSubmitted = form && form.submitted;
-    return !!(control.invalid && (control.touched || isSubmitted));
-}
+var ErrorStateMatcher = (function () {
+    function ErrorStateMatcher() {
+    }
+    /**
+     * @param {?} control
+     * @param {?} form
+     * @return {?}
+     */
+    ErrorStateMatcher.prototype.isErrorState = function (control, form) {
+        return !!(control && control.invalid && (control.touched || (form && form.submitted)));
+    };
+    ErrorStateMatcher.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    ErrorStateMatcher.ctorParameters = function () { return []; };
+    return ErrorStateMatcher;
+}());
+
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
@@ -1428,6 +1438,7 @@ var MatOptgroup = (function (_super) {
     }
     MatOptgroup.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-optgroup',
+                    exportAs: 'matOptgroup',
                     template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -1723,6 +1734,7 @@ var MatOption = (function () {
     };
     MatOption.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-option',
+                    exportAs: 'matOption',
                     host: {
                         'role': 'option',
                         '[attr.tabindex]': '_getTabIndex()',
@@ -1971,6 +1983,7 @@ var MatButton = (function (_super) {
     };
     MatButton.decorators = [
         { type: _angular_core.Component, args: [{selector: "button[mat-button], button[mat-raised-button], button[mat-icon-button],\n             button[mat-fab], button[mat-mini-fab]",
+                    exportAs: 'matButton',
                     host: {
                         '[disabled]': 'disabled || null',
                     },
@@ -2020,6 +2033,7 @@ var MatAnchor = (function (_super) {
     };
     MatAnchor.decorators = [
         { type: _angular_core.Component, args: [{selector: "a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab], a[mat-mini-fab]",
+                    exportAs: 'matButton, matAnchor',
                     host: {
                         '[attr.tabindex]': 'disabled ? -1 : 0',
                         '[attr.disabled]': 'disabled || null',
@@ -2767,6 +2781,7 @@ var MatIcon = (function (_super) {
     MatIcon.decorators = [
         { type: _angular_core.Component, args: [{template: '<ng-content></ng-content>',
                     selector: 'mat-icon',
+                    exportAs: 'matIcon',
                     styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px}"],
                     inputs: ['color'],
                     host: {
@@ -2981,6 +2996,7 @@ var MatStepHeader = (function () {
                     },
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
     /**
@@ -3013,35 +3029,35 @@ var MatStep = (function (_super) {
     __extends(MatStep, _super);
     /**
      * @param {?} stepper
-     * @param {?} errorOptions
+     * @param {?} _errorStateMatcher
      */
-    function MatStep(stepper, errorOptions) {
+    function MatStep(stepper, _errorStateMatcher) {
         var _this = _super.call(this, stepper) || this;
-        /**
-         * Custom error state matcher that additionally checks for validity of interacted form.
-         */
-        _this.errorStateMatcher = function (control, form) {
-            var originalErrorState = _this._originalErrorStateMatcher(control, form);
-            // Custom error state checks for the validity of form that is not submitted or touched
-            // since user can trigger a form change by calling for another step without directly
-            // interacting with the current form.
-            var customErrorState = control.invalid && _this.interacted;
-            return originalErrorState || customErrorState;
-        };
-        if (errorOptions && errorOptions.errorStateMatcher) {
-            _this._originalErrorStateMatcher = errorOptions.errorStateMatcher;
-        }
-        else {
-            _this._originalErrorStateMatcher = defaultErrorStateMatcher;
-        }
+        _this._errorStateMatcher = _errorStateMatcher;
         return _this;
     }
+    /**
+     * Custom error state matcher that additionally checks for validity of interacted form.
+     * @param {?} control
+     * @param {?} form
+     * @return {?}
+     */
+    MatStep.prototype.isErrorState = function (control, form) {
+        var /** @type {?} */ originalErrorState = this._errorStateMatcher.isErrorState(control, form);
+        // Custom error state checks for the validity of form that is not submitted or touched
+        // since user can trigger a form change by calling for another step without directly
+        // interacting with the current form.
+        var /** @type {?} */ customErrorState = !!(control && control.invalid && this.interacted);
+        return originalErrorState || customErrorState;
+    };
     MatStep.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-step',
                     template: "<ng-template><ng-content></ng-content></ng-template>",
-                    providers: [{ provide: MAT_ERROR_GLOBAL_OPTIONS, useExisting: MatStep }],
+                    providers: [{ provide: ErrorStateMatcher, useExisting: MatStep }],
                     encapsulation: _angular_core.ViewEncapsulation.None,
+                    exportAs: 'matStep',
                     preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
     /**
@@ -3049,7 +3065,7 @@ var MatStep = (function (_super) {
      */
     MatStep.ctorParameters = function () { return [
         { type: MatStepper, decorators: [{ type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatStepper; }),] },] },
-        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf }, { type: _angular_core.Inject, args: [MAT_ERROR_GLOBAL_OPTIONS,] },] },
+        { type: ErrorStateMatcher, decorators: [{ type: _angular_core.SkipSelf },] },
     ]; };
     MatStep.propDecorators = {
         'stepLabel': [{ type: _angular_core.ContentChild, args: [MatStepLabel,] },],
@@ -3083,6 +3099,7 @@ var MatHorizontalStepper = (function (_super) {
     }
     MatHorizontalStepper.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-horizontal-stepper',
+                    exportAs: 'matHorizontalStepper',
                     template: "<div class=\"mat-horizontal-stepper-header-container\"><ng-container *ngFor=\"let step of _steps; let i = index; let isLast = last\"><mat-step-header class=\"mat-horizontal-stepper-header\" (click)=\"step.select()\" (keydown)=\"_onKeydown($event)\" [tabIndex]=\"_focusIndex === i ? 0 : -1\" [id]=\"_getStepLabelId(i)\" [attr.aria-controls]=\"_getStepContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [index]=\"i\" [icon]=\"_getIndicatorType(i)\" [label]=\"step.stepLabel || step.label\" [selected]=\"selectedIndex === i\" [active]=\"step.completed || selectedIndex === i\" [optional]=\"step.optional\"></mat-step-header><div *ngIf=\"!isLast\" class=\"mat-stepper-horizontal-line\"></div></ng-container></div><div class=\"mat-horizontal-content-container\"><div *ngFor=\"let step of _steps; let i = index\" class=\"mat-horizontal-stepper-content\" role=\"tabpanel\" [@stepTransition]=\"_getAnimationDirection(i)\" [id]=\"_getStepContentId(i)\" [attr.aria-labelledby]=\"_getStepLabelId(i)\" [attr.aria-expanded]=\"selectedIndex === i\"><ng-container [ngTemplateOutlet]=\"step.content\"></ng-container></div></div>",
                     styles: [".mat-stepper-horizontal,.mat-stepper-vertical{display:block}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon,.mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon,[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:8px}.mat-vertical-stepper-header{display:flex;align-items:center;padding:24px;max-height:24px}.mat-vertical-stepper-header .mat-step-icon,.mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon,[dir=rtl] .mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content{overflow:hidden}.mat-horizontal-stepper-content[aria-expanded=false]{height:0}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:'';position:absolute;top:-16px;bottom:-16px;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}"],
                     inputs: ['selectedIndex'],
@@ -3101,6 +3118,7 @@ var MatHorizontalStepper = (function (_super) {
                     providers: [{ provide: MatStepper, useExisting: MatHorizontalStepper }],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
     /**
@@ -3116,6 +3134,7 @@ var MatVerticalStepper = (function (_super) {
     }
     MatVerticalStepper.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-vertical-stepper',
+                    exportAs: 'matVerticalStepper',
                     template: "<div class=\"mat-step\" *ngFor=\"let step of _steps; let i = index; let isLast = last\"><mat-step-header class=\"mat-vertical-stepper-header\" (click)=\"step.select()\" (keydown)=\"_onKeydown($event)\" [tabIndex]=\"_focusIndex == i ? 0 : -1\" [id]=\"_getStepLabelId(i)\" [attr.aria-controls]=\"_getStepContentId(i)\" [attr.aria-selected]=\"selectedIndex === i\" [index]=\"i\" [icon]=\"_getIndicatorType(i)\" [label]=\"step.stepLabel || step.label\" [selected]=\"selectedIndex === i\" [active]=\"step.completed || selectedIndex === i\" [optional]=\"step.optional\"></mat-step-header><div class=\"mat-vertical-content-container\" [class.mat-stepper-vertical-line]=\"!isLast\"><div class=\"mat-vertical-stepper-content\" role=\"tabpanel\" [@stepTransition]=\"_getAnimationDirection(i)\" [id]=\"_getStepContentId(i)\" [attr.aria-labelledby]=\"_getStepLabelId(i)\" [attr.aria-expanded]=\"selectedIndex === i\"><div class=\"mat-vertical-content\"><ng-container [ngTemplateOutlet]=\"step.content\"></ng-container></div></div></div></div>",
                     styles: [".mat-stepper-horizontal,.mat-stepper-vertical{display:block}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon,.mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon,[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:8px}.mat-vertical-stepper-header{display:flex;align-items:center;padding:24px;max-height:24px}.mat-vertical-stepper-header .mat-step-icon,.mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon,[dir=rtl] .mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content{overflow:hidden}.mat-horizontal-stepper-content[aria-expanded=false]{height:0}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:'';position:absolute;top:-16px;bottom:-16px;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}"],
                     inputs: ['selectedIndex'],
@@ -3134,6 +3153,7 @@ var MatVerticalStepper = (function (_super) {
                     providers: [{ provide: MatStepper, useExisting: MatVerticalStepper }],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
     /**
@@ -3219,7 +3239,7 @@ var MatStepperModule = (function () {
                     ],
                     declarations: [MatHorizontalStepper, MatVerticalStepper, MatStep, MatStepLabel, MatStepper,
                         MatStepperNext, MatStepperPrevious, MatStepHeader],
-                    providers: [MatStepperIntl],
+                    providers: [MatStepperIntl, ErrorStateMatcher],
                 },] },
     ];
     /**

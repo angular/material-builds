@@ -817,10 +817,6 @@ var NativeDateAdapter = (function (_super) {
 
 var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
 
-/**
- * Injection token that can be used to specify the global error options.
- */
-var MAT_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-error-global-options');
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
@@ -1311,6 +1307,7 @@ var MatOptgroup = (function (_super) {
     }
     MatOptgroup.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-optgroup',
+                    exportAs: 'matOptgroup',
                     template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -1606,6 +1603,7 @@ var MatOption = (function () {
     };
     MatOption.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-option',
+                    exportAs: 'matOption',
                     host: {
                         'role': 'option',
                         '[attr.tabindex]': '_getTabIndex()',
@@ -1716,6 +1714,7 @@ var MatProgressBar = (function () {
     };
     MatProgressBar.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-progress-bar',
+                    exportAs: 'matProgressBar',
                     host: {
                         'role': 'progressbar',
                         'aria-valuemin': '0',

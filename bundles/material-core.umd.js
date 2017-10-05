@@ -1041,29 +1041,51 @@ var MatNativeDateModule = (function () {
 }());
 
 /**
- * Injection token that can be used to specify the global error options.
+ * Error state matcher that matches when a control is invalid and dirty.
  */
-var MAT_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-error-global-options');
+var ShowOnDirtyErrorStateMatcher = (function () {
+    function ShowOnDirtyErrorStateMatcher() {
+    }
+    /**
+     * @param {?} control
+     * @param {?} form
+     * @return {?}
+     */
+    ShowOnDirtyErrorStateMatcher.prototype.isErrorState = function (control, form) {
+        return !!(control && control.invalid && (control.dirty || (form && form.submitted)));
+    };
+    ShowOnDirtyErrorStateMatcher.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    ShowOnDirtyErrorStateMatcher.ctorParameters = function () { return []; };
+    return ShowOnDirtyErrorStateMatcher;
+}());
 /**
- * Returns whether control is invalid and is either touched or is a part of a submitted form.
- * @param {?} control
- * @param {?} form
- * @return {?}
+ * Provider that defines how form controls behave with regards to displaying error messages.
  */
-function defaultErrorStateMatcher(control, form) {
-    var /** @type {?} */ isSubmitted = form && form.submitted;
-    return !!(control.invalid && (control.touched || isSubmitted));
-}
-/**
- * Returns whether control is invalid and is either dirty or is a part of a submitted form.
- * @param {?} control
- * @param {?} form
- * @return {?}
- */
-function showOnDirtyErrorStateMatcher(control, form) {
-    var /** @type {?} */ isSubmitted = form && form.submitted;
-    return !!(control.invalid && (control.dirty || isSubmitted));
-}
+var ErrorStateMatcher = (function () {
+    function ErrorStateMatcher() {
+    }
+    /**
+     * @param {?} control
+     * @param {?} form
+     * @return {?}
+     */
+    ErrorStateMatcher.prototype.isErrorState = function (control, form) {
+        return !!(control && control.invalid && (control.touched || (form && form.submitted)));
+    };
+    ErrorStateMatcher.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    ErrorStateMatcher.ctorParameters = function () { return []; };
+    return ErrorStateMatcher;
+}());
 
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
@@ -1731,6 +1753,7 @@ var MatOptgroup = (function (_super) {
     }
     MatOptgroup.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-optgroup',
+                    exportAs: 'matOptgroup',
                     template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -2026,6 +2049,7 @@ var MatOption = (function () {
     };
     MatOption.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-option',
+                    exportAs: 'matOption',
                     host: {
                         'role': 'option',
                         '[attr.tabindex]': '_getTabIndex()',
@@ -2138,9 +2162,8 @@ exports.DateAdapter = DateAdapter;
 exports.MAT_DATE_FORMATS = MAT_DATE_FORMATS;
 exports.NativeDateAdapter = NativeDateAdapter;
 exports.MAT_NATIVE_DATE_FORMATS = MAT_NATIVE_DATE_FORMATS;
-exports.MAT_ERROR_GLOBAL_OPTIONS = MAT_ERROR_GLOBAL_OPTIONS;
-exports.defaultErrorStateMatcher = defaultErrorStateMatcher;
-exports.showOnDirtyErrorStateMatcher = showOnDirtyErrorStateMatcher;
+exports.ShowOnDirtyErrorStateMatcher = ShowOnDirtyErrorStateMatcher;
+exports.ErrorStateMatcher = ErrorStateMatcher;
 exports.GestureConfig = GestureConfig;
 exports.MatLine = MatLine;
 exports.MatLineSetter = MatLineSetter;

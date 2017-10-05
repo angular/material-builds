@@ -1285,6 +1285,7 @@ class MatChipInput {
 MatChipInput.decorators = [
     { type: Directive, args: [{
                 selector: 'input[matChipInputFor]',
+                exportAs: 'matChipInput, matChipInputFor',
                 host: {
                     'class': 'mat-chip-input mat-input-element',
                     '(keydown)': '_keydown($event)',

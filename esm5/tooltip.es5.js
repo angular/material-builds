@@ -458,6 +458,7 @@ var MatTooltip = (function () {
     MatTooltip.decorators = [
         { type: Directive, args: [{
                     selector: '[mat-tooltip], [matTooltip]',
+                    exportAs: 'matTooltip',
                     host: {
                         '(longpress)': 'show()',
                         '(focus)': 'show()',
@@ -465,7 +466,6 @@ var MatTooltip = (function () {
                         '(keydown)': '_handleKeydown($event)',
                         '(touchend)': 'hide(' + TOUCHEND_HIDE_DELAY + ')',
                     },
-                    exportAs: 'matTooltip',
                 },] },
     ];
     /**

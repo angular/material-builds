@@ -201,6 +201,7 @@ class MatButton extends _MatButtonMixinBase {
 MatButton.decorators = [
     { type: Component, args: [{selector: `button[mat-button], button[mat-raised-button], button[mat-icon-button],
              button[mat-fab], button[mat-mini-fab]`,
+                exportAs: 'matButton',
                 host: {
                     '[disabled]': 'disabled || null',
                 },
@@ -248,6 +249,7 @@ class MatAnchor extends MatButton {
 }
 MatAnchor.decorators = [
     { type: Component, args: [{selector: `a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab], a[mat-mini-fab]`,
+                exportAs: 'matButton, matAnchor',
                 host: {
                     '[attr.tabindex]': 'disabled ? -1 : 0',
                     '[attr.disabled]': 'disabled || null',

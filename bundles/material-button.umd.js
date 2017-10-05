@@ -907,10 +907,6 @@ var NativeDateAdapter = (function (_super) {
 
 var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
 
-/**
- * Injection token that can be used to specify the global error options.
- */
-var MAT_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-error-global-options');
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
@@ -1418,6 +1414,7 @@ var MatOptgroup = (function (_super) {
     }
     MatOptgroup.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-optgroup',
+                    exportAs: 'matOptgroup',
                     template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -1713,6 +1710,7 @@ var MatOption = (function () {
     };
     MatOption.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-option',
+                    exportAs: 'matOption',
                     host: {
                         'role': 'option',
                         '[attr.tabindex]': '_getTabIndex()',
@@ -1961,6 +1959,7 @@ var MatButton = (function (_super) {
     };
     MatButton.decorators = [
         { type: _angular_core.Component, args: [{selector: "button[mat-button], button[mat-raised-button], button[mat-icon-button],\n             button[mat-fab], button[mat-mini-fab]",
+                    exportAs: 'matButton',
                     host: {
                         '[disabled]': 'disabled || null',
                     },
@@ -2010,6 +2009,7 @@ var MatAnchor = (function (_super) {
     };
     MatAnchor.decorators = [
         { type: _angular_core.Component, args: [{selector: "a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab], a[mat-mini-fab]",
+                    exportAs: 'matButton, matAnchor',
                     host: {
                         '[attr.tabindex]': 'disabled ? -1 : 0',
                         '[attr.disabled]': 'disabled || null',

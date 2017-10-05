@@ -433,6 +433,7 @@ class MatTooltip {
 MatTooltip.decorators = [
     { type: Directive, args: [{
                 selector: '[mat-tooltip], [matTooltip]',
+                exportAs: 'matTooltip',
                 host: {
                     '(longpress)': 'show()',
                     '(focus)': 'show()',
@@ -440,7 +441,6 @@ MatTooltip.decorators = [
                     '(keydown)': '_handleKeydown($event)',
                     '(touchend)': 'hide(' + TOUCHEND_HIDE_DELAY + ')',
                 },
-                exportAs: 'matTooltip',
             },] },
 ];
 /**

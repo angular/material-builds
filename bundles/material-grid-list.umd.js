@@ -817,10 +817,6 @@ var NativeDateAdapter = (function (_super) {
 
 var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
 
-/**
- * Injection token that can be used to specify the global error options.
- */
-var MAT_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-error-global-options');
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
@@ -1404,6 +1400,7 @@ var MatOptgroup = (function (_super) {
     }
     MatOptgroup.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-optgroup',
+                    exportAs: 'matOptgroup',
                     template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -1699,6 +1696,7 @@ var MatOption = (function () {
     };
     MatOption.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-option',
+                    exportAs: 'matOption',
                     host: {
                         'role': 'option',
                         '[attr.tabindex]': '_getTabIndex()',
@@ -1810,6 +1808,7 @@ var MatGridTile = (function () {
     };
     MatGridTile.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-grid-tile',
+                    exportAs: 'matGridTile',
                     host: {
                         'class': 'mat-grid-tile',
                     },
@@ -2547,6 +2546,7 @@ var MatGridList = (function () {
     };
     MatGridList.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-grid-list',
+                    exportAs: 'matGridList',
                     template: "<div><ng-content></ng-content></div>",
                     styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-figure{top:0;left:0;right:0;bottom:0;position:absolute;display:flex;align-items:center;justify-content:center;height:100%;padding:0;margin:0}.mat-grid-tile .mat-grid-tile-footer,.mat-grid-tile .mat-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-footer>*,.mat-grid-tile .mat-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-tile-footer.mat-2-line,.mat-grid-tile .mat-grid-tile-header.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none}"],
                     host: {
@@ -2610,10 +2610,10 @@ var MatGridListModule = (function () {
 exports.MatGridTile = MatGridTile;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
-exports.ɵb15 = MatGridAvatarCssMatStyler;
-exports.ɵd15 = MatGridTileFooterCssMatStyler;
-exports.ɵc15 = MatGridTileHeaderCssMatStyler;
-exports.ɵa15 = MatGridTileText;
+exports.ɵb17 = MatGridAvatarCssMatStyler;
+exports.ɵd17 = MatGridTileFooterCssMatStyler;
+exports.ɵc17 = MatGridTileHeaderCssMatStyler;
+exports.ɵa17 = MatGridTileText;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

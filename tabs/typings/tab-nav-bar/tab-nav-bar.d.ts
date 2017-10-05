@@ -7,6 +7,7 @@
  */
 import { Directionality } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
+import { ViewportRuler } from '@angular/cdk/scrolling';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, NgZone, OnDestroy, QueryList, Renderer2 } from '@angular/core';
 import { CanColor, CanDisable, CanDisableRipple, RippleGlobalOptions, ThemePalette } from '@angular/material/core';
 import { MatInkBar } from '../ink-bar';
@@ -25,6 +26,7 @@ export declare class MatTabNav extends _MatTabNavMixinBase implements AfterConte
     private _dir;
     private _ngZone;
     private _changeDetectorRef;
+    private _viewportRuler;
     /** Subject that emits when the component has been destroyed. */
     private _onDestroy;
     _activeLinkChanged: boolean;
@@ -38,7 +40,7 @@ export declare class MatTabNav extends _MatTabNavMixinBase implements AfterConte
     /** Whether ripples should be disabled for all links or not. */
     disableRipple: boolean;
     private _disableRipple;
-    constructor(renderer: Renderer2, elementRef: ElementRef, _dir: Directionality, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef);
+    constructor(renderer: Renderer2, elementRef: ElementRef, _dir: Directionality, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, _viewportRuler: ViewportRuler);
     /** Notifies the component that the active link has been changed. */
     updateActiveLink(element: ElementRef): void;
     ngAfterContentInit(): void;

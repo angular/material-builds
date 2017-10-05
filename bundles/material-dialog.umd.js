@@ -817,10 +817,6 @@ var NativeDateAdapter = (function (_super) {
 
 var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
 
-/**
- * Injection token that can be used to specify the global error options.
- */
-var MAT_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-error-global-options');
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
@@ -1311,6 +1307,7 @@ var MatOptgroup = (function (_super) {
     }
     MatOptgroup.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-optgroup',
+                    exportAs: 'matOptgroup',
                     template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -1606,6 +1603,7 @@ var MatOption = (function () {
     };
     MatOption.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-option',
+                    exportAs: 'matOption',
                     host: {
                         'role': 'option',
                         '[attr.tabindex]': '_getTabIndex()',
@@ -1856,6 +1854,9 @@ var MatDialogContainer = (function (_super) {
                     styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;max-width:80vw;outline:0;width:100%;height:100%}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch;-webkit-backface-visibility:hidden;backface-visibility:hidden}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex;flex-wrap:wrap}.mat-dialog-actions:last-child{margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button+.mat-button,.mat-dialog-actions .mat-button+.mat-raised-button,.mat-dialog-actions .mat-raised-button+.mat-button,.mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-button+.mat-raised-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:0;margin-right:8px}"],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
+                    // Using OnPush for dialogs caused some G3 sync issues. Disabled until we can track them down.
+                    // tslint:disable-next-line:validate-decorators
+                    changeDetection: _angular_core.ChangeDetectionStrategy.Default,
                     animations: [
                         _angular_animations.trigger('slideDialog', [
                             // Note: The `enter` animation doesn't transition to something like `translate3d(0, 0, 0)
@@ -2367,6 +2368,7 @@ var MatDialogClose = (function () {
     MatDialogClose.decorators = [
         { type: _angular_core.Directive, args: [{
                     selector: "button[mat-dialog-close], button[matDialogClose]",
+                    exportAs: 'matDialogClose',
                     host: {
                         '(click)': 'dialogRef.close(dialogResult)',
                         '[attr.aria-label]': 'ariaLabel',
@@ -2410,6 +2412,7 @@ var MatDialogTitle = (function () {
     MatDialogTitle.decorators = [
         { type: _angular_core.Directive, args: [{
                     selector: '[mat-dialog-title], [matDialogTitle]',
+                    exportAs: 'matDialogTitle',
                     host: {
                         'class': 'mat-dialog-title',
                         '[id]': 'id',

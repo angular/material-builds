@@ -687,10 +687,6 @@ var NativeDateAdapter = (function (_super) {
 
 var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
 
-/**
- * Injection token that can be used to specify the global error options.
- */
-var MAT_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-error-global-options');
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
@@ -1181,6 +1177,7 @@ var MatOptgroup = (function (_super) {
     }
     MatOptgroup.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-optgroup',
+                    exportAs: 'matOptgroup',
                     template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -1476,6 +1473,7 @@ var MatOption = (function () {
     };
     MatOption.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-option',
+                    exportAs: 'matOption',
                     host: {
                         'role': 'option',
                         '[attr.tabindex]': '_getTabIndex()',
@@ -1573,6 +1571,7 @@ var CdkAccordion = (function () {
     CdkAccordion.decorators = [
         { type: _angular_core.Directive, args: [{
                     selector: 'cdk-accordion, [cdk-accordion]',
+                    exportAs: 'cdkAccordion',
                 },] },
     ];
     /**
@@ -1597,6 +1596,7 @@ var MatAccordion = (function (_super) {
     MatAccordion.decorators = [
         { type: _angular_core.Directive, args: [{
                     selector: 'mat-accordion',
+                    exportAs: 'matAccordion',
                     host: {
                         class: 'mat-accordion'
                     }
@@ -1830,6 +1830,7 @@ var MatExpansionPanel = (function (_super) {
     MatExpansionPanel.decorators = [
         { type: _angular_core.Component, args: [{styles: [".mat-expansion-panel{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);box-sizing:content-box;display:block;margin:0;transition:margin 225ms cubic-bezier(.4,0,.2,1)}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-expansion-panel-content{overflow:hidden}.mat-expansion-panel-body{margin:0 24px 16px;overflow:auto}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion .mat-expansion-panel-spacing:first-child{margin-top:0}.mat-accordion .mat-expansion-panel-spacing:last-child{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button{margin-left:0;margin-right:8px}"],
                     selector: 'mat-expansion-panel',
+                    exportAs: 'matExpansionPanel',
                     template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content><div [class.mat-expanded]=\"expanded\" class=\"mat-expansion-panel-content\" [@bodyExpansion]=\"_getExpandedState()\" [id]=\"id\"><div class=\"mat-expansion-panel-body\"><ng-content></ng-content></div><ng-content select=\"mat-action-row\"></ng-content></div>",
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -2117,9 +2118,9 @@ exports.MatExpansionPanelHeader = MatExpansionPanelHeader;
 exports.MatExpansionPanelDescription = MatExpansionPanelDescription;
 exports.MatExpansionPanelTitle = MatExpansionPanelTitle;
 exports.MatExpansionModule = MatExpansionModule;
-exports.ɵc13 = EXPANSION_PANEL_ANIMATION_TIMING;
-exports.ɵa13 = MatExpansionPanelBase;
-exports.ɵb13 = _MatExpansionPanelMixinBase;
+exports.ɵc21 = EXPANSION_PANEL_ANIMATION_TIMING;
+exports.ɵa21 = MatExpansionPanelBase;
+exports.ɵb21 = _MatExpansionPanelMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

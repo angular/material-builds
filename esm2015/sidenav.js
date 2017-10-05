@@ -17,10 +17,8 @@ import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coerci
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/platform-browser';
 import { merge } from 'rxjs/observable/merge';
-import { first } from 'rxjs/operator/first';
-import { startWith } from 'rxjs/operator/startWith';
-import { takeUntil } from 'rxjs/operator/takeUntil';
 import { Subject } from 'rxjs/Subject';
+import { RxChain, filter, first, startWith, takeUntil } from '@angular/cdk/rxjs';
 
 /**
  * Throws an exception when two MatDrawer are matching the same position.
@@ -313,11 +311,12 @@ class MatDrawer {
         }
     }
     /**
+     * @param {?} event
      * @return {?}
      */
-    _onAnimationStart() {
+    _onAnimationStart(event) {
         this._isAnimating = true;
-        this._animationStarted.emit();
+        this._animationStarted.emit(event);
     }
     /**
      * @param {?} event
@@ -348,6 +347,7 @@ class MatDrawer {
 }
 MatDrawer.decorators = [
     { type: Component, args: [{selector: 'mat-drawer',
+                exportAs: 'matDrawer',
                 template: '<ng-content></ng-content>',
                 animations: [
                     trigger('transform', [
@@ -365,7 +365,7 @@ MatDrawer.decorators = [
                 host: {
                     'class': 'mat-drawer',
                     '[@transform]': '_animationState',
-                    '(@transform.start)': '_onAnimationStart()',
+                    '(@transform.start)': '_onAnimationStart($event)',
                     '(@transform.done)': '_onAnimationEnd($event)',
                     '(keydown)': 'handleKeydown($event)',
                     // must prevent the browser from aligning text based on value
@@ -493,10 +493,15 @@ class MatDrawerContainer {
      * @return {?}
      */
     _watchDrawerToggle(drawer) {
-        takeUntil.call(drawer._animationStarted, this._drawers.changes).subscribe(() => {
+        RxChain.from(drawer._animationStarted)
+            .call(takeUntil, this._drawers.changes)
+            .call(filter, (event) => event.fromState !== event.toState)
+            .subscribe((event) => {
             // Set the transition class on the container so that the animations occur. This should not
             // be set initially because animations should only be triggered via a change in state.
-            this._renderer.addClass(this._element.nativeElement, 'mat-drawer-transition');
+            if (event.toState !== 'open-instant') {
+                this._renderer.addClass(this._element.nativeElement, 'mat-drawer-transition');
+            }
             this._updateContentMargins();
             this._changeDetectorRef.markForCheck();
         });
@@ -505,8 +510,8 @@ class MatDrawerContainer {
         }
     }
     /**
-     * Subscribes to drawer onPositionChanged event in order to re-validate drawers when the position
-     * changes.
+     * Subscribes to drawer onPositionChanged event in order to
+     * re-validate drawers when the position changes.
      * @param {?} drawer
      * @return {?}
      */
@@ -650,6 +655,7 @@ class MatDrawerContainer {
 }
 MatDrawerContainer.decorators = [
     { type: Component, args: [{selector: 'mat-drawer-container',
+                exportAs: 'matDrawerContainer',
                 template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"mat-drawer\"></ng-content><ng-content select=\"mat-drawer-content\"></ng-content><mat-drawer-content *ngIf=\"!_content\" cdkScrollable><ng-content></ng-content></mat-drawer-content>",
                 styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-opened{overflow:hidden}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}.mat-drawer-transition .mat-drawer-backdrop{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:background-color,visibility}@media screen and (-ms-high-contrast:active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer-transition .mat-drawer-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer{transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-opened:not(.mat-drawer-side),.mat-drawer.mat-drawer-opening:not(.mat-drawer-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-fixed{position:fixed}"],
                 host: {
@@ -747,6 +753,7 @@ class MatSidenav extends MatDrawer {
 }
 MatSidenav.decorators = [
     { type: Component, args: [{selector: 'mat-sidenav',
+                exportAs: 'matSidenav',
                 template: '<ng-content></ng-content>',
                 animations: [
                     trigger('transform', [
@@ -765,7 +772,7 @@ MatSidenav.decorators = [
                     'class': 'mat-drawer mat-sidenav',
                     'tabIndex': '-1',
                     '[@transform]': '_animationState',
-                    '(@transform.start)': '_onAnimationStart()',
+                    '(@transform.start)': '_onAnimationStart($event)',
                     '(@transform.done)': '_onAnimationEnd($event)',
                     '(keydown)': 'handleKeydown($event)',
                     // must prevent the browser from aligning text based on value
@@ -796,6 +803,7 @@ class MatSidenavContainer extends MatDrawerContainer {
 }
 MatSidenavContainer.decorators = [
     { type: Component, args: [{selector: 'mat-sidenav-container',
+                exportAs: 'matSidenavContainer',
                 template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"mat-sidenav\"></ng-content><ng-content select=\"mat-sidenav-content\"></ng-content><mat-sidenav-content *ngIf=\"!_content\" cdkScrollable><ng-content></ng-content></mat-sidenav-content>",
                 styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-opened{overflow:hidden}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}.mat-drawer-transition .mat-drawer-backdrop{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:background-color,visibility}@media screen and (-ms-high-contrast:active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer-transition .mat-drawer-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer{transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-opened:not(.mat-drawer-side),.mat-drawer.mat-drawer-opening:not(.mat-drawer-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-fixed{position:fixed}"],
                 host: {

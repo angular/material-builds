@@ -72,6 +72,7 @@ class MatGridTile {
 }
 MatGridTile.decorators = [
     { type: Component, args: [{selector: 'mat-grid-tile',
+                exportAs: 'matGridTile',
                 host: {
                     'class': 'mat-grid-tile',
                 },
@@ -762,6 +763,7 @@ class MatGridList {
 }
 MatGridList.decorators = [
     { type: Component, args: [{selector: 'mat-grid-list',
+                exportAs: 'matGridList',
                 template: "<div><ng-content></ng-content></div>",
                 styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-figure{top:0;left:0;right:0;bottom:0;position:absolute;display:flex;align-items:center;justify-content:center;height:100%;padding:0;margin:0}.mat-grid-tile .mat-grid-tile-footer,.mat-grid-tile .mat-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-footer>*,.mat-grid-tile .mat-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-tile-footer.mat-2-line,.mat-grid-tile .mat-grid-tile-header.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none}"],
                 host: {
@@ -821,5 +823,5 @@ MatGridListModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatGridTile, MatGridListModule, MatGridList, MatGridAvatarCssMatStyler as ɵb15, MatGridTileFooterCssMatStyler as ɵd15, MatGridTileHeaderCssMatStyler as ɵc15, MatGridTileText as ɵa15 };
+export { MatGridTile, MatGridListModule, MatGridList, MatGridAvatarCssMatStyler as ɵb17, MatGridTileFooterCssMatStyler as ɵd17, MatGridTileHeaderCssMatStyler as ɵc17, MatGridTileText as ɵa17 };
 //# sourceMappingURL=grid-list.js.map

@@ -21,6 +21,7 @@ class MatTable extends _MatTable {
 }
 MatTable.decorators = [
     { type: Component, args: [{selector: 'mat-table',
+                exportAs: 'matTable',
                 template: CDK_TABLE_TEMPLATE,
                 styles: [".mat-table{display:block}.mat-header-row,.mat-row{display:flex;border-bottom-width:1px;border-bottom-style:solid;align-items:center;min-height:48px;padding:0 24px}.mat-cell,.mat-header-cell{flex:1}"],
                 host: {
@@ -214,6 +215,7 @@ MatHeaderRow.decorators = [
                 },
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
+                exportAs: 'matHeaderRow',
                 preserveWhitespaces: false,
             },] },
 ];
@@ -235,6 +237,7 @@ MatRow.decorators = [
                 },
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
+                exportAs: 'matRow',
                 preserveWhitespaces: false,
             },] },
 ];

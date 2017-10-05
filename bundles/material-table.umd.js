@@ -817,10 +817,6 @@ var NativeDateAdapter = (function (_super) {
 
 var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
 
-/**
- * Injection token that can be used to specify the global error options.
- */
-var MAT_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-error-global-options');
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
@@ -1311,6 +1307,7 @@ var MatOptgroup = (function (_super) {
     }
     MatOptgroup.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-optgroup',
+                    exportAs: 'matOptgroup',
                     template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -1606,6 +1603,7 @@ var MatOption = (function () {
     };
     MatOption.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-option',
+                    exportAs: 'matOption',
                     host: {
                         'role': 'option',
                         '[attr.tabindex]': '_getTabIndex()',
@@ -1661,6 +1659,7 @@ var MatTable = (function (_super) {
     }
     MatTable.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-table',
+                    exportAs: 'matTable',
                     template: _angular_cdk_table.CDK_TABLE_TEMPLATE,
                     styles: [".mat-table{display:block}.mat-header-row,.mat-row{display:flex;border-bottom-width:1px;border-bottom-style:solid;align-items:center;min-height:48px;padding:0 24px}.mat-cell,.mat-header-cell{flex:1}"],
                     host: {
@@ -1890,6 +1889,7 @@ var MatHeaderRow = (function (_super) {
                     },
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     encapsulation: _angular_core.ViewEncapsulation.None,
+                    exportAs: 'matHeaderRow',
                     preserveWhitespaces: false,
                 },] },
     ];
@@ -1916,6 +1916,7 @@ var MatRow = (function (_super) {
                     },
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     encapsulation: _angular_core.ViewEncapsulation.None,
+                    exportAs: 'matRow',
                     preserveWhitespaces: false,
                 },] },
     ];

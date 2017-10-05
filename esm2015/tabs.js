@@ -7,7 +7,7 @@
  */
 import { ObserversModule } from '@angular/cdk/observers';
 import { PortalHostDirective, PortalModule, TemplatePortal, TemplatePortalDirective } from '@angular/cdk/portal';
-import { ScrollDispatchModule, VIEWPORT_RULER_PROVIDER } from '@angular/cdk/scrolling';
+import { ScrollDispatchModule, VIEWPORT_RULER_PROVIDER, ViewportRuler } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, Renderer2, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
@@ -18,8 +18,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subscription } from 'rxjs/Subscription';
 import { merge } from 'rxjs/observable/merge';
 import { ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
-import { auditTime, startWith, takeUntil } from '@angular/cdk/rxjs';
-import { fromEvent } from 'rxjs/observable/fromEvent';
+import { startWith, takeUntil } from '@angular/cdk/rxjs';
 import { of } from 'rxjs/observable/of';
 import { Platform } from '@angular/cdk/platform';
 
@@ -654,6 +653,7 @@ class MatTabGroup extends _MatTabGroupMixinBase {
 }
 MatTabGroup.decorators = [
     { type: Component, args: [{selector: 'mat-tab-group',
+                exportAs: 'matTabGroup',
                 template: "<mat-tab-header #tabHeader [selectedIndex]=\"selectedIndex\" [disableRipple]=\"disableRipple\" (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" matTabLabelWrapper mat-ripple *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [tabIndex]=\"selectedIndex == i ? 0 : -1\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" [matRippleDisabled]=\"disableRipple\" (click)=\"tabHeader.focusIndex = selectedIndex = i\"><ng-template [ngIf]=\"tab.templateLabel\"><ng-template [cdkPortalHost]=\"tab.templateLabel\"></ng-template></ng-template><ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template></div></mat-tab-header><div class=\"mat-tab-body-wrapper\" #tabBodyWrapper><mat-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (_onCentered)=\"_removeTabBodyWrapperHeight()\" (_onCentering)=\"_setTabBodyWrapperHeight($event)\"></mat-tab-body></div>",
                 styles: [".mat-tab-group{display:flex;flex-direction:column}.mat-tab-group.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0;opacity:1}.mat-tab-label.mat-tab-disabled{cursor:default;pointer-events:none}@media (max-width:600px){.mat-tab-label{padding:0 12px}}@media (max-width:960px){.mat-tab-label{padding:0 12px}}.mat-tab-group[mat-stretch-tabs] .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height .5s cubic-bezier(.35,0,.25,1)}.mat-tab-body{top:0;left:0;right:0;bottom:0;position:absolute;display:block;overflow:hidden}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}.mat-tab-group.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}"],
                 encapsulation: ViewEncapsulation.None,
@@ -766,13 +766,15 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
      * @param {?} _elementRef
      * @param {?} _renderer
      * @param {?} _changeDetectorRef
+     * @param {?} _viewportRuler
      * @param {?} _dir
      */
-    constructor(_elementRef, _renderer, _changeDetectorRef, _dir) {
+    constructor(_elementRef, _renderer, _changeDetectorRef, _viewportRuler, _dir) {
         super();
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this._changeDetectorRef = _changeDetectorRef;
+        this._viewportRuler = _viewportRuler;
         this._dir = _dir;
         /**
          * The tab index that is focused.
@@ -878,9 +880,7 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
      */
     ngAfterContentInit() {
         const /** @type {?} */ dirChange = this._dir ? this._dir.change : of(null);
-        const /** @type {?} */ resize = typeof window !== 'undefined' ?
-            auditTime.call(fromEvent(window, 'resize'), 150) :
-            of(null);
+        const /** @type {?} */ resize = this._viewportRuler.change(150);
         this._realignInkBar = startWith.call(merge(dirChange, resize), null).subscribe(() => {
             this._updatePagination();
             this._alignInkBarToSelectedTab();
@@ -1160,6 +1160,7 @@ MatTabHeader.ctorParameters = () => [
     { type: ElementRef, },
     { type: Renderer2, },
     { type: ChangeDetectorRef, },
+    { type: ViewportRuler, },
     { type: Directionality, decorators: [{ type: Optional },] },
 ];
 MatTabHeader.propDecorators = {
@@ -1197,12 +1198,14 @@ class MatTabNav extends _MatTabNavMixinBase {
      * @param {?} _dir
      * @param {?} _ngZone
      * @param {?} _changeDetectorRef
+     * @param {?} _viewportRuler
      */
-    constructor(renderer, elementRef, _dir, _ngZone, _changeDetectorRef) {
+    constructor(renderer, elementRef, _dir, _ngZone, _changeDetectorRef, _viewportRuler) {
         super(renderer, elementRef);
         this._dir = _dir;
         this._ngZone = _ngZone;
         this._changeDetectorRef = _changeDetectorRef;
+        this._viewportRuler = _viewportRuler;
         /**
          * Subject that emits when the component has been destroyed.
          */
@@ -1256,13 +1259,9 @@ class MatTabNav extends _MatTabNavMixinBase {
      */
     ngAfterContentInit() {
         this._ngZone.runOutsideAngular(() => {
-            let /** @type {?} */ dirChange = this._dir ? this._dir.change : of(null);
-            let /** @type {?} */ resize = typeof window !== 'undefined' ?
-                auditTime.call(fromEvent(window, 'resize'), 10) :
-                of(null);
-            return takeUntil.call(merge(dirChange, resize), this._onDestroy).subscribe(() => {
-                this._alignInkBar();
-            });
+            const /** @type {?} */ dirChange = this._dir ? this._dir.change : of(null);
+            return takeUntil.call(merge(dirChange, this._viewportRuler.change(10)), this._onDestroy)
+                .subscribe(() => this._alignInkBar());
         });
         this._setLinkDisableRipple();
     }
@@ -1304,6 +1303,7 @@ class MatTabNav extends _MatTabNavMixinBase {
 }
 MatTabNav.decorators = [
     { type: Component, args: [{selector: '[mat-tab-nav-bar]',
+                exportAs: 'matTabNavBar, matTabNav',
                 inputs: ['color', 'disableRipple'],
                 template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><mat-ink-bar></mat-ink-bar></div>",
                 styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0;opacity:1}.mat-tab-link.mat-tab-disabled{cursor:default;pointer-events:none}@media (max-width:600px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}"],
@@ -1322,6 +1322,7 @@ MatTabNav.ctorParameters = () => [
     { type: Directionality, decorators: [{ type: Optional },] },
     { type: NgZone, },
     { type: ChangeDetectorRef, },
+    { type: ViewportRuler, },
 ];
 MatTabNav.propDecorators = {
     '_inkBar': [{ type: ViewChild, args: [MatInkBar,] },],
@@ -1406,6 +1407,7 @@ class MatTabLink extends _MatTabLinkMixinBase {
 MatTabLink.decorators = [
     { type: Directive, args: [{
                 selector: '[mat-tab-link], [matTabLink]',
+                exportAs: 'matTabLink',
                 inputs: ['disabled'],
                 host: {
                     'class': 'mat-tab-link',
@@ -1473,5 +1475,5 @@ MatTabsModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatInkBar, MatTabBody, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, MatTabBase as ɵe23, _MatTabMixinBase as ɵf23, MatTabHeaderBase as ɵa23, _MatTabHeaderMixinBase as ɵb23, MatTabLabelWrapperBase as ɵc23, _MatTabLabelWrapperMixinBase as ɵd23, MatTabLinkBase as ɵi23, MatTabNavBase as ɵg23, _MatTabLinkMixinBase as ɵj23, _MatTabNavMixinBase as ɵh23 };
+export { MatInkBar, MatTabBody, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, MatTabBase as ɵe13, _MatTabMixinBase as ɵf13, MatTabHeaderBase as ɵa13, _MatTabHeaderMixinBase as ɵb13, MatTabLabelWrapperBase as ɵc13, _MatTabLabelWrapperMixinBase as ɵd13, MatTabLinkBase as ɵi13, MatTabNavBase as ɵg13, _MatTabLinkMixinBase as ɵj13, _MatTabNavMixinBase as ɵh13 };
 //# sourceMappingURL=tabs.js.map

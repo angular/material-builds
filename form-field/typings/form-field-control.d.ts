@@ -10,7 +10,7 @@ import { NgControl } from '@angular/forms';
 /** An interface which allows a control to work inside of a `MatFormField`. */
 export declare abstract class MatFormFieldControl<T> {
     /** The value of the control. */
-    value: T;
+    value: T | null;
     /**
      * Stream that emits whenever the state of the control changes such that the parent `MatFormField`
      * needs to run change detection.

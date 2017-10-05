@@ -175,8 +175,29 @@ var MatMenuItem = (function (_super) {
             this.hover.next(this);
         }
     };
+    /**
+     * Gets the label to be used when determining whether the option should be focused.
+     * @return {?}
+     */
+    MatMenuItem.prototype.getLabel = function () {
+        var /** @type {?} */ element = this._elementRef.nativeElement;
+        var /** @type {?} */ output = '';
+        if (element.childNodes) {
+            var /** @type {?} */ length_1 = element.childNodes.length;
+            // Go through all the top-level text nodes and extract their text.
+            // We skip anything that's not a text node to prevent the text from
+            // being thrown off by something like an icon.
+            for (var /** @type {?} */ i = 0; i < length_1; i++) {
+                if (element.childNodes[i].nodeType === Node.TEXT_NODE) {
+                    output += element.childNodes[i].textContent;
+                }
+            }
+        }
+        return output.trim();
+    };
     MatMenuItem.decorators = [
         { type: Component, args: [{selector: '[mat-menu-item]',
+                    exportAs: 'matMenuItem',
                     inputs: ['disabled'],
                     host: {
                         'role': 'menuitem',
@@ -193,7 +214,6 @@ var MatMenuItem = (function (_super) {
                     encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     template: "<ng-content></ng-content><div class=\"mat-menu-ripple\" *ngIf=\"!disabled\" mat-ripple [matRippleTrigger]=\"_getHostElement()\"></div>",
-                    exportAs: 'matMenuItem',
                 },] },
     ];
     /**
@@ -313,7 +333,7 @@ var MatMenu = (function () {
      */
     MatMenu.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this._keyManager = new FocusKeyManager(this.items).withWrap();
+        this._keyManager = new FocusKeyManager(this.items).withWrap().withTypeAhead();
         this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this.close.emit('keydown'); });
     };
     /**
@@ -938,5 +958,5 @@ var MatMenuModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa18, _MatMenuItemMixinBase as ɵb18, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd18, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc18 };
+export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa8, _MatMenuItemMixinBase as ɵb8, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd8, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc8 };
 //# sourceMappingURL=menu.es5.js.map

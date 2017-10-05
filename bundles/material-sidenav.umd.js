@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/animations'), require('rxjs/observable/merge'), require('rxjs/operator/first'), require('rxjs/operator/startWith'), require('rxjs/operator/takeUntil')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/animations', 'rxjs/observable/merge', 'rxjs/operator/first', 'rxjs/operator/startWith', 'rxjs/operator/takeUntil'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sidenav = global.ng.material.sidenav || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.common,global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.animations,global.Rx.Observable,global.Rx.Observable.prototype,global.Rx.Observable.prototype,global.Rx.Observable.prototype));
-}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_animations,rxjs_observable_merge,rxjs_operator_first,rxjs_operator_startWith,rxjs_operator_takeUntil) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/animations'), require('rxjs/observable/merge'), require('@angular/cdk/rxjs')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/animations', 'rxjs/observable/merge', '@angular/cdk/rxjs'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sidenav = global.ng.material.sidenav || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.common,global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.animations,global.Rx.Observable,global.ng.cdk.rxjs));
+}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_keycodes,_angular_animations,rxjs_observable_merge,_angular_cdk_rxjs) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -817,10 +817,6 @@ var NativeDateAdapter = (function (_super) {
 
 var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
 
-/**
- * Injection token that can be used to specify the global error options.
- */
-var MAT_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-error-global-options');
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
@@ -1311,6 +1307,7 @@ var MatOptgroup = (function (_super) {
     }
     MatOptgroup.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-optgroup',
+                    exportAs: 'matOptgroup',
                     template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -1606,6 +1603,7 @@ var MatOption = (function () {
     };
     MatOption.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-option',
+                    exportAs: 'matOption',
                     host: {
                         'role': 'option',
                         '[attr.tabindex]': '_getTabIndex()',
@@ -1945,7 +1943,7 @@ var MatDrawer = (function () {
                 this._animationState = 'void';
             }
             this._currentTogglePromise = new Promise(function (resolve) {
-                rxjs_operator_first.first.call(isOpen ? _this.onOpen : _this.onClose).subscribe(resolve);
+                _angular_cdk_rxjs.first.call(isOpen ? _this.onOpen : _this.onClose).subscribe(resolve);
             });
             if (this._focusTrap) {
                 this._focusTrap.enabled = this._isFocusTrapEnabled;
@@ -1968,11 +1966,12 @@ var MatDrawer = (function () {
         }
     };
     /**
+     * @param {?} event
      * @return {?}
      */
-    MatDrawer.prototype._onAnimationStart = function () {
+    MatDrawer.prototype._onAnimationStart = function (event) {
         this._isAnimating = true;
-        this._animationStarted.emit();
+        this._animationStarted.emit(event);
     };
     /**
      * @param {?} event
@@ -2007,6 +2006,7 @@ var MatDrawer = (function () {
     });
     MatDrawer.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-drawer',
+                    exportAs: 'matDrawer',
                     template: '<ng-content></ng-content>',
                     animations: [
                         _angular_animations.trigger('transform', [
@@ -2024,7 +2024,7 @@ var MatDrawer = (function () {
                     host: {
                         'class': 'mat-drawer',
                         '[@transform]': '_animationState',
-                        '(@transform.start)': '_onAnimationStart()',
+                        '(@transform.start)': '_onAnimationStart($event)',
                         '(@transform.done)': '_onAnimationEnd($event)',
                         '(keydown)': 'handleKeydown($event)',
                         // must prevent the browser from aligning text based on value
@@ -2094,7 +2094,7 @@ var MatDrawerContainer = (function () {
         // If a `Dir` directive exists up the tree, listen direction changes and update the left/right
         // properties to point to the proper start/end.
         if (_dir != null) {
-            rxjs_operator_takeUntil.takeUntil.call(_dir.change, this._destroyed).subscribe(function () { return _this._validateDrawers(); });
+            _angular_cdk_rxjs.takeUntil.call(_dir.change, this._destroyed).subscribe(function () { return _this._validateDrawers(); });
         }
     }
     Object.defineProperty(MatDrawerContainer.prototype, "start", {
@@ -2120,7 +2120,7 @@ var MatDrawerContainer = (function () {
      */
     MatDrawerContainer.prototype.ngAfterContentInit = function () {
         var _this = this;
-        rxjs_operator_startWith.startWith.call(this._drawers.changes, null).subscribe(function () {
+        _angular_cdk_rxjs.startWith.call(this._drawers.changes, null).subscribe(function () {
             _this._validateDrawers();
             _this._drawers.forEach(function (drawer) {
                 _this._watchDrawerToggle(drawer);
@@ -2165,22 +2165,27 @@ var MatDrawerContainer = (function () {
      */
     MatDrawerContainer.prototype._watchDrawerToggle = function (drawer) {
         var _this = this;
-        rxjs_operator_takeUntil.takeUntil.call(drawer._animationStarted, this._drawers.changes).subscribe(function () {
+        _angular_cdk_rxjs.RxChain.from(drawer._animationStarted)
+            .call(_angular_cdk_rxjs.takeUntil, this._drawers.changes)
+            .call(_angular_cdk_rxjs.filter, function (event) { return event.fromState !== event.toState; })
+            .subscribe(function (event) {
             // Set the transition class on the container so that the animations occur. This should not
             // be set initially because animations should only be triggered via a change in state.
-            _this._renderer.addClass(_this._element.nativeElement, 'mat-drawer-transition');
+            if (event.toState !== 'open-instant') {
+                _this._renderer.addClass(_this._element.nativeElement, 'mat-drawer-transition');
+            }
             _this._updateContentMargins();
             _this._changeDetectorRef.markForCheck();
         });
         if (drawer.mode !== 'side') {
-            rxjs_operator_takeUntil.takeUntil.call(rxjs_observable_merge.merge(drawer.onOpen, drawer.onClose), this._drawers.changes).subscribe(function () {
+            _angular_cdk_rxjs.takeUntil.call(rxjs_observable_merge.merge(drawer.onOpen, drawer.onClose), this._drawers.changes).subscribe(function () {
                 return _this._setContainerClass(drawer.opened);
             });
         }
     };
     /**
-     * Subscribes to drawer onPositionChanged event in order to re-validate drawers when the position
-     * changes.
+     * Subscribes to drawer onPositionChanged event in order to
+     * re-validate drawers when the position changes.
      * @param {?} drawer
      * @return {?}
      */
@@ -2191,8 +2196,8 @@ var MatDrawerContainer = (function () {
         }
         // NOTE: We need to wait for the microtask queue to be empty before validating,
         // since both drawers may be swapping positions at the same time.
-        rxjs_operator_takeUntil.takeUntil.call(drawer.onPositionChanged, this._drawers.changes).subscribe(function () {
-            rxjs_operator_first.first.call(_this._ngZone.onMicrotaskEmpty.asObservable()).subscribe(function () {
+        _angular_cdk_rxjs.takeUntil.call(drawer.onPositionChanged, this._drawers.changes).subscribe(function () {
+            _angular_cdk_rxjs.first.call(_this._ngZone.onMicrotaskEmpty.asObservable()).subscribe(function () {
                 _this._validateDrawers();
             });
         });
@@ -2205,7 +2210,7 @@ var MatDrawerContainer = (function () {
     MatDrawerContainer.prototype._watchDrawerMode = function (drawer) {
         var _this = this;
         if (drawer) {
-            rxjs_operator_takeUntil.takeUntil.call(drawer._modeChanged, rxjs_observable_merge.merge(this._drawers.changes, this._destroyed))
+            _angular_cdk_rxjs.takeUntil.call(drawer._modeChanged, rxjs_observable_merge.merge(this._drawers.changes, this._destroyed))
                 .subscribe(function () {
                 _this._updateContentMargins();
                 _this._changeDetectorRef.markForCheck();
@@ -2326,6 +2331,7 @@ var MatDrawerContainer = (function () {
     };
     MatDrawerContainer.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-drawer-container',
+                    exportAs: 'matDrawerContainer',
                     template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"mat-drawer\"></ng-content><ng-content select=\"mat-drawer-content\"></ng-content><mat-drawer-content *ngIf=\"!_content\" cdkScrollable><ng-content></ng-content></mat-drawer-content>",
                     styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-opened{overflow:hidden}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}.mat-drawer-transition .mat-drawer-backdrop{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:background-color,visibility}@media screen and (-ms-high-contrast:active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer-transition .mat-drawer-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer{transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-opened:not(.mat-drawer-side),.mat-drawer.mat-drawer-opening:not(.mat-drawer-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-fixed{position:fixed}"],
                     host: {
@@ -2440,6 +2446,7 @@ var MatSidenav = (function (_super) {
     });
     MatSidenav.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-sidenav',
+                    exportAs: 'matSidenav',
                     template: '<ng-content></ng-content>',
                     animations: [
                         _angular_animations.trigger('transform', [
@@ -2458,7 +2465,7 @@ var MatSidenav = (function (_super) {
                         'class': 'mat-drawer mat-sidenav',
                         'tabIndex': '-1',
                         '[@transform]': '_animationState',
-                        '(@transform.start)': '_onAnimationStart()',
+                        '(@transform.start)': '_onAnimationStart($event)',
                         '(@transform.done)': '_onAnimationEnd($event)',
                         '(keydown)': 'handleKeydown($event)',
                         // must prevent the browser from aligning text based on value
@@ -2494,6 +2501,7 @@ var MatSidenavContainer = (function (_super) {
     }
     MatSidenavContainer.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-sidenav-container',
+                    exportAs: 'matSidenavContainer',
                     template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"mat-sidenav\"></ng-content><ng-content select=\"mat-sidenav-content\"></ng-content><mat-sidenav-content *ngIf=\"!_content\" cdkScrollable><ng-content></ng-content></mat-sidenav-content>",
                     styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-opened{overflow:hidden}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}.mat-drawer-transition .mat-drawer-backdrop{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:background-color,visibility}@media screen and (-ms-high-contrast:active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer-transition .mat-drawer-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer{transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-opened:not(.mat-drawer-side),.mat-drawer.mat-drawer-opening:not(.mat-drawer-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-fixed{position:fixed}"],
                     host: {

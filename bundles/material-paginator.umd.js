@@ -951,9 +951,29 @@ var NativeDateAdapter = (function (_super) {
 var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
 
 /**
- * Injection token that can be used to specify the global error options.
+ * Provider that defines how form controls behave with regards to displaying error messages.
  */
-var MAT_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-error-global-options');
+var ErrorStateMatcher = (function () {
+    function ErrorStateMatcher() {
+    }
+    /**
+     * @param {?} control
+     * @param {?} form
+     * @return {?}
+     */
+    ErrorStateMatcher.prototype.isErrorState = function (control, form) {
+        return !!(control && control.invalid && (control.touched || (form && form.submitted)));
+    };
+    ErrorStateMatcher.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    ErrorStateMatcher.ctorParameters = function () { return []; };
+    return ErrorStateMatcher;
+}());
+
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
@@ -1527,6 +1547,7 @@ var MatOptgroup = (function (_super) {
     }
     MatOptgroup.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-optgroup',
+                    exportAs: 'matOptgroup',
                     template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -1822,6 +1843,7 @@ var MatOption = (function () {
     };
     MatOption.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-option',
+                    exportAs: 'matOption',
                     host: {
                         'role': 'option',
                         '[attr.tabindex]': '_getTabIndex()',
@@ -2087,6 +2109,7 @@ var MatButton = (function (_super) {
     };
     MatButton.decorators = [
         { type: _angular_core.Component, args: [{selector: "button[mat-button], button[mat-raised-button], button[mat-icon-button],\n             button[mat-fab], button[mat-mini-fab]",
+                    exportAs: 'matButton',
                     host: {
                         '[disabled]': 'disabled || null',
                     },
@@ -2136,6 +2159,7 @@ var MatAnchor = (function (_super) {
     };
     MatAnchor.decorators = [
         { type: _angular_core.Component, args: [{selector: "a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab], a[mat-mini-fab]",
+                    exportAs: 'matButton, matAnchor',
                     host: {
                         '[attr.tabindex]': 'disabled ? -1 : 0',
                         '[attr.disabled]': 'disabled || null',
@@ -2658,6 +2682,7 @@ var MatFormField = (function () {
     MatFormField.decorators = [
         { type: _angular_core.Component, args: [{// TODO(mmalerba): the input-container selectors and classes are deprecated and will be removed.
                     selector: 'mat-input-container, mat-form-field',
+                    exportAs: 'matFormField',
                     template: "<div class=\"mat-input-wrapper mat-form-field-wrapper\"><div class=\"mat-input-flex mat-form-field-flex\" #connectionContainer (click)=\"_control.onContainerClick && _control.onContainerClick($event)\"><div class=\"mat-input-prefix mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[matPrefix]\"></ng-content></div><div class=\"mat-input-infix mat-form-field-infix\"><ng-content></ng-content><span class=\"mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper\"><label class=\"mat-input-placeholder mat-form-field-placeholder\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #placeholder *ngIf=\"_hasPlaceholder()\"><ng-content select=\"mat-placeholder\"></ng-content>{{_control.placeholder}} <span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required\">*</span></label></span></div><div class=\"mat-input-suffix mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[matSuffix]\"></ng-content></div></div><div class=\"mat-input-underline mat-form-field-underline\" #underline [class.mat-disabled]=\"_control.disabled\"><span class=\"mat-input-ripple mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-input-subscript-wrapper mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"mat-error\"></ng-content></div><div class=\"mat-input-hint-wrapper mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"mat-hint:not([align='end'])\"></ng-content><div class=\"mat-input-hint-spacer mat-form-field-hint-spacer\"></div><ng-content select=\"mat-hint[align='end']\"></ng-content></div></div></div>",
                     // MatInput is a directive and can't have styles, so we need to include its styles here.
                     // The MatInput styles are fairly minimal so it shouldn't be a big deal for people who
@@ -2935,6 +2960,7 @@ var MatSelect = (function (_super) {
      * @param {?} _viewportRuler
      * @param {?} _changeDetectorRef
      * @param {?} _ngZone
+     * @param {?} _defaultErrorStateMatcher
      * @param {?} renderer
      * @param {?} elementRef
      * @param {?} _dir
@@ -2945,11 +2971,12 @@ var MatSelect = (function (_super) {
      * @param {?} tabIndex
      * @param {?} _scrollStrategyFactory
      */
-    function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, renderer, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, _scrollStrategyFactory) {
+    function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, renderer, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, _scrollStrategyFactory) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._viewportRuler = _viewportRuler;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._ngZone = _ngZone;
+        _this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
         _this._dir = _dir;
         _this._parentForm = _parentForm;
         _this._parentFormGroup = _parentFormGroup;
@@ -3531,11 +3558,9 @@ var MatSelect = (function (_super) {
          * @return {?}
          */
         get: function () {
-            var /** @type {?} */ isInvalid = this.ngControl && this.ngControl.invalid;
-            var /** @type {?} */ isTouched = this.ngControl && this.ngControl.touched;
-            var /** @type {?} */ isSubmitted = (this._parentFormGroup && this._parentFormGroup.submitted) ||
-                (this._parentForm && this._parentForm.submitted);
-            return !!(isInvalid && (isTouched || isSubmitted));
+            var /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
+            var /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
+            return matcher.isErrorState(this.ngControl, parent);
         },
         enumerable: true,
         configurable: true
@@ -4104,6 +4129,7 @@ var MatSelect = (function (_super) {
     });
     MatSelect.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-select',
+                    exportAs: 'matSelect',
                     template: "<div cdk-overlay-origin class=\"mat-select-trigger\" aria-hidden=\"true\" (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><div class=\"mat-select-value\"><ng-container *ngIf=\"empty\">&nbsp;</ng-container><span class=\"mat-select-value-text\" *ngIf=\"!empty\" [ngSwitch]=\"!!customTrigger\"><span *ngSwitchDefault>{{ triggerValue }}</span><ng-content select=\"mat-select-trigger\" *ngSwitchCase=\"true\"></ng-content></span></div><div class=\"mat-select-arrow-wrapper\"><div class=\"mat-select-arrow\"></div></div></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [scrollStrategy]=\"_scrollStrategy\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerRect?.width\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div #panel class=\"mat-select-panel {{ _getPanelTheme() }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [style.font-size.px]=\"_triggerFontSize\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
                     styles: [".mat-select{display:inline-block;width:100%;outline:0}.mat-select-trigger{display:inline-table;cursor:pointer;position:relative;box-sizing:border-box}.mat-select-disabled .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-value{display:table-cell;max-width:0;width:100%;overflow:hidden;text-overflow:ellipsis}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-select-arrow-wrapper{display:table-cell;vertical-align:middle}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}.mat-select-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}}.mat-select-panel .mat-optgroup-label,.mat-select-panel .mat-option{font-size:inherit;line-height:3em;height:3em}.mat-form-field-type-mat-select .mat-form-field-flex{cursor:pointer}.mat-form-field-type-mat-select .mat-form-field-placeholder{width:calc(100% - 18px)}"],
                     inputs: ['disabled', 'tabIndex'],
@@ -4136,7 +4162,6 @@ var MatSelect = (function (_super) {
                         fadeInContent
                     ],
                     providers: [{ provide: MatFormFieldControl, useExisting: MatSelect }],
-                    exportAs: 'matSelect',
                 },] },
     ];
     /**
@@ -4146,6 +4171,7 @@ var MatSelect = (function (_super) {
         { type: _angular_cdk_overlay.ViewportRuler, },
         { type: _angular_core.ChangeDetectorRef, },
         { type: _angular_core.NgZone, },
+        { type: ErrorStateMatcher, },
         { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
@@ -4172,6 +4198,7 @@ var MatSelect = (function (_super) {
         'disableRipple': [{ type: _angular_core.Input },],
         'ariaLabel': [{ type: _angular_core.Input, args: ['aria-label',] },],
         'ariaLabelledby': [{ type: _angular_core.Input, args: ['aria-labelledby',] },],
+        'errorStateMatcher': [{ type: _angular_core.Input },],
         'id': [{ type: _angular_core.Input },],
         'onOpen': [{ type: _angular_core.Output },],
         'onClose': [{ type: _angular_core.Output },],
@@ -4194,7 +4221,7 @@ var MatSelectModule = (function () {
                     ],
                     exports: [MatFormFieldModule, MatSelect, MatSelectTrigger, MatOptionModule, MatCommonModule],
                     declarations: [MatSelect, MatSelectTrigger],
-                    providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER]
+                    providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER, ErrorStateMatcher]
                 },] },
     ];
     /**
@@ -4642,6 +4669,7 @@ var MatTooltip = (function () {
     MatTooltip.decorators = [
         { type: _angular_core.Directive, args: [{
                     selector: '[mat-tooltip], [matTooltip]',
+                    exportAs: 'matTooltip',
                     host: {
                         '(longpress)': 'show()',
                         '(focus)': 'show()',
@@ -4649,7 +4677,6 @@ var MatTooltip = (function () {
                         '(keydown)': '_handleKeydown($event)',
                         '(touchend)': 'hide(' + TOUCHEND_HIDE_DELAY + ')',
                     },
-                    exportAs: 'matTooltip',
                 },] },
     ];
     /**
@@ -5138,6 +5165,7 @@ var MatPaginator = (function () {
     };
     MatPaginator.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-paginator',
+                    exportAs: 'matPaginator',
                     template: "<div class=\"mat-paginator-page-size\"><div class=\"mat-paginator-page-size-label\">{{_intl.itemsPerPageLabel}}</div><mat-form-field *ngIf=\"_displayedPageSizeOptions.length > 1\" class=\"mat-paginator-page-size-select\"><mat-select [value]=\"pageSize\" [aria-label]=\"_intl.itemsPerPageLabel\" (change)=\"_changePageSize($event.value)\"><mat-option *ngFor=\"let pageSizeOption of _displayedPageSizeOptions\" [value]=\"pageSizeOption\">{{pageSizeOption}}</mat-option></mat-select></mat-form-field><div *ngIf=\"_displayedPageSizeOptions.length <= 1\">{{pageSize}}</div></div><div class=\"mat-paginator-range-label\">{{_intl.getRangeLabel(pageIndex, pageSize, length)}}</div><button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-previous\" (click)=\"previousPage()\" [attr.aria-label]=\"_intl.previousPageLabel\" [matTooltip]=\"_intl.previousPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\"><div class=\"mat-paginator-increment\"></div></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-next\" (click)=\"nextPage()\" [attr.aria-label]=\"_intl.nextPageLabel\" [matTooltip]=\"_intl.nextPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\"><div class=\"mat-paginator-decrement\"></div></button>",
                     styles: [".mat-paginator{display:flex;align-items:center;justify-content:flex-end;min-height:56px;padding:0 8px}.mat-paginator-page-size{display:flex;align-items:center}.mat-paginator-page-size-label{margin:0 4px}.mat-paginator-page-size-select{margin:0 4px;width:56px}.mat-paginator-range-label{margin:0 32px}.mat-paginator-increment-button+.mat-paginator-increment-button{margin:0 0 0 8px}[dir=rtl] .mat-paginator-increment-button+.mat-paginator-increment-button{margin:0 8px 0 0}.mat-paginator-decrement,.mat-paginator-increment{width:8px;height:8px}.mat-paginator-decrement,[dir=rtl] .mat-paginator-increment{transform:rotate(45deg)}.mat-paginator-increment,[dir=rtl] .mat-paginator-decrement{transform:rotate(225deg)}.mat-paginator-decrement{margin-left:12px}[dir=rtl] .mat-paginator-decrement{margin-right:12px}.mat-paginator-increment{margin-left:16px}[dir=rtl] .mat-paginator-increment{margin-right:16px}"],
                     host: {

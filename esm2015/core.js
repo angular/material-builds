@@ -1093,29 +1093,45 @@ MatNativeDateModule.decorators = [
 MatNativeDateModule.ctorParameters = () => [];
 
 /**
- * Injection token that can be used to specify the global error options.
+ * Error state matcher that matches when a control is invalid and dirty.
  */
-const MAT_ERROR_GLOBAL_OPTIONS = new InjectionToken('mat-error-global-options');
-/**
- * Returns whether control is invalid and is either touched or is a part of a submitted form.
- * @param {?} control
- * @param {?} form
- * @return {?}
- */
-function defaultErrorStateMatcher(control, form) {
-    const /** @type {?} */ isSubmitted = form && form.submitted;
-    return !!(control.invalid && (control.touched || isSubmitted));
+class ShowOnDirtyErrorStateMatcher {
+    /**
+     * @param {?} control
+     * @param {?} form
+     * @return {?}
+     */
+    isErrorState(control, form) {
+        return !!(control && control.invalid && (control.dirty || (form && form.submitted)));
+    }
 }
+ShowOnDirtyErrorStateMatcher.decorators = [
+    { type: Injectable },
+];
 /**
- * Returns whether control is invalid and is either dirty or is a part of a submitted form.
- * @param {?} control
- * @param {?} form
- * @return {?}
+ * @nocollapse
  */
-function showOnDirtyErrorStateMatcher(control, form) {
-    const /** @type {?} */ isSubmitted = form && form.submitted;
-    return !!(control.invalid && (control.dirty || isSubmitted));
+ShowOnDirtyErrorStateMatcher.ctorParameters = () => [];
+/**
+ * Provider that defines how form controls behave with regards to displaying error messages.
+ */
+class ErrorStateMatcher {
+    /**
+     * @param {?} control
+     * @param {?} form
+     * @return {?}
+     */
+    isErrorState(control, form) {
+        return !!(control && control.invalid && (control.touched || (form && form.submitted)));
+    }
 }
+ErrorStateMatcher.decorators = [
+    { type: Injectable },
+];
+/**
+ * @nocollapse
+ */
+ErrorStateMatcher.ctorParameters = () => [];
 
 class GestureConfig extends HammerGestureConfig {
     constructor() {
@@ -1745,6 +1761,7 @@ class MatOptgroup extends _MatOptgroupMixinBase {
 }
 MatOptgroup.decorators = [
     { type: Component, args: [{selector: 'mat-optgroup',
+                exportAs: 'matOptgroup',
                 template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
@@ -2008,6 +2025,7 @@ class MatOption {
 }
 MatOption.decorators = [
     { type: Component, args: [{selector: 'mat-option',
+                exportAs: 'matOption',
                 host: {
                     'role': 'option',
                     '[attr.tabindex]': '_getTabIndex()',
@@ -2096,5 +2114,5 @@ const DEC = 11;
  * Generated bundle index. Do not edit.
  */
 
-export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, MATERIAL_COMPATIBILITY_MODE, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, CompatibilityModule, NoConflictStyleCompatibilityMode, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, MAT_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher, showOnDirtyErrorStateMatcher, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_PLACEHOLDER_GLOBAL_OPTIONS, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MatRippleModule, MatPseudoCheckboxModule, MatPseudoCheckbox, applyCssTransform, extendObject, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, RippleRenderer as ɵa0 };
+export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, MATERIAL_COMPATIBILITY_MODE, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, CompatibilityModule, NoConflictStyleCompatibilityMode, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_PLACEHOLDER_GLOBAL_OPTIONS, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MatRippleModule, MatPseudoCheckboxModule, MatPseudoCheckbox, applyCssTransform, extendObject, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, RippleRenderer as ɵa0 };
 //# sourceMappingURL=core.js.map

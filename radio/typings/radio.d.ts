@@ -74,7 +74,7 @@ export declare class MatRadioGroup extends _MatRadioGroupMixinBase implements Af
      */
     align: 'start' | 'end';
     /** Whether the labels should appear after or before the radio-buttons. Defaults to 'after' */
-    labelPosition: "before" | "after";
+    labelPosition: 'before' | 'after';
     /** Value of the radio button. */
     value: any;
     _checkSelectedRadioButton(): void;

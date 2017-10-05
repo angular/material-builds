@@ -15,7 +15,7 @@ export declare class MatFormField implements AfterViewInit, AfterContentInit, Af
     /** Color of the form field underline, based on the theme. */
     color: 'primary' | 'accent' | 'warn';
     /** @deprecated Use `color` instead. */
-    dividerColor: "primary" | "accent" | "warn";
+    dividerColor: 'primary' | 'accent' | 'warn';
     /** Whether the required marker should be hidden. */
     hideRequiredMarker: any;
     private _hideRequiredMarker;

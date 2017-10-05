@@ -37,4 +37,6 @@ export declare class MatMenuItem extends _MatMenuItemMixinBase implements Focusa
     _checkDisabled(event: Event): void;
     /** Emits to the hover stream. */
     _emitHoverEvent(): void;
+    /** Gets the label to be used when determining whether the option should be focused. */
+    getLabel(): string;
 }

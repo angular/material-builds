@@ -7,11 +7,11 @@
  */
 import { Platform, PlatformModule, getSupportedInputTypes } from '@angular/cdk/platform';
 import { CommonModule } from '@angular/common';
-import { Directive, ElementRef, Inject, Input, NgModule, Optional, Renderer2, Self } from '@angular/core';
+import { Directive, ElementRef, Input, NgModule, Optional, Renderer2, Self } from '@angular/core';
 import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { MAT_ERROR_GLOBAL_OPTIONS, defaultErrorStateMatcher } from '@angular/material/core';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
 
 /**
@@ -230,15 +230,16 @@ var MatInput = (function () {
      * @param {?} ngControl
      * @param {?} _parentForm
      * @param {?} _parentFormGroup
-     * @param {?} errorOptions
+     * @param {?} _defaultErrorStateMatcher
      */
-    function MatInput(_elementRef, _renderer, _platform, ngControl, _parentForm, _parentFormGroup, errorOptions) {
+    function MatInput(_elementRef, _renderer, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher) {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this._platform = _platform;
         this.ngControl = ngControl;
         this._parentForm = _parentForm;
         this._parentFormGroup = _parentFormGroup;
+        this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
         /**
          * Variables used as cache for getters and setters.
          */
@@ -279,8 +280,6 @@ var MatInput = (function () {
         ].filter(function (t) { return getSupportedInputTypes().has(t); });
         // Force setter to be called in case id was not specified.
         this.id = this.id;
-        this._errorOptions = errorOptions ? errorOptions : {};
-        this.errorStateMatcher = this._errorOptions.errorStateMatcher || defaultErrorStateMatcher;
         // On some versions of iOS the caret gets stuck in the wrong place when holding down the delete
         // key. In order to get around this we need to "jiggle" the caret loose. Since this bug only
         // exists on iOS, we only bother to install the listener on iOS.
@@ -456,9 +455,9 @@ var MatInput = (function () {
      */
     MatInput.prototype._updateErrorState = function () {
         var /** @type {?} */ oldState = this.errorState;
-        var /** @type {?} */ ngControl = this.ngControl;
         var /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
-        var /** @type {?} */ newState = ngControl && this.errorStateMatcher(/** @type {?} */ (ngControl.control), parent);
+        var /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
+        var /** @type {?} */ newState = matcher.isErrorState(this.ngControl, parent);
         if (newState !== oldState) {
             this.errorState = newState;
             this.stateChanges.next();
@@ -547,6 +546,7 @@ var MatInput = (function () {
     MatInput.decorators = [
         { type: Directive, args: [{
                     selector: "input[matInput], textarea[matInput]",
+                    exportAs: 'matInput',
                     host: {
                         'class': 'mat-input-element mat-form-field-autofill-control',
                         // Native input properties that are overwritten by Angular inputs need to be synced with
@@ -575,7 +575,7 @@ var MatInput = (function () {
         { type: NgControl, decorators: [{ type: Optional }, { type: Self },] },
         { type: NgForm, decorators: [{ type: Optional },] },
         { type: FormGroupDirective, decorators: [{ type: Optional },] },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_ERROR_GLOBAL_OPTIONS,] },] },
+        { type: ErrorStateMatcher, },
     ]; };
     MatInput.propDecorators = {
         'disabled': [{ type: Input },],
@@ -611,6 +611,7 @@ var MatInputModule = (function () {
                         MatInput,
                         MatTextareaAutosize,
                     ],
+                    providers: [ErrorStateMatcher],
                 },] },
     ];
     /**

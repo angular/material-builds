@@ -77,7 +77,7 @@ var MatButtonToggleGroup = (function (_super) {
         /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          */
-        _this.onTouched = function () { };
+        _this._onTouched = function () { };
         /**
          * Event emitted when the group's value changes.
          */
@@ -230,7 +230,7 @@ var MatButtonToggleGroup = (function (_super) {
      * @return {?}
      */
     MatButtonToggleGroup.prototype.registerOnTouched = function (fn) {
-        this.onTouched = fn;
+        this._onTouched = fn;
     };
     /**
      * Toggles the disabled state of the component. Implemented as part of ControlValueAccessor.
@@ -520,7 +520,7 @@ var MatButtonToggle = (function () {
             var /** @type {?} */ groupValueChanged = this.buttonToggleGroup.selected != this;
             this.checked = true;
             this.buttonToggleGroup.selected = this;
-            this.buttonToggleGroup.onTouched();
+            this.buttonToggleGroup._onTouched();
             if (groupValueChanged) {
                 this.buttonToggleGroup._emitChangeEvent();
             }
@@ -578,6 +578,7 @@ var MatButtonToggle = (function () {
                     styles: [".mat-button-toggle-group,.mat-button-toggle-standalone{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap;overflow:hidden}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle-disabled .mat-button-toggle-label-content{cursor:default}.mat-button-toggle{white-space:nowrap;position:relative}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:1}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px;cursor:pointer}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;top:0;left:0;right:0;bottom:0;position:absolute}"],
                     encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false,
+                    exportAs: 'matButtonToggle',
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     host: {
                         '[class.mat-button-toggle-standalone]': '!buttonToggleGroup && !buttonToggleGroupMultiple',

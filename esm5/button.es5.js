@@ -220,6 +220,7 @@ var MatButton = (function (_super) {
     };
     MatButton.decorators = [
         { type: Component, args: [{selector: "button[mat-button], button[mat-raised-button], button[mat-icon-button],\n             button[mat-fab], button[mat-mini-fab]",
+                    exportAs: 'matButton',
                     host: {
                         '[disabled]': 'disabled || null',
                     },
@@ -269,6 +270,7 @@ var MatAnchor = (function (_super) {
     };
     MatAnchor.decorators = [
         { type: Component, args: [{selector: "a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab], a[mat-mini-fab]",
+                    exportAs: 'matButton, matAnchor',
                     host: {
                         '[attr.tabindex]': 'disabled ? -1 : 0',
                         '[attr.disabled]': 'disabled || null',

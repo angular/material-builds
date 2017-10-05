@@ -15,7 +15,7 @@ export declare class MatDatepickerToggle<D> implements OnChanges, OnDestroy {
     /** Datepicker instance that the button will toggle. */
     datepicker: MatDatepicker<D>;
     /** Whether the toggle button is disabled. */
-    disabled: any;
+    disabled: boolean;
     private _disabled;
     constructor(_intl: MatDatepickerIntl, _changeDetectorRef: ChangeDetectorRef);
     ngOnChanges(changes: SimpleChanges): void;

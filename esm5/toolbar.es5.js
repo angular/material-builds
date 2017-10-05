@@ -16,6 +16,7 @@ var MatToolbarRow = (function () {
     MatToolbarRow.decorators = [
         { type: Directive, args: [{
                     selector: 'mat-toolbar-row',
+                    exportAs: 'matToolbarRow',
                     host: { 'class': 'mat-toolbar-row' },
                 },] },
     ];
@@ -51,6 +52,7 @@ var MatToolbar = (function (_super) {
     }
     MatToolbar.decorators = [
         { type: Component, args: [{selector: 'mat-toolbar',
+                    exportAs: 'matToolbar',
                     template: "<div class=\"mat-toolbar-layout\"><mat-toolbar-row><ng-content></ng-content></mat-toolbar-row><ng-content select=\"mat-toolbar-row\"></ng-content></div>",
                     styles: [".mat-toolbar{display:flex;box-sizing:border-box;width:100%;padding:0 16px;flex-direction:column}.mat-toolbar .mat-toolbar-row{display:flex;box-sizing:border-box;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar{min-height:64px}.mat-toolbar-row{height:64px}@media (max-width:600px){.mat-toolbar{min-height:56px}.mat-toolbar-row{height:56px}}"],
                     inputs: ['color'],

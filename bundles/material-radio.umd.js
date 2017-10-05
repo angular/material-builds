@@ -907,10 +907,6 @@ var NativeDateAdapter = (function (_super) {
 
 var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
 
-/**
- * Injection token that can be used to specify the global error options.
- */
-var MAT_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-error-global-options');
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
@@ -1418,6 +1414,7 @@ var MatOptgroup = (function (_super) {
     }
     MatOptgroup.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-optgroup',
+                    exportAs: 'matOptgroup',
                     template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -1713,6 +1710,7 @@ var MatOption = (function () {
     };
     MatOption.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-option',
+                    exportAs: 'matOption',
                     host: {
                         'role': 'option',
                         '[attr.tabindex]': '_getTabIndex()',
@@ -2089,6 +2087,7 @@ var MatRadioGroup = (function (_super) {
     MatRadioGroup.decorators = [
         { type: _angular_core.Directive, args: [{
                     selector: 'mat-radio-group',
+                    exportAs: 'matRadioGroup',
                     providers: [MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
                     host: {
                         'role': 'radiogroup',
@@ -2454,6 +2453,7 @@ var MatRadioButton = (function (_super) {
                     inputs: ['color', 'disableRipple'],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
+                    exportAs: 'matRadioButton',
                     host: {
                         'class': 'mat-radio-button',
                         '[class.mat-radio-checked]': 'checked',

@@ -48,12 +48,12 @@ export declare class MatDrawer implements AfterContentInit, OnDestroy {
     /** Whether the drawer is initialized. Used for disabling the initial animation. */
     private _enableAnimations;
     /** The side that the drawer is attached to. */
-    position: "start" | "end";
+    position: 'start' | 'end';
     private _position;
     /** @deprecated */
-    align: "start" | "end";
+    align: 'start' | 'end';
     /** Mode of the drawer; one of 'over', 'push' or 'side'. */
-    mode: "over" | "push" | "side";
+    mode: 'over' | 'push' | 'side';
     private _mode;
     /** Whether the drawer can be closed with the escape key or by clicking on the backdrop. */
     disableClose: boolean;
@@ -61,7 +61,7 @@ export declare class MatDrawer implements AfterContentInit, OnDestroy {
     /** Whether the drawer is opened. */
     private _opened;
     /** Emits whenever the drawer has started animating. */
-    _animationStarted: EventEmitter<void>;
+    _animationStarted: EventEmitter<AnimationEvent>;
     /** Whether the drawer is animating. Used to prevent overlapping animations. */
     _isAnimating: boolean;
     /** Current state of the sidenav animation. */
@@ -113,7 +113,7 @@ export declare class MatDrawer implements AfterContentInit, OnDestroy {
      * @docs-private
      */
     handleKeydown(event: KeyboardEvent): void;
-    _onAnimationStart(): void;
+    _onAnimationStart(event: AnimationEvent): void;
     _onAnimationEnd(event: AnimationEvent): void;
     readonly _width: any;
 }
@@ -168,8 +168,8 @@ export declare class MatDrawerContainer implements AfterContentInit, OnDestroy {
      */
     private _watchDrawerToggle(drawer);
     /**
-     * Subscribes to drawer onPositionChanged event in order to re-validate drawers when the position
-     * changes.
+     * Subscribes to drawer onPositionChanged event in order to
+     * re-validate drawers when the position changes.
      */
     private _watchDrawerPosition(drawer);
     /** Subscribes to changes in drawer mode so we can run change detection. */

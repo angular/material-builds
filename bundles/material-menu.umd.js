@@ -817,10 +817,6 @@ var NativeDateAdapter = (function (_super) {
 
 var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
 
-/**
- * Injection token that can be used to specify the global error options.
- */
-var MAT_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-error-global-options');
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
@@ -1328,6 +1324,7 @@ var MatOptgroup = (function (_super) {
     }
     MatOptgroup.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-optgroup',
+                    exportAs: 'matOptgroup',
                     template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -1623,6 +1620,7 @@ var MatOption = (function () {
     };
     MatOption.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-option',
+                    exportAs: 'matOption',
                     host: {
                         'role': 'option',
                         '[attr.tabindex]': '_getTabIndex()',
@@ -1817,8 +1815,29 @@ var MatMenuItem = (function (_super) {
             this.hover.next(this);
         }
     };
+    /**
+     * Gets the label to be used when determining whether the option should be focused.
+     * @return {?}
+     */
+    MatMenuItem.prototype.getLabel = function () {
+        var /** @type {?} */ element = this._elementRef.nativeElement;
+        var /** @type {?} */ output = '';
+        if (element.childNodes) {
+            var /** @type {?} */ length_1 = element.childNodes.length;
+            // Go through all the top-level text nodes and extract their text.
+            // We skip anything that's not a text node to prevent the text from
+            // being thrown off by something like an icon.
+            for (var /** @type {?} */ i = 0; i < length_1; i++) {
+                if (element.childNodes[i].nodeType === Node.TEXT_NODE) {
+                    output += element.childNodes[i].textContent;
+                }
+            }
+        }
+        return output.trim();
+    };
     MatMenuItem.decorators = [
         { type: _angular_core.Component, args: [{selector: '[mat-menu-item]',
+                    exportAs: 'matMenuItem',
                     inputs: ['disabled'],
                     host: {
                         'role': 'menuitem',
@@ -1835,7 +1854,6 @@ var MatMenuItem = (function (_super) {
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     template: "<ng-content></ng-content><div class=\"mat-menu-ripple\" *ngIf=\"!disabled\" mat-ripple [matRippleTrigger]=\"_getHostElement()\"></div>",
-                    exportAs: 'matMenuItem',
                 },] },
     ];
     /**
@@ -1955,7 +1973,7 @@ var MatMenu = (function () {
      */
     MatMenu.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this._keyManager = new _angular_cdk_a11y.FocusKeyManager(this.items).withWrap();
+        this._keyManager = new _angular_cdk_a11y.FocusKeyManager(this.items).withWrap().withTypeAhead();
         this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this.close.emit('keydown'); });
     };
     /**
@@ -2584,10 +2602,10 @@ exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports.MatMenuItem = MatMenuItem;
 exports.MatMenuTrigger = MatMenuTrigger;
-exports.ɵa18 = MatMenuItemBase;
-exports.ɵb18 = _MatMenuItemMixinBase;
-exports.ɵd18 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc18 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa8 = MatMenuItemBase;
+exports.ɵb8 = _MatMenuItemMixinBase;
+exports.ɵd8 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc8 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

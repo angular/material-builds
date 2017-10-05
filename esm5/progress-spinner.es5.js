@@ -294,6 +294,7 @@ var MatProgressSpinner = (function (_super) {
     };
     MatProgressSpinner.decorators = [
         { type: Component, args: [{selector: 'mat-progress-spinner',
+                    exportAs: 'matProgressSpinner',
                     host: {
                         'role': 'progressbar',
                         'class': 'mat-progress-spinner',

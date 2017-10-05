@@ -67,6 +67,7 @@ class CdkAccordion {
 CdkAccordion.decorators = [
     { type: Directive, args: [{
                 selector: 'cdk-accordion, [cdk-accordion]',
+                exportAs: 'cdkAccordion',
             },] },
 ];
 /**
@@ -86,6 +87,7 @@ class MatAccordion extends CdkAccordion {
 MatAccordion.decorators = [
     { type: Directive, args: [{
                 selector: 'mat-accordion',
+                exportAs: 'matAccordion',
                 host: {
                     class: 'mat-accordion'
                 }
@@ -308,6 +310,7 @@ class MatExpansionPanel extends _MatExpansionPanelMixinBase {
 MatExpansionPanel.decorators = [
     { type: Component, args: [{styles: [".mat-expansion-panel{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);box-sizing:content-box;display:block;margin:0;transition:margin 225ms cubic-bezier(.4,0,.2,1)}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-expansion-panel-content{overflow:hidden}.mat-expansion-panel-body{margin:0 24px 16px;overflow:auto}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion .mat-expansion-panel-spacing:first-child{margin-top:0}.mat-accordion .mat-expansion-panel-spacing:last-child{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button{margin-left:0;margin-right:8px}"],
                 selector: 'mat-expansion-panel',
+                exportAs: 'matExpansionPanel',
                 template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content><div [class.mat-expanded]=\"expanded\" class=\"mat-expansion-panel-content\" [@bodyExpansion]=\"_getExpandedState()\" [id]=\"id\"><div class=\"mat-expansion-panel-body\"><ng-content></ng-content></div><ng-content select=\"mat-action-row\"></ng-content></div>",
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
@@ -580,5 +583,5 @@ MatExpansionModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { CdkAccordion, MatAccordion, AccordionItem, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionModule, EXPANSION_PANEL_ANIMATION_TIMING as ɵc13, MatExpansionPanelBase as ɵa13, _MatExpansionPanelMixinBase as ɵb13 };
+export { CdkAccordion, MatAccordion, AccordionItem, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionModule, EXPANSION_PANEL_ANIMATION_TIMING as ɵc21, MatExpansionPanelBase as ɵa21, _MatExpansionPanelMixinBase as ɵb21 };
 //# sourceMappingURL=expansion.js.map

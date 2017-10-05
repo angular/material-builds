@@ -1297,6 +1297,7 @@ class MatDatepicker {
 MatDatepicker.decorators = [
     { type: Component, args: [{selector: 'mat-datepicker',
                 template: '',
+                exportAs: 'matDatepicker',
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,

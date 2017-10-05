@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Injector, Input, NgModule, Optional, SkipSelf, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Injector, Input, NgModule, Optional, SkipSelf, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { BasePortalHost, ComponentPortal, PortalHostDirective, PortalInjector, PortalModule, TemplatePortal } from '@angular/cdk/portal';
@@ -231,6 +231,9 @@ var MatDialogContainer = (function (_super) {
                     styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;max-width:80vw;outline:0;width:100%;height:100%}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch;-webkit-backface-visibility:hidden;backface-visibility:hidden}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex;flex-wrap:wrap}.mat-dialog-actions:last-child{margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button+.mat-button,.mat-dialog-actions .mat-button+.mat-raised-button,.mat-dialog-actions .mat-raised-button+.mat-button,.mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-button+.mat-raised-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:0;margin-right:8px}"],
                     encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false,
+                    // Using OnPush for dialogs caused some G3 sync issues. Disabled until we can track them down.
+                    // tslint:disable-next-line:validate-decorators
+                    changeDetection: ChangeDetectionStrategy.Default,
                     animations: [
                         trigger('slideDialog', [
                             // Note: The `enter` animation doesn't transition to something like `translate3d(0, 0, 0)
@@ -742,6 +745,7 @@ var MatDialogClose = (function () {
     MatDialogClose.decorators = [
         { type: Directive, args: [{
                     selector: "button[mat-dialog-close], button[matDialogClose]",
+                    exportAs: 'matDialogClose',
                     host: {
                         '(click)': 'dialogRef.close(dialogResult)',
                         '[attr.aria-label]': 'ariaLabel',
@@ -785,6 +789,7 @@ var MatDialogTitle = (function () {
     MatDialogTitle.decorators = [
         { type: Directive, args: [{
                     selector: '[mat-dialog-title], [matDialogTitle]',
+                    exportAs: 'matDialogTitle',
                     host: {
                         'class': 'mat-dialog-title',
                         '[id]': 'id',

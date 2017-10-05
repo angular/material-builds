@@ -8,7 +8,7 @@
 import { DoCheck, ElementRef, OnChanges, OnDestroy, Renderer2 } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { Platform } from '@angular/cdk/platform';
-import { ErrorOptions, ErrorStateMatcher } from '@angular/material/core';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
 import { MatFormFieldControl } from '@angular/material/form-field';
 /** Directive that allows a native input to work inside a `MatFormField`. */
@@ -19,13 +19,13 @@ export declare class MatInput implements MatFormFieldControl<any>, OnChanges, On
     ngControl: NgControl;
     protected _parentForm: NgForm;
     protected _parentFormGroup: FormGroupDirective;
+    private _defaultErrorStateMatcher;
     /** Variables used as cache for getters and setters. */
     protected _type: string;
     protected _disabled: boolean;
     protected _required: boolean;
     protected _id: string;
     protected _uid: string;
-    protected _errorOptions: ErrorOptions;
     protected _previousNativeValue: string;
     private _readonly;
     /** Whether the input is focused. */
@@ -51,14 +51,14 @@ export declare class MatInput implements MatFormFieldControl<any>, OnChanges, On
     required: any;
     /** Input type of the element. */
     type: string;
-    /** A function used to control when error messages are shown. */
+    /** An object used to control when error messages are shown. */
     errorStateMatcher: ErrorStateMatcher;
     /** The input element's value. */
     value: string;
     /** Whether the element is readonly. */
     readonly: any;
     protected _neverEmptyInputTypes: string[];
-    constructor(_elementRef: ElementRef, _renderer: Renderer2, _platform: Platform, ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, errorOptions: ErrorOptions);
+    constructor(_elementRef: ElementRef, _renderer: Renderer2, _platform: Platform, ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher);
     ngOnChanges(): void;
     ngOnDestroy(): void;
     ngDoCheck(): void;

@@ -46,7 +46,7 @@ export declare class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase
      */
     _controlValueAccessorChangeFn: (value: any) => void;
     /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
-    onTouched: () => any;
+    _onTouched: () => any;
     /** Child button toggle buttons. */
     _buttonToggles: QueryList<MatButtonToggle>;
     /** `name` attribute for the underlying `input` element. */

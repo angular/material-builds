@@ -688,19 +688,29 @@ var NativeDateAdapter = (function (_super) {
 var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
 
 /**
- * Injection token that can be used to specify the global error options.
+ * Provider that defines how form controls behave with regards to displaying error messages.
  */
-var MAT_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-error-global-options');
-/**
- * Returns whether control is invalid and is either touched or is a part of a submitted form.
- * @param {?} control
- * @param {?} form
- * @return {?}
- */
-function defaultErrorStateMatcher(control, form) {
-    var /** @type {?} */ isSubmitted = form && form.submitted;
-    return !!(control.invalid && (control.touched || isSubmitted));
-}
+var ErrorStateMatcher = (function () {
+    function ErrorStateMatcher() {
+    }
+    /**
+     * @param {?} control
+     * @param {?} form
+     * @return {?}
+     */
+    ErrorStateMatcher.prototype.isErrorState = function (control, form) {
+        return !!(control && control.invalid && (control.touched || (form && form.submitted)));
+    };
+    ErrorStateMatcher.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /**
+     * @nocollapse
+     */
+    ErrorStateMatcher.ctorParameters = function () { return []; };
+    return ErrorStateMatcher;
+}());
+
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
@@ -1191,6 +1201,7 @@ var MatOptgroup = (function (_super) {
     }
     MatOptgroup.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-optgroup',
+                    exportAs: 'matOptgroup',
                     template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -1486,6 +1497,7 @@ var MatOption = (function () {
     };
     MatOption.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-option',
+                    exportAs: 'matOption',
                     host: {
                         'role': 'option',
                         '[attr.tabindex]': '_getTabIndex()',
@@ -1984,6 +1996,7 @@ var MatFormField = (function () {
     MatFormField.decorators = [
         { type: _angular_core.Component, args: [{// TODO(mmalerba): the input-container selectors and classes are deprecated and will be removed.
                     selector: 'mat-input-container, mat-form-field',
+                    exportAs: 'matFormField',
                     template: "<div class=\"mat-input-wrapper mat-form-field-wrapper\"><div class=\"mat-input-flex mat-form-field-flex\" #connectionContainer (click)=\"_control.onContainerClick && _control.onContainerClick($event)\"><div class=\"mat-input-prefix mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[matPrefix]\"></ng-content></div><div class=\"mat-input-infix mat-form-field-infix\"><ng-content></ng-content><span class=\"mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper\"><label class=\"mat-input-placeholder mat-form-field-placeholder\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #placeholder *ngIf=\"_hasPlaceholder()\"><ng-content select=\"mat-placeholder\"></ng-content>{{_control.placeholder}} <span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required\">*</span></label></span></div><div class=\"mat-input-suffix mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[matSuffix]\"></ng-content></div></div><div class=\"mat-input-underline mat-form-field-underline\" #underline [class.mat-disabled]=\"_control.disabled\"><span class=\"mat-input-ripple mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-input-subscript-wrapper mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"mat-error\"></ng-content></div><div class=\"mat-input-hint-wrapper mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"mat-hint:not([align='end'])\"></ng-content><div class=\"mat-input-hint-spacer mat-form-field-hint-spacer\"></div><ng-content select=\"mat-hint[align='end']\"></ng-content></div></div></div>",
                     // MatInput is a directive and can't have styles, so we need to include its styles here.
                     // The MatInput styles are fairly minimal so it shouldn't be a big deal for people who
@@ -2300,15 +2313,16 @@ var MatInput = (function () {
      * @param {?} ngControl
      * @param {?} _parentForm
      * @param {?} _parentFormGroup
-     * @param {?} errorOptions
+     * @param {?} _defaultErrorStateMatcher
      */
-    function MatInput(_elementRef, _renderer, _platform, ngControl, _parentForm, _parentFormGroup, errorOptions) {
+    function MatInput(_elementRef, _renderer, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher) {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this._platform = _platform;
         this.ngControl = ngControl;
         this._parentForm = _parentForm;
         this._parentFormGroup = _parentFormGroup;
+        this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
         /**
          * Variables used as cache for getters and setters.
          */
@@ -2349,8 +2363,6 @@ var MatInput = (function () {
         ].filter(function (t) { return _angular_cdk_platform.getSupportedInputTypes().has(t); });
         // Force setter to be called in case id was not specified.
         this.id = this.id;
-        this._errorOptions = errorOptions ? errorOptions : {};
-        this.errorStateMatcher = this._errorOptions.errorStateMatcher || defaultErrorStateMatcher;
         // On some versions of iOS the caret gets stuck in the wrong place when holding down the delete
         // key. In order to get around this we need to "jiggle" the caret loose. Since this bug only
         // exists on iOS, we only bother to install the listener on iOS.
@@ -2526,9 +2538,9 @@ var MatInput = (function () {
      */
     MatInput.prototype._updateErrorState = function () {
         var /** @type {?} */ oldState = this.errorState;
-        var /** @type {?} */ ngControl = this.ngControl;
         var /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
-        var /** @type {?} */ newState = ngControl && this.errorStateMatcher(/** @type {?} */ (ngControl.control), parent);
+        var /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
+        var /** @type {?} */ newState = matcher.isErrorState(this.ngControl, parent);
         if (newState !== oldState) {
             this.errorState = newState;
             this.stateChanges.next();
@@ -2617,6 +2629,7 @@ var MatInput = (function () {
     MatInput.decorators = [
         { type: _angular_core.Directive, args: [{
                     selector: "input[matInput], textarea[matInput]",
+                    exportAs: 'matInput',
                     host: {
                         'class': 'mat-input-element mat-form-field-autofill-control',
                         // Native input properties that are overwritten by Angular inputs need to be synced with
@@ -2645,7 +2658,7 @@ var MatInput = (function () {
         { type: _angular_forms.NgControl, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Self },] },
         { type: _angular_forms.NgForm, decorators: [{ type: _angular_core.Optional },] },
         { type: _angular_forms.FormGroupDirective, decorators: [{ type: _angular_core.Optional },] },
-        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_ERROR_GLOBAL_OPTIONS,] },] },
+        { type: ErrorStateMatcher, },
     ]; };
     MatInput.propDecorators = {
         'disabled': [{ type: _angular_core.Input },],
@@ -2681,6 +2694,7 @@ var MatInputModule = (function () {
                         MatInput,
                         MatTextareaAutosize,
                     ],
+                    providers: [ErrorStateMatcher],
                 },] },
     ];
     /**

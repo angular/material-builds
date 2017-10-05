@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/observers'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('@angular/common'), require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/animations'), require('rxjs/Subscription'), require('rxjs/observable/merge'), require('@angular/cdk/rxjs'), require('rxjs/observable/fromEvent'), require('rxjs/observable/of')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/observers', '@angular/cdk/portal', '@angular/cdk/scrolling', '@angular/common', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/animations', 'rxjs/Subscription', 'rxjs/observable/merge', '@angular/cdk/rxjs', 'rxjs/observable/fromEvent', 'rxjs/observable/of'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tabs = global.ng.material.tabs || {}),global.ng.cdk.observers,global.ng.cdk.portal,global.ng.cdk.scrolling,global.ng.common,global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.animations,global.Rx,global.Rx.Observable,global.ng.cdk.rxjs,global.Rx.Observable,global.Rx.Observable));
-}(this, (function (exports,_angular_cdk_observers,_angular_cdk_portal,_angular_cdk_scrolling,_angular_common,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_cdk_platform,_angular_cdk_keycodes,_angular_animations,rxjs_Subscription,rxjs_observable_merge,_angular_cdk_rxjs,rxjs_observable_fromEvent,rxjs_observable_of) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/observers'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('@angular/common'), require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/animations'), require('rxjs/Subscription'), require('rxjs/observable/merge'), require('@angular/cdk/rxjs'), require('rxjs/observable/of')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/observers', '@angular/cdk/portal', '@angular/cdk/scrolling', '@angular/common', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/animations', 'rxjs/Subscription', 'rxjs/observable/merge', '@angular/cdk/rxjs', 'rxjs/observable/of'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tabs = global.ng.material.tabs || {}),global.ng.cdk.observers,global.ng.cdk.portal,global.ng.cdk.scrolling,global.ng.common,global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.animations,global.Rx,global.Rx.Observable,global.ng.cdk.rxjs,global.Rx.Observable));
+}(this, (function (exports,_angular_cdk_observers,_angular_cdk_portal,_angular_cdk_scrolling,_angular_common,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_cdk_platform,_angular_cdk_keycodes,_angular_animations,rxjs_Subscription,rxjs_observable_merge,_angular_cdk_rxjs,rxjs_observable_of) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -907,10 +907,6 @@ var NativeDateAdapter = (function (_super) {
 
 var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
 
-/**
- * Injection token that can be used to specify the global error options.
- */
-var MAT_ERROR_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-error-global-options');
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
@@ -1418,6 +1414,7 @@ var MatOptgroup = (function (_super) {
     }
     MatOptgroup.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-optgroup',
+                    exportAs: 'matOptgroup',
                     template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -1713,6 +1710,7 @@ var MatOption = (function () {
     };
     MatOption.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-option',
+                    exportAs: 'matOption',
                     host: {
                         'role': 'option',
                         '[attr.tabindex]': '_getTabIndex()',
@@ -2432,6 +2430,7 @@ var MatTabGroup = (function (_super) {
     };
     MatTabGroup.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-tab-group',
+                    exportAs: 'matTabGroup',
                     template: "<mat-tab-header #tabHeader [selectedIndex]=\"selectedIndex\" [disableRipple]=\"disableRipple\" (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" matTabLabelWrapper mat-ripple *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [tabIndex]=\"selectedIndex == i ? 0 : -1\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" [matRippleDisabled]=\"disableRipple\" (click)=\"tabHeader.focusIndex = selectedIndex = i\"><ng-template [ngIf]=\"tab.templateLabel\"><ng-template [cdkPortalHost]=\"tab.templateLabel\"></ng-template></ng-template><ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template></div></mat-tab-header><div class=\"mat-tab-body-wrapper\" #tabBodyWrapper><mat-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (_onCentered)=\"_removeTabBodyWrapperHeight()\" (_onCentering)=\"_setTabBodyWrapperHeight($event)\"></mat-tab-body></div>",
                     styles: [".mat-tab-group{display:flex;flex-direction:column}.mat-tab-group.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0;opacity:1}.mat-tab-label.mat-tab-disabled{cursor:default;pointer-events:none}@media (max-width:600px){.mat-tab-label{padding:0 12px}}@media (max-width:960px){.mat-tab-label{padding:0 12px}}.mat-tab-group[mat-stretch-tabs] .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height .5s cubic-bezier(.35,0,.25,1)}.mat-tab-body{top:0;left:0;right:0;bottom:0;position:absolute;display:block;overflow:hidden}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}.mat-tab-group.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}"],
                     encapsulation: _angular_core.ViewEncapsulation.None,
@@ -2556,13 +2555,15 @@ var MatTabHeader = (function (_super) {
      * @param {?} _elementRef
      * @param {?} _renderer
      * @param {?} _changeDetectorRef
+     * @param {?} _viewportRuler
      * @param {?} _dir
      */
-    function MatTabHeader(_elementRef, _renderer, _changeDetectorRef, _dir) {
+    function MatTabHeader(_elementRef, _renderer, _changeDetectorRef, _viewportRuler, _dir) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._renderer = _renderer;
         _this._changeDetectorRef = _changeDetectorRef;
+        _this._viewportRuler = _viewportRuler;
         _this._dir = _dir;
         /**
          * The tab index that is focused.
@@ -2674,9 +2675,7 @@ var MatTabHeader = (function (_super) {
     MatTabHeader.prototype.ngAfterContentInit = function () {
         var _this = this;
         var /** @type {?} */ dirChange = this._dir ? this._dir.change : rxjs_observable_of.of(null);
-        var /** @type {?} */ resize = typeof window !== 'undefined' ?
-            _angular_cdk_rxjs.auditTime.call(rxjs_observable_fromEvent.fromEvent(window, 'resize'), 150) :
-            rxjs_observable_of.of(null);
+        var /** @type {?} */ resize = this._viewportRuler.change(150);
         this._realignInkBar = _angular_cdk_rxjs.startWith.call(rxjs_observable_merge.merge(dirChange, resize), null).subscribe(function () {
             _this._updatePagination();
             _this._alignInkBarToSelectedTab();
@@ -2963,6 +2962,7 @@ var MatTabHeader = (function (_super) {
         { type: _angular_core.ElementRef, },
         { type: _angular_core.Renderer2, },
         { type: _angular_core.ChangeDetectorRef, },
+        { type: _angular_cdk_scrolling.ViewportRuler, },
         { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     ]; };
     MatTabHeader.propDecorators = {
@@ -3004,12 +3004,14 @@ var MatTabNav = (function (_super) {
      * @param {?} _dir
      * @param {?} _ngZone
      * @param {?} _changeDetectorRef
+     * @param {?} _viewportRuler
      */
-    function MatTabNav(renderer, elementRef, _dir, _ngZone, _changeDetectorRef) {
+    function MatTabNav(renderer, elementRef, _dir, _ngZone, _changeDetectorRef, _viewportRuler) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._dir = _dir;
         _this._ngZone = _ngZone;
         _this._changeDetectorRef = _changeDetectorRef;
+        _this._viewportRuler = _viewportRuler;
         /**
          * Subject that emits when the component has been destroyed.
          */
@@ -3074,12 +3076,8 @@ var MatTabNav = (function (_super) {
         var _this = this;
         this._ngZone.runOutsideAngular(function () {
             var /** @type {?} */ dirChange = _this._dir ? _this._dir.change : rxjs_observable_of.of(null);
-            var /** @type {?} */ resize = typeof window !== 'undefined' ?
-                _angular_cdk_rxjs.auditTime.call(rxjs_observable_fromEvent.fromEvent(window, 'resize'), 10) :
-                rxjs_observable_of.of(null);
-            return _angular_cdk_rxjs.takeUntil.call(rxjs_observable_merge.merge(dirChange, resize), _this._onDestroy).subscribe(function () {
-                _this._alignInkBar();
-            });
+            return _angular_cdk_rxjs.takeUntil.call(rxjs_observable_merge.merge(dirChange, _this._viewportRuler.change(10)), _this._onDestroy)
+                .subscribe(function () { return _this._alignInkBar(); });
         });
         this._setLinkDisableRipple();
     };
@@ -3121,6 +3119,7 @@ var MatTabNav = (function (_super) {
     };
     MatTabNav.decorators = [
         { type: _angular_core.Component, args: [{selector: '[mat-tab-nav-bar]',
+                    exportAs: 'matTabNavBar, matTabNav',
                     inputs: ['color', 'disableRipple'],
                     template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><mat-ink-bar></mat-ink-bar></div>",
                     styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0;opacity:1}.mat-tab-link.mat-tab-disabled{cursor:default;pointer-events:none}@media (max-width:600px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}"],
@@ -3139,6 +3138,7 @@ var MatTabNav = (function (_super) {
         { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
         { type: _angular_core.NgZone, },
         { type: _angular_core.ChangeDetectorRef, },
+        { type: _angular_cdk_scrolling.ViewportRuler, },
     ]; };
     MatTabNav.propDecorators = {
         '_inkBar': [{ type: _angular_core.ViewChild, args: [MatInkBar,] },],
@@ -3241,6 +3241,7 @@ var MatTabLink = (function (_super) {
     MatTabLink.decorators = [
         { type: _angular_core.Directive, args: [{
                     selector: '[mat-tab-link], [matTabLink]',
+                    exportAs: 'matTabLink',
                     inputs: ['disabled'],
                     host: {
                         'class': 'mat-tab-link',
@@ -3322,16 +3323,16 @@ exports.MatTabChangeEvent = MatTabChangeEvent;
 exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
-exports.ɵe23 = MatTabBase;
-exports.ɵf23 = _MatTabMixinBase;
-exports.ɵa23 = MatTabHeaderBase;
-exports.ɵb23 = _MatTabHeaderMixinBase;
-exports.ɵc23 = MatTabLabelWrapperBase;
-exports.ɵd23 = _MatTabLabelWrapperMixinBase;
-exports.ɵi23 = MatTabLinkBase;
-exports.ɵg23 = MatTabNavBase;
-exports.ɵj23 = _MatTabLinkMixinBase;
-exports.ɵh23 = _MatTabNavMixinBase;
+exports.ɵe13 = MatTabBase;
+exports.ɵf13 = _MatTabMixinBase;
+exports.ɵa13 = MatTabHeaderBase;
+exports.ɵb13 = _MatTabHeaderMixinBase;
+exports.ɵc13 = MatTabLabelWrapperBase;
+exports.ɵd13 = _MatTabLabelWrapperMixinBase;
+exports.ɵi13 = MatTabLinkBase;
+exports.ɵg13 = MatTabNavBase;
+exports.ɵj13 = _MatTabLinkMixinBase;
+exports.ɵh13 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
