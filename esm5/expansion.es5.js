@@ -618,5 +618,5 @@ var MatExpansionModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { CdkAccordion, MatAccordion, AccordionItem, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionModule, EXPANSION_PANEL_ANIMATION_TIMING as ɵc13, MatExpansionPanelBase as ɵa13, _MatExpansionPanelMixinBase as ɵb13 };
+export { CdkAccordion, MatAccordion, AccordionItem, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionModule, EXPANSION_PANEL_ANIMATION_TIMING as ɵc17, MatExpansionPanelBase as ɵa17, _MatExpansionPanelMixinBase as ɵb17 };
 //# sourceMappingURL=expansion.es5.js.map
