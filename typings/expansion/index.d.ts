@@ -2,4 +2,4 @@
  * Generated bundle index. Do not edit.
  */
 export * from './public-api';
-export { EXPANSION_PANEL_ANIMATION_TIMING as ɵc21, MatExpansionPanelBase as ɵa21, _MatExpansionPanelMixinBase as ɵb21 } from './expansion-panel';
+export { EXPANSION_PANEL_ANIMATION_TIMING as ɵc14, MatExpansionPanelBase as ɵa14, _MatExpansionPanelMixinBase as ɵb14 } from './expansion-panel';

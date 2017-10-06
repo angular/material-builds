@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/observable/defer'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operator/first'), require('@angular/cdk/scrolling'), require('@angular/cdk/table'), require('@angular/cdk/stepper')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/rxjs', '@angular/forms', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/observable/defer', '@angular/http', 'rxjs/Observable', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operator/first', '@angular/cdk/scrolling', '@angular/cdk/table', '@angular/cdk/stepper'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.rxjs,global.ng.forms,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.Rx.Observable,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.ng.cdk.scrolling,global.ng.cdk.table,global.ng.cdk.stepper));
-}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_rxjs,_angular_forms,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_collections,_angular_cdk_observers,rxjs_Subscription,rxjs_observable_defer,_angular_http,rxjs_Observable,rxjs_observable_forkJoin,rxjs_observable_throw,rxjs_operator_first,_angular_cdk_scrolling,_angular_cdk_table,_angular_cdk_stepper) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/observable/defer'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operator/first'), require('@angular/cdk/scrolling'), require('@angular/cdk/layout'), require('@angular/cdk/table'), require('@angular/cdk/stepper')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/rxjs', '@angular/forms', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/observable/defer', '@angular/http', 'rxjs/Observable', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operator/first', '@angular/cdk/scrolling', '@angular/cdk/layout', '@angular/cdk/table', '@angular/cdk/stepper'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.rxjs,global.ng.forms,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.Rx.Observable,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.ng.cdk.scrolling,global.ng.cdk.layout,global.ng.cdk.table,global.ng.cdk.stepper));
+}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_rxjs,_angular_forms,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_collections,_angular_cdk_observers,rxjs_Subscription,rxjs_observable_defer,_angular_http,rxjs_Observable,rxjs_observable_forkJoin,rxjs_observable_throw,rxjs_operator_first,_angular_cdk_scrolling,_angular_cdk_layout,_angular_cdk_table,_angular_cdk_stepper) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -9366,7 +9366,7 @@ var MatDatepicker = (function () {
          */
         get: function () {
             return this._disabled === undefined && this._datepickerInput ?
-                this._datepickerInput.disabled : this._disabled;
+                this._datepickerInput.disabled : !!this._disabled;
         },
         /**
          * @param {?} value
@@ -9818,7 +9818,7 @@ var MatDatepickerInput = (function () {
          * Whether the datepicker-input is disabled.
          * @return {?}
          */
-        get: function () { return this._disabled; },
+        get: function () { return !!this._disabled; },
         /**
          * @param {?} value
          * @return {?}
@@ -9905,7 +9905,7 @@ var MatDatepickerInput = (function () {
      * @return {?}
      */
     MatDatepickerInput.prototype.setDisabledState = function (disabled) {
-        this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', disabled);
+        this.disabled = disabled;
     };
     /**
      * @param {?} event
@@ -10000,7 +10000,7 @@ var MatDatepickerToggle = (function () {
          * @return {?}
          */
         get: function () {
-            return this._disabled === undefined ? this.datepicker.disabled : this._disabled;
+            return this._disabled === undefined ? this.datepicker.disabled : !!this._disabled;
         },
         /**
          * @param {?} value
@@ -10017,16 +10017,8 @@ var MatDatepickerToggle = (function () {
      * @return {?}
      */
     MatDatepickerToggle.prototype.ngOnChanges = function (changes) {
-        var _this = this;
         if (changes.datepicker) {
-            var /** @type {?} */ datepicker = changes.datepicker.currentValue;
-            var /** @type {?} */ datepickerDisabled = datepicker ? datepicker._disabledChange : rxjs_observable_of.of();
-            var /** @type {?} */ inputDisabled = datepicker && datepicker._datepickerInput ?
-                datepicker._datepickerInput._disabledChange :
-                rxjs_observable_of.of();
-            this._stateChanges.unsubscribe();
-            this._stateChanges = rxjs_observable_merge.merge(this._intl.changes, datepickerDisabled, inputDisabled)
-                .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+            this._watchStateChanges();
         }
     };
     /**
@@ -10034,6 +10026,12 @@ var MatDatepickerToggle = (function () {
      */
     MatDatepickerToggle.prototype.ngOnDestroy = function () {
         this._stateChanges.unsubscribe();
+    };
+    /**
+     * @return {?}
+     */
+    MatDatepickerToggle.prototype.ngAfterContentInit = function () {
+        this._watchStateChanges();
     };
     /**
      * @param {?} event
@@ -10044,6 +10042,18 @@ var MatDatepickerToggle = (function () {
             this.datepicker.open();
             event.stopPropagation();
         }
+    };
+    /**
+     * @return {?}
+     */
+    MatDatepickerToggle.prototype._watchStateChanges = function () {
+        var _this = this;
+        var /** @type {?} */ datepickerDisabled = this.datepicker ? this.datepicker._disabledChange : rxjs_observable_of.of();
+        var /** @type {?} */ inputDisabled = this.datepicker && this.datepicker._datepickerInput ?
+            this.datepicker._datepickerInput._disabledChange : rxjs_observable_of.of();
+        this._stateChanges.unsubscribe();
+        this._stateChanges = rxjs_observable_merge.merge(this._intl.changes, datepickerDisabled, inputDisabled)
+            .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
     };
     MatDatepickerToggle.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-datepicker-toggle',
@@ -16418,9 +16428,7 @@ var MatProgressSpinner = (function (_super) {
         _this._fallbackAnimation = platform.EDGE || platform.TRIDENT;
         // On IE and Edge, we can't animate the `stroke-dashoffset`
         // reliably so we fall back to a non-spec animation.
-        var animationClass = _this._fallbackAnimation ?
-            'mat-progress-spinner-indeterminate-fallback-animation' :
-            'mat-progress-spinner-indeterminate-animation';
+        var animationClass = "mat-progress-spinner-indeterminate" + (_this._fallbackAnimation ? '-fallback' : '') + "-animation";
         _renderer.addClass(_elementRef.nativeElement, animationClass);
         return _this;
     }
@@ -16514,6 +16522,10 @@ var MatProgressSpinner = (function (_super) {
             if (this.mode === 'determinate') {
                 return this._strokeCircumference * (100 - this._value) / 100;
             }
+            // In fallback mode set the circle to 80% and rotate it with CSS.
+            if (this._fallbackAnimation && this.mode === 'indeterminate') {
+                return this._strokeCircumference * 0.2;
+            }
             return null;
         },
         enumerable: true,
@@ -16535,9 +16547,15 @@ var MatProgressSpinner = (function (_super) {
      * @return {?}
      */
     MatProgressSpinner.prototype._attachStyleNode = function () {
-        var /** @type {?} */ styleTag = this._renderer.createElement('style');
-        styleTag.textContent = this._getAnimationText();
-        this._renderer.appendChild(this._document.head, styleTag);
+        var /** @type {?} */ styleTag = MatProgressSpinner.styleTag;
+        if (!styleTag) {
+            styleTag = this._renderer.createElement('style');
+            this._renderer.appendChild(this._document.head, styleTag);
+            MatProgressSpinner.styleTag = styleTag;
+        }
+        if (styleTag.sheet) {
+            ((styleTag.sheet)).insertRule(this._getAnimationText());
+        }
         MatProgressSpinner.diameters.add(this.diameter);
     };
     /**
@@ -16568,8 +16586,8 @@ var MatProgressSpinner = (function (_super) {
                         '[attr.mode]': 'mode',
                     },
                     inputs: ['color'],
-                    template: "<svg [style.width.px]=\"_elementSize\" [style.height.px]=\"_elementSize\" [attr.viewBox]=\"_viewBox\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\"><circle cx=\"50%\" cy=\"50%\" [attr.r]=\"_circleRadius\" [style.animation-name]=\"'mat-progress-spinner-stroke-rotate-' + diameter\" [style.stroke-dashoffset.px]=\"_strokeDashOffset\" [style.stroke-dasharray.px]=\"_strokeCircumference\" [style.transform.rotate]=\"'360deg'\" [style.stroke-width.px]=\"strokeWidth\"></circle></svg>",
-                    styles: [".mat-progress-spinner{display:block;position:relative}.mat-progress-spinner svg{position:absolute;transform:translate(-50%,-50%) rotate(-90deg);top:50%;left:50%;transform-origin:center;overflow:visible}.mat-progress-spinner circle{fill:transparent;transform-origin:center;transition:stroke-dashoffset 225ms linear}.mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate]{animation:mat-progress-spinner-linear-rotate 2s linear infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate] circle{transition-property:stroke;animation-duration:4s;animation-timing-function:cubic-bezier(.35,0,.25,1);animation-iteration-count:infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-fallback-animation[mode=indeterminate]{animation:mat-progress-spinner-stroke-rotate-fallback 10s cubic-bezier(.87,.03,.33,1) infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-fallback-animation[mode=indeterminate] circle{transition-property:stroke}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-stroke-rotate-100{0%{stroke-dashoffset:268.60617px;transform:rotate(0)}12.5%{stroke-dashoffset:56.54867px;transform:rotate(0)}12.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(72.5deg)}25%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(72.5deg)}25.1%{stroke-dashoffset:268.60617px;transform:rotate(270deg)}37.5%{stroke-dashoffset:56.54867px;transform:rotate(270deg)}37.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(161.5deg)}50%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(161.5deg)}50.01%{stroke-dashoffset:268.60617px;transform:rotate(180deg)}62.5%{stroke-dashoffset:56.54867px;transform:rotate(180deg)}62.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(251.5deg)}75%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(251.5deg)}75.01%{stroke-dashoffset:268.60617px;transform:rotate(90deg)}87.5%{stroke-dashoffset:56.54867px;transform:rotate(90deg)}87.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(341.5deg)}100%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(341.5deg)}}@keyframes mat-progress-spinner-stroke-rotate-fallback{0%{transform:rotate(0)}25%{transform:rotate(1170deg)}50%{transform:rotate(2340deg)}75%{transform:rotate(3510deg)}100%{transform:rotate(4680deg)}}"],
+                    template: "<svg [style.width.px]=\"_elementSize\" [style.height.px]=\"_elementSize\" [attr.viewBox]=\"_viewBox\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\"><circle cx=\"50%\" cy=\"50%\" [attr.r]=\"_circleRadius\" [style.animation-name]=\"'mat-progress-spinner-stroke-rotate-' + diameter\" [style.stroke-dashoffset.px]=\"_strokeDashOffset\" [style.stroke-dasharray.px]=\"_strokeCircumference\" [style.stroke-width.px]=\"strokeWidth\"></circle></svg>",
+                    styles: [".mat-progress-spinner{display:block;position:relative}.mat-progress-spinner svg{position:absolute;transform:rotate(-90deg);top:0;left:0;transform-origin:center;overflow:visible}.mat-progress-spinner circle{fill:transparent;transform-origin:center;transition:stroke-dashoffset 225ms linear}.mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate]{animation:mat-progress-spinner-linear-rotate 2s linear infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate] circle{transition-property:stroke;animation-duration:4s;animation-timing-function:cubic-bezier(.35,0,.25,1);animation-iteration-count:infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-fallback-animation[mode=indeterminate]{animation:mat-progress-spinner-stroke-rotate-fallback 10s cubic-bezier(.87,.03,.33,1) infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-fallback-animation[mode=indeterminate] circle{transition-property:stroke}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-stroke-rotate-100{0%{stroke-dashoffset:268.60617px;transform:rotate(0)}12.5%{stroke-dashoffset:56.54867px;transform:rotate(0)}12.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(72.5deg)}25%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(72.5deg)}25.1%{stroke-dashoffset:268.60617px;transform:rotate(270deg)}37.5%{stroke-dashoffset:56.54867px;transform:rotate(270deg)}37.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(161.5deg)}50%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(161.5deg)}50.01%{stroke-dashoffset:268.60617px;transform:rotate(180deg)}62.5%{stroke-dashoffset:56.54867px;transform:rotate(180deg)}62.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(251.5deg)}75%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(251.5deg)}75.01%{stroke-dashoffset:268.60617px;transform:rotate(90deg)}87.5%{stroke-dashoffset:56.54867px;transform:rotate(90deg)}87.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(341.5deg)}100%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(341.5deg)}}@keyframes mat-progress-spinner-stroke-rotate-fallback{0%{transform:rotate(0)}25%{transform:rotate(1170deg)}50%{transform:rotate(2340deg)}75%{transform:rotate(3510deg)}100%{transform:rotate(4680deg)}}"],
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -16621,8 +16639,8 @@ var MatSpinner = (function (_super) {
                         '[style.height.px]': '_elementSize',
                     },
                     inputs: ['color'],
-                    template: "<svg [style.width.px]=\"_elementSize\" [style.height.px]=\"_elementSize\" [attr.viewBox]=\"_viewBox\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\"><circle cx=\"50%\" cy=\"50%\" [attr.r]=\"_circleRadius\" [style.animation-name]=\"'mat-progress-spinner-stroke-rotate-' + diameter\" [style.stroke-dashoffset.px]=\"_strokeDashOffset\" [style.stroke-dasharray.px]=\"_strokeCircumference\" [style.transform.rotate]=\"'360deg'\" [style.stroke-width.px]=\"strokeWidth\"></circle></svg>",
-                    styles: [".mat-progress-spinner{display:block;position:relative}.mat-progress-spinner svg{position:absolute;transform:translate(-50%,-50%) rotate(-90deg);top:50%;left:50%;transform-origin:center;overflow:visible}.mat-progress-spinner circle{fill:transparent;transform-origin:center;transition:stroke-dashoffset 225ms linear}.mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate]{animation:mat-progress-spinner-linear-rotate 2s linear infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate] circle{transition-property:stroke;animation-duration:4s;animation-timing-function:cubic-bezier(.35,0,.25,1);animation-iteration-count:infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-fallback-animation[mode=indeterminate]{animation:mat-progress-spinner-stroke-rotate-fallback 10s cubic-bezier(.87,.03,.33,1) infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-fallback-animation[mode=indeterminate] circle{transition-property:stroke}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-stroke-rotate-100{0%{stroke-dashoffset:268.60617px;transform:rotate(0)}12.5%{stroke-dashoffset:56.54867px;transform:rotate(0)}12.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(72.5deg)}25%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(72.5deg)}25.1%{stroke-dashoffset:268.60617px;transform:rotate(270deg)}37.5%{stroke-dashoffset:56.54867px;transform:rotate(270deg)}37.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(161.5deg)}50%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(161.5deg)}50.01%{stroke-dashoffset:268.60617px;transform:rotate(180deg)}62.5%{stroke-dashoffset:56.54867px;transform:rotate(180deg)}62.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(251.5deg)}75%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(251.5deg)}75.01%{stroke-dashoffset:268.60617px;transform:rotate(90deg)}87.5%{stroke-dashoffset:56.54867px;transform:rotate(90deg)}87.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(341.5deg)}100%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(341.5deg)}}@keyframes mat-progress-spinner-stroke-rotate-fallback{0%{transform:rotate(0)}25%{transform:rotate(1170deg)}50%{transform:rotate(2340deg)}75%{transform:rotate(3510deg)}100%{transform:rotate(4680deg)}}"],
+                    template: "<svg [style.width.px]=\"_elementSize\" [style.height.px]=\"_elementSize\" [attr.viewBox]=\"_viewBox\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\"><circle cx=\"50%\" cy=\"50%\" [attr.r]=\"_circleRadius\" [style.animation-name]=\"'mat-progress-spinner-stroke-rotate-' + diameter\" [style.stroke-dashoffset.px]=\"_strokeDashOffset\" [style.stroke-dasharray.px]=\"_strokeCircumference\" [style.stroke-width.px]=\"strokeWidth\"></circle></svg>",
+                    styles: [".mat-progress-spinner{display:block;position:relative}.mat-progress-spinner svg{position:absolute;transform:rotate(-90deg);top:0;left:0;transform-origin:center;overflow:visible}.mat-progress-spinner circle{fill:transparent;transform-origin:center;transition:stroke-dashoffset 225ms linear}.mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate]{animation:mat-progress-spinner-linear-rotate 2s linear infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate] circle{transition-property:stroke;animation-duration:4s;animation-timing-function:cubic-bezier(.35,0,.25,1);animation-iteration-count:infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-fallback-animation[mode=indeterminate]{animation:mat-progress-spinner-stroke-rotate-fallback 10s cubic-bezier(.87,.03,.33,1) infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-fallback-animation[mode=indeterminate] circle{transition-property:stroke}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-stroke-rotate-100{0%{stroke-dashoffset:268.60617px;transform:rotate(0)}12.5%{stroke-dashoffset:56.54867px;transform:rotate(0)}12.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(72.5deg)}25%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(72.5deg)}25.1%{stroke-dashoffset:268.60617px;transform:rotate(270deg)}37.5%{stroke-dashoffset:56.54867px;transform:rotate(270deg)}37.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(161.5deg)}50%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(161.5deg)}50.01%{stroke-dashoffset:268.60617px;transform:rotate(180deg)}62.5%{stroke-dashoffset:56.54867px;transform:rotate(180deg)}62.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(251.5deg)}75%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(251.5deg)}75.01%{stroke-dashoffset:268.60617px;transform:rotate(90deg)}87.5%{stroke-dashoffset:56.54867px;transform:rotate(90deg)}87.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(341.5deg)}100%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(341.5deg)}}@keyframes mat-progress-spinner-stroke-rotate-fallback{0%{transform:rotate(0)}25%{transform:rotate(1170deg)}50%{transform:rotate(2340deg)}75%{transform:rotate(3510deg)}100%{transform:rotate(4680deg)}}"],
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -19841,11 +19859,20 @@ var SimpleSnackBar = (function () {
     SimpleSnackBar.decorators = [
         { type: _angular_core.Component, args: [{selector: 'simple-snack-bar',
                     template: "{{data.message}} <button class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\" (click)=\"action()\">{{data.action}}</button>",
-                    styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;line-height:20px}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;background:0 0;flex-shrink:0;margin-left:48px}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0}"],
+                    styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;line-height:20px;opacity:1}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;background:0 0;flex-shrink:0;margin-left:48px}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0}"],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    animations: [
+                        _angular_animations.trigger('contentFade', [
+                            _angular_animations.transition(':enter', [
+                                _angular_animations.style({ opacity: '0' }),
+                                _angular_animations.animate(AnimationDurations.COMPLEX + " " + AnimationCurves.STANDARD_CURVE)
+                            ])
+                        ])
+                    ],
                     host: {
+                        '[@contentFade]': '',
                         'class': 'mat-simple-snackbar',
                     }
                 },] },
@@ -19994,7 +20021,7 @@ var MatSnackBarContainer = (function (_super) {
     MatSnackBarContainer.decorators = [
         { type: _angular_core.Component, args: [{selector: 'snack-bar-container',
                     template: "<ng-template cdkPortalHost></ng-template>",
-                    styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:content-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%) translateY(24px)}.mat-snack-bar-container.mat-snack-bar-center{margin:0;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%) translateY(-24px)}.mat-snack-bar-container.mat-snack-bar-top.mat-snack-bar-center{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}"],
+                    styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:border-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%) translateY(24px)}.mat-snack-bar-container.mat-snack-bar-center{margin:0;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%) translateY(-24px)}.mat-snack-bar-container.mat-snack-bar-top.mat-snack-bar-center{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:0;max-width:inherit;width:100%}"],
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -20036,12 +20063,14 @@ var MatSnackBar = (function () {
      * @param {?} _overlay
      * @param {?} _live
      * @param {?} _injector
+     * @param {?} _breakpointObserver
      * @param {?} _parentSnackBar
      */
-    function MatSnackBar(_overlay, _live, _injector, _parentSnackBar) {
+    function MatSnackBar(_overlay, _live, _injector, _breakpointObserver, _parentSnackBar) {
         this._overlay = _overlay;
         this._live = _live;
         this._injector = _injector;
+        this._breakpointObserver = _breakpointObserver;
         this._parentSnackBar = _parentSnackBar;
         /**
          * Reference to the current snack bar in the view *at this level* (in the Angular injector tree).
@@ -20169,6 +20198,19 @@ var MatSnackBar = (function () {
         var /** @type {?} */ contentRef = container.attachComponentPortal(portal);
         // We can't pass this via the injector, because the injector is created earlier.
         snackBarRef.instance = contentRef.instance;
+        // Subscribe to the breakpoint observer and attach the mat-snack-bar-handset class as
+        // appropriate. This class is applied to the overlay element because the overlay must expand to
+        // fill the width of the screen for full width snackbars.
+        _angular_cdk_rxjs.RxChain.from(this._breakpointObserver.observe(_angular_cdk_layout.Breakpoints.Handset))
+            .call(_angular_cdk_rxjs.takeUntil, _angular_cdk_rxjs.first.call(overlayRef.detachments()))
+            .subscribe(function (state$$1) {
+            if (state$$1.matches) {
+                overlayRef.overlayElement.classList.add('mat-snack-bar-handset');
+            }
+            else {
+                overlayRef.overlayElement.classList.remove('mat-snack-bar-handset');
+            }
+        });
         return snackBarRef;
     };
     /**
@@ -20229,6 +20271,7 @@ var MatSnackBar = (function () {
         { type: _angular_cdk_overlay.Overlay, },
         { type: _angular_cdk_a11y.LiveAnnouncer, },
         { type: _angular_core.Injector, },
+        { type: _angular_cdk_layout.BreakpointObserver, },
         { type: MatSnackBar, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
     ]; };
     return MatSnackBar;
@@ -20252,6 +20295,7 @@ var MatSnackBarModule = (function () {
                         _angular_cdk_portal.PortalModule,
                         _angular_common.CommonModule,
                         MatCommonModule,
+                        _angular_cdk_layout.LayoutModule,
                     ],
                     exports: [MatSnackBarContainer, MatCommonModule],
                     declarations: [MatSnackBarContainer, SimpleSnackBar],
@@ -22989,7 +23033,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.12-746799f');
+var VERSION = new _angular_core.Version('2.0.0-beta.12-5b7982f');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

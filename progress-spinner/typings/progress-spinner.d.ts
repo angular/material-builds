@@ -31,7 +31,9 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     /** The width and height of the host element. Will grow with stroke width. **/
     _elementSize: number;
     /** Tracks diameters of existing instances to de-dupe generated styles (default d = 100) */
-    static diameters: Set<number>;
+    private static diameters;
+    /** Used for storing all of the generated keyframe animations. */
+    private static styleTag;
     /** The diameter of the progress spinner (will set width and height of svg). */
     diameter: number;
     _diameter: number;

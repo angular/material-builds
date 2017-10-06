@@ -10,10 +10,11 @@ import { CommonModule } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { BasePortalHost, ComponentPortal, PortalHostDirective, PortalInjector, PortalModule } from '@angular/cdk/portal';
 import { LIVE_ANNOUNCER_PROVIDER, LiveAnnouncer } from '@angular/cdk/a11y';
-import { MatCommonModule, extendObject } from '@angular/material/core';
-import { Subject } from 'rxjs/Subject';
+import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layout';
+import { AnimationCurves, AnimationDurations, MatCommonModule, extendObject } from '@angular/material/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { first } from '@angular/cdk/rxjs';
+import { Subject } from 'rxjs/Subject';
+import { RxChain, first, takeUntil } from '@angular/cdk/rxjs';
 
 /**
  * Reference to a snack bar dispatched from the snack bar service.
@@ -180,11 +181,20 @@ class SimpleSnackBar {
 SimpleSnackBar.decorators = [
     { type: Component, args: [{selector: 'simple-snack-bar',
                 template: "{{data.message}} <button class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\" (click)=\"action()\">{{data.action}}</button>",
-                styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;line-height:20px}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;background:0 0;flex-shrink:0;margin-left:48px}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0}"],
+                styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;line-height:20px;opacity:1}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;background:0 0;flex-shrink:0;margin-left:48px}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0}"],
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
+                animations: [
+                    trigger('contentFade', [
+                        transition(':enter', [
+                            style({ opacity: '0' }),
+                            animate(`${AnimationDurations.COMPLEX} ${AnimationCurves.STANDARD_CURVE}`)
+                        ])
+                    ])
+                ],
                 host: {
+                    '[@contentFade]': '',
                     'class': 'mat-simple-snackbar',
                 }
             },] },
@@ -328,7 +338,7 @@ class MatSnackBarContainer extends BasePortalHost {
 MatSnackBarContainer.decorators = [
     { type: Component, args: [{selector: 'snack-bar-container',
                 template: "<ng-template cdkPortalHost></ng-template>",
-                styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:content-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%) translateY(24px)}.mat-snack-bar-container.mat-snack-bar-center{margin:0;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%) translateY(-24px)}.mat-snack-bar-container.mat-snack-bar-top.mat-snack-bar-center{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}"],
+                styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:border-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%) translateY(24px)}.mat-snack-bar-container.mat-snack-bar-center{margin:0;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%) translateY(-24px)}.mat-snack-bar-container.mat-snack-bar-top.mat-snack-bar-center{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:0;max-width:inherit;width:100%}"],
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
@@ -368,12 +378,14 @@ class MatSnackBar {
      * @param {?} _overlay
      * @param {?} _live
      * @param {?} _injector
+     * @param {?} _breakpointObserver
      * @param {?} _parentSnackBar
      */
-    constructor(_overlay, _live, _injector, _parentSnackBar) {
+    constructor(_overlay, _live, _injector, _breakpointObserver, _parentSnackBar) {
         this._overlay = _overlay;
         this._live = _live;
         this._injector = _injector;
+        this._breakpointObserver = _breakpointObserver;
         this._parentSnackBar = _parentSnackBar;
         /**
          * Reference to the current snack bar in the view *at this level* (in the Angular injector tree).
@@ -495,6 +507,19 @@ class MatSnackBar {
         const /** @type {?} */ contentRef = container.attachComponentPortal(portal);
         // We can't pass this via the injector, because the injector is created earlier.
         snackBarRef.instance = contentRef.instance;
+        // Subscribe to the breakpoint observer and attach the mat-snack-bar-handset class as
+        // appropriate. This class is applied to the overlay element because the overlay must expand to
+        // fill the width of the screen for full width snackbars.
+        RxChain.from(this._breakpointObserver.observe(Breakpoints.Handset))
+            .call(takeUntil, first.call(overlayRef.detachments()))
+            .subscribe(state$$1 => {
+            if (state$$1.matches) {
+                overlayRef.overlayElement.classList.add('mat-snack-bar-handset');
+            }
+            else {
+                overlayRef.overlayElement.classList.remove('mat-snack-bar-handset');
+            }
+        });
         return snackBarRef;
     }
     /**
@@ -556,6 +581,7 @@ MatSnackBar.ctorParameters = () => [
     { type: Overlay, },
     { type: LiveAnnouncer, },
     { type: Injector, },
+    { type: BreakpointObserver, },
     { type: MatSnackBar, decorators: [{ type: Optional }, { type: SkipSelf },] },
 ];
 /**
@@ -576,6 +602,7 @@ MatSnackBarModule.decorators = [
                     PortalModule,
                     CommonModule,
                     MatCommonModule,
+                    LayoutModule,
                 ],
                 exports: [MatSnackBarContainer, MatCommonModule],
                 declarations: [MatSnackBarContainer, SimpleSnackBar],

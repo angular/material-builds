@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/animations'), require('@angular/cdk/rxjs')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/animations', '@angular/cdk/rxjs'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material['snack-bar'] = global.ng.material['snack-bar'] || {}),global.ng.core,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.animations,global.ng.cdk.rxjs));
-}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_cdk_platform,_angular_cdk_keycodes,_angular_animations,_angular_cdk_rxjs) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('@angular/cdk/layout'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/animations'), require('@angular/cdk/rxjs')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/a11y', '@angular/cdk/layout', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/animations', '@angular/cdk/rxjs'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material['snack-bar'] = global.ng.material['snack-bar'] || {}),global.ng.core,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.a11y,global.ng.cdk.layout,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.animations,global.ng.cdk.rxjs));
+}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_a11y,_angular_cdk_layout,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_cdk_platform,_angular_cdk_keycodes,_angular_animations,_angular_cdk_rxjs) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -36,6 +36,30 @@ function __extends(d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
+
+/**
+ * \@docs-private
+ */
+var AnimationCurves = (function () {
+    function AnimationCurves() {
+    }
+    AnimationCurves.STANDARD_CURVE = 'cubic-bezier(0.4,0.0,0.2,1)';
+    AnimationCurves.DECELERATION_CURVE = 'cubic-bezier(0.0,0.0,0.2,1)';
+    AnimationCurves.ACCELERATION_CURVE = 'cubic-bezier(0.4,0.0,1,1)';
+    AnimationCurves.SHARP_CURVE = 'cubic-bezier(0.4,0.0,0.6,1)';
+    return AnimationCurves;
+}());
+/**
+ * \@docs-private
+ */
+var AnimationDurations = (function () {
+    function AnimationDurations() {
+    }
+    AnimationDurations.COMPLEX = '375ms';
+    AnimationDurations.ENTERING = '225ms';
+    AnimationDurations.EXITING = '195ms';
+    return AnimationDurations;
+}());
 
 var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
 /**
@@ -1817,11 +1841,20 @@ var SimpleSnackBar = (function () {
     SimpleSnackBar.decorators = [
         { type: _angular_core.Component, args: [{selector: 'simple-snack-bar',
                     template: "{{data.message}} <button class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\" (click)=\"action()\">{{data.action}}</button>",
-                    styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;line-height:20px}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;background:0 0;flex-shrink:0;margin-left:48px}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0}"],
+                    styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;line-height:20px;opacity:1}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;background:0 0;flex-shrink:0;margin-left:48px}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0}"],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    animations: [
+                        _angular_animations.trigger('contentFade', [
+                            _angular_animations.transition(':enter', [
+                                _angular_animations.style({ opacity: '0' }),
+                                _angular_animations.animate(AnimationDurations.COMPLEX + " " + AnimationCurves.STANDARD_CURVE)
+                            ])
+                        ])
+                    ],
                     host: {
+                        '[@contentFade]': '',
                         'class': 'mat-simple-snackbar',
                     }
                 },] },
@@ -1970,7 +2003,7 @@ var MatSnackBarContainer = (function (_super) {
     MatSnackBarContainer.decorators = [
         { type: _angular_core.Component, args: [{selector: 'snack-bar-container',
                     template: "<ng-template cdkPortalHost></ng-template>",
-                    styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:content-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%) translateY(24px)}.mat-snack-bar-container.mat-snack-bar-center{margin:0;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%) translateY(-24px)}.mat-snack-bar-container.mat-snack-bar-top.mat-snack-bar-center{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}"],
+                    styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:border-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%) translateY(24px)}.mat-snack-bar-container.mat-snack-bar-center{margin:0;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%) translateY(-24px)}.mat-snack-bar-container.mat-snack-bar-top.mat-snack-bar-center{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:0;max-width:inherit;width:100%}"],
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -2012,12 +2045,14 @@ var MatSnackBar = (function () {
      * @param {?} _overlay
      * @param {?} _live
      * @param {?} _injector
+     * @param {?} _breakpointObserver
      * @param {?} _parentSnackBar
      */
-    function MatSnackBar(_overlay, _live, _injector, _parentSnackBar) {
+    function MatSnackBar(_overlay, _live, _injector, _breakpointObserver, _parentSnackBar) {
         this._overlay = _overlay;
         this._live = _live;
         this._injector = _injector;
+        this._breakpointObserver = _breakpointObserver;
         this._parentSnackBar = _parentSnackBar;
         /**
          * Reference to the current snack bar in the view *at this level* (in the Angular injector tree).
@@ -2145,6 +2180,19 @@ var MatSnackBar = (function () {
         var /** @type {?} */ contentRef = container.attachComponentPortal(portal);
         // We can't pass this via the injector, because the injector is created earlier.
         snackBarRef.instance = contentRef.instance;
+        // Subscribe to the breakpoint observer and attach the mat-snack-bar-handset class as
+        // appropriate. This class is applied to the overlay element because the overlay must expand to
+        // fill the width of the screen for full width snackbars.
+        _angular_cdk_rxjs.RxChain.from(this._breakpointObserver.observe(_angular_cdk_layout.Breakpoints.Handset))
+            .call(_angular_cdk_rxjs.takeUntil, _angular_cdk_rxjs.first.call(overlayRef.detachments()))
+            .subscribe(function (state$$1) {
+            if (state$$1.matches) {
+                overlayRef.overlayElement.classList.add('mat-snack-bar-handset');
+            }
+            else {
+                overlayRef.overlayElement.classList.remove('mat-snack-bar-handset');
+            }
+        });
         return snackBarRef;
     };
     /**
@@ -2205,6 +2253,7 @@ var MatSnackBar = (function () {
         { type: _angular_cdk_overlay.Overlay, },
         { type: _angular_cdk_a11y.LiveAnnouncer, },
         { type: _angular_core.Injector, },
+        { type: _angular_cdk_layout.BreakpointObserver, },
         { type: MatSnackBar, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
     ]; };
     return MatSnackBar;
@@ -2228,6 +2277,7 @@ var MatSnackBarModule = (function () {
                         _angular_cdk_portal.PortalModule,
                         _angular_common.CommonModule,
                         MatCommonModule,
+                        _angular_cdk_layout.LayoutModule,
                     ],
                     exports: [MatSnackBarContainer, MatCommonModule],
                     declarations: [MatSnackBarContainer, SimpleSnackBar],

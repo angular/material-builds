@@ -5350,7 +5350,7 @@ var MatDatepicker = (function () {
          */
         get: function () {
             return this._disabled === undefined && this._datepickerInput ?
-                this._datepickerInput.disabled : this._disabled;
+                this._datepickerInput.disabled : !!this._disabled;
         },
         /**
          * @param {?} value
@@ -5802,7 +5802,7 @@ var MatDatepickerInput = (function () {
          * Whether the datepicker-input is disabled.
          * @return {?}
          */
-        get: function () { return this._disabled; },
+        get: function () { return !!this._disabled; },
         /**
          * @param {?} value
          * @return {?}
@@ -5889,7 +5889,7 @@ var MatDatepickerInput = (function () {
      * @return {?}
      */
     MatDatepickerInput.prototype.setDisabledState = function (disabled) {
-        this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', disabled);
+        this.disabled = disabled;
     };
     /**
      * @param {?} event
@@ -5984,7 +5984,7 @@ var MatDatepickerToggle = (function () {
          * @return {?}
          */
         get: function () {
-            return this._disabled === undefined ? this.datepicker.disabled : this._disabled;
+            return this._disabled === undefined ? this.datepicker.disabled : !!this._disabled;
         },
         /**
          * @param {?} value
@@ -6001,16 +6001,8 @@ var MatDatepickerToggle = (function () {
      * @return {?}
      */
     MatDatepickerToggle.prototype.ngOnChanges = function (changes) {
-        var _this = this;
         if (changes.datepicker) {
-            var /** @type {?} */ datepicker = changes.datepicker.currentValue;
-            var /** @type {?} */ datepickerDisabled = datepicker ? datepicker._disabledChange : rxjs_observable_of.of();
-            var /** @type {?} */ inputDisabled = datepicker && datepicker._datepickerInput ?
-                datepicker._datepickerInput._disabledChange :
-                rxjs_observable_of.of();
-            this._stateChanges.unsubscribe();
-            this._stateChanges = rxjs_observable_merge.merge(this._intl.changes, datepickerDisabled, inputDisabled)
-                .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+            this._watchStateChanges();
         }
     };
     /**
@@ -6018,6 +6010,12 @@ var MatDatepickerToggle = (function () {
      */
     MatDatepickerToggle.prototype.ngOnDestroy = function () {
         this._stateChanges.unsubscribe();
+    };
+    /**
+     * @return {?}
+     */
+    MatDatepickerToggle.prototype.ngAfterContentInit = function () {
+        this._watchStateChanges();
     };
     /**
      * @param {?} event
@@ -6028,6 +6026,18 @@ var MatDatepickerToggle = (function () {
             this.datepicker.open();
             event.stopPropagation();
         }
+    };
+    /**
+     * @return {?}
+     */
+    MatDatepickerToggle.prototype._watchStateChanges = function () {
+        var _this = this;
+        var /** @type {?} */ datepickerDisabled = this.datepicker ? this.datepicker._disabledChange : rxjs_observable_of.of();
+        var /** @type {?} */ inputDisabled = this.datepicker && this.datepicker._datepickerInput ?
+            this.datepicker._datepickerInput._disabledChange : rxjs_observable_of.of();
+        this._stateChanges.unsubscribe();
+        this._stateChanges = rxjs_observable_merge.merge(this._intl.changes, datepickerDisabled, inputDisabled)
+            .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
     };
     MatDatepickerToggle.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-datepicker-toggle',
