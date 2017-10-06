@@ -62,16 +62,8 @@ export declare class MatDrawer implements AfterContentInit, OnDestroy {
     private _opened;
     /** Emits whenever the drawer has started animating. */
     _animationStarted: EventEmitter<AnimationEvent>;
-    /** Whether the drawer is animating. Used to prevent overlapping animations. */
-    _isAnimating: boolean;
     /** Current state of the sidenav animation. */
     _animationState: 'open-instant' | 'open' | 'void';
-    /**
-     * Promise that resolves when the open/close animation completes. It is here for backwards
-     * compatibility and should be removed next time we do drawer breaking changes.
-     * @deprecated
-     */
-    private _currentTogglePromise;
     /** Event emitted when the drawer is fully opened. */
     onOpen: EventEmitter<void | MatDrawerToggleResult>;
     /** Event emitted when the drawer is fully closed. */

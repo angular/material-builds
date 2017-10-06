@@ -117,10 +117,6 @@ class MatDrawer {
          */
         this._animationStarted = new EventEmitter();
         /**
-         * Whether the drawer is animating. Used to prevent overlapping animations.
-         */
-        this._isAnimating = false;
-        /**
          * Current state of the sidenav animation.
          */
         this._animationState = 'void';
@@ -279,24 +275,21 @@ class MatDrawer {
      * @return {?}
      */
     toggle(isOpen = !this.opened) {
-        if (!this._isAnimating) {
-            this._opened = isOpen;
-            if (isOpen) {
-                this._animationState = this._enableAnimations ? 'open' : 'open-instant';
-            }
-            else {
-                this._animationState = 'void';
-            }
-            this._currentTogglePromise = new Promise(resolve => {
-                first.call(isOpen ? this.onOpen : this.onClose).subscribe(resolve);
-            });
-            if (this._focusTrap) {
-                this._focusTrap.enabled = this._isFocusTrapEnabled;
-            }
+        this._opened = isOpen;
+        if (isOpen) {
+            this._animationState = this._enableAnimations ? 'open' : 'open-instant';
+        }
+        else {
+            this._animationState = 'void';
+        }
+        if (this._focusTrap) {
+            this._focusTrap.enabled = this._isFocusTrapEnabled;
         }
         // TODO(crisbeto): This promise is here for backwards-compatibility.
         // It should be removed next time we do breaking changes in the drawer.
-        return ((this._currentTogglePromise));
+        return new Promise(resolve => {
+            first.call(isOpen ? this.onOpen : this.onClose).subscribe(resolve);
+        });
     }
     /**
      * Handles the keyboard events.
@@ -315,7 +308,6 @@ class MatDrawer {
      * @return {?}
      */
     _onAnimationStart(event) {
-        this._isAnimating = true;
         this._animationStarted.emit(event);
     }
     /**
@@ -330,13 +322,6 @@ class MatDrawer {
         else if (toState === 'void' && fromState.indexOf('open') === 0) {
             this.onClose.emit(new MatDrawerToggleResult('close', true));
         }
-        // Note: as of Angular 4.3, the animations module seems to fire the `start` callback before
-        // the end if animations are disabled. Make this call async to ensure that it still fires
-        // at the appropriate time.
-        Promise.resolve().then(() => {
-            this._isAnimating = false;
-            this._currentTogglePromise = null;
-        });
     }
     /**
      * @return {?}

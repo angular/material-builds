@@ -2177,10 +2177,6 @@ var MatTabGroup = (function (_super) {
         var _this = _super.call(this, _renderer, elementRef) || this;
         _this._changeDetectorRef = _changeDetectorRef;
         /**
-         * Whether this component has been initialized.
-         */
-        _this._isInitialized = false;
-        /**
          * The tab index that should be selected after the content has been checked.
          */
         _this._indexToSelect = 0;
@@ -2343,14 +2339,6 @@ var MatTabGroup = (function (_super) {
     MatTabGroup.prototype.ngOnDestroy = function () {
         this._tabsSubscription.unsubscribe();
         this._tabLabelSubscription.unsubscribe();
-    };
-    /**
-     * Waits one frame for the view to update, then updates the ink bar
-     * Note: This must be run outside of the zone or it will create an infinite change detection loop.
-     * @return {?}
-     */
-    MatTabGroup.prototype.ngAfterViewChecked = function () {
-        this._isInitialized = true;
     };
     /**
      * @param {?} index

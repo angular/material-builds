@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer2 } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer2 } from '@angular/core';
 import { MatTab } from './tab';
 import { CanColor, CanDisableRipple, ThemePalette } from '@angular/material/core';
 /** A simple change event emitted on focus or selection changes. */
@@ -27,12 +27,10 @@ export declare const _MatTabGroupMixinBase: (new (...args: any[]) => CanColor) &
  * animated ink-bar, keyboard navigation, and screen reader.
  * See: https://www.google.com/design/spec/components/tabs.html
  */
-export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterContentInit, AfterContentChecked, AfterViewChecked, OnDestroy, CanColor, CanDisableRipple {
+export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterContentInit, AfterContentChecked, OnDestroy, CanColor, CanDisableRipple {
     private _changeDetectorRef;
     _tabs: QueryList<MatTab>;
     _tabBodyWrapper: ElementRef;
-    /** Whether this component has been initialized. */
-    private _isInitialized;
     /** The tab index that should be selected after the content has been checked. */
     private _indexToSelect;
     /** Snapshot of the height of the tab body wrapper before another tab is activated. */
@@ -76,11 +74,6 @@ export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterC
     ngAfterContentChecked(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
-    /**
-     * Waits one frame for the view to update, then updates the ink bar
-     * Note: This must be run outside of the zone or it will create an infinite change detection loop.
-     */
-    ngAfterViewChecked(): void;
     _focusChanged(index: number): void;
     private _createChangeEvent(index);
     /**

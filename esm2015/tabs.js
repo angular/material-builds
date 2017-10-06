@@ -419,10 +419,6 @@ class MatTabGroup extends _MatTabGroupMixinBase {
         super(_renderer, elementRef);
         this._changeDetectorRef = _changeDetectorRef;
         /**
-         * Whether this component has been initialized.
-         */
-        this._isInitialized = false;
-        /**
          * The tab index that should be selected after the content has been checked.
          */
         this._indexToSelect = 0;
@@ -566,14 +562,6 @@ class MatTabGroup extends _MatTabGroupMixinBase {
     ngOnDestroy() {
         this._tabsSubscription.unsubscribe();
         this._tabLabelSubscription.unsubscribe();
-    }
-    /**
-     * Waits one frame for the view to update, then updates the ink bar
-     * Note: This must be run outside of the zone or it will create an infinite change detection loop.
-     * @return {?}
-     */
-    ngAfterViewChecked() {
-        this._isInitialized = true;
     }
     /**
      * @param {?} index
