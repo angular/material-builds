@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -2610,10 +2610,10 @@ var MatGridListModule = (function () {
 exports.MatGridTile = MatGridTile;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
-exports.ɵb11 = MatGridAvatarCssMatStyler;
-exports.ɵd11 = MatGridTileFooterCssMatStyler;
-exports.ɵc11 = MatGridTileHeaderCssMatStyler;
-exports.ɵa11 = MatGridTileText;
+exports.ɵb14 = MatGridAvatarCssMatStyler;
+exports.ɵd14 = MatGridTileFooterCssMatStyler;
+exports.ɵc14 = MatGridTileHeaderCssMatStyler;
+exports.ɵa14 = MatGridTileText;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

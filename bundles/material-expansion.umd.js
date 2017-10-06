@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright Google Inc. All Rights Reserved.
+ * Copyright Google LLC All Rights Reserved.
  *
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
@@ -2118,9 +2118,9 @@ exports.MatExpansionPanelHeader = MatExpansionPanelHeader;
 exports.MatExpansionPanelDescription = MatExpansionPanelDescription;
 exports.MatExpansionPanelTitle = MatExpansionPanelTitle;
 exports.MatExpansionModule = MatExpansionModule;
-exports.ɵc14 = EXPANSION_PANEL_ANIMATION_TIMING;
-exports.ɵa14 = MatExpansionPanelBase;
-exports.ɵb14 = _MatExpansionPanelMixinBase;
+exports.ɵc15 = EXPANSION_PANEL_ANIMATION_TIMING;
+exports.ɵa15 = MatExpansionPanelBase;
+exports.ɵb15 = _MatExpansionPanelMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
