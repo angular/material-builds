@@ -2,4 +2,4 @@
  * Generated bundle index. Do not edit.
  */
 export * from './public-api';
-export { MatGridAvatarCssMatStyler as ɵb18, MatGridTileFooterCssMatStyler as ɵd18, MatGridTileHeaderCssMatStyler as ɵc18, MatGridTileText as ɵa18 } from './grid-tile';
+export { MatGridAvatarCssMatStyler as ɵb11, MatGridTileFooterCssMatStyler as ɵd11, MatGridTileHeaderCssMatStyler as ɵc11, MatGridTileText as ɵa11 } from './grid-tile';
