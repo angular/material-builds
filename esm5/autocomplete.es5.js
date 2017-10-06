@@ -81,7 +81,7 @@ var MatAutocomplete = (function () {
     });
     Object.defineProperty(MatAutocomplete.prototype, "classList", {
         /**
-         * Takes classes set on the host md-autocomplete element and applies them to the panel
+         * Takes classes set on the host mat-autocomplete element and applies them to the panel
          * inside the overlay container to allow for easy styling.
          * @param {?} classList
          * @return {?}

@@ -37,7 +37,7 @@ export declare class MatAutocomplete implements AfterContentInit {
     /** Event that is emitted whenever an option from the list is selected. */
     optionSelected: EventEmitter<MatAutocompleteSelectedEvent>;
     /**
-     * Takes classes set on the host md-autocomplete element and applies them to the panel
+     * Takes classes set on the host mat-autocomplete element and applies them to the panel
      * inside the overlay container to allow for easy styling.
      */
     classList: string;

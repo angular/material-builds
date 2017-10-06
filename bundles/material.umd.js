@@ -2756,7 +2756,7 @@ var MatAutocomplete = (function () {
     });
     Object.defineProperty(MatAutocomplete.prototype, "classList", {
         /**
-         * Takes classes set on the host md-autocomplete element and applies them to the panel
+         * Takes classes set on the host mat-autocomplete element and applies them to the panel
          * inside the overlay container to allow for easy styling.
          * @param {?} classList
          * @return {?}
@@ -23017,7 +23017,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('0.0.0-PLACEHOLDER');
+var VERSION = new _angular_core.Version('2.0.0-beta.12-8bb471f');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
