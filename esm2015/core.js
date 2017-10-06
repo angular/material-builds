@@ -1347,9 +1347,9 @@ class RippleRenderer {
     constructor(elementRef, _ngZone, platform) {
         this._ngZone = _ngZone;
         /**
-         * Whether the pointer is currently being held on the trigger or not.
+         * Whether the mouse is currently down or not.
          */
-        this._isPointerDown = false;
+        this._isMousedown = false;
         /**
          * Events to be registered on the trigger element.
          */
@@ -1371,10 +1371,8 @@ class RippleRenderer {
             this._containerElement = elementRef.nativeElement;
             // Specify events which need to be registered on the trigger.
             this._triggerEvents.set('mousedown', this.onMousedown.bind(this));
-            this._triggerEvents.set('touchstart', this.onTouchstart.bind(this));
-            this._triggerEvents.set('mouseup', this.onPointerUp.bind(this));
-            this._triggerEvents.set('touchend', this.onPointerUp.bind(this));
-            this._triggerEvents.set('mouseleave', this.onPointerLeave.bind(this));
+            this._triggerEvents.set('mouseup', this.onMouseup.bind(this));
+            this._triggerEvents.set('mouseleave', this.onMouseup.bind(this));
             // By default use the host element as trigger element.
             this.setTriggerElement(this._containerElement);
         }
@@ -1382,7 +1380,7 @@ class RippleRenderer {
     /**
      * Fades in a ripple at the given coordinates.
      * @param {?} x Coordinate within the element, along the X axis at which to start the ripple.
-     * @param {?} y
+     * @param {?} y Coordinate within the element, along the Y axis at which to start the ripple.
      * @param {?=} config Extra ripple options.
      * @return {?}
      */
@@ -1419,7 +1417,7 @@ class RippleRenderer {
         // Once it's faded in, the ripple can be hidden immediately if the mouse is released.
         this.runTimeoutOutsideZone(() => {
             rippleRef.state = RippleState.VISIBLE;
-            if (!config.persistent && !this._isPointerDown) {
+            if (!config.persistent && !this._isMousedown) {
                 rippleRef.fadeOut();
             }
         }, duration);
@@ -1479,43 +1477,25 @@ class RippleRenderer {
      */
     onMousedown(event) {
         if (!this.rippleDisabled) {
-            this._isPointerDown = true;
+            this._isMousedown = true;
             this.fadeInRipple(event.clientX, event.clientY, this.rippleConfig);
         }
     }
     /**
-     * Function being called whenever the pointer is being released.
+     * Function being called whenever the trigger is being released.
      * @return {?}
      */
-    onPointerUp() {
-        this._isPointerDown = false;
+    onMouseup() {
+        if (!this._isMousedown) {
+            return;
+        }
+        this._isMousedown = false;
         // Fade-out all ripples that are completely visible and not persistent.
         this._activeRipples.forEach(ripple => {
             if (!ripple.config.persistent && ripple.state === RippleState.VISIBLE) {
                 ripple.fadeOut();
             }
         });
-    }
-    /**
-     * Function being called whenever the pointer leaves the trigger.
-     * @return {?}
-     */
-    onPointerLeave() {
-        if (this._isPointerDown) {
-            this.onPointerUp();
-        }
-    }
-    /**
-     * Function being called whenever the trigger is being touched.
-     * @param {?} event
-     * @return {?}
-     */
-    onTouchstart(event) {
-        if (!this.rippleDisabled) {
-            const { clientX, clientY } = event.touches[0];
-            this._isPointerDown = true;
-            this.fadeInRipple(clientX, clientY, this.rippleConfig);
-        }
     }
     /**
      * Runs a timeout outside of the Angular zone to avoid triggering the change detection.

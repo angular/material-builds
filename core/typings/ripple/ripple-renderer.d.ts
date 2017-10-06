@@ -32,8 +32,8 @@ export declare class RippleRenderer {
     private _containerElement;
     /** Element which triggers the ripple elements on mouse events. */
     private _triggerElement;
-    /** Whether the pointer is currently being held on the trigger or not. */
-    private _isPointerDown;
+    /** Whether the mouse is currently down or not. */
+    private _isMousedown;
     /** Events to be registered on the trigger element. */
     private _triggerEvents;
     /** Set of currently active ripple references. */
@@ -46,7 +46,7 @@ export declare class RippleRenderer {
     /**
      * Fades in a ripple at the given coordinates.
      * @param x Coordinate within the element, along the X axis at which to start the ripple.
-     * @param Y Coordinate within the element, along the Y axis at which to start the ripple.
+     * @param y Coordinate within the element, along the Y axis at which to start the ripple.
      * @param config Extra ripple options.
      */
     fadeInRipple(x: number, y: number, config?: RippleConfig): RippleRef;
@@ -58,12 +58,8 @@ export declare class RippleRenderer {
     setTriggerElement(element: HTMLElement | null): void;
     /** Function being called whenever the trigger is being pressed. */
     private onMousedown(event);
-    /** Function being called whenever the pointer is being released. */
-    private onPointerUp();
-    /** Function being called whenever the pointer leaves the trigger. */
-    private onPointerLeave();
-    /** Function being called whenever the trigger is being touched. */
-    private onTouchstart(event);
+    /** Function being called whenever the trigger is being released. */
+    private onMouseup();
     /** Runs a timeout outside of the Angular zone to avoid triggering the change detection. */
     private runTimeoutOutsideZone(fn, delay?);
 }

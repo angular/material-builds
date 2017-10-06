@@ -849,9 +849,9 @@ var RippleRenderer = (function () {
     function RippleRenderer(elementRef, _ngZone, platform) {
         this._ngZone = _ngZone;
         /**
-         * Whether the pointer is currently being held on the trigger or not.
+         * Whether the mouse is currently down or not.
          */
-        this._isPointerDown = false;
+        this._isMousedown = false;
         /**
          * Events to be registered on the trigger element.
          */
@@ -873,10 +873,8 @@ var RippleRenderer = (function () {
             this._containerElement = elementRef.nativeElement;
             // Specify events which need to be registered on the trigger.
             this._triggerEvents.set('mousedown', this.onMousedown.bind(this));
-            this._triggerEvents.set('touchstart', this.onTouchstart.bind(this));
-            this._triggerEvents.set('mouseup', this.onPointerUp.bind(this));
-            this._triggerEvents.set('touchend', this.onPointerUp.bind(this));
-            this._triggerEvents.set('mouseleave', this.onPointerLeave.bind(this));
+            this._triggerEvents.set('mouseup', this.onMouseup.bind(this));
+            this._triggerEvents.set('mouseleave', this.onMouseup.bind(this));
             // By default use the host element as trigger element.
             this.setTriggerElement(this._containerElement);
         }
@@ -884,7 +882,7 @@ var RippleRenderer = (function () {
     /**
      * Fades in a ripple at the given coordinates.
      * @param {?} x Coordinate within the element, along the X axis at which to start the ripple.
-     * @param {?} y
+     * @param {?} y Coordinate within the element, along the Y axis at which to start the ripple.
      * @param {?=} config Extra ripple options.
      * @return {?}
      */
@@ -923,7 +921,7 @@ var RippleRenderer = (function () {
         // Once it's faded in, the ripple can be hidden immediately if the mouse is released.
         this.runTimeoutOutsideZone(function () {
             rippleRef.state = RippleState.VISIBLE;
-            if (!config.persistent && !_this._isPointerDown) {
+            if (!config.persistent && !_this._isMousedown) {
                 rippleRef.fadeOut();
             }
         }, duration);
@@ -984,43 +982,25 @@ var RippleRenderer = (function () {
      */
     RippleRenderer.prototype.onMousedown = function (event) {
         if (!this.rippleDisabled) {
-            this._isPointerDown = true;
+            this._isMousedown = true;
             this.fadeInRipple(event.clientX, event.clientY, this.rippleConfig);
         }
     };
     /**
-     * Function being called whenever the pointer is being released.
+     * Function being called whenever the trigger is being released.
      * @return {?}
      */
-    RippleRenderer.prototype.onPointerUp = function () {
-        this._isPointerDown = false;
+    RippleRenderer.prototype.onMouseup = function () {
+        if (!this._isMousedown) {
+            return;
+        }
+        this._isMousedown = false;
         // Fade-out all ripples that are completely visible and not persistent.
         this._activeRipples.forEach(function (ripple) {
             if (!ripple.config.persistent && ripple.state === RippleState.VISIBLE) {
                 ripple.fadeOut();
             }
         });
-    };
-    /**
-     * Function being called whenever the pointer leaves the trigger.
-     * @return {?}
-     */
-    RippleRenderer.prototype.onPointerLeave = function () {
-        if (this._isPointerDown) {
-            this.onPointerUp();
-        }
-    };
-    /**
-     * Function being called whenever the trigger is being touched.
-     * @param {?} event
-     * @return {?}
-     */
-    RippleRenderer.prototype.onTouchstart = function (event) {
-        if (!this.rippleDisabled) {
-            var _a = event.touches[0], clientX = _a.clientX, clientY = _a.clientY;
-            this._isPointerDown = true;
-            this.fadeInRipple(clientX, clientY, this.rippleConfig);
-        }
     };
     /**
      * Runs a timeout outside of the Angular zone to avoid triggering the change detection.
@@ -1685,6 +1665,7 @@ var MatSort = (function () {
     MatSort.decorators = [
         { type: _angular_core.Directive, args: [{
                     selector: '[matSort]',
+                    exportAs: 'matSort',
                 },] },
     ];
     /**
@@ -1823,6 +1804,7 @@ var MatSortHeader = (function () {
     };
     MatSortHeader.decorators = [
         { type: _angular_core.Component, args: [{selector: '[mat-sort-header]',
+                    exportAs: 'matSortHeader',
                     template: "<div class=\"mat-sort-header-container\" [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\"><button class=\"mat-sort-header-button\" type=\"button\" [attr.aria-label]=\"_intl.sortButtonLabel(id)\"><ng-content></ng-content></button><div *ngIf=\"_isSorted()\" class=\"mat-sort-header-arrow\" [@indicatorToggle]=\"_sort.direction\"><div class=\"mat-sort-header-stem\"></div><div class=\"mat-sort-header-indicator\" [@indicator]=\"_sort.direction\"><div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_sort.direction\"></div><div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_sort.direction\"></div><div class=\"mat-sort-header-pointer-middle\"></div></div></div></div><span class=\"cdk-visually-hidden\" *ngIf=\"_isSorted()\">{{_intl.sortDescriptionLabel(id, _sort.direction)}}</span>",
                     styles: [".mat-sort-header-container{display:flex;cursor:pointer}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:pointer;outline:0;font:inherit;color:currentColor}.mat-sort-header-arrow{height:12px;width:12px;margin:0 0 0 6px;position:relative;display:flex}.mat-sort-header-position-before .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;height:10px;width:2px;margin:auto;display:flex;align-items:center}.mat-sort-header-indicator{width:100%;height:2px;display:flex;align-items:center;position:absolute;top:0;left:0;transition:225ms cubic-bezier(.4,0,.2,1)}.mat-sort-header-pointer-middle{margin:auto;height:2px;width:2px;background:currentColor;transform:rotate(45deg)}.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{background:currentColor;width:6px;height:2px;transition:225ms cubic-bezier(.4,0,.2,1);position:absolute;top:0}.mat-sort-header-pointer-left{transform-origin:right;left:0}.mat-sort-header-pointer-right{transform-origin:left;right:0}"],
                     host: {
