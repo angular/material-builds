@@ -514,6 +514,12 @@ class MatChipList {
         return this.multiple ? this._selectionModel.selected : this._selectionModel.selected[0];
     }
     /**
+     * @return {?}
+     */
+    get role() {
+        return this.empty ? null : 'listbox';
+    }
+    /**
      * Whether the user should be allowed to select multiple chips.
      * @return {?}
      */
@@ -1132,10 +1138,10 @@ MatChipList.decorators = [
                     '[attr.aria-disabled]': 'disabled.toString()',
                     '[attr.aria-invalid]': 'errorState',
                     '[attr.aria-multiselectable]': 'multiple',
+                    '[attr.role]': 'role',
                     '[class.mat-chip-list-disabled]': 'disabled',
                     '[class.mat-chip-list-invalid]': 'errorState',
                     '[class.mat-chip-list-required]': 'required',
-                    'role': 'listbox',
                     '[attr.aria-orientation]': 'ariaOrientation',
                     'class': 'mat-chip-list',
                     '(focus)': 'focus()',

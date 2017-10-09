@@ -479,6 +479,14 @@ class MatSelect extends _MatSelectMixinBase {
     /**
      * @return {?}
      */
+    ngDoCheck() {
+        if (this.ngControl) {
+            this._updateErrorState();
+        }
+    }
+    /**
+     * @return {?}
+     */
     ngOnDestroy() {
         this._dropSubscriptions();
         this._changeSubscription.unsubscribe();
@@ -732,16 +740,6 @@ class MatSelect extends _MatSelectMixinBase {
      */
     get empty() {
         return !this._selectionModel || this._selectionModel.isEmpty();
-    }
-    /**
-     * Whether the select is in an error state.
-     * @return {?}
-     */
-    get errorState() {
-        const /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
-        const /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
-        const /** @type {?} */ control = this.ngControl ? (this.ngControl.control) : null;
-        return matcher.isErrorState(control, parent);
     }
     /**
      * @return {?}
@@ -1269,6 +1267,21 @@ class MatSelect extends _MatSelectMixinBase {
         return this._triggerFontSize * SELECT_ITEM_HEIGHT_EM;
     }
     /**
+     * Updates the select's error state. Only relevant when used with \@angular/forms.
+     * @return {?}
+     */
+    _updateErrorState() {
+        const /** @type {?} */ oldState = this.errorState;
+        const /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
+        const /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
+        const /** @type {?} */ control = this.ngControl ? (this.ngControl.control) : null;
+        const /** @type {?} */ newState = matcher.isErrorState(control, parent);
+        if (newState !== oldState) {
+            this.errorState = newState;
+            this.stateChanges.next();
+        }
+    }
+    /**
      * @param {?} ids
      * @return {?}
      */
@@ -1285,7 +1298,9 @@ class MatSelect extends _MatSelectMixinBase {
     /**
      * @return {?}
      */
-    get shouldPlaceholderFloat() { return this._panelOpen || !this.empty; }
+    get shouldPlaceholderFloat() {
+        return this._panelOpen || !this.empty;
+    }
 }
 MatSelect.decorators = [
     { type: Component, args: [{selector: 'mat-select',

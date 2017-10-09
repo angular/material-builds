@@ -91,6 +91,7 @@ export declare class MatChipList implements MatFormFieldControl<any>, ControlVal
     private _compareWith;
     /** The array of selected chips inside chip list. */
     readonly selected: MatChip[] | MatChip;
+    readonly role: string | null;
     /** Whether the user should be allowed to select multiple chips. */
     multiple: boolean;
     /**

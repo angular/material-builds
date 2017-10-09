@@ -9,7 +9,7 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ConnectedOverlayDirective, Overlay, RepositionScrollStrategy, ScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, OnInit, QueryList, Renderer2 } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, OnInit, QueryList, Renderer2, DoCheck } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { CanDisable, HasTabIndex, MatOptgroup, MatOption, MatOptionSelectionChange, ErrorStateMatcher } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl } from '@angular/material/form-field';
@@ -70,7 +70,7 @@ export declare const _MatSelectMixinBase: (new (...args: any[]) => HasTabIndex) 
  */
 export declare class MatSelectTrigger {
 }
-export declare class MatSelect extends _MatSelectMixinBase implements AfterContentInit, OnDestroy, OnInit, ControlValueAccessor, CanDisable, HasTabIndex, MatFormFieldControl<any> {
+export declare class MatSelect extends _MatSelectMixinBase implements AfterContentInit, OnDestroy, OnInit, DoCheck, ControlValueAccessor, CanDisable, HasTabIndex, MatFormFieldControl<any> {
     private _viewportRuler;
     private _changeDetectorRef;
     private _ngZone;
@@ -210,6 +210,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _defaultErrorStateMatcher: ErrorStateMatcher, renderer: Renderer2, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, _scrollStrategyFactory: any);
     ngOnInit(): void;
     ngAfterContentInit(): void;
+    ngDoCheck(): void;
     ngOnDestroy(): void;
     /** Toggles the overlay panel open or closed. */
     toggle(): void;
@@ -286,7 +287,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Whether the select has a value. */
     readonly empty: boolean;
     /** Whether the select is in an error state. */
-    readonly errorState: boolean;
+    errorState: boolean;
     private _initializeSelection();
     /**
      * Sets the selected option based on a value. If no option can be
@@ -387,6 +388,8 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _getItemCount();
     /** Calculates the height of the select's options. */
     private _getItemHeight();
+    /** Updates the select's error state. Only relevant when used with @angular/forms. */
+    private _updateErrorState();
     setDescribedByIds(ids: string[]): void;
     onContainerClick(): void;
     readonly shouldPlaceholderFloat: boolean;

@@ -5690,6 +5690,16 @@ var MatChipList = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatChipList.prototype, "role", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.empty ? null : 'listbox';
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatChipList.prototype, "multiple", {
         /**
          * Whether the user should be allowed to select multiple chips.
@@ -6387,10 +6397,10 @@ var MatChipList = (function () {
                         '[attr.aria-disabled]': 'disabled.toString()',
                         '[attr.aria-invalid]': 'errorState',
                         '[attr.aria-multiselectable]': 'multiple',
+                        '[attr.role]': 'role',
                         '[class.mat-chip-list-disabled]': 'disabled',
                         '[class.mat-chip-list-invalid]': 'errorState',
                         '[class.mat-chip-list-required]': 'required',
-                        'role': 'listbox',
                         '[attr.aria-orientation]': 'ariaOrientation',
                         'class': 'mat-chip-list',
                         '(focus)': 'focus()',
@@ -14290,6 +14300,14 @@ var MatSelect = (function (_super) {
     /**
      * @return {?}
      */
+    MatSelect.prototype.ngDoCheck = function () {
+        if (this.ngControl) {
+            this._updateErrorState();
+        }
+    };
+    /**
+     * @return {?}
+     */
     MatSelect.prototype.ngOnDestroy = function () {
         this._dropSubscriptions();
         this._changeSubscription.unsubscribe();
@@ -14558,20 +14576,6 @@ var MatSelect = (function (_super) {
          */
         get: function () {
             return !this._selectionModel || this._selectionModel.isEmpty();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatSelect.prototype, "errorState", {
-        /**
-         * Whether the select is in an error state.
-         * @return {?}
-         */
-        get: function () {
-            var /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
-            var /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
-            var /** @type {?} */ control = this.ngControl ? (this.ngControl.control) : null;
-            return matcher.isErrorState(control, parent);
         },
         enumerable: true,
         configurable: true
@@ -15117,6 +15121,21 @@ var MatSelect = (function (_super) {
         return this._triggerFontSize * SELECT_ITEM_HEIGHT_EM;
     };
     /**
+     * Updates the select's error state. Only relevant when used with \@angular/forms.
+     * @return {?}
+     */
+    MatSelect.prototype._updateErrorState = function () {
+        var /** @type {?} */ oldState = this.errorState;
+        var /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
+        var /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
+        var /** @type {?} */ control = this.ngControl ? (this.ngControl.control) : null;
+        var /** @type {?} */ newState = matcher.isErrorState(control, parent);
+        if (newState !== oldState) {
+            this.errorState = newState;
+            this.stateChanges.next();
+        }
+    };
+    /**
      * @param {?} ids
      * @return {?}
      */
@@ -15134,7 +15153,9 @@ var MatSelect = (function (_super) {
         /**
          * @return {?}
          */
-        get: function () { return this._panelOpen || !this.empty; },
+        get: function () {
+            return this._panelOpen || !this.empty;
+        },
         enumerable: true,
         configurable: true
     });
@@ -21097,7 +21118,7 @@ var MatTable = (function (_super) {
         { type: _angular_core.Component, args: [{selector: 'mat-table',
                     exportAs: 'matTable',
                     template: _angular_cdk_table.CDK_TABLE_TEMPLATE,
-                    styles: [".mat-table{display:block}.mat-header-row,.mat-row{display:flex;border-bottom-width:1px;border-bottom-style:solid;align-items:center;min-height:48px;padding:0 24px}.mat-cell,.mat-header-cell{flex:1}"],
+                    styles: [".mat-table{display:block}.mat-header-row,.mat-row{display:flex;border-bottom-width:1px;border-bottom-style:solid;align-items:center;min-height:48px;padding:0 24px}.mat-cell,.mat-header-cell{flex:1;overflow:hidden;word-wrap:break-word}"],
                     host: {
                         'class': 'mat-table',
                     },
@@ -23016,7 +23037,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.12-4d97271');
+var VERSION = new _angular_core.Version('2.0.0-beta.12-d2f41a4');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

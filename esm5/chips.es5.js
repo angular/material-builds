@@ -551,6 +551,16 @@ var MatChipList = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatChipList.prototype, "role", {
+        /**
+         * @return {?}
+         */
+        get: function () {
+            return this.empty ? null : 'listbox';
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatChipList.prototype, "multiple", {
         /**
          * Whether the user should be allowed to select multiple chips.
@@ -1248,10 +1258,10 @@ var MatChipList = (function () {
                         '[attr.aria-disabled]': 'disabled.toString()',
                         '[attr.aria-invalid]': 'errorState',
                         '[attr.aria-multiselectable]': 'multiple',
+                        '[attr.role]': 'role',
                         '[class.mat-chip-list-disabled]': 'disabled',
                         '[class.mat-chip-list-invalid]': 'errorState',
                         '[class.mat-chip-list-required]': 'required',
-                        'role': 'listbox',
                         '[attr.aria-orientation]': 'ariaOrientation',
                         'class': 'mat-chip-list',
                         '(focus)': 'focus()',
