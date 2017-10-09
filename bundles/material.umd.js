@@ -14008,18 +14008,6 @@ var MatSelect = (function (_super) {
          */
         _this._panelOpen = false;
         /**
-         * Subscriptions to option events.
-         */
-        _this._optionSubscription = rxjs_Subscription.Subscription.EMPTY;
-        /**
-         * Subscription to changes in the option list.
-         */
-        _this._changeSubscription = rxjs_Subscription.Subscription.EMPTY;
-        /**
-         * Subscription to tab events while overlay is focused.
-         */
-        _this._tabSubscription = rxjs_Subscription.Subscription.EMPTY;
-        /**
          * Whether filling out the select is required in the form.
          */
         _this._required = false;
@@ -14039,6 +14027,10 @@ var MatSelect = (function (_super) {
          * Unique id for this input.
          */
         _this._uid = "mat-select-" + nextUniqueId$4++;
+        /**
+         * Emits whenever the component is destroyed.
+         */
+        _this._destroy = new rxjs_Subject.Subject();
         /**
          * The cached font-size of the trigger element.
          */
@@ -14292,7 +14284,10 @@ var MatSelect = (function (_super) {
     MatSelect.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._initKeyManager();
-        this._changeSubscription = _angular_cdk_rxjs.startWith.call(this.options.changes, null).subscribe(function () {
+        _angular_cdk_rxjs.RxChain.from(this.options.changes)
+            .call(_angular_cdk_rxjs.startWith, null)
+            .call(_angular_cdk_rxjs.takeUntil, this._destroy)
+            .subscribe(function () {
             _this._resetOptions();
             _this._initializeSelection();
         });
@@ -14309,9 +14304,8 @@ var MatSelect = (function (_super) {
      * @return {?}
      */
     MatSelect.prototype.ngOnDestroy = function () {
-        this._dropSubscriptions();
-        this._changeSubscription.unsubscribe();
-        this._tabSubscription.unsubscribe();
+        this._destroy.next();
+        this._destroy.complete();
     };
     /**
      * Toggles the overlay panel open or closed.
@@ -14338,7 +14332,7 @@ var MatSelect = (function (_super) {
         this._panelOpen = true;
         this._changeDetectorRef.markForCheck();
         // Set the font size on the panel element once it exists.
-        _angular_cdk_rxjs.first.call(this._ngZone.onStable).subscribe(function () {
+        _angular_cdk_rxjs.first.call(this._ngZone.onStable.asObservable()).subscribe(function () {
             if (_this._triggerFontSize && _this.overlayDir.overlayRef &&
                 _this.overlayDir.overlayRef.overlayElement) {
                 _this.overlayDir.overlayRef.overlayElement.style.fontSize = _this._triggerFontSize + "px";
@@ -14483,7 +14477,6 @@ var MatSelect = (function (_super) {
      * @return {?}
      */
     MatSelect.prototype._handleOpenKeydown = function (event) {
-        var _this = this;
         var /** @type {?} */ keyCode = event.keyCode;
         if (keyCode === _angular_cdk_keycodes.HOME || keyCode === _angular_cdk_keycodes.END) {
             event.preventDefault();
@@ -14496,12 +14489,6 @@ var MatSelect = (function (_super) {
         }
         else {
             this._keyManager.onKeydown(event);
-            // TODO(crisbeto): get rid of the Promise.resolve when #6441 gets in.
-            Promise.resolve().then(function () {
-                if (_this.panelOpen) {
-                    _this._scrollActiveOptionIntoView();
-                }
-            });
         }
     };
     /**
@@ -14670,31 +14657,31 @@ var MatSelect = (function (_super) {
     MatSelect.prototype._initKeyManager = function () {
         var _this = this;
         this._keyManager = new _angular_cdk_a11y.ActiveDescendantKeyManager(this.options).withTypeAhead();
-        this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this.close(); });
+        _angular_cdk_rxjs.takeUntil.call(this._keyManager.tabOut, this._destroy)
+            .subscribe(function () { return _this.close(); });
+        _angular_cdk_rxjs.RxChain.from(this._keyManager.change)
+            .call(_angular_cdk_rxjs.takeUntil, this._destroy)
+            .call(_angular_cdk_rxjs.filter, function () { return _this._panelOpen && !!_this.panel; })
+            .subscribe(function () { return _this._scrollActiveOptionIntoView(); });
     };
     /**
      * Drops current option subscriptions and IDs and resets from scratch.
      * @return {?}
      */
     MatSelect.prototype._resetOptions = function () {
-        this._dropSubscriptions();
-        this._listenToOptions();
-        this._setOptionIds();
-        this._setOptionMultiple();
-        this._setOptionDisableRipple();
-    };
-    /**
-     * Listens to user-generated selection events on each option.
-     * @return {?}
-     */
-    MatSelect.prototype._listenToOptions = function () {
         var _this = this;
-        this._optionSubscription = _angular_cdk_rxjs.filter.call(this.optionSelectionChanges, function (event) { return event.isUserInput; }).subscribe(function (event) {
+        _angular_cdk_rxjs.RxChain.from(this.optionSelectionChanges)
+            .call(_angular_cdk_rxjs.takeUntil, rxjs_observable_merge.merge(this._destroy, this.options.changes))
+            .call(_angular_cdk_rxjs.filter, function (event) { return event.isUserInput; })
+            .subscribe(function (event) {
             _this._onSelect(event.source);
             if (!_this.multiple) {
                 _this.close();
             }
         });
+        this._setOptionIds();
+        this._setOptionMultiple();
+        this._setOptionDisableRipple();
     };
     /**
      * Invoked when an option is clicked.
@@ -14740,13 +14727,6 @@ var MatSelect = (function (_super) {
             });
             this.stateChanges.next();
         }
-    };
-    /**
-     * Unsubscribes from all option subscriptions.
-     * @return {?}
-     */
-    MatSelect.prototype._dropSubscriptions = function () {
-        this._optionSubscription.unsubscribe();
     };
     /**
      * Emits change event to set the model value.
@@ -23037,7 +23017,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.12-d2f41a4');
+var VERSION = new _angular_core.Version('2.0.0-beta.12-717f252');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

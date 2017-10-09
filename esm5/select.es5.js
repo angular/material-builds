@@ -15,13 +15,12 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DOWN_ARROW, END, ENTER, HOME, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
 import { ConnectedOverlayDirective, Overlay, OverlayModule, ViewportRuler } from '@angular/cdk/overlay';
-import { filter, first, startWith } from '@angular/cdk/rxjs';
+import { RxChain, filter, first, startWith, takeUntil } from '@angular/cdk/rxjs';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { ErrorStateMatcher, MatCommonModule, MatOptgroup, MatOption, MatOptionModule, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { merge } from 'rxjs/observable/merge';
 import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 /**
@@ -229,18 +228,6 @@ var MatSelect = (function (_super) {
          */
         _this._panelOpen = false;
         /**
-         * Subscriptions to option events.
-         */
-        _this._optionSubscription = Subscription.EMPTY;
-        /**
-         * Subscription to changes in the option list.
-         */
-        _this._changeSubscription = Subscription.EMPTY;
-        /**
-         * Subscription to tab events while overlay is focused.
-         */
-        _this._tabSubscription = Subscription.EMPTY;
-        /**
          * Whether filling out the select is required in the form.
          */
         _this._required = false;
@@ -260,6 +247,10 @@ var MatSelect = (function (_super) {
          * Unique id for this input.
          */
         _this._uid = "mat-select-" + nextUniqueId++;
+        /**
+         * Emits whenever the component is destroyed.
+         */
+        _this._destroy = new Subject();
         /**
          * The cached font-size of the trigger element.
          */
@@ -513,7 +504,10 @@ var MatSelect = (function (_super) {
     MatSelect.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._initKeyManager();
-        this._changeSubscription = startWith.call(this.options.changes, null).subscribe(function () {
+        RxChain.from(this.options.changes)
+            .call(startWith, null)
+            .call(takeUntil, this._destroy)
+            .subscribe(function () {
             _this._resetOptions();
             _this._initializeSelection();
         });
@@ -530,9 +524,8 @@ var MatSelect = (function (_super) {
      * @return {?}
      */
     MatSelect.prototype.ngOnDestroy = function () {
-        this._dropSubscriptions();
-        this._changeSubscription.unsubscribe();
-        this._tabSubscription.unsubscribe();
+        this._destroy.next();
+        this._destroy.complete();
     };
     /**
      * Toggles the overlay panel open or closed.
@@ -559,7 +552,7 @@ var MatSelect = (function (_super) {
         this._panelOpen = true;
         this._changeDetectorRef.markForCheck();
         // Set the font size on the panel element once it exists.
-        first.call(this._ngZone.onStable).subscribe(function () {
+        first.call(this._ngZone.onStable.asObservable()).subscribe(function () {
             if (_this._triggerFontSize && _this.overlayDir.overlayRef &&
                 _this.overlayDir.overlayRef.overlayElement) {
                 _this.overlayDir.overlayRef.overlayElement.style.fontSize = _this._triggerFontSize + "px";
@@ -704,7 +697,6 @@ var MatSelect = (function (_super) {
      * @return {?}
      */
     MatSelect.prototype._handleOpenKeydown = function (event) {
-        var _this = this;
         var /** @type {?} */ keyCode = event.keyCode;
         if (keyCode === HOME || keyCode === END) {
             event.preventDefault();
@@ -717,12 +709,6 @@ var MatSelect = (function (_super) {
         }
         else {
             this._keyManager.onKeydown(event);
-            // TODO(crisbeto): get rid of the Promise.resolve when #6441 gets in.
-            Promise.resolve().then(function () {
-                if (_this.panelOpen) {
-                    _this._scrollActiveOptionIntoView();
-                }
-            });
         }
     };
     /**
@@ -891,31 +877,31 @@ var MatSelect = (function (_super) {
     MatSelect.prototype._initKeyManager = function () {
         var _this = this;
         this._keyManager = new ActiveDescendantKeyManager(this.options).withTypeAhead();
-        this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this.close(); });
+        takeUntil.call(this._keyManager.tabOut, this._destroy)
+            .subscribe(function () { return _this.close(); });
+        RxChain.from(this._keyManager.change)
+            .call(takeUntil, this._destroy)
+            .call(filter, function () { return _this._panelOpen && !!_this.panel; })
+            .subscribe(function () { return _this._scrollActiveOptionIntoView(); });
     };
     /**
      * Drops current option subscriptions and IDs and resets from scratch.
      * @return {?}
      */
     MatSelect.prototype._resetOptions = function () {
-        this._dropSubscriptions();
-        this._listenToOptions();
-        this._setOptionIds();
-        this._setOptionMultiple();
-        this._setOptionDisableRipple();
-    };
-    /**
-     * Listens to user-generated selection events on each option.
-     * @return {?}
-     */
-    MatSelect.prototype._listenToOptions = function () {
         var _this = this;
-        this._optionSubscription = filter.call(this.optionSelectionChanges, function (event) { return event.isUserInput; }).subscribe(function (event) {
+        RxChain.from(this.optionSelectionChanges)
+            .call(takeUntil, merge(this._destroy, this.options.changes))
+            .call(filter, function (event) { return event.isUserInput; })
+            .subscribe(function (event) {
             _this._onSelect(event.source);
             if (!_this.multiple) {
                 _this.close();
             }
         });
+        this._setOptionIds();
+        this._setOptionMultiple();
+        this._setOptionDisableRipple();
     };
     /**
      * Invoked when an option is clicked.
@@ -961,13 +947,6 @@ var MatSelect = (function (_super) {
             });
             this.stateChanges.next();
         }
-    };
-    /**
-     * Unsubscribes from all option subscriptions.
-     * @return {?}
-     */
-    MatSelect.prototype._dropSubscriptions = function () {
-        this._optionSubscription.unsubscribe();
     };
     /**
      * Emits change event to set the model value.

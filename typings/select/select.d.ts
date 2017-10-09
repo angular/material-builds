@@ -83,12 +83,6 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _scrollStrategyFactory;
     /** Whether or not the overlay panel is open. */
     private _panelOpen;
-    /** Subscriptions to option events. */
-    private _optionSubscription;
-    /** Subscription to changes in the option list. */
-    private _changeSubscription;
-    /** Subscription to tab events while overlay is focused. */
-    private _tabSubscription;
     /** Whether filling out the select is required in the form.  */
     private _required;
     /** The scroll position of the overlay panel, calculated to center the selected option. */
@@ -101,6 +95,8 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _compareWith;
     /** Unique id for this input. */
     private _uid;
+    /** Emits whenever the component is destroyed. */
+    private _destroy;
     /** The last measured value for the trigger's client bounding rect. */
     _triggerRect: ClientRect;
     /** The aria-describedby attribute on the select for improved a11y. */
@@ -308,8 +304,6 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _initKeyManager();
     /** Drops current option subscriptions and IDs and resets from scratch. */
     private _resetOptions();
-    /** Listens to user-generated selection events on each option. */
-    private _listenToOptions();
     /** Invoked when an option is clicked. */
     private _onSelect(option);
     /**
@@ -317,8 +311,6 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      * order that they have in the panel.
      */
     private _sortValues();
-    /** Unsubscribes from all option subscriptions. */
-    private _dropSubscriptions();
     /** Emits change event to set the model value. */
     private _propagateChanges(fallbackValue?);
     /** Records option IDs to pass to the aria-owns property. */

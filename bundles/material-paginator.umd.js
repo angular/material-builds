@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/collections'), require('@angular/cdk/overlay'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/Subscription'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/collections', '@angular/cdk/overlay', '@angular/cdk/rxjs', '@angular/forms', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/Subscription', '@angular/cdk/portal', '@angular/cdk/scrolling'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.paginator = global.ng.material.paginator || {}),global.ng.common,global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.collections,global.ng.cdk.overlay,global.ng.cdk.rxjs,global.ng.forms,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx,global.ng.cdk.portal,global.ng.cdk.scrolling));
-}(this, (function (exports,_angular_common,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_collections,_angular_cdk_overlay,_angular_cdk_rxjs,_angular_forms,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_Subscription,_angular_cdk_portal,_angular_cdk_scrolling) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/collections'), require('@angular/cdk/overlay'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/collections', '@angular/cdk/overlay', '@angular/cdk/rxjs', '@angular/forms', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', '@angular/cdk/portal', '@angular/cdk/scrolling'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.paginator = global.ng.material.paginator || {}),global.ng.common,global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.collections,global.ng.cdk.overlay,global.ng.cdk.rxjs,global.ng.forms,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.portal,global.ng.cdk.scrolling));
+}(this, (function (exports,_angular_common,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_collections,_angular_cdk_overlay,_angular_cdk_rxjs,_angular_forms,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,_angular_cdk_portal,_angular_cdk_scrolling) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -2968,18 +2968,6 @@ var MatSelect = (function (_super) {
          */
         _this._panelOpen = false;
         /**
-         * Subscriptions to option events.
-         */
-        _this._optionSubscription = rxjs_Subscription.Subscription.EMPTY;
-        /**
-         * Subscription to changes in the option list.
-         */
-        _this._changeSubscription = rxjs_Subscription.Subscription.EMPTY;
-        /**
-         * Subscription to tab events while overlay is focused.
-         */
-        _this._tabSubscription = rxjs_Subscription.Subscription.EMPTY;
-        /**
          * Whether filling out the select is required in the form.
          */
         _this._required = false;
@@ -2999,6 +2987,10 @@ var MatSelect = (function (_super) {
          * Unique id for this input.
          */
         _this._uid = "mat-select-" + nextUniqueId++;
+        /**
+         * Emits whenever the component is destroyed.
+         */
+        _this._destroy = new rxjs_Subject.Subject();
         /**
          * The cached font-size of the trigger element.
          */
@@ -3252,7 +3244,10 @@ var MatSelect = (function (_super) {
     MatSelect.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._initKeyManager();
-        this._changeSubscription = _angular_cdk_rxjs.startWith.call(this.options.changes, null).subscribe(function () {
+        _angular_cdk_rxjs.RxChain.from(this.options.changes)
+            .call(_angular_cdk_rxjs.startWith, null)
+            .call(_angular_cdk_rxjs.takeUntil, this._destroy)
+            .subscribe(function () {
             _this._resetOptions();
             _this._initializeSelection();
         });
@@ -3269,9 +3264,8 @@ var MatSelect = (function (_super) {
      * @return {?}
      */
     MatSelect.prototype.ngOnDestroy = function () {
-        this._dropSubscriptions();
-        this._changeSubscription.unsubscribe();
-        this._tabSubscription.unsubscribe();
+        this._destroy.next();
+        this._destroy.complete();
     };
     /**
      * Toggles the overlay panel open or closed.
@@ -3298,7 +3292,7 @@ var MatSelect = (function (_super) {
         this._panelOpen = true;
         this._changeDetectorRef.markForCheck();
         // Set the font size on the panel element once it exists.
-        _angular_cdk_rxjs.first.call(this._ngZone.onStable).subscribe(function () {
+        _angular_cdk_rxjs.first.call(this._ngZone.onStable.asObservable()).subscribe(function () {
             if (_this._triggerFontSize && _this.overlayDir.overlayRef &&
                 _this.overlayDir.overlayRef.overlayElement) {
                 _this.overlayDir.overlayRef.overlayElement.style.fontSize = _this._triggerFontSize + "px";
@@ -3443,7 +3437,6 @@ var MatSelect = (function (_super) {
      * @return {?}
      */
     MatSelect.prototype._handleOpenKeydown = function (event) {
-        var _this = this;
         var /** @type {?} */ keyCode = event.keyCode;
         if (keyCode === _angular_cdk_keycodes.HOME || keyCode === _angular_cdk_keycodes.END) {
             event.preventDefault();
@@ -3456,12 +3449,6 @@ var MatSelect = (function (_super) {
         }
         else {
             this._keyManager.onKeydown(event);
-            // TODO(crisbeto): get rid of the Promise.resolve when #6441 gets in.
-            Promise.resolve().then(function () {
-                if (_this.panelOpen) {
-                    _this._scrollActiveOptionIntoView();
-                }
-            });
         }
     };
     /**
@@ -3630,31 +3617,31 @@ var MatSelect = (function (_super) {
     MatSelect.prototype._initKeyManager = function () {
         var _this = this;
         this._keyManager = new _angular_cdk_a11y.ActiveDescendantKeyManager(this.options).withTypeAhead();
-        this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this.close(); });
+        _angular_cdk_rxjs.takeUntil.call(this._keyManager.tabOut, this._destroy)
+            .subscribe(function () { return _this.close(); });
+        _angular_cdk_rxjs.RxChain.from(this._keyManager.change)
+            .call(_angular_cdk_rxjs.takeUntil, this._destroy)
+            .call(_angular_cdk_rxjs.filter, function () { return _this._panelOpen && !!_this.panel; })
+            .subscribe(function () { return _this._scrollActiveOptionIntoView(); });
     };
     /**
      * Drops current option subscriptions and IDs and resets from scratch.
      * @return {?}
      */
     MatSelect.prototype._resetOptions = function () {
-        this._dropSubscriptions();
-        this._listenToOptions();
-        this._setOptionIds();
-        this._setOptionMultiple();
-        this._setOptionDisableRipple();
-    };
-    /**
-     * Listens to user-generated selection events on each option.
-     * @return {?}
-     */
-    MatSelect.prototype._listenToOptions = function () {
         var _this = this;
-        this._optionSubscription = _angular_cdk_rxjs.filter.call(this.optionSelectionChanges, function (event) { return event.isUserInput; }).subscribe(function (event) {
+        _angular_cdk_rxjs.RxChain.from(this.optionSelectionChanges)
+            .call(_angular_cdk_rxjs.takeUntil, rxjs_observable_merge.merge(this._destroy, this.options.changes))
+            .call(_angular_cdk_rxjs.filter, function (event) { return event.isUserInput; })
+            .subscribe(function (event) {
             _this._onSelect(event.source);
             if (!_this.multiple) {
                 _this.close();
             }
         });
+        this._setOptionIds();
+        this._setOptionMultiple();
+        this._setOptionDisableRipple();
     };
     /**
      * Invoked when an option is clicked.
@@ -3700,13 +3687,6 @@ var MatSelect = (function (_super) {
             });
             this.stateChanges.next();
         }
-    };
-    /**
-     * Unsubscribes from all option subscriptions.
-     * @return {?}
-     */
-    MatSelect.prototype._dropSubscriptions = function () {
-        this._optionSubscription.unsubscribe();
     };
     /**
      * Emits change event to set the model value.
