@@ -2631,6 +2631,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
     font: {
       family: mat-font-family($config, subheading-2);
       size: mat-font-size($config, subheading-2);
+      weight: mat-font-weight($config, subheading-2);
     }
   }
 }

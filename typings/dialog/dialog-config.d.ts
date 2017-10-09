@@ -43,6 +43,14 @@ export declare class MatDialogConfig {
     width?: string;
     /** Height of the dialog. */
     height?: string;
+    /** Min-width of the dialog. If a number is provided, pixel units are assumed. */
+    minWidth?: number | string;
+    /** Min-height of the dialog. If a number is provided, pixel units are assumed. */
+    minHeight?: number | string;
+    /** Max-width of the dialog. If a number is provided, pixel units are assumed. Defaults to 80vw */
+    maxWidth?: number | string;
+    /** Max-height of the dialog. If a number is provided, pixel units are assumed. */
+    maxHeight?: number | string;
     /** Position overrides. */
     position?: DialogPosition;
     /** Data being injected into the child component. */

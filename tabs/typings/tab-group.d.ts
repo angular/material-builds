@@ -7,6 +7,7 @@
  */
 import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer2 } from '@angular/core';
 import { MatTab } from './tab';
+import { MatTabHeader } from './tab-header';
 import { CanColor, CanDisableRipple, ThemePalette } from '@angular/material/core';
 /** A simple change event emitted on focus or selection changes. */
 export declare class MatTabChangeEvent {
@@ -94,4 +95,8 @@ export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterC
     _setTabBodyWrapperHeight(tabHeight: number): void;
     /** Removes the height of the tab body wrapper. */
     _removeTabBodyWrapperHeight(): void;
+    /** Handle click events, setting new selected index if appropriate. */
+    _handleClick(tab: MatTab, tabHeader: MatTabHeader, idx: number): void;
+    /** Retrieves the tabindex for the tab. */
+    _getTabIndex(tab: MatTab, idx: number): number | null;
 }

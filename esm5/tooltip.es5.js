@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { A11yModule, ARIA_DESCRIBER_PROVIDER, AriaDescriber } from '@angular/cdk/a11y';
+import { A11yModule, ARIA_DESCRIBER_PROVIDER, AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { CommonModule } from '@angular/common';
@@ -76,10 +76,11 @@ var MatTooltip = (function () {
      * @param {?} _ngZone
      * @param {?} _platform
      * @param {?} _ariaDescriber
+     * @param {?} _focusMonitor
      * @param {?} _scrollStrategy
      * @param {?} _dir
      */
-    function MatTooltip(renderer, _overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _scrollStrategy, _dir) {
+    function MatTooltip(renderer, _overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir) {
         var _this = this;
         this._overlay = _overlay;
         this._elementRef = _elementRef;
@@ -88,6 +89,7 @@ var MatTooltip = (function () {
         this._ngZone = _ngZone;
         this._platform = _platform;
         this._ariaDescriber = _ariaDescriber;
+        this._focusMonitor = _focusMonitor;
         this._scrollStrategy = _scrollStrategy;
         this._dir = _dir;
         this._position = 'below';
@@ -109,6 +111,15 @@ var MatTooltip = (function () {
             this._leaveListener =
                 renderer.listen(_elementRef.nativeElement, 'mouseleave', function () { return _this.hide(); });
         }
+        _focusMonitor.monitor(_elementRef.nativeElement, renderer, false).subscribe(function (origin) {
+            // Note that the focus monitor runs outside the Angular zone.
+            if (!origin) {
+                _ngZone.run(function () { return _this.hide(0); });
+            }
+            else if (origin !== 'program') {
+                _ngZone.run(function () { return _this.show(); });
+            }
+        });
     }
     Object.defineProperty(MatTooltip.prototype, "position", {
         /**
@@ -220,6 +231,7 @@ var MatTooltip = (function () {
             this._leaveListener();
         }
         this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this.message);
+        this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
     };
     /**
      * Shows the tooltip after the delay in ms, defaults to tooltip-delay-show or 0ms if no input
@@ -461,8 +473,6 @@ var MatTooltip = (function () {
                     exportAs: 'matTooltip',
                     host: {
                         '(longpress)': 'show()',
-                        '(focus)': 'show()',
-                        '(blur)': 'hide(0)',
                         '(keydown)': '_handleKeydown($event)',
                         '(touchend)': 'hide(' + TOUCHEND_HIDE_DELAY + ')',
                     },
@@ -480,6 +490,7 @@ var MatTooltip = (function () {
         { type: NgZone, },
         { type: Platform, },
         { type: AriaDescriber, },
+        { type: FocusMonitor, },
         { type: undefined, decorators: [{ type: Inject, args: [MAT_TOOLTIP_SCROLL_STRATEGY,] },] },
         { type: Directionality, decorators: [{ type: Optional },] },
     ]; };

@@ -18,7 +18,7 @@ import { ESCAPE } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/platform-browser';
 import { merge } from 'rxjs/observable/merge';
 import { Subject } from 'rxjs/Subject';
-import { RxChain, filter, first, startWith, takeUntil } from '@angular/cdk/rxjs';
+import { RxChain, filter, first, map, startWith, takeUntil } from '@angular/cdk/rxjs';
 
 /**
  * Throws an exception when two MatDrawer are matching the same position.
@@ -121,13 +121,19 @@ class MatDrawer {
          */
         this._animationState = 'void';
         /**
-         * Event emitted when the drawer is fully opened.
+         * Event emitted when the drawer open state is changed.
          */
-        this.onOpen = new EventEmitter();
+        this.openedChange = new EventEmitter();
+        /**
+         * Event emitted when the drawer is fully opened.
+         * @deprecated Use `openedChange` instead.
+         */
+        this.onOpen = this._openedStream;
         /**
          * Event emitted when the drawer is fully closed.
+         * @deprecated Use `openedChange` instead.
          */
-        this.onClose = new EventEmitter();
+        this.onClose = this._closedStream;
         /**
          * Event emitted when the drawer's position changes.
          */
@@ -141,15 +147,19 @@ class MatDrawer {
          * to know when to when the mode changes so it can adapt the margins on the content.
          */
         this._modeChanged = new Subject();
-        this.onOpen.subscribe(() => {
-            if (this._doc) {
-                this._elementFocusedBeforeDrawerWasOpened = this._doc.activeElement;
+        this.openedChange.subscribe((opened) => {
+            if (opened) {
+                if (this._doc) {
+                    this._elementFocusedBeforeDrawerWasOpened = this._doc.activeElement;
+                }
+                if (this._isFocusTrapEnabled && this._focusTrap) {
+                    this._focusTrap.focusInitialElementWhenReady();
+                }
             }
-            if (this._isFocusTrapEnabled && this._focusTrap) {
-                this._focusTrap.focusInitialElementWhenReady();
+            else {
+                this._restoreFocus();
             }
         });
-        this.onClose.subscribe(() => this._restoreFocus());
     }
     /**
      * The side that the drawer is attached to.
@@ -202,6 +212,26 @@ class MatDrawer {
      * @return {?}
      */
     set disableClose(value) { this._disableClose = coerceBooleanProperty(value); }
+    /**
+     * Event emitted when the drawer has been opened.
+     * @return {?}
+     */
+    get _openedStream() {
+        return RxChain.from(this.openedChange)
+            .call(filter, o => o)
+            .call(map, () => { })
+            .result();
+    }
+    /**
+     * Event emitted when the drawer has been closed.
+     * @return {?}
+     */
+    get _closedStream() {
+        return RxChain.from(this.openedChange)
+            .call(filter, o => !o)
+            .call(map, () => { })
+            .result();
+    }
     /**
      * @return {?}
      */
@@ -317,10 +347,10 @@ class MatDrawer {
     _onAnimationEnd(event) {
         const { fromState, toState } = event;
         if (toState.indexOf('open') === 0 && fromState === 'void') {
-            this.onOpen.emit(new MatDrawerToggleResult('open', true));
+            this.openedChange.emit(true);
         }
         else if (toState === 'void' && fromState.indexOf('open') === 0) {
-            this.onClose.emit(new MatDrawerToggleResult('close', true));
+            this.openedChange.emit(false);
         }
     }
     /**
@@ -379,6 +409,9 @@ MatDrawer.propDecorators = {
     'align': [{ type: Input },],
     'mode': [{ type: Input },],
     'disableClose': [{ type: Input },],
+    'openedChange': [{ type: Output },],
+    '_openedStream': [{ type: Output, args: ['opened',] },],
+    '_closedStream': [{ type: Output, args: ['closed',] },],
     'onOpen': [{ type: Output, args: ['open',] },],
     'onClose': [{ type: Output, args: ['close',] },],
     'onPositionChanged': [{ type: Output, args: ['positionChanged',] },],
@@ -491,7 +524,7 @@ class MatDrawerContainer {
             this._changeDetectorRef.markForCheck();
         });
         if (drawer.mode !== 'side') {
-            takeUntil.call(merge(drawer.onOpen, drawer.onClose), this._drawers.changes).subscribe(() => this._setContainerClass(drawer.opened));
+            takeUntil.call(drawer.openedChange, this._drawers.changes).subscribe(() => this._setContainerClass(drawer.opened));
         }
     }
     /**

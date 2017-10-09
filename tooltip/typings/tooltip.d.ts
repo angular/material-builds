@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AnimationEvent } from '@angular/animations';
-import { AriaDescriber } from '@angular/cdk/a11y';
+import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, RepositionScrollStrategy, ScrollStrategy, ConnectionPositionPair } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
@@ -46,6 +46,7 @@ export declare class MatTooltip implements OnDestroy {
     private _ngZone;
     private _platform;
     private _ariaDescriber;
+    private _focusMonitor;
     private _scrollStrategy;
     private _dir;
     _overlayRef: OverlayRef | null;
@@ -72,7 +73,7 @@ export declare class MatTooltip implements OnDestroy {
     };
     private _enterListener;
     private _leaveListener;
-    constructor(renderer: Renderer2, _overlay: Overlay, _elementRef: ElementRef, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _scrollStrategy: any, _dir: Directionality);
+    constructor(renderer: Renderer2, _overlay: Overlay, _elementRef: ElementRef, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, _scrollStrategy: any, _dir: Directionality);
     /**
      * Dispose the tooltip when destroyed.
      */

@@ -10,6 +10,7 @@ import { FocusTrapFactory } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy, QueryList, Renderer2 } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 /** Throws an exception when two MatDrawer are matching the same position. */
 export declare function throwMatDuplicatedDrawerError(position: string): void;
 /**
@@ -64,10 +65,22 @@ export declare class MatDrawer implements AfterContentInit, OnDestroy {
     _animationStarted: EventEmitter<AnimationEvent>;
     /** Current state of the sidenav animation. */
     _animationState: 'open-instant' | 'open' | 'void';
-    /** Event emitted when the drawer is fully opened. */
-    onOpen: EventEmitter<void | MatDrawerToggleResult>;
-    /** Event emitted when the drawer is fully closed. */
-    onClose: EventEmitter<void | MatDrawerToggleResult>;
+    /** Event emitted when the drawer open state is changed. */
+    openedChange: EventEmitter<boolean>;
+    /** Event emitted when the drawer has been opened. */
+    readonly _openedStream: Observable<void>;
+    /** Event emitted when the drawer has been closed. */
+    readonly _closedStream: Observable<void>;
+    /**
+     * Event emitted when the drawer is fully opened.
+     * @deprecated Use `openedChange` instead.
+     */
+    onOpen: Observable<void>;
+    /**
+     * Event emitted when the drawer is fully closed.
+     * @deprecated Use `openedChange` instead.
+     */
+    onClose: Observable<void>;
     /** Event emitted when the drawer's position changes. */
     onPositionChanged: EventEmitter<void>;
     /** @deprecated */

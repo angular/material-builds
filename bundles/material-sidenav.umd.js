@@ -1730,13 +1730,19 @@ var MatDrawer = (function () {
          */
         this._animationState = 'void';
         /**
-         * Event emitted when the drawer is fully opened.
+         * Event emitted when the drawer open state is changed.
          */
-        this.onOpen = new _angular_core.EventEmitter();
+        this.openedChange = new _angular_core.EventEmitter();
+        /**
+         * Event emitted when the drawer is fully opened.
+         * @deprecated Use `openedChange` instead.
+         */
+        this.onOpen = this._openedStream;
         /**
          * Event emitted when the drawer is fully closed.
+         * @deprecated Use `openedChange` instead.
          */
-        this.onClose = new _angular_core.EventEmitter();
+        this.onClose = this._closedStream;
         /**
          * Event emitted when the drawer's position changes.
          */
@@ -1750,15 +1756,19 @@ var MatDrawer = (function () {
          * to know when to when the mode changes so it can adapt the margins on the content.
          */
         this._modeChanged = new rxjs_Subject.Subject();
-        this.onOpen.subscribe(function () {
-            if (_this._doc) {
-                _this._elementFocusedBeforeDrawerWasOpened = _this._doc.activeElement;
+        this.openedChange.subscribe(function (opened) {
+            if (opened) {
+                if (_this._doc) {
+                    _this._elementFocusedBeforeDrawerWasOpened = _this._doc.activeElement;
+                }
+                if (_this._isFocusTrapEnabled && _this._focusTrap) {
+                    _this._focusTrap.focusInitialElementWhenReady();
+                }
             }
-            if (_this._isFocusTrapEnabled && _this._focusTrap) {
-                _this._focusTrap.focusInitialElementWhenReady();
+            else {
+                _this._restoreFocus();
             }
         });
-        this.onClose.subscribe(function () { return _this._restoreFocus(); });
     }
     Object.defineProperty(MatDrawer.prototype, "position", {
         /**
@@ -1824,6 +1834,34 @@ var MatDrawer = (function () {
          * @return {?}
          */
         set: function (value) { this._disableClose = _angular_cdk_coercion.coerceBooleanProperty(value); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatDrawer.prototype, "_openedStream", {
+        /**
+         * Event emitted when the drawer has been opened.
+         * @return {?}
+         */
+        get: function () {
+            return _angular_cdk_rxjs.RxChain.from(this.openedChange)
+                .call(_angular_cdk_rxjs.filter, function (o) { return o; })
+                .call(_angular_cdk_rxjs.map, function () { })
+                .result();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatDrawer.prototype, "_closedStream", {
+        /**
+         * Event emitted when the drawer has been closed.
+         * @return {?}
+         */
+        get: function () {
+            return _angular_cdk_rxjs.RxChain.from(this.openedChange)
+                .call(_angular_cdk_rxjs.filter, function (o) { return !o; })
+                .call(_angular_cdk_rxjs.map, function () { })
+                .result();
+        },
         enumerable: true,
         configurable: true
     });
@@ -1952,10 +1990,10 @@ var MatDrawer = (function () {
     MatDrawer.prototype._onAnimationEnd = function (event) {
         var fromState = event.fromState, toState = event.toState;
         if (toState.indexOf('open') === 0 && fromState === 'void') {
-            this.onOpen.emit(new MatDrawerToggleResult('open', true));
+            this.openedChange.emit(true);
         }
         else if (toState === 'void' && fromState.indexOf('open') === 0) {
-            this.onClose.emit(new MatDrawerToggleResult('close', true));
+            this.openedChange.emit(false);
         }
     };
     Object.defineProperty(MatDrawer.prototype, "_width", {
@@ -2017,6 +2055,9 @@ var MatDrawer = (function () {
         'align': [{ type: _angular_core.Input },],
         'mode': [{ type: _angular_core.Input },],
         'disableClose': [{ type: _angular_core.Input },],
+        'openedChange': [{ type: _angular_core.Output },],
+        '_openedStream': [{ type: _angular_core.Output, args: ['opened',] },],
+        '_closedStream': [{ type: _angular_core.Output, args: ['closed',] },],
         'onOpen': [{ type: _angular_core.Output, args: ['open',] },],
         'onClose': [{ type: _angular_core.Output, args: ['close',] },],
         'onPositionChanged': [{ type: _angular_core.Output, args: ['positionChanged',] },],
@@ -2142,7 +2183,7 @@ var MatDrawerContainer = (function () {
             _this._changeDetectorRef.markForCheck();
         });
         if (drawer.mode !== 'side') {
-            _angular_cdk_rxjs.takeUntil.call(rxjs_observable_merge.merge(drawer.onOpen, drawer.onClose), this._drawers.changes).subscribe(function () {
+            _angular_cdk_rxjs.takeUntil.call(drawer.openedChange, this._drawers.changes).subscribe(function () {
                 return _this._setContainerClass(drawer.opened);
             });
         }

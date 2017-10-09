@@ -2268,9 +2268,6 @@ var MatListOption = (function (_super) {
      */
     MatListOption.prototype.ngAfterContentInit = function () {
         this._lineSetter = new MatLineSetter(this._lines, this._renderer, this._element);
-        if (this.selectionList.disabled) {
-            this.disabled = true;
-        }
     };
     /**
      * @return {?}
