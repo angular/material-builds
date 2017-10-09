@@ -746,16 +746,16 @@ class MatSelect extends _MatSelectMixinBase {
      * @return {?}
      */
     _setSelectionByValue(value, isUserInput = false) {
-        const /** @type {?} */ isArray = Array.isArray(value);
-        if (this.multiple && value && !isArray) {
-            throw getMatSelectNonArrayValueError();
-        }
-        this._clearSelection();
-        if (isArray) {
+        if (this.multiple && value) {
+            if (!Array.isArray(value)) {
+                throw getMatSelectNonArrayValueError();
+            }
+            this._clearSelection();
             value.forEach((currentValue) => this._selectValue(currentValue, isUserInput));
             this._sortValues();
         }
         else {
+            this._clearSelection();
             const /** @type {?} */ correspondingOption = this._selectValue(value, isUserInput);
             // Shift focus to the active item. Note that we shouldn't do this in multiple
             // mode, because we don't know what option the user interacted with last.
@@ -888,11 +888,11 @@ class MatSelect extends _MatSelectMixinBase {
      */
     _propagateChanges(fallbackValue) {
         let /** @type {?} */ valueToEmit = null;
-        if (Array.isArray(this.selected)) {
-            valueToEmit = this.selected.map(option => option.value);
+        if (this.multiple) {
+            valueToEmit = ((this.selected)).map(option => option.value);
         }
         else {
-            valueToEmit = this.selected ? this.selected.value : fallbackValue;
+            valueToEmit = this.selected ? ((this.selected)).value : fallbackValue;
         }
         this._value = valueToEmit;
         this._onChange(valueToEmit);

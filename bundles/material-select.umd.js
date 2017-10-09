@@ -3135,16 +3135,16 @@ var MatSelect = (function (_super) {
     MatSelect.prototype._setSelectionByValue = function (value, isUserInput) {
         var _this = this;
         if (isUserInput === void 0) { isUserInput = false; }
-        var /** @type {?} */ isArray = Array.isArray(value);
-        if (this.multiple && value && !isArray) {
-            throw getMatSelectNonArrayValueError();
-        }
-        this._clearSelection();
-        if (isArray) {
+        if (this.multiple && value) {
+            if (!Array.isArray(value)) {
+                throw getMatSelectNonArrayValueError();
+            }
+            this._clearSelection();
             value.forEach(function (currentValue) { return _this._selectValue(currentValue, isUserInput); });
             this._sortValues();
         }
         else {
+            this._clearSelection();
             var /** @type {?} */ correspondingOption = this._selectValue(value, isUserInput);
             // Shift focus to the active item. Note that we shouldn't do this in multiple
             // mode, because we don't know what option the user interacted with last.
@@ -3282,11 +3282,11 @@ var MatSelect = (function (_super) {
      */
     MatSelect.prototype._propagateChanges = function (fallbackValue) {
         var /** @type {?} */ valueToEmit = null;
-        if (Array.isArray(this.selected)) {
-            valueToEmit = this.selected.map(function (option) { return option.value; });
+        if (this.multiple) {
+            valueToEmit = ((this.selected)).map(function (option) { return option.value; });
         }
         else {
-            valueToEmit = this.selected ? this.selected.value : fallbackValue;
+            valueToEmit = this.selected ? ((this.selected)).value : fallbackValue;
         }
         this._value = valueToEmit;
         this._onChange(valueToEmit);
