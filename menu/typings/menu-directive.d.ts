@@ -71,6 +71,11 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel, OnDestro
      */
     focusFirstItem(): void;
     /**
+     * Resets the active item in the menu. This is used when the menu is opened by mouse,
+     * allowing the user to start from the first option when pressing the down arrow.
+     */
+    resetActiveItem(): void;
+    /**
      * It's necessary to set position-based classes to ensure the menu panel animation
      * folds out from the correct direction.
      */

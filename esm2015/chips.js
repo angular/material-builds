@@ -624,7 +624,7 @@ class MatChipList {
      * @return {?}
      */
     get shouldPlaceholderFloat() {
-        return this.empty;
+        return !this.empty || this.focused;
     }
     /**
      * Whether this chip-list is disabled.

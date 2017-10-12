@@ -1922,7 +1922,9 @@ var MatTooltip = (function () {
             .position()
             .connectedTo(this._elementRef, origin.main, overlay.main)
             .withFallbackPosition(origin.fallback, overlay.fallback);
-        strategy.withScrollableContainers(this._scrollDispatcher.getScrollContainers(this._elementRef));
+        var /** @type {?} */ scrollableAncestors = this._scrollDispatcher
+            .getAncestorScrollContainers(this._elementRef);
+        strategy.withScrollableContainers(scrollableAncestors);
         strategy.onPositionChange.subscribe(function (change) {
             if (_this._tooltipInstance) {
                 if (change.scrollableViewProperties.isOverlayClipped && _this._tooltipInstance.isVisible()) {

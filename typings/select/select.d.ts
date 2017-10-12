@@ -9,9 +9,9 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ConnectedOverlayDirective, Overlay, RepositionScrollStrategy, ScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, OnInit, QueryList, Renderer2, DoCheck } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, InjectionToken, NgZone, OnChanges, OnDestroy, OnInit, QueryList, Renderer2, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { CanDisable, HasTabIndex, MatOptgroup, MatOption, MatOptionSelectionChange, ErrorStateMatcher } from '@angular/material/core';
+import { CanDisable, ErrorStateMatcher, HasTabIndex, MatOptgroup, MatOption, MatOptionSelectionChange } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl } from '@angular/material/form-field';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
@@ -70,7 +70,7 @@ export declare const _MatSelectMixinBase: (new (...args: any[]) => HasTabIndex) 
  */
 export declare class MatSelectTrigger {
 }
-export declare class MatSelect extends _MatSelectMixinBase implements AfterContentInit, OnDestroy, OnInit, DoCheck, ControlValueAccessor, CanDisable, HasTabIndex, MatFormFieldControl<any> {
+export declare class MatSelect extends _MatSelectMixinBase implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, CanDisable, HasTabIndex, MatFormFieldControl<any> {
     private _viewportRuler;
     private _changeDetectorRef;
     private _ngZone;
@@ -207,6 +207,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngDoCheck(): void;
+    ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     /** Toggles the overlay panel open or closed. */
     toggle(): void;

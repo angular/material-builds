@@ -207,10 +207,8 @@ SimpleSnackBar.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [MAT_SNACK_BAR_DATA,] },] },
 ];
 
-// TODO(jelbourn): we can't use constants from animation.ts here because you can't use
-// a text interpolation in anything that is analyzed statically with ngc (for AoT compile).
-const SHOW_ANIMATION = '225ms cubic-bezier(0.4,0.0,1,1)';
-const HIDE_ANIMATION = '195ms cubic-bezier(0.0,0.0,0.2,1)';
+const SHOW_ANIMATION = `${AnimationDurations.ENTERING} ${AnimationCurves.DECELERATION_CURVE}`;
+const HIDE_ANIMATION = `${AnimationDurations.EXITING} ${AnimationCurves.ACCELERATION_CURVE}`;
 /**
  * Internal component that wraps user-provided snack bar content.
  * \@docs-private

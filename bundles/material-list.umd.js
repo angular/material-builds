@@ -2181,9 +2181,17 @@ var MatListOptionBase = (function () {
 }());
 var _MatListOptionMixinBase = mixinDisableRipple(MatListOptionBase);
 /**
+ * Change event object emitted by MatListOption
+ */
+var MatListOptionChange = (function () {
+    function MatListOptionChange() {
+    }
+    return MatListOptionChange;
+}());
+/**
  * Component for list-options of selection-list. Each list-option can automatically
  * generate a checkbox and can put current item into the selectionModel of selection-list
- * if the current item is checked.
+ * if the current item is selected.
  */
 var MatListOption = (function (_super) {
     __extends(MatListOption, _super);
@@ -2199,7 +2207,6 @@ var MatListOption = (function (_super) {
         _this._element = _element;
         _this._changeDetector = _changeDetector;
         _this.selectionList = selectionList;
-        _this._selected = false;
         _this._disabled = false;
         /**
          * Whether the option has focus.
@@ -2210,13 +2217,9 @@ var MatListOption = (function (_super) {
          */
         _this.checkboxPosition = 'after';
         /**
-         * Emitted when the option is selected.
+         * Emitted when the option is selected or deselected.
          */
-        _this.selectChange = new _angular_core.EventEmitter();
-        /**
-         * Emitted when the option is deselected.
-         */
-        _this.deselected = new _angular_core.EventEmitter();
+        _this.selectionChange = new _angular_core.EventEmitter();
         return _this;
     }
     Object.defineProperty(MatListOption.prototype, "disabled", {
@@ -2224,7 +2227,9 @@ var MatListOption = (function (_super) {
          * Whether the option is disabled.
          * @return {?}
          */
-        get: function () { return (this.selectionList && this.selectionList.disabled) || this._disabled; },
+        get: function () {
+            return (this.selectionList && this.selectionList.disabled) || this._disabled;
+        },
         /**
          * @param {?} value
          * @return {?}
@@ -2238,18 +2243,17 @@ var MatListOption = (function (_super) {
          * Whether the option is selected.
          * @return {?}
          */
-        get: function () { return this._selected; },
+        get: function () { return this.selectionList.selectedOptions.isSelected(this); },
         /**
          * @param {?} value
          * @return {?}
          */
         set: function (value) {
             var /** @type {?} */ isSelected = _angular_cdk_coercion.coerceBooleanProperty(value);
-            if (isSelected !== this._selected) {
-                var /** @type {?} */ selectionModel = this.selectionList.selectedOptions;
-                this._selected = isSelected;
-                isSelected ? selectionModel.select(this) : selectionModel.deselect(this);
+            if (isSelected !== this.selected) {
+                this.selectionList.selectedOptions.toggle(this);
                 this._changeDetector.markForCheck();
+                this.selectionChange.emit(this._createChangeEvent());
             }
         },
         enumerable: true,
@@ -2312,6 +2316,18 @@ var MatListOption = (function (_super) {
         this.selectionList._setFocusedOption(this);
     };
     /**
+     * Creates a selection event object from the specified option.
+     * @param {?=} option
+     * @return {?}
+     */
+    MatListOption.prototype._createChangeEvent = function (option) {
+        if (option === void 0) { option = this; }
+        var /** @type {?} */ event = new MatListOptionChange();
+        event.source = option;
+        event.selected = option.selected;
+        return event;
+    };
+    /**
      * Retrieves the DOM element of the component host.
      * @return {?}
      */
@@ -2352,11 +2368,10 @@ var MatListOption = (function (_super) {
     MatListOption.propDecorators = {
         '_lines': [{ type: _angular_core.ContentChildren, args: [MatLine,] },],
         'checkboxPosition': [{ type: _angular_core.Input },],
-        'value': [{ type: _angular_core.Input },],
         'disabled': [{ type: _angular_core.Input },],
+        'value': [{ type: _angular_core.Input },],
         'selected': [{ type: _angular_core.Input },],
-        'selectChange': [{ type: _angular_core.Output },],
-        'deselected': [{ type: _angular_core.Output },],
+        'selectionChange': [{ type: _angular_core.Output },],
     };
     return MatListOption;
 }(_MatListOptionMixinBase));
@@ -2579,6 +2594,7 @@ exports.MatSelectionListBase = MatSelectionListBase;
 exports._MatSelectionListMixinBase = _MatSelectionListMixinBase;
 exports.MatListOptionBase = MatListOptionBase;
 exports._MatListOptionMixinBase = _MatListOptionMixinBase;
+exports.MatListOptionChange = MatListOptionChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
 

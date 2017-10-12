@@ -211,7 +211,7 @@ var MatIconRegistry = (function () {
         if (cachedIcon) {
             return of(cloneSvg(cachedIcon));
         }
-        return RxChain.from(this._loadSvgIconFromConfig(new SvgIconConfig(url)))
+        return RxChain.from(this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl)))
             .call(doOperator, function (svg) { return _this._cachedIconsByUrl.set(/** @type {?} */ ((url)), svg); })
             .call(map, function (svg) { return cloneSvg(svg); })
             .result();

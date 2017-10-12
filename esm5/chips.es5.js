@@ -699,7 +699,7 @@ var MatChipList = (function () {
          * @return {?}
          */
         get: function () {
-            return this.empty;
+            return !this.empty || this.focused;
         },
         enumerable: true,
         configurable: true

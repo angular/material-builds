@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/cdk/collections'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/animations'), require('@angular/cdk/bidi'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/rxjs'), require('rxjs/observable/merge'), require('rxjs/Subscription')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/cdk/collections', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/animations', '@angular/cdk/bidi', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/rxjs', 'rxjs/observable/merge', 'rxjs/Subscription'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.expansion = global.ng.material.expansion || {}),global.ng.common,global.ng.core,global.ng.cdk.collections,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.animations,global.ng.cdk.bidi,global.Rx,global.ng.platformBrowser,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.rxjs,global.Rx.Observable,global.Rx));
-}(this, (function (exports,_angular_common,_angular_core,_angular_cdk_collections,_angular_cdk_a11y,_angular_cdk_coercion,_angular_animations,_angular_cdk_bidi,rxjs_Subject,_angular_platformBrowser,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_rxjs,rxjs_observable_merge,rxjs_Subscription) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/cdk/collections'), require('@angular/cdk/accordion'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/animations'), require('@angular/cdk/bidi'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/rxjs'), require('rxjs/observable/merge'), require('rxjs/Subscription')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/cdk/collections', '@angular/cdk/accordion', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/animations', '@angular/cdk/bidi', 'rxjs/Subject', '@angular/platform-browser', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/rxjs', 'rxjs/observable/merge', 'rxjs/Subscription'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.expansion = global.ng.material.expansion || {}),global.ng.common,global.ng.core,global.ng.cdk.collections,global.ng.cdk.accordion,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.animations,global.ng.cdk.bidi,global.Rx,global.ng.platformBrowser,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.rxjs,global.Rx.Observable,global.Rx));
+}(this, (function (exports,_angular_common,_angular_core,_angular_cdk_collections,_angular_cdk_accordion,_angular_cdk_a11y,_angular_cdk_coercion,_angular_animations,_angular_cdk_bidi,rxjs_Subject,_angular_platformBrowser,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_rxjs,rxjs_observable_merge,rxjs_Subscription) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1496,20 +1496,17 @@ var MatOption = (function () {
 var MAT_PLACEHOLDER_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-placeholder-global-options');
 
 /**
- * Unique ID counter
+ * Workaround for https://github.com/angular/angular/issues/17849
  */
-var nextId = 0;
+var _CdkAccordion = _angular_cdk_accordion.CdkAccordion;
 /**
- * Directive whose purpose is to manage the expanded state of CdkAccordionItem children.
+ * Directive for a Material Design Accordion.
  */
-var CdkAccordion = (function () {
-    function CdkAccordion() {
-        /**
-         * A readonly id value to use for unique selection coordination.
-         */
-        this.id = "cdk-accordion-" + nextId++;
-        this._multi = false;
-        this._hideToggle = false;
+var MatAccordion = (function (_super) {
+    __extends(MatAccordion, _super);
+    function MatAccordion() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this._hideToggle = false;
         /**
          * The display mode used for all expansion panels in the accordion. Currently two display
          * modes exist:
@@ -1518,23 +1515,10 @@ var CdkAccordion = (function () {
          *  flat - no spacing is placed around expanded panels, showing all panels at the same
          *     elevation.
          */
-        this.displayMode = 'default';
+        _this.displayMode = 'default';
+        return _this;
     }
-    Object.defineProperty(CdkAccordion.prototype, "multi", {
-        /**
-         * Whether the accordion should allow multiple expanded accordion items simulateously.
-         * @return {?}
-         */
-        get: function () { return this._multi; },
-        /**
-         * @param {?} multi
-         * @return {?}
-         */
-        set: function (multi) { this._multi = _angular_cdk_coercion.coerceBooleanProperty(multi); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(CdkAccordion.prototype, "hideToggle", {
+    Object.defineProperty(MatAccordion.prototype, "hideToggle", {
         /**
          * Whether the expansion indicator should be hidden.
          * @return {?}
@@ -1548,31 +1532,6 @@ var CdkAccordion = (function () {
         enumerable: true,
         configurable: true
     });
-    CdkAccordion.decorators = [
-        { type: _angular_core.Directive, args: [{
-                    selector: 'cdk-accordion, [cdk-accordion]',
-                    exportAs: 'cdkAccordion',
-                },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    CdkAccordion.ctorParameters = function () { return []; };
-    CdkAccordion.propDecorators = {
-        'multi': [{ type: _angular_core.Input },],
-        'hideToggle': [{ type: _angular_core.Input },],
-        'displayMode': [{ type: _angular_core.Input },],
-    };
-    return CdkAccordion;
-}());
-/**
- * Directive for a Material Design Accordion.
- */
-var MatAccordion = (function (_super) {
-    __extends(MatAccordion, _super);
-    function MatAccordion() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
     MatAccordion.decorators = [
         { type: _angular_core.Directive, args: [{
                     selector: 'mat-accordion',
@@ -1586,139 +1545,17 @@ var MatAccordion = (function (_super) {
      * @nocollapse
      */
     MatAccordion.ctorParameters = function () { return []; };
+    MatAccordion.propDecorators = {
+        'hideToggle': [{ type: _angular_core.Input },],
+        'displayMode': [{ type: _angular_core.Input },],
+    };
     return MatAccordion;
-}(CdkAccordion));
+}(_CdkAccordion));
 
 /**
- * Used to generate unique ID for each expansion panel.
+ * Workaround for https://github.com/angular/angular/issues/17849
  */
-var nextId$1 = 0;
-/**
- * An abstract class to be extended and decorated as a component.  Sets up all
- * events and attributes needed to be managed by a CdkAccordion parent.
- */
-var AccordionItem = (function () {
-    /**
-     * @param {?} accordion
-     * @param {?} _changeDetectorRef
-     * @param {?} _expansionDispatcher
-     */
-    function AccordionItem(accordion, _changeDetectorRef, _expansionDispatcher) {
-        var _this = this;
-        this.accordion = accordion;
-        this._changeDetectorRef = _changeDetectorRef;
-        this._expansionDispatcher = _expansionDispatcher;
-        /**
-         * Event emitted every time the AccordionItem is closed.
-         */
-        this.closed = new _angular_core.EventEmitter();
-        /**
-         * Event emitted every time the AccordionItem is opened.
-         */
-        this.opened = new _angular_core.EventEmitter();
-        /**
-         * Event emitted when the AccordionItem is destroyed.
-         */
-        this.destroyed = new _angular_core.EventEmitter();
-        /**
-         * The unique AccordionItem id.
-         */
-        this.id = "cdk-accordion-child-" + nextId$1++;
-        /**
-         * Unregister function for _expansionDispatcher *
-         */
-        this._removeUniqueSelectionListener = function () { };
-        this._removeUniqueSelectionListener =
-            _expansionDispatcher.listen(function (id, accordionId) {
-                if (_this.accordion && !_this.accordion.multi &&
-                    _this.accordion.id === accordionId && _this.id !== id) {
-                    _this.expanded = false;
-                }
-            });
-    }
-    Object.defineProperty(AccordionItem.prototype, "expanded", {
-        /**
-         * Whether the AccordionItem is expanded.
-         * @return {?}
-         */
-        get: function () { return this._expanded; },
-        /**
-         * @param {?} expanded
-         * @return {?}
-         */
-        set: function (expanded) {
-            // Only emit events and update the internal value if the value changes.
-            if (this._expanded !== expanded) {
-                this._expanded = expanded;
-                if (expanded) {
-                    this.opened.emit();
-                    /**
-                     * In the unique selection dispatcher, the id parameter is the id of the CdkAccordionItem,
-                     * the name value is the id of the accordion.
-                     */
-                    var accordionId = this.accordion ? this.accordion.id : this.id;
-                    this._expansionDispatcher.notify(this.id, accordionId);
-                }
-                else {
-                    this.closed.emit();
-                }
-                // Ensures that the animation will run when the value is set outside of an `@Input`.
-                // This includes cases like the open, close and toggle methods.
-                this._changeDetectorRef.markForCheck();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Emits an event for the accordion item being destroyed.
-     * @return {?}
-     */
-    AccordionItem.prototype.ngOnDestroy = function () {
-        this.destroyed.emit();
-        this._removeUniqueSelectionListener();
-    };
-    /**
-     * Toggles the expanded state of the accordion item.
-     * @return {?}
-     */
-    AccordionItem.prototype.toggle = function () {
-        this.expanded = !this.expanded;
-    };
-    /**
-     * Sets the expanded state of the accordion item to false.
-     * @return {?}
-     */
-    AccordionItem.prototype.close = function () {
-        this.expanded = false;
-    };
-    /**
-     * Sets the expanded state of the accordion item to true.
-     * @return {?}
-     */
-    AccordionItem.prototype.open = function () {
-        this.expanded = true;
-    };
-    AccordionItem.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /**
-     * @nocollapse
-     */
-    AccordionItem.ctorParameters = function () { return [
-        { type: CdkAccordion, decorators: [{ type: _angular_core.Optional },] },
-        { type: _angular_core.ChangeDetectorRef, },
-        { type: _angular_cdk_collections.UniqueSelectionDispatcher, },
-    ]; };
-    AccordionItem.propDecorators = {
-        'closed': [{ type: _angular_core.Output },],
-        'opened': [{ type: _angular_core.Output },],
-        'destroyed': [{ type: _angular_core.Output },],
-        'expanded': [{ type: _angular_core.Input },],
-    };
-    return AccordionItem;
-}());
-
+var _CdkAccordionItem = _angular_cdk_accordion.CdkAccordionItem;
 /**
  * \@docs-private
  */
@@ -1732,8 +1569,23 @@ var MatExpansionPanelBase = (function (_super) {
     function MatExpansionPanelBase(accordion, _changeDetectorRef, _uniqueSelectionDispatcher) {
         return _super.call(this, accordion, _changeDetectorRef, _uniqueSelectionDispatcher) || this;
     }
+    MatExpansionPanelBase.decorators = [
+        { type: _angular_core.Component, args: [{
+                    template: '',encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /**
+     * @nocollapse
+     */
+    MatExpansionPanelBase.ctorParameters = function () { return [
+        { type: MatAccordion, },
+        { type: _angular_core.ChangeDetectorRef, },
+        { type: _angular_cdk_collections.UniqueSelectionDispatcher, },
+    ]; };
     return MatExpansionPanelBase;
-}(AccordionItem));
+}(_CdkAccordionItem));
 var _MatExpansionPanelMixinBase = mixinDisabled(MatExpansionPanelBase);
 /**
  * Time and timing curve for expansion panel animations.
@@ -1743,7 +1595,7 @@ var EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
  * <mat-expansion-panel> component.
  *
  * This component can be used as a single element to show expandable content, or as one of
- * multiple children of an element with the CdkAccordion directive attached.
+ * multiple children of an element with the MdAccordion directive attached.
  *
  * Please refer to README.md for examples on how to use it.
  */
@@ -1822,7 +1674,7 @@ var MatExpansionPanel = (function (_super) {
                         '[class.mat-expansion-panel-spacing]': '_hasSpacing()',
                     },
                     providers: [
-                        { provide: AccordionItem, useExisting: _angular_core.forwardRef(function () { return MatExpansionPanel; }) }
+                        { provide: _MatExpansionPanelMixinBase, useExisting: _angular_core.forwardRef(function () { return MatExpansionPanel; }) }
                     ],
                     animations: [
                         _angular_animations.trigger('bodyExpansion', [
@@ -2060,9 +1912,8 @@ var MatExpansionModule = (function () {
     }
     MatExpansionModule.decorators = [
         { type: _angular_core.NgModule, args: [{
-                    imports: [_angular_common.CommonModule, _angular_cdk_a11y.A11yModule],
+                    imports: [_angular_common.CommonModule, _angular_cdk_a11y.A11yModule, _angular_cdk_accordion.CdkAccordionModule],
                     exports: [
-                        CdkAccordion,
                         MatAccordion,
                         MatExpansionPanel,
                         MatExpansionPanelActionRow,
@@ -2071,7 +1922,7 @@ var MatExpansionModule = (function () {
                         MatExpansionPanelDescription
                     ],
                     declarations: [
-                        CdkAccordion,
+                        MatExpansionPanelBase,
                         MatAccordion,
                         MatExpansionPanel,
                         MatExpansionPanelActionRow,
@@ -2089,18 +1940,18 @@ var MatExpansionModule = (function () {
     return MatExpansionModule;
 }());
 
-exports.CdkAccordion = CdkAccordion;
+exports.MatExpansionModule = MatExpansionModule;
+exports._CdkAccordion = _CdkAccordion;
 exports.MatAccordion = MatAccordion;
-exports.AccordionItem = AccordionItem;
+exports._CdkAccordionItem = _CdkAccordionItem;
+exports.MatExpansionPanelBase = MatExpansionPanelBase;
+exports._MatExpansionPanelMixinBase = _MatExpansionPanelMixinBase;
+exports.EXPANSION_PANEL_ANIMATION_TIMING = EXPANSION_PANEL_ANIMATION_TIMING;
 exports.MatExpansionPanel = MatExpansionPanel;
 exports.MatExpansionPanelActionRow = MatExpansionPanelActionRow;
 exports.MatExpansionPanelHeader = MatExpansionPanelHeader;
 exports.MatExpansionPanelDescription = MatExpansionPanelDescription;
 exports.MatExpansionPanelTitle = MatExpansionPanelTitle;
-exports.MatExpansionModule = MatExpansionModule;
-exports.ɵc16 = EXPANSION_PANEL_ANIMATION_TIMING;
-exports.ɵa16 = MatExpansionPanelBase;
-exports.ɵb16 = _MatExpansionPanelMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

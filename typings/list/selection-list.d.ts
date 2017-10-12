@@ -17,14 +17,17 @@ export declare const _MatSelectionListMixinBase: (new (...args: any[]) => HasTab
 export declare class MatListOptionBase {
 }
 export declare const _MatListOptionMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MatListOptionBase;
-/** Event emitted by a selection-list whenever the state of an option is changed. */
-export interface MatSelectionListOptionEvent {
-    option: MatListOption;
+/** Change event object emitted by MatListOption */
+export declare class MatListOptionChange {
+    /** The source MatListOption of the event. */
+    source: MatListOption;
+    /** The new `selected` value of the option. */
+    selected: boolean;
 }
 /**
  * Component for list-options of selection-list. Each list-option can automatically
  * generate a checkbox and can put current item into the selectionModel of selection-list
- * if the current item is checked.
+ * if the current item is selected.
  */
 export declare class MatListOption extends _MatListOptionMixinBase implements AfterContentInit, OnInit, OnDestroy, FocusableOption, CanDisableRipple {
     private _renderer;
@@ -32,23 +35,20 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
     private _changeDetector;
     selectionList: MatSelectionList;
     private _lineSetter;
-    private _selected;
     private _disabled;
     /** Whether the option has focus. */
     _hasFocus: boolean;
     _lines: QueryList<MatLine>;
     /** Whether the label should appear before or after the checkbox. Defaults to 'after' */
     checkboxPosition: 'before' | 'after';
+    /** Whether the option is disabled. */
+    disabled: boolean;
     /** Value of the option */
     value: any;
-    /** Whether the option is disabled. */
-    disabled: any;
     /** Whether the option is selected. */
     selected: boolean;
-    /** Emitted when the option is selected. */
-    selectChange: EventEmitter<MatSelectionListOptionEvent>;
-    /** Emitted when the option is deselected. */
-    deselected: EventEmitter<MatSelectionListOptionEvent>;
+    /** Emitted when the option is selected or deselected. */
+    selectionChange: EventEmitter<MatListOptionChange>;
     constructor(_renderer: Renderer2, _element: ElementRef, _changeDetector: ChangeDetectorRef, selectionList: MatSelectionList);
     ngOnInit(): void;
     ngAfterContentInit(): void;
@@ -58,9 +58,11 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
     /** Allows for programmatic focusing of the option. */
     focus(): void;
     /** Whether this list item should show a ripple effect when clicked.  */
-    _isRippleDisabled(): any;
+    _isRippleDisabled(): boolean;
     _handleClick(): void;
     _handleFocus(): void;
+    /** Creates a selection event object from the specified option. */
+    private _createChangeEvent(option?);
     /** Retrieves the DOM element of the component host. */
     _getHostElement(): HTMLElement;
 }

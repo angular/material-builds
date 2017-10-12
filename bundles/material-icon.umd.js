@@ -1870,7 +1870,7 @@ var MatIconRegistry = (function () {
         if (cachedIcon) {
             return rxjs_observable_of.of(cloneSvg(cachedIcon));
         }
-        return _angular_cdk_rxjs.RxChain.from(this._loadSvgIconFromConfig(new SvgIconConfig(url)))
+        return _angular_cdk_rxjs.RxChain.from(this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl)))
             .call(_angular_cdk_rxjs.doOperator, function (svg) { return _this._cachedIconsByUrl.set(/** @type {?} */ ((url)), svg); })
             .call(_angular_cdk_rxjs.map, function (svg) { return cloneSvg(svg); })
             .result();

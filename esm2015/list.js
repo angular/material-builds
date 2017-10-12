@@ -266,9 +266,14 @@ class MatListOptionBase {
 }
 const _MatListOptionMixinBase = mixinDisableRipple(MatListOptionBase);
 /**
+ * Change event object emitted by MatListOption
+ */
+class MatListOptionChange {
+}
+/**
  * Component for list-options of selection-list. Each list-option can automatically
  * generate a checkbox and can put current item into the selectionModel of selection-list
- * if the current item is checked.
+ * if the current item is selected.
  */
 class MatListOption extends _MatListOptionMixinBase {
     /**
@@ -283,7 +288,6 @@ class MatListOption extends _MatListOptionMixinBase {
         this._element = _element;
         this._changeDetector = _changeDetector;
         this.selectionList = selectionList;
-        this._selected = false;
         this._disabled = false;
         /**
          * Whether the option has focus.
@@ -294,19 +298,17 @@ class MatListOption extends _MatListOptionMixinBase {
          */
         this.checkboxPosition = 'after';
         /**
-         * Emitted when the option is selected.
+         * Emitted when the option is selected or deselected.
          */
-        this.selectChange = new EventEmitter();
-        /**
-         * Emitted when the option is deselected.
-         */
-        this.deselected = new EventEmitter();
+        this.selectionChange = new EventEmitter();
     }
     /**
      * Whether the option is disabled.
      * @return {?}
      */
-    get disabled() { return (this.selectionList && this.selectionList.disabled) || this._disabled; }
+    get disabled() {
+        return (this.selectionList && this.selectionList.disabled) || this._disabled;
+    }
     /**
      * @param {?} value
      * @return {?}
@@ -316,18 +318,17 @@ class MatListOption extends _MatListOptionMixinBase {
      * Whether the option is selected.
      * @return {?}
      */
-    get selected() { return this._selected; }
+    get selected() { return this.selectionList.selectedOptions.isSelected(this); }
     /**
      * @param {?} value
      * @return {?}
      */
     set selected(value) {
         const /** @type {?} */ isSelected = coerceBooleanProperty(value);
-        if (isSelected !== this._selected) {
-            const /** @type {?} */ selectionModel = this.selectionList.selectedOptions;
-            this._selected = isSelected;
-            isSelected ? selectionModel.select(this) : selectionModel.deselect(this);
+        if (isSelected !== this.selected) {
+            this.selectionList.selectedOptions.toggle(this);
             this._changeDetector.markForCheck();
+            this.selectionChange.emit(this._createChangeEvent());
         }
     }
     /**
@@ -387,6 +388,17 @@ class MatListOption extends _MatListOptionMixinBase {
         this.selectionList._setFocusedOption(this);
     }
     /**
+     * Creates a selection event object from the specified option.
+     * @param {?=} option
+     * @return {?}
+     */
+    _createChangeEvent(option = this) {
+        const /** @type {?} */ event = new MatListOptionChange();
+        event.source = option;
+        event.selected = option.selected;
+        return event;
+    }
+    /**
      * Retrieves the DOM element of the component host.
      * @return {?}
      */
@@ -428,11 +440,10 @@ MatListOption.ctorParameters = () => [
 MatListOption.propDecorators = {
     '_lines': [{ type: ContentChildren, args: [MatLine,] },],
     'checkboxPosition': [{ type: Input },],
-    'value': [{ type: Input },],
     'disabled': [{ type: Input },],
+    'value': [{ type: Input },],
     'selected': [{ type: Input },],
-    'selectChange': [{ type: Output },],
-    'deselected': [{ type: Output },],
+    'selectionChange': [{ type: Output },],
 };
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
@@ -633,5 +644,5 @@ MatListModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatListModule, MatListBase, _MatListMixinBase, MatListItemBase, _MatListItemMixinBase, MatListDivider, MatList, MatListCssMatStyler, MatNavListCssMatStyler, MatDividerCssMatStyler, MatListAvatarCssMatStyler, MatListIconCssMatStyler, MatListSubheaderCssMatStyler, MatListItem, MatSelectionListBase, _MatSelectionListMixinBase, MatListOptionBase, _MatListOptionMixinBase, MatListOption, MatSelectionList };
+export { MatListModule, MatListBase, _MatListMixinBase, MatListItemBase, _MatListItemMixinBase, MatListDivider, MatList, MatListCssMatStyler, MatNavListCssMatStyler, MatDividerCssMatStyler, MatListAvatarCssMatStyler, MatListIconCssMatStyler, MatListSubheaderCssMatStyler, MatListItem, MatSelectionListBase, _MatSelectionListMixinBase, MatListOptionBase, _MatListOptionMixinBase, MatListOptionChange, MatListOption, MatSelectionList };
 //# sourceMappingURL=list.js.map

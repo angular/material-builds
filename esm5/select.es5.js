@@ -85,7 +85,7 @@ function getMatSelectDynamicMultipleError() {
  * @return {?}
  */
 function getMatSelectNonArrayValueError() {
-    return Error('Cannot assign truthy non-array value to select in `multiple` mode.');
+    return Error('Value must be an array in multiple-selection mode.');
 }
 /**
  * Returns an exception to be thrown when assigning a non-function value to the comparator
@@ -94,7 +94,7 @@ function getMatSelectNonArrayValueError() {
  * @return {?}
  */
 function getMatSelectNonFunctionValueError() {
-    return Error('Cannot assign a non-function value to `compareWith`.');
+    return Error('`compareWith` must be a function.');
 }
 
 var nextUniqueId = 0;
@@ -521,6 +521,17 @@ var MatSelect = (function (_super) {
         }
     };
     /**
+     * @param {?} changes
+     * @return {?}
+     */
+    MatSelect.prototype.ngOnChanges = function (changes) {
+        // Updating the disabled state is handled by `mixinDisabled`, but we need to additionally let
+        // the parent form field know to run change detection when the disabled state changes.
+        if (changes.disabled) {
+            this.stateChanges.next();
+        }
+    };
+    /**
      * @return {?}
      */
     MatSelect.prototype.ngOnDestroy = function () {
@@ -735,7 +746,6 @@ var MatSelect = (function (_super) {
      */
     MatSelect.prototype._onFadeInDone = function () {
         this._panelDoneAnimating = this.panelOpen;
-        this.panel.nativeElement.focus();
         this._changeDetectorRef.markForCheck();
     };
     /**
@@ -765,9 +775,12 @@ var MatSelect = (function (_super) {
      * @return {?}
      */
     MatSelect.prototype._onAttached = function () {
-        this._changeDetectorRef.detectChanges();
-        this._calculateOverlayOffsetX();
-        this.panel.nativeElement.scrollTop = this._scrollTop;
+        var _this = this;
+        first.call(this.overlayDir.positionChange).subscribe(function () {
+            _this._changeDetectorRef.detectChanges();
+            _this._calculateOverlayOffsetX();
+            _this.panel.nativeElement.scrollTop = _this._scrollTop;
+        });
     };
     /**
      * Returns the theme to be used on the panel.
@@ -1284,26 +1297,22 @@ var MatSelect = (function (_super) {
      * @return {?}
      */
     MatSelect.prototype._handleClosedArrowKey = function (event) {
-        var _this = this;
         if (this._multiple) {
             event.preventDefault();
             this.open();
         }
         else {
-            var /** @type {?} */ prevActiveItem_1 = this._keyManager.activeItem;
+            var /** @type {?} */ prevActiveItem = this._keyManager.activeItem;
             // Cycle though the select options even when the select is closed,
             // matching the behavior of the native select element.
             // TODO(crisbeto): native selects also cycle through the options with left/right arrows,
             // however the key manager only supports up/down at the moment.
             this._keyManager.onKeydown(event);
-            // TODO(crisbeto): get rid of the Promise.resolve when #6441 gets in.
-            Promise.resolve().then(function () {
-                var /** @type {?} */ currentActiveItem = _this._keyManager.activeItem;
-                if (currentActiveItem && currentActiveItem !== prevActiveItem_1) {
-                    _this._clearSelection();
-                    _this._setSelectionByValue(currentActiveItem.value, true);
-                }
-            });
+            var /** @type {?} */ currentActiveItem = this._keyManager.activeItem;
+            if (currentActiveItem && currentActiveItem !== prevActiveItem) {
+                this._clearSelection();
+                this._setSelectionByValue(currentActiveItem.value, true);
+            }
         }
     };
     /**
@@ -1363,7 +1372,7 @@ var MatSelect = (function (_super) {
         { type: Component, args: [{selector: 'mat-select',
                     exportAs: 'matSelect',
                     template: "<div cdk-overlay-origin class=\"mat-select-trigger\" aria-hidden=\"true\" (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><div class=\"mat-select-value\"><ng-container *ngIf=\"empty\">&nbsp;</ng-container><span class=\"mat-select-value-text\" *ngIf=\"!empty\" [ngSwitch]=\"!!customTrigger\"><span *ngSwitchDefault>{{ triggerValue }}</span><ng-content select=\"mat-select-trigger\" *ngSwitchCase=\"true\"></ng-content></span></div><div class=\"mat-select-arrow-wrapper\"><div class=\"mat-select-arrow\"></div></div></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [scrollStrategy]=\"_scrollStrategy\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerRect?.width\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div #panel class=\"mat-select-panel {{ _getPanelTheme() }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [style.font-size.px]=\"_triggerFontSize\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
-                    styles: [".mat-select{display:inline-block;width:100%;outline:0}.mat-select-trigger{display:inline-table;cursor:pointer;position:relative;box-sizing:border-box}.mat-select-disabled .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-value{display:table-cell;max-width:0;width:100%;overflow:hidden;text-overflow:ellipsis}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-select-arrow-wrapper{display:table-cell;vertical-align:middle}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}.mat-select-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}}.mat-select-panel .mat-optgroup-label,.mat-select-panel .mat-option{font-size:inherit;line-height:3em;height:3em}.mat-form-field-type-mat-select .mat-form-field-flex{cursor:pointer}.mat-form-field-type-mat-select .mat-form-field-placeholder{width:calc(100% - 18px)}"],
+                    styles: [".mat-select{display:inline-block;width:100%;outline:0}.mat-select-trigger{display:inline-table;cursor:pointer;position:relative;box-sizing:border-box}.mat-select-disabled .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-value{display:table-cell;max-width:0;width:100%;overflow:hidden;text-overflow:ellipsis}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-select-arrow-wrapper{display:table-cell;vertical-align:middle}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}.mat-select-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}}.mat-select-panel .mat-optgroup-label,.mat-select-panel .mat-option{font-size:inherit;line-height:3em;height:3em}.mat-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-form-field-flex{cursor:pointer}.mat-form-field-type-mat-select .mat-form-field-placeholder{width:calc(100% - 18px)}"],
                     inputs: ['disabled', 'tabIndex'],
                     encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false,

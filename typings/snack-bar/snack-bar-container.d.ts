@@ -11,8 +11,8 @@ import { BasePortalHost, ComponentPortal, PortalHostDirective } from '@angular/c
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { MatSnackBarConfig } from './snack-bar-config';
-export declare const SHOW_ANIMATION = "225ms cubic-bezier(0.4,0.0,1,1)";
-export declare const HIDE_ANIMATION = "195ms cubic-bezier(0.0,0.0,0.2,1)";
+export declare const SHOW_ANIMATION: string;
+export declare const HIDE_ANIMATION: string;
 /**
  * Internal component that wraps user-provided snack bar content.
  * @docs-private

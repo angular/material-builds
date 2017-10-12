@@ -53,6 +53,8 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     readonly _strokeCircumference: number;
     /** The dash offset of the svg circle. */
     readonly _strokeDashOffset: number | null;
+    /** Stroke width of the circle in percent. */
+    readonly _circleStrokeWidth: number;
     /** Sets the diameter and adds diameter-specific styles if necessary. */
     private _setDiameterAndInitStyles(size);
     /** Dynamically generates a style tag containing the correct animation for this diameter. */
