@@ -520,7 +520,7 @@ var MatDialog = (function () {
     });
     /**
      * Opens a modal dialog containing the given component.
-     * @template T
+     * @template T, D
      * @param {?} componentOrTemplateRef Type of the component to load into the dialog,
      *     or a TemplateRef to instantiate as the dialog content.
      * @param {?=} config Extra configuration options.

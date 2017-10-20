@@ -1483,25 +1483,26 @@ var MatOptionSelectionChange = (function () {
     return MatOptionSelectionChange;
 }());
 /**
+ * Injection token used to provide the parent component to options.
+ */
+var MAT_OPTION_PARENT_COMPONENT = new _angular_core.InjectionToken('MAT_OPTION_PARENT_COMPONENT');
+/**
  * Single option inside of a `<mat-select>` element.
  */
 var MatOption = (function () {
     /**
      * @param {?} _element
      * @param {?} _changeDetectorRef
+     * @param {?} _parent
      * @param {?} group
      */
-    function MatOption(_element, _changeDetectorRef, group) {
+    function MatOption(_element, _changeDetectorRef, _parent, group) {
         this._element = _element;
         this._changeDetectorRef = _changeDetectorRef;
+        this._parent = _parent;
         this.group = group;
         this._selected = false;
         this._active = false;
-        this._multiple = false;
-        this._disableRipple = false;
-        /**
-         * Whether the option is disabled.
-         */
         this._disabled = false;
         this._id = "mat-option-" + _uniqueIdCounter++;
         /**
@@ -1514,17 +1515,7 @@ var MatOption = (function () {
          * Whether the wrapping component is in multiple selection mode.
          * @return {?}
          */
-        get: function () { return this._multiple; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            if (value !== this._multiple) {
-                this._multiple = value;
-                this._changeDetectorRef.markForCheck();
-            }
-        },
+        get: function () { return this._parent && this._parent.multiple; },
         enumerable: true,
         configurable: true
     });
@@ -1565,15 +1556,7 @@ var MatOption = (function () {
          * Whether ripples for the option are disabled.
          * @return {?}
          */
-        get: function () { return this._disableRipple; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this._disableRipple = value;
-            this._changeDetectorRef.markForCheck();
-        },
+        get: function () { return this._parent && this._parent.disableRipple; },
         enumerable: true,
         configurable: true
     });
@@ -1760,6 +1743,7 @@ var MatOption = (function () {
     MatOption.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
         { type: _angular_core.ChangeDetectorRef, },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_OPTION_PARENT_COMPONENT,] },] },
         { type: MatOptgroup, decorators: [{ type: _angular_core.Optional },] },
     ]; };
     MatOption.propDecorators = {
@@ -2785,7 +2769,6 @@ var MatSelect = (function (_super) {
          */
         set: function (value) {
             this._disableRipple = _angular_cdk_coercion.coerceBooleanProperty(value);
-            this._setOptionDisableRipple();
         },
         enumerable: true,
         configurable: true
@@ -3240,8 +3223,6 @@ var MatSelect = (function (_super) {
             }
         });
         this._setOptionIds();
-        this._setOptionMultiple();
-        this._setOptionDisableRipple();
     };
     /**
      * Invoked when an option is clicked.
@@ -3313,29 +3294,6 @@ var MatSelect = (function (_super) {
      */
     MatSelect.prototype._setOptionIds = function () {
         this._optionIds = this.options.map(function (option) { return option.id; }).join(' ');
-    };
-    /**
-     * Sets the `multiple` property on each option. The promise is necessary
-     * in order to avoid Angular errors when modifying the property after init.
-     * @return {?}
-     */
-    MatSelect.prototype._setOptionMultiple = function () {
-        var _this = this;
-        if (this.multiple) {
-            Promise.resolve(null).then(function () {
-                _this.options.forEach(function (option) { return option.multiple = _this.multiple; });
-            });
-        }
-    };
-    /**
-     * Sets the `disableRipple` property on each option.
-     * @return {?}
-     */
-    MatSelect.prototype._setOptionDisableRipple = function () {
-        var _this = this;
-        if (this.options) {
-            this.options.forEach(function (option) { return option.disableRipple = _this.disableRipple; });
-        }
     };
     /**
      * Highlights the selected item. If no option is selected, it will highlight
@@ -3729,7 +3687,10 @@ var MatSelect = (function (_super) {
                         transformPanel,
                         fadeInContent
                     ],
-                    providers: [{ provide: MatFormFieldControl, useExisting: MatSelect }],
+                    providers: [
+                        { provide: MatFormFieldControl, useExisting: MatSelect },
+                        { provide: MAT_OPTION_PARENT_COMPONENT, useExisting: MatSelect }
+                    ],
                 },] },
     ];
     /**

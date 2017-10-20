@@ -1758,25 +1758,26 @@ var MatOptionSelectionChange = (function () {
     return MatOptionSelectionChange;
 }());
 /**
+ * Injection token used to provide the parent component to options.
+ */
+var MAT_OPTION_PARENT_COMPONENT = new InjectionToken('MAT_OPTION_PARENT_COMPONENT');
+/**
  * Single option inside of a `<mat-select>` element.
  */
 var MatOption = (function () {
     /**
      * @param {?} _element
      * @param {?} _changeDetectorRef
+     * @param {?} _parent
      * @param {?} group
      */
-    function MatOption(_element, _changeDetectorRef, group) {
+    function MatOption(_element, _changeDetectorRef, _parent, group) {
         this._element = _element;
         this._changeDetectorRef = _changeDetectorRef;
+        this._parent = _parent;
         this.group = group;
         this._selected = false;
         this._active = false;
-        this._multiple = false;
-        this._disableRipple = false;
-        /**
-         * Whether the option is disabled.
-         */
         this._disabled = false;
         this._id = "mat-option-" + _uniqueIdCounter++;
         /**
@@ -1789,17 +1790,7 @@ var MatOption = (function () {
          * Whether the wrapping component is in multiple selection mode.
          * @return {?}
          */
-        get: function () { return this._multiple; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            if (value !== this._multiple) {
-                this._multiple = value;
-                this._changeDetectorRef.markForCheck();
-            }
-        },
+        get: function () { return this._parent && this._parent.multiple; },
         enumerable: true,
         configurable: true
     });
@@ -1840,15 +1831,7 @@ var MatOption = (function () {
          * Whether ripples for the option are disabled.
          * @return {?}
          */
-        get: function () { return this._disableRipple; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this._disableRipple = value;
-            this._changeDetectorRef.markForCheck();
-        },
+        get: function () { return this._parent && this._parent.disableRipple; },
         enumerable: true,
         configurable: true
     });
@@ -2035,6 +2018,7 @@ var MatOption = (function () {
     MatOption.ctorParameters = function () { return [
         { type: ElementRef, },
         { type: ChangeDetectorRef, },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_OPTION_PARENT_COMPONENT,] },] },
         { type: MatOptgroup, decorators: [{ type: Optional },] },
     ]; };
     MatOption.propDecorators = {
@@ -2102,5 +2086,5 @@ var DEC = 11;
  * Generated bundle index. Do not edit.
  */
 
-export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, MATERIAL_COMPATIBILITY_MODE, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, CompatibilityModule, NoConflictStyleCompatibilityMode, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_PLACEHOLDER_GLOBAL_OPTIONS, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MatRippleModule, MatPseudoCheckboxModule, MatPseudoCheckbox, applyCssTransform, extendObject, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, RippleRenderer as ɵa0 };
+export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, MATERIAL_COMPATIBILITY_MODE, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, CompatibilityModule, NoConflictStyleCompatibilityMode, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_PLACEHOLDER_GLOBAL_OPTIONS, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MatRippleModule, MatPseudoCheckboxModule, MatPseudoCheckbox, applyCssTransform, extendObject, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, RippleRenderer as ɵa0 };
 //# sourceMappingURL=core.es5.js.map

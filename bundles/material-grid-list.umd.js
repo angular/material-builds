@@ -1426,25 +1426,26 @@ var MatOptionSelectionChange = (function () {
     return MatOptionSelectionChange;
 }());
 /**
+ * Injection token used to provide the parent component to options.
+ */
+var MAT_OPTION_PARENT_COMPONENT = new _angular_core.InjectionToken('MAT_OPTION_PARENT_COMPONENT');
+/**
  * Single option inside of a `<mat-select>` element.
  */
 var MatOption = (function () {
     /**
      * @param {?} _element
      * @param {?} _changeDetectorRef
+     * @param {?} _parent
      * @param {?} group
      */
-    function MatOption(_element, _changeDetectorRef, group) {
+    function MatOption(_element, _changeDetectorRef, _parent, group) {
         this._element = _element;
         this._changeDetectorRef = _changeDetectorRef;
+        this._parent = _parent;
         this.group = group;
         this._selected = false;
         this._active = false;
-        this._multiple = false;
-        this._disableRipple = false;
-        /**
-         * Whether the option is disabled.
-         */
         this._disabled = false;
         this._id = "mat-option-" + _uniqueIdCounter++;
         /**
@@ -1457,17 +1458,7 @@ var MatOption = (function () {
          * Whether the wrapping component is in multiple selection mode.
          * @return {?}
          */
-        get: function () { return this._multiple; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            if (value !== this._multiple) {
-                this._multiple = value;
-                this._changeDetectorRef.markForCheck();
-            }
-        },
+        get: function () { return this._parent && this._parent.multiple; },
         enumerable: true,
         configurable: true
     });
@@ -1508,15 +1499,7 @@ var MatOption = (function () {
          * Whether ripples for the option are disabled.
          * @return {?}
          */
-        get: function () { return this._disableRipple; },
-        /**
-         * @param {?} value
-         * @return {?}
-         */
-        set: function (value) {
-            this._disableRipple = value;
-            this._changeDetectorRef.markForCheck();
-        },
+        get: function () { return this._parent && this._parent.disableRipple; },
         enumerable: true,
         configurable: true
     });
@@ -1703,6 +1686,7 @@ var MatOption = (function () {
     MatOption.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
         { type: _angular_core.ChangeDetectorRef, },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_OPTION_PARENT_COMPONENT,] },] },
         { type: MatOptgroup, decorators: [{ type: _angular_core.Optional },] },
     ]; };
     MatOption.propDecorators = {
@@ -2590,10 +2574,10 @@ var MatGridListModule = (function () {
 exports.MatGridTile = MatGridTile;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
-exports.ɵb12 = MatGridAvatarCssMatStyler;
-exports.ɵd12 = MatGridTileFooterCssMatStyler;
-exports.ɵc12 = MatGridTileHeaderCssMatStyler;
-exports.ɵa12 = MatGridTileText;
+exports.ɵb14 = MatGridAvatarCssMatStyler;
+exports.ɵd14 = MatGridTileFooterCssMatStyler;
+exports.ɵc14 = MatGridTileHeaderCssMatStyler;
+exports.ɵa14 = MatGridTileText;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

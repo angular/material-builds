@@ -15,7 +15,7 @@ import { DOWN_ARROW, END, ENTER, HOME, SPACE, UP_ARROW } from '@angular/cdk/keyc
 import { ConnectedOverlayDirective, Overlay, OverlayModule, ViewportRuler } from '@angular/cdk/overlay';
 import { RxChain, filter, first, startWith, takeUntil } from '@angular/cdk/rxjs';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { ErrorStateMatcher, MatCommonModule, MatOptgroup, MatOption, MatOptionModule, mixinDisabled, mixinTabIndex } from '@angular/material/core';
+import { ErrorStateMatcher, MAT_OPTION_PARENT_COMPONENT, MatCommonModule, MatOptgroup, MatOption, MatOptionModule, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { merge } from 'rxjs/observable/merge';
 import { Subject } from 'rxjs/Subject';
@@ -428,7 +428,6 @@ class MatSelect extends _MatSelectMixinBase {
      */
     set disableRipple(value) {
         this._disableRipple = coerceBooleanProperty(value);
-        this._setOptionDisableRipple();
     }
     /**
      * Unique id of the element.
@@ -846,8 +845,6 @@ class MatSelect extends _MatSelectMixinBase {
             }
         });
         this._setOptionIds();
-        this._setOptionMultiple();
-        this._setOptionDisableRipple();
     }
     /**
      * Invoked when an option is clicked.
@@ -918,27 +915,6 @@ class MatSelect extends _MatSelectMixinBase {
      */
     _setOptionIds() {
         this._optionIds = this.options.map(option => option.id).join(' ');
-    }
-    /**
-     * Sets the `multiple` property on each option. The promise is necessary
-     * in order to avoid Angular errors when modifying the property after init.
-     * @return {?}
-     */
-    _setOptionMultiple() {
-        if (this.multiple) {
-            Promise.resolve(null).then(() => {
-                this.options.forEach(option => option.multiple = this.multiple);
-            });
-        }
-    }
-    /**
-     * Sets the `disableRipple` property on each option.
-     * @return {?}
-     */
-    _setOptionDisableRipple() {
-        if (this.options) {
-            this.options.forEach(option => option.disableRipple = this.disableRipple);
-        }
     }
     /**
      * Highlights the selected item. If no option is selected, it will highlight
@@ -1325,7 +1301,10 @@ MatSelect.decorators = [
                     transformPanel,
                     fadeInContent
                 ],
-                providers: [{ provide: MatFormFieldControl, useExisting: MatSelect }],
+                providers: [
+                    { provide: MatFormFieldControl, useExisting: MatSelect },
+                    { provide: MAT_OPTION_PARENT_COMPONENT, useExisting: MatSelect }
+                ],
             },] },
 ];
 /**

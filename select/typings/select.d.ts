@@ -317,13 +317,6 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Records option IDs to pass to the aria-owns property. */
     private _setOptionIds();
     /**
-     * Sets the `multiple` property on each option. The promise is necessary
-     * in order to avoid Angular errors when modifying the property after init.
-     */
-    private _setOptionMultiple();
-    /** Sets the `disableRipple` property on each option. */
-    private _setOptionDisableRipple();
-    /**
      * Highlights the selected item. If no option is selected, it will highlight
      * the first item instead.
      */

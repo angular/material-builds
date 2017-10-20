@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, ElementRef, EventEmitter, QueryList } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, EventEmitter, QueryList, InjectionToken } from '@angular/core';
 import { MatOptgroup } from './optgroup';
 /** Event object emitted by MatOption when selected or deselected. */
 export declare class MatOptionSelectionChange {
@@ -7,21 +7,32 @@ export declare class MatOptionSelectionChange {
     constructor(source: MatOption, isUserInput?: boolean);
 }
 /**
+ * Describes a parent component that manages a list of options.
+ * Contains properties that the options can inherit.
+ * @docs-private
+ */
+export interface MatOptionParentComponent {
+    disableRipple?: boolean;
+    multiple?: boolean;
+}
+/**
+ * Injection token used to provide the parent component to options.
+ */
+export declare const MAT_OPTION_PARENT_COMPONENT: InjectionToken<MatOptionParentComponent>;
+/**
  * Single option inside of a `<mat-select>` element.
  */
 export declare class MatOption {
     private _element;
     private _changeDetectorRef;
+    private _parent;
     readonly group: MatOptgroup;
     private _selected;
     private _active;
-    private _multiple;
-    private _disableRipple;
-    /** Whether the option is disabled.  */
     private _disabled;
     private _id;
     /** Whether the wrapping component is in multiple selection mode. */
-    multiple: boolean;
+    readonly multiple: boolean | undefined;
     /** The unique ID of the option. */
     readonly id: string;
     /** Whether or not the option is currently selected. */
@@ -31,10 +42,10 @@ export declare class MatOption {
     /** Whether the option is disabled. */
     disabled: any;
     /** Whether ripples for the option are disabled. */
-    disableRipple: boolean;
+    readonly disableRipple: boolean | undefined;
     /** Event emitted when the option is selected or deselected. */
     onSelectionChange: EventEmitter<MatOptionSelectionChange>;
-    constructor(_element: ElementRef, _changeDetectorRef: ChangeDetectorRef, group: MatOptgroup);
+    constructor(_element: ElementRef, _changeDetectorRef: ChangeDetectorRef, _parent: MatOptionParentComponent, group: MatOptgroup);
     /**
      * Whether or not the option is currently active and ready to be selected.
      * An active option displays styles as if it is focused, but the

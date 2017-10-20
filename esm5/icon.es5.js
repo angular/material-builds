@@ -193,7 +193,7 @@ var MatIconRegistry = (function () {
         return this._defaultFontSetClass;
     };
     /**
-     * Returns an Observable that produces the icon (as an <svg> DOM element) from the given URL.
+     * Returns an Observable that produces the icon (as an `<svg>` DOM element) from the given URL.
      * The response from the URL may be cached so this will not always cause an HTTP request, but
      * the produced element will always be a new copy of the originally fetched icon. (That is,
      * it will not contain any modifications made to elements previously returned).
@@ -217,7 +217,7 @@ var MatIconRegistry = (function () {
             .result();
     };
     /**
-     * Returns an Observable that produces the icon (as an <svg> DOM element) with the given name
+     * Returns an Observable that produces the icon (as an `<svg>` DOM element) with the given name
      * and namespace. The icon must have been previously registered with addIcon or addIconSet;
      * if not, the Observable will throw an error.
      *
