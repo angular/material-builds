@@ -61,8 +61,7 @@ function coerceDateProperty(adapter, value) {
  */
 function createMissingDateImplError(provider) {
     return Error(`MatDatepicker: No provider found for ${provider}. You must import one of the following ` +
-        `modules at your application root: MatNativeDateModule, MatMomentDateModule, or provide a ` +
-        `custom implementation.`);
+        `modules at your application root: MatNativeDateModule, or provide a custom implementation.`);
 }
 
 /**
@@ -1186,7 +1185,7 @@ class MatDatepicker {
      */
     _registerInput(input) {
         if (this._datepickerInput) {
-            throw Error('A MatDatepicker can only be associated with a single input.');
+            throw Error('An MatDatepicker can only be associated with a single input.');
         }
         this._datepickerInput = input;
         this._inputSubscription =
