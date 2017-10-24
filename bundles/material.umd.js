@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/observable/defer'), require('@angular/http'), require('rxjs/Observable'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operator/first'), require('@angular/cdk/accordion'), require('@angular/cdk/scrolling'), require('@angular/cdk/layout'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/observable/empty')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/rxjs', '@angular/forms', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/observable/defer', '@angular/http', 'rxjs/Observable', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operator/first', '@angular/cdk/accordion', '@angular/cdk/scrolling', '@angular/cdk/layout', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/observable/empty'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.rxjs,global.ng.forms,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.Rx.Observable,global.ng.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.ng.cdk.accordion,global.ng.cdk.scrolling,global.ng.cdk.layout,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_rxjs,_angular_forms,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_collections,_angular_cdk_observers,rxjs_Subscription,rxjs_observable_defer,_angular_http,rxjs_Observable,rxjs_observable_forkJoin,rxjs_observable_throw,rxjs_operator_first,_angular_cdk_accordion,_angular_cdk_scrolling,_angular_cdk_layout,_angular_cdk_table,_angular_cdk_stepper,rxjs_BehaviorSubject,rxjs_observable_empty) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/rxjs'), require('@angular/forms'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/observable/defer'), require('@angular/common/http'), require('rxjs/Observable'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operator/first'), require('@angular/cdk/accordion'), require('@angular/cdk/scrolling'), require('@angular/cdk/layout'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/observable/empty')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/rxjs', '@angular/forms', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/observable/defer', '@angular/common/http', 'rxjs/Observable', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operator/first', '@angular/cdk/accordion', '@angular/cdk/scrolling', '@angular/cdk/layout', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/observable/empty'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.rxjs,global.ng.forms,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.Rx.Observable,global.ng.common.http,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable.prototype,global.ng.cdk.accordion,global.ng.cdk.scrolling,global.ng.cdk.layout,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_rxjs,_angular_forms,_angular_animations,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_collections,_angular_cdk_observers,rxjs_Subscription,rxjs_observable_defer,_angular_common_http,rxjs_Observable,rxjs_observable_forkJoin,rxjs_observable_throw,rxjs_operator_first,_angular_cdk_accordion,_angular_cdk_scrolling,_angular_cdk_layout,_angular_cdk_table,_angular_cdk_stepper,rxjs_BehaviorSubject,rxjs_observable_empty) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -7478,8 +7478,9 @@ function getMatIconNameNotFoundError(iconName) {
  * @return {?}
  */
 function getMatIconNoHttpProviderError() {
-    return Error('Could not find Http provider for use with Angular Material icons. ' +
-        'Please include the HttpModule from @angular/http in your app imports.');
+    return Error('Could not find HttpClient provider for use with Angular Material icons. ' +
+        'Please include the HttpClientModule from @angular/common/http in your ' +
+        'app imports.');
 }
 /**
  * Returns an exception to be thrown when a URL couldn't be sanitized.
@@ -7514,11 +7515,11 @@ var SvgIconConfig = (function () {
  */
 var MatIconRegistry = (function () {
     /**
-     * @param {?} _http
+     * @param {?} _httpClient
      * @param {?} _sanitizer
      */
-    function MatIconRegistry(_http, _sanitizer) {
-        this._http = _http;
+    function MatIconRegistry(_httpClient, _sanitizer) {
+        this._httpClient = _httpClient;
         this._sanitizer = _sanitizer;
         /**
          * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
@@ -7895,7 +7896,7 @@ var MatIconRegistry = (function () {
      */
     MatIconRegistry.prototype._fetchUrl = function (safeUrl) {
         var _this = this;
-        if (!this._http) {
+        if (!this._httpClient) {
             throw getMatIconNoHttpProviderError();
         }
         var /** @type {?} */ url = this._sanitizer.sanitize(_angular_core.SecurityContext.RESOURCE_URL, safeUrl);
@@ -7911,8 +7912,7 @@ var MatIconRegistry = (function () {
         }
         // TODO(jelbourn): for some reason, the `finally` operator "loses" the generic type on the
         // Observable. Figure out why and fix it.
-        var /** @type {?} */ req = _angular_cdk_rxjs.RxChain.from(this._http.get(url))
-            .call(_angular_cdk_rxjs.map, function (response) { return response.text(); })
+        var /** @type {?} */ req = _angular_cdk_rxjs.RxChain.from(this._httpClient.get(url, { responseType: 'text' }))
             .call(_angular_cdk_rxjs.finallyOperator, function () { return _this._inProgressUrlFetches.delete(url); })
             .call(_angular_cdk_rxjs.share)
             .result();
@@ -7926,7 +7926,7 @@ var MatIconRegistry = (function () {
      * @nocollapse
      */
     MatIconRegistry.ctorParameters = function () { return [
-        { type: _angular_http.Http, decorators: [{ type: _angular_core.Optional },] },
+        { type: _angular_common_http.HttpClient, decorators: [{ type: _angular_core.Optional },] },
         { type: _angular_platformBrowser.DomSanitizer, },
     ]; };
     return MatIconRegistry;
@@ -7934,20 +7934,24 @@ var MatIconRegistry = (function () {
 /**
  * \@docs-private
  * @param {?} parentRegistry
- * @param {?} http
+ * @param {?} httpClient
  * @param {?} sanitizer
  * @return {?}
  */
-function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, http, sanitizer) {
-    return parentRegistry || new MatIconRegistry(http, sanitizer);
+function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer) {
+    return parentRegistry || new MatIconRegistry(httpClient, sanitizer);
 }
 /**
  * \@docs-private
  */
 var ICON_REGISTRY_PROVIDER = {
-    // If there is already an MatIconRegistry available, use that. Otherwise, provide a new one.
+    // If there is already an MdIconRegistry available, use that. Otherwise, provide a new one.
     provide: MatIconRegistry,
-    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), MatIconRegistry], [new _angular_core.Optional(), _angular_http.Http], _angular_platformBrowser.DomSanitizer],
+    deps: [
+        [new _angular_core.Optional(), new _angular_core.SkipSelf(), MatIconRegistry],
+        [new _angular_core.Optional(), _angular_common_http.HttpClient],
+        _angular_platformBrowser.DomSanitizer
+    ],
     useFactory: ICON_REGISTRY_PROVIDER_FACTORY
 };
 /**
@@ -23211,7 +23215,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.12-65d3630');
+var VERSION = new _angular_core.Version('2.0.0-beta.12-0ea4370');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

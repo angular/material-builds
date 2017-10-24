@@ -823,5 +823,5 @@ MatGridListModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatGridTile, MatGridListModule, MatGridList, MatGridAvatarCssMatStyler as ɵb11, MatGridTileFooterCssMatStyler as ɵd11, MatGridTileHeaderCssMatStyler as ɵc11, MatGridTileText as ɵa11 };
+export { MatGridTile, MatGridListModule, MatGridList, MatGridAvatarCssMatStyler as ɵb12, MatGridTileFooterCssMatStyler as ɵd12, MatGridTileHeaderCssMatStyler as ɵc12, MatGridTileText as ɵa12 };
 //# sourceMappingURL=grid-list.js.map

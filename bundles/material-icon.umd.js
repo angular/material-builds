@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/rxjs'), require('@angular/http'), require('@angular/platform-browser'), require('rxjs/Observable'), require('rxjs/observable/forkJoin'), require('rxjs/observable/of'), require('rxjs/observable/throw')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/material/core', '@angular/cdk/rxjs', '@angular/http', '@angular/platform-browser', 'rxjs/Observable', 'rxjs/observable/forkJoin', 'rxjs/observable/of', 'rxjs/observable/throw'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.icon = global.ng.material.icon || {}),global.ng.core,global.ng.material.core,global.ng.cdk.rxjs,global.ng.http,global.ng.platformBrowser,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_material_core,_angular_cdk_rxjs,_angular_http,_angular_platformBrowser,rxjs_Observable,rxjs_observable_forkJoin,rxjs_observable_of,rxjs_observable_throw) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/rxjs'), require('@angular/common/http'), require('@angular/platform-browser'), require('rxjs/Observable'), require('rxjs/observable/forkJoin'), require('rxjs/observable/of'), require('rxjs/observable/throw')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/material/core', '@angular/cdk/rxjs', '@angular/common/http', '@angular/platform-browser', 'rxjs/Observable', 'rxjs/observable/forkJoin', 'rxjs/observable/of', 'rxjs/observable/throw'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.icon = global.ng.material.icon || {}),global.ng.core,global.ng.material.core,global.ng.cdk.rxjs,global.ng.common.http,global.ng.platformBrowser,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_material_core,_angular_cdk_rxjs,_angular_common_http,_angular_platformBrowser,rxjs_Observable,rxjs_observable_forkJoin,rxjs_observable_of,rxjs_observable_throw) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -54,8 +54,9 @@ function getMatIconNameNotFoundError(iconName) {
  * @return {?}
  */
 function getMatIconNoHttpProviderError() {
-    return Error('Could not find Http provider for use with Angular Material icons. ' +
-        'Please include the HttpModule from @angular/http in your app imports.');
+    return Error('Could not find HttpClient provider for use with Angular Material icons. ' +
+        'Please include the HttpClientModule from @angular/common/http in your ' +
+        'app imports.');
 }
 /**
  * Returns an exception to be thrown when a URL couldn't be sanitized.
@@ -90,11 +91,11 @@ var SvgIconConfig = (function () {
  */
 var MatIconRegistry = (function () {
     /**
-     * @param {?} _http
+     * @param {?} _httpClient
      * @param {?} _sanitizer
      */
-    function MatIconRegistry(_http, _sanitizer) {
-        this._http = _http;
+    function MatIconRegistry(_httpClient, _sanitizer) {
+        this._httpClient = _httpClient;
         this._sanitizer = _sanitizer;
         /**
          * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
@@ -471,7 +472,7 @@ var MatIconRegistry = (function () {
      */
     MatIconRegistry.prototype._fetchUrl = function (safeUrl) {
         var _this = this;
-        if (!this._http) {
+        if (!this._httpClient) {
             throw getMatIconNoHttpProviderError();
         }
         var /** @type {?} */ url = this._sanitizer.sanitize(_angular_core.SecurityContext.RESOURCE_URL, safeUrl);
@@ -487,8 +488,7 @@ var MatIconRegistry = (function () {
         }
         // TODO(jelbourn): for some reason, the `finally` operator "loses" the generic type on the
         // Observable. Figure out why and fix it.
-        var /** @type {?} */ req = _angular_cdk_rxjs.RxChain.from(this._http.get(url))
-            .call(_angular_cdk_rxjs.map, function (response) { return response.text(); })
+        var /** @type {?} */ req = _angular_cdk_rxjs.RxChain.from(this._httpClient.get(url, { responseType: 'text' }))
             .call(_angular_cdk_rxjs.finallyOperator, function () { return _this._inProgressUrlFetches.delete(url); })
             .call(_angular_cdk_rxjs.share)
             .result();
@@ -502,7 +502,7 @@ var MatIconRegistry = (function () {
      * @nocollapse
      */
     MatIconRegistry.ctorParameters = function () { return [
-        { type: _angular_http.Http, decorators: [{ type: _angular_core.Optional },] },
+        { type: _angular_common_http.HttpClient, decorators: [{ type: _angular_core.Optional },] },
         { type: _angular_platformBrowser.DomSanitizer, },
     ]; };
     return MatIconRegistry;
@@ -510,20 +510,24 @@ var MatIconRegistry = (function () {
 /**
  * \@docs-private
  * @param {?} parentRegistry
- * @param {?} http
+ * @param {?} httpClient
  * @param {?} sanitizer
  * @return {?}
  */
-function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, http, sanitizer) {
-    return parentRegistry || new MatIconRegistry(http, sanitizer);
+function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer) {
+    return parentRegistry || new MatIconRegistry(httpClient, sanitizer);
 }
 /**
  * \@docs-private
  */
 var ICON_REGISTRY_PROVIDER = {
-    // If there is already an MatIconRegistry available, use that. Otherwise, provide a new one.
+    // If there is already an MdIconRegistry available, use that. Otherwise, provide a new one.
     provide: MatIconRegistry,
-    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), MatIconRegistry], [new _angular_core.Optional(), _angular_http.Http], _angular_platformBrowser.DomSanitizer],
+    deps: [
+        [new _angular_core.Optional(), new _angular_core.SkipSelf(), MatIconRegistry],
+        [new _angular_core.Optional(), _angular_common_http.HttpClient],
+        _angular_platformBrowser.DomSanitizer
+    ],
     useFactory: ICON_REGISTRY_PROVIDER_FACTORY
 };
 /**

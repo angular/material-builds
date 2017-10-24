@@ -1,5 +1,5 @@
 import { Optional } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Observable } from 'rxjs/Observable';
 /**
@@ -28,7 +28,7 @@ export declare function getMatIconFailedToSanitizeError(url: SafeResourceUrl): E
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
 export declare class MatIconRegistry {
-    private _http;
+    private _httpClient;
     private _sanitizer;
     /**
      * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
@@ -51,7 +51,7 @@ export declare class MatIconRegistry {
      * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
      */
     private _defaultFontSetClass;
-    constructor(_http: Http, _sanitizer: DomSanitizer);
+    constructor(_httpClient: HttpClient, _sanitizer: DomSanitizer);
     /**
      * Registers an icon by URL in the default namespace.
      * @param iconName Name under which the icon should be registered.
@@ -178,10 +178,10 @@ export declare class MatIconRegistry {
     private _fetchUrl(safeUrl);
 }
 /** @docs-private */
-export declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MatIconRegistry, http: Http, sanitizer: DomSanitizer): MatIconRegistry;
+export declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MatIconRegistry, httpClient: HttpClient, sanitizer: DomSanitizer): MatIconRegistry;
 /** @docs-private */
 export declare const ICON_REGISTRY_PROVIDER: {
     provide: typeof MatIconRegistry;
     deps: (Optional[] | typeof DomSanitizer)[];
-    useFactory: (parentRegistry: MatIconRegistry, http: Http, sanitizer: DomSanitizer) => MatIconRegistry;
+    useFactory: (parentRegistry: MatIconRegistry, httpClient: HttpClient, sanitizer: DomSanitizer) => MatIconRegistry;
 };

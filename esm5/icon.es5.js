@@ -10,7 +10,7 @@ import { MatCommonModule, mixinColor } from '@angular/material/core';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { RxChain, catchOperator, doOperator, finallyOperator, first, map, share } from '@angular/cdk/rxjs';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Observable } from 'rxjs/Observable';
 import { forkJoin } from 'rxjs/observable/forkJoin';
@@ -34,8 +34,9 @@ function getMatIconNameNotFoundError(iconName) {
  * @return {?}
  */
 function getMatIconNoHttpProviderError() {
-    return Error('Could not find Http provider for use with Angular Material icons. ' +
-        'Please include the HttpModule from @angular/http in your app imports.');
+    return Error('Could not find HttpClient provider for use with Angular Material icons. ' +
+        'Please include the HttpClientModule from @angular/common/http in your ' +
+        'app imports.');
 }
 /**
  * Returns an exception to be thrown when a URL couldn't be sanitized.
@@ -70,11 +71,11 @@ var SvgIconConfig = (function () {
  */
 var MatIconRegistry = (function () {
     /**
-     * @param {?} _http
+     * @param {?} _httpClient
      * @param {?} _sanitizer
      */
-    function MatIconRegistry(_http, _sanitizer) {
-        this._http = _http;
+    function MatIconRegistry(_httpClient, _sanitizer) {
+        this._httpClient = _httpClient;
         this._sanitizer = _sanitizer;
         /**
          * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
@@ -451,7 +452,7 @@ var MatIconRegistry = (function () {
      */
     MatIconRegistry.prototype._fetchUrl = function (safeUrl) {
         var _this = this;
-        if (!this._http) {
+        if (!this._httpClient) {
             throw getMatIconNoHttpProviderError();
         }
         var /** @type {?} */ url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, safeUrl);
@@ -467,8 +468,7 @@ var MatIconRegistry = (function () {
         }
         // TODO(jelbourn): for some reason, the `finally` operator "loses" the generic type on the
         // Observable. Figure out why and fix it.
-        var /** @type {?} */ req = RxChain.from(this._http.get(url))
-            .call(map, function (response) { return response.text(); })
+        var /** @type {?} */ req = RxChain.from(this._httpClient.get(url, { responseType: 'text' }))
             .call(finallyOperator, function () { return _this._inProgressUrlFetches.delete(url); })
             .call(share)
             .result();
@@ -482,7 +482,7 @@ var MatIconRegistry = (function () {
      * @nocollapse
      */
     MatIconRegistry.ctorParameters = function () { return [
-        { type: Http, decorators: [{ type: Optional },] },
+        { type: HttpClient, decorators: [{ type: Optional },] },
         { type: DomSanitizer, },
     ]; };
     return MatIconRegistry;
@@ -490,20 +490,24 @@ var MatIconRegistry = (function () {
 /**
  * \@docs-private
  * @param {?} parentRegistry
- * @param {?} http
+ * @param {?} httpClient
  * @param {?} sanitizer
  * @return {?}
  */
-function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, http, sanitizer) {
-    return parentRegistry || new MatIconRegistry(http, sanitizer);
+function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer) {
+    return parentRegistry || new MatIconRegistry(httpClient, sanitizer);
 }
 /**
  * \@docs-private
  */
 var ICON_REGISTRY_PROVIDER = {
-    // If there is already an MatIconRegistry available, use that. Otherwise, provide a new one.
+    // If there is already an MdIconRegistry available, use that. Otherwise, provide a new one.
     provide: MatIconRegistry,
-    deps: [[new Optional(), new SkipSelf(), MatIconRegistry], [new Optional(), Http], DomSanitizer],
+    deps: [
+        [new Optional(), new SkipSelf(), MatIconRegistry],
+        [new Optional(), HttpClient],
+        DomSanitizer
+    ],
     useFactory: ICON_REGISTRY_PROVIDER_FACTORY
 };
 /**
