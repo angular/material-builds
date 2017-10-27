@@ -884,5 +884,5 @@ var MatGridListModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatGridTile, MatGridListModule, MatGridList, MatGridAvatarCssMatStyler as ɵb7, MatGridTileFooterCssMatStyler as ɵd7, MatGridTileHeaderCssMatStyler as ɵc7, MatGridTileText as ɵa7 };
+export { MatGridTile, MatGridListModule, MatGridList, MatGridAvatarCssMatStyler as ɵb9, MatGridTileFooterCssMatStyler as ɵd9, MatGridTileHeaderCssMatStyler as ɵc9, MatGridTileText as ɵa9 };
 //# sourceMappingURL=grid-list.es5.js.map
