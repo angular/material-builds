@@ -51,6 +51,10 @@ export declare class MatDialogRef<T> {
      */
     backdropClick(): Observable<void>;
     /**
+     * Gets an observable that emits when keydown events are targeted on the overlay.
+     */
+    keydownEvents(): Observable<KeyboardEvent>;
+    /**
      * Updates the dialog's position.
      * @param position New dialog position.
      */

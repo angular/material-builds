@@ -61,89 +61,13 @@ var AnimationDurations = (function () {
     return AnimationDurations;
 }());
 
-var MATERIAL_COMPATIBILITY_MODE = new _angular_core.InjectionToken('md-compatibility-mode');
-/**
- * Selector that matches all elements that may have style collisions with AngularJS Material.
- */
-var MAT_ELEMENTS_SELECTOR = "\n  [mat-button],\n  [mat-fab],\n  [mat-icon-button],\n  [mat-mini-fab],\n  [mat-raised-button],\n  [matCardSubtitle],\n  [matCardTitle],\n  [matCellDef],\n  [matColumnDef],\n  [matDialogActions],\n  [matDialogClose],\n  [matDialogContent],\n  [matDialogTitle],\n  [matHeaderCellDef],\n  [matHeaderRowDef],\n  [matLine],\n  [matRowDef],\n  [matStepLabel],\n  [matStepperNext],\n  [matStepperPrevious],\n  [matTabLabel],\n  [matTabLink],\n  [matTabNav],\n  [matTooltip],\n  [matInput],\n  [matPrefix],\n  [matSuffix],\n  mat-autocomplete,\n  mat-button-toggle,\n  mat-button-toggle,\n  mat-button-toggle-group,\n  mat-card,\n  mat-card-actions,\n  mat-card-content,\n  mat-card-footer,\n  mat-card-header,\n  mat-card-subtitle,\n  mat-card-title,\n  mat-card-title-group,\n  mat-cell,\n  mat-checkbox,\n  mat-chip,\n  mat-dialog-actions,\n  mat-dialog-container,\n  mat-dialog-content,\n  mat-divider,\n  mat-error,\n  mat-grid-list,\n  mat-grid-tile,\n  mat-grid-tile-footer,\n  mat-grid-tile-header,\n  mat-header-cell,\n  mat-header-row,\n  mat-hint,\n  mat-horizontal-stepper,\n  mat-icon,\n  mat-input-container,\n  mat-form-field,\n  mat-list,\n  mat-list-item,\n  mat-menu,\n  mat-nav-list,\n  mat-option,\n  mat-placeholder,\n  mat-progress-bar,\n  mat-pseudo-checkbox,\n  mat-radio-button,\n  mat-radio-group,\n  mat-row,\n  mat-select,\n  mat-sidenav,\n  mat-sidenav-container,\n  mat-slider,\n  mat-spinner,\n  mat-step,\n  mat-tab,\n  mat-table,\n  mat-tab-group,\n  mat-toolbar,\n  mat-vertical-stepper";
-/**
- * Selector that matches all elements that may have style collisions with AngularJS Material.
- */
-var MD_ELEMENTS_SELECTOR = "\n  [md-button],\n  [md-fab],\n  [md-icon-button],\n  [md-mini-fab],\n  [md-raised-button],\n  [mdCardSubtitle],\n  [mdCardTitle],\n  [mdCellDef],\n  [mdColumnDef],\n  [mdDialogActions],\n  [mdDialogClose],\n  [mdDialogContent],\n  [mdDialogTitle],\n  [mdHeaderCellDef],\n  [mdHeaderRowDef],\n  [mdLine],\n  [mdRowDef],\n  [mdStepLabel],\n  [mdStepperNext],\n  [mdStepperPrevious],\n  [mdTabLabel],\n  [mdTabLink],\n  [mdTabNav],\n  [mdTooltip],\n  [mdInput],\n  [mdPrefix],\n  [mdSuffix],\n  md-autocomplete,\n  md-button-toggle,\n  md-button-toggle,\n  md-button-toggle-group,\n  md-card,\n  md-card-actions,\n  md-card-content,\n  md-card-footer,\n  md-card-header,\n  md-card-subtitle,\n  md-card-title,\n  md-card-title-group,\n  md-cell,\n  md-checkbox,\n  md-chip,\n  md-dialog-actions,\n  md-dialog-container,\n  md-dialog-content,\n  md-divider,\n  md-error,\n  md-grid-list,\n  md-grid-tile,\n  md-grid-tile-footer,\n  md-grid-tile-header,\n  md-header-cell,\n  md-header-row,\n  md-hint,\n  md-horizontal-stepper,\n  md-icon,\n  md-input-container,\n  md-form-field,\n  md-list,\n  md-list-item,\n  md-menu,\n  md-nav-list,\n  md-option,\n  md-placeholder,\n  md-progress-bar,\n  md-pseudo-checkbox,\n  md-radio-button,\n  md-radio-group,\n  md-row,\n  md-select,\n  md-sidenav,\n  md-sidenav-container,\n  md-slider,\n  md-spinner,\n  md-step,\n  md-tab,\n  md-table,\n  md-tab-group,\n  md-toolbar,\n  md-vertical-stepper";
-/**
- * Directive that enforces that the `mat-` prefix cannot be used.
- */
-var MatPrefixRejector = (function () {
-    function MatPrefixRejector() {
-    }
-    MatPrefixRejector.decorators = [
-        { type: _angular_core.Directive, args: [{ selector: MAT_ELEMENTS_SELECTOR },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    MatPrefixRejector.ctorParameters = function () { return []; };
-    return MatPrefixRejector;
-}());
-/**
- * Directive that enforces that the `md-` prefix cannot be used.
- */
-var MdPrefixRejector = (function () {
-    function MdPrefixRejector() {
-    }
-    MdPrefixRejector.decorators = [
-        { type: _angular_core.Directive, args: [{ selector: MD_ELEMENTS_SELECTOR },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    MdPrefixRejector.ctorParameters = function () { return []; };
-    return MdPrefixRejector;
-}());
-/**
- * Module that enforces the default compatibility mode settings. When this module is loaded
- * without NoConflictStyleCompatibilityMode also being imported, it will throw an error if
- * there are any uses of the `mat-` prefix.
- */
-var CompatibilityModule = (function () {
-    function CompatibilityModule() {
-    }
-    CompatibilityModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
-                    declarations: [MatPrefixRejector, MdPrefixRejector],
-                    exports: [MatPrefixRejector, MdPrefixRejector],
-                },] },
-    ];
-    /**
-     * @nocollapse
-     */
-    CompatibilityModule.ctorParameters = function () { return []; };
-    return CompatibilityModule;
-}());
-/**
- * Module that enforces "no-conflict" compatibility mode settings. When this module is loaded,
- * it will throw an error if there are any uses of the `md-` prefix.
- */
-var NoConflictStyleCompatibilityMode = (function () {
-    function NoConflictStyleCompatibilityMode() {
-    }
-    NoConflictStyleCompatibilityMode.decorators = [
-        { type: _angular_core.NgModule },
-    ];
-    /**
-     * @nocollapse
-     */
-    NoConflictStyleCompatibilityMode.ctorParameters = function () { return []; };
-    return NoConflictStyleCompatibilityMode;
-}());
-
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
 var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('mat-sanity-checks');
 /**
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
- * components. This includes Bidi, compatibility mode, etc.
+ * components. This includes Bidi, etc.
  *
  * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
@@ -197,8 +121,8 @@ var MatCommonModule = (function () {
     };
     MatCommonModule.decorators = [
         { type: _angular_core.NgModule, args: [{
-                    imports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
-                    exports: [CompatibilityModule, _angular_cdk_bidi.BidiModule],
+                    imports: [_angular_cdk_bidi.BidiModule],
+                    exports: [_angular_cdk_bidi.BidiModule],
                     providers: [{
                             provide: MATERIAL_SANITY_CHECKS, useValue: true,
                         }],
@@ -6945,6 +6869,13 @@ var MatDialogRef = (function () {
         return this._overlayRef.backdropClick();
     };
     /**
+     * Gets an observable that emits when keydown events are targeted on the overlay.
+     * @return {?}
+     */
+    MatDialogRef.prototype.keydownEvents = function () {
+        return this._overlayRef.keydownEvents();
+    };
+    /**
      * Updates the dialog's position.
      * @param {?=} position New dialog position.
      * @return {?}
@@ -7037,7 +6968,6 @@ var MatDialog = (function () {
         this._openDialogsAtThisLevel = [];
         this._afterAllClosedAtThisLevel = new rxjs_Subject.Subject();
         this._afterOpenAtThisLevel = new rxjs_Subject.Subject();
-        this._boundKeydown = this._handleKeydown.bind(this);
         /**
          * Stream that emits when all open dialog have finished closing.
          * Will emit on subscribe if there are no open dialogs to begin with.
@@ -7107,9 +7037,6 @@ var MatDialog = (function () {
         var /** @type {?} */ overlayRef = this._createOverlay(config);
         var /** @type {?} */ dialogContainer = this._attachDialogContainer(overlayRef, config);
         var /** @type {?} */ dialogRef = this._attachDialogContent(componentOrTemplateRef, dialogContainer, overlayRef, config);
-        if (!this.openDialogs.length) {
-            document.addEventListener('keydown', this._boundKeydown);
-        }
         this.openDialogs.push(dialogRef);
         dialogRef.afterClosed().subscribe(function () { return _this._removeOpenDialog(dialogRef); });
         this.afterOpen.next(dialogRef);
@@ -7202,6 +7129,10 @@ var MatDialog = (function () {
                 }
             });
         }
+        // Close when escape keydown event occurs
+        _angular_cdk_rxjs.RxChain.from(overlayRef.keydownEvents())
+            .call(_angular_cdk_rxjs.filter, function (event) { return event.keyCode === _angular_cdk_keycodes.ESCAPE && !dialogRef.disableClose; })
+            .subscribe(function () { return dialogRef.close(); });
         if (componentOrTemplateRef instanceof _angular_core.TemplateRef) {
             dialogContainer.attachTemplatePortal(new _angular_cdk_portal.TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({ $implicit: config.data, dialogRef: dialogRef })));
         }
@@ -7228,6 +7159,10 @@ var MatDialog = (function () {
         var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         var /** @type {?} */ injectionTokens = new WeakMap();
         injectionTokens.set(MatDialogRef, dialogRef);
+        // The MatDialogContainer is injected in the portal as the MatDialogContainer and the dialog's
+        // content are created out of the same ViewContainerRef and as such, are siblings for injector
+        // purposes.  To allow the hierarchy that is expected, the MatDialogContainer is explicitly
+        // added to the injection tokens.
         injectionTokens.set(MatDialogContainer, dialogContainer);
         injectionTokens.set(MAT_DIALOG_DATA, config.data);
         injectionTokens.set(_angular_cdk_bidi.Directionality, {
@@ -7248,21 +7183,7 @@ var MatDialog = (function () {
             // no open dialogs are left, call next on afterAllClosed Subject
             if (!this.openDialogs.length) {
                 this._afterAllClosed.next();
-                document.removeEventListener('keydown', this._boundKeydown);
             }
-        }
-    };
-    /**
-     * Handles global key presses while there are open dialogs. Closes the
-     * top dialog when the user presses escape.
-     * @param {?} event
-     * @return {?}
-     */
-    MatDialog.prototype._handleKeydown = function (event) {
-        var /** @type {?} */ topDialog = this.openDialogs[this.openDialogs.length - 1];
-        var /** @type {?} */ canClose = topDialog ? !topDialog.disableClose : false;
-        if (event.keyCode === _angular_cdk_keycodes.ESCAPE && canClose) {
-            topDialog.close();
         }
     };
     MatDialog.decorators = [
@@ -23215,7 +23136,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.12-0ea4370');
+var VERSION = new _angular_core.Version('2.0.0-beta.12-305dccf');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -23290,13 +23211,6 @@ exports.mixinDisabled = mixinDisabled;
 exports.mixinColor = mixinColor;
 exports.mixinDisableRipple = mixinDisableRipple;
 exports.mixinTabIndex = mixinTabIndex;
-exports.MATERIAL_COMPATIBILITY_MODE = MATERIAL_COMPATIBILITY_MODE;
-exports.MAT_ELEMENTS_SELECTOR = MAT_ELEMENTS_SELECTOR;
-exports.MD_ELEMENTS_SELECTOR = MD_ELEMENTS_SELECTOR;
-exports.MatPrefixRejector = MatPrefixRejector;
-exports.MdPrefixRejector = MdPrefixRejector;
-exports.CompatibilityModule = CompatibilityModule;
-exports.NoConflictStyleCompatibilityMode = NoConflictStyleCompatibilityMode;
 exports.NativeDateModule = NativeDateModule;
 exports.MatNativeDateModule = MatNativeDateModule;
 exports.MAT_DATE_LOCALE = MAT_DATE_LOCALE;
