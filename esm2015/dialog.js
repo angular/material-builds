@@ -368,13 +368,6 @@ class MatDialogRef {
         return this._overlayRef.backdropClick();
     }
     /**
-     * Gets an observable that emits when keydown events are targeted on the overlay.
-     * @return {?}
-     */
-    keydownEvents() {
-        return this._overlayRef.keydownEvents();
-    }
-    /**
      * Updates the dialog's position.
      * @param {?=} position New dialog position.
      * @return {?}
@@ -463,6 +456,7 @@ class MatDialog {
         this._openDialogsAtThisLevel = [];
         this._afterAllClosedAtThisLevel = new Subject();
         this._afterOpenAtThisLevel = new Subject();
+        this._boundKeydown = this._handleKeydown.bind(this);
         /**
          * Stream that emits when all open dialog have finished closing.
          * Will emit on subscribe if there are no open dialogs to begin with.
@@ -519,6 +513,9 @@ class MatDialog {
         const /** @type {?} */ overlayRef = this._createOverlay(config);
         const /** @type {?} */ dialogContainer = this._attachDialogContainer(overlayRef, config);
         const /** @type {?} */ dialogRef = this._attachDialogContent(componentOrTemplateRef, dialogContainer, overlayRef, config);
+        if (!this.openDialogs.length) {
+            document.addEventListener('keydown', this._boundKeydown);
+        }
         this.openDialogs.push(dialogRef);
         dialogRef.afterClosed().subscribe(() => this._removeOpenDialog(dialogRef));
         this.afterOpen.next(dialogRef);
@@ -611,10 +608,6 @@ class MatDialog {
                 }
             });
         }
-        // Close when escape keydown event occurs
-        RxChain.from(overlayRef.keydownEvents())
-            .call(filter, event => event.keyCode === ESCAPE && !dialogRef.disableClose)
-            .subscribe(() => dialogRef.close());
         if (componentOrTemplateRef instanceof TemplateRef) {
             dialogContainer.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({ $implicit: config.data, dialogRef })));
         }
@@ -641,10 +634,6 @@ class MatDialog {
         const /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const /** @type {?} */ injectionTokens = new WeakMap();
         injectionTokens.set(MatDialogRef, dialogRef);
-        // The MatDialogContainer is injected in the portal as the MatDialogContainer and the dialog's
-        // content are created out of the same ViewContainerRef and as such, are siblings for injector
-        // purposes.  To allow the hierarchy that is expected, the MatDialogContainer is explicitly
-        // added to the injection tokens.
         injectionTokens.set(MatDialogContainer, dialogContainer);
         injectionTokens.set(MAT_DIALOG_DATA, config.data);
         injectionTokens.set(Directionality, {
@@ -665,7 +654,21 @@ class MatDialog {
             // no open dialogs are left, call next on afterAllClosed Subject
             if (!this.openDialogs.length) {
                 this._afterAllClosed.next();
+                document.removeEventListener('keydown', this._boundKeydown);
             }
+        }
+    }
+    /**
+     * Handles global key presses while there are open dialogs. Closes the
+     * top dialog when the user presses escape.
+     * @param {?} event
+     * @return {?}
+     */
+    _handleKeydown(event) {
+        const /** @type {?} */ topDialog = this.openDialogs[this.openDialogs.length - 1];
+        const /** @type {?} */ canClose = topDialog ? !topDialog.disableClose : false;
+        if (event.keyCode === ESCAPE && canClose) {
+            topDialog.close();
         }
     }
 }

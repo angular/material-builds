@@ -7,6 +7,7 @@
  */
 export * from './animation/animation';
 export * from './common-behaviors/index';
+export * from './compatibility/compatibility';
 export * from './datetime/index';
 export * from './error/error-options';
 export * from './gestures/gesture-annotations';

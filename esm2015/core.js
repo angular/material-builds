@@ -32,13 +32,237 @@ AnimationDurations.COMPLEX = '375ms';
 AnimationDurations.ENTERING = '225ms';
 AnimationDurations.EXITING = '195ms';
 
+const MATERIAL_COMPATIBILITY_MODE = new InjectionToken('md-compatibility-mode');
+/**
+ * Selector that matches all elements that may have style collisions with AngularJS Material.
+ */
+const MAT_ELEMENTS_SELECTOR = `
+  [mat-button],
+  [mat-fab],
+  [mat-icon-button],
+  [mat-mini-fab],
+  [mat-raised-button],
+  [matCardSubtitle],
+  [matCardTitle],
+  [matCellDef],
+  [matColumnDef],
+  [matDialogActions],
+  [matDialogClose],
+  [matDialogContent],
+  [matDialogTitle],
+  [matHeaderCellDef],
+  [matHeaderRowDef],
+  [matLine],
+  [matRowDef],
+  [matStepLabel],
+  [matStepperNext],
+  [matStepperPrevious],
+  [matTabLabel],
+  [matTabLink],
+  [matTabNav],
+  [matTooltip],
+  [matInput],
+  [matPrefix],
+  [matSuffix],
+  mat-autocomplete,
+  mat-button-toggle,
+  mat-button-toggle,
+  mat-button-toggle-group,
+  mat-card,
+  mat-card-actions,
+  mat-card-content,
+  mat-card-footer,
+  mat-card-header,
+  mat-card-subtitle,
+  mat-card-title,
+  mat-card-title-group,
+  mat-cell,
+  mat-checkbox,
+  mat-chip,
+  mat-dialog-actions,
+  mat-dialog-container,
+  mat-dialog-content,
+  mat-divider,
+  mat-error,
+  mat-grid-list,
+  mat-grid-tile,
+  mat-grid-tile-footer,
+  mat-grid-tile-header,
+  mat-header-cell,
+  mat-header-row,
+  mat-hint,
+  mat-horizontal-stepper,
+  mat-icon,
+  mat-input-container,
+  mat-form-field,
+  mat-list,
+  mat-list-item,
+  mat-menu,
+  mat-nav-list,
+  mat-option,
+  mat-placeholder,
+  mat-progress-bar,
+  mat-pseudo-checkbox,
+  mat-radio-button,
+  mat-radio-group,
+  mat-row,
+  mat-select,
+  mat-sidenav,
+  mat-sidenav-container,
+  mat-slider,
+  mat-spinner,
+  mat-step,
+  mat-tab,
+  mat-table,
+  mat-tab-group,
+  mat-toolbar,
+  mat-vertical-stepper`;
+/**
+ * Selector that matches all elements that may have style collisions with AngularJS Material.
+ */
+const MD_ELEMENTS_SELECTOR = `
+  [md-button],
+  [md-fab],
+  [md-icon-button],
+  [md-mini-fab],
+  [md-raised-button],
+  [mdCardSubtitle],
+  [mdCardTitle],
+  [mdCellDef],
+  [mdColumnDef],
+  [mdDialogActions],
+  [mdDialogClose],
+  [mdDialogContent],
+  [mdDialogTitle],
+  [mdHeaderCellDef],
+  [mdHeaderRowDef],
+  [mdLine],
+  [mdRowDef],
+  [mdStepLabel],
+  [mdStepperNext],
+  [mdStepperPrevious],
+  [mdTabLabel],
+  [mdTabLink],
+  [mdTabNav],
+  [mdTooltip],
+  [mdInput],
+  [mdPrefix],
+  [mdSuffix],
+  md-autocomplete,
+  md-button-toggle,
+  md-button-toggle,
+  md-button-toggle-group,
+  md-card,
+  md-card-actions,
+  md-card-content,
+  md-card-footer,
+  md-card-header,
+  md-card-subtitle,
+  md-card-title,
+  md-card-title-group,
+  md-cell,
+  md-checkbox,
+  md-chip,
+  md-dialog-actions,
+  md-dialog-container,
+  md-dialog-content,
+  md-divider,
+  md-error,
+  md-grid-list,
+  md-grid-tile,
+  md-grid-tile-footer,
+  md-grid-tile-header,
+  md-header-cell,
+  md-header-row,
+  md-hint,
+  md-horizontal-stepper,
+  md-icon,
+  md-input-container,
+  md-form-field,
+  md-list,
+  md-list-item,
+  md-menu,
+  md-nav-list,
+  md-option,
+  md-placeholder,
+  md-progress-bar,
+  md-pseudo-checkbox,
+  md-radio-button,
+  md-radio-group,
+  md-row,
+  md-select,
+  md-sidenav,
+  md-sidenav-container,
+  md-slider,
+  md-spinner,
+  md-step,
+  md-tab,
+  md-table,
+  md-tab-group,
+  md-toolbar,
+  md-vertical-stepper`;
+/**
+ * Directive that enforces that the `mat-` prefix cannot be used.
+ */
+class MatPrefixRejector {
+}
+MatPrefixRejector.decorators = [
+    { type: Directive, args: [{ selector: MAT_ELEMENTS_SELECTOR },] },
+];
+/**
+ * @nocollapse
+ */
+MatPrefixRejector.ctorParameters = () => [];
+/**
+ * Directive that enforces that the `md-` prefix cannot be used.
+ */
+class MdPrefixRejector {
+}
+MdPrefixRejector.decorators = [
+    { type: Directive, args: [{ selector: MD_ELEMENTS_SELECTOR },] },
+];
+/**
+ * @nocollapse
+ */
+MdPrefixRejector.ctorParameters = () => [];
+/**
+ * Module that enforces the default compatibility mode settings. When this module is loaded
+ * without NoConflictStyleCompatibilityMode also being imported, it will throw an error if
+ * there are any uses of the `mat-` prefix.
+ */
+class CompatibilityModule {
+}
+CompatibilityModule.decorators = [
+    { type: NgModule, args: [{
+                declarations: [MatPrefixRejector, MdPrefixRejector],
+                exports: [MatPrefixRejector, MdPrefixRejector],
+            },] },
+];
+/**
+ * @nocollapse
+ */
+CompatibilityModule.ctorParameters = () => [];
+/**
+ * Module that enforces "no-conflict" compatibility mode settings. When this module is loaded,
+ * it will throw an error if there are any uses of the `md-` prefix.
+ */
+class NoConflictStyleCompatibilityMode {
+}
+NoConflictStyleCompatibilityMode.decorators = [
+    { type: NgModule },
+];
+/**
+ * @nocollapse
+ */
+NoConflictStyleCompatibilityMode.ctorParameters = () => [];
+
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
 const MATERIAL_SANITY_CHECKS = new InjectionToken('mat-sanity-checks');
 /**
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
- * components. This includes Bidi, etc.
+ * components. This includes Bidi, compatibility mode, etc.
  *
  * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
@@ -93,8 +317,8 @@ class MatCommonModule {
 }
 MatCommonModule.decorators = [
     { type: NgModule, args: [{
-                imports: [BidiModule],
-                exports: [BidiModule],
+                imports: [CompatibilityModule, BidiModule],
+                exports: [CompatibilityModule, BidiModule],
                 providers: [{
                         provide: MATERIAL_SANITY_CHECKS, useValue: true,
                     }],
@@ -1853,5 +2077,5 @@ const DEC = 11;
  * Generated bundle index. Do not edit.
  */
 
-export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_PLACEHOLDER_GLOBAL_OPTIONS, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MatRippleModule, MatPseudoCheckboxModule, MatPseudoCheckbox, applyCssTransform, extendObject, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, RippleRenderer as ɵa0 };
+export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, MATERIAL_COMPATIBILITY_MODE, MAT_ELEMENTS_SELECTOR, MD_ELEMENTS_SELECTOR, MatPrefixRejector, MdPrefixRejector, CompatibilityModule, NoConflictStyleCompatibilityMode, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_PLACEHOLDER_GLOBAL_OPTIONS, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MatRippleModule, MatPseudoCheckboxModule, MatPseudoCheckbox, applyCssTransform, extendObject, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, RippleRenderer as ɵa0 };
 //# sourceMappingURL=core.js.map
