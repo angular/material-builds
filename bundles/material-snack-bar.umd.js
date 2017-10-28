@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('@angular/cdk/layout'), require('@angular/material/core'), require('@angular/animations'), require('rxjs/Subject'), require('@angular/cdk/rxjs')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/a11y', '@angular/cdk/layout', '@angular/material/core', '@angular/animations', 'rxjs/Subject', '@angular/cdk/rxjs'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material['snack-bar'] = global.ng.material['snack-bar'] || {}),global.ng.core,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.a11y,global.ng.cdk.layout,global.ng.material.core,global.ng.animations,global.Rx,global.ng.cdk.rxjs));
-}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_a11y,_angular_cdk_layout,_angular_material_core,_angular_animations,rxjs_Subject,_angular_cdk_rxjs) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('@angular/cdk/layout'), require('@angular/material/core'), require('@angular/animations'), require('rxjs/Subject'), require('rxjs/operators')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/a11y', '@angular/cdk/layout', '@angular/material/core', '@angular/animations', 'rxjs/Subject', 'rxjs/operators'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material['snack-bar'] = global.ng.material['snack-bar'] || {}),global.ng.core,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.a11y,global.ng.cdk.layout,global.ng.material.core,global.ng.animations,global.Rx,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_a11y,_angular_cdk_layout,_angular_material_core,_angular_animations,rxjs_Subject,rxjs_operators) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -361,7 +361,7 @@ var MatSnackBarContainer = (function (_super) {
      */
     MatSnackBarContainer.prototype._completeExit = function () {
         var _this = this;
-        _angular_cdk_rxjs.first.call(this._ngZone.onMicrotaskEmpty.asObservable()).subscribe(function () {
+        this._ngZone.onMicrotaskEmpty.asObservable().pipe(rxjs_operators.first()).subscribe(function () {
             _this._onExit.next();
             _this._onExit.complete();
         });
@@ -549,9 +549,7 @@ var MatSnackBar = (function () {
         // Subscribe to the breakpoint observer and attach the mat-snack-bar-handset class as
         // appropriate. This class is applied to the overlay element because the overlay must expand to
         // fill the width of the screen for full width snackbars.
-        _angular_cdk_rxjs.RxChain.from(this._breakpointObserver.observe(_angular_cdk_layout.Breakpoints.Handset))
-            .call(_angular_cdk_rxjs.takeUntil, _angular_cdk_rxjs.first.call(overlayRef.detachments()))
-            .subscribe(function (state$$1) {
+        this._breakpointObserver.observe(_angular_cdk_layout.Breakpoints.Handset).pipe(rxjs_operators.takeUntil(overlayRef.detachments().pipe(rxjs_operators.first()))).subscribe(function (state$$1) {
             if (state$$1.matches) {
                 overlayRef.overlayElement.classList.add('mat-snack-bar-handset');
             }

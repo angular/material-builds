@@ -11,7 +11,7 @@ import { MatCommonModule, MatRippleModule, mixinDisabled } from '@angular/materi
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { FocusKeyManager, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
-import { RxChain, filter, first, startWith, switchMap } from '@angular/cdk/rxjs';
+import { filter, first, startWith, switchMap } from 'rxjs/operators';
 import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -335,15 +335,11 @@ class MatMenu {
      */
     hover() {
         if (this.items) {
-            return RxChain.from(this.items.changes)
-                .call(startWith, this.items)
-                .call(switchMap, (items) => merge(...items.map(item => item.hover)))
-                .result();
+            return this.items.changes.pipe(startWith(this.items), switchMap(items => merge(...items.map(item => item.hover))));
         }
-        return RxChain.from(this._ngZone.onStable.asObservable())
-            .call(first)
-            .call(switchMap, () => this.hover())
-            .result();
+        return this._ngZone.onStable
+            .asObservable()
+            .pipe(first(), switchMap(() => this.hover()));
     }
     /**
      * Handle a keyboard event from the menu, delegating to the appropriate action.
@@ -566,8 +562,8 @@ class MatMenuTrigger {
         });
         if (this.triggersSubmenu()) {
             // Subscribe to changes in the hovered item in order to toggle the panel.
-            this._hoverSubscription = filter
-                .call(this._parentMenu.hover(), active => active === this._menuItemInstance)
+            this._hoverSubscription = this._parentMenu.hover()
+                .pipe(filter(active => active === this._menuItemInstance))
                 .subscribe(() => {
                 this._openedByMouse = true;
                 this.openMenu();
@@ -816,10 +812,7 @@ class MatMenuTrigger {
     _menuClosingActions() {
         const /** @type {?} */ backdrop = ((this._overlayRef)).backdropClick();
         const /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : of();
-        const /** @type {?} */ hover = this._parentMenu ? RxChain.from(this._parentMenu.hover())
-            .call(filter, active => active !== this._menuItemInstance)
-            .call(filter, () => this._menuOpen)
-            .result() : of();
+        const /** @type {?} */ hover = this._parentMenu ? this._parentMenu.hover().pipe(filter(active => active !== this._menuItemInstance), filter(() => this._menuOpen)) : of();
         return merge(backdrop, parentClose, hover);
     }
     /**
@@ -931,5 +924,5 @@ MatMenuModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa21, _MatMenuItemMixinBase as ɵb21, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd21, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc21 };
+export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa20, _MatMenuItemMixinBase as ɵb20, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd20, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc20 };
 //# sourceMappingURL=menu.js.map

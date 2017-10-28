@@ -17,8 +17,8 @@ import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coerci
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/platform-browser';
 import { merge } from 'rxjs/observable/merge';
+import { filter, first, map, startWith, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
-import { RxChain, filter, first, map, startWith, takeUntil } from '@angular/cdk/rxjs';
 
 /**
  * Throws an exception when two MatDrawer are matching the same position.
@@ -219,20 +219,14 @@ class MatDrawer {
      * @return {?}
      */
     get _openedStream() {
-        return RxChain.from(this.openedChange)
-            .call(filter, o => o)
-            .call(map, () => { })
-            .result();
+        return this.openedChange.pipe(filter(o => o), map(() => { }));
     }
     /**
      * Event emitted when the drawer has been closed.
      * @return {?}
      */
     get _closedStream() {
-        return RxChain.from(this.openedChange)
-            .call(filter, o => !o)
-            .call(map, () => { })
-            .result();
+        return this.openedChange.pipe(filter(o => !o), map(() => { }));
     }
     /**
      * @return {?}
@@ -327,7 +321,7 @@ class MatDrawer {
         // TODO(crisbeto): This promise is here for backwards-compatibility.
         // It should be removed next time we do breaking changes in the drawer.
         return new Promise(resolve => {
-            first.call(isOpen ? this.onOpen : this.onClose).subscribe(resolve);
+            (isOpen ? this.onOpen : this.onClose).pipe(first()).subscribe(resolve);
         });
     }
     /**
@@ -460,7 +454,7 @@ class MatDrawerContainer {
         // If a `Dir` directive exists up the tree, listen direction changes and update the left/right
         // properties to point to the proper start/end.
         if (_dir != null) {
-            takeUntil.call(_dir.change, this._destroyed).subscribe(() => this._validateDrawers());
+            _dir.change.pipe(takeUntil(this._destroyed)).subscribe(() => this._validateDrawers());
         }
     }
     /**
@@ -477,7 +471,7 @@ class MatDrawerContainer {
      * @return {?}
      */
     ngAfterContentInit() {
-        startWith.call(this._drawers.changes, null).subscribe(() => {
+        this._drawers.changes.pipe(startWith(null)).subscribe(() => {
             this._validateDrawers();
             this._drawers.forEach((drawer) => {
                 this._watchDrawerToggle(drawer);
@@ -521,9 +515,7 @@ class MatDrawerContainer {
      * @return {?}
      */
     _watchDrawerToggle(drawer) {
-        RxChain.from(drawer._animationStarted)
-            .call(takeUntil, this._drawers.changes)
-            .call(filter, (event) => event.fromState !== event.toState)
+        drawer._animationStarted.pipe(takeUntil(this._drawers.changes), filter((event) => event.fromState !== event.toState))
             .subscribe((event) => {
             // Set the transition class on the container so that the animations occur. This should not
             // be set initially because animations should only be triggered via a change in state.
@@ -534,7 +526,7 @@ class MatDrawerContainer {
             this._changeDetectorRef.markForCheck();
         });
         if (drawer.mode !== 'side') {
-            takeUntil.call(drawer.openedChange, this._drawers.changes).subscribe(() => this._setContainerClass(drawer.opened));
+            drawer.openedChange.pipe(takeUntil(this._drawers.changes)).subscribe(() => this._setContainerClass(drawer.opened));
         }
     }
     /**
@@ -549,8 +541,8 @@ class MatDrawerContainer {
         }
         // NOTE: We need to wait for the microtask queue to be empty before validating,
         // since both drawers may be swapping positions at the same time.
-        takeUntil.call(drawer.onPositionChanged, this._drawers.changes).subscribe(() => {
-            first.call(this._ngZone.onMicrotaskEmpty.asObservable()).subscribe(() => {
+        drawer.onPositionChanged.pipe(takeUntil(this._drawers.changes)).subscribe(() => {
+            this._ngZone.onMicrotaskEmpty.asObservable().pipe(first()).subscribe(() => {
                 this._validateDrawers();
             });
         });
@@ -562,7 +554,7 @@ class MatDrawerContainer {
      */
     _watchDrawerMode(drawer) {
         if (drawer) {
-            takeUntil.call(drawer._modeChanged, merge(this._drawers.changes, this._destroyed))
+            drawer._modeChanged.pipe(takeUntil(merge(this._drawers.changes, this._destroyed)))
                 .subscribe(() => {
                 this._updateContentMargins();
                 this._changeDetectorRef.markForCheck();

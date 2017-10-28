@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/material/core'), require('@angular/cdk/overlay'), require('@angular/cdk/a11y'), require('@angular/cdk/keycodes'), require('@angular/cdk/rxjs'), require('rxjs/observable/merge'), require('rxjs/Subscription'), require('@angular/animations'), require('rxjs/Subject'), require('@angular/cdk/bidi'), require('@angular/cdk/portal'), require('rxjs/observable/of')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/material/core', '@angular/cdk/overlay', '@angular/cdk/a11y', '@angular/cdk/keycodes', '@angular/cdk/rxjs', 'rxjs/observable/merge', 'rxjs/Subscription', '@angular/animations', 'rxjs/Subject', '@angular/cdk/bidi', '@angular/cdk/portal', 'rxjs/observable/of'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = global.ng.material.menu || {}),global.ng.core,global.ng.common,global.ng.material.core,global.ng.cdk.overlay,global.ng.cdk.a11y,global.ng.cdk.keycodes,global.ng.cdk.rxjs,global.Rx.Observable,global.Rx,global.ng.animations,global.Rx,global.ng.cdk.bidi,global.ng.cdk.portal,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_common,_angular_material_core,_angular_cdk_overlay,_angular_cdk_a11y,_angular_cdk_keycodes,_angular_cdk_rxjs,rxjs_observable_merge,rxjs_Subscription,_angular_animations,rxjs_Subject,_angular_cdk_bidi,_angular_cdk_portal,rxjs_observable_of) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/material/core'), require('@angular/cdk/overlay'), require('@angular/cdk/a11y'), require('@angular/cdk/keycodes'), require('rxjs/operators'), require('rxjs/observable/merge'), require('rxjs/Subscription'), require('@angular/animations'), require('rxjs/Subject'), require('@angular/cdk/bidi'), require('@angular/cdk/portal'), require('rxjs/observable/of')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/material/core', '@angular/cdk/overlay', '@angular/cdk/a11y', '@angular/cdk/keycodes', 'rxjs/operators', 'rxjs/observable/merge', 'rxjs/Subscription', '@angular/animations', 'rxjs/Subject', '@angular/cdk/bidi', '@angular/cdk/portal', 'rxjs/observable/of'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = global.ng.material.menu || {}),global.ng.core,global.ng.common,global.ng.material.core,global.ng.cdk.overlay,global.ng.cdk.a11y,global.ng.cdk.keycodes,global.Rx.Observable,global.Rx.Observable,global.Rx,global.ng.animations,global.Rx,global.ng.cdk.bidi,global.ng.cdk.portal,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_common,_angular_material_core,_angular_cdk_overlay,_angular_cdk_a11y,_angular_cdk_keycodes,rxjs_operators,rxjs_observable_merge,rxjs_Subscription,_angular_animations,rxjs_Subject,_angular_cdk_bidi,_angular_cdk_portal,rxjs_observable_of) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -366,15 +366,11 @@ var MatMenu = (function () {
     MatMenu.prototype.hover = function () {
         var _this = this;
         if (this.items) {
-            return _angular_cdk_rxjs.RxChain.from(this.items.changes)
-                .call(_angular_cdk_rxjs.startWith, this.items)
-                .call(_angular_cdk_rxjs.switchMap, function (items) { return rxjs_observable_merge.merge.apply(void 0, items.map(function (item) { return item.hover; })); })
-                .result();
+            return this.items.changes.pipe(rxjs_operators.startWith(this.items), rxjs_operators.switchMap(function (items) { return rxjs_observable_merge.merge.apply(void 0, items.map(function (item) { return item.hover; })); }));
         }
-        return _angular_cdk_rxjs.RxChain.from(this._ngZone.onStable.asObservable())
-            .call(_angular_cdk_rxjs.first)
-            .call(_angular_cdk_rxjs.switchMap, function () { return _this.hover(); })
-            .result();
+        return this._ngZone.onStable
+            .asObservable()
+            .pipe(rxjs_operators.first(), rxjs_operators.switchMap(function () { return _this.hover(); }));
     };
     /**
      * Handle a keyboard event from the menu, delegating to the appropriate action.
@@ -605,8 +601,8 @@ var MatMenuTrigger = (function () {
         });
         if (this.triggersSubmenu()) {
             // Subscribe to changes in the hovered item in order to toggle the panel.
-            this._hoverSubscription = _angular_cdk_rxjs.filter
-                .call(this._parentMenu.hover(), function (active) { return active === _this._menuItemInstance; })
+            this._hoverSubscription = this._parentMenu.hover()
+                .pipe(rxjs_operators.filter(function (active) { return active === _this._menuItemInstance; }))
                 .subscribe(function () {
                 _this._openedByMouse = true;
                 _this.openMenu();
@@ -866,10 +862,7 @@ var MatMenuTrigger = (function () {
         var _this = this;
         var /** @type {?} */ backdrop = ((this._overlayRef)).backdropClick();
         var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : rxjs_observable_of.of();
-        var /** @type {?} */ hover = this._parentMenu ? _angular_cdk_rxjs.RxChain.from(this._parentMenu.hover())
-            .call(_angular_cdk_rxjs.filter, function (active) { return active !== _this._menuItemInstance; })
-            .call(_angular_cdk_rxjs.filter, function () { return _this._menuOpen; })
-            .result() : rxjs_observable_of.of();
+        var /** @type {?} */ hover = this._parentMenu ? this._parentMenu.hover().pipe(rxjs_operators.filter(function (active) { return active !== _this._menuItemInstance; }), rxjs_operators.filter(function () { return _this._menuOpen; })) : rxjs_observable_of.of();
         return rxjs_observable_merge.merge(backdrop, parentClose, hover);
     };
     /**
@@ -989,10 +982,10 @@ exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports.MatMenuItem = MatMenuItem;
 exports.MatMenuTrigger = MatMenuTrigger;
-exports.ɵa21 = MatMenuItemBase;
-exports.ɵb21 = _MatMenuItemMixinBase;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa20 = MatMenuItemBase;
+exports.ɵb20 = _MatMenuItemMixinBase;
+exports.ɵd20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

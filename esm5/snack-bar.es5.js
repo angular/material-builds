@@ -16,7 +16,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Subject } from 'rxjs/Subject';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
-import { RxChain, first, takeUntil } from '@angular/cdk/rxjs';
+import { first, takeUntil } from 'rxjs/operators';
 
 /**
  * Reference to a snack bar dispatched from the snack bar service.
@@ -342,7 +342,7 @@ var MatSnackBarContainer = (function (_super) {
      */
     MatSnackBarContainer.prototype._completeExit = function () {
         var _this = this;
-        first.call(this._ngZone.onMicrotaskEmpty.asObservable()).subscribe(function () {
+        this._ngZone.onMicrotaskEmpty.asObservable().pipe(first()).subscribe(function () {
             _this._onExit.next();
             _this._onExit.complete();
         });
@@ -530,9 +530,7 @@ var MatSnackBar = (function () {
         // Subscribe to the breakpoint observer and attach the mat-snack-bar-handset class as
         // appropriate. This class is applied to the overlay element because the overlay must expand to
         // fill the width of the screen for full width snackbars.
-        RxChain.from(this._breakpointObserver.observe(Breakpoints.Handset))
-            .call(takeUntil, first.call(overlayRef.detachments()))
-            .subscribe(function (state$$1) {
+        this._breakpointObserver.observe(Breakpoints.Handset).pipe(takeUntil(overlayRef.detachments().pipe(first()))).subscribe(function (state$$1) {
             if (state$$1.matches) {
                 overlayRef.overlayElement.classList.add('mat-snack-bar-handset');
             }

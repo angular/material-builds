@@ -13,7 +13,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DOWN_ARROW, END, ENTER, HOME, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
 import { ConnectedOverlayDirective, Overlay, OverlayModule, ViewportRuler } from '@angular/cdk/overlay';
-import { RxChain, filter, first, startWith, takeUntil } from '@angular/cdk/rxjs';
+import { filter, first, startWith, takeUntil } from 'rxjs/operators';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { ErrorStateMatcher, MAT_OPTION_PARENT_COMPONENT, MatCommonModule, MatOptgroup, MatOption, MatOptionModule, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
@@ -461,10 +461,7 @@ class MatSelect extends _MatSelectMixinBase {
      */
     ngAfterContentInit() {
         this._initKeyManager();
-        RxChain.from(this.options.changes)
-            .call(startWith, null)
-            .call(takeUntil, this._destroy)
-            .subscribe(() => {
+        this.options.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(() => {
             this._resetOptions();
             this._initializeSelection();
         });
@@ -519,7 +516,7 @@ class MatSelect extends _MatSelectMixinBase {
         this._panelOpen = true;
         this._changeDetectorRef.markForCheck();
         // Set the font size on the panel element once it exists.
-        first.call(this._ngZone.onStable.asObservable()).subscribe(() => {
+        this._ngZone.onStable.asObservable().pipe(first()).subscribe(() => {
             if (this._triggerFontSize && this.overlayDir.overlayRef &&
                 this.overlayDir.overlayRef.overlayElement) {
                 this.overlayDir.overlayRef.overlayElement.style.fontSize = `${this._triggerFontSize}px`;
@@ -719,7 +716,7 @@ class MatSelect extends _MatSelectMixinBase {
      * @return {?}
      */
     _onAttached() {
-        first.call(this.overlayDir.positionChange).subscribe(() => {
+        this.overlayDir.positionChange.pipe(first()).subscribe(() => {
             this._changeDetectorRef.detectChanges();
             this._calculateOverlayOffsetX();
             this.panel.nativeElement.scrollTop = this._scrollTop;
@@ -823,22 +820,15 @@ class MatSelect extends _MatSelectMixinBase {
      */
     _initKeyManager() {
         this._keyManager = new ActiveDescendantKeyManager(this.options).withTypeAhead();
-        takeUntil.call(this._keyManager.tabOut, this._destroy)
-            .subscribe(() => this.close());
-        RxChain.from(this._keyManager.change)
-            .call(takeUntil, this._destroy)
-            .call(filter, () => this._panelOpen && !!this.panel)
-            .subscribe(() => this._scrollActiveOptionIntoView());
+        this._keyManager.tabOut.pipe(takeUntil(this._destroy)).subscribe(() => this.close());
+        this._keyManager.change.pipe(takeUntil(this._destroy), filter(() => this._panelOpen && !!this.panel)).subscribe(() => this._scrollActiveOptionIntoView());
     }
     /**
      * Drops current option subscriptions and IDs and resets from scratch.
      * @return {?}
      */
     _resetOptions() {
-        RxChain.from(this.optionSelectionChanges)
-            .call(takeUntil, merge(this._destroy, this.options.changes))
-            .call(filter, event => event.isUserInput)
-            .subscribe(event => {
+        this.optionSelectionChanges.pipe(takeUntil(merge(this._destroy, this.options.changes)), filter(event => event.isUserInput)).subscribe(event => {
             this._onSelect(event.source);
             if (!this.multiple) {
                 this.close();

@@ -18,7 +18,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subscription } from 'rxjs/Subscription';
 import { merge } from 'rxjs/observable/merge';
 import { ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
-import { startWith, takeUntil } from '@angular/cdk/rxjs';
+import { startWith, takeUntil } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Platform } from '@angular/cdk/platform';
 
@@ -893,7 +893,7 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
     ngAfterContentInit() {
         const /** @type {?} */ dirChange = this._dir ? this._dir.change : of(null);
         const /** @type {?} */ resize = this._viewportRuler.change(150);
-        this._realignInkBar = startWith.call(merge(dirChange, resize), null).subscribe(() => {
+        this._realignInkBar = merge(dirChange, resize).pipe(startWith(null)).subscribe(() => {
             this._updatePagination();
             this._alignInkBarToSelectedTab();
         });
@@ -1272,7 +1272,7 @@ class MatTabNav extends _MatTabNavMixinBase {
     ngAfterContentInit() {
         this._ngZone.runOutsideAngular(() => {
             const /** @type {?} */ dirChange = this._dir ? this._dir.change : of(null);
-            return takeUntil.call(merge(dirChange, this._viewportRuler.change(10)), this._onDestroy)
+            return merge(dirChange, this._viewportRuler.change(10)).pipe(takeUntil(this._onDestroy))
                 .subscribe(() => this._alignInkBar());
         });
         this._setLinkDisableRipple();

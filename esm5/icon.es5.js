@@ -9,10 +9,9 @@ import { Attribute, ChangeDetectionStrategy, Component, ElementRef, Injectable, 
 import { MatCommonModule, mixinColor } from '@angular/material/core';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
-import { RxChain, catchOperator, doOperator, finallyOperator, first, map, share } from '@angular/cdk/rxjs';
+import { catchError, finalize, first, map, share, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Observable } from 'rxjs/Observable';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { of } from 'rxjs/observable/of';
 import { _throw } from 'rxjs/observable/throw';
@@ -212,10 +211,7 @@ var MatIconRegistry = (function () {
         if (cachedIcon) {
             return of(cloneSvg(cachedIcon));
         }
-        return RxChain.from(this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl)))
-            .call(doOperator, function (svg) { return _this._cachedIconsByUrl.set(/** @type {?} */ ((url)), svg); })
-            .call(map, function (svg) { return cloneSvg(svg); })
-            .result();
+        return this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl)).pipe(tap(function (svg) { return _this._cachedIconsByUrl.set(/** @type {?} */ ((url)), svg); }), map(function (svg) { return cloneSvg(svg); }));
     };
     /**
      * Returns an Observable that produces the icon (as an `<svg>` DOM element) with the given name
@@ -253,10 +249,7 @@ var MatIconRegistry = (function () {
         }
         else {
             // Fetch the icon from the config's URL, cache it, and return a copy.
-            return RxChain.from(this._loadSvgIconFromConfig(config))
-                .call(doOperator, function (svg) { return config.svgElement = svg; })
-                .call(map, function (svg) { return cloneSvg(svg); })
-                .result();
+            return this._loadSvgIconFromConfig(config).pipe(tap(function (svg) { return config.svgElement = svg; }), map(function (svg) { return cloneSvg(svg); }));
         }
     };
     /**
@@ -286,31 +279,28 @@ var MatIconRegistry = (function () {
         var /** @type {?} */ iconSetFetchRequests = iconSetConfigs
             .filter(function (iconSetConfig) { return !iconSetConfig.svgElement; })
             .map(function (iconSetConfig) {
-            return RxChain.from(_this._loadSvgIconSetFromConfig(iconSetConfig))
-                .call(catchOperator, function (err) {
+            return _this._loadSvgIconSetFromConfig(iconSetConfig).pipe(catchError(function (err) {
                 var /** @type {?} */ url = _this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, iconSetConfig.url);
                 // Swallow errors fetching individual URLs so the combined Observable won't
                 // necessarily fail.
                 console.log("Loading icon set URL: " + url + " failed: " + err);
                 return of(null);
-            })
-                .call(doOperator, function (svg) {
+            }), tap(function (svg) {
                 // Cache the SVG element.
                 if (svg) {
                     iconSetConfig.svgElement = svg;
                 }
-            })
-                .result();
+            }));
         });
         // Fetch all the icon set URLs. When the requests complete, every IconSet should have a
         // cached SVG element (unless the request failed), and we can check again for the icon.
-        return map.call(forkJoin.call(Observable, iconSetFetchRequests), function () {
+        return forkJoin(iconSetFetchRequests).pipe(map(function () {
             var /** @type {?} */ foundIcon = _this._extractIconWithNameFromAnySet(name, iconSetConfigs);
             if (!foundIcon) {
                 throw getMatIconNameNotFoundError(name);
             }
             return foundIcon;
-        });
+        }));
     };
     /**
      * Searches the cached SVG elements for the given icon sets for a nested icon element whose "id"
@@ -341,7 +331,8 @@ var MatIconRegistry = (function () {
      */
     MatIconRegistry.prototype._loadSvgIconFromConfig = function (config) {
         var _this = this;
-        return map.call(this._fetchUrl(config.url), function (svgText) { return _this._createSvgElementForSingleIcon(svgText); });
+        return this._fetchUrl(config.url)
+            .pipe(map(function (svgText) { return _this._createSvgElementForSingleIcon(svgText); }));
     };
     /**
      * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
@@ -352,7 +343,7 @@ var MatIconRegistry = (function () {
     MatIconRegistry.prototype._loadSvgIconSetFromConfig = function (config) {
         var _this = this;
         // TODO: Document that icons should only be loaded from trusted sources.
-        return map.call(this._fetchUrl(config.url), function (svgText) { return _this._svgElementFromString(svgText); });
+        return this._fetchUrl(config.url).pipe(map(function (svgText) { return _this._svgElementFromString(svgText); }));
     };
     /**
      * Creates a DOM element from the given SVG string, and adds default attributes.
@@ -468,10 +459,7 @@ var MatIconRegistry = (function () {
         }
         // TODO(jelbourn): for some reason, the `finally` operator "loses" the generic type on the
         // Observable. Figure out why and fix it.
-        var /** @type {?} */ req = RxChain.from(this._httpClient.get(url, { responseType: 'text' }))
-            .call(finallyOperator, function () { return _this._inProgressUrlFetches.delete(url); })
-            .call(share)
-            .result();
+        var /** @type {?} */ req = this._httpClient.get(url, { responseType: 'text' }).pipe(finalize(function () { return _this._inProgressUrlFetches.delete(url); }), share());
         this._inProgressUrlFetches.set(url, req);
         return req;
     };
@@ -624,7 +612,7 @@ var MatIcon = (function (_super) {
         if (changes.svgIcon) {
             if (this.svgIcon) {
                 var _a = this._splitIconName(this.svgIcon), namespace = _a[0], iconName = _a[1];
-                first.call(this._iconRegistry.getNamedSvgIcon(iconName, namespace)).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
+                this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(first()).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
             }
             else {
                 this._clearSvgElement();

@@ -7,10 +7,9 @@
  */
 import { Attribute, ChangeDetectionStrategy, Component, ElementRef, Injectable, Input, NgModule, Optional, Renderer2, SecurityContext, SkipSelf, ViewEncapsulation } from '@angular/core';
 import { MatCommonModule, mixinColor } from '@angular/material/core';
-import { RxChain, catchOperator, doOperator, finallyOperator, first, map, share } from '@angular/cdk/rxjs';
+import { catchError, finalize, first, map, share, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Observable } from 'rxjs/Observable';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { of } from 'rxjs/observable/of';
 import { _throw } from 'rxjs/observable/throw';
@@ -207,10 +206,7 @@ class MatIconRegistry {
         if (cachedIcon) {
             return of(cloneSvg(cachedIcon));
         }
-        return RxChain.from(this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl)))
-            .call(doOperator, svg => this._cachedIconsByUrl.set(/** @type {?} */ ((url)), svg))
-            .call(map, svg => cloneSvg(svg))
-            .result();
+        return this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl)).pipe(tap(svg => this._cachedIconsByUrl.set(/** @type {?} */ ((url)), svg)), map(svg => cloneSvg(svg)));
     }
     /**
      * Returns an Observable that produces the icon (as an `<svg>` DOM element) with the given name
@@ -247,10 +243,7 @@ class MatIconRegistry {
         }
         else {
             // Fetch the icon from the config's URL, cache it, and return a copy.
-            return RxChain.from(this._loadSvgIconFromConfig(config))
-                .call(doOperator, svg => config.svgElement = svg)
-                .call(map, svg => cloneSvg(svg))
-                .result();
+            return this._loadSvgIconFromConfig(config).pipe(tap(svg => config.svgElement = svg), map(svg => cloneSvg(svg)));
         }
     }
     /**
@@ -279,31 +272,28 @@ class MatIconRegistry {
         const /** @type {?} */ iconSetFetchRequests = iconSetConfigs
             .filter(iconSetConfig => !iconSetConfig.svgElement)
             .map(iconSetConfig => {
-            return RxChain.from(this._loadSvgIconSetFromConfig(iconSetConfig))
-                .call(catchOperator, (err) => {
+            return this._loadSvgIconSetFromConfig(iconSetConfig).pipe(catchError((err) => {
                 let /** @type {?} */ url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, iconSetConfig.url);
                 // Swallow errors fetching individual URLs so the combined Observable won't
                 // necessarily fail.
                 console.log(`Loading icon set URL: ${url} failed: ${err}`);
                 return of(null);
-            })
-                .call(doOperator, svg => {
+            }), tap(svg => {
                 // Cache the SVG element.
                 if (svg) {
                     iconSetConfig.svgElement = svg;
                 }
-            })
-                .result();
+            }));
         });
         // Fetch all the icon set URLs. When the requests complete, every IconSet should have a
         // cached SVG element (unless the request failed), and we can check again for the icon.
-        return map.call(forkJoin.call(Observable, iconSetFetchRequests), () => {
+        return forkJoin(iconSetFetchRequests).pipe(map(() => {
             const /** @type {?} */ foundIcon = this._extractIconWithNameFromAnySet(name, iconSetConfigs);
             if (!foundIcon) {
                 throw getMatIconNameNotFoundError(name);
             }
             return foundIcon;
-        });
+        }));
     }
     /**
      * Searches the cached SVG elements for the given icon sets for a nested icon element whose "id"
@@ -333,7 +323,8 @@ class MatIconRegistry {
      * @return {?}
      */
     _loadSvgIconFromConfig(config) {
-        return map.call(this._fetchUrl(config.url), svgText => this._createSvgElementForSingleIcon(svgText));
+        return this._fetchUrl(config.url)
+            .pipe(map(svgText => this._createSvgElementForSingleIcon(svgText)));
     }
     /**
      * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
@@ -343,7 +334,7 @@ class MatIconRegistry {
      */
     _loadSvgIconSetFromConfig(config) {
         // TODO: Document that icons should only be loaded from trusted sources.
-        return map.call(this._fetchUrl(config.url), svgText => this._svgElementFromString(svgText));
+        return this._fetchUrl(config.url).pipe(map(svgText => this._svgElementFromString(svgText)));
     }
     /**
      * Creates a DOM element from the given SVG string, and adds default attributes.
@@ -458,10 +449,7 @@ class MatIconRegistry {
         }
         // TODO(jelbourn): for some reason, the `finally` operator "loses" the generic type on the
         // Observable. Figure out why and fix it.
-        const /** @type {?} */ req = RxChain.from(this._httpClient.get(url, { responseType: 'text' }))
-            .call(finallyOperator, () => this._inProgressUrlFetches.delete(url))
-            .call(share)
-            .result();
+        const /** @type {?} */ req = this._httpClient.get(url, { responseType: 'text' }).pipe(finalize(() => this._inProgressUrlFetches.delete(url)), share());
         this._inProgressUrlFetches.set(url, req);
         return req;
     }
@@ -609,7 +597,7 @@ class MatIcon extends _MatIconMixinBase {
         if (changes.svgIcon) {
             if (this.svgIcon) {
                 const [namespace, iconName] = this._splitIconName(this.svgIcon);
-                first.call(this._iconRegistry.getNamedSvgIcon(iconName, namespace)).subscribe(svg => this._setSvgElement(svg), (err) => console.log(`Error retrieving icon: ${err.message}`));
+                this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(first()).subscribe(svg => this._setSvgElement(svg), (err) => console.log(`Error retrieving icon: ${err.message}`));
             }
             else {
                 this._clearSvgElement();

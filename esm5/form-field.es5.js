@@ -10,7 +10,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Co
 import { PlatformModule } from '@angular/cdk/platform';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { first, startWith } from '@angular/cdk/rxjs';
+import { first, startWith } from 'rxjs/operators';
 import { MAT_PLACEHOLDER_GLOBAL_OPTIONS } from '@angular/material/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 
@@ -310,7 +310,7 @@ var MatFormField = (function () {
             this._renderer.addClass(this._elementRef.nativeElement, "mat-form-field-type-" + this._control.controlType);
         }
         // Subscribe to changes in the child control state in order to update the form field UI.
-        startWith.call(this._control.stateChanges, null).subscribe(function () {
+        this._control.stateChanges.pipe(startWith(/** @type {?} */ ((null)))).subscribe(function () {
             _this._validatePlaceholders();
             _this._syncDescribedByIds();
             _this._changeDetectorRef.markForCheck();
@@ -322,12 +322,12 @@ var MatFormField = (function () {
             });
         }
         // Re-validate when the number of hints changes.
-        startWith.call(this._hintChildren.changes, null).subscribe(function () {
+        this._hintChildren.changes.pipe(startWith(null)).subscribe(function () {
             _this._processHints();
             _this._changeDetectorRef.markForCheck();
         });
         // Update the aria-described by when the number of errors changes.
-        startWith.call(this._errorChildren.changes, null).subscribe(function () {
+        this._errorChildren.changes.pipe(startWith(null)).subscribe(function () {
             _this._syncDescribedByIds();
             _this._changeDetectorRef.markForCheck();
         });
@@ -379,7 +379,7 @@ var MatFormField = (function () {
         if (this._placeholder && this._canPlaceholderFloat) {
             this._showAlwaysAnimate = true;
             this._floatPlaceholder = 'always';
-            first.call(fromEvent(this._placeholder.nativeElement, 'transitionend')).subscribe(function () {
+            fromEvent(this._placeholder.nativeElement, 'transitionend').pipe(first()).subscribe(function () {
                 _this._showAlwaysAnimate = false;
             });
             this._changeDetectorRef.markForCheck();

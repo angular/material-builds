@@ -11,7 +11,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { BACKSPACE, DELETE, ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
-import { startWith } from '@angular/cdk/rxjs';
+import { startWith } from 'rxjs/operators';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { merge } from 'rxjs/observable/merge';
@@ -706,7 +706,7 @@ class MatChipList {
             setTimeout(() => this._tabIndex = this._userTabIndex || 0);
         });
         // When the list changes, re-subscribe
-        this._changeSubscription = startWith.call(this.chips.changes, null).subscribe(() => {
+        this._changeSubscription = this.chips.changes.pipe(startWith(null)).subscribe(() => {
             this._resetChips();
             // Reset chips selected/deselected status
             this._initializeSelection();

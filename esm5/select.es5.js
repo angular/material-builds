@@ -15,7 +15,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DOWN_ARROW, END, ENTER, HOME, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
 import { ConnectedOverlayDirective, Overlay, OverlayModule, ViewportRuler } from '@angular/cdk/overlay';
-import { RxChain, filter, first, startWith, takeUntil } from '@angular/cdk/rxjs';
+import { filter, first, startWith, takeUntil } from 'rxjs/operators';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { ErrorStateMatcher, MAT_OPTION_PARENT_COMPONENT, MatCommonModule, MatOptgroup, MatOption, MatOptionModule, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
@@ -503,10 +503,7 @@ var MatSelect = (function (_super) {
     MatSelect.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._initKeyManager();
-        RxChain.from(this.options.changes)
-            .call(startWith, null)
-            .call(takeUntil, this._destroy)
-            .subscribe(function () {
+        this.options.changes.pipe(startWith(null), takeUntil(this._destroy)).subscribe(function () {
             _this._resetOptions();
             _this._initializeSelection();
         });
@@ -562,7 +559,7 @@ var MatSelect = (function (_super) {
         this._panelOpen = true;
         this._changeDetectorRef.markForCheck();
         // Set the font size on the panel element once it exists.
-        first.call(this._ngZone.onStable.asObservable()).subscribe(function () {
+        this._ngZone.onStable.asObservable().pipe(first()).subscribe(function () {
             if (_this._triggerFontSize && _this.overlayDir.overlayRef &&
                 _this.overlayDir.overlayRef.overlayElement) {
                 _this.overlayDir.overlayRef.overlayElement.style.fontSize = _this._triggerFontSize + "px";
@@ -775,7 +772,7 @@ var MatSelect = (function (_super) {
      */
     MatSelect.prototype._onAttached = function () {
         var _this = this;
-        first.call(this.overlayDir.positionChange).subscribe(function () {
+        this.overlayDir.positionChange.pipe(first()).subscribe(function () {
             _this._changeDetectorRef.detectChanges();
             _this._calculateOverlayOffsetX();
             _this.panel.nativeElement.scrollTop = _this._scrollTop;
@@ -889,12 +886,8 @@ var MatSelect = (function (_super) {
     MatSelect.prototype._initKeyManager = function () {
         var _this = this;
         this._keyManager = new ActiveDescendantKeyManager(this.options).withTypeAhead();
-        takeUntil.call(this._keyManager.tabOut, this._destroy)
-            .subscribe(function () { return _this.close(); });
-        RxChain.from(this._keyManager.change)
-            .call(takeUntil, this._destroy)
-            .call(filter, function () { return _this._panelOpen && !!_this.panel; })
-            .subscribe(function () { return _this._scrollActiveOptionIntoView(); });
+        this._keyManager.tabOut.pipe(takeUntil(this._destroy)).subscribe(function () { return _this.close(); });
+        this._keyManager.change.pipe(takeUntil(this._destroy), filter(function () { return _this._panelOpen && !!_this.panel; })).subscribe(function () { return _this._scrollActiveOptionIntoView(); });
     };
     /**
      * Drops current option subscriptions and IDs and resets from scratch.
@@ -902,10 +895,7 @@ var MatSelect = (function (_super) {
      */
     MatSelect.prototype._resetOptions = function () {
         var _this = this;
-        RxChain.from(this.optionSelectionChanges)
-            .call(takeUntil, merge(this._destroy, this.options.changes))
-            .call(filter, function (event) { return event.isUserInput; })
-            .subscribe(function (event) {
+        this.optionSelectionChanges.pipe(takeUntil(merge(this._destroy, this.options.changes)), filter(function (event) { return event.isUserInput; })).subscribe(function (event) {
             _this._onSelect(event.source);
             if (!_this.multiple) {
                 _this.close();

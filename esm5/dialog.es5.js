@@ -12,7 +12,7 @@ import { BasePortalHost, ComponentPortal, PortalHostDirective, PortalInjector, P
 import { A11yModule, FocusTrapFactory } from '@angular/cdk/a11y';
 import { MatCommonModule, extendObject } from '@angular/material/core';
 import { ESCAPE } from '@angular/cdk/keycodes';
-import { RxChain, filter, first, startWith } from '@angular/cdk/rxjs';
+import { filter, first, startWith } from 'rxjs/operators';
 import { Directionality } from '@angular/cdk/bidi';
 import { defer } from 'rxjs/observable/defer';
 import { Subject } from 'rxjs/Subject';
@@ -312,17 +312,13 @@ var MatDialogRef = (function () {
          */
         this._beforeClose = new Subject();
         // Emit when opening animation completes
-        RxChain.from(_containerInstance._animationStateChanged)
-            .call(filter, function (event) { return event.phaseName === 'done' && event.toState === 'enter'; })
-            .call(first)
+        _containerInstance._animationStateChanged.pipe(filter(function (event) { return event.phaseName === 'done' && event.toState === 'enter'; }), first())
             .subscribe(function () {
             _this._afterOpen.next();
             _this._afterOpen.complete();
         });
         // Dispose overlay when closing animation is complete
-        RxChain.from(_containerInstance._animationStateChanged)
-            .call(filter, function (event) { return event.phaseName === 'done' && event.toState === 'exit'; })
-            .call(first)
+        _containerInstance._animationStateChanged.pipe(filter(function (event) { return event.phaseName === 'done' && event.toState === 'exit'; }), first())
             .subscribe(function () {
             _this._overlayRef.dispose();
             _this._afterClosed.next(_this._result);
@@ -339,9 +335,7 @@ var MatDialogRef = (function () {
         var _this = this;
         this._result = dialogResult;
         // Transition the backdrop in parallel to the dialog.
-        RxChain.from(this._containerInstance._animationStateChanged)
-            .call(filter, function (event) { return event.phaseName === 'start'; })
-            .call(first)
+        this._containerInstance._animationStateChanged.pipe(filter(function (event) { return event.phaseName === 'start'; }), first())
             .subscribe(function () {
             _this._beforeClose.next(dialogResult);
             _this._beforeClose.complete();
@@ -483,7 +477,7 @@ var MatDialog = (function () {
          */
         this.afterAllClosed = defer(function () { return _this.openDialogs.length ?
             _this._afterAllClosed :
-            startWith.call(_this._afterAllClosed, undefined); });
+            _this._afterAllClosed.pipe(startWith(undefined)); });
         // Close all of the dialogs when the user goes forwards/backwards in history or when the
         // location hash changes. Note that this usually doesn't include clicking on links (unless
         // the user is using the `HashLocationStrategy`).
@@ -639,9 +633,7 @@ var MatDialog = (function () {
             });
         }
         // Close when escape keydown event occurs
-        RxChain.from(overlayRef.keydownEvents())
-            .call(filter, function (event) { return event.keyCode === ESCAPE && !dialogRef.disableClose; })
-            .subscribe(function () { return dialogRef.close(); });
+        overlayRef.keydownEvents().pipe(filter(function (event) { return event.keyCode === ESCAPE && !dialogRef.disableClose; })).subscribe(function () { return dialogRef.close(); });
         if (componentOrTemplateRef instanceof TemplateRef) {
             dialogContainer.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({ $implicit: config.data, dialogRef: dialogRef })));
         }

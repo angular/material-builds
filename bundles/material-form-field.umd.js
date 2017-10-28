@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/cdk/platform'), require('@angular/animations'), require('@angular/cdk/coercion'), require('@angular/cdk/rxjs'), require('@angular/material/core'), require('rxjs/observable/fromEvent')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/cdk/platform', '@angular/animations', '@angular/cdk/coercion', '@angular/cdk/rxjs', '@angular/material/core', 'rxjs/observable/fromEvent'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material['form-field'] = global.ng.material['form-field'] || {}),global.ng.common,global.ng.core,global.ng.cdk.platform,global.ng.animations,global.ng.cdk.coercion,global.ng.cdk.rxjs,global.ng.material.core,global.Rx.Observable));
-}(this, (function (exports,_angular_common,_angular_core,_angular_cdk_platform,_angular_animations,_angular_cdk_coercion,_angular_cdk_rxjs,_angular_material_core,rxjs_observable_fromEvent) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/cdk/platform'), require('@angular/animations'), require('@angular/cdk/coercion'), require('rxjs/operators'), require('@angular/material/core'), require('rxjs/observable/fromEvent')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/cdk/platform', '@angular/animations', '@angular/cdk/coercion', 'rxjs/operators', '@angular/material/core', 'rxjs/observable/fromEvent'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material['form-field'] = global.ng.material['form-field'] || {}),global.ng.common,global.ng.core,global.ng.cdk.platform,global.ng.animations,global.ng.cdk.coercion,global.Rx.Observable,global.ng.material.core,global.Rx.Observable));
+}(this, (function (exports,_angular_common,_angular_core,_angular_cdk_platform,_angular_animations,_angular_cdk_coercion,rxjs_operators,_angular_material_core,rxjs_observable_fromEvent) { 'use strict';
 
 var nextUniqueId = 0;
 /**
@@ -307,7 +307,7 @@ var MatFormField = (function () {
             this._renderer.addClass(this._elementRef.nativeElement, "mat-form-field-type-" + this._control.controlType);
         }
         // Subscribe to changes in the child control state in order to update the form field UI.
-        _angular_cdk_rxjs.startWith.call(this._control.stateChanges, null).subscribe(function () {
+        this._control.stateChanges.pipe(rxjs_operators.startWith(/** @type {?} */ ((null)))).subscribe(function () {
             _this._validatePlaceholders();
             _this._syncDescribedByIds();
             _this._changeDetectorRef.markForCheck();
@@ -319,12 +319,12 @@ var MatFormField = (function () {
             });
         }
         // Re-validate when the number of hints changes.
-        _angular_cdk_rxjs.startWith.call(this._hintChildren.changes, null).subscribe(function () {
+        this._hintChildren.changes.pipe(rxjs_operators.startWith(null)).subscribe(function () {
             _this._processHints();
             _this._changeDetectorRef.markForCheck();
         });
         // Update the aria-described by when the number of errors changes.
-        _angular_cdk_rxjs.startWith.call(this._errorChildren.changes, null).subscribe(function () {
+        this._errorChildren.changes.pipe(rxjs_operators.startWith(null)).subscribe(function () {
             _this._syncDescribedByIds();
             _this._changeDetectorRef.markForCheck();
         });
@@ -376,7 +376,7 @@ var MatFormField = (function () {
         if (this._placeholder && this._canPlaceholderFloat) {
             this._showAlwaysAnimate = true;
             this._floatPlaceholder = 'always';
-            _angular_cdk_rxjs.first.call(rxjs_observable_fromEvent.fromEvent(this._placeholder.nativeElement, 'transitionend')).subscribe(function () {
+            rxjs_observable_fromEvent.fromEvent(this._placeholder.nativeElement, 'transitionend').pipe(rxjs_operators.first()).subscribe(function () {
                 _this._showAlwaysAnimate = false;
             });
             this._changeDetectorRef.markForCheck();

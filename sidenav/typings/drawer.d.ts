@@ -112,16 +112,16 @@ export declare class MatDrawer implements AfterContentInit, OnDestroy {
      * @param openedVia Whether the drawer was opened by a key press, mouse click or programmatically.
      * Used for focus management after the sidenav is closed.
      */
-    open(openedVia?: FocusOrigin): Promise<MatDrawerToggleResult>;
+    open(openedVia?: FocusOrigin): Promise<void>;
     /** Close the drawer. */
-    close(): Promise<MatDrawerToggleResult>;
+    close(): Promise<void>;
     /**
      * Toggle this drawer.
      * @param isOpen Whether the drawer should be open.
      * @param openedVia Whether the drawer was opened by a key press, mouse click or programmatically.
      * Used for focus management after the sidenav is closed.
      */
-    toggle(isOpen?: boolean, openedVia?: FocusOrigin): Promise<MatDrawerToggleResult>;
+    toggle(isOpen?: boolean, openedVia?: FocusOrigin): Promise<void>;
     /**
      * Handles the keyboard events.
      * @docs-private

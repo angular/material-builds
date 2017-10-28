@@ -11,7 +11,7 @@ import { MatCommonModule, MatRippleModule, mixinDisabled } from '@angular/materi
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { FocusKeyManager, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
-import { RxChain, filter, first, startWith, switchMap } from '@angular/cdk/rxjs';
+import { filter, first, startWith, switchMap } from 'rxjs/operators';
 import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -351,15 +351,11 @@ var MatMenu = (function () {
     MatMenu.prototype.hover = function () {
         var _this = this;
         if (this.items) {
-            return RxChain.from(this.items.changes)
-                .call(startWith, this.items)
-                .call(switchMap, function (items) { return merge.apply(void 0, items.map(function (item) { return item.hover; })); })
-                .result();
+            return this.items.changes.pipe(startWith(this.items), switchMap(function (items) { return merge.apply(void 0, items.map(function (item) { return item.hover; })); }));
         }
-        return RxChain.from(this._ngZone.onStable.asObservable())
-            .call(first)
-            .call(switchMap, function () { return _this.hover(); })
-            .result();
+        return this._ngZone.onStable
+            .asObservable()
+            .pipe(first(), switchMap(function () { return _this.hover(); }));
     };
     /**
      * Handle a keyboard event from the menu, delegating to the appropriate action.
@@ -590,8 +586,8 @@ var MatMenuTrigger = (function () {
         });
         if (this.triggersSubmenu()) {
             // Subscribe to changes in the hovered item in order to toggle the panel.
-            this._hoverSubscription = filter
-                .call(this._parentMenu.hover(), function (active) { return active === _this._menuItemInstance; })
+            this._hoverSubscription = this._parentMenu.hover()
+                .pipe(filter(function (active) { return active === _this._menuItemInstance; }))
                 .subscribe(function () {
                 _this._openedByMouse = true;
                 _this.openMenu();
@@ -851,10 +847,7 @@ var MatMenuTrigger = (function () {
         var _this = this;
         var /** @type {?} */ backdrop = ((this._overlayRef)).backdropClick();
         var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : of();
-        var /** @type {?} */ hover = this._parentMenu ? RxChain.from(this._parentMenu.hover())
-            .call(filter, function (active) { return active !== _this._menuItemInstance; })
-            .call(filter, function () { return _this._menuOpen; })
-            .result() : of();
+        var /** @type {?} */ hover = this._parentMenu ? this._parentMenu.hover().pipe(filter(function (active) { return active !== _this._menuItemInstance; }), filter(function () { return _this._menuOpen; })) : of();
         return merge(backdrop, parentClose, hover);
     };
     /**
@@ -970,5 +963,5 @@ var MatMenuModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa21, _MatMenuItemMixinBase as ɵb21, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd21, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc21 };
+export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa20, _MatMenuItemMixinBase as ɵb20, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd20, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc20 };
 //# sourceMappingURL=menu.es5.js.map

@@ -14,12 +14,11 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { DOWN_ARROW, END, ENTER, ESCAPE, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-import { first } from 'rxjs/operator/first';
+import { first } from 'rxjs/operators';
 import { Subject } from 'rxjs/Subject';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { first as first$1 } from '@angular/cdk/rxjs';
 import { DOCUMENT } from '@angular/platform-browser';
 import { Subscription } from 'rxjs/Subscription';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
@@ -787,7 +786,7 @@ class MatCalendar {
      */
     _focusActiveCell() {
         this._ngZone.runOutsideAngular(() => {
-            first.call(this._ngZone.onStable.asObservable()).subscribe(() => {
+            this._ngZone.onStable.asObservable().pipe(first()).subscribe(() => {
                 this._elementRef.nativeElement.querySelector('.mat-calendar-body-active').focus();
             });
         });
@@ -1262,7 +1261,7 @@ class MatDatepicker {
             let /** @type {?} */ componentRef = this._popupRef.attach(this._calendarPortal);
             componentRef.instance.datepicker = this;
             // Update the position once the calendar has rendered.
-            first$1.call(this._ngZone.onStable.asObservable()).subscribe(() => {
+            this._ngZone.onStable.asObservable().pipe(first()).subscribe(() => {
                 this._popupRef.updatePosition();
             });
         }

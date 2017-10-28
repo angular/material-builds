@@ -20,7 +20,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subscription } from 'rxjs/Subscription';
 import { merge } from 'rxjs/observable/merge';
 import { ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
-import { startWith, takeUntil } from '@angular/cdk/rxjs';
+import { startWith, takeUntil } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Platform } from '@angular/cdk/platform';
 
@@ -960,7 +960,7 @@ var MatTabHeader = (function (_super) {
         var _this = this;
         var /** @type {?} */ dirChange = this._dir ? this._dir.change : of(null);
         var /** @type {?} */ resize = this._viewportRuler.change(150);
-        this._realignInkBar = startWith.call(merge(dirChange, resize), null).subscribe(function () {
+        this._realignInkBar = merge(dirChange, resize).pipe(startWith(null)).subscribe(function () {
             _this._updatePagination();
             _this._alignInkBarToSelectedTab();
         });
@@ -1360,7 +1360,7 @@ var MatTabNav = (function (_super) {
         var _this = this;
         this._ngZone.runOutsideAngular(function () {
             var /** @type {?} */ dirChange = _this._dir ? _this._dir.change : of(null);
-            return takeUntil.call(merge(dirChange, _this._viewportRuler.change(10)), _this._onDestroy)
+            return merge(dirChange, _this._viewportRuler.change(10)).pipe(takeUntil(_this._onDestroy))
                 .subscribe(function () { return _this._alignInkBar(); });
         });
         this._setLinkDisableRipple();

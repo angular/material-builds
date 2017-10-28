@@ -10,7 +10,7 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { RxChain, combineLatest, map, startWith } from '@angular/cdk/rxjs';
+import { combineLatest, map, startWith } from 'rxjs/operators';
 import { empty } from 'rxjs/observable/empty';
 
 /**
@@ -382,13 +382,12 @@ class MatTableDataSource {
         if (this._renderChangesSubscription) {
             this._renderChangesSubscription.unsubscribe();
         }
-        this._renderChangesSubscription = RxChain.from(this._data)
-            .call(combineLatest, this._filter)
-            .call(map, ([data]) => this._filterData(data))
-            .call(combineLatest, startWith.call(sortChange, null))
-            .call(map, ([data]) => this._orderData(data))
-            .call(combineLatest, startWith.call(pageChange, null))
-            .call(map, ([data]) => this._pageData(data))
+        // Watch for base data or filter changes to provide a filtered set of data.
+        this._renderChangesSubscription = this._data.pipe(combineLatest(this._filter), map(([data]) => this._filterData(data)), 
+        // Watch for filtered data or sort changes to provide an ordered set of data.
+        combineLatest(sortChange.pipe(startWith(/** @type {?} */ ((null))))), map(([data]) => this._orderData(data)), 
+        // Watch for ordered data or page changes to provide a paged set of data.
+        combineLatest(pageChange.pipe(startWith(/** @type {?} */ ((null))))), map(([data]) => this._pageData(data)))
             .subscribe(data => this._renderData.next(data));
     }
     /**

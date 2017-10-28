@@ -17,7 +17,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { mixinDisabled } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
-import { filter } from '@angular/cdk/rxjs';
+import { filter } from 'rxjs/operators';
 import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -266,7 +266,7 @@ var MatExpansionPanelHeader = (function () {
         this._parentChangeSubscription = Subscription.EMPTY;
         // Since the toggle state depends on an @Input on the panel, we
         // need to  subscribe and trigger change detection manually.
-        this._parentChangeSubscription = merge(panel.opened, panel.closed, filter.call(panel._inputChanges, function (changes) { return !!(changes.hideToggle || changes.disabled); }))
+        this._parentChangeSubscription = merge(panel.opened, panel.closed, panel._inputChanges.pipe(filter(function (changes) { return !!(changes.hideToggle || changes.disabled); })))
             .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
         _focusMonitor.monitor(_element.nativeElement, renderer, false);
     }
