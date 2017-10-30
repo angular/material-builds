@@ -13,7 +13,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DOWN_ARROW, END, ENTER, HOME, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
 import { ConnectedOverlayDirective, Overlay, OverlayModule, ViewportRuler } from '@angular/cdk/overlay';
-import { filter, first, startWith, takeUntil } from 'rxjs/operators';
+import { filter, first, map, startWith, takeUntil } from 'rxjs/operators';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { ErrorStateMatcher, MAT_OPTION_PARENT_COMPONENT, MatCommonModule, MatOptgroup, MatOption, MatOptionModule, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
@@ -318,15 +318,26 @@ class MatSelect extends _MatSelectMixinBase {
         /**
          * Event emitted when the select has been opened.
          */
-        this.onOpen = new EventEmitter();
+        this.openedChange = new EventEmitter();
+        /**
+         * Event emitted when the select has been opened.
+         * @deprecated Use `openedChange` instead.
+         */
+        this.onOpen = this._openedStream;
         /**
          * Event emitted when the select has been closed.
+         * @deprecated Use `openedChange` instead.
          */
-        this.onClose = new EventEmitter();
+        this.onClose = this._closedStream;
         /**
          * Event emitted when the selected value has been changed by the user.
          */
-        this.change = new EventEmitter();
+        this.selectionChange = new EventEmitter();
+        /**
+         * Event emitted when the selected value has been changed by the user.
+         * @deprecated Use `selectionChange` instead.
+         */
+        this.change = this.selectionChange;
         /**
          * Event that emits whenever the raw value of the select changes. This is here primarily
          * to facilitate the two-way binding for the `value` input.
@@ -448,6 +459,20 @@ class MatSelect extends _MatSelectMixinBase {
      */
     get optionSelectionChanges() {
         return merge(...this.options.map(option => option.onSelectionChange));
+    }
+    /**
+     * Event emitted when the select has been opened.
+     * @return {?}
+     */
+    get _openedStream() {
+        return this.openedChange.pipe(filter(o => o), map(() => { }));
+    }
+    /**
+     * Event emitted when the select has been closed.
+     * @return {?}
+     */
+    get _closedStream() {
+        return this.openedChange.pipe(filter(o => !o), map(() => { }));
     }
     /**
      * @return {?}
@@ -671,10 +696,10 @@ class MatSelect extends _MatSelectMixinBase {
     _onPanelDone() {
         if (this.panelOpen) {
             this._scrollTop = 0;
-            this.onOpen.emit();
+            this.openedChange.emit(true);
         }
         else {
-            this.onClose.emit();
+            this.openedChange.emit(false);
             this._panelDoneAnimating = false;
             this.overlayDir.offsetX = 0;
             this._changeDetectorRef.markForCheck();
@@ -895,7 +920,7 @@ class MatSelect extends _MatSelectMixinBase {
         }
         this._value = valueToEmit;
         this._onChange(valueToEmit);
-        this.change.emit(new MatSelectChange(this, valueToEmit));
+        this.selectionChange.emit(new MatSelectChange(this, valueToEmit));
         this.valueChange.emit(valueToEmit);
         this._changeDetectorRef.markForCheck();
     }
@@ -1333,8 +1358,12 @@ MatSelect.propDecorators = {
     'ariaLabelledby': [{ type: Input, args: ['aria-labelledby',] },],
     'errorStateMatcher': [{ type: Input },],
     'id': [{ type: Input },],
+    'openedChange': [{ type: Output },],
+    '_openedStream': [{ type: Output, args: ['opened',] },],
+    '_closedStream': [{ type: Output, args: ['closed',] },],
     'onOpen': [{ type: Output },],
     'onClose': [{ type: Output },],
+    'selectionChange': [{ type: Output },],
     'change': [{ type: Output },],
     'valueChange': [{ type: Output },],
 };

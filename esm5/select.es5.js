@@ -15,7 +15,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DOWN_ARROW, END, ENTER, HOME, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
 import { ConnectedOverlayDirective, Overlay, OverlayModule, ViewportRuler } from '@angular/cdk/overlay';
-import { filter, first, startWith, takeUntil } from 'rxjs/operators';
+import { filter, first, map, startWith, takeUntil } from 'rxjs/operators';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { ErrorStateMatcher, MAT_OPTION_PARENT_COMPONENT, MatCommonModule, MatOptgroup, MatOption, MatOptionModule, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
@@ -326,15 +326,26 @@ var MatSelect = (function (_super) {
         /**
          * Event emitted when the select has been opened.
          */
-        _this.onOpen = new EventEmitter();
+        _this.openedChange = new EventEmitter();
+        /**
+         * Event emitted when the select has been opened.
+         * @deprecated Use `openedChange` instead.
+         */
+        _this.onOpen = _this._openedStream;
         /**
          * Event emitted when the select has been closed.
+         * @deprecated Use `openedChange` instead.
          */
-        _this.onClose = new EventEmitter();
+        _this.onClose = _this._closedStream;
         /**
          * Event emitted when the selected value has been changed by the user.
          */
-        _this.change = new EventEmitter();
+        _this.selectionChange = new EventEmitter();
+        /**
+         * Event emitted when the selected value has been changed by the user.
+         * @deprecated Use `selectionChange` instead.
+         */
+        _this.change = _this.selectionChange;
         /**
          * Event that emits whenever the raw value of the select changes. This is here primarily
          * to facilitate the two-way binding for the `value` input.
@@ -486,6 +497,28 @@ var MatSelect = (function (_super) {
          */
         get: function () {
             return merge.apply(void 0, this.options.map(function (option) { return option.onSelectionChange; }));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatSelect.prototype, "_openedStream", {
+        /**
+         * Event emitted when the select has been opened.
+         * @return {?}
+         */
+        get: function () {
+            return this.openedChange.pipe(filter(function (o) { return o; }), map(function () { }));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatSelect.prototype, "_closedStream", {
+        /**
+         * Event emitted when the select has been closed.
+         * @return {?}
+         */
+        get: function () {
+            return this.openedChange.pipe(filter(function (o) { return !o; }), map(function () { }));
         },
         enumerable: true,
         configurable: true
@@ -726,10 +759,10 @@ var MatSelect = (function (_super) {
     MatSelect.prototype._onPanelDone = function () {
         if (this.panelOpen) {
             this._scrollTop = 0;
-            this.onOpen.emit();
+            this.openedChange.emit(true);
         }
         else {
-            this.onClose.emit();
+            this.openedChange.emit(false);
             this._panelDoneAnimating = false;
             this.overlayDir.offsetX = 0;
             this._changeDetectorRef.markForCheck();
@@ -963,7 +996,7 @@ var MatSelect = (function (_super) {
         }
         this._value = valueToEmit;
         this._onChange(valueToEmit);
-        this.change.emit(new MatSelectChange(this, valueToEmit));
+        this.selectionChange.emit(new MatSelectChange(this, valueToEmit));
         this.valueChange.emit(valueToEmit);
         this._changeDetectorRef.markForCheck();
     };
@@ -1408,8 +1441,12 @@ var MatSelect = (function (_super) {
         'ariaLabelledby': [{ type: Input, args: ['aria-labelledby',] },],
         'errorStateMatcher': [{ type: Input },],
         'id': [{ type: Input },],
+        'openedChange': [{ type: Output },],
+        '_openedStream': [{ type: Output, args: ['opened',] },],
+        '_closedStream': [{ type: Output, args: ['closed',] },],
         'onOpen': [{ type: Output },],
         'onClose': [{ type: Output },],
+        'selectionChange': [{ type: Output },],
         'change': [{ type: Output },],
         'valueChange': [{ type: Output },],
     };

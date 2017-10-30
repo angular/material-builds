@@ -340,15 +340,26 @@ var MatSelect = (function (_super) {
         /**
          * Event emitted when the select has been opened.
          */
-        _this.onOpen = new _angular_core.EventEmitter();
+        _this.openedChange = new _angular_core.EventEmitter();
+        /**
+         * Event emitted when the select has been opened.
+         * @deprecated Use `openedChange` instead.
+         */
+        _this.onOpen = _this._openedStream;
         /**
          * Event emitted when the select has been closed.
+         * @deprecated Use `openedChange` instead.
          */
-        _this.onClose = new _angular_core.EventEmitter();
+        _this.onClose = _this._closedStream;
         /**
          * Event emitted when the selected value has been changed by the user.
          */
-        _this.change = new _angular_core.EventEmitter();
+        _this.selectionChange = new _angular_core.EventEmitter();
+        /**
+         * Event emitted when the selected value has been changed by the user.
+         * @deprecated Use `selectionChange` instead.
+         */
+        _this.change = _this.selectionChange;
         /**
          * Event that emits whenever the raw value of the select changes. This is here primarily
          * to facilitate the two-way binding for the `value` input.
@@ -500,6 +511,28 @@ var MatSelect = (function (_super) {
          */
         get: function () {
             return rxjs_observable_merge.merge.apply(void 0, this.options.map(function (option) { return option.onSelectionChange; }));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatSelect.prototype, "_openedStream", {
+        /**
+         * Event emitted when the select has been opened.
+         * @return {?}
+         */
+        get: function () {
+            return this.openedChange.pipe(rxjs_operators.filter(function (o) { return o; }), rxjs_operators.map(function () { }));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatSelect.prototype, "_closedStream", {
+        /**
+         * Event emitted when the select has been closed.
+         * @return {?}
+         */
+        get: function () {
+            return this.openedChange.pipe(rxjs_operators.filter(function (o) { return !o; }), rxjs_operators.map(function () { }));
         },
         enumerable: true,
         configurable: true
@@ -740,10 +773,10 @@ var MatSelect = (function (_super) {
     MatSelect.prototype._onPanelDone = function () {
         if (this.panelOpen) {
             this._scrollTop = 0;
-            this.onOpen.emit();
+            this.openedChange.emit(true);
         }
         else {
-            this.onClose.emit();
+            this.openedChange.emit(false);
             this._panelDoneAnimating = false;
             this.overlayDir.offsetX = 0;
             this._changeDetectorRef.markForCheck();
@@ -977,7 +1010,7 @@ var MatSelect = (function (_super) {
         }
         this._value = valueToEmit;
         this._onChange(valueToEmit);
-        this.change.emit(new MatSelectChange(this, valueToEmit));
+        this.selectionChange.emit(new MatSelectChange(this, valueToEmit));
         this.valueChange.emit(valueToEmit);
         this._changeDetectorRef.markForCheck();
     };
@@ -1422,8 +1455,12 @@ var MatSelect = (function (_super) {
         'ariaLabelledby': [{ type: _angular_core.Input, args: ['aria-labelledby',] },],
         'errorStateMatcher': [{ type: _angular_core.Input },],
         'id': [{ type: _angular_core.Input },],
+        'openedChange': [{ type: _angular_core.Output },],
+        '_openedStream': [{ type: _angular_core.Output, args: ['opened',] },],
+        '_closedStream': [{ type: _angular_core.Output, args: ['closed',] },],
         'onOpen': [{ type: _angular_core.Output },],
         'onClose': [{ type: _angular_core.Output },],
+        'selectionChange': [{ type: _angular_core.Output },],
         'change': [{ type: _angular_core.Output },],
         'valueChange': [{ type: _angular_core.Output },],
     };
