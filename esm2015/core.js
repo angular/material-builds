@@ -346,7 +346,7 @@ class DateAdapter {
      */
     today() { }
     /**
-     * Parses a date from a value.
+     * Parses a date from a user-provided value.
      * @abstract
      * @param {?} value The value to parse.
      * @param {?} parseFormat The expected format of the value being parsed
@@ -355,7 +355,7 @@ class DateAdapter {
      */
     parse(value, parseFormat) { }
     /**
-     * Formats a date as a string.
+     * Formats a date as a string according to the given format.
      * @abstract
      * @param {?} date The value to format.
      * @param {?} displayFormat The format to use to display the date as a string.
@@ -393,18 +393,13 @@ class DateAdapter {
     addCalendarDays(date, days) { }
     /**
      * Gets the RFC 3339 compatible string (https://tools.ietf.org/html/rfc3339) for the given date.
+     * This method is used to generate date strings that are compatible with native HTML attributes
+     * such as the `min` or `max` attribute of an `<input>`.
      * @abstract
      * @param {?} date The date to get the ISO date string for.
      * @return {?} The ISO date string date string.
      */
     toIso8601(date) { }
-    /**
-     * Creates a date from an RFC 3339 compatible string (https://tools.ietf.org/html/rfc3339).
-     * @abstract
-     * @param {?} iso8601String The ISO date string to create a date from
-     * @return {?} The date created from the ISO date string.
-     */
-    fromIso8601(iso8601String) { }
     /**
      * Checks whether the given object is considered a date instance by this DateAdapter.
      * @abstract
@@ -419,6 +414,30 @@ class DateAdapter {
      * @return {?} Whether the date is valid.
      */
     isValid(date) { }
+    /**
+     * Gets date instance that is not valid.
+     * @abstract
+     * @return {?} An invalid date.
+     */
+    invalid() { }
+    /**
+     * Attempts to deserialize a value to a valid date object. This is different from parsing in that
+     * deserialize should only accept non-ambiguous, locale-independent formats (e.g. a ISO 8601
+     * string). The default implementation does not allow any deserialization, it simply checks that
+     * the given value is already a valid date object or null. The `<mat-datepicker>` will call this
+     * method on all of it's `\@Input()` properties that accept dates. It is therefore possible to
+     * support passing values from your backend directly to these properties by overriding this method
+     * to also deserialize the format used by your backend.
+     * @param {?} value The value to be deserialized into a date object.
+     * @return {?} The deserialized date object, either a valid date, null if the value can be
+     *     deserialized into a null date (e.g. the empty string), or an invalid date.
+     */
+    deserialize(value) {
+        if (value == null || this.isDateInstance(value) && this.isValid(value)) {
+            return value;
+        }
+        return this.invalid();
+    }
     /**
      * Sets the locale used for all dates.
      * @param {?} locale The new locale.
@@ -448,7 +467,15 @@ class DateAdapter {
      * @return {?}
      */
     sameDate(first, second) {
-        return first && second ? !this.compareDate(first, second) : first == second;
+        if (first && second) {
+            let /** @type {?} */ firstValid = this.isValid(first);
+            let /** @type {?} */ secondValid = this.isValid(second);
+            if (firstValid && secondValid) {
+                return !this.compareDate(first, second);
+            }
+            return firstValid == secondValid;
+        }
+        return first == second;
     }
     /**
      * Clamp the given date between min and max dates.
@@ -753,19 +780,27 @@ class NativeDateAdapter extends DateAdapter {
         ].join('-');
     }
     /**
-     * @param {?} iso8601String
+     * Returns the given value if given a valid Date or null. Deserializes valid ISO 8601 strings
+     * (https://www.ietf.org/rfc/rfc3339.txt) into valid Dates and empty string into null. Returns an
+     * invalid date for all other values.
+     * @param {?} value
      * @return {?}
      */
-    fromIso8601(iso8601String) {
-        // The `Date` constructor accepts formats other than ISO 8601, so we need to make sure the
-        // string is the right format first.
-        if (ISO_8601_REGEX.test(iso8601String)) {
-            let /** @type {?} */ d = new Date(iso8601String);
-            if (this.isValid(d)) {
-                return d;
+    deserialize(value) {
+        if (typeof value === 'string') {
+            if (!value) {
+                return null;
+            }
+            // The `Date` constructor accepts formats other than ISO 8601, so we need to make sure the
+            // string is the right format first.
+            if (ISO_8601_REGEX.test(value)) {
+                let /** @type {?} */ date = new Date(value);
+                if (this.isValid(date)) {
+                    return date;
+                }
             }
         }
-        return null;
+        return super.deserialize(value);
     }
     /**
      * @param {?} obj
@@ -780,6 +815,12 @@ class NativeDateAdapter extends DateAdapter {
      */
     isValid(date) {
         return !isNaN(date.getTime());
+    }
+    /**
+     * @return {?}
+     */
+    invalid() {
+        return new Date(NaN);
     }
     /**
      * Creates a date but allows the month and date to overflow.

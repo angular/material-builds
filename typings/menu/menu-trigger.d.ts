@@ -40,8 +40,18 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     /** References the menu instance that the trigger is associated with. */
     menu: MatMenuPanel;
     /** Event emitted when the associated menu is opened. */
+    menuOpened: EventEmitter<void>;
+    /**
+     * Event emitted when the associated menu is opened.
+     * @deprecated Switch to `menuOpened` instead
+     */
     onMenuOpen: EventEmitter<void>;
     /** Event emitted when the associated menu is closed. */
+    menuClosed: EventEmitter<void>;
+    /**
+     * Event emitted when the associated menu is closed.
+     * @deprecated Switch to `menuClosed` instead
+     */
     onMenuClose: EventEmitter<void>;
     constructor(_overlay: Overlay, _element: ElementRef, _viewContainerRef: ViewContainerRef, _scrollStrategy: any, _parentMenu: MatMenu, _menuItemInstance: MatMenuItem, _dir: Directionality);
     ngAfterContentInit(): void;

@@ -117,7 +117,7 @@ var MatMenuItem = (function (_super) {
         /**
          * Stream that emits when the menu item is hovered.
          */
-        _this.hover = new Subject();
+        _this._hovered = new Subject();
         /**
          * Whether the menu item is highlighted.
          */
@@ -139,7 +139,7 @@ var MatMenuItem = (function (_super) {
      * @return {?}
      */
     MatMenuItem.prototype.ngOnDestroy = function () {
-        this.hover.complete();
+        this._hovered.complete();
     };
     /**
      * Used to set the `tabindex`.
@@ -172,7 +172,7 @@ var MatMenuItem = (function (_super) {
      */
     MatMenuItem.prototype._emitHoverEvent = function () {
         if (!this.disabled) {
-            this.hover.next(this);
+            this._hovered.next(this);
         }
     };
     /**
@@ -265,7 +265,12 @@ var MatMenu = (function () {
         /**
          * Event emitted when the menu is closed.
          */
-        this.close = new EventEmitter();
+        this.closed = new EventEmitter();
+        /**
+         * Event emitted when the menu is closed.
+         * @deprecated Switch to `closed` instead
+         */
+        this.close = this.closed;
     }
     Object.defineProperty(MatMenu.prototype, "xPosition", {
         /**
@@ -341,21 +346,21 @@ var MatMenu = (function () {
      */
     MatMenu.prototype.ngOnDestroy = function () {
         this._tabSubscription.unsubscribe();
-        this.close.emit();
-        this.close.complete();
+        this.closed.emit();
+        this.closed.complete();
     };
     /**
      * Stream that emits whenever the hovered menu item changes.
      * @return {?}
      */
-    MatMenu.prototype.hover = function () {
+    MatMenu.prototype._hovered = function () {
         var _this = this;
         if (this.items) {
-            return this.items.changes.pipe(startWith(this.items), switchMap(function (items) { return merge.apply(void 0, items.map(function (item) { return item.hover; })); }));
+            return this.items.changes.pipe(startWith(this.items), switchMap(function (items) { return merge.apply(void 0, items.map(function (item) { return item._hovered; })); }));
         }
         return this._ngZone.onStable
             .asObservable()
-            .pipe(first(), switchMap(function () { return _this.hover(); }));
+            .pipe(first(), switchMap(function () { return _this._hovered(); }));
     };
     /**
      * Handle a keyboard event from the menu, delegating to the appropriate action.
@@ -365,17 +370,17 @@ var MatMenu = (function () {
     MatMenu.prototype._handleKeydown = function (event) {
         switch (event.keyCode) {
             case ESCAPE:
-                this.close.emit('keydown');
+                this.closed.emit('keydown');
                 event.stopPropagation();
                 break;
             case LEFT_ARROW:
                 if (this.parentMenu && this.direction === 'ltr') {
-                    this.close.emit('keydown');
+                    this.closed.emit('keydown');
                 }
                 break;
             case RIGHT_ARROW:
                 if (this.parentMenu && this.direction === 'rtl') {
-                    this.close.emit('keydown');
+                    this.closed.emit('keydown');
                 }
                 break;
             default:
@@ -457,7 +462,7 @@ var MatMenu = (function () {
     };
     MatMenu.decorators = [
         { type: Component, args: [{selector: 'mat-menu',
-                    template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"close.emit('click')\" [@transformMenu]=\"_panelAnimationState\" (@transformMenu.done)=\"_onAnimationDone($event)\" tabindex=\"-1\" role=\"menu\"><div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></ng-template>",
+                    template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"closed.emit('click')\" [@transformMenu]=\"_panelAnimationState\" (@transformMenu.done)=\"_onAnimationDone($event)\" tabindex=\"-1\" role=\"menu\"><div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></ng-template>",
                     styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px;outline:0}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.ng-animating{pointer-events:none}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item .mat-icon{vertical-align:middle}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:8px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute}"],
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
@@ -484,6 +489,7 @@ var MatMenu = (function () {
         'items': [{ type: ContentChildren, args: [MatMenuItem,] },],
         'overlapTrigger': [{ type: Input },],
         'classList': [{ type: Input, args: ['class',] },],
+        'closed': [{ type: Output },],
         'close': [{ type: Output },],
     };
     return MatMenu;
@@ -544,11 +550,21 @@ var MatMenuTrigger = (function () {
         /**
          * Event emitted when the associated menu is opened.
          */
-        this.onMenuOpen = new EventEmitter();
+        this.menuOpened = new EventEmitter();
+        /**
+         * Event emitted when the associated menu is opened.
+         * @deprecated Switch to `menuOpened` instead
+         */
+        this.onMenuOpen = this.menuOpened;
         /**
          * Event emitted when the associated menu is closed.
          */
-        this.onMenuClose = new EventEmitter();
+        this.menuClosed = new EventEmitter();
+        /**
+         * Event emitted when the associated menu is closed.
+         * @deprecated Switch to `menuClosed` instead
+         */
+        this.onMenuClose = this.menuClosed;
         if (_menuItemInstance) {
             _menuItemInstance._triggersSubmenu = this.triggersSubmenu();
         }
@@ -581,12 +597,12 @@ var MatMenuTrigger = (function () {
             _this._destroyMenu();
             // If a click closed the menu, we should close the entire chain of nested menus.
             if (reason === 'click' && _this._parentMenu) {
-                _this._parentMenu.close.emit(reason);
+                _this._parentMenu.closed.emit(reason);
             }
         });
         if (this.triggersSubmenu()) {
             // Subscribe to changes in the hovered item in order to toggle the panel.
-            this._hoverSubscription = this._parentMenu.hover()
+            this._hoverSubscription = this._parentMenu._hovered()
                 .pipe(filter(function (active) { return active === _this._menuItemInstance; }))
                 .subscribe(function () {
                 _this._openedByMouse = true;
@@ -743,7 +759,7 @@ var MatMenuTrigger = (function () {
      */
     MatMenuTrigger.prototype._setIsMenuOpen = function (isOpen) {
         this._menuOpen = isOpen;
-        this._menuOpen ? this.onMenuOpen.emit() : this.onMenuClose.emit();
+        this._menuOpen ? this.menuOpened.emit() : this.menuClosed.emit();
         if (this.triggersSubmenu()) {
             this._menuItemInstance._highlighted = isOpen;
         }
@@ -847,7 +863,7 @@ var MatMenuTrigger = (function () {
         var _this = this;
         var /** @type {?} */ backdrop = ((this._overlayRef)).backdropClick();
         var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : of();
-        var /** @type {?} */ hover = this._parentMenu ? this._parentMenu.hover().pipe(filter(function (active) { return active !== _this._menuItemInstance; }), filter(function () { return _this._menuOpen; })) : of();
+        var /** @type {?} */ hover = this._parentMenu ? this._parentMenu._hovered().pipe(filter(function (active) { return active !== _this._menuItemInstance; }), filter(function () { return _this._menuOpen; })) : of();
         return merge(backdrop, parentClose, hover);
     };
     /**
@@ -920,7 +936,9 @@ var MatMenuTrigger = (function () {
     MatMenuTrigger.propDecorators = {
         '_deprecatedMatMenuTriggerFor': [{ type: Input, args: ['mat-menu-trigger-for',] },],
         'menu': [{ type: Input, args: ['matMenuTriggerFor',] },],
+        'menuOpened': [{ type: Output },],
         'onMenuOpen': [{ type: Output },],
+        'menuClosed': [{ type: Output },],
         'onMenuClose': [{ type: Output },],
     };
     return MatMenuTrigger;
@@ -963,5 +981,5 @@ var MatMenuModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa19, _MatMenuItemMixinBase as ɵb19, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd19, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc19 };
+export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa22, _MatMenuItemMixinBase as ɵb22, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd22, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc22 };
 //# sourceMappingURL=menu.es5.js.map

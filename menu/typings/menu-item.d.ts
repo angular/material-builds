@@ -20,7 +20,7 @@ export declare const _MatMenuItemMixinBase: (new (...args: any[]) => CanDisable)
 export declare class MatMenuItem extends _MatMenuItemMixinBase implements FocusableOption, CanDisable, OnDestroy {
     private _elementRef;
     /** Stream that emits when the menu item is hovered. */
-    hover: Subject<MatMenuItem>;
+    _hovered: Subject<MatMenuItem>;
     /** Whether the menu item is highlighted. */
     _highlighted: boolean;
     /** Whether the menu item acts as a trigger for a sub-menu. */

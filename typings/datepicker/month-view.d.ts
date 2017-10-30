@@ -63,4 +63,9 @@ export declare class MatMonthView<D> implements AfterContentInit {
     private _getDateInCurrentMonth(date);
     /** Checks whether the 2 dates are non-null and fall within the same month of the same year. */
     private _hasSameMonthAndYear(d1, d2);
+    /**
+     * @param obj The object to check.
+     * @returns The given object if it is both a date instance and valid, otherwise null.
+     */
+    private _getValidDateOrNull(obj);
 }

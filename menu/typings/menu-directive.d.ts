@@ -57,12 +57,17 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel, OnDestro
      */
     classList: string;
     /** Event emitted when the menu is closed. */
+    closed: EventEmitter<void | "click" | "keydown">;
+    /**
+     * Event emitted when the menu is closed.
+     * @deprecated Switch to `closed` instead
+     */
     close: EventEmitter<void | "click" | "keydown">;
     constructor(_elementRef: ElementRef, _ngZone: NgZone, _defaultOptions: MatMenuDefaultOptions);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Stream that emits whenever the hovered menu item changes. */
-    hover(): Observable<MatMenuItem>;
+    _hovered(): Observable<MatMenuItem>;
     /** Handle a keyboard event from the menu, delegating to the appropriate action. */
     _handleKeydown(event: KeyboardEvent): void;
     /**

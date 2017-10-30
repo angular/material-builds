@@ -52,4 +52,9 @@ export declare class MatYearView<D> implements AfterContentInit {
     private _createCellForMonth(month, monthName);
     /** Whether the given month is enabled. */
     private _isMonthEnabled(month);
+    /**
+     * @param obj The object to check.
+     * @returns The given object if it is both a date instance and valid, otherwise null.
+     */
+    private _getValidDateOrNull(obj);
 }

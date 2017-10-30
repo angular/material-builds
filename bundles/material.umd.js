@@ -425,7 +425,7 @@ var DateAdapter = (function () {
      */
     DateAdapter.prototype.today = function () { };
     /**
-     * Parses a date from a value.
+     * Parses a date from a user-provided value.
      * @abstract
      * @param {?} value The value to parse.
      * @param {?} parseFormat The expected format of the value being parsed
@@ -434,7 +434,7 @@ var DateAdapter = (function () {
      */
     DateAdapter.prototype.parse = function (value, parseFormat) { };
     /**
-     * Formats a date as a string.
+     * Formats a date as a string according to the given format.
      * @abstract
      * @param {?} date The value to format.
      * @param {?} displayFormat The format to use to display the date as a string.
@@ -472,18 +472,13 @@ var DateAdapter = (function () {
     DateAdapter.prototype.addCalendarDays = function (date, days) { };
     /**
      * Gets the RFC 3339 compatible string (https://tools.ietf.org/html/rfc3339) for the given date.
+     * This method is used to generate date strings that are compatible with native HTML attributes
+     * such as the `min` or `max` attribute of an `<input>`.
      * @abstract
      * @param {?} date The date to get the ISO date string for.
      * @return {?} The ISO date string date string.
      */
     DateAdapter.prototype.toIso8601 = function (date) { };
-    /**
-     * Creates a date from an RFC 3339 compatible string (https://tools.ietf.org/html/rfc3339).
-     * @abstract
-     * @param {?} iso8601String The ISO date string to create a date from
-     * @return {?} The date created from the ISO date string.
-     */
-    DateAdapter.prototype.fromIso8601 = function (iso8601String) { };
     /**
      * Checks whether the given object is considered a date instance by this DateAdapter.
      * @abstract
@@ -498,6 +493,30 @@ var DateAdapter = (function () {
      * @return {?} Whether the date is valid.
      */
     DateAdapter.prototype.isValid = function (date) { };
+    /**
+     * Gets date instance that is not valid.
+     * @abstract
+     * @return {?} An invalid date.
+     */
+    DateAdapter.prototype.invalid = function () { };
+    /**
+     * Attempts to deserialize a value to a valid date object. This is different from parsing in that
+     * deserialize should only accept non-ambiguous, locale-independent formats (e.g. a ISO 8601
+     * string). The default implementation does not allow any deserialization, it simply checks that
+     * the given value is already a valid date object or null. The `<mat-datepicker>` will call this
+     * method on all of it's `\@Input()` properties that accept dates. It is therefore possible to
+     * support passing values from your backend directly to these properties by overriding this method
+     * to also deserialize the format used by your backend.
+     * @param {?} value The value to be deserialized into a date object.
+     * @return {?} The deserialized date object, either a valid date, null if the value can be
+     *     deserialized into a null date (e.g. the empty string), or an invalid date.
+     */
+    DateAdapter.prototype.deserialize = function (value) {
+        if (value == null || this.isDateInstance(value) && this.isValid(value)) {
+            return value;
+        }
+        return this.invalid();
+    };
     /**
      * Sets the locale used for all dates.
      * @param {?} locale The new locale.
@@ -527,7 +546,15 @@ var DateAdapter = (function () {
      * @return {?}
      */
     DateAdapter.prototype.sameDate = function (first$$1, second) {
-        return first$$1 && second ? !this.compareDate(first$$1, second) : first$$1 == second;
+        if (first$$1 && second) {
+            var /** @type {?} */ firstValid = this.isValid(first$$1);
+            var /** @type {?} */ secondValid = this.isValid(second);
+            if (firstValid && secondValid) {
+                return !this.compareDate(first$$1, second);
+            }
+            return firstValid == secondValid;
+        }
+        return first$$1 == second;
     };
     /**
      * Clamp the given date between min and max dates.
@@ -843,19 +870,27 @@ var NativeDateAdapter = (function (_super) {
         ].join('-');
     };
     /**
-     * @param {?} iso8601String
+     * Returns the given value if given a valid Date or null. Deserializes valid ISO 8601 strings
+     * (https://www.ietf.org/rfc/rfc3339.txt) into valid Dates and empty string into null. Returns an
+     * invalid date for all other values.
+     * @param {?} value
      * @return {?}
      */
-    NativeDateAdapter.prototype.fromIso8601 = function (iso8601String) {
-        // The `Date` constructor accepts formats other than ISO 8601, so we need to make sure the
-        // string is the right format first.
-        if (ISO_8601_REGEX.test(iso8601String)) {
-            var /** @type {?} */ d = new Date(iso8601String);
-            if (this.isValid(d)) {
-                return d;
+    NativeDateAdapter.prototype.deserialize = function (value) {
+        if (typeof value === 'string') {
+            if (!value) {
+                return null;
+            }
+            // The `Date` constructor accepts formats other than ISO 8601, so we need to make sure the
+            // string is the right format first.
+            if (ISO_8601_REGEX.test(value)) {
+                var /** @type {?} */ date = new Date(value);
+                if (this.isValid(date)) {
+                    return date;
+                }
             }
         }
-        return null;
+        return _super.prototype.deserialize.call(this, value);
     };
     /**
      * @param {?} obj
@@ -870,6 +905,12 @@ var NativeDateAdapter = (function (_super) {
      */
     NativeDateAdapter.prototype.isValid = function (date) {
         return !isNaN(date.getTime());
+    };
+    /**
+     * @return {?}
+     */
+    NativeDateAdapter.prototype.invalid = function () {
+        return new Date(NaN);
     };
     /**
      * Creates a date but allows the month and date to overflow.
@@ -8102,33 +8143,6 @@ var MatIconModule = (function () {
 }());
 
 /**
- * Function that attempts to coerce a value to a date using a DateAdapter. Date instances, null,
- * and undefined will be passed through. Empty strings will be coerced to null. Valid ISO 8601
- * strings (https://www.ietf.org/rfc/rfc3339.txt) will be coerced to dates. All other values will
- * result in an error being thrown.
- * @throws Throws when the value cannot be coerced.
- * @template D
- * @param {?} adapter The date adapter to use for coercion
- * @param {?} value The value to coerce.
- * @return {?} A date object coerced from the value.
- */
-function coerceDateProperty(adapter, value) {
-    if (typeof value === 'string') {
-        if (value == '') {
-            value = null;
-        }
-        else {
-            value = adapter.fromIso8601(value) || value;
-        }
-    }
-    if (value == null || adapter.isDateInstance(value)) {
-        return value;
-    }
-    throw Error("Datepicker: Value must be either a date object recognized by the DateAdapter or " +
-        ("an ISO 8601 string. Instead got: " + value));
-}
-
-/**
  * \@docs-private
  * @param {?} provider
  * @return {?}
@@ -8356,7 +8370,8 @@ var MatMonthView = (function () {
          */
         set: function (value) {
             var /** @type {?} */ oldActiveDate = this._activeDate;
-            this._activeDate = coerceDateProperty(this._dateAdapter, value) || this._dateAdapter.today();
+            this._activeDate =
+                this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
             if (!this._hasSameMonthAndYear(oldActiveDate, this._activeDate)) {
                 this._init();
             }
@@ -8375,7 +8390,7 @@ var MatMonthView = (function () {
          * @return {?}
          */
         set: function (value) {
-            this._selected = coerceDateProperty(this._dateAdapter, value);
+            this._selected = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
             this._selectedDate = this._getDateInCurrentMonth(this._selected);
         },
         enumerable: true,
@@ -8459,6 +8474,13 @@ var MatMonthView = (function () {
         return !!(d1 && d2 && this._dateAdapter.getMonth(d1) == this._dateAdapter.getMonth(d2) &&
             this._dateAdapter.getYear(d1) == this._dateAdapter.getYear(d2));
     };
+    /**
+     * @param {?} obj The object to check.
+     * @return {?} The given object if it is both a date instance and valid, otherwise null.
+     */
+    MatMonthView.prototype._getValidDateOrNull = function (obj) {
+        return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
+    };
     MatMonthView.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-month-view',
                     template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr></thead><tbody mat-calendar-body role=\"grid\" [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\"></tbody></table>",
@@ -8523,7 +8545,8 @@ var MatYearView = (function () {
          */
         set: function (value) {
             var /** @type {?} */ oldActiveDate = this._activeDate;
-            this._activeDate = coerceDateProperty(this._dateAdapter, value) || this._dateAdapter.today();
+            this._activeDate =
+                this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
             if (this._dateAdapter.getYear(oldActiveDate) != this._dateAdapter.getYear(this._activeDate)) {
                 this._init();
             }
@@ -8542,7 +8565,7 @@ var MatYearView = (function () {
          * @return {?}
          */
         set: function (value) {
-            this._selected = coerceDateProperty(this._dateAdapter, value);
+            this._selected = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
             this._selectedMonth = this._getMonthInCurrentYear(this._selected);
         },
         enumerable: true,
@@ -8614,6 +8637,13 @@ var MatYearView = (function () {
             }
         }
         return false;
+    };
+    /**
+     * @param {?} obj The object to check.
+     * @return {?} The given object if it is both a date instance and valid, otherwise null.
+     */
+    MatYearView.prototype._getValidDateOrNull = function (obj) {
+        return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     };
     MatYearView.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-year-view',
@@ -8699,7 +8729,9 @@ var MatCalendar = (function () {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._startAt = coerceDateProperty(this._dateAdapter, value); },
+        set: function (value) {
+            this._startAt = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+        },
         enumerable: true,
         configurable: true
     });
@@ -8713,7 +8745,9 @@ var MatCalendar = (function () {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._selected = coerceDateProperty(this._dateAdapter, value); },
+        set: function (value) {
+            this._selected = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+        },
         enumerable: true,
         configurable: true
     });
@@ -8727,7 +8761,9 @@ var MatCalendar = (function () {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._minDate = coerceDateProperty(this._dateAdapter, value); },
+        set: function (value) {
+            this._minDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+        },
         enumerable: true,
         configurable: true
     });
@@ -8741,7 +8777,9 @@ var MatCalendar = (function () {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._maxDate = coerceDateProperty(this._dateAdapter, value); },
+        set: function (value) {
+            this._maxDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+        },
         enumerable: true,
         configurable: true
     });
@@ -9063,6 +9101,13 @@ var MatCalendar = (function () {
             (this._dateAdapter.getMonth(date) >= 7 ? 5 : 12);
         return this._dateAdapter.addCalendarMonths(date, increment);
     };
+    /**
+     * @param {?} obj The object to check.
+     * @return {?} The given object if it is both a date instance and valid, otherwise null.
+     */
+    MatCalendar.prototype._getValidDateOrNull = function (obj) {
+        return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
+    };
     MatCalendar.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-calendar',
                     template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div></button><div class=\"mat-calendar-spacer\"></div><button mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button></div></div><div class=\"mat-calendar-content\" (keydown)=\"_handleCalendarBodyKeydown($event)\" [ngSwitch]=\"_monthView\" cdkMonitorSubtreeFocus><mat-month-view *ngSwitchCase=\"true\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_dateSelected($event)\" (_userSelection)=\"_userSelected()\"></mat-month-view><mat-year-view *ngSwitchDefault [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_monthSelected($event)\"></mat-year-view></div>",
@@ -9249,7 +9294,9 @@ var MatDatepicker = (function () {
          * @param {?} date
          * @return {?}
          */
-        set: function (date) { this._startAt = coerceDateProperty(this._dateAdapter, date); },
+        set: function (date) {
+            this._startAt = this._getValidDateOrNull(this._dateAdapter.deserialize(date));
+        },
         enumerable: true,
         configurable: true
     });
@@ -9463,6 +9510,13 @@ var MatDatepicker = (function () {
             .withFallbackPosition({ originX: 'end', originY: 'bottom' }, { overlayX: 'end', overlayY: 'top' })
             .withFallbackPosition({ originX: 'end', originY: 'top' }, { overlayX: 'end', overlayY: 'bottom' });
     };
+    /**
+     * @param {?} obj The object to check.
+     * @return {?} The given object if it is both a date instance and valid, otherwise null.
+     */
+    MatDatepicker.prototype._getValidDateOrNull = function (obj) {
+        return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
+    };
     MatDatepicker.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-datepicker',
                     template: '',
@@ -9572,7 +9626,7 @@ var MatDatepickerInput = (function () {
          * The form control validator for the min date.
          */
         this._minValidator = function (control) {
-            var controlValue = coerceDateProperty(_this._dateAdapter, control.value);
+            var controlValue = _this._getValidDateOrNull(_this._dateAdapter.deserialize(control.value));
             return (!_this.min || !controlValue ||
                 _this._dateAdapter.compareDate(_this.min, controlValue) <= 0) ?
                 null : { 'matDatepickerMin': { 'min': _this.min, 'actual': controlValue } };
@@ -9581,7 +9635,7 @@ var MatDatepickerInput = (function () {
          * The form control validator for the max date.
          */
         this._maxValidator = function (control) {
-            var controlValue = coerceDateProperty(_this._dateAdapter, control.value);
+            var controlValue = _this._getValidDateOrNull(_this._dateAdapter.deserialize(control.value));
             return (!_this.max || !controlValue ||
                 _this._dateAdapter.compareDate(_this.max, controlValue) >= 0) ?
                 null : { 'matDatepickerMax': { 'max': _this.max, 'actual': controlValue } };
@@ -9590,7 +9644,7 @@ var MatDatepickerInput = (function () {
          * The form control validator for the date filter.
          */
         this._filterValidator = function (control) {
-            var controlValue = coerceDateProperty(_this._dateAdapter, control.value);
+            var controlValue = _this._getValidDateOrNull(_this._dateAdapter.deserialize(control.value));
             return !_this._dateFilter || !controlValue || _this._dateFilter(controlValue) ?
                 null : { 'matDatepickerFilter': true };
         };
@@ -9660,7 +9714,7 @@ var MatDatepickerInput = (function () {
          * @return {?}
          */
         set: function (value) {
-            value = coerceDateProperty(this._dateAdapter, value);
+            value = this._dateAdapter.deserialize(value);
             this._lastValueValid = !value || this._dateAdapter.isValid(value);
             value = this._getValidDateOrNull(value);
             var /** @type {?} */ oldDate = this.value;
@@ -9684,7 +9738,7 @@ var MatDatepickerInput = (function () {
          * @return {?}
          */
         set: function (value) {
-            this._min = coerceDateProperty(this._dateAdapter, value);
+            this._min = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
             this._validatorOnChange();
         },
         enumerable: true,
@@ -9701,7 +9755,7 @@ var MatDatepickerInput = (function () {
          * @return {?}
          */
         set: function (value) {
-            this._max = coerceDateProperty(this._dateAdapter, value);
+            this._max = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
             this._validatorOnChange();
         },
         enumerable: true,
@@ -12733,7 +12787,7 @@ var MatMenuItem = (function (_super) {
         /**
          * Stream that emits when the menu item is hovered.
          */
-        _this.hover = new rxjs_Subject.Subject();
+        _this._hovered = new rxjs_Subject.Subject();
         /**
          * Whether the menu item is highlighted.
          */
@@ -12755,7 +12809,7 @@ var MatMenuItem = (function (_super) {
      * @return {?}
      */
     MatMenuItem.prototype.ngOnDestroy = function () {
-        this.hover.complete();
+        this._hovered.complete();
     };
     /**
      * Used to set the `tabindex`.
@@ -12788,7 +12842,7 @@ var MatMenuItem = (function (_super) {
      */
     MatMenuItem.prototype._emitHoverEvent = function () {
         if (!this.disabled) {
-            this.hover.next(this);
+            this._hovered.next(this);
         }
     };
     /**
@@ -12881,7 +12935,12 @@ var MatMenu = (function () {
         /**
          * Event emitted when the menu is closed.
          */
-        this.close = new _angular_core.EventEmitter();
+        this.closed = new _angular_core.EventEmitter();
+        /**
+         * Event emitted when the menu is closed.
+         * @deprecated Switch to `closed` instead
+         */
+        this.close = this.closed;
     }
     Object.defineProperty(MatMenu.prototype, "xPosition", {
         /**
@@ -12957,21 +13016,21 @@ var MatMenu = (function () {
      */
     MatMenu.prototype.ngOnDestroy = function () {
         this._tabSubscription.unsubscribe();
-        this.close.emit();
-        this.close.complete();
+        this.closed.emit();
+        this.closed.complete();
     };
     /**
      * Stream that emits whenever the hovered menu item changes.
      * @return {?}
      */
-    MatMenu.prototype.hover = function () {
+    MatMenu.prototype._hovered = function () {
         var _this = this;
         if (this.items) {
-            return this.items.changes.pipe(rxjs_operators.startWith(this.items), rxjs_operators.switchMap(function (items) { return rxjs_observable_merge.merge.apply(void 0, items.map(function (item) { return item.hover; })); }));
+            return this.items.changes.pipe(rxjs_operators.startWith(this.items), rxjs_operators.switchMap(function (items) { return rxjs_observable_merge.merge.apply(void 0, items.map(function (item) { return item._hovered; })); }));
         }
         return this._ngZone.onStable
             .asObservable()
-            .pipe(rxjs_operators.first(), rxjs_operators.switchMap(function () { return _this.hover(); }));
+            .pipe(rxjs_operators.first(), rxjs_operators.switchMap(function () { return _this._hovered(); }));
     };
     /**
      * Handle a keyboard event from the menu, delegating to the appropriate action.
@@ -12981,17 +13040,17 @@ var MatMenu = (function () {
     MatMenu.prototype._handleKeydown = function (event) {
         switch (event.keyCode) {
             case _angular_cdk_keycodes.ESCAPE:
-                this.close.emit('keydown');
+                this.closed.emit('keydown');
                 event.stopPropagation();
                 break;
             case _angular_cdk_keycodes.LEFT_ARROW:
                 if (this.parentMenu && this.direction === 'ltr') {
-                    this.close.emit('keydown');
+                    this.closed.emit('keydown');
                 }
                 break;
             case _angular_cdk_keycodes.RIGHT_ARROW:
                 if (this.parentMenu && this.direction === 'rtl') {
-                    this.close.emit('keydown');
+                    this.closed.emit('keydown');
                 }
                 break;
             default:
@@ -13073,7 +13132,7 @@ var MatMenu = (function () {
     };
     MatMenu.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-menu',
-                    template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"close.emit('click')\" [@transformMenu]=\"_panelAnimationState\" (@transformMenu.done)=\"_onAnimationDone($event)\" tabindex=\"-1\" role=\"menu\"><div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></ng-template>",
+                    template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"closed.emit('click')\" [@transformMenu]=\"_panelAnimationState\" (@transformMenu.done)=\"_onAnimationDone($event)\" tabindex=\"-1\" role=\"menu\"><div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></ng-template>",
                     styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px;outline:0}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.ng-animating{pointer-events:none}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item .mat-icon{vertical-align:middle}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:8px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute}"],
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     encapsulation: _angular_core.ViewEncapsulation.None,
@@ -13100,6 +13159,7 @@ var MatMenu = (function () {
         'items': [{ type: _angular_core.ContentChildren, args: [MatMenuItem,] },],
         'overlapTrigger': [{ type: _angular_core.Input },],
         'classList': [{ type: _angular_core.Input, args: ['class',] },],
+        'closed': [{ type: _angular_core.Output },],
         'close': [{ type: _angular_core.Output },],
     };
     return MatMenu;
@@ -13160,11 +13220,21 @@ var MatMenuTrigger = (function () {
         /**
          * Event emitted when the associated menu is opened.
          */
-        this.onMenuOpen = new _angular_core.EventEmitter();
+        this.menuOpened = new _angular_core.EventEmitter();
+        /**
+         * Event emitted when the associated menu is opened.
+         * @deprecated Switch to `menuOpened` instead
+         */
+        this.onMenuOpen = this.menuOpened;
         /**
          * Event emitted when the associated menu is closed.
          */
-        this.onMenuClose = new _angular_core.EventEmitter();
+        this.menuClosed = new _angular_core.EventEmitter();
+        /**
+         * Event emitted when the associated menu is closed.
+         * @deprecated Switch to `menuClosed` instead
+         */
+        this.onMenuClose = this.menuClosed;
         if (_menuItemInstance) {
             _menuItemInstance._triggersSubmenu = this.triggersSubmenu();
         }
@@ -13197,12 +13267,12 @@ var MatMenuTrigger = (function () {
             _this._destroyMenu();
             // If a click closed the menu, we should close the entire chain of nested menus.
             if (reason === 'click' && _this._parentMenu) {
-                _this._parentMenu.close.emit(reason);
+                _this._parentMenu.closed.emit(reason);
             }
         });
         if (this.triggersSubmenu()) {
             // Subscribe to changes in the hovered item in order to toggle the panel.
-            this._hoverSubscription = this._parentMenu.hover()
+            this._hoverSubscription = this._parentMenu._hovered()
                 .pipe(rxjs_operators.filter(function (active) { return active === _this._menuItemInstance; }))
                 .subscribe(function () {
                 _this._openedByMouse = true;
@@ -13359,7 +13429,7 @@ var MatMenuTrigger = (function () {
      */
     MatMenuTrigger.prototype._setIsMenuOpen = function (isOpen) {
         this._menuOpen = isOpen;
-        this._menuOpen ? this.onMenuOpen.emit() : this.onMenuClose.emit();
+        this._menuOpen ? this.menuOpened.emit() : this.menuClosed.emit();
         if (this.triggersSubmenu()) {
             this._menuItemInstance._highlighted = isOpen;
         }
@@ -13463,7 +13533,7 @@ var MatMenuTrigger = (function () {
         var _this = this;
         var /** @type {?} */ backdrop = ((this._overlayRef)).backdropClick();
         var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : rxjs_observable_of.of();
-        var /** @type {?} */ hover = this._parentMenu ? this._parentMenu.hover().pipe(rxjs_operators.filter(function (active) { return active !== _this._menuItemInstance; }), rxjs_operators.filter(function () { return _this._menuOpen; })) : rxjs_observable_of.of();
+        var /** @type {?} */ hover = this._parentMenu ? this._parentMenu._hovered().pipe(rxjs_operators.filter(function (active) { return active !== _this._menuItemInstance; }), rxjs_operators.filter(function () { return _this._menuOpen; })) : rxjs_observable_of.of();
         return rxjs_observable_merge.merge(backdrop, parentClose, hover);
     };
     /**
@@ -13536,7 +13606,9 @@ var MatMenuTrigger = (function () {
     MatMenuTrigger.propDecorators = {
         '_deprecatedMatMenuTriggerFor': [{ type: _angular_core.Input, args: ['mat-menu-trigger-for',] },],
         'menu': [{ type: _angular_core.Input, args: ['matMenuTriggerFor',] },],
+        'menuOpened': [{ type: _angular_core.Output },],
         'onMenuOpen': [{ type: _angular_core.Output },],
+        'menuClosed': [{ type: _angular_core.Output },],
         'onMenuClose': [{ type: _angular_core.Output },],
     };
     return MatMenuTrigger;
@@ -23094,7 +23166,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.12-00de3f6');
+var VERSION = new _angular_core.Version('2.0.0-beta.12-b2dd17a');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -23218,7 +23290,6 @@ exports.MatDatepickerModule = MatDatepickerModule;
 exports.MatCalendar = MatCalendar;
 exports.MatCalendarCell = MatCalendarCell;
 exports.MatCalendarBody = MatCalendarBody;
-exports.coerceDateProperty = coerceDateProperty;
 exports.MAT_DATEPICKER_SCROLL_STRATEGY = MAT_DATEPICKER_SCROLL_STRATEGY;
 exports.MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER = MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER;

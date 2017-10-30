@@ -28,9 +28,15 @@ export declare class NativeDateAdapter extends DateAdapter<Date> {
     addCalendarMonths(date: Date, months: number): Date;
     addCalendarDays(date: Date, days: number): Date;
     toIso8601(date: Date): string;
-    fromIso8601(iso8601String: string): Date | null;
+    /**
+     * Returns the given value if given a valid Date or null. Deserializes valid ISO 8601 strings
+     * (https://www.ietf.org/rfc/rfc3339.txt) into valid Dates and empty string into null. Returns an
+     * invalid date for all other values.
+     */
+    deserialize(value: any): Date | null;
     isDateInstance(obj: any): boolean;
     isValid(date: Date): boolean;
+    invalid(): Date;
     /** Creates a date but allows the month and date to overflow. */
     private _createDateWithOverflow(year, month, date);
     /**

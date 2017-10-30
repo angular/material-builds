@@ -94,4 +94,9 @@ export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnCh
      * calendar table.
      */
     private _nextMonthInSameCol(date);
+    /**
+     * @param obj The object to check.
+     * @returns The given object if it is both a date instance and valid, otherwise null.
+     */
+    private _getValidDateOrNull(obj);
 }

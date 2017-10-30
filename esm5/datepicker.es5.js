@@ -27,33 +27,6 @@ import { merge } from 'rxjs/observable/merge';
 import { of } from 'rxjs/observable/of';
 
 /**
- * Function that attempts to coerce a value to a date using a DateAdapter. Date instances, null,
- * and undefined will be passed through. Empty strings will be coerced to null. Valid ISO 8601
- * strings (https://www.ietf.org/rfc/rfc3339.txt) will be coerced to dates. All other values will
- * result in an error being thrown.
- * @throws Throws when the value cannot be coerced.
- * @template D
- * @param {?} adapter The date adapter to use for coercion
- * @param {?} value The value to coerce.
- * @return {?} A date object coerced from the value.
- */
-function coerceDateProperty(adapter, value) {
-    if (typeof value === 'string') {
-        if (value == '') {
-            value = null;
-        }
-        else {
-            value = adapter.fromIso8601(value) || value;
-        }
-    }
-    if (value == null || adapter.isDateInstance(value)) {
-        return value;
-    }
-    throw Error("Datepicker: Value must be either a date object recognized by the DateAdapter or " +
-        ("an ISO 8601 string. Instead got: " + value));
-}
-
-/**
  * \@docs-private
  * @param {?} provider
  * @return {?}
@@ -281,7 +254,8 @@ var MatMonthView = (function () {
          */
         set: function (value) {
             var /** @type {?} */ oldActiveDate = this._activeDate;
-            this._activeDate = coerceDateProperty(this._dateAdapter, value) || this._dateAdapter.today();
+            this._activeDate =
+                this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
             if (!this._hasSameMonthAndYear(oldActiveDate, this._activeDate)) {
                 this._init();
             }
@@ -300,7 +274,7 @@ var MatMonthView = (function () {
          * @return {?}
          */
         set: function (value) {
-            this._selected = coerceDateProperty(this._dateAdapter, value);
+            this._selected = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
             this._selectedDate = this._getDateInCurrentMonth(this._selected);
         },
         enumerable: true,
@@ -384,6 +358,13 @@ var MatMonthView = (function () {
         return !!(d1 && d2 && this._dateAdapter.getMonth(d1) == this._dateAdapter.getMonth(d2) &&
             this._dateAdapter.getYear(d1) == this._dateAdapter.getYear(d2));
     };
+    /**
+     * @param {?} obj The object to check.
+     * @return {?} The given object if it is both a date instance and valid, otherwise null.
+     */
+    MatMonthView.prototype._getValidDateOrNull = function (obj) {
+        return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
+    };
     MatMonthView.decorators = [
         { type: Component, args: [{selector: 'mat-month-view',
                     template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr></thead><tbody mat-calendar-body role=\"grid\" [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\"></tbody></table>",
@@ -448,7 +429,8 @@ var MatYearView = (function () {
          */
         set: function (value) {
             var /** @type {?} */ oldActiveDate = this._activeDate;
-            this._activeDate = coerceDateProperty(this._dateAdapter, value) || this._dateAdapter.today();
+            this._activeDate =
+                this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
             if (this._dateAdapter.getYear(oldActiveDate) != this._dateAdapter.getYear(this._activeDate)) {
                 this._init();
             }
@@ -467,7 +449,7 @@ var MatYearView = (function () {
          * @return {?}
          */
         set: function (value) {
-            this._selected = coerceDateProperty(this._dateAdapter, value);
+            this._selected = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
             this._selectedMonth = this._getMonthInCurrentYear(this._selected);
         },
         enumerable: true,
@@ -539,6 +521,13 @@ var MatYearView = (function () {
             }
         }
         return false;
+    };
+    /**
+     * @param {?} obj The object to check.
+     * @return {?} The given object if it is both a date instance and valid, otherwise null.
+     */
+    MatYearView.prototype._getValidDateOrNull = function (obj) {
+        return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     };
     MatYearView.decorators = [
         { type: Component, args: [{selector: 'mat-year-view',
@@ -624,7 +613,9 @@ var MatCalendar = (function () {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._startAt = coerceDateProperty(this._dateAdapter, value); },
+        set: function (value) {
+            this._startAt = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+        },
         enumerable: true,
         configurable: true
     });
@@ -638,7 +629,9 @@ var MatCalendar = (function () {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._selected = coerceDateProperty(this._dateAdapter, value); },
+        set: function (value) {
+            this._selected = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+        },
         enumerable: true,
         configurable: true
     });
@@ -652,7 +645,9 @@ var MatCalendar = (function () {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._minDate = coerceDateProperty(this._dateAdapter, value); },
+        set: function (value) {
+            this._minDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+        },
         enumerable: true,
         configurable: true
     });
@@ -666,7 +661,9 @@ var MatCalendar = (function () {
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._maxDate = coerceDateProperty(this._dateAdapter, value); },
+        set: function (value) {
+            this._maxDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+        },
         enumerable: true,
         configurable: true
     });
@@ -988,6 +985,13 @@ var MatCalendar = (function () {
             (this._dateAdapter.getMonth(date) >= 7 ? 5 : 12);
         return this._dateAdapter.addCalendarMonths(date, increment);
     };
+    /**
+     * @param {?} obj The object to check.
+     * @return {?} The given object if it is both a date instance and valid, otherwise null.
+     */
+    MatCalendar.prototype._getValidDateOrNull = function (obj) {
+        return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
+    };
     MatCalendar.decorators = [
         { type: Component, args: [{selector: 'mat-calendar',
                     template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"!_monthView\"></div></button><div class=\"mat-calendar-spacer\"></div><button mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button></div></div><div class=\"mat-calendar-content\" (keydown)=\"_handleCalendarBodyKeydown($event)\" [ngSwitch]=\"_monthView\" cdkMonitorSubtreeFocus><mat-month-view *ngSwitchCase=\"true\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_dateSelected($event)\" (_userSelection)=\"_userSelected()\"></mat-month-view><mat-year-view *ngSwitchDefault [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_monthSelected($event)\"></mat-year-view></div>",
@@ -1174,7 +1178,9 @@ var MatDatepicker = (function () {
          * @param {?} date
          * @return {?}
          */
-        set: function (date) { this._startAt = coerceDateProperty(this._dateAdapter, date); },
+        set: function (date) {
+            this._startAt = this._getValidDateOrNull(this._dateAdapter.deserialize(date));
+        },
         enumerable: true,
         configurable: true
     });
@@ -1388,6 +1394,13 @@ var MatDatepicker = (function () {
             .withFallbackPosition({ originX: 'end', originY: 'bottom' }, { overlayX: 'end', overlayY: 'top' })
             .withFallbackPosition({ originX: 'end', originY: 'top' }, { overlayX: 'end', overlayY: 'bottom' });
     };
+    /**
+     * @param {?} obj The object to check.
+     * @return {?} The given object if it is both a date instance and valid, otherwise null.
+     */
+    MatDatepicker.prototype._getValidDateOrNull = function (obj) {
+        return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
+    };
     MatDatepicker.decorators = [
         { type: Component, args: [{selector: 'mat-datepicker',
                     template: '',
@@ -1497,7 +1510,7 @@ var MatDatepickerInput = (function () {
          * The form control validator for the min date.
          */
         this._minValidator = function (control) {
-            var controlValue = coerceDateProperty(_this._dateAdapter, control.value);
+            var controlValue = _this._getValidDateOrNull(_this._dateAdapter.deserialize(control.value));
             return (!_this.min || !controlValue ||
                 _this._dateAdapter.compareDate(_this.min, controlValue) <= 0) ?
                 null : { 'matDatepickerMin': { 'min': _this.min, 'actual': controlValue } };
@@ -1506,7 +1519,7 @@ var MatDatepickerInput = (function () {
          * The form control validator for the max date.
          */
         this._maxValidator = function (control) {
-            var controlValue = coerceDateProperty(_this._dateAdapter, control.value);
+            var controlValue = _this._getValidDateOrNull(_this._dateAdapter.deserialize(control.value));
             return (!_this.max || !controlValue ||
                 _this._dateAdapter.compareDate(_this.max, controlValue) >= 0) ?
                 null : { 'matDatepickerMax': { 'max': _this.max, 'actual': controlValue } };
@@ -1515,7 +1528,7 @@ var MatDatepickerInput = (function () {
          * The form control validator for the date filter.
          */
         this._filterValidator = function (control) {
-            var controlValue = coerceDateProperty(_this._dateAdapter, control.value);
+            var controlValue = _this._getValidDateOrNull(_this._dateAdapter.deserialize(control.value));
             return !_this._dateFilter || !controlValue || _this._dateFilter(controlValue) ?
                 null : { 'matDatepickerFilter': true };
         };
@@ -1585,7 +1598,7 @@ var MatDatepickerInput = (function () {
          * @return {?}
          */
         set: function (value) {
-            value = coerceDateProperty(this._dateAdapter, value);
+            value = this._dateAdapter.deserialize(value);
             this._lastValueValid = !value || this._dateAdapter.isValid(value);
             value = this._getValidDateOrNull(value);
             var /** @type {?} */ oldDate = this.value;
@@ -1609,7 +1622,7 @@ var MatDatepickerInput = (function () {
          * @return {?}
          */
         set: function (value) {
-            this._min = coerceDateProperty(this._dateAdapter, value);
+            this._min = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
             this._validatorOnChange();
         },
         enumerable: true,
@@ -1626,7 +1639,7 @@ var MatDatepickerInput = (function () {
          * @return {?}
          */
         set: function (value) {
-            this._max = coerceDateProperty(this._dateAdapter, value);
+            this._max = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
             this._validatorOnChange();
         },
         enumerable: true,
@@ -1952,5 +1965,5 @@ var MatDatepickerModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatDatepickerModule, MatCalendar, MatCalendarCell, MatCalendarBody, coerceDateProperty, MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER, MatDatepickerContent, MatDatepicker, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS, MatDatepickerInputEvent, MatDatepickerInput, MatDatepickerIntl, MatDatepickerToggle, MatMonthView, MatYearView };
+export { MatDatepickerModule, MatCalendar, MatCalendarCell, MatCalendarBody, MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER, MatDatepickerContent, MatDatepicker, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS, MatDatepickerInputEvent, MatDatepickerInput, MatDatepickerIntl, MatDatepickerToggle, MatMonthView, MatYearView };
 //# sourceMappingURL=datepicker.es5.js.map

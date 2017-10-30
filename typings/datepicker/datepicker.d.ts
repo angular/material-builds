@@ -114,4 +114,9 @@ export declare class MatDatepicker<D> implements OnDestroy {
     private _createPopup();
     /** Create the popup PositionStrategy. */
     private _createPopupPositionStrategy();
+    /**
+     * @param obj The object to check.
+     * @returns The given object if it is both a date instance and valid, otherwise null.
+     */
+    private _getValidDateOrNull(obj);
 }
