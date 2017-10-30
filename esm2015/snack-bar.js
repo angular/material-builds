@@ -8,7 +8,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, Renderer2, SkipSelf, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { BasePortalHost, ComponentPortal, PortalHostDirective, PortalInjector, PortalModule } from '@angular/cdk/portal';
+import { BasePortalOutlet, ComponentPortal, PortalInjector, PortalModule, PortalOutletDirective } from '@angular/cdk/portal';
 import { LIVE_ANNOUNCER_PROVIDER, LiveAnnouncer } from '@angular/cdk/a11y';
 import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layout';
 import { AnimationCurves, AnimationDurations, MatCommonModule, extendObject } from '@angular/material/core';
@@ -213,7 +213,7 @@ const HIDE_ANIMATION = `${AnimationDurations.EXITING} ${AnimationCurves.ACCELERA
  * Internal component that wraps user-provided snack bar content.
  * \@docs-private
  */
-class MatSnackBarContainer extends BasePortalHost {
+class MatSnackBarContainer extends BasePortalOutlet {
     /**
      * @param {?} _ngZone
      * @param {?} _renderer
@@ -250,7 +250,7 @@ class MatSnackBarContainer extends BasePortalHost {
      * @return {?}
      */
     attachComponentPortal(portal) {
-        if (this._portalHost.hasAttached()) {
+        if (this._portalOutlet.hasAttached()) {
             throw Error('Attempting to attach snack bar content after content is already attached');
         }
         if (this.snackBarConfig.extraClasses) {
@@ -266,7 +266,7 @@ class MatSnackBarContainer extends BasePortalHost {
         if (this.snackBarConfig.verticalPosition === 'top') {
             this._renderer.addClass(this._elementRef.nativeElement, 'mat-snack-bar-top');
         }
-        return this._portalHost.attachComponentPortal(portal);
+        return this._portalOutlet.attachComponentPortal(portal);
     }
     /**
      * Attach a template portal as content to this snack bar container.
@@ -335,7 +335,7 @@ class MatSnackBarContainer extends BasePortalHost {
 }
 MatSnackBarContainer.decorators = [
     { type: Component, args: [{selector: 'snack-bar-container',
-                template: "<ng-template cdkPortalHost></ng-template>",
+                template: "<ng-template cdkPortalOutlet></ng-template>",
                 styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:border-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%) translateY(24px)}.mat-snack-bar-container.mat-snack-bar-center{margin:0;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%) translateY(-24px)}.mat-snack-bar-container.mat-snack-bar-top.mat-snack-bar-center{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:0;max-width:inherit;width:100%}"],
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
@@ -365,7 +365,7 @@ MatSnackBarContainer.ctorParameters = () => [
     { type: ChangeDetectorRef, },
 ];
 MatSnackBarContainer.propDecorators = {
-    '_portalHost': [{ type: ViewChild, args: [PortalHostDirective,] },],
+    '_portalOutlet': [{ type: ViewChild, args: [PortalOutletDirective,] },],
 };
 
 /**

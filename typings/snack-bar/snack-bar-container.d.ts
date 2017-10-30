@@ -7,7 +7,7 @@
  */
 import { ComponentRef, EmbeddedViewRef, NgZone, OnDestroy, Renderer2, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
-import { BasePortalHost, ComponentPortal, PortalHostDirective } from '@angular/cdk/portal';
+import { BasePortalOutlet, ComponentPortal, PortalOutletDirective } from '@angular/cdk/portal';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { MatSnackBarConfig } from './snack-bar-config';
@@ -17,15 +17,15 @@ export declare const HIDE_ANIMATION: string;
  * Internal component that wraps user-provided snack bar content.
  * @docs-private
  */
-export declare class MatSnackBarContainer extends BasePortalHost implements OnDestroy {
+export declare class MatSnackBarContainer extends BasePortalOutlet implements OnDestroy {
     private _ngZone;
     private _renderer;
     private _elementRef;
     private _changeDetectorRef;
     /** Whether the component has been destroyed. */
     private _destroyed;
-    /** The portal host inside of this container into which the snack bar content will be loaded. */
-    _portalHost: PortalHostDirective;
+    /** The portal outlet inside of this container into which the snack bar content will be loaded. */
+    _portalOutlet: PortalOutletDirective;
     /** Subject for notifying that the snack bar has exited from view. */
     _onExit: Subject<any>;
     /** Subject for notifying that the snack bar has finished entering the view. */

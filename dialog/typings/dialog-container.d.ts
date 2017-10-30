@@ -7,12 +7,12 @@
  */
 import { ComponentRef, ElementRef, EmbeddedViewRef, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
-import { BasePortalHost, ComponentPortal, PortalHostDirective, TemplatePortal } from '@angular/cdk/portal';
+import { BasePortalOutlet, ComponentPortal, PortalOutletDirective, TemplatePortal } from '@angular/cdk/portal';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
 import { MatDialogConfig } from './dialog-config';
 /**
  * Throws an exception for the case when a ComponentPortal is
- * attached to a DomPortalHost without an origin.
+ * attached to a DomPortalOutlet without an origin.
  * @docs-private
  */
 export declare function throwMatDialogContentAlreadyAttachedError(): void;
@@ -21,13 +21,13 @@ export declare function throwMatDialogContentAlreadyAttachedError(): void;
  * Animation is based on https://material.io/guidelines/motion/choreography.html.
  * @docs-private
  */
-export declare class MatDialogContainer extends BasePortalHost {
+export declare class MatDialogContainer extends BasePortalOutlet {
     private _elementRef;
     private _focusTrapFactory;
     private _changeDetectorRef;
     private _document;
-    /** The portal host inside of this container into which the dialog content will be loaded. */
-    _portalHost: PortalHostDirective;
+    /** The portal outlet inside of this container into which the dialog content will be loaded. */
+    _portalOutlet: PortalOutletDirective;
     /** The class that traps and manages focus within the dialog. */
     private _focusTrap;
     /** Element that was focused before the dialog was opened. Save this to restore upon close. */

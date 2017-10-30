@@ -6574,7 +6574,7 @@ var MatDialogConfig = (function () {
 
 /**
  * Throws an exception for the case when a ComponentPortal is
- * attached to a DomPortalHost without an origin.
+ * attached to a DomPortalOutlet without an origin.
  * \@docs-private
  * @return {?}
  */
@@ -6629,11 +6629,11 @@ var MatDialogContainer = (function (_super) {
      * @return {?}
      */
     MatDialogContainer.prototype.attachComponentPortal = function (portal) {
-        if (this._portalHost.hasAttached()) {
+        if (this._portalOutlet.hasAttached()) {
             throwMatDialogContentAlreadyAttachedError();
         }
         this._savePreviouslyFocusedElement();
-        return this._portalHost.attachComponentPortal(portal);
+        return this._portalOutlet.attachComponentPortal(portal);
     };
     /**
      * Attach a TemplatePortal as content to this dialog container.
@@ -6642,11 +6642,11 @@ var MatDialogContainer = (function (_super) {
      * @return {?}
      */
     MatDialogContainer.prototype.attachTemplatePortal = function (portal) {
-        if (this._portalHost.hasAttached()) {
+        if (this._portalOutlet.hasAttached()) {
             throwMatDialogContentAlreadyAttachedError();
         }
         this._savePreviouslyFocusedElement();
-        return this._portalHost.attachTemplatePortal(portal);
+        return this._portalOutlet.attachTemplatePortal(portal);
     };
     /**
      * Moves the focus inside the focus trap.
@@ -6727,7 +6727,7 @@ var MatDialogContainer = (function (_super) {
     };
     MatDialogContainer.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-dialog-container',
-                    template: "<ng-template cdkPortalHost></ng-template>",
+                    template: "<ng-template cdkPortalOutlet></ng-template>",
                     styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;outline:0;width:100%;height:100%}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch;-webkit-backface-visibility:hidden;backface-visibility:hidden}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex;flex-wrap:wrap}.mat-dialog-actions:last-child{margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button+.mat-button,.mat-dialog-actions .mat-button+.mat-raised-button,.mat-dialog-actions .mat-raised-button+.mat-button,.mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-button+.mat-raised-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:0;margin-right:8px}"],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -6768,10 +6768,10 @@ var MatDialogContainer = (function (_super) {
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
     ]; };
     MatDialogContainer.propDecorators = {
-        '_portalHost': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.PortalHostDirective,] },],
+        '_portalOutlet': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.PortalOutletDirective,] },],
     };
     return MatDialogContainer;
-}(_angular_cdk_portal.BasePortalHost));
+}(_angular_cdk_portal.BasePortalOutlet));
 
 // TODO(jelbourn): resizing
 // Counter for unique dialog ids.
@@ -19731,7 +19731,7 @@ var MatSnackBarContainer = (function (_super) {
      * @return {?}
      */
     MatSnackBarContainer.prototype.attachComponentPortal = function (portal) {
-        if (this._portalHost.hasAttached()) {
+        if (this._portalOutlet.hasAttached()) {
             throw Error('Attempting to attach snack bar content after content is already attached');
         }
         if (this.snackBarConfig.extraClasses) {
@@ -19748,7 +19748,7 @@ var MatSnackBarContainer = (function (_super) {
         if (this.snackBarConfig.verticalPosition === 'top') {
             this._renderer.addClass(this._elementRef.nativeElement, 'mat-snack-bar-top');
         }
-        return this._portalHost.attachComponentPortal(portal);
+        return this._portalOutlet.attachComponentPortal(portal);
     };
     /**
      * Attach a template portal as content to this snack bar container.
@@ -19817,7 +19817,7 @@ var MatSnackBarContainer = (function (_super) {
     };
     MatSnackBarContainer.decorators = [
         { type: _angular_core.Component, args: [{selector: 'snack-bar-container',
-                    template: "<ng-template cdkPortalHost></ng-template>",
+                    template: "<ng-template cdkPortalOutlet></ng-template>",
                     styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:border-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%) translateY(24px)}.mat-snack-bar-container.mat-snack-bar-center{margin:0;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%) translateY(-24px)}.mat-snack-bar-container.mat-snack-bar-top.mat-snack-bar-center{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:0;max-width:inherit;width:100%}"],
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     encapsulation: _angular_core.ViewEncapsulation.None,
@@ -19847,10 +19847,10 @@ var MatSnackBarContainer = (function (_super) {
         { type: _angular_core.ChangeDetectorRef, },
     ]; };
     MatSnackBarContainer.propDecorators = {
-        '_portalHost': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.PortalHostDirective,] },],
+        '_portalOutlet': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.PortalOutletDirective,] },],
     };
     return MatSnackBarContainer;
-}(_angular_cdk_portal.BasePortalHost));
+}(_angular_cdk_portal.BasePortalOutlet));
 
 /**
  * Service to dispatch Material Design snack bar messages.
@@ -21729,8 +21729,8 @@ var MatTabBody = (function () {
      * @return {?}
      */
     MatTabBody.prototype.ngAfterViewChecked = function () {
-        if (this._isCenterPosition(this._position) && !this._portalHost.hasAttached()) {
-            this._portalHost.attach(this._content);
+        if (this._isCenterPosition(this._position) && !this._portalOutlet.hasAttached()) {
+            this._portalOutlet.attach(this._content);
         }
     };
     /**
@@ -21749,7 +21749,7 @@ var MatTabBody = (function () {
     MatTabBody.prototype._onTranslateTabComplete = function (e) {
         // If the end state is that the tab is not centered, then detach the content.
         if (!this._isCenterPosition(e.toState) && !this._isCenterPosition(this._position)) {
-            this._portalHost.detach();
+            this._portalOutlet.detach();
         }
         // If the transition to the center is complete, emit an event.
         if (this._isCenterPosition(e.toState) && this._isCenterPosition(this._position)) {
@@ -21775,7 +21775,7 @@ var MatTabBody = (function () {
     };
     MatTabBody.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-tab-body',
-                    template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_position\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><ng-template cdkPortalHost></ng-template></div>",
+                    template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_position\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><ng-template cdkPortalOutlet></ng-template></div>",
                     styles: [".mat-tab-body-content{height:100%;overflow:auto}.mat-tab-group-dynamic-height .mat-tab-body-content{overflow:hidden}"],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -21810,7 +21810,7 @@ var MatTabBody = (function () {
         { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     ]; };
     MatTabBody.propDecorators = {
-        '_portalHost': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.PortalHostDirective,] },],
+        '_portalOutlet': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.PortalOutletDirective,] },],
         '_onCentering': [{ type: _angular_core.Output },],
         '_onCentered': [{ type: _angular_core.Output },],
         '_content': [{ type: _angular_core.Input, args: ['content',] },],
@@ -22129,7 +22129,7 @@ var MatTabGroup = (function (_super) {
     MatTabGroup.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-tab-group',
                     exportAs: 'matTabGroup',
-                    template: "<mat-tab-header #tabHeader [selectedIndex]=\"selectedIndex\" [disableRipple]=\"disableRipple\" (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" matTabLabelWrapper mat-ripple *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [attr.tabIndex]=\"_getTabIndex(tab, i)\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" [matRippleDisabled]=\"tab.disabled || disableRipple\" (click)=\"_handleClick(tab, tabHeader, i)\"><ng-template [ngIf]=\"tab.templateLabel\"><ng-template [cdkPortalHost]=\"tab.templateLabel\"></ng-template></ng-template><ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template></div></mat-tab-header><div class=\"mat-tab-body-wrapper\" #tabBodyWrapper><mat-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (_onCentered)=\"_removeTabBodyWrapperHeight()\" (_onCentering)=\"_setTabBodyWrapperHeight($event)\"></mat-tab-body></div>",
+                    template: "<mat-tab-header #tabHeader [selectedIndex]=\"selectedIndex\" [disableRipple]=\"disableRipple\" (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" matTabLabelWrapper mat-ripple *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [attr.tabIndex]=\"_getTabIndex(tab, i)\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" [matRippleDisabled]=\"tab.disabled || disableRipple\" (click)=\"_handleClick(tab, tabHeader, i)\"><ng-template [ngIf]=\"tab.templateLabel\"><ng-template [cdkPortalOutlet]=\"tab.templateLabel\"></ng-template></ng-template><ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template></div></mat-tab-header><div class=\"mat-tab-body-wrapper\" #tabBodyWrapper><mat-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (_onCentered)=\"_removeTabBodyWrapperHeight()\" (_onCentering)=\"_setTabBodyWrapperHeight($event)\"></mat-tab-body></div>",
                     styles: [".mat-tab-group{display:flex;flex-direction:column}.mat-tab-group.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0;opacity:1}.mat-tab-label.mat-tab-disabled{cursor:default}@media (max-width:600px){.mat-tab-label{padding:0 12px}}@media (max-width:960px){.mat-tab-label{padding:0 12px}}.mat-tab-group[mat-stretch-tabs] .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height .5s cubic-bezier(.35,0,.25,1)}.mat-tab-body{top:0;left:0;right:0;bottom:0;position:absolute;display:block;overflow:hidden}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}.mat-tab-group.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}"],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -23094,7 +23094,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.12-520d83b');
+var VERSION = new _angular_core.Version('2.0.0-beta.12-00de3f6');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

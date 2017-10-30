@@ -282,7 +282,7 @@ var MatSnackBarContainer = (function (_super) {
      * @return {?}
      */
     MatSnackBarContainer.prototype.attachComponentPortal = function (portal) {
-        if (this._portalHost.hasAttached()) {
+        if (this._portalOutlet.hasAttached()) {
             throw Error('Attempting to attach snack bar content after content is already attached');
         }
         if (this.snackBarConfig.extraClasses) {
@@ -299,7 +299,7 @@ var MatSnackBarContainer = (function (_super) {
         if (this.snackBarConfig.verticalPosition === 'top') {
             this._renderer.addClass(this._elementRef.nativeElement, 'mat-snack-bar-top');
         }
-        return this._portalHost.attachComponentPortal(portal);
+        return this._portalOutlet.attachComponentPortal(portal);
     };
     /**
      * Attach a template portal as content to this snack bar container.
@@ -368,7 +368,7 @@ var MatSnackBarContainer = (function (_super) {
     };
     MatSnackBarContainer.decorators = [
         { type: _angular_core.Component, args: [{selector: 'snack-bar-container',
-                    template: "<ng-template cdkPortalHost></ng-template>",
+                    template: "<ng-template cdkPortalOutlet></ng-template>",
                     styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:border-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%) translateY(24px)}.mat-snack-bar-container.mat-snack-bar-center{margin:0;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%) translateY(-24px)}.mat-snack-bar-container.mat-snack-bar-top.mat-snack-bar-center{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:0;max-width:inherit;width:100%}"],
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     encapsulation: _angular_core.ViewEncapsulation.None,
@@ -398,10 +398,10 @@ var MatSnackBarContainer = (function (_super) {
         { type: _angular_core.ChangeDetectorRef, },
     ]; };
     MatSnackBarContainer.propDecorators = {
-        '_portalHost': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.PortalHostDirective,] },],
+        '_portalOutlet': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.PortalOutletDirective,] },],
     };
     return MatSnackBarContainer;
-}(_angular_cdk_portal.BasePortalHost));
+}(_angular_cdk_portal.BasePortalOutlet));
 
 /**
  * Service to dispatch Material Design snack bar messages.

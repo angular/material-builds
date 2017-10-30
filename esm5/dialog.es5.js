@@ -8,7 +8,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Injector, Input, NgModule, Optional, SkipSelf, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { BasePortalHost, ComponentPortal, PortalHostDirective, PortalInjector, PortalModule, TemplatePortal } from '@angular/cdk/portal';
+import { BasePortalOutlet, ComponentPortal, PortalInjector, PortalModule, PortalOutletDirective, TemplatePortal } from '@angular/cdk/portal';
 import { A11yModule, FocusTrapFactory } from '@angular/cdk/a11y';
 import { MatCommonModule, extendObject } from '@angular/material/core';
 import { ESCAPE } from '@angular/cdk/keycodes';
@@ -78,7 +78,7 @@ var MatDialogConfig = (function () {
 
 /**
  * Throws an exception for the case when a ComponentPortal is
- * attached to a DomPortalHost without an origin.
+ * attached to a DomPortalOutlet without an origin.
  * \@docs-private
  * @return {?}
  */
@@ -133,11 +133,11 @@ var MatDialogContainer = (function (_super) {
      * @return {?}
      */
     MatDialogContainer.prototype.attachComponentPortal = function (portal) {
-        if (this._portalHost.hasAttached()) {
+        if (this._portalOutlet.hasAttached()) {
             throwMatDialogContentAlreadyAttachedError();
         }
         this._savePreviouslyFocusedElement();
-        return this._portalHost.attachComponentPortal(portal);
+        return this._portalOutlet.attachComponentPortal(portal);
     };
     /**
      * Attach a TemplatePortal as content to this dialog container.
@@ -146,11 +146,11 @@ var MatDialogContainer = (function (_super) {
      * @return {?}
      */
     MatDialogContainer.prototype.attachTemplatePortal = function (portal) {
-        if (this._portalHost.hasAttached()) {
+        if (this._portalOutlet.hasAttached()) {
             throwMatDialogContentAlreadyAttachedError();
         }
         this._savePreviouslyFocusedElement();
-        return this._portalHost.attachTemplatePortal(portal);
+        return this._portalOutlet.attachTemplatePortal(portal);
     };
     /**
      * Moves the focus inside the focus trap.
@@ -231,7 +231,7 @@ var MatDialogContainer = (function (_super) {
     };
     MatDialogContainer.decorators = [
         { type: Component, args: [{selector: 'mat-dialog-container',
-                    template: "<ng-template cdkPortalHost></ng-template>",
+                    template: "<ng-template cdkPortalOutlet></ng-template>",
                     styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;outline:0;width:100%;height:100%}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch;-webkit-backface-visibility:hidden;backface-visibility:hidden}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex;flex-wrap:wrap}.mat-dialog-actions:last-child{margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button+.mat-button,.mat-dialog-actions .mat-button+.mat-raised-button,.mat-dialog-actions .mat-raised-button+.mat-button,.mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-button+.mat-raised-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:0;margin-right:8px}"],
                     encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -272,10 +272,10 @@ var MatDialogContainer = (function (_super) {
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
     ]; };
     MatDialogContainer.propDecorators = {
-        '_portalHost': [{ type: ViewChild, args: [PortalHostDirective,] },],
+        '_portalOutlet': [{ type: ViewChild, args: [PortalOutletDirective,] },],
     };
     return MatDialogContainer;
-}(BasePortalHost));
+}(BasePortalOutlet));
 
 // TODO(jelbourn): resizing
 // Counter for unique dialog ids.

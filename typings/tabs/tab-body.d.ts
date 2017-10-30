@@ -7,7 +7,7 @@
  */
 import { EventEmitter, OnInit, ElementRef, AfterViewChecked } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
-import { TemplatePortal, PortalHostDirective } from '@angular/cdk/portal';
+import { TemplatePortal, PortalOutletDirective } from '@angular/cdk/portal';
 import { Directionality, Direction } from '@angular/cdk/bidi';
 /**
  * These position states are used internally as animation states for the tab body. Setting the
@@ -34,8 +34,8 @@ export declare type MatTabBodyOriginState = 'left' | 'right';
 export declare class MatTabBody implements OnInit, AfterViewChecked {
     private _elementRef;
     private _dir;
-    /** The portal host inside of this container into which the tab body content will be loaded. */
-    _portalHost: PortalHostDirective;
+    /** The portal outlet inside of this container into which the tab body content will be loaded. */
+    _portalOutlet: PortalOutletDirective;
     /** Event emitted when the tab begins to animate towards the center as the active tab. */
     _onCentering: EventEmitter<number>;
     /** Event emitted when the tab completes its animation towards the center. */
