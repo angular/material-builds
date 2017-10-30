@@ -909,10 +909,10 @@ var MatGridListModule = (function () {
 exports.MatGridTile = MatGridTile;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
-exports.ɵb10 = MatGridAvatarCssMatStyler;
-exports.ɵd10 = MatGridTileFooterCssMatStyler;
-exports.ɵc10 = MatGridTileHeaderCssMatStyler;
-exports.ɵa10 = MatGridTileText;
+exports.ɵb12 = MatGridAvatarCssMatStyler;
+exports.ɵd12 = MatGridTileFooterCssMatStyler;
+exports.ɵc12 = MatGridTileHeaderCssMatStyler;
+exports.ɵa12 = MatGridTileText;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

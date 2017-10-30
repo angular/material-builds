@@ -375,14 +375,22 @@ var MatTableDataSource = (function () {
             return isNaN(+value) ? value : +value;
         };
         /**
-         * Transforms data objects into a filter term that will be used to check against the filter if
-         * a filter is set. By default, the function will iterate over the values of the data object
-         * and convert them to a lowercase string.
-         * @param data Data object to convert to a string that checked for containing the filter term.
+         * Checks if a data object matches the data source's filter string. By default, each data object
+         * is converted to a string of its properties and returns true if the filter has
+         * at least one occurrence in that string. By default, the filter string has its whitespace
+         * trimmed and the match is case-insensitive. May be overriden for a custom implementation of
+         * filter matching.
+         * @param data Data object used to check against the filter.
+         * @param filter Filter string that has been set on the data source.
+         * @return Whether the filter matches against the data
          */
-        this.filterTermAccessor = function (data) {
+        this.filterPredicate = function (data, filter) {
+            // Transform the data into a lowercase string of all property values.
             var accumulator = function (currentTerm, key) { return currentTerm + data[key]; };
-            return Object.keys(data).reduce(accumulator, '').toLowerCase();
+            var dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+            // Transform the filter by converting it to lowercase and removing whitespace.
+            var transformedFilter = filter.trim().toLowerCase();
+            return dataStr.indexOf(transformedFilter) != -1;
         };
         this._data = new rxjs_BehaviorSubject.BehaviorSubject(initialData);
         this._updateChangeSubscription();
@@ -408,7 +416,7 @@ var MatTableDataSource = (function () {
         get: function () { return this._filter.value; },
         /**
          * Filter term that should be used to filter out objects from the data array. To override how
-         * the filter matches data objects, provide a custom function on filterTermAccessor.
+         * data objects match to this filter string, provide a custom function for filterPredicate.
          * @param {?} filter
          * @return {?}
          */
@@ -502,9 +510,7 @@ var MatTableDataSource = (function () {
         // If there is a filter string, filter out data that does not contain it.
         // Each data object is converted to a string using the function defined by filterTermAccessor.
         // May be overriden for customization.
-        var /** @type {?} */ filteredData = !this.filter ? data : data.filter(function (obj) {
-            return _this.filterTermAccessor(obj).indexOf(_this.filter) != -1;
-        });
+        var /** @type {?} */ filteredData = !this.filter ? data : data.filter(function (obj) { return _this.filterPredicate(obj, _this.filter); });
         if (this.paginator) {
             this._updatePaginator(filteredData.length);
         }

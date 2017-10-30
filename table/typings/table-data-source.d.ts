@@ -34,7 +34,7 @@ export declare class MatTableDataSource<T> implements DataSource<T> {
     data: T[];
     /**
      * Filter term that should be used to filter out objects from the data array. To override how
-     * the filter matches data objects, provide a custom function on filterTermAccessor.
+     * data objects match to this filter string, provide a custom function for filterPredicate.
      */
     filter: string;
     /**
@@ -65,12 +65,16 @@ export declare class MatTableDataSource<T> implements DataSource<T> {
      */
     sortingDataAccessor: (data: T, sortHeaderId: string) => string | number;
     /**
-     * Transforms data objects into a filter term that will be used to check against the filter if
-     * a filter is set. By default, the function will iterate over the values of the data object
-     * and convert them to a lowercase string.
-     * @param data Data object to convert to a string that checked for containing the filter term.
+     * Checks if a data object matches the data source's filter string. By default, each data object
+     * is converted to a string of its properties and returns true if the filter has
+     * at least one occurrence in that string. By default, the filter string has its whitespace
+     * trimmed and the match is case-insensitive. May be overriden for a custom implementation of
+     * filter matching.
+     * @param data Data object used to check against the filter.
+     * @param filter Filter string that has been set on the data source.
+     * @returns Whether the filter matches against the data
      */
-    filterTermAccessor: ((data: T) => string);
+    filterPredicate: ((data: T, filter: string) => boolean);
     constructor(initialData?: T[]);
     /**
      * Subscribe to changes that should trigger an update to the table's rendered rows. When the
