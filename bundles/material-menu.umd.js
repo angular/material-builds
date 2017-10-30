@@ -327,7 +327,7 @@ var MatMenu = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatMenu.prototype, "classList", {
+    Object.defineProperty(MatMenu.prototype, "panelClass", {
         /**
          * This method takes classes set on the host mat-menu element and applies them on the
          * menu template that displays in the overlay container.  Otherwise, it's difficult
@@ -345,6 +345,23 @@ var MatMenu = (function () {
                 this.setPositionClasses();
             }
         },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatMenu.prototype, "classList", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this.panelClass; },
+        /**
+         * This method takes classes set on the host mat-menu element and applies them on the
+         * menu template that displays in the overlay container.  Otherwise, it's difficult
+         * to style the containing menu from outside the component.
+         * @deprecated Use `panelClass` instead.
+         * @param {?} classes
+         * @return {?}
+         */
+        set: function (classes) { this.panelClass = classes; },
         enumerable: true,
         configurable: true
     });
@@ -503,7 +520,8 @@ var MatMenu = (function () {
         'templateRef': [{ type: _angular_core.ViewChild, args: [_angular_core.TemplateRef,] },],
         'items': [{ type: _angular_core.ContentChildren, args: [MatMenuItem,] },],
         'overlapTrigger': [{ type: _angular_core.Input },],
-        'classList': [{ type: _angular_core.Input, args: ['class',] },],
+        'panelClass': [{ type: _angular_core.Input, args: ['class',] },],
+        'classList': [{ type: _angular_core.Input },],
         'closed': [{ type: _angular_core.Output },],
         'close': [{ type: _angular_core.Output },],
     };
@@ -1000,10 +1018,10 @@ exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports.MatMenuItem = MatMenuItem;
 exports.MatMenuTrigger = MatMenuTrigger;
-exports.ɵa20 = MatMenuItemBase;
-exports.ɵb20 = _MatMenuItemMixinBase;
-exports.ɵd20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa18 = MatMenuItemBase;
+exports.ɵb18 = _MatMenuItemMixinBase;
+exports.ɵd18 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc18 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

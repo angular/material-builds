@@ -8,7 +8,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Injector, Input, NgModule, Optional, SkipSelf, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { BasePortalOutlet, ComponentPortal, PortalInjector, PortalModule, PortalOutletDirective, TemplatePortal } from '@angular/cdk/portal';
+import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalInjector, PortalModule, TemplatePortal } from '@angular/cdk/portal';
 import { A11yModule, FocusTrapFactory } from '@angular/cdk/a11y';
 import { MatCommonModule, extendObject } from '@angular/material/core';
 import { ESCAPE } from '@angular/cdk/keycodes';
@@ -272,7 +272,7 @@ var MatDialogContainer = (function (_super) {
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
     ]; };
     MatDialogContainer.propDecorators = {
-        '_portalOutlet': [{ type: ViewChild, args: [PortalOutletDirective,] },],
+        '_portalOutlet': [{ type: ViewChild, args: [CdkPortalOutlet,] },],
     };
     return MatDialogContainer;
 }(BasePortalOutlet));

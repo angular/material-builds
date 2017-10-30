@@ -55,6 +55,13 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel, OnDestro
      * to style the containing menu from outside the component.
      * @param classes list of class names
      */
+    panelClass: string;
+    /**
+     * This method takes classes set on the host mat-menu element and applies them on the
+     * menu template that displays in the overlay container.  Otherwise, it's difficult
+     * to style the containing menu from outside the component.
+     * @deprecated Use `panelClass` instead.
+     */
     classList: string;
     /** Event emitted when the menu is closed. */
     closed: EventEmitter<void | "click" | "keydown">;

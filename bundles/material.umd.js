@@ -6809,7 +6809,7 @@ var MatDialogContainer = (function (_super) {
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
     ]; };
     MatDialogContainer.propDecorators = {
-        '_portalOutlet': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.PortalOutletDirective,] },],
+        '_portalOutlet': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.CdkPortalOutlet,] },],
     };
     return MatDialogContainer;
 }(_angular_cdk_portal.BasePortalOutlet));
@@ -9200,7 +9200,7 @@ var MatDatepickerContent = (function () {
     };
     MatDatepickerContent.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-datepicker-content',
-                    template: "<mat-calendar cdkTrapFocus [id]=\"datepicker.id\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" (selectedChange)=\"datepicker._select($event)\" (_userSelection)=\"datepicker.close()\"></mat-calendar>",
+                    template: "<mat-calendar cdkTrapFocus [id]=\"datepicker.id\" [ngClass]=\"datepicker.panelClass\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" (selectedChange)=\"datepicker._select($event)\" (_userSelection)=\"datepicker.close()\"></mat-calendar>",
                     styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block}.mat-calendar{width:296px;height:354px}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation:landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation:portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}"],
                     host: {
                         'class': 'mat-datepicker-content',
@@ -9545,6 +9545,7 @@ var MatDatepicker = (function () {
         'touchUi': [{ type: _angular_core.Input },],
         'disabled': [{ type: _angular_core.Input },],
         'selectedChanged': [{ type: _angular_core.Output },],
+        'panelClass': [{ type: _angular_core.Input },],
     };
     return MatDatepicker;
 }());
@@ -12982,7 +12983,7 @@ var MatMenu = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatMenu.prototype, "classList", {
+    Object.defineProperty(MatMenu.prototype, "panelClass", {
         /**
          * This method takes classes set on the host mat-menu element and applies them on the
          * menu template that displays in the overlay container.  Otherwise, it's difficult
@@ -13000,6 +13001,23 @@ var MatMenu = (function () {
                 this.setPositionClasses();
             }
         },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatMenu.prototype, "classList", {
+        /**
+         * @return {?}
+         */
+        get: function () { return this.panelClass; },
+        /**
+         * This method takes classes set on the host mat-menu element and applies them on the
+         * menu template that displays in the overlay container.  Otherwise, it's difficult
+         * to style the containing menu from outside the component.
+         * @deprecated Use `panelClass` instead.
+         * @param {?} classes
+         * @return {?}
+         */
+        set: function (classes) { this.panelClass = classes; },
         enumerable: true,
         configurable: true
     });
@@ -13158,7 +13176,8 @@ var MatMenu = (function () {
         'templateRef': [{ type: _angular_core.ViewChild, args: [_angular_core.TemplateRef,] },],
         'items': [{ type: _angular_core.ContentChildren, args: [MatMenuItem,] },],
         'overlapTrigger': [{ type: _angular_core.Input },],
-        'classList': [{ type: _angular_core.Input, args: ['class',] },],
+        'panelClass': [{ type: _angular_core.Input, args: ['class',] },],
+        'classList': [{ type: _angular_core.Input },],
         'closed': [{ type: _angular_core.Output },],
         'close': [{ type: _angular_core.Output },],
     };
@@ -15050,7 +15069,7 @@ var MatSelect = (function (_super) {
     MatSelect.propDecorators = {
         'trigger': [{ type: _angular_core.ViewChild, args: ['trigger',] },],
         'panel': [{ type: _angular_core.ViewChild, args: ['panel',] },],
-        'overlayDir': [{ type: _angular_core.ViewChild, args: [_angular_cdk_overlay.ConnectedOverlayDirective,] },],
+        'overlayDir': [{ type: _angular_core.ViewChild, args: [_angular_cdk_overlay.CdkConnectedOverlay,] },],
         'options': [{ type: _angular_core.ContentChildren, args: [MatOption, { descendants: true },] },],
         'optionGroups': [{ type: _angular_core.ContentChildren, args: [MatOptgroup,] },],
         'panelClass': [{ type: _angular_core.Input },],
@@ -19843,11 +19862,12 @@ var MatSnackBarContainer = (function (_super) {
         if (this._portalOutlet.hasAttached()) {
             throw Error('Attempting to attach snack bar content after content is already attached');
         }
-        if (this.snackBarConfig.extraClasses) {
+        if (this.snackBarConfig.panelClass || this.snackBarConfig.extraClasses) {
+            var /** @type {?} */ classes = this._getCssClasses(this.snackBarConfig.panelClass).concat(this._getCssClasses(this.snackBarConfig.extraClasses));
             // Not the most efficient way of adding classes, but the renderer doesn't allow us
             // to pass in an array or a space-separated list.
-            for (var _i = 0, _a = this.snackBarConfig.extraClasses; _i < _a.length; _i++) {
-                var cssClass = _a[_i];
+            for (var _i = 0, classes_1 = classes; _i < classes_1.length; _i++) {
+                var cssClass = classes_1[_i];
                 this._renderer.addClass(this._elementRef.nativeElement, cssClass);
             }
         }
@@ -19924,6 +19944,22 @@ var MatSnackBarContainer = (function (_super) {
             _this._onExit.complete();
         });
     };
+    /**
+     * Convert the class list to a array of classes it can apply to the dom
+     * @param {?} classList
+     * @return {?}
+     */
+    MatSnackBarContainer.prototype._getCssClasses = function (classList) {
+        if (classList) {
+            if (Array.isArray(classList)) {
+                return classList;
+            }
+            else {
+                return [classList];
+            }
+        }
+        return [];
+    };
     MatSnackBarContainer.decorators = [
         { type: _angular_core.Component, args: [{selector: 'snack-bar-container',
                     template: "<ng-template cdkPortalOutlet></ng-template>",
@@ -19956,7 +19992,7 @@ var MatSnackBarContainer = (function (_super) {
         { type: _angular_core.ChangeDetectorRef, },
     ]; };
     MatSnackBarContainer.propDecorators = {
-        '_portalOutlet': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.PortalOutletDirective,] },],
+        '_portalOutlet': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.CdkPortalOutlet,] },],
     };
     return MatSnackBarContainer;
 }(_angular_cdk_portal.BasePortalOutlet));
@@ -21633,7 +21669,7 @@ var MatInkBar = (function () {
 /**
  * Workaround for https://github.com/angular/angular/issues/17849
  */
-var _MatTabLabelBaseClass = _angular_cdk_portal.TemplatePortalDirective;
+var _MatTabLabelBaseClass = _angular_cdk_portal.CdkPortal;
 /**
  * Used to flag tab labels for use with the portal directive
  */
@@ -21925,7 +21961,7 @@ var MatTabBody = (function () {
         { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     ]; };
     MatTabBody.propDecorators = {
-        '_portalOutlet': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.PortalOutletDirective,] },],
+        '_portalOutlet': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.CdkPortalOutlet,] },],
         '_onCentering': [{ type: _angular_core.Output },],
         '_onCentered': [{ type: _angular_core.Output },],
         '_content': [{ type: _angular_core.Input, args: ['content',] },],
@@ -23209,7 +23245,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.12-1e67629');
+var VERSION = new _angular_core.Version('2.0.0-beta.12-b39202f');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

@@ -7,7 +7,7 @@
  */
 import { ComponentRef, EmbeddedViewRef, NgZone, OnDestroy, Renderer2, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
-import { BasePortalOutlet, ComponentPortal, PortalOutletDirective } from '@angular/cdk/portal';
+import { BasePortalOutlet, ComponentPortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { MatSnackBarConfig } from './snack-bar-config';
@@ -25,7 +25,7 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
     /** Whether the component has been destroyed. */
     private _destroyed;
     /** The portal outlet inside of this container into which the snack bar content will be loaded. */
-    _portalOutlet: PortalOutletDirective;
+    _portalOutlet: CdkPortalOutlet;
     /** Subject for notifying that the snack bar has exited from view. */
     _onExit: Subject<any>;
     /** Subject for notifying that the snack bar has finished entering the view. */
@@ -52,4 +52,6 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
      * errors where we end up removing an element which is in the middle of an animation.
      */
     private _completeExit();
+    /** Convert the class list to a array of classes it can apply to the dom */
+    private _getCssClasses(classList);
 }

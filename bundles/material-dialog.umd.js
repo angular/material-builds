@@ -287,7 +287,7 @@ var MatDialogContainer = (function (_super) {
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_platformBrowser.DOCUMENT,] },] },
     ]; };
     MatDialogContainer.propDecorators = {
-        '_portalOutlet': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.PortalOutletDirective,] },],
+        '_portalOutlet': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.CdkPortalOutlet,] },],
     };
     return MatDialogContainer;
 }(_angular_cdk_portal.BasePortalOutlet));

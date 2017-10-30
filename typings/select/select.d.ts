@@ -8,7 +8,7 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ConnectedOverlayDirective, Overlay, RepositionScrollStrategy, ScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, Overlay, RepositionScrollStrategy, ScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
 import { AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, InjectionToken, NgZone, OnChanges, OnDestroy, OnInit, QueryList, Renderer2, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { CanDisable, ErrorStateMatcher, HasTabIndex, MatOptgroup, MatOption, MatOptionSelectionChange } from '@angular/material/core';
@@ -151,7 +151,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Panel containing the select options. */
     panel: ElementRef;
     /** Overlay pane containing the options. */
-    overlayDir: ConnectedOverlayDirective;
+    overlayDir: CdkConnectedOverlay;
     /** All of the defined select options. */
     options: QueryList<MatOption>;
     /** All of the defined groups of options. */

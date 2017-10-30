@@ -1440,7 +1440,7 @@ var MatSelect = (function (_super) {
     MatSelect.propDecorators = {
         'trigger': [{ type: _angular_core.ViewChild, args: ['trigger',] },],
         'panel': [{ type: _angular_core.ViewChild, args: ['panel',] },],
-        'overlayDir': [{ type: _angular_core.ViewChild, args: [_angular_cdk_overlay.ConnectedOverlayDirective,] },],
+        'overlayDir': [{ type: _angular_core.ViewChild, args: [_angular_cdk_overlay.CdkConnectedOverlay,] },],
         'options': [{ type: _angular_core.ContentChildren, args: [_angular_material_core.MatOption, { descendants: true },] },],
         'optionGroups': [{ type: _angular_core.ContentChildren, args: [_angular_material_core.MatOptgroup,] },],
         'panelClass': [{ type: _angular_core.Input },],

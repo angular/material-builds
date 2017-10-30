@@ -12,7 +12,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DOWN_ARROW, END, ENTER, HOME, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
-import { ConnectedOverlayDirective, Overlay, OverlayModule, ViewportRuler } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, Overlay, OverlayModule, ViewportRuler } from '@angular/cdk/overlay';
 import { filter, first, map, startWith, takeUntil } from 'rxjs/operators';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { ErrorStateMatcher, MAT_OPTION_PARENT_COMPONENT, MatCommonModule, MatOptgroup, MatOption, MatOptionModule, mixinDisabled, mixinTabIndex } from '@angular/material/core';
@@ -1343,7 +1343,7 @@ MatSelect.ctorParameters = () => [
 MatSelect.propDecorators = {
     'trigger': [{ type: ViewChild, args: ['trigger',] },],
     'panel': [{ type: ViewChild, args: ['panel',] },],
-    'overlayDir': [{ type: ViewChild, args: [ConnectedOverlayDirective,] },],
+    'overlayDir': [{ type: ViewChild, args: [CdkConnectedOverlay,] },],
     'options': [{ type: ContentChildren, args: [MatOption, { descendants: true },] },],
     'optionGroups': [{ type: ContentChildren, args: [MatOptgroup,] },],
     'panelClass': [{ type: Input },],

@@ -8,7 +8,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, Renderer2, SkipSelf, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { BasePortalOutlet, ComponentPortal, PortalInjector, PortalModule, PortalOutletDirective } from '@angular/cdk/portal';
+import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalInjector, PortalModule } from '@angular/cdk/portal';
 import { LIVE_ANNOUNCER_PROVIDER, LiveAnnouncer } from '@angular/cdk/a11y';
 import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layout';
 import { AnimationCurves, AnimationDurations, MatCommonModule, extendObject } from '@angular/material/core';
@@ -253,10 +253,14 @@ class MatSnackBarContainer extends BasePortalOutlet {
         if (this._portalOutlet.hasAttached()) {
             throw Error('Attempting to attach snack bar content after content is already attached');
         }
-        if (this.snackBarConfig.extraClasses) {
+        if (this.snackBarConfig.panelClass || this.snackBarConfig.extraClasses) {
+            const /** @type {?} */ classes = [
+                ...this._getCssClasses(this.snackBarConfig.panelClass),
+                ...this._getCssClasses(this.snackBarConfig.extraClasses)
+            ];
             // Not the most efficient way of adding classes, but the renderer doesn't allow us
             // to pass in an array or a space-separated list.
-            for (let /** @type {?} */ cssClass of this.snackBarConfig.extraClasses) {
+            for (let /** @type {?} */ cssClass of classes) {
                 this._renderer.addClass(this._elementRef.nativeElement, cssClass);
             }
         }
@@ -332,6 +336,22 @@ class MatSnackBarContainer extends BasePortalOutlet {
             this._onExit.complete();
         });
     }
+    /**
+     * Convert the class list to a array of classes it can apply to the dom
+     * @param {?} classList
+     * @return {?}
+     */
+    _getCssClasses(classList) {
+        if (classList) {
+            if (Array.isArray(classList)) {
+                return classList;
+            }
+            else {
+                return [classList];
+            }
+        }
+        return [];
+    }
 }
 MatSnackBarContainer.decorators = [
     { type: Component, args: [{selector: 'snack-bar-container',
@@ -365,7 +385,7 @@ MatSnackBarContainer.ctorParameters = () => [
     { type: ChangeDetectorRef, },
 ];
 MatSnackBarContainer.propDecorators = {
-    '_portalOutlet': [{ type: ViewChild, args: [PortalOutletDirective,] },],
+    '_portalOutlet': [{ type: ViewChild, args: [CdkPortalOutlet,] },],
 };
 
 /**

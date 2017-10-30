@@ -309,7 +309,7 @@ class MatMenu {
      * @param {?} classes list of class names
      * @return {?}
      */
-    set classList(classes) {
+    set panelClass(classes) {
         if (classes && classes.length) {
             this._classList = classes.split(' ').reduce((obj, className) => {
                 obj[className] = true;
@@ -319,6 +319,19 @@ class MatMenu {
             this.setPositionClasses();
         }
     }
+    /**
+     * This method takes classes set on the host mat-menu element and applies them on the
+     * menu template that displays in the overlay container.  Otherwise, it's difficult
+     * to style the containing menu from outside the component.
+     * @deprecated Use `panelClass` instead.
+     * @param {?} classes
+     * @return {?}
+     */
+    set classList(classes) { this.panelClass = classes; }
+    /**
+     * @return {?}
+     */
+    get classList() { return this.panelClass; }
     /**
      * @return {?}
      */
@@ -471,7 +484,8 @@ MatMenu.propDecorators = {
     'templateRef': [{ type: ViewChild, args: [TemplateRef,] },],
     'items': [{ type: ContentChildren, args: [MatMenuItem,] },],
     'overlapTrigger': [{ type: Input },],
-    'classList': [{ type: Input, args: ['class',] },],
+    'panelClass': [{ type: Input, args: ['class',] },],
+    'classList': [{ type: Input },],
     'closed': [{ type: Output },],
     'close': [{ type: Output },],
 };
@@ -942,5 +956,5 @@ MatMenuModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa20, _MatMenuItemMixinBase as ɵb20, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd20, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc20 };
+export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa18, _MatMenuItemMixinBase as ɵb18, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd18, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc18 };
 //# sourceMappingURL=menu.js.map

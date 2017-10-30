@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ObserversModule } from '@angular/cdk/observers';
-import { PortalModule, PortalOutletDirective, TemplatePortal, TemplatePortalDirective } from '@angular/cdk/portal';
+import { CdkPortal, CdkPortalOutlet, PortalModule, TemplatePortal } from '@angular/cdk/portal';
 import { ScrollDispatchModule, VIEWPORT_RULER_PROVIDER, ViewportRuler } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, Renderer2, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
@@ -100,7 +100,7 @@ MatInkBar.ctorParameters = () => [
 /**
  * Workaround for https://github.com/angular/angular/issues/17849
  */
-const _MatTabLabelBaseClass = TemplatePortalDirective;
+const _MatTabLabelBaseClass = CdkPortal;
 /**
  * Used to flag tab labels for use with the portal directive
  */
@@ -373,7 +373,7 @@ MatTabBody.ctorParameters = () => [
     { type: Directionality, decorators: [{ type: Optional },] },
 ];
 MatTabBody.propDecorators = {
-    '_portalOutlet': [{ type: ViewChild, args: [PortalOutletDirective,] },],
+    '_portalOutlet': [{ type: ViewChild, args: [CdkPortalOutlet,] },],
     '_onCentering': [{ type: Output },],
     '_onCentered': [{ type: Output },],
     '_content': [{ type: Input, args: ['content',] },],

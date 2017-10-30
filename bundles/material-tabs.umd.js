@@ -117,7 +117,7 @@ var MatInkBar = (function () {
 /**
  * Workaround for https://github.com/angular/angular/issues/17849
  */
-var _MatTabLabelBaseClass = _angular_cdk_portal.TemplatePortalDirective;
+var _MatTabLabelBaseClass = _angular_cdk_portal.CdkPortal;
 /**
  * Used to flag tab labels for use with the portal directive
  */
@@ -409,7 +409,7 @@ var MatTabBody = (function () {
         { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     ]; };
     MatTabBody.propDecorators = {
-        '_portalOutlet': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.PortalOutletDirective,] },],
+        '_portalOutlet': [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.CdkPortalOutlet,] },],
         '_onCentering': [{ type: _angular_core.Output },],
         '_onCentered': [{ type: _angular_core.Output },],
         '_content': [{ type: _angular_core.Input, args: ['content',] },],

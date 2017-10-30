@@ -7,7 +7,7 @@
  */
 import { ComponentRef, ElementRef, EmbeddedViewRef, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
-import { BasePortalOutlet, ComponentPortal, PortalOutletDirective, TemplatePortal } from '@angular/cdk/portal';
+import { BasePortalOutlet, ComponentPortal, CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
 import { MatDialogConfig } from './dialog-config';
 /**
@@ -27,7 +27,7 @@ export declare class MatDialogContainer extends BasePortalOutlet {
     private _changeDetectorRef;
     private _document;
     /** The portal outlet inside of this container into which the dialog content will be loaded. */
-    _portalOutlet: PortalOutletDirective;
+    _portalOutlet: CdkPortalOutlet;
     /** The class that traps and manages focus within the dialog. */
     private _focusTrap;
     /** Element that was focused before the dialog was opened. Save this to restore upon close. */
