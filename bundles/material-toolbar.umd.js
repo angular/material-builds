@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/material/core'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.toolbar = global.ng.material.toolbar || {}),global.ng.core,global.ng.material.core));
-}(this, (function (exports,_angular_core,_angular_material_core) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/platform')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/material/core', '@angular/cdk/platform'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.toolbar = global.ng.material.toolbar || {}),global.ng.core,global.ng.material.core,global.ng.cdk.platform));
+}(this, (function (exports,_angular_core,_angular_material_core,_angular_cdk_platform) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -37,6 +37,21 @@ function __extends(d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
+/**
+ * \@docs-private
+ */
+var MatToolbarBase = (function () {
+    /**
+     * @param {?} _renderer
+     * @param {?} _elementRef
+     */
+    function MatToolbarBase(_renderer, _elementRef) {
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
+    }
+    return MatToolbarBase;
+}());
+var _MatToolbarMixinBase = _angular_material_core.mixinColor(MatToolbarBase);
 var MatToolbarRow = (function () {
     function MatToolbarRow() {
     }
@@ -53,39 +68,57 @@ var MatToolbarRow = (function () {
     MatToolbarRow.ctorParameters = function () { return []; };
     return MatToolbarRow;
 }());
-/**
- * \@docs-private
- */
-var MatToolbarBase = (function () {
-    /**
-     * @param {?} _renderer
-     * @param {?} _elementRef
-     */
-    function MatToolbarBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
-        this._elementRef = _elementRef;
-    }
-    return MatToolbarBase;
-}());
-var _MatToolbarMixinBase = _angular_material_core.mixinColor(MatToolbarBase);
 var MatToolbar = (function (_super) {
     __extends(MatToolbar, _super);
     /**
      * @param {?} renderer
      * @param {?} elementRef
+     * @param {?} _platform
      */
-    function MatToolbar(renderer, elementRef) {
-        return _super.call(this, renderer, elementRef) || this;
+    function MatToolbar(renderer, elementRef, _platform) {
+        var _this = _super.call(this, renderer, elementRef) || this;
+        _this._platform = _platform;
+        return _this;
     }
+    /**
+     * @return {?}
+     */
+    MatToolbar.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        if (!_angular_core.isDevMode() || !this._platform.isBrowser) {
+            return;
+        }
+        this._checkToolbarMixedModes();
+        this._toolbarRows.changes.subscribe(function () { return _this._checkToolbarMixedModes(); });
+    };
+    /**
+     * Throws an exception when developers are attempting to combine the different toolbar row modes.
+     * @return {?}
+     */
+    MatToolbar.prototype._checkToolbarMixedModes = function () {
+        if (!this._toolbarRows.length) {
+            return;
+        }
+        // Check if there are any other DOM nodes that can display content but aren't inside of
+        // a <mat-toolbar-row> element.
+        var /** @type {?} */ isCombinedUsage = [].slice.call(this._elementRef.nativeElement.childNodes)
+            .filter(function (node) { return !(node.classList && node.classList.contains('mat-toolbar-row')); })
+            .filter(function (node) { return node.nodeType !== Node.COMMENT_NODE; })
+            .some(function (node) { return node.textContent.trim(); });
+        if (isCombinedUsage) {
+            throwToolbarMixedModesError();
+        }
+    };
     MatToolbar.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-toolbar',
                     exportAs: 'matToolbar',
-                    template: "<div class=\"mat-toolbar-layout\"><mat-toolbar-row><ng-content></ng-content></mat-toolbar-row><ng-content select=\"mat-toolbar-row\"></ng-content></div>",
-                    styles: [".mat-toolbar{display:flex;box-sizing:border-box;width:100%;padding:0 16px;flex-direction:column}.mat-toolbar .mat-toolbar-row{display:flex;box-sizing:border-box;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar{min-height:64px}.mat-toolbar-row{height:64px}@media (max-width:600px){.mat-toolbar{min-height:56px}.mat-toolbar-row{height:56px}}"],
+                    template: "<ng-content></ng-content><ng-content select=\"mat-toolbar-row\"></ng-content>",
+                    styles: [".mat-toolbar-row,.mat-toolbar-single-row{display:flex;box-sizing:border-box;padding:0 16px;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar-multiple-rows{display:flex;box-sizing:border-box;flex-direction:column;width:100%}.mat-toolbar-multiple-rows{min-height:64px}.mat-toolbar-row,.mat-toolbar-single-row{height:64px}@media (max-width:600px){.mat-toolbar-multiple-rows{min-height:56px}.mat-toolbar-row,.mat-toolbar-single-row{height:56px}}"],
                     inputs: ['color'],
                     host: {
                         'class': 'mat-toolbar',
-                        'role': 'toolbar'
+                        '[class.mat-toolbar-multiple-rows]': 'this._toolbarRows.length',
+                        '[class.mat-toolbar-single-row]': '!this._toolbarRows.length'
                     },
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     encapsulation: _angular_core.ViewEncapsulation.None,
@@ -98,16 +131,30 @@ var MatToolbar = (function (_super) {
     MatToolbar.ctorParameters = function () { return [
         { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
+        { type: _angular_cdk_platform.Platform, },
     ]; };
+    MatToolbar.propDecorators = {
+        '_toolbarRows': [{ type: _angular_core.ContentChildren, args: [MatToolbarRow,] },],
+    };
     return MatToolbar;
 }(_MatToolbarMixinBase));
+/**
+ * Throws an exception when attempting to combine the different toolbar row modes.
+ * \@docs-private
+ * @return {?}
+ */
+function throwToolbarMixedModesError() {
+    throw Error('MatToolbar: Attempting to combine different toolbar modes. ' +
+        'Either specify multiple `<mat-toolbar-row>` elements explicitly or just place content ' +
+        'inside of a `<mat-toolbar>` for a single row.');
+}
 
 var MatToolbarModule = (function () {
     function MatToolbarModule() {
     }
     MatToolbarModule.decorators = [
         { type: _angular_core.NgModule, args: [{
-                    imports: [_angular_material_core.MatCommonModule],
+                    imports: [_angular_material_core.MatCommonModule, _angular_cdk_platform.PlatformModule],
                     exports: [MatToolbar, MatToolbarRow, _angular_material_core.MatCommonModule],
                     declarations: [MatToolbar, MatToolbarRow],
                 },] },
@@ -120,10 +167,11 @@ var MatToolbarModule = (function () {
 }());
 
 exports.MatToolbarModule = MatToolbarModule;
-exports.MatToolbarRow = MatToolbarRow;
 exports.MatToolbarBase = MatToolbarBase;
 exports._MatToolbarMixinBase = _MatToolbarMixinBase;
+exports.MatToolbarRow = MatToolbarRow;
 exports.MatToolbar = MatToolbar;
+exports.throwToolbarMixedModesError = throwToolbarMixedModesError;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

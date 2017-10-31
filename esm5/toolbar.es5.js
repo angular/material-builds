@@ -5,11 +5,27 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, Directive, ElementRef, NgModule, Renderer2, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, NgModule, Renderer2, ViewEncapsulation, isDevMode } from '@angular/core';
 import { MatCommonModule, mixinColor } from '@angular/material/core';
+import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 
+/**
+ * \@docs-private
+ */
+var MatToolbarBase = (function () {
+    /**
+     * @param {?} _renderer
+     * @param {?} _elementRef
+     */
+    function MatToolbarBase(_renderer, _elementRef) {
+        this._renderer = _renderer;
+        this._elementRef = _elementRef;
+    }
+    return MatToolbarBase;
+}());
+var _MatToolbarMixinBase = mixinColor(MatToolbarBase);
 var MatToolbarRow = (function () {
     function MatToolbarRow() {
     }
@@ -26,39 +42,57 @@ var MatToolbarRow = (function () {
     MatToolbarRow.ctorParameters = function () { return []; };
     return MatToolbarRow;
 }());
-/**
- * \@docs-private
- */
-var MatToolbarBase = (function () {
-    /**
-     * @param {?} _renderer
-     * @param {?} _elementRef
-     */
-    function MatToolbarBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
-        this._elementRef = _elementRef;
-    }
-    return MatToolbarBase;
-}());
-var _MatToolbarMixinBase = mixinColor(MatToolbarBase);
 var MatToolbar = (function (_super) {
     __extends(MatToolbar, _super);
     /**
      * @param {?} renderer
      * @param {?} elementRef
+     * @param {?} _platform
      */
-    function MatToolbar(renderer, elementRef) {
-        return _super.call(this, renderer, elementRef) || this;
+    function MatToolbar(renderer, elementRef, _platform) {
+        var _this = _super.call(this, renderer, elementRef) || this;
+        _this._platform = _platform;
+        return _this;
     }
+    /**
+     * @return {?}
+     */
+    MatToolbar.prototype.ngAfterViewInit = function () {
+        var _this = this;
+        if (!isDevMode() || !this._platform.isBrowser) {
+            return;
+        }
+        this._checkToolbarMixedModes();
+        this._toolbarRows.changes.subscribe(function () { return _this._checkToolbarMixedModes(); });
+    };
+    /**
+     * Throws an exception when developers are attempting to combine the different toolbar row modes.
+     * @return {?}
+     */
+    MatToolbar.prototype._checkToolbarMixedModes = function () {
+        if (!this._toolbarRows.length) {
+            return;
+        }
+        // Check if there are any other DOM nodes that can display content but aren't inside of
+        // a <mat-toolbar-row> element.
+        var /** @type {?} */ isCombinedUsage = [].slice.call(this._elementRef.nativeElement.childNodes)
+            .filter(function (node) { return !(node.classList && node.classList.contains('mat-toolbar-row')); })
+            .filter(function (node) { return node.nodeType !== Node.COMMENT_NODE; })
+            .some(function (node) { return node.textContent.trim(); });
+        if (isCombinedUsage) {
+            throwToolbarMixedModesError();
+        }
+    };
     MatToolbar.decorators = [
         { type: Component, args: [{selector: 'mat-toolbar',
                     exportAs: 'matToolbar',
-                    template: "<div class=\"mat-toolbar-layout\"><mat-toolbar-row><ng-content></ng-content></mat-toolbar-row><ng-content select=\"mat-toolbar-row\"></ng-content></div>",
-                    styles: [".mat-toolbar{display:flex;box-sizing:border-box;width:100%;padding:0 16px;flex-direction:column}.mat-toolbar .mat-toolbar-row{display:flex;box-sizing:border-box;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar{min-height:64px}.mat-toolbar-row{height:64px}@media (max-width:600px){.mat-toolbar{min-height:56px}.mat-toolbar-row{height:56px}}"],
+                    template: "<ng-content></ng-content><ng-content select=\"mat-toolbar-row\"></ng-content>",
+                    styles: [".mat-toolbar-row,.mat-toolbar-single-row{display:flex;box-sizing:border-box;padding:0 16px;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar-multiple-rows{display:flex;box-sizing:border-box;flex-direction:column;width:100%}.mat-toolbar-multiple-rows{min-height:64px}.mat-toolbar-row,.mat-toolbar-single-row{height:64px}@media (max-width:600px){.mat-toolbar-multiple-rows{min-height:56px}.mat-toolbar-row,.mat-toolbar-single-row{height:56px}}"],
                     inputs: ['color'],
                     host: {
                         'class': 'mat-toolbar',
-                        'role': 'toolbar'
+                        '[class.mat-toolbar-multiple-rows]': 'this._toolbarRows.length',
+                        '[class.mat-toolbar-single-row]': '!this._toolbarRows.length'
                     },
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
@@ -71,16 +105,30 @@ var MatToolbar = (function (_super) {
     MatToolbar.ctorParameters = function () { return [
         { type: Renderer2, },
         { type: ElementRef, },
+        { type: Platform, },
     ]; };
+    MatToolbar.propDecorators = {
+        '_toolbarRows': [{ type: ContentChildren, args: [MatToolbarRow,] },],
+    };
     return MatToolbar;
 }(_MatToolbarMixinBase));
+/**
+ * Throws an exception when attempting to combine the different toolbar row modes.
+ * \@docs-private
+ * @return {?}
+ */
+function throwToolbarMixedModesError() {
+    throw Error('MatToolbar: Attempting to combine different toolbar modes. ' +
+        'Either specify multiple `<mat-toolbar-row>` elements explicitly or just place content ' +
+        'inside of a `<mat-toolbar>` for a single row.');
+}
 
 var MatToolbarModule = (function () {
     function MatToolbarModule() {
     }
     MatToolbarModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [MatCommonModule],
+                    imports: [MatCommonModule, PlatformModule],
                     exports: [MatToolbar, MatToolbarRow, MatCommonModule],
                     declarations: [MatToolbar, MatToolbarRow],
                 },] },
@@ -96,5 +144,5 @@ var MatToolbarModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatToolbarModule, MatToolbarRow, MatToolbarBase, _MatToolbarMixinBase, MatToolbar };
+export { MatToolbarModule, MatToolbarBase, _MatToolbarMixinBase, MatToolbarRow, MatToolbar, throwToolbarMixedModesError };
 //# sourceMappingURL=toolbar.es5.js.map

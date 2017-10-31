@@ -5,22 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, Directive, ElementRef, NgModule, Renderer2, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, NgModule, Renderer2, ViewEncapsulation, isDevMode } from '@angular/core';
 import { MatCommonModule, mixinColor } from '@angular/material/core';
+import { Platform, PlatformModule } from '@angular/cdk/platform';
 
-class MatToolbarRow {
-}
-MatToolbarRow.decorators = [
-    { type: Directive, args: [{
-                selector: 'mat-toolbar-row',
-                exportAs: 'matToolbarRow',
-                host: { 'class': 'mat-toolbar-row' },
-            },] },
-];
-/**
- * @nocollapse
- */
-MatToolbarRow.ctorParameters = () => [];
 /**
  * \@docs-private
  */
@@ -35,24 +23,68 @@ class MatToolbarBase {
     }
 }
 const _MatToolbarMixinBase = mixinColor(MatToolbarBase);
+class MatToolbarRow {
+}
+MatToolbarRow.decorators = [
+    { type: Directive, args: [{
+                selector: 'mat-toolbar-row',
+                exportAs: 'matToolbarRow',
+                host: { 'class': 'mat-toolbar-row' },
+            },] },
+];
+/**
+ * @nocollapse
+ */
+MatToolbarRow.ctorParameters = () => [];
 class MatToolbar extends _MatToolbarMixinBase {
     /**
      * @param {?} renderer
      * @param {?} elementRef
+     * @param {?} _platform
      */
-    constructor(renderer, elementRef) {
+    constructor(renderer, elementRef, _platform) {
         super(renderer, elementRef);
+        this._platform = _platform;
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterViewInit() {
+        if (!isDevMode() || !this._platform.isBrowser) {
+            return;
+        }
+        this._checkToolbarMixedModes();
+        this._toolbarRows.changes.subscribe(() => this._checkToolbarMixedModes());
+    }
+    /**
+     * Throws an exception when developers are attempting to combine the different toolbar row modes.
+     * @return {?}
+     */
+    _checkToolbarMixedModes() {
+        if (!this._toolbarRows.length) {
+            return;
+        }
+        // Check if there are any other DOM nodes that can display content but aren't inside of
+        // a <mat-toolbar-row> element.
+        const /** @type {?} */ isCombinedUsage = [].slice.call(this._elementRef.nativeElement.childNodes)
+            .filter(node => !(node.classList && node.classList.contains('mat-toolbar-row')))
+            .filter(node => node.nodeType !== Node.COMMENT_NODE)
+            .some(node => node.textContent.trim());
+        if (isCombinedUsage) {
+            throwToolbarMixedModesError();
+        }
     }
 }
 MatToolbar.decorators = [
     { type: Component, args: [{selector: 'mat-toolbar',
                 exportAs: 'matToolbar',
-                template: "<div class=\"mat-toolbar-layout\"><mat-toolbar-row><ng-content></ng-content></mat-toolbar-row><ng-content select=\"mat-toolbar-row\"></ng-content></div>",
-                styles: [".mat-toolbar{display:flex;box-sizing:border-box;width:100%;padding:0 16px;flex-direction:column}.mat-toolbar .mat-toolbar-row{display:flex;box-sizing:border-box;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar{min-height:64px}.mat-toolbar-row{height:64px}@media (max-width:600px){.mat-toolbar{min-height:56px}.mat-toolbar-row{height:56px}}"],
+                template: "<ng-content></ng-content><ng-content select=\"mat-toolbar-row\"></ng-content>",
+                styles: [".mat-toolbar-row,.mat-toolbar-single-row{display:flex;box-sizing:border-box;padding:0 16px;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar-multiple-rows{display:flex;box-sizing:border-box;flex-direction:column;width:100%}.mat-toolbar-multiple-rows{min-height:64px}.mat-toolbar-row,.mat-toolbar-single-row{height:64px}@media (max-width:600px){.mat-toolbar-multiple-rows{min-height:56px}.mat-toolbar-row,.mat-toolbar-single-row{height:56px}}"],
                 inputs: ['color'],
                 host: {
                     'class': 'mat-toolbar',
-                    'role': 'toolbar'
+                    '[class.mat-toolbar-multiple-rows]': 'this._toolbarRows.length',
+                    '[class.mat-toolbar-single-row]': '!this._toolbarRows.length'
                 },
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
@@ -65,13 +97,27 @@ MatToolbar.decorators = [
 MatToolbar.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
+    { type: Platform, },
 ];
+MatToolbar.propDecorators = {
+    '_toolbarRows': [{ type: ContentChildren, args: [MatToolbarRow,] },],
+};
+/**
+ * Throws an exception when attempting to combine the different toolbar row modes.
+ * \@docs-private
+ * @return {?}
+ */
+function throwToolbarMixedModesError() {
+    throw Error('MatToolbar: Attempting to combine different toolbar modes. ' +
+        'Either specify multiple `<mat-toolbar-row>` elements explicitly or just place content ' +
+        'inside of a `<mat-toolbar>` for a single row.');
+}
 
 class MatToolbarModule {
 }
 MatToolbarModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MatCommonModule],
+                imports: [MatCommonModule, PlatformModule],
                 exports: [MatToolbar, MatToolbarRow, MatCommonModule],
                 declarations: [MatToolbar, MatToolbarRow],
             },] },
@@ -85,5 +131,5 @@ MatToolbarModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatToolbarModule, MatToolbarRow, MatToolbarBase, _MatToolbarMixinBase, MatToolbar };
+export { MatToolbarModule, MatToolbarBase, _MatToolbarMixinBase, MatToolbarRow, MatToolbar, throwToolbarMixedModesError };
 //# sourceMappingURL=toolbar.js.map
