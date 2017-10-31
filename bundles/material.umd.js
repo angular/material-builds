@@ -23292,7 +23292,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.12-a2129fc');
+var VERSION = new _angular_core.Version('2.0.0-beta.12-de8c6e2');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
