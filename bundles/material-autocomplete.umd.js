@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/bidi'), require('@angular/cdk/keycodes'), require('@angular/cdk/portal'), require('rxjs/operators'), require('@angular/forms'), require('@angular/material/form-field'), require('@angular/platform-browser'), require('rxjs/Subject'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/bidi', '@angular/cdk/keycodes', '@angular/cdk/portal', 'rxjs/operators', '@angular/forms', '@angular/material/form-field', '@angular/platform-browser', 'rxjs/Subject', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = global.ng.material.autocomplete || {}),global.ng.core,global.ng.material.core,global.ng.cdk.a11y,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.bidi,global.ng.cdk.keycodes,global.ng.cdk.portal,global.Rx.Observable,global.ng.forms,global.ng.material.formField,global.ng.platformBrowser,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_material_core,_angular_cdk_a11y,_angular_common,_angular_cdk_overlay,_angular_cdk_bidi,_angular_cdk_keycodes,_angular_cdk_portal,rxjs_operators,_angular_forms,_angular_material_formField,_angular_platformBrowser,rxjs_Subject,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/bidi'), require('@angular/cdk/keycodes'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/first'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('@angular/material/form-field'), require('@angular/platform-browser'), require('rxjs/Subject'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/bidi', '@angular/cdk/keycodes', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/first', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', '@angular/material/form-field', '@angular/platform-browser', 'rxjs/Subject', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = global.ng.material.autocomplete || {}),global.ng.core,global.ng.material.core,global.ng.cdk.a11y,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.bidi,global.ng.cdk.keycodes,global.ng.cdk.portal,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.forms,global.ng.material.formField,global.ng.platformBrowser,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_material_core,_angular_cdk_a11y,_angular_common,_angular_cdk_overlay,_angular_cdk_bidi,_angular_cdk_keycodes,_angular_cdk_portal,rxjs_operators_filter,rxjs_operators_first,rxjs_operators_switchMap,rxjs_operators_tap,rxjs_operators_delay,_angular_forms,_angular_material_formField,_angular_platformBrowser,rxjs_Subject,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of) { 'use strict';
 
 /**
  * Autocomplete IDs need to be unique across components, so this counter exists outside of
@@ -340,7 +340,7 @@ var MatAutocompleteTrigger = (function () {
                 return rxjs_observable_of.of(null);
             }
             return rxjs_observable_merge.merge(rxjs_observable_fromEvent.fromEvent(this._document, 'click'), rxjs_observable_fromEvent.fromEvent(this._document, 'touchend'))
-                .pipe(rxjs_operators.filter(function (event) {
+                .pipe(rxjs_operators_filter.filter(function (event) {
                 var /** @type {?} */ clickTarget = (event.target);
                 var /** @type {?} */ formField = _this._formField ?
                     _this._formField._elementRef.nativeElement : null;
@@ -499,23 +499,23 @@ var MatAutocompleteTrigger = (function () {
      */
     MatAutocompleteTrigger.prototype._subscribeToClosingActions = function () {
         var _this = this;
-        var /** @type {?} */ firstStable = this._zone.onStable.asObservable().pipe(rxjs_operators.first());
-        var /** @type {?} */ optionChanges = this.autocomplete.options.changes.pipe(rxjs_operators.tap(function () { return _this._positionStrategy.recalculateLastPosition(); }), 
+        var /** @type {?} */ firstStable = this._zone.onStable.asObservable().pipe(rxjs_operators_first.first());
+        var /** @type {?} */ optionChanges = this.autocomplete.options.changes.pipe(rxjs_operators_tap.tap(function () { return _this._positionStrategy.recalculateLastPosition(); }), 
         // Defer emitting to the stream until the next tick, because changing
         // bindings in here will cause "changed after checked" errors.
-        rxjs_operators.delay(0));
+        rxjs_operators_delay.delay(0));
         // When the zone is stable initially, and when the option list changes...
         return rxjs_observable_merge.merge(firstStable, optionChanges)
             .pipe(
         // create a new stream of panelClosingActions, replacing any previous streams
         // that were created, and flatten it so our stream only emits closing events...
-        rxjs_operators.switchMap(function () {
+        rxjs_operators_switchMap.switchMap(function () {
             _this._resetActiveItem();
             _this.autocomplete._setVisibility();
             return _this.panelClosingActions;
         }), 
         // when the first closing event occurs...
-        rxjs_operators.first())
+        rxjs_operators_first.first())
             .subscribe(function (event) { return _this._setValueAndClose(event); });
     };
     /**

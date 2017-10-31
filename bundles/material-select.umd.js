@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('rxjs/operators'), require('@angular/forms'), require('@angular/material/core'), require('@angular/material/form-field'), require('rxjs/observable/merge'), require('rxjs/Subject'), require('@angular/animations')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/cdk/overlay', 'rxjs/operators', '@angular/forms', '@angular/material/core', '@angular/material/form-field', 'rxjs/observable/merge', 'rxjs/Subject', '@angular/animations'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.select = global.ng.material.select || {}),global.ng.core,global.ng.common,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.Rx.Observable,global.ng.forms,global.ng.material.core,global.ng.material.formField,global.Rx.Observable,global.Rx,global.ng.animations));
-}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_collections,_angular_cdk_keycodes,_angular_cdk_overlay,rxjs_operators,_angular_forms,_angular_material_core,_angular_material_formField,rxjs_observable_merge,rxjs_Subject,_angular_animations) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('rxjs/operators/filter'), require('rxjs/operators/first'), require('rxjs/operators/map'), require('rxjs/operators/startWith'), require('rxjs/operators/takeUntil'), require('@angular/forms'), require('@angular/material/core'), require('@angular/material/form-field'), require('rxjs/observable/merge'), require('rxjs/Subject'), require('@angular/animations')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/cdk/overlay', 'rxjs/operators/filter', 'rxjs/operators/first', 'rxjs/operators/map', 'rxjs/operators/startWith', 'rxjs/operators/takeUntil', '@angular/forms', '@angular/material/core', '@angular/material/form-field', 'rxjs/observable/merge', 'rxjs/Subject', '@angular/animations'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.select = global.ng.material.select || {}),global.ng.core,global.ng.common,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.forms,global.ng.material.core,global.ng.material.formField,global.Rx.Observable,global.Rx,global.ng.animations));
+}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_collections,_angular_cdk_keycodes,_angular_cdk_overlay,rxjs_operators_filter,rxjs_operators_first,rxjs_operators_map,rxjs_operators_startWith,rxjs_operators_takeUntil,_angular_forms,_angular_material_core,_angular_material_formField,rxjs_observable_merge,rxjs_Subject,_angular_animations) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -521,7 +521,7 @@ var MatSelect = (function (_super) {
          * @return {?}
          */
         get: function () {
-            return this.openedChange.pipe(rxjs_operators.filter(function (o) { return o; }), rxjs_operators.map(function () { }));
+            return this.openedChange.pipe(rxjs_operators_filter.filter(function (o) { return o; }), rxjs_operators_map.map(function () { }));
         },
         enumerable: true,
         configurable: true
@@ -532,7 +532,7 @@ var MatSelect = (function (_super) {
          * @return {?}
          */
         get: function () {
-            return this.openedChange.pipe(rxjs_operators.filter(function (o) { return !o; }), rxjs_operators.map(function () { }));
+            return this.openedChange.pipe(rxjs_operators_filter.filter(function (o) { return !o; }), rxjs_operators_map.map(function () { }));
         },
         enumerable: true,
         configurable: true
@@ -550,7 +550,7 @@ var MatSelect = (function (_super) {
     MatSelect.prototype.ngAfterContentInit = function () {
         var _this = this;
         this._initKeyManager();
-        this.options.changes.pipe(rxjs_operators.startWith(null), rxjs_operators.takeUntil(this._destroy)).subscribe(function () {
+        this.options.changes.pipe(rxjs_operators_startWith.startWith(null), rxjs_operators_takeUntil.takeUntil(this._destroy)).subscribe(function () {
             _this._resetOptions();
             _this._initializeSelection();
         });
@@ -606,7 +606,7 @@ var MatSelect = (function (_super) {
         this._panelOpen = true;
         this._changeDetectorRef.markForCheck();
         // Set the font size on the panel element once it exists.
-        this._ngZone.onStable.asObservable().pipe(rxjs_operators.first()).subscribe(function () {
+        this._ngZone.onStable.asObservable().pipe(rxjs_operators_first.first()).subscribe(function () {
             if (_this._triggerFontSize && _this.overlayDir.overlayRef &&
                 _this.overlayDir.overlayRef.overlayElement) {
                 _this.overlayDir.overlayRef.overlayElement.style.fontSize = _this._triggerFontSize + "px";
@@ -819,7 +819,7 @@ var MatSelect = (function (_super) {
      */
     MatSelect.prototype._onAttached = function () {
         var _this = this;
-        this.overlayDir.positionChange.pipe(rxjs_operators.first()).subscribe(function () {
+        this.overlayDir.positionChange.pipe(rxjs_operators_first.first()).subscribe(function () {
             _this._changeDetectorRef.detectChanges();
             _this._calculateOverlayOffsetX();
             _this.panel.nativeElement.scrollTop = _this._scrollTop;
@@ -933,8 +933,8 @@ var MatSelect = (function (_super) {
     MatSelect.prototype._initKeyManager = function () {
         var _this = this;
         this._keyManager = new _angular_cdk_a11y.ActiveDescendantKeyManager(this.options).withTypeAhead();
-        this._keyManager.tabOut.pipe(rxjs_operators.takeUntil(this._destroy)).subscribe(function () { return _this.close(); });
-        this._keyManager.change.pipe(rxjs_operators.takeUntil(this._destroy), rxjs_operators.filter(function () { return _this._panelOpen && !!_this.panel; })).subscribe(function () { return _this._scrollActiveOptionIntoView(); });
+        this._keyManager.tabOut.pipe(rxjs_operators_takeUntil.takeUntil(this._destroy)).subscribe(function () { return _this.close(); });
+        this._keyManager.change.pipe(rxjs_operators_takeUntil.takeUntil(this._destroy), rxjs_operators_filter.filter(function () { return _this._panelOpen && !!_this.panel; })).subscribe(function () { return _this._scrollActiveOptionIntoView(); });
     };
     /**
      * Drops current option subscriptions and IDs and resets from scratch.
@@ -942,7 +942,7 @@ var MatSelect = (function (_super) {
      */
     MatSelect.prototype._resetOptions = function () {
         var _this = this;
-        this.optionSelectionChanges.pipe(rxjs_operators.takeUntil(rxjs_observable_merge.merge(this._destroy, this.options.changes)), rxjs_operators.filter(function (event) { return event.isUserInput; })).subscribe(function (event) {
+        this.optionSelectionChanges.pipe(rxjs_operators_takeUntil.takeUntil(rxjs_observable_merge.merge(this._destroy, this.options.changes)), rxjs_operators_filter.filter(function (event) { return event.isUserInput; })).subscribe(function (event) {
             _this._onSelect(event.source);
             if (!_this.multiple) {
                 _this.close();

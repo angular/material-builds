@@ -17,7 +17,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { mixinDisabled } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
-import { filter } from 'rxjs/operators';
+import { filter } from 'rxjs/operators/filter';
 import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
 

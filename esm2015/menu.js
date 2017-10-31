@@ -11,13 +11,16 @@ import { MatCommonModule, MatRippleModule, mixinDisabled } from '@angular/materi
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { FocusKeyManager, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
-import { filter, first, startWith, switchMap } from 'rxjs/operators';
+import { startWith } from 'rxjs/operators/startWith';
+import { switchMap } from 'rxjs/operators/switchMap';
+import { first } from 'rxjs/operators/first';
 import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Subject } from 'rxjs/Subject';
 import { Directionality } from '@angular/cdk/bidi';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { filter } from 'rxjs/operators/filter';
 import { of } from 'rxjs/observable/of';
 
 /**

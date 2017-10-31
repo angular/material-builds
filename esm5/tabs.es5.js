@@ -20,9 +20,10 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subscription } from 'rxjs/Subscription';
 import { merge } from 'rxjs/observable/merge';
 import { ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
-import { startWith, takeUntil } from 'rxjs/operators';
+import { startWith } from 'rxjs/operators/startWith';
 import { of } from 'rxjs/observable/of';
 import { Platform } from '@angular/cdk/platform';
+import { takeUntil } from 'rxjs/operators/takeUntil';
 
 /**
  * The ink-bar is used to display and animate the line underneath the current active tab label.

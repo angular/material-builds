@@ -14,7 +14,8 @@ import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layo
 import { AnimationCurves, AnimationDurations, MatCommonModule, extendObject } from '@angular/material/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Subject } from 'rxjs/Subject';
-import { first, takeUntil } from 'rxjs/operators';
+import { first } from 'rxjs/operators/first';
+import { takeUntil } from 'rxjs/operators/takeUntil';
 
 /**
  * Reference to a snack bar dispatched from the snack bar service.

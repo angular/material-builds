@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/scrolling'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/platform-browser'), require('rxjs/observable/merge'), require('rxjs/operators'), require('rxjs/Subject')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/scrolling', '@angular/animations', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/platform-browser', 'rxjs/observable/merge', 'rxjs/operators', 'rxjs/Subject'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sidenav = global.ng.material.sidenav || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.common,global.ng.core,global.ng.material.core,global.ng.cdk.scrolling,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.platformBrowser,global.Rx.Observable,global.Rx.Observable,global.Rx));
-}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_material_core,_angular_cdk_scrolling,_angular_animations,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_keycodes,_angular_platformBrowser,rxjs_observable_merge,rxjs_operators,rxjs_Subject) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/scrolling'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/platform-browser'), require('rxjs/observable/merge'), require('rxjs/operators/filter'), require('rxjs/operators/first'), require('rxjs/operators/startWith'), require('rxjs/operators/takeUntil'), require('rxjs/operators/map'), require('rxjs/Subject')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/scrolling', '@angular/animations', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/platform-browser', 'rxjs/observable/merge', 'rxjs/operators/filter', 'rxjs/operators/first', 'rxjs/operators/startWith', 'rxjs/operators/takeUntil', 'rxjs/operators/map', 'rxjs/Subject'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sidenav = global.ng.material.sidenav || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.common,global.ng.core,global.ng.material.core,global.ng.cdk.scrolling,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.platformBrowser,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx));
+}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_material_core,_angular_cdk_scrolling,_angular_animations,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_keycodes,_angular_platformBrowser,rxjs_observable_merge,rxjs_operators_filter,rxjs_operators_first,rxjs_operators_startWith,rxjs_operators_takeUntil,rxjs_operators_map,rxjs_Subject) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -257,7 +257,7 @@ var MatDrawer = (function () {
          * @return {?}
          */
         get: function () {
-            return this.openedChange.pipe(rxjs_operators.filter(function (o) { return o; }), rxjs_operators.map(function () { }));
+            return this.openedChange.pipe(rxjs_operators_filter.filter(function (o) { return o; }), rxjs_operators_map.map(function () { }));
         },
         enumerable: true,
         configurable: true
@@ -268,7 +268,7 @@ var MatDrawer = (function () {
          * @return {?}
          */
         get: function () {
-            return this.openedChange.pipe(rxjs_operators.filter(function (o) { return !o; }), rxjs_operators.map(function () { }));
+            return this.openedChange.pipe(rxjs_operators_filter.filter(function (o) { return !o; }), rxjs_operators_map.map(function () { }));
         },
         enumerable: true,
         configurable: true
@@ -377,7 +377,7 @@ var MatDrawer = (function () {
         // TODO(crisbeto): This promise is here for backwards-compatibility.
         // It should be removed next time we do breaking changes in the drawer.
         return new Promise(function (resolve) {
-            (isOpen ? _this.onOpen : _this.onClose).pipe(rxjs_operators.first()).subscribe(resolve);
+            (isOpen ? _this.onOpen : _this.onClose).pipe(rxjs_operators_first.first()).subscribe(resolve);
         });
     };
     /**
@@ -516,7 +516,7 @@ var MatDrawerContainer = (function () {
         // If a `Dir` directive exists up the tree, listen direction changes and update the left/right
         // properties to point to the proper start/end.
         if (_dir != null) {
-            _dir.change.pipe(rxjs_operators.takeUntil(this._destroyed)).subscribe(function () { return _this._validateDrawers(); });
+            _dir.change.pipe(rxjs_operators_takeUntil.takeUntil(this._destroyed)).subscribe(function () { return _this._validateDrawers(); });
         }
     }
     Object.defineProperty(MatDrawerContainer.prototype, "start", {
@@ -542,7 +542,7 @@ var MatDrawerContainer = (function () {
      */
     MatDrawerContainer.prototype.ngAfterContentInit = function () {
         var _this = this;
-        this._drawers.changes.pipe(rxjs_operators.startWith(null)).subscribe(function () {
+        this._drawers.changes.pipe(rxjs_operators_startWith.startWith(null)).subscribe(function () {
             _this._validateDrawers();
             _this._drawers.forEach(function (drawer) {
                 _this._watchDrawerToggle(drawer);
@@ -587,7 +587,7 @@ var MatDrawerContainer = (function () {
      */
     MatDrawerContainer.prototype._watchDrawerToggle = function (drawer) {
         var _this = this;
-        drawer._animationStarted.pipe(rxjs_operators.takeUntil(this._drawers.changes), rxjs_operators.filter(function (event) { return event.fromState !== event.toState; }))
+        drawer._animationStarted.pipe(rxjs_operators_takeUntil.takeUntil(this._drawers.changes), rxjs_operators_filter.filter(function (event) { return event.fromState !== event.toState; }))
             .subscribe(function (event) {
             // Set the transition class on the container so that the animations occur. This should not
             // be set initially because animations should only be triggered via a change in state.
@@ -598,7 +598,7 @@ var MatDrawerContainer = (function () {
             _this._changeDetectorRef.markForCheck();
         });
         if (drawer.mode !== 'side') {
-            drawer.openedChange.pipe(rxjs_operators.takeUntil(this._drawers.changes)).subscribe(function () {
+            drawer.openedChange.pipe(rxjs_operators_takeUntil.takeUntil(this._drawers.changes)).subscribe(function () {
                 return _this._setContainerClass(drawer.opened);
             });
         }
@@ -616,8 +616,8 @@ var MatDrawerContainer = (function () {
         }
         // NOTE: We need to wait for the microtask queue to be empty before validating,
         // since both drawers may be swapping positions at the same time.
-        drawer.onPositionChanged.pipe(rxjs_operators.takeUntil(this._drawers.changes)).subscribe(function () {
-            _this._ngZone.onMicrotaskEmpty.asObservable().pipe(rxjs_operators.first()).subscribe(function () {
+        drawer.onPositionChanged.pipe(rxjs_operators_takeUntil.takeUntil(this._drawers.changes)).subscribe(function () {
+            _this._ngZone.onMicrotaskEmpty.asObservable().pipe(rxjs_operators_first.first()).subscribe(function () {
                 _this._validateDrawers();
             });
         });
@@ -630,7 +630,7 @@ var MatDrawerContainer = (function () {
     MatDrawerContainer.prototype._watchDrawerMode = function (drawer) {
         var _this = this;
         if (drawer) {
-            drawer._modeChanged.pipe(rxjs_operators.takeUntil(rxjs_observable_merge.merge(this._drawers.changes, this._destroyed)))
+            drawer._modeChanged.pipe(rxjs_operators_takeUntil.takeUntil(rxjs_observable_merge.merge(this._drawers.changes, this._destroyed)))
                 .subscribe(function () {
                 _this._updateContentMargins();
                 _this._changeDetectorRef.markForCheck();

@@ -16,7 +16,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Subject } from 'rxjs/Subject';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
-import { first, takeUntil } from 'rxjs/operators';
+import { first } from 'rxjs/operators/first';
+import { takeUntil } from 'rxjs/operators/takeUntil';
 
 /**
  * Reference to a snack bar dispatched from the snack bar service.

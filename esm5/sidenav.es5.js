@@ -17,7 +17,11 @@ import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coerci
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/platform-browser';
 import { merge } from 'rxjs/observable/merge';
-import { filter, first, map, startWith, takeUntil } from 'rxjs/operators';
+import { filter } from 'rxjs/operators/filter';
+import { first } from 'rxjs/operators/first';
+import { startWith } from 'rxjs/operators/startWith';
+import { takeUntil } from 'rxjs/operators/takeUntil';
+import { map } from 'rxjs/operators/map';
 import { Subject } from 'rxjs/Subject';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';

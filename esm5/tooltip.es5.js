@@ -16,7 +16,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { first } from 'rxjs/operators';
+import { first } from 'rxjs/operators/first';
 import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { Subject } from 'rxjs/Subject';
 

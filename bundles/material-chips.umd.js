@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('rxjs/operators'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs/observable/merge'), require('rxjs/Subject'), require('rxjs/Subscription'), require('@angular/material/core')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', 'rxjs/operators', '@angular/forms', '@angular/material/form-field', 'rxjs/observable/merge', 'rxjs/Subject', 'rxjs/Subscription', '@angular/material/core'], factory) :
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('rxjs/operators/startWith'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs/observable/merge'), require('rxjs/Subject'), require('rxjs/Subscription'), require('@angular/material/core')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', 'rxjs/operators/startWith', '@angular/forms', '@angular/material/form-field', 'rxjs/observable/merge', 'rxjs/Subject', 'rxjs/Subscription', '@angular/material/core'], factory) :
 	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.chips = global.ng.material.chips || {}),global.ng.core,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.Rx.Observable,global.ng.forms,global.ng.material.formField,global.Rx.Observable,global.Rx,global.Rx,global.ng.material.core));
-}(this, (function (exports,_angular_core,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_collections,_angular_cdk_keycodes,rxjs_operators,_angular_forms,_angular_material_formField,rxjs_observable_merge,rxjs_Subject,rxjs_Subscription,_angular_material_core) { 'use strict';
+}(this, (function (exports,_angular_core,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_collections,_angular_cdk_keycodes,rxjs_operators_startWith,_angular_forms,_angular_material_formField,rxjs_observable_merge,rxjs_Subject,rxjs_Subscription,_angular_material_core) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -833,7 +833,7 @@ var MatChipList = (function () {
             setTimeout(function () { return _this._tabIndex = _this._userTabIndex || 0; });
         });
         // When the list changes, re-subscribe
-        this._changeSubscription = this.chips.changes.pipe(rxjs_operators.startWith(null)).subscribe(function () {
+        this._changeSubscription = this.chips.changes.pipe(rxjs_operators_startWith.startWith(null)).subscribe(function () {
             _this._resetChips();
             // Reset chips selected/deselected status
             _this._initializeSelection();

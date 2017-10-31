@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/table'), require('@angular/common'), require('@angular/material/core'), require('rxjs/BehaviorSubject'), require('rxjs/operators'), require('rxjs/observable/empty')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/table', '@angular/common', '@angular/material/core', 'rxjs/BehaviorSubject', 'rxjs/operators', 'rxjs/observable/empty'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.table = global.ng.material.table || {}),global.ng.core,global.ng.cdk.table,global.ng.common,global.ng.material.core,global.Rx,global.Rx.Observable,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_cdk_table,_angular_common,_angular_material_core,rxjs_BehaviorSubject,rxjs_operators,rxjs_observable_empty) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/table'), require('@angular/common'), require('@angular/material/core'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest'), require('rxjs/operators/map'), require('rxjs/operators/startWith'), require('rxjs/observable/empty')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/table', '@angular/common', '@angular/material/core', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest', 'rxjs/operators/map', 'rxjs/operators/startWith', 'rxjs/observable/empty'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.table = global.ng.material.table || {}),global.ng.core,global.ng.cdk.table,global.ng.common,global.ng.material.core,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_cdk_table,_angular_common,_angular_material_core,rxjs_BehaviorSubject,rxjs_operators_combineLatest,rxjs_operators_map,rxjs_operators_startWith,rxjs_observable_empty) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -482,17 +482,17 @@ var MatTableDataSource = (function () {
             this._renderChangesSubscription.unsubscribe();
         }
         // Watch for base data or filter changes to provide a filtered set of data.
-        this._renderChangesSubscription = this._data.pipe(rxjs_operators.combineLatest(this._filter), rxjs_operators.map(function (_a) {
+        this._renderChangesSubscription = this._data.pipe(rxjs_operators_combineLatest.combineLatest(this._filter), rxjs_operators_map.map(function (_a) {
             var data = _a[0];
             return _this._filterData(data);
         }), 
         // Watch for filtered data or sort changes to provide an ordered set of data.
-        rxjs_operators.combineLatest(sortChange.pipe(rxjs_operators.startWith(/** @type {?} */ ((null))))), rxjs_operators.map(function (_a) {
+        rxjs_operators_combineLatest.combineLatest(sortChange.pipe(rxjs_operators_startWith.startWith(/** @type {?} */ ((null))))), rxjs_operators_map.map(function (_a) {
             var data = _a[0];
             return _this._orderData(data);
         }), 
         // Watch for ordered data or page changes to provide a paged set of data.
-        rxjs_operators.combineLatest(pageChange.pipe(rxjs_operators.startWith(/** @type {?} */ ((null))))), rxjs_operators.map(function (_a) {
+        rxjs_operators_combineLatest.combineLatest(pageChange.pipe(rxjs_operators_startWith.startWith(/** @type {?} */ ((null))))), rxjs_operators_map.map(function (_a) {
             var data = _a[0];
             return _this._pageData(data);
         }))

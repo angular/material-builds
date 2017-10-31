@@ -9,7 +9,12 @@ import { Attribute, ChangeDetectionStrategy, Component, ElementRef, Injectable, 
 import { MatCommonModule, mixinColor } from '@angular/material/core';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
-import { catchError, finalize, first, map, share, tap } from 'rxjs/operators';
+import { first } from 'rxjs/operators/first';
+import { catchError } from 'rxjs/operators/catchError';
+import { tap } from 'rxjs/operators/tap';
+import { finalize } from 'rxjs/operators/finalize';
+import { map } from 'rxjs/operators/map';
+import { share } from 'rxjs/operators/share';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { forkJoin } from 'rxjs/observable/forkJoin';

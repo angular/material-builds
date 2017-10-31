@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('rxjs/operators'), require('@angular/common/http'), require('@angular/platform-browser'), require('rxjs/observable/forkJoin'), require('rxjs/observable/of'), require('rxjs/observable/throw')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/material/core', 'rxjs/operators', '@angular/common/http', '@angular/platform-browser', 'rxjs/observable/forkJoin', 'rxjs/observable/of', 'rxjs/observable/throw'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.icon = global.ng.material.icon || {}),global.ng.core,global.ng.material.core,global.Rx.Observable,global.ng.common.http,global.ng.platformBrowser,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_material_core,rxjs_operators,_angular_common_http,_angular_platformBrowser,rxjs_observable_forkJoin,rxjs_observable_of,rxjs_observable_throw) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('rxjs/operators/first'), require('rxjs/operators/catchError'), require('rxjs/operators/tap'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('@angular/platform-browser'), require('rxjs/observable/forkJoin'), require('rxjs/observable/of'), require('rxjs/observable/throw')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/material/core', 'rxjs/operators/first', 'rxjs/operators/catchError', 'rxjs/operators/tap', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', '@angular/platform-browser', 'rxjs/observable/forkJoin', 'rxjs/observable/of', 'rxjs/observable/throw'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.icon = global.ng.material.icon || {}),global.ng.core,global.ng.material.core,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.common.http,global.ng.platformBrowser,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_material_core,rxjs_operators_first,rxjs_operators_catchError,rxjs_operators_tap,rxjs_operators_finalize,rxjs_operators_map,rxjs_operators_share,_angular_common_http,_angular_platformBrowser,rxjs_observable_forkJoin,rxjs_observable_of,rxjs_observable_throw) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -232,7 +232,7 @@ var MatIconRegistry = (function () {
         if (cachedIcon) {
             return rxjs_observable_of.of(cloneSvg(cachedIcon));
         }
-        return this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl)).pipe(rxjs_operators.tap(function (svg) { return _this._cachedIconsByUrl.set(/** @type {?} */ ((url)), svg); }), rxjs_operators.map(function (svg) { return cloneSvg(svg); }));
+        return this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl)).pipe(rxjs_operators_tap.tap(function (svg) { return _this._cachedIconsByUrl.set(/** @type {?} */ ((url)), svg); }), rxjs_operators_map.map(function (svg) { return cloneSvg(svg); }));
     };
     /**
      * Returns an Observable that produces the icon (as an `<svg>` DOM element) with the given name
@@ -270,7 +270,7 @@ var MatIconRegistry = (function () {
         }
         else {
             // Fetch the icon from the config's URL, cache it, and return a copy.
-            return this._loadSvgIconFromConfig(config).pipe(rxjs_operators.tap(function (svg) { return config.svgElement = svg; }), rxjs_operators.map(function (svg) { return cloneSvg(svg); }));
+            return this._loadSvgIconFromConfig(config).pipe(rxjs_operators_tap.tap(function (svg) { return config.svgElement = svg; }), rxjs_operators_map.map(function (svg) { return cloneSvg(svg); }));
         }
     };
     /**
@@ -300,13 +300,13 @@ var MatIconRegistry = (function () {
         var /** @type {?} */ iconSetFetchRequests = iconSetConfigs
             .filter(function (iconSetConfig) { return !iconSetConfig.svgElement; })
             .map(function (iconSetConfig) {
-            return _this._loadSvgIconSetFromConfig(iconSetConfig).pipe(rxjs_operators.catchError(function (err) {
+            return _this._loadSvgIconSetFromConfig(iconSetConfig).pipe(rxjs_operators_catchError.catchError(function (err) {
                 var /** @type {?} */ url = _this._sanitizer.sanitize(_angular_core.SecurityContext.RESOURCE_URL, iconSetConfig.url);
                 // Swallow errors fetching individual URLs so the combined Observable won't
                 // necessarily fail.
                 console.log("Loading icon set URL: " + url + " failed: " + err);
                 return rxjs_observable_of.of(null);
-            }), rxjs_operators.tap(function (svg) {
+            }), rxjs_operators_tap.tap(function (svg) {
                 // Cache the SVG element.
                 if (svg) {
                     iconSetConfig.svgElement = svg;
@@ -315,7 +315,7 @@ var MatIconRegistry = (function () {
         });
         // Fetch all the icon set URLs. When the requests complete, every IconSet should have a
         // cached SVG element (unless the request failed), and we can check again for the icon.
-        return rxjs_observable_forkJoin.forkJoin(iconSetFetchRequests).pipe(rxjs_operators.map(function () {
+        return rxjs_observable_forkJoin.forkJoin(iconSetFetchRequests).pipe(rxjs_operators_map.map(function () {
             var /** @type {?} */ foundIcon = _this._extractIconWithNameFromAnySet(name, iconSetConfigs);
             if (!foundIcon) {
                 throw getMatIconNameNotFoundError(name);
@@ -353,7 +353,7 @@ var MatIconRegistry = (function () {
     MatIconRegistry.prototype._loadSvgIconFromConfig = function (config) {
         var _this = this;
         return this._fetchUrl(config.url)
-            .pipe(rxjs_operators.map(function (svgText) { return _this._createSvgElementForSingleIcon(svgText); }));
+            .pipe(rxjs_operators_map.map(function (svgText) { return _this._createSvgElementForSingleIcon(svgText); }));
     };
     /**
      * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
@@ -364,7 +364,7 @@ var MatIconRegistry = (function () {
     MatIconRegistry.prototype._loadSvgIconSetFromConfig = function (config) {
         var _this = this;
         // TODO: Document that icons should only be loaded from trusted sources.
-        return this._fetchUrl(config.url).pipe(rxjs_operators.map(function (svgText) { return _this._svgElementFromString(svgText); }));
+        return this._fetchUrl(config.url).pipe(rxjs_operators_map.map(function (svgText) { return _this._svgElementFromString(svgText); }));
     };
     /**
      * Creates a DOM element from the given SVG string, and adds default attributes.
@@ -480,7 +480,7 @@ var MatIconRegistry = (function () {
         }
         // TODO(jelbourn): for some reason, the `finally` operator "loses" the generic type on the
         // Observable. Figure out why and fix it.
-        var /** @type {?} */ req = this._httpClient.get(url, { responseType: 'text' }).pipe(rxjs_operators.finalize(function () { return _this._inProgressUrlFetches.delete(url); }), rxjs_operators.share());
+        var /** @type {?} */ req = this._httpClient.get(url, { responseType: 'text' }).pipe(rxjs_operators_finalize.finalize(function () { return _this._inProgressUrlFetches.delete(url); }), rxjs_operators_share.share());
         this._inProgressUrlFetches.set(url, req);
         return req;
     };
@@ -633,7 +633,7 @@ var MatIcon = (function (_super) {
         if (changes.svgIcon) {
             if (this.svgIcon) {
                 var _a = this._splitIconName(this.svgIcon), namespace = _a[0], iconName = _a[1];
-                this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(rxjs_operators.first()).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
+                this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(rxjs_operators_first.first()).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
             }
             else {
                 this._clearSvgElement();

@@ -10,7 +10,8 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Co
 import { PlatformModule } from '@angular/cdk/platform';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { first, startWith } from 'rxjs/operators';
+import { first } from 'rxjs/operators/first';
+import { startWith } from 'rxjs/operators/startWith';
 import { MAT_PLACEHOLDER_GLOBAL_OPTIONS } from '@angular/material/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 

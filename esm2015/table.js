@@ -10,7 +10,9 @@ import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { combineLatest, map, startWith } from 'rxjs/operators';
+import { combineLatest } from 'rxjs/operators/combineLatest';
+import { map } from 'rxjs/operators/map';
+import { startWith } from 'rxjs/operators/startWith';
 import { empty } from 'rxjs/observable/empty';
 
 /**

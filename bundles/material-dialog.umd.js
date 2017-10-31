@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('@angular/cdk/keycodes'), require('rxjs/operators'), require('@angular/cdk/bidi'), require('rxjs/observable/defer'), require('rxjs/Subject'), require('@angular/animations'), require('@angular/platform-browser'), require('rxjs/observable/of')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/a11y', '@angular/material/core', '@angular/cdk/keycodes', 'rxjs/operators', '@angular/cdk/bidi', 'rxjs/observable/defer', 'rxjs/Subject', '@angular/animations', '@angular/platform-browser', 'rxjs/observable/of'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.dialog = global.ng.material.dialog || {}),global.ng.core,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.a11y,global.ng.material.core,global.ng.cdk.keycodes,global.Rx.Observable,global.ng.cdk.bidi,global.Rx.Observable,global.Rx,global.ng.animations,global.ng.platformBrowser,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_a11y,_angular_material_core,_angular_cdk_keycodes,rxjs_operators,_angular_cdk_bidi,rxjs_observable_defer,rxjs_Subject,_angular_animations,_angular_platformBrowser,rxjs_observable_of) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('@angular/cdk/keycodes'), require('rxjs/operators/filter'), require('rxjs/operators/startWith'), require('@angular/cdk/bidi'), require('rxjs/observable/defer'), require('rxjs/Subject'), require('@angular/animations'), require('@angular/platform-browser'), require('rxjs/operators/first'), require('rxjs/observable/of')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/a11y', '@angular/material/core', '@angular/cdk/keycodes', 'rxjs/operators/filter', 'rxjs/operators/startWith', '@angular/cdk/bidi', 'rxjs/observable/defer', 'rxjs/Subject', '@angular/animations', '@angular/platform-browser', 'rxjs/operators/first', 'rxjs/observable/of'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.dialog = global.ng.material.dialog || {}),global.ng.core,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.a11y,global.ng.material.core,global.ng.cdk.keycodes,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.bidi,global.Rx.Observable,global.Rx,global.ng.animations,global.ng.platformBrowser,global.Rx.Observable,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_a11y,_angular_material_core,_angular_cdk_keycodes,rxjs_operators_filter,rxjs_operators_startWith,_angular_cdk_bidi,rxjs_observable_defer,rxjs_Subject,_angular_animations,_angular_platformBrowser,rxjs_operators_first,rxjs_observable_of) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -327,13 +327,13 @@ var MatDialogRef = (function () {
          */
         this._beforeClose = new rxjs_Subject.Subject();
         // Emit when opening animation completes
-        _containerInstance._animationStateChanged.pipe(rxjs_operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'enter'; }), rxjs_operators.first())
+        _containerInstance._animationStateChanged.pipe(rxjs_operators_filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'enter'; }), rxjs_operators_first.first())
             .subscribe(function () {
             _this._afterOpen.next();
             _this._afterOpen.complete();
         });
         // Dispose overlay when closing animation is complete
-        _containerInstance._animationStateChanged.pipe(rxjs_operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'exit'; }), rxjs_operators.first())
+        _containerInstance._animationStateChanged.pipe(rxjs_operators_filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'exit'; }), rxjs_operators_first.first())
             .subscribe(function () {
             _this._overlayRef.dispose();
             _this._afterClosed.next(_this._result);
@@ -350,7 +350,7 @@ var MatDialogRef = (function () {
         var _this = this;
         this._result = dialogResult;
         // Transition the backdrop in parallel to the dialog.
-        this._containerInstance._animationStateChanged.pipe(rxjs_operators.filter(function (event) { return event.phaseName === 'start'; }), rxjs_operators.first())
+        this._containerInstance._animationStateChanged.pipe(rxjs_operators_filter.filter(function (event) { return event.phaseName === 'start'; }), rxjs_operators_first.first())
             .subscribe(function () {
             _this._beforeClose.next(dialogResult);
             _this._beforeClose.complete();
@@ -492,7 +492,7 @@ var MatDialog = (function () {
          */
         this.afterAllClosed = rxjs_observable_defer.defer(function () { return _this.openDialogs.length ?
             _this._afterAllClosed :
-            _this._afterAllClosed.pipe(rxjs_operators.startWith(undefined)); });
+            _this._afterAllClosed.pipe(rxjs_operators_startWith.startWith(undefined)); });
         // Close all of the dialogs when the user goes forwards/backwards in history or when the
         // location hash changes. Note that this usually doesn't include clicking on links (unless
         // the user is using the `HashLocationStrategy`).
@@ -648,7 +648,7 @@ var MatDialog = (function () {
             });
         }
         // Close when escape keydown event occurs
-        overlayRef.keydownEvents().pipe(rxjs_operators.filter(function (event) { return event.keyCode === _angular_cdk_keycodes.ESCAPE && !dialogRef.disableClose; })).subscribe(function () { return dialogRef.close(); });
+        overlayRef.keydownEvents().pipe(rxjs_operators_filter.filter(function (event) { return event.keyCode === _angular_cdk_keycodes.ESCAPE && !dialogRef.disableClose; })).subscribe(function () { return dialogRef.close(); });
         if (componentOrTemplateRef instanceof _angular_core.TemplateRef) {
             dialogContainer.attachTemplatePortal(new _angular_cdk_portal.TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({ $implicit: config.data, dialogRef: dialogRef })));
         }

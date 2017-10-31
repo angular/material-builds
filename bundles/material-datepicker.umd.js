@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/material/button'), require('@angular/material/dialog'), require('@angular/material/icon'), require('@angular/cdk/keycodes'), require('@angular/material/core'), require('rxjs/operators'), require('rxjs/Subject'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/portal'), require('@angular/platform-browser'), require('rxjs/Subscription'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs/observable/merge'), require('rxjs/observable/of')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/material/button', '@angular/material/dialog', '@angular/material/icon', '@angular/cdk/keycodes', '@angular/material/core', 'rxjs/operators', 'rxjs/Subject', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/portal', '@angular/platform-browser', 'rxjs/Subscription', '@angular/forms', '@angular/material/form-field', 'rxjs/observable/merge', 'rxjs/observable/of'], factory) :
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/material/button'), require('@angular/material/dialog'), require('@angular/material/icon'), require('@angular/cdk/keycodes'), require('@angular/material/core'), require('rxjs/operators/first'), require('rxjs/Subject'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/portal'), require('@angular/platform-browser'), require('rxjs/Subscription'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs/observable/merge'), require('rxjs/observable/of')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/material/button', '@angular/material/dialog', '@angular/material/icon', '@angular/cdk/keycodes', '@angular/material/core', 'rxjs/operators/first', 'rxjs/Subject', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/portal', '@angular/platform-browser', 'rxjs/Subscription', '@angular/forms', '@angular/material/form-field', 'rxjs/observable/merge', 'rxjs/observable/of'], factory) :
 	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = global.ng.material.datepicker || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.common,global.ng.core,global.ng.material.button,global.ng.material.dialog,global.ng.material.icon,global.ng.cdk.keycodes,global.ng.material.core,global.Rx.Observable,global.Rx,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.portal,global.ng.platformBrowser,global.Rx,global.ng.forms,global.ng.material.formField,global.Rx.Observable,global.Rx.Observable));
-}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_material_button,_angular_material_dialog,_angular_material_icon,_angular_cdk_keycodes,_angular_material_core,rxjs_operators,rxjs_Subject,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_portal,_angular_platformBrowser,rxjs_Subscription,_angular_forms,_angular_material_formField,rxjs_observable_merge,rxjs_observable_of) { 'use strict';
+}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_material_button,_angular_material_dialog,_angular_material_icon,_angular_cdk_keycodes,_angular_material_core,rxjs_operators_first,rxjs_Subject,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_portal,_angular_platformBrowser,rxjs_Subscription,_angular_forms,_angular_material_formField,rxjs_observable_merge,rxjs_observable_of) { 'use strict';
 
 /**
  * \@docs-private
@@ -832,7 +832,7 @@ var MatCalendar = (function () {
     MatCalendar.prototype._focusActiveCell = function () {
         var _this = this;
         this._ngZone.runOutsideAngular(function () {
-            _this._ngZone.onStable.asObservable().pipe(rxjs_operators.first()).subscribe(function () {
+            _this._ngZone.onStable.asObservable().pipe(rxjs_operators_first.first()).subscribe(function () {
                 _this._elementRef.nativeElement.querySelector('.mat-calendar-body-active').focus();
             });
         });
@@ -1347,7 +1347,7 @@ var MatDatepicker = (function () {
             var /** @type {?} */ componentRef = this._popupRef.attach(this._calendarPortal);
             componentRef.instance.datepicker = this;
             // Update the position once the calendar has rendered.
-            this._ngZone.onStable.asObservable().pipe(rxjs_operators.first()).subscribe(function () {
+            this._ngZone.onStable.asObservable().pipe(rxjs_operators_first.first()).subscribe(function () {
                 _this._popupRef.updatePosition();
             });
         }

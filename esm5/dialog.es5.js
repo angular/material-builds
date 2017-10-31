@@ -12,7 +12,8 @@ import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalInjector, Por
 import { A11yModule, FocusTrapFactory } from '@angular/cdk/a11y';
 import { MatCommonModule, extendObject } from '@angular/material/core';
 import { ESCAPE } from '@angular/cdk/keycodes';
-import { filter, first, startWith } from 'rxjs/operators';
+import { filter } from 'rxjs/operators/filter';
+import { startWith } from 'rxjs/operators/startWith';
 import { Directionality } from '@angular/cdk/bidi';
 import { defer } from 'rxjs/observable/defer';
 import { Subject } from 'rxjs/Subject';
@@ -20,6 +21,7 @@ import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { DOCUMENT } from '@angular/platform-browser';
+import { first } from 'rxjs/operators/first';
 import { of } from 'rxjs/observable/of';
 
 /**
